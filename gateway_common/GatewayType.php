@@ -405,4 +405,11 @@ interface GatewayType {
 	 * @return mixed the setting requested
 	 */
 	public function getAccountConfig( $key );
+
+	/**
+	 * Build the parameters sent with the next request.
+	 *
+	 * @return array Parameters as a map.
+	 */
+	public function buildRequestParams();
 }

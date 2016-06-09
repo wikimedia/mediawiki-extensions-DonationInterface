@@ -108,6 +108,7 @@ $wgAPIModules['di_amazon_bill'] = 'AmazonBillingApi';
 $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.body.php';
 $wgAutoloadClasses['AdyenGatewayResult'] = __DIR__ . '/adyen_gateway/adyen_resultswitcher.body.php';
 $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php';
+$wgAutoloadClasses['AdyenHostedSignature'] = __DIR__ . '/adyen_gateway/AdyenHostedSignature.php';
 $wgAutoloadClasses['FullNameWithExceptions'] = __DIR__ . '/adyen_gateway/FullNameWithExceptions.php';
 $wgAutoloadClasses['RiskScore'] = __DIR__ . '/adyen_gateway/RiskScore.php';
 

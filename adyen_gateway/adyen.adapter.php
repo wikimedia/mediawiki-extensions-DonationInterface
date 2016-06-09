@@ -54,7 +54,6 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->accountInfo = array(
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
 			'skinCode' => $this->account_config[ 'SkinCode' ],
-			'hashSecret' => $this->account_config[ 'SharedSecret' ],
 		);
 	}
 
@@ -237,25 +236,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return $transaction;
 	}
 
-	//@TODO: Determine why this is being overloaded here.
-	//This looks like a var-renamed copy of the parent. :[
-	protected function buildRequestParams() {
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return FALSE;
-		}
-
-		$queryvals = array();
-		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
-			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryvals[$fieldname] = $fieldvalue;
-			}
-		}
-		return $queryvals;
-	}
-
 	/**
 	 * For Adyen, we only call this on the donor's return to the ResultSwitcher
 	 * @param array $response GET/POST params from request
@@ -327,13 +307,6 @@ class AdyenAdapter extends GatewayAdapter {
 	 */
 	protected function doStompTransaction() {}
 
-	protected function stage_hpp_signature() {
-		$params = $this->buildRequestParams();
-		if ( $params ) {
-			$this->staged_data['hpp_signature'] = $this->calculateSignature( $params );
-		}
-	}
-
 	/**
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip
 	 * newlines.
@@ -351,32 +324,10 @@ class AdyenAdapter extends GatewayAdapter {
 			return false;
 		}
 
-		$calculated_sig = $this->calculateSignature( $requestVars );
+		$calculated_sig = AdyenHostedSignature::calculateSignature(
+			$this, $requestVars
+		);
 		return ( $calculated_sig === $requestVars[ 'merchantSig' ] );
 	}
 
-	protected function calculateSignature( $values ) {
-		$ignoredKeys = array(
-			'sig',
-			'merchantSig',
-			'title',
-			'liberated',
-		);
-
-		foreach ( array_keys( $values ) as $key ) {
-			if ( substr( $key, 0, 7 ) === 'ignore.' || in_array( $key, $ignoredKeys ) ) {
-				unset( $values[$key] );
-			} else {
-				// escape colons and backslashes
-				$values[$key] = str_replace( ':', '\\:', str_replace( '\\', '\\\\', $values[$key] ) );
-			}
-		}
-
-		ksort( $values, SORT_STRING );
-
-		$joined = implode( ':', array_merge( array_keys( $values ), array_values( $values ) ) );
-		return base64_encode(
-			hash_hmac( 'sha256', $joined, pack( "H*", $this->accountInfo[ 'hashSecret' ] ), true )
-		);
-	}
 }
