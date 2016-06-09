@@ -88,9 +88,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineReturnValueMap() {
 	}
 
-	public function defineStagedVars() {
-	}
-
 	public function defineTransactions() {
 	}
 

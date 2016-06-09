@@ -1489,42 +1489,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	/**
-	 * The default section of the switch will be hit on first time forms. This
-	 * should be okay, because we are only concerned with staged_vars that have
-	 * been posted.
-	 *
-	 * Credit cards staged_vars are set to ensure form failures on validation in
-	 * the default case. This should prevent accidental form submission with
-	 * unknown transaction types.
-	 */
-	public function defineStagedVars() {
-		//OUR field names.
-		$this->staged_vars = array(
-			'amount',
-			//'card_num',
-			'returnto',
-			'payment_method',
-			'payment_submethod',
-			'payment_product',
-			'issuer_id',
-			'order_id', //This may or may not oughta-be-here...
-			'contribution_tracking_id',
-			'language',
-			'recurring',
-			'country',
-			//Street address and zip need to be staged, to provide dummy data in
-			//the event that they are sent blank, which will short-circuit all
-			//AVS checking for accounts that have AVS data tied to them.
-			'street',
-			'zip',
-			'fiscal_number',
-			'branch_code', //Direct Debit
-			'account_number', //Direct Debit
-			'bank_code', //Direct Debit
-		);
-	}
-
 	public function stageData() {
 		// Must run first because staging relies on constraints.
 		$this->tuneConstraints();

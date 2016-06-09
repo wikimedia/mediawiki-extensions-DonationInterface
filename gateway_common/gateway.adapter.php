@@ -99,12 +99,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected $payment_submethods = array();
 
-	/**
-	 * Staged variables. This is affected by the transaction type.
-	 *
-	 * @var array $staged_vars
-	 */
-	protected $staged_vars = array();
 	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
@@ -394,10 +388,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->account_name = array_shift( $accounts );
 
 		$this->account_config = $acctConfig[ $this->account_name ];
-
-		$this->addRequestData( array(
-			'gateway_account' => $this->account_name,
-		) );
 	}
 
 	/**
@@ -484,14 +474,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->refreshGatewayValueFromSource( $value );
 		}
 
-		// and now check to see if you have to re-stage.
-		// I'd fire off individual staging functions by value, but that's a
-		// really bad idea, as multiple staged vars could be used in any staging
-		// function, to calculate any other staged var.
-		$changed_staged_vars = array_intersect( $this->staged_vars, $data_fields );
-		if ( count( $changed_staged_vars ) ) {
-			$this->stageData();
-		}
+		// Always restage after changing unstaged_data
+		$this->stageData();
 	}
 
 	/**
@@ -505,7 +489,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			$this->staged_data[$key] = $value;
 		}
 
-		$this->unstageData( $dataArray );
+		$this->unstageData();
 
 		// Only copy the affected values back into the normalized data.
 		$newlyUnstagedData = array();
@@ -1722,6 +1706,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// Can this be deprecated?
 			'correlation-id' => $this->getCorrelationID(),
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
+			'gateway_account' => $this->account_name,
 		);
 
 		// Add the rest of the relevant data
@@ -1794,27 +1779,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Run any staging functions provided by the adapter
+	 * Run any staging DataTransformers configured for the adapter
 	 */
 	protected function stageData() {
 		// Copy data, the default is to not change the values.
-		//reset from our normalized unstaged data so we never double-stage
+		// Reset from our normalized unstaged data so we never double-stage.
 		$this->staged_data = $this->unstaged_data;
-
-		// This allows transactions to each stage different data.
-		// FIXME: These are actually constant.  We should move this to
-		// object initialization.
-		$this->defineStagedVars();
 
 		foreach ( $this->data_transformers as $transformer ) {
 			if ( $transformer instanceof StagingHelper ) {
 				$transformer->stage( $this, $this->unstaged_data, $this->staged_data );
 			}
-		}
-
-		foreach ( $this->staged_vars as $field ) {
-			$function_name = 'stage_' . $field;
-			$this->executeIfFunctionExists( $function_name );
 		}
 
 		// Format the staged data
@@ -1823,21 +1798,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Run any unstaging functions to decode processor responses
-	 *
-	 * @param array $data response data--Parameter is deprecated once
-	 *     unstage_ functions are gone.
 	 */
-	protected function unstageData( $data ) {
-		foreach ( $data as $field => $value ) {
-			// Run custom unstaging function if available.
-			$function_name = 'unstage_' . $field;
-			$isUnstaged = $this->executeIfFunctionExists( $function_name );
+	protected function unstageData() {
 
-			// Otherwise, copy the value directly.
-			if ( !$isUnstaged ) {
-				$this->unstaged_data[$field] = $this->staged_data[$field];
-			}
-		}
+		$this->unstaged_data = $this->staged_data;
 
 		foreach ( $this->data_transformers as $transformer ) {
 			if ( $transformer instanceof UnstagingHelper ) {
@@ -1874,8 +1838,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 					$value = substr( $value, 0, $length );
 				}
 
-			} else {
-				//$this->logger->debug( 'Field does not exist in $this->dataConstraints[ ' . ( string ) $field . ' ]' );
 			}
 
 			$this->staged_data[ $field ] = $value;
@@ -2317,9 +2279,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * value, use this. It updates both staged_data (which is intended to be
 	 * staged and used _just_ by the gateway) and unstaged_data, which is actually
 	 * just normalized and sanitized form data as entered by the user.
+	 * You should restage the data after running this.
 	 *
-	 * TODO: handle the cases where $val is listed in the gateway adapter's
-	 * staged_vars.
 	 * Not doing this right now, though, because it's not yet necessary for
 	 * anything we have at the moment.
 	 *

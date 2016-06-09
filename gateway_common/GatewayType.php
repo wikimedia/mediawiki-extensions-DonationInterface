@@ -58,12 +58,6 @@ interface GatewayType {
 	public function processResponse( $response );
 
 	/**
-	 * Should be a list of our variables that need special staging.
-	 * @see $this->staged_vars
-	 */
-	function defineStagedVars();
-
-	/**
 	 * defineTransactions will define the $transactions array.
 	 * The array will contain everything we need to know about the request structure for all the transactions we care about,
 	 * for the current gateway.

@@ -56,8 +56,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return 'query_string';
 	}
 
-	function defineStagedVars() { }
-
 	function defineAccountInfo() {
 		$this->accountInfo = array();
 	}

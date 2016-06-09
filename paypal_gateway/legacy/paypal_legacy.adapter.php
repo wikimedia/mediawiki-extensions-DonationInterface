@@ -39,14 +39,6 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		}
 	}
 
-	// TODO: Can these be deprecated, or do we rely on a side effect?
-	function defineStagedVars() {
-		$this->staged_vars = array(
-			'recurring_length',
-			'locale',
-		);
-	}
-
 	function defineAccountInfo() {
 		$this->accountInfo = array();
 	}

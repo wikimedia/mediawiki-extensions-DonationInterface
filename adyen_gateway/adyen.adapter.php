@@ -57,17 +57,6 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineStagedVars() {
-		$this->staged_vars = array(
-			'amount',
-			'full_name',
-			'street',
-			'zip',
-			'risk_score',
-			'hpp_signature' // Keep this at the end - it depends on the rest
-		);
-	}
-
 	function defineReturnValueMap() {
 		$this->return_value_map = array(
 			'authResult' => 'result',

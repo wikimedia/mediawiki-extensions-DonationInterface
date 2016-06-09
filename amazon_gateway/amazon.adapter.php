@@ -74,12 +74,6 @@ class AmazonAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	function defineStagedVars() {
-		$this->staged_vars = array(
-			'order_id',
-		);
-	}
-
 	function defineAccountInfo() {
 		// We use account_config instead
 		$this->accountInfo = array();
