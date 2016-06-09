@@ -327,21 +327,6 @@ class AdyenAdapter extends GatewayAdapter {
 	 */
 	protected function doStompTransaction() {}
 
-	/**
-	 * TODO do we want to stage the country code for language variants?
-	protected function stage_language( $type = 'request' ) {
-	*/
-
-	protected function stage_risk_score() {
-		//This isn't smart enough to grab a new value here;
-		//Late-arriving values have to trigger a restage via addData or
-		//this will always equal the risk_score at the time of object
-		//construction. Still need the formatting, though.
-		if ( isset( $this->unstaged_data['risk_score'] ) ) {
-			$this->staged_data['risk_score'] = ( string ) round( $this->unstaged_data['risk_score'] );
-		}
-	}
-
 	protected function stage_hpp_signature() {
 		$params = $this->buildRequestParams();
 		if ( $params ) {

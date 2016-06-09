@@ -109,6 +109,7 @@ $wgAutoloadClasses['AdyenGateway'] = __DIR__ . '/adyen_gateway/adyen_gateway.bod
 $wgAutoloadClasses['AdyenGatewayResult'] = __DIR__ . '/adyen_gateway/adyen_resultswitcher.body.php';
 $wgAutoloadClasses['AdyenAdapter'] = __DIR__ . '/adyen_gateway/adyen.adapter.php';
 $wgAutoloadClasses['FullNameWithExceptions'] = __DIR__ . '/adyen_gateway/FullNameWithExceptions.php';
+$wgAutoloadClasses['RiskScore'] = __DIR__ . '/adyen_gateway/RiskScore.php';
 
 // AstroPay
 $wgAutoloadClasses['AstroPayGateway'] = __DIR__ . '/astropay_gateway/astropay_gateway.body.php';
@@ -440,6 +441,11 @@ $wgPaypalExpressGatewayTestingSignatureURL = 'https://api-3t.sandbox.paypal.com/
 
 $wgAdyenGatewayURL = 'https://live.adyen.com';
 $wgAdyenGatewayTestingURL = 'https://test.adyen.com';
+
+// Adyen automatically declines any payment with a fraud score over 100.
+// This variable caps the score we send them so donations we've flagged in
+// error can be reviewed and manually captured.
+$wgAdyenGatewayMaxRiskScore = 95;
 
 #	$wgAdyenGatewayAccountInfo['example'] = array(
 #		'AccountName' => ''; // account identifier, not login name
