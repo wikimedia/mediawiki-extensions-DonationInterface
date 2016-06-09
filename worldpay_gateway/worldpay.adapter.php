@@ -729,12 +729,6 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	// override the charset from the parent function
-	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
-		$original = parent::getTransactionSpecificValue( $gateway_field_name, $token );
-		return EncodingMangler::singleton()->transliterate( $original );
-	}
-
-	// override the charset from the parent function
 	function getCurlBaseHeaders() {
 		$headers = parent::getCurlBaseHeaders();
 		foreach ( $headers as $index => $header ) {
