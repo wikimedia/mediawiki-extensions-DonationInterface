@@ -327,11 +327,6 @@ class AdyenAdapter extends GatewayAdapter {
 	 */
 	protected function doStompTransaction() {}
 
-	/**
-	 * TODO do we want to stage the country code for language variants?
-	protected function stage_language( $type = 'request' ) {
-	*/
-
 	protected function stage_hpp_signature() {
 		$params = $this->buildRequestParams();
 		if ( $params ) {
