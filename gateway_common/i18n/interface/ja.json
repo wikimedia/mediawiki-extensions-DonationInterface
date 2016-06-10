@@ -19,7 +19,8 @@
 			"SkyDaisy9",
 			"Takot",
 			"아라",
-			"Sujiniku"
+			"Sujiniku",
+			"SPatton (WMF)"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -378,7 +379,7 @@
 	"donate_interface-monthlybox-yes": "毎月寄付します",
 	"donate_interface-monthlybox-no": "いいえ、一度だけ寄付します",
 	"donate_interface-monthlybox-bottom": "あなたの寄付は、安全に処理されます。",
-	"donate_interface-monthly-cancel": "継続的な寄付者の皆さまにおかれましては、月間固定額は、ご寄付の停止のお知らせをいただくまで、最初に寄付を行われた日を基準に毎月ウィキペディア財団から引き落とされます。29日、30日、または31日に開始されたご寄附につきましては、日数の短い月の場合、引き落とし日は、開始日に最も近い「当月最終日」となります。ご不明な点がありましたら、donate@wikimedia.orgまでご連絡ください。",
+	"donate_interface-monthly-cancel": "継続的な寄付者の皆さまにおかれましては、月間固定額は、ご寄付の停止のお知らせをいただくまで、最初に寄付を行われた日を基準に毎月ウィキメディア財団から引き落とされます。29日、30日、または31日に開始されたご寄附につきましては、日数の短い月の場合、引き落とし日は、開始日に最も近い「当月最終日」となります。ご不明な点がありましたら、donate@wikimedia.orgまでご連絡ください。",
 	"donate_interface-onetime": "一度だけ寄付する",
 	"donate_interface-monthly-short": "毎月",
 	"donate_interface-onetime-short": "一度だけ",
