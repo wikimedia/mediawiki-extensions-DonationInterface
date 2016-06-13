@@ -31,10 +31,11 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * authentication.
 	 */
 	protected function isCertificateAuthentication() {
+		// TODO: generalize certificate path into a class.
 		return isset( $this->account_config['CertificatePath'] );
 	}
 
-	protected function getCommunicationUrl() {
+	protected function getProcessorUrl() {
 		if ( !self::getGlobal( 'Test' ) ) {
 			if ( $this->isCertificateAuthentication() ) {
 				$url = self::getGlobal( 'CertificateURL' );
@@ -79,14 +80,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'ct_id' => true,
 		);
 	}
+
 	function setGatewayDefaults() {}
 
 	public function getCurlBaseOpts() {
 		$opts = parent::getCurlBaseOpts();
 
 		if ( $this->isCertificateAuthentication() ) {
-			$opts[CURLOPT_SSLCERT] = $this->account_config['CertificatePath'];
 			$opts[CURLOPT_SSLCERTTYPE] = 'PEM';
+			$opts[CURLOPT_SSLCERT] = $this->account_config['CertificatePath'];
 		}
 
 		return $opts;
