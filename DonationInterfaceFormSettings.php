@@ -590,12 +590,22 @@ $forms_whitelist['astropay-uy'] = array(
  **********/
 $forms_whitelist['adyen'] = array(
 	'gateway' => 'adyen',
+	'countries' => array( '+' => array( 'IL', ), ),
+	'currencies' => array( '+' => array( 'ILS', ), ),
+	'payment_methods' => array(
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', ),
+	),
+	'selection_weight' => 110,
+);
+
+$forms_whitelist['adyen-test'] = array(
+	'gateway' => 'adyen',
 	'countries' => array( '+' => array( 'FR', 'IL', 'JP', 'UA', 'US', ), ),
 	'currencies' => array( '+' => array( 'EUR', 'ILS', 'JPY', 'UAH', 'USD', ), ),
 	'payment_methods' => array(
 		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb', ),
 	),
-	// Setting form chooser weight to zero till we officially decide to use it
+	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
 );
 
