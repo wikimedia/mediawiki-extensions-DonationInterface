@@ -12,7 +12,6 @@
 	"apihelp-di_wp_validate-param-payment_method": "{{doc-apihelp-param|di_wp_validate|payment_method}}",
 	"apihelp-di_wp_validate-param-language": "{{doc-apihelp-param|di_wp_validate|language}}",
 	"apihelp-di_wp_validate-param-order_id": "{{doc-apihelp-param|di_wp_validate|order_id}}",
-	"apihelp-di_wp_validate-param-contribution_tracking_id": "{{doc-apihelp-param|di_wp_validate|contribution_tracking_id}}",
 	"apihelp-di_wp_validate-param-street": "{{doc-apihelp-param|di_wp_validate|street}}",
 	"apihelp-di_wp_validate-param-state": "{{doc-apihelp-param|di_wp_validate|state}}",
 	"apihelp-di_wp_validate-param-zip": "{{doc-apihelp-param|di_wp_validate|zip}}",

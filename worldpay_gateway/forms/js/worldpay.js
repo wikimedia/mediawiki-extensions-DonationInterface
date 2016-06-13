@@ -82,7 +82,7 @@
 				'email-opt',
 				'utm_source', 'utm_medium', 'utm_campaign', 'referrer',
 				'gateway', 'payment_method', 'language', 'wmf_token',
-				'order_id', 'contribution_tracking_id',
+				'order_id',
 
 				// AVS Countries
 				'street', 'city', 'state', 'zip', 'country',

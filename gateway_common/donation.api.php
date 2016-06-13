@@ -64,9 +64,6 @@ class DonationApi extends ApiBase {
 			if ( array_key_exists( 'gateway_params', $data ) ) {
 				$outputResult['gateway_params'] = $data['gateway_params'];
 			}
-			if ( $gatewayObj->getMerchantID() === 'test' ) {
-				$outputResult['testform'] = true;
-			}
 			if ( array_key_exists( 'RESPMSG', $data ) ) {
 				$outputResult['responsemsg'] = $data['RESPMSG'];
 			}
@@ -116,7 +113,6 @@ class DonationApi extends ApiBase {
 			'payment_submethod' => $this->defineParam( false ),
 			'language' => $this->defineParam( false ),
 			'order_id' => $this->defineParam( false ),
-			'contribution_tracking_id' => $this->defineParam( false ),
 			'wmf_token' => $this->defineParam( false ),
 			'utm_source' => $this->defineParam( false ),
 			'utm_campaign' => $this->defineParam( false ),
@@ -160,7 +156,6 @@ class DonationApi extends ApiBase {
 			'payment_submethod' => 'Payment submethod to use',
 			'language' => 'Language code',
 			'order_id' => 'Order ID (if a donation has already been started)',
-			'contribution_tracking_id' => 'ID for contribution tracking table',
 			'wmf_token' => 'Mediawiki edit token',
 			'utm_source' => 'Tracking variable',
 			'utm_campaign' => 'Tracking variable',
