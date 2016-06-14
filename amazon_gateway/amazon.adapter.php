@@ -159,7 +159,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'secret_key' => $this->account_config['MWSSecretKey'],
 			'client_id' => $this->account_config['ClientID'],
 			'region' => $this->account_config['Region'],
-			'sandbox' => $this->getGlobal( 'TestMode' ),
+			'sandbox' => $this->getGlobal( 'Test' ),
 		) );
 	}
 
@@ -420,7 +420,7 @@ class AmazonAdapter extends GatewayAdapter {
 		parent::setClientVariables( $vars );
 		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
 		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
-		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'TestMode' ) ? true : false;
+		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'Test' ) ? true : false;
 		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
 		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
 		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
