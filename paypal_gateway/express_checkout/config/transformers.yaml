@@ -1,4 +1,6 @@
 - IsoDate
 - DonorLocale
+  # gotta run these two in order because 2nd uses value from 1st
+- PaypalExpressOrderId
 - PaypalExpressReturnUrl
 - IsoDate
