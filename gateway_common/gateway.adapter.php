@@ -2370,18 +2370,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function getRequiredFields() {
 		$required_fields = array();
-		if ( !$this->getPaymentMethod() ) {
-			return $required_fields;
+		$validation = array();
+
+		// Add any country-specific required fields
+		if ( isset( $this->config['country_fields'] ) ) {
+			$country = $this->getData_Unstaged_Escaped( 'country' );
+			if ( $country && isset( $this->config['country_fields'][$country] ) ) {
+				$validation = $this->config['country_fields'][$country];
+			}
 		}
 
-		$methodMeta = $this->getPaymentMethodMeta();
-		$validation = isset( $methodMeta['validation'] ) ? $methodMeta['validation'] : array();
+		if ( $this->getPaymentMethod() ) {
+			$methodMeta = $this->getPaymentMethodMeta();
+			if ( isset( $methodMeta['validation'] ) ) {
+				$validation = $methodMeta['validation'] + $validation;
+			}
+		}
 
 		if ( $this->getPaymentSubmethod() ) {
 			$submethodMeta = $this->getPaymentSubmethodMeta();
 			if ( isset( $submethodMeta['validation'] ) ) {
 				// submethod validation can override method validation
-				// TODO: child method anything should supercede parent method
+				// TODO: child method anything should supersede parent method
 				// anything, and PaymentMethod should handle that.
 				$validation = $submethodMeta['validation'] + $validation;
 			}
