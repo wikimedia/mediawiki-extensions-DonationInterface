@@ -2417,9 +2417,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						$check_not_empty[] = 'state';
 					}
 					break;
-				case 'amount' :
-					$check_not_empty = array( 'amount' );
-					break;
 				case 'creditCard' :
 					$check_not_empty = array(
 						'card_num',
@@ -2428,26 +2425,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 						'card_type'
 					);
 					break;
-				case 'email' :
-					$check_not_empty = array( 'email' );
-					break;
 				case 'name' :
 					$check_not_empty = array(
 						'fname',
 						'lname'
 					);
 					break;
-				case 'fiscal_number' :
-					$check_not_empty = array( 'fiscal_number' );
-					break;
 				default:
-					$this->logger->error( "bad required group name: {$type}" );
+					$check_not_empty = array( $type );
 					continue;
 			}
-
-			if ( $check_not_empty ) {
-				$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
-			}
+			$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
 		}
 
 		return $required_fields;
