@@ -154,6 +154,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'zip',
 			'street',
 		);
+		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
 		$data['show_personal_fields'] = !empty( $required_fields );
 		foreach( $required_fields as $field ) {
@@ -161,12 +162,22 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 			if ( in_array( $field, $address_fields ) ) {
 				$data['address_required'] = true;
+				if ( $field !== 'street' ) {
+					// street gets its own line
+					$address_field_count++;
+				}
 			}
 		}
 
 		if ( !empty( $data['address_required'] ) ) {
-			$data['address_css_class'] = 'halfwidth';
-			if ( !empty( $data['street_required'] ) ) {
+			$classes = array(
+				0 => 'fullwidth',
+				1 => 'fullwidth',
+				2 => 'halfwidth',
+				3 => 'thirdwidth'
+			);
+			$data['address_css_class'] = $classes[$address_field_count];
+			if ( !empty( $data['state_required'] ) ) {
 				$this->setStateOptions( $data );
 			}
 		}
@@ -174,7 +185,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setStateOptions( &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
-		$data['address_css_class'] = 'thirdwidth';
 		$data['state_options'] = array();
 
 		foreach ( $state_list as $abbr => $name ) {
