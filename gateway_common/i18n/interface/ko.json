@@ -233,7 +233,7 @@
 	"donate_interface-middle": "중간",
 	"donate_interface-last": "성",
 	"donate_interface-other": "기타",
-	"donate_interface-noscript-msg": "자바스크립트를 사용할 수 없도록 지정되어 있거나, 자바스크립트를 지원하지 않는 브라우저 입니다.\n보안과 관련된 문제를 해결하고 편리한 기능을 사용하기 위해, 기부양식은 자바스크립트를 사용할 수 있어야 쓰실 수 있습니다.",
+	"donate_interface-noscript-msg": "자바스크립트를 사용하지 않도록 지정되어 있거나, 브라우저가 자바스크립트를 지원하지 않습니다.\n안전하고 안심할 수 있는 쾌적한 환경을 위해, 기부 양식은 자바스크립트가 필요합니다.",
 	"donate_interface-noscript-redirect-msg": "만일 자바스크립트를 허용하실 수 없거나 허용하기 원하지 않으신다면 직접 내방하셔서 기부하시는 방법도 있습니다:",
 	"donate_interface-anon-message": "자신의 이름을 공개 기부자 명단에서 표시하도록 합니다.",
 	"donate_interface-donate-wikipedia": "위키백과에 기부하세요",
