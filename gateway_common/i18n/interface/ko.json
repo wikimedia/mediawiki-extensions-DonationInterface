@@ -336,7 +336,7 @@
 	"donate_interface-obt-generic-name": "온라인 은행 송금",
 	"donate_interface-obt-biller_id": "청구 코드",
 	"donate_interface-obt-customer_payment_reference": "각주 #",
-	"donate_interface-obt-customer_payment_reference_note": "각 참조 # 은(는) 한 번만 유효합니다. 이 참조 번호를 다시 사용하지 마세요.",
+	"donate_interface-obt-customer_payment_reference_note": "각 참조 #은(는) 한 번만 유효합니다. 다음 기부에 이 참조 번호를 다시 사용하지 마세요.",
 	"donate_interface-obt-information": "온라인 은행 송금 정보",
 	"donate_interface-online_bank_transfer_message": "전화 및 인터넷 뱅킹 - BPAY®",
 	"donate_interface-rtbt-issuer_id": "은행 선택",
