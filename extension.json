@@ -129,6 +129,7 @@
 		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
 		"FullNameWithExceptions": "adyen_gateway/FullNameWithExceptions.php",
 		"RiskScore": "adyen_gateway/RiskScore.php",
+		"AmountInMinorUnits": "adyen_gateway/AmountInMinorUnits.php",
 		"AstroPayGateway": "astropay_gateway/astropay_gateway.body.php",
 		"AstroPayGatewayResult": "astropay_gateway/astropay_resultswitcher.body.php",
 		"AstroPayAdapter": "astropay_gateway/astropay.adapter.php",
