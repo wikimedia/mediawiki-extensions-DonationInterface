@@ -37,6 +37,8 @@
 	// Set up email error detection and correction
 	$( document ).on( 'blur', '#email', function () {
 		$( this ).mailcheck( {
+			topLevelDomains: [],
+			secondLevelDomains: [],
 			suggested: function ( element, suggestion ) {
 				var message = mw.msg(
 					'donate_interface-did-you-mean',
