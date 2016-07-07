@@ -20,12 +20,76 @@
 		$( '#payment-form' )[ 0 ].submit();
 	}
 
+	/**
+	 * Call the generic donation API and handle errors or execute a callback
+	 *
+	 * @param {function()} successCallback will be called with response's 'result' property
+	 */
+	function callDonateApi( successCallback ) {
+		di.forms.disable();
+		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
+
+		var sendData = {
+			action: 'donate',
+			gateway: $( '#gateway' ).val(),
+			currency_code: $( '#currency_code' ).val(),
+			amount: $( '#amount' ).val(),
+			fname: $( '#fname' ).val(),
+			lname: $( '#lname' ).val(),
+			street: $( '#street' ).val(),
+			city: $( '#city' ).val(),
+			state: $( '#state' ).val(),
+			zip: $( '#zip' ).val(),
+			email: $( '#email' ).val(),
+			country: $( '#country' ).val(),
+			payment_method: $( '#payment_method' ).val(),
+			language: $( '#language' ).val(),
+			payment_submethod: $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase(),
+			utm_source: $( '#utm_source' ).val(),
+			utm_campaign: $( '#utm_campaign' ).val(),
+			utm_medium: $( '#utm_medium' ).val(),
+			referrer: $( '#referrer' ).val(),
+			recurring: $( '#recurring' ).val(),
+			wmf_token: $( '#wmf_token' ).val(),
+			format: 'json'
+		};
+
+		$.ajax( {
+			url: mw.util.wikiScript( 'api' ),
+			data: sendData,
+			dataType: 'json',
+			type: 'GET',
+			success: function ( data ) {
+				if ( typeof data.error !== 'undefined' ) {
+					// FIXME alert sux
+					alert( mw.msg( 'donate_interface-error-msg-general' ) );
+					$( '#paymentContinue' ).show(); // Show continue button in 2nd section
+				} else if ( typeof data.result !== 'undefined' ) {
+					if ( data.result.errors ) {
+						mw.donationInterface.validation.showErrors( data.result.errors );
+						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
+					} else {
+						successCallback( data.result );
+					}
+				}
+			},
+			error: function ( xhr ) {
+				// FIXME too
+				alert( mw.msg( 'donate_interface-error-msg-general' ) );
+			},
+			complete: function () {
+				di.forms.enable();
+			}
+		} );
+	}
+
 	di.forms = {
 		disable: disableForm,
 		enable: enableForm,
 		// Gateways with more complex form submission can overwrite this
 		// property with their own submission function.
-		submit: submitForm
+		submit: submitForm,
+		callDonateApi: callDonateApi
 	};
 
 	$( function () {
