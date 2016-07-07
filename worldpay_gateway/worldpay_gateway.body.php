@@ -34,7 +34,7 @@ class WorldpayGateway extends GatewayPage {
 		if ( $this->adapter->isESOP() ) {
 			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.esopjs' );
 		} else {
-			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.styles' ); //loads early
+			$this->getOutput()->addModuleStyles( 'ext.donationinterface.worldpay.styles' ); //loads early
 			$this->getOutput()->addModules( 'ext.donationinterface.worldpay.code' ); //loads at normal time
 		}
 

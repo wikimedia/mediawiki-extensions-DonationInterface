@@ -24,7 +24,7 @@ class AmazonGateway extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
-		$this->getOutput()->addModules( 'ext.donationinterface.amazon.styles' );
+		$this->getOutput()->addModuleStyles( 'ext.donationinterface.amazon.styles' );
 		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
 
 		$this->handleDonationRequest();
