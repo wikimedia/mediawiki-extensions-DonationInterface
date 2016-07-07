@@ -153,6 +153,16 @@ abstract class Gateway_Form {
 	}
 
 	/**
+	 * All the things that need to be loaded in the head with link tags for
+	 * styling server-rendered html
+	 *
+	 * @return array
+	 */
+	public function getStyleModules() {
+		return array();
+	}
+
+	/**
 	 * Given an absolute file path, returns path relative to extension base dir.
 	 * @param string $absolutePath
 	 * @return string path relative to DonationInterface/

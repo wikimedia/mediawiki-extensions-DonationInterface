@@ -23,6 +23,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	protected $html_default_base_dir = '';
 
+	protected $dependencies = array();
+	protected $styles = array();
+
 	/**
 	 * Tokens used in HTML form for data replacement
 	 * 
@@ -436,52 +439,54 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 			$debug_message = "Form template is missing for '$form_key', looking for file: {$allowedForms[$form_key]['file']}";
 			$problems = true;
 		}
-		
-		if ( !$problems ){
+
+		if ( !$problems ) {
 			//make sure the requested form is cleared for this gateway
-			if ( !array_key_exists( 'gateway', $allowedForms[$form_key] ) ){
+			if ( !array_key_exists( 'gateway', $allowedForms[$form_key] ) ) {
 				$debug_message = "No defined gateways for '$form_key'";
 				$problems = true;
 			} else {
 				$ident = $this->gateway->getIdentifier();
-				if ( is_array( $allowedForms[$form_key]['gateway'] ) ){
-					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ){
+				if ( is_array( $allowedForms[$form_key]['gateway'] ) ) {
+					if ( !in_array( $ident, $allowedForms[$form_key]['gateway'] ) ) {
 						$debug_message = "$ident is not defined as an allowable gateway for '$form_key'";
 						$problems = true;
 					}
 				} else {
-					if ( $allowedForms[$form_key]['gateway'] != $ident ){
+					if ( $allowedForms[$form_key]['gateway'] != $ident ) {
 						$debug_message = "$ident is not defined as the allowable gateway for '$form_key'";
 						$problems = true;
 					}
 				}
 			}
 		}
-		
-		if ( !$problems ){
+
+		if ( !$problems ) {
 			//now, figure out what whitelisted form directory this is a part of. 
 			$allowedDirs = $this->gateway->getGlobal( 'FormDirs' );
 			$dirparts = explode( '/', $allowedForms[$form_key]['file'] );
 			$build = '';
-			for( $i=0; $i<count( $dirparts ); ++$i ){
-				if ( trim( $dirparts[$i] != '' ) ){
+			for ( $i = 0; $i < count( $dirparts ); ++$i ) {
+				if ( trim( $dirparts[$i] != '' ) ) {
 					$build .= '/' . $dirparts[$i];
 				}
-				if ( in_array( $build, $allowedDirs ) ){
+				if ( in_array( $build, $allowedDirs ) ) {
 					$this->html_base_dir = $build;
 				}
 			}
 
-			if ( empty( $this->html_base_dir ) ){
+			if ( empty( $this->html_base_dir ) ) {
 				$debug_message = "No valid html_base_dir for '$form_key' - '$build' was not whitelisted.";
 				$problems = true;
 			}
 		}
-		
-		if ( $problems ){
-			if ( $fatal ){
+
+		if ( $problems ) {
+			if ( $fatal ) {
 				$message = 'Requested an unavailable or non-existent form.';
-				$this->logger->error( $message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped('utm_source') );
+				$this->logger->error(
+					$message . ' ' . $debug_message . ' ' . $this->gateway->getData_Unstaged_Escaped( 'utm_source' )
+				);
 				throw new RuntimeException( $message );
 			} else {
 				return;
@@ -490,7 +495,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$this->gateway->session_pushFormName( $form_key );
 
-		$this->html_file_path = $allowedForms[$form_key]['file'];
+		$chosen = $allowedForms[$form_key];
+		$this->html_file_path = $chosen['file'];
+		if ( isset( $chosen['dependencies'] ) ) {
+			$this->dependencies = $chosen['dependencies'];
+		}
+		if ( isset( $chosen['styles'] ) ) {
+			$this->styles = $chosen['styles'];
+		}
 	}
 
 	/**
@@ -528,4 +540,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		return $output;
 	}
 
+	public function getResources() {
+		return $this->dependencies;
+	}
+
+	public function getStyleModules() {
+		return $this->styles;
+	}
 }

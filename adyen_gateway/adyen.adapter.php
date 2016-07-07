@@ -30,21 +30,7 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	function getAddressRequired() {
-
-		$countries = $this->config[ 'address_required_countries' ];
-		if( in_array( $this->getData_Unstaged_Escaped( 'country' ), $countries )) {
-			return true;
-		}
-		return false;
-	}
-
 	public function getRequiredFields() {
-
-		if( $this->getAddressRequired() ) {
-			$this->payment_methods['cc']['validation']['address'] = true;
-		}
-
 		$fields = parent::getRequiredFields();
 		$fields[] = 'payment_submethod';
 		return $fields;
@@ -124,7 +110,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddressType',
 		);
 
-		if ( $this->getAddressRequired() )  {
+		if ( in_array( 'street', $this->getRequiredFields() ) )  {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
