@@ -23,6 +23,9 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 	 */
 	protected $html_default_base_dir = '';
 
+	protected $dependencies = array();
+	protected $styles = array();
+
 	/**
 	 * Tokens used in HTML form for data replacement
 	 * 
@@ -492,7 +495,14 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 
 		$this->gateway->session_pushFormName( $form_key );
 
-		$this->html_file_path = $allowedForms[$form_key]['file'];
+		$chosen = $allowedForms[$form_key];
+		$this->html_file_path = $chosen['file'];
+		if ( isset( $chosen['dependencies'] ) ) {
+			$this->dependencies = $chosen['dependencies'];
+		}
+		if ( isset( $chosen['styles'] ) ) {
+			$this->styles = $chosen['styles'];
+		}
 	}
 
 	/**
@@ -530,4 +540,11 @@ class Gateway_Form_RapidHtml extends Gateway_Form {
 		return $output;
 	}
 
+	public function getResources() {
+		return $this->dependencies;
+	}
+
+	public function getStyleModules() {
+		return $this->styles;
+	}
 }

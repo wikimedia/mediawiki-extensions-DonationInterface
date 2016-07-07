@@ -326,10 +326,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return Gateway_Form_Mustache::render( $path, $context );
 	}
 
-	public function getResources() {
-		return array(
-			'ext.donationinterface.mustache.styles',
-		);
+	public function getStyleModules() {
+		return 'ext.donationinterface.mustache.styles';
 	}
 
 	protected function getTopLevelTemplate() {

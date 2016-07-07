@@ -3,6 +3,7 @@
  * The following variable are declared inline in webitects_2_3step.html:
  *   amountErrors, billingErrors, paymentErrors, scriptPath, actionURL
  */
+
 $( document ).ready( function () {
 
 	// check for RapidHtml errors and display, if any
@@ -10,6 +11,16 @@ $( document ).ready( function () {
 		amountErrorString = '',
 		billingErrorString = '',
 		paymentErrorString = '';
+
+	mediaWiki.toggleCreditCardRadios = function ( enabled ) {
+		$( '.cardradio, #paymentContinueBtn' ).prop( 'disabled', !enabled );
+
+		if ( enabled ) {
+			$( '#cards, #paymentContinueBtn' ).addClass( 'enabled' );
+		} else {
+			$( '#cards, #paymentContinueBtn' ).removeClass( 'enabled' );
+		}
+	};
 
 	// generate formatted errors to display
 	temp = [];
@@ -84,13 +95,3 @@ $( document ).ready( function () {
 	// Reset any selected radio buttons in case of page reload
 	$( '.cardradio' ).attr( 'checked', false );
 } );
-
-mediaWiki.toggleCreditCardRadios = function ( enabled ) {
-	$( '.cardradio, #paymentContinueBtn' ).prop( 'disabled', !enabled );
-
-	if ( enabled ) {
-		$( '#cards, #paymentContinueBtn' ).addClass( 'enabled' );
-	} else {
-		$( '#cards, #paymentContinueBtn' ).removeClass( 'enabled' );
-	}
-};

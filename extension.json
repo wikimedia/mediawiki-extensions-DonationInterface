@@ -175,13 +175,14 @@
 			"scripts": "modules/iframe.liberator.js",
 			"position": "top"
 		},
-		"donationInterface.skinOverride": {
-			"scripts": "modules/js/skinOverride.js",
+		"donationInterface.styles": {
 			"styles": [
 				"modules/css/gateway.css",
 				"modules/css/skinOverride.css"
-			],
-			"position": "top"
+			]
+		},
+		"donationInterface.skinOverride": {
+			"scripts": "modules/js/skinOverride.js"
 		},
 		"donationInterface.test.rapidhtml": {
 			"scripts": "tests/modules/gc.testinterface.js",
@@ -215,8 +216,7 @@
 			"dependencies": "ext.donationInterface.validation"
 		},
 		"ext.donationinterface.mustache.styles": {
-			"styles": "gateway_forms/mustache/forms.css",
-			"position": "top"
+			"styles": "gateway_forms/mustache/forms.css"
 		},
 		"ext.donationinterface.adyen.scripts": {
 			"scripts": "adyen_gateway/forms/js/adyen.js",
@@ -230,8 +230,7 @@
 			]
 		},
 		"ext.donationinterface.amazon.styles": {
-			"styles": "amazon_gateway/amazon.css",
-			"position": "top"
+			"styles": "amazon_gateway/amazon.css"
 		},
 		"ext.donationinterface.amazon.scripts": {
 			"scripts": "amazon_gateway/amazon.js",
@@ -240,20 +239,21 @@
 				"donate_interface-otherways-short"
 			]
 		},
-		"di.form.rapidhtml.webitects": {
+		"di.form.rapidhtml.webitects.styles": {
 			"styles": [
 				"gateway_forms/rapidhtml/css/lp1.css",
 				"gateway_forms/rapidhtml/css/webitects.css"
-			],
+			]
+		},
+		"di.form.rapidhtml.webitects": {
 			"dependencies": "jquery.ui.accordion"
 		},
-		"di.form.rapidhtml.webitects.ie6": {
-			"styles": "gateway_forms/rapidhtml/css/webitects.ie6.css",
-			"dependencies": "di.form.rapidhtml.webitects"
-		},
-		"di.form.rapidhtml.webitects.2nd": {
-			"styles": "gateway_forms/rapidhtml/css/webitects2nd.css",
-			"dependencies": "di.form.rapidhtml.webitects"
+		"di.form.rapidhtml.webitects.2nd.styles": {
+			"styles": [
+				"gateway_forms/rapidhtml/css/lp1.css",
+				"gateway_forms/rapidhtml/css/webitects.css",
+				"gateway_forms/rapidhtml/css/webitects2nd.css"
+			]
 		},
 		"gc.form.rapidhtml.webitects": {
 			"scripts": "globalcollect_gateway/forms/js/webitects.js",
@@ -261,12 +261,6 @@
 		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"
-		},
-		"gc.form.rapidhtml.webitects.ie6": {
-			"dependencies": [
-				"di.form.rapidhtml.webitects.ie6",
-				"gc.form.rapidhtml.webitects"
-			]
 		},
 		"gc.form.rapidhtml.webitects.1st": {
 			"scripts": "globalcollect_gateway/forms/js/webitects_2_3step.js",
@@ -276,19 +270,15 @@
 			"scripts": "globalcollect_gateway/forms/js/webitects2nd.js",
 			"dependencies": [
 				"di.form.core.validate",
-				"gc.form.rapidhtml.webitects",
-				"di.form.rapidhtml.webitects.2nd"
+				"gc.form.rapidhtml.webitects"
 			]
 		},
 		"gc.form.rapidhtml.webitects.2nd.US": {
 			"scripts": "globalcollect_gateway/forms/js/webitects2nd-US.js",
 			"dependencies": [
 				"gc.form.rapidhtml.webitects",
-				"di.form.rapidhtml.webitects.2nd"
+				"di.form.rapidhtml.webitects"
 			]
-		},
-		"gc.form.rapidhtml.webitects.bt": {
-			"dependencies": "gc.form.rapidhtml.webitects.2nd"
 		},
 		"gc.form.rapidhtml.webitects.dd": {
 			"scripts": "globalcollect_gateway/forms/js/webitects.bt.js",
@@ -297,8 +287,10 @@
 		"gc.normalinterface": {
 			"scripts": "globalcollect_gateway/forms/js/gc.interface.js"
 		},
+		"gc.styles": {
+			"styles": "globalcollect_gateway/forms/css/gc.css"
+		},
 		"gc.form.rapidhtml.cc": {
-			"styles": "globalcollect_gateway/forms/css/gc.css",
 			"scripts": [
 				"globalcollect_gateway/forms/js/gc.js",
 				"globalcollect_gateway/forms/js/gc.cc.js"
@@ -310,34 +302,32 @@
 			]
 		},
 		"gc.form.rapidhtml.dd": {
-			"styles": "globalcollect_gateway/forms/css/gc.css",
 			"scripts": "globalcollect_gateway/forms/js/gc.dd.js",
-			"dependencies": "di.form.core.validate"
+			"dependencies": [
+				"di.form.core.validate",
+				"gc.styles"
+			]
 		},
 		"gc.form.rapidhtml.ew": {
-			"styles": "globalcollect_gateway/forms/css/gc.css",
 			"scripts": "globalcollect_gateway/forms/js/gc.ew.js",
 			"dependencies": "di.form.core.validate"
 		},
 		"gc.form.rapidhtml.boletos": {
-			"styles": "globalcollect_gateway/forms/css/gc.css",
 			"scripts": "globalcollect_gateway/forms/js/gc.boletos.js",
 			"dependencies": "di.form.core.validate"
 		},
 		"gc.form.rapidhtml.rtbt": {
-			"styles": "globalcollect_gateway/forms/css/gc.css",
 			"dependencies": [
 				"di.form.core.validate",
 				"mediawiki.Uri",
-				"gc.form.rapidhtml.webitects.bt"
+				"gc.form.rapidhtml.webitects.2nd"
 			]
 		},
 		"ext.donationinterface.worldpay.styles": {
 			"styles": [
 				"worldpay_gateway/forms/css/worldpay.css",
 				"worldpay_gateway/forms/css/bootstrap.css"
-			],
-			"position": "top"
+			]
 		},
 		"ext.donationinterface.worldpay.code": {
 			"scripts": "worldpay_gateway/forms/js/worldpay.js",

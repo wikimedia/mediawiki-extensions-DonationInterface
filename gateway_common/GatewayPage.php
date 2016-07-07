@@ -80,6 +80,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$className = $this->getAdapterClass();
 			$this->adapter = new $className;
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
+			$this->getOutput()->addModuleStyles( 'donationInterface.styles' );
 			$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		} catch ( Exception $ex ) {
 			if ( !$this->logger ) {
@@ -156,6 +157,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$form_obj = new $form_class( $this->adapter );
 			$form = $form_obj->getForm();
 			$output->addModules( $form_obj->getResources() );
+			$output->addModuleStyles( $form_obj->getStyleModules() );
 			$output->addHTML( $form );
 		} else {
 			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
