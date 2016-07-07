@@ -1,13 +1,3 @@
-'':
-    paymentproductid: 0
-    label: Any
-    group: cc
-    validation:
-        address: true
-        amount: true
-        email: true
-        name: true
-    keys: {  }
 bt:
     paymentproductid: 11
     label: 'Bank Transfer'
@@ -18,56 +8,65 @@ visa:
     paymentproductid: 1
     label: Visa
     group: cc
-    validation: {  }
     keys: {  }
-mc:
-    paymentproductid: 3
-    label: MasterCard
-    group: cc
-    validation: {  }
-    keys: {  }
-amex:
-    paymentproductid: 2
-    label: 'American Express'
-    group: cc
-    validation: {  }
-    keys: {  }
-maestro:
-    paymentproductid: 117
-    label: Maestro
-    group: cc
-    validation: {  }
-    keys: {  }
-solo:
-    paymentproductid: 118
-    label: Solo
-    group: cc
-    validation: {  }
-    keys: {  }
-laser:
-    paymentproductid: 124
-    label: Laser
-    group: cc
-    validation: {  }
-    keys: {  }
+    logo: card-visa.png
 jcb:
     paymentproductid: 125
     label: JCB
     group: cc
-    validation: {  }
     keys: {  }
+    countries:
+        AD: true
+        AT: true
+        AU: true
+        BE: true
+        BH: true
+        BR: true
+        DE: true
+        EC: true
+        ES: true
+        FI: true
+        GB: true
+        GF: true
+        GR: true
+        HK: true
+        ID: true
+        IE: true
+        IT: true
+        JP: true
+        KR: true
+        LU: true
+        MY: true
+        NL: true
+        PH: true
+        PR: true
+        PT: true
+        SG: true
+        SI: true
+        SK: true
+        TH: true
+        TW: true
+    logo: card-jcb.png
+mc:
+    paymentproductid: 3
+    label: MasterCard
+    group: cc
+    keys: {  }
+    logo: card-mc.png
+amex:
+    paymentproductid: 2
+    label: 'American Express'
+    group: cc
+    keys: {  }
+    logo: card-amex.png
 discover:
     paymentproductid: 128
     label: Discover
     group: cc
-    validation: {  }
     keys: {  }
-cb:
-    paymentproductid: 130
-    label: CB
-    group: cc
-    validation: {  }
-    keys: {  }
+    countries:
+        US: true
+    logo: card-discover.png
 dd_at:
     paymentproductid: 703
     label: 'Direct debit: AT'

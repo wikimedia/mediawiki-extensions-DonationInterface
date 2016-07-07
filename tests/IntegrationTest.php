@@ -81,10 +81,9 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		unset( $options['ffname'] );
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
 		$gateway = new TestingGlobalCollectAdapter();
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$response = $gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
-		$ffname = $gateway->getData_Unstaged_Escaped( 'ffname' );
-		$this->assertEquals( 'cc-vmad', $ffname, "GC did not load the expected form." );
+		$this->assertEmpty( $response->getErrors() );
 
 		$errors = '';
 		if ( array_key_exists( LogLevel::ERROR, $this->testLogger->messages ) ) {

@@ -185,17 +185,6 @@
 		"donationInterface.skinOverride": {
 			"scripts": "modules/js/skinOverride.js"
 		},
-		"donationInterface.test.rapidhtml": {
-			"scripts": "tests/modules/gc.testinterface.js",
-			"dependencies": [
-				"mediawiki.Uri",
-				"gc.normalinterface"
-			],
-			"messages": [
-				"globalcollect_gateway-fakesucceed",
-				"globalcollect_gateway-fakefail"
-			]
-		},
 		"jquery.payment": {
 			"scripts": "modules/jquery.payment/jquery.payment.js"
 		},
@@ -221,6 +210,10 @@
 		},
 		"ext.donationinterface.adyen.scripts": {
 			"scripts": "adyen_gateway/forms/js/adyen.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationinterface.ingenico.scripts": {
+			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
 			"dependencies": "ext.donationInterface.forms"
 		},
 		"ext.donationinterface.worldpay.esopjs": {
@@ -285,29 +278,12 @@
 			"scripts": "globalcollect_gateway/forms/js/webitects.bt.js",
 			"dependencies": "gc.form.rapidhtml.webitects.2nd"
 		},
-		"gc.normalinterface": {
-			"scripts": "globalcollect_gateway/forms/js/gc.interface.js"
-		},
 		"gc.styles": {
 			"styles": "globalcollect_gateway/forms/css/gc.css"
 		},
-		"gc.form.rapidhtml.cc": {
-			"scripts": [
-				"globalcollect_gateway/forms/js/gc.js",
-				"globalcollect_gateway/forms/js/gc.cc.js"
-			],
-			"dependencies": [
-				"ext.donationInterface.validation",
-				"mediawiki.Uri",
-				"gc.normalinterface"
-			]
-		},
 		"gc.form.rapidhtml.dd": {
 			"scripts": "globalcollect_gateway/forms/js/gc.dd.js",
-			"dependencies": [
-				"di.form.core.validate",
-				"gc.styles"
-			]
+			"dependencies": "di.form.core.validate"
 		},
 		"gc.form.rapidhtml.ew": {
 			"scripts": "globalcollect_gateway/forms/js/gc.ew.js",

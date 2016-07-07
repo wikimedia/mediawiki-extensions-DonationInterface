@@ -95,12 +95,16 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = array (
-			'cc-mc' => array (
+			'submethod-mc' => array (
 				'nodename' => 'input'
 			),
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '$1.55',
+				'innerhtmlmatches' => '/^\s*' .
+					str_replace( '$', '\$',
+						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
+					).
+					'\s*$/',
 			),
 			'state' => array (
 				'nodename' => 'select',
@@ -121,7 +125,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$assertNodes = array (
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '€1.55',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
 			),
 			'fname' => array (
 				'nodename' => 'input',
@@ -153,7 +159,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$assertNodes = array (
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '€1.55',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
 			),
 			'fname' => array (
 				'nodename' => 'input',
@@ -191,7 +199,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$assertNodes = array (
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '€1.55',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
 			),
 			'fname' => array (
 				'nodename' => 'input',
@@ -263,11 +273,16 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
+		$locale = $language . '_CA';
 
 		$assertNodes = array (
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '1.55 CAD',
+				'innerhtmlmatches' => '/^\s*' .
+					str_replace( '$', '\$',
+						Amount::format( 1.55, 'CAD', $init['language'] . '_' . $init['country'] )
+					) .
+					'\s*$/',
 			),
 			'fname' => array (
 				'nodename' => 'input',

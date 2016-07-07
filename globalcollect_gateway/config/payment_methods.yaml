@@ -5,6 +5,9 @@ bt:
     short_circuit_at: first_iop
 cc:
     label: 'Credit Cards'
+    validation:
+        name: true
+        email: true
 dd:
     label: 'Direct Debit'
     validation:

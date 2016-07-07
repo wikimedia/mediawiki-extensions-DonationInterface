@@ -37,6 +37,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			|| strpos( $ffname, 'maintenance') === 0 ) {
 			return 'MustacheErrorForm';
 		}
+		if ( $this->getPaymentMethod() === 'cc' ) {
+			return 'Gateway_Form_Mustache';
+		};
 		return 'Gateway_Form_RapidHtml';
 	}
 
@@ -540,7 +543,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Execute the proper transaction code:
 		switch ( $payment_method ) {
 			case 'cc': 
-				// FIXME: we don't actually use this code path, it's done from gc.cc.js instead.
+				// FIXME: we don't actually use this code path, it's done from
+				// the donation api instead.
 
 				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 

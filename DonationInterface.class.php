@@ -8,7 +8,7 @@ class DonationInterface {
 		global $wgDonationInterfaceTestMode, $wgDonationInterfaceFormDirs,
 			$wgDonationInterfaceHtmlFormDir, $wgGlobalCollectGatewayHtmlFormDir,
 			$wgWorldpayGatewayHtmlFormDir, $wgDonationInterfaceTemplate,
-			$wgDonationInterfaceErrorTemplate, $wgResourceModules;
+			$wgDonationInterfaceErrorTemplate;
 
 		// Test mode (not for production!)
 		// Set it if not defined
@@ -40,12 +40,6 @@ class DonationInterface {
 			'gc' => $wgGlobalCollectGatewayHtmlFormDir,
 			'worldpay' => $wgWorldpayGatewayHtmlFormDir,
 		);
-
-		if ( $wgDonationInterfaceTestMode === true ) {
-			$wgResourceModules[ 'gc.form.rapidhtml.cc' ]['dependencies'][] = 'donationInterface.test.rapidhtml';
-		} else {
-			$wgResourceModules[ 'gc.form.rapidhtml.cc' ]['dependencies'][] = 'gc.normalinterface';
-		}
 
 		// Load the default form settings.
 		require_once __DIR__ . '/DonationInterfaceFormSettings.php';

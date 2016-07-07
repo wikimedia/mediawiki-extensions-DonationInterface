@@ -125,12 +125,16 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = array (
-			'cc-mc' => array (
+			'submethod-mc' => array (
 				'nodename' => 'input'
 			),
 			'selected-amount' => array (
 				'nodename' => 'span',
-				'innerhtml' => '$1.55',
+				'innerhtmlmatches' => '/^\s*' .
+					str_replace( '$', '\$',
+						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
+					).
+					'\s*$/',
 			),
 			'state' => array (
 				'nodename' => 'select',
