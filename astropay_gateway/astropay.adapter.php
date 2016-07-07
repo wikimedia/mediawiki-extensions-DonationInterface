@@ -50,8 +50,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		);
 	}
 
-	function defineStagedVars() {}
-
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
 		// 6: Transaction not found in the system

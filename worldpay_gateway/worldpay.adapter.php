@@ -72,19 +72,6 @@ class WorldpayAdapter extends GatewayAdapter {
 			);
 	}
 
-	function defineStagedVars() {
-		$this->staged_vars = array(
-			'returnto',
-			'wp_acctname',
-			'iso_currency_id',
-			'payment_submethod',
-			'zip',
-			'street',
-			'merchant_reference_2',
-			'narrative_statement_1',
-		);
-	}
-
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'IsTest' => $this->account_config[ 'Test' ],
@@ -774,7 +761,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Can't add order_id to staged_vars without nasty side effects, so we have
+	 * Can't stage order_id in stageData without nasty side effects, so we have
 	 * to override this to catch changes
 	 */
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
@@ -784,7 +771,7 @@ class WorldpayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Can't add order_id to staged_vars without nasty side effects, so we have
+	 * Can't stage order_id in stageData without nasty side effects, so we have
 	 * to override this to catch changes
 	 */
 	public function regenerateOrderID() {

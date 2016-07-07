@@ -1,0 +1,671 @@
+{
+	"name": "Donation Interface",
+	"version": "2.1.0",
+	"author": [
+		"Elliott Eggleston",
+		"Katie Horn",
+		"Ryan Kaldari",
+		"Arthur Richards",
+		"Sherah Smith",
+		"Matt Walker",
+		"Adam Wight",
+		"Peter Gehres",
+		"Jeremy Postlethwaite",
+		"Dylan Kozlowski",
+		"Casey Dentinger"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
+	"descriptionmsg": "donationinterface-desc",
+	"type": "specialpage",
+	"callback": "DonationInterface::registerExtension",
+	"SpecialPages": {
+		"GatewayFormChooser": "GatewayFormChooser",
+		"SystemStatus": "SystemStatus",
+		"GlobalCollectGateway": "GlobalCollectGateway",
+		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
+		"AmazonGateway": "AmazonGateway",
+		"AdyenGateway": "AdyenGateway",
+		"AdyenGatewayResult": "AdyenGatewayResult",
+		"AstroPayGateway": "AstroPayGateway",
+		"AstroPayGatewayResult": "AstroPayGatewayResult",
+		"PaypalExpressGateway": "PaypalExpressGateway",
+		"PaypalExpressGatewayResult": "PaypalExpressGatewayResult",
+		"PaypalLegacyGateway": "PaypalLegacyGateway",
+		"WorldpayGateway": "WorldpayGateway",
+		"WorldpayGatewayResult": "WorldpayGatewayResult"
+	},
+	"APIModules": {
+		"di_amazon_bill": "AmazonBillingApi",
+		"di_wp_validate": "WorldpayValidateApi",
+		"donate": "DonationApi"
+	},
+	"MessagesDirs": {
+		"DonationInterface": [
+			"gateway_common/i18n/interface",
+			"gateway_common/i18n/country-specific",
+			"gateway_common/i18n/countries",
+			"gateway_common/i18n/us-states",
+			"gateway_common/i18n/canada-provinces",
+			"amazon_gateway/i18n",
+			"globalcollect_gateway/i18n",
+			"adyen_gateway/i18n",
+			"astropay_gateway/i18n",
+			"paypal_gateway/i18n",
+			"worldpay_gateway/i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"GatewayAliases": "DonationInterface.alias.php",
+		"AmazonGatewayAlias": "amazon_gateway/amazon_gateway.alias.php",
+		"GlobalCollectGatewayAlias": "globalcollect_gateway/globalcollect_gateway.alias.php",
+		"AdyenGatewayAlias": "adyen_gateway/adyen_gateway.alias.php",
+		"AstroPayGatewayAlias": "astropay_gateway/astropay_gateway.alias.php",
+		"PaypalGatewayAlias": "paypal_gateway/paypal_gateway.alias.php",
+		"WorldpayGatewayAlias": "worldpay_gateway/worldpay_gateway.alias.php"
+	},
+	"AutoloadClasses": {
+		"AmountInCents": "gateway_common/AmountInCents.php",
+		"ArrayHelper": "gateway_common/ArrayHelper.php",
+		"FiscalNumber": "gateway_common/FiscalNumber.php",
+		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
+		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
+		"CurrencyRates": "gateway_common/CurrencyRates.php",
+		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
+		"CyclicalArray": "globalcollect_gateway/CyclicalArray.php",
+		"DonationData": "gateway_common/DonationData.php",
+		"DonationInterface": "DonationInterface.class.php",
+		"DonationLoggerFactory": "gateway_common/DonationLoggerFactory.php",
+		"DonationLogProcessor": "gateway_common/DonationLogProcessor.php",
+		"DonationProfiler": "gateway_common/DonationProfiler.php",
+		"DonationQueue": "gateway_common/DonationQueue.php",
+		"DonorEmail": "gateway_common/DonorEmail.php",
+		"DonorFullName": "gateway_common/DonorFullName.php",
+		"DonorLanguage": "gateway_common/DonorLanguage.php",
+		"DonorLocale": "gateway_common/DonorLocale.php",
+		"EncodingMangler": "gateway_common/EncodingMangler.php",
+		"FinalStatus": "gateway_common/FinalStatus.php",
+		"FallbackLogPrefixer": "gateway_common/FallbackLogPrefixer.php",
+		"GatewayAdapter": "gateway_common/gateway.adapter.php",
+		"GatewayPage": "gateway_common/GatewayPage.php",
+		"GatewayType": "gateway_common/GatewayType.php",
+		"IsoDate": "gateway_common/IsoDate.php",
+		"DataValidator": "gateway_common/DataValidator.php",
+		"LogPrefixProvider": "gateway_common/gateway.adapter.php",
+		"MessageUtils": "gateway_common/MessageUtils.php",
+		"NationalCurrencies": "gateway_common/NationalCurrencies.php",
+		"PaymentMethod": "gateway_common/PaymentMethod.php",
+		"PaymentResult": "gateway_common/PaymentResult.php",
+		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",
+		"ResponseCodes": "gateway_common/ResponseCodes.php",
+		"ResponseProcessingException": "gateway_common/ResponseProcessingException.php",
+		"ResultPages": "gateway_common/ResultPages.php",
+		"StagingHelper": "gateway_common/StagingHelper.php",
+		"StreetAddress": "gateway_common/StreetAddress.php",
+		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
+		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
+		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
+		"ValidationHelper": "gateway_common/ValidationHelper.php",
+		"Gateway_Form": "gateway_forms/Form.php",
+		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
+		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
+		"Gateway_Form_RapidHtml": "gateway_forms/RapidHtml.php",
+		"CountryCodes": "gateway_forms/includes/CountryCodes.php",
+		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
+		"GlobalCollectGateway": "globalcollect_gateway/globalcollect_gateway.body.php",
+		"GlobalCollectGatewayResult": "globalcollect_gateway/globalcollect_resultswitcher.body.php",
+		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
+		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
+		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
+		"IngenicoFinancialNumber": "globalcollect_gateway/IngenicoFinancialNumber.php",
+		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
+		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
+		"IngenicoReturntoHelper": "globalcollect_gateway/IngenicoReturntoHelper.php",
+		"AmazonGateway": "amazon_gateway/amazon_gateway.body.php",
+		"AmazonAdapter": "amazon_gateway/amazon.adapter.php",
+		"AmazonBillingApi": "amazon_gateway/amazon.api.php",
+		"AdyenGateway": "adyen_gateway/adyen_gateway.body.php",
+		"AdyenGatewayResult": "adyen_gateway/adyen_resultswitcher.body.php",
+		"AdyenHostedSignature": "adyen_gateway/AdyenHostedSignature.php",
+		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
+		"FullNameWithExceptions": "adyen_gateway/FullNameWithExceptions.php",
+		"RiskScore": "adyen_gateway/RiskScore.php",
+		"AmountInMinorUnits": "adyen_gateway/AmountInMinorUnits.php",
+		"AstroPayGateway": "astropay_gateway/astropay_gateway.body.php",
+		"AstroPayGatewayResult": "astropay_gateway/astropay_resultswitcher.body.php",
+		"AstroPayAdapter": "astropay_gateway/astropay.adapter.php",
+		"AstroPayFinancialNumbers": "astropay_gateway/AstroPayFinancialNumbers.php",
+		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
+		"DummyFiscalNumber": "astropay_gateway/DummyFiscalNumber.php",
+		"CleanupRecurringLength": "paypal_gateway/CleanupRecurringLength.php",
+		"PaypalExpressAdapter": "paypal_gateway/express_checkout/paypal_express.adapter.php",
+		"PaypalExpressGateway": "paypal_gateway/express_checkout/paypal_express_gateway.body.php",
+		"PaypalExpressGatewayResult": "paypal_gateway/express_checkout/paypal_express_resultswitcher.body.php",
+		"PaypalExpressReturnUrl": "paypal_gateway/express_checkout/PaypalExpressReturnUrl.php",
+		"PaypalLegacyAdapter": "paypal_gateway/legacy/paypal_legacy.adapter.php",
+		"PaypalLegacyGateway": "paypal_gateway/legacy/paypal_legacy_gateway.body.php",
+		"PaypalLegacyLocale": "paypal_gateway/legacy/PaypalLegacyLocale.php",
+		"WorldpayGateway": "worldpay_gateway/worldpay_gateway.body.php",
+		"WorldpayGatewayResult": "worldpay_gateway/worldpay_resultswitcher.body.php",
+		"WorldpayAdapter": "worldpay_gateway/worldpay.adapter.php",
+		"WorldpayAccountName": "worldpay_gateway/WorldpayAccountName.php",
+		"WorldpayCurrency": "worldpay_gateway/WorldpayCurrency.php",
+		"WorldpayEmail": "worldpay_gateway/WorldpayEmail.php",
+		"WorldpayMethodCodec": "worldpay_gateway/WorldpayMethodCodec.php",
+		"WorldpayNarrativeStatement": "worldpay_gateway/WorldpayNarrativeStatement.php",
+		"WorldpayReturnto": "worldpay_gateway/WorldpayReturnto.php",
+		"WorldpayRoutingInfo": "worldpay_gateway/WorldpayRoutingInfo.php",
+		"WorldpayValidateApi": "worldpay_gateway/worldpay.api.php",
+		"Gateway_Extras": "extras/extras.body.php",
+		"FraudFilter": "extras/FraudFilter.php",
+		"Gateway_Extras_CustomFilters": "extras/custom_filters/custom_filters.body.php",
+		"Gateway_Extras_ConversionLog": "extras/conversion_log/conversion_log.body.php",
+		"Gateway_Extras_CustomFilters_MinFraud": "extras/custom_filters/filters/minfraud/minfraud.body.php",
+		"Gateway_Extras_CustomFilters_Referrer": "extras/custom_filters/filters/referrer/referrer.body.php",
+		"Gateway_Extras_CustomFilters_Source": "extras/custom_filters/filters/source/source.body.php",
+		"Gateway_Extras_CustomFilters_Functions": "extras/custom_filters/filters/functions/functions.body.php",
+		"Gateway_Extras_CustomFilters_IP_Velocity": "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php",
+		"BannerHistoryLogIdProcessor": "extras/banner_history/BannerHistoryLogIdProcessor.php",
+		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
+		"GatewayFormChooser": "special/GatewayFormChooser.php",
+		"SystemStatus": "special/SystemStatus.php",
+		"DonationApi": "gateway_common/donation.api.php"
+	},
+	"ResourceModules": {
+		"iframe.liberator": {
+			"scripts": "modules/iframe.liberator.js",
+			"position": "top"
+		},
+		"donationInterface.skinOverride": {
+			"scripts": "modules/js/skinOverride.js",
+			"styles": [
+				"modules/css/gateway.css",
+				"modules/css/skinOverride.css"
+			],
+			"position": "top"
+		},
+		"jquery.payment": {
+			"scripts": "modules/jquery.payment/jquery.payment.js"
+		},
+		"ext.donationInterface.currencyRates": {
+			"class": "CurrencyRatesModule"
+		},
+		"ext.donationInterface.validation": {
+			"scripts": [
+				"modules/js/mailcheck.js",
+				"modules/js/ext.donationInterface.validation.js"
+			],
+			"dependencies": "di.form.core.validate",
+			"messages": [
+				"donate_interface-did-you-mean"
+			]
+		},
+		"ext.donationInterface.forms": {
+			"scripts": "modules/js/ext.donationInterface.forms.js",
+			"dependencies": "ext.donationInterface.validation"
+		},
+		"ext.donationinterface.mustache.styles": {
+			"styles": "gateway_forms/mustache/forms.css",
+			"position": "top"
+		},
+		"ext.donationinterface.adyen.scripts": {
+			"scripts": "adyen_gateway/forms/js/adyen.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationinterface.worldpay.esopjs": {
+			"scripts": "worldpay_gateway/forms/js/esop.js",
+			"dependencies": "di.form.core.validate",
+			"messages": [
+				"donate_interface-cc-token-expired"
+			]
+		},
+		"ext.donationinterface.amazon.styles": {
+			"styles": "amazon_gateway/amazon.css",
+			"position": "top"
+		},
+		"ext.donationinterface.amazon.scripts": {
+			"scripts": "amazon_gateway/amazon.js",
+			"dependencies": "ext.donationInterface.validation",
+			"messages": [
+				"donate_interface-otherways-short"
+			]
+		},
+		"di.form.rapidhtml.webitects": {
+			"styles": [
+				"gateway_forms/rapidhtml/css/lp1.css",
+				"gateway_forms/rapidhtml/css/webitects.css"
+			],
+			"dependencies": "jquery.ui.accordion"
+		},
+		"di.form.rapidhtml.webitects.ie6": {
+			"styles": "gateway_forms/rapidhtml/css/webitects.ie6.css",
+			"dependencies": "di.form.rapidhtml.webitects"
+		},
+		"di.form.rapidhtml.webitects.2nd": {
+			"styles": "gateway_forms/rapidhtml/css/webitects2nd.css",
+			"dependencies": "di.form.rapidhtml.webitects"
+		},
+		"gc.form.rapidhtml.webitects": {
+			"scripts": "globalcollect_gateway/forms/js/webitects.js",
+			"dependencies": "di.form.rapidhtml.webitects"
+		},
+		"gc.iframe": {
+			"styles": "globalcollect_gateway/forms/css/iframe.css"
+		},
+		"gc.form.rapidhtml.webitects.ie6": {
+			"dependencies": [
+				"di.form.rapidhtml.webitects.ie6",
+				"gc.form.rapidhtml.webitects"
+			]
+		},
+		"gc.form.rapidhtml.webitects.1st": {
+			"scripts": "globalcollect_gateway/forms/js/webitects_2_3step.js",
+			"dependencies": "gc.form.rapidhtml.webitects"
+		},
+		"gc.form.rapidhtml.webitects.2nd": {
+			"scripts": "globalcollect_gateway/forms/js/webitects2nd.js",
+			"dependencies": [
+				"di.form.core.validate",
+				"gc.form.rapidhtml.webitects",
+				"di.form.rapidhtml.webitects.2nd"
+			]
+		},
+		"gc.form.rapidhtml.webitects.2nd.US": {
+			"scripts": "globalcollect_gateway/forms/js/webitects2nd-US.js",
+			"dependencies": [
+				"gc.form.rapidhtml.webitects",
+				"di.form.rapidhtml.webitects.2nd"
+			]
+		},
+		"gc.form.rapidhtml.webitects.bt": {
+			"dependencies": "gc.form.rapidhtml.webitects.2nd"
+		},
+		"gc.form.rapidhtml.webitects.dd": {
+			"scripts": "globalcollect_gateway/forms/js/webitects.bt.js",
+			"dependencies": "gc.form.rapidhtml.webitects.2nd"
+		},
+		"gc.normalinterface": {
+			"scripts": "globalcollect_gateway/forms/js/gc.interface.js"
+		},
+		"gc.form.rapidhtml.cc": {
+			"styles": "globalcollect_gateway/forms/css/gc.css",
+			"scripts": [
+				"globalcollect_gateway/forms/js/gc.js",
+				"globalcollect_gateway/forms/js/gc.cc.js"
+			],
+			"dependencies": [
+				"ext.donationInterface.validation",
+				"mediawiki.Uri",
+				"gc.normalinterface"
+			]
+		},
+		"gc.form.rapidhtml.dd": {
+			"styles": "globalcollect_gateway/forms/css/gc.css",
+			"scripts": "globalcollect_gateway/forms/js/gc.dd.js",
+			"dependencies": "di.form.core.validate"
+		},
+		"gc.form.rapidhtml.ew": {
+			"styles": "globalcollect_gateway/forms/css/gc.css",
+			"scripts": "globalcollect_gateway/forms/js/gc.ew.js",
+			"dependencies": "di.form.core.validate"
+		},
+		"gc.form.rapidhtml.boletos": {
+			"styles": "globalcollect_gateway/forms/css/gc.css",
+			"scripts": "globalcollect_gateway/forms/js/gc.boletos.js",
+			"dependencies": "di.form.core.validate"
+		},
+		"gc.form.rapidhtml.rtbt": {
+			"styles": "globalcollect_gateway/forms/css/gc.css",
+			"dependencies": [
+				"di.form.core.validate",
+				"mediawiki.Uri",
+				"gc.form.rapidhtml.webitects.bt"
+			]
+		},
+		"ext.donationinterface.worldpay.styles": {
+			"styles": [
+				"worldpay_gateway/forms/css/worldpay.css",
+				"worldpay_gateway/forms/css/bootstrap.css"
+			],
+			"position": "top"
+		},
+		"ext.donationinterface.worldpay.code": {
+			"scripts": "worldpay_gateway/forms/js/worldpay.js",
+			"dependencies": [
+				"di.form.core.validate",
+				"jquery.payment"
+			]
+		},
+		"basicDonationForm": {
+			"scripts": "gateway_forms/rapidhtml/js/basicForm.js"
+		},
+		"ext.donationInterface.errorMessages": {
+			"messages": [
+				"donate_interface-noscript-msg",
+				"donate_interface-noscript-redirect-msg",
+				"donate_interface-error-msg-general",
+				"donate_interface-error-msg",
+				"donate_interface-error-msg-js",
+				"donate_interface-error-msg-validation",
+				"donate_interface-error-msg-invalid-amount",
+				"donate_interface-error-msg-invalid-email",
+				"donate_interface-error-msg-card-num",
+				"donate_interface-error-msg-amex",
+				"donate_interface-error-msg-mc",
+				"donate_interface-error-msg-visa",
+				"donate_interface-error-msg-discover",
+				"donate_interface-error-msg-amount",
+				"donate_interface-error-msg-email",
+				"donate_interface-error-msg-fiscal_number",
+				"donate_interface-error-msg-fname",
+				"donate_interface-error-msg-lname",
+				"donate_interface-error-msg-street",
+				"donate_interface-error-msg-city",
+				"donate_interface-error-msg-state",
+				"donate_interface-error-msg-zip",
+				"donate_interface-error-msg-postal",
+				"donate_interface-error-msg-country",
+				"donate_interface-error-msg-card_type",
+				"donate_interface-error-msg-card_num",
+				"donate_interface-error-msg-expiration",
+				"donate_interface-error-msg-cvv",
+				"donate_interface-error-msg-fiscal_number",
+				"donate_interface-error-msg-captcha",
+				"donate_interface-error-msg-captcha-please",
+				"donate_interface-error-msg-cookies",
+				"donate_interface-error-msg-account_name",
+				"donate_interface-error-msg-account_number",
+				"donate_interface-error-msg-authorization_id",
+				"donate_interface-error-msg-bank_check_digit",
+				"donate_interface-error-msg-bank_code",
+				"donate_interface-error-msg-branch_code",
+				"donate_interface-smallamount-error",
+				"donate_interface-donor-fname",
+				"donate_interface-donor-lname",
+				"donate_interface-donor-street",
+				"donate_interface-donor-city",
+				"donate_interface-donor-state",
+				"donate_interface-donor-zip",
+				"donate_interface-donor-postal",
+				"donate_interface-donor-country",
+				"donate_interface-donor-email",
+				"donate_interface-donor-fiscal_number",
+				"donate_interface-state-province",
+				"donate_interface-cvv-explain"
+			]
+		},
+		"di.form.core.validate": {
+			"scripts": "modules/validate_input.js",
+			"dependencies": [
+				"ext.donationInterface.currencyRates",
+				"ext.donationInterface.errorMessages"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteExtPath": "DonationInterface"
+	},
+	"Hooks": {
+		"GatewayReady": [
+			"BannerHistoryLogIdProcessor::onGatewayReady",
+			"Gateway_Extras_CustomFilters::onGatewayReady"
+		],
+		"GatewayValidate": [
+			"Gateway_Extras_CustomFilters::onValidate"
+		],
+		"GatewayCustomFilter": [
+			"Gateway_Extras_CustomFilters_Functions::onFilter",
+			"Gateway_Extras_CustomFilters_MinFraud::onFilter",
+			"Gateway_Extras_CustomFilters_IP_Velocity::onFilter"
+		],
+		"GatewayInitialFilter": [
+			"Gateway_Extras_CustomFilters_Referrer::onInitialFilter",
+			"Gateway_Extras_CustomFilters_Source::onInitialFilter",
+			"Gateway_Extras_CustomFilters_Functions::onInitialFilter",
+			"Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter"
+		],
+		"GatewayPostProcess": [
+			"Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess",
+			"Gateway_Extras_ConversionLog::onPostProcess"
+		],
+		"DonationInterfaceProcessorApiCall": [
+			"Gateway_Extras_SessionVelocityFilter::onProcessorApiCall"
+		],
+		"UnitTestsList": [
+			"DonationInterface::onDonationInterfaceUnitTests"
+		]
+	},
+	"config": {
+		"DonationInterfaceTest": false,
+		"DonationInterfaceAppealWikiTemplate": "LanguageSwitch|2011FR/$appeal/text|$language",
+		"DonationInterfaceDefaultAppeal": "JimmyQuote",
+		"DonationInterfaceProblemsURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&language=$language&country=$country",
+		"DonationInterfaceOtherWaysURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country",
+		"DonationInterfaceFaqURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country",
+		"DonationInterfaceTaxURL": "https://wikimediafoundation.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=$language&country=$country",
+		"DonationInterfaceProblemsEmail": "problemsdonating@wikimedia.org",
+		"DonationInterfaceDefaultEmail": "nobody@wikimedia.org",
+		"DonationInterfaceDebugLog": false,
+		"DonationInterfaceDisplayDebug": false,
+		"DonationInterfaceUseSyslog": false,
+		"DonationInterfaceSaveCommStats": false,
+		"DonationInterfaceTimeout": 5,
+		"DonationInterfaceFallbackCurrency": false,
+		"DonationInterfaceFallbackCurrencyByCountry": false,
+		"DonationInterfaceNotifyOnConvert": true,
+		"DonationInterfaceSalt": null,
+		"DonationInterfaceHeader": null,
+		"DonationInterfaceNoScriptRedirect": null,
+		"DonationInterfacePriceFloor": 1,
+		"DonationInterfacePriceCeiling": 10000,
+		"DonationInterfaceRapidFail": false,
+		"DonationInterfaceThankYouPage": "Donate-thanks",
+		"DonationInterfaceFailPage": "Donate-error",
+		"DonationInterfaceCancelPage": "Donate-cancel",
+		"DonationInterfaceRetryLoopCount": 3,
+		"DonationInterfaceOrphanCron": {
+			"enable": true,
+			"target_execute_time": 300,
+			"max_per_execute": "",
+			"_merge_strategy": "array_plus"
+		},
+		"DonationInterfaceForbiddenCountries": [],
+		"DonationInterface3DSRules": {
+			"INR": [],
+			"_merge_strategy": "array_plus"
+		},
+		"GlobalCollectGatewayTestingURL": "https://ps.gcsip.nl/wdl/wdl",
+		"GlobalCollectGatewayURL": "https://ps.gcsip.nl/wdl/wdl",
+		"GlobalCollectGatewayCvvMap": {
+			"M": true,
+			"N": false,
+			"P": true,
+			"S": false,
+			"U": true,
+			"Y": false,
+			"0": true,
+			"": false,
+			"_merge_strategy": "array_plus"
+		},
+		"GlobalCollectGatewayAvsMap": {
+			"A": 50,
+			"B": 50,
+			"C": 50,
+			"D": 0,
+			"E": 100,
+			"F": 0,
+			"G": 50,
+			"I": 50,
+			"M": 0,
+			"N": 100,
+			"P": 50,
+			"R": 100,
+			"S": 50,
+			"U": 50,
+			"W": 50,
+			"X": 0,
+			"Y": 0,
+			"Z": 50,
+			"0": 25,
+			"": 100,
+			"_merge_strategy": "array_plus"
+		},
+		"AmazonGatewayLoginScript": "https://api-cdn.amazon.com/sdk/login1.js",
+		"PaypalGatewayURL": "https://www.paypal.com/cgi-bin/webscr",
+		"PaypalGatewayTestingURL": "https://www.sandbox.paypal.com/cgi-bin/webscr",
+		"PaypalGatewayRecurringLength": "0",
+		"PaypalGatewayXclickCountries": [],
+		"PaypalExpressGatewayCertificateURL": "https://api.paypal.com/nvp",
+		"PaypalExpressGatewaySignatureURL": "https://api-3t.paypal.com/nvp",
+		"PaypalExpressGatewayTestingCertificateURL": "https://api.sandbox.paypal.com/nvp",
+		"PaypalExpressGatewayTestingSignatureURL": "https://api-3t.sandbox.paypal.com/nvp",
+		"AdyenGatewayURL": "https://live.adyen.com",
+		"AdyenGatewayTestingURL": "https://test.adyen.com",
+		"AdyenGatewayMaxRiskScore": 95,
+		"AstroPayGatewayURL": "https://astropaycard.com/",
+		"AstroPayGatewayTestingURL": "https://sandbox.astropaycard.com/",
+		"WorldpayGatewayURL": "https://some.url.here",
+		"WorldpayGatewayNoFraudIntegrationTest": false,
+		"WorldpayGatewayTokenTimeout": "1800000",
+		"WorldpayGatewayCvvMap": {
+			"0": false,
+			"1": true,
+			"2": false,
+			"3": false,
+			"4": false,
+			"5": false,
+			"6": false,
+			"7": false,
+			"8": false,
+			"9": false,
+			"": false,
+			"_merge_strategy": "array_plus"
+		},
+		"WorldpayGatewayAvsAddressMap": {
+			"0": 50,
+			"1": 0,
+			"2": 12,
+			"3": 50,
+			"4": 12,
+			"9": 12,
+			"": 50,
+			"_merge_strategy": "array_plus"
+		},
+		"WorldpayGatewayAvsZipMap": {
+			"0": 50,
+			"1": 0,
+			"2": 12,
+			"3": 0,
+			"4": 0,
+			"5": 12,
+			"9": 12,
+			"": 50,
+			"_merge_strategy": "array_plus"
+		},
+		"DonationInterfaceDefaultQueueServer": {
+			"type": "PHPQueue\\Backend\\Stomp",
+			"uri": "tcp://localhost:61613",
+			"read_timeout": "1",
+			"expiry": "30 days",
+			"_merge_strategy": "array_plus"
+		},
+		"DonationInterfaceQueues": {
+			"completed": [],
+			"pending": [],
+			"payments-antifraud": [],
+			"payments-init": [],
+			"banner-history": [],
+			"_merge_strategy": "array_plus"
+		},
+		"DonationInterfaceCustomFiltersActionRanges": {
+			"process": [
+				0,
+				100
+			],
+			"review": [
+				-1,
+				-1
+			],
+			"challenge": [
+				-1,
+				-1
+			],
+			"reject": [
+				-1,
+				-1
+			],
+			"_merge_strategy": "array_plus_2d"
+		},
+		"DonationInterfaceCustomFiltersRiskScore": 0,
+		"MinFraudLicenseKey": "",
+		"DonationInterfaceMinFraudActionRanges": {
+			"process": [
+				0,
+				100
+			],
+			"review": [
+				-1,
+				-1
+			],
+			"challenge": [
+				-1,
+				-1
+			],
+			"reject": [
+				-1,
+				-1
+			],
+			"_merge_strategy": "array_plus_2d"
+		},
+		"DonationInterfaceMinFraudServers": [],
+		"MinFraudTimeout": 2,
+		"DonationInterfaceMinFraudAlarmLimit": 25000,
+		"DonationInterfaceCustomFiltersRefRules": [],
+		"DonationInterfaceCustomFiltersSrcRules": [],
+		"DonationInterfaceCustomFiltersFunctions": [],
+		"DonationInterfaceNameFilterRules": [],
+		"DonationInterfaceMemcacheHost": "localhost",
+		"DonationInterfaceMemcachePort": "11211",
+		"DonationInterfaceIPVelocityFailScore": 100,
+		"DonationInterfaceIPVelocityTimeout": 300,
+		"DonationInterfaceIPVelocityThreshhold": 3,
+		"DonationInterfaceSessionVelocity_HitScore": 10,
+		"DonationInterfaceSessionVelocity_DecayRate": 1,
+		"DonationInterfaceSessionVelocity_Threshold": 50,
+		"DonationInterfaceSessionVelocity_Multiplier": 1,
+		"DonationInterfaceCountryMap": [],
+		"DonationInterfaceEmailDomainMap": [],
+		"DonationInterfaceUtmCampaignMap": [],
+		"DonationInterfaceUtmMediumMap": [],
+		"DonationInterfaceUtmSourceMap": [],
+		"DonationInterfaceEnableQueue": false,
+		"DonationInterfaceEnableConversionLog": false,
+		"DonationInterfaceEnableMinfraud": false,
+		"GlobalCollectGatewayEnabled": false,
+		"AmazonGatewayEnabled": false,
+		"AdyenGatewayEnabled": false,
+		"AstroPayGatewayEnabled": false,
+		"PaypalGatewayEnabled": false,
+		"PaypalExpressGatewayEnabled": false,
+		"WorldpayGatewayEnabled": false,
+		"DonationInterfaceEnableCustomFilters": true,
+		"DonationInterfaceEnableFormChooser": false,
+		"DonationInterfaceEnableReferrerFilter": false,
+		"DonationInterfaceEnableSourceFilter": false,
+		"DonationInterfaceEnableFunctionsFilter": false,
+		"DonationInterfaceEnableIPVelocityFilter": false,
+		"DonationInterfaceEnableSessionVelocityFilter": false,
+		"DonationInterfaceEnableSystemStatus": false,
+		"DonationInterfaceGatewayAdapters": [
+			"GlobalCollectAdapter",
+			"AmazonAdapter",
+			"AdyenAdapter",
+			"AstroPayAdapter",
+			"PaypalExpressAdapter",
+			"PaypalLegacyAdapter",
+			"WorldpayAdapter"
+		],
+		"DonationInterfaceAllowedHtmlForms": []
+	},
+	"manifest_version": 1
+}

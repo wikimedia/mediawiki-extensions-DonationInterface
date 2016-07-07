@@ -1,8 +1,10 @@
 # Core
 - DonorEmail
-- AmountInCents
 - StreetAddress
 # Adyen-specific
+- AmountInMinorUnits
 - FullNameWithExceptions
 - DonorLocale
 - RiskScore
+# Signature should always come last
+- AdyenHostedSignature

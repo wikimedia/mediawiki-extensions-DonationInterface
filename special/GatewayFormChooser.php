@@ -157,11 +157,17 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 			// FIXME: We aren't doing ucfirst, more like camlcase.  Kludge like hell:
 			switch ( $gateway ) {
+				case 'astropay':
+					$specialpage = 'AstroPayGateway';
+					break;
 				case 'globalcollect':
 					$specialpage = 'GlobalCollectGateway';
 					break;
-				case 'worldpay':
-					$specialpage = 'WorldpayGateway';
+				case 'paypal':
+					$specialpage = 'PaypalLegacyGateway';
+					break;
+				case 'paypal_ec':
+					$specialpage = 'PaypalExpressGateway';
 					break;
 				default:
 					$specialpage = ucfirst( $gateway ) . "Gateway";

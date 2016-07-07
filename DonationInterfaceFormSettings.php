@@ -1,5 +1,5 @@
 <?php
-
+global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceFormDirs;
 /**
  * Some setup vars to make our lives a little easier.
  * These are unset at the end of the file.

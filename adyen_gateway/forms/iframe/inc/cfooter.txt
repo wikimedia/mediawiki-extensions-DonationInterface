@@ -1,0 +1,29 @@
+</div>
+<script type="text/javascript">
+
+var cvvInput = document.getElementById( 'card.cvcCode' ),
+	cardInput = document.getElementById( 'card.cardNumber' ),
+	expMonthSelect = document.getElementById( 'card.expiryMonth' ),
+	expYearSelect = document.getElementById( 'card.expiryYear' );
+
+if ( cvvInput ) {
+	cvvInput.setAttribute( 'maxlength', 4 );
+	cvvInput.setAttribute( 'inputmode', 'numeric' );
+	cvvInput.setAttribute( 'x-inputmode', 'numeric' );
+	cvvInput.setAttribute( 'autocomplete', 'cc-csc' );
+}
+
+if ( cardInput ) {
+	cardInput.setAttribute( 'inputmode', 'numeric' );
+	cardInput.setAttribute( 'x-inputmode', 'numeric' );
+	cardInput.setAttribute( 'autocomplete', 'cc-number' );
+}
+
+if ( expMonthSelect ) {
+	expMonthSelect.setAttribute( 'autocomplete', 'cc-exp-month' );
+}
+
+if ( expYearSelect ) {
+	expYearSelect.setAttribute( 'autocomplete', 'cc-exp-year' );
+}
+</script>
