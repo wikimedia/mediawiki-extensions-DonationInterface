@@ -954,6 +954,17 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
+	 * Returns an array of names of fields we store in session
+	 */
+	public static function getSessionFields() {
+		$fields = self::getMessageFields();
+		$fields[] = 'order_id';
+		$fields[] = 'appeal';
+		$fields[] = 'referrer';
+		return $fields;
+	}
+
+	/**
 	 * Basically, this is a wrapper for the WebRequest wasPosted function that
 	 * won't give us notices if we weren't even a web request.
 	 * I realize this is pretty lame.

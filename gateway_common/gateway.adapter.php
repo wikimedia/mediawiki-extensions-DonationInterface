@@ -2796,13 +2796,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function session_addDonorData() {
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
 		$this->session_ensure();
-		$donordata = DonationData::getMessageFields();
-		$donordata[] = 'order_id';
-		$donordata[] = 'appeal';
+		$sessionFields = DonationData::getSessionFields();
 
 		$data = array();
-		foreach ( $donordata as $item ) {
-			$data[$item] = $this->getData_Unstaged_Escaped( $item );
+		foreach ( $sessionFields as $field ) {
+			$data[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
 		$this->request->setSessionData( 'Donor', $data );
 	}
