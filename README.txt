@@ -89,6 +89,9 @@ $wgDonationInterfaceTaxURL = 'https://wikimediafoundation.org/wiki/Special:Landi
 Email address donors should contact with any donation-related problems
 $wgDonationInterfaceProblemsEmail = 'problemsdonating@wikimedia.org'
 
+Email address donors should contact with donations too big to process online
+$wgDonationInterfaceMajorGiftsEmail = 'benefactors@wikimedia.org';
+
 The full URL for Javascript-disabled credit card form redirect
 $wgDonationInterfaceNoScriptRedirect = null
 

@@ -25,10 +25,6 @@ class DataValidator {
 	 */
 	public static function getErrorToken( $field ){
 		switch ( $field ) {
-			case 'amountGiven' :
-			case 'amountOther' :
-				$error_token = 'amount';
-				break;
 			case 'email' :
 			case 'amount' :
 			case 'currency_code' :
@@ -138,14 +134,7 @@ class DataValidator {
 			//getErrorToken is actually for something entirely different:
 			//Figuring out where on the form the error should land.
 			$token = self::getErrorToken( $field );
-			switch ( $token ) {
-				case 'amount':
-					$error_key_calc = 'donate_interface-error-msg-invalid-amount';
-					break;
-				default:
-					$error_key_calc = 'donate_interface-error-msg-' . $token . '-calc';
-					break;
-			}
+			$error_key_calc = 'donate_interface-error-msg-' . $token . '-calc';
 
 			if ( $type === 'calculated' ){
 				// try for the special "calculated" error message.
@@ -204,7 +193,6 @@ class DataValidator {
 		// Define all default validations.
 		$validations = array(
 			'not_empty' => array(
-				'amount' => 'validate_non_zero',
 				'country',
 				'currency_code',
 				'gateway',
@@ -212,9 +200,6 @@ class DataValidator {
 			'valid_type' => array(
 				'_cache_' => 'validate_boolean',
 				'account_number' => 'validate_numeric',
-				'amount' => 'validate_numeric',
-				'amountGiven' => 'validate_numeric',
-				'amountOther' => 'validate_numeric',
 				'anonymous' => 'validate_boolean',
 				'contribution_tracking_id' => 'validate_numeric',
 				'currency_code' => 'validate_alphanumeric',
@@ -236,10 +221,6 @@ class DataValidator {
 				'fname' => 'validate_name',
 				'lname' => 'validate_name',
 				'name' => 'validate_name',
-
-				// Depends on currency_code and gateway.
-				'amount' => 'validate_amount',
-
 			),
 		);
 
@@ -295,13 +276,6 @@ class DataValidator {
 				$result = null;
 				// Handle special cases.
 				switch ( $validation_function ) {
-					case 'validate_amount':
-						if ( self::checkValidationPassed( array( 'currency_code', 'gateway' ), $results ) ){
-							$priceFloor = $gateway->getGlobal( 'PriceFloor' );
-							$priceCeiling = $gateway->getGlobal( 'PriceCeiling' );
-							$result = call_user_func( $callable, $data[$field], $data['currency_code'], $priceFloor, $priceCeiling );
-						} //otherwise, just don't do the validation. The other stuff will be complaining already.
-						break;
 					case 'validate_currency_code':
 						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies( $data ) );
 						break;
@@ -357,31 +331,6 @@ class DataValidator {
 	protected static function validate_email( $value ) {
 		return WmfFramework::validateEmail( $value )
 			&& !DataValidator::cc_number_exists_in_str( $value );
-	}
-
-	/**
-	 * validate_amount
-	 *
-	 * Determines if the $value passed in is a valid amount.
-	 * @param string $value The piece of data that is supposed to be an amount.
-	 * @param string $currency_code The amount was given in this currency.
-	 * @param float $priceFloor Minimum valid amount (USD).
-	 * @param float $priceCeiling Maximum valid amount (USD).
-	 *
-	 * @return boolean True if $value is a valid amount, otherwise false.
-	 */
-	protected static function validate_amount( $value, $currency_code, $priceFloor, $priceCeiling ) {
-		if ( !$value || !$currency_code || !is_numeric( $value ) ) {
-			return false;
-		}
-
-		if ( !preg_match( '/^\d+(\.(\d+)?)?$/', $value ) ||
-			( ( float ) self::convert_to_usd( $currency_code, $value ) < ( float ) $priceFloor ||
-			( float ) self::convert_to_usd( $currency_code, $value ) > ( float ) $priceCeiling ) ) {
-			return false;
-		}
-
-		return true;
 	}
 
 	protected static function validate_currency_code( $value, $acceptedCurrencies ) {
@@ -567,22 +516,6 @@ class DataValidator {
 	}
 
 	/**
-	 * Checks to make sure that the $value is present in the $data array, and not equivalent to zero.
-	 * @param string $value The value to check for non-zeroness.
-	 * @param array $data The whole data set.
-	 * @return boolean True if the $value is not missing or zero, otherwise false.
-	 */
-	public static function validate_non_zero( $value ) {
-		if ( $value === null || $value === ''
-			|| preg_match( '/^0+(\.0+)?$/', $value )
-		) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Analyzes a string to see if any credit card numbers are hiding out in it
 	 *
 	 * @param $str
@@ -671,36 +604,6 @@ EOT;
 		}
 		return( ( $sum % 10 ) == 0 );
 	}
-
-	/**
-	 * Convert an amount for a particular currency to an amount in USD
-	 *
-	 * This is grosley rudimentary and likely wildly inaccurate.
-	 * This mimicks the hard-coded values used by the WMF to convert currencies
-	 * for validatoin on the front-end on the first step landing pages of their
-	 * donation process - the idea being that we can get a close approximation
-	 * of converted currencies to ensure that contributors are not going above
-	 * or below the price ceiling/floor, even if they are using a non-US currency.
-	 *
-	 * In reality, this probably ought to use some sort of webservice to get real-time
-	 * conversion rates.
-	 *
-	 * @param string $currency_code
-	 * @param float $amount
-	 * @return float
-	 * @throws UnexpectedValueException
-	 */
-	public static function convert_to_usd( $currency_code, $amount ) {
-		$rates = CurrencyRates::getCurrencyRates();
-		$code = strtoupper( $currency_code );
-		if ( array_key_exists( $code, $rates ) ) {
-			$usd_amount = $amount / $rates[$code];
-		} else {
-			throw new UnexpectedValueException( 'Bad programmer!  Bad currency made it too far through the portcullis' );
-		}
-		return $usd_amount;
-	}
-
 
 	/**
 	 * Calculates and returns the card type for a given credit card number.
@@ -832,39 +735,6 @@ EOT;
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * More of a validation helper function. If an amount is ever expressed for
-	 * the fractional currencies defined in this function,
-	 * they should not have an associated fractional amount (so: full integers only).
-	 * @param string $currency_code The three-digit currency code.
-	 * @return boolean
-	 */
-	public static function is_fractional_currency( $currency_code ){
-		// these currencies cannot have cents.
-		$non_fractional_currencies = array( 'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF' );
-
-		if ( in_array( strtoupper( $currency_code ), $non_fractional_currencies ) ) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Checks if ISO 4217 defines the currency's minor units as being expressed using
-	 * exponent 3 (three decimal places).
-	 * @param string $currency_code The three-character currency code.
-	 * @return boolean
-	 */
-	public static function is_exponent3_currency( $currency_code ){
-
-		$exponent3_currencies = array( 'BHD', 'CLF', 'IQD', 'KWD', 'LYD', 'MGA', 'MRO', 'OMR', 'TND' );
-
-		if ( in_array( strtoupper( $currency_code ), $exponent3_currencies ) ) {
-			return true;
-		}
-		return false;
 	}
 
 	/**

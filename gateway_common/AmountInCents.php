@@ -11,16 +11,17 @@
  */
 class AmountInCents implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		if ( empty( $normalized['amount'] ) || empty( $normalized['currency_code'] ) ) {
+		if (
+			empty( $normalized['amount'] ) ||
+			empty( $normalized['currency_code'] ) ||
+			!is_numeric( $normalized['amount'] )
+		) {
 			//can't do anything with amounts at all. Just go home.
 			unset( $stagedData['amount'] );
 			return;
 		}
 
-		$amount = $normalized['amount'];
-		if ( !DataValidator::is_fractional_currency( $normalized['currency_code'] ) ) {
-			$amount = floor( $amount );
-		}
+		$amount = Amount::round( $normalized['amount'], $normalized['currency_code'] );
 
 		$stagedData['amount'] = $amount * 100;
 	}

@@ -1,7 +1,9 @@
 # Skip AmountInCents.
+- Amount
 - AstroPayFinancialNumbers
 - AstroPayMethodCodec
 - FiscalNumber
+- DonorEmail
 - DummyFiscalNumber # see class comment
 - DonorFullName
 - StreetAddress
