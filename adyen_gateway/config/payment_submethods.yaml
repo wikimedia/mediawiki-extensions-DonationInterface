@@ -28,10 +28,6 @@ mc:
     logo: card-mc.png
 amex:
     countries:
-        FR: true
-        IL: true
-        JP: true
-        UA: true
         US: true
     group: cc
     logo: card-amex.png
