@@ -1,5 +1,6 @@
 {
 	"name": "wikimedia/donation-interface",
+	"type": "mediawiki-extension",
 	"description": "Wikimedia Foundation payment processing library",
 	"license": "GPL-2.0",
 	"support": {
@@ -19,6 +20,7 @@
 	},
 	"require": {
 		"coderkungfu/php-queue": "dev-master",
+		"composer/installers": ">=1.0.1",
 		"fusesource/stomp-php": "2.1.*",
 		"minfraud/http": "^1.70",
 		"monolog/monolog": "~1.18.2",
