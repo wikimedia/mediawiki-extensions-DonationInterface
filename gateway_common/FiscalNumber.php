@@ -56,10 +56,11 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 	/**
 	 * Rudimentary tests of fiscal number format for different countries
 	 *
+	 * @param GatewayType $unused
 	 * @param array $normalized Normalized donation data
 	 * @param array $errors Results of validation to this point
 	 */
-	public function validate( $normalized, &$errors ) {
+	public function validate( GatewayType $unused, $normalized, &$errors ) {
 		if (
 			!isset( $normalized['country'] ) ||
 			!isset( $normalized[self::$key] )

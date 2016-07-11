@@ -17,9 +17,9 @@ class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 		}
 
 		$amount = $normalized['amount'];
-		if ( DataValidator::is_exponent3_currency( $normalized['currency_code'] ) ) {
+		if ( Amount::is_exponent3_currency( $normalized['currency_code'] ) ) {
 			$stagedData['amount'] = $amount * 1000;
-		} elseif ( DataValidator::is_fractional_currency( $normalized['currency_code'] ) ) {
+		} elseif ( Amount::is_fractional_currency( $normalized['currency_code'] ) ) {
 			$stagedData['amount'] = $amount * 100;
 		} else {
 			$amount = floor( $amount );
@@ -29,9 +29,9 @@ class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
-		if ( DataValidator::is_exponent3_currency( $stagedData['currency_code'] ) ) {
+		if ( Amount::is_exponent3_currency( $stagedData['currency_code'] ) ) {
 			$unstagedData['amount'] = $stagedData['amount'] / 1000;
-		} elseif ( DataValidator::is_fractional_currency( $stagedData['currency_code'] ) ) {
+		} elseif ( Amount::is_fractional_currency( $stagedData['currency_code'] ) ) {
 			$unstagedData['amount'] = $stagedData['amount'] / 100;
 		} else {
 			$unstagedData['amount'] = $stagedData['amount'];
