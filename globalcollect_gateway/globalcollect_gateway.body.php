@@ -147,7 +147,7 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::closeElement ( 'tr' );
 		$return .= Xml::openElement ( 'tr' );
 		$return .= Xml::openElement( 'td' );
-		$scriptPath = $this->context->getConfig()->get( 'ScriptPath' );
+		$scriptPath = $this->getConfig()->get( 'ScriptPath' );
 		$return .= Xml::element( 'img', array( 'src' => $scriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
 		$return .= Xml::closeElement ( 'td' );
 		$return .= Xml::openElement ( 'td' );

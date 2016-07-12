@@ -29,6 +29,8 @@ mc:
 amex:
     countries:
         US: true
+        IL: true
+        UA: true
     group: cc
     logo: card-amex.png
 discover:

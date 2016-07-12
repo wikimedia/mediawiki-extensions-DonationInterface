@@ -38,5 +38,9 @@
 			"type": "git",
 			"url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php"
 		}
-	]
+	],
+	"config": {
+		"optimize-autoloader": true,
+		"prepend-autoloader": false
+	}
 }
