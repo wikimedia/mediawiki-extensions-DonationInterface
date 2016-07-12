@@ -127,6 +127,10 @@ configuration.
 
 $wgDonationInterfaceDebugLog = false
 
+Use sparingly, preferably for a single gateway.  When true, log verbose
+cURL output (including IPs resolved) at info level.
+
+$wgDonationInterfaceCurlVerboseLog = false
 
 ==== Currency and amounts ====
 
