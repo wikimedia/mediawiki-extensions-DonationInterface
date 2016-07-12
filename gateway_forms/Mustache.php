@@ -108,7 +108,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$redirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
 		$data['no_script_redirect'] = $redirect;
-		$data['has_no_script_redirect'] = isset( $redirect ); // grr
 
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
@@ -124,9 +123,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$submethod['key'] = $key;
 				if ( isset( $submethod['logo'] ) ) {
 					$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/{$submethod['logo']}";
-				}
-				if ( isset( $submethod['sub_text_key'] ) ) {
-					$submethod['has_sub_text'] = true;
 				}
 				$data['submethods'][] = $submethod;
 			}

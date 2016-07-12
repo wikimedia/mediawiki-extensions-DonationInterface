@@ -5,13 +5,13 @@
 {{# show_submethods }}
 										<ul class="options-h enabled {{ button_class }}" id="cards">
 {{# submethods }} {{! TODO: give every submethod a label_key, remove conditionals }}
-                                                <li title="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" {{# has_sub_text }}class="has_sub_text" {{/ has_sub_text}}>
+                                                <li title="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" {{# sub_text_key }}class="has_sub_text" {{/ sub_text_key }}>
                                                 <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
                                                 <label for="submethod-{{ key }}">
                                                     <img alt="{{ label }}" src="{{ logo }}" />
-{{# has_sub_text }}
-                                                    <p class="card_sub_text">{{ l10n sub_text_key }}</p>
-{{/ has_sub_text }}
+{{# sub_text_key }}
+                                                    <p class="card_sub_text">{{ l10n . }}</p>
+{{/ sub_text_key }}
                                                 </label>
                                             </li>
 {{/ submethods }}
