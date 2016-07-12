@@ -32,8 +32,9 @@ class GlobalCollectGateway extends GatewayPage {
 	 */
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
-		// TODO: remove conditional when all is Mustache
-		if( $this->adapter->getPaymentMethod() === 'cc' ) {
+		// TODO: remove conditional when all is Mustache, and move the
+		// addModule to Mustache#getResources
+		if( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
 			$this->getOutput()->addModules( 'ext.donationinterface.ingenico.scripts' );
 		}
 		$this->handleDonationRequest();
