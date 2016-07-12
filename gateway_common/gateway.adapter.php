@@ -164,12 +164,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public $debugarray;
 
 	/**
-	 * @var resource When CurlVerboseLog is set, we write debugging info to
-	 * this file.
-	 */
-	protected $curl_debug_log;
-
-	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than
 	 * WebRequest->wasPosted(), as something else could have posted to us.
 	 * @var boolean
@@ -1179,6 +1173,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//I chose to return this as a function so it's easy to override.
 		//TODO: probably this for all the junk I currently have stashed in the constructor.
 		//...maybe.
+
 		$path = $this->transaction_option( 'path' );
 		if ( !$path ) {
 			$path = '';
@@ -1194,13 +1189,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			CURLOPT_SSL_VERIFYHOST => 2,
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_POST => 1,
+			CURLOPT_VERBOSE => true
 		);
-
-		if ( $this->getGlobal( 'CurlVerboseLog' ) ) {
-			$this->curl_debug_log = fopen('php://temp', 'r+');
-			$opts[CURLOPT_VERBOSE] = true;
-			$opts[CURLOPT_STDERR] = $this->curl_debug_log;
-		}
 
 		return $opts;
 	}
@@ -1325,6 +1315,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
 
+		// Always capture the cURL output
+		$curlDebugLog = fopen( 'php://temp', 'r+' );
+		$curl_opts[CURLOPT_STDERR] = $curlDebugLog;
+		$enableCurlVerboseLogging = $this->getGlobal( 'CurlVerboseLog' );
+
 		curl_setopt_array( $ch, $curl_opts );
 
 		// As suggested in the PayPal developer forum sample code, try more than once to get a
@@ -1340,8 +1335,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// Execute the cURL operation
 			$curl_response = $this->curl_exec( $ch );
 
+			// Always read the verbose output
+			rewind( $curlDebugLog );
+			$logged = fread( $curlDebugLog, 4096 );
+
 			if ( $curl_response !== false ) {
 				// The cURL operation was at least successful, what happened in it?
+				// Only log verbose output on success if configured to do so
+				if ( $enableCurlVerboseLogging ) {
+					$this->logger->info( "cURL verbose logging: $logged" );
+				}
 
 				$headers = $this->curl_getinfo( $ch );
 				$httpCode = $headers['http_code'];
@@ -1385,7 +1388,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$errno = $this->curl_errno( $ch );
 				$err = curl_error( $ch );
 
-				$this->logger->alert( "cURL transaction to $gatewayName failed: ($errno) $err" );
+				$this->logger->alert(
+					"cURL transaction to $gatewayName failed: ($errno) $err.  " .
+					"cURL verbose logging: $logged"
+				);
 			}
 			$tries++;
 			if ( $tries >= $loopCount ) {
@@ -1395,24 +1401,18 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				// If we're going to try again, log timing for this particular curl attempt and reset
 				$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "cURL problems" );
 				$this->profiler->getStopwatch( __FUNCTION__, true );
+				rewind( $curlDebugLog );
 			}
 		} while ( $continue ); // End while cURL transaction hasn't returned something useful
 
 		// Clean up and return
 		curl_close( $ch );
+		fclose( $curlDebugLog );
 		$log_results = array(
 			'result' => $curl_response,
 			'headers' => $headers,
 		);
 		$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
-		if ( $this->curl_debug_log ) {
-			rewind( $this->curl_debug_log );
-			$logged = fread( $this->curl_debug_log, 4096 );
-			$this->logger->info( "cURL verbose logging: " . $logged );
-
-			fclose( $this->curl_debug_log );
-			$this->curl_debug_log = null;
-		}
 
 		return $retval;
 	}
