@@ -86,11 +86,12 @@ window.validateAmount = function () {
 			// newness
 			$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 		} else {
+			// TODO: remove me once RapidHtml is gone.
 			// ugliness
 			alert( message );
 		}
 		error = true;
-		// See if we're on a webitects accordian form
+		// See if we're on a webitects accordion form
 		if ( $( '#step1wrapper' ).length ) {
 			$( '#step1wrapper' ).slideDown();
 			$( '#paymentContinue' ).show();
@@ -108,6 +109,8 @@ window.validateAmount = function () {
 
 /**
  * Validates the personal information fields
+ * FIXME: Bad name, this validates more than just personal info.
+ * Move the good parts to ext.donationInterface.validation.js
  *
  * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
@@ -189,6 +192,7 @@ window.validate_personal = function () {
 	}
 
 	// validate email address
+	// FIXME: replace with regex in wgDonationInterfaceValidationRules
 	$emailAdd = document.getElementById( 'email' );
 	if (
 		$emailAdd &&

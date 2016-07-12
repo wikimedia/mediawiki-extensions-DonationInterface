@@ -12,7 +12,11 @@
 		$( '#payment-form' ).append( $form );
 	}
 
-	di.forms.submit = function () {
-		di.forms.callDonateApi( showIframe );
-	};
+	if ( di.forms.isIframe() ) {
+		di.forms.submit = function () {
+			di.forms.callDonateApi( function ( result ) {
+				showIframe( result );
+			} );
+		};
+	}
 } )( jQuery, mediaWiki );

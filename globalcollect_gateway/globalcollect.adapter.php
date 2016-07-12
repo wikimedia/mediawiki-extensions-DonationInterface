@@ -37,7 +37,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			|| strpos( $ffname, 'maintenance') === 0 ) {
 			return 'MustacheErrorForm';
 		}
-		if ( $this->getPaymentMethod() === 'cc' ) {
+		if (
+			$this->getPaymentMethod() === 'cc' ||
+			$this->getPaymentMethod() === 'rtbt'
+		) {
 			return 'Gateway_Form_Mustache';
 		};
 		return 'Gateway_Form_RapidHtml';

@@ -229,21 +229,22 @@ bpay:
     paymentproductid: 500
     label: 'Online Bank Transfer: Bpay'
     group: obt
+    show_single_logo: true
     validation: {  }
     keys: {  }
-rtbt_nordea_sweden:
-    paymentproductid: 805
-    label: 'Nordea (Sweden)'
-    group: rtbt
-    validation: {  }
-    keys: {  }
+
 rtbt_ideal:
     paymentproductid: 809
-    label: Ideal
+    label: iDEAL
     group: rtbt
-    validation: {  }
+    countries:
+        NL: true
+    validation:
+        issuer_id: true
     keys:
         - ISSUERID
+    logo: iDEAL-klein.gif
+    show_single_logo: true
     issuerids:
         ABNANL2A: ABN Amro
         ASNBNL21: ASN Bank
@@ -256,40 +257,3 @@ rtbt_ideal:
         TRIONL2U: Triodos Bank
         FVLBNL22: Van Lanschot Bankiers
         BUNQNL2A: bunq
-rtbt_enets:
-    paymentproductid: 810
-    label: eNETS
-    group: rtbt
-    validation: {  }
-    keys: {  }
-rtbt_sofortuberweisung:
-    paymentproductid: 836
-    label: Sofortuberweisung/DIRECTebanking
-    group: rtbt
-    validation: {  }
-    keys: {  }
-rtbt_eps:
-    paymentproductid: 856
-    label: 'eps Online-Überweisung'
-    group: rtbt
-    validation: {  }
-    keys:
-        - ISSUERID
-    issuerids:
-        824: 'Bankhaus Spängler'
-        825: 'Hypo Tirol Bank'
-        822: 'NÖ HYPO'
-        823: 'Voralberger HYPO'
-        828: P.S.K.
-        829: Easy
-        826: 'Erste Bank und Sparkassen'
-        827: BAWAG
-        820: Raifeissen
-        821: 'Volksbanken Gruppe'
-        831: Sparda-Bank
-cash_boleto:
-    paymentproductid: 1503
-    label: 'Boleto Bancario Brazil'
-    group: cash
-    keys:
-        - FISCALNUMBER

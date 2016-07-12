@@ -45,6 +45,7 @@
 			payment_method: $( '#payment_method' ).val(),
 			language: $( '#language' ).val(),
 			payment_submethod: $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase(),
+			issuer_id: $( '#issuer_id' ).val(),
 			utm_source: $( '#utm_source' ).val(),
 			utm_campaign: $( '#utm_campaign' ).val(),
 			utm_medium: $( '#utm_medium' ).val(),
@@ -83,13 +84,26 @@
 		} );
 	}
 
+	function isIframe() {
+		var payment_method = $( '#payment_method' ).val();
+
+		switch ( payment_method ) {
+		case 'cc':
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
 		enable: enableForm,
 		// Gateways with more complex form submission can overwrite this
 		// property with their own submission function.
 		submit: submitForm,
-		callDonateApi: callDonateApi
+		callDonateApi: callDonateApi,
+		isIframe: isIframe
 	};
 
 	$( function () {
@@ -100,7 +114,7 @@
 
 		// Submit on submethod click if valid, otherwise show continue button.
 		$( 'input[name="payment_submethod"]' ).on( 'click', function () {
-			if ( di.validation.validateAmount() && di.validation.validatePersonal() ) {
+			if ( di.validation.validate() ) {
 				di.forms.submit();
 			} else {
 				$( '#paymentContinue' ).show();
@@ -108,7 +122,7 @@
 		} );
 
 		$( '#paymentContinueBtn' ).on( 'click', function () {
-			if ( di.validation.validateAmount() && di.validation.validatePersonal() ) {
+			if ( di.validation.validate() ) {
 				di.forms.submit();
 			}
 		} );

@@ -31,7 +31,7 @@ class DonationApi extends ApiBase {
 
 		if ( $this->gateway == 'globalcollect' ) {
 			switch ( $method ) {
-				// TODO: add other payment methods
+				// TODO: add other iframe payment methods
 				case 'cc':
 					$result = $gatewayObj->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 					break;

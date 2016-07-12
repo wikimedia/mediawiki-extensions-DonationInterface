@@ -30,10 +30,25 @@
 	}
 
 	di.validation = {
+		validate: function () {
+			// This funkiness is to make sure we run all the validations and
+			// highlight bad values, rather than short-circuiting the second
+			// group of tests if "&&" detects that the first tests failed.
+			var results = [
+					this.validateAmount(),
+					this.validatePersonal()
+				],
+				// Fail if one or more tests failed.
+				success = ( results.indexOf( false ) === -1 );
+
+			return success;
+		},
+		// FIXME: Move global scope functions here
 		validateAmount: window.validateAmount,
 		validatePersonal: window.validate_personal,
 		showErrors: showErrors
 	};
+
 	// Set up email error detection and correction
 	$( document ).on( 'blur', '#email', function () {
 		$( this ).mailcheck( {

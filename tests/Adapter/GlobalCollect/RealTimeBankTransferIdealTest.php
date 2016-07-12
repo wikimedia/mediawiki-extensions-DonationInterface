@@ -60,8 +60,8 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 				'value' => '1.55',
 			),
 			'currency_code' => array (
-				'nodename' => 'input',
-				'value' => 'EUR',
+				'nodename' => 'select',
+				'selected' => 'EUR',
 			),
 			'country' => array (
 				'nodename' => 'input',
