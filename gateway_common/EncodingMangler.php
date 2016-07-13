@@ -20,14 +20,13 @@
  * Forces the languages of the world to fit into a teensy little codespace
  * so we can send them in ISO-8859-1 encoding.
  * Uses Transliterator if available to turn non-latin characters into something
- * meaningful.  If not available, iconv will just replace em with question marks
+ * meaningful. If not available, iconv will just replace em with question marks
  */
-class EncodingMangler {
-	private static $instance = null;
-	private $use_transliterator = false;
-	private $transliterator;
+class EncodingMangler implements StagingHelper {
+	protected $use_transliterator = false;
+	protected $transliterator;
 
-	private function __construct() {
+	public function __construct() {
 		if ( class_exists( 'Transliterator' ) ) {
 			$this->use_transliterator = true;
 			// Use Any-Latin to munge Cyrillic, Kanji, etc
@@ -36,14 +35,10 @@ class EncodingMangler {
 		}
 	}
 
-	/**
-	 * @return EncodingMangler
-	 */
-	public static function singleton() {
-		if ( self::$instance == null ) {
-			self::$instance = new EncodingMangler();
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		foreach( array_keys( $stagedData ) as $key ) {
+			$stagedData[$key] = $this->transliterate( $stagedData[$key] );
 		}
-		return self::$instance;
 	}
 
 	/**

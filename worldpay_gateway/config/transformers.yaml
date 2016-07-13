@@ -13,3 +13,6 @@
 - WorldpayNarrativeStatement
 - WorldpayReturnto
 - WorldpayRoutingInfo
+
+# Keep the Mangler at the end, as it transcodes all staged data
+- EncodingMangler

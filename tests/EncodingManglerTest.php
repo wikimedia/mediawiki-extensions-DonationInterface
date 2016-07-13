@@ -24,11 +24,20 @@
 class EncodingManglerTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * @var EncodingMangler
+	 */
+	protected $mangler;
+
+	public function setUp() {
+		$this->mangler = new EncodingMangler();
+	}
+
+	/**
 	 * Keep the accented characters that we can represent
 	 */
 	public function testRetainsAccents() {
 		$input = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ';
-		$output = EncodingMangler::singleton()->transliterate( $input );
+		$output = $this->mangler->transliterate( $input );
 		$this->assertEquals( $input, $output );
 	}
 
@@ -36,7 +45,7 @@ class EncodingManglerTest extends PHPUnit_Framework_TestCase {
 	 * Make eastern European characters NATO-friendly
 	 */
 	public function testMangleCzech() {
-		$output = EncodingMangler::singleton()->transliterate( 'ČčŘřŠšŽž' );
+		$output = $this->mangler->transliterate( 'ČčŘřŠšŽž' );
 		$this->assertEquals( 'CcRrSsZz', $output );
 	}
 
@@ -44,7 +53,7 @@ class EncodingManglerTest extends PHPUnit_Framework_TestCase {
 	 * Ditto for Turkish
 	 */
 	public function testMangleTurkish() {
-		$output = EncodingMangler::singleton()->transliterate( 'İĞğŞş' );
+		$output = $this->mangler->transliterate( 'İĞğŞş' );
 		$this->assertEquals( 'IGgSs', $output );
 	}
 
