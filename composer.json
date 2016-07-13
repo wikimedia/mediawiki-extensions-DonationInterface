@@ -11,8 +11,7 @@
 			"amazon_gateway",
 			"gateway_common",
 			"globalcollect_gateway",
-			"paypal_gateway",
-			"worldpay_gateway"
+			"paypal_gateway"
 		],
 		"files": [
 			"gateway_common/WmfFramework.php"

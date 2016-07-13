@@ -26,7 +26,7 @@ module.exports = function ( grunt ) {
 				'gateway_forms/rapidhtml/**/*.js'
 			],
 			tests: 'tests/*/*.js',
-			gateways: '{adyen,amazon,globalcollect,paypal,worldpay}_gateway/forms/**/*.js'
+			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/forms/**/*.js'
 		},
 		jscs: {
 			shared: { src: '<%= jshint.shared %>' },
@@ -35,7 +35,7 @@ module.exports = function ( grunt ) {
 		},
 		banana: {
 			shared: 'gateway_common/i18n/*/',
-			gateways: '{adyen,amazon,globalcollect,paypal,worldpay}_gateway/i18n/'
+			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/i18n/'
 		},
 		watch: {
 			files: [
