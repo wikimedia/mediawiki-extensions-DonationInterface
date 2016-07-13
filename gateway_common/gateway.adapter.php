@@ -3750,15 +3750,30 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @see ClientSideValidationHelper::getClientSideValidation
 	 */
 	protected function getClientSideValidationRules() {
-		$allRules = array();
+		$language = $this->getData_Unstaged_Escaped( 'language' );
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		// Start with the server required field validations.
+		$requiredRules = array();
+		foreach ( $this->getRequiredFields() as $field ) {
+			$requiredRules[$field] = array(
+				array(
+					'required' => true,
+					'message' => DataValidator::getErrorMessage(
+						$field, 'not_empty', $language, $country
+					)
+				)
+			);
+		};
+
+		$transformerRules = array();
 		foreach ( $this->data_transformers as $transformer ) {
 			if ( $transformer instanceof ClientSideValidationHelper ) {
 				$transformer->getClientSideValidation(
 					$this->unstaged_data,
-					$allRules
+					$transformerRules
 				);
 			}
 		}
-		return $allRules;
+		return array_merge_recursive( $requiredRules, $transformerRules );
 	}
 }

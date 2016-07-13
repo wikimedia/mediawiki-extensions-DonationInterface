@@ -121,15 +121,6 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			return null;
 		}
 
-		$fiscalRules = array(
-			array(
-				'required' => true,
-				'message' => self::getErrorMessage(
-					'not_empty', $normalized['language'], $normalized['country']
-				)
-			)
-		);
-
 		$rule = self::$countryRules[$normalized['country']];
 		if ( empty( $rule['numeric'] ) ) {
 			$pattern = '^[^0-9a-zA-Z]*([0-9a-zA-Z][^0-9a-zA-Z]*)';
@@ -138,12 +129,12 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		}
 		$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
 
-		$fiscalRules[] = array(
+		$fiscalRules = array( array(
 			'pattern' => $pattern,
 			'message' => self::getErrorMessage(
 				'calculated', $normalized['language'], $normalized['country']
 			)
-		);
+		) );
 
 		$clientRules[self::$key] = $fiscalRules;
 	}
