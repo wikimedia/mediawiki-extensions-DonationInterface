@@ -167,6 +167,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Display a generic failure page
+	 * FIXME: RapidFail should be rapid, i.e. not a redirect
 	 */
 	public function displayFailPage() {
 		$output = $this->getOutput();
@@ -525,6 +526,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		parent::setHeaders();
 
 		// TODO: Switch title according to failiness.
+		// Maybe ask $form_obj for a title so different errors can show different titles
 		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
 	}
 }
