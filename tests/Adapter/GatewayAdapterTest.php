@@ -57,7 +57,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 				),
 				'rapidFailError' => array(
 					'file' => 'error-cc.html',
-					'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
+					'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ),
 					'special_type' => 'error',
 				)
 			),
@@ -140,18 +140,18 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$session = $firstRequest->getSessionArray();
 		$this->assertEquals( 'globalcollect', $session['Donor']['gateway'], 'Test setup failed.' );
 
-		//Then simulate switching to Worldpay
+		//Then simulate switching to Adyen
 		$session['sequence'] = 2;
 		unset( $init['order_id'] );
 
 		$secondRequest = $this->setUpRequest( $init, $session );
-		$worldpay_gateway = new TestingWorldpayAdapter();
-		$worldpay_gateway->batch_mode = true;
+		$adyen_gateway = new TestingAdyenAdapter();
+		$adyen_gateway->batch_mode = true;
 
 		$session = $secondRequest->getSessionArray();
-		$ctId = $worldpay_gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$ctId = $adyen_gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$expected_order_id = "$ctId.{$session['sequence']}";
-		$this->assertEquals( $expected_order_id, $worldpay_gateway->getData_Unstaged_Escaped( 'order_id' ),
+		$this->assertEquals( $expected_order_id, $adyen_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
 	}
 

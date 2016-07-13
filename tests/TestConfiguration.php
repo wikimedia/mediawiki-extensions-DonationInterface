@@ -67,8 +67,6 @@ global $wgDonationInterfaceTestMode,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
 	$wgAstroPayGatewayFallbackCurrency,
-	$wgWorldpayGatewayAccountInfo,
-	$wgWorldpayGatewayURL,
 	$wgMinFraudLicenseKey,
 	$wgMinFraudTimeout,
 	$wgDonationInterfaceMinFraudServers,
@@ -147,32 +145,6 @@ $wgAstroPayGatewayAccountInfo['test'] = array(
 	'SecretKey' => 'NanananananananananananananananaBatman',
 );
 $wgAstroPayGatewayFallbackCurrency = false;
-
-$wgWorldpayGatewayAccountInfo = array();
-/** Worldpay **/
-$wgWorldpayGatewayAccountInfo['test'] = array(
-	'Username' => 'testname',
-	'Password' => 'testpass',
-	'MerchantId' => '123456',
-	'Test' => true,
-	'TokenizingMerchantID' => '123456',
-	'StoreIDs' => array(
-		'*/FJ/EUR' => array( 123456, 'fj_store_id' ),
-		'*/*/EUR' => array( 123456, 'eur_store_id' ),
-		'*/*/USD' => array( 123456, 'usd_store_id' ),
-	),
-	'MerchantIDs' => array(
-		123456 => array(
-			'Username' => 'testname2',
-			'Password' => 'testpass2',
-		),
-	),
-	// Test special treatment - allow 'fail' CVV and missing AVS nodes
-	'SpecialSnowflakeStoreIDs' => array(
-		'fj_store_id',
-	),
-);
-$wgWorldpayGatewayURL = 'https://test.worldpay.com';
 
 $wgMinFraudLicenseKey = 'testkey';
 $wgMinFraudTimeout = 1;

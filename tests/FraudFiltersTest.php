@@ -38,9 +38,9 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 	public static function setupFraudMaps( $testContext ) {
 		// Declare so setMwGlobals can override.
-		global $wgGlobalCollectGatewayCustomFiltersFunctions, $wgWorldpayGatewayCustomFiltersFunctions;
+		global $wgGlobalCollectGatewayCustomFiltersFunctions;
 		$wgGlobalCollectGatewayCustomFiltersFunctions = null;
-		$wgWorldpayGatewayCustomFiltersFunctions = null;
+
 
 		// Declare here cos reused.
 		$customFilters = array(
@@ -71,8 +71,6 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'getCVVResult' => 20,
 				'getAVSResult' => 25,
 			) + $customFilters,
-
-			'wgWorldpayGatewayCustomFiltersFunctions' => $customFilters,
 
 			'wgDonationInterfaceCountryMap' => array (
 				'US' => 40,

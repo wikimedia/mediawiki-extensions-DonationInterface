@@ -22,14 +22,12 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/adyen_gateway/i18n';
 	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/astropay_gateway/i18n';
 	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/paypal_gateway/i18n';
-	$wgMessagesDirs['DonationInterface'][] = __DIR__ . '/worldpay_gateway/i18n';
 	$wgExtensionMessagesFiles['GatewayAliases'] = __DIR__ . '/DonationInterface.alias.php';
 	$wgExtensionMessagesFiles['AmazonGatewayAlias'] = __DIR__ . '/amazon_gateway/amazon_gateway.alias.php';
 	$wgExtensionMessagesFiles['GlobalCollectGatewayAlias'] = __DIR__ . '/globalcollect_gateway/globalcollect_gateway.alias.php';
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = __DIR__ . '/adyen_gateway/adyen_gateway.alias.php';
 	$wgExtensionMessagesFiles['AstropayGatewayAlias'] = __DIR__ . '/astropay_gateway/astropay_gateway.alias.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';
-	$wgExtensionMessagesFiles['WorldpayGatewayAlias'] = __DIR__ . '/worldpay_gateway/worldpay_gateway.alias.php';
 	/* wfWarn(
 		'Deprecated PHP entry point used for DonationInterface extension. ' .
 		'Please use wfLoadExtension instead, ' .

@@ -42,7 +42,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceEnableFormChooser' => true,
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
-			'wgWorldpayGatewayEnabled' => true,
 		) );
 
 		$this->setupMoreForms();
@@ -127,12 +126,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$moreForms['paypal'] = array (
 			'gateway' => 'paypal',
 			'payment_methods' => array ( 'paypal' => 'ALL' ),
-		);
-
-		$moreForms['worldpay'] = array (
-			'file' => $form_dirs['worldpay'] . '/worldpay.html',
-			'gateway' => 'worldpay',
-			'payment_methods' => array ( 'cc' => 'ALL' ),
 		);
 
 		$this->setMwGlobals( array(

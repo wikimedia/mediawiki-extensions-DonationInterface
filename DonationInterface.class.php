@@ -7,7 +7,7 @@ class DonationInterface {
 	public static function registerExtension() {
 		global $wgDonationInterfaceTestMode, $wgDonationInterfaceFormDirs,
 			$wgDonationInterfaceHtmlFormDir, $wgGlobalCollectGatewayHtmlFormDir,
-			$wgWorldpayGatewayHtmlFormDir, $wgDonationInterfaceTemplate,
+			$wgDonationInterfaceTemplate,
 			$wgDonationInterfaceErrorTemplate;
 
 		// Test mode (not for production!)
@@ -30,15 +30,12 @@ class DonationInterface {
 
 		$wgGlobalCollectGatewayHtmlFormDir = __DIR__ . '/globalcollect_gateway/forms/html';
 
-		$wgWorldpayGatewayHtmlFormDir = __DIR__ . '/worldpay_gateway/forms/html';
-
 		/**
 		 * Base directories for each gateway's form templates.
 		 */
 		$wgDonationInterfaceFormDirs = array(
 			'default' => $wgDonationInterfaceHtmlFormDir,
 			'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-			'worldpay' => $wgWorldpayGatewayHtmlFormDir,
 		);
 
 		// Load the default form settings.
@@ -79,8 +76,6 @@ class DonationInterface {
 		$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
 		$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
 		$wgAutoloadClasses['TestingPaypalLegacyAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalLegacyAdapter.php';
-		$wgAutoloadClasses['TestingWorldpayAdapter'] = $testDir . 'includes/test_gateway/TestingWorldpayAdapter.php';
-		$wgAutoloadClasses['TestingWorldpayGateway'] = $testDir . 'includes/test_page/TestingWorldpayGateway.php';
 
 		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
 

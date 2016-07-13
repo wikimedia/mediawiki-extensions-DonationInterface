@@ -22,7 +22,6 @@ $wgAdyenGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
 $wgPaypalGatewayEnabled = false
-$wgWorldpayGatewayEnabled = false
 
 You must also configure account information for each processor as
 described in 'Processors and accounts' below.
@@ -288,30 +287,6 @@ $wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/'
 #		),
 #		'SecretKey' => '', // For signing requests and verifying responses
 #	)
-
-$wgWorldpayGatewayURL = 'https://some.url.here'
-
-/**
- * Set this to true if fraud checks should be disabled for integration testing
- */
-$wgWorldpayGatewayNoFraudIntegrationTest = false
-
-$wgWorldpayGatewayTokenTimeout = '1800000'
-
-/*
-$wgWorldpayGatewayAccountInfo['default'] = array(
-	'Test' => 1,
-	'MerchantId' => 00000,
-	'Username' => 'suchuser',
-	'Password' => 'suchsecret',
-
-	'DefaultCurrency' => CURRENCY
-
-	'StoreIDs' => array(
-		CURRENCY => StoreID
-	),
-)
-*/
 
 
 ==== Queues ====
@@ -694,40 +669,3 @@ $wgDonationInterfaceEnableFunctionsFilter = false //extra
 $wgDonationInterfaceEnableIPVelocityFilter = false //extra
 $wgDonationInterfaceEnableSessionVelocityFilter = false //extra
 $wgDonationInterfaceEnableSystemStatus = false //extra
-
-$wgWorldpayGatewayCvvMap = array (
-	'0' => false, //No Match
-	'1' => true, //Match
-	'2' => false, //Not Checked
-	'3' => false, //Issuer is Not Certified or Unregistered
-	'4' => false, //Should have CVV2 on card - ??
-	'5' => false, //CVC1 Incorrect
-	'6' => false, //No service available.
-	'7' => false, //No code returned. All the points.
-	'8' => false, //No code returned. All the points.
-	'9' => false, //Not Performed
-	//(occurs when CVN value was not present in the STN string
-	//or when transaction was not sent to the acquiring bank)
-	'' => false, //No code returned. All the points.
-)
-
-$wgWorldpayGatewayAvsAddressMap = array (
-	'0' => 50, //No Match
-	'1' => 0, //Match
-	'2' => 12, //Not Checked/Not Available
-	'3' => 50, //Issuer is Not Certified or Unregistered
-	'4' => 12, //Not Supported
-	'9' => 12, //Not Performed (occurs when Address1, Address2 and Address3 values were not present in the STN string or when transaction was not sent to the acquiring bank)
-	'' => 50, //No code returned. All the points.
-)
-
-$wgWorldpayGatewayAvsZipMap = array (
-	'0' => 50, //No Match
-	'1' => 0, //Match
-	'2' => 12, //Not Checked/Not Available
-	'3' => 0, //9 digit zipcode match
-	'4' => 0, //5 digit zipcode match
-	'5' => 12, //Not Supported
-	'9' => 12, //Not Performed (occurs when ZipCode value was not present in the STN string or when transaction was not sent to the acquiring bank)
-	'' => 50, //No code returned. All the points.
-)

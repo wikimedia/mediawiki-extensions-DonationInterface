@@ -430,17 +430,17 @@ $forms_whitelist['adyen-test'] = array(
  * *********** */
 
 $forms_whitelist['error-default'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-noform'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-cc'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'astropay', 'worldpay' ),
+	'gateway' => array ( 'globalcollect', 'adyen', 'astropay' ),
 	'payment_methods' => array ( 'cc' => 'ALL' ),
 	'special_type' => 'error',
 );
