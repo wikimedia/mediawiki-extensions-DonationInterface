@@ -7,3 +7,5 @@
 - DummyFiscalNumber # see class comment
 - DonorFullName
 - StreetAddress
+# Signature calculation must come last
+- AstroPaySignature

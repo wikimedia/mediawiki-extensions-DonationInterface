@@ -239,35 +239,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}
-	/**
-	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to add a
-	 * calculated signature.
-	 * @param string $gateway_field_name
-	 * @param boolean $token
-	 * @return mixed
-	 */
-	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
-		if ( $gateway_field_name === 'control' ) {
-			$message = $this->getMessageToSign();
-			return $this->calculateSignature( $message );
-		}
-		return parent::getTransactionSpecificValue( $gateway_field_name, $token );
-	}
-
-	protected function getMessageToSign() {
-		return str_replace( '+', ' ',
-			$this->getData_Staged( 'order_id' ) . 'V'
-			. $this->getData_Staged( 'amount' ) . 'I'
-			. $this->getData_Staged( 'donor_id' ) . '2'
-			. $this->getData_Staged( 'bank_code' ) . '1'
-			. $this->getData_Staged( 'fiscal_number' ) . 'H'
-			. /* bdate omitted */ 'G'
-			. $this->getData_Staged( 'email' ) .'Y'
-			. /* zip omitted */ 'A'
-			. /* street omitted */ 'P'
-			. /* city omitted */ 'S'
-			. /* state omitted */ 'P' );
-	}
 
 	public function getCurrencies( $options = array() ) {
 		$country = isset( $options['country'] ) ?
@@ -402,8 +373,10 @@ class AstroPayAdapter extends GatewayAdapter {
 					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language, $country );
 				} else if ( preg_match( '/invalid control/i', $response['desc'] ) ) {
 					// They think we screwed up the signature.  Log what we signed.
-					$signed = $this->getMessageToSign();
-					$signature = $this->getTransactionSpecificValue( 'control' );
+					$signed = AstroPaySignature::getNewInvoiceMessage(
+						$this->getData_Staged()
+					);
+					$signature = $this->getData_Staged( 'control' );
 					$this->logger->error( "$logme Signed message: '$signed' Signature: '$signature'" );
 				} else {
 					// Some less common error.  Also log message at 'error' level
@@ -469,19 +442,12 @@ class AstroPayAdapter extends GatewayAdapter {
 			$data['result'] .
 			$data['x_amount'] .
 			$data['x_invoice'];
-		$signature = $this->calculateSignature( $message );
+		$signature = AstroPaySignature::calculateSignature( $this, $message );
 
 		if ( $signature !== $data['x_control'] ) {
 			$message = 'Bad signature in transaction ' . $this->getCurrentTransaction();
 			$this->logger->error( $message );
 			throw new ResponseProcessingException( $message, ResponseCodes::BAD_SIGNATURE );
 		}
-	}
-
-	protected function calculateSignature( $message ) {
-		$key = $this->accountInfo['SecretKey'];
-		return strtoupper(
-			hash_hmac( 'sha256', pack( 'A*', $message ), pack( 'A*', $key ) )
-		);
 	}
 }

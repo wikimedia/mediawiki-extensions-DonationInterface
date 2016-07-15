@@ -582,6 +582,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 	function testDummyFiscalNumber() {
 		$init = $this->getDonorTestData( 'MX' );
+		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->doPayment();
 
