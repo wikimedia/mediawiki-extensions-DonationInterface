@@ -17,7 +17,15 @@
 	 */
 	function submitForm() {
 		di.forms.disable();
+		di.forms.clean();
 		$( '#payment-form' )[ 0 ].submit();
+	}
+
+	function cleanInput() {
+		// Trim all the trimmable inputs
+		$( '[type=text], [type=number], [type=email]' ).each( function () {
+			$( this ).val( $.trim( this.value ) );
+		} );
 	}
 
 	/**
@@ -27,6 +35,7 @@
 	 */
 	function callDonateApi( successCallback ) {
 		di.forms.disable();
+		di.forms.clean();
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
 		var sendData = {
@@ -86,6 +95,7 @@
 	di.forms = {
 		disable: disableForm,
 		enable: enableForm,
+		clean: cleanInput,
 		// Gateways with more complex form submission can overwrite this
 		// property with their own submission function.
 		submit: submitForm,
