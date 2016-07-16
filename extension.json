@@ -441,6 +441,7 @@
 		"DonationInterfaceDisplayDebug": false,
 		"DonationInterfaceUseSyslog": false,
 		"DonationInterfaceSaveCommStats": false,
+		"DonationInterfaceLogCompleted": false,
 		"DonationInterfaceTimeout": 5,
 		"DonationInterfaceFallbackCurrency": false,
 		"DonationInterfaceFallbackCurrencyByCountry": false,

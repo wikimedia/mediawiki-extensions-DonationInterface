@@ -31,6 +31,12 @@ interface LogPrefixProvider {
 abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
+	 * Don't change these strings without fixing cross-repo usages.
+	 */
+	const REDIRECT_PREFACE = 'Redirecting for transaction: ';
+	const COMPLETED_PREFACE = 'Completed donation: ';
+
+	/**
 	 * config tree
 	 */
 	protected $config = array();
@@ -1696,6 +1702,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			case FinalStatus::COMPLETE:
 				// This transaction completed successfully.  Send to the CRM
 				// for filing.
+				$this->logCompletedPayment();
 				$this->pushMessage( 'complete' );
 				break;
 
@@ -3707,7 +3714,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	protected function logPaymentDetails() {
 		$details = $this->getStompTransaction();
-		$this->logger->info( 'Redirecting for transaction: ' . json_encode( $details ) );
+		$this->logger->info( self::REDIRECT_PREFACE . json_encode( $details ) );
+	}
+
+	protected function logCompletedPayment() {
+		if ( $this->getGlobal( 'LogCompleted' ) ) {
+			// FIXME: We probably want to dial this down to log the same fields
+			// as getStompTransaction, but I'm currently debugging that
+			// function, so dump it all:
+			$dump = json_encode( $this->getData_Unstaged_Escaped() );
+			$this->logger->info( self::COMPLETED_PREFACE . $dump );
+		}
 	}
 
 	protected function runApiCallHooks() {
