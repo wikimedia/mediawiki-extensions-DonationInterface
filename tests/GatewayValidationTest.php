@@ -43,7 +43,6 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->page = new TestingGatewayPage();
 		$this->adapter = new TestingGenericAdapter();
 		$this->page->adapter = $this->adapter;
-		parent::setUp();
 	}
 
 	public function tearDown() {
