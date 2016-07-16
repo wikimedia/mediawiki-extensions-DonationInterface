@@ -23,6 +23,7 @@
 		"fusesource/stomp-php": "2.1.*",
 		"minfraud/http": "^1.70",
 		"monolog/monolog": "1.12.0",
+		"neitanod/forceutf8": "^2.0",
 		"predis/predis": "1.*",
 		"psr/log": "1.0.0",
 		"zordius/lightncandy": "0.18",
