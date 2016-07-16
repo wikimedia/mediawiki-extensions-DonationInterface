@@ -175,6 +175,7 @@
 	"donate_interface-error-msg-cookies": "আপনার ব্রাউজারে কুকি সক্রিয় করুন।",
 	"donate_interface-error-msg-genaricrequired": "এই ক্ষেত্রেটি বাধ্যতামূলক।",
 	"donate_interface-error-msg-country-calc": "ত্রুটি - আমরা এই মুহুর্তে আপনার দান গ্রহণ করতে পারছি না।",
+	"donate_interface-error-msg-issuer_id": "ব্যাংক",
 	"donate_interface-donate-error-thank-you-for-your-support": "আপনার সমর্থনের জন্য আপনাকে ধন্যবাদ!",
 	"php-response-declined": "আপনার লেনদেনটি গ্রহণ করা সম্ভব নয়।",
 	"donate_interface-thankyou": "আপনার অনুদানের জন্য আপনাকে ধন্যবাদ!",

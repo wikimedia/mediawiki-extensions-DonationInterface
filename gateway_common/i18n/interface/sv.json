@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-genaricrequired": "Detta fält är obligatoriskt",
 	"donate_interface-error-msg-country-calc": "Ett fel har uppstått - vi kan för tillfället inte ta emot din donation.",
 	"donate_interface-error-msg-fiscal_number": "skattenummer",
+	"donate_interface-error-msg-issuer_id": "bank",
 	"donate_interface-donate-error-try-a-different-card": "Vänligen [$1 prova ett annat kort] eller någon av våra [$2 andra sätt att ge] eller kontakta oss på $3",
 	"donate_interface-donate-error-try-again-html": "Vänligen <a href=\"$1\">försök igen</a>, pröva en av våra <a href=\"$2\">andra sätt att ge</a>, eller kontakta oss på <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Tack för ditt stöd!",

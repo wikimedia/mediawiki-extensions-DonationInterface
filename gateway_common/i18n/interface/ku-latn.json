@@ -28,5 +28,7 @@
 	"donate_interface-error-msg-lname": "paşnav",
 	"donate_interface-error-msg-city": "bajar",
 	"donate_interface-error-msg-state": "dewlet",
-	"donate_interface-error-msg-country": "welat"
+	"donate_interface-error-msg-country": "welat",
+	"donate_interface-comment": "Şîrove",
+	"donate_interface-select": "Hilbijêre"
 }
