@@ -28,6 +28,9 @@ obt:
     short_circuit_at: first_iop
 rtbt:
     label: 'Real time bank transfer'
+    validation:
+        name: true
+        email: true
     short_circuit_at: first_iop
     additional_success_status:
         - 20

@@ -28,35 +28,6 @@ $forms_whitelist['amazon-recurring'] = array(
  *******************************/
 
 $forms_whitelist['rtbt-ideal'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal.html',
-	'dependencies' => 'gc.form.rapidhtml.rapidhtml.rtbt',
-	'styles' => array(
-		'di.form.rapidhtml.webitects.2nd.styles',
-		'gc.styles'
-	),
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_ideal'),
-	'countries' => array( '+' => 'NL' ),
-	'currencies' => array( '+' => 'EUR' ),
-);
-
-$forms_whitelist['rtbt-enets'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-enets.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_enets'),
-	'countries' => array( '+' => 'SG' ),
-	'currencies' => array( '+' => 'SGD' ),
-);
-
-$forms_whitelist['rtbt-ideal-noadd'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal-noadd.html',
-	'dependencies' => 'gc.form.rapidhtml.rtbt',
-	'styles' => array(
-		'di.form.rapidhtml.webitects.2nd.styles',
-		'gc.styles'
-	),
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('rtbt' => 'rtbt_ideal'),
 	'countries' => array( '+' => 'NL' ),

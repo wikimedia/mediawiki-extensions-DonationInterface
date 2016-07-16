@@ -29,6 +29,7 @@ class DataValidator {
 			case 'amount' :
 			case 'currency_code' :
 			case 'fiscal_number' :
+			case 'issuer_id' :
 			case 'card_num':
 			case 'card_type':
 			case 'cvv':

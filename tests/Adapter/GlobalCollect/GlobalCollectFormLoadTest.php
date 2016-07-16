@@ -225,44 +225,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Make sure Belgian form loads in all of that country's supported languages
-	 * @dataProvider belgiumLanguageProvider
-	 */
-	public function testGlobalCollectSofortLoad_BE( $language ) {
-		$init = $this->getDonorTestData( 'BE' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'rtbt';
-		$init['payment_submethod'] = 'rtbt_sofortuberweisung';
-		$init['ffname'] = 'rtbt-sofo';
-		$init['language'] = $language;
-
-		$assertNodes = array (
-			'fname' => array (
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
-			),
-			'lname' => array (
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
-			),
-			'email' => array (
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-email')->inLanguage( $language )->text(),
-			),
-			'informationsharing' => array (
-				'nodename' => 'p',
-				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
-			),
-			'country' => array (
-				'nodename' => 'select',
-				'selected' => 'BE',
-			),
-		);
-
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
-	}
-
-	/**
 	 * Make sure Canadian CC form loads in English and French
 	 * @dataProvider canadaLanguageProvider
 	 */

@@ -275,31 +275,8 @@
 				"di.form.rapidhtml.webitects"
 			]
 		},
-		"gc.form.rapidhtml.webitects.dd": {
-			"scripts": "globalcollect_gateway/forms/js/webitects.bt.js",
-			"dependencies": "gc.form.rapidhtml.webitects.2nd"
-		},
 		"gc.styles": {
 			"styles": "globalcollect_gateway/forms/css/gc.css"
-		},
-		"gc.form.rapidhtml.dd": {
-			"scripts": "globalcollect_gateway/forms/js/gc.dd.js",
-			"dependencies": "di.form.core.validate"
-		},
-		"gc.form.rapidhtml.ew": {
-			"scripts": "globalcollect_gateway/forms/js/gc.ew.js",
-			"dependencies": "di.form.core.validate"
-		},
-		"gc.form.rapidhtml.boletos": {
-			"scripts": "globalcollect_gateway/forms/js/gc.boletos.js",
-			"dependencies": "di.form.core.validate"
-		},
-		"gc.form.rapidhtml.rtbt": {
-			"dependencies": [
-				"di.form.core.validate",
-				"mediawiki.Uri",
-				"gc.form.rapidhtml.webitects.2nd"
-			]
 		},
 		"ext.donationinterface.worldpay.styles": {
 			"styles": [
@@ -348,6 +325,7 @@
 				"donate_interface-error-msg-bank_check_digit",
 				"donate_interface-error-msg-bank_code",
 				"donate_interface-error-msg-branch_code",
+				"donate_interface-error-msg-issuer_id",
 				"donate_interface-smallamount-error",
 				"donate_interface-donor-fname",
 				"donate_interface-donor-lname",
