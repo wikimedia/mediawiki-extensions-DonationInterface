@@ -24,6 +24,8 @@ ew:
 obt:
     label: 'Online bank transfer'
     validation:
+        name: true
+        email: true
         creditCard: false
     short_circuit_at: first_iop
 rtbt:

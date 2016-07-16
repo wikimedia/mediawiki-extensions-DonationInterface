@@ -40,9 +40,6 @@ $forms_whitelist['rtbt-ideal'] = array(
  ********/
 
 $forms_whitelist['obt-bpay'] = array(
-	'file' => $form_dirs['gc'] . '/obt/obt-bpay.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
 	'gateway' => 'globalcollect',
 	'countries' => array( '+' => 'AU'),
 	'currencies' => array( '+' => 'AUD'),
