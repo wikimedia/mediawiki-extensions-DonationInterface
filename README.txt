@@ -132,6 +132,10 @@ cURL output (including IPs resolved) at info level.
 
 $wgDonationInterfaceCurlVerboseLog = false
 
+As donations are sent to the "completed" queue, also log the json blob.
+
+$wgDonationInterfaceLogCompleted = false
+
 ==== Currency and amounts ====
 
 Configure price ceiling and floor for valid contribution amount.  Values

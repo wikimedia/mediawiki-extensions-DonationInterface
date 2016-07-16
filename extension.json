@@ -399,6 +399,7 @@
 		"DonationInterfaceUseSyslog": false,
 		"DonationInterfaceSaveCommStats": false,
 		"DonationInterfaceCurlVerboseLog": false,
+		"DonationInterfaceLogCompleted": false,
 		"DonationInterfaceTimeout": 5,
 		"DonationInterfaceFallbackCurrency": false,
 		"DonationInterfaceFallbackCurrencyByCountry": false,
