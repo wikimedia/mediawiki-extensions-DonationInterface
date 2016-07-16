@@ -3734,6 +3734,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// as getStompTransaction, but I'm currently debugging that
 			// function, so dump it all:
 			$dump = json_encode( $this->getData_Unstaged_Escaped() );
+			if ( $dump === false ) {
+				// Encoding failed.  Why?
+				// TODO: Reuse this in logPaymentDetails.
+				$dump = json_encode( array( 'json_encode_error' => json_last_error() . ': ' . json_last_error_msg() ) );
+			}
 			$this->logger->info( self::COMPLETED_PREFACE . $dump );
 		}
 	}
