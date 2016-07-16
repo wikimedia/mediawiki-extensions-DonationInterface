@@ -207,6 +207,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['email'] = 'innocent@safedomain.org';
 
 		$this->setUpRequest( array( 'CVVRESULT' => ' ' ) );
+		DonationInterface_FraudFiltersTest::setupFraudMaps( $this );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '800' );
@@ -222,7 +223,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * We should skip the API call if we're already suspicious
 	 */
 	function testGetOrderStatusSkipsIfFail() {
-		DonationInterface_FraudFiltersTest::setupFraudMaps();
+		DonationInterface_FraudFiltersTest::setupFraudMaps( $this );
 
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';

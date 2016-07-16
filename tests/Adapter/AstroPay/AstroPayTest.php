@@ -445,7 +445,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	 * Test that we run the AntiFraud hooks before redirecting
 	 */
 	function testAntiFraudHooks() {
-		DonationInterface_FraudFiltersTest::setupFraudMaps();
+		DonationInterface_FraudFiltersTest::setupFraudMaps( $this );
 		$init = $this->getDonorTestData( 'BR' );
 		$init['payment_method'] = 'cc';
 		$init['bank_code'] = 'VD';

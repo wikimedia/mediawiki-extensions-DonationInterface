@@ -33,68 +33,74 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->testAdapterClass = $adapterclass;
 
 		parent::__construct( $name, $data, $dataName );
-		self::setupFraudMaps();
+		self::setupFraudMaps( $this );
 	}
 
-	public static function setupFraudMaps() {
-		//yeesh.
-		global $wgDonationInterfaceCustomFiltersActionRanges, $wgDonationInterfaceCustomFiltersRefRules, $wgDonationInterfaceCustomFiltersSrcRules,
-		$wgDonationInterfaceCustomFiltersFunctions, $wgGlobalCollectGatewayCustomFiltersFunctions, $wgWorldpayGatewayCustomFiltersFunctions,
-		$wgDonationInterfaceCountryMap, $wgDonationInterfaceUtmCampaignMap, $wgDonationInterfaceUtmSourceMap, $wgDonationInterfaceUtmMediumMap,
-		$wgDonationInterfaceEmailDomainMap;
+	public static function setupFraudMaps( $testContext ) {
+		// Declare so setMwGlobals can override.
+		global $wgGlobalCollectGatewayCustomFiltersFunctions, $wgWorldpayGatewayCustomFiltersFunctions;
+		$wgGlobalCollectGatewayCustomFiltersFunctions = null;
+		$wgWorldpayGatewayCustomFiltersFunctions = null;
 
-		$wgDonationInterfaceCustomFiltersActionRanges = array (
-			'process' => array ( 0, 25 ),
-			'review' => array ( 25, 50 ),
-			'challenge' => array ( 50, 75 ),
-			'reject' => array ( 75, 100 ),
-		);
-
-		$wgDonationInterfaceCustomFiltersRefRules = array (
-			'/donate-error/i' => 5,
-		);
-
-		$wgDonationInterfaceCustomFiltersSrcRules = array ( '/wikimedia\.org/i' => 80 );
-
-		$wgDonationInterfaceCustomFiltersFunctions = array (
+		// Declare here cos reused.
+		$customFilters = array(
 			'getScoreCountryMap' => 50,
 			'getScoreUtmCampaignMap' => 50,
 			'getScoreUtmSourceMap' => 15,
 			'getScoreUtmMediumMap' => 15,
-			'getScoreEmailDomainMap' => 75
+			'getScoreEmailDomainMap' => 75,
 		);
 
-		$wgGlobalCollectGatewayCustomFiltersFunctions = $wgDonationInterfaceCustomFiltersFunctions;
-		$wgGlobalCollectGatewayCustomFiltersFunctions['getCVVResult'] = 20;
-		$wgGlobalCollectGatewayCustomFiltersFunctions['getAVSResult'] = 25;
+		$testContext->setMwGlobals( array(
+			'wgDonationInterfaceCustomFiltersActionRanges' => array (
+				'process' => array ( 0, 25 ),
+				'review' => array ( 25, 50 ),
+				'challenge' => array ( 50, 75 ),
+				'reject' => array ( 75, 100 ),
+			),
 
-		$wgWorldpayGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
+			'wgDonationInterfaceCustomFiltersRefRules' => array (
+				'/donate-error/i' => 5,
+			),
 
-		$wgDonationInterfaceCountryMap = array (
-			'US' => 40,
-			'CA' => 15,
-			'RU' => -4,
-		);
+			'wgDonationInterfaceCustomFiltersSrcRules' => array ( '/wikimedia\.org/i' => 80 ),
 
-		$wgDonationInterfaceUtmCampaignMap = array (
-			'/^(C14_)/' => 14,
-			'/^(spontaneous)/' => 5
-		);
-		$wgDonationInterfaceUtmSourceMap = array (
-			'/somethingmedia/' => 70
-		);
-		$wgDonationInterfaceUtmMediumMap = array (
-			'/somethingmedia/' => 80
-		);
-		$wgDonationInterfaceEmailDomainMap = array (
-			'wikimedia.org' => 42,
-			'wikipedia.org' => 50,
-		);
+			'wgDonationInterfaceCustomFiltersFunctions' => $customFilters,
+
+			'wgGlobalCollectGatewayCustomFiltersFunctions' => array(
+				'getCVVResult' => 20,
+				'getAVSResult' => 25,
+			) + $customFilters,
+
+			'wgWorldpayGatewayCustomFiltersFunctions' => $customFilters,
+
+			'wgDonationInterfaceCountryMap' => array (
+				'US' => 40,
+				'CA' => 15,
+				'RU' => -4,
+			),
+
+			'wgDonationInterfaceUtmCampaignMap' => array (
+				'/^(C14_)/' => 14,
+				'/^(spontaneous)/' => 5
+			),
+			'wgDonationInterfaceUtmSourceMap' => array (
+				'/somethingmedia/' => 70
+			),
+			'wgDonationInterfaceUtmMediumMap' => array (
+				'/somethingmedia/' => 80
+			),
+			'wgDonationInterfaceEmailDomainMap' => array (
+				'wikimedia.org' => 42,
+				'wikipedia.org' => 50,
+			),
+		) );
 	}
 
 	function testGCFraudFilters() {
-		global $wgGlobalCollectGatewayEnableMinfraud;
-		$wgGlobalCollectGatewayEnableMinfraud = true;
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnableMinfraud' => true,
+		) );
 
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
@@ -107,8 +113,6 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 157.5, $exposed->risk_score, 'RiskScore is not as expected' );
-
-		unset( $wgGlobalCollectGatewayEnableMinfraud );
 	}
 }
 // Stub out Minfraud class for CI tests
