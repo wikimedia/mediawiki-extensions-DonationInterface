@@ -17,6 +17,7 @@
  *
  */
 
+use ForceUTF8\Encoding;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Parser;
 
@@ -1765,6 +1766,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
 		$transaction['date'] = time();
+
+		// Force any incorrect encoding to UTF-8.
+		// FIXME: Move down to the PHP-Queue library
+		$transaction = Encoding::toUTF8( $transaction );
 
 		return $transaction;
 	}
@@ -3723,23 +3728,15 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return json_encode( $logObj );
 	}
 
-	protected function logPaymentDetails() {
+	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getStompTransaction();
-		$this->logger->info( self::REDIRECT_PREFACE . json_encode( $details ) );
+		$json = json_encode( $details );
+		$this->logger->info( $preface . $json );
 	}
 
 	protected function logCompletedPayment() {
 		if ( $this->getGlobal( 'LogCompleted' ) ) {
-			// FIXME: We probably want to dial this down to log the same fields
-			// as getStompTransaction, but I'm currently debugging that
-			// function, so dump it all:
-			$dump = json_encode( $this->getData_Unstaged_Escaped() );
-			if ( $dump === false ) {
-				// Encoding failed.  Why?
-				// TODO: Reuse this in logPaymentDetails.
-				$dump = json_encode( array( 'json_encode_error' => json_last_error() . ': ' . json_last_error_msg() ) );
-			}
-			$this->logger->info( self::COMPLETED_PREFACE . $dump );
+			$this->logPaymentDetails( self::COMPLETED_PREFACE );
 		}
 	}
 
