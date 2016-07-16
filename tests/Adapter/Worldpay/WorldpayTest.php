@@ -71,23 +71,6 @@ class DonationInterface_Adapter_Worldpay_WorldpayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * Test the AntiFraud hooks
-	 */
-	function testAntiFraudHooks() {
-		$options = $this->getDonorTestData( 'US' );
-		$options['utm_source'] = "somethingmedia";
-		$options['email'] = "somebody@wikipedia.org";
-
-		$gateway = $this->getFreshGatewayObject( $options );
-
-		$gateway->runAntifraudHooks();
-
-		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( 113, $exposed->risk_score, 'RiskScore is not as expected' );
-	}
-
-	/**
 	 * Just making sure we can instantiate the thing without blowing up completely
 	 */
 	function testNeverLog() {
