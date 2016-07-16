@@ -232,6 +232,7 @@ bpay:
     show_single_logo: true
     validation: {  }
     keys: {  }
+    logo: BPAY_Landscape_MONO.gif
 
 rtbt_ideal:
     paymentproductid: 809
