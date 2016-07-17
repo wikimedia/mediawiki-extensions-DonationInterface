@@ -194,7 +194,7 @@
 	"donate_interface-error-msg-js": "Veuillez entrer votre",
 	"donate_interface-error-msg-validation": "Veuillez corriger les erreurs dans le formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Veuillez entrer un montant valide",
-	"donate_interface-error-msg-invalid-email": "Veuillez entrer une adresse de courriel valide, par exemple nom@example.com",
+	"donate_interface-error-msg-invalid-email": "Veuillez entrer une adresse de courriel valide, par exemple nom@domaine.com",
 	"donate_interface-error-msg-card-num": "Veuillez entrer un numéro de carte bancaire ou de crédit valide pour l’un des types de cartes acceptées",
 	"donate_interface-error-msg-amex": "Veuillez entrer un numéro de carte American Express correct.",
 	"donate_interface-error-msg-mc": "Veuillez entrer un numéro de carte MasterCard correct.",
