@@ -156,6 +156,7 @@
 	"donate_interface-error-msg-account_number": "گڼون شمېره",
 	"donate_interface-error-msg-cookies": "لطفاً خپل د کتنمل کوکيز چارن کړۍ.",
 	"donate_interface-error-msg-genaricrequired": "دې ډاگي ته اړتيا ده",
+	"donate_interface-error-msg-issuer_id": "بانک",
 	"donate_interface-donate-error-thank-you-for-your-support": "ستاسې له ملاتړ نه مننه!",
 	"donate_interface-thankyou": "ستاسې د بسپنې له ورکړې مننه!",
 	"donate_interface-cc-form-header-payment": "د بړياينې مالومات",

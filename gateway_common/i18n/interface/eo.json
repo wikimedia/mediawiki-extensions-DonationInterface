@@ -5,7 +5,8 @@
 			"Blahma",
 			"Jsoby",
 			"Yekrats",
-			"Pcoombe"
+			"Pcoombe",
+			"Orikrin1998"
 		]
 	},
 	"donate_interface": "Subteni Fondaĵon Wikimedia",
@@ -181,6 +182,7 @@
 	"donate_interface-error-msg-cookies": "Bonvolu permesi kuketojn en via retumilo.",
 	"donate_interface-error-msg-genaricrequired": "Tiu ĉi kampo estas deviga",
 	"donate_interface-error-msg-country-calc": "Eraro - Ni maleblas akcepti vian donacon ĉi-momente.",
+	"donate_interface-error-msg-issuer_id": "banko",
 	"donate_interface-donate-error-try-a-different-card": "Bonvolu [$1 provi alian karton] aŭ unu el niaj [$2 aliaj manieroj donaci] aŭ kontaktu nin ĉe $3",
 	"donate_interface-donate-error-thank-you-for-your-support": "Dankon pro via subteno!",
 	"php-response-declined": "Via transakcio ne povis esti akceptita.",
