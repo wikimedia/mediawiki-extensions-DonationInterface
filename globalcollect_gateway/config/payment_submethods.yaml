@@ -249,7 +249,8 @@ rtbt_ideal:
     issuerids:
         ABNANL2A: ABN Amro
         ASNBNL21: ASN Bank
-        FRBKNL2L: Friesland Bank
+        # No decision to enable yet.
+        #FRBKNL2L: Friesland Bank
         INGBNL2A: ING
         # Disabled for T131181 on 2016-04-05
         #KNABNL2H: Knab
