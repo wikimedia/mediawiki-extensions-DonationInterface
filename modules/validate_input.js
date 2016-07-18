@@ -86,11 +86,12 @@ window.validateAmount = function () {
 			// newness
 			$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 		} else {
+			// TODO: remove me once RapidHtml is gone.
 			// ugliness
 			alert( message );
 		}
 		error = true;
-		// See if we're on a webitects accordian form
+		// See if we're on a webitects accordion form
 		if ( $( '#step1wrapper' ).length ) {
 			$( '#step1wrapper' ).slideDown();
 			$( '#paymentContinue' ).show();
@@ -108,18 +109,16 @@ window.validateAmount = function () {
 
 /**
  * Validates the personal information fields
+ * FIXME: Bad name, this validates more than just personal info.
+ * Move the good parts to ext.donationInterface.validation.js
  *
  * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
 window.validate_personal = function () {
-	var value, stateField, selectedState, countryField, $emailAdd, invalid, apos, dotpos, domain,
+	var value, countryField, $emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
-		currField = '',
 		$formField,
 		i,
-		fields = [ 'fname', 'lname', 'street', 'city', 'zip', 'email' ],
-		errorTemplate = mediaWiki.msg( 'donate_interface-error-msg' ),
-		numFields = fields.length,
 		invalids = [ '..', '/', '\\', ',', '<', '>' ],
 		rules = mediaWiki.config.get( 'wgDonationInterfaceValidationRules' ) || [];
 
@@ -142,24 +141,6 @@ window.validate_personal = function () {
 	function isEmpty( field, value ) {
 		return !$.trim( value ) ||
 			value === mediaWiki.msg( 'donate_interface-donor-' + field );
-	}
-
-	for ( i = 0; i < numFields; i++ ) {
-		if ( $( '#' + fields[ i ] ).length > 0 ) { // Make sure field exists
-			clearError( fields[ i ] );
-			// See if the field is empty or equal to the placeholder
-			value = document.getElementById( fields[ i ] ).value;
-			if (
-				!$( '#' + fields[ i ] ).hasClass( 'optional' ) &&
-				isEmpty( fields[ i ], value )
-			) {
-				currField = mediaWiki.msg( 'donate_interface-error-msg-' + fields[ i ] );
-				setError(
-					fields[ i ],
-					errorTemplate.replace( '$1', currField )
-				);
-			}
-		}
 	}
 
 	// Generically defined rules set by GatewayAdapter->getClientSideValidationRules
@@ -188,19 +169,6 @@ window.validate_personal = function () {
 		} );
 	} );
 
-	stateField = document.getElementById( 'state' );
-	if ( stateField && stateField.type === 'select-one' ) { // state is a dropdown select
-		selectedState = stateField.options[ stateField.selectedIndex ].value;
-		if ( selectedState === 'YY' || !$.trim( selectedState ) ) {
-			setError(
-				'state',
-				errorTemplate.replace( '$1', mediaWiki.msg( 'donate_interface-state-province' ) )
-			);
-		} else {
-			clearError( 'state' );
-		}
-	}
-
 	// FIXME: wouldn't $( '#country' ).val() work for both types?
 	countryField = document.getElementById( 'country' );
 	if ( countryField && countryField.type === 'select-one' ) { // country is a dropdown select
@@ -224,6 +192,7 @@ window.validate_personal = function () {
 	}
 
 	// validate email address
+	// FIXME: replace with regex in wgDonationInterfaceValidationRules
 	$emailAdd = document.getElementById( 'email' );
 	if (
 		$emailAdd &&

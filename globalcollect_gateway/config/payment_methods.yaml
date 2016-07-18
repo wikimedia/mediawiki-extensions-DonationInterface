@@ -5,6 +5,9 @@ bt:
     short_circuit_at: first_iop
 cc:
     label: 'Credit Cards'
+    validation:
+        name: true
+        email: true
 dd:
     label: 'Direct Debit'
     validation:
@@ -21,10 +24,15 @@ ew:
 obt:
     label: 'Online bank transfer'
     validation:
+        name: true
+        email: true
         creditCard: false
     short_circuit_at: first_iop
 rtbt:
     label: 'Real time bank transfer'
+    validation:
+        name: true
+        email: true
     short_circuit_at: first_iop
     additional_success_status:
         - 20

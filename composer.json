@@ -42,5 +42,8 @@
 	"config": {
 		"optimize-autoloader": true,
 		"prepend-autoloader": false
+	},
+	"scripts": {
+		"test": "php tests/LintYaml.php"
 	}
 }

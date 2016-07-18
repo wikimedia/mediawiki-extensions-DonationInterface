@@ -1,13 +1,3 @@
-'':
-    paymentproductid: 0
-    label: Any
-    group: cc
-    validation:
-        address: true
-        amount: true
-        email: true
-        name: true
-    keys: {  }
 bt:
     paymentproductid: 11
     label: 'Bank Transfer'
@@ -16,58 +6,67 @@ bt:
     keys: {  }
 visa:
     paymentproductid: 1
-    label: Visa
+    label_key: donate_interface-card-name-visa
     group: cc
-    validation: {  }
     keys: {  }
-mc:
-    paymentproductid: 3
-    label: MasterCard
-    group: cc
-    validation: {  }
-    keys: {  }
-amex:
-    paymentproductid: 2
-    label: 'American Express'
-    group: cc
-    validation: {  }
-    keys: {  }
-maestro:
-    paymentproductid: 117
-    label: Maestro
-    group: cc
-    validation: {  }
-    keys: {  }
-solo:
-    paymentproductid: 118
-    label: Solo
-    group: cc
-    validation: {  }
-    keys: {  }
-laser:
-    paymentproductid: 124
-    label: Laser
-    group: cc
-    validation: {  }
-    keys: {  }
+    logo: card-visa.png
 jcb:
     paymentproductid: 125
     label: JCB
     group: cc
-    validation: {  }
     keys: {  }
+    countries:
+        AD: true
+        AT: true
+        AU: true
+        BE: true
+        BH: true
+        BR: true
+        DE: true
+        EC: true
+        ES: true
+        FI: true
+        GB: true
+        GF: true
+        GR: true
+        HK: true
+        ID: true
+        IE: true
+        IT: true
+        JP: true
+        KR: true
+        LU: true
+        MY: true
+        NL: true
+        PH: true
+        PR: true
+        PT: true
+        SG: true
+        SI: true
+        SK: true
+        TH: true
+        TW: true
+    logo: card-jcb.png
+mc:
+    paymentproductid: 3
+    label_key: donate_interface-card-name-mc
+    group: cc
+    keys: {  }
+    logo: card-mc.png
+amex:
+    paymentproductid: 2
+    label_key: donate_interface-card-name-amex
+    group: cc
+    keys: {  }
+    logo: card-amex.png
 discover:
     paymentproductid: 128
-    label: Discover
+    label_key: donate_interface-card-name-discover
     group: cc
-    validation: {  }
     keys: {  }
-cb:
-    paymentproductid: 130
-    label: CB
-    group: cc
-    validation: {  }
-    keys: {  }
+    countries:
+        US: true
+    logo: card-discover.png
 dd_at:
     paymentproductid: 703
     label: 'Direct debit: AT'
@@ -230,21 +229,23 @@ bpay:
     paymentproductid: 500
     label: 'Online Bank Transfer: Bpay'
     group: obt
+    show_single_logo: true
     validation: {  }
     keys: {  }
-rtbt_nordea_sweden:
-    paymentproductid: 805
-    label: 'Nordea (Sweden)'
-    group: rtbt
-    validation: {  }
-    keys: {  }
+    logo: BPAY_Landscape_MONO.gif
+
 rtbt_ideal:
     paymentproductid: 809
-    label: Ideal
+    label: iDEAL
     group: rtbt
-    validation: {  }
+    countries:
+        NL: true
+    validation:
+        issuer_id: true
     keys:
         - ISSUERID
+    logo: iDEAL-klein.gif
+    show_single_logo: true
     issuerids:
         ABNANL2A: ABN Amro
         ASNBNL21: ASN Bank
@@ -257,40 +258,3 @@ rtbt_ideal:
         TRIONL2U: Triodos Bank
         FVLBNL22: Van Lanschot Bankiers
         BUNQNL2A: bunq
-rtbt_enets:
-    paymentproductid: 810
-    label: eNETS
-    group: rtbt
-    validation: {  }
-    keys: {  }
-rtbt_sofortuberweisung:
-    paymentproductid: 836
-    label: Sofortuberweisung/DIRECTebanking
-    group: rtbt
-    validation: {  }
-    keys: {  }
-rtbt_eps:
-    paymentproductid: 856
-    label: 'eps Online-Überweisung'
-    group: rtbt
-    validation: {  }
-    keys:
-        - ISSUERID
-    issuerids:
-        824: 'Bankhaus Spängler'
-        825: 'Hypo Tirol Bank'
-        822: 'NÖ HYPO'
-        823: 'Voralberger HYPO'
-        828: P.S.K.
-        829: Easy
-        826: 'Erste Bank und Sparkassen'
-        827: BAWAG
-        820: Raifeissen
-        821: 'Volksbanken Gruppe'
-        831: Sparda-Bank
-cash_boleto:
-    paymentproductid: 1503
-    label: 'Boleto Bancario Brazil'
-    group: cash
-    keys:
-        - FISCALNUMBER

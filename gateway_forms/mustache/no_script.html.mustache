@@ -1,9 +1,9 @@
 <noscript>
 	<div id="noscript">
 		<p id="noscript-msg">{{ l10n "donate_interface-noscript-msg" }}</p>
-{{# has_no_script_redirect }}{{! annoyingly, we can't use the same key as a switch and as a message inside the switch }}
+{{# no_script_redirect }}
 		<p id="noscript-redirect-msg">{{ l10n "donate_interface-noscript-redirect-msg" }}</p>
-		<p id="noscript-redirect-link"><a href="{{ no_script_redirect }}">{{ no_script_redirect }}</a></p>
-{{/ has_no_script_redirect }}
+		<p id="noscript-redirect-link"><a href="{{ . }}">{{ . }}</a></p>
+{{/ no_script_redirect }}
 	</div>
 </noscript>

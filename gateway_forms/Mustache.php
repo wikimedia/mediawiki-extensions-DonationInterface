@@ -108,12 +108,21 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$redirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
 		$data['no_script_redirect'] = $redirect;
-		$data['has_no_script_redirect'] = isset( $redirect ); // grr
 
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
 		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
+		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
+
+		$this->addSubmethods( $data );
+		$this->addRequiredFields( $data );
+		$this->addCurrencyData( $data );
+		$data['recurring'] = (bool) $data['recurring'];
+		return $data;
+	}
+
+	protected function addSubmethods( &$data ) {
 
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
 		$data['show_submethods'] = ( count( $availableSubmethods ) > 1 );
@@ -123,10 +132,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			foreach ( $availableSubmethods as $key => $submethod ) {
 				$submethod['key'] = $key;
 				if ( isset( $submethod['logo'] ) ) {
-					$submethod['logo'] = "{$data['script_path']}/extensions/DonationInterface/gateway_forms/includes/{$submethod['logo']}";
-				}
-				if ( isset( $submethod['sub_text_key'] ) ) {
-					$submethod['has_sub_text'] = true;
+					$submethod['logo'] = $this->getImagePath( $submethod['logo'] );
 				}
 				$data['submethods'][] = $submethod;
 			}
@@ -136,14 +142,30 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				: 'three-per-line';
 		} else if ( count( $availableSubmethods ) > 0 ) {
 			$submethodNames = array_keys( $availableSubmethods );
-			$data['submethod'] = $submethodNames[0];
-		}
-		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
+			$submethodName = $submethodNames[0];
+			$submethod = $availableSubmethods[$submethodName];
+			$data['submethod'] = $submethodName;
 
-		$this->addRequiredFields( $data );
-		$this->addCurrencyData( $data );
-		$data['recurring'] = (bool) $data['recurring'];
-		return $data;
+			if (
+				isset( $submethod['logo'] ) &&
+				!empty( $submethod['show_single_logo'] )
+			) {
+				$data['show_single_submethod'] = true;
+				$data['label'] = $submethod['label'];
+				$data['submethod_logo'] = $this->getImagePath( $submethod['logo'] );
+			}
+
+			if ( isset( $submethod['issuerids'] ) ) {
+				$data['show_issuers'] = true;
+				$data['issuers'] = array();
+				foreach ( $submethod['issuerids'] as $code => $label ) {
+					$data['issuers'][] = array(
+						'code' => $code,
+						'label' => $label,
+					);
+				}
+			}
+		}
 	}
 
 	protected function addRequiredFields( &$data ) {
@@ -328,5 +350,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getTopLevelTemplate() {
 		return $this->gateway->getGlobal( 'Template' );
+	}
+
+	protected function getImagePath( $name ) {
+		return "{$this->scriptPath}/extensions/DonationInterface/gateway_forms/includes/{$name}";
 	}
 }

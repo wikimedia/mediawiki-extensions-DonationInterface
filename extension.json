@@ -136,6 +136,7 @@
 		"AstroPayAdapter": "astropay_gateway/astropay.adapter.php",
 		"AstroPayFinancialNumbers": "astropay_gateway/AstroPayFinancialNumbers.php",
 		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
+		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
 		"DummyFiscalNumber": "astropay_gateway/DummyFiscalNumber.php",
 		"CleanupRecurringLength": "paypal_gateway/CleanupRecurringLength.php",
 		"PaypalExpressAdapter": "paypal_gateway/express_checkout/paypal_express.adapter.php",
@@ -212,6 +213,10 @@
 			"scripts": "adyen_gateway/forms/js/adyen.js",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationinterface.ingenico.scripts": {
+			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
 		"ext.donationinterface.worldpay.esopjs": {
 			"scripts": "worldpay_gateway/forms/js/esop.js",
 			"dependencies": "di.form.core.validate",
@@ -270,48 +275,8 @@
 				"di.form.rapidhtml.webitects"
 			]
 		},
-		"gc.form.rapidhtml.webitects.dd": {
-			"scripts": "globalcollect_gateway/forms/js/webitects.bt.js",
-			"dependencies": "gc.form.rapidhtml.webitects.2nd"
-		},
-		"gc.normalinterface": {
-			"scripts": "globalcollect_gateway/forms/js/gc.interface.js"
-		},
 		"gc.styles": {
 			"styles": "globalcollect_gateway/forms/css/gc.css"
-		},
-		"gc.form.rapidhtml.cc": {
-			"scripts": [
-				"globalcollect_gateway/forms/js/gc.js",
-				"globalcollect_gateway/forms/js/gc.cc.js"
-			],
-			"dependencies": [
-				"ext.donationInterface.validation",
-				"mediawiki.Uri",
-				"gc.normalinterface"
-			]
-		},
-		"gc.form.rapidhtml.dd": {
-			"scripts": "globalcollect_gateway/forms/js/gc.dd.js",
-			"dependencies": [
-				"di.form.core.validate",
-				"gc.styles"
-			]
-		},
-		"gc.form.rapidhtml.ew": {
-			"scripts": "globalcollect_gateway/forms/js/gc.ew.js",
-			"dependencies": "di.form.core.validate"
-		},
-		"gc.form.rapidhtml.boletos": {
-			"scripts": "globalcollect_gateway/forms/js/gc.boletos.js",
-			"dependencies": "di.form.core.validate"
-		},
-		"gc.form.rapidhtml.rtbt": {
-			"dependencies": [
-				"di.form.core.validate",
-				"mediawiki.Uri",
-				"gc.form.rapidhtml.webitects.2nd"
-			]
 		},
 		"ext.donationinterface.worldpay.styles": {
 			"styles": [
@@ -334,7 +299,6 @@
 				"donate_interface-noscript-msg",
 				"donate_interface-noscript-redirect-msg",
 				"donate_interface-error-msg-general",
-				"donate_interface-error-msg",
 				"donate_interface-error-msg-js",
 				"donate_interface-error-msg-validation",
 				"donate_interface-error-msg-invalid-amount",
@@ -346,20 +310,12 @@
 				"donate_interface-error-msg-discover",
 				"donate_interface-error-msg-amount",
 				"donate_interface-error-msg-email",
-				"donate_interface-error-msg-fiscal_number",
-				"donate_interface-error-msg-fname",
-				"donate_interface-error-msg-lname",
-				"donate_interface-error-msg-street",
-				"donate_interface-error-msg-city",
-				"donate_interface-error-msg-state",
-				"donate_interface-error-msg-zip",
 				"donate_interface-error-msg-postal",
 				"donate_interface-error-msg-country",
 				"donate_interface-error-msg-card_type",
 				"donate_interface-error-msg-card_num",
 				"donate_interface-error-msg-expiration",
 				"donate_interface-error-msg-cvv",
-				"donate_interface-error-msg-fiscal_number",
 				"donate_interface-error-msg-captcha",
 				"donate_interface-error-msg-captcha-please",
 				"donate_interface-error-msg-cookies",
@@ -369,6 +325,7 @@
 				"donate_interface-error-msg-bank_check_digit",
 				"donate_interface-error-msg-bank_code",
 				"donate_interface-error-msg-branch_code",
+				"donate_interface-error-msg-issuer_id",
 				"donate_interface-smallamount-error",
 				"donate_interface-donor-fname",
 				"donate_interface-donor-lname",
@@ -441,6 +398,7 @@
 		"DonationInterfaceDisplayDebug": false,
 		"DonationInterfaceUseSyslog": false,
 		"DonationInterfaceSaveCommStats": false,
+		"DonationInterfaceCurlVerboseLog": false,
 		"DonationInterfaceLogCompleted": false,
 		"DonationInterfaceTimeout": 5,
 		"DonationInterfaceFallbackCurrency": false,

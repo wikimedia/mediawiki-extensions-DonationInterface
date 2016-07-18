@@ -11,6 +11,9 @@ class AstroPayFinancialNumbers implements StagingHelper {
 	 * characters of the email address for easy lookup
 	 */
 	protected function stage_donor_id( GatewayType $adapter, $normalized, &$stagedData ) {
+		if ( !isset( $stagedData['email'] ) ) {
+			return;
+		}
 		// We use these to look up donations by email, so strip out the trailing
 		// spam-tracking sub-address to get the email we'd see complaints from.
 		$email = preg_replace( '/\+[^@]*/', '', $stagedData['email'] );

@@ -22,128 +22,12 @@ $forms_whitelist['amazon-recurring'] = array(
 	'recurring',
 );
 
-/****************************
- * Bank Transfer - Two-Step *
- ****************************/
-
-$forms_whitelist['bt'] = array(
-	'file' => $form_dirs['gc'] . '/bt/bt.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-	'countries' => array(
-		'-' => 'VN',
-	),
-	'currencies' => array(
-		'+' => array('AED', 'BGN', 'BHD', 'CAD', 'CLP', 'CZK', 'DKK', 'EEK', 'EGP', 'EUR', 'HRK',
-					 'HUF', 'IDR', 'JPY', 'LBP', 'MXN', 'MYR', 'NOK', 'NZD', 'PEN', 'PLN',
-					 'QAR', 'RON', 'RUB', 'SEK', 'THB', 'TRY', 'TWD', 'USD', 'ZAR'),
-	),
-	'payment_methods' => array('bt' => 'ALL')
-);
-
-
-/****************
- * Direct Debit *
- ****************/
-//commenting out to disable the form, and the whole dd paymentmethod
-//$forms_whitelist['dd'] = array(
-//	'file' => $form_dirs['gc'] . '/dd/dd.html',
-//	'gateway' => 'globalcollect',
-//	'countries' => array(
-//		'+' => array('AT', 'DE', 'ES', 'NL'),
-//	),
-//	'payment_methods' => array('dd' => 'ALL')
-//);
-//
-//$forms_whitelist['dd-recurring'] = array_merge(
-//	$forms_whitelist['dd'],
-//	array(
-//		 'file' => $form_dirs['gc'] . '/dd/dd-recurring.html',
-//		 'recurring',
-//	)
-//);
-
-/*********************
- * Electronic Wallet *
- *********************/
-
-$forms_whitelist['ew-alipay'] = array(
-	'file' => $form_dirs['gc'] . '/ew/ew-alipay.html',
-	'dependencies' => 'gc.form.rapidhtml.ew',
-	'styles' => 'gc.styles',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('ew' => 'ew_alipay'),
-	'countries' => array( '+' => array( 'CN', 'HK', ), ),
-	'currencies' => array( '+' => array( 'CNY', 'HKD', ), ),
-);
-
 
 /*******************************
  * RealTime Banking - Two Step *
  *******************************/
 
-$forms_whitelist['rtbt-sofo'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-sofo.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-	'countries' => array(
-		'+' => array( 'AT', 'BE', 'CH', 'DE' ),
-		'-' => 'GB'
-	),
-	'currencies' => array( '+' => 'EUR' ),
-	'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
-);
-
-$forms_whitelist['rtbt-sofo-GB'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-sofo-GB.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'GB' ),
-	'currencies' => array( '+' => 'GBP' ),
-	'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung')
-);
-
 $forms_whitelist['rtbt-ideal'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal.html',
-	'dependencies' => 'gc.form.rapidhtml.rapidhtml.rtbt',
-	'styles' => array(
-		'di.form.rapidhtml.webitects.2nd.styles',
-		'gc.styles'
-	),
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_ideal'),
-	'countries' => array( '+' => 'NL' ),
-	'currencies' => array( '+' => 'EUR' ),
-);
-
-$forms_whitelist['rtbt-enets'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-enets.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_enets'),
-	'countries' => array( '+' => 'SG' ),
-	'currencies' => array( '+' => 'SGD' ),
-);
-
-/*
-$forms_whitelist['rtbt-eps'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-eps.html',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_eps')
-);
-*/
-
-$forms_whitelist['rtbt-ideal-noadd'] = array(
-	'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal-noadd.html',
-	'dependencies' => 'gc.form.rapidhtml.rtbt',
-	'styles' => array(
-		'di.form.rapidhtml.webitects.2nd.styles',
-		'gc.styles'
-	),
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('rtbt' => 'rtbt_ideal'),
 	'countries' => array( '+' => 'NL' ),
@@ -156,75 +40,10 @@ $forms_whitelist['rtbt-ideal-noadd'] = array(
  ********/
 
 $forms_whitelist['obt-bpay'] = array(
-	'file' => $form_dirs['gc'] . '/obt/obt-bpay.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects.2nd',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
 	'gateway' => 'globalcollect',
 	'countries' => array( '+' => 'AU'),
 	'currencies' => array( '+' => 'AUD'),
 	'payment_methods' => array('obt' => 'bpay')
-);
-
-/*****************************
- * Credit Card - Single Step *
- *****************************/
-/*
-$forms_whitelist['webitects_2_3step'] = array(
-	'file' => $form_dirs['gc'] . '/webitects_2_3step.html',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-
-$forms_whitelist['webitects_2_3step-CA'] = array(
-	'file' => $form_dirs['gc'] . '/webitects_2_3step-CA.html',
-	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'CA' ),
-	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-
-$forms_whitelist['webitects_2_3stepB-US'] = array(
-	'file' => $form_dirs['gc'] . '/webitects_2_3stepB-US.html',
-	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'US' ),
-	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-*/
-
-
-/**************************
- * Credit Card - Two Step *
- **************************/
-
-$forms_whitelist['webitects2nd'] = array(
-	'file' => $form_dirs['gc'] . '/webitects2nd.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-//	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-
-$forms_whitelist['webitects2nd-US'] = array(
-	'file' => $form_dirs['gc'] . '/webitects2nd-US.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-//	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-
-$forms_whitelist['webitects2nd_green-US'] = array(
-	'file' => $form_dirs['gc'] . '/webitects2nd_green-US.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-//	'payment_methods' => array('cc' => array( 'visa', 'mc' ))
-);
-
-$forms_whitelist['webitects2nd-amex'] = array(
-	'file' => $form_dirs['gc'] . '/webitects2nd-amex.html',
-	'dependencies' => 'gc.form.rapidhtml.webitects',
-	'styles' => 'di.form.rapidhtml.webitects.2nd.styles',
-	'gateway' => 'globalcollect',
-//	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' ))
 );
 
 
@@ -233,9 +52,6 @@ $forms_whitelist['webitects2nd-amex'] = array(
  **********************/
 
 $forms_whitelist['cc-vmad'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vmad.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
 	'countries' => array(
@@ -244,9 +60,6 @@ $forms_whitelist['cc-vmad'] = array(
 );
 
 $forms_whitelist['cc-vjma'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vjma.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'jcb', 'mc', 'amex' )),
 	'countries' => array(
@@ -256,9 +69,6 @@ $forms_whitelist['cc-vjma'] = array(
 );
 
 $forms_whitelist['cc-jvma'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-jvma.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'jcb', 'visa', 'mc', 'amex' )),
 	'countries' => array(
@@ -269,9 +79,6 @@ $forms_whitelist['cc-jvma'] = array(
 
 
 $forms_whitelist['cc-vmaj'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vmaj.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 	'countries' => array(
@@ -282,9 +89,6 @@ $forms_whitelist['cc-vmaj'] = array(
 );
 
 $forms_whitelist['cc-vmd'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vmd.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'discover' )),
 	'countries' => array(
@@ -297,9 +101,6 @@ $forms_whitelist['cc-vmd'] = array(
 );
 
 $forms_whitelist['cc-vmj'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vmj.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'jcb' )),
 	'countries' => array(
@@ -312,9 +113,6 @@ $forms_whitelist['cc-vmj'] = array(
 );
 
 $forms_whitelist['cc-vma'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vma.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
 	'countries' => array(
@@ -332,9 +130,6 @@ $forms_whitelist['cc-vma'] = array(
 );
 
 $forms_whitelist['cc-vm'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-vm.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc' )),
 	'countries' => array(
@@ -357,9 +152,6 @@ $forms_whitelist['cc-vm'] = array(
 );
 
 $forms_whitelist['cc-a'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc-a.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'amex' )),
 	'countries' => array(
@@ -371,9 +163,6 @@ $forms_whitelist['cc-a'] = array(
 );
 
 $forms_whitelist['cc'] = array(
-	'file' => $form_dirs['gc'] . '/cc/cc.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => 'ALL'),
 	'countries' => array('-' => 'VN')
@@ -384,9 +173,6 @@ $forms_whitelist['cc'] = array(
  * In the meantime: Visa & Mastercard, USD-only.
  */
 $forms_whitelist['cc-vietnam'] = array (
-	'file' => $form_dirs['gc'] . '/cc/cc-vm.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array ( 'cc' => array ( 'visa', 'mc' ) ),
 	'countries' => array ( '+' => 'VN' ),
@@ -407,9 +193,6 @@ $forms_whitelist['email-cc-vm'] = $forms_whitelist['cc-vm'];
  *************************/
 
 $forms_whitelist['rcc-vmad'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vmad.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
 	'recurring',
@@ -419,9 +202,6 @@ $forms_whitelist['rcc-vmad'] = array(
 );
 
 $forms_whitelist['rcc-vmaj'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vmaj.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 	'recurring',
@@ -431,9 +211,6 @@ $forms_whitelist['rcc-vmaj'] = array(
 );
 
 $forms_whitelist['rcc-vmd'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vmd.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'discover' )),
 	'recurring',
@@ -443,9 +220,6 @@ $forms_whitelist['rcc-vmd'] = array(
 );
 
 $forms_whitelist['rcc-vmj'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vmj.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'jcb' )),
 	'recurring',
@@ -455,9 +229,6 @@ $forms_whitelist['rcc-vmj'] = array(
 );
 
 $forms_whitelist['rcc-vma'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vma.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
 	'recurring',
@@ -467,9 +238,6 @@ $forms_whitelist['rcc-vma'] = array(
 );
 
 $forms_whitelist['rcc-vm'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc-vm.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => array( 'visa', 'mc' )),
 	'recurring',
@@ -479,30 +247,9 @@ $forms_whitelist['rcc-vm'] = array(
 );
 
 $forms_whitelist['rcc'] = array(
-	'file' => $form_dirs['gc'] . '/rcc/rcc.html',
-	'dependencies' => 'gc.form.rapidhtml.cc',
-	'styles' => 'gc.styles',
 	'gateway' => 'globalcollect',
 	'payment_methods' => array('cc' => 'ALL'),
 	'recurring'
-);
-
-/*************************
- * Boletos
- *************************/
-
-$forms_whitelist['boletos'] = array(
-	'file' => $form_dirs['gc'] . '/cash/boletos.html',
-	'dependencies' => 'gc.form.rapidhtml.boletos',
-	'styles' => 'gc.styles',
-	'gateway' => 'globalcollect',
-	'payment_methods' => array('cash' => 'boleto'),
-	'countries' => array(
-		'+' => array('BR'),
-	),
-	'currencies' => array(
-		'+' => array('BRL'),
-	),
 );
 
 /*************************
@@ -677,56 +424,6 @@ $forms_whitelist['adyen-test'] = array(
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
 );
-
-/**********
- * Worldpay *
- **********/
-// This is at the bottom so that we prefer GC over Worldpay
-#$forms_whitelist['worldpay'] = array(
-#	'file' => $form_dirs['worldpay'] . '/worldpay.html',
-#	'gateway' => 'worldpay',
-#	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
-#	'currencies' => array( '+' => 'ALL' ),
-#	'payment_methods' => array( 'cc' => 'ALL' ),
-#	'selection_weight' => 10
-#);
-
-// Worldpay ESOP feat iframe
-$forms_whitelist['wp-if'] = array(
-	'gateway' => 'worldpay',
-	'countries' => array( '+' => array( 'AU', 'BE', 'CA', 'FR', 'GB', 'IL', 'NZ', 'US' ) ),
-	'currencies' => array( '+' => 'ALL' ),
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 0
-);
-
-/*************************
- * Worldpay Form Tests *
- *************************/
-
-#$worldpay_test_spec = array(
-#	'file' => $form_dirs['worldpay'] . '/worldpay-test.html',
-#	'selection_weight' => 0,
-#) + $forms_whitelist['worldpay'];
-#
-#//until we are ready for US testing with the other test forms, we have to limit to the old list.
-#$worldpay_test_spec['countries'] = array( '+' => array( 'BE', 'FR', 'US' ) );
-#
-#$forms_whitelist['wp-sn'] = $worldpay_test_spec;
-#$forms_whitelist['wp-sw'] = $worldpay_test_spec;
-#$forms_whitelist['wp-fud'] = $worldpay_test_spec;
-#$forms_whitelist['wp-btnb'] = $worldpay_test_spec;
-#$forms_whitelist['wp-btng'] = $worldpay_test_spec;
-#
-#
-#$forms_whitelist['wp-ddcc'] = array(
-#	   'file' => $form_dirs['worldpay'] . '/worldpay-dd-test.html',
-#	   'gateway' => 'worldpay',
-#	   'countries' => array( '+' => array( 'BE', 'FR', 'US' ) ),
-#	   'currencies' => array( '+' => 'ALL' ),
-#	   'payment_methods' => array( 'cc' => 'ALL' ),
-#	   'selection_weight' => 0
-#);
 
 /* * ***********
  * Error Pages *

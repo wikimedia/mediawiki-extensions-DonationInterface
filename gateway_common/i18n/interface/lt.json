@@ -4,7 +4,8 @@
 			"Mantak111",
 			"Matasg",
 			"Hugo.arg",
-			"Zygimantus"
+			"Zygimantus",
+			"Eitvys200"
 		]
 	},
 	"donate_interface": "Parama Wikimedia fondui",
@@ -183,6 +184,7 @@
 	"donate_interface-error-msg-captcha-please": "Dėl jūsų kredito kortelės saugimo, įveskite ženklus, kuriuos matote viršuje.",
 	"donate_interface-error-msg-cookies": "Prašome įjungti slapukus savo naršyklėje.",
 	"donate_interface-error-msg-genaricrequired": "Šį lauką užpildyti yra privaloma.",
+	"donate_interface-error-msg-issuer_id": "bankas",
 	"donate_interface-donate-error-thank-you-for-your-support": "Dėkojame už jūsų paramą!",
 	"php-response-declined": "Jūsų mokėjimas negali būti priimtas.",
 	"donate_interface-thankyou": "Dėkojame už Jūsų aukojimą!",

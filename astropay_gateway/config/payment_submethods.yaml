@@ -1,6 +1,6 @@
 visa:
     bank_code: VI
-    label: Visa
+    label_key: donate_interface-card-name-visa
     group: cc
     countries:
         AR: true
@@ -11,7 +11,7 @@ visa:
     logo: card-visa-lg.png
 mc:
     bank_code: MC
-    label: MasterCard
+    label_key: donate_interface-card-name-mc
     group: cc
     countries:
         AR: true
@@ -29,7 +29,7 @@ mc:
 #    logo: card-magna.png
 amex:
     bank_code: AE
-    label: 'American Express'
+    label_key: donate_interface-card-name-amex
     group: cc
     countries:
         BR: true

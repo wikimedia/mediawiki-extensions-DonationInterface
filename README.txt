@@ -127,6 +127,14 @@ configuration.
 
 $wgDonationInterfaceDebugLog = false
 
+Use sparingly, preferably for a single gateway.  When true, log verbose
+cURL output (including IPs resolved) at info level.
+
+$wgDonationInterfaceCurlVerboseLog = false
+
+As donations are sent to the "completed" queue, also log the json blob.
+
+$wgDonationInterfaceLogCompleted = false
 
 As donations are sent to the "completed" queue, also log the json blob.
 

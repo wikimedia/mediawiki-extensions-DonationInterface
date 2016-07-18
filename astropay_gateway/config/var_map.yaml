@@ -17,4 +17,5 @@ x_zip: zip
 x_city: city
 x_state: state
 x_document: gateway_txn_id
+control: control
 country_code: country

@@ -170,12 +170,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public $debugarray;
 
 	/**
-	 * @var resource When CurlVerboseLog is set, we write debugging info to
-	 * this file.
-	 */
-	protected $curl_debug_log;
-
-	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than
 	 * WebRequest->wasPosted(), as something else could have posted to us.
 	 * @var boolean
@@ -201,7 +195,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	const IDENTIFIER = 'donation';
 	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
 
-	public $log_outbound = false; // This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	// This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	public $log_outbound = false;
+
+	protected $order_id_candidates;
+	protected $order_id_meta;
 
 	/**
 	 * Default response type to be the same as communication type.
@@ -302,6 +300,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function getRequest() {
 		return $this->request;
 	}
+
+	/**
+	 * Get the directory for processor-specific classes and configuration
+	 * @return string
+	 */
+	abstract protected function getBasedir();
 
 	public function loadConfig() {
 		$yaml = new Parser();
@@ -520,6 +524,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Change the keys on this data from processor API names to normalized names.
 	 *
 	 * @param array $processor_data Response data with raw API keys
+	 * @param array $key_map map processor keys to our keys, defaults to
+	 *                       $this->var_map
 	 * @return array data with normalized keys
 	 *
 	 * TODO: Figure out why this isn't the default behavior in addResponseData.
@@ -837,7 +843,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * structure and adding populated nodes by reference.
 	 * @param array $structure Current transaction's more leafward structure,
 	 * from the point of view of the current XML node.
-	 * @param xmlNode $node The current XML node.
+	 * @param DOMElement $node The current XML node.
 	 * @param bool $js More likely cruft relating back to buildTransactionFormat
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
@@ -890,7 +896,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * the passed-in parent node, only if the current node would have a
 	 * non-empty value.
 	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param string $node The parent node this node will be contained in, if it
+	 * @param DOMElement $node The parent node this node will be contained in, if it
 	 *  is determined to have a non-empty value.
 	 * @param bool $js Probably cruft at this point. This is connected to the
 	 * function buildTransactionFormat.
@@ -918,9 +924,9 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * This function provides all functionality to the external world to communicate with a
 	 * properly constructed gateway and handle all the return data in an appropriate manner.
-	 * -- Appropriateness is determined by the requested $transaction structure and definition/
+	 * -- Appropriateness is determined by the requested $transaction structure and definition.
 	 *
-	 * @param string  | $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
+	 * @param string $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
 	 *  that maps to a first-level key in the $transactions array.
 	 *
 	 * @return PaymentTransactionResponse
@@ -1173,6 +1179,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		//I chose to return this as a function so it's easy to override.
 		//TODO: probably this for all the junk I currently have stashed in the constructor.
 		//...maybe.
+
 		$path = $this->transaction_option( 'path' );
 		if ( !$path ) {
 			$path = '';
@@ -1188,13 +1195,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			CURLOPT_SSL_VERIFYHOST => 2,
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_POST => 1,
+			CURLOPT_VERBOSE => true
 		);
-
-		if ( $this->getGlobal( 'CurlVerboseLog' ) ) {
-			$this->curl_debug_log = fopen('php://temp', 'r+');
-			$opts[CURLOPT_VERBOSE] = true;
-			$opts[CURLOPT_STDERR] = $this->curl_debug_log;
-		}
 
 		return $opts;
 	}
@@ -1319,6 +1321,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
 
+		// Always capture the cURL output
+		$curlDebugLog = fopen( 'php://temp', 'r+' );
+		$curl_opts[CURLOPT_STDERR] = $curlDebugLog;
+		$enableCurlVerboseLogging = $this->getGlobal( 'CurlVerboseLog' );
+
 		curl_setopt_array( $ch, $curl_opts );
 
 		// As suggested in the PayPal developer forum sample code, try more than once to get a
@@ -1334,8 +1341,16 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			// Execute the cURL operation
 			$curl_response = $this->curl_exec( $ch );
 
+			// Always read the verbose output
+			rewind( $curlDebugLog );
+			$logged = fread( $curlDebugLog, 4096 );
+
 			if ( $curl_response !== false ) {
 				// The cURL operation was at least successful, what happened in it?
+				// Only log verbose output on success if configured to do so
+				if ( $enableCurlVerboseLogging ) {
+					$this->logger->info( "cURL verbose logging: $logged" );
+				}
 
 				$headers = $this->curl_getinfo( $ch );
 				$httpCode = $headers['http_code'];
@@ -1379,7 +1394,10 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$errno = $this->curl_errno( $ch );
 				$err = curl_error( $ch );
 
-				$this->logger->alert( "cURL transaction to $gatewayName failed: ($errno) $err" );
+				$this->logger->alert(
+					"cURL transaction to $gatewayName failed: ($errno) $err.  " .
+					"cURL verbose logging: $logged"
+				);
 			}
 			$tries++;
 			if ( $tries >= $loopCount ) {
@@ -1389,24 +1407,18 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				// If we're going to try again, log timing for this particular curl attempt and reset
 				$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "cURL problems" );
 				$this->profiler->getStopwatch( __FUNCTION__, true );
+				rewind( $curlDebugLog );
 			}
 		} while ( $continue ); // End while cURL transaction hasn't returned something useful
 
 		// Clean up and return
 		curl_close( $ch );
+		fclose( $curlDebugLog );
 		$log_results = array(
 			'result' => $curl_response,
 			'headers' => $headers,
 		);
 		$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
-		if ( $this->curl_debug_log ) {
-			rewind( $this->curl_debug_log );
-			$logged = fread( $this->curl_debug_log, 4096 );
-			$this->logger->info( "cURL verbose logging: " . $logged );
-
-			fclose( $this->curl_debug_log );
-			$this->curl_debug_log = null;
-		}
 
 		return $retval;
 	}
@@ -2880,7 +2892,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * For those times you want to have the user functionally start over
 	 * without, you know, cutting your entire head off like you do with
 	 * session_unsetAllData().
-	 * @param string $force Behavior Description:
+	 * @param bool $force Behavior Description:
 	 * $force = true: Reset for potential totally new payment, but keep
 	 * numAttempt and other antifraud things (velocity data) around.
 	 * $force = false: Keep all donor data around unless numAttempt has hit
@@ -3055,9 +3067,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		}
 		$data = $this->getData_Unstaged_Escaped();
 		//have to check to see if the last loaded form is *still* valid.
-		if ( GatewayFormChooser::isValidForm(
-			$ffname, $data['country'], $data['currency_code'], $data['payment_method'], $data['payment_submethod'], $data['recurring'], $data['gateway'] )
-		) {
+		if ( GatewayFormChooser::isValidForm( $ffname, $data ) ) {
 			return $ffname;
 		} else {
 			return false;
@@ -3261,7 +3271,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		$this->logger->info( "Attempting to set a valid form for the combination: " . $this->getLogDebugJSON() );
 
-		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $data ) ) {
 			return;
 		} else if ( $this->session_getLastFormName() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
 			$new_ff = $this->session_getLastFormName();
@@ -3269,7 +3279,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			//and debug log a little
 			$this->logger->debug( "Setting form to last successful ('$new_ff')" );
-		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway ) ) {
+		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $data ) ) {
 			//if the country-specific version exists, use that.
 			$this->addRequestData( array ( 'ffname' => $ffname . "-$country" ) );
 
@@ -3549,7 +3559,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 			$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
 			if ( !$ctid ) {
-				$ctid = $dataObj->saveContributionTrackingData( true );
+				$ctid = $dataObj->saveContributionTrackingData();
 			}
 
 			$this->session_ensure();
@@ -3596,6 +3606,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			if ( array_key_exists( $key, $data ) ) {
 				return $data[$key];
 			}
+			return false;
 		} else {
 			return $data;
 		}
@@ -3761,15 +3772,30 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @see ClientSideValidationHelper::getClientSideValidation
 	 */
 	protected function getClientSideValidationRules() {
-		$allRules = array();
+		$language = $this->getData_Unstaged_Escaped( 'language' );
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		// Start with the server required field validations.
+		$requiredRules = array();
+		foreach ( $this->getRequiredFields() as $field ) {
+			$requiredRules[$field] = array(
+				array(
+					'required' => true,
+					'message' => DataValidator::getErrorMessage(
+						$field, 'not_empty', $language, $country
+					)
+				)
+			);
+		};
+
+		$transformerRules = array();
 		foreach ( $this->data_transformers as $transformer ) {
 			if ( $transformer instanceof ClientSideValidationHelper ) {
 				$transformer->getClientSideValidation(
 					$this->unstaged_data,
-					$allRules
+					$transformerRules
 				);
 			}
 		}
-		return $allRules;
+		return array_merge_recursive( $requiredRules, $transformerRules );
 	}
 }
