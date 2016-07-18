@@ -251,7 +251,8 @@ rtbt_ideal:
         ASNBNL21: ASN Bank
         FRBKNL2L: Friesland Bank
         INGBNL2A: ING
-        KNABNL2H: Knab
+        # Disabled for T131181 on 2016-04-05
+        #KNABNL2H: Knab
         RABONL2U: Rabobank
         RBRBNL21: RegioBank
         SNSBNL2A: SNS Bank
