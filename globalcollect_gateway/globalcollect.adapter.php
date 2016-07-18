@@ -1734,8 +1734,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( $action != FinalStatus::FAILED ){
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
 					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
-				} else {
-					$this->setLimboMessage();
 				}
 			}
 		}
