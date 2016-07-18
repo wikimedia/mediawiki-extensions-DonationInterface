@@ -2290,13 +2290,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
 	}
 
-	protected function setLimboMessage( $queue = 'limbo' ) {
+	protected function setLimboMessage( $queue = 'pending' ) {
 		// FIXME: log the key and raw queue name.
 		$this->logger->info( "Setting transaction in limbo store [$queue]" );
 		DonationQueue::instance()->set( $this->getCorrelationID(), $this->getStompTransaction(), $queue );
 	}
 
-	protected function deleteLimboMessage( $queue = 'limbo' ) {
+	protected function deleteLimboMessage( $queue = 'pending' ) {
 		$this->logger->info( "Clearing transaction from limbo store [$queue]" );
 		try {
 			DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );

@@ -48,14 +48,14 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	// TODO: Store and test the actual messages.
-	public function setLimboMessage( $queue = 'limbo' ) {
+	public function setLimboMessage( $queue = 'pending' ) {
 		$this->limbo_messages[] = false;
 	}
 
 	/**
 	 * Stub out the limboStomp fn and record the calls
 	 */
-	public function deleteLimboMessage( $queue = 'limbo' ) {
+	public function deleteLimboMessage( $queue = 'pending' ) {
 		$this->limbo_messages[] = true;
 	}
 
