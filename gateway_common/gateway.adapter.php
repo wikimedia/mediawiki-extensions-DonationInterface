@@ -282,7 +282,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->defineErrorMap();
 		$this->defineVarMap();
 		$this->defineReturnValueMap();
-		$this->setValidForm();
 
 		$this->setGatewayDefaults( $options );
 		$this->stageData();
@@ -3224,124 +3223,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Make sure that we've got a valid ffname so we don't have to screw
-	 * around with this in RapidHTML when we try to load it and fail.
-	 */
-	public function setValidForm() {
-		//do we even need the visual stuff?
-		if ( $this->isApiRequest() || $this->isBatchProcessor() ) {
-			return;
-		}
-
-		//check to see if the current ffname exists, and is loadable.
-		$data = $this->getData_Unstaged_Escaped();
-
-		$ffname = null;
-		if ( isset( $data['ffname'] ) ) {
-			$ffname = $data['ffname'];
-
-			//easy stuff first:
-			if ( $this->isValidSpecialForm( $ffname ) ) {
-				return;
-			}
-		}
-
-		// Mustache forms don't need the ffname. They only need form
-		// settings for the chooser to select the right special page.
-		if ( preg_match( '/Mustache/', $this->getFormClass() ) ) {
-			return;
-		}
-
-//		'country' might = 'XX' - CN does this when it's deeply confused.
-		if ( !isset( $data['country'] ) || $data['country'] === 'XX' ) {
-			$country = null;
-		} else {
-			$country = $data['country'];
-		}
-
-		//harumph. Remind me again why I hate @ suppression so much?
-		$currency = isset( $data['currency_code'] ) ? $data['currency_code'] : null;
-		$payment_method = isset( $data['payment_method'] ) ? $data['payment_method'] : null;
-		$payment_submethod = isset( $data['payment_submethod'] ) ? $data['payment_submethod'] : null;
-		$recurring = isset( $data['recurring'] ) ? $data['recurring'] : null;
-		$gateway = isset( $data['gateway'] ) ? $data['gateway'] : null;
-
-		//for the error messages
-		$utm = isset( $data['utm_source'] ) ? $data['utm_source'] : null;
-		$ref = isset( $data['referrer'] ) ? $data['referrer'] : null;
-		//make it actually possible to debug this hot mess
-
-		$this->logger->info( "Attempting to set a valid form for the combination: " . $this->getLogDebugJSON() );
-
-		if ( !is_null( $ffname ) && GatewayFormChooser::isValidForm( $ffname, $data ) ) {
-			return;
-		} else if ( $this->session_getLastFormName() ) { //This will take care of it if this is an ajax request, or a 3rd party return hit
-			$new_ff = $this->session_getLastFormName();
-			$this->addRequestData( array ( 'ffname' => $new_ff ) );
-
-			//and debug log a little
-			$this->logger->debug( "Setting form to last successful ('$new_ff')" );
-		} else if ( GatewayFormChooser::isValidForm( $ffname . "-$country", $data ) ) {
-			//if the country-specific version exists, use that.
-			$this->addRequestData( array ( 'ffname' => $ffname . "-$country" ) );
-
-			//I'm only doing this for serious legacy purposes. This mess needs to stop itself. To help with the mess-stopping...
-			$message = "ffname '$ffname' was invalid, but the country-specific '$ffname-$country' works. utm_source = '$utm', referrer = '$ref'";
-			$this->logger->warning( $message );
-		} else {
-			//Invalid form. Go get one that is valid, and squawk in the error logs.
-			$new_ff = GatewayFormChooser::getOneValidForm( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
-			if ( empty( $new_ff ) && $this->getGlobal( 'RapidFail' ) ) {
-				// No valid form exists and we want to display an error without a redirect
-				$new_ff = 'error-noform';
-			}
-			$this->addRequestData( array ( 'ffname' => $new_ff ) );
-
-			//now construct a useful error message
-			$message = "ffname '{$ffname}' is invalid. Assigning ffname '{$new_ff}'. " .
-				"I currently am choosing for: " . $this->getLogDebugJSON();
-
-			if ( empty( $ffname ) ) {
-				// Gateway-specific link didn't specify a form, but we have a
-				// default. Don't squawk too loud.
-				$this->logger->warning( $message );
-			} else {
-				$this->logger->error( $message );
-			}
-
-			//Turn these off by setting the LogDebug global to false.
-			$this->logger->debug( "GET: " . json_encode( $_GET ) );
-			$this->logger->debug( "POST: " . json_encode( $_POST ) );
-
-			$dontwannalog = array (
-				'user_ip',
-				'server_ip',
-				'descriptor',
-				'account_name',
-				'account_number',
-				'authorization_id',
-				'bank_check_digit',
-				'bank_name',
-				'bank_code',
-				'branch_code',
-				'country_code_bank',
-				'date_collect',
-				'direct_debit_text',
-				'iban',
-				'fiscal_number',
-				'cvv',
-			);
-
-			foreach ( $data as $key => $val ) {
-				if ( in_array( $key, $dontwannalog ) ) {
-					unset( $data[$key] );
-				}
-			}
-			$this->logger->debug( "Truncated DonationData: " . json_encode( $data ) );
-		}
 	}
 
 	/**

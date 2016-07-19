@@ -5,8 +5,7 @@ class DonationInterface {
 	 * Executed after processing extension.json
 	 */
 	public static function registerExtension() {
-		global $wgDonationInterfaceTestMode, $wgDonationInterfaceFormDirs,
-			$wgDonationInterfaceHtmlFormDir, $wgGlobalCollectGatewayHtmlFormDir,
+		global $wgDonationInterfaceTestMode,
 			$wgDonationInterfaceTemplate,
 			$wgDonationInterfaceErrorTemplate;
 
@@ -25,18 +24,6 @@ class DonationInterface {
 		 * Default top-level error template file.
 		 */
 		$wgDonationInterfaceErrorTemplate = __DIR__ . '/gateway_forms/mustache/error_form.html.mustache';
-
-		$wgDonationInterfaceHtmlFormDir = __DIR__ . '/gateway_forms/rapidhtml/html';
-
-		$wgGlobalCollectGatewayHtmlFormDir = __DIR__ . '/globalcollect_gateway/forms/html';
-
-		/**
-		 * Base directories for each gateway's form templates.
-		 */
-		$wgDonationInterfaceFormDirs = array(
-			'default' => $wgDonationInterfaceHtmlFormDir,
-			'gc' => $wgGlobalCollectGatewayHtmlFormDir,
-		);
 
 		// Load the default form settings.
 		require_once __DIR__ . '/DonationInterfaceFormSettings.php';

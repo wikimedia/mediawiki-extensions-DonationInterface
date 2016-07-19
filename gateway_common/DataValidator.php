@@ -20,8 +20,7 @@ class DataValidator {
 	 * specifies *where* the error will appear within the form output.
 	 * @param string $field The field that ostensibly has an error that needs to
 	 * be displayed to the user.
-	 * @return string The error token corresponding to a field, probably in
-	 * RapidHTML.
+	 * @return string The error token corresponding to a field
 	 */
 	public static function getErrorToken( $field ){
 		switch ( $field ) {

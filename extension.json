@@ -104,7 +104,6 @@
 		"Gateway_Form": "gateway_forms/Form.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
-		"Gateway_Form_RapidHtml": "gateway_forms/RapidHtml.php",
 		"CountryCodes": "gateway_forms/includes/CountryCodes.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
 		"GlobalCollectGateway": "globalcollect_gateway/globalcollect_gateway.body.php",
@@ -170,9 +169,6 @@
 		"donationInterface.skinOverride": {
 			"scripts": "modules/js/skinOverride.js"
 		},
-		"jquery.payment": {
-			"scripts": "modules/jquery.payment/jquery.payment.js"
-		},
 		"ext.donationInterface.currencyRates": {
 			"class": "CurrencyRatesModule"
 		},
@@ -211,52 +207,8 @@
 				"donate_interface-otherways-short"
 			]
 		},
-		"di.form.rapidhtml.webitects.styles": {
-			"styles": [
-				"gateway_forms/rapidhtml/css/lp1.css",
-				"gateway_forms/rapidhtml/css/webitects.css"
-			]
-		},
-		"di.form.rapidhtml.webitects": {
-			"dependencies": "jquery.ui.accordion"
-		},
-		"di.form.rapidhtml.webitects.2nd.styles": {
-			"styles": [
-				"gateway_forms/rapidhtml/css/lp1.css",
-				"gateway_forms/rapidhtml/css/webitects.css",
-				"gateway_forms/rapidhtml/css/webitects2nd.css"
-			]
-		},
-		"gc.form.rapidhtml.webitects": {
-			"scripts": "globalcollect_gateway/forms/js/webitects.js",
-			"dependencies": "di.form.rapidhtml.webitects"
-		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"
-		},
-		"gc.form.rapidhtml.webitects.1st": {
-			"scripts": "globalcollect_gateway/forms/js/webitects_2_3step.js",
-			"dependencies": "gc.form.rapidhtml.webitects"
-		},
-		"gc.form.rapidhtml.webitects.2nd": {
-			"scripts": "globalcollect_gateway/forms/js/webitects2nd.js",
-			"dependencies": [
-				"di.form.core.validate",
-				"gc.form.rapidhtml.webitects"
-			]
-		},
-		"gc.form.rapidhtml.webitects.2nd.US": {
-			"scripts": "globalcollect_gateway/forms/js/webitects2nd-US.js",
-			"dependencies": [
-				"gc.form.rapidhtml.webitects",
-				"di.form.rapidhtml.webitects"
-			]
-		},
-		"gc.styles": {
-			"styles": "globalcollect_gateway/forms/css/gc.css"
-		},
-		"basicDonationForm": {
-			"scripts": "gateway_forms/rapidhtml/js/basicForm.js"
 		},
 		"ext.donationInterface.errorMessages": {
 			"messages": [

@@ -31,22 +31,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	public function getFormClass() {
-		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
-		if ( strpos( $ffname, 'error') === 0
-			|| strpos( $ffname, 'maintenance') === 0 ) {
-			return 'MustacheErrorForm';
-		}
-		if (
-			$this->getPaymentMethod() === 'cc' ||
-			$this->getPaymentMethod() === 'rtbt' ||
-			$this->getPaymentMethod() === 'obt'
-		) {
-			return 'Gateway_Form_Mustache';
-		};
-		return 'Gateway_Form_RapidHtml';
-	}
-
 	/**
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
 	 *
