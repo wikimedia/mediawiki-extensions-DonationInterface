@@ -1,6 +1,19 @@
 <?php
 
 class DonationQueue {
+
+	// Existing queues that should be copied to the new pending queue.
+	// TODO: should this be somewhere the consumer can see, so that we can
+	// point it at new queues one at a time?
+	static $oldPending = array(
+		'pending',
+		'globalcollect-cc-limbo'
+	);
+
+	// The new pending queue to copy to.
+	// TODO: this should all maybe be in config.
+	static $newPending = 'pending-new';
+
 	protected static $instance;
 
 	protected function __construct() {
@@ -26,6 +39,9 @@ class DonationQueue {
 		$properties = $this->buildHeaders( $transaction );
 		$message = $this->buildBody( $transaction );
 		$this->newBackend( $queue )->push( $message, $properties );
+
+		// FIXME: hack for new queue, remove
+		$this->mirror( $message, $queue );
 	}
 
 	public function pop( $queue ) {
@@ -53,6 +69,9 @@ class DonationQueue {
 		$properties = $this->buildHeaders( $transaction );
 		$message = $this->buildBody( $transaction );
 		$this->newBackend( $queue )->set( $correlationId, $message, $properties );
+
+		// FIXME: hack for new queue, remove
+		$this->mirror( $message, $queue );
 	}
 
 	public function get( $correlationId, $queue ) {
@@ -67,6 +86,24 @@ class DonationQueue {
 			return;
 		}
 		$this->newBackend( $queue )->clear( $correlationId );
+	}
+
+	/**
+	 * Temporary measure to transition 'pending' from key/value ActiveMQ to a
+	 * pure FIFO queue. Sends a copy of anything in $oldPending to $newPending,
+	 * if $newPending is explicitly configured.
+	 *
+	 * @param array $message
+	 * @param string $queue
+	 */
+	protected function mirror( $message, $queue ) {
+		global $wgDonationInterfaceQueues;
+		if (
+			in_array( $queue, self::$oldPending ) &&
+			array_key_exists( self::$newPending, $wgDonationInterfaceQueues )
+		) {
+			$this->newBackend( self::$newPending )->push( $message );
+		}
 	}
 
 	/**
