@@ -1,15 +1,17 @@
 <?php
-// NOTE: 'dependencies' only implemented for RapidHTML, probably shouldn't for Mustache
-global $wgDonationInterfaceAllowedHtmlForms, $wgDonationInterfaceFormDirs;
 /**
- * Some setup vars to make our lives a little easier.
- * These are unset at the end of the file.
+ * FIXME: These determine which gateways FormChooser picks for different
+ * parameters. The chooser should instead query enabled gateway capabilities
+ * and simply pass along any ffname from the banner to allow A/B testing.
+ */
+global $wgDonationInterfaceAllowedHtmlForms;
+/**
+ * Temp var for terseness, unset at end of file
  */
 $forms_whitelist = array();
-$form_dirs = $wgDonationInterfaceFormDirs;
 
 /*
- * Amazon dummy config - see AstroPay
+ * Amazon
  */
 $forms_whitelist['amazon'] = array(
 	'gateway' => 'amazon',
@@ -267,10 +269,6 @@ $forms_whitelist['paypal-recurring'] = array(
 	'recurring',
 );
 
-// FIXME: This is a dummy entry to allow FormChooser to route to astropay
-// In the Mustache-ridden future, with a diminished form population,
-// the chooser will route to the correct gateway based on gateway settings,
-// and simply pass along any ffname from the banner to allow A/B testing
 /************
  * AstroPay *
  ************/

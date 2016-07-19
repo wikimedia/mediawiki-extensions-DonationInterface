@@ -24,8 +24,6 @@
  */
 class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 	public function setUp() {
-		global $wgGlobalCollectGatewayHtmlFormDir;
-
 		parent::setUp();
 
 		$vmad_countries = array( 'US', );
@@ -44,7 +42,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
-					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
 					'gateway' => 'globalcollect',
 					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
 					'countries' => array(
@@ -52,7 +49,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					),
 				),
 				'cc-vmaj' => array(
-					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmaj.html',
 					'gateway' => 'globalcollect',
 					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
 					'countries' => array(
@@ -60,7 +56,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					),
 				),
 				'cc-vma' => array(
-					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vma.html',
 					'gateway' => 'globalcollect',
 					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
 					'countries' => array(
@@ -74,7 +69,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					),
 				),
 				'rtbt-sofo' => array(
-					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/rtbt/rtbt-sofo.html',
 					'gateway' => 'globalcollect',
 					'countries' => array(
 						'+' => array( 'AT', 'BE', 'CH', 'DE' ),

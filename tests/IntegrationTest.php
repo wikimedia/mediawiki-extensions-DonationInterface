@@ -37,8 +37,6 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	}
 
 	public function setUp() {
-		global $wgGlobalCollectGatewayHtmlFormDir, $wgPaypalGatewayHtmlFormDir;
-
 		parent::setUp();
 
 		$this->setMwGlobals( array(
@@ -46,7 +44,6 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 			'wgPaypalGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
-					'file' => $wgGlobalCollectGatewayHtmlFormDir . '/cc/cc-vmad.html',
 					'gateway' => 'globalcollect',
 					'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'discover' ) ),
 					'countries' => array (
@@ -54,7 +51,6 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 					),
 				),
 				'paypal' => array(
-					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal.html',
 					'gateway' => 'paypal',
 					'payment_methods' => array ( 'paypal' => 'ALL' ),
 				),

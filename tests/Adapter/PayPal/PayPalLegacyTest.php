@@ -34,8 +34,6 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	}
 
 	public function setUp() {
-		global $wgPaypalGatewayHtmlFormDir;
-
 		parent::setUp();
 
 		$this->setMwGlobals( array(
@@ -44,12 +42,10 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'paypal' => array(
-					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal.html',
 					'gateway' => 'paypal',
 					'payment_methods' => array('paypal' => 'ALL'),
 				),
 				'paypal-recurring' => array(
-					'file' => $wgPaypalGatewayHtmlFormDir . '/paypal-recurring.html',
 					'gateway' => 'paypal',
 					'payment_methods' => array('paypal' => 'ALL'),
 					'recurring',

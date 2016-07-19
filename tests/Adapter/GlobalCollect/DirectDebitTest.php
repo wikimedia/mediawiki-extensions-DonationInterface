@@ -43,7 +43,6 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationIn
 	public function testBuildRequestXmlForDirectDebitSpain() {
 
 		$optionsForTestData = array(
-			'form_name' => 'RapidHTML',
 			'payment_method' => 'dd',
 			'payment_submethod' => 'dd_es',
 			'payment_product_id' => 709,

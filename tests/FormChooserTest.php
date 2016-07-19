@@ -48,10 +48,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function setupMoreForms() {
-		global $wgDonationInterfaceAllowedHtmlForms,
-			$wgDonationInterfaceFormDirs;
-
-		$form_dirs = $wgDonationInterfaceFormDirs;
+		global $wgDonationInterfaceAllowedHtmlForms;
 
 		$moreForms = array ( );
 
@@ -62,7 +59,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['cc-vmad'] = array (
-			'file' => $form_dirs['gc'] . '/cc/cc-vmad.html',
 			'gateway' => 'globalcollect',
 			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'discover' ) ),
 			'countries' => array (
@@ -71,7 +67,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['cc-vmaj'] = array (
-			'file' => $form_dirs['gc'] . '/cc/cc-vmaj.html',
 			'gateway' => 'globalcollect',
 			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'jcb' ) ),
 			'countries' => array (
@@ -82,7 +77,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['cc-vma'] = array (
-			'file' => $form_dirs['gc'] . '/cc/cc-vma.html',
 			'gateway' => 'globalcollect',
 			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex' ) ),
 			'countries' => array (
@@ -98,14 +92,12 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['cc'] = array (
-			'file' => $form_dirs['gc'] . '/cc/cc.html',
 			'gateway' => 'globalcollect',
 			'payment_methods' => array ( 'cc' => 'ALL' ),
 			'countries' => array ( '-' => 'VN' )
 		);
 
 		$moreForms['rtbt-ideal'] = array (
-			'file' => $form_dirs['gc'] . '/rtbt/rtbt-ideal.html',
 			'gateway' => 'globalcollect',
 			'payment_methods' => array ( 'rtbt' => 'rtbt_ideal' ),
 			'countries' => array ( '+' => 'NL' ),
@@ -113,7 +105,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		);
 
 		$moreForms['rtbt-sofo'] = array(
-			'file' => $form_dirs['gc'] . '/rtbt/rtbt-sofo.html',
 			'gateway' => 'globalcollect',
 			'countries' => array(
 				'+' => array( 'AT', 'BE', 'CH', 'DE' ),

@@ -157,7 +157,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function displayForm() {
 		$output = $this->getOutput();
 
-		$form_class = $this->getFormClass();
+		$form_class = $this->adapter->getFormClass();
 		// TODO: use interface.  static ctor.
 		if ( $form_class && class_exists( $form_class ) ){
 			$form_obj = new $form_class( $this->adapter );
@@ -201,14 +201,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	protected function getAdapterClass() {
 		return $this->adapterClass;
-	}
-
-	/**
-	 * Get the currently set form class
-	 * @return mixed string containing the valid and enabled form class, otherwise false. 
-	 */
-	public function getFormClass() {
-		return $this->adapter->getFormClass();
 	}
 
 	/**
