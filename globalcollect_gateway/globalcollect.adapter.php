@@ -25,6 +25,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
+	// @deprecated
 	const GC_CC_LIMBO_QUEUE = 'globalcollect-cc-limbo';
 
 	public function getCommunicationType() {
@@ -636,15 +637,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			// If we have a querystring, this means we're processing a live donor
 			// coming back from GlobalCollect, and the transaction is not orphaned
+			// @deprecated We should be able to skip any deletion.
 			$this->logger->info( 'Donor returned, deleting limbo message' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
-		} else { //this is an orphan transaction.
+		} else {
+			// We're in orphan processing mode, so instead of waiting around for
+			// the user to add more data and complete pending transactions,
+			// interpret this pending code range as "failed".
+
 			$is_orphan = true;
-			//have to change this code range: All these are usually "pending" and
-			//that would still be true...
-			//...aside from the fact that if the user has gotten this far, they left
-			//the part where they could add more data.
-			//By now, "incomplete" definitely means "failed" for 0-70.
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 0, 70 );
 		}
 
@@ -778,6 +779,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						if ( $txn_data['STATUSID'] !== '200' ) {
 							break 2; //no need to loop.
 						}
+						// FIXME: explicit that we want to fall through?
 
 					case FinalStatus::PENDING :
 						//if it's really pending at this point, we need to...
@@ -940,6 +942,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					}
 
 					// We won't need the limbo message again, either way, so cancel it.
+					// @deprecated
 					$this->deleteLimboMessage();
 				}
             }
@@ -1704,6 +1707,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $action != FinalStatus::FAILED ){
+				// TODO: if method_loses_control rather than hardcode cc.
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
 					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
 				}
@@ -1713,6 +1717,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	// hook pre_process for GET_ORDERSTATUS
 	protected function pre_process_get_orderstatus(){
+		// Run antifraud only once per request.
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
 		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){

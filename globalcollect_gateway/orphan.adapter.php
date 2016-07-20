@@ -11,7 +11,16 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 	public function __construct() {
 		$this->batch = true; //always batch if we're using this object.
-		parent::__construct( $options = array ( ) );
+
+		// FIXME: This is just to trigger batch code paths within DonationData.
+		// Do so explicitly instead.
+		$options = array(
+			'external_data' => array(
+				'wheeee' => 'yes'
+			),
+		);
+
+		parent::__construct( $options );
 	}
 
 	// FIXME: Get rid of this.

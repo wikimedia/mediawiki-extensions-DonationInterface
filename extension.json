@@ -114,6 +114,7 @@
 		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
 		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
 		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
+		"GlobalCollectOrphanRectifier_pooled": "globalcollect_gateway/GlobalCollectOrphanRectifier_pooled.php",
 		"IngenicoFinancialNumber": "globalcollect_gateway/IngenicoFinancialNumber.php",
 		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
 		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
@@ -336,7 +337,7 @@
 		"DonationInterfaceOrphanCron": {
 			"enable": true,
 			"target_execute_time": 300,
-			"max_per_execute": "",
+			"time_buffer": 1200,
 			"_merge_strategy": "array_plus"
 		},
 		"DonationInterfaceForbiddenCountries": [],
@@ -492,6 +493,7 @@
 		"DonationInterfaceEnableSystemStatus": false,
 		"DonationInterfaceGatewayAdapters": {
 			"globalcollect": "GlobalCollectAdapter",
+			"globalcollect_orphan": "GlobalCollectOrphanAdapter",
 			"amazon": "AmazonAdapter",
 			"adyen": "AdyenAdapter",
 			"astropay": "AstroPayAdapter",

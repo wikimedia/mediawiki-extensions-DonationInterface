@@ -1,13 +1,10 @@
 <?php
 
 /**
- * TestingGlobalCollectOrphanAdapter
+ * Test wrapper for the orphan adapter
  *
- * This is officially truly silly now.
- * TODO: Poke own eye out before you notice that multiple inheritance would, if
- * available, cause this file to deflate by 4/5ths. 
+ * TODO: This is beyond silly.  Use traits or whatever it takes.
  */
-
 class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 
 	public $curled = array ( );

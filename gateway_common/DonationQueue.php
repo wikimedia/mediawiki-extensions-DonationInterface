@@ -281,6 +281,7 @@ class DonationQueue {
 	 * transaction array, basically undoing the mappings from buildTransactionMessage.
 	 *
 	 * TODO: This shouldn't be necessary, see https://phabricator.wikimedia.org/T109819
+	 * @deprecated by T131275
 	 *
 	 * @param array $transaction Queue message
 	 *
