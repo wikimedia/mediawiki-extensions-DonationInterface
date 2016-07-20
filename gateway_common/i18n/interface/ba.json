@@ -203,7 +203,7 @@
 	"donate_interface-error-msg-genaricrequired": "Был юл тултырылырға тейеш",
 	"donate_interface-error-msg-country-calc": "Хата - һеҙҙең хәйриәне әлегә ҡабул итә алмайбыҙ.",
 	"donate_interface-error-msg-fiscal_number": "Һалым номеры",
-	"donate_interface-error-msg-issuer_id": "яр",
+	"donate_interface-error-msg-issuer_id": "Банк",
 	"donate_interface-donate-error-try-a-different-card": "[$1 икенсе картаны ҡуйып ҡарағыҙ] йәки [$2 икенсе хәйриә ысулы һайлағыҙ], булмаһа $3 адресы буйынса бәйләнешкә инегеҙ",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">тағы бер тапҡыр ҡабатлап ҡарағыҙ</a>, башҡа хәйриә ысулдарын<a href=\"$2\">ҡулланып ҡарағыҙ</a> йәки <a href=\"mailto:$3\">$3</a> адресы буйынса бәйләнешкә инегеҙ",
 	"donate_interface-donate-error-thank-you-for-your-support": "Ярҙамығыҙ өсөн рәхмәт!",
