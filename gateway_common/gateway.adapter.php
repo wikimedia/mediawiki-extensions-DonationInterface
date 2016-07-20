@@ -18,6 +18,7 @@
  */
 
 use ForceUTF8\Encoding;
+use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Parser;
 
@@ -2862,27 +2863,7 @@ abstract class GatewayAdapter
 	 * reference will be gone.
 	 */
 	public function session_killAllEverything() {
-		//yes: We do need all of these things, to be sure we're killing the
-		//correct session data everywhere it could possibly be.
-		$this->session_ensure(); //make sure we are killing the right thing.
-		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
-			MediaWiki\Session\SessionManager::getGlobalSession()->clear();
-		} else {
-			/**
-			 * FIXME: Remove this whole else clause when in 1.27, but especially
-			 * this FauxRequest hack. Until 1.27, WebRequest refers to the
-			 * $_SESSION superglobal to get values, but FauxRequest holds onto
-			 * an internal array which is not cleared by _unset or _destroy.
-			 * We clear that array to get the same behavior in test and prod.
-			 */
-			if ( $this->request instanceof FauxRequest ) {
-				foreach( $this->request->getSessionArray() as $key => $value ) {
-					$this->request->setSessionData( $key, null );
-				}
-			}
-			session_unset(); //frees all registered session variables. At this point, they can still be re-registered.
-			session_destroy(); //killed on the server.
-		}
+		SessionManager::getGlobalSession()->clear();
 	}
 
 	/**
@@ -2891,6 +2872,7 @@ abstract class GatewayAdapter
 	 * probably just shouldn't. Please consider session_reset instead. Please.
 	 * Note: This will leave the cookie behind! It just won't go to anything at
 	 * all.
+	 * FIXME: This is silly and redundant and should probably be killed.
 	 */
 	public function session_unsetAllData() {
 		$this->session_killAllEverything();

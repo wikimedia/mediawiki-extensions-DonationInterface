@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -17,6 +17,9 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
 	"descriptionmsg": "donationinterface-desc",
 	"type": "specialpage",
+	"requires": {
+		"MediaWiki": ">= 1.27.0"
+	},
 	"callback": "DonationInterface::registerExtension",
 	"SpecialPages": {
 		"GatewayFormChooser": "GatewayFormChooser",

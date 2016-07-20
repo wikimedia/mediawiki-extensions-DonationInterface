@@ -479,17 +479,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$_SERVER['SCRIPT_NAME'] = __FILE__;
 
 		RequestContext::resetMain();
-		// The following is only needed until 1.27, as the above reset only
-		// sets the request back to $wgRequest
-		$request = RequestContext::getMain()->getRequest();
-		if ( $request instanceof FauxRequest ) {
-			$session = $request->getSessionArray();
-			if ( is_array( $session ) ) {
-				foreach( $session as $key => $value ) {
-					$request->setSessionData( $key, null );
-				}
-			}
-		}
 
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
@@ -504,15 +493,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'Gateway_Extras_SessionVelocityFilter',
 		);
 		foreach( $singleton_classes as $singleton_class ) {
-			if ( method_exists( 'TestingAccessWrapper', 'newFromClass' ) ) {
-				// In 1.27, we have official static support
-				$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
-			} else {
-				// This static-as-instance voodoo shouldn't work, but the
-				// ReflectionClass used in TestingAccessWrapper is very obliging
-				$unwrapped = TestingAccessWrapper::newFromObject( $singleton_class );
-			}
-			$unwrapped->instance = null; // more cheating
+			$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
+			$unwrapped->instance = null;
 		}
 	}
 

@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Session\SessionManager;
+
 class WmfFramework_Mediawiki {
 	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
 		// TODO: call different wf*Log functions depending on $level
@@ -34,11 +36,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function setupSession( $sessionId = false ) {
-		if ( class_exists( 'MediaWiki\Session\SessionManager' ) ) {
-			MediaWiki\Session\SessionManager::getGlobalSession()->persist();
-		} else if ( !RequestContext::getMain()->getRequest()->checkSessionCookie() ){
-			wfSetupSession();
-		}
+		SessionManager::getGlobalSession()->persist();
 	}
 
 	static function validateIP( $ip ) {
