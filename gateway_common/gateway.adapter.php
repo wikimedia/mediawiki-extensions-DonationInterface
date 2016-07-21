@@ -287,6 +287,13 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->stageData();
 
 		WmfFramework::runHooks( 'GatewayReady', array( $this ) );
+		if ( $this->getValidationAction() !== 'process' ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			$error = array( 'general' => array( 'internal-0001' =>
+				$this->getErrorMapByCodeAndTranslate( 'internal-0001' )
+			) );
+			$this->addManualError( $error );
+		}
 	}
 
 	/**
@@ -2922,7 +2929,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'numAttempt',
 				'order_status', //for post-payment activities
 				'sequence',
-				'risk_scores',
 			);
 			$preservedData = array();
 			$msg = '';
