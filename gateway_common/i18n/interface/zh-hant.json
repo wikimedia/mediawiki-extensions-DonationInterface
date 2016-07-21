@@ -209,6 +209,7 @@
 	"donate_interface-error-msg-genaricrequired": "此欄位為必填",
 	"donate_interface-error-msg-country-calc": "錯誤 - 我們無法接受您此次的捐款。",
 	"donate_interface-error-msg-fiscal_number": "財政號",
+	"donate_interface-error-msg-issuer_id": "銀行",
 	"donate_interface-donate-error-try-a-different-card": "請試用[$1 另外一個信用卡]或[$2 其他捐贈方法]，或者傳送至 $3 聯絡我們",
 	"donate_interface-donate-error-thank-you-for-your-support": "感謝您的支持！",
 	"php-response-declined": "您的交易已被拒絕。",
