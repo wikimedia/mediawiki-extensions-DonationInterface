@@ -207,6 +207,7 @@ class DonationQueue {
 			'gateway' => $transaction['gateway'],
 			'gateway_txn_id' => $transaction['gateway_txn_id'],
 			'language' => $transaction['language'],
+			'order_id' => $transaction['order_id'],
 			'payment_method' => $transaction['payment_method'],
 			'payment_submethod' => $transaction['payment_submethod'],
 			'response' => $transaction['response'],
