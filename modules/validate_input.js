@@ -1,4 +1,3 @@
-/*global wgCurrencyMinimums:true*/
 /**
  * Validate the donation amount to make sure it is formatted correctly and at least a minimum amount.
  * TODO: also validate ceiling
@@ -7,6 +6,7 @@ window.validateAmount = function () {
 	var error = true,
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
 		currency_code = '',
+		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 		rate,
 		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
 		minDisplay,
@@ -33,11 +33,11 @@ window.validateAmount = function () {
 	if ( $( 'select[name="currency_code"]' ).length ) {
 		currency_code = $( 'select[name="currency_code"]' ).val();
 	}
-	// FIXME: replace with mw.config.get( "wgDonationInterfaceCurrencyRates" )
-	if ( ( typeof wgCurrencyMinimums[ currency_code ] ) === 'undefined' ) {
+
+	if ( ( typeof rates[ currency_code ] ) === 'undefined' ) {
 		rate = 1;
 	} else {
-		rate = wgCurrencyMinimums[ currency_code ];
+		rate = rates[ currency_code ];
 	}
 	// if we're on a new form, clear existing amount error
 	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
