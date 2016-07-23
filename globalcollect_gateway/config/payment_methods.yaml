@@ -1,15 +1,15 @@
 bt:
-    label: 'Bank transfer'
+    label: Bank transfer
     validation:
         creditCard: false
     short_circuit_at: first_iop
 cc:
-    label: 'Credit Cards'
+    label: Credit Cards
     validation:
         name: true
         email: true
 dd:
-    label: 'Direct Debit'
+    label: Direct Debit
     validation:
         creditCard: false
     short_circuit_at: first_iop
@@ -22,14 +22,14 @@ ew:
     additional_success_status:
         - 20
 obt:
-    label: 'Online bank transfer'
+    label: Online bank transfer
     validation:
         name: true
         email: true
         creditCard: false
     short_circuit_at: first_iop
 rtbt:
-    label: 'Real time bank transfer'
+    label: Real time bank transfer
     validation:
         name: true
         email: true
@@ -37,7 +37,7 @@ rtbt:
     additional_success_status:
         - 20
 cash:
-    label: 'Cash payments'
+    label: Cash payments
     short_circuit_at: first_iop
     additional_success_status:
         - 55

@@ -1,6 +1,6 @@
 bt:
     paymentproductid: 11
-    label: 'Bank Transfer'
+    label: Bank Transfer
     group: bt
     validation: {  }
     keys: {  }
