@@ -3,13 +3,14 @@
 		"authors": [
 			"Dasius",
 			"Stryn",
-			"Kosovastar"
+			"Kosovastar",
+			"Liridon"
 		]
 	},
 	"donate_interface": "Mbështesni Wikipedia-n",
 	"donate_interface-desc": "Donation landing page that integrates gateway extensions",
 	"donate_interface-langonly-desc": "Exposes only DonationInterface system messages",
-	"donate_interface-intro": "Ju lutemi, zgjidhni menyrën e pagesës, shumën dhe valutën.",
+	"donate_interface-intro": "Ju lutemi, zgjidhni mënyrën e pagesës, shumën dhe valutën.",
 	"donate_interface-amount": "Shuma",
 	"donate_interface-other-amount": "Shumë tjetër",
 	"donate_interface-currency": "Valuta:",
