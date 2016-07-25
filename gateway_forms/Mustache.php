@@ -18,13 +18,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	public static $baseDir;
 
-	/**
-	 * @param GatewayAdapter $gateway The live adapter object that is used as
-	 * the source for donor data and capabilities discovery.
-	 */
-	public function __construct( GatewayAdapter $gateway ) {
-		parent::__construct( $gateway );
+	public function setGateway( GatewayType $gateway ) {
+		parent::setGateway( $gateway );
 
+		// FIXME: late binding fail?
 		self::$baseDir = dirname( $this->getTopLevelTemplate() );
 	}
 
@@ -98,7 +95,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getData() {
 		$data = $this->gateway->getData_Unstaged_Escaped();
-		$output = $this->gateway->getContext()->getOutput();
+		$output = $this->gatewayPage->getContext()->getOutput();
 
 		$data['script_path'] = $this->scriptPath;
 		$data['verisign_logo'] = $this->getSmallSecureLogo();

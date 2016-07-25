@@ -34,6 +34,8 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			->setMethods( array( 'parse' ) )
 			->getMock();
 
+		$this->gatewayPage = new TestingGatewayPage();
+
 		RequestContext::getMain()->setOutput( $this->outputPage );
 
 		$req = new TestingRequest();
@@ -69,7 +71,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/{$name}.mustache",
 		) );
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		$html = $this->form->getForm();
 
 		$this->assertRegExp( $regexp, $html );
@@ -83,7 +87,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
 		) );
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		// Suppress the error cos: we know.
 		$html = @$this->form->getForm();
 
@@ -106,7 +112,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			->method( 'parse' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/JimmyQuote/en}}' ) );
 
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		$html = $this->form->getForm();
 
 		$this->assertEquals( "<p>This is the template text</p>\n", $html );
@@ -128,7 +136,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			->method( 'parse' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/differentAppeal/en}}' ) );
 
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		$this->form->getForm();
 	}
 
@@ -150,7 +160,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			->method( 'parse' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' ) );
 
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		$this->form->getForm();
 	}
 
@@ -164,7 +176,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		) );
 		$this->setLanguage( $language );
 		$this->adapter->addRequestData( array( 'language' => $language ) );
-		$this->form = new Gateway_Form_Mustache( $this->adapter );
+		$this->form = new Gateway_Form_Mustache();
+		$this->form->setGateway( $this->adapter );
+		$this->form->setGatewayPage( $this->gatewayPage );
 		$html = $this->form->getForm();
 		$expected = htmlspecialchars(
 			wfMessage( 'donate_interface-bigamount-error', '12.00', 'EUR', 'donor-support@worthyfoundation.org' )->text()

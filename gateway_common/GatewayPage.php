@@ -160,7 +160,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$form_class = $this->adapter->getFormClass();
 		// TODO: use interface.  static ctor.
 		if ( $form_class && class_exists( $form_class ) ){
-			$form_obj = new $form_class( $this->adapter );
+			$form_obj = new $form_class();
+			$form_obj->setGateway( $this->adapter );
+			$form_obj->setGatewayPage( $this );
 			$form = $form_obj->getForm();
 			$output->addModules( $form_obj->getResources() );
 			$output->addModuleStyles( $form_obj->getStyleModules() );

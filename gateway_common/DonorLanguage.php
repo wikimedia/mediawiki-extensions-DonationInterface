@@ -2,6 +2,9 @@
 
 class DonorLanguage implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		if ( !isset( $normalized['language'] ) ) {
+			return;
+		}
 		$language = $normalized['language'];
 		$adapterLanguages = $adapter->getAvailableLanguages();
 		if ( !in_array( $language, $adapterLanguages ) ) {

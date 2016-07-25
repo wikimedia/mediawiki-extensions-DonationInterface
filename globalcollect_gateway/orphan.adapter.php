@@ -184,6 +184,13 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $transaction;
 	}
 
+	public function setGatewayDefaults( $options = array ( ) ) {
+		// Prevent MediaWiki code paths.
+		parent::setGatewayDefaults( array(
+			'returnTo' => '',
+		) );
+	}
+
 	/**
 	 * Override live adapter with a no-op since orphan doesn't have any new info
 	 * before GET_ORDERSTATUS

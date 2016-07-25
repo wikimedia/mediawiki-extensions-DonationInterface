@@ -178,18 +178,6 @@ abstract class GatewayAdapter
 	protected $batch = false;
 	protected $api_request = false;
 
-	/**
-	 * The current HTTP request context
-	 * @var IContextSource
-	 */
-	protected $context;
-
-	/**
-	 * The current HTTP request
-	 * @var WebRequest
-	 */
-	protected $request;
-
 	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
@@ -228,8 +216,6 @@ abstract class GatewayAdapter
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-		$this->context = RequestContext::getMain();
-		$this->request = $this->context->getRequest();
 
 		$defaults = array(
 			'external_data' => null,
@@ -293,18 +279,6 @@ abstract class GatewayAdapter
 			) );
 			$this->addManualError( $error );
 		}
-	}
-
-	/**
-	 * Get the currency HTTP request context
-	 * @return IContextSource
-	 */
-	public function getContext() {
-		return $this->context;
-	}
-
-	public function getRequest() {
-		return $this->request;
 	}
 
 	/**

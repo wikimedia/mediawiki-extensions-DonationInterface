@@ -60,8 +60,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param array $options These get extracted in the parent.
 	 */
 	function setGatewayDefaults( $options = array ( ) ) {
-		$returnTitle = isset( $options['returnTitle'] ) ? $options['returnTitle'] : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-		$returnTo = isset( $options['returnTo'] ) ? $options['returnTo'] : $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+		if ( isset( $options['returnTo'] ) ) {
+			$returnTo = $options['returnTo'];
+		} else {
+			if ( isset( $options['returnTitle'] ) ) {
+				$returnTitle = $options['returnTitle'];
+			} else {
+				$returnTitle = Title::newFromText( 'Special:GlobalCollectGatewayResult' );
+			}
+			$returnTo = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+		}
 
 		$defaults = array (
 			'returnto' => $returnTo,

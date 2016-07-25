@@ -19,6 +19,11 @@ abstract class Gateway_Form {
 	protected $gateway;
 
 	/**
+	 * @var GatewayPage
+	 */
+	protected $gatewayPage;
+
+	/**
 	 * @var string
 	 */
 	protected $scriptPath;
@@ -34,10 +39,13 @@ abstract class Gateway_Form {
 	 */
 	abstract function getForm();
 
-	public function __construct( $gateway ) {
+	/**
+	 * Get these objects using "new" with no parameters.
+	 */
+	public function __construct() {}
 
+	public function setGateway( GatewayType $gateway ) {
 		$this->gateway = $gateway;
-		$this->scriptPath = $this->gateway->getContext()->getConfig()->get( 'ScriptPath' );
 		$this->logger = DonationLoggerFactory::getLogger( $gateway );
 		$gateway_errors = $this->gateway->getAllErrors();
 
@@ -50,11 +58,9 @@ abstract class Gateway_Form {
 		$this->form_errors = array_merge( DataValidator::getEmptyErrorArray(), $gateway_errors );
 	}
 
-	/**
-	 * Uses resource loader to load the form validation javascript.
-	 */
-	protected function loadValidateJs() {
-		$this->gateway->getContext()->getOutput()->addModules( 'di.form.core.validate' );
+	public function setGatewayPage( GatewayPage $gatewayPage ) {
+		$this->gatewayPage = $gatewayPage;
+		$this->scriptPath = $gatewayPage->getContext()->getConfig()->get( 'ScriptPath' );
 	}
 
 	/**
@@ -86,7 +92,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getNoCacheAction() {
 
-		$url = $this->gateway->getRequest()->getFullRequestURL();
+		$url = $this->gatewayPage->getRequest()->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );
@@ -120,7 +126,7 @@ abstract class Gateway_Form {
 		}
 
 		// construct the submission url
-		$title = $this->gateway->getContext()->getTitle();
+		$title = $this->gatewayPage->getPageTitle();
 		return wfAppendQuery( $title->getLocalURL(), $query_array );
 	}
 
