@@ -5,7 +5,7 @@ class DonorLanguage implements StagingHelper {
 		$language = $normalized['language'];
 		$adapterLanguages = $adapter->getAvailableLanguages();
 		if ( !in_array( $language, $adapterLanguages ) ) {
-			$fallbacks = Language::getFallbacksFor( $language );
+			$fallbacks = WmfFramework::getLanguageFallbacks( $language );
 			foreach ( $fallbacks as $fallback ) {
 				if ( in_array( $fallback, $adapterLanguages ) ) {
 					$language = $fallback;

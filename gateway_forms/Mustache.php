@@ -109,6 +109,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$redirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
 		$data['no_script_redirect'] = $redirect;
 
+		// FIXME: Appeal rendering should be broken out into its own thing.
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );

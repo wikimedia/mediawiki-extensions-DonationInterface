@@ -273,7 +273,7 @@ abstract class GatewayAdapter
 		$this->staged_data = $this->unstaged_data;
 
 		// checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( $this->request->getVal( 'wmf_token', null ) ) ) );
+		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( WmfFramework::getRequestValue( 'wmf_token', null ) ) ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -2198,7 +2198,7 @@ abstract class GatewayAdapter
 			$attempts = 1;
 		}
 
-		$this->request->setSessionData( 'numAttempt', $attempts );
+		WmfFramework::setSessionValue( 'numAttempt', $attempts );
 	}
 
 	/**
@@ -2218,7 +2218,7 @@ abstract class GatewayAdapter
 			$sequence = 1;
 		}
 
-		$this->request->setSessionData( 'sequence', $sequence );
+		WmfFramework::setSessionValue( 'sequence', $sequence );
 	}
 
 	public function setHash( $hashval ) {
@@ -2811,7 +2811,7 @@ abstract class GatewayAdapter
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
 	public function session_getData( $key, $subkey = null ) {
-		$data = $this->request->getSessionData( $key );
+		$data = WmfFramework::getSessionValue( $key );
 		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
 				return $data;
@@ -2842,7 +2842,7 @@ abstract class GatewayAdapter
 	 */
 	public function session_unsetDonorData() {
 		if ( $this->session_hasDonorData() ) {
-			$this->request->setSessionData( 'Donor', null );
+			WmfFramework::setSessionValue( 'Donor', null );
 		}
 	}
 
@@ -2862,7 +2862,7 @@ abstract class GatewayAdapter
 		foreach ( $sessionFields as $field ) {
 			$data[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
-		$this->request->setSessionData( 'Donor', $data );
+		WmfFramework::setSessionValue( 'Donor', $data );
 	}
 
 	/**
@@ -2908,7 +2908,7 @@ abstract class GatewayAdapter
 		$reset = $force;
 		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
-			$this->request->setSessionData( 'numAttempt', 0 );
+			WmfFramework::setSessionValue( 'numAttempt', 0 );
 		}
 
 		if ( $reset ) {
@@ -2927,7 +2927,7 @@ abstract class GatewayAdapter
 			$preservedData = array();
 			$msg = '';
 			foreach ( $preserveKeys as $keep ) {
-				$value = $this->request->getSessionData( $keep );
+				$value = WmfFramework::getSessionValue( $keep );
 				if ( !is_null( $value ) ) {
 					$preservedData[$keep] = $value;
 					$msg .= "$keep, "; //always one extra comma; Don't care.
@@ -2935,7 +2935,7 @@ abstract class GatewayAdapter
 			}
 			$this->session_unsetAllData();
 			foreach( $preservedData as $keep => $value ) {
-				$this->request->setSessionData( $keep, $value );
+				WmfFramework::setSessionValue( $keep, $value );
 			}
 			if ( $msg === '' ) {
 				$this->logger->info( __FUNCTION__ . ": Reset session, nothing to preserve" );
@@ -2951,7 +2951,7 @@ abstract class GatewayAdapter
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $donorData[$reset_me] );
 			}
-			$this->request->setSessionData( 'Donor', $donorData );
+			WmfFramework::setSessionValue( 'Donor', $donorData );
 			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id only' );
 		}
 	}
@@ -2987,7 +2987,7 @@ abstract class GatewayAdapter
 		// Now compare session with current request parameters
 		// Reset submethod when method changes to avoid form mismatch errors
 		if ( !empty( $oldData['payment_method'] ) && !empty( $oldData['payment_submethod'] ) ) {
-			$newMethod = $this->request->getVal( 'payment_method' );
+			$newMethod = WmfFramework::getRequestValue( 'payment_method', null );
 			if ( $newMethod ) {
 				$parts = explode( '.', $newMethod );
 				$newMethod = $parts[0];
@@ -2996,7 +2996,7 @@ abstract class GatewayAdapter
 						"Payment method changed from {$oldData['payment_method']} to $newMethod.  Unsetting submethod."
 					);
 					unset( $oldData['payment_submethod'] );
-					$this->request->setSessionData( 'Donor', $oldData );
+					WmfFramework::setSessionValue( 'Donor', $oldData );
 				}
 			}
 		}
@@ -3008,7 +3008,7 @@ abstract class GatewayAdapter
 			$newRecurring = '';
 			$hasRecurParam = false;
 			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
-				$newVal = $this->request->getVal( $key );
+				$newVal = WmfFramework::getRequestValue( $key, null );
 				if ( $newVal !== null ) {
 					$hasRecurParam = true;
 				}
@@ -3021,7 +3021,7 @@ abstract class GatewayAdapter
 					"Recurring changed from '{$oldData['recurring']}' to '$newRecurring'.  Unsetting order ID."
 				);
 				unset( $oldData['order_id'] );
-				$this->request->setSessionData( 'Donor', $oldData );
+				WmfFramework::setSessionValue( 'Donor', $oldData );
 			}
 		}
 	}
@@ -3049,7 +3049,7 @@ abstract class GatewayAdapter
 		//don't want duplicates
 		if ( $this->session_getLastFormName() != $form_key ) {
 			$paymentForms[] = $form_key;
-			$this->request->setSessionData( 'PaymentForms', $paymentForms );
+			WmfFramework::setSessionValue( 'PaymentForms', $paymentForms );
 		}
 	}
 
@@ -3114,11 +3114,11 @@ abstract class GatewayAdapter
 
 		$tokenKey = self::getIdentifier() . 'EditToken';
 
-		$token = $this->request->getSessionData( $tokenKey );
+		$token = WmfFramework::getSessionValue( $tokenKey );
 		if ( is_null( $token ) ) {
 			// generate unsalted token to place in the session
 			$token = self::token_generateToken();
-			$this->request->setSessionData( $tokenKey, $token );
+			WmfFramework::setSessionValue( $tokenKey, $token );
 		}
 
 		return self::token_applyMD5AndSalt( $token );
@@ -3134,7 +3134,7 @@ abstract class GatewayAdapter
 		$unsalted = self::token_generateToken();
 		$gateway_ident = self::getIdentifier();
 		$this->session_ensure();
-		$this->request->setSessionData( $gateway_ident . 'EditToken', $unsalted );
+		WmfFramework::setSessionValue( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
 		$this->addRequestData( array ( 'wmf_token' => $salted ) );
@@ -3271,7 +3271,7 @@ abstract class GatewayAdapter
 		foreach ( $locations as $var => $key ) {
 			switch ( $var ) {
 				case "request" :
-					$value = $this->request->getText( $key, '' );
+					$value = WmfFramework::getRequestValue( $key, '' );
 					if ( $value !== '' ) {
 						$oid_candidates[$var] = $value;
 					}
@@ -3279,13 +3279,13 @@ abstract class GatewayAdapter
 				case "session" :
 					if ( is_array( $key ) ) {
 						foreach ( $key as $subkey => $subvalue ) {
-							$parentVal = $this->request->getSessionData( $subkey );
+							$parentVal = WmfFramework::getSessionValue( $subkey );
 							if ( is_array( $parentVal ) && array_key_exists( $subvalue, $parentVal ) ) {
 								$oid_candidates['session' . $subkey . $subvalue] = $parentVal[$subvalue];
 							}
 						}
 					} else {
-						$val = $this->request->getSessionData( $key );
+						$val = WmfFramework::getSessionValue( $key );
 						if ( !is_null( $val ) ) {
 							$oid_candidates[$var] = $val;
 						}

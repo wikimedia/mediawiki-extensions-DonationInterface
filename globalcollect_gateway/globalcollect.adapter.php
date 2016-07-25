@@ -618,7 +618,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( !$this->isBatchProcessor() ) {
 			// FIXME: Refactor as normal unstaging.
 			foreach ( $pull_vars as $theirkey => $ourkey) {
-				$tmp = $this->request->getVal( $theirkey, null );
+				$tmp = WmfFramework::getRequestValue( $theirkey, null );
 				if ( !is_null( $tmp ) ) {
 					$qsResults[$ourkey] = $tmp;
 				}

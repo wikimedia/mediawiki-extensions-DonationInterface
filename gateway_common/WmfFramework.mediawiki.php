@@ -13,6 +13,20 @@ class WmfFramework_Mediawiki {
 		return $request->getIP();
 	}
 
+	static function getRequestValue( $key, $default ) {
+		//all strings is just fine.
+		$ret = RequestContext::getMain()->getRequest()->getText( $key, $default );
+		//getText never returns null: It just casts do an empty string. Soooo...
+		if ( $ret === '' && !array_key_exists( $key, $_POST ) && !array_key_exists( $key, $_GET ) ) {
+			$ret = $default; //not really there, so stop pretending.
+		}
+		return $ret;
+	}
+
+	static function getRequestHeader( $key ) {
+		return RequestContext::getMain()->getRequest()->getHeader( $key );
+	}
+
 	static function getHostname() {
 		return wfHostname();
 	}
@@ -30,6 +44,10 @@ class WmfFramework_Mediawiki {
 		return $lang->getCode();
 	}
 
+	static function getLanguageFallbacks( $language ) {
+		return Language::getFallbacksFor( $language );
+	}
+
 	static function isUseSquid() {
 		global $wgUseSquid;
 		return $wgUseSquid;
@@ -37,6 +55,14 @@ class WmfFramework_Mediawiki {
 
 	static function setupSession( $sessionId = false ) {
 		SessionManager::getGlobalSession()->persist();
+	}
+
+	static function getSessionValue( $key ) {
+		return RequestContext::getMain()->getRequest()->getSessionData( $key );
+	}
+
+	static function setSessionValue( $key, $value ) {
+		RequestContext::getMain()->getRequest()->setSessionData( $key, $value );
 	}
 
 	static function validateIP( $ip ) {
