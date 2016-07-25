@@ -215,6 +215,7 @@
 	"donate_interface-error-msg-country-calc": "Erro - Não é possível aceitar sua doação neste momento.",
 	"donate_interface-error-msg-fiscal_number": "Número fiscal",
 	"donate_interface-error-msg-fiscal_number-br": "Número fiscal (CPF ou CNPJ)",
+	"donate_interface-error-msg-issuer_id": "banco",
 	"donate_interface-donate-error-try-a-different-card": "[$1 Tente outro cartão], uma das [$2 outras formas de donativo], ou entre em contato conosco no endereço $3, por favor.",
 	"donate_interface-donate-error-try-a-different-card-html": "Tenta com outro cartão ou com uma das nossas <a href=\"$1\">outras maneiras de doar</a>, ou contacta-nos em <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Por favor, <a href=\"$1\">tente novamente</a>, tente outra de nossas <a href=\"$2\">maneiras para dar</a> ou contacte-nos em <a href=\"mailto:$3\">$3</a>",

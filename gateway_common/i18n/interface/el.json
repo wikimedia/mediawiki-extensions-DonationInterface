@@ -10,7 +10,8 @@
 			"Shirayuki",
 			"ZaDiak",
 			"Pcoombe",
-			"Protnet"
+			"Protnet",
+			"Geraki"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -27,7 +28,7 @@
 	"donate_interface-email-agreement": "Συμφωνώ να λαμβάνω περιστασιακά ενημερώσεις μέσω e-mail από το Ίδρυμα Wikimedia.",
 	"donate_interface-comment-title": "Δημόσιο σχόλιο",
 	"donate_interface-amount-error": "Παρακαλούμε επιλέξτε ποσό για δωρεά",
-	"donate_interface-smallamount-error": "Θα πρέπει  να συνεισφέρετε τουλάχιστον$1",
+	"donate_interface-smallamount-error": "Παρακαλούμε επιλέξτε ένα ποσό (ελάχιστο $1)",
 	"donate_interface-bigamount-error": "Δεν μπορούμε να δεχτούμε δωρεές μεγαλύτερες από 10000 δολάρια ($1 $2) μέσω της ιστοσελίδας μας. Παρακαλούμε επικοινωνήστε με το προσωπικό μας για μείζονες δωρεές στο $3.",
 	"donate_interface-processing-error": "Υπήρξε σφάλμα κατά την επεξεργασία της αίτησής σας.\nΚανένας επεξεργαστής δεν είναι διαθέσιμος.",
 	"donate_interface-AED": "Ντιράμ  Ηνωμένων Αραβικών Εμιράτων",
@@ -169,6 +170,7 @@
 	"donate_interface-error-msg-visa": "**Παρακαλούμε εισαγάγετε έγκυρο αριθμό κάρτας για τη Visa.**",
 	"donate_interface-error-msg-discover": "**Παρακαλούμε εισαγάγετε έγκυρο αριθμό κάρτας για την Discover.**",
 	"donate_interface-error-msg-amount": "ποσό δωρεάς",
+	"donate_interface-error-msg-limit": "Η δωρεά σας δεν μπόρεσε να διεκπεραιωθεί. Παρακαλούμε, δοκιμάστε ένα από τους <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">άλλους τρόπους για να δώσετε</a>, δοκιμάστε ένα μικρότερο ποσό ή δοκιμάστε ξανά αύριο.",
 	"donate_interface-error-msg-email": "διεύθυνση ηλεκτρονικού ταχυδρομείου",
 	"donate_interface-error-msg-fname": "όνομα",
 	"donate_interface-error-msg-lname": "επίθετο",
@@ -181,7 +183,9 @@
 	"donate_interface-error-msg-card_type": "τύπος πιστωτικής κάρτας",
 	"donate_interface-error-msg-card_num": "αριθμός πιστωτικής κάρτας",
 	"donate_interface-error-msg-expiration": "Παρακαλούμε εισαγάγετε την ημερομηνία λήξης της κάρτας",
-	"donate_interface-error-msg-cvv": "Το CVV από το πίσω μέρος της κάρτας σας",
+	"donate_interface-error-msg-cvv": "Παρακαλούμε εισαγάγετε τον κωδικό CVV, που συνήθως αναγράφεται στο πίσω μέρος της κάρτας",
+	"donate_interface-error-msg-account_name": "Όνομα λογαριασμού",
+	"donate_interface-error-msg-account_number": "Αριθμός λογαριασμού",
 	"donate_interface-error-msg-captcha": "Η τιμή Captcha που πληκτρολογήσατε είναι εσφαλμένη.  Παρακαλούμε ξαναπροσπαθήστε.",
 	"donate_interface-error-msg-captcha-please": "Για την ασφάλεια της πιστωτικής σας κάρτας, παρακαλούμε πληκτρολογήστε τους χαρακτήρες που βλέπετε παραπάνω.",
 	"donate_interface-error-msg-cookies": "Παρακαλούμε ενεργοποιήστε τα cookies στο πρόγραμμα περιήγησης.",

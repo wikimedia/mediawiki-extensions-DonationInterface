@@ -4,7 +4,8 @@
 			"Ansumang",
 			"MKar",
 			"Odisha1",
-			"Psubhashish"
+			"Psubhashish",
+			"DareDevil"
 		]
 	},
 	"donate_interface": "ଉଇକିମିଡ଼ିଆକୁ ସହଯୋଗ କରନ୍ତୁ",
@@ -174,6 +175,7 @@
 	"donate_interface-error-msg-captcha-please": "କ୍ରେଡିଟ କାର୍ଡ଼ ସୁରକ୍ଷା ନିମନ୍ତେ ଦୟାକରି ତଳେ ଥିବା ଅକ୍ଷର ଟାଇପ କରନ୍ତୁ ।",
 	"donate_interface-error-msg-cookies": "ଆପଣଙ୍କ ବ୍ରାଉଜରରେ କୁକି ସଚଳ କରନ୍ତୁ ।",
 	"donate_interface-error-msg-genaricrequired": "ଏହି ସ୍ଥାନ ପୂରଣ ହେବା ଦରକାର ।",
+	"donate_interface-error-msg-issuer_id": "ଜମା ଘର",
 	"donate_interface-donate-error-try-a-different-card": "ଦୟାକରି [$1 ଆଉ ଏକ କାର୍ଡ଼ ବ୍ୟବହାର କରନ୍ତୁ] କିମ୍ବା [$2 ଦାନକରିବା ପାଇଁ ଆମର ଆଉ ଏକ ବାଟ] ଆପଣାଅନ୍ତୁ କିମ୍ବା $3 ରେ ଆମ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ",
 	"donate_interface-donate-error-thank-you-for-your-support": "ଆପଣଙ୍କ ସହଯୋଗ ପାଇଁ ସାଧୁବାଦ!",
 	"php-response-declined": "ଆପଣଙ୍କ ପଇସା କାରବାର ସଫଳ ହେଲାନାହିଁ ।",
