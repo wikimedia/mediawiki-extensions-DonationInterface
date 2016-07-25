@@ -155,6 +155,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@clean.com';
+		$init['contribution_tracking_id'] = mt_rand();
 		$gateway->loadDataAndReInit( $init, $useDB = false );
 
 		$gateway->setDummyGatewayResponseCode( $code );
@@ -180,6 +181,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@clean.com';
+		$init['contribution_tracking_id'] = mt_rand();
 
 		$gateway->loadDataAndReInit( $init, $useDB = false );
 		$gateway->setDummyGatewayResponseCode( '25' );

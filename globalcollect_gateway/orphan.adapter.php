@@ -107,10 +107,19 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	public function getUTMInfoFromDB() {
+		if ( $this->getData_Unstaged_Escaped( 'utm_source' ) ) {
+			// We already have the info.
+			return array();
+		}
+		if ( !class_exists( 'ContributionTrackingProcessor' ) ) {
+			$this->logger->error( 'We needed to get contribution_tracking data but cannot on this platform!' );
+			return array();
+		}
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
 		if ( !$db ) {
-			die( "There is something terribly wrong with your Contribution Tracking database. fixit." );
+			$this->logger->error( 'There is something terribly wrong with your Contribution Tracking database. fixit.' );
+			throw new RuntimeException( 'Might as well fall over.' );
 		}
 
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
@@ -139,7 +148,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 					$msg .= "$key = $val ";
 				}
 				$this->logger->info( "$ctid: Found UTM Data. $msg" );
-				echo "$msg\n";
 				return $data;
 			}
 		}

@@ -613,12 +613,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'CVVRESULT' => 'cvv_result',
 			'AVSRESULT' => 'avs_result',
 		);
-		// FIXME: Refactor as normal unstaging.
 		$qsResults = array();
-		foreach ( $pull_vars as $theirkey => $ourkey) {
-			$tmp = $this->request->getVal( $theirkey, null );
-			if ( !is_null( $tmp ) ) {
-				$qsResults[$ourkey] = $tmp;
+		if ( !$this->isBatchProcessor() ) {
+			// FIXME: Refactor as normal unstaging.
+			foreach ( $pull_vars as $theirkey => $ourkey) {
+				$tmp = $this->request->getVal( $theirkey, null );
+				if ( !is_null( $tmp ) ) {
+					$qsResults[$ourkey] = $tmp;
+				}
 			}
 		}
 

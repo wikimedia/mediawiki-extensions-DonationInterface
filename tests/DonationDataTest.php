@@ -116,6 +116,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$expected = array (
 			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
+			'contribution_tracking_id' => mt_rand(),
 			'email' => 'testingdata@wikimedia.org',
 			'fname' => 'Tester',
 			'lname' => 'Testington',
@@ -159,7 +160,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
 
 		unset($returned['order_id']);
-		unset($returned['contribution_tracking_id']);
 
 		$this->assertEquals($expected, $returned, "Staged default test data does not match expected.");
 	}
