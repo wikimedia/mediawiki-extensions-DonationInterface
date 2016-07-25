@@ -21,16 +21,14 @@ use ForceUTF8\Encoding;
 use Psr\Log\LogLevel;
 use Symfony\Component\Yaml\Parser;
 
-interface LogPrefixProvider {
-	function getLogMessagePrefix();
-}
-
 /**
  * GatewayAdapter
  *
  */
-abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
-
+abstract class GatewayAdapter
+	implements GatewayType,
+		LogPrefixProvider
+{
 	/**
 	 * Don't change these strings without fixing cross-repo usages.
 	 */

@@ -86,7 +86,7 @@
 		"GatewayType": "gateway_common/GatewayType.php",
 		"IsoDate": "gateway_common/IsoDate.php",
 		"DataValidator": "gateway_common/DataValidator.php",
-		"LogPrefixProvider": "gateway_common/gateway.adapter.php",
+		"LogPrefixProvider": "gateway_common/LogPrefixProvider.php",
 		"MessageUtils": "gateway_common/MessageUtils.php",
 		"NationalCurrencies": "gateway_common/NationalCurrencies.php",
 		"PaymentMethod": "gateway_common/PaymentMethod.php",
