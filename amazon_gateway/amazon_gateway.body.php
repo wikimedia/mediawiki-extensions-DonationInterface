@@ -18,7 +18,7 @@
 
 class AmazonGateway extends GatewayPage {
 
-	protected $gatewayName = 'amazon';
+	protected $gatewayIdentifier = AmazonAdapter::IDENTIFIER;
 
 	/**
 	 * Show the special page

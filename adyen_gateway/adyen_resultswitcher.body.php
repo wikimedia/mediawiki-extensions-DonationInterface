@@ -2,7 +2,7 @@
 
 class AdyenGatewayResult extends GatewayPage {
 
-	protected $gatewayName = 'adyen';
+	protected $gatewayIdentifier = AdyenAdapter::IDENTIFIER;
 
 	protected function handleRequest() {
 		$this->handleResultRequest();

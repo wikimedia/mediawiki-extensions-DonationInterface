@@ -23,7 +23,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 	protected $qs_oid = null;
 
-	protected $gatewayName = 'globalcollect';
+	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
 
 	/**
 	 * Show the special page
