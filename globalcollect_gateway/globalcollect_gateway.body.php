@@ -22,7 +22,7 @@
  */
 class GlobalCollectGateway extends GatewayPage {
 
-	protected $adapterClass = 'GlobalCollectAdapter';
+	protected $gatewayName = 'globalcollect';
 
 	/**
 	 * Show the special page

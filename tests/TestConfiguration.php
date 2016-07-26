@@ -54,6 +54,7 @@ define( 'TESTS_ADAPTER_DEFAULT', 'TestingGlobalCollectAdapter' );
 
 global $wgDonationInterfaceTestMode,
 	$wgDonationInterfaceMerchantID,
+	$wgDonationInterfaceGatewayAdapters,
 	$wgDonationInterfaceAllowedHtmlForms,
 	$wgDonationInterfaceThankYouPage,
 	$wgGlobalCollectGatewayAccountInfo,
@@ -75,6 +76,14 @@ global $wgDonationInterfaceTestMode,
 	$wgDonationInterfaceEnableReferrerFilter,
 	$wgDonationInterfaceEnableSourceFilter;
 
+$wgDonationInterfaceGatewayAdapters = array(
+	'globalcollect'=> 'TestingGlobalCollectAdapter',
+	'amazon'=> 'TestingAmazonAdapter',
+	'adyen'=> 'TestingAdyenAdapter',
+	'astropay'=> 'TestingAstroPayAdapter',
+	'paypal_ec'=> 'PaypalExpressAdapter', // ooh, flexible!
+	'paypal'=> 'TestingPaypalLegacyAdapter'
+);
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
  */

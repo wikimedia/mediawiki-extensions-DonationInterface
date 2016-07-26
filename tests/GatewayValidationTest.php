@@ -32,7 +32,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( array(
 			// FIXME: base class sketchiness.
 			'wgDonationInterfaceGatewayAdapters' => array(
-				'GatewayAdapter',
+				'donation' => 'TestingGatewayAdapter',
 			),
 			'wgDonationInterfacePriceFloor' => 2.00,
 			'wgDonationInterfacePriceCeiling' => 100.00,

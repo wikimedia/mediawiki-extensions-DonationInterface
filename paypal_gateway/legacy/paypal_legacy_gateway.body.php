@@ -17,7 +17,7 @@
  */
 
 class PaypalLegacyGateway extends GatewayPage {
-	protected $adapterClass = 'PaypalLegacyAdapter';
+	protected $gatewayName = 'paypal';
 
 	/**
 	 * Show the special page

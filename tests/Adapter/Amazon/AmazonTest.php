@@ -102,7 +102,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 				'innerhtmlmatches' => "/.*$expectedNotification.*/"
 			)
 		);
-		$this->verifyFormOutput( 'TestingAmazonGateway', $init, $assertNodes, false );
+		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false );
 	}
 
 	/**

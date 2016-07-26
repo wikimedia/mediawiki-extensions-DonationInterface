@@ -1,7 +1,7 @@
 <?php
 
 class PaypalExpressGateway extends GatewayPage {
-	protected $adapterClass = 'PaypalExpressAdapter';
+	protected $gatewayName = 'paypal_ec';
 
 	/**
 	 * Show the special page

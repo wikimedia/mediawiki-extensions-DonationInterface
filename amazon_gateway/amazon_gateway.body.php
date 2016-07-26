@@ -18,7 +18,7 @@
 
 class AmazonGateway extends GatewayPage {
 
-	protected $adapterClass = 'AmazonAdapter';
+	protected $gatewayName = 'amazon';
 
 	/**
 	 * Show the special page

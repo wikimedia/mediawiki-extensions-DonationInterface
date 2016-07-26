@@ -54,18 +54,24 @@ class DonationInterface {
 		$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
 		$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 		$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
-		$wgAutoloadClasses['TestingAmazonGateway'] = $testDir . 'includes/test_page/TestingAmazonGateway.php';
 		$wgAutoloadClasses['TestingAstroPayAdapter'] = $testDir . 'includes/test_gateway/TestingAstroPayAdapter.php';
 		$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
 		$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
 		$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
 		$wgAutoloadClasses['TestingGlobalCollectAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectAdapter.php';
-		$wgAutoloadClasses['TestingGlobalCollectGateway'] = $testDir . 'includes/test_page/TestingGlobalCollectGateway.php';
 		$wgAutoloadClasses['TestingGlobalCollectOrphanAdapter'] = $testDir . 'includes/test_gateway/TestingGlobalCollectOrphanAdapter.php';
 		$wgAutoloadClasses['TestingPaypalLegacyAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalLegacyAdapter.php';
 
 		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
 
 		return true;
+	}
+
+	public static function getAdapterClassForGateway( $gateway ) {
+		global $wgDonationInterfaceGatewayAdapters;
+		if ( !key_exists( $gateway, $wgDonationInterfaceGatewayAdapters ) ) {
+			throw new OutOfRangeException( "No adapter configured for $gateway" );
+		}
+		return $wgDonationInterfaceGatewayAdapters[$gateway];
 	}
 }

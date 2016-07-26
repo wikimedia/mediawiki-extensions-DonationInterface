@@ -66,7 +66,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	/**

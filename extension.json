@@ -487,14 +487,14 @@
 		"DonationInterfaceEnableIPVelocityFilter": false,
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
-		"DonationInterfaceGatewayAdapters": [
-			"GlobalCollectAdapter",
-			"AmazonAdapter",
-			"AdyenAdapter",
-			"AstroPayAdapter",
-			"PaypalExpressAdapter",
-			"PaypalLegacyAdapter"
-		],
+		"DonationInterfaceGatewayAdapters": {
+			"globalcollect": "GlobalCollectAdapter",
+			"amazon": "AmazonAdapter",
+			"adyen": "AdyenAdapter",
+			"astropay": "AstroPayAdapter",
+			"paypal_ec": "PaypalExpressAdapter",
+			"paypal": "PaypalLegacyAdapter"
+		},
 		"DonationInterfaceAllowedHtmlForms": []
 	},
 	"manifest_version": 1

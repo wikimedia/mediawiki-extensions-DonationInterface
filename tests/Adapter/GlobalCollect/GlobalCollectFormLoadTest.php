@@ -106,7 +106,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	function testGCFormLoad_FR() {
@@ -137,7 +137,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	/**
@@ -175,7 +175,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	/**
@@ -215,7 +215,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	/**
@@ -266,6 +266,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 }

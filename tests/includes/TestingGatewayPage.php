@@ -2,7 +2,7 @@
 
 class TestingGatewayPage extends GatewayPage {
 
-	protected $adapterClass = TESTS_ADAPTER_DEFAULT;
+	protected $gatewayName = 'globalcollect';
 
 	public function __construct() {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'TestingGenericAdapter' );

@@ -139,7 +139,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 			),
 		);
 
-		$this->verifyFormOutput( 'TestingGlobalCollectGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
 	/**

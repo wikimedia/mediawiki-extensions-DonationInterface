@@ -195,24 +195,11 @@ class DonationApi extends ApiBase {
 	}
 
 	private function getGatewayObject() {
-		global $wgDonationInterfaceTestMode;
-
 		$gateway_opts = array(
 			'api_request' => 'true'
 		);
 
-		if ( $this->gateway == 'globalcollect' ) {
-			// FIXME: no test code path in prod
-			if ( $wgDonationInterfaceTestMode === true ) {
-				return new TestingGlobalCollectAdapter( $gateway_opts );
-			} else {
-				return new GlobalCollectAdapter( $gateway_opts );
-			}
-		} elseif ( $this->gateway == 'adyen' ) {
-			return new AdyenAdapter( $gateway_opts );
-		} else {
-			$this->dieUsage( "Invalid gateway <<<{$this->gateway}>>> passed to Donation API.", 'unknown_gateway' );
-		}
-		return null;
+		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
+		return new $className( $gateway_opts );
 	}
 }
