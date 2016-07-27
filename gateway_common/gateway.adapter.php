@@ -3623,9 +3623,16 @@ abstract class GatewayAdapter
 	public function setClientVariables( &$vars ) {
 		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
-		$clientRules = $this->getClientSideValidationRules();
-		if ( !empty( $clientRules ) ) {
-			$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+		try {
+			$clientRules = $this->getClientSideValidationRules();
+			if ( !empty( $clientRules ) ) {
+				$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+			}
+		} catch ( Exception $ex ) {
+			$this->logger->warning(
+				'Caught exception setting client-side validation rules: ' .
+				$ex->getMessage()
+			);
 		}
 	}
 
