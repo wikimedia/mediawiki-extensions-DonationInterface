@@ -46,17 +46,6 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 		parent::defineOrderIDMeta();
 	}
 
-	//@TODO: That minfraud jerk needs its own isolated tests.
-	function runAntifraudHooks() {
-		//now screw around with the batch settings to trick the fraud filters into triggering
-		$is_batch = $this->isBatchProcessor();
-		$this->batch = true;
-
-		parent::runAntifraudHooks();
-
-		$this->batch = $is_batch;
-	}
-
 	/**
 	 * Set the error code you want the dummy response to return
 	 */

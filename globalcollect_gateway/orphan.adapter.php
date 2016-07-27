@@ -180,4 +180,17 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	 * before GET_ORDERSTATUS
 	 */
 	protected function pre_process_get_orderstatus() { }
+
+	/**
+	 * Do the antifraud checks here instead.
+	 */
+	protected function post_process_get_orderstatus() {
+		// TODO: Let's parse this into a "not so final status" attribute.
+		$status_response = $this->transaction_response->getData();
+		$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
+
+		if ( $action === FinalStatus::PENDING_POKE ) {
+			$this->runAntifraudHooks();
+		}
+	}
 }

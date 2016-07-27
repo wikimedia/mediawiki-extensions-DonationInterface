@@ -653,7 +653,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$problemseverity = LogLevel::ERROR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
 		$original_status_code = NULL;
-		$ran_hooks = false;
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
 		$loops = 0;
@@ -662,10 +661,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 			$validationAction = $this->getValidationAction();
-			if ( !$is_orphan ) {
-				// live users get antifraud hooks run in this txn's pre-process
-				$ran_hooks = true;
-			}
 			// FIXME: Refactor as normal unstaging.
 			$xmlResults = array(
 				'cvv_result' => '',
@@ -708,10 +703,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			if ( $is_orphan && !$cancelflag && !empty( $status_response ) ) {
 				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
-				if ( $action === FinalStatus::PENDING_POKE && !$ran_hooks ){ //only want to do this once - it's not going to change.
-					$this->runAntifraudHooks();
-					$ran_hooks = true;
-				}
 				$validationAction = $this->getValidationAction();
 			}
 
@@ -761,12 +752,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						if ( $is_orphan && !$gotCVV ){
 							$problemflag = true;
 							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
-						}
-						if ( !$ran_hooks ) {
-							$problemflag = true;
-							$problemmessage = 'On the brink of payment confirmation without running antifraud hooks';
-							$problemseverity = LogLevel::ERROR;
-							break 2;
 						}
 
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
@@ -1726,6 +1711,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
+	// hook pre_process for GET_ORDERSTATUS
 	protected function pre_process_get_orderstatus(){
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
