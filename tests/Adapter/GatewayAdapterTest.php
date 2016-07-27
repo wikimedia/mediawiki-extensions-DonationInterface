@@ -250,11 +250,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $options );
-		$pageUrlParts = explode( '?', ResultPages::getFailPage( $gateway ) );
-		parse_str( $pageUrlParts[1], $params );
-		$this->assertEquals( 'rapidFailError', $params['ffname'] );
-		$this->assertEquals( 'cc', $params['payment_method'] );
-		$this->assertEquals( 'en', $params['language'] );
+		$this->assertEquals( 'rapidFailError', ResultPages::getFailPage( $gateway ) );
 	}
 
 	public function testGetFallbackFailPage() {

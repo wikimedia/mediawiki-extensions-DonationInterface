@@ -167,22 +167,33 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( $form );
 		} else {
 			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
-			$this->displayFailPage();
+			$this->displayFailPage( false );
 		}
 	}
 
 	/**
-	 * Display a generic failure page
-	 * FIXME: RapidFail should be rapid, i.e. not a redirect
+	 * Display a failure page
+	 *
+	 * @param bool $allowRapid Whether to allow rendering a RapidFail form
+	 *  renderForm sets this to false on failure to avoid an infinite loop
 	 */
-	public function displayFailPage() {
+	public function displayFailPage( $allowRapid = true ) {
 		$output = $this->getOutput();
 
-		if ( $this->adapter ) {
+		if ( $this->adapter && $allowRapid ) {
 			$page = ResultPages::getFailPage( $this->adapter );
+			if ( !filter_var( $page, FILTER_VALIDATE_URL ) ) {
+				// If it's not a URL, we're rendering a RapidFail form
+				$this->logger->info( "Displaying fail form $page" );
+				$this->adapter->addRequestData( array( 'ffname' => $page ) );
+				$this->displayForm();
+				return;
+			}
 		} else {
+			$gatewayName = $this->getGatewayName();
+			$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 			$page = ResultPages::getFailPageForType(
-				$this->getAdapterClass(),
+				$className,
 				$this->getLogPrefix()
 			);
 		}

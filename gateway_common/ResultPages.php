@@ -25,14 +25,13 @@ class ResultPages {
 	/**
 	 * Get the URL for a page to show donors after a failed donation
 	 * @param GatewayType $adapter instance to use for logger and settings
-	 * @return string full URL of the fail page
+	 * @return string full URL of the fail page, or just form name in case of rapidFail
 	 */
 	public static function getFailPage( GatewayType $adapter ) {
 		return self::getFailPageFromParams(
 			$adapter->getGlobal( 'RapidFail' ),
 			$adapter->getGlobal( 'FailPage' ),
 			$adapter->getData_Unstaged_Escaped(),
-			$adapter->getRetryData(),
 			DonationLoggerFactory::getLogger( $adapter )
 		);
 	}
@@ -48,14 +47,13 @@ class ResultPages {
 	 */
 	public static function getFailPageForType( $adapterType, $logPrefix = '' ) {
 		return self::getFailPageFromParams(
-			$adapterType::getGlobal( 'RapidFail' ),
+			false, // Can't render RapidFail form without an instance
 			$adapterType::getGlobal( 'FailPage' ),
 			array(
 				'gateway' => $adapterType::getIdentifier(),
 				'payment_method' => '',
 				'payment_submethod' => '',
 			),
-			array(),
 			DonationLoggerFactory::getLoggerForType( $adapterType, $logPrefix )
 		);
 	}
@@ -66,12 +64,10 @@ class ResultPages {
 	 *                         page title.
 	 * @param array $data information about the current request.
 	 *                    language, gateway, payment_method, and payment_submethod must be set
-	 * @param array $retryData information used to create a link to retry the donation
 	 * @param Psr\Log\LoggerInterface $logger
-	 * @return string full URL of the fail page
-	 * @throws MWException
+	 * @return string full URL of the fail page, or just form name in case of rapidFail
 	 */
-	private static function getFailPageFromParams( $rapidFail, $failPage, $data, $retryData, LoggerInterface $logger ) {
+	private static function getFailPageFromParams( $rapidFail, $failPage, $data, LoggerInterface $logger ) {
 		if ( isset( $data['language'] ) ) {
 			$language = $data['language'];
 		} else {
@@ -81,16 +77,20 @@ class ResultPages {
 		if ( $rapidFail ) {
 			// choose which fail page to go for.
 			try {
-				$fail_ffname = GatewayFormChooser::getBestErrorForm( $data['gateway'], $data['payment_method'], $data['payment_submethod'] );
-				return GatewayFormChooser::buildPaymentsFormURL( $fail_ffname, $retryData );
+				$fail_ffname = GatewayFormChooser::getBestErrorForm(
+					$data['gateway'],
+					$data['payment_method'],
+					$data['payment_submethod']
+				);
+				return $fail_ffname;
 			} catch ( Exception $e ) {
 				$logger->error( 'Cannot determine best error form. ' . $e->getMessage() );
 			}
 		}
+
 		if ( filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
 			return self::appendLanguageAndMakeURL( $failPage, $language );
 		}
-
 		// FIXME: either add Special:FailPage to avoid depending on wiki content,
 		// or update the content on payments to be consistent with the /lang
 		// format of ThankYou pages so we can use appendLanguageAndMakeURL here.
