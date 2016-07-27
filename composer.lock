@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bff35619bf730a68d81ff127dacb56b5",
+    "hash": "454d36a859169f677aaa7fb2a61192e0",
     "content-hash": "5c2e46cb588e5e61da358cda05958b13",
     "packages": [
         {
@@ -93,7 +93,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
-                "reference": "9517492e6be44fb7fc48e01e0ee45aeb785f28cc"
+                "reference": "cc1486f04c697e1534f9ce6c42f22c455fa2fb1a"
             },
             "require": {
                 "clio/clio": "0.1.*",
@@ -149,7 +149,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2016-07-15 17:35:10"
+            "time": "2016-07-25 20:21:20"
         },
         {
             "name": "composer/installers",
