@@ -671,14 +671,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'cvv_result' => '',
 				'avs_result' => ''
 			);
-			$data = $status_result->getData();
-			if ( !empty( $data ) ) {
+			$status_response = $status_result->getData();
+			if ( !empty( $status_response ) ) {
 				foreach ( $pull_vars as $theirkey => $ourkey) {
-					if ( !array_key_exists( $theirkey, $data ) ) {
+					if ( !array_key_exists( $theirkey, $status_response ) ) {
 						continue;
 					}
 					$gotCVV = true;
-					$xmlResults[$ourkey] = $data[$theirkey];
+					$xmlResults[$ourkey] = $status_response[$theirkey];
 					if ( array_key_exists( $ourkey, $qsResults ) && $qsResults[$ourkey] != $xmlResults[$ourkey] ) {
 						$problemflag = true;
 						$problemmessage = "$theirkey value '$qsResults[$ourkey]' from querystring does not match value '$xmlResults[$ourkey]' from GET_ORDERSTATUS XML";
@@ -693,20 +693,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				// divided by 100 in unstaging.
 				// FIXME: need a general solution - anything with a resultswitcher
 				// is vulnerable to this kind of thing.
-				$xmlResults['amount'] = $data['AMOUNT'];
-				$xmlResults['currency_code'] = $data['CURRENCYCODE'];
+				$xmlResults['amount'] = $status_response['AMOUNT'];
+				$xmlResults['currency_code'] = $status_response['CURRENCYCODE'];
 			}
 			$this->addResponseData( $xmlResults );
 			$logmsg = 'CVV Result from XML: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result from XML: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->logger->info( $logmsg );
 
+			// FIXME: "isForceCancel"?
 			if ( $status_result->getForceCancel() ) {
 				$cancelflag = true; //don't retry or MasterCard will fine us
 			}
 
-			if ( $is_orphan && !$cancelflag && !empty( $data ) ) {
-				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
+			if ( $is_orphan && !$cancelflag && !empty( $status_response ) ) {
+				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
 				if ( $action === FinalStatus::PENDING_POKE && !$ran_hooks ){ //only want to do this once - it's not going to change.
 					$this->runAntifraudHooks();
 					$ran_hooks = true;
@@ -804,15 +805,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//if we got here with no problemflag,
 		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
-			if ( is_array( $data ) ){
+			if ( is_array( $status_response ) ){
 				// FIXME: Refactor as normal unstaging.
 				//if they're set, get CVVRESULT && AVSRESULT
 				$pull_vars['EFFORTID'] = 'effort_id';
 				$pull_vars['ATTEMPTID'] = 'attempt_id';
 				$addme = array();
 				foreach ( $pull_vars as $theirkey => $ourkey) {
-					if ( array_key_exists( $theirkey, $data ) ){
-						$addme[$ourkey] = $data[$theirkey];
+					if ( array_key_exists( $theirkey, $status_response ) ){
+						$addme[$ourkey] = $status_response[$theirkey];
 					}
 				}
 
