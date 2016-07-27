@@ -12,7 +12,8 @@
 			"amazon_gateway",
 			"gateway_common",
 			"globalcollect_gateway",
-			"paypal_gateway"
+			"paypal_gateway",
+			"DonationInterface.class.php"
 		],
 		"files": [
 			"gateway_common/WmfFramework.php"
