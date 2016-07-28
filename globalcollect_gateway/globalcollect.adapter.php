@@ -25,8 +25,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
-	// @deprecated
-	const GC_CC_LIMBO_QUEUE = 'globalcollect-cc-limbo';
 
 	public function getCommunicationType() {
 		return 'xml';
@@ -625,13 +623,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	private function transactionConfirm_CreditCard(){
 		$is_orphan = $this->isBatchProcessor();
-		if ( !$is_orphan ) {
-			// This was a normal front-end donation.
-
-			// @deprecated We should be able to skip any deletion.
-			$this->logger->info( 'Donor returned, deleting limbo message' );
-			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
-		} else {
+		if ( $is_orphan ) {
 			// We're in orphan processing mode, so a "pending waiting for donor
 			// input" status means that we'll never complete.  Set this range
 			// to map to "failed".
@@ -881,10 +873,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						//get the old status from the first txn, and add in the part where we set the payment.
 						$this->transaction_response->setTxnMessage( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code );
 					}
-
-					// We won't need the limbo message again, either way, so cancel it.
-					// @deprecated
-					$this->deleteLimboMessage();
 				}
             }
         }
@@ -1659,7 +1647,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( $action != FinalStatus::FAILED ){
 				// TODO: if method_loses_control rather than hardcode cc.
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
-					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
+					$this->sendPendingMessage();
 				}
 			}
 		}

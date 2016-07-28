@@ -9,7 +9,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $curled = array ( );
 
-	public $limbo_messages = array();
+	public $pending_messages = array();
 
 	public $dummyGatewayResponseCode;
 
@@ -48,15 +48,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	}
 
 	// TODO: Store and test the actual messages.
-	public function setLimboMessage( $queue = 'pending' ) {
-		$this->limbo_messages[] = false;
-	}
-
-	/**
-	 * Stub out the limboStomp fn and record the calls
-	 */
-	public function deleteLimboMessage( $queue = 'pending' ) {
-		$this->limbo_messages[] = true;
+	public function sendPendingMessage() {
+		$this->pending_messages[] = false;
 	}
 
 	/**

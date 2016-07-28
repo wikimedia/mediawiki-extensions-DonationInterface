@@ -456,10 +456,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
-
-		// Test limbo queue contents.
-		$this->assertEquals( array( true ), $gateway->limbo_messages,
-			"Gateway did not delete limbo message for code $code!" );
 	}
 
 	/**

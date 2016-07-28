@@ -190,7 +190,7 @@ class AdyenAdapter extends GatewayAdapter {
 					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
 					);
 					$this->logPaymentDetails();
-					$this->setLimboMessage();
+					$this->sendPendingMessage();
 					break;
 			}
 		}
@@ -269,7 +269,6 @@ class AdyenAdapter extends GatewayAdapter {
 			}
 		}
 		else {
-			$this->deleteLimboMessage( 'pending' );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
 		}

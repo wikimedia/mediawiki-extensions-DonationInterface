@@ -206,7 +206,7 @@ class AmazonAdapter extends GatewayAdapter {
 		// audit and IPN messages
 		$details = $this->getStompTransaction();
 		$this->logger->info( 'Got info for Amazon donation: ' . json_encode( $details ) );
-		$this->setLimboMessage();
+		$this->sendPendingMessage();
 	}
 
 	/**
@@ -251,7 +251,6 @@ class AmazonAdapter extends GatewayAdapter {
 
 		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
 		$this->postProcessDonation();
-		$this->deleteLimboMessage( 'pending' );
 	}
 
 	/**
