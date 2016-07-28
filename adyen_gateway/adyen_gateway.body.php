@@ -22,7 +22,7 @@
  */
 class AdyenGateway extends GatewayPage {
 
-	protected $adapterClass = 'AdyenAdapter';
+	protected $gatewayName = 'adyen';
 
 	/**
 	 * TODO: Finish Adyen error handling

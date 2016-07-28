@@ -28,11 +28,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Derived classes must override this with the name of the gateway
-	 * adapter class to use in this page, or override the getAdapterClass
-	 * function.
+	 * as set in GatewayAdapter::IDENTIFIER
 	 * @var string
 	 */
-	protected $adapterClass;
+	protected $gatewayName;
 
 	/**
 	 * An array of form errors
@@ -76,21 +75,22 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
+		$gatewayName = $this->getGatewayName();
+		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 		try {
-			$className = $this->getAdapterClass();
-			$this->adapter = new $className;
+			$this->adapter = new $className();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 			$this->getOutput()->addModuleStyles( 'donationInterface.styles' );
 			$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		} catch ( Exception $ex ) {
 			if ( !$this->logger ) {
 				$this->logger = DonationLoggerFactory::getLoggerForType(
-					$this->getAdapterClass(),
+					$className,
 					$this->getLogPrefix()
 				);
 			}
 			$this->logger->error(
-				"Exception setting up GatewayPage with adapter class {$this->getAdapterClass()}: " .
+				"Exception setting up GatewayPage with adapter class $className: " .
 				    "{$ex->getMessage()}\n{$ex->getTraceAsString()}"
 			);
 			// Setup scrambled, no point in continuing
@@ -207,11 +207,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Get the current adapter class
 	 * @return string containing the chosen adapter class name
 	 *
-	 * Override if your gateway selects between multiple adapters based on
+	 * Override if your page selects between multiple adapters based on
 	 * context.
 	 */
-	protected function getAdapterClass() {
-		return $this->adapterClass;
+	protected function getGatewayName() {
+		return $this->gatewayName;
 	}
 
 	/**

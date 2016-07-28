@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Dynamically generate the javacsript currency rates
+ * Dynamically generate the javascript currency rates
  */
 class CurrencyRatesModule extends ResourceLoaderModule {
 
@@ -9,10 +9,9 @@ class CurrencyRatesModule extends ResourceLoaderModule {
 	 * @see ResourceLoaderModule::getScript()
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
-		// FIXME: get rid of global var
-		return 'window.wgCurrencyMinimums = ' .
-			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ';' .
-			'mw.config.set( "wgDonationInterfaceCurrencyRates", window.wgCurrencyMinimums );';
+		return
+			'mw.config.set( "wgDonationInterfaceCurrencyRates", ' .
+			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ' );';
 	}
 
 	/**

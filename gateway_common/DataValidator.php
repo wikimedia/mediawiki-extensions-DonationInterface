@@ -429,12 +429,7 @@ class DataValidator {
 	protected static function validate_gateway( $value ){
 		global $wgDonationInterfaceGatewayAdapters;
 
-		foreach ( $wgDonationInterfaceGatewayAdapters as $adapterClass ) {
-			if ( $adapterClass::getIdentifier() === $value ) {
-				return true;
-			}
-		}
-		return false;
+		return key_exists( $value, $wgDonationInterfaceGatewayAdapters );
 	}
 
 	/**

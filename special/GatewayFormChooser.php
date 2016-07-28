@@ -462,9 +462,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		global $wgDonationInterfaceGatewayAdapters;
 
 		$enabledGateways = array();
-		foreach ( $wgDonationInterfaceGatewayAdapters as $gatewayClass ) {
+		foreach ( $wgDonationInterfaceGatewayAdapters as $identifier => $gatewayClass ) {
 			if ( $gatewayClass::getGlobal( 'Enabled' ) ) {
-				$enabledGateways[] = $gatewayClass::getIdentifier();
+				$enabledGateways[] = $identifier;
 			}
 		}
 		return $enabledGateways;

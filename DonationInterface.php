@@ -35,5 +35,5 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 	); */
 	return;
 } else {
-	die( 'This version of the DonationInterface extension requires MediaWiki 1.25+' );
+	die( 'This version of the DonationInterface extension requires MediaWiki 1.27+' );
 }

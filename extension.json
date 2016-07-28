@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -17,6 +17,9 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
 	"descriptionmsg": "donationinterface-desc",
 	"type": "specialpage",
+	"requires": {
+		"MediaWiki": ">= 1.27.0"
+	},
 	"callback": "DonationInterface::registerExtension",
 	"SpecialPages": {
 		"GatewayFormChooser": "GatewayFormChooser",
@@ -86,7 +89,7 @@
 		"GatewayType": "gateway_common/GatewayType.php",
 		"IsoDate": "gateway_common/IsoDate.php",
 		"DataValidator": "gateway_common/DataValidator.php",
-		"LogPrefixProvider": "gateway_common/gateway.adapter.php",
+		"LogPrefixProvider": "gateway_common/LogPrefixProvider.php",
 		"MessageUtils": "gateway_common/MessageUtils.php",
 		"NationalCurrencies": "gateway_common/NationalCurrencies.php",
 		"PaymentMethod": "gateway_common/PaymentMethod.php",
@@ -406,6 +409,9 @@
 			"banner-history": [],
 			"_merge_strategy": "array_plus"
 		},
+		"DonationInterfaceQueueMirrors": {
+			"_merge_strategy": "array_plus"
+		},
 		"DonationInterfaceCustomFiltersActionRanges": {
 			"process": [
 				0,
@@ -484,14 +490,14 @@
 		"DonationInterfaceEnableIPVelocityFilter": false,
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
-		"DonationInterfaceGatewayAdapters": [
-			"GlobalCollectAdapter",
-			"AmazonAdapter",
-			"AdyenAdapter",
-			"AstroPayAdapter",
-			"PaypalExpressAdapter",
-			"PaypalLegacyAdapter"
-		],
+		"DonationInterfaceGatewayAdapters": {
+			"globalcollect": "GlobalCollectAdapter",
+			"amazon": "AmazonAdapter",
+			"adyen": "AdyenAdapter",
+			"astropay": "AstroPayAdapter",
+			"paypal_ec": "PaypalExpressAdapter",
+			"paypal": "PaypalLegacyAdapter"
+		},
 		"DonationInterfaceAllowedHtmlForms": []
 	},
 	"manifest_version": 1
