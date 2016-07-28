@@ -409,6 +409,9 @@
 			"banner-history": [],
 			"_merge_strategy": "array_plus"
 		},
+		"DonationInterfaceQueueMirrors": {
+			"_merge_strategy": "array_plus"
+		},
 		"DonationInterfaceCustomFiltersActionRanges": {
 			"process": [
 				0,
