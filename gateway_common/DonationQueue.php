@@ -88,7 +88,12 @@ class DonationQueue {
 		global $wgDonationInterfaceQueueMirrors;
 		if ( array_key_exists( $queue, $wgDonationInterfaceQueueMirrors ) ) {
 			$mirrorQueue = $wgDonationInterfaceQueueMirrors[$queue];
-			$this->newBackend( $mirrorQueue )->push( $message );
+			try {
+				$this->newBackend( $mirrorQueue )->push( $message );
+			} catch ( Exception $ex ) {
+				// TODO: log.
+				// DonationLoggerFactory::getLogger()->warning( "Cannot mirror to {$mirrorQueue}: {$ex->getMessage()}" );
+			}
 		}
 	}
 

@@ -39,7 +39,7 @@ amex:
     logo: card-amex-lg.png
 visa-debit:
     bank_code: VD
-    label: 'Visa Debit'
+    label: Visa Debit
     group: cc
     countries:
         MX: true
@@ -47,7 +47,7 @@ visa-debit:
     sub_text_key: donate_interface-debit
 mc-debit:
     bank_code: MD
-    label: 'Mastercard Debit'
+    label: Mastercard Debit
     group: cc
     countries:
         MX: true
@@ -62,7 +62,7 @@ elo:
     logo: card-elo.png
 diners:
     bank_code: DC
-    label: 'Diners Club'
+    label: Diners Club
     group: cc
     countries:
         BR: true
@@ -99,7 +99,7 @@ naranja:
     logo: card-naranja.png
 shopping:
     bank_code: TS
-    label: 'Tarjeta Shopping'
+    label: Tarjeta Shopping
     group: cc
     countries:
         AR: true
@@ -155,7 +155,7 @@ webpay_bt:
     logo: bank-webpay.png
 banco_do_brasil:
     bank_code: BB
-    label: 'Banco do Brasil'
+    label: Banco do Brasil
     group: bt
     countries:
         BR: true
@@ -224,21 +224,21 @@ cash_bancomer:
     logo: cash-bancomer.png
 cash_rapipago:
     bank_code: RP
-    label: 'Rapi Pago'
+    label: Rapi Pago
     group: cash
     countries:
         AR: true
     logo: cash-rapipago.png
 cash_pago_facil:
     bank_code: PF
-    label: 'Pago Facil'
+    label: Pago Facil
     group: cash
     countries:
         AR: true
     logo: cash-pago-facil.png
 cash_provencia_pagos:
     bank_code: BG
-    label: 'Provencia Pagos'
+    label: Provencia Pagos
     group: cash
     countries:
         AR: true
@@ -265,14 +265,14 @@ pse:
         CO: true
 cash_pago_efectivo:
     bank_code: EF
-    label: 'Pago Efectivo'
+    label: Pago Efectivo
     group: cash
     countries:
         PE: true
     logo: cash-pago-efectivo.png
 cash_red_pagos:
     bank_code: RE
-    label: 'Red Pagos'
+    label: Red Pagos
     group: cash
     countries:
         UY: true

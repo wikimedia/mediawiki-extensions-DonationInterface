@@ -1,6 +1,6 @@
 bt:
     paymentproductid: 11
-    label: 'Bank Transfer'
+    label: Bank Transfer
     group: bt
     validation: {  }
     keys: {  }
@@ -58,6 +58,83 @@ amex:
     label_key: donate_interface-card-name-amex
     group: cc
     keys: {  }
+    countries:
+        AD: true
+        AE: true
+        AL: true
+        AR: true
+        AT: true
+        AU: true
+        BA: true
+        BE: true
+        BG: true
+        BH: true
+        CA: true
+        CH: true
+        CN: true
+        CR: true
+        CW: true
+        CY: true
+        CZ: true
+        DE: true
+        DK: true
+        DZ: true
+        EC: true
+        EE: true
+        EG: true
+        ES: true
+        FI: true
+        GB: true
+        GB: true
+        GR: true
+        HK: true
+        HR: true
+        HU: true
+        IE: true
+        IL: true
+        IN: true
+        IT: true
+        JO: true
+        JP: true
+        KE: true
+        KR: true
+        KW: true
+        KZ: true
+        LI: true
+        LK: true
+        LT: true
+        LU: true
+        LV: true
+        MA: true
+        ME: true
+        MG: true
+        MT: true
+        MY: true
+        NL: true
+        NO: true
+        NP: true
+        NZ: true
+        OM: true
+        PK: true
+        PL: true
+        PR: true
+        PT: true
+        QA: true
+        RO: true
+        RU: true
+        SA: true
+        SE: true
+        SG: true
+        SI: true
+        SK: true
+        SM: true
+        SX: true
+        TH: true
+        TR: true
+        TW: true
+        UA: true
+        US: true
+
     logo: card-amex.png
 discover:
     paymentproductid: 128

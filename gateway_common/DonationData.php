@@ -160,6 +160,9 @@ class DonationData implements LogPrefixProvider {
 	 * @return mixed The final value of the var, or null if we don't actually have it.
 	 */
 	protected function sourceHarvest( $var ) {
+		if ( $this->gateway->isBatchProcessor() ) {
+			return null;
+		}
 		$ret = $this->gateway->getRequest()->getText( $var, null ); //all strings is just fine.
 		//getText never returns null: It just casts do an empty string. Soooo...
 		if ( $ret === '' && !array_key_exists( $var, $_POST ) && !array_key_exists( $var, $_GET ) ) {
@@ -175,6 +178,9 @@ class DonationData implements LogPrefixProvider {
 	 * are populated, and merge that with the data set we already have.
 	 */
 	protected function integrateDataFromSession() {
+		if ( $this->gateway->isBatchProcessor() ) {
+			return;
+		}
 		/**
 		 * if the thing coming in from the session isn't already something,
 		 * replace it.
@@ -686,7 +692,9 @@ class DonationData implements LogPrefixProvider {
 	 * Normalize referrer either by passing on the original, or grabbing it in the first place.
 	 */
 	protected function setReferrer() {
-		if ( !$this->isSomething( 'referrer' ) ) {
+		if ( !$this->isSomething( 'referrer' )
+			&& !$this->gateway->isBatchProcessor()
+		) {
 			// Remove protocol and query strings to avoid tripping modsecurity
 			// TODO it would be a lot more privacy respecting to omit path too.
 			$referrer = '';
@@ -834,6 +842,10 @@ class DonationData implements LogPrefixProvider {
 	 * @return mixed Contribution tracking ID or false on failure
 	 */
 	public function saveContributionTrackingData() {
+		if ( $this->gateway->isBatchProcessor() ) {
+			// We aren't learning anything new about the donation, so just return.
+			return false;
+		}
 		$ctid = $this->getVal( 'contribution_tracking_id' );
 		$tracking_data = $this->getCleanTrackingData( true );
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();

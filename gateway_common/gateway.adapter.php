@@ -1176,7 +1176,9 @@ abstract class GatewayAdapter
 		// log that the transaction is essentially complete
 		$this->logger->info( 'Transaction complete.' );
 
-		$this->debugarray[] = 'numAttempt = ' . $this->session_getData( 'numAttempt' );
+		if ( !$this->isBatchProcessor() ) {
+			$this->debugarray[] = 'numAttempt = ' . $this->session_getData( 'numAttempt' );
+		}
 
 		return $this->transaction_response;
 	}
@@ -2184,6 +2186,9 @@ abstract class GatewayAdapter
 	 * be set to '0'.
 	 */
 	protected function incrementNumAttempt() {
+		if ( $this->isBatchProcessor() ) {
+			return;
+		}
 		$this->session_ensure();
 		$attempts = $this->session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
@@ -2846,6 +2851,9 @@ abstract class GatewayAdapter
 	 * This will be used internally every time we call do_transaction.
 	 */
 	public function session_addDonorData() {
+		if ( $this->isBatchProcessor() ) {
+			return;
+		}
 		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
 		$this->session_ensure();
 		$sessionFields = DonationData::getSessionFields();
@@ -2863,6 +2871,9 @@ abstract class GatewayAdapter
 	 * reference will be gone.
 	 */
 	public function session_killAllEverything() {
+		if ( $this->isBatchProcessor() ) {
+			return;
+		}
 		SessionManager::getGlobalSession()->clear();
 	}
 
@@ -2891,6 +2902,9 @@ abstract class GatewayAdapter
 	 * mistake)
 	 */
 	public function session_resetForNewAttempt( $force = false ) {
+		if ( $this->isBatchProcessor() ) {
+			return;
+		}
 		$reset = $force;
 		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
@@ -3241,6 +3255,14 @@ abstract class GatewayAdapter
 			foreach ( $alt_locations as $var => $key ) {
 				$locations[$var] = $key;
 			}
+		}
+
+		if ( $this->isBatchProcessor() ) {
+			// Can't use request or session from here.
+			$locations = array_diff_key( $locations, array_flip( array(
+				'request',
+				'session',
+			) ) );
 		}
 
 		//Now pull all the locations and populate the candidate array.
@@ -3623,9 +3645,16 @@ abstract class GatewayAdapter
 	public function setClientVariables( &$vars ) {
 		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
-		$clientRules = $this->getClientSideValidationRules();
-		if ( !empty( $clientRules ) ) {
-			$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+		try {
+			$clientRules = $this->getClientSideValidationRules();
+			if ( !empty( $clientRules ) ) {
+				$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+			}
+		} catch ( Exception $ex ) {
+			$this->logger->warning(
+				'Caught exception setting client-side validation rules: ' .
+				$ex->getMessage()
+			);
 		}
 	}
 
