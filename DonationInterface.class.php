@@ -44,7 +44,7 @@ class DonationInterface {
 	public static function onDonationInterfaceUnitTests( &$files ) {
 		global $wgAutoloadClasses;
 
-		$testDir = __DIR__ . '/tests/';
+		$testDir = __DIR__ . '/tests/phpunit/';
 
 		$files[] = $testDir . 'AllTests.php';
 
