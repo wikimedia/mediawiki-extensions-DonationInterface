@@ -95,6 +95,11 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'gross' => '1.24',
 			'user_ip' => '127.0.0.1',
 			'date' => (int)$this->transaction['date'],
+			'source_host' => WmfFramework::getHostname(),
+			'source_name' => 'DonationInterface',
+			'source_run_id' => getmypid(),
+			'source_type' => 'payments',
+			'source_version' => DonationQueue::getVersionStamp(),
 		);
 	}
 

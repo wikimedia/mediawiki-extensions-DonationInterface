@@ -4,7 +4,17 @@ class DonationQueue {
 
 	protected static $instance;
 
+	// ActiveMQ header fields to be added to Redis messages for compatibility
+	private $source_fields;
+
 	protected function __construct() {
+		$this->source_fields = array(
+			'source_host' => WmfFramework::getHostname(),
+			'source_name' => 'DonationInterface',
+			'source_run_id' => getmypid(),
+			'source_type' => 'payments',
+			'source_version' => self::getVersionStamp(),
+		);
 	}
 
 	/**
@@ -17,6 +27,22 @@ class DonationQueue {
 			self::$instance = new DonationQueue();
 		}
 		return self::$instance;
+	}
+
+	public static function getVersionStamp() {
+		// TODO: Core helper function.
+		global $IP;
+		// XXX: Confused about why static. Subclass override?
+		static $sourceRevision = null;
+		if ( !$sourceRevision ) {
+			$versionStampPath = "$IP/.version-stamp";
+			if ( file_exists( $versionStampPath ) ) {
+				$sourceRevision = trim( file_get_contents( $versionStampPath ) );
+			} else {
+				$sourceRevision = 'unknown';
+			}
+		}
+		return $sourceRevision;
 	}
 
 	public function push( $transaction, $queue ) {
@@ -83,6 +109,7 @@ class DonationQueue {
 	 *
 	 * @param array $message
 	 * @param string $queue
+	 * @param array $properties
 	 */
 	protected function mirror( $message, $queue ) {
 		global $wgDonationInterfaceQueueMirrors;
@@ -104,30 +131,10 @@ class DonationQueue {
 	 * @return array
 	 */
 	protected function buildHeaders( $transaction ) {
-		global $IP;
-
-		// TODO: Core helper function.
-		static $sourceRevision = null;
-		if ( !$sourceRevision ) {
-			$versionStampPath = "$IP/.version-stamp";
-			if ( file_exists( $versionStampPath ) ) {
-				$sourceRevision = trim( file_get_contents( $versionStampPath ) );
-			} else {
-				$sourceRevision = 'unknown';
-			}
-		}
-
 		// Create the message and associated properties
-		$properties = array(
-			// TODO: Move 'persistent' to PHPQueue backend default.
-			'persistent' => 'true',
-			'source_enqueued_time' => time(),
-			'source_host' => WmfFramework::getHostname(),
-			'source_name' => 'DonationInterface',
-			'source_run_id' => getmypid(),
-			'source_type' => 'payments',
-			'source_version' => $sourceRevision,
-		);
+		$properties = $this->source_fields;
+		// TODO: Move 'persistent' to PHPQueue backend default.
+		$properties['persistent'] = true;
 		if ( isset( $transaction['gateway'] ) ) {
 			$properties['gateway'] = $transaction['gateway'];
 		}
@@ -162,6 +169,7 @@ class DonationQueue {
 			// Assume anything else is a regular donation.
 			$data = $this->buildTransactionMessage( $transaction );
 		}
+		$data = array_merge( $data, $this->source_fields );
 		return $data;
 	}
 
@@ -223,6 +231,7 @@ class DonationQueue {
 	protected function buildTransactionMessage( $transaction ) {
 		// specifically designed to match the CiviCRM API that will handle it
 		// edit this array to include/ignore transaction data sent to the server
+
 		$message = array(
 			'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 			'country' => $transaction['country'],
