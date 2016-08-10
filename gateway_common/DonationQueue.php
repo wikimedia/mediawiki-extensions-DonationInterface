@@ -60,7 +60,7 @@ class DonationQueue {
 
 	public function pop( $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		$backend = $this->newBackend( $queue );
 
@@ -69,7 +69,7 @@ class DonationQueue {
 
 	public function peek( $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		$backend = $this->newBackend( $queue );
 
@@ -90,7 +90,7 @@ class DonationQueue {
 
 	public function get( $correlationId, $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		return $this->newBackend( $queue )->get( $correlationId );
 	}
@@ -109,7 +109,6 @@ class DonationQueue {
 	 *
 	 * @param array $message
 	 * @param string $queue
-	 * @param array $properties
 	 */
 	protected function mirror( $message, $queue ) {
 		global $wgDonationInterfaceQueueMirrors;
@@ -227,6 +226,9 @@ class DonationQueue {
 	 * Processor txn ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
 	 * Order ID (generated with transaction) is assigned to 'contribution_tracking_id'?
 	 * Response from processor is assigned to 'response'
+	 *
+	 * @param array $transaction values from gateway adapter
+	 * @return array values normalized to wire format
 	 */
 	protected function buildTransactionMessage( $transaction ) {
 		// specifically designed to match the CiviCRM API that will handle it
