@@ -32,7 +32,7 @@ class DonationQueue {
 	public static function getVersionStamp() {
 		// TODO: Core helper function.
 		global $IP;
-		// XXX: Confused about why static. Subclass override?
+		// static to avoid duplicate fs reads
 		static $sourceRevision = null;
 		if ( !$sourceRevision ) {
 			$versionStampPath = "$IP/.version-stamp";
