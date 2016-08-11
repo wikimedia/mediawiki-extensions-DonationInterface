@@ -9,6 +9,10 @@ class TestingGatewayPage extends GatewayPage {
 		//nothing!
 	}
 
+	public function getPageTitle( $subpage = false ) {
+		return RequestContext::getMain()->getTitle();
+	}
+
 	protected function handleRequest() {
 		//also nothing!
 	}
