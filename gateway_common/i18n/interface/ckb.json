@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Asoxor",
-			"Calak"
+			"Calak",
+			"Sarchia"
 		]
 	},
 	"donate_interface": "پشتگیریی ویکیمیدیا بکە",
+	"donate_interface-comment-label": "بۆچوون:",
 	"donate_interface-EUR": "یورۆ",
 	"donate_interface-RUB": "ڕوبلی ڕووسی",
 	"donate_interface-USD": "دۆلاری ئەمریکی",
@@ -18,6 +20,7 @@
 	"donate_interface-error-msg-email": "ناونیشانی ئیمەیل",
 	"donate_interface-error-msg-lname": "دواناو:",
 	"donate_interface-error-msg-city": "شار:",
+	"donate_interface-comment": "بۆچوون",
 	"donate_interface-other": "دیکە",
 	"donate_interface-title": "سەردێڕ",
 	"donate_interface-optional": "دڵخوازانە",
