@@ -665,6 +665,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
 		$loops = 0;
+		$status_response = null;
 
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 			$gotCVV = false;
@@ -800,7 +801,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//if we got here with no problemflag,
 		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
-			if ( isset( $status_response ) && is_array( $status_response ) ) {
+			if ( is_array( $status_response ) ) {
 				// FIXME: Refactor as normal unstaging.
 				//if they're set, get CVVRESULT && AVSRESULT
 				$pull_vars['EFFORTID'] = 'effort_id';
