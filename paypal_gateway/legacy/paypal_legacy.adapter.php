@@ -160,7 +160,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				$resultData = $this->do_transaction( 'Donate' );
 			}
 		}
-		$this->setLimboMessage();
+
 		return PaymentResult::fromResults(
 			$resultData,
 			$this->getFinalStatus()
