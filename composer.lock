@@ -198,7 +198,6 @@
                 "messaging",
                 "stomp"
             ],
-            "abandoned": "stomp-php/stomp-php",
             "time": "2013-02-23 17:34:44"
         },
         {
