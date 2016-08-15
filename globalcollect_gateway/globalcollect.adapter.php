@@ -25,6 +25,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	const GATEWAY_NAME = 'Global Collect';
 	const IDENTIFIER = 'globalcollect';
 	const GLOBAL_PREFIX = 'wgGlobalCollectGateway';
+	// @deprecated
 	const GC_CC_LIMBO_QUEUE = 'globalcollect-cc-limbo';
 
 	public function getCommunicationType() {
@@ -59,8 +60,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @param array $options These get extracted in the parent.
 	 */
 	function setGatewayDefaults( $options = array ( ) ) {
-		$returnTitle = isset( $options['returnTitle'] ) ? $options['returnTitle'] : Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-		$returnTo = isset( $options['returnTo'] ) ? $options['returnTo'] : $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+		if ( isset( $options['returnTo'] ) ) {
+			$returnTo = $options['returnTo'];
+		} else {
+			if ( isset( $options['returnTitle'] ) ) {
+				$returnTitle = $options['returnTitle'];
+			} else {
+				$returnTitle = Title::newFromText( 'Special:GlobalCollectGatewayResult' );
+			}
+			$returnTo = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+		}
 
 		$defaults = array (
 			'returnto' => $returnTo,
@@ -617,7 +626,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( !$this->isBatchProcessor() ) {
 			// FIXME: Refactor as normal unstaging.
 			foreach ( $pull_vars as $theirkey => $ourkey) {
-				$tmp = $this->request->getVal( $theirkey, null );
+				$tmp = WmfFramework::getRequestValue( $theirkey, null );
 				if ( !is_null( $tmp ) ) {
 					$qsResults[$ourkey] = $tmp;
 				}
@@ -636,15 +645,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			// If we have a querystring, this means we're processing a live donor
 			// coming back from GlobalCollect, and the transaction is not orphaned
+			// @deprecated We should be able to skip any deletion.
 			$this->logger->info( 'Donor returned, deleting limbo message' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
-		} else { //this is an orphan transaction.
+		} else {
+			// We're in orphan processing mode, so instead of waiting around for
+			// the user to add more data and complete pending transactions,
+			// interpret this pending code range as "failed".
+
 			$is_orphan = true;
-			//have to change this code range: All these are usually "pending" and
-			//that would still be true...
-			//...aside from the fact that if the user has gotten this far, they left
-			//the part where they could add more data.
-			//By now, "incomplete" definitely means "failed" for 0-70.
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 0, 70 );
 		}
 
@@ -653,19 +662,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$problemmessage = ''; //to be used in conjunction with the flag.
 		$problemseverity = LogLevel::ERROR; //to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
 		$original_status_code = NULL;
-		$ran_hooks = false;
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
 		$loops = 0;
+		$status_response = null;
 
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 			$validationAction = $this->getValidationAction();
-			if ( !$is_orphan ) {
-				// live users get antifraud hooks run in this txn's pre-process
-				$ran_hooks = true;
-			}
 			// FIXME: Refactor as normal unstaging.
 			$xmlResults = array(
 				'cvv_result' => '',
@@ -708,10 +713,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			if ( $is_orphan && !$cancelflag && !empty( $status_response ) ) {
 				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
-				if ( $action === FinalStatus::PENDING_POKE && !$ran_hooks ){ //only want to do this once - it's not going to change.
-					$this->runAntifraudHooks();
-					$ran_hooks = true;
-				}
 				$validationAction = $this->getValidationAction();
 			}
 
@@ -762,12 +763,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							$problemflag = true;
 							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
 						}
-						if ( !$ran_hooks ) {
-							$problemflag = true;
-							$problemmessage = 'On the brink of payment confirmation without running antifraud hooks';
-							$problemseverity = LogLevel::ERROR;
-							break 2;
-						}
 
 						//none of this should ever execute for a transaction that doesn't use 3d secure...
 						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount-1 ) ){
@@ -793,6 +788,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						if ( $txn_data['STATUSID'] !== '200' ) {
 							break 2; //no need to loop.
 						}
+						// FIXME: explicit that we want to fall through?
 
 					case FinalStatus::PENDING :
 						//if it's really pending at this point, we need to...
@@ -805,7 +801,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//if we got here with no problemflag,
 		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
-			if ( is_array( $status_response ) ){
+			if ( is_array( $status_response ) ) {
 				// FIXME: Refactor as normal unstaging.
 				//if they're set, get CVVRESULT && AVSRESULT
 				$pull_vars['EFFORTID'] = 'effort_id';
@@ -955,6 +951,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					}
 
 					// We won't need the limbo message again, either way, so cancel it.
+					// @deprecated
 					$this->deleteLimboMessage();
 				}
             }
@@ -1719,6 +1716,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$data = $this->getTransactionData();
 			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
 			if ( $action != FinalStatus::FAILED ){
+				// TODO: if method_loses_control rather than hardcode cc.
 				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
 					$this->setLimboMessage( self::GC_CC_LIMBO_QUEUE );
 				}
@@ -1726,7 +1724,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
+	// hook pre_process for GET_ORDERSTATUS
 	protected function pre_process_get_orderstatus(){
+		// Run antifraud only once per request.
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
 		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){

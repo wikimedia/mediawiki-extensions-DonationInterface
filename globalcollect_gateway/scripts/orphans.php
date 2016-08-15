@@ -12,7 +12,7 @@ require_once( "$IP/maintenance/Maintenance.php" );
 
 class OrphanMaintenance extends Maintenance {
 	public function execute() {
-		$rectifier = new GlobalCollectOrphanRectifier();
+		$rectifier = new GlobalCollectOrphanRectifier_pooled();
 		$rectifier->processOrphans();
 	}
 }

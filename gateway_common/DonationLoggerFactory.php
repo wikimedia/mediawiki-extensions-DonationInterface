@@ -22,7 +22,7 @@ class DonationLoggerFactory {
 	 *        prefixing via the adapter.
 	 * @return \Psr\Log\LoggerInterface
 	 */
-	public static function getLogger( GatewayType $adapter = null, $suffix = '', LogPrefixProvider $prefixer = null ) {
+	public static function getLogger( GatewayType $adapter, $suffix = '', LogPrefixProvider $prefixer = null ) {
 		if ( $prefixer === null ) {
 			$prefixer = $adapter;
 		}

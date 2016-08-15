@@ -4,7 +4,17 @@ class DonationQueue {
 
 	protected static $instance;
 
+	// ActiveMQ header fields to be added to Redis messages for compatibility
+	private $source_fields;
+
 	protected function __construct() {
+		$this->source_fields = array(
+			'source_host' => WmfFramework::getHostname(),
+			'source_name' => 'DonationInterface',
+			'source_run_id' => getmypid(),
+			'source_type' => 'payments',
+			'source_version' => self::getVersionStamp(),
+		);
 	}
 
 	/**
@@ -17,6 +27,22 @@ class DonationQueue {
 			self::$instance = new DonationQueue();
 		}
 		return self::$instance;
+	}
+
+	public static function getVersionStamp() {
+		// TODO: Core helper function.
+		global $IP;
+		// static to avoid duplicate fs reads
+		static $sourceRevision = null;
+		if ( !$sourceRevision ) {
+			$versionStampPath = "$IP/.version-stamp";
+			if ( file_exists( $versionStampPath ) ) {
+				$sourceRevision = trim( file_get_contents( $versionStampPath ) );
+			} else {
+				$sourceRevision = 'unknown';
+			}
+		}
+		return $sourceRevision;
 	}
 
 	public function push( $transaction, $queue ) {
@@ -34,7 +60,7 @@ class DonationQueue {
 
 	public function pop( $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		$backend = $this->newBackend( $queue );
 
@@ -43,7 +69,7 @@ class DonationQueue {
 
 	public function peek( $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		$backend = $this->newBackend( $queue );
 
@@ -64,7 +90,7 @@ class DonationQueue {
 
 	public function get( $correlationId, $queue ) {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
+			return null;
 		}
 		return $this->newBackend( $queue )->get( $correlationId );
 	}
@@ -104,30 +130,10 @@ class DonationQueue {
 	 * @return array
 	 */
 	protected function buildHeaders( $transaction ) {
-		global $IP;
-
-		// TODO: Core helper function.
-		static $sourceRevision = null;
-		if ( !$sourceRevision ) {
-			$versionStampPath = "$IP/.version-stamp";
-			if ( file_exists( $versionStampPath ) ) {
-				$sourceRevision = trim( file_get_contents( $versionStampPath ) );
-			} else {
-				$sourceRevision = 'unknown';
-			}
-		}
-
 		// Create the message and associated properties
-		$properties = array(
-			// TODO: Move 'persistent' to PHPQueue backend default.
-			'persistent' => 'true',
-			'source_enqueued_time' => time(),
-			'source_host' => WmfFramework::getHostname(),
-			'source_name' => 'DonationInterface',
-			'source_run_id' => getmypid(),
-			'source_type' => 'payments',
-			'source_version' => $sourceRevision,
-		);
+		$properties = $this->source_fields;
+		// TODO: Move 'persistent' to PHPQueue backend default.
+		$properties['persistent'] = true;
 		if ( isset( $transaction['gateway'] ) ) {
 			$properties['gateway'] = $transaction['gateway'];
 		}
@@ -162,6 +168,7 @@ class DonationQueue {
 			// Assume anything else is a regular donation.
 			$data = $this->buildTransactionMessage( $transaction );
 		}
+		$data = array_merge( $data, $this->source_fields );
 		return $data;
 	}
 
@@ -219,10 +226,14 @@ class DonationQueue {
 	 * Processor txn ID sent in the transaction response is assigned to 'gateway_txn_id' (PNREF)
 	 * Order ID (generated with transaction) is assigned to 'contribution_tracking_id'?
 	 * Response from processor is assigned to 'response'
+	 *
+	 * @param array $transaction values from gateway adapter
+	 * @return array values normalized to wire format
 	 */
 	protected function buildTransactionMessage( $transaction ) {
 		// specifically designed to match the CiviCRM API that will handle it
 		// edit this array to include/ignore transaction data sent to the server
+
 		$message = array(
 			'contribution_tracking_id' => $transaction['contribution_tracking_id'],
 			'country' => $transaction['country'],
@@ -281,6 +292,7 @@ class DonationQueue {
 	 * transaction array, basically undoing the mappings from buildTransactionMessage.
 	 *
 	 * TODO: This shouldn't be necessary, see https://phabricator.wikimedia.org/T109819
+	 * @deprecated by T131275
 	 *
 	 * @param array $transaction Queue message
 	 *

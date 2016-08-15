@@ -163,12 +163,7 @@ class DonationData implements LogPrefixProvider {
 		if ( $this->gateway->isBatchProcessor() ) {
 			return null;
 		}
-		$ret = $this->gateway->getRequest()->getText( $var, null ); //all strings is just fine.
-		//getText never returns null: It just casts do an empty string. Soooo...
-		if ( $ret === '' && !array_key_exists( $var, $_POST ) && !array_key_exists( $var, $_GET ) ) {
-			$ret = null; //not really there, so stop pretending.
-		}
-
+		$ret = WmfFramework::getRequestValue( $var, null );
 		return $ret;
 	}
 
@@ -188,7 +183,7 @@ class DonationData implements LogPrefixProvider {
 		 * with better data.
 		 * ...unless it's an explicit $overwrite
 		 **/
-		$donorData = $this->gateway->getRequest()->getSessionData( 'Donor' );
+		$donorData = WmfFramework::getSessionValue( 'Donor' );
 		if ( is_null( $donorData ) ) {
 			return;
 		}
@@ -698,7 +693,7 @@ class DonationData implements LogPrefixProvider {
 			// Remove protocol and query strings to avoid tripping modsecurity
 			// TODO it would be a lot more privacy respecting to omit path too.
 			$referrer = '';
-			$parts = parse_url( $this->gateway->getRequest()->getHeader( 'referer' ) );
+			$parts = parse_url( WmfFramework::getRequestHeader( 'referer' ) );
 			if ( isset( $parts['host'] ) ) {
 				$referrer = $parts['host'];
 				if ( isset( $parts['path'] ) ) {

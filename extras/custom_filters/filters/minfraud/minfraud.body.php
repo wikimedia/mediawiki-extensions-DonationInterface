@@ -171,12 +171,15 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		// user's IP address
 		$this->minfraudQuery["i"] = ( $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ) );
 
-		// user's user agent
-		$request = $this->gateway_adapter->getRequest();
-		$this->minfraudQuery["user_agent"] = $request->getHeader( 'user-agent' );
+		// We only have access to these fields when the user's request is still
+		// present, but not when in batch mode.
+		if ( !$this->gateway_adapter->isBatchProcessor() ) {
+			// user's user agent
+			$this->minfraudQuery['user_agent'] = WmfFramework::getRequestHeader( 'user-agent' );
 
-		// user's language
-		$this->minfraudQuery['accept_language'] = $request->getHeader( 'accept-language' );
+			// user's language
+			$this->minfraudQuery['accept_language'] = WmfFramework::getRequestHeader( 'accept-language' );
+		}
 
 		// fetch the array of country codes
 		$country_codes = GatewayPage::getCountries();

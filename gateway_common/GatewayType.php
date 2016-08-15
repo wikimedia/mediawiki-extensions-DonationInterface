@@ -283,13 +283,6 @@ interface GatewayType {
 	public function setRiskScore( $score );
 
 	/**
-	 * Get the current HTTP request
-	 *
-	 * @return WebRequest
-	 */
-	public function getRequest();
-
-	/**
 	 * Returns the current validation action.
 	 * This will typically get set and altered by the various enabled process hooks.
 	 *

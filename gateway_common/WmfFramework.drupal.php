@@ -21,6 +21,14 @@ class WmfFramework_Drupal {
 		return '127.0.0.1';
 	}
 
+	static function getRequestValue( $key, $default ) {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
+	static function getRequestHeader( $key ) {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
 	static function getHostname() {
 		return 'localhost';
 	}
@@ -35,10 +43,19 @@ class WmfFramework_Drupal {
 	}
 
 	/**
-	 * @throws BadMethodCallException
+	 * Do not guess.
 	 */
 	static function getLanguageCode() {
-		throw new BadMethodCallException( "Not implemented" );
+		return null;
+	}
+
+	static function getLanguageFallbacks( $language ) {
+		$fallbacks = array();
+		if ( $language ) {
+			$fallbacks[] = $language;
+		}
+		$fallbacks[] = 'en';
+		return $fallbacks;
 	}
 
 	static function isUseSquid() {
@@ -53,6 +70,14 @@ class WmfFramework_Drupal {
 			session_id( $sessionId );
 		}
 		session_start();
+	}
+
+	static function getSessionValue( $key ) {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
+	static function setSessionValue( $key, $value ) {
+		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
 	static function validateIP( $ip ) {

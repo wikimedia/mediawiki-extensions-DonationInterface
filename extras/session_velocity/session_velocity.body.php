@@ -99,7 +99,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		$multiplier = $this->getVar( 'Multiplier', $transaction );
 
 		// Initialize the filter
-		$sessionData = $this->gateway_adapter->getRequest()->getSessionData( self::SESS_ROOT );
+		$sessionData = WmfFramework::getSessionValue( self::SESS_ROOT );
 		if ( !is_array( $sessionData ) ) {
 			$sessionData = array();
 		}
@@ -129,7 +129,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		}
 
 		// Store the results
-		$this->gateway_adapter->getRequest()->setSessionData( self::SESS_ROOT, $sessionData );
+		WmfFramework::setSessionValue( self::SESS_ROOT, $sessionData );
 
 		// Analyze the filter results
 		if ( $score >= $threshold ) {

@@ -2,6 +2,10 @@
 
 class IngenicoReturntoHelper implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		if ( $adapter->isBatchProcessor() ) {
+			// Only makes sense for real users.
+			return;
+		}
 		if ( !empty( $normalized['returnto'] ) ) {
 			$returnto = $normalized['returnto'];
 		} else {

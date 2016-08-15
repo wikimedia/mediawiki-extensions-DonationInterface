@@ -38,7 +38,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
-		$this->risk_score = $this->gateway_adapter->getRequest()->getSessionData( 'risk_scores' );
+		$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
 		if ( !$this->risk_score ) {
 			$this->risk_score = array();
 		} else {
@@ -150,7 +150,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		}
 
 		// Always keep the stored scores up to date
-		$this->gateway_adapter->getRequest()->setSessionData( 'risk_scores', $this->risk_score );
+		WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
 
 		return TRUE;
 	}
@@ -188,7 +188,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 */
 	public static function determineStoredAction( GatewayType $gateway_adapter ) {
 		if (
-			!$gateway_adapter->getRequest()->getSessionData( 'risk_scores' )
+			!WmfFramework::getSessionValue( 'risk_scores' )
 		) {
 			throw new RuntimeException( 'No stored risk scores' );
 		}

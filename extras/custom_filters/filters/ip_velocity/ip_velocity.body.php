@@ -171,9 +171,8 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
-		if (
-			$gateway_adapter->getRequest()->getSessionData( self::RAN_INITIAL ) &&
-			!$gateway_adapter->getRequest()->getSessionData( 'numAttempt' )
+		if ( WmfFramework::getSessionValue( self::RAN_INITIAL )
+			&& !WmfFramework::getSessionValue( 'numAttempt' )
 		) {
 			// We're on the first attempt, already counted in onInitialFilter
 			return true;
@@ -192,11 +191,11 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
-		if ( $gateway_adapter->getRequest()->getSessionData( self::RAN_INITIAL ) ) {
+		if ( WmfFramework::getSessionValue( self::RAN_INITIAL ) ) {
 			return true;
 		}
 
-		$gateway_adapter->getRequest()->setSessionData( self::RAN_INITIAL, true );
+		WmfFramework::setSessionValue( self::RAN_INITIAL, true );
 		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
@@ -214,6 +213,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		Gateway_Extras_CustomFilters $custom_filter_object = null
 	) {
 
+		# FIXME: Why always construct a new object if we're batch processing?
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

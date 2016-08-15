@@ -516,7 +516,7 @@ $wgDonationInterfaceSessionVelocity_Threshold = 50 // Above this score, we deny 
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreCountryMap' => 100,
  * )
  *
@@ -541,7 +541,7 @@ $wgDonationInterfaceCountryMap = array()
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreEmailDomainMap' => 100,
  * )
  *
@@ -566,13 +566,13 @@ $wgDonationInterfaceEmailDomainMap = array()
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreUtmCampaignMap' => 100,
  * )
  *
  * $wgDonationInterfaceUtmCampaignMap = array(
- * 	'' =>  20,
- * 	'some-odd-string' => 100,
+ * 	'/^$/' =>  20,
+ * 	'/some-odd-string/' => 100,
  * )
  * ?>
  * @endcode
@@ -591,13 +591,13 @@ $wgDonationInterfaceUtmCampaignMap = array()
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreUtmMediumMap' => 100,
  * )
  *
  * $wgDonationInterfaceUtmMediumMap = array(
- * 	'' =>  20,
- * 	'some-odd-string' => 100,
+ * 	'/^$/' =>  20,
+ * 	'/some-odd-string/' => 100,
  * )
  * ?>
  * @endcode
@@ -616,13 +616,13 @@ $wgDonationInterfaceUtmMediumMap = array()
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreUtmSourceMap' => 100,
  * )
  *
  * $wgDonationInterfaceUtmSourceMap = array(
- * 	'' =>  20,
- * 	'some-odd-string' => 100,
+ * 	'/^$/' =>  20,
+ * 	'/some-odd-string/' => 100,
  * )
  * ?>
  * @endcode
@@ -642,7 +642,7 @@ $wgDonationInterfaceUtmSourceMap = array()
  * @code
  * <?php
  *
- * $wgCustomFiltersFunctions = array(
+ * $wgDonationInterfaceCustomFiltersFunctions = array(
  * 	'getScoreName' => 100,
  * )
  *
