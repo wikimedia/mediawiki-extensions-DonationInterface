@@ -369,19 +369,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$resultData = $this->do_transaction( 'SetExpressCheckout' );
 		}
 
-		$resultAction = PaymentResult::fromResults(
+		return PaymentResult::fromResults(
 			$resultData,
 			$this->getFinalStatus()
 		);
-
-		if ( $resultAction->getRedirect() ) {
-			// FIXME: This stuff should be base behavior for handling redirect responses.
-			$this->logPaymentDetails();
-			// Don't worry about saving a limbo message, we know next to nothing yet.
-			// TODO: need ffname hack?
-		}
-
-		return $resultAction;
 	}
 
 	/**

@@ -399,4 +399,11 @@ interface GatewayType {
 	 * @return array Parameters as a map.
 	 */
 	public function buildRequestParams();
+
+	/**
+	 * Dump info about a transaction in logs and pending queues before
+	 * sending the donor off to complete it.
+	 */
+	public function logPending();
+
 }

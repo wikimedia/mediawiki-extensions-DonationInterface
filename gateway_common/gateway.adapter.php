@@ -1433,6 +1433,16 @@ abstract class GatewayAdapter
 		return curl_errno( $ch );
 	}
 
+	public function logPending() {
+		// Write the donor's details to the log for the audit processor
+		$this->logPaymentDetails();
+		// Feed the message into the pending queue, so the CRM queue consumer
+		// can read it to fill in donor details when it gets a partial message
+		$this->setLimboMessage();
+		// Avoid 'bad ffname' logspam on return and try again links.
+		$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
+	}
+
 	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
 	 * @return boolean true if response looks sane

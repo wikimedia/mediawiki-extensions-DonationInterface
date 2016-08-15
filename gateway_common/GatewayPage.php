@@ -449,6 +449,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->logger->info( 'Displaying fail page for failed PaymentResult' );
 			$this->displayFailPage();
 		} elseif ( $url = $result->getRedirect() ) {
+			$this->adapter->logPending();
 			$this->getOutput()->redirect( $url );
 		} elseif ( $url = $result->getIframe() ) {
 			// Show a form containing an iframe.
