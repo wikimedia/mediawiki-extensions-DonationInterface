@@ -240,7 +240,6 @@ class DonationQueue {
 			// the following int casting fixes an issue that is more in Drupal/CiviCRM than here.
 			// The code there should also be fixed.
 			'date' => (int)$transaction['date'],
-			'email' => $transaction['email'],
 			'fee' => '0',
 			'gateway_account' => $transaction['gateway_account'],
 			'gateway' => $transaction['gateway'],
@@ -261,6 +260,7 @@ class DonationQueue {
 			'anonymous' => 'anonymous',
 			'city' => 'city',
 			'currency' => 'currency_code',
+			'email' => 'email',
 			'first_name' => 'fname',
 			'gross' => 'amount',
 			'last_name' => 'lname',

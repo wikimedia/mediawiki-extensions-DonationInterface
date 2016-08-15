@@ -86,7 +86,11 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
-		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
+		$this->assertEquals(
+			$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			$gateway->getData_Unstaged_Escaped( 'order_id' ),
+			"Paypal order_id should equal ct_id"
+		);
 	}
 
 	/**
@@ -224,7 +228,11 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
-		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
+		$this->assertEquals(
+			$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			$gateway->getData_Unstaged_Escaped( 'order_id' ),
+			"Paypal order_id should equal ct_id"
+		);
 	}
 
 	/**
@@ -258,7 +266,11 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
-		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
+		$this->assertEquals(
+			$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			$gateway->getData_Unstaged_Escaped( 'order_id' ),
+			"Paypal order_id should equal ct_id"
+		);
 	}
 
 	/**
@@ -288,6 +300,10 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "Donate" transaction not constructing the expected redirect URL' );
-		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Paypal order_id is not null, and we shouldn't be generating one" );
+		$this->assertEquals(
+			$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			$gateway->getData_Unstaged_Escaped( 'order_id' ),
+			"Paypal order_id should equal ct_id"
+		);
 	}
 }
