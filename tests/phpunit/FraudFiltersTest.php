@@ -106,7 +106,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$gateway->runAntifraudHooks();
+		$gateway->runAntifraudFilters();
 
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );

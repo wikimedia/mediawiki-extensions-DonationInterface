@@ -38,10 +38,6 @@ class WmfFramework_Drupal {
 		return $message_identifier;
 	}
 
-	static function runHooks( $func, $args ) {
-		return true;
-	}
-
 	/**
 	 * Do not guess.
 	 */

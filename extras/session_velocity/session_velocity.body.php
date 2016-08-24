@@ -48,8 +48,6 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	}
 
 	/**
-	 * @static Filter hook chain gateway function
-	 *
 	 * @param GatewayType $gateway_adapter The adapter context to log under
 	 *
 	 * @return bool Filter chain termination on FALSE. Also indicates that the cURL transaction
@@ -67,7 +65,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 * Although this function actually does the filtering, as this is a singleton pattern
 	 * we only want one instance actually using it.
 	 *
-	 * @return bool Hook return, false stops processing of the hook chain
+	 * @return bool false if we should stop processing
 	 */
 	private function filter() {
 

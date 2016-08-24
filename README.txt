@@ -471,7 +471,7 @@ $wgDonationInterfaceCustomFiltersRefRules = array()
 $wgDonationInterfaceCustomFiltersSrcRules = array()
 
 //Functions Filter globals
-//These functions fire when we trigger the antifraud hook.
+//These functions fire when we trigger the antifraud filters.
 //Anything that needs access to API call results goes here.
 //FIXME: you need to copy all the initial functions here because
 //individual function scores don't persist like filter scores.

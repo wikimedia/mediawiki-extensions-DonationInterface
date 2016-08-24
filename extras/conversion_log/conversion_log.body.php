@@ -37,7 +37,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ) {
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'conversion log onPostProcess hook!';
+		$gateway_adapter->debugarray[] = 'conversion log onPostProcess!';
 		return self::singleton( $gateway_adapter )->post_process();
 	}
 

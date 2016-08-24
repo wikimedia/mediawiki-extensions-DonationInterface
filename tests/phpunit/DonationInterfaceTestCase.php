@@ -27,9 +27,6 @@ use Psr\Log\LogLevel;
  * @package		Fundraising_QueueHandling
  */
 abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
-	protected $backupGlobalsBlacklist = array(
-		'wgHooks',
-	);
 
 	/**
 	 * An array of the vars we expect to be set before people hit payments.

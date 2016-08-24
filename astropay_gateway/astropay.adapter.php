@@ -205,7 +205,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		}
 
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
-		$this->runAntifraudHooks();
+		$this->runAntifraudFilters();
 		if ( $this->getValidationAction() !== 'process' ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
@@ -288,7 +288,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
 			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 			$this->finalizeInternalStatus( $status );
-			$this->runPostProcessHooks();
+			$this->postProcessDonation();
 			$this->deleteLimboMessage( 'pending' );
 			break;
 		case 'NewInvoice':

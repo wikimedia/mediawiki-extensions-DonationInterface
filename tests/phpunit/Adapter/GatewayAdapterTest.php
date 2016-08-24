@@ -19,8 +19,8 @@
 /**
  * TODO: Test everything.
  * Make sure all the basic functions in the gateway_adapter are tested here.
- * Also, the extras and their hooks firing properly and... that the fail score
- * they give back is acted upon in the way we think it does.
+ * Also, the filters firing properly and... that the fail score they give
+ * back is acted upon in the way we think it does.
  * Hint: For that mess, use GatewayAdapter's $debugarray
  *
  * Also, note that it barely makes sense to test the functions that need to be
