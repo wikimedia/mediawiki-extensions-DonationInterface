@@ -168,9 +168,10 @@ class AdyenAdapter extends GatewayAdapter {
 			switch ( $transaction ) {
 				case 'donate':
 					$formaction = $this->getProcessorUrl() . '/hpp/pay.shtml';
-					// Run API call hooks here because we don't cURL anything
-					$this->runApiCallHooks();
-					$this->runAntifraudHooks();
+					// Run Session Velocity here because we don't cURL anything
+					$this->runSessionVelocityFilter();
+					// FIXME: should skip next step if session velocity rejected
+					$this->runAntifraudFilters();
 					// Add the risk score to our data. This will also trigger
 					// staging, placing the risk score in the constructed URL
 					// as 'offset' for use in processor-side fraud filters.
@@ -272,13 +273,13 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
 		}
-		$this->runPostProcessHooks();
+		$this->postProcessDonation();
 	}
 
 	/**
 	 * Overriding this function because we're queueing our pending message
 	 * before we redirect the user, so we don't need to send another one
-	 * when doStompTransaction is called from runPostProcessHooks.
+	 * when doStompTransaction is called from postProcessDonation.
 	 */
 	protected function doStompTransaction() {}
 

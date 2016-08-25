@@ -2,11 +2,11 @@
 
 class Gateway_Extras_CustomFilters extends FraudFilter {
 
-	// filter list hook to run on GatewayReady
-	const HOOK_INITIAL = 'GatewayInitialFilter';
+	// filter list to run on adapter construction
+	const PHASE_INITIAL = 'GatewayInitialFilter';
 
-	// filter list hook to run on GatewayValidate
-	const HOOK_VALIDATE = 'GatewayCustomFilter';
+	// filter list to run before making processor API calls
+	const PHASE_VALIDATE = 'GatewayCustomFilter';
 
 	/**
 	 * A value for tracking the 'riskiness' of a transaction
@@ -117,12 +117,11 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	/**
 	 * Run the transaction through the custom filters
-	 * @param string $hook Run custom filters attached to a hook with this name
+	 * @param string $phase Run custom filters attached for this phase
 	 * @return bool
 	 */
-	protected function validate( $hook ) {
-		// expose a hook for custom filters
-		WmfFramework::runHooks( $hook, array( $this->gateway_adapter, $this ) );
+	protected function validate( $phase ) {
+		$this->runFilters( $phase );
 		$score = $this->getRiskScore();
 		$this->gateway_adapter->setRiskScore( $score );
 		$localAction = $this->determineAction();
@@ -145,7 +144,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 		// Always send a message if we're about to charge or redirect the donor
 		// Only send a message on initial validation if things look fishy
-		if ( $hook === self::HOOK_VALIDATE || $localAction !== 'process' ) {
+		if ( $phase === self::PHASE_VALIDATE || $localAction !== 'process' ) {
 			$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
 		}
 
@@ -159,16 +158,16 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'custom filters onValidate hook!';
-		return self::singleton( $gateway_adapter )->validate( self::HOOK_VALIDATE );
+		$gateway_adapter->debugarray[] = 'custom filters onValidate!';
+		return self::singleton( $gateway_adapter )->validate( self::PHASE_VALIDATE );
 	}
 
 	public static function onGatewayReady( GatewayType $gateway_adapter ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'custom filters onGatewayReady hook!';
-		return self::singleton( $gateway_adapter )->validate( self::HOOK_INITIAL );
+		$gateway_adapter->debugarray[] = 'custom filters onGatewayReady!';
+		return self::singleton( $gateway_adapter )->validate( self::PHASE_INITIAL );
 	}
 
 	public static function singleton( GatewayType $gateway_adapter ) {
@@ -193,5 +192,21 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			throw new RuntimeException( 'No stored risk scores' );
 		}
 		return self::singleton( $gateway_adapter )->determineAction();
+	}
+
+	protected function runFilters( $phase ) {
+		switch( $phase ) {
+			case self::PHASE_INITIAL:
+				Gateway_Extras_CustomFilters_Referrer::onInitialFilter( $this->gateway_adapter, $this );
+				Gateway_Extras_CustomFilters_Source::onInitialFilter( $this->gateway_adapter, $this );
+				Gateway_Extras_CustomFilters_Functions::onInitialFilter( $this->gateway_adapter, $this );
+				Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter( $this->gateway_adapter, $this );
+				break;
+			case self::PHASE_VALIDATE:
+				Gateway_Extras_CustomFilters_Functions::onFilter( $this->gateway_adapter, $this );
+				Gateway_Extras_CustomFilters_MinFraud::onFilter( $this->gateway_adapter, $this );
+				Gateway_Extras_CustomFilters_IP_Velocity::onFilter( $this->gateway_adapter, $this );
+				break;
+		}
 	}
 }

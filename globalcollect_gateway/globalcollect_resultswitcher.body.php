@@ -8,8 +8,6 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	 * 'review', 'reject'.  These values can be set during
 	 * data processing validation, for instance.
 	 *
-	 * Hooks are exposed to handle the different actions.
-	 *
 	 * Defaults to 'process'.
 	 * @var string
 	 */
@@ -23,7 +21,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 	protected $qs_oid = null;
 
-	protected $gatewayName = 'globalcollect';
+	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
 
 	/**
 	 * Show the special page

@@ -429,7 +429,7 @@ class DataValidator {
 	protected static function validate_gateway( $value ){
 		global $wgDonationInterfaceGatewayAdapters;
 
-		return key_exists( $value, $wgDonationInterfaceGatewayAdapters );
+		return array_key_exists( $value, $wgDonationInterfaceGatewayAdapters );
 	}
 
 	/**

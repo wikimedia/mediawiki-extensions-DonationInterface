@@ -206,7 +206,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
 
 		if ( $action === FinalStatus::PENDING_POKE ) {
-			$this->runAntifraudHooks();
+			$this->runAntifraudFilters();
 		}
 	}
 }

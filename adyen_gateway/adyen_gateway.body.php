@@ -22,7 +22,7 @@
  */
 class AdyenGateway extends GatewayPage {
 
-	protected $gatewayName = 'adyen';
+	protected $gatewayIdentifier = AdyenAdapter::IDENTIFIER;
 
 	/**
 	 * TODO: Finish Adyen error handling

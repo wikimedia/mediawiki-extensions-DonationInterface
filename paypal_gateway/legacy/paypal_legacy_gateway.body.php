@@ -17,7 +17,7 @@
  */
 
 class PaypalLegacyGateway extends GatewayPage {
-	protected $gatewayName = 'paypal';
+	protected $gatewayIdentifier = PaypalLegacyAdapter::IDENTIFIER;
 
 	/**
 	 * Show the special page

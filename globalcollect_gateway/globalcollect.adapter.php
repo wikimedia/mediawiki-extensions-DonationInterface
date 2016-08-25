@@ -824,7 +824,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 					//get the old status from the first txn, and add in the part where we set the payment.
 					$this->transaction_response->setTxnMessage( "Original Response Status (pre-SET_PAYMENT): " . $original_status_code );
-					$this->runPostProcessHooks();  // Queueing is in here.
+					$this->postProcessDonation();  // Queueing is in here.
 				} else {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 					$problemflag = true;
@@ -1730,7 +1730,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		static $checked = array();
 		$oid = $this->getData_Unstaged_Escaped('order_id');
 		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){
-			$this->runAntifraudHooks();
+			$this->runAntifraudFilters();
 			$checked[] = $oid;
 		}
 	}

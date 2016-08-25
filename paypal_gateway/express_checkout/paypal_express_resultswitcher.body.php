@@ -2,7 +2,7 @@
 
 class PaypalExpressGatewayResult extends GatewayPage {
 
-	protected $gatewayName = 'paypal_ec';
+	protected $gatewayIdentifier = PaypalExpressAdapter::IDENTIFIER;
 
 	protected function handleRequest() {
 		$this->adapter->setCurrentTransaction( 'ProcessReturn' );

@@ -27,11 +27,11 @@
 abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
-	 * Derived classes must override this with the name of the gateway
+	 * Derived classes must override this with the identifier of the gateway
 	 * as set in GatewayAdapter::IDENTIFIER
 	 * @var string
 	 */
-	protected $gatewayName;
+	protected $gatewayIdentifier;
 
 	/**
 	 * An array of form errors
@@ -75,7 +75,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
-		$gatewayName = $this->getGatewayName();
+		$gatewayName = $this->getGatewayIdentifier();
 		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 		try {
 			$this->adapter = new $className();
@@ -212,8 +212,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Override if your page selects between multiple adapters based on
 	 * context.
 	 */
-	protected function getGatewayName() {
-		return $this->gatewayName;
+	protected function getGatewayIdentifier() {
+		return $this->gatewayIdentifier;
 	}
 
 	/**
@@ -449,6 +449,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->logger->info( 'Displaying fail page for failed PaymentResult' );
 			$this->displayFailPage();
 		} elseif ( $url = $result->getRedirect() ) {
+			$this->adapter->logPending();
 			$this->getOutput()->redirect( $url );
 		} elseif ( $url = $result->getIframe() ) {
 			// Show a form containing an iframe.

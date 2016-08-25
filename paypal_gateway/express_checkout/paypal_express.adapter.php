@@ -369,19 +369,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$resultData = $this->do_transaction( 'SetExpressCheckout' );
 		}
 
-		$resultAction = PaymentResult::fromResults(
+		return PaymentResult::fromResults(
 			$resultData,
 			$this->getFinalStatus()
 		);
-
-		if ( $resultAction->getRedirect() ) {
-			// FIXME: This stuff should be base behavior for handling redirect responses.
-			$this->logPaymentDetails();
-			// Don't worry about saving a limbo message, we know next to nothing yet.
-			// TODO: need ffname hack?
-		}
-
-		return $resultAction;
 	}
 
 	/**
@@ -414,7 +405,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// FIXME: Not a satisfying ending.  Parse the PROFILESTATUS
 				// response and sort it into complete or pending.
 				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-				$this->runPostProcessHooks();
+				$this->postProcessDonation();
 				// FIXME: deprecated
 				$this->deleteLimboMessage( 'pending' );
 				break;
@@ -468,7 +459,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// blacklist of protected fields.
 				$this->addResponseData( $this->unstageKeys( $response ) );
 
-				$this->runAntifraudHooks();
+				$this->runAntifraudFilters();
 				if ( $this->getValidationAction() !== 'process' ) {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 				}
@@ -484,7 +475,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
 				// TODO: Can we do this from do_transaction instead, or at least protect with !recurring...
 				$this->finalizeInternalStatus( $status );
-				$this->runPostProcessHooks();
+				$this->postProcessDonation();
 				// FIXME: deprecated
 				$this->deleteLimboMessage( 'pending' );
 				break;

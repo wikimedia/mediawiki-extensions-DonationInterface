@@ -205,7 +205,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		}
 
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
-		$this->runAntifraudHooks();
+		$this->runAntifraudFilters();
 		if ( $this->getValidationAction() !== 'process' ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
@@ -213,15 +213,6 @@ class AstroPayAdapter extends GatewayAdapter {
 			$transaction_result,
 			$this->getFinalStatus()
 		);
-		if ( $result->getRedirect() ) {
-			// Write the donor's details to the log for the audit processor
-			$this->logPaymentDetails();
-			// Feed the message into the pending queue, so the CRM queue consumer
-			// can read it to fill in donor details when it gets a partial message
-			$this->setLimboMessage();
-			// Avoid 'bad ffname' logspam on return and try again links.
-			$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
-		}
 		return $result;
 	}
 
@@ -297,7 +288,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
 			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 			$this->finalizeInternalStatus( $status );
-			$this->runPostProcessHooks();
+			$this->postProcessDonation();
 			$this->deleteLimboMessage( 'pending' );
 			break;
 		case 'NewInvoice':

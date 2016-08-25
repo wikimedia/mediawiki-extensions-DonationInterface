@@ -15,9 +15,9 @@ class CurrencyRatesModule extends ResourceLoaderModule {
 	}
 
 	/**
-	 * @see ResourceLoaderModule::getModifiedTime()
+	 * @see ResourceLoaderModule::enableModuleContentVersion()
 	 */
-	public function getModifiedTime( ResourceLoaderContext $context ) {
-		return strtotime( CurrencyRates::$lastUpdated );
+	public function enableModuleContentVersion() {
+		return true;
 	}
 }

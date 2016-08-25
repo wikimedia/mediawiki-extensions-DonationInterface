@@ -60,7 +60,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 			!count( $gateway_adapter->getGlobal( 'CustomFiltersRefRules' ) ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'referrer onFilter hook!';
+		$gateway_adapter->debugarray[] = 'referrer onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 

@@ -59,7 +59,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'source onFilter hook!';
+		$gateway_adapter->debugarray[] = 'source onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 

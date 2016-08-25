@@ -177,7 +177,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			// We're on the first attempt, already counted in onInitialFilter
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
+		$gateway_adapter->debugarray[] = 'IP Velocity onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
@@ -196,7 +196,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		}
 
 		WmfFramework::setSessionValue( self::RAN_INITIAL, true );
-		$gateway_adapter->debugarray[] = 'IP Velocity onFilter hook!';
+		$gateway_adapter->debugarray[] = 'IP Velocity onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 
@@ -204,7 +204,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'IP Velocity onPostProcess hook!';
+		$gateway_adapter->debugarray[] = 'IP Velocity onPostProcess!';
 		return self::singleton( $gateway_adapter )->postProcess();
 	}
 

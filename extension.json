@@ -274,31 +274,6 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"GatewayReady": [
-			"BannerHistoryLogIdProcessor::onGatewayReady",
-			"Gateway_Extras_CustomFilters::onGatewayReady"
-		],
-		"GatewayValidate": [
-			"Gateway_Extras_CustomFilters::onValidate"
-		],
-		"GatewayCustomFilter": [
-			"Gateway_Extras_CustomFilters_Functions::onFilter",
-			"Gateway_Extras_CustomFilters_MinFraud::onFilter",
-			"Gateway_Extras_CustomFilters_IP_Velocity::onFilter"
-		],
-		"GatewayInitialFilter": [
-			"Gateway_Extras_CustomFilters_Referrer::onInitialFilter",
-			"Gateway_Extras_CustomFilters_Source::onInitialFilter",
-			"Gateway_Extras_CustomFilters_Functions::onInitialFilter",
-			"Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter"
-		],
-		"GatewayPostProcess": [
-			"Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess",
-			"Gateway_Extras_ConversionLog::onPostProcess"
-		],
-		"DonationInterfaceProcessorApiCall": [
-			"Gateway_Extras_SessionVelocityFilter::onProcessorApiCall"
-		],
 		"UnitTestsList": [
 			"DonationInterface::onDonationInterfaceUnitTests"
 		]

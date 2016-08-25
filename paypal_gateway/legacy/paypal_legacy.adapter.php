@@ -161,6 +161,10 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 			}
 		}
 
+		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->normalizeOrderID( $ctid );
+		$this->addRequestData( array ( 'order_id' => $ctid ) );
+
 		return PaymentResult::fromResults(
 			$resultData,
 			$this->getFinalStatus()

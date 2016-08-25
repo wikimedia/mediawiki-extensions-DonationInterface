@@ -352,7 +352,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		if ( !$gateway_adapter->getGlobal( 'EnableMinfraud' ) ){
 			return true;
 		}
-		$gateway_adapter->debugarray[] = 'minfraud onFilter hook!';
+		$gateway_adapter->debugarray[] = 'minfraud onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter();
 	}
 

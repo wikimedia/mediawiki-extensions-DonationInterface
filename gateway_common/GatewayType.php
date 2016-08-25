@@ -284,7 +284,7 @@ interface GatewayType {
 
 	/**
 	 * Returns the current validation action.
-	 * This will typically get set and altered by the various enabled process hooks.
+	 * This will typically get set and altered by the fraud filters.
 	 *
 	 * @return string the current process action.
 	 */
@@ -300,7 +300,7 @@ interface GatewayType {
 
 	/**
 	 * Sets the current validation action. This is meant to be used by the
-	 * process hooks, and as such, by default, only worse news than was already
+	 * fraud filters, and as such, by default, only worse news than was already
 	 * being stored will be retained for the final result.
 	 * @param string $action the value you want to set as the action.
 	 * @param bool $reset set to true to do a hard set on the action value.
@@ -311,7 +311,7 @@ interface GatewayType {
 	public function setValidationAction( $action, $reset = false );
 
 	/**
-	 * Lets the outside world (particularly hooks that accumulate points scores)
+	 * Lets the outside world (particularly filters that accumulate points scores)
 	 * know if we are a batch processor.
 	 * @return bool
 	 */
@@ -399,4 +399,11 @@ interface GatewayType {
 	 * @return array Parameters as a map.
 	 */
 	public function buildRequestParams();
+
+	/**
+	 * Dump info about a transaction in logs and pending queues before
+	 * sending the donor off to complete it.
+	 */
+	public function logPending();
+
 }

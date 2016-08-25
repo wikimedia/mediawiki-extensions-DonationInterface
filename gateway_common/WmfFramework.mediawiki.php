@@ -35,10 +35,6 @@ class WmfFramework_Mediawiki {
 		return call_user_func_array( 'wfMessage', func_get_args() )->text();
 	}
 
-	static function runHooks( $func, $args ) {
-		return Hooks::run( $func, $args );
-	}
-
 	static function getLanguageCode() {
 		$lang = RequestContext::getMain()->getLanguage();
 		return $lang->getCode();

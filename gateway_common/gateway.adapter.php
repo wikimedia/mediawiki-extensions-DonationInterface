@@ -271,7 +271,9 @@ abstract class GatewayAdapter
 		$this->setGatewayDefaults( $options );
 		$this->stageData();
 
-		WmfFramework::runHooks( 'GatewayReady', array( $this ) );
+		BannerHistoryLogIdProcessor::onGatewayReady( $this );
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+
 		if ( $this->getValidationAction() !== 'process' ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$error = array( 'general' => array( 'internal-0001' =>
@@ -965,10 +967,7 @@ abstract class GatewayAdapter
 	 *  * pre_process_<strtolower($transaction)>
 	 *    Called before the transaction is processed; intended to call setValidationAction()
 	 *    if the transaction should not be performed. Anti-fraud can be performed in this
-	 *    hook by calling $this->runAntifraudHooks().
-	 *
-	 *  * MediaWiki hook GatewayHandoff
-	 *    Called if the gateway tranaction type is 'redirect'
+	 *    hook by calling $this->runAntifraudFilters().
 	 *
 	 *  * post_process_<strtolower($transaction)>
 	 *
@@ -1014,7 +1013,6 @@ abstract class GatewayAdapter
 
 			$commType = $this->getCommunicationType();
 			if ( $commType === 'redirect' ) {
-				WmfFramework::runHooks( 'GatewayHandoff', array ( $this ) );
 
 				//in the event that we have a redirect transaction that never displays the form,
 				//save this most recent one before we leave.
@@ -1126,7 +1124,7 @@ abstract class GatewayAdapter
 		// If we have any special post-process instructions for this
 		// transaction, do 'em.
 		// NOTE: If you want your transaction to fire off the post-process
-		// hooks, you need to run $this->runPostProcessHooks in a function
+		// logic, you need to run $this->postProcessDonation in a function
 		// called
 		//	'post_process' . strtolower($transaction)
 		// in the appropriate gateway object.
@@ -1287,11 +1285,11 @@ abstract class GatewayAdapter
 		 */
 		$this->logger->info( "Initiating cURL for donor $email" );
 
-		// Initialize cURL and construct operation (also run hook)
+		// Initialize cURL and construct operation (also run filter)
 		$ch = curl_init();
 
-		$hookResult = $this->runApiCallHooks();
-		if ( $hookResult == false ) {
+		$filterResult = $this->runSessionVelocityFilter();
+		if ( $filterResult == false ) {
 			return false;
 		}
 
@@ -1431,6 +1429,16 @@ abstract class GatewayAdapter
 	 */
 	protected function curl_errno( $ch ) {
 		return curl_errno( $ch );
+	}
+
+	public function logPending() {
+		// Write the donor's details to the log for the audit processor
+		$this->logPaymentDetails();
+		// Feed the message into the pending queue, so the CRM queue consumer
+		// can read it to fill in donor details when it gets a partial message
+		$this->setLimboMessage();
+		// Avoid 'bad ffname' logspam on return and try again links.
+		$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 	}
 
 	/**
@@ -1687,7 +1695,7 @@ abstract class GatewayAdapter
 	 * false, unless it's new data about a new transaction. In that case, the
 	 * outcome will be assigned and the proper queue selected.
 	 *
-	 * Probably called in runPostProcessHooks(), which is itself most likely to
+	 * Probably called in postProcessDonation(), which is itself most likely to
 	 * be called through executeFunctionIfExists, later on in do_transaction.
 	 */
 	protected function doStompTransaction() {
@@ -2204,55 +2212,34 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Runs all the pre-process hooks that have been enabled and configured in
+	 * Runs all the fraud filters that have been enabled and configured in
 	 * donationdata.php and/or LocalSettings.php
 	 * This function is most likely to be called through
 	 * executeFunctionIfExists, early on in do_transaction.
 	 */
-	function runAntifraudHooks() {
+	function runAntifraudFilters() {
 		//extra layer of Stop Doing This.
 		$errors = $this->getTransactionErrors();
 		if ( !empty( $errors ) ) {
-			$this->logger->info( 'Skipping antifraud hooks: Transaction is already in error' );
+			$this->logger->info( 'Skipping antifraud filters: Transaction is already in error' );
 			return;
 		}
 		// allow any external validators to have their way with the data
 		$this->logger->info( 'Preparing to run custom filters' );
-		WmfFramework::runHooks( 'GatewayValidate', array( $this ) );
+		Gateway_Extras_CustomFilters::onValidate( $this );
 		$this->logger->info( 'Finished running custom filters' );
-
-		//DO NOT set some variable as getValidationAction() here, and keep
-		//checking that. getValidationAction could change with each one of these
-		//hooks, and this ought to cascade.
-		// if the transaction was flagged for review
-		if ( $this->getValidationAction() == 'review' ) {
-			// expose a hook for external handling of trxns flagged for review
-			WmfFramework::runHooks( 'GatewayReview', array( $this ) );
-		}
-
-		// if the transaction was flagged to be 'challenged'
-		if ( $this->getValidationAction() == 'challenge' ) {
-			// expose a hook for external handling of trxns flagged for challenge (eg captcha)
-			WmfFramework::runHooks( 'GatewayChallenge', array( $this ) );
-		}
-
-		// if the transaction was flagged for rejection
-		if ( $this->getValidationAction() == 'reject' ) {
-			// expose a hook for external handling of trxns flagged for rejection
-			WmfFramework::runHooks( 'GatewayReject', array( $this ) );
-		}
 	}
 
 	/**
-	 * Runs all the post-process hooks that have been enabled and configured in
+	 * Runs all the post-process logic that has been enabled and configured in
 	 * donationdata.php and/or LocalSettings.php, including the ActiveMQ/Stomp
-	 * hooks.
+	 * queue message.
 	 * This function is most likely to be called through
 	 * executeFunctionIfExists, later on in do_transaction.
 	 */
-	protected function runPostProcessHooks() {
-		// expose a hook for any post processing
-		WmfFramework::runHooks( 'GatewayPostProcess', array( $this ) );
+	protected function postProcessDonation() {
+		Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess( $this );
+		Gateway_Extras_ConversionLog::onPostProcess( $this );
 
 		try {
 			$this->doStompTransaction();
@@ -3603,13 +3590,14 @@ abstract class GatewayAdapter
 		}
 	}
 
-	protected function runApiCallHooks() {
-		$hookResult = WmfFramework::runHooks( 'DonationInterfaceProcessorApiCall', array( $this ) );
-		if ( $hookResult == false ) {
-			$this->logger->info( 'Processor API call aborted on hook DonationInterfaceProcessorApiCall' );
+	protected function runSessionVelocityFilter() {
+		$result = Gateway_Extras_SessionVelocityFilter::onProcessorApiCall( $this );
+
+		if ( $result == false ) {
+			$this->logger->info( 'Processor API call aborted on Session Velocity filter' );
 			$this->setValidationAction( 'reject' );
 		}
-		return $hookResult;
+		return $result;
 	}
 
 	/**

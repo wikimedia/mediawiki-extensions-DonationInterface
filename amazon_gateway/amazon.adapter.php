@@ -250,7 +250,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transaction_response->setTxnMessage( $captureState );
 
 		$this->finalizeInternalStatus( $this->capture_status_map[$captureState] );
-		$this->runPostProcessHooks();
+		$this->postProcessDonation();
 		$this->deleteLimboMessage( 'pending' );
 	}
 

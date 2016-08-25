@@ -64,7 +64,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-		$gateway_adapter->debugarray[] = 'functions onFilter hook!';
+		$gateway_adapter->debugarray[] = 'functions onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
 			'CustomFiltersFunctions'
 		);
@@ -74,7 +74,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-		$gateway_adapter->debugarray[] = 'functions onInitialFilter hook!';
+		$gateway_adapter->debugarray[] = 'functions onInitialFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
 			'CustomFiltersInitialFunctions'
 		);
