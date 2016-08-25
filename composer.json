@@ -9,6 +9,8 @@
 		"classmap": [
 			"adyen_gateway",
 			"amazon_gateway",
+			"astropay_gateway",
+			"extras",
 			"gateway_common",
 			"globalcollect_gateway",
 			"paypal_gateway",
