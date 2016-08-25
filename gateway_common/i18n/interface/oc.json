@@ -302,5 +302,6 @@
 	"donate_interface-translate-bluelink": "Melhorar aquesta traduccion",
 	"donate_interface-translate-redlink1": "Ajudatz a traduire aquesta pagina.",
 	"donate_interface-translate-redlink2": "O mandatz vòstra traduccion a translations@wikimedia.org",
-	"donate_interface-email-unsub-button": "Se desabonar"
+	"donate_interface-email-unsub-button": "Se desabonar",
+	"apihelp-donate-param-language": "Còdi de lenga."
 }
