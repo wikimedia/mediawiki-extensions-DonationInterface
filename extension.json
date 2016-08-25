@@ -452,6 +452,7 @@
 		"DonationInterfaceEnableQueue": false,
 		"DonationInterfaceEnableConversionLog": false,
 		"DonationInterfaceEnableMinfraud": false,
+		"DonationInterfaceEnableBannerHistoryLog": false,
 		"GlobalCollectGatewayEnabled": false,
 		"AmazonGatewayEnabled": false,
 		"AdyenGatewayEnabled": false,

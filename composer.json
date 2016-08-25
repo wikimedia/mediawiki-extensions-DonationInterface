@@ -9,7 +9,10 @@
 		"classmap": [
 			"adyen_gateway",
 			"amazon_gateway",
+			"astropay_gateway",
+			"extras",
 			"gateway_common",
+			"gateway_forms",
 			"globalcollect_gateway",
 			"paypal_gateway",
 			"DonationInterface.class.php"
