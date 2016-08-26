@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\Core\Context;
 
 /**
  * @group		Fundraising
@@ -495,6 +496,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
 			$unwrapped->instance = null;
 		}
+		// Reset SmashPig context
+		Context::set( null );
 	}
 
 	/**
