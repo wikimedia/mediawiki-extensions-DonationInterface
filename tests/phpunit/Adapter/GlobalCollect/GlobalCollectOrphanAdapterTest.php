@@ -170,24 +170,36 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	}
 
 	/**
-	 * Don't fraud-fail someone for bad CVV if GET_ORDERSTATUS
-	 * comes back with STATUSID 25 and no CVVRESULT
-	 * @group CvvResult
+	 * Make sure we're incorporating GET_ORDERSTATUS AVS and CVV responses into
+	 * fraud scores.
 	 */
-	function testConfirmCreditCardStatus25() {
+	function testGetOrderstatusPostProcessFraud() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceEnableCustomFilters' => true,
+			'wgGlobalCollectGatewayCustomFiltersFunctions' => array(
+				'getCVVResult' => 10,
+				'getAVSResult' => 30,
+			),
+		) );
 		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
 
 		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
-		$init['email'] = 'innocent@clean.com';
+		$init['email'] = 'innocent@manichean.com';
 		$init['contribution_tracking_id'] = mt_rand();
+		$init['payment_method'] = 'cc';
 
 		$gateway->loadDataAndReInit( $init, $useDB = false );
-		$gateway->setDummyGatewayResponseCode( '25' );
+		$gateway->setDummyGatewayResponseCode( '600_badCvv' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on STATUSID 25' );
+		$this->assertEquals( 'review', $action,
+			'Orphan gateway should fraud fail on bad CVV and AVS' );
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 40, $exposed->risk_score,
+			'Risk score was incremented correctly.' );
 	}
 }

@@ -194,26 +194,36 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
-	 * If CVVRESULT is unrecognized, fraud-fail and warn
-	 * @group CvvResult
+	 * Make sure we're incorporating GET_ORDERSTATUS AVS and CVV responses into
+	 * fraud scores.
 	 */
-	function testConfirmCreditCardBadCVVResult() {
+	function testGetOrderstatusPostProcessFraud() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceEnableCustomFilters' => true,
+			'wgGlobalCollectGatewayCustomFiltersFunctions' => array(
+				'getCVVResult' => 10,
+				'getAVSResult' => 30,
+			),
+		) );
+
 		$init = $this->getDonorTestData();
+		$init['ffname'] = 'cc-vmad';
+		$init['order_id'] = '55555';
+		$init['email'] = 'innocent@manichean.com';
+		$init['contribution_tracking_id'] = mt_rand();
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-
-		$this->setUpRequest( array( 'CVVRESULT' => ' ' ) );
-		DonationInterface_FraudFiltersTest::setupFraudMaps( $this );
-
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '800' );
+
+		$gateway->setDummyGatewayResponseCode( '600_badCvv' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$result = $gateway->getCvvResult();
-		$this->assertEquals( false, $result, 'Gateway should fraud fail if CVVRESULT is not mapped' );
-		$matches = $this->getLogMatches( LogLevel::WARNING, "/Unrecognized cvv_result ' '$/" );
-		$this->assertNotEmpty( $matches, 'Did not log expected warning on unmapped CVVRESULT' );
+		$action = $gateway->getValidationAction();
+		$this->assertEquals( 'review', $action,
+			'Orphan gateway should fraud fail on bad CVV and AVS' );
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$this->assertEquals( 40, $exposed->risk_score,
+			'Risk score was incremented correctly.' );
 	}
 
 	/**
@@ -233,24 +243,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
 		$this->assertEquals( 'N', $gateway->getData_Unstaged_Escaped('cvv_result'), 'CVV Result not taken from XML response' );
-	}
-
-	/**
-	 * If querystring and XML have different CVVRESULT, that's awfully fishy
-	 */
-	function testConfirmCreditCardFailsOnCvvResultConflict() {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-
-		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
-		// FIXME: this is not a communication failure, it's a fraud failure
-		$this->assertFalse( $result->getCommunicationStatus(), 'Credit card should fail if querystring and XML have different CVVRESULT' );
 	}
 
 	/**
@@ -350,6 +342,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'SWIFTCODE' => 'swift_code',
 			'TRANSACTIONTYPE' => 'transaction_type',
 			'FISCALNUMBER' => 'fiscal_number',
+			'AVSRESULT' => 'avs_result',
+			'CVVRESULT' => 'cvv_result',
 		);
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );

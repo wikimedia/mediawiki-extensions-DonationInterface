@@ -77,9 +77,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$this->pendingDb = PendingDatabase::get();
 
 		// Create the schema.
-		// FIXME: Reuse something from SmashPig\Tests
-		$sql = file_get_contents( __DIR__ . '/../../../../vendor/wikimedia/smash-pig/Schema/sqlite/001_CreatePendingTable.sql' );
-		$this->pendingDb->getDatabase()->exec( $sql );
+		$this->pendingDb->createTable();
 	}
 
 	/**
