@@ -286,14 +286,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Fetch the array of iso country codes => country names
-	 * @return array
-	 */
-	public static function getCountries() {
-		return CountryCodes::getCountryCodes();
-	}
-
-	/**
 	 * Respond to a donation request
 	 */
 	protected function handleDonationRequest() {
