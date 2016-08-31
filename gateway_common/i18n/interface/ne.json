@@ -5,7 +5,8 @@
 			"Bhawani Gautam Rhk",
 			"RajeshPandey",
 			"सरोज कुमार ढकाल",
-			"NehalDaveND"
+			"NehalDaveND",
+			"राम प्रसाद जोशी"
 		]
 	},
 	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
@@ -110,8 +111,8 @@
 	"donate_interface-card-name-visa": "भिसा",
 	"donate_interface-card-name-mc": "मास्टर कार्ड",
 	"donate_interface-card-name-discover": "पत्ता लगाउने",
-	"donate_interface-error-msg-general": "तपाइँको काम गर्दा सानो त्रुटी भएको थियो ।",
-	"donate_interface-error-msg-nopaypal": "प्राविधिक गडबडी कों कारणले गर्दा PayPal द्वारा तपाइँको काम गर्न सकिएन । कृपया हाम्रो सामान्य क्रेडिट कार्ड दान फारम प्रयोग गर्नुहोला ।",
+	"donate_interface-error-msg-general": "तपाईंको काम गर्दा सानो त्रुटी भएको थियो ।",
+	"donate_interface-error-msg-nopaypal": "प्राविधिक गडबडीकच कारणले गर्दा पेपल द्वारा तपाईंको काम गर्न सकिएन । कृपया हाम्रो सामान्य क्रेडिट कार्ड दान फारम प्रयोग गर्नुहोला ।",
 	"donate_interface-error-msg": "कृपया तपाईंको  $1 हाल्नुहोस्",
 	"donate_interface-error-msg-js": "कृपया तपाईंको हाल्नुहोस्",
 	"donate_interface-error-msg-invalid-amount": "कृपया एउटा वैध राशि दिनु्होस्",
