@@ -32,6 +32,7 @@ amex:
         US: true
         IL: true
         UA: true
+        FR: true
     group: cc
     logo: card-amex.png
 discover:
