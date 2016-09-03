@@ -257,7 +257,7 @@
 	"donate_interface-last": "姓",
 	"donate_interface-other": "其他",
 	"donate_interface-noscript-msg": "似乎你没有启用JavaScript，或者你的浏览器不支持JavaScript。\n为了给你提供安全、 舒适的体验，我们的捐助表格需要使用JavaScript。",
-	"donate_interface-noscript-redirect-msg": "如果你不想或不能启用JavaScript, 你依然可以在以下地址完成捐助：",
+	"donate_interface-noscript-redirect-msg": "如果您不想或不能启用JavaScript，您依然可以在以下地址完成捐助：",
 	"donate_interface-anon-message": "请在公开的捐助者名单中列出我的名字。",
 	"donate_interface-donate-wikipedia": "捐助维基百科",
 	"donate_interface-or": "或",
