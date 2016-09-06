@@ -1724,13 +1724,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	// hook pre_process for GET_ORDERSTATUS
-	protected function pre_process_get_orderstatus(){
+	protected function post_process_get_orderstatus(){
 		// Run antifraud only once per request.
 		static $checked = array();
+
 		$oid = $this->getData_Unstaged_Escaped('order_id');
-		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc'
+			&& empty( $checked[$oid] )
+		) {
 			$this->runAntifraudFilters();
-			$checked[] = $oid;
+			$checked[$oid] = true;
 		}
 	}
 

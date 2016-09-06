@@ -217,27 +217,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
-	 * We should skip the API call if we're already suspicious
-	 */
-	function testGetOrderStatusSkipsIfFail() {
-		DonationInterface_FraudFiltersTest::setupFraudMaps( $this );
-
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'swhiplash@wikipedia.org'; //configured as a fraudy domain
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway->do_transaction( 'GET_ORDERSTATUS' );
-
-		$data = $gateway->getTransactionData();
-
-		$this->assertFalse( $data, 'preprocess should stop API call if fraud detected' );
-		$this->assertEmpty( $gateway->curled, 'preprocess should stop API call if fraud detected' );
-	}
-
-	/**
 	 * Ensure the Confirm_CreditCard transaction prefers CVVRESULT from the XML
 	 * over any value from the querystring
 	 */
