@@ -295,7 +295,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'MERCHANTREFERENCE',
 							'AMOUNT',
 							'CURRENCYCODE',
-							'COUNTRYCODE',
 						)
 					)
 				)

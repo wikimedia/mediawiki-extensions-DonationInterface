@@ -257,7 +257,7 @@
 	"donate_interface-middle": "Deuxième prénom",
 	"donate_interface-last": "Nom de famille",
 	"donate_interface-other": "Autre",
-	"donate_interface-noscript-msg": "Il semble que JavaScript ne soit pas activé sur votre navigateur, ou que ce dernier ne le supporte pas.\nAfin de vous fournir un processus sûr, sécurisé et agréable, notre formulaire de don nécessite JavaScript.",
+	"donate_interface-noscript-msg": "Il semble que JavaScript ne soit pas activé sur votre navigateur, ou que ce dernier ne le prenne pas en charge.\nAfin de vous fournir un processus sûr, sécurisé et agréable, notre formulaire de don nécessite JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Si vous ne pouvez pas ou ne voulez pas activer JavaScript, vous pouvez toutefois faire un don en allant sur :",
 	"donate_interface-anon-message": "Veuillez mentionner mon nom dans la liste publique des donateurs.",
 	"donate_interface-donate-wikipedia": "Faire un don sur Wikipédia",
