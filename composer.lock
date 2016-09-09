@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9e29cbff77457b9da548f665e5e010ea",
+    "hash": "16969a6f73b030f3d6c3a2435a7099ae",
     "content-hash": "b48455e6e53399fe588ca65fb1257c5e",
     "packages": [
         {
@@ -546,7 +546,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.9",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -606,16 +606,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.8.9",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "f20bea598906c990eebe3c70a63ca5ed18cdbc11"
+                "reference": "1d4ab8de2215e44e57fddc1e6b5d122546769e7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/f20bea598906c990eebe3c70a63ca5ed18cdbc11",
-                "reference": "f20bea598906c990eebe3c70a63ca5ed18cdbc11",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/1d4ab8de2215e44e57fddc1e6b5d122546769e7d",
+                "reference": "1d4ab8de2215e44e57fddc1e6b5d122546769e7d",
                 "shasum": ""
             },
             "require": {
@@ -657,7 +657,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-30 07:20:35"
+            "time": "2016-09-06 10:55:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -834,16 +834,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.9",
+            "version": "v2.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "0ceab136f43ed9d3e97b3eea32a7855dc50c121d"
+                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/0ceab136f43ed9d3e97b3eea32a7855dc50c121d",
-                "reference": "0ceab136f43ed9d3e97b3eea32a7855dc50c121d",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
+                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
                 "shasum": ""
             },
             "require": {
@@ -879,7 +879,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-17 09:06:15"
+            "time": "2016-09-02 01:57:56"
         },
         {
             "name": "wikimedia/smash-pig",
@@ -887,7 +887,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "aa1532a9c046a5378572a3177b5f194a820bee4e"
+                "reference": "010270421ae87b43f59a7b43fc385aa52367d600"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -938,7 +938,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2016-08-25 19:50:04"
+            "time": "2016-09-07 23:18:54"
         },
         {
             "name": "zordius/lightncandy",
