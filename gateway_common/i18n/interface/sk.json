@@ -7,7 +7,8 @@
 			"Kusavica",
 			"Sudo77(new)",
 			"Pcoombe",
-			"Jrobell"
+			"Jrobell",
+			"LacoR"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -222,6 +223,7 @@
 	"donate_interface-thank-you": "Ďakujeme! Váš dar bol prijatý.",
 	"donate_interface-state-dropdown-XX": "Mimo USA",
 	"donate_interface-rtbt-issuer_id": "Vybrať banku",
+	"donate_interface-translate-redlink2": "Alebo pošlite váš preklad na translations@wikimedia.org",
 	"donate_interface-email-subject": "Ďakuje vám Wikimedia Foundation",
 	"donate_interface-faqs": "Často kladené otázky",
 	"donate_interface-tax-info": "Informácie o možnosti odpočítania dane",
