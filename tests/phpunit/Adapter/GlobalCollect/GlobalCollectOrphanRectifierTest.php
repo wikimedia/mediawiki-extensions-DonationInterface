@@ -61,7 +61,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 			),
 		) );
 
-		$config = new SmashPigDatabaseTestConfiguration();
+		$config = SmashPigDatabaseTestConfiguration::instance();
 		Context::init( $config );
 
 		$this->pendingDb = PendingDatabase::get();
