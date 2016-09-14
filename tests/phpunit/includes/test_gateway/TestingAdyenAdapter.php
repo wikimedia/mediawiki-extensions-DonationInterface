@@ -48,10 +48,8 @@ class TestingAdyenAdapter extends AdyenAdapter {
 		//these are all going to be short, so...
 		if ( file_exists( $file_path ) ) {
 			return file_get_contents( $file_path );
-		} else {
-			echo "File $file_path does not exist.\n"; //<-That will deliberately break the test.
-			return false;
 		}
+		throw new RuntimeException( "File $file_path does not exist." );
 	}
 
 	/**

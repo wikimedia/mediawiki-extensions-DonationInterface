@@ -55,9 +55,8 @@ class TestingAstroPayAdapter extends AstroPayAdapter {
 		//these are all going to be short, so...
 		if ( file_exists( $file_path ) ) {
 			return file_get_contents( $file_path );
-		} else {
-			throw new RuntimeException( "File $file_path does not exist.\n" );
 		}
+		throw new RuntimeException( "File $file_path does not exist." );
 	}
 
 	/**
