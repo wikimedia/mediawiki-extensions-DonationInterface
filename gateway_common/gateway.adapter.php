@@ -2257,7 +2257,7 @@ abstract class GatewayAdapter
 	protected function setLimboMessage( $queue = 'pending' ) {
 		// FIXME: log the key and raw queue name.
 		$this->logger->info( "Setting transaction in limbo store [$queue]" );
-		DonationQueue::instance()->set( $this->getCorrelationID(), $this->getStompTransaction(), $queue );
+		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
 	}
 
 	protected function deleteLimboMessage( $queue = 'pending' ) {
