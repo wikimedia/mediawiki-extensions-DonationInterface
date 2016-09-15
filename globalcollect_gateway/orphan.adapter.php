@@ -192,12 +192,6 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	/**
-	 * Override live adapter with a no-op since orphan doesn't have any new info
-	 * before GET_ORDERSTATUS
-	 */
-	protected function pre_process_get_orderstatus() { }
-
-	/**
 	 * Do the antifraud checks here instead.
 	 */
 	protected function post_process_get_orderstatus() {
@@ -205,8 +199,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$status_response = $this->transaction_response->getData();
 		$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
 
+		// Don't bother unless we expect to be able to finalize this payment.
 		if ( $action === FinalStatus::PENDING_POKE ) {
-			$this->runAntifraudFilters();
+			parent::post_process_get_orderstatus();
 		}
 	}
 }

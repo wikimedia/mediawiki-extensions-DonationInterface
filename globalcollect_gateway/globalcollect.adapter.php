@@ -367,6 +367,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'ACTION' => 'GET_ORDERSTATUS',
 				'VERSION' => '2.0'
 			),
+			'response' => array(
+				'EFFORTID',
+				'ATTEMPTID',
+				'CURRENCYCODE',
+				'AMOUNT',
+				'AVSRESULT',
+				'CVVRESULT',
+			),
 		);
 
 		$this->transactions['CANCEL_PAYMENT'] = array(
@@ -616,43 +624,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return PaymentTransactionResponse
 	 */
 	private function transactionConfirm_CreditCard(){
-		// Pulling vars straight from the querystring
-		$pull_vars = array(
-			'CVVRESULT' => 'cvv_result',
-			'AVSRESULT' => 'avs_result',
-		);
-		$qsResults = array();
-		if ( !$this->isBatchProcessor() ) {
-			// FIXME: Refactor as normal unstaging.
-			foreach ( $pull_vars as $theirkey => $ourkey) {
-				$tmp = WmfFramework::getRequestValue( $theirkey, null );
-				if ( !is_null( $tmp ) ) {
-					$qsResults[$ourkey] = $tmp;
-				}
-			}
-		}
+		$is_orphan = $this->isBatchProcessor();
+		if ( !$is_orphan ) {
+			// This was a normal front-end donation.
 
-		$is_orphan = false;
-		if ( count( $qsResults ) ){
-			// Nothing unusual here.  Oh, except we are reading query parameters from
-			// what we hope is a redirect back from the processor, caused by an earlier
-			// transaction.
-			$this->addResponseData( $qsResults );
-			$logmsg = 'CVV Result from querystring: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-			$logmsg .= ', AVS Result from querystring: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-			$this->logger->info( $logmsg );
-
-			// If we have a querystring, this means we're processing a live donor
-			// coming back from GlobalCollect, and the transaction is not orphaned
 			// @deprecated We should be able to skip any deletion.
 			$this->logger->info( 'Donor returned, deleting limbo message' );
 			$this->deleteLimboMessage( self::GC_CC_LIMBO_QUEUE );
 		} else {
-			// We're in orphan processing mode, so instead of waiting around for
-			// the user to add more data and complete pending transactions,
-			// interpret this pending code range as "failed".
-
-			$is_orphan = true;
+			// We're in orphan processing mode, so a "pending waiting for donor
+			// input" status means that we'll never complete.  Set this range
+			// to map to "failed".
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 0, 70 );
 		}
 
@@ -667,52 +649,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$status_response = null;
 
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
-			$gotCVV = false;
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 			$validationAction = $this->getValidationAction();
-			// FIXME: Refactor as normal unstaging.
-			$xmlResults = array(
-				'cvv_result' => '',
-				'avs_result' => ''
-			);
-			$status_response = $status_result->getData();
-			if ( !empty( $status_response ) ) {
-				foreach ( $pull_vars as $theirkey => $ourkey) {
-					if ( !array_key_exists( $theirkey, $status_response ) ) {
-						continue;
-					}
-					$gotCVV = true;
-					$xmlResults[$ourkey] = $status_response[$theirkey];
-					if ( array_key_exists( $ourkey, $qsResults ) && $qsResults[$ourkey] != $xmlResults[$ourkey] ) {
-						$problemflag = true;
-						$problemmessage = "$theirkey value '$qsResults[$ourkey]' from querystring does not match value '$xmlResults[$ourkey]' from GET_ORDERSTATUS XML";
-					}
-				}
-				// Make sure we're recording the right amounts, in case donor has
-				// opened another window and messed with their session values
-				// since our original INSERT_ORDERWITHPAYMENT. The donor is
-				// being charged the amount they intend to give, so this isn't
-				// a reason to fail the transaction.
-				// Since we're adding these via addResponseData, amount will be
-				// divided by 100 in unstaging.
-				// FIXME: need a general solution - anything with a resultswitcher
-				// is vulnerable to this kind of thing.
-				$xmlResults['amount'] = $status_response['AMOUNT'];
-				$xmlResults['currency_code'] = $status_response['CURRENCYCODE'];
-			}
-			$this->addResponseData( $xmlResults );
-			$logmsg = 'CVV Result from XML: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-			$logmsg .= ', AVS Result from XML: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
+			$gotCVV = !empty( $this->getData_Unstaged_Escaped( 'cvv_result' ) );
+			// TODO: This logging is redundant with the response from GET_ORDERSTATUS.
+			$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
 			$this->logger->info( $logmsg );
 
 			// FIXME: "isForceCancel"?
 			if ( $status_result->getForceCancel() ) {
 				$cancelflag = true; //don't retry or MasterCard will fine us
-			}
-
-			if ( $is_orphan && !$cancelflag && !empty( $status_response ) ) {
-				$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $status_response['STATUSID'] );
-				$validationAction = $this->getValidationAction();
 			}
 
 			//we filtered
@@ -790,8 +737,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						// FIXME: explicit that we want to fall through?
 
 					case FinalStatus::PENDING :
-						//if it's really pending at this point, we need to...
-						//...leave it alone. If we're orphan slaying, this will stay in the queue.
+						// If it's really pending at this point, we need to
+						// leave it alone.
+						// FIXME: If we're orphan slaying, this should stay in
+						// the queue, but we currently delete it.
 						break 2;
 				}
 			}
@@ -800,23 +749,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		//if we got here with no problemflag,
 		//confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ){
-			if ( is_array( $status_response ) ) {
-				// FIXME: Refactor as normal unstaging.
-				//if they're set, get CVVRESULT && AVSRESULT
-				$pull_vars['EFFORTID'] = 'effort_id';
-				$pull_vars['ATTEMPTID'] = 'attempt_id';
-				$addme = array();
-				foreach ( $pull_vars as $theirkey => $ourkey) {
-					if ( array_key_exists( $theirkey, $status_response ) ){
-						$addme[$ourkey] = $status_response[$theirkey];
-					}
-				}
-
-				if ( count( $addme ) ){
-					$this->addResponseData( $addme );
-				}
-			}
-
 			if ( !$cancelflag ) {
 				$final = $this->do_transaction( 'SET_PAYMENT' );
 				if ( $final->getCommunicationStatus() === true ) {
@@ -1478,6 +1410,15 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$retryVars
 			);
 		}
+
+		// Unstage any data that we've whitelisted.
+		// TODO: This should be generalized into the base class.
+		$whitelisted_keys = $this->transaction_option( 'response' );
+		if ( $whitelisted_keys ) {
+			$filtered_data = array_intersect_key( $data, array_flip( $whitelisted_keys ) );
+			$unstaged = $this->unstageKeys( $filtered_data );
+			$this->addResponseData( $unstaged );
+		}
 	}
 
 	public function stageData() {
@@ -1724,13 +1665,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	}
 
 	// hook pre_process for GET_ORDERSTATUS
-	protected function pre_process_get_orderstatus(){
+	protected function post_process_get_orderstatus(){
 		// Run antifraud only once per request.
 		static $checked = array();
+
 		$oid = $this->getData_Unstaged_Escaped('order_id');
-		if  ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' && !in_array( $oid, $checked ) ){
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc'
+			&& empty( $checked[$oid] )
+		) {
 			$this->runAntifraudFilters();
-			$checked[] = $oid;
+			$checked[$oid] = true;
 		}
 	}
 

@@ -38,7 +38,9 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 		// load user action ranges and risk score		
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
-		$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
+		if ( !$gateway_adapter->isBatchProcessor() ) {
+			$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
+		}
 		if ( !$this->risk_score ) {
 			$this->risk_score = array();
 		} else {
@@ -148,8 +150,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
 		}
 
-		// Always keep the stored scores up to date
-		WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
+		if ( !$this->gateway_adapter->isBatchProcessor() ) {
+			// Always keep the stored scores up to date
+			WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
+		}
 
 		return TRUE;
 	}

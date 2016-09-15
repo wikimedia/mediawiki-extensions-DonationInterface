@@ -389,7 +389,7 @@
 	"donate_interface-monthlybox-bottom": "La tua donazione verrà elaborata in modo sicuro.",
 	"donate_interface-monthly-cancel": "Per donatori ricorrenti, i pagamenti fissi mensili verranno addebitati dalla Wikimedia Foundation ogni mese nel giorno della prima donazione, fino ad eventuale vostra comunicazione di sospensione delle donazioni. Le donazioni effettuate per la prima volta il 29, 30 o 31 del mese verranno anticipate all’ultimo giorno del mese nei mesi più brevi, il più vicino possibile alla data originale. Per maggiori informazioni, ci potete scrivere a donate@wikimedia.org.",
 	"donate_interface-onetime": "Fai una donazione singola",
-	"donate_interface-monthly-short": "Mensilmente",
+	"donate_interface-monthly-short": "Mensile",
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-securelogo-title": "Clicca per verificare - questo sito ha scelto VeriSign SSL per assicurare una transazione sicura e comunicazioni riservate",
 	"donate_interface-secureLogo-text": "Info sui certificati SSL",

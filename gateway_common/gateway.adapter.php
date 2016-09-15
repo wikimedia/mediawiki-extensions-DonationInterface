@@ -2603,6 +2603,7 @@ abstract class GatewayAdapter
 		$msg = self::getGatewayName() . ': Email Domain map: '
 			. print_r( $emailDomainMap, true );
 
+		// TODO: Remove this weaksalsa debug message...
 		$this->logger->debug( $msg );
 
 		// Lookup a score if it is defined

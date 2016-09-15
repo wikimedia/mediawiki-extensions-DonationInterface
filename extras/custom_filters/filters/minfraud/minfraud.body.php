@@ -182,7 +182,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		}
 
 		// fetch the array of country codes
-		$country_codes = GatewayPage::getCountries();
+		$country_codes = CountryCodes::getCountryCodes();
 
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {

@@ -192,7 +192,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				return;
 			}
 		} else {
-			$gatewayName = $this->getGatewayName();
+			$gatewayName = $this->getGatewayIdentifier();
 			$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 			$page = ResultPages::getFailPageForType(
 				$className,
@@ -283,14 +283,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$output->addHTML( "No Debug Array" );
 		}
-	}
-
-	/**
-	 * Fetch the array of iso country codes => country names
-	 * @return array
-	 */
-	public static function getCountries() {
-		return CountryCodes::getCountryCodes();
 	}
 
 	/**
