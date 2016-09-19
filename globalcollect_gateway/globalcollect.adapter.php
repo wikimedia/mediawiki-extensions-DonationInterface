@@ -651,7 +651,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ){
 			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
 			$validationAction = $this->getValidationAction();
-			$gotCVV = !empty( $this->getData_Unstaged_Escaped( 'cvv_result' ) );
+			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
+			$gotCVV = strlen( $cvv_result ) > 0;
 			// TODO: This logging is redundant with the response from GET_ORDERSTATUS.
 			$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
