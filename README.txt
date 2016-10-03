@@ -336,16 +336,12 @@ $wgDonationInterfaceQueues = array(
 	// Incoming donations that we think have been paid for.
 	'completed' => array(),
 
-	// So-called limbo queue for GlobalCollect, where we store donor personal
-	// information while waiting for the donor to return from iframe or a
-	// redirect.  It's very important that this data is not stored anywhere
-	// permanent such as logs or the database, until we know this person
-	// finished making a donation.
-	// FIXME: Note that this must be an instance of KeyValueStore.
-	//
+	// Transactions still needing action before they are settled.
+	'pending' => array(),
+
 	// Example of a PCI-compliant queue configuration:
 	//
-	// 'globalcollect-cc-limbo' => array(
+	// 'pending' => array(
 	// 	'type' => 'PHPQueue\Backend\Predis',
 	//  # Note that servers cannot be an array, due to some incompatibility
 	//  # with aggregate connections.
@@ -357,14 +353,10 @@ $wgDonationInterfaceQueues = array(
 	//
 	// Example of aliasing a queue
 	//
-	// 'globalcollect-cc-limbo' => array(
-	//     # Point at the main CC limbo queue.
-	//     'queue' => 'cc-limbo',
+	// 'pending' => array(
+	//     # Point at a queue named pending-new
+	//     'queue' => 'pending-new',
 	// ),
-
-	// Transactions still needing action before they are settled.
-	// FIXME: who reads from this queue?
-	'pending' => array(),
 
 	// Non-critical queues
 

@@ -1436,7 +1436,7 @@ abstract class GatewayAdapter
 		$this->logPaymentDetails();
 		// Feed the message into the pending queue, so the CRM queue consumer
 		// can read it to fill in donor details when it gets a partial message
-		$this->setLimboMessage();
+		$this->sendPendingMessage();
 		// Avoid 'bad ffname' logspam on return and try again links.
 		$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 	}
@@ -2254,19 +2254,10 @@ abstract class GatewayAdapter
 		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
 	}
 
-	protected function setLimboMessage( $queue = 'pending' ) {
-		// FIXME: log the key and raw queue name.
-		$this->logger->info( "Setting transaction in limbo store [$queue]" );
-		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
-	}
-
-	protected function deleteLimboMessage( $queue = 'pending' ) {
-		$this->logger->info( "Clearing transaction from limbo store [$queue]" );
-		try {
-			DonationQueue::instance()->delete( $this->getCorrelationID(), $queue );
-		} catch( BadMethodCallException $ex ) {
-			$this->logger->warning( "Backend for queue [$queue] does not support deletion.  Hope your message had an expiration date!" );
-		}
+	protected function sendPendingMessage() {
+		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
+		$this->logger->info( "Sending donor details for $order_id to pending queue" );
+		DonationQueue::instance()->push( $this->getStompTransaction(), 'pending' );
 	}
 
 	/**

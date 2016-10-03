@@ -406,8 +406,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// response and sort it into complete or pending.
 				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				$this->postProcessDonation();
-				// FIXME: deprecated
-				$this->deleteLimboMessage( 'pending' );
 				break;
 			case 'SetExpressCheckout':
 			case 'SetExpressCheckout_recurring':
@@ -476,8 +474,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// TODO: Can we do this from do_transaction instead, or at least protect with !recurring...
 				$this->finalizeInternalStatus( $status );
 				$this->postProcessDonation();
-				// FIXME: deprecated
-				$this->deleteLimboMessage( 'pending' );
 				break;
 			}
 

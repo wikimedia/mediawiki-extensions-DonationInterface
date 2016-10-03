@@ -30,7 +30,7 @@ class WmfFramework_Drupal {
 	}
 
 	static function getHostname() {
-		return 'localhost';
+		return gethostname();
 	}
 
 	static function formatMessage( $message_identifier ) {

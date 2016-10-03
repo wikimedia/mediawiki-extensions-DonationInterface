@@ -132,59 +132,6 @@ class DonationApi extends ApiBase {
 	}
 
 	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getParamDescription() {
-		return array(
-			'gateway' => 'Which payment gateway to use - adyen, globalcollect, etc.',
-			'amount' => 'The amount donated',
-			'currency_code' => 'Currency code',
-			'fname' => 'First name',
-			'lname' => 'Last name',
-			'street' => 'First line of street address',
-			'street_supplemental' => 'Second line of street address',
-			'city' => 'City',
-			'state' => 'State abbreviation',
-			'zip' => 'Postal code',
-			'email' => 'Email address',
-			'country' => 'Country code',
-			'card_num' => 'Credit card number',
-			'card_type' => 'Credit card type',
-			'expiration' => 'Expiration date',
-			'cvv' => 'CVV security code',
-			'payment_method' => 'Payment method to use',
-			'payment_submethod' => 'Payment submethod to use',
-			'language' => 'Language code',
-			'order_id' => 'Order ID (if a donation has already been started)',
-			'wmf_token' => 'Mediawiki edit token',
-			'utm_source' => 'Tracking variable',
-			'utm_campaign' => 'Tracking variable',
-			'utm_medium' => 'Tracking variable',
-			'referrer' => 'Original referrer',
-			'recurring' => 'Optional - indicates that the transaction is meant to be recurring.',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getDescription() {
-		return array(
-			'This API allow you to submit a donation to the Wikimedia Foundation using a',
-			'variety of payment processors.',
-		);
-	}
-
-	/**
-	 * @deprecated since MediaWiki core 1.25
-	 */
-	public function getExamples() {
-		return array(
-			'api.php?action=donate&gateway=globalcollect&amount=2.00&currency_code=USD',
-		);
-	}
-
-	/**
 	 * @see ApiBase::getExamplesMessages()
 	 */
 	protected function getExamplesMessages() {

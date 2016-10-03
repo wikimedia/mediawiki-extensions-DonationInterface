@@ -114,7 +114,6 @@
 		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
 		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
 		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
-		"GlobalCollectOrphanRectifier_pooled": "globalcollect_gateway/GlobalCollectOrphanRectifier_pooled.php",
 		"IngenicoFinancialNumber": "globalcollect_gateway/IngenicoFinancialNumber.php",
 		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
 		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
