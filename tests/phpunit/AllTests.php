@@ -25,9 +25,6 @@ class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite {
 	function __construct() {
 		parent::__construct( 'DonationInterface test suite' );
 
-		// Set up globaltown
-		require_once __DIR__ . '/TestConfiguration.php';
-
 		$suffixes = array(
 			'Test.php',
 		);
