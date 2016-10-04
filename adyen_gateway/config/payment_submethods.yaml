@@ -6,6 +6,7 @@ cb:
 visa:
     countries:
         FR: true
+        GB: true
         IL: true
         JP: true
         UA: true
@@ -21,6 +22,7 @@ jcb:
 mc:
     countries:
         FR: true
+        GB: true
         IL: true
         JP: true
         UA: true
@@ -29,10 +31,11 @@ mc:
     logo: card-mc.png
 amex:
     countries:
-        US: true
+        FR: true
+        GB: true
         IL: true
         UA: true
-        FR: true
+        US: true
     group: cc
     logo: card-amex.png
 discover:
