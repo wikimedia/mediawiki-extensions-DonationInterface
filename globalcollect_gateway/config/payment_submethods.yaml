@@ -92,7 +92,8 @@ amex:
         HU: true
         IE: true
         IL: true
-        IN: true
+# Temporarily disabled 10/7/2016, see T147673
+#        IN: true
         IT: true
         JO: true
         JP: true
