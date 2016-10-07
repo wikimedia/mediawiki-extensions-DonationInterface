@@ -249,6 +249,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "Thank you for your support!",
 	"donate_interface-error-no-form": "Error message given if no form or payment method is available in this language/country/currency.",
 	"donate_interface-error-no-form-html": "HTML-formatted error message given if no form or payment method is available in this language/country/currency.\n* $1 - link to other payment methods\n* $2 - an email address, where the donor can report problems. Example: problemsdonating@wikimedia.org",
+	"donate_interface-error-reference": "Message giving donors a reference number to make it easier for us to look up errors in our logs. Parameters:\n* $1 - the reference number",
 	"php-response-declined": "Error message if the translaction was declined.",
 	"donate_interface-thankyou": "A thank you for donating.",
 	"donate_interface-post-transaction": "Header for transaction details after the transaction is fulfilled (receipt).",
