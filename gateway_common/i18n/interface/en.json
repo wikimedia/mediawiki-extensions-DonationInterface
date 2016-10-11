@@ -224,6 +224,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "Thank you for your support!",
 	"donate_interface-error-no-form": "We were unable to find a donation form matching your parameters. Please contact [mailto:donate@wikimedia.org our help team] for more information.",
 	"donate_interface-error-no-form-html": "We were unable to find a donation form matching your parameters. Please try one of our <a href=\"$1\">other ways to give</a>, or contact us at <a href=\"mailto:$2\">$2</a>.",
+	"donate_interface-error-reference": "Error reference: $1",
 	"php-response-declined": "Your transaction could not be accepted.",
 	"donate_interface-thankyou": "Thank you for your donation!",
 	"donate_interface-post-transaction": "Transaction details",
