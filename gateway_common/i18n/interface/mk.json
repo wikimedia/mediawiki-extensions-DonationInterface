@@ -207,6 +207,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "Ви благодариме за Вашата поддршка!",
 	"donate_interface-error-no-form": "Не можам да проанјдам образец за доброволни прилози што одговара на зададените параметри. За повеќе информации, обратете се на нашето [mailto:donate@wikimedia.org биро за помош].",
 	"donate_interface-error-no-form-html": "Не можевме да го најдеме образецот за што одговара на вашите параметри. Пробајте ги <a href=\"$1\">другите начини на дарување</a>, или пак обратете ни се на <a href=\"mailto:$2\">$2</a>.",
+	"donate_interface-error-reference": "Повикување на грешката: $1",
 	"php-response-declined": "Плаќањето не е прифатено.",
 	"donate_interface-thankyou": "Ви благодариме за прилогот!",
 	"donate_interface-post-transaction": "Податоци за плаќањето",
