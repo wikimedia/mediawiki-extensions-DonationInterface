@@ -11,7 +11,7 @@
 	},
 	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
 	"donate_interface-desc": "दान अवतरण पृष्ठ जसले प्रवेशद्वार(gateway) एक्स्टेन्सनलाई एकिकृत गर्दछ।",
-	"donate_interface-langonly-desc": "चन्दा अन्तर्मोहोडा प्रणाली सन्देशहरु मात्र दर्शाउँछ",
+	"donate_interface-langonly-desc": "चन्दा अन्तर्मोहोडा प्रणाली सन्देशहरू मात्र दर्शाउँछ",
 	"donate_interface-intro": "चुन्नुहोस् एउटा भुगतान पद्धति, राशि, अनि मुद्रा।",
 	"donate_interface-amount": "राशि:",
 	"donate_interface-other-amount": "अन्य राशि",
