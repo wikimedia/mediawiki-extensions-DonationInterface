@@ -6,7 +6,6 @@
 			"Fúlvio"
 		]
 	},
-	"globalcollectgateway": "Faça o seu donativo agora",
 	"globalcollect_gateway-desc": "Processamento de pagamentos GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simular um pagamento bem-sucedido",
 	"globalcollect_gateway-fakefail": "Simular um pagamento mal-sucedido",

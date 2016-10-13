@@ -233,6 +233,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "感谢您的支持！",
 	"donate_interface-error-no-form": "我们无法找到与您的参数相匹配的捐款方式。请联系[mailto:donate@wikimedia.org 我们的帮助团队]获得更多信息。",
 	"donate_interface-error-no-form-html": "我们无法找到匹配您的参数的捐赠形式。请尝试我们的<a href=\"$1\">其他方式</a>，或在<a href=\"mailto:$2\">$2</a>联系我们。",
+	"donate_interface-error-reference": "错误参考号：$1",
 	"php-response-declined": "您的交易被拒绝。",
 	"donate_interface-thankyou": "感谢您的捐赠！",
 	"donate_interface-post-transaction": "交易详情",

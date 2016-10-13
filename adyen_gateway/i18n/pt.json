@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fúlvio"
+			"Fúlvio",
+			"Hamilton Abreu"
 		]
 	},
-	"adyengateway": "Faça sua doação agora",
 	"adyen_gateway-desc": "Processamento de pagamentos Adyen",
-	"adyen_gateway-response-default": "Houve um erro ao processar sua transação.\nPor favor, tente novamente mais tarde."
+	"adyen_gateway-response-default": "Ocorreu um erro ao processar a sua transação.\nTente novamente mais tarde, por favor."
 }
