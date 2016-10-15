@@ -215,7 +215,7 @@
 	"donate_interface-error-msg-cookies": "Ative o uso de <i>cookies</i> no seu mavegador, por favor.",
 	"donate_interface-error-msg-genaricrequired": "Este campo é obrigatório",
 	"donate_interface-error-msg-country-calc": "Erro - Não é possível aceitar o seu donativo neste momento.",
-	"donate_interface-error-msg-fiscal_number": "número fiscal",
+	"donate_interface-error-msg-fiscal_number": "número de identificação fiscal",
 	"donate_interface-error-msg-fiscal_number-br": "Número fiscal (CPF ou CNPJ)",
 	"donate_interface-error-msg-issuer_id": "banco",
 	"donate_interface-donate-error-try-a-different-card": "[$1 Tente outro cartão], uma das [$2 outras formas de donativo], ou entre em contato conosco no endereço $3, por favor.",
