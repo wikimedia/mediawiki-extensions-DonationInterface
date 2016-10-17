@@ -71,11 +71,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// SmashPig core logger.
 		$this->testLogger = new TestingDonationLogger();
 		DonationLoggerFactory::$overrideLogger = $this->testLogger;
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceEnableQueue' => true,
+			'wgDonationInterfaceDefaultQueueServer' => array(
+				'type' => 'TestingQueue',
+			),
+		) );
 		parent::setUp();
 	}
 
 	protected function tearDown() {
 		$this->resetAllEnv();
+		TestingQueue::clearAll();
 		DonationLoggerFactory::$overrideLogger = null;
 		parent::tearDown();
 	}

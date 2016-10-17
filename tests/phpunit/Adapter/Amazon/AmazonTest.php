@@ -149,9 +149,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
 		$this->assertEquals( $init['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 		$this->assertEquals( $init['currency_code'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );
-		$queued = $gateway->queue_messages;
-		$this->assertNotEmpty( $queued['complete'], 'Not sending a message to the complete queue' );
-		$message = $queued['complete'][0];
+		$message = DonationQueue::instance()->pop( 'complete' );
+		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );
 		$this->assertEquals( 'S01-0391295-0674065-C095112', $message['gateway_txn_id'], 'Queue message has wrong txn ID' );
 	}
 
@@ -273,9 +272,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$authorizeOnBillingAgreementDetailsArgs = $mockClient->calls['authorizeOnBillingAgreement'][0];
 		$this->assertEquals( $init['amount'], $authorizeOnBillingAgreementDetailsArgs['authorization_amount'], 'Did not authorize correct amount' );
 		$this->assertEquals( $init['currency_code'], $authorizeOnBillingAgreementDetailsArgs['currency_code'], 'Did not authorize correct currency code' );
-		$queued = $gateway->queue_messages;
-		$this->assertNotEmpty( $queued['complete'], 'Not sending a message to the complete queue' );
-		$message = $queued['complete'][0];
+		$message = DonationQueue::instance()->pop( 'complete' );
+		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );
 		$this->assertEquals( 'S01-5318994-6362993-C004044', $message['gateway_txn_id'], 'Queue message has wrong txn ID' );
 		$this->assertEquals( $init['subscr_id'], $message['subscr_id'], 'Queue message has wrong subscription ID' );
 	}

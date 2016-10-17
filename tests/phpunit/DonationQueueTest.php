@@ -34,10 +34,6 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		$this->queue_name = 'test-' . mt_rand();
 
 		$this->setMwGlobals( array(
-			'wgDonationInterfaceEnableQueue' => true,
-			'wgDonationInterfaceDefaultQueueServer' => array(
-				'type' => 'TestingQueue',
-			),
 			'wgDonationInterfaceQueues' => array(
 				$this->queue_name => array(),
 			),
@@ -101,13 +97,6 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'source_type' => 'payments',
 			'source_version' => DonationQueue::getVersionStamp(),
 		);
-	}
-
-	public function tearDown() {
-		// Clear static variables.
-		TestingQueue::clearAll();
-
-		parent::tearDown();
 	}
 
 	public function testPushMessage() {
