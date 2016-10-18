@@ -51,7 +51,7 @@
 	"donate_interface-amount-error": "Error prompt if an invalid amount is entered (e.g. if the amount has letters in it).",
 	"donate_interface-smallamount-error": "Error message if the amount chosen is too low. Parameters:\n* $1 - a variable (it does '''not''' mean \"one dollar\"), and will be replaced with an amount in the user's currency",
 	"donate_interface-bigamount-error": "Error message if the amount chosen is too high. Parameters:\n* $1 - the amount in the user's chosen currency\n* $2 - the currency code for the user's chosen currency (e.g. USD, EUR, NOK, TZS)\n* $3 - the e-mail address that the user should e-mail to give big gifts",
-	"donate_interface-processing-error": "Error message.",
+	"donate_interface-processing-error": "Error message instructing the donor to contact our Donor Services department.",
 	"donate_interface-fallback-currency-notice": "Notification that the donor's currency has been changed. Parameters:\n* $1 - the currency code in which to continue the transaction",
 	"donate_interface-maintenance-notice": "Notification that this service is temporarily disabled for maintenance.",
 	"donate_interface-AED": "Used in drop-down field for currency.",
