@@ -13,6 +13,7 @@
 103000: donate_interface-try-again
 # IDEAL_SYSTEM_MAINTENANCE
 400850: donate_interface-try-again
+410110: donate_interface-try-again
 # READ_REQUEST_EXCEPTION
 430150: donate_interface-try-again
 # Unable to authorize  ALL_TERMINAL_IDS_FOR_MERCHANT_CURRENCY_IN_USE
@@ -31,6 +32,8 @@
 430240: donate_interface-try-again
 # Unable to authorize  COMMS_FAIL_605
 430245: donate_interface-try-again
+# Unable to authorize
+430403: donate_interface-try-again
 # Unable to authorize  TIMEOUT
 430430: donate_interface-try-again
 # Unable to authorize  TOO_MUCH_USAGE
@@ -49,6 +52,8 @@
 4500600: donate_interface-try-again
 # SUB1 ERROR
 4500700: donate_interface-try-again
+# Field validation error
+21000050: donate_interface-try-again
 # COMMUNICATION ERROR
 22000045: donate_interface-try-again
 # ERROR_IN_PROCESSING_THE_REQUEST
