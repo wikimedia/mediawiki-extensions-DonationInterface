@@ -599,14 +599,9 @@ abstract class GatewayAdapter
 
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
 
-		$translatedMessage = WmfFramework::formatMessage( $response_message );
-
-		// FIXME: don't do this.
-		// Check to see if an error message exists in translation
-		if ( substr( $translatedMessage, 0, 3 ) !== '&lt;' ) {
-
-			// Message does not exist
-			$translatedMessage = '';
+		$translatedMessage = '';
+		if ( WmfFramework::messageExists( $response_message ) ) {
+			$translatedMessage = WmfFramework::formatMessage( $response_message );
 		}
 
 		if ( isset( $this->error_map[ $code ] ) ) {
@@ -621,7 +616,9 @@ abstract class GatewayAdapter
 			$messageKey = 'donate_interface-processing-error';
 		}
 
-		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) ) ? WmfFramework::formatMessage( $messageKey ) : $translatedMessage;
+		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) )
+			? WmfFramework::formatMessage( $messageKey )
+			: $translatedMessage;
 
 		// Check to see if we return the translated message.
 		$message = ( $options['translate'] ) ? $translatedMessage : $messageKey;
@@ -1077,7 +1074,7 @@ abstract class GatewayAdapter
 				$errCode = $ex->getErrorCode();
 				$retryVars = $ex->getRetryVars();
 				$this->transaction_response->addError( $errCode, array(
-					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
+					'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
 					'debugInfo' => $ex->getMessage(),
 					'logLevel' => LogLevel::ERROR
 				) );
