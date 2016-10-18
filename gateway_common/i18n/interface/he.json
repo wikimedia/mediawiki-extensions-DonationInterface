@@ -208,6 +208,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "תודה על תמיכתך!",
 	"donate_interface-error-no-form": "לא הצלחנו למצוא תרומה שתואמת לפרמטרים האלה. נא ליצור קשר [mailto:donate@wikimedia.org עם צוות העזרה שלנו] למידע נוסף.",
 	"donate_interface-error-no-form-html": "לא התחלנו למצוא טופס תרומה שמתאים לפרמטרים שלך. נא לנסות אחת מ<a href=\"$1\">הדרכים האחרות שלנו לתרום</a> או ליצור אתנו קשר בכתובת <a href=\"mailto:$2\">$2</a>.",
+	"donate_interface-error-reference": "מספר שגיאה (רפרנס): $1",
 	"php-response-declined": "הטרנזקציה לא התקבלה.",
 	"donate_interface-thankyou": "תודה על תרומתך!",
 	"donate_interface-post-transaction": "פרטי העברת הכספים",

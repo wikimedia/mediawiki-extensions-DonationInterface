@@ -234,7 +234,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "Merci de votre soutien !",
 	"donate_interface-error-no-form": "Nous n’avons pas pu trouver de formulaire de don correspondant à vos paramètres. Veuillez contacter  [mailto:donate@wikimedia.org notre équipe d’assistance] pour plus d’informations.",
 	"donate_interface-error-no-form-html": "Nous n’avons pas pu trouver un formulaire de don correspondant à vos paramètres. Veuillez essayer un de nos <a href=\"$1\">autres moyens de donner</a>, ou nous contacter à <a href=\"mailto:$2\">$2</a>.",
-	"donate_interface-error-reference": "Numéro de référence d'erreur : $1",
+	"donate_interface-error-reference": "Numéro de référence d’erreur : $1",
 	"php-response-declined": "Votre transaction n’a pu être acceptée.",
 	"donate_interface-thankyou": "Merci pour votre don !",
 	"donate_interface-post-transaction": "Détails de la transaction",

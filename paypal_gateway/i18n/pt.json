@@ -6,6 +6,5 @@
 			"Fúlvio"
 		]
 	},
-	"paypalgateway": "Faça sua doação agora",
-	"paypal_gateway-desc": "Pagamento do PayPal a ser processado"
+	"paypal_gateway-desc": "Processamento de pagamentos PayPal"
 }

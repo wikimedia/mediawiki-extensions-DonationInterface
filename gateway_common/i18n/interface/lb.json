@@ -202,6 +202,7 @@
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Probéiert w.e.g. nach eng Kéier</a>, probéiert eng vun den <a href=\"$2\">anere Manéiere fir en Don ze maachen</a>, oder kontaktéiert eis iwwer <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Merci fir Är Ënnerstëtzung!",
 	"donate_interface-error-no-form": "Mir konnte kee Spendeformulaire fannen, deen Äre Parameter entsprécht. Kontaktéiert w.e.g. [mailto:donate@wikimedia.org eist 'help team'] fir méi Informatiounen.",
+	"donate_interface-error-reference": "Referenznummer vum Feeler: $1",
 	"php-response-declined": "Är Transaktioun konnt net akzeptéiert ginn.",
 	"donate_interface-thankyou": "Merci fir Ären Don!",
 	"donate_interface-post-transaction": "Detailer vun der Transaktioun",

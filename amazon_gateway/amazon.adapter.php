@@ -298,7 +298,7 @@ class AmazonAdapter extends GatewayAdapter {
 			'amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency_code' ),
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-			'seller_order_reference_id' => $this->getData_Staged( 'order_id' ),
+			'seller_order_id' => $this->getData_Staged( 'order_id' ),
 		) );
 		$orderRefs = WmfFramework::getSessionValue( 'order_refs' );
 		$orderRefs[$orderReferenceId] = true;
