@@ -146,7 +146,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$mockClient = TestingAmazonAdapter::$mockClient;
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
-		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_reference_id'], 'Did not set order id on order reference' );
+		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
 		$this->assertEquals( $init['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 		$this->assertEquals( $init['currency_code'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );
 		$queued = $gateway->queue_messages;
