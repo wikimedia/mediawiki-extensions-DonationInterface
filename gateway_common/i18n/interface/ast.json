@@ -200,6 +200,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "¡Gracies pol so encontu!",
 	"donate_interface-error-no-form": "Nun pudimos alcontrar un formulariu de donaciones que casara colos sos parámetros. Comuníquese col [mailto:donate@wikimedia.org nuesu equipu d'ayuda] pa más información.",
 	"donate_interface-error-no-form-html": "Nun pudimos atopar un formulariu de donación que coincida colos tos parámetros. Intenta con <a href=\"$1\">otres formes de collaborar</a>, o comunícate con nós en <a href=\"mailto:$2\">$2</a>.",
+	"donate_interface-error-reference": "Referencia del error: $1",
 	"php-response-declined": "Nun pudo aceutase la so trensaición.",
 	"donate_interface-thankyou": "¡Gracies pola so donación!",
 	"donate_interface-post-transaction": "Detalles de la trensaición",
