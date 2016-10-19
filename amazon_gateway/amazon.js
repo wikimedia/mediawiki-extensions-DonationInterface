@@ -62,6 +62,9 @@
 		$( '#topError' ).append(
 			$( '<p class="error">' + message + '</p>' )
 		);
+		$( '#errorReference' )
+			.removeClass( 'errorMsgHide' )
+			.addClass( 'errorMsg' );
 	}
 
 	function reloadPage() {
@@ -277,6 +280,9 @@
 			return;
 		}
 		$( '#topError' ).html('');
+		$( '#errorReference' )
+			.removeClass( 'errorMsg' )
+			.addClass( 'errorMsgHide' );
 		$( '#overlay' ).show();
 		lockDonationAmount();
 		var postdata = {

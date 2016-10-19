@@ -276,6 +276,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			if ( $key === 'currency_code' || $key === 'amount' ) {
 				$return['show_amount_input'] = true;
 			}
+			if ( !empty( $return['errors']['general'] ) ) {
+				$return['show_error_reference'] = true;
+			}
 		}
 		return $return;
 	}

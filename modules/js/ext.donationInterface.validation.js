@@ -28,6 +28,9 @@
 			$( '#topError' ).html(
 				generalErrors.join( '<br/>' )
 			);
+			$( '#errorReference' )
+				.removeClass( 'errorMsgHide' )
+				.addClass( 'errorMsg' );
 		}
 	}
 

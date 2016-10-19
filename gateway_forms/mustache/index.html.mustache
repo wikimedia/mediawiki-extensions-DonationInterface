@@ -9,6 +9,7 @@
 			<div id="greenBackground" class="">
 				{{> no_script }}
 				<div id="topError" class="creditcard-error-msg">{{# errors/general }}<p class="error">{{{ message }}}</p>{{/ errors/general }}</div>
+				<p id="errorReference" class="errorMsg{{^ show_error_reference }}Hide{{/ show_error_reference }}" >{{ l10n "donate_interface-error-reference" contribution_tracking_id }}</p>
 
 			<form name="payment" id="payment-form" method="post" action="{{ action }}">
 				<div id="payment_gateway-personal-info">
