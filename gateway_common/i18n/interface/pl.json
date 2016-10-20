@@ -389,6 +389,7 @@
 	"apihelp-donate-param-zip": "Kod pocztowy.",
 	"apihelp-donate-param-email": "Adres e‐mail.",
 	"apihelp-donate-param-country": "Kod kraju.",
+	"apihelp-donate-param-card_num": "Numer karty kredytowej.",
 	"apihelp-donate-param-card_type": "Rodzaj karty kredytowej.",
 	"apihelp-donate-param-expiration": "Data ważności.",
 	"apihelp-donate-param-cvv": "Kod zabezpieczający CVV.",
