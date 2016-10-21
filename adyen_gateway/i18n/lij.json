@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Giromin Cangiaxo"
+		]
+	},
+	"adyen_gateway-desc": "Esecuçion do pagamento con Adyen",
+	"adyen_gateway-response-default": "Gh'è stæto un errô inte l'elaboaçion da transaçion.\nSe prega de provâ torna ciù tardi."
+}
