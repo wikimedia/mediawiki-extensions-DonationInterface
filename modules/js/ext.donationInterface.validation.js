@@ -115,22 +115,16 @@
 					'donate_interface-did-you-mean',
 					suggestion.full
 				);
-				$( '#emailMsg' )
-					.removeClass( 'errorMsgHide' )
-					.addClass( 'errorMsg' )
-					.html( message );
+				$( '#emailSuggestion' ).show();
+				$( '#emailSuggestion span' ).html( message );
 			},
 			empty: function ( element ) {
-				$( '#emailMsg' )
-					.removeClass( 'errorMsg' )
-					.addClass( 'errorMsgHide' );
+				$( '#emailSuggestion' ).hide();
 			}
 		} );
 	} );
-	$( document ).on( 'click', '#emailMsg .correction', function () {
+	$( document ).on( 'click', '#emailSuggestion .correction', function () {
 		$( '#email' ).val( $( this ).text() );
-		$( '#emailMsg' )
-			.removeClass( 'errorMsg' )
-			.addClass( 'errorMsgHide' );
+		$( '#emailSuggestion' ).hide();
 	} );
 } )( jQuery, mediaWiki );

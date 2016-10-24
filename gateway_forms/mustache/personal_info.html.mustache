@@ -52,5 +52,10 @@
 								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required autocomplete="email">
 							</td>
 						</tr>
+                        <tr id="emailSuggestion" >
+                            <td>
+                                <span></span>
+                            </td>
+                        </tr>
                         {{{ fieldError "email" }}}
 {{/ email_required }}
