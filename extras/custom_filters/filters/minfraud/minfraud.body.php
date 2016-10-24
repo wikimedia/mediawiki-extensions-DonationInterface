@@ -31,7 +31,6 @@ use Psr\Log\LogLevel;
  * @code
  * $wgDonationInterfaceEnableMinfraud = true;
  * $wgMinFraudLicenseKey = 'YOUR LICENSE KEY';
- * $wgDonationInterfaceMinFraudActionRanges
  * @endcode
  */
 class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
@@ -85,12 +84,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected $fraud_logger;
 
 	/**
-	 * Determines which action to take for a given score
-	 * @var array @see $wgDonationInterfaceMinFraudActionRanges
-	 */
-	protected $action_ranges;
-
-	/**
 	 * Constructor
 	 *
 	 * @param GatewayType    $gateway_adapter    Gateway adapter instance
@@ -116,12 +109,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			throw new RuntimeException( "minFraud license key required but not present." );
 		}
 		$this->minfraudLicenseKey = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
-		
-		// Set the action range
-		$gateway_ranges = $gateway_adapter->getGlobal( 'MinFraudActionRanges' );
-		if ( !is_null( $gateway_ranges ) ) {
-			$this->action_ranges = $gateway_ranges;
-		}
 		
 		// Set the minFraud API servers
 		$minFraudServers = $gateway_adapter->getGlobal( 'MinFraudServers' );
