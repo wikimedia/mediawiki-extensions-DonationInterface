@@ -408,3 +408,11 @@ div.error-box {
 div.error-box h2 {
     color: red;
 }
+.close-button {
+    background: rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+    text-align: center;
+    cursor: pointer;
+}
