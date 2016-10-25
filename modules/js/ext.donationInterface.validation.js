@@ -52,6 +52,8 @@
 
 	// Set up email error detection and correction
 	$( document ).on( 'blur', '#email', function () {
+		// Be really conservative - only catch two letter errors
+		Mailcheck.domainThreshold = 2; // No way to set from opts!
 		$( this ).mailcheck( {
 			topLevelDomains: [],
 			domains: Mailcheck.defaultDomains.concat( [
@@ -115,22 +117,16 @@
 					'donate_interface-did-you-mean',
 					suggestion.full
 				);
-				$( '#emailMsg' )
-					.removeClass( 'errorMsgHide' )
-					.addClass( 'errorMsg' )
-					.html( message );
+				$( '#emailSuggestion' ).show();
+				$( '#emailSuggestion span' ).html( message );
 			},
 			empty: function ( element ) {
-				$( '#emailMsg' )
-					.removeClass( 'errorMsg' )
-					.addClass( 'errorMsgHide' );
+				$( '#emailSuggestion' ).hide();
 			}
 		} );
 	} );
-	$( document ).on( 'click', '#emailMsg .correction', function () {
+	$( document ).on( 'click', '#emailSuggestion .correction', function () {
 		$( '#email' ).val( $( this ).text() );
-		$( '#emailMsg' )
-			.removeClass( 'errorMsg' )
-			.addClass( 'errorMsgHide' );
+		$( '#emailSuggestion' ).hide();
 	} );
 } )( jQuery, mediaWiki );
