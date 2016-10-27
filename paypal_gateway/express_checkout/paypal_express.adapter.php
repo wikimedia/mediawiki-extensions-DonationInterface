@@ -376,6 +376,13 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	/**
+	 * @return bool true, we need to DoExpressCheckoutPayment when donors return
+	 */
+	public function isReturnProcessingRequired() {
+		return true;
+	}
+
+	/**
 	 * TODO: DRY with AstroPay; handle ProcessReturn like other transactions
 	 */
 	public function processResponse( $response ) {

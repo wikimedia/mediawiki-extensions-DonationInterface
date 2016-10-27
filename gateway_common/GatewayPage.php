@@ -354,14 +354,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		//no longer letting people in without these things. If this is
 		//preventing you from doing something, you almost certainly want to be
 		//somewhere else.
-		$forbidden = false;
+		$deadSession = false;
 		if ( !$this->adapter->session_hasDonorData() ) {
-			$forbidden = true;
-			$f_message = 'No active donation in the session';
-		}
-
-		if ( $forbidden ) {
-			wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
+			$deadSession = true;
 		}
 		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
 
@@ -379,11 +374,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$sessionOrderStatus[$oid] = 'liberated';
 			$request->setSessionData( 'order_status', $sessionOrderStatus );
 			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
-			//TODO: Move the $forbidden check back to the beginning of this if block, once we know this doesn't happen a lot.
-			//TODO: If we get a lot of these messages, we need to redirect to something more friendly than FORBIDDEN, RAR RAR RAR.
-			if ( $forbidden ) {
-				$this->logger->error( "Resultswitcher: $oid SHOULD BE FORBIDDEN. Reason: $f_message" );
-			}
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
 			return;
@@ -391,8 +381,28 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$this->setHeaders();
 
-		if ( $forbidden ){
-			throw new RuntimeException( "Resultswitcher: Request forbidden. " . $f_message . " Adapter Order ID: $oid" );
+		if ( $deadSession ){
+			if ( $this->adapter->isReturnProcessingRequired() ) {
+				wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
+				throw new RuntimeException(
+					'Resultswitcher: Request forbidden. No active donation in the session. ' .
+					"Adapter Order ID: $oid"
+				);
+			}
+			// If it's possible for a donation to go through without our
+			// having to do additional processing in the result switcher,
+			// we don't want to falsely claim it failed just because we
+			// lost the session data. We also don't want to give any
+			// information to scammers hitting this page with no session,
+			// so we always show the thank you page. We don't want to do
+			// any post-processing if we're not sure whether we actually
+			// originated this attempt, so we return right after.
+			$this->logger->warning(
+				'Resultswitcher: session is dead, but the ' .
+				'donor may have made a successful payment.'
+			);
+			$this->displayThankYouPage( 'dead session' );
+			return;
 		}
 		$this->logger->info( "Resultswitcher: OK to process Order ID: " . $oid );
 
@@ -412,9 +422,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			switch ( $status ) {
 			case FinalStatus::COMPLETE:
 			case FinalStatus::PENDING:
-				$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
-				$this->logger->info( "Displaying thank you page $thankYouPage for status $status." );
-				$this->getOutput()->redirect( $thankYouPage );
+				$this->displayThankYouPage( $status );
 				return;
 			}
 			$this->logger->info( "Displaying fail page for final status $status" );
@@ -532,5 +540,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// TODO: Switch title according to failiness.
 		// Maybe ask $form_obj for a title so different errors can show different titles
 		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
+	}
+
+	/**
+	 * @param string $logReason Logged explanation for redirect
+	 */
+	protected function displayThankYouPage( $logReason ) {
+		$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
+		$this->logger->info( "Displaying thank you page $thankYouPage for status $logReason." );
+		$this->getOutput()->redirect( $thankYouPage );
 	}
 }

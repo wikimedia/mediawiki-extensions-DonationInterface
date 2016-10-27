@@ -1442,6 +1442,17 @@ abstract class GatewayAdapter
 	}
 
 	/**
+	 * Whether donation processing depends on additional processing on-wiki
+	 * at the donor's return from a payment processor. This is used to
+	 * determine whether we should show fail pages on session timeouts.
+	 *
+	 * @return bool true when on-wiki post-processing is required.
+	 */
+	public function isReturnProcessingRequired() {
+		return false;
+	}
+
+	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
 	 * @return boolean true if response looks sane
 	 */
