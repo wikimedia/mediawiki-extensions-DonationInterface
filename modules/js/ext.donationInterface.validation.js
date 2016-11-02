@@ -57,60 +57,28 @@
 		$( this ).mailcheck( {
 			topLevelDomains: [],
 			domains: Mailcheck.defaultDomains.concat( [
-				/* Other global domains */
-				'email.com', 'games.com' /* AOL */, 'gmx.net', 'hush.com',
-				'hushmail.com', 'icloud.com', 'inbox.com', 'lavabit.com',
-				'love.com' /* AOL */, 'outlook.com', 'pobox.com',
-				'rocketmail.com' /* Yahoo */, 'safe-mail.net',
-				'wow.com' /* AOL */, 'ygm.com' /* AOL */,
-				'ymail.com' /* Yahoo */, 'zoho.com', 'fastmail.fm',
-				'yandex.com',
-
-				/* United States ISP domains */
-				'bellsouth.net', 'charter.net', 'comcast.net', 'cox.net',
-				'earthlink.net', 'juno.com',
-
-				/* British ISP domains */
-				'btinternet.com', 'virginmedia.com', 'blueyonder.co.uk',
-				'freeserve.co.uk', 'live.co.uk', 'ntlworld.com', 'o2.co.uk',
-				'orange.net', 'sky.com', 'talktalk.co.uk', 'tiscali.co.uk',
-				'virgin.net', 'wanadoo.co.uk', 'bt.com',
-
-				/* Domains used in Asia */
-				'sina.com', 'qq.com', 'naver.com', 'hanmail.net', 'daum.net',
-				'nate.com', 'yahoo.co.jp', 'yahoo.co.kr', 'yahoo.co.id',
-				'yahoo.co.in', 'yahoo.com.sg', 'yahoo.com.ph',
-
-				/* French ISP domains */
-				'hotmail.fr', 'live.fr', 'laposte.net', 'yahoo.fr',
-				'wanadoo.fr', 'orange.fr', 'gmx.fr', 'sfr.fr', 'neuf.fr',
-				'free.fr',
-
-				/* German ISP domains */
-				'gmx.de', 'hotmail.de', 'live.de', 'online.de',
-				't-online.de' /* T-Mobile */, 'web.de', 'yahoo.de',
-
-				/* Russian ISP domains */
-				'mail.ru', 'rambler.ru', 'yandex.ru', 'ya.ru', 'list.ru',
-
-				/* Belgian ISP domains */
-				'hotmail.be', 'live.be', 'skynet.be', 'voo.be',
-				'tvcablenet.be', 'telenet.be',
-
-				/* Argentinian ISP domains */
-				'hotmail.com.ar', 'live.com.ar', 'yahoo.com.ar',
-				'fibertel.com.ar', 'speedy.com.ar', 'arnet.com.ar',
-
-				/* Domains used in Mexico */
-				'hotmail.com', 'gmail.com', 'yahoo.com.mx', 'live.com.mx',
-				'yahoo.com', 'hotmail.es', 'live.com', 'hotmail.com.mx',
-				'prodigy.net.mx', 'msn.com',
-
-				/* Domains used in Brazil */
-				'yahoo.com.br', 'hotmail.com.br', 'outlook.com.br',
-				'uol.com.br', 'bol.com.br', 'terra.com.br', 'ig.com.br',
-				'itelefonica.com.br', 'r7.com', 'zipmail.com.br', 'globo.com',
-				'globomail.com', 'oi.com.br'
+				'aim.com', 'alice.it', 'aon.at', 'bellsouth.net', 'bigpond.com',
+				'bigpond.net.au', 'blueyonder.co.uk', 'btinternet.com',
+				'btopenworld.com', 'charter.net', 'cox.net', 'docomo.ne.jp',
+				'earthlink.net', 'email.it', 'embarqmail.com', 'ezweb.ne.jp',
+				'fastwebnet.it', 'free.fr', 'frontier.com', 'gmx.at', 'gmx.de',
+				'gmx.net', 'hetnet.nl', 'home.nl', 'hotmail.co.jp', 'hotmail.es',
+				'hotmail.fr', 'hotmail.it', 'i.softbank.jp', 'iinet.net.au',
+				'inwind.it', 'juno.com', 'laposte.net', 'libero.it', 'live.ca',
+				'live.co.uk', 'live.com.au', 'live.fr', 'live.it', 'live.nl',
+				'mindspring.com', 'netscape.net', 'neuf.fr', 'nifty.com',
+				'ntlworld.com', 'o2.pl', 'online.no', 'optonline.net',
+				'optusnet.com.au', 'orange.fr', 'pacbell.net', 'planet.nl',
+				'q.com', 'qq.com','roadrunner.com', 'rocketmail.com',
+				'rogers.com', 'seznam.cz', 'sfr.fr', 'shaw.ca', 'sky.com',
+				'skynet.be', 'sympatico.ca', 'talktalk.net', 'telefonica.net',
+				'telenet.be', 'telia.com', 'telus.net', 'tin.it',
+				'tiscali.co.uk', 'tiscali.it', 'tpg.com.au', 'umich.edu',
+				'uol.com.br', 'videotron.ca', 'virgilio.it', 'wanadoo.fr',
+				'web.de', 'windstream.net', 'wp.pl', 'xs4all.nl', 'xtra.co.nz',
+				'yahoo.ca', 'yahoo.co.in', 'yahoo.co.jp', 'yahoo.com.au',
+				'yahoo.com.br', 'yahoo.com.mx', 'yahoo.de', 'yahoo.es',
+				'yahoo.fr', 'yahoo.it', 'ybb.ne.jp', 'ymail.com', 'ziggo.nl'
 			] ),
 			suggested: function ( element, suggestion ) {
 				var message = mw.msg(

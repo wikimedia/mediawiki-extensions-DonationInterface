@@ -97,7 +97,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 					$sessionOrders = $req->getSessionData( 'order_status' );
 					$sessionOrders[$this->qs_oid]['data']['count'] = $sessionOrders[$this->qs_oid]['data']['count'] + 1;
 					$this->logger->error( "Resultswitcher: Multiple attempts to process. " . $sessionOrders[$this->qs_oid]['data']['count'] );
-					$result = new PaymentTransactionResult();
+					$result = new PaymentTransactionResponse();
 					$result->setData( $sessionOrders[$this->qs_oid]['data'] );
 					$result->setMessage( $sessionOrders[$this->qs_oid]['message'] );
 					$result->setErrors( $sessionOrders[$this->qs_oid]['errors'] );

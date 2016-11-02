@@ -9,7 +9,7 @@ visa:
     label_key: donate_interface-card-name-visa
     group: cc
     keys: {  }
-    logo: card-visa.png
+    logo: card-visa-lg.png
 jcb:
     paymentproductid: 125
     label: JCB
@@ -46,13 +46,13 @@ jcb:
         SK: true
         TH: true
         TW: true
-    logo: card-jcb.png
+    logo: card-jcb-lg.png
 mc:
     paymentproductid: 3
     label_key: donate_interface-card-name-mc
     group: cc
     keys: {  }
-    logo: card-mc.png
+    logo: card-mc-lg.png
 amex:
     paymentproductid: 2
     label_key: donate_interface-card-name-amex
@@ -136,7 +136,7 @@ amex:
         UA: true
         US: true
 
-    logo: card-amex.png
+    logo: card-amex-lg.png
 discover:
     paymentproductid: 128
     label_key: donate_interface-card-name-discover
@@ -144,7 +144,7 @@ discover:
     keys: {  }
     countries:
         US: true
-    logo: card-discover.png
+    logo: card-discover-lg.png
 dd_at:
     paymentproductid: 703
     label: 'Direct debit: AT'

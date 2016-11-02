@@ -19,7 +19,10 @@
         <p>
             {{ l10n "donate_interface-donate-error-thank-you-for-your-support" }}
         </p>
-        <p>
+        <p>{{# order_id }}{{! Use the full order id as reference if we have one }}
+            {{ l10n "donate_interface-error-reference" . }}
+        {{/order_id}}{{^ order_id }}{{! Otherwise fall back to contribution tracking ID }}
             {{ l10n "donate_interface-error-reference" contribution_tracking_id }}
+        {{/order_id}}
         </p>
 </div>

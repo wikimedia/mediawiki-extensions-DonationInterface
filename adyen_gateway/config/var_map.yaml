@@ -4,6 +4,7 @@ billingAddress.country: country
 billingAddress.postalCode: zip
 billingAddress.stateOrProvince: state
 billingAddress.street: street
+billingAddress.houseNumberOrName: street_supplemental
 billingAddressType: billing_address_type
 blockedMethods: blocked_methods
 card.cardHolderName: full_name

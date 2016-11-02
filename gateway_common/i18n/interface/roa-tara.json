@@ -3,7 +3,8 @@
 		"authors": [
 			"Joetaras",
 			"Reder",
-			"Pcoombe"
+			"Pcoombe",
+			"Beta16"
 		]
 	},
 	"donate_interface": "Sostiene UicchiMedia",
@@ -181,7 +182,7 @@
 	"donate_interface-error-msg-state": "state",
 	"donate_interface-error-msg-zip": "codece d'avviamende postale",
 	"donate_interface-error-msg-postal": "codece d'avviamende postale",
-	"donate_interface-error-msg-country": "paese",
+	"donate_interface-error-msg-country": "nazione",
 	"donate_interface-error-msg-card_type": "tipe d'a carte de credite",
 	"donate_interface-error-msg-card_num": "numere d'a carte de credite",
 	"donate_interface-error-msg-expiration": "Pe piacere mitte 'a date de scadenze d'a carte",
@@ -415,7 +416,6 @@
 	"apihelp-donate-param-payment_submethod": "Sottometode de pajamende da ausà.",
 	"apihelp-donate-param-language": "Codece d'a Lènghe.",
 	"apihelp-donate-param-order_id": "ID de l'ordine (ce 'na donazzione ha state ggià accumenzate).",
-	"apihelp-donate-param-contribution_tracking_id": "ID d'a tabelle d'u traccaimende d'u condrebbute.",
 	"apihelp-donate-param-utm_source": "Variabbile de tracciamende.",
 	"apihelp-donate-param-utm_campaign": "Variabbile de tracciamende.",
 	"apihelp-donate-param-utm_medium": "Variabbile de tracciamende.",

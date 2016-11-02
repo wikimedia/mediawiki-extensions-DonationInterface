@@ -108,11 +108,14 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.stateOrProvince',
 			'billingAddress.country',
 			'billingAddressType',
+			'billingAddress.houseNumberOrName',
 		);
 
 		if ( in_array( 'street', $this->getRequiredFields() ) )  {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
+
+
 
 		$this->transactions[ 'donate' ] = array(
 			'request' => $requestFields,
@@ -125,8 +128,14 @@ class AdyenAdapter extends GatewayAdapter {
 				'skinCode' => $this->accountInfo[ 'skinCode' ],
 				//'shopperLocale' => language _ country
 			),
+
 			'iframe' => TRUE,
 		);
+		// Hack to get required but unused field into GB form
+		if ( $this->getData_Unstaged_Escaped( 'country' ) == 'GB' )
+		{
+			$this->transactions[ 'donate' ]['values'][ 'billingAddress.houseNumberOrName' ] = 'NA';
+		}
 	}
 
 	protected function getAllowedPaymentMethods() {
