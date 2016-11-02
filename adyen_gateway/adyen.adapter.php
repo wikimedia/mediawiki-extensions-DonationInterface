@@ -131,11 +131,6 @@ class AdyenAdapter extends GatewayAdapter {
 
 			'iframe' => TRUE,
 		);
-		// Hack to get required but unused field into GB form
-		if ( $this->getData_Unstaged_Escaped( 'country' ) == 'GB' )
-		{
-			$this->transactions[ 'donate' ]['values'][ 'billingAddress.houseNumberOrName' ] = 'NA';
-		}
 	}
 
 	protected function getAllowedPaymentMethods() {

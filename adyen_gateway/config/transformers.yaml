@@ -7,5 +7,6 @@
 - FullNameWithExceptions
 - DonorLocale
 - RiskScore
+- BlankAddressFields
 # Signature should always come last
 - AdyenHostedSignature

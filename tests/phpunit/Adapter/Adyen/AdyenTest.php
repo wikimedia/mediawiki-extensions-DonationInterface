@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group Adyen
@@ -59,6 +59,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'billingAddress.postalCode' => $init['zip'],
 			'billingAddress.stateOrProvince' => $init['state'],
 			'billingAddress.country' => $init['country'],
+			'billingAddress.houseNumberOrName' => 'NA',
 			'billingAddressType' => 2,
 			'card.cardHolderName' => $init['fname'] . ' ' . $init['lname'],
 			'currencyCode' => $init['currency_code'],
@@ -120,6 +121,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'billingAddress.postalCode' => $init['zip'],
 			'billingAddress.stateOrProvince' => $init['state'],
 			'billingAddress.country' => $init['country'],
+			'billingAddress.houseNumberOrName' => 'NA',
 			'billingAddressType' => 2,
 			'card.cardHolderName' => $init['fname'] . ' ' . $init['lname'],
 			'currencyCode' => $init['currency_code'],

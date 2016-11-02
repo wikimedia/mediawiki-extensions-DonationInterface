@@ -5,4 +5,5 @@ CA:
 GB:
     address: true
 US:
-    address: true
+    street: true
+    zip: true
