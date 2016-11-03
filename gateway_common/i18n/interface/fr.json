@@ -223,7 +223,7 @@
 	"donate_interface-error-msg-branch_code": "code de guichet",
 	"donate_interface-error-msg-captcha": "La valeur de CAPTCHA que vous avez entrée est incorrecte. Veuillez réessayer.",
 	"donate_interface-error-msg-captcha-please": "Pour la sécurité de votre carte bancaire ou de crédit, veuillez saisir les caractères affichés ci-dessus.",
-	"donate_interface-error-msg-cookies": "Veuillez activer les cookies dans votre navigateur.",
+	"donate_interface-error-msg-cookies": "Veuillez activer les témoins (''cookies'') dans votre navigateur.",
 	"donate_interface-error-msg-genaricrequired": "Ce champ est obligatoire",
 	"donate_interface-error-msg-country-calc": "Erreur – Nous ne pouvons pas accepter votre don pour le moment.",
 	"donate_interface-error-msg-fiscal_number": "numéro fiscal",
