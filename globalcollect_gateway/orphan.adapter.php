@@ -201,7 +201,10 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		// Don't bother unless we expect to be able to finalize this payment.
 		if ( $action === FinalStatus::PENDING_POKE ) {
+			$this->logger->info( 'Final status is PENDING_POKE, running fraud filters' );
 			parent::post_process_get_orderstatus();
+		} else {
+			$this->logger->info( "Skipping fraud filters for final status $action." );
 		}
 	}
 }
