@@ -170,6 +170,7 @@
 	"donate_interface-donor-state-ca": "Label for Canadian province selection.\n{{Identical|Province}}",
 	"donate_interface-donor-zip": "Placeholder for zip code field. This should be 10 characters maximum.\n{{Identical|Zip}}",
 	"donate_interface-donor-postal": "Label for field to input postal code.\n{{Identical|Postal code}}",
+	"donate_interface-donor-postal-us": "US-specific placeholder for postal code field. This should be 10 characters maximum.\n{{Identical|Zip}}",
 	"donate_interface-donor-postcode": "{{optional}}\n{{Identical|Postal code}}",
 	"donate_interface-donor-country": "Label for field with dropdown list of countries/regions.",
 	"donate_interface-donor-zone": "Alternate label for postal code, used in some countries, e.g. Cote d'Ivoire. Can be ignored if not applicable.",
