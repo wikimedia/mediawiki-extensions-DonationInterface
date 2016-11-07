@@ -821,11 +821,13 @@ class DonationData implements LogPrefixProvider {
 		if ( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ) {
 			$tracking_data['form_amount'] = $this->getVal( 'currency_code' ) . " " . $this->getVal( 'amount' );
 		}
-		if ( $this->isSomething( 'form_name' ) ) {
-			$tracking_data['payments_form'] = $this->getVal( 'form_name' );
-			if ( $this->isSomething( 'ffname' ) ) {
-				$tracking_data['payments_form'] .= '.' . $this->getVal( 'ffname' );
-			}
+
+		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
+
+		// FIXME: currently 'appeal' is the only way to A/B test different CSS.
+		// Change this tracking element to 'ffname' when we restore that.
+		if ( $this->isSomething( 'appeal' ) ) {
+			$tracking_data['payments_form'] .= '.' . $this->getVal( 'appeal' );
 		}
 
 		return $tracking_data;

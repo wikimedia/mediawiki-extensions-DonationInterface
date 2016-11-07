@@ -1659,11 +1659,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		static $checked = array();
 
 		$oid = $this->getData_Unstaged_Escaped('order_id');
-		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc'
-			&& empty( $checked[$oid] )
-		) {
+		$method = $this->getData_Unstaged_Escaped( 'payment_method' );
+		if ( $method === 'cc' && empty( $checked[$oid] ) ) {
 			$this->runAntifraudFilters();
 			$checked[$oid] = true;
+		} else {
+			$message = 'Skipping fraud filters: ';
+			if ( !empty( $checked[$oid] ) ) {
+				$message .= "already checked order id '$oid'";
+			} else {
+				$message .= "payment method is '$method'";
+			}
+			$this->logger->info( $message );
 		}
 	}
 
