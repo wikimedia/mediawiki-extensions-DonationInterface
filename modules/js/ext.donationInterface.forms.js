@@ -117,6 +117,9 @@
 	};
 
 	$( function () {
+
+		$( '#fname' ).focus();
+
 		// If a submethod is already selected on page load, show the continue button
 		if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
 			$( '#paymentContinue' ).show();

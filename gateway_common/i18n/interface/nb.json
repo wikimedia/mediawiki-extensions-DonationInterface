@@ -211,6 +211,7 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "Takk for din støtte!",
 	"donate_interface-error-no-form": "Vi kunne ikke finne et doneringsskjema som passet med parameterne dine. Kontakt [mailto:donate@wikimedia.org hjelpeteamet vårt] for mer informasjon.",
 	"donate_interface-error-no-form-html": "Vi kunne ikke finne et doneringsskjema som passet med parameterne dine. Prøv en av våre <a href=\"$1\">andre måter å gi</a>, eller kontakt oss på <a href=\"mailto:$2\">$2</a>.",
+	"donate_interface-error-reference": "Feilreferanse: $1",
 	"php-response-declined": "Din transaksjon kunne ikke aksepteres.",
 	"donate_interface-thankyou": "Takk for din donasjon!",
 	"donate_interface-post-transaction": "Transaksjonsdetaljer",
