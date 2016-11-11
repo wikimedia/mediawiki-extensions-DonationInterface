@@ -311,26 +311,4 @@ html body #donate .errorHighlight {
         margin-bottom: 0.3em !important;
     }
 
-    #cards img {
-        height: 30px;
-        margin: 10px auto;
-    }
-
-    /* -- iDEAL -- */
-    #billing-content .name-fields span {
-        margin: 0;
-        width: 100%;
-    }
-    #billing-content select,
-    #billing-content input.txt,
-    #billing-content input.btn {
-        font-size: 1.2em;
-        margin: 5px 0 !important;
-        padding: 10px;
-    }
-    #donate, #donate-content {
-        width: inherit;
-    }
-    /* -- end iDEAL -- */
-
 }

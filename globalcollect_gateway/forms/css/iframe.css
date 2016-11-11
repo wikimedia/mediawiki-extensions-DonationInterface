@@ -99,3 +99,53 @@ input#btnSubmit {
     border-radius: 4px;
     padding: .6em !important;
 }
+
+/* extra styles only for mobile */
+@media only screen and (max-device-width : 981px) {
+
+    #tableMissingFields {
+        width: 100%;
+    }
+    table label {
+        font-size: 13px;
+        color: #666;
+
+    }
+    table.ORB_TABLE_FIELDS td {
+        padding: 10px 0 0 !important;
+    }
+    select {
+        font-size: 16px;
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+    input[type="text"],
+    input[type="number"] {
+        box-sizing: border-box;
+        margin-top: 5px;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        width: 100%;
+        padding: 14px !important;
+        background: #fff !important;
+        box-shadow: inset 0 0 0 0.1em #fff !important;
+        border-radius: 2px !important;
+        -webkit-appearance:none;
+        border:1px solid #ccc !important;
+    }
+    input[type="text"]:hover,
+    input[type="number"]:hover {
+        background: #fff;
+        color: #666;
+        border:1px solid #999 !important;
+    }
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+        color: #333;
+        border:1px solid #36c !important;
+    }
+    input#F1136 {
+        margin-right: 4px;
+        width: 5em;
+    }
+}
