@@ -22,6 +22,7 @@
 	"donate_interface-donor-city": "Bajar",
 	"donate_interface-donor-island": "Girav",
 	"donate_interface-donor-state": "Dewlet",
+	"donate_interface-donor-postal-us": "Zip",
 	"donate_interface-donor-country": "Welat/Herêm",
 	"donate_interface-donor-address": "Navnîşan",
 	"donate_interface-error-msg-fname": "nav",

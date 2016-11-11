@@ -142,6 +142,7 @@
 	"donate_interface-donor-state-ca": "Provënz",
 	"donate_interface-donor-zip": "Postcode",
 	"donate_interface-donor-postal": "Post-Code:",
+	"donate_interface-donor-postal-us": "Postcode",
 	"donate_interface-donor-country": "Land/Regioun:",
 	"donate_interface-donor-zone": "Zone",
 	"donate_interface-donor-address": "Adress",

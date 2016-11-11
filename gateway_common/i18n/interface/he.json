@@ -146,6 +146,7 @@
 	"donate_interface-donor-state-ca": "פרובינציה",
 	"donate_interface-donor-zip": "מיקוד",
 	"donate_interface-donor-postal": "מיקוד",
+	"donate_interface-donor-postal-us": "מיקוד",
 	"donate_interface-donor-country": "ארץ/מחוז",
 	"donate_interface-donor-zone": "אזור",
 	"donate_interface-donor-address": "כתובת",
