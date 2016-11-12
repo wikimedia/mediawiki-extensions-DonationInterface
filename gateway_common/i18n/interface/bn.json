@@ -126,6 +126,7 @@
 	"donate_interface-donor-state-ca": "প্রদেশ",
 	"donate_interface-donor-zip": "জিপ",
 	"donate_interface-donor-postal": "পোস্টাল কোড",
+	"donate_interface-donor-postal-us": "জিপ (শুধু যুক্তরাষ্ট্র)",
 	"donate_interface-donor-country": "দেশ/অঞ্চল",
 	"donate_interface-donor-zone": "অঞ্চল",
 	"donate_interface-donor-address": "ঠিকানা",

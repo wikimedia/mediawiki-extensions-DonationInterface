@@ -153,6 +153,7 @@
 	"donate_interface-donor-state": "시/도/주:",
 	"donate_interface-donor-zip": "우편 번호",
 	"donate_interface-donor-postal": "우편 번호:",
+	"donate_interface-donor-postal-us": "우편 번호",
 	"donate_interface-donor-postcode": "우편 번호",
 	"donate_interface-donor-country": "국가/지역:",
 	"donate_interface-donor-zone": "구역",
