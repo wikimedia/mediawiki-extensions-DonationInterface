@@ -172,6 +172,7 @@
 	"donate_interface-donor-state-ca": "Provincia",
 	"donate_interface-donor-zip": "Código postal",
 	"donate_interface-donor-postal": "Código postal",
+	"donate_interface-donor-postal-us": "C. P.",
 	"donate_interface-donor-country": "País/Región",
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Dirección",
