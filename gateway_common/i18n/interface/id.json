@@ -13,7 +13,8 @@
 			"Seddon",
 			"C5st4wr6ch",
 			"Pcoombe",
-			"Mirws"
+			"Mirws",
+			"Presidenvolksraad"
 		]
 	},
 	"donate_interface": "Dukung Wikimedia",
@@ -148,6 +149,7 @@
 	"donate_interface-donor-state": "Negara bagian:",
 	"donate_interface-donor-zip": "Zip",
 	"donate_interface-donor-postal": "Kode pos:",
+	"donate_interface-donor-postal-us": "Kode pos",
 	"donate_interface-donor-country": "Negara/Wilayah:",
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Alamat:",
