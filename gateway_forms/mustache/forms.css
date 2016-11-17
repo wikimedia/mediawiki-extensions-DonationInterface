@@ -9,21 +9,7 @@ div#payment_gateway-donate-submessage img {
     vertical-align:baseline;
     margin-right:4px;
 }
-#payment-table-donor td.label,
-#payment-table-comment td.label,
-#payment-table-cc td.label {
-    white-space: nowrap;
-    display: block;
-    padding-right: 1em;
-    text-align: right;
-    width: 94px;
-}
 
-.payment-cc-form-section {
-    float: none;
-    margin-right: 0;
-    margin-bottom: 1em;
-}
 #payment_gateway-personal-info {
 	margin-right: 0;
 }
@@ -88,21 +74,17 @@ ul#moreinfolinks li{
     list-style: none !important;
     list-style-image: none !important;
 }
-.form .options-h,
-.form .options-v {
+.form .options-h {
     margin: 0;
 }
-.options-h,
-.options-v {
+.options-h {
     list-style: none;
     margin: 0 0 1em 0;
 }
-.options-h img,
-.options-v img {
+.options-h img {
     vertical-align: middle;
 }
-.options-h li,
-.options-v li {
+.options-h li{
     background: none;
     margin-bottom: 0.3em;
     padding: 0;
@@ -118,13 +100,6 @@ ul#moreinfolinks li{
 }
 .options-h li:last-child {
     margin: 0;
-}
-.form .options-v {
-    margin-top: 5px;
-}
-.options-v li {
-    padding-left: 25px;
-    text-indent: -25px;
 }
 input:-moz-placeholder {
     opacity: 1;
