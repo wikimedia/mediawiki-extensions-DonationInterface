@@ -26,7 +26,7 @@
 	"donate_interface-amount-error": "Sicht w.e.g. de Betrag eraus deen Dir spende wëllt",
 	"donate_interface-smallamount-error": "Sicht w.e.g. e Betrag eraus (Minimum $1)",
 	"donate_interface-bigamount-error": "Mir kënnen iwwer eisen Internetsite keng Done vu méi wéi 10.000.- USD ($1 $2) unhuelen. Kontaktéiert w.e.g. eis Equipe fir grouss Donen iwwer $3.",
-	"donate_interface-processing-error": "Et gouf e Feeler beim behandele vun Ärer Ufro. Et ass kee Prozesseur disponibel.",
+	"donate_interface-processing-error": "Et gouf e Feeler beim behandele vun Ärer Ufro.\nKontaktéiert w.e.g. de Service vun den Donateuren <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-fallback-currency-notice": "Är Währung gouf net ënnerstëtzt. D'Beaarbechtung gëtt mat $1 gemaach, wann Dir decidéiert fir weiderzemaachen.",
 	"donate_interface-maintenance-notice": "Mir entschëllegen eis awer dës Manéier fir ze bezuelen gouf temporär ausgeschalt.",
 	"donate_interface-AED": "VAE-Dirham",
