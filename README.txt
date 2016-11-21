@@ -387,7 +387,21 @@ $wgDonationInterfaceQueues = array(
 $wgDonationInterfaceForbiddenCountries = array()
 
 //Custom Filters globals
-//Define the action to take for a given $risk_score
+/**
+ * Set the risk score ranges that will cause a particular 'action'
+ *
+ * The keys to the array are the 'actions' to be taken (eg 'process').
+ * The value for one of these keys is an array representing the lower
+ * and upper bounds for that action.  For instance,
+ *  $wgDonationInterfaceCustomFiltersActionRanges = array(
+ * 		'process' => array( 0, 100)
+ * 		...
+ * 	)
+ * means that any transaction with a risk score greater than or equal
+ * to 0 and less than or equal to 100 will be given the 'process' action.
+ *
+ * These are evaluated on a >= or <= basis.
+ */
 $wgDonationInterfaceCustomFiltersActionRanges = array(
 	'process' => array( 0, 100 ),
 	'review' => array( -1, -1 ),
@@ -396,11 +410,11 @@ $wgDonationInterfaceCustomFiltersActionRanges = array(
 )
 
 /**
- * A value for tracking the 'riskiness' of a transaction
+ * A base value for tracking the 'riskiness' of a transaction
  *
  * The action to take based on a transaction's riskScore is determined by
- * $action_ranges.  This is built assuming a range of possible risk scores
- * as 0-100, although you can probably bend this as needed.
+ * CustomFiltersActionRanges.  This is built assuming a range of possible
+ * risk scores as 0-100, although you can probably bend this as needed.
  */
 $wgDonationInterfaceCustomFiltersRiskScore = 0
 
@@ -409,29 +423,6 @@ $wgDonationInterfaceCustomFiltersRiskScore = 0
  * Your minFraud license key.
  */
 $wgMinFraudLicenseKey = ''
-
-/**
- * Set the risk score ranges that will cause a particular 'action'
- *
- * The keys to the array are the 'actions' to be taken (eg 'process').
- * The value for one of these keys is an array representing the lower
- * and upper bounds for that action.  For instance,
- *   $wgDonationInterfaceMinFraudActionRanges = array(
- * 		'process' => array( 0, 100)
- * 		...
- * 	)
- * means that any transaction with a risk score greather than or equal
- * to 0 and less than or equal to 100 will be given the 'process' action.
- *
- * These are evauluated on a >= or <= basis.  Please refer to minFraud
- * documentation for a thorough explanation of the 'riskScore'.
- */
-$wgDonationInterfaceMinFraudActionRanges = array(
-	'process' => array( 0, 100 ),
-	'review' => array( -1, -1 ),
-	'challenge' => array( -1, -1 ),
-	'reject' => array( -1, -1 )
-)
 
 /**
  * This allows setting where to point the minFraud servers.

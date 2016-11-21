@@ -147,6 +147,7 @@
 	"donate_interface-donor-state": "Województwo",
 	"donate_interface-donor-zip": "Kod pocztowy",
 	"donate_interface-donor-postal": "Kod pocztowy",
+	"donate_interface-donor-postal-us": "Kod pocztowy",
 	"donate_interface-donor-country": "Kraj lub region",
 	"donate_interface-donor-zone": "Strefa",
 	"donate_interface-donor-address": "Adres",

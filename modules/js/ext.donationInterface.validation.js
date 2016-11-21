@@ -5,7 +5,8 @@
  * They should be rewritten here when we modernize the remaining forms.
  */
 ( function ( $, mw ) {
-	var di = mw.donationInterface = {};
+	var di = mw.donationInterface = {},
+		checkMail = true;
 
 	function showErrors( errors ) {
 		var generalErrors = [];
@@ -27,6 +28,9 @@
 			$( '#topError' ).html(
 				generalErrors.join( '<br/>' )
 			);
+			$( '#errorReference' )
+				.removeClass( 'errorMsgHide' )
+				.addClass( 'errorMsg' );
 		}
 	}
 
@@ -52,6 +56,9 @@
 
 	// Set up email error detection and correction
 	$( document ).on( 'blur', '#email', function () {
+		if ( !checkMail ) {
+			return;
+		}
 		// Be really conservative - only catch two letter errors
 		Mailcheck.domainThreshold = 2; // No way to set from opts!
 		$( this ).mailcheck( {
@@ -95,6 +102,10 @@
 	} );
 	$( document ).on( 'click', '#emailSuggestion .correction', function () {
 		$( '#email' ).val( $( this ).text() );
+		$( '#emailSuggestion' ).hide();
+	} );
+	$( document ).on( 'click', '#emailSuggestion .close-button', function () {
+		checkMail = false; // Don't bother them again
 		$( '#emailSuggestion' ).hide();
 	} );
 } )( jQuery, mediaWiki );

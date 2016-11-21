@@ -1,11 +1,6 @@
 img.submethod-logo {
 	max-width: 100px;
 }
-div#payment_gateway-donate-addl-info-text {
-	font-size: 90%;
-	line-height: 120%;
-    padding-top: 12px;
-}
 div#payment_gateway-donate-submessage {
 	font-size: 90%;
 	line-height: 120%;
@@ -30,17 +25,7 @@ div#payment_gateway-donate-submessage img {
     margin-bottom: 1em;
 }
 #payment_gateway-personal-info {
-	margin-right:0 !important;
-}
-
-#payment_gateway-donate-addl-info-secure-logos {
-	float: left;
-	margin-right: 2em;
-}
-
-#payment_gateway-donate-addl-info {
-	margin-top:2em !important;
-	margin-bottom:1em !important;
+	margin-right: 0;
 }
 
 #appeal {
@@ -422,4 +407,12 @@ div.error-box {
 }
 div.error-box h2 {
     color: red;
+}
+.close-button {
+    background: rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+    text-align: center;
+    cursor: pointer;
 }

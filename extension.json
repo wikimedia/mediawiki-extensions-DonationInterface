@@ -409,25 +409,6 @@
 		},
 		"DonationInterfaceCustomFiltersRiskScore": 0,
 		"MinFraudLicenseKey": "",
-		"DonationInterfaceMinFraudActionRanges": {
-			"process": [
-				0,
-				100
-			],
-			"review": [
-				-1,
-				-1
-			],
-			"challenge": [
-				-1,
-				-1
-			],
-			"reject": [
-				-1,
-				-1
-			],
-			"_merge_strategy": "array_plus_2d"
-		},
 		"DonationInterfaceMinFraudServers": [],
 		"MinFraudTimeout": 2,
 		"DonationInterfaceMinFraudAlarmLimit": 25000,

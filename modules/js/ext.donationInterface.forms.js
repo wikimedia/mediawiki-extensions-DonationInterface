@@ -36,6 +36,10 @@
 	function callDonateApi( successCallback ) {
 		di.forms.disable();
 		di.forms.clean();
+		$( '#topError' ).html( '' );
+		$( '#errorReference' )
+			.removeClass( 'errorMsg' )
+			.addClass( 'errorMsgHide' );
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
 		var sendData = {
