@@ -42,7 +42,7 @@
 	"donate_interface-amount-error": "Si prega di selezionare un importo da donare",
 	"donate_interface-smallamount-error": "Si prega di selezionare un importo (minimo $1)",
 	"donate_interface-bigamount-error": "Non possiamo accettare donazioni superiori a 10000 USD ($1 $2) attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo $3.",
-	"donate_interface-processing-error": "Si è verificato un errore di elaborazione della tua richiesta.\nNon è disponibile alcun processore.",
+	"donate_interface-processing-error": "Si è verificato un errore di elaborazione della tua richiesta.\nContatta il servizio donazioni a <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-fallback-currency-notice": "La tua valuta non è supportata. La procedura verrà eseguita in $1, se decidi di continuare.",
 	"donate_interface-maintenance-notice": "Ci scusiamo, ma questo tipo di pagamento è stato temporaneamente disabilitato.",
 	"donate_interface-AED": "Dirham degli Emirati Arabi Uniti",
