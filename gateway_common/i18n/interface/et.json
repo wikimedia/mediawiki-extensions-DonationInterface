@@ -27,7 +27,7 @@
 	"donate_interface-amount-error": "Palun vali annetatav summa",
 	"donate_interface-smallamount-error": "Palun vali summa (miinimum $1)",
 	"donate_interface-bigamount-error": "Me ei saa veebisaidi kaudu 10 000 dollarist ($1 $2) suuremaid annetusi vastu võtta. Palun võta suurannetajate teenindajaga ühendust aadressil $3.",
-	"donate_interface-processing-error": "Andmetöötluses on viga. Pole vabu menetluskanaleid.",
+	"donate_interface-processing-error": "Andmetöötluses on viga.\nPalun võta ühendust annetajateenindusega aadressil <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-AED": "AÜE dirhem",
 	"donate_interface-ARS": "Argentina peeso",
 	"donate_interface-AUD": "Austraalia dollar",
