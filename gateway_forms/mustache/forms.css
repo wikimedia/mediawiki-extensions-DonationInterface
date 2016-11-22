@@ -391,7 +391,7 @@ div.error-box h2 {
     text-align: center;
     cursor: pointer;
 }
-@media screen and (max-width: 981px) {
+@media screen and (max-device-width: 981px) {
     body {
         background-color: #f5f5f5;
         box-sizing: border-box;
