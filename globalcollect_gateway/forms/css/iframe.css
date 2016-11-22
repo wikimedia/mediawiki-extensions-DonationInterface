@@ -144,6 +144,9 @@ input#btnSubmit {
         color: #333;
         border:1px solid #36c !important;
     }
+    select, #btnSubmit {
+        background-color: #fff !important;
+    }
     input#F1136 {
         margin-right: 4px;
         width: 5em;
