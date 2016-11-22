@@ -27,7 +27,7 @@
 	"donate_interface-amount-error": "দান করতে দয়া করে একটি পরিমাণ নির্বাচন করুন",
 	"donate_interface-smallamount-error": "দয়া করে একটি পরিমাণ নির্বাচন করুন (অন্ততপক্ষে $1)",
 	"donate_interface-bigamount-error": "আমরা আমাদের ওয়েবসাইটের মাধ্যমে ১০০০০ ডলারের ($1 $2) চেয়ে বেশী অনুদান গ্রহণ করতে পারবো না। দয়া করে $3 ঠিকানায় আমাদের কর্মীদের সাথে যোগাযোগ করুন।",
-	"donate_interface-processing-error": "আপনার অনুরোধটি প্রক্রিয়াকৃত হওয়ার সময় কোনো সমস্যা পরিলক্ষিত হয়েছে।\nকোনো প্রসেসর পাওয়া যায়নি।",
+	"donate_interface-processing-error": "আপনার অনুরোধটি প্রক্রিয়াকৃত হওয়ার সময় একটি সমস্যা পরিলক্ষিত হয়েছে।\nদয়া করে <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> তে দাতা পরিষেবার সাথে যোগাযোগ করুন।",
 	"donate_interface-AED": "সংযুক্ত আরব আমিরাত দিরহাম",
 	"donate_interface-ARS": "আর্জেন্টেনীয় পেশো",
 	"donate_interface-AUD": "অস্ট্রেলীয় ডলার",
