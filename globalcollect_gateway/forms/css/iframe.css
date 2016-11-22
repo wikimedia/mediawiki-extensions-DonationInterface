@@ -101,7 +101,7 @@ input#btnSubmit {
 }
 
 /* extra styles only for mobile */
-@media only screen and (max-width : 981px) {
+@media only screen and (max-device-width : 981px) {
 
     #tableMissingFields {
         width: 100%;
