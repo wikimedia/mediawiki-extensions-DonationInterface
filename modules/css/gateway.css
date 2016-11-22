@@ -20,89 +20,12 @@ body.ltr #footer #footer-places {
    color: #cc1100;
 }
 
-.mw-creditcard-donor {
-   width: 25px;
-}
-
-.mw-donate-submessage {
-/*   padding-top: 10px; */
-}
-
-#mw-donate-submit-button {
-/*   padding-top: 10px;
-   padding-bottom: 10px;
-   padding-left: 100px;*/
-}
-
-#mw-creditcard {
-	margin-bottom: 1em;
-}
-
-.payment-cc-form-section {
-	float: left;
-}
-
-#payment_gateway-personal-info {
-/*	margin-right: 4em;
-	margin-bottom: 1em; */ /* This only seems to cause issues for RTL languages */
-}
-
-#payment_gateway-form-submit, #payment_gateway-form-submit-paypal {
-	margin-top: 1.2em;
-	text-align: center;
-	margin-bottom: 1em;
-}
-
-#payment-table-cc td {
-	text-align: left;
-}
-
-#payment-table-donor, #payment-table-cc, #payment-table-paypal {
+#payment-table-donor {
 	background-color: transparent;
-}
-
-#payment-table-donor td.label, #payment-table-comment td.label, #payment-table-cc td.label {
-	text-align: right;
-	display: block;
-	padding-right: 1em;
-	width: 94px;
-}
-
-#payment-table-comment td.check-option {
-	padding-left: 3em;
 }
 
 #payment-table-donor td {
 	text-align: left;
-}
-
-.button-plain {
-	font-size: 1em;
-	margin-bottom: 0.3em;
-}
-
-.button-navyblue {
-	background-image:url("https://payments.wikimedia.org/images/0/06/Button-wavy-blue.png");
-	color:#FFFFFF;
-	cursor:pointer;
-}
-
-.input-button {
-	background-color:transparent;
-	background-repeat:no-repeat;
-	border:medium none;
-	font-family:helvetica,impact,sans-serif;
-	font-size:1.4em;
-	font-weight:bold;
-	height:44px;
-	margin:0;
-	text-align:center;
-	vertical-align:middle;
-	width:204px;
-}
-
-#ca-special {
-	display: none;
 }
 
 #bodyContent input[type="text"],
@@ -129,22 +52,6 @@ p#informationsharing, p#monthlycancel {
     line-height: 14px;
     font-size: 11px;
 }
-
-p.finePrint {
-	font-size: 11px;
-	white-space: normal;
-}
-
-/*
-	The following should be in form css and not the gateway common css.
-	Commenting out due to conflicts, but leaving so that if it does break something,
-	it can easily be re-enabled. -pgehres 2011-12-19
-*/
-/*
-input#fname { width: 110px; margin-right: 4px; }
-input#lname { width: 132px; }
-input.fullwidth { width: 254px; }
-*/
 
 /* Form Inputs */
 /* Override the sitedir-ltr input direction */
@@ -175,10 +82,6 @@ input#email {
 	float: left;
 }
 
-.collapsingCity {
-	display: none;
-}
-
 /* From 2014 appeal */
 * {
   -moz-box-sizing:    border-box;
@@ -193,11 +96,6 @@ input#email {
 div#footer #footer-icons {
    display: none !important;
 }
-
-/*table#secureLogo {
-   border: 5px solid red;
-}*/
-
 
 a[href^="https://"], .link-https {
  background-image: none !important;
@@ -252,22 +150,6 @@ html body #donate .errorHighlight {
         width: 100%;
     }
 
-    /* Form - Amount/Payment Method */
-    #radiobuttons-table-header,
-    td.radiobuttons-cell,
-    .frequency-options,
-    .payment-method-button {
-        font-size: 2em;
-    }
-
-    .radiobuttons-cell {
-        padding: 0.5em;
-    }
-
-    input.payment-method-button {
-        padding: 1em;
-    }
-
     /* Form - Contact/Donation Info */
     table#payment-table-donor td {
         padding: 0;
@@ -310,27 +192,5 @@ html body #donate .errorHighlight {
     ul#cards li.has_sub_text input {
         margin-bottom: 0.3em !important;
     }
-
-    #cards img {
-        height: 30px;
-        margin: 10px auto;
-    }
-
-    /* -- iDEAL -- */
-    #billing-content .name-fields span {
-        margin: 0;
-        width: 100%;
-    }
-    #billing-content select,
-    #billing-content input.txt,
-    #billing-content input.btn {
-        font-size: 1.2em;
-        margin: 5px 0 !important;
-        padding: 10px;
-    }
-    #donate, #donate-content {
-        width: inherit;
-    }
-    /* -- end iDEAL -- */
 
 }
