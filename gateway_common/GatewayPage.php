@@ -80,8 +80,19 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		try {
 			$this->adapter = new $className();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
-			$this->getOutput()->addModuleStyles( 'donationInterface.styles' );
-			$this->getOutput()->addModules( 'donationInterface.skinOverride' );
+			$out = $this->getOutput();
+			$out->addModuleStyles( 'donationInterface.styles' );
+			$out->addModules( 'donationInterface.skinOverride' );
+			// Stolen from Minerva skin
+			$out->addHeadItem( 'viewport',
+				Html::element(
+					'meta', array(
+						'name' => 'viewport',
+						'content' => 'initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0',
+					)
+				)
+			);
+
 		} catch ( Exception $ex ) {
 			if ( !$this->logger ) {
 				$this->logger = DonationLoggerFactory::getLoggerForType(
