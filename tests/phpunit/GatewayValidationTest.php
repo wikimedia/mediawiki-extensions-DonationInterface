@@ -125,12 +125,12 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		// TODO: also validate and test country=ZZ and XX
 
 		$this->setMwGlobals( array(
-			'wgDonationInterfaceForbiddenCountries' => array( 'XX' )
+			'wgDonationInterfaceForbiddenCountries' => array( 'US' )
 		) );
 
 		$this->setUpAdapter( array(
 			'amount' => '2.99',
-			'country' => 'XX',
+			'country' => 'US',
 			'currency' => 'USD',
 		) );
 

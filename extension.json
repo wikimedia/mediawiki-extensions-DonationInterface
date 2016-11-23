@@ -67,6 +67,7 @@
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
+		"CountryValidation": "gateway_common/CountryValidation.php",
 		"CurrencyRates": "gateway_common/CurrencyRates.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
 		"DonationData": "gateway_common/DonationData.php",

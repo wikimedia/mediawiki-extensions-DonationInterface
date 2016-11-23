@@ -3,6 +3,8 @@
 class CountryCodes {
 	/**
 	 * List of ISO 3166-1-alpha-2 country codes to display as select menu to user
+	 * FIXME: This is only used to stage up the country name for Minfraud. Let's
+	 * not duplicate the code list.
 	 */
 	static function getCountryCodes() {
 		$countryCode = array( 

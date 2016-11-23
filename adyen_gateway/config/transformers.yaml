@@ -1,5 +1,6 @@
 # Core
 - Amount
+- CountryValidation
 - DonorEmail
 - StreetAddress
 # Adyen-specific
