@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jsoby"
+			"Jsoby",
+			"Jon Harald Søby"
 		]
 	},
-	"globalcollectgateway": "Doner nå",
 	"globalcollect_gateway-desc": "Betalingsprosessering med GlobalCollect",
+	"globalcollect_gateway-fakesucceed": "Simuler en vellykket betaling",
+	"globalcollect_gateway-fakefail": "Simuler en mislykket betaling",
 	"globalcollect_gateway-response-9130": "Ugyldig land.",
 	"globalcollect_gateway-response-9140": "Ugyldig valuta.",
 	"globalcollect_gateway-response-9150": "Ugyldig språk.",

@@ -30,7 +30,7 @@
 	"donate_interface-amount-error": "נא לבחור את סכום התרומה",
 	"donate_interface-smallamount-error": "נא לבחור את הסכום (לפות $1)",
 	"donate_interface-bigamount-error": "איננו יכולים לקבל תרומות של יותר מֹ־10000 דולרים אמריקאיים ($1 $2) דרך האתר שלנו. נא ליצור קשר עם סגל התרומות הגדולות שלנו דרך $3.",
-	"donate_interface-processing-error": "חלה שגיאה בתהליך העיבוד של הבקשה. \nאין מעבדים זמינים.",
+	"donate_interface-processing-error": "חלה שגיאה בתהליך העיבוד של הבקשה. \nנא ליצור עם עם שירותי תורמים בכתובת <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-fallback-currency-notice": "אין תמיכה במטבע שלך. העיבוד יימשך באמצעות $1, בכפוף להסכמתך.",
 	"donate_interface-maintenance-notice": "אנו מתנצלים, אך התשלום באופן זה בוטל זמנית.",
 	"donate_interface-AED": "דירהם איחוד האמירויות הערביות",

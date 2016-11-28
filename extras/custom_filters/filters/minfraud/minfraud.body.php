@@ -268,8 +268,13 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			if ( !isset( $this->minfraudResponse['riskScore'] ) ) {
 				throw new RuntimeException( "No response at all from minfraud." );
 			}
+			$weight = $this->gateway_adapter->getGlobal( 'MinfraudWeight' );
+			$multiplier = $weight / 100;
 
-			$this->cfo->addRiskScore( $this->minfraudResponse['riskScore'], 'minfraud_filter' );
+			$this->cfo->addRiskScore(
+				$this->minfraudResponse['riskScore'] * $multiplier,
+				'minfraud_filter'
+			);
 		} 
 		catch( Exception $ex){
 			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.

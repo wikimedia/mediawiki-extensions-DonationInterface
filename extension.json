@@ -433,6 +433,7 @@
 		"DonationInterfaceEnableQueue": false,
 		"DonationInterfaceEnableConversionLog": false,
 		"DonationInterfaceEnableMinfraud": false,
+		"DonationInterfaceMinfraudWeight": 100,
 		"DonationInterfaceEnableBannerHistoryLog": false,
 		"GlobalCollectGatewayEnabled": false,
 		"AmazonGatewayEnabled": false,
