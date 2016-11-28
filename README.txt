@@ -437,6 +437,10 @@ $wgMinFraudLicenseKey = ''
  */
 $wgDonationInterfaceMinFraudServers = array()
 
+// Weight to give Minfraud risk scores when enabled
+// 100 means to use the raw minfraud score
+$wgDonationInterfaceMinFraudWeight = 100
+
 // Timeout in seconds for communicating with MaxMind
 $wgMinFraudTimeout = 2
 
