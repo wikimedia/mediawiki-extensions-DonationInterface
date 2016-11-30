@@ -146,7 +146,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'US' => array ( //default
 				'city' => 'San Francisco',
 				'state' => 'CA',
-				'zip' => '94105',
+				'postal_code' => '94105',
 				'currency_code' => 'USD',
 				'street' => '123 Fake Street',
 				'fname' => 'Firstname',
@@ -158,7 +158,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'ES' => array (
 				'city' => 'Barcelona',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 Calle Fake',
 				'fname' => 'Nombre',
@@ -169,7 +169,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'Catalonia' => array (
 				'city' => 'Barcelona',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 Calle Fake',
 				'fname' => 'Nombre',
@@ -180,7 +180,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'NO' => array (
 				'city' => 'Oslo',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 Fake Gate',
 				'fname' => 'Fornavn',
@@ -191,7 +191,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'FR' => array (
 				'city' => 'Versailles',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 Rue Faux',
 				'fname' => 'Prénom',
@@ -203,7 +203,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'FJ' => array (
 				'city' => 'Suva',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 Fake Street',
 				'fname' => 'FirstName',
@@ -214,7 +214,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'NL' => array (
 				'city' => 'Amsterdam',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 nep straat',
 				'fname' => 'Voornaam',
@@ -225,7 +225,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'BE' => array (
 				'city' => 'Antwerp',
 				'state' => 'XX',
-				'zip' => '0',
+				'postal_code' => '0',
 				'currency_code' => 'EUR',
 				'street' => '123 nep straat',
 				'fname' => 'Voornaam',
@@ -236,7 +236,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'IT' => array (
 				'city' => 'Torino',
 				'state' => 'TO',
-				'zip' => '10123',
+				'postal_code' => '10123',
 				'currency_code' => 'EUR',
 				'street' => 'Via Falso 123',
 				'fname' => 'Nome',
@@ -247,7 +247,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'CA' => array (
 				'city' => 'Saskatoon',
 				'state' => 'SK',
-				'zip' => 'S7K 0J5',
+				'postal_code' => 'S7K 0J5',
 				'currency_code' => 'CAD',
 				'street' => '123 Fake Street',
 				'fname' => 'Firstname',
@@ -387,7 +387,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 				'<STREET>' . $options['street'] . '</STREET>';
 		$expected .= 				'<CITY>' . $options['city'] . '</CITY>';
 		$expected .= 				'<STATE>' . $options['state'] . '</STATE>';
-		$expected .= 				'<ZIP>' . $options['zip'] . '</ZIP>';
+		$expected .= 				'<ZIP>' . $options['postal_code'] . '</ZIP>';
 		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 
 		// Set the issuer id if it is passed.

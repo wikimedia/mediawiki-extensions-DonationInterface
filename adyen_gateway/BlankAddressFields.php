@@ -12,7 +12,7 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 		'state',
 		'street',
 		'street_supplemental',
-		'zip',
+		'postal_code',
 		);
 
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {

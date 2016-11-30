@@ -25,7 +25,7 @@
 	"donate_interface-donor-street": "रस्ता",
 	"donate_interface-donor-city": "शहर",
 	"donate_interface-donor-state": "राज्य",
-	"donate_interface-donor-postal": "पिनकोड",
+	"donate_interface-donor-postal_code": "पिनकोड",
 	"donate_interface-donor-country": "देश/विभाग",
 	"donate_interface-donor-address": "पत्ता",
 	"donate_interface-cc-token-expired": "आपले ओळखचिन्ह समाप्त झाले आहे.तरोताजे करण्यास OK टिचका.",

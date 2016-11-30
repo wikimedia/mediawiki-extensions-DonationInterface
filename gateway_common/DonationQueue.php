@@ -273,7 +273,7 @@ class DonationQueue {
 			'subscr_id' => 'subscr_id',
 			'utm_campaign' => 'utm_campaign',
 			'utm_medium' => 'utm_medium',
-			'postal_code' => 'zip',
+			'postal_code' => 'postal_code',
 		);
 		foreach ( $optional_keys as $mkey => $tkey ) {
 			if ( isset( $transaction[$tkey] ) ) {
@@ -306,7 +306,6 @@ class DonationQueue {
 			'first_name' => 'fname',
 			'gross' => 'amount',
 			'last_name' => 'lname',
-			'postal_code' => 'zip',
 			'state_province' => 'state',
 			'street_address' => 'street',
 			'supplemental_address_1' => 'street_supplemental',

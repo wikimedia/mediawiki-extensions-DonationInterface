@@ -3,7 +3,7 @@
 class StreetAddress implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$stagedData['street'] = $this->stage_street( $normalized );
-		$stagedData['zip'] = $this->stage_zip( $normalized );
+		$stagedData['postal_code'] = $this->stage_postal_code( $normalized );
 	}
 
 	/**
@@ -35,34 +35,34 @@ class StreetAddress implements StagingHelper {
 	 * In the event that there isn't anything in there, we need to send
 	 * something along so that AVS checks get triggered at all.
 	 */
-	protected function stage_zip( $normalized ) {
-		$zip = '';
-		if ( isset( $normalized['zip'] ) ) {
-			$zip = trim( $normalized['zip'] );
+	protected function stage_postal_code( $normalized ) {
+		$postalCode = '';
+		if ( isset( $normalized['postal_code'] ) ) {
+			$postalCode = trim( $normalized['postal_code'] );
 		}
-		if ( strlen( $zip ) === 0 ) {
+		if ( strlen( $postalCode ) === 0 ) {
 			//it would be nice to check for more here, but the world has some
 			//straaaange postal codes...
-			$zip = '0';
+			$postalCode = '0';
 		}
 
-		//country-based zip grooming to make AVS (marginally) happy
+		//country-based postal_code grooming to make AVS (marginally) happy
 		if ( !empty( $normalized['country'] ) ) {
 			switch ( $normalized['country'] ) {
 			case 'CA':
 				//Canada goes "A0A 0A0"
-				$this->staged_data['zip'] = strtoupper( $zip );
+				$this->staged_data['postal_code'] = strtoupper( $postalCode );
 				//In the event that they only forgot the space, help 'em out.
 				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
-				if ( strlen( $this->staged_data['zip'] ) === 6
-					&& preg_match( $regex, $zip )
+				if ( strlen( $this->staged_data['postal_code'] ) === 6
+					&& preg_match( $regex, $postalCode )
 				) {
-					$zip = substr( $zip, 0, 3 ) . ' ' . substr( $zip, 3, 3 );
+					$postalCode = substr( $postalCode, 0, 3 ) . ' ' . substr( $postalCode, 3, 3 );
 				}
 				break;
 			}
 		}
 
-		return $zip;
+		return $postalCode;
 	}
 }

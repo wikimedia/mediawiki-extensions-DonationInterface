@@ -52,7 +52,7 @@
 			street: $( '#street' ).val(),
 			city: $( '#city' ).val(),
 			state: $( '#state' ).val(),
-			zip: $( '#zip' ).val(),
+			postal_code: $( '#postal_code' ).val(),
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),
 			payment_method: $( '#payment_method' ).val(),

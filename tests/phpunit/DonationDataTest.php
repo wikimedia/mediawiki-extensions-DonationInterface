@@ -47,7 +47,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'street' => '123 Fake Street',
 			'city' => 'Springfield',
 			'state' => 'US',
-			'zip' => '99999',
+			'postal_code' => '99999',
 			'country' => 'US',
 			'card_num' => '42',
 			'card_type' => 'visa',
@@ -123,7 +123,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'street' => '548 Market St.',
 			'city' => 'San Francisco',
 			'state' => 'CA',
-			'zip' => '94104',
+			'postal_code' => '94104',
 			'country' => 'US',
 			'card_num' => '378282246310005',
 			'card_type' => 'amex',
@@ -179,7 +179,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'street' => '548 Market St.',
 			'city' => 'San Francisco',
 			'state' => 'CA',
-			'zip' => '94104',
+			'postal_code' => '94104',
 			'country' => 'US',
 			'card_num' => '378282246310005',
 			'card_type' => 'amex',
@@ -275,10 +275,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 */
 	public function testIsSomething(){
 		$data = $this->testData;
-		unset( $data['zip'] );
+		unset( $data['postal_code'] );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
-		$this->assertEquals($ddObj->isSomething('zip'), false, "Zip should currently be nothing.");
+		$this->assertEquals($ddObj->isSomething('postal_code'), false, "Zip should currently be nothing.");
 		$this->assertEquals($ddObj->isSomething('lname'), true, "Lname should currently be something.");
 	}
 

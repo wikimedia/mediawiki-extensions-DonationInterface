@@ -305,7 +305,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'STREET' => 'street',
 			'CITY' => 'city',
 			'STATE' => 'state',
-			'ZIP' => 'zip',
+			'ZIP' => 'postal_code',
 			'EMAIL' => 'email',
 			'ACCOUNTHOLDER' => 'account_holder',
 			'ACCOUNTNAME' => 'account_name',
@@ -488,7 +488,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'utm_campaign'=>'C14_en5C_dec_dsk_FR',
 			'utm_medium'=>'sitenotice',
 			'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
-			'zip'=>'90210'
+			'postal_code'=>'90210'
 		) );
 
 		$gateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );

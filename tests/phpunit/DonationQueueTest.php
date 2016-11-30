@@ -68,7 +68,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'street' => '1 Fake St.',
 			'user_ip' => '127.0.0.1',
 			'utm_source' => 'testing',
-			'zip' => '12345',
+			'postal_code' => '12345',
 		);
 
 		$this->expected_message = array(

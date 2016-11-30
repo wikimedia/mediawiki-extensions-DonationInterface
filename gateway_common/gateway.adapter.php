@@ -2428,7 +2428,7 @@ abstract class GatewayAdapter
 						'street',
 						'city',
 						'country',
-						'zip', //this should really be added or removed, depending on the country and/or gateway requirements.
+						'postal_code', //this should really be added or removed, depending on the country and/or gateway requirements.
 						//however, that's not happening in this class in the code I'm replacing, so...
 						//TODO: Something clever in the DataValidator with data groups like these.
 					);

@@ -256,9 +256,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'select',
 				'selected' => 'SK',
 			),
-			'zip' => array (
+			'postal_code' => array (
 				'nodename' => 'input',
-				'value' => $init['zip'],
+				'value' => $init['postal_code'],
 			),
 			'country' => array (
 				'nodename' => 'input',

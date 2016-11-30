@@ -26,7 +26,7 @@
 	"donate_interface-donor-county": "Welat",
 	"donate_interface-donor-island": "Girav",
 	"donate_interface-donor-state": "Dewlet",
-	"donate_interface-donor-postal-us": "Zip",
+	"donate_interface-donor-postal_code-us": "Zip",
 	"donate_interface-donor-country": "Welat/Herêm",
 	"donate_interface-donor-address": "Navnîşan",
 	"donate_interface-error-msg-email": "navnîşana e-nameyê",

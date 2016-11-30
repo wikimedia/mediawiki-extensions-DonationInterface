@@ -22,9 +22,9 @@
 								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required autocomplete="billing address-level2" maxlength="64">
 {{/ city_required }}
 {{> state_dropdown }}{{! only renders if required }}
-{{# zip_required }}
-								<input class="{{ address_css_class }}" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal" }}" id="zip" required autocomplete="billing postal-code" maxlength="64">
-{{/ zip_required }}
+{{# postal_code_required }}
+								<input class="{{ address_css_class }}" name="postal_code" value="{{ postal_code }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal_code" }}" id="postal_code" required autocomplete="billing postal-code" maxlength="64">
+{{/ postal_code_required }}
 							</td>
 						</tr>
 
@@ -34,9 +34,9 @@
     {{# state_required }}
                         {{{ fieldError "state" }}}
     {{/ state_required }}
-    {{# zip_required }}
+    {{# postal_code_required }}
                         {{{ fieldError "postal_code" }}}
-    {{/ zip_required }}
+    {{/ postal_code_required }}
 {{/ address_required }}
 {{# fiscal_number_required }}
 						<tr>

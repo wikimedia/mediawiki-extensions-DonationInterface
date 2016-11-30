@@ -228,9 +228,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'Street must be stuffed with fake data to prevent AVS scam.' );
 	}
 
-	public function testZipStaging() {
+	public function testPostalCodeStaging() {
 		$options = $this->getDonorTestData( 'BR' );
-		unset( $options['zip'] );
+		unset( $options['postal_code'] );
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( '0', $exposed->getData_Staged( 'zip' ),
+		$this->assertEquals( '0', $exposed->getData_Staged( 'postal_code' ),
 			'Postal code must be stuffed with fake data to prevent AVS scam.' );
 	}
 

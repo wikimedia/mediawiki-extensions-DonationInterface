@@ -171,7 +171,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$address_fields = array(
 			'city',
 			'state',
-			'zip',
+			'postal_code',
 			'street',
 		);
 		$address_field_count = 0;
