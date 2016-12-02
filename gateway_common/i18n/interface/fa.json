@@ -14,7 +14,8 @@
 			"Rtemis",
 			"Alirezaaa",
 			"MohandesWiki",
-			"Hosseinblue"
+			"Hosseinblue",
+			"4nn1l2"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -232,7 +233,7 @@
 	"donate_interface-middle": "متوسط",
 	"donate_interface-last": "واپسین",
 	"donate_interface-other": "دیگر",
-	"donate_interface-noscript-msg": "به نظر می‌رسد جاوا اسکریپت غیرفعال باشد، یا مرورگر اینترنتی شما از آن پشتیبانی نمی‌کند.\nبه منظور ارائه یک تجربه امن، مطمئن و لذت بخش، فرم کمک مالی ما نیاز به جاوا اسکریپت دارد.",
+	"donate_interface-noscript-msg": "به نظر می‌رسد جاوااسکریپت غیرفعال باشد، یا مرورگر اینترنتی شما از آن پشتیبانی نمی‌کند.\nبه منظور ارائه یک تجربه امن، مطمئن و لذت بخش، فرم کمک مالی ما نیاز به جاوااسکریپت دارد.",
 	"donate_interface-noscript-redirect-msg": "اگر نمی‌توانید جاوا اسکریپت را فعال کنید، ممکن است هنوز مشارکت داشته باشید با مراجعه به:",
 	"donate_interface-anon-message": "لطفاً نام من را در فهرست عمومی اهداکنندگان قرار دهید.",
 	"donate_interface-donate-wikipedia": "کمک مالی به ویکی‌پدیا",
