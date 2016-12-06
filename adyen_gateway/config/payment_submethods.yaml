@@ -5,6 +5,7 @@ cb:
     logo: card-cb-lg.png
 visa:
     countries:
+        CA: true
         FR: true
         GB: true
         IL: true
@@ -21,6 +22,7 @@ jcb:
     logo: card-jcb-lg.png
 mc:
     countries:
+        CA: true
         FR: true
         GB: true
         IL: true
@@ -31,6 +33,7 @@ mc:
     logo: card-mc-lg.png
 amex:
     countries:
+        CA: true
         FR: true
         GB: true
         IL: true
