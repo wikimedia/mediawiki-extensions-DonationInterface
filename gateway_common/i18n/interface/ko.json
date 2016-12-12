@@ -361,7 +361,7 @@
 	"donate_interface-email-unsub-title": "위키미디어 재단의 소식 구독취소",
 	"donate_interface-email-unsub-button": "구독 취소",
 	"donate_interface-email-unsub-success": "성공적으로 메일링 리스트에서 제거되었습니다.",
-	"donate_interface-email-unsub-delay": "변경 사항을 적용하는 데에는 최대 4일까지 소요됩니다. 이 기간 동안 받게 될 모든 이메일에 대해 사과를 드립니다. 질문이 있으시다면 <donations@wikimedia.org>로 문의해 주십시오.",
+	"donate_interface-email-unsub-delay": "변경사항을 적용하는 데에는 최대 4일까지 소요됩니다. 이 기간 동안 받게 될 모든 이메일에 대해 사과를 드립니다. 질문이 있으시다면 <donations@wikimedia.org>로 문의해 주십시오.",
 	"donate_interface-email-unsub-fail": "요청을 처리하는 도중에 오류가 발생했습니다. <donations@wikimedia.org>로 연락해 주시기 바랍니다.",
 	"donate_interface-email-unsub-confirm": "<b>$1</b>(으)로 보내지는 소식지 구독을 취소하시겠습니까?",
 	"donate_interface-email-unsub-warning": "위키미디어 재단이 기부자에게 보내는 이메일 수신자 명단에서 사용자를 제외합니다. 그러나 저희의 프로젝트들 중 하나의 계정과 연결되어 있다면 여전히 이 이메일 주소로 메일을 받게 됩니다. 질문이 있으시다면 <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>로 문의해주시기 바랍니다.",
