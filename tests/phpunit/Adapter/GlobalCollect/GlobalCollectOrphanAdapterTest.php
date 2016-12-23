@@ -83,11 +83,11 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$data['order_id'] = '55555';
 
 		//now, add data and check that we didn't kill the oid. Still generating.
-		$gateway->loadDataAndReInit( $data, $useDB = false );
+		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '55555', 'loadDataAndReInit failed to stick OrderID' );
 
 		$data['order_id'] = '444444';
-		$gateway->loadDataAndReInit( $data, $useDB = false );
+		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '444444', 'loadDataAndReInit failed to stick OrderID' );
 
 		$this->verifyNoLogErrors();
@@ -104,11 +104,11 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$data['order_id'] = '66666';
 
 		//now, add data and check that we didn't kill the oid. Still not generating
-		$gateway->loadDataAndReInit( $data, $useDB = false );
+		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '66666', 'loadDataAndReInit failed to stick OrderID' );
 
 		$data['order_id'] = '777777';
-		$gateway->loadDataAndReInit( $data, $useDB = false );
+		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '777777', 'loadDataAndReInit failed to stick OrderID on second batch item' );
 
 		$this->verifyNoLogErrors();
@@ -156,7 +156,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@clean.com';
 		$init['contribution_tracking_id'] = mt_rand();
-		$gateway->loadDataAndReInit( $init, $useDB = false );
+		$gateway->loadDataAndReInit( $init );
 
 		$gateway->setDummyGatewayResponseCode( $code );
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
@@ -190,7 +190,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$init['contribution_tracking_id'] = mt_rand();
 		$init['payment_method'] = 'cc';
 
-		$gateway->loadDataAndReInit( $init, $useDB = false );
+		$gateway->loadDataAndReInit( $init );
 		$gateway->setDummyGatewayResponseCode( '600_badCvv' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );

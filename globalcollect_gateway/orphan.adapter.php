@@ -2,7 +2,7 @@
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	//Data we know to be good, that we always want to re-assert after a load or an addData.
-	//so far: order_id and the utm data we pull from contribution tracking.
+	//so far: order_id and the data we pull from contribution tracking.
 	protected $hard_data = array ( );
 
 	public static function getLogIdentifier() {
@@ -51,33 +51,21 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	// FIXME: This needs some serious code reuse trickery.
-	public function loadDataAndReInit( $data, $useDB = true ) {
+	public function loadDataAndReInit( $data ) {
 		//re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
 		$this->transaction_response = new PaymentTransactionResponse();
-		$this->hard_data = array( );
+		$this->hard_data = array(
+			'order_id' => $data['order_id']
+		);
 		$this->unstaged_data = array( );
 		$this->staged_data = array( );
-
-		$this->hard_data['order_id'] = $data['order_id'];
 
 		$this->dataObj = new DonationData( $this, $data );
 
 		$this->unstaged_data = $this->dataObj->getDataEscaped();
 
-		if ( $useDB ){
-			$this->hard_data = array_merge( $this->hard_data, $this->getUTMInfoFromDB() );
-		} else {
-			$utm_keys = array(
-				'utm_source',
-				'utm_campaign',
-				'utm_medium',
-				'date'
-			);
-			foreach($utm_keys as $key){
-				$this->hard_data[$key] = $data[$key];
-			}
-		}
+		$this->hard_data = array_merge( $this->hard_data, $this->getContributionTracking() );
 		$this->reAddHardData();
 
 		$this->staged_data = $this->unstaged_data;
@@ -115,7 +103,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 	}
 
-	public function getUTMInfoFromDB() {
+	public function getContributionTracking() {
 		if ( $this->getData_Unstaged_Escaped( 'utm_source' ) ) {
 			// We already have the info.
 			return array();
@@ -140,6 +128,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			$res = $db->select(
 				'contribution_tracking',
 				array(
+					'contribution_id',
 					'utm_source',
 					'utm_campaign',
 					'utm_medium',
@@ -147,7 +136,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 				),
 				array( 'id' => $ctid )
 			);
+			// Fixme: if we get more than one row back, MySQL is broken
 			foreach ( $res as $thing ) {
+				$data['contribution_id'] = $thing->contribution_id;
 				$data['utm_source'] = $thing->utm_source;
 				$data['utm_campaign'] = $thing->utm_campaign;
 				$data['utm_medium'] = $thing->utm_medium;
@@ -162,7 +153,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 
 		//if we got here, we can't find anything else...
-		$this->logger->error( "$ctid: FAILED to find UTM Source value. Using default." );
+		$this->logger->error( "$ctid: FAILED to find contribution tracking data. Using default." );
 		return $data;
 	}
 
