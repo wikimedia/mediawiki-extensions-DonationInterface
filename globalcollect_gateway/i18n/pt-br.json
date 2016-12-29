@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ppena"
+			"Ppena",
+			"!Silent"
 		]
 	},
-	"globalcollectgateway": "Faça a sua doação agora",
 	"globalcollect_gateway-desc": "Processamento de pagamentos GlobalCollect",
+	"globalcollect_gateway-fakesucceed": "Simulação de pagamento bem-sucedida",
+	"globalcollect_gateway-fakefail": "Simulação de pagamento malsucedida",
 	"globalcollect_gateway-response-9130": "País inválido",
 	"globalcollect_gateway-response-9140": "Moeda inválida",
 	"globalcollect_gateway-response-9150": "Língua inválida",

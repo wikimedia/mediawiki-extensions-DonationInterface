@@ -3,7 +3,8 @@
 		"authors": [
 			"Тест",
 			"Хомелка",
-			"Дзяніс Тутэйшы"
+			"Дзяніс Тутэйшы",
+			"Mechanizatar"
 		]
 	},
 	"donate_interface": "Падтрымаем Вікіпедыю",
@@ -19,9 +20,9 @@
 	"donate_interface-comment-label": "Каментарый:",
 	"donate_interface-email-agreement": "Я згодны перыядычна атрымліваць па эл. пошце навіны ад Фонду Вікімедыя.",
 	"donate_interface-comment-title": "Агульнадаступны каментарый",
-	"donate_interface-amount-error": "Калі ласка, увядзіце карэктную суму",
-	"donate_interface-smallamount-error": "Вы павінны ўнесці па крайняй меры $1",
-	"donate_interface-processing-error": "Пры апрацоўцы вашага запыту паўстала памылка. Няма даступных працэсараў.",
+	"donate_interface-amount-error": "Калі ласка, выберыце суму ахвяравання",
+	"donate_interface-smallamount-error": "Выберыце суму (мінімум $1)",
+	"donate_interface-processing-error": "Пры апрацоўцы вашага запыту адбылася памылка. Звяжыцеся са Службай па ахвяраванням праз <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-AED": "Дзірхам ААЭ",
 	"donate_interface-ARS": "Аргенцінскае песа",
 	"donate_interface-AUD": "Аўстралійскі долар",

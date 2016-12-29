@@ -1,7 +1,7 @@
 {{# fname_required }}{{! if we don't need the fname, hide the whole name cell }}
 						<tr>
 							<td>
-								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required autocomplete="billing given-name cc-given-name"><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required autocomplete="billing family-name cc-family-name">
+								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required autocomplete="billing family-name cc-family-name" maxlength="64">
 							</td>
 						</tr>
                         {{{ fieldError "fname" }}}
@@ -11,7 +11,7 @@
 {{# street_required }}
 						<tr>
 							<td>
-								<input class="fullwidth" name="street" value="{{ street }}" type="text" title="{{ l10n "donate_interface-donor-street" }}" placeholder="{{ l10n "donate_interface-donor-street" }}" id="street" required autocomplete="billing address-line1">
+								<input class="fullwidth" name="street" value="{{ street }}" type="text" title="{{ l10n "donate_interface-donor-street" }}" placeholder="{{ l10n "donate_interface-donor-street" }}" id="street" required autocomplete="billing address-line1" maxlength="96">
 							</td>
 						</tr>
                         {{{ fieldError "street" }}}
@@ -19,11 +19,11 @@
 						<tr>
 							<td>
 {{# city_required }}
-								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required autocomplete="billing address-level2">
+								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" required autocomplete="billing address-level2" maxlength="64">
 {{/ city_required }}
 {{> state_dropdown }}{{! only renders if required }}
 {{# zip_required }}
-								<input class="{{ address_css_class }}" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal" }}" id="zip" required autocomplete="billing postal-code">
+								<input class="{{ address_css_class }}" name="zip" value="{{ zip }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal" }}" id="zip" required autocomplete="billing postal-code" maxlength="64">
 {{/ zip_required }}
 							</td>
 						</tr>
@@ -49,7 +49,7 @@
 {{# email_required }}
 						<tr>
 							<td>
-								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required autocomplete="email">
+								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" required autocomplete="email" maxlength="254">
 							</td>
 						</tr>
                         <tr id="emailSuggestion" >
