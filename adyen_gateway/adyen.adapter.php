@@ -217,23 +217,22 @@ class AdyenAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * For Adyen, we only call this on the donor's return to the ResultSwitcher
-	 * @param array $response GET/POST params from request
+	 * @param array $requestValues GET/POST params from request
 	 * @throws ResponseProcessingException
 	 */
-	public function processResponse( $response ) {
+	public function processDonorReturn( $requestValues ) {
 		// Always called outside do_transaction, so just make a new response object
 		$this->transaction_response = new PaymentTransactionResponse();
-		if ( empty( $response ) ) {
+		if ( empty( $requestValues ) ) {
 			$this->logger->info( "No response from gateway" );
 			throw new ResponseProcessingException(
 				'No response from gateway',
 				ResponseCodes::NO_RESPONSE
 			);
 		}
-		$this->logger->info( "Processing user return data: " . print_r( $response, TRUE ) );
+		$this->logger->info( "Processing user return data: " . print_r( $requestValues, TRUE ) );
 
-		if ( !$this->checkResponseSignature( $response ) ) {
+		if ( !$this->checkResponseSignature( $requestValues ) ) {
 			$this->logger->info( "Bad signature in response" );
 			throw new ResponseProcessingException(
 				'Bad signature in response',
@@ -244,14 +243,14 @@ class AdyenAdapter extends GatewayAdapter {
 
 		// Overwrite the order ID we have with the return data, in case the
 		// donor opened a second window.
-		$orderId = $response['merchantReference'];
+		$orderId = $requestValues['merchantReference'];
 		$this->addRequestData( array(
 			'order_id' => $orderId,
 		) );
-		$gateway_txn_id = isset( $response['pspReference'] ) ? $response['pspReference'] : '';
+		$gateway_txn_id = isset( $requestValues['pspReference'] ) ? $requestValues['pspReference'] : '';
 		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
-		$result_code = isset( $response['authResult'] ) ? $response['authResult'] : '';
+		$result_code = isset( $requestValues['authResult'] ) ? $requestValues['authResult'] : '';
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
@@ -274,7 +273,7 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 		else {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $response, TRUE ) );
+			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $requestValues, TRUE ) );
 		}
 		$this->postProcessDonation();
 	}

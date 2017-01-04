@@ -1450,6 +1450,22 @@ abstract class GatewayAdapter
 	}
 
 	/**
+	 * Default implementation just says we got a response.
+	 * @param array|DomDocument $response
+	 */
+	public function processResponse( $response ) {
+		$this->transaction_response->setCommunicationStatus( true );
+	}
+
+	/**
+	 * Default implementation sets status to complete.
+	 * @param array $requestValues all GET and POST values from the request
+	 */
+	public function processDonorReturn( $requestValues ) {
+		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+	}
+
+	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
 	 * @return boolean true if response looks sane
 	 */

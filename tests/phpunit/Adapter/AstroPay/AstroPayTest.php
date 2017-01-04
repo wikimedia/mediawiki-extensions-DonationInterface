@@ -343,7 +343,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * If status is paid and signature is correct, processResponse should not
+	 * If status is paid and signature is correct, processDonorReturn should not
 	 * throw exception and final status should be 'completed'
 	 */
 	function testSuccessfulReturn() {
@@ -352,9 +352,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		// Next lines mimic AstroPay resultswitcher
-		$gateway->setCurrentTransaction( 'ProcessReturn' );
-		$response = array(
+		$requestValues = array(
 			'result' => '9',
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -365,7 +363,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processResponse( $response );
+		$gateway->processDonorReturn( $requestValues );
 		$status = $gateway->getFinalStatus();
 		$this->assertEquals( FinalStatus::COMPLETE, $status );
 	}
@@ -384,9 +382,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '22.55', $amount );
 
-		// Next lines mimic AstroPay resultswitcher
-		$gateway->setCurrentTransaction( 'ProcessReturn' );
-		$response = array(
+		$requestValues = array(
 			'result' => '9',
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -397,7 +393,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processResponse( $response );
+		$gateway->processDonorReturn( $requestValues );
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '100.00', $amount, 'Not recording correct amount' );
 	}
@@ -411,8 +407,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		$gateway->setCurrentTransaction( 'ProcessReturn' );
-		$response = array(
+		$requestValues = array(
 			'result' => '8', // rejected by bank
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -423,7 +418,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processResponse( $response );
+		$gateway->processDonorReturn( $requestValues );
 		$status = $gateway->getFinalStatus();
 		$this->assertEquals( FinalStatus::FAILED, $status );
 	}

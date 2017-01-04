@@ -44,9 +44,6 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 	}
 	function defineReturnValueMap() {
 	}
-	function processResponse( $response ) {
-		$this->transaction_response->setCommunicationStatus( true );
-	}
 
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(

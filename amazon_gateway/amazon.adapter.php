@@ -407,11 +407,6 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * SDK takes care of most of the dirty work for us
-	 */
-	public function processResponse( $response ) {}
-
-	/**
 	 * MakeGlobalVariablesScript handler, sends settings to Javascript
 	 * @param array $vars
 	 */

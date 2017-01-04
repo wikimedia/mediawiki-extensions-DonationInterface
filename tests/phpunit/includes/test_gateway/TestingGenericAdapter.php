@@ -98,9 +98,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineVarMap() {
 	}
 
-	public function processResponse( $response ) {
-	}
-
 	public function setGatewayDefaults() {
 	}
 

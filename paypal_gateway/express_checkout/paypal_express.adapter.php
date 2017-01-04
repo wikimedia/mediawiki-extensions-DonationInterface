@@ -382,15 +382,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return true;
 	}
 
-	/**
-	 * TODO: DRY with AstroPay; handle ProcessReturn like other transactions
-	 */
 	public function processResponse( $response ) {
-		// May need to initialize transaction_response, as we can be called by
-		// GatewayPage to process responses outside of do_transaction
-		if ( !$this->transaction_response ) {
-			$this->transaction_response = new PaymentTransactionResponse();
-		}
 		$this->transaction_response->setData( $response );
 		// FIXME: I'm not sure why we're responsible for failing the
 		// transaction.  If not, we can omit the try/catch here.
@@ -419,41 +411,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->checkResponseAck( $response );
 				$this->transaction_response->setRedirect(
 					$this->account_config['RedirectURL'] . $response['TOKEN'] );
-				break;
-			case 'ProcessReturn':
-				// FIXME: Silly that we have to wedge the response controller in
-				// here with tail recursion.  And fragile, because we have to
-				// remember about reentry.
-				$this->addRequestData( array(
-					'ec_token' => $response['token'],
-					'payer_id' => $response['PayerID'],
-				) );
-				$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
-				if ( !$resultData->getCommunicationStatus() ) {
-					throw new ResponseProcessingException( 'Failed to get customer details',
-						ResponseCodes::UNKNOWN );
-				}
-
-				// One-time payment, or initial payment in a subscription.
-				// XXX: This shouldn't finalize the transaction.
-				$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
-				if ( !$resultData->getCommunicationStatus() ) {
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					break;
-				}
-
-				if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-					// Set up recurring billing agreement.
-					$this->addRequestData( array(
-						// Start in a month; we're making today's payment as an one-time charge.
-						'date' => time() + 30 * 24 * 3600, // FIXME: calendar month
-					) );
-					$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
-					if ( !$resultData->getCommunicationStatus() ) {
-						throw new ResponseProcessingException(
-							'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
-					}
-				}
 				break;
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
@@ -501,6 +458,39 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$this->logger->error( "Failure detected in " . json_encode( $response ) );
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			throw $ex;
+		}
+	}
+
+	public function processDonorReturn( $requestValues ) {
+		$this->addRequestData( array(
+			'ec_token' => $requestValues['token'],
+			'payer_id' => $requestValues['PayerID'],
+		) );
+		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
+		if ( !$resultData->getCommunicationStatus() ) {
+			throw new ResponseProcessingException( 'Failed to get customer details',
+				ResponseCodes::UNKNOWN );
+		}
+
+		// One-time payment, or initial payment in a subscription.
+		// XXX: This shouldn't finalize the transaction.
+		$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
+		if ( !$resultData->getCommunicationStatus() ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return;
+		}
+
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			// Set up recurring billing agreement.
+			$this->addRequestData( array(
+				// Start in a month; we're making today's payment as an one-time charge.
+				'date' => time() + 30 * 24 * 3600, // FIXME: calendar month
+			) );
+			$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
+			if ( !$resultData->getCommunicationStatus() ) {
+				throw new ResponseProcessingException(
+					'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
+			}
 		}
 	}
 
