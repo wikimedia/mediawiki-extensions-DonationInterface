@@ -20,7 +20,7 @@
 	"donate_interface-donor-street": "Rruga:",
 	"donate_interface-donor-city": "Qyteti:",
 	"donate_interface-donor-state": "Shteti:",
-	"donate_interface-donor-postal": "Kodi postar:",
+	"donate_interface-donor-postal_code": "Kodi postar:",
 	"donate_interface-donor-country": "Vendi / Rajoni:",
 	"donate_interface-donor-address": "Adresa:",
 	"donate_interface-donor-card": "Kartë krediti",

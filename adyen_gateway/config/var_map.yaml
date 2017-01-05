@@ -1,7 +1,7 @@
 allowedMethods: allowed_methods
 billingAddress.city: city
 billingAddress.country: country
-billingAddress.postalCode: zip
+billingAddress.postalCode: postal_code
 billingAddress.stateOrProvince: state
 billingAddress.street: street
 billingAddress.houseNumberOrName: street_supplemental

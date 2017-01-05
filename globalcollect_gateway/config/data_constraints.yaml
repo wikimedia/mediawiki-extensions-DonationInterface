@@ -202,7 +202,7 @@ transaction_type:
     type: alphanumeric
     length: 2
 # ZIP: AN10
-zip:
+postal_code:
     type: alphanumeric
     length: 10
 

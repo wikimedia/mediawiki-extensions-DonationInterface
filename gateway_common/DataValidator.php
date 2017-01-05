@@ -38,7 +38,7 @@ class DataValidator {
 			case 'country':
 			case 'street':
 			case 'state':
-			case 'zip':
+			case 'postal_code':
 				$error_token = $field;
 				break;
 			default:
@@ -71,7 +71,7 @@ class DataValidator {
 			'country' => '',
 			'street' => '',
 			'state' => '',
-			'zip' => '',
+			'postal_code' => '',
 			'email' => '',
 		);
 	}

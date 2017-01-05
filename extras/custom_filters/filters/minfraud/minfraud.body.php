@@ -142,7 +142,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$map = array(
 			"city" => "city",
 			"region" => "state",
-			"postal" => "zip",
+			"postal" => "postal_code",
 			"country" => "country",
 			"domain" => "email",
 			"emailMD5" => "email",

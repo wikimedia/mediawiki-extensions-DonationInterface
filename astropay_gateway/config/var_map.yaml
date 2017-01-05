@@ -13,7 +13,7 @@ x_email: email
 # We've been told bdate is non-mandatory, despite the docs
 x_bdate: birth_date
 x_address: street
-x_zip: zip
+x_zip: postal_code
 x_city: city
 x_state: state
 x_document: gateway_txn_id

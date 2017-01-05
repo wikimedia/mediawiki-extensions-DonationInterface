@@ -6,4 +6,4 @@ GB:
     address: true
 US:
     street: true
-    zip: true
+    postal_code: true

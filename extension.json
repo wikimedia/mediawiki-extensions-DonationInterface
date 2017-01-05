@@ -15,7 +15,6 @@
 		"Casey Dentinger"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
-	"descriptionmsg": "donationinterface-desc",
 	"type": "specialpage",
 	"requires": {
 		"MediaWiki": ">= 1.27.0"
@@ -230,7 +229,7 @@
 				"donate_interface-error-msg-discover",
 				"donate_interface-error-msg-amount",
 				"donate_interface-error-msg-email",
-				"donate_interface-error-msg-postal",
+				"donate_interface-error-msg-postal_code",
 				"donate_interface-error-msg-country",
 				"donate_interface-error-msg-card_type",
 				"donate_interface-error-msg-card_num",
@@ -252,8 +251,7 @@
 				"donate_interface-donor-street",
 				"donate_interface-donor-city",
 				"donate_interface-donor-state",
-				"donate_interface-donor-zip",
-				"donate_interface-donor-postal",
+				"donate_interface-donor-postal_code",
 				"donate_interface-donor-country",
 				"donate_interface-donor-email",
 				"donate_interface-donor-fiscal_number",

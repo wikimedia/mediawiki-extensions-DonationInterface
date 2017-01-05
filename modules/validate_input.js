@@ -81,7 +81,7 @@ window.validate_personal = function () {
 
 	function clearError( field ) {
 		$( '#' + field ).removeClass( 'errorHighlight' );
-		$( terribleErrorMessageIdWorkaround( field ) )
+		$( '#' + field + 'Msg' )
 			.removeClass( 'errorMsg' )
 			.addClass( 'errorMsgHide' );
 	}
@@ -89,18 +89,10 @@ window.validate_personal = function () {
 	function setError( field, message ) {
 		errorsPresent = true;
 		$( '#' + field ).addClass( 'errorHighlight' );
-		$( terribleErrorMessageIdWorkaround( field ) )
+		$( '#' + field + 'Msg' )
 			.removeClass( 'errorMsgHide' )
 			.addClass( 'errorMsg' )
 			.text( message );
-	}
-
-	// FIXME: Tear this band-aid off and finish https://gerrit.wikimedia.org/r/320267
-	function terribleErrorMessageIdWorkaround( fieldKey ) {
-		if ( fieldKey === 'zip' ) {
-			fieldKey = 'postal_code';
-		}
-		return '#' + fieldKey + 'Msg';
 	}
 
 	function isEmpty( field, value ) {
