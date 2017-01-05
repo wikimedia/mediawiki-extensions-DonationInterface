@@ -168,7 +168,6 @@
 	"donate_interface-donor-state": "The donor is to select either a U.S. state or \"Outside the U.S.\" \n{{Identical|State}}",
 	"donate_interface-donor-state-au": "Label for Australian state or territory selection.",
 	"donate_interface-donor-state-ca": "Label for Canadian province selection.\n{{Identical|Province}}",
-	"donate_interface-donor-postal_code-us": "Placeholder for zip code field. This should be 10 characters maximum.\n{{Identical|Zip}}",
 	"donate_interface-donor-postal_code": "Label for field to input postal code.\n{{Identical|Postal code}}",
 	"donate_interface-donor-postal_code-us": "US-specific placeholder for postal code field. This should be 10 characters maximum.\n{{Identical|Zip}}",
 	"donate_interface-donor-postcode": "{{optional}}\n{{Identical|Postal code}}",
