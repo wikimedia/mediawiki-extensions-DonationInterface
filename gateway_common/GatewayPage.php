@@ -428,6 +428,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			switch ( $status ) {
 			case FinalStatus::COMPLETE:
 			case FinalStatus::PENDING:
+			case FinalStatus::PENDING_POKE:
 				$this->displayThankYouPage( $status );
 				return;
 			}
