@@ -1264,6 +1264,50 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		return $return;
 	}
 
+	public function processDonorReturn( $requestValues ) {
+
+		$oid = null;
+		if ( array_key_exists( 'order_id', $requestValues ) ) {
+			$oid = $requestValues['order_id'];
+		} else if ( array_key_exists( 'REF', $requestValues ) ) {
+			$oid = $requestValues['REF'];
+		}
+
+		if (! $oid) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			$this->logger->error( 'Missing Order ID' );
+			return;
+		}
+
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) !== 'cc' ) {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			$this->logger->error( "Payment method is not CC, OID: {$oid}" );
+			return;
+		}
+
+		$session_oid = $this->session_getData( 'Donor', 'order_id' );
+
+		if (! $session_oid ) {
+			$this->logger->info( "Missing Session Order ID for OID: {$oid}" );
+			// Donor has made two payment attempts, and we have the wrong one's
+			// info in session. To avoid recording the wrong details, leave the
+			// attempt in PENDING status, which will show the thank you page
+			// but leave the payment to be resolved by the orphan rectifier.
+			// FIXME: should use finalizeInternalStatus() but there are side effects.
+			$this->final_status = FinalStatus::PENDING;
+			return;
+		}
+
+		if ( $oid !== $session_oid ) {
+			$this->logger->info( "Order ID mismatch '{$oid}'/'{$session_oid}'" );
+			// FIXME: should use finalizeInternalStatus() but there are side effects
+			$this->final_status = FinalStatus::PENDING;
+			return;
+		}
+
+		$this->do_transaction( 'Confirm_CreditCard' );
+	}
+
 	/**
 	 * Process the response and set transaction_response properties
 	 *
