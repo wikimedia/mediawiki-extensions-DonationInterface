@@ -454,7 +454,7 @@
 	"apihelp-donate-param-street_supplemental": "{{doc-apihelp-param|donate|street_supplemental}}",
 	"apihelp-donate-param-city": "{{doc-apihelp-param|donate|city}}\n{{Identical|City}}",
 	"apihelp-donate-param-state": "{{doc-apihelp-param|donate|state}}",
-	"apihelp-donate-param-postal_code": "{{doc-apihelp-param|donate|zip}}\n{{Identical|Postal code}}",
+	"apihelp-donate-param-postal_code": "{{doc-apihelp-param|donate|postal_code}}\n{{Identical|Postal code}}",
 	"apihelp-donate-param-email": "{{doc-apihelp-param|donate|email}}\n{{Identical|E-mail address}}",
 	"apihelp-donate-param-country": "{{doc-apihelp-param|donate|country}}",
 	"apihelp-donate-param-card_num": "{{doc-apihelp-param|donate|card_num}}",

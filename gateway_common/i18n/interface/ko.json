@@ -151,7 +151,6 @@
 	"donate_interface-donor-county": "국가",
 	"donate_interface-donor-island": "섬",
 	"donate_interface-donor-state": "시/도/주:",
-	"donate_interface-donor-postal_code-us": "우편 번호",
 	"donate_interface-donor-postal_code": "우편 번호:",
 	"donate_interface-donor-postal_code-us": "우편 번호",
 	"donate_interface-donor-postcode": "우편 번호",
@@ -390,5 +389,6 @@
 	"donate_interface-secureLogo-text": "SSL 인증서에 대하여",
 	"donate_interface-error-http-403": "이 문서에 접근할 권한이 없습니다.",
 	"donate_interface-statement": "위키미디어 $1",
+	"apihelp-donate-param-postal_code": "우편 번호.",
 	"apihelp-donate-param-wmf_token": "편집 토큰."
 }
