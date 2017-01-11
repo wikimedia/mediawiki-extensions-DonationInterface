@@ -22,7 +22,7 @@
 	"donate_interface-amount-error": "Seleiciona una cantidá pa donar",
 	"donate_interface-smallamount-error": "Seleiciona una cantidá (lo mínimo ye $1)",
 	"donate_interface-bigamount-error": "Nun podemos aceutar donaciones de más de 10000 USD ($1 $2) al traviés del nuesu sitiu Web. Por favor, pongase'n contactu col equipu de grandes donaciones en $3.",
-	"donate_interface-processing-error": "Hebo un error al procesar la so solicitú.\nNun hai nengún procesador disponible.",
+	"donate_interface-processing-error": "Hebo un error al procesar la solicitú.\nComunícate con Servicios a donantes en <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"donate_interface-fallback-currency-notice": "La so divisa nun tien sofitu. El procesamientu efectuaráse usando $1, si decide siguir.",
 	"donate_interface-maintenance-notice": "Pidimos disculpes, pero esta triba de pagu ta desactivada temporalmente.",
 	"donate_interface-AED": "Dirham de los EAU",
