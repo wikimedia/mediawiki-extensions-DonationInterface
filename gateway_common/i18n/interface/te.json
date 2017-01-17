@@ -130,8 +130,8 @@
 	"donate_interface-donor-county": "దేశం",
 	"donate_interface-donor-island": "దీవి",
 	"donate_interface-donor-state": "రాష్ట్రం",
-	"donate_interface-donor-postal_code-us": "జిప్",
 	"donate_interface-donor-postal_code": "తపాలా కోడు:",
+	"donate_interface-donor-postal_code-us": "జిప్",
 	"donate_interface-donor-country": "దేశం/ప్రాంతం:",
 	"donate_interface-donor-zone": "జోన్",
 	"donate_interface-donor-address": "చిరునామా",
@@ -328,5 +328,6 @@
 	"donate_interface-secureLogo-text": "SSL సర్టఫికెట్ల గురించి",
 	"donate_interface-error-http-403": "ఈ పేజీని చూడడానికి మీరు అనుమతి లేదు.",
 	"apihelp-donate-param-fname": "మొదటి పేరు.",
-	"apihelp-donate-param-lname": "ఇంటి పేరు."
+	"apihelp-donate-param-lname": "ఇంటి పేరు.",
+	"apihelp-donate-param-postal_code": "తపాలా సంకేతం."
 }

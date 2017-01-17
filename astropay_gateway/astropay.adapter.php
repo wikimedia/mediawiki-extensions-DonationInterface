@@ -246,18 +246,12 @@ class AstroPayAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Processes JSON data from AstroPay API, and also processes GET/POST params
-	 * on donor's return to ResultSwitcher
+	 * Processes JSON data from AstroPay API
 	 * @param array $response JSON response decoded to array, or GET/POST
 	 *        params from request
 	 * @throws ResponseProcessingException
 	 */
 	public function processResponse( $response ) {
-		// May need to initialize transaction_response, as we can be called by
-		// GatewayPage to process responses outside of do_transaction
-		if ( !$this->transaction_response ) {
-			$this->transaction_response = new PaymentTransactionResponse();
-		}
 		$this->transaction_response->setData( $response );
 		if ( !$response ) {
 			throw new ResponseProcessingException(
@@ -269,27 +263,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		case 'PaymentStatus':
 			$this->processStatusResponse( $response );
 			break;
-		case 'ProcessReturn':
-			$this->processStatusResponse( $response );
-			if ( !isset( $response['x_document'] ) ) {
-				$this->logger->error( 'AstroPay did not post back their transaction ID in x_document' );
-				throw new ResponseProcessingException(
-					'AstroPay did not post back their transaction ID in x_document',
-					ResponseCodes::MISSING_TRANSACTION_ID
-				);
-			}
-			// Make sure we record the right amount, even if the donor has opened
-			// a new window and messed with their session data.
-			// Unfortunately, we don't get the currency code back.
-			$this->addResponseData( array(
-				'amount' => $response['x_amount'],
-			) );
-			$this->transaction_response->setGatewayTransactionId( $response['x_document'] );
-			$status = $this->findCodeAction( 'PaymentStatus', 'result', $response['result'] );
-			$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
-			$this->finalizeInternalStatus( $status );
-			$this->postProcessDonation();
-			break;
 		case 'NewInvoice':
 			$this->processNewInvoiceResponse( $response );
 			if ( isset( $response['link'] ) ) {
@@ -297,6 +270,36 @@ class AstroPayAdapter extends GatewayAdapter {
 			}
 			break;
 		}
+	}
+
+	public function processDonorReturn( $requestValues ) {
+		// Need to flag that this is a donor return so we use the correct
+		// keys to check the signature.
+		$this->setCurrentTransaction( 'ProcessReturn' );
+		$this->processStatusResponse( $requestValues );
+		if ( !isset( $requestValues['x_document'] ) ) {
+			$this->logger->error( 'AstroPay did not post back their transaction ID in x_document' );
+			throw new ResponseProcessingException(
+				'AstroPay did not post back their transaction ID in x_document',
+				ResponseCodes::MISSING_TRANSACTION_ID
+			);
+		}
+		// Make sure we record the right amount, even if the donor has opened
+		// a new window and messed with their session data.
+		// Unfortunately, we don't get the currency code back.
+		$this->addResponseData( array(
+			'amount' => $requestValues['x_amount']
+		) );
+		// FIXME: There is no real API response, so maybe we should put the
+		// gateway txn id in unstaged data. As is, we need to fabricate a
+		// transaction response and set it there so it is picked up when
+		// we send the message to the queue
+		$this->transaction_response = new PaymentTransactionResponse();
+		$this->transaction_response->setGatewayTransactionId( $requestValues['x_document'] );
+		$status = $this->findCodeAction( 'PaymentStatus', 'result', $requestValues['result'] );
+		$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
+		$this->finalizeInternalStatus( $status );
+		$this->postProcessDonation();
 	}
 
 	/**

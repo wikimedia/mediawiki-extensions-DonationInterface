@@ -57,6 +57,14 @@ interface GatewayType {
 	 */
 	public function processResponse( $response );
 
+
+	/**
+	 * Perform any additional processing required when donor returns from
+	 * payment processor site. Should set the final status.
+	 * @param array $requestValues all GET and POST values from the request
+	 */
+	public function processDonorReturn( $requestValues );
+
 	/**
 	 * defineTransactions will define the $transactions array.
 	 * The array will contain everything we need to know about the request structure for all the transactions we care about,

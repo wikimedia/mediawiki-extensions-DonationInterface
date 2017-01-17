@@ -34,7 +34,7 @@ module.exports = function ( grunt ) {
 		},
 		banana: {
 			shared: 'gateway_common/i18n/*/',
-			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/i18n/'
+			gateways: '{adyen,amazon,astropay,globalcollect,paypal}_gateway/i18n/'
 		},
 		watch: {
 			files: [
