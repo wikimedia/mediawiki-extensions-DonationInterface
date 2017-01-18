@@ -23,7 +23,6 @@
 	},
 	"require": {
 		"coderkungfu/php-queue": "dev-master",
-		"fusesource/stomp-php": "^2.1",
 		"minfraud/http": "^1.70",
 		"monolog/monolog": "~1.18.2",
 		"neitanod/forceutf8": "^2.0",
