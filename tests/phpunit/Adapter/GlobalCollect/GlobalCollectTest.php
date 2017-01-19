@@ -491,7 +491,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'postal_code'=>'90210'
 		) );
 
-		$gateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$gateway = new TestingGlobalCollectAdapter();
 		$gateway->setDummyGatewayResponseCode( 'Exception' );
 		try {
 			$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
@@ -501,7 +501,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		}
 		$first = $gateway->curled[0];
 		//simulate another request coming in before we get anything back from GC
-		$anotherGateway = new TestingGlobalCollectAdapter( array( 'api_request' => 'true' ) );
+		$anotherGateway = new TestingGlobalCollectAdapter();
 		$anotherGateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		$second = $anotherGateway->curled[0];
 		$this->assertFalse( $first == $second, 'Two calls to the api did the same thing');
