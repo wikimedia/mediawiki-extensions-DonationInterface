@@ -1450,10 +1450,16 @@ abstract class GatewayAdapter
 	}
 
 	/**
+	 * Process the API response obtained from the payment processor and set
+	 * properties of transaction_response.
 	 * Default implementation just says we got a response.
-	 * @param array|DomDocument $response
+	 *
+	 * @param array|DomDocument $response Cleaned-up response returned from
+	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @throws ResponseProcessingException with an actionable error code and any
+	 *         variables to retry
 	 */
-	public function processResponse( $response ) {
+	protected function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );
 	}
 
