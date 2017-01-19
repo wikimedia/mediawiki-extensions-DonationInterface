@@ -53,11 +53,6 @@ abstract class GatewayAdapter
 	protected $dataConstraints = array();
 
 	/**
-	 * $cdata lists fields which require CDATA tags
-	 */
-	protected $cdata = array();
-
-	/**
 	 * $error_map maps gateway errors to client errors
 	 *
 	 * The key of each error should map to a i18n message key or a callable
@@ -886,11 +881,7 @@ abstract class GatewayAdapter
 			$temp = $this->xmlDoc->createElement( $value );
 
 			$data = null;
-			if ( in_array( $value, $this->cdata ) ) {
-				$data = $this->xmlDoc->createCDATASection( $nodevalue );
-			} else {
-				$data = $this->xmlDoc->createTextNode( $nodevalue );
-			}
+			$data = $this->xmlDoc->createTextNode( $nodevalue );
 
 			$temp->appendChild( $data );
 			$node->appendChild( $temp );
@@ -3190,22 +3181,6 @@ abstract class GatewayAdapter
 			$params[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
 		return $params;
-	}
-
-	/**
-	 * isValidSpecialForm: Tells us if the ffname supplied is a valid
-	 * special form for the current gateway.
-	 * @var string $ffname The form name we want to try
-	 * @return boolean True if this is a valid special form, otherwise false
-	 */
-	public function isValidSpecialForm( $ffname ){
-		$defn = GatewayFormChooser::getFormDefinition( $ffname );
-		if ( is_array( $defn ) &&
-			DataValidator::value_appears_in( $this->getIdentifier(), $defn['gateway'] ) &&
-			array_key_exists( 'special_type', $defn ) ){
-				return true;
-		}
-		return false;
 	}
 
 	/**
