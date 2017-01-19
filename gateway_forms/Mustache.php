@@ -299,7 +299,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * Get a message value specific to the donor's country and language.
 	 *
 	 * @param array $params first value is used as message key
-	 * TODO: use the rest as message parameters
 	 * @return string
 	 */
 	public static function l10n( $params ) {

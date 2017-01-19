@@ -1,17 +1,6 @@
 <?php
 
 abstract class Gateway_Form {
-	/**
-	 * An array of form errors, passed from the gateway form object
-	 * @var array
-	 */
-	public $form_errors;
-
-	/**
-	 * Gateway-specific logger
-	 * @var \Psr\Log\LoggerInterface
-	 */
-	protected $logger;
 
 	/**
 	 * @var GatewayAdapter
@@ -22,6 +11,8 @@ abstract class Gateway_Form {
 	 * @var GatewayPage
 	 */
 	protected $gatewayPage;
+	// FIXME: decouple form rendering from both of the above.
+	// Instead, make a FormParameters class with errors, donor info, settings, etc.
 
 	/**
 	 * @var string
@@ -46,40 +37,11 @@ abstract class Gateway_Form {
 
 	public function setGateway( GatewayType $gateway ) {
 		$this->gateway = $gateway;
-		$this->logger = DonationLoggerFactory::getLogger( $gateway );
-		$gateway_errors = $this->gateway->getAllErrors();
-
-		// @codeCoverageIgnoreStart
-		if ( !is_array( $gateway_errors ) ){
-			$gateway_errors = array();
-		}
-		// @codeCoverageIgnoreEnd
-
-		$this->form_errors = array_merge( DataValidator::getEmptyErrorArray(), $gateway_errors );
 	}
 
 	public function setGatewayPage( GatewayPage $gatewayPage ) {
 		$this->gatewayPage = $gatewayPage;
 		$this->scriptPath = $gatewayPage->getContext()->getConfig()->get( 'ScriptPath' );
-	}
-
-	/**
-	 * Generate HTML for <noscript> tags
-	 * For displaying when a user does not have Javascript enabled in their browser.
-	 */
-	protected function getNoScript() {
-		$noScriptRedirect = $this->gateway->getGlobal( 'NoScriptRedirect' );
-
-		$form = '<noscript>';
-		$form .= '<div id="noscript">';
-		$form .= '<p id="noscript-msg">' . wfMessage( 'donate_interface-noscript-msg' )->escaped() . '</p>';
-		if ( $noScriptRedirect ) {
-			$form .= '<p id="noscript-redirect-msg">' . wfMessage( 'donate_interface-noscript-redirect-msg' )->escaped() . '</p>';
-			$form .= '<p id="noscript-redirect-link"><a href="' . htmlspecialchars( $noScriptRedirect ) . '">' . htmlspecialchars( $noScriptRedirect ) . '</a></p>';
-		}
-		$form .= '</div>';
-		$form .= '</noscript>';
-		return $form;
 	}
 
 	/**
@@ -140,18 +102,6 @@ abstract class Gateway_Form {
 		$form .= '</tr>';
 		$form .= '</table>';
 		return $form;
-	}
-
-	/**
-	 * Pulls normalized and escaped data from the $gateway object.
-	 * For more information, see GatewayAdapter::getData_Unstaged_Escaped in
-	 * $IP/extensions/DonationData/gateway_common/gateway.adapter.php
-	 * @param string $key The value to fetch from the adapter.
-	 * @return mixed The escaped value in the adapter, or null if none exists.
-	 * Note: The value could still be a blank string in some cases.
-	 */
-	protected function getEscapedValue( $key ) {
-		return $this->gateway->getData_Unstaged_Escaped( $key );
 	}
 
 	public function getResources() {
