@@ -223,14 +223,6 @@ interface GatewayType {
 	public function getData_Unstaged_Escaped( $val = '' );
 
 	/**
-	 * Retrieve the data we will need in order to retry a payment.
-	 * This is useful in the event that we have just killed a session before
-	 * the next retry.
-	 * @return array Data required for a payment retry.
-	 */
-	public function getRetryData();
-
-	/**
 	 * Get metadata for the specified payment method as set in
 	 * @see definePaymentMethods
 	 *

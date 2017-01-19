@@ -3175,14 +3175,6 @@ abstract class GatewayAdapter
 		return $match;
 	}
 
-	public function getRetryData() {
-		$params = array ( );
-		foreach ( $this->dataObj->getRetryFields() as $field ) {
-			$params[$field] = $this->getData_Unstaged_Escaped( $field );
-		}
-		return $params;
-	}
-
 	/**
 	 * buildOrderIDSources: Uses the 'alt_locations' array in the order id
 	 * metadata, to build an array of all possible candidates for order_id.

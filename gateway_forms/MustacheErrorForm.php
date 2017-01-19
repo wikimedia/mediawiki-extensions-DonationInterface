@@ -36,8 +36,9 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 			'gateway' => $this->gateway->getIdentifier()
 		);
 		if ( !$this->gateway->session_hasDonorData() ) {
-			$preserve = $this->gateway->getRetryData();
-			$params = array_merge( $preserve, $params );
+			foreach ( DonationData::getRetryFields() as $field ) {
+				$params[$field] = $data[$field];
+			}
 		}
 		$data['ffname_retry'] = GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ;
 	}
