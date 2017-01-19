@@ -69,7 +69,6 @@
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CurrencyRates": "gateway_common/CurrencyRates.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
-		"CyclicalArray": "globalcollect_gateway/CyclicalArray.php",
 		"DonationData": "gateway_common/DonationData.php",
 		"DonationInterface": "DonationInterface.class.php",
 		"DonationLoggerFactory": "gateway_common/DonationLoggerFactory.php",
