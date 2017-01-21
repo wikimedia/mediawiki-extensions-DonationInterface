@@ -128,8 +128,8 @@
 	"donate_interface-donor-county": "நாடு",
 	"donate_interface-donor-island": "தீவு",
 	"donate_interface-donor-state": "மாநிலம்:",
-	"donate_interface-donor-postal_code-us": "Zip",
 	"donate_interface-donor-postal_code": "அஞ்சல் எண்:",
+	"donate_interface-donor-postal_code-us": "Zip",
 	"donate_interface-donor-country": "நாடு/மண்டலம்:",
 	"donate_interface-donor-zone": "வலயம்",
 	"donate_interface-donor-address": "முகவரி:",
@@ -321,5 +321,6 @@
 	"donate_interface-onetime-short": "ஒரு முறை",
 	"donate_interface-secureLogo-text": "SSL சான்றிதழ்கள் பற்றி",
 	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை.",
+	"apihelp-donate-param-postal_code": "அஞ்சல் குறியீடு",
 	"apihelp-donate-param-email": "மின்னஞ்சல் முகவரி."
 }
