@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Malafaya"
+			"Malafaya",
+			"Lakaoso"
 		]
 	},
 	"donate_interface-AUD": "Australiana Dolaro",
@@ -9,7 +10,7 @@
 	"donate_interface-EUR": "Euro",
 	"donate_interface-GBP": "Britaniana Pundo",
 	"donate_interface-USD": "Usana Dolaro",
-	"donate_interface-cvv-link": "Exemplo",
+	"donate_interface-cvv-link": "Ube es ito?",
 	"donate_interface-donor-amount": "Sumo:",
 	"donate_interface-donor-currency-label": "Monetaro:",
 	"donate_interface-donor-name": "Nomo:",

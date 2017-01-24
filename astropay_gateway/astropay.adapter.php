@@ -251,7 +251,7 @@ class AstroPayAdapter extends GatewayAdapter {
 	 *        params from request
 	 * @throws ResponseProcessingException
 	 */
-	public function processResponse( $response ) {
+	protected function processResponse( $response ) {
 		$this->transaction_response->setData( $response );
 		if ( !$response ) {
 			throw new ResponseProcessingException(

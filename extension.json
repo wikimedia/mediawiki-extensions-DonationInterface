@@ -69,7 +69,6 @@
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CurrencyRates": "gateway_common/CurrencyRates.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
-		"CyclicalArray": "globalcollect_gateway/CyclicalArray.php",
 		"DonationData": "gateway_common/DonationData.php",
 		"DonationInterface": "DonationInterface.class.php",
 		"DonationLoggerFactory": "gateway_common/DonationLoggerFactory.php",
@@ -369,10 +368,8 @@
 		"AstroPayGatewayURL": "https://astropaycard.com/",
 		"AstroPayGatewayTestingURL": "https://sandbox.astropaycard.com/",
 		"DonationInterfaceDefaultQueueServer": {
-			"type": "PHPQueue\\Backend\\Stomp",
-			"uri": "tcp://localhost:61613",
-			"read_timeout": "1",
-			"expiry": "30 days",
+			"type": "PHPQueue\\Backend\\PDO",
+			"connection_string": "mysql:host=localhost;dbname=payment_queues",
 			"_merge_strategy": "array_plus"
 		},
 		"DonationInterfaceQueues": {

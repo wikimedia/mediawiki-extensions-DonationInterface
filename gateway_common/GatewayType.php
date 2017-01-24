@@ -48,17 +48,6 @@ interface GatewayType {
 	public static function getGlobal( $varname );
 
 	/**
-	 * Process the API response obtained from the payment processor and set
-	 * properties of transaction_response
-	 * @param array|DomDocument $response Cleaned-up response returned from
-	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
-	 * @throws ResponseProcessingException with an actionable error code and any
-	 *         variables to retry
-	 */
-	public function processResponse( $response );
-
-
-	/**
 	 * Perform any additional processing required when donor returns from
 	 * payment processor site. Should set the final status.
 	 * @param array $requestValues all GET and POST values from the request
@@ -232,14 +221,6 @@ interface GatewayType {
 	 * specific value held for $val, or null if none exists.
 	 */
 	public function getData_Unstaged_Escaped( $val = '' );
-
-	/**
-	 * Retrieve the data we will need in order to retry a payment.
-	 * This is useful in the event that we have just killed a session before
-	 * the next retry.
-	 * @return array Data required for a payment retry.
-	 */
-	public function getRetryData();
 
 	/**
 	 * Get metadata for the specified payment method as set in

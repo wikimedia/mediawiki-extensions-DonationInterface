@@ -1271,7 +1271,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 * @throws ResponseProcessingException with code and potentially retry vars.
 	 */
-	public function processResponse( $response ) {
+	protected function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus(
 			$this->parseResponseCommunicationStatus( $response )
 		);

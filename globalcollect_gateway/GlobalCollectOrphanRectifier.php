@@ -36,7 +36,7 @@ class GlobalCollectOrphanRectifier {
 	protected $time_buffer;
 
 	/**
-	 * @var GatewayType Payments adapter to do the processing.
+	 * @var GlobalCollectOrphanAdapter Payments adapter to do the processing.
 	 */
 	protected $adapter;
 
@@ -156,17 +156,25 @@ class GlobalCollectOrphanRectifier {
 	 * fully rectified or not.
 	 *
 	 * @param array $normalized Orphaned message
-	 * @param boolean $query_contribution_tracking A flag specifying if we
-	 * should query the contribution_tracking table or not.  Defaults to true.
 	 *
 	 * @return boolean True if the orphan has been rectified, false if not.
 	 */
-	protected function rectifyOrphan( $normalized, $query_contribution_tracking = true ){
+	protected function rectifyOrphan( $normalized ){
 		$this->logger->info( "Rectifying orphan: {$normalized['order_id']}" );
 		$is_rectified = false;
 
-		$this->adapter->loadDataAndReInit( $normalized, $query_contribution_tracking );
-		$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+		$this->adapter->loadDataAndReInit( $normalized );
+		$civiId = $this->adapter->getData_Unstaged_Escaped( 'contribution_id' );
+		if ( $civiId ) {
+			$this->logger->error(
+				$normalized['contribution_tracking_id'] .
+				": Contribution tracking already has contribution_id $civiId.  " .
+				'Stop confusing donors!'
+			);
+			$results = $this->adapter->do_transaction( 'CANCEL_PAYMENT' );
+		} else {
+			$results = $this->adapter->do_transaction( 'Confirm_CreditCard' );
+		}
 
 		// FIXME: error message is squishy and inconsistent with the error_map
 		// used elsewhere.

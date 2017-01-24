@@ -53,11 +53,6 @@ abstract class GatewayAdapter
 	protected $dataConstraints = array();
 
 	/**
-	 * $cdata lists fields which require CDATA tags
-	 */
-	protected $cdata = array();
-
-	/**
 	 * $error_map maps gateway errors to client errors
 	 *
 	 * The key of each error should map to a i18n message key or a callable
@@ -886,11 +881,7 @@ abstract class GatewayAdapter
 			$temp = $this->xmlDoc->createElement( $value );
 
 			$data = null;
-			if ( in_array( $value, $this->cdata ) ) {
-				$data = $this->xmlDoc->createCDATASection( $nodevalue );
-			} else {
-				$data = $this->xmlDoc->createTextNode( $nodevalue );
-			}
+			$data = $this->xmlDoc->createTextNode( $nodevalue );
 
 			$temp->appendChild( $data );
 			$node->appendChild( $temp );
@@ -1450,10 +1441,16 @@ abstract class GatewayAdapter
 	}
 
 	/**
+	 * Process the API response obtained from the payment processor and set
+	 * properties of transaction_response.
 	 * Default implementation just says we got a response.
-	 * @param array|DomDocument $response
+	 *
+	 * @param array|DomDocument $response Cleaned-up response returned from
+	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @throws ResponseProcessingException with an actionable error code and any
+	 *         variables to retry
 	 */
-	public function processResponse( $response ) {
+	protected function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );
 	}
 
@@ -3176,30 +3173,6 @@ abstract class GatewayAdapter
 		}
 
 		return $match;
-	}
-
-	public function getRetryData() {
-		$params = array ( );
-		foreach ( $this->dataObj->getRetryFields() as $field ) {
-			$params[$field] = $this->getData_Unstaged_Escaped( $field );
-		}
-		return $params;
-	}
-
-	/**
-	 * isValidSpecialForm: Tells us if the ffname supplied is a valid
-	 * special form for the current gateway.
-	 * @var string $ffname The form name we want to try
-	 * @return boolean True if this is a valid special form, otherwise false
-	 */
-	public function isValidSpecialForm( $ffname ){
-		$defn = GatewayFormChooser::getFormDefinition( $ffname );
-		if ( is_array( $defn ) &&
-			DataValidator::value_appears_in( $this->getIdentifier(), $defn['gateway'] ) &&
-			array_key_exists( 'special_type', $defn ) ){
-				return true;
-		}
-		return false;
 	}
 
 	/**
