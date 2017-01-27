@@ -142,11 +142,7 @@ class DonationApi extends ApiBase {
 	}
 
 	private function getGatewayObject() {
-		$gateway_opts = array(
-			'api_request' => 'true'
-		);
-
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
-		return new $className( $gateway_opts );
+		return new $className();
 	}
 }
