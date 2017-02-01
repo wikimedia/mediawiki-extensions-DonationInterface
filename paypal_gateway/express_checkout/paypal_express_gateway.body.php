@@ -8,6 +8,7 @@ class PaypalExpressGateway extends GatewayPage {
 	 */
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
+		$this->getOutput()->addModules( 'ext.donationInterface.forms' );
 
 		$this->handleDonationRequest();
 	}

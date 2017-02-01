@@ -7,7 +7,8 @@
 			"Jsoby",
 			"Wikitanvir",
 			"Aftabuzzaman",
-			"Aashaa"
+			"Aashaa",
+			"Elias Ahmmad"
 		]
 	},
 	"donate_interface": "উইকিমিডিয়াকে সাহায্য করুন",
@@ -335,6 +336,7 @@
 	"apihelp-donate-param-fname": "নামের প্রথমাংশ।",
 	"apihelp-donate-param-lname": "নামের শেষাংশ।",
 	"apihelp-donate-param-city": "শহর।",
+	"apihelp-donate-param-postal_code": "পোস্টাল কোড।",
 	"apihelp-donate-param-email": "ইমেইল ঠিকানা।",
 	"apihelp-donate-param-country": "দেশের কোড।",
 	"apihelp-donate-param-card_num": "ক্রেডিট কার্ড নম্বর।",

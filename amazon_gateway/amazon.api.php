@@ -15,7 +15,6 @@ class AmazonBillingApi extends ApiBase {
 		$recurring = $this->getParameter( 'recurring');
 		$token = $this->getParameter( 'wmf_token' );
 		$adapterParams = array(
-			'api_request' => true,
 			'external_data' => array(
 				'amount' => $this->getParameter( 'amount' ),
 				'currency_code' => $this->getParameter( 'currency_code' ),
