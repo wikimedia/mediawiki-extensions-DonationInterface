@@ -16,6 +16,7 @@ class DonationApi extends ApiBase {
 		$submethod = $this->donationData['payment_submethod'];
 
 		$gatewayObj = $this->getGatewayObject();
+		DonationInterface::initializeSmashPig( $this->gateway );
 
 		if ( !$gatewayObj ) {
 			return; // already failed with a dieUsage call

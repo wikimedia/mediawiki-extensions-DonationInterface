@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
  * GlobalCollectAdapter
@@ -1583,6 +1584,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			// TODO: Review.  Why is this set to country_bank_code in other cases?
 			$this->var_map['COUNTRYCODEBANK'] = 'country';
 			break;
+		case 'rtbt':
+			$this->getBankList();
 		}
 
 		// Use staged data so we pick up tricksy -_country variants
@@ -1711,6 +1714,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$result = $avs_map[$this->getData_Unstaged_Escaped( 'avs_result' )];
 		return $result;
+	}
+
+	/**
+	 * Update the list of banks for realtime bank transfer
+	 */
+	protected function getBankList() {
+		// Need some basic data to do lookups
+		if ( !is_array( $this->unstaged_data ) ) {
+			return;
+		}
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		if ( $country === null || $currency === null ) {
+			return;
+		}
+		try {
+			$provider = PaymentProviderFactory::getProviderForMethod( 'rtbt' );
+			$banks = $provider->getBankList( $country, $currency );
+			$this->payment_submethods['rtbt_ideal']['issuerids'] = $banks;
+		}
+		catch( Exception $e ) {
+			$this->logger->warning(
+				'Something failed trying to look up the banks, using hard-coded list' .
+				$e->getMessage()
+			);
+		}
 	}
 
 	/**

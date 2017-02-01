@@ -59,6 +59,12 @@ $wgDonationInterface3DSRules = array(
 	'INR' => array(), //all countries
 )
 
+Caching:
+To let SmashPig objects use Mediawiki's local cluster BagOStuff cache, add this
+to your SmashPig configuration under key 'cache':
+ class: LocalClusterPsr6Cache
+(no constructor-parameters need to be specified)
+
 ==== Form appearance and content ====
 
 Besides these settings, please see DonationInterfaceFormSettings.php
