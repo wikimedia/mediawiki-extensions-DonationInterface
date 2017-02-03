@@ -17,8 +17,8 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	protected $cfo;
 
 	/**
-	 * Memcached instance we use to store and retrieve scores
-	 * @var Memcached
+	 * Cache instance we use to store and retrieve scores
+	 * @var BagOStuff
 	 */
 	protected $cache_obj;
 
@@ -29,6 +29,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
+		$this->cache_obj = ObjectCache::getLocalClusterInstance();
 	}
 
 	protected function filter() {
@@ -46,64 +47,38 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
 			return true;
 		}
-		
-		//if the user ip was in neither list, check the velocity. 
-		if ( $this->connectToMemcache() ){
 
-			$stored = $this->getMemcachedValue();
+		$stored = $this->getCachedValue();
 
-			if (!$stored){ //we don't have anything in memcache for this dude yet.
-				$this->gateway_adapter->debugarray[] = "Found no memcached data for $user_ip";
-				$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero
-				return true;
+		if (!$stored){ //we don't have anything in memcache for this dude yet.
+			$this->gateway_adapter->debugarray[] = "Found no memcached data for $user_ip";
+			$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero
+			return true;
+		} else {
+			$count = count( $stored );
+			$this->gateway_adapter->debugarray[] = "Found a memcached bit of data for $user_ip: " . print_r($stored, true);
+			$this->gateway_logger->info( "IPVelocityFilter: $user_ip has $count hits" );
+			if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ){
+				$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
+				//cool off, sucker. Muahahaha.
+				$this->addNowToCachedValue( $stored, true );
 			} else {
-				$count = count( $stored );
-				$this->gateway_adapter->debugarray[] = "Found a memcached bit of data for $user_ip: " . print_r($stored, true);
-				$this->gateway_logger->info( "IPVelocityFilter: $user_ip has $count hits" );
-				if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ){
-					$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
-					//cool off, sucker. Muahahaha. 
-					$this->addNowToMemcachedValue( $stored, true );
-				} else {
-					$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero here, too.
-				}
-			}	
+				$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); //want to see the explicit zero here, too.
+			}
 		}
-		
+
 		//fail open, in case memcached doesn't work.
 		return true;
 	}
 
 
 	protected function postProcess(){
-		//after a successful transaction, add a record of it.
-		if ( $this->connectToMemcache() ){
-			$this->addNowToMemcachedValue();
-		}
+		$this->addNowToCachedValue();
 		return true;
 	}
 
-	protected function connectToMemcache(){
-		//this needs Memcached to work.
-		if ( !class_exists('Memcached') ){
-			$this->gateway_logger->alert( "IPVelocityFilter says Memcached class does not exist." );
-			return false; //can't proceed... 
-		}
-		
-		//connect to memcache
-		$this->cache_obj = new Memcached;
-		$ret = $this->cache_obj->addServer( $this->gateway_adapter->getGlobal( 'MemcacheHost' ), $this->gateway_adapter->getGlobal( 'MemcachePort' ) );
-		if ($ret){
-			return true;
-		} else {
-			$this->gateway_logger->alert( "IPVelocityFilter unable to connect to memcache host " . $this->gateway_adapter->getGlobal( 'MemcacheHost' ) );
-			return false;
-		}
-	}
-
-	protected function getMemcachedValue(){
+	protected function getCachedValue(){
 		//check to see if the user ip is in memcache
-		//need to be connected first. 
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 		$stored = $this->cache_obj->get( $user_ip );
 		return $stored;
@@ -119,10 +94,10 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * @param bool $fail If this entry was added on the filter being tripped
 	 * @param bool $toxic If we're adding this entry to penalize a toxic card
 	 */
-	protected function addNowToMemcachedValue( $oldvalue = null, $fail = false, $toxic = false ){
+	protected function addNowToCachedValue( $oldvalue = null, $fail = false, $toxic = false ){
 		//need to be connected first. 
 		if ( is_null( $oldvalue ) ){
-			$oldvalue = $this->getMemcachedValue();
+			$oldvalue = $this->getCachedValue();
 		}
 		
 		$timeout = null;
@@ -236,9 +211,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$gateway,
 			Gateway_Extras_CustomFilters::singleton( $gateway )
 		);
-		if ( $velocity->connectToMemcache() ) {
-			$velocity->addNowToMemcachedValue( null, false, true );
-		}
+		$velocity->addNowToCachedValue( null, false, true );
 	}
 
 }
