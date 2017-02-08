@@ -50,7 +50,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 			'generate' => false,
 		);
 	}
-	function setGatewayDefaults() {}
+
 
 	function defineTransactions() {
 		$this->transactions = array();

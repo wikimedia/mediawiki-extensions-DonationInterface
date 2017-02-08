@@ -98,7 +98,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineVarMap() {
 	}
 
-	public function setGatewayDefaults() {
+	public function setGatewayDefaults( $options = array() ) {
 	}
 
 	public function getCurrencies( $options = array() ) {
