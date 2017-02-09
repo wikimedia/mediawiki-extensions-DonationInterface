@@ -163,7 +163,7 @@ interface GatewayType {
 	 * DO NOT set default payment information here (or anywhere, really).
 	 * That would be naughty.
 	 */
-	function setGatewayDefaults();
+	function setGatewayDefaults( $options = array() );
 
 	/**
 	 * @param array $options If given, try to filter supported currencies by:

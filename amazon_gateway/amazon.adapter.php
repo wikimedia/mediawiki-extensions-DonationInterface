@@ -84,8 +84,6 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults() {}
-
 	public function defineErrorMap() {
 		parent::defineErrorMap();
 

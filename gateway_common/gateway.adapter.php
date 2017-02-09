@@ -1232,6 +1232,8 @@ abstract class GatewayAdapter
 		return $this->payment_submethods;
 	}
 
+	function setGatewayDefaults( $options = array ( ) ) {}
+
 	public function getCurrencies( $options = array() ) {
 		return $this->config['currencies'];
 	}

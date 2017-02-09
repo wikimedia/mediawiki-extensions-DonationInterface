@@ -79,8 +79,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults() {}
-
 	function defineTransactions() {
 		$this->transactions = array( );
 

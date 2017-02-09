@@ -79,8 +79,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults() {}
-
 	public function getCurlBaseOpts() {
 		$opts = parent::getCurlBaseOpts();
 

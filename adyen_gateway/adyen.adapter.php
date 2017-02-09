@@ -68,8 +68,6 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults() {}
-
 	/**
 	 * Define transactions
 	 */
