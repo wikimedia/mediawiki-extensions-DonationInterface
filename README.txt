@@ -472,8 +472,6 @@ $wgDonationInterfaceCustomFiltersFunctions = array()
 $wgDonationInterfaceCustomFiltersInitialFunctions = array()
 
 //IP velocity filter globals
-$wgDonationInterfaceMemcacheHost = 'localhost'
-$wgDonationInterfaceMemcachePort = '11211'
 $wgDonationInterfaceIPVelocityFailScore = 100
 $wgDonationInterfaceIPVelocityTimeout = 60 * 5	//5 minutes in seconds
 $wgDonationInterfaceIPVelocityThreshhold = 3	//3 transactions per timeout

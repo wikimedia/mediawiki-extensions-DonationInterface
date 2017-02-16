@@ -79,7 +79,13 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults() {}
+	function setGatewayDefaults( $options = array ( ) ) {
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+			$this->addRequestData(
+				array( 'payment_method' => 'paypal' )
+			);
+		}
+	}
 
 	public function getCurlBaseOpts() {
 		$opts = parent::getCurlBaseOpts();
