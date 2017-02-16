@@ -7,7 +7,8 @@
 			"Turin",
 			"Vladimir Penov",
 			"පසිඳු කාවින්ද",
-			"Pcoombe"
+			"Pcoombe",
+			"StanProg"
 		]
 	},
 	"donate_interface": "Подкрепете Уикимедия",
@@ -140,8 +141,8 @@
 	"donate_interface-donor-county": "Окръг",
 	"donate_interface-donor-island": "Остров",
 	"donate_interface-donor-state": "Държава:",
-	"donate_interface-donor-postal_code-us": "ЗИП код",
 	"donate_interface-donor-postal_code": "Пощенски код:",
+	"donate_interface-donor-postal_code-us": "ЗИП код",
 	"donate_interface-donor-country": "Страна или област:",
 	"donate_interface-donor-zone": "Зона",
 	"donate_interface-donor-address": "Адрес:",
@@ -372,6 +373,7 @@
 	"donate_interface-securelogo-title": "Click to Verify - Сайтът използва VeriSign SSL за безопасна електронна търговия и конфиденциални комуникации.",
 	"donate_interface-secureLogo-text": "Относно SSL сертификатите",
 	"donate_interface-error-http-403": "Нямате разрешение за достъп до тази страница.",
+	"donate_interface-statement": "Уикимедия $1",
 	"apihelp-donate-description": "Този API интерфейс ви позволява да направите дарение на Фондация Уикимедия, избирайки измежду разнообразни услуги по обработка на плащанията.",
 	"apihelp-donate-param-gateway": "Коя система за разплащания да се използва - adyen, globalcollect, и т.н.",
 	"apihelp-donate-param-amount": "Дарената сума.",
