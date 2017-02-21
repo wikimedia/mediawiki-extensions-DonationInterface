@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  *
  */
+use SmashPig\Core\Configuration;
+use SmashPig\Core\Context;
 
 /**
  * 
@@ -24,8 +26,26 @@
  * @group RealTimeBankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest extends DonationInterfaceTestCase {
+	/**
+	 * @var PHPUnit_Framework_MockObject_MockObject
+	 */
+	protected $bankPaymentProvider;
+
 	public function setUp() {
 		parent::setUp();
+
+		$config = Configuration::createForView( 'ingenico' );
+		Context::initWithLogger( $config ); // gets torn down in parent
+
+		$this->bankPaymentProvider = $this->getMock( '\SmashPig\PaymentProviders\Ingenico\BankPaymentProvider' );
+		$config->overrideObjectInstance( 'payment-provider/rtbt', $this->bankPaymentProvider );
+
+		$this->bankPaymentProvider->method( 'getBankList' )
+			->willReturn( array(
+				'Test1234' => 'Test Bank 1234',
+				'Test5678' => 'Test Bank 5678',
+			) );
+
 
 		$this->setMwGlobals( array(
 			'wgGlobalCollectGatewayEnabled' => true,
@@ -50,8 +70,6 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$init['ffname'] = 'rtbt-ideal';
 
 		$assertNodes = array (
-			//can't do the selected-amount test here, because apparently javascript. So...
-
 			'amount' => array (
 				'nodename' => 'input',
 				'value' => '1.55',
@@ -64,6 +82,9 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 				'nodename' => 'input',
 				'value' => 'NL',
 			),
+			'issuer_id' => array (
+				'innerhtmlmatches' => '/Test Bank 1234/'
+			)
 		);
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
