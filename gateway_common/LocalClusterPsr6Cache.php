@@ -1,9 +1,6 @@
 <?php
 
-namespace gateway_common;
-
 use Addshore\Psr\Cache\MWBagOStuffAdapter\BagOStuffPsrCache;
-use ObjectCache;
 
 /**
  * A PSR-6 compatible wrapper to let SmashPig objects use Mediawiki's
@@ -14,7 +11,7 @@ use ObjectCache;
  * (no constructor-parameters need to be specified)
  */
 class LocalClusterPsr6Cache extends BagOStuffPsrCache {
-	function __construct__() {
+	public function __construct() {
 		$mainCache = ObjectCache::getLocalClusterInstance();
 		parent::__construct( $mainCache );
 	}

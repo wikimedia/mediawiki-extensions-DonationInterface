@@ -1630,6 +1630,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			break;
 		case 'rtbt':
 			$this->getBankList();
+			break;
 		}
 
 		// Use staged data so we pick up tricksy -_country variants
