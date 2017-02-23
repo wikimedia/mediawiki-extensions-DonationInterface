@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use SmashPig\Core\Logging\Logger;
 
 /**
  * GatewayPage
@@ -82,6 +83,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		try {
 			$this->adapter = new $className();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
+
+			// FIXME: SmashPig should just use Monolog.
+			Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
+
 			$out = $this->getOutput();
 			$out->addModuleStyles( 'donationInterface.styles' );
 			$out->addModules( 'donationInterface.skinOverride' );
