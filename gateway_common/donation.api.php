@@ -15,8 +15,8 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
-		$gatewayObj = $this->getGatewayObject();
 		DonationInterface::initializeSmashPig( $this->gateway );
+		$gatewayObj = $this->getGatewayObject();
 
 		if ( !$gatewayObj ) {
 			return; // already failed with a dieUsage call
