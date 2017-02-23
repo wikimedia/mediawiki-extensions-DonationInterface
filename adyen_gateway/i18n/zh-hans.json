@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"乌拉跨氪"
+			"乌拉跨氪",
+			"Liuxinyu970226"
 		]
 	},
-	"adyengateway": "马上捐款",
 	"adyen_gateway-desc": "Adyen支付进行中",
-	"adyen_gateway-response-default": "在处理你的信息时出错。\n请稍候再试。"
+	"adyen_gateway-response-default": "在处理您的信息时出错。请稍候再试。"
 }

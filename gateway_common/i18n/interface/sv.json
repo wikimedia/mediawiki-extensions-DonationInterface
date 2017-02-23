@@ -18,7 +18,8 @@
 			"Jrobell",
 			"Jenniesarina",
 			"Pcoombe",
-			"Jopparn"
+			"Jopparn",
+			"Josve05a"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -377,7 +378,7 @@
 	"donate_interface-email-unsub-fail": "Det uppstod ett fel vid bearbetningen av din förfrågan, kontakta <donations@wikimedia.org>.",
 	"donate_interface-email-unsub-confirm": "Är du säker på att du vill avbeställa <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Detta kommer att avaktivera e-postmeddelanden från Wikimedia Foundation som skickas till dig som givare. Du kan fortfarande få e-post till denna e-postadress om den är associerad med ett konto på ett av våra projekt. Om du har några frågor, vänligen kontakta <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
-	"donate_interface-faqs": "Svar På Ofta Förekommande Frågor",
+	"donate_interface-faqs": "Svar på ofta förekommande frågor",
 	"donate_interface-tax-info": "Information om avdragsgiltighet",
 	"donate_interface-informationsharing": "Genom att donera går du med på att dela din personliga information med Wikimedia Foundation, den ideella organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i enlighet med vår <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">givarpolicy</a>. Wikimedia Foundation och dess leverantörer befinner sig i Förenta staterna och i andra länder vars integritetslagar kan skilja sig från dina. Vi säljer eller byter inte din information med någon. För mer information läs vår <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">givarpolicy</a>.",
 	"donate_interface-currency-change": "Ändra?",
