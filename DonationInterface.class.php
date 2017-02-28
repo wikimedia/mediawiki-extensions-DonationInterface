@@ -89,7 +89,9 @@ class DonationInterface {
 	 */
 	public static function initializeSmashPig( $view ) {
 		$spConfig = Configuration::createForView( $view );
-		Context::init( $spConfig );
+		// FIXME: should set a logger prefix here, but we've got a chicken
+		// and egg problem with the Gateway constructor
+		Context::initWithLogger( $spConfig );
 		return $spConfig;
 	}
 }
