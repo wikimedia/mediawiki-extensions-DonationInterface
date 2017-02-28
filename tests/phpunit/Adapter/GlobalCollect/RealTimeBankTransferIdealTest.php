@@ -37,7 +37,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$config = Configuration::createForView( 'ingenico' );
 		Context::initWithLogger( $config ); // gets torn down in parent
 
-		$this->bankPaymentProvider = $this->getMock( '\SmashPig\PaymentProviders\Ingenico\BankPaymentProvider' );
+		$this->bankPaymentProvider = $this->getMockBuilder(
+			'\SmashPig\PaymentProviders\Ingenico\BankPaymentProvider'
+		)->disableOriginalConstructor()->getMock();
+
 		$config->overrideObjectInstance( 'payment-provider/rtbt', $this->bankPaymentProvider );
 
 		$this->bankPaymentProvider->method( 'getBankList' )
