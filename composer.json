@@ -31,7 +31,8 @@
 		"zordius/lightncandy": "0.23",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
 		"symfony/yaml": "^2.8",
-		"wikimedia/smash-pig": "dev-master"
+		"wikimedia/smash-pig": "dev-master",
+		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1"
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9.2"

@@ -1,4 +1,6 @@
 <?php
+use SmashPig\Core\Logging\Logger;
+
 /**
  * Generic Donation API
  * This API should be able to accept donation submissions for any gateway or payment type
@@ -15,7 +17,11 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
+		DonationInterface::initializeSmashPig( $this->gateway );
 		$gatewayObj = $this->getGatewayObject();
+
+		// FIXME: SmashPig should just use Monolog.
+		Logger::getContext()->enterContext( $gatewayObj->getLogMessagePrefix() );
 
 		if ( !$gatewayObj ) {
 			return; // already failed with a dieUsage call

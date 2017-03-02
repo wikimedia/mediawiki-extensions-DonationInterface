@@ -1,5 +1,8 @@
 <?php
 
+use SmashPig\Core\Configuration;
+use SmashPig\Core\Context;
+
 class DonationInterface {
 	/**
 	 * Executed after processing extension.json
@@ -76,5 +79,19 @@ class DonationInterface {
 			throw new OutOfRangeException( "No adapter configured for $gateway" );
 		}
 		return $wgDonationInterfaceGatewayAdapters[$gateway];
+	}
+
+	/**
+	 * Initialize SmashPig context and return configuration object
+	 *
+	 * @param string $view
+	 * @return Configuration
+	 */
+	public static function initializeSmashPig( $view ) {
+		$spConfig = Configuration::createForView( $view );
+		// FIXME: should set a logger prefix here, but we've got a chicken
+		// and egg problem with the Gateway constructor
+		Context::initWithLogger( $spConfig );
+		return $spConfig;
 	}
 }
