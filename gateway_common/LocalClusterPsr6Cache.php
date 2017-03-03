@@ -11,8 +11,23 @@ use Addshore\Psr\Cache\MWBagOStuffAdapter\BagOStuffPsrCache;
  * (no constructor-parameters need to be specified)
  */
 class LocalClusterPsr6Cache extends BagOStuffPsrCache {
+
+	/**
+	 * @var BagOStuff
+	 */
+	protected static $mainCache = null;
+
 	public function __construct() {
-		$mainCache = ObjectCache::getLocalClusterInstance();
-		parent::__construct( $mainCache );
+		if ( self::$mainCache === null ) {
+			self::$mainCache = ObjectCache::getLocalClusterInstance();
+			if ( self::$mainCache instanceof EmptyBagOStuff ) {
+				// FIXME: where does this go?
+				wfLogWarning(
+					'ObjectCache::getLocalClusterInstance() returned EmptyBagOStuff, using HashBagOStuff'
+				);
+				self::$mainCache = new HashBagOStuff();
+			}
+		}
+		parent::__construct( self::$mainCache );
 	}
 }
