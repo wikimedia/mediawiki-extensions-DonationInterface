@@ -76,32 +76,6 @@ class DonationQueue {
 		return $backend->peek();
 	}
 
-	public function set( $correlationId, $transaction, $queue ) {
-		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
-		}
-		$properties = $this->buildHeaders( $transaction );
-		$message = $this->buildBody( $transaction );
-		$this->newBackend( $queue )->set( $correlationId, $message, $properties );
-
-		// FIXME: hack for new queue, remove
-		$this->mirror( $message, $queue );
-	}
-
-	public function get( $correlationId, $queue ) {
-		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return null;
-		}
-		return $this->newBackend( $queue )->get( $correlationId );
-	}
-
-	public function delete( $correlationId, $queue ) {
-		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
-			return;
-		}
-		$this->newBackend( $queue )->clear( $correlationId );
-	}
-
 	/**
 	 * Temporary measure to transition from key/value ActiveMQ to pure FIFO
 	 * queues. Reads $wgDonationInterfaceQueueMirrors, where keys are original

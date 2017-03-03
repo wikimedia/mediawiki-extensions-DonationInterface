@@ -118,28 +118,4 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		$this->assertEquals( $this->expected_message,
 			DonationQueue::instance()->pop( $this->queue_name ) );
 	}
-
-	public function testSetMessage() {
-		DonationQueue::instance()->set( $this->transaction['correlation-id'],
-			$this->transaction, $this->queue_name );
-
-		$this->assertEquals( $this->expected_message,
-			DonationQueue::instance()->get(
-				$this->transaction['correlation-id'], $this->queue_name ) );
-	}
-
-	public function testDeleteMessage() {
-		DonationQueue::instance()->set( $this->transaction['correlation-id'],
-			$this->transaction, $this->queue_name );
-		$this->assertEquals( $this->expected_message,
-			DonationQueue::instance()->get(
-				$this->transaction['correlation-id'], $this->queue_name ) );
-
-		DonationQueue::instance()->delete(
-			$this->transaction['correlation-id'], $this->queue_name );
-
-		$this->assertNull(
-			DonationQueue::instance()->get(
-				$this->transaction['correlation-id'], $this->queue_name ) );
-	}
 }

@@ -20,8 +20,6 @@
 FIXME: We can't reference the actual classes until vendor/ is provisioned for tests.
 
 use PHPQueue\Backend\Base;
-use PHPQueue\Interfaces\KeyValueStore;
-use PHPQueue\Interfaces\IndexedFifoQueueStore;
 */
 
 /**
@@ -29,7 +27,7 @@ use PHPQueue\Interfaces\IndexedFifoQueueStore;
  * and multiple queues, but (obviously) data is destroyed on application
  * shutdown.
  */
-class TestingQueue /* extends Base implements IndexedFifoQueueStore, KeyValueStore */ {
+class TestingQueue /* extends Base implements FifoQueueStore */ {
 	protected $queue_name;
 	protected $queue;
 
@@ -63,22 +61,5 @@ class TestingQueue /* extends Base implements IndexedFifoQueueStore, KeyValueSto
 			return null;
 		}
 		return json_decode( array_shift( $this->queue ), true );
-	}
-
-	public function set( $id, $data ) {
-		$this->queue[$id] = json_encode( $data );
-	}
-
-	public function get( $id ) {
-		if ( !array_key_exists( $id, $this->queue ) ) {
-			return null;
-		}
-		return json_decode( $this->queue[$id], true );
-	}
-
-	public function clear( $id ) {
-		if ( array_key_exists( $id, $this->queue ) ) {
-			unset( $this->queue[$id] );
-		}
 	}
 }

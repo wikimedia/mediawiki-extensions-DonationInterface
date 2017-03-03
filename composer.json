@@ -39,10 +39,6 @@
 	},
 	"repositories": [
 		{
-			"type": "vcs",
-			"url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git"
-		},
-		{
 			"type": "git",
 			"url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php"
 		}
