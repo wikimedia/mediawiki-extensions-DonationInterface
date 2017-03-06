@@ -73,7 +73,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		parent::tearDown();
 	}
 
-	public function testFallbackWithNotification() {
+	public function testCurrencyFallbackWithNotification() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
 		$this->setUpAdapter();
 
@@ -88,7 +88,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 
-	public function testFallbackIntermediateConversion() {
+	public function testCurrencyFallbackIntermediateConversion() {
 		TestingGenericAdapter::$fakeGlobals['FallbackCurrency'] = 'OMR';
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
 		TestingGenericAdapter::$acceptedCurrencies[] = 'OMR';
@@ -103,7 +103,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'OMR', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 
-	public function testFallbackWithoutNotification() {
+	public function testCurrencyFallbackWithoutNotification() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
 		$this->setUpAdapter();
 
@@ -117,7 +117,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 
-	public function testFallbackAlwaysNotifiesIfOtherErrors() {
+	public function testCurrencyFallbackAlwaysNotifiesIfOtherErrors() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
 		$this->setUpAdapter( array( 'email' => 'notanemail' ) );
 
@@ -142,7 +142,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'BBD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
 
-	public function testFallbackByCountry() {
+	public function testCurrencyFallbackByCountry() {
 		// With 'FallbackCurrencyByCountry', we need to return a single supported currency
 		TestingGenericAdapter::$acceptedCurrencies = array( 'USD' );
 		TestingGenericAdapter::$fakeGlobals = array(
