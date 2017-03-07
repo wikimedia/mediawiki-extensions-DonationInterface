@@ -199,6 +199,31 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	}
 
 	/**
+	 * Stay on the payments form if there's a currency conversion notification.
+	 */
+	function testShowFormOnCurrencyFallback() {
+		$init = $this->getDonorTestData();
+		$init['currency'] = 'BBD';
+		$init['amount'] = 15.00;
+		$session = array( 'Donor' => $init );
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceFallbackCurrency' => 'USD',
+			'wgDonationInterfaceNotifyOnConvert' => true,
+		) );
+		$errorMessage = wfMessage( 'donate_interface-fallback-currency-notice', 'USD' )->text();
+		$assertNodes = array(
+			'headers' => array(
+				'location' => null,
+			),
+			'topError' => array(
+				'innerhtmlmatches' => "/.*$errorMessage.*/"
+			)
+		);
+
+		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, $assertNodes, false, $session );
+	}
+
+	/**
 	 * Integration test to verify that the Donate transaction works as expected in Belgium for fr, de, and nl.
 	 *
 	 * @dataProvider belgiumLanguageProvider
