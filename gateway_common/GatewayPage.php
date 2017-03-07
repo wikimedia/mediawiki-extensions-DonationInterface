@@ -148,6 +148,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	/**
 	 * Should be overridden in each derived class to actually handle the request
 	 * Performs gateway-specific checks and either redirects or displays form.
+	 *
+	 * FIXME: Be more disciplined about how handleRequest fits with
+	 * handleDonationRequest.  Would it be cleaner to move to a pre and post
+	 * hook scheme?
 	 */
 	protected abstract function handleRequest();
 
@@ -211,6 +215,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		if ( $this->adapter && $allowRapid ) {
 			$page = ResultPages::getFailPage( $this->adapter );
+			// FIXME: Structured data $page rather than a union.  displayForm
+			// will add the ffname if needed.
 			if ( !filter_var( $page, FILTER_VALIDATE_URL ) ) {
 				// If it's not a URL, we're rendering a RapidFail form
 				$this->logger->info( "Displaying fail form $page" );
