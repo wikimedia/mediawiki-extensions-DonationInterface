@@ -111,6 +111,7 @@ class PaymentResult {
 	 * @param string $finalStatus final transaction status.
 	 *
 	 * @return PaymentResult
+	 * TODO: rename to fromResponse
 	 */
 	public static function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {
@@ -121,7 +122,7 @@ class PaymentResult {
 		}
 		if ( $response->getErrors() ) {
 			// TODO: We will probably want the ability to refresh to a new form
-			// as well and display errors at the same time.
+			// and display errors at the same time.
 			return PaymentResult::newRefresh( $response->getErrors() );
 		}
 		if ( $response->getRedirect() ) {

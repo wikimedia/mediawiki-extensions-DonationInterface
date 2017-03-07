@@ -1418,7 +1418,9 @@ abstract class GatewayAdapter
 		// Feed the message into the pending queue, so the CRM queue consumer
 		// can read it to fill in donor details when it gets a partial message
 		$this->sendPendingMessage();
+
 		// Avoid 'bad ffname' logspam on return and try again links.
+		// TODO: deprecate
 		$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 	}
 
@@ -1442,6 +1444,8 @@ abstract class GatewayAdapter
 	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
 	 * @throws ResponseProcessingException with an actionable error code and any
 	 *         variables to retry
+	 *
+	 * TODO: Move response parsing to a separate class.
 	 */
 	protected function processResponse( $response ) {
 		$this->transaction_response->setCommunicationStatus( true );

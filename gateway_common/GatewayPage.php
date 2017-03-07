@@ -231,7 +231,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$output->redirect( $page );
 	}
 
-	public function redirect ( $url, $responsecode = '302' ) {
+	public function redirect( $url, $responsecode = '302' ) {
 		// Do we need to pop out of an iframe?
 		if ( $this->isReturnFramed() ) {
 			$this->logger->info(

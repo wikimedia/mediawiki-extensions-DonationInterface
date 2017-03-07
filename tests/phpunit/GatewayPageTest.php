@@ -92,6 +92,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeGlobals['FallbackCurrency'] = 'OMR';
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
 		TestingGenericAdapter::$acceptedCurrencies[] = 'OMR';
+		// FIXME: Relies on app default exchange rate.  Set explicitly instead.
 		$this->setUpAdapter();
 
 		$this->page->validateForm();
