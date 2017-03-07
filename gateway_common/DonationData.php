@@ -1015,22 +1015,6 @@ class DonationData implements LogPrefixProvider {
 		return $this->validationErrors;
 	}
 
-	/**
-	 * validatedOK
-	 * Checks to see if the data validated ok (no errors).
-	 * @return boolean True if no errors, false if errors exist.
-	 */
-	public function validatedOK() {
-		if ( is_null( $this->validationErrors ) ) {
-			$this->getValidationErrors();
-		}
-
-		if ( count( $this->validationErrors ) === 0 ) {
-			return true;
-		}
-		return false;
-	}
-
 	private function expungeNulls() {
 		foreach ( $this->normalized as $key => $val ) {
 			if ( is_null( $val ) ) {
