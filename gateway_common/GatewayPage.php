@@ -76,6 +76,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
+		if( $wgContributionTrackingFundraiserMaintenance
+			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
+			$this->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
+			return;
+		}
+
 		$gatewayName = $this->getGatewayIdentifier();
 		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 		DonationInterface::initializeSmashPig( $gatewayName );
@@ -119,12 +125,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
 			$this->logger->info( 'Displaying fail page for disabled gateway' );
 			$this->displayFailPage();
-			return;
-		}
-
-		if( $wgContributionTrackingFundraiserMaintenance
-			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
-			$this->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
 			return;
 		}
 
