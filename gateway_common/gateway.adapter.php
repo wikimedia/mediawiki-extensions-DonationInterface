@@ -53,7 +53,7 @@ abstract class GatewayAdapter
 	protected $dataConstraints = array();
 
 	/**
-	 * $error_map maps gateway errors to client errors
+	 * $error_map Reference map from gateway error to client error.
 	 *
 	 * The key of each error should map to a i18n message key or a callable
 	 * By convention, the following three keys have these meanings:
@@ -152,8 +152,19 @@ abstract class GatewayAdapter
 	 * constants defined in @see FinalStatus
 	 */
 	protected $final_status;
-	protected $validation_errors;
-	protected $manual_errors = array();
+	/**
+	 * @var array Map of errors preventing this transaction from continuing.
+	 *     Structure is like:
+	 *     [
+	 *         # An i18n key name to an error message that will display atop of
+	 *         # the screen, indicating that something general needs fixing.
+	 *         'general' => 'warning-currency-fallback',
+	 *         # Example of a very specific error string that only the gateway
+	 *         # could calculate.
+	 *         'address' => 'key saying: "Address is required for E-Commerce transactions."',
+	 *     ]
+	 */
+	protected $errors = array();
 
 	/**
 	 * Name of the current transaction.  Set via @see setCurrentTransaction
@@ -240,8 +251,6 @@ abstract class GatewayAdapter
 		// TODO: On second thought, neither set data nor validate in this constructor.
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
 
-		$this->setValidationErrors( $this->getOriginalValidationErrors() );
-
 		$this->unstaged_data = $this->dataObj->getData();
 		$this->staged_data = $this->unstaged_data;
 
@@ -256,6 +265,10 @@ abstract class GatewayAdapter
 		$this->defineReturnValueMap();
 
 		$this->setGatewayDefaults( $options );
+
+		// FIXME: Same as above, don't validate or stage in the constructor.
+		$this->validate();
+
 		$this->stageData();
 
 		BannerHistoryLogIdProcessor::onGatewayReady( $this );
@@ -266,7 +279,7 @@ abstract class GatewayAdapter
 			$error = array( 'general' => array( 'internal-0001' =>
 				$this->getErrorMapByCodeAndTranslate( 'internal-0001' )
 			) );
-			$this->addManualError( $error );
+			$this->mergeError( $error );
 		}
 	}
 
@@ -903,12 +916,11 @@ abstract class GatewayAdapter
 			$return = new PaymentTransactionResponse();
 			$return->setCommunicationStatus( false );
 			$return->setMessage( 'Failed data validation' );
-			foreach ( $this->getAllErrors() as $code => $error ) {
-				// TODO: Error should already be in a native format.
+			foreach ( $this->errors as $code => $error ) {
 				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
 			}
 			// TODO: should we set $this->transaction_response ?
-			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->getValidationErrors(), true ) );
+			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errors, true ) );
 			return $return;
 		}
 
@@ -2156,46 +2168,25 @@ abstract class GatewayAdapter
 		return get_called_class();
 	}
 
-	//only the gateway should be setting validation errors. Everybody else should set manual errors.
-	protected function setValidationErrors( $errors ) {
-		$this->validation_errors = $errors;
+	/**
+	 * Return list of all errors that prevent this transaction from continuing.
+	 */
+	public function getErrors() {
+		return $this->errors;
 	}
 
-	public function getValidationErrors() {
-		if ( !empty( $this->validation_errors ) ) {
-			return $this->validation_errors;
-		} else {
-			return false;
-		}
-	}
-
-	public function addManualError( $errors, $reset = false ) {
-		if ( $reset ){
-			$this->manual_errors = array();
-			return;
-		}
-		$this->manual_errors = array_merge( $this->manual_errors, $errors );
-	}
-
-	public function getManualErrors() {
-		if ( !empty( $this->manual_errors ) ) {
-			return $this->manual_errors;
-		} else {
-			return false;
-		}
-	}
-
-	public function getAllErrors(){
-		$validation = $this->getValidationErrors();
-		$manual = $this->getManualErrors();
-		$return = array();
-		if ( is_array( $validation ) ){
-			$return = array_merge( $return, $validation );
-		}
-		if ( is_array( $manual ) ){
-			$return = array_merge( $return, $manual );
-		}
-		return $return;
+	/**
+	 * Add errors those already stored.
+	 *
+	 * @param array $errors Map from field or field group key to error string.
+	 * May contain one or multiple erroring fields.
+	 * Merged by key rather than as a list, hence the awkward, surprise plural.
+	 *
+	 * TODO: Encapsulate errors as objects.  Provide both merge list and append item to list methods?
+	 * FIXME: Nasty that array_merge overwrites rather than appending.  Fix while encapsulating the list.
+	 */
+	public function mergeError( $errors ) {
+		$this->errors = array_merge( $this->errors, $errors );
 	}
 
 	/**
@@ -2381,10 +2372,6 @@ abstract class GatewayAdapter
 		return $this->batch;
 	}
 
-	public function getOriginalValidationErrors() {
-		return $this->dataObj->getValidationErrors();
-	}
-
 	/**
 	 * Build list of required fields
 	 * TODO: Determine if this ever needs to be overridden per gateway, or if
@@ -2467,25 +2454,128 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Check donation data for validity
+	 * Check donation data for validity and set errors.
+	 *
+	 * This function will go through all the data we have pulled from wherever
+	 * we've pulled it, and make sure it's safe and expected and everything.
+	 * If it is not, it will return an array of errors ready for any
+	 * DonationInterface form class derivitive to display.
 	 *
 	 * @return boolean true if validation passes
-	 *
-	 * TODO: Maybe validate on $unstaged_data directly?
 	 */
-	public function revalidate() {
-		$check_not_empty = $this->getRequiredFields();
+	public function validate() {
+		$normalized = $this->dataObj->getData();
 
-		$validation_errors = $this->dataObj->getValidationErrors( true, $check_not_empty );
-		$this->setValidationErrors( $validation_errors );
+		// Run legacy validations
+		$check_not_empty = $this->getRequiredFields();
+		$this->errors = DataValidator::validate( $this, $normalized, $check_not_empty );
+
+		// Run modular validations.
+		$transformers = $this->getDataTransformers();
+		foreach ( $transformers as $transformer ) {
+			if ( $transformer instanceof ValidationHelper ) {
+				$transformer->validate( $this, $normalized, $this->errors );
+			}
+		}
+
+		// TODO: Rewrite as something modular?  It's in-between validation and normalization...
+		if ( isset( $this->errors['currency_code'] ) ) {
+			// Try to fall back to a default currency, clearing the error if
+			// successful.
+			$this->fallbackToDefaultCurrency();
+			// FIXME: This is part of the same wart.
+			$this->unstaged_data = $this->dataObj->getData();
+		}
+
 		return $this->validatedOK();
 	}
 
+	/**
+	 * @return boolean True if submitted data is valid and sufficient to proceed to the next step.
+	 * TODO: Were we also trying to indicate whether the validation step has succeeded here, by distinguishing array() != false?
+	 */
 	public function validatedOK(){
-		if ( $this->getValidationErrors() === false ){
-			return true;
+		return !$this->errors;
+	}
+
+	/**
+	 * Called when a currency code error exists. If a fallback currency
+	 * conversion is enabled for this adapter, convert intended amount to
+	 * default currency.
+	 *
+	 * TODO: In the future, we might want to switch gateways.
+	 *
+	 * @throws DomainException
+	 */
+	protected function fallbackToDefaultCurrency() {
+		$defaultCurrency = null;
+		if ( $this->getGlobal( 'FallbackCurrencyByCountry' ) ) {
+			$country = $this->dataObj->getVal( 'country' );
+			if ( $country !== null ) {
+				$defaultCurrency = NationalCurrencies::getNationalCurrency( $country );
+			}
+		} else {
+			$defaultCurrency = $this->getGlobal( 'FallbackCurrency' );
 		}
-		return false;
+		if ( !$defaultCurrency ) {
+			return;
+		}
+		// Our conversion rates are all relative to USD, so use that as an
+		// intermediate currency if converting between two others.
+		$oldCurrency = $this->dataObj->getVal( 'currency_code' );
+		if ( $oldCurrency === $defaultCurrency ) {
+			$adapterClass = $this->getGatewayAdapterClass();
+			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
+		}
+		$oldAmount = $this->dataObj->getVal( 'amount' );
+		$usdAmount = 0.0;
+		$newAmount = 0;
+
+		$conversionRates = CurrencyRates::getCurrencyRates();
+		if ( $oldCurrency === 'USD' ) {
+			$usdAmount = $oldAmount;
+		} elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
+			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
+		} else {
+			// We can't convert from this unknown currency.
+			$this->logger->warning( "Currency conversion not available for {$oldCurrency}" );
+			return;
+		}
+
+		if ( $defaultCurrency === 'USD' ) {
+			$newAmount = floor( $usdAmount );
+		} elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
+			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
+		} else {
+			// No conversion available.
+			$this->logger->error( "Default fallback currency {$defaultCurrency} has no conversion available" );
+			return;
+		}
+
+		$formData = array(
+			'amount' => $newAmount,
+			'currency_code' => $defaultCurrency,
+		);
+		$this->dataObj->addData( $formData );
+
+		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
+
+		// Clear the currency error.
+		unset( $this->errors['currency_code'] );
+
+		$notify = $this->getGlobal( 'NotifyOnConvert' );
+
+		// If we're configured to notify, or if there are already other errors,
+		// add a notification message.
+		if ( $notify || $this->errors ) {
+			$error['general'] = MessageUtils::getCountrySpecificMessage(
+				'donate_interface-fallback-currency-notice',
+				$this->dataObj->getVal( 'country' ),
+				$this->dataObj->getVal( 'language' ),
+				array( $defaultCurrency )
+			);
+			$this->mergeError( $error );
+		}
 	}
 
 	/**

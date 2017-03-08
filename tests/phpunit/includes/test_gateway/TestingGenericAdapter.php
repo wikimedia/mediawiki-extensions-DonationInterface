@@ -22,7 +22,8 @@
 class TestingGenericAdapter extends GatewayAdapter {
 
 	/**
-	 * A list of fake errors that is returned each time revalidate() is called.
+	 * A list of fake errors, each item is a set of errors to be returned on a specific validate() call.
+	 * FIXME: s/re/validate
 	 */
 	public $errorsForRevalidate = array();
 
@@ -37,16 +38,18 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	public function revalidate($check_not_empty = array()) {
-		if ( !empty( $this->errorsForRevalidate ) ) {
+	public function validate() {
+		if ( $this->errorsForRevalidate ) {
 			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
 			if ( $fakeErrors !== null ) {
 				$this->revalidateCount++;
-				$this->setValidationErrors( $fakeErrors );
+				$this->mergeError( $fakeErrors );
 				return empty( $fakeErrors );
 			}
+			// Note that when $fakeErrors is null, we fall through to the
+			// parent validate().
 		}
-		return parent::revalidate($check_not_empty);
+		return parent::validate();
 	}
 
 	public function normalizeOrderID( $override = null, $dataObj = null ) {

@@ -77,13 +77,11 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = true;
 		$this->setUpAdapter();
 
-		$this->page->validateForm();
+		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$this->assertTrue( $this->adapter->validatedOK() );
-
-		$manualErrors = $this->adapter->getManualErrors();
+		$errors = $this->adapter->getErrors();
 		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'USD' )->text();
-		$this->assertEquals( $msg, $manualErrors['general'] );
+		$this->assertEquals( $msg, $errors['general'] );
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
@@ -95,11 +93,9 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		// FIXME: Relies on app default exchange rate.  Set explicitly instead.
 		$this->setUpAdapter();
 
-		$this->page->validateForm();
-
-		$manualErrors = $this->adapter->getManualErrors();
+		$errors = $this->adapter->getErrors();
 		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'OMR' )->text();
-		$this->assertEquals( $msg, $manualErrors['general'] );
+		$this->assertEquals( $msg, $errors['general'] );
 		$this->assertEquals( 38, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'OMR', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
@@ -108,12 +104,10 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
 		$this->setUpAdapter();
 
-		$this->page->validateForm();
-
 		$this->assertTrue( $this->adapter->validatedOK() );
 
-		$manualErrors = $this->adapter->getManualErrors();
-		$this->assertEquals( null, $manualErrors['general'] );
+		$errors = $this->adapter->getErrors();
+		$this->assertTrue( empty( $errors['general'] ) );
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
@@ -122,11 +116,9 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
 		$this->setUpAdapter( array( 'email' => 'notanemail' ) );
 
-		$this->page->validateForm();
-
-		$manualErrors = $this->adapter->getManualErrors();
+		$errors = $this->adapter->getErrors();
 		$msg = $this->page->msg( 'donate_interface-fallback-currency-notice', 'USD' )->text();
-		$this->assertEquals( $msg, $manualErrors['general'] );
+		$this->assertEquals( $msg, $errors['general'] );
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
@@ -135,10 +127,8 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$acceptedCurrencies[] = 'BBD';
 		$this->setUpAdapter();
 
-		$this->page->validateForm();
-
-		$manualErrors = $this->adapter->getManualErrors();
-		$this->assertEquals( null, $manualErrors['general'] );
+		$errors = $this->adapter->getErrors();
+		$this->assertTrue( empty( $errors['general'] ) );
 		$this->assertEquals( 200, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'BBD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );
 	}
@@ -150,12 +140,10 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'FallbackCurrency' => false,
 			'FallbackCurrencyByCountry' => true,
 		);
-		$this->setUpAdapter();
-		$this->adapter->addRequestData( array(
+		$extra = array(
 			'country' => 'US',
-		) );
-
-		$this->page->validateForm();
+		);
+		$this->setUpAdapter( $extra );
 
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency_code' ) );

@@ -255,7 +255,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * @return array
 	 */
 	protected function getErrors() {
-		$errors = $this->gateway->getAllErrors();
+		$errors = $this->gateway->getErrors();
 		$return = array( 'errors' => array(
 			'general' => array(),
 			'field' => array(),

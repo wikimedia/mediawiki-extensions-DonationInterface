@@ -521,7 +521,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init['currency_code'] = 'CLP';
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$errors = $gateway->getValidationErrors();
+		$errors = $gateway->getErrors();
 
 		$this->assertNotEmpty( $errors );
 		$this->assertTrue(

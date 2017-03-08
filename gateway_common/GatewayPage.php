@@ -157,24 +157,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected abstract function handleRequest();
 
 	/**
-	 * Checks current dataset for validation errors
-	 * TODO: As with every other bit of gateway-related logic that should 
-	 * definitely be available to every entry point, and functionally has very 
-	 * little to do with being contained within what in an ideal world would be 
-	 * a piece of mostly UI, this function needs to be moved inside the gateway 
-	 * adapter class.
-	 *
-	 * @return boolean Returns false on an error-free validation, otherwise true.
-	 * FIXME: that return value seems backwards to me.
-	 */
-	public function validateForm() {
-
-		$validated_ok = $this->adapter->revalidate();
-
-		return !$validated_ok;
-	}
-
-	/**
 	 * Build and display form to user
 	 */
 	public function displayForm() {
@@ -349,15 +331,16 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $this->adapter->checkTokens() ) {
 			if ( $this->isProcessImmediate() ) {
 				// Check form for errors
-				// FIXME: Should this be rolled into adapter.doPayment?
-				$form_errors = $this->validateForm() || $this->adapter->getManualErrors();
+				$validated_ok = $this->adapter->validatedOK();
 
-				// If there were errors, redisplay form, otherwise proceed to next step
-				if ( $form_errors ) {
-					$this->displayForm();
-				} else {
-					// Attempt to process the payment, and render the response.
+				// Proceed to the next step, unless there were errors.
+				if ( $validated_ok ) {
+					// Attempt to process the payment, then render the response.
 					$this->processPayment();
+				} else {
+					// Redisplay form to give the donor notification and a
+					// chance correct their errors.
+					$this->displayForm();
 				}
 			} else {
 				$this->adapter->session_addDonorData();
@@ -365,7 +348,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			}
 		} else { //token mismatch
 			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' );
-			$this->adapter->addManualError( $error );
+			$this->adapter->mergeError( $error );
 			$this->displayForm();
 		}
 	}
@@ -512,7 +495,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				else {
 					$error['general'][ $code ] = $message;
 				}
-				$this->adapter->addManualError( $error );
+				$this->adapter->mergeError( $error );
 			}
 			$this->displayForm();
 		} else {
