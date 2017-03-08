@@ -114,34 +114,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$this->verifyNoLogErrors();
 	}
 
-	public function testGCFormLoad() {
-		$init = $this->getDonorTestData( 'US' );
-		unset( $init['order_id'] );
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['ffname'] = 'cc-vmad';
-
-		$assertNodes = array (
-			'submethod-mc' => array (
-				'nodename' => 'input'
-			),
-			'selected-amount' => array (
-				'nodename' => 'span',
-				'innerhtmlmatches' => '/^\s*' .
-					str_replace( '$', '\$',
-						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
-					).
-					'\s*$/',
-			),
-			'state' => array (
-				'nodename' => 'select',
-				'selected' => 'CA',
-			),
-		);
-
-		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
-	}
-
 	/**
 	 * Tests to make sure that certain error codes returned from GC will
 	 * trigger order cancellation, even if retryable errors also exist.
