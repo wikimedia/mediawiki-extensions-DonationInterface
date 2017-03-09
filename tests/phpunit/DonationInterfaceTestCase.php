@@ -441,23 +441,23 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @return GatewayAdapter The new relevant gateway adapter object.
 	 */
 	function getFreshGatewayObject( $external_data = null, $setup_hacks = array() ) {
-		$p1 = null;
+		$data = null;
 		if ( !is_null( $external_data ) ) {
-			$p1 = array (
+			$data = array (
 				'external_data' => $external_data,
 			);
 		}
 
 		if ( $setup_hacks ) {
-			if ( !is_null( $p1 ) ) {
-				$p1 = array_merge( $p1, $setup_hacks );
+			if ( !is_null( $data ) ) {
+				$data = array_merge( $data, $setup_hacks );
 			} else {
-				$p1 = $setup_hacks;
+				$data = $setup_hacks;
 			}
 		}
 
 		$class = $this->testAdapterClass;
-		$gateway = new $class( $p1 );
+		$gateway = new $class( $data );
 
 		$classReflection = new ReflectionClass( $gateway );
 
@@ -675,6 +675,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @param string $log_level One of the constants in \Psr\Log\LogLevel
 	 * @param string $match A regex to match against the log lines.
 	 * @return array All log lines that match $match.
+	 *     FIXME: Or false.  Return an empty array or throw an exception instead.
 	 */
 	public function getLogMatches( $log_level, $match ) {
 		$log = $this->testLogger->messages;

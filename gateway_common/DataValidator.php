@@ -252,12 +252,15 @@ class DataValidator {
 					$validation_function = $custom;
 				}
 
-				if ( !isset( $data[$field] ) ) {
+				if ( empty( $data[$field] ) ) {
 					if ( $phase !== 'not_empty' ) {
 						// Skip if not required and nothing to validate.
 						continue;
 					} else {
 						// Stuff with nothing.
+						// FIXME: Weird though 'cos this parameter isn't passed
+						// by reference, so the null value only affects
+						// DataValidator subroutines.
 						$data[$field] = null;
 					}
 				}

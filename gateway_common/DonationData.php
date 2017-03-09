@@ -42,6 +42,7 @@ class DonationData implements LogPrefixProvider {
 		'amountOther',
 		'appeal',
 		'email',
+		// @deprecated
 		'emailAdd',
 		'fname',
 		'lname',
@@ -142,9 +143,11 @@ class DonationData implements LogPrefixProvider {
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
+		// We have some data, so normalize it.
 		if ( $this->normalized ) {
 			$this->normalize();
 
+			// FIXME: This should be redundant now?
 			$this->expungeNulls();
 		}
 	}
@@ -201,13 +204,12 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Returns an array of normalized and escaped donation data
+	 * Returns the array of all normalized donation data.
+	 *
 	 * @return array
 	 */
-	public function getDataEscaped() {
-		$escaped = $this->normalized;
-		array_walk( $escaped, array( $this, 'sanitizeInput' ) );
-		return $escaped;
+	public function getData() {
+		return $this->normalized;
 	}
 
 	/**
@@ -229,30 +231,14 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * getVal_Escaped
-	 * @param string $key The data field you would like to retrieve. Pulls the
-	 * data from $this->normalized if it is found to be something.
-	 * @return mixed The normalized and escaped value of that $key.
-	 */
-	public function getVal_Escaped( $key ) {
-		if ( $this->isSomething( $key ) ) {
-			//TODO: If we ever start sanitizing in a more complicated way, we should move this 
-			//off to a function and have both getVal_Escaped and sanitizeInput call that. 
-			return htmlspecialchars( $this->normalized[$key], ENT_COMPAT, 'UTF-8', false );
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * getVal
-	 * For Internal Use Only! External objects should use getVal_Escaped.
+	 * Return the value at a key, or null if the key isn't populated.
+	 *
 	 * @param string $key The data field you would like to retrieve directly
 	 * from $this->normalized.
 	 * @return mixed The normalized value of that $key, or null if it isn't
 	 * something.
 	 */
-	protected function getVal( $key ) {
+	public function getVal( $key ) {
 		if ( $this->isSomething( $key ) ) {
 			return $this->normalized[$key];
 		} else {
@@ -271,7 +257,15 @@ class DonationData implements LogPrefixProvider {
 	 * @param string $val The value you'd like to assign to the key.
 	 */
 	public function setVal( $key, $val ) {
-		$this->normalized[$key] = $val;
+		// Convert empty to null for consistency.
+		if ( $val === '' ) {
+			$val = null;
+		}
+
+		$this->normalized[$key] = (string) $val;
+
+		// TODO: Set something dirty so that we're sure to normalize before
+		// pulling data.
 	}
 
 	/**
@@ -320,6 +314,15 @@ class DonationData implements LogPrefixProvider {
 		// FIXME: there's a ghost invocation during DonationData construction.
 		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
+			// Cast all values to string.
+			$toStringOrNull = function ( $value ) {
+				if ( $value === null || $value === '' ) {
+					return null;
+				}
+				return (string) $value;
+			};
+			$this->normalized = array_map( $toStringOrNull, $this->normalized );
+
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
 			$this->setReferrer();
@@ -529,6 +532,7 @@ class DonationData implements LogPrefixProvider {
 
 		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
 			//fail validation later, log some things.
+			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
 			$keys = array(
 				'amount',

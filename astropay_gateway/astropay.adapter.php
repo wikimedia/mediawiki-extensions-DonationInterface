@@ -359,8 +359,8 @@ class AstroPayAdapter extends GatewayAdapter {
 				} else if ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
 					// Something wrong with the fiscal number
 					$context = 'fiscal_number';
-					$language = $this->dataObj->getVal_Escaped( 'language' );
-					$country = $this->dataObj->getVal_Escaped( 'country' );
+					$language = $this->dataObj->getVal( 'language' );
+					$country = $this->dataObj->getVal( 'country' );
 					$message = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $language, $country );
 				} else if ( preg_match( '/invalid control/i', $response['desc'] ) ) {
 					// They think we screwed up the signature.  Log what we signed.

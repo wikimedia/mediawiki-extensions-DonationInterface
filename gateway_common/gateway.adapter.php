@@ -242,7 +242,7 @@ abstract class GatewayAdapter
 
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
 
-		$this->unstaged_data = $this->dataObj->getDataEscaped();
+		$this->unstaged_data = $this->dataObj->getData();
 		$this->staged_data = $this->unstaged_data;
 
 		// checking to see if we have an edit token in the request...
@@ -939,7 +939,7 @@ abstract class GatewayAdapter
 						$this->regenerateOrderID();
 
 							// Pull anything changed from dataObj
-						$this->unstaged_data = $this->dataObj->getDataEscaped();
+						$this->unstaged_data = $this->dataObj->getData();
 						$this->staged_data = $this->unstaged_data;
 						$this->stageData();
 						break;
@@ -2144,7 +2144,7 @@ abstract class GatewayAdapter
 	}
 
 	public function getFormClass() {
-		$ffname = $this->dataObj->getVal_Escaped( 'ffname' );
+		$ffname = $this->dataObj->getVal( 'ffname' );
 		if ( strpos( $ffname, 'error') === 0
 			|| strpos( $ffname, 'maintenance') === 0 ) {
 			return 'MustacheErrorForm';
@@ -2334,7 +2334,7 @@ abstract class GatewayAdapter
 	 * our DonationData object.
 	 */
 	function refreshGatewayValueFromSource( $val ) {
-		$refreshed = $this->dataObj->getVal_Escaped( $val );
+		$refreshed = $this->dataObj->getVal( $val );
 		if ( !is_null($refreshed) ){
 			$this->staged_data[$val] = $refreshed;
 			$this->unstaged_data[$val] = $refreshed;
@@ -3396,7 +3396,7 @@ abstract class GatewayAdapter
 			// sequence number tacked on to the end for uniqueness
 			$dataObj = ( $dataObj ) ?: $this->dataObj;
 
-			$ctid = $dataObj->getVal_Escaped( 'contribution_tracking_id' );
+			$ctid = $dataObj->getVal( 'contribution_tracking_id' );
 			if ( !$ctid ) {
 				$ctid = $dataObj->saveContributionTrackingData();
 			}
