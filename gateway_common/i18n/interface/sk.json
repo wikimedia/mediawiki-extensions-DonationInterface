@@ -8,7 +8,8 @@
 			"Sudo77(new)",
 			"Pcoombe",
 			"Jrobell",
-			"LacoR"
+			"LacoR",
+			"Teslaton"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -21,7 +22,7 @@
 	"donate_interface-submit-button": "Darovať",
 	"donate_interface-comment-message": "Máte myšlienku o ktorú sa chcete podeliť so svetom? Napíšte ju sem do 200 znakov:",
 	"donate_interface-comment-label": "Komentár:",
-	"donate_interface-email-agreement": "Súhlasím so zasielaním príležitostných noviniek emailom týkajúcich sa Wikimedia Foundation.",
+	"donate_interface-email-agreement": "Súhlasím, aby mi Wikimedia Foundation občas posielala novinky e-mailom.",
 	"donate_interface-comment-title": "Verejný komentár",
 	"donate_interface-amount-error": "Prosím, zadajte platnú čiastku",
 	"donate_interface-processing-error": "Došlo k chybe pri spracovaní vašej požiadavky. \nŽiadne procesory sú k dispozícii.",
@@ -57,7 +58,7 @@
 	"donate_interface-donor-legend": "Informácie o darcovi",
 	"donate_interface-donor-amount": "Čiastka:",
 	"donate_interface-donor-currency-label": "Mena:",
-	"donate_interface-donor-email": "Emailová adresa:",
+	"donate_interface-donor-email": "E-mailová adresa:",
 	"donate_interface-donor-name": "Meno:",
 	"donate_interface-donor-fname": "Meno:",
 	"donate_interface-donor-mname": "Stredné meno:",
@@ -68,8 +69,8 @@
 	"donate_interface-donor-county": "Okres",
 	"donate_interface-donor-island": "Ostrov",
 	"donate_interface-donor-state": "Štát:",
-	"donate_interface-donor-postal_code-us": "PSČ",
 	"donate_interface-donor-postal_code": "PSČ:",
+	"donate_interface-donor-postal_code-us": "PSČ",
 	"donate_interface-donor-country": "Krajina/oblasť:",
 	"donate_interface-donor-zone": "Zóna",
 	"donate_interface-donor-address": "Adresa:",
