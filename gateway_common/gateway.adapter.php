@@ -588,11 +588,7 @@ abstract class GatewayAdapter
 	 * @param    array     $options
 	 * @return   array|string    Returns @see GatewayAdapter::$error_map
 	 */
-	public function getErrorMap( $code = null, $options = array() ) {
-
-		if ( is_null( $code ) ) {
-			return $this->error_map;
-		}
+	public function getErrorMap( $code, $options = array() ) {
 
 		$defaults = array(
 			'translate' => false,
