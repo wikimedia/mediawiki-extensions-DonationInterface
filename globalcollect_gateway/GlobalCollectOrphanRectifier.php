@@ -200,7 +200,10 @@ class GlobalCollectOrphanRectifier {
 
 			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too.
 			$errors = $results->getErrors();
-			if ( !empty( $errors ) && array_key_exists( '1000001', $errors ) ){
+			$finder = function( $error ) {
+				return $error->getErrorCode() == '1000001';
+			};
+			if ( !empty( $errors ) && !empty( array_filter( $errors, $finder ) ) ) {
 				$is_rectified = true;
 				$status = 'CANCELLED';
 			}

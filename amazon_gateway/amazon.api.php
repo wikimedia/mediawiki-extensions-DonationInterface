@@ -25,11 +25,11 @@ class AmazonBillingApi extends ApiBase {
 
 		$adapter = new AmazonAdapter( $adapterParams );
 
-		if ( $adapter->getErrors() ) {
+		if ( $adapter->getErrorState()->hasErrors() ) {
 			$output->addValue(
 				null,
 				'errors',
-				$adapter->getErrors()
+				$adapter->getErrorState()->getErrors()
 			);
 		} else if ( $token && $adapter->checkTokens() ) {
 			if ( $recurring ) {

@@ -31,7 +31,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 	 */
 	protected $validator;
 	/**
-	 * @var array
+	 * @var ErrorState
 	 */
 	protected $errors;
 	/**
@@ -58,7 +58,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 			'currency_code' => 'USD',
 		);
 
-		$this->errors = array();
+		$this->errors = new ErrorState();
 		$this->adapter = new TestingGenericAdapter();
 		$this->validator = new Amount();
 	}
@@ -69,47 +69,65 @@ class AmountTest  extends DonationInterfaceTestCase {
 		);
 	}
 
+	protected function getFirstError() {
+		$list = $this->errors->getErrors();
+		return $list[0];
+	}
+
 	public function testValidUsd() {
 		$this->normalized['amount'] = '10.00';
 		$this->validate();
-		$this->assertEmpty( $this->errors, 'Error shown for valid amount' );
+		$this->assertFalse(
+			$this->errors->hasValidationError(),
+			'Error shown for valid amount'
+		);
 	}
 
 	public function testZeroAmount() {
 		$this->normalized['amount'] = '0.00';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for zero amount' );
-		$expected = DataValidator::getErrorMessage(
-			'amount', 'not_empty', 'en'
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for zero amount'
 		);
+		$expected = DataValidator::getError( 'amount', 'not_empty' );
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
-			'Wrong error message for zero amount'
+			$this->getFirstError(),
+			'Wrong error for zero amount'
 		);
 	}
 
 	public function testWhitespaceAmount() {
 		$this->normalized['amount'] = '    ';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for whitespace amount' );
-		$expected = DataValidator::getErrorMessage(
-			'amount', 'not_empty', 'en'
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for whitespace amount'
 		);
+		$expected = DataValidator::getError( 'amount', 'not_empty' );
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
-			'Wrong error message for whitespace amount'
+			$this->getFirstError(),
+			'Wrong error for zero amount'
 		);
 	}
 
 	public function testNonNumericAmount() {
 		$this->normalized['amount'] = 'XYZ123';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for non-numeric amount' );
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for non-numeric amount'
+		);
+
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-error-msg-invalid-amount'
+		);
 		$this->assertEquals(
-			WmfFramework::formatMessage( 'donate_interface-error-msg-invalid-amount' ),
-			$this->errors['amount'],
+			$expected,
+			$this->getFirstError(),
 			'Wrong error message for non-numeric amount'
 		);
 	}
@@ -117,27 +135,41 @@ class AmountTest  extends DonationInterfaceTestCase {
 	public function testNegativeAmount() {
 		$this->normalized['amount'] = '-100.00';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for negative amount' );
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for negative amount'
+		);
+
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-error-msg-invalid-amount'
+		);
 		$this->assertEquals(
-			WmfFramework::formatMessage( 'donate_interface-error-msg-invalid-amount' ),
-			$this->errors['amount'],
-			'Wrong error message for negative amount'
+			$expected,
+			$this->getFirstError(),
+			'Wrong error message for non-numeric amount'
 		);
 	}
 
 	public function testTooMuchUsd() {
 		$this->normalized['amount'] = '101.00';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for excessive amount (USD)' );
-		$expected = WmfFramework::formatMessage(
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for excessive amount (USD)'
+		);
+		$expected = new ValidationError(
+			'amount',
 			'donate_interface-bigamount-error',
-			100,
-			'USD',
-			$this->adapter->getGlobal( 'MajorGiftsEmail' )
+			array(
+				100,
+				'USD',
+				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
+			)
 		);
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
+			$this->getFirstError(),
 			'Wrong error message for excessive amount (USD)'
 		);
 	}
@@ -145,16 +177,21 @@ class AmountTest  extends DonationInterfaceTestCase {
 	public function testTooLittleUsd() {
 		$this->normalized['amount'] = '1.49';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for diminutive amount (USD)' );
+
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for diminutive amount (USD)'
+		);
 
 		$formattedMin = Amount::format( 1.50, 'USD', 'en_US' );
-		$expected = WmfFramework::formatMessage(
+		$expected = new ValidationError(
+			'amount',
 			'donate_interface-smallamount-error',
-			$formattedMin
+			array( $formattedMin )
 		);
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
+			$this->getFirstError(),
 			'Wrong error message for diminutive amount (USD)'
 		);
 	}
@@ -165,16 +202,23 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$this->normalized['currency_code'] = 'BBD';
 		$this->normalized['amount'] = '201.00';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for excessive amount (BBD)' );
-		$expected = WmfFramework::formatMessage(
+
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for excessive amount (BBD)'
+		);
+		$expected = new ValidationError(
+			'amount',
 			'donate_interface-bigamount-error',
-			200,
-			'BBD',
-			$this->adapter->getGlobal( 'MajorGiftsEmail' )
+			array(
+				200,
+				'BBD',
+				$this->adapter->getGlobal( 'MajorGiftsEmail' )
+			)
 		);
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
+			$this->getFirstError(),
 			'Wrong error message for excessive amount (BBD)'
 		);
 	}
@@ -183,16 +227,20 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$this->normalized['currency_code'] = 'BBD';
 		$this->normalized['amount'] = '2.95';
 		$this->validate();
-		$this->assertNotEmpty( $this->errors, 'No error for diminutive amount (BBD)' );
 
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for diminutive amount (BBD)'
+		);
 		$formattedMin = Amount::format( 3.00, 'BBD', 'en_US' );
-		$expected = WmfFramework::formatMessage(
+		$expected = new ValidationError(
+			'amount',
 			'donate_interface-smallamount-error',
-			$formattedMin
+			array( $formattedMin )
 		);
 		$this->assertEquals(
 			$expected,
-			$this->errors['amount'],
+			$this->getFirstError(),
 			'Wrong error message for diminutive amount (BBD)'
 		);
 	}

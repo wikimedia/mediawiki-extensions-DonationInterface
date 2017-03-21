@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
 
 /**
@@ -33,12 +34,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @var string
 	 */
 	protected $gatewayIdentifier;
-
-	/**
-	 * An array of form errors
-	 * @var array $errors
-	 */
-	public $errors = array( );
 
 	/**
 	 * The gateway adapter object
@@ -135,7 +130,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		Hooks::register( 'MakeGlobalVariablesScript', array( $this->adapter, 'setClientVariables' ) );
+		Hooks::register( 'MakeGlobalVariablesScript', array( $this, 'setClientVariables' ) );
 
 		try {
 			$this->handleRequest();
@@ -347,8 +342,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$this->displayForm();
 			}
 		} else { //token mismatch
-			$error['general']['token-mismatch'] = $this->msg( 'donate_interface-token-mismatch' );
-			$this->adapter->mergeError( $error );
+			$this->adapter->getErrorState()->addError( new PaymentError(
+				'internal-0001',
+				'Failed CSRF token validation',
+				LogLevel::INFO
+			) );
 			$this->displayForm();
 		}
 	}
@@ -468,27 +466,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->renderIframe( $url );
 		} elseif ( $form = $result->getForm() ) {
 			// Show another form.
-
 			$this->adapter->addRequestData( array(
 				'ffname' => $form,
 			) );
 			$this->displayForm();
-		} elseif ( $errors = $result->getErrors() ) {
-			// FIXME: Creepy.  Currently, the form inspects adapter errors.  Use
-			// the stuff encapsulated in PaymentResult instead.
-			foreach ( $this->adapter->getTransactionResponse()->getErrors() as $code => $transactionError ) {
-				$message = $transactionError['message'];
-				$error = array();
-				if ( !empty( $transactionError['context'] ) ) {
-					$error[$transactionError['context']] = $message;
-				} else if ( strpos( $code, 'internal' ) === 0 ) {
-					$error['retryMsg'][ $code ] = $message;
-				}
-				else {
-					$error['general'][ $code ] = $message;
-				}
-				$this->adapter->mergeError( $error );
-			}
+		} elseif ( !empty( $result->getErrors() ) ) {
 			$this->displayForm();
 		} else {
 			// Success.
@@ -546,5 +528,41 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// TODO: Switch title according to failiness.
 		// Maybe ask $form_obj for a title so different errors can show different titles
 		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
+	}
+
+	/**
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		$language = $this->adapter->getData_Unstaged_Escaped( 'language' );
+		$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
+		$vars['wgDonationInterfacePriceFloor'] = $this->adapter->getGlobal( 'PriceFloor' );
+		$vars['wgDonationInterfacePriceCeiling'] = $this->adapter->getGlobal( 'PriceCeiling' );
+		try {
+			$clientRules = $this->adapter->getClientSideValidationRules();
+			if ( !empty( $clientRules ) ) {
+				// Translate all the messages
+				// FIXME: figure out country fallback add the i18n strings
+				// for use with client-side mw.msg()
+				foreach( $clientRules as &$fieldRules ) {
+					foreach ( $fieldRules as &$rule ) {
+						if ( !empty( $rule['messageKey'] ) ) {
+							$rule['message'] = MessageUtils::getCountrySpecificMessage(
+								$rule['messageKey'],
+								$country,
+								$language
+							);
+						}
+					}
+				}
+				$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+			}
+		} catch ( Exception $ex ) {
+			$this->logger->warning(
+				'Caught exception setting client-side validation rules: ' .
+				$ex->getMessage()
+			);
+		}
 	}
 }

@@ -215,7 +215,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'headers' => array(
 				'location' => null,
 			),
-			'topError' => array(
+			'currency_codeMsg' => array(
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
 			)
 		);

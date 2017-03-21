@@ -3,11 +3,11 @@
 interface ValidationHelper {
 	/**
 	 * Run validation on whatever normalized data we're responsible for,
-	 * and set errors per field, or under the "general" key.
+	 * and append errors.
 	 *
 	 * @param GatewayType $adapter
 	 * @param array $normalized Donation data in normalized form.
-	 * @param array $errors Reference to error array
+	 * @param ErrorState $errors Reference to error state
 	 * @return void
 	 */
 	function validate( GatewayType $adapter, $normalized, &$errors );

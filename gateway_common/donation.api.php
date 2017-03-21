@@ -29,7 +29,8 @@ class DonationApi extends ApiBase {
 
 		$validated_ok = $gatewayObj->validatedOK();
 		if ( !$validated_ok ) {
-			$outputResult['errors'] = $gatewayObj->getErrors();
+			$errors = $gatewayObj->getErrorState()->getErrors();
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
@@ -80,11 +81,7 @@ class DonationApi extends ApiBase {
 		}
 		$errors = $result->getErrors();
 		if ( !empty( $errors ) ) {
-			$simplify = function( $error ) {
-				return $error['message'];
-			};
-			// TODO:objectify errors, decide here whether to include debug info
-			$outputResult['errors'] = array_map( $simplify, $errors );
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
@@ -92,6 +89,25 @@ class DonationApi extends ApiBase {
 			$this->getResult()->addValue( null, 'request', $this->donationData );
 		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
+	}
+
+	protected function serializeErrors( $errors ) {
+		$serializedErrors = array();
+		foreach( $errors as $error ) {
+			if ( $error instanceof ValidationError ) {
+				$message = WmfFramework::formatMessage(
+					$error->getMessageKey(),
+					$error->getMessageParams()
+				);
+				$serializedErrors[$error->getField()] = $message;
+			} else {
+				$message = WmfFramework::formatMessage(
+					$error->getMessageKey()
+				);
+				$serializedErrors['general'][] = $message;
+			}
+		}
+		return $serializedErrors;
 	}
 
 	public function isReadMode() {
@@ -148,7 +164,10 @@ class DonationApi extends ApiBase {
 		);
 	}
 
-	private function getGatewayObject() {
+	/**
+	 * @return GatewayAdapter
+	 */
+	protected function getGatewayObject() {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 		return new $className();
 	}

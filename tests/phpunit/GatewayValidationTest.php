@@ -43,7 +43,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->page = new TestingGatewayPage();
 	}
 
-	public function setUpAdapter( $data = array() ) {
+	protected function setUpAdapter( $data = array() ) {
 		$this->adapter = new TestingGenericAdapter( array(
 			'external_data' => $data,
 		) );
@@ -54,6 +54,22 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeIdentifier = null;
 		TestingGenericAdapter::$acceptedCurrencies = array();
 		parent::tearDown();
+	}
+
+	public function assertHasValidationError( $field, $messageKey = null, $messageParams = null ) {
+		$hasError = false;
+		foreach( $this->adapter->getErrorState()->getErrors() as $error ) {
+			if ( $error instanceof ValidationError and $error->getField() === $field ) {
+				$hasError = true;
+				if ( $messageKey !== null ) {
+					$this->assertEquals( $messageKey, $error->getMessageKey() );
+				}
+				if ( $messageParams !== null ) {
+					$this->assertEquals( $messageParams, $error->getMessageParams() );
+				}
+			}
+		}
+		$this->assertTrue( $hasError );
 	}
 
 	public function testPassesValidation() {
@@ -76,8 +92,8 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'amount', $errors );
+		$errors = $this->adapter->getErrorState();
+		$this->assertTrue( $errors->hasValidationError( 'amount' ) );
 	}
 
 	public function testHighAmountError() {
@@ -89,8 +105,8 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'amount', $errors );
+		$errors = $this->adapter->getErrorState();
+		$this->assertTrue( $errors->hasValidationError( 'amount' ) );
 	}
 
 	public function testCurrencyCodeError() {
@@ -102,8 +118,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'currency_code', $errors );
+		$this->assertHasValidationError( 'currency_code' );
 	}
 
 	public function testCountryError() {
@@ -121,8 +136,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'country', $errors );
+		$this->assertHasValidationError( 'country' );
 	}
 
 	public function testEmailError() {
@@ -134,8 +148,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'email', $errors );
+		$this->assertHasValidationError( 'email' );
 	}
 
 	public function testSpuriousCcError() {
@@ -146,9 +159,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
-
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'fname', $errors );
+		$this->assertHasValidationError( 'fname' );
 	}
 
 	public function testMissingFieldError() {
@@ -157,27 +168,6 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
-
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'currency_code', $errors );
-	}
-
-	/**
-	 * @covers DataValidator::validate_gateway
-	 */
-	public function testBadGatewayError() {
-		$badGateway = uniqid();
-
-		// The gateway is calculated from adapter class, so this validation
-		// doesn't happen in practice and we can't fake a bad gateway using
-		// GatewayAdapter::addRequestData().
-
-		TestingGenericAdapter::$fakeIdentifier = $badGateway;
-		$this->setUpAdapter();
-
-		$this->assertFalse( $this->adapter->validatedOK() );
-
-		$errors = $this->adapter->getErrors();
-		$this->assertArrayHasKey( 'general', $errors );
+		$this->assertHasValidationError( 'currency_code' );
 	}
 }

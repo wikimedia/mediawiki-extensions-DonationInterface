@@ -110,7 +110,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( true, $gateway->getTransactionStatus(),
 			'Transaction status should be true for code "0"' );
 
-		$this->assertEmpty( $gateway->getTransactionErrors(),
+		$this->assertFalse( $gateway->getErrorState()->hasErrors(),
 			'Transaction errors should be empty for code "0"' );
 	}
 
@@ -141,11 +141,13 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$gateway->do_transaction( 'NewInvoice' );
 
-		$expected = array(
-			'internal-0000' => wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text()
+		$errors = $gateway->getErrorState()->getErrors();
+
+		$this->assertEquals(
+			'internal-0000',
+			$errors[0]->getErrorCode(),
+			'Wrong error for code "1"'
 		);
-		$this->assertEquals( $expected, $gateway->getTransactionErrors(),
-			'Wrong error for code "1"' );
 		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
 		$this->assertNotEmpty( $logged );
 	}
@@ -194,10 +196,11 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$result = $gateway->doPayment();
 
-		$expectedMessage = wfMessage( 'donate_interface-processing-error')->inLanguage( $init['language'] )->text();
-		$actual = $result->getErrors();
-		$this->assertEquals( $expectedMessage, $actual['internal-0000']['message'],
-			'Wrong error array in PaymentResult' );
+		$errors = $result->getErrors();
+		$this->assertNotEmpty(
+			$errors,
+			'Should be an error in PaymentResult'
+		);
 
 		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
 		$this->assertNotEmpty( $logged );
@@ -219,9 +222,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
-		$expectedMessage = wfMessage( 'donate_interface-error-msg-limit')->inLanguage( $init['language'] )->text();
-		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
-		$this->assertEquals( 'amount', $errors['internal-0000']['context'] );
+		$this->assertEquals( 'donate_interface-error-msg-limit', $errors[0]->getMessageKey() );
+		$this->assertEquals( 'amount', $errors[0]->getField() );
 	}
 
 	/**
@@ -238,9 +240,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
-		$expectedMessage = DataValidator::getErrorMessage( 'fiscal_number', 'calculated', $init['language'], $init['country'] );
-		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
-		$this->assertEquals( 'fiscal_number', $errors['internal-0000']['context'] );
+		$this->assertEquals( 'donate_interface-error-msg-fiscal_number', $errors[0]->getMessageKey() );
+		$this->assertEquals( 'fiscal_number', $errors[0]->getField() );
 	}
 
 	/**
@@ -271,8 +272,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
-		$expectedMessage = wfMessage( 'donate_interface-try-again')->inLanguage( $init['language'] )->text();
-		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
+
+		$this->assertEquals( 'internal-0001', $errors[0]->getErrorCode() );
 	}
 
 	/**
@@ -289,8 +290,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
-		$expectedMessage = wfMessage( 'donate_interface-try-again')->inLanguage( $init['language'] )->text();
-		$this->assertEquals( $expectedMessage, $errors['internal-0000']['message'] );
+
+		$this->assertEquals( 'internal-0001', $errors[0]->getErrorCode() );
 	}
 
 	/**
@@ -524,11 +525,10 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init['currency_code'] = 'CLP';
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$errors = $gateway->getErrors();
+		$errorState = $gateway->getErrorState();
 
-		$this->assertNotEmpty( $errors );
 		$this->assertTrue(
-			isset( $errors['currency_code'] ),
+			$errorState->hasValidationError( 'currency_code' ),
 			'Should show a currency code error for trying to use CLP in BR'
 		);
 	}

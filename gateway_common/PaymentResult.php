@@ -73,9 +73,9 @@ class PaymentResult {
 
 	public static function newEmpty() {
 		$response = new PaymentResult();
-		$response->errors = array(
-			'internal-0000' => 'Internal error: no results yet.',
-		);
+		$response->errors = array( new PaymentError(
+			'internal-0000', 'Internal error: no results yet.'
+		) );
 		$response->failed = true;
 		return $response;
 	}

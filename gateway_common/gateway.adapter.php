@@ -153,18 +153,9 @@ abstract class GatewayAdapter
 	 */
 	protected $final_status;
 	/**
-	 * @var array Map of errors preventing this transaction from continuing.
-	 *     Structure is like:
-	 *     [
-	 *         # An i18n key name to an error message that will display atop of
-	 *         # the screen, indicating that something general needs fixing.
-	 *         'general' => 'warning-currency-fallback',
-	 *         # Example of a very specific error string that only the gateway
-	 *         # could calculate.
-	 *         'address' => 'key saying: "Address is required for E-Commerce transactions."',
-	 *     ]
+	 * @var ErrorState List of errors preventing this transaction from continuing.
 	 */
-	protected $errors = array();
+	protected $errorState;
 
 	/**
 	 * Name of the current transaction.  Set via @see setCurrentTransaction
@@ -228,7 +219,7 @@ abstract class GatewayAdapter
 			$this->batch = $options['batch_mode'];
 			unset( $options['batch_mode'] );
 		}
-
+		$this->errorState = new ErrorState();
 		$this->logger = DonationLoggerFactory::getLogger( $this );
 		$this->payment_init_logger = DonationLoggerFactory::getLogger( $this, '_payment_init' );
 
@@ -276,10 +267,11 @@ abstract class GatewayAdapter
 
 		if ( $this->getValidationAction() !== 'process' ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			$error = array( 'general' => array( 'internal-0001' =>
-				$this->getErrorMapByCodeAndTranslate( 'internal-0001' )
+			$this->errorState->addError( new PaymentError(
+				'internal-0001',
+				'Failed initial filters',
+				LogLevel::INFO
 			) );
-			$this->mergeError( $error );
 		}
 	}
 
@@ -912,7 +904,7 @@ abstract class GatewayAdapter
 			//If the data didn't validate okay, prevent all data transmissions.
 			$response = $this->getFailedValidationResponse();
 			// TODO: should we set $this->transaction_response ?
-			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errors, true ) );
+			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errorState, true ) );
 			return $response;
 		}
 
@@ -995,13 +987,13 @@ abstract class GatewayAdapter
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
 				$this->transaction_response->setCommunicationStatus( false );
 				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
-				$this->transaction_response->setErrors( array(
-					'internal-0000' => array(
-						'debugInfo' => "Failed pre-process checks for transaction type $transaction.",
-						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'logLevel' => LogLevel::INFO
+				$this->transaction_response->addError(
+					new PaymentError(
+						'internal-0000',
+						"Failed pre-process checks for transaction type $transaction.",
+						LogLevel::INFO
 					)
-				) );
+				);
 				return $this->transaction_response;
 			}
 
@@ -1049,13 +1041,13 @@ abstract class GatewayAdapter
 
 			$this->transaction_response->setCommunicationStatus( false );
 			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0001' ) );
-			$this->transaction_response->setErrors( array(
-				'internal-0001' => array(
-					'debugInfo' => 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage(),
-					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0001' ),
-					'logLevel' => LogLevel::CRITICAL
+			$this->transaction_response->addError(
+				new PaymentError(
+					'internal-0001',
+					'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage(),
+					LogLevel::CRITICAL
 				)
-			) );
+			);
 
 			return $this->transaction_response;
 		}
@@ -1073,13 +1065,16 @@ abstract class GatewayAdapter
 			try {
 				$this->processResponse( $formatted );
 			} catch ( ResponseProcessingException $ex ) {
+				// TODO: Should we integrate ResponseProcessingException with PaymentError?
 				$errCode = $ex->getErrorCode();
 				$retryVars = $ex->getRetryVars();
-				$this->transaction_response->addError( $errCode, array(
-					'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
-					'debugInfo' => $ex->getMessage(),
-					'logLevel' => LogLevel::ERROR
-				) );
+				$this->transaction_response->addError(
+					new PaymentError(
+						$errCode,
+						$ex->getMessage(),
+						LogLevel::ERROR
+					)
+				);
 			}
 
 		} elseif ( $txn_ok === false ) { // nothing to process, so we have to build it manually
@@ -1088,13 +1083,13 @@ abstract class GatewayAdapter
 
 			$this->transaction_response->setCommunicationStatus( false );
 			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0002' ) );
-			$this->transaction_response->setErrors( array(
-				'internal-0002' => array(
-					'debugInfo' => $logMessage,
-					'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0002' ),
-					'logLevel' => LogLevel::ERROR
+			$this->transaction_response->addError(
+				new PaymentError(
+					'internal-0002',
+					$logMessage,
+					LogLevel::ERROR
 				)
-			) );
+			);
 		}
 
 		// Log out how much time it took for the cURL request
@@ -1106,19 +1101,20 @@ abstract class GatewayAdapter
 			// Set this by key so that the result object still has all the cURL data
 			$this->transaction_response->setCommunicationStatus( false );
 			$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( $errCode ) );
-			$this->transaction_response->setErrors( array(
-				$errCode => array(
-					'debugInfo' => "$transaction Communication failed (errcode $errCode), will reattempt!",
-					'message' => $this->getErrorMapByCodeAndTranslate( $errCode ),
-					'logLevel' => LogLevel::CRITICAL
+			$this->transaction_response->addError(
+				new PaymentError(
+					$errCode,
+					"$transaction Communication failed (errcode $errCode), will reattempt!",
+					LogLevel::CRITICAL
 				)
-			) );
+			);
 		}
 
 		//if we have set errors by this point, the transaction is not okay
-		$errors = $this->getTransactionErrors();
+		$errors = $this->transaction_response->getErrors();
 		if ( !empty( $errors ) ) {
 			$txn_ok = false;
+			$this->errorState->addErrors( $errors );
 		}
 		// If we have any special post-process instructions for this
 		// transaction, do 'em.
@@ -1133,13 +1129,13 @@ abstract class GatewayAdapter
 				$this->logger->info( "Failed post-process checks for transaction type $transaction." );
 				$this->transaction_response->setCommunicationStatus( false );
 				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
-				$this->transaction_response->setErrors( array(
-					'internal-0000' => array(
-						'debugInfo' => "Failed post-process checks for transaction type $transaction.",
-						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'logLevel' => LogLevel::INFO
+				$this->transaction_response->addError(
+					new PaymentError(
+						'internal-0000',
+						"Failed post-process checks for transaction type $transaction.",
+						LogLevel::INFO
 					)
-				) );
+				);
 				return $this->transaction_response;
 			}
 		}
@@ -2128,26 +2124,6 @@ abstract class GatewayAdapter
 		return false;
 	}
 
-	/**
-	 * Returns an array of errors, in the format $error_code => $error_message.
-	 * This should be an empty array on transaction success.
-	 *
-	 * @deprecated
-	 *
-	 * @return array
-	 */
-	public function getTransactionErrors() {
-
-		if ( $this->transaction_response && $this->transaction_response->getErrors() ) {
-			$simplify = function( $error ) {
-				return $error['message'];
-			};
-			return array_map( $simplify, $this->transaction_response->getErrors() );
-		} else {
-			return array();
-		}
-	}
-
 	public function getFormClass() {
 		$ffname = $this->dataObj->getVal( 'ffname' );
 		if ( strpos( $ffname, 'error') === 0
@@ -2162,24 +2138,11 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Return list of all errors that prevent this transaction from continuing.
+	 * Return any errors that prevent this transaction from continuing.
+	 * @return ErrorState
 	 */
-	public function getErrors() {
-		return $this->errors;
-	}
-
-	/**
-	 * Add errors those already stored.
-	 *
-	 * @param array $errors Map from field or field group key to error string.
-	 * May contain one or multiple erroring fields.
-	 * Merged by key rather than as a list, hence the awkward, surprise plural.
-	 *
-	 * TODO: Encapsulate errors as objects.  Provide both merge list and append item to list methods?
-	 * FIXME: Nasty that array_merge overwrites rather than appending.  Fix while encapsulating the list.
-	 */
-	public function mergeError( $errors ) {
-		$this->errors = array_merge( $this->errors, $errors );
+	public function getErrorState() {
+		return $this->errorState;
 	}
 
 	/**
@@ -2240,8 +2203,7 @@ abstract class GatewayAdapter
 	 */
 	function runAntifraudFilters() {
 		//extra layer of Stop Doing This.
-		$errors = $this->getTransactionErrors();
-		if ( !empty( $errors ) ) {
+		if ( $this->errorState->hasErrors() ) {
 			$this->logger->info( 'Skipping antifraud filters: Transaction is already in error' );
 			return;
 		}
@@ -2467,18 +2429,20 @@ abstract class GatewayAdapter
 		} else {
 			$check_not_empty = array();
 		}
-		$this->errors = DataValidator::validate( $this, $normalized, $check_not_empty );
+		$this->errorState->addErrors(
+			DataValidator::validate( $this, $normalized, $check_not_empty )
+		);
 
 		// Run modular validations.
 		$transformers = $this->getDataTransformers();
 		foreach ( $transformers as $transformer ) {
 			if ( $transformer instanceof ValidationHelper ) {
-				$transformer->validate( $this, $normalized, $this->errors );
+				$transformer->validate( $this, $normalized, $this->errorState );
 			}
 		}
 
 		// TODO: Rewrite as something modular?  It's in-between validation and normalization...
-		if ( isset( $this->errors['currency_code'] ) ) {
+		if ( $this->errorState->hasValidationError( 'currency_code' ) ) {
 			// Try to fall back to a default currency, clearing the error if
 			// successful.
 			$this->fallbackToDefaultCurrency();
@@ -2493,8 +2457,8 @@ abstract class GatewayAdapter
 	 * @return boolean True if submitted data is valid and sufficient to proceed to the next step.
 	 * TODO: Were we also trying to indicate whether the validation step has succeeded here, by distinguishing array() != false?
 	 */
-	public function validatedOK(){
-		return !$this->errors;
+	public function validatedOK() {
+		return !$this->errorState->hasValidationError();
 	}
 
 	/**
@@ -2560,20 +2524,20 @@ abstract class GatewayAdapter
 		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 
 		// Clear the currency error.
-		unset( $this->errors['currency_code'] );
+		$this->errorState->clearValidationError( 'currency_code' );
 
 		$notify = $this->getGlobal( 'NotifyOnConvert' );
 
 		// If we're configured to notify, or if there are already other errors,
 		// add a notification message.
-		if ( $notify || $this->errors ) {
-			$error['general'] = MessageUtils::getCountrySpecificMessage(
-				'donate_interface-fallback-currency-notice',
-				$this->dataObj->getVal( 'country' ),
-				$this->dataObj->getVal( 'language' ),
-				array( $defaultCurrency )
+		if ( $notify || $this->errorState->hasErrors() ) {
+			$this->errorState->addError(
+				new ValidationError(
+					'currency_code',
+					'donate_interface-fallback-currency-notice',
+					array( $defaultCurrency )
+				)
 			);
-			$this->mergeError( $error );
 		}
 	}
 
@@ -3674,43 +3638,20 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * MakeGlobalVariablesScript handler, sends settings to Javascript
-	 * @param array $vars
-	 */
-	public function setClientVariables( &$vars ) {
-		$vars['wgDonationInterfacePriceFloor'] = $this->getGlobal( 'PriceFloor' );
-		$vars['wgDonationInterfacePriceCeiling'] = $this->getGlobal( 'PriceCeiling' );
-		try {
-			$clientRules = $this->getClientSideValidationRules();
-			if ( !empty( $clientRules ) ) {
-				$vars['wgDonationInterfaceValidationRules'] = $clientRules;
-			}
-		} catch ( Exception $ex ) {
-			$this->logger->warning(
-				'Caught exception setting client-side validation rules: ' .
-				$ex->getMessage()
-			);
-		}
-	}
-
-	/**
 	 * Returns an array of rules used to validate data before submission.
 	 * Each entry's key should correspond to the id of the target field, and
 	 * the value should be a list of rules with keys as described in
 	 * @see ClientSideValidationHelper::getClientSideValidation
 	 */
-	protected function getClientSideValidationRules() {
-		$language = $this->getData_Unstaged_Escaped( 'language' );
-		$country = $this->getData_Unstaged_Escaped( 'country' );
+	public function getClientSideValidationRules() {
 		// Start with the server required field validations.
 		$requiredRules = array();
 		foreach ( $this->getRequiredFields() as $field ) {
+			$key = 'donate_interface-error-msg-' . $field;
 			$requiredRules[$field] = array(
 				array(
 					'required' => true,
-					'message' => DataValidator::getErrorMessage(
-						$field, 'not_empty', $language, $country
-					)
+					'messageKey' => $key,
 				)
 			);
 		};
@@ -3734,8 +3675,8 @@ abstract class GatewayAdapter
 		$return = new PaymentTransactionResponse();
 		$return->setCommunicationStatus( false );
 		$return->setMessage( 'Failed data validation' );
-		foreach ( $this->errors as $code => $error ) {
-			$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
+		foreach ( $this->errorState->getErrors() as $error ) {
+			$return->addError( $error );
 		}
 		return $return;
 	}

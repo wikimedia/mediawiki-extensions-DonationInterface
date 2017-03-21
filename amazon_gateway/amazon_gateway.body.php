@@ -29,4 +29,21 @@ class AmazonGateway extends GatewayPage {
 
 		$this->handleDonationRequest();
 	}
+
+	/**
+	 * MakeGlobalVariablesScript handler, sends settings to Javascript
+	 * @param array $vars
+	 */
+	public function setClientVariables( &$vars ) {
+		parent::setClientVariables( $vars );
+		$vars['wgAmazonGatewayClientID'] = $this->adapter->getAccountConfig( 'ClientID' );
+		$vars['wgAmazonGatewaySellerID'] = $this->adapter->getAccountConfig( 'SellerID' );
+		$vars['wgAmazonGatewaySandbox'] = $this->adapter->getGlobal( 'Test' ) ? true : false;
+		$vars['wgAmazonGatewayReturnURL'] = $this->adapter->getAccountConfig( 'ReturnURL' );
+		$vars['wgAmazonGatewayWidgetScript'] = $this->adapter->getAccountConfig( 'WidgetScriptURL' );
+		$vars['wgAmazonGatewayLoginScript'] = $this->adapter->getGlobal( 'LoginScript' );
+		$vars['wgAmazonGatewayFailPage'] = $this->adapter->getGlobal( 'FailPage' );
+		$vars['wgAmazonGatewayOtherWaysURL'] = $this->adapter->localizeGlobal( 'OtherWaysURL' );
+	}
+
 }

@@ -457,12 +457,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// TODO: so much boilerplate...  Just throw an exception subclass.
 				$logme = 'Failed response for Order ID ' . $this->getData_Unstaged_Escaped( 'order_id' );
 				$this->logger->error( $logme );
-				$this->transaction_response->setErrors( array(
-					'internal-0000' => array (
-						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'debugInfo' => $logme,
-						'logLevel' => LogLevel::ERROR
-					)
+				$this->transaction_response->addError( new PaymentError(
+					'internal-0000',
+					$logme,
+					LogLevel::ERROR
 				) );
 			}
 		} catch ( Exception $ex ) {

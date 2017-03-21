@@ -140,8 +140,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
-		// FIXME: PaymentResult->isFailed returns null for false
-		$this->assertTrue( !( $result->isFailed() ), 'Result should not be failed when responses are good' );
+		$this->assertFalse( $result->isFailed(), 'Result should not be failed when responses are good' );
 		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
@@ -176,7 +175,11 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 		$this->assertTrue( $result->getRefresh(), 'Result should be a refresh on error' );
 		$errors = $result->getErrors();
-		$this->assertTrue( isset( $errors['InvalidPaymentMethod'] ), 'InvalidPaymentMethod error should be set' );
+		$this->assertEquals(
+			'InvalidPaymentMethod',
+			$errors[0]->getErrorCode(),
+			'InvalidPaymentMethod error should be set'
+		);
 	}
 
 	/**
@@ -244,7 +247,12 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$result = $gateway->doPayment();
 
 		$errors = $result->getErrors();
-		$this->assertTrue( isset( $errors[ResponseCodes::NO_RESPONSE] ), 'NO_RESPONSE error should be set' );
+
+		$this->assertEquals(
+			ResponseCodes::NO_RESPONSE,
+			$errors[0]->getErrorCode(),
+			'NO_RESPONSE error should be set'
+		);
 	}
 
 	/**
