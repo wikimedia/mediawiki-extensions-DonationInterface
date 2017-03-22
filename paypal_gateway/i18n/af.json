@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Naudefj"
+			"Naudefj",
+			"Fwolff"
 		]
 	},
-	"paypal_gateway-desc": "Registreer PayPal as 'n skenkingsmeganisme"
+	"paypal_gateway-desc": "Betalingsverwerking met PayPal"
 }
