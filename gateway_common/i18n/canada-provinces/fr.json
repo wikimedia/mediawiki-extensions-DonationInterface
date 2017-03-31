@@ -1,20 +1,20 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-province-dropdown-YY": "Sélectionnez une Province",
-    "donate_interface-province-dropdown-XX": "En dehors du Canada",
-    "donate_interface-province-dropdown-AB": "Alberta",
-    "donate_interface-province-dropdown-BC": "Colombie-Britannique",
-    "donate_interface-province-dropdown-MB": "Manitoba",
-    "donate_interface-province-dropdown-NB": "Nouveau-Brunswick",
-    "donate_interface-province-dropdown-NL": "Terre-Neuve-et-Labrador",
-    "donate_interface-province-dropdown-NT": "Territoires du Nord-Ouest",
-    "donate_interface-province-dropdown-NS": "Nouvelle-Écosse",
-    "donate_interface-province-dropdown-NU": "Nunavut",
-    "donate_interface-province-dropdown-ON": "Ontario",
-    "donate_interface-province-dropdown-PE": "Île-du-Prince-Édouard",
-    "donate_interface-province-dropdown-QC": "Québec",
-    "donate_interface-province-dropdown-SK": "Saskatchewan",
-    "donate_interface-province-dropdown-YT": "Yukon"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-province-dropdown-YY": "Sélectionnez une Province",
+	"donate_interface-province-dropdown-XX": "En dehors du Canada",
+	"donate_interface-province-dropdown-AB": "Alberta",
+	"donate_interface-province-dropdown-BC": "Colombie-Britannique",
+	"donate_interface-province-dropdown-MB": "Manitoba",
+	"donate_interface-province-dropdown-NB": "Nouveau-Brunswick",
+	"donate_interface-province-dropdown-NL": "Terre-Neuve-et-Labrador",
+	"donate_interface-province-dropdown-NT": "Territoires du Nord-Ouest",
+	"donate_interface-province-dropdown-NS": "Nouvelle-Écosse",
+	"donate_interface-province-dropdown-NU": "Nunavut",
+	"donate_interface-province-dropdown-ON": "Ontario",
+	"donate_interface-province-dropdown-PE": "Île-du-Prince-Édouard",
+	"donate_interface-province-dropdown-QC": "Québec",
+	"donate_interface-province-dropdown-SK": "Saskatchewan",
+	"donate_interface-province-dropdown-YT": "Yukon"
 }
