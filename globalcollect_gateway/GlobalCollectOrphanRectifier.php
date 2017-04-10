@@ -160,6 +160,13 @@ class GlobalCollectOrphanRectifier {
 	 * @return boolean True if the orphan has been rectified, false if not.
 	 */
 	protected function rectifyOrphan( $normalized ){
+		if ( $normalized['payment_method'] !== 'cc' ) {
+			// Skip other payment methods which shouldn't be in the pending
+			// queue anyway.  See https://phabricator.wikimedia.org/T161160
+			$this->logger->info( "Skipping non-credit card pending record." );
+			return false;
+		}
+
 		$this->logger->info( "Rectifying orphan: {$normalized['order_id']}" );
 		$is_rectified = false;
 
