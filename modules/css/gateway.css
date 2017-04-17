@@ -14,7 +14,7 @@ body.ltr #footer #footer-places {
 
 /* Form styling */
 .creditcard-error-msg {
-   color: #cc1100;
+	color: #c10;
 }
 
 #payment-table-donor {
@@ -25,10 +25,10 @@ body.ltr #footer #footer-places {
 	text-align: left;
 }
 
-#bodyContent input[type="text"],
-#bodyContent input[type="email"],
+#bodyContent input[type='text'],
+#bodyContent input[type='email'],
 textarea {
-	border: 1px solid #C0C0C0;
+	border: 1px solid #c0c0c0;
 	padding: 3px;
 }
 
@@ -38,16 +38,17 @@ textarea {
 
 #greenBackground,
 div.donor {
-    padding:16px 24px;
-	min-width:300px;
-    background-color:#CCE7CD;
-	border:1px solid #5EAC58;
+	padding: 16px 24px;
+	min-width: 300px;
+	background-color: #cce7cd;
+	border: 1px solid #5eac58;
 }
-p#informationsharing, p#monthlycancel {
-    width: 318px;
-    padding: 0 15px;
-    line-height: 14px;
-    font-size: 11px;
+p#informationsharing,
+p#monthlycancel {
+	width: 318px;
+	padding: 0 15px;
+	line-height: 14px;
+	font-size: 11px;
 }
 
 /* Form Inputs */
@@ -61,120 +62,129 @@ input#email {
 	direction: ltr;
 }
 
-.fullwidth { width: 100% }
+.fullwidth {
+	width: 100%;
+}
 
-.halfwidth { width: 50%; }
-.halfwidth:not(:first-child) {
+.halfwidth {
+	width: 50%;
+}
+.halfwidth:not( :first-child ) {
 	margin-left: 2%;
 	width: 48%;
 }
 
-.thirdwidth:first-child { width: 34%; }
-.thirdwidth:not(:first-child) {
+.thirdwidth:first-child {
+	width: 34%;
+}
+.thirdwidth:not( :first-child ) {
 	margin-left: 2%;
 	width: 31%;
 }
 
-.halfwidth, .thirdwidth {
+.halfwidth,
+.thirdwidth {
 	float: left;
 }
 
 /* From 2014 appeal */
 * {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /* Slurped from https://payments.wikimedia.org/index.php?title=MediaWiki:Common.css&oldid=2183 */
 #mw-panel div.portal {
-   display: none !important;
+	display: none !important;
 }
 div#footer #footer-icons {
-   display: none !important;
+	display: none !important;
 }
 
-a[href^="https://"], .link-https {
- background-image: none !important;
- padding: 0 !important;
+a[href^='https://'],
+.link-https {
+	background-image: none !important;
+	padding: 0 !important;
 }
 
 div#content {
- border: none;
+	border: 0;
 }
 
 /* extra-specific to take precedence */
 html body #donate .errorHighlight {
-    border: 2px solid red !important;
+	border: 2px solid #f00 !important;
 }
 
 .errorMsg {
-    color: red;
-    display: inherit;
+	color: #f00;
+	display: inherit;
 }
 
 .errorMsgHide {
-    display: none;
+	display: none;
 }
 
 #emailSuggestion {
-    display: none;
-    color: #7c7c7c;
-    font-size: 95%;
+	display: none;
+	color: #7c7c7c;
+	font-size: 95%;
 }
 
 /* Respond to small viewport */
-@media screen and (max-device-width: 981px) {
-    /* Overall layout */
-    div#content {
-        margin: 0;
-        padding: 1em;
-    }
-    #mw-navigation {
-        display: none;
-    }
-    #appeal {
-        display: none;
-    }
-    #donate {
-        display: block;
-    }
-    div#greenBackground {
-        padding: 1em;
-        width: inherit;
-    }
-    table#payment-table-donor {
-        width: 100%;
-    }
+@media screen and ( max-device-width: 981px ) {
+	/* Overall layout */
+	div#content {
+		margin: 0;
+		padding: 1em;
+	}
+	#mw-navigation {
+		display: none;
+	}
+	#appeal {
+		display: none;
+	}
+	#donate {
+		display: block;
+	}
+	div#greenBackground {
+		padding: 1em;
+		width: inherit;
+	}
+	table#payment-table-donor {
+		width: 100%;
+	}
 
-    /* Form - Contact/Donation Info */
-    table#payment-table-donor td {
-        padding: 0;
-    }
-    td#donate form select,
-    td#donate form input {
-        display: block;
-        float: left;
-        clear: both;
-        font-size: 1.6em;
-        width: 100%;
-        margin:  5px 0;
-        padding: 10px 3%;
-    }
-    td#donate form input.hidden {
-        display: none;
-    }
+	/* Form - Contact/Donation Info */
+	table#payment-table-donor td {
+		padding: 0;
+	}
+	td#donate form select,
+	td#donate form input {
+		display: block;
+		float: left;
+		clear: both;
+		font-size: 1.6em;
+		width: 100%;
+		margin: 5px 0;
+		padding: 10px 3%;
+	}
+	td#donate form input.hidden {
+		display: none;
+	}
 
-    .options-h li {
-        margin-right: 1em;
-    }
+	.options-h li {
+		margin-right: 1em;
+	}
 
-    p#informationsharing, ul#moreinfolinks {
-        font-size: 1em;
-        line-height: 1.35em;
-        width: inherit;
-        padding: 1em;
-    }
+	p#informationsharing,
+	ul#moreinfolinks {
+		font-size: 1em;
+		line-height: 1.35em;
+		width: inherit;
+		padding: 1em;
+	}
 
 	#cards label {
 		display: inline-block;
@@ -182,12 +192,11 @@ html body #donate .errorHighlight {
 		float: left;
 	}
 
-    ul#cards li.has_sub_text {
-        padding-bottom: 0.6em;
-    }
+	ul#cards li.has_sub_text {
+		padding-bottom: 0.6em;
+	}
 
-    ul#cards li.has_sub_text input {
-        margin-bottom: 0.3em !important;
-    }
-
+	ul#cards li.has_sub_text input {
+		margin-bottom: 0.3em !important;
+	}
 }
