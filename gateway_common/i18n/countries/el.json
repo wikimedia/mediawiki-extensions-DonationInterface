@@ -1,7 +1,7 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-country-dropdown-CY": "Κύπρος",
-    "donate_interface-country-dropdown-GR": "Ελλάδα"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-country-dropdown-CY": "Κύπρος",
+	"donate_interface-country-dropdown-GR": "Ελλάδα"
 }

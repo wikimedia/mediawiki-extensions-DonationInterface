@@ -1,7 +1,7 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-country-dropdown-HK": "香港",
-    "donate_interface-country-dropdown-TW": "台灣"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-country-dropdown-HK": "香港",
+	"donate_interface-country-dropdown-TW": "台灣"
 }

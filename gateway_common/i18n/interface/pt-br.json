@@ -19,7 +19,8 @@
 			"Pcoombe",
 			"Jrobell",
 			"Rodrigo codignoli",
-			"Araceletorres"
+			"Araceletorres",
+			"Felipe L. Ewald"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -153,8 +154,8 @@
 	"donate_interface-donor-island": "Ilha",
 	"donate_interface-donor-state": "Estado:",
 	"donate_interface-donor-state-ca": "Província",
-	"donate_interface-donor-postal_code-us": "CEP",
 	"donate_interface-donor-postal_code": "Código postal:",
+	"donate_interface-donor-postal_code-us": "CEP",
 	"donate_interface-donor-country": "País/Região:",
 	"donate_interface-donor-zone": "Zona",
 	"donate_interface-donor-address": "Endereço:",
@@ -298,6 +299,8 @@
 	"donate_interface-cvv-number": "Número CVV",
 	"donate_interface-verification-number": "Número de verificação",
 	"donate_interface-what-is-this": "O que é isto?",
+	"donate_interface-did-you-mean": "Queria dizer <a href=\"#\" class=\"correction\">$1</a>?",
+	"donate_interface-debit": "débito",
 	"donate_interface-do-not-include-dashes": "Não inclua travessões, por favor",
 	"donate_interface-please-donate-today": "Faça uma doação hoje, por favor",
 	"donate_interface-donate-now": "Faça uma doação agora",
@@ -412,7 +415,7 @@
 	"apihelp-donate-param-payment_submethod": "Submétodo de pagamento a ser usado.",
 	"apihelp-donate-param-language": "Código do idioma.",
 	"apihelp-donate-param-order_id": "ID da ordem (se uma doação já tiver sido iniciada).",
-	"apihelp-donate-param-contribution_tracking_id": "ID para a tabela de acompanhamento de contribuição.",
+	"apihelp-donate-param-wmf_token": "Edita token.",
 	"apihelp-donate-param-utm_source": "Variável de acompanhamento.",
 	"apihelp-donate-param-utm_campaign": "Variável de acompanhamento.",
 	"apihelp-donate-param-utm_medium": "Variável de acompanhamento.",

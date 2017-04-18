@@ -1,23 +1,23 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-country-dropdown-US": "USA",
-    "donate_interface-country-dropdown-AU": "Australien",
-    "donate_interface-country-dropdown-AT": "Österreich",
-    "donate_interface-country-dropdown-CA": "Kanada",
-    "donate_interface-country-dropdown-DK": "Dänemark",
-    "donate_interface-country-dropdown-FI": "Finnland",
-    "donate_interface-country-dropdown-FR": "Frankreich",
-    "donate_interface-country-dropdown-DE": "Deutschland",
-    "donate_interface-country-dropdown-IT": "Italien",
-    "donate_interface-country-dropdown-LT": "Litauen",
-    "donate_interface-country-dropdown-LU": "Luxemburg",
-    "donate_interface-country-dropdown-NL": "Niederlande",
-    "donate_interface-country-dropdown-PL": "Polen",
-    "donate_interface-country-dropdown-RU": "Russland",
-    "donate_interface-country-dropdown-ZA": "Südafrika",
-    "donate_interface-country-dropdown-ES": "Spanien",
-    "donate_interface-country-dropdown-CH": "Schweiz",
-    "donate_interface-country-dropdown-GB": "Großbritannien"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-country-dropdown-US": "USA",
+	"donate_interface-country-dropdown-AU": "Australien",
+	"donate_interface-country-dropdown-AT": "Österreich",
+	"donate_interface-country-dropdown-CA": "Kanada",
+	"donate_interface-country-dropdown-DK": "Dänemark",
+	"donate_interface-country-dropdown-FI": "Finnland",
+	"donate_interface-country-dropdown-FR": "Frankreich",
+	"donate_interface-country-dropdown-DE": "Deutschland",
+	"donate_interface-country-dropdown-IT": "Italien",
+	"donate_interface-country-dropdown-LT": "Litauen",
+	"donate_interface-country-dropdown-LU": "Luxemburg",
+	"donate_interface-country-dropdown-NL": "Niederlande",
+	"donate_interface-country-dropdown-PL": "Polen",
+	"donate_interface-country-dropdown-RU": "Russland",
+	"donate_interface-country-dropdown-ZA": "Südafrika",
+	"donate_interface-country-dropdown-ES": "Spanien",
+	"donate_interface-country-dropdown-CH": "Schweiz",
+	"donate_interface-country-dropdown-GB": "Großbritannien"
 }

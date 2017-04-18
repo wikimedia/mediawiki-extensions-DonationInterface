@@ -1,7 +1,7 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-country-dropdown-FI": "Finland",
-    "donate_interface-country-dropdown-SE": "Sverige"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-country-dropdown-FI": "Finland",
+	"donate_interface-country-dropdown-SE": "Sverige"
 }

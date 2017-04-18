@@ -1,7 +1,7 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-country-dropdown-ES": "España",
-    "donate_interface-country-dropdown-MX": "México"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-country-dropdown-ES": "España",
+	"donate_interface-country-dropdown-MX": "México"
 }

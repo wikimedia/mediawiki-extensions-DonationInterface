@@ -1,9 +1,9 @@
 {
-    "@metadata": {
-        "authors": []
-    },
-    "donate_interface-donor-fname-cv": "Nome",
-    "donate_interface-donor-lname-cv": "Apelido",
-    "donate_interface-donor-fname-gq": "Nome",
-    "donate_interface-donor-lname-gq": "Apelido"
+	"@metadata": {
+		"authors": []
+	},
+	"donate_interface-donor-fname-cv": "Nome",
+	"donate_interface-donor-lname-cv": "Apelido",
+	"donate_interface-donor-fname-gq": "Nome",
+	"donate_interface-donor-lname-gq": "Apelido"
 }
