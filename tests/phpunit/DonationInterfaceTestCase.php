@@ -475,6 +475,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	function resetAllEnv() {
+		// TODO: reset PDO/sqlite queues
 		$_SESSION = array ( );
 		$_GET = array ( );
 		$_POST = array ( );

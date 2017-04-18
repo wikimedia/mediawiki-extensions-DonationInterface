@@ -441,9 +441,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					$this->getData_Unstaged_Escaped( 'gateway_txn_id' ) );
 				$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
 					'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
-				// TODO: Can we do this from do_transaction instead, or at least protect with !recurring...
-				$this->finalizeInternalStatus( $status );
-				$this->postProcessDonation();
+				// For recurring payments, we don't want to finalize or send the queue
+				// message just yet
+				if (
+					$status === FinalStatus::FAILED ||
+					!$this->getData_Unstaged_Escaped( 'recurring' )
+				) {
+					$this->finalizeInternalStatus( $status );
+					$this->postProcessDonation();
+				}
 				break;
 			}
 
@@ -512,5 +518,13 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		} else {
 			throw new ResponseProcessingException( "Failure response", $response['ACK'] );
 		}
+	}
+
+	/**
+	 * FIXME: this is coming out of the ambient transaction response
+	 * in the parent adapters. Probably a bad idea everywhere.
+	 */
+	public function getTransactionGatewayTxnID() {
+		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 	}
 }

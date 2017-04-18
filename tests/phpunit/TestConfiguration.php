@@ -81,7 +81,7 @@ $wgDonationInterfaceGatewayAdapters = array(
 	'amazon'=> 'TestingAmazonAdapter',
 	'adyen'=> 'TestingAdyenAdapter',
 	'astropay'=> 'TestingAstroPayAdapter',
-	'paypal_ec'=> 'PaypalExpressAdapter', // ooh, flexible!
+	'paypal_ec'=> 'TestingPaypalExpressAdapter',
 	'paypal'=> 'TestingPaypalLegacyAdapter'
 );
 /**
