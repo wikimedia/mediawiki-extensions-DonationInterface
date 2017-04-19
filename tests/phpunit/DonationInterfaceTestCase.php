@@ -15,8 +15,10 @@
  * GNU General Public License for more details.
  *
  */
+
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  * @group		Fundraising

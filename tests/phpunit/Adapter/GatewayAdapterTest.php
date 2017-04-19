@@ -16,6 +16,8 @@
  *
  */
 
+use Wikimedia\TestingAccessWrapper;
+
 /**
  * TODO: Test everything.
  * Make sure all the basic functions in the gateway_adapter are tested here.

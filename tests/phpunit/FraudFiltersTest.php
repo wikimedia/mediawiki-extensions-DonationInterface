@@ -16,6 +16,8 @@
  *
  */
 
+use Wikimedia\TestingAccessWrapper;
+
 /**
  * @group Fundraising
  * @group DonationInterface

@@ -15,7 +15,9 @@
  * GNU General Public License for more details.
  *
  */
+
 use \Psr\Log\LogLevel;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  *

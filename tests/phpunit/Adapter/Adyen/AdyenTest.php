@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  */
 
+use Wikimedia\TestingAccessWrapper;
+
 /**
  *
  * @group Fundraising
