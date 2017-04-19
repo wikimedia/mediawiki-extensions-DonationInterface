@@ -53,9 +53,6 @@ class DonationQueue {
 		$properties = $this->buildHeaders( $transaction );
 		$message = $this->buildBody( $transaction );
 		$this->newBackend( $queue )->push( $message, $properties );
-
-		// FIXME: hack for new queue, remove
-		$this->mirror( $message, $queue );
 	}
 
 	public function pop( $queue ) {
@@ -74,27 +71,6 @@ class DonationQueue {
 		$backend = $this->newBackend( $queue );
 
 		return $backend->peek();
-	}
-
-	/**
-	 * Temporary measure to transition from key/value ActiveMQ to pure FIFO
-	 * queues. Reads $wgDonationInterfaceQueueMirrors, where keys are original
-	 * queue names and values are the queues to mirror to.
-	 *
-	 * @param array $message
-	 * @param string $queue
-	 */
-	protected function mirror( $message, $queue ) {
-		global $wgDonationInterfaceQueueMirrors;
-		if ( array_key_exists( $queue, $wgDonationInterfaceQueueMirrors ) ) {
-			$mirrorQueue = $wgDonationInterfaceQueueMirrors[$queue];
-			try {
-				$this->newBackend( $mirrorQueue )->push( $message );
-			} catch ( Exception $ex ) {
-				// TODO: log.
-				// DonationLoggerFactory::getLogger()->warning( "Cannot mirror to {$mirrorQueue}: {$ex->getMessage()}" );
-			}
-		}
 	}
 
 	/**
