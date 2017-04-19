@@ -88,7 +88,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 		$renderer = eval( $code );
 		if ( !is_callable( $renderer ) ) {
-			throw new RuntimeException( 'Can\'t run compiled template!' );
+			throw new RuntimeException(
+				"Can't run compiled template! Template: '$code'"
+			);
 		}
 
 		$html = call_user_func( $renderer, $data, array() );
