@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4ed6aa117f3e06e6da4a259e398fd6f8",
-    "content-hash": "0b276b857fa6d06ce5b977f9dfa9431d",
+    "hash": "286013b033c04aeb560c6d29c9d2462d",
+    "content-hash": "c77aa55a881981c2f2170a5894371bc0",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -137,8 +137,14 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://gerrit.wikimedia.org/r/p/wikimedia/fundraising/php-queue.git",
-                "reference": "d56c5bd69dad595f2e00a3e10c851736b1feb57b"
+                "url": "https://github.com/CoderKungfu/php-queue.git",
+                "reference": "dd8412f105632d31cdd77933ec40a08640752c99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CoderKungfu/php-queue/zipball/dd8412f105632d31cdd77933ec40a08640752c99",
+                "reference": "dd8412f105632d31cdd77933ec40a08640752c99",
+                "shasum": ""
             },
             "require": {
                 "clio/clio": "0.1.*",
@@ -146,15 +152,19 @@
                 "php": ">=5.3.0"
             },
             "require-dev": {
-                "jakub-onderka/php-parallel-lint": "0.9",
-                "phpunit/phpunit": "4.4.*"
+                "amazonwebservices/aws-sdk-for-php": "dev-master",
+                "aws/aws-sdk-php": "dev-master",
+                "ext-memcache": "*",
+                "iron-io/iron_mq": "dev-master",
+                "microsoft/windowsazure": "dev-master",
+                "mrpoundsign/pheanstalk-5.3": "dev-master",
+                "predis/predis": "1.*"
             },
             "suggest": {
                 "Respect/Rest": "For a REST server to post job data",
                 "amazonwebservices/aws-sdk-for-php": "For AWS SQS backend support (legacy version)",
                 "aws/aws-sdk-php": "For AWS SQS backend support",
                 "clio/clio": "Support for daemonizing PHP CLI runner",
-                "ext-memcache": "*",
                 "fusesource/stomp-php": "For the STOMP backend",
                 "iron-io/iron_mq": "For IronMQ backend support",
                 "microsoft/windowsazure": "For Windows Azure Service Bus backend support",
@@ -173,12 +183,7 @@
                     "PHPQueue": "src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "parallel-lint . --exclude vendor",
-                    "phpunit"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -194,7 +199,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2017-01-04 21:01:15"
+            "time": "2017-04-17 14:11:55"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -936,7 +941,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "ec6ea516530400dfb7bb02a72ef52318a40b7bb6"
+                "reference": "78a7f28dee35cb4f5df285f53c7b643eecec7d33"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -987,7 +992,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2017-04-10 22:28:50"
+            "time": "2017-04-19 21:15:22"
         },
         {
             "name": "zordius/lightncandy",

@@ -348,7 +348,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			if ( $this->isProcessImmediate() ) {
 				// Check form for errors
 				// FIXME: Should this be rolled into adapter.doPayment?
-				$form_errors = $this->validateForm();
+				$form_errors = $this->validateForm() || $this->adapter->getManualErrors();
 
 				// If there were errors, redisplay form, otherwise proceed to next step
 				if ( $form_errors ) {
