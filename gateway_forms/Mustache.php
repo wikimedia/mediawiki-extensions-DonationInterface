@@ -70,6 +70,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$options = $options + $defaultOptions;
 
+		if ( !file_exists( $fileName ) ) {
+			throw new RuntimeException( "Template file unavailable: [$fileName]" );
+		}
 		$template = file_get_contents( $fileName );
 		if ( $template === false ) {
 			throw new RuntimeException( "Template file unavailable: [$fileName]" );
