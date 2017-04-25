@@ -579,4 +579,21 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertNotEquals( $gateway->session_getData( 'order_id' ), $orig_id,
 			'Order ID regenerated in session.' );
 	}
+
+	/**
+	 * doPayment should recover from Ingenico-side timeouts.
+	 */
+	function testTimoutRecover() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['ffname'] = 'cc-vmad';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '11000400' );
+		$gateway->do_transaction( 'SET_PAYMENT' );
+		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
+		$this->assertNotEmpty( $loglines, "Log does not say we retried for timeout." );
+	}
 }

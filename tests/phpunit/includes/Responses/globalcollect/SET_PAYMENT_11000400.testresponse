@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XML>
+    <REQUEST>
+        <ACTION>SET_PAYMENT</ACTION>
+        <META>
+            <MERCHANTID>test</MERCHANTID>
+            <IPADDRESS>127.0.0.1</IPADDRESS>
+            <VERSION>1.0</VERSION>
+            <REQUESTIPADDRESS>127.0.0.2</REQUESTIPADDRESS>
+        </META>
+        <PARAMS>
+            <PAYMENT>
+                <ORDERID>5330081429</ORDERID>
+                <EFFORTID>1</EFFORTID>
+                <PAYMENTPRODUCTID>1</PAYMENTPRODUCTID>
+            </PAYMENT>
+        </PARAMS>
+        <RESPONSE>
+            <RESULT>NOK</RESULT>
+            <META>
+                <RESPONSEDATETIME>20170310184613</RESPONSEDATETIME>
+                <REQUESTID>18297067</REQUESTID>
+            </META>
+            <ERROR>
+                <CODE>11000400</CODE>
+                <MESSAGE>REQUEST 18297067 Server time-out</MESSAGE>
+            </ERROR>
+        </RESPONSE>
+    </REQUEST>
+</XML>

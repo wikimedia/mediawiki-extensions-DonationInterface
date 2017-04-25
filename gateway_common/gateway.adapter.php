@@ -920,18 +920,30 @@ abstract class GatewayAdapter
 			$retval = $this->do_transaction_internal( $transaction, $retryVars );
 
 			if ( !empty( $retryVars ) ) {
-				// TODO: Add more intelligence here. Right now we just assume it's the order_id
+				// TODO: Add more intelligence here. Right now timeout is the only one specifically
+				// handled, all other cases we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
+				// FIXME: Only a single value ever gets added to $retryVars before it gets wiped out
+				// for the next attempt.  Decide if we really need an array and redo this switch
+				// statement accordingly.
+				switch( $retryVars[0] ) {
+					case 'timeout' :
+						// Just retry without changing anything.
+						$this->logger->info( "Repeating transaction for timeout" );
+						break;
 
-				$this->logger->info( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
+					default :
+						$this->logger->info( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
 
-				// Force regen of the order_id
-				$this->regenerateOrderID();
+							// Force regen of the order_id
+						$this->regenerateOrderID();
 
-				// Pull anything changed from dataObj
-				$this->unstaged_data = $this->dataObj->getDataEscaped();
-				$this->staged_data = $this->unstaged_data;
-				$this->stageData();
+							// Pull anything changed from dataObj
+						$this->unstaged_data = $this->dataObj->getDataEscaped();
+						$this->staged_data = $this->unstaged_data;
+						$this->stageData();
+						break;
+				}
 			}
 
 		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < $loopCount ) );
