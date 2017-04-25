@@ -361,7 +361,5 @@
 	"donate_interface-onetime": "Tek seferlik bağış",
 	"donate_interface-monthly-short": "Aylık",
 	"donate_interface-onetime-short": "Tek seferlik",
-	"donate_interface-securelogo-title": "Onaylamak için tıklayınız - Bu site güvenli e-ticaret ve güvenilir iletişim için VeriSign SSL'yi seçmiştir.",
-	"donate_interface-secureLogo-text": "SSL sertifikaları hakkında",
 	"donate_interface-error-http-403": "Bu sayfaya erişim izniniz yoktur."
 }

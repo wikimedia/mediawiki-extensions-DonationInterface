@@ -379,8 +379,6 @@
 	"donate_interface-onetime": "Dokonaj jednorazowej wpłaty",
 	"donate_interface-monthly-short": "Co miesiąc",
 	"donate_interface-onetime-short": "Jeden raz",
-	"donate_interface-securelogo-title": "Kliknij aby sprawdzić – ta strona używa VeriSign SSL dla zabezpieczenia wymiany poufnych danych.",
-	"donate_interface-secureLogo-text": "Informacje o certyfikatach SSL",
 	"donate_interface-error-http-403": "Nie masz uprawnień do dostępu do tej strony.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-currency_code": "Kod waluty.",

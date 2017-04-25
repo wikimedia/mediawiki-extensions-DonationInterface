@@ -376,8 +376,6 @@
 	"donate_interface-onetime": "Eemol een Don maachen",
 	"donate_interface-monthly-short": "All Mount",
 	"donate_interface-onetime-short": "Eemol",
-	"donate_interface-securelogo-title": "Klickt fir nozekucken - Dëse Site huet VeriSign SSL erausgesicht fir sécher e-commerce a vertraulech Kommunikatioun.",
-	"donate_interface-secureLogo-text": "Iwwer SSL-Certificaten",
 	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-amount": "De Betrag vum Don",

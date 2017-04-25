@@ -103,7 +103,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$output = $this->gatewayPage->getContext()->getOutput();
 
 		$data['script_path'] = $this->scriptPath;
-		$data['verisign_logo'] = $this->getSmallSecureLogo();
 		$relativePath = $this->sanitizePath( $this->getTopLevelTemplate() );
 		$data['template_trail'] = "<!-- Generated from: $relativePath -->";
 		$data['action'] = $this->getNoCacheAction();

@@ -379,8 +379,6 @@
 	"donate_interface-onetime": "Gumawa ng isang ulit na abuloy",
 	"donate_interface-monthly-short": "Buwanan",
 	"donate_interface-onetime-short": "Isang ulit",
-	"donate_interface-securelogo-title": "I-klik upang Matiyak - Pinili ng sayt na ito ang VeriSign SSL para sa ligtas na e-komersiyo at lihim na komunikasyon,",
-	"donate_interface-secureLogo-text": "Tungkol sa mga Sertipikong SSL",
 	"donate_interface-error-http-403": "Wala kang pahintulot na puntahan ang pahinang ito.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-gateway": "Aling gateway na pang-bayad ang gagamitin - adyen, globalcollect, atbp."

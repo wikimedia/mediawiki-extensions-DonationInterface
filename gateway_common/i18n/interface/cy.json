@@ -368,8 +368,6 @@
 	"donate_interface-onetime": "Rhoi unwaith yn unig",
 	"donate_interface-monthly-short": "Misol",
 	"donate_interface-onetime-short": "Unwaith",
-	"donate_interface-securelogo-title": "Cliciwch i gadarnhau - Dewisodd y safle hon VeriSign SSL ar gyfer e-fasnach diogel a chyfathrebiadau cyfrinachol.",
-	"donate_interface-secureLogo-text": "Ynglyn â Thystysgrifau SSL",
 	"donate_interface-error-http-403": "Nid yw'r gallu gennych i weld y dudalen hon.",
 	"apihelp-donate-param-amount": "Y swm gyfranwyd.",
 	"apihelp-donate-param-fname": "Enw cyntaf.",

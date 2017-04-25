@@ -374,7 +374,5 @@
 	"donate_interface-onetime": "Doniraj jednokratno",
 	"donate_interface-monthly-short": "Mjesečno",
 	"donate_interface-onetime-short": "Jednokratno",
-	"donate_interface-securelogo-title": "Kliknite za potvrdu - Ovaj poslužitelj rabi VeriSign SSL za sigurno e-bankarstvo i povjerljivu komunikaciju.",
-	"donate_interface-secureLogo-text": "O SSL certifikatima",
 	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici."
 }

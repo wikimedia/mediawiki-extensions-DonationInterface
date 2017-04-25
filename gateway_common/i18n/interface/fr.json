@@ -412,8 +412,6 @@
 	"donate_interface-onetime": "Faire un don ponctuel",
 	"donate_interface-monthly-short": "Don mensuel",
 	"donate_interface-onetime-short": "Don ponctuel",
-	"donate_interface-securelogo-title": "Cliquez pour vérifier&nbsp;– Ce site a choisi <i>VeriSign SSL</i> pour sécuriser ses communications confidentielles et de commerce électronique.",
-	"donate_interface-secureLogo-text": "À propos des certificats SSL",
 	"donate_interface-error-http-403": "Vous n’avez pas le droit d’accéder à cette page.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",

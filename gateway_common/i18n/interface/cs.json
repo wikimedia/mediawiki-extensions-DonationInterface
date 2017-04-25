@@ -382,8 +382,6 @@
 	"donate_interface-onetime": "Poskytnout jednorázový příspěvek",
 	"donate_interface-monthly-short": "Měsíčně",
 	"donate_interface-onetime-short": "Jednorázový",
-	"donate_interface-securelogo-title": "Klepněte pro ověření – Tento server si zvolil VeriSign SSL pro zabezpečené internetové obchodování a důvěrnou komunikaci.",
-	"donate_interface-secureLogo-text": "O certifikátech SSL",
 	"donate_interface-error-http-403": "Nemáte oprávnění k přístupu na tuto stránku.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-fname": "Křestní jméno.",

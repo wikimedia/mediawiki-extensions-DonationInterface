@@ -333,7 +333,5 @@
 	"donate_interface-monthlybox-amount": "Vlera e kontributit",
 	"donate_interface-monthlybox-yes": "Patjetër, bëje mujor",
 	"donate_interface-monthlybox-no": "JO, bëj kontribut vetëm për një herë",
-	"donate_interface-monthlybox-bottom": "Kontributi juaj do të përpunohet në mënyrë të sigurt.",
-	"donate_interface-securelogo-title": "Klikoni për verifikim - Kjo faqe ka zgjedhur VeriSign SSL për e-commerce (tregti në formë elektronike) dhe për komunikimet konfidenciale.",
-	"donate_interface-secureLogo-text": "Rreth Certifikatave SSL"
+	"donate_interface-monthlybox-bottom": "Kontributi juaj do të përpunohet në mënyrë të sigurt."
 }

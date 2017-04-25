@@ -325,7 +325,6 @@
 	"donate_interface-onetime": "ఒక్కసారి విరాళం ఇవ్వండి",
 	"donate_interface-monthly-short": "నెలనెలా",
 	"donate_interface-onetime-short": "ఒకేసారి",
-	"donate_interface-secureLogo-text": "SSL సర్టఫికెట్ల గురించి",
 	"donate_interface-error-http-403": "ఈ పేజీని చూడడానికి మీరు అనుమతి లేదు.",
 	"apihelp-donate-param-fname": "మొదటి పేరు.",
 	"apihelp-donate-param-lname": "ఇంటి పేరు.",

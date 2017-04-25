@@ -319,7 +319,6 @@
 	"donate_interface-onetime": "ஒரு முறையிலான நன்கொடை அளி",
 	"donate_interface-monthly-short": "மாதாந்திரம்",
 	"donate_interface-onetime-short": "ஒரு முறை",
-	"donate_interface-secureLogo-text": "SSL சான்றிதழ்கள் பற்றி",
 	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை.",
 	"apihelp-donate-param-postal_code": "அஞ்சல் குறியீடு",
 	"apihelp-donate-param-email": "மின்னஞ்சல் முகவரி."

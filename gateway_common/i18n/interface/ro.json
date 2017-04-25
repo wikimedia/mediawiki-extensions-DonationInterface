@@ -365,7 +365,5 @@
 	"donate_interface-onetime": "Faceți doar o singură donație",
 	"donate_interface-monthly-short": "Lunar",
 	"donate_interface-onetime-short": "O dată",
-	"donate_interface-securelogo-title": "Clic pentru a verifica – Acest site a ales VeriSign SSL pentru a securiza comerțul electronic și informațiile confidențiale.",
-	"donate_interface-secureLogo-text": "Despre certificatele SSL",
 	"donate_interface-error-http-403": "Nu aveți permisiunea să accesați această pagină."
 }

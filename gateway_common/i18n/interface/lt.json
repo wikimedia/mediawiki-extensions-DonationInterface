@@ -377,8 +377,6 @@
 	"donate_interface-onetime": "Vienkartinė auka",
 	"donate_interface-monthly-short": "Kas mėnesį",
 	"donate_interface-onetime-short": "Vienkartinė auka",
-	"donate_interface-securelogo-title": "Spustelėkite, jei norite patikrinti – ši svetainė pasirinko VeriSign SSL, siekdama užtikrinti e-komercijos ir komunikacijos konfidencialumą.",
-	"donate_interface-secureLogo-text": "Apie SSL sertifikatus",
 	"donate_interface-error-http-403": "Atleiskite, Jūs neturite leidimo patekti į šį puslapį.",
 	"donate_interface-statement": "Vikimedija $1",
 	"apihelp-donate-param-amount": "Paaukota suma.",

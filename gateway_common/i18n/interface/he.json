@@ -385,8 +385,6 @@
 	"donate_interface-onetime": "תרומה חד־פעמית",
 	"donate_interface-monthly-short": "מדי חודש",
 	"donate_interface-onetime-short": "חד־פעמי",
-	"donate_interface-securelogo-title": "לחצו לאימות – האתר הזה בחר ב־VeriSign SSL למסחר אלקטרוני מאובטח ולתקשורת סודית.",
-	"donate_interface-secureLogo-text": "על אודות אישורי SSL",
 	"donate_interface-error-http-403": "אין לך הרשאה לגשת לדף הזה.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",

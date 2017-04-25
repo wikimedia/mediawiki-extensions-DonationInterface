@@ -305,7 +305,6 @@
 	"donate_interface-monthly-cancel": "La Fundació Wikimedia debitarà els pagaments mensuals fixos dels donants habituals en l'aniversari mensual de la primera donació fins què ens notifiqui la seva suspensió.Les donacions iniciades els dies 29, 30 o 31 del mes es repetiran l'últim dia del mes per als mesos més curts, tan a prop de la data original com sigui possible. Per a qualsevol pregunta, pot posar-se en contacte amb donate@wikimedia.org.",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Un sol cop",
-	"donate_interface-secureLogo-text": "Quant als certificats SSL",
 	"donate_interface-error-http-403": "No teniu els permisos necessaris per a accedir a aquesta pàgina.",
 	"donate_interface-statement": "Wikimedia $1"
 }

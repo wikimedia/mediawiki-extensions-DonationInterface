@@ -92,18 +92,6 @@ abstract class Gateway_Form {
 		return wfAppendQuery( $title->getLocalURL(), $query_array );
 	}
 
-	/**
-	 * Create and return the Verisign logo (small size) form element.
-	 */
-	protected function getSmallSecureLogo() {
-		$form = '<table id="secureLogo" width="130" border="0" cellpadding="2" cellspacing="0" title="' . wfMessage( 'donate_interface-securelogo-title' )->text() . '">';
-		$form .= '<tr>';
-		$form .= '<td width="130" align="center" valign="top"><script type="text/javascript" src="' . htmlentities( 'https://seal.verisign.com/getseal?host_name=payments.wikimedia.org&size=S&use_flash=NO&use_transparent=NO&lang=en' ) . '"></script><br /><a href="http://www.verisign.com/ssl-certificate/" target="_blank"  style="color:#000000; text-decoration:none; font:bold 7px verdana,sans-serif; letter-spacing:.5px; text-align:center; margin:0px; padding:0px;">' . wfMessage( 'donate_interface-secureLogo-text' )->text() . '</a></td>';
-		$form .= '</tr>';
-		$form .= '</table>';
-		return $form;
-	}
-
 	public function getResources() {
 		return array();
 	}

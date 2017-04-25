@@ -349,7 +349,5 @@
 	"donate_interface-onetime": "Fari unuopan donacon",
 	"donate_interface-monthly-short": "Ĉiumonate",
 	"donate_interface-onetime-short": "Unuope",
-	"donate_interface-securelogo-title": "Klaku por kontroli - Tiu ĉi retejo elekti VeriSign SSL por sekura retkomerca kaj konfidenca komunikado.",
-	"donate_interface-secureLogo-text": "Pri SSL-atestiloj",
 	"donate_interface-error-http-403": "Vi ne havas permeson por aliri tiun ĉi paĝon."
 }

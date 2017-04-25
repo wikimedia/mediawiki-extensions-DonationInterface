@@ -386,8 +386,6 @@
 	"donate_interface-onetime": "Facer unha doazón única",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Única",
-	"donate_interface-securelogo-title": "Preme para comprobar. Este sitio elixiu o SSL de VeriSign para realizar comercios en liña seguros e comunicacións confidenciais.",
-	"donate_interface-secureLogo-text": "Acerca dos certificados SSL",
 	"donate_interface-error-http-403": "Non ten permiso para acceder a esta páxina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Esta API permite enviar unha doazón á Fundación Wikimedia usando distintos modos de pagamento.",

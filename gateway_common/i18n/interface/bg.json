@@ -370,8 +370,6 @@
 	"donate_interface-onetime": "Направете еднократно дарение",
 	"donate_interface-monthly-short": "Месечно",
 	"donate_interface-onetime-short": "Еднократно",
-	"donate_interface-securelogo-title": "Click to Verify - Сайтът използва VeriSign SSL за безопасна електронна търговия и конфиденциални комуникации.",
-	"donate_interface-secureLogo-text": "Относно SSL сертификатите",
 	"donate_interface-error-http-403": "Нямате разрешение за достъп до тази страница.",
 	"donate_interface-statement": "Уикимедия $1",
 	"apihelp-donate-description": "Този API интерфейс ви позволява да направите дарение на Фондация Уикимедия, избирайки измежду разнообразни услуги по обработка на плащанията.",

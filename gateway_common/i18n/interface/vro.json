@@ -331,7 +331,5 @@
 	"donate_interface-monthlybox-amount": "Mastav summa",
 	"donate_interface-monthlybox-yes": "Las ollaq päälegi kõrd kuun",
 	"donate_interface-monthlybox-no": "EIQ! Õnnõ üts kõrd!",
-	"donate_interface-monthlybox-bottom": "Su kreeditkaardi teedüst hoiõtas kimmähe.",
-	"donate_interface-securelogo-title": "Klõpsaq kontrolmises logo pääle – seo võrgoleht pruuk e-kaubandusõ ja salahadsõ teedüsvaihtusõ jaos VeriSign SSL-i.",
-	"donate_interface-secureLogo-text": "SSL-sertifikaatõ kotsilõ"
+	"donate_interface-monthlybox-bottom": "Su kreeditkaardi teedüst hoiõtas kimmähe."
 }

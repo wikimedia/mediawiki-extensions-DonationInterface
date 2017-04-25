@@ -348,7 +348,5 @@
 	"donate_interface-onetime": "Зрабіць аднаразовае ахвяраваньне",
 	"donate_interface-monthly-short": "Штомесячнае",
 	"donate_interface-onetime-short": "Аднаразовае",
-	"donate_interface-securelogo-title": "Пстрыкніце для праверкі — гэты сайт абраў VeriSign SSL для абароны электроннай камэрцыі і прыватных камунікацыяў.",
-	"donate_interface-secureLogo-text": "Пра SSL-сэртыфікаты",
 	"donate_interface-error-http-403": "Вы ня маеце дазволу на доступ да гэтай старонкі"
 }

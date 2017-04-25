@@ -342,7 +342,5 @@
 	"donate_interface-onetime": "Agħmel donazzjoni ta' darba",
 	"donate_interface-monthly-short": "Fix-xahar",
 	"donate_interface-onetime-short": "Ta' darba",
-	"donate_interface-securelogo-title": "Iklikkja sabiex tivverifika - dan is-sit għażel VeriSign SSL sabiex jassigura tranżazzjoni sigura u komunikazzjonijiet riservati.",
-	"donate_interface-secureLogo-text": "Dwar iċ-Ċertifikati SSL",
 	"donate_interface-error-http-403": "M'għandekx il-permess li taċċessa din il-paġna."
 }

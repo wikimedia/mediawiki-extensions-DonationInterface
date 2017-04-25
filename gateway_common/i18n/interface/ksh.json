@@ -405,8 +405,6 @@
 	"donate_interface-onetime": "Eijmohl schpände",
 	"donate_interface-monthly-short": "Jeede Mohnd",
 	"donate_interface-onetime-short": "Eijmohl",
-	"donate_interface-securelogo-title": "Donn heh drop klecke, öm dat Zättifikaat ze övverproofe.\nHeh di Wäbsait hät <i lang=\"en\">VeriSign</i> för singe <i lang=\"en\">SSL</i> ze zättefezeere ußjesöhk un määt domet afjesescherte äläkroonesche Handel un der vertroulesche un jeheime Ußtuusch vun Daate.",
-	"donate_interface-secureLogo-text": "Övver de Zächtifikaate för dä <i lang=\"en\">SSL</i>",
 	"donate_interface-error-http-403": "Do häs nit dat Rääsch, op heh di Sigg zohzejriife",
 	"donate_interface-statement": "Wikkimehdija $1",
 	"apihelp-donate-description": "Heh di Schnettschtäll löht Eijne Schpände för de Wikkimehdija-Schtefftong jävve, övver en Aanzahl ongerscheidlejje Deensleister.",

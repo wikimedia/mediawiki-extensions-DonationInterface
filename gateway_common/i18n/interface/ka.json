@@ -347,7 +347,6 @@
 	"donate_interface-onetime": "ერთჯერადი შემოწირულობის გაკეთება",
 	"donate_interface-monthly-short": "ყოველთვიურად",
 	"donate_interface-onetime-short": "ერთხელ",
-	"donate_interface-secureLogo-text": "SSL-ის სერთიფიკატების შესახებ",
 	"donate_interface-error-http-403": "თქვენ არ გაქვთ ამ გვერდთან წვდომის უფლება.",
 	"donate_interface-statement": "ვიკიმედია $1",
 	"apihelp-donate-param-amount": "შემოწირულობების ჯამი",

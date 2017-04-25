@@ -378,8 +378,6 @@
 	"donate_interface-onetime": "Fanni 'na donaçion scingola",
 	"donate_interface-monthly-short": "Menscî",
 	"donate_interface-onetime-short": "Una votta",
-	"donate_interface-securelogo-title": "Clicca pe veificâ - Sto scito o çerne VeriSign SSL pe 'na transaçion segua e de comunicaçioin riservæ",
-	"donate_interface-secureLogo-text": "Info in scî çertificæ SSL",
 	"donate_interface-error-http-403": "No ti g'hæ o permisso pe accede a sta paggina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Questa API a consente d'inviâ 'na donaçion a-a Wikimedia Foundation, permettendo de çerne tra diverse modalitæ de pagamento.",
