@@ -276,6 +276,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'HOSTEDINDICATOR' => '1',
 				'AUTHENTICATIONINDICATOR' => 0, //default to no 3DSecure ourselves
 			),
+			'check_required' => TRUE,
 		);
 
 		$this->transactions['DO_REFUND'] = array(

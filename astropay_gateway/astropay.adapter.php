@@ -80,9 +80,9 @@ class AstroPayAdapter extends GatewayAdapter {
 	}
 
 	function defineTransactions() {
-		$this->transactions = array( );
+		$this->transactions = array();
 
-		$this->transactions[ 'NewInvoice' ] = array(
+		$this->transactions['NewInvoice'] = array(
 			'path' => 'api_curl/streamline/NewInvoice',
 			'request' => array(
 				'x_login',
@@ -111,7 +111,8 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'x_description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'type' => 'json',
-			)
+			),
+			'check_required' => TRUE
 		);
 
 		$this->transactions[ 'GetBanks' ] = array(

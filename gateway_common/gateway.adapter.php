@@ -910,18 +910,14 @@ abstract class GatewayAdapter
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
+		$this->setCurrentTransaction( $transaction );
+		$this->validate();
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
-			// TODO: Rename variable to "response".
-			$return = new PaymentTransactionResponse();
-			$return->setCommunicationStatus( false );
-			$return->setMessage( 'Failed data validation' );
-			foreach ( $this->errors as $code => $error ) {
-				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
-			}
+			$response = $this->getFailedValidationResponse();
 			// TODO: should we set $this->transaction_response ?
 			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errors, true ) );
-			return $return;
+			return $response;
 		}
 
 		$retryCount = 0;
@@ -997,7 +993,6 @@ abstract class GatewayAdapter
 
 		/* --- Build the transaction string for cURL --- */
 		try {
-			$this->setCurrentTransaction( $transaction );
 
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
 			if ( $this->getValidationAction() != 'process' ) {
@@ -2459,15 +2454,21 @@ abstract class GatewayAdapter
 	 * This function will go through all the data we have pulled from wherever
 	 * we've pulled it, and make sure it's safe and expected and everything.
 	 * If it is not, it will return an array of errors ready for any
-	 * DonationInterface form class derivitive to display.
+	 * DonationInterface form class derivative to display.
 	 *
 	 * @return boolean true if validation passes
 	 */
 	public function validate() {
 		$normalized = $this->dataObj->getData();
 
-		// Run legacy validations
-		$check_not_empty = $this->getRequiredFields();
+		if ( $this->transaction_option( 'check_required' ) ) {
+			// The fields returned by getRequiredFields only make sense
+			// for certain transactions. TODO: getRequiredFields should
+			// actually return different things for different transactions
+			$check_not_empty = $this->getRequiredFields();
+		} else {
+			$check_not_empty = array();
+		}
 		$this->errors = DataValidator::validate( $this, $normalized, $check_not_empty );
 
 		// Run modular validations.
@@ -3726,5 +3727,18 @@ abstract class GatewayAdapter
 			}
 		}
 		return array_merge_recursive( $requiredRules, $transformerRules );
+	}
+
+	/**
+	 * @return PaymentTransactionResponse
+	 */
+	protected function getFailedValidationResponse() {
+		$return = new PaymentTransactionResponse();
+		$return->setCommunicationStatus( false );
+		$return->setMessage( 'Failed data validation' );
+		foreach ( $this->errors as $code => $error ) {
+			$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
+		}
+		return $return;
 	}
 }
