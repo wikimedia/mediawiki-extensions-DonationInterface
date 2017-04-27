@@ -113,9 +113,7 @@ class AdyenAdapter extends GatewayAdapter {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
-
-
-		$this->transactions[ 'donate' ] = array(
+		$this->transactions['donate'] = array(
 			'request' => $requestFields,
 			'values' => array(
 				'allowedMethods' => implode( ',', $this->getAllowedPaymentMethods() ),
@@ -126,7 +124,7 @@ class AdyenAdapter extends GatewayAdapter {
 				'skinCode' => $this->accountInfo[ 'skinCode' ],
 				//'shopperLocale' => language _ country
 			),
-
+			'check_required' => TRUE,
 			'iframe' => TRUE,
 		);
 	}
@@ -160,8 +158,15 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
-		$this->transaction_response = new PaymentTransactionResponse();
 
+		$this->validate();
+		if ( !$this->validatedOK() ){
+			//If the data didn't validate okay, prevent all data transmissions.
+			$response = $this->getFailedValidationResponse();
+			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errors, true ) );
+			return $response;
+		}
+		$this->transaction_response = new PaymentTransactionResponse();
 		if ( $this->transaction_option( 'iframe' ) ) {
 			// slightly different than other gateways' iframe method,
 			// we don't have to make the round-trip, instead just

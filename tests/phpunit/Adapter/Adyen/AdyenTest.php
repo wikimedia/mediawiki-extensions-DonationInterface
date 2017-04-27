@@ -46,6 +46,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	 */
 	function testDoTransactionDonate() {
 		$init = $this->getDonorTestData();
+		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'donate' );
@@ -94,6 +95,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 	function testRiskScoreAddedToQueueMessage() {
 		$init = $this->getDonorTestData();
+		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
@@ -107,6 +109,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	 */
 	function testLanguageCaseSensitivity() {
 		$init = $this->getDonorTestData();
+		$init['payment_submethod'] = 'visa';
 		$init['language'] = 'FR';
 		$gateway = $this->getFreshGatewayObject( $init );
 
