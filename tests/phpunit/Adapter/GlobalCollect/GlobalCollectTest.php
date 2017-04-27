@@ -396,10 +396,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		// Desired vars were written into normalized data.
-		$this->assertEquals( $ctid, $exposed->dataObj->getVal_Escaped( 'contribution_tracking_id' ) );
+		$this->assertEquals( $ctid, $exposed->dataObj->getVal( 'contribution_tracking_id' ) );
 
 		// Language was not overwritten.
-		$this->assertEquals( 'ca', $exposed->dataObj->getVal_Escaped( 'language' ) );
+		$this->assertEquals( 'ca', $exposed->dataObj->getVal( 'language' ) );
 	}
 
 	/**

@@ -65,6 +65,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 * Integration test to verify that the Amazon gateway converts Canadian
 	 * dollars before redirecting
 	 *
+	 * FIXME: Merge with currency fallback tests?
+	 *
 	 * @dataProvider canadaLanguageProvider
 	 */
 	function testCanadianDollarConversion( $language ) {
