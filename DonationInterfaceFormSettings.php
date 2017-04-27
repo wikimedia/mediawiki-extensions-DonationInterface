@@ -259,12 +259,23 @@ $forms_whitelist['rcc'] = array(
  *************************/
 
 $forms_whitelist['paypal'] = array(
-	'gateway' => array( 'paypal', 'paypal_ec' ),
+	'gateway' => 'paypal',
 	'payment_methods' => array('paypal' => 'ALL'),
 );
 
 $forms_whitelist['paypal-recurring'] = array(
-	'gateway' => array( 'paypal', 'paypal_ec' ),
+	'gateway' => 'paypal',
+	'payment_methods' => array('paypal' => 'ALL'),
+	'recurring',
+);
+
+$forms_whitelist['paypal_ec'] = array(
+	'gateway' => 'paypal_ec',
+	'payment_methods' => array('paypal' => 'ALL'),
+);
+
+$forms_whitelist['paypal_ec-recurring'] = array(
+	'gateway' => 'paypal_ec',
 	'payment_methods' => array('paypal' => 'ALL'),
 	'recurring',
 );
