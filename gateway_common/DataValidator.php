@@ -217,6 +217,7 @@ class DataValidator {
 				'country' => 'validate_country_allowed',
 				'email' => 'validate_email',
 				'street' => 'validate_address',
+				'postal_code' => 'validate_address',
 				'currency_code' => 'validate_currency_code',
 				'fname' => 'validate_name',
 				'lname' => 'validate_name',
@@ -252,12 +253,15 @@ class DataValidator {
 					$validation_function = $custom;
 				}
 
-				if ( !isset( $data[$field] ) ) {
+				if ( empty( $data[$field] ) ) {
 					if ( $phase !== 'not_empty' ) {
 						// Skip if not required and nothing to validate.
 						continue;
 					} else {
 						// Stuff with nothing.
+						// FIXME: Weird though 'cos this parameter isn't passed
+						// by reference, so the null value only affects
+						// DataValidator subroutines.
 						$data[$field] = null;
 					}
 				}
@@ -498,7 +502,8 @@ class DataValidator {
 	 * @return boolean True if the name is not suspiciously like a CC number
 	 */
 	public static function validate_name( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value );
+		return !DataValidator::cc_number_exists_in_str( $value ) &&
+			!DataValidator::obviousXssInString( $value );
 	}
 
 	/**
@@ -507,7 +512,13 @@ class DataValidator {
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value );
+		return !DataValidator::cc_number_exists_in_str( $value ) &&
+			!DataValidator::obviousXssInString( $value );
+	}
+
+	public static function obviousXssInString( $value ) {
+		return ( strpos( $value, '>' ) !== false ) ||
+			( strpos( $value, '<' ) !== false );
 	}
 
 	/**

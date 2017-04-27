@@ -17,7 +17,6 @@ class DonationData implements LogPrefixProvider {
 	protected $normalized = array();
 	protected $gateway;
 	protected $gatewayID;
-	protected $validationErrors = null;
 	/**
 	 * @var \Psr\Log\LoggerInterface
 	 */
@@ -42,6 +41,7 @@ class DonationData implements LogPrefixProvider {
 		'amountOther',
 		'appeal',
 		'email',
+		// @deprecated
 		'emailAdd',
 		'fname',
 		'lname',
@@ -142,9 +142,11 @@ class DonationData implements LogPrefixProvider {
 		//if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
+		// We have some data, so normalize it.
 		if ( $this->normalized ) {
 			$this->normalize();
 
+			// FIXME: This should be redundant now?
 			$this->expungeNulls();
 		}
 	}
@@ -201,13 +203,12 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * Returns an array of normalized and escaped donation data
+	 * Returns the array of all normalized donation data.
+	 *
 	 * @return array
 	 */
-	public function getDataEscaped() {
-		$escaped = $this->normalized;
-		array_walk( $escaped, array( $this, 'sanitizeInput' ) );
-		return $escaped;
+	public function getData() {
+		return $this->normalized;
 	}
 
 	/**
@@ -229,30 +230,14 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * getVal_Escaped
-	 * @param string $key The data field you would like to retrieve. Pulls the
-	 * data from $this->normalized if it is found to be something.
-	 * @return mixed The normalized and escaped value of that $key.
-	 */
-	public function getVal_Escaped( $key ) {
-		if ( $this->isSomething( $key ) ) {
-			//TODO: If we ever start sanitizing in a more complicated way, we should move this 
-			//off to a function and have both getVal_Escaped and sanitizeInput call that. 
-			return htmlspecialchars( $this->normalized[$key], ENT_COMPAT, 'UTF-8', false );
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * getVal
-	 * For Internal Use Only! External objects should use getVal_Escaped.
+	 * Return the value at a key, or null if the key isn't populated.
+	 *
 	 * @param string $key The data field you would like to retrieve directly
 	 * from $this->normalized.
 	 * @return mixed The normalized value of that $key, or null if it isn't
 	 * something.
 	 */
-	protected function getVal( $key ) {
+	public function getVal( $key ) {
 		if ( $this->isSomething( $key ) ) {
 			return $this->normalized[$key];
 		} else {
@@ -271,7 +256,15 @@ class DonationData implements LogPrefixProvider {
 	 * @param string $val The value you'd like to assign to the key.
 	 */
 	public function setVal( $key, $val ) {
-		$this->normalized[$key] = $val;
+		// Convert empty to null for consistency.
+		if ( $val === '' ) {
+			$val = null;
+		}
+
+		$this->normalized[$key] = (string) $val;
+
+		// TODO: Set something dirty so that we're sure to normalize before
+		// pulling data.
 	}
 
 	/**
@@ -320,6 +313,15 @@ class DonationData implements LogPrefixProvider {
 		// FIXME: there's a ghost invocation during DonationData construction.
 		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
+			// Cast all values to string.
+			$toStringOrNull = function ( $value ) {
+				if ( $value === null || $value === '' ) {
+					return null;
+				}
+				return (string) $value;
+			};
+			$this->normalized = array_map( $toStringOrNull, $this->normalized );
+
 			$updateCtRequired = $this->handleContributionTrackingID(); // Before Order ID
 			$this->setNormalizedOrderIDs();
 			$this->setReferrer();
@@ -339,13 +341,6 @@ class DonationData implements LogPrefixProvider {
 
 			if ( $updateCtRequired ) {
 				$this->saveContributionTrackingData();
-			}
-
-			$this->getValidationErrors();
-
-			if ( isset( $this->validationErrors['currency_code'] ) ) {
-				// Try to fall back to a default currency
-				$this->fallbackToDefaultCurrency();
 			}
 		}
 	}
@@ -529,6 +524,7 @@ class DonationData implements LogPrefixProvider {
 
 		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
 			//fail validation later, log some things.
+			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
 			$keys = array(
 				'amount',
@@ -987,108 +983,11 @@ class DonationData implements LogPrefixProvider {
 		return $posted;
 	}
 
-	/**
-	 * getValidationErrors
-	 * This function will go through all the data we have pulled from wherever
-	 * we've pulled it, and make sure it's safe and expected and everything.
-	 * If it is not, it will return an array of errors ready for any
-	 * DonationInterface form class derivitive to display.
-	 */
-	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ) {
-		if ( is_null( $this->validationErrors ) || $recalculate ) {
-			// Run legacy validations
-			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
-
-			// Run modular validations.
-			// TODO: Move this... somewhere.
-			$transformers = $this->gateway->getDataTransformers();
-			foreach ( $transformers as $transformer ) {
-				if ( $transformer instanceof ValidationHelper ) {
-					$transformer->validate(
-						$this->gateway,
-						$this->normalized,
-						$this->validationErrors
-					);
-				}
-			}
-		}
-		return $this->validationErrors;
-	}
-
 	private function expungeNulls() {
 		foreach ( $this->normalized as $key => $val ) {
 			if ( is_null( $val ) ) {
 				$this->expunge( $key );
 			}
-		}
-	}
-
-	/**
-	 * Called when a currency code error exists. If a fallback currency
-	 * conversion is enabled for this adapter, convert intended amount to
-	 * default currency.
-	 *
-	 * @throws DomainException
-	 */
-	protected function fallbackToDefaultCurrency() {
-		$adapterClass = $this->gateway->getGatewayAdapterClass();
-		$defaultCurrency = null;
-		if ( $this->gateway->getGlobal( 'FallbackCurrencyByCountry' ) ) {
-			$country = $this->getVal( 'country' );
-			if ( $country !== null ) {
-				$defaultCurrency = NationalCurrencies::getNationalCurrency( $country );
-			}
-		} else {
-			$defaultCurrency = $this->gateway->getGlobal( 'FallbackCurrency' );
-		}
-		if ( !$defaultCurrency ) {
-			return;
-		}
-		// Our conversion rates are all relative to USD, so use that as an
-		// intermediate currency if converting between two others.
-		$oldCurrency = $this->getVal( 'currency_code' );
-		if ( $oldCurrency === $defaultCurrency ) {
-			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
-		}
-		$oldAmount = $this->getVal( 'amount' );
-		$usdAmount = 0.0;
-		$newAmount = 0;
-
-		$conversionRates = CurrencyRates::getCurrencyRates();
-		if ( $oldCurrency === 'USD' ) {
-			$usdAmount = $oldAmount;
-		} elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
-			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
-		} else {
-			// We can't convert from this unknown currency.
-			return;
-		}
-
-		if ( $defaultCurrency === 'USD' ) {
-			$newAmount = floor( $usdAmount );
-		} elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
-			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
-		}
-
-		$this->setVal( 'amount', $newAmount );
-		$this->setVal( 'currency_code', $defaultCurrency );
-
-		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
-
-		// We have a fallback, so let's revalidate.
-		$this->getValidationErrors( true );
-		$notify = $this->gateway->getGlobal( 'NotifyOnConvert' );
-
-		// If we're configured to notify, or if there are already other errors,
-		// add a notification message.
-		if ( $notify || !empty( $this->validationErrors ) ) {
-			$error['general'] = MessageUtils::getCountrySpecificMessage(
-				'donate_interface-fallback-currency-notice',
-				$this->getVal( 'country' ),
-				$this->getVal( 'language' ),
-				array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
-			);
-			$this->gateway->addManualError( $error );
 		}
 	}
 }

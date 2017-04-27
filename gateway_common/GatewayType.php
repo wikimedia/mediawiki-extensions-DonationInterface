@@ -63,6 +63,8 @@ interface GatewayType {
 	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours,
 	 * 		according to the precidence established in the getTransactionSpecificValue function.
 	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here.
+	 * 		'check_required' should be set to true for transactions that require donor information,
+	 * 		  like initial payment setup. TODO: different required fields per transaction
 	 */
 	function defineTransactions();
 
