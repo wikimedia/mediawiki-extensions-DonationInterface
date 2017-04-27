@@ -91,11 +91,6 @@ $wgDonationInterfaceGatewayAdapters = array(
 $wgDonationInterfaceTestMode = true;
 $wgDonationInterfaceMerchantID = 'test';
 
-$wgDonationInterfaceAllowedHtmlForms = array(
-	'test' => array(
-	),
-);
-
 $wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
 
 

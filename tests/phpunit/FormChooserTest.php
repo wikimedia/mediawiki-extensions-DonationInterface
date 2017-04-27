@@ -43,88 +43,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
 		) );
-
-		$this->setupMoreForms();
-	}
-
-	public function setupMoreForms() {
-		global $wgDonationInterfaceAllowedHtmlForms;
-
-		$moreForms = array ( );
-
-		$moreForms['amazon'] = array(
-			'gateway' => 'amazon',
-			'payment_methods' => array( 'amazon' => 'ALL' ),
-			'redirect',
-		);
-
-		$moreForms['cc-vmad'] = array (
-			'gateway' => 'globalcollect',
-			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'discover' ) ),
-			'countries' => array (
-				'+' => array ( 'US', ),
-			),
-		);
-
-		$moreForms['cc-vmaj'] = array (
-			'gateway' => 'globalcollect',
-			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'jcb' ) ),
-			'countries' => array (
-				'+' => array ( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
-					'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
-					'PT', 'SG', 'SI', 'SK', 'TH', 'TW', ),
-			),
-		);
-
-		$moreForms['cc-vma'] = array (
-			'gateway' => 'globalcollect',
-			'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex' ) ),
-			'countries' => array (
-				// Array merge with cc-vmaj as fallback in case 'j' goes down
-				// Array merge with cc-vmad as fallback in case 'd' goes down
-				'+' => array_merge(
-					$moreForms['cc-vmaj']['countries']['+'], $moreForms['cc-vmad']['countries']['+'], array ( 'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
-					'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
-					'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
-					'RU', 'SA', 'SE', 'TN', 'TR', 'UA', )
-				)
-			),
-		);
-
-		$moreForms['cc'] = array (
-			'gateway' => 'globalcollect',
-			'payment_methods' => array ( 'cc' => 'ALL' ),
-			'countries' => array ( '-' => 'VN' )
-		);
-
-		$moreForms['rtbt-ideal'] = array (
-			'gateway' => 'globalcollect',
-			'payment_methods' => array ( 'rtbt' => 'rtbt_ideal' ),
-			'countries' => array ( '+' => 'NL' ),
-			'currencies' => array ( '+' => 'EUR' ),
-		);
-
-		$moreForms['rtbt-sofo'] = array(
-			'gateway' => 'globalcollect',
-			'countries' => array(
-				'+' => array( 'AT', 'BE', 'CH', 'DE' ),
-				'-' => 'GB'
-			),
-			'currencies' => array( '+' => 'EUR' ),
-			'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
-		);
-
-		$moreForms['paypal'] = array (
-			'gateway' => 'paypal',
-			'payment_methods' => array ( 'paypal' => 'ALL' ),
-		);
-
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceAllowedHtmlForms' => array_merge(
-				$wgDonationInterfaceAllowedHtmlForms,
-				$moreForms
-			),
-		) );
 	}
 
 	function testGetOneValidForm_CC_SpecificCountry() {
@@ -189,6 +107,19 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'country' => 'US',
 		);
 		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
+	}
+
+	/**
+	 * Make sure none of the payment form settings are horribly broken.
+	 */
+	function testBuildAllFormUrls() {
+		global $wgDonationInterfaceAllowedHtmlForms;
+		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
+			if ( empty( $config['special_type'] ) || $config['special_type'] != 'error' ) {
+				$url = GatewayFormChooser::buildPaymentsFormURL( $ffname );
+				$this->assertNotNull( $url );
+			}
+		}
 	}
 }
 
