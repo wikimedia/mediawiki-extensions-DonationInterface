@@ -98,7 +98,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		//no data on construct, do not generate Order IDs
 		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
 		$this->assertFalse( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Deferred order_id generation may be broken.' );
-		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
+		$this->assertEmpty( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
 
 		$data = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$data['order_id'] = '66666';

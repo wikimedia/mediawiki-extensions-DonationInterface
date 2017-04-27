@@ -351,6 +351,8 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 			'payment_method' => 'rtbt',
 			'payment_submethod' => 'rtbt_ideal',
 			'issuer_id' => 771,
+			// Email is required for RTBT.
+			'email' => 'nobody@wikimedia.org',
 		);
 
 		//somewhere else?
@@ -358,6 +360,9 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$options = array_merge( $options, $optionsForTestData );
 
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $options );
+
+		$this->assertTrue( $this->gatewayAdapter->validatedOK() );
+
 		$this->gatewayAdapter->do_transaction( "INSERT_ORDERWITHPAYMENT" );
 		$action = $this->gatewayAdapter->getTransactionDataFormAction();
 		$this->assertEquals( "url_placeholder", $action, "The formaction was not populated as expected (ideal)." );

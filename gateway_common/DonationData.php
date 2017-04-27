@@ -17,7 +17,6 @@ class DonationData implements LogPrefixProvider {
 	protected $normalized = array();
 	protected $gateway;
 	protected $gatewayID;
-	protected $validationErrors = null;
 	/**
 	 * @var \Psr\Log\LoggerInterface
 	 */
@@ -342,13 +341,6 @@ class DonationData implements LogPrefixProvider {
 
 			if ( $updateCtRequired ) {
 				$this->saveContributionTrackingData();
-			}
-
-			$this->getValidationErrors();
-
-			if ( isset( $this->validationErrors['currency_code'] ) ) {
-				// Try to fall back to a default currency
-				$this->fallbackToDefaultCurrency();
 			}
 		}
 	}
@@ -991,108 +983,11 @@ class DonationData implements LogPrefixProvider {
 		return $posted;
 	}
 
-	/**
-	 * getValidationErrors
-	 * This function will go through all the data we have pulled from wherever
-	 * we've pulled it, and make sure it's safe and expected and everything.
-	 * If it is not, it will return an array of errors ready for any
-	 * DonationInterface form class derivitive to display.
-	 */
-	public function getValidationErrors( $recalculate = false, $check_not_empty = array() ) {
-		if ( is_null( $this->validationErrors ) || $recalculate ) {
-			// Run legacy validations
-			$this->validationErrors = DataValidator::validate( $this->gateway, $this->normalized, $check_not_empty );
-
-			// Run modular validations.
-			// TODO: Move this... somewhere.
-			$transformers = $this->gateway->getDataTransformers();
-			foreach ( $transformers as $transformer ) {
-				if ( $transformer instanceof ValidationHelper ) {
-					$transformer->validate(
-						$this->gateway,
-						$this->normalized,
-						$this->validationErrors
-					);
-				}
-			}
-		}
-		return $this->validationErrors;
-	}
-
 	private function expungeNulls() {
 		foreach ( $this->normalized as $key => $val ) {
 			if ( is_null( $val ) ) {
 				$this->expunge( $key );
 			}
-		}
-	}
-
-	/**
-	 * Called when a currency code error exists. If a fallback currency
-	 * conversion is enabled for this adapter, convert intended amount to
-	 * default currency.
-	 *
-	 * @throws DomainException
-	 */
-	protected function fallbackToDefaultCurrency() {
-		$adapterClass = $this->gateway->getGatewayAdapterClass();
-		$defaultCurrency = null;
-		if ( $this->gateway->getGlobal( 'FallbackCurrencyByCountry' ) ) {
-			$country = $this->getVal( 'country' );
-			if ( $country !== null ) {
-				$defaultCurrency = NationalCurrencies::getNationalCurrency( $country );
-			}
-		} else {
-			$defaultCurrency = $this->gateway->getGlobal( 'FallbackCurrency' );
-		}
-		if ( !$defaultCurrency ) {
-			return;
-		}
-		// Our conversion rates are all relative to USD, so use that as an
-		// intermediate currency if converting between two others.
-		$oldCurrency = $this->getVal( 'currency_code' );
-		if ( $oldCurrency === $defaultCurrency ) {
-			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
-		}
-		$oldAmount = $this->getVal( 'amount' );
-		$usdAmount = 0.0;
-		$newAmount = 0;
-
-		$conversionRates = CurrencyRates::getCurrencyRates();
-		if ( $oldCurrency === 'USD' ) {
-			$usdAmount = $oldAmount;
-		} elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
-			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
-		} else {
-			// We can't convert from this unknown currency.
-			return;
-		}
-
-		if ( $defaultCurrency === 'USD' ) {
-			$newAmount = floor( $usdAmount );
-		} elseif ( array_key_exists( $defaultCurrency, $conversionRates ) ) {
-			$newAmount = floor( $usdAmount * $conversionRates[$defaultCurrency] );
-		}
-
-		$this->setVal( 'amount', $newAmount );
-		$this->setVal( 'currency_code', $defaultCurrency );
-
-		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
-
-		// We have a fallback, so let's revalidate.
-		$this->getValidationErrors( true );
-		$notify = $this->gateway->getGlobal( 'NotifyOnConvert' );
-
-		// If we're configured to notify, or if there are already other errors,
-		// add a notification message.
-		if ( $notify || !empty( $this->validationErrors ) ) {
-			$error['general'] = MessageUtils::getCountrySpecificMessage(
-				'donate_interface-fallback-currency-notice',
-				$this->getVal( 'country' ),
-				$this->getVal( 'language' ),
-				array( $this->gateway->getGlobal( 'FallbackCurrency' ) )
-			);
-			$this->gateway->addManualError( $error );
 		}
 	}
 }
