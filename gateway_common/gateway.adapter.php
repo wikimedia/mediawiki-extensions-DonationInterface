@@ -237,6 +237,7 @@ abstract class GatewayAdapter
 		$this->session_resetOnSwitch(); // Need to do this before creating DonationData
 
 		// FIXME: this should not have side effects like setting order_id_meta['final']
+		// TODO: On second thought, neither set data nor validate in this constructor.
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
 
 		$this->setValidationErrors( $this->getOriginalValidationErrors() );
@@ -348,6 +349,8 @@ abstract class GatewayAdapter
 		}
 
 		foreach ( $this->config['transformers'] as $className ) {
+			// TODO: Pass $this to the constructor so we can take gateway out
+			// of the interfaces.
 			$this->data_transformers[] = new $className();
 		}
 	}
@@ -896,10 +899,12 @@ abstract class GatewayAdapter
 		$this->session_addDonorData();
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
+			// TODO: Rename variable to "response".
 			$return = new PaymentTransactionResponse();
 			$return->setCommunicationStatus( false );
 			$return->setMessage( 'Failed data validation' );
 			foreach ( $this->getAllErrors() as $code => $error ) {
+				// TODO: Error should already be in a native format.
 				$return->addError( $code, array( 'message' => $error, 'logLevel' => LogLevel::INFO, 'debugInfo' => '' ) );
 			}
 			// TODO: should we set $this->transaction_response ?
@@ -915,18 +920,30 @@ abstract class GatewayAdapter
 			$retval = $this->do_transaction_internal( $transaction, $retryVars );
 
 			if ( !empty( $retryVars ) ) {
-				// TODO: Add more intelligence here. Right now we just assume it's the order_id
+				// TODO: Add more intelligence here. Right now timeout is the only one specifically
+				// handled, all other cases we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
+				// FIXME: Only a single value ever gets added to $retryVars before it gets wiped out
+				// for the next attempt.  Decide if we really need an array and redo this switch
+				// statement accordingly.
+				switch( $retryVars[0] ) {
+					case 'timeout' :
+						// Just retry without changing anything.
+						$this->logger->info( "Repeating transaction for timeout" );
+						break;
 
-				$this->logger->info( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
+					default :
+						$this->logger->info( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
 
-				// Force regen of the order_id
-				$this->regenerateOrderID();
+							// Force regen of the order_id
+						$this->regenerateOrderID();
 
-				// Pull anything changed from dataObj
-				$this->unstaged_data = $this->dataObj->getDataEscaped();
-				$this->staged_data = $this->unstaged_data;
-				$this->stageData();
+							// Pull anything changed from dataObj
+						$this->unstaged_data = $this->dataObj->getDataEscaped();
+						$this->staged_data = $this->unstaged_data;
+						$this->stageData();
+						break;
+				}
 			}
 
 		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < $loopCount ) );
@@ -1470,6 +1487,8 @@ abstract class GatewayAdapter
 	/**
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
 	 * @return array a key/value array of codes (if they exist) and messages.
+	 * TODO: Move to a parsing class, where these are part of an interface
+	 * rather than empty although non-abstract.
 	 */
 	protected function parseResponseErrors( $response ) {
 		return array();

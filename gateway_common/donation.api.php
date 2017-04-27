@@ -30,6 +30,7 @@ class DonationApi extends ApiBase {
 		$gatewayObj->revalidate();
 		if ( $gatewayObj->getAllErrors() ) {
 			$outputResult['errors'] = $gatewayObj->getAllErrors();
+			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
 			return;

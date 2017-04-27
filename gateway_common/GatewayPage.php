@@ -122,6 +122,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
+		// FIXME: Should have checked this before creating the adapter.
 		if ( $this->adapter->getGlobal( 'Enabled' ) !== true ) {
 			$this->logger->info( 'Displaying fail page for disabled gateway' );
 			$this->displayFailPage();
@@ -341,7 +342,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected function handleDonationRequest() {
 		$this->setHeaders();
 
-		// TODO: this is where we should feed GPCS parameters into DonationData.
+		// TODO: This is where we should feed GPCS parameters into the gateway
+		// and DonationData, rather than harvest params in the adapter itself.
 
 		// dispatch forms/handling
 		if ( $this->adapter->checkTokens() ) {

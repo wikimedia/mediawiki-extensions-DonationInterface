@@ -1403,6 +1403,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				case 430692: //cvv2 declined
 					break; //don't need to hear about these at all.
 
+				case 11000400 :  //Ingenico internal timeout, just try again as-is.
+					$retryVars[] = 'timeout';
+					$this->logger->error( 'Server Timeout, retrying.' );
+					$retErrCode = $errCode;
+					$retErrMsg = $errMsg;
+					break;
+
 				case 20001000 : //REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
 					//look in the message for more clues.
 					//Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
@@ -1427,6 +1434,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					//say something painful here.
 					$errMsg = 'Blocking validation problems with this payment. Investigation required! '
 								. "Original error: '$messageFromProcessor'.  Our data: " . $this->getLogDebugJSON();
+
 				default:
 					$this->logger->error( __FUNCTION__ . " Error $errCode : $errMsg" );
 					break;
