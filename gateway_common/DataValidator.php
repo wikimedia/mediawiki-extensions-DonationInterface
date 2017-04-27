@@ -217,6 +217,7 @@ class DataValidator {
 				'country' => 'validate_country_allowed',
 				'email' => 'validate_email',
 				'street' => 'validate_address',
+				'postal_code' => 'validate_address',
 				'currency_code' => 'validate_currency_code',
 				'fname' => 'validate_name',
 				'lname' => 'validate_name',
@@ -501,7 +502,8 @@ class DataValidator {
 	 * @return boolean True if the name is not suspiciously like a CC number
 	 */
 	public static function validate_name( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value );
+		return !DataValidator::cc_number_exists_in_str( $value ) &&
+			!DataValidator::obviousXssInString( $value );
 	}
 
 	/**
@@ -510,7 +512,13 @@ class DataValidator {
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value );
+		return !DataValidator::cc_number_exists_in_str( $value ) &&
+			!DataValidator::obviousXssInString( $value );
+	}
+
+	public static function obviousXssInString( $value ) {
+		return ( strpos( $value, '>' ) !== false ) ||
+			( strpos( $value, '<' ) !== false );
 	}
 
 	/**
