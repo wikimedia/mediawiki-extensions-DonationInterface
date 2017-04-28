@@ -466,11 +466,49 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				) );
 			}
 		} catch ( Exception $ex ) {
-			// TODO: Parse the API error fields and log them.
-			$this->logger->error( "Failure detected in " . json_encode( $response ) );
-			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			throw $ex;
+			$errors = $this->parseResponseErrors( $response );
+			$fatal = true;
+			// TODO: Handle more error codes
+			foreach ( $errors as $code => $error ) {
+				// There are errors, so it wasn't a total comms failure
+				$this->transaction_response->setCommunicationStatus( true );
+				$this->logger->warning(
+					"Error code $code returned: '{$error['debugInfo']}'"
+				);
+				switch ( $code ) {
+					case '10486':
+						// Donor's first funding method failed, but they might have another
+						$this->transaction_response->setRedirect(
+							$this->account_config['RedirectURL'] . $response['TOKEN']
+						);
+						$fatal = false;
+						break;
+					default:
+						$this->transaction_response->addError( $code, $error );
+				}
+			}
+			if ( $fatal ) {
+				if ( empty( $errors ) ) {
+					// Unrecognizable problems, log the whole thing
+					$this->logger->error( "Failure detected in " . json_encode( $response ) );
+				}
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
+				throw $ex;
+			}
 		}
+	}
+
+	protected function parseResponseErrors( $response ) {
+		$errors = array();
+		// TODO: can they put errors in other places too?
+		if ( isset( $response['L_ERRORCODE0'] ) ) {
+			$errors[$response['L_ERRORCODE0']] = array(
+				'logLevel' => LogLevel::ERROR,
+				'message' => '',
+				'debugInfo' => isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+			);
+		}
+		return $errors;
 	}
 
 	public function processDonorReturn( $requestValues ) {

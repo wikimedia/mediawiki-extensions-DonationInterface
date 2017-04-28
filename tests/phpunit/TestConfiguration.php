@@ -60,6 +60,10 @@ global $wgDonationInterfaceTestMode,
 	$wgGlobalCollectGatewayAccountInfo,
 	$wgPaypalGatewayAccountInfo,
 	$wgPaypalGatewayReturnURL,
+	$wgPaypalExpressGatewayURL,
+	$wgPaypalExpressGatewayTestingURL,
+	$wgPaypalExpressGatewaySignatureURL,
+	$wgPaypalExpressGatewayAccountInfo,
 	$wgAmazonGatewayReturnURL,
 	$wgAmazonGatewayAccountInfo,
 	$wgAdyenGatewayURL,
@@ -107,6 +111,18 @@ $wgPaypalGatewayAccountInfo['testing'] = array(
 	'AccountEmail' => 'phpunittesting@wikimedia.org',
 );
 $wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
+
+
+/** Paypal Express Checkout **/
+$wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
+$wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
+$wgPaypalExpressGatewaySignatureURL = $wgPaypalExpressGatewayURL;
+$wgPaypalExpressGatewayAccountInfo['test'] = array(
+    'User' => 'phpunittesting@wikimedia.org',
+    'Password' => '9876543210',
+    'Signature' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+    'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=',
+);
 
 
 /** Amazon **/

@@ -88,7 +88,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
-
 	public function testProcessDonorReturnRecurring() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
@@ -137,4 +136,29 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'Sending extra messages to complete queue!'
 		);
 	}
+
+	/**
+	 * Check that we send the donor back to paypal to try a different source
+	 */
+	function testProcessDonorReturnPaymentRetry() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '10486' );
+		$result = $gateway->processDonorReturn( array(
+			'token' => 'EC%2d2D123456D9876543U',
+			'PayerID' => 'ASDASD'
+		) );
+
+		$message = DonationQueue::instance()->pop( 'complete' );
+		$this->assertNull( $message, 'Should not queue a message' );
+		$this->assertFalse( $result->isFailed() );
+		$redirect = $result->getRedirect();
+		$this->assertEquals(
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U',
+			$redirect
+		);
+	}
+
 }
