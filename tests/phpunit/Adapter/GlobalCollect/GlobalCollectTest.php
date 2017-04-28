@@ -583,7 +583,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	/**
 	 * doPayment should recover from Ingenico-side timeouts.
 	 */
-	function testTimoutRecover() {
+	function testTimeoutRecover() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -595,5 +595,42 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'SET_PAYMENT' );
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
 		$this->assertNotEmpty( $loglines, "Log does not say we retried for timeout." );
+	}
+
+	public function testDonorReturnSuccess() {
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$result = $gateway->processDonorReturn( array(
+			'REF' => $init['order_id'],
+			'CVVRESULT' => 'M',
+			'AVSRESULT' => '0'
+		) );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		// TODO inspect the queue message
+	}
+
+	public function testDonorReturnFailure() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$gateway->setDummyGatewayResponseCode( '430285' ); // invalid card
+		$result = $gateway->processDonorReturn( array(
+			'REF' => $init['order_id'],
+			'CVVRESULT' => 'M',
+			'AVSRESULT' => '0'
+		) );
+		$this->assertTrue( $result->isFailed() );
 	}
 }

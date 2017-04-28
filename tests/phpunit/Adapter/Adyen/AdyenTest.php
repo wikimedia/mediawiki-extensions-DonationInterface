@@ -154,4 +154,50 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( $expected, $ret, 'Adyen "donate" transaction not constructing the expected redirect URL' );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Adyen order_id is null, and we need one for 'merchantReference'" );
 	}
+
+	public function testDonorReturnSuccess() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['language'] = 'FR';
+		$init['order_id'] = '55555';
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$result = $gateway->processDonorReturn( array(
+			'authResult' => 'AUTHORISED',
+			'merchantReference' => '55555.0',
+			'merchantSig' => 'o1QTd6X/PYrOgLPoSheamR3osAksh6oTaSytsCcJsFA=',
+			'paymentMethod' => 'visa',
+			'pspReference' => '123987612346789',
+			'shopperLocale' => 'fr_FR',
+			'skinCode' => 'testskin',
+			'title' => 'Special:AdyenGatewayResult'
+		) );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		// TODO inspect the queue message
+	}
+
+	public function testDonorReturnFailure() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['language'] = 'FR';
+		$init['order_id'] = '55555';
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$result = $gateway->processDonorReturn( array(
+			'authResult' => 'REFUSED',
+			'merchantReference' => '55555.0',
+			'merchantSig' => 'EVqAiz4nZ8XQ9Wfbm9bOQYaKPV22qdY+/6va7zAo580=',
+			'paymentMethod' => 'visa',
+			'pspReference' => '123987612346789',
+			'shopperLocale' => 'fr_FR',
+			'skinCode' => 'testskin',
+			'title' => 'Special:AdyenGatewayResult'
+		) );
+		$this->assertTrue( $result->isFailed() );
+	}
 }

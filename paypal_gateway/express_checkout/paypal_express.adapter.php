@@ -489,7 +489,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
 		if ( !$resultData->getCommunicationStatus() ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			return;
+			return PaymentResult::newFailure();
 		}
 
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
@@ -504,6 +504,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
 			}
 		}
+		return PaymentResult::fromResults(
+			$this->getTransactionResponse(),
+			$this->getFinalStatus()
+		);
 	}
 
 	/**

@@ -363,7 +363,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processDonorReturn( $requestValues );
+		$result = $gateway->processDonorReturn( $requestValues );
+		$this->assertFalse( $result->isFailed() );
 		$status = $gateway->getFinalStatus();
 		$this->assertEquals( FinalStatus::COMPLETE, $status );
 	}
@@ -393,7 +394,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processDonorReturn( $requestValues );
+		$result = $gateway->processDonorReturn( $requestValues );
+		$this->assertFalse( $result->isFailed() );
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '100.00', $amount, 'Not recording correct amount' );
 	}
@@ -418,7 +420,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_invoice' => '123456789',
 		);
 
-		$gateway->processDonorReturn( $requestValues );
+		$result = $gateway->processDonorReturn( $requestValues );
+		$this->assertTrue( $result->isFailed() );
 		$status = $gateway->getFinalStatus();
 		$this->assertEquals( FinalStatus::FAILED, $status );
 	}

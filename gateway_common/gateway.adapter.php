@@ -1474,9 +1474,11 @@ abstract class GatewayAdapter
 	/**
 	 * Default implementation sets status to complete.
 	 * @param array $requestValues all GET and POST values from the request
+	 * @return PaymentResult
 	 */
 	public function processDonorReturn( $requestValues ) {
 		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+		return PaymentResult::newSuccess();
 	}
 
 	/**

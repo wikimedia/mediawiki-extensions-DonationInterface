@@ -27,9 +27,9 @@ class PaymentResult {
 	protected $iframe;
 	protected $form;
 	protected $redirect;
-	protected $refresh;
+	protected $refresh = false;
 	protected $errors = array();
-	protected $failed;
+	protected $failed = false;
 
 	protected function __construct() {
 	}
