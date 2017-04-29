@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"CERminator"
+			"CERminator",
+			"Srdjan m"
 		]
 	},
-	"paypal_gateway-desc": "Registruje PayPal kao mehanizam za donacije"
+	"paypal_gateway-desc": "Mehanizam plaćanja pomoću PayPala"
 }
