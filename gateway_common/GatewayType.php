@@ -51,6 +51,7 @@ interface GatewayType {
 	 * Perform any additional processing required when donor returns from
 	 * payment processor site. Should set the final status.
 	 * @param array $requestValues all GET and POST values from the request
+	 * @return PaymentResult
 	 */
 	public function processDonorReturn( $requestValues );
 

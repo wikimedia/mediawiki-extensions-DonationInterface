@@ -43,6 +43,8 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	// FIXME: That's not what ReturnValueMap is for!
+	// Unused?
 	function defineReturnValueMap() {
 		$this->return_value_map = array(
 			'authResult' => 'result',
@@ -222,6 +224,7 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * @param array $requestValues GET/POST params from request
 	 * @throws ResponseProcessingException
+	 * @return PaymentResult
 	 */
 	public function processDonorReturn( $requestValues ) {
 		// Always called outside do_transaction, so just make a new response object
@@ -254,6 +257,7 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
 		$result_code = isset( $requestValues['authResult'] ) ? $requestValues['authResult'] : '';
+		$paymentResult = null;
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture
 			// request on 'AUTHORIZATION' ipn message receipt.
@@ -266,19 +270,23 @@ class AdyenAdapter extends GatewayAdapter {
 			if ( $action === 'process' ) {
 				$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
 				$this->finalizeInternalStatus( FinalStatus::PENDING );
+				$paymentResult = PaymentResult::newSuccess();
 			} else {
 				$this->logger->info(
 					"User came back authorized but with action $action. " .
 					"Showing a fail page, but leaving details in case of manual capture."
 				);
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
+				$paymentResult = PaymentResult::newFailure();
 			}
 		}
 		else {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			$paymentResult = PaymentResult::newFailure();
 			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $requestValues, TRUE ) );
 		}
 		$this->postProcessDonation();
+		return $paymentResult;
 	}
 
 	/**

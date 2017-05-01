@@ -299,6 +299,10 @@ class AstroPayAdapter extends GatewayAdapter {
 		$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 		$this->finalizeInternalStatus( $status );
 		$this->postProcessDonation();
+		return PaymentResult::fromResults(
+			$this->transaction_response,
+			$status
+		);
 	}
 
 	/**

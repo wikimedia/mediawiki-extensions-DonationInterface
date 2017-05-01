@@ -588,11 +588,7 @@ abstract class GatewayAdapter
 	 * @param    array     $options
 	 * @return   array|string    Returns @see GatewayAdapter::$error_map
 	 */
-	public function getErrorMap( $code = null, $options = array() ) {
-
-		if ( is_null( $code ) ) {
-			return $this->error_map;
-		}
+	public function getErrorMap( $code, $options = array() ) {
 
 		$defaults = array(
 			'translate' => false,
@@ -1478,9 +1474,11 @@ abstract class GatewayAdapter
 	/**
 	 * Default implementation sets status to complete.
 	 * @param array $requestValues all GET and POST values from the request
+	 * @return PaymentResult
 	 */
 	public function processDonorReturn( $requestValues ) {
 		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+		return PaymentResult::newSuccess();
 	}
 
 	/**

@@ -1278,13 +1278,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if (! $oid) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->error( 'Missing Order ID' );
-			return;
+			return PaymentResult::newFailure();
 		}
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) !== 'cc' ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->error( "Payment method is not CC, OID: {$oid}" );
-			return;
+			return PaymentResult::newFailure();
 		}
 
 		$session_oid = $this->session_getData( 'Donor', 'order_id' );
@@ -1297,17 +1297,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			// but leave the payment to be resolved by the orphan rectifier.
 			// FIXME: should use finalizeInternalStatus() but there are side effects.
 			$this->final_status = FinalStatus::PENDING;
-			return;
+			return PaymentResult::newSuccess();
 		}
 
 		if ( $oid !== $session_oid ) {
 			$this->logger->info( "Order ID mismatch '{$oid}'/'{$session_oid}'" );
 			// FIXME: should use finalizeInternalStatus() but there are side effects
 			$this->final_status = FinalStatus::PENDING;
-			return;
+			return PaymentResult::newSuccess();
 		}
 
-		$this->do_transaction( 'Confirm_CreditCard' );
+		$response = $this->do_transaction( 'Confirm_CreditCard' );
+		return PaymentResult::fromResults(
+			$response,
+			$this->getFinalStatus()
+		);
 	}
 
 	/**

@@ -429,17 +429,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $this->adapter->checkTokens() ) {
 			// feed processDonorReturn all the GET and POST vars
 			$requestValues = $this->getRequest()->getValues();
-			$this->adapter->processDonorReturn( $requestValues );
-			$status = $this->adapter->getFinalStatus();
-
-			switch ( $status ) {
-			case FinalStatus::COMPLETE:
-			case FinalStatus::PENDING:
-			case FinalStatus::PENDING_POKE:
-				$this->displayThankYouPage( $status );
-				return;
-			}
-			$this->logger->info( "Displaying fail page for final status $status" );
+			$result = $this->adapter->processDonorReturn( $requestValues );
+			$this->renderResponse( $result );
+			return;
 		} else {
 			$this->logger->error( "Resultswitcher: Token Check Failed. Order ID: $oid" );
 		}
