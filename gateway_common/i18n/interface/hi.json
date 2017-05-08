@@ -5,7 +5,8 @@
 			"Siddhartha Ghai",
 			"NehalDaveND",
 			"Ziyaurr",
-			"Sfic"
+			"Sfic",
+			"Anoop rao"
 		]
 	},
 	"donate_interface": "विकीमीडिया को समर्थन करें",
@@ -125,7 +126,7 @@
 	"donate_interface-donor-county": "काउंटी",
 	"donate_interface-donor-island": "द्वीप",
 	"donate_interface-donor-state": "राज्य",
-	"donate_interface-donor-state-au": "राज्य",
+	"donate_interface-donor-state-au": "राज्य/क्षेत्र",
 	"donate_interface-donor-state-ca": "प्रान्त",
 	"donate_interface-donor-postal_code": "पिनकोड",
 	"donate_interface-donor-postal_code-us": "ज़िप",
