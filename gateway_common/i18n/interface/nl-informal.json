@@ -8,7 +8,6 @@
 	"donate_interface-processing-error": "Er is een fout opgetreden bij het verwerken van je verzoek. Er is geen verwerkingsdienst beschikbaar.",
 	"donate_interface-error-msg-general": "Er is een fout opgetreden tijdens de verwerking van je verzoek.",
 	"donate_interface-error-msg-nopaypal": "Door een technische fout is het niet mogelijk je verzoek naar PayPal te sturen. Je kunt ook direct met je creditcard doneren.",
-	"donate_interface-error-msg": "Voer je $1 in",
 	"donate_interface-error-msg-cvv": "CVV - beveiligingscode - van de achterkant van je creditcard",
 	"donate_interface-error-msg-captcha-please": "Geef een antwoord op de vraag om aan te tonen dat je geen geautomatiseerd proces bent.",
 	"donate_interface-error-msg-cookies": "Activeer cookies in je browser.",

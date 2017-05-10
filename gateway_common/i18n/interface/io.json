@@ -17,9 +17,5 @@
 	"donate_interface-donor-street": "Strado:",
 	"donate_interface-donor-city": "Urbo:",
 	"donate_interface-donor-state": "Stato:",
-	"donate_interface-donor-address": "Adreso:",
-	"donate_interface-error-msg-fname": "prenomo",
-	"donate_interface-error-msg-lname": "surnomo",
-	"donate_interface-error-msg-city": "urbo",
-	"donate_interface-error-msg-state": "stato"
+	"donate_interface-donor-address": "Adreso:"
 }
