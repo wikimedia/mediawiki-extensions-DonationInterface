@@ -467,11 +467,13 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$errors = $this->parseResponseErrors( $response );
 			$fatal = true;
 			// TODO: Handle more error codes
-			foreach ( $errors as $code => $error ) {
+			foreach ( $errors as $error ) {
 				// There are errors, so it wasn't a total comms failure
 				$this->transaction_response->setCommunicationStatus( true );
+				$code = $error->getErrorCode();
+				$debugInfo = $error->getDebugMessage();
 				$this->logger->warning(
-					"Error code $code returned: '{$error['debugInfo']}'"
+					"Error code $code returned: '$debugInfo'"
 				);
 				switch ( $code ) {
 					case '10486':
@@ -482,7 +484,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 						$fatal = false;
 						break;
 					default:
-						$this->transaction_response->addError( $code, $error );
+						$this->transaction_response->addError( $error );
 				}
 			}
 			if ( $fatal ) {
@@ -496,14 +498,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
+	/**
+	 * @param array $response
+	 * @return PaymentError[]
+	 */
 	protected function parseResponseErrors( $response ) {
 		$errors = array();
 		// TODO: can they put errors in other places too?
 		if ( isset( $response['L_ERRORCODE0'] ) ) {
-			$errors[$response['L_ERRORCODE0']] = array(
-				'logLevel' => LogLevel::ERROR,
-				'message' => '',
-				'debugInfo' => isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+			$errors[] = new PaymentError(
+				$response['L_ERRORCODE0'],
+				isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+				LogLevel::ERROR
 			);
 		}
 		return $errors;
