@@ -85,7 +85,6 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-nopaypal": "Z dôvodu technickej chyby nemôžeme poslať vašu požiadavku PayPalu. Prosím, skúste náš formulár na darovanie obyčajnou kreditnou kartou.",
-	"donate_interface-error-msg-js": "Prosím, zadajte",
 	"donate_interface-error-msg-invalid-amount": "Prosím, zadajte platnú čiastku",
 	"donate_interface-error-msg-invalid-email": "Prosím, zadajte platnú emailovú adresu",
 	"donate_interface-error-msg-card-num": "Prosím, zadajte platné číslo kreditnej karty jedného z akceptovaných typov kreditných kariet",

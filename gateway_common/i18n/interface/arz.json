@@ -35,7 +35,6 @@
 	"donate_interface-donor-submit": "تبرّع",
 	"donate_interface-donor-currency-msg": "يتم إجراء هذا التبرع ب$1",
 	"donate_interface-card-name-visa": "فيزا",
-	"donate_interface-error-msg-js": "من فضلك أدخل:",
 	"donate_interface-error-msg-invalid-amount": "من فضلك أدخل مقدارًا صحيحًا",
 	"donate_interface-error-msg-invalid-email": "من فضلك أدخل عنوان بريد إلكترونى صالح",
 	"donate_interface-error-msg-amex": "من فضلك أدخل رقم بطاقه American Express صحيح.",

@@ -64,7 +64,6 @@
 	"donate_interface-donor-submit": "Пожертвовати",
 	"donate_interface-donor-currency-msg": "Тото пожертвованя буде в $1",
 	"donate_interface-error-msg-nopaypal": "Про технічну хыбу не можеме вашу пожадавку заслати на PayPal. Просиме попробуйте хосновати основный формуларь про пожертвованя платобнов картов.",
-	"donate_interface-error-msg-js": "Задайте",
 	"donate_interface-error-msg-invalid-amount": "Просиме, задайте правилну суму",
 	"donate_interface-error-msg-invalid-email": "Просиме, задайте правилну адресу ел. пошты",
 	"donate_interface-error-msg-card-num": "Просиме зазначте платне чісло кредітной карты єдного з доволеный тіпів",

@@ -64,7 +64,6 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "萬事達咭",
 	"donate_interface-card-name-discover": "發現咭",
-	"donate_interface-error-msg-js": "請輸入你嘅",
 	"donate_interface-error-msg-invalid-amount": "請輸入一個有效嘅金額",
 	"donate_interface-error-msg-invalid-email": "請輸入一個有效嘅電郵地址",
 	"donate_interface-error-msg-amex": "請輸入一個正確嘅美國運通咭冧吧。",

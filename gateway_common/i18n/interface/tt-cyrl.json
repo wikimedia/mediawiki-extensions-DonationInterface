@@ -64,7 +64,6 @@
 	"donate_interface-donor-security": "Саклану коды:",
 	"donate_interface-donor-submit": "Иганә",
 	"donate_interface-donor-currency-msg": "Бу иганә $1 башкарылачак",
-	"donate_interface-error-msg-js": "Зинһар, исемегезне кертегез",
 	"donate_interface-error-msg-invalid-amount": "Зинһар, билгеле бер акча күләмен кертегез",
 	"donate_interface-error-msg-invalid-email": "Зинһар,  электрон почтагызның дөрес юлламасын кертегез (мәсәлән, name@domain.com)",
 	"donate_interface-error-msg-amex": "Зинһар,  American Express картасының дөрес номерын кертегез.",

@@ -65,7 +65,6 @@
 	"donate_interface-donor-submit": "Төлүүргэ",
 	"donate_interface-donor-currency-msg": "Бу харчы манна ыытыллар $1",
 	"donate_interface-error-msg-nopaypal": "Тиэнинникэ алҕаһа тахсан, эн көрдөбүлгүн PayPal тиһиликкэ ыытар кыах суох буолла. Бука диэн кирэдьиит каартатын көмөтүнэн боруобалаан көр.",
-	"donate_interface-error-msg-js": "Бука диэн, ааккын эт",
 	"donate_interface-error-msg-invalid-amount": "Бука диэн, сатанар суумманы киллэр",
 	"donate_interface-error-msg-invalid-email": "Бука диэн, электроннай почтаҕын сөпкө суруй",
 	"donate_interface-error-msg-card-num": "Бука диэн, систиэмэҕэ туттуллар кыахтаах кирэдьиит каартатын нүөмэрин киллэр",

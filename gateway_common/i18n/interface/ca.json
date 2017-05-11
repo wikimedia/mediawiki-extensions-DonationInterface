@@ -157,7 +157,6 @@
 	"donate_interface-card-name-mc": "MasterCard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-nopaypal": "A causa d'un error tècnic, no podem enviar la vostra soŀlicitud a PayPal. Podeu provar de fer servir el nostre formulari clàssic de donatiu per targeta de crèdit.",
-	"donate_interface-error-msg-js": "Cal que ompliu la casella següent:",
 	"donate_interface-error-msg-invalid-amount": "Introduïu una quantitat vàlida",
 	"donate_interface-error-msg-invalid-email": "Introduïu una adreça de correu electrònic vàlida",
 	"donate_interface-error-msg-amex": "Introduïu un número correcte de targeta American Express.",

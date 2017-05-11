@@ -61,7 +61,6 @@
 	"donate_interface-donor-security": "Howpsuzlyk kody:",
 	"donate_interface-donor-submit": "Bagyş et",
 	"donate_interface-donor-currency-msg": "Bu bagyş $1 pul birliginde edilýär",
-	"donate_interface-error-msg-js": "Şuny ýazyň:",
 	"donate_interface-error-msg-invalid-amount": "Haýyş edýäris, dogry summa ýazyň",
 	"donate_interface-error-msg-invalid-email": "Haýyş edýäris, dogry e-poçta adresi ýazyň",
 	"donate_interface-error-msg-amex": "Haýyş edýäris, American Express üçin dogry kart belgisi ýazyň",

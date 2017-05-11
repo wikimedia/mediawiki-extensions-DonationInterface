@@ -71,7 +71,6 @@
 	"donate_interface-card-name-discover": "ดิสคัฟเวอร์",
 	"donate_interface-error-msg-general": "มีข้อผิดพลาดในการประมวลผลการร้องขอของคุณ",
 	"donate_interface-error-msg-nopaypal": "เนื่องจากความผิดพลาดทางเทคนิค เราไม่สามารถส่งการร้องขอของคุณไปยัง PayPal ได้ กรุณาลองใช้แบบฟอร์มบริจาคโดยบัตรเครดิตปกติของเรา",
-	"donate_interface-error-msg-js": "กรุณาพิมพ์",
 	"donate_interface-error-msg-invalid-amount": "กรุณาใส่จำนวนเงินให้ถูกต้อง",
 	"donate_interface-error-msg-invalid-email": "กรุณาใส่ที่อยู่ทางอีเมล์ให้ถูกต้อง",
 	"donate_interface-error-msg-amex": "กรุณาใส่หมายเลขบัตรอเมริกันเอ็กซ์เพรสให้ถูกต้อง",
