@@ -527,14 +527,19 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 
 		// One-time payment, or initial payment in a subscription.
-		// XXX: This shouldn't finalize the transaction.
 		$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
 		if ( !$resultData->getCommunicationStatus() ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return PaymentResult::newFailure();
 		}
 
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+		// Silly conditional. What we really want to know is if the
+		// DoExpressCheckoutPayment txn was successful.
+		if (
+			!$resultData->getRedirect() &&
+			!$resultData->getErrors() &&
+			$this->getData_Unstaged_Escaped( 'recurring' )
+		) {
 			// Set up recurring billing agreement.
 			$this->addRequestData( array(
 				// Start in a month; we're making today's payment as an one-time charge.

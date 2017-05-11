@@ -161,4 +161,28 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
+	public function testProcessDonorReturnRecurringRetry() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['recurring'] = '1';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( '10486' );
+		$result = $gateway->processDonorReturn( array(
+			'token' => 'EC%2d2D123456D9876543U',
+			'PayerID' => 'ASDASD'
+		) );
+
+		$this->assertNull(
+			DonationQueue::instance()->pop( 'complete' ),
+			'Sending a spurious message to the complete queue!'
+		);
+		$this->assertFalse( $result->isFailed() );
+		$redirect = $result->getRedirect();
+		$this->assertEquals(
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U',
+			$redirect
+		);
+	}
+
 }
