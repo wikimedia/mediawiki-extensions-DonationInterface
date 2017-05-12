@@ -73,7 +73,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		if( $wgContributionTrackingFundraiserMaintenance
 			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
-			$this->redirect( Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302' );
+			$this->getOutput()->redirect(
+				Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302'
+			);
 			return;
 		}
 
@@ -179,7 +181,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected function displayThankYouPage( $logReason ) {
 		$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
 		$this->logger->info( "Displaying thank you page $thankYouPage for status $logReason." );
-		$this->redirect( $thankYouPage );
+		$this->getOutput()->redirect( $thankYouPage );
 	}
 
 	/**
@@ -213,24 +215,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$log_message = "Redirecting to [{$page}]";
 		$this->logger->info( $log_message );
 		$output->redirect( $page );
-	}
-
-	public function redirect( $url, $responsecode = '302' ) {
-		// Do we need to pop out of an iframe?
-		if ( $this->isReturnFramed() ) {
-			$this->logger->info(
-				"Resultswitcher: Popping out of iframe for Order ID " .
-				$this->adapter->getData_Unstaged_Escaped( 'order_id' )
-			);
-			$this->getOutput()->allowClickjacking();
-			$this->getOutput()->addModules( 'iframe.liberator' );
-			$this->getOutput()->addJsConfigVars(
-				'wgDonationInterfaceLiberationDestination', $url
-			);
-			return;
-		}
-		// No, normal redirect.
-		$this->getOutput()->redirect( $url, $responsecode );
 	}
 
 	/**
@@ -395,12 +379,27 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$request = $this->getRequest();
 		$referrer = $request->getHeader( 'referer' );
+		$liberated = false;
+		if ( $this->adapter->session_getData( 'order_status', $oid ) === 'liberated' ) {
+			$liberated = true;
+		}
+
+		// XXX need to know whether we were in an iframe or not.
+		global $wgServer;
+		if ( $this->isReturnFramed() && ( strpos( $referrer, $wgServer ) === false ) && !$liberated ) {
+			$sessionOrderStatus = $request->getSessionData( 'order_status' );
+			$sessionOrderStatus[$oid] = 'liberated';
+			$request->setSessionData( 'order_status', $sessionOrderStatus );
+			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
+			$this->getOutput()->allowClickjacking();
+			$this->getOutput()->addModules( 'iframe.liberator' );
+			return;
+		}
 
 		$this->setHeaders();
 
 		if ( $deadSession ){
 			if ( $this->adapter->isReturnProcessingRequired() ) {
-				// FIXME: this may display inside an iframe
 				wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 				throw new RuntimeException(
 					'Resultswitcher: Request forbidden. No active donation in the session. ' .
@@ -454,7 +453,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayFailPage();
 		} elseif ( $url = $result->getRedirect() ) {
 			$this->adapter->logPending();
-			$this->redirect( $url );
+			$this->getOutput()->redirect( $url );
 		} elseif ( $url = $result->getIframe() ) {
 			// Show a form containing an iframe.
 
@@ -466,6 +465,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->renderIframe( $url );
 		} elseif ( $form = $result->getForm() ) {
 			// Show another form.
+
 			$this->adapter->addRequestData( array(
 				'ffname' => $form,
 			) );
@@ -476,7 +476,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// Success.
 			$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
 			$this->logger->info( "Displaying thank you page $thankYouPage for successful PaymentResult." );
-			$this->redirect( $thankYouPage );
+			$this->getOutput()->redirect( $thankYouPage );
 		}
 	}
 
