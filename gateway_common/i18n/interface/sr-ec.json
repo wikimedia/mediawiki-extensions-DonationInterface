@@ -5,7 +5,8 @@
 			"Rancher",
 			"Михајло Анђелковић",
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"donate_interface": "Подржите Викимедију",
@@ -161,12 +162,12 @@
 	"donate_interface-error-msg-visa": "Унесите исправан број Виза картице.",
 	"donate_interface-error-msg-discover": "Унесите исправан број Дискавер картице.",
 	"donate_interface-error-msg-amount": "износ прилога",
-	"donate_interface-error-msg-email": "Унесите имејл адреса",
+	"donate_interface-error-msg-email": "Унесите имејл адресу",
 	"donate_interface-error-msg-fname": "Унесите име",
 	"donate_interface-error-msg-lname": "Унесите презиме",
-	"donate_interface-error-msg-street": "Унесите кућна адреса",
+	"donate_interface-error-msg-street": "Унесите кућну адресу",
 	"donate_interface-error-msg-city": "Унесите град",
-	"donate_interface-error-msg-state": "Унесите држава",
+	"donate_interface-error-msg-state": "Унесите државу",
 	"donate_interface-error-msg-postal_code-us": "Унесите поштански број",
 	"donate_interface-error-msg-postal_code": "Унесите поштански број",
 	"donate_interface-error-msg-country": "земља",

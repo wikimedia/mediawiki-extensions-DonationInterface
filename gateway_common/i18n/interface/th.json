@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Pcoombe",
-			"Woraponboonkerd"
+			"Woraponboonkerd",
+			"Ans"
 		]
 	},
 	"donate_interface": "สนับสนุนวิกิมีเดีย",
@@ -79,11 +80,11 @@
 	"donate_interface-error-msg-discover": "กรุณาใส่หมายเลขบัตรดิสคัฟเวอร์ให้ถูกต้อง",
 	"donate_interface-error-msg-amount": "จำนวนเงินบริจาค",
 	"donate_interface-error-msg-email": "กรุณาพิมพ์ ที่อยู่ทางอีเมล์ ของคุณ",
-	"donate_interface-error-msg-fname": "กรุณาพิมพ์ ชื่อ ของคุณ",
+	"donate_interface-error-msg-fname": "กรุณาระบุ ชื่อ ของคุณ",
 	"donate_interface-error-msg-lname": "กรุณาพิมพ์ นามสกุล ของคุณ",
-	"donate_interface-error-msg-street": "กรุณาพิมพ์ ที่อยู่ ของคุณ",
+	"donate_interface-error-msg-street": "กรุณาระบุ ที่อยู่ ของคุณ",
 	"donate_interface-error-msg-city": "กรุณาพิมพ์ เมือง ของคุณ",
-	"donate_interface-error-msg-state": "กรุณาพิมพ์ รัฐ/จังหวัด ของคุณ",
+	"donate_interface-error-msg-state": "กรุณาระบุ รัฐ/จังหวัด ของคุณ",
 	"donate_interface-error-msg-postal_code-us": "กรุณาพิมพ์ รหัสไปรษณีย์ ของคุณ",
 	"donate_interface-error-msg-card_num": "หมายเลขบัตรเครดิต",
 	"donate_interface-error-msg-expiration": "วันหมดอายุของบัตร",

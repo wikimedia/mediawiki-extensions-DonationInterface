@@ -170,7 +170,7 @@
 	"donate_interface-error-msg-mc": "Внесете правилен број на Mastercard картичка.",
 	"donate_interface-error-msg-visa": "Внесете правилен број на Visa картичка.",
 	"donate_interface-error-msg-discover": "Внесете точен број на картичка за Discover.",
-	"donate_interface-error-msg-amount": "износ на прилогот",
+	"donate_interface-error-msg-amount": "Внесете износ на прилогот",
 	"donate_interface-error-msg-limit": "Вашиот паричен прилог не може да се обработи. Би ве замолиле да се обидете со некој од другите <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/mk\">начини на дарување</a>, пробајте со помал износ или обидете се повторно утре.",
 	"donate_interface-error-msg-email": "Внесете е-пошта",
 	"donate_interface-error-msg-fname": "Внесете име",

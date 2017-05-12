@@ -71,7 +71,7 @@
 	"donate_interface-error-msg-visa": "Зинһар,  Visa картасының дөрес номерын кертегез.",
 	"donate_interface-error-msg-discover": "Зинһар,  Discover картасының дөрес номерын кертегез.",
 	"donate_interface-error-msg-amount": "иганә күләме",
-	"donate_interface-error-msg-email": "Зинһар, электрон почта юлламасы кертегез",
+	"donate_interface-error-msg-email": "Зинһар, электрон почта юлламасын кертегез",
 	"donate_interface-error-msg-fname": "Зинһар, исем кертегез",
 	"donate_interface-error-msg-lname": "Зинһар, фамилия кертегез",
 	"donate_interface-error-msg-street": "Зинһар, почта адресы кертегез",

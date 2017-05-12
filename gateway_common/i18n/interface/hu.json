@@ -175,7 +175,7 @@
 	"donate_interface-error-msg-visa": "Kérlek, helyes Visa kártyaszámot adj meg.",
 	"donate_interface-error-msg-discover": "Kérlek, helyes Discover kártyaszámot adj meg.",
 	"donate_interface-error-msg-amount": "adományozott összeg",
-	"donate_interface-error-msg-email": "A következő mező kitöltése kötelező: e-mail cím",
+	"donate_interface-error-msg-email": "A következő mező kitöltése kötelező: e-mail-cím",
 	"donate_interface-error-msg-fname": "A következő mező kitöltése kötelező: keresztnév",
 	"donate_interface-error-msg-lname": "A következő mező kitöltése kötelező: családi név",
 	"donate_interface-error-msg-street": "A következő mező kitöltése kötelező: utca",

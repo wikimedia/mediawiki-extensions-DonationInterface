@@ -188,7 +188,7 @@
 	"donate_interface-error-msg-street": "請輸入您的 街道地址",
 	"donate_interface-error-msg-city": "請輸入您的 城市",
 	"donate_interface-error-msg-state": "請輸入您的 州",
-	"donate_interface-error-msg-postal_code-us": "請輸入您的 郵政編碼",
+	"donate_interface-error-msg-postal_code-us": "請輸入您的郵政編碼",
 	"donate_interface-error-msg-postal_code": "請輸入您的 郵政編碼",
 	"donate_interface-error-msg-invalid-fname": "請更正錯誤：名。",
 	"donate_interface-error-msg-invalid-lname": "請更正錯誤：姓。",

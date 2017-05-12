@@ -204,7 +204,7 @@
 	"donate_interface-error-msg-captcha-please": "Radi sigurnosti vaše kreditne kartice, molimo upišite znakove koje vidite iznad.",
 	"donate_interface-error-msg-cookies": "Molimo omogućite kolačiće (cookies) u vašem pregledniku.",
 	"donate_interface-error-msg-country-calc": "Pogrješka - trenutačno ne možemo prihvatiti vašu donaciju.",
-	"donate_interface-error-msg-fiscal_number": "Molimo unesite vaše Porezni broj (OIB)",
+	"donate_interface-error-msg-fiscal_number": "Molimo unesite vaš porezni broj (OIB)",
 	"donate_interface-error-msg-invalid-fiscal_number": "Molimo ispravite pogrješke u vašem Porezni broj (OIB)",
 	"donate_interface-error-msg-issuer_id": "Banka",
 	"donate_interface-donate-error-try-a-different-card": "Molimo [$1 probajtu drugu karticu] ili jedan od naših [$2 drugih načina uplate] ili nas kontaktirajte na $3",
