@@ -17,7 +17,8 @@
 			"Jrobell",
 			"Mirolith",
 			"Esketti",
-			"Edoderoo"
+			"Edoderoo",
+			"Mainframe98"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -193,7 +194,7 @@
 	"donate_interface-error-msg-invalid-city": "Corrigeer de fouten in het veld \"plaats\"",
 	"donate_interface-error-msg-invalid-postal_code-us": "Corrigeer de fouten in het veld \"postcode\"",
 	"donate_interface-error-msg-invalid-postal_code": "Corrigeer de fouten in het veld \"postcode\"",
-	"donate_interface-error-msg-country": "land",
+	"donate_interface-error-msg-country": "Voer uw land in",
 	"donate_interface-error-msg-card_type": "creditcardtype",
 	"donate_interface-error-msg-card_num": "creditcardnummer",
 	"donate_interface-error-msg-expiration": "Vul de vervaldatum van de creditcard in",

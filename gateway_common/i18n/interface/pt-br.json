@@ -20,7 +20,8 @@
 			"Jrobell",
 			"Rodrigo codignoli",
 			"Araceletorres",
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"Walesson"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -183,7 +184,7 @@
 	"donate_interface-error-msg-visa": "Por favor, introduza um número de cartão Visa correto.",
 	"donate_interface-error-msg-discover": "Por favor, insira um número de cartão Discover correto.",
 	"donate_interface-error-msg-amount": "quantia da doação",
-	"donate_interface-error-msg-email": "Por favor, introduza E-mail",
+	"donate_interface-error-msg-email": "Por favor, introduza seu E-mail",
 	"donate_interface-error-msg-fname": "Por favor, introduza primeiro nome",
 	"donate_interface-error-msg-lname": "Por favor, introduza último nome",
 	"donate_interface-error-msg-street": "Por favor, introduza a sua rua e nº",
@@ -197,7 +198,7 @@
 	"donate_interface-error-msg-invalid-city": "Por favor corrija os erros no cidade",
 	"donate_interface-error-msg-invalid-postal_code-us": "Por favor corrija os erros no código postal",
 	"donate_interface-error-msg-invalid-postal_code": "Por favor corrija os erros no Código postal",
-	"donate_interface-error-msg-country": "país",
+	"donate_interface-error-msg-country": "introduza seu país",
 	"donate_interface-error-msg-card_type": "Tipo de cartão de crédito",
 	"donate_interface-error-msg-card_num": "número do cartão de crédito",
 	"donate_interface-error-msg-expiration": "Por favor, insira a data de expiração do cartão",
@@ -216,6 +217,8 @@
 	"donate_interface-error-msg-fiscal_number-br": "Por favor, introduza CPF/CNPJ",
 	"donate_interface-error-msg-invalid-fiscal_number": "Por favor corrija os erros no Número fiscal",
 	"donate_interface-error-msg-invalid-fiscal_number-br": "Por favor corrija os erros no CPF/CNPJ",
+	"donate_interface-error-msg-invalid-fiscal_number-cl": "Corrija os erros no seu RUT",
+	"donate_interface-error-msg-invalid-fiscal_number-mx": "Corrija os erros no seu CURP/RFC/IFE",
 	"donate_interface-donate-error-try-a-different-card": "Por favor, [$1 teste com um cartão diferente] ou com uma das [$2 diferentes formas de doar] ou entre em contato conosco no endereço $3",
 	"donate_interface-donate-error-try-again-html": "Por favor, <a href=\"$1\">tente novamente</a>, tente outra de nossas <a href=\"$2\">maneiras para dar</a> ou contate-nos em <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Obrigado pelo seu apoio!",
