@@ -76,6 +76,10 @@ class WmfFramework_Drupal {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
+	static function getSessionId() {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
 	static function validateIP( $ip ) {
 		return true;
 	}

@@ -2876,8 +2876,9 @@ abstract class GatewayAdapter
 		if ( $this->isBatchProcessor() ) {
 			return;
 		}
-		$this->logger->info( __FUNCTION__ . ': Refreshing all donor data' );
 		$this->session_ensure();
+		$sessionId = WmfFramework::getSessionId();
+		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId''" );
 		$sessionFields = DonationData::getSessionFields();
 
 		$data = array();
