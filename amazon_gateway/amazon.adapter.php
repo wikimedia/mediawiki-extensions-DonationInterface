@@ -2,6 +2,7 @@
 
 use PayWithAmazon\PaymentsClient as PwaClient;
 use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
+use Psr\Log\LogLevel;
 
 /**
  * Wikimedia Foundation
@@ -401,22 +402,6 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * MakeGlobalVariablesScript handler, sends settings to Javascript
-	 * @param array $vars
-	 */
-	public function setClientVariables( &$vars ) {
-		parent::setClientVariables( $vars );
-		$vars['wgAmazonGatewayClientID'] = $this->account_config['ClientID'];
-		$vars['wgAmazonGatewaySellerID'] = $this->account_config['SellerID'];
-		$vars['wgAmazonGatewaySandbox'] = $this->getGlobal( 'Test' ) ? true : false;
-		$vars['wgAmazonGatewayReturnURL'] = $this->account_config['ReturnURL'];
-		$vars['wgAmazonGatewayWidgetScript'] = $this->account_config['WidgetScriptURL'];
-		$vars['wgAmazonGatewayLoginScript'] = $this->getGlobal( 'LoginScript' );
-		$vars['wgAmazonGatewayFailPage'] = $this->getGlobal( 'FailPage' );
-		$vars['wgAmazonGatewayOtherWaysURL'] = $this->localizeGlobal( 'OtherWaysURL' );
-	}
-
-	/**
 	 * FIXME: this synthesized 'TransactionResponse' is increasingly silly
 	 * Maybe make this adapter more normal by adding an 'SDK' communication type
 	 * that just creates an array of $data, then overriding curl_transaction
@@ -426,9 +411,11 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	public function handleErrors( $exception, $resultData ) {
 		$errorCode = $exception->getErrorCode();
-		$resultData->addError(
-			$errorCode, $this->getErrorMapByCodeAndTranslate( $errorCode )
-		);
+		$resultData->addError( new PaymentError(
+			$errorCode,
+			$exception->getMessage(),
+			LogLevel::ERROR
+		) );
 		if ( array_search( $errorCode, $this->retry_errors ) === false ) {
 			// Fail on anything we don't recognize as retry-able.  For example:
 			// These two may show up if we start doing asynchronous authorization

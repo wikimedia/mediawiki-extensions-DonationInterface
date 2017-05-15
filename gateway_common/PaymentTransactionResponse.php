@@ -7,12 +7,7 @@
  */
 class PaymentTransactionResponse {
 	/**
-	 * @var array keys are error codes, values are themselves arrays of the form
-	 *		'message' => 'for public consumption',
-	 *		'debugInfo' => 'diagnostic information',
-	 *		'logLevel' => LogLevel::WARNING
-	 * If there weren't any, this should be present and empty after a
-	 * transaction.
+	 * @var array List of PaymentErrors
 	 */
 	protected $errors = array();
 
@@ -107,19 +102,18 @@ class PaymentTransactionResponse {
 	}
 
 	/**
-	 * @param array $errors
+	 * @param array $errors List of PaymentError
 	 */
-	public function setErrors( $errors ) {
-		$this->errors = $errors;
+	public function addErrors( $errors ) {
+		$this->errors += $errors;
 	}
 
 	/**
 	 * Add an error to the internal $errors array
-	 * @param string $code identifies the error type
-	 * @param array $error as specified in @see errors
+	 * @param PaymentError $error
 	 */
-	public function addError( $code, $error ) {
-		$this->errors[$code] = $error;
+	public function addError( $error ) {
+		$this->errors[] = $error;
 	}
 
 	/**

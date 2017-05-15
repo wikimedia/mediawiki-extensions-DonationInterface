@@ -33,10 +33,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 */
 	public function getForm() {
 		$data = $this->getData();
+		self::$country = $data['country'];
+
 		$data = $data + $this->getErrors();
 		$data = $data + $this->getUrls();
 
-		self::$country = $data['country'];
 		self::$fieldErrors = $data['errors']['field'];
 
 		// FIXME: is this really necessary for rendering retry links?
@@ -255,29 +256,42 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * @return array
 	 */
 	protected function getErrors() {
-		$errors = $this->gateway->getErrors();
+		$errors = $this->gateway->getErrorState()->getErrors();
 		$return = array( 'errors' => array(
 			'general' => array(),
 			'field' => array(),
 		) );
 		$fieldNames = DonationData::getFieldNames();
-		foreach( $errors as $key => $error ) {
-			if ( is_array( $error ) ) {
-				// TODO: set errors consistently
-				$message = implode( '<br/>', $error );
+		foreach ( $errors as $error ) {
+			if ( $error instanceof ValidationError ) {
+				$key = $error->getField();
+
+				$message = MessageUtils::getCountrySpecificMessage(
+					$error->getMessageKey(),
+					self::$country,
+					RequestContext::getMain()->getLanguage()->getCode(),
+					$error->getMessageParams()
+				);
+			} elseif ( $error instanceof PaymentError ) {
+				$key = $error->getErrorCode();
+				$message = $this->gateway->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
 			} else {
-				$message = $error;
+				throw new RuntimeException( "Unknown error type: " . var_export( $error, true ) );
 			}
+
 			$errorContext = array(
 				'key' => $key,
 				'message' => $message,
 			);
+
 			if ( in_array( $key, $fieldNames ) ) {
 				$return['errors']['field'][$key] = $errorContext;
 			} else {
 				$return['errors']['general'][] = $errorContext;
 			}
 			$return["{$key}_error"] = true;
+
+			// FIXME: Belongs in a separate phase?
 			if ( $key === 'currency_code' || $key === 'amount' ) {
 				$return['show_amount_input'] = true;
 			}

@@ -457,23 +457,23 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// TODO: so much boilerplate...  Just throw an exception subclass.
 				$logme = 'Failed response for Order ID ' . $this->getData_Unstaged_Escaped( 'order_id' );
 				$this->logger->error( $logme );
-				$this->transaction_response->setErrors( array(
-					'internal-0000' => array (
-						'message' => $this->getErrorMapByCodeAndTranslate( 'internal-0000' ),
-						'debugInfo' => $logme,
-						'logLevel' => LogLevel::ERROR
-					)
+				$this->transaction_response->addError( new PaymentError(
+					'internal-0000',
+					$logme,
+					LogLevel::ERROR
 				) );
 			}
 		} catch ( Exception $ex ) {
 			$errors = $this->parseResponseErrors( $response );
 			$fatal = true;
 			// TODO: Handle more error codes
-			foreach ( $errors as $code => $error ) {
+			foreach ( $errors as $error ) {
 				// There are errors, so it wasn't a total comms failure
 				$this->transaction_response->setCommunicationStatus( true );
+				$code = $error->getErrorCode();
+				$debugInfo = $error->getDebugMessage();
 				$this->logger->warning(
-					"Error code $code returned: '{$error['debugInfo']}'"
+					"Error code $code returned: '$debugInfo'"
 				);
 				switch ( $code ) {
 					case '10486':
@@ -484,7 +484,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 						$fatal = false;
 						break;
 					default:
-						$this->transaction_response->addError( $code, $error );
+						$this->transaction_response->addError( $error );
 				}
 			}
 			if ( $fatal ) {
@@ -498,14 +498,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
+	/**
+	 * @param array $response
+	 * @return PaymentError[]
+	 */
 	protected function parseResponseErrors( $response ) {
 		$errors = array();
 		// TODO: can they put errors in other places too?
 		if ( isset( $response['L_ERRORCODE0'] ) ) {
-			$errors[$response['L_ERRORCODE0']] = array(
-				'logLevel' => LogLevel::ERROR,
-				'message' => '',
-				'debugInfo' => isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+			$errors[] = new PaymentError(
+				$response['L_ERRORCODE0'],
+				isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+				LogLevel::ERROR
 			);
 		}
 		return $errors;
@@ -523,14 +527,19 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 
 		// One-time payment, or initial payment in a subscription.
-		// XXX: This shouldn't finalize the transaction.
 		$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
 		if ( !$resultData->getCommunicationStatus() ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			return PaymentResult::newFailure();
 		}
 
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+		// Silly conditional. What we really want to know is if the
+		// DoExpressCheckoutPayment txn was successful.
+		if (
+			!$resultData->getRedirect() &&
+			!$resultData->getErrors() &&
+			$this->getData_Unstaged_Escaped( 'recurring' )
+		) {
 			// Set up recurring billing agreement.
 			$this->addRequestData( array(
 				// Start in a month; we're making today's payment as an one-time charge.

@@ -61,6 +61,10 @@ class WmfFramework_Mediawiki {
 		RequestContext::getMain()->getRequest()->setSessionData( $key, $value );
 	}
 
+	static function getSessionId() {
+		return SessionManager::getGlobalSession()->getId();
+	}
+
 	static function validateIP( $ip ) {
 		return IP::isValid( $ip );
 	}
