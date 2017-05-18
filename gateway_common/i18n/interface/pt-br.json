@@ -21,7 +21,8 @@
 			"Rodrigo codignoli",
 			"Araceletorres",
 			"Felipe L. Ewald",
-			"Walesson"
+			"Walesson",
+			"Legionibus"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -188,14 +189,14 @@
 	"donate_interface-error-msg-fname": "Por favor, introduza primeiro nome",
 	"donate_interface-error-msg-lname": "Por favor, introduza último nome",
 	"donate_interface-error-msg-street": "Por favor, introduza a sua rua e nº",
-	"donate_interface-error-msg-city": "Por favor, introduza cidade",
+	"donate_interface-error-msg-city": "Por favor, introduza sua cidade",
 	"donate_interface-error-msg-state": "Por favor, introduza estado",
 	"donate_interface-error-msg-postal_code-us": "Por favor, introduza código postal",
 	"donate_interface-error-msg-postal_code": "Por favor, introduza Código postal",
 	"donate_interface-error-msg-invalid-fname": "Por favor corrija os erros no primeiro nome",
 	"donate_interface-error-msg-invalid-lname": "Por favor corrija os erros no último nome",
-	"donate_interface-error-msg-invalid-street": "Por favor corrija os erros no a sua rua e nº",
-	"donate_interface-error-msg-invalid-city": "Por favor corrija os erros no cidade",
+	"donate_interface-error-msg-invalid-street": "Por favor corrija os erros no quesito: endereço.",
+	"donate_interface-error-msg-invalid-city": "Por favor corrija os erros no quesito:\n cidade",
 	"donate_interface-error-msg-invalid-postal_code-us": "Por favor corrija os erros no código postal",
 	"donate_interface-error-msg-invalid-postal_code": "Por favor corrija os erros no Código postal",
 	"donate_interface-error-msg-country": "introduza seu país",
