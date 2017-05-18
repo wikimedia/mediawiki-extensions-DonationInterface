@@ -415,6 +415,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'SetExpressCheckout':
 			case 'SetExpressCheckout_recurring':
 				$this->checkResponseAck( $response );
+				$this->addResponseData( $this->unstageKeys( $response ) );
 				$this->transaction_response->setRedirect(
 					$this->account_config['RedirectURL'] . $response['TOKEN'] );
 				break;
@@ -517,7 +518,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 
 	public function processDonorReturn( $requestValues ) {
 		$this->addRequestData( array(
-			'ec_token' => $requestValues['token'],
+			'gateway_session_id' => $requestValues['token'],
 			'payer_id' => $requestValues['PayerID'],
 		) );
 		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );

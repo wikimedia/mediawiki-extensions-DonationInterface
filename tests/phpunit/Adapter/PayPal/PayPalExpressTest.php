@@ -36,6 +36,58 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		}
 	}
 
+	function testPaymentSetup() {
+		$init = array(
+			'amount' => 1.55,
+			'currency_code' => 'USD',
+			'payment_method' => 'paypal',
+			'utm_source' => 'CD1234_FR',
+			'utm_medium' => 'sitenotice',
+			'country' => 'US',
+			'contribution_tracking_id' => strval( mt_rand() ),
+			'language' => 'fr',
+		);
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( 'OK' );
+		$result = $gateway->doPayment();
+		$gateway->logPending(); // GatewayPage calls this for redirects
+		$this->assertEquals(
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
+			$result->getRedirect(),
+			'Wrong redirect for PayPal EC payment setup'
+		);
+		$message = DonationQueue::instance()->pop( 'pending' );
+		$this->assertNotEmpty( $message, 'Missing pending message' );
+		$this->unsetVariableFields( $message );
+		$expected = array(
+			'country' => 'US',
+		    'fee' => '0',
+		    'gateway' => 'paypal_ec',
+		    'gateway_txn_id' => null,
+		    'language' => 'fr',
+		    'contribution_tracking_id' => $init['contribution_tracking_id'],
+		    'order_id' => $init['contribution_tracking_id'] . '.0',
+		    'utm_source' => 'CD1234_FR..paypal',
+		    'currency' => 'USD',
+		    'email' => '',
+		    'gross' => '1.55',
+		    'recurring' => '',
+		    'response' => false,
+		    'utm_medium' => 'sitenotice',
+			'payment_method' => 'paypal',
+			'payment_submethod' => '',
+			'gateway_session_id' => 'EC-8US12345X1234567U',
+			'user_ip' => '127.0.0.1',
+			'source_name' => 'DonationInterface',
+			'source_type' => 'payments',
+		);
+		$this->assertEquals(
+			$expected,
+			$message,
+			'PayPal EC setup sending wrong pending message'
+		);
+	}
+
 	/**
 	 * Check that the adapter makes the correct calls for successful donations
 	 * and sends a good queue message.
@@ -60,6 +112,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'fee' => '0',
 			'gateway' => 'paypal_ec',
 			'gateway_txn_id' => '5EJ123456T987654S',
+			'gateway_session_id' => 'EC-4V987654XA123456V',
 			'language' => 'en',
 			'order_id' => $init['contribution_tracking_id'] . '.0',
 			'payment_method' => 'paypal',
@@ -109,6 +162,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'fee' => '0',
 			'gateway' => 'paypal_ec',
 			'gateway_txn_id' => '5EJ123456T987654S',
+			'gateway_session_id' => 'EC-4V987654XA123456V',
 			'language' => 'en',
 			'order_id' => $init['contribution_tracking_id'] . '.0',
 			'payment_method' => 'paypal',

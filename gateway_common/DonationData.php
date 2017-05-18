@@ -935,6 +935,7 @@ class DonationData implements LogPrefixProvider {
 			'amount',
 			'user_ip',
 			'date',
+			'gateway_session_id',
 		);
 	}
 
