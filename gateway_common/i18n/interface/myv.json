@@ -17,7 +17,7 @@
 	"donate_interface-SEK": "Швециянь крона",
 	"donate_interface-paypal-button": "Максомс лезксйармак PayPal вельде",
 	"donate_interface-donor-name": "Леметь:",
-	"donate_interface-donor-street": "Ульцат:",
+	"donate_interface-donor-street_address": "Ульцат:",
 	"donate_interface-donor-city": "Ошот:",
 	"donate_interface-donor-state": "Штатот:",
 	"donate_interface-donor-postal_code": "Почтань индексэзэ:",

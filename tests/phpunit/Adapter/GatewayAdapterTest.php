@@ -216,7 +216,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 	public function testStreetStaging() {
 		$options = $this->getDonorTestData( 'BR' );
-		unset( $options['street'] );
+		unset( $options['street_address'] );
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
@@ -225,7 +225,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( 'N0NE PROVIDED', $exposed->getData_Staged( 'street' ),
+		$this->assertEquals( 'N0NE PROVIDED', $exposed->getData_Staged( 'street_address' ),
 			'Street must be stuffed with fake data to prevent AVS scam.' );
 	}
 

@@ -185,7 +185,7 @@ state:
     type: alphanumeric
     length: 35
 # STREET: AN50
-street:
+street_address:
     type: alphanumeric
     length: 50
 # SURNAME: AN35

@@ -20,7 +20,7 @@
 	"donate_interface-donor-fname": "Pêşnav",
 	"donate_interface-donor-mname": "Navê navîn",
 	"donate_interface-donor-lname": "Paşnav",
-	"donate_interface-donor-street": "Kûçe",
+	"donate_interface-donor-street_address": "Kûçe",
 	"donate_interface-donor-street-number": "Hejmar",
 	"donate_interface-donor-city": "Bajar",
 	"donate_interface-donor-county": "Welat",

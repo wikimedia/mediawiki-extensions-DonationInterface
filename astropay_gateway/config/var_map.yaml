@@ -12,7 +12,7 @@ x_name: full_name
 x_email: email
 # We've been told bdate is non-mandatory, despite the docs
 x_bdate: birth_date
-x_address: street
+x_address: street_address
 x_zip: postal_code
 x_city: city
 x_state: state

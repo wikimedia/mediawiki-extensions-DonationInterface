@@ -44,7 +44,7 @@
 	"donate_interface-donor-fname": "Անուն",
 	"donate_interface-donor-mname": "Հայրանուն",
 	"donate_interface-donor-lname": "Ազգանուն",
-	"donate_interface-donor-street": "Փողոց",
+	"donate_interface-donor-street_address": "Փողոց",
 	"donate_interface-donor-street-number": "Թիվ",
 	"donate_interface-donor-city": "Քաղաք",
 	"donate_interface-donor-county": "Շրջան",

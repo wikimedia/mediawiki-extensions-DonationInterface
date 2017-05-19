@@ -6,7 +6,7 @@
 	},
 	"donate_interface-cvv-link": "Kiöpö-li binon atos?",
 	"donate_interface-donor-name": "Nem:",
-	"donate_interface-donor-street": "Süt:",
+	"donate_interface-donor-street_address": "Süt:",
 	"donate_interface-donor-city": "Zif:",
 	"donate_interface-donor-state": "Tat:",
 	"donate_interface-donor-address": "Ladet"

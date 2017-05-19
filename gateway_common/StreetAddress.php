@@ -2,7 +2,7 @@
 
 class StreetAddress implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		$stagedData['street'] = $this->stage_street( $normalized );
+		$stagedData['street_address'] = $this->stage_street( $normalized );
 		$stagedData['postal_code'] = $this->stage_postal_code( $normalized );
 	}
 
@@ -17,8 +17,8 @@ class StreetAddress implements StagingHelper {
 	 */
 	protected function stage_street( $normalized ) {
 		$street = '';
-		if ( isset( $normalized['street'] ) ) {
-			$street = trim( $normalized['street'] );
+		if ( isset( $normalized['street_address'] ) ) {
+			$street = trim( $normalized['street_address'] );
 		}
 
 		if ( !$street

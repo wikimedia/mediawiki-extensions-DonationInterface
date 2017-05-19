@@ -177,7 +177,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'city',
 			'state',
 			'postal_code',
-			'street',
+			'street_address',
 		);
 		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
@@ -187,7 +187,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 			if ( in_array( $field, $address_fields ) ) {
 				$data['address_required'] = true;
-				if ( $field !== 'street' ) {
+				if ( $field !== 'street_address' ) {
 					// street gets its own line
 					$address_field_count++;
 				}

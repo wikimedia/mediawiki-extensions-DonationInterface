@@ -14,7 +14,7 @@
 	"donate_interface-donor-amount": "Sumo:",
 	"donate_interface-donor-currency-label": "Monetaro:",
 	"donate_interface-donor-name": "Nomo:",
-	"donate_interface-donor-street": "Strado:",
+	"donate_interface-donor-street_address": "Strado:",
 	"donate_interface-donor-city": "Urbo:",
 	"donate_interface-donor-state": "Stato:",
 	"donate_interface-donor-address": "Adreso:"

@@ -49,7 +49,7 @@
 			amount: $( '#amount' ).val(),
 			fname: $( '#fname' ).val(),
 			lname: $( '#lname' ).val(),
-			street: $( '#street' ).val(),
+			street_address: $( '#street_address' ).val(),
 			city: $( '#city' ).val(),
 			state: $( '#state' ).val(),
 			postal_code: $( '#postal_code' ).val(),

@@ -29,7 +29,7 @@
 	"donate_interface-donor-mname": "ئوتتۇرا ئاتى",
 	"donate_interface-donor-lname": "تەگات",
 	"donate_interface-donor-lname-alt": "تەگات",
-	"donate_interface-donor-street": "كوچا",
+	"donate_interface-donor-street_address": "كوچا",
 	"donate_interface-donor-street-number": "نومۇرى",
 	"donate_interface-donor-city": "شەھەر",
 	"donate_interface-donor-state": "ھالەت",

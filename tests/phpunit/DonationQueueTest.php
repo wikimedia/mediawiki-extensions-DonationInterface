@@ -61,7 +61,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'response' => 'Gateway response something',
 			'state' => 'AK',
-			'street' => '1 Fake St.',
+			'street_address' => '1 Fake St.',
 			'user_ip' => '127.0.0.1',
 			'utm_source' => 'testing',
 			'postal_code' => '12345',

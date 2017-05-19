@@ -5,5 +5,5 @@ CA:
 GB:
     address: true
 US:
-    street: true
+    street_address: true
     postal_code: true

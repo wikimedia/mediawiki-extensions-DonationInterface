@@ -17,7 +17,7 @@
 	"donate_interface-donor-fname": "Emri:",
 	"donate_interface-donor-mname": "Emri Mesme:",
 	"donate_interface-donor-lname": "Mbiemri:",
-	"donate_interface-donor-street": "Rruga:",
+	"donate_interface-donor-street_address": "Rruga:",
 	"donate_interface-donor-city": "Qyteti:",
 	"donate_interface-donor-state": "Shteti:",
 	"donate_interface-donor-postal_code": "Kodi postar:",

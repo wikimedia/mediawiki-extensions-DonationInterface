@@ -187,7 +187,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'gateway_account' => 'testing',
 			'gateway_txn_id' => false,
 			'response' => false,
-			'street' => '123 Fake Street',
+			'street_address' => '123 Fake Street',
 			'city' => 'San Francisco',
 			'state' => 'CA',
 			'postal_code' => '94105',

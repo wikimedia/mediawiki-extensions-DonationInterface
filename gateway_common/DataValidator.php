@@ -36,7 +36,7 @@ class DataValidator {
 			case 'lname':
 			case 'city':
 			case 'country':
-			case 'street':
+			case 'street_address':
 			case 'state':
 			case 'postal_code':
 			case 'expiration':
@@ -70,7 +70,7 @@ class DataValidator {
 			'lname' => '',
 			'city' => '',
 			'country' => '',
-			'street' => '',
+			'street_address' => '',
 			'state' => '',
 			'postal_code' => '',
 			'email' => '',
@@ -172,7 +172,7 @@ class DataValidator {
 				'city' => 'validate_address',
 				'country' => 'validate_country_allowed',
 				'email' => 'validate_email',
-				'street' => 'validate_address',
+				'street_address' => 'validate_address',
 				'postal_code' => 'validate_address',
 				'currency_code' => 'validate_currency_code',
 				'fname' => 'validate_name',

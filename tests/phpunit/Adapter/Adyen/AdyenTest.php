@@ -55,7 +55,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 		$expected = array (
 			'allowedMethods' => 'card',
-			'billingAddress.street' => $init['street'],
+			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
 			'billingAddress.postalCode' => $init['postal_code'],
 			'billingAddress.stateOrProvince' => $init['state'],
@@ -119,7 +119,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 		$expected = array (
 			'allowedMethods' => 'card',
-			'billingAddress.street' => $init['street'],
+			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
 			'billingAddress.postalCode' => $init['postal_code'],
 			'billingAddress.stateOrProvince' => $init['state'],

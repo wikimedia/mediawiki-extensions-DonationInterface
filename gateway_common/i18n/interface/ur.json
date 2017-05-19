@@ -24,7 +24,7 @@
 	"donate_interface-donor-fname": "سب سے پہلے نام",
 	"donate_interface-donor-mname": "مشرق کے نام",
 	"donate_interface-donor-lname": "آخری نام",
-	"donate_interface-donor-street": "سٹریٹ",
+	"donate_interface-donor-street_address": "سٹریٹ",
 	"donate_interface-donor-street-number": "تعداد",
 	"donate_interface-donor-city": "شہر",
 	"donate_interface-donor-county": "کاؤنٹی",

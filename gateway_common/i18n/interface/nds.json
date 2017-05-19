@@ -15,7 +15,7 @@
 	"donate_interface-donor-name": "Naam",
 	"donate_interface-donor-fname": "Vörnaam",
 	"donate_interface-donor-lname": "Achternaam",
-	"donate_interface-donor-street": "Straat",
+	"donate_interface-donor-street_address": "Straat",
 	"donate_interface-donor-street-number": "Nummer",
 	"donate_interface-donor-city": "Stadt",
 	"donate_interface-donor-county": "Kreis",

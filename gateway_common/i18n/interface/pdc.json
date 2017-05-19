@@ -15,7 +15,7 @@
 	"donate_interface-cvv-link": "Wu iss daer?",
 	"donate_interface-donor-name": "Naame:",
 	"donate_interface-donor-lname": "Familie-Naame:",
-	"donate_interface-donor-street": "Schtrooss:",
+	"donate_interface-donor-street_address": "Schtrooss:",
 	"donate_interface-donor-city": "Schtadt:",
 	"donate_interface-donor-state": "Schtaat:",
 	"donate_interface-donor-country": "Land/Gegend:",

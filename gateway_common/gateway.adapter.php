@@ -2372,7 +2372,7 @@ abstract class GatewayAdapter
 			switch ( $type ) {
 				case 'address' :
 					$check_not_empty = array(
-						'street',
+						'street_address',
 						'city',
 						'country',
 						'postal_code', //this should really be added or removed, depending on the country and/or gateway requirements.

@@ -113,7 +113,7 @@
 	"donate_interface-donor-fname": "Adı",
 	"donate_interface-donor-mname": "Atasının adı",
 	"donate_interface-donor-lname": "Soyadı",
-	"donate_interface-donor-street": "Küçə",
+	"donate_interface-donor-street_address": "Küçə",
 	"donate_interface-donor-city": "Şəhər",
 	"donate_interface-donor-state": "Dövlət",
 	"donate_interface-donor-postal_code": "Poçt indeksi",

@@ -22,7 +22,7 @@
 	"donate_interface-donor-fname": "पहिले नाव",
 	"donate_interface-donor-mname": "मधले नाव",
 	"donate_interface-donor-lname": "शेवटचे नाव",
-	"donate_interface-donor-street": "रस्ता",
+	"donate_interface-donor-street_address": "रस्ता",
 	"donate_interface-donor-city": "शहर",
 	"donate_interface-donor-state": "राज्य",
 	"donate_interface-donor-postal_code": "पिनकोड",

@@ -111,7 +111,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.houseNumberOrName',
 		);
 
-		if ( in_array( 'street', $this->getRequiredFields() ) )  {
+		if ( in_array( 'street_address', $this->getRequiredFields() ) )  {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 

@@ -64,7 +64,7 @@
 	"donate_interface-donor-fname": "Førenamn",
 	"donate_interface-donor-mname": "Mellomnamn:",
 	"donate_interface-donor-lname": "Etternamn:",
-	"donate_interface-donor-street": "Gate:",
+	"donate_interface-donor-street_address": "Gate:",
 	"donate_interface-donor-city": "By:",
 	"donate_interface-donor-state": "Delstat:",
 	"donate_interface-donor-postal_code": "Postnummer:",
