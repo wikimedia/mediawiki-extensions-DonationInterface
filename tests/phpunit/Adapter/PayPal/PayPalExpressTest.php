@@ -103,8 +103,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD'
 		) );
 
-		$message = DonationQueue::instance()->pop( 'complete' );
-		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );
+		$message = DonationQueue::instance()->pop( 'donations' );
+		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		$this->unsetVariableFields( $message );
 		$expected = array (
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
@@ -136,8 +136,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertEquals( $expected, $message );
 
 		$this->assertNull(
-			DonationQueue::instance()->pop( 'complete' ),
-			'Sending extra messages to complete queue!'
+			DonationQueue::instance()->pop( 'donations' ),
+			'Sending extra messages to donations queue!'
 		);
 	}
 
@@ -153,8 +153,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD'
 		) );
 
-		$message = DonationQueue::instance()->pop( 'complete' );
-		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );
+		$message = DonationQueue::instance()->pop( 'donations' );
+		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		$this->unsetVariableFields( $message );
 		$expected = array (
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
@@ -186,8 +186,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 		$this->assertEquals( $expected, $message );
 		$this->assertNull(
-			DonationQueue::instance()->pop( 'complete' ),
-			'Sending extra messages to complete queue!'
+			DonationQueue::instance()->pop( 'donations' ),
+			'Sending extra messages to donations queue!'
 		);
 	}
 
@@ -205,7 +205,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD'
 		) );
 
-		$message = DonationQueue::instance()->pop( 'complete' );
+		$message = DonationQueue::instance()->pop( 'donations' );
 		$this->assertNull( $message, 'Should not queue a message' );
 		$this->assertFalse( $result->isFailed() );
 		$redirect = $result->getRedirect();
@@ -228,8 +228,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		) );
 
 		$this->assertNull(
-			DonationQueue::instance()->pop( 'complete' ),
-			'Sending a spurious message to the complete queue!'
+			DonationQueue::instance()->pop( 'donations' ),
+			'Sending a spurious message to the donations queue!'
 		);
 		$this->assertFalse( $result->isFailed() );
 		$redirect = $result->getRedirect();

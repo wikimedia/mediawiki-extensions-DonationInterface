@@ -377,7 +377,7 @@
 			"_merge_strategy": "array_plus"
 		},
 		"DonationInterfaceQueues": {
-			"completed": [],
+			"donations": [],
 			"pending": [],
 			"payments-antifraud": [],
 			"payments-init": [],

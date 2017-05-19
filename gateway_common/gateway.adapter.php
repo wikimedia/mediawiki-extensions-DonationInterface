@@ -1743,7 +1743,7 @@ abstract class GatewayAdapter
 				// This transaction completed successfully.  Send to the CRM
 				// for filing.
 				$this->logCompletedPayment();
-				$this->pushMessage( 'complete' );
+				$this->pushMessage( 'donations' );
 				break;
 
 			case FinalStatus::PENDING:
