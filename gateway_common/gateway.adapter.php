@@ -1814,7 +1814,7 @@ abstract class GatewayAdapter
 		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
 		$transaction['correlation-id'] = $this->getCorrelationID();
 		$transaction['date'] = ( int ) time(); //I know this looks odd. Just trust me here.
-		$transaction['server'] = WmfFramework::getHostname();
+		$transaction['server'] = WmfFramework::getHostname(); // FIXME: duplicated in the source fields
 
 		$these_too = array (
 			'gateway',

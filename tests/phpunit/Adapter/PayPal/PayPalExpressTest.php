@@ -19,7 +19,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 	public function setUp() {
 		parent::setUp();
-
+		DonationInterface::initializeSmashPig( 'paypal' );
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,
@@ -29,7 +29,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 	protected function unsetVariableFields( &$message ) {
 		$fields = array(
-			'date', 'source_host', 'source_run_id', 'source_version', 'gateway_account'
+			'date', 'source_enqueued_time', 'source_host', 'source_run_id', 'source_version', 'gateway_account'
 		);
 		foreach ( $fields as $field ) {
 			unset( $message[$field] );

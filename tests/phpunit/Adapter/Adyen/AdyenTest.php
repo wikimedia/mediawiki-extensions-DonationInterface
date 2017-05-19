@@ -31,6 +31,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = 'TestingAdyenAdapter';
+		DonationInterface::initializeSmashPig( 'adyen' );
 	}
 
 	public function setUp() {

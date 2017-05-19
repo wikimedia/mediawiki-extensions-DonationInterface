@@ -31,6 +31,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		DonationInterface::initializeSmashPig( 'default' );
 		$this->queue_name = 'test-' . mt_rand();
 
 		$this->setMwGlobals( array(
@@ -102,8 +103,10 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	public function testPushMessage() {
 		DonationQueue::instance()->push( $this->transaction, $this->queue_name );
 
-		$this->assertEquals( $this->expected_message,
-			DonationQueue::instance()->pop( $this->queue_name ) );
+		$actual = DonationQueue::instance()->pop( $this->queue_name );
+		unset( $actual['source_enqueued_time'] );
+
+		$this->assertEquals( $this->expected_message, $actual );
 	}
 
 	/**
@@ -115,7 +118,11 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		$transaction2 = $this->transaction;
 		$transaction2['correlation-id'] = mt_rand();
 
-		$this->assertEquals( $this->expected_message,
-			DonationQueue::instance()->pop( $this->queue_name ) );
+		DonationQueue::instance()->push( $transaction2, $this->queue_name );
+
+		$actual = DonationQueue::instance()->pop( $this->queue_name );
+		unset( $actual['source_enqueued_time'] );
+
+		$this->assertEquals( $this->expected_message, $actual );
 	}
 }

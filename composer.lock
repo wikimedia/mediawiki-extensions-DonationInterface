@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "286013b033c04aeb560c6d29c9d2462d",
     "content-hash": "c77aa55a881981c2f2170a5894371bc0",
     "packages": [
         {
@@ -50,7 +49,7 @@
                 "cache",
                 "mediawiki"
             ],
-            "time": "2017-02-16 14:33:59"
+            "time": "2017-02-16T14:33:59+00:00"
         },
         {
             "name": "amzn/login-and-pay-with-amazon-sdk-php",
@@ -89,7 +88,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2016-02-17 00:53:20"
+            "time": "2016-02-17T00:53:20+00:00"
         },
         {
             "name": "clio/clio",
@@ -130,7 +129,7 @@
                 "console",
                 "daemon"
             ],
-            "time": "2014-06-22 14:49:41"
+            "time": "2014-06-22T14:49:41+00:00"
         },
         {
             "name": "coderkungfu/php-queue",
@@ -202,6 +201,51 @@
             "time": "2017-04-17 14:11:55"
         },
         {
+            "name": "corneltek/getoptionkit",
+            "version": "2.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/c9s/GetOptionKit.git",
+                "reference": "9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/c9s/GetOptionKit/zipball/9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80",
+                "reference": "9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "satooshi/php-coveralls": "^1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GetOptionKit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yo-An Lin",
+                    "email": "cornelius.howl@gmail.com"
+                }
+            ],
+            "description": "Powerful command-line option toolkit",
+            "homepage": "http://github.com/c9s/GetOptionKit",
+            "time": "2017-04-30T09:31:04+00:00"
+        },
+        {
             "name": "ircmaxell/password-compat",
             "version": "v1.0.4",
             "source": {
@@ -241,7 +285,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20 16:49:30"
+            "time": "2014-11-20T16:49:30+00:00"
         },
         {
             "name": "minfraud/http",
@@ -281,7 +325,7 @@
                 "maxmind",
                 "minfraud"
             ],
-            "time": "2016-10-13 14:35:01"
+            "time": "2016-10-13T14:35:01+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -359,7 +403,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02 13:12:58"
+            "time": "2016-04-02T13:12:58+00:00"
         },
         {
             "name": "neitanod/forceutf8",
@@ -393,7 +437,7 @@
             ],
             "description": "PHP Class Encoding featuring popular Encoding::toUTF8() function --formerly known as forceUTF8()-- that fixes mixed encoded strings.",
             "homepage": "https://github.com/neitanod/forceutf8",
-            "time": "2015-05-07 16:37:23"
+            "time": "2015-05-07T16:37:23+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -453,7 +497,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-01-09 09:33:47"
+            "time": "2017-01-09T09:33:47+00:00"
         },
         {
             "name": "predis/predis",
@@ -503,7 +547,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16 16:22:20"
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/cache",
@@ -549,7 +593,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/log",
@@ -596,7 +640,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -656,7 +700,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02 20:30:24"
+            "time": "2017-01-02T20:30:24+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -711,7 +755,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-08 20:43:03"
+            "time": "2017-01-08T20:43:03+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -770,7 +814,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -828,7 +872,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-php55",
@@ -884,7 +928,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -933,7 +977,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-03 13:49:52"
+            "time": "2017-01-03T13:49:52+00:00"
         },
         {
             "name": "wikimedia/smash-pig",
@@ -941,11 +985,12 @@
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "78a7f28dee35cb4f5df285f53c7b643eecec7d33"
+                "reference": "a8b134cf2cef5cdb0a5960b72335410081a72a5d"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
                 "coderkungfu/php-queue": "dev-master",
+                "corneltek/getoptionkit": "^2.5",
                 "php": ">=5.3.3",
                 "phpmailer/phpmailer": "^5.2",
                 "predis/predis": "^1.1",
@@ -992,7 +1037,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2017-04-19 21:15:22"
+            "time": "2017-05-19 17:03:40"
         },
         {
             "name": "zordius/lightncandy",
@@ -1039,7 +1084,7 @@
                 "php",
                 "template"
             ],
-            "time": "2015-11-05 07:14:57"
+            "time": "2015-11-05T07:14:57+00:00"
         }
     ],
     "packages-dev": [
@@ -1088,7 +1133,7 @@
             ],
             "description": "This tool check syntax of PHP files about 20x faster than serial check.",
             "homepage": "https://github.com/JakubOnderka/PHP-Parallel-Lint",
-            "time": "2015-12-15 10:42:16"
+            "time": "2015-12-15T10:42:16+00:00"
         }
     ],
     "aliases": [],
