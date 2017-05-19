@@ -353,7 +353,5 @@
 	"donate_interface-onetime": "Tee ühekordne annetus",
 	"donate_interface-monthly-short": "Igakuiselt",
 	"donate_interface-onetime-short": "Ühekordselt",
-	"donate_interface-securelogo-title": "Klõpsa logole verifitseerimiseks – see veebileht kasutab e-kaubanduse ja konfidentsiaalse suhtluse tarbeks VeriSign SSL-i.",
-	"donate_interface-secureLogo-text": "SSL-sertifikaatide kohta",
 	"donate_interface-error-http-403": "Sul pole õigust sellele leheküljele ligi pääseda."
 }

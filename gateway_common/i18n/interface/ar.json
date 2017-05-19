@@ -358,7 +358,5 @@
 	"donate_interface-monthly-cancel": "سيتم خصم المدفوعات الشهرية من قبل مؤسسة ويكيميديا حتى ذلك الوقت الذي تبلغنا به بالتوقف عن ذلك.",
 	"donate_interface-monthly-short": "شهريا",
 	"donate_interface-onetime-short": "مرة واحدة",
-	"donate_interface-securelogo-title": "انقر للتحقق من الصحة - اختار هذا الموقع VeriSign SSL لتأمين اتصالات التجارة الإلكترونية والرسائل السرية.",
-	"donate_interface-secureLogo-text": "حول شهادات SSL",
 	"donate_interface-error-http-403": "ليس لديك الإذن للوصول إلى هذه الصفحة."
 }

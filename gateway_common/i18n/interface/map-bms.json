@@ -322,7 +322,5 @@
 	"donate_interface-monthlybox-amount": "Jumlah sumbangan",
 	"donate_interface-monthlybox-yes": "Ya uwis, Inyong gelem nyumbang saben sasi",
 	"donate_interface-monthlybox-no": "Aja lah, Inyong nyumbang sepisan kiye baen",
-	"donate_interface-monthlybox-bottom": "Sumbangane Rika bakal diproses nganggo cara sing aman.",
-	"donate_interface-securelogo-title": "Klik nggo Verifikasi - Situs kiye nganggo VeriSign SSL nggo ngamana transaksi elektronik lan komunikasi rahasia.",
-	"donate_interface-secureLogo-text": "Bab Sertifikat SSL"
+	"donate_interface-monthlybox-bottom": "Sumbangane Rika bakal diproses nganggo cara sing aman."
 }

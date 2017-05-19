@@ -400,8 +400,6 @@
 	"donate_interface-onetime": "Зробити одноразове пожертвування",
 	"donate_interface-monthly-short": "Щомісячно",
 	"donate_interface-onetime-short": "Одноразово",
-	"donate_interface-securelogo-title": "Натисніть, щоб перевірити — Цей сайт обрав «VeriSign SSL» для захисту електронної комерції та конфіденційних комунікацій.",
-	"donate_interface-secureLogo-text": "Про сертифікати SSL",
 	"donate_interface-error-http-403": "Вибачте, у вас недостатньо прав для доступу до цієї сторінки.",
 	"donate_interface-statement": "Вікімедіа $1",
 	"apihelp-donate-description": "Цей API дозволяє Вам зробити пожертву в Фонд Вікімедіа, використовуючи різні платіжні системи.",

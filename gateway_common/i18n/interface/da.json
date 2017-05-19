@@ -381,7 +381,5 @@
 	"donate_interface-onetime": "Foretag en engangsdonation",
 	"donate_interface-monthly-short": "Månedlig",
 	"donate_interface-onetime-short": "Engangs",
-	"donate_interface-securelogo-title": "Klik for at godkende - denne side valgte VeriSign SSL for at sikre e-handlen og de fortrolige oplysninger.",
-	"donate_interface-secureLogo-text": "Om SSL-certifikater",
 	"donate_interface-error-http-403": "Du har ikke tilladelse til at få adgang til denne side."
 }

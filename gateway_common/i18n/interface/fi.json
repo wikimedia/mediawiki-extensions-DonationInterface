@@ -386,7 +386,5 @@
 	"donate_interface-onetime": "Tee kertalahjoitus",
 	"donate_interface-monthly-short": "Kuukausittain",
 	"donate_interface-onetime-short": "Vain kerran",
-	"donate_interface-securelogo-title": "Varmista napsauttamalla - Tämä sivusto käyttää VeriSign SSL:ää verkkokaupan turvaamiseen sekä luottamukselliseen yhteydenpitoon.",
-	"donate_interface-secureLogo-text": "Tietoja SSL-sertifikaateista",
 	"donate_interface-error-http-403": "Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen."
 }

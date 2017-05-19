@@ -330,7 +330,5 @@
 	"donate_interface-onetime": "Nyumbang sepisan",
 	"donate_interface-monthly-short": "Wulanan",
 	"donate_interface-onetime-short": "Sepisan",
-	"donate_interface-securelogo-title": "Klik kanggo Vèrifikasi - Situs iki nganggo SSL VeriSign kanggo ''e-commerce'' lan komunikasi kapitayan sing aman.",
-	"donate_interface-secureLogo-text": "Bab Sèrtifikat SSL",
 	"donate_interface-error-http-403": "Panjenengan ora duwé idin kanggo ngaksès kaca iki."
 }

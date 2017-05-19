@@ -381,7 +381,5 @@
 	"donate_interface-onetime": "Egyszeri adományozás",
 	"donate_interface-monthly-short": "Havi",
 	"donate_interface-onetime-short": "Egyszeri",
-	"donate_interface-securelogo-title": "Kattints az ellenőrzéshez - Ez az oldal a VeriSign SSL-t választotta a biztonságos e-kereskedelemhez és a bizalmas kommunikációhoz.",
-	"donate_interface-secureLogo-text": "SSL tanúsítványokról",
 	"donate_interface-error-http-403": "Nincs jogosultsága ennek a lapnak az eléréséhez."
 }

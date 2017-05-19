@@ -372,7 +372,5 @@
 	"donate_interface-onetime": "Facer un donation unic",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Unic",
-	"donate_interface-securelogo-title": "Clicca pro verificar: iste sito ha seligite VeriSign SSL pro e-commercio secur e communicationes confidential.",
-	"donate_interface-secureLogo-text": "A proposito del certificatos SSL",
 	"donate_interface-error-http-403": "Tu non ha le permission de acceder a iste pagina."
 }

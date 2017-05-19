@@ -364,7 +364,5 @@
 	"donate_interface-onetime": "ഒറ്റത്തവണ സംഭാവന നടപ്പിലാക്കുക",
 	"donate_interface-monthly-short": "മാസംതോറും",
 	"donate_interface-onetime-short": "ഒറ്റത്തവണ",
-	"donate_interface-securelogo-title": "സാധുത പരിശോധിക്കുക - ഈ സൈറ്റ്, സുരക്ഷിത ഇ-കൊമേഴ്സിനും സ്വകാര്യവിവരങ്ങളുടെ കൈമാറ്റത്തിനുമായി വെരിസൈൻ എസ്.എസ്.എൽ. ഉപയോഗപ്പെടുത്തുന്നു.",
-	"donate_interface-secureLogo-text": "എസ്.എസ്.എൽ. സാക്ഷ്യപത്രങ്ങളെക്കുറിച്ചുള്ള വിവരങ്ങൾ",
 	"donate_interface-error-http-403": "ഈ താളിൽ പ്രവേശിക്കുവാൻ താങ്കൾക്ക് അനുമതിയില്ല"
 }

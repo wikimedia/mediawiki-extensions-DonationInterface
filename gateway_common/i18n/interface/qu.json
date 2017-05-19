@@ -360,7 +360,5 @@
 	"donate_interface-onetime": "Sapalla kuti qarana kachun",
 	"donate_interface-monthly-short": "Sapa killa",
 	"donate_interface-onetime-short": "Sapalla kuti",
-	"donate_interface-securelogo-title": "Takyachinapaq ñit'iy - kay llika tiyayqa VeriSign SSL nisqatam akllarqan takyachisqalla e-makipurapaq sunqullisqa willanakuypaqpas.",
-	"donate_interface-secureLogo-text": "SSL illukunamanta",
 	"donate_interface-error-http-403": "Manam saqillasunkichu kay p'anqaman riyta."
 }

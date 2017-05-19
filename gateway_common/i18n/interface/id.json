@@ -383,7 +383,5 @@
 	"donate_interface-onetime": "Buat sumbangan satu kali",
 	"donate_interface-monthly-short": "Bulanan",
 	"donate_interface-onetime-short": "Satu kali",
-	"donate_interface-securelogo-title": "Klik untuk Verifikasi - Situs ini menggunakan VeriSign SSL untuk mengamankan perdagangan elektronik dan komunikasi rahasia.",
-	"donate_interface-secureLogo-text": "Tentang Sertifikat SSL",
 	"donate_interface-error-http-403": "Anda tidak memiliki izin untuk mengakses halaman ini."
 }

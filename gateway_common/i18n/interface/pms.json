@@ -348,7 +348,5 @@
 	"donate_interface-onetime": "Fé na donassion na vira sola",
 	"donate_interface-monthly-short": "Mensil",
 	"donate_interface-onetime-short": "Na vira",
-	"donate_interface-securelogo-title": "Ch'a sgnaca për Verifiché - Ës sit a l'ha sernù Verisign SSL për le comunicassion sigure ëd comersi e confidensiaj.",
-	"donate_interface-secureLogo-text": "Dzora ai sertificà SSL",
 	"donate_interface-error-http-403": "It l'has pa ij përmess për vëdde sta pàgina-sì."
 }

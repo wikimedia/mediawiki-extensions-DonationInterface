@@ -422,8 +422,6 @@
 	"donate_interface-onetime": "进行单次捐赠",
 	"donate_interface-monthly-short": "每月",
 	"donate_interface-onetime-short": "单次",
-	"donate_interface-securelogo-title": "点击验证 - 本网站选择VeriSign SSL用于安全电子商务和机密通信。",
-	"donate_interface-secureLogo-text": "关于SSL证书",
 	"donate_interface-error-http-403": "您没有权限访问该页面。",
 	"donate_interface-statement": "维基媒体 $1",
 	"apihelp-donate-description": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",

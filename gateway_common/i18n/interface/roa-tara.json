@@ -394,8 +394,6 @@
 	"donate_interface-onetime": "Fà 'na donazzione da 'na botte",
 	"donate_interface-monthly-short": "Ogne mese",
 	"donate_interface-onetime-short": "'Na vote",
-	"donate_interface-securelogo-title": "Cazze pe verificà - Stu site ave scacchiate VeriSign SSL pe comunicaziune de securezze de e-commerce e confidenziale.",
-	"donate_interface-secureLogo-text": "'Mbormazzione sus a le Certifecate SSL",
 	"donate_interface-error-http-403": "Non ge tìne le permesse pe trasè jndr'à sta pàgene.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
