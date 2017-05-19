@@ -199,7 +199,7 @@ class AmazonAdapter extends GatewayAdapter {
 		) );
 		// Stash their info in pending queue and logs to fill in data for
 		// audit and IPN messages
-		$details = $this->getStompTransaction();
+		$details = $this->getQueueDonationMessage();
 		$this->logger->info( 'Got info for Amazon donation: ' . json_encode( $details ) );
 		$this->sendPendingMessage();
 	}

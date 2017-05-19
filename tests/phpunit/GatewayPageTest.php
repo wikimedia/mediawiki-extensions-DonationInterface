@@ -175,7 +175,8 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'payment_submethod' => '',
 			'first_name' => 'Firstname',
 			'last_name' => 'Surname',
-			'amount' => '1.55',
+			'gross' => '1.55',
+			'fee' => 0,
 			'language' => 'en',
 			'email' => 'nobody@wikimedia.org',
 			'country' => 'US',
@@ -191,14 +192,12 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'city' => 'San Francisco',
 			'state_province' => 'CA',
 			'postal_code' => '94105',
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 		);
 		$actual = json_decode( $detailString, true );
 		// TODO: when tests use PHPUnit 4.4
 		// $this->assertArraySubset( $expected, $actual, false, 'Logged the wrong stuff' );
 		$expected['order_id'] = $actual['contribution_tracking_id'];
 		unset( $actual['contribution_tracking_id'] );
-		unset( $actual['correlation-id'] );
 		unset( $actual['date'] );
 		$this->assertEquals( $expected, $actual, 'Logged the wrong stuff!' );
 	}

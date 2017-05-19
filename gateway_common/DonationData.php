@@ -920,7 +920,6 @@ class DonationData implements LogPrefixProvider {
 			'contribution_tracking_id',
 			'optout',
 			'anonymous',
-			'size',
 			'utm_source',
 			'utm_medium',
 			'utm_campaign',
