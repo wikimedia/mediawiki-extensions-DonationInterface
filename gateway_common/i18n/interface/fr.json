@@ -433,7 +433,7 @@
 	"apihelp-donate-param-fname": "Prénom",
 	"apihelp-donate-param-lname": "Nom",
 	"apihelp-donate-param-street": "Première ligne d’adresse.",
-	"apihelp-donate-param-street_supplemental": "Deuxième ligne d’adresse.",
+	"apihelp-donate-param-supplemental_address_1": "Deuxième ligne d’adresse.",
 	"apihelp-donate-param-city": "Ville.",
 	"apihelp-donate-param-state": "Abréviation de l’État ou de la province.",
 	"apihelp-donate-param-postal_code": "Code postal",

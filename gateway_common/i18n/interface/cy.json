@@ -375,7 +375,7 @@
 	"apihelp-donate-param-fname": "Enw cyntaf.",
 	"apihelp-donate-param-lname": "Enw olaf.",
 	"apihelp-donate-param-street": "Llinell gyntaf eich cyfeiriad.",
-	"apihelp-donate-param-street_supplemental": "Ail linell eich cyfeiriad.",
+	"apihelp-donate-param-supplemental_address_1": "Ail linell eich cyfeiriad.",
 	"apihelp-donate-param-city": "Tref.",
 	"apihelp-donate-param-email": "Cyfeiriad ebost.",
 	"apihelp-donate-example-1": "Cyfranwch."

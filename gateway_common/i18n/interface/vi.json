@@ -396,7 +396,7 @@
 	"apihelp-donate-param-fname": "Tên.",
 	"apihelp-donate-param-lname": "Họ.",
 	"apihelp-donate-param-street": "Dòng đầu tiên của địa chỉ đường phố.",
-	"apihelp-donate-param-street_supplemental": "Dòng thứ hai của địa chỉ đường phố.",
+	"apihelp-donate-param-supplemental_address_1": "Dòng thứ hai của địa chỉ đường phố.",
 	"apihelp-donate-param-city": "Thành phố.",
 	"apihelp-donate-param-state": "Viết tắt tỉnh bang.",
 	"apihelp-donate-param-postal_code": "Mã bưu chính.",

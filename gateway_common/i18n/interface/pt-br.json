@@ -407,7 +407,7 @@
 	"apihelp-donate-param-fname": "Primeiro nome.",
 	"apihelp-donate-param-lname": "Último nome.",
 	"apihelp-donate-param-street": "Primeira linha do endereço.",
-	"apihelp-donate-param-street_supplemental": "Segunda linha do endereço.",
+	"apihelp-donate-param-supplemental_address_1": "Segunda linha do endereço.",
 	"apihelp-donate-param-city": "Cidade.",
 	"apihelp-donate-param-state": "Abreviação do Estado.",
 	"apihelp-donate-param-postal_code": "Caixa postal.",

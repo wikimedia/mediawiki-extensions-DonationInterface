@@ -394,7 +394,7 @@
 	"apihelp-donate-param-fname": "Исем.",
 	"apihelp-donate-param-lname": "Фамилия.",
 	"apihelp-donate-param-street": "Адрестың беренсе юлы.",
-	"apihelp-donate-param-street_supplemental": "Адрестың икенсе юлы.",
+	"apihelp-donate-param-supplemental_address_1": "Адрестың икенсе юлы.",
 	"apihelp-donate-param-city": "Ҡала.",
 	"apihelp-donate-param-postal_code": "Почта индексы",
 	"apihelp-donate-param-email": "Электрон почта адресы",

@@ -396,7 +396,7 @@
 	"apihelp-donate-param-fname": "Voornaam.",
 	"apihelp-donate-param-lname": "Achternaam.",
 	"apihelp-donate-param-street": "Eerste regel van het adres.",
-	"apihelp-donate-param-street_supplemental": "Tweede regel van het adres.",
+	"apihelp-donate-param-supplemental_address_1": "Tweede regel van het adres.",
 	"apihelp-donate-param-city": "Plaats.",
 	"apihelp-donate-param-state": "Afkorting van de staat.",
 	"apihelp-donate-param-postal_code": "Postcode.",

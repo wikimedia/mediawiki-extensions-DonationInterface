@@ -389,7 +389,7 @@
 	"apihelp-donate-param-fname": "Nome(s).",
 	"apihelp-donate-param-lname": "Apellíu(os).",
 	"apihelp-donate-param-street": "Primera llinia de la direición.",
-	"apihelp-donate-param-street_supplemental": "Segunda llinia de la direición.",
+	"apihelp-donate-param-supplemental_address_1": "Segunda llinia de la direición.",
 	"apihelp-donate-param-city": "Ciudá.",
 	"apihelp-donate-param-state": "Abreviatura del estáu.",
 	"apihelp-donate-param-postal_code": "Códigu postal.",

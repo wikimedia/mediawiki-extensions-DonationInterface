@@ -389,7 +389,7 @@
 	"apihelp-donate-param-fname": "Křestní jméno.",
 	"apihelp-donate-param-lname": "Příjmení.",
 	"apihelp-donate-param-street": "První řádek adresy.",
-	"apihelp-donate-param-street_supplemental": "Druhý řádek adresy.",
+	"apihelp-donate-param-supplemental_address_1": "Druhý řádek adresy.",
 	"apihelp-donate-param-city": "Město.",
 	"apihelp-donate-param-state": "Zkratka státu.",
 	"apihelp-donate-param-postal_code": "PSČ.",

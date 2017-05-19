@@ -405,7 +405,7 @@
 	"apihelp-donate-param-fname": "Име.",
 	"apihelp-donate-param-lname": "Презиме.",
 	"apihelp-donate-param-street": "Прв ред на уличната адреса.",
-	"apihelp-donate-param-street_supplemental": "Втор ред на уличната адреса.",
+	"apihelp-donate-param-supplemental_address_1": "Втор ред на уличната адреса.",
 	"apihelp-donate-param-city": "Град.",
 	"apihelp-donate-param-state": "Кратенка за сој. покраина/држава.",
 	"apihelp-donate-param-postal_code": "Поштенски број.",

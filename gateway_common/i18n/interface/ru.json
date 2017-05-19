@@ -409,7 +409,7 @@
 	"apihelp-donate-param-fname": "Имя.",
 	"apihelp-donate-param-lname": "Фамилия.",
 	"apihelp-donate-param-street": "Первая строка адреса.",
-	"apihelp-donate-param-street_supplemental": "Вторая строка адреса.",
+	"apihelp-donate-param-supplemental_address_1": "Вторая строка адреса.",
 	"apihelp-donate-param-city": "Город.",
 	"apihelp-donate-param-postal_code": "Почтовый индекс.",
 	"apihelp-donate-param-email": "Адрес электронной почты.",

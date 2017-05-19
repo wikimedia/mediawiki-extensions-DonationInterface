@@ -412,7 +412,7 @@
 	"apihelp-donate-param-fname": "Förnamn.",
 	"apihelp-donate-param-lname": "Efternamn.",
 	"apihelp-donate-param-street": "Första raden för gatuadressen.",
-	"apihelp-donate-param-street_supplemental": "Andra raden för gatuadressen.",
+	"apihelp-donate-param-supplemental_address_1": "Andra raden för gatuadressen.",
 	"apihelp-donate-param-city": "Stad.",
 	"apihelp-donate-param-state": "Delstatsförkortning.",
 	"apihelp-donate-param-postal_code": "Postnummer.",

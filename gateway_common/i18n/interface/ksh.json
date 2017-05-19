@@ -417,7 +417,7 @@
 	"apihelp-donate-param-fname": "Vörnahme.",
 	"apihelp-donate-param-lname": "Nohnahme.",
 	"apihelp-donate-param-street": "Adräß eezde Reih.",
-	"apihelp-donate-param-street_supplemental": "Adräß zwaite Reih.",
+	"apihelp-donate-param-supplemental_address_1": "Adräß zwaite Reih.",
 	"apihelp-donate-param-city": "Schtadt.",
 	"apihelp-donate-param-state": "Köözel för e Bondesland.",
 	"apihelp-donate-param-postal_code": "Poßleizahl.",

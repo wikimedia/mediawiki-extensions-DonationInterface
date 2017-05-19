@@ -405,7 +405,7 @@
 	"apihelp-donate-param-fname": "שם פרטי.",
 	"apihelp-donate-param-lname": "שם משפחה.",
 	"apihelp-donate-param-street": "השורה הראשונה של הכתובת.",
-	"apihelp-donate-param-street_supplemental": "השורה השנייה של הכתובת.",
+	"apihelp-donate-param-supplemental_address_1": "השורה השנייה של הכתובת.",
 	"apihelp-donate-param-city": "עיר.",
 	"apihelp-donate-param-state": "קיצור מדינה.",
 	"apihelp-donate-param-postal_code": "מיקוד.",

@@ -122,7 +122,7 @@ class DonationApi extends ApiBase {
 			'fname' => $this->defineParam( false ),
 			'lname' => $this->defineParam( false ),
 			'street' => $this->defineParam( false ),
-			'street_supplemental' => $this->defineParam( false ),
+			'supplemental_address_1' => $this->defineParam( false ),
 			'city' => $this->defineParam( false ),
 			'state' => $this->defineParam( false ),
 			'postal_code' => $this->defineParam( false ),

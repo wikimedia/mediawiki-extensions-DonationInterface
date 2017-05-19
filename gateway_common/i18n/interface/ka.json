@@ -351,7 +351,7 @@
 	"apihelp-donate-param-fname": "პირველი სახელი",
 	"apihelp-donate-param-lname": "უკანასკნელი სახელი",
 	"apihelp-donate-param-street": "ქუჩის მისამართის პირველი ხაზი",
-	"apihelp-donate-param-street_supplemental": "ქუჩის მისამართის მეორე ხაზი",
+	"apihelp-donate-param-supplemental_address_1": "ქუჩის მისამართის მეორე ხაზი",
 	"apihelp-donate-param-city": "ქალაქი",
 	"apihelp-donate-param-state": "შტატის აბრევიატურა",
 	"apihelp-donate-param-postal_code": "საფოსტო კოდი",

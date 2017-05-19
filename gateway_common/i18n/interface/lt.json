@@ -387,7 +387,7 @@
 	"apihelp-donate-param-fname": "Vardas.",
 	"apihelp-donate-param-lname": "Pavardė.",
 	"apihelp-donate-param-street": "Pirma adreso eilutė.",
-	"apihelp-donate-param-street_supplemental": "Antra adreso eilutė.",
+	"apihelp-donate-param-supplemental_address_1": "Antra adreso eilutė.",
 	"apihelp-donate-param-city": "Miestas.",
 	"apihelp-donate-param-state": "Valstijos santrumpa.",
 	"apihelp-donate-param-postal_code": "Pašto kodas.",

@@ -417,7 +417,7 @@
 	"apihelp-donate-param-fname": "Nome.",
 	"apihelp-donate-param-lname": "Cognome.",
 	"apihelp-donate-param-street": "Prima riga dell'indirizzo stradale.",
-	"apihelp-donate-param-street_supplemental": "Seconda riga dell'indirizzo stradale.",
+	"apihelp-donate-param-supplemental_address_1": "Seconda riga dell'indirizzo stradale.",
 	"apihelp-donate-param-city": "Città.",
 	"apihelp-donate-param-state": "Abbreviazione stato.",
 	"apihelp-donate-param-postal_code": "CAP.",

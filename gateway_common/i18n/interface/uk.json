@@ -417,7 +417,7 @@
 	"apihelp-donate-param-fname": "Ім'я.",
 	"apihelp-donate-param-lname": "Прізвище.",
 	"apihelp-donate-param-street": "Перший рядок адреси вулиці.",
-	"apihelp-donate-param-street_supplemental": "Другий рядок адреси вулиці.",
+	"apihelp-donate-param-supplemental_address_1": "Другий рядок адреси вулиці.",
 	"apihelp-donate-param-city": "Місто.",
 	"apihelp-donate-param-state": "Абревіатура штату.",
 	"apihelp-donate-param-postal_code": "Поштовий індекс.",

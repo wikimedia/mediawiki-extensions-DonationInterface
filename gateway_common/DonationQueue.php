@@ -220,7 +220,7 @@ class DonationQueue {
 			'risk_score' => 'risk_score',
 			'state_province' => 'state',
 			'street_address' => 'street',
-			'supplemental_address_1' => 'street_supplemental',
+			'supplemental_address_1' => 'supplemental_address_1',
 			'subscr_id' => 'subscr_id',
 			'utm_campaign' => 'utm_campaign',
 			'utm_medium' => 'utm_medium',
@@ -259,7 +259,6 @@ class DonationQueue {
 			'last_name' => 'lname',
 			'state_province' => 'state',
 			'street_address' => 'street',
-			'supplemental_address_1' => 'street_supplemental',
 		);
 
 		foreach ( $rekey as $wire => $normal ){

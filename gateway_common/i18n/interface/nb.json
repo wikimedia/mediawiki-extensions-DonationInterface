@@ -400,7 +400,7 @@
 	"apihelp-donate-param-fname": "Fornavn.",
 	"apihelp-donate-param-lname": "Etternavn.",
 	"apihelp-donate-param-street": "Første linje i gateadresse.",
-	"apihelp-donate-param-street_supplemental": "Andre linje i gateadresse.",
+	"apihelp-donate-param-supplemental_address_1": "Andre linje i gateadresse.",
 	"apihelp-donate-param-city": "By.",
 	"apihelp-donate-param-state": "Delstatsforkortelse.",
 	"apihelp-donate-param-postal_code": "Postnummer.",

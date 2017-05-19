@@ -11,7 +11,7 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 		'city',
 		'state',
 		'street',
-		'street_supplemental',
+		'supplemental_address_1',
 		'postal_code',
 		);
 

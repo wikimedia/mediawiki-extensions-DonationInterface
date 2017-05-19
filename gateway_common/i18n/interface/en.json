@@ -435,7 +435,7 @@
 	"apihelp-donate-param-fname": "First name.",
 	"apihelp-donate-param-lname": "Last name.",
 	"apihelp-donate-param-street": "First line of street address.",
-	"apihelp-donate-param-street_supplemental": "Second line of street address.",
+	"apihelp-donate-param-supplemental_address_1": "Second line of street address.",
 	"apihelp-donate-param-city": "City.",
 	"apihelp-donate-param-state": "State abbreviation.",
 	"apihelp-donate-param-postal_code": "Postal code.",

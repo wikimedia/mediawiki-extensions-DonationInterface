@@ -403,7 +403,7 @@
 	"apihelp-donate-param-fname": "Prime nome.",
 	"apihelp-donate-param-lname": "Urteme nome.",
 	"apihelp-donate-param-street": "Prima linèe da vie de l'indirizze.",
-	"apihelp-donate-param-street_supplemental": "Seconda linèe d'a vie de l'indirizze.",
+	"apihelp-donate-param-supplemental_address_1": "Seconda linèe d'a vie de l'indirizze.",
 	"apihelp-donate-param-city": "Cetate.",
 	"apihelp-donate-param-state": "Abbreviazione d'u state.",
 	"apihelp-donate-param-postal_code": "Codece d'avviamende postale.",

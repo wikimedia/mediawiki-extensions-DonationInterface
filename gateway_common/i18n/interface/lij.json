@@ -387,7 +387,7 @@
 	"apihelp-donate-param-fname": "Nomme",
 	"apihelp-donate-param-lname": "Cognomme",
 	"apihelp-donate-param-street": "Primma riga de l'indiriçço.",
-	"apihelp-donate-param-street_supplemental": "Segonda riga de l'indiriçço.",
+	"apihelp-donate-param-supplemental_address_1": "Segonda riga de l'indiriçço.",
 	"apihelp-donate-param-city": "Çitæ",
 	"apihelp-donate-param-state": "Abreviaçion stato.",
 	"apihelp-donate-param-postal_code": "Coddiçe postâ",

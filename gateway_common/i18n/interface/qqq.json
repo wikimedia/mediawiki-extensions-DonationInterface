@@ -460,7 +460,7 @@
 	"apihelp-donate-param-fname": "{{doc-apihelp-param|donate|fname}}\n{{Identical|First name}}",
 	"apihelp-donate-param-lname": "{{doc-apihelp-param|donate|lname}}\n{{Identical|Last name}}",
 	"apihelp-donate-param-street": "{{doc-apihelp-param|donate|street}}",
-	"apihelp-donate-param-street_supplemental": "{{doc-apihelp-param|donate|street_supplemental}}",
+	"apihelp-donate-param-supplemental_address_1": "{{doc-apihelp-param|donate|supplemental_address_1}}",
 	"apihelp-donate-param-city": "{{doc-apihelp-param|donate|city}}\n{{Identical|City}}",
 	"apihelp-donate-param-state": "{{doc-apihelp-param|donate|state}}",
 	"apihelp-donate-param-postal_code": "{{doc-apihelp-param|donate|postal_code}}\n{{Identical|Postal code}}",

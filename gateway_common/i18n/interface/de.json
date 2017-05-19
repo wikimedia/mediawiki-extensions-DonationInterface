@@ -408,7 +408,7 @@
 	"apihelp-donate-param-fname": "Vorname.",
 	"apihelp-donate-param-lname": "Nachname.",
 	"apihelp-donate-param-street": "Erste Zeile der Straßenanschrift.",
-	"apihelp-donate-param-street_supplemental": "Zweite Zeile der Straßenanschrift.",
+	"apihelp-donate-param-supplemental_address_1": "Zweite Zeile der Straßenanschrift.",
 	"apihelp-donate-param-city": "Stadt.",
 	"apihelp-donate-param-state": "Staatenkürzel.",
 	"apihelp-donate-param-postal_code": "Postleitzahl.",

@@ -431,7 +431,7 @@
 	"apihelp-donate-param-fname": "Nombre(s).",
 	"apihelp-donate-param-lname": "Apellido(s).",
 	"apihelp-donate-param-street": "Dirección, 1.ª línea.",
-	"apihelp-donate-param-street_supplemental": "Dirección, 2.ª línea.",
+	"apihelp-donate-param-supplemental_address_1": "Dirección, 2.ª línea.",
 	"apihelp-donate-param-city": "Ciudad.",
 	"apihelp-donate-param-state": "Abreviatura del estado.",
 	"apihelp-donate-param-postal_code": "Código postal.",

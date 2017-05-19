@@ -431,7 +431,7 @@
 	"apihelp-donate-param-fname": "名。",
 	"apihelp-donate-param-lname": "姓。",
 	"apihelp-donate-param-street": "街道地址的第一行。",
-	"apihelp-donate-param-street_supplemental": "街道地址的第二行。",
+	"apihelp-donate-param-supplemental_address_1": "街道地址的第二行。",
 	"apihelp-donate-param-city": "城市。",
 	"apihelp-donate-param-state": "州缩写。",
 	"apihelp-donate-param-postal_code": "邮政编码。",
