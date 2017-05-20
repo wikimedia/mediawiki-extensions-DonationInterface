@@ -4,7 +4,8 @@
 			"Geimeris",
 			"GreenZeb",
 			"Papuass",
-			"Jrobell"
+			"Jrobell",
+			"Silraks"
 		]
 	},
 	"donate_interface": "Atbalsti Wikimedia",
@@ -149,12 +150,12 @@
 	"donate_interface-error-msg-discover": "Lūdzu, ievadi pareizu Discover kartes numuru!",
 	"donate_interface-error-msg-amount": "ziedojuma summa",
 	"donate_interface-error-msg-email": "Lūdzu, ievadiet savu e-pasta adrese",
-	"donate_interface-error-msg-fname": "Lūdzu, ievadiet savu vārds",
-	"donate_interface-error-msg-lname": "Lūdzu, ievadiet savu uzvārds",
+	"donate_interface-error-msg-fname": "Lūdzu, ievadiet savu vārdu",
+	"donate_interface-error-msg-lname": "Lūdzu, ievadiet savu uzvārdu",
 	"donate_interface-error-msg-street": "Lūdzu, ievadiet savu adrese",
-	"donate_interface-error-msg-city": "Lūdzu, ievadiet savu pilsēta",
-	"donate_interface-error-msg-state": "Lūdzu, ievadiet savu štats",
-	"donate_interface-error-msg-postal_code-us": "Lūdzu, ievadiet savu pasta indekss",
+	"donate_interface-error-msg-city": "Lūdzu, ievadiet savu pilsētu",
+	"donate_interface-error-msg-state": "Lūdzu, ievadiet savu štatu",
+	"donate_interface-error-msg-postal_code-us": "Lūdzu, ievadiet savu pasta indeksu",
 	"donate_interface-error-msg-postal_code": "Lūdzu, ievadiet savu pasta indekss",
 	"donate_interface-error-msg-country": "valsts",
 	"donate_interface-error-msg-card_type": "kredītkartes veids",
