@@ -173,7 +173,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$message = $overrides + array(
 			'contribution_tracking_id' => $uniq,
 			'first_name' => 'Flighty',
-			'lname' => 'Dono',
+			'last_name' => 'Dono',
 			'email' => 'test+wmf@eff.org',
 			'gateway' => 'globalcollect',
 			'gateway_txn_id' => "txn-{$uniq}",

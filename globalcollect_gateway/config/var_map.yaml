@@ -51,7 +51,7 @@ RETURNURL: returnto
 SPECIALID: special_id
 STATE: state
 STREET: street_address
-SURNAME: lname
+SURNAME: last_name
 SWIFTCODE: swift_code
 TRANSACTIONTYPE: transaction_type # dd:GB,NL
 ZIP: postal_code

@@ -44,7 +44,7 @@ class DonationData implements LogPrefixProvider {
 		// @deprecated
 		'emailAdd',
 		'first_name',
-		'lname',
+		'last_name',
 		'street_address',
 		'supplemental_address_1',
 		'city',
@@ -915,7 +915,7 @@ class DonationData implements LogPrefixProvider {
 			'language',
 			'email',
 			'first_name',
-			'lname',
+			'last_name',
 			'street_address',
 			'supplemental_address_1',
 			'city',

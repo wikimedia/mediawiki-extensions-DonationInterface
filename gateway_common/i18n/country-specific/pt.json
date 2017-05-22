@@ -3,7 +3,7 @@
 		"authors": []
 	},
 	"donate_interface-donor-first_name-cv": "Nome",
-	"donate_interface-donor-lname-cv": "Apelido",
+	"donate_interface-donor-last_name-cv": "Apelido",
 	"donate_interface-donor-first_name-gq": "Nome",
-	"donate_interface-donor-lname-gq": "Apelido"
+	"donate_interface-donor-last_name-gq": "Apelido"
 }

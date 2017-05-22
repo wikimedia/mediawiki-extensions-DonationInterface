@@ -214,7 +214,7 @@ class DonationQueue {
 			'first_name' => 'first_name',
 			'gross' => 'amount',
 			'gateway_session_id' => 'gateway_session_id',
-			'last_name' => 'lname',
+			'last_name' => 'last_name',
 			'optout' => 'optout',
 			'recurring' => 'recurring',
 			'risk_score' => 'risk_score',
@@ -256,7 +256,7 @@ class DonationQueue {
 			'currency' => 'currency_code',
 			'first_name' => 'first_name',
 			'gross' => 'amount',
-			'last_name' => 'lname',
+			'last_name' => 'last_name',
 			'state_province' => 'state',
 		);
 

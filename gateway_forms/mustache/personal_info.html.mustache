@@ -1,11 +1,11 @@
 {{# first_name_required }}{{! if we don't need the first_name, hide the whole name cell }}
 						<tr>
 							<td>
-								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" required autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required autocomplete="billing family-name cc-family-name" maxlength="64">
+								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" required autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="last_name" value="{{ last_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-last_name" }}" id="last_name" required autocomplete="billing family-name cc-family-name" maxlength="64">
 							</td>
 						</tr>
                         {{{ fieldError "first_name" }}}
-                        {{{ fieldError "lname" }}}
+                        {{{ fieldError "last_name" }}}
 {{/ first_name_required }}
 {{# address_required }}
 {{# street_address_required }}

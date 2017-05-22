@@ -55,7 +55,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'gateway_txn_id' => mt_rand(),
 			'order_id' => mt_rand(),
 			'language' => 'en',
-			'lname' => 'Russ',
+			'last_name' => 'Russ',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',

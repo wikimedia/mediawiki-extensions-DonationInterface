@@ -315,7 +315,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		);
 		$init = $this->getDonorTestData();
 		$init['first_name'] = 'asdf';
-		$init['lname'] = 'qwert';
+		$init['last_name'] = 'qwert';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->getScoreName();

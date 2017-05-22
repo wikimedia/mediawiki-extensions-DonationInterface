@@ -21,7 +21,7 @@
 	"donate_interface-donor-name": "नाव",
 	"donate_interface-donor-first_name": "पहिले नाव",
 	"donate_interface-donor-mname": "मधले नाव",
-	"donate_interface-donor-lname": "शेवटचे नाव",
+	"donate_interface-donor-last_name": "शेवटचे नाव",
 	"donate_interface-donor-street_address": "रस्ता",
 	"donate_interface-donor-city": "शहर",
 	"donate_interface-donor-state": "राज्य",

@@ -195,7 +195,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->addRequestData( array(
 			'email' => $email,
 			'first_name' => $fname,
-			'lname' => $lname,
+			'last_name' => $lname,
 		) );
 		// Stash their info in pending queue and logs to fill in data for
 		// audit and IPN messages

@@ -33,7 +33,7 @@ class DataValidator {
 			case 'card_type':
 			case 'cvv':
 			case 'first_name':
-			case 'lname':
+			case 'last_name':
 			case 'city':
 			case 'country':
 			case 'street_address':
@@ -67,7 +67,7 @@ class DataValidator {
 			'cvv' => '',
 			'fiscal_number' => '',
 			'first_name' => '',
-			'lname' => '',
+			'last_name' => '',
 			'city' => '',
 			'country' => '',
 			'street_address' => '',
@@ -176,7 +176,7 @@ class DataValidator {
 				'postal_code' => 'validate_address',
 				'currency_code' => 'validate_currency_code',
 				'first_name' => 'validate_name',
-				'lname' => 'validate_name',
+				'last_name' => 'validate_name',
 				'name' => 'validate_name',
 			),
 		);

@@ -43,7 +43,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'appeal' => 'JimmyQuote',
 			'email' => 'unittest@example.com',
 			'first_name' => 'Testocres',
-			'lname' => 'McTestingyou',
+			'last_name' => 'McTestingyou',
 			'street_address' => '123 Fake Street',
 			'city' => 'Springfield',
 			'state' => 'US',
@@ -115,7 +115,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'contribution_tracking_id' => (string) mt_rand(),
 			'email' => 'testingdata@wikimedia.org',
 			'first_name' => 'Tester',
-			'lname' => 'Testington',
+			'last_name' => 'Testington',
 			'street_address' => '548 Market St.',
 			'city' => 'San Francisco',
 			'state' => 'CA',
@@ -165,7 +165,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
 			'first_name' => 'Tester',
-			'lname' => 'Testington',
+			'last_name' => 'Testington',
 			'street_address' => '548 Market St.',
 			'city' => 'San Francisco',
 			'state' => 'CA',
@@ -268,7 +268,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
 		$this->assertEquals($ddObj->isSomething('postal_code'), false, "Zip should currently be nothing.");
-		$this->assertEquals($ddObj->isSomething('lname'), true, "Lname should currently be something.");
+		$this->assertEquals($ddObj->isSomething('last_name'), true, "last_name should currently be something.");
 	}
 
 	/**

@@ -251,7 +251,7 @@
 				"donate_interface-error-msg-issuer_id",
 				"donate_interface-smallamount-error",
 				"donate_interface-donor-first_name",
-				"donate_interface-donor-lname",
+				"donate_interface-donor-last_name",
 				"donate_interface-donor-street_address",
 				"donate_interface-donor-city",
 				"donate_interface-donor-state",

@@ -2395,7 +2395,7 @@ abstract class GatewayAdapter
 				case 'name' :
 					$check_not_empty = array(
 						'first_name',
-						'lname'
+						'last_name'
 					);
 					break;
 				default:
@@ -2560,7 +2560,7 @@ abstract class GatewayAdapter
 	 */
 	public function getScoreName(){
 		$fName = $this->getData_Unstaged_Escaped( 'first_name' );
-		$lName = $this->getData_Unstaged_Escaped( 'lname' );
+		$lName = $this->getData_Unstaged_Escaped( 'last_name' );
 
 		$nameArray = str_split( strtolower( $fName . $lName ) );
 		$rules = $this->getGlobal( 'NameFilterRules' );

@@ -127,7 +127,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'value' => 'Prénom',
 			),
-			'lname' => array (
+			'last_name' => array (
 				'nodename' => 'input',
 				'value' => 'Nom',
 			),
@@ -161,9 +161,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( 'it' )->text(),
 			),
-			'lname' => array (
+			'last_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( 'it' )->text(),
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
@@ -201,9 +201,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
 			),
-			'lname' => array (
+			'last_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',
@@ -244,9 +244,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
 			),
-			'lname' => array (
+			'last_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-lname')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
 			),
 			'informationsharing' => array (
 				'nodename' => 'p',

@@ -48,7 +48,7 @@
 			currency_code: $( '#currency_code' ).val(),
 			amount: $( '#amount' ).val(),
 			first_name: $( '#first_name' ).val(),
-			lname: $( '#lname' ).val(),
+			last_name: $( '#last_name' ).val(),
 			street_address: $( '#street_address' ).val(),
 			city: $( '#city' ).val(),
 			state: $( '#state' ).val(),

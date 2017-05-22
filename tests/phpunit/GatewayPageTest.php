@@ -174,7 +174,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'currency_code' => 'USD',
 			'payment_submethod' => '',
 			'first_name' => 'Firstname',
-			'lname' => 'Surname',
+			'last_name' => 'Surname',
 			'amount' => '1.55',
 			'language' => 'en',
 			'email' => 'nobody@wikimedia.org',

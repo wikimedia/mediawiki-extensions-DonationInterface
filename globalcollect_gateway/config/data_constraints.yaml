@@ -189,7 +189,7 @@ street_address:
     type: alphanumeric
     length: 50
 # SURNAME: AN35
-lname:
+last_name:
     type: alphanumeric
     length: 35
 # SWIFTCODE: AN255

@@ -62,7 +62,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'first_name' => 'Firstname',
 			'gateway' => 'globalcollect',
 			'language' => 'en',
-			'lname' => 'Surname',
+			'last_name' => 'Surname',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'recurring' => '',
@@ -100,7 +100,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['amount'] = '23';
 		// Fake name with a bad character encoding.
 		$init['first_name'] = 'Алексан�';
-		$init['lname'] = 'Гончар';
+		$init['last_name'] = 'Гончар';
 		$init['email'] = 'innocent@manichean.com';
 		$init['ffname'] = 'cc-vmad';
 		$init['unusual_key'] = mt_rand();
@@ -115,7 +115,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'first_name' => 'Алексанï',
 			'gateway' => 'globalcollect',
 			'language' => 'en',
-			'lname' => 'Гончар',
+			'last_name' => 'Гончар',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'recurring' => '',
