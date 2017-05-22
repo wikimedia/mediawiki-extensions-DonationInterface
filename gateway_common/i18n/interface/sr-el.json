@@ -342,8 +342,6 @@
 	"donate_interface-monthlybox-bottom": "Vaš prilog će biti bezbedno obrađen.",
 	"donate_interface-monthly-short": "Mesečno",
 	"donate_interface-onetime-short": "Jednokratno",
-	"donate_interface-securelogo-title": "Kliknite da potvrdite. Ovaj sajt je odabrao VeriSign SSL za bezbedno e-bankarstvo i poverljive prepiske.",
-	"donate_interface-secureLogo-text": "O potvrdama SSL",
 	"donate_interface-error-http-403": "Nemate dozvolu da pristupite ovoj stranici.",
 	"apihelp-donate-param-fname": "Ime.",
 	"apihelp-donate-param-lname": "Prezime.",

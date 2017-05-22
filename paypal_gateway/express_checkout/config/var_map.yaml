@@ -27,4 +27,4 @@ PROFILESTARTDATE: date
 # TODO: discuss whether to capture
 #PHONENUM: phone
 RETURNURL: returnto
-TOKEN: ec_token
+TOKEN: gateway_session_id

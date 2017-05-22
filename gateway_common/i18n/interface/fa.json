@@ -386,8 +386,6 @@
 	"donate_interface-onetime": "یک بار اهدا کنید",
 	"donate_interface-monthly-short": "ماهیانه",
 	"donate_interface-onetime-short": "یک بار",
-	"donate_interface-securelogo-title": "برای تأیید، کلیک کنید - این وبگاه VeriSign SSL را برای تجارت الکترونیکی و ارتباطات محرمانه انتخاب کرده‌است.",
-	"donate_interface-secureLogo-text": "در مورد گواهی‌های اس‌اس‌ال",
 	"donate_interface-error-http-403": "شما اجازهٔ دسترسی به این صفحه را ندارید.",
 	"donate_interface-statement": "$1 ویکی‌مدیا",
 	"apihelp-donate-param-fname": "نام.",

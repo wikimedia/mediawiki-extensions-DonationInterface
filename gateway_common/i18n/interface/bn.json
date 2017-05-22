@@ -339,8 +339,6 @@
 	"donate_interface-monthly-cancel": "মাসিক দাতাদের জন্য, নির্দিষ্ট মাসিক পেমেন্ট প্রথম অনুদানের পর মাসিক বার্ষিকীতে উইকিমিডিয়া ফাউন্ডেশনের দ্বারা ডেবিটকৃত করা হবে, সেই সময় পর্যন্ত যতক্ষণ না আপনি তাদের বন্ধ করতে আমাদের অবহিত করছেন। মাসের ২৯, ৩০ বা ৩১ তারিখে দান নেয়া হবে যা ছোট মাসের জন্য মাসের শেষ দিনে পুনরাবৃত্তি হবে, যতটা সম্ভব মূল তারিখে কাছাকাছি। আরো প্রশ্নের জন্য, দয়া করে donate@wikimedia.org ঠিকানায় যোগাযোগ করুন।",
 	"donate_interface-monthly-short": "মাসিক",
 	"donate_interface-onetime-short": "এক-কালীন",
-	"donate_interface-securelogo-title": "যাচাই করতে ক্লিক করুন - এই সাইটটি নিরাপদ ই-বাণিজ্য এবং গোপনীয় যোগাযোগের জন্য VeriSign SSL চয়ন করেছে।",
-	"donate_interface-secureLogo-text": "SSL সার্টিফিকেট সম্পর্কে",
 	"donate_interface-statement": "উইকিমিডিয়া $1",
 	"apihelp-donate-param-currency_code": "মুদ্রা কোড।",
 	"apihelp-donate-param-fname": "নামের প্রথমাংশ।",

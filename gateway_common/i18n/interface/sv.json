@@ -19,7 +19,8 @@
 			"Jenniesarina",
 			"Pcoombe",
 			"Jopparn",
-			"Josve05a"
+			"Josve05a",
+			"Caycothu"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -196,10 +197,10 @@
 	"donate_interface-error-msg-postal_code-us": "Detta fältet måste fyllas i: postnummer",
 	"donate_interface-error-msg-postal_code": "Detta fältet måste fyllas i: postkod",
 	"donate_interface-error-msg-invalid-fname": "Var god rätta felen i din/ditt förnamn",
-	"donate_interface-error-msg-invalid-lname": "Var god rätta felen i din/ditt efternamn",
-	"donate_interface-error-msg-invalid-street": "Var god rätta felen i din/ditt gatuadress",
+	"donate_interface-error-msg-invalid-lname": "Var god rätta felen i ditt efternamn",
+	"donate_interface-error-msg-invalid-street": "Var god rätta felen i din gatuadress",
 	"donate_interface-error-msg-invalid-city": "Var god rätta felen i din/ditt stad",
-	"donate_interface-error-msg-invalid-postal_code-us": "Var god rätta felen i din/ditt postnummer",
+	"donate_interface-error-msg-invalid-postal_code-us": "Var god rätta felen i ditt postnummer",
 	"donate_interface-error-msg-invalid-postal_code": "Var god rätta felen i din/ditt postkod",
 	"donate_interface-error-msg-country": "land",
 	"donate_interface-error-msg-card_type": "kreditkortstyp",
@@ -402,8 +403,6 @@
 	"donate_interface-onetime": "Gör en engångsdonation",
 	"donate_interface-monthly-short": "Månatlig",
 	"donate_interface-onetime-short": "Engångs",
-	"donate_interface-securelogo-title": "Klicka för att verifiera - denna sajt använder VeriSign SSL för säker e-handel och konfidentiell kommunikation.",
-	"donate_interface-secureLogo-text": "Om SSLcertifikat",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",

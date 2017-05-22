@@ -451,8 +451,6 @@
 	"donate_interface-onetime": "Longer radio button text to select one-time donation",
 	"donate_interface-monthly-short": "Radio button to select monthly or one-time donation. This and the one-time message will be on the same line, so keep it as short as you can.\n{{Identical|Monthly}}",
 	"donate_interface-onetime-short": "Radio button to select monthly or one-time donation. This and the monthly message will be on the same line, so keep it as short as you can.",
-	"donate_interface-securelogo-title": "Link 'title' that is shown to donors when they hover over the Verisign secure site logo that appears on donation forms",
-	"donate_interface-secureLogo-text": "Text shown to donors for a link explaining more about SSL secure site certificates",
 	"donate_interface-error-http-403": "Error prompt if the user is not allowed to access the page",
 	"donate_interface-statement": "Text to appear on donor's credit card statement.  '''$1''' is the contribution tracking id.\n{{Identical|Wikimedia}}",
 	"apihelp-donate-description": "{{doc-apihelp-description|donate}}",

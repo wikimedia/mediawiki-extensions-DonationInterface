@@ -387,8 +387,6 @@
 	"donate_interface-onetime": "Maak een eenmalige donatie",
 	"donate_interface-monthly-short": "Maandelijks",
 	"donate_interface-onetime-short": "Eenmalig",
-	"donate_interface-securelogo-title": "Klik om te controleren. Deze website heeft VeriSign-SSL gekozen voor beveiligde e-commerce en vertrouwelijke communicatie.",
-	"donate_interface-secureLogo-text": "Over SSL-certificaten",
 	"donate_interface-error-http-403": "U hebt geen rechten om deze pagina te bekijken.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van een verscheidenheid van payment processors.",

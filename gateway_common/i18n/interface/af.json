@@ -261,7 +261,6 @@
 	"donate_interface-onetime": "Maak 'n eenmalige donasie",
 	"donate_interface-monthly-short": "Maandeliks",
 	"donate_interface-onetime-short": "Eenmalig",
-	"donate_interface-secureLogo-text": "Oor SSL-sertifikasie",
 	"donate_interface-error-http-403": "Jy hoef nie toestemming om hierdie bladsy te bekom.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-fname": "Voornaam.",

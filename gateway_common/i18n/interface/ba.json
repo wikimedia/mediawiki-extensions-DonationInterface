@@ -385,8 +385,6 @@
 	"donate_interface-onetime": "Бер тапҡыр иғәнә итеү",
 	"donate_interface-monthly-short": "Ай һайын",
 	"donate_interface-onetime-short": "Бер тапҡыр",
-	"donate_interface-securelogo-title": "Тикшереү өсөн баҫығыҙ— был сайт электрон коммерция һәм конфиденциаль хәбәрҙәр хәүефһеҙлеген тәьмин итеү өсөн VeriSign SSL һайлаған.",
-	"donate_interface-secureLogo-text": "SSL сертификаттары тураһында",
 	"donate_interface-error-http-403": "Һеҙҙең биткә инеү хоҡуғығыҙ юҡ",
 	"donate_interface-statement": "Викимедия $1",
 	"apihelp-donate-description": "Был API һеҙгә  төрлө түләү системаларын ҡулланып, Викимедиа фондына хәйриә ярҙамы ебәреү мөмкинлеге бирә.",

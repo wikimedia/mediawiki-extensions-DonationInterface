@@ -408,8 +408,6 @@
 	"donate_interface-onetime": "Fai una donazione singola",
 	"donate_interface-monthly-short": "Mensile",
 	"donate_interface-onetime-short": "Una volta",
-	"donate_interface-securelogo-title": "Clicca per verificare - questo sito ha scelto VeriSign SSL per assicurare una transazione sicura e comunicazioni riservate",
-	"donate_interface-secureLogo-text": "Info sui certificati SSL",
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",

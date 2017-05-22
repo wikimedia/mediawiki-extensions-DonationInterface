@@ -213,6 +213,7 @@ class DonationQueue {
 			'email' => 'email',
 			'first_name' => 'fname',
 			'gross' => 'amount',
+			'gateway_session_id' => 'gateway_session_id',
 			'last_name' => 'lname',
 			'optout' => 'optout',
 			'recurring' => 'recurring',

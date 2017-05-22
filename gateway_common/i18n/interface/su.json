@@ -1,9 +1,28 @@
 {
 	"@metadata": {
 		"authors": [
-			"Uchup19"
+			"Uchup19",
+			"Dipusparaga"
 		]
 	},
+	"donate_interface-error-msg-amount": "Asupkeun jumlah sumbangan anjeun",
+	"donate_interface-error-msg-email": "Asupkeun alamat surélék anjeun",
+	"donate_interface-error-msg-street": "Asupkeun alamat anjeun",
+	"donate_interface-error-msg-state": "Asupkeun nagara bagéan anjeun",
+	"donate_interface-error-msg-postal_code-us": "Asupkeun kode zip anjeun",
+	"donate_interface-error-msg-postal_code": "Asupkeun kode pos anjeun",
+	"donate_interface-error-msg-invalid-street": "Benerkeun kasalahan dina alamat anjeun",
+	"donate_interface-error-msg-invalid-postal_code": "Benerkeun kasalahan dina kode pos anjeun",
+	"donate_interface-error-msg-fiscal_number": "Asupkeun ngaran nomer fiskal anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number": "Benerkeun kasalahan dina nomer fiskal",
+	"donate_interface-error-msg-invalid-fiscal_number-ar": "Benerkeun kasalahan dina DNI anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-bo": "Benerkeun kasalahan dina NIT anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-br": "Benerkeun kasalahan dina CPF/CNPJ anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-cl": "Benerkeun kasalahan dina RUT anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-co": "Benerkeun kasalahan dina Cédula de Ciudadanía anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-mx": "Benerkeun kasalahan dina CURP/RFC/IFE anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-pe": "Benerkeun kasalahan dina DNI anjeun",
+	"donate_interface-error-msg-invalid-fiscal_number-uy": "Benerkeun kasalahan dina CI anjeun",
 	"donate_interface-cc-token-expired": "Token anjeun geus kadaluwarsa, klik Heug pikeun nyegerkeun deui.",
 	"donate_interface-cancel": "Bolay"
 }

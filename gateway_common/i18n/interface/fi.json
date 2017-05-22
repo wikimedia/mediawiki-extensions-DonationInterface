@@ -193,7 +193,7 @@
 	"donate_interface-error-msg-invalid-city": "Korjaa lomakkeen virheet: kaupunki",
 	"donate_interface-error-msg-invalid-postal_code-us": "Korjaa lomakkeen virheet: postinumero",
 	"donate_interface-error-msg-invalid-postal_code": "Korjaa lomakkeen virheet: postinumero",
-	"donate_interface-error-msg-country": "maa",
+	"donate_interface-error-msg-country": "Syötä maasi",
 	"donate_interface-error-msg-card_type": "luottokortin tyyppi",
 	"donate_interface-error-msg-card_num": "luottokortin numero",
 	"donate_interface-error-msg-expiration": "Ole hyvä ja syötä kortin viimeinen voimassaolopäivä",
@@ -210,6 +210,9 @@
 	"donate_interface-error-msg-country-calc": "Emme voi ottaa vastaan lahjoituksia tällä hetkellä.",
 	"donate_interface-error-msg-fiscal_number": "Seuraava kenttä vaaditaan: Y-tunnus",
 	"donate_interface-error-msg-invalid-fiscal_number": "Korjaa lomakkeen virheet: Y-tunnus",
+	"donate_interface-error-msg-invalid-fiscal_number-ar": "Korjaa kohdan DNI virheet",
+	"donate_interface-error-msg-invalid-fiscal_number-br": "Korjaa kohdan CPF/CNPJ virheet",
+	"donate_interface-error-msg-invalid-fiscal_number-uy": "Korjaa kohdan CI virheet",
 	"donate_interface-donate-error-try-a-different-card": "Yritä [$1 toista korttia] tai jotain [$2 muista tavoista lahjoittaa] tai ota meihin yhteyttä osoitteella $3",
 	"donate_interface-donate-error-try-again-html": "Ole hyvä ja <a href=\"$1\">yritä uudelleen</a>, yritä jotain <a href=\"$2\">toista lahjoitustapaa</a>, tai ota meihin yhteyttä: <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Kiitos tuestasi!",
@@ -386,7 +389,5 @@
 	"donate_interface-onetime": "Tee kertalahjoitus",
 	"donate_interface-monthly-short": "Kuukausittain",
 	"donate_interface-onetime-short": "Vain kerran",
-	"donate_interface-securelogo-title": "Varmista napsauttamalla - Tämä sivusto käyttää VeriSign SSL:ää verkkokaupan turvaamiseen sekä luottamukselliseen yhteydenpitoon.",
-	"donate_interface-secureLogo-text": "Tietoja SSL-sertifikaateista",
 	"donate_interface-error-http-403": "Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen."
 }

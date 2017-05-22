@@ -233,7 +233,10 @@ div.donor { width: 100% !important; }
     vertical-align: top;
 }
 
-#topError {
+#topError,
+ p#informationsharing,
+ p#monthlycancel,
+ .errorMsg {
 	max-width: 481px;
 }
 

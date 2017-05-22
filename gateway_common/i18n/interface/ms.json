@@ -374,8 +374,6 @@
 	"donate_interface-onetime": "Hulurkan dermaan sekali",
 	"donate_interface-monthly-short": "Setiap bulan",
 	"donate_interface-onetime-short": "Sekali sahaja",
-	"donate_interface-securelogo-title": "Klik untuk Sahkan - Tapak web ini memilih VeriSign SSL untuk perdagangan elektronik yang selamat dan perhubungan sulit.",
-	"donate_interface-secureLogo-text": "Perihal Sijil SSL",
 	"donate_interface-error-http-403": "Anda tidak dibenarkan untuk memasuki laman ini.",
 	"donate_interface-statement": "Wikimedia $1"
 }

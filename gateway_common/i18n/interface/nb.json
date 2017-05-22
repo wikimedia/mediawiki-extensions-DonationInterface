@@ -391,8 +391,6 @@
 	"donate_interface-onetime": "Gi en engangsgave",
 	"donate_interface-monthly-short": "Månedlig",
 	"donate_interface-onetime-short": "Én gang",
-	"donate_interface-securelogo-title": "Klikk for å verifisere – denne siden bruker VeriSign SSL for sikker e-handel og konfidensiell kommunikasjon.",
-	"donate_interface-secureLogo-text": "Om SSL-sertifikater",
 	"donate_interface-error-http-403": "Du har ikke tilgang til denne siden.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Dette API-et lar deg gi en gave til Wikimedia Foundation med mange forskjellige betalingsprosessorer.",

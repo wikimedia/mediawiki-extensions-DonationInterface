@@ -385,8 +385,6 @@
 	"donate_interface-onetime": "進行一次性捐款",
 	"donate_interface-monthly-short": "每月",
 	"donate_interface-onetime-short": "單次",
-	"donate_interface-securelogo-title": "點選驗證 - 此網站使用 VeriSign SSL 確保電子商務安全及機密通訊。",
-	"donate_interface-secureLogo-text": "關於 SSL 憑證",
 	"donate_interface-error-http-403": "你沒有存取這個頁面的權限。",
 	"apihelp-donate-param-fname": "名。",
 	"apihelp-donate-param-lname": "姓。",

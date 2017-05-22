@@ -353,7 +353,5 @@
 	"donate_interface-onetime": "Κάνετε μια εφάπαξ δωρεά",
 	"donate_interface-monthly-short": "Μηνιαία",
 	"donate_interface-onetime-short": "Εφάπαξ",
-	"donate_interface-securelogo-title": "Κάντε κλικ για επιβεβαίωση - αυτός ο ιστοχώρος  επέλεξε την τοποθεσία της VeriSign SSL για ασφαλές ηλεκτρονικό εμπόριο και εμπιστευτική  επικοινωνία.",
-	"donate_interface-secureLogo-text": "Σχετικά με τα πιστοποιητικά SSL",
 	"donate_interface-error-http-403": "Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα."
 }

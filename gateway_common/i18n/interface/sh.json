@@ -334,7 +334,5 @@
 	"donate_interface-monthlybox-yes": "Da, neka bude mjesečni prilog",
 	"donate_interface-monthlybox-no": "NE, ovo je jednokratno darivanje",
 	"donate_interface-monthlybox-bottom": "Vaša donacija biti će sigurno obrađena.",
-	"donate_interface-securelogo-title": "Kliknite da potvrdite. Ovo mrežno mjesto je odabralo VeriSign SSL za bezbjedno e-bankarstvo i povjerljive prepiske.",
-	"donate_interface-secureLogo-text": "O SSL certifikatima",
 	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici."
 }

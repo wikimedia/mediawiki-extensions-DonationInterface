@@ -396,8 +396,6 @@
 	"donate_interface-onetime": "Дајте еднократен прилог",
 	"donate_interface-monthly-short": "Месечно",
 	"donate_interface-onetime-short": "Еднократно",
-	"donate_interface-securelogo-title": "Стиснете за да потврдите - Ова мрежно место го одбра VeriSign SSL за безбедно е-банкарство и доверливи преписки.",
-	"donate_interface-secureLogo-text": "За SSL-уверенијата",
 	"donate_interface-error-http-403": "Немате дозвола да ја отворите оваа страница.",
 	"donate_interface-statement": "Викимедија $1",
 	"apihelp-donate-description": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
