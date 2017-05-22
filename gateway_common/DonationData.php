@@ -189,14 +189,27 @@ class DonationData implements LogPrefixProvider {
 		if ( is_null( $donorData ) ) {
 			return;
 		}
+		// Transitional code, used for a few hours after deploy.
+		// Please delete before next deploy
+		$rekey = array(
+			'amount' => 'gross',
+			'currency_code' => 'currency',
+			'fname' => 'first_name',
+			'lname' => 'last_name',
+			'state' => 'state_province',
+		);
 		//fields that should always overwrite with their original values
 		$overwrite = array( 'referrer', 'contribution_tracking_id' );
 		foreach ( $donorData as $key => $val ) {
-			if ( !$this->isSomething( $key ) ) {
-				$this->setVal( $key, $val );
+			$newKey = $key;
+			if ( isset( $rekey[$key] ) ) {
+				$newKey = $rekey[$key];
+			}
+			if ( !$this->isSomething( $newKey ) ) {
+				$this->setVal( $newKey, $val );
 			} else {
-				if ( in_array( $key, $overwrite ) ) {
-					$this->setVal( $key, $val );
+				if ( in_array( $newKey, $overwrite ) ) {
+					$this->setVal( $newKey, $val );
 				}
 			}
 		}
