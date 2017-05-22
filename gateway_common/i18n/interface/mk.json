@@ -401,7 +401,7 @@
 	"apihelp-donate-description": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн.",
 	"apihelp-donate-param-amount": "Износ за уплата.",
-	"apihelp-donate-param-currency_code": "Код на валутата.",
+	"apihelp-donate-param-currency": "Код на валутата.",
 	"apihelp-donate-param-first_name": "Име.",
 	"apihelp-donate-param-last_name": "Презиме.",
 	"apihelp-donate-param-street_address": "Прв ред на уличната адреса.",

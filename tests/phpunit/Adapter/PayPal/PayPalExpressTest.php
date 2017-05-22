@@ -39,7 +39,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testPaymentSetup() {
 		$init = array(
 			'amount' => 1.55,
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 			'payment_method' => 'paypal',
 			'utm_source' => 'CD1234_FR',
 			'utm_medium' => 'sitenotice',

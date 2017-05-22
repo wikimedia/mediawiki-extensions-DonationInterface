@@ -46,7 +46,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			// FIXME: err, we're cheating normalization here.
 			'correlation-id' => 'testgateway-' . mt_rand(),
 			'country' => 'US',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 			'date' => time(),
 			'email' => 'nobody@wikimedia.org',
 			'first_name' => 'Jen',

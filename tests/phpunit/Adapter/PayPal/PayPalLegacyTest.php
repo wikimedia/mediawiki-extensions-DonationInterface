@@ -72,7 +72,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 
 		$expected = array (
 			'amount' => $init['amount'],
-			'currency_code' => $init['currency_code'],
+			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
 			'cmd' => '_donations',
@@ -106,7 +106,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 
 		$expected = array (
 			'a3' => $init['amount'], //obviously.
-			'currency_code' => $init['currency_code'],
+			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
 			'cmd' => '_xclick-subscriptions',
@@ -143,7 +143,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 
 		$expected = array (
 			'amount' => $init['amount'],
-			'currency_code' => $init['currency_code'],
+			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
 			'cmd' => '_xclick',
@@ -215,7 +215,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'headers' => array(
 				'location' => null,
 			),
-			'currency_codeMsg' => array(
+			'currencyMsg' => array(
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
 			)
 		);
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 
 		$expected = array (
 			'amount' => $init['amount'],
-			'currency_code' => $init['currency_code'],
+			'currency_code' => $init['currency'],
 			'country' => 'BE',
 			'business' => 'phpunittesting@wikimedia.org',
 			'cmd' => '_donations',
@@ -311,7 +311,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 
 		$expected = array (
 			'amount' => $init['amount'],
-			'currency_code' => $init['currency_code'],
+			'currency_code' => $init['currency'],
 			'country' => 'IT',
 			'business' => 'phpunittesting@wikimedia.org',
 			'cmd' => '_donations',

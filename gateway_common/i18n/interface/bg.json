@@ -379,7 +379,7 @@
 	"apihelp-donate-description": "Този API интерфейс ви позволява да направите дарение на Фондация Уикимедия, избирайки измежду разнообразни услуги по обработка на плащанията.",
 	"apihelp-donate-param-gateway": "Коя система за разплащания да се използва - adyen, globalcollect, и т.н.",
 	"apihelp-donate-param-amount": "Дарената сума.",
-	"apihelp-donate-param-currency_code": "Код на валутата.",
+	"apihelp-donate-param-currency": "Код на валутата.",
 	"apihelp-donate-param-first_name": "Собствено име.",
 	"apihelp-donate-param-last_name": "Фамилно име.",
 	"apihelp-donate-param-street_address": "Адрес (ред 1).",

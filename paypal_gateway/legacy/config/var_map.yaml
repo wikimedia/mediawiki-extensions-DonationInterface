@@ -1,6 +1,6 @@
 amount: amount
 country: country
-currency_code: currency_code
+currency_code: currency
 item_name: description
 return: return
 custom: contribution_tracking_id

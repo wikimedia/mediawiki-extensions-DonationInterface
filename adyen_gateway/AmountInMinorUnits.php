@@ -10,16 +10,16 @@
  */
 class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		if ( empty( $normalized['amount'] ) || empty( $normalized['currency_code'] ) ) {
+		if ( empty( $normalized['amount'] ) || empty( $normalized['currency'] ) ) {
 			//can't do anything with amounts at all. Just go home.
 			unset( $stagedData['amount'] );
 			return;
 		}
 
 		$amount = $normalized['amount'];
-		if ( Amount::is_exponent3_currency( $normalized['currency_code'] ) ) {
+		if ( Amount::is_exponent3_currency( $normalized['currency'] ) ) {
 			$stagedData['amount'] = $amount * 1000;
-		} elseif ( Amount::is_fractional_currency( $normalized['currency_code'] ) ) {
+		} elseif ( Amount::is_fractional_currency( $normalized['currency'] ) ) {
 			$stagedData['amount'] = $amount * 100;
 		} else {
 			$amount = floor( $amount );
@@ -29,9 +29,9 @@ class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
-		if ( Amount::is_exponent3_currency( $stagedData['currency_code'] ) ) {
+		if ( Amount::is_exponent3_currency( $stagedData['currency'] ) ) {
 			$unstagedData['amount'] = $stagedData['amount'] / 1000;
-		} elseif ( Amount::is_fractional_currency( $stagedData['currency_code'] ) ) {
+		} elseif ( Amount::is_fractional_currency( $stagedData['currency'] ) ) {
 			$unstagedData['amount'] = $stagedData['amount'] / 100;
 		} else {
 			$unstagedData['amount'] = $stagedData['amount'];

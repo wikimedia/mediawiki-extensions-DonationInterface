@@ -8,7 +8,7 @@
 	"apihelp-di_amazon_bill-description": "{{doc-apihelp-description|di_amazon_bill}}",
 	"apihelp-di_amazon_bill-param-amount": "{{doc-apihelp-param|di_amazon_bill|amount}}",
 	"apihelp-di_amazon_bill-param-billingAgreementId": "{{doc-apihelp-param|di_amazon_bill|billingAgreementId}}",
-	"apihelp-di_amazon_bill-param-currency_code": "{{doc-apihelp-param|di_amazon_bill|currency_code}}",
+	"apihelp-di_amazon_bill-param-currency": "{{doc-apihelp-param|di_amazon_bill|currency}}",
 	"apihelp-di_amazon_bill-param-orderReferenceId": "{{doc-apihelp-param|di_amazon_bill|orderReferenceId}}",
 	"apihelp-di_amazon_bill-param-recurring": "{{doc-apihelp-param|di_amazon_bill|recurring}}",
 	"apihelp-di_amazon_bill-param-wmf_token": "{{doc-apihelp-param|di_amazon_bill|wmf_token}}"

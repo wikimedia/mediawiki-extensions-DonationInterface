@@ -26,7 +26,7 @@ CUSTOMERBANKSTREET: customer_bank_street # dd
 CUSTOMERBANKNUMBER: customer_bank_number # dd
 CUSTOMERBANKZIP: customer_bank_zip # dd
 CREDITCARDNUMBER: card_num
-CURRENCYCODE: currency_code
+CURRENCYCODE: currency
 CVV: cvv
 CVVRESULT: cvv_result
 DATECOLLECT: date_collect

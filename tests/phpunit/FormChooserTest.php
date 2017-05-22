@@ -86,7 +86,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * currency_code should take precedence over currency, payment_method
+	 * currency should take precedence over currency_code, payment_method
 	 * over paymentmethod, etc.
 	 */
 	function testPreferCanonicalParams() {

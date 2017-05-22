@@ -387,7 +387,7 @@
 	"donate_interface-monthly-short": "毎月",
 	"donate_interface-onetime-short": "一度だけ",
 	"donate_interface-error-http-403": "あなたにはこのページへのアクセス権がありません。",
-	"apihelp-donate-param-currency_code": "通貨のコードです。",
+	"apihelp-donate-param-currency": "通貨のコードです。",
 	"apihelp-donate-param-first_name": "名",
 	"apihelp-donate-param-last_name": "姓",
 	"apihelp-donate-param-state": "州の略称",

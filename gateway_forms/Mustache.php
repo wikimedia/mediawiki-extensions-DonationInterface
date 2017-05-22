@@ -230,20 +230,20 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['show_currency_selector'] = false;
 			// The select input will be hidden, but posting the form will use its only value
 			// Display the same currency code
-			$data['currency_code'] = $supportedCurrencies[0];
+			$data['currency'] = $supportedCurrencies[0];
 		} else {
 			$data['show_currency_selector'] = true;
 		}
 		foreach( $supportedCurrencies as $currency ) {
 			$data['currencies'][] = array(
 				'code' => $currency,
-				'selected' => ( $currency === $data['currency_code'] ),
+				'selected' => ( $currency === $data['currency'] ),
 			);
 		}
 
 		$data['display_amount'] = Amount::format(
 			$data['amount'],
-			$data['currency_code'],
+			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
 	}
@@ -291,7 +291,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$return["{$key}_error"] = true;
 
 			// FIXME: Belongs in a separate phase?
-			if ( $key === 'currency_code' || $key === 'amount' ) {
+			if ( $key === 'currency' || $key === 'amount' ) {
 				$return['show_amount_input'] = true;
 			}
 			if ( !empty( $return['errors']['general'] ) ) {

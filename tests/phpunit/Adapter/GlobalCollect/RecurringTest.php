@@ -53,7 +53,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
-			'currency_code' => 'EUR',
+			'currency' => 'EUR',
 			'payment_product' => '',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -76,7 +76,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
-			'currency_code' => 'EUR',
+			'currency' => 'EUR',
 			'payment_product' => '',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -102,7 +102,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
-			'currency_code' => 'EUR',
+			'currency' => 'EUR',
 			'payment_product' => '',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -127,7 +127,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
-			'currency_code' => 'EUR',
+			'currency' => 'EUR',
 			'payment_product' => '',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );

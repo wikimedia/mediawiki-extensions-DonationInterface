@@ -262,7 +262,7 @@
 		if ( $( '#amount_input' ).is( ':visible' ) ) {
 			$( '#amount_input' ).hide();
 			$( '#selected-amount' )
-				.text( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
+				.text( $( '#amount' ).val() + ' ' + $( '#currency' ).val() )
 				.show();
 		}
 	}
@@ -290,7 +290,7 @@
 			format: 'json',
 			recurring: isRecurring,
 			amount: $( '#amount' ).val(),
-			currency_code: $( '#currency_code' ).val(),
+			currency: $( '#currency' ).val(),
 			wmf_token: $( '#wmf_token' ).val()
 		};
 

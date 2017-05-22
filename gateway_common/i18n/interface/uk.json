@@ -413,7 +413,7 @@
 	"apihelp-donate-description": "Цей API дозволяє Вам зробити пожертву в Фонд Вікімедіа, використовуючи різні платіжні системи.",
 	"apihelp-donate-param-gateway": "Якої платіжний шлюз використовувати — adyen, globalcollect тощо.",
 	"apihelp-donate-param-amount": "Сума пожертви.",
-	"apihelp-donate-param-currency_code": "Код валюти.",
+	"apihelp-donate-param-currency": "Код валюти.",
 	"apihelp-donate-param-first_name": "Ім'я.",
 	"apihelp-donate-param-last_name": "Прізвище.",
 	"apihelp-donate-param-street_address": "Перший рядок адреси вулиці.",

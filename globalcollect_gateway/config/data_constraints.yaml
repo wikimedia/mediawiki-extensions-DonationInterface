@@ -105,7 +105,7 @@ card_num:
     type: numeric
     length: 19
 # CURRENCYCODE: AN3
-currency_code:
+currency:
     type: alphanumeric
     length: 3
 # CVV: N4

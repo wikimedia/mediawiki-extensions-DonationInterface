@@ -55,7 +55,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$this->normalized = array(
 			'language' => 'en',
 			'country' => 'US',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 		);
 
 		$this->errors = new ErrorState();
@@ -199,7 +199,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 	// Conversion tests depend on Barbadian monetary policy
 	// BBD is convenient as it's pegged to $0.50
 	public function testTooMuchBbd() {
-		$this->normalized['currency_code'] = 'BBD';
+		$this->normalized['currency'] = 'BBD';
 		$this->normalized['amount'] = '201.00';
 		$this->validate();
 
@@ -224,7 +224,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testTooLittleBbd() {
-		$this->normalized['currency_code'] = 'BBD';
+		$this->normalized['currency'] = 'BBD';
 		$this->normalized['amount'] = '2.95';
 		$this->validate();
 

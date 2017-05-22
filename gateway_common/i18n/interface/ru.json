@@ -405,7 +405,7 @@
 	"apihelp-donate-description": "Этот API позволяет Вам отправить пожертвование в фонд Викимедиа, используя различные платёжные системы.",
 	"apihelp-donate-param-gateway": "Какой платёжный шлюз использовать: adyen, globalcollect и т. д.",
 	"apihelp-donate-param-amount": "Сумма пожертвования.",
-	"apihelp-donate-param-currency_code": "Код валюты.",
+	"apihelp-donate-param-currency": "Код валюты.",
 	"apihelp-donate-param-first_name": "Имя.",
 	"apihelp-donate-param-last_name": "Фамилия.",
 	"apihelp-donate-param-street_address": "Первая строка адреса.",

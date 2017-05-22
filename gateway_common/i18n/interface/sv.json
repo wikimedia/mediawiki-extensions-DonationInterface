@@ -408,7 +408,7 @@
 	"apihelp-donate-description": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",
 	"apihelp-donate-param-gateway": "Vilken betalningsport att använda - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "Det donerade beloppet.",
-	"apihelp-donate-param-currency_code": "Valutakod.",
+	"apihelp-donate-param-currency": "Valutakod.",
 	"apihelp-donate-param-first_name": "Förnamn.",
 	"apihelp-donate-param-last_name": "Efternamn.",
 	"apihelp-donate-param-street_address": "Första raden för gatuadressen.",

@@ -5,7 +5,7 @@
 window.validateAmount = function () {
 	var error = true,
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
-		currency_code = '',
+		currency = '',
 		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 		rate,
 		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
@@ -27,24 +27,24 @@ window.validateAmount = function () {
 	error = ( amount === null || isNaN( amount ) || amount.value <= 0 );
 
 	// Check amount is at least the minimum
-	if ( $( 'input[name="currency_code"]' ).length ) {
-		currency_code = $( 'input[name="currency_code"]' ).val();
+	if ( $( 'input[name="currency"]' ).length ) {
+		currency = $( 'input[name="currency"]' ).val();
 	}
-	if ( $( 'select[name="currency_code"]' ).length ) {
-		currency_code = $( 'select[name="currency_code"]' ).val();
+	if ( $( 'select[name="currency"]' ).length ) {
+		currency = $( 'select[name="currency"]' ).val();
 	}
 
-	if ( ( typeof rates[ currency_code ] ) === 'undefined' ) {
+	if ( ( typeof rates[ currency ] ) === 'undefined' ) {
 		rate = 1;
 	} else {
-		rate = rates[ currency_code ];
+		rate = rates[ currency ];
 	}
 	// if we're on a new form, clear existing amount error
 	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
 	if ( ( amount < minUsd * rate ) || error ) {
 		// Round to two decimal places (TODO: no decimals for some currencies)
 		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
-		message = message.replace( '$1', minDisplay + ' ' + currency_code );
+		message = message.replace( '$1', minDisplay + ' ' + currency );
 		$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 
 		error = true;

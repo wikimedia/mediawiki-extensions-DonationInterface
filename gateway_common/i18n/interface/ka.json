@@ -347,7 +347,7 @@
 	"donate_interface-error-http-403": "თქვენ არ გაქვთ ამ გვერდთან წვდომის უფლება.",
 	"donate_interface-statement": "ვიკიმედია $1",
 	"apihelp-donate-param-amount": "შემოწირულობების ჯამი",
-	"apihelp-donate-param-currency_code": "ვალუტის კოდი",
+	"apihelp-donate-param-currency": "ვალუტის კოდი",
 	"apihelp-donate-param-first_name": "პირველი სახელი",
 	"apihelp-donate-param-last_name": "უკანასკნელი სახელი",
 	"apihelp-donate-param-street_address": "ქუჩის მისამართის პირველი ხაზი",

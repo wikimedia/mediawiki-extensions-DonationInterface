@@ -884,7 +884,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Refunds a transaction.  Assumes that we're running in batch mode with
 	 * payment_method = cc, and that all of these have been set:
-	 * order_id, effort_id, country, currency_code, amount, and payment_submethod
+	 * order_id, effort_id, country, currency, amount, and payment_submethod
 	 * Also requires merchant_reference to be set to the reference from the
 	 * original transaction.  FIXME: store that some place besides the logs
 	 * @return PaymentResult
@@ -1486,7 +1486,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		);
 
 		$enable3ds = false;
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		$currency = $this->getData_Unstaged_Escaped( 'currency' );
 		$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
 		if ( isset( $this->staged_data['payment_product'] )
 		  && in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes )
@@ -1778,7 +1778,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			return;
 		}
 		$country = $this->getData_Unstaged_Escaped( 'country' );
-		$currency = $this->getData_Unstaged_Escaped( 'currency_code' );
+		$currency = $this->getData_Unstaged_Escaped( 'currency' );
 		if ( $country === null || $currency === null ) {
 			return;
 		}

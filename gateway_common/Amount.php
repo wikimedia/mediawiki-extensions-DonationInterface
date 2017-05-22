@@ -5,12 +5,12 @@ class Amount implements ValidationHelper {
 	public function validate( GatewayType $adapter, $normalized, &$errors ) {
 		if (
 			!isset( $normalized['amount'] ) ||
-			!isset( $normalized['currency_code'] )
+			!isset( $normalized['currency'] )
 		) {
 			// Not enough info to validate
 			return;
 		}
-		if ( $errors->hasValidationError( 'currency_code' ) ) {
+		if ( $errors->hasValidationError( 'currency' ) ) {
 			// Already displaying an error
 			return;
 		}
@@ -22,7 +22,7 @@ class Amount implements ValidationHelper {
 			);
 			return;
 		}
-		$currency = $normalized['currency_code'];
+		$currency = $normalized['currency'];
 		$min = self::convert( $adapter->getGlobal( 'PriceFloor' ), $currency );
 		$max = self::convert( $adapter->getGlobal( 'PriceCeiling' ), $currency );
 		if (

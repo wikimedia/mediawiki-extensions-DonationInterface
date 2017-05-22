@@ -252,7 +252,7 @@
 	"donate_interface-currency-change": "Өзгеріс?",
 	"donate_interface-monthly-short": "Ай сайын",
 	"donate_interface-onetime-short": "Бір уақытта",
-	"apihelp-donate-param-currency_code": "Валюта коды.",
+	"apihelp-donate-param-currency": "Валюта коды.",
 	"apihelp-donate-param-first_name": "Аты.",
 	"apihelp-donate-param-last_name": "Тегі.",
 	"apihelp-donate-param-city": "Қала.",

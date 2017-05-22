@@ -53,7 +53,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'card_type' => 'visa',
 			'expiration' => '1138',
 			'cvv' => '665',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'numAttempt' => '5',
@@ -86,7 +86,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'amount' => '0.00',
 			'appeal' => 'JimmyQuote',
 			'country' => 'XX',
-			'currency_code' => '',
+			'currency' => '',
 			'email' => '',
 			'payment_method' => '',
 			'referrer' => '',
@@ -125,7 +125,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'card_type' => 'amex',
 			'expiration' => '0415',
 			'cvv' => '001',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 			'payment_method' => 'cc',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
 			'utm_source' => 'test_src..cc',
@@ -175,7 +175,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'card_type' => 'amex',
 			'expiration' => '0415',
 			'cvv' => '001',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 			'payment_method' => 'cc',
 			'referrer' => 'http://www.baz.test.com/index.php?action=foo&amp;action=bar',
 			'utm_source' => 'test_src..cc',
@@ -215,7 +215,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'payment_submethod' => 'amex',
-			'currency_code' => 'USD',
+			'currency' => 'USD',
 		);
 
 		$this->setUpRequest( $expected );
@@ -223,7 +223,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
 		$matches = $this->getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = NULL, utm_source = cc$/' );
 		$this->assertNotEmpty( $matches );
-		$matches = $this->getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency_code', now: USD$/" );
+		$matches = $this->getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency', now: USD$/" );
 		$this->assertNotEmpty( $matches );
 	}
 
@@ -333,10 +333,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		// When missing or not a recognized currency code, we'll guess from the
 		// country - in this test data, US.
-		$data['currency_code'] = 'splunge';
+		$data['currency'] = 'splunge';
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
 		$returned = $ddObj->getData();
-		$this->assertEquals( 'USD', $returned['currency_code'], 'Currency code was not properly reset');
+		$this->assertEquals( 'USD', $returned['currency'], 'Currency code was not properly reset');
 	}
 
 	/**

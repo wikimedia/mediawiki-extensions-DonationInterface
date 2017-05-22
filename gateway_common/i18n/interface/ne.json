@@ -190,7 +190,7 @@
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-समय",
 	"donate_interface-statement": "विकिमीडिया $1",
-	"apihelp-donate-param-currency_code": "मुद्रा कोड",
+	"apihelp-donate-param-currency": "मुद्रा कोड",
 	"apihelp-donate-param-city": "शहर",
 	"apihelp-donate-param-language": "भाषा कोड"
 }

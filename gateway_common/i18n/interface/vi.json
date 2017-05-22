@@ -392,7 +392,7 @@
 	"apihelp-donate-description": "API này cho phép quyên góp cho Quỹ Wikimedia qua nhiều nhà xử lý thanh toán khác nhau.",
 	"apihelp-donate-param-gateway": "Cổng thanh toán để sử dụng: adyen, globalcollect, v.v.",
 	"apihelp-donate-param-amount": "Số tiền quyên góp.",
-	"apihelp-donate-param-currency_code": "Mã tiền tệ.",
+	"apihelp-donate-param-currency": "Mã tiền tệ.",
 	"apihelp-donate-param-first_name": "Tên.",
 	"apihelp-donate-param-last_name": "Họ.",
 	"apihelp-donate-param-street_address": "Dòng đầu tiên của địa chỉ đường phố.",

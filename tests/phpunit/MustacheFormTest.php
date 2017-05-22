@@ -45,7 +45,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->adapter = new TestingGenericAdapter();
 		$this->adapter->addRequestData( array(
 			'amount' => '12',
-			'currency_code' => 'EUR',
+			'currency' => 'EUR',
 		) );
 
 		$this->setMwGlobals( array(

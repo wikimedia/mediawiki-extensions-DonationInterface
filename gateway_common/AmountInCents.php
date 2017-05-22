@@ -13,7 +13,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if (
 			empty( $normalized['amount'] ) ||
-			empty( $normalized['currency_code'] ) ||
+			empty( $normalized['currency'] ) ||
 			!is_numeric( $normalized['amount'] )
 		) {
 			//can't do anything with amounts at all. Just go home.
@@ -21,7 +21,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 			return;
 		}
 
-		$amount = Amount::round( $normalized['amount'], $normalized['currency_code'] );
+		$amount = Amount::round( $normalized['amount'], $normalized['currency'] );
 
 		$stagedData['amount'] = $amount * 100;
 	}

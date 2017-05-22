@@ -456,7 +456,7 @@
 	"apihelp-donate-description": "{{doc-apihelp-description|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",
 	"apihelp-donate-param-amount": "{{doc-apihelp-param|donate|amount}}",
-	"apihelp-donate-param-currency_code": "{{doc-apihelp-param|donate|currency_code}}",
+	"apihelp-donate-param-currency": "{{doc-apihelp-param|donate|currency}}",
 	"apihelp-donate-param-first_name": "{{doc-apihelp-param|donate|first_name}}\n{{Identical|First name}}",
 	"apihelp-donate-param-last_name": "{{doc-apihelp-param|donate|last_name}}\n{{Identical|Last name}}",
 	"apihelp-donate-param-street_address": "{{doc-apihelp-param|donate|street}}",

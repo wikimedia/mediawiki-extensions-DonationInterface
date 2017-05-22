@@ -427,7 +427,7 @@
 	"apihelp-donate-description": "Esta API te permite enviar una donación a la Fundación Wikimedia, usando una variedad de métodos de pago.",
 	"apihelp-donate-param-gateway": "Qué sistema de pago utilizar: adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "La cantidad donada.",
-	"apihelp-donate-param-currency_code": "Código de la moneda.",
+	"apihelp-donate-param-currency": "Código de la moneda.",
 	"apihelp-donate-param-first_name": "Nombre(s).",
 	"apihelp-donate-param-last_name": "Apellido(s).",
 	"apihelp-donate-param-street_address": "Dirección, 1.ª línea.",

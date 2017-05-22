@@ -2040,7 +2040,7 @@ abstract class GatewayAdapter
 			'country',
 			'utm_campaign',
 			'amount',
-			'currency_code',
+			'currency',
 		);
 
 		foreach ( $keys as $key ) {
@@ -2072,7 +2072,7 @@ abstract class GatewayAdapter
 			'payment_method',
 			'country',
 			'amount',
-			'currency_code',
+			'currency',
 		);
 
 		foreach ( $keys as $key ) {
@@ -2442,7 +2442,7 @@ abstract class GatewayAdapter
 		}
 
 		// TODO: Rewrite as something modular?  It's in-between validation and normalization...
-		if ( $this->errorState->hasValidationError( 'currency_code' ) ) {
+		if ( $this->errorState->hasValidationError( 'currency' ) ) {
 			// Try to fall back to a default currency, clearing the error if
 			// successful.
 			$this->fallbackToDefaultCurrency();
@@ -2485,7 +2485,7 @@ abstract class GatewayAdapter
 		}
 		// Our conversion rates are all relative to USD, so use that as an
 		// intermediate currency if converting between two others.
-		$oldCurrency = $this->dataObj->getVal( 'currency_code' );
+		$oldCurrency = $this->dataObj->getVal( 'currency' );
 		if ( $oldCurrency === $defaultCurrency ) {
 			$adapterClass = $this->getGatewayAdapterClass();
 			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
@@ -2517,14 +2517,14 @@ abstract class GatewayAdapter
 
 		$formData = array(
 			'amount' => $newAmount,
-			'currency_code' => $defaultCurrency,
+			'currency' => $defaultCurrency,
 		);
 		$this->dataObj->addData( $formData );
 
 		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 
 		// Clear the currency error.
-		$this->errorState->clearValidationError( 'currency_code' );
+		$this->errorState->clearValidationError( 'currency' );
 
 		$notify = $this->getGlobal( 'NotifyOnConvert' );
 
@@ -2533,7 +2533,7 @@ abstract class GatewayAdapter
 		if ( $notify || $this->errorState->hasErrors() ) {
 			$this->errorState->addError(
 				new ValidationError(
-					'currency_code',
+					'currency',
 					'donate_interface-fallback-currency-notice',
 					array( $defaultCurrency )
 				)
@@ -3599,7 +3599,7 @@ abstract class GatewayAdapter
 			'amount',
 			'ffname',
 			'country',
-			'currency_code',
+			'currency',
 			'payment_method',
 			'payment_submethod',
 			'recurring',

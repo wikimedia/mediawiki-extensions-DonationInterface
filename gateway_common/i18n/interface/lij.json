@@ -383,7 +383,7 @@
 	"apihelp-donate-description": "Questa API a consente d'inviâ 'na donaçion a-a Wikimedia Foundation, permettendo de çerne tra diverse modalitæ de pagamento.",
 	"apihelp-donate-param-gateway": "Quæ strumento de pagamento doeuviâ - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "L'importo donou.",
-	"apihelp-donate-param-currency_code": "Coddiçe valuta.",
+	"apihelp-donate-param-currency": "Coddiçe valuta.",
 	"apihelp-donate-param-first_name": "Nomme",
 	"apihelp-donate-param-last_name": "Cognomme",
 	"apihelp-donate-param-street_address": "Primma riga de l'indiriçço.",

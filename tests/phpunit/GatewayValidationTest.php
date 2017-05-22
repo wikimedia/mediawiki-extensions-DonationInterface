@@ -118,7 +118,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
-		$this->assertHasValidationError( 'currency_code' );
+		$this->assertHasValidationError( 'currency' );
 	}
 
 	public function testCountryError() {
@@ -168,6 +168,6 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
-		$this->assertHasValidationError( 'currency_code' );
+		$this->assertHasValidationError( 'currency' );
 	}
 }

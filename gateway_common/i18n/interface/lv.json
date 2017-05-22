@@ -242,7 +242,7 @@
 	"donate_interface-monthly-short": "Ikmēneša",
 	"donate_interface-onetime-short": "Vienu reizi",
 	"apihelp-donate-param-amount": "Ziedojumu summa.",
-	"apihelp-donate-param-currency_code": "Valūtas kods.",
+	"apihelp-donate-param-currency": "Valūtas kods.",
 	"apihelp-donate-param-first_name": "Vārds.",
 	"apihelp-donate-param-last_name": "Uzvārds.",
 	"apihelp-donate-param-city": "Pilsēta.",

@@ -56,7 +56,7 @@ class DonationData implements LogPrefixProvider {
 		'expiration',
 		'cvv',
 		'currency',
-		'currency_code',
+		'currency',
 		'payment_method',
 		'payment_submethod',
 		'issuer_id',
@@ -295,7 +295,7 @@ class DonationData implements LogPrefixProvider {
 			'anonymous',
 			'language',
 			'contribution_tracking_id', //sort of...
-			'currency_code',
+			'currency',
 			'user_ip',
 		);
 		return $fields;
@@ -440,11 +440,11 @@ class DonationData implements LogPrefixProvider {
 	 * normalize helper function
 	 * Setting the currency code correctly.
 	 * Historically, this value could come in through 'currency' or
-	 * 'currency_code'. After this fires, we will only have 'currency_code'.
+	 * 'currency_code'. After this fires, we will only have 'currency'.
 	 */
 	protected function setCurrencyCode() {
 		//at this point, we can have either currency, or currency_code.
-		//-->>currency_code has the authority!<<-- 
+		//-->>currency has the authority!<<--
 		$currency = false;
 
 		if ( $this->isSomething( 'currency' ) ) {
@@ -466,8 +466,8 @@ class DonationData implements LogPrefixProvider {
 			$this->logger->debug( "Got currency from 'country', now: $currency" );
 		}
 
-		$this->setVal( 'currency_code', $currency );
-		$this->expunge( 'currency' );  //honestly, we don't want this.
+		$this->setVal( 'currency', $currency );
+		$this->expunge( 'currency_code' );  //honestly, we don't want this.
 	}
 
 	/**
@@ -543,7 +543,7 @@ class DonationData implements LogPrefixProvider {
 
 		$this->setVal(
 			'amount',
-			Amount::round( $this->getVal( 'amount' ), $this->getVal( 'currency_code' ) )
+			Amount::round( $this->getVal( 'amount' ), $this->getVal( 'currency' ) )
 		);
 	}
 
@@ -814,8 +814,8 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
-		if ( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ) {
-			$tracking_data['form_amount'] = $this->getVal( 'currency_code' ) . " " . $this->getVal( 'amount' );
+		if ( $this->isSomething( 'currency' ) && $this->isSomething( 'amount' ) ) {
+			$tracking_data['form_amount'] = $this->getVal( 'currency' ) . " " . $this->getVal( 'amount' );
 		}
 
 		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
@@ -931,7 +931,7 @@ class DonationData implements LogPrefixProvider {
 			'payment_method',
 			'payment_submethod',
 			'response',
-			'currency_code',
+			'currency',
 			'amount',
 			'user_ip',
 			'date',
@@ -947,7 +947,7 @@ class DonationData implements LogPrefixProvider {
 		$fields = array(
 			'gateway',
 			'country',
-			'currency_code',
+			'currency',
 			'amount',
 			'language',
 			'utm_source',

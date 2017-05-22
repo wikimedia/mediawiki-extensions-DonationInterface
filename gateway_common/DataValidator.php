@@ -26,7 +26,7 @@ class DataValidator {
 		switch ( $field ) {
 			case 'email' :
 			case 'amount' :
-			case 'currency_code' :
+			case 'currency' :
 			case 'fiscal_number' :
 			case 'issuer_id' :
 			case 'card_num':
@@ -150,7 +150,7 @@ class DataValidator {
 		$validations = array(
 			'not_empty' => array(
 				'country',
-				'currency_code',
+				'currency',
 				'gateway',
 			),
 			'valid_type' => array(
@@ -158,7 +158,7 @@ class DataValidator {
 				'account_number' => 'validate_numeric',
 				'anonymous' => 'validate_boolean',
 				'contribution_tracking_id' => 'validate_numeric',
-				'currency_code' => 'validate_alphanumeric',
+				'currency' => 'validate_alphanumeric',
 				'gateway' => 'validate_alphanumeric',
 				'numAttempt' => 'validate_numeric',
 				'optout' => 'validate_boolean',
@@ -174,7 +174,7 @@ class DataValidator {
 				'email' => 'validate_email',
 				'street_address' => 'validate_address',
 				'postal_code' => 'validate_address',
-				'currency_code' => 'validate_currency_code',
+				'currency' => 'validate_currency_code',
 				'first_name' => 'validate_name',
 				'last_name' => 'validate_name',
 				'name' => 'validate_name',

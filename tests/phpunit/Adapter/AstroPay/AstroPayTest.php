@@ -522,13 +522,13 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	 */
 	function testBadCurrencyForCountry() {
 		$init = $this->getDonorTestData( 'BR' );
-		$init['currency_code'] = 'CLP';
+		$init['currency'] = 'CLP';
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$errorState = $gateway->getErrorState();
 
 		$this->assertTrue(
-			$errorState->hasValidationError( 'currency_code' ),
+			$errorState->hasValidationError( 'currency' ),
 			'Should show a currency code error for trying to use CLP in BR'
 		);
 	}

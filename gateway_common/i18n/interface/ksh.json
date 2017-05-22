@@ -413,7 +413,7 @@
 	"apihelp-donate-description": "Heh di Schnettschtäll löht Eijne Schpände för de Wikkimehdija-Schtefftong jävve, övver en Aanzahl ongerscheidlejje Deensleister.",
 	"apihelp-donate-param-gateway": "Wat för ene Bezahlwähsch - för e Beijschpell <i lang=\"en\" lang=\"xml:en\" dir=\"ltr\">adyen</i> udder a<i lang=\"en\" lang=\"xml:en\" dir=\"ltr\">globalcollect</i> udder esu.",
 	"apihelp-donate-param-amount": "Wi vill jeschpänd.",
-	"apihelp-donate-param-currency_code": "Köözel fö de Währong.",
+	"apihelp-donate-param-currency": "Köözel fö de Währong.",
 	"apihelp-donate-param-first_name": "Vörnahme.",
 	"apihelp-donate-param-last_name": "Nohnahme.",
 	"apihelp-donate-param-street_address": "Adräß eezde Reih.",

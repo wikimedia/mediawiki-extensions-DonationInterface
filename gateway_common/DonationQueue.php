@@ -209,7 +209,7 @@ class DonationQueue {
 		$optional_keys = array(
 			'anonymous' => 'anonymous',
 			'city' => 'city',
-			'currency' => 'currency_code',
+			'currency' => 'currency',
 			'email' => 'email',
 			'first_name' => 'first_name',
 			'gross' => 'amount',
@@ -253,10 +253,7 @@ class DonationQueue {
 		// For now, this function assumes that we have a complete queue message.
 
 		$rekey = array(
-			'currency' => 'currency_code',
-			'first_name' => 'first_name',
 			'gross' => 'amount',
-			'last_name' => 'last_name',
 			'state_province' => 'state',
 		);
 

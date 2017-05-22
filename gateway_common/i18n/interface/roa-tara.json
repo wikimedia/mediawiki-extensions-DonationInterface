@@ -399,7 +399,7 @@
 	"apihelp-donate-description": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
 	"apihelp-donate-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "'U 'mborte ddunate.",
-	"apihelp-donate-param-currency_code": "Codece d'a valute.",
+	"apihelp-donate-param-currency": "Codece d'a valute.",
 	"apihelp-donate-param-first_name": "Prime nome.",
 	"apihelp-donate-param-last_name": "Urteme nome.",
 	"apihelp-donate-param-street_address": "Prima linèe da vie de l'indirizze.",

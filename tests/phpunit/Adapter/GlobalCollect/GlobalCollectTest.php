@@ -257,19 +257,19 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		// The values in session are not the values we originally used
 		// for INSERT_ORDERWITHPAYMENT
 		$init['amount'] = '12.50';
-		$init['currency_code'] = 'USD';
+		$init['currency'] = 'USD';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$currency = $gateway->getData_Unstaged_Escaped( 'currency_code' );
+		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
 		$this->assertEquals( '12.50', $amount );
 		$this->assertEquals( 'USD', $currency );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$currency = $gateway->getData_Unstaged_Escaped( 'currency_code' );
+		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
 		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
 		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency'  );
 	}
@@ -289,7 +289,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$var_map = array(
 			'ORDERID' => 'order_id',
 			'AMOUNT' => 'amount',
-			'CURRENCYCODE' => 'currency_code',
+			'CURRENCYCODE' => 'currency',
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
 			'MERCHANTREFERENCE' => 'contribution_tracking_id',
@@ -474,7 +474,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'city'=>'Hollywood',
 			'contribution_tracking_id'=>'22901382',
 			'country'=>'US',
-			'currency_code'=>'USD',
+			'currency'=>'USD',
 			'email'=>'FaketyFake@gmail.com',
 			'first_name'=>'Fakety',
 			'format'=>'json',

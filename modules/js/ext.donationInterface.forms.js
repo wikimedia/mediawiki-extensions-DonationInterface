@@ -45,7 +45,7 @@
 		var sendData = {
 			action: 'donate',
 			gateway: $( '#gateway' ).val(),
-			currency_code: $( '#currency_code' ).val(),
+			currency: $( '#currency' ).val(),
 			amount: $( '#amount' ).val(),
 			first_name: $( '#first_name' ).val(),
 			last_name: $( '#last_name' ).val(),

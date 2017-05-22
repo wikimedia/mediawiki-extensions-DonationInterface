@@ -291,7 +291,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->callPwaClient( 'setOrderReferenceDetails', array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_id' => $this->getData_Staged( 'order_id' ),
 		) );
@@ -307,7 +307,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$authResponse = $this->callPwaClient( 'authorize', array(
 			'amazon_order_reference_id' => $orderReferenceId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'capture_now' => true, // combine authorize and capture steps
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'transaction_timeout' => 0, // authorize synchronously
@@ -361,7 +361,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$authResponse = $this->callPwaClient( 'authorizeOnBillingAgreement', array(
 			'amazon_billing_agreement_id' => $billingAgreementId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'capture_now' => true, // combine authorize and capture steps
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'seller_order_id' => $this->getData_Staged( 'order_id' ),

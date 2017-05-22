@@ -340,7 +340,7 @@
 	"donate_interface-monthly-short": "মাসিক",
 	"donate_interface-onetime-short": "এক-কালীন",
 	"donate_interface-statement": "উইকিমিডিয়া $1",
-	"apihelp-donate-param-currency_code": "মুদ্রা কোড।",
+	"apihelp-donate-param-currency": "মুদ্রা কোড।",
 	"apihelp-donate-param-first_name": "নামের প্রথমাংশ।",
 	"apihelp-donate-param-last_name": "নামের শেষাংশ।",
 	"apihelp-donate-param-city": "শহর।",

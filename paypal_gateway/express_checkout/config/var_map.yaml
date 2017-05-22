@@ -1,6 +1,6 @@
 AMT: amount
 COUNTRYCODE: country
-CURRENCYCODE: currency_code
+CURRENCYCODE: currency
 EMAIL: email
 FIRSTNAME: first_name
 # FIXME: This might already come through the Invoice Number field.
@@ -15,7 +15,7 @@ PAYMENTINFO_0_ORDERTIME: date
 PAYMENTINFO_0_PAYMENTSTATUS: gateway_status
 PAYMENTINFO_0_TRANSACTIONID: gateway_txn_id
 PAYMENTREQUEST_0_AMT: amount
-PAYMENTREQUEST_0_CURRENCYCODE: currency_code
+PAYMENTREQUEST_0_CURRENCYCODE: currency
 # TODO: deprecated
 PAYMENTREQUEST_0_CUSTOM: contribution_tracking_id
 # FIXME: Update the audit and IPN listener to read from this field.
