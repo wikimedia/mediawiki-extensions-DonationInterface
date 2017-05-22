@@ -13,7 +13,7 @@
 	"donate_interface-donor-currency-label": "Geldsoort",
 	"donate_interface-donor-email": "E-Mail-Adress",
 	"donate_interface-donor-name": "Naam",
-	"donate_interface-donor-fname": "Vörnaam",
+	"donate_interface-donor-first_name": "Vörnaam",
 	"donate_interface-donor-lname": "Achternaam",
 	"donate_interface-donor-street_address": "Straat",
 	"donate_interface-donor-street-number": "Nummer",

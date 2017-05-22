@@ -49,7 +49,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'currency_code' => 'USD',
 			'date' => time(),
 			'email' => 'nobody@wikimedia.org',
-			'fname' => 'Jen',
+			'first_name' => 'Jen',
 			'gateway_account' => 'default',
 			'gateway' => 'testgateway',
 			'gateway_txn_id' => mt_rand(),

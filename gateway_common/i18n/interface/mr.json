@@ -19,7 +19,7 @@
 	"donate_interface-cc-button": "क्रेडिट कार्ड द्वारे भरणा करा.",
 	"donate_interface-dd-button": "डेबीट कार्ड द्वारे भरणा करा.",
 	"donate_interface-donor-name": "नाव",
-	"donate_interface-donor-fname": "पहिले नाव",
+	"donate_interface-donor-first_name": "पहिले नाव",
 	"donate_interface-donor-mname": "मधले नाव",
 	"donate_interface-donor-lname": "शेवटचे नाव",
 	"donate_interface-donor-street_address": "रस्ता",

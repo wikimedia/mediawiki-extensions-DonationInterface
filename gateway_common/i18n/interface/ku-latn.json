@@ -17,7 +17,7 @@
 	"donate_interface-donor-currency-label": "Dirav",
 	"donate_interface-donor-email": "Navnîşana e-nameyê",
 	"donate_interface-donor-name": "Nav",
-	"donate_interface-donor-fname": "Pêşnav",
+	"donate_interface-donor-first_name": "Pêşnav",
 	"donate_interface-donor-mname": "Navê navîn",
 	"donate_interface-donor-lname": "Paşnav",
 	"donate_interface-donor-street_address": "Kûçe",
@@ -41,7 +41,7 @@
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Vê wergerê sererast bike",
 	"donate_interface-monthly-short": "Mehane",
-	"apihelp-donate-param-fname": "Pêşnav.",
+	"apihelp-donate-param-first_name": "Pêşnav.",
 	"apihelp-donate-param-lname": "Paşnav.",
 	"apihelp-donate-param-city": "Bajar."
 }

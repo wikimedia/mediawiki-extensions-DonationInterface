@@ -6,7 +6,7 @@
 	},
 	"donate_interface-donor-email": "ܡܘܢܥܐ ܕܒܝܠܕܪܐ ܐܠܩܛܪܘܢܝܐ",
 	"donate_interface-donor-name": "ܫܡܐ",
-	"donate_interface-donor-fname": "ܫܡܐ ܩܕܡܝܐ",
+	"donate_interface-donor-first_name": "ܫܡܐ ܩܕܡܝܐ",
 	"donate_interface-donor-mname": "ܫܡܐ ܡܨܥܝܐ",
 	"donate_interface-donor-lname": "ܫܡܐ ܐܚܪܝܐ",
 	"donate_interface-donor-city": "ܡܕܝܢܬܐ",

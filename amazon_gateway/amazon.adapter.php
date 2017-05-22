@@ -194,7 +194,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
 		$this->addRequestData( array(
 			'email' => $email,
-			'fname' => $fname,
+			'first_name' => $fname,
 			'lname' => $lname,
 		) );
 		// Stash their info in pending queue and logs to fill in data for

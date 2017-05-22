@@ -2,7 +2,7 @@ AMT: amount
 COUNTRYCODE: country
 CURRENCYCODE: currency_code
 EMAIL: email
-FIRSTNAME: fname
+FIRSTNAME: first_name
 # FIXME: This might already come through the Invoice Number field.
 L_BILLINGAGREEMENTCUSTOM0: order_id
 L_PAYMENTREQUEST_0_AMT0: amount

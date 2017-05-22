@@ -135,13 +135,13 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
 		$this->assertFalse( $result->isFailed(), 'Result should not be failed when responses are good' );
-		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
+		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'first_name' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
 		$mockClient = TestingAmazonAdapter::$mockClient;
@@ -164,7 +164,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$mockClient = TestingAmazonAdapter::$mockClient;
@@ -191,7 +191,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$mockClient = TestingAmazonAdapter::$mockClient;
@@ -216,7 +216,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$mockClient = TestingAmazonAdapter::$mockClient;
@@ -237,7 +237,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$mockClient = TestingAmazonAdapter::$mockClient;
@@ -265,14 +265,14 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['subscr_id'] = 'C01-9650293-7351908';
 		// We don't get any profile data up front
 		unset( $init['email'] );
-		unset( $init['fname'] );
+		unset( $init['first_name'] );
 		unset( $init['lname'] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
 		// FIXME: PaymentResult->isFailed returns null for false
 		$this->assertTrue( !( $result->isFailed() ), 'Result should not be failed when responses are good' );
-		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'fname' ), 'Did not populate first name from Amazon data' );
+		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'first_name' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'lname' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
 		$mockClient = TestingAmazonAdapter::$mockClient;

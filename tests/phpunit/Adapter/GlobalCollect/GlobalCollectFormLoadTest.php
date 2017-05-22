@@ -123,7 +123,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'fname' => array (
+			'first_name' => array (
 				'nodename' => 'input',
 				'value' => 'Prénom',
 			),
@@ -157,9 +157,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'fname' => array (
+			'first_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( 'it' )->text(),
 			),
 			'lname' => array (
 				'nodename' => 'input',
@@ -197,9 +197,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'fname' => array (
+			'first_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
 			),
 			'lname' => array (
 				'nodename' => 'input',
@@ -240,9 +240,9 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					) .
 					'\s*$/',
 			),
-			'fname' => array (
+			'first_name' => array (
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-fname')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
 			),
 			'lname' => array (
 				'nodename' => 'input',

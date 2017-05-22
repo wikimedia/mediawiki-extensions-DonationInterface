@@ -14,7 +14,7 @@
 	"donate_interface-donor-currency-label": "Valuta:",
 	"donate_interface-donor-email": "E-mail adresa:",
 	"donate_interface-donor-name": "Emri:",
-	"donate_interface-donor-fname": "Emri:",
+	"donate_interface-donor-first_name": "Emri:",
 	"donate_interface-donor-mname": "Emri Mesme:",
 	"donate_interface-donor-lname": "Mbiemri:",
 	"donate_interface-donor-street_address": "Rruga:",

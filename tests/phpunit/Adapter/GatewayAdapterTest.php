@@ -314,7 +314,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
 		);
 		$init = $this->getDonorTestData();
-		$init['fname'] = 'asdf';
+		$init['first_name'] = 'asdf';
 		$init['lname'] = 'qwert';
 
 		$gateway = $this->getFreshGatewayObject( $init );

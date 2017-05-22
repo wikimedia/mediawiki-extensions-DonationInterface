@@ -137,7 +137,7 @@ expiration:
     type: numeric
     length: 4
 # FIRSTNAME: AN15
-fname:
+first_name:
     type: alphanumeric
     length: 15
 # IBAN: AN50 (AN21 on direct debit)

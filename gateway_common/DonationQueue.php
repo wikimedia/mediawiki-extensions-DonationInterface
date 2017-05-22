@@ -211,7 +211,7 @@ class DonationQueue {
 			'city' => 'city',
 			'currency' => 'currency_code',
 			'email' => 'email',
-			'first_name' => 'fname',
+			'first_name' => 'first_name',
 			'gross' => 'amount',
 			'gateway_session_id' => 'gateway_session_id',
 			'last_name' => 'lname',
@@ -254,7 +254,7 @@ class DonationQueue {
 
 		$rekey = array(
 			'currency' => 'currency_code',
-			'first_name' => 'fname',
+			'first_name' => 'first_name',
 			'gross' => 'amount',
 			'last_name' => 'lname',
 			'state_province' => 'state',

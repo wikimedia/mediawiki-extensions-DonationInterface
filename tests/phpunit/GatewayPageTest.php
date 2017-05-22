@@ -173,7 +173,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$expected = array(
 			'currency_code' => 'USD',
 			'payment_submethod' => '',
-			'fname' => 'Firstname',
+			'first_name' => 'Firstname',
 			'lname' => 'Surname',
 			'amount' => '1.55',
 			'language' => 'en',

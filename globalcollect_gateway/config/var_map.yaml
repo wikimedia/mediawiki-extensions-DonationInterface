@@ -36,7 +36,7 @@ DOMICILIO: domicilio # dd:ES
 EFFORTID: effort_id
 EMAIL: email
 EXPIRYDATE: expiration
-FIRSTNAME: fname
+FIRSTNAME: first_name
 IBAN: iban
 IPADDRESS: server_ip
 IPADDRESSCUSTOMER: user_ip

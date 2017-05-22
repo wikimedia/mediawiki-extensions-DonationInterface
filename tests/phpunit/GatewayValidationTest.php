@@ -155,11 +155,11 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->setUpAdapter( array(
 			'amount' => '2.99',
 			'currency' => 'USD',
-			'fname' => '4111111111111111',
+			'first_name' => '4111111111111111',
 		) );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
-		$this->assertHasValidationError( 'fname' );
+		$this->assertHasValidationError( 'first_name' );
 	}
 
 	public function testMissingFieldError() {
