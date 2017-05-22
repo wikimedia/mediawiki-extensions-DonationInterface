@@ -48,7 +48,7 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 					'payment_method' => 'cc',
 					'payment_submethod' => $refund[3],
 					'currency' => $refund[4],
-					'amount' => $refund[5],
+					'gross' => $refund[5],
 				),
 			);
 

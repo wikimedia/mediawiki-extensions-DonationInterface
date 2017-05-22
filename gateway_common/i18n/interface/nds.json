@@ -4,12 +4,12 @@
 			"Joachim Mos"
 		]
 	},
-	"donate_interface-amount": "Bedrag",
+	"donate_interface-gross": "Bedrag",
 	"donate_interface-other-amount": "Anner Bedrag",
 	"donate_interface-currency": "Geldsoort:",
 	"donate_interface-EUR": "Euro",
 	"donate_interface-USD": "US-Dollar",
-	"donate_interface-donor-amount": "Bedrag",
+	"donate_interface-donor-gross": "Bedrag",
 	"donate_interface-donor-currency-label": "Geldsoort",
 	"donate_interface-donor-email": "E-Mail-Adress",
 	"donate_interface-donor-name": "Naam",
@@ -33,7 +33,7 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "MasterCard",
 	"donate_interface-card-name-discover": "Discover",
-	"donate_interface-error-msg-amount": "Bedrag vun'e Spenne",
+	"donate_interface-error-msg-gross": "Bedrag vun'e Spenne",
 	"donate_interface-error-msg-country": "Land",
 	"donate_interface-error-msg-card_type": "Kreditkoorttyyp",
 	"donate_interface-error-msg-card_num": "Kreditkoortnummer",

@@ -75,7 +75,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testValidUsd() {
-		$this->normalized['amount'] = '10.00';
+		$this->normalized['gross'] = '10.00';
 		$this->validate();
 		$this->assertFalse(
 			$this->errors->hasValidationError(),
@@ -84,13 +84,13 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testZeroAmount() {
-		$this->normalized['amount'] = '0.00';
+		$this->normalized['gross'] = '0.00';
 		$this->validate();
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for zero amount'
 		);
-		$expected = DataValidator::getError( 'amount', 'not_empty' );
+		$expected = DataValidator::getError( 'gross', 'not_empty' );
 		$this->assertEquals(
 			$expected,
 			$this->getFirstError(),
@@ -99,13 +99,13 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testWhitespaceAmount() {
-		$this->normalized['amount'] = '    ';
+		$this->normalized['gross'] = '    ';
 		$this->validate();
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for whitespace amount'
 		);
-		$expected = DataValidator::getError( 'amount', 'not_empty' );
+		$expected = DataValidator::getError( 'gross', 'not_empty' );
 		$this->assertEquals(
 			$expected,
 			$this->getFirstError(),
@@ -114,16 +114,16 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testNonNumericAmount() {
-		$this->normalized['amount'] = 'XYZ123';
+		$this->normalized['gross'] = 'XYZ123';
 		$this->validate();
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for non-numeric amount'
 		);
 
 		$expected = new ValidationError(
-			'amount',
-			'donate_interface-error-msg-invalid-amount'
+			'gross',
+			'donate_interface-error-msg-invalid-gross'
 		);
 		$this->assertEquals(
 			$expected,
@@ -133,16 +133,16 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testNegativeAmount() {
-		$this->normalized['amount'] = '-100.00';
+		$this->normalized['gross'] = '-100.00';
 		$this->validate();
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for negative amount'
 		);
 
 		$expected = new ValidationError(
-			'amount',
-			'donate_interface-error-msg-invalid-amount'
+			'gross',
+			'donate_interface-error-msg-invalid-gross'
 		);
 		$this->assertEquals(
 			$expected,
@@ -152,14 +152,14 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testTooMuchUsd() {
-		$this->normalized['amount'] = '101.00';
+		$this->normalized['gross'] = '101.00';
 		$this->validate();
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for excessive amount (USD)'
 		);
 		$expected = new ValidationError(
-			'amount',
+			'gross',
 			'donate_interface-bigamount-error',
 			array(
 				100,
@@ -175,17 +175,17 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testTooLittleUsd() {
-		$this->normalized['amount'] = '1.49';
+		$this->normalized['gross'] = '1.49';
 		$this->validate();
 
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for diminutive amount (USD)'
 		);
 
 		$formattedMin = Amount::format( 1.50, 'USD', 'en_US' );
 		$expected = new ValidationError(
-			'amount',
+			'gross',
 			'donate_interface-smallamount-error',
 			array( $formattedMin )
 		);
@@ -200,15 +200,15 @@ class AmountTest  extends DonationInterfaceTestCase {
 	// BBD is convenient as it's pegged to $0.50
 	public function testTooMuchBbd() {
 		$this->normalized['currency'] = 'BBD';
-		$this->normalized['amount'] = '201.00';
+		$this->normalized['gross'] = '201.00';
 		$this->validate();
 
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for excessive amount (BBD)'
 		);
 		$expected = new ValidationError(
-			'amount',
+			'gross',
 			'donate_interface-bigamount-error',
 			array(
 				200,
@@ -225,16 +225,16 @@ class AmountTest  extends DonationInterfaceTestCase {
 
 	public function testTooLittleBbd() {
 		$this->normalized['currency'] = 'BBD';
-		$this->normalized['amount'] = '2.95';
+		$this->normalized['gross'] = '2.95';
 		$this->validate();
 
 		$this->assertTrue(
-			$this->errors->hasValidationError( 'amount' ),
+			$this->errors->hasValidationError( 'gross' ),
 			'No error for diminutive amount (BBD)'
 		);
 		$formattedMin = Amount::format( 3.00, 'BBD', 'en_US' );
 		$expected = new ValidationError(
-			'amount',
+			'gross',
 			'donate_interface-smallamount-error',
 			array( $formattedMin )
 		);

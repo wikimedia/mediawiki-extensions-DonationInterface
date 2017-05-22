@@ -8,7 +8,7 @@
 		]
 	},
 	"donate_interface": "विकिपीडिया उपक्रियताम्",
-	"donate_interface-amount": "धनराशिः",
+	"donate_interface-gross": "धनराशिः",
 	"donate_interface-other-amount": "अन्या धनराशिः",
 	"donate_interface-currency": "मुद्रा",
 	"donate_interface-submit-button": "दानम्",
@@ -27,7 +27,7 @@
 	"donate_interface-CRC": "कोस्टा रिकस्य कलोन",
 	"donate_interface-EUR": "यूरो",
 	"donate_interface-cvv-link": "एतत् कुत्र अस्ति?",
-	"donate_interface-donor-amount": "धनराशिः",
+	"donate_interface-donor-gross": "धनराशिः",
 	"donate_interface-donor-currency-label": "मुद्रा",
 	"donate_interface-donor-email": "वि-पत्रसङ्केतः",
 	"donate_interface-donor-name": "नाम",

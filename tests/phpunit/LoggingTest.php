@@ -53,7 +53,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		unset( $init['order_id'] );
 
 		$expectedObject = array(
-			'amount' => 23.45,
+			'gross' => 23.45,
 			'city' => 'San Francisco',
 			//'contribution_tracking_id' => '1',
 			'country' => 'US',
@@ -97,7 +97,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
-		$init['amount'] = '23';
+		$init['gross'] = '23';
 		// Fake name with a bad character encoding.
 		$init['first_name'] = 'Алексан�';
 		$init['last_name'] = 'Гончар';
@@ -107,7 +107,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		unset( $init['order_id'] );
 
 		$expectedObject = array(
-			'amount' => 23.45,
+			'gross' => 23.45,
 			'city' => 'San Francisco',
 			'country' => 'US',
 			'currency' => 'EUR',

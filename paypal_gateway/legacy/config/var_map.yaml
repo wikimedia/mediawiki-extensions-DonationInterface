@@ -1,9 +1,9 @@
-amount: amount
+amount: gross
 country: country
 currency_code: currency
 item_name: description
 return: return
 custom: contribution_tracking_id
-a3: amount
+a3: gross
 srt: recurring_length
 lc: locale

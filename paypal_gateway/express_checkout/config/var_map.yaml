@@ -1,26 +1,26 @@
-AMT: amount
+AMT: gross
 COUNTRYCODE: country
 CURRENCYCODE: currency
 EMAIL: email
 FIRSTNAME: first_name
 # FIXME: This might already come through the Invoice Number field.
 L_BILLINGAGREEMENTCUSTOM0: order_id
-L_PAYMENTREQUEST_0_AMT0: amount
+L_PAYMENTREQUEST_0_AMT0: gross
 LASTNAME: last_name
 LOCALECODE: language
-MAXAMT: amount
+MAXAMT: gross
 PAYERID: donor_id
 # Example: 2016%2d05%2d03T21%3a25%3a22Z&
 PAYMENTINFO_0_ORDERTIME: date
 PAYMENTINFO_0_PAYMENTSTATUS: gateway_status
 PAYMENTINFO_0_TRANSACTIONID: gateway_txn_id
-PAYMENTREQUEST_0_AMT: amount
+PAYMENTREQUEST_0_AMT: gross
 PAYMENTREQUEST_0_CURRENCYCODE: currency
 # TODO: deprecated
 PAYMENTREQUEST_0_CUSTOM: contribution_tracking_id
 # FIXME: Update the audit and IPN listener to read from this field.
 PAYMENTREQUEST_0_INVNUM: order_id
-PAYMENTREQUEST_0_ITEMAMT: amount
+PAYMENTREQUEST_0_ITEMAMT: gross
 PROFILEID: subscr_id
 PROFILEREFERENCE: contribution_tracking_id
 PROFILESTARTDATE: date

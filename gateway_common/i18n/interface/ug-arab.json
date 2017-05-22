@@ -5,7 +5,7 @@
 			"Tel'et"
 		]
 	},
-	"donate_interface-amount": "مىقدارى",
+	"donate_interface-gross": "مىقدارى",
 	"donate_interface-currency": "پۇل",
 	"donate_interface-submit-button": "ئىئانە",
 	"donate_interface-comment-label": "ئىزاھات:",
@@ -21,7 +21,7 @@
 	"donate_interface-SGD": "سىنگاپور دوللىرى",
 	"donate_interface-TJS": "تاجىكىستان سومونى",
 	"donate_interface-currency-display": "$1 ($2)",
-	"donate_interface-donor-amount": "مىقدارى",
+	"donate_interface-donor-gross": "مىقدارى",
 	"donate_interface-donor-currency-label": "پۇل",
 	"donate_interface-donor-email": "ئېلخەت ئادرېسى",
 	"donate_interface-donor-name": "ئاتى",

@@ -1,7 +1,7 @@
 x_login: merchant_id
 x_trans_key: merchant_password
 x_invoice: order_id
-x_amount: amount
+x_amount: gross
 x_currency: currency
 x_bank: bank_code
 x_country: country

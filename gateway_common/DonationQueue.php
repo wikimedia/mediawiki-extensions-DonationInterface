@@ -212,7 +212,7 @@ class DonationQueue {
 			'currency' => 'currency',
 			'email' => 'email',
 			'first_name' => 'first_name',
-			'gross' => 'amount',
+			'gross' => 'gross',
 			'gateway_session_id' => 'gateway_session_id',
 			'last_name' => 'last_name',
 			'optout' => 'optout',
@@ -238,31 +238,4 @@ class DonationQueue {
 		return $message;
 	}
 
-	/**
-	 * Called by the orphan rectifier to change a queue message back into a gateway
-	 * transaction array, basically undoing the mappings from buildTransactionMessage.
-	 *
-	 * TODO: This shouldn't be necessary, see https://phabricator.wikimedia.org/T109819
-	 * @deprecated by T131275
-	 *
-	 * @param array $transaction Queue message
-	 *
-	 * @return array message with queue keys remapped to gateway keys
-	 */
-	public static function queueMessageToNormalized( $transaction ) {
-		// For now, this function assumes that we have a complete queue message.
-
-		$rekey = array(
-			'gross' => 'amount',
-		);
-
-		foreach ( $rekey as $wire => $normal ){
-			if ( isset( $transaction[$wire] ) ){
-				$transaction[$normal] = $transaction[$wire];
-				unset( $transaction[$wire] );
-			};
-		}
-
-		return $transaction;
-	}
 }

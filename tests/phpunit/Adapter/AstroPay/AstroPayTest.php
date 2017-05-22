@@ -209,7 +209,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	}
 
 	/**
-	 * Should set a validation error on amount
+	 * Should set a validation error on gross
 	 */
 	function testDoPaymentLimitExceeded() {
 		$init = $this->getDonorTestData( 'BR' );
@@ -223,7 +223,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$errors = $gateway->getTransactionResponse()->getErrors();
 		$this->assertEquals( 'donate_interface-error-msg-limit', $errors[0]->getMessageKey() );
-		$this->assertEquals( 'amount', $errors[0]->getField() );
+		$this->assertEquals( 'gross', $errors[0]->getField() );
 	}
 
 	/**
@@ -376,12 +376,12 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	 */
 	function testReturnUpdatesAmount() {
 		$init = $this->getDonorTestData( 'BR' );
-		$init['amount'] = '22.55'; // junk session data from another banner click
+		$init['gross'] = '22.55'; // junk session data from another banner click
 		$session['Donor']['order_id'] = '123456789';
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$amount = $gateway->getData_Unstaged_Escaped( 'gross' );
 		$this->assertEquals( '22.55', $amount );
 
 		$requestValues = array(
@@ -397,7 +397,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$result = $gateway->processDonorReturn( $requestValues );
 		$this->assertFalse( $result->isFailed() );
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$amount = $gateway->getData_Unstaged_Escaped( 'gross' );
 		$this->assertEquals( '100.00', $amount, 'Not recording correct amount' );
 	}
 

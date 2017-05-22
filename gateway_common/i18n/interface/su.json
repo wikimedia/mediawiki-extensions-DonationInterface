@@ -5,7 +5,7 @@
 			"Dipusparaga"
 		]
 	},
-	"donate_interface-error-msg-amount": "Asupkeun jumlah sumbangan anjeun",
+	"donate_interface-error-msg-gross": "Asupkeun jumlah sumbangan anjeun",
 	"donate_interface-error-msg-email": "Asupkeun alamat surélék anjeun",
 	"donate_interface-error-msg-street": "Asupkeun alamat anjeun",
 	"donate_interface-error-msg-state_province": "Asupkeun nagara bagéan anjeun",

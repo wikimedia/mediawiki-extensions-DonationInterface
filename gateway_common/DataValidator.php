@@ -25,7 +25,7 @@ class DataValidator {
 	public static function getErrorToken( $field ){
 		switch ( $field ) {
 			case 'email' :
-			case 'amount' :
+			case 'gross' :
 			case 'currency' :
 			case 'fiscal_number' :
 			case 'issuer_id' :
@@ -61,7 +61,7 @@ class DataValidator {
 		return array(
 			'general' => '',
 			'retryMsg' => '',
-			'amount' => '',
+			'gross' => '',
 			'card_num' => '',
 			'card_type' => '',
 			'cvv' => '',

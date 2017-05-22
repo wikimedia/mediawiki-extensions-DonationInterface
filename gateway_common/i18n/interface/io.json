@@ -11,7 +11,7 @@
 	"donate_interface-GBP": "Britaniana Pundo",
 	"donate_interface-USD": "Usana Dolaro",
 	"donate_interface-cvv-link": "Ube es ito?",
-	"donate_interface-donor-amount": "Sumo:",
+	"donate_interface-donor-gross": "Sumo:",
 	"donate_interface-donor-currency-label": "Monetaro:",
 	"donate_interface-donor-name": "Nomo:",
 	"donate_interface-donor-street_address": "Strado:",

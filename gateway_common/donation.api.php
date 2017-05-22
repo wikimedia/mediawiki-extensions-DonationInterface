@@ -117,7 +117,7 @@ class DonationApi extends ApiBase {
 	public function getAllowedParams() {
 		return array(
 			'gateway' => $this->defineParam( true ),
-			'amount' => $this->defineParam( false ),
+			'gross' => $this->defineParam( false ),
 			'currency' => $this->defineParam( false ),
 			'first_name' => $this->defineParam( false ),
 			'last_name' => $this->defineParam( false ),
@@ -159,7 +159,7 @@ class DonationApi extends ApiBase {
 	 */
 	protected function getExamplesMessages() {
 		return array(
-			'action=donate&gateway=globalcollect&amount=2.00&currency=USD'
+			'action=donate&gateway=globalcollect&gross=2.00&currency=USD'
 				=> 'apihelp-donate-example-1',
 		);
 	}

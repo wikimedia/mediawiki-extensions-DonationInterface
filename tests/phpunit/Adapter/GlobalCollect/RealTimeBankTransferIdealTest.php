@@ -73,7 +73,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$init['ffname'] = 'rtbt-ideal';
 
 		$assertNodes = array (
-			'amount' => array (
+			'gross' => array (
 				'nodename' => 'input',
 				'value' => '1.55',
 			),

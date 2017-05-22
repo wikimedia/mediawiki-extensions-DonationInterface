@@ -16,7 +16,7 @@ merchantReturnData: return_data
 merchantSig: hpp_signature
 offset: risk_score
 orderData: order_data
-paymentAmount: amount
+paymentAmount: gross
 pspReference: gateway_txn_id
 recurringContract: recurring_type
 sessionValidity: session_expiration

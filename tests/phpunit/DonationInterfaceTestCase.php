@@ -158,7 +158,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'Firstname',
 				'last_name' => 'Surname',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'en',
 				'email' => 'nobody@wikimedia.org',
 			),
@@ -170,7 +170,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Calle Fake',
 				'first_name' => 'Nombre',
 				'last_name' => 'Apellido',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'es',
 			),
 			'Catalonia' => array (
@@ -181,7 +181,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Calle Fake',
 				'first_name' => 'Nombre',
 				'last_name' => 'Apellido',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'ca',
 			),
 			'NO' => array (
@@ -192,7 +192,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Fake Gate',
 				'first_name' => 'Fornavn',
 				'last_name' => 'Etternavn',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'no',
 			),
 			'FR' => array (
@@ -203,7 +203,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Rue Faux',
 				'first_name' => 'Prénom',
 				'last_name' => 'Nom',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'fr',
 			),
 			// Fiji is configured as a snowflake to test special treatment for certain store IDs
@@ -215,7 +215,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'FirstName',
 				'last_name' => 'LastName',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'en',
 			),
 			'NL' => array (
@@ -226,7 +226,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 nep straat',
 				'first_name' => 'Voornaam',
 				'last_name' => 'Achternaam',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'nl',
 			),
 			'BE' => array (
@@ -237,7 +237,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 nep straat',
 				'first_name' => 'Voornaam',
 				'last_name' => 'Achternaam',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'nl',
 			),
 			'IT' => array (
@@ -248,7 +248,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => 'Via Falso 123',
 				'first_name' => 'Nome',
 				'last_name' => 'Cognome',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'it',
 			),
 			'CA' => array (
@@ -259,7 +259,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'Firstname',
 				'last_name' => 'Surname',
-				'amount' => '1.55',
+				'gross' => '1.55',
 				'language' => 'en',
 			),
 			'BR' => array (
@@ -268,7 +268,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'payment_submethod' => 'test_bank',
 				'first_name' => 'Nome',
 				'last_name' => 'Apelido',
-				'amount' => '100',
+				'gross' => '100',
 				'language' => 'pt',
 				'email' => 'nobody@example.org'
 			),
@@ -280,7 +280,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'first_name' => 'Nombre',
 				'last_name' => 'Apellido',
 				'email' => 'pueblo@unido.coop',
-				'amount' => '155',
+				'gross' => '155',
 				'language' => 'es',
 			),
 		);
@@ -368,7 +368,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 		'<PARAMS>';
 		$expected .= 			'<ORDER>';
 		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
-		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<AMOUNT>' . $options['gross'] * 100 . '</AMOUNT>';
 		$expected .= 				'<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
@@ -382,7 +382,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 			'</ORDER>';
 		$expected .= 			'<PAYMENT>';
 		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
-		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= 				'<AMOUNT>' . $options['gross'] * 100 . '</AMOUNT>';
 		$expected .= 				'<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
 		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
 		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';

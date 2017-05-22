@@ -2032,14 +2032,14 @@ abstract class GatewayAdapter
 		$msg = " FINAL STATUS: '$status:$action' - ";
 
 		//what do we want in here?
-		//Attempted payment type, country of origin, $status, amount... campaign?
+		//Attempted payment type, country of origin, $status, gross... campaign?
 		//error message if one exists.
 		$keys = array(
 			'payment_submethod',
 			'payment_method',
 			'country',
 			'utm_campaign',
-			'amount',
+			'gross',
 			'currency',
 		);
 
@@ -2071,7 +2071,7 @@ abstract class GatewayAdapter
 			'payment_submethod',
 			'payment_method',
 			'country',
-			'amount',
+			'gross',
 			'currency',
 		);
 
@@ -2490,7 +2490,7 @@ abstract class GatewayAdapter
 			$adapterClass = $this->getGatewayAdapterClass();
 			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
-		$oldAmount = $this->dataObj->getVal( 'amount' );
+		$oldAmount = $this->dataObj->getVal( 'gross' );
 		$usdAmount = 0.0;
 		$newAmount = 0;
 
@@ -2516,7 +2516,7 @@ abstract class GatewayAdapter
 		}
 
 		$formData = array(
-			'amount' => $newAmount,
+			'gross' => $newAmount,
 			'currency' => $defaultCurrency,
 		);
 		$this->dataObj->addData( $formData );
@@ -3596,7 +3596,7 @@ abstract class GatewayAdapter
 	 */
 	public function getLogDebugJSON() {
 		$logObj = array (
-			'amount',
+			'gross',
 			'ffname',
 			'country',
 			'currency',

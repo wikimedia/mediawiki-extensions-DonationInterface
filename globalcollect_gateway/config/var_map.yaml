@@ -8,7 +8,7 @@ ADDRESSLINE3: address_line_3 # dd:CH
 ADDRESSLINE4: address_line_4 # dd:CH
 ATTEMPTID: attempt_id
 AUTHORISATIONID: authorization_id
-AMOUNT: amount
+AMOUNT: gross
 AVSRESULT: avs_result
 BANKACCOUNTNUMBER: bank_account_number
 BANKAGENZIA: bank_agenzia # dd:IT

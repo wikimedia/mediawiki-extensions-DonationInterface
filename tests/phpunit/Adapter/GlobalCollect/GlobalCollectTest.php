@@ -256,19 +256,19 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['email'] = 'innocent@safedomain.org';
 		// The values in session are not the values we originally used
 		// for INSERT_ORDERWITHPAYMENT
-		$init['amount'] = '12.50';
+		$init['gross'] = '12.50';
 		$init['currency'] = 'USD';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$amount = $gateway->getData_Unstaged_Escaped( 'gross' );
 		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
 		$this->assertEquals( '12.50', $amount );
 		$this->assertEquals( 'USD', $currency );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
+		$amount = $gateway->getData_Unstaged_Escaped( 'gross' );
 		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
 		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
 		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency'  );
@@ -288,7 +288,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$var_map = array(
 			'ORDERID' => 'order_id',
-			'AMOUNT' => 'amount',
+			'AMOUNT' => 'gross',
 			'CURRENCYCODE' => 'currency',
 			'LANGUAGECODE' => 'language',
 			'COUNTRYCODE' => 'country',
@@ -469,7 +469,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testNoDupeOrderId( ) {
 		$this->setUpRequest( array(
 			'action'=>'donate',
-			'amount'=>'3.00',
+			'gross'=>'3.00',
 			'card_type'=>'amex',
 			'city'=>'Hollywood',
 			'contribution_tracking_id'=>'22901382',

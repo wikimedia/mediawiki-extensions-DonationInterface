@@ -46,7 +46,7 @@
 			action: 'donate',
 			gateway: $( '#gateway' ).val(),
 			currency: $( '#currency' ).val(),
-			amount: $( '#amount' ).val(),
+			gross: $( '#gross' ).val(),
 			first_name: $( '#first_name' ).val(),
 			last_name: $( '#last_name' ).val(),
 			street_address: $( '#street_address' ).val(),

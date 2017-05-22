@@ -8,7 +8,7 @@
 	},
 	"donate_interface": "વિકિમીડિયાની મદદ કરો",
 	"donate_interface-intro": "કૃપા કરી ચૂકવણી પદ્ધતિ, રકમ, અને ચલણ પસંદ કરો",
-	"donate_interface-amount": "રકમ",
+	"donate_interface-gross": "રકમ",
 	"donate_interface-other-amount": "અન્ય રકમ",
 	"donate_interface-currency": "ચલણ:",
 	"donate_interface-gateway": "ચુકવણી પદ્ધતિ:",

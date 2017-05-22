@@ -284,11 +284,11 @@ class AstroPayAdapter extends GatewayAdapter {
 				ResponseCodes::MISSING_TRANSACTION_ID
 			);
 		}
-		// Make sure we record the right amount, even if the donor has opened
+		// Make sure we record the right gross, even if the donor has opened
 		// a new window and messed with their session data.
 		// Unfortunately, we don't get the currency code back.
 		$this->addResponseData( array(
-			'amount' => $requestValues['x_amount']
+			'gross' => $requestValues['x_amount']
 		) );
 		// FIXME: There is no real API response, so maybe we should put the
 		// gateway txn id in unstaged data. As is, we need to fabricate a
@@ -364,10 +364,10 @@ class AstroPayAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 				} else if ( preg_match( '/^the user limit has been exceeded/i', $response['desc'] ) ) {
 					// They've spent too much via AstroPay today.
-					// Setting context to 'amount' will tell the form to treat
+					// Setting context to 'gross' will tell the form to treat
 					// this like a validation error and make amount editable.
 					$error = new ValidationError(
-						'amount',
+						'gross',
 						'donate_interface-error-msg-limit'
 					);
 				} else if ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
