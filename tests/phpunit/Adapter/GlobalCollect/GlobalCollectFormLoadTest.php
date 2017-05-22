@@ -100,7 +100,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					).
 					'\s*$/',
 			),
-			'state' => array (
+			'state_province' => array (
 				'nodename' => 'select',
 				'selected' => 'CA',
 			),
@@ -252,7 +252,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
-			'state' => array (
+			'state_province' => array (
 				'nodename' => 'select',
 				'selected' => 'SK',
 			),

@@ -37,7 +37,7 @@ class DataValidator {
 			case 'city':
 			case 'country':
 			case 'street_address':
-			case 'state':
+			case 'state_province':
 			case 'postal_code':
 			case 'expiration':
 				$error_token = $field;
@@ -71,7 +71,7 @@ class DataValidator {
 			'city' => '',
 			'country' => '',
 			'street_address' => '',
-			'state' => '',
+			'state_province' => '',
 			'postal_code' => '',
 			'email' => '',
 		);

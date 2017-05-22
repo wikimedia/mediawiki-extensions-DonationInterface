@@ -20,7 +20,7 @@
 	"donate_interface-donor-city": "Stadt",
 	"donate_interface-donor-county": "Kreis",
 	"donate_interface-donor-island": "Eiland",
-	"donate_interface-donor-state": "Staat",
+	"donate_interface-donor-state_province": "Staat",
 	"donate_interface-donor-postal_code-us": "Postleedtall",
 	"donate_interface-donor-postal_code": "Postleedzahl",
 	"donate_interface-donor-country": "Staat/Distrikt",

@@ -218,7 +218,7 @@ class DonationQueue {
 			'optout' => 'optout',
 			'recurring' => 'recurring',
 			'risk_score' => 'risk_score',
-			'state_province' => 'state',
+			'state_province' => 'state_province',
 			'street_address' => 'street_address',
 			'supplemental_address_1' => 'supplemental_address_1',
 			'subscr_id' => 'subscr_id',
@@ -254,7 +254,6 @@ class DonationQueue {
 
 		$rekey = array(
 			'gross' => 'amount',
-			'state_province' => 'state',
 		);
 
 		foreach ( $rekey as $wire => $normal ){

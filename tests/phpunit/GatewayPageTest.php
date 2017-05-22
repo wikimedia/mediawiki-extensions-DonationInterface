@@ -189,7 +189,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'response' => false,
 			'street_address' => '123 Fake Street',
 			'city' => 'San Francisco',
-			'state' => 'CA',
+			'state_province' => 'CA',
 			'postal_code' => '94105',
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 		);

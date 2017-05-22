@@ -175,7 +175,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		// If any of these are required, show the address block
 		$address_fields = array(
 			'city',
-			'state',
+			'state_province',
 			'postal_code',
 			'street_address',
 		);
@@ -202,7 +202,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				3 => 'thirdwidth'
 			);
 			$data['address_css_class'] = $classes[$address_field_count];
-			if ( !empty( $data['state_required'] ) ) {
+			if ( !empty( $data['state_province_required'] ) ) {
 				$this->setStateOptions( $data );
 			}
 		}
@@ -210,13 +210,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setStateOptions( &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
-		$data['state_options'] = array();
+		$data['state_province_options'] = array();
 
 		foreach ( $state_list as $abbr => $name ) {
-			$selected = isset( $data['state'] )
-				&& $data['state'] === $abbr;
+			$selected = isset( $data['state_province'] )
+				&& $data['state_province'] === $abbr;
 
-			$data['state_options'][] = array(
+			$data['state_province_options'][] = array(
 				'abbr' => $abbr,
 				'name' => $name,
 				'selected' => $selected,

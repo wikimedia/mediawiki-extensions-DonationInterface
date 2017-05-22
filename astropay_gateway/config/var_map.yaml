@@ -15,7 +15,7 @@ x_bdate: birth_date
 x_address: street_address
 x_zip: postal_code
 x_city: city
-x_state: state
+x_state: state_province
 x_document: gateway_txn_id
 control: control
 country_code: country

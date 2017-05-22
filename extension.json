@@ -254,12 +254,11 @@
 				"donate_interface-donor-last_name",
 				"donate_interface-donor-street_address",
 				"donate_interface-donor-city",
-				"donate_interface-donor-state",
+				"donate_interface-donor-state_province",
 				"donate_interface-donor-postal_code",
 				"donate_interface-donor-country",
 				"donate_interface-donor-email",
 				"donate_interface-donor-fiscal_number",
-				"donate_interface-state-province",
 				"donate_interface-cvv-explain"
 			]
 		},

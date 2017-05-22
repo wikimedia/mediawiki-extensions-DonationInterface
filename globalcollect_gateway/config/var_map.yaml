@@ -49,7 +49,7 @@ PAYMENTREFERENCE: payment_reference
 PROVINCIA: provincia # dd:ES
 RETURNURL: returnto
 SPECIALID: special_id
-STATE: state
+STATE: state_province
 STREET: street_address
 SURNAME: last_name
 SWIFTCODE: swift_code

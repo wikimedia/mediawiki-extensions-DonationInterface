@@ -2381,7 +2381,7 @@ abstract class GatewayAdapter
 					);
 					$country = $this->getData_Unstaged_Escaped( 'country' );
 					if ( $country && Subdivisions::getByCountry( $country ) ) {
-						$check_not_empty[] = 'state';
+						$check_not_empty[] = 'state_province';
 					}
 					break;
 				case 'creditCard' :

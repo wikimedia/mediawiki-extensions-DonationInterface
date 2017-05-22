@@ -411,7 +411,7 @@ div.error-box h2 {
         margin-bottom: 10px !important;
         transition: none;
     }
-    select#state:hover {
+    select#state_province:hover {
         background: #fff;
         color: #222 !important;
     }

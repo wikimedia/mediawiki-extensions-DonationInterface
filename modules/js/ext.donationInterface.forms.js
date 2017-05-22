@@ -51,7 +51,7 @@
 			last_name: $( '#last_name' ).val(),
 			street_address: $( '#street_address' ).val(),
 			city: $( '#city' ).val(),
-			state: $( '#state' ).val(),
+			state_province: $( '#state_province' ).val(),
 			postal_code: $( '#postal_code' ).val(),
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),

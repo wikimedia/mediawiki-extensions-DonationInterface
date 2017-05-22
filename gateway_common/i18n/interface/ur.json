@@ -29,7 +29,7 @@
 	"donate_interface-donor-city": "شہر",
 	"donate_interface-donor-county": "کاؤنٹی",
 	"donate_interface-donor-island": "جزائر",
-	"donate_interface-donor-state": "ریاست",
+	"donate_interface-donor-state_province": "ریاست",
 	"donate_interface-donor-postal_code-us": "زپ",
 	"donate_interface-donor-postal_code": "پوسٹل کوڈ",
 	"donate_interface-donor-zone": "زون",

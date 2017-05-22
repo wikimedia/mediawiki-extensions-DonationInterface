@@ -141,7 +141,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		// mapping of data keys -> minfraud array keys
 		$map = array(
 			"city" => "city",
-			"region" => "state",
+			"region" => "state_province",
 			"postal" => "postal_code",
 			"country" => "country",
 			"domain" => "email",

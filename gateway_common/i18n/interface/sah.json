@@ -54,7 +54,7 @@
 	"donate_interface-donor-last_name": "Араспаанньата:",
 	"donate_interface-donor-street_address": "Уулуссата:",
 	"donate_interface-donor-city": "Куората:",
-	"donate_interface-donor-state": "Региона (штаата):",
+	"donate_interface-donor-state_province": "Региона (штаата):",
 	"donate_interface-donor-postal_code": "Почтатын ииндэксэ:",
 	"donate_interface-donor-country": "Дойдута",
 	"donate_interface-donor-address": "Аадырыһа:",
@@ -78,7 +78,7 @@
 	"donate_interface-error-msg-last_name": "Бука диэн маны киллэр араспаанньата",
 	"donate_interface-error-msg-street_address": "Бука диэн маны киллэр почтатын аадырыһа",
 	"donate_interface-error-msg-city": "Бука диэн маны киллэр куората",
-	"donate_interface-error-msg-state": "Бука диэн маны киллэр регион (штаат)",
+	"donate_interface-error-msg-state_province": "Бука диэн маны киллэр регион (штаат)",
 	"donate_interface-error-msg-postal_code-us": "Бука диэн маны киллэр индекс",
 	"donate_interface-error-msg-country": "дойду",
 	"donate_interface-error-msg-card_num": "кирэдьиит каартатын нүөмэрэ",
@@ -99,7 +99,6 @@
 	"donate_interface-cc-form-header-personal": "Төлөбүр туһунан",
 	"donate_interface-cc-form-header-payment": "Төлөбүр туһунан",
 	"donate_interface-make-your-donation": "Уталыппакка сиэртибэлээ",
-	"donate_interface-state-in-us": "АХШ иһигэр буоллаҕына",
 	"donate_interface-comment": "Хос быһаарыы",
 	"donate_interface-first": "Бастакы",
 	"donate_interface-middle": "Аҕатын аата (иккис аата)",
@@ -127,7 +126,6 @@
 	"donate_interface-apartment-number": "Кв. #",
 	"donate_interface-city-town": "Куората/нэһилиэнньэлээх пууна",
 	"donate_interface-town-city": "Нэһилиэнньэлээх пууна/Куората",
-	"donate_interface-state-province": "Региона",
 	"donate_interface-zip": "Ииндэксэ",
 	"donate_interface-zip-code": "Почтатын ииндэксэ",
 	"donate_interface-zip-postal": "Ииндэксэ/Почтата",
@@ -190,5 +188,5 @@
 	"donate_interface-select": "Размер:",
 	"donate_interface-donation-must-equal": "Сиэртибэ кээмэйэ мантан $1 кыра буолуо суохтаах.",
 	"donate_interface-thank-you": "Махтанабыт! Сиэртибэҥ киирдэ.",
-	"donate_interface-state-dropdown-XX": "АХШ таһыгар"
+	"donate_interface-state_province-dropdown-XX": "АХШ таһыгар"
 }

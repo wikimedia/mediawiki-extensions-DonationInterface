@@ -8,7 +8,7 @@
 	"donate_interface-currency": "Faluta:",
 	"donate_interface-donor-currency-label": "Faluta",
 	"donate_interface-donor-email": "E-mailadres:",
-	"donate_interface-donor-state-ca": "Provinsje",
+	"donate_interface-donor-state_province-ca": "Provinsje",
 	"donate_interface-error-msg-country": "lân",
 	"donate_interface-country": "Lân",
 	"donate_interface-next": "Folgjende",

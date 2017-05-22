@@ -29,7 +29,7 @@ class AstroPaySignature implements StagingHelper {
 				. /* postal_code omitted */ 'A'
 				. /* street omitted */ 'P'
 				. /* city omitted */ 'S'
-				. /* state omitted */ 'P'
+				. /* state_province omitted */ 'P'
 			);
 		}
 	}

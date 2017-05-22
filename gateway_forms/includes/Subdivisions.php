@@ -22,7 +22,7 @@ class Subdivisions {
 
 	private static $keyBase = array(
 		'CA' => 'donate_interface-province-dropdown-',
-		'US' => 'donate_interface-state-dropdown-',
+		'US' => 'donate_interface-state_province-dropdown-',
 	);
 
 	private static $list = array(

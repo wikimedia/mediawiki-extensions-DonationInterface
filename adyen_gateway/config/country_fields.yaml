@@ -1,5 +1,5 @@
 AU:
-    state: true
+    state_province: true
 CA:
     address: true
 GB:

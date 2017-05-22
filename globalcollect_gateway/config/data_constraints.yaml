@@ -181,7 +181,7 @@ special_id:
     type: alphanumeric
     length: 255
 # STATE: AN35
-state:
+state_province:
     type: alphanumeric
     length: 35
 # STREET: AN50

@@ -152,7 +152,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$donortestdata = array (
 			'US' => array ( //default
 				'city' => 'San Francisco',
-				'state' => 'CA',
+				'state_province' => 'CA',
 				'postal_code' => '94105',
 				'currency' => 'USD',
 				'street_address' => '123 Fake Street',
@@ -164,7 +164,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'ES' => array (
 				'city' => 'Barcelona',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 Calle Fake',
@@ -175,7 +175,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'Catalonia' => array (
 				'city' => 'Barcelona',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 Calle Fake',
@@ -186,7 +186,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'NO' => array (
 				'city' => 'Oslo',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 Fake Gate',
@@ -197,7 +197,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'FR' => array (
 				'city' => 'Versailles',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 Rue Faux',
@@ -209,7 +209,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			// Fiji is configured as a snowflake to test special treatment for certain store IDs
 			'FJ' => array (
 				'city' => 'Suva',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 Fake Street',
@@ -220,7 +220,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'NL' => array (
 				'city' => 'Amsterdam',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 nep straat',
@@ -231,7 +231,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'BE' => array (
 				'city' => 'Antwerp',
-				'state' => 'XX',
+				'state_province' => 'XX',
 				'postal_code' => '0',
 				'currency' => 'EUR',
 				'street_address' => '123 nep straat',
@@ -242,7 +242,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'IT' => array (
 				'city' => 'Torino',
-				'state' => 'TO',
+				'state_province' => 'TO',
 				'postal_code' => '10123',
 				'currency' => 'EUR',
 				'street_address' => 'Via Falso 123',
@@ -253,7 +253,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'CA' => array (
 				'city' => 'Saskatoon',
-				'state' => 'SK',
+				'state_province' => 'SK',
 				'postal_code' => 'S7K 0J5',
 				'currency' => 'CAD',
 				'street_address' => '123 Fake Street',
@@ -274,7 +274,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			),
 			'MX' => array (
 				'city' => 'Tuxtla Gutiérrez',
-				'state' => 'CHP',
+				'state_province' => 'CHP',
 				'currency' => 'MXN',
 				'street_address' => 'Calle Falso 123',
 				'first_name' => 'Nombre',
@@ -393,7 +393,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$expected .= 				'<SURNAME>' . $options['last_name'] . '</SURNAME>';
 		$expected .= 				'<STREET>' . $options['street_address'] . '</STREET>';
 		$expected .= 				'<CITY>' . $options['city'] . '</CITY>';
-		$expected .= 				'<STATE>' . $options['state'] . '</STATE>';
+		$expected .= 				'<STATE>' . $options['state_province'] . '</STATE>';
 		$expected .= 				'<ZIP>' . $options['postal_code'] . '</ZIP>';
 		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 

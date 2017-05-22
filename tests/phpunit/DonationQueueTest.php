@@ -60,7 +60,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'payment_submethod' => 'visa',
 			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'response' => 'Gateway response something',
-			'state' => 'AK',
+			'state_province' => 'AK',
 			'street_address' => '1 Fake St.',
 			'user_ip' => '127.0.0.1',
 			'utm_source' => 'testing',
