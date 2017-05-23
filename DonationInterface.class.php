@@ -50,7 +50,11 @@ class DonationInterface {
 		$testDir = __DIR__ . '/tests/phpunit/';
 
 		// Set up globaltown
-		require_once $testDir . 'TestConfiguration.php';
+		if ( file_exists( $testDir . 'TestConfiguration.php' ) ) {
+			require_once $testDir . 'TestConfiguration.php';
+		} else {
+			return true;
+		}
 
 		$files[] = $testDir . 'AllTests.php';
 
