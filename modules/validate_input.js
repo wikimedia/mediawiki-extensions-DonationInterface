@@ -4,14 +4,14 @@
  */
 window.validateAmount = function () {
 	var error = true,
-		amount = $( 'input[name="amount"]' ).val(), // get the amount
-		currency_code = '',
+		amount = $( 'input[name="gross"]' ).val(), // get the amount
+		currency = '',
 		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 		rate,
 		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
 		minDisplay,
 		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
-		$amountMsg = $( '#amountMsg' );
+		$grossMsg = $( '#grossMsg' );
 
 	// Normalize weird amount formats.
 	// Don't mess with these unless you know what you're doing.
@@ -20,32 +20,32 @@ window.validateAmount = function () {
 	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
 	amount = amount.replace( /[,.]/g, '' );
 	amount = amount.replace( /:/, '.' );
-	$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
+	$( 'input[name="gross"]' ).val( amount ); // set the new amount back into the form
 	/*jshint ignore:end*/
 
 	// Check amount is a real number, sets error as true (good) if no issues
 	error = ( amount === null || isNaN( amount ) || amount.value <= 0 );
 
 	// Check amount is at least the minimum
-	if ( $( 'input[name="currency_code"]' ).length ) {
-		currency_code = $( 'input[name="currency_code"]' ).val();
+	if ( $( 'input[name="currency"]' ).length ) {
+		currency = $( 'input[name="currency"]' ).val();
 	}
-	if ( $( 'select[name="currency_code"]' ).length ) {
-		currency_code = $( 'select[name="currency_code"]' ).val();
+	if ( $( 'select[name="currency"]' ).length ) {
+		currency = $( 'select[name="currency"]' ).val();
 	}
 
-	if ( ( typeof rates[ currency_code ] ) === 'undefined' ) {
+	if ( ( typeof rates[ currency ] ) === 'undefined' ) {
 		rate = 1;
 	} else {
-		rate = rates[ currency_code ];
+		rate = rates[ currency ];
 	}
 	// if we're on a new form, clear existing amount error
-	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
+	$grossMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
 	if ( ( amount < minUsd * rate ) || error ) {
 		// Round to two decimal places (TODO: no decimals for some currencies)
 		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
-		message = message.replace( '$1', minDisplay + ' ' + currency_code );
-		$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
+		message = message.replace( '$1', minDisplay + ' ' + currency );
+		$grossMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 
 		error = true;
 		// See if we're on a webitects accordion form
@@ -58,8 +58,7 @@ window.validateAmount = function () {
 				$( '#step3wrapper' ).slideUp();
 			}
 		}
-		$( '#other-amount' ).val( '' );
-		$( '#other-amount' ).focus();
+		$( '#gross' ).focus();
 	}
 	return !error;
 };

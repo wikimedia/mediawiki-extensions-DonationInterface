@@ -259,10 +259,10 @@
 	}
 
 	function lockDonationAmount() {
-		if ( $( '#amount_input' ).is( ':visible' ) ) {
-			$( '#amount_input' ).hide();
-			$( '#selected-amount' )
-				.text( $( '#amount' ).val() + ' ' + $( '#currency_code' ).val() )
+		if ( $( '#gross_input' ).is( ':visible' ) ) {
+			$( '#gross_input' ).hide();
+			$( '#selected-gross' )
+				.text( $( '#amount' ).val() + ' ' + $( '#currency' ).val() )
 				.show();
 		}
 	}
@@ -289,8 +289,8 @@
 			action: 'di_amazon_bill',
 			format: 'json',
 			recurring: isRecurring,
-			amount: $( '#amount' ).val(),
-			currency_code: $( '#currency_code' ).val(),
+			gross: $( '#gross' ).val(),
+			currency: $( '#currency' ).val(),
 			wmf_token: $( '#wmf_token' ).val()
 		};
 

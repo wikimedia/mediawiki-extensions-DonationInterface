@@ -194,8 +194,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
 		$this->addRequestData( array(
 			'email' => $email,
-			'fname' => $fname,
-			'lname' => $lname,
+			'first_name' => $fname,
+			'last_name' => $lname,
 		) );
 		// Stash their info in pending queue and logs to fill in data for
 		// audit and IPN messages
@@ -290,8 +290,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Setting details for order $orderReferenceId" );
 		$this->callPwaClient( 'setOrderReferenceDetails', array(
 			'amazon_order_reference_id' => $orderReferenceId,
-			'amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'amount' => $this->getData_Staged( 'gross' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_id' => $this->getData_Staged( 'order_id' ),
 		) );
@@ -306,8 +306,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
 		$authResponse = $this->callPwaClient( 'authorize', array(
 			'amazon_order_reference_id' => $orderReferenceId,
-			'authorization_amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'authorization_amount' => $this->getData_Staged( 'gross' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'capture_now' => true, // combine authorize and capture steps
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'transaction_timeout' => 0, // authorize synchronously
@@ -360,8 +360,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->logger->info( "Authorizing and capturing payment on billing agreement $billingAgreementId" );
 		$authResponse = $this->callPwaClient( 'authorizeOnBillingAgreement', array(
 			'amazon_billing_agreement_id' => $billingAgreementId,
-			'authorization_amount' => $this->getData_Staged( 'amount' ),
-			'currency_code' => $this->getData_Staged( 'currency_code' ),
+			'authorization_amount' => $this->getData_Staged( 'gross' ),
+			'currency_code' => $this->getData_Staged( 'currency' ),
 			'capture_now' => true, // combine authorize and capture steps
 			'authorization_reference_id' => $this->getData_Staged( 'order_id' ),
 			'seller_order_id' => $this->getData_Staged( 'order_id' ),

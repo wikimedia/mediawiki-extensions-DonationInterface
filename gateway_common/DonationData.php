@@ -36,19 +36,19 @@ class DonationData implements LogPrefixProvider {
 	 * ffname and referrer for easy total destruction.
 	 */
 	protected static $fieldNames = array(
-		'amount',
+		'amount', //deprecated
 		'amountGiven',
 		'amountOther',
+		'gross',
 		'appeal',
 		'email',
-		// @deprecated
 		'emailAdd',
-		'fname',
-		'lname',
-		'street',
-		'street_supplemental',
+		'first_name',
+		'last_name',
+		'street_address',
+		'supplemental_address_1',
 		'city',
-		'state',
+		'state_province',
 		'postal_code',
 		'country',
 		'card_num',
@@ -189,14 +189,27 @@ class DonationData implements LogPrefixProvider {
 		if ( is_null( $donorData ) ) {
 			return;
 		}
+		// Transitional code, used for a few hours after deploy.
+		// Please delete before next deploy
+		$rekey = array(
+			'amount' => 'gross',
+			'currency_code' => 'currency',
+			'fname' => 'first_name',
+			'lname' => 'last_name',
+			'state' => 'state_province',
+		);
 		//fields that should always overwrite with their original values
 		$overwrite = array( 'referrer', 'contribution_tracking_id' );
 		foreach ( $donorData as $key => $val ) {
-			if ( !$this->isSomething( $key ) ) {
-				$this->setVal( $key, $val );
+			$newKey = $key;
+			if ( isset( $rekey[$key] ) ) {
+				$newKey = $rekey[$key];
+			}
+			if ( !$this->isSomething( $newKey ) ) {
+				$this->setVal( $newKey, $val );
 			} else {
-				if ( in_array( $key, $overwrite ) ) {
-					$this->setVal( $key, $val );
+				if ( in_array( $newKey, $overwrite ) ) {
+					$this->setVal( $newKey, $val );
 				}
 			}
 		}
@@ -288,14 +301,14 @@ class DonationData implements LogPrefixProvider {
 	public function getCalculatedFields() {
 		$fields = array(
 			'utm_source',
-			'amount',
+			'gross',
 			'order_id',
 			'gateway',
 			'optout',
 			'anonymous',
 			'language',
 			'contribution_tracking_id', //sort of...
-			'currency_code',
+			'currency',
 			'user_ip',
 		);
 		return $fields;
@@ -440,11 +453,11 @@ class DonationData implements LogPrefixProvider {
 	 * normalize helper function
 	 * Setting the currency code correctly.
 	 * Historically, this value could come in through 'currency' or
-	 * 'currency_code'. After this fires, we will only have 'currency_code'.
+	 * 'currency_code'. After this fires, we will only have 'currency'.
 	 */
 	protected function setCurrencyCode() {
 		//at this point, we can have either currency, or currency_code.
-		//-->>currency_code has the authority!<<-- 
+		//-->>currency has the authority!<<--
 		$currency = false;
 
 		if ( $this->isSomething( 'currency' ) ) {
@@ -466,8 +479,8 @@ class DonationData implements LogPrefixProvider {
 			$this->logger->debug( "Got currency from 'country', now: $currency" );
 		}
 
-		$this->setVal( 'currency_code', $currency );
-		$this->expunge( 'currency' );  //honestly, we don't want this.
+		$this->setVal( 'currency', $currency );
+		$this->expunge( 'currency_code' );  //honestly, we don't want this.
 	}
 
 	/**
@@ -494,40 +507,44 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * normalize helper function.
 	 * Takes all possible sources for the intended donation amount, and
-	 * normalizes them into the 'amount' field.
+	 * normalizes them into the 'gross' field.
 	 */
 	protected function setNormalizedAmount() {
-		if ( $this->getVal( 'amount' ) === 'Other' ) {
-			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
+		if ( $this->getVal( 'gross' ) === 'Other' ) {
+			$this->setVal( 'gross', $this->getVal( 'amountGiven' ) );
 		}
 
-		$amountIsNotValidSomehow = ( !( $this->isSomething( 'amount' ) ) ||
-			!is_numeric( $this->getVal( 'amount' ) ) ||
-			$this->getVal( 'amount' ) <= 0 );
+		$amountIsNotValidSomehow = ( !( $this->isSomething( 'gross' ) ) ||
+			!is_numeric( $this->getVal( 'gross' ) ) ||
+			$this->getVal( 'gross' ) <= 0 );
 
 		if ( $amountIsNotValidSomehow &&
+			( $this->isSomething( 'amount' ) && is_numeric( $this->getVal( 'amount' ) ) )
+		) {
+			$this->setVal( 'gross', $this->getVal( 'amount' ) );
+		} else if ( $amountIsNotValidSomehow &&
 			( $this->isSomething( 'amountGiven' ) && is_numeric( $this->getVal( 'amountGiven' ) ) )
 		) {
-			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
+			$this->setVal( 'gross', $this->getVal( 'amountGiven' ) );
 		} else if ( $amountIsNotValidSomehow &&
 			( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) )
 		) {
-			$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
+			$this->setVal( 'gross', $this->getVal( 'amountOther' ) );
 		}
 
-		if ( !( $this->isSomething( 'amount' ) ) ) {
-			$this->setVal( 'amount', '0.00' );
+		if ( !( $this->isSomething( 'gross' ) ) ) {
+			$this->setVal( 'gross', '0.00' );
 		}
 
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
 
-		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
+		if ( !is_numeric( $this->getVal( 'gross' ) ) ) {
 			//fail validation later, log some things.
 			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
 			$keys = array(
-				'amount',
+				'gross',
 				'utm_source',
 				'utm_campaign',
 				'email',
@@ -537,13 +554,13 @@ class DonationData implements LogPrefixProvider {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
 			$this->logger->debug( $mess );
-			$this->setVal( 'amount', 'invalid' );
+			$this->setVal( 'gross', 'invalid' );
 			return;
 		}
 
 		$this->setVal(
-			'amount',
-			Amount::round( $this->getVal( 'amount' ), $this->getVal( 'currency_code' ) )
+			'gross',
+			Amount::round( $this->getVal( 'gross' ), $this->getVal( 'currency' ) )
 		);
 	}
 
@@ -814,8 +831,8 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
-		if ( $this->isSomething( 'currency_code' ) && $this->isSomething( 'amount' ) ) {
-			$tracking_data['form_amount'] = $this->getVal( 'currency_code' ) . " " . $this->getVal( 'amount' );
+		if ( $this->isSomething( 'currency' ) && $this->isSomething( 'gross' ) ) {
+			$tracking_data['form_amount'] = $this->getVal( 'currency' ) . " " . $this->getVal( 'gross' );
 		}
 
 		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
@@ -914,12 +931,12 @@ class DonationData implements LogPrefixProvider {
 			'utm_campaign',
 			'language',
 			'email',
-			'fname',
-			'lname',
-			'street',
-			'street_supplemental',
+			'first_name',
+			'last_name',
+			'street_address',
+			'supplemental_address_1',
 			'city',
-			'state',
+			'state_province',
 			'country',
 			'postal_code',
 			'gateway',
@@ -931,8 +948,8 @@ class DonationData implements LogPrefixProvider {
 			'payment_method',
 			'payment_submethod',
 			'response',
-			'currency_code',
-			'amount',
+			'currency',
+			'gross',
 			'user_ip',
 			'date',
 			'gateway_session_id',
@@ -947,8 +964,8 @@ class DonationData implements LogPrefixProvider {
 		$fields = array(
 			'gateway',
 			'country',
-			'currency_code',
-			'amount',
+			'currency',
+			'gross',
 			'language',
 			'utm_source',
 			'utm_medium',

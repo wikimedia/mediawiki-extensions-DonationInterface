@@ -9,9 +9,9 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 	 */
 	private static $addressFields = array(
 		'city',
-		'state',
-		'street',
-		'street_supplemental',
+		'state_province',
+		'street_address',
+		'supplemental_address_1',
 		'postal_code',
 		);
 

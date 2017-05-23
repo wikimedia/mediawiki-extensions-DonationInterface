@@ -37,7 +37,7 @@ authorization_id:
     type: alphanumeric
     length: 18
 # AMOUNT: N12
-amount:
+gross:
     type: numeric
     length: 12
 # BANKACCOUNTNUMBER: AN50
@@ -105,7 +105,7 @@ card_num:
     type: numeric
     length: 19
 # CURRENCYCODE: AN3
-currency_code:
+currency:
     type: alphanumeric
     length: 3
 # CVV: N4
@@ -137,7 +137,7 @@ expiration:
     type: numeric
     length: 4
 # FIRSTNAME: AN15
-fname:
+first_name:
     type: alphanumeric
     length: 15
 # IBAN: AN50 (AN21 on direct debit)
@@ -181,15 +181,15 @@ special_id:
     type: alphanumeric
     length: 255
 # STATE: AN35
-state:
+state_province:
     type: alphanumeric
     length: 35
 # STREET: AN50
-street:
+street_address:
     type: alphanumeric
     length: 50
 # SURNAME: AN35
-lname:
+last_name:
     type: alphanumeric
     length: 35
 # SWIFTCODE: AN255

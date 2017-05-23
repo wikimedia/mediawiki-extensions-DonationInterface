@@ -1,9 +1,9 @@
 AU:
-    state: true
+    state_province: true
 CA:
     address: true
 GB:
     address: true
 US:
-    street: true
+    street_address: true
     postal_code: true

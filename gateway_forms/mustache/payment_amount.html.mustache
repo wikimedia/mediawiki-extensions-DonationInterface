@@ -1,16 +1,16 @@
-<h3 class="amount_header">{{# recurring }}{{ l10n "donate_interface-monthlybox-amount" }}{{/ recurring }}{{^ recurring }}{{ l10n "donate_interface-amount-legend" }}{{/ recurring }}:
-	<span id="amount_input" {{^ show_amount_input }}class="hidden"{{/ show_amount_input }} >
-		<input type="number" step="any" name="amount" id="amount" title="{{ donate_interface-amount }}" value="{{ amount }}" />
-		<select name="currency_code" id="currency_code" title="{{ donate_interface-currency }}" {{^ show_currency_selector }}class="hidden"{{/ show_currency_selector }} >
+<h3 class="gross_header">{{# recurring }}{{ l10n "donate_interface-monthlybox-gross" }}{{/ recurring }}{{^ recurring }}{{ l10n "donate_interface-gross-legend" }}{{/ recurring }}:
+	<span id="gross_input" {{^ show_gross_input }}class="hidden"{{/ show_gross_input }} >
+		<input type="number" step="any" name="gross" id="gross" title="{{ donate_interface-gross }}" value="{{ gross }}" />
+		<select name="currency" id="currency" title="{{ donate_interface-currency }}" {{^ show_currency_selector }}class="hidden"{{/ show_currency_selector }} >
 		{{# currencies }}
 			<option value="{{ code }}" {{# selected }}selected{{/ selected }} >{{ code }}</option>
 		{{/ currencies }}
 		</select>
 		{{^ show_currency_selector }}
-		{{ currency_code }}
+		{{ currency }}
 		{{/ show_currency_selector }}
 	</span>
-	<span id="selected-amount" {{# show_amount_input }}class="hidden"{{/ show_amount_input }}>
-		{{ display_amount }}
+	<span id="selected-gross" {{# show_gross_input }}class="hidden"{{/ show_gross_input }}>
+		{{ display_gross }}
 	</span>
 </h3>

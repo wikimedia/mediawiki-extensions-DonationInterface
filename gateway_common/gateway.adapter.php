@@ -2032,15 +2032,15 @@ abstract class GatewayAdapter
 		$msg = " FINAL STATUS: '$status:$action' - ";
 
 		//what do we want in here?
-		//Attempted payment type, country of origin, $status, amount... campaign?
+		//Attempted payment type, country of origin, $status, gross... campaign?
 		//error message if one exists.
 		$keys = array(
 			'payment_submethod',
 			'payment_method',
 			'country',
 			'utm_campaign',
-			'amount',
-			'currency_code',
+			'gross',
+			'currency',
 		);
 
 		foreach ( $keys as $key ) {
@@ -2071,8 +2071,8 @@ abstract class GatewayAdapter
 			'payment_submethod',
 			'payment_method',
 			'country',
-			'amount',
-			'currency_code',
+			'gross',
+			'currency',
 		);
 
 		foreach ( $keys as $key ) {
@@ -2372,7 +2372,7 @@ abstract class GatewayAdapter
 			switch ( $type ) {
 				case 'address' :
 					$check_not_empty = array(
-						'street',
+						'street_address',
 						'city',
 						'country',
 						'postal_code', //this should really be added or removed, depending on the country and/or gateway requirements.
@@ -2381,7 +2381,7 @@ abstract class GatewayAdapter
 					);
 					$country = $this->getData_Unstaged_Escaped( 'country' );
 					if ( $country && Subdivisions::getByCountry( $country ) ) {
-						$check_not_empty[] = 'state';
+						$check_not_empty[] = 'state_province';
 					}
 					break;
 				case 'creditCard' :
@@ -2394,8 +2394,8 @@ abstract class GatewayAdapter
 					break;
 				case 'name' :
 					$check_not_empty = array(
-						'fname',
-						'lname'
+						'first_name',
+						'last_name'
 					);
 					break;
 				default:
@@ -2442,7 +2442,7 @@ abstract class GatewayAdapter
 		}
 
 		// TODO: Rewrite as something modular?  It's in-between validation and normalization...
-		if ( $this->errorState->hasValidationError( 'currency_code' ) ) {
+		if ( $this->errorState->hasValidationError( 'currency' ) ) {
 			// Try to fall back to a default currency, clearing the error if
 			// successful.
 			$this->fallbackToDefaultCurrency();
@@ -2485,12 +2485,12 @@ abstract class GatewayAdapter
 		}
 		// Our conversion rates are all relative to USD, so use that as an
 		// intermediate currency if converting between two others.
-		$oldCurrency = $this->dataObj->getVal( 'currency_code' );
+		$oldCurrency = $this->dataObj->getVal( 'currency' );
 		if ( $oldCurrency === $defaultCurrency ) {
 			$adapterClass = $this->getGatewayAdapterClass();
 			throw new DomainException( __FUNCTION__ . " Unsupported currency $defaultCurrency set as fallback for $adapterClass." );
 		}
-		$oldAmount = $this->dataObj->getVal( 'amount' );
+		$oldAmount = $this->dataObj->getVal( 'gross' );
 		$usdAmount = 0.0;
 		$newAmount = 0;
 
@@ -2516,15 +2516,15 @@ abstract class GatewayAdapter
 		}
 
 		$formData = array(
-			'amount' => $newAmount,
-			'currency_code' => $defaultCurrency,
+			'gross' => $newAmount,
+			'currency' => $defaultCurrency,
 		);
 		$this->dataObj->addData( $formData );
 
 		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
 
 		// Clear the currency error.
-		$this->errorState->clearValidationError( 'currency_code' );
+		$this->errorState->clearValidationError( 'currency' );
 
 		$notify = $this->getGlobal( 'NotifyOnConvert' );
 
@@ -2533,7 +2533,7 @@ abstract class GatewayAdapter
 		if ( $notify || $this->errorState->hasErrors() ) {
 			$this->errorState->addError(
 				new ValidationError(
-					'currency_code',
+					'currency',
 					'donate_interface-fallback-currency-notice',
 					array( $defaultCurrency )
 				)
@@ -2559,8 +2559,8 @@ abstract class GatewayAdapter
 	 * @return integer
 	 */
 	public function getScoreName(){
-		$fName = $this->getData_Unstaged_Escaped( 'fname' );
-		$lName = $this->getData_Unstaged_Escaped( 'lname' );
+		$fName = $this->getData_Unstaged_Escaped( 'first_name' );
+		$lName = $this->getData_Unstaged_Escaped( 'last_name' );
 
 		$nameArray = str_split( strtolower( $fName . $lName ) );
 		$rules = $this->getGlobal( 'NameFilterRules' );
@@ -3596,10 +3596,10 @@ abstract class GatewayAdapter
 	 */
 	public function getLogDebugJSON() {
 		$logObj = array (
-			'amount',
+			'gross',
 			'ffname',
 			'country',
-			'currency_code',
+			'currency',
 			'payment_method',
 			'payment_submethod',
 			'recurring',

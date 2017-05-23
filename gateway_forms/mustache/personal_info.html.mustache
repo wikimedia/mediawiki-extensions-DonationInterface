@@ -1,21 +1,21 @@
-{{# fname_required }}{{! if we don't need the fname, hide the whole name cell }}
+{{# first_name_required }}{{! if we don't need the first_name, hide the whole name cell }}
 						<tr>
 							<td>
-								<input class="halfwidth" name="fname" value="{{ fname }}" type="text" placeholder="{{ l10n "donate_interface-donor-fname" }}" id="fname" required autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="lname" value="{{ lname }}" type="text" placeholder="{{ l10n "donate_interface-donor-lname" }}" id="lname" required autocomplete="billing family-name cc-family-name" maxlength="64">
+								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" required autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="last_name" value="{{ last_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-last_name" }}" id="last_name" required autocomplete="billing family-name cc-family-name" maxlength="64">
 							</td>
 						</tr>
-                        {{{ fieldError "fname" }}}
-                        {{{ fieldError "lname" }}}
-{{/ fname_required }}
+                        {{{ fieldError "first_name" }}}
+                        {{{ fieldError "last_name" }}}
+{{/ first_name_required }}
 {{# address_required }}
-{{# street_required }}
+{{# street_address_required }}
 						<tr>
 							<td>
-								<input class="fullwidth" name="street" value="{{ street }}" type="text" title="{{ l10n "donate_interface-donor-street" }}" placeholder="{{ l10n "donate_interface-donor-street" }}" id="street" required autocomplete="billing address-line1" maxlength="96">
+								<input class="fullwidth" name="street_address" value="{{ street_address }}" type="text" title="{{ l10n "donate_interface-donor-street_address" }}" placeholder="{{ l10n "donate_interface-donor-street_address" }}" id="street_address" required autocomplete="billing address-line1" maxlength="96">
 							</td>
 						</tr>
-                        {{{ fieldError "street" }}}
-{{/ street_required }}
+                        {{{ fieldError "street_address" }}}
+{{/ street_address_required }}
 						<tr>
 							<td>
 {{# city_required }}
@@ -31,9 +31,9 @@
     {{# city_required }}
                         {{{ fieldError "city" }}}
     {{/ city_required }}
-    {{# state_required }}
-                        {{{ fieldError "state" }}}
-    {{/ state_required }}
+    {{# state_province_required }}
+                        {{{ fieldError "state_province" }}}
+    {{/ state_province_required }}
     {{# postal_code_required }}
                         {{{ fieldError "postal_code" }}}
     {{/ postal_code_required }}

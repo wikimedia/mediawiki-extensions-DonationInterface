@@ -1,4 +1,4 @@
-# Skip AmountInCents, we want to pass the real amount x1.
+# Skip AmountInCents, we want to pass the real gross x1.
 - Amount
 - DonorEmail
 - DonorFullName

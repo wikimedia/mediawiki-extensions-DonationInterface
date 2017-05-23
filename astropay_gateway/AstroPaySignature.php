@@ -12,7 +12,7 @@ class AstroPaySignature implements StagingHelper {
 
 	public static function getNewInvoiceMessage( $stagedData ) {
 		$requiredKeys = array(
-			'order_id', 'amount', 'donor_id', 'bank_code', 'fiscal_number', 'email'
+			'order_id', 'gross', 'donor_id', 'bank_code', 'fiscal_number', 'email'
 		);
 		$stagedKeys = array_keys( $stagedData );
 		if ( array_intersect( $requiredKeys, $stagedKeys ) != $requiredKeys ) {
@@ -20,7 +20,7 @@ class AstroPaySignature implements StagingHelper {
 		} else {
 			return str_replace( '+', ' ',
 				$stagedData['order_id'] . 'V'
-				. $stagedData['amount'] . 'I'
+				. $stagedData['gross'] . 'I'
 				. $stagedData['donor_id'] . '2'
 				. $stagedData['bank_code'] . '1'
 				. $stagedData['fiscal_number'] . 'H'
@@ -29,7 +29,7 @@ class AstroPaySignature implements StagingHelper {
 				. /* postal_code omitted */ 'A'
 				. /* street omitted */ 'P'
 				. /* city omitted */ 'S'
-				. /* state omitted */ 'P'
+				. /* state_province omitted */ 'P'
 			);
 		}
 	}

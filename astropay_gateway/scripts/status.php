@@ -27,8 +27,8 @@ class AstroPayStatusQuery extends Maintenance {
 				// Dummy data to satisfy validation :P
 				'payment_method' => 'cc',
 				'country' => 'BR',
-				'currency_code' => 'BRL',
-				'amount' => 10,
+				'currency' => 'BRL',
+				'gross' => 10,
 				'email' => 'dummy@example.org',
 			),
 		);

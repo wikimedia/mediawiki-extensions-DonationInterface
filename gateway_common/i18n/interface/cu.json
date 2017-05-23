@@ -16,10 +16,10 @@
 	"donate_interface-cc-button": "даꙗниѥ ꙁаѩмьноѭ хартоѭ",
 	"donate_interface-donor-currency-label": "платьно срѣдьство",
 	"donate_interface-donor-name": "имѧ",
-	"donate_interface-donor-street": "оулица",
+	"donate_interface-donor-street_address": "оулица",
 	"donate_interface-donor-city": "градъ",
 	"donate_interface-donor-island": "островъ",
-	"donate_interface-donor-state": "властьна ѥдиница",
+	"donate_interface-donor-state_province": "властьна ѥдиница",
 	"donate_interface-donor-country": "дрьжава/страна",
 	"donate_interface-donor-card": "ꙁаѩмьна харта",
 	"donate_interface-donor-submit": "даꙗниꙗ сътворѥниѥ",
@@ -29,6 +29,5 @@
 	"donate_interface-or": "или",
 	"donate_interface-city-town": "градъ/сєлѥниѥ",
 	"donate_interface-town-city": "сєлѥниѥ/градъ",
-	"donate_interface-state-province": "дрьжава/область",
 	"donate_interface-country": "страна"
 }

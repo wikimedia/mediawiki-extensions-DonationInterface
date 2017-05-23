@@ -175,9 +175,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		// If any of these are required, show the address block
 		$address_fields = array(
 			'city',
-			'state',
+			'state_province',
 			'postal_code',
-			'street',
+			'street_address',
 		);
 		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
@@ -187,7 +187,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 			if ( in_array( $field, $address_fields ) ) {
 				$data['address_required'] = true;
-				if ( $field !== 'street' ) {
+				if ( $field !== 'street_address' ) {
 					// street gets its own line
 					$address_field_count++;
 				}
@@ -202,7 +202,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				3 => 'thirdwidth'
 			);
 			$data['address_css_class'] = $classes[$address_field_count];
-			if ( !empty( $data['state_required'] ) ) {
+			if ( !empty( $data['state_province_required'] ) ) {
 				$this->setStateOptions( $data );
 			}
 		}
@@ -210,13 +210,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setStateOptions( &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
-		$data['state_options'] = array();
+		$data['state_province_options'] = array();
 
 		foreach ( $state_list as $abbr => $name ) {
-			$selected = isset( $data['state'] )
-				&& $data['state'] === $abbr;
+			$selected = isset( $data['state_province'] )
+				&& $data['state_province'] === $abbr;
 
-			$data['state_options'][] = array(
+			$data['state_province_options'][] = array(
 				'abbr' => $abbr,
 				'name' => $name,
 				'selected' => $selected,
@@ -230,20 +230,20 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['show_currency_selector'] = false;
 			// The select input will be hidden, but posting the form will use its only value
 			// Display the same currency code
-			$data['currency_code'] = $supportedCurrencies[0];
+			$data['currency'] = $supportedCurrencies[0];
 		} else {
 			$data['show_currency_selector'] = true;
 		}
 		foreach( $supportedCurrencies as $currency ) {
 			$data['currencies'][] = array(
 				'code' => $currency,
-				'selected' => ( $currency === $data['currency_code'] ),
+				'selected' => ( $currency === $data['currency'] ),
 			);
 		}
 
-		$data['display_amount'] = Amount::format(
-			$data['amount'],
-			$data['currency_code'],
+		$data['display_gross'] = Amount::format(
+			$data['gross'],
+			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
 	}
@@ -291,8 +291,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$return["{$key}_error"] = true;
 
 			// FIXME: Belongs in a separate phase?
-			if ( $key === 'currency_code' || $key === 'amount' ) {
-				$return['show_amount_input'] = true;
+			if ( $key === 'currency' || $key === 'gross' ) {
+				$return['show_gross_input'] = true;
 			}
 			if ( !empty( $return['errors']['general'] ) ) {
 				$return['show_error_reference'] = true;

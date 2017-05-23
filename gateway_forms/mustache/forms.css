@@ -147,7 +147,7 @@ textarea::-moz-placeholder {
   margin-top: -15px;
 }
 
-.amount_header {
+.gross_header {
   color: #505050;
   text-transform: uppercase;
   font-size: 1.2em;
@@ -160,12 +160,12 @@ textarea::-moz-placeholder {
   font-weight: normal;
 }
 
-.amount_header span {
+.gross_header span {
   display: block;
   color: #006699;
 }
 
-span#selected-amount {
+span#selected-gross {
   font-size: 1.8em;
 }
 
@@ -229,7 +229,7 @@ div.donor { width: 100% !important; }
 
 #payment-table-donor select { padding: .9em 1em !important; line-height: 40px; }
 
-#amount_input * {
+#gross_input * {
     vertical-align: top;
 }
 
@@ -411,7 +411,7 @@ div.error-box h2 {
         margin-bottom: 10px !important;
         transition: none;
     }
-    select#state:hover {
+    select#state_province:hover {
         background: #fff;
         color: #222 !important;
     }
@@ -464,7 +464,7 @@ div.error-box h2 {
         background: transparent;
     }
 
-    .amount_header {
+    .gross_header {
         text-transform: capitalize;
     }
 

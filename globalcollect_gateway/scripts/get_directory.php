@@ -10,7 +10,7 @@ require_once( "$IP/maintenance/Maintenance.php" );
 
 // Refunds credit card transactions listed in a file.
 // Currently takes a CSV with no header and columns in this order:
-// order_id, merchant_reference, effort_id, payment_submethod, country, currency_code, amount
+// order_id, merchant_reference, effort_id, payment_submethod, country, currency, gross
 class GlobalCollectGetDirectory extends Maintenance {
 	public function execute() {
 		$gateway_opts = array(
@@ -19,10 +19,10 @@ class GlobalCollectGetDirectory extends Maintenance {
 				'payment_method' => 'rtbt',
 				'payment_submethod' => 'rtbt_ideal',
 				'country' => 'NL',
-				'currency_code' => 'EUR',
+				'currency' => 'EUR',
 
 				// FIXME: nonsense to satisfy validation
-				'amount' => 1,
+				'gross' => 1,
 			),
 		);
 

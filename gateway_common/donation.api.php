@@ -117,14 +117,14 @@ class DonationApi extends ApiBase {
 	public function getAllowedParams() {
 		return array(
 			'gateway' => $this->defineParam( true ),
-			'amount' => $this->defineParam( false ),
-			'currency_code' => $this->defineParam( false ),
-			'fname' => $this->defineParam( false ),
-			'lname' => $this->defineParam( false ),
-			'street' => $this->defineParam( false ),
-			'street_supplemental' => $this->defineParam( false ),
+			'gross' => $this->defineParam( false ),
+			'currency' => $this->defineParam( false ),
+			'first_name' => $this->defineParam( false ),
+			'last_name' => $this->defineParam( false ),
+			'street_address' => $this->defineParam( false ),
+			'supplemental_address_1' => $this->defineParam( false ),
 			'city' => $this->defineParam( false ),
-			'state' => $this->defineParam( false ),
+			'state_province' => $this->defineParam( false ),
 			'postal_code' => $this->defineParam( false ),
 			'email' => $this->defineParam( false ),
 			'country' => $this->defineParam( false ),
@@ -159,7 +159,7 @@ class DonationApi extends ApiBase {
 	 */
 	protected function getExamplesMessages() {
 		return array(
-			'action=donate&gateway=globalcollect&amount=2.00&currency_code=USD'
+			'action=donate&gateway=globalcollect&gross=2.00&currency=USD'
 				=> 'apihelp-donate-example-1',
 		);
 	}

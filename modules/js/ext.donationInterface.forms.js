@@ -45,13 +45,13 @@
 		var sendData = {
 			action: 'donate',
 			gateway: $( '#gateway' ).val(),
-			currency_code: $( '#currency_code' ).val(),
-			amount: $( '#amount' ).val(),
-			fname: $( '#fname' ).val(),
-			lname: $( '#lname' ).val(),
-			street: $( '#street' ).val(),
+			currency: $( '#currency' ).val(),
+			gross: $( '#gross' ).val(),
+			first_name: $( '#first_name' ).val(),
+			last_name: $( '#last_name' ).val(),
+			street_address: $( '#street_address' ).val(),
 			city: $( '#city' ).val(),
-			state: $( '#state' ).val(),
+			state_province: $( '#state_province' ).val(),
 			postal_code: $( '#postal_code' ).val(),
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),
@@ -122,7 +122,7 @@
 
 	$( function () {
 
-		$( '#fname' ).focus();
+		$( '#first_name' ).focus();
 
 		// If a submethod is already selected on page load, show the continue button
 		if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {

@@ -48,7 +48,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		};
 
 		$country = $getValOrNull( 'country' );
-		$currency = $getValOrNull( 'currency_code' );
+		$currency = $getValOrNull( 'currency' );
 		$paymentMethod = $getValOrNull( 'payment_method' );
 		$paymentSubMethod = $getValOrNull( 'payment_submethod' );
 		$gateway = $getValOrNull( 'gateway' );

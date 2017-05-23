@@ -2,9 +2,9 @@
 
 class AmazonBillingApi extends ApiBase {
 	protected $allowedParams = array(
-		'amount',
+		'gross',
 		'billingAgreementId',
-		'currency_code',
+		'currency',
 		'orderReferenceId',
 		'recurring',
 		'wmf_token',
@@ -16,8 +16,8 @@ class AmazonBillingApi extends ApiBase {
 		$token = $this->getParameter( 'wmf_token' );
 		$adapterParams = array(
 			'external_data' => array(
-				'amount' => $this->getParameter( 'amount' ),
-				'currency_code' => $this->getParameter( 'currency_code' ),
+				'gross' => $this->getParameter( 'gross' ),
+				'currency' => $this->getParameter( 'currency' ),
 				'recurring' => $recurring,
 				'wmf_token' => $token,
 			),

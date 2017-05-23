@@ -25,19 +25,19 @@ class DataValidator {
 	public static function getErrorToken( $field ){
 		switch ( $field ) {
 			case 'email' :
-			case 'amount' :
-			case 'currency_code' :
+			case 'gross' :
+			case 'currency' :
 			case 'fiscal_number' :
 			case 'issuer_id' :
 			case 'card_num':
 			case 'card_type':
 			case 'cvv':
-			case 'fname':
-			case 'lname':
+			case 'first_name':
+			case 'last_name':
 			case 'city':
 			case 'country':
-			case 'street':
-			case 'state':
+			case 'street_address':
+			case 'state_province':
 			case 'postal_code':
 			case 'expiration':
 				$error_token = $field;
@@ -61,17 +61,17 @@ class DataValidator {
 		return array(
 			'general' => '',
 			'retryMsg' => '',
-			'amount' => '',
+			'gross' => '',
 			'card_num' => '',
 			'card_type' => '',
 			'cvv' => '',
 			'fiscal_number' => '',
-			'fname' => '',
-			'lname' => '',
+			'first_name' => '',
+			'last_name' => '',
 			'city' => '',
 			'country' => '',
-			'street' => '',
-			'state' => '',
+			'street_address' => '',
+			'state_province' => '',
 			'postal_code' => '',
 			'email' => '',
 		);
@@ -150,7 +150,7 @@ class DataValidator {
 		$validations = array(
 			'not_empty' => array(
 				'country',
-				'currency_code',
+				'currency',
 				'gateway',
 			),
 			'valid_type' => array(
@@ -158,7 +158,7 @@ class DataValidator {
 				'account_number' => 'validate_numeric',
 				'anonymous' => 'validate_boolean',
 				'contribution_tracking_id' => 'validate_numeric',
-				'currency_code' => 'validate_alphanumeric',
+				'currency' => 'validate_alphanumeric',
 				'gateway' => 'validate_alphanumeric',
 				'numAttempt' => 'validate_numeric',
 				'optout' => 'validate_boolean',
@@ -172,11 +172,11 @@ class DataValidator {
 				'city' => 'validate_address',
 				'country' => 'validate_country_allowed',
 				'email' => 'validate_email',
-				'street' => 'validate_address',
+				'street_address' => 'validate_address',
 				'postal_code' => 'validate_address',
-				'currency_code' => 'validate_currency_code',
-				'fname' => 'validate_name',
-				'lname' => 'validate_name',
+				'currency' => 'validate_currency_code',
+				'first_name' => 'validate_name',
+				'last_name' => 'validate_name',
 				'name' => 'validate_name',
 			),
 		);
