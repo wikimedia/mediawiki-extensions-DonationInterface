@@ -147,7 +147,7 @@ textarea::-moz-placeholder {
   margin-top: -15px;
 }
 
-.gross_header {
+.amount_header {
   color: #505050;
   text-transform: uppercase;
   font-size: 1.2em;
@@ -160,12 +160,12 @@ textarea::-moz-placeholder {
   font-weight: normal;
 }
 
-.gross_header span {
+.amount_header span {
   display: block;
   color: #006699;
 }
 
-span#selected-gross {
+span#selected-amount {
   font-size: 1.8em;
 }
 
@@ -229,7 +229,7 @@ div.donor { width: 100% !important; }
 
 #payment-table-donor select { padding: .9em 1em !important; line-height: 40px; }
 
-#gross_input * {
+#amount_input * {
     vertical-align: top;
 }
 
@@ -464,7 +464,7 @@ div.error-box h2 {
         background: transparent;
     }
 
-    .gross_header {
+    .amount_header {
         text-transform: capitalize;
     }
 

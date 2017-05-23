@@ -4,7 +4,7 @@ class Amount implements ValidationHelper {
 
 	public function validate( GatewayType $adapter, $normalized, &$errors ) {
 		if (
-			!isset( $normalized['gross'] ) ||
+			!isset( $normalized['amount'] ) ||
 			!isset( $normalized['currency'] )
 		) {
 			// Not enough info to validate
@@ -14,11 +14,11 @@ class Amount implements ValidationHelper {
 			// Already displaying an error
 			return;
 		}
-		$value = $normalized['gross'];
+		$value = $normalized['amount'];
 
 		if ( self::isZeroIsh( $value ) ) {
 			$errors->addError(
-				DataValidator::getError( 'gross', 'not_empty' )
+				DataValidator::getError( 'amount', 'not_empty' )
 			);
 			return;
 		}
@@ -30,13 +30,13 @@ class Amount implements ValidationHelper {
 			$value < 0
 		) {
 			$errors->addError( new ValidationError(
-				'gross',
-				'donate_interface-error-msg-invalid-gross'
+				'amount',
+				'donate_interface-error-msg-invalid-amount'
 			) );
 		} else if ( $value > $max ) {
 			// FIXME: should format the currency values in this message
 			$errors->addError( new ValidationError(
-				'gross',
+				'amount',
 				'donate_interface-bigamount-error',
 				array(
 					$max,
@@ -48,7 +48,7 @@ class Amount implements ValidationHelper {
 			$locale = $normalized['language'] . '_' . $normalized['country'];
 			$formattedMin = self::format( $min, $currency, $locale );
 			$errors->addError( new ValidationError(
-				'gross',
+				'amount',
 				'donate_interface-smallamount-error',
 				array( $formattedMin )
 			) );

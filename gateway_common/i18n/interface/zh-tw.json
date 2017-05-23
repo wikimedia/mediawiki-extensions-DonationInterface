@@ -6,7 +6,7 @@
 	},
 	"donate_interface": "贊助維基媒體",
 	"donate_interface-intro": "請選擇付款方式，金額和貨幣種類。",
-	"donate_interface-gross": "捐贈金額：",
+	"donate_interface-amount": "捐贈金額：",
 	"donate_interface-other-amount": "其他金額：",
 	"donate_interface-currency": "貨幣種類：",
 	"donate_interface-email-agreement": "我同意收到維基媒體基金會不定期的最新訊息。",

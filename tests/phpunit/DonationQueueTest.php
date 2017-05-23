@@ -40,7 +40,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->transaction = array(
-			'gross' => '1.24',
+			'amount' => '1.24',
 			'city' => 'Dunburger',
 			'contribution_tracking_id' => mt_rand(),
 			// FIXME: err, we're cheating normalization here.

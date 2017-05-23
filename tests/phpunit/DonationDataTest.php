@@ -39,7 +39,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		parent::__construct( $name, $data, $dataName );
 
 		$this->testData = array(
-			'gross' => '128.00',
+			'amount' => '128.00',
 			'appeal' => 'JimmyQuote',
 			'email' => 'unittest@example.com',
 			'first_name' => 'Testocres',
@@ -83,7 +83,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //as if we were posted.
 		$returned = $ddObj->getData();
 		$expected = array(
-			'gross' => '0.00',
+			'amount' => '0.00',
 			'appeal' => 'JimmyQuote',
 			'country' => 'XX',
 			'currency' => '',
@@ -110,7 +110,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$request = RequestContext::getMain()->getRequest();
 
 		$expected = array (
-			'gross' => '35.00',
+			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
 			'contribution_tracking_id' => (string) mt_rand(),
 			'email' => 'testingdata@wikimedia.org',
@@ -161,7 +161,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$request = RequestContext::getMain()->getRequest();
 
 		$expected = array (
-			'gross' => '35.00',
+			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
 			'first_name' => 'Tester',
@@ -276,11 +276,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 */
 	public function testSetNormalizedAmount_amtGiven() {
 		$data = $this->testData;
-		$data['gross'] = 'this is not a number';
+		$data['amount'] = 'this is not a number';
 		$data['amountGiven'] = 42.50;
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals( 42.50, $returned['gross'], "Amount was not properly reset" );
+		$this->assertEquals( 42.50, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
@@ -289,11 +289,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 */
 	public function testSetNormalizedAmount_amount() {
 		$data = $this->testData;
-		$data['gross'] = 88.15;
+		$data['amount'] = 88.15;
 		$data['amountGiven'] = 42.50;
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals( 88.15, $returned['gross'], "Amount was not properly reset" );
+		$this->assertEquals( 88.15, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
@@ -302,11 +302,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 */
 	public function testSetNormalizedAmount_negativeAmount() {
 		$data = $this->testData;
-		$data['gross'] = -1;
+		$data['amount'] = -1;
 		$data['amountOther'] = 3.25;
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals(3.25, $returned['gross'], "Amount was not properly reset");
+		$this->assertEquals(3.25, $returned['amount'], "Amount was not properly reset");
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
 	}
 
@@ -315,12 +315,12 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 */
 	public function testSetNormalizedAmount_noGoodAmount() {
 		$data = $this->testData;
-		$data['gross'] = 'splunge';
+		$data['amount'] = 'splunge';
 		$data['amountGiven'] = 'wombat';
 		$data['amountOther'] = 'macedonia';
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals( 'invalid', $returned['gross'], "Amount was not properly reset");
+		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset");
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data");
 	}

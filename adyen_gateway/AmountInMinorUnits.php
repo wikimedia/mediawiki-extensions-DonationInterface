@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Stage: gross
+ * Stage: amount
  *
  * Adyen requires amounts to be passed as an integer representing the value
  * in minor units for that currency.  Currencies that lack a minor unit
@@ -10,31 +10,31 @@
  */
 class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		if ( empty( $normalized['gross'] ) || empty( $normalized['currency'] ) ) {
+		if ( empty( $normalized['amount'] ) || empty( $normalized['currency'] ) ) {
 			//can't do anything with amounts at all. Just go home.
-			unset( $stagedData['gross'] );
+			unset( $stagedData['amount'] );
 			return;
 		}
 
-		$amount = $normalized['gross'];
+		$amount = $normalized['amount'];
 		if ( Amount::is_exponent3_currency( $normalized['currency'] ) ) {
-			$stagedData['gross'] = $amount * 1000;
+			$stagedData['amount'] = $amount * 1000;
 		} elseif ( Amount::is_fractional_currency( $normalized['currency'] ) ) {
-			$stagedData['gross'] = $amount * 100;
+			$stagedData['amount'] = $amount * 100;
 		} else {
 			$amount = floor( $amount );
-			$stagedData['gross'] = $amount;
+			$stagedData['amount'] = $amount;
 		}
 
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		if ( Amount::is_exponent3_currency( $stagedData['currency'] ) ) {
-			$unstagedData['gross'] = $stagedData['gross'] / 1000;
+			$unstagedData['amount'] = $stagedData['amount'] / 1000;
 		} elseif ( Amount::is_fractional_currency( $stagedData['currency'] ) ) {
-			$unstagedData['gross'] = $stagedData['gross'] / 100;
+			$unstagedData['amount'] = $stagedData['amount'] / 100;
 		} else {
-			$unstagedData['gross'] = $stagedData['gross'];
+			$unstagedData['amount'] = $stagedData['amount'];
 		}
 
 	}

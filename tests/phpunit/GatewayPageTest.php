@@ -54,7 +54,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	protected function setUpAdapter( $extra = array() ) {
 		$externalData = array_merge(
 			array(
-				'gross' => '200',
+				'amount' => '200',
 				'currency' => 'BBD',
 				'contribution_tracking_id' => mt_rand( 10000, 10000000 ),
 			),
@@ -82,7 +82,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$errors = $this->adapter->getErrorState()->getErrors();
 		$msgKey = 'donate_interface-fallback-currency-notice';
 		$this->assertEquals( $msgKey, $errors[0]->getMessageKey() );
-		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -96,7 +96,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$errors = $this->adapter->getErrorState()->getErrors();
 		$msgKey = 'donate_interface-fallback-currency-notice';
 		$this->assertEquals( $msgKey, $errors[0]->getMessageKey() );
-		$this->assertEquals( 38, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 38, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'OMR', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -108,7 +108,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 		$errorState = $this->adapter->getErrorState();
 		$this->assertFalse( $errorState->hasErrors() );
-		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -126,7 +126,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			}
 		}
 		$this->assertTrue( $foundError );
-		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -136,7 +136,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 		$errorState = $this->adapter->getErrorState();
 		$this->assertFalse( $errorState->hasErrors() );
-		$this->assertEquals( 200, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 200, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'BBD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -152,7 +152,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		);
 		$this->setUpAdapter( $extra );
 
-		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'gross' ) );
+		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
 	}
 
@@ -175,7 +175,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'payment_submethod' => '',
 			'first_name' => 'Firstname',
 			'last_name' => 'Surname',
-			'gross' => '1.55',
+			'amount' => '1.55',
 			'language' => 'en',
 			'email' => 'nobody@wikimedia.org',
 			'country' => 'US',

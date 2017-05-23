@@ -71,7 +71,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'amount' => $init['gross'],
+			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
@@ -105,7 +105,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'a3' => $init['gross'], //obviously.
+			'a3' => $init['amount'], //obviously.
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
@@ -142,7 +142,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'amount' => $init['gross'],
+			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
@@ -170,7 +170,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$that = $this;
 		$redirectTest = function( $location ) use ( $that, $init ) {
 			parse_str( parse_url( $location, PHP_URL_QUERY ), $actual );
-			$that->assertEquals( $init['gross'], $actual['amount'] );
+			$that->assertEquals( $init['amount'], $actual['amount'] );
 		};
 		$assertNodes = array(
 			'headers' => array(
@@ -186,9 +186,9 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	 */
 	function testShowFormOnError() {
 		$init = $this->getDonorTestData();
-		$init['gross'] = '-100.00';
+		$init['amount'] = '-100.00';
 		$session = array( 'Donor' => $init );
-		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-gross' )->text();
+		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-amount' )->text();
 		$assertNodes = array(
 			'mw-content-text' => array(
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
@@ -204,7 +204,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	function testShowFormOnCurrencyFallback() {
 		$init = $this->getDonorTestData();
 		$init['currency'] = 'BBD';
-		$init['gross'] = 15.00;
+		$init['amount'] = 15.00;
 		$session = array( 'Donor' => $init );
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceFallbackCurrency' => 'USD',
@@ -238,7 +238,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'amount' => $init['gross'],
+			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => 'BE',
 			'business' => 'phpunittesting@wikimedia.org',
@@ -276,7 +276,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'amount' => $init['gross'],
+			'amount' => $init['amount'],
 			'currency_code' => 'CAD',
 			'country' => 'CA',
 			'business' => 'phpunittesting@wikimedia.org',
@@ -310,7 +310,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
 		$expected = array (
-			'amount' => $init['gross'],
+			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => 'IT',
 			'business' => 'phpunittesting@wikimedia.org',

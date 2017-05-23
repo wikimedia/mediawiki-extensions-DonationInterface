@@ -28,7 +28,7 @@ class AstroPayStatusQuery extends Maintenance {
 				'payment_method' => 'cc',
 				'country' => 'BR',
 				'currency' => 'BRL',
-				'gross' => 10,
+				'amount' => 10,
 				'email' => 'dummy@example.org',
 			),
 		);

@@ -74,7 +74,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function testPassesValidation() {
 		$this->setUpAdapter( array(
-			'gross' => '2.00',
+			'amount' => '2.00',
 			'country' => 'US',
 			'currency' => 'USD',
 			'email' => 'foo@localhost.net',
@@ -85,7 +85,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function testLowAmountError() {
 		$this->setUpAdapter( array(
-			'gross' => '1.99',
+			'amount' => '1.99',
 			'country' => 'US',
 			'currency' => 'USD',
 		) );
@@ -93,12 +93,12 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->assertFalse( $this->adapter->validatedOK() );
 
 		$errors = $this->adapter->getErrorState();
-		$this->assertTrue( $errors->hasValidationError( 'gross' ) );
+		$this->assertTrue( $errors->hasValidationError( 'amount' ) );
 	}
 
 	public function testHighAmountError() {
 		$this->setUpAdapter( array(
-			'gross' => '100.99',
+			'amount' => '100.99',
 			'country' => 'US',
 			'currency' => 'USD',
 		) );
@@ -106,12 +106,12 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->assertFalse( $this->adapter->validatedOK() );
 
 		$errors = $this->adapter->getErrorState();
-		$this->assertTrue( $errors->hasValidationError( 'gross' ) );
+		$this->assertTrue( $errors->hasValidationError( 'amount' ) );
 	}
 
 	public function testCurrencyCodeError() {
 		$this->setUpAdapter( array(
-			'gross' => '2.99',
+			'amount' => '2.99',
 			'country' => 'BR',
 			'currency' => 'BRL',
 		) );
@@ -129,7 +129,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->setUpAdapter( array(
-			'gross' => '2.99',
+			'amount' => '2.99',
 			'country' => 'XX',
 			'currency' => 'USD',
 		) );
@@ -141,7 +141,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function testEmailError() {
 		$this->setUpAdapter( array(
-			'gross' => '2.99',
+			'amount' => '2.99',
 			'currency' => 'USD',
 			'email' => 'foo',
 		) );
@@ -153,7 +153,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function testSpuriousCcError() {
 		$this->setUpAdapter( array(
-			'gross' => '2.99',
+			'amount' => '2.99',
 			'currency' => 'USD',
 			'first_name' => '4111111111111111',
 		) );
@@ -164,7 +164,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 	public function testMissingFieldError() {
 		$this->setUpAdapter( array(
-			'gross' => '2.99',
+			'amount' => '2.99',
 		) );
 
 		$this->assertFalse( $this->adapter->validatedOK() );

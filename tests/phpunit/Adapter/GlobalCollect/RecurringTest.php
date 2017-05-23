@@ -50,7 +50,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 */
 	public function testRecurringCharge() {
 		$init = array(
-			'gross' => '2345',
+			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
@@ -73,7 +73,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 */
 	public function testDeclinedRecurringCharge() {
 		$init = array(
-			'gross' => '2345',
+			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
@@ -99,7 +99,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 */
 	public function testRecurringTimeout() {
 		$init = array(
-			'gross' => '2345',
+			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
@@ -124,7 +124,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 */
 	public function testRecurringResume() {
 		$init = array(
-			'gross' => '2345',
+			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',

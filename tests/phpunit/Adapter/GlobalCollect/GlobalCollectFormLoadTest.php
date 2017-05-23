@@ -92,7 +92,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			'submethod-mc' => array (
 				'nodename' => 'input'
 			),
-			'selected-gross' => array (
+			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
@@ -117,7 +117,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = array (
-			'selected-gross' => array (
+			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
@@ -151,7 +151,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = array (
-			'selected-gross' => array (
+			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
@@ -191,7 +191,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['language'] = $language;
 
 		$assertNodes = array (
-			'selected-gross' => array (
+			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
@@ -232,7 +232,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$locale = $language . '_CA';
 
 		$assertNodes = array (
-			'selected-gross' => array (
+			'selected-amount' => array (
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',

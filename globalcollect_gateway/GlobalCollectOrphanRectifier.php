@@ -247,8 +247,9 @@ class GlobalCollectOrphanRectifier {
 	 * @return array Normalized message.
 	 */
 	protected function getNextMessage() {
-		return PendingDatabase::get()
-			->fetchMessageByGatewayOldest( 'globalcollect' );
+		return DonationQueue::queueMessageToNormalized(
+			PendingDatabase::get()
+				->fetchMessageByGatewayOldest( 'globalcollect' ) );
 	}
 
 	/**

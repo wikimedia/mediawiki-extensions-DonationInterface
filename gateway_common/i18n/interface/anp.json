@@ -7,7 +7,7 @@
 	"donate_interface": "विकिपीडिया कॆ मदद करॊ",
 	"donate_interface-desc": "गेटवे विस्तारयुक्त दान पृष्ठ",
 	"donate_interface-intro": "कृपा करी कॆ भुगतान विधि, राशि आरू मुद्रा चुनॊ.",
-	"donate_interface-gross": "दान राशि",
+	"donate_interface-amount": "दान राशि",
 	"donate_interface-other-amount": "अन्य राशि",
 	"donate_interface-currency": "मुद्रा",
 	"donate_interface-gateway": "भुगतान विधि",

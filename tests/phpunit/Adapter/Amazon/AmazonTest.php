@@ -78,7 +78,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$rates = CurrencyRates::getCurrencyRates();
 		$cadRate = $rates['CAD'];
 
-		$expectedAmount = floor( $init['gross'] / $cadRate );
+		$expectedAmount = floor( $init['amount'] / $cadRate );
 
 		TestingAmazonAdapter::$fakeGlobals = array(
 			'FallbackCurrency' => 'USD',
@@ -99,7 +99,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		};
 
 		$assertNodes = array(
-			'selected-gross' => array( 'innerhtml' => $convertTest ),
+			'selected-amount' => array( 'innerhtml' => $convertTest ),
 			'mw-content-text' => array(
 				'innerhtmlmatches' => "/.*$expectedNotification.*/"
 			)
@@ -113,10 +113,10 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	function testShowFormOnError() {
 		$init = $this->getDonorTestData();
 		$init['OTT'] = 'SALT123456789';
-		$init['gross'] = '-100.00';
+		$init['amount'] = '-100.00';
 		$init['ffname'] = 'amazon';
 		$session = array( 'Donor' => $init );
-		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-gross' )->text();
+		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-amount' )->text();
 		$assertNodes = array(
 			'mw-content-text' => array(
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
@@ -131,7 +131,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testDoPaymentSuccess() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
@@ -148,7 +148,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
-		$this->assertEquals( $init['gross'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
+		$this->assertEquals( $init['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 		$this->assertEquals( $init['currency'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );
 		$message = DonationQueue::instance()->pop( 'complete' );
 		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );
@@ -160,7 +160,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testDoPaymentDeclined() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
@@ -187,7 +187,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testFailOnAmazonRejected() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
@@ -212,7 +212,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testTransactionTimedOut() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
@@ -233,7 +233,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testClientException() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
 		// We don't get any profile data up front
 		unset( $init['email'] );
@@ -260,7 +260,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 */
 	function testDoRecurringPaymentSuccess() {
 		$init = $this->getDonorTestData( 'US' );
-		$init['gross'] = '10.00';
+		$init['amount'] = '10.00';
 		$init['recurring'] = '1';
 		$init['subscr_id'] = 'C01-9650293-7351908';
 		// We don't get any profile data up front
@@ -280,7 +280,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setBillingAgreementDetailsArgs['seller_billing_agreement_id'], 'Did not set order id on billing agreement' );
 		$authorizeOnBillingAgreementDetailsArgs = $mockClient->calls['authorizeOnBillingAgreement'][0];
-		$this->assertEquals( $init['gross'], $authorizeOnBillingAgreementDetailsArgs['authorization_amount'], 'Did not authorize correct amount' );
+		$this->assertEquals( $init['amount'], $authorizeOnBillingAgreementDetailsArgs['authorization_amount'], 'Did not authorize correct amount' );
 		$this->assertEquals( $init['currency'], $authorizeOnBillingAgreementDetailsArgs['currency_code'], 'Did not authorize correct currency code' );
 		$message = DonationQueue::instance()->pop( 'complete' );
 		$this->assertNotNull( $message, 'Not sending a message to the complete queue' );

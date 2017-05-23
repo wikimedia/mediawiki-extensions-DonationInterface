@@ -67,7 +67,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantAccount' => 'wikitest',
 			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
-			'paymentAmount' => ($init['gross']) * 100,
+			'paymentAmount' => ($init['amount']) * 100,
 //			'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
 //			'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
 			'skinCode' => 'testskin',
@@ -131,7 +131,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantAccount' => 'wikitest',
 			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
-			'paymentAmount' => ($init['gross']) * 100,
+			'paymentAmount' => ($init['amount']) * 100,
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'fr_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
