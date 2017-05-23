@@ -2,13 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Kening Aldgilles",
-			"Robin0van0der0vliet"
+			"Robin0van0der0vliet",
+			"Robin van der Vliet"
 		]
 	},
 	"donate_interface-currency": "Faluta:",
 	"donate_interface-donor-currency-label": "Faluta",
 	"donate_interface-donor-email": "E-mailadres:",
-	"donate_interface-donor-state_province-ca": "Provinsje",
+	"donate_interface-error-msg-email": "e-mailadres",
 	"donate_interface-error-msg-country": "lân",
 	"donate_interface-country": "Lân",
 	"donate_interface-next": "Folgjende",

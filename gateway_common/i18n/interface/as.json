@@ -8,6 +8,7 @@
 	"donate_interface-submit-button": "দান-বৰঙণি",
 	"donate_interface-comment-label": "মন্তব্য",
 	"donate_interface-donor-city": "চহৰ",
+	"donate_interface-error-msg-city": "চহৰ",
 	"donate_interface-error-msg-country": "দেশ",
 	"donate_interface-next": "পৰৱৰ্তী",
 	"donate_interface-continue": "অব্যাহত",

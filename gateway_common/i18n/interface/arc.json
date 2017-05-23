@@ -6,11 +6,11 @@
 	},
 	"donate_interface-donor-email": "ܡܘܢܥܐ ܕܒܝܠܕܪܐ ܐܠܩܛܪܘܢܝܐ",
 	"donate_interface-donor-name": "ܫܡܐ",
-	"donate_interface-donor-first_name": "ܫܡܐ ܩܕܡܝܐ",
 	"donate_interface-donor-mname": "ܫܡܐ ܡܨܥܝܐ",
-	"donate_interface-donor-last_name": "ܫܡܐ ܐܚܪܝܐ",
 	"donate_interface-donor-city": "ܡܕܝܢܬܐ",
 	"donate_interface-donor-address": "ܡܘܢܥܐ",
+	"donate_interface-error-msg-email": "ܡܘܢܥܐ ܕܒܝܠܕܪܐ ܐܠܩܛܪܘܢܝܐ",
+	"donate_interface-error-msg-city": "ܡܕܝܢܬܐ",
 	"donate_interface-first": "ܩܕܡܝܐ",
 	"donate_interface-last": "ܐܚܪܝܐ",
 	"donate_interface-other": "ܐܚܪܢܐ"
