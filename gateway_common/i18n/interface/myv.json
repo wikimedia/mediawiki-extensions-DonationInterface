@@ -4,6 +4,7 @@
 			"Botuzhaleny-sodamo"
 		]
 	},
+	"donate_interface-gross": "Зяро",
 	"donate_interface-currency": "Валютась:",
 	"donate_interface-submit-button": "Лезксйармаконь максома",
 	"donate_interface-CHF": "Швейцариянь франк",
@@ -16,13 +17,13 @@
 	"donate_interface-SEK": "Швециянь крона",
 	"donate_interface-paypal-button": "Максомс лезксйармак PayPal вельде",
 	"donate_interface-donor-name": "Леметь:",
+	"donate_interface-donor-street_address": "Ульцат:",
 	"donate_interface-donor-city": "Ошот:",
+	"donate_interface-donor-state_province": "Штатот:",
 	"donate_interface-donor-postal_code": "Почтань индексэзэ:",
 	"donate_interface-donor-country": "Масторот/йонксот:",
 	"donate_interface-donor-address": "Сёрма паргот:",
 	"donate_interface-donor-submit": "Лезксйармаконь максома",
-	"donate_interface-error-msg-city": "ошот",
-	"donate_interface-error-msg-postal_code-us": "индексэть",
 	"donate_interface-error-msg-country": "мастор",
 	"donate_interface-city-town": "Ош/Веле",
 	"donate_interface-town-city": "Веле/Ош",

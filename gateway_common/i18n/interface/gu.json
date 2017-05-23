@@ -8,6 +8,7 @@
 	},
 	"donate_interface": "વિકિમીડિયાની મદદ કરો",
 	"donate_interface-intro": "કૃપા કરી ચૂકવણી પદ્ધતિ, રકમ, અને ચલણ પસંદ કરો",
+	"donate_interface-gross": "રકમ",
 	"donate_interface-other-amount": "અન્ય રકમ",
 	"donate_interface-currency": "ચલણ:",
 	"donate_interface-gateway": "ચુકવણી પદ્ધતિ:",
@@ -17,6 +18,6 @@
 	"donate_interface-donor-city": "શહેર",
 	"donate_interface-donor-county": "દેશ",
 	"donate_interface-donor-island": "ટાપુ",
-	"donate_interface-error-msg-city": "શહેર",
+	"donate_interface-donor-state_province": "રાજ્ય",
 	"donate_interface-thankyou": "તમારા દાન માટે આભાર!"
 }

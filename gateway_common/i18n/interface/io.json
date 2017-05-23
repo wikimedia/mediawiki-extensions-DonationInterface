@@ -11,9 +11,11 @@
 	"donate_interface-GBP": "Britaniana Pundo",
 	"donate_interface-USD": "Usana Dolaro",
 	"donate_interface-cvv-link": "Ube es ito?",
+	"donate_interface-donor-gross": "Sumo:",
 	"donate_interface-donor-currency-label": "Monetaro:",
 	"donate_interface-donor-name": "Nomo:",
+	"donate_interface-donor-street_address": "Strado:",
 	"donate_interface-donor-city": "Urbo:",
-	"donate_interface-donor-address": "Adreso:",
-	"donate_interface-error-msg-city": "urbo"
+	"donate_interface-donor-state_province": "Stato:",
+	"donate_interface-donor-address": "Adreso:"
 }
