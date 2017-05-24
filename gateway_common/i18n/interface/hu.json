@@ -186,7 +186,7 @@
 	"donate_interface-error-msg-postal_code": "Adja meg az irányítószámát",
 	"donate_interface-error-msg-invalid-first_name": "Javítsd ki a hibát ebben a mezőben: keresztnév",
 	"donate_interface-error-msg-invalid-last_name": "Javítsd ki a hibát ebben a mezőben: családi név",
-	"donate_interface-error-msg-invalid-street": "Javítsd ki a hibát ebben a mezőben: utca",
+	"donate_interface-error-msg-invalid-street_address": "Javítsd ki a hibát ebben a mezőben: utca",
 	"donate_interface-error-msg-invalid-city": "Javítsd ki a hibát ebben a mezőben: város",
 	"donate_interface-error-msg-invalid-postal_code-us": "Javítsd ki a hibát ebben a mezőben: irányítószám",
 	"donate_interface-error-msg-invalid-postal_code": "Javítsd ki a hibát ebben a mezőben: irányítószám",

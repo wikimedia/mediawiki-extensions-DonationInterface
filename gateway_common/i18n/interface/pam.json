@@ -5,6 +5,9 @@
 		]
 	},
 	"donate_interface-error-msg-invalid-email": "Paki-enter ing ustung email address i.e. name@domain.com",
+	"donate_interface-error-msg-state_province": "Pakikana ya ing kekang estadu",
+	"donate_interface-error-msg-invalid-fiscal_number-bo": "Pakiustu la reng mali king kekang NIT",
+	"donate_interface-error-msg-invalid-fiscal_number-cl": "Pakiustu la reng mali king kekang RUT",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, globalcollect, etc."
 }
