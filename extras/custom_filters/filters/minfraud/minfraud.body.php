@@ -256,31 +256,32 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		if ( $this->can_bypass_minfraud() ){
 			return TRUE;
 		}
-
-		$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
-		$this->query_minfraud( $minfraud_query );
-		
-		// Write the query/response to the log before we go mad.
-		$this->log_query();
-		$this->health_check();
-		
+		//get globals
+		$score = $this->gateway_adapter->getGlobal( 'MinfraudErrorScore' );
+		$weight = $this->gateway_adapter->getGlobal( 'MinfraudWeight' );
+		$multiplier = $weight / 100;
 		try {
+			$this->query_minfraud( $minfraud_query );
+			// Write the query/response to the log before we go mad.
+			$this->log_query();
+			$this->health_check();
 			if ( !isset( $this->minfraudResponse['riskScore'] ) ) {
-				throw new RuntimeException( "No response at all from minfraud." );
+				$this->fraud_logger->critical( "'addRiskScore' No response at all from minfraud." );
+				$this->cfo->addRiskScore($score * $multiplier, 'minfraud_filter');
 			}
-			$weight = $this->gateway_adapter->getGlobal( 'MinfraudWeight' );
-			$multiplier = $weight / 100;
+			else {
+				$this->cfo->addRiskScore(
+					$this->minfraudResponse['riskScore'] * $multiplier,
+					'minfraud_filter'
+				);
+			}
 
-			$this->cfo->addRiskScore(
-				$this->minfraudResponse['riskScore'] * $multiplier,
-				'minfraud_filter'
-			);
 		} 
 		catch( Exception $ex){
 			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
-			$log_message = 'Minfraud filter came back with some garbage. Assigning all the points.';
+			$log_message = 'An error occurred during Minfraud query. Assigning MinfraudErrorScore.';
 			$this->fraud_logger->error( '"addRiskScore" ' . $log_message );
-			$this->cfo->addRiskScore( 100, 'minfraud_filter' );
+			$this->cfo->addRiskScore( $score * $multiplier, 'minfraud_filter' );
 		}
 
 		return TRUE;
@@ -358,12 +359,8 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$ccfd = $this->get_ccfd();
 		$ccfd->timeout = $wgMinFraudTimeout;
 		$ccfd->input( $minfraud_query );
-		if ( $this->gateway_adapter->getGlobal( 'Test' ) ) {
-			$this->minfraudResponse = 0;
-		} else {
-			$ccfd->query();
-			$this->minfraudResponse = $ccfd->output();
-		}
+		$ccfd->query();
+		$this->minfraudResponse = $ccfd->output();
 		if ( !$this->minfraudResponse ) {
 			$this->minfraudResponse = array();
 		}

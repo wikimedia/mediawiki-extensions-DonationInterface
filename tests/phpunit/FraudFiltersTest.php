@@ -98,6 +98,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	function testGCFraudFilters() {
 		$this->setMwGlobals( array(
 			'wgGlobalCollectGatewayEnableMinfraud' => true,
+			'wgDonationInterfaceMinFraudServers' => array('0.0.0.0'),
 		) );
 
 		$options = $this->getDonorTestData();
@@ -110,7 +111,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( 157.5, $exposed->risk_score, 'RiskScore is not as expected' );
+		$this->assertEquals( 107.5, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 	}
 }
 // Stub out Minfraud class for CI tests

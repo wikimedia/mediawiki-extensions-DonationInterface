@@ -447,6 +447,10 @@ $wgDonationInterfaceMinFraudServers = array()
 // 100 means to use the raw minfraud score
 $wgDonationInterfaceMinFraudWeight = 100
 
+
+// Minfraud risk score value if there is an error querying Minfraud, including no response
+$wgDonationInterfaceMinFraudErrorScore = 50
+
 // Timeout in seconds for communicating with MaxMind
 $wgMinFraudTimeout = 2
 

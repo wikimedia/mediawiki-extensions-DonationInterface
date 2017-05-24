@@ -430,6 +430,7 @@
 		"DonationInterfaceEnableConversionLog": false,
 		"DonationInterfaceEnableMinfraud": false,
 		"DonationInterfaceMinfraudWeight": 100,
+		"DonationInterfaceMinfraudErrorScore": 50,
 		"DonationInterfaceEnableBannerHistoryLog": false,
 		"GlobalCollectGatewayEnabled": false,
 		"AmazonGatewayEnabled": false,
