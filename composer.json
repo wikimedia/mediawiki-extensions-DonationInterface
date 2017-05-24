@@ -49,8 +49,7 @@
 	},
 	"scripts": {
 		"test": [
-			"parallel-lint . --exclude vendor",
-			"php tests/phpunit/LintYaml.php"
+			"parallel-lint . --exclude vendor"
 		]
 	}
 }

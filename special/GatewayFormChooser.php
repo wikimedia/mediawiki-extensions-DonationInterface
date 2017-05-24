@@ -49,6 +49,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		$country = $getValOrNull( 'country' );
 		$currency = $getValOrNull( 'currency' );
+		// TODO: remove when incoming links are updated
+		if ( !$currency ) {
+			$currency = $getValOrNull( 'currency_code' );
+		}
 		$paymentMethod = $getValOrNull( 'payment_method' );
 		$paymentSubMethod = $getValOrNull( 'payment_submethod' );
 		$gateway = $getValOrNull( 'gateway' );
@@ -90,6 +94,14 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			if ( !in_array( $key, $excludeKeys ) ) {
 				$params[$key] = $value;
 			}
+		}
+
+		// TODO: remove when incoming links are updated
+		if ( !empty( $params['currency_code'] ) ) {
+			if ( empty( $params['currency'] ) ) {
+				$params['currency'] = $params['currency_code'];
+			}
+			unset( $params['currency_code'] );
 		}
 
 		$redirectURL = self::buildPaymentsFormURL( $form, $params );

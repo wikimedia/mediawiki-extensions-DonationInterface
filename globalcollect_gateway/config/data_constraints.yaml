@@ -37,7 +37,7 @@ authorization_id:
     type: alphanumeric
     length: 18
 # AMOUNT: N12
-gross:
+amount:
     type: numeric
     length: 12
 # BANKACCOUNTNUMBER: AN50

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Stage: gross
+ * Stage: amount
  *
  * Amounts are usually passed as an integer, and usually x100 rather than
  * using the currency's true fractional denomination ("cents").  Currencies
@@ -12,21 +12,21 @@
 class AmountInCents implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if (
-			empty( $normalized['gross'] ) ||
+			empty( $normalized['amount'] ) ||
 			empty( $normalized['currency'] ) ||
-			!is_numeric( $normalized['gross'] )
+			!is_numeric( $normalized['amount'] )
 		) {
 			//can't do anything with amounts at all. Just go home.
-			unset( $stagedData['gross'] );
+			unset( $stagedData['amount'] );
 			return;
 		}
 
-		$amount = Amount::round( $normalized['gross'], $normalized['currency'] );
+		$amount = Amount::round( $normalized['amount'], $normalized['currency'] );
 
-		$stagedData['gross'] = $amount * 100;
+		$stagedData['amount'] = $amount * 100;
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
-		$unstagedData['gross'] = $stagedData['gross'] / 100;
+		$unstagedData['amount'] = $stagedData['amount'] / 100;
 	}
 }

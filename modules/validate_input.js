@@ -4,14 +4,14 @@
  */
 window.validateAmount = function () {
 	var error = true,
-		amount = $( 'input[name="gross"]' ).val(), // get the amount
+		amount = $( 'input[name="amount"]' ).val(), // get the amount
 		currency = '',
 		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 		rate,
 		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
 		minDisplay,
 		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
-		$grossMsg = $( '#grossMsg' );
+		$amountMsg = $( '#amountMsg' );
 
 	// Normalize weird amount formats.
 	// Don't mess with these unless you know what you're doing.
@@ -20,7 +20,7 @@ window.validateAmount = function () {
 	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
 	amount = amount.replace( /[,.]/g, '' );
 	amount = amount.replace( /:/, '.' );
-	$( 'input[name="gross"]' ).val( amount ); // set the new amount back into the form
+	$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
 	/*jshint ignore:end*/
 
 	// Check amount is a real number, sets error as true (good) if no issues
@@ -40,12 +40,12 @@ window.validateAmount = function () {
 		rate = rates[ currency ];
 	}
 	// if we're on a new form, clear existing amount error
-	$grossMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
+	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
 	if ( ( amount < minUsd * rate ) || error ) {
 		// Round to two decimal places (TODO: no decimals for some currencies)
 		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
 		message = message.replace( '$1', minDisplay + ' ' + currency );
-		$grossMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
+		$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 
 		error = true;
 		// See if we're on a webitects accordion form
@@ -58,7 +58,8 @@ window.validateAmount = function () {
 				$( '#step3wrapper' ).slideUp();
 			}
 		}
-		$( '#gross' ).focus();
+		$( '#other-amount' ).val( '' );
+		$( '#other-amount' ).focus();
 	}
 	return !error;
 };

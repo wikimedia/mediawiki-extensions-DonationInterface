@@ -241,8 +241,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			);
 		}
 
-		$data['display_gross'] = Amount::format(
-			$data['gross'],
+		$data['display_amount'] = Amount::format(
+			$data['amount'],
 			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
@@ -291,8 +291,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$return["{$key}_error"] = true;
 
 			// FIXME: Belongs in a separate phase?
-			if ( $key === 'currency' || $key === 'gross' ) {
-				$return['show_gross_input'] = true;
+			if ( $key === 'currency' || $key === 'amount' ) {
+				$return['show_amount_input'] = true;
 			}
 			if ( !empty( $return['errors']['general'] ) ) {
 				$return['show_error_reference'] = true;
