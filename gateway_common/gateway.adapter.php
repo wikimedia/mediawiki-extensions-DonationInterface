@@ -20,6 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
+use SmashPig\Core\UtcDate;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -1823,32 +1824,22 @@ abstract class GatewayAdapter
 		return $queueMessage;
 	}
 
-	public function makeFreeformStompTransaction( $transaction ) {
-		if ( !array_key_exists( 'php-message-class', $transaction ) ) {
-			$this->logger->warning( "Trying to send a freeform STOMP message with no class defined. Bad programmer." );
-			$transaction['php-message-class'] = 'undefined-loser-message';
-		}
-
+	public function addStandardMessageFields( $transaction ) {
 		//bascially, add all the stuff we have come to take for granted, because syslog.
-		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
-		$transaction['date'] = ( int ) time(); //I know this looks odd. Just trust me here.
-		$transaction['server'] = WmfFramework::getHostname(); // FIXME: duplicated in the source fields
+		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnId();
+		$transaction['date'] = UtcDate::getUtcTimestamp();
+		$transaction['server'] = gethostname();
 
 		$these_too = array (
 			'gateway',
 			'contribution_tracking_id',
 			'order_id',
-			'payment_method', //the stomp sender gets mad if we don't have this. @TODO: Stop being lazy someday.
 		);
 		foreach ( $these_too as $field ) {
 			$transaction[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
 
 		return $transaction;
-	}
-
-	protected function getCorrelationID(){
-		return $this->getIdentifier() . '-' . $this->getData_Unstaged_Escaped('order_id');
 	}
 
 	/**
@@ -2078,7 +2069,6 @@ abstract class GatewayAdapter
 	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = array(
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceFinalStatus',
 			'validation_action' => $this->getValidationAction(),
 			'payments_final_status' => $status,
 		);
@@ -2097,7 +2087,7 @@ abstract class GatewayAdapter
 			$transaction[$key] = $this->getData_Unstaged_Escaped( $key );
 		}
 
-		$transaction = $this->makeFreeformStompTransaction( $transaction );
+		$transaction = $this->addStandardMessageFields( $transaction );
 
 		try {
 			// FIXME: Dispatch "freeform" messages transparently as well.
