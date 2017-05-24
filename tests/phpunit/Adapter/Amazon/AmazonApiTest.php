@@ -1,4 +1,5 @@
 <?php
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 
@@ -49,7 +50,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 		$this->assertEquals( $params['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 
 		$this->assertEquals( $params['currency'], $setOrderReferenceDetailsArgs['currency_code'], 'Did not set currency code on order reference' );
-		$message = DonationQueue::instance()->pop( 'donations' );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		$this->assertEquals( 'S01-0391295-0674065-C095112', $message['gateway_txn_id'], 'Queue message has wrong txn ID' );
 	}

@@ -1,4 +1,6 @@
 <?php
+use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\Messages\SourceFields;
 
 /**
  * @group Fundraising
@@ -27,7 +29,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( $result['status'], 'GC API result status should be true' );
 		preg_match( "/Special:GlobalCollectGatewayResult\?order_id={$orderId}\$/", $result['returnurl'], $match );
 		$this->assertNotEmpty( $match, 'GC API not setting proper return url' );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
 		$expected = array(
@@ -54,7 +56,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'postal_code' => '94105'
 		);
 		$this->assertArraySubset( $expected, $message );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 	}
 
@@ -70,7 +72,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending pending message for error' );
 	}
 }

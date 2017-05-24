@@ -60,9 +60,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		) );
 
 		$this->pendingDb = PendingDatabase::get();
-
-		// Create the schema.
-		$this->pendingDb->createTable();
 	}
 
 	/**
@@ -179,7 +176,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 			'payment_submethod' => 'mc',
 			// Defaults to a magic 25 minutes ago, within the process window.
 			'date' => time() - 25 * 60,
-			'amount' => 123,
+			'gross' => 123,
 			'currency' => 'EUR',
 		);
 		$this->pendingDb->storeMessage( $message );

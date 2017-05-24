@@ -1,5 +1,6 @@
 <?php
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
@@ -45,7 +46,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U';
 		$this->assertEquals( $expectedUrl, $result['formaction'], 'PayPal Express API not setting formaction' );
 		$this->assertTrue( $result['status'], 'PayPal Express result status should be true' );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
 		$expected = array(
@@ -73,7 +74,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			$message,
 			'PayPal EC setup sending wrong pending message'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
@@ -102,7 +103,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending pending message for error' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
@@ -133,7 +134,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$this->assertEquals( $expectedUrl, $result['formaction'], 'PayPal Express API not setting formaction' );
 		$this->assertTrue( $result['status'], 'PayPal Express result status should be true' );
 
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
 		$expected = array(
@@ -161,7 +162,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			$message,
 			'PayPal EC setup sending wrong pending message'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'

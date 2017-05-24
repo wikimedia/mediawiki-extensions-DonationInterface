@@ -17,6 +17,7 @@
  */
 
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -187,7 +188,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
-		$message = DonationQueue::instance()->pop( 'payments-antifraud' );
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
 			'validation_action' => 'review',

@@ -910,10 +910,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * Returns an array of field names we typically send out in a queue
-	 * message. Note: These are field names from the FORM... not the field
-	 * names that will appear in the message.
-	 * TODO: Consider moving the mapping for donation data from DonationQueue
-	 * to somewhere in DonationData.
+	 * message.
 	 */
 	public static function getMessageFields() {
 		return array(

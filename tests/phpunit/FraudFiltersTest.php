@@ -16,6 +16,7 @@
  *
  */
 
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use Wikimedia\TestingAccessWrapper;
 
@@ -43,7 +44,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 107.5, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
-		$message = DonationQueue::instance()->pop( 'payments-antifraud' );
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
 			'validation_action' => 'reject',

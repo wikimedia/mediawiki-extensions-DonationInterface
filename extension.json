@@ -76,7 +76,6 @@
 		"DonationLoggerFactory": "gateway_common/DonationLoggerFactory.php",
 		"DonationLogProcessor": "gateway_common/DonationLogProcessor.php",
 		"DonationProfiler": "gateway_common/DonationProfiler.php",
-		"DonationQueue": "gateway_common/DonationQueue.php",
 		"DonorEmail": "gateway_common/DonorEmail.php",
 		"DonorFullName": "gateway_common/DonorFullName.php",
 		"DonorLanguage": "gateway_common/DonorLanguage.php",
@@ -377,19 +376,6 @@
 		"AdyenGatewayMaxRiskScore": 95,
 		"AstroPayGatewayURL": "https://astropaycard.com/",
 		"AstroPayGatewayTestingURL": "https://sandbox.astropaycard.com/",
-		"DonationInterfaceDefaultQueueServer": {
-			"type": "PHPQueue\\Backend\\PDO",
-			"connection_string": "mysql:host=localhost;dbname=payment_queues",
-			"_merge_strategy": "array_plus"
-		},
-		"DonationInterfaceQueues": {
-			"donations": [],
-			"pending": [],
-			"payments-antifraud": [],
-			"payments-init": [],
-			"banner-history": [],
-			"_merge_strategy": "array_plus"
-		},
 		"DonationInterfaceCustomFiltersActionRanges": {
 			"process": [
 				0,
@@ -432,7 +418,6 @@
 		"DonationInterfaceUtmCampaignMap": [],
 		"DonationInterfaceUtmMediumMap": [],
 		"DonationInterfaceUtmSourceMap": [],
-		"DonationInterfaceEnableQueue": false,
 		"DonationInterfaceEnableConversionLog": false,
 		"DonationInterfaceEnableMinfraud": false,
 		"DonationInterfaceMinfraudWeight": 100,

@@ -1,5 +1,6 @@
 <?php
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\Adyen\Tests\AdyenTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
@@ -65,7 +66,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			$actualParams,
 			'Adyen API not setting correct gateway_params'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
 		$expected = array(
@@ -91,7 +92,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'risk_score' => 20
 		);
 		$this->assertArraySubset( $expected, $message );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
@@ -111,7 +112,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending pending message for error' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
@@ -130,7 +131,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			$result['errors']['postal_code'],
 			'Error should be in postal_code'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending pending message for error' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'

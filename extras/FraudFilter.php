@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Log\LoggerInterface;
+use SmashPig\Core\DataStores\QueueWrapper;
 
 abstract class FraudFilter extends Gateway_Extras {
 
@@ -46,7 +47,7 @@ abstract class FraudFilter extends Gateway_Extras {
 		}
 		try {
 			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
-			DonationQueue::instance()->push( $transaction, 'payments-antifraud' );
+			QueueWrapper::push( 'payments-antifraud' , $transaction );
 		} catch ( Exception $e ) {
 			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
 		}

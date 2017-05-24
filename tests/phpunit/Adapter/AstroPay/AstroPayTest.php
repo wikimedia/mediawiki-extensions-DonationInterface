@@ -17,6 +17,7 @@
  */
 
 use \Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -470,7 +471,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
-		$message = DonationQueue::instance()->pop( 'payments-antifraud' );
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
 			'validation_action' => 'challenge',

@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  *
  */
+use SmashPig\Core\Context;
+use SmashPig\Core\DataStores\QueueWrapper;
 
 /**
  * @group       DonationInterface
@@ -31,13 +33,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->queue_name = 'test-' . mt_rand();
-
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceQueues' => array(
-				$this->queue_name => array(),
-			),
-		) );
+		$this->queue_name = 'test';
 
 		$this->transaction = array(
 			'gross' => '1.24',
@@ -93,14 +89,14 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'source_name' => 'DonationInterface',
 			'source_run_id' => getmypid(),
 			'source_type' => 'payments',
-			'source_version' => DonationQueue::getVersionStamp(),
+			'source_version' => Context::get()->getSourceRevision(),
 		);
 	}
 
 	public function testPushMessage() {
-		DonationQueue::instance()->push( $this->transaction, $this->queue_name );
+		QueueWrapper::push( $this->queue_name , $this->transaction );
 
-		$actual = DonationQueue::instance()->pop( $this->queue_name );
+		$actual = QueueWrapper::getQueue( $this->queue_name )->pop();
 		unset( $actual['source_enqueued_time'] );
 
 		$this->assertEquals( $this->expected_message, $actual );
@@ -110,14 +106,14 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	 * After pushing 2, pop should return the first.
 	 */
 	public function testIsFifoQueue() {
-		DonationQueue::instance()->push( $this->transaction, $this->queue_name );
+		QueueWrapper::push( $this->queue_name , $this->transaction );
 
 		$transaction2 = $this->transaction;
 		$transaction2['order_id'] = mt_rand();
 
-		DonationQueue::instance()->push( $transaction2, $this->queue_name );
+		QueueWrapper::push( $this->queue_name , $transaction2 );
 
-		$actual = DonationQueue::instance()->pop( $this->queue_name );
+		$actual = QueueWrapper::getQueue( $this->queue_name )->pop();
 		unset( $actual['source_enqueued_time'] );
 
 		$this->assertEquals( $this->expected_message, $actual );

@@ -70,12 +70,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceEnableQueue' => true,
-			'wgDonationInterfaceDefaultQueueServer' => array(
-				'type' => 'TestingQueue',
-			),
-		) );
 		// Replace real SmashPig context with test version that lets us
 		// override provider configurations that may be set in code
 		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
@@ -87,7 +81,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	protected function tearDown() {
 		$this->resetAllEnv();
-		TestingQueue::clearAll();
 		DonationLoggerFactory::$overrideLogger = null;
 		parent::tearDown();
 	}

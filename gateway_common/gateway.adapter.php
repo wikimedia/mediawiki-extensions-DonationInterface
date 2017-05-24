@@ -20,6 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\UtcDate;
 use Symfony\Component\Yaml\Parser;
 
@@ -2108,7 +2109,7 @@ abstract class GatewayAdapter
 			// FIXME: Dispatch "freeform" messages transparently as well.
 			// TODO: write test
 			$this->logger->info( 'Pushing transaction to payments-init queue.' );
-			DonationQueue::instance()->push( $transaction, 'payments-init' );
+			QueueWrapper::push( 'payments-init' , $transaction );
 		} catch ( Exception $e ) {
 			$this->logger->error( 'Unable to send payments-init message' );
 		}
@@ -2257,13 +2258,13 @@ abstract class GatewayAdapter
 
 	protected function pushMessage( $queue ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
-		DonationQueue::instance()->push( $this->getQueueDonationMessage(), $queue );
+		QueueWrapper::push( $queue, $this->getQueueDonationMessage() );
 	}
 
 	protected function sendPendingMessage() {
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->logger->info( "Sending donor details for $order_id to pending queue" );
-		DonationQueue::instance()->push( $this->getQueueDonationMessage(), 'pending' );
+		QueueWrapper::push( 'pending', $this->getQueueDonationMessage() );
 	}
 
 	/**

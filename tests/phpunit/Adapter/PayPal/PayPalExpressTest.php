@@ -6,6 +6,8 @@
  *
  * TIMESTAMP=2016%2d05%2d03T21%3a43%3a20Z&CORRELATIONID=f624ed5aa5db0&ACK=Failure&VERSION=124&BUILD=21669447&L_ERRORCODE0=10412&L_SHORTMESSAGE0=Duplicate%20invoice&L_LONGMESSAGE0=Payment%20has%20already%20been%20made%20for%20this%20InvoiceID%2e&L_SEVERITYCODE0=Error
  */
+
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
@@ -51,12 +53,12 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
 		$expected = array(
 			'country' => 'US',
-		    'fee' => '0',
+			'fee' => '0',
 		    'gateway' => 'paypal_ec',
 		    'gateway_txn_id' => null,
 		    'language' => 'fr',
@@ -104,9 +106,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$message = DonationQueue::instance()->pop( 'pending' );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
-		$this->unsetVariableFields( $message );
+		self::unsetVariableFields( $message );
 		$expected = array(
 			'country' => 'US',
 			'fee' => '0',
@@ -152,7 +154,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD',
 		) );
 
-		$message = DonationQueue::instance()->pop( 'donations' );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		self::unsetVariableFields( $message );
 		$expected = array (
@@ -185,7 +187,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertEquals( $expected, $message );
 
 		$this->assertNull(
-			DonationQueue::instance()->pop( 'donations' ),
+			QueueWrapper::getQueue( 'donations' )->pop(),
 			'Sending extra messages to donations queue!'
 		);
 	}
@@ -202,7 +204,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD'
 		) );
 
-		$message = DonationQueue::instance()->pop( 'donations' );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Recurring should not send a message to the donations queue' );
 	}
 
@@ -221,7 +223,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PayerID' => 'ASDASD'
 		) );
 
-		$message = DonationQueue::instance()->pop( 'donations' );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
 		$this->assertFalse( $result->isFailed() );
 		$redirect = $result->getRedirect();
@@ -244,7 +246,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		) );
 
 		$this->assertNull(
-			DonationQueue::instance()->pop( 'donations' ),
+			QueueWrapper::getQueue( 'donations' )->pop(),
 			'Sending a spurious message to the donations queue!'
 		);
 		$this->assertFalse( $result->isFailed() );

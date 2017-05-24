@@ -297,83 +297,19 @@ $wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/'
 
 ==== Queues ====
 
-Set this to enable sending donation-related information to a message queue.
-Note that if you do not enable the queue, donor information will not be saved
-except in log files.
+DonationInterface uses the SmashPig library for queue handling.
 
-$wgDonationInterfaceEnableQueue = false
+Essential queues:
+* 'donations': Incoming donations that we think have been paid for.
+* 'pending': Transactions still needing action before they are settled.
 
-/**
- * Common development defaults for the queue server.
- * TODO: Default to a builtin backend such as PDO?
- * FIXME: Note that this must be an instance of FifoQueueStore.
- */
-$wgDonationInterfaceDefaultQueueServer = array(
-	'type' => 'PHPQueue\Backend\Stomp',
-	'uri' => 'tcp://localhost:61613',
-	'read_timeout' => '1',
-	'expiry' => '30 days',
-)
-
-/**
- * @global array $wgDonationInterfaceQueues
- *
- * This is a mapping from queue name to attributes.  It's not necessary to
- * list queues here, but the built-in queues are listed for convenience.
- *
- * Default values are taken from $wgDonationInterfaceDefaultQueueServer, and
- * values given here will override the defaults.
- *
- * The array key is the queue name as it is referred to from code, although the
- * actual queue name used in the backend may be overridden, see below.
- *
- * Unrecognized options will be passed along to the queue backend constructor,
- * but the following have special meaning to DonationQueue:
- *     type - Class name of the queue backend.
- *     expiry - The default lifespan of messages in this queue (days).
- *     name - Backend can map to a named queue, rather than default to the
- *         queue key as it appears in the $wgDonationInterfaceQueues array.
- */
-$wgDonationInterfaceQueues = array(
-	// Incoming donations that we think have been paid for.
-	'donations' => array(),
-
-	// Transactions still needing action before they are settled.
-	'pending' => array(),
-
-	// Example of a PCI-compliant queue configuration:
-	//
-	// 'pending' => array(
-	// 	'type' => 'PHPQueue\Backend\Predis',
-	//  # Note that servers cannot be an array, due to some incompatibility
-	//  # with aggregate connections.
-	// 	'servers' => 'tcp://payments1003.eqiad.net',
-	// 	# 1 hour, in seconds
-	// 	'expiry' => 3600,
-	// 	'score_key' => 'date',
-	// ),
-	//
-	// Example of aliasing a queue
-	//
-	// 'pending' => array(
-	//     # Point at a queue named pending-new
-	//     'queue' => 'pending-new',
-	// ),
-
-	// Non-critical queues
-
-	// These messages will be shoved into the fraud database (see
-	// crm/modules/fredge).
-	'payments-antifraud' => array(),
-
-	// These are shoved into the payments-initial database.
-	'payments-init' => array(),
-
-	// Banner history log ID-contribution tracking ID associations that go in
-	// Drupal in banner_history_contribution_associations. See
-	// crm/modules/queue2civicrm/banner_history
-	'banner-history' => array(),
-)
+Non-critical queues:
+'payments-antifraud': These messages will be shoved into the fraud database
+    (see crm/modules/fredge).
+'payments-init': These are shoved into the payments-initial database.
+'banner-history': Banner history log ID-contribution tracking ID associations
+    that go in Drupal in banner_history_contribution_associations.
+    See crm/modules/queue2civicrm/banner_history.
 
 
 ==== Fraud filters and blocking ====

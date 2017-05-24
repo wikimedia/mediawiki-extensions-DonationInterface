@@ -13,19 +13,12 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		$ctx = TestingContext::get();
 		$ctx->setSourceType( 'payments' );
 		$ctx->setSourceName( 'DonationInterface' );
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceEnableQueue' => true,
-			'wgDonationInterfaceDefaultQueueServer' => array(
-				'type' => 'TestingQueue',
-			),
-		) );
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 		Context::set( null );
-		TestingQueue::clearAll();
 		// Clear out our HashBagOStuff
 		wfGetMainCache()->clear();
 		DonationLoggerFactory::$overrideLogger = null;

@@ -1,4 +1,5 @@
 <?php
+use SmashPig\Core\DataStores\QueueWrapper;
 
 /**
  * Processor for banner history log ID. Runs when gateway is constructed,
@@ -72,7 +73,7 @@ class BannerHistoryLogIdProcessor {
 		);
 
 		$this->logger->info( 'Pushing to banner-history queue.' );
-		DonationQueue::instance()->push( $data, 'banner-history' );
+		QueueWrapper::push( 'banner-history' , $data );
 	}
 
 	/**
