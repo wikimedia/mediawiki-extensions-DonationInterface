@@ -398,6 +398,7 @@
 	"donate_interface-onetime-short": "한 번만",
 	"donate_interface-error-http-403": "이 문서에 접근할 권한이 없습니다.",
 	"donate_interface-statement": "위키미디어 $1",
+	"apihelp-donate-param-amount": "기부한 금액입니다.",
 	"apihelp-donate-param-postal_code": "우편 번호.",
 	"apihelp-donate-param-wmf_token": "편집 토큰."
 }
