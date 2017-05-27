@@ -81,7 +81,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$gatewayName = $this->getGatewayIdentifier();
 		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
-		DonationInterface::initializeSmashPig( $gatewayName );
+		DonationInterface::setSmashPigProvider( $gatewayName );
 
 		try {
 			$this->adapter = new $className();

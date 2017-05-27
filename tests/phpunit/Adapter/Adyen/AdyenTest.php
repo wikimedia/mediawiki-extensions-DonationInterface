@@ -14,7 +14,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
-
+use SmashPig\PaymentProviders\Adyen\Tests\AdyenTestConfiguration;
+use SmashPig\Tests\TestingContext;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -37,7 +38,10 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		DonationInterface::initializeSmashPig( 'adyen' );
+		TestingContext::get()->providerConfigurationOverride =
+			AdyenTestConfiguration::createWithSuccessfulApi(
+				$this->smashPigGlobalConfig
+			);
 
 		$this->setMwGlobals( array(
 			'wgAdyenGatewayEnabled' => true,

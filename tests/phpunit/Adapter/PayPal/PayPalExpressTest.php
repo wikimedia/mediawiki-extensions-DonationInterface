@@ -6,6 +6,8 @@
  *
  * TIMESTAMP=2016%2d05%2d03T21%3a43%3a20Z&CORRELATIONID=f624ed5aa5db0&ACK=Failure&VERSION=124&BUILD=21669447&L_ERRORCODE0=10412&L_SHORTMESSAGE0=Duplicate%20invoice&L_LONGMESSAGE0=Payment%20has%20already%20been%20made%20for%20this%20InvoiceID%2e&L_SEVERITYCODE0=Error
  */
+use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
+use SmashPig\Tests\TestingContext;
 
 /**
  *
@@ -19,7 +21,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 	public function setUp() {
 		parent::setUp();
-		DonationInterface::initializeSmashPig( 'paypal' );
+		TestingContext::get()->providerConfigurationOverride = PayPalTestConfiguration::get(
+			$this->smashPigGlobalConfig
+		);
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,

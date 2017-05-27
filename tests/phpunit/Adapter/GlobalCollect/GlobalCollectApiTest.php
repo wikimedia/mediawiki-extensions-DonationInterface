@@ -1,5 +1,8 @@
 <?php
 
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingGlobalConfiguration;
+
 /**
  * @group Fundraising
  * @group DonationInterface
@@ -9,6 +12,12 @@
  */
 
 class GlobalCollectApiTest extends ApiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+		$config = TestingGlobalConfiguration::create();
+		TestingContext::init( $config );
+	}
 
 	public function testGoodSubmit() {
 		$init = DonationInterfaceTestCase::getDonorTestData();

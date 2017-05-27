@@ -1,4 +1,6 @@
 <?php
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingGlobalConfiguration;
 
 /**
  * @group Amazon
@@ -7,6 +9,8 @@
 class AmazonApiTest extends ApiTestCase {
 	public function setUp() {
 		parent::setUp();
+		$config = TestingGlobalConfiguration::create();
+		TestingContext::init( $config );
 		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableQueue' => true,

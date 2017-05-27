@@ -31,7 +31,6 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		DonationInterface::initializeSmashPig( 'default' );
 		$this->queue_name = 'test-' . mt_rand();
 
 		$this->setMwGlobals( array(

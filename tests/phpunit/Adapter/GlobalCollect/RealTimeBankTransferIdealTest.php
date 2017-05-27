@@ -15,8 +15,8 @@
  * GNU General Public License for more details.
  *
  */
-use SmashPig\Core\Configuration;
-use SmashPig\Core\Context;
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingProviderConfiguration;
 
 /**
  * 
@@ -34,8 +34,10 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 	public function setUp() {
 		parent::setUp();
 
-		$config = Configuration::createForView( 'ingenico' );
-		Context::initWithLogger( $config ); // gets torn down in parent
+		$config = TestingProviderConfiguration::createForProvider(
+			'ingenico', $this->smashPigGlobalConfig
+		);
+		TestingContext::get()->providerConfigurationOverride = $config;
 
 		$this->bankPaymentProvider = $this->getMockBuilder(
 			'\SmashPig\PaymentProviders\Ingenico\BankPaymentProvider'

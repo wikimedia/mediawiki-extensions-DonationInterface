@@ -15,9 +15,11 @@
  * GNU General Public License for more details.
  *
  */
-
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingGlobalConfiguration;
+use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -53,6 +55,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 */
 	protected $testLogger;
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
+	protected $smashPigGlobalConfig;
 
 	/**
 	 * @param $name string The name of the test case
@@ -79,6 +82,12 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'type' => 'TestingQueue',
 			),
 		) );
+		// Replace real SmashPig context with test version that lets us
+		// override provider configurations that may be set in code
+		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
+		TestingContext::init( $this->smashPigGlobalConfig );
+		Context::get()->setSourceType( 'payments' );
+		Context::get()->setSourceName( 'DonationInterface' );
 		parent::setUp();
 	}
 

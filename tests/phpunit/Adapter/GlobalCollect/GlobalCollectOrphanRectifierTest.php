@@ -17,9 +17,7 @@
  *
  */
 
-use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\PendingDatabase;
-use SmashPig\Tests\SmashPigDatabaseTestConfiguration;
 
 /**
  * @covers GlobalCollectOrphanRectifier
@@ -60,9 +58,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 				'globalcollect_orphan' => 'TestingGlobalCollectOrphanAdapter',
 			),
 		) );
-
-		$config = SmashPigDatabaseTestConfiguration::instance();
-		Context::init( $config );
 
 		$this->pendingDb = PendingDatabase::get();
 

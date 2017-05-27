@@ -14,9 +14,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
+use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
+use SmashPig\Tests\TestingContext;
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group Amazon
@@ -35,7 +37,10 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		DonationInterface::initializeSmashPig( 'amazon' );
+		TestingContext::get()->providerConfigurationOverride =
+			AmazonTestConfiguration::instance(
+				$this->smashPigGlobalConfig
+			);
 
 		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
 

@@ -17,9 +17,9 @@
  */
 
 use \Psr\Log\LogLevel;
-use SmashPig\Core\Configuration;
-use SmashPig\Core\Context;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -45,8 +45,11 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setMwGlobals( array(
 			'wgAstroPayGatewayEnabled' => true,
 		) );
-		$config = Configuration::createForView( 'astropay' );
-		Context::initWithLogger( $config );
+		TestingContext::get()->providerConfigurationOverride =
+			TestingProviderConfiguration::createForProvider(
+				'astropay',
+				$this->smashPigGlobalConfig
+			);
 	}
 
 	/**
