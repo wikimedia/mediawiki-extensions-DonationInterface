@@ -5,7 +5,8 @@
 			"Minh Nguyen",
 			"Trần Nguyễn Minh Huy",
 			"Vinhtantran",
-			"Pcoombe"
+			"Pcoombe",
+			"Quenhitran"
 		]
 	},
 	"donate_interface": "Hỗ trợ Wikimedia",
@@ -122,7 +123,7 @@
 	"donate_interface-rt-button": "Quyên góp qua ngân hàng $1",
 	"donate_interface-ewallet-button": "Quyên góp qua $1",
 	"donate_interface-card-legend": "Thông tin thẻ tín dụng",
-	"donate_interface-amount-legend": "Số tiền gửi tặng",
+	"donate_interface-amount-legend": "Số tiền quyên góp",
 	"donate_interface-cvv-link": "Nó nằm ở đâu?",
 	"donate_interface-donor-legend": "Thông tin người tặng",
 	"donate_interface-donor-amount": "Số tiền:",
