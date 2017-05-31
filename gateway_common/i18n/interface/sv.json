@@ -20,7 +20,8 @@
 			"Pcoombe",
 			"Jopparn",
 			"Josve05a",
-			"Caycothu"
+			"Caycothu",
+			"Skalman"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -199,9 +200,9 @@
 	"donate_interface-error-msg-invalid-first_name": "Var god rätta felen i din/ditt förnamn",
 	"donate_interface-error-msg-invalid-last_name": "Var god rätta felen i ditt efternamn",
 	"donate_interface-error-msg-invalid-street_address": "Var god rätta felen i din gatuadress",
-	"donate_interface-error-msg-invalid-city": "Var god rätta felen i din/ditt stad",
+	"donate_interface-error-msg-invalid-city": "Var god rätta felen i din stad",
 	"donate_interface-error-msg-invalid-postal_code-us": "Var god rätta felen i ditt postnummer",
-	"donate_interface-error-msg-invalid-postal_code": "Var god rätta felen i din/ditt postkod",
+	"donate_interface-error-msg-invalid-postal_code": "Var god rätta felen i ditt postnummer",
 	"donate_interface-error-msg-country": "land",
 	"donate_interface-error-msg-card_type": "kreditkortstyp",
 	"donate_interface-error-msg-card_num": "kreditkortsnummer",
@@ -217,8 +218,8 @@
 	"donate_interface-error-msg-captcha-please": "För ditt kreditkorts säkerhet, skriv de tecken du ser ovan.",
 	"donate_interface-error-msg-cookies": "Du måste aktivera kakor i din webbläsare.",
 	"donate_interface-error-msg-country-calc": "Ett fel har uppstått - vi kan för tillfället inte ta emot din donation.",
-	"donate_interface-error-msg-fiscal_number": "Detta fältet måste fyllas i: skattenummer",
-	"donate_interface-error-msg-invalid-fiscal_number": "Var god rätta felen i din/ditt skattenummer",
+	"donate_interface-error-msg-fiscal_number": "Var god fyll i skattenummer",
+	"donate_interface-error-msg-invalid-fiscal_number": "Var god rätta felen i ditt skattenummer",
 	"donate_interface-error-msg-issuer_id": "bank",
 	"donate_interface-donate-error-try-a-different-card": "Vänligen [$1 prova ett annat kort] eller någon av våra [$2 andra sätt att ge] eller kontakta oss på $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Prova ett annat kort eller en av våra <a href=\"$1\">andra sätt att ge</a> eller kontakta oss på <a href=\"mailto:$2\">$2</a>",

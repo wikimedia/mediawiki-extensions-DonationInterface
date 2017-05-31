@@ -1,21 +1,10 @@
 <?php
 
+use SmashPig\CrmLink\Messages\SourceFields;
+
 class DonationQueue {
 
 	protected static $instance;
-
-	// ActiveMQ header fields to be added to Redis messages for compatibility
-	private $source_fields;
-
-	protected function __construct() {
-		$this->source_fields = array(
-			'source_host' => WmfFramework::getHostname(),
-			'source_name' => 'DonationInterface',
-			'source_run_id' => getmypid(),
-			'source_type' => 'payments',
-			'source_version' => self::getVersionStamp(),
-		);
-	}
 
 	/**
 	 * Singleton entrypoint
@@ -50,9 +39,8 @@ class DonationQueue {
 		if ( !GatewayAdapter::getGlobal( 'EnableQueue' ) ) {
 			return;
 		}
-		$properties = $this->buildHeaders( $transaction );
 		$message = $this->buildBody( $transaction );
-		$this->newBackend( $queue )->push( $message, $properties );
+		$this->newBackend( $queue )->push( $message );
 	}
 
 	public function pop( $queue ) {
@@ -74,36 +62,6 @@ class DonationQueue {
 	}
 
 	/**
-	 * Build message headers from given donation data array
-	 *
-	 * @param array $transaction
-	 * @return array
-	 */
-	protected function buildHeaders( $transaction ) {
-		// Create the message and associated properties
-		$properties = $this->source_fields;
-		// TODO: Move 'persistent' to PHPQueue backend default.
-		$properties['persistent'] = true;
-		if ( isset( $transaction['gateway'] ) ) {
-			$properties['gateway'] = $transaction['gateway'];
-		}
-		if ( isset( $transaction['correlation-id'] ) ) {
-			$properties['correlation-id'] = $transaction['correlation-id'];
-		} elseif ( isset( $transaction['gateway'] ) && isset( $transaction['gateway_txn_id'] ) ) {
-			$properties['correlation-id'] = $transaction['gateway'] . '-' . $transaction['gateway_txn_id'];
-		} elseif ( isset( $transaction['contribution_tracking_id'] ) ) {
-			$properties['correlation-id'] = $transaction['contribution_tracking_id'];
-		}
-		// FIXME: In a better world, we'd actually be using this class to
-		// determine what kind of normalization is required in buildTransactionMessage.
-		if ( isset( $transaction['php-message-class'] ) ) {
-			$properties['php-message-class'] = $transaction['php-message-class'];
-		}
-
-		return $properties;
-	}
-
-	/**
 	 * Build a body string, given a donation data array
 	 *
 	 * @param array $transaction
@@ -118,7 +76,7 @@ class DonationQueue {
 			// Assume anything else is a regular donation.
 			$data = $this->buildTransactionMessage( $transaction );
 		}
-		$data = array_merge( $data, $this->source_fields );
+		SourceFields::addToMessage( $data );
 		return $data;
 	}
 

@@ -56,7 +56,7 @@ class DonationData implements LogPrefixProvider {
 		'expiration',
 		'cvv',
 		'currency',
-		'currency',
+		'currency_code',
 		'payment_method',
 		'payment_submethod',
 		'issuer_id',

@@ -152,7 +152,7 @@
 	"donate_interface-error-msg-mc": "Ju lutemi shënoni një numër të vlefshëm karte për MasterCard.",
 	"donate_interface-error-msg-visa": "Ju lutemi shënoni një numër të vlefshëm karte për Visa.",
 	"donate_interface-error-msg-discover": "Ju lutemi shënoni një numër të vlefshëm karte për Discover.",
-	"donate_interface-error-msg-amount": "vlera e kontributit",
+	"donate_interface-error-msg-amount": "Ju lutem fut sasinë e donacionit",
 	"donate_interface-error-msg-email": "Ju lutemi, vendsoni adresa e postës elektronike (e-mail) tuaj",
 	"donate_interface-error-msg-first_name": "Ju lutemi, vendsoni Emri tuaj",
 	"donate_interface-error-msg-last_name": "Ju lutemi, vendsoni Mbiemri tuaj",
@@ -325,7 +325,7 @@
 	"donate_interface-legal-original": "Ky është një përkthim vullnetar. Nëse ekzistojnë mospërputhshmëri mes këtij përkthimi dhe variantit në Anglisht, është varianti Anglisht ai që do të mbizotërojë.",
 	"donate_interface-monthlybox-title": "Dëshironi që të jetë mujor?",
 	"donate_interface-monthlybox-content": "Kontributet mujore përpunohen në datën 2 të çdo muaji. Ju mund ta anulloni në pdo kohë.",
-	"donate_interface-monthlybox-amount": "Vlera e kontributit",
+	"donate_interface-monthlybox-amount": "Sasia mujore e donacioneve",
 	"donate_interface-monthlybox-yes": "Patjetër, bëje mujor",
 	"donate_interface-monthlybox-no": "JO, bëj kontribut vetëm për një herë",
 	"donate_interface-monthlybox-bottom": "Kontributi juaj do të përpunohet në mënyrë të sigurt."

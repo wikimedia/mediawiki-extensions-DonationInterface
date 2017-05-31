@@ -137,7 +137,7 @@ cURL output (including IPs resolved) at info level.
 
 $wgDonationInterfaceCurlVerboseLog = false
 
-As donations are sent to the "completed" queue, also log the json blob.
+As donations are sent to the "donations" queue, also log the json blob.
 
 $wgDonationInterfaceLogCompleted = false
 
@@ -340,7 +340,7 @@ $wgDonationInterfaceDefaultQueueServer = array(
  */
 $wgDonationInterfaceQueues = array(
 	// Incoming donations that we think have been paid for.
-	'completed' => array(),
+	'donations' => array(),
 
 	// Transactions still needing action before they are settled.
 	'pending' => array(),
@@ -450,6 +450,10 @@ $wgDonationInterfaceMinFraudServers = array()
 // Weight to give Minfraud risk scores when enabled
 // 100 means to use the raw minfraud score
 $wgDonationInterfaceMinFraudWeight = 100
+
+
+// Minfraud risk score value if there is an error querying Minfraud, including no response
+$wgDonationInterfaceMinFraudErrorScore = 50
 
 // Timeout in seconds for communicating with MaxMind
 $wgMinFraudTimeout = 2

@@ -188,7 +188,7 @@
 	"donate_interface-error-msg-invalid-street_address": "Үҙегеҙең адресты-ҙә хатаны төҙәтегеҙ",
 	"donate_interface-error-msg-invalid-city": "Үҙегеҙең ҡаланы-ҙә хатаны төҙәтегеҙ",
 	"donate_interface-error-msg-invalid-postal_code-us": "Үҙегеҙең почта индексын-ҙә хатаны төҙәтегеҙ",
-	"donate_interface-error-msg-invalid-postal_code": "Үҙегеҙең Почта индексы-ҙә хатаны төҙәтегеҙ",
+	"donate_interface-error-msg-invalid-postal_code": "Үҙегеҙең Почта индексы $1-ҙә хатаны төҙәтегеҙ",
 	"donate_interface-error-msg-country": "ил",
 	"donate_interface-error-msg-card_type": "Кредит картаһы төрө",
 	"donate_interface-error-msg-card_num": "кредит картаһының номерын",

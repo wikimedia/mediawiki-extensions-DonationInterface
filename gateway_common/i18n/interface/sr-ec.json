@@ -172,7 +172,7 @@
 	"donate_interface-error-msg-postal_code": "Унесите поштански број",
 	"donate_interface-error-msg-invalid-first_name": "Исправите грешке у свом имену",
 	"donate_interface-error-msg-invalid-last_name": "Исправите грешке у свом презимену",
-	"donate_interface-error-msg-invalid-street": "Исправите грешке у својој адреси улице",
+	"donate_interface-error-msg-invalid-street_address": "Исправите грешке у својој адреси улице",
 	"donate_interface-error-msg-invalid-city": "Исправите грешке у свом граду",
 	"donate_interface-error-msg-invalid-postal_code-us": "Исправите грешке у свом зип коду",
 	"donate_interface-error-msg-invalid-postal_code": "Исправите грешке у свом поштанском коду",
