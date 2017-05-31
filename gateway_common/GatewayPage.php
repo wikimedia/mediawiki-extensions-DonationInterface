@@ -403,7 +403,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 				throw new RuntimeException(
 					'Resultswitcher: Request forbidden. No active donation in the session. ' .
-					"Adapter Order ID: $oid. Cookies: " . print_r( $_COOKIE, true )
+					"Adapter Order ID: $oid.\n" .
+					"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
+					"User-Agent: " . $_SERVER['HTTP_USER_AGENT']
 				);
 			}
 			// If it's possible for a donation to go through without our
