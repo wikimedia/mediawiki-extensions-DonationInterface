@@ -261,6 +261,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$weight = $this->gateway_adapter->getGlobal( 'MinfraudWeight' );
 		$multiplier = $weight / 100;
 		try {
+			$minfraud_query = $this->build_query( $this->gateway_adapter->getData_Unstaged_Escaped() );
 			$this->query_minfraud( $minfraud_query );
 			// Write the query/response to the log before we go mad.
 			$this->log_query();
