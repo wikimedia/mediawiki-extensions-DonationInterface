@@ -11,6 +11,7 @@ class AmazonBillingApi extends ApiBase {
 	);
 
 	public function execute() {
+		DonationInterface::initializeSmashPig( 'amazon' );
 		$output = $this->getResult();
 		$recurring = $this->getParameter( 'recurring');
 		$token = $this->getParameter( 'wmf_token' );

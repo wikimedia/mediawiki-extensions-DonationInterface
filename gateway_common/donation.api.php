@@ -30,7 +30,7 @@ class DonationApi extends ApiBase {
 		$validated_ok = $gatewayObj->validatedOK();
 		if ( !$validated_ok ) {
 			$errors = $gatewayObj->getErrorState()->getErrors();
-			$outputResult['errors'] = $this->serializeErrors( $errors );
+			$outputResult['errors'] = $this->serializeErrors( $errors, $gatewayObj );
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
@@ -81,7 +81,7 @@ class DonationApi extends ApiBase {
 		}
 		$errors = $result->getErrors();
 		if ( !empty( $errors ) ) {
-			$outputResult['errors'] = $this->serializeErrors( $errors );
+			$outputResult['errors'] = $this->serializeErrors( $errors, $gatewayObj );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
@@ -91,7 +91,7 @@ class DonationApi extends ApiBase {
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
-	protected function serializeErrors( $errors ) {
+	protected function serializeErrors( $errors, GatewayAdapter $adapter ) {
 		$serializedErrors = array();
 		foreach( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
@@ -100,11 +100,12 @@ class DonationApi extends ApiBase {
 					$error->getMessageParams()
 				);
 				$serializedErrors[$error->getField()] = $message;
-			} else {
-				$message = WmfFramework::formatMessage(
-					$error->getMessageKey()
-				);
+			} elseif ( $error instanceof PaymentError ) {
+				$message = $adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
 				$serializedErrors['general'][] = $message;
+			} else {
+				$logger = DonationLoggerFactory::getLogger( $adapter );
+				$logger->error( 'API trying to serialize unknown error type: ' . get_class( $error ) );
 			}
 		}
 		return $serializedErrors;

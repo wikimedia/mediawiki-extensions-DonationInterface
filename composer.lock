@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c77aa55a881981c2f2170a5894371bc0",
+    "content-hash": "22b27fd4e340d42c6a3b461f7f1fd7a6",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -198,7 +198,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2017-04-17 14:11:55"
+            "time": "2017-04-17T14:11:55+00:00"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -1037,7 +1037,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2017-05-19 17:03:40"
+            "time": "2017-05-19T17:03:40+00:00"
         },
         {
             "name": "zordius/lightncandy",
@@ -1134,6 +1134,56 @@
             "description": "This tool check syntax of PHP files about 20x faster than serial check.",
             "homepage": "https://github.com/JakubOnderka/PHP-Parallel-Lint",
             "time": "2015-12-15T10:42:16+00:00"
+        },
+        {
+            "name": "wikimedia/testing-access-wrapper",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/testing-access-wrapper.git",
+                "reference": "e18b87c86739733506bd184a70852c30cdb30699"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/testing-access-wrapper/zipball/e18b87c86739733506bd184a70852c30cdb30699",
+                "reference": "e18b87c86739733506bd184a70852c30cdb30699",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "jakub-onderka/php-parallel-lint": "0.9.2",
+                "mediawiki/mediawiki-codesniffer": "0.7.2",
+                "phpunit/phpunit": "4.8.31"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Roses Wight",
+                    "email": "awight@wikimedia.org"
+                },
+                {
+                    "name": "Brad Jorsch",
+                    "email": "bjorsch@wikimedia.org"
+                },
+                {
+                    "name": "Gergő Tisza",
+                    "email": "gtisza@wikimedia.org"
+                }
+            ],
+            "description": "A simple helper class to access non-public elements of a class when testing.",
+            "homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
+            "time": "2017-04-19T16:43:33+00:00"
         }
     ],
     "aliases": [],

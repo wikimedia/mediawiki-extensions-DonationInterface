@@ -12,7 +12,8 @@
 			"Darellur",
 			"Saper",
 			"The Polish",
-			"Jrobell"
+			"Jrobell",
+			"Woytecr"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -382,6 +383,7 @@
 	"donate_interface-onetime-short": "Jeden raz",
 	"donate_interface-error-http-403": "Nie masz uprawnień do dostępu do tej strony.",
 	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-param-amount": "Ilość przeznaczona na dotację.",
 	"apihelp-donate-param-currency": "Kod waluty.",
 	"apihelp-donate-param-first_name": "Imię.",
 	"apihelp-donate-param-last_name": "Nazwisko.",

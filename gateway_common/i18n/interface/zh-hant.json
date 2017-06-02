@@ -20,7 +20,8 @@
 			"Liuxinyu970226",
 			"Pcoombe",
 			"Zhxy 519",
-			"Alexsh"
+			"Alexsh",
+			"Wwycheuk"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -186,7 +187,7 @@
 	"donate_interface-error-msg-first_name": "請輸入您的 名",
 	"donate_interface-error-msg-last_name": "請輸入您的 姓",
 	"donate_interface-error-msg-street_address": "請輸入您的 街道地址",
-	"donate_interface-error-msg-city": "請輸入您的 城市",
+	"donate_interface-error-msg-city": "請輸入您的城市",
 	"donate_interface-error-msg-state_province": "請輸入您的 州",
 	"donate_interface-error-msg-postal_code-us": "請輸入您的郵政編碼",
 	"donate_interface-error-msg-postal_code": "請輸入您的 郵政編碼",
@@ -196,7 +197,7 @@
 	"donate_interface-error-msg-invalid-city": "請更正錯誤：城市。",
 	"donate_interface-error-msg-invalid-postal_code-us": "請更正錯誤：郵政編碼。",
 	"donate_interface-error-msg-invalid-postal_code": "請更正錯誤：郵政編碼。",
-	"donate_interface-error-msg-country": "國家",
+	"donate_interface-error-msg-country": "請輸入您的國家",
 	"donate_interface-error-msg-card_type": "信用卡類型",
 	"donate_interface-error-msg-card_num": "信用卡號碼",
 	"donate_interface-error-msg-expiration": "請輸入卡片的到期日期",
