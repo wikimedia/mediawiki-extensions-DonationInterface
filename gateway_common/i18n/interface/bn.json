@@ -8,7 +8,8 @@
 			"Wikitanvir",
 			"Aftabuzzaman",
 			"Aashaa",
-			"Elias Ahmmad"
+			"Elias Ahmmad",
+			"Mohammed Galib Hasan"
 		]
 	},
 	"donate_interface": "উইকিমিডিয়াকে সাহায্য করুন",
@@ -170,7 +171,7 @@
 	"donate_interface-error-msg-card_type": "ক্রেডিট কার্ডের ধরন",
 	"donate_interface-error-msg-card_num": "ক্রেডিট কার্ড নম্বর",
 	"donate_interface-error-msg-expiration": "দয়া করে কার্ডের মেয়াদ উত্তীর্ণের তারিখ লিখুন",
-	"donate_interface-error-msg-cvv": "কার্ডের পেছনের সিভিভি নম্বর",
+	"donate_interface-error-msg-cvv": "দয়া করে সিভিভি নম্বর প্রবেশ করুন, সাধারনত এটি কার্ডের পেছনের অংশে থাকে",
 	"donate_interface-error-msg-account_name": "অ্যাকাউন্ট নাম",
 	"donate_interface-error-msg-account_number": "অ্যাকাউন্ট নম্বর",
 	"donate_interface-error-msg-branch_code": "শাখা কোড",
