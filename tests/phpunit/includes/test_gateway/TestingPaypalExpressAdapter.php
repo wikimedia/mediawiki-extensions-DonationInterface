@@ -4,6 +4,7 @@
  * FIXME so much: DRY
  */
 class TestingPaypalExpressAdapter extends PaypalExpressAdapter {
+	protected $dummyGatewayResponseCode = 'OK';
 
 	/**
 	 * Set the error code you want the dummy response to return

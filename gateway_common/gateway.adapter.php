@@ -1453,6 +1453,18 @@ abstract class GatewayAdapter
 	}
 
 	/**
+	 * Gateways which return true from isReturnProcessingRequired must
+	 * override this with logic to get an ID from the request which will
+	 * identify repeated attempts to process the same payment.
+	 *
+	 * @param array $requestValues
+	 * @return int|string Order id
+	 */
+	protected function getRequestProcessId( $requestValues ) {
+		return null;
+	}
+
+	/**
 	 * Process the API response obtained from the payment processor and set
 	 * properties of transaction_response.
 	 * Default implementation just says we got a response.
@@ -2953,6 +2965,7 @@ abstract class GatewayAdapter
 				'PaymentForms',
 				'numAttempt',
 				'order_status', //for post-payment activities
+				'processed_requests', //for post-payment activities
 				'sequence',
 			);
 			$preservedData = array();

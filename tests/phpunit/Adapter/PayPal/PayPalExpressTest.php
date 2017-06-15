@@ -95,6 +95,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testProcessDonorReturn() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'OK' );
@@ -197,6 +198,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testProcessDonorReturnPaymentRetry() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '10486' );
@@ -239,4 +241,78 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
+	/**
+	 * The result switcher should redirect the donor to the thank you page and mark the token as
+	 * processed.
+	 */
+	public function testResultSwitcher() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['gateway_session_id'] = mt_rand();
+		$session = array( 'Donor' => $init );
+
+		$request = array(
+			'token' => $init['gateway_session_id'],
+			'PayerID' => 'ASdASDAS',
+			'language' => 'pt' // FIXME: mashing up request vars and other stuff in verifyFormOutput
+		);
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => function( $location ) use ( $init ) {
+					// Do this after the real processing to avoid side effects
+					$gateway = $this->getFreshGatewayObject( $init );
+					$url = ResultPages::getThankYouPage( $gateway );
+					return $location === $url;
+				}
+			)
+		);
+
+		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
+		$processed = RequestContext::getMain()->getRequest()->getSessionData( 'processed_requests' );
+		$this->assertArrayHasKey( $request['token'], $processed );
+
+		// Make sure we logged the expected cURL attempts
+		$messages = $this->getLogMatches( 'info', '/Preparing to send GetExpressCheckoutDetails transaction to Paypal Express Checkout/' );
+		$this->assertNotEmpty( $messages );
+		$messages = $this->getLogMatches( 'info', '/Preparing to send DoExpressCheckoutPayment transaction to Paypal Express Checkout/' );
+		$this->assertNotEmpty( $messages );
+	}
+
+	/**
+	 * The result switcher should redirect the donor to the thank you page without
+	 * re-processing the donation.
+	 */
+	public function testResultSwitcherRepeat() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['gateway_session_id'] = mt_rand();
+		$session = array(
+			'Donor' => $init,
+			'processed_requests' => array(
+				$init['gateway_session_id'] => true
+			)
+		);
+
+		$request = array(
+			'token' => $init['gateway_session_id'],
+			'PayerID' => 'ASdASDAS',
+			'language' => 'pt' // FIXME: mashing up request vars and other stuff in verifyFormOutput
+		);
+		$assertNodes = array(
+			'headers' => array(
+				'Location' => function( $location ) use ( $init ) {
+					// Do this after the real processing to avoid side effects
+					$gateway = $this->getFreshGatewayObject( $init );
+					$url = ResultPages::getThankYouPage( $gateway );
+					return $location === $url;
+				}
+			)
+		);
+
+		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
+
+		// We should not have logged any cURL attempts
+		$messages = $this->getLogMatches( 'info', '/Preparing to send .*/' );
+		$this->assertEmpty( $messages );
+	}
 }

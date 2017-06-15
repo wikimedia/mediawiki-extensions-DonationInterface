@@ -398,6 +398,17 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$this->setHeaders();
 
+		if ( $this->isRepeatReturnProcess() ) {
+			$this->logger->warning(
+				'Donor is trying to process an already-processed payment. ' .
+				"Adapter Order ID: $oid.\n" .
+				"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
+				"User-Agent: " . $_SERVER['HTTP_USER_AGENT']
+			);
+			$this->displayThankYouPage( 'repeat return processing' );
+			return;
+		}
+
 		if ( $deadSession ){
 			if ( $this->adapter->isReturnProcessingRequired() ) {
 				wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
@@ -429,6 +440,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// feed processDonorReturn all the GET and POST vars
 			$requestValues = $this->getRequest()->getValues();
 			$result = $this->adapter->processDonorReturn( $requestValues );
+			$this->markReturnProcessed();
 			$this->renderResponse( $result );
 			return;
 		} else {
@@ -566,5 +578,35 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$ex->getMessage()
 			);
 		}
+	}
+
+	protected function isRepeatReturnProcess() {
+		$request = $this->getRequest();
+		$requestProcessId = $this->adapter->getRequestProcessId(
+			$request->getValues()
+		);
+		$processedRequests = $request->getSessionData( 'processed_requests' );
+		if ( !$requestProcessId || empty( $processedRequests ) ) {
+			return false;
+		}
+		return array_key_exists( $requestProcessId, $processedRequests );
+	}
+
+	protected function markReturnProcessed() {
+		$request = $this->getRequest();
+		$requestProcessId = $this->adapter->getRequestProcessId(
+			$request->getValues()
+		);
+		if ( !$requestProcessId ) {
+			return;
+		}
+		$processedRequests = $request->getSessionData( 'processed_requests' );
+		if ( !$processedRequests ) {
+			$processedRequests = array();
+		}
+		// TODO: we could store the results of the last process here, but for now
+		// we just indicate we did SOMETHING with it
+		$processedRequests[$requestProcessId] = true;
+		$request->setSessionData( 'processed_requests', $processedRequests );
 	}
 }

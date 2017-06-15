@@ -388,6 +388,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return true;
 	}
 
+	public function getRequestProcessId( $requestValues ) {
+		return $requestValues['token'];
+	}
+
 	protected function processResponse( $response ) {
 		$this->transaction_response->setData( $response );
 		// FIXME: I'm not sure why we're responsible for failing the
