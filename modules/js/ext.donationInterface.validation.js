@@ -83,9 +83,10 @@
 				'tiscali.co.uk', 'tiscali.it', 'tpg.com.au', 'umich.edu',
 				'uol.com.br', 'videotron.ca', 'virgilio.it', 'wanadoo.fr',
 				'web.de', 'windstream.net', 'wp.pl', 'xs4all.nl', 'xtra.co.nz',
-				'yahoo.ca', 'yahoo.co.in', 'yahoo.co.jp', 'yahoo.com.au',
-				'yahoo.com.br', 'yahoo.com.mx', 'yahoo.de', 'yahoo.es',
-				'yahoo.fr', 'yahoo.it', 'ybb.ne.jp', 'ymail.com', 'ziggo.nl'
+				'yahoo.ca', 'yahoo.co.in', 'yahoo.co.jp', 'yahoo.com.ar',
+				'yahoo.com.au', 'yahoo.com.br', 'yahoo.com.mx', 'yahoo.de',
+				'yahoo.es', 'yahoo.fr', 'yahoo.it', 'ybb.ne.jp', 'ymail.com',
+				'ziggo.nl'
 			] ),
 			suggested: function ( element, suggestion ) {
 				var message = mw.msg(
