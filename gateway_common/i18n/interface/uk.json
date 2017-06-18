@@ -409,6 +409,7 @@
 	"donate_interface-error-http-403": "Вибачте, у вас недостатньо прав для доступу до цієї сторінки.",
 	"donate_interface-statement": "Вікімедіа $1",
 	"apihelp-donate-description": "Цей API дозволяє Вам зробити пожертву в Фонд Вікімедіа, використовуючи різні платіжні системи.",
+	"apihelp-donate-summary": "Цей API дозволяє Вам зробити пожертву у Фонд Вікімедіа, використовуючи різні платіжні системи.",
 	"apihelp-donate-param-gateway": "Якої платіжний шлюз використовувати — adyen, globalcollect тощо.",
 	"apihelp-donate-param-amount": "Сума пожертви.",
 	"apihelp-donate-param-currency": "Код валюти.",
