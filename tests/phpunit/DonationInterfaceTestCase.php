@@ -60,8 +60,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 
 		//Just in case you got here without running the configuration...
-		global $wgDonationInterfaceTestMode;
-		$wgDonationInterfaceTestMode = true;
+		global $wgDonationInterfaceTest;
+		$wgDonationInterfaceTest = true;
 
 		parent::__construct( $name, $data, $dataName );
 	}

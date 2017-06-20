@@ -9,15 +9,15 @@ class DonationInterface {
 	 * Executed after processing extension.json
 	 */
 	public static function registerExtension() {
-		global $wgDonationInterfaceTestMode,
+		global $wgDonationInterfaceTest,
 			$wgDonationInterfaceTemplate,
 			$wgDonationInterfaceErrorTemplate,
 			$IP;
 
 		// Test mode (not for production!)
 		// Set it if not defined
-		if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== true ) {
-			$wgDonationInterfaceTestMode = false;
+		if ( !isset( $wgDonationInterfaceTest ) || $wgDonationInterfaceTest !== true ) {
+			$wgDonationInterfaceTest = false;
 		}
 
 		/**
