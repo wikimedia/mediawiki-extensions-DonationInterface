@@ -103,7 +103,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->risk_score = 57;
-		$message = $exposed->getStompTransaction();
+		$message = $exposed->getQueueDonationMessage();
 		$this->assertEquals( 57, $message['risk_score'], 'Risk score was not correctly added to queue message.' );
 	}
 

@@ -41,11 +41,10 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		) );
 
 		$this->transaction = array(
-			'amount' => '1.24',
+			'gross' => '1.24',
+			'fee' => '0',
 			'city' => 'Dunburger',
 			'contribution_tracking_id' => mt_rand(),
-			// FIXME: err, we're cheating normalization here.
-			'correlation-id' => 'testgateway-' . mt_rand(),
 			'country' => 'US',
 			'currency' => 'USD',
 			'date' => time(),
@@ -59,7 +58,6 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'last_name' => 'Russ',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'response' => 'Gateway response something',
 			'state_province' => 'AK',
 			'street_address' => '1 Fake St.',
@@ -116,7 +114,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 		DonationQueue::instance()->push( $this->transaction, $this->queue_name );
 
 		$transaction2 = $this->transaction;
-		$transaction2['correlation-id'] = mt_rand();
+		$transaction2['order_id'] = mt_rand();
 
 		DonationQueue::instance()->push( $transaction2, $this->queue_name );
 

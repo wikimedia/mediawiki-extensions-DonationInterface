@@ -182,7 +182,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'postal_code' => '94105',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
-			'subscr_id' => 'I-88J1M3DLSF0'
+			'subscr_id' => 'I-88J1M3DLSF0',
 		);
 		$this->assertEquals( $expected, $message );
 		$this->assertNull(

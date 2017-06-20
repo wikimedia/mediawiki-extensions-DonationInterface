@@ -53,9 +53,10 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		unset( $init['order_id'] );
 
 		$expectedObject = array(
-			'amount' => 23.45,
+			'gross' => 23.45,
 			'city' => 'San Francisco',
 			//'contribution_tracking_id' => '1',
+			'fee' => 0,
 			'country' => 'US',
 			'currency' => 'EUR',
 			'email' => 'innocent@manichean.com',
@@ -72,7 +73,6 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'utm_source' => '..cc',
 			'postal_code' => '94105',
 			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'gateway_account' => 'test',
 		);
 
@@ -107,7 +107,8 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		unset( $init['order_id'] );
 
 		$expectedObject = array(
-			'amount' => 23.45,
+			'gross' => 23.45,
+			'fee' => 0,
 			'city' => 'San Francisco',
 			'country' => 'US',
 			'currency' => 'EUR',
@@ -125,7 +126,6 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'utm_source' => '..cc',
 			'postal_code' => '94105',
 			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'gateway_account' => 'test',
 		);
 
@@ -147,7 +147,6 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	protected function stripRandomFields( $data ) {
 		$toUnset = array(
 			'contribution_tracking_id',
-			'correlation-id',
 			'date',
 			'gateway_txn_id',
 			'order_id',
