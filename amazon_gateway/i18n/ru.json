@@ -1,11 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"KPu3uC B Poccuu",
-			"Facenapalm"
+			"KPu3uC B Poccuu"
 		]
 	},
-	"amazon_gateway-desc": "Обработка платежей Amazon",
-	"apihelp-di_amazon_bill-summary": "",
-	"apihelp-di_amazon_bill-param-currency": ""
+	"amazongateway": "Сделать ваше пожертвование сейчас",
+	"amazon_gateway-desc": "Обработка платежей Amazon"
 }
