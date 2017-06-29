@@ -1460,7 +1460,7 @@ abstract class GatewayAdapter
 	 * @param array $requestValues
 	 * @return int|string Order id
 	 */
-	protected function getRequestProcessId( $requestValues ) {
+	public function getRequestProcessId( $requestValues ) {
 		return null;
 	}
 
