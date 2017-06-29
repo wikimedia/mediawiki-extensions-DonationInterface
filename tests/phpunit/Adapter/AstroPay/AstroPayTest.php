@@ -17,6 +17,9 @@
  */
 
 use \Psr\Log\LogLevel;
+use SmashPig\Core\Configuration;
+use SmashPig\Core\Context;
+use SmashPig\CrmLink\Messages\SourceFields;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -42,6 +45,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setMwGlobals( array(
 			'wgAstroPayGatewayEnabled' => true,
 		) );
+		$config = Configuration::createForView( 'astropay' );
+		Context::initWithLogger( $config );
 	}
 
 	/**
@@ -462,6 +467,29 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
+		$message = DonationQueue::instance()->pop( 'payments-antifraud' );
+		SourceFields::removeFromMessage( $message );
+		$expected = array(
+			'validation_action' => 'challenge',
+			'risk_score' => 60,
+			'score_breakdown' => array(
+				'initial' => 0,
+				'getScoreUtmCampaignMap' => 0,
+				'getScoreCountryMap' => 0,
+				'getScoreUtmSourceMap' => 10.5,
+				'getScoreUtmMediumMap' => 12,
+				'getScoreEmailDomainMap' => 37.5,
+			),
+			'user_ip' => '127.0.0.1',
+			'gateway_txn_id' => false,
+			'date' => $message['date'],
+			'server' => gethostname(),
+			'gateway' => 'astropay',
+			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'payment_method' => 'cc',
+		);
+		$this->assertEquals( $expected, $message );
 	}
 
 	function testStageFiscalNumber() {

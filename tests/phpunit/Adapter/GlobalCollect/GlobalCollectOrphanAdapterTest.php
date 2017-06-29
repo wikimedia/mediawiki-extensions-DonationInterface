@@ -17,6 +17,9 @@
  */
 
 use Psr\Log\LogLevel;
+use SmashPig\Core\Configuration;
+use SmashPig\Core\Context;
+use SmashPig\CrmLink\Messages\SourceFields;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -29,6 +32,9 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
+
+		$config = Configuration::createForView( 'globalcollect' );
+		Context::initWithLogger( $config );
 
 		$this->setMwGlobals( array(
 			'wgGlobalCollectGatewayEnabled' => true,
@@ -177,5 +183,26 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
+		$message = DonationQueue::instance()->pop( 'payments-antifraud' );
+		SourceFields::removeFromMessage( $message );
+		$expected = array(
+			'validation_action' => 'review',
+			'risk_score' => 40,
+			'score_breakdown' => array(
+				// FIXME: need to enable utm / email / country checks ???
+				'initial' => 0,
+				'getCVVResult' => 10,
+				'getAVSResult' => 30,
+			),
+			'user_ip' => null, // FIXME
+			'gateway_txn_id' => '55555',
+			'date' => $message['date'],
+			'server' => gethostname(),
+			'gateway' => 'globalcollect',
+			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'payment_method' => 'cc',
+		);
+		$this->assertEquals( $expected, $message );
 	}
 }
