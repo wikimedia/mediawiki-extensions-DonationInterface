@@ -345,7 +345,7 @@ interface GatewayType {
 	 * @param array $transaction The fields that we are interested in sending.
 	 * @return array The fields that will actually be sent. So, $transaction ++ some other things we think we're likely to always need.
 	 */
-	public function makeFreeformStompTransaction( $transaction );
+	public function addStandardMessageFields( $transaction );
 
 	/**
 	 * returns information about how to manage the Order ID

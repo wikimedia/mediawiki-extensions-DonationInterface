@@ -2,7 +2,6 @@ img.submethod-logo {
 	max-width: 100px;
 }
 div#payment_gateway-donate-submessage {
-	font-size: 90%;
 	line-height: 120%;
 }
 div#payment_gateway-donate-submessage img {
@@ -54,14 +53,14 @@ table {
 	background-color: transparent;
 }
 div#content {
-	background-color: transparent !important;
-	background-image: none !important;
+	background-color: transparent;
+	background-image: none;
 }
 div#mw-head-base {
-	background-image: none !important;
+	background-image: none;
 }
 #footer {
-	background-image: none !important;
+	background-image: none;
 }
 
 /* Hiding stuff we don't need */
@@ -71,8 +70,8 @@ h1#firstHeading, div#contentSub {
 
 /* NEW STUFF */
 ul#moreinfolinks li{
-    list-style: none !important;
-    list-style-image: none !important;
+    list-style: none;
+    list-style-image: none;
 }
 .form .options-h {
     margin: 0;
@@ -120,17 +119,17 @@ textarea::-moz-placeholder {
     opacity: 1;
 }
 #donate {
-  min-width: 32em !important;
-  padding: 1em !important;
+  min-width: 32em;
+  padding: 1em;
 }
 
 
 #greenBackground {
-  background-color: #e2e2e2 !important;
-  position: relative !important;
-  padding: 1.6em !important;
-  border: 0 !important;
-  width: auto !important;
+  background-color: #e2e2e2;
+  position: relative;
+  padding: 1.6em;
+  border: 0;
+  width: auto;
 }
 
 #greenBackground:before {
@@ -183,8 +182,8 @@ span#selected-amount {
     margin-left: 8px;
 }
 
-div.donor { width: auto !important; }
-div.donor { width: 100% !important; }
+div.donor { width: auto; }
+div.donor { width: 100%; }
 
 #payment-table-donor input[type="text"],
 #payment-table-donor input[type="number"],
@@ -192,7 +191,7 @@ div.donor { width: 100% !important; }
 #payment-table-donor input[type="email"],
 #payment-table-donor select {
   background-color: #f6f6f6;
-  padding: 1em !important;
+  padding: 1em;
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
   box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
@@ -227,7 +226,7 @@ div.donor { width: 100% !important; }
   box-shadow: inset 0 1px 3px rgba(0,0,1,.5), inset 0 0 0 1px rgba(0,0,0,.1);
 }
 
-#payment-table-donor select { padding: .9em 1em !important; line-height: 40px; }
+#payment-table-donor select { padding: .9em 1em; line-height: 40px; }
 
 #amount_input * {
     vertical-align: top;
@@ -242,7 +241,7 @@ div.donor { width: 100% !important; }
 
 .mw-donate-submessage {
   text-transform: uppercase;
-  font-size: .75em !important;
+  font-size: 0.75em;
   color: #7c7c7c;
   text-align: center;
 }
@@ -259,7 +258,7 @@ div.donor { width: 100% !important; }
 #cards:after { clear: both; }
 #cards li {
     background: #d1d1d1;
-    margin: 0 .7% .7% 0 !important;
+    margin: 0 .7% .7% 0;
     float: left;
     text-align: center;
     -moz-border-radius: 4px;
@@ -301,8 +300,8 @@ div.donor { width: 100% !important; }
 #cards li input {
     display: block;
     width: 100%;
-    margin: 0 0 .7em !important;
-    box-shadow: none !important;
+    margin: 0 0 .7em;
+    box-shadow: none;
 }
 #cards li label {
     cursor: pointer;
@@ -310,20 +309,20 @@ div.donor { width: 100% !important; }
     display: block;
 }
 #cards li label img {
-    margin: 0 auto !important;
-    height: auto !important;
+    margin: 0 auto;
+    height: auto;
 }
 #cards li.has_sub_text label {
     margin-top: 0;
 }
 #cards li.has_sub_text input {
-    margin-bottom: 0.1em !important;
+    margin-bottom: 0.1em;
 }
 #cards li label p.card_sub_text {
     margin: -0.5em auto;
 }
 #paymentContinue, #paymentSubmit {
-  margin-top: 1em !important;
+  margin-top: 1em;
   clear: both;
   display: none;
 }
@@ -331,21 +330,21 @@ div.donor { width: 100% !important; }
     display:block;
 }
 .btn {
-  background-color: #757575 !important;
-  color: #fff !important;
+  background-color: #757575;
+  color: #fff;
   width: 100%;
   text-transform: uppercase;
   font-size: 1.3em;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
-  padding: .6em !important;
+  padding: .6em;
 }
 .btn.enabled {
-  background-color: #367fb4 !important;
+  background-color: #367fb4;
   cursor: pointer;
 }
-.btn.enabled:hover { background-color: #1d5278 !important; }
+.btn.enabled:hover { background-color: #1d5278; }
 .btn:active {
   -moz-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
   -webkit-box-shadow: inset 0 1px 4px rgba(0,0,1,.5);
@@ -401,26 +400,26 @@ div.error-box h2 {
     }
 
     #payment-table-donor select {
-        font-size: 16px !important;
-        padding: 13px !important;
-        background: #fff !important;
+        font-size: 16px;
+        padding: 13px;
+        background: #fff;
         border: 1px solid #ccc;
-        box-shadow: none !important;
-        border-radius: 2px !important;
-        color: #666 !important;
-        margin-bottom: 10px !important;
+        box-shadow: none;
+        border-radius: 2px;
+        color: #666;
+        margin-bottom: 10px;
         transition: none;
     }
     select#state_province:hover {
         background: #fff;
-        color: #222 !important;
+        color: #222;
     }
     td#donate form input[type="text"],
     td#donate form input[type="email"]
     {
         display: block;
         font-size: 16px;
-        padding: 14px !important;
+        padding: 14px;
         margin-bottom: 10px;
         background: #fff;
         box-shadow: inset 0 0 0 0.1em #fff;
@@ -449,15 +448,15 @@ div.error-box h2 {
         display: none;
     }
     body #mw-content-text #donate #greenBackground {
-        background: transparent !important;
-        padding: 0px !important;
-        width: 100% !important;
+        background: transparent;
+        padding: 0px;
+        width: 100%;
     }
     body #donate {
-        padding: 0 !important;
-        margin: 0 auto !important;
-        min-width: 200px !important;
-        max-width: 400px !important;
+        padding: 0;
+        margin: 0 auto;
+        min-width: 200px;
+        max-width: 400px;
     }
 
     body #mw-page-base {
@@ -497,7 +496,7 @@ div.error-box h2 {
         margin: 0;
     }
     #cards li label img {
-        width: 80% !important;
+        width: 80%;
     }
     #cards li:hover {
         background: #EAF3FF;

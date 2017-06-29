@@ -157,6 +157,7 @@ class NationalCurrencies {
 			"MU" => "EUR",
 			"MS" => "XCD",
 			"MA" => "MAD",
+			"MX" => "MXN",
 			"MZ" => "MZN",
 			"MM" => "MMK",
 			"NA" => "NAD",

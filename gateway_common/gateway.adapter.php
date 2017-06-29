@@ -20,6 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
+use SmashPig\Core\UtcDate;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -1763,74 +1764,82 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Formats an array in preparation for dispatch to a STOMP queue
+	 * Collect donation details and normalize keys for pending or
+	 * donations queue
 	 *
-	 * @return array Pass this return array to STOMP :)
-	 *
-	 * TODO: Stop saying "STOMP".
+	 * @return array
 	 */
-	protected function getStompTransaction() {
-		$transaction = array(
+	protected function getQueueDonationMessage() {
+		$queueMessage = array(
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			'response' => $this->getTransactionMessage(),
-			// Can this be deprecated?
-			'correlation-id' => $this->getCorrelationID(),
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceMessage',
 			'gateway_account' => $this->account_name,
+			'fee' => 0, // FIXME: don't we know this for some gateways?
+		);
+
+		$messageKeys = DonationData::getMessageFields();
+
+		$requiredKeys = array(
+			'amount',
+			'contribution_tracking_id',
+			'country',
+			'gateway',
+			'language',
+			'order_id',
+			'payment_method',
+			'payment_submethod',
+			'user_ip',
+			'utm_source',
+		);
+
+		$remapKeys = array(
+			'amount' => 'gross',
 		);
 
 		// Add the rest of the relevant data
 		// FIXME: This is "normalized" data.  We should refer to it as such,
 		// and rename the getData_Unstaged_Escaped function.
-		$stomp_data = array_intersect_key(
-			$this->getData_Unstaged_Escaped(),
-			array_flip( $this->dataObj->getMessageFields() )
-		);
-
-		// The order here is important, values in $transaction are considered more definitive
-		// in case the transaction already had keys with those values
-		$transaction = array_merge( $stomp_data, $transaction );
-
+		$data = $this->getData_Unstaged_Escaped();
+		foreach ( $messageKeys as $key ) {
+			if ( isset( $queueMessage[$key] ) ) {
+				// don't clobber the pre-sets
+				continue;
+			}
+			if ( !isset( $data[$key] ) ) {
+				if ( in_array( $key, $requiredKeys ) ) {
+					throw new RuntimeException( "Missing required message key $key" );
+				}
+				continue;
+			}
+			$value = Encoding::toUTF8( $data[$key] );
+			if ( isset( $remapKeys[$key] ) ) {
+				$queueMessage[$remapKeys[$key]] = $value;
+			} else {
+				$queueMessage[$key] = $value;
+			}
+		}
 		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
-		$transaction['date'] = time();
+		$queueMessage['date'] = time();
 
-		// Force any incorrect encoding to UTF-8.
-		// FIXME: Move down to the PHP-Queue library
-		$transaction = Encoding::toUTF8( $transaction );
-
-		return $transaction;
+		return $queueMessage;
 	}
 
-	public function makeFreeformStompTransaction( $transaction ) {
-		if ( !array_key_exists( 'php-message-class', $transaction ) ) {
-			$this->logger->warning( "Trying to send a freeform STOMP message with no class defined. Bad programmer." );
-			$transaction['php-message-class'] = 'undefined-loser-message';
-		}
-
-		// Mark as freeform so we avoid normalization.
-		$transaction['freeform'] = true;
-
+	public function addStandardMessageFields( $transaction ) {
 		//bascially, add all the stuff we have come to take for granted, because syslog.
-		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnID();
-		$transaction['correlation-id'] = $this->getCorrelationID();
-		$transaction['date'] = ( int ) time(); //I know this looks odd. Just trust me here.
-		$transaction['server'] = WmfFramework::getHostname(); // FIXME: duplicated in the source fields
+		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnId();
+		$transaction['date'] = UtcDate::getUtcTimestamp();
+		$transaction['server'] = gethostname();
 
 		$these_too = array (
 			'gateway',
 			'contribution_tracking_id',
 			'order_id',
-			'payment_method', //the stomp sender gets mad if we don't have this. @TODO: Stop being lazy someday.
 		);
 		foreach ( $these_too as $field ) {
 			$transaction[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
 
 		return $transaction;
-	}
-
-	protected function getCorrelationID(){
-		return $this->getIdentifier() . '-' . $this->getData_Unstaged_Escaped('order_id');
 	}
 
 	/**
@@ -2060,7 +2069,6 @@ abstract class GatewayAdapter
 	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = array(
-			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceFinalStatus',
 			'validation_action' => $this->getValidationAction(),
 			'payments_final_status' => $status,
 		);
@@ -2079,7 +2087,7 @@ abstract class GatewayAdapter
 			$transaction[$key] = $this->getData_Unstaged_Escaped( $key );
 		}
 
-		$transaction = $this->makeFreeformStompTransaction( $transaction );
+		$transaction = $this->addStandardMessageFields( $transaction );
 
 		try {
 			// FIXME: Dispatch "freeform" messages transparently as well.
@@ -2234,13 +2242,13 @@ abstract class GatewayAdapter
 
 	protected function pushMessage( $queue ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
-		DonationQueue::instance()->push( $this->getStompTransaction(), $queue );
+		DonationQueue::instance()->push( $this->getQueueDonationMessage(), $queue );
 	}
 
 	protected function sendPendingMessage() {
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->logger->info( "Sending donor details for $order_id to pending queue" );
-		DonationQueue::instance()->push( $this->getStompTransaction(), 'pending' );
+		DonationQueue::instance()->push( $this->getQueueDonationMessage(), 'pending' );
 	}
 
 	/**
@@ -3617,7 +3625,7 @@ abstract class GatewayAdapter
 	}
 
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
-		$details = $this->getStompTransaction();
+		$details = $this->getQueueDonationMessage();
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
 	}

@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ата"
+			"Ата",
+			"Piramidion"
 		]
 	},
-	"amazongateway": "Зробіть Вашу пожертву зараз",
-	"amazon_gateway-desc": "Обробка платежу Amazon"
+	"amazon_gateway-desc": "Обробка платежу Amazon",
+	"apihelp-di_amazon_bill-summary": ".",
+	"apihelp-di_amazon_bill-param-currency": "."
 }

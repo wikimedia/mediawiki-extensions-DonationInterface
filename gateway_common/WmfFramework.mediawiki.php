@@ -27,10 +27,6 @@ class WmfFramework_Mediawiki {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}
 
-	static function getHostname() {
-		return wfHostname();
-	}
-
 	static function formatMessage( $message_identifier /*, ... */ ) {
 		return call_user_func_array( 'wfMessage', func_get_args() )->text();
 	}
