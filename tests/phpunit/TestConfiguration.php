@@ -78,7 +78,17 @@ global $wgDonationInterfaceTestMode,
 	$wgDonationInterfaceEnableMinfraud,
 	$wgDonationInterfaceEnableFunctionsFilter,
 	$wgDonationInterfaceEnableReferrerFilter,
-	$wgDonationInterfaceEnableSourceFilter;
+	$wgDonationInterfaceEnableSourceFilter,
+	$wgDonationInterfaceCustomFiltersActionRanges,
+	$wgDonationInterfaceCustomFiltersRefRules,
+	$wgDonationInterfaceCustomFiltersSrcRules,
+	$wgDonationInterfaceCustomFiltersFunctions,
+	$wgGlobalCollectGatewayCustomFiltersFunctions,
+	$wgDonationInterfaceCountryMap,
+	$wgDonationInterfaceUtmCampaignMap,
+	$wgDonationInterfaceUtmSourceMap,
+	$wgDonationInterfaceUtmMediumMap,
+	$wgDonationInterfaceEmailDomainMap;
 
 $wgDonationInterfaceGatewayAdapters = array(
 	'globalcollect'=> 'TestingGlobalCollectAdapter',
@@ -179,3 +189,56 @@ $wgDonationInterfaceEnableMinfraud = false;
 $wgDonationInterfaceEnableFunctionsFilter = true;
 $wgDonationInterfaceEnableReferrerFilter = true;
 $wgDonationInterfaceEnableSourceFilter = true;
+
+$customFilters = array(
+	'getScoreCountryMap' => 50,
+	'getScoreUtmCampaignMap' => 50,
+	'getScoreUtmSourceMap' => 15,
+	'getScoreUtmMediumMap' => 15,
+	'getScoreEmailDomainMap' => 75,
+);
+
+
+$wgDonationInterfaceCustomFiltersActionRanges = array (
+	'process' => array ( 0, 25 ),
+	'review' => array ( 25, 50 ),
+	'challenge' => array ( 50, 75 ),
+	'reject' => array ( 75, 100 ),
+);
+
+$wgDonationInterfaceCustomFiltersRefRules = array (
+	'/donate-error/i' => 5,
+);
+
+$wgDonationInterfaceCustomFiltersSrcRules = array ( '/wikimedia\.org/i' => 80 );
+
+$wgDonationInterfaceCustomFiltersFunctions = $customFilters;
+
+$wgGlobalCollectGatewayCustomFiltersFunctions = array(
+	'getCVVResult' => 20,
+	'getAVSResult' => 25,
+) + $customFilters;
+
+$wgDonationInterfaceCountryMap = array (
+	'US' => 40,
+	'CA' => 15,
+	'RU' => -4,
+);
+
+$wgDonationInterfaceUtmCampaignMap = array (
+	'/^(C14_)/' => 14,
+	'/^(spontaneous)/' => 5
+);
+
+$wgDonationInterfaceUtmSourceMap = array (
+	'/somethingmedia/' => 70
+);
+
+$wgDonationInterfaceUtmMediumMap = array (
+	'/somethingmedia/' => 80
+);
+
+$wgDonationInterfaceEmailDomainMap = array (
+	'wikimedia.org' => 42,
+	'wikipedia.org' => 50,
+);
