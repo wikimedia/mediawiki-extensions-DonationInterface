@@ -67,6 +67,7 @@ class BannerHistoryLogIdProcessor {
 		}
 
 		$data = array(
+			'freeform' => true,
 			'banner_history_id' => $bannerHistoryId,
 			'contribution_tracking_id' => $contributionTrackingId,
 		);

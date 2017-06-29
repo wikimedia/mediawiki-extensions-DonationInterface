@@ -24,9 +24,7 @@ class AmazonBillingApi extends ApiBase {
 			),
 		);
 
-		$adapterClass = DonationInterface::getAdapterClassForGateway( 'amazon' );
-		// @var AmazonAdapter
-		$adapter = new $adapterClass( $adapterParams );
+		$adapter = new AmazonAdapter( $adapterParams );
 
 		if ( $adapter->getErrorState()->hasErrors() ) {
 			$output->addValue(

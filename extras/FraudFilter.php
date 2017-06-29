@@ -28,6 +28,7 @@ abstract class FraudFilter extends Gateway_Extras {
 			'validation_action' => $validationAction,
 			'risk_score' => $totalScore,
 			'score_breakdown' => $scoreBreakdown,
+			'php-message-class' => 'SmashPig\CrmLink\Messages\DonationInterfaceAntifraud',
 			'user_ip' => $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ),
 		);
 		//If we need much more here to help combat fraud, we could just
@@ -35,7 +36,7 @@ abstract class FraudFilter extends Gateway_Extras {
 		//Legal said ok... but this seems a bit excessive to me at the
 		//moment.
 
-		$transaction = $this->gateway_adapter->addStandardMessageFields( $stomp_msg );
+		$transaction = $this->gateway_adapter->makeFreeformStompTransaction( $stomp_msg );
 
 		// In the rare case that we fraud-fail before we have an order ID, use ct_id
 		if ( empty( $transaction['order_id'] ) ) {

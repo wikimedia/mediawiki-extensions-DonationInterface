@@ -12,8 +12,7 @@
 			"Jrobell",
 			"Kingu",
 			"Jon Harald Søby",
-			"Telaneo",
-			"Pmt"
+			"Telaneo"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -175,7 +174,7 @@
 	"donate_interface-error-msg-mc": "Vennligst oppgi et gyldig kortnummer for MasterCard.",
 	"donate_interface-error-msg-visa": "Vennligst oppgi et gyldig kortnummer for Visa.",
 	"donate_interface-error-msg-discover": "Vennligst oppgi et gyldig kortnummer for Discover.",
-	"donate_interface-error-msg-amount": "Oppgi ditt støttebeløp",
+	"donate_interface-error-msg-amount": "gavebeløp",
 	"donate_interface-error-msg-limit": "Gaven din kunne ikke prosesseres. Prøv en av våre <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">andre måter å gi</a>, prøv et lavere beløp, eller prøv igjen i morgen.",
 	"donate_interface-error-msg-email": "Dette feltet må fylles ut: e-postadresse",
 	"donate_interface-error-msg-first_name": "Dette feltet må fylles ut: fornavn",

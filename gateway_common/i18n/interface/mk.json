@@ -397,7 +397,6 @@
 	"donate_interface-error-http-403": "Немате дозвола да ја отворите оваа страница.",
 	"donate_interface-statement": "Викимедија $1",
 	"apihelp-donate-description": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
-	"apihelp-donate-summary": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн.",
 	"apihelp-donate-param-amount": "Износ за уплата.",
 	"apihelp-donate-param-currency": "Код на валутата.",

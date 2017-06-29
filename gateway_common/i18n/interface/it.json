@@ -409,7 +409,6 @@
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",
-	"apihelp-donate-summary": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",
 	"apihelp-donate-param-gateway": "Quale strumento di pagamento utilizzare - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "L'importo donato.",
 	"apihelp-donate-param-currency": "Codice valuta.",

@@ -1,9 +1,11 @@
 <?php
 
-$specialPageAliases = [];
+// @codingStandardsIgnoreFile
+
+$specialPageAliases = array();
 
 /** English */
-$specialPageAliases['en'] = [
-	'GatewayFormChooser' => [ 'GatewayFormChooser' ],
-	'SystemStatus' => [ 'SystemStatus' ],
-];
+$specialPageAliases['en'] = array(
+	'GatewayFormChooser' => array( 'GatewayFormChooser' ),
+	'SystemStatus' => array( 'SystemStatus' ),
+);
