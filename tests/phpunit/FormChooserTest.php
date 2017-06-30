@@ -90,13 +90,12 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	 * over paymentmethod, etc.
 	 */
 	function testPreferCanonicalParams() {
-		$self = $this; // someday, my upgrade will come
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $val ) use ( $self ) {
+				'Location' => function( $val ) {
 					$qs = array();
 					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
-					$self->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
+					$this->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
 				}
 			),
 		);

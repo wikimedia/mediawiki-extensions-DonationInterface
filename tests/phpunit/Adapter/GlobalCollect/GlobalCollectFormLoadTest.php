@@ -229,7 +229,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
-		$locale = $language . '_CA';
 
 		$assertNodes = array (
 			'selected-amount' => array (
