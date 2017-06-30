@@ -10,10 +10,11 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 	protected static $key = 'fiscal_number';
 
 	protected static $countryRules = array(
+		// Argentina's DNI numbers have 7-10 digits and CUIT numbers have 11
 		'AR' => array(
 			'numeric' => true,
 			'min' => 7,
-			'max' => 10,
+			'max' => 11,
 		),
 		'BR' => array(
 			'numeric' => true,
