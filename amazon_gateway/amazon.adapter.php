@@ -88,13 +88,12 @@ class AmazonAdapter extends GatewayAdapter {
 	public function defineErrorMap() {
 		parent::defineErrorMap();
 
-		$self = $this;
-		$differentCard = function() use ( $self ) {
-			$otherWays = $self->localizeGlobal( 'OtherWaysURL' );
+		$differentCard = function() {
+			$otherWays = $this->localizeGlobal( 'OtherWaysURL' );
 			return WmfFramework::formatMessage(
 				'donate_interface-donate-error-try-a-different-card-html',
 				$otherWays,
-				$self->getGlobal( 'ProblemsEmail' )
+				$this->getGlobal( 'ProblemsEmail' )
 			);
 		};
 		// Donor needs to select a different card.
