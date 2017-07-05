@@ -167,10 +167,9 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$init = $this->getDonorTestData();
 		$session = array( 'Donor' => $init );
 
-		$that = $this;
-		$redirectTest = function( $location ) use ( $that, $init ) {
+		$redirectTest = function( $location ) use ( $init ) {
 			parse_str( parse_url( $location, PHP_URL_QUERY ), $actual );
-			$that->assertEquals( $init['amount'], $actual['amount'] );
+			$this->assertEquals( $init['amount'], $actual['amount'] );
 		};
 		$assertNodes = array(
 			'headers' => array(

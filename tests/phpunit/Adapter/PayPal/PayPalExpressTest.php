@@ -249,12 +249,13 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
+		$init['language'] = 'pt';
 		$session = array( 'Donor' => $init );
 
 		$request = array(
 			'token' => $init['gateway_session_id'],
 			'PayerID' => 'ASdASDAS',
-			'language' => 'pt' // FIXME: mashing up request vars and other stuff in verifyFormOutput
+			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
 		);
 		$assertNodes = array(
 			'headers' => array(
@@ -262,7 +263,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
-					return $location === $url;
+					$this->assertEquals( $url, $location );
 				}
 			)
 		);
@@ -286,6 +287,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
+		$init['language'] = 'pt';
 		$session = array(
 			'Donor' => $init,
 			'processed_requests' => array(
@@ -296,7 +298,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$request = array(
 			'token' => $init['gateway_session_id'],
 			'PayerID' => 'ASdASDAS',
-			'language' => 'pt' // FIXME: mashing up request vars and other stuff in verifyFormOutput
+			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
 		);
 		$assertNodes = array(
 			'headers' => array(
@@ -304,7 +306,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
-					return $location === $url;
+					$this->assertEquals( $url, $location );
 				}
 			)
 		);

@@ -94,9 +94,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$locale = $init['language'] . '_' . $init['country'];
 		$expectedDisplayAmount = Amount::format( $expectedAmount, 'USD', $locale );
 
-		$that = $this; //needed for PHP pre-5.4
-		$convertTest = function( $amountString ) use ( $expectedDisplayAmount, $that ) {
-			$that->assertEquals( $expectedDisplayAmount, trim( $amountString ), 'Displaying wrong amount' );
+		$convertTest = function( $amountString ) use ( $expectedDisplayAmount ) {
+			$this->assertEquals( $expectedDisplayAmount, trim( $amountString ), 'Displaying wrong amount' );
 		};
 
 		$assertNodes = array(
