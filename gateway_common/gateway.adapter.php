@@ -22,6 +22,8 @@ use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\UtcDate;
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use Symfony\Component\Yaml\Parser;
 
 /**

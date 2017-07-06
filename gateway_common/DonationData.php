@@ -1,4 +1,6 @@
 <?php
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
 /**
  * DonationData

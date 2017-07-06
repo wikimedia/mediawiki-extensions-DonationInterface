@@ -14,6 +14,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
 use SmashPig\Tests\TestingContext;

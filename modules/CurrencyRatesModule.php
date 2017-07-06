@@ -1,4 +1,5 @@
 <?php
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 
 /**
  * Dynamically generate the javascript currency rates
