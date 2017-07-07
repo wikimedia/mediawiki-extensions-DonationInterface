@@ -1460,7 +1460,7 @@ abstract class GatewayAdapter
 	 * @param array $requestValues
 	 * @return int|string Order id
 	 */
-	protected function getRequestProcessId( $requestValues ) {
+	public function getRequestProcessId( $requestValues ) {
 		return null;
 	}
 
@@ -1837,7 +1837,7 @@ abstract class GatewayAdapter
 	}
 
 	public function addStandardMessageFields( $transaction ) {
-		//bascially, add all the stuff we have come to take for granted, because syslog.
+		// basically, add all the stuff we have come to take for granted, because syslog.
 		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnId();
 		$transaction['date'] = UtcDate::getUtcTimestamp();
 		$transaction['server'] = gethostname();
@@ -1846,6 +1846,7 @@ abstract class GatewayAdapter
 			'gateway',
 			'contribution_tracking_id',
 			'order_id',
+			'payment_method',
 		);
 		foreach ( $these_too as $field ) {
 			$transaction[$field] = $this->getData_Unstaged_Escaped( $field );
@@ -2089,7 +2090,6 @@ abstract class GatewayAdapter
 		//for now, though, just taking the ones that make it to the logs.
 		$keys = array(
 			'payment_submethod',
-			'payment_method',
 			'country',
 			'amount',
 			'currency',

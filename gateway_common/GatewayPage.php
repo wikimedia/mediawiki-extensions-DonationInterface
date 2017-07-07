@@ -397,6 +397,21 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 
 		$this->setHeaders();
+		$userAgent = $request->getHeader( 'User-Agent' );
+		if ( !$userAgent ) {
+			$userAgent = 'Unknown';
+		}
+
+		if ( $this->isRepeatReturnProcess() ) {
+			$this->logger->warning(
+				'Donor is trying to process an already-processed payment. ' .
+				"Adapter Order ID: $oid.\n" .
+				"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
+				"User-Agent: " . $userAgent
+			);
+			$this->displayThankYouPage( 'repeat return processing' );
+			return;
+		}
 
 		if ( $this->isRepeatReturnProcess() ) {
 			$this->logger->warning(
@@ -416,7 +431,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 					'Resultswitcher: Request forbidden. No active donation in the session. ' .
 					"Adapter Order ID: $oid.\n" .
 					"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
-					"User-Agent: " . $_SERVER['HTTP_USER_AGENT']
+					"User-Agent: " . $userAgent
 				);
 			}
 			// If it's possible for a donation to go through without our
