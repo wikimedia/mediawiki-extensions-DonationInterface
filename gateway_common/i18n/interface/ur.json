@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Noor2020",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Obaid Raza"
 		]
 	},
 	"donate_interface": "وکی میڈیا کی حمایت",
@@ -72,6 +73,8 @@
 	"donate_interface-name-on-card": "کارڈ پر نام",
 	"donate_interface-type-of-card": "کارڈ کی قسم",
 	"donate_interface-cards-accepted": "کارڈ قبول",
+	"donate_interface-expires-question": "اختتام؟",
+	"donate_interface-expires": "اختتام",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",

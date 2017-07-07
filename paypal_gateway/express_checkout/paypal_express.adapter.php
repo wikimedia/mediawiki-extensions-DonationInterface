@@ -521,6 +521,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	public function processDonorReturn( $requestValues ) {
+		if (
+			empty( $requestValues['token'] ) ||
+			empty( $requestValues['PayerID'] )
+		) {
+			throw new ResponseProcessingException(
+				'Missing required parameters in request',
+				ResponseCodes::MISSING_REQUIRED_DATA
+			);
+		}
 		$this->addRequestData( array(
 			'gateway_session_id' => $requestValues['token'],
 			'payer_id' => $requestValues['PayerID'],

@@ -215,8 +215,8 @@ class AdyenAdapter extends GatewayAdapter {
 	 * whether to capture the payment or leave it for manual review.
 	 * @return array
 	 */
-	protected function getStompTransaction() {
-		$transaction = parent::getStompTransaction();
+	protected function getQueueDonationMessage() {
+		$transaction = parent::getQueueDonationMessage();
 		$transaction['risk_score'] = $this->risk_score;
 		return $transaction;
 	}

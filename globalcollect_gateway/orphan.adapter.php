@@ -163,8 +163,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	 *
 	 * FIXME: Carefully move this to the base class and decide when appropriate.
 	 */
-	protected function getStompTransaction() {
-		$transaction = parent::getStompTransaction();
+	protected function getQueueDonationMessage() {
+		$transaction = parent::getQueueDonationMessage();
 
 		// Overwrite the time field, if historical date is available.
 		if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {

@@ -6,14 +6,14 @@
 			"Larjona",
 			"Ryo567",
 			"Macofe",
-			"Ncontinanza"
+			"Ncontinanza",
+			"Fitoschido"
 		]
 	},
-	"globalcollectgateway": "Haz tu donación ahora",
 	"globalcollect_gateway-desc": "Procesamiento de pagos de GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simular un pago correcto",
 	"globalcollect_gateway-fakefail": "Simular un pago erróneo",
-	"globalcollect_gateway-response-9130": "País inválido.",
+	"globalcollect_gateway-response-9130": "El país es incorrecto.",
 	"globalcollect_gateway-response-9140": "Moneda inválida.",
 	"globalcollect_gateway-response-9150": "Idioma no válido.",
 	"globalcollect_gateway-response-400530": "Método de pago inválido.",

@@ -452,6 +452,7 @@
 	"donate_interface-error-http-403": "Error prompt if the user is not allowed to access the page",
 	"donate_interface-statement": "Text to appear on donor's credit card statement.  '''$1''' is the contribution tracking id.\n{{Identical|Wikimedia}}",
 	"apihelp-donate-description": "{{doc-apihelp-description|donate}}",
+	"apihelp-donate-summary": "{{doc-apihelp-summary|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",
 	"apihelp-donate-param-amount": "{{doc-apihelp-param|donate|amount}}",
 	"apihelp-donate-param-currency": "{{doc-apihelp-param|donate|currency}}",
