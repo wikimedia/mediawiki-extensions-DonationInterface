@@ -1,0 +1,62 @@
+# General fields
+# AMOUNT: N12
+amount:
+    type: numeric
+    length: 12
+# city: AN40
+city:
+    type: alphanumeric
+    length: 40
+# countryCode: AN2
+country:
+    type: alphanumeric
+    length: 2
+# currency: AN3
+currency:
+    type: alphanumeric
+    length: 3
+# emailAddress: AN70
+email:
+    type: alphanumeric
+    length: 70
+# firstName: AN15
+first_name:
+    type: alphanumeric
+    length: 15
+# IPADDRESS: AN32
+user_ip:
+    type: alphanumeric
+    length: 32
+# locale: AN5
+language:
+    type: alphanumeric
+    length: 5
+# merchantReference: N10
+order_id:
+    type: numeric
+    length: 10
+# paymentProductId
+payment_product:
+    type: numeric
+    length: 5
+# returnUrl: AN512
+returnto:
+    type: alphanumeric
+    length: 512
+# state: AN35
+state_province:
+    type: alphanumeric
+    length: 35
+# street: AN50
+street_address:
+    type: alphanumeric
+    length: 50
+# surname: AN35
+last_name:
+    type: alphanumeric
+    length: 35
+# zip: AN10
+postal_code:
+    type: alphanumeric
+    length: 10
+

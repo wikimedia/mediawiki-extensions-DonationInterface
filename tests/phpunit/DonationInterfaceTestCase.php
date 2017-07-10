@@ -19,6 +19,7 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
+use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -107,6 +108,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		RequestContext::getMain()->setLanguage( $language );
 		// BackCompat
 		$this->setMwGlobals( 'wgLang', RequestContext::getMain()->getLanguage() );
+	}
+
+	/**
+	 * @param string $provider
+	 * @return TestingProviderConfiguration
+	 */
+	protected function setSmashPigProvider( $provider ) {
+		$providerConfig = TestingProviderConfiguration::createForProvider(
+			$provider, $this->smashPigGlobalConfig
+		);
+		TestingContext::get()->providerConfigurationOverride = $providerConfig;
+		return $providerConfig;
 	}
 
 	/**
@@ -584,7 +597,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			unset( $perform_these_checks['headers'] );
 
 			$input_node = $dom_thingy->getElementById( $id );
-			$this->assertNotNull( $input_node, "Couldn't find the '$id' element" );
+			$this->assertNotNull( $input_node, "Couldn't find the '$id' element in html. Log entries: \n" .
+				print_r( DonationLoggerFactory::$overrideLogger->messages, true ) . "\n\nHTML:\n$form_html" );
 			foreach ( $checks as $name => $expected ) {
 				switch ( $name ) {
 					case 'nodename':

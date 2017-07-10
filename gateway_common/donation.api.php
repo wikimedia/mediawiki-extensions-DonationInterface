@@ -37,20 +37,27 @@ class DonationApi extends ApiBase {
 			return;
 		}
 
-		if ( $this->gateway == 'globalcollect' ) {
-			switch ( $method ) {
-				// TODO: add other iframe payment methods
-				case 'cc':
-					$result = $gatewayObj->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-					break;
-				default:
-					$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
-			}
-		} elseif ( $this->gateway == 'adyen' ) {
-			$result = $gatewayObj->do_transaction( 'donate' );
-		} elseif ( $this->gateway === 'paypal_ec' ) {
-			$gatewayObj->doPayment();
-			$result = $gatewayObj->getTransactionResponse();
+		switch( $this->gateway ) {
+			case 'globalcollect':
+				switch ( $method ) {
+					// TODO: add other iframe payment methods
+					case 'cc':
+						$result = $gatewayObj->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+						break;
+					default:
+						$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
+				}
+				break;
+			case 'ingenico':
+				$result = $gatewayObj->do_transaction( 'createHostedCheckout' );
+				break;
+			case 'adyen':
+				$result = $gatewayObj->do_transaction( 'donate' );
+				break;
+			case 'paypal_ec':
+				$gatewayObj->doPayment();
+				$result = $gatewayObj->getTransactionResponse();
+				break;
 		}
 
 		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();

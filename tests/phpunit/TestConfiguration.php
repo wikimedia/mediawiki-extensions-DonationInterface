@@ -84,6 +84,7 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceCustomFiltersSrcRules,
 	$wgDonationInterfaceCustomFiltersFunctions,
 	$wgGlobalCollectGatewayCustomFiltersFunctions,
+	$wgIngenicoGatewayCustomFiltersFunctions,
 	$wgDonationInterfaceCountryMap,
 	$wgDonationInterfaceUtmCampaignMap,
 	$wgDonationInterfaceUtmSourceMap,
@@ -95,6 +96,7 @@ $wgMainCacheType = 'hash';
 
 $wgDonationInterfaceGatewayAdapters = array(
 	'globalcollect'=> 'TestingGlobalCollectAdapter',
+	'ingenico' => 'IngenicoAdapter',
 	'amazon'=> 'TestingAmazonAdapter',
 	'adyen'=> 'TestingAdyenAdapter',
 	'astropay'=> 'TestingAstroPayAdapter',
@@ -116,7 +118,6 @@ $wgGlobalCollectGatewayAccountInfo = array();
 $wgGlobalCollectGatewayAccountInfo['test'] = array(
 	'MerchantID' => 'test',
 );
-
 
 /** Paypal **/
 $wgPaypalGatewayAccountInfo = array();
@@ -221,6 +222,8 @@ $wgGlobalCollectGatewayCustomFiltersFunctions = array(
 	'getCVVResult' => 20,
 	'getAVSResult' => 25,
 ) + $customFilters;
+
+$wgIngenicoGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
 $wgDonationInterfaceCountryMap = array (
 	'US' => 40,
