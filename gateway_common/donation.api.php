@@ -17,7 +17,7 @@ class DonationApi extends ApiBase {
 		// @todo FIXME: Unused local variable.
 		$submethod = $this->donationData['payment_submethod'];
 
-		DonationInterface::initializeSmashPig( $this->gateway );
+		DonationInterface::setSmashPigProvider( $this->gateway );
 		$gatewayObj = $this->getGatewayObject();
 
 		// FIXME: SmashPig should just use Monolog.

@@ -303,7 +303,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * @param boolean $token
 	 * @return mixed
 	 */
-	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
+	public function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		$value = parent::getTransactionSpecificValue( $gateway_field_name, $token );
 		return str_replace( '\n', '', $value );
 	}

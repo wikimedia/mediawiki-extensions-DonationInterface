@@ -1,7 +1,8 @@
 <?php
 
-use SmashPig\Core\Configuration;
+use SmashPig\Core\GlobalConfiguration;
 use SmashPig\Core\Context;
+use SmashPig\Core\ProviderConfiguration;
 
 class DonationInterface {
 	/**
@@ -10,7 +11,8 @@ class DonationInterface {
 	public static function registerExtension() {
 		global $wgDonationInterfaceTestMode,
 			$wgDonationInterfaceTemplate,
-			$wgDonationInterfaceErrorTemplate;
+			$wgDonationInterfaceErrorTemplate,
+			$IP;
 
 		// Test mode (not for production!)
 		// Set it if not defined
@@ -34,13 +36,20 @@ class DonationInterface {
 		// Include composer's autoload if the vendor directory exists.  If we have been
 		// included via Composer, our dependencies should already be autoloaded at the
 		// top level.
-		// Note that in WMF's continuous integration, we can still only use stuff from
-		// Composer if it is already in Mediawiki's vendor directory, such as monolog
 		$vendorAutoload = __DIR__ . '/vendor/autoload.php';
 		if ( file_exists( $vendorAutoload ) ) {
 			require_once ( $vendorAutoload );
 		} else {
 			require_once ( __DIR__ . '/gateway_common/WmfFramework.php' );
+		}
+		if ( defined( 'MEDIAWIKI' ) ) {
+			// If we're the top-level application, initialize the SmashPig context
+			$spConfig = GlobalConfiguration::create();
+			Context::init( $spConfig );
+			$context = Context::get();
+			$context->setSourceName( 'DonationInterface' );
+			$context->setSourceType( 'payments' );
+			$context->setVersionFromFile( "$IP/.version-stamp");
 		}
 	}
 
@@ -89,19 +98,18 @@ class DonationInterface {
 	/**
 	 * Initialize SmashPig context and return configuration object
 	 *
-	 * @param string $view
-	 * @return Configuration
+	 * @param string $provider
+	 * @return ProviderConfiguration
 	 */
-	public static function initializeSmashPig( $view ) {
-		global $IP;
-		$spConfig = Configuration::createForView( $view );
+	public static function setSmashPigProvider( $provider ) {
+		$ctx = Context::get();
+		$spConfig = ProviderConfiguration::createForProvider(
+			$provider,
+			$ctx->getGlobalConfiguration()
+		);
 		// FIXME: should set a logger prefix here, but we've got a chicken
 		// and egg problem with the Gateway constructor
-		Context::initWithLogger( $spConfig );
-		$context = Context::get();
-		$context->setSourceName( 'DonationInterface' );
-		$context->setSourceType( 'payments' );
-		$context->setVersionFromFile( "$IP/.version-stamp");
+		$ctx->setProviderConfiguration( $spConfig );
 		return $spConfig;
 	}
 }
