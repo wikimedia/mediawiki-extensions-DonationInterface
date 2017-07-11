@@ -656,7 +656,7 @@ abstract class GatewayAdapter
 	 * @return mixed The value we want to send directly to the gateway, for the
 	 * specified gateway field name.
 	 */
-	protected function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
+	public function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		if ( empty( $this->transactions ) ) {
 			$msg = self::getGatewayName() . ': Transactions structure is empty! No transaction can be constructed.';
 			$this->logger->critical( $msg );
@@ -742,22 +742,19 @@ abstract class GatewayAdapter
 	 * curl'd off to the remote server.
 	 */
 	protected function buildRequestNameValueString() {
+		$data = $this->buildRequestArray();
+		$ret = http_build_query( $data );
+		return $ret;
+	}
+
+	protected function buildRequestArray() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
-			return '';
+			return array();
 		}
-
-		$data = array();
-		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
-			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$data[$fieldname] = $fieldvalue;
-			}
-		}
-
-		$ret = http_build_query( $data );
-		return $ret;
+		$callback = array( $this, 'getTransactionSpecificValue' );
+		return ArrayHelper::buildRequestArray( $callback, $structure );
 	}
 
 	/**
@@ -1002,40 +999,45 @@ abstract class GatewayAdapter
 				// TODO: Maybe move this to the pre_process functions?
 				$this->dataObj->saveContributionTrackingData();
 			}
-
 			$commType = $this->getCommunicationType();
-			if ( $commType === 'redirect' ) {
+			switch( $commType ) {
+				case 'redirect':
 
-				//in the event that we have a redirect transaction that never displays the form,
-				//save this most recent one before we leave.
-				$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
+					//in the event that we have a redirect transaction that never displays the form,
+					//save this most recent one before we leave.
+					$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
-				$this->transaction_response->setCommunicationStatus( true );
+					$this->transaction_response->setCommunicationStatus( true );
 
-				// Build the redirect URL.
-				$redirectUrl = $this->getProcessorUrl();
-				$redirectParams = $this->buildRequestParams();
-				if ( $redirectParams ) {
-					// Add GET parameters, if provided.
-					$redirectUrl .= '?' . http_build_query( $redirectParams );
-				}
+					// Build the redirect URL.
+					$redirectUrl = $this->getProcessorUrl();
+					$redirectParams = $this->buildRequestParams();
+					if ( $redirectParams ) {
+						// Add GET parameters, if provided.
+						$redirectUrl .= '?' . http_build_query( $redirectParams );
+					}
 
-				$this->transaction_response->setRedirect( $redirectUrl );
+					$this->transaction_response->setRedirect( $redirectUrl );
 
-				return $this->transaction_response;
+					return $this->transaction_response;
 
-			} elseif ( $commType === 'xml' ) {
-				$this->profiler->getStopwatch( "buildRequestXML", true ); // begin profiling
-				$curlme = $this->buildRequestXML(); // build the XML
-				$this->profiler->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
-
-			} elseif ( $commType === 'namevalue' ) {
-				$this->profiler->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
-				$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
-				$this->profiler->saveCommunicationStats( "buildRequestNameValueString", $transaction ); // save profiling data
-
-			} else {
-				throw new UnexpectedValueException( "Communication type of '{$commType}' unknown" );
+				case 'xml':
+					$this->profiler->getStopwatch( "buildRequestXML", true ); // begin profiling
+					$curlme = $this->buildRequestXML(); // build the XML
+					$this->profiler->saveCommunicationStats( "buildRequestXML", $transaction ); // save profiling data
+					break;
+				case 'namevalue':
+					$this->profiler->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
+					$curlme = $this->buildRequestNameValueString(); // build the name/value pairs
+					$this->profiler->saveCommunicationStats( "buildRequestNameValueString", $transaction );
+					break;
+				case 'array':
+					$this->profiler->getStopwatch( "buildRequestNameValueString", true ); // begin profiling
+					$curlme = $this->buildRequestArray(); // build the name/value pairs
+					$this->profiler->saveCommunicationStats( "buildRequestNameValueString", $transaction );
+					break;
+				default:
+					throw new UnexpectedValueException( "Communication type of '{$commType}' unknown" );
 			}
 		} catch ( Exception $e ) {
 			$this->logger->critical( 'Malformed gateway definition. Cannot continue: Aborting.\n' . $e->getMessage() );
