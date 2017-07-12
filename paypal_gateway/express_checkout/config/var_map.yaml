@@ -24,6 +24,7 @@ PAYMENTREQUEST_0_ITEMAMT: amount
 PROFILEID: subscr_id
 PROFILEREFERENCE: contribution_tracking_id
 PROFILESTARTDATE: date
+TRANSACTIONID: gateway_txn_id
 # TODO: discuss whether to capture
 #PHONENUM: phone
 RETURNURL: returnto

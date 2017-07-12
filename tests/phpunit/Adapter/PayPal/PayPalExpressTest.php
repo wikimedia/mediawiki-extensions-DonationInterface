@@ -45,7 +45,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( 'OK' );
 		$result = $gateway->doPayment();
-		$gateway->logPending(); // GatewayPage calls this for redirects
+		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
 			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
 			$result->getRedirect(),
@@ -69,6 +69,59 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		    'recurring' => '',
 		    'response' => false,
 		    'utm_medium' => 'sitenotice',
+			'payment_method' => 'paypal',
+			'payment_submethod' => '',
+			'gateway_session_id' => 'EC-8US12345X1234567U',
+			'user_ip' => '127.0.0.1',
+			'source_name' => 'DonationInterface',
+			'source_type' => 'payments',
+		);
+		$this->assertEquals(
+			$expected,
+			$message,
+			'PayPal EC setup sending wrong pending message'
+		);
+	}
+
+	function testPaymentSetupRecurring() {
+		$init = array(
+			'amount' => 1.55,
+			'currency' => 'USD',
+			'payment_method' => 'paypal',
+			'utm_source' => 'CD1234_FR',
+			'utm_medium' => 'sitenotice',
+			'country' => 'US',
+			'recurring' => '1',
+			'contribution_tracking_id' => strval( mt_rand() ),
+			'language' => 'fr',
+		);
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->setDummyGatewayResponseCode( 'OK' );
+		$result = $gateway->doPayment();
+		$gateway->logPending(); // GatewayPage or the API calls this for redirects
+		$this->assertEquals(
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
+			$result->getRedirect(),
+			'Wrong redirect for PayPal EC payment setup'
+		);
+		$message = DonationQueue::instance()->pop( 'pending' );
+		$this->assertNotEmpty( $message, 'Missing pending message' );
+		$this->unsetVariableFields( $message );
+		$expected = array(
+			'country' => 'US',
+			'fee' => '0',
+			'gateway' => 'paypal_ec',
+			'gateway_txn_id' => null,
+			'language' => 'fr',
+			'contribution_tracking_id' => $init['contribution_tracking_id'],
+			'order_id' => $init['contribution_tracking_id'] . '.0',
+			'utm_source' => 'CD1234_FR..rpaypal',
+			'currency' => 'USD',
+			'email' => '',
+			'gross' => '1.55',
+			'recurring' => '1',
+			'response' => false,
+			'utm_medium' => 'sitenotice',
 			'payment_method' => 'paypal',
 			'payment_submethod' => '',
 			'gateway_session_id' => 'EC-8US12345X1234567U',
