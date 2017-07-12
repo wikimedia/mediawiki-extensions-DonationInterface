@@ -203,6 +203,10 @@
 			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationinterface.paypal.scripts": {
+			"scripts": "paypal_gateway/express_checkout/forms/js/paypal.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
 		"ext.donationinterface.amazon.styles": {
 			"styles": "amazon_gateway/amazon.css"
 		},

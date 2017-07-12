@@ -48,6 +48,9 @@ class DonationApi extends ApiBase {
 			}
 		} elseif ( $this->gateway == 'adyen' ) {
 			$result = $gatewayObj->do_transaction( 'donate' );
+		} elseif ( $this->gateway === 'paypal_ec' ) {
+			$gatewayObj->doPayment();
+			$result = $gatewayObj->getTransactionResponse();
 		}
 
 		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();

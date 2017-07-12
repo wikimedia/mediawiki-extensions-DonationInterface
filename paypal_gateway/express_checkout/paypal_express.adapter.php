@@ -420,8 +420,11 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'SetExpressCheckout_recurring':
 				$this->checkResponseAck( $response );
 				$this->addResponseData( $this->unstageKeys( $response ) );
-				$this->transaction_response->setRedirect(
-					$this->account_config['RedirectURL'] . $response['TOKEN'] );
+				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
+				$this->transaction_response->setRedirect( $redirectUrl );
+				$this->transaction_response->setData( array(
+					'FORMACTION' => $redirectUrl
+				) );
 				break;
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
