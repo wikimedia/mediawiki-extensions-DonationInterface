@@ -34,6 +34,16 @@
 		}
 	}
 
+	/**
+	 * Are any errors currently showing, from either server-side or
+	 * client-side validation?
+	 *
+	 * @return {boolean}
+	 */
+	function hasErrors() {
+		return $( '.errorMsg' ).length > 0;
+	}
+
 	di.validation = {
 		validate: function () {
 			// This funkiness is to make sure we run all the validations and
@@ -51,7 +61,8 @@
 		// FIXME: Move global scope functions here
 		validateAmount: window.validateAmount,
 		validatePersonal: window.validate_personal,
-		showErrors: showErrors
+		showErrors: showErrors,
+		hasErrors: hasErrors
 	};
 
 	// Set up email error detection and correction

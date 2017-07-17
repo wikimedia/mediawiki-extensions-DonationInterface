@@ -31,7 +31,7 @@
 	/**
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
-	 * @param {function()} successCallback will be called with response's 'result' property
+	 * @param {function(result)} successCallback will be called with response's 'result' property
 	 */
 	function callDonateApi( successCallback ) {
 		di.forms.disable();
