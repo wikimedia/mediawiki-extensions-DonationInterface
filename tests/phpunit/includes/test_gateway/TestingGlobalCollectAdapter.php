@@ -9,8 +9,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $curled = array ( );
 
-	public $pending_messages = array();
-
 	public $dummyGatewayResponseCode;
 
 	/**
@@ -45,11 +43,6 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 			return;
 		}
 		parent::defineOrderIDMeta();
-	}
-
-	// TODO: Store and test the actual messages.
-	public function sendPendingMessage() {
-		$this->pending_messages[] = false;
 	}
 
 	/**

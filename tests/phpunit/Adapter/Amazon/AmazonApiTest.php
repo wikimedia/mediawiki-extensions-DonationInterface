@@ -4,20 +4,15 @@ use SmashPig\Tests\TestingGlobalConfiguration;
 
 /**
  * @group Amazon
+ * @group DonationInterface
+ * @group DonationInterfaceApi
+ * @group Fundraising
  * @group medium
  */
-class AmazonApiTest extends ApiTestCase {
+class AmazonApiTest extends DonationInterfaceApiTestCase {
 	public function setUp() {
 		parent::setUp();
-		$config = TestingGlobalConfiguration::create();
-		TestingContext::init( $config );
 		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceEnableQueue' => true,
-			'wgDonationInterfaceDefaultQueueServer' => array(
-				'type' => 'TestingQueue',
-			),
-		) );
 	}
 
 	public function tearDown() {
