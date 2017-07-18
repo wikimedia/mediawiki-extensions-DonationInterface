@@ -82,8 +82,9 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$this->assertEmpty( $response->getErrors() );
 
 		$errors = '';
-		if ( array_key_exists( LogLevel::ERROR, $this->testLogger->messages ) ) {
-			foreach ( $this->testLogger->messages[LogLevel::ERROR] as $msg ) {
+		$messages = DonationLoggerFactory::$overrideLogger->messages;
+		if ( array_key_exists( LogLevel::ERROR, $messages ) ) {
+			foreach ( $messages[LogLevel::ERROR] as $msg ) {
 				$errors .= "$msg\n";
 			}
 		}

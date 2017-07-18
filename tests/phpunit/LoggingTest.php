@@ -80,7 +80,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$gateway->setDummyGatewayResponseCode( '200' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
-		$matches = $this->getLogMatches( LogLevel::INFO, $preface_pattern );
+		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );
 		$this->assertTrue( $matches !== false,
 			'Should log a completion message' );
 
@@ -133,7 +133,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$gateway->setDummyGatewayResponseCode( '200' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
-		$matches = $this->getLogMatches( LogLevel::INFO, $preface_pattern );
+		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );
 		$this->assertTrue( $matches !== false,
 			'Should log a completion message' );
 

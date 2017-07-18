@@ -49,10 +49,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 */
 	protected $gatewayAdapter;
 
-	/**
-	 * @var TestingDonationLogger
-	 */
-	protected $testLogger;
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
 	protected $smashPigGlobalConfig;
 
@@ -73,8 +69,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected function setUp() {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
-		$this->testLogger = new TestingDonationLogger();
-		DonationLoggerFactory::$overrideLogger = $this->testLogger;
+		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableQueue' => true,
 			'wgDonationInterfaceDefaultQueueServer' => array(
@@ -658,7 +653,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * Asserts that there are no log entries of LOG_ERR or worse.
 	 */
 	function verifyNoLogErrors( ) {
-		$log = $this->testLogger->messages;
+		$log = DonationLoggerFactory::$overrideLogger->messages;
 
 		$this->assertTrue( is_array( $log ), "Missing the test log" );
 
@@ -687,8 +682,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @return array All log lines that match $match.
 	 *     FIXME: Or false.  Return an empty array or throw an exception instead.
 	 */
-	public function getLogMatches( $log_level, $match ) {
-		$log = $this->testLogger->messages;
+	public static function getLogMatches( $log_level, $match ) {
+		$log = DonationLoggerFactory::$overrideLogger->messages;
 		if ( !array_key_exists( $log_level, $log ) ) {
 			return false;
 		}

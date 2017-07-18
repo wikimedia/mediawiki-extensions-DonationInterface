@@ -158,7 +158,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			$errors[0]->getErrorCode(),
 			'Wrong error for code "1"'
 		);
-		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
+		$logged = self::getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
 		$this->assertNotEmpty( $logged );
 	}
 
@@ -212,7 +212,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'Should be an error in PaymentResult'
 		);
 
-		$logged = $this->getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
+		$logged = self::getLogMatches( LogLevel::WARNING, '/This error message should appear in the log./' );
 		$this->assertNotEmpty( $logged );
 		// TODO: Should this really be a refresh, or should we finalize to failed here?
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );

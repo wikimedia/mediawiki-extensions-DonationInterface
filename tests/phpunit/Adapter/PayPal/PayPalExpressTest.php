@@ -268,9 +268,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertArrayHasKey( $request['token'], $processed );
 
 		// Make sure we logged the expected cURL attempts
-		$messages = $this->getLogMatches( 'info', '/Preparing to send GetExpressCheckoutDetails transaction to Paypal Express Checkout/' );
+		$messages = self::getLogMatches( 'info', '/Preparing to send GetExpressCheckoutDetails transaction to Paypal Express Checkout/' );
 		$this->assertNotEmpty( $messages );
-		$messages = $this->getLogMatches( 'info', '/Preparing to send DoExpressCheckoutPayment transaction to Paypal Express Checkout/' );
+		$messages = self::getLogMatches( 'info', '/Preparing to send DoExpressCheckoutPayment transaction to Paypal Express Checkout/' );
 		$this->assertNotEmpty( $messages );
 	}
 
@@ -309,7 +309,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 
 		// We should not have logged any cURL attempts
-		$messages = $this->getLogMatches( 'info', '/Preparing to send .*/' );
+		$messages = self::getLogMatches( 'info', '/Preparing to send .*/' );
 		$this->assertEmpty( $messages );
 	}
 }

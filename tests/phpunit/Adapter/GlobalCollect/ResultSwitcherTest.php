@@ -48,9 +48,9 @@ class DonationInterface_Adapter_GlobalCollect_ResultSwitcherTest extends Donatio
 
 		$this->verifyFormOutput( 'GlobalCollectGatewayResult', $request, $assertNodes, false, $session );
 		// Make sure we logged the expected cURL attempts
-		$messages = $this->getLogMatches( 'info', '/Preparing to send GET_ORDERSTATUS transaction to Global Collect/' );
+		$messages = self::getLogMatches( 'info', '/Preparing to send GET_ORDERSTATUS transaction to Global Collect/' );
 		$this->assertNotEmpty( $messages );
-		$messages = $this->getLogMatches( 'info', '/Preparing to send SET_PAYMENT transaction to Global Collect/' );
+		$messages = self::getLogMatches( 'info', '/Preparing to send SET_PAYMENT transaction to Global Collect/' );
 		$this->assertNotEmpty( $messages );
     }
 }

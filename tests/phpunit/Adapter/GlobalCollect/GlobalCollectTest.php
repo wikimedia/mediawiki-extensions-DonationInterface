@@ -423,18 +423,18 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '21000050' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
-		$loglines = $this->getLogMatches( LogLevel::ERROR, '/Investigation required!/' );
+		$loglines = self::getLogMatches( LogLevel::ERROR, '/Investigation required!/' );
 		$this->assertNotEmpty( $loglines, 'GC Error 21000050 is not generating the expected payments log error' );
 
 		//Reset logs
-		$this->testLogger->messages = array();
+		DonationLoggerFactory::$overrideLogger->messages = array();
 
 		//Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '20001000-expiry' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$this->verifyNoLogErrors();
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/processResponse:.*EXPIRYDATE/' );
+		$loglines = self::getLogMatches( LogLevel::INFO, '/processResponse:.*EXPIRYDATE/' );
 		$this->assertNotEmpty( $loglines, 'GC Error 20001000-expiry is not generating the expected payments log line' );
 	}
 
@@ -530,7 +530,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$start_id = $exposed->getData_Staged( 'order_id' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$finish_id = $exposed->getData_Staged( 'order_id' );
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
+		$loglines = self::getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
 		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
 		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");
 	}
@@ -595,7 +595,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( '11000400' );
 		$gateway->do_transaction( 'SET_PAYMENT' );
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
+		$loglines = self::getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
 		$this->assertNotEmpty( $loglines, "Log does not say we retried for timeout." );
 	}
 

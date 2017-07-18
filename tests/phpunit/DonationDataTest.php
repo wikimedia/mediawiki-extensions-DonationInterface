@@ -221,9 +221,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$this->setUpRequest( $expected );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
-		$matches = $this->getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = NULL, utm_source = cc$/' );
+		$matches = self::getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = NULL, utm_source = cc$/' );
 		$this->assertNotEmpty( $matches );
-		$matches = $this->getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency', now: USD$/" );
+		$matches = self::getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency', now: USD$/" );
 		$this->assertNotEmpty( $matches );
 	}
 

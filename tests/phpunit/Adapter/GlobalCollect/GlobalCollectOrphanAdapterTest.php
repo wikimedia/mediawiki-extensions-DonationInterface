@@ -151,7 +151,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 			return $error->getErrorCode() == '1000001';
 		};
 		$this->assertNotEmpty( array_filter( $errors, $finder ), 'Orphan adapter needs error 1000001 to consider it rectified' );
-		$loglines = $this->getLogMatches( LogLevel::INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
+		$loglines = self::getLogMatches( LogLevel::INFO, "/Got error code $code, not retrying to avoid MasterCard fines./" );
 		$this->assertNotEmpty( $loglines, "GC Error $code is not generating the expected payments log error" );
 	}
 
