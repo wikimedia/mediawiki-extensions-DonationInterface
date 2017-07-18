@@ -31,15 +31,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		) );
 	}
 
-	protected function unsetVariableFields( &$message ) {
-		$fields = array(
-			'date', 'source_enqueued_time', 'source_host', 'source_run_id', 'source_version', 'gateway_account'
-		);
-		foreach ( $fields as $field ) {
-			unset( $message[$field] );
-		}
-	}
-
 	function testPaymentSetup() {
 		$init = array(
 			'amount' => 1.55,
@@ -62,7 +53,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 		$message = DonationQueue::instance()->pop( 'pending' );
 		$this->assertNotEmpty( $message, 'Missing pending message' );
-		$this->unsetVariableFields( $message );
+		self::unsetVariableFields( $message );
 		$expected = array(
 			'country' => 'US',
 		    'fee' => '0',
@@ -110,7 +101,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 		$message = DonationQueue::instance()->pop( 'donations' );
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
-		$this->unsetVariableFields( $message );
+		self::unsetVariableFields( $message );
 		$expected = array (
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
@@ -160,8 +151,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 		$message = DonationQueue::instance()->pop( 'donations' );
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
-		$this->unsetVariableFields( $message );
-		$expected = array (
+		self::unsetVariableFields( $message );
+		$expected = array(
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
 			'fee' => '0',

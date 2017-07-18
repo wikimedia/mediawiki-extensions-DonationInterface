@@ -29,11 +29,10 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$this->assertNotEmpty( $match, 'GC API not setting proper return url' );
 		$message = DonationQueue::instance()->pop( 'pending' );
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
-		SourceFields::removeFromMessage( $message );
+		DonationInterfaceTestCase::unsetVariableFields( $message );
 		$expected = array(
 			'gateway_txn_id' => '626113410',
 			'response' => 'Response Status: 20',
-			'gateway_account' => 'test',
 			'fee' => 0,
 			'utm_source' => '..cc',
 			'language' => 'en',

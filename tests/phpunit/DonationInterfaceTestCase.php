@@ -19,7 +19,6 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
-use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -709,5 +708,14 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			$innerHTML .= $child->ownerDocument->saveXML( $child );
 		}
 		return $innerHTML;
+	}
+
+	public static function unsetVariableFields( &$message ) {
+		$fields = array(
+			'date', 'source_enqueued_time', 'source_host', 'source_run_id', 'source_version', 'gateway_account'
+		);
+		foreach ( $fields as $field ) {
+			unset( $message[$field] );
+		}
 	}
 }
