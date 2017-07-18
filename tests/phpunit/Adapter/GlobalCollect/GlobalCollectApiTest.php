@@ -1,5 +1,4 @@
 <?php
-use SmashPig\CrmLink\Messages\SourceFields;
 
 /**
  * @group Fundraising
@@ -20,6 +19,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		$apiResult = $this->doApiRequest( $init );
 		$result = $apiResult[0]['result'];
+		$this->assertTrue( empty( $result['errors'] ) );
 		$orderId = $result['orderid'];
 
 		$this->assertEquals( 'url_placeholder', $result['formaction'], 'GC API not setting formaction' );
@@ -54,5 +54,23 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'postal_code' => '94105'
 		);
 		$this->assertArraySubset( $expected, $message );
+		$message = DonationQueue::instance()->pop( 'pending' );
+		$this->assertNull( $message, 'Sending extra pending messages' );
+	}
+
+	public function testTooSmallDonation() {
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['gateway'] = 'globalcollect';
+		$init['action'] = 'donate';
+		$init['amount'] = 0.75;
+
+		$apiResult = $this->doApiRequest( $init );
+		$result = $apiResult[0]['result'];
+		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
+		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
+		$message = DonationQueue::instance()->pop( 'pending' );
+		$this->assertNull( $message, 'Sending pending message for error' );
 	}
 }

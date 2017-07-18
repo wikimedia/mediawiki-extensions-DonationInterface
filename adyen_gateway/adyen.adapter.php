@@ -165,7 +165,7 @@ class AdyenAdapter extends GatewayAdapter {
 		if ( !$this->validatedOK() ){
 			//If the data didn't validate okay, prevent all data transmissions.
 			$response = $this->getFailedValidationResponse();
-			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errors, true ) );
+			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errorState, true ) );
 			return $response;
 		}
 		$this->transaction_response = new PaymentTransactionResponse();
@@ -196,10 +196,9 @@ class AdyenAdapter extends GatewayAdapter {
 						'FORMACTION' => $formaction,
 						'gateway_params' => $requestParams,
 					) );
-					$this->logger->info( "launching external iframe request: " . print_r( $requestParams, true )
+					$this->logger->info(
+						"launching external iframe request: " . print_r( $requestParams, true )
 					);
-					$this->logPaymentDetails();
-					$this->sendPendingMessage();
 					break;
 			}
 		}

@@ -62,6 +62,7 @@ class DonationApi extends ApiBase {
 			$outputResult['status'] = $result->getCommunicationStatus();
 		}
 
+		$errors = $result->getErrors();
 		$data = $result->getData();
 		if ( !empty( $data ) ) {
 			if ( array_key_exists( 'PAYMENT', $data )
@@ -71,6 +72,9 @@ class DonationApi extends ApiBase {
 			}
 			if ( array_key_exists( 'FORMACTION', $data ) ) {
 				$outputResult['formaction'] = $data['FORMACTION'];
+				if ( empty( $errors ) ) {
+					$gatewayObj->logPending();
+				}
 			}
 			if ( array_key_exists( 'gateway_params', $data ) ) {
 				$outputResult['gateway_params'] = $data['gateway_params'];
@@ -82,7 +86,6 @@ class DonationApi extends ApiBase {
 				$outputResult['orderid'] = $data['ORDERID'];
 			}
 		}
-		$errors = $result->getErrors();
 		if ( !empty( $errors ) ) {
 			$outputResult['errors'] = $this->serializeErrors( $errors, $gatewayObj );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );

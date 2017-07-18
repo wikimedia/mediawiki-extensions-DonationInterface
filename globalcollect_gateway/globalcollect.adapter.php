@@ -1691,24 +1691,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	/**
-	 * post-process function for INSERT_ORDERWITHPAYMENT.
-	 * This gets called by executeIfFunctionExists, in do_transaction.
-	 */
-	protected function post_process_insert_orderwithpayment(){
-		//yeah, we absolutely want to do this for every one of these.
-		if ( $this->getTransactionStatus() === true ) {
-			$data = $this->getTransactionData();
-			$action = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $data['STATUSID'] );
-			if ( $action != FinalStatus::FAILED ){
-				// TODO: if method_loses_control rather than hardcode cc.
-				if ( $this->getData_Unstaged_Escaped( 'payment_method' ) === 'cc' ) {
-					$this->sendPendingMessage();
-				}
-			}
-		}
-	}
-
 	// hook pre_process for GET_ORDERSTATUS
 	protected function post_process_get_orderstatus(){
 		// Run antifraud only once per request.
