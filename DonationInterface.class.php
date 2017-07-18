@@ -68,6 +68,7 @@ class DonationInterface {
 		$files[] = $testDir . 'AllTests.php';
 
 		$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
+		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
 		$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
 		$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
 		$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';

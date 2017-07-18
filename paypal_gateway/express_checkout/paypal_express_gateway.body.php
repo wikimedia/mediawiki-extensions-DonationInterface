@@ -8,17 +8,9 @@ class PaypalExpressGateway extends GatewayPage {
 	 */
 	protected function handleRequest() {
 		$this->getOutput()->allowClickjacking();
-		$this->getOutput()->addModules( 'ext.donationInterface.forms' );
+		$this->getOutput()->addModules( 'ext.donationinterface.paypal.scripts' );
 
 		$this->handleDonationRequest();
 	}
 
-	/**
-	 * Always attempt to pass through transparently.
-	 *
-	 * @see GatewayPage::isProcessImmediate()
-	 */
-	protected function isProcessImmediate() {
-		return true;
-	}
 }
