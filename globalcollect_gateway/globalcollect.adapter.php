@@ -372,6 +372,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'AMOUNT',
 				'AVSRESULT',
 				'CVVRESULT',
+				'STATUSID',
 			),
 		);
 
@@ -641,7 +642,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$status_response = null;
 
 		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ) {
-			$status_result = $this->do_transaction( 'GET_ORDERSTATUS' );
+			$status_result = $this->getOrderStatusFromProcessor();
 			$validationAction = $this->getValidationAction();
 			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
 			$gotCVV = strlen( $cvv_result ) > 0;
@@ -667,13 +668,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			$order_status_results = false;
 			if ( !$cancelflag && !$problemflag ) {
-	// $order_status_results = $this->getFinalStatus();
-				$txn_data = $this->getTransactionData();
-				if ( isset( $txn_data['STATUSID'] ) ) {
+				$statusCode = $this->getData_Unstaged_Escaped( 'gateway_status' );
+				if ( $statusCode ) {
 					if ( is_null( $original_status_code ) ) {
-						$original_status_code = $txn_data['STATUSID'];
+						$original_status_code = $statusCode;
 					}
-					$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $txn_data['STATUSID'] );
+					$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $statusCode );
 				}
 				if ( $loops === 0 && $is_orphan && !is_null( $original_status_code ) ) {
 					// save stats.
@@ -704,7 +704,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						}
 
 						// none of this should ever execute for a transaction that doesn't use 3d secure...
-						if ( $txn_data['STATUSID'] === '200' && ( $loops < $loopcount - 1 ) ) {
+						if ( $statusCode === '200' && ( $loops < $loopcount - 1 ) ) {
 							$this->logger->info( "Running DO_FINISHPAYMENT ($loops)" );
 
 							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
@@ -724,7 +724,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							break;
 						}
 
-						if ( $txn_data['STATUSID'] !== '200' ) {
+						if ( $statusCode !== '200' ) {
 							break 2; // no need to loop.
 						}
 						// FIXME: explicit that we want to fall through?
@@ -801,6 +801,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 // return something better... if we need to!
 		return $status_result;
+	}
+
+	protected function getOrderStatusFromProcessor() {
+		return $this->do_transaction( 'GET_ORDERSTATUS' );
 	}
 
 	/**
@@ -1322,7 +1326,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// set the transaction result message
 		$responseStatus = isset( $data['STATUSID'] ) ? $data['STATUSID'] : '';
 		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); // TODO: Translate for GC.
-		$this->transaction_response->setGatewayTransactionId( $this->getData_Unstaged_Escaped( 'order_id' ) );
+		$this->setGatewayTransactionId();
 
 		$retErrCode = null;
 		$retryVars = array();
@@ -1777,5 +1781,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		} else {
 			return false;
 		}
+	}
+
+	protected function setGatewayTransactionId() {
+		$this->transaction_response->setGatewayTransactionId( $this->getData_Unstaged_Escaped( 'order_id' ) );
 	}
 }

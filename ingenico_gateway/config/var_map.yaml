@@ -14,3 +14,7 @@ firstName: first_name
 surname: last_name
 merchantReference: order_id
 hostedCheckoutId: gateway_session_id
+id: gateway_txn_id
+statusCode: gateway_status
+avsResult: avs_result
+cvvResult: cvv_result

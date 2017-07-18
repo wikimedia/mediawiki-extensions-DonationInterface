@@ -91,6 +91,29 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				'hostedCheckoutId'
 			)
 		);
+
+		$this->transactions['getHostedCheckoutStatus'] = array(
+			'request' => array( 'hostedCheckoutId' ),
+			'response' => array(
+				'id',
+				'amount',
+				'currencyCode',
+				'avsResult',
+				'cvvResult',
+				'statusCode',
+			)
+		);
+
+		$this->transactions['getPaymentStatus'] = array(
+			'request' => array( 'id' ),
+			'response' => array(
+				'amount',
+				'currencyCode',
+				'avsResult',
+				'cvvResult',
+				'statusCode',
+			)
+		);
 	}
 
 	/**
@@ -108,6 +131,12 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		);
 	}
 
+	/**
+	 * Make an API call to Ingenico Connect.
+	 *
+	 * @param array $data parameters for the transaction
+	 * @return bool whether the API call succeeded
+	 */
 	public function curl_transaction( $data ) {
 		$email = $this->getData_Unstaged_Escaped( 'email' );
 		$this->logger->info( "Making API call for donor $email" );
@@ -121,11 +150,18 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		switch ( $this->getCurrentTransaction() ) {
 			case 'createHostedCheckout':
 				$result = $provider->createHostedPayment( $data );
-				$this->transaction_response->setRawResponse( json_encode( $result ) );
-				return true;
+				break;
+			case 'getHostedCheckoutStatus':
+				$result = $provider->getHostedPaymentStatus(
+					$data['hostedCheckoutId']
+				);
+				break;
 			default:
 				return false;
 		}
+
+		$this->transaction_response->setRawResponse( json_encode( $result ) );
+		return true;
 	}
 
 	public function getBasedir() {
@@ -133,11 +169,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function do_transaction( $transaction ) {
-		// If this is not our first call, get a fresh order ID
-		// FIXME: This is repeated in four places. Maybe always regenerate in incrementSequenceNumber?
-		if ( $this->session_getData( 'sequence' ) ) {
-			$this->regenerateOrderID();
-		}
+		$this->ensureUniqueOrderID();
 		if ( $transaction === 'createHostedCheckout' ) {
 			$this->incrementSequenceNumber();
 		}
@@ -161,12 +193,54 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function parseResponseData( $response ) {
-		if ( isset( $response['partialRedirectUrl'] ) ) {
+		// Flatten the whole darn nested thing.
+		// FIXME: This should probably happen in the SmashPig library where
+		// we can flatten in a custom way per transaction type. Or we should
+		// expand var_map to work with nested stuff.
+		$flattened = array();
+		$squashMe = function( $sourceData, $squashMe ) use ( &$flattened ) {
+			foreach( $sourceData as $key => $value ) {
+				if ( is_array( $value ) ) {
+					call_user_func( $squashMe, $value, $squashMe );
+				} else {
+					// Hmm, we might be clobbering something
+					$flattened[$key] = $value;
+				}
+			}
+		};
+		$squashMe( $response, $squashMe );
+		if ( isset( $flattened['partialRedirectUrl'] ) ) {
 			$provider = $this->getPaymentProvider();
-			$response['FORMACTION'] = $provider->getHostedPaymentUrl(
-				$response['partialRedirectUrl']
+			$flattened['FORMACTION'] = $provider->getHostedPaymentUrl(
+				$flattened['partialRedirectUrl']
 			);
 		}
-		return $response;
+		return $flattened;
+	}
+
+	public function processDonorReturn( $requestValues ) {
+		// FIXME: make sure we're processing the order ID we expect!
+
+		$response = $this->do_transaction( 'Confirm_CreditCard' );
+		return PaymentResult::fromResults(
+			$response,
+			$this->getFinalStatus()
+		);
+	}
+
+	protected function getOrderStatusFromProcessor() {
+		// FIXME: sometimes we should use getPayment
+		return $this->do_transaction( 'getHostedCheckoutStatus' );
+	}
+
+	protected function post_process_getHostedCheckoutStatus() {
+		return parent::post_process_get_orderstatus();
+	}
+
+	protected function setGatewayTransactionId() {
+		// FIXME: See 'Silly' comment in PayPal Express adapter
+		$this->transaction_response->setGatewayTransactionId(
+			$this->getData_Unstaged_Escaped( 'gateway_txn_id' )
+		);
 	}
 }

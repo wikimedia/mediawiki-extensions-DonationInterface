@@ -50,6 +50,7 @@ PROVINCIA: provincia # dd:ES
 RETURNURL: returnto
 SPECIALID: special_id
 STATE: state_province
+STATUSID: gateway_status
 STREET: street_address
 SURNAME: last_name
 SWIFTCODE: swift_code

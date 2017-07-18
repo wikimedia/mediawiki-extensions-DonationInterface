@@ -340,6 +340,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'PAYMENTREFERENCE' => 'payment_reference',
 			'PROVINCIA' => 'provincia',
 			'SPECIALID' => 'special_id',
+			'STATUSID' => 'gateway_status',
 			'SWIFTCODE' => 'swift_code',
 			'TRANSACTIONTYPE' => 'transaction_type',
 			'FISCALNUMBER' => 'fiscal_number',
