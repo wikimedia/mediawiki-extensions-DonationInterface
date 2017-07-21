@@ -203,41 +203,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		) );
 
 		$message = DonationQueue::instance()->pop( 'donations' );
-		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
-		self::unsetVariableFields( $message );
-		$expected = array(
-			'contribution_tracking_id' => $init['contribution_tracking_id'],
-			'country' => 'US',
-			'fee' => '0',
-			'gateway' => 'paypal_ec',
-			'gateway_txn_id' => '5EJ123456T987654S',
-			'gateway_session_id' => 'EC-4V987654XA123456V',
-			'language' => 'en',
-			'order_id' => $init['contribution_tracking_id'] . '.0',
-			'payment_method' => 'paypal',
-			'payment_submethod' => '',
-			'response' => false,
-			'user_ip' => '127.0.0.1',
-			'utm_source' => '..rpaypal',
-			'city' => 'San Francisco',
-			'currency' => 'USD',
-			'email' => 'donor@generous.net',
-			'first_name' => 'Fezziwig',
-			'gross' => '1.55',
-			'last_name' => 'Fowl',
-			'recurring' => '1',
-			'state_province' => 'CA',
-			'street_address' => '123 Fake Street',
-			'postal_code' => '94105',
-			'source_name' => 'DonationInterface',
-			'source_type' => 'payments',
-			'subscr_id' => 'I-88J1M3DLSF0',
-		);
-		$this->assertEquals( $expected, $message );
-		$this->assertNull(
-			DonationQueue::instance()->pop( 'donations' ),
-			'Sending extra messages to donations queue!'
-		);
+		$this->assertNull( $message, 'Recurring should not send a message to the donations queue' );
 	}
 
 	/**

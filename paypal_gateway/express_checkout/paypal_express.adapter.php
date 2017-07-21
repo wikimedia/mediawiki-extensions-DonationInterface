@@ -343,8 +343,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'response' => array(
 				# FIXME: Make sure this gets passed as subscription_id in the message
 				'PROFILEID',
-				'PROFILESTATUS',
-				'TRANSACTIONID',
+				'PROFILESTATUS'
 			),
 		);
 
@@ -408,20 +407,16 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'CreateRecurringPaymentsProfile':
 				$this->checkResponseAck( $response );
 
-				// Grab the subscription ID and transaction ID for the
-				// initial charge.
+				// Grab the subscription ID
 				$this->addResponseData( $this->unstageKeys( $response ) );
-				// FIXME: Silly to store this thing in two places.
-				// The queue message functions look for it in transaction_response.
-				// We should make all the gateways store it in the standard
-				// data fields and get rid of the transaction_response field.
-				$this->transaction_response->setGatewayTransactionId(
-					$this->getData_Unstaged_Escaped( 'gateway_txn_id' )
-				);
 
-				// FIXME: Not a satisfying ending.  Parse the PROFILESTATUS
-				// response and sort it into complete or pending.
-				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+				// We've created a subscription, but we haven't got an initial
+				// payment yet, so we leave the details in the pending queue.
+				// The IPN listener will push the donation through to Civi when
+				// it gets notifications from PayPal.
+				// TODO: it would be nice to send the subscr_start message to
+				// the recurring queue here.
+				$this->finalizeInternalStatus( FinalStatus::PENDING );
 				$this->postProcessDonation();
 				break;
 			case 'SetExpressCheckout':
