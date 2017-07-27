@@ -24,7 +24,7 @@
             "SellerAuthorizationNote": "{\"SandboxSimulation\": {\"State\":\"Declined\", \"ReasonCode\":\"AmazonRejected\"}}",
             "CreationTimestamp": "2015-09-01T22:31:02.551Z",
             "AmazonAuthorizationId": "S01-7821958-9177140-A084347",
-            "AuthorizationReferenceId": "36435-0"
+            "AuthorizationReferenceId": "36435-1"
         }
     },
     "ResponseMetadata": {

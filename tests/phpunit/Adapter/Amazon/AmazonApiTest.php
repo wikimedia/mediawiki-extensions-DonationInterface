@@ -44,7 +44,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 		$this->assertEquals( 'https://wikimediafoundation.org/wiki/Thank_You/en?country=US', $redirect );
 		$mockClient = TestingAmazonAdapter::$mockClient;
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
-		$oid = $session['Donor']['contribution_tracking_id'] . '-0';
+		$oid = $session['Donor']['contribution_tracking_id'] . '-1';
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
 		$this->assertEquals( $params['amount'], $setOrderReferenceDetailsArgs['amount'], 'Did not set amount on order reference' );
 

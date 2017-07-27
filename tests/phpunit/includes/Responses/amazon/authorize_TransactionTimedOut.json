@@ -24,7 +24,7 @@
             "SellerAuthorizationNote": "{\"SandboxSimulation\": {\"State\":\"Declined\", \"ReasonCode\":\"TransactionTimedOut\"}}",
             "CreationTimestamp": "2015-09-02T17:14:02.214Z",
             "AmazonAuthorizationId": "S01-6689996-9664966-A069817",
-            "AuthorizationReferenceId": "36450-0"
+            "AuthorizationReferenceId": "36450-1"
         }
     },
     "ResponseMetadata": {

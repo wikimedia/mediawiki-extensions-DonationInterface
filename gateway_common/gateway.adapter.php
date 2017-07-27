@@ -3489,7 +3489,11 @@ abstract class GatewayAdapter
 			}
 
 			$this->session_ensure();
-			$sequence = $this->session_getData( 'sequence' ) ?: 0;
+			$sequence = $this->session_getData( 'sequence' );
+			if ( !$sequence ) {
+				$sequence = 1;
+				WmfFramework::setSessionValue( 'sequence', $sequence );
+			}
 
 			return "{$ctid}.{$sequence}";
 		}
@@ -3519,6 +3523,20 @@ abstract class GatewayAdapter
 		// Add new Order ID to the session.
 		$this->session_addDonorData();
 		return $id;
+	}
+
+	protected function ensureUniqueOrderID() {
+		// If this is not our first call, get a fresh order ID
+		// FIXME: This is still too complicated. We want to maintain
+		// a consistent order ID from the start of do_transaction till
+		// the start of at least the next transaction (if not longer).
+		// For that reason, we're not regenerating the order ID at the
+		// same time as we increment the sequence number. We should
+		// be able to achieve that more simply.
+		$sequenceNum = $this->session_getData( 'sequence' );
+		if ( $sequenceNum && $sequenceNum > 1 ) {
+			$this->regenerateOrderID();
+		}
 	}
 
 	public function getOrderIDMeta( $key = false ) {

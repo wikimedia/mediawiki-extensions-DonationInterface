@@ -173,8 +173,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( array() );
 		$result = $gateway->processDonorReturn( array(
 			'authResult' => 'AUTHORISED',
-			'merchantReference' => '55555.0',
-			'merchantSig' => 'o1QTd6X/PYrOgLPoSheamR3osAksh6oTaSytsCcJsFA=',
+			'merchantReference' => '55555.1',
+			'merchantSig' => 'NPG6j/g5LVORxSXb8WLegoG6e2Fd7D4986p736yozbI=',
 			'paymentMethod' => 'visa',
 			'pspReference' => '123987612346789',
 			'shopperLocale' => 'fr_FR',
@@ -197,8 +197,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( array() );
 		$result = $gateway->processDonorReturn( array(
 			'authResult' => 'REFUSED',
-			'merchantReference' => '55555.0',
-			'merchantSig' => 'EVqAiz4nZ8XQ9Wfbm9bOQYaKPV22qdY+/6va7zAo580=',
+			'merchantReference' => '55555.1',
+			'merchantSig' => 's8t3037BPcWl8niWHsrnwOXh+EqdPHmKyaLHYLf1tz4=',
 			'paymentMethod' => 'visa',
 			'pspReference' => '123987612346789',
 			'shopperLocale' => 'fr_FR',

@@ -199,10 +199,7 @@ class AstroPayAdapter extends GatewayAdapter {
 	}
 
 	function doPayment() {
-		// If this is not our first NewInvoice call, get a fresh order ID
-		if ( $this->session_getData( 'sequence' ) ) {
-			$this->regenerateOrderID();
-		}
+		$this->ensureUniqueOrderID();
 
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
 		$this->runAntifraudFilters();

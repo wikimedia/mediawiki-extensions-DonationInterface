@@ -118,9 +118,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->client = $this->getPwaClient();
 
 		$this->transaction_response = new PaymentTransactionResponse();
-		if ( $this->session_getData( 'sequence' ) ) {
-			$this->regenerateOrderID();
-		}
+		$this->ensureUniqueOrderID();
 
 		try {
 			if ( $this->getData_Unstaged_Escaped( 'recurring' ) === '1' ) {

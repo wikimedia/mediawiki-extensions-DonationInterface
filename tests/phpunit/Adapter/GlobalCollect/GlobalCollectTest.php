@@ -102,7 +102,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
 
 		//make sure that decimal numbers are rejected by GC. Should be a toss and regen
-		$externalData['order_id'] = '2143.0';
+		$externalData['order_id'] = '2143.1';
 		unset( $request['order_id'] );
 		unset( $session['Donor']['order_id'] );
 		$this->setUpRequest( $request, $session );

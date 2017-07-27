@@ -1,7 +1,7 @@
 {
     "GetCaptureDetailsResult": {
         "CaptureDetails": {
-            "CaptureReferenceId": "31243-0",
+            "CaptureReferenceId": "31243-1",
             "CaptureFee": {
                 "CurrencyCode": "USD",
                 "Amount": "0.00"
