@@ -2978,7 +2978,6 @@ abstract class GatewayAdapter
 				'PaymentForms',
 				'numAttempt',
 				'order_status', //for post-payment activities
-				'processed_requests', //for post-payment activities
 				'sequence',
 			);
 			$preservedData = array();

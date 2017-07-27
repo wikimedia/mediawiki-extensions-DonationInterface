@@ -283,8 +283,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
-		$processed = RequestContext::getMain()->getRequest()->getSessionData( 'processed_requests' );
-		$this->assertArrayHasKey( $request['token'], $processed );
+		$key = 'processed_request-' . $request['token'];
+		$processed = wfGetMainCache()->get( $key );
+		$this->assertTrue( $processed );
 
 		// Make sure we logged the expected cURL attempts
 		$messages = self::getLogMatches( 'info', '/Preparing to send GetExpressCheckoutDetails transaction to Paypal Express Checkout/' );
@@ -303,11 +304,11 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';
 		$session = array(
-			'Donor' => $init,
-			'processed_requests' => array(
-				$init['gateway_session_id'] => true
-			)
+			'Donor' => $init
 		);
+
+		$key = 'processed_request-' . $init['gateway_session_id'];
+		wfGetMainCache()->add( $key, true, 100 );
 
 		$request = array(
 			'token' => $init['gateway_session_id'],

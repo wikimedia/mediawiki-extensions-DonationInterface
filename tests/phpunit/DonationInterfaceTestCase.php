@@ -511,6 +511,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 		// Reset SmashPig context
 		Context::set( null );
+		// Clear out our HashBagOStuff, used for testing
+		wfGetMainCache()->clear();
 	}
 
 	/**

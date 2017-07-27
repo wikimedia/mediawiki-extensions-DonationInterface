@@ -88,7 +88,10 @@ global $wgDonationInterfaceTestMode,
 	$wgDonationInterfaceUtmCampaignMap,
 	$wgDonationInterfaceUtmSourceMap,
 	$wgDonationInterfaceUtmMediumMap,
-	$wgDonationInterfaceEmailDomainMap;
+	$wgDonationInterfaceEmailDomainMap,
+	$wgMainCacheType;
+
+$wgMainCacheType = 'hash';
 
 $wgDonationInterfaceGatewayAdapters = array(
 	'globalcollect'=> 'TestingGlobalCollectAdapter',

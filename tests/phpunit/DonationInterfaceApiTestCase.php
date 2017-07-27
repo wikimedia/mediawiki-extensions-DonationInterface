@@ -26,6 +26,8 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		parent::tearDown();
 		Context::set( null );
 		TestingQueue::clearAll();
+		// Clear out our HashBagOStuff
+		wfGetMainCache()->clear();
 		DonationLoggerFactory::$overrideLogger = null;
 	}
 }
