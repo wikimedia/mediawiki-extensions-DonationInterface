@@ -170,6 +170,7 @@
 	"donate_interface-error-msg-nopaypal": "Aufgrund eines technischen Problems können wir keine Verbindung zu PayPal herstellen. Bitte nutzen Sie stattdessen das Formular für Kreditkartenspenden.",
 	"donate_interface-error-msg-validation": "Bitte korrigieren Sie die Fehler im Formular.",
 	"donate_interface-error-msg-invalid-amount": "Bitte einen gültigen Betrag eingeben",
+	"donate_interface-error-msg-invalid-country": "Leider konnten wir Ihr Land nicht erkennen. Bitte wählen Sie einen Staat auf unserer Seite mit den <a href=\"$1\">Spendemöglichkeiten</a> aus.",
 	"donate_interface-error-msg-invalid-email": "Bitte eine gültige E-Mail-Adresse (z.&nbsp;B. name@domain.com) angeben",
 	"donate_interface-error-msg-card-num": "Bitte eine gültige Kreditkartennummer für eine der akzeptierten Kreditkartentypen angeben",
 	"donate_interface-error-msg-amex": "Bitte eine korrekte American-Express-Kartennummer eingeben",
