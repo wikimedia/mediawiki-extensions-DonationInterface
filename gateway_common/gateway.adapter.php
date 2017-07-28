@@ -2355,29 +2355,37 @@ abstract class GatewayAdapter
 	 * all the per-country / per-gateway cases can be expressed declaratively
 	 * in payment method / submethod metadata.  If that's the case, move this
 	 * function (to DataValidator?)
+	 * @param array|null $knownData if provided, used to determine fields that
+	 *  depend on country or payment method. Falls back to unstaged data.
 	 * @return array of field names (empty if no payment method set)
 	 */
-	public function getRequiredFields() {
+	public function getRequiredFields( $knownData = null ) {
+		if ( $knownData === null ) {
+			$knownData = $this->getData_Unstaged_Escaped();
+		}
 		$required_fields = array();
 		$validation = array();
 
 		// Add any country-specific required fields
-		if ( isset( $this->config['country_fields'] ) ) {
-			$country = $this->getData_Unstaged_Escaped( 'country' );
-			if ( $country && isset( $this->config['country_fields'][$country] ) ) {
+		if (
+			isset( $this->config['country_fields'] ) &&
+			!empty( $knownData['country'] )
+		) {
+			$country = $knownData['country'];
+			if ( isset( $this->config['country_fields'][$country] ) ) {
 				$validation = $this->config['country_fields'][$country];
 			}
 		}
 
-		if ( $this->getPaymentMethod() ) {
-			$methodMeta = $this->getPaymentMethodMeta();
+		if ( !empty( $knownData['payment_method'] ) ) {
+			$methodMeta = $this->getPaymentMethodMeta( $knownData['payment_method'] );
 			if ( isset( $methodMeta['validation'] ) ) {
 				$validation = $methodMeta['validation'] + $validation;
 			}
 		}
 
-		if ( $this->getPaymentSubmethod() ) {
-			$submethodMeta = $this->getPaymentSubmethodMeta();
+		if ( !empty( $knownData['payment_submethod'] ) ) {
+			$submethodMeta = $this->getPaymentSubmethodMeta( $knownData['payment_submethod'] );
 			if ( isset( $submethodMeta['validation'] ) ) {
 				// submethod validation can override method validation
 				// TODO: child method anything should supersede parent method
@@ -2401,9 +2409,11 @@ abstract class GatewayAdapter
 						//however, that's not happening in this class in the code I'm replacing, so...
 						//TODO: Something clever in the DataValidator with data groups like these.
 					);
-					$country = $this->getData_Unstaged_Escaped( 'country' );
-					if ( $country && Subdivisions::getByCountry( $country ) ) {
-						$check_not_empty[] = 'state_province';
+					if ( !empty( $knownData['country'] ) ) {
+						$country = $knownData['country'];
+						if ( $country && Subdivisions::getByCountry( $country ) ) {
+							$check_not_empty[] = 'state_province';
+						}
 					}
 					break;
 				case 'creditCard' :
