@@ -1,12 +1,15 @@
 cc:
     validation:
+        country: true;
         name: true
         email: true
 bt:
     validation:
+        country: true;
         name: true
         email: true
 cash:
     validation:
+        country: true;
         name: true
         email: true

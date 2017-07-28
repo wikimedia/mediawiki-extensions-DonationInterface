@@ -447,6 +447,7 @@ abstract class GatewayAdapter
 			// Always stage email address first, to set default if missing
 			new DonorEmail(),
 			new DonorFullName(),
+			new CountryValidation(),
 			new Amount(),
 			new AmountInCents(),
 			new StreetAddress(),

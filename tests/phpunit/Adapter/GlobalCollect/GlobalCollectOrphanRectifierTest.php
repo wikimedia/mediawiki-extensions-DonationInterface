@@ -167,6 +167,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$uniq = mt_rand();
 		$message = $overrides + array(
 			'contribution_tracking_id' => $uniq,
+			'country' => 'US',
 			'first_name' => 'Flighty',
 			'last_name' => 'Dono',
 			'email' => 'test+wmf@eff.org',
