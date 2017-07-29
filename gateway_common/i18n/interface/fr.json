@@ -32,7 +32,8 @@
 			"Wladek92",
 			"L",
 			"Orlodrim",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Framawiki"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -192,6 +193,7 @@
 	"donate_interface-error-msg-nopaypal": "En raison d’un problème technique, nous ne pouvons pas envoyer votre requête à PayPal. Veuillez essayer notre formulaire classique de don par carte bancaire ou de crédit.",
 	"donate_interface-error-msg-validation": "Veuillez corriger les erreurs dans le formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Veuillez entrer un montant valide",
+	"donate_interface-error-msg-invalid-country": "Désolé, il est impossible de détecter votre pays. Merci de le sélectionner sur la page <a href=\"$1\">Moyens de donner</a>.",
 	"donate_interface-error-msg-invalid-email": "Veuillez entrer une adresse de courriel valide, par exemple nom@domaine.com",
 	"donate_interface-error-msg-card-num": "Veuillez entrer un numéro de carte bancaire ou de crédit valide pour l’un des types de cartes acceptées",
 	"donate_interface-error-msg-amex": "Veuillez entrer un numéro de carte American Express correct.",

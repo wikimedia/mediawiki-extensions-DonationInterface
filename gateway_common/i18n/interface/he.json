@@ -167,6 +167,7 @@
 	"donate_interface-error-msg-nopaypal": "עקב תקלה טכנית, לא נוכל לשלוח את הבקשה שלך ל־PayPal.  נא לנסות להשתמש בטופס הרגיל שלנו לתרומה באמצעות כרטיסי אשראי.",
 	"donate_interface-error-msg-validation": "נא לתקן את השגיאות בטופס הזה.",
 	"donate_interface-error-msg-invalid-amount": "יש להזין סכום תקין",
+	"donate_interface-error-msg-invalid-country": "סליחה, לא הצלחנו לזהות את המדינה שלך. נא לבחור מדינה בדף <a href=\"$1\">דרכים לתת</a> שלנו.",
 	"donate_interface-error-msg-invalid-email": "יש להזין כתובת דוא״ל תקינה, למשל name@domain.com",
 	"donate_interface-error-msg-card-num": "נא להזין מספר כרטיס אשראי תקף עבור אחד מסוגי כרטיסי האשראי הקבילים",
 	"donate_interface-error-msg-amex": "יש להזין מספר אשראי תקין עבור אמריקן אקספרס.",
