@@ -181,6 +181,7 @@
 	"donate_interface-error-msg-nopaypal": "På grund av ett tekniskt fel kan vi inte skicka din förfrågan till PayPal. Försök att använda vårt vanliga kreditkortsformulär.",
 	"donate_interface-error-msg-validation": "Var god rätta felen i formuläret.",
 	"donate_interface-error-msg-invalid-amount": "Vänligen uppge ett giltigt belopp",
+	"donate_interface-error-msg-invalid-country": "Tyvärr, vi kunde inte identifiera ditt land. Välj ett land på sidan <a href=\"$1\">Sätt att ge</a>.",
 	"donate_interface-error-msg-invalid-email": "Vänligen uppge en giltig e-postadress, t.ex. namn@domän.com",
 	"donate_interface-error-msg-card-num": "Ange ett giltigt kreditkortsnummer för en av de godkända kreditkortstyperna",
 	"donate_interface-error-msg-amex": "Vänligen uppge ett giltigt American Express-kortnummer.",
