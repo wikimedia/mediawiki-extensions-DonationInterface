@@ -1,7 +1,5 @@
 {
-	"name": "DonationInterface",
-	"description": "Wikimedia donation interface",
-	"version": "0.1.0",
+	"private": true,
 	"scripts": {
 		"test": "grunt test"
 	},
