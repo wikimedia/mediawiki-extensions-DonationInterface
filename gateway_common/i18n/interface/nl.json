@@ -18,7 +18,8 @@
 			"Mirolith",
 			"Esketti",
 			"Edoderoo",
-			"Mainframe98"
+			"Mainframe98",
+			"Festina90"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -173,6 +174,7 @@
 	"donate_interface-error-msg-nopaypal": "Wegens een technisch probleem is het niet mogelijk uw verzoek naar PayPal te sturen. U kunt ook direct met uw creditcard doneren.",
 	"donate_interface-error-msg-validation": "Corrigeer de fouten in het formulier.",
 	"donate_interface-error-msg-invalid-amount": "Geef een geldig bedrag op",
+	"donate_interface-error-msg-invalid-country": "Sorry, wij zijn niet in staat om uw land te detecteren, gelieve een land te selecteren in <a href=\"$1\">Ways to Give</a>",
 	"donate_interface-error-msg-invalid-email": "Geef een geldig e-mailadres op, bijvoorbeeld name@domain.com",
 	"donate_interface-error-msg-card-num": "Voer een geldig creditcardnummer in van één van de geaccepteerde creditcardsoorten",
 	"donate_interface-error-msg-amex": "Geef een geldig kaartnummer op voor American Express.",

@@ -9,15 +9,15 @@ class DonationInterface {
 	 * Executed after processing extension.json
 	 */
 	public static function registerExtension() {
-		global $wgDonationInterfaceTestMode,
+		global $wgDonationInterfaceTest,
 			$wgDonationInterfaceTemplate,
 			$wgDonationInterfaceErrorTemplate,
 			$IP;
 
 		// Test mode (not for production!)
 		// Set it if not defined
-		if ( !isset( $wgDonationInterfaceTestMode) || $wgDonationInterfaceTestMode !== true ) {
-			$wgDonationInterfaceTestMode = false;
+		if ( !isset( $wgDonationInterfaceTest ) || $wgDonationInterfaceTest !== true ) {
+			$wgDonationInterfaceTest = false;
 		}
 
 		/**
@@ -71,7 +71,6 @@ class DonationInterface {
 		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
 		$wgAutoloadClasses['MockAmazonClient'] = $testDir . 'includes/MockAmazonClient.php';
 		$wgAutoloadClasses['MockAmazonResponse'] = $testDir . 'includes/MockAmazonResponse.php';
-		$wgAutoloadClasses['TestingQueue'] = $testDir . 'includes/TestingQueue.php';
 		$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 		$wgAutoloadClasses['TestingAmazonAdapter'] = $testDir . 'includes/test_gateway/TestingAmazonAdapter.php';
 		$wgAutoloadClasses['TestingAstroPayAdapter'] = $testDir . 'includes/test_gateway/TestingAstroPayAdapter.php';

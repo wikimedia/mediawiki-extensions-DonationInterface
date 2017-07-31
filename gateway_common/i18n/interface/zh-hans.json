@@ -190,6 +190,7 @@
 	"donate_interface-error-msg-nopaypal": "因一个技术故障我们无法将您的请求提交至Paypal。请尝试使用常规信用卡捐助表格。",
 	"donate_interface-error-msg-validation": "请更正表单中的错误。",
 	"donate_interface-error-msg-invalid-amount": "请输入一个有效的金额",
+	"donate_interface-error-msg-invalid-country": "对不起，我们无法检测您的国家。请在我们的<a href=\"$1\">提供方式</a>页面上选择国家。",
 	"donate_interface-error-msg-invalid-email": "请输入有效的电子邮件地址，也就是name@domain.com",
 	"donate_interface-error-msg-card-num": "请输入一个被接受的有效信用卡号码",
 	"donate_interface-error-msg-amex": "请输入正确的美国运通卡号码。",

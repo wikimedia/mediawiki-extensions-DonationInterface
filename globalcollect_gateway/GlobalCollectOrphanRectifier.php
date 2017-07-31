@@ -247,15 +247,19 @@ class GlobalCollectOrphanRectifier {
 	 * @return array Normalized message.
 	 */
 	protected function getNextMessage() {
-		return DonationQueue::queueMessageToNormalized(
-			PendingDatabase::get()
-				->fetchMessageByGatewayOldest( 'globalcollect' ) );
+		$message = PendingDatabase::get()
+			->fetchMessageByGatewayOldest( 'globalcollect' );
+		if ( isset( $message['gross'] ) ) {
+			$message['amount'] = $message['gross'];
+			unset( $message['gross'] );
+		}
+		return $message;
 	}
 
 	/**
 	 * Remove a message from the pending database.
 	 *
-	 * @param array Normalized message
+	 * @param array message
 	 */
 	protected function deleteMessage( $message ) {
 		PendingDatabase::get()

@@ -6,7 +6,8 @@
 			"Subi",
 			"පසිඳු කාවින්ද",
 			"Pcoombe",
-			"Sator"
+			"Sator",
+			"Mikel Ibaiba"
 		]
 	},
 	"donate_interface": "Lagundu Wikimedia",
@@ -90,6 +91,7 @@
 	"donate_interface-card-name-mc": "MasterCard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-invalid-amount": "Mesedez idatzi baliozko kopurua",
+	"donate_interface-error-msg-invalid-country": "Sentitzen dut, baina ezin dugu zure herrialdea detektatu. Mesedez, gure <a href=\"$1\">Ways to Give</a> orrialdeko herrialde bat aukeratu.",
 	"donate_interface-error-msg-invalid-email": "Mesedez idatzi baliozko e-posta helbidea. Adib. izena@domeinua.com",
 	"donate_interface-error-msg-amex": "Mesedez idatzi baliozko American Express txartel zenbakia.",
 	"donate_interface-error-msg-mc": "Mesedez idatzi baliozko MasterCard txartel zenbakia.",
