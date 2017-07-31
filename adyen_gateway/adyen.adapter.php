@@ -30,8 +30,8 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	public function getRequiredFields() {
-		$fields = parent::getRequiredFields();
+	public function getRequiredFields( $knownData = null ) {
+		$fields = parent::getRequiredFields( $knownData );
 		$fields[] = 'payment_submethod';
 		return $fields;
 	}

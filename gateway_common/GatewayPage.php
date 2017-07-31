@@ -600,11 +600,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$requestProcessId = $this->adapter->getRequestProcessId(
 			$request->getValues()
 		);
-		$processedRequests = $request->getSessionData( 'processed_requests' );
-		if ( !$requestProcessId || empty( $processedRequests ) ) {
-			return false;
-		}
-		return array_key_exists( $requestProcessId, $processedRequests );
+		$key = 'processed_request-' . $requestProcessId;
+		$cachedResult = wfGetMainCache()->get( $key );
+		return boolval( $cachedResult );
 	}
 
 	protected function markReturnProcessed() {
@@ -615,13 +613,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( !$requestProcessId ) {
 			return;
 		}
-		$processedRequests = $request->getSessionData( 'processed_requests' );
-		if ( !$processedRequests ) {
-			$processedRequests = array();
-		}
+		$key = 'processed_request-' . $requestProcessId;
+
 		// TODO: we could store the results of the last process here, but for now
 		// we just indicate we did SOMETHING with it
-		$processedRequests[$requestProcessId] = true;
-		$request->setSessionData( 'processed_requests', $processedRequests );
+		wfGetMainCache()->add( $key, true, 7200 );
 	}
 }

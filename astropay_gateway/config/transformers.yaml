@@ -2,6 +2,7 @@
 - Amount
 - AstroPayFinancialNumbers
 - AstroPayMethodCodec
+- CountryValidation
 - FiscalNumber
 - DonorEmail
 - DummyFiscalNumber # see class comment

@@ -220,8 +220,8 @@ class AstroPayAdapter extends GatewayAdapter {
 	 * Overriding parent method to add fiscal number
 	 * @return array of required field names
 	 */
-	public function getRequiredFields() {
-		$fields = parent::getRequiredFields();
+	public function getRequiredFields( $knownData = null ) {
+		$fields = parent::getRequiredFields( $knownData );
 		$noFiscalRequired = array( 'MX', 'PE' );
 		$country = $this->getData_Unstaged_Escaped( 'country' );
 		if ( !in_array( $country, $noFiscalRequired ) ) {

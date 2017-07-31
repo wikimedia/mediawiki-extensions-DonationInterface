@@ -14,6 +14,7 @@
 		"Dylan Kozlowski",
 		"Casey Dentinger"
 	],
+	"license-name": "GPL-2.0",
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
 	"type": "specialpage",
 	"requires": {
@@ -67,6 +68,7 @@
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
+		"CountryValidation": "gateway_common/CountryValidation.php",
 		"CurrencyRates": "gateway_common/CurrencyRates.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
 		"DonationData": "gateway_common/DonationData.php",

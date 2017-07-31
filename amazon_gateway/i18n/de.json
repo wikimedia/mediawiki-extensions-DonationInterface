@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kghbln"
+			"Kghbln",
+			"Metalhead64"
 		]
 	},
 	"amazon_gateway-desc": "Ermöglicht die Verarbeitung von Zahlungen über Amazon"
