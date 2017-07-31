@@ -153,11 +153,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * is never used at all.
 	 */
 	function do_transaction( $transaction ) {
-		// If this is not our first call, get a fresh order ID
-		// FIXME: This is repeated in three places. Maybe always regenerate in incrementSequenceNumber?
-		if ( $this->session_getData( 'sequence' ) ) {
-			$this->regenerateOrderID();
-		}
+		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 
