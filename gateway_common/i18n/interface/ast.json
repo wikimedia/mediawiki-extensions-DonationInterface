@@ -159,6 +159,7 @@
 	"donate_interface-error-msg-nopaypal": "Por un error téunicu, nun podemos unviar la solicitú a PayPal. Por favor, intente usar el nuesu formulariu regular de donación con tarxeta de créditu.",
 	"donate_interface-error-msg-validation": "Por favor, corrixa los errores del formulariu.",
 	"donate_interface-error-msg-invalid-amount": "Por favor, escriba una cantidá válida",
+	"donate_interface-error-msg-invalid-country": "Nun pudimos detectar el to país. Escueyi un país na páxina <a href=\"$1\">Maneres de donar</a>.",
 	"donate_interface-error-msg-invalid-email": "Escribe una direición válida de corréu electrónicu, p.ex. nome@dominiu.com",
 	"donate_interface-error-msg-card-num": "Por favor, escriba un númberu de tarxeta de créditu válidu d'unu de los tipos de tarxeta de créditu aceutaos",
 	"donate_interface-error-msg-amex": "Por favor, escriba un númberu de tarxeta American Express correutu.",
