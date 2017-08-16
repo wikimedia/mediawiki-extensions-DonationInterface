@@ -212,6 +212,11 @@
 			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationinterface.ingenico-hosted": {
+			"scripts": "ingenico_gateway/forms/js/ingenico.js",
+			"styles": "ingenico_gateway/forms/css/ingenico.css",
+			"dependencies": "ext.donationInterface.forms"
+		},
 		"ext.donationinterface.paypal.scripts": {
 			"scripts": "paypal_gateway/express_checkout/forms/js/paypal.js",
 			"dependencies": "ext.donationInterface.forms"
