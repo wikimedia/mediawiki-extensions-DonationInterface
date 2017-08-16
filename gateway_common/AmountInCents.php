@@ -16,7 +16,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 			empty( $normalized['currency'] ) ||
 			!is_numeric( $normalized['amount'] )
 		) {
-			//can't do anything with amounts at all. Just go home.
+			// can't do anything with amounts at all. Just go home.
 			unset( $stagedData['amount'] );
 			return;
 		}

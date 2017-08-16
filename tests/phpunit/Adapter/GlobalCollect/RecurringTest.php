@@ -17,7 +17,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect

@@ -76,19 +76,19 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->accountInfo = array();
 	}
 
-	function defineReturnValueMap() {}
+	function defineReturnValueMap() { }
 
 	function defineOrderIDMeta() {
 		$this->order_id_meta = array(
-			'generate' => TRUE,
-			'ct_id' => TRUE,
+			'generate' => true,
+			'ct_id' => true,
 		);
 	}
 
 	public function defineErrorMap() {
 		parent::defineErrorMap();
 
-		$differentCard = function() {
+		$differentCard = function () {
 			$otherWays = $this->localizeGlobal( 'OtherWaysURL' );
 			return WmfFramework::formatMessage(
 				'donate_interface-donate-error-try-a-different-card-html',
@@ -172,7 +172,7 @@ class AmazonAdapter extends GatewayAdapter {
 				$functionName,
 				'Response: ' . print_r( $result, true )
 			);
-		} catch( Exception $ex ) {
+		} catch ( Exception $ex ) {
 			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
 			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
 			$this->transaction_response->setCommunicationStatus( false );

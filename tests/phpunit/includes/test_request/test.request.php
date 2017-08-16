@@ -30,4 +30,3 @@ class TestingRequest extends FauxRequest {
 	}
 
 }
-

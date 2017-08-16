@@ -18,7 +18,6 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
 	}
@@ -39,17 +38,17 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		}
 
 		foreach ( $functions as $function_name => $risk_score_modifier ) {
-			//run the function specified, if it exists. 
+			// run the function specified, if it exists.
 			if ( method_exists( $this->gateway_adapter, $function_name ) ) {
 				$score = $this->gateway_adapter->{$function_name}();
-				if ( is_null( $score ) ){
-					$score = 0; //TODO: Is this the correct behavior? 
+				if ( is_null( $score ) ) {
+					$score = 0; // TODO: Is this the correct behavior?
 				} elseif ( is_bool( $score ) ) {
 					$score = ( $score ? 0 : $risk_score_modifier );
 				} elseif ( is_numeric( $score ) && $score <= 100 ) {
 					$score = $score * $risk_score_modifier / 100;
 				} else {
-//					error_log("Function Filter: $function_name returned $score");
+// error_log("Function Filter: $function_name returned $score");
 					throw new UnexpectedValueException( "Filter functions are returning somekinda nonsense." );
 				}
 
@@ -57,7 +56,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public static function onFilter(
@@ -84,7 +83,6 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		$custom_filter_object
 	) {
-
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

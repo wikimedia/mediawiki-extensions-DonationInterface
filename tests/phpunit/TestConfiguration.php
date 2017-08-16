@@ -95,13 +95,13 @@ global $wgDonationInterfaceTest,
 $wgMainCacheType = 'hash';
 
 $wgDonationInterfaceGatewayAdapters = array(
-	'globalcollect'=> 'TestingGlobalCollectAdapter',
+	'globalcollect' => 'TestingGlobalCollectAdapter',
 	'ingenico' => 'IngenicoAdapter',
-	'amazon'=> 'TestingAmazonAdapter',
-	'adyen'=> 'TestingAdyenAdapter',
-	'astropay'=> 'TestingAstroPayAdapter',
-	'paypal_ec'=> 'TestingPaypalExpressAdapter',
-	'paypal'=> 'TestingPaypalLegacyAdapter'
+	'amazon' => 'TestingAmazonAdapter',
+	'adyen' => 'TestingAdyenAdapter',
+	'astropay' => 'TestingAstroPayAdapter',
+	'paypal_ec' => 'TestingPaypalExpressAdapter',
+	'paypal' => 'TestingPaypalLegacyAdapter'
 );
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
@@ -111,7 +111,6 @@ $wgDonationInterfaceTest = true;
 $wgDonationInterfaceMerchantID = 'test';
 
 $wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
-
 
 /** GlobalCollect **/
 $wgGlobalCollectGatewayAccountInfo = array();
@@ -126,18 +125,16 @@ $wgPaypalGatewayAccountInfo['testing'] = array(
 );
 $wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
 
-
 /** Paypal Express Checkout **/
 $wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewaySignatureURL = $wgPaypalExpressGatewayURL;
 $wgPaypalExpressGatewayAccountInfo['test'] = array(
-    'User' => 'phpunittesting@wikimedia.org',
-    'Password' => '9876543210',
-    'Signature' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
-    'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=',
+	'User' => 'phpunittesting@wikimedia.org',
+	'Password' => '9876543210',
+	'Signature' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=',
 );
-
 
 /** Amazon **/
 $wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
@@ -189,7 +186,7 @@ $wgDonationInterfaceMinFraudServers = array( "minfraud.wikimedia.org" );
 // least fails closed when enabled.
 $wgDonationInterfaceEnableMinfraud = false;
 
-// ...but we want these. 
+// ...but we want these.
 $wgDonationInterfaceEnableFunctionsFilter = true;
 $wgDonationInterfaceEnableReferrerFilter = true;
 $wgDonationInterfaceEnableSourceFilter = true;
@@ -202,19 +199,18 @@ $customFilters = array(
 	'getScoreEmailDomainMap' => 75,
 );
 
-
-$wgDonationInterfaceCustomFiltersActionRanges = array (
-	'process' => array ( 0, 25 ),
-	'review' => array ( 25, 50 ),
-	'challenge' => array ( 50, 75 ),
-	'reject' => array ( 75, 100 ),
+$wgDonationInterfaceCustomFiltersActionRanges = array(
+	'process' => array( 0, 25 ),
+	'review' => array( 25, 50 ),
+	'challenge' => array( 50, 75 ),
+	'reject' => array( 75, 100 ),
 );
 
-$wgDonationInterfaceCustomFiltersRefRules = array (
+$wgDonationInterfaceCustomFiltersRefRules = array(
 	'/donate-error/i' => 5,
 );
 
-$wgDonationInterfaceCustomFiltersSrcRules = array ( '/wikimedia\.org/i' => 80 );
+$wgDonationInterfaceCustomFiltersSrcRules = array( '/wikimedia\.org/i' => 80 );
 
 $wgDonationInterfaceCustomFiltersFunctions = $customFilters;
 
@@ -225,26 +221,26 @@ $wgGlobalCollectGatewayCustomFiltersFunctions = array(
 
 $wgIngenicoGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
-$wgDonationInterfaceCountryMap = array (
+$wgDonationInterfaceCountryMap = array(
 	'US' => 40,
 	'CA' => 15,
 	'RU' => -4,
 );
 
-$wgDonationInterfaceUtmCampaignMap = array (
+$wgDonationInterfaceUtmCampaignMap = array(
 	'/^(C14_)/' => 14,
 	'/^(spontaneous)/' => 5
 );
 
-$wgDonationInterfaceUtmSourceMap = array (
+$wgDonationInterfaceUtmSourceMap = array(
 	'/somethingmedia/' => 70
 );
 
-$wgDonationInterfaceUtmMediumMap = array (
+$wgDonationInterfaceUtmMediumMap = array(
 	'/somethingmedia/' => 80
 );
 
-$wgDonationInterfaceEmailDomainMap = array (
+$wgDonationInterfaceEmailDomainMap = array(
 	'wikimedia.org' => 42,
 	'wikipedia.org' => 50,
 );

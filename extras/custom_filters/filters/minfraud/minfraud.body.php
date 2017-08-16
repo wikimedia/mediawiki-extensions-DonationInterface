@@ -70,7 +70,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @var string $minfraudLicenseKey
 	 */
 	protected $minfraudLicenseKey = '';
-	
+
 	/**
 	 * Instance of Gateway_Extras_CustomFilters_MinFraud
 	 * @var Gateway_Extras_CustomFilters_MinFraud $instance
@@ -86,17 +86,16 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	/**
 	 * Constructor
 	 *
-	 * @param GatewayType    $gateway_adapter    Gateway adapter instance
-	 * @param Gateway_Extras_CustomFilters    $custom_filter_object    Instance of Custom filter object
-	 * @param string            $license_key        The license key. May also be set in $wgMinFraudLicenseKey
+	 * @param GatewayType $gateway_adapter Gateway adapter instance
+	 * @param Gateway_Extras_CustomFilters $custom_filter_object Instance of Custom filter object
+	 * @param string $license_key The license key. May also be set in $wgMinFraudLicenseKey
 	 * @throws RuntimeException
 	 */
 	protected function __construct(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object,
-		$license_key = NULL
+		$license_key = null
 	) {
-
 		parent::__construct( $gateway_adapter );
 		$this->fraud_logger = DonationLoggerFactory::getLogger( $gateway_adapter, '_fraud' );
 
@@ -109,7 +108,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			throw new RuntimeException( "minFraud license key required but not present." );
 		}
 		$this->minfraudLicenseKey = ( $license_key ) ? $license_key : $wgMinFraudLicenseKey;
-		
+
 		// Set the minFraud API servers
 		$minFraudServers = $gateway_adapter->getGlobal( 'MinFraudServers' );
 		if ( !empty( $minFraudServers ) && is_array( $minFraudServers ) ) {
@@ -173,13 +172,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		// loop through the map and add pertinent values from $data to the hash
 		foreach ( $map as $key => $value ) {
-
 			// do some data processing to clean up values for minfraud
 			switch ( $key ) {
 				case "domain": // get just the domain from the email address
 					$newdata[$value] = substr( strstr( $data[$value], '@' ), 1 );
 					break;
-				case "bin": // get just the first 6 digits from CC#... if we have one. 
+				case "bin": // get just the first 6 digits from CC#... if we have one.
 					$bin = '';
 					if ( isset( $data[$value] ) ) {
 						$bin = substr( $data[$value], 0, 6 );
@@ -211,22 +209,21 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * assume the transaction has already gone through the minFraud check and can be passed
 	 * on to the appropriate action.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function can_bypass_minfraud() {
 		// if the data bits data_hash and action are not set, we need to hit minFraud
 		$localdata = $this->gateway_adapter->getData_Unstaged_Escaped();
-		if ( !isset($localdata['data_hash']) || !strlen( $localdata['data_hash'] ) || !isset($localdata['action']) || !strlen( $localdata['action'] ) ) {
-			return FALSE;
+		if ( !isset( $localdata['data_hash'] ) || !strlen( $localdata['data_hash'] ) || !isset( $localdata['action'] ) || !strlen( $localdata['action'] ) ) {
+			return false;
 		}
 
-		$data_hash = $localdata['data_hash']; // the data hash passed in by the form submission		
+		$data_hash = $localdata['data_hash']; // the data hash passed in by the form submission
 		// unset these values since they are not part of the overall data hash
 		$this->gateway_adapter->unsetHash();
 		unset( $localdata['data_hash'] );
 		// compare the data hash to make sure it's legit
 		if ( $this->compare_hash( $data_hash, serialize( $localdata ) ) ) {
-
 			$this->gateway_adapter->setHash( $this->generate_hash( $this->gateway_adapter->getData_Unstaged_Escaped() ) ); // hash the data array
 			// check to see if we have a valid action set for us to bypass minfraud
 			$actions = array( 'process', 'challenge', 'review', 'reject' );
@@ -235,7 +232,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 				if ( $this->compare_hash( $action_hash, $action ) ) {
 					// set the action that should be taken
 					$this->gateway_adapter->setValidationAction( $action );
-					return TRUE;
+					return true;
 				}
 			}
 		} else {
@@ -243,7 +240,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			$this->log( $localdata['contribution_tracking_id'], 'Data hash/action mismatch', LogLevel::ERROR );
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -253,10 +250,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	protected function filter() {
 		// see if we can bypass minfraud
-		if ( $this->can_bypass_minfraud() ){
-			return TRUE;
+		if ( $this->can_bypass_minfraud() ) {
+			return true;
 		}
-		//get globals
+		// get globals
 		$score = $this->gateway_adapter->getGlobal( 'MinfraudErrorScore' );
 		$weight = $this->gateway_adapter->getGlobal( 'MinfraudWeight' );
 		$multiplier = $weight / 100;
@@ -268,24 +265,23 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			$this->health_check();
 			if ( !isset( $this->minfraudResponse['riskScore'] ) ) {
 				$this->fraud_logger->critical( "'addRiskScore' No response at all from minfraud." );
-				$this->cfo->addRiskScore($score * $multiplier, 'minfraud_filter');
-			}
-			else {
+				$this->cfo->addRiskScore( $score * $multiplier, 'minfraud_filter' );
+			} else {
 				$this->cfo->addRiskScore(
 					$this->minfraudResponse['riskScore'] * $multiplier,
 					'minfraud_filter'
 				);
 			}
 
-		} 
-		catch( Exception $ex){
-			//log out the whole response to the error log so we can tell what the heck happened... and fail closed.
+		}
+		catch ( Exception $ex ) {
+			// log out the whole response to the error log so we can tell what the heck happened... and fail closed.
 			$log_message = 'An error occurred during Minfraud query. Assigning MinfraudErrorScore.';
 			$this->fraud_logger->error( '"addRiskScore" ' . $log_message );
 			$this->cfo->addRiskScore( $score * $multiplier, 'minfraud_filter' );
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -295,9 +291,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected function get_ccfd() {
 		if ( !$this->ccfd ) {
 			$this->ccfd = new CreditCardFraudDetection();
-			
+
 			// Override the minFraud API servers
-			if ( !empty( $this->minFraudServers ) && is_array( $this->minFraudServers )  ) {
+			if ( !empty( $this->minFraudServers ) && is_array( $this->minFraudServers ) ) {
 				$this->ccfd->server = $this->minFraudServers;
 			}
 		}
@@ -314,9 +310,8 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @see http://svn.wikimedia.org/viewvc/wikimedia/trunk/fundraising-misc/minfraud_log_mailer/
 	 */
 	protected function log_query() {
-
 		$encoded_response = array();
-		foreach ($this->minfraudResponse as $key => $value) {
+		foreach ( $this->minfraudResponse as $key => $value ) {
 			$encoded_response[ $key ] = utf8_encode( $value );
 		}
 
@@ -342,8 +337,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
-		if ( !$gateway_adapter->getGlobal( 'EnableMinfraud' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableMinfraud' ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'minfraud onFilter!';
@@ -379,7 +373,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

@@ -54,15 +54,15 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init = self::$initial_vars;
 		unset( $init['order_id'] );
 
-		//no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $init, array ( 'order_id_meta' => array ( 'generate' => TRUE ) ) );
+		// no order_id from anywhere, explicit generate
+		$gateway = $this->getFreshGatewayObject( $init, array( 'order_id_meta' => array( 'generate' => true ) ) );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is null. The rest of this test is broken.' );
 		$original_order_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
 
 		$gateway->normalizeOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Re-normalized order_id has changed without explicit regeneration.' );
 
-		//this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything.
+		// this might look a bit strange, but we need to be able to generate valid order_ids without making them stick to anything.
 		$gateway->generateOrderID();
 		$this->assertEquals( $original_order_id, $gateway->getData_Unstaged_Escaped( 'order_id' ), 'function generateOrderID auto-changed the selected order ID. Not cool.' );
 
@@ -84,7 +84,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			->willReturn(
 				$this->hostedCheckoutCreateResponse
 			);
-		//no order_id from anywhere, explicit generate
+		// no order_id from anywhere, explicit generate
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->do_transaction( 'createHostedCheckout' );
 
@@ -186,7 +186,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
-		$this->assertEquals( 'N', $gateway->getData_Unstaged_Escaped('cvv_result'), 'CVV Result not taken from XML response' );
+		$this->assertEquals( 'N', $gateway->getData_Unstaged_Escaped( 'cvv_result' ), 'CVV Result not taken from XML response' );
 	}
 
 	/**
@@ -216,7 +216,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
 		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
-		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency'  );
+		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency' );
 	}
 
 	public function testLanguageStaging() {
@@ -282,23 +282,23 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 
-		//this should not throw any payments errors: Just an invalid card.
+		// this should not throw any payments errors: Just an invalid card.
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '430285' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$this->verifyNoLogErrors();
 
-		//Now test one we want to throw a payments error
+		// Now test one we want to throw a payments error
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '21000050' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$loglines = $this->getLogMatches( LogLevel::ERROR, '/Investigation required!/' );
 		$this->assertNotEmpty( $loglines, 'GC Error 21000050 is not generating the expected payments log error' );
 
-		//Reset logs
+		// Reset logs
 		$this->testLogger->messages = array();
 
-		//Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
+		// Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '20001000-expiry' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
@@ -317,13 +317,13 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
-		//Make it not look like an orphan
+		// Make it not look like an orphan
 		$this->setUpRequest( array(
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
 		) );
 
-		//Toxic card should not retry, even if there's an order id collision
+		// Toxic card should not retry, even if there's an order id collision
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
@@ -338,36 +338,36 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * for a CURL response, so here we fake that situation by having CURL throw
 	 * an exception during the 1st response.
 	 */
-	public function testNoDupeOrderId( ) {
+	public function testNoDupeOrderId() {
 		$this->setUpRequest( array(
-			'action'=>'donate',
-			'amount'=>'3.00',
-			'card_type'=>'amex',
-			'city'=>'Hollywood',
-			'contribution_tracking_id'=>'22901382',
-			'country'=>'US',
-			'currency'=>'USD',
-			'email'=>'FaketyFake@gmail.com',
-			'first_name'=>'Fakety',
-			'format'=>'json',
-			'gateway'=>'ingenico',
-			'language'=>'en',
-			'last_name'=>'Fake',
-			'payment_method'=>'cc',
-			'referrer'=>'http://en.wikipedia.org/wiki/Main_Page',
-			'state_province'=>'MA',
-			'street_address'=>'99 Fake St',
-			'utm_campaign'=>'C14_en5C_dec_dsk_FR',
-			'utm_medium'=>'sitenotice',
-			'utm_source'=>'B14_120921_5C_lg_fnt_sans.no-LP.cc',
-			'postal_code'=>'90210'
+			'action' => 'donate',
+			'amount' => '3.00',
+			'card_type' => 'amex',
+			'city' => 'Hollywood',
+			'contribution_tracking_id' => '22901382',
+			'country' => 'US',
+			'currency' => 'USD',
+			'email' => 'FaketyFake@gmail.com',
+			'first_name' => 'Fakety',
+			'format' => 'json',
+			'gateway' => 'ingenico',
+			'language' => 'en',
+			'last_name' => 'Fake',
+			'payment_method' => 'cc',
+			'referrer' => 'http://en.wikipedia.org/wiki/Main_Page',
+			'state_province' => 'MA',
+			'street_address' => '99 Fake St',
+			'utm_campaign' => 'C14_en5C_dec_dsk_FR',
+			'utm_medium' => 'sitenotice',
+			'utm_source' => 'B14_120921_5C_lg_fnt_sans.no-LP.cc',
+			'postal_code' => '90210'
 		) );
 
 		$gateway = new IngenicoAdapter();
 		$calls = [];
 		$this->hostedCheckoutProvider->expects( $this->exactly( 2 ) )
 			->method( 'createHostedPayment' )
-			->with( $this->callback( function( $arg ) use ( &$calls ) {
+			->with( $this->callback( function ( $arg ) use ( &$calls ) {
 				$calls[] = $arg;
 				if ( count( $calls ) === 2 ) {
 					$this->assertFalse( $calls[0] === $calls[1], 'Two calls to the api did the same thing' );
@@ -385,10 +385,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			// totally expected this
 		}
 
-		//simulate another request coming in before we get anything back from GC
+		// simulate another request coming in before we get anything back from GC
 		$anotherGateway = new IngenicoAdapter();
 		$anotherGateway->do_transaction( 'createHostedCheckout' );
-
 	}
 
 	/**
@@ -401,7 +400,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
-		//Make it not look like an orphan
+		// Make it not look like an orphan
 		$this->setUpRequest( array(
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
@@ -415,7 +414,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$finish_id = $exposed->getData_Staged( 'order_id' );
 		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
 		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
-		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code ");
+		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code " );
 	}
 
 	/**

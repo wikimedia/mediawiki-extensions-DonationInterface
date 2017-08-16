@@ -35,7 +35,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	public function revalidate($check_not_empty = array()) {
+	public function revalidate( $check_not_empty = array() ) {
 		if ( !empty( $this->errorsForRevalidate ) ) {
 			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
 			if ( $fakeErrors !== null ) {
@@ -44,7 +44,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 				return empty( $fakeErrors );
 			}
 		}
-		return parent::revalidate($check_not_empty);
+		return parent::revalidate( $check_not_empty );
 	}
 
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
@@ -89,7 +89,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public function getCurrencies( $options = array() ) {
-		return TestingGenericAdapter::$acceptedCurrencies;
+		return self::$acceptedCurrencies;
 	}
 
 	public function doPayment() {

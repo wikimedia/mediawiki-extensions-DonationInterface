@@ -516,7 +516,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$firstRequest = $this->setUpRequest( $init );
 		$firstAttempt = new TestingAstroPayAdapter();
 		TestingAstroPayAdapter::setDummyGatewayResponseCode( '1' );
- 
+
 		$firstAttempt->doPayment();
 
 		$this->setUpRequest( $init, $firstRequest->getSessionArray() );
@@ -539,7 +539,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( 'collision' );
- 
+
 		$gateway->doPayment();
 
 		parse_str( $gateway->curled[0], $firstParams );

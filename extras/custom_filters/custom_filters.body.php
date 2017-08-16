@@ -14,10 +14,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 * The action to take based on a transaction's riskScore is determined by
 	 * $action_ranges.  This is built assuming a range of possible risk scores
 	 * as 0-100, although you can probably bend this as needed.
-	 * Due to the increased complexity introduced by custom filters, $risk_score 
-	 * will now be represented as an array of scores, with the name of the 
-	 * score's source in the keys, to promote our ability to tell what the heck 
-	 * is going on. 
+	 * Due to the increased complexity introduced by custom filters, $risk_score
+	 * will now be represented as an array of scores, with the name of the
+	 * score's source in the keys, to promote our ability to tell what the heck
+	 * is going on.
 	 * @var array()
 	 */
 	private $risk_score;
@@ -34,9 +34,9 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	protected static $instance;
 
 	protected function __construct( GatewayType $gateway_adapter ) {
-		parent::__construct( $gateway_adapter ); //gateway_adapter is set in there. 
+		parent::__construct( $gateway_adapter ); // gateway_adapter is set in there.
 
-		// load user action ranges and risk score		
+		// load user action ranges and risk score
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
 		if ( !$gateway_adapter->isBatchProcessor() ) {
 			$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
@@ -58,10 +58,12 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	protected function determineAction() {
 		$risk_score = $this->getRiskScore();
 		// possible risk scores are between 0 and 100
-		if ( $risk_score < 0 )
+		if ( $risk_score < 0 ) {
 			$risk_score = 0;
-		if ( $risk_score > 100 )
+		}
+		if ( $risk_score > 100 ) {
 			$risk_score = 100;
+		}
 		foreach ( $this->action_ranges as $action => $range ) {
 			if ( $risk_score >= $range[0] && $risk_score <= $range[1] ) {
 				return $action;
@@ -72,12 +74,12 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	/**
 	 * @throws InvalidArgumentException
 	 */
-	public function addRiskScore( $score, $source ){
-		if ( !is_numeric( $score ) ){
-			throw new InvalidArgumentException(__FUNCTION__ . " Cannot add $score to risk score (not numeric). Source: $source" );
+	public function addRiskScore( $score, $source ) {
+		if ( !is_numeric( $score ) ) {
+			throw new InvalidArgumentException( __FUNCTION__ . " Cannot add $score to risk score (not numeric). Source: $source" );
 		}
-		if ( !is_array( $this->risk_score ) ){
-			if ( is_numeric( $this->risk_score ) ){
+		if ( !is_array( $this->risk_score ) ) {
+			if ( is_numeric( $this->risk_score ) ) {
 				$this->risk_score['unknown'] = (int)$this->risk_score;
 			} else {
 				$this->risk_score = array();
@@ -103,7 +105,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			return $scoreArray;
 		} elseif ( is_array( $scoreArray ) ) {
 			$total = 0;
-			foreach ( $scoreArray as $score ){
+			foreach ( $scoreArray as $score ) {
 				$total += $score;
 			}
 			return $total;
@@ -155,11 +157,11 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public static function onValidate( GatewayType $gateway_adapter ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'custom filters onValidate!';
@@ -167,7 +169,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	}
 
 	public static function onGatewayReady( GatewayType $gateway_adapter ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'custom filters onGatewayReady!';
@@ -199,7 +201,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	}
 
 	protected function runFilters( $phase ) {
-		switch( $phase ) {
+		switch ( $phase ) {
 			case self::PHASE_INITIAL:
 				Gateway_Extras_CustomFilters_Referrer::onInitialFilter( $this->gateway_adapter, $this );
 				Gateway_Extras_CustomFilters_Source::onInitialFilter( $this->gateway_adapter, $this );

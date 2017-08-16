@@ -24,11 +24,9 @@ class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 	public $exceptions = array();
 
 	public function __construct( $config = null ) {
-
 	}
 
 	public function __get( $name ) {
-
 	}
 
 	protected function fakeCall( $functionName, $arguments ) {
@@ -53,23 +51,18 @@ class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 	}
 
 	public function cancelOrderReference( $requestParameters = array() ) {
-
 	}
 
 	public function capture( $requestParameters = array() ) {
-
 	}
 
 	public function charge( $requestParameters = array() ) {
-
 	}
 
 	public function closeAuthorization( $requestParameters = array() ) {
-
 	}
 
 	public function closeBillingAgreement( $requestParameters = array() ) {
-
 	}
 
 	public function closeOrderReference( $requestParameters = array() ) {
@@ -85,11 +78,9 @@ class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 	}
 
 	public function createOrderReferenceForId( $requestParameters = array() ) {
-
 	}
 
 	public function getAuthorizationDetails( $requestParameters = array() ) {
-
 	}
 
 	public function getBillingAgreementDetails( $requestParameters = array() ) {
@@ -105,48 +96,37 @@ class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 	}
 
 	public function getParameters() {
-
 	}
 
 	public function getProviderCreditDetails( $requestParameters = array() ) {
-
 	}
 
 	public function getProviderCreditReversalDetails( $requestParameters = array() ) {
-
 	}
 
 	public function getRefundDetails( $requestParameters = array() ) {
-
 	}
 
 	public function getServiceStatus( $requestParameters = array() ) {
-
 	}
 
 	public function getUserInfo( $access_token ) {
-
 	}
 
 	public function refund( $requestParameters = array() ) {
-
 	}
 
 	public function reverseProviderCredit( $requestParameters = array() ) {
-
 	}
 
 	public function setBillingAgreementDetails( $requestParameters = array() ) {
 		return $this->fakeCall( 'setBillingAgreementDetails', $requestParameters );
-
 	}
 
 	public function setClientId( $value ) {
-
 	}
 
 	public function setMwsServiceUrl( $url ) {
-
 	}
 
 	public function setOrderReferenceDetails( $requestParameters = array() ) {
@@ -154,15 +134,12 @@ class MockAmazonClient { // FIXME: implements PaymentsClientInterface {
 	}
 
 	public function setProxy( $proxy ) {
-
 	}
 
 	public function setSandbox( $value ) {
-
 	}
 
 	public function validateBillingAgreement( $requestParameters = array() ) {
-
 	}
 
 }

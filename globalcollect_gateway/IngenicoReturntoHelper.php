@@ -16,9 +16,9 @@ class IngenicoReturntoHelper implements StagingHelper {
 			&& $normalized['payment_method'] === 'cc'
 		) {
 			// Add order ID to the returnto URL, only if it's not already there.
-			//TODO: This needs to be more robust (like actually pulling the
-			//qstring keys, resetting the values, and putting it all back)
-			//but for now it'll keep us alive.
+			// TODO: This needs to be more robust (like actually pulling the
+			// qstring keys, resetting the values, and putting it all back)
+			// but for now it'll keep us alive.
 			if ( $adapter->getOrderIDMeta( 'generate' )
 				&& !empty( $returnto )
 				&& !strpos( $returnto, 'order_id' )

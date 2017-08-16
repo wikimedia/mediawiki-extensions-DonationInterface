@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d144ba30cc189dd2d9aae73935b0a703",
+    "content-hash": "c3c15b2260f3800b0f67ef1641c0e6cb",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -88,7 +88,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2016-02-17T00:53:20+00:00"
+            "time": "2016-02-17 00:53:20"
         },
         {
             "name": "clio/clio",
@@ -202,28 +202,25 @@
         },
         {
             "name": "corneltek/getoptionkit",
-            "version": "2.5.4",
+            "version": "2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/c9s/GetOptionKit.git",
-                "reference": "9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80"
+                "reference": "995607ddf4fc90ebdb4a7d58fe972d581ad8495f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c9s/GetOptionKit/zipball/9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80",
-                "reference": "9eae6f4fa009655f9d0d0ccd04cdd9c0d39cbe80",
+                "url": "https://api.github.com/repos/c9s/GetOptionKit/zipball/995607ddf4fc90ebdb4a7d58fe972d581ad8495f",
+                "reference": "995607ddf4fc90ebdb4a7d58fe972d581ad8495f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "require-dev": {
-                "satooshi/php-coveralls": "^1"
-            },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5.x-dev"
+                    "dev-master": "2.6.x-dev"
                 }
             },
             "autoload": {
@@ -238,12 +235,12 @@
             "authors": [
                 {
                     "name": "Yo-An Lin",
-                    "email": "cornelius.howl@gmail.com"
+                    "email": "yoanlin93@gmail.com"
                 }
             ],
             "description": "Powerful command-line option toolkit",
             "homepage": "http://github.com/c9s/GetOptionKit",
-            "time": "2017-04-30T09:31:04+00:00"
+            "time": "2017-06-30T14:54:48+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -407,16 +404,16 @@
         },
         {
             "name": "neitanod/forceutf8",
-            "version": "v2.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/neitanod/forceutf8.git",
-                "reference": "2c1b21e00ed16b2b083ae4e27901cb5f2856db90"
+                "reference": "47c883ab2739e7938a8bb0bfd1c29d48c88858de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/neitanod/forceutf8/zipball/2c1b21e00ed16b2b083ae4e27901cb5f2856db90",
-                "reference": "2c1b21e00ed16b2b083ae4e27901cb5f2856db90",
+                "url": "https://api.github.com/repos/neitanod/forceutf8/zipball/47c883ab2739e7938a8bb0bfd1c29d48c88858de",
+                "reference": "47c883ab2739e7938a8bb0bfd1c29d48c88858de",
                 "shasum": ""
             },
             "require": {
@@ -437,28 +434,45 @@
             ],
             "description": "PHP Class Encoding featuring popular Encoding::toUTF8() function --formerly known as forceUTF8()-- that fixes mixed encoded strings.",
             "homepage": "https://github.com/neitanod/forceutf8",
-            "time": "2015-05-07T16:37:23+00:00"
+            "time": "2017-05-22T18:50:57+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v5.2.22",
+            "version": "v5.2.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663"
+                "reference": "2baf20b01690fba8cf720c1ebcf9b988eda50915"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/b18cb98131bd83103ccb26a888fdfe3177b8a663",
-                "reference": "b18cb98131bd83103ccb26a888fdfe3177b8a663",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2baf20b01690fba8cf720c1ebcf9b988eda50915",
+                "reference": "2baf20b01690fba8cf720c1ebcf9b988eda50915",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
                 "php": ">=5.0.0"
             },
             "require-dev": {
-                "phpdocumentor/phpdocumentor": "*",
-                "phpunit/phpunit": "4.7.*"
+                "doctrine/annotations": "1.2.*",
+                "jms/serializer": "0.16.*",
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "4.8.*",
+                "symfony/debug": "2.8.*",
+                "symfony/filesystem": "2.8.*",
+                "symfony/translation": "2.8.*",
+                "symfony/yaml": "2.8.*",
+                "zendframework/zend-cache": "2.5.1",
+                "zendframework/zend-config": "2.5.1",
+                "zendframework/zend-eventmanager": "2.5.1",
+                "zendframework/zend-filter": "2.5.1",
+                "zendframework/zend-i18n": "2.5.1",
+                "zendframework/zend-json": "2.5.1",
+                "zendframework/zend-math": "2.5.1",
+                "zendframework/zend-serializer": "2.5.*",
+                "zendframework/zend-servicemanager": "2.5.*",
+                "zendframework/zend-stdlib": "2.5.1"
             },
             "suggest": {
                 "league/oauth2-google": "Needed for Google XOAUTH2 authentication"
@@ -497,7 +511,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-01-09T09:33:47+00:00"
+            "time": "2017-08-28T11:12:07+00:00"
         },
         {
             "name": "predis/predis",
@@ -644,16 +658,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.16",
+            "version": "v2.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "74877977f90fb9c3e46378d5764217c55f32df34"
+                "reference": "1377400fd641d7d1935981546aaef780ecd5bf6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/74877977f90fb9c3e46378d5764217c55f32df34",
-                "reference": "74877977f90fb9c3e46378d5764217c55f32df34",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/1377400fd641d7d1935981546aaef780ecd5bf6d",
+                "reference": "1377400fd641d7d1935981546aaef780ecd5bf6d",
                 "shasum": ""
             },
             "require": {
@@ -661,7 +675,7 @@
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/config": "~2.0,>=2.0.5|~3.0.0",
+                "symfony/config": "^2.0.5|~3.0.0",
                 "symfony/dependency-injection": "~2.6|~3.0.0",
                 "symfony/expression-language": "~2.6|~3.0.0",
                 "symfony/stopwatch": "~2.3|~3.0.0"
@@ -700,20 +714,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-02T20:30:24+00:00"
+            "time": "2017-06-02T07:47:27+00:00"
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v2.8.16",
+            "version": "v2.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "464cdde6757a40701d758112cc7ff2c6adf6e82f"
+                "reference": "fc4942ad82af83ac8301b68d0c9b1bbcc95a84c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/464cdde6757a40701d758112cc7ff2c6adf6e82f",
-                "reference": "464cdde6757a40701d758112cc7ff2c6adf6e82f",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/fc4942ad82af83ac8301b68d0c9b1bbcc95a84c6",
+                "reference": "fc4942ad82af83ac8301b68d0c9b1bbcc95a84c6",
                 "shasum": ""
             },
             "require": {
@@ -755,20 +769,20 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-08T20:43:03+00:00"
+            "time": "2017-08-10T07:04:10+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.3.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4"
+                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/e79d363049d1c2128f133a2667e4f4190904f7f4",
-                "reference": "e79d363049d1c2128f133a2667e4f4190904f7f4",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
+                "reference": "7c8fae0ac1d216eb54349e6a8baa57d515fe8803",
                 "shasum": ""
             },
             "require": {
@@ -780,7 +794,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -814,20 +828,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/polyfill-php54",
-            "version": "v1.3.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php54.git",
-                "reference": "90e085822963fdcc9d1c5b73deb3d2e5783b16a0"
+                "reference": "b7763422a5334c914ef0298ed21b253d25913a6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/90e085822963fdcc9d1c5b73deb3d2e5783b16a0",
-                "reference": "90e085822963fdcc9d1c5b73deb3d2e5783b16a0",
+                "url": "https://api.github.com/repos/symfony/polyfill-php54/zipball/b7763422a5334c914ef0298ed21b253d25913a6e",
+                "reference": "b7763422a5334c914ef0298ed21b253d25913a6e",
                 "shasum": ""
             },
             "require": {
@@ -836,7 +850,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -872,20 +886,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/polyfill-php55",
-            "version": "v1.3.0",
+            "version": "v1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php55.git",
-                "reference": "03e3f0350bca2220e3623a0e340eef194405fc67"
+                "reference": "29b1381d66f16e0581aab0b9f678ccf073288f68"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php55/zipball/03e3f0350bca2220e3623a0e340eef194405fc67",
-                "reference": "03e3f0350bca2220e3623a0e340eef194405fc67",
+                "url": "https://api.github.com/repos/symfony/polyfill-php55/zipball/29b1381d66f16e0581aab0b9f678ccf073288f68",
+                "reference": "29b1381d66f16e0581aab0b9f678ccf073288f68",
                 "shasum": ""
             },
             "require": {
@@ -895,7 +909,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3-dev"
+                    "dev-master": "1.5-dev"
                 }
             },
             "autoload": {
@@ -928,20 +942,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14T01:06:16+00:00"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.16",
+            "version": "v2.8.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2"
+                "reference": "4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2",
-                "reference": "dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5",
+                "reference": "4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5",
                 "shasum": ""
             },
             "require": {
@@ -977,7 +991,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-01-03T13:49:52+00:00"
+            "time": "2017-06-01T20:52:29+00:00"
         },
         {
             "name": "wikimedia/smash-pig",
@@ -1135,6 +1149,93 @@
             "description": "This tool check syntax of PHP files about 20x faster than serial check.",
             "homepage": "https://github.com/JakubOnderka/PHP-Parallel-Lint",
             "time": "2015-12-15T10:42:16+00:00"
+        },
+        {
+            "name": "mediawiki/mediawiki-codesniffer",
+            "version": "v0.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikimedia/mediawiki-tools-codesniffer.git",
+                "reference": "d8fad4078a0c29c934e6de0ee5054c09c286de0a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikimedia/mediawiki-tools-codesniffer/zipball/d8fad4078a0c29c934e6de0ee5054c09c286de0a",
+                "reference": "d8fad4078a0c29c934e6de0ee5054c09c286de0a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">= 5.5.9",
+                "squizlabs/php_codesniffer": "3.0.2"
+            },
+            "require-dev": {
+                "jakub-onderka/php-console-highlighter": "0.3.2",
+                "jakub-onderka/php-parallel-lint": "0.9.2",
+                "phpunit/phpunit": "~4.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "MediaWiki CodeSniffer Standards",
+            "homepage": "https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP",
+            "keywords": [
+                "codesniffer",
+                "mediawiki"
+            ],
+            "time": "2017-08-11T02:17:24+00:00"
+        },
+        {
+            "name": "squizlabs/php_codesniffer",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c7594a88ae75401e8f8d0bd4deb8431b39045c51",
+                "reference": "c7594a88ae75401e8f8d0bd4deb8431b39045c51",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2017-07-18T01:12:32+00:00"
         },
         {
             "name": "wikimedia/testing-access-wrapper",

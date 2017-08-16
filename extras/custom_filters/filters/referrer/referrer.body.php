@@ -18,7 +18,6 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
 	}
@@ -38,7 +37,7 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 				$this->cfo->addRiskScore( $risk_score_modifier, 'referrer' );
 
 				// log it
-				//TODO: This sucks.
+				// TODO: This sucks.
 				$log_msg = "\"" . addslashes( $referrer ) . "\"";
 				$log_msg .= "\t\"" . addslashes( $regex ) . "\"";
 				$log_msg .= "\t\"" . $this->cfo->getRiskScore() . "\"";
@@ -48,16 +47,15 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		if ( !$gateway_adapter->getGlobal( 'EnableReferrerFilter' ) ||
-			!count( $gateway_adapter->getGlobal( 'CustomFiltersRefRules' ) ) ){
+			!count( $gateway_adapter->getGlobal( 'CustomFiltersRefRules' ) ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'referrer onFilter!';
@@ -68,7 +66,6 @@ class Gateway_Extras_CustomFilters_Referrer extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

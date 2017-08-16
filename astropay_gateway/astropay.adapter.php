@@ -72,10 +72,10 @@ class AstroPayAdapter extends GatewayAdapter {
 	 * audit entry or listener message that tells us the payment succeeded.
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array (
-			'alt_locations' => array ( 'request' => 'x_invoice' ),
-			'generate' => TRUE,
-			'ct_id' => TRUE,
+		$this->order_id_meta = array(
+			'alt_locations' => array( 'request' => 'x_invoice' ),
+			'generate' => true,
+			'ct_id' => true,
 			'length' => 20,
 		);
 	}
@@ -113,7 +113,7 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'type' => 'json',
 			),
-			'check_required' => TRUE
+			'check_required' => true
 		);
 
 		$this->transactions[ 'GetBanks' ] = array(
@@ -256,7 +256,7 @@ class AstroPayAdapter extends GatewayAdapter {
 				ResponseCodes::NO_RESPONSE
 			);
 		}
-		switch( $this->getCurrentTransaction() ) {
+		switch ( $this->getCurrentTransaction() ) {
 		case 'PaymentStatus':
 			$this->processStatusResponse( $response );
 			break;
@@ -347,19 +347,19 @@ class AstroPayAdapter extends GatewayAdapter {
 						ResponseCodes::DUPLICATE_ORDER_ID,
 						array( 'order_id' )
 					);
-				} else if ( preg_match( '/^could not (register user|make the deposit)/i', $response['desc'] ) ) {
+				} elseif ( preg_match( '/^could not (register user|make the deposit)/i', $response['desc'] ) ) {
 					// AstroPay is overwhelmed.  Tell the donor to try again soon.
 					$error = new PaymentError(
 						'internal-0001',
 						$logme,
 						LogLevel::WARNING
 					);
-				} else if ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
+				} elseif ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
 					// They are blacklisted by AstroPay for shady doings,
 					// or listed delinquent by their government.
 					// Either way, we can't process 'em through AstroPay
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
-				} else if ( preg_match( '/^the user limit has been exceeded/i', $response['desc'] ) ) {
+				} elseif ( preg_match( '/^the user limit has been exceeded/i', $response['desc'] ) ) {
 					// They've spent too much via AstroPay today.
 					// Setting context to 'amount' will tell the form to treat
 					// this like a validation error and make amount editable.
@@ -367,13 +367,13 @@ class AstroPayAdapter extends GatewayAdapter {
 						'amount',
 						'donate_interface-error-msg-limit'
 					);
-				} else if ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
+				} elseif ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
 					// Something wrong with the fiscal number
 					$error = new ValidationError(
 						'fiscal_number',
 						'donate_interface-error-msg-fiscal_number'
 					);
-				} else if ( preg_match( '/invalid control/i', $response['desc'] ) ) {
+				} elseif ( preg_match( '/invalid control/i', $response['desc'] ) ) {
 					// They think we screwed up the signature.  Log what we signed.
 					$signed = AstroPaySignature::getNewInvoiceMessage(
 						$this->getData_Staged()

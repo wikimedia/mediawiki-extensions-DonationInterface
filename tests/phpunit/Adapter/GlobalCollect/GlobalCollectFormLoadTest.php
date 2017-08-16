@@ -43,21 +43,21 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'gateway' => 'globalcollect',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 					'countries' => array(
 						'+' => $vmad_countries,
 					),
 				),
 				'cc-vmaj' => array(
 					'gateway' => 'globalcollect',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
 					'countries' => array(
 						'+' => $vmaj_countries,
 					),
 				),
 				'cc-vma' => array(
 					'gateway' => 'globalcollect',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
 					'countries' => array(
 						// Array merge with cc-vmaj as fallback in case 'j' goes down
 						// Array merge with cc-vmad as fallback in case 'd' goes down
@@ -75,7 +75,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 						'-' => 'GB'
 					),
 					'currencies' => array( '+' => 'EUR' ),
-					'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
+					'payment_methods' => array( 'rtbt' => 'rtbt_sofortuberweisung' ),
 				),
 			),
 		) );
@@ -88,11 +88,11 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 
-		$assertNodes = array (
-			'submethod-mc' => array (
+		$assertNodes = array(
+			'submethod-mc' => array(
 				'nodename' => 'input'
 			),
-			'selected-amount' => array (
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
@@ -100,7 +100,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					).
 					'\s*$/',
 			),
-			'state_province' => array (
+			'state_province' => array(
 				'nodename' => 'select',
 				'selected' => 'CA',
 			),
@@ -116,22 +116,22 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
 				'value' => 'Prénom',
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
 				'value' => 'Nom',
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'FR',
 			),
@@ -150,26 +150,26 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( 'it' )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( 'it' )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text(),
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'IT',
 			),
@@ -190,26 +190,26 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmaj';
 		$init['language'] = $language;
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'BE',
 			),
@@ -230,8 +230,8 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
@@ -239,27 +239,27 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 					) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
-			'state_province' => array (
+			'state_province' => array(
 				'nodename' => 'select',
 				'selected' => 'SK',
 			),
-			'postal_code' => array (
+			'postal_code' => array(
 				'nodename' => 'input',
 				'value' => $init['postal_code'],
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'CA',
 			),

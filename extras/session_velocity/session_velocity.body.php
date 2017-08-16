@@ -24,10 +24,10 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	// This filter stores it's information in a session array SESS_ROOT which maps like so:
 	// SESS_ROOT[GatewayIdentifier][Transaction]
 	// This then has the following keys:
-	//  SESS_SCORE  - The last known score for this gateway/transaction
-	//  SESS_TIME   - The last time the filter was run for this gateway/transaction
-	//  SESS_MULTIPLIER - The factor by which to multiply hit score for the next call
-	//                    This allows for a logarithmically increasing penalty
+	// SESS_SCORE  - The last known score for this gateway/transaction
+	// SESS_TIME   - The last time the filter was run for this gateway/transaction
+	// SESS_MULTIPLIER - The factor by which to multiply hit score for the next call
+	// This allows for a logarithmically increasing penalty
 	const SESS_ROOT = "DonationInterface_SessVelocity";
 	const SESS_SCORE = "score";
 	const SESS_TIME = "time";
@@ -54,7 +54,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 *  should not be performed.
 	 */
 	public static function onProcessorApiCall( GatewayType $gateway_adapter ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ){
+		if ( !$gateway_adapter->getGlobal( 'EnableSessionVelocityFilter' ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'Session Velocity onFilter hook!';
@@ -68,7 +68,6 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 * @return bool false if we should stop processing
 	 */
 	private function filter() {
-
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
 		// Determine IP status before doing anything complex
@@ -142,7 +141,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		$this->fraud_logger->debug(
 			"SessionVelocity: ($gateway, $transaction) Score: $score, " .
 				"AllowAction: $retval, DecayRate: $decayRate, " .
-			    "Threshold: $threshold, Multiplier: $lastMultiplier"
+				"Threshold: $threshold, Multiplier: $lastMultiplier"
 		);
 
 		return $retval;

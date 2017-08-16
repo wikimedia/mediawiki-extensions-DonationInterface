@@ -37,9 +37,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * An array of the vars we expect to be set before people hit payments.
 	 * @var array
 	 */
-	public static $initial_vars = array (
+	public static $initial_vars = array(
 		'ffname' => 'testytest',
-		'referrer' => 'www.yourmom.com', //please don't go there.
+		'referrer' => 'www.yourmom.com', // please don't go there.
 		'currency' => 'USD',
 	);
 
@@ -59,8 +59,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @param $dataName string|int The name or index of the data set
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
-
-		//Just in case you got here without running the configuration...
+		// Just in case you got here without running the configuration...
 		global $wgDonationInterfaceTest;
 		$wgDonationInterfaceTest = true;
 
@@ -149,7 +148,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @covers GatewayAdapter::buildRequestXML
 	 */
 	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
-
 		global $wgDonationInterfaceTest;
 
 		$wgDonationInterfaceTest = true;
@@ -157,7 +155,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$this->setUpRequest( $options );
 		$this->gatewayAdapter = new TestingGlobalCollectAdapter();
 
-		$this->gatewayAdapter->setCurrentTransaction('INSERT_ORDERWITHPAYMENT');
+		$this->gatewayAdapter->setCurrentTransaction( 'INSERT_ORDERWITHPAYMENT' );
 
 		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
 		$request = trim( $exposed->buildRequestXML() );
@@ -175,8 +173,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @throws OutOfBoundsException when there is no data available for the requested country
 	 */
 	public static function getDonorTestData( $country = '' ) {
-		$donortestdata = array (
-			'US' => array ( //default
+		$donortestdata = array(
+			'US' => array( // default
 				'city' => 'San Francisco',
 				'state_province' => 'CA',
 				'postal_code' => '94105',
@@ -188,7 +186,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'en',
 				'email' => 'nobody@wikimedia.org',
 			),
-			'AU' => array (
+			'AU' => array(
 				'state_province' => 'NSW',
 				'currency' => 'AUD',
 				'first_name' => 'Firstname',
@@ -197,7 +195,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'en',
 				'email' => 'nobody@wikimedia.org',
 			),
-			'ES' => array (
+			'ES' => array(
 				'city' => 'Barcelona',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -208,7 +206,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'es',
 			),
-			'Catalonia' => array (
+			'Catalonia' => array(
 				'city' => 'Barcelona',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -219,7 +217,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'ca',
 			),
-			'NO' => array (
+			'NO' => array(
 				'city' => 'Oslo',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -230,7 +228,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'no',
 			),
-			'FR' => array (
+			'FR' => array(
 				'city' => 'Versailles',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -242,7 +240,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'fr',
 			),
 			// Fiji is configured as a snowflake to test special treatment for certain store IDs
-			'FJ' => array (
+			'FJ' => array(
 				'city' => 'Suva',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -253,7 +251,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'en',
 			),
-			'NL' => array (
+			'NL' => array(
 				'city' => 'Amsterdam',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -264,7 +262,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'nl',
 			),
-			'BE' => array (
+			'BE' => array(
 				'city' => 'Antwerp',
 				'state_province' => 'XX',
 				'postal_code' => '0',
@@ -275,7 +273,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'nl',
 			),
-			'IT' => array (
+			'IT' => array(
 				'city' => 'Torino',
 				'state_province' => 'TO',
 				'postal_code' => '10123',
@@ -286,7 +284,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'it',
 			),
-			'CA' => array (
+			'CA' => array(
 				'city' => 'Saskatoon',
 				'state_province' => 'SK',
 				'postal_code' => 'S7K 0J5',
@@ -297,7 +295,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'en',
 			),
-			'BR' => array (
+			'BR' => array(
 				'currency' => 'BRL',
 				'fiscal_number' => '00003456789',
 				'payment_submethod' => 'test_bank',
@@ -307,7 +305,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'pt',
 				'email' => 'nobody@example.org'
 			),
-			'MX' => array (
+			'MX' => array(
 				'city' => 'Tuxtla Gutiérrez',
 				'state_province' => 'CHP',
 				'currency' => 'MXN',
@@ -319,7 +317,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'es',
 			),
 		);
-		//default to US
+		// default to US
 		if ( $country === '' ) {
 			$country = 'US';
 		}
@@ -366,7 +364,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			array( '430357' ),
 		);
 	}
-	
+
 	public function benignNoRetryCodeProvider() {
 		return array(
 			array( '430285' ),
@@ -387,49 +385,49 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
 		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
 		$merchantref = $exposed->getData_Staged( 'contribution_tracking_id' );
-		//@TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
+		// @TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
 		$expected  = '<?xml version="1.0" encoding="UTF-8"?' . ">\n";
 		$expected .= '<XML>';
-		$expected .= 	'<REQUEST>';
-		$expected .= 		'<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= 		'<META><MERCHANTID>' . $exposed->account_config[ 'MerchantID' ] . '</MERCHANTID>';
+		$expected .= '<REQUEST>';
+		$expected .= '<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
+		$expected .= '<META><MERCHANTID>' . $exposed->account_config[ 'MerchantID' ] . '</MERCHANTID>';
 
 		if ( isset( $request ) ) {
-			$expected .=		'<IPADDRESS>' . $request->getIP() . '</IPADDRESS>';
+			$expected .= '<IPADDRESS>' . $request->getIP() . '</IPADDRESS>';
 		}
-		
-		$expected .=			'<VERSION>1.0</VERSION>';
-		$expected .=		'</META>';
-		$expected .= 		'<PARAMS>';
-		$expected .= 			'<ORDER>';
-		$expected .= 				'<ORDERID>' . $orderId . '</ORDERID>';
-		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
-		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
-		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
+
+		$expected .= '<VERSION>1.0</VERSION>';
+		$expected .= '</META>';
+		$expected .= '<PARAMS>';
+		$expected .= '<ORDER>';
+		$expected .= '<ORDERID>' . $orderId . '</ORDERID>';
+		$expected .= '<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= '<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
+		$expected .= '<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
+		$expected .= '<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
 		$expected .= '<MERCHANTREFERENCE>' . $merchantref . '</MERCHANTREFERENCE>';
 
 		if ( isset( $request ) ) {
-			$expected .=			'<IPADDRESSCUSTOMER>' . $request->getIP() . '</IPADDRESSCUSTOMER>';
+			$expected .= '<IPADDRESSCUSTOMER>' . $request->getIP() . '</IPADDRESSCUSTOMER>';
 		}
 
-		$expected .=				'<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
-		$expected .= 			'</ORDER>';
-		$expected .= 			'<PAYMENT>';
-		$expected .= 				'<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
-		$expected .= 				'<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
-		$expected .= 				'<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
-		$expected .= 				'<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
-		$expected .= 				'<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
-		$expected .= 				'<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
-		$expected .= 				"<RETURNURL>{$wgDonationInterfaceThankYouPage}/{$options['language']}?country={$options['country']}</RETURNURL>";
-		$expected .=				'<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
-		$expected .= 				'<FIRSTNAME>' . $options['first_name'] . '</FIRSTNAME>';
-		$expected .= 				'<SURNAME>' . $options['last_name'] . '</SURNAME>';
-		$expected .= 				'<STREET>' . $options['street_address'] . '</STREET>';
-		$expected .= 				'<CITY>' . $options['city'] . '</CITY>';
-		$expected .= 				'<STATE>' . $options['state_province'] . '</STATE>';
-		$expected .= 				'<ZIP>' . $options['postal_code'] . '</ZIP>';
+		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
+		$expected .= '</ORDER>';
+		$expected .= '<PAYMENT>';
+		$expected .= '<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
+		$expected .= '<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
+		$expected .= '<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
+		$expected .= '<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
+		$expected .= '<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
+		$expected .= '<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
+		$expected .= "<RETURNURL>{$wgDonationInterfaceThankYouPage}/{$options['language']}?country={$options['country']}</RETURNURL>";
+		$expected .= '<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
+		$expected .= '<FIRSTNAME>' . $options['first_name'] . '</FIRSTNAME>';
+		$expected .= '<SURNAME>' . $options['last_name'] . '</SURNAME>';
+		$expected .= '<STREET>' . $options['street_address'] . '</STREET>';
+		$expected .= '<CITY>' . $options['city'] . '</CITY>';
+		$expected .= '<STATE>' . $options['state_province'] . '</STATE>';
+		$expected .= '<ZIP>' . $options['postal_code'] . '</ZIP>';
 		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
 
 		// Set the issuer id if it is passed.
@@ -439,29 +437,27 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		// Set the issuer id if it is passed.
 		if ( isset( $optionsForTestData['issuer_id'] ) ) {
-			$expected .= 				'<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
+			$expected .= '<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
 		}
 
-
 		// If we're doing Direct Debit...
-		//@TODO: go ahead and split this out into a "Get the direct debit I_OWP XML block function" the second this gets even slightly annoying.
+		// @TODO: go ahead and split this out into a "Get the direct debit I_OWP XML block function" the second this gets even slightly annoying.
 		if ( $optionsForTestData['payment_method'] === 'dd' ) {
 			$expected .= '<ACCOUNTNAME>' . $optionsForTestData['account_name'] . '</ACCOUNTNAME>';
 			$expected .= '<ACCOUNTNUMBER>' . $optionsForTestData['account_number'] . '</ACCOUNTNUMBER>';
 			$expected .= '<BANKCODE>' . $optionsForTestData['bank_code'] . '</BANKCODE>';
 			$expected .= '<BRANCHCODE>' . $optionsForTestData['branch_code'] . '</BRANCHCODE>';
 			$expected .= '<BANKCHECKDIGIT>' . $optionsForTestData['bank_check_digit'] . '</BANKCHECKDIGIT>';
-			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; //is this cheating? Probably.
+			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; // is this cheating? Probably.
 			$expected .= '<DIRECTDEBITTEXT>' . $optionsForTestData['direct_debit_text'] . '</DIRECTDEBITTEXT>';
 		}
 
-		$expected .= 			'</PAYMENT>';
-		$expected .= 		'</PARAMS>';
-		$expected .= 	'</REQUEST>';
+		$expected .= '</PAYMENT>';
+		$expected .= '</PARAMS>';
+		$expected .= '</REQUEST>';
 		$expected .= '</XML>';
-		
+
 		return $expected;
-		
 	}
 
 	/**
@@ -478,7 +474,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	function getFreshGatewayObject( $external_data = null, $setup_hacks = array() ) {
 		$data = null;
 		if ( !is_null( $external_data ) ) {
-			$data = array (
+			$data = array(
 				'external_data' => $external_data,
 			);
 		}
@@ -510,11 +506,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	public static function resetAllEnv() {
-		$_SESSION = array ( );
-		$_GET = array ( );
-		$_POST = array ( );
+		$_SESSION = array();
+		$_GET = array();
+		$_POST = array();
 
-		$_SERVER = array ( );
+		$_SERVER = array();
 		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
 		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
@@ -535,7 +531,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			'Gateway_Extras_CustomFilters_Source',
 			'Gateway_Extras_SessionVelocityFilter',
 		);
-		foreach( $singleton_classes as $singleton_class ) {
+		foreach ( $singleton_classes as $singleton_class ) {
 			$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
 			$unwrapped->instance = null;
 		}
@@ -560,8 +556,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * following format:
 	 * $perform_these_checks[$element_id][$check_to_perform][$expected_result]
 	 * So far, $check_to_perform can be either 'nodename' or 'innerhtml'
-	 * @param boolean $fail_on_log_errors When true, this will fail the
-	 * current test if there are entries in the gateway's error log.
+	 * @param bool $fail_on_log_errors When true, this will fail the current test if there are entries in the gateway's error log.
 	 * @param array $session pre-existing session data.
 	 */
 	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false, $session = null ) {
@@ -574,7 +569,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$mainContext->setOutput( $newOutput );
 		$mainContext->setTitle( $newTitle );
 
-		$globals = array (
+		$globals = array(
 			'wgTitle' => $newTitle,
 			'wgOut' => $newOutput,
 		);
@@ -585,7 +580,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		ob_start();
 		$formpage = new $special_page_class();
-		$formpage->execute( NULL );
+		$formpage->execute( null );
 		$formpage->getOutput()->output();
 		$form_html = ob_get_contents();
 		ob_end_clean();
@@ -600,8 +595,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$dom_thingy = new DomDocument();
 		//// DEBUGGING, foo
 		// if (property_exists($this, 'FOO')) {
-		// 	error_log(var_export($formpage->getRequest()->response()->getheader('Location'), true));
-		// 	error_log(var_export($form_html, true));
+		// error_log(var_export($formpage->getRequest()->response()->getheader('Location'), true));
+		// error_log(var_export($form_html, true));
 		// }
 
 		if ( $form_html ) {
@@ -614,7 +609,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			if ( $id == 'headers' ) {
 				foreach ( $checks as $name => $expected ) {
 					$actual = $formpage->getRequest()->response()->getheader( $name );
-					$this->performCheck( $actual, $expected, "header '$name'");
+					$this->performCheck( $actual, $expected, "header '$name'" );
 					break;
 				}
 				continue;
@@ -627,19 +622,19 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			foreach ( $checks as $name => $expected ) {
 				switch ( $name ) {
 					case 'nodename':
-						$this->performCheck( $input_node->nodeName, $expected, "name of node with id '$id'");
+						$this->performCheck( $input_node->nodeName, $expected, "name of node with id '$id'" );
 						break;
 					case 'innerhtml':
 						$actual_html = self::getInnerHTML( $input_node );
 						// Strip comments
 						$actual_html = preg_replace( '/<!--[^>]*-->/', '', $actual_html );
-						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'");
+						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'" );
 						break;
 					case 'innerhtmlmatches':
 						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
 						break;
 					case 'value':
-						$this->performCheck( $input_node->getAttribute('value'), $expected, "value of node with id '$id'");
+						$this->performCheck( $input_node->getAttribute( 'value' ), $expected, "value of node with id '$id'" );
 						break;
 					case 'selected':
 						$selected = null;
@@ -651,7 +646,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 									break;
 								}
 							}
-							$this->performCheck( $selected, $expected, "selected option value of node with id '$id'");
+							$this->performCheck( $selected, $expected, "selected option value of node with id '$id'" );
 						} else {
 							$this->fail( "Attempted to test for selected value on non-select node, id '$id'" );
 						}
@@ -681,18 +676,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			$check( $value );
 			return;
 		}
-		$this->assertEquals( $check, $value, "Expected $label to be $check, found $value instead.");
+		$this->assertEquals( $check, $value, "Expected $label to be $check, found $value instead." );
 	}
 	/**
 	 * Asserts that there are no log entries of LOG_ERR or worse.
 	 */
-	function verifyNoLogErrors( ) {
+	function verifyNoLogErrors() {
 		$log = DonationLoggerFactory::$overrideLogger->messages;
 
 		$this->assertTrue( is_array( $log ), "Missing the test log" );
 
-		//for our purposes, an "error" is LOG_ERR or less.
-		$checklogs = array (
+		// for our purposes, an "error" is LOG_ERR or less.
+		$checklogs = array(
 			LogLevel::ERROR => "Oops: We've got LOG_ERRors.",
 			LogLevel::CRITICAL => "Critical errors!",
 			LogLevel::ALERT => "Log Alerts!",
@@ -706,7 +701,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			}
 		}
 
-		$this->assertFalse( $message, $message ); //ha
+		$this->assertFalse( $message, $message ); // ha
 	}
 
 	/**
@@ -721,7 +716,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		if ( !array_key_exists( $log_level, $log ) ) {
 			return false;
 		}
-		$return = array ( );
+		$return = array();
 		foreach ( $log[$log_level] as $line ) {
 			if ( preg_match( $match, $line ) ) {
 				$return[] = $line;
@@ -748,31 +743,31 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 	}
 
-    /**
-     * Create an orphaned tranaction.
-     *
-     * TODO: Reuse SmashPigBaseTest#createMessage
-     */
-    public function createOrphan( $overrides = array() ) {
-        $uniq = mt_rand();
-        $message = $overrides + array(
-                'contribution_tracking_id' => $uniq,
-                'country' => 'US',
-                'first_name' => 'Flighty',
-                'last_name' => 'Dono',
-                'email' => 'test+wmf@eff.org',
-                'gateway' => 'globalcollect',
-                'gateway_txn_id' => "txn-{$uniq}",
-                'order_id' => "order-{$uniq}",
-                'gateway_account' => 'default',
-                'payment_method' => 'cc',
-                'payment_submethod' => 'mc',
-                // Defaults to a magic 25 minutes ago, within the process window.
-                'date' => time() - 25 * 60,
-                'gross' => 123,
-                'currency' => 'EUR',
-            );
-        return $message;
-    }
+	/**
+	 * Create an orphaned tranaction.
+	 *
+	 * TODO: Reuse SmashPigBaseTest#createMessage
+	 */
+	public function createOrphan( $overrides = array() ) {
+		$uniq = mt_rand();
+		$message = $overrides + array(
+				'contribution_tracking_id' => $uniq,
+				'country' => 'US',
+				'first_name' => 'Flighty',
+				'last_name' => 'Dono',
+				'email' => 'test+wmf@eff.org',
+				'gateway' => 'globalcollect',
+				'gateway_txn_id' => "txn-{$uniq}",
+				'order_id' => "order-{$uniq}",
+				'gateway_account' => 'default',
+				'payment_method' => 'cc',
+				'payment_submethod' => 'mc',
+				// Defaults to a magic 25 minutes ago, within the process window.
+				'date' => time() - 25 * 60,
+				'gross' => 123,
+				'currency' => 'EUR',
+			);
+		return $message;
+	}
 
 }

@@ -32,11 +32,11 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init['ffname'] = 'cc-vmad';
 		$init['gateway'] = 'ingenico';
 
-		$assertNodes = array (
-			'submethod-mc' => array (
+		$assertNodes = array(
+			'submethod-mc' => array(
 				'nodename' => 'input'
 			),
-			'selected-amount' => array (
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
@@ -44,7 +44,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					).
 					'\s*$/',
 			),
-			'state_province' => array (
+			'state_province' => array(
 				'nodename' => 'select',
 				'selected' => 'CA',
 			),
@@ -61,22 +61,22 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init['ffname'] = 'cc-vmaj';
 		$init['gateway'] = 'ingenico';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
 				'value' => 'Prénom',
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
 				'value' => 'Nom',
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'FR',
 			),
@@ -96,26 +96,26 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init['ffname'] = 'cc-vmaj';
 		$init['gateway'] = 'ingenico';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( 'it' )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( 'it' )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text(),
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'IT',
 			),
@@ -137,26 +137,26 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init['language'] = $language;
 		$init['gateway'] = 'ingenico';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'BE',
 			),
@@ -178,8 +178,8 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init['language'] = $language;
 		$init['gateway'] = 'ingenico';
 
-		$assertNodes = array (
-			'selected-amount' => array (
+		$assertNodes = array(
+			'selected-amount' => array(
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
@@ -187,27 +187,27 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					) .
 					'\s*$/',
 			),
-			'first_name' => array (
+			'first_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
 			),
-			'last_name' => array (
+			'last_name' => array(
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name')->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
 			),
-			'informationsharing' => array (
+			'informationsharing' => array(
 				'nodename' => 'p',
 				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
 			),
-			'state_province' => array (
+			'state_province' => array(
 				'nodename' => 'select',
 				'selected' => 'SK',
 			),
-			'postal_code' => array (
+			'postal_code' => array(
 				'nodename' => 'input',
 				'value' => $init['postal_code'],
 			),
-			'country' => array (
+			'country' => array(
 				'nodename' => 'input',
 				'value' => 'CA',
 			),

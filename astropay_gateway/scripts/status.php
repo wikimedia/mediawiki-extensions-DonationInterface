@@ -5,8 +5,8 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../../..';
 }
 
-//If you get errors on this next line, set (and export) your MW_INSTALL_PATH var.
-require_once( "$IP/maintenance/Maintenance.php" );
+// If you get errors on this next line, set (and export) your MW_INSTALL_PATH var.
+require_once "$IP/maintenance/Maintenance.php";
 
 // Asks the AstroPay API for info about a particular donation
 class AstroPayStatusQuery extends Maintenance {

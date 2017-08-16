@@ -33,11 +33,11 @@ class DonationInterface_Adapter_GlobalCollect_ResultSwitcherTest extends Donatio
 			'REF' => $donorTestData['order_id'],
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0',
-            'language' => 'fr', // FIXME: verifyFormOutput conflates request with other stuff
+			'language' => 'fr', // FIXME: verifyFormOutput conflates request with other stuff
 		);
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $location ) use ( $donorTestData ) {
+				'Location' => function ( $location ) use ( $donorTestData ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $donorTestData );
 					$url = ResultPages::getThankYouPage( $gateway );
@@ -52,5 +52,5 @@ class DonationInterface_Adapter_GlobalCollect_ResultSwitcherTest extends Donatio
 		$this->assertNotEmpty( $messages );
 		$messages = self::getLogMatches( 'info', '/Preparing to send SET_PAYMENT transaction to Global Collect/' );
 		$this->assertNotEmpty( $messages );
-    }
+	}
 }

@@ -20,8 +20,8 @@ use SmashPig\Core\Logging\Logger;
 
 /**
  * GatewayPage
- * This class is the generic unlisted special page in charge of actually 
- * displaying the form. Each gateway will have one or more direct descendants of 
+ * This class is the generic unlisted special page in charge of actually
+ * displaying the form. Each gateway will have one or more direct descendants of
  * this class, with most of the gateway-specific control logic in its handleRequest
  * function. For instance: extensions/DonationInterface/globalcollect_gateway/globalcollect_gateway.body.php
  *
@@ -71,10 +71,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
-		if( $wgContributionTrackingFundraiserMaintenance
-			|| $wgContributionTrackingFundraiserMaintenanceUnsched ){
-			$this->getOutput()->redirect(
-				Title::newFromText('Special:FundraiserMaintenance')->getFullURL(), '302'
+		if ( $wgContributionTrackingFundraiserMaintenance
+			|| $wgContributionTrackingFundraiserMaintenanceUnsched ) {
+			$this->getOutput()->redirect( Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL(), '302'
 			);
 			return;
 		}
@@ -113,7 +112,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			}
 			$this->logger->error(
 				"Exception setting up GatewayPage with adapter class $className: " .
-				    "{$ex->getMessage()}\n{$ex->getTraceAsString()}"
+					"{$ex->getMessage()}\n{$ex->getTraceAsString()}"
 			);
 			// Setup scrambled, no point in continuing
 			$this->displayFailPage();
@@ -174,7 +173,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$form_class = $this->adapter->getFormClass();
 		// TODO: use interface.  static ctor.
-		if ( $form_class && class_exists( $form_class ) ){
+		if ( $form_class && class_exists( $form_class ) ) {
 			$form_obj = new $form_class();
 			$form_obj->setGateway( $this->adapter );
 			$form_obj->setGatewayPage( $this );
@@ -250,12 +249,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return null
 	 */
 	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
-
 		$results = empty( $results ) ? $this->adapter->getTransactionResponse() : $results;
-		
-		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ){
+
+		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ) {
 			return;
-		}
+  }
 
 		$output = $this->getOutput();
 
@@ -265,7 +263,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( !empty( $errors ) ) {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $errors as $code => $value ) {
-				$output->addHTML( Html::element('li', null, "Error $code: " . print_r( $value, true ) ) );
+				$output->addHTML( Html::element( 'li', null, "Error $code: " . print_r( $value, true ) ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		}
@@ -275,13 +273,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$output->addHTML( Html::openElement('li', null, $key ) . Html::openElement( 'ul' ) );
+					$output->addHTML( Html::openElement( 'li', null, $key ) . Html::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$output->addHTML( Html::element('li', null, "$key2: $val2" ) );
+						$output->addHTML( Html::element( 'li', null, "$key2: $val2" ) );
 					}
 					$output->addHTML( Html::closeElement( 'ul' ) . Html::closeElement( 'li' ) );
 				} else {
-					$output->addHTML( Html::element('li', null, "$key: $value" ) );
+					$output->addHTML( Html::element( 'li', null, "$key: $value" ) );
 				}
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
@@ -290,9 +288,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 		$donorData = $this->getRequest()->getSessionData( 'Donor' );
 		if ( is_array( $donorData ) ) {
-			$output->addHTML( "Session Donor Vars:" . Html::openElement( 'ul' ));
+			$output->addHTML( "Session Donor Vars:" . Html::openElement( 'ul' ) );
 			foreach ( $donorData as $key => $val ) {
-				$output->addHTML( Html::element('li', null, "$key: $val" ) );
+				$output->addHTML( Html::element( 'li', null, "$key: $val" ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
@@ -302,7 +300,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( is_array( $this->adapter->debugarray ) ) {
 			$output->addHTML( "Debug Array:" . Html::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$output->addHTML( Html::element('li', null, $val ) );
+				$output->addHTML( Html::element( 'li', null, $val ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
@@ -338,7 +336,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$this->adapter->session_addDonorData();
 				$this->displayForm();
 			}
-		} else { //token mismatch
+		} else { // token mismatch
 			$this->adapter->getErrorState()->addError( new PaymentError(
 				'internal-0001',
 				'Failed CSRF token validation',
@@ -371,7 +369,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Whether or not the user comes back to the resultswitcher in an iframe
-	 * @return boolean true if we need to pop out of an iframe, otherwise false
+	 * @return bool true if we need to pop out of an iframe, otherwise false
 	 */
 	protected function isReturnFramed() {
 		return false;
@@ -381,9 +379,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Render a resultswitcher page
 	 */
 	protected function handleResultRequest() {
-		//no longer letting people in without these things. If this is
-		//preventing you from doing something, you almost certainly want to be
-		//somewhere else.
+		// no longer letting people in without these things. If this is
+		// preventing you from doing something, you almost certainly want to be
+		// somewhere else.
 		$deadSession = false;
 		if ( !$this->adapter->session_hasDonorData() ) {
 			$deadSession = true;
@@ -426,7 +424,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		if ( $deadSession ){
+		if ( $deadSession ) {
 			if ( $this->adapter->isReturnProcessingRequired() ) {
 				wfHttpError( 403, 'Forbidden', wfMessage( 'donate_interface-error-http-403' )->text() );
 				throw new RuntimeException(
@@ -576,7 +574,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				// Translate all the messages
 				// FIXME: figure out country fallback add the i18n strings
 				// for use with client-side mw.msg()
-				foreach( $clientRules as &$fieldRules ) {
+				foreach ( $clientRules as &$fieldRules ) {
 					foreach ( $fieldRules as &$rule ) {
 						if ( !empty( $rule['messageKey'] ) ) {
 							$rule['message'] = MessageUtils::getCountrySpecificMessage(

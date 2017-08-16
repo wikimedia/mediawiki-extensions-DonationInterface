@@ -17,7 +17,7 @@ class DonorLanguage implements StagingHelper {
 			}
 		}
 
-		if ( !in_array( $language, $adapterLanguages ) ){
+		if ( !in_array( $language, $adapterLanguages ) ) {
 			$language = 'en';
 		}
 

@@ -27,7 +27,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		);
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $location ) use ( $donorTestData ) {
+				'Location' => function ( $location ) use ( $donorTestData ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $donorTestData );
 					$url = ResultPages::getThankYouPage( $gateway );

@@ -14,7 +14,7 @@ class WmfFramework_Drupal {
 		// Janky XML sanitization so we can see the tags
 		// watchdog strips so aggressively that htmlspecialchars doesn't help
 		$escaped = str_replace( array( '<', '>' ), array( '{', '}' ), $msg );
-		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", NULL, $severity );
+		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", null, $severity );
 	}
 
 	static function getIP() {
@@ -82,7 +82,7 @@ class WmfFramework_Drupal {
 
 	static function isValidBuiltInLanguageCode( $code ) {
 		return true;
-		//Language::isValidBuiltInCode
+		// Language::isValidBuiltInCode
 	}
 
 	static function validateEmail( $email ) {
@@ -96,7 +96,7 @@ class WmfFramework_Drupal {
 	 * that has been passed in, false if none is present.
 	 * @param string $msg_key The message string to look up.
 	 * @param string $language unused
-	 * @return boolean - true if message exists, otherwise false.
+	 * @return bool - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language = null ) {
 		return strlen( self::formatMessage( $msg_key ) ) > 0;

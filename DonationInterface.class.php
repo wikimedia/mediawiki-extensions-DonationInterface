@@ -38,9 +38,9 @@ class DonationInterface {
 		// top level.
 		$vendorAutoload = __DIR__ . '/vendor/autoload.php';
 		if ( file_exists( $vendorAutoload ) ) {
-			require_once ( $vendorAutoload );
+			require_once $vendorAutoload;
 		} else {
-			require_once ( __DIR__ . '/gateway_common/WmfFramework.php' );
+			require_once __DIR__ . '/gateway_common/WmfFramework.php';
 		}
 		if ( defined( 'MEDIAWIKI' ) ) {
 			// If we're the top-level application, initialize the SmashPig context
@@ -49,7 +49,7 @@ class DonationInterface {
 			$context = Context::get();
 			$context->setSourceName( 'DonationInterface' );
 			$context->setSourceType( 'payments' );
-			$context->setVersionFromFile( "$IP/.version-stamp");
+			$context->setVersionFromFile( "$IP/.version-stamp" );
 		}
 	}
 

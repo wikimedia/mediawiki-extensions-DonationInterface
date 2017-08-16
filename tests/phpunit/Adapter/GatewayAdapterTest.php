@@ -74,7 +74,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * @covers GatewayAdapter::defineTransactions
 	 */
 	public function testConstructor() {
-
 		$options = $this->getDonorTestData();
 		$class = $this->testAdapterClass;
 
@@ -178,7 +177,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * @covers DonationData::__construct
 	 */
 	public function testConstructorHasDonationData() {
-
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
 
 		$options = $this->getDonorTestData();
@@ -225,7 +223,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$session = $firstRequest->getSessionArray();
 		$this->assertEquals( 'globalcollect', $session['Donor']['gateway'], 'Test setup failed.' );
 
-		//Then simulate switching to Adyen
+		// Then simulate switching to Adyen
 		$session['sequence'] = 2;
 		unset( $init['order_id'] );
 
@@ -264,7 +262,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		$donorData = $secondRequest->getSessionData( 'Donor' );
 		$this->assertEquals( '1', $donorData['recurring'], 'Test setup failed.' );
-
 
 		$this->assertNotEquals( $oneTimeOrderId, $recurOrderId,
 			'Order ID was not regenerated on recurring switch!' );
@@ -341,7 +338,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	public function testGetFallbackFailPage() {
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceRapidFail' => false,
-			'wgDonationInterfaceFailPage' => 'Main_Page', //coz we know it exists
+			'wgDonationInterfaceFailPage' => 'Main_Page', // coz we know it exists
 		) );
 		$options = $this->getDonorTestData( 'US' );
 		$gateway = $this->getFreshGatewayObject( $options );
@@ -403,7 +400,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->getScoreName();
-		$this->assertNotEquals( 0, $result, 'Bad name not detected');
+		$this->assertNotEquals( 0, $result, 'Bad name not detected' );
 	}
 
 	public function TestSetValidationAction() {
@@ -417,12 +414,11 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'De-escalating action without reset!' );
 	}
 
-	public function testRectifyOrphan(){
-        $orphan = $this->createOrphan(array('gateway' => 'donation'));
-		$gateway = $this->getFreshGatewayObject($orphan);
-		//FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
+	public function testRectifyOrphan() {
+		$orphan = $this->createOrphan( array( 'gateway' => 'donation' ) );
+		$gateway = $this->getFreshGatewayObject( $orphan );
+		// FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
 		$is_rectified = $gateway->rectifyOrphan();
-		$this->assertEquals(PaymentResult::newEmpty(), $is_rectified, 'rectifyOrphan did not return empty PaymentResult');
+		$this->assertEquals( PaymentResult::newEmpty(), $is_rectified, 'rectifyOrphan did not return empty PaymentResult' );
 	}
 }
-

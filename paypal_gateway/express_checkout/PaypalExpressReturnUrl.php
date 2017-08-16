@@ -8,7 +8,7 @@ class PaypalExpressReturnUrl implements StagingHelper {
 			'order_id' => $normalized['order_id'],
 			'wmf_token' => $adapter->token_getSaltedSessionToken(),
 		);
-		if ( $normalized['recurring'] ){
+		if ( $normalized['recurring'] ) {
 			$querySringParams['recurring'] = 1;
 		}
 

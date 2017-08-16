@@ -13,7 +13,6 @@
  */
 class DataValidator {
 
-
 	/**
 	 * getErrorToken, intended to be used by classes that exist relatively close
 	 * to the form classes, returns the error token (defined on the forms) that
@@ -22,7 +21,7 @@ class DataValidator {
 	 * be displayed to the user.
 	 * @return string The error token corresponding to a field
 	 */
-	public static function getErrorToken( $field ){
+	public static function getErrorToken( $field ) {
 		switch ( $field ) {
 			case 'email' :
 			case 'amount' :
@@ -75,7 +74,6 @@ class DataValidator {
 		);
 	}
 
-
 	/**
 	 * getError - returns the error object appropriate for a validation error
 	 * on the specified field, of the specified type.
@@ -92,13 +90,13 @@ class DataValidator {
 	 * @return ValidationError
 	 */
 	public static function getError( $field, $type ) {
-		//NOTE: We are just using the next bit because it's convenient.
-		//getErrorToken is actually for something entirely different:
-		//Figuring out where on the form the error should land.
+		// NOTE: We are just using the next bit because it's convenient.
+		// getErrorToken is actually for something entirely different:
+		// Figuring out where on the form the error should land.
 		$token = self::getErrorToken( $field );
 
-		//Empty messages
-		if ($type === 'not_empty'){
+		// Empty messages
+		if ( $type === 'not_empty' ) {
 			if ( $token != 'general' ) {
 				$missingErrorKey = "donate_interface-error-msg-{$token}";
 				return new ValidationError( $token, $missingErrorKey );
@@ -110,7 +108,7 @@ class DataValidator {
 			return new ValidationError( $token, $invalidErrorKey );
 		}
 
-		//ultimate defaultness.
+		// ultimate defaultness.
 		return new ValidationError( $token, 'donate_interface-error-msg-general' );
 	}
 
@@ -127,9 +125,9 @@ class DataValidator {
 	 * @throws BadMethodCallException
 	 * @return array A list of ValidationError objects, or empty on successful validation.
 	 */
-	public static function validate( GatewayType $gateway, $data, $check_not_empty = array()  ){
-		//return the array of errors that should be generated on validate.
-		//just the same way you'd do it if you were a form passing the error array around.
+	public static function validate( GatewayType $gateway, $data, $check_not_empty = array() ) {
+		// return the array of errors that should be generated on validate.
+		// just the same way you'd do it if you were a form passing the error array around.
 
 		/**
 		 * We need to run the validation in an order that makes sense.
@@ -247,7 +245,6 @@ class DataValidator {
 		return $errors;
 	}
 
-
 	/**
 	 * checkValidationPassed is a validate helper function.
 	 * In order to determine that we are ready to do the third stage of data
@@ -256,11 +253,11 @@ class DataValidator {
 	 * validation.
 	 * @param array $fields An array of field names to check.
 	 * @param array $results Intermediate result of validation.
-	 * @return boolean true if all fields specified in $fields passed their
+	 * @return bool true if all fields specified in $fields passed their
 	 * not_empty and valid_type validation. Otherwise, false.
 	 */
-	protected static function checkValidationPassed( $fields, $results ){
-		foreach ( $fields as $field ){
+	protected static function checkValidationPassed( $fields, $results ) {
+		foreach ( $fields as $field ) {
 			foreach ( $results as $phase => $results_fields ) {
 				if ( array_key_exists( $field, $results_fields )
 					&& $results_fields[$field] !== true
@@ -277,11 +274,11 @@ class DataValidator {
 	 * Determines if the $value passed in is a valid email address.
 	 * @param string $value The piece of data that is supposed to be an email
 	 * address.
-	 * @return boolean True if $value is a valid email address, otherwise false.
+	 * @return bool True if $value is a valid email address, otherwise false.
 	 */
 	protected static function validate_email( $value ) {
 		return WmfFramework::validateEmail( $value )
-			&& !DataValidator::cc_number_exists_in_str( $value );
+			&& !self::cc_number_exists_in_str( $value );
 	}
 
 	protected static function validate_currency_code( $value, $acceptedCurrencies ) {
@@ -297,17 +294,17 @@ class DataValidator {
 	 * Determines if the $value passed in is (possibly) a valid credit card type.
 	 * @param string $value The piece of data that is supposed to be a credit card type.
 	 * @param string $card_number The card number associated with this card type. Optional.
-	 * @return boolean True if $value is a reasonable credit card type, otherwise false.
+	 * @return bool True if $value is a reasonable credit card type, otherwise false.
 	 */
 	protected static function validate_card_type( $value, $card_number = '' ) {
-		//@TODO: Find a better way to stop making assumptions about what payment
-		//type we're trying to be, in the data validadtor.
-		if ( $card_number != '' ){
-			if ( !array_key_exists( $value, self::$card_types ) ){
+		// @TODO: Find a better way to stop making assumptions about what payment
+		// type we're trying to be, in the data validadtor.
+		if ( $card_number != '' ) {
+			if ( !array_key_exists( $value, self::$card_types ) ) {
 				return false;
 			}
 			$calculated_card_type = self::getCardType( $card_number );
-			if ( $calculated_card_type != $value ){
+			if ( $calculated_card_type != $value ) {
 				return false;
 			}
 		}
@@ -315,32 +312,30 @@ class DataValidator {
 		return true;
 	}
 
-
 	/**
 	 * validate_credit_card
 	 * Determines if the $value passed in is (possibly) a valid credit card number.
 	 * @param string $value The piece of data that is supposed to be a credit card number.
-	 * @return boolean True if $value is a reasonable credit card number, otherwise false.
+	 * @return bool True if $value is a reasonable credit card number, otherwise false.
 	 */
 	protected static function validate_credit_card( $value ) {
 		$calculated_card_type = self::getCardType( $value );
-		if ( !$calculated_card_type ){
+		if ( !$calculated_card_type ) {
 			return false;
 		}
 
 		return true;
 	}
 
-
 	/**
 	 * validate_boolean
 	 * Determines if the $value passed in is a valid boolean.
 	 * @param string $value The piece of data that is supposed to be a boolean.
-	 * @return boolean True if $value is a valid boolean, otherwise false.
+	 * @return bool True if $value is a valid boolean, otherwise false.
 	 */
-	protected static function validate_boolean( $value ){
+	protected static function validate_boolean( $value ) {
 		// FIXME: this doesn't do the strict comparison we intended.  'hello' would match the "case true" statement.
-		switch ($value) {
+		switch ( $value ) {
 			case 0:
 			case '0':
 			case false:
@@ -355,15 +350,14 @@ class DataValidator {
 		return false;
 	}
 
-
 	/**
 	 * validate_numeric
 	 * Determines if the $value passed in is numeric.
 	 * @param string $value The piece of data that is supposed to be numeric.
-	 * @return boolean True if $value is numeric, otherwise false.
+	 * @return bool True if $value is numeric, otherwise false.
 	 */
-	protected static function validate_numeric( $value ){
-		//instead of validating here, we should probably be doing something else entirely.
+	protected static function validate_numeric( $value ) {
+		// instead of validating here, we should probably be doing something else entirely.
 		if ( is_numeric( $value ) ) {
 			return true;
 		}
@@ -375,9 +369,9 @@ class DataValidator {
 	 * Checks to make sure the gateway is populated with a valid and enabled
 	 * gateway.
 	 * @param string $value The value that is meant to be a gateway.
-	 * @return boolean True if $value is a valid gateway, otherwise false
+	 * @return bool True if $value is a valid gateway, otherwise false
 	 */
-	protected static function validate_gateway( $value ){
+	protected static function validate_gateway( $value ) {
 		global $wgDonationInterfaceGatewayAdapters;
 
 		return array_key_exists( $value, $wgDonationInterfaceGatewayAdapters );
@@ -389,9 +383,9 @@ class DataValidator {
 	 * Anything else that is 'falseish' is still perfectly valid to have as a data point.
 	 * TODO: Consider doing this in a batch.
 	 * @param string $value The value to check for non-emptyness.
-	 * @return boolean True if the $value is not missing or empty, otherwise false.
+	 * @return bool True if the $value is not missing or empty, otherwise false.
 	 */
-	protected static function validate_not_empty( $value ){
+	protected static function validate_not_empty( $value ) {
 		return ( $value !== null && $value !== '' );
 	}
 
@@ -402,9 +396,9 @@ class DataValidator {
 	 * TODO: This is duuuuumb. Make it do something good, or get rid of it.
 	 * If we can think of a way to make this useful, we should do something here.
 	 * @param string $value The value that is meant to be alphanumeric
-	 * @return boolean True if $value is ANYTHING. Or not. :[
+	 * @return bool True if $value is ANYTHING. Or not. :[
 	 */
-	protected static function validate_alphanumeric( $value ){
+	protected static function validate_alphanumeric( $value ) {
 		return true;
 	}
 
@@ -416,10 +410,10 @@ class DataValidator {
 	 * @param string $value The value to check
 	 * @return bool true if it's more than just punctuation, false if it is.
 	 */
-	public static function validate_not_just_punctuation( $value ){
-		$value = html_entity_decode( $value ); //Just making sure.
-		$regex = '/([\x20-\x2F]|[\x3A-\x40]|[\x5B-\x60]|[\x7B-\x7E]){' . strlen($value) . '}/';
-		if ( preg_match( $regex, $value ) ){
+	public static function validate_not_just_punctuation( $value ) {
+		$value = html_entity_decode( $value ); // Just making sure.
+		$regex = '/([\x20-\x2F]|[\x3A-\x40]|[\x5B-\x60]|[\x7B-\x7E]){' . strlen( $value ) . '}/';
+		if ( preg_match( $regex, $value ) ) {
 			return false;
 		}
 		return true;
@@ -430,11 +424,11 @@ class DataValidator {
 	 * on the name to make sure it's not actually a potentially valid CC number.
 	 *
 	 * @param string $value Ze name!
-	 * @return boolean True if the name is not suspiciously like a CC number
+	 * @return bool True if the name is not suspiciously like a CC number
 	 */
 	public static function validate_name( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value ) &&
-			!DataValidator::obviousXssInString( $value );
+		return !self::cc_number_exists_in_str( $value ) &&
+			!self::obviousXssInString( $value );
 	}
 
 	/**
@@ -443,8 +437,8 @@ class DataValidator {
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
-		return !DataValidator::cc_number_exists_in_str( $value ) &&
-			!DataValidator::obviousXssInString( $value );
+		return !self::cc_number_exists_in_str( $value ) &&
+			!self::obviousXssInString( $value );
 	}
 
 	public static function obviousXssInString( $value ) {
@@ -506,7 +500,7 @@ EOT;
 		$matches = array();
 		preg_match_all( $luhnRegex, $str, $matches );
 		foreach ( $matches[0] as $candidate ) {
-			if ( DataValidator::luhn_check( $candidate ) ) {
+			if ( self::luhn_check( $candidate ) ) {
 				return true;
 			}
 		}
@@ -523,10 +517,10 @@ EOT;
 	 * @return bool True if the number was valid according to the algorithm
 	 */
 	public static function luhn_check( $str ) {
-		$odd = (strlen( $str ) % 2);
+		$odd = ( strlen( $str ) % 2 );
 		$sum = 0;
 
-		for( $i = 0; $i < strlen( $str ); $i++ ) {
+		for ( $i = 0; $i < strlen( $str ); $i++ ) {
 			if ( $odd ) {
 				$sum += $str[$i];
 			} else {
@@ -551,7 +545,7 @@ EOT;
 		// validate that credit card number entered is correct and set the card type
 		if ( preg_match( '/^3[47][0-9]{13}$/', $card_num ) ) { // american express
 			return 'amex';
-		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $card_num ) ) { //	mastercard
+		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $card_num ) ) { // mastercard
 			return 'mc';
 		} elseif ( preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $card_num ) ) {// visa
 			return 'visa';
@@ -587,17 +581,17 @@ EOT;
 	 * @param string $ip Either a single address, or a block.
 	 * @return array An expanded list of IP addresses denoted by $ip.
 	 */
-	public static function expandIPBlockToArray( $ip ){
-		$parts = explode('/', $ip);
-		if ( count( $parts ) === 1 ){
+	public static function expandIPBlockToArray( $ip ) {
+		$parts = explode( '/', $ip );
+		if ( count( $parts ) === 1 ) {
 			return array( $ip );
 		} else {
-			//expand that mess.
-			//this next bit was stolen from php.net and smacked around some
-			$corr = ( pow( 2, 32 ) - 1) - ( pow( 2, 32 - $parts[1] ) - 1 );
+			// expand that mess.
+			// this next bit was stolen from php.net and smacked around some
+			$corr = ( pow( 2, 32 ) - 1 ) - ( pow( 2, 32 - $parts[1] ) - 1 );
 			$first = ip2long( $parts[0] ) & ( $corr );
 			$length = pow( 2, 32 - $parts[1] ) - 1;
-			$ips = array( );
+			$ips = array();
 			for ( $i = 0; $i <= $length; $i++ ) {
 				$ips[] = long2ip( $first + $i );
 			}
@@ -616,7 +610,7 @@ EOT;
 	 */
 	public static function ip_is_listed( $ip, $ip_list ) {
 		$expanded = array();
-		foreach ( $ip_list as $address ){
+		foreach ( $ip_list as $address ) {
 			$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
 		}
 
@@ -634,8 +628,8 @@ EOT;
 	 * @return bool
 	 */
 	public static function value_appears_in( $needle, $haystack ) {
-		$needle = ( is_array( $needle) ) ? $needle : array( $needle );
-		$haystack = ( is_array( $haystack) ) ? $haystack : array( $haystack );
+		$needle = ( is_array( $needle ) ) ? $needle : array( $needle );
+		$haystack = ( is_array( $haystack ) ) ? $haystack : array( $haystack );
 
 		$plusCheck = array_key_exists( '+', $haystack );
 		$minusCheck = array_key_exists( '-', $haystack );
@@ -643,13 +637,13 @@ EOT;
 		if ( $plusCheck || $minusCheck ) {
 			// With +/- checks we will first explicitly deny anything in '-'
 			// Then if '+' is defined accept anything there
-			//    but if '+' is not defined we just let everything that wasn't denied by '-' through
+			// but if '+' is not defined we just let everything that wasn't denied by '-' through
 			// Otherwise we assume both were defined and deny everything :)
 
-			if ( $minusCheck && DataValidator::value_appears_in( $needle, $haystack['-'] ) ) {
+			if ( $minusCheck && self::value_appears_in( $needle, $haystack['-'] ) ) {
 				return false;
 			}
-			if ( $plusCheck && DataValidator::value_appears_in( $needle, $haystack['+'] ) ) {
+			if ( $plusCheck && self::value_appears_in( $needle, $haystack['+'] ) ) {
 				return true;
 			} elseif ( !$plusCheck ) {
 				// Implicit acceptance
@@ -663,7 +657,7 @@ EOT;
 			return true;
 		}
 
-		$haystack = array_filter( $haystack, function( $value ) {
+		$haystack = array_filter( $haystack, function ( $value ) {
 			return !is_array( $value );
 		} );
 		$result = array_intersect( $haystack, $needle );
@@ -682,16 +676,16 @@ EOT;
 	 * @return string The zero-padded value, or false if it was too long to work with.
 	 */
 	static function getZeroPaddedValue( $value, $total_length ) {
-		//first, trim all leading zeroes off the value.
+		// first, trim all leading zeroes off the value.
 		$ret = ltrim( $value, '0' );
 
-		//now, check to see if it's going to be a valid value at all,
-		//and give up if it's hopeless.
+		// now, check to see if it's going to be a valid value at all,
+		// and give up if it's hopeless.
 		if ( strlen( $ret ) > $total_length ) {
 			return false;
 		}
 
-		//...and if we're still here, left pad with zeroes to required length
+		// ...and if we're still here, left pad with zeroes to required length
 		$ret = str_pad( $ret, $total_length, '0', STR_PAD_LEFT );
 
 		return $ret;

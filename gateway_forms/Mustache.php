@@ -121,12 +121,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$this->addSubmethods( $data );
 		$this->addRequiredFields( $data );
 		$this->addCurrencyData( $data );
-		$data['recurring'] = (bool) $data['recurring'];
+		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
 	}
 
 	protected function addSubmethods( &$data ) {
-
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
 		$data['show_submethods'] = ( count( $availableSubmethods ) > 1 );
 		if ( $data['show_submethods'] ) {
@@ -144,7 +143,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['button_class'] = count( $data['submethods'] ) % 4 === 0
 				? 'four-per-line'
 				: 'three-per-line';
-		} else if ( count( $availableSubmethods ) > 0 ) {
+		} elseif ( count( $availableSubmethods ) > 0 ) {
 			$submethodNames = array_keys( $availableSubmethods );
 			$submethodName = $submethodNames[0];
 			$submethod = $availableSubmethods[$submethodName];
@@ -196,7 +195,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
 		$data['show_personal_fields'] = !empty( $required_fields );
-		foreach( $required_fields as $field ) {
+		foreach ( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 
 			if ( in_array( $field, $address_fields ) ) {
@@ -248,7 +247,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		} else {
 			$data['show_currency_selector'] = true;
 		}
-		foreach( $supportedCurrencies as $currency ) {
+		foreach ( $supportedCurrencies as $currency ) {
 			$data['currencies'][] = array(
 				'code' => $currency,
 				'selected' => ( $currency === $data['currency'] ),
@@ -341,7 +340,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$key = array_shift( $params );
 		return MessageUtils::getCountrySpecificMessage(
 			$key,
-			Gateway_Form_Mustache::$country,
+			self::$country,
 			$language,
 			$params
 		);
@@ -360,8 +359,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$fieldName = array_shift( $params );
 
-		if ( isset( Gateway_Form_Mustache::$fieldErrors[$fieldName] ) ) {
-			$context = Gateway_Form_Mustache::$fieldErrors[$fieldName];
+		if ( isset( self::$fieldErrors[$fieldName] ) ) {
+			$context = self::$fieldErrors[$fieldName];
 			$context['cssClass'] = 'errorMsg';
 		} else {
 			$context = array(
@@ -370,10 +369,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			);
 		}
 
-		$path = Gateway_Form_Mustache::$baseDir . DIRECTORY_SEPARATOR
-			. 'error_message' . Gateway_Form_Mustache::EXTENSION;
+		$path = self::$baseDir . DIRECTORY_SEPARATOR
+			. 'error_message' . self::EXTENSION;
 
-		return Gateway_Form_Mustache::render( $path, $context );
+		return self::render( $path, $context );
 	}
 
 	public function getStyleModules() {

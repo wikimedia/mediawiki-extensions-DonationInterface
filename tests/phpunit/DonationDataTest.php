@@ -67,20 +67,18 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 		);
-
 	}
-
 
 	/**
 	 * @covers DonationData::__construct
 	 * @covers DonationData::getData
 	 * @covers DonationData::populateData
 	 */
-	public function testConstruct(){
+	public function testConstruct() {
 		$context = RequestContext::getMain();
 		$request = $context->getRequest();
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //as if we were posted.
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); // as if we were posted.
 		$returned = $ddObj->getData();
 		$expected = array(
 			'amount' => '0.00',
@@ -98,9 +96,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 		);
-		unset($returned['contribution_tracking_id']);
-		unset($returned['order_id']);
-		$this->assertEquals($expected, $returned, "Staged post data does not match expected (largely empty).");
+		unset( $returned['contribution_tracking_id'] );
+		unset( $returned['order_id'] );
+		$this->assertEquals( $expected, $returned, "Staged post data does not match expected (largely empty)." );
 	}
 
 	/**
@@ -109,10 +107,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function testConstructWithExternalData() {
 		$request = RequestContext::getMain()->getRequest();
 
-		$expected = array (
+		$expected = array(
 			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
-			'contribution_tracking_id' => (string) mt_rand(),
+			'contribution_tracking_id' => (string)mt_rand(),
 			'email' => 'testingdata@wikimedia.org',
 			'first_name' => 'Tester',
 			'last_name' => 'Testington',
@@ -142,16 +140,15 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		);
 
 		$adapter = $this->getFreshGatewayObject( self::$initial_vars, array( 'batch_mode' => true ) );
-		$ddObj = new DonationData( $adapter, $expected ); //external data
+		$ddObj = new DonationData( $adapter, $expected ); // external data
 		$returned = $ddObj->getData();
-
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
 		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
 
-		unset($returned['order_id']);
+		unset( $returned['order_id'] );
 
-		$this->assertEquals($expected, $returned, "Staged default test data does not match expected.");
+		$this->assertEquals( $expected, $returned, "Staged default test data does not match expected." );
 	}
 
 	/**
@@ -160,7 +157,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function testConstructWithFauxRequest() {
 		$request = RequestContext::getMain()->getRequest();
 
-		$expected = array (
+		$expected = array(
 			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
@@ -193,7 +190,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); //Get all data from request
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); // Get all data from request
 		$returned = $ddObj->getData();
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
@@ -209,7 +206,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * Check that constructor outputs certain information to logs
 	 */
 	public function testDebugLog() {
-		$expected = array (
+		$expected = array(
 			'payment_method' => 'cc',
 			'utm_source' => 'test_src..cc',
 			'utm_medium' => 'test_medium',
@@ -220,7 +217,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$this->setUpRequest( $expected );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( ) );
+		$ddObj = new DonationData( $this->getFreshGatewayObject() );
 		$matches = self::getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = NULL, utm_source = cc$/' );
 		$this->assertNotEmpty( $matches );
 		$matches = self::getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency', now: USD$/" );
@@ -230,7 +227,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	/**
 	 *
 	 */
-	public function testRepopulate(){
+	public function testRepopulate() {
 		$expected = $this->testData;
 
 		// Some changes from the default
@@ -239,13 +236,13 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$expected['gateway'] = 'globalcollect';
 
 		// Just unset a handful... doesn't matter what, really.
-		unset($expected['comment-option']);
-		unset($expected['email-opt']);
-		unset($expected['test_string']);
+		unset( $expected['comment-option'] );
+		unset( $expected['email-opt'] );
+		unset( $expected['test_string'] );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $expected ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $expected ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		//unset these, because they're always new
+		// unset these, because they're always new
 		$unsettable = array(
 			'order_id',
 			'contribution_tracking_id'
@@ -262,13 +259,13 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	/**
 	 *
 	 */
-	public function testIsSomething(){
+	public function testIsSomething() {
 		$data = $this->testData;
 		unset( $data['postal_code'] );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
-		$this->assertEquals($ddObj->isSomething('postal_code'), false, "Zip should currently be nothing.");
-		$this->assertEquals($ddObj->isSomething('last_name'), true, "last_name should currently be something.");
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
+		$this->assertEquals( $ddObj->isSomething( 'postal_code' ), false, "Zip should currently be nothing." );
+		$this->assertEquals( $ddObj->isSomething( 'last_name' ), true, "last_name should currently be something." );
 	}
 
 	/**
@@ -278,7 +275,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = 'this is not a number';
 		$data['amountGiven'] = 42.50;
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
 		$this->assertEquals( 42.50, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
@@ -291,7 +288,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = 88.15;
 		$data['amountGiven'] = 42.50;
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
 		$this->assertEquals( 88.15, $returned['amount'], "Amount was not properly reset" );
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
@@ -304,10 +301,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data = $this->testData;
 		$data['amount'] = -1;
 		$data['amountOther'] = 3.25;
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals(3.25, $returned['amount'], "Amount was not properly reset");
-		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
+		$this->assertEquals( 3.25, $returned['amount'], "Amount was not properly reset" );
+		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data" );
 	}
 
 	/**
@@ -318,11 +315,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data['amount'] = 'splunge';
 		$data['amountGiven'] = 'wombat';
 		$data['amountOther'] = 'macedonia';
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
-		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset");
-		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data");
-		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data");
+		$this->assertEquals( 'invalid', $returned['amount'], "Amount was not properly reset" );
+		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data" );
+		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
 	/**
@@ -336,7 +333,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$data['currency'] = 'splunge';
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
 		$returned = $ddObj->getData();
-		$this->assertEquals( 'USD', $returned['currency'], 'Currency code was not properly reset');
+		$this->assertEquals( 'USD', $returned['currency'], 'Currency code was not properly reset' );
 	}
 
 	/**
@@ -349,7 +346,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$data['uselang'] = 'no';
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
 		$this->assertEquals( 'no', $returned['language'], "Language 'no' was normalized out of existance. Sad." );
 		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );
@@ -365,7 +362,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$data['language'] = 'no';
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); //change to test mode with explicit test data
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
 		$this->assertEquals( 'no', $returned['language'], "Language 'no' was normalized out of existance. Sad." );
 		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );

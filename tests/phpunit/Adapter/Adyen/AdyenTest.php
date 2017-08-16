@@ -60,7 +60,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
 
-		$expected = array (
+		$expected = array(
 			'allowedMethods' => 'card',
 			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
@@ -74,18 +74,18 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantAccount' => 'wikitest',
 			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
-			'paymentAmount' => ($init['amount']) * 100,
-//			'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
-//			'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
+			'paymentAmount' => ( $init['amount'] ) * 100,
+// 'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
+// 'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'en_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
-			'offset' => '52', //once we construct the FraudFiltersTestCase, it should land here.
+			'offset' => '52', // once we construct the FraudFiltersTestCase, it should land here.
 		);
 
-		//deal with problem keys.
-		//@TODO: Refactor gateway so these are more testable
-		$problems = array (
+		// deal with problem keys.
+		// @TODO: Refactor gateway so these are more testable
+		$problems = array(
 			'sessionValidity',
 			'shipBeforeDate',
 		);
@@ -124,7 +124,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
 
-		$expected = array (
+		$expected = array(
 			'allowedMethods' => 'card',
 			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
@@ -138,16 +138,16 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantAccount' => 'wikitest',
 			'merchantReference' => $exposed->getData_Staged( 'order_id' ),
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
-			'paymentAmount' => ($init['amount']) * 100,
+			'paymentAmount' => ( $init['amount'] ) * 100,
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'fr_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52',
 		);
 
-		//deal with problem keys.
-		//@TODO: Refactor gateway so these are more testable
-		$problems = array (
+		// deal with problem keys.
+		// @TODO: Refactor gateway so these are more testable
+		$problems = array(
 			'sessionValidity',
 			'shipBeforeDate',
 		);

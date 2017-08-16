@@ -55,7 +55,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$expectedObject = array(
 			'gross' => 23.45,
 			'city' => 'San Francisco',
-			//'contribution_tracking_id' => '1',
+			// 'contribution_tracking_id' => '1',
 			'fee' => 0,
 			'country' => 'US',
 			'currency' => 'EUR',

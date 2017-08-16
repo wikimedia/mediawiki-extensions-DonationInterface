@@ -43,7 +43,6 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationI
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXml() {
-		
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'bt',
@@ -58,4 +57,3 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationI
 		$this->buildRequestXmlForGlobalCollect( $optionsForTestData, $options );
 	}
 }
-

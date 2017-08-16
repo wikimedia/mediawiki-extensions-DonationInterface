@@ -88,7 +88,7 @@ class PaymentTransactionResponse {
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getCommunicationStatus() {
 		return $this->communicationStatus;
@@ -138,7 +138,7 @@ class PaymentTransactionResponse {
 	}
 
 	/**
-	 * @param boolean $communicationStatus
+	 * @param bool $communicationStatus
 	 */
 	public function setCommunicationStatus( $communicationStatus ) {
 		$this->communicationStatus = $communicationStatus;
@@ -152,14 +152,14 @@ class PaymentTransactionResponse {
 	}
 
 	/**
-	 * @return boolean
+	 * @return bool
 	 */
 	public function getForceCancel() {
 		return $this->forceCancel;
 	}
 
 	/**
-	 * @param boolean $forceCancel
+	 * @param bool $forceCancel
 	 */
 	public function setForceCancel( $forceCancel ) {
 		$this->forceCancel = $forceCancel;

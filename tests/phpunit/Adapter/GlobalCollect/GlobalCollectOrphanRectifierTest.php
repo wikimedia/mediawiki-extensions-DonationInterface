@@ -112,7 +112,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 	 * Report a completed transaction.
 	 */
 	public function testProcessOrphansStatusComplete() {
-
 		$orphan_complete = $this->createOrphan();
 
 		$rectifier = new GlobalCollectOrphanRectifier();
@@ -159,7 +158,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 	 * Create an orphaned tranaction and store it to the pending database.
 	 */
 	public function createOrphan( $overrides = array() ) {
-	    $message = parent::createOrphan($overrides);
+		$message = parent::createOrphan( $overrides );
 		$this->pendingDb->storeMessage( $message );
 		return $message;
 	}
@@ -187,6 +186,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$result = $this->pendingDb->getDatabase()->query(
 			"select * from pending" );
 		$rows = $result->fetchAll( PDO::FETCH_ASSOC );
-		var_export($rows);
+		var_export( $rows );
 	}
 }

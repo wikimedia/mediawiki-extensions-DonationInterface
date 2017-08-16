@@ -22,7 +22,6 @@ class SystemStatus extends UnlistedSpecialPage {
 		// contribution_ids for testing.
 		echo "<pre>OK</pre>";
 		die();
-
 	}
-	
+
 }

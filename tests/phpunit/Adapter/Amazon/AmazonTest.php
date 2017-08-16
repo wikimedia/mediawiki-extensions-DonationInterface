@@ -51,12 +51,12 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'amazon' => array(
 					'gateway' => 'amazon',
-					'payment_methods' => array('amazon' => 'ALL'),
+					'payment_methods' => array( 'amazon' => 'ALL' ),
 					'redirect',
 				),
 				'amazon-recurring' => array(
 					'gateway' => 'amazon',
-					'payment_methods' => array('amazon' => 'ALL'),
+					'payment_methods' => array( 'amazon' => 'ALL' ),
 					'redirect',
 					'recurring',
 				),
@@ -101,7 +101,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$locale = $init['language'] . '_' . $init['country'];
 		$expectedDisplayAmount = Amount::format( $expectedAmount, 'USD', $locale );
 
-		$convertTest = function( $amountString ) use ( $expectedDisplayAmount ) {
+		$convertTest = function ( $amountString ) use ( $expectedDisplayAmount ) {
 			$this->assertEquals( $expectedDisplayAmount, trim( $amountString ), 'Displaying wrong amount' );
 		};
 

@@ -94,7 +94,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPushMessage() {
-		QueueWrapper::push( $this->queue_name , $this->transaction );
+		QueueWrapper::push( $this->queue_name, $this->transaction );
 
 		$actual = QueueWrapper::getQueue( $this->queue_name )->pop();
 		unset( $actual['source_enqueued_time'] );
@@ -106,12 +106,12 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	 * After pushing 2, pop should return the first.
 	 */
 	public function testIsFifoQueue() {
-		QueueWrapper::push( $this->queue_name , $this->transaction );
+		QueueWrapper::push( $this->queue_name, $this->transaction );
 
 		$transaction2 = $this->transaction;
 		$transaction2['order_id'] = mt_rand();
 
-		QueueWrapper::push( $this->queue_name , $transaction2 );
+		QueueWrapper::push( $this->queue_name, $transaction2 );
 
 		$actual = QueueWrapper::getQueue( $this->queue_name )->pop();
 		unset( $actual['source_enqueued_time'] );

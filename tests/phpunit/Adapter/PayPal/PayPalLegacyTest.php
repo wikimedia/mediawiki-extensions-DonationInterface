@@ -16,7 +16,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group PayPal
@@ -43,11 +43,11 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'paypal' => array(
 					'gateway' => 'paypal',
-					'payment_methods' => array('paypal' => 'ALL'),
+					'payment_methods' => array( 'paypal' => 'ALL' ),
 				),
 				'paypal-recurring' => array(
 					'gateway' => 'paypal',
-					'payment_methods' => array('paypal' => 'ALL'),
+					'payment_methods' => array( 'paypal' => 'ALL' ),
 					'recurring',
 				),
 			),
@@ -70,7 +70,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
+		$expected = array(
 			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
@@ -80,7 +80,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'item_number' => 'DONATE',
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'lc' => $init['country'], //this works because it's a US donor...
+			'lc' => $init['country'], // this works because it's a US donor...
 			'cancel_return' => 'https://example.com/tryAgain.php/en',
 			'return' => 'https://example.org/wiki/Thank_You/en?country=US',
 		);
@@ -104,8 +104,8 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
-			'a3' => $init['amount'], //obviously.
+		$expected = array(
+			'a3' => $init['amount'], // obviously.
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
 			'business' => 'phpunittesting@wikimedia.org',
@@ -114,10 +114,10 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'item_number' => 'DONATE',
 			'no_note' => '0',
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-			'lc' => $init['country'], //this works because it's a US donor...
-			't3' => 'M', //hard-coded in transaction definition
-			'p3' => '1', //hard-coded in transaction definition
-			'src' => '1', //hard-coded in transaction definition
+			'lc' => $init['country'], // this works because it's a US donor...
+			't3' => 'M', // hard-coded in transaction definition
+			'p3' => '1', // hard-coded in transaction definition
+			'src' => '1', // hard-coded in transaction definition
 			'srt' => $gateway->getGlobal( 'RecurringLength' ),
 			'cancel_return' => 'https://example.com/tryAgain.php/en',
 			'return' => 'https://example.org/wiki/Thank_You/en?country=US',
@@ -141,7 +141,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
+		$expected = array(
 			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => $init['country'],
@@ -149,12 +149,12 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 			'cmd' => '_xclick',
 			'item_name' => 'Donation to the Wikimedia Foundation',
 			'item_number' => 'DONATE',
-			'no_note' => '1', //hard-coded in transaction definition
+			'no_note' => '1', // hard-coded in transaction definition
 			'custom' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
-//			'lc' => $init['country'], //Apparently, this was removed from our implementation, because 'CN' is weird.
+// 'lc' => $init['country'], //Apparently, this was removed from our implementation, because 'CN' is weird.
 			'cancel_return' => 'https://example.com/tryAgain.php/en',
 			'return' => 'https://example.org/wiki/Thank_You/en?country=US',
-			'no_shipping' => '1', //hard-coded in transaction definition
+			'no_shipping' => '1', // hard-coded in transaction definition
 		);
 
 		$this->assertEquals( $expected, $res, 'Paypal "DonateXclick" transaction not constructing the expected redirect URL' );
@@ -167,7 +167,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$init = $this->getDonorTestData();
 		$session = array( 'Donor' => $init );
 
-		$redirectTest = function( $location ) use ( $init ) {
+		$redirectTest = function ( $location ) use ( $init ) {
 			parse_str( parse_url( $location, PHP_URL_QUERY ), $actual );
 			$this->assertEquals( $init['amount'], $actual['amount'] );
 		};
@@ -236,7 +236,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
+		$expected = array(
 			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => 'BE',
@@ -274,7 +274,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
+		$expected = array(
 			'amount' => $init['amount'],
 			'currency_code' => 'CAD',
 			'country' => 'CA',
@@ -308,7 +308,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$ret = $gateway->doPayment();
 		parse_str( parse_url( $ret->getRedirect(), PHP_URL_QUERY ), $res );
 
-		$expected = array (
+		$expected = array(
 			'amount' => $init['amount'],
 			'currency_code' => $init['currency'],
 			'country' => 'IT',

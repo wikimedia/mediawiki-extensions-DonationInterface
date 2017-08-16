@@ -30,7 +30,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	function testGCFraudFilters() {
 		$this->setMwGlobals( array(
 			'wgGlobalCollectGatewayEnableMinfraud' => true,
-			'wgDonationInterfaceMinFraudServers' => array('0.0.0.0'),
+			'wgDonationInterfaceMinFraudServers' => array( '0.0.0.0' ),
 		) );
 
 		$options = $this->getDonorTestData();
@@ -74,16 +74,15 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 }
 // Stub out Minfraud class for CI tests
 if ( !class_exists( 'CreditCardFraudDetection' ) ) {
-	class CreditCardFraudDetection{
+	class CreditCardFraudDetection {
 		public $server;
 		public function filter_field( $a, $b ) {
 			return 'blah';
 		}
-		public function query() {}
-		public function input( $a ) {}
+		public function query() { }
+		public function input( $a ) { }
 		public function output() {
 			return array();
 		}
 	}
 }
-

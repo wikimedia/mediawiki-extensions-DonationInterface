@@ -54,19 +54,19 @@ trait TTestingAdapter {
 	}
 
 	public function _addCodeRange() {
-		return call_user_func_array(array($this, 'addCodeRange'), func_get_args());
+		return call_user_func_array( array( $this, 'addCodeRange' ), func_get_args() );
 	}
 
 	public function _findCodeAction() {
-		return call_user_func_array(array($this, 'findCodeAction'), func_get_args());
+		return call_user_func_array( array( $this, 'findCodeAction' ), func_get_args() );
 	}
 
 	public function _buildRequestXML() {
-		return call_user_func_array( array ( $this, 'buildRequestXML' ), func_get_args() );
+		return call_user_func_array( array( $this, 'buildRequestXML' ), func_get_args() );
 	}
 
 	public function _getData_Staged() {
-		return call_user_func_array( array ( $this, 'getData_Staged' ), func_get_args() );
+		return call_user_func_array( array( $this, 'getData_Staged' ), func_get_args() );
 	}
 
 	public function _stageData() {
@@ -84,9 +84,9 @@ trait TTestingAdapter {
 		parent::defineOrderIDMeta();
 	}
 
-	//@TODO: That minfraud jerk needs its own isolated tests.
+	// @TODO: That minfraud jerk needs its own isolated tests.
 	function runAntifraudFilters() {
-		//now screw around with the batch settings to trick the fraud filters into triggering
+		// now screw around with the batch settings to trick the fraud filters into triggering
 		$is_batch = $this->isBatchProcessor();
 		$this->batch = true;
 
@@ -128,23 +128,23 @@ trait TTestingAdapter {
 		}
 		if ( $code ) {
 			if ( $code === 'Exception' ) {
-				throw new RuntimeException('blah!');
+				throw new RuntimeException( 'blah!' );
 			}
 			$code = '_' . $code;
 		}
 
-		//could start stashing these in a further-down subdir if payment type starts getting in the way,
-		//but frankly I don't want to write tests that test our dummy responses.
+		// could start stashing these in a further-down subdir if payment type starts getting in the way,
+		// but frankly I don't want to write tests that test our dummy responses.
 		$file_path = __DIR__ . '/../';
 		$file_path .= 'Responses/' . static::getIdentifier() . '/';
 		$file_path .= $this->getCurrentTransaction() . $code . '.testresponse';
 
-		//these are all going to be short, so...
+		// these are all going to be short, so...
 		if ( file_exists( $file_path ) ) {
 			return file_get_contents( $file_path );
 		} else {
 			// FIXME: Throw an assertion instead.
-			echo "File $file_path does not exist.\n"; //<-That will deliberately break the test.
+			echo "File $file_path does not exist.\n"; // <-That will deliberately break the test.
 			return false;
 		}
 	}
@@ -155,8 +155,8 @@ trait TTestingAdapter {
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200;
 
-		//put more here if it ever turns out that we care about it.
-		return array (
+		// put more here if it ever turns out that we care about it.
+		return array(
 			'http_code' => $code,
 		);
 	}

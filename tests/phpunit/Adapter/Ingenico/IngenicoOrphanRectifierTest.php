@@ -60,7 +60,6 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 			),
 		) );
 
-
 		$this->pendingDb = PendingDatabase::get();
 
 		// Create the schema.
@@ -117,7 +116,6 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 	 * Report a completed transaction.
 	 */
 	public function testProcessOrphansStatusComplete() {
-
 		$orphan_complete = $this->createOrphan();
 
 		$rectifier = new IngenicoOrphanRectifier();
@@ -210,6 +208,6 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		$result = $this->pendingDb->getDatabase()->query(
 			"select * from pending" );
 		$rows = $result->fetchAll( PDO::FETCH_ASSOC );
-		var_export($rows);
+		var_export( $rows );
 	}
 }

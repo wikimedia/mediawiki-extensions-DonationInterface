@@ -22,11 +22,11 @@ class IngenicoMethodCodec implements StagingHelper {
 		$payment_submethod = $normalized['payment_submethod'];
 
 		// We might support a variation of the submethod for this country.
-		//TODO: Having to front-load the country in the payment submethod is pretty lame.
-		//If we don't have one deliberately set...
+		// TODO: Having to front-load the country in the payment submethod is pretty lame.
+		// If we don't have one deliberately set...
 		if ( !$payment_submethod ) {
 			$trythis = $payment_method . '_' . strtolower( $normalized['country'] );
-			if ( array_key_exists( $trythis, $adapter->getPaymentSubmethods() ) ){
+			if ( array_key_exists( $trythis, $adapter->getPaymentSubmethods() ) ) {
 				$payment_submethod = $trythis;
 				$stagedData['payment_submethod'] = $payment_submethod;
 			}
@@ -49,7 +49,7 @@ class IngenicoMethodCodec implements StagingHelper {
 
 		switch ( $payment_method ) {
 		case 'dd':
-			$stagedData['date_collect'] = gmdate('Ymd');
+			$stagedData['date_collect'] = gmdate( 'Ymd' );
 			$stagedData['direct_debit_text'] = 'Wikimedia Foundation';
 			break;
 		case 'ew':

@@ -36,7 +36,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		$this->page = new TestingGatewayPage();
 		// put these here so tests can override them
-		TestingGenericAdapter::$fakeGlobals = array ( 'FallbackCurrency' => 'USD' );
+		TestingGenericAdapter::$fakeGlobals = array( 'FallbackCurrency' => 'USD' );
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 		TestingGenericAdapter::$fakeIdentifier = 'globalcollect';
 		$this->setMwGlobals( array(
@@ -44,7 +44,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'paypal' => array(
 					'gateway' => 'paypal',
-					'payment_methods' => array('paypal' => 'ALL'),
+					'payment_methods' => array( 'paypal' => 'ALL' ),
 				),
 			),
 		) );
@@ -119,7 +119,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$errors = $this->adapter->getErrorState()->getErrors();
 		$msgKey = 'donate_interface-fallback-currency-notice';
 		$foundError = false;
-		foreach( $errors as $error ) {
+		foreach ( $errors as $error ) {
 			if ( $error->getField() === 'currency' ) {
 				$this->assertEquals( $msgKey, $error->getMessageKey() );
 				$foundError = true;

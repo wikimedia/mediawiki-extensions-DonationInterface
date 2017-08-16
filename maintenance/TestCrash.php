@@ -6,8 +6,8 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../../..';
 }
 
-//If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
-require_once( "$IP/maintenance/Maintenance.php" );
+// If you get errors on this next line, set (and export) your MW_INSTALL_PATH var.
+require_once "$IP/maintenance/Maintenance.php";
 
 class TestCrash extends Maintenance {
 	public function __construct() {
@@ -21,14 +21,14 @@ class TestCrash extends Maintenance {
 	public function execute() {
 		if ( $this->getOption( 'error' ) ) {
 			$this->error( 'CRASHTEST: error', true );
-        }
+		}
 		if ( $this->getOption( 'exception' ) ) {
 			throw new Exception( 'CRASHTEST: uncaught exception' );
-        }
+		}
 		if ( $this->getOption( 'fatal' ) ) {
 			$this->error( 'CRASHTEST: fatal' );
 			$everything_and_nothing = FOO::BAR();
-        }
+		}
 
 		$this->error( 'CRASHTEST: should not reach this line.' );
 	}

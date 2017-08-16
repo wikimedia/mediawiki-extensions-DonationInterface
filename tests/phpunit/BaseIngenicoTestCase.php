@@ -44,21 +44,21 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'gateway' => 'ingenico',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 					'countries' => array(
 						'+' => $vmad_countries,
 					),
 				),
 				'cc-vmaj' => array(
 					'gateway' => 'ingenico',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
 					'countries' => array(
 						'+' => $vmaj_countries,
 					),
 				),
 				'cc-vma' => array(
 					'gateway' => 'ingenico',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
 					'countries' => array(
 						// Array merge with cc-vmaj as fallback in case 'j' goes down
 						// Array merge with cc-vmad as fallback in case 'd' goes down
@@ -76,7 +76,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 						'-' => 'GB'
 					),
 					'currencies' => array( '+' => 'EUR' ),
-					'payment_methods' => array('rtbt' => 'rtbt_sofortuberweisung'),
+					'payment_methods' => array( 'rtbt' => 'rtbt_sofortuberweisung' ),
 				),
 			),
 		) );

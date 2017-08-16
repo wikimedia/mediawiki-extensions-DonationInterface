@@ -46,14 +46,14 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	function testGetOneValidForm_CC_SpecificCountry() {
-		$tests = array (
-			0 => array (
+		$tests = array(
+			0 => array(
 				'country' => 'US',
 				'payment_method' => 'cc',
 				'currency' => 'USD',
 				'expected' => 'cc-vmad'
 			),
-			1 => array (
+			1 => array(
 				'country' => 'DK',
 				'payment_method' => 'cc',
 				'currency' => 'DKK',
@@ -68,12 +68,11 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	function testMaintenanceMode_Redirect() {
-
 		$this->setMwGlobals( array(
 			'wgContributionTrackingFundraiserMaintenance' => true,
 		) );
 
-		$expectedLocation = Title::newFromText('Special:FundraiserMaintenance')->getFullURL();
+		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL();
 		$assertNodes = array(
 			'headers' => array(
 				'Location' => $expectedLocation
@@ -92,7 +91,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	function testPreferCanonicalParams() {
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $val ) {
+				'Location' => function ( $val ) {
 					$qs = array();
 					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
 					$this->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
@@ -121,5 +120,3 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		}
 	}
 }
-
-

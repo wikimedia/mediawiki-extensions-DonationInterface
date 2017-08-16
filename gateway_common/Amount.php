@@ -35,7 +35,7 @@ class Amount implements ValidationHelper {
 				'amount',
 				'donate_interface-error-msg-invalid-amount'
 			) );
-		} else if ( $value > $max ) {
+		} elseif ( $value > $max ) {
 			// FIXME: should format the currency values in this message
 			$errors->addError( new ValidationError(
 				'amount',
@@ -46,7 +46,7 @@ class Amount implements ValidationHelper {
 					$adapter->getGlobal( 'MajorGiftsEmail' ),
 				)
 			) );
-		} else if ( $value < $min ) {
+		} elseif ( $value < $min ) {
 			$locale = $normalized['language'] . '_' . $normalized['country'];
 			$formattedMin = self::format( $min, $currency, $locale );
 			$errors->addError( new ValidationError(
@@ -61,7 +61,7 @@ class Amount implements ValidationHelper {
 	 * Checks if the $value is missing or equivalent to zero.
 	 *
 	 * @param string $value The value to check for zero-ness
-	 * @return boolean True if the $value is missing or zero, otherwise false
+	 * @return bool True if the $value is missing or zero, otherwise false
 	 */
 	protected static function isZeroIsh( $value ) {
 		if (
@@ -115,10 +115,10 @@ class Amount implements ValidationHelper {
 	 * @return string rounded amount
 	 */
 	public static function round( $amount, $currencyCode ) {
-		if ( self::is_fractional_currency( $currencyCode ) ){
+		if ( self::is_fractional_currency( $currencyCode ) ) {
 			return number_format( $amount, 2, '.', '' );
 		} else {
-			return ( string ) floor( $amount );
+			return (string)floor( $amount );
 		}
 	}
 
@@ -128,9 +128,9 @@ class Amount implements ValidationHelper {
 	 * (so: full integers only).
 	 *
 	 * @param string $currency_code The three-digit currency code.
-	 * @return boolean
+	 * @return bool
 	 */
-	public static function is_fractional_currency( $currency_code ){
+	public static function is_fractional_currency( $currency_code ) {
 		// these currencies cannot have cents.
 		$non_fractional_currencies = array(
 			'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF'
@@ -146,10 +146,9 @@ class Amount implements ValidationHelper {
 	 * Checks if ISO 4217 defines the currency's minor units as being expressed using
 	 * exponent 3 (three decimal places).
 	 * @param string $currency_code The three-character currency code.
-	 * @return boolean
+	 * @return bool
 	 */
-	public static function is_exponent3_currency( $currency_code ){
-
+	public static function is_exponent3_currency( $currency_code ) {
 		$exponent3_currencies = array( 'BHD', 'CLF', 'IQD', 'KWD', 'LYD', 'MGA', 'MRO', 'OMR', 'TND' );
 
 		if ( in_array( strtoupper( $currency_code ), $exponent3_currencies ) ) {

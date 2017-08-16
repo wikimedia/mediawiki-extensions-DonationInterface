@@ -127,7 +127,7 @@ class ResultPages {
 	 */
 	protected static function appendLanguageAndMakeURL( $url, $language ) {
 		// make sure we don't already have the language in there...
-		$dirs = explode('/', $url);
+		$dirs = explode( '/', $url );
 		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {
 			$url = $url . "/$language";
 		}

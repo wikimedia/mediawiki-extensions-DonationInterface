@@ -17,7 +17,7 @@
  */
 
 /**
- * 
+ *
  * @group Fundraising
  * @group DonationInterface
  * @group GlobalCollect
@@ -41,15 +41,14 @@ class DonationInterface_Adapter_GlobalCollect_YandexTest extends DonationInterfa
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXml() {
-		
 		$optionsForTestData = array(
 			'payment_method' => 'ew',
 			'payment_submethod' => 'ew_yandex',
 			'payment_product_id' => 849,
-			'descriptor' => 'Wikimedia Foundation/Wikipedia', //all ewallets have this
+			'descriptor' => 'Wikimedia Foundation/Wikipedia', // all ewallets have this
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -59,12 +58,12 @@ class DonationInterface_Adapter_GlobalCollect_YandexTest extends DonationInterfa
 	}
 
 	public function testFormAction() {
-		$optionsForTestData = array (
+		$optionsForTestData = array(
 			'payment_method' => 'ew',
 			'payment_submethod' => 'ew_yandex',
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 
@@ -75,4 +74,3 @@ class DonationInterface_Adapter_GlobalCollect_YandexTest extends DonationInterfa
 	}
 
 }
-

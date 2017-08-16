@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Parser;
 
 function runForYamlFiles( $callback ) {
 	$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/../' );
-	$filter = new RecursiveCallbackFilterIterator( $directoryIterator, function( $current, $key, $iterator ) {
+	$filter = new RecursiveCallbackFilterIterator( $directoryIterator, function ( $current, $key, $iterator ) {
 		// Skip tests and vendor directories.
 		if ( $current->getFilename() === 'tests'
 			|| $current->getFilename() === 'vendor'
@@ -47,4 +47,4 @@ function lintYamlFile( $path ) {
 $exitStatus = 0;
 require_once __DIR__ . '/../../vendor/autoload.php';
 runForYamlFiles( 'lintYamlFile' );
-exit($exitStatus);
+exit( $exitStatus );

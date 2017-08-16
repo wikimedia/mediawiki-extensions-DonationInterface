@@ -130,7 +130,7 @@ class DonationData implements LogPrefixProvider {
 	protected function populateData( $external_data = false ) {
 		$this->normalized = array();
 		if ( is_array( $external_data ) ) {
-			//I don't care if you're a test or not. At all.
+			// I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
 		} else {
 			foreach ( self::$fieldNames as $var ) {
@@ -142,7 +142,7 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
-		//if we have saved any donation data to the session, pull them in as well.
+		// if we have saved any donation data to the session, pull them in as well.
 		$this->integrateDataFromSession();
 
 		// We have some data, so normalize it.
@@ -200,7 +200,7 @@ class DonationData implements LogPrefixProvider {
 			'lname' => 'last_name',
 			'state' => 'state_province',
 		);
-		//fields that should always overwrite with their original values
+		// fields that should always overwrite with their original values
 		$overwrite = array( 'referrer', 'contribution_tracking_id' );
 		foreach ( $donorData as $key => $val ) {
 			$newKey = $key;
@@ -230,7 +230,7 @@ class DonationData implements LogPrefixProvider {
 	 * Tells you if a value in $this->normalized is something or not.
 	 * @param string $key The field you would like to determine if it exists in
 	 * a usable way or not.
-	 * @return boolean true if the field is something. False if it is null, or
+	 * @return bool true if the field is something. False if it is null, or
 	 * an empty string.
 	 */
 	public function isSomething( $key ) {
@@ -276,7 +276,7 @@ class DonationData implements LogPrefixProvider {
 			$val = null;
 		}
 
-		$this->normalized[$key] = (string) $val;
+		$this->normalized[$key] = (string)$val;
 
 		// TODO: Set something dirty so that we're sure to normalize before
 		// pulling data.
@@ -309,7 +309,7 @@ class DonationData implements LogPrefixProvider {
 			'optout',
 			'anonymous',
 			'language',
-			'contribution_tracking_id', //sort of...
+			'contribution_tracking_id', // sort of...
 			'currency',
 			'user_ip',
 		);
@@ -333,7 +333,7 @@ class DonationData implements LogPrefixProvider {
 				if ( $value === null || $value === '' ) {
 					return null;
 				}
-				return (string) $value;
+				return (string)$value;
 			};
 			$this->normalized = array_map( $toStringOrNull, $this->normalized );
 
@@ -342,12 +342,12 @@ class DonationData implements LogPrefixProvider {
 			$this->setReferrer();
 			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
-			$this->setNormalizedPaymentMethod(); //need to do this before utm_source.
+			$this->setNormalizedPaymentMethod(); // need to do this before utm_source.
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
 			$this->setGateway();
 			$this->setLanguage();
-			$this->setCountry(); //must do this AFTER setIPAddress...
+			$this->setCountry(); // must do this AFTER setIPAddress...
 			$this->setCurrencyCode(); // AFTER setCountry
 			$this->renameCardType();
 			$this->setEmail();
@@ -377,7 +377,7 @@ class DonationData implements LogPrefixProvider {
 		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ) {
 			$this->setVal( 'server_ip', $_SERVER['SERVER_ADDR'] );
 		} else {
-			//command line? 
+			// command line?
 			$this->setVal( 'server_ip', '127.0.0.1' );
 		}
 	}
@@ -408,9 +408,9 @@ class DonationData implements LogPrefixProvider {
 			if ( CountryValidation::isValidIsoCode( $country ) ) {
 				$regen = false;
 			} else {
-				//check to see if it's one of those other codes that comes out of CN, for the logs
-				//If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
-				//we're still going to try to regen.
+				// check to see if it's one of those other codes that comes out of CN, for the logs
+				// If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
+				// we're still going to try to regen.
 				$near_countries = array( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
 				if ( !in_array( $country, $near_countries ) ) {
 					$this->logger->warning( __FUNCTION__ . ": $country is not a country, or a recognized placeholder." );
@@ -420,16 +420,16 @@ class DonationData implements LogPrefixProvider {
 			$this->logger->warning( __FUNCTION__ . ': Country not set.' );
 		}
 
-		//try to regenerate the country if we still don't have a valid one yet
+		// try to regenerate the country if we still don't have a valid one yet
 		if ( $regen ) {
 			// If no valid country was passed, try to do GeoIP lookup
 			// Requires php5-geoip package
 			if ( function_exists( 'geoip_country_code_by_name' ) ) {
 				$ip = $this->getVal( 'user_ip' );
 				if ( WmfFramework::validateIP( $ip ) ) {
-					//I hate @suppression at least as much as you do, but this geoip function is being genuinely horrible.
-					//try/catch did not help me suppress the notice it emits when it can't find a host.
-					//The goggles; They do *nothing*.
+					// I hate @suppression at least as much as you do, but this geoip function is being genuinely horrible.
+					// try/catch did not help me suppress the notice it emits when it can't find a host.
+					// The goggles; They do *nothing*.
 					// TODO: to change error_reporting is less worse?
 					$country = @geoip_country_code_by_name( $ip );
 					if ( !$country ) {
@@ -440,7 +440,7 @@ class DonationData implements LogPrefixProvider {
 				$this->logger->warning( 'GeoIP lookup function is missing! No country available.' );
 			}
 
-			//still nothing good? Give up.
+			// still nothing good? Give up.
 			if ( !CountryValidation::isValidIsoCode( $country ) ) {
 				$country = 'XX';
 			}
@@ -458,8 +458,8 @@ class DonationData implements LogPrefixProvider {
 	 * 'currency_code'. After this fires, we will only have 'currency'.
 	 */
 	protected function setCurrencyCode() {
-		//at this point, we can have either currency, or currency_code.
-		//-->>currency has the authority!<<--
+		// at this point, we can have either currency, or currency_code.
+		// -->>currency has the authority!<<--
 		$currency = false;
 
 		if ( $this->isSomething( 'currency' ) ) {
@@ -476,13 +476,13 @@ class DonationData implements LogPrefixProvider {
 		}
 		// If it's blank or not a currency code, guess it from the country.
 		if ( !$currency || !array_key_exists( $currency, CurrencyRates::getCurrencyRates() ) ) {
-			//TODO: This is going to fail miserably if there's no country yet.
+			// TODO: This is going to fail miserably if there's no country yet.
 			$currency = NationalCurrencies::getNationalCurrency( $this->getVal( 'country' ) );
 			$this->logger->debug( "Got currency from 'country', now: $currency" );
 		}
 
 		$this->setVal( 'currency', $currency );
-		$this->expunge( 'currency_code' );  //honestly, we don't want this.
+		$this->expunge( 'currency_code' );  // honestly, we don't want this.
 	}
 
 	/**
@@ -524,7 +524,7 @@ class DonationData implements LogPrefixProvider {
 			( $this->isSomething( 'amountGiven' ) && is_numeric( $this->getVal( 'amountGiven' ) ) )
 		) {
 			$this->setVal( 'amount', $this->getVal( 'amountGiven' ) );
-		} else if ( $amountIsNotValidSomehow &&
+		} elseif ( $amountIsNotValidSomehow &&
 			( $this->isSomething( 'amountOther' ) && is_numeric( $this->getVal( 'amountOther' ) ) )
 		) {
 			$this->setVal( 'amount', $this->getVal( 'amountOther' ) );
@@ -538,7 +538,7 @@ class DonationData implements LogPrefixProvider {
 		$this->expunge( 'amountOther' );
 
 		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
-			//fail validation later, log some things.
+			// fail validation later, log some things.
 			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
 			$keys = array(
@@ -546,7 +546,7 @@ class DonationData implements LogPrefixProvider {
 				'utm_source',
 				'utm_campaign',
 				'email',
-				'user_ip', //to help deal with fraudulent traffic.
+				'user_ip', // to help deal with fraudulent traffic.
 			);
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
@@ -633,7 +633,7 @@ class DonationData implements LogPrefixProvider {
 	 * place.
 	 */
 	protected function setGateway() {
-		//TODO: Hum. If we have some other gateway in the form data, should we go crazy here? (Probably)
+		// TODO: Hum. If we have some other gateway in the form data, should we go crazy here? (Probably)
 		$gateway = $this->gatewayID;
 		$this->setVal( 'gateway', $gateway );
 	}
@@ -801,7 +801,6 @@ class DonationData implements LogPrefixProvider {
 	 * @return array Clean tracking data
 	 */
 	public function getCleanTrackingData( $unset = false ) {
-
 		// define valid tracking fields
 		$tracking_fields = array(
 			'note',

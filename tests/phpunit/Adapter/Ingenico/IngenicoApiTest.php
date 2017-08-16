@@ -49,7 +49,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
-				$this->callback( function( $actual ) {
+				$this->callback( function ( $actual ) {
 					$hcsi = array(
 						'locale' => 'en_US',
 						'paymentProductFilters' => array(

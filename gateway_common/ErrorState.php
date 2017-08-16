@@ -37,7 +37,7 @@ class ErrorState {
 	}
 
 	public function addErrors( $errors ) {
-		foreach( $errors as $error ) {
+		foreach ( $errors as $error ) {
 			$this->addError( $error );
 		}
 	}

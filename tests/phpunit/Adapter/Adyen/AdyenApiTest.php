@@ -58,9 +58,9 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'billingAddress.houseNumberOrName' => 'NA'
 		);
 		$actualParams = $result['gateway_params'];
-		unset ( $actualParams['sessionValidity'] );
-		unset ( $actualParams['shipBeforeDate'] );
-		unset ( $actualParams['merchantSig'] );
+		unset( $actualParams['sessionValidity'] );
+		unset( $actualParams['shipBeforeDate'] );
+		unset( $actualParams['merchantSig'] );
 		$this->assertEquals(
 			$expectedParams,
 			$actualParams,
@@ -122,7 +122,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 
 	public function testMissingPostalCode() {
 		$init = $this->getDonorData();
-		unset ( $init['postal_code'] );
+		unset( $init['postal_code'] );
 
 		$apiResult = $this->doApiRequest( $init );
 		$result = $apiResult[0]['result'];
@@ -147,8 +147,8 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'adyen';
 		$init['action'] = 'donate';
 		// The US form doesn't have these two as we can look them up by zip
-		unset ( $init['city'] );
-		unset ( $init['state_province'] );
+		unset( $init['city'] );
+		unset( $init['state_province'] );
 		return $init;
 	}
 }

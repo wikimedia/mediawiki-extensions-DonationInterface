@@ -40,13 +40,12 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 				$this->smashPigGlobalConfig
 			);
 
-
 		$this->setMwGlobals( array(
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'gateway' => 'globalcollect',
-					'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 					'countries' => array(
 						'+' => array( 'US', ),
 					),
@@ -63,7 +62,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = 'TestingGlobalCollectOrphanAdapter';
-		$this->dummy_utm_data = array (
+		$this->dummy_utm_data = array(
 			'utm_source' => 'dummy_source',
 			'utm_campaign' => 'dummy_campaign',
 			'utm_medium' => 'dummy_medium',
@@ -72,7 +71,6 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	}
 
 	public function testConstructor() {
-
 		$options = $this->getDonorTestData();
 		$class = $this->testAdapterClass;
 
@@ -83,18 +81,16 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$this->verifyNoLogErrors();
 	}
 
-
 	public function testBatchOrderID_generate() {
-
-		//no data on construct, generate Order IDs
-		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => TRUE ) ) );
+		// no data on construct, generate Order IDs
+		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => true ) ) );
 		$this->assertTrue( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Order_id generation may be broken.' );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is not left as null, when generating our own' );
 
 		$data = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$data['order_id'] = '55555';
 
-		//now, add data and check that we didn't kill the oid. Still generating.
+		// now, add data and check that we didn't kill the oid. Still generating.
 		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '55555', 'loadDataAndReInit failed to stick OrderID' );
 
@@ -106,16 +102,15 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	}
 
 	public function testBatchOrderID_no_generate() {
-
-		//no data on construct, do not generate Order IDs
-		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+		// no data on construct, do not generate Order IDs
+		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
 		$this->assertFalse( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Deferred order_id generation may be broken.' );
 		$this->assertEmpty( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
 
 		$data = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$data['order_id'] = '66666';
 
-		//now, add data and check that we didn't kill the oid. Still not generating
+		// now, add data and check that we didn't kill the oid. Still not generating
 		$gateway->loadDataAndReInit( $data );
 		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '66666', 'loadDataAndReInit failed to stick OrderID' );
 
@@ -132,9 +127,9 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * @dataProvider mcNoRetryCodeProvider
 	 */
 	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
-		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
 
-		//Toxic card should not retry, even if there's an order id collision
+		// Toxic card should not retry, even if there's an order id collision
 		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
@@ -148,7 +143,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$this->assertEquals( false, $result->getCommunicationStatus(), "Error code $code should mean status of do_transaction is false" );
 		$errors = $result->getErrors();
 		$this->assertFalse( empty( $errors ), 'Orphan adapter needs to see the errors to consider it rectified' );
-		$finder = function( $error ) {
+		$finder = function ( $error ) {
 			return $error->getErrorCode() == '1000001';
 		};
 		$this->assertNotEmpty( array_filter( $errors, $finder ), 'Orphan adapter needs error 1000001 to consider it rectified' );
@@ -168,7 +163,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 				'getAVSResult' => 30,
 			),
 		) );
-		$gateway = $this->getFreshGatewayObject( null, array ( 'order_id_meta' => array ( 'generate' => FALSE ) ) );
+		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
 
 		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$init['ffname'] = 'cc-vmad';

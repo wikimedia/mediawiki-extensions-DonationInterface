@@ -24,7 +24,7 @@ class StreetAddress implements StagingHelper {
 		if ( !$street
 			|| !DataValidator::validate_not_just_punctuation( $street )
 		) {
-			$street = 'N0NE PROVIDED'; //The zero is intentional. See function comment.
+			$street = 'N0NE PROVIDED'; // The zero is intentional. See function comment.
 		}
 		return $street;
 	}
@@ -41,18 +41,18 @@ class StreetAddress implements StagingHelper {
 			$postalCode = trim( $normalized['postal_code'] );
 		}
 		if ( strlen( $postalCode ) === 0 ) {
-			//it would be nice to check for more here, but the world has some
-			//straaaange postal codes...
+			// it would be nice to check for more here, but the world has some
+			// straaaange postal codes...
 			$postalCode = '0';
 		}
 
-		//country-based postal_code grooming to make AVS (marginally) happy
+		// country-based postal_code grooming to make AVS (marginally) happy
 		if ( !empty( $normalized['country'] ) ) {
 			switch ( $normalized['country'] ) {
 			case 'CA':
-				//Canada goes "A0A 0A0"
+				// Canada goes "A0A 0A0"
 				$this->staged_data['postal_code'] = strtoupper( $postalCode );
-				//In the event that they only forgot the space, help 'em out.
+				// In the event that they only forgot the space, help 'em out.
 				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
 				if ( strlen( $this->staged_data['postal_code'] ) === 6
 					&& preg_match( $regex, $postalCode )

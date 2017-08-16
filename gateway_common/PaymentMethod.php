@@ -48,7 +48,7 @@ class PaymentMethod {
 	) {
 		$method = new PaymentMethod();
 		$method->gateway = $gateway;
-		$method->name = PaymentMethod::parseCompoundMethod( $method_name, $submethod_name );
+		$method->name = self::parseCompoundMethod( $method_name, $submethod_name );
 		$method->is_recurring = $is_recurring;
 
 		try {
@@ -85,7 +85,7 @@ class PaymentMethod {
 	 *
 	 * @return string unique method id
 	 */
-	static public function parseCompoundMethod( $bareMethod, $subMethod ) {
+	public static function parseCompoundMethod( $bareMethod, $subMethod ) {
 		$parts = array();
 		if ( $subMethod ) {
 			$parts = explode( '_', $subMethod );
@@ -113,7 +113,8 @@ class PaymentMethod {
 	 * @return true if this payment method is complete enough to begin a transaction
 	 */
 	public function isCompletelySpecified() {
-		if ( $this->name === 'cc' ) return false;
+		if ( $this->name === 'cc' ) { return false;
+		}
 		return true;
 	}
 
@@ -149,7 +150,7 @@ class PaymentMethod {
 	 */
 	protected function getParent() {
 		if ( array_key_exists( 'group', $this->spec ) ) {
-			return PaymentMethod::newFromCompoundName( $this->gateway, $this->spec['group'], null, $this->is_recurring );
+			return self::newFromCompoundName( $this->gateway, $this->spec['group'], null, $this->is_recurring );
 		}
 		return null;
 	}

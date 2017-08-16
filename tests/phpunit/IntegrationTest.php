@@ -45,20 +45,20 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAllowedHtmlForms' => array(
 				'cc-vmad' => array(
 					'gateway' => 'globalcollect',
-					'payment_methods' => array ( 'cc' => array ( 'visa', 'mc', 'amex', 'discover' ) ),
-					'countries' => array (
-						'+' => array ( 'US', ),
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
+					'countries' => array(
+						'+' => array( 'US', ),
 					),
 				),
 				'paypal' => array(
 					'gateway' => 'paypal',
-					'payment_methods' => array ( 'paypal' => 'ALL' ),
+					'payment_methods' => array( 'paypal' => 'ALL' ),
 				),
 			),
 		) );
 	}
 
-	//this is meant to simulate a user choosing paypal, then going back and choosing GC.
+	// this is meant to simulate a user choosing paypal, then going back and choosing GC.
 	public function testBackClickPayPalToGC() {
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'paypal';
@@ -69,10 +69,10 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$gateway->do_transaction( 'Donate' );
 
 		$paymentForms = $paypalRequest->getSessionData( 'PaymentForms' );
-		//check to see that we have a numAttempt and form set in the session
+		// check to see that we have a numAttempt and form set in the session
 		$this->assertEquals( 'paypal', $paymentForms[0], "Paypal didn't load its form." );
 		$this->assertEquals( '1', $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
-		//now, get GC.
+		// now, get GC.
 		$options['payment_method'] = 'cc';
 		unset( $options['ffname'] );
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );

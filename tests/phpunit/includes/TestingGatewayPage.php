@@ -6,7 +6,7 @@ class TestingGatewayPage extends GatewayPage {
 
 	public function __construct() {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'TestingGenericAdapter' );
-		//nothing!
+		// nothing!
 	}
 
 	public function getPageTitle( $subpage = false ) {
@@ -14,6 +14,6 @@ class TestingGatewayPage extends GatewayPage {
 	}
 
 	protected function handleRequest() {
-		//also nothing!
+		// also nothing!
 	}
 }

@@ -33,7 +33,8 @@ abstract class Gateway_Form {
 	/**
 	 * Get these objects using "new" with no parameters.
 	 */
-	public function __construct() {}
+	public function __construct() {
+ }
 
 	public function setGateway( GatewayType $gateway ) {
 		$this->gateway = $gateway;
@@ -53,13 +54,12 @@ abstract class Gateway_Form {
 	 * @return string $url The full URL for the form to post to
 	 */
 	protected function getNoCacheAction() {
-
 		$url = $this->gatewayPage->getRequest()->getFullRequestURL();
 		$url_parts = wfParseUrl( $url );
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );
 		} else {
-			$query_array = array( );
+			$query_array = array();
 		}
 
 		// ensure that _cache_ does not get set in the URL
@@ -77,9 +77,9 @@ abstract class Gateway_Form {
 		);
 		$form_data_keys = array_keys( $all_form_data );
 
-		foreach ( $query_array as $key => $value ){
-			if ( in_array( $key, $form_data_keys ) ){
-				if ( !in_array( $key, $keys_we_need_for_form_loading ) ){
+		foreach ( $query_array as $key => $value ) {
+			if ( in_array( $key, $form_data_keys ) ) {
+				if ( !in_array( $key, $keys_we_need_for_form_loading ) ) {
 					unset( $query_array[$key] );
 				} else {
 					$query_array[$key] = $all_form_data[$key];

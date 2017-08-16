@@ -65,9 +65,9 @@ class GlobalCollectOrphanRectifier {
 	}
 
 	/**
-	 * @return boolean True until our job timer runs to zero.
+	 * @return bool True until our job timer runs to zero.
 	 */
-	protected function keepGoing(){
+	protected function keepGoing() {
 		$elapsed = $this->getProcessElapsed();
 		if ( $elapsed < $this->target_execute_time ) {
 			return true;
@@ -81,7 +81,7 @@ class GlobalCollectOrphanRectifier {
 	 * the cronspammer.
 	 * @return int elapsed time since start in seconds
 	 */
-	protected function getProcessElapsed(){
+	protected function getProcessElapsed() {
 		$elapsed = time() - $this->start_time;
 		$this->logger->info( "Elapsed Time: {$elapsed}" );
 		return $elapsed;
@@ -136,12 +136,12 @@ class GlobalCollectOrphanRectifier {
 			$this->deleteMessage( $message );
 		}
 
-		//TODO: Make stats squirt out all over the place.
+		// TODO: Make stats squirt out all over the place.
 		$final = "Final results: \n";
 		$final .= " {$num_rectified} rectified orphans \n";
 		$final .= " {$num_errored} errored out \n";
 		// TODO: Wrap in an interface, even a helper object.
-		if ( isset( $this->adapter->orphanstats ) ){
+		if ( isset( $this->adapter->orphanstats ) ) {
 			foreach ( $this->adapter->orphanstats as $status => $count ) {
 				$final .= "\n   Status $status = $count";
 			}
@@ -157,9 +157,9 @@ class GlobalCollectOrphanRectifier {
 	 *
 	 * @param array $normalized Orphaned message
 	 *
-	 * @return boolean True if the orphan has been rectified, false if not.
+	 * @return bool True if the orphan has been rectified, false if not.
 	 */
-	protected function rectifyOrphan( $normalized ){
+	protected function rectifyOrphan( $normalized ) {
 		if ( $normalized['payment_method'] !== 'cc' ) {
 			// Skip other payment methods which shouldn't be in the pending
 			// queue anyway.  See https://phabricator.wikimedia.org/T161160
@@ -188,19 +188,19 @@ class GlobalCollectOrphanRectifier {
 		$message = $results->getMessage();
 		$this->logger->info( "Result message: {$message}" );
 
-		if ( $results->getCommunicationStatus() ){
+		if ( $results->getCommunicationStatus() ) {
 			$this->logger->info( $normalized['contribution_tracking_id'] . ': FINAL: ' . $this->adapter->getValidationAction() );
 			$is_rectified = true;
 		} else {
 			$status = 'UNKNOWN INCOMPLETE';
-			if ( strpos( $message, 'GET_ORDERSTATUS reports that the payment is already complete.' ) === 0  ){
+			if ( strpos( $message, 'GET_ORDERSTATUS reports that the payment is already complete.' ) === 0 ) {
 				$is_rectified = true;
 				$status = 'COMPLETE';
 			}
 
-			//handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too.
+			// handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too.
 			$errors = $results->getErrors();
-			$finder = function( $error ) {
+			$finder = function ( $error ) {
 				return $error->getErrorCode() == '1000001';
 			};
 			if ( !empty( $errors ) && !empty( array_filter( $errors, $finder ) ) ) {
@@ -208,9 +208,9 @@ class GlobalCollectOrphanRectifier {
 				$status = 'CANCELLED';
 			}
 
-			//apparently this is well-formed GlobalCollect for "iono". Get rid of it.
+			// apparently this is well-formed GlobalCollect for "iono". Get rid of it.
 			// TODO: Verify and point to documentation.
-			if ( strpos( $message, 'No processors are available.' ) === 0 ){
+			if ( strpos( $message, 'No processors are available.' ) === 0 ) {
 				$is_rectified = true;
 				$status = 'PROCESSOR NOT AVAILABLE';
 			}
@@ -232,12 +232,12 @@ class GlobalCollectOrphanRectifier {
 	 * FIXME: Reuse GatewayAdapter::getGlobal.  Just move under a wgGC.orphan key.
 	 * @return mixed Value of the variable.
 	 */
-	protected static function getOrphanGlobal( $key ){
+	protected static function getOrphanGlobal( $key ) {
 		global $wgDonationInterfaceOrphanCron;
-		if ( array_key_exists( $key, $wgDonationInterfaceOrphanCron ) ){
+		if ( array_key_exists( $key, $wgDonationInterfaceOrphanCron ) ) {
 			return $wgDonationInterfaceOrphanCron[$key];
 		} else {
-			return NULL;
+			return null;
 		}
 	}
 

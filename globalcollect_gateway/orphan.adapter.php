@@ -1,16 +1,16 @@
 <?php
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
-	//Data we know to be good, that we always want to re-assert after a load or an addData.
-	//so far: order_id and the data we pull from contribution tracking.
-	protected $hard_data = array ( );
+	// Data we know to be good, that we always want to re-assert after a load or an addData.
+	// so far: order_id and the data we pull from contribution tracking.
+	protected $hard_data = array();
 
 	public static function getLogIdentifier() {
 		return 'orphans:' . self::getIdentifier() . "_gateway_trxn";
 	}
 
 	public function __construct() {
-		$this->batch = true; //always batch if we're using this object.
+		$this->batch = true; // always batch if we're using this object.
 
 		// FIXME: This is just to trigger batch code paths within DonationData.
 		// Do so explicitly instead.
@@ -24,19 +24,19 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	// FIXME: Get rid of this.
-	public function unstage_data( $data = array( ), $final = true ) {
-		$unstaged = array( );
+	public function unstage_data( $data = array(), $final = true ) {
+		$unstaged = array();
 		foreach ( $data as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$unstaged += $this->unstage_data( $val, false );
 			} else {
 				if ( array_key_exists( $key, $this->var_map ) ) {
-					//run the unstage data functions.
+					// run the unstage data functions.
 					$unstaged[$this->var_map[$key]] = $val;
-					//this would be EXTREMELY bad to put in the regular adapter.
+					// this would be EXTREMELY bad to put in the regular adapter.
 					$this->staged_data[$this->var_map[$key]] = $val;
 				} else {
-					//$unstaged[$key] = $val;
+					// $unstaged[$key] = $val;
 				}
 			}
 		}
@@ -52,15 +52,15 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 	// FIXME: This needs some serious code reuse trickery.
 	public function loadDataAndReInit( $data ) {
-		//re-init all these arrays, because this is a batch thing.
+		// re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
 		$this->errorState = new ErrorState();
 		$this->transaction_response = new PaymentTransactionResponse();
 		$this->hard_data = array(
 			'order_id' => $data['order_id']
 		);
-		$this->unstaged_data = array( );
-		$this->staged_data = array( );
+		$this->unstaged_data = array();
+		$this->staged_data = array();
 
 		$this->dataObj = new DonationData( $this, $data );
 
@@ -79,7 +79,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$this->stageData();
 
-		//have to do this again here.
+		// have to do this again here.
 		$this->reAddHardData();
 
 		$this->validate();
@@ -91,8 +91,8 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	}
 
 	private function reAddHardData() {
-		//anywhere else, and this would constitute abuse of the system.
-		//so don't do it.
+		// anywhere else, and this would constitute abuse of the system.
+		// so don't do it.
 		$data = $this->hard_data;
 
 		if ( array_key_exists( 'order_id', $data ) ) {
@@ -122,7 +122,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
-		$data = array( );
+		$data = array();
 
 		// if contrib tracking id is not already set, we need to insert the data, otherwise update
 		if ( $ctid ) {
@@ -153,7 +153,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			}
 		}
 
-		//if we got here, we can't find anything else...
+		// if we got here, we can't find anything else...
 		$this->logger->error( "$ctid: FAILED to find contribution tracking data. Using default." );
 		return $data;
 	}
@@ -170,13 +170,13 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
 			$transaction['date'] = $this->getData_Unstaged_Escaped( 'date' );
 		} elseif ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
-			$transaction['date'] = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); //I hate that this works. FIXME: wat.
+			$transaction['date'] = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); // I hate that this works. FIXME: wat.
 		}
 
 		return $transaction;
 	}
 
-	public function setGatewayDefaults( $options = array ( ) ) {
+	public function setGatewayDefaults( $options = array() ) {
 		// Prevent MediaWiki code paths.
 		parent::setGatewayDefaults( array(
 			'returnTo' => '',

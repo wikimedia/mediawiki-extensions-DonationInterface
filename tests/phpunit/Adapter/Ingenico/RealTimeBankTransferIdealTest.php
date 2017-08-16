@@ -110,7 +110,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId21() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -119,7 +118,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 21,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -138,7 +137,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId31() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -147,7 +145,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 31,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -166,7 +164,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId91() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -175,7 +172,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 21,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -194,7 +191,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId161() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -203,7 +199,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 161,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -222,7 +218,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId511() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -231,7 +226,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 511,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -250,7 +245,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId721() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -259,7 +253,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 721,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -278,7 +272,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId751() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -287,7 +280,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 751,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -306,7 +299,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId761() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -315,7 +307,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 761,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -334,7 +326,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlWithIssuerId771() {
-
 		$optionsForTestData = array(
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'rtbt',
@@ -343,7 +334,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'issuer_id' => 771,
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 		unset( $options['payment_product_id'] );
@@ -352,7 +343,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	}
 
 	public function testFormAction() {
-
 		$optionsForTestData = array(
 			'payment_method' => 'rtbt',
 			'payment_submethod' => 'rtbt_ideal',
@@ -361,7 +351,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 			'email' => 'nobody@wikimedia.org',
 		);
 
-		//somewhere else?
+		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );
 
@@ -375,4 +365,3 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	}
 
 }
-

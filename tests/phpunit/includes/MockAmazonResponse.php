@@ -28,7 +28,6 @@ class MockAmazonResponse { // FIXME: implements PwaResponseInterface {
 	}
 
 	public function getBillingAgreementDetailsStatus( $response ) {
-
 	}
 
 	public function toArray() {
@@ -36,10 +35,8 @@ class MockAmazonResponse { // FIXME: implements PwaResponseInterface {
 	}
 
 	public function toJson() {
-
 	}
 
 	public function toXml() {
-
 	}
 }

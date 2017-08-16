@@ -101,10 +101,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	 * 'length' => $max_charlen
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array (
-			'alt_locations' => array (),
-			'ct_id' => TRUE,
-			'generate' => TRUE,
+		$this->order_id_meta = array(
+			'alt_locations' => array(),
+			'ct_id' => true,
+			'generate' => true,
 		);
 	}
 
@@ -118,7 +118,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		}
 
 		$provider = $this->getPaymentProvider();
-		switch( $this->getCurrentTransaction() ) {
+		switch ( $this->getCurrentTransaction() ) {
 			case 'createHostedCheckout':
 				$result = $provider->createHostedPayment( $data );
 				$this->transaction_response->setRawResponse( json_encode( $result ) );

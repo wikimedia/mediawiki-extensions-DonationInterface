@@ -100,18 +100,18 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$expected = array(
 			'country' => 'US',
 			'fee' => '0',
-		    'gateway' => 'paypal_ec',
-		    'gateway_txn_id' => null,
-		    'language' => 'fr',
-		    'contribution_tracking_id' => $init['contribution_tracking_id'],
-		    'order_id' => $init['contribution_tracking_id'] . '.1',
-		    'utm_source' => 'CD1234_FR..paypal',
-		    'currency' => 'USD',
-		    'email' => '',
-		    'gross' => '1.55',
-		    'recurring' => '',
-		    'response' => false,
-		    'utm_medium' => 'sitenotice',
+			'gateway' => 'paypal_ec',
+			'gateway_txn_id' => null,
+			'language' => 'fr',
+			'contribution_tracking_id' => $init['contribution_tracking_id'],
+			'order_id' => $init['contribution_tracking_id'] . '.1',
+			'utm_source' => 'CD1234_FR..paypal',
+			'currency' => 'USD',
+			'email' => '',
+			'gross' => '1.55',
+			'recurring' => '',
+			'response' => false,
+			'utm_medium' => 'sitenotice',
 			'payment_method' => 'paypal',
 			'payment_submethod' => '',
 			'gateway_session_id' => 'EC-8US12345X1234567U',
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		self::unsetVariableFields( $message );
-		$expected = array (
+		$expected = array(
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
 			'fee' => '0',
@@ -337,7 +337,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		self::unsetVariableFields( $message );
-		$expected = array (
+		$expected = array(
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
 			'fee' => '0',
@@ -419,7 +419,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $location ) use ( $init ) {
+				'Location' => function ( $location ) use ( $init ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
@@ -463,7 +463,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 		$assertNodes = array(
 			'headers' => array(
-				'Location' => function( $location ) use ( $init ) {
+				'Location' => function ( $location ) use ( $init ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
@@ -479,10 +479,10 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertEmpty( $messages );
 	}
 
-	public function testShouldRectifyOrphan(){
-	    $message = $this->createOrphan(array('gateway' => 'paypal', 'payment_method' => 'paypal'));
-	    $this->gatewayAdapter = $this->getFreshGatewayObject($message);
-	    $result = $this->gatewayAdapter->shouldRectifyOrphan();
-	    $this->assertEquals($result, true, 'shouldRectifyOrphan returning false.');
-    }
+	public function testShouldRectifyOrphan() {
+		$message = $this->createOrphan( array( 'gateway' => 'paypal', 'payment_method' => 'paypal' ) );
+		$this->gatewayAdapter = $this->getFreshGatewayObject( $message );
+		$result = $this->gatewayAdapter->shouldRectifyOrphan();
+		$this->assertEquals( $result, true, 'shouldRectifyOrphan returning false.' );
+	}
 }
