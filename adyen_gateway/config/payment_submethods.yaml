@@ -30,7 +30,7 @@ mc:
         UA: true
         US: true
     group: cc
-    logo: card-mc-lg.png
+    logo: card-mastercard.png
 amex:
     countries:
         CA: true
