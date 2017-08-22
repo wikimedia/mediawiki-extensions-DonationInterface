@@ -31,6 +31,9 @@ mc:
         US: true
     group: cc
     logo: card-mastercard.png
+    logo_hd:
+        2x: card-mastercard_2x.png
+        3x: card-mastercard_3x.png
 amex:
     countries:
         CA: true
