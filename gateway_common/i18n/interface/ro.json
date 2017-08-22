@@ -165,7 +165,7 @@
 	"donate_interface-error-msg-invalid-email": "Vă rugăm să introduceți o adresă de e-mail validă",
 	"donate_interface-error-msg-card-num": "Vă rugăm să introduceți un număr valid pentru unul din tipurile de card de credit acceptate",
 	"donate_interface-error-msg-amex": "Vă rugăm să introduceți un număr de card corect pentru American Express.",
-	"donate_interface-error-msg-mc": "Vă rugăm să introduceți un număr de card corect pentru MasterCard.",
+	"donate_interface-error-msg-mc": "Vă rugăm să introduceți un număr de card corect pentru Mastercard.",
 	"donate_interface-error-msg-visa": "Vă rugăm să introduceți un număr de card corect pentru Visa.",
 	"donate_interface-error-msg-discover": "Vă rugăm să introduceți un număr de card corect pentru Discover.",
 	"donate_interface-error-msg-amount": "Vă rugăm sa introduceti suma donată",

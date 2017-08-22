@@ -151,7 +151,7 @@
 	"donate_interface-error-msg-invalid-email": "ஒரு செல்லுபடியான மின்னஞ்சல் முகவரியை உள்ளிடுக",
 	"donate_interface-error-msg-card-num": "ஏற்றுக் கொள்ளப்பட்ட கடனட்டை வகைகளிலிருந்து ஏதேனும் ஒரு கடனட்டையின் எண்ணை உள்ளிடுக",
 	"donate_interface-error-msg-amex": "American Express-ற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக",
-	"donate_interface-error-msg-mc": "MasterCardற்கான சரியான ஒரு கடனட்டை எண்ணை உள்ளிடுக.",
+	"donate_interface-error-msg-mc": "Mastercardற்கான சரியான ஒரு கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-visa": "Visa-விற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-discover": "Discover-ற்கான சரியான கடனட்டை எண்ணை உள்ளிடுக.",
 	"donate_interface-error-msg-amount": "நன்கொடை தொகை",

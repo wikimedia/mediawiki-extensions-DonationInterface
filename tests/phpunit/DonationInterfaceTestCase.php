@@ -331,7 +331,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	/**
 	 * Transaction codes for GC and GC orphan adapters not to be retried
-	 * on pain of $1000+ fines by MasterCard
+	 * on pain of $1000+ fines by Mastercard
 	 */
 	public function mcNoRetryCodeProvider() {
 		return array(

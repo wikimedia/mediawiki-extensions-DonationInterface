@@ -64,7 +64,7 @@
 	"donate_interface-error-msg-invalid-amount": "Haýyş edýäris, dogry summa ýazyň",
 	"donate_interface-error-msg-invalid-email": "Haýyş edýäris, dogry e-poçta adresi ýazyň",
 	"donate_interface-error-msg-amex": "Haýyş edýäris, American Express üçin dogry kart belgisi ýazyň",
-	"donate_interface-error-msg-mc": "Haýyş edýäris, MasterCard üçin dogry kart belgisi ýazyň",
+	"donate_interface-error-msg-mc": "Haýyş edýäris, Mastercard üçin dogry kart belgisi ýazyň",
 	"donate_interface-error-msg-visa": "Haýyş edýäris, Visa üçin dogry kart belgisi ýazyň",
 	"donate_interface-error-msg-discover": "Haýyş edýäris, Discover üçin dogry kart belgisi ýazyň",
 	"donate_interface-error-msg-amount": "bagyşlanan summa",

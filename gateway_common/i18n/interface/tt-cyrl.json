@@ -67,7 +67,7 @@
 	"donate_interface-error-msg-invalid-amount": "Зинһар, билгеле бер акча күләмен кертегез",
 	"donate_interface-error-msg-invalid-email": "Зинһар,  электрон почтагызның дөрес юлламасын кертегез (мәсәлән, name@domain.com)",
 	"donate_interface-error-msg-amex": "Зинһар,  American Express картасының дөрес номерын кертегез.",
-	"donate_interface-error-msg-mc": "Зинһар,  MasterCard картасының дөрес номерын кертегез.",
+	"donate_interface-error-msg-mc": "Зинһар,  Mastercard картасының дөрес номерын кертегез.",
 	"donate_interface-error-msg-visa": "Зинһар,  Visa картасының дөрес номерын кертегез.",
 	"donate_interface-error-msg-discover": "Зинһар,  Discover картасының дөрес номерын кертегез.",
 	"donate_interface-error-msg-amount": "иганә күләме",

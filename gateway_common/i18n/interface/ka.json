@@ -164,7 +164,7 @@
 	"donate_interface-error-msg-invalid-email": "გთხოვთ, შეიყვანოთ მოქმედი ელ-ფოსტის მისამართი მაგ. name@domain.com",
 	"donate_interface-error-msg-card-num": "გთხოვთ შეიყვანეთ საკრედიტო ბარათის მოქმედი ნომერი საკრედიტო ბარათის ერთ-ერთი მიღებული ტიპით",
 	"donate_interface-error-msg-amex": "გთხოვთ შეიყვანეთ სწორი საკრედიტო ნომერი American Express-თვის.",
-	"donate_interface-error-msg-mc": "გთხოვთ შეიყვანეთ სწორი საკრედიტო ნომერი MasterCard-თვის.",
+	"donate_interface-error-msg-mc": "გთხოვთ შეიყვანეთ სწორი საკრედიტო ნომერი Mastercard-თვის.",
 	"donate_interface-error-msg-visa": "გთხოვთ შეიყვანეთ სწორი საკრედიტო ნომერი ვიზისათვის.",
 	"donate_interface-error-msg-discover": "გთხოვთ შეიყვანეთ სწორი საკრედიტო ნომერი Discover-თვის.",
 	"donate_interface-error-msg-amount": "შემოწირულობის თანხა",

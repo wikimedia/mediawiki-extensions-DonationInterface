@@ -142,7 +142,7 @@
 	"donate_interface-error-msg-invalid-amount": "សូមបំពេញចំនួនទឹកប្រាក់អោយបានត្រឹមត្រូវ",
 	"donate_interface-error-msg-invalid-email": "សូមបំពេញអាសយដ្ឋានអ៊ីមែលអោយបានត្រឹមត្រូវ",
 	"donate_interface-error-msg-amex": "សូមបំពេញលេខកាត American Express អោយបានត្រឹមត្រូវ។",
-	"donate_interface-error-msg-mc": "សូមបំពេញលេខកាត MasterCard អោយបានត្រឹមត្រូវ។",
+	"donate_interface-error-msg-mc": "សូមបំពេញលេខកាត Mastercard អោយបានត្រឹមត្រូវ។",
 	"donate_interface-error-msg-visa": "សូមបំពេញលេខកាត Visa អោយបានត្រឹមត្រូវ។",
 	"donate_interface-error-msg-discover": "សូមបំពេញលេខកាត Discover អោយបានត្រឹមត្រូវ។",
 	"donate_interface-error-msg-amount": "ចំនួនទឹកប្រាក់បរិច្ចាគ",

@@ -654,7 +654,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			// FIXME: "isForceCancel"?
 			if ( $status_result->getForceCancel() ) {
-				$cancelflag = true; //don't retry or MasterCard will fine us
+				$cancelflag = true; //don't retry or Mastercard will fine us
 			}
 
 			//we filtered
@@ -1385,7 +1385,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					// All of these should stop us from retrying at all
 					// Null out the retry vars and throw error immediately
 					$retryVars = null;
-					$this->logger->info( "Got error code $errCode, not retrying to avoid MasterCard fines." );
+					$this->logger->info( "Got error code $errCode, not retrying to avoid Mastercard fines." );
 					// TODO: move forceCancel - maybe to the exception?
 					$this->transaction_response->setForceCancel( true );
 					$this->transaction_response->addError( new PaymentError(
@@ -1395,7 +1395,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						)
 					);
 					throw new ResponseProcessingException(
-						"Got error code $errCode, not retrying to avoid MasterCard fines.",
+						"Got error code $errCode, not retrying to avoid Mastercard fines.",
 						$errCode
 					);
 				case 430285: //most common declined cc code.

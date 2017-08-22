@@ -173,7 +173,7 @@
 	"donate_interface-error-msg-invalid-email": "Jif ene jöltijje Addräß för de <i lang=\"en\">e-mail</i> en föe e Beijschpell esu jät, wi „<code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">name@example.com</code>“",
 	"donate_interface-error-msg-card-num": "Bes esu joot un jif ene jöltijje Nommer för ein Zoot Kreditkaat en, di mer aannämme künne",
 	"donate_interface-error-msg-amex": "Bes esu joot un jif ene jöltijje Nommer för en <i lang=\"en\">American Express</i> Kaat en",
-	"donate_interface-error-msg-mc": "Bes esu joot un jif ene jöltijje Nommer för en <i lang=\"en\">MasterCard</i> Kaat en",
+	"donate_interface-error-msg-mc": "Bes esu joot un jif ene jöltijje Nommer för en <i lang=\"en\">Mastercard</i> Kaat en",
 	"donate_interface-error-msg-visa": "Bes esu joot un jif ene jöltijje Nommer för en <i lang=\"en\">Visa</i> Kaat en",
 	"donate_interface-error-msg-discover": "Bes esu joot un jif ene jöltijje Nommer för en <i lang=\"en\">Discover</i> Kaat en",
 	"donate_interface-error-msg-amount": "enne Bedraach enn.",

@@ -162,7 +162,7 @@
 	"donate_interface-error-msg-invalid-email": "Ebarzhit ur chomlec'h postel reizh, mar plij",
 	"donate_interface-error-msg-card-num": "Ebarzhit un niverenn kartenn-gred reizh evit unan eus ar seurtoù kartennoù-kred degemeret",
 	"donate_interface-error-msg-amex": "Merkit un niverenn gartenn American Express reizh.",
-	"donate_interface-error-msg-mc": "Merkit un niverenn gartenn MasterCard reizh.",
+	"donate_interface-error-msg-mc": "Merkit un niverenn gartenn Mastercard reizh.",
 	"donate_interface-error-msg-visa": "Merkit un niverenn gartenn Visa reizh.",
 	"donate_interface-error-msg-discover": "Merkit un niverenn gartenn Discover reizh.",
 	"donate_interface-error-msg-amount": "sammad an donezon",

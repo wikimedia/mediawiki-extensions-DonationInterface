@@ -185,7 +185,7 @@
 	"donate_interface-error-msg-invalid-email": "Vänligen uppge en giltig e-postadress, t.ex. namn@domän.com",
 	"donate_interface-error-msg-card-num": "Ange ett giltigt kreditkortsnummer för en av de godkända kreditkortstyperna",
 	"donate_interface-error-msg-amex": "Vänligen uppge ett giltigt American Express-kortnummer.",
-	"donate_interface-error-msg-mc": "Vänligen uppge ett giltigt MasterCard-kortnummer.",
+	"donate_interface-error-msg-mc": "Vänligen uppge ett giltigt Mastercard-kortnummer.",
 	"donate_interface-error-msg-visa": "Vänligen uppge ett giltigt Visa-kortnummer.",
 	"donate_interface-error-msg-discover": "Vänligen uppge ett giltigt Discover-kortnummer.",
 	"donate_interface-error-msg-amount": "gåvobelopp",

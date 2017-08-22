@@ -75,7 +75,7 @@
 	"donate_interface-error-msg-invalid-amount": "Vinsamlegast sláðu inn gilda upphæð.",
 	"donate_interface-error-msg-invalid-email": "Vinsamlegast sláðu inn gilt netfang, t.d. name@domain.com",
 	"donate_interface-error-msg-amex": "Vinsamlegast veldu rétt kreditkortanúmer fyrir American Express.",
-	"donate_interface-error-msg-mc": "Vinsamlegast veldu rétt kreditkortanúmer fyrir MasterCard.",
+	"donate_interface-error-msg-mc": "Vinsamlegast veldu rétt kreditkortanúmer fyrir Mastercard.",
 	"donate_interface-error-msg-visa": "Vinsamlegast veldu rétt kreditkortanúmer fyrir Visa.",
 	"donate_interface-error-msg-discover": "Vinsamlegast veldu rétt kreditkortanúmer fyrir Discover.",
 	"donate_interface-error-msg-amount": "gjafa upphæð",

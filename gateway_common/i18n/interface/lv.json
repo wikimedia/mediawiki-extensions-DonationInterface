@@ -145,7 +145,7 @@
 	"donate_interface-error-msg-invalid-amount": "Lūdzu, ievadiet derīgu summu",
 	"donate_interface-error-msg-invalid-email": "Lūdzu, ievadiet derīgu e-pasta adresi",
 	"donate_interface-error-msg-amex": "Lūdzu, ievadi pareizu American Express kartes numuru!",
-	"donate_interface-error-msg-mc": "Lūdzu, ievadi pareizu MasterCard kartes numuru!",
+	"donate_interface-error-msg-mc": "Lūdzu, ievadi pareizu Mastercard kartes numuru!",
 	"donate_interface-error-msg-visa": "Lūdzu, ievadi pareizu Visa kartes numuru!",
 	"donate_interface-error-msg-discover": "Lūdzu, ievadi pareizu Discover kartes numuru!",
 	"donate_interface-error-msg-amount": "ziedojuma summa",

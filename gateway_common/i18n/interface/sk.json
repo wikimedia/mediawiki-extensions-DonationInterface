@@ -89,7 +89,7 @@
 	"donate_interface-error-msg-invalid-email": "Prosím, zadajte platnú emailovú adresu",
 	"donate_interface-error-msg-card-num": "Prosím, zadajte platné číslo kreditnej karty jedného z akceptovaných typov kreditných kariet",
 	"donate_interface-error-msg-amex": "Prosím, zadajte platné číslo kreditnej karty American Express.",
-	"donate_interface-error-msg-mc": "Prosím, zadajte platné číslo kreditnej karty MasterCard.",
+	"donate_interface-error-msg-mc": "Prosím, zadajte platné číslo kreditnej karty Mastercard.",
 	"donate_interface-error-msg-visa": "Prosím, zadajte platné číslo kreditnej karty Visa.",
 	"donate_interface-error-msg-discover": "Prosím, zadajte platné číslo kreditnej karty Discover.",
 	"donate_interface-error-msg-amount": "čiastku daru",

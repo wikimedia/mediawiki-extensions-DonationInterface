@@ -180,7 +180,7 @@
 	"donate_interface-error-msg-invalid-email": "Будь ласка, введіть правильну адресу електронної пошти, наприклад, name@domain.com",
 	"donate_interface-error-msg-card-num": "Будь ласка, введіть дійсний номер кредитної картки для одного з дозволених типів кредитних карток",
 	"donate_interface-error-msg-amex": "Будь ласка, введіть правильний номер картки American Express.",
-	"donate_interface-error-msg-mc": "Будь ласка, введіть правильний номер картки MasterCard.",
+	"donate_interface-error-msg-mc": "Будь ласка, введіть правильний номер картки Mastercard.",
 	"donate_interface-error-msg-visa": "Будь ласка, введіть правильний номер картки Visa.",
 	"donate_interface-error-msg-discover": "Будь ласка, введіть правильний номер картки Discover.",
 	"donate_interface-error-msg-amount": "Будь ласка, введіть суму пожертви",

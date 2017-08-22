@@ -327,7 +327,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  MasterCard could fine us a thousand bucks for that!" );
+		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
 	}
 
 	/**

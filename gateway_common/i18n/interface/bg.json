@@ -166,7 +166,7 @@
 	"donate_interface-error-msg-invalid-email": "Моля, въведете правилен адрес на е-поща, напр: name@domain.com",
 	"donate_interface-error-msg-card-num": "Моля, въведете валиден номер на кредитна карта от някой от признатите видове",
 	"donate_interface-error-msg-amex": "Моля, въведете правилен номер на карта American Express.",
-	"donate_interface-error-msg-mc": "Моля, въведете правилен номер на карта MasterCard.",
+	"donate_interface-error-msg-mc": "Моля, въведете правилен номер на карта Mastercard.",
 	"donate_interface-error-msg-visa": "Моля, въведете правилен номер на карта Visa.",
 	"donate_interface-error-msg-discover": "Моля, въведете номер на карта Discover.",
 	"donate_interface-error-msg-amount": "Моля, въведете Вашата сума на дарението",

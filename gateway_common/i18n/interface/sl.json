@@ -165,7 +165,7 @@
 	"donate_interface-error-msg-invalid-email": "Prosimo, vnesite veljaven e-poštni naslov, npr. ime@domena.com",
 	"donate_interface-error-msg-card-num": "Prosimo, vnesite veljavno število kreditne kartice za eno od sprejetih vrst kreditnih kartic",
 	"donate_interface-error-msg-amex": "Prosimo, vnesite pravilno številko kartice American Express.",
-	"donate_interface-error-msg-mc": "Prosimo, vnesite pravilno številko kartice MasterCard.",
+	"donate_interface-error-msg-mc": "Prosimo, vnesite pravilno številko kartice Mastercard.",
 	"donate_interface-error-msg-visa": "Prosimo, vnesite pravilno številko kartice Visa.",
 	"donate_interface-error-msg-discover": "Prosimo, vnesite pravilno številko kartice Discover.",
 	"donate_interface-error-msg-amount": "Prosimo, vnesite svoj znesek prispevka",

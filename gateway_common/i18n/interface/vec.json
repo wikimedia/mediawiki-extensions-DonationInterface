@@ -66,7 +66,7 @@
 	"donate_interface-error-msg-invalid-amount": "Par piaser, inserissi un inporto valido",
 	"donate_interface-error-msg-invalid-email": "Par piaser, inserissi un indirisso e-mail valido",
 	"donate_interface-error-msg-amex": "Par piaser, inserissi un nùmaro de carta de credito American Express.",
-	"donate_interface-error-msg-mc": "Par piaser, inserissi un nùmaro de carta de credito MasterCard.",
+	"donate_interface-error-msg-mc": "Par piaser, inserissi un nùmaro de carta de credito Mastercard.",
 	"donate_interface-error-msg-visa": "Par piaser, inserissi un nùmaro de carta de credito Visa.",
 	"donate_interface-error-msg-discover": "Par piaser, inserissi un nùmaro de carta Discover giusto.",
 	"donate_interface-error-msg-amount": "l'inporto de la donassion",

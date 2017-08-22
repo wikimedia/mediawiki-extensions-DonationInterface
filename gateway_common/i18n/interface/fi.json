@@ -174,7 +174,7 @@
 	"donate_interface-error-msg-invalid-email": "Syötä oikea sähköpostiosoite",
 	"donate_interface-error-msg-card-num": "Syötä kelvollinen luottokortin numero. Luottokortin tyypin täytyy olla yksi hyväksytyistä tyypeistä",
 	"donate_interface-error-msg-amex": "Syötä oikea luottokortin numero American Expressille.",
-	"donate_interface-error-msg-mc": "Syötä oikea luottokortin numero MasterCardille.",
+	"donate_interface-error-msg-mc": "Syötä oikea luottokortin numero Mastercardille.",
 	"donate_interface-error-msg-visa": "Syötä oikea luottokortin numero Visalle.",
 	"donate_interface-error-msg-discover": "Syötä oikea Discover-korttinumero.",
 	"donate_interface-error-msg-amount": "lahjoitussumma",
