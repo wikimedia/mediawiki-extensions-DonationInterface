@@ -191,6 +191,7 @@
 	"donate_interface-error-msg-nopaypal": "Debido a un error técnico, no podemos enviar tu solicitud a PayPal. Trata de usar nuestro formulario regular de donación con tarjeta de crédito.",
 	"donate_interface-error-msg-validation": "Corrige los errores en el formulario.",
 	"donate_interface-error-msg-invalid-amount": "Escribe un monto válido",
+	"donate_interface-error-msg-invalid-country": "No pudimos detectar tu país. Selecciona un país en nuestra página <a href=\"$1\">formas de donar</a>.",
 	"donate_interface-error-msg-invalid-email": "Escribe una dirección de correo electrónico válida. Por ejemplo, nombre@dominio.com",
 	"donate_interface-error-msg-card-num": "Escribe un número de tarjeta de crédito válido para uno de los tipos de tarjetas de crédito aceptadas",
 	"donate_interface-error-msg-amex": "Escribe un número de tarjeta American Express correcto.",

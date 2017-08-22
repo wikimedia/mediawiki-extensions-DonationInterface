@@ -164,6 +164,7 @@
 	"donate_interface-error-msg-nopaypal": "Поради техничка грешка, не можеме да го испратиме вашето барање во PayPal. Наместо ова, послужете се со образецот за дарување со кредитна картичка.",
 	"donate_interface-error-msg-validation": "Исправете ги грешките во образецот.",
 	"donate_interface-error-msg-invalid-amount": "Внесете правилен износ",
+	"donate_interface-error-msg-invalid-country": "За жал, не можев да ја утврдам вашата земја. Изберете една од страницата <a href=\"$1\">Начини на дарување</a>.",
 	"donate_interface-error-msg-invalid-email": "Внесете важечка е-пошта (на пр. ime@domen.com)",
 	"donate_interface-error-msg-card-num": "Внесете полноважен број на кредитна картичка од прифатените видови",
 	"donate_interface-error-msg-amex": "Внесете правилен број на American Express картичка.",

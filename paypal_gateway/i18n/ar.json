@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"OsamaK"
+			"OsamaK",
+			"ديفيد"
 		]
 	},
-	"paypal_gateway-desc": "تسجل PayPal كآلية تبرع"
+	"paypal_gateway-desc": "عمليات دفع باي بال"
 }

@@ -1,0 +1,16 @@
+# TODO: move this all into SmashPig
+isRecurring: recurring
+locale: language
+amount: amount
+currencyCode: currency
+paymentProductId: payment_product
+city: city
+countryCode: country
+state: state_province
+street: street_address
+zip: postal_code
+emailAddress: email
+firstName: first_name
+surname: last_name
+merchantReference: order_id
+hostedCheckoutId: gateway_session_id
