@@ -193,7 +193,7 @@
 	"donate_interface-error-msg-invalid-email": "Por favor, introduza um email válido, por exemplo, exemplo: nome@domínio.com",
 	"donate_interface-error-msg-card-num": "Por favor, introduza o número de um cartão de crédito válido, de um dos tipos de cartão de crédito aceites",
 	"donate_interface-error-msg-amex": "Por favor, introduza um número de cartão American Express correto.",
-	"donate_interface-error-msg-mc": "Por favor, introduza um número de cartão MasterCard correto.",
+	"donate_interface-error-msg-mc": "Por favor, introduza um número de cartão Mastercard correto.",
 	"donate_interface-error-msg-visa": "Por favor, introduza um número de cartão Visa correto.",
 	"donate_interface-error-msg-discover": "Por favor, insira um número de cartão Discover correto.",
 	"donate_interface-error-msg-amount": "Por favor, entre a quantia da doação",

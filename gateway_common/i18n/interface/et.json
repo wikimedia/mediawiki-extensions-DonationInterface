@@ -161,7 +161,7 @@
 	"donate_interface-error-msg-invalid-email": "Palun sisesta sobiv e-posti aadress, nt nimi@domeen.ee",
 	"donate_interface-error-msg-card-num": "Palun sisesta kehtiv krediitkaardinumber ühest vastuvõetavast krediitkaarditüübist",
 	"donate_interface-error-msg-amex": "Palun sisesta American Expressi kaardi õige number.",
-	"donate_interface-error-msg-mc": "Palun sisesta MasterCardi õige number.",
+	"donate_interface-error-msg-mc": "Palun sisesta Mastercardi õige number.",
 	"donate_interface-error-msg-visa": "Palun sisesta Visa-kaardi õige number.",
 	"donate_interface-error-msg-discover": "Palun sisesta Discover-kaardi õige number.",
 	"donate_interface-error-msg-amount": "Palun sisesta annetatav summa",

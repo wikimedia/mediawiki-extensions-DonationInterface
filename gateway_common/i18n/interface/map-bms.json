@@ -143,7 +143,7 @@
 	"donate_interface-error-msg-invalid-email": "Monggo dilebokna alamat imel sing bener",
 	"donate_interface-error-msg-card-num": "Monggo dilebokna nomer kartu kredit sing sah antarane salah siji jenis kartu kredit sing teyeng ditampa nang kene",
 	"donate_interface-error-msg-amex": "Monggo dilebokna nomer sing bener nggo kartu American Express.",
-	"donate_interface-error-msg-mc": "Monggo dilebokna nomer sing bener nggo kartu MasterCard.",
+	"donate_interface-error-msg-mc": "Monggo dilebokna nomer sing bener nggo kartu Mastercard.",
 	"donate_interface-error-msg-visa": "Monggo dilebokna nomer sing bener nggo kartu Visa.",
 	"donate_interface-error-msg-discover": "Monggo dilebokna nomer sing bener nggo kartu Discover.",
 	"donate_interface-error-msg-amount": "Jumlah sumbangan",

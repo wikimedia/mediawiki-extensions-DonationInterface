@@ -154,7 +154,7 @@
 	"donate_interface-error-msg-invalid-email": "Jekk jogħġbok daħħal indirizz elettroniku",
 	"donate_interface-error-msg-card-num": "Jekk jogħġbok daħħal valur tajjeb għan-numru tal-karta ta' kreditu għal waħda mit-tipi ta' karti ta' kreditu aċċettati",
 	"donate_interface-error-msg-amex": "Jekk jogħġbok daħħal numru tal-karta tajjeb għall-American Express.",
-	"donate_interface-error-msg-mc": "Jekk jogħġbok daħħal numru tal-karta tajjeb għall-MasterCard.",
+	"donate_interface-error-msg-mc": "Jekk jogħġbok daħħal numru tal-karta tajjeb għall-Mastercard.",
 	"donate_interface-error-msg-visa": "Jekk jogħġbok daħħal numru tal-karta tajjeb għall-Visa.",
 	"donate_interface-error-msg-discover": "Jekk jogħġbok daħħal numru tal-karta tajjeb għal Discover.",
 	"donate_interface-error-msg-amount": "ammont tad-donazzjoni",

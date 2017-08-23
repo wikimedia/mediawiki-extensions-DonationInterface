@@ -147,7 +147,7 @@
 	"donate_interface-error-msg-invalid-email": "Kirodaq õigõ e-posti aadrõs",
 	"donate_interface-error-msg-card-num": "Kirodaq masva kreeditkaardinummõr ütest vastavõetavast kreeditkaarditüübist",
 	"donate_interface-error-msg-amex": "Kirodaq American Expressi kaardi õigõ nummõr.",
-	"donate_interface-error-msg-mc": "Kirodaq MasterCardi õigõ nummõr.",
+	"donate_interface-error-msg-mc": "Kirodaq Mastercardi õigõ nummõr.",
 	"donate_interface-error-msg-visa": "Kirodaq Visa-kaardi õigõ nummõr.",
 	"donate_interface-error-msg-discover": "Kirodaq Discover-kaardi õigõ nummõr.",
 	"donate_interface-error-msg-amount": "mastav summa",

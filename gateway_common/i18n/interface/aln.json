@@ -32,7 +32,7 @@
 	"donate_interface-error-msg-invalid-amount": "Ju lutem shkruani një sasi të vlefshme",
 	"donate_interface-error-msg-invalid-email": "Ju lutem fusni një adresë të vlefshme e-mail",
 	"donate_interface-error-msg-amex": "Ju lutem shkruani një numër të saktë për kartën American Express.",
-	"donate_interface-error-msg-mc": "Ju lutem shkruani një numër të saktë për kartë MasterCard.",
+	"donate_interface-error-msg-mc": "Ju lutem shkruani një numër të saktë për kartë Mastercard.",
 	"donate_interface-error-msg-visa": "Ju lutem shkruani një numër të saktë për kartën Visa.",
 	"donate_interface-error-msg-discover": "Ju lutem shkruani një numër të saktë kartë për Zbuloni.",
 	"donate_interface-error-msg-amount": "Shuma e dhurimit",

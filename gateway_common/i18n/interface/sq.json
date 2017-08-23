@@ -149,7 +149,7 @@
 	"donate_interface-error-msg-invalid-email": "Ju lutemi, shënoni një adresë postare elektronike (e-mail) të vlefshme",
 	"donate_interface-error-msg-card-num": "Ju, lutemi shënoni një numër karte krediti për një nga tipet e kartave të pranueshme",
 	"donate_interface-error-msg-amex": "Ju lutemi shënoni një numër të vlefshëm karte për American Express.",
-	"donate_interface-error-msg-mc": "Ju lutemi shënoni një numër të vlefshëm karte për MasterCard.",
+	"donate_interface-error-msg-mc": "Ju lutemi shënoni një numër të vlefshëm karte për Mastercard.",
 	"donate_interface-error-msg-visa": "Ju lutemi shënoni një numër të vlefshëm karte për Visa.",
 	"donate_interface-error-msg-discover": "Ju lutemi shënoni një numër të vlefshëm karte për Discover.",
 	"donate_interface-error-msg-amount": "Ju lutem fut sasinë e donacionit",

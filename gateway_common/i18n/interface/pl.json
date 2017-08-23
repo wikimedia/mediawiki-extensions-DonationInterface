@@ -170,7 +170,7 @@
 	"donate_interface-error-msg-invalid-email": "Wpisz prawidłowy adres e‐mail, np. nazwa@domena.com",
 	"donate_interface-error-msg-card-num": "Wprowadź prawidłowy numer karty kredytowej",
 	"donate_interface-error-msg-amex": "Podaj poprawny numer karty American Express.",
-	"donate_interface-error-msg-mc": "Podaj poprawny numer karty MasterCard.",
+	"donate_interface-error-msg-mc": "Podaj poprawny numer karty Mastercard.",
 	"donate_interface-error-msg-visa": "Podaj poprawny numer karty Visa.",
 	"donate_interface-error-msg-discover": "Podaj poprawny numer karty Discover.",
 	"donate_interface-error-msg-amount": "Wpisz kwotę darowizny",

@@ -163,7 +163,7 @@
 	"donate_interface-error-msg-invalid-email": "Gofalwch osod cyfeiriad e-bost dilys e.e. enw@domain.com",
 	"donate_interface-error-msg-card-num": "Rhowch rif cerdyn credyd dilys yn perthyn i un o'r mathau o gardiau credyd a dderbynnir",
 	"donate_interface-error-msg-amex": "Gofalwch osod rhif cywir ar gyfer cerdyn American Express.",
-	"donate_interface-error-msg-mc": "Gofalwch osod rhif cywir ar gyfer cerdyn MasterCard.",
+	"donate_interface-error-msg-mc": "Gofalwch osod rhif cywir ar gyfer cerdyn Mastercard.",
 	"donate_interface-error-msg-visa": "Gofalwch osod rhif cywir ar gyfer cerdyn Visa.",
 	"donate_interface-error-msg-discover": "Gofalwch osod rhif cywir ar gyfer cerdyn Discover.",
 	"donate_interface-error-msg-amount": "swm y rhodd",

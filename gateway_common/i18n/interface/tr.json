@@ -164,7 +164,7 @@
 	"donate_interface-error-msg-invalid-email": "Lütfen geçerli bir e-posta adresi girin",
 	"donate_interface-error-msg-card-num": "Kabul edilen kredi kartı türlerinden biri için geçerli bir kredi kartı numarası giriniz",
 	"donate_interface-error-msg-amex": "Lütfen American Express için doğru bir kart numarası girin.",
-	"donate_interface-error-msg-mc": "Lütfen MasterCard için doğru bir kart numarası girin.",
+	"donate_interface-error-msg-mc": "Lütfen Mastercard için doğru bir kart numarası girin.",
 	"donate_interface-error-msg-visa": "Lütfen Visa için doğru bir kart numarası girin.",
 	"donate_interface-error-msg-discover": "Lütfen Discover için doğru bir kart numarası girin.",
 	"donate_interface-error-msg-amount": "bağış miktarı",

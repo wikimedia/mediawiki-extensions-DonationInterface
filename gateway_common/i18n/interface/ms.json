@@ -164,7 +164,7 @@
 	"donate_interface-error-msg-invalid-email": "Sila berikan alamat e-mel yang sah",
 	"donate_interface-error-msg-card-num": "Sila isikan nombor kad kredit yang sah untuk salah satu jenis kad kredit yang diterima",
 	"donate_interface-error-msg-amex": "Sila masukkan nombor kad yang betul untuk American Express.",
-	"donate_interface-error-msg-mc": "Sila masukkan nombor kad yang betul untuk MasterCard.",
+	"donate_interface-error-msg-mc": "Sila masukkan nombor kad yang betul untuk Mastercard.",
 	"donate_interface-error-msg-visa": "Sila masukkan nombor kad yang betul untuk Visa.",
 	"donate_interface-error-msg-discover": "Sila masukkan nombor kad yang betul untuk Discover.",
 	"donate_interface-error-msg-amount": "jumlah derma",

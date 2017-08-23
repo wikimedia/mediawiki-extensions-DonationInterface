@@ -19,7 +19,7 @@ mc:
 #       CL: true  #waiting on AstroPay
         MX: true
         CO: true
-    logo: card-mc-lg.png
+    logo: card-mastercard.png
 #magna:  #waiting on AstroPay
 #    bank_code: MG
 #    label: Magna
@@ -51,7 +51,7 @@ mc-debit:
     group: cc
     countries:
         MX: true
-    logo: card-mc-lg.png
+    logo: card-mastercard.png
     sub_text_key: donate_interface-debit
 elo:
     bank_code: EL

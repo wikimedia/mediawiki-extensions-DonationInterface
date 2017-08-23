@@ -172,7 +172,7 @@
 	"donate_interface-error-msg-invalid-email": "Molim, unesite valjanu e-mail adresu",
 	"donate_interface-error-msg-card-num": "Molimo unesite valjani broj kreditne kartice jedne od vrsta kreditnih kartica koje su prihvaćene",
 	"donate_interface-error-msg-amex": "Molimo, unesite ispravan broj kartice za American Express.",
-	"donate_interface-error-msg-mc": "Molimo, unesite ispravan broj kartice za MasterCard.",
+	"donate_interface-error-msg-mc": "Molimo, unesite ispravan broj kartice za Mastercard.",
 	"donate_interface-error-msg-visa": "Molimo, unesite ispravan broj kartice za Visu.",
 	"donate_interface-error-msg-discover": "Molimo, unesite ispravan broj kartice za Discover.",
 	"donate_interface-error-msg-amount": "iznos donacije",

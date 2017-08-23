@@ -157,7 +157,7 @@
 	"donate_interface-error-msg-invalid-email": "Prošu zapodaj płaćiwu e-mejlowu adresu",
 	"donate_interface-error-msg-card-num": "Prošu zapodajće płaćiwe čisło kreditneje karty za jedyn z akceptowanych typow kreditnych kartow",
 	"donate_interface-error-msg-amex": "Prošu zapodaj prawe kartowe čisło za American Express.",
-	"donate_interface-error-msg-mc": "Prošu zapodaj prawe kartowe čisło za MasterCard.",
+	"donate_interface-error-msg-mc": "Prošu zapodaj prawe kartowe čisło za Mastercard.",
 	"donate_interface-error-msg-visa": "Prošu zapodaj prawe kartowe čisło za Visa.",
 	"donate_interface-error-msg-discover": "Prošu zapodaj prawe kartowe čisło za Discover.",
 	"donate_interface-error-msg-amount": "darjenska suma",

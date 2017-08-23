@@ -170,7 +170,7 @@
 	"donate_interface-error-msg-invalid-email": "Zadejte, prosím, platnou e-mailovou adresu, např. jmeno@domena.cz",
 	"donate_interface-error-msg-card-num": "Zadejte, prosím, platné číslo kreditní karty jednoho z podporovaných typů",
 	"donate_interface-error-msg-amex": "Zadejte, prosím, platné číslo karty American Express.",
-	"donate_interface-error-msg-mc": "Zadejte, prosím, platné číslo karty MasterCard.",
+	"donate_interface-error-msg-mc": "Zadejte, prosím, platné číslo karty Mastercard.",
 	"donate_interface-error-msg-visa": "Zadejte, prosím, platné číslo karty Visa.",
 	"donate_interface-error-msg-discover": "Zadejte, prosím, platné číslo karty Discover.",
 	"donate_interface-error-msg-amount": "výši příspěvku",

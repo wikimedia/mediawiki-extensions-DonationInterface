@@ -202,7 +202,7 @@
 	"donate_interface-error-msg-invalid-email": "Error message if the e-mail address is not valid (e.g. non-ASCII characters, spaces or lacking @).\n\nNote: the example message should not use a real domain name. We should use \"@example.com\" (where all contents sent are automatically dropped and no reply are expected): see the RFCs about example.com. This domain is also a \"wildcard\" domain: all valid domain subdomains names resolve to the same base domain, so \"any.name@anysubdomain.example.com\" is also valid).\n\nWe should not use real domain names in this generic message, in order to avoid unexpected spams being sent to them by malware bots that are indexing email addresses found in wiki pages. Bots know that email addresses in @example.com are invalid or will never be read.",
 	"donate_interface-error-msg-card-num": "The stars are to attract attention to the message in a drop-down box. The stars are not interpreted as wiki code when in use in the extension.",
 	"donate_interface-error-msg-amex": "Error message for invalid American Express card number.",
-	"donate_interface-error-msg-mc": "Error message for incorrect MasterCard number.",
+	"donate_interface-error-msg-mc": "Error message for incorrect Mastercard number.",
 	"donate_interface-error-msg-visa": "Error message for incorrect Visa card number.",
 	"donate_interface-error-msg-discover": "Error message for invalid Discover card number.",
 	"donate_interface-error-msg-amount": "Used in error message regarding the donation amount field.\n{{Related|Donate interface-error-msg}}",

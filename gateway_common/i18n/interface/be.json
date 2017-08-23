@@ -142,7 +142,7 @@
 	"donate_interface-error-msg-invalid-email": "Калі ласка, увядзіце карэктны адрас электроннай пошты",
 	"donate_interface-error-msg-card-num": "Калі ласка, увядзіце нумар крэдытнай карты аднаго з дапушчальных тыпаў",
 	"donate_interface-error-msg-amex": "Калі ласка, увядзіце правільны нумар карты American Express.",
-	"donate_interface-error-msg-mc": "Калі ласка, увядзіце правільны нумар карты MasterCard.",
+	"donate_interface-error-msg-mc": "Калі ласка, увядзіце правільны нумар карты Mastercard.",
 	"donate_interface-error-msg-visa": "Калі ласка, увядзіце правільны нумар карты Visa.",
 	"donate_interface-error-msg-discover": "Калі ласка, увядзіце правільны нумар карты Discover.",
 	"donate_interface-error-msg-amount": "Сума ахвяравання",

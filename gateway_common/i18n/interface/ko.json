@@ -178,7 +178,7 @@
 	"donate_interface-error-msg-invalid-email": "올바른 이메일 주소를 입력하세요. 예시: name@domain.com",
 	"donate_interface-error-msg-card-num": "본 사이트에서 사용 가능한 신용카드 인지 확인하시고, 신용카드 번호 역시 확인해 보시기 바랍니다.",
 	"donate_interface-error-msg-amex": "아메리칸 익스프레스 카드의 올바른 카드 번호를 입력해 주세요.",
-	"donate_interface-error-msg-mc": "마스터카드(MasterCard)의 올바른 카드 번호를 입력해 주세요.",
+	"donate_interface-error-msg-mc": "마스터카드(Mastercard)의 올바른 카드 번호를 입력해 주세요.",
 	"donate_interface-error-msg-visa": "비자카드(Visa)의 올바른 카드 번호를 입력해 주세요.",
 	"donate_interface-error-msg-discover": "디스커버카드(Discover)의 올바른 카드 번호를 입력해 주세요.",
 	"donate_interface-error-msg-amount": "당신의 기부 금액을 입력하세요",
