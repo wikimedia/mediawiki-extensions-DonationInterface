@@ -140,7 +140,7 @@ class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationIn
 		$init['contribution_tracking_id'] = mt_rand();
 		$gateway->loadDataAndReInit( $init );
 
-		$gateway->setDummyGatewayResponseCode( $code );
+		self::setDummyGatewayResponseCode( $code );
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
 		$this->assertEquals( false, $result->getCommunicationStatus(), "Error code $code should mean status of do_transaction is false" );
@@ -177,7 +177,7 @@ class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationIn
 		$init['payment_method'] = 'cc';
 
 		$gateway->loadDataAndReInit( $init );
-		$gateway->setDummyGatewayResponseCode( '600_badCvv' );
+		self::setDummyGatewayResponseCode( '600_badCvv' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();

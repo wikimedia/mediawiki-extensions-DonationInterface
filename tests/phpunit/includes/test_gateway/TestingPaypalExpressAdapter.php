@@ -4,29 +4,14 @@
  * FIXME so much: DRY
  */
 class TestingPaypalExpressAdapter extends PaypalExpressAdapter {
-	protected $dummyGatewayResponseCode = 'OK';
-
-	/**
-	 * Set the error code you want the dummy response to return
-	 */
-	public function setDummyGatewayResponseCode( $code ) {
-		$this->dummyGatewayResponseCode = $code;
-	}
-
-	/**
-	 * Set the error code you want the dummy response to return
-	 */
-	public function setDummyCurlResponseCode( $code ) {
-		$this->dummyCurlResponseCode = $code;
-	}
 
 	/**
 	 * Load in some dummy response XML so we can test proper response processing
 	 */
 	protected function curl_exec( $ch ) {
-		$code = '';
-		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
-			$code = '_' . $this->dummyGatewayResponseCode;
+		$code = '_OK';
+		if ( DonationInterfaceTestCase::$dummyGatewayResponseCode ) {
+			$code = '_' . DonationInterfaceTestCase::$dummyGatewayResponseCode;
 		}
 
 		//could start stashing these in a further-down subdir if payment type starts getting in the way,
@@ -47,8 +32,8 @@ class TestingPaypalExpressAdapter extends PaypalExpressAdapter {
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200; //response OK
-		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
-			$code = ( int ) $this->dummyCurlResponseCode;
+		if ( DonationInterfaceTestCase::$dummyCurlResponseCode ) {
+			$code = ( int ) DonationInterfaceTestCase::$dummyCurlResponseCode;
 		}
 
 		//put more here if it ever turns out that we care about it.

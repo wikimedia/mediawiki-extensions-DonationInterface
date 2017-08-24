@@ -132,7 +132,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$this->setLanguage( $init['language'] );
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'notJson' );
+		self::setDummyGatewayResponseCode( 'notJson' );
 
 		$gateway->do_transaction( 'NewInvoice' );
 
@@ -148,7 +148,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$this->setLanguage( $init['language'] );
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '1' );
+		self::setDummyGatewayResponseCode( '1' );
 
 		$gateway->do_transaction( 'NewInvoice' );
 
@@ -203,7 +203,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$this->setLanguage( $init['language'] );
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '1' );
+		self::setDummyGatewayResponseCode( '1' );
 
 		$result = $gateway->doPayment();
 
@@ -227,7 +227,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'limit_exceeded' );
+		self::setDummyGatewayResponseCode( 'limit_exceeded' );
 
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
@@ -245,7 +245,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'fiscal_number' );
+		self::setDummyGatewayResponseCode( 'fiscal_number' );
 
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
@@ -263,7 +263,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'user_unauthorized' );
+		self::setDummyGatewayResponseCode( 'user_unauthorized' );
 
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->isFailed() );
@@ -277,7 +277,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'could_not_register' );
+		self::setDummyGatewayResponseCode( 'could_not_register' );
 
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
@@ -295,7 +295,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setLanguage( $init['language'] );
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'could_not_make_deposit' );
+		self::setDummyGatewayResponseCode( 'could_not_make_deposit' );
 
 		$result = $gateway->doPayment();
 		$this->assertTrue( $result->getRefresh(), 'PaymentResult should be a refresh' );
@@ -346,7 +346,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		$gateway->setDummyGatewayResponseCode( 'badsig' );
+		self::setDummyGatewayResponseCode( 'badsig' );
 		$gateway->do_transaction( 'PaymentStatus' );
 
 		$results = $gateway->getTransactionData();
@@ -515,11 +515,12 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$firstRequest = $this->setUpRequest( $init );
 		$firstAttempt = new TestingAstroPayAdapter();
-		$firstAttempt->setDummyGatewayResponseCode( '1' );
+		self::setDummyGatewayResponseCode( '1' );
  
 		$firstAttempt->doPayment();
 
 		$this->setUpRequest( $init, $firstRequest->getSessionArray() );
+		self::setDummyGatewayResponseCode( null );
 		$secondAttempt = new TestingAstroPayAdapter();
 		$secondAttempt->doPayment();
 
@@ -538,7 +539,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	function testNewInvoiceOrderIdRetry() {
 		$init = $this->getDonorTestData( 'BR' );
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( 'collision' );
+		self::setDummyGatewayResponseCode( 'collision' );
  
 		$gateway->doPayment();
 

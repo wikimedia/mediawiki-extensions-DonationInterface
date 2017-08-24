@@ -43,20 +43,6 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 		parent::defineOrderIDMeta();
 	}
 
-	/**
-	 * Set the error code you want the dummy response to return
-	 */
-	public function setDummyGatewayResponseCode( $code ) {
-		$this->dummyGatewayResponseCode = $code;
-	}
-
-	/**
-	 * Set the error code you want the dummy response to return
-	 */
-	public function setDummyCurlResponseCode( $code ) {
-		$this->dummyCurlResponseCode = $code;
-	}
-
 	protected function curl_transaction( $data ) {
 		$this->curled[] = $data;
 		return parent::curl_transaction( $data );
@@ -67,8 +53,8 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
-			$code = '_' . $this->dummyGatewayResponseCode;
+		if ( DonationInterfaceTestCase::$dummyGatewayResponseCode ) {
+			$code = '_' . DonationInterfaceTestCase::$dummyGatewayResponseCode;
 		}
 
 		//could start stashing these in a further-down subdir if payment type starts getting in the way,
@@ -89,8 +75,8 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200; //response OK
-		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
-			$code = ( int ) $this->dummyCurlResponseCode;
+		if ( DonationInterfaceTestCase::$dummyCurlResponseCode ) {
+			$code = ( int ) DonationInterfaceTestCase::$dummyCurlResponseCode;
 		}
 
 		//put more here if it ever turns out that we care about it.

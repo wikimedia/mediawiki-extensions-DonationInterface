@@ -53,6 +53,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
 	protected $smashPigGlobalConfig;
 
+
+	public static $dummyGatewayResponseCode = null;
+
+	public static $dummyCurlResponseCode = null;
+
 	/**
 	 * @param $name string The name of the test case
 	 * @param $data array Any parameters read from a dataProvider
@@ -499,6 +504,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		RequestContext::resetMain();
 
+		self::$dummyGatewayResponseCode = null;
+		self::$dummyCurlResponseCode = null;
+
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
 		$singleton_classes = array(
@@ -723,31 +731,45 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 	}
 
-    /**
-     * Create an orphaned tranaction.
-     *
-     * TODO: Reuse SmashPigBaseTest#createMessage
-     */
-    public function createOrphan( $overrides = array() ) {
-        $uniq = mt_rand();
-        $message = $overrides + array(
-                'contribution_tracking_id' => $uniq,
-                'country' => 'US',
-                'first_name' => 'Flighty',
-                'last_name' => 'Dono',
-                'email' => 'test+wmf@eff.org',
-                'gateway' => 'globalcollect',
-                'gateway_txn_id' => "txn-{$uniq}",
-                'order_id' => "order-{$uniq}",
-                'gateway_account' => 'default',
-                'payment_method' => 'cc',
-                'payment_submethod' => 'mc',
-                // Defaults to a magic 25 minutes ago, within the process window.
-                'date' => time() - 25 * 60,
-                'gross' => 123,
-                'currency' => 'EUR',
-            );
-        return $message;
-    }
+	/**
+	* Create an orphaned tranaction.
+	*
+	* TODO: Reuse SmashPigBaseTest#createMessage
+	*/
+	public function createOrphan( $overrides = array() ) {
+		$uniq = mt_rand();
+		$message = $overrides + array(
+			'contribution_tracking_id' => $uniq,
+			'country' => 'US',
+			'first_name' => 'Flighty',
+			'last_name' => 'Dono',
+			'email' => 'test+wmf@eff.org',
+			'gateway' => 'globalcollect',
+			'gateway_txn_id' => "txn-{$uniq}",
+			'order_id' => "order-{$uniq}",
+			'gateway_account' => 'default',
+			'payment_method' => 'cc',
+			'payment_submethod' => 'mc',
+			// Defaults to a magic 25 minutes ago, within the process window.
+			'date' => time() - 25 * 60,
+			'gross' => 123,
+			'currency' => 'EUR',
+		);
+		return $message;
+	}
+
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public static function setDummyGatewayResponseCode( $code ) {
+		self::$dummyGatewayResponseCode = $code;
+	}
+
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public static function setDummyCurlResponseCode( $code ) {
+		self::$dummyCurlResponseCode = $code;
+	}
 
 }
