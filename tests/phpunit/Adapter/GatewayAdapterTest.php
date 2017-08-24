@@ -334,5 +334,13 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway->setValidationAction( 'process' );
 		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'De-escalating action without reset!' );
 	}
+
+	public function testRectifyOrphan(){
+        $orphan = $this->createOrphan(array('gateway' => 'donation'));
+		$gateway = $this->getFreshGatewayObject($orphan);
+		//FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
+		$is_rectified = $gateway->rectifyOrphan();
+		$this->assertEquals(PaymentResult::newEmpty(), $is_rectified, 'rectifyOrphan did not return empty PaymentResult');
+	}
 }
 

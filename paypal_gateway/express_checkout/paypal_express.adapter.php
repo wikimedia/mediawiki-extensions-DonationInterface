@@ -529,18 +529,23 @@ class PaypalExpressAdapter extends GatewayAdapter {
 
 	public function processDonorReturn( $requestValues ) {
 		if (
-			empty( $requestValues['token'] ) ||
-			empty( $requestValues['PayerID'] )
+			empty( $requestValues['token'] )
 		) {
 			throw new ResponseProcessingException(
 				'Missing required parameters in request',
 				ResponseCodes::MISSING_REQUIRED_DATA
 			);
 		}
-		$this->addRequestData( array(
-			'gateway_session_id' => $requestValues['token'],
-			'payer_id' => $requestValues['PayerID'],
-		) );
+		$requestData = array();
+		$requestData['gateway_session_id'] = $requestValues['token'];
+		if (
+			empty( $requestValues['PayerID'] )
+		) {
+			$this->logger->info('Notice missing PayerID in PaypalExpressAdapater::ProcessDonorReturn');
+		} else {
+			$requestData['payer_id'] = $requestValues['PayerID'];
+		}
+		$this->addRequestData( $requestData );
 		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
 		if ( !$resultData->getCommunicationStatus() ) {
 			throw new ResponseProcessingException( 'Failed to get customer details',
@@ -591,5 +596,21 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	public function getTransactionGatewayTxnID() {
 		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+	}
+
+	/*
+	 * TODO: add test
+	 */
+	public function createDonorReturnParams() {
+		return array('token' => $this->getData_Staged('gateway_session_id'));
+	}
+
+	/*
+	 * Returns true becaues all payment methods can be rectified
+	 * FIXME: Add handling for session expiration limits?
+	 */
+	public function shouldRectifyOrphan()
+	{
+		return true;
 	}
 }

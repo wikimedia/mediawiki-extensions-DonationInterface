@@ -722,4 +722,32 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			unset( $message[$field] );
 		}
 	}
+
+    /**
+     * Create an orphaned tranaction.
+     *
+     * TODO: Reuse SmashPigBaseTest#createMessage
+     */
+    public function createOrphan( $overrides = array() ) {
+        $uniq = mt_rand();
+        $message = $overrides + array(
+                'contribution_tracking_id' => $uniq,
+                'country' => 'US',
+                'first_name' => 'Flighty',
+                'last_name' => 'Dono',
+                'email' => 'test+wmf@eff.org',
+                'gateway' => 'globalcollect',
+                'gateway_txn_id' => "txn-{$uniq}",
+                'order_id' => "order-{$uniq}",
+                'gateway_account' => 'default',
+                'payment_method' => 'cc',
+                'payment_submethod' => 'mc',
+                // Defaults to a magic 25 minutes ago, within the process window.
+                'date' => time() - 25 * 60,
+                'gross' => 123,
+                'currency' => 'EUR',
+            );
+        return $message;
+    }
+
 }

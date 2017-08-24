@@ -334,4 +334,11 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$messages = self::getLogMatches( 'info', '/Preparing to send .*/' );
 		$this->assertEmpty( $messages );
 	}
+
+	public function testShouldRectifyOrphan(){
+	    $message = $this->createOrphan(array('gateway' => 'paypal', 'payment_method' => 'paypal'));
+	    $this->gatewayAdapter = $this->getFreshGatewayObject($message);
+	    $result = $this->gatewayAdapter->shouldRectifyOrphan();
+	    $this->assertEquals($result, true, 'shouldRectifyOrphan returning false.');
+    }
 }
