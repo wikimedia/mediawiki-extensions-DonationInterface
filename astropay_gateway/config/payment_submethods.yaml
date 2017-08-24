@@ -20,6 +20,9 @@ mc:
         MX: true
         CO: true
     logo: card-mastercard.png
+    logo_hd:
+        2x: card-mastercard_2x.png
+        3x: card-mastercard_3x.png
 #magna:  #waiting on AstroPay
 #    bank_code: MG
 #    label: Magna
@@ -52,6 +55,9 @@ mc-debit:
     countries:
         MX: true
     logo: card-mastercard.png
+    logo_hd:
+        2x: card-mastercard_2x.png
+        3x: card-mastercard_3x.png
     sub_text_key: donate_interface-debit
 elo:
     bank_code: EL

@@ -137,6 +137,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				if ( isset( $submethod['logo'] ) ) {
 					$submethod['logo'] = $this->getImagePath( $submethod['logo'] );
 				}
+				$submethod['srcset'] = $this->getSrcSet( $submethod );
 				$data['submethods'][] = $submethod;
 			}
 
@@ -156,6 +157,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$data['show_single_submethod'] = true;
 				$data['label'] = $submethod['label'];
 				$data['submethod_logo'] = $this->getImagePath( $submethod['logo'] );
+				$data['submethod_srcset'] = $this->getSrcSet( $submethod );
 			}
 
 			if ( isset( $submethod['issuerids'] ) ) {
@@ -169,6 +171,18 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				}
 			}
 		}
+	}
+
+	protected function getSrcSet( $submethod ) {
+		if ( empty( $submethod['logo_hd'] ) ) {
+			return '';
+		}
+		$srcSet = array();
+		foreach ( $submethod['logo_hd'] as $scale => $filename ) {
+			$path = $this->getImagePath( $filename );
+			$srcSet[] = "$path $scale";
+		}
+		return 'srcset="' . implode( ',', $srcSet ) . '" ';
 	}
 
 	protected function addRequiredFields( &$data ) {
