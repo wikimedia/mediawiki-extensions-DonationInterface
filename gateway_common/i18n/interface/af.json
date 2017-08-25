@@ -6,7 +6,8 @@
 			"Naudefj",
 			"පසිඳු කාවින්ද",
 			"Pcoombe",
-			"Fwolff"
+			"Fwolff",
+			"Biggs ZA"
 		]
 	},
 	"donate_interface": "Ondersteun Wikipedia",
@@ -92,7 +93,7 @@
 	"donate_interface-error-msg-invalid-email": "Voer asseblief 'n geldig e-posadres in",
 	"donate_interface-error-msg-card-num": "Voer 'n geldige kredietkaart nommer vir een van die aanvaarde kredietkaart tipes",
 	"donate_interface-error-msg-amex": "Voer asseblief 'n geldige kaartnommer vir American Express in.",
-	"donate_interface-error-msg-mc": "Voer asseblief 'n geldige kaartnommer vir Mastercard in.",
+	"donate_interface-error-msg-mc": "Lees 'n regte kaartnommer vir Mastercard in.",
 	"donate_interface-error-msg-visa": "Voer asseblief 'n geldige kaartnommer vir Visa in.",
 	"donate_interface-error-msg-discover": "Verskaf asseblief 'n geldige kaartnommer vir Discover.",
 	"donate_interface-error-msg-amount": "bedrag",
