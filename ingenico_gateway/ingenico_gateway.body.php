@@ -24,4 +24,13 @@ class IngenicoGateway extends GlobalCollectGateway {
 
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
+	protected function handleRequest() {
+		$this->getOutput()->allowClickjacking();
+		// TODO: remove conditional when we have a dedicated error render
+		// page and move addModule to Mustache#getResources
+		if( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
+			$this->getOutput()->addModules( 'ext.donationinterface.ingenico-hosted' );
+		}
+		$this->handleDonationRequest();
+	}
 }

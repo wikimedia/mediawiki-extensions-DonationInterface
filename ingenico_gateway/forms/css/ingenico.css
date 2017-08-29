@@ -1,0 +1,11 @@
+#ingenico-div {
+    overflow: hidden;
+    height:18em;
+    width:100%;
+}
+#ingenico-iFrame {
+    margin-top:-8em;
+    overflow: hidden;
+    height:50em;
+    width:100%;
+}

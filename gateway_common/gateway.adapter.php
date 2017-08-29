@@ -22,6 +22,8 @@ use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\UtcDate;
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -3720,6 +3722,47 @@ abstract class GatewayAdapter
 		}
 		return array_merge_recursive( $requiredRules, $transformerRules );
 	}
+
+	/**
+	 * Takes normalized data and creates adapter specific params for processDonorReturn
+	 * @return array
+	 */
+	public function createDonorReturnParams() {
+		return array();
+	}
+
+	/**
+	 * Allows adapters to specify logic as to whether an orphan can be rectified
+	 * @return bool
+	 */
+	public function shouldRectifyOrphan(){
+		return false;
+	}
+
+	/**
+	 * Looks at message to see if it should be rectified
+	 * Allows exit if the adapter should not rectify the orphan
+	 * Then tries to see if the orphan can be matched
+	 * @return PaymentResult
+	 */
+	public function rectifyOrphan(){
+		if (!$this->shouldRectifyOrphan()){
+			// Skip other payment methods which shouldn't be in the pending
+			// queue anyway.  See https://phabricator.wikimedia.org/T161160
+			$this->logger->info( "Skipping  pending record." );
+			return PaymentResult::newEmpty();
+		}
+		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
+		$params = $this->createDonorReturnParams();
+		$paymentResult = $this->processDonorReturn( $params );
+		if (!$paymentResult->isFailed()){
+			$this->logger->info( $this->getData_Staged('contribution_tracking_id') . ': FINAL: ' . $status );
+			return $paymentResult;
+		} else {
+			$this->errorState->addErrors($paymentResult->getErrors());
+			$this->logger->error($this->getData_Staged('contribution_tracking_id') . ': ERRORS ' . print_r($this->errorState, true) );}
+		 return $paymentResult;
+		}
 
 	/**
 	 * @return PaymentTransactionResponse

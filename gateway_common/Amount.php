@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
+
 class Amount implements ValidationHelper {
 
 	public function validate( GatewayType $adapter, $normalized, &$errors ) {
