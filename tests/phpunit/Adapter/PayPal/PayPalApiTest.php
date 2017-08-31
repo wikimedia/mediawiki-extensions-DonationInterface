@@ -27,6 +27,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testGoodSubmit() {
+		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init = array(
 			'amount' => 1.55,
 			'currency' => 'USD',
@@ -112,6 +113,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testGoodRecurringSubmit() {
+		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init = array(
 			'amount' => 1.55,
 			'currency' => 'USD',

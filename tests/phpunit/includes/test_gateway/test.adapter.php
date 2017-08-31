@@ -21,6 +21,8 @@ trait TTestingAdapter {
 
 	public static $fakeIdentifier;
 
+	public static $dummyGatewayResponseCode = null;
+
 	public $curled = array();
 
 	public static function getIdentifier() {
@@ -99,16 +101,10 @@ trait TTestingAdapter {
 
 	/**
 	 * Set the error code you want the dummy response to return
+	 * @param $code
 	 */
-	public function setDummyGatewayResponseCode( $code ) {
-		$this->dummyGatewayResponseCode = $code;
-	}
-
-	/**
-	 * Set the error code you want the dummy response to return
-	 */
-	public function setDummyCurlResponseCode( $code ) {
-		$this->dummyCurlResponseCode = $code;
+	public static function setDummyGatewayResponseCode( $code ) {
+		static::$dummyGatewayResponseCode = $code;
 	}
 
 	protected function curl_transaction( $data ) {
@@ -121,13 +117,13 @@ trait TTestingAdapter {
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
-			if ( is_array( $this->dummyGatewayResponseCode ) ) {
-				$code = array_shift( $this->dummyGatewayResponseCode );
-			} elseif ( is_callable( $this->dummyGatewayResponseCode ) ) {
-				$code = call_user_func( $this->dummyGatewayResponseCode, $this );
+		if ( static::$dummyGatewayResponseCode !== null ) {
+			if ( is_array( static::$dummyGatewayResponseCode ) ) {
+				$code = array_shift( static::$dummyGatewayResponseCode );
+			} elseif ( is_callable( static::$dummyGatewayResponseCode ) ) {
+				$code = call_user_func( static::$dummyGatewayResponseCode, $this );
 			} else {
-				$code = $this->dummyGatewayResponseCode;
+				$code = static::$dummyGatewayResponseCode;
 			}
 		}
 		if ( $code ) {
@@ -157,10 +153,7 @@ trait TTestingAdapter {
 	 * Load in some dummy curl response info so we can test proper response processing
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
-		$code = 200; //response OK
-		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
-			$code = ( int ) $this->dummyCurlResponseCode;
-		}
+		$code = 200;
 
 		//put more here if it ever turns out that we care about it.
 		return array (

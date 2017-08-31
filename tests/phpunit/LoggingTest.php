@@ -77,7 +77,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		);
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '200' );
+		$gateway::setDummyGatewayResponseCode( '200' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
 		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );
@@ -130,7 +130,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		);
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '200' );
+		$gateway::setDummyGatewayResponseCode( '200' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
 		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );

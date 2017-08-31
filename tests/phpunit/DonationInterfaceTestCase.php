@@ -67,6 +67,22 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		parent::__construct( $name, $data, $dataName );
 	}
 
+	public static function resetTestingAdapters() {
+		$testing_adapters = array(
+			'TestingAdyenAdapter',
+			'TestingAmazonAdapter',
+			'TestingAstroPayAdapter',
+			'TestingGenericAdapter',
+			'TestingGlobalCollectAdapter',
+			'TestingGlobalCollectOrphanAdapter',
+			'TestingPaypalExpressAdapter',
+			'TestingPaypalLegacyAdapter',
+		);
+		foreach ( $testing_adapters as $testing_adapter ) {
+			$testing_adapter::setDummyGatewayResponseCode( null );
+		}
+	}
+
 	protected function setUp() {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
@@ -81,8 +97,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	protected function tearDown() {
-		$this->resetAllEnv();
-		DonationLoggerFactory::$overrideLogger = null;
+		self::resetAllEnv();
 		parent::tearDown();
 	}
 
@@ -485,8 +500,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return $gateway;
 	}
 
-	function resetAllEnv() {
-		// TODO: reset PDO/sqlite queues
+	public static function resetAllEnv() {
 		$_SESSION = array ( );
 		$_GET = array ( );
 		$_POST = array ( );
@@ -499,6 +513,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 		RequestContext::resetMain();
 
+		self::resetTestingAdapters();
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
 		$singleton_classes = array(
@@ -519,6 +534,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		Context::set( null );
 		// Clear out our HashBagOStuff, used for testing
 		wfGetMainCache()->clear();
+		DonationLoggerFactory::$overrideLogger = null;
 	}
 
 	/**

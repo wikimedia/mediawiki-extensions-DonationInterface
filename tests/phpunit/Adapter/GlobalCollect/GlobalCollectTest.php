@@ -188,7 +188,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '25' );
+		$gateway::setDummyGatewayResponseCode( '25' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
@@ -216,7 +216,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$gateway->setDummyGatewayResponseCode( '600_badCvv' );
+		$gateway::setDummyGatewayResponseCode( '600_badCvv' );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
@@ -415,13 +415,13 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		//this should not throw any payments errors: Just an invalid card.
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '430285' );
+		$gateway::setDummyGatewayResponseCode( '430285' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$this->verifyNoLogErrors();
 
 		//Now test one we want to throw a payments error
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '21000050' );
+		$gateway::setDummyGatewayResponseCode( '21000050' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$loglines = self::getLogMatches( LogLevel::ERROR, '/Investigation required!/' );
 		$this->assertNotEmpty( $loglines, 'GC Error 21000050 is not generating the expected payments log error' );
@@ -431,7 +431,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		//Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '20001000-expiry' );
+		$gateway::setDummyGatewayResponseCode( '20001000-expiry' );
 		$gateway->do_transaction( 'GET_ORDERSTATUS' );
 		$this->verifyNoLogErrors();
 		$loglines = self::getLogMatches( LogLevel::INFO, '/processResponse:.*EXPIRYDATE/' );
@@ -455,7 +455,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		//Toxic card should not retry, even if there's an order id collision
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( $code );
+		$gateway::setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
 	}
@@ -494,7 +494,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		) );
 
 		$gateway = new TestingGlobalCollectAdapter();
-		$gateway->setDummyGatewayResponseCode( 'Exception' );
+		TestingGlobalCollectAdapter::setDummyGatewayResponseCode( 'Exception' );
 		try {
 			$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		}
@@ -503,6 +503,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		}
 		$first = $gateway->curled[0];
 		//simulate another request coming in before we get anything back from GC
+		TestingGlobalCollectAdapter::setDummyGatewayResponseCode( null );
 		$anotherGateway = new TestingGlobalCollectAdapter();
 		$anotherGateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		$second = $anotherGateway->curled[0];
@@ -525,7 +526,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( $code );
+		$gateway::setDummyGatewayResponseCode( $code );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$start_id = $exposed->getData_Staged( 'order_id' );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
@@ -566,7 +567,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$orig_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
-		$gateway->setDummyGatewayResponseCode( function ( $gateway ) use ( $orig_id ) {
+		$gateway::setDummyGatewayResponseCode( function ( $gateway ) use ( $orig_id ) {
 			if ( $gateway->getData_Unstaged_Escaped( 'order_id' ) === $orig_id ) {
 				return 'duplicate';
 			} else {
@@ -593,7 +594,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['ffname'] = 'cc-vmad';
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->setDummyGatewayResponseCode( '11000400' );
+		$gateway::setDummyGatewayResponseCode( '11000400' );
 		$gateway->do_transaction( 'SET_PAYMENT' );
 		$loglines = self::getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
 		$this->assertNotEmpty( $loglines, "Log does not say we retried for timeout." );
@@ -627,7 +628,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( array() );
-		$gateway->setDummyGatewayResponseCode( '430285' ); // invalid card
+		$gateway::setDummyGatewayResponseCode( '430285' ); // invalid card
 		$result = $gateway->processDonorReturn( array(
 			'REF' => $init['order_id'],
 			'CVVRESULT' => 'M',
