@@ -9,6 +9,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	public $curled = array ( );
 
+	public $dummyGatewayResponseCode;
+
 	/**
 	 * Also set a useful MerchantID.
 	 */
@@ -43,6 +45,20 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 		parent::defineOrderIDMeta();
 	}
 
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyGatewayResponseCode( $code ) {
+		$this->dummyGatewayResponseCode = $code;
+	}
+
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyCurlResponseCode( $code ) {
+		$this->dummyCurlResponseCode = $code;
+	}
+
 	protected function curl_transaction( $data ) {
 		$this->curled[] = $data;
 		return parent::curl_transaction( $data );
@@ -54,13 +70,13 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( DonationInterfaceTestCase::$dummyGatewayResponseCode ) {
-			if ( is_array( DonationInterfaceTestCase::$dummyGatewayResponseCode ) ) {
-				$code = array_shift( DonationInterfaceTestCase::$dummyGatewayResponseCode );
-			} elseif ( is_callable( DonationInterfaceTestCase::$dummyGatewayResponseCode ) ) {
-				$code = call_user_func( DonationInterfaceTestCase::$dummyGatewayResponseCode, $this );
+		if ( $this->dummyGatewayResponseCode ) {
+			if ( is_array( $this->dummyGatewayResponseCode ) ) {
+				$code = array_shift( $this->dummyGatewayResponseCode );
+			} elseif ( is_callable( $this->dummyGatewayResponseCode ) ) {
+				$code = call_user_func( $this->dummyGatewayResponseCode, $this );
 			} else {
-				$code = DonationInterfaceTestCase::$dummyGatewayResponseCode;
+				$code = $this->dummyGatewayResponseCode;
 			}
 		}
 		if ( $code ) {
@@ -88,8 +104,8 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200; //response OK
-		if ( DonationInterfaceTestCase::$dummyCurlResponseCode ) {
-			$code = ( int ) DonationInterfaceTestCase::$dummyCurlResponseCode;
+		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
+			$code = ( int ) $this->dummyCurlResponseCode;
 		}
 
 		//put more here if it ever turns out that we care about it.

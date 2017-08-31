@@ -45,7 +45,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'language' => 'fr',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( 'OK' );
+		$gateway->setDummyGatewayResponseCode( 'OK' );
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
@@ -98,7 +98,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'language' => 'fr',
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( 'OK' );
+		$gateway->setDummyGatewayResponseCode( 'OK' );
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
@@ -148,7 +148,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( 'OK' );
+		$gateway->setDummyGatewayResponseCode( 'OK' );
 		$gateway->processDonorReturn( array(
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
@@ -198,7 +198,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['recurring'] = '1';
 		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( 'Recurring-OK' );
+		$gateway->setDummyGatewayResponseCode( 'Recurring-OK' );
 		$gateway->processDonorReturn( array(
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD'
@@ -217,7 +217,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( '10486' );
+		$gateway->setDummyGatewayResponseCode( '10486' );
 		$result = $gateway->processDonorReturn( array(
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['recurring'] = '1';
 		$this->setUpRequest( $init, array( 'Donor' => $init ) );
 		$gateway = $this->getFreshGatewayObject( $init );
-		self::setDummyGatewayResponseCode( '10486' );
+		$gateway->setDummyGatewayResponseCode( '10486' );
 		$result = $gateway->processDonorReturn( array(
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'

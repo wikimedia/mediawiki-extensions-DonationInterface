@@ -7,12 +7,26 @@ class TestingPaypalLegacyAdapter extends PaypalLegacyAdapter {
 	public static $fakeGlobals = array();
 
 	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyGatewayResponseCode( $code ) {
+		$this->dummyGatewayResponseCode = $code;
+	}
+
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyCurlResponseCode( $code ) {
+		$this->dummyCurlResponseCode = $code;
+	}
+
+	/**
 	 * Load in some dummy response XML so we can test proper response processing
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( DonationInterfaceTestCase::$dummyGatewayResponseCode ) {
-			$code = '_' . DonationInterfaceTestCase::$dummyGatewayResponseCode;
+		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
+			$code = '_' . $this->dummyGatewayResponseCode;
 		}
 
 		//could start stashing these in a further-down subdir if payment type starts getting in the way,
@@ -33,8 +47,8 @@ class TestingPaypalLegacyAdapter extends PaypalLegacyAdapter {
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200; //response OK
-		if ( DonationInterfaceTestCase::$dummyCurlResponseCode ) {
-			$code = ( int ) DonationInterfaceTestCase::$dummyCurlResponseCode;
+		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
+			$code = ( int ) $this->dummyCurlResponseCode;
 		}
 
 		//put more here if it ever turns out that we care about it.

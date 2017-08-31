@@ -45,7 +45,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		self::setDummyGatewayResponseCode( 'recurring-OK' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-OK' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
@@ -68,7 +68,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		self::setDummyGatewayResponseCode( 'recurring-declined' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-declined' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
@@ -100,7 +100,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		self::setDummyGatewayResponseCode( 'recurring-timeout' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-timeout' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 
@@ -125,7 +125,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		);
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		self::setDummyGatewayResponseCode( 'recurring-resume' );
+		$gateway->setDummyGatewayResponseCode( 'recurring-resume' );
 
 		$result = $gateway->do_transaction( 'Recurring_Charge' );
 

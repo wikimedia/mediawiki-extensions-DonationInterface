@@ -71,7 +71,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 
 		$rectifier = new GlobalCollectOrphanRectifier();
 		$this->gateway = $rectifier->getAdapter();
-		self::setDummyGatewayResponseCode( self::STATUS_PENDING );
+		$this->gateway->setDummyGatewayResponseCode( self::STATUS_PENDING );
 		$rectifier->processOrphans();
 
 		$fetched = $this->pendingDb->fetchMessageByGatewayOrderId(
@@ -92,7 +92,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 
 		$rectifier = new GlobalCollectOrphanRectifier();
 		$this->gateway = $rectifier->getAdapter();
-		self::setDummyGatewayResponseCode( self::STATUS_PENDING_POKE );
+		$this->gateway->setDummyGatewayResponseCode( self::STATUS_PENDING_POKE );
 		$rectifier->processOrphans();
 
 		$fetched = $this->pendingDb->fetchMessageByGatewayOrderId(
@@ -117,7 +117,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 
 		$rectifier = new GlobalCollectOrphanRectifier();
 		$this->gateway = $rectifier->getAdapter();
-		self::setDummyGatewayResponseCode( self::STATUS_COMPLETE );
+		$this->gateway->setDummyGatewayResponseCode( self::STATUS_COMPLETE );
 		$rectifier->processOrphans();
 
 		$fetched = $this->pendingDb->fetchMessageByGatewayOrderId(

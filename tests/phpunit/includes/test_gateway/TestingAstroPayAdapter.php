@@ -10,6 +10,20 @@ class TestingAstroPayAdapter extends AstroPayAdapter {
 
 	public $curled = array();
 
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyGatewayResponseCode( $code ) {
+		$this->dummyGatewayResponseCode = $code;
+	}
+
+	/**
+	 * Set the error code you want the dummy response to return
+	 */
+	public function setDummyCurlResponseCode( $code ) {
+		$this->dummyCurlResponseCode = $code;
+	}
+
 	protected function curl_transaction( $data ) {
 		$this->curled[] = $data;
 		return parent::curl_transaction( $data );
@@ -21,9 +35,9 @@ class TestingAstroPayAdapter extends AstroPayAdapter {
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
-		if ( DonationInterfaceTestCase::$dummyGatewayResponseCode ) {
-			$code = '_' . DonationInterfaceTestCase::$dummyGatewayResponseCode;
-			if ( DonationInterfaceTestCase::$dummyGatewayResponseCode === 'Exception' ) {
+		if ( property_exists( $this, 'dummyGatewayResponseCode' ) ) {
+			$code = '_' . $this->dummyGatewayResponseCode;
+			if ( $this->dummyGatewayResponseCode === 'Exception' ) {
 				throw new RuntimeException( 'blah!' );
 			}
 		}
@@ -50,8 +64,8 @@ class TestingAstroPayAdapter extends AstroPayAdapter {
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200; //response OK
-		if ( DonationInterfaceTestCase::$dummyCurlResponseCode ) {
-			$code = ( int ) DonationInterfaceTestCase::$dummyCurlResponseCode;
+		if ( property_exists( $this, 'dummyCurlResponseCode' ) ) {
+			$code = ( int ) $this->dummyCurlResponseCode;
 		}
 
 		//put more here if it ever turns out that we care about it.
