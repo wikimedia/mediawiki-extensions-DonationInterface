@@ -3756,7 +3756,7 @@ abstract class GatewayAdapter
 		$params = $this->createDonorReturnParams();
 		$paymentResult = $this->processDonorReturn( $params );
 		if (!$paymentResult->isFailed()){
-			$this->logger->info( $this->getData_Staged('contribution_tracking_id') . ': FINAL: ' . $status );
+			$this->logger->info( $this->getData_Staged('contribution_tracking_id') . ': FINAL: Rectified' );
 			return $paymentResult;
 		} else {
 			$this->errorState->addErrors($paymentResult->getErrors());
