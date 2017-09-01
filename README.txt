@@ -367,43 +367,49 @@ $wgDonationInterfaceCustomFiltersActionRanges = array(
  */
 $wgDonationInterfaceCustomFiltersRiskScore = 0
 
-//Minfraud globals
+// minFraud globals
+/**
+ * Your minFraud User ID.
+ */
+$wgDonationInterfaceMinFraudUserId = ''
+
 /**
  * Your minFraud license key.
  */
-$wgMinFraudLicenseKey = ''
+$wgDonationInterfaceMinFraudLicenseKey = ''
 
 /**
- * This allows setting where to point the minFraud servers.
- *
- * As of February 21st, 2012 minfraud.maxmind.com will route to the east or
- * west server, depending on you location.
- *
- * minfraud-us-east.maxmind.com: 174.36.207.186
- * minfraud-us-west.maxmind.com: 50.97.220.226
- *
- * The minFraud API requires an array of servers.
- *
- * You do not have to specify a server.
- *
- * @see CreditCardFraudDetection::$server
+ * Options to pass along to the minFraud API Client, including timeout,
+ * specific servers, and proxies.
+ * The following list is copied from the minFraud client documentation:
+ * * 'host' - The host to use when connecting to the web service.
+ * * 'userAgent' - The prefix for the User-Agent header to use in the
+ *   request.
+ * * 'caBundle' - The bundle of CA root certificates to use in the request.
+ * * 'connectTimeout' - The connect timeout to use for the request.
+ * * 'timeout' - The timeout to use for the request.
+ * * 'proxy' - The HTTP proxy to use. May include a schema, port,
+ *   username, and password, e.g., 'http://username:password@127.0.0.1:10'.
+ * * 'locales' - An array of locale codes to use for the location name
+ *   properties.
+ * * 'validateInput' - Default is 'true'. Determines whether values passed
+ *   to the 'with*()' methods are validated. It is recommended that you
+ *   leave validation on while developing and only (optionally) disable it
+ *   before deployment.
  */
-$wgDonationInterfaceMinFraudServers = array()
+$wgDonationInterfaceMinFraudClientOptions = array()
 
-// Weight to give Minfraud risk scores when enabled
-// 100 means to use the raw minfraud score
+// Weight to give minFraud risk scores when enabled
+// 100 means to use the raw minFraud score
 $wgDonationInterfaceMinFraudWeight = 100
 
-
-// Minfraud risk score value if there is an error querying Minfraud, including no response
+// Score for the minFraud filter to assign if there is an error querying
+// the minFraud web service, including no response
 $wgDonationInterfaceMinFraudErrorScore = 50
-
-// Timeout in seconds for communicating with MaxMind
-$wgMinFraudTimeout = 2
 
 /**
  * When to send an email to $wgEmergencyContact that we're
- * running low on minfraud queries. Will continue to send
+ * running low on minFraud queries. Will continue to send
  * once per day until the limit is once again over the limit.
  */
 $wgDonationInterfaceMinFraudAlarmLimit = 25000
@@ -598,7 +604,7 @@ $wgDonationInterfaceUtmSourceMap = array()
 $wgDonationInterfaceNameFilterRules = array()
 
 $wgDonationInterfaceEnableConversionLog = false //this is definitely an Extra
-$wgDonationInterfaceEnableMinfraud = false //this is definitely an Extra
+$wgDonationInterfaceEnableMinFraud = false //this is definitely an Extra
 
 /**
  * @global boolean Set to false to disable all filters, or set a gateway-

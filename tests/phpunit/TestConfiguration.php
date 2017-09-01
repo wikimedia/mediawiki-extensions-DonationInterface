@@ -72,10 +72,10 @@ global $wgDonationInterfaceTest,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
 	$wgAstroPayGatewayFallbackCurrency,
-	$wgMinFraudLicenseKey,
-	$wgMinFraudTimeout,
-	$wgDonationInterfaceMinFraudServers,
-	$wgDonationInterfaceEnableMinfraud,
+	$wgDonationInterfaceMinFraudUserId,
+	$wgDonationInterfaceMinFraudLicenseKey,
+	$wgDonationInterfaceMinFraudClientOptions,
+	$wgDonationInterfaceEnableMinFraud,
 	$wgDonationInterfaceEnableFunctionsFilter,
 	$wgDonationInterfaceEnableReferrerFilter,
 	$wgDonationInterfaceEnableSourceFilter,
@@ -177,14 +177,17 @@ $wgAstroPayGatewayAccountInfo['test'] = array(
 );
 $wgAstroPayGatewayFallbackCurrency = false;
 
-$wgMinFraudLicenseKey = 'testkey';
-$wgMinFraudTimeout = 1;
-$wgDonationInterfaceMinFraudServers = array( "minfraud.wikimedia.org" );
+$wgDonationInterfaceMinFraudUserId = 1;
+$wgDonationInterfaceMinFraudLicenseKey = 'testkey';
 
-// still can't quite handle minfraud by itself yet, so default like this.
+$wgDonationInterfaceMinFraudClientOptions = array(
+	'host' => 'minfraud.wikimedia.org',
+);
+
+// still can't quite handle minFraud by itself yet, so default like this.
 // I will turn it on for individual tests in which I want to verify that it at
 // least fails closed when enabled.
-$wgDonationInterfaceEnableMinfraud = false;
+$wgDonationInterfaceEnableMinFraud = false;
 
 // ...but we want these.
 $wgDonationInterfaceEnableFunctionsFilter = true;
