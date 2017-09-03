@@ -135,7 +135,7 @@
 	"donate_interface-error-msg-expiration": "कार्डको एक्पायरी डेट(अन्तिम तिथि)",
 	"donate_interface-error-msg-cvv": "कार्डको पछाडि पटिबाट CVV",
 	"donate_interface-error-msg-captcha": "तपाईंले हालेको काप्चा भ्यालु सही भएन। फेरि प्रयास गर्नुहोस्।",
-	"donate_interface-error-msg-captcha-please": "तपाईंको क्रेडिटकार्ड सुरक्षाको निम्ति माथि दिएका अक्षरहरु टाइप गर्नुहोस्",
+	"donate_interface-error-msg-captcha-please": "तपाईंको क्रेडिटकार्ड सुरक्षाको निम्ति माथि दिएका अक्षरहरू टाइप गर्नुहोस्",
 	"php-response-declined": "तपाईंको ट्रान्ज्याक्सन स्वीकार गर्न सकिएन।",
 	"donate_interface-thankyou": "दानको निम्ति धन्यवाद!",
 	"donate_interface-post-transaction": "ट्रान्ज्याक्सन विवरण",
