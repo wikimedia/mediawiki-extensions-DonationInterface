@@ -365,6 +365,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	public function doPayment() {
+		$this->config['transformers'][] = 'PaypalExpressReturnUrl';
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			// Build the billing agreement and get a token to redirect.
 			$resultData = $this->do_transaction( 'SetExpressCheckout_recurring' );

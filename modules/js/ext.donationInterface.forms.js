@@ -124,17 +124,17 @@
 
 		$( '#first_name' ).focus();
 
-		// If a submethod is already selected on page load, show the continue button
+		// If a submethod is already selected on page load, clear it
 		if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
-			$( '#paymentContinue' ).show();
+			$( 'input[name="payment_submethod"]' ).attr( 'checked', false );
 		}
 
-		// Submit on submethod click if valid, otherwise show continue button.
+		// Submit on submethod click if valid, otherwise do nothing.
 		$( 'input[name="payment_submethod"]' ).on( 'click', function () {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
 			} else {
-				$( '#paymentContinue' ).show();
+				return false;
 			}
 		} );
 

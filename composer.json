@@ -26,6 +26,7 @@
 		"minfraud/http": "^1.70",
 		"monolog/monolog": "~1.18.2",
 		"neitanod/forceutf8": "^2.0",
+		"php": ">=5.4",
 		"predis/predis": "^1.1",
 		"psr/log": "^1.0",
 		"zordius/lightncandy": "0.23",
