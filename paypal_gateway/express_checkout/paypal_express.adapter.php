@@ -366,6 +366,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 
 	public function doPayment() {
 		$this->config['transformers'][] = 'PaypalExpressReturnUrl';
+		$this->data_transformers[] = new PaypalExpressReturnUrl();
+		$this->stageData();
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			// Build the billing agreement and get a token to redirect.
 			$resultData = $this->do_transaction( 'SetExpressCheckout_recurring' );
@@ -584,8 +586,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @throws ResponseProcessingException
 	 */
 	protected function checkResponseAck( $response ) {
-		if ( isset( $response['ACK'] ) && $response['ACK'] === 'Success' ) {
+		if (
+			isset( $response['ACK'] ) &&
+			// SuccessWithWarning is OK too
+			substr( $response['ACK'], 0, 7 ) === 'Success'
+		) {
 			$this->transaction_response->setCommunicationStatus( true );
+			if ( $response['ACK'] === 'SuccessWithWarning' ) {
+				$this->logger->warning(
+					'Transaction succeeded with warning. Response: ' .
+					print_r( $response, true )
+				);
+			}
 		} else {
 			throw new ResponseProcessingException( "Failure response", $response['ACK'] );
 		}

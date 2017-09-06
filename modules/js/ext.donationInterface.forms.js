@@ -124,8 +124,9 @@
 
 		$( '#first_name' ).focus();
 
-		// If a submethod is already selected on page load, clear it
-		if ( $( 'input[name="payment_submethod"]:checked' ).length > 0 ) {
+		// If submethods are visible, and a submethod is already selected on
+		// page load, clear it.
+		if ( $( 'input[name="payment_submethod"]:checked:visible' ).length > 0 ) {
 			$( 'input[name="payment_submethod"]' ).attr( 'checked', false );
 		}
 
