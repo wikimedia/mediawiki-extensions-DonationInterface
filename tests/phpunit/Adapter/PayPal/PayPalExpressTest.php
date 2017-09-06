@@ -54,6 +54,46 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
+		$this->assertEquals( 1, count( $gateway->curled ), 'Should have made 1 API call' );
+		$apiCall = $gateway->curled[0];
+		$parsed = [];
+		parse_str( $apiCall, $parsed );
+		$actualReturn = $parsed['RETURNURL'];
+		$parsedReturn = [];
+		parse_str( parse_url( $actualReturn, PHP_URL_QUERY ), $parsedReturn );
+		$this->assertEquals(
+			[
+				'title' => 'Special:PaypalExpressGatewayResult',
+				'order_id' => $init['contribution_tracking_id'] . '.1',
+				'wmf_token' => $gateway->token_getSaltedSessionToken()
+			],
+			$parsedReturn
+		);
+		unset( $parsed['RETURNURL'] );
+		$expected = [
+			'USER' => 'phpunittesting@wikimedia.org',
+			'PWD' => '9876543210',
+			'VERSION' => '204',
+			'METHOD' => 'SetExpressCheckout',
+			'CANCELURL' => 'https://example.com/tryAgain.php/fr',
+			'REQCONFIRMSHIPPING' => '0',
+			'NOSHIPPING' => '1',
+			'LOCALECODE' => 'fr_US',
+			'L_PAYMENTREQUEST_0_AMT0' => '1.55',
+			'L_PAYMENTREQUEST_0_DESC0' => 'Donation to the Wikimedia Foundation',
+			'PAYMENTREQUEST_0_AMT' => '1.55',
+			'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD',
+			'PAYMENTREQUEST_0_CUSTOM' => $init['contribution_tracking_id'],
+			'PAYMENTREQUEST_0_DESC' => 'Donation to the Wikimedia Foundation',
+			'PAYMENTREQUEST_0_INVNUM' => $init['contribution_tracking_id'] . '.1',
+			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
+			'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
+			'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
+			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+		];
+		$this->assertEquals(
+			$expected, $parsed
+		);
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
@@ -106,6 +146,47 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
+		);
+		$this->assertEquals( 1, count( $gateway->curled ), 'Should have made 1 API call' );
+		$apiCall = $gateway->curled[0];
+		$parsed = [];
+		parse_str( $apiCall, $parsed );
+		$actualReturn = $parsed['RETURNURL'];
+		$parsedReturn = [];
+		parse_str( parse_url( $actualReturn, PHP_URL_QUERY ), $parsedReturn );
+		$this->assertEquals(
+			[
+				'title' => 'Special:PaypalExpressGatewayResult',
+				'order_id' => $init['contribution_tracking_id'] . '.1',
+				'recurring' => '1',
+				'wmf_token' => $gateway->token_getSaltedSessionToken()
+			],
+			$parsedReturn
+		);
+		unset( $parsed['RETURNURL'] );
+		$expected = [
+			'USER' => 'phpunittesting@wikimedia.org',
+			'PWD' => '9876543210',
+			'VERSION' => '204',
+			'METHOD' => 'SetExpressCheckout',
+			'CANCELURL' => 'https://example.com/tryAgain.php/fr',
+			'REQCONFIRMSHIPPING' => '0',
+			'NOSHIPPING' => '1',
+			'LOCALECODE' => 'fr_US',
+			'L_PAYMENTREQUEST_0_AMT0' => '1.55',
+			'PAYMENTREQUEST_0_AMT' => '1.55',
+			'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD',
+			'L_BILLINGTYPE0' => 'RecurringPayments',
+			'L_BILLINGAGREEMENTDESCRIPTION0' => 'Monthly donation to the Wikimedia Foundation',
+			'L_BILLINGAGREEMENTCUSTOM0' => $init['contribution_tracking_id'] . '.1',
+			'L_PAYMENTREQUEST_0_NAME0' => 'Monthly donation to the Wikimedia Foundation',
+			'L_PAYMENTREQUEST_0_QTY0' => '1',
+			'MAXAMT' => '1.55',
+			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
+			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+		];
+		$this->assertEquals(
+			$expected, $parsed
 		);
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
