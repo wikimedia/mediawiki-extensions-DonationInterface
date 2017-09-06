@@ -584,8 +584,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @throws ResponseProcessingException
 	 */
 	protected function checkResponseAck( $response ) {
-		if ( isset( $response['ACK'] ) && $response['ACK'] === 'Success' ) {
+		if (
+			isset( $response['ACK'] ) &&
+			// SuccessWithWarning is OK too
+			substr( $response['ACK'], 0, 7 ) === 'Success'
+		) {
 			$this->transaction_response->setCommunicationStatus( true );
+			if ( $response['ACK'] === 'SuccessWithWarning' ) {
+				$this->logger->warning(
+					'Transaction succeeded with warning. Response: ' .
+					print_r( $response, true )
+				);
+			}
 		} else {
 			throw new ResponseProcessingException( "Failure response", $response['ACK'] );
 		}

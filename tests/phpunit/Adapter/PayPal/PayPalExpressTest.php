@@ -7,6 +7,7 @@
  * TIMESTAMP=2016%2d05%2d03T21%3a43%3a20Z&CORRELATIONID=f624ed5aa5db0&ACK=Failure&VERSION=124&BUILD=21669447&L_ERRORCODE0=10412&L_SHORTMESSAGE0=Duplicate%20invoice&L_LONGMESSAGE0=Payment%20has%20already%20been%20made%20for%20this%20InvoiceID%2e&L_SEVERITYCODE0=Error
  */
 
+use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
 use SmashPig\Tests\TestingContext;
@@ -231,6 +232,67 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U',
 			$redirect
 		);
+	}
+
+	/**
+	 * Check that we don't send donors to the fail page for warnings
+	 */
+	function testProcessDonorReturnWarning() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway::setDummyGatewayResponseCode( array(
+			'OK', // For GetExpressCheckoutDetails
+			'11607' // For DoExpressCheckoutPayment
+		) );
+		$result = $gateway->processDonorReturn( array(
+			'token' => 'EC%2d2D123456D9876543U',
+			'PayerID' => 'ASDASD'
+		) );
+
+		$this->assertFalse( $result->isFailed() );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
+		self::unsetVariableFields( $message );
+		$expected = array (
+			'contribution_tracking_id' => $init['contribution_tracking_id'],
+			'country' => 'US',
+			'fee' => '0',
+			'gateway' => 'paypal_ec',
+			'gateway_txn_id' => '33N12345BB123456D',
+			'gateway_session_id' => 'EC-4V987654XA123456V',
+			'language' => 'en',
+			'order_id' => $init['contribution_tracking_id'] . '.1',
+			'payment_method' => 'paypal',
+			'payment_submethod' => '',
+			'response' => false,
+			'user_ip' => '127.0.0.1',
+			'utm_source' => '..paypal',
+			'city' => 'San Francisco',
+			'currency' => 'USD',
+			'email' => 'donor@generous.net',
+			'first_name' => 'Fezziwig',
+			'gross' => '1.55',
+			'last_name' => 'Fowl',
+			'recurring' => '',
+			'state_province' => 'CA',
+			'street_address' => '123 Fake Street',
+			'postal_code' => '94105',
+			'source_name' => 'DonationInterface',
+			'source_type' => 'payments',
+		);
+		$this->assertEquals( $expected, $message );
+
+		$this->assertNull(
+			QueueWrapper::getQueue( 'donations' )->pop(),
+			'Sending extra messages to donations queue!'
+		);
+		$matches = self::getLogMatches(
+			LogLevel::WARNING, '/Transaction succeeded with warning.*/'
+		);
+		$this->assertNotEmpty( $matches );
 	}
 
 	public function testProcessDonorReturnRecurringRetry() {
