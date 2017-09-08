@@ -1,8 +1,8 @@
 <?php
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
 use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingProviderConfiguration;
 
 /**
  * @group Fundraising
@@ -16,8 +16,8 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	public function setUp() {
 		parent::setUp();
 		$ctx = TestingContext::get();
-		$ctx->providerConfigurationOverride = PayPalTestConfiguration::get(
-			$ctx->getGlobalConfiguration()
+		$ctx->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
+			'paypal', $ctx->getGlobalConfiguration()
 		);
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',

@@ -9,8 +9,8 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\PaymentProviders\PayPal\Tests\PayPalTestConfiguration;
 use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingProviderConfiguration;
 
 /**
  *
@@ -24,8 +24,8 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 	public function setUp() {
 		parent::setUp();
-		TestingContext::get()->providerConfigurationOverride = PayPalTestConfiguration::get(
-			$this->smashPigGlobalConfig
+		TestingContext::get()->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
+			'paypal', $this->smashPigGlobalConfig
 		);
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',

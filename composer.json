@@ -22,7 +22,6 @@
 		]
 	},
 	"require": {
-		"coderkungfu/php-queue": "dev-master",
 		"minfraud/http": "^1.70",
 		"monolog/monolog": "~1.18.2",
 		"neitanod/forceutf8": "^2.0",
@@ -32,7 +31,7 @@
 		"zordius/lightncandy": "0.23",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
 		"symfony/yaml": "^2.8",
-		"wikimedia/smash-pig": "dev-master",
+		"wikimedia/smash-pig": "^0.5",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1"
 	},
 	"require-dev": {
