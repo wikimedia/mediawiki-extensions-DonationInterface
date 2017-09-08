@@ -91,6 +91,88 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	/**
+	 * Test that the required fields are read out of country_fields.yaml
+	 * @dataProvider getRequiredFields
+	 * @param string $country test donor country
+	 * @param array $fields expected required fields
+	 */
+	public function testRequiredFields( $country, $fields ) {
+		$init = $this->getDonorTestData( $country );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['payment_method'] = 'cc';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$requiredFields = $gateway->getRequiredFields();
+		$this->assertArrayEquals( $fields, $requiredFields );
+	}
+
+	public function getRequiredFields() {
+		return array(
+			array( 'AU', array(
+				'country', 'first_name', 'last_name',
+				'email', 'state_province'
+			) ),
+			array( 'ES', array(
+				'country', 'first_name', 'last_name',
+				'email'
+			) ),
+			array( 'US', array(
+				'country', 'first_name', 'last_name',
+				'email', 'street_address', 'city',
+				'postal_code', 'state_province'
+			) ),
+		);
+	}
+
+	/**
+	 * Load an alternate yaml file based on 'variant'
+	 */
+	public function testVariantConfig() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants'
+		) );
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['payment_method'] = 'cc';
+		$init['variant'] = 'nostate';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$gateway = $this->getFreshGatewayObject(
+			$init, array( 'variant' => 'nostate' )
+		);
+		// The 'nostate' variant requires fewer fields in the US
+		$requiredFields = $gateway->getRequiredFields();
+		$this->assertEquals( array(
+			'country', 'first_name', 'last_name',
+			'email', 'street_address', 'postal_code'
+		), $requiredFields );
+	}
+
+	/**
+	 * Don't allow directory traversal via 'variant'
+	 */
+	public function testIllegalVariantConfig() {
+		$this->setMwGlobals( array(
+			'wgDonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants'
+		) );
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['payment_method'] = 'cc';
+		$init['variant'] = '../notallowedvariants/nostate';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$gateway = $this->getFreshGatewayObject(
+			$init, array( 'variant' => '../notallowedvariants/nostate' )
+		);
+		$requiredFields = $gateway->getRequiredFields();
+		$this->assertArrayEquals( array(
+			'country', 'first_name', 'last_name',
+			'email', 'street_address', 'city',
+			'postal_code', 'state_province'
+		), $requiredFields );
+	}
+
+	/**
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers DonationData::__construct

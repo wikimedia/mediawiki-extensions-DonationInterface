@@ -70,6 +70,7 @@
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
+		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CountryValidation": "gateway_common/CountryValidation.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
@@ -325,6 +326,7 @@
 		"DonationInterfaceThankYouPage": "Donate-thanks",
 		"DonationInterfaceFailPage": "Donate-error",
 		"DonationInterfaceCancelPage": "Donate-cancel",
+		"DonationInterfaceVariantConfigurationDirectory": false,
 		"DonationInterfaceRetryLoopCount": 3,
 		"DonationInterfaceOrphanCron": {
 			"enable": true,

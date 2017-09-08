@@ -99,6 +99,7 @@ class DonationData implements LogPrefixProvider {
 		'redirect',
 		'user_ip',
 		'server_ip',
+		'variant',
 	);
 
 	/**

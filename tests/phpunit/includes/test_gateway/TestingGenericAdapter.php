@@ -51,7 +51,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 		return '12345';
 	}
 
-	public function loadConfig() {
+	public function loadConfig( $variant = null ) {
 	}
 
 	public function defineAccountInfo() {

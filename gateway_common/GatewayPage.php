@@ -84,7 +84,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		DonationInterface::setSmashPigProvider( $gatewayName );
 
 		try {
-			$this->adapter = new $className();
+			$variant = $this->getRequest()->getVal( 'variant' );
+			$this->adapter = new $className( array( 'variant' => $variant ) );
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
 			// FIXME: SmashPig should just use Monolog.
