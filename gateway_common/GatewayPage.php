@@ -145,14 +145,26 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Should be overridden in each derived class to actually handle the request
-	 * Performs gateway-specific checks and either redirects or displays form.
+	 * Load gateway-specific modules and handle the donation request.
 	 *
 	 * FIXME: Be more disciplined about how handleRequest fits with
 	 * handleDonationRequest.  Would it be cleaner to move to a pre and post
 	 * hook scheme?
 	 */
-	protected abstract function handleRequest();
+	protected function handleRequest() {
+		// TODO: remove conditional when we have a dedicated error render
+		// page and move addModule to Mustache#getResources
+		if( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
+			$modules = $this->adapter->getConfig( 'ui_modules' );
+			if ( !empty( $modules['scripts'] ) ) {
+				$this->getOutput()->addModules( $modules['scripts'] );
+			}
+			if ( !empty( $modules['styles'] ) ) {
+				$this->getOutput()->addModuleStyles( $modules['styles'] );
+			}
+		}
+		$this->handleDonationRequest();
+	}
 
 	/**
 	 * Build and display form to user

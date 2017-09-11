@@ -7,10 +7,9 @@ class PaypalExpressGateway extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
+		// FIXME: is this necessary?
 		$this->getOutput()->allowClickjacking();
-		$this->getOutput()->addModules( 'ext.donationinterface.paypal.scripts' );
-
-		$this->handleDonationRequest();
+		parent::handleRequest();
 	}
 
 }
