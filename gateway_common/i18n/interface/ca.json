@@ -16,7 +16,8 @@
 			"Toniher",
 			"Pcoombe",
 			"Macofe",
-			"Jaumeortola"
+			"Jaumeortola",
+			"Abella"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -160,7 +161,7 @@
 	"donate_interface-error-msg-invalid-amount": "Introduïu una quantitat vàlida",
 	"donate_interface-error-msg-invalid-email": "Introduïu una adreça de correu electrònic vàlida",
 	"donate_interface-error-msg-amex": "Introduïu un número correcte de targeta American Express.",
-	"donate_interface-error-msg-mc": "Introduïu un número correcte de targeta Mastercard.",
+	"donate_interface-error-msg-mc": "Introduïu un número correcte per a la targeta Mastercard.",
 	"donate_interface-error-msg-visa": "Introduïu un número correcte de targeta Visa.",
 	"donate_interface-error-msg-discover": "Introduïu un número correcte de targeta Discover.",
 	"donate_interface-error-msg-amount": "quantitat del donatiu",
