@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "05fcadc833e6b0e4c9da1a7fc7aba690",
+    "content-hash": "d144ba30cc189dd2d9aae73935b0a703",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -133,16 +133,16 @@
         },
         {
             "name": "coderkungfu/php-queue",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CoderKungfu/php-queue.git",
-                "reference": "dd8412f105632d31cdd77933ec40a08640752c99"
+                "reference": "a9baeb0ae3b05bbd0d2f9f56c8365ff63f64524a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CoderKungfu/php-queue/zipball/dd8412f105632d31cdd77933ec40a08640752c99",
-                "reference": "dd8412f105632d31cdd77933ec40a08640752c99",
+                "url": "https://api.github.com/repos/CoderKungfu/php-queue/zipball/a9baeb0ae3b05bbd0d2f9f56c8365ff63f64524a",
+                "reference": "a9baeb0ae3b05bbd0d2f9f56c8365ff63f64524a",
                 "shasum": ""
             },
             "require": {
@@ -152,10 +152,10 @@
             },
             "require-dev": {
                 "amazonwebservices/aws-sdk-for-php": "dev-master",
-                "aws/aws-sdk-php": "dev-master",
+                "aws/aws-sdk-php": ">=2.8",
                 "ext-memcache": "*",
                 "iron-io/iron_mq": "dev-master",
-                "microsoft/windowsazure": "dev-master",
+                "microsoft/windowsazure": ">=0.4.0",
                 "mrpoundsign/pheanstalk-5.3": "dev-master",
                 "predis/predis": "1.*"
             },
@@ -198,7 +198,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2017-04-17T14:11:55+00:00"
+            "time": "2017-09-08T03:14:59+00:00"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -981,15 +981,15 @@
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "dev-master",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "b6c5430d0111ada50de31550b04a5e7c1d55c86e"
+                "reference": "def9c6f3cfc8e3878aa74cf94ebb8287b08ac2cc"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
-                "coderkungfu/php-queue": "dev-master",
+                "coderkungfu/php-queue": "^1.0",
                 "corneltek/getoptionkit": "^2.5",
                 "php": ">=5.3.3",
                 "phpmailer/phpmailer": "^5.2",
@@ -1001,6 +1001,7 @@
             },
             "require-dev": {
                 "jakub-onderka/php-parallel-lint": "^0.9",
+                "mediawiki/mediawiki-codesniffer": "0.11.0",
                 "phpunit/phpunit": "^4.8"
             },
             "type": "library",
@@ -1037,7 +1038,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2017-08-11T18:11:19+00:00"
+            "time": "2017-09-11T13:31:06+00:00"
         },
         {
             "name": "zordius/lightncandy",
@@ -1189,9 +1190,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "coderkungfu/php-queue": 20,
-        "amzn/login-and-pay-with-amazon-sdk-php": 20,
-        "wikimedia/smash-pig": 20
+        "amzn/login-and-pay-with-amazon-sdk-php": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

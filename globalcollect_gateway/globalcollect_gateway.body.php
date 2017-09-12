@@ -31,13 +31,9 @@ class GlobalCollectGateway extends GatewayPage {
 	 * - Finish error handling
 	 */
 	protected function handleRequest() {
+		// FIXME: do we really need this?
 		$this->getOutput()->allowClickjacking();
-		// TODO: remove conditional when we have a dedicated error render
-		// page and move addModule to Mustache#getResources
-		if( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
-			$this->getOutput()->addModules( 'ext.donationinterface.ingenico.scripts' );
-		}
-		$this->handleDonationRequest();
+		parent::handleRequest();
 	}
 
 	protected function renderResponse( PaymentResult $result ) {

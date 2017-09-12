@@ -23,9 +23,9 @@ class PaypalLegacyGateway extends GatewayPage {
 	 * Show the special page
 	 */
 	protected function handleRequest() {
+		// FIXME: is this necessary?
 		$this->getOutput()->allowClickjacking();
-		$this->getOutput()->addModules( 'ext.donationInterface.forms' );
-		$this->handleDonationRequest();
+		parent::handleRequest();
 	}
 
 	/**

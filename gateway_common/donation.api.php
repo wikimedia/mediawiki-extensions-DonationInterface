@@ -183,6 +183,7 @@ class DonationApi extends ApiBase {
 	 */
 	protected function getGatewayObject() {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
-		return new $className();
+		$variant = $this->getRequest()->getVal( 'variant' );
+		return new $className( array( 'variant' => $variant ) );
 	}
 }

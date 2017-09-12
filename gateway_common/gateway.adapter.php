@@ -24,7 +24,6 @@ use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\UtcDate;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
-use Symfony\Component\Yaml\Parser;
 
 /**
  * GatewayAdapter
@@ -217,6 +216,7 @@ abstract class GatewayAdapter
 
 		$defaults = array(
 			'external_data' => null,
+			'variant' => null,
 		);
 		$options = array_merge( $defaults, $options );
 		if ( array_key_exists( 'batch_mode', $options ) ) {
@@ -233,7 +233,7 @@ abstract class GatewayAdapter
 
 		// The following needs to be set up before we initialize DonationData.
 		// TODO: move the rest of the initialization here
-		$this->loadConfig();
+		$this->loadConfig( $options['variant'] );
 		$this->defineOrderIDMeta();
 		$this->defineDataConstraints();
 		$this->definePaymentMethods();
@@ -285,13 +285,13 @@ abstract class GatewayAdapter
 	 */
 	abstract protected function getBasedir();
 
-	public function loadConfig() {
-		$yaml = new Parser();
-		foreach ( glob( $this->getBasedir() . "/config/*.yaml" ) as $path ) {
-			$pieces = explode( "/", $path );
-			$key = substr( array_pop( $pieces ), 0, -5 );
-			$this->config[$key] = $yaml->parse( file_get_contents( $path ) );
-		}
+	public function loadConfig( $variant = null ) {
+		$configurationReader = new ConfigurationReader(
+			$this->getBasedir(),
+			static::getIdentifier(),
+			$this->getGlobal( 'VariantConfigurationDirectory' )
+		);
+		$this->config = $configurationReader->readConfiguration( $variant );
 	}
 
 	public function getConfig( $key = null ) {

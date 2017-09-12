@@ -23,13 +23,4 @@
 class AdyenGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = AdyenAdapter::IDENTIFIER;
-
-	/**
-	 * TODO: Finish Adyen error handling
-	 */
-	protected function handleRequest() {
-		$this->getOutput()->addModules( 'ext.donationinterface.adyen.scripts' );
-
-		$this->handleDonationRequest();
-	}
 }

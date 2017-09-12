@@ -21,16 +21,6 @@ class AmazonGateway extends GatewayPage {
 	protected $gatewayIdentifier = AmazonAdapter::IDENTIFIER;
 
 	/**
-	 * Show the special page
-	 */
-	protected function handleRequest() {
-		$this->getOutput()->addModuleStyles( 'ext.donationinterface.amazon.styles' );
-		$this->getOutput()->addModules( 'ext.donationinterface.amazon.scripts' );
-
-		$this->handleDonationRequest();
-	}
-
-	/**
 	 * MakeGlobalVariablesScript handler, sends settings to Javascript
 	 * @param array $vars
 	 */
