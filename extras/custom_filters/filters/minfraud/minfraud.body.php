@@ -66,7 +66,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	protected $minFraudClientOptions = array();
 
-
 	/**
 	 * License key for minfraud
 	 * @var string $minfraudLicenseKey
@@ -208,7 +207,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		if ( !isset( $localdata['data_hash'] ) || !strlen(
 				$localdata['data_hash']
 			) || !isset( $localdata['action'] ) || !strlen( $localdata['action'] ) ) {
-			return FALSE;
+			return false;
 		}
 
 		$data_hash = $localdata['data_hash']; // the data hash passed in by the form submission
@@ -217,7 +216,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		unset( $localdata['data_hash'] );
 		// compare the data hash to make sure it's legit
 		if ( $this->compare_hash( $data_hash, serialize( $localdata ) ) ) {
-
 			$this->gateway_adapter->setHash(
 				$this->generate_hash( $this->gateway_adapter->getData_Unstaged_Escaped() )
 			); // hash the data array
@@ -247,9 +245,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected function filter() {
 		// see if we can bypass minFraud
 		if ( $this->canBypassMinFraud() ) {
-			return TRUE;
+			return true;
 		}
-		//get globals
+		// get globals
 		$score = $this->gateway_adapter->getGlobal( 'MinFraudErrorScore' );
 		$weight = $this->gateway_adapter->getGlobal( 'MinFraudWeight' );
 		$multiplier = $weight / 100;
