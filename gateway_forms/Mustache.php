@@ -376,7 +376,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 
 	public function getStyleModules() {
-		return 'ext.donationinterface.mustache.styles';
+		return 'ext.donationInterface.mustache.styles';
 	}
 
 	protected function getTopLevelTemplate() {

@@ -229,6 +229,36 @@
 				"donate_interface-otherways-short"
 			]
 		},
+		"ext.donationInterface.mustache.styles": {
+			"styles": "gateway_forms/mustache/forms.css"
+		},
+		"ext.donationInterface.adyen.scripts": {
+			"scripts": "adyen_gateway/forms/js/adyen.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.ingenico.scripts": {
+			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.ingenico-hosted": {
+			"scripts": "ingenico_gateway/forms/js/ingenico.js",
+			"styles": "ingenico_gateway/forms/css/ingenico.css",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.paypal.scripts": {
+			"scripts": "paypal_gateway/express_checkout/forms/js/paypal.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.amazon.styles": {
+			"styles": "amazon_gateway/amazon.css"
+		},
+		"ext.donationInterface.amazon.scripts": {
+			"scripts": "amazon_gateway/amazon.js",
+			"dependencies": "ext.donationInterface.validation",
+			"messages": [
+				"donate_interface-otherways-short"
+			]
+		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"
 		},
