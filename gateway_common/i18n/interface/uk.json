@@ -177,6 +177,7 @@
 	"donate_interface-error-msg-nopaypal": "Через технічну помилку ми не можемо відправити ваш запит до PayPal.  Будь ласка, спробуйте скористатися нашою стандартною формою для пожертв з кредитної картки.",
 	"donate_interface-error-msg-validation": "Будь ласка, виправте помилки у формі.",
 	"donate_interface-error-msg-invalid-amount": "Будь ласка, введіть правильну суму",
+	"donate_interface-error-msg-invalid-country": "Вибачте, ми не можемо визначити Вашу країну. Будь ласка, виберіть країну на нашій сторінці <a href=\"$1\">«Ways to Give»</a>.",
 	"donate_interface-error-msg-invalid-email": "Будь ласка, введіть правильну адресу електронної пошти, наприклад, name@domain.com",
 	"donate_interface-error-msg-card-num": "Будь ласка, введіть дійсний номер кредитної картки для одного з дозволених типів кредитних карток",
 	"donate_interface-error-msg-amex": "Будь ласка, введіть правильний номер картки American Express.",
