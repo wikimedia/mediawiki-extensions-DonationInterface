@@ -198,8 +198,8 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		// we can flatten in a custom way per transaction type. Or we should
 		// expand var_map to work with nested stuff.
 		$flattened = array();
-		$squashMe = function( $sourceData, $squashMe ) use ( &$flattened ) {
-			foreach( $sourceData as $key => $value ) {
+		$squashMe = function ( $sourceData, $squashMe ) use ( &$flattened ) {
+			foreach ( $sourceData as $key => $value ) {
 				if ( is_array( $value ) ) {
 					call_user_func( $squashMe, $value, $squashMe );
 				} else {

@@ -46,7 +46,7 @@ class AstroPayAdapter extends GatewayAdapter {
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
-			'internal-0001' => 'donate_interface-try-again', //
+			'internal-0001' => 'donate_interface-try-again',
 			ResponseCodes::DUPLICATE_ORDER_ID => 'donate_interface-processing-error', // Order ID already used in a previous transaction
 		);
 	}

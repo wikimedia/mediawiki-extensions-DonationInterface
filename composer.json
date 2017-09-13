@@ -54,6 +54,7 @@
 		"fix": "phpcbf",
 		"test": [
 			"parallel-lint . --exclude vendor",
+			"phpcs -p -s",
 			"php tests/phpunit/LintYaml.php"
 		]
 	}

@@ -114,7 +114,7 @@ class GlobalCollectOrphanRectifier {
 			// Check the timestamp to see if this message is old enough to
 			// process.  We want to give the donor a generous window in which
 			// to complete the transaction normally.
-			//
+
 			// Messages are retrieved in chronological order, so we can stop
 			// grabbing messages once we hit a message newer than the grace
 			// period in which a donor might still be fumbling for wallet.

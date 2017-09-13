@@ -427,11 +427,11 @@ class DonationData implements LogPrefixProvider {
 			if ( function_exists( 'geoip_country_code_by_name' ) ) {
 				$ip = $this->getVal( 'user_ip' );
 				if ( WmfFramework::validateIP( $ip ) ) {
-					// I hate @suppression at least as much as you do, but this geoip function is being genuinely horrible.
-					// try/catch did not help me suppress the notice it emits when it can't find a host.
-					// The goggles; They do *nothing*.
-					// TODO: to change error_reporting is less worse?
-					$country = @geoip_country_code_by_name( $ip );
+					try {
+						$country = geoip_country_code_by_name( $ip );
+					} catch ( Exception $e ) {
+						// Suppressing missing database exception thrown in CI
+					}
 					if ( !$country ) {
 						$this->logger->warning( __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available." );
 					}

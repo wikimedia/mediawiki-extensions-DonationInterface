@@ -519,8 +519,9 @@ EOT;
 	public static function luhn_check( $str ) {
 		$odd = ( strlen( $str ) % 2 );
 		$sum = 0;
+		$len = strlen( $str );
 
-		for ( $i = 0; $i < strlen( $str ); $i++ ) {
+		for ( $i = 0; $i < $len; $i++ ) {
 			if ( $odd ) {
 				$sum += $str[$i];
 			} else {

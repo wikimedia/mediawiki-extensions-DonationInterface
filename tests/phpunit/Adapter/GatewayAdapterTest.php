@@ -43,7 +43,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * @param $dataName string|int The name or index of the data set
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
-		global $wgDonationInterfaceAllowedHtmlForms;
 		global $wgDonationInterfaceTest;
 		$wgDonationInterfaceTest = true;
 		parent::__construct( $name, $data, $dataName );

@@ -9,7 +9,6 @@ class ContributionTrackingPlusUnique implements StagingHelper, UnstagingHelper {
 		if ( !isset( $normalized['contribution_tracking_id'] ) ) {
 			// Note that we should only reach this condition in batch mode edge
 			// cases where the ctid is unavailable, or during testing.
-			//
 			// A ctid will have been assigned, so we have to pointedly not care today.
 
 			return;

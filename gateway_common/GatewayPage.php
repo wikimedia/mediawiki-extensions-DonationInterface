@@ -153,7 +153,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected function handleRequest() {
 		// TODO: remove conditional when we have a dedicated error render
 		// page and move addModule to Mustache#getResources
-		if( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
+		if ( $this->adapter->getFormClass() === 'Gateway_Form_Mustache' ) {
 			$modules = $this->adapter->getConfig( 'ui_modules' );
 			if ( !empty( $modules['scripts'] ) ) {
 				$this->getOutput()->addModules( $modules['scripts'] );
