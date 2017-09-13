@@ -22,7 +22,7 @@
 		]
 	},
 	"require": {
-		"minfraud/http": "^1.70",
+		"maxmind/minfraud": "^1.4",
 		"monolog/monolog": "~1.18.2",
 		"neitanod/forceutf8": "^2.0",
 		"php": ">=5.4",
