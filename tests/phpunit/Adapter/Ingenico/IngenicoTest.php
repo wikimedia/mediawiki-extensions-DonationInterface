@@ -95,10 +95,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	/**
-	 * Just run the GET_ORDERSTATUS transaction and make sure we load the data
+	 * Just run the getHostedCheckoutStatus transaction and make sure we load the data
 	 */
-	function testGetOrderStatus() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
+	function testGetHostedPaymentStatus() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -106,11 +105,60 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$gateway->do_transaction( 'GET_ORDERSTATUS' );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"createdPaymentOutput" => array(
+						"payment" => array(
+							"id" => "000000891566072501680000200001",
+							"paymentOutput" => array(
+								"amountOfMoney" => array(
+									"amount" => 2345,
+									"currencyCode" => "USD"
+								),
+								"references" => array(
+									"paymentReference" => "0"
+								),
+								"paymentMethod" => "card",
+								"cardPaymentMethodSpecificOutput" => array(
+									"paymentProductId" => 1,
+									"authorisationCode" => "123456",
+									"card" => array(
+										"cardNumber" => "************7977",
+										"expiryDate" => "1220"
+									),
+									"fraudResults" => array(
+										"avsResult" => "0",
+										"cvvResult" => "N",
+										"fraudServiceResult" => "no-advice"
+									)
+								)
+							),
+							"status" => "PENDING_APPROVAL",
+							"statusOutput" => array(
+								"isCancellable" => true,
+								"statusCode" => 600,
+								"statusCodeChangeDateTime" => "20140717145840",
+								"isAuthorized" => true
+							)
+						),
+						"paymentCreationReferences" => array(
+							"additionalReference" => "00000089156607250168",
+							"externalReference" => "000000891566072501680000200001"
+						),
+						"tokens" => ""
+					),
+					"status" => "PAYMENT_CREATED"
+				)
+
+			);
+
+		$gateway->do_transaction( 'getHostedPaymentStatus' );
 
 		$data = $gateway->getTransactionData();
 
-		$this->assertEquals( 'N', $data['CVVRESULT'], 'CVV Result not loaded from XML response' );
+		$this->assertEquals( 'N', $data['cvvResult'], 'CVV Result not loaded from JSON response' );
 	}
 
 	/**
@@ -118,21 +166,65 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * comes back with STATUSID 25 and no CVVRESULT
 	 * @group CvvResult
 	 */
-	function testConfirmCreditCardStatus25() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
+	function testGetHostedPaymentStatus25() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
+		$this->setUpRequest( array( 'cvvResult' => 'M' ) );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '25' );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"createdPaymentOutput" => array(
+						"payment" => array(
+							"id" => "000000891566072501680000200001",
+							"paymentOutput" => array(
+								"amountOfMoney" => array(
+									"amount" => 2345,
+									"currencyCode" => "USD"
+								),
+								"references" => array(
+									"paymentReference" => "0"
+								),
+								"paymentMethod" => "card",
+								"cardPaymentMethodSpecificOutput" => array(
+									"paymentProductId" => 1,
+									"authorisationCode" => "123456",
+									"card" => array(
+										"cardNumber" => "************7977",
+										"expiryDate" => "1220"
+									),
+									"fraudResults" => array(
+										"fraudServiceResult" => "no-advice"
+									)
+								)
+							),
+							"status" => "APPROVED",
+							"statusOutput" => array(
+								"isCancellable" => true,
+								"statusCode" => 25,
+								"statusCodeChangeDateTime" => "20140717145840",
+								"isAuthorized" => true
+							)
+						),
+						"paymentCreationReferences" => array(
+							"additionalReference" => "00000089156607250168",
+							"externalReference" => "000000891566072501680000200001"
+						),
+						"tokens" => ""
+					),
+					"status" => "PAYMENT_APPROVED"
+				)
 
-		$gateway->do_transaction( 'Confirm_CreditCard' );
+			);
+
+		$gateway->do_transaction( 'getHostedPaymentStatus' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on STATUSID 25' );
+		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on statusCode 25' );
 	}
 
 	/**
@@ -140,7 +232,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * fraud scores.
 	 */
 	function testGetOrderstatusPostProcessFraud() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgIngenicoGatewayCustomFiltersFunctions' => array(
@@ -157,9 +248,56 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$gateway::setDummyGatewayResponseCode( '600_badCvv' );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"createdPaymentOutput" => array(
+						"payment" => array(
+							"id" => "000000891566072501680000200001",
+							"paymentOutput" => array(
+								"amountOfMoney" => array(
+									"amount" => 2345,
+									"currencyCode" => "USD"
+								),
+								"references" => array(
+									"paymentReference" => "0"
+								),
+								"paymentMethod" => "card",
+								"cardPaymentMethodSpecificOutput" => array(
+									"paymentProductId" => 1,
+									"authorisationCode" => "123456",
+									"card" => array(
+										"cardNumber" => "************7977",
+										"expiryDate" => "1220"
+									),
+									"fraudResults" => array(
+										"avsResult" => "E",
+										"cvvResult" => "N",
+										"fraudServiceResult" => "no-advice"
+									)
+								)
+							),
+							"status" => "PENDING_APPROVAL",
+							"statusOutput" => array(
+								"isCancellable" => true,
+								"statusCode" => 600,
+								"statusCodeChangeDateTime" => "20140717145840",
+								"isAuthorized" => true
+							)
+						),
+						"paymentCreationReferences" => array(
+							"additionalReference" => "00000089156607250168",
+							"externalReference" => "000000891566072501680000200001"
+						),
+						"tokens" => ""
+					),
+					"status" => "PAYMENT_CREATED"
+				)
 
-		$gateway->do_transaction( 'Confirm_CreditCard' );
+			);
+
+		$gateway->do_transaction( 'getHostedPaymentStatus' );
 		$action = $gateway->getValidationAction();
 		$this->assertEquals( 'review', $action,
 			'Orphan gateway should fraud fail on bad CVV and AVS' );
@@ -167,56 +305,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
-	}
-
-	/**
-	 * Ensure the Confirm_CreditCard transaction prefers CVVRESULT from the XML
-	 * over any value from the querystring
-	 */
-	function testConfirmCreditCardPrefersApiCvv() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-
-		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway->do_transaction( 'Confirm_CreditCard' );
-
-		$this->assertEquals( 'N', $gateway->getData_Unstaged_Escaped( 'cvv_result' ), 'CVV Result not taken from XML response' );
-	}
-
-	/**
-	 * Make sure we record the actual amount charged, even if the donor has
-	 * opened a new window and screwed up their session data.
-	 */
-	function testConfirmCreditCardUpdatesAmount() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-		// The values in session are not the values we originally used
-		// for createHostedCheckout
-		$init['amount'] = '12.50';
-		$init['currency'] = 'USD';
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
-		$this->assertEquals( '12.50', $amount );
-		$this->assertEquals( 'USD', $currency );
-
-		$gateway->do_transaction( 'Confirm_CreditCard' );
-
-		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
-		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
-		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency' );
 	}
 
 	public function testLanguageStaging() {
@@ -229,20 +317,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$exposed->stageData();
 
 		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no_NO', "'NO' donor's language was improperly set. Should be 'no_NO'" );
-	}
-
-	public function testLanguageFallbackStaging() {
-		$this->markTestSkipped( 'Do we have to fall back with Connect?' );
-		$options = $this->getDonorTestData( 'Catalonia' );
-		$options['payment_method'] = 'cc';
-		$options['payment_submethod'] = 'visa';
-		$gateway = $this->getFreshGatewayObject( $options );
-
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$exposed->stageData();
-
-		// Requesting the fallback language from the gateway.
-		$this->assertEquals( 'en', $exposed->getData_Staged( 'language' ) );
 	}
 
 	/**
@@ -270,64 +344,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		// Language was not overwritten.
 		$this->assertEquals( 'ca', $exposed->dataObj->getVal( 'language' ) );
-	}
-
-	/**
-	 * Tests to make sure that certain error codes returned from GC will or
-	 * will not create payments error loglines.
-	 */
-	function testCCLogsOnGatewayError() {
-		$this->markTestSkipped( 'order status not implemented' );
-		$init = $this->getDonorTestData( 'US' );
-		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
-
-		// this should not throw any payments errors: Just an invalid card.
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '430285' );
-		$gateway->do_transaction( 'GET_ORDERSTATUS' );
-		$this->verifyNoLogErrors();
-
-		// Now test one we want to throw a payments error
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '21000050' );
-		$gateway->do_transaction( 'GET_ORDERSTATUS' );
-		$loglines = $this->getLogMatches( LogLevel::ERROR, '/Investigation required!/' );
-		$this->assertNotEmpty( $loglines, 'GC Error 21000050 is not generating the expected payments log error' );
-
-		// Reset logs
-		$this->testLogger->messages = array();
-
-		// Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '20001000-expiry' );
-		$gateway->do_transaction( 'GET_ORDERSTATUS' );
-		$this->verifyNoLogErrors();
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/processResponse:.*EXPIRYDATE/' );
-		$this->assertNotEmpty( $loglines, 'GC Error 20001000-expiry is not generating the expected payments log line' );
-	}
-
-	/**
-	 * Tests to make sure that certain error codes returned from GC will
-	 * trigger order cancellation, even if retryable errors also exist.
-	 * @dataProvider mcNoRetryCodeProvider
-	 */
-	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
-		$init = $this->getDonorTestData( 'US' );
-		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
-		// Make it not look like an orphan
-		$this->setUpRequest( array(
-			'CVVRESULT' => 'M',
-			'AVSRESULT' => '0'
-		) );
-
-		// Toxic card should not retry, even if there's an order id collision
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( $code );
-		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
 	}
 
 	/**
@@ -380,97 +396,12 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			) );
 		try {
 			$gateway->do_transaction( 'createHostedCheckout' );
-		}
-		catch ( Exception $e ) {
+		} catch ( Exception $e ) {
 			// totally expected this
 		}
 
 		// simulate another request coming in before we get anything back from GC
 		$anotherGateway = new IngenicoAdapter();
 		$anotherGateway->do_transaction( 'createHostedCheckout' );
-	}
-
-	/**
-	 * Tests to see that we don't claim we're going to retry when we aren't
-	 * going to. For GC, we really only want to retry on code 300620
-	 * @dataProvider benignNoRetryCodeProvider
-	 */
-	public function testNoClaimRetryOnBoringCodes( $code ) {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
-		$init = $this->getDonorTestData( 'US' );
-		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
-		// Make it not look like an orphan
-		$this->setUpRequest( array(
-			'CVVRESULT' => 'M',
-			'AVSRESULT' => '0'
-		) );
-
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( $code );
-		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$start_id = $exposed->getData_Staged( 'order_id' );
-		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$finish_id = $exposed->getData_Staged( 'order_id' );
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
-		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
-		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code " );
-	}
-
-	/**
-	 * doPayment should recover from Ingenico-side timeouts.
-	 */
-	function testTimeoutRecover() {
-		$this->markTestSkipped( 'SetPayment not implemented' );
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@localhost.net';
-		$init['ffname'] = 'cc-vmad';
-
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway->do_transaction( 'SET_PAYMENT' );
-		$loglines = $this->getLogMatches( LogLevel::INFO, '/Repeating transaction for timeout/' );
-		$this->assertNotEmpty( $loglines, "Log does not say we retried for timeout." );
-	}
-
-	public function testDonorReturnSuccess() {
-		$this->markTestSkipped( 'SetPayment not implemented' );
-		$init = $this->getDonorTestData( 'FR' );
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@localhost.net';
-		$init['order_id'] = mt_rand();
-		$session['Donor'] = $init;
-		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$result = $gateway->processDonorReturn( array(
-			'REF' => $init['order_id'],
-			'CVVRESULT' => 'M',
-			'AVSRESULT' => '0'
-		) );
-		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
-		// TODO inspect the queue message
-	}
-
-	public function testDonorReturnFailure() {
-		$this->markTestSkipped( 'OrderStatus not implemented' );
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@localhost.net';
-		$init['order_id'] = mt_rand();
-		$session['Donor'] = $init;
-		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$gateway::setDummyGatewayResponseCode( '430285' ); // invalid card
-		$result = $gateway->processDonorReturn( array(
-			'REF' => $init['order_id'],
-			'CVVRESULT' => 'M',
-			'AVSRESULT' => '0'
-		) );
-		$this->assertTrue( $result->isFailed() );
 	}
 }

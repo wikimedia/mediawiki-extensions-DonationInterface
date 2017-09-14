@@ -92,7 +92,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			)
 		);
 
-		$this->transactions['getHostedCheckoutStatus'] = array(
+		$this->transactions['getHostedPaymentStatus'] = array(
 			'request' => array( 'hostedCheckoutId' ),
 			'response' => array(
 				'id',
@@ -151,7 +151,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			case 'createHostedCheckout':
 				$result = $provider->createHostedPayment( $data );
 				break;
-			case 'getHostedCheckoutStatus':
+			case 'getHostedPaymentStatus':
 				$result = $provider->getHostedPaymentStatus(
 					$data['hostedCheckoutId']
 				);
@@ -230,10 +230,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 
 	protected function getOrderStatusFromProcessor() {
 		// FIXME: sometimes we should use getPayment
-		return $this->do_transaction( 'getHostedCheckoutStatus' );
+		return $this->do_transaction( 'getHostedPaymentStatus' );
 	}
 
-	protected function post_process_getHostedCheckoutStatus() {
+	protected function post_process_getHostedPaymentStatus() {
 		return parent::post_process_get_orderstatus();
 	}
 
