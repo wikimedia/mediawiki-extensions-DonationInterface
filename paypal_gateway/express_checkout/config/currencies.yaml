@@ -1,4 +1,4 @@
-# see https://www.x.com/developers/paypal/documentation-tools/api/currency-codes
+# see https://developer.paypal.com/docs/classic/api/currency_codes/
 # TODO: Investigate per-country support at this URL
 # https://developer.paypal.com/docs/classic/api/currency_codes/#creditcard
 - AUD
@@ -8,7 +8,7 @@
 - DKK
 - EUR
 - HKD
-- HUF
+- HUF # no fractions
 - ILS
 - JPY # no fractions
 # - MYR # in-country only
