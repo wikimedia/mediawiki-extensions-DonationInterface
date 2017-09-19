@@ -5,8 +5,8 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../../..';
 }
 
-//If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
-require_once( "$IP/maintenance/Maintenance.php" );
+// If you get errors on this next line, set (and export) your MW_INSTALL_PATH var.
+require_once "$IP/maintenance/Maintenance.php";
 
 // Refunds credit card transactions listed in a file.
 // Currently takes a CSV with no header and columns in this order:
@@ -30,9 +30,9 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 		$isUnsubscribing = $this->getOption( 'unsubscribe' );
 
 		$filename = $this->getOption( 'file' );
-		if( !( $file = fopen( $filename, 'r' ) ) ){
+		if ( !( $file = fopen( $filename, 'r' ) ) ) {
 			$this->error( 'Could not find refund file: ' . $filename, true );
-        }
+		}
 		while ( $refund = fgetcsv( $file ) ) {
 			if ( count( $refund ) !== 6 ) {
 				$this->error( 'Refund lines must have exactly 6 fields: order_id, merchant_reference, effort_id, payment_submethod, currency, amount', true );

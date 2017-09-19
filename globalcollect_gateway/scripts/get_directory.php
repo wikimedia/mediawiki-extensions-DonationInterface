@@ -5,8 +5,8 @@ if ( $IP === false ) {
 	$IP = __DIR__ . '/../../../..';
 }
 
-//If you get errors on this next line, set (and export) your MW_INSTALL_PATH var. 
-require_once( "$IP/maintenance/Maintenance.php" );
+// If you get errors on this next line, set (and export) your MW_INSTALL_PATH var.
+require_once "$IP/maintenance/Maintenance.php";
 
 // Refunds credit card transactions listed in a file.
 // Currently takes a CSV with no header and columns in this order:

@@ -31,12 +31,12 @@ class EncodingMangler implements StagingHelper {
 			$this->use_transliterator = true;
 			// Use Any-Latin to munge Cyrillic, Kanji, etc
 			// Then convert anything outside the ISO-8859-1 range to nearest ASCII
-			$this->transliterator = Transliterator::create('Any-Latin; [^a-ÿ] Latin-ASCII');
+			$this->transliterator = Transliterator::create( 'Any-Latin; [^a-ÿ] Latin-ASCII' );
 		}
 	}
 
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		foreach( array_keys( $stagedData ) as $key ) {
+		foreach ( array_keys( $stagedData ) as $key ) {
 			$stagedData[$key] = $this->transliterate( $stagedData[$key] );
 		}
 	}

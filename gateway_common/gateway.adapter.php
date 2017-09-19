@@ -200,7 +200,6 @@ abstract class GatewayAdapter
 	 * Get @see GatewayAdapter::$goToThankYouOn
 	 */
 	public function getGoToThankYouOn() {
-
 		return $this->goToThankYouOn;
 	}
 
@@ -213,7 +212,6 @@ abstract class GatewayAdapter
 	 * @see DonationData
 	 */
 	public function __construct( $options = array() ) {
-
 		$defaults = array(
 			'external_data' => null,
 			'variant' => null,
@@ -380,7 +378,7 @@ abstract class GatewayAdapter
 			return;
 		}
 
-		//TODO crazy logic to determine which account we want
+		// TODO crazy logic to determine which account we want
 		$accounts = array_keys( $acctConfig );
 		$this->account_name = array_shift( $accounts );
 
@@ -411,7 +409,7 @@ abstract class GatewayAdapter
 	 * Adds a string to the debugarray, to make it a little easier to tell what
 	 * happened if we turn the debug results on.
 	 * Only called from the .body pages
-	 * @return boolean true if match, else false.
+	 * @return bool true if match, else false.
 	 */
 	public function checkTokens() {
 		$checkResult = $this->token_checkTokens();
@@ -460,7 +458,7 @@ abstract class GatewayAdapter
 	/**
 	 * A helper function to let us stash extra data after the form has been submitted.
 	 *
-	 * @param array  $dataArray An associative array of data.
+	 * @param array $dataArray An associative array of data.
 	 */
 	public function addRequestData( $dataArray ) {
 		$this->dataObj->addData( $dataArray );
@@ -581,12 +579,11 @@ abstract class GatewayAdapter
 	 * NOTE: This method will check to see if the message exists in translation
 	 * and use that message instead of the default. This would override error_map.
 	 *
-	 * @param    string    $code    The error code to look up in the map
-	 * @param    array     $options
+	 * @param    string $code The error code to look up in the map
+	 * @param    array $options
 	 * @return   array|string    Returns @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMap( $code, $options = array() ) {
-
 		$defaults = array(
 			'translate' => false,
 		);
@@ -631,7 +628,6 @@ abstract class GatewayAdapter
 	 * @return	string	Returns the translated message from @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMapByCodeAndTranslate( $code ) {
-
 		return $this->getErrorMap( $code, array( 'translate' => true, ) );
 	}
 
@@ -646,7 +642,7 @@ abstract class GatewayAdapter
 	 * @param string $gateway_field_name The GATEWAY's field name that we are
 	 * hoping to populate. Probably not even remotely the way we name the same
 	 * data internally.
-	 * @param boolean $token This is a throwback to a road we nearly went down,
+	 * @param bool $token This is a throwback to a road we nearly went down,
 	 * with ajax and client-side token replacement. The idea was, if this was
 	 * set to true, we would simply pass the fully-formed transaction structure
 	 * with our tokenized var names in the spots where form values would usually
@@ -657,8 +653,7 @@ abstract class GatewayAdapter
 	 * should also get rid of the function buildTransactionFormat and anything
 	 * that calls it.
 	 * @throws LogicException
-	 * @return mixed The value we want to send directly to the gateway, for the
-	 * specified gateway field name.
+	 * @return mixed The value we want to send directly to the gateway, for the specified gateway field name.
 	 */
 	public function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
 		if ( empty( $this->transactions ) ) {
@@ -669,7 +664,7 @@ abstract class GatewayAdapter
 		// Ensures we are using the correct transaction structure for our various lookups.
 		$transaction = $this->getCurrentTransaction();
 
-		if ( !$transaction ){
+		if ( !$transaction ) {
 			return null;
 		}
 
@@ -727,7 +722,6 @@ abstract class GatewayAdapter
 			!array_key_exists( $transaction, $this->transactions ) ||
 			!array_key_exists( 'request', $this->transactions[$transaction] )
 		) {
-
 			$msg = self::getGatewayName() . ": $transaction request structure is empty! No transaction can be constructed.";
 			$this->logger->critical( $msg );
 			throw new LogicException( $msg );
@@ -804,7 +798,6 @@ abstract class GatewayAdapter
 			$this->logger->info( $message . $logme );
 		}
 
-
 		return $return;
 	}
 
@@ -818,14 +811,13 @@ abstract class GatewayAdapter
 	 * @param bool $js More likely cruft relating back to buildTransactionFormat
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
-
 		if ( !is_array( $structure ) ) {
 			// this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
 			$this->appendNodeIfValue( $structure, $node, $js );
 		} else {
 			foreach ( $structure as $key => $value ) {
 				if ( !is_array( $value ) ) {
-					//do not use $key, it's the numeric index here and $value is the field name
+					// do not use $key, it's the numeric index here and $value is the field name
 					// FIXME: make tree traversal more readable.
 					$this->appendNodeIfValue( $value, $node, $js );
 				} else {
@@ -836,7 +828,7 @@ abstract class GatewayAdapter
 				}
 			}
 		}
-		//not actually returning anything. It's all side-effects. Because I suck like that.
+		// not actually returning anything. It's all side-effects. Because I suck like that.
 	}
 
 	/**
@@ -893,8 +885,7 @@ abstract class GatewayAdapter
 	 * properly constructed gateway and handle all the return data in an appropriate manner.
 	 * -- Appropriateness is determined by the requested $transaction structure and definition.
 	 *
-	 * @param string $transaction    The specific transaction type, like 'INSERT_ORDERWITHPAYMENT',
-	 *  that maps to a first-level key in the $transactions array.
+	 * @param string $transaction The specific transaction type, like 'INSERT_ORDERWITHPAYMENT', that maps to a first-level key in the $transactions array.
 	 *
 	 * @return PaymentTransactionResponse
 	 */
@@ -902,8 +893,8 @@ abstract class GatewayAdapter
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 		$this->validate();
-		if ( !$this->validatedOK() ){
-			//If the data didn't validate okay, prevent all data transmissions.
+		if ( !$this->validatedOK() ) {
+			// If the data didn't validate okay, prevent all data transmissions.
 			$response = $this->getFailedValidationResponse();
 			// TODO: should we set $this->transaction_response ?
 			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errorState, true ) );
@@ -924,7 +915,7 @@ abstract class GatewayAdapter
 				// FIXME: Only a single value ever gets added to $retryVars before it gets wiped out
 				// for the next attempt.  Decide if we really need an array and redo this switch
 				// statement accordingly.
-				switch( $retryVars[0] ) {
+				switch ( $retryVars[0] ) {
 					case 'timeout' :
 						// Just retry without changing anything.
 						$this->logger->info( "Repeating transaction for timeout" );
@@ -975,7 +966,7 @@ abstract class GatewayAdapter
 	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
 		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
 
-		//reset, in case this isn't our first time.
+		// reset, in case this isn't our first time.
 		$this->transaction_response = new PaymentTransactionResponse();
 		$this->final_status = false;
 		$this->setValidationAction( 'process', true );
@@ -1004,11 +995,11 @@ abstract class GatewayAdapter
 				$this->dataObj->saveContributionTrackingData();
 			}
 			$commType = $this->getCommunicationType();
-			switch( $commType ) {
+			switch ( $commType ) {
 				case 'redirect':
 
-					//in the event that we have a redirect transaction that never displays the form,
-					//save this most recent one before we leave.
+					// in the event that we have a redirect transaction that never displays the form,
+					// save this most recent one before we leave.
 					$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 
 					$this->transaction_response->setCommunicationStatus( true );
@@ -1117,7 +1108,7 @@ abstract class GatewayAdapter
 			);
 		}
 
-		//if we have set errors by this point, the transaction is not okay
+		// if we have set errors by this point, the transaction is not okay
 		$errors = $this->transaction_response->getErrors();
 		if ( !empty( $errors ) ) {
 			$txn_ok = false;
@@ -1128,7 +1119,7 @@ abstract class GatewayAdapter
 		// NOTE: If you want your transaction to fire off the post-process
 		// logic, you need to run $this->postProcessDonation in a function
 		// called
-		//	'post_process' . strtolower($transaction)
+		// 'post_process' . strtolower($transaction)
 		// in the appropriate gateway object.
 		if ( $txn_ok && empty( $retryVars ) ) {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
@@ -1158,9 +1149,9 @@ abstract class GatewayAdapter
 	}
 
 	function getCurlBaseOpts() {
-		//I chose to return this as a function so it's easy to override.
-		//TODO: probably this for all the junk I currently have stashed in the constructor.
-		//...maybe.
+		// I chose to return this as a function so it's easy to override.
+		// TODO: probably this for all the junk I currently have stashed in the constructor.
+		// ...maybe.
 
 		$path = $this->transaction_option( 'path' );
 		if ( !$path ) {
@@ -1255,7 +1246,8 @@ abstract class GatewayAdapter
 		return $this->payment_submethods;
 	}
 
-	function setGatewayDefaults( $options = array ( ) ) {}
+	function setGatewayDefaults( $options = array() ) {
+ }
 
 	public function getCurrencies( $options = array() ) {
 		return $this->config['currencies'];
@@ -1267,7 +1259,7 @@ abstract class GatewayAdapter
 	 * @param string $data the raw data we want to curl up to a server somewhere.
 	 * Should have been constructed with either buildRequestNameValueString, or
 	 * buildRequestXML.
-	 * @return boolean true if the communication was successful and there is a
+	 * @return bool true if the communication was successful and there is a
 	 * parseable response, false if there was a fundamental communication
 	 * problem. (timeout, bad URL, etc.)
 	 */
@@ -1498,7 +1490,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
-	 * @return boolean true if response looks sane
+	 * @return bool true if response looks sane
 	 */
 	protected function parseResponseCommunicationStatus( $response ) {
 		return true;
@@ -1537,10 +1529,10 @@ abstract class GatewayAdapter
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
 			$displayXML = $this->formatXmlString( $xmlString );
 			$realXML = new DomDocument( '1.0' );
-			//DO NOT alter the line below unless you are prepared to also alter the GC audit scripts.
-			//...and everything that references "Raw XML Response"
-			//@TODO: All three of those things.
-			$this->logger->info( "Raw XML Response:\n" . $displayXML ); //I am apparently a huge fibber.
+			// DO NOT alter the line below unless you are prepared to also alter the GC audit scripts.
+			// ...and everything that references "Raw XML Response"
+			// @TODO: All three of those things.
+			$this->logger->info( "Raw XML Response:\n" . $displayXML ); // I am apparently a huge fibber.
 			$realXML->loadXML( trim( $xmlString ) );
 			return $realXML;
 		}
@@ -1561,7 +1553,7 @@ abstract class GatewayAdapter
 			$values = explode( $delimiter, trim( $noHeaders ) );
 			$combined = array_combine( $keys, $values );
 			if ( $combined === false ) {
-				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.');
+				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
 			}
 			return $combined;
 
@@ -1576,11 +1568,11 @@ abstract class GatewayAdapter
 	function stripXMLResponseHeaders( $rawResponse ) {
 		$xmlStart = strpos( $rawResponse, '<?xml' );
 		if ( $xmlStart === false ) {
-			//I totally saw this happen one time. No XML, just <RESPONSE>...
-			//...Weaken to almost no error checking.  Buckle up!
+			// I totally saw this happen one time. No XML, just <RESPONSE>...
+			// ...Weaken to almost no error checking.  Buckle up!
 			$xmlStart = strpos( $rawResponse, '<' );
 		}
-		if ( $xmlStart === false ) { //Still false. Your Head Asplode.
+		if ( $xmlStart === false ) { // Still false. Your Head Asplode.
 			$this->logger->error( "Completely Mangled Response:\n" . $rawResponse );
 			return false;
 		}
@@ -1588,7 +1580,7 @@ abstract class GatewayAdapter
 		return $justXML;
 	}
 
-	//To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+	// To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
 	function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
 		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
@@ -1600,7 +1592,6 @@ abstract class GatewayAdapter
 		$matches = array(); // returns from preg_matches()
 		// scan each line and adjust indent based on opening/closing tags
 		while ( $token !== false ) {
-
 			// test for the various tag states
 			// 1. open and closing tags on same line - no change
 			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) {
@@ -1685,15 +1676,14 @@ abstract class GatewayAdapter
 	/**
 	 * findCodeAction
 	 *
-	 * @param	string			$transaction
-	 * @param	string			$key			The key to lookup in the transaction such as STATUSID
-	 * @param	integer|string	$code			This gets converted to an integer if the values is numeric.
+	 * @param	string $transaction
+	 * @param	string $key The key to lookup in the transaction such as STATUSID
+	 * @param	integer|string $code This gets converted to an integer if the values is numeric.
 	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
 	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
 	 */
 	public function findCodeAction( $transaction, $key, $code ) {
-
 		$this->profiler->getStopwatch( __FUNCTION__, true );
 
 		// Do not allow anything that is not numeric
@@ -1702,7 +1692,7 @@ abstract class GatewayAdapter
 		}
 
 		// Cast the code as an integer
-		settype( $code, 'integer');
+		settype( $code, 'integer' );
 
 		// Check to see if the transaction is defined
 		if ( !array_key_exists( $transaction, $this->return_value_map ) ) {
@@ -1714,7 +1704,7 @@ abstract class GatewayAdapter
 			return null;
 		}
 
-		//sort the array so we can do this quickly.
+		// sort the array so we can do this quickly.
 		ksort( $this->return_value_map[ $transaction ][ $key ], SORT_NUMERIC );
 
 		$ranges = $this->return_value_map[ $transaction ][ $key ];
@@ -1848,7 +1838,7 @@ abstract class GatewayAdapter
 		$transaction['date'] = UtcDate::getUtcTimestamp();
 		$transaction['server'] = gethostname();
 
-		$these_too = array (
+		$these_too = array(
 			'gateway',
 			'contribution_tracking_id',
 			'order_id',
@@ -1871,7 +1861,7 @@ abstract class GatewayAdapter
 	 * @return bool True if a function was found and executed.
 	 */
 	function executeIfFunctionExists( $function_name, $parameter = null ) {
-		$function_name = strtolower( $function_name ); //Because, that's why.
+		$function_name = strtolower( $function_name ); // Because, that's why.
 		if ( method_exists( $this, $function_name ) ) {
 			$this->{$function_name}( $parameter );
 			return true;
@@ -1902,7 +1892,6 @@ abstract class GatewayAdapter
 	 * Run any unstaging functions to decode processor responses
 	 */
 	protected function unstageData() {
-
 		$this->unstaged_data = $this->staged_data;
 
 		foreach ( $this->data_transformers as $transformer ) {
@@ -1920,23 +1909,20 @@ abstract class GatewayAdapter
 	 * - truncate - all strings to the maximum length permitted by the gateway
 	 */
 	public function formatStagedData() {
-
 		foreach ( $this->staged_data as $field => $value ) {
-
 			// Trim all values if they are a string
 			$value = is_string( $value ) ? trim( $value ) : $value;
 
 			if ( isset( $this->dataConstraints[ $field ] ) && is_string( $value ) ) {
-
 				// Truncate the field if it has a length specified
 				if ( isset( $this->dataConstraints[ $field ]['length'] ) ) {
-					$length = (integer) $this->dataConstraints[ $field ]['length'];
+					$length = (int)$this->dataConstraints[ $field ]['length'];
 				} else {
 					$length = false;
 				}
 
 				if ( !empty( $length ) && !empty( $value ) ) {
-					//Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
+					// Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
 					$value = substr( $value, 0, $length );
 				}
 
@@ -1960,7 +1946,7 @@ abstract class GatewayAdapter
 
 		$queryparams = array();
 
-		//we are going to assume a flat array, because... namevalue.
+		// we are going to assume a flat array, because... namevalue.
 		foreach ( $structure as $fieldname ) {
 			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
 			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
@@ -2014,7 +2000,6 @@ abstract class GatewayAdapter
 	 * @throws UnexpectedValueException
 	 */
 	public function finalizeInternalStatus( $status ) {
-
 		/**
 		 * Handle session stuff!
 		 * -Behavior-
@@ -2059,9 +2044,9 @@ abstract class GatewayAdapter
 
 		$msg = " FINAL STATUS: '$status:$action' - ";
 
-		//what do we want in here?
-		//Attempted payment type, country of origin, $status, amount... campaign?
-		//error message if one exists.
+		// what do we want in here?
+		// Attempted payment type, country of origin, $status, amount... campaign?
+		// error message if one exists.
 		$keys = array(
 			'payment_submethod',
 			'payment_method',
@@ -2092,8 +2077,8 @@ abstract class GatewayAdapter
 			'payments_final_status' => $status,
 		);
 
-		//add more keys here if you want it in the db equivalent of the payments-init queue.
-		//for now, though, just taking the ones that make it to the logs.
+		// add more keys here if you want it in the db equivalent of the payments-init queue.
+		// for now, though, just taking the ones that make it to the logs.
 		$keys = array(
 			'payment_submethod',
 			'country',
@@ -2111,7 +2096,7 @@ abstract class GatewayAdapter
 			// FIXME: Dispatch "freeform" messages transparently as well.
 			// TODO: write test
 			$this->logger->info( 'Pushing transaction to payments-init queue.' );
-			QueueWrapper::push( 'payments-init' , $transaction );
+			QueueWrapper::push( 'payments-init', $transaction );
 		} catch ( Exception $e ) {
 			$this->logger->error( 'Unable to send payments-init message' );
 		}
@@ -2152,8 +2137,8 @@ abstract class GatewayAdapter
 
 	public function getFormClass() {
 		$ffname = $this->dataObj->getVal( 'ffname' );
-		if ( strpos( $ffname, 'error') === 0
-			|| strpos( $ffname, 'maintenance') === 0 ) {
+		if ( strpos( $ffname, 'error' ) === 0
+			|| strpos( $ffname, 'maintenance' ) === 0 ) {
 			return 'MustacheErrorForm';
 		}
 		return 'Gateway_Form_Mustache';
@@ -2182,11 +2167,11 @@ abstract class GatewayAdapter
 			return;
 		}
 		$this->session_ensure();
-		$attempts = $this->session_getData( 'numAttempt' ); //intentionally outside the 'Donor' key.
+		$attempts = $this->session_getData( 'numAttempt' ); // intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
 			$attempts += 1;
 		} else {
-			//assume garbage = 0, so...
+			// assume garbage = 0, so...
 			$attempts = 1;
 		}
 
@@ -2203,7 +2188,7 @@ abstract class GatewayAdapter
 	 */
 	protected function incrementSequenceNumber() {
 		$this->session_ensure();
-		$sequence = $this->session_getData( 'sequence' ); //intentionally outside the 'Donor' key.
+		$sequence = $this->session_getData( 'sequence' ); // intentionally outside the 'Donor' key.
 		if ( is_numeric( $sequence ) ) {
 			$sequence += 1;
 		} else {
@@ -2228,7 +2213,7 @@ abstract class GatewayAdapter
 	 * executeFunctionIfExists, early on in do_transaction.
 	 */
 	function runAntifraudFilters() {
-		//extra layer of Stop Doing This.
+		// extra layer of Stop Doing This.
 		if ( $this->errorState->hasErrors() ) {
 			$this->logger->info( 'Skipping antifraud filters: Transaction is already in error' );
 			return;
@@ -2284,12 +2269,12 @@ abstract class GatewayAdapter
 		// ooo, ugly.
 		$transaction = $this->getCurrentTransaction();
 		if ( !$transaction ) {
-			return NULL;
+			return null;
 		}
 		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
 			return $this->transactions[$transaction][$option_value];
 		}
-		return NULL;
+		return null;
 	}
 
 	/**
@@ -2307,7 +2292,7 @@ abstract class GatewayAdapter
 	 */
 	function refreshGatewayValueFromSource( $val ) {
 		$refreshed = $this->dataObj->getVal( $val );
-		if ( !is_null($refreshed) ){
+		if ( !is_null( $refreshed ) ) {
 			$this->staged_data[$val] = $refreshed;
 			$this->unstaged_data[$val] = $refreshed;
 		} else {
@@ -2321,7 +2306,7 @@ abstract class GatewayAdapter
 	}
 
 	public function setValidationAction( $action, $reset = false ) {
-		//our choices are:
+		// our choices are:
 		$actions = array(
 			'process' => 0,
 			'review' => 1,
@@ -2337,7 +2322,7 @@ abstract class GatewayAdapter
 			return;
 		}
 
-		if ( ( int ) $actions[$action] > ( int ) $actions[$this->getValidationAction()] ) {
+		if ( (int)$actions[$action] > (int)$actions[$this->getValidationAction()] ) {
 			$this->action = $action;
 		}
 	}
@@ -2409,9 +2394,9 @@ abstract class GatewayAdapter
 						'street_address',
 						'city',
 						'country',
-						'postal_code', //this should really be added or removed, depending on the country and/or gateway requirements.
-						//however, that's not happening in this class in the code I'm replacing, so...
-						//TODO: Something clever in the DataValidator with data groups like these.
+						'postal_code', // this should really be added or removed, depending on the country and/or gateway requirements.
+						// however, that's not happening in this class in the code I'm replacing, so...
+						// TODO: Something clever in the DataValidator with data groups like these.
 					);
 					if ( !empty( $knownData['country'] ) ) {
 						$country = $knownData['country'];
@@ -2452,7 +2437,7 @@ abstract class GatewayAdapter
 	 * If it is not, it will return an array of errors ready for any
 	 * DonationInterface form class derivative to display.
 	 *
-	 * @return boolean true if validation passes
+	 * @return bool true if validation passes
 	 */
 	public function validate() {
 		$normalized = $this->dataObj->getData();
@@ -2490,7 +2475,7 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * @return boolean True if submitted data is valid and sufficient to proceed to the next step.
+	 * @return bool True if submitted data is valid and sufficient to proceed to the next step.
 	 * TODO: Were we also trying to indicate whether the validation step has succeeded here, by distinguishing array() != false?
 	 */
 	public function validatedOK() {
@@ -2592,9 +2577,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceNameFilterRules
 	 *
-	 * @return integer
+	 * @return int
 	 */
-	public function getScoreName(){
+	public function getScoreName() {
 		$fName = $this->getData_Unstaged_Escaped( 'first_name' );
 		$lName = $this->getData_Unstaged_Escaped( 'last_name' );
 
@@ -2602,7 +2587,7 @@ abstract class GatewayAdapter
 		$rules = $this->getGlobal( 'NameFilterRules' );
 		$score = 0;
 
-		foreach( $rules as $rule ) {
+		foreach ( $rules as $rule ) {
 			$keyMapA = $rule['KeyMapA'];
 			$keyMapB = $rule['KeyMapB'];
 
@@ -2644,10 +2629,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceCountryMap
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getScoreCountryMap() {
-
 		$score = 0;
 
 		$country = $this->getData_Unstaged_Escaped( 'country' );
@@ -2661,7 +2645,7 @@ abstract class GatewayAdapter
 
 		// Lookup a score if it is defined
 		if ( isset( $countryMap[ $country ] ) ) {
-			$score = (integer) $countryMap[ $country ];
+			$score = (int)$countryMap[ $country ];
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
@@ -2684,10 +2668,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceEmailDomainMap
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getScoreEmailDomainMap() {
-
 		$score = 0;
 
 		$email = $this->getData_Unstaged_Escaped( 'email' );
@@ -2704,7 +2687,7 @@ abstract class GatewayAdapter
 
 		// Lookup a score if it is defined
 		if ( isset( $emailDomainMap[ $emailDomain ] ) ) {
-			$score = (integer) $emailDomainMap[ $emailDomain ];
+			$score = (int)$emailDomainMap[ $emailDomain ];
 		}
 
 		// @see $wgDonationInterfaceDisplayDebug
@@ -2728,10 +2711,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceUtmCampaignMap
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getScoreUtmCampaignMap() {
-
 		$score = 0;
 
 		$campaign = $this->getData_Unstaged_Escaped( 'utm_campaign' );
@@ -2743,10 +2725,10 @@ abstract class GatewayAdapter
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $campaignMap ) && !empty( $campaignMap ) ){
-			foreach ( $campaignMap as $regex => $points ){
+		if ( is_array( $campaignMap ) && !empty( $campaignMap ) ) {
+			foreach ( $campaignMap as $regex => $points ) {
 				if ( preg_match( $regex, $campaign ) ) {
-					$score = (integer) $points;
+					$score = (int)$points;
 				}
 			}
 		}
@@ -2772,10 +2754,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceUtmMediumMap
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getScoreUtmMediumMap() {
-
 		$score = 0;
 
 		$medium = $this->getData_Unstaged_Escaped( 'utm_medium' );
@@ -2788,9 +2769,9 @@ abstract class GatewayAdapter
 
 		// If any of the defined regex patterns match, add the points.
 		if ( is_array( $mediumMap ) && !empty( $mediumMap ) ) {
-			foreach ( $mediumMap as $regex => $points ){
+			foreach ( $mediumMap as $regex => $points ) {
 				if ( preg_match( $regex, $medium ) ) {
-					$score = (integer) $points;
+					$score = (int)$points;
 				}
 			}
 		}
@@ -2815,10 +2796,9 @@ abstract class GatewayAdapter
 	 * @see $wgDonationInterfaceCustomFiltersFunctions
 	 * @see $wgDonationInterfaceUtmSourceMap
 	 *
-	 * @return integer
+	 * @return int
 	 */
 	public function getScoreUtmSourceMap() {
-
 		$score = 0;
 
 		$source = $this->getData_Unstaged_Escaped( 'utm_source' );
@@ -2830,10 +2810,10 @@ abstract class GatewayAdapter
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $sourceMap ) && !empty( $sourceMap ) ){
+		if ( is_array( $sourceMap ) && !empty( $sourceMap ) ) {
 			foreach ( $sourceMap as $regex => $points ) {
 				if ( preg_match( $regex, $source ) ) {
-					$score = (integer) $points;
+					$score = (int)$points;
 				}
 			}
 		}
@@ -2873,7 +2853,7 @@ abstract class GatewayAdapter
 		if ( !is_null( $data ) ) {
 			if ( is_null( $subkey ) ) {
 				return $data;
-			} else if ( is_array( $data ) && array_key_exists( $subkey, $data ) ) {
+			} elseif ( is_array( $data ) && array_key_exists( $subkey, $data ) ) {
 				return $data[$subkey];
 			}
 		}
@@ -2887,7 +2867,7 @@ abstract class GatewayAdapter
 	 * outside of the adapter in resultswitcher pages, to determine if the user
 	 * is actually in the process of making a credit card transaction.
 	 *
-	 * @return boolean true if the session contains donor data
+	 * @return bool true if the session contains donor data
 	 */
 	public function session_hasDonorData() {
 		return !is_null( $this->session_getData( 'Donor' ) );
@@ -2973,14 +2953,14 @@ abstract class GatewayAdapter
 		if ( $reset ) {
 			$this->logger->info( __FUNCTION__ . ': Unsetting session donor data' );
 			$this->session_unsetDonorData();
-			//leave the payment forms and antifraud data alone.
-			//but, under no circumstances should the gateway edit
-			//token appear in the preserve array...
+			// leave the payment forms and antifraud data alone.
+			// but, under no circumstances should the gateway edit
+			// token appear in the preserve array...
 			$preserveKeys = array(
 				'DonationInterface_SessVelocity',
 				'PaymentForms',
 				'numAttempt',
-				'order_status', //for post-payment activities
+				'order_status', // for post-payment activities
 				'sequence',
 			);
 			$preservedData = array();
@@ -2989,11 +2969,11 @@ abstract class GatewayAdapter
 				$value = WmfFramework::getSessionValue( $keep );
 				if ( !is_null( $value ) ) {
 					$preservedData[$keep] = $value;
-					$msg .= "$keep, "; //always one extra comma; Don't care.
+					$msg .= "$keep, "; // always one extra comma; Don't care.
 				}
 			}
 			$this->session_unsetAllData();
-			foreach( $preservedData as $keep => $value ) {
+			foreach ( $preservedData as $keep => $value ) {
 				WmfFramework::setSessionValue( $keep, $value );
 			}
 			if ( $msg === '' ) {
@@ -3002,8 +2982,8 @@ abstract class GatewayAdapter
 				$this->logger->info( __FUNCTION__ . ": Reset session, preserving the following keys: $msg" );
 			}
 		} else {
-			//I'm sure we could put more here...
-			$soft_reset = array (
+			// I'm sure we could put more here...
+			$soft_reset = array(
 				'order_id',
 			);
 			$donorData = $this->session_getData( 'Donor' );
@@ -3066,7 +3046,7 @@ abstract class GatewayAdapter
 		if ( isset( $oldData['recurring'] ) && !empty( $oldData['order_id'] ) ) {
 			$newRecurring = '';
 			$hasRecurParam = false;
-			foreach( array( 'recurring_paypal', 'recurring' ) as $key ) {
+			foreach ( array( 'recurring_paypal', 'recurring' ) as $key ) {
 				$newVal = WmfFramework::getRequestValue( $key, null );
 				if ( $newVal !== null ) {
 					$hasRecurParam = true;
@@ -3105,7 +3085,7 @@ abstract class GatewayAdapter
 			$paymentForms = array();
 		}
 
-		//don't want duplicates
+		// don't want duplicates
 		if ( $this->session_getLastFormName() != $form_key ) {
 			$paymentForms[] = $form_key;
 			WmfFramework::setSessionValue( 'PaymentForms', $paymentForms );
@@ -3129,7 +3109,7 @@ abstract class GatewayAdapter
 			return false;
 		}
 		$data = $this->getData_Unstaged_Escaped();
-		//have to check to see if the last loaded form is *still* valid.
+		// have to check to see if the last loaded form is *still* valid.
 		if ( GatewayFormChooser::isValidForm( $ffname, $data ) ) {
 			return $ffname;
 		} else {
@@ -3196,7 +3176,7 @@ abstract class GatewayAdapter
 		WmfFramework::setSessionValue( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
-		$this->addRequestData( array ( 'wmf_token' => $salted ) );
+		$this->addRequestData( array( 'wmf_token' => $salted ) );
 	}
 
 	/**
@@ -3219,7 +3199,7 @@ abstract class GatewayAdapter
 		$sessionSaltedToken = $this->token_getSaltedSessionToken();
 		if ( $val != $sessionSaltedToken ) {
 			$this->logger->debug( __FUNCTION__ . ": broken session data\n" );
-			//and reset the token for next time.
+			// and reset the token for next time.
 			$this->token_refreshAllTokenEverything();
 		}
 		return $val === $sessionSaltedToken;
@@ -3236,7 +3216,7 @@ abstract class GatewayAdapter
 	 * @return bool
 	 */
 	protected function token_checkTokens() {
-		static $match = null; //because we only want to do this once per load.
+		static $match = null; // because we only want to do this once per load.
 
 		if ( $match === null ) {
 			// establish the edit token to prevent csrf
@@ -3246,14 +3226,14 @@ abstract class GatewayAdapter
 
 			// match token
 			if ( !$this->dataObj->isSomething( 'wmf_token' ) ) {
-				$this->addRequestData( array ( 'wmf_token' => $token ) );
+				$this->addRequestData( array( 'wmf_token' => $token ) );
 			}
 			$token_check = $this->getData_Unstaged_Escaped( 'wmf_token' );
 
 			$match = $this->token_matchEditToken( $token_check );
 			if ( $this->dataObj->wasPosted() ) {
 				$this->logger->debug( 'Submitted edit token: ' . $token_check );
-				$this->logger->debug( 'Token match: ' . ($match ? 'true' : 'false' ) );
+				$this->logger->debug( 'Token match: ' . ( $match ? 'true' : 'false' ) );
 			}
 		}
 
@@ -3275,14 +3255,14 @@ abstract class GatewayAdapter
 	public function buildOrderIDSources() {
 		static $built = false;
 
-		if ( $built && isset( $this->order_id_candidates ) ) { //once per request is plenty
+		if ( $built && isset( $this->order_id_candidates ) ) { // once per request is plenty
 			return;
 		}
 
-		//pull all order ids and variants from all their usual locations
-		$locations = array (
+		// pull all order ids and variants from all their usual locations
+		$locations = array(
 			'request' => 'order_id',
-			'session' => array ( 'Donor' => 'order_id' ),
+			'session' => array( 'Donor' => 'order_id' ),
 		);
 
 		$alt_locations = $this->getOrderIDMeta( 'alt_locations' );
@@ -3300,8 +3280,8 @@ abstract class GatewayAdapter
 			) ) );
 		}
 
-		//Now pull all the locations and populate the candidate array.
-		$oid_candidates = array ( );
+		// Now pull all the locations and populate the candidate array.
+		$oid_candidates = array();
 
 		foreach ( $locations as $var => $key ) {
 			switch ( $var ) {
@@ -3328,7 +3308,7 @@ abstract class GatewayAdapter
 					break;
 				default :
 					if ( !is_array( $key ) && array_key_exists( $key, $$var ) ) {
-						//simple case first. This is a direct key in $var.
+						// simple case first. This is a direct key in $var.
 						$oid_candidates[$var] = $$var[$key];
 					}
 					if ( is_array( $key ) ) {
@@ -3342,7 +3322,7 @@ abstract class GatewayAdapter
 			}
 		}
 
-		//unset every invalid candidate
+		// unset every invalid candidate
 		foreach ( $oid_candidates as $source => $value ) {
 			if ( empty( $value ) || !$this->validateDataConstraintsMet( 'order_id', $value ) ) {
 				unset( $oid_candidates[$source] );
@@ -3365,7 +3345,7 @@ abstract class GatewayAdapter
 	 * have been met.
 	 * @param string $field The field name we're checking
 	 * @param mixed $value The candidate value of the field we want to check
-	 * @return boolean True if it's a valid value for that field, false if it isn't.
+	 * @return bool True if it's a valid value for that field, false if it isn't.
 	 */
 	function validateDataConstraintsMet( $field, $value ) {
 		$met = true;
@@ -3375,24 +3355,24 @@ abstract class GatewayAdapter
 			$length = $this->dataConstraints[$field]['length'];
 			switch ( $type ) {
 				case 'numeric' :
-					//@TODO: Determine why the DataValidator's type validation functions are protected.
-					//There is no good answer, use those.
-					//In fact, we should probably just port the whole thing over there. Derp.
+					// @TODO: Determine why the DataValidator's type validation functions are protected.
+					// There is no good answer, use those.
+					// In fact, we should probably just port the whole thing over there. Derp.
 					if ( !is_numeric( $value ) ) {
 						$met = false;
-					} elseif ( $field === 'order_id' && $this->getOrderIDMeta( 'disallow_decimals' ) ) { //haaaaaack...
-						//it's a numeric string, so all the number functions (like is_float) always return false. Because, string.
+					} elseif ( $field === 'order_id' && $this->getOrderIDMeta( 'disallow_decimals' ) ) { // haaaaaack...
+						// it's a numeric string, so all the number functions (like is_float) always return false. Because, string.
 						if ( strpos( $value, '.' ) !== false ) {
-							//we don't want decimals. Something is wrong. Regen.
+							// we don't want decimals. Something is wrong. Regen.
 							$met = false;
 						}
 					}
 					break;
 				case 'alphanumeric' :
-					//TODO: Something better here.
+					// TODO: Something better here.
 					break;
 				default:
-					//fail closed.
+					// fail closed.
 					$met = false;
 			}
 
@@ -3429,20 +3409,20 @@ abstract class GatewayAdapter
 		$source = null;
 		$value = null;
 		if ( !is_null( $override ) && $this->validateDataConstraintsMet( 'order_id', $override ) ) {
-			//just do it.
+			// just do it.
 			$selected = true;
 			$source = 'override';
 			$value = $override;
 		} else {
-			//we are not overriding. Exit if we've been here before and decided something.
+			// we are not overriding. Exit if we've been here before and decided something.
 			if ( $this->getOrderIDMeta( 'final' ) ) {
 				return $this->getOrderIDMeta( 'final' );
 			}
 		}
 
-		$this->buildOrderIDSources(); //make sure all possible preexisting data is ready to go
+		$this->buildOrderIDSources(); // make sure all possible preexisting data is ready to go
 
-		//If there's anything in the candidate array, take it. It's already in default order of preference.
+		// If there's anything in the candidate array, take it. It's already in default order of preference.
 		if ( !$selected && is_array( $this->order_id_candidates ) && !empty( $this->order_id_candidates ) ) {
 			$selected = true;
 			reset( $this->order_id_candidates );
@@ -3454,7 +3434,7 @@ abstract class GatewayAdapter
 			$selected = true;
 			$source = 'generated';
 			$value = $this->generateOrderID( $dataObj );
-			$this->order_id_candidates[$source] = $value; //so we don't regen accidentally
+			$this->order_id_candidates[$source] = $value; // so we don't regen accidentally
 		}
 
 		if ( $selected ) {
@@ -3462,7 +3442,7 @@ abstract class GatewayAdapter
 			$this->setOrderIDMeta( 'final_source', $source );
 			return $value;
 		} elseif ( $this->getOrderIDMeta( 'generate' ) ) {
-			//I'd dump the whole oid meta array here, but it's pretty much guaranteed to be empty if we're here at all.
+			// I'd dump the whole oid meta array here, but it's pretty much guaranteed to be empty if we're here at all.
 			$this->logger->error( __FUNCTION__ . ": Unable to determine what oid to use, in generate mode." );
 		}
 
@@ -3500,7 +3480,7 @@ abstract class GatewayAdapter
 
 			return "{$ctid}.{$sequence}";
 		}
-		$order_id = ( string ) mt_rand( 1000, 9999999999 );
+		$order_id = (string)mt_rand( 1000, 9999999999 );
 		return $order_id;
 	}
 
@@ -3508,21 +3488,21 @@ abstract class GatewayAdapter
 		$id = null;
 		if ( $this->getOrderIDMeta( 'generate' ) ) {
 			$id = $this->generateOrderID(); // should we pass $this->dataObj?
-			$source = 'regenerated';  //This implies the try number is > 1.
+			$source = 'regenerated';  // This implies the try number is > 1.
 			$this->order_id_candidates[$source] = $id;
-			//alter the meta with the new data
+			// alter the meta with the new data
 			$this->setOrderIDMeta( 'final', $id );
 			$this->setOrderIDMeta( 'final_source', 'regenerated' );
 		} else {
-			//we are not regenerating ourselves, but we need a new one...
-			//so, blank it and wait.
-			$this->order_id_candidates = array ( );
+			// we are not regenerating ourselves, but we need a new one...
+			// so, blank it and wait.
+			$this->order_id_candidates = array();
 			unset( $this->order_id_meta['final'] );
 			unset( $this->order_id_meta['final_source'] );
 		}
 
-		//tell DonationData about it
-		$this->addRequestData( array ( 'order_id' => $id ) );
+		// tell DonationData about it
+		$this->addRequestData( array( 'order_id' => $id ) );
 		// Add new Order ID to the session.
 		$this->session_addDonorData();
 		return $id;
@@ -3549,7 +3529,7 @@ abstract class GatewayAdapter
 		}
 
 		if ( $key ) {
-			//just return the key if it exists
+			// just return the key if it exists
 			if ( array_key_exists( $key, $data ) ) {
 				return $data[$key];
 			}
@@ -3575,10 +3555,8 @@ abstract class GatewayAdapter
 		}
 
 		if ( isset( $this->payment_methods[ $payment_method ] ) ) {
-
 			return $this->payment_methods[ $payment_method ];
-		}
-		else {
+		} else {
 			$message = "The payment method [{$payment_method}] was not found.";
 			throw new OutOfBoundsException( $message );
 		}
@@ -3590,7 +3568,7 @@ abstract class GatewayAdapter
 		}
 
 		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
-			$this->logger->debug( 'Getting metadata for payment submethod: ' . ( string ) $payment_submethod );
+			$this->logger->debug( 'Getting metadata for payment submethod: ' . (string)$payment_submethod );
 
 			// Ensure that the validation index is set.
 			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
@@ -3598,8 +3576,7 @@ abstract class GatewayAdapter
 			}
 
 			return $this->payment_submethods[ $payment_submethod ];
-		}
-		else {
+		} else {
 			$msg = "The payment submethod [{$payment_submethod}] was not found.";
 			$this->logger->error( $msg );
 			throw new OutOfBoundsException( $msg );
@@ -3622,7 +3599,7 @@ abstract class GatewayAdapter
 		$method = $this->getPaymentMethod();
 
 		$submethods = array();
-		foreach( $this->payment_submethods as $key => $available_submethod ) {
+		foreach ( $this->payment_submethods as $key => $available_submethod ) {
 			$group = $available_submethod['group'];
 			if ( $method !== $group ) {
 				continue; // skip anything not part of the selected method
@@ -3649,7 +3626,7 @@ abstract class GatewayAdapter
 	 * @return string JSON-encoded donation data
 	 */
 	public function getLogDebugJSON() {
-		$logObj = array (
+		$logObj = array(
 			'amount',
 			'ffname',
 			'country',
@@ -3735,7 +3712,7 @@ abstract class GatewayAdapter
 	 * Allows adapters to specify logic as to whether an orphan can be rectified
 	 * @return bool
 	 */
-	public function shouldRectifyOrphan(){
+	public function shouldRectifyOrphan() {
 		return false;
 	}
 
@@ -3745,8 +3722,8 @@ abstract class GatewayAdapter
 	 * Then tries to see if the orphan can be matched
 	 * @return PaymentResult
 	 */
-	public function rectifyOrphan(){
-		if (!$this->shouldRectifyOrphan()){
+	public function rectifyOrphan() {
+		if ( !$this->shouldRectifyOrphan() ) {
 			// Skip other payment methods which shouldn't be in the pending
 			// queue anyway.  See https://phabricator.wikimedia.org/T161160
 			$this->logger->info( "Skipping  pending record." );
@@ -3755,14 +3732,15 @@ abstract class GatewayAdapter
 		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
 		$params = $this->createDonorReturnParams();
 		$paymentResult = $this->processDonorReturn( $params );
-		if (!$paymentResult->isFailed()){
-			$this->logger->info( $this->getData_Staged('contribution_tracking_id') . ': FINAL: Rectified' );
+		if ( !$paymentResult->isFailed() ) {
+			$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
 			return $paymentResult;
 		} else {
-			$this->errorState->addErrors($paymentResult->getErrors());
-			$this->logger->error($this->getData_Staged('contribution_tracking_id') . ': ERRORS ' . print_r($this->errorState, true) );}
+			$this->errorState->addErrors( $paymentResult->getErrors() );
+			$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
+  }
 		 return $paymentResult;
-		}
+	}
 
 	/**
 	 * @return PaymentTransactionResponse

@@ -79,7 +79,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		);
 	}
 
-	function setGatewayDefaults( $options = array ( ) ) {
+	function setGatewayDefaults( $options = array() ) {
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
 				array( 'payment_method' => 'paypal' )
@@ -107,7 +107,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'request' => array(
 				'USER',
 				'PWD',
-				//'SIGNATURE', // See below.
+				// 'SIGNATURE', // See below.
 				'VERSION',
 				'METHOD',
 				'RETURNURL',
@@ -121,7 +121,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'L_PAYMENTREQUEST_0_DESC0',
 				// TODO: Using item category = 'Digital' might save you on
 				// rates, this should be configurable.
-				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
+				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
 				'PAYMENTREQUEST_0_AMT',
 				'PAYMENTREQUEST_0_CURRENCYCODE',
 				// FIXME: This should be deprecated, and is only for back-compat.
@@ -144,7 +144,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'REQCONFIRMSHIPPING' => 0,
 				'NOSHIPPING' => 1,
 				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
+				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
@@ -174,7 +174,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'L_PAYMENTREQUEST_0_AMT0',
 				// // Note that the DESC fields can be tweaked to get different
 				// // effects in the PayPal layout.
-				//'L_PAYMENTREQUEST_0_DESC0',
+				// 'L_PAYMENTREQUEST_0_DESC0',
 				'L_PAYMENTREQUEST_0_NAME0',
 				'L_PAYMENTREQUEST_0_QTY0',
 				'MAXAMT',
@@ -182,11 +182,11 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_CURRENCYCODE',
 				// // FIXME: This should be deprecated, and is only for back-compat.
 				// 'PAYMENTREQUEST_0_CUSTOM',
-				//'PAYMENTREQUEST_0_DESC',
-				//'PAYMENTREQUEST_0_INVNUM',
+				// 'PAYMENTREQUEST_0_DESC',
+				// 'PAYMENTREQUEST_0_INVNUM',
 				'PAYMENTREQUEST_0_ITEMAMT',
-				//'PAYMENTREQUEST_0_PAYMENTACTION',
-				//'PAYMENTREQUEST_0_PAYMENTREASON',
+				// 'PAYMENTREQUEST_0_PAYMENTACTION',
+				// 'PAYMENTREQUEST_0_PAYMENTREASON',
 				// // TODO: Investigate why would give this as an input:
 				// // PAYMENTREQUEST_n_TRANSACTIONID
 			),
@@ -202,10 +202,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// FIXME: Sad!  The thank-you message would be perfect here,
 				// but it seems the exclamation mark is not supported, even when
 				// urlencoded properly.
-				//'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-donate-error-thank-you-for-your-support' ),
+				// 'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-donate-error-thank-you-for-your-support' ),
 				'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
+				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
 				'L_PAYMENTREQUEST_0_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'L_PAYMENTREQUEST_0_QTY0' => 1,
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
@@ -309,10 +309,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'METHOD',
 				'TOKEN',
 				'DESC',
-				//'L_PAYMENTREQUEST_0_AMT0',
-				//'L_PAYMENTREQUEST_0_DESC0',
-				//'L_PAYMENTREQUEST_n_NAME0',
-				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
+				// 'L_PAYMENTREQUEST_0_AMT0',
+				// 'L_PAYMENTREQUEST_0_DESC0',
+				// 'L_PAYMENTREQUEST_n_NAME0',
+				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
 				'PROFILESTARTDATE',
 				'PROFILEREFERENCE',
 				'AUTOBILLOUTAMT',
@@ -330,9 +330,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'CreateRecurringPaymentsProfile',
 				'DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				//'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				//'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
-				//'L_PAYMENTREQUEST_n_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+				// 'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
+				// 'L_PAYMENTREQUEST_n_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				// Do not charge for the balance if payments fail.
 				'AUTOBILLOUTAMT' => 'NoAutoBill',
 				'BILLINGPERIOD' => 'Month',
@@ -544,7 +544,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		if (
 			empty( $requestValues['PayerID'] )
 		) {
-			$this->logger->info('Notice missing PayerID in PaypalExpressAdapater::ProcessDonorReturn');
+			$this->logger->info( 'Notice missing PayerID in PaypalExpressAdapater::ProcessDonorReturn' );
 		} else {
 			$requestData['payer_id'] = $requestValues['PayerID'];
 		}
@@ -615,15 +615,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * TODO: add test
 	 */
 	public function createDonorReturnParams() {
-		return array('token' => $this->getData_Staged('gateway_session_id'));
+		return array( 'token' => $this->getData_Staged( 'gateway_session_id' ) );
 	}
 
 	/*
 	 * Returns true becaues all payment methods can be rectified
 	 * FIXME: Add handling for session expiration limits?
 	 */
-	public function shouldRectifyOrphan()
-	{
+	public function shouldRectifyOrphan() {
 		return true;
 	}
 }

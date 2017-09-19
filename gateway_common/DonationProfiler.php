@@ -6,7 +6,7 @@ use Psr\Log\LoggerInterface;
  * Records duration of various operations.
  */
 
-class DonationProfiler{
+class DonationProfiler {
 	protected $logger;
 	protected $commLogger;
 	protected $gatewayName;
@@ -70,7 +70,7 @@ class DonationProfiler{
 			'additional' => $additional,
 		);
 		$msg = '';
-		foreach ( $params as $key=>$val ) {
+		foreach ( $params as $key => $val ) {
 			$msg .= "$key:$val - ";
 		}
 		$this->commLogger->info( $msg );

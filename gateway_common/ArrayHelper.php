@@ -12,7 +12,8 @@ class ArrayHelper {
 	public static function buildLookupTable( $sourceArray, $lookupBy ) {
 		# PHP 5.4: $keys = array_column( $sourceArray, $lookupBy );
 		$keys = array_map(
-			function( $e ) use ( $lookupBy ) { return $e[$lookupBy]; },
+			function ( $e ) use ( $lookupBy ) { return $e[$lookupBy];
+   },
 			$sourceArray
 		);
 		$values = array_keys( $sourceArray );
@@ -61,7 +62,7 @@ class ArrayHelper {
 				);
 			}
 			// TODO: If all children are skipped, remove $targetElement[$key] ?
-		} else if ( $structureElement[$key] === null ) {
+		} elseif ( $structureElement[$key] === null ) {
 			// HACK: needed a way to specify non-associative arrays in the output
 			$fieldValue = $callback( $key );
 			if ( self::includeElement( $fieldValue ) ) {
@@ -74,4 +75,3 @@ class ArrayHelper {
 		return ( $value !== '' && $value !== false );
 	}
 }
-

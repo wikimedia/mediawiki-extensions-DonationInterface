@@ -24,17 +24,17 @@ abstract class FraudFilter extends Gateway_Extras {
 	 * @param array $scoreBreakdown
 	 */
 	protected function sendAntifraudMessage( $validationAction, $totalScore, $scoreBreakdown ) {
-		//add a message to the fraud stats queue, so we can shovel it into the fredge.
+		// add a message to the fraud stats queue, so we can shovel it into the fredge.
 		$stomp_msg = array(
 			'validation_action' => $validationAction,
 			'risk_score' => $totalScore,
 			'score_breakdown' => $scoreBreakdown,
 			'user_ip' => $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ),
 		);
-		//If we need much more here to help combat fraud, we could just
-		//start stuffing the whole maxmind query in the fredge, too.
-		//Legal said ok... but this seems a bit excessive to me at the
-		//moment.
+		// If we need much more here to help combat fraud, we could just
+		// start stuffing the whole maxmind query in the fredge, too.
+		// Legal said ok... but this seems a bit excessive to me at the
+		// moment.
 
 		$transaction = $this->gateway_adapter->addStandardMessageFields( $stomp_msg );
 
@@ -47,7 +47,7 @@ abstract class FraudFilter extends Gateway_Extras {
 		}
 		try {
 			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
-			QueueWrapper::push( 'payments-antifraud' , $transaction );
+			QueueWrapper::push( 'payments-antifraud', $transaction );
 		} catch ( Exception $e ) {
 			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
 		}

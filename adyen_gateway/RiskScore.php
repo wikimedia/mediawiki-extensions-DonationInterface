@@ -14,7 +14,7 @@ class RiskScore implements StagingHelper {
 			// decline any transaction with offset > 100
 			$maximumScore = $adapter->getGlobal( 'MaxRiskScore' );
 			$stagedScore = min( $normalized['risk_score'], $maximumScore );
-			$stagedData['risk_score'] = ( string ) round( $stagedScore );
+			$stagedData['risk_score'] = (string)round( $stagedScore );
 		}
 	}
 }

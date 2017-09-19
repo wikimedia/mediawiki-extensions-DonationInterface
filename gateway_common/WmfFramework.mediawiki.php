@@ -14,11 +14,11 @@ class WmfFramework_Mediawiki {
 	}
 
 	static function getRequestValue( $key, $default ) {
-		//all strings is just fine.
+		// all strings is just fine.
 		$ret = RequestContext::getMain()->getRequest()->getText( $key, $default );
-		//getText never returns null: It just casts do an empty string. Soooo...
+		// getText never returns null: It just casts do an empty string. Soooo...
 		if ( $ret === '' && !array_key_exists( $key, $_POST ) && !array_key_exists( $key, $_GET ) ) {
-			$ret = $default; //not really there, so stop pretending.
+			$ret = $default; // not really there, so stop pretending.
 		}
 		return $ret;
 	}
@@ -79,7 +79,7 @@ class WmfFramework_Mediawiki {
 	 * present. If no language is passed in, defaults to self::getLanguageCode()
 	 * @param string $msg_key The message string to look up.
 	 * @param string $language A valid mediawiki language code, or null.
-	 * @return boolean - true if message exists, otherwise false.
+	 * @return bool - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language = null ) {
 		if ( $language === null ) {

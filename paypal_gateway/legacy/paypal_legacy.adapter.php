@@ -51,7 +51,6 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		);
 	}
 
-
 	function defineTransactions() {
 		$this->transactions = array();
 		$this->transactions[ 'Donate' ] = array(
@@ -149,7 +148,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 	public function doPayment() {
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->normalizeOrderID( $ctid );
-		$this->addRequestData( array ( 'order_id' => $ctid ) );
+		$this->addRequestData( array( 'order_id' => $ctid ) );
 
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$resultData = $this->do_transaction( 'DonateRecurring' );

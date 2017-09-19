@@ -15,15 +15,14 @@ $forms_whitelist = array();
  */
 $forms_whitelist['amazon'] = array(
 	'gateway' => 'amazon',
-	'payment_methods' => array('amazon' => 'ALL'),
+	'payment_methods' => array( 'amazon' => 'ALL' ),
 );
 
 $forms_whitelist['amazon-recurring'] = array(
 	'gateway' => 'amazon',
-	'payment_methods' => array('amazon' => 'ALL'),
+	'payment_methods' => array( 'amazon' => 'ALL' ),
 	'recurring',
 );
-
 
 /*******************************
  * RealTime Banking - Two Step *
@@ -31,11 +30,10 @@ $forms_whitelist['amazon-recurring'] = array(
 
 $forms_whitelist['rtbt-ideal'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('rtbt' => 'rtbt_ideal'),
+	'payment_methods' => array( 'rtbt' => 'rtbt_ideal' ),
 	'countries' => array( '+' => 'NL' ),
 	'currencies' => array( '+' => 'EUR' ),
 );
-
 
 /********
  * BPAY *
@@ -43,11 +41,10 @@ $forms_whitelist['rtbt-ideal'] = array(
 
 $forms_whitelist['obt-bpay'] = array(
 	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'AU'),
-	'currencies' => array( '+' => 'AUD'),
-	'payment_methods' => array('obt' => 'bpay')
+	'countries' => array( '+' => 'AU' ),
+	'currencies' => array( '+' => 'AUD' ),
+	'payment_methods' => array( 'obt' => 'bpay' )
 );
-
 
 /**********************
  * Credit Card - Misc *
@@ -55,7 +52,7 @@ $forms_whitelist['obt-bpay'] = array(
 
 $forms_whitelist['cc-vmad'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 	'countries' => array(
 		'+' => array( 'US', ),
 	),
@@ -63,7 +60,7 @@ $forms_whitelist['cc-vmad'] = array(
 
 $forms_whitelist['cc-vjma'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'jcb', 'mc', 'amex' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'jcb', 'mc', 'amex' ) ),
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
@@ -72,17 +69,16 @@ $forms_whitelist['cc-vjma'] = array(
 
 $forms_whitelist['cc-jvma'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'jcb', 'visa', 'mc', 'amex' )),
+	'payment_methods' => array( 'cc' => array( 'jcb', 'visa', 'mc', 'amex' ) ),
 	'countries' => array(
 		'+' => array( 'JP', ),
 	),
 	'selection_weight' => 0,
 );
 
-
 $forms_whitelist['cc-vmaj'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
 	'countries' => array(
 		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
 					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
@@ -92,7 +88,7 @@ $forms_whitelist['cc-vmaj'] = array(
 
 $forms_whitelist['cc-vmd'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'discover' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'discover' ) ),
 	'countries' => array(
 		// Array merge with cc-vmad as fallback in case 'a' goes down
 		'+' => array_merge(
@@ -104,7 +100,7 @@ $forms_whitelist['cc-vmd'] = array(
 
 $forms_whitelist['cc-vmj'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'jcb' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'jcb' ) ),
 	'countries' => array(
 		// Array merge with cc-vmaj as fallback in case 'a' goes down
 		'+' => array_merge(
@@ -116,7 +112,7 @@ $forms_whitelist['cc-vmj'] = array(
 
 $forms_whitelist['cc-vma'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
 	'countries' => array(
 		// Array merge with cc-vmaj as fallback in case 'j' goes down
 		// Array merge with cc-vmad as fallback in case 'd' goes down
@@ -133,7 +129,7 @@ $forms_whitelist['cc-vma'] = array(
 
 $forms_whitelist['cc-vm'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
 	'countries' => array(
 		// Array merge with cc-vmj as fallback in case 'j' goes down
 		// Array merge with cc-vmd as fallback in case 'd' goes down
@@ -155,7 +151,7 @@ $forms_whitelist['cc-vm'] = array(
 
 $forms_whitelist['cc-a'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'amex' )),
+	'payment_methods' => array( 'cc' => array( 'amex' ) ),
 	'countries' => array(
 		'+' => array_merge(
 			$forms_whitelist['cc-vma']['countries']['+'],
@@ -166,21 +162,20 @@ $forms_whitelist['cc-a'] = array(
 
 $forms_whitelist['cc'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => 'ALL'),
-	'countries' => array('-' => 'VN')
+	'payment_methods' => array( 'cc' => 'ALL' ),
+	'countries' => array( '-' => 'VN' )
 );
 
 // FIXME: is this still needed?
 /* Special case for Vietnam while GC is still having problems.
  * In the meantime: Visa & Mastercard, USD-only.
  */
-$forms_whitelist['cc-vietnam'] = array (
+$forms_whitelist['cc-vietnam'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array ( 'cc' => array ( 'visa', 'mc' ) ),
-	'countries' => array ( '+' => 'VN' ),
-	'currencies' => array ( '+' => 'USD' ),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
+	'countries' => array( '+' => 'VN' ),
+	'currencies' => array( '+' => 'USD' ),
 );
-
 
 /****************************
  * Name and Email-Only Test *
@@ -196,7 +191,7 @@ $forms_whitelist['email-cc-vm'] = $forms_whitelist['cc-vm'];
 
 $forms_whitelist['rcc-vmad'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'discover' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmad']['countries']['+']
@@ -205,7 +200,7 @@ $forms_whitelist['rcc-vmad'] = array(
 
 $forms_whitelist['rcc-vmaj'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex', 'jcb' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmaj']['countries']['+']
@@ -214,7 +209,7 @@ $forms_whitelist['rcc-vmaj'] = array(
 
 $forms_whitelist['rcc-vmd'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'discover' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'discover' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmd']['countries']['+']
@@ -223,7 +218,7 @@ $forms_whitelist['rcc-vmd'] = array(
 
 $forms_whitelist['rcc-vmj'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'jcb' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'jcb' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmj']['countries']['+']
@@ -232,7 +227,7 @@ $forms_whitelist['rcc-vmj'] = array(
 
 $forms_whitelist['rcc-vma'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc', 'amex' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vma']['countries']['+']
@@ -241,7 +236,7 @@ $forms_whitelist['rcc-vma'] = array(
 
 $forms_whitelist['rcc-vm'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => array( 'visa', 'mc' )),
+	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vm']['countries']['+']
@@ -250,7 +245,7 @@ $forms_whitelist['rcc-vm'] = array(
 
 $forms_whitelist['rcc'] = array(
 	'gateway' => 'globalcollect',
-	'payment_methods' => array('cc' => 'ALL'),
+	'payment_methods' => array( 'cc' => 'ALL' ),
 	'recurring'
 );
 
@@ -260,23 +255,23 @@ $forms_whitelist['rcc'] = array(
 
 $forms_whitelist['paypal'] = array(
 	'gateway' => 'paypal',
-	'payment_methods' => array('paypal' => 'ALL'),
+	'payment_methods' => array( 'paypal' => 'ALL' ),
 );
 
 $forms_whitelist['paypal-recurring'] = array(
 	'gateway' => 'paypal',
-	'payment_methods' => array('paypal' => 'ALL'),
+	'payment_methods' => array( 'paypal' => 'ALL' ),
 	'recurring',
 );
 
 $forms_whitelist['paypal_ec'] = array(
 	'gateway' => 'paypal_ec',
-	'payment_methods' => array('paypal' => 'ALL'),
+	'payment_methods' => array( 'paypal' => 'ALL' ),
 );
 
 $forms_whitelist['paypal_ec-recurring'] = array(
 	'gateway' => 'paypal_ec',
-	'payment_methods' => array('paypal' => 'ALL'),
+	'payment_methods' => array( 'paypal' => 'ALL' ),
 	'recurring',
 );
 
@@ -342,13 +337,13 @@ $forms_whitelist['astropay-cl'] = array(
 	'currencies' => array( '+' => 'CLP' ),
 	'payment_methods' => array(
 		'cc' => array(
-#			'visa',
-#			'mc',
-#			'amex',
-#			'magna',
-#			'diners',
-#			'cmr',
-#			'presto',
+# 'visa',
+# 'mc',
+# 'amex',
+# 'magna',
+# 'diners',
+# 'cmr',
+# 'presto',
 			'webpay',
 		),
 		'bt' => array(
@@ -438,19 +433,19 @@ $forms_whitelist['adyen-test'] = array(
  * Error Pages *
  * *********** */
 
-$forms_whitelist['error-default'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+$forms_whitelist['error-default'] = array(
+	'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
 	'special_type' => 'error',
 );
 
-$forms_whitelist['error-noform'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+$forms_whitelist['error-noform'] = array(
+	'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
 	'special_type' => 'error',
 );
 
-$forms_whitelist['error-cc'] = array (
-	'gateway' => array ( 'globalcollect', 'adyen', 'astropay' ),
-	'payment_methods' => array ( 'cc' => 'ALL' ),
+$forms_whitelist['error-cc'] = array(
+	'gateway' => array( 'globalcollect', 'adyen', 'astropay' ),
+	'payment_methods' => array( 'cc' => 'ALL' ),
 	'special_type' => 'error',
 );
 

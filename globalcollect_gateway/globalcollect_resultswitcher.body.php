@@ -4,7 +4,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 
 	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
 
-	protected function handleRequest () {
+	protected function handleRequest() {
 		$this->handleResultRequest();
 	}
 

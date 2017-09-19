@@ -11,7 +11,7 @@
 class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( empty( $normalized['amount'] ) || empty( $normalized['currency'] ) ) {
-			//can't do anything with amounts at all. Just go home.
+			// can't do anything with amounts at all. Just go home.
 			unset( $stagedData['amount'] );
 			return;
 		}
@@ -25,7 +25,6 @@ class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 			$amount = floor( $amount );
 			$stagedData['amount'] = $amount;
 		}
-
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
@@ -36,6 +35,5 @@ class AmountInMinorUnits implements StagingHelper, UnstagingHelper {
 		} else {
 			$unstagedData['amount'] = $stagedData['amount'];
 		}
-
 	}
 }

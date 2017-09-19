@@ -19,21 +19,20 @@ class MessageUtils {
 	public static function languageSpecificFallback(
 		$language = 'en', $msg_keys = array(), $params = array()
 	) {
-
-		if ( count( $msg_keys ) < 1 ){
+		if ( count( $msg_keys ) < 1 ) {
 			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
 		}
 
 		# look for the first message that exists
-		foreach ( $msg_keys as $m ){
-			if ( WmfFramework::messageExists( $m, $language ) ){
+		foreach ( $msg_keys as $m ) {
+			if ( WmfFramework::messageExists( $m, $language ) ) {
 				return WmfFramework::formatMessage( $m, $params );
 			}
 		}
 
 		# we found nothing in the requested language, return the first fallback message that exists
-		foreach ( $msg_keys as $m ){
-			if ( WmfFramework::messageExists( $m, $language ) ){
+		foreach ( $msg_keys as $m ) {
+			if ( WmfFramework::messageExists( $m, $language ) ) {
 				return WmfFramework::formatMessage( $m, $params );
 			}
 		}

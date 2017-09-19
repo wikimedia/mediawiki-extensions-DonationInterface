@@ -63,10 +63,10 @@ class AdyenAdapter extends GatewayAdapter {
 	 * 'length' => $max_charlen
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array (
-			'alt_locations' => array ( 'request' => 'merchantReference' ),
-			'ct_id' => TRUE,
-			'generate' => TRUE,
+		$this->order_id_meta = array(
+			'alt_locations' => array( 'request' => 'merchantReference' ),
+			'ct_id' => true,
+			'generate' => true,
 		);
 	}
 
@@ -74,8 +74,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * Define transactions
 	 */
 	function defineTransactions() {
-
-		$this->transactions = array( );
+		$this->transactions = array();
 
 		$requestFields = array(
 				'allowedMethods',
@@ -92,16 +91,16 @@ class AdyenAdapter extends GatewayAdapter {
 				'shopperLocale',
 				'shopperEmail',
 				// TODO more fields we might want to send to Adyen
-				//'shopperReference',
-				//'recurringContract',
-				//'blockedMethods',
-				//'shopperStatement',
-				//'merchantReturnData',
-				//'deliveryAddressType',
+				// 'shopperReference',
+				// 'recurringContract',
+				// 'blockedMethods',
+				// 'shopperStatement',
+				// 'merchantReturnData',
+				// 'deliveryAddressType',
 		);
 
 		// Add address fields for countries that use them.
-		$addressFields = array (
+		$addressFields = array(
 			'billingAddress.street',
 			'billingAddress.city',
 			'billingAddress.postalCode',
@@ -111,7 +110,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.houseNumberOrName',
 		);
 
-		if ( in_array( 'street_address', $this->getRequiredFields() ) )  {
+		if ( in_array( 'street_address', $this->getRequiredFields() ) ) {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
@@ -124,10 +123,10 @@ class AdyenAdapter extends GatewayAdapter {
 				'sessionValidity' => date( 'c', strtotime( '+2 days' ) ),
 				'shipBeforeDate' => date( 'Y-M-d', strtotime( '+2 days' ) ),
 				'skinCode' => $this->accountInfo[ 'skinCode' ],
-				//'shopperLocale' => language _ country
+				// 'shopperLocale' => language _ country
 			),
-			'check_required' => TRUE,
-			'iframe' => TRUE,
+			'check_required' => true,
+			'iframe' => true,
 		);
 	}
 
@@ -158,8 +157,8 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->setCurrentTransaction( $transaction );
 
 		$this->validate();
-		if ( !$this->validatedOK() ){
-			//If the data didn't validate okay, prevent all data transmissions.
+		if ( !$this->validatedOK() ) {
+			// If the data didn't validate okay, prevent all data transmissions.
 			$response = $this->getFailedValidationResponse();
 			$this->logger->info( "Failed Validation. Aborting $transaction " . print_r( $this->errorState, true ) );
 			return $response;
@@ -184,7 +183,7 @@ class AdyenAdapter extends GatewayAdapter {
 					// card entry iframe. If it's sorta-fraudy, the listener
 					// will leave it for manual review. If it's hella fraudy
 					// the listener will cancel it.
-					$this->addRequestData( array ( 'risk_score' => $this->risk_score ) );
+					$this->addRequestData( array( 'risk_score' => $this->risk_score ) );
 
 					$requestParams = $this->buildRequestParams();
 
@@ -231,7 +230,7 @@ class AdyenAdapter extends GatewayAdapter {
 				ResponseCodes::NO_RESPONSE
 			);
 		}
-		$this->logger->info( "Processing user return data: " . print_r( $requestValues, TRUE ) );
+		$this->logger->info( "Processing user return data: " . print_r( $requestValues, true ) );
 
 		if ( !$this->checkResponseSignature( $requestValues ) ) {
 			$this->logger->info( "Bad signature in response" );
@@ -274,11 +273,10 @@ class AdyenAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( FinalStatus::FAILED );
 				$paymentResult = PaymentResult::newFailure();
 			}
-		}
-		else {
+		} else {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$paymentResult = PaymentResult::newFailure();
-			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $requestValues, TRUE ) );
+			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $requestValues, true ) );
 		}
 		$this->postProcessDonation();
 		return $paymentResult;
@@ -289,13 +287,13 @@ class AdyenAdapter extends GatewayAdapter {
 	 * before we redirect the user, so we don't need to send another one
 	 * when doStompTransaction is called from postProcessDonation.
 	 */
-	protected function doStompTransaction() {}
+	protected function doStompTransaction() { }
 
 	/**
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip
 	 * newlines.
 	 * @param string $gateway_field_name
-	 * @param boolean $token
+	 * @param bool $token
 	 * @return mixed
 	 */
 	public function getTransactionSpecificValue( $gateway_field_name, $token = false ) {

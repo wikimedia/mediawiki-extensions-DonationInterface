@@ -112,7 +112,6 @@
 		"Gateway_Form": "gateway_forms/Form.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
-		"CountryCodes": "gateway_forms/includes/CountryCodes.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
 		"GlobalCollectGateway": "globalcollect_gateway/globalcollect_gateway.body.php",
 		"GlobalCollectGatewayResult": "globalcollect_gateway/globalcollect_resultswitcher.body.php",
@@ -224,6 +223,36 @@
 			"styles": "amazon_gateway/amazon.css"
 		},
 		"ext.donationinterface.amazon.scripts": {
+			"scripts": "amazon_gateway/amazon.js",
+			"dependencies": "ext.donationInterface.validation",
+			"messages": [
+				"donate_interface-otherways-short"
+			]
+		},
+		"ext.donationInterface.mustache.styles": {
+			"styles": "gateway_forms/mustache/forms.css"
+		},
+		"ext.donationInterface.adyen.scripts": {
+			"scripts": "adyen_gateway/forms/js/adyen.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.ingenico.scripts": {
+			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.ingenico-hosted": {
+			"scripts": "ingenico_gateway/forms/js/ingenico.js",
+			"styles": "ingenico_gateway/forms/css/ingenico.css",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.paypal.scripts": {
+			"scripts": "paypal_gateway/express_checkout/forms/js/paypal.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
+		"ext.donationInterface.amazon.styles": {
+			"styles": "amazon_gateway/amazon.css"
+		},
+		"ext.donationInterface.amazon.scripts": {
 			"scripts": "amazon_gateway/amazon.js",
 			"dependencies": "ext.donationInterface.validation",
 			"messages": [
@@ -375,6 +404,40 @@
 			"": 100,
 			"_merge_strategy": "array_plus"
 		},
+		"IngenicoGatewayCvvMap": {
+			"M": true,
+			"N": false,
+			"P": true,
+			"S": false,
+			"U": true,
+			"Y": false,
+			"0": true,
+			"": false,
+			"_merge_strategy": "array_plus"
+		},
+		"IngenicoGatewayAvsMap": {
+			"A": 50,
+			"B": 50,
+			"C": 50,
+			"D": 0,
+			"E": 100,
+			"F": 0,
+			"G": 50,
+			"I": 50,
+			"M": 0,
+			"N": 100,
+			"P": 50,
+			"R": 100,
+			"S": 50,
+			"U": 50,
+			"W": 50,
+			"X": 0,
+			"Y": 0,
+			"Z": 50,
+			"0": 25,
+			"": 100,
+			"_merge_strategy": "array_plus"
+		},
 		"AmazonGatewayLoginScript": "https://api-cdn.amazon.com/sdk/login1.js",
 		"PaypalGatewayURL": "https://www.paypal.com/cgi-bin/webscr",
 		"PaypalGatewayTestingURL": "https://www.sandbox.paypal.com/cgi-bin/webscr",
@@ -409,9 +472,9 @@
 			"_merge_strategy": "array_plus_2d"
 		},
 		"DonationInterfaceCustomFiltersRiskScore": 0,
-		"MinFraudLicenseKey": "",
-		"DonationInterfaceMinFraudServers": [],
-		"MinFraudTimeout": 2,
+		"DonationInterfaceMinFraudUserId": "",
+		"DonationInterfaceMinFraudLicenseKey": "",
+		"DonationInterfaceMinFraudClientOptions": [],
 		"DonationInterfaceMinFraudAlarmLimit": 25000,
 		"DonationInterfaceCustomFiltersRefRules": [],
 		"DonationInterfaceCustomFiltersSrcRules": [],
@@ -432,9 +495,9 @@
 		"DonationInterfaceUtmMediumMap": [],
 		"DonationInterfaceUtmSourceMap": [],
 		"DonationInterfaceEnableConversionLog": false,
-		"DonationInterfaceEnableMinfraud": false,
-		"DonationInterfaceMinfraudWeight": 100,
-		"DonationInterfaceMinfraudErrorScore": 50,
+		"DonationInterfaceEnableMinFraud": false,
+		"DonationInterfaceMinFraudWeight": 100,
+		"DonationInterfaceMinFraudErrorScore": 50,
 		"DonationInterfaceEnableBannerHistoryLog": false,
 		"GlobalCollectGatewayEnabled": false,
 		"IngenicoGatewayEnabled": false,

@@ -16,14 +16,12 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 		);
 
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-
 		// If any address field is not blank, fill in blanks with 'NA'
 		// if all fields are blank, leave it alone
-		foreach( self::$addressFields as $address ){
-			if( !empty( $normalized[ $address ] ) )
-			{
-				foreach( self::$addressFields as $field ){
-					if( empty( $normalized[ $field ] ) ){
+		foreach ( self::$addressFields as $address ) {
+			if ( !empty( $normalized[ $address ] ) ) {
+				foreach ( self::$addressFields as $field ) {
+					if ( empty( $normalized[ $field ] ) ) {
 						$stagedData[ $field ] = 'NA';
 					}
 				}
@@ -33,8 +31,7 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
-
-		foreach( self::$addressFields as $field ) {
+		foreach ( self::$addressFields as $field ) {
 			if ( isset( $stagedData[ $field ] ) && $stagedData[ $field ] == 'NA' ) {
 				$unstagedData[ $field ] = '';
 			}

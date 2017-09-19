@@ -29,10 +29,10 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 	}
 
 	protected function addRetryLink( &$data ) {
-		//add data we're going to need for the error page!
+		// add data we're going to need for the error page!
 		$back_form = $this->gateway->session_getLastFormName();
 
-		$params = array (
+		$params = array(
 			'gateway' => $this->gateway->getIdentifier()
 		);
 		if ( !$this->gateway->session_hasDonorData() ) {
@@ -42,9 +42,9 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 				}
 			}
 		}
-		$data['ffname_retry'] = GatewayFormChooser::buildPaymentsFormURL( $back_form, $params ) ;
+		$data['ffname_retry'] = GatewayFormChooser::buildPaymentsFormURL( $back_form, $params );
 	}
-	
+
 	protected function addMessageParameters( &$data ) {
 		// Add otherways_url
 		$data += $this->getUrls();

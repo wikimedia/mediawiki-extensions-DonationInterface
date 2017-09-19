@@ -18,7 +18,6 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
 	}
@@ -47,16 +46,15 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		if ( !$gateway_adapter->getGlobal( 'EnableSourceFilter' ) ||
-			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ){
+			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ) {
 			return true;
 		}
 		$gateway_adapter->debugarray[] = 'source onFilter!';
@@ -67,7 +65,6 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-
 		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

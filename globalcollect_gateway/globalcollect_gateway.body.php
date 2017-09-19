@@ -58,15 +58,15 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$return = '';
 		$fields = array(
-			'ACCOUNTHOLDER'			=> array('translation' => 'donate_interface-bt-account_holder', ),
-			'BANKNAME'				=> array('translation' => 'donate_interface-dd-bank_name', ),
-			'BANKACCOUNTNUMBER'		=> array('translation' => 'donate_interface-bt-bank_account_number', ),
-			'CITY'					=> array('translation' => 'donate_interface-donor-city', ),
-			'COUNTRYDESCRIPTION'	=> array('translation' => 'donate_interface-bt-country_description', ),
-			'IBAN'					=> array('translation' => 'donate_interface-dd-iban', ),
-			'PAYMENTREFERENCE'		=> array('translation' => 'donate_interface-bt-payment_reference', ),
-			'SWIFTCODE'				=> array('translation' => 'donate_interface-bt-swift_code', ),
-			'SPECIALID'				=> array('translation' => 'donate_interface-bt-special_id', ),
+			'ACCOUNTHOLDER'			=> array( 'translation' => 'donate_interface-bt-account_holder', ),
+			'BANKNAME'				=> array( 'translation' => 'donate_interface-dd-bank_name', ),
+			'BANKACCOUNTNUMBER'		=> array( 'translation' => 'donate_interface-bt-bank_account_number', ),
+			'CITY'					=> array( 'translation' => 'donate_interface-donor-city', ),
+			'COUNTRYDESCRIPTION'	=> array( 'translation' => 'donate_interface-bt-country_description', ),
+			'IBAN'					=> array( 'translation' => 'donate_interface-dd-iban', ),
+			'PAYMENTREFERENCE'		=> array( 'translation' => 'donate_interface-bt-payment_reference', ),
+			'SWIFTCODE'				=> array( 'translation' => 'donate_interface-bt-swift_code', ),
+			'SPECIALID'				=> array( 'translation' => 'donate_interface-bt-special_id', ),
 		);
 
 		$id = 'bank_transfer_information';
@@ -79,11 +79,11 @@ class GlobalCollectGateway extends GatewayPage {
 			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'td', array( 'style' => 'text-align:right; font-weight:bold; padding-right:0.5em;' ), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array ('style' => 'padding-left:0.5em;'), htmlspecialchars( $data[$field], ENT_QUOTES ) );
+				$return .= Xml::tags( 'td', array( 'style' => 'padding-left:0.5em;' ), htmlspecialchars( $data[$field], ENT_QUOTES ) );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
-						
+
 		$return .= Xml::openElement( 'tr', array() );
 		$return .= Xml::tags( 'td', array( 'style' => 'font-weight:bold;' ), $this->msg( 'donate_interface-bank_transfer_message' )->escaped() );
 		$return .= Xml::closeElement( 'tr' );
@@ -99,7 +99,7 @@ class GlobalCollectGateway extends GatewayPage {
 			ResultPages::getThankYouPage( $this->adapter, $queryParams )
 		);
 
-		$link = Html::input('MyButton', $this->msg( 'donate_interface-bt-finished')->text(), 'button', array( 'onclick' => "window.location = $encUrl" ) );
+		$link = Html::input( 'MyButton', $this->msg( 'donate_interface-bt-finished' )->text(), 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
 		$return .= Xml::tags( 'p', array( 'style' => 'text-align:center;' ), $link );
 		$return .= Xml::closeElement( 'div' );  // $id
@@ -117,8 +117,8 @@ class GlobalCollectGateway extends GatewayPage {
 
 		$return = '';
 		$fields = array(
-			'CUSTOMERPAYMENTREFERENCE'	=> array('translation' => 'donate_interface-obt-customer_payment_reference', ),
-			'BILLERID'					=> array('translation' => 'donate_interface-obt-biller_id', ),
+			'CUSTOMERPAYMENTREFERENCE'	=> array( 'translation' => 'donate_interface-obt-customer_payment_reference', ),
+			'BILLERID'					=> array( 'translation' => 'donate_interface-obt-biller_id', ),
 		);
 
 		$id = 'bank_transfer_information';
@@ -129,37 +129,36 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::openElement( 'table', array( 'id' => $id . '_table' ) );
 
 		foreach ( $fields as $field => $meta ) {
-
 			if ( isset( $data[ $field ] ) ) {
 				$return .= Xml::openElement( 'tr', array() );
 				$return .= Xml::tags( 'th', array(), $this->msg( $meta['translation'] )->escaped() );
-				$return .= Xml::tags( 'td', array (), htmlspecialchars( $data[$field], ENT_QUOTES ) );
+				$return .= Xml::tags( 'td', array(), htmlspecialchars( $data[$field], ENT_QUOTES ) );
 				$return .= Xml::closeElement( 'tr' );
 			}
 		}
 
 		$return .= Xml::closeElement( 'table' ); // close $id . '_table'
-		$return .= Xml::openElement( 'table' ); //open info table
+		$return .= Xml::openElement( 'table' ); // open info table
 		$return .= Xml::openElement( 'tr' );
-		$return .= Xml::openElement ( 'td' );
+		$return .= Xml::openElement( 'td' );
 		$return .= Xml::tags( 'p', array(), $this->msg( 'donate_interface-online_bank_transfer_message' )->escaped() );
-		$return .= Xml::closeElement ( 'td' );
-		$return .= Xml::closeElement ( 'tr' );
-		$return .= Xml::openElement ( 'tr' );
+		$return .= Xml::closeElement( 'td' );
+		$return .= Xml::closeElement( 'tr' );
+		$return .= Xml::openElement( 'tr' );
 		$return .= Xml::openElement( 'td' );
 		$scriptPath = $this->getConfig()->get( 'ScriptPath' );
 		$return .= Xml::element( 'img', array( 'src' => $scriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ) );
-		$return .= Xml::closeElement ( 'td' );
-		$return .= Xml::openElement ( 'td' );
+		$return .= Xml::closeElement( 'td' );
+		$return .= Xml::openElement( 'td' );
 		$return .= Xml::tags( 'p',  array(), 'Contact your bank or financial institution <br /> to make this payment from your cheque, <br /> debit, or transaction account. <br /> More info: www.bpay.com.au ' );
-		$return .= Xml::closeElement ( 'td' );
-		$return .= Xml::closeElement ( 'tr' );
-		$return .= Xml::openElement ( 'tr' );
-		$return .= Xml::openElement ( 'td' );
-		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518');
-		$return .= Xml::closeElement ( 'td' );
-		$return .= Xml::closeElement ( 'tr' );
-		$return .= Xml::closeElement ( 'table' ); //close info table
+		$return .= Xml::closeElement( 'td' );
+		$return .= Xml::closeElement( 'tr' );
+		$return .= Xml::openElement( 'tr' );
+		$return .= Xml::openElement( 'td' );
+		$return .= Xml::tags( 'p', array(), '<br /> &reg; Registered to BPAY Pty Ltd ABN 69 079 137 518' );
+		$return .= Xml::closeElement( 'td' );
+		$return .= Xml::closeElement( 'tr' );
+		$return .= Xml::closeElement( 'table' ); // close info table
 
 		$queryParams = array(
 			'payment_method' => $this->adapter->getPaymentMethod(),
@@ -170,7 +169,7 @@ class GlobalCollectGateway extends GatewayPage {
 			ResultPages::getThankYouPage( $this->adapter, $queryParams )
 		);
 
-		$link = Html::input('MyButton', 'finished', 'button', array( 'onclick' => "window.location = $encUrl" ) );
+		$link = Html::input( 'MyButton', 'finished', 'button', array( 'onclick' => "window.location = $encUrl" ) );
 
 		$return .= Xml::tags( 'p', array(), $link );
 		$return .= Xml::closeElement( 'div' );  // $id

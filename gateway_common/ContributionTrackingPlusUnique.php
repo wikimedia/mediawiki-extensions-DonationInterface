@@ -9,14 +9,13 @@ class ContributionTrackingPlusUnique implements StagingHelper, UnstagingHelper {
 		if ( !isset( $normalized['contribution_tracking_id'] ) ) {
 			// Note that we should only reach this condition in batch mode edge
 			// cases where the ctid is unavailable, or during testing.
-			//
 			// A ctid will have been assigned, so we have to pointedly not care today.
 
 			return;
 		}
 		$ctid = $normalized['contribution_tracking_id'];
-		//append timestamp to ctid
-		$ctid .= '.' . (( microtime( true ) * 1000 ) % 100000); //least significant five
+		// append timestamp to ctid
+		$ctid .= '.' . ( ( microtime( true ) * 1000 ) % 100000 ); // least significant five
 		$stagedData['contribution_tracking_id'] = $ctid;
 	}
 

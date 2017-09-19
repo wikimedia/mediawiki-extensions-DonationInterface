@@ -117,19 +117,19 @@ class PaymentResult {
 	 */
 	public static function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
 		if ( $finalStatus === FinalStatus::FAILED ) {
-			return PaymentResult::newFailure( $response->getErrors() );
+			return self::newFailure( $response->getErrors() );
 		}
 		if ( !$response ) {
-			return PaymentResult::newEmpty();
+			return self::newEmpty();
 		}
 		if ( $response->getErrors() ) {
 			// TODO: We will probably want the ability to refresh to a new form
 			// and display errors at the same time.
-			return PaymentResult::newRefresh( $response->getErrors() );
+			return self::newRefresh( $response->getErrors() );
 		}
 		if ( $response->getRedirect() ) {
-			return PaymentResult::newRedirect( $response->getRedirect() );
+			return self::newRedirect( $response->getRedirect() );
 		}
-		return PaymentResult::newSuccess();
+		return self::newSuccess();
 	}
 }

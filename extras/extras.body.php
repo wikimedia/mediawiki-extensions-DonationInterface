@@ -39,7 +39,6 @@ abstract class Gateway_Extras {
 	 * @param string $log_level One of the constants defined in @see \Psr\Log\LogLevel
 	 */
 	protected function log( $id = '', $status = '', $data = '', $log_level = LogLevel::INFO ) {
-
 		// format the message
 		$msg = '"' . date( 'c' ) . '"';
 		$msg .= "\t" . '"' . $id . '"';
@@ -70,9 +69,9 @@ abstract class Gateway_Extras {
 	 */
 	protected function compare_hash( $hash, $data ) {
 		if ( $hash === $this->generate_hash( $data ) ) {
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 }

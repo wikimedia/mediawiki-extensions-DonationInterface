@@ -12,7 +12,7 @@ class DummyFiscalNumber implements StagingHelper {
 			isset( $unstagedData['country'] ) &&
 			$unstagedData['country'] === 'MX'
 		) {
-			$stagedData['fiscal_number'] = mt_rand(1.0e+12, 1.0e+13);
+			$stagedData['fiscal_number'] = mt_rand( 1.0e+12, 1.0e+13 );
 		}
 	}
 }

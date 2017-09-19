@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class CountryCodes {
 	/**
@@ -7,7 +7,7 @@ class CountryCodes {
 	 * not duplicate the code list.
 	 */
 	static function getCountryCodes() {
-		$countryCode = array( 
+		$countryCode = array(
 			"AF" => "Afghanistan",
 			"AL" => "Albania",
 			"DZ" => "Algeria",
@@ -62,7 +62,7 @@ class CountryCodes {
 			"CR" => "Costa Rica",
 			"CI" => "Cote D'Ivoire",
 			"HR" => "Croatia",
-			//"CU" => "Cuba",
+			// "CU" => "Cuba",
 			"CY" => "Cyprus",
 			"CZ" => "Czech Republic",
 			"DK" => "Denmark",
@@ -108,7 +108,7 @@ class CountryCodes {
 			"IS" => "Iceland",
 			"IN" => "India",
 			"ID" => "Indonesia",
-			//"IR" => "Iran, Islamic Republic of",
+			// "IR" => "Iran, Islamic Republic of",
 			"IQ" => "Iraq",
 			"IE" => "Ireland",
 			"IL" => "Israel",
@@ -207,7 +207,7 @@ class CountryCodes {
 			"SB" => "Solomon Islands",
 			"SO" => "Somalia",
 			"ZA" => "South Africa",
-			//"GS" => "South Georgia and the South Sandwich Islands",
+			// "GS" => "South Georgia and the South Sandwich Islands",
 			"ES" => "Spain",
 			"LK" => "Sri Lanka",
 			"SD" => "Sudan",
@@ -216,7 +216,7 @@ class CountryCodes {
 			"SZ" => "Swaziland",
 			"SE" => "Sweden",
 			"CH" => "Switzerland",
-			//"SY" => "Syrian Arab Republic",
+			// "SY" => "Syrian Arab Republic",
 			"TW" => "Taiwan, Province of China",
 			"TJ" => "Tajikistan",
 			"TZ" => "Tanzania, United Republic of",

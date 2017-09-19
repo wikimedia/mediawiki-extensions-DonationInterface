@@ -44,7 +44,6 @@ class BannerHistoryLogIdProcessor {
 	 * contribution tracking ID from DonationData, and some additional data.
 	 */
 	protected function queueAssociationOfIds() {
-
 		$this->logger->debug(
 			'BannerHistoryLogIdProcessor::queueAssociationOfIds(): will ' .
 			'push to banner-history queue if required info is available.' );
@@ -73,7 +72,7 @@ class BannerHistoryLogIdProcessor {
 		);
 
 		$this->logger->info( 'Pushing to banner-history queue.' );
-		QueueWrapper::push( 'banner-history' , $data );
+		QueueWrapper::push( 'banner-history', $data );
 	}
 
 	/**
