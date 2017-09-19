@@ -209,13 +209,19 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	}
 
 	protected function getBillingParams( $data ) {
-		return [
-			'city' => $data['city'],
-			// FIXME: region should use the ISO 3166-2 code
-			'region' => $data['state_province'],
-			'postal' => $data['postal_code'],
-			'country' => $data['country'],
+		$map = [
+			'city' => 'city',
+			'state_province' => 'region',
+			'postal_code' => 'postal',
+			'country' => 'country'
 		];
+		$billingParams = [];
+		foreach ( $map as $ourName => $theirName ) {
+			if ( !empty( $data[$ourName] ) && $data[$ourName] !== '0' ) {
+				$billingParams[$theirName] = $data[$ourName];
+			}
+		}
+		return $billingParams;
 	}
 
 	protected function getEventParams( $data ) {
