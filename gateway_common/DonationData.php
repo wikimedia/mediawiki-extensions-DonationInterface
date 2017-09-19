@@ -834,9 +834,11 @@ class DonationData implements LogPrefixProvider {
 
 		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
 
-		// FIXME: currently 'appeal' is the only way to A/B test different CSS.
-		// Change this tracking element to 'ffname' when we restore that.
-		if ( $this->isSomething( 'appeal' ) ) {
+		// Variant is the new way to a/b test forms. Appeal is still used to
+		// render wikitext at the side, but it's almost always JimmyQuote
+		if ( $this->isSomething( 'variant' ) ) {
+			$tracking_data['payments_form'] .= '.v=' . $this->getVal( 'variant' );
+		} elseif ( $this->isSomething( 'appeal' ) ) {
 			$tracking_data['payments_form'] .= '.' . $this->getVal( 'appeal' );
 		}
 
