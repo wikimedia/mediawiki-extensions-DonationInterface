@@ -499,7 +499,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				'ffname' => $form,
 			) );
 			$this->displayForm();
-		} elseif ( !empty( $result->getErrors() ) ) {
+		} elseif ( count( $result->getErrors() ) ) {
 			$this->displayForm();
 		} else {
 			// Success.
