@@ -420,8 +420,8 @@ $forms_whitelist['adyen'] = array(
 
 $forms_whitelist['adyen-test'] = array(
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'FR', 'GB', 'IL', 'JP', 'UA', 'US', ), ),
-	'currencies' => array( '+' => array( 'EUR', 'GBP', 'ILS', 'JPY', 'UAH', 'USD', ), ),
+	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'UA', 'US', ), ),
+	'currencies' => array( '+' => array( 'CAD', 'EUR', 'GBP', 'ILS', 'JPY', 'UAH', 'USD', ), ),
 	'payment_methods' => array(
 		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', ),
 	),
