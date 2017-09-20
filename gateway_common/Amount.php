@@ -115,8 +115,13 @@ class Amount implements ValidationHelper {
 	 * @return string rounded amount
 	 */
 	public static function round( $amount, $currencyCode ) {
+		$amount = floatval( $amount );
 		if ( self::is_fractional_currency( $currencyCode ) ) {
-			return number_format( $amount, 2, '.', '' );
+			$precision = 2;
+			if ( self::is_exponent3_currency( $currencyCode ) ) {
+				$precision = 3;
+			}
+			return number_format( $amount, $precision, '.', '' );
 		} else {
 			return (string)floor( $amount );
 		}
@@ -170,7 +175,7 @@ class Amount implements ValidationHelper {
 		if ( class_exists( 'NumberFormatter' ) ) {
 			$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
 			return $formatter->formatCurrency(
-				$amount,
+				floatval( $amount ),
 				$currencyCode
 			);
 		} else {

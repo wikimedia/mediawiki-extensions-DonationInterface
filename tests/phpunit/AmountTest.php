@@ -244,4 +244,19 @@ class AmountTest  extends DonationInterfaceTestCase {
 			'Wrong error message for diminutive amount (BBD)'
 		);
 	}
+
+	public function testRoundNoDigit() {
+		$rounded = Amount::round( '100.01', 'JPY' );
+		$this->assertEquals( 100, $rounded );
+	}
+
+	public function testRoundTwoDigit() {
+		$rounded = Amount::round( '2.762', 'CAD' );
+		$this->assertEquals( 2.76, $rounded );
+	}
+
+	public function testRoundThreeDigit() {
+		$rounded = Amount::round( '19.5437', 'KWD' );
+		$this->assertEquals( 19.544, $rounded );
+	}
 }
