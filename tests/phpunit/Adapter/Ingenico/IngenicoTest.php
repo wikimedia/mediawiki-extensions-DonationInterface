@@ -31,6 +31,8 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 	protected $hostedCheckoutCreateResponse;
 
+	protected $hostedPaymentStatusResponse;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -41,6 +43,50 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'partialRedirectUrl' => $this->partialUrl,
 			'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 			'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+		);
+
+		$this->hostedPaymentStatusResponse = array(
+			"createdPaymentOutput" => array(
+				"payment" => array(
+					"id" => "000000891566072501680000200001",
+					"paymentOutput" => array(
+						"amountOfMoney" => array(
+							"amount" => 2345,
+							"currencyCode" => "USD"
+						),
+						"references" => array(
+							"paymentReference" => "0"
+						),
+						"paymentMethod" => "card",
+						"cardPaymentMethodSpecificOutput" => array(
+							"paymentProductId" => 1,
+							"authorisationCode" => "123456",
+							"card" => array(
+								"cardNumber" => "************7977",
+								"expiryDate" => "1220"
+							),
+							"fraudResults" => array(
+								"avsResult" => "0",
+								"cvvResult" => "N",
+								"fraudServiceResult" => "no-advice"
+							)
+						)
+					),
+					"status" => "PENDING_APPROVAL",
+					"statusOutput" => array(
+						"isCancellable" => true,
+						"statusCode" => 600,
+						"statusCodeChangeDateTime" => "20140717145840",
+						"isAuthorized" => true
+					)
+				),
+				"paymentCreationReferences" => array(
+					"additionalReference" => "00000089156607250168",
+					"externalReference" => "000000891566072501680000200001"
+				),
+				"tokens" => ""
+			),
+			"status" => "PAYMENT_CREATED"
 		);
 	}
 
@@ -108,50 +154,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn(
-				array(
-					"createdPaymentOutput" => array(
-						"payment" => array(
-							"id" => "000000891566072501680000200001",
-							"paymentOutput" => array(
-								"amountOfMoney" => array(
-									"amount" => 2345,
-									"currencyCode" => "USD"
-								),
-								"references" => array(
-									"paymentReference" => "0"
-								),
-								"paymentMethod" => "card",
-								"cardPaymentMethodSpecificOutput" => array(
-									"paymentProductId" => 1,
-									"authorisationCode" => "123456",
-									"card" => array(
-										"cardNumber" => "************7977",
-										"expiryDate" => "1220"
-									),
-									"fraudResults" => array(
-										"avsResult" => "0",
-										"cvvResult" => "N",
-										"fraudServiceResult" => "no-advice"
-									)
-								)
-							),
-							"status" => "PENDING_APPROVAL",
-							"statusOutput" => array(
-								"isCancellable" => true,
-								"statusCode" => 600,
-								"statusCodeChangeDateTime" => "20140717145840",
-								"isAuthorized" => true
-							)
-						),
-						"paymentCreationReferences" => array(
-							"additionalReference" => "00000089156607250168",
-							"externalReference" => "000000891566072501680000200001"
-						),
-						"tokens" => ""
-					),
-					"status" => "PAYMENT_CREATED"
-				)
-
+				$this->hostedPaymentStatusResponse
 			);
 
 		$gateway->do_transaction( 'getHostedPaymentStatus' );
@@ -228,10 +231,10 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	/**
-	 * Make sure we're incorporating GET_ORDERSTATUS AVS and CVV responses into
+	 * Make sure we're incorporating getHostedPaymentStatus AVS and CVV responses into
 	 * fraud scores.
 	 */
-	function testGetOrderstatusPostProcessFraud() {
+	function testGetHostedPaymentStatusPostProcessFraud() {
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgIngenicoGatewayCustomFiltersFunctions' => array(
@@ -305,6 +308,57 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
+	}
+
+	public function testApprovePayment() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+		$init['gateway_txn_id'] = 'ingenico' . $init['gateway_session_id'];
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->willReturn(
+				array(
+					"payment" => array(
+						"id" => "000000850010000188180000200001",
+						"paymentOutput" => array(
+							"amountOfMoney" => array(
+								"amount" => 2890,
+								"currencyCode" => "EUR"
+							),
+							"references" => array(
+								"paymentReference" => "0"
+							),
+							"paymentMethod" => "card",
+							"cardPaymentMethodSpecificOutput" => array(
+								"paymentProductId" => 1,
+								"authorisationCode" => "123456",
+								"card" => array(
+									"cardNumber" => "************7977",
+									"expiryDate" => "1220"
+								),
+								"fraudResults" => array(
+									"avsResult" => "0",
+									"cvvResult" => "M",
+									"fraudServiceResult" => "no-advice"
+								)
+							)
+						),
+						"status" => "CAPTURE_REQUESTED",
+						"statusOutput" => array(
+							"isCancellable" => false,
+							"statusCode" => 800,
+							"statusCodeChangeDateTime" => "20140627140735",
+							"isAuthorized" => true
+						)
+					)
+				)
+			);
+		$gateway->do_transaction( 'approvePayment' );
+		$data = $gateway->getTransactionData();
+		$this->assertEquals( "CAPTURE_REQUESTED", $data['status'], "Should return status CAPTURE_REQUESTED" );
 	}
 
 	public function testLanguageStaging() {
@@ -404,4 +458,131 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$anotherGateway = new IngenicoAdapter();
 		$anotherGateway->do_transaction( 'createHostedCheckout' );
 	}
+	public function testDonorReturnSuccess() {
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"createdPaymentOutput" => array(
+						"payment" => array(
+							"id" => "000000891566072501680000200001",
+							"paymentOutput" => array(
+								"amountOfMoney" => array(
+									"amount" => 2345,
+									"currencyCode" => "USD"
+								),
+								"references" => array(
+									"paymentReference" => "0"
+								),
+								"paymentMethod" => "card",
+								"cardPaymentMethodSpecificOutput" => array(
+									"paymentProductId" => 1,
+									"authorisationCode" => "123456",
+									"card" => array(
+										"cardNumber" => "************7977",
+										"expiryDate" => "1220"
+									),
+									"fraudResults" => array(
+										"avsResult" => "0",
+										"cvvResult" => "M",
+										"fraudServiceResult" => "no-advice"
+									)
+								)
+							),
+							"status" => "PENDING_APPROVAL",
+							"statusOutput" => array(
+								"isCancellable" => true,
+								"statusCode" => 600,
+								"statusCodeChangeDateTime" => "20140717145840",
+								"isAuthorized" => true
+							)
+						),
+						"paymentCreationReferences" => array(
+							"additionalReference" => "00000089156607250168",
+							"externalReference" => "000000891566072501680000200001"
+						),
+						"tokens" => ""
+					),
+					"status" => "PAYMENT_CREATED"
+				)
+
+			);
+		$this->hostedCheckoutProvider->method( 'approvePayment' )
+			->willReturn(
+				array(
+					"payment" => array(
+						"id" => "000000850010000188180000200001",
+						"paymentOutput" => array(
+							"amountOfMoney" => array(
+								"amount" => 2890,
+								"currencyCode" => "EUR"
+							),
+							"references" => array(
+								"paymentReference" => "0"
+							),
+							"paymentMethod" => "card",
+							"cardPaymentMethodSpecificOutput" => array(
+								"paymentProductId" => 1,
+								"authorisationCode" => "123456",
+								"card" => array(
+									"cardNumber" => "************7977",
+									"expiryDate" => "1220"
+								),
+								"fraudResults" => array(
+									"avsResult" => "0",
+									"cvvResult" => "M",
+									"fraudServiceResult" => "no-advice"
+								)
+							)
+						),
+						"status" => "CAPTURE_REQUESTED",
+						"statusOutput" => array(
+							"isCancellable" => false,
+							"statusCode" => 800,
+							"statusCodeChangeDateTime" => "20140627140735",
+							"isAuthorized" => true
+						)
+					)
+				)
+
+			);
+		$result = $gateway->processDonorReturn( array(
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'M',
+			'avsResult' => '0'
+		) );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		// TODO inspect the queue message
+	}
+
+	public function testDonorReturnFailure() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )->willReturn(
+				$this->hostedPaymentStatusResponse
+			);
+		$result = $gateway->processDonorReturn( array(
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'M',
+			'avsResult' => '0'
+		) );
+		$this->assertTrue( $result->isFailed() );
+	}
+
 }
