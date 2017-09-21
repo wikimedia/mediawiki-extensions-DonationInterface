@@ -475,6 +475,7 @@
 		"DonationInterfaceMinFraudUserId": "",
 		"DonationInterfaceMinFraudLicenseKey": "",
 		"DonationInterfaceMinFraudClientOptions": [],
+		"DonationInterfaceMinFraudExtraFields": [],
 		"DonationInterfaceMinFraudAlarmLimit": 25000,
 		"DonationInterfaceCustomFiltersRefRules": [],
 		"DonationInterfaceCustomFiltersSrcRules": [],
