@@ -71,6 +71,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// FIXME: here we should check for ffname, and if that's a valid form skip the choosing
 		$form = self::getOneValidForm( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 
+		// If we can't find a good form and we're forcing a gateway, try again without the gateway
+		if ( $form === null && $gateway ) {
+			$form = self::getOneValidForm( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, null );
+		}
+
 		if ( $form === null ) {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
 
