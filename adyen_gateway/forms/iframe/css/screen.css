@@ -37,6 +37,7 @@ html[data-shopperlocale^="ur"] .paySubmit {
 input[name="card.cardNumber"], input[name="card.cvcCode"] {
 	direction: ltr;
 	text-align: left;
+	-webkit-appearance: none;
 }
 
 /* ensure the cvc hint doesn't wrap under the input box */
@@ -160,7 +161,7 @@ a:visited {
 /* Form elements */
 
 input,select {
-  background-color: #f6f6f6;
+  background-color: #fff;
   padding: 1em !important;
   -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
@@ -307,15 +308,4 @@ table.basetable td {
 
 .paySubmit {
 	float: left;
-}
-
-/* Responsive classes */
-@media only screen and (max-device-width: 700px) {
-
-	input, select {
-		background-color: #ffffff;
-	}
-
-}
-
 }
