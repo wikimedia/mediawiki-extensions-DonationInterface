@@ -485,4 +485,28 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$result = $this->gatewayAdapter->shouldRectifyOrphan();
 		$this->assertEquals( $result, true, 'shouldRectifyOrphan returning false.' );
 	}
+
+	/**
+	 * We should take the country from the donor info response, and transform
+	 * it into a real code if it's a PayPal bogon.
+	 */
+	public function testUnstageCountry() {
+		$init = $this->getDonorTestData( 'US' );
+		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( [ 'C2', 'OK' ] );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['gateway_session_id'] = mt_rand();
+		$init['language'] = 'pt';
+		$session = array( 'Donor' => $init );
+
+		$request = array(
+			'token' => $init['gateway_session_id'],
+			'PayerID' => 'ASdASDAS',
+			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
+		);
+		$this->setUpRequest( $request, $session );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway->processDonorReturn( $request );
+		$savedCountry = $gateway->getData_Unstaged_Escaped( 'country' );
+		$this->assertEquals( 'CN', $savedCountry );
+	}
 }
