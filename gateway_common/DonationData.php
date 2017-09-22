@@ -410,9 +410,14 @@ class DonationData implements LogPrefixProvider {
 
 		// try to regenerate the country if we still don't have a valid one yet
 		if ( $regen ) {
-			// If no valid country was passed, try to do GeoIP lookup
-			// Requires php5-geoip package
-			if ( function_exists( 'geoip_country_code_by_name' ) ) {
+			// If no valid country was passed, first check session.
+			$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
+			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
+				$this->logger->info( "Using country code $sessionCountry from session" );
+				$country = $sessionCountry;
+			} elseif ( function_exists( 'geoip_country_code_by_name' ) ) {
+				// Then try to do GeoIP lookup
+				// Requires php5-geoip package
 				$ip = $this->getVal( 'user_ip' );
 				if ( WmfFramework::validateIP( $ip ) ) {
 					try {
