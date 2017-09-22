@@ -78,7 +78,7 @@
 - USD # U.S. dollar
 # - Removed temporarily for WellsFargo (28/06/13)			- UZS # Uzbekistani som
 # - removed temporarily (Worldpay)			- VND # Vietnamese dong
-- VEF # Venezuelan bolívar
+#- VEF # Venezuelan bolívar - Currently (2017-09-22) unavailable as per GlobalCollect
 - XAF # Central African CFA franc
 - XCD # East Caribbean dollar
 # - Removed temporarily for WellsFargo (28/06/13)			- XOF # West African CFA franc
