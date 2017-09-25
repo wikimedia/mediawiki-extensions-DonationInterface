@@ -434,17 +434,17 @@ $forms_whitelist['adyen-test'] = array(
  * *********** */
 
 $forms_whitelist['error-default'] = array(
-	'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-noform'] = array(
-	'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
 	'special_type' => 'error',
 );
 
 $forms_whitelist['error-cc'] = array(
-	'gateway' => array( 'globalcollect', 'adyen', 'astropay' ),
+	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'astropay' ),
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'special_type' => 'error',
 );

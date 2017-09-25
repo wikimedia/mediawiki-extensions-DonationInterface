@@ -1,5 +1,6 @@
 <?php
 
+use Psr\Log\LogLevel;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class IngenicoAdapter extends GlobalCollectAdapter {
@@ -114,6 +115,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				'statusCode',
 			)
 		);
+
+		$this->transactions['approvePayment'] = array(
+			'request' => array( 'id' ),
+			'response' => array( 'statusCode' )
+		);
 	}
 
 	/**
@@ -156,6 +162,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 					$data['hostedCheckoutId']
 				);
 				break;
+			case 'approvePayment':
+				$id = $data['id'];
+				unset( $data['id'] );
+				$result = $provider->approvePayment( $id, $data );
+				break;
 			default:
 				return false;
 		}
@@ -189,7 +200,17 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function parseResponseErrors( $response ) {
-		return array();
+		$errors = array();
+		if ( !empty( $response['errors'] ) ) {
+			foreach ( $response['errors'] as $error ) {
+				$errors[] = new PaymentError(
+					$error['code'],
+					$error['message'],
+					LogLevel::ERROR
+				);
+			}
+		}
+		return $errors;
 	}
 
 	public function parseResponseData( $response ) {
@@ -242,5 +263,9 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		$this->transaction_response->setGatewayTransactionId(
 			$this->getData_Unstaged_Escaped( 'gateway_txn_id' )
 		);
+	}
+
+	protected function approvePayment() {
+		return $this->do_transaction( 'approvePayment' );
 	}
 }
