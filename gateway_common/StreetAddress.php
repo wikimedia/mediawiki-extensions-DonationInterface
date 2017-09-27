@@ -1,6 +1,11 @@
 <?php
 
-class StreetAddress implements StagingHelper {
+class StreetAddress implements StagingHelper, UnstagingHelper {
+
+	// The zero is intentional. @see stage_street function comment.
+	const STREET_ADDRESS_PLACEHOLDER = 'N0NE PROVIDED';
+	const POSTAL_CODE_PLACEHOLDER = '0';
+
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$stagedData['street_address'] = $this->stage_street( $normalized );
 		$stagedData['postal_code'] = $this->stage_postal_code( $normalized );
@@ -24,7 +29,7 @@ class StreetAddress implements StagingHelper {
 		if ( !$street
 			|| !DataValidator::validate_not_just_punctuation( $street )
 		) {
-			$street = 'N0NE PROVIDED'; // The zero is intentional. See function comment.
+			$street = self::STREET_ADDRESS_PLACEHOLDER;
 		}
 		return $street;
 	}
@@ -43,18 +48,18 @@ class StreetAddress implements StagingHelper {
 		if ( strlen( $postalCode ) === 0 ) {
 			// it would be nice to check for more here, but the world has some
 			// straaaange postal codes...
-			$postalCode = '0';
+			$postalCode = self::POSTAL_CODE_PLACEHOLDER;
 		}
 
 		// country-based postal_code grooming to make AVS (marginally) happy
 		if ( !empty( $normalized['country'] ) ) {
 			switch ( $normalized['country'] ) {
 			case 'CA':
-				// Canada goes "A0A 0A0"
-				$this->staged_data['postal_code'] = strtoupper( $postalCode );
+				// Canada goes "A0A 0A0"... walk like an Egyptian
+				$postalCode = strtoupper( $postalCode );
 				// In the event that they only forgot the space, help 'em out.
 				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
-				if ( strlen( $this->staged_data['postal_code'] ) === 6
+				if ( strlen( $postalCode ) === 6
 					&& preg_match( $regex, $postalCode )
 				) {
 					$postalCode = substr( $postalCode, 0, 3 ) . ' ' . substr( $postalCode, 3, 3 );
@@ -64,5 +69,20 @@ class StreetAddress implements StagingHelper {
 		}
 
 		return $postalCode;
+	}
+
+	public function unstage( GatewayType $adapter, $stagedData, &$normalized ) {
+		if (
+			isset( $stagedData['street_address'] ) &&
+			$stagedData['street_address'] === self::STREET_ADDRESS_PLACEHOLDER
+		) {
+			$normalized['street_address'] = '';
+		}
+		if (
+			isset( $stagedData['postal_code'] ) &&
+			$stagedData['postal_code'] === self::POSTAL_CODE_PLACEHOLDER
+		) {
+			$normalized['postal_code'] = '';
+		}
 	}
 }
