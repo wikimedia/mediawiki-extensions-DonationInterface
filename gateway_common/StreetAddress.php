@@ -50,11 +50,11 @@ class StreetAddress implements StagingHelper {
 		if ( !empty( $normalized['country'] ) ) {
 			switch ( $normalized['country'] ) {
 			case 'CA':
-				// Canada goes "A0A 0A0"
-				$this->staged_data['postal_code'] = strtoupper( $postalCode );
+				// Canada goes "A0A 0A0"... walk like an Egyptian
+				$postalCode = strtoupper( $postalCode );
 				// In the event that they only forgot the space, help 'em out.
 				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
-				if ( strlen( $this->staged_data['postal_code'] ) === 6
+				if ( strlen( $postalCode ) === 6
 					&& preg_match( $regex, $postalCode )
 				) {
 					$postalCode = substr( $postalCode, 0, 3 ) . ' ' . substr( $postalCode, 3, 3 );
