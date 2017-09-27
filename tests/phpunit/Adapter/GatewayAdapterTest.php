@@ -305,8 +305,11 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( 'N0NE PROVIDED', $exposed->getData_Staged( 'street_address' ),
-			'Street must be stuffed with fake data to prevent AVS scam.' );
+		$this->assertEquals(
+			StreetAddress::STREET_ADDRESS_PLACEHOLDER,
+			$exposed->getData_Staged( 'street_address' ),
+			'Street must be stuffed with fake data to prevent AVS scam.'
+		);
 	}
 
 	public function testPostalCodeStaging() {
@@ -320,8 +323,61 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( '0', $exposed->getData_Staged( 'postal_code' ),
-			'Postal code must be stuffed with fake data to prevent AVS scam.' );
+		$this->assertEquals(
+			StreetAddress::POSTAL_CODE_PLACEHOLDER,
+			$exposed->getData_Staged( 'postal_code' ),
+			'Postal code must be stuffed with fake data to prevent AVS scam.'
+		);
+	}
+
+	public function testStreetUnStaging() {
+		$options = $this->getDonorTestData( 'BR' );
+		unset( $options['street_address'] );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$this->setUpRequest( $options );
+		$gateway = new TestingGlobalCollectAdapter();
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
+
+		$this->assertEquals(
+			StreetAddress::STREET_ADDRESS_PLACEHOLDER,
+			$exposed->getData_Staged( 'street_address' ),
+			'Setup failed.'
+		);
+		$exposed->unstageData();
+
+		$this->assertEquals(
+			'',
+			$exposed->getData_Unstaged_Escaped( 'street_address' ),
+			'The street address placeholder is only for AVS, not for us.'
+		);
+	}
+
+	public function testPostalCodeUnStaging() {
+		$options = $this->getDonorTestData( 'BR' );
+		unset( $options['postal_code'] );
+		$options['payment_method'] = 'cc';
+		$options['payment_submethod'] = 'visa';
+		$this->setUpRequest( $options );
+		$gateway = new TestingGlobalCollectAdapter();
+
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$exposed->stageData();
+
+		$this->assertEquals(
+			StreetAddress::POSTAL_CODE_PLACEHOLDER,
+			$exposed->getData_Staged( 'postal_code' ),
+			'Setup failed.'
+		);
+		$exposed->unstageData();
+
+		$this->assertEquals(
+			'',
+			$exposed->getData_Unstaged_Escaped( 'postal_code' ),
+			'The postal code placeholder is only for AVS, not for our records.'
+		);
 	}
 
 	public function testGetRapidFailPage() {

@@ -231,4 +231,43 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		);
 		$this->assertEquals( $expected, $message );
 	}
+
+	/**
+	 * Make sure we send the right stuff when extra fields are enabled and
+	 * we're not collecting address fields.
+	 */
+	function testMinFraudExtrasNoAddress() {
+		$options = $this->getDonorTestData( 'BR' );
+		$options['email'] = 'somebody@wikipedia.org';
+		$options['payment_method'] = 'cc';
+
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$this->setMwGlobals( [
+			'wgDonationInterfaceMinFraudExtraFields' => [
+				'email',
+				'first_name',
+				'last_name',
+				'street_address',
+				'amount',
+				'currency'
+			]
+		] );
+		$this->request->expects( $this->once() )
+			->method( 'post' )
+			->with(
+				'{"billing":{"country":"BR","first_name":"Nome",' .
+				'"last_name":"Apelido"},"device":{"ip_address":"127.0.0.1"},' .
+				'"email":{"address":"somebody@wikipedia.org","domain":' .
+				'"wikipedia.org"},"event":{"transaction_id":"' .
+				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .
+				'"},"order":{"amount":"100.00","currency":"BRL"}}'
+			)->willReturn( [
+				200, 'application/json', file_get_contents(
+					__DIR__ . '/includes/Responses/minFraud/15points.json'
+				)
+			] );
+
+		$gateway->runAntifraudFilters();
+	}
 }
