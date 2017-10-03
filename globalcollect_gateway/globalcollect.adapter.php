@@ -668,7 +668,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 			$order_status_results = false;
 			if ( !$cancelflag && !$problemflag ) {
-				$statusCode = $this->getData_Unstaged_Escaped( 'gateway_status' );
+				$statusCode = $this->getStatusCode( $this->getTransactionData() );
 				if ( $statusCode ) {
 					if ( is_null( $original_status_code ) ) {
 						$original_status_code = $statusCode;
@@ -1789,5 +1789,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	protected function approvePayment() {
 		return $this->do_transaction( 'SET_PAYMENT' );
+	}
+
+	protected function getStatusCode( $txnData ) {
+		if ( isset( $txnData['STATUSID'] ) ) {
+			return $txnData['STATUSID'];
+		}
+		return null;
 	}
 }

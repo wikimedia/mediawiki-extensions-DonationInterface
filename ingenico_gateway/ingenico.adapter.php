@@ -268,4 +268,8 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	protected function approvePayment() {
 		return $this->do_transaction( 'approvePayment' );
 	}
+
+	protected function getStatusCode( $txnData ) {
+		return $this->getData_Unstaged_Escaped( 'gateway_status' );
+	}
 }

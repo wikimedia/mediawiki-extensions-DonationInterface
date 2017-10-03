@@ -106,7 +106,7 @@
 		if ( loggedIn ) {
 			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
 			createWalletWidget();
-			setTimeout( tokenLifetime * 1000, tokenExpired );
+			setTimeout( tokenExpired, tokenLifetime * 1000 );
 		} else {
 			if ( loginError ) {
 				showErrorAndLoginButton(
