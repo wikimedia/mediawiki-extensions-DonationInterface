@@ -3735,6 +3735,13 @@ abstract class GatewayAdapter
 		return false;
 	}
 
+	/*
+	 * Cancel payment based on adapter and set status to cancelled
+	 */
+	public function cancel() {
+		return PaymentResult::newFailure();
+	}
+
 	/**
 	 * Looks at message to see if it should be rectified
 	 * Allows exit if the adapter should not rectify the orphan
@@ -3749,16 +3756,26 @@ abstract class GatewayAdapter
 			return PaymentResult::newEmpty();
 		}
 		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
-		$params = $this->createDonorReturnParams();
-		$paymentResult = $this->processDonorReturn( $params );
-		if ( !$paymentResult->isFailed() ) {
-			$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
-			return $paymentResult;
+		$civiId = $this->adapter->getData_Unstaged_Escaped( 'contribution_id' );
+		if ( $civiId ) {
+			$this->logger->error(
+				$normalized['contribution_tracking_id'] .
+				": Contribution tracking already has contribution_id $civiId.  " .
+				'Stop confusing donors!'
+			);
+			$paymentResult = $this->cancel();
 		} else {
-			$this->errorState->addErrors( $paymentResult->getErrors() );
-			$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
-  }
-		 return $paymentResult;
+			$params = $this->createDonorReturnParams();
+			$paymentResult = $this->processDonorReturn( $params );
+			if ( !$paymentResult->isFailed() ) {
+				$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
+				return $paymentResult;
+			} else {
+				$this->errorState->addErrors( $paymentResult->getErrors() );
+				$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
+			}
+		}
+		return $paymentResult;
 	}
 
 	/**

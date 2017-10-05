@@ -315,6 +315,27 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
+	/*
+	 * Check that it does not call doPayment when status is PaymentNotInitiated
+	 */
+	public function testProcessDonorReturnPaymentNotInitiated() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gateway::setDummyGatewayResponseCode( 'Pending-OK' );
+		$gateway->processDonorReturn( array(
+			'token' => 'EC%2d4V987654XA123456V',
+			'PayerID' => 'ASDASD',
+		) );
+
+		$this->assertEquals( $gateway->getAccountConfig( 'RedirectURL' ) . $gateway->getData_Unstaged_Escaped( 'gateway_session_id' ), $gateway->getTransactionResponse()->getRedirect() );
+		$this->assertEquals( FinalStatus::PENDING, $gateway->getFinalStatus() );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNull( $message, 'Should not queue a message' );
+	}
+
 	/**
 	 * Check that we don't send donors to the fail page for warnings
 	 */
