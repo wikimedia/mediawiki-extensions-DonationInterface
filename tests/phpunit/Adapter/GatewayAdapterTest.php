@@ -37,17 +37,6 @@ use Wikimedia\TestingAccessWrapper;
  */
 class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTestCase {
 
-	/**
-	 * @param $name string The name of the test case
-	 * @param $data array Any parameters read from a dataProvider
-	 * @param $dataName string|int The name or index of the data set
-	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
-		global $wgDonationInterfaceTest;
-		$wgDonationInterfaceTest = true;
-		parent::__construct( $name, $data, $dataName );
-	}
-
 	public function setUp() {
 		parent::setUp();
 
@@ -475,5 +464,97 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		// FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
 		$is_rectified = $gateway->rectifyOrphan();
 		$this->assertEquals( PaymentResult::newEmpty(), $is_rectified, 'rectifyOrphan did not return empty PaymentResult' );
+	}
+
+	public function testGetDonationQueueMessage() {
+		$data = $this->getDonorTestData( 'FR' );
+		$gateway = $this->getFreshGatewayObject( $data );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$message = $exposed->getQueueDonationMessage();
+		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
+		$expected += array(
+			'gateway_txn_id' => false,
+			'response' => false,
+			'gateway_account' => 'test',
+			'fee' => 0,
+			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'utm_source' => '..',
+			'email' => '',
+			'gateway' => $gateway::getIdentifier(),
+			'order_id' => $exposed->getData_Unstaged_Escaped( 'order_id' ),
+			'recurring' => '',
+			'payment_method' => '',
+			'payment_submethod' => '',
+			'gross' => $data['amount'],
+			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
+		);
+		unset( $message['date'] );
+		unset( $expected['amount'] );
+		$this->assertEquals( $expected, $message );
+	}
+
+	/**
+	 * Add contact_id and contact_hash to the message when both exist
+	 */
+	public function testGetDonationQueueMessageContactId() {
+		$data = $this->getDonorTestData( 'FR' );
+		$data['contact_id'] = mt_rand();
+		$data['contact_hash'] = 'asdasd' . $data['contact_id']; // super secure
+		$gateway = $this->getFreshGatewayObject( $data );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$message = $exposed->getQueueDonationMessage();
+		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
+		$expected += array(
+			'contact_id' => $data['contact_id'],
+			'contact_hash' => $data['contact_hash'],
+			'gateway_txn_id' => false,
+			'response' => false,
+			'gateway_account' => 'test',
+			'fee' => 0,
+			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'utm_source' => '..',
+			'email' => '',
+			'gateway' => $gateway::getIdentifier(),
+			'order_id' => $exposed->getData_Unstaged_Escaped( 'order_id' ),
+			'recurring' => '',
+			'payment_method' => '',
+			'payment_submethod' => '',
+			'gross' => $data['amount'],
+			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
+		);
+		unset( $message['date'] );
+		unset( $expected['amount'] );
+		$this->assertEquals( $expected, $message );
+	}
+
+	/**
+	 * Don't add contact_id without contact_hash
+	 */
+	public function testGetDonationQueueMessageContactIdNoHash() {
+		$data = $this->getDonorTestData( 'FR' );
+		$data['contact_id'] = mt_rand();
+		$gateway = $this->getFreshGatewayObject( $data );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$message = $exposed->getQueueDonationMessage();
+		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
+		$expected += array(
+			'gateway_txn_id' => false,
+			'response' => false,
+			'gateway_account' => 'test',
+			'fee' => 0,
+			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'utm_source' => '..',
+			'email' => '',
+			'gateway' => $gateway::getIdentifier(),
+			'order_id' => $exposed->getData_Unstaged_Escaped( 'order_id' ),
+			'recurring' => '',
+			'payment_method' => '',
+			'payment_submethod' => '',
+			'gross' => $data['amount'],
+			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
+		);
+		unset( $message['date'] );
+		unset( $expected['amount'] );
+		$this->assertEquals( $expected, $message );
 	}
 }

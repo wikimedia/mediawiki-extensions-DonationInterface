@@ -42,6 +42,8 @@ class DonationData implements LogPrefixProvider {
 		'amountGiven',
 		'amountOther',
 		'appeal',
+		'contact_id',
+		'contact_hash',
 		'email',
 		// @deprecated
 		'emailAdd',
@@ -950,6 +952,8 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getRetryFields() {
 		$fields = array(
+			'contact_id',
+			'contact_hash',
 			'gateway',
 			'country',
 			'currency',

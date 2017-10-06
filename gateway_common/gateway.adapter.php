@@ -1829,7 +1829,26 @@ abstract class GatewayAdapter
 		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
 		$queueMessage['date'] = time();
 
+		$queueMessage = $this->addContactMessageFields( $queueMessage );
 		return $queueMessage;
+	}
+
+	/**
+	 * IMPORTANT: only add the contact_id to a message if the contact_hash
+	 * is preset. We don't want to allow overwriting arbitrary CiviCRM
+	 * contacts.
+	 *
+	 * @param array $message
+	 * @return array
+	 */
+	protected function addContactMessageFields( $message ) {
+		$contactId = $this->getData_Unstaged_Escaped( 'contact_id' );
+		$contactHash = $this->getData_Unstaged_Escaped( 'contact_hash' );
+		if ( $contactId && $contactHash ) {
+			$message['contact_id'] = $contactId;
+			$message['contact_hash'] = $contactHash;
+		}
+		return $message;
 	}
 
 	public function addStandardMessageFields( $transaction ) {
