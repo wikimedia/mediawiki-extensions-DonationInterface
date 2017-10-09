@@ -979,6 +979,8 @@ class DonationData implements LogPrefixProvider {
 		$fields[] = 'order_id';
 		$fields[] = 'appeal';
 		$fields[] = 'referrer';
+		$fields[] = 'contact_id';
+		$fields[] = 'contact_hash';
 		return $fields;
 	}
 
