@@ -39,7 +39,8 @@
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
-		"donate": "DonationApi"
+		"donate": "DonationApi",
+		"logPaymentsFormError": "ClientErrorApi"
 	},
 	"MessagesDirs": {
 		"DonationInterface": [
@@ -69,6 +70,7 @@
 		"AmountInCents": "gateway_common/AmountInCents.php",
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
+		"ClientErrorApi": "gateway_common/clientError.api.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
@@ -183,6 +185,9 @@
 		"donationInterface.skinOverride": {
 			"scripts": "modules/js/skinOverride.js"
 		},
+		"ext.donationInterface.errorLog": {
+			"scripts": "modules/js/ext.donationInterface.errorLog.js"
+		},
 		"ext.donationInterface.currencyRates": {
 			"class": "CurrencyRatesModule"
 		},
@@ -198,7 +203,10 @@
 		},
 		"ext.donationInterface.forms": {
 			"scripts": "modules/js/ext.donationInterface.forms.js",
-			"dependencies": "ext.donationInterface.validation"
+			"dependencies": [
+				"ext.donationInterface.validation",
+				"ext.donationInterface.errorLog"
+			]
 		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
@@ -225,7 +233,10 @@
 		},
 		"ext.donationInterface.amazon.scripts": {
 			"scripts": "amazon_gateway/amazon.js",
-			"dependencies": "ext.donationInterface.validation",
+			"dependencies": [
+				"ext.donationInterface.validation",
+				"ext.donationInterface.errorLog"
+			],
 			"messages": [
 				"donate_interface-otherways-short"
 			]
