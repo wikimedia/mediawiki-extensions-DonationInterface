@@ -451,5 +451,6 @@
 	"apihelp-donate-param-utm_medium": "追踪变量。",
 	"apihelp-donate-param-referrer": "原始推荐人。",
 	"apihelp-donate-param-recurring": "表明交易是循环的。",
-	"apihelp-donate-example-1": "捐款"
+	"apihelp-donate-example-1": "捐款",
+	"apihelp-logPaymentsFormError-description": "此API记录客户端捐赠表单的错误。"
 }

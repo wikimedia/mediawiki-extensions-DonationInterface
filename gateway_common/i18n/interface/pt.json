@@ -441,5 +441,6 @@
 	"apihelp-donate-param-utm_medium": "Variável de monitorização.",
 	"apihelp-donate-param-referrer": "Indicador (referrer) original",
 	"apihelp-donate-param-recurring": "Indica que a transação é recorrente.",
-	"apihelp-donate-example-1": "Faça um donativo"
+	"apihelp-donate-example-1": "Faça um donativo",
+	"apihelp-logPaymentsFormError-description": "Esta API regista erros no formulário de donativos do lado do cliente."
 }

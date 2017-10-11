@@ -454,5 +454,6 @@
 	"apihelp-donate-param-utm_medium": "Variable de suivi.",
 	"apihelp-donate-param-referrer": "Référent d’origine.",
 	"apihelp-donate-param-recurring": "Indique que la transaction est destinée à être récurrente.",
-	"apihelp-donate-example-1": "Faire un don"
+	"apihelp-donate-example-1": "Faire un don",
+	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de donation côté client."
 }
