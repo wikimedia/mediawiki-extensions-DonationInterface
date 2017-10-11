@@ -158,6 +158,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			if ( !empty( $modules['scripts'] ) ) {
 				$this->getOutput()->addModules( $modules['scripts'] );
 			}
+			if ( $this->adapter->getGlobal( 'LogClientErrors' ) ) {
+				$this->getOutput()->addModules( 'ext.donationInterface.errorLog' );
+			}
 			if ( !empty( $modules['styles'] ) ) {
 				$this->getOutput()->addModuleStyles( $modules['styles'] );
 			}
