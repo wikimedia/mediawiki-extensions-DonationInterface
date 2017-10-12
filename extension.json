@@ -203,10 +203,7 @@
 		},
 		"ext.donationInterface.forms": {
 			"scripts": "modules/js/ext.donationInterface.forms.js",
-			"dependencies": [
-				"ext.donationInterface.validation",
-				"ext.donationInterface.errorLog"
-			]
+			"dependencies": "ext.donationInterface.validation"
 		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
@@ -233,10 +230,7 @@
 		},
 		"ext.donationInterface.amazon.scripts": {
 			"scripts": "amazon_gateway/amazon.js",
-			"dependencies": [
-				"ext.donationInterface.validation",
-				"ext.donationInterface.errorLog"
-			],
+			"dependencies": "ext.donationInterface.validation",
 			"messages": [
 				"donate_interface-otherways-short"
 			]
@@ -497,6 +491,7 @@
 		"DonationInterfaceEnableIPVelocityFilter": false,
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
+		"DonationInterfaceLogClientErrors": true,
 		"DonationInterfaceGatewayAdapters": {
 			"globalcollect": "GlobalCollectAdapter",
 			"globalcollect_orphan": "GlobalCollectOrphanAdapter",
