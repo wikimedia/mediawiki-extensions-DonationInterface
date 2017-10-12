@@ -1,6 +1,7 @@
 ( function ( $, mw ) {
 	window.onerror = function ( message, file, line, col, error ) {
 		var postdata = {
+			action: 'logPaymentsFormError',
 			message: message,
 			file: file,
 			line: line,
@@ -12,7 +13,6 @@
 		}
 		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
-			action: 'logPaymentsFormError',
 			data: postdata,
 			dataType: 'json',
 			type: 'POST'
