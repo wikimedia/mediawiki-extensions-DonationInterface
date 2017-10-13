@@ -3756,7 +3756,7 @@ abstract class GatewayAdapter
 			return PaymentResult::newEmpty();
 		}
 		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
-		$civiId = $this->adapter->getData_Unstaged_Escaped( 'contribution_id' );
+		$civiId = $this->getData_Unstaged_Escaped( 'contribution_id' );
 		if ( $civiId ) {
 			$this->logger->error(
 				$normalized['contribution_tracking_id'] .
