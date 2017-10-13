@@ -452,5 +452,11 @@
 	"apihelp-donate-param-referrer": "原始推荐人。",
 	"apihelp-donate-param-recurring": "表明交易是循环的。",
 	"apihelp-donate-example-1": "捐款",
-	"apihelp-logPaymentsFormError-description": "此API记录客户端捐赠表单的错误。"
+	"apihelp-logPaymentsFormError-description": "此API记录客户端捐赠表单的错误。",
+	"apihelp-logPaymentsFormError-param-message": "错误消息",
+	"apihelp-logPaymentsFormError-param-file": "错误发生的文件",
+	"apihelp-logPaymentsFormError-param-line": "错误发生的行",
+	"apihelp-logPaymentsFormError-param-col": "错误发生的列",
+	"apihelp-logPaymentsFormError-param-userAgent": "浏览器的用户代理字符串",
+	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有"
 }

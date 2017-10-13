@@ -413,5 +413,10 @@
 	"apihelp-donate-param-cvv": "CVV 보안 코드.",
 	"apihelp-donate-param-language": "언어 코드입니다.",
 	"apihelp-donate-param-wmf_token": "편집 토큰.",
-	"apihelp-donate-example-1": "기부하기"
+	"apihelp-donate-example-1": "기부하기",
+	"apihelp-logPaymentsFormError-param-message": "오류 메시지",
+	"apihelp-logPaymentsFormError-param-file": "오류가 발생한 파일",
+	"apihelp-logPaymentsFormError-param-line": "오류가 발생한 줄",
+	"apihelp-logPaymentsFormError-param-col": "오류가 발생한 컬럼",
+	"apihelp-logPaymentsFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열"
 }

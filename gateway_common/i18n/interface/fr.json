@@ -455,5 +455,11 @@
 	"apihelp-donate-param-referrer": "Référent d’origine.",
 	"apihelp-donate-param-recurring": "Indique que la transaction est destinée à être récurrente.",
 	"apihelp-donate-example-1": "Faire un don",
-	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de donation côté client."
+	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de donation côté client.",
+	"apihelp-logPaymentsFormError-param-message": "Le message d’erreur",
+	"apihelp-logPaymentsFormError-param-file": "Fichier dans lequel s’est produit l’erreur",
+	"apihelp-logPaymentsFormError-param-line": "Ligne sur laquelle l’erreur s’est produite",
+	"apihelp-logPaymentsFormError-param-col": "Colonne sur laquelle l’erreur s’est produite",
+	"apihelp-logPaymentsFormError-param-userAgent": "Chaîne user-agent du navigateur",
+	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible"
 }

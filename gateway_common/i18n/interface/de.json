@@ -430,5 +430,10 @@
 	"apihelp-donate-param-referrer": "Original-Referrer.",
 	"apihelp-donate-param-recurring": "Gibt an, dass die Transaktion als wiederkehrend gemeint ist.",
 	"apihelp-donate-example-1": "Spenden",
-	"apihelp-logPaymentsFormError-description": "Diese API protokolliert clientseitige Fehler des Spendenformulars."
+	"apihelp-logPaymentsFormError-description": "Diese API protokolliert clientseitige Fehler des Spendenformulars.",
+	"apihelp-logPaymentsFormError-param-message": "Die Fehlernachricht",
+	"apihelp-logPaymentsFormError-param-file": "Datei, in der der Fehler auftrat.",
+	"apihelp-logPaymentsFormError-param-line": "Zeile, in der der Fehler auftrat.",
+	"apihelp-logPaymentsFormError-param-col": "Spalte, in der der Fehler auftrat.",
+	"apihelp-logPaymentsFormError-param-userAgent": "Zeichenfolge des Browser-User-Agenten"
 }

@@ -431,5 +431,6 @@
 	"apihelp-donate-param-utm_medium": "Sporingsvariabel.",
 	"apihelp-donate-param-referrer": "Opprinnelig referent.",
 	"apihelp-donate-param-recurring": "Indikerer at overføringen er ment å være gjentakende.",
-	"apihelp-donate-example-1": "Doner"
+	"apihelp-donate-example-1": "Doner",
+	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden."
 }

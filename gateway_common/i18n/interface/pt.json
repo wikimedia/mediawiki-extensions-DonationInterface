@@ -442,5 +442,11 @@
 	"apihelp-donate-param-referrer": "Indicador (referrer) original",
 	"apihelp-donate-param-recurring": "Indica que a transação é recorrente.",
 	"apihelp-donate-example-1": "Faça um donativo",
-	"apihelp-logPaymentsFormError-description": "Esta API regista erros no formulário de donativos do lado do cliente."
+	"apihelp-logPaymentsFormError-description": "Esta API regista erros no formulário de donativos do lado do cliente.",
+	"apihelp-logPaymentsFormError-param-message": "A mensagem de erro",
+	"apihelp-logPaymentsFormError-param-file": "Ficheiro no qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-line": "Linha na qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-col": "Coluna na qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-userAgent": "Texto user-agent do browser",
+	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível"
 }
