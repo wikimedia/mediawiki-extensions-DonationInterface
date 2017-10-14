@@ -482,6 +482,7 @@
 	"apihelp-donate-param-recurring": "{{doc-apihelp-param|donate|recurring}}",
 	"apihelp-donate-example-1": "{{doc-apihelp-example|donate}}",
 	"apihelp-logPaymentsFormError-description": "{{doc-apihelp-description|logPaymentsFormError}}",
+	"apihelp-logPaymentsFormError-summary": "{{doc-apihelp-summary|logPaymentsFormError}}",
 	"apihelp-logPaymentsFormError-param-message": "{{doc-apihelp-param|logPaymentsFormError|message}}",
 	"apihelp-logPaymentsFormError-param-file": "{{doc-apihelp-param|logPaymentsFormError|file}}",
 	"apihelp-logPaymentsFormError-param-line": "{{doc-apihelp-param|logPaymentsFormError|line}}",
