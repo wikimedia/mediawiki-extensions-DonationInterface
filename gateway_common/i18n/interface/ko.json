@@ -418,5 +418,6 @@
 	"apihelp-logPaymentsFormError-param-file": "오류가 발생한 파일",
 	"apihelp-logPaymentsFormError-param-line": "오류가 발생한 줄",
 	"apihelp-logPaymentsFormError-param-col": "오류가 발생한 컬럼",
-	"apihelp-logPaymentsFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열"
+	"apihelp-logPaymentsFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열",
+	"apihelp-logPaymentsFormError-param-stack": "오류의 스택 트레이스 (사용 가능한 경우)"
 }
