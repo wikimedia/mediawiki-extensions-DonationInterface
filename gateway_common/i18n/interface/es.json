@@ -459,6 +459,7 @@
 	"apihelp-donate-param-referrer": "Referente original.",
 	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
 	"apihelp-donate-example-1": "Hacer una donación",
+	"apihelp-logPaymentsFormError-description": "Esta API registra los errores del formulario de donación que se produzcan en el lado cliente.",
 	"apihelp-logPaymentsFormError-param-message": "El mensaje de error",
 	"apihelp-logPaymentsFormError-param-file": "Archivo en el que se produjo el error",
 	"apihelp-logPaymentsFormError-param-line": "Renglón en el que se produjo el error",

@@ -402,5 +402,9 @@
 	"apihelp-donate-param-utm_campaign": "Sekimo kintamasis.",
 	"apihelp-donate-param-utm_medium": "Sekimo kintamasis.",
 	"apihelp-donate-param-recurring": "Nurodo, kad pavedimas skirtas būti pasikartojančiu.",
-	"apihelp-donate-example-1": "Aukoti"
+	"apihelp-donate-example-1": "Aukoti",
+	"apihelp-logPaymentsFormError-param-message": "Klaidos pranešimas",
+	"apihelp-logPaymentsFormError-param-file": "Failas, kuriame įvyko klaida",
+	"apihelp-logPaymentsFormError-param-line": "Eilutė, kurioje įvyko klaida",
+	"apihelp-logPaymentsFormError-param-col": "Stulpelis, kuriame įvyko klaida"
 }
