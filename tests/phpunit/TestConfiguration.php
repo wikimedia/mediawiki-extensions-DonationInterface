@@ -156,8 +156,12 @@ $wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';
 $wgAdyenGatewayAccountInfo = array();
 $wgAdyenGatewayAccountInfo['test'] = array(
 	'AccountName' => 'wikitest',
-	'SharedSecret' => 'C7F1D9E29479CF18131063A742CD2703FB9D48BAB0160693045E3FB7B8508E59',
-	'SkinCode' => 'testskin',
+	'Skins' => [
+		'testskin' => [
+			'SharedSecret' => 'C7F1D9E29479CF18131063A742CD2703FB9D48BAB0160693045E3FB7B8508E59',
+			'Name' => 'base',
+		],
+	],
 );
 
 /** AstroPay **/

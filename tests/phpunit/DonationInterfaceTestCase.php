@@ -325,6 +325,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		if ( array_key_exists( $country, $donortestdata ) ) {
 			$donortestdata = array_merge( self::$initial_vars, $donortestdata[$country] );
 			$donortestdata['country'] = $country;
+			$donortestdata['processor_form'] = 'testskin';
 			return $donortestdata;
 		}
 		throw new OutOfBoundsException( __FUNCTION__ . ": No donor data for country '$country'" );

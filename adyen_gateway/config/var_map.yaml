@@ -25,4 +25,4 @@ shopperEmail: email
 shopperLocale: language
 shopperReference: customer_id
 shopperStatement: statement_template
-skinCode: skin_code
+skinCode: processor_form

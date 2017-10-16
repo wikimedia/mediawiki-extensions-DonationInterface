@@ -39,7 +39,7 @@ class AdyenAdapter extends GatewayAdapter {
 	function defineAccountInfo() {
 		$this->accountInfo = array(
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
-			'skinCode' => $this->account_config[ 'SkinCode' ],
+			'skins' => $this->account_config[ 'Skins' ],
 		);
 	}
 
@@ -51,7 +51,7 @@ class AdyenAdapter extends GatewayAdapter {
 			'merchantReference' => 'order_id',
 			'merchantReturnData' => 'return_data',
 			'pspReference' => 'gateway_txn_id',
-			'skinCode' => 'skin_code',
+			'skinCode' => 'processor_form',
 		);
 	}
 
@@ -122,7 +122,6 @@ class AdyenAdapter extends GatewayAdapter {
 				'merchantAccount' => $this->accountInfo[ 'merchantAccount' ],
 				'sessionValidity' => date( 'c', strtotime( '+2 days' ) ),
 				'shipBeforeDate' => date( 'Y-M-d', strtotime( '+2 days' ) ),
-				'skinCode' => $this->accountInfo[ 'skinCode' ],
 				// 'shopperLocale' => language _ country
 			),
 			'check_required' => true,
@@ -183,6 +182,7 @@ class AdyenAdapter extends GatewayAdapter {
 					// card entry iframe. If it's sorta-fraudy, the listener
 					// will leave it for manual review. If it's hella fraudy
 					// the listener will cancel it.
+
 					$this->addRequestData( array( 'risk_score' => $this->risk_score ) );
 
 					$requestParams = $this->buildRequestParams();
