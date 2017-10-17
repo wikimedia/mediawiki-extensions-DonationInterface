@@ -9,7 +9,7 @@
  * charges through GlobalCollect.
  */
 class WmfFramework_Drupal {
-	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
+	public static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
 		$severity = constant( "WATCHDOG_$level" ); // Yep, they all match!
 		// Janky XML sanitization so we can see the tags
 		// watchdog strips so aggressively that htmlspecialchars doesn't help
@@ -17,19 +17,19 @@ class WmfFramework_Drupal {
 		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", null, $severity );
 	}
 
-	static function getIP() {
+	public static function getIP() {
 		return '127.0.0.1';
 	}
 
-	static function getRequestValue( $key, $default ) {
+	public static function getRequestValue( $key, $default ) {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
-	static function getRequestHeader( $key ) {
+	public static function getRequestHeader( $key ) {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
-	static function formatMessage( $message_identifier ) {
+	public static function formatMessage( $message_identifier ) {
 		// TODO: Use the i18n logic in wmf_communication
 		return $message_identifier;
 	}
@@ -37,11 +37,11 @@ class WmfFramework_Drupal {
 	/**
 	 * Do not guess.
 	 */
-	static function getLanguageCode() {
+	public static function getLanguageCode() {
 		return null;
 	}
 
-	static function getLanguageFallbacks( $language ) {
+	public static function getLanguageFallbacks( $language ) {
 		$fallbacks = array();
 		if ( $language ) {
 			$fallbacks[] = $language;
@@ -50,11 +50,11 @@ class WmfFramework_Drupal {
 		return $fallbacks;
 	}
 
-	static function isUseSquid() {
+	public static function isUseSquid() {
 		return false;
 	}
 
-	static function setupSession( $sessionId=false ) {
+	public static function setupSession( $sessionId=false ) {
 		if ( session_id() ) {
 			return;
 		}
@@ -64,28 +64,28 @@ class WmfFramework_Drupal {
 		session_start();
 	}
 
-	static function getSessionValue( $key ) {
+	public static function getSessionValue( $key ) {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
-	static function setSessionValue( $key, $value ) {
+	public static function setSessionValue( $key, $value ) {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
-	static function getSessionId() {
+	public static function getSessionId() {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
-	static function validateIP( $ip ) {
+	public static function validateIP( $ip ) {
 		return true;
 	}
 
-	static function isValidBuiltInLanguageCode( $code ) {
+	public static function isValidBuiltInLanguageCode( $code ) {
 		return true;
 		// Language::isValidBuiltInCode
 	}
 
-	static function validateEmail( $email ) {
+	public static function validateEmail( $email ) {
 		$isEmail = filter_var( $email, FILTER_VALIDATE_EMAIL );
 		$isEmail = $isEmail && !DataValidator::cc_number_exists_in_str( $email );
 		return $isEmail;
@@ -102,15 +102,15 @@ class WmfFramework_Drupal {
 		return strlen( self::formatMessage( $msg_key ) ) > 0;
 	}
 
-	static function getUserAgent() {
+	public static function getUserAgent() {
 		return "WMF DonationInterface";
 	}
 
-	static function isPosted() {
+	public static function isPosted() {
 		return false;
 	}
 
-	static function sanitize( $text ) {
+	public static function sanitize( $text ) {
 		return filter_xss( $text );
 	}
 }
