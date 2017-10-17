@@ -412,8 +412,12 @@ class DonationData implements LogPrefixProvider {
 
 		// try to regenerate the country if we still don't have a valid one yet
 		if ( $regen ) {
-			// If no valid country was passed, first check session.
-			$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
+			if ( $this->gateway->isBatchProcessor() ) {
+				$sessionCountry = null;
+			} else {
+				// If no valid country was passed, first check session.
+				$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
+			}
 			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
 				$this->logger->info( "Using country code $sessionCountry from session" );
 				$country = $sessionCountry;
