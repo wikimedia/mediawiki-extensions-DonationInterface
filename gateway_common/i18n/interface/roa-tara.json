@@ -438,5 +438,13 @@
 	"apihelp-donate-param-utm_medium": "Variabbile de tracciamende.",
 	"apihelp-donate-param-referrer": "Riferimende origgenale.",
 	"apihelp-donate-param-recurring": "Indichesce ca 'a transazzione adda essere ricorsive.",
-	"apihelp-donate-example-1": "Fà 'na donazzione"
+	"apihelp-donate-example-1": "Fà 'na donazzione",
+	"apihelp-logPaymentsFormError-description": "Sta API reggìstre le errore d'u module de le donazziune late client.",
+	"apihelp-logPaymentsFormError-summary": "Sta API reggìstre le errore d'u module de le donazziune late client.",
+	"apihelp-logPaymentsFormError-param-message": "'U messàgge de errore",
+	"apihelp-logPaymentsFormError-param-file": "File addò ave assute l'errore",
+	"apihelp-logPaymentsFormError-param-line": "Linèe addò ave assute l'errore",
+	"apihelp-logPaymentsFormError-param-col": "Culonne addò ave assute l'errore",
+	"apihelp-logPaymentsFormError-param-userAgent": "Stringhe user-agent d'u browser",
+	"apihelp-logPaymentsFormError-param-stack": "Tracce d'a pile de l'errore, addò jè disponibbile"
 }

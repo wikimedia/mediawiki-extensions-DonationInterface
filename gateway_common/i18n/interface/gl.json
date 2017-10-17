@@ -424,5 +424,11 @@
 	"apihelp-donate-param-utm_medium": "Variable de seguimento.",
 	"apihelp-donate-param-referrer": "Referente orixinal.",
 	"apihelp-donate-param-recurring": "Indica que a transacción vai ser recorrente.",
-	"apihelp-donate-example-1": "Fai unha doazón"
+	"apihelp-donate-example-1": "Fai unha doazón",
+	"apihelp-logPaymentsFormError-param-message": "A mensaxe de erro",
+	"apihelp-logPaymentsFormError-param-file": "Ficheiro no que ocorreu o erro",
+	"apihelp-logPaymentsFormError-param-line": "Liña na que ocorreu o erro",
+	"apihelp-logPaymentsFormError-param-col": "Columna na que ocorreu o erro",
+	"apihelp-logPaymentsFormError-param-userAgent": "Cadea de axente de usuario do navegador",
+	"apihelp-logPaymentsFormError-param-stack": "Seguimento de pila do erro, se está dispoñible"
 }

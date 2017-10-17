@@ -432,5 +432,12 @@
 	"apihelp-donate-param-referrer": "Opprinnelig referent.",
 	"apihelp-donate-param-recurring": "Indikerer at overføringen er ment å være gjentakende.",
 	"apihelp-donate-example-1": "Doner",
-	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden."
+	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden.",
+	"apihelp-logPaymentsFormError-summary": "Dette API-et logger donasjonsskjemafiel på klientsiden.",
+	"apihelp-logPaymentsFormError-param-message": "Feilbeskjeden",
+	"apihelp-logPaymentsFormError-param-file": "Filen feilen oppsto i",
+	"apihelp-logPaymentsFormError-param-line": "Linjen feilen oppsto på",
+	"apihelp-logPaymentsFormError-param-col": "Kolonnen feilen oppsto i",
+	"apihelp-logPaymentsFormError-param-userAgent": "Netteleserens brukeragentstreng",
+	"apihelp-logPaymentsFormError-param-stack": "Feilens stack trace, om tilgjengelig"
 }
