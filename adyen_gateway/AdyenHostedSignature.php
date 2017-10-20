@@ -1,8 +1,8 @@
 <?php
 
 class AdyenHostedSignature implements StagingHelper {
-	/*
-	 * Send our fraud score to Adyen so we can see it in the console
+	/**
+	 * Sign the Adyen API request
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$params = $adapter->buildRequestParams();
@@ -52,7 +52,7 @@ class AdyenHostedSignature implements StagingHelper {
 				hash_hmac( 'sha256', $joined, pack( "H*", $secret ), true )
 			);
 		} else {
-			throw new ResponseProcessingException(
+			throw new RuntimeException(
 				'Skin code not configured',
 				ResponseCodes::BAD_SIGNATURE
 			);

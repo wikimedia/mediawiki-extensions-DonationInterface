@@ -161,6 +161,10 @@ $wgAdyenGatewayAccountInfo['test'] = array(
 			'SharedSecret' => 'C7F1D9E29479CF18131063A742CD2703FB9D48BAB0160693045E3FB7B8508E59',
 			'Name' => 'base',
 		],
+		'altskin' => [
+			'SharedSecret' => 'A78B329F29872E21291063A742CD2703FB9D48BAB01606930421291063A742CD',
+			'Name' => 'redirect',
+		]
 	],
 );
 

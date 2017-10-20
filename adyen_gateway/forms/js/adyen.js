@@ -1,7 +1,7 @@
 ( function ( $, mw ) {
 	var di = mw.donationInterface,
 		resultFunction,
-        skinNames = mw.config.get( 'wgAdyenGatewaySkinNames' );
+		skinCodes = mw.config.get( 'wgAdyenGatewaySkinCodes' );
 
 	function redirect( result ) {
 		var $pForm, $payment = $( '#payment-form' );
@@ -56,10 +56,10 @@
 
 	// iframe is base
 	resultFunction = showIframe;
-	$( '#processor_form' ).val( skinNames.base );
+	$( '#processor_form' ).val( skinCodes.base );
 	if (  window.safari !== undefined ) {
 		resultFunction = redirect;
-		$( '#processor_form' ).val( skinNames.redirect );
+		$( '#processor_form' ).val( skinCodes.redirect );
 	}
 
 	di.forms.submit = function () {

@@ -186,6 +186,32 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		// TODO inspect the queue message
 	}
 
+	/**
+	 * Test that we verify the signature with the alternate skin code's HMAC
+	 */
+	public function testDonorReturnSuccessAltSkin() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['language'] = 'FR';
+		$init['order_id'] = '55555';
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( array() );
+		$result = $gateway->processDonorReturn( array(
+			'authResult' => 'AUTHORISED',
+			'merchantReference' => '55555.1',
+			'merchantSig' => '/uzhDRZ3zSzFNLgBj4tI6pHYDynVQAqCeKcJWsXeWo0=',
+			'paymentMethod' => 'visa',
+			'pspReference' => '123987612346789',
+			'shopperLocale' => 'fr_FR',
+			'skinCode' => 'altskin',
+			'title' => 'Special:AdyenGatewayResult'
+		) );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+	}
+
 	public function testDonorReturnFailure() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
@@ -206,5 +232,37 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'title' => 'Special:AdyenGatewayResult'
 		) );
 		$this->assertTrue( $result->isFailed() );
+	}
+
+	/**
+	 * Test that we choose the correct HMAC based on skinCode
+	 */
+	public function testSignatureAltSkin() {
+		$init = $this->getDonorTestData();
+		$gateway = $this->getFreshGatewayObject( $init );
+		$toSign = [
+			'allowedMethods' => 'card',
+			'billingAddress.street' => $init['street_address'],
+			'billingAddress.city' => $init['city'],
+			'billingAddress.postalCode' => $init['postal_code'],
+			'billingAddress.stateOrProvince' => $init['state_province'],
+			'billingAddress.country' => $init['country'],
+			'billingAddress.houseNumberOrName' => 'NA',
+			'billingAddressType' => 2,
+			'card.cardHolderName' => $init['first_name'] . ' ' . $init['last_name'],
+			'currencyCode' => $init['currency'],
+			'merchantAccount' => 'wikitest',
+			'merchantReference' => 123456,
+			'paymentAmount' => ( $init['amount'] ) * 100,
+			'skinCode' => 'testskin',
+			'shopperLocale' => 'fr_US',
+			'shopperEmail' => 'nobody@wikimedia.org',
+			'offset' => '52',
+		];
+		$defaultSig = AdyenHostedSignature::calculateSignature( $gateway, $toSign );
+		$toSign['skinCode'] = 'altskin';
+		$altSig = AdyenHostedSignature::calculateSignature( $gateway, $toSign );
+		$this->assertEquals( 'xoI76zyUFjjBzubzSPEopAgoA9Bt7PjwQAi5QHk/GKo=', $defaultSig );
+		$this->assertEquals( 'UKMVUkWR5GqsgfUEtqZalzh+kTa7kXyrDw9nbj4D/0Q=', $altSig );
 	}
 }
