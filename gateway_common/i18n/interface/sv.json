@@ -433,5 +433,9 @@
 	"apihelp-donate-param-utm_medium": "Spårningsvariabel.",
 	"apihelp-donate-param-referrer": "Ursprunglig referens.",
 	"apihelp-donate-param-recurring": "Indikerar att överföringen är tänkt att vara återkommande.",
-	"apihelp-donate-example-1": "Gör en donation"
+	"apihelp-donate-example-1": "Gör en donation",
+	"apihelp-logPaymentsFormError-param-message": "Felmeddelandet",
+	"apihelp-logPaymentsFormError-param-file": "Filen där felet uppstod",
+	"apihelp-logPaymentsFormError-param-line": "Raden där felet uppstod",
+	"apihelp-logPaymentsFormError-param-col": "Kolumnen där felet uppstod"
 }

@@ -431,6 +431,8 @@
 	"apihelp-donate-summary": "This API allow you to submit a donation to the Wikimedia Foundation using a variety of payment processors.",
 	"apihelp-donate-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "The amount donated.",
+	"apihelp-donate-param-contact_id": "ID of the donor in CiviCRM.",
+	"apihelp-donate-param-contact_hash": "Hash of the donor in CiviCRM, used for verification. Mandatory when contact_id is given.",
 	"apihelp-donate-param-currency": "Currency code.",
 	"apihelp-donate-param-first_name": "First name.",
 	"apihelp-donate-param-last_name": "Last name.",
@@ -455,5 +457,13 @@
 	"apihelp-donate-param-utm_medium": "Tracking variable.",
 	"apihelp-donate-param-referrer": "Original referrer.",
 	"apihelp-donate-param-recurring": "Indicates that the transaction is meant to be recurring.",
-	"apihelp-donate-example-1": "Make a donation"
+	"apihelp-donate-example-1": "Make a donation",
+	"apihelp-logPaymentsFormError-description": "This API logs client-side donation form errors.",
+	"apihelp-logPaymentsFormError-summary": "This API logs client-side donation form errors.",
+	"apihelp-logPaymentsFormError-param-message": "The error message",
+	"apihelp-logPaymentsFormError-param-file": "File that the error occurred in",
+	"apihelp-logPaymentsFormError-param-line": "Line on which the error occurred",
+	"apihelp-logPaymentsFormError-param-col": "Column on which the error occurred",
+	"apihelp-logPaymentsFormError-param-userAgent": "Browser's user-agent string",
+	"apihelp-logPaymentsFormError-param-stack": "Error's stack trace, when available"
 }

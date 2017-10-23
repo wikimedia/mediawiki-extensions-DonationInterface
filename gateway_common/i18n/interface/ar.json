@@ -14,7 +14,8 @@
 			"زكريا",
 			"Maroen1990",
 			"محمد أحمد عبد الفتاح",
-			"ديفيد"
+			"ديفيد",
+			"20عبد العزيز"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -357,5 +358,6 @@
 	"donate_interface-monthly-cancel": "سيتم خصم المدفوعات الشهرية من قبل مؤسسة ويكيميديا حتى ذلك الوقت الذي تبلغنا به بالتوقف عن ذلك.",
 	"donate_interface-monthly-short": "شهريا",
 	"donate_interface-onetime-short": "مرة واحدة",
-	"donate_interface-error-http-403": "ليس لديك الإذن للوصول إلى هذه الصفحة."
+	"donate_interface-error-http-403": "ليس لديك الإذن للوصول إلى هذه الصفحة.",
+	"apihelp-logPaymentsFormError-param-message": "رسالة الخطأ"
 }

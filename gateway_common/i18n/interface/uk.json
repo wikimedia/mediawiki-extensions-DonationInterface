@@ -437,5 +437,13 @@
 	"apihelp-donate-param-utm_medium": "Відстежувана змінна.",
 	"apihelp-donate-param-referrer": "Оригінальний реферер.",
 	"apihelp-donate-param-recurring": "Вказує, що транзакція повинна бути повторювана.",
-	"apihelp-donate-example-1": "Зробити пожертву"
+	"apihelp-donate-example-1": "Зробити пожертву",
+	"apihelp-logPaymentsFormError-description": "Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
+	"apihelp-logPaymentsFormError-summary": "Цей Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
+	"apihelp-logPaymentsFormError-param-message": "Повідомлення про помилку",
+	"apihelp-logPaymentsFormError-param-file": "Файл, у якому виникла помилка",
+	"apihelp-logPaymentsFormError-param-line": "Рядок, у якому виникла помилка",
+	"apihelp-logPaymentsFormError-param-col": "Стовпець, у якому виникла помилка",
+	"apihelp-logPaymentsFormError-param-userAgent": "Рядок агента користувача браузера",
+	"apihelp-logPaymentsFormError-param-stack": "Траса стеку помилки, якщо доступно"
 }

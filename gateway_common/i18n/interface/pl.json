@@ -398,5 +398,9 @@
 	"apihelp-donate-param-expiration": "Data ważności.",
 	"apihelp-donate-param-cvv": "Kod zabezpieczający CVV.",
 	"apihelp-donate-param-language": "Kod języka.",
-	"apihelp-donate-example-1": "Przekaż darowiznę"
+	"apihelp-donate-example-1": "Przekaż darowiznę",
+	"apihelp-logPaymentsFormError-param-message": "Komunikat o błędzie",
+	"apihelp-logPaymentsFormError-param-file": "Plik, w którym wystąpił błąd",
+	"apihelp-logPaymentsFormError-param-line": "Linia, w której wystąpił błąd",
+	"apihelp-logPaymentsFormError-param-col": "Kolumna, w której wystąpił błąd"
 }

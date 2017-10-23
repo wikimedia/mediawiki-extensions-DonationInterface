@@ -419,5 +419,13 @@
 	"apihelp-donate-param-utm_medium": "Variable de siguimientu.",
 	"apihelp-donate-param-referrer": "Referente orixinal.",
 	"apihelp-donate-param-recurring": "Indica que la operación tien l'envís de repetise .",
-	"apihelp-donate-example-1": "Facer una donación"
+	"apihelp-donate-example-1": "Facer una donación",
+	"apihelp-logPaymentsFormError-description": "Esta API rexistra los errores nel formulariu de donación nel llau del cliente.",
+	"apihelp-logPaymentsFormError-summary": "Esta API rexistra los errores del formulariu de donaciones nel llau del cliente.",
+	"apihelp-logPaymentsFormError-param-message": "El mensaxe d'error",
+	"apihelp-logPaymentsFormError-param-file": "Ficheru nel qu'asocedió l'error",
+	"apihelp-logPaymentsFormError-param-line": "Llinia na qu'asocedió l'error",
+	"apihelp-logPaymentsFormError-param-col": "Columna na qu'asocedió l'error",
+	"apihelp-logPaymentsFormError-param-userAgent": "Cadena del axente d'usuariu del restolador",
+	"apihelp-logPaymentsFormError-param-stack": "Traza de la pila del error, si ta disponible"
 }

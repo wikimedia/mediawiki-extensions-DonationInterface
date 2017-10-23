@@ -1829,7 +1829,26 @@ abstract class GatewayAdapter
 		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
 		$queueMessage['date'] = time();
 
+		$queueMessage = $this->addContactMessageFields( $queueMessage );
 		return $queueMessage;
+	}
+
+	/**
+	 * IMPORTANT: only add the contact_id to a message if the contact_hash
+	 * is preset. We don't want to allow overwriting arbitrary CiviCRM
+	 * contacts.
+	 *
+	 * @param array $message
+	 * @return array
+	 */
+	protected function addContactMessageFields( $message ) {
+		$contactId = $this->getData_Unstaged_Escaped( 'contact_id' );
+		$contactHash = $this->getData_Unstaged_Escaped( 'contact_hash' );
+		if ( $contactId && $contactHash ) {
+			$message['contact_id'] = $contactId;
+			$message['contact_hash'] = $contactHash;
+		}
+		return $message;
 	}
 
 	public function addStandardMessageFields( $transaction ) {
@@ -3716,6 +3735,13 @@ abstract class GatewayAdapter
 		return false;
 	}
 
+	/*
+	 * Cancel payment based on adapter and set status to cancelled
+	 */
+	public function cancel() {
+		return PaymentResult::newFailure();
+	}
+
 	/**
 	 * Looks at message to see if it should be rectified
 	 * Allows exit if the adapter should not rectify the orphan
@@ -3730,16 +3756,26 @@ abstract class GatewayAdapter
 			return PaymentResult::newEmpty();
 		}
 		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
-		$params = $this->createDonorReturnParams();
-		$paymentResult = $this->processDonorReturn( $params );
-		if ( !$paymentResult->isFailed() ) {
-			$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
-			return $paymentResult;
+		$civiId = $this->getData_Unstaged_Escaped( 'contribution_id' );
+		if ( $civiId ) {
+			$this->logger->error(
+				$normalized['contribution_tracking_id'] .
+				": Contribution tracking already has contribution_id $civiId.  " .
+				'Stop confusing donors!'
+			);
+			$paymentResult = $this->cancel();
 		} else {
-			$this->errorState->addErrors( $paymentResult->getErrors() );
-			$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
-  }
-		 return $paymentResult;
+			$params = $this->createDonorReturnParams();
+			$paymentResult = $this->processDonorReturn( $params );
+			if ( !$paymentResult->isFailed() ) {
+				$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
+				return $paymentResult;
+			} else {
+				$this->errorState->addErrors( $paymentResult->getErrors() );
+				$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
+			}
+		}
+		return $paymentResult;
 	}
 
 	/**

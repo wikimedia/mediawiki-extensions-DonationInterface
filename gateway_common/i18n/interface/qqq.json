@@ -456,6 +456,8 @@
 	"apihelp-donate-summary": "{{doc-apihelp-summary|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",
 	"apihelp-donate-param-amount": "{{doc-apihelp-param|donate|amount}}",
+	"apihelp-donate-param-contact_id": "{{doc-apihelp-param|donate|contact_id}}",
+	"apihelp-donate-param-contact_hash": "{{doc-apihelp-param|donate|contact_hash}}",
 	"apihelp-donate-param-currency": "{{doc-apihelp-param|donate|currency}}",
 	"apihelp-donate-param-first_name": "{{doc-apihelp-param|donate|first_name}}\n{{Identical|First name}}",
 	"apihelp-donate-param-last_name": "{{doc-apihelp-param|donate|last_name}}\n{{Identical|Last name}}",
@@ -480,5 +482,13 @@
 	"apihelp-donate-param-utm_medium": "{{doc-apihelp-param|donate|utm_medium}}",
 	"apihelp-donate-param-referrer": "{{doc-apihelp-param|donate|referrer}}",
 	"apihelp-donate-param-recurring": "{{doc-apihelp-param|donate|recurring}}",
-	"apihelp-donate-example-1": "{{doc-apihelp-example|donate}}"
+	"apihelp-donate-example-1": "{{doc-apihelp-example|donate}}",
+	"apihelp-logPaymentsFormError-description": "{{doc-apihelp-description|logPaymentsFormError}}",
+	"apihelp-logPaymentsFormError-summary": "{{doc-apihelp-summary|logPaymentsFormError}}",
+	"apihelp-logPaymentsFormError-param-message": "{{doc-apihelp-param|logPaymentsFormError|message}}",
+	"apihelp-logPaymentsFormError-param-file": "{{doc-apihelp-param|logPaymentsFormError|file}}",
+	"apihelp-logPaymentsFormError-param-line": "{{doc-apihelp-param|logPaymentsFormError|line}}",
+	"apihelp-logPaymentsFormError-param-col": "{{doc-apihelp-param|logPaymentsFormError|col}}",
+	"apihelp-logPaymentsFormError-param-userAgent": "{{doc-apihelp-param|logPaymentsFormError|userAgent}}",
+	"apihelp-logPaymentsFormError-param-stack": "{{doc-apihelp-param|logPaymentsFormError|stack}}"
 }

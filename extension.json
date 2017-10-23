@@ -39,7 +39,8 @@
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
-		"donate": "DonationApi"
+		"donate": "DonationApi",
+		"logPaymentsFormError": "ClientErrorApi"
 	},
 	"MessagesDirs": {
 		"DonationInterface": [
@@ -69,6 +70,7 @@
 		"AmountInCents": "gateway_common/AmountInCents.php",
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
+		"ClientErrorApi": "gateway_common/clientError.api.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
@@ -182,6 +184,9 @@
 		},
 		"donationInterface.skinOverride": {
 			"scripts": "modules/js/skinOverride.js"
+		},
+		"ext.donationInterface.errorLog": {
+			"scripts": "modules/js/ext.donationInterface.errorLog.js"
 		},
 		"ext.donationInterface.currencyRates": {
 			"class": "CurrencyRatesModule"
@@ -486,6 +491,7 @@
 		"DonationInterfaceEnableIPVelocityFilter": false,
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
+		"DonationInterfaceLogClientErrors": true,
 		"DonationInterfaceGatewayAdapters": {
 			"globalcollect": "GlobalCollectAdapter",
 			"globalcollect_orphan": "GlobalCollectOrphanAdapter",

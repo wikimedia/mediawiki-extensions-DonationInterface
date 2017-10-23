@@ -42,6 +42,8 @@ class DonationData implements LogPrefixProvider {
 		'amountGiven',
 		'amountOther',
 		'appeal',
+		'contact_id',
+		'contact_hash',
 		'email',
 		// @deprecated
 		'emailAdd',
@@ -410,8 +412,12 @@ class DonationData implements LogPrefixProvider {
 
 		// try to regenerate the country if we still don't have a valid one yet
 		if ( $regen ) {
-			// If no valid country was passed, first check session.
-			$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
+			if ( $this->gateway->isBatchProcessor() ) {
+				$sessionCountry = null;
+			} else {
+				// If no valid country was passed, first check session.
+				$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
+			}
 			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
 				$this->logger->info( "Using country code $sessionCountry from session" );
 				$country = $sessionCountry;
@@ -950,6 +956,8 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getRetryFields() {
 		$fields = array(
+			'contact_id',
+			'contact_hash',
 			'gateway',
 			'country',
 			'currency',
@@ -971,6 +979,8 @@ class DonationData implements LogPrefixProvider {
 		$fields[] = 'order_id';
 		$fields[] = 'appeal';
 		$fields[] = 'referrer';
+		$fields[] = 'contact_id';
+		$fields[] = 'contact_hash';
 		return $fields;
 	}
 

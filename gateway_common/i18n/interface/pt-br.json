@@ -22,7 +22,8 @@
 			"Araceletorres",
 			"Felipe L. Ewald",
 			"Walesson",
-			"Legionibus"
+			"Legionibus",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -472,5 +473,12 @@
 	"apihelp-donate-param-utm_medium": "Variável de acompanhamento.",
 	"apihelp-donate-param-referrer": "Referenciador original.",
 	"apihelp-donate-param-recurring": "Indica que a transação vai ser recorrente.",
-	"apihelp-donate-example-1": "Faça uma doação"
+	"apihelp-donate-example-1": "Faça uma doação",
+	"apihelp-logPaymentsFormError-description": "Esta API regista erros no formulário de donativos do lado do cliente.",
+	"apihelp-logPaymentsFormError-param-message": "A mensagem de erro",
+	"apihelp-logPaymentsFormError-param-file": "Arquivo no qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-line": "Linha na qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-col": "Coluna na qual o erro ocorreu",
+	"apihelp-logPaymentsFormError-param-userAgent": "Texto user-agent do browser",
+	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível"
 }

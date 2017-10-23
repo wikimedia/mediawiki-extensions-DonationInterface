@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"George Animal",
-			"Gomada"
+			"Gomada",
+			"Cûndûllah el-Kurdî"
 		]
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
@@ -29,6 +30,11 @@
 	"donate_interface-donor-postal_code-us": "Zip",
 	"donate_interface-donor-country": "Welat/Herêm",
 	"donate_interface-donor-address": "Navnîşan",
+	"donate_interface-error-msg-email": "navnîşana e-nameyê",
+	"donate_interface-error-msg-first_name": "nav",
+	"donate_interface-error-msg-last_name": "paşnav",
+	"donate_interface-error-msg-city": "bajar",
+	"donate_interface-error-msg-state_province": "dewlet",
 	"donate_interface-error-msg-country": "welat",
 	"donate_interface-comment": "Şîrove",
 	"donate_interface-or": "an",
@@ -43,5 +49,6 @@
 	"donate_interface-monthly-short": "Mehane",
 	"apihelp-donate-param-first_name": "Pêşnav.",
 	"apihelp-donate-param-last_name": "Paşnav.",
-	"apihelp-donate-param-city": "Bajar."
+	"apihelp-donate-param-city": "Bajar.",
+	"apihelp-logPaymentsFormError-param-message": "Peyama çewtiyê"
 }

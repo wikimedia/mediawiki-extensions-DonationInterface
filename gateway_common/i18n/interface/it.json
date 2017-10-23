@@ -436,5 +436,10 @@
 	"apihelp-donate-param-utm_medium": "Variabile di tracciamento.",
 	"apihelp-donate-param-referrer": "Referente originario.",
 	"apihelp-donate-param-recurring": "Indica che la transazione è intesa come ricorrente.",
-	"apihelp-donate-example-1": "Fai una donazione"
+	"apihelp-donate-example-1": "Fai una donazione",
+	"apihelp-logPaymentsFormError-param-message": "Il messaggio di errore",
+	"apihelp-logPaymentsFormError-param-file": "File in cui si è verificato l'errore",
+	"apihelp-logPaymentsFormError-param-line": "Linea in cui si è verificato l'errore",
+	"apihelp-logPaymentsFormError-param-col": "Colonna in cui si è verificato l'errore",
+	"apihelp-logPaymentsFormError-param-userAgent": "Stringa user-agent del browser"
 }

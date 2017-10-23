@@ -3,17 +3,17 @@
 use MediaWiki\Session\SessionManager;
 
 class WmfFramework_Mediawiki {
-	static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
+	public static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
 		// TODO: call different wf*Log functions depending on $level
 		wfDebugLog( $identifier, $msg );
 	}
 
-	static function getIP() {
+	public static function getIP() {
 		$request = RequestContext::getMain()->getRequest();
 		return $request->getIP();
 	}
 
-	static function getRequestValue( $key, $default ) {
+	public static function getRequestValue( $key, $default ) {
 		// all strings is just fine.
 		$ret = RequestContext::getMain()->getRequest()->getText( $key, $default );
 		// getText never returns null: It just casts do an empty string. Soooo...
@@ -23,53 +23,53 @@ class WmfFramework_Mediawiki {
 		return $ret;
 	}
 
-	static function getRequestHeader( $key ) {
+	public static function getRequestHeader( $key ) {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}
 
-	static function formatMessage( $message_identifier /*, ... */ ) {
+	public static function formatMessage( $message_identifier /*, ... */ ) {
 		return call_user_func_array( 'wfMessage', func_get_args() )->text();
 	}
 
-	static function getLanguageCode() {
+	public static function getLanguageCode() {
 		$lang = RequestContext::getMain()->getLanguage();
 		return $lang->getCode();
 	}
 
-	static function getLanguageFallbacks( $language ) {
+	public static function getLanguageFallbacks( $language ) {
 		return Language::getFallbacksFor( $language );
 	}
 
-	static function isUseSquid() {
+	public static function isUseSquid() {
 		global $wgUseSquid;
 		return $wgUseSquid;
 	}
 
-	static function setupSession( $sessionId = false ) {
+	public static function setupSession( $sessionId = false ) {
 		SessionManager::getGlobalSession()->persist();
 	}
 
-	static function getSessionValue( $key ) {
+	public static function getSessionValue( $key ) {
 		return RequestContext::getMain()->getRequest()->getSessionData( $key );
 	}
 
-	static function setSessionValue( $key, $value ) {
+	public static function setSessionValue( $key, $value ) {
 		RequestContext::getMain()->getRequest()->setSessionData( $key, $value );
 	}
 
-	static function getSessionId() {
+	public static function getSessionId() {
 		return SessionManager::getGlobalSession()->getId();
 	}
 
-	static function validateIP( $ip ) {
+	public static function validateIP( $ip ) {
 		return IP::isValid( $ip );
 	}
 
-	static function isValidBuiltInLanguageCode( $code ) {
+	public static function isValidBuiltInLanguageCode( $code ) {
 		return Language::isValidBuiltInCode( $code );
 	}
 
-	static function validateEmail( $email ) {
+	public static function validateEmail( $email ) {
 		return Sanitizer::validateEmail( $email );
 	}
 
@@ -88,16 +88,16 @@ class WmfFramework_Mediawiki {
 		return Language::getMessageFor( $msg_key, $language ) !== null;
 	}
 
-	static function getUserAgent() {
+	public static function getUserAgent() {
 		return Http::userAgent();
 	}
 
-	static function isPosted() {
+	public static function isPosted() {
 		$request = RequestContext::getMain()->getRequest();
 		return $request->wasPosted();
 	}
 
-	static function sanitize( $text ) {
+	public static function sanitize( $text ) {
 		return wfEscapeWikiText( $text );
 	}
 }

@@ -400,5 +400,7 @@
 	"apihelp-donate-param-expiration": "Datum vun der Expiratioun.",
 	"apihelp-donate-param-cvv": "CVV-Sécherheetscode.",
 	"apihelp-donate-param-language": "Sproochcode.",
-	"apihelp-donate-example-1": "En Don maachen"
+	"apihelp-donate-example-1": "En Don maachen",
+	"apihelp-logPaymentsFormError-param-message": "De Feelermessage",
+	"apihelp-logPaymentsFormError-param-file": "Fichier bei deem de Feeler geschitt"
 }
