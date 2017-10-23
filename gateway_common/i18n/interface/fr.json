@@ -430,6 +430,8 @@
 	"apihelp-donate-summary": "Cet API vous permet de soumettre une donnation à la Fondation Wikimedia en utilisant divers modes de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser – adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "Le montant du don.",
+	"apihelp-donate-param-contact_id": "ID du donateur dans CiviCRM.",
+	"apihelp-donate-param-contact_hash": "Hachage du donateur dans CiviCRM, utilisé pour la vérification. Obligatoire quand contact_id est fourni.",
 	"apihelp-donate-param-currency": "Code de devise.",
 	"apihelp-donate-param-first_name": "Prénom",
 	"apihelp-donate-param-last_name": "Nom",

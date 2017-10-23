@@ -474,7 +474,6 @@
 	"apihelp-donate-param-cvv": "{{doc-apihelp-param|donate|cvv}}",
 	"apihelp-donate-param-payment_method": "{{doc-apihelp-param|donate|payment_method}}",
 	"apihelp-donate-param-payment_submethod": "{{doc-apihelp-param|donate|payment_submethod}}",
-	"apihelp-donate-param-processor_form": "{{doc-apihelp-param|donate|processor_form}}",
 	"apihelp-donate-param-language": "{{doc-apihelp-param|donate|language}}\n{{Identical|Language code}}",
 	"apihelp-donate-param-order_id": "{{doc-apihelp-param|donate|order_id}}",
 	"apihelp-donate-param-wmf_token": "{{doc-apihelp-param|donate|wmf_token}}",
