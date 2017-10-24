@@ -30,4 +30,11 @@ class ClientErrorApi extends ApiBase {
 			'stack' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
 		);
 	}
+
+	/**
+	 * Don't require API read rights
+	 */
+	public function isReadMode() {
+		return false;
+	}
 }
