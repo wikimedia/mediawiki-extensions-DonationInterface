@@ -440,16 +440,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
 
-				if ( $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionNotInitiated' ) {
-					$this->finalizeInternalStatus( FinalStatus::PENDING );
-					$this->transaction_response->setRedirect(
-						$this->account_config['RedirectURL'] .
-						$this->getData_Unstaged_Escaped( 'gateway_session_id' )
-					);
-					$fatal = false;
-					break;
-				}
-
 				// Merge response into our transaction data.
 				// TODO: Use getFormattedData instead.
 				// FIXME: We don't want to allow overwriting of ctid, need a
@@ -565,24 +555,22 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				ResponseCodes::UNKNOWN );
 		}
 
-		if ( $this->getFinalStatus() !== FinalStatus::PENDING ) {
-			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-				// Set up recurring billing agreement.
-				$this->addRequestData( array(
-					'date' => time()
-				) );
-				$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
-				if ( !$resultData->getCommunicationStatus() ) {
-					throw new ResponseProcessingException(
-						'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
-				}
-			} else {
-				// One-time payment, or initial payment in a subscription.
-				$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
-				if ( !$resultData->getCommunicationStatus() ) {
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					return PaymentResult::newFailure();
-				}
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			// Set up recurring billing agreement.
+			$this->addRequestData( array(
+				'date' => time()
+			) );
+			$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
+			if ( !$resultData->getCommunicationStatus() ) {
+				throw new ResponseProcessingException(
+					'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
+			}
+		} else {
+			// One-time payment, or initial payment in a subscription.
+			$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
+			if ( !$resultData->getCommunicationStatus() ) {
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
+				return PaymentResult::newFailure();
 			}
 		}
 		return PaymentResult::fromResults(
