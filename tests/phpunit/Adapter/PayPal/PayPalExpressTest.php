@@ -400,6 +400,28 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
+	/*
+	 * Check that it does not call doPayment when status is PaymentNotInitiated
+	 */
+	public function testProcessDonorReturnPaymentActionCompleted() {
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$options = array( 'batch_mode' => true );
+		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+
+		$gateway = $this->getFreshGatewayObject( $init, $options );
+		$gateway::setDummyGatewayResponseCode( 'Complete' );
+		$gateway->processDonorReturn( array(
+			'token' => 'EC%2d4V987654XA123456V',
+			'PayerID' => 'ASDASD',
+		) );
+
+		$this->assertEquals( FinalStatus::COMPLETE, $gateway->getFinalStatus(), 'Should have Final Status Complete' );
+		$this->assertEquals( 1, count( $gateway->curled ), 'Should only call curl once' );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNull( $message, 'Should not queue a message' );
+	}
+
 	/**
 	 * The result switcher should redirect the donor to the thank you page and mark the token as
 	 * processed.
