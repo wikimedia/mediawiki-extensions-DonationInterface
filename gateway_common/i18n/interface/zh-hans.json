@@ -445,6 +445,7 @@
 	"apihelp-donate-param-cvv": "CVV安全码。",
 	"apihelp-donate-param-payment_method": "所要使用的付款方法。",
 	"apihelp-donate-param-payment_submethod": "要使用的支付子方法。",
+	"apihelp-donate-param-processor_form": "要使用的处理器表单选项。",
 	"apihelp-donate-param-language": "语言代码。",
 	"apihelp-donate-param-order_id": "订单号（如果捐款已经开始）。",
 	"apihelp-donate-param-wmf_token": "编辑令牌。",
