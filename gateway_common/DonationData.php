@@ -96,6 +96,7 @@ class DonationData implements LogPrefixProvider {
 		'transaction_type',
 		'form_name',
 		'ffname',
+		'processor_form',
 		'recurring',
 		'recurring_paypal',
 		'redirect',
@@ -978,6 +979,7 @@ class DonationData implements LogPrefixProvider {
 		$fields = self::getMessageFields();
 		$fields[] = 'order_id';
 		$fields[] = 'appeal';
+		$fields[] = 'processor_form';
 		$fields[] = 'referrer';
 		$fields[] = 'contact_id';
 		$fields[] = 'contact_hash';

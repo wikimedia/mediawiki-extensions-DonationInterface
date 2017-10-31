@@ -439,12 +439,17 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				break;
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
-
 				// Merge response into our transaction data.
 				// TODO: Use getFormattedData instead.
 				// FIXME: We don't want to allow overwriting of ctid, need a
 				// blacklist of protected fields.
 				$this->addResponseData( $this->unstageKeys( $response ) );
+
+				// Complete if payment already finalized
+				if ( $this->isBatchProcessor() && $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionCompleted' ) {
+					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+					break;
+				}
 
 				$this->runAntifraudFilters();
 				if ( $this->getValidationAction() !== 'process' ) {
@@ -555,22 +560,24 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				ResponseCodes::UNKNOWN );
 		}
 
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			// Set up recurring billing agreement.
-			$this->addRequestData( array(
-				'date' => time()
-			) );
-			$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
-			if ( !$resultData->getCommunicationStatus() ) {
-				throw new ResponseProcessingException(
-					'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
-			}
-		} else {
-			// One-time payment, or initial payment in a subscription.
-			$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
-			if ( !$resultData->getCommunicationStatus() ) {
-				$this->finalizeInternalStatus( FinalStatus::FAILED );
-				return PaymentResult::newFailure();
+		if ( $this->getFinalStatus() !== FinalStatus::COMPLETE ) {
+			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+				// Set up recurring billing agreement.
+				$this->addRequestData( array(
+					'date' => time()
+				) );
+				$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
+				if ( !$resultData->getCommunicationStatus() ) {
+					throw new ResponseProcessingException(
+						'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
+				}
+			} else {
+				// One-time payment, or initial payment in a subscription.
+				$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
+				if ( !$resultData->getCommunicationStatus() ) {
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
+					return PaymentResult::newFailure();
+				}
 			}
 		}
 		return PaymentResult::fromResults(

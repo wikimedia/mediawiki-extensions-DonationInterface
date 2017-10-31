@@ -449,6 +449,7 @@
 	"apihelp-donate-param-cvv": "CVV security code.",
 	"apihelp-donate-param-payment_method": "Payment method to use.",
 	"apihelp-donate-param-payment_submethod": "Payment submethod to use.",
+	"apihelp-donate-param-processor_form": "Which of the processor's form options to use.",
 	"apihelp-donate-param-language": "Language code.",
 	"apihelp-donate-param-order_id": "Order ID (if a donation has already been started).",
 	"apihelp-donate-param-wmf_token": "Edit token.",

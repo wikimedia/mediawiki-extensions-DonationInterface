@@ -1,8 +1,8 @@
 <?php
 
 class AdyenHostedSignature implements StagingHelper {
-	/*
-	 * Send our fraud score to Adyen so we can see it in the console
+	/**
+	 * Sign the Adyen API request
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$params = $adapter->buildRequestParams();
@@ -45,9 +45,17 @@ class AdyenHostedSignature implements StagingHelper {
 		ksort( $values, SORT_STRING );
 		$merged = array_merge( array_keys( $values ), array_values( $values ) );
 		$joined = implode( ':', $merged );
-		$secret = $adapter->getAccountConfig( 'SharedSecret' );
-		return base64_encode(
-			hash_hmac( 'sha256', $joined, pack( "H*", $secret ), true )
-		);
+		$skinCode = $values['skinCode'];
+		if ( array_key_exists( $skinCode, $adapter->getAccountConfig( 'Skins' ) ) ) {
+			$secret = $adapter->getAccountConfig( 'Skins' )[$skinCode]['SharedSecret'];
+			return base64_encode(
+				hash_hmac( 'sha256', $joined, pack( "H*", $secret ), true )
+			);
+		} else {
+			throw new RuntimeException(
+				'Skin code not configured',
+				ResponseCodes::BAD_SIGNATURE
+			);
+		}
 	}
 }
