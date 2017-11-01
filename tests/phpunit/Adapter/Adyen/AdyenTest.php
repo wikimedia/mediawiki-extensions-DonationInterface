@@ -265,4 +265,12 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( 'xoI76zyUFjjBzubzSPEopAgoA9Bt7PjwQAi5QHk/GKo=', $defaultSig );
 		$this->assertEquals( 'UKMVUkWR5GqsgfUEtqZalzh+kTa7kXyrDw9nbj4D/0Q=', $altSig );
 	}
+
+	public function testGetSkinCodes() {
+		$init = $this->getDonorTestData();
+		unset( $init['processor_form'] );
+		$gateway = $this->getFreshGatewayObject( $init );
+		$skinCodes = $gateway->getSkinCodes();
+		$this->assertEquals( $skinCodes['base'], 'testskin' );
+	}
 }

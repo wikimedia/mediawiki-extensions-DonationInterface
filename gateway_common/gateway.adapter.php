@@ -1247,7 +1247,7 @@ abstract class GatewayAdapter
 	}
 
 	function setGatewayDefaults( $options = array() ) {
- }
+	}
 
 	public function getCurrencies( $options = array() ) {
 		return $this->config['currencies'];

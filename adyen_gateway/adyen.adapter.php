@@ -43,6 +43,16 @@ class AdyenAdapter extends GatewayAdapter {
 		);
 	}
 
+	function setGatewayDefaults( $options = array() ) {
+		if ( $this->getData_Unstaged_Escaped( 'processor_form' ) == null ) {
+			$skinCodes = $this->getSkinCodes();
+			$processor_form = $skinCodes['base'];
+			$this->addRequestData(
+				array( 'processor_form' => $processor_form )
+			);
+		}
+	}
+
 	// FIXME: That's not what ReturnValueMap is for!
 	// Unused?
 	function defineReturnValueMap() {
@@ -310,6 +320,18 @@ class AdyenAdapter extends GatewayAdapter {
 			$this, $requestVars
 		);
 		return ( $calculated_sig === $requestVars[ 'merchantSig' ] );
+	}
+
+	/**
+	 * Reformat skin codes array to access by Name
+	 */
+	public function getSkinCodes() {
+		$skins = $this->accountInfo['skins'];
+		$skinCodes = array();
+		foreach ( $skins as $code => $skin ) {
+			$skinCodes[$skin['Name']] = $code;
+		}
+		return $skinCodes;
 	}
 
 }
