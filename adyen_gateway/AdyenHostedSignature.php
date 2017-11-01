@@ -52,10 +52,7 @@ class AdyenHostedSignature implements StagingHelper {
 				hash_hmac( 'sha256', $joined, pack( "H*", $secret ), true )
 			);
 		} else {
-			throw new RuntimeException(
-				'Skin code not configured',
-				ResponseCodes::BAD_SIGNATURE
-			);
+			throw new RuntimeException( "Skin code $skinCode not configured" );
 		}
 	}
 }
