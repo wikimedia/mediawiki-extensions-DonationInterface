@@ -26,11 +26,7 @@ class AdyenGateway extends GatewayPage {
 
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
-		$skins = $this->adapter->getAccountConfig( 'Skins' );
-		$skinCodes = array();
-		foreach ( $skins as $code => $skin ) {
-			$skinCodes[$skin['Name']] = $code;
-		}
+		$skinCodes = $this->adapter->getSkinCodes();
 		$vars['wgAdyenGatewaySkinCodes'] = $skinCodes;
 	}
 }
