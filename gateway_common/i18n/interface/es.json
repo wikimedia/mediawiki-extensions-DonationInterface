@@ -35,7 +35,8 @@
 			"Ryo567",
 			"Ncontinanza",
 			"Indiralena",
-			"2axterix2"
+			"2axterix2",
+			"KATRINE1992"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -400,7 +401,7 @@
 	"donate_interface-translate-redlink1": "Ayudar a traducir esta página.",
 	"donate_interface-translate-redlink2": "O envía tu traducción a translations@wikimedia.org",
 	"donate_interface-email-fallbackname": "amigo de la Fundación Wikimedia",
-	"donate_interface-email-subject": "Gracias desde la Fundación Wikimedia",
+	"donate_interface-email-subject": "Gracias a la Fundación Wikimedia",
 	"donate_interface-email-unsub-title": "Cancelar la subscripción a la Fundación Wikimedia",
 	"donate_interface-email-unsub-button": "Cancelar la suscripción",
 	"donate_interface-email-unsub-success": "Has sido eliminado correctamente de nuestra lista de correo",

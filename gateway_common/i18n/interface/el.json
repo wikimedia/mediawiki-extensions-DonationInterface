@@ -11,7 +11,8 @@
 			"ZaDiak",
 			"Pcoombe",
 			"Protnet",
-			"Geraki"
+			"Geraki",
+			"KATRINE1992"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -326,7 +327,7 @@
 	"donate_interface-translate-redlink1": "Βοηθείστε να μεταφράσουμε αυτή τη σελίδα",
 	"donate_interface-translate-redlink2": "Ή στείλτε με email την μετάφρασή σας στο translations@wikimedia.org",
 	"donate_interface-email-fallbackname": "φίλος του Ιδρύματος Wikimedia",
-	"donate_interface-email-subject": "Ευχαριστούμε από το Ίδρυμα Wikimedia",
+	"donate_interface-email-subject": "Ευχαριστούμε από το Ίδρυμα Wikimedia. Ευχαριστούμε που είστε εδώ για μας",
 	"donate_interface-email-unsub-title": "Κατάργηση εγγραφής στο Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Κατάργηση εγγραφής",
 	"donate_interface-email-unsub-success": "Έχετε με επιτυχία διαγραφεί από τη λίστα αλληλογραφίας μας",
