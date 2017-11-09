@@ -5,11 +5,12 @@ use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 
 class DonationInterfaceApiTestCase extends ApiTestCase {
+	public $smashPigGlobalConfig;
 
 	public function setUp() {
 		parent::setUp();
-		$config = TestingGlobalConfiguration::create();
-		TestingContext::init( $config );
+		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
+		TestingContext::init( $this->smashPigGlobalConfig );
 		$ctx = TestingContext::get();
 		$ctx->setSourceType( 'payments' );
 		$ctx->setSourceName( 'DonationInterface' );

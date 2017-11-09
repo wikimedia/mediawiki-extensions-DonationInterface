@@ -51,7 +51,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected $gatewayAdapter;
 
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
-	protected $smashPigGlobalConfig;
+	public $smashPigGlobalConfig;
 
 	/**
 	 * @param $name string The name of the test case
@@ -69,7 +69,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	public static function resetTestingAdapters() {
 		$testing_adapters = array(
 			'TestingAdyenAdapter',
-			'TestingAmazonAdapter',
 			'TestingAstroPayAdapter',
 			'TestingGenericAdapter',
 			'TestingGlobalCollectAdapter',

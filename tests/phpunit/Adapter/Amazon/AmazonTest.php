@@ -27,24 +27,33 @@ use SmashPig\Tests\TestingContext;
  */
 class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
+	protected $testAdapterClass = 'AmazonAdapter';
 	/**
-	 * @param $name string The name of the test case
-	 * @param $data array Any parameters read from a dataProvider
-	 * @param $dataName string|int The name or index of the data set
+	 * @var \SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration
 	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
-		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingAmazonAdapter';
+	protected $providerConfig;
+
+	public static function setUpAmazonTestingContext( $testCase ) {
+		$config = AmazonTestConfiguration::instance(
+			$testCase->smashPigGlobalConfig
+		);
+		$config->override( [
+			'payments-client' => [
+				'constructor-parameters' => [
+					0 => [
+						'response-directory' =>
+							__DIR__ . '/../../includes/Responses/amazon'
+					]
+				]
+			]
+		] );
+		TestingContext::get()->providerConfigurationOverride = $config;
+		return $config;
 	}
 
 	public function setUp() {
 		parent::setUp();
-		TestingContext::get()->providerConfigurationOverride =
-			AmazonTestConfiguration::instance(
-				$this->smashPigGlobalConfig
-			);
-
-		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
+		$this->providerConfig = self::setUpAmazonTestingContext( $this );
 
 		$this->setMwGlobals( array(
 			'wgAmazonGatewayEnabled' => true,
@@ -64,11 +73,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		) );
 	}
 
-	public function tearDown() {
-		TestingAmazonAdapter::$fakeGlobals = array();
-		parent::tearDown();
-	}
-
 	/**
 	 * Integration test to verify that the Amazon gateway converts Canadian
 	 * dollars before redirecting
@@ -76,6 +80,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 * FIXME: Merge with currency fallback tests?
 	 *
 	 * @dataProvider canadaLanguageProvider
+	 * @param string $language language code to test
 	 */
 	function testCanadianDollarConversion( $language ) {
 		$init = $this->getDonorTestData( 'CA' );
@@ -87,11 +92,10 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$cadRate = $rates['CAD'];
 
 		$expectedAmount = floor( $init['amount'] / $cadRate );
-
-		TestingAmazonAdapter::$fakeGlobals = array(
-			'FallbackCurrency' => 'USD',
-			'NotifyOnConvert' => true,
-		);
+		$this->setMwGlobals( array(
+			'wgAmazonGatewayFallbackCurrency' => 'USD',
+			'wgAmazonGatewayNotifyOnConvert' => true,
+		) );
 
 		$expectedNotification = wfMessage(
 			'donate_interface-fallback-currency-notice',
@@ -151,7 +155,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'first_name' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'last_name' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
@@ -175,7 +179,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
 
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -202,7 +206,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
 
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->returns['authorize'][] = 'AmazonRejected';
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -227,7 +231,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
 
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->returns['authorize'][] = 'TransactionTimedOut';
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -248,7 +252,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
 
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->exceptions['authorize'][] = new Exception( 'Test' );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -283,7 +287,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$this->assertEquals( 'Testy', $gateway->getData_Unstaged_Escaped( 'first_name' ), 'Did not populate first name from Amazon data' );
 		$this->assertEquals( 'Test', $gateway->getData_Unstaged_Escaped( 'last_name' ), 'Did not populate last name from Amazon data' );
 		$this->assertEquals( 'nobody@wikimedia.org', $gateway->getData_Unstaged_Escaped( 'email' ), 'Did not populate email from Amazon data' );
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$setBillingAgreementDetailsArgs = $mockClient->calls['setBillingAgreementDetails'][0];
 		$oid = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$this->assertEquals( $oid, $setBillingAgreementDetailsArgs['seller_billing_agreement_id'], 'Did not set order id on billing agreement' );

@@ -223,22 +223,22 @@ $wgGlobalCollectGatewayAvsMap = array(
 	'' => 100, //No code returned. All the points.
 )
 
-#	$wgAmazonGatewayAccountInfo['example'] = array(
-#		'SellerID' => '', // 13 or so uppercase letters
-#		'ClientID' => '', // app or site-specific, starts with amznX.application
-#		'ClientSecret' => '', // 64 hex characters
-#		'MWSAccessKey' => '', // 20 alphanumeric characters
-#		'MWSSecretKey' => '', // 40 base-64 encoded chars
-#		'Region' => '', // 'de', 'jp', 'uk', or 'us'
-#		'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
-#		// static-eu serves widgets for uk and de, but jp uses this awful URL:
-#		// https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js
-#		// remove 'sandbox/' from above URLs for production use
-#		'ReturnURL' => ''
-#		// Sorry, devs, ReturnURL HAS to be https.
-#		// Also, it has to be whitelisted for your application at sellercentral.amazon.com
-#		// e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
-#	)
+Amazon account info is mostly read from SmashPig configuration
+FIXME: stop duplicating SellerID and ClientID
+FIXME: actually use 'Region'
+$wgAmazonGatewayAccountInfo['example'] = array(
+    'SellerID' => '', // 13 or so uppercase letters
+    'ClientID' => '', // app or site-specific, starts with amznX.application
+    'Region' => '', // 'de', 'jp', 'uk', or 'us'
+    'WidgetScriptURL' => 'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
+    // static-eu serves widgets for uk and de, but jp uses this awful URL:
+    // https://origin-na.ssl-images-amazon.com/images/G/09/EP/offAmazonPayments/sandbox/prod/lpa/js/Widgets.js
+    // remove 'sandbox/' from above URLs for production use
+    'ReturnURL' => ''
+    // Sorry, devs, ReturnURL HAS to be https.
+    // Also, it has to be whitelisted for your application at sellercentral.amazon.com
+    // e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
+)
 
 // This URL appears to be global and usable for both sandbox and non-sandbox
 $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js'

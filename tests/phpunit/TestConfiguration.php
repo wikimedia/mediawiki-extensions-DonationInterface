@@ -66,6 +66,8 @@ global $wgDonationInterfaceTest,
 	$wgPaypalExpressGatewayAccountInfo,
 	$wgAmazonGatewayReturnURL,
 	$wgAmazonGatewayAccountInfo,
+	$wgAmazonGatewayFallbackCurrency,
+	$wgAmazonGatewayNotifyOnConvert,
 	$wgAdyenGatewayURL,
 	$wgAdyenGatewayAccountInfo,
 	$wgAstroPayGatewayURL,
@@ -97,7 +99,7 @@ $wgMainCacheType = 'hash';
 $wgDonationInterfaceGatewayAdapters = array(
 	'globalcollect' => 'TestingGlobalCollectAdapter',
 	'ingenico' => 'IngenicoAdapter',
-	'amazon' => 'TestingAmazonAdapter',
+	'amazon' => 'AmazonAdapter',
 	'adyen' => 'TestingAdyenAdapter',
 	'astropay' => 'TestingAstroPayAdapter',
 	'paypal_ec' => 'TestingPaypalExpressAdapter',
@@ -142,14 +144,12 @@ $wgAmazonGatewayAccountInfo = array();
 $wgAmazonGatewayAccountInfo['test'] = array(
 	'SellerID' => 'ABCDEFGHIJKL',
 	'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
-	'ClientSecret' => '12432g134e3421a41234b1341c324123d',
-	'MWSAccessKey' => 'N0NSENSEXYZ',
-	'MWSSecretKey' => 'iuasd/2jhaslk2j49lkaALksdJLsJLas+',
-	'Region' => 'us',
 	'WidgetScriptURL' =>
 		'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
 	'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
 );
+$wgAmazonGatewayFallbackCurrency = false;
+$wgAmazonGatewayNotifyOnConvert = false;
 
 /** Adyen **/
 $wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';

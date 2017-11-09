@@ -11,14 +11,14 @@ use SmashPig\Tests\TestingGlobalConfiguration;
  * @group medium
  */
 class AmazonApiTest extends DonationInterfaceApiTestCase {
+	/**
+	 * @var \SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration
+	 */
+	protected $providerConfig;
+
 	public function setUp() {
 		parent::setUp();
-		TestingAmazonAdapter::$mockClient = new MockAmazonClient();
-	}
-
-	public function tearDown() {
-		TestingAmazonAdapter::$mockClient = null;
-		parent::tearDown();
+		$this->providerConfig = DonationInterface_Adapter_Amazon_Test::setUpAmazonTestingContext( $this );
 	}
 
 	public function testDoPaymentSuccess() {
@@ -43,7 +43,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 		$apiResult = $this->doApiRequest( $params, $session );
 		$redirect = $apiResult[0]['redirect'];
 		$this->assertEquals( 'https://wikimediafoundation.org/wiki/Thank_You/en?country=US', $redirect );
-		$mockClient = TestingAmazonAdapter::$mockClient;
+		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $session['Donor']['contribution_tracking_id'] . '-1';
 		$this->assertEquals( $oid, $setOrderReferenceDetailsArgs['seller_order_id'], 'Did not set order id on order reference' );
