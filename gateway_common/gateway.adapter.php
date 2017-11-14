@@ -1296,6 +1296,7 @@ abstract class GatewayAdapter
 		$curl_opts = $this->getCurlBaseOpts();
 		$curl_opts[CURLOPT_HTTPHEADER] = $headers;
 		$curl_opts[CURLOPT_POSTFIELDS] = $data;
+		$this->logger->debug( "Curl call for {$this->getCurrentTransaction()}: headers " . print_r( $headers, true ) . " data " . print_r( $data, true ) );
 
 		// Always capture the cURL output
 		$curlDebugLog = fopen( 'php://temp', 'r+' );
