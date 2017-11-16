@@ -3758,9 +3758,10 @@ abstract class GatewayAdapter
 		}
 		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
 		$civiId = $this->getData_Unstaged_Escaped( 'contribution_id' );
+		$ctId = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		if ( $civiId ) {
 			$this->logger->error(
-				$normalized['contribution_tracking_id'] .
+				$ctId .
 				": Contribution tracking already has contribution_id $civiId.  " .
 				'Stop confusing donors!'
 			);
@@ -3769,11 +3770,11 @@ abstract class GatewayAdapter
 			$params = $this->createDonorReturnParams();
 			$paymentResult = $this->processDonorReturn( $params );
 			if ( !$paymentResult->isFailed() ) {
-				$this->logger->info( $this->getData_Staged( 'contribution_tracking_id' ) . ': FINAL: Rectified' );
+				$this->logger->info( $ctId . ': FINAL: Rectified' );
 				return $paymentResult;
 			} else {
 				$this->errorState->addErrors( $paymentResult->getErrors() );
-				$this->logger->error( $this->getData_Staged( 'contribution_tracking_id' ) . ': ERRORS ' . print_r( $this->errorState, true ) );
+				$this->logger->error( $ctId . ': ERRORS ' . print_r( $this->errorState, true ) );
 			}
 		}
 		return $paymentResult;
