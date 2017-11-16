@@ -12,7 +12,8 @@
 			"Tbleher",
 			"Umherirrender",
 			"Jrobell",
-			"Pcoombe"
+			"Pcoombe",
+			"Danielbeerbonn"
 		]
 	},
 	"donate_interface": "Unterstützen Sie Wikimedia",
@@ -371,7 +372,7 @@
 	"donate_interface-translate-redlink1": "Bei der Übersetzung dieser Seite mithelfen.",
 	"donate_interface-translate-redlink2": "Oder senden Sie Ihre Übersetzung per E-Mail an translations@wikimedia.org",
 	"donate_interface-email-fallbackname": "Freund der Wikimedia Foundation",
-	"donate_interface-email-subject": "Die Wikimedia Foundation sagt Danke",
+	"donate_interface-email-subject": "Wir sind für Sie da. Vielen Dank, dass Sie für uns da sind",
 	"donate_interface-email-unsub-title": "Wikimedia Foundation Abbestellung",
 	"donate_interface-email-unsub-button": "Abbestellen",
 	"donate_interface-email-unsub-success": "Sie wurden erfolgreich aus unserer Mailinglist entfernt",

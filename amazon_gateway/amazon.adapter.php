@@ -3,6 +3,7 @@
 use PayWithAmazon\PaymentsClient as PwaClient;
 use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
+use SmashPig\Core\Context;
 
 /**
  * Wikimedia Foundation
@@ -145,14 +146,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @return PwaClientInterface
 	 */
 	protected function getPwaClient() {
-		return new PwaClient( array(
-			'merchant_id' => $this->account_config['SellerID'],
-			'access_key' => $this->account_config['MWSAccessKey'],
-			'secret_key' => $this->account_config['MWSSecretKey'],
-			'client_id' => $this->account_config['ClientID'],
-			'region' => $this->account_config['Region'],
-			'sandbox' => $this->getGlobal( 'Test' ),
-		) );
+		return Context::get()->getProviderConfiguration()->object( 'payments-client' );
 	}
 
 	/**

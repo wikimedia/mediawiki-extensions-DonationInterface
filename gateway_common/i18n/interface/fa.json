@@ -15,7 +15,8 @@
 			"Alirezaaa",
 			"MohandesWiki",
 			"Hosseinblue",
-			"4nn1l2"
+			"4nn1l2",
+			"Ladsgroup"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -150,6 +151,7 @@
 	"donate_interface-donor-county": "شهرستان",
 	"donate_interface-donor-island": "جزیره",
 	"donate_interface-donor-state_province": "ایالت:",
+	"donate_interface-donor-state_province-au": "ایالت/بخش",
 	"donate_interface-donor-state_province-ca": "استان",
 	"donate_interface-donor-postal_code": "کد پستی:",
 	"donate_interface-donor-postal_code-us": "زیپ",
@@ -211,6 +213,7 @@
 	"donate_interface-error-msg-country-calc": "خطا--ما قادر به قبول کمک مالی‌تان را در این زمان نیستیم.",
 	"donate_interface-error-msg-fiscal_number": "لطفاً کد اقتصادی خود را وارد کنید",
 	"donate_interface-error-msg-invalid-fiscal_number": "لطفاً خطاها را در کد اقتصادی تصحیح کنید.",
+	"donate_interface-error-msg-issuer_id": "بانک",
 	"donate_interface-donate-error-try-a-different-card": "لطفاً [$1 کارت‌های مختلف را امتحان کنید] یا یکی از [$2 روش‌های دیگر برای دادن] ما یا با ما در $3 تماس بگیرید",
 	"donate_interface-donate-error-try-again-html": "لطفاً <a href=\"$1\">try again</a>، یکی از <a href=\"$2\">other ways to give</a> ما را امتحان کنید، یا با ما در <a href=\"mailto:$3\">$3</a> تماس بگیرید.",
 	"donate_interface-donate-error-thank-you-for-your-support": "از حمایتتان سپاسگزاریم!",

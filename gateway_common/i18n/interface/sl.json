@@ -8,7 +8,8 @@
 			"Jsoby",
 			"MZaplotnik",
 			"Yerpo",
-			"Pcoombe"
+			"Pcoombe",
+			"Pinky sl"
 		]
 	},
 	"donate_interface": "Podprite Wikimedijo",
@@ -343,7 +344,7 @@
 	"donate_interface-translate-redlink1": "Pomagajte prevesti to stran.",
 	"donate_interface-translate-redlink2": "Svoj prevod nam lahko pošljete tudi prek e-pošte na translations@wikimedia.org",
 	"donate_interface-email-fallbackname": "prijatelj fundacije Wikimedia",
-	"donate_interface-email-subject": "Fundacija Wikimedia se vam zahvaljuje",
+	"donate_interface-email-subject": "Tukaj smo zaradi vas. Hvala vam, ker ste tukaj za nas",
 	"donate_interface-email-unsub-title": "Odjava s fundacije Wikimedia",
 	"donate_interface-email-unsub-button": "Odjava",
 	"donate_interface-email-unsub-success": "Uspešno ste bili odstranjeni z našega seznama za e-poštno obveščanje",

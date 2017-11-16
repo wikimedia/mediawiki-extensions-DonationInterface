@@ -27,6 +27,7 @@ class AdyenHostedSignature implements StagingHelper {
 			'merchantSig',
 			'title',
 			'liberated',
+			'debug',
 		);
 
 		foreach ( array_keys( $values ) as $key ) {
