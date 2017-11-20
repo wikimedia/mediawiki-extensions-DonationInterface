@@ -478,7 +478,6 @@ div.error-box h2 {
     #cards li {
         position: relative;
         background: #fff;
-        margin-right: 2.5%;
         padding: 0;
         height: 96px;
         font-size: 13px;
@@ -486,11 +485,10 @@ div.error-box h2 {
     }
     #cards li input.cardradio {
         padding: 10px;
-        margin: 10px;
+        margin: 5px 0;
         display: block;
-        width: 100%;
+        width: auto;
         font-size: 13px;
-        box-sizing: border-box;
     }
     #cards li label {
         margin: 0;
