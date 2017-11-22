@@ -490,7 +490,7 @@ div.error-box h2 {
         height: 96px;
     }
     #cards li label img {
-        width: 80%;
+        width: 100%;
     }
     #cards li:hover {
         background: #EAF3FF;
