@@ -2,7 +2,7 @@
 	var di = mw.donationInterface,
 		resultFunction,
 		skinCodes = mw.config.get( 'wgAdyenGatewaySkinCodes' ),
-		iOS = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !window.MSStream,
+		ios = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !window.MSStream,
 		safari = window.safari !== undefined;
 
 	function redirect( result ) {
