@@ -187,11 +187,10 @@ window.validate_personal = function () {
 	document.cookie = 'wmf_test=1;';
 	if ( document.cookie.indexOf( 'wmf_test=1' ) !== -1 ) {
 		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
-		$( '#cookieMsg' ).addClass( 'errorMsgHide' );
+		clearError( 'cookie' );
 	} else {
 		errorsPresent = true; // display error
-		$( '#cookieMsg' ).addClass( 'errorMsg' );
-		$( '#cookieMsg' ).text( mediaWiki.msg( 'donate_interface-error-msg-cookies' ) );
+		setError( 'cookie', mediaWiki.msg( 'donate_interface-error-msg-cookies' ) );
 	}
 
 	return !errorsPresent;

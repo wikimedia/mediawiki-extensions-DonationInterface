@@ -9,6 +9,7 @@
 			<div id="greenBackground" class="">
 				{{> no_script }}
 				<div id="topError" class="creditcard-error-msg">{{# errors/general }}<p class="error">{{{ message }}}</p>{{/ errors/general }}</div>
+				<div id="cookieMsg" class="errorMsgHide" ></div>
 				<p id="errorReference" class="errorMsg{{^ show_error_reference }}Hide{{/ show_error_reference }}" >
                 {{# order_id }}{{! Use the full order id as reference if we have one }}
                     {{ l10n "donate_interface-error-reference" . }}
