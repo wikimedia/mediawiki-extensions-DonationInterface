@@ -476,7 +476,6 @@ div.error-box h2 {
     #cards li {
         position: relative;
         background: #fff;
-        padding: 0;
         font-size: 13px;
         border: 1px solid #ccc;
     }
@@ -484,6 +483,8 @@ div.error-box h2 {
         display: block;
         font-size: 13px;
         float: none;
+        margin: 0;
+        padding: 0;
     }
     #cards li label {
         margin: 0;
