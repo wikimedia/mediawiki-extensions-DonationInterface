@@ -477,17 +477,17 @@ div.error-box h2 {
         position: relative;
         background: #fff;
         padding: 0;
-        height: 96px;
         font-size: 13px;
         border: 1px solid #ccc;
     }
     #cards li input.cardradio {
         display: block;
-        width: auto;
         font-size: 13px;
+        float: none;
     }
     #cards li label {
         margin: 0;
+        height: 96px;
     }
     #cards li label img {
         width: 80%;
