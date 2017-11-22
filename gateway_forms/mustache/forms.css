@@ -274,14 +274,12 @@ div.donor { width: 100%; }
 
 #cards.three-per-line li {
     width: 32.63%;
-    padding: 1em;
 }
 #cards.three-per-line > li:nth-child(3),
 #cards.three-per-line > li:nth-child(6) { margin-right: 0; }
 
 #cards.four-per-line li {
     width: 24.29%;
-    padding: 1em 0.5em;
 }
 #cards.four-per-line > li:nth-child(4),
 #cards.four-per-line > li:nth-child(8) { margin-right: 0; }
@@ -300,16 +298,16 @@ div.donor { width: 100%; }
 #cards li input {
     display: block;
     width: 100%;
-    margin: 0 0 .7em;
+    margin: 0;
     box-shadow: none;
 }
 #cards li label {
     cursor: pointer;
-    margin-top: .5em;
+    padding: 1em;
     display: block;
 }
 #cards li label img {
-    margin: 0 auto;
+    margin: 0.7em auto 0;
     height: auto;
 }
 #cards li.has_sub_text label {
@@ -484,8 +482,6 @@ div.error-box h2 {
         border: 1px solid #ccc;
     }
     #cards li input.cardradio {
-        padding: 10px;
-        margin: 5px 0;
         display: block;
         width: auto;
         font-size: 13px;
