@@ -1,3 +1,5 @@
+/* Adyen credit card iframe styles */
+
 @import url('logo-gloss.css');
 
 /* Everything what needs hidin' */
@@ -9,7 +11,7 @@ html {
 	height: 100%;
 	max-height: 100%;
 	font-size: 13px;
-	font-family: 'PT Sans',Helvetica,Arial,sans-serif;
+	font-family: sans-serif;
 }
 
 html[data-shopperlocale^="he"] *, html[data-shopperlocale^="ar"] *,
@@ -24,13 +26,6 @@ html[data-shopperlocale^="fa"] .fieldDiv,
 html[data-shopperlocale^="ur"] .fieldDiv {
 	padding-right: 0;
 	padding-left: 20px;
-}
-
-html[data-shopperlocale^="he"] .paySubmit,
-html[data-shopperlocale^="ar"] .paySubmit,
-html[data-shopperlocale^="fa"] .paySubmit,
-html[data-shopperlocale^="ur"] .paySubmit {
-	float:right !important;
 }
 
 /* some inputs must always be ltr */
@@ -71,10 +66,16 @@ body {
 	margin-top: 10px;
 }
 
+/* Align better with our form */
+#pageform {
+	padding: 0;
+}
+
 .popupMsg {
 	display: none;
-	border: 1px solid #666;
-	background-color: #eee;
+	border: 1px solid #a2a9b1;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.25);
+	background-color: #fff;
 	margin-bottom: 5px;
 	margin-right: 10px;
 	margin-left: 10px;
@@ -90,10 +91,9 @@ body {
 
 /* Common HTML Elements in #content */
 
-#content p,#content ul,#content pre {
+#content p, #content ul, #content pre {
 	padding: 5px;
 }
-
 
 #content pre {
 	font-family: courier, monospace;
@@ -108,7 +108,6 @@ body {
 
 /* Table */
 table.basetable {
-	margin-left: 5px;
 	width: 500px;
 }
 
@@ -120,26 +119,26 @@ table.basetable td {
 /* Image Buttons (Payment Methods) */
 
 .paySubmit {
-	background-color: #367FB4;
-	display: inline-block;
-	color: white !important;
-	text-decoration: none;
-	position: relative;
+	background-color: #36c;
+	color: #fff;
+	width: 100%;
+	font-size: 16px;
+	padding: .6em;
+	text-transform: capitalize;
+	text-align: center !important;
+	border-radius: 2px;
+	border: 0;
+	font-family: inherit;
 	cursor: pointer;
-	font-size: 1em;
-	font-weight: bold;
-	text-transform:uppercase;
-	padding: 0.6em !important;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	border-radius:4px;
-	-moz-box-shadow:inset 0 1px 4px rgba(0,0,1,.5);
-	-webkit-box-shadow:inset 0 1px 4px rgba(0,0,1,.5);
-	box-shadow:inset 0 1px 4px rgba(0,0,1,.5);
+	-webkit-transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
+	-moz-transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
+	transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
 }
-
 .paySubmit:hover {
-	background-color: #1d5278;
+  	background-color: #447ff5;
+}
+.paySubmit:active {
+  	background-color: #2a4b8d;
 }
 
 .backB {
@@ -148,48 +147,70 @@ table.basetable td {
 
 /* Links */
 
-a {
-	text-decoration: none;
-	color: #3d892e;
-}
-
+a,
 a:visited {
-	text-decoration: none;
-	color: #3d892e;
+	color: #36c;
 }
 
 /* Form elements */
 
-input,select {
-  background-color: #fff;
-  padding: 1em !important;
-  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), inset 0 0 0 1px rgba(0, 0, 0, .1);
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  border: 0 !important;
-  color: #006699;
-  cursor: pointer;
-  margin-bottom: .2em;
-  -webkit-transition: all .3s ease-in-out;
-  -moz-transition:    all .3s ease-in-out;
-  -o-transition:      all .3s ease-in-out;
-  -ms-transition:     all .3s ease-in-out;
-  transition:         all .3s ease-in-out;
+input[type="text"], 
+select {
+	background-color: #fff;
+	border-radius: 2px;
+	border: 1px solid #a2a9b1;
+	color: #000;
+	cursor: pointer;
+	margin-bottom: .2em;
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition:    all .3s ease-in-out;
+	-o-transition:      all .3s ease-in-out;
+	-ms-transition:     all .3s ease-in-out;
+	transition:         all .3s ease-in-out;
+	font-family: sans-serif;
+	font-size: 13px;
+	padding: .8em;
+}
+
+select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M11.05 3.996l-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5 5-5'/%3E%3C/svg%3E");
+	background-position: right;
+	background-repeat: no-repeat;
+	background-origin: content-box;
+	width: 120px;
+}
+
+html[data-shopperlocale^="he"] select,
+html[data-shopperlocale^="ar"] select,
+html[data-shopperlocale^="fa"] select,
+html[data-shopperlocale^="ur"] select {
+	background-position: left;
+}
+
+input[type="text"]:hover,
+select:hover {
+	border-color: #72777d;
+}
+
+input[type="text"]:focus,
+select:focus {
+	outline: 0;
+	border-color: #36c;
+	box-shadow: inset 0 0 0 1px #36c;
 }
 
 table.basetable div:not(.fieldDiv) {
-	font-size: 125%;
+	font-size: 13px;
 }
 
 /* Validation */
 
 table.basetable .errorField {
-	border: 2px solid #f33;
+	border: 1px solid #f33;
 	background-color: #fff3f3;
-	padding: 1px 1px 1px 1px;
 }
 
 .fieldDiv {
@@ -298,14 +319,19 @@ table.basetable td,
 	width: auto;
 }
 
-#pageform {
-	padding: 10px;
-}
-
 table.basetable td {
 	display: block;
 }
 
-.paySubmit {
-	float: left;
+/* extra styles only for mobile */
+@media only screen and (max-device-width : 981px) {
+
+	input[type="text"], 
+	select {
+		box-sizing: border-box;
+		font-size: 16px !important;
+		padding: 14px !important;
+	}
+
+
 }
