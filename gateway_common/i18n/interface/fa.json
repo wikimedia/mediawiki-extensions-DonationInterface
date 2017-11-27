@@ -155,7 +155,6 @@
 	"donate_interface-donor-state_province-ca": "استان",
 	"donate_interface-donor-postal_code": "کد پستی:",
 	"donate_interface-donor-postal_code-us": "زیپ",
-	"donate_interface-donor-postcode": "کدپستی",
 	"donate_interface-donor-country": "کشور/منطقه:",
 	"donate_interface-donor-zone": "منطقه",
 	"donate_interface-donor-address": "نشانی:",
@@ -268,10 +267,6 @@
 	"donate_interface-country": "کشور",
 	"donate_interface-select-country": "کشور را انتخاب کنید",
 	"donate_interface-confirm-email": "تأیید ایمیل",
-	"donate_interface-phone": "تلفن",
-	"donate_interface-telephone": "تلفن",
-	"donate_interface-telephone-home": "تلفن (منزل)",
-	"donate_interface-billing-phone-number": "شماره تلفن صدور صورت حساب",
 	"donate_interface-donation-information": "اطلاعات اهدایی",
 	"donate_interface-cc-billing-information": "اطلاعات صورت حساب کارت اعتباری",
 	"donate_interface-pay-by-credit-card": "پرداخت با کارت اعتباری",
@@ -390,6 +385,7 @@
 	"donate_interface-onetime-short": "یک بار",
 	"donate_interface-error-http-403": "شما اجازهٔ دسترسی به این صفحه را ندارید.",
 	"donate_interface-statement": "$1 ویکی‌مدیا",
+	"apihelp-donate-param-amount": "اهدا شد.",
 	"apihelp-donate-param-currency": "کد واحد پول",
 	"apihelp-donate-param-first_name": "نام.",
 	"apihelp-donate-param-last_name": "نام خانوادگی.",
@@ -403,5 +399,6 @@
 	"apihelp-donate-param-cvv": "رمز CVV",
 	"apihelp-donate-param-language": "کد زبان.",
 	"apihelp-donate-param-wmf_token": "بلیط ویرایش",
-	"apihelp-donate-example-1": "اهدا کنید"
+	"apihelp-donate-example-1": "اهدا کنید",
+	"apihelp-logPaymentsFormError-param-message": "پیام خطا"
 }

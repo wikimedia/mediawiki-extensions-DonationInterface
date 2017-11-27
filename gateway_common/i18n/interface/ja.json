@@ -20,7 +20,8 @@
 			"Takot",
 			"아라",
 			"Sujiniku",
-			"SPatton (WMF)"
+			"SPatton (WMF)",
+			"Omotecho"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -155,7 +156,6 @@
 	"donate_interface-donor-state_province": "都道府県・州",
 	"donate_interface-donor-postal_code": "郵便番号",
 	"donate_interface-donor-postal_code-us": "ZIP コード",
-	"donate_interface-donor-postcode": "郵便番号",
 	"donate_interface-donor-country": "国/地域",
 	"donate_interface-donor-address": "住所",
 	"donate_interface-donor-pobox": "私書箱",
@@ -266,10 +266,6 @@
 	"donate_interface-country": "国",
 	"donate_interface-select-country": "国の選択",
 	"donate_interface-confirm-email": "メールアドレスの確認",
-	"donate_interface-phone": "電話",
-	"donate_interface-telephone": "電話",
-	"donate_interface-telephone-home": "電話番号 (自宅)",
-	"donate_interface-billing-phone-number": "請求先の電話番号",
 	"donate_interface-donation-information": "寄付情報",
 	"donate_interface-cc-billing-information": "クレジットカードの支払い情報",
 	"donate_interface-pay-by-credit-card": "クレジットカードでの支払い",
@@ -355,7 +351,7 @@
 	"donate_interface-translate-redlink1": "このページの翻訳を手伝ってください。",
 	"donate_interface-translate-redlink2": "またはあなたの翻訳を translations@wikimedia.org にメールで送信してください",
 	"donate_interface-email-fallbackname": "ウィキメディア財団の友人",
-	"donate_interface-email-subject": "ウィキメディア財団からの感謝",
+	"donate_interface-email-subject": "お陰様で活動を継続でき、ご芳志に感謝申し上げます。",
 	"donate_interface-email-unsub-title": "ウィキメディア財団メーリングリストの購読解除",
 	"donate_interface-email-unsub-button": "購読解除します。",
 	"donate_interface-email-unsub-success": "メーリングリストを購読解除しました",
