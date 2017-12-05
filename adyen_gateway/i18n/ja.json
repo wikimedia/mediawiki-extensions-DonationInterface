@@ -5,7 +5,6 @@
 			"Shirayuki"
 		]
 	},
-	"adyengateway": "今すぐ寄付",
 	"adyen_gateway-desc": "Adyen での支払い処理",
 	"adyen_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度試してください。"
 }

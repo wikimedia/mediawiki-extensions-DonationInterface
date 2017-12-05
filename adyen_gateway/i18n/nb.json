@@ -1,6 +1,9 @@
 {
-	"@metadata": [],
-	"adyengateway": "Gi nå",
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
 	"adyen_gateway-desc": "Betaling med Adyen",
 	"adyen_gateway-response-default": "Det oppsto en feil under behandlingen av din transaksjon.\nVennligst prøv igjen senere."
 }

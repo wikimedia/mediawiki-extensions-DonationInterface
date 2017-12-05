@@ -4,7 +4,6 @@
 			"McDutchie"
 		]
 	},
-	"adyengateway": "Face un donation ora",
 	"adyen_gateway-desc": "Pagamento con Adyen",
 	"adyen_gateway-response-default": "Un error occurreva durante le tractamento de tu transaction.\nPer favor reproba plus tarde."
 }

@@ -4,7 +4,6 @@
 			"Mormegil"
 		]
 	},
-	"globalcollectgateway": "Poskytnout příspěvek",
 	"globalcollect_gateway-desc": "Zpracování plateb přes GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Předstírat úspěšnou platbu",
 	"globalcollect_gateway-fakefail": "Předstírat neúspěšnou platbu",

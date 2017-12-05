@@ -5,7 +5,6 @@
 			"Liuxinyu970226"
 		]
 	},
-	"globalcollectgateway": "马上捐款",
 	"globalcollect_gateway-desc": "GlobalCollect 支付程序",
 	"globalcollect_gateway-fakesucceed": "测试一次成功付款",
 	"globalcollect_gateway-fakefail": "测试一次付款失败",

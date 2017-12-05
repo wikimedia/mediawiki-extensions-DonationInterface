@@ -4,7 +4,6 @@
 			"Simon Shek"
 		]
 	},
-	"adyengateway": "立刻進行捐款",
 	"adyen_gateway-desc": "Adyen付款進行中",
 	"adyen_gateway-response-default": "在處理交易的過程中出錯。請稍後再試。"
 }

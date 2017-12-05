@@ -5,7 +5,6 @@
 			"Diagramma Della Verita"
 		]
 	},
-	"globalcollectgateway": "Derma sekarang",
 	"globalcollect_gateway-desc": "Pemprosesan pembayaran GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Memalsukan pembayaran yang berjaya",
 	"globalcollect_gateway-fakefail": "Memalsukan pembayaran yang gagal",

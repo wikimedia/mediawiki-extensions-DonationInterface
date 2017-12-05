@@ -5,7 +5,6 @@
 			"Sayginer"
 		]
 	},
-	"globalcollectgateway": "Bağışınızı şimdi yapın",
 	"globalcollect_gateway-desc": "GlobalCollect ödeme işlemleri",
 	"globalcollect_gateway-response-430330": "Geçersiz kart numarası.",
 	"globalcollect_gateway-response-21000150": "Geçersiz banka hesap numarası.",

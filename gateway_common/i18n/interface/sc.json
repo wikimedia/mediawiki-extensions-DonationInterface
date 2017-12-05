@@ -6,6 +6,8 @@
 	},
 	"donate_interface-donor-name": "Nùmene",
 	"donate_interface-donor-country": "Natzione/Regione",
+	"donate_interface-error-msg-city": "tzitade",
+	"donate_interface-error-msg-state_province": "istadu",
 	"donate_interface-other": "Àteru",
 	"donate_interface-town-city": "Bidda/Tzitade",
 	"donate_interface-continue": "Sìghire",

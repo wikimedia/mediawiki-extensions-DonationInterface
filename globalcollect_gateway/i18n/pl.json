@@ -6,7 +6,6 @@
 			"WTM"
 		]
 	},
-	"globalcollectgateway": "Przekaż darowiznę",
 	"globalcollect_gateway-desc": "Przetwarzanie płatności GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Symulacja udanej wpłaty",
 	"globalcollect_gateway-fakefail": "Symulacja nieudanej wpłaty",

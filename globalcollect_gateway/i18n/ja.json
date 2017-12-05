@@ -5,7 +5,6 @@
 			"Whym"
 		]
 	},
-	"globalcollectgateway": "今すぐ寄付を",
 	"globalcollect_gateway-desc": "グローバルコレクト決済処理",
 	"globalcollect_gateway-response-9130": "国名が無効です。",
 	"globalcollect_gateway-response-9140": "通貨が無効です。",

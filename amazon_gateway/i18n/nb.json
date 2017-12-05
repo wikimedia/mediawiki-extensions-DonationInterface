@@ -1,5 +1,8 @@
 {
-	"@metadata": [],
-	"amazongateway": "Gi nå",
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
 	"amazon_gateway-desc": "Betaling med Amazon"
 }

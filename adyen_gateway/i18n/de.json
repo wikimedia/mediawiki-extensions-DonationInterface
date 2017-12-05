@@ -4,7 +4,6 @@
 			"Metalhead64"
 		]
 	},
-	"adyengateway": "Spende jetzt",
 	"adyen_gateway-desc": "Zahlungsabwicklung über Adyen",
 	"adyen_gateway-response-default": "Beim Verarbeiten deiner Transaktion ist ein Fehler aufgetreten.\nBitte versuche es erneut."
 }

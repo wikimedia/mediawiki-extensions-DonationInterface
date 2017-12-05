@@ -6,7 +6,6 @@
 			"Okras"
 		]
 	},
-	"globalcollectgateway": "Сделайте пожертвование сейчас",
 	"globalcollect_gateway-desc": "Шлюз обработки платежей GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Поддельный успешный платёж",
 	"globalcollect_gateway-fakefail": "Поддельный невыполненный платёж",

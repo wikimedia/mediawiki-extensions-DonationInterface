@@ -12,5 +12,7 @@
 	"donate_interface-donor-city": "ನಗರ:",
 	"donate_interface-donor-state_province": "ರಾಜ್ಯ",
 	"donate_interface-donor-address": "ವಿಳಾಸ:",
+	"donate_interface-error-msg-city": "ನಗರ",
+	"donate_interface-error-msg-state_province": "ರಾಜ್ಯ",
 	"donate_interface-comment": "ಟಿಪ್ಪಣಿ"
 }
