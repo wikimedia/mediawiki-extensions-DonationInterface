@@ -20,7 +20,7 @@
 	"donate_interface-submit-button": "दान गर्ने",
 	"donate_interface-comment-message": "संसारसित साझा गर्ने विचार? २०० सम्मका अक्षरहरुको विचार यहाँ राख्नुहोस्:",
 	"donate_interface-comment-label": "टिप्पणी:",
-	"donate_interface-email-agreement": "विकिमीडिया फाउण्डेसनबाट सामयिक इमेल अद्यतन प्राप्त गर्न सहमत छु।",
+	"donate_interface-email-agreement": "विकिमिडिया फाउन्डेसनबाट सामयिक इमेल अद्यतन प्राप्त गर्न सहमत छु।",
 	"donate_interface-comment-title": "सार्वजनिक टिप्पणी",
 	"donate_interface-amount-error": "कृपया एउटा वैध राशि दिनु्होस्",
 	"donate_interface-smallamount-error": "तपाईंले कमसेकम $1 दान गर्नुपर्छ",
@@ -185,7 +185,7 @@
 	"donate_interface-optional": "वैकल्पिक",
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-समय",
-	"donate_interface-statement": "विकिमीडिया $1",
+	"donate_interface-statement": "विकिमिडिया $1",
 	"apihelp-donate-param-currency": "मुद्रा कोड",
 	"apihelp-donate-param-city": "शहर",
 	"apihelp-donate-param-language": "भाषा कोड"
