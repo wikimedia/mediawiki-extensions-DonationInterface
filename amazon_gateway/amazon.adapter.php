@@ -65,6 +65,15 @@ class AmazonAdapter extends GatewayAdapter {
 				array( 'payment_method' => 'amazon' )
 			);
 		}
+		// Provide our logger instance to the SmashPig payments-client parameters.
+		// Dang, this is still really ugly.
+		Context::get()->getProviderConfiguration()->override(
+			[ 'payments-client' =>
+				[ 'constructor-parameters' =>
+					[ 0 => [ 'logger' => $this->logger ] ]
+				]
+			]
+		);
 		$this->session_addDonorData();
 	}
 
