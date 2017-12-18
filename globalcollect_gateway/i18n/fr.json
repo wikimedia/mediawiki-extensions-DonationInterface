@@ -6,7 +6,6 @@
 			"Sherbrooke"
 		]
 	},
-	"globalcollectgateway": "Faire un don maintenant",
 	"globalcollect_gateway-desc": "Traitement des paiements GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simuler un paiement fructueux",
 	"globalcollect_gateway-fakefail": "Simuler un paiement raté",

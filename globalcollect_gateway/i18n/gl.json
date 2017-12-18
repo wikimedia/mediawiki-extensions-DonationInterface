@@ -5,7 +5,6 @@
 			"Banjo"
 		]
 	},
-	"globalcollectgateway": "Fai a túa doazón agora",
 	"globalcollect_gateway-desc": "Procesamento de pagamentos de GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Finxir un pagamento correcto",
 	"globalcollect_gateway-fakefail": "Finxir un pagamento erróneo",

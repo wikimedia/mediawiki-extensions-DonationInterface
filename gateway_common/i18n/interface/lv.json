@@ -191,8 +191,6 @@
 	"donate_interface-billing-code": "Rēķina pasta indekss",
 	"donate_interface-country": "Valsts",
 	"donate_interface-select-country": "Izvēlieties valsti",
-	"donate_interface-phone": "Tālrunis",
-	"donate_interface-telephone": "Tālrunis",
 	"donate_interface-type-of-card": "Kartes veids",
 	"donate_interface-card-type": "Kartes veids",
 	"donate_interface-card-security-code": "Drošības kods",

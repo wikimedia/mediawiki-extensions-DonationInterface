@@ -4,7 +4,6 @@
 			"Lloffiwr"
 		]
 	},
-	"globalcollectgateway": "Rhoddwch nawr",
 	"globalcollect_gateway-desc": "Prosesu taliadau trwy GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Esgus bod taliad wedi llwyddo",
 	"globalcollect_gateway-fakefail": "Esgus bod taliad wedi methu",

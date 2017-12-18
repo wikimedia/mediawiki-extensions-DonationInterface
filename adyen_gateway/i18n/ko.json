@@ -4,7 +4,6 @@
 			"아라"
 		]
 	},
-	"adyengateway": "지금 기부해주세요",
 	"adyen_gateway-desc": "Adyen 결제 처리",
 	"adyen_gateway-response-default": "거래를 처리하는 동안 오류가 발생했습니다.\n나중에 다시 시도하세요."
 }

@@ -5,7 +5,6 @@
 			"Siebrand"
 		]
 	},
-	"globalcollectgateway": "Doneer nu",
 	"globalcollect_gateway-desc": "Betalingsverwerking via GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simuleer een geslaagde betaling",
 	"globalcollect_gateway-fakefail": "Simuleer een mislukte betaling",

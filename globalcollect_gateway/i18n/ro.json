@@ -4,7 +4,6 @@
 			"Minisarm"
 		]
 	},
-	"globalcollectgateway": "Faceți o donație acum",
 	"globalcollect_gateway-desc": "Procesarea plății prin GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Imită o plată efectuată cu succes",
 	"globalcollect_gateway-fakefail": "Imită o plată nereușită",

@@ -191,13 +191,9 @@ div.donor { width: 100%; }
   -moz-appearance: none;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M11.05 3.996l-.965-1.053-4.035 3.86-3.947-3.86L1.05 3.996l5 5 5-5'/%3E%3C/svg%3E");
-  background-position: right;
   background-repeat: no-repeat;
-  background-origin: content-box;
-}
-
-body.rtl #payment-table-donor select {
-  background-position: left;
+  background-position: center right 8px;
+  padding-right: 24px;
 }
 
 #payment-table-donor input[type="text"]:hover,
@@ -403,6 +399,11 @@ ul#moreinfolinks {
         padding: 14px;
         margin-bottom: 10px;
         -webkit-appearance: none;
+    }
+
+    td#donate form select {
+        background-position: center right 14px;
+        padding-right: 28px;
     }
 
     body #mw-content-text #donate #greenBackground {

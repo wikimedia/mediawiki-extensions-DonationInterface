@@ -4,7 +4,6 @@
 			"Gomoko"
 		]
 	},
-	"adyengateway": "Faire un don maintenant",
 	"adyen_gateway-desc": "Traitement des paiements Adyen",
 	"adyen_gateway-response-default": "Une erreur est survenue lors du traitement de votre transaction.\nVeuillez réessayer ultérieurement."
 }

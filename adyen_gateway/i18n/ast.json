@@ -4,7 +4,6 @@
 			"Xuacu"
 		]
 	},
-	"adyengateway": "Fai la to donación agora",
 	"adyen_gateway-desc": "Procesamientu de pagos d'Adyen",
 	"adyen_gateway-response-default": "Hebo un fallu al procesar la so operación.\nPor favor, vuelva a intentalo más sero."
 }

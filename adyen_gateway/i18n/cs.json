@@ -4,7 +4,6 @@
 			"Mormegil"
 		]
 	},
-	"adyengateway": "Poskytnout příspěvek",
 	"adyen_gateway-desc": "Zpracování plateb přes Adyen",
 	"adyen_gateway-response-default": "Při zpracovávání vaší transakce došlo k chybě.\nZkuste to znovu o něco později."
 }

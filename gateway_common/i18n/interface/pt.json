@@ -20,7 +20,8 @@
 			"Fúlvio",
 			555,
 			"Jrobell",
-			"Jkb8"
+			"Jkb8",
+			"MokaAkashiyaPT"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
@@ -387,7 +388,7 @@
 	"donate_interface-email-unsub-warning": "Essa opção exclui-o dos correios eletrónicos que a Wikimedia Foundation envia a benfeitores. Pode continuar a receber mensagens neste endereço de correio eletrónico se o endereço estiver associado a uma conta num dos nossos projetos. Se tiver alguma pergunta, entre em contacto connosco no endereço <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
 	"donate_interface-faqs": "Perguntas mais frequentes",
 	"donate_interface-tax-info": "Informação sobre dedução fiscal",
-	"donate_interface-informationsharing": "Ao realizar um donativo, concorda partilhar a sua informação pessoal com a Wikimedia Foundation, a organização sem fins lucrativos que hospeda a Wikipedia e outros projetos da Wikimedia, e com os seus fornecedores de serviços, de acordo com a nossa <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">política de doadores</a>. A Wikimedia Foundation e os seus fornecedores de serviços estão localizados nos Estados Unidos e noutros países cuja legislação de privacidade pode não ser equivalente à do seu próprio país. Não vendemos ou comercializamos a sua informação a ninguém. Para mais informações, consulte a nossa <a href=\"//wikimediafoundation.org/wiki/Donor_policy\">política de doadores</a>.",
+	"donate_interface-informationsharing": "Não vendemos ou comercializamos a sua informação a ninguém. Ao realizar um donativo, concorda partilhar a sua informação pessoal com a Fundação Wikimedia, a organização sem fins lucrativos que hospeda a Wikipédia e outros projetos da Wikimedia, e com os seus fornecedores de serviços, de acordo com a nossa <a href=\"//wikimediafoundation.org/wiki/Donor_privacy_policy/pt\">política de doadores</a>. A Fundação Wikimedia e os seus fornecedores de serviços estão localizados nos Estados Unidos e noutros países cuja legislação de privacidade pode não ser equivalente à do seu próprio país. Para mais informações, consulte a nossa <a href=\"//wikimediafoundation.org/wiki/Donor_privacy_policy/pt\">política de doadores</a>.",
 	"donate_interface-currency-change": "Alterar?",
 	"donate_interface-bank_transfer_message": "Note que o seu extrato bancário mostrará 'Global Collect' como destinatária do donativo. A Global Collect está autorizada a aceitar e processar pagamentos em nome da Wikimedia Foundation. Lembre-se de incluir na sua transferência bancária o número de referência fornecido aqui e contacte donations@wikimedia.org se tiver quaisquer dúvidas ou preocupações.",
 	"donate_interface-globalcollect-proxy": "Note que o seu extrato bancário mostrará 'Global Collect' como destinatária do donativo. A Global Collect está autorizada a aceitar e processar pagamentos em nome da Wikimedia Foundation.",

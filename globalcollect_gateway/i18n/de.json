@@ -5,7 +5,6 @@
 			"Metalhead64"
 		]
 	},
-	"globalcollectgateway": "Jetzt spenden",
 	"globalcollect_gateway-desc": "Ermöglicht die Zahlungsabwicklung durch GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Eine erfolgreiche Zahlung vortäuschen",
 	"globalcollect_gateway-fakefail": "Eine fehlgeschlagene Zahlung vortäuschen",

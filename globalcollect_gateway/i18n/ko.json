@@ -5,7 +5,6 @@
 			"아라"
 		]
 	},
-	"globalcollectgateway": "지금 기부해주세요",
 	"globalcollect_gateway-desc": "글로벌컬렉트 결제 처리",
 	"globalcollect_gateway-fakesucceed": "가짜 지불 성공",
 	"globalcollect_gateway-fakefail": "가짜 지불 실패",

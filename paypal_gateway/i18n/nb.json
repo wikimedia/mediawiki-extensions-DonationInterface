@@ -1,5 +1,8 @@
 {
-	"@metadata": [],
-	"paypalgateway": "Gi nå",
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
 	"paypal_gateway-desc": "Betaling med PayPal"
 }

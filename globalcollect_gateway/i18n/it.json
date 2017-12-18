@@ -4,7 +4,6 @@
 			"Beta16"
 		]
 	},
-	"globalcollectgateway": "Fai ora la tua donazione",
 	"globalcollect_gateway-desc": "Elaborazione dei pagamenti GlobalCollect",
 	"globalcollect_gateway-fakesucceed": "Simula un pagamento riuscito",
 	"globalcollect_gateway-fakefail": "Simula un pagamento non riuscito",

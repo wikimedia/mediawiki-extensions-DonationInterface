@@ -4,7 +4,6 @@
 			"Bjankuloski06"
 		]
 	},
-	"adyengateway": "Дарувајте сега",
 	"adyen_gateway-desc": "Обработка на уплати со Adyen",
 	"adyen_gateway-response-default": "Настана грешка при обработката на плаќањето.\nОбидете се повторно."
 }
