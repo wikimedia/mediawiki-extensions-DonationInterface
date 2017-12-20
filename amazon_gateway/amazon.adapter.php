@@ -49,12 +49,16 @@ class AmazonAdapter extends GatewayAdapter {
 
 	// When an authorization or capture is declined, some reason codes indicate
 	// a situation where the donor can retry later or try a different card
-	protected $retry_errors = array(
+	protected $retry_reasons = array(
 		'InternalServerError',
 		'RequestThrottled',
 		'ServiceUnavailable',
 		'ProcessingFailure',
 		'InvalidPaymentMethod',
+	);
+
+	protected $pending_reasons = array(
+		'TransactionTimedOut',
 	);
 
 	function __construct( $options = array() ) {
@@ -411,12 +415,22 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	public function handleErrors( $exception, $resultData ) {
 		$errorCode = $exception->getErrorCode();
+		if ( array_search( $errorCode, $this->pending_reasons ) !== false ) {
+			// These reason codes mean the donation is in limbo. We can't
+			// do anything more about it right now, but donor services might
+			// push it through manually later.
+			$this->logger->info(
+				"Setting final status to pending on decline reason $errorCode"
+			);
+			$this->finalizeInternalStatus( FinalStatus::PENDING );
+			return;
+		}
 		$resultData->addError( new PaymentError(
 			$errorCode,
 			$exception->getMessage(),
 			LogLevel::ERROR
 		) );
-		if ( array_search( $errorCode, $this->retry_errors ) === false ) {
+		if ( array_search( $errorCode, $this->retry_reasons ) === false ) {
 			// Fail on anything we don't recognize as retry-able.  For example:
 			// These two may show up if we start doing asynchronous authorization
 			// 'AmazonClosed',

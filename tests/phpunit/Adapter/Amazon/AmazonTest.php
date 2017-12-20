@@ -219,8 +219,8 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * When the transaction times out, just gotta fail it till we work out an
-	 * asynchronous authorization flow
+	 * When the transaction times out, show the thank you page and call the
+	 * payment 'pending'.
 	 */
 	function testTransactionTimedOut() {
 		$init = $this->getDonorTestData( 'US' );
@@ -237,7 +237,12 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
 
-		$this->assertTrue( $result->isFailed(), 'Result should be failed' );
+		$this->assertEquals( FinalStatus::PENDING, $gateway->getFinalStatus() );
+		$this->assertFalse( $result->isFailed() );
+		$donationMessage = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNull( $donationMessage );
+		$paymentInitMessages = QueueWrapper::getQueue( 'payments-init' )->pop();
+		$this->assertEquals( FinalStatus::PENDING, $paymentInitMessages['payments_final_status'] );
 	}
 
 	/**
