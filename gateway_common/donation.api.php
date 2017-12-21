@@ -30,7 +30,7 @@ class DonationApi extends ApiBase {
 		$validated_ok = $gatewayObj->validatedOK();
 		if ( !$validated_ok ) {
 			$errors = $gatewayObj->getErrorState()->getErrors();
-			$outputResult['errors'] = $this->serializeErrors( $errors, $gatewayObj );
+			$outputResult['errors'] = self::serializeErrors( $errors, $gatewayObj );
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
@@ -94,7 +94,7 @@ class DonationApi extends ApiBase {
 			}
 		}
 		if ( !empty( $errors ) ) {
-			$outputResult['errors'] = $this->serializeErrors( $errors, $gatewayObj );
+			$outputResult['errors'] = self::serializeErrors( $errors, $gatewayObj );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
@@ -104,7 +104,7 @@ class DonationApi extends ApiBase {
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
-	protected function serializeErrors( $errors, GatewayAdapter $adapter ) {
+	public static function serializeErrors( $errors, GatewayAdapter $adapter ) {
 		$serializedErrors = array();
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {

@@ -54,4 +54,35 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		$this->assertEquals( 'S01-0391295-0674065-C095112', $message['gateway_txn_id'], 'Queue message has wrong txn ID' );
 	}
+
+	/**
+	 * InvalidPaymentMethod error should show an error message in the
+	 * 'general' section.
+	 */
+	public function testDoPaymentErrors() {
+		$params = array(
+			'amount' => '1.55',
+			'currency' => 'USD',
+			'recurring' => '0',
+			'wmf_token' => 'e601502632e5e51dc2a17a0045162272+\\',
+			'orderReferenceId' => mt_rand( 0, 10000000 ),
+			'action' => 'di_amazon_bill',
+		);
+		$session = array(
+			'Donor' => array(
+				'amount' => '1.55',
+				'currency' => 'USD',
+				'recurring' => '0',
+				'contribution_tracking_id' => mt_rand( 0, 10000000 ),
+				'country' => 'US',
+			),
+			'amazonEditToken' => 'kjaskdjahsdkjsad',
+		);
+		$mockClient = $this->providerConfig->object( 'payments-client' );
+		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
+
+		$apiResult = $this->doApiRequest( $params, $session );
+		$errors = $apiResult[0]['errors'];
+		$this->assertNotEmpty( $errors['general'] );
+	}
 }

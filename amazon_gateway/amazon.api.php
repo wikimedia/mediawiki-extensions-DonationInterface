@@ -32,7 +32,10 @@ class AmazonBillingApi extends ApiBase {
 			$output->addValue(
 				null,
 				'errors',
-				$adapter->getErrorState()->getErrors()
+				DonationApi::serializeErrors(
+					$adapter->getErrorState()->getErrors(),
+					$adapter
+				)
 			);
 		} elseif ( $token && $adapter->checkTokens() ) {
 			if ( $recurring ) {
@@ -55,7 +58,10 @@ class AmazonBillingApi extends ApiBase {
 				$output->addValue(
 					null,
 					'errors',
-					$result->getErrors()
+					DonationApi::serializeErrors(
+						$result->getErrors(),
+						$adapter
+					)
 				);
 			} else {
 				$output->addValue(
