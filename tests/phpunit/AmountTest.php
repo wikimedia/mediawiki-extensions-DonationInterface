@@ -259,4 +259,19 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$rounded = Amount::round( '19.5437', 'KWD' );
 		$this->assertEquals( 19.544, $rounded );
 	}
+
+	public function testFormat() {
+		if ( !class_exists( 'NumberFormatter' ) ) {
+			$this->markTestSkipped( 'No NumberFormatter present' );
+		}
+		$validator = new Amount();
+		$amount = $validator->format( '100.59', 'USD', 'en-US' );
+		$this->assertEquals( '$100.59', $amount );
+
+		$amount = $validator->format( 100.59, 'USB', null );
+		$this->assertEquals( 'USB100.59', $amount );
+
+		$amount = $validator->format( 100.59, 'USD', 'en_CA' );
+		$this->assertEquals( 'US$100.59', $amount );
+	}
 }
