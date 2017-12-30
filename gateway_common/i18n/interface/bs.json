@@ -43,6 +43,7 @@
 	"donate_interface-USD": "Američki dolar",
 	"donate_interface-paypal-button": "Donirajte putem PayPal",
 	"donate_interface-cc-button": "Donirajte putem kreditne kartice",
+	"donate_interface-ccdc-button": "Donirajte preko kreditne/debitne kartice",
 	"donate_interface-card-legend": "Informacije o kreditnoj kartici",
 	"donate_interface-amount-legend": "Iznos donacije",
 	"donate_interface-cvv-link": "Gdje je ovo?",
@@ -93,6 +94,7 @@
 	"donate_interface-post-transaction": "Detalji transakcije",
 	"donate_interface-cvv-explain": "<h4>Šta je CVV?</h4>\n<p>Cardholder Verification Value (CVV): Ove tri ili četiri cifre pomažu da se utvrdi da li je vlasnik u fizičkom vlasništvu kartice. Time se pomaže da se sprijeći zloupotreba kartice.</p>\n<h4>Visa, Mastercard</h4>\n<p>Kod od 3 cifre se nalazi na stražnjoj strani vaše kartice, unutar područja za potpis.\nObićno će panel za potpis imati serijske brojeve, ali samo zadnje tri cifre čine CVV kod.</p>\n<h4>American Express</h4>\n<p>Kod se <i>uvijek</i> nalazi <i>iznad</i> naglašenog (izrezbarenog) broja računa na prednjoj strani kartice.\nU nekim slučajevima, kod se nalazi na lijevoj strani kartice, ali je uvijek iznad broja računa.</p><br />",
 	"donate_interface-question-comment": "Pitanja ili komentari? Kontaktirajte: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-problemsdonating": "Imate problema pri doniranju?",
 	"donate_interface-donate-click": "Vaša kreditna/debitna kartica bit će sigurno obrađena.",
 	"donate_interface-otherways": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate, uključujući PayPal, ček ili mail</a>.",
 	"donate_interface-otherways-alt": "Ovdje su <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">drugi načini da donirate</a>, uključujući i putem čeka.",
@@ -186,5 +188,10 @@
 	"donate_interface-select": "Veličina:",
 	"donate_interface-donation-must-equal": "Donacija mora biti jednaka $1 ili veća.",
 	"donate_interface-thank-you": "Hvala vam! Vaša donacija je primljena.",
-	"donate_interface-state_province-dropdown-XX": "Izvan SAD"
+	"donate_interface-state_province-dropdown-XX": "Izvan SAD",
+	"donate_interface-faqs": "Često postavljana pitanja",
+	"donate_interface-taxded-link-us": "Podaci o poreskim olakšicama",
+	"donate_interface-monthly-cancel": "Ako se odlučite za mjesečno doniranje, Fondacija Wikimedia naplaćivat će isti iznos svaki mjesec, na dan prve uplate, sve dok nas ne obavijestite da donacije želite zaustaviti. Ako donirate 29, 30. ili 31. u mjesecu, iznos će se naplaćivati posljednjeg dana kod kraćih mjeseci, što bliže datumu prve uplate. Ako imate pitanja, obratite nam se na donate@wikimedia.org.",
+	"donate_interface-monthly-short": "Mjesečno",
+	"donate_interface-onetime-short": "Jednokratno"
 }
