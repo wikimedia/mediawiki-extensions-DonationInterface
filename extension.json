@@ -87,7 +87,6 @@
 		"DonorLocale": "gateway_common/DonorLocale.php",
 		"EncodingMangler": "gateway_common/EncodingMangler.php",
 		"ErrorState": "gateway_common/ErrorState.php",
-		"FinalStatus": "gateway_common/FinalStatus.php",
 		"FallbackLogPrefixer": "gateway_common/FallbackLogPrefixer.php",
 		"GatewayAdapter": "gateway_common/gateway.adapter.php",
 		"GatewayPage": "gateway_common/GatewayPage.php",

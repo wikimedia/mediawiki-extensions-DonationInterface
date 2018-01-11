@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * AdyenAdapter

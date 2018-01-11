@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * PayPal Express Checkout name value pair integration

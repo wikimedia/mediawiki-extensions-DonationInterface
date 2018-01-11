@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  *

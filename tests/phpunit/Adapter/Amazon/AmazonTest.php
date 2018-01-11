@@ -16,6 +16,7 @@
  */
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\FinalStatus;
 use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
