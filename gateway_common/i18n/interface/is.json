@@ -3,7 +3,8 @@
 		"authors": [
 			"Snævar",
 			"WiseWoman",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"Sveinn í Felli"
 		]
 	},
 	"donate_interface": "Styrkja WIkimedia",
@@ -86,12 +87,12 @@
 	"donate_interface-error-msg-street_address": "Vinsamlegast sláðu inn heimilisfangið þitt",
 	"donate_interface-error-msg-city": "Vinsamlegast sláðu inn borg",
 	"donate_interface-error-msg-state_province": "Vinsamlegast sláðu inn sýsluna þína",
-	"donate_interface-error-msg-postal_code": "Vinsamlegast sláðu inn póstnúmerið þitt",
+	"donate_interface-error-msg-postal_code": "Settu inn póstnúmerið þitt",
 	"donate_interface-error-msg-invalid-first_name": "Vinsamlegast leiðréttu eiginnafnið þitt",
 	"donate_interface-error-msg-invalid-last_name": "Vinsamlegast leiðréttu eftirnafnið þitt",
 	"donate_interface-error-msg-invalid-street_address": "Vinsamlegast leiðréttu heimilisfangið þitt",
 	"donate_interface-error-msg-invalid-city": "Vinsamlegast leiðréttu borg",
-	"donate_interface-error-msg-invalid-postal_code": "Vinsamlegast leiðréttu póstnúmerið þitt",
+	"donate_interface-error-msg-invalid-postal_code": "Leiðréttu villur í póstnúmerinu þínu",
 	"donate_interface-error-msg-country": "Land",
 	"donate_interface-error-msg-card_num": "kortanúmerið þitt",
 	"donate_interface-error-msg-expiration": "Vinsamlegast sláðu inn gildistíma kortsins.",
@@ -106,6 +107,7 @@
 	"donate_interface-last": "Síðast",
 	"donate_interface-other": "Annað",
 	"donate_interface-title": "Titill",
+	"donate_interface-zip-postal-code": "Póstnúmer",
 	"donate_interface-next": "Áfram",
 	"donate_interface-continue": "Halda áfram",
 	"donate_interface-cancel": "Hætta við",
