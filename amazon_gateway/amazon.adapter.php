@@ -169,6 +169,8 @@ class AmazonAdapter extends GatewayAdapter {
 	 * the first place.
 	 * @param string $functionName
 	 * @param array $parameters
+	 * @throws ResponseProcessingException on call failure or error code
+	 * @return array Results of the SDK client call
 	 */
 	protected function callPwaClient( $functionName, $parameters ) {
 		$callMe = array( $this->client, $functionName );

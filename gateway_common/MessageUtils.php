@@ -48,6 +48,7 @@ class MessageUtils {
 	 * @param string $country
 	 * @param string $language
 	 * @param array $params extra message parameters
+	 * @return string Localized message
 	 */
 	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
 		return self::languageSpecificFallback(

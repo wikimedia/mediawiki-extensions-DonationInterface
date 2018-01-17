@@ -557,7 +557,8 @@ abstract class GatewayAdapter
 	/**
 	 * Gets a global variable according to @see getGlobal rules, then replaces
 	 * $country and $language with values from gateway instance data.
-	 * @param string $varname
+	 * @param string $varname Name of setting to retrieve
+	 * @return string Localized setting
 	 */
 	public function localizeGlobal( $varname ) {
 		$value = self::getGlobal( $varname );
