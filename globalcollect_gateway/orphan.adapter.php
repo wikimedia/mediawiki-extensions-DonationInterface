@@ -42,7 +42,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 		if ( $final ) {
 			// FIXME
-			$this->stageData( 'response' );
+			$this->stageData();
 		}
 		foreach ( $unstaged as $key => $val ) {
 			$unstaged[$key] = $this->staged_data[$key];

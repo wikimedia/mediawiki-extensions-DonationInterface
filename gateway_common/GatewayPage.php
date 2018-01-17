@@ -276,7 +276,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$output->addHTML( Html::openElement( 'li', null, $key ) . Html::openElement( 'ul' ) );
+					$output->addHTML( Html::openElement( 'li', null ) . Html::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
 						$output->addHTML( Html::element( 'li', null, "$key2: $val2" ) );
 					}
