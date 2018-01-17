@@ -8,6 +8,7 @@ class CurrencyRatesModule extends ResourceLoaderModule {
 
 	/**
 	 * @see ResourceLoaderModule::getScript()
+	 * @inheritdoc
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
 		return

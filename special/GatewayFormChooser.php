@@ -357,9 +357,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 *
-	 * @param string $form_key
-	 * @return bool
+	 * Is the given country supported by the given form
+	 * @param string $country_iso All-caps ISO 3166-1 alpha-2
+	 * @param string $form_key Name of form
+	 * @return bool true if the country is supported
 	 */
 	static function isSupportedCountry( $country_iso, $form_key ) {
 		static $countries = array();

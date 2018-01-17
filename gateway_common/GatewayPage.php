@@ -479,6 +479,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Take UI action suggested by the payment result
+	 * @param PaymentResult $result returned by gateway adapter's doPayment
+	 *  or processDonorReturn function
 	 */
 	protected function renderResponse( PaymentResult $result ) {
 		if ( $result->isFailed() ) {

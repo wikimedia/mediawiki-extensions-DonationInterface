@@ -591,6 +591,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * Shared snippet to parse the ACK response field and store it as
 	 * communication status.
 	 *
+	 * @param array $response The response from the PayPal API call
 	 * @throws ResponseProcessingException
 	 */
 	protected function checkResponseAck( $response ) {

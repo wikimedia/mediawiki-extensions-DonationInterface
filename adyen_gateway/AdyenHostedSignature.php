@@ -3,6 +3,7 @@
 class AdyenHostedSignature implements StagingHelper {
 	/**
 	 * Sign the Adyen API request
+	 * @inheritdoc
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$params = $adapter->buildRequestParams();

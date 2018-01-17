@@ -165,6 +165,8 @@ interface GatewayType {
 	 * (probably with $this->addRequestData()).
 	 * DO NOT set default payment information here (or anywhere, really).
 	 * That would be naughty.
+	 * @param array $options associative array of values as given to the
+	 *  GateWayType constructor.
 	 */
 	function setGatewayDefaults( $options = array() );
 
@@ -348,8 +350,9 @@ interface GatewayType {
 	public function addStandardMessageFields( $transaction );
 
 	/**
-	 * returns information about how to manage the Order ID
-	 * @param string $key The key to retrieve. Optional.
+	 * Returns information about how to manage the Order ID, either a specific
+	 * value or the whole associative array.
+	 * @param string|false $key The key to retrieve. Optional.
 	 * @return mixed|false Data requested, or false if it is not set.
 	 */
 	function getOrderIDMeta( $key = false );

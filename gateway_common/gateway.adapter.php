@@ -759,10 +759,12 @@ abstract class GatewayAdapter
 
 	/**
 	 * Builds a set of transaction data in XML format
-	 *		*)The current transaction must be set before you call this function.
-	 *		*)(eventually) uses getTransactionSpecificValue to assign staged
+	 *        *)The current transaction must be set before you call this function.
+	 *        *)(eventually) uses getTransactionSpecificValue to assign staged
 	 * values to the fields required by the gateway. Look there for more insight
 	 * into the heirarchy of all possible data sources.
+	 * @param string $rootElement Name of root element
+	 * @param string $encoding Character set to use for tag values
 	 * @return string The raw transaction in xml format, ready to be
 	 * curl'd off to the remote server.
 	 */
@@ -1493,6 +1495,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
+	 * @param mixed $response Whatever came back from the API call
 	 * @return bool true if response looks sane
 	 */
 	protected function parseResponseCommunicationStatus( $response ) {
@@ -1501,6 +1504,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
+	 * @param mixed $response Whatever came back from the API call
 	 * @return array a key/value array of codes (if they exist) and messages.
 	 * TODO: Move to a parsing class, where these are part of an interface
 	 * rather than empty although non-abstract.
@@ -1511,6 +1515,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Harvest the data we need back from the gateway.
+	 * @param mixed $response Whatever came back from the API call
 	 * @return array a key/value array
 	 */
 	protected function parseResponseData( $response ) {
@@ -2092,6 +2097,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Build and send a message to the payments-init queue, once the initial workflow is complete.
+	 * @param string $status one of the constants in @see SmashPig\CrmLink\FinalStatus
 	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = array(

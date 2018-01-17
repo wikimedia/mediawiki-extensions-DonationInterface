@@ -107,7 +107,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * DonationData constructor
-	 * @param GatewayAdapter $gateway
+	 * @param GatewayType $gateway
 	 * @param mixed $data An optional array of donation data that will, if
 	 * present, circumvent the usual process of gathering the data from various
 	 * places in the request, or 'false' to gather the data the usual way.
