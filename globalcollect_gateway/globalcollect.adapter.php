@@ -919,7 +919,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// If it's already cancelled or refunded, pat own back.
 		// FIXME: I don't think the original txn goes into refunded status, just
-		// the refund txn with the same order id but negated efort ID
+		// the refund txn with the same order id but negated effort ID
 		if ( $final_status === FinalStatus::CANCELLED
 			|| $final_status === FinalStatus::REFUNDED
 		) {
