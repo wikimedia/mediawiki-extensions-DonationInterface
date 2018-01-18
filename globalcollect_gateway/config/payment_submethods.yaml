@@ -10,43 +10,6 @@ visa:
     group: cc
     keys: {  }
     logo: card-visa-lg.png
-jcb:
-    paymentproductid: 125
-    label: JCB
-    group: cc
-    keys: {  }
-    countries:
-        AD: true
-        AT: true
-        AU: true
-        BE: true
-        BH: true
-        BR: true
-        DE: true
-        EC: true
-        ES: true
-        FI: true
-        GB: true
-        GF: true
-        GR: true
-        HK: true
-        ID: true
-        IE: true
-        IT: true
-        JP: true
-        KR: true
-        LU: true
-        MY: true
-        NL: true
-        PH: true
-        PR: true
-        PT: true
-        SG: true
-        SI: true
-        SK: true
-        TH: true
-        TW: true
-    logo: card-jcb-lg.png
 mc:
     paymentproductid: 3
     label_key: donate_interface-card-name-mc
@@ -140,6 +103,43 @@ amex:
         US: true
 
     logo: card-amex-lg.png
+jcb:
+    paymentproductid: 125
+    label: JCB
+    group: cc
+    keys: {  }
+    countries:
+        AD: true
+        AT: true
+        AU: true
+        BE: true
+        BH: true
+        BR: true
+        DE: true
+        EC: true
+        ES: true
+        FI: true
+        GB: true
+        GF: true
+        GR: true
+        HK: true
+        ID: true
+        IE: true
+        IT: true
+        JP: true
+        KR: true
+        LU: true
+        MY: true
+        NL: true
+        PH: true
+        PR: true
+        PT: true
+        SG: true
+        SI: true
+        SK: true
+        TH: true
+        TW: true
+    logo: card-jcb-lg.png
 discover:
     paymentproductid: 128
     label_key: donate_interface-card-name-discover
