@@ -427,7 +427,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Returns staged data from the adapter object, or null if a key was
-	 * specified and no value exsits.
+	 * specified and no value exists.
 	 * @param string $val An optional specific key you want returned.
 	 * @return mixed All the staged data held by the adapter, or if a key was
 	 * set, the staged value for that key.
@@ -840,7 +840,8 @@ abstract class GatewayAdapter
 	 * nodes that we can't have showing up in the server logs.
 	 * Mostly for CVV: If we log those, we are all fired.
 	 * @param array $structure The transaction structure that we want to clean.
-	 * @param array $never_log An array of values we should never log. These values should be the gateway's transaciton nodes, rather than our normal values.
+	 * @param array $never_log An array of values we should never log. These
+	 *  values should be the gateway's transaction nodes, rather than our normal values.
 	 * @return array $structure stripped of all references to the values in $never_log
 	 */
 	protected function cleanTransactionStructureForLogs( $structure, $never_log ) {
@@ -1264,8 +1265,8 @@ abstract class GatewayAdapter
 	 * Should have been constructed with either buildRequestNameValueString, or
 	 * buildRequestXML.
 	 * @return bool true if the communication was successful and there is a
-	 * parseable response, false if there was a fundamental communication
-	 * problem. (timeout, bad URL, etc.)
+	 *  parseable response, false if there was a fundamental communication
+	 *  problem. (timeout, bad URL, etc.)
 	 */
 	protected function curl_transaction( $data ) {
 		$this->profiler->getStopwatch( __FUNCTION__, true );
@@ -2870,7 +2871,7 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Retrieve data from the sesion if it's set, and null if it's not.
+	 * Retrieve data from the session if it's set, and null if it's not.
 	 * @param string $key The array key to return from the session.
 	 * @param string $subkey Optional: The subkey to return from the session.
 	 * Only really makes sense if $key is an array.
@@ -3647,7 +3648,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Returns some useful debugging JSON we can append to loglines for
-	 * increaded debugging happiness.
+	 * increased debugging happiness.
 	 * This is working pretty well for debugging FormChooser problems, so
 	 * let's use it other places. Still, this should probably still be used
 	 * sparingly...

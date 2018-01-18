@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Convert our payment methods into Ingencio codes.
+ * Convert our payment methods into Ingenico codes.
  */
 class IngenicoMethodCodec implements StagingHelper {
 	/**

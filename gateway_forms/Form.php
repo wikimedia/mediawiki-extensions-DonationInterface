@@ -49,7 +49,7 @@ abstract class Gateway_Form {
 	 * Determine the 'no cache' form action
 	 *
 	 * This mostly exists to ensure that the form does not try to use AJAX to
-	 * overwrite certain hidden form params that are normally overwitten for
+	 * overwrite certain hidden form params that are normally overwritten for
 	 * cached versions of the form.
 	 * @return string $url The full URL for the form to post to
 	 */
