@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Giromin Cangiaxo"
+			"Giromin Cangiaxo",
+			"S4b1nuz E.656"
 		]
 	},
 	"donate_interface": "Sostegni Wikimedia",
@@ -77,7 +78,7 @@
 	"donate_interface-MVR": "Rufiyaa de Maldive",
 	"donate_interface-MXN": "Peso Mescican",
 	"donate_interface-MYR": "Ringgit Maleise",
-	"donate_interface-NOK": "Coron-a Norvegin-a",
+	"donate_interface-NOK": "Corónn-a Norvegeize",
 	"donate_interface-NZD": "Dollao da Noeuva Zelanda",
 	"donate_interface-OMR": "Rial Omanitto",
 	"donate_interface-PAB": "Balboa Panameise",
@@ -90,7 +91,7 @@
 	"donate_interface-RON": "Leu Rumen",
 	"donate_interface-RUB": "Rublo Ruscio",
 	"donate_interface-SAR": "Ryal Saoditto",
-	"donate_interface-SEK": "Coron-a svedeise",
+	"donate_interface-SEK": "Corónn-a svedeize",
 	"donate_interface-SGD": "Dollao de Scingapô",
 	"donate_interface-SVC": "Colón Salvadoregno",
 	"donate_interface-THB": "Baht Tailandeise",
