@@ -351,7 +351,7 @@
 	"donate_interface-enter-your-amount": "Prompt for donation size",
 	"donate_interface-will-support-with-gift": "This message implicitly refers to the Wikimedia Foundation, that the donor shall support. You can also use \"you\" as a direct object to the verb \"to support\" if your language requires one.",
 	"donate_interface-will-make-tax-deductible-gift": "Prompt for 'tax-deductible' donation size",
-	"donate_interface-next": "{{Identical|Next}}",
+	"donate_interface-next": "Short form of \"next step\".\n{{Identical|Next}}",
 	"donate_interface-continue": "{{Identical|Continue}}",
 	"donate_interface-cancel": "{{Identical|Cancel}}",
 	"donate_interface-payment": "{{Identical|Payment}}",
