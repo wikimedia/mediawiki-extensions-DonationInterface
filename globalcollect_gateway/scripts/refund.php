@@ -15,6 +15,7 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 
+		$this->requireExtension( 'Donation Interface' );
 		$this->addOption( 'file', 'Read refund detail in from a file',
 			true, true, 'f' );
 		$this->addOption( 'unsubscribe', 'Cancel the subscription this charge is a part of',

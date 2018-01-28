@@ -12,6 +12,8 @@ require_once "$IP/maintenance/Maintenance.php";
 class AstroPayStatusQuery extends Maintenance {
 	public function __construct() {
 		parent::__construct();
+
+		$this->requireExtension( 'Donation Interface' );
 		$this->addArg( 'id', 'Contribution tracking ID', true );
 	}
 

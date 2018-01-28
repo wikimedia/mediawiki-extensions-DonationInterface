@@ -13,6 +13,8 @@ require_once "$IP/maintenance/Maintenance.php";
 // order_id, merchant_reference, effort_id, payment_submethod, country, currency, amount
 class GlobalCollectGetDirectory extends Maintenance {
 	public function execute() {
+		$this->requireExtension( 'Donation Interface' );
+
 		$gateway_opts = array(
 			'batch_mode' => true,
 			'external_data' => array(
