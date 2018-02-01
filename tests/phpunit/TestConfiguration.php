@@ -17,6 +17,8 @@
  * This file contains custom options and constants for test configuration.
  */
 
+use SmashPig\CrmLink\ValidationAction;
+
 /**
  * TESTS_MESSAGE_NOT_IMPLEMENTED
  *
@@ -211,10 +213,10 @@ $customFilters = array(
 );
 
 $wgDonationInterfaceCustomFiltersActionRanges = array(
-	'process' => array( 0, 25 ),
-	'review' => array( 25, 50 ),
-	'challenge' => array( 50, 75 ),
-	'reject' => array( 75, 100 ),
+	ValidationAction::PROCESS => array( 0, 25 ),
+	ValidationAction::REVIEW => array( 25, 50 ),
+	ValidationAction::CHALLENGE => array( 50, 75 ),
+	ValidationAction::REJECT => array( 75, 100 ),
 );
 
 $wgDonationInterfaceCustomFiltersRefRules = array(

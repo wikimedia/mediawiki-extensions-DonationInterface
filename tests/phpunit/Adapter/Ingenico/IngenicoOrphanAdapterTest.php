@@ -19,6 +19,7 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\CrmLink\ValidationAction;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
@@ -177,7 +178,7 @@ class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationIn
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'review', $action,
+		$this->assertEquals( ValidationAction::REVIEW, $action,
 			'Orphan gateway should fraud fail on bad CVV and AVS' );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
@@ -186,7 +187,7 @@ class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationIn
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
-			'validation_action' => 'review',
+			'validation_action' => ValidationAction::REVIEW,
 			'risk_score' => 40,
 			'score_breakdown' => array(
 				// FIXME: need to enable utm / email / country checks ???

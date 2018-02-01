@@ -17,6 +17,7 @@
  */
 
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -192,7 +193,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on STATUSID 25' );
+		$this->assertEquals( ValidationAction::PROCESS, $action, 'Gateway should not fraud fail on STATUSID 25' );
 	}
 
 	/**
@@ -220,7 +221,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'review', $action,
+		$this->assertEquals( ValidationAction::REVIEW, $action,
 			'Orphan gateway should fraud fail on bad CVV and AVS' );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );

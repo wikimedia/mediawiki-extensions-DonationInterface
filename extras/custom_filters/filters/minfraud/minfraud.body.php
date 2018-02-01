@@ -18,6 +18,7 @@
 use MaxMind\MinFraud;
 use MaxMind\MinFraud\Model\Score;
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\ValidationAction;
 
 /**
  * Gateway_Extras_CustomFilters_MinFraud
@@ -272,7 +273,12 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 				$this->generate_hash( $this->gateway_adapter->getData_Unstaged_Escaped() )
 			); // hash the data array
 			// check to see if we have a valid action set for us to bypass minFraud
-			$actions = array( 'process', 'challenge', 'review', 'reject' );
+			$actions = array(
+				ValidationAction::PROCESS,
+				ValidationAction::CHALLENGE,
+				ValidationAction::REVIEW,
+				ValidationAction::REJECT
+			);
 			$action_hash = $localdata['action']; // a hash of the action to take passed in by the form submission
 			foreach ( $actions as $action ) {
 				if ( $this->compare_hash( $action_hash, $action ) ) {

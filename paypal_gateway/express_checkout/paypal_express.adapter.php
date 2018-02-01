@@ -2,6 +2,7 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\CrmLink\FinalStatus;
+use SmashPig\CrmLink\ValidationAction;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -453,7 +454,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				}
 
 				$this->runAntifraudFilters();
-				if ( $this->getValidationAction() !== 'process' ) {
+				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
 				}
 				break;

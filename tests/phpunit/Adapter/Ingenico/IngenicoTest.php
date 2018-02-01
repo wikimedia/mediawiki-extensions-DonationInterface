@@ -17,6 +17,7 @@
  */
 
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -227,7 +228,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway->do_transaction( 'getHostedPaymentStatus' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'process', $action, 'Gateway should not fraud fail on statusCode 25' );
+		$this->assertEquals( ValidationAction::PROCESS, $action, 'Gateway should not fraud fail on statusCode 25' );
 	}
 
 	/**
@@ -302,7 +303,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway->do_transaction( 'getHostedPaymentStatus' );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( 'review', $action,
+		$this->assertEquals( ValidationAction::REVIEW, $action,
 			'Orphan gateway should fraud fail on bad CVV and AVS' );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );

@@ -17,6 +17,7 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\CrmLink\FinalStatus;
+use SmashPig\CrmLink\ValidationAction;
 
 /**
  * AstroPayAdapter
@@ -204,7 +205,7 @@ class AstroPayAdapter extends GatewayAdapter {
 
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
 		$this->runAntifraudFilters();
-		if ( $this->getValidationAction() !== 'process' ) {
+		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 		}
 		$result = PaymentResult::fromResults(

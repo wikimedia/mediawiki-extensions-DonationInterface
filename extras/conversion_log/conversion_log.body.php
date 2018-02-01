@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\CrmLink\ValidationAction;
+
 class Gateway_Extras_ConversionLog extends Gateway_Extras {
 
 	protected static $instance;
@@ -9,7 +11,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 	 */
 	protected function post_process() {
 		// if the trxn has been outright rejected, log it
-		if ( $this->gateway_adapter->getValidationAction() == 'reject' ) {
+		if ( $this->gateway_adapter->getValidationAction() == ValidationAction::REJECT ) {
 			$this->log(
 				$this->gateway_adapter->getData_Unstaged_Escaped( 'contribution_tracking_id' ), 'Rejected'
 			);

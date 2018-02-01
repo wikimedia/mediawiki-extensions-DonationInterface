@@ -18,6 +18,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\CrmLink\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -75,13 +76,13 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway->runAntifraudFilters();
 
-		$this->assertEquals( 'reject', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( ValidationAction::REJECT, $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 107.5, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
-			'validation_action' => 'reject',
+			'validation_action' => ValidationAction::REJECT,
 			'risk_score' => 107.5,
 			'score_breakdown' => array(
 				'initial' => 0,
@@ -132,13 +133,13 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway->runAntifraudFilters();
 
-		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( ValidationAction::CHALLENGE, $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 72.75, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
-			'validation_action' => 'challenge',
+			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 72.75,
 			'score_breakdown' => array(
 				'initial' => 0,
@@ -201,13 +202,13 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway->runAntifraudFilters();
 
-		$this->assertEquals( 'challenge', $gateway->getValidationAction(), 'Validation action is not as expected' );
+		$this->assertEquals( ValidationAction::CHALLENGE, $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 72.75, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
 		$expected = array(
-			'validation_action' => 'challenge',
+			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 72.75,
 			'score_breakdown' => array(
 				'initial' => 0,
