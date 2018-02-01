@@ -72,7 +72,9 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	}
 
 	/**
-	 * @throws InvalidArgumentException
+	 * Add a component to the array of risk scores
+	 * @param float $score Score calculated by the indicated filter
+	 * @param string $source Name of the risk filter
 	 */
 	public function addRiskScore( $score, $source ) {
 		if ( !is_numeric( $score ) ) {

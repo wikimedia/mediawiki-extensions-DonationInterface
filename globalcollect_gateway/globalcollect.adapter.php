@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
@@ -35,6 +36,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Add a key to the transaction INSERT_ORDERWITHPAYMENT.
 	 *
 	 * $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][$section][] = $value
+	 * @param string $value the default value to add to the structure
+	 * @param string $section the key name
 	 */
 	protected function addKeyToTransaction( $value, $section = 'PAYMENT' ) {
 		if ( !in_array( $value, $this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS'][$section] ) ) {
@@ -593,7 +596,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and
 	 * letting the rest behave normally.
-	 * @return PaymentTransactionResponse
+	 * @inheritdoc
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
@@ -919,7 +922,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// If it's already cancelled or refunded, pat own back.
 		// FIXME: I don't think the original txn goes into refunded status, just
-		// the refund txn with the same order id but negated efort ID
+		// the refund txn with the same order id but negated effort ID
 		if ( $final_status === FinalStatus::CANCELLED
 			|| $final_status === FinalStatus::REFUNDED
 		) {
@@ -1509,7 +1512,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	/**
 	 * OUR language codes which are available to use in GlobalCollect.
-	 * @return string
+	 * @return array
 	 */
 	public function getAvailableLanguages() {
 		$languages = array(
@@ -1670,6 +1673,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Add keys to transaction for submethod
 	 * TODO: Candidate for pushing to the base class.
+	 * @param string $payment_submethod our code for the payment submethod
 	 */
 	protected function addKeysToTransactionForSubmethod( $payment_submethod ) {
 		// If there are no keys to add, do not proceed.

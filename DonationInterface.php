@@ -3,7 +3,7 @@
 /**
  * Donation Interface
  *
- *  To install the DontaionInterface extension, put the following line in LocalSettings.php:
+ *  To install the DonationInterface extension, put the following line in LocalSettings.php:
  *	require_once( "\$IP/extensions/DonationInterface/DonationInterface.php" );
  *
  */

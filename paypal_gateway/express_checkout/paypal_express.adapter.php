@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -503,6 +504,12 @@ class PaypalExpressAdapter extends GatewayAdapter {
 						);
 						$fatal = false;
 						break;
+					case '10411':
+						if ( $this->isBatchProcessor() ) {
+							$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
+							$fatal = false;
+							break;
+						}
 					default:
 						$this->transaction_response->addError( $error );
 				}
@@ -555,6 +562,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 		$this->addRequestData( $requestData );
 		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
+		// FixMe: What to do outside of batch processing?
+		if ( $this->isBatchProcessor() && $this->getFinalStatus() == FinalStatus::TIMEOUT ) {
+			return PaymentResult::newEmpty();
+		}
 		if ( !$resultData->getCommunicationStatus() ) {
 			throw new ResponseProcessingException( 'Failed to get customer details',
 				ResponseCodes::UNKNOWN );
@@ -590,6 +601,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * Shared snippet to parse the ACK response field and store it as
 	 * communication status.
 	 *
+	 * @param array $response The response from the PayPal API call
 	 * @throws ResponseProcessingException
 	 */
 	protected function checkResponseAck( $response ) {

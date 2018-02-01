@@ -22,6 +22,7 @@ use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\UtcDate;
+use SmashPig\CrmLink\FinalStatus;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
@@ -426,7 +427,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Returns staged data from the adapter object, or null if a key was
-	 * specified and no value exsits.
+	 * specified and no value exists.
 	 * @param string $val An optional specific key you want returned.
 	 * @return mixed All the staged data held by the adapter, or if a key was
 	 * set, the staged value for that key.
@@ -556,7 +557,8 @@ abstract class GatewayAdapter
 	/**
 	 * Gets a global variable according to @see getGlobal rules, then replaces
 	 * $country and $language with values from gateway instance data.
-	 * @param string $varname
+	 * @param string $varname Name of setting to retrieve
+	 * @return string Localized setting
 	 */
 	public function localizeGlobal( $varname ) {
 		$value = self::getGlobal( $varname );
@@ -757,10 +759,12 @@ abstract class GatewayAdapter
 
 	/**
 	 * Builds a set of transaction data in XML format
-	 *		*)The current transaction must be set before you call this function.
-	 *		*)(eventually) uses getTransactionSpecificValue to assign staged
+	 *        *)The current transaction must be set before you call this function.
+	 *        *)(eventually) uses getTransactionSpecificValue to assign staged
 	 * values to the fields required by the gateway. Look there for more insight
 	 * into the heirarchy of all possible data sources.
+	 * @param string $rootElement Name of root element
+	 * @param string $encoding Character set to use for tag values
 	 * @return string The raw transaction in xml format, ready to be
 	 * curl'd off to the remote server.
 	 */
@@ -836,7 +840,8 @@ abstract class GatewayAdapter
 	 * nodes that we can't have showing up in the server logs.
 	 * Mostly for CVV: If we log those, we are all fired.
 	 * @param array $structure The transaction structure that we want to clean.
-	 * @param array $never_log An array of values we should never log. These values should be the gateway's transaciton nodes, rather than our normal values.
+	 * @param array $never_log An array of values we should never log. These
+	 *  values should be the gateway's transaction nodes, rather than our normal values.
 	 * @return array $structure stripped of all references to the values in $never_log
 	 */
 	protected function cleanTransactionStructureForLogs( $structure, $never_log ) {
@@ -1260,8 +1265,8 @@ abstract class GatewayAdapter
 	 * Should have been constructed with either buildRequestNameValueString, or
 	 * buildRequestXML.
 	 * @return bool true if the communication was successful and there is a
-	 * parseable response, false if there was a fundamental communication
-	 * problem. (timeout, bad URL, etc.)
+	 *  parseable response, false if there was a fundamental communication
+	 *  problem. (timeout, bad URL, etc.)
 	 */
 	protected function curl_transaction( $data ) {
 		$this->profiler->getStopwatch( __FUNCTION__, true );
@@ -1491,6 +1496,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
+	 * @param mixed $response Whatever came back from the API call
 	 * @return bool true if response looks sane
 	 */
 	protected function parseResponseCommunicationStatus( $response ) {
@@ -1499,6 +1505,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Parse the response to get the errors in a format we can log and otherwise deal with.
+	 * @param mixed $response Whatever came back from the API call
 	 * @return array a key/value array of codes (if they exist) and messages.
 	 * TODO: Move to a parsing class, where these are part of an interface
 	 * rather than empty although non-abstract.
@@ -1509,6 +1516,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Harvest the data we need back from the gateway.
+	 * @param mixed $response Whatever came back from the API call
 	 * @return array a key/value array
 	 */
 	protected function parseResponseData( $response ) {
@@ -2090,6 +2098,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Build and send a message to the payments-init queue, once the initial workflow is complete.
+	 * @param string $status one of the constants in @see SmashPig\CrmLink\FinalStatus
 	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = array(
@@ -2862,7 +2871,7 @@ abstract class GatewayAdapter
 	}
 
 	/**
-	 * Retrieve data from the sesion if it's set, and null if it's not.
+	 * Retrieve data from the session if it's set, and null if it's not.
 	 * @param string $key The array key to return from the session.
 	 * @param string $subkey Optional: The subkey to return from the session.
 	 * Only really makes sense if $key is an array.
@@ -3639,7 +3648,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Returns some useful debugging JSON we can append to loglines for
-	 * increaded debugging happiness.
+	 * increased debugging happiness.
 	 * This is working pretty well for debugging FormChooser problems, so
 	 * let's use it other places. Still, this should probably still be used
 	 * sparingly...

@@ -9,6 +9,7 @@ class AstroPayFinancialNumbers implements StagingHelper {
 	/**
 	 * They need a 20 char string for a customer ID - give them the first 20
 	 * characters of the email address for easy lookup
+	 * @inheritdoc
 	 */
 	protected function stage_donor_id( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !isset( $stagedData['email'] ) ) {

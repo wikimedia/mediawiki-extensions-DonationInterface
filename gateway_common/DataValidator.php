@@ -382,7 +382,7 @@ class DataValidator {
 	 * Checks to make sure that the $value is present in the $data array, and not null or an empty string.
 	 * Anything else that is 'falseish' is still perfectly valid to have as a data point.
 	 * TODO: Consider doing this in a batch.
-	 * @param string $value The value to check for non-emptyness.
+	 * @param string $value The value to check for non-emptiness.
 	 * @return bool True if the $value is not missing or empty, otherwise false.
 	 */
 	protected static function validate_not_empty( $value ) {
@@ -577,7 +577,7 @@ EOT;
 
 	/**
 	 * Takes either an IP address, or an IP address with a CIDR block, and
-	 * expands it to an array containing all the relevent addresses so we can do
+	 * expands it to an array containing all the relevant addresses so we can do
 	 * things like save the expanded list to memcache, and use in_array().
 	 * @param string $ip Either a single address, or a block.
 	 * @return array An expanded list of IP addresses denoted by $ip.

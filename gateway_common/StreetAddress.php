@@ -19,6 +19,8 @@ class StreetAddress implements StagingHelper, UnstagingHelper {
 	 *
 	 * The zero is intentional: Allegedly, Some banks won't perform the check
 	 * if the address line contains no numerical data.
+	 * @param array $normalized data from gateway adapter
+	 * @return string
 	 */
 	protected function stage_street( $normalized ) {
 		$street = '';
@@ -39,6 +41,8 @@ class StreetAddress implements StagingHelper, UnstagingHelper {
 	 *
 	 * In the event that there isn't anything in there, we need to send
 	 * something along so that AVS checks get triggered at all.
+	 * @param array $normalized all data from gateway adapter
+	 * @return string
 	 */
 	protected function stage_postal_code( $normalized ) {
 		$postalCode = '';

@@ -125,7 +125,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * to get one.
 	 * @param array $other_params An array of any params that DonationData
 	 * will harvest and understand.
-	 * @throw UnexpectedValueException
+	 * @throws MWException on ambiguous gateway or bad gateway name
+	 * @return string The form URL
 	 */
 	static function buildPaymentsFormURL( $form_key, $other_params = array() ) {
 		global $wgDonationInterfaceDefaultAppeal;
@@ -356,9 +357,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 *
-	 * @param string $form_key
-	 * @return bool
+	 * Is the given country supported by the given form
+	 * @param string $country_iso All-caps ISO 3166-1 alpha-2
+	 * @param string $form_key Name of form
+	 * @return bool true if the country is supported
 	 */
 	static function isSupportedCountry( $country_iso, $form_key ) {
 		static $countries = array();
@@ -603,7 +605,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @param string $gateway The gateway used for the payment that failed
 	 * @param string $payment_method The code for the payment method that failed
 	 * @param string $payment_submethod Code for the payment submethod that failed
-	 * @throws RuntimeException
+	 * @throws RuntimeException if no form found
+	 * @return string The name of the best error form
 	 */
 	static function getBestErrorForm( $gateway, $payment_method, $payment_submethod = null ) {
 		global $wgDonationInterfaceAllowedHtmlForms;

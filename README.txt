@@ -1,11 +1,11 @@
 Donation Interface
 
-To install the DontaionInterface extension, put the following line in LocalSettings.php:
+To install the DonationInterface extension, put the following line in LocalSettings.php:
   wfLoadExtension( 'DonationInterface' );
 
 All of this extension's globals can be overridden on a per-gateway basis by
 adding a setting with the same name, but with 'DonationInterface' replaced
-with the gatway's name. To override $wgDonationInterfaceUseSyslog just for
+with the gateway's name. To override $wgDonationInterfaceUseSyslog just for
 Adyen, add
   $wgAdyenGatewayUseSyslog = true;
 to LocalSettings.php.

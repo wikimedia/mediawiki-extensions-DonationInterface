@@ -62,7 +62,7 @@ interface GatewayType {
 	 * First array key: Some way for us to id the transaction. Doesn't actually have to be the gateway's name for it, but I'm going with that until I have a reason not to.
 	 * Second array key:
 	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours,
-	 * 		according to the precidence established in the getTransactionSpecificValue function.
+	 * 		according to the precedence established in the getTransactionSpecificValue function.
 	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here.
 	 * 		'check_required' should be set to true for transactions that require donor information,
 	 * 		  like initial payment setup. TODO: different required fields per transaction
@@ -165,6 +165,8 @@ interface GatewayType {
 	 * (probably with $this->addRequestData()).
 	 * DO NOT set default payment information here (or anywhere, really).
 	 * That would be naughty.
+	 * @param array $options associative array of values as given to the
+	 *  GateWayType constructor.
 	 */
 	function setGatewayDefaults( $options = array() );
 
@@ -348,8 +350,9 @@ interface GatewayType {
 	public function addStandardMessageFields( $transaction );
 
 	/**
-	 * returns information about how to manage the Order ID
-	 * @param string $key The key to retrieve. Optional.
+	 * Returns information about how to manage the Order ID, either a specific
+	 * value or the whole associative array.
+	 * @param string|false $key The key to retrieve. Optional.
 	 * @return mixed|false Data requested, or false if it is not set.
 	 */
 	function getOrderIDMeta( $key = false );

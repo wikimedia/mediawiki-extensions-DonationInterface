@@ -6,15 +6,15 @@
 class MessageUtils {
 
 	/**
-	 * languageSpecificFallback - returns the text of the first existant message
+	 * languageSpecificFallback - returns the text of the first existing message
 	 * in the requested language. If no messages are found in that language, the
-	 * function returns the first existant fallback message.
+	 * function returns the first existing fallback message.
 	 *
 	 * @param string $language the code of the requested language
 	 * @param array $msg_keys
 	 * @param array $params extra message parameters
 	 * @throws InvalidArgumentException
-	 * @return String the text of the first existant message
+	 * @return String the text of the first existing message
 	 */
 	public static function languageSpecificFallback(
 		$language = 'en', $msg_keys = array(), $params = array()
@@ -48,6 +48,7 @@ class MessageUtils {
 	 * @param string $country
 	 * @param string $language
 	 * @param array $params extra message parameters
+	 * @return string Localized message
 	 */
 	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
 		return self::languageSpecificFallback(

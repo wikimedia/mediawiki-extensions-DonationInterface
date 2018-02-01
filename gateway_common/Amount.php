@@ -174,12 +174,22 @@ class Amount implements ValidationHelper {
 		$amount = self::round( $amount, $currencyCode );
 		if ( class_exists( 'NumberFormatter' ) ) {
 			$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
-			return $formatter->formatCurrency(
-				floatval( $amount ),
-				$currencyCode
-			);
-		} else {
-			return "$amount $currencyCode";
+
+			if ( $formatter instanceof NumberFormatter ) {
+				return $formatter->formatCurrency(
+					floatval( $amount ),
+					$currencyCode
+				);
+			} else {
+				// This logger won't mark output to associate with the donor,
+				// but at least it'll feed into the general error log.
+				$logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter' );
+				$logger->error(
+					"Could not create NumberFormatter for locale '$locale' " .
+					"and currency '$currencyCode'."
+				);
+			}
 		}
+		return "$amount $currencyCode";
 	}
 }

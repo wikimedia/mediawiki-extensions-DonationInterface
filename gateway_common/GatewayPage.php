@@ -17,6 +17,7 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * GatewayPage
@@ -276,7 +277,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$output->addHTML( Html::openElement( 'li', null, $key ) . Html::openElement( 'ul' ) );
+					$output->addHTML( Html::openElement( 'li', null ) . Html::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
 						$output->addHTML( Html::element( 'li', null, "$key2: $val2" ) );
 					}
@@ -478,6 +479,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * Take UI action suggested by the payment result
+	 * @param PaymentResult $result returned by gateway adapter's doPayment
+	 *  or processDonorReturn function
 	 */
 	protected function renderResponse( PaymentResult $result ) {
 		if ( $result->isFailed() ) {

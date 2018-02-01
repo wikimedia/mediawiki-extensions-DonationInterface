@@ -4,6 +4,7 @@ use PayWithAmazon\PaymentsClient as PwaClient;
 use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * Wikimedia Foundation
@@ -168,6 +169,8 @@ class AmazonAdapter extends GatewayAdapter {
 	 * the first place.
 	 * @param string $functionName
 	 * @param array $parameters
+	 * @throws ResponseProcessingException on call failure or error code
+	 * @return array Results of the SDK client call
 	 */
 	protected function callPwaClient( $functionName, $parameters ) {
 		$callMe = array( $this->client, $functionName );
@@ -215,6 +218,8 @@ class AmazonAdapter extends GatewayAdapter {
 	 * we can check on the capture status.  TODO: determine if capture status
 	 * check is really needed.  According to our tech contact, Amazon guarantees
 	 * that the capture will eventually succeed if the authorization succeeds.
+	 * @param bool $recurring whether the payment is recurring
+	 * @throws ResponseProcessingException
 	 */
 	protected function authorizeAndCapturePayment( $recurring = false ) {
 		if ( $recurring ) {
@@ -379,6 +384,7 @@ class AmazonAdapter extends GatewayAdapter {
 	/**
 	 * Replace decimal point with a dash to comply with Amazon's restrictions on
 	 * seller reference ID format.
+	 * @inheritdoc
 	 */
 	public function generateOrderID( $dataObj = null ) {
 		$dotted = parent::generateOrderID( $dataObj );

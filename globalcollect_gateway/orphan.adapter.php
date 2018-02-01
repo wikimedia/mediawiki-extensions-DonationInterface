@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\CrmLink\FinalStatus;
+
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	// Data we know to be good, that we always want to re-assert after a load or an addData.
 	// so far: order_id and the data we pull from contribution tracking.
@@ -42,7 +44,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		}
 		if ( $final ) {
 			// FIXME
-			$this->stageData( 'response' );
+			$this->stageData();
 		}
 		foreach ( $unstaged as $key => $val ) {
 			$unstaged[$key] = $this->staged_data[$key];

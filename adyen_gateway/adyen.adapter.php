@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * AdyenAdapter
@@ -159,6 +160,7 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * FIXME: I can't help but feel like it's bad that the parent's do_transaction
 	 * is never used at all.
+	 * @inheritdoc
 	 */
 	function do_transaction( $transaction ) {
 		$this->ensureUniqueOrderID();

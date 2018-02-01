@@ -192,4 +192,24 @@ class PaymentTransactionResponse {
 	public function setRedirect( $redirect ) {
 		$this->redirect = $redirect;
 	}
+
+	public function __toString() {
+		$stringVal = "Communication Status: '{$this->communicationStatus}', " .
+			"Communication Status: '{$this->communicationStatus}', " .
+			"Gateway Txn ID: '{$this->gatewayTransactionId}', " .
+			"Message: '{$this->message}', " .
+			"Txn Message: '{$this->txnMessage}', " .
+			'Data: ' . print_r( $this->data, true ) . ', ' .
+			"Force cancel: '{$this->forceCancel}', " .
+			"Redirect: '{$this->redirect}', " .
+			"Raw response: '{$this->rawResponse}', Errors: ";
+		$errorStrings = [];
+		foreach ( $this->errors as $error ) {
+			if ( $error instanceof PaymentError ) {
+				$errorStrings[] .= ' code ' . $error->getErrorCode() .
+					': ' . $error->getDebugMessage();
+			}
+		}
+		return $stringVal . implode( ';', $errorStrings );
+	}
 }

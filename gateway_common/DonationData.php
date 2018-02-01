@@ -107,7 +107,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * DonationData constructor
-	 * @param GatewayAdapter $gateway
+	 * @param GatewayType $gateway
 	 * @param mixed $data An optional array of donation data that will, if
 	 * present, circumvent the usual process of gathering the data from various
 	 * places in the request, or 'false' to gather the data the usual way.
@@ -287,9 +287,9 @@ class DonationData implements LogPrefixProvider {
 	 * Returns an array of all the fields that get re-calculated during a
 	 * normalize.
 	 * This can be used on the outside when in the process of changing data,
-	 * particularly if any of the recalculted fields need to be restaged by the
+	 * particularly if any of the recalculated fields need to be restaged by the
 	 * gateway adapter.
-	 * @return array An array of values matching all recauculated fields.
+	 * @return array An array of values matching all recalculated fields.
 	 */
 	public function getCalculatedFields() {
 		$fields = array(

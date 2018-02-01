@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Log\LogLevel;
+use SmashPig\CrmLink\FinalStatus;
 
 /**
  * Contains donation workflow UI hints
