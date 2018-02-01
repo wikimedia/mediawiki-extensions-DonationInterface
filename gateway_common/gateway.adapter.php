@@ -23,6 +23,7 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
+use SmashPig\Core\ValidationError;
 use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\ValidationAction;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;

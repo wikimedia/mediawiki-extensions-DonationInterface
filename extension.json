@@ -107,7 +107,6 @@
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
 		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
-		"ValidationError": "gateway_common/ValidationError.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
 		"Gateway_Form": "gateway_forms/Form.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",

@@ -1,6 +1,7 @@
 <?php
 
 use SmashPig\Core\PaymentError;
+use SmashPig\Core\ValidationError;
 
 /**
  * Gateway form rendering using Mustache

@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  */
 
+use SmashPig\Core\ValidationError;
+
 /**
  * @group	Fundraising
  * @group	DonationInterface

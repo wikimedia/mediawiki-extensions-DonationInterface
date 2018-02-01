@@ -16,6 +16,8 @@
  *
  */
 
+use SmashPig\Core\ValidationError;
+
 /**
  * @group Fundraising
  * @group DonationInterface
