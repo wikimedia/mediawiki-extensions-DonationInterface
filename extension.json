@@ -96,7 +96,6 @@
 		"LocalClusterPsr6Cache": "gateway_common/LocalClusterPsr6Cache.php",
 		"LogPrefixProvider": "gateway_common/LogPrefixProvider.php",
 		"MessageUtils": "gateway_common/MessageUtils.php",
-		"PaymentError": "gateway_common/PaymentError.php",
 		"PaymentMethod": "gateway_common/PaymentMethod.php",
 		"PaymentResult": "gateway_common/PaymentResult.php",
 		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",

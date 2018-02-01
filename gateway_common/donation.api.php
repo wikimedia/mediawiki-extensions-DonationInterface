@@ -1,5 +1,6 @@
 <?php
 use SmashPig\Core\Logging\Logger;
+use SmashPig\Core\PaymentError;
 
 /**
  * Generic Donation API

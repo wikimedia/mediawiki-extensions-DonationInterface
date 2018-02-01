@@ -17,6 +17,7 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
+use SmashPig\Core\PaymentError;
 use SmashPig\CrmLink\FinalStatus;
 
 /**

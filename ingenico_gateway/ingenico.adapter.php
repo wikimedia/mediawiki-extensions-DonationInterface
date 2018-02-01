@@ -1,6 +1,7 @@
 <?php
 
 use Psr\Log\LogLevel;
+use SmashPig\Core\PaymentError;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class IngenicoAdapter extends GlobalCollectAdapter {

@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\PaymentError;
+
 class ErrorState {
 	protected $errors = array();
 

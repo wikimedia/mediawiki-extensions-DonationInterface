@@ -21,6 +21,7 @@ use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\ValidationAction;
