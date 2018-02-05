@@ -1,6 +1,6 @@
 cc:
     label: Credit Cards
     validation:
-        country: true;
+        country: true
         name: true
         email: true
