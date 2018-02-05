@@ -57,7 +57,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php",
-                "reference": "198cc8ccab51e270909602cee38706b4d1f6bbba"
+                "reference": "ec0f9e5b18edd5c2e61e8dfdde88e679a88dd533"
             },
             "require": {
                 "ext-curl": "*",
@@ -89,7 +89,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2017-12-15T15:03:21+00:00"
+            "time": "2018-02-05T15:24:08+00:00"
         },
         {
             "name": "clio/clio",
@@ -1281,7 +1281,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03T07:36:31+00:00"
+            "time": "2017-06-01T20:52:29+00:00"
         },
         {
             "name": "wikimedia/smash-pig",
