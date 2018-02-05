@@ -10,6 +10,7 @@ visa:
         GB: true
         IL: true
         JP: true
+        NL: true
         UA: true
         US: true
     group: cc
@@ -21,6 +22,7 @@ mc:
         GB: true
         IL: true
         JP: true
+        NL: true
         UA: true
         US: true
     group: cc
@@ -34,6 +36,7 @@ amex:
         FR: true
         GB: true
         IL: true
+        NL: true
         UA: true
         US: true
     group: cc
@@ -41,6 +44,7 @@ amex:
 jcb:
     countries:
         JP: true
+        NL: true
     group: cc
     logo: card-jcb-lg.png
 discover:
