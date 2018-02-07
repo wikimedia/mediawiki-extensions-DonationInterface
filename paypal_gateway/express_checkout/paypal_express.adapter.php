@@ -564,7 +564,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
 		// FixMe: What to do outside of batch processing?
 		if ( $this->isBatchProcessor() && $this->getFinalStatus() == FinalStatus::TIMEOUT ) {
-			return PaymentResult::newEmpty();
+			return PaymentResult::newSuccess();
 		}
 		if ( !$resultData->getCommunicationStatus() ) {
 			throw new ResponseProcessingException( 'Failed to get customer details',
