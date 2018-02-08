@@ -408,7 +408,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway = $this->getFreshGatewayObject();
 		$url = ResultPages::getCancelPage( $gateway );
 		$expectedTitle = Title::newFromText( 'Ways to give/en' );
-		$this->assertEquals( $expectedTitle->getFullURL(), $url );
+		$this->assertEquals( $expectedTitle->getFullURL( '', false, PROTO_CURRENT ), $url );
 	}
 
 	public function testCannotOverrideIp() {

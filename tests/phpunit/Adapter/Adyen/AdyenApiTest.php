@@ -43,7 +43,6 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'card.cardHolderName' => 'Firstname Surname',
 			'currencyCode' => 'USD',
 			'merchantAccount' => 'wikitest',
-			'merchantReference' => '1.1',
 			'offset' => '20',
 			'paymentAmount' => '155',
 			'skinCode' => 'testskin',
@@ -61,6 +60,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		unset( $actualParams['sessionValidity'] );
 		unset( $actualParams['shipBeforeDate'] );
 		unset( $actualParams['merchantSig'] );
+		unset( $actualParams['merchantReference'] );
 		$this->assertEquals(
 			$expectedParams,
 			$actualParams,
@@ -80,7 +80,6 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'last_name' => 'Surname',
 			'country' => 'US',
 			'gateway' => 'adyen',
-			'order_id' => '1.1',
 			'recurring' => '',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',

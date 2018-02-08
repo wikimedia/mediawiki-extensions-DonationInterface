@@ -72,7 +72,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgContributionTrackingFundraiserMaintenance' => true,
 		) );
 
-		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL();
+		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL( '', false, PROTO_CURRENT );
 		$assertNodes = array(
 			'headers' => array(
 				'Location' => $expectedLocation

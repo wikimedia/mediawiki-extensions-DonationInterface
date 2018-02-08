@@ -11,8 +11,7 @@ class CurrencyRatesModule extends ResourceLoaderModule {
 	 * @inheritdoc
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
-		return
-			'mw.config.set( "wgDonationInterfaceCurrencyRates", ' .
+		return 'mw.config.set( "wgDonationInterfaceCurrencyRates", ' .
 			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ' );';
 	}
 
