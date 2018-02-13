@@ -160,7 +160,7 @@
 	"donate_interface-error-msg-street_address": "Picatz vòstre carrièra",
 	"donate_interface-error-msg-city": "Picatz vòstre vila",
 	"donate_interface-error-msg-state_province": "Picatz vòstre estat",
-	"donate_interface-error-msg-postal_code-us": "Picatz vòstre Còdi Zip",
+	"donate_interface-error-msg-postal_code-us": "Picatz vòstre còdi postal",
 	"donate_interface-error-msg-postal_code": "Picatz vòstre còdi postal",
 	"donate_interface-error-msg-country": "Picatz vòstre país",
 	"donate_interface-error-msg-card_type": "tipe de carta bancària o de crèdit",
