@@ -350,6 +350,45 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			),
 		);
 
+		$this->transactions['RefundTransaction'] = array(
+			'request' => array(
+				'USER',
+				'PWD',
+				'VERSION',
+				'METHOD',
+				'TRANSACTIONID'
+			),
+			'values' => array(
+
+			),
+			'response' => array(
+				'REFUNDSTATUS',
+				'NETREFUNDAMT',
+				'GROSSREFUNDAMT'
+			)
+		);
+
+		$this->transactions['ManageRecurringPaymentsProfileStatusCancel'] = array(
+			'request' => array(
+				'USER',
+				'PWD',
+				'VERSION',
+				'METHOD',
+				'ACTION',
+				'PROFILEID'
+			),
+			'values' => array(
+				'USER' => $this->account_config['User'],
+				'PWD' => $this->account_config['Password'],
+				'VERSION' => self::API_VERSION,
+				'METHOD' => 'ManageRecurringPaymentsProfileStatus',
+				'ACTION' => 'Cancel'
+			),
+			'response' => array(
+				'PROFILEID'
+			)
+		);
+
 		// Add the Signature field to all API calls, if necessary.
 		// Note that this gives crappy security, vulnerable to replay attacks.
 		// The signature is static, not a checksum of the request.
@@ -630,6 +669,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	public function getTransactionGatewayTxnID() {
 		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+	}
+
+	public function doRefund() {
+		return $this->do_transaction( 'RefundTransaction' );
+	}
+
+	public function cancelSubscription() {
+		return $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
 	}
 
 	/*
