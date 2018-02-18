@@ -206,7 +206,7 @@
 	"donate_interface-error-msg-discover": "Error message for invalid Discover card number.",
 	"donate_interface-error-msg-amount": "Used in error message regarding the donation amount field.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-limit": "Shown when the amount would cause the donor to exceed their daily transaction limit at the payment processor.",
-	"donate_interface-error-msg-email": "Error message for missing {{Identical|e-mail address}}",
+	"donate_interface-error-msg-email": "Error message for missing",
 	"donate_interface-error-msg-first_name": "Error message for missing first name.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-last_name": "Error message for missing last name.\n{{Related|Donate interface-err-msg}}",
 	"donate_interface-error-msg-street_address": "Error message for missing street address.\n{{Related|Donate interface-err-msg}}",
