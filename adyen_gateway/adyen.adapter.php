@@ -17,6 +17,7 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\CrmLink\FinalStatus;
+use SmashPig\CrmLink\ValidationAction;
 
 /**
  * AdyenAdapter
@@ -273,7 +274,7 @@ class AdyenAdapter extends GatewayAdapter {
 			// auto-capture it, so as not to tell carders the auth worked.
 			// FIXME: need to keep action ranges in sync between DI and listener.
 			$action = Gateway_Extras_CustomFilters::determineStoredAction( $this );
-			if ( $action === 'process' ) {
+			if ( $action === ValidationAction::PROCESS ) {
 				$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
 				$this->finalizeInternalStatus( FinalStatus::PENDING );
 				$paymentResult = PaymentResult::newSuccess();

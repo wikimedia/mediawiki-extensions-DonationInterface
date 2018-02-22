@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\PaymentError;
+
 /**
  * Contains information parsed out of a payment processor's response to a
  * transaction.

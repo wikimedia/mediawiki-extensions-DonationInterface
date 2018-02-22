@@ -256,23 +256,27 @@ $forms_whitelist['rcc'] = array(
 $forms_whitelist['paypal'] = array(
 	'gateway' => 'paypal',
 	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'selection_weight' => 10,
 );
 
 $forms_whitelist['paypal-recurring'] = array(
 	'gateway' => 'paypal',
 	'payment_methods' => array( 'paypal' => 'ALL' ),
 	'recurring',
+	'selection_weight' => 10,
 );
 
 $forms_whitelist['paypal_ec'] = array(
 	'gateway' => 'paypal_ec',
 	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'selection_weight' => 100,
 );
 
 $forms_whitelist['paypal_ec-recurring'] = array(
 	'gateway' => 'paypal_ec',
 	'payment_methods' => array( 'paypal' => 'ALL' ),
 	'recurring',
+	'selection_weight' => 100,
 );
 
 /************

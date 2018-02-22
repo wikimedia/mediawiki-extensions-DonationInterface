@@ -1,5 +1,6 @@
 <?php
 
+use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 
 class Amount implements ValidationHelper {

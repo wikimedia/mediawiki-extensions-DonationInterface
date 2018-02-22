@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\ValidationError;
+
 class CountryValidation implements ValidationHelper {
 
 	/**

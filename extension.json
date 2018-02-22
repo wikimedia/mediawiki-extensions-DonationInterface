@@ -96,7 +96,6 @@
 		"LocalClusterPsr6Cache": "gateway_common/LocalClusterPsr6Cache.php",
 		"LogPrefixProvider": "gateway_common/LogPrefixProvider.php",
 		"MessageUtils": "gateway_common/MessageUtils.php",
-		"PaymentError": "gateway_common/PaymentError.php",
 		"PaymentMethod": "gateway_common/PaymentMethod.php",
 		"PaymentResult": "gateway_common/PaymentResult.php",
 		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",
@@ -108,7 +107,6 @@
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
 		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
-		"ValidationError": "gateway_common/ValidationError.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
 		"Gateway_Form": "gateway_forms/Form.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
@@ -172,8 +170,7 @@
 	},
 	"ResourceModules": {
 		"iframe.liberator": {
-			"scripts": "modules/iframe.liberator.js",
-			"position": "top"
+			"scripts": "modules/iframe.liberator.js"
 		},
 		"donationInterface.styles": {
 			"styles": [

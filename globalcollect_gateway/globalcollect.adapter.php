@@ -16,7 +16,9 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\Core\PaymentError;
 use SmashPig\CrmLink\FinalStatus;
+use SmashPig\CrmLink\ValidationAction;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
@@ -660,7 +662,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 
 			// we filtered
-			if ( $validationAction !== 'process' ) {
+			if ( $validationAction !== ValidationAction::PROCESS ) {
 				$cancelflag = true; // don't retry: We've fraud-failed them intentionally.
 			} elseif ( $status_result->getCommunicationStatus() === false ) {
 			// can't communicate or internal error

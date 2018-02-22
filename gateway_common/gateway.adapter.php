@@ -21,8 +21,11 @@ use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
+use SmashPig\Core\ValidationError;
 use SmashPig\CrmLink\FinalStatus;
+use SmashPig\CrmLink\ValidationAction;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
@@ -268,7 +271,7 @@ abstract class GatewayAdapter
 		BannerHistoryLogIdProcessor::onGatewayReady( $this );
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 
-		if ( $this->getValidationAction() !== 'process' ) {
+		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->errorState->addError( new PaymentError(
 				'internal-0001',
@@ -974,14 +977,14 @@ abstract class GatewayAdapter
 		// reset, in case this isn't our first time.
 		$this->transaction_response = new PaymentTransactionResponse();
 		$this->final_status = false;
-		$this->setValidationAction( 'process', true );
+		$this->setValidationAction( ValidationAction::PROCESS, true );
 		$errCode = null;
 
 		/* --- Build the transaction string for cURL --- */
 		try {
 
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
-			if ( $this->getValidationAction() != 'process' ) {
+			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
 				$this->transaction_response->setCommunicationStatus( false );
 				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
@@ -1128,7 +1131,7 @@ abstract class GatewayAdapter
 		// in the appropriate gateway object.
 		if ( $txn_ok && empty( $retryVars ) ) {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
-			if ( $this->getValidationAction() != 'process' ) {
+			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
 				$this->logger->info( "Failed post-process checks for transaction type $transaction." );
 				$this->transaction_response->setCommunicationStatus( false );
 				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
@@ -2337,10 +2340,10 @@ abstract class GatewayAdapter
 	public function setValidationAction( $action, $reset = false ) {
 		// our choices are:
 		$actions = array(
-			'process' => 0,
-			'review' => 1,
-			'challenge' => 2,
-			'reject' => 3,
+			ValidationAction::PROCESS => 0,
+			ValidationAction::REVIEW => 1,
+			ValidationAction::CHALLENGE => 2,
+			ValidationAction::REJECT => 3,
 		);
 		if ( !isset( $actions[$action] ) ) {
 			throw new UnexpectedValueException( "Action $action is invalid." );
@@ -2358,7 +2361,7 @@ abstract class GatewayAdapter
 
 	public function getValidationAction() {
 		if ( !isset( $this->action ) ) {
-			$this->action = 'process';
+			$this->action = ValidationAction::PROCESS;
 		}
 		return $this->action;
 	}
@@ -3693,7 +3696,7 @@ abstract class GatewayAdapter
 
 		if ( $result == false ) {
 			$this->logger->info( 'Processor API call aborted on Session Velocity filter' );
-			$this->setValidationAction( 'reject' );
+			$this->setValidationAction( ValidationAction::REJECT );
 		}
 		return $result;
 	}

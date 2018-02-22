@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\ValidationError;
+
 /**
  * DataValidator
  * This class is responsible for performing all kinds of data validation,

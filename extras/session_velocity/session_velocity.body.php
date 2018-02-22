@@ -1,4 +1,7 @@
 <?php
+
+use SmashPig\CrmLink\ValidationAction;
+
 /**
  * Filter to control the number of times a session may hit the backend APIs in a time period.
  * Uses the standard Whitelist/Blacklist objects.
@@ -132,7 +135,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		if ( $score >= $threshold ) {
 			// Ahh!!! Failure!!! Sloooooooow doooowwwwnnnn
 			$this->fraud_logger->alert( "SessionVelocity: Rejecting request due to score of $score" );
-			$this->sendAntifraudMessage( 'reject', $score, array( 'SessionVelocity' => $score ) );
+			$this->sendAntifraudMessage( ValidationAction::REJECT, $score, array( 'SessionVelocity' => $score ) );
 			$retval = false;
 		} else {
 			$retval = true;
