@@ -25,8 +25,8 @@ body.ltr #footer #footer-places {
 	text-align: left;
 }
 
-#bodyContent input[type='text'],
-#bodyContent input[type='email'],
+#bodyContent input[ type='text' ],
+#bodyContent input[ type='email' ],
 textarea {
 	border: 1px solid #c0c0c0;
 	padding: 3px;
@@ -101,7 +101,7 @@ div#footer #footer-icons {
 	display: none !important;
 }
 
-a[href^='https://'],
+a[ href^='https://' ],
 .link-https {
 	background-image: none !important;
 	padding: 0 !important;
