@@ -14,12 +14,6 @@ visa:
         US: true
     group: cc
     logo: card-visa-lg.png
-jcb:
-    countries: {}
-        # Disabled for T140691
-        # JP: true
-    group: cc
-    logo: card-jcb-lg.png
 mc:
     countries:
         CA: true
@@ -44,6 +38,11 @@ amex:
         US: true
     group: cc
     logo: card-amex-lg.png
+jcb:
+    countries:
+        JP: true
+    group: cc
+    logo: card-jcb-lg.png
 discover:
     countries:
         IL: true
