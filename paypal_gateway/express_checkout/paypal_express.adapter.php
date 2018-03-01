@@ -359,6 +359,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'TRANSACTIONID'
 			),
 			'values' => array(
+				'USER' => $this->account_config['User'],
+				'PWD' => $this->account_config['Password'],
+				'VERSION' => self::API_VERSION,
+				'METHOD' => 'RefundTransaction'
 
 			),
 			'response' => array(
@@ -672,11 +676,19 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	public function doRefund() {
-		return $this->do_transaction( 'RefundTransaction' );
+		$response = $this->do_transaction( 'RefundTransaction' );
+		if ( !$response->getCommunicationStatus() ) {
+			return PaymentResult::newFailure( $response->getErrors(), FinalStatus::FAILED );
+		}
+		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
 
 	public function cancelSubscription() {
-		return $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
+		$response = $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
+		if ( !$response->getCommunicationStatus() ) {
+			return PaymentResult::newFailure( $response->getErrors(), FinalStatus::FAILED );
+		}
+		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
 
 	/*
