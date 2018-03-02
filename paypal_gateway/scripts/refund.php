@@ -10,8 +10,8 @@ require_once "$IP/maintenance/Maintenance.php";
 
 // Refunds credit card transactions listed in a file.
 // Currently takes a CSV with no header and columns in this order:
-// order_id, gateway_txn_id, subscription_id, currency
-class PaypalLegacyRefundMaintenance extends Maintenance {
+// order_id, gateway_txn_id, subscription_id, currency, amount
+class PaypalRefundMaintenance extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 
@@ -30,45 +30,47 @@ class PaypalLegacyRefundMaintenance extends Maintenance {
 		// don't run fraud checks for refunds
 		$wgDonationInterfaceEnableCustomFilters = false;
 
-		$isRefund = $this->getOption( 'refund' );
 		$isUnsubscribing = $this->getOption( 'unsubscribe' );
 
+		$isExpress = $this->getOption( 'express' );
 		$filename = $this->getOption( 'file' );
 		if ( !( $file = fopen( $filename, 'r' ) ) ) {
 			$this->error( 'Could not find refund file: ' . $filename, true );
 		}
 		while ( $refund = fgetcsv( $file ) ) {
-			if ( count( $refund ) !== 4 ) {
-				$this->error( 'Refund lines must have exactly 4 fields: order_id, gateway_txn_id, subscription_id, currency', true );
+			if ( count( $refund ) !== 5 ) {
+				$this->error( 'Refund lines must have exactly 5 fields: order_id, gateway_txn_id, subscription_id, currency, amount', true );
 			}
+			$oid = $refund[0];
+			$gateway_txn_id = $refund[1];
 			$subscription_id = $refund[2];
 			$gateway_opts = array(
 				'batch_mode' => true,
 				'external_data' => array(
 					'payment_method' => 'paypal',
 					'currency' => $refund[3],
+					'amount' => $refund[4]
 				),
 			);
 
-			$this->output( "Cancelling subscription $subscription_id from order $oid\n" );
 			$adapter = new PaypalExpressAdapter( $gateway_opts );
-			if ( $isRefund ) {
-				$adapter->addRequestData( array( 'order_id' => $refund[0], 'gateway_txn_id' => $refund[1] ) );
-				$result = $adapter->doRefund();
-			}
 
+			$this->output( "Refunding transaction $oid from gateway transaction $oid\n" );
+			$adapter->addRequestData( array( 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id ) );
+			$result = $adapter->doRefund();
 			if ( $result->isFailed() ) {
-				$this->error( "Failed refunding transaction $oid" . print_r( $result->getErrors(), true ) );
+				$this->error( "Failed refunding transaction $oid " . print_r( $result->getErrors(), true ) );
 			} else {
 				$this->output( "Successfully refunded transaction $oid\n" );
 			}
 
 			if ( $isUnsubscribing ) {
-				$adapter->addRequestData( array( 'subscription_id' => $subscription_id ) );
+				$this->output( "Cancelling subscription $subscription_id from gateway transaction $oid\n" );
+				$adapter->addRequestData( array( 'order_id' => $oid, 'subscription_id' => $subscription_id ) );
 				$result = $adapter->cancelSubscription( $subscription_id );
 
 				if ( $result->isFailed() ) {
-					$this->error( "Failed cancelling subscription $oid" . print_r( $result->getErrors(), true ) );
+					$this->error( "Failed cancelling subscription $oid " . print_r( $result->getErrors(), true ) );
 				} else {
 					$this->output( "Successfully cancelled subscription $oid\n" );
 				}
@@ -78,5 +80,5 @@ class PaypalLegacyRefundMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'GlobalCollectRefundMaintenance';
+$maintClass = 'PaypalRefundMaintenance';
 require_once RUN_MAINTENANCE_IF_MAIN;
