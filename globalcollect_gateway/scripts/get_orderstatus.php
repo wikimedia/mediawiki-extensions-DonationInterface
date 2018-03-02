@@ -15,7 +15,9 @@ class IngenicoGetOrderStatusMaintenance extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 
-		$this->requireExtension( 'Donation Interface' );
+		if ( method_exists( $this, 'requireExtension' ) ) {
+			$this->requireExtension( 'Donation Interface' );
+		}
 		$this->addOption( 'file', 'Read order IDs in from a file',
 			true, true, 'f' );
 	}
