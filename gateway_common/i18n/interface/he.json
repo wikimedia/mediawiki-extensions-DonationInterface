@@ -333,7 +333,7 @@
 	"donate_interface-optional": "אופציונלי",
 	"donate_interface-state_province-dropdown-YY": "בחרו מדינה",
 	"donate_interface-state_province-dropdown-XX": "מחוץ לארצות־הברית",
-	"donate_interface-cc-MX-instructions": "לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקרות מקוונות. אם התרומה שלך אינה מלחיה, אנו ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.",
+	"donate_interface-cc-MX-instructions": "לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקאות מקוונות. אם התרומה שלך לא מצליחה, אנו ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.",
 	"donate_interface-bt-account_holder": "בעל החשבון",
 	"donate_interface-bt-bank_account_number": "מספר חשבון הבנק",
 	"donate_interface-bt-country_description": "תיאור הארץ",
