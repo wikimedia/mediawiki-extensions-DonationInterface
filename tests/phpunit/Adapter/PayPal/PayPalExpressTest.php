@@ -99,6 +99,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 			'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
 			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+			'SOLUTIONTYPE' => 'Mark',
 		];
 		$this->assertEquals(
 			$expected, $parsed
@@ -193,6 +194,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'MAXAMT' => '1.55',
 			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
 			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
+			'SOLUTIONTYPE' => 'Mark',
 		];
 		$this->assertEquals(
 			$expected, $parsed
