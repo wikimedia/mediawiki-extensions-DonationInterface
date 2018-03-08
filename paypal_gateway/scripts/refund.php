@@ -57,7 +57,7 @@ class PaypalRefundMaintenance extends Maintenance {
 			$adapter = new PaypalExpressAdapter( $gateway_opts );
 
 			$this->output( "Refunding transaction $oid from gateway transaction $oid\n" );
-			$adapter->addRequestData( array( 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id ) );
+			$adapter->addRequestData( array( 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id, 'subscr_id' => $subscription_id ) );
 			$result = $adapter->doRefund();
 			if ( $result->isFailed() ) {
 				$this->error( "Failed refunding transaction $oid " . print_r( $result->getErrors(), true ) );
@@ -67,8 +67,7 @@ class PaypalRefundMaintenance extends Maintenance {
 
 			if ( $isUnsubscribing ) {
 				$this->output( "Cancelling subscription $subscription_id from gateway transaction $oid\n" );
-				$adapter->addRequestData( array( 'order_id' => $oid, 'subscription_id' => $subscription_id ) );
-				$result = $adapter->cancelSubscription( $subscription_id );
+				$result = $adapter->cancelSubscription();
 
 				if ( $result->isFailed() ) {
 					$this->error( "Failed cancelling subscription $oid " . print_r( $result->getErrors(), true ) );

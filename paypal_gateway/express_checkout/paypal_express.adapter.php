@@ -362,7 +362,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PWD',
 				'VERSION',
 				'METHOD',
-				'TRANSACTIONID'
+				'TRANSACTIONID',
+				'PROFILEID'
 			),
 			'values' => array(
 				'USER' => $this->account_config['User'],
