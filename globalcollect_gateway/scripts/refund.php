@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 $IP = getenv( 'MW_INSTALL_PATH' );
