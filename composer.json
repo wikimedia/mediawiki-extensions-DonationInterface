@@ -35,7 +35,7 @@
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1"
 	},
 	"require-dev": {
-		"jakub-onderka/php-parallel-lint": "0.9.2",
+		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"mediawiki/mediawiki-codesniffer": "0.11.0",
 		"wikimedia/testing-access-wrapper": "~1.0"
 	},
