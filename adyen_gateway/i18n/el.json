@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nikosgranturismogt"
+		]
+	},
+	"adyen_gateway-desc": "Επεξεργασία πληρωμών Adyen",
+	"adyen_gateway-response-default": "Υπήρξε σφάλμα κατά την διάρκεια της επεξεργασίας της συναλλαγής σας. \nΠαρακαλούμε προσπαθήστε ξανά αργότερα."
+}
