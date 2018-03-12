@@ -4,7 +4,8 @@
 			"George Animal",
 			"Gomada",
 			"Cûndûllah el-Kurdî",
-			"Ghybu"
+			"Ghybu",
+			"Bikarhêner"
 		]
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
@@ -31,12 +32,12 @@
 	"donate_interface-donor-postal_code-us": "Zip",
 	"donate_interface-donor-country": "Welat/Herêm",
 	"donate_interface-donor-address": "Navnîşan",
-	"donate_interface-error-msg-email": "navnîşana e-nameyê",
+	"donate_interface-error-msg-email": "Xêra xwe navnîşana e-nameya xwe têkeve",
 	"donate_interface-error-msg-first_name": "nav",
 	"donate_interface-error-msg-last_name": "paşnav",
-	"donate_interface-error-msg-city": "bajar",
+	"donate_interface-error-msg-city": "Xêra xwe bajarê xwe têkeve",
 	"donate_interface-error-msg-state_province": "dewlet",
-	"donate_interface-error-msg-country": "welat",
+	"donate_interface-error-msg-country": "Xêra xwe welatê xwe têkeve",
 	"donate_interface-comment": "Şîrove",
 	"donate_interface-other": "Yê din",
 	"donate_interface-or": "an",
