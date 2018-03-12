@@ -490,7 +490,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	/**
 	 * In the event that we have more than one valid form, we need to figure out
 	 * which one we ought to be using.
-	 * In the absense of any data regarding form preferences, we should pick one
+	 * In the absence of any data regarding form preferences, we should pick one
 	 * that appears to be localized for whatever we requested.
 	 * If we still have more than one, take the one with the most payment
 	 * submethods.

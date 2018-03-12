@@ -134,6 +134,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_ITEMAMT', // FIXME: Not clear why this is required.
 				'PAYMENTREQUEST_0_PAYMENTACTION',
 				'PAYMENTREQUEST_0_PAYMENTREASON',
+				'SOLUTIONTYPE',
 				// TODO: Investigate why can we give this as an input:
 				// PAYMENTREQUEST_n_TRANSACTIONID
 				// TODO: BUYEREMAILOPTINENABLE=1
@@ -151,6 +152,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
+				// SOLUTIONTYPE Mark means PayPal account is required
+				'SOLUTIONTYPE' => 'Mark',
 			),
 			'response' => array(
 				'TOKEN',
@@ -191,7 +194,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// 'PAYMENTREQUEST_0_PAYMENTACTION',
 				// 'PAYMENTREQUEST_0_PAYMENTREASON',
 				// // TODO: Investigate why would give this as an input:
-				// // PAYMENTREQUEST_n_TRANSACTIONID
+				// // PAYMENTREQUEST_n_TRANSACTIONID,
+				'SOLUTIONTYPE'
 			),
 			'values' => array(
 				'USER' => $this->account_config['User'],
@@ -214,6 +218,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
+				// SOLUTIONTYPE Mark means PayPal account is required
+				'SOLUTIONTYPE' => 'Mark',
 			),
 			'response' => array(
 				'TOKEN',
@@ -356,7 +362,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PWD',
 				'VERSION',
 				'METHOD',
-				'TRANSACTIONID'
+				'TRANSACTIONID',
+				'PROFILEID'
 			),
 			'values' => array(
 				'USER' => $this->account_config['User'],

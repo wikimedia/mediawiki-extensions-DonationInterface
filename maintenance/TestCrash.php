@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 // XXX only deployed for a quick debuggery party
 

@@ -3,7 +3,8 @@
 		"authors": [
 			"George Animal",
 			"Gomada",
-			"Cûndûllah el-Kurdî"
+			"Cûndûllah el-Kurdî",
+			"Ghybu"
 		]
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
@@ -37,6 +38,7 @@
 	"donate_interface-error-msg-state_province": "dewlet",
 	"donate_interface-error-msg-country": "welat",
 	"donate_interface-comment": "Şîrove",
+	"donate_interface-other": "Yê din",
 	"donate_interface-or": "an",
 	"donate_interface-your-information": "Agahiyên te",
 	"donate_interface-title": "Sernav",

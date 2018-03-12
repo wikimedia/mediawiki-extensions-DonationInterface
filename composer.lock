@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f1096380f4f378b06eaccb8d71984a3",
+    "hash": "ff09e5b7fe3a7c13f59b79b47c5a1291",
+    "content-hash": "cf6ab65f6634cc25c59128667d2bae7e",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -49,7 +50,7 @@
                 "cache",
                 "mediawiki"
             ],
-            "time": "2017-02-16T14:33:59+00:00"
+            "time": "2017-02-16 14:33:59"
         },
         {
             "name": "amzn/login-and-pay-with-amazon-sdk-php",
@@ -89,7 +90,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2018-02-07T02:51:30+00:00"
+            "time": "2018-02-07 02:51:30"
         },
         {
             "name": "clio/clio",
@@ -130,7 +131,7 @@
                 "console",
                 "daemon"
             ],
-            "time": "2014-06-22T14:49:41+00:00"
+            "time": "2014-06-22 14:49:41"
         },
         {
             "name": "coderkungfu/php-queue",
@@ -199,7 +200,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2017-09-08T03:14:59+00:00"
+            "time": "2017-09-08 03:14:59"
         },
         {
             "name": "composer/ca-bundle",
@@ -258,7 +259,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2017-09-11T07:24:36+00:00"
+            "time": "2017-09-11 07:24:36"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -300,7 +301,7 @@
             ],
             "description": "Powerful command-line option toolkit",
             "homepage": "http://github.com/c9s/GetOptionKit",
-            "time": "2017-06-30T14:54:48+00:00"
+            "time": "2017-06-30 14:54:48"
         },
         {
             "name": "geoip2/geoip2",
@@ -353,7 +354,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2017-07-10T17:59:43+00:00"
+            "time": "2017-07-10 17:59:43"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -395,7 +396,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20T16:49:30+00:00"
+            "time": "2014-11-20 16:49:30"
         },
         {
             "name": "maxmind-db/reader",
@@ -450,7 +451,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2017-01-19T23:49:38+00:00"
+            "time": "2017-01-19 23:49:38"
         },
         {
             "name": "maxmind/minfraud",
@@ -501,7 +502,7 @@
                 "maxmind",
                 "minfraud"
             ],
-            "time": "2017-07-10T18:47:42+00:00"
+            "time": "2017-07-10 18:47:42"
         },
         {
             "name": "maxmind/web-service-common",
@@ -547,7 +548,7 @@
             ],
             "description": "Internal MaxMind Web Service API",
             "homepage": "https://github.com/maxmind/web-service-common-php",
-            "time": "2017-07-06T17:48:21+00:00"
+            "time": "2017-07-06 17:48:21"
         },
         {
             "name": "monolog/monolog",
@@ -625,7 +626,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02T13:12:58+00:00"
+            "time": "2016-04-02 13:12:58"
         },
         {
             "name": "neitanod/forceutf8",
@@ -659,7 +660,7 @@
             ],
             "description": "PHP Class Encoding featuring popular Encoding::toUTF8() function --formerly known as forceUTF8()-- that fixes mixed encoded strings.",
             "homepage": "https://github.com/neitanod/forceutf8",
-            "time": "2017-05-22T18:50:57+00:00"
+            "time": "2017-05-22 18:50:57"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -736,7 +737,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-08-28T11:12:07+00:00"
+            "time": "2017-08-28 11:12:07"
         },
         {
             "name": "predis/predis",
@@ -786,7 +787,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16T16:22:20+00:00"
+            "time": "2016-06-16 16:22:20"
         },
         {
             "name": "psr/cache",
@@ -832,7 +833,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06T20:24:11+00:00"
+            "time": "2016-08-06 20:24:11"
         },
         {
             "name": "psr/log",
@@ -879,7 +880,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "respect/validation",
@@ -944,7 +945,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2017-03-14T09:44:11+00:00"
+            "time": "2017-03-14 09:44:11"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1004,7 +1005,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-02T07:47:27+00:00"
+            "time": "2017-06-02 07:47:27"
         },
         {
             "name": "symfony/http-foundation",
@@ -1059,7 +1060,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-10T07:04:10+00:00"
+            "time": "2017-08-10 07:04:10"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1118,7 +1119,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14T15:44:48+00:00"
+            "time": "2017-06-14 15:44:48"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1176,7 +1177,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14T15:44:48+00:00"
+            "time": "2017-06-14 15:44:48"
         },
         {
             "name": "symfony/polyfill-php55",
@@ -1232,7 +1233,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14T15:44:48+00:00"
+            "time": "2017-06-14 15:44:48"
         },
         {
             "name": "symfony/yaml",
@@ -1281,7 +1282,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-01T20:52:29+00:00"
+            "time": "2017-06-01 20:52:29"
         },
         {
             "name": "wikimedia/smash-pig",
@@ -1344,7 +1345,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2017-09-11T13:31:06+00:00"
+            "time": "2018-01-11 20:06:34"
         },
         {
             "name": "zordius/lightncandy",
@@ -1391,22 +1392,22 @@
                 "php",
                 "template"
             ],
-            "time": "2015-11-05T07:14:57+00:00"
+            "time": "2015-11-05 07:14:57"
         }
     ],
     "packages-dev": [
         {
             "name": "jakub-onderka/php-parallel-lint",
-            "version": "v0.9.2",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JakubOnderka/PHP-Parallel-Lint.git",
-                "reference": "2ead2e4043ab125bee9554f356e0a86742c2d4fa"
+                "reference": "04fbd3f5fb1c83f08724aa58a23db90bd9086ee8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JakubOnderka/PHP-Parallel-Lint/zipball/2ead2e4043ab125bee9554f356e0a86742c2d4fa",
-                "reference": "2ead2e4043ab125bee9554f356e0a86742c2d4fa",
+                "url": "https://api.github.com/repos/JakubOnderka/PHP-Parallel-Lint/zipball/04fbd3f5fb1c83f08724aa58a23db90bd9086ee8",
+                "reference": "04fbd3f5fb1c83f08724aa58a23db90bd9086ee8",
                 "shasum": ""
             },
             "require": {
@@ -1414,7 +1415,8 @@
             },
             "require-dev": {
                 "jakub-onderka/php-console-highlighter": "~0.3",
-                "nette/tester": "~1.3"
+                "nette/tester": "~1.3",
+                "squizlabs/php_codesniffer": "~2.7"
             },
             "suggest": {
                 "jakub-onderka/php-console-highlighter": "Highlight syntax in code snippet"
@@ -1435,12 +1437,12 @@
             "authors": [
                 {
                     "name": "Jakub Onderka",
-                    "email": "jakub.onderka@gmail.com"
+                    "email": "ahoj@jakubonderka.cz"
                 }
             ],
             "description": "This tool check syntax of PHP files about 20x faster than serial check.",
             "homepage": "https://github.com/JakubOnderka/PHP-Parallel-Lint",
-            "time": "2015-12-15T10:42:16+00:00"
+            "time": "2018-02-24 15:31:20"
         },
         {
             "name": "mediawiki/mediawiki-codesniffer",
@@ -1476,7 +1478,7 @@
                 "codesniffer",
                 "mediawiki"
             ],
-            "time": "2017-08-11T02:17:24+00:00"
+            "time": "2017-08-11 02:17:24"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -1527,7 +1529,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-07-18T01:12:32+00:00"
+            "time": "2017-07-18 01:12:32"
         },
         {
             "name": "wikimedia/testing-access-wrapper",
@@ -1577,7 +1579,7 @@
             ],
             "description": "A simple helper class to access non-public elements of a class when testing.",
             "homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
-            "time": "2017-04-19T16:43:33+00:00"
+            "time": "2017-04-19 16:43:33"
         }
     ],
     "aliases": [],

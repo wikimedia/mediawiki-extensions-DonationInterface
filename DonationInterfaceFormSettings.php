@@ -424,10 +424,10 @@ $forms_whitelist['adyen'] = array(
 
 $forms_whitelist['adyen-test'] = array(
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'UA', 'US', ), ),
+	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ), ),
 	'currencies' => array( '+' => array( 'CAD', 'EUR', 'GBP', 'ILS', 'JPY', 'UAH', 'USD', ), ),
 	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', ),
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ),
 	),
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
