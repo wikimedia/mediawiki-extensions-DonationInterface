@@ -180,13 +180,13 @@ bradesco:
     countries:
         BR: true
     logo: bank-bradesco.png
-santander:
-    bank_code: SB
-    label: Santander
-    group: bt
-    countries:
-        BR: true
-    logo: bank-santander.png
+# santander:
+#    bank_code: SB
+#    label: Santander
+#    group: bt
+#    countries:
+#        BR: true
+#    logo: bank-santander.png
 santander_rio:
     bank_code: SI
     label: Santander
