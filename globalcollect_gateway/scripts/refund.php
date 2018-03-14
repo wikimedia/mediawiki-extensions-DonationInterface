@@ -53,6 +53,7 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 					'payment_submethod' => $refund[3],
 					'currency' => $refund[4],
 					'amount' => $refund[5],
+					'country' => 'US', // Stuff with default to pass validation, not actually sent in refund API call
 				),
 			);
 
