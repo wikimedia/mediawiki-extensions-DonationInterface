@@ -295,6 +295,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						'PAYMENT' => array(
 							'PAYMENTPRODUCTID',
 							'ORDERID',
+							'EFFORTID',
 							'MERCHANTREFERENCE',
 							'AMOUNT',
 							'CURRENCYCODE',
