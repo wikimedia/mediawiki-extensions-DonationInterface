@@ -99,15 +99,11 @@
 
 	// This will be called as soon as the login script is loaded
 	window.onAmazonLoginReady = function() {
-		var tokenLifetime;
+
 		amazon.Login.setClientId( clientId );
 		amazon.Login.setUseCookie( true );
 		amazon.Login.setSandboxMode( sandbox );
-		if ( loggedIn ) {
-			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
-			createWalletWidget();
-			setTimeout( tokenExpired, tokenLifetime * 1000 );
-		} else {
+		if ( !loggedIn ) {
 			if ( loginError ) {
 				showErrorAndLoginButton(
 					getURLParameter( 'error_description', location.search )
@@ -115,6 +111,15 @@
 			} else {
 				redirectToLogin();
 			}
+		}
+	};
+
+	window.onAmazonPaymentsReady = function() {
+		var tokenLifetime;
+		if ( loggedIn ) {
+			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
+			createWalletWidget();
+			setTimeout( tokenExpired, tokenLifetime * 1000 );
 		}
 	};
 
