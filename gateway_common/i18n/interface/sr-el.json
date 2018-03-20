@@ -4,7 +4,8 @@
 			"Rancher",
 			"Vecanoi",
 			"Milicevic01",
-			"Сербијана"
+			"Сербијана",
+			"Obsuser"
 		]
 	},
 	"donate_interface": "Podržite Vikimediju",
@@ -318,7 +319,7 @@
 	"donate_interface-email-unsub-delay": "Treba da sačekate do četiri dana da se sprovedu izmene. Izvinjavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, obratite nam se na <donations@wikimedia.org>",
 	"donate_interface-email-unsub-fail": "Došlo je do greške pri obrađivanju vašeg zahteva. Obratite nam se na <donations@wikimedia.org>.",
 	"donate_interface-email-unsub-confirm": "Da li ste sigurni da želite da otkažete adresu <b>$1</b>?",
-	"donate_interface-faqs": "Često postavljena pitanja",
+	"donate_interface-faqs": "Često postavljana pitanja",
 	"donate_interface-tax-info": "Podaci o poreskim olakšicama",
 	"donate_interface-informationsharing": "Davanjem priloga, vi delite svoje podatke sa Zadužbinom Vikimedija, neprofitnom organizacijom koja pokreće Vikipediju i druge Vikimedijine projekte, i s njenim dobavljačima u SAD i drugim mestima, u skladu s našim pravilima za privatnost davaoca. Mi ne prodajemo niti razmenjujemo vaše podatke ni sa kim. Više na stranici za <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">pravila za davaoca</a>.",
 	"donate_interface-currency-change": "Druga valuta?",
