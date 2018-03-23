@@ -57,3 +57,4 @@ SWIFTCODE: swift_code
 TRANSACTIONTYPE: transaction_type # dd:GB,NL
 ZIP: postal_code
 FISCALNUMBER: fiscal_number # Boletos
+PROFILETOKEN: recurring_payment_token

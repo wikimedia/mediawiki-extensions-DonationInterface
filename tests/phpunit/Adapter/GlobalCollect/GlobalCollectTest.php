@@ -347,6 +347,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'FISCALNUMBER' => 'fiscal_number',
 			'AVSRESULT' => 'avs_result',
 			'CVVRESULT' => 'cvv_result',
+			'PROFILETOKEN' => 'recurring_payment_token',
 		);
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );

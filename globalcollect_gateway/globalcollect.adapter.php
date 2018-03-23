@@ -530,6 +530,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '1.0',
 			),
 		);
+
+		// Convert an old-style recurring payment to a profile for Connect
+		$this->transactions['CONVERT_PAYMENTTOPROFILE'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'response' => array(
+				'PROFILETOKEN',
+			),
+			'values' => array(
+				'ACTION' => 'CONVERT_PAYMENTTOPROFILE',
+				'VERSION' => '2.0',
+			),
+		);
 	}
 
 	function getBasedir() {
@@ -1133,6 +1159,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'DO_FINISHPAYMENT':
 			case 'DO_REFUND':
+			case 'CONVERT_PAYMENTTOPROFILE':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				break;
 			case 'DO_PAYMENT':
