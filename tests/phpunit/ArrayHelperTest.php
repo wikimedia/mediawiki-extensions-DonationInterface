@@ -20,7 +20,7 @@
  * @group	DonationInterface
  * @group   ArrayHelper
  */
-class ArrayHelperTest extends PHPUnit_Framework_TestCase {
+class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 
 	/**
 	 * @dataProvider getTestData

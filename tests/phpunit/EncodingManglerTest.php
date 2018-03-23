@@ -21,7 +21,7 @@
  * @group	EncodingMangler
  * @category	UnitTesting
  */
-class EncodingManglerTest extends PHPUnit_Framework_TestCase {
+class EncodingManglerTest extends PHPUnit\Framework\TestCase {
 
 	/**
 	 * @var EncodingMangler
