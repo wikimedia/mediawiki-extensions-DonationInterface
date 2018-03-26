@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff09e5b7fe3a7c13f59b79b47c5a1291",
     "content-hash": "cf6ab65f6634cc25c59128667d2bae7e",
     "packages": [
         {
@@ -50,7 +49,7 @@
                 "cache",
                 "mediawiki"
             ],
-            "time": "2017-02-16 14:33:59"
+            "time": "2017-02-16T14:33:59+00:00"
         },
         {
             "name": "amzn/login-and-pay-with-amazon-sdk-php",
@@ -90,7 +89,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2018-02-07 02:51:30"
+            "time": "2018-02-07T02:51:30+00:00"
         },
         {
             "name": "clio/clio",
@@ -131,7 +130,7 @@
                 "console",
                 "daemon"
             ],
-            "time": "2014-06-22 14:49:41"
+            "time": "2014-06-22T14:49:41+00:00"
         },
         {
             "name": "coderkungfu/php-queue",
@@ -200,7 +199,7 @@
                 "queue",
                 "transaction"
             ],
-            "time": "2017-09-08 03:14:59"
+            "time": "2017-09-08T03:14:59+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -259,7 +258,7 @@
                 "ssl",
                 "tls"
             ],
-            "time": "2017-09-11 07:24:36"
+            "time": "2017-09-11T07:24:36+00:00"
         },
         {
             "name": "corneltek/getoptionkit",
@@ -301,7 +300,7 @@
             ],
             "description": "Powerful command-line option toolkit",
             "homepage": "http://github.com/c9s/GetOptionKit",
-            "time": "2017-06-30 14:54:48"
+            "time": "2017-06-30T14:54:48+00:00"
         },
         {
             "name": "geoip2/geoip2",
@@ -354,7 +353,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2017-07-10 17:59:43"
+            "time": "2017-07-10T17:59:43+00:00"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -396,7 +395,7 @@
                 "hashing",
                 "password"
             ],
-            "time": "2014-11-20 16:49:30"
+            "time": "2014-11-20T16:49:30+00:00"
         },
         {
             "name": "maxmind-db/reader",
@@ -451,7 +450,7 @@
                 "geolocation",
                 "maxmind"
             ],
-            "time": "2017-01-19 23:49:38"
+            "time": "2017-01-19T23:49:38+00:00"
         },
         {
             "name": "maxmind/minfraud",
@@ -502,7 +501,7 @@
                 "maxmind",
                 "minfraud"
             ],
-            "time": "2017-07-10 18:47:42"
+            "time": "2017-07-10T18:47:42+00:00"
         },
         {
             "name": "maxmind/web-service-common",
@@ -548,7 +547,7 @@
             ],
             "description": "Internal MaxMind Web Service API",
             "homepage": "https://github.com/maxmind/web-service-common-php",
-            "time": "2017-07-06 17:48:21"
+            "time": "2017-07-06T17:48:21+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -626,7 +625,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02 13:12:58"
+            "time": "2016-04-02T13:12:58+00:00"
         },
         {
             "name": "neitanod/forceutf8",
@@ -660,7 +659,7 @@
             ],
             "description": "PHP Class Encoding featuring popular Encoding::toUTF8() function --formerly known as forceUTF8()-- that fixes mixed encoded strings.",
             "homepage": "https://github.com/neitanod/forceutf8",
-            "time": "2017-05-22 18:50:57"
+            "time": "2017-05-22T18:50:57+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
@@ -737,7 +736,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2017-08-28 11:12:07"
+            "time": "2017-08-28T11:12:07+00:00"
         },
         {
             "name": "predis/predis",
@@ -787,7 +786,7 @@
                 "predis",
                 "redis"
             ],
-            "time": "2016-06-16 16:22:20"
+            "time": "2016-06-16T16:22:20+00:00"
         },
         {
             "name": "psr/cache",
@@ -833,7 +832,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/log",
@@ -880,7 +879,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "respect/validation",
@@ -945,7 +944,7 @@
                 "validation",
                 "validator"
             ],
-            "time": "2017-03-14 09:44:11"
+            "time": "2017-03-14T09:44:11+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1005,7 +1004,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-02 07:47:27"
+            "time": "2017-06-02T07:47:27+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1060,7 +1059,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-08-10 07:04:10"
+            "time": "2017-08-10T07:04:10+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1119,7 +1118,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/polyfill-php54",
@@ -1177,7 +1176,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/polyfill-php55",
@@ -1233,7 +1232,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2017-06-14 15:44:48"
+            "time": "2017-06-14T15:44:48+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -1282,21 +1281,21 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-01 20:52:29"
+            "time": "2017-06-01T20:52:29+00:00"
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "v0.5.2",
+            "version": "v0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "af6a9bb52291d7cdc696009ede4b3c6271ffb983"
+                "reference": "8132ebaf18365ceaf7e5c4f90ebb0390ca21d6bf"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
                 "coderkungfu/php-queue": "^1.0",
                 "corneltek/getoptionkit": "^2.5",
-                "php": ">=5.4",
+                "php": ">=5.6",
                 "phpmailer/phpmailer": "^5.2",
                 "predis/predis": "^1.1",
                 "psr/cache": "^1.0",
@@ -1309,7 +1308,7 @@
                 "ext-sqlite3": "*",
                 "jakub-onderka/php-parallel-lint": "^0.9",
                 "mediawiki/mediawiki-codesniffer": "0.11.0",
-                "phpunit/phpunit": "^4.8"
+                "phpunit/phpunit": "^5.6"
             },
             "type": "library",
             "autoload": {
@@ -1319,7 +1318,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -1337,6 +1336,10 @@
                 {
                     "name": "Elliott Eggleston",
                     "email": "eeggleston@wikimedia.org"
+                },
+                {
+                    "name": "Maggie Epps",
+                    "email": "mepps@wikimedia.org"
                 }
             ],
             "description": "The open source PHP flexible payments library and frontend/backend mediator.",
@@ -1345,7 +1348,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2018-01-11 20:06:34"
+            "time": "2018-03-01T13:03:10+00:00"
         },
         {
             "name": "zordius/lightncandy",
@@ -1392,7 +1395,7 @@
                 "php",
                 "template"
             ],
-            "time": "2015-11-05 07:14:57"
+            "time": "2015-11-05T07:14:57+00:00"
         }
     ],
     "packages-dev": [
@@ -1442,7 +1445,7 @@
             ],
             "description": "This tool check syntax of PHP files about 20x faster than serial check.",
             "homepage": "https://github.com/JakubOnderka/PHP-Parallel-Lint",
-            "time": "2018-02-24 15:31:20"
+            "time": "2018-02-24T15:31:20+00:00"
         },
         {
             "name": "mediawiki/mediawiki-codesniffer",
@@ -1478,7 +1481,7 @@
                 "codesniffer",
                 "mediawiki"
             ],
-            "time": "2017-08-11 02:17:24"
+            "time": "2017-08-11T02:17:24+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -1529,7 +1532,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-07-18 01:12:32"
+            "time": "2017-07-18T01:12:32+00:00"
         },
         {
             "name": "wikimedia/testing-access-wrapper",
@@ -1579,7 +1582,7 @@
             ],
             "description": "A simple helper class to access non-public elements of a class when testing.",
             "homepage": "https://www.mediawiki.org/wiki/Testing-access-wrapper",
-            "time": "2017-04-19 16:43:33"
+            "time": "2017-04-19T16:43:33+00:00"
         }
     ],
     "aliases": [],
