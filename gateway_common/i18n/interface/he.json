@@ -396,6 +396,7 @@
 	"donate_interface-error-http-403": "אין לך הרשאה לגשת לדף הזה.",
 	"donate_interface-statement": "Wikimedia $1",
 	"apihelp-donate-description": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
+	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, globalcollect, וכו'.",
 	"apihelp-donate-param-amount": "הסכום שנתרם.",
 	"apihelp-donate-param-currency": "קוד מטבע.",
@@ -414,6 +415,7 @@
 	"apihelp-donate-param-cvv": "ספרות אחרונות בגב הכרטיס (CVV).",
 	"apihelp-donate-param-payment_method": "באיזו שיטת תשלום להשתמש.",
 	"apihelp-donate-param-payment_submethod": "באיזו תת־שיטת תשלום להשתמש.",
+	"apihelp-donate-param-processor_form": "באילו אפשרויות בטופס של המעבד להשתמש.",
 	"apihelp-donate-param-language": "קוד שפה.",
 	"apihelp-donate-param-order_id": "מזהה הזמנה (אם התרומה כבר התחילה).",
 	"apihelp-donate-param-wmf_token": "עריכת אסימון.",
@@ -422,5 +424,9 @@
 	"apihelp-donate-param-utm_medium": "משנתה מעקב.",
 	"apihelp-donate-param-referrer": "המַפנה המקורי.",
 	"apihelp-donate-param-recurring": "מציין שהעִסקה אמורה להיות חוזרת.",
-	"apihelp-donate-example-1": "לעשות תרומה"
+	"apihelp-donate-example-1": "לעשות תרומה",
+	"apihelp-logPaymentsFormError-param-message": "הודעת השגיאה",
+	"apihelp-logPaymentsFormError-param-file": "הקובץ שבו אירעה השגיאה",
+	"apihelp-logPaymentsFormError-param-line": "השורה שבה אירעה השגיאה",
+	"apihelp-logPaymentsFormError-param-col": "העמודה שבה אירעה השגיאה"
 }
