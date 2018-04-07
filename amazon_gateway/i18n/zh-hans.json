@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yfdyh000"
+			"Yfdyh000",
+			"Liuxinyu970226"
 		]
 	},
-	"amazon_gateway-desc": "亚马逊支付程序"
+	"amazon_gateway-desc": "亚马逊支付处理"
 }
