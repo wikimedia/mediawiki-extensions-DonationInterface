@@ -7,6 +7,16 @@ use SmashPig\Tests\TestingProviderConfiguration;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
+	protected $partialUrl;
+
+	protected $hostedCheckoutCreateResponse;
+
+	protected $hostedPaymentStatusResponse;
+
+	protected $hostedPaymentStatusResponseBadCvv;
+
+	protected $approvePaymentResponse;
+
 	/**
 	 * @var HostedCheckoutProvider
 	 */
@@ -80,6 +90,100 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 				),
 			),
 		) );
+
+		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
+			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';
+
+		$this->hostedCheckoutCreateResponse = array(
+			'partialRedirectUrl' => $this->partialUrl,
+			'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+			'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+		);
+
+		$this->hostedPaymentStatusResponse = array(
+			"createdPaymentOutput" => array(
+				"payment" => array(
+					"id" => "000000891566072501680000200001",
+					"paymentOutput" => array(
+						"amountOfMoney" => array(
+							"amount" => 2345,
+							"currencyCode" => "USD"
+						),
+						"references" => array(
+							"paymentReference" => "0"
+						),
+						"paymentMethod" => "card",
+						"cardPaymentMethodSpecificOutput" => array(
+							"paymentProductId" => 1,
+							"authorisationCode" => "123456",
+							"card" => array(
+								"cardNumber" => "************7977",
+								"expiryDate" => "1220"
+							),
+							"fraudResults" => array(
+								"avsResult" => "0",
+								"cvvResult" => "M",
+								"fraudServiceResult" => "no-advice"
+							)
+						)
+					),
+					"status" => "PENDING_APPROVAL",
+					"statusOutput" => array(
+						"isCancellable" => true,
+						"statusCode" => 600,
+						"statusCodeChangeDateTime" => "20140717145840",
+						"isAuthorized" => true
+					)
+				),
+				"paymentCreationReferences" => array(
+					"additionalReference" => "00000089156607250168",
+					"externalReference" => "000000891566072501680000200001"
+				),
+				"tokens" => ""
+			),
+			"status" => "PAYMENT_CREATED"
+		);
+
+		$this->hostedPaymentStatusResponseBadCvv = $this->hostedPaymentStatusResponse;
+		$this->hostedPaymentStatusResponseBadCvv['createdPaymentOutput']['payment']
+			['paymentOutput'] ['cardPaymentMethodSpecificOutput']['fraudResults']
+			['cvvResult'] = 'N';
+
+		$this->approvePaymentResponse = array(
+			"payment" => array(
+				"id" => "000000850010000188180000200001",
+				"paymentOutput" => array(
+					"amountOfMoney" => array(
+						"amount" => 2890,
+						"currencyCode" => "EUR"
+					),
+					"references" => array(
+						"paymentReference" => "0"
+					),
+					"paymentMethod" => "card",
+					"cardPaymentMethodSpecificOutput" => array(
+						"paymentProductId" => 1,
+						"authorisationCode" => "123456",
+						"card" => array(
+							"cardNumber" => "************7977",
+							"expiryDate" => "1220"
+						),
+						"fraudResults" => array(
+							"avsResult" => "0",
+							"cvvResult" => "M",
+							"fraudServiceResult" => "no-advice"
+						)
+					)
+				),
+				"status" => "CAPTURE_REQUESTED",
+				"statusOutput" => array(
+					"isCancellable" => false,
+					"statusCode" => 800,
+					"statusCodeChangeDateTime" => "20140627140735",
+					"isAuthorized" => true
+				)
+			)
+		);
 	}
 
 	public static function getDonorTestData( $country = '' ) {

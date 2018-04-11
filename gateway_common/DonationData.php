@@ -63,6 +63,7 @@ class DonationData implements LogPrefixProvider {
 		'currency_code',
 		'payment_method',
 		'payment_submethod',
+		'recurring_payment_token',
 		'issuer_id',
 		'order_id',
 		'subscr_id',
@@ -948,6 +949,7 @@ class DonationData implements LogPrefixProvider {
 			'user_ip',
 			'date',
 			'gateway_session_id',
+			'recurring_payment_token',
 		);
 	}
 

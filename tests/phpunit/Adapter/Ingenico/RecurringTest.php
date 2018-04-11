@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  *
  */
+
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\FinalStatus;
 
 /**
@@ -26,9 +28,64 @@ use SmashPig\CrmLink\FinalStatus;
  */
 class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestCase {
 
-	public function setUp() {
-		parent::setUp();
-		$this->markTestSkipped( 'Recurring not implemented' );
+	public function testSetupTokenizedCheckout() {
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['recurring'] = 1;
+		$this->setUpRequest( $init );
+		$gateway = new IngenicoAdapter();
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )
+			->with( $this->callback( function( $arg ) {
+				$this->assertArraySubset( array(
+					'cardPaymentSpecificInput' => array (
+						'tokenize' => true,
+						'isRecurring' => true,
+						'recurringPaymentSequenceIndicator' => 'first',
+					)
+				), $arg);
+				return true;
+			} ) )
+			->willReturn( $this->hostedCheckoutCreateResponse );
+		$gateway->do_transaction( 'createHostedCheckout' );
+
+	}
+
+	public function testProcessTokenizedPayment() {
+		$token = '229a1d6e-1b26-4c91-8e00-969a49c9d041';
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['recurring'] = 1;
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = new IngenicoAdapter();
+		$statusResponse = $this->hostedPaymentStatusResponse;
+		// Sandbox testing shows this potential array flattened to a string
+		$statusResponse['createdPaymentOutput']['tokens'] = $token;
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn( $statusResponse );
+		$this->hostedCheckoutProvider->method( 'approvePayment' )
+			->willReturn( $this->approvePaymentResponse );
+		$result = $gateway->processDonorReturn( array(
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'M',
+			'avsResult' => '0'
+		) );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNotNull( $message );
+		$this->assertEquals( 1, $message['recurring'] );
+		$this->assertEquals(
+			$token,
+			$message['recurring_payment_token']
+		);
 	}
 
 	/**
@@ -37,6 +94,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 * @covers IngenicoAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringCharge() {
+		$this->markTestSkipped( 'Recurring not implemented' );
 		$init = array(
 			'amount' => '2345',
 			'effort_id' => 2,
@@ -60,6 +118,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 * @covers IngenicoAdapter::transactionRecurring_Charge
 	 */
 	public function testDeclinedRecurringCharge() {
+		$this->markTestSkipped( 'Recurring not implemented' );
 		$init = array(
 			'amount' => '2345',
 			'effort_id' => 2,
@@ -92,6 +151,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 * @covers IngenicoAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringTimeout() {
+		$this->markTestSkipped( 'Recurring not implemented' );
 		$init = array(
 			'amount' => '2345',
 			'effort_id' => 2,
@@ -117,6 +177,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 * @covers IngenicoAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringResume() {
+		$this->markTestSkipped( 'Recurring not implemented' );
 		$init = array(
 			'amount' => '2345',
 			'effort_id' => 2,
