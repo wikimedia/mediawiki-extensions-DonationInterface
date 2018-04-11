@@ -6,5 +6,5 @@ Content-Length: 106
 Connection: keep-alive
 X-Powered-By: PHP/5.3.27
 
-{"status":"0","link":"https:\/\/sandbox.astropaycard.com\/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg"}
+{"status":"0","link":"https:\/\/sandbox.dlocal.com\/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg"}
 

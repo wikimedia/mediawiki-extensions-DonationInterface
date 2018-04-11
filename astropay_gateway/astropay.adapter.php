@@ -191,8 +191,8 @@ class AstroPayAdapter extends GatewayAdapter {
 			// Test bank labelled 'GNB' on their site
 			// Data for testing in Brazil (other countries can use random #s)
 			// Cpf: 00003456789
-			// Email: testing@astropaycard.com
-			// Name: ASTROPAY TESTING
+			// Email: testing2@dlocal.com
+			// Name: DLOCAL TESTING
 			// Birthdate: 04/03/1984
 			$this->payment_submethods['test_bank'] = array(
 				'bank_code' => 'TE',

@@ -175,7 +175,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'NewInvoice' );
 
 		// from the test response
-		$expected = 'https://sandbox.astropaycard.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
+		$expected = 'https://sandbox.dlocal.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
 		$response = $gateway->getTransactionResponse();
 		$this->assertEquals( $expected, $response->getRedirect(),
 			'do_transaction is not setting the right redirect' );
@@ -192,7 +192,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$result = $gateway->doPayment();
 
 		// from the test response
-		$expected = 'https://sandbox.astropaycard.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
+		$expected = 'https://sandbox.dlocal.com/go_to_bank?id=A5jvKfK1iHIRUTPXXt8lDFGaRRLzPgBg';
 		$this->assertEquals( $expected, $result->getRedirect(),
 			'doPayment is not setting the right redirect' );
 	}

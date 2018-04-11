@@ -291,8 +291,8 @@ $wgAdyenGatewayMaxRiskScore = 95
 #	)
 
 // Set base URLs here.  Individual transactions have their own paths
-$wgAstroPayGatewayURL = 'https://astropaycard.com/'
-$wgAstroPayGatewayTestingURL = 'https://sandbox.astropaycard.com/'
+$wgAstroPayGatewayURL = 'https://api.dlocal.com/'
+$wgAstroPayGatewayTestingURL = 'https://sandbox.dlocal.com/'
 #	$wgAstroPayGatewayAccountInfo['example'] = array(
 #		'Create' => array( // For creating invoices
 #			'Login' => '',
