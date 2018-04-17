@@ -13,7 +13,8 @@
 			"Umherirrender",
 			"Jrobell",
 			"Pcoombe",
-			"Danielbeerbonn"
+			"Danielbeerbonn",
+			"ToBeFree"
 		]
 	},
 	"donate_interface": "Unterstützen Sie Wikimedia",
@@ -436,5 +437,6 @@
 	"apihelp-logPaymentsFormError-param-file": "Datei, in der der Fehler auftrat.",
 	"apihelp-logPaymentsFormError-param-line": "Zeile, in der der Fehler auftrat.",
 	"apihelp-logPaymentsFormError-param-col": "Spalte, in der der Fehler auftrat.",
-	"apihelp-logPaymentsFormError-param-userAgent": "Zeichenfolge des Browser-User-Agenten"
+	"apihelp-logPaymentsFormError-param-userAgent": "Zeichenfolge des Browser-User-Agenten",
+	"apihelp-logPaymentsFormError-param-stack": "Stacktrace des Fehlers, falls vorhanden"
 }

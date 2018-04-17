@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Bencmq",
-			"Yfdyh000"
+			"Yfdyh000",
+			"Liuxinyu970226"
 		]
 	},
-	"paypal_gateway-desc": "将PayPal注册为捐助方式"
+	"paypal_gateway-desc": "PayPal支付处理"
 }

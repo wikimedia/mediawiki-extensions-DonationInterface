@@ -4,7 +4,8 @@
 			"Тест",
 			"Хомелка",
 			"Дзяніс Тутэйшы",
-			"Mechanizatar"
+			"Mechanizatar",
+			"Artsiom91"
 		]
 	},
 	"donate_interface": "Падтрымаем Вікіпедыю",
@@ -159,6 +160,7 @@
 	"donate_interface-error-msg-card_num": "Нумар крэдытнай карткі",
 	"donate_interface-error-msg-expiration": "дата заканчэння дзеяння карты",
 	"donate_interface-error-msg-cvv": "CVV са зваротнага боку вашай карты",
+	"donate_interface-error-msg-account_name": "Уладальнік рахунка (Account Name)",
 	"donate_interface-error-msg-captcha": "Уведзенае значэнне Captcha няправільна. Калі ласка, паспрабуйце яшчэ раз.",
 	"donate_interface-error-msg-captcha-please": "Калі ласка, запоўніце форму Captcha, каб даказаць, што вы не бот.",
 	"php-response-declined": "Ваша транзакцыя не можа быць прынятая.",

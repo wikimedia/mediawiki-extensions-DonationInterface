@@ -5,7 +5,7 @@
 			"Liuxinyu970226"
 		]
 	},
-	"globalcollect_gateway-desc": "GlobalCollect 支付程序",
+	"globalcollect_gateway-desc": "GlobalCollect支付处理",
 	"globalcollect_gateway-fakesucceed": "测试一次成功付款",
 	"globalcollect_gateway-fakefail": "测试一次付款失败",
 	"globalcollect_gateway-response-9130": "无效的国家。",
