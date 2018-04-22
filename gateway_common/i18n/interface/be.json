@@ -122,6 +122,7 @@
 	"donate_interface-donor-mname": "Імя па бацьку",
 	"donate_interface-donor-last_name": "Прозвішча",
 	"donate_interface-donor-street_address": "Вуліца",
+	"donate_interface-donor-street-number": "Нумар",
 	"donate_interface-donor-city": "Горад",
 	"donate_interface-donor-state_province": "Краіна/рэгіён",
 	"donate_interface-donor-postal_code": "Паштовы індэкс",
