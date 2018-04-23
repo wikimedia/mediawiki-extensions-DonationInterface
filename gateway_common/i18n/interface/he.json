@@ -399,6 +399,7 @@
 	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, globalcollect, וכו'.",
 	"apihelp-donate-param-amount": "הסכום שנתרם.",
+	"apihelp-donate-param-contact_id": "מזהה התורם ב־CiviCRM.",
 	"apihelp-donate-param-currency": "קוד מטבע.",
 	"apihelp-donate-param-first_name": "שם פרטי.",
 	"apihelp-donate-param-last_name": "שם משפחה.",
