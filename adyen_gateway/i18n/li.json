@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ooswesthoesbes"
+		]
+	},
+	"adyen_gateway-desc": "Betalingsverwirking via Adyen",
+	"adyen_gateway-response-default": "'n Fout is opgetraoje bie 't verwirke van dien transactie.\nPerbeer 't later oppernuuj."
+}
