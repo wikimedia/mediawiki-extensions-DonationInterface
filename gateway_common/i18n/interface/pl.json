@@ -207,6 +207,7 @@
 	"donate_interface-error-msg-country-calc": "Błąd - nie jesteśmy w stanie zaakceptować Twojej wpłaty w tym momencie.",
 	"donate_interface-error-msg-fiscal_number": "Musisz podać Numer CPF/CNPJ",
 	"donate_interface-error-msg-invalid-fiscal_number": "Popraw błędy w polu Numer CPF/CNPJ",
+	"donate_interface-error-msg-issuer_id": "bank",
 	"donate_interface-donate-error-try-a-different-card": "Proszę [$1 wybierz inną kartę] lub [$2 metodę płatności] lub [$3 skontaktuj się z nami]",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Spróbuj ponownie</a>, skorzystaj z którejś z <a href=\"$2\">innych metod przekazania darowizny</a> lub skontaktuj się z nami pod adresem e-mail <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-donate-error-thank-you-for-your-support": "Dziękujemy za wsparcie!",

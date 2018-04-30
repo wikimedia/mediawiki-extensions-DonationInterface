@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"ديفيد"
+		]
+	},
+	"adyen_gateway-desc": "عملية دفع أدين",
+	"adyen_gateway-response-default": "حدث خطأ أثناء معالجة معاملتك;\nالرجاء معاودة المحاولة في وقت لاحق."
+}
