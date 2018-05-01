@@ -38,19 +38,18 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$gateway = new IngenicoAdapter();
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )
-			->with( $this->callback( function( $arg ) {
+			->with( $this->callback( function ( $arg ) {
 				$this->assertArraySubset( array(
-					'cardPaymentSpecificInput' => array (
+					'cardPaymentSpecificInput' => array(
 						'tokenize' => true,
 						'isRecurring' => true,
 						'recurringPaymentSequenceIndicator' => 'first',
 					)
-				), $arg);
+				), $arg );
 				return true;
 			} ) )
 			->willReturn( $this->hostedCheckoutCreateResponse );
 		$gateway->do_transaction( 'createHostedCheckout' );
-
 	}
 
 	public function testProcessTokenizedPayment() {
