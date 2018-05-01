@@ -361,6 +361,8 @@
 	"donate_interface-monthly-short": "Μηνιαία",
 	"donate_interface-onetime-short": "Εφάπαξ",
 	"donate_interface-error-http-403": "Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα.",
+	"donate_interface-statement": "Wikimedia $1",
+	"apihelp-donate-param-amount": "Η ποσότητα που δωρίστηκε.",
 	"apihelp-donate-param-currency": "Κωδικός νομίσματος.",
 	"apihelp-donate-param-first_name": "Μικρό όνομα.",
 	"apihelp-donate-param-last_name": "Επώνυμο.",
@@ -377,5 +379,10 @@
 	"apihelp-donate-param-cvv": "Κωδικός ασφαλείας CVV.",
 	"apihelp-donate-param-payment_method": "Μέθοδος πληρωμής που θα χρησιμοποιηθεί.",
 	"apihelp-donate-param-payment_submethod": "Υπομέθοδος πληρωμής που θα χρησιμοποιηθεί.",
-	"apihelp-donate-param-language": "Κωδικός γλώσσας."
+	"apihelp-donate-param-language": "Κωδικός γλώσσας.",
+	"apihelp-donate-example-1": "Κάντε μια δωρεά",
+	"apihelp-logPaymentsFormError-param-message": "Το μήνυμα σφάλματος",
+	"apihelp-logPaymentsFormError-param-file": "Το αρχείο στο οποίο συνέβη το σφάλμα",
+	"apihelp-logPaymentsFormError-param-line": "Γραμμή στην οποία συνέβη το σφάλμα",
+	"apihelp-logPaymentsFormError-param-col": "Στήλη στην οποία συνέβη το σφάλμα"
 }
