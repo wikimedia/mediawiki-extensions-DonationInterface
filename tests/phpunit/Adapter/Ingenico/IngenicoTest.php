@@ -442,4 +442,35 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertTrue( $result->isFailed() );
 	}
 
+	public function testClearDataWhenDone() {
+
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$firstRequest = $this->setUpRequest( $init, $session );
+
+		$gateway = $this->getFreshGatewayObject( array() );
+		$firstCt_id = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->hostedCheckoutProvider->method( 'getHostedPaymentStatus' )
+			->willReturn( $this->hostedPaymentStatusResponse );
+		$this->hostedCheckoutProvider->method( 'approvePayment' )
+			->willReturn( $this->approvePaymentResponse );
+
+		$gateway->processDonorReturn( array(
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'M',
+			'avsResult' => '0'
+		) );
+
+		$resultingSession = $firstRequest->getSessionArray();
+
+		$this->setUpRequest( $init, $resultingSession );
+		$anotherGateway = $this->getFreshGatewayObject( array() );
+		$secondCt_id = $anotherGateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+
+		$this->assertNotEquals( $firstCt_id, $secondCt_id, 'ct_id not cleared.');
+	}
 }
