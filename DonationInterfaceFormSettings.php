@@ -246,7 +246,15 @@ $forms_whitelist['rcc-vm'] = array(
 $forms_whitelist['rcc'] = array(
 	'gateway' => 'globalcollect',
 	'payment_methods' => array( 'cc' => 'ALL' ),
-	'recurring'
+	'recurring',
+    'selection_weight' => 100,
+);
+
+$forms_whitelist['rcc-ingenico'] = array(
+	'gateway' => 'ingenico',
+	'payment_methods' => array( 'cc' => 'ALL' ),
+	'recurring',
+    'selection_weight' => 10,
 );
 
 /*************************
