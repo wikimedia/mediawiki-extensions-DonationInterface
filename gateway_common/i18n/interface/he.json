@@ -399,6 +399,8 @@
 	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, globalcollect, וכו'.",
 	"apihelp-donate-param-amount": "הסכום שנתרם.",
+	"apihelp-donate-param-contact_id": "מזהה התורם ב־CiviCRM.",
+	"apihelp-donate-param-contact_hash": "קוד התורם ב־CiviCRM, משמש לצורך אימות. נדרש כאשר contact_id מסופק.",
 	"apihelp-donate-param-currency": "קוד מטבע.",
 	"apihelp-donate-param-first_name": "שם פרטי.",
 	"apihelp-donate-param-last_name": "שם משפחה.",
@@ -425,8 +427,12 @@
 	"apihelp-donate-param-referrer": "המַפנה המקורי.",
 	"apihelp-donate-param-recurring": "מציין שהעִסקה אמורה להיות חוזרת.",
 	"apihelp-donate-example-1": "לעשות תרומה",
+	"apihelp-logPaymentsFormError-description": "ה־API הזה מתעד שגיאות בטופס התרומה בצד הלקוח.",
+	"apihelp-logPaymentsFormError-summary": "ה־API הזה מתעד שגיאות בטופס התרומה בצד הלקוח.",
 	"apihelp-logPaymentsFormError-param-message": "הודעת השגיאה",
 	"apihelp-logPaymentsFormError-param-file": "הקובץ שבו אירעה השגיאה",
 	"apihelp-logPaymentsFormError-param-line": "השורה שבה אירעה השגיאה",
-	"apihelp-logPaymentsFormError-param-col": "העמודה שבה אירעה השגיאה"
+	"apihelp-logPaymentsFormError-param-col": "העמודה שבה אירעה השגיאה",
+	"apihelp-logPaymentsFormError-param-userAgent": "מחרוזת של סוכן הלקוח בדפדפן",
+	"apihelp-logPaymentsFormError-param-stack": "מעקב אחרי ערימת השגיאות, כאשר זמין"
 }

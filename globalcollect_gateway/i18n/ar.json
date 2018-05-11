@@ -3,10 +3,13 @@
 		"authors": [
 			"AwamerT",
 			"Peadara",
-			"زكريا"
+			"زكريا",
+			"ديفيد"
 		]
 	},
 	"globalcollect_gateway-desc": "تجهيز المدفوعات جلوبالكوليكت",
+	"globalcollect_gateway-fakesucceed": "زيف دفعا ناجحا",
+	"globalcollect_gateway-fakefail": "زيف دفعا فاشلا",
 	"globalcollect_gateway-response-9130": "اسم بلد غير صالح",
 	"globalcollect_gateway-response-9140": "العملة غير صالح",
 	"globalcollect_gateway-response-9150": "لغة غير صحيحة.",

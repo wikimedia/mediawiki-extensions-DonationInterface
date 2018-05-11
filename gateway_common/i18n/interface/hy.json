@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"M hamlet",
-			"Aram1985"
+			"Aram1985",
+			"Սահակ"
 		]
 	},
 	"donate_interface": "Օգնե՜նք Վիքիմեդիա Հիմնադրամին",
@@ -11,7 +12,7 @@
 	"donate_interface-other-amount": "Այլ գումար",
 	"donate_interface-currency": "Արժույթ",
 	"donate_interface-gateway": "Վճարման եղանակ",
-	"donate_interface-submit-button": "Դրամական նվիրատվություն",
+	"donate_interface-submit-button": "Նվիրաբերել",
 	"donate_interface-comment-label": "Մեկնաբանություն՝",
 	"donate_interface-email-agreement": "Ես համաձայն եմ պարբերաբար էլեկտրոնային նամակներով ստանալ նորություններ Վիքիմեդիա Հիմնադրամից:",
 	"donate_interface-comment-title": "Հանրային մեկնաբանություն",

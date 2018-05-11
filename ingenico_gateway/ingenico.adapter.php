@@ -191,7 +191,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		}
 		$result = parent::do_transaction( $transaction );
 		// Add things to session which may have been retrieved from API
-		$this->session_addDonorData();
+		if ( !$this->getFinalStatus() ) {
+			$this->session_addDonorData();
+		}
+
 		return $result;
 	}
 

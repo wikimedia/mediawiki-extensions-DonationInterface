@@ -19,6 +19,7 @@
 
 use ForceUTF8\Encoding;
 use MediaWiki\Session\SessionManager;
+use MediaWiki\Session\Token;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\PaymentError;
@@ -3163,7 +3164,7 @@ abstract class GatewayAdapter
 			$salt = implode( "|", $salt );
 		}
 
-		$salted = md5( $clear_token . $salt ) . User::EDIT_TOKEN_SUFFIX;
+		$salted = md5( $clear_token . $salt ) . Token::SUFFIX;
 		return $salted;
 	}
 
