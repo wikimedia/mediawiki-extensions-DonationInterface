@@ -4,5 +4,6 @@
 			"Robin van der Vliet"
 		]
 	},
-	"donate_interface-description": "Descrive"
+	"donate_interface-description": "Descrive",
+	"donate_interface-obt-customer_payment_reference": "Refere #"
 }
