@@ -123,6 +123,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			'request' => array( 'id' ),
 			'response' => array( 'statusCode' )
 		);
+
+		$this->transactions['cancelPayment'] = array(
+			'request' => array( 'id' ),
+			'response' => array( 'statusCode' )
+		);
 	}
 
 	/**
@@ -170,6 +175,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				$id = $data['id'];
 				unset( $data['id'] );
 				$result = $provider->approvePayment( $id, $data );
+				break;
+			case 'cancelPayment':
+				$id = $data['id'];
+				unset( $data['id'] );
+				$result = $provider->cancelPayment( $id );
 				break;
 			default:
 				return false;
@@ -304,5 +314,13 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 
 	protected function getStatusCode( $txnData ) {
 		return $this->getData_Unstaged_Escaped( 'gateway_status' );
+	}
+
+	public function cancel() {
+		return $this->do_transaction( 'cancelPayment' );
+	}
+
+	public function shouldRectifyOrphan() {
+		return true;
 	}
 }

@@ -299,6 +299,61 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertEquals( "CAPTURE_REQUESTED", $data['status'], "Should return status CAPTURE_REQUESTED" );
 	}
 
+	public function testCancelPayment() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
+		$init['gateway_txn_id'] = 'ingenico' . $init['gateway_session_id'];
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'cancelPayment' )
+            ->with( $init['gateway_txn_id'] )
+			->willReturn(
+				array(
+					"payment" => array(
+						"id" => "000000850010000188180000200001",
+						"paymentOutput" => array(
+							"amountOfMoney" => array(
+								"amount" => 2890,
+								"currencyCode" => "EUR"
+							),
+							"references" => array(
+								"merchantReference" => "merchantReference",
+								"paymentReference" => "0"
+							),
+							"paymentMethod" => "card",
+							"cardPaymentMethodSpecificOutput" => array(
+								"paymentProductId" => 1,
+								"authorisationCode" => "726747",
+								"card" => array(
+									"cardNumber" => "************7977",
+									"expiryDate" => "1220"
+								),
+								"fraudResults" => array(
+									"avsResult" => "0",
+									"cvvResult" => "0",
+									"fraudServiceResult" => "no-advice"
+								)
+							)
+						),
+						"status" => "CANCELLED",
+						"statusOutput" => array(
+							"isCancellable" => false,
+							"statusCode" => 99999,
+							"statusCodeChangeDateTime" => "20150223153431"
+						)
+					),
+					"cardPaymentMethodSpecificOutput" => array(
+						"voidResponseId" => "0"
+					)
+				)
+			);
+		$gateway->do_transaction( 'cancelPayment' );
+		$data = $gateway->getTransactionData();
+		$this->assertEquals( "CANCELLED", $data['status'], "Should return status CANCELLED" );
+	}
+
 	public function testLanguageStaging() {
 		$options = $this->getDonorTestData( 'NO' );
 		$options['payment_method'] = 'cc';
@@ -443,7 +498,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	public function testClearDataWhenDone() {
-
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -471,6 +525,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$anotherGateway = $this->getFreshGatewayObject( array() );
 		$secondCt_id = $anotherGateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
-		$this->assertNotEquals( $firstCt_id, $secondCt_id, 'ct_id not cleared.');
+		$this->assertNotEquals( $firstCt_id, $secondCt_id, 'ct_id not cleared.' );
 	}
 }
