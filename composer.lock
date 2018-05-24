@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "cf6ab65f6634cc25c59128667d2bae7e",
@@ -1285,11 +1285,11 @@
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "v0.5.3",
+            "version": "v0.5.6.3",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "8132ebaf18365ceaf7e5c4f90ebb0390ca21d6bf"
+                "reference": "62f7a0c360cb59ad687de19b88521eb9191bff0c"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -1348,7 +1348,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2018-03-01T13:03:10+00:00"
+            "time": "2018-05-11T17:09:48+00:00"
         },
         {
             "name": "zordius/lightncandy",
