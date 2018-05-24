@@ -15,7 +15,9 @@ class ContributionTrackingPlusUnique implements StagingHelper, UnstagingHelper {
 		}
 		$ctid = $normalized['contribution_tracking_id'];
 		// append timestamp to ctid
-		$ctid .= '.' . ( ( microtime( true ) * 1000 ) % 100000 ); // least significant five
+		$suffix = ( ( microtime( true ) * 1000 ) % 100000 ); // least significant five
+		$suffix = str_pad( $suffix, 5, '0', STR_PAD_LEFT );
+		$ctid .= '.' . $suffix;
 		$stagedData['contribution_tracking_id'] = $ctid;
 	}
 
