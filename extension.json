@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -12,7 +12,9 @@
 		"Peter Gehres",
 		"Jeremy Postlethwaite",
 		"Dylan Kozlowski",
-		"Casey Dentinger"
+		"Casey Dentinger",
+		"Maggie Epps",
+		"Jack Gleeson"
 	],
 	"license-name": "GPL-2.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
