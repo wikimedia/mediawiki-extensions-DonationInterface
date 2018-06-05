@@ -308,7 +308,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'cancelPayment' )
-            ->with( $init['gateway_txn_id'] )
+			->with( $init['gateway_txn_id'] )
 			->willReturn(
 				array(
 					"payment" => array(

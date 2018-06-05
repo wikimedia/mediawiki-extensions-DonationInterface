@@ -154,6 +154,5 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 		$gateway->do_transaction( 'CONVERT_PAYMENTTOPROFILE' );
 		$token = $gateway->getData_Unstaged_Escaped( 'recurring_payment_token' );
 		$this->assertEquals( 'af16af70-2bf5-44e9-a087-68c87f67e3a1', $token );
-
 	}
 }
