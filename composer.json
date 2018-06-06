@@ -37,7 +37,7 @@
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
-		"mediawiki/mediawiki-codesniffer": "0.11.0",
+		"mediawiki/mediawiki-codesniffer": "19.0.0",
 		"wikimedia/testing-access-wrapper": "~1.0",
 		"mediawiki/minus-x": "0.2.0"
 	},
