@@ -32,7 +32,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 
 		if (
 			!$this->gateway_adapter->getGlobal( 'EnableFunctionsFilter' ) ||
-			!count( $functions )
+			empty( $functions )
 		) {
 			return true;
 		}
