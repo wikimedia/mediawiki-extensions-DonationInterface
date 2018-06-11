@@ -114,7 +114,7 @@ $wgDonationInterfaceGatewayAdapters = array(
 $wgDonationInterfaceTest = true;
 $wgDonationInterfaceMerchantID = 'test';
 
-$wgDonationInterfaceThankYouPage = 'https://wikimediafoundation.org/wiki/Thank_You';
+$wgDonationInterfaceThankYouPage = 'https://donate.wikimedia.org/wiki/Thank_You';
 
 /** GlobalCollect **/
 $wgGlobalCollectGatewayAccountInfo = array();

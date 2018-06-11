@@ -42,7 +42,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 		);
 		$apiResult = $this->doApiRequest( $params, $session );
 		$redirect = $apiResult[0]['redirect'];
-		$this->assertEquals( 'https://wikimediafoundation.org/wiki/Thank_You/en?country=US', $redirect );
+		$this->assertEquals( 'https://donate.wikimedia.org/wiki/Thank_You/en?country=US', $redirect );
 		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$setOrderReferenceDetailsArgs = $mockClient->calls['setOrderReferenceDetails'][0];
 		$oid = $session['Donor']['contribution_tracking_id'] . '-1';
