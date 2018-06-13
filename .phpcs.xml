@@ -34,7 +34,6 @@
                 <exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
                 <exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />
                 <exclude name="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix" />
-                <exclude name="MediaWiki.Usage.ForbiddenFunctions.key_exists" />
                 <exclude name="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals" />
                 <exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
                 <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
