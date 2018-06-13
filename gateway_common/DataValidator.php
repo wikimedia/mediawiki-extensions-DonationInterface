@@ -483,8 +483,8 @@ EOT;
 		// Remove common CC# delimiters
 		$str = preg_replace( '/[\s\-]/', '', $str );
 
-		// Now split the string on everything else and join again so the regexen have an 'easy' time
-		$str = join( ' ', preg_split( '/[^0-9]+/', $str, PREG_SPLIT_NO_EMPTY ) );
+		// Now split the string on everything else and implode again so the regexen have an 'easy' time
+		$str = implode( ' ', preg_split( '/[^0-9]+/', $str, PREG_SPLIT_NO_EMPTY ) );
 
 		// First do we have any numbers that match a pattern but is not luhn checkable?
 		$matches = array();
