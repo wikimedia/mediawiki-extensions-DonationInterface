@@ -168,7 +168,33 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertEquals( ValidationAction::PROCESS, $action, 'Gateway should not fraud fail on statusCode 25' );
 	}
 
-	/**
+    /**
+     * Return status and re-do if in progress
+     */
+    function testGetHostedPaymentStatusInProgress() {
+        $init = $this->getDonorTestData();
+        $init['payment_method'] = 'cc';
+        $init['payment_submethod'] = 'visa';
+        $init['email'] = 'innocent@safedomain.org';
+
+        $this->setUpRequest( array( 'cvvResult' => 'M' ) );
+
+        $gateway = $this->getFreshGatewayObject( $init );
+        $this->hostedCheckoutProvider->expects( $this->once() )
+            ->method( 'getHostedPaymentStatus' )
+            ->willReturn(
+                array(
+                    "status" => "IN_PROGRESS"
+                )
+
+            );
+
+        $result = $gateway->do_transaction('Confirm_CreditCard');
+        $this->assertArrayEquals( array(), $result->getErrors(), 'In Progress status should return no errors' );
+    }
+
+
+    /**
 	 * Make sure we're incorporating getHostedPaymentStatus AVS and CVV responses into
 	 * fraud scores.
 	 */

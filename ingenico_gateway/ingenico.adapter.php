@@ -338,7 +338,14 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	protected function getStatusCode( $txnData ) {
-		return $this->getData_Unstaged_Escaped( 'gateway_status' );
+		$statusCode = $this->getData_Unstaged_Escaped( 'gateway_status' );
+		// hack because IN_PROGRESS status doesn't return statusCode
+		// FIXME: when we sunset globalcollect
+		if ( !$statusCode && array_key_exists( 'status', $txnData ) && $txnData['status'] = "IN_PROGRESS" ) {
+			$statusCode = 25;
+			// 25 because it's in range for pending but also not mapped to another status
+		}
+		return $statusCode;
 	}
 
 	public function cancel() {
