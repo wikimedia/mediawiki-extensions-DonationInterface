@@ -18,4 +18,5 @@ id: gateway_txn_id
 statusCode: gateway_status
 avsResult: avs_result
 cvvResult: cvv_result
+returnUrl: returnto
 tokens: recurring_payment_token

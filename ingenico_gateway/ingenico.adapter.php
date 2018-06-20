@@ -19,6 +19,26 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		return 'json';
 	}
 
+	/**
+	 * Setting some Ingenico-specific defaults.
+	 * @param array $options These get extracted in the parent.
+	 */
+	function setGatewayDefaults( $options = array() ) {
+		if ( isset( $options['returnTo'] ) ) {
+			$returnTo = $options['returnTo'];
+		} else {
+			$returnTo = Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
+		}
+
+		$defaults = array(
+			'returnto' => $returnTo,
+			'attempt_id' => '1',
+			'effort_id' => '1',
+		);
+
+		$this->addRequestData( $defaults );
+	}
+
 	public function defineTransactions() {
 		parent::defineTransactions();
 		$this->transactions['createHostedCheckout'] = array(
@@ -86,8 +106,6 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				)
 			),
 			'values' => array(
-				'returnUrl' => $returnTitle = Title::newFromText( 'Special:IngenicoGatewayResult' )
-					->getFullURL( false, false, PROTO_CURRENT ),
 				'showResultPage' => 'false',
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			),
