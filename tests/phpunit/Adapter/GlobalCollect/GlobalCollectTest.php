@@ -318,6 +318,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'ADDRESSLINE4' => 'address_line_4',
 			'ATTEMPTID' => 'attempt_id',
 			'AUTHORISATIONID' => 'authorization_id',
+			'AUTHENTICATIONINDICATOR' => 'use_authentication',
 			'BANKACCOUNTNUMBER' => 'bank_account_number',
 			'BANKAGENZIA' => 'bank_agenzia',
 			'BANKCHECKDIGIT' => 'bank_check_digit',

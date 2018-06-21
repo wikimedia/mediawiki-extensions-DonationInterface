@@ -44,6 +44,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 						'tokenize' => true,
 						'isRecurring' => true,
 						'recurringPaymentSequenceIndicator' => 'first',
+						'skipAuthentication' => true,
 					)
 				), $arg );
 				return true;
