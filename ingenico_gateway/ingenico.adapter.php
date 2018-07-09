@@ -43,7 +43,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		parent::defineTransactions();
 		$this->transactions['createHostedCheckout'] = array(
 			'request' => array(
-				'cardPaymentSpecificInput' => array(
+				'cardPaymentMethodSpecificInput' => array(
 					'skipAuthentication'
 				),
 				'hostedCheckoutSpecificInput' => array(
@@ -236,12 +236,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	 */
 	protected function tuneForRecurring() {
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			$this->transactions['createHostedCheckout']['request']['cardPaymentSpecificInput'] =
+			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
-					$this->transactions['createHostedCheckout']['request']['cardPaymentSpecificInput'],
+					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],
 					array(
 						'tokenize',
-						'isRecurring',
 						'recurringPaymentSequenceIndicator'
 					)
 				);
