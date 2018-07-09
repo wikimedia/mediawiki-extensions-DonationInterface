@@ -1285,11 +1285,11 @@
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "v0.5.6.3",
+            "version": "v0.5.6.6",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "62f7a0c360cb59ad687de19b88521eb9191bff0c"
+                "reference": "0791fbba1f3843518cbe976615386d6dc2c1eb19"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -1348,7 +1348,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2018-05-11T17:09:48+00:00"
+            "time": "2018-07-09T19:24:33+00:00"
         },
         {
             "name": "zordius/lightncandy",
