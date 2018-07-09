@@ -114,6 +114,7 @@
 	"donate_interface-tax-info": "Informasjon om skattefrådrag",
 	"donate_interface-informationsharing": "Ved å donera deler du informasjon med Wikimedia Foundation, den ideelle organisasjonen som er vert for Wikipedia og andre Wikimedia-prosjekt, og tenestetilbydarane hans i USA og andre stader, i samsvar med personvernsretningslinene våre for donasjonar. Me korkje sel eller byter informasjonen med andre. For meir informasjon, sjå <a href=\"//wikimediafoundation.org/wiki/Donor_policy/en\">retningslinene våre for donasjonar</a>.",
 	"donate_interface-currency-change": "Endra?",
+	"donate_interface-taxded-link-us": "Informasjon om skattefrådrag",
 	"donate_interface-monthly-cancel": "Månadlege betalingar vil utførast av Wikimedia-stiftinga fram til du bed oss om å stogga dei.",
 	"donate_interface-monthly-short": "Månadleg",
 	"donate_interface-onetime-short": "Éingongs"

@@ -530,6 +530,32 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'VERSION' => '1.0',
 			),
 		);
+
+		// Convert an old-style recurring payment to a profile for Connect
+		$this->transactions['CONVERT_PAYMENTTOPROFILE'] = array(
+			'request' => array(
+				'REQUEST' => array(
+					'ACTION',
+					'META' => array(
+						'MERCHANTID',
+						'IPADDRESS',
+						'VERSION',
+					),
+					'PARAMS' => array(
+						'PAYMENT' => array(
+							'ORDERID',
+						),
+					)
+				)
+			),
+			'response' => array(
+				'PROFILETOKEN',
+			),
+			'values' => array(
+				'ACTION' => 'CONVERT_PAYMENTTOPROFILE',
+				'VERSION' => '2.0',
+			),
+		);
 	}
 
 	function getBasedir() {
@@ -1133,6 +1159,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				break;
 			case 'DO_FINISHPAYMENT':
 			case 'DO_REFUND':
+			case 'CONVERT_PAYMENTTOPROFILE':
 				$data = $this->xmlChildrenToArray( $response, 'ROW' );
 				break;
 			case 'DO_PAYMENT':
@@ -1470,47 +1497,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		parent::stageData();
 
-		// FIXME: Move to a more specific point in the workflow, in the related do_transaction handler.
-		$this->set3dsFlag();
-
 		// FIXME: Move to a post-staging hook, and push most of it into the declarative block.
 		$this->tuneForMethod();
 		$this->tuneForRecurring();
 		$this->tuneForCountry();
-	}
-
-	protected function set3dsFlag() {
-		// This array contains all the card types that can use AUTHENTICATIONINDICATOR
-		$authenticationIndicatorTypes = array(
-			'1', // visa
-			'3', // mc
-		);
-
-		$enable3ds = false;
-		$currency = $this->getData_Unstaged_Escaped( 'currency' );
-		$country = strtoupper( $this->getData_Unstaged_Escaped( 'country' ) );
-		if ( isset( $this->staged_data['payment_product'] )
-		  && in_array( $this->staged_data['payment_product'], $authenticationIndicatorTypes )
-		) {
-			$ThreeDSecureRules = $this->getGlobal( '3DSRules' ); // ha
-			if ( array_key_exists( $currency, $ThreeDSecureRules ) ) {
-				if ( !is_array( $ThreeDSecureRules[$currency] ) ) {
-					if ( $ThreeDSecureRules[$currency] === $country ) {
-						$enable3ds = true;
-					}
-				} else {
-					if ( empty( $ThreeDSecureRules[$currency] ) || in_array( $country, $ThreeDSecureRules[$currency] ) ) {
-						$enable3ds = true;
-					}
-				}
-			}
-		}
-
-		if ( $enable3ds ) {
-			$this->logger->info( "3dSecure enabled for $currency in $country" );
-			// Do the business--set our flag.
-			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['AUTHENTICATIONINDICATOR'] = '1';
-		}
 	}
 
 	/**

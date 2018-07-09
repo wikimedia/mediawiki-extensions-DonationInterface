@@ -18,4 +18,8 @@ id: gateway_txn_id
 statusCode: gateway_status
 avsResult: avs_result
 cvvResult: cvv_result
+returnUrl: returnto
 tokens: recurring_payment_token
+# FIXME: normalized variable name should be something positive, but our staging
+# is only about formatting values, so flipping the sense of it is out of scope.
+skipAuthentication: skip_authentication

@@ -560,7 +560,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		foreach ( $valid_forms as $form_name => $meta ) {
 			$submethod_counter[$form_name] = 0;
 			foreach ( $meta['payment_methods'] as $method ) {
-				$submethod_counter[$form_name] += count( $method );
+				if ( is_array( $method ) ) {
+					$submethod_counter[$form_name] += count( $method );
+				} elseif ( !empty( $method ) ) {
+					$submethod_counter[$form_name] += 1;
+				}
 			}
 		}
 		arsort( $submethod_counter, SORT_NUMERIC );

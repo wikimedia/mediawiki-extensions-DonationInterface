@@ -19,10 +19,33 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		return 'json';
 	}
 
+	/**
+	 * Setting some Ingenico-specific defaults.
+	 * @param array $options These get extracted in the parent.
+	 */
+	function setGatewayDefaults( $options = array() ) {
+		if ( isset( $options['returnTo'] ) ) {
+			$returnTo = $options['returnTo'];
+		} else {
+			$returnTo = Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
+		}
+
+		$defaults = array(
+			'returnto' => $returnTo,
+			'attempt_id' => '1',
+			'effort_id' => '1',
+		);
+
+		$this->addRequestData( $defaults );
+	}
+
 	public function defineTransactions() {
 		parent::defineTransactions();
 		$this->transactions['createHostedCheckout'] = array(
 			'request' => array(
+				'cardPaymentSpecificInput' => array(
+					'skipAuthentication'
+				),
 				'hostedCheckoutSpecificInput' => array(
 					'isRecurring',
 					'locale',
@@ -86,8 +109,6 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				)
 			),
 			'values' => array(
-				'returnUrl' => $returnTitle = Title::newFromText( 'Special:IngenicoGatewayResult' )
-					->getFullURL( false, false, PROTO_CURRENT ),
 				'showResultPage' => 'false',
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			),
@@ -120,6 +141,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		);
 
 		$this->transactions['approvePayment'] = array(
+			'request' => array( 'id' ),
+			'response' => array( 'statusCode' )
+		);
+
+		$this->transactions['cancelPayment'] = array(
 			'request' => array( 'id' ),
 			'response' => array( 'statusCode' )
 		);
@@ -171,6 +197,11 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				unset( $data['id'] );
 				$result = $provider->approvePayment( $id, $data );
 				break;
+			case 'cancelPayment':
+				$id = $data['id'];
+				unset( $data['id'] );
+				$result = $provider->cancelPayment( $id );
+				break;
 			default:
 				return false;
 		}
@@ -206,10 +237,13 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	protected function tuneForRecurring() {
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentSpecificInput'] =
-				array(
-					'tokenize',
-					'isRecurring',
-					'recurringPaymentSequenceIndicator'
+				array_merge(
+					$this->transactions['createHostedCheckout']['request']['cardPaymentSpecificInput'],
+					array(
+						'tokenize',
+						'isRecurring',
+						'recurringPaymentSequenceIndicator'
+					)
 				);
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
@@ -304,5 +338,13 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 
 	protected function getStatusCode( $txnData ) {
 		return $this->getData_Unstaged_Escaped( 'gateway_status' );
+	}
+
+	public function cancel() {
+		return $this->do_transaction( 'cancelPayment' );
+	}
+
+	public function shouldRectifyOrphan() {
+		return true;
 	}
 }

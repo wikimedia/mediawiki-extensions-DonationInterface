@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Malafaya",
-			"Lakaoso"
+			"Lakaoso",
+			"Joao Xavier"
 		]
 	},
 	"donate_interface-AUD": "Australiana Dolaro",
@@ -21,5 +22,7 @@
 	"donate_interface-error-msg-first_name": "prenomo",
 	"donate_interface-error-msg-last_name": "surnomo",
 	"donate_interface-error-msg-city": "urbo",
-	"donate_interface-error-msg-state_province": "stato"
+	"donate_interface-error-msg-state_province": "stato",
+	"donate_interface-next": "Sequanta",
+	"donate_interface-continue": "Durar"
 }
