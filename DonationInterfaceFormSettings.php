@@ -166,6 +166,12 @@ $forms_whitelist['cc'] = array(
 	'countries' => array( '-' => 'VN' )
 );
 
+$forms_whitelist['cc-ingenico'] = array(
+	'gateway' => 'ingenico',
+	'payment_methods' => array( 'cc' => 'ALL' ),
+	'selection_weight' => 10,
+);
+
 // FIXME: is this still needed?
 /* Special case for Vietnam while GC is still having problems.
  * In the meantime: Visa & Mastercard, USD-only.
