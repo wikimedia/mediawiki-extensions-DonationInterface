@@ -56,6 +56,8 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'postal_code' => '94105'
 		);
 		$this->assertArraySubset( $expected, $message );
+		// Don't send any value for opt_in if not set or shown
+		$this->assertTrue( !isset( $message['opt_in'] ) );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 	}
@@ -74,5 +76,41 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending pending message for error' );
+	}
+
+	public function testSubmitOptInTrue() {
+		$init = DonationInterfaceTestCase::getDonorTestData( 'GB' );
+		$init['email'] = 'good@innocent.com';
+		$init['postal_code'] = 'T3 5TA';
+		$init['payment_method'] = 'cc';
+		$init['gateway'] = 'globalcollect';
+		$init['action'] = 'donate';
+		$init['opt_in'] = '1';
+
+		// ffname causes a validation trip up
+		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
+		unset($init['ffname']);
+
+		$this->doApiRequest( $init );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+		$this->assertEquals( '1', $message['opt_in'] );
+	}
+
+	public function testSubmitOptInFalse() {
+		$init = DonationInterfaceTestCase::getDonorTestData( 'GB' );
+		$init['email'] = 'good@innocent.com';
+		$init['postal_code'] = 'T3 5TA';
+		$init['payment_method'] = 'cc';
+		$init['gateway'] = 'globalcollect';
+		$init['action'] = 'donate';
+		$init['opt_in'] = '0';
+
+		// ffname causes a validation trip up
+		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
+		unset($init['ffname']);
+
+		$this->doApiRequest( $init );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+		$this->assertEquals( '0', $message['opt_in'] );
 	}
 }

@@ -159,6 +159,7 @@ class DataValidator {
 				'gateway' => 'validate_alphanumeric',
 				'numAttempt' => 'validate_numeric',
 				'optout' => 'validate_boolean',
+				'opt-in' => 'validate_boolean',
 				'posted' => 'validate_boolean',
 				'recurring' => 'validate_boolean',
 			),

@@ -59,3 +59,18 @@
                         </tr>
                         {{{ fieldError "email" }}}
 {{/ email_required }}
+{{# opt_in_required }}
+                        <tr>
+                            <td>
+                                <input name="opt_in" value="1"{{# opt_in }} checked{{/ opt_in }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_yes" }}" id="opt_in_yes" />
+                                <label for="opt_in_yes">{{ l10n "donate_interface-donor-opt_in_yes" }}</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input name="opt_in" value="0" type="radio" title="{{ l10n "donate_interface-donor-opt_in_no" }}" id="opt_in_no" />
+                                <label for="opt_in_no">{{ l10n "donate_interface-donor-opt_in_no" }}</label>
+                            </td>
+                        </tr>
+                        {{{ fieldError "opt_in" }}}
+{{/ opt_in_required }}

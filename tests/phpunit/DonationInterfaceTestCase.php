@@ -315,6 +315,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '155',
 				'language' => 'es',
 			),
+			'GB' => array(
+				'city' => 'Nottingham',
+				'currency' => 'GBP',
+				'street_address' => '123 Sherwood Forest',
+				'first_name' => 'Robin',
+				'last_name' => 'Hood',
+				'email' => 'robinhood@merrymen.coop',
+				'amount' => '155',
+				'language' => 'en',
+			),
 		);
 		// default to US
 		if ( $country === '' ) {

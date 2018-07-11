@@ -29,6 +29,22 @@
 	}
 
 	/**
+	 * Get a trinary value from a checkbox that may exist.
+	 * '0' = checkbox shown and not checked
+	 * '1' = checkbox shown and checked
+	 * '' = checkbox not shown
+	 *
+	 * @return {string}
+	 */
+	function getOptIn() {
+		var element = $( 'input[name=opt_in]:checked' );
+		if ( !element ) {
+			return '';
+		}
+		return element.val();
+	}
+
+	/**
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
@@ -69,6 +85,7 @@
 			recurring: $( '#recurring' ).val(),
 			variant: $( '#variant' ).val(),
 			wmf_token: $( '#wmf_token' ).val(),
+			opt_in: getOptIn(),
 			format: 'json'
 		};
 
