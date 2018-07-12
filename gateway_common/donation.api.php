@@ -161,6 +161,7 @@ class DonationApi extends ApiBase {
 			'utm_medium' => $this->defineParam( false ),
 			'referrer' => $this->defineParam( false ),
 			'recurring' => $this->defineParam( false ),
+			'variant' => $this->defineParam( false ),
 		);
 	}
 
