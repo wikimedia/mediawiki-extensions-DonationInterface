@@ -342,7 +342,7 @@
 	"donate_interface-online_bank_transfer_message": "Banca per teléfonu ya Internet - BPAY ®",
 	"donate_interface-rtbt-issuer_id": "Escueye un bancu",
 	"donate_interface-rtbt-issuer_id-longlist": "Otros bancos",
-	"donate_interface-sofortbanking": "Sofortbanking ye una tresferencia bancaria direuta y en tiempu real al traviés de DIRECTebanking.com que te dexa realizar direutamente una tresferencia bancaria demientres la donación en llinia cola to información bancaria. Si la to cuenta bancaria nun tien activaes les opciones en llinia pué ser que prefieras emplegar la opción \"Donar por aciu una tresferencia bancaria manual\" qu'apaez na páxina principal de donaciones.",
+	"donate_interface-sofortbanking": "Sofortbanking ye una tresferencia bancaria direuta y en tiempu real al traviés de DIRECTebanking.com que permite realizar direutamente una tresferencia bancaria demientres la donación en llinia cola to información bancaria. Si la to cuenta bancaria nun tien activaes les opciones en llinia, escurque prefieras emplegar la opción \"Donar por aciu una tresferencia bancaria manual\" qu'apaez na páxina principal de donaciones.",
 	"donate_interface-dd-account_name": "Nome de la cuenta",
 	"donate_interface-dd-account_number": "Númberu de la cuenta",
 	"donate_interface-dd-authorization_id": "ID d'autorización",

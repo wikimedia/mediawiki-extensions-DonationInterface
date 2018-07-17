@@ -3,17 +3,18 @@
 		"authors": [
 			"Noor2020",
 			"පසිඳු කාවින්ද",
-			"Obaid Raza"
+			"Obaid Raza",
+			"BukhariSaeed"
 		]
 	},
-	"donate_interface": "وکی میڈیا کی حمایت",
+	"donate_interface": "ویکیمیڈیا کی حمایت",
 	"donate_interface-amount": "رقم",
 	"donate_interface-other-amount": "دیگر رقم",
 	"donate_interface-currency": "کرنسی:",
 	"donate_interface-submit-button": "ابھی عطیہ",
 	"donate_interface-comment-label": "تبصرہ:",
 	"donate_interface-comment-title": "عوامی رائے دیجئے",
-	"donate_interface-monthly-donation-description": "وکی میڈیا فاؤنڈیشن کا ماہانہ عطیہ",
+	"donate_interface-monthly-donation-description": "ویکیمیڈیا فاؤنڈیشن کو ماہانہ عطیہ دیں",
 	"donate_interface-card-legend": "کریڈٹ کارڈ کی معلومات",
 	"donate_interface-amount-legend": "رقم",
 	"donate_interface-cvv-link": "جہاں یہ ہے?",
