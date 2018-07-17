@@ -383,8 +383,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function checkTokens() {
 	function wasPosted(){
 	function setUtmSource() {
-	public function getOptOuts() {
-	public function getCleanTrackingData( $clean_optouts = false ) {
+	public function getCleanTrackingData( $unset = false ) {
 	function saveContributionTracking() {
 	public static function insertContributionTracking( $tracking_data ) {
 	public function updateContributionTracking( $force = false ) {

@@ -299,7 +299,6 @@ class DonationData implements LogPrefixProvider {
 			'amount',
 			'order_id',
 			'gateway',
-			'optout',
 			'anonymous',
 			'language',
 			'contribution_tracking_id', // sort of...
@@ -812,7 +811,6 @@ class DonationData implements LogPrefixProvider {
 			'utm_medium',
 			'utm_campaign',
 			'utm_key',
-			'optout',
 			'language',
 			'country',
 			'ts'
@@ -921,7 +919,6 @@ class DonationData implements LogPrefixProvider {
 	public static function getMessageFields() {
 		return array(
 			'contribution_tracking_id',
-			'optout',
 			'anonymous',
 			'utm_source',
 			'utm_medium',
