@@ -333,20 +333,17 @@ class DataValidator {
 	 * @return bool True if $value is a valid boolean, otherwise false.
 	 */
 	protected static function validate_boolean( $value ) {
-		// FIXME: this doesn't do the strict comparison we intended.  'hello' would match the "case true" statement.
-		switch ( $value ) {
-			case 0:
-			case '0':
-			case false:
-			case 'false':
-			case 1:
-			case '1':
-			case true:
-			case 'true':
-				return true;
-				break;
-		}
-		return false;
+		$validValues = array(
+			0,
+			'0',
+			false,
+			'false',
+			1,
+			'1',
+			true,
+			'true',
+		);
+		return in_array( $value, $validValues, true );
 	}
 
 	/**
