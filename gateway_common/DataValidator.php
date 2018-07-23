@@ -199,17 +199,14 @@ class DataValidator {
 					$validation_function = $custom;
 				}
 
-				if ( empty( $data[$field] ) ) {
-					if ( $phase !== 'not_empty' ) {
-						// Skip if not required and nothing to validate.
-						continue;
-					} else {
-						// Stuff with nothing.
-						// FIXME: Weird though 'cos this parameter isn't passed
-						// by reference, so the null value only affects
-						// DataValidator subroutines.
-						$data[$field] = null;
-					}
+				if ( isset( $data[$field] ) ) {
+					$value = $data[$field];
+				} else {
+					$value = null;
+				}
+				if ( empty( $value ) && $phase !== 'not_empty' ) {
+					// Skip if not required and nothing to validate.
+					continue;
 				}
 
 				// Skip if we've already determined this field group is invalid.
@@ -227,10 +224,10 @@ class DataValidator {
 				// Handle special cases.
 				switch ( $validation_function ) {
 					case 'validate_currency_code':
-						$result = call_user_func( $callable, $data[$field], $gateway->getCurrencies( $data ) );
+						$result = call_user_func( $callable, $value, $gateway->getCurrencies( $data ) );
 						break;
 					default:
-						$result = call_user_func( $callable, $data[$field] );
+						$result = call_user_func( $callable, $value );
 						break;
 				}
 
@@ -336,20 +333,17 @@ class DataValidator {
 	 * @return bool True if $value is a valid boolean, otherwise false.
 	 */
 	protected static function validate_boolean( $value ) {
-		// FIXME: this doesn't do the strict comparison we intended.  'hello' would match the "case true" statement.
-		switch ( $value ) {
-			case 0:
-			case '0':
-			case false:
-			case 'false':
-			case 1:
-			case '1':
-			case true:
-			case 'true':
-				return true;
-				break;
-		}
-		return false;
+		$validValues = array(
+			0,
+			'0',
+			false,
+			'false',
+			1,
+			'1',
+			true,
+			'true',
+		);
+		return in_array( $value, $validValues, true );
 	}
 
 	/**
