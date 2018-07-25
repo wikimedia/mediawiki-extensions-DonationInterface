@@ -177,6 +177,9 @@
 		"iframe.liberator": {
 			"scripts": "modules/iframe.liberator.js"
 		},
+		"ext.donationInterface.emailExplain": {
+			"scripts": "modules/js/ext.donationInterface.emailExplain.js"
+		},
 		"donationInterface.styles": {
 			"styles": [
 				"modules/css/gateway.css",
