@@ -428,10 +428,10 @@ $forms_whitelist['astropay-uy'] = array(
  **********/
 $forms_whitelist['adyen'] = array(
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'IL', ), ),
-	'currencies' => array( '+' => array( 'ILS', ), ),
+	'countries' => array( '+' => array( 'IL', 'JP' ), ),
+	'currencies' => array( '+' => array( 'ILS', 'JPY' ), ),
 	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', ),
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'jcb' ),
 	),
 	'selection_weight' => 110,
 );
