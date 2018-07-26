@@ -4,9 +4,6 @@ CA:
     address: true
 GB:
     address: true
-    opt_in: true
-IE:
-    opt_in: true
 US:
     street_address: true
     postal_code: true

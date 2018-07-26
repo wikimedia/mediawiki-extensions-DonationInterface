@@ -4,8 +4,5 @@ CA:
     address: true
 GB:
     address: true
-    opt_in: true
-IE:
-    opt_in: true
 US:
     address: true
