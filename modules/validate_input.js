@@ -107,7 +107,15 @@ window.validate_personal = function () {
 			var failed = false;
 			$formField = $( '#' + fieldKey );
 			if ( $formField.length === 0 ) {
-				return;
+				// Radio button special case. First see if the group exists ...
+				$formField = $( 'input[name=' + fieldKey + ']' );
+				if ( $formField.length > 0 ) {
+					// ... then filter to just the selected button
+					$formField = $formField.filter( ':checked' );
+				} else {
+					// Field doesn't exist by id or by name
+					return;
+				}
 			}
 			value = $formField.val();
 			if ( rule.required ) {

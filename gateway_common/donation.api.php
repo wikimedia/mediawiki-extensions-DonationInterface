@@ -162,6 +162,7 @@ class DonationApi extends ApiBase {
 			'referrer' => $this->defineParam( false ),
 			'recurring' => $this->defineParam( false ),
 			'variant' => $this->defineParam( false ),
+			'opt_in' => $this->defineParam( false ),
 		);
 	}
 
