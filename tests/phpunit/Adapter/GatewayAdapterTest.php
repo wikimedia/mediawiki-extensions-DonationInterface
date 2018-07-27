@@ -434,7 +434,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
 			'KeyMapB' => array(),
 			'GibberishWeight' => .9,
-			'Score' => 10
+			'Score' => 10,
+			'MinimumLength' =>2,
 		);
 		$this->setMwGlobals(
 			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
@@ -446,6 +447,26 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->getScoreName();
 		$this->assertNotEquals( 0, $result, 'Bad name not detected' );
+	}
+
+	function testGetScoreNameMinimumLength() {
+		$rule = array(
+			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
+			'KeyMapB' => array(),
+			'GibberishWeight' => .9,
+			'Score' => 10,
+			'MinimumLength' =>2,
+		);
+		$this->setMwGlobals(
+			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
+		);
+		$init = $this->getDonorTestData();
+		$init['first_name'] = 'a';
+		$init['last_name'] = 'q';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->getScoreName();
+		$this->assertEquals( 0, $result, 'Short name not skipped' );
 	}
 
 	public function TestSetValidationAction() {

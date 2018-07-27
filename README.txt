@@ -590,6 +590,7 @@ $wgDonationInterfaceUtmSourceMap = array()
  * Set KeyMapA and KeyMapB to mutually exclusive arrays of characters.
  * Set GibberishWeight to reflect the ratio of characters from one group that will cause a fail.
  * Set Score to the number of points to assign on fail.
+ * Set MinimumLength to define how long a name must be to get filtered.
  *
  * To enable this filter add this to your LocalSettings.php:
  *
@@ -606,6 +607,7 @@ $wgDonationInterfaceUtmSourceMap = array()
  *         'KeyMapB' => array('h','j','k','l'),
  *         'GibberishWeight' => .9,
  *         'Score' => 10,
+ *         'MinimumLength' => 10,
  *     ),
  * )
  *
