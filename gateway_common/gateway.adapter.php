@@ -2626,11 +2626,13 @@ abstract class GatewayAdapter
 
 			$gibberishWeight = $rule['GibberishWeight'];
 
+			$minimumLength = $rule['MinimumLength'];
+
 			$failScore = $rule['Score'];
 
 			$points = 0;
 
-			if ( is_array( $nameArray ) && !empty( $nameArray ) ) {
+			if ( is_array( $nameArray ) && !empty( $nameArray ) && count( $nameArray ) > $minimumLength ) {
 				foreach ( $nameArray as $letter ) {
 					// For each char in zone A add a point, zone B subtract.
 					if ( in_array( $letter, $keyMapA ) ) {

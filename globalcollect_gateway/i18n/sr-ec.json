@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Rancher"
+			"Rancher",
+			"BadDog"
 		]
 	},
 	"globalcollect_gateway-response-21000150": "Неисправан број рачуна.",
-	"globalcollect_gateway-response-21000155": "Неисправан банковни кôд."
+	"globalcollect_gateway-response-21000155": "Неисправан банковни код."
 }
