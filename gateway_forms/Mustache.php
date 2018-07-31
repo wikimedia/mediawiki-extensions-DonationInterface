@@ -318,13 +318,20 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 
 	protected function getUrls() {
-		return array(
-			'problems_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'ProblemsURL' ) ),
-			'otherways_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'OtherWaysURL' ) ),
-			'faq_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'FaqURL' ) ),
-			'tax_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'TaxURL' ) ),
-			'policy_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'PolicyURL' ) ),
-		);
+		$map = [
+			'problems' => 'Problems',
+			'otherways' => 'OtherWays',
+			'faq' => 'Faq',
+			'tax' => 'Tax',
+			'policy' => 'Policy'
+		];
+		$urls = [];
+		foreach ( $map as $contextName => $globalName ) {
+			$urls[$contextName . '_url'] = htmlspecialchars(
+				$this->gateway->localizeGlobal( $globalName . 'URL' )
+			);
+		}
+		return $urls;
 	}
 
 	// For the following helper functions, we can't use self:: to refer to
