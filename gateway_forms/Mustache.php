@@ -195,9 +195,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'postal_code',
 			'street_address',
 		);
+		// These are shown outside of the 'Billing information' block
+		$outside_personal_block = array(
+			'opt_in'
+		);
+		$show_personal_block = false;
 		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
-		$data['show_personal_fields'] = !empty( $required_fields );
 		foreach ( $required_fields as $field ) {
 			$data["{$field}_required"] = true;
 
@@ -208,7 +212,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 					$address_field_count++;
 				}
 			}
+			if ( !in_array( $field, $outside_personal_block ) ) {
+				$show_personal_block = true;
+			}
 		}
+		$data['show_personal_fields'] = $show_personal_block;
 
 		if ( !empty( $data['address_required'] ) ) {
 			$classes = array(

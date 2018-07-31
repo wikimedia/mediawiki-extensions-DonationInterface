@@ -166,7 +166,8 @@
 		// property with their own submission function.
 		submit: submitForm,
 		callDonateApi: callDonateApi,
-		isIframe: isIframe
+		isIframe: isIframe,
+		getOptIn: getOptIn
 	};
 
 	$( function () {
