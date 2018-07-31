@@ -3,6 +3,8 @@ cb:
         FR: true
     group: cc
     logo: card-cb-lg.png
+    # For all the rest, our key matches the brandCode
+    brandCode: cartebancaire
 visa:
     countries:
         CA: true

@@ -90,6 +90,7 @@ class AdyenAdapter extends GatewayAdapter {
 
 		$requestFields = array(
 				'allowedMethods',
+				'brandCode',
 				'card.cardHolderName',
 				'currencyCode',
 				'merchantAccount',

@@ -40,6 +40,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		);
 		$expectedParams = array(
 			'allowedMethods' => 'card',
+			'brandCode' => 'visa',
 			'card.cardHolderName' => 'Firstname Surname',
 			'currencyCode' => 'USD',
 			'merchantAccount' => 'wikitest',
