@@ -91,6 +91,9 @@ $wgDonationInterfaceFaqURL = 'https://foundation.wikimedia.org/wiki/Special:Land
 URL of a page detailing tax detectability of donations to your organization, FIXME: this will change
 $wgDonationInterfaceTaxURL = 'https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=$language&country=$country'
 
+URL of a page detailing donor privacy policy
+$wgDonationInterfacePolicyURL = 'https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_policy&language=$language&country=$country'
+
 Email address donors should contact with any donation-related problems
 $wgDonationInterfaceProblemsEmail = 'problemsdonating@wikimedia.org'
 

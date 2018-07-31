@@ -387,7 +387,7 @@
 	"donate_interface-email-unsub-warning": "您將從維基媒體基金會作為捐助者傳送給您的電子郵件群中退出。您可能仍會在這個 Email 位址收到電子郵件，如果它與我們的某個項目相關聯。如果您有任何疑問，請聯繫<a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>。",
 	"donate_interface-faqs": "常見問題",
 	"donate_interface-tax-info": "減稅資訊",
-	"donate_interface-informationsharing": "我們不會向任何人販賣或洩漏您的資訊。透過捐款，您同意依據我們的<a href=\"//foundation.wikimedia.org/wiki/Donor_policy/zh-hant\">捐款人方針</a>與維基媒體基金會，運作維基百科與其他姊妹計劃專案的非盈利組織，及其服務提供方分享您的個人資訊。維基媒體基金會與其服務提供方位於美國與其他法律與您所在國法律不同的國家。更多資訊請閱覽我們的<a href=\"//foundation.wikimedia.org/wiki/Donor_privacy_policy/zh-hant\">捐款人方針</a>。",
+	"donate_interface-informationsharing": "我們不會向任何人販賣或洩漏您的資訊。透過捐款，您同意依據我們的<a href=\"$1\">捐款人方針</a>與維基媒體基金會，運作維基百科與其他姊妹計劃專案的非盈利組織，及其服務提供方分享您的個人資訊。維基媒體基金會與其服務提供方位於美國與其他法律與您所在國法律不同的國家。更多資訊請閱覽我們的<a href=\"$1\">捐款人方針</a>。",
 	"donate_interface-currency-change": "修改？",
 	"donate_interface-bank_transfer_message": "請注意您日後收到帳單上會顯示捐贈收款人為 \"Global Collect\"。Global Collect 為被維基媒體基金會授權代表接受捐款處理。請記得在您使用銀行轉帳捐款時將此提供的數字加在附註內容中，若有其它任何問題疑惑歡迎聯繫到 donations@wikimedia.org",
 	"donate_interface-globalcollect-proxy": "請注意您的單據將會顯示「Global Collect」來表示為這份贈與的收款人。Global Collect 是經過授權核可，作為在接收與處理付款時維基媒體基金會一方的代表。",

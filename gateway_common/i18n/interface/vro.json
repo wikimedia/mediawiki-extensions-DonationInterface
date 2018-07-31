@@ -309,7 +309,7 @@
 	"donate_interface-email-unsub-fail": "Su soovi täütmise man johtu viga, olõq hää kirodaq aadrõsi pääle <donations@wikimedia.org>.",
 	"donate_interface-faqs": "Kõgõ inämb küsüdüq küsümiseq",
 	"donate_interface-tax-info": "Massusoodustuisi teedüs",
-	"donate_interface-informationsharing": "Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst. Lisas saat lukõq <a href=\"//foundation.wikimedia.org/wiki/Donor_policy/en\">miiq tugõmispõhimõttit</a>.",
+	"donate_interface-informationsharing": "Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst. Lisas saat lukõq <a href=\"$1\">miiq tugõmispõhimõttit</a>.",
 	"donate_interface-currency-change": "Kas muutaq?",
 	"donate_interface-bank_transfer_message": "Olõq hää, rehkendäq tuuga, et su kviitungi pääl om annõtusõ saajas kirotõt Global Collect. Global Collectil om õigus võttaq vasta ja tallitaq Vikimeediä Tsihtasotusõlõ tettüid masmiisi. Panõq tähele, et sa panõssi siin annõdu tunnusnumbri umma pangaülekandõhe kirjä. Ku sul om küsümiisi vai murrit, olõq hää ja kirodaq aadrõsi pääle donations@wikimedia.org.",
 	"donate_interface-taxded-link-int": "Massõ ja muu õigusala teedüs",

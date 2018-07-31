@@ -325,7 +325,7 @@
 	"donate_interface-email-unsub-warning": "Tio ĉi eligos vin el la listo de ricevantoj de retpoŝto kiun Vikimedia Fondaĵo sendas al donacintoj. Vi tamen povas plu ricevadi retmesaĝojn al tiu ĉi retadreso se ĝi estas ligita kun konto en alia el niaj projektoj. Se vi havas demandojn, bonvolu kontakti <a href=\"mailto:donations@wikimedia.org\">donations@wikimedia.org</a>.",
 	"donate_interface-faqs": "Oftaj demandoj",
 	"donate_interface-tax-info": "Informoj pri impostmalkalkuleblo",
-	"donate_interface-informationsharing": "Donacante, vi kundividas informojn kun la Vikimedia Fondaĵo, senprofita organizo kiu gastigas Vikipedion kaj aliajn vikimediajn projektojn, kaj kun ĝiaj servoprovizantoj en Usono kaj aliloke laŭ nia privatecpolitiko por donacantoj. Ni ne vendas nek negocas viajn informojn kun aliuloj. Por pli da informoj legu <a href=\"//foundation.wikimedia.org/wiki/Donor_policy/en\">nian politikon por donacantoj</a>.",
+	"donate_interface-informationsharing": "Donacante, vi kundividas informojn kun la Vikimedia Fondaĵo, senprofita organizo kiu gastigas Vikipedion kaj aliajn vikimediajn projektojn, kaj kun ĝiaj servoprovizantoj en Usono kaj aliloke laŭ nia privatecpolitiko por donacantoj. Ni ne vendas nek negocas viajn informojn kun aliuloj. Por pli da informoj legu <a href=\"$1\">nian politikon por donacantoj</a>.",
 	"donate_interface-currency-change": "Ŝanĝi?",
 	"donate_interface-taxded-link-int": "Impostaj kaj aliaj juraj informoj",
 	"donate_interface-taxded-link-us": "Informoj pri impostmalkalkulebloS",

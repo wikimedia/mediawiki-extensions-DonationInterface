@@ -113,7 +113,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			),
 			'informationsharing' => array(
 				'nodename' => 'p',
-				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text(),
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text() . '~',
 			),
 			'country' => array(
 				'nodename' => 'input',
@@ -154,7 +154,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			),
 			'informationsharing' => array(
 				'nodename' => 'p',
-				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
 			),
 			'country' => array(
 				'nodename' => 'input',
@@ -197,7 +197,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			),
 			'informationsharing' => array(
 				'nodename' => 'p',
-				'innerhtml' => wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text(),
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
 			),
 			'state_province' => array(
 				'nodename' => 'select',

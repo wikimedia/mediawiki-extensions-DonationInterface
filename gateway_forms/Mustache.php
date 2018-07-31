@@ -323,6 +323,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'otherways_url' => $this->gateway->localizeGlobal( 'OtherWaysURL' ),
 			'faq_url' => $this->gateway->localizeGlobal( 'FaqURL' ),
 			'tax_url' => $this->gateway->localizeGlobal( 'TaxURL' ),
+			'policy_url' => $this->gateway->localizeGlobal( 'PolicyURL' ),
 		);
 	}
 

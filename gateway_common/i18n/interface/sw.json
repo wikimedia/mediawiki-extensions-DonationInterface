@@ -253,7 +253,7 @@
 	"donate_interface-email-unsub-confirm": "Una uhakika kwamba unataka kutolea  <b>$1</b> kutoka katika orodha ya watu wanaopokea habari zetu?",
 	"donate_interface-faqs": "Maswali yanayoulizwa mara kwa mara",
 	"donate_interface-tax-info": "Habari za kuweza kutoza mchango kutoka katika kodi",
-	"donate_interface-informationsharing": "Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href=\"//foundation.wikimedia.org/wiki/Donor_policy/en\">sera yetu ya wachangiaji</a>.",
+	"donate_interface-informationsharing": "Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href=\"$1\">sera yetu ya wachangiaji</a>.",
 	"donate_interface-currency-change": "Badilisha?",
 	"donate_interface-taxded-link-int": "Maelezo ya kodi na mambo ya kisheria",
 	"donate_interface-taxded-link-us": "Habari za kuweza kutoza mchango kutoka katika kodi",

@@ -321,7 +321,7 @@
 	"donate_interface-email-unsub-confirm": "Da li ste sigurni da želite da otkažete adresu <b>$1</b>?",
 	"donate_interface-faqs": "Često postavljana pitanja",
 	"donate_interface-tax-info": "Podaci o poreskim olakšicama",
-	"donate_interface-informationsharing": "Davanjem priloga, vi delite svoje podatke sa Zadužbinom Vikimedija, neprofitnom organizacijom koja pokreće Vikipediju i druge Vikimedijine projekte, i s njenim dobavljačima u SAD i drugim mestima, u skladu s našim pravilima za privatnost davaoca. Mi ne prodajemo niti razmenjujemo vaše podatke ni sa kim. Više na stranici za <a href=\"//foundation.wikimedia.org/wiki/Donor_policy/en\">pravila za davaoca</a>.",
+	"donate_interface-informationsharing": "Davanjem priloga, vi delite svoje podatke sa Zadužbinom Vikimedija, neprofitnom organizacijom koja pokreće Vikipediju i druge Vikimedijine projekte, i s njenim dobavljačima u SAD i drugim mestima, u skladu s našim pravilima za privatnost davaoca. Mi ne prodajemo niti razmenjujemo vaše podatke ni sa kim. Više na stranici za <a href=\"$1\">pravila za davaoca</a>.",
 	"donate_interface-currency-change": "Druga valuta?",
 	"donate_interface-bank_transfer_message": "Na bankovnom izveštaju će se pojaviti „Global Collect“ kao primalac priloga. Global Collect je ovlašćen da prihvata i obrađuje plaćanja u ime Zadužbine Vikimedija. Ne zaboravite da u uplati navedete prikazanu naznaku. Ako imate pitanja ili žalbe, slobodno nam se obratite na adresi donations@wikimedia.org.",
 	"donate_interface-taxded-link-int": "Porezi i drugi pravni podaci",
