@@ -319,10 +319,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getUrls() {
 		return array(
-			'problems_url' => $this->gateway->localizeGlobal( 'ProblemsURL' ),
-			'otherways_url' => $this->gateway->localizeGlobal( 'OtherWaysURL' ),
-			'faq_url' => $this->gateway->localizeGlobal( 'FaqURL' ),
-			'tax_url' => $this->gateway->localizeGlobal( 'TaxURL' ),
+			'problems_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'ProblemsURL' ) ),
+			'otherways_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'OtherWaysURL' ) ),
+			'faq_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'FaqURL' ) ),
+			'tax_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'TaxURL' ) ),
+			'policy_url' => htmlspecialchars( $this->gateway->localizeGlobal( 'PolicyURL' ) ),
 		);
 	}
 

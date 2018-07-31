@@ -179,7 +179,7 @@
 	"donate_interface-question-comment": "Vragen of opmarkingen? Neem dan kontakt op mit <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-problemsdonating": "Problemen bie t doon van n schenking?",
 	"donate_interface-donate-click": "Joew kaortgegevens wörden beveiligd verwarkt.",
-	"donate_interface-otherways": "Der bin <a href=\"//foundation.wikimedia.org/wiki/Ways_to_Give/en\">aandere manieren um geld te geven, waoronder PayPal, cheque of per pos</a>.",
+	"donate_interface-otherways": "Der bin <a href=\"$1\">aandere manieren um geld te geven, waoronder PayPal, cheque of per pos</a>.",
 	"donate_interface-otherways-short": "Aandere manieren um te geven",
 	"donate_interface-cc-form-header-personal": "Betaolingsinformasie",
 	"donate_interface-cc-form-header-payment": "Betaolingsinformasie",
