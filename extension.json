@@ -313,7 +313,7 @@
 		"DonationInterfaceOtherWaysURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country",
 		"DonationInterfaceFaqURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country",
 		"DonationInterfaceTaxURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility&language=$language&country=$country",
-		"DonationInterfacePolicyURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Donor_policy&amp;language=$language&amp;country=$country",
+		"DonationInterfacePolicyURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_policy&language=$language&country=$country",
 		"DonationInterfaceProblemsEmail": "problemsdonating@wikimedia.org",
 		"DonationInterfaceMajorGiftsEmail": "benefactors@wikimedia.org",
 		"DonationInterfaceDefaultEmail": "nobody@wikimedia.org",
