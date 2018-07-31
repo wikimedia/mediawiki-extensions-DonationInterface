@@ -182,7 +182,7 @@
 	"donate_interface-question-comment": "De questions o de comentaris ? Contactatz <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-problemsdonating": "Problèmas per far un don ?",
 	"donate_interface-donate-click": "Vòstra carta bancària o de crèdit/debit serà presa en carga d'un biais securizat.",
-	"donate_interface-otherways": "I a <a href=\"//foundation.wikimedia.org/wiki/Ways_to_Give/fr\">d’autres mejans de donar, amai per PayPal, per chèc o per corrièr postal</a>.",
+	"donate_interface-otherways": "I a <a href=\"$1\">d’autres mejans de donar, amai per PayPal, per chèc o per corrièr postal</a>.",
 	"donate_interface-otherways-short": "Autres mejans de donar",
 	"donate_interface-cc-form-header-personal": "Informacions de facturacion",
 	"donate_interface-cc-form-header-payment": "Informacion sul pagament",
