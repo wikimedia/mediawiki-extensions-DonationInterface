@@ -88,7 +88,7 @@
 	"donate_interface-cvv-explain": "<h4>Coss'èlo sto CVV?</h4>\n<p>El xe un còdese de tri o quatro cifre, che ne juta a èssar sicuri che la carta la sia fisicamente in man del proprietario, in modo da evitar che qualcheduni te ciava i schei.</p>\n<h4>Visa, Mastercard</h4>\n<p>El còdese xe longo 3 cifre, e te lo cati sul dedrìo de la to carta, in do che xe la firma.\nDe solito in tel spassio de la firma se cata na serie de nùmari, ma solo i ultimi tri i forma el CVV.</p>\n<h4>American Express</h4>\n<p>El còdese te lo cati <i>sempre</i> de sora del nùmaro de carta (in rilievo), sul davanti de la carta.\nQualche olta, el còdese el xe dala parte sinistra de la carta, ma senpre de sora del nùmaro de carta.</p><br />",
 	"donate_interface-question-comment": "Domande o comenti? Scrìveghe a: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-donate-click": "Le informassion su la to carta de credito le vegnarà elaborà in tuta sicuressa.",
-	"donate_interface-otherways": "Ghe xe anca <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.",
+	"donate_interface-otherways": "Ghe xe anca <a href=\"//foundation.wikimedia.org/wiki/Ways_to_Give/en\">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.",
 	"donate_interface-token-mismatch": "Xe scadùa la session. Riprova da novo.",
 	"donate_interface-cc-form-header-personal": "Informassion de faturassion",
 	"donate_interface-cc-form-header-payment": "Informassion de pagamento",

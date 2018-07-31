@@ -125,7 +125,7 @@
 	"donate_interface-question-comment": "Vrae of kommentaar? Kontak: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
 	"donate_interface-problemsdonating": "Probleme met u skenking?",
 	"donate_interface-donate-click": "U kreditkaartinligting sal verwerk word sodra u op \"{{int:payflowpro_gateway-donor-submit}}\" kliek.",
-	"donate_interface-otherways": "Daar is <a href=\"//wikimediafoundation.org/wiki/Ways_to_Give/en\">ander maniere om te gee, insluitend PayPal, tjek, of per pos</a>.",
+	"donate_interface-otherways": "Daar is <a href=\"//foundation.wikimedia.org/wiki/Ways_to_Give/en\">ander maniere om te gee, insluitend PayPal, tjek, of per pos</a>.",
 	"donate_interface-otherways-short": "Andere maniere om te gee",
 	"donate_interface-token-mismatch": "U sessie het verval. Voltooi die vorm in en dien dit weer in.",
 	"donate_interface-cc-form-header-personal": "Betalingsinligting",
