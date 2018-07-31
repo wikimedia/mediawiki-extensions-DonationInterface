@@ -369,7 +369,8 @@ class AstroPayAdapter extends GatewayAdapter {
 					// this like a validation error and make amount editable.
 					$error = new ValidationError(
 						'amount',
-						'donate_interface-error-msg-limit'
+						'donate_interface-error-msg-limit',
+						[ $this->localizeGlobal( 'OtherWaysURL' ) ]
 					);
 				} elseif ( preg_match( '/param x_cpf$/i', $response['desc'] ) ) {
 					// Something wrong with the fiscal number
