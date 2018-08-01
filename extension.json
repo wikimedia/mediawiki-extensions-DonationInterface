@@ -137,6 +137,7 @@
 		"AdyenGateway": "adyen_gateway/adyen_gateway.body.php",
 		"AdyenGatewayResult": "adyen_gateway/adyen_resultswitcher.body.php",
 		"AdyenHostedSignature": "adyen_gateway/AdyenHostedSignature.php",
+		"AdyenMethodCodec": "adyen_gateway/AdyenMethodCodec.php",
 		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
 		"FullNameWithExceptions": "adyen_gateway/FullNameWithExceptions.php",
 		"RiskScore": "adyen_gateway/RiskScore.php",
