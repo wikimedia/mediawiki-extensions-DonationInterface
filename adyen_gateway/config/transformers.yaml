@@ -4,6 +4,7 @@
 - DonorEmail
 - StreetAddress
 # Adyen-specific
+- AdyenMethodCodec
 - AmountInMinorUnits
 - FullNameWithExceptions
 - DonorLocale

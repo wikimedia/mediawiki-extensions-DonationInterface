@@ -7,6 +7,7 @@ billingAddress.street: street_address
 billingAddress.houseNumberOrName: supplemental_address_1
 billingAddressType: billing_address_type
 blockedMethods: blocked_methods
+brandCode: payment_product
 card.cardHolderName: full_name
 currencyCode: currency
 deliveryAddressType: delivery_address_type
