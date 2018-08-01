@@ -385,6 +385,10 @@ ul#moreinfolinks {
     margin-left: 0;
 }
 
+.opt_in_explain {
+    font-size: 0.8em;
+}
+
 @media screen and (max-device-width: 981px) {
     body {
         background-color: #f5f5f5;
