@@ -181,7 +181,7 @@
 	"php-response-declined": "మీ లావాదేవీని అంగీకరించలేక పోయారు.",
 	"donate_interface-thankyou": "మీ విరాళానికి కృతజ్ఞతలు!",
 	"donate_interface-post-transaction": "లావాదేవీ వివరాలు",
-	"donate_interface-question-comment": "సందేహాలూ లేదా సూచనలు ఉన్నాయా? సంప్రదించండి: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-question-comment": "సందేహాలూ లేదా సూచనలు ఉన్నాయా? సంప్రదించండి: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "విరాళమివ్వడంలో ఇబ్బందేమైనా ఉందా?",
 	"donate_interface-donate-click": "మీ క్రెడిట్ / డెబిట్ కార్డుని భద్రంగా వ్యవహరిస్తాం.",
 	"donate_interface-otherways": "<a href=\"$1\">చెల్లించడానికి పేపాల్, చెక్కు, లేదా తపాలా లాంటి ఇతర మార్గాలు</a> ఉన్నాయి.",

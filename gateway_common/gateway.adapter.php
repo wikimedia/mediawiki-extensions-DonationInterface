@@ -70,6 +70,9 @@ abstract class GatewayAdapter
 	 *   'internal-0002' => 'message-key-3', // Communication failure
 	 * A callable should return the translated error message.
 	 * Any undefined key will map to 'donate_interface-processing-error'
+	 * When formatted, each message key will be given the ProblemEmail global
+	 * as a first parameter. Error messages that use other parameters should
+	 * use the callable.
 	 *
 	 * @var	array	$error_map
 	 */
@@ -606,6 +609,7 @@ abstract class GatewayAdapter
 			$mapped = $this->error_map[ $code ];
 			// Errors with complicated formatting can map to a function
 			if ( is_callable( $mapped ) ) {
+				// FIXME: not respecting when $options['translate'] = false
 				return $mapped();
 			}
 			$messageKey = $mapped;
@@ -615,7 +619,7 @@ abstract class GatewayAdapter
 		}
 
 		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) )
-			? WmfFramework::formatMessage( $messageKey )
+			? WmfFramework::formatMessage( $messageKey, $this->getGlobal( 'ProblemsEmail' ) )
 			: $translatedMessage;
 
 		// Check to see if we return the translated message.

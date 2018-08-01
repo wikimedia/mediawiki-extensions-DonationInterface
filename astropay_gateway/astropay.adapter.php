@@ -64,7 +64,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		// 8: Operation rejected by bank
 		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 8 );
 		// 9: Amount Paid.  Transaction successfully concluded
-		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::COMPLETE, 9 );
+		$this->addCodeRange( 'PaymentStatus', 'result',	 FinalStatus::COMPLETE, 9 );
 	}
 
 	/**

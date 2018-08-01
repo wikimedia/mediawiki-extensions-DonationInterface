@@ -179,7 +179,7 @@
 	"donate_interface-thankyou": "Mercés plan per vòstre don !",
 	"donate_interface-post-transaction": "Detalhs de la transaccion",
 	"donate_interface-cvv-explain": "<h4>Qu'es aquò CVV ?</h4>\n<p>La valor de verificacion de carta (CVV) : Aquelas tres o quatre chifras permeton d'assegurar que lo detentor de la carta fisica a aquesta en sa possession quand efectua un pagament en linha ; aquò melhora la prevencion contra los usatges frauduloses o pas autorizats.</p>\n<h4>Visa, Mastercard</h4>\n<p>Lo còdi de tres chifras es situat al verso de vòstra carta, dins la zòna reservada a la signatura.\nTipicament, la barra per la signatura conten una seria de nombres, mas solas las tres darrièras chifras constituisson lo còdi CVV.</p>\n<h4>American Express</h4>\n<p>Lo còdi es TOTJORN situat EN DESSÚS del numèro de compte suselevat al recto de la carta.\nDins d'unes cases, lo còdi es situat sul costat d'esquèrra de la carta, mas es totjorn en dessús del numèro de compte.</p><br />",
-	"donate_interface-question-comment": "De questions o de comentaris ? Contactatz <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-question-comment": "De questions o de comentaris ? Contactatz <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "Problèmas per far un don ?",
 	"donate_interface-donate-click": "Vòstra carta bancària o de crèdit/debit serà presa en carga d'un biais securizat.",
 	"donate_interface-otherways": "I a <a href=\"$1\">d’autres mejans de donar, amai per PayPal, per chèc o per corrièr postal</a>.",
