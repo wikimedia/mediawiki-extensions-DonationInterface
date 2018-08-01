@@ -270,7 +270,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 
 	/**
 	 * Test that we show an email opt-in checkbox for Great Britain
-	 *
+	 */
 	public function testGCFormLoadGB() {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
@@ -288,5 +288,5 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		);
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
-	}*/
+	}
 }
