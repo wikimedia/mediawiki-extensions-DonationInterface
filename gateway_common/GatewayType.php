@@ -258,7 +258,7 @@ interface GatewayType {
 	 *
 	 * Not all payment submethods are available within an adapter
 	 *
-	 * @return	array	Returns the available payment submethods for the specific adapter
+	 * @return array Returns the available payment submethods for the specific adapter
 	 */
 	public function getPaymentSubmethods();
 
