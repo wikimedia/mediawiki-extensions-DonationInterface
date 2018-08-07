@@ -7,7 +7,8 @@
 			"Pcoombe",
 			"Agremon",
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"Maria zaos"
 		]
 	},
 	"donate_interface": "Apoia a Wikimedia",
@@ -218,7 +219,7 @@
 	"donate_interface-donate-error-try-a-different-card-html": "Por favor, proba con outra tarxeta ou cun dos <a href=\"$1\">outros xeitos de doar</a>, ou ponte en contacto con nós no enderezo <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Inténtao de novo</a>, proba con <a href=\"$2\">outro xeito de doar</a> ou ponte en contacto con nós no enderezo <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Grazas polo teu apoio!",
-	"donate_interface-error-no-form": "Non fomos capaces de atopar un formulario de doazóns que coincidise cos seus parámetros. Ponte en contacto [mailto:$1 co noso equipo de axuda] para obter máis información.",
+	"donate_interface-error-no-form": "Non fomos capaces de atopar un formulario de doazóns que coincidise cos teus parámetros. Ponte en contacto [mailto:$1 co noso equipo de axuda] para obter máis información.",
 	"donate_interface-error-no-form-html": "Non fomos capaces de atopar un formulario de doazóns que coincidise cos seus parámetros. Proba un dos nosos <a href=\"$1\">outros xeitos de doar</a> ou ponte en contacto con nós no enderezo <a href=\"mailto:$2\">$2</a>.",
 	"donate_interface-error-reference": "Referencia do erro: $1",
 	"php-response-declined": "A túa transacción foi rexeitada.",
