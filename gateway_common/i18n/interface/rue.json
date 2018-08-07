@@ -89,7 +89,7 @@
 	"donate_interface-thankyou": "Дякуєме за ваше пожертвованя!",
 	"donate_interface-post-transaction": "Детайлы трансакції",
 	"donate_interface-cvv-explain": "<h4>Што то є CVV?</h4>\n<p><i>Cardholder Verification Value</i> (CVV) – тоты три або штириціферны чісла помагають овірити, же фізічна карта належыть єй властникови. Тым ся заборонює неавторізованому ці подводному схоснованю карты.</p>\n<h4>Visa, Mastercard</h4>\n<p>Три-ціферный код є уміщеный на заднім боцї карты, в просторї про підпис.\nУ підпису звычайно бывать ряд чісел, але лем три послїднї творять код CVV.</p>\n<h4>American Express</h4>\n<p>Код є <i>все</i> уміщеный <i>над</i> выраженым (ембосованым) чіслом конта на ліцовім боцї карты.\nДаколи бывать код уміщеный на лівім боцї карты, але все є над чіслом конта.</p><br />",
-	"donate_interface-question-comment": "Вопросы або коментарї? Напипте на: <a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-question-comment": "Вопросы або коментарї? Напипте на: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-donate-click": "Інформації о кредітній картї будуть безпечно спрацованы.",
 	"donate_interface-otherways": "Може суть <a href=\"$1\">іншы способы зробити пожертву включаючі PayPal, шек або пошты</a>.",
 	"donate_interface-otherways-alt": "Можны суть <a href=\"$1\"> іншы способы, як пожертвовати>, враховано шеків.",

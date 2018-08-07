@@ -56,7 +56,7 @@ abstract class GatewayAdapter
 	 * 		'account_holder'		=> array( 'type' => 'alphanumeric',		'length' => 50, )
 	 * 	 </code>
 	 *
-	 * @var	array	$dataConstraints
+	 * @var array $dataConstraints
 	 */
 	protected $dataConstraints = array();
 
@@ -70,22 +70,25 @@ abstract class GatewayAdapter
 	 *   'internal-0002' => 'message-key-3', // Communication failure
 	 * A callable should return the translated error message.
 	 * Any undefined key will map to 'donate_interface-processing-error'
+	 * When formatted, each message key will be given the ProblemEmail global
+	 * as a first parameter. Error messages that use other parameters should
+	 * use the callable.
 	 *
-	 * @var	array	$error_map
+	 * @var array $error_map
 	 */
 	protected $error_map = array();
 
 	/**
 	 * @see GlobalCollectAdapter::defineGoToThankYouOn()
 	 *
-	 * @var	array	$goToThankYouOn
+	 * @var array $goToThankYouOn
 	 */
 	protected $goToThankYouOn = array();
 
 	/**
 	 * $var_map maps gateway variables to client variables
 	 *
-	 * @var	array	$var_map
+	 * @var array $var_map
 	 */
 	protected $var_map = array();
 
@@ -97,14 +100,14 @@ abstract class GatewayAdapter
 	/**
 	 * $payment_methods will be defined by the adapter.
 	 *
-	 * @var	array	$payment_methods
+	 * @var array $payment_methods
 	 */
 	protected $payment_methods = array();
 
 	/**
 	 * $payment_submethods will be defined by the adapter.
 	 *
-	 * @var	array	$payment_submethods
+	 * @var array $payment_submethods
 	 */
 	protected $payment_submethods = array();
 
@@ -606,6 +609,7 @@ abstract class GatewayAdapter
 			$mapped = $this->error_map[ $code ];
 			// Errors with complicated formatting can map to a function
 			if ( is_callable( $mapped ) ) {
+				// FIXME: not respecting when $options['translate'] = false
 				return $mapped();
 			}
 			$messageKey = $mapped;
@@ -615,7 +619,7 @@ abstract class GatewayAdapter
 		}
 
 		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) )
-			? WmfFramework::formatMessage( $messageKey )
+			? WmfFramework::formatMessage( $messageKey, $this->getGlobal( 'ProblemsEmail' ) )
 			: $translatedMessage;
 
 		// Check to see if we return the translated message.
@@ -629,9 +633,9 @@ abstract class GatewayAdapter
 	 *
 	 * This will take an error code and translate the message.
 	 *
-	 * @param	string	$code	The error code to look up in the map
+	 * @param string $code The error code to look up in the map
 	 *
-	 * @return	string	Returns the translated message from @see GatewayAdapter::$error_map
+	 * @return string Returns the translated message from @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMapByCodeAndTranslate( $code ) {
 		return $this->getErrorMap( $code, array( 'translate' => true, ) );
@@ -965,9 +969,9 @@ abstract class GatewayAdapter
 	 *
 	 *  * post_process_<strtolower($transaction)>
 	 *
-	 * @param string    $transaction Name of the transaction being performed
-	 * @param &string() $retryVars Reference to an array of variables that caused the
-	 *                  transaction to fail.
+	 * @param string $transaction Name of the transaction being performed
+	 * @param string|null &$retryVars Reference to an array of variables that caused the
+	 *   transaction to fail.
 	 *
 	 * @return PaymentTransactionResponse
 	 * @throws UnexpectedValueException
@@ -1229,7 +1233,7 @@ abstract class GatewayAdapter
 	/**
 	 * Get the payment method
 	 *
-	 * @return	string
+	 * @return string
 	 */
 	public function getPaymentMethod() {
 		// FIXME: this should return the final calculated method
@@ -1241,7 +1245,7 @@ abstract class GatewayAdapter
 	 *
 	 * Not all payment methods are available within an adapter
 	 *
-	 * @return	array	Returns the available payment methods for the specific adapter
+	 * @return array Returns the available payment methods for the specific adapter
 	 */
 	public function getPaymentMethods() {
 		return $this->payment_methods;
@@ -1689,12 +1693,12 @@ abstract class GatewayAdapter
 	/**
 	 * findCodeAction
 	 *
-	 * @param	string $transaction
-	 * @param	string $key The key to lookup in the transaction such as STATUSID
-	 * @param	integer|string $code This gets converted to an integer if the values is numeric.
+	 * @param string $transaction
+	 * @param string $key The key to lookup in the transaction such as STATUSID
+	 * @param integer|string $code This gets converted to an integer if the values is numeric.
 	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
-	 * @return	null|string	Returns the code action if a valid code is supplied. Otherwise, the return is null.
+	 * @return null|string Returns the code action if a valid code is supplied. Otherwise, the return is null.
 	 */
 	public function findCodeAction( $transaction, $key, $code ) {
 		$this->profiler->getStopwatch( __FUNCTION__, true );

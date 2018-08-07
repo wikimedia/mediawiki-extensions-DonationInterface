@@ -259,7 +259,7 @@ class GlobalCollectOrphanRectifier {
 	/**
 	 * Remove a message from the pending database.
 	 *
-	 * @param array message
+	 * @param array $message
 	 */
 	protected function deleteMessage( $message ) {
 		PendingDatabase::get()

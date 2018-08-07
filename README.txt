@@ -95,7 +95,7 @@ URL of a page detailing donor privacy policy
 $wgDonationInterfacePolicyURL = 'https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_policy&language=$language&country=$country'
 
 Email address donors should contact with any donation-related problems
-$wgDonationInterfaceProblemsEmail = 'problemsdonating@wikimedia.org'
+$wgDonationInterfaceProblemsEmail = 'donate@wikimedia.org'
 
 Email address donors should contact with donations too big to process online
 $wgDonationInterfaceMajorGiftsEmail = 'benefactors@wikimedia.org';

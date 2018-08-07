@@ -236,7 +236,7 @@
 	"donate_interface-taxded-link-int": "Nodokļu un cita juridiskā informācija",
 	"donate_interface-taxded-link-us": "Informācija par nodokļu atskaitījumiem",
 	"donate_interface-monthlybox-amount": "Ikmēneša ziedojuma summa",
-	"donate_interface-monthly-cancel": "Periodiskiem ziedotājiem noteiktus ikmēneša maksājumus Wikimedia Foundation debetēs vienu mēnesi pēc pirmā ziedojuma līdz laikam, kad lūgsiet tos pārtraukt. Ziedojumi, kas veikti mēneša 29., 30. vai 31. datumā, tiks atkārtoti īsāku mēnešu pēdējā datumā, pēc iespējas tuvāk sākotnējam datumam. Jautājumu gadījumā rakstiet uz e-pasta adresi donate@wikimedia.org.",
+	"donate_interface-monthly-cancel": "Periodiskiem ziedotājiem noteiktus ikmēneša maksājumus Wikimedia Foundation debetēs vienu mēnesi pēc pirmā ziedojuma līdz laikam, kad lūgsiet tos pārtraukt. Ziedojumi, kas veikti mēneša 29., 30. vai 31. datumā, tiks atkārtoti īsāku mēnešu pēdējā datumā, pēc iespējas tuvāk sākotnējam datumam. Jautājumu gadījumā rakstiet uz e-pasta adresi $1.",
 	"donate_interface-monthly-short": "Ikmēneša",
 	"donate_interface-onetime-short": "Vienu reizi",
 	"apihelp-donate-param-amount": "Ziedojumu summa.",

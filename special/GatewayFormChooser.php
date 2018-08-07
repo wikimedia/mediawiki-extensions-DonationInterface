@@ -82,7 +82,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$this->logger->error(
 				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'"
 			);
-			$this->getOutput()->showErrorPage( 'donate_interface-error-msg-general', 'donate_interface-error-no-form' );
+			$this->getOutput()->showErrorPage(
+				'donate_interface-error-msg-general',
+				'donate_interface-error-no-form',
+				[ GatewayType::getGlobal('ProblemsEmail') ]
+			);
 			return;
 		}
 

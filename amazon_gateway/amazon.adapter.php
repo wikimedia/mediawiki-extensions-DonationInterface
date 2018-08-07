@@ -185,7 +185,8 @@ class AmazonAdapter extends GatewayAdapter {
 			);
 		} catch ( Exception $ex ) {
 			$this->logger->error( 'SDK client call failed: ' . $ex->getMessage() );
-			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error' );
+			$email = $this->getGlobal( 'ProblemsEmail' );
+			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error', $email );
 			$this->transaction_response->setCommunicationStatus( false );
 			throw new ResponseProcessingException( $donorMessage, ResponseCodes::NO_RESPONSE );
 		}

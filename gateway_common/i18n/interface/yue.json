@@ -84,7 +84,7 @@
 	"php-response-declined": "你嘅交易已經拒絕咗。",
 	"donate_interface-post-transaction": "交易細節",
 	"donate_interface-cvv-explain": "<h4>乜嘢係CVV？</h4>\n<p>Cardholder Verification Value (CVV) 呢三位或四位數字係用來幫手肯定實際嘅咭係響咭持有者嘅情況之下響線上捐綫，幫手防止未認證或者濫用。</p>\n<h4>Visa、萬事達咭</h4>\n<p>嗰三位編碼響你張咭嘅背面，響個簽名位入面。\n通常響個簽名位度會有一串嘅數字，係但只係最後三位數字會整成CVV碼。</p>\n<h4>美國運通</h4>\n<p>個碼會響前面印出嘅戶口冧吧嘅上面。\n響一啲嘅情況，個碼會響張咭嘅左手邊，但係都一定會響戶口冧吧嘅上面。</p><br />",
-	"donate_interface-question-comment": "維基百科係Wikimedia Foundation嘅其中一個計劃。問或解？聯絡Wikimedia Foundation：<a href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>",
+	"donate_interface-question-comment": "維基百科係Wikimedia Foundation嘅其中一個計劃。問或解？聯絡Wikimedia Foundation：<a href=\"mailto:$1\">$1</a>",
 	"donate_interface-donate-click": "當撳咗 \"{{int:payflowpro_gateway-donor-submit}}\" 之後，你嘅信用咭資料將會被處理。",
 	"donate_interface-anon-message": "請列示我個名（響我嘅註解隔離）響個公共捐錢者度。"
 }
