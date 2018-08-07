@@ -49,6 +49,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				'hostedCheckoutSpecificInput' => array(
 					'isRecurring',
 					'locale',
+					'returnCancelState',
 					'paymentProductFilters' => array(
 						'restrictTo' => array(
 							'products' => array(
@@ -110,6 +111,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			),
 			'values' => array(
 				'showResultPage' => 'false',
+				'returnCancelState' => true,
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			),
 			'response' => array(
