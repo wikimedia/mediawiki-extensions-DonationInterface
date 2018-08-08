@@ -28,6 +28,10 @@ use SmashPig\CrmLink\FinalStatus;
  */
 class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestCase {
 
+	/**
+	 * This test could span both recurring and non-recurring with the omission
+	 * of the tokenize and recurringPaymentSequenceIndicator flags.
+	 */
 	public function testSetupTokenizedCheckout() {
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
@@ -44,6 +48,9 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 						'tokenize' => true,
 						'recurringPaymentSequenceIndicator' => 'first',
 						'skipAuthentication' => true,
+					),
+					'hostedCheckoutSpecificInput' => array(
+						'returnCancelState' => true,
 					)
 				), $arg );
 				return true;
