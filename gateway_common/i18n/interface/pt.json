@@ -173,6 +173,8 @@
 	"donate_interface-donor-currency-msg": "Este donativo está a ser feito na divisa $1",
 	"donate_interface-donor-fiscal_number": "Número fiscal",
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
+	"donate_interface-donor-opt_in_yes": "Sim! Enviem-me esporadicamente, por correio eletrónico, atualizações e informação sobre formas como posso ajudar a Wikipédia, por favor.*",
+	"donate_interface-donor-opt_in_no": "Não, não quero receber correio eletrónico sobre uma causa que me interessa.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",

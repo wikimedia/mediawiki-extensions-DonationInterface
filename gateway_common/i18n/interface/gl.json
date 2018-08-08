@@ -230,7 +230,7 @@
 	"donate_interface-easydonate": "Intentamos que as doazóns sexan fáciles de realizar desde calquera país. Fainos saber como podemos mellorar. Envía as túas suxestións a este enderezo: $1.",
 	"donate_interface-problemsdonating": "Tes problemas co proceso de doazón?",
 	"donate_interface-donate-click": "A información da túa tarxeta de crédito ou de débito procesarase de xeito seguro.",
-	"donate_interface-otherways": "Existen outros <a href=\"$1\">xeitos de doar, incluíndo o PayPal, os cheques ou o correo postal</a>.",
+	"donate_interface-otherways": "Hai outros <a href=\"$1\">xeitos de doar, incluíndo o PayPal, os cheques ou o correo postal</a>.",
 	"donate_interface-otherways-alt": "Existen outros <a href=\"$1\">xeitos de doar</a>, incluíndo os cheques.",
 	"donate_interface-otherways-short": "Outros xeitos de doar",
 	"donate_interface-token-mismatch": "A túa sesión caducou. Intenta encher e enviar o formulario de novo.",
