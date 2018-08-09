@@ -454,7 +454,7 @@
 			"_merge_strategy": "array_plus_2d"
 		},
 		"DonationInterfaceCustomFiltersRiskScore": 0,
-		"DonationInterfaceMinFraudUserId": "",
+		"DonationInterfaceMinFraudAccountId": "",
 		"DonationInterfaceMinFraudLicenseKey": "",
 		"DonationInterfaceMinFraudClientOptions": [],
 		"DonationInterfaceMinFraudExtraFields": [],

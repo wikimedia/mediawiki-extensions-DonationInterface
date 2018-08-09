@@ -76,7 +76,7 @@ global $wgDonationInterfaceTest,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
 	$wgAstroPayGatewayFallbackCurrency,
-	$wgDonationInterfaceMinFraudUserId,
+	$wgDonationInterfaceMinFraudAccountId,
 	$wgDonationInterfaceMinFraudLicenseKey,
 	$wgDonationInterfaceMinFraudClientOptions,
 	$wgDonationInterfaceEnableMinFraud,
@@ -187,7 +187,7 @@ $wgAstroPayGatewayAccountInfo['test'] = array(
 );
 $wgAstroPayGatewayFallbackCurrency = false;
 
-$wgDonationInterfaceMinFraudUserId = 1;
+$wgDonationInterfaceMinFraudAccountId = 1;
 $wgDonationInterfaceMinFraudLicenseKey = 'testkey';
 
 $wgDonationInterfaceMinFraudClientOptions = array(
