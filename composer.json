@@ -48,7 +48,10 @@
 	],
 	"config": {
 		"optimize-autoloader": true,
-		"prepend-autoloader": false
+		"prepend-autoloader": false,
+		"platform": {
+			"php": "5.6.36"
+		}
 	},
 	"scripts": {
 		"phpcs": "phpcs -p -s",

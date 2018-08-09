@@ -2056,6 +2056,7 @@ abstract class GatewayAdapter
 				$force = true;
 				break;
 			case FinalStatus::FAILED:
+			case FinalStatus::CANCELLED:
 			case FinalStatus::REVISED:
 				$force = false;
 				break;

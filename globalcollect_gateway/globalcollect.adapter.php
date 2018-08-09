@@ -663,6 +663,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 0, 70 );
 		}
 
+		$pendingflag = false; // in case it's pending, don't cancel and no problem message needed
 		$cancelflag = false; // this will denote the thing we're trying to do with the donation attempt
 		$problemflag = false; // this will get set to true, if we can't continue and need to give up and just log the hell out of it.
 		$problemmessage = ''; // to be used in conjunction with the flag.
@@ -673,108 +674,108 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$loops = 0;
 		$status_response = null;
 
-		for ( $loops = 0; $loops < $loopcount && !$cancelflag && !$problemflag; ++$loops ) {
-			$status_result = $this->getOrderStatusFromProcessor();
-			$validationAction = $this->getValidationAction();
-			$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
-			$gotCVV = strlen( $cvv_result ) > 0;
-			// TODO: This logging is redundant with the response from GET_ORDERSTATUS.
-			$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
-			$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
-			$this->logger->info( $logmsg );
+		$status_result = $this->getOrderStatusFromProcessor();
+		$validationAction = $this->getValidationAction();
+		$cvv_result = $this->getData_Unstaged_Escaped( 'cvv_result' );
+		$gotCVV = strlen( $cvv_result ) > 0;
+		// TODO: This logging is redundant with the response from GET_ORDERSTATUS.
+		$logmsg = 'CVV Result: ' . $this->getData_Unstaged_Escaped( 'cvv_result' );
+		$logmsg .= ', AVS Result: ' . $this->getData_Unstaged_Escaped( 'avs_result' );
+		$this->logger->info( $logmsg );
 
-			// FIXME: "isForceCancel"?
-			if ( $status_result->getForceCancel() ) {
-				$cancelflag = true; // don't retry or Mastercard will fine us
+		// FIXME: "isForceCancel"?
+		if ( $status_result->getForceCancel() ) {
+			$cancelflag = true; // don't retry or Mastercard will fine us
+		}
+
+		// we filtered
+		if ( $validationAction !== ValidationAction::PROCESS ) {
+			$cancelflag = true; // don't retry: We've fraud-failed them intentionally.
+		} elseif ( $status_result->getCommunicationStatus() === false ) {
+		// can't communicate or internal error
+			$problemflag = true;
+			$problemmessage = "Can't communicate or internal error: "
+				. $status_result->getMessage();
+		}
+
+		$order_status_results = false;
+		if ( !$cancelflag && !$problemflag ) {
+			$statusCode = $this->getStatusCode( $this->getTransactionData() );
+			if ( $statusCode ) {
+				if ( is_null( $original_status_code ) ) {
+					$original_status_code = $statusCode;
+				}
+				$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $statusCode );
 			}
-
-			// we filtered
-			if ( $validationAction !== ValidationAction::PROCESS ) {
-				$cancelflag = true; // don't retry: We've fraud-failed them intentionally.
-			} elseif ( $status_result->getCommunicationStatus() === false ) {
-			// can't communicate or internal error
+			if ( $loops === 0 && $is_orphan && !is_null( $original_status_code ) ) {
+				// save stats.
+				if ( !isset( $this->orphanstats ) || !isset( $this->orphanstats[$original_status_code] ) ) {
+					$this->orphanstats[$original_status_code] = 1;
+				} else {
+					$this->orphanstats[$original_status_code] += 1;
+				}
+			}
+			if ( !$order_status_results ) {
 				$problemflag = true;
-				$problemmessage = "Can't communicate or internal error: "
-					. $status_result->getMessage();
+				$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
 			}
-
-			$order_status_results = false;
-			if ( !$cancelflag && !$problemflag ) {
-				$statusCode = $this->getStatusCode( $this->getTransactionData() );
-				if ( $statusCode ) {
-					if ( is_null( $original_status_code ) ) {
-						$original_status_code = $statusCode;
+			switch ( $order_status_results ) {
+				case FinalStatus::FAILED :
+				case FinalStatus::CANCELLED :
+				case FinalStatus::REVISED :
+					$cancelflag = true; // makes sure we don't try to confirm.
+					break;
+				case FinalStatus::COMPLETE :
+					$problemflag = true; // nothing to be done.
+					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
+					$problemseverity = LogLevel::INFO;
+					break;
+				case FinalStatus::PENDING_POKE :
+					if ( $is_orphan && !$gotCVV ) {
+						$problemflag = true;
+						$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
 					}
-					$order_status_results = $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $statusCode );
-				}
-				if ( $loops === 0 && $is_orphan && !is_null( $original_status_code ) ) {
-					// save stats.
-					if ( !isset( $this->orphanstats ) || !isset( $this->orphanstats[$original_status_code] ) ) {
-						$this->orphanstats[$original_status_code] = 1;
-					} else {
-						$this->orphanstats[$original_status_code] += 1;
-					}
-				}
-				if ( !$order_status_results ) {
-					$problemflag = true;
-					$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
-				}
-				switch ( $order_status_results ) {
-					case FinalStatus::FAILED :
-					case FinalStatus::REVISED :
-						$cancelflag = true; // makes sure we don't try to confirm.
-						break 2;
-					case FinalStatus::COMPLETE :
-						$problemflag = true; // nothing to be done.
-						$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
-						$problemseverity = LogLevel::INFO;
-						break 2;
-					case FinalStatus::PENDING_POKE :
-						if ( $is_orphan && !$gotCVV ) {
-							$problemflag = true;
-							$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
-						}
 
-						// none of this should ever execute for a transaction that doesn't use 3d secure...
-						if ( $statusCode === '200' && ( $loops < $loopcount - 1 ) ) {
-							$this->logger->info( "Running DO_FINISHPAYMENT ($loops)" );
+					// none of this should ever execute for a transaction that doesn't use 3d secure...
+					if ( $statusCode === '200' && ( $loops < $loopcount - 1 ) ) {
+						$this->logger->info( "Running DO_FINISHPAYMENT ($loops)" );
 
-							$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
-							$dopayment_data = $dopayment_result->getData();
-							// Check the txn status and result code to see if we should bother continuing
-							if ( $this->getTransactionStatus() ) {
-								$this->logger->info( "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
-								if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === FinalStatus::FAILED ) {
-									// ack and die.
-									$problemflag = true; // nothing to be done.
-									$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
-									$this->finalizeInternalStatus( FinalStatus::FAILED );
-								}
-							} else {
-								$this->logger->error( "DO_FINISHPAYMENT ($loops) returned NOK" );
+						$dopayment_result = $this->do_transaction( 'DO_FINISHPAYMENT' );
+						$dopayment_data = $dopayment_result->getData();
+						// Check the txn status and result code to see if we should bother continuing
+						if ( $this->getTransactionStatus() ) {
+							$this->logger->info( "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
+							if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === FinalStatus::FAILED ) {
+								// ack and die.
+								$problemflag = true; // nothing to be done.
+								$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
+								$this->finalizeInternalStatus( FinalStatus::FAILED );
 							}
-							break;
+						} else {
+							$this->logger->error( "DO_FINISHPAYMENT ($loops) returned NOK" );
 						}
+						break;
+					}
 
-						if ( $statusCode !== '200' ) {
-							break 2; // no need to loop.
-						}
-						// FIXME: explicit that we want to fall through?
+					if ( $statusCode !== '200' ) {
+						break; // no need to loop.
+					}
+					// FIXME: explicit that we want to fall through? <-- do we still want this?
 
-					case FinalStatus::PENDING :
-						// If it's really pending at this point, we need to
-						// leave it alone.
-						// FIXME: If we're orphan slaying, this should stay in
-						// the queue, but we currently delete it.
-						break 2;
-				}
+				case FinalStatus::PENDING :
+					$pendingflag = true;
+					// If it's really pending at this point, we need to
+					// leave it alone.
+					// FIXME: If we're orphan slaying, this should stay in
+					// the queue, but we currently delete it. <--I'm not sure that's true now
+					break;
 			}
 		}
 
 		// if we got here with no problemflag,
 		// confirm or cancel the payment based on $cancelflag
 		if ( !$problemflag ) {
-			if ( !$cancelflag ) {
+			if ( !$cancelflag && !$pendingflag ) {
 				$final = $this->approvePayment();
 				if ( $final->getCommunicationStatus() === true ) {
 					$this->finalizeInternalStatus( FinalStatus::COMPLETE );

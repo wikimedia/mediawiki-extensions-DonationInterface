@@ -372,7 +372,7 @@
 	"donate_interface-monthlybox-yes": "Igen, legyen havi",
 	"donate_interface-monthlybox-no": "NEM, csak egyszeri adományozás",
 	"donate_interface-monthlybox-bottom": "Az adományozásod biztonságosan dolgozzuk fel.",
-	"donate_interface-monthly-cancel": "A visszatérő adományozókat a Wikimédia Alapítvány egy fix összeggel terheli meg havonta az első adomány fordulónapján mindaddig, amíg az adományozó nem értesít bennünket arról, hogy az adományok befizetését meg kívánja szünteti. A hónap 29., 30. vagy 31. napján indított adományok az annál rövidebb hónapok esetében a hónap utolsó napján kerülnek leemelésre az eredeti dátum fordulónapjához legközelebb eső napon. Kérdéseikkel kérjük, forduljanak hozzánk bizalommal a $1 címen.",
+	"donate_interface-monthly-cancel": "A visszatérő adományozókat a Wikimédia Alapítvány egy fix összeggel terheli meg havonta az első adomány fordulónapján mindaddig, amíg az adományozó nem értesít bennünket arról, hogy az adományok befizetését meg kívánja szünteti. A hónap 29., 30. vagy 31. napján indított adományok az annál rövidebb hónapok esetében a hónap utolsó napján kerülnek leemelésre, az eredeti dátum fordulónapjához legközelebb eső napon. Kérdéseikkel kérjük, forduljanak hozzánk bizalommal a(z) $1 címen.",
 	"donate_interface-onetime": "Egyszeri adományozás",
 	"donate_interface-monthly-short": "Havi",
 	"donate_interface-onetime-short": "Egyszeri",
