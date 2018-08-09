@@ -111,7 +111,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			),
 			'values' => array(
 				'showResultPage' => 'false',
-				'returnCancelState' => true,
+				'returnCancelState' => 'true',
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			),
 			'response' => array(
