@@ -435,7 +435,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'KeyMapB' => array(),
 			'GibberishWeight' => .9,
 			'Score' => 10,
-			'MinimumLength' =>2,
+			'MinimumLength' => 2,
 		);
 		$this->setMwGlobals(
 			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
@@ -455,7 +455,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'KeyMapB' => array(),
 			'GibberishWeight' => .9,
 			'Score' => 10,
-			'MinimumLength' =>2,
+			'MinimumLength' => 2,
 		);
 		$this->setMwGlobals(
 			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )

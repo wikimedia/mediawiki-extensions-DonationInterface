@@ -721,6 +721,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 			switch ( $order_status_results ) {
 				case FinalStatus::FAILED :
+				case FinalStatus::CANCELLED :
 				case FinalStatus::REVISED :
 					$cancelflag = true; // makes sure we don't try to confirm.
 					break;

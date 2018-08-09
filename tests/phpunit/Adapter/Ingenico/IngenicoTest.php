@@ -168,33 +168,58 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertEquals( ValidationAction::PROCESS, $action, 'Gateway should not fraud fail on statusCode 25' );
 	}
 
-    /**
-     * Return status and re-do if in progress
-     */
-    function testGetHostedPaymentStatusInProgress() {
-        $init = $this->getDonorTestData();
-        $init['payment_method'] = 'cc';
-        $init['payment_submethod'] = 'visa';
-        $init['email'] = 'innocent@safedomain.org';
+	/**
+	 * Return status and re-do if in progress
+	 */
+	function testGetHostedPaymentStatusInProgress() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
 
-        $this->setUpRequest( array( 'cvvResult' => 'M' ) );
+		$this->setUpRequest( array( 'cvvResult' => 'M' ) );
 
-        $gateway = $this->getFreshGatewayObject( $init );
-        $this->hostedCheckoutProvider->expects( $this->once() )
-            ->method( 'getHostedPaymentStatus' )
-            ->willReturn(
-                array(
-                    "status" => "IN_PROGRESS"
-                )
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"status" => "IN_PROGRESS",
+				)
+			);
 
-            );
+		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+		$this->assertArrayEquals( array(), $result->getErrors(),
+			'In Progress status should return no errors' );
+	}
 
-        $result = $gateway->do_transaction('Confirm_CreditCard');
-        $this->assertArrayEquals( array(), $result->getErrors(), 'In Progress status should return no errors' );
-    }
+	function testGetHostedPaymentStatusCancelledByConsumer() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@safedomain.org';
 
+		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
 
-    /**
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn(
+				array(
+					"status" => "CANCELLED_BY_CONSUMER",
+				)
+			);
+
+		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+
+		$this->assertEquals( "Cancelling payment", $result->getMessage(),
+			'Cancelled by consumer status should return the message Cancelling payment' );
+
+		$this->assertEquals( 1000001, $result->getErrors()[0]->getErrorCode(),
+			'Cancelled by consumer status should return error code 1000001' );
+	}
+
+	/**
 	 * Make sure we're incorporating getHostedPaymentStatus AVS and CVV responses into
 	 * fraud scores.
 	 */

@@ -89,7 +89,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		// ffname causes a validation trip up
 		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
-		unset($init['ffname']);
+		unset( $init['ffname'] );
 
 		$this->doApiRequest( $init );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
@@ -107,7 +107,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		// ffname causes a validation trip up
 		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
-		unset($init['ffname']);
+		unset( $init['ffname'] );
 
 		$this->doApiRequest( $init );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
