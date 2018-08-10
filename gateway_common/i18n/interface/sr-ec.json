@@ -319,7 +319,7 @@
 	"donate_interface-rtbt-issuer_id-longlist": "Друге банке",
 	"donate_interface-dd-account_name": "Назив рачуна",
 	"donate_interface-dd-account_number": "Број рачуна",
-	"donate_interface-dd-authorization_id": "Назнака за овлашћења",
+	"donate_interface-dd-authorization_id": "ИД овлашћења",
 	"donate_interface-dd-bank_check_digit": "Контролна цифра банке",
 	"donate_interface-dd-bank_code": "Код за сврставање",
 	"donate_interface-dd-bank_name": "Назив банке",

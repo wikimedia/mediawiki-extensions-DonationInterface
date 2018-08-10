@@ -15,7 +15,8 @@
 			"Zilvador",
 			"Jrobell",
 			"Telaneo",
-			"BoBrandt"
+			"BoBrandt",
+			"Saederup92"
 		]
 	},
 	"donate_interface": "Støt Wikimedia",
@@ -140,8 +141,10 @@
 	"donate_interface-donor-email": "E-mailadresse",
 	"donate_interface-donor-name": "Navn",
 	"donate_interface-donor-first_name": "Fornavn",
+	"donate_interface-donor-first_name-alt": "Fornavn",
 	"donate_interface-donor-mname": "Mellemnavn",
 	"donate_interface-donor-last_name": "Efternavn",
+	"donate_interface-donor-last_name-alt": "Efternavn",
 	"donate_interface-donor-street_address": "Vej",
 	"donate_interface-donor-street-number": "Nummer",
 	"donate_interface-donor-city": "By",
@@ -190,10 +193,10 @@
 	"donate_interface-error-msg-invalid-city": "Ret venligst fejlene i feltet by",
 	"donate_interface-error-msg-invalid-postal_code-us": "Ret venligst fejlene i feltet postnummer",
 	"donate_interface-error-msg-invalid-postal_code": "Ret venligst fejlene i feltet postnummer",
-	"donate_interface-error-msg-country": "land",
+	"donate_interface-error-msg-country": "Indtast venligst dit land",
 	"donate_interface-error-msg-card_type": "kreditkorttype",
 	"donate_interface-error-msg-card_num": "kreditkortnummer",
-	"donate_interface-error-msg-expiration": "kortets udløbsdato",
+	"donate_interface-error-msg-expiration": "Indtast venligst udløbsdatoen for kortet",
 	"donate_interface-error-msg-cvv": "CVV fra bagsiden af dit kort",
 	"donate_interface-error-msg-account_name": "Kontonavn",
 	"donate_interface-error-msg-account_number": "Kontonummer",
@@ -376,5 +379,12 @@
 	"donate_interface-onetime": "Foretag en engangsdonation",
 	"donate_interface-monthly-short": "Månedlig",
 	"donate_interface-onetime-short": "Engangs",
-	"donate_interface-error-http-403": "Du har ikke tilladelse til at få adgang til denne side."
+	"donate_interface-error-http-403": "Du har ikke tilladelse til at få adgang til denne side.",
+	"apihelp-donate-param-first_name": "Fornavn.",
+	"apihelp-donate-param-last_name": "Efternavn.",
+	"apihelp-donate-param-city": "By.",
+	"apihelp-donate-param-postal_code": "Postnummer.",
+	"apihelp-donate-param-email": "E-mailadresse.",
+	"apihelp-donate-param-language": "Sprogkode.",
+	"apihelp-logPaymentsFormError-param-message": "Fejlmeddelelsen"
 }

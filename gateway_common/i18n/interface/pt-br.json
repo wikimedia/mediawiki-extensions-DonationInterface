@@ -258,7 +258,7 @@
 	"donate_interface-thankyou": "Agradecemos a sua doação!",
 	"donate_interface-post-transaction": "Detalhes da transação",
 	"donate_interface-cvv-explain": "<h4>O que é o CVV?</h4>\n<p>CVV ''(Cardholder Verification Value'' ou Código de Verificação do Cartão): É formado por três ou quatro algarismos e pretende assegurar que o cartão físico está na posse do seu detentor. Isto ajuda na prevenção de seu uso não autorizado ou fraudulento.</p>\n<h4>Visa, Mastercard</h4>\n<p>O código de 3 algarismos está no verso do cartão, na zona da assinatura.\nTipicamente, a zona da assinatura contém vários números mas só os 3 últimos algarismos formam o código CVV.</p>\n<h4>American Express</h4>\n<p>O código está <i>sempre</i> localizado <i>acima</i> do número de conta (saliente) na face do cartão.\nPor vezes o código aparece do lado esquerdo, mas está sempre acima do número de conta.</p><br />",
-	"donate_interface-question-comment": "Você tem perguntas ou comentários? Contate: <a href=\"mailto:$1\">$1</a>",
+	"donate_interface-question-comment": "Tem perguntas ou comentários? Contate: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Estamos tentando facilitar as doações em todos os países. Por favor, deixe-nos saber como poderíamos facilitar sua doação. Envie suas sugestões para: $1.",
 	"donate_interface-problemsdonating": "Problemas ao doar?",
 	"donate_interface-donate-click": "Seu cartão de crédito/ débito será processado com segurança.",
