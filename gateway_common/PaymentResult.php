@@ -118,8 +118,9 @@ class PaymentResult {
 	 * TODO: rename to fromResponse
 	 */
 	public static function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
-		if ( $finalStatus === FinalStatus::FAILED ) {
-			return self::newFailure( $response->getErrors() );
+		if ($finalStatus === FinalStatus::FAILED
+			|| $finalStatus === FinalStatus::CANCELLED) {
+			return self::newFailure($response->getErrors());
 		}
 		if ( !$response ) {
 			return self::newEmpty();
