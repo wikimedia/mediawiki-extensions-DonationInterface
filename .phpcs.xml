@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ruleset>
+        <rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+                <exclude name="MediaWiki.Commenting.MissingCovers.MissingCovers" />
+                <exclude name="MediaWiki.Commenting.PhpunitAnnotations.NotTestFunction" />
+                <exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
+                <exclude name="Squiz.Scope.MemberVarScope.Missing" />
+                <exclude name="Squiz.Scope.MethodScope.Missing" />
+                <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found" />
+                <exclude name="Generic.Files.LineLength.TooLong" />
+                <exclude name="MediaWiki.AlternativeSyntax.LeadingZeroInFloat.Found" />
+                <exclude name="MediaWiki.Classes.UnusedUseStatement.UnusedUse" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.DefaultNullTypeParam" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.LowercaseInheritDoc" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingParamName" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingParamTag" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.MissingReturn" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.NotShortBoolReturn" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.NotShortIntParam" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.ParamNameNoMatch" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.PluralReturns" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SingularThrow" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SpacingAfterReturnType" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SpacingBeforeParamType" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SpacingBeforeReturnType" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SpacingDocStar" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.SpacingDocTag" />
+                <exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
+                <exclude name="MediaWiki.Commenting.PhpunitAnnotations.NotClassTrait" />
+                <exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
+                <exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
+                <exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />
+                <exclude name="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix" />
+                <exclude name="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals" />
+                <exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+                <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
+                <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+                <exclude name="Squiz.Operators.ValidLogicalOperators.NotAllowed" />
+                <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore" />
+        </rule>
+
+        <file>.</file>
+        <arg name="extensions" value="php" />
+        <arg name="encoding" value="UTF-8" />
+</ruleset>

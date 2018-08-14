@@ -88,7 +88,7 @@ class DonationInterface {
 
 	public static function getAdapterClassForGateway( $gateway ) {
 		global $wgDonationInterfaceGatewayAdapters;
-		if ( !key_exists( $gateway, $wgDonationInterfaceGatewayAdapters ) ) {
+		if ( !array_key_exists( $gateway, $wgDonationInterfaceGatewayAdapters ) ) {
 			throw new OutOfRangeException( "No adapter configured for $gateway" );
 		}
 		return $wgDonationInterfaceGatewayAdapters[$gateway];

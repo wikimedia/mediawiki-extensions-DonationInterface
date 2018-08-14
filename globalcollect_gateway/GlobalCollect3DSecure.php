@@ -47,8 +47,7 @@ class GlobalCollect3DSecure implements StagingHelper {
 		) ) {
 			return false;
 		};
-		return
-			!empty( $normalized['currency'] ) &&
+		return !empty( $normalized['currency'] ) &&
 			!empty( $normalized['country'] );
 	}
 }

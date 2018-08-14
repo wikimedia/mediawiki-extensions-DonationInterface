@@ -37,8 +37,9 @@
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
-		"mediawiki/mediawiki-codesniffer": "0.11.0",
-		"wikimedia/testing-access-wrapper": "~1.0"
+		"mediawiki/mediawiki-codesniffer": "19.0.0",
+		"wikimedia/testing-access-wrapper": "~1.0",
+		"mediawiki/minus-x": "0.2.0"
 	},
 	"repositories": [
 		{
@@ -55,9 +56,14 @@
 	},
 	"scripts": {
 		"phpcs": "phpcs -p -s",
-		"fix": "phpcbf",
+		"fix": [
+			"phpcbf",
+			"minus-x fix ."
+		],
 		"test": [
-			"parallel-lint . --exclude vendor"
+			"parallel-lint . --exclude vendor",
+			"phpcs -p -s",
+			"minus-x check ."
 		]
 	}
 }

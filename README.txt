@@ -376,9 +376,9 @@ $wgDonationInterfaceCustomFiltersRiskScore = 0
 
 // minFraud globals
 /**
- * Your minFraud User ID.
+ * Your minFraud Account ID.
  */
-$wgDonationInterfaceMinFraudUserId = ''
+$wgDonationInterfaceMinFraudAccountId = ''
 
 /**
  * Your minFraud license key.

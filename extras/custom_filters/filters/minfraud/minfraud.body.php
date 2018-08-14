@@ -36,7 +36,7 @@ use SmashPig\CrmLink\ValidationAction;
  *
  * @code
  * $wgDonationInterfaceEnableMinFraud = true;
- * $wgDonationInterfaceMinFraudUserId = 12345;
+ * $wgDonationInterfaceMinFraudAccountId = 12345;
  * $wgDonationInterfaceMinFraudLicenseKey = 'YOUR LICENSE KEY';
  * @endcode
  */
@@ -56,9 +56,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected $cfo;
 	/**
 	 * User ID for minFraud Score web service
-	 * @var string $minFraudUserId
+	 * @var string $minFraudAccountId
 	 */
-	protected $minFraudUserId = '';
+	protected $minFraudAccountId = '';
 
 	/**
 	 * An array of options to pass to the MinFraud client
@@ -130,20 +130,20 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 
 		$this->cfo = $custom_filter_object;
 
-		$userId = $gateway_adapter->getGlobal( 'MinFraudUserId' );
+		$accountId = $gateway_adapter->getGlobal( 'MinFraudAccountId' );
 		$licenseKey = $gateway_adapter->getGlobal( 'MinFraudLicenseKey' );
 
 		// Set the minFraud User ID and license key.
 		// Go no further if we don't have them
-		if ( !$userId || !$licenseKey ) {
+		if ( !$accountId || !$licenseKey ) {
 			throw new RuntimeException(
 				'When $wgDonationInterfaceEnableMinFraud is true, both ' .
-				'$wgDonationInterfaceMinFraudUserId and ' .
+				'$wgDonationInterfaceMinFraudAccountId and ' .
 				'$wgDonationInterfaceMinFraudLicenseKey must be set.'
 			);
 		}
 		$this->minFraudLicenseKey = $licenseKey;
-		$this->minFraudUserId = $userId;
+		$this->minFraudAccountId = $accountId;
 
 		// Set the minFraud API options
 		$minFraudOptions = $gateway_adapter->getGlobal( 'MinFraudClientOptions' );
@@ -392,7 +392,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 */
 	protected function queryMinFraud( array $query ) {
 		$minFraud = new MinFraud(
-			$this->minFraudUserId,
+			$this->minFraudAccountId,
 			$this->minFraudLicenseKey,
 			$this->minFraudClientOptions
 		);
