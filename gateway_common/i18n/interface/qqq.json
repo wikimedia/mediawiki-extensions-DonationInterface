@@ -24,7 +24,8 @@
 			"James D. Forrester",
 			"Liuxinyu970226",
 			"Amire80",
-			"Nemo bis"
+			"Nemo bis",
+			"Jon Harald Søby"
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
@@ -190,7 +191,7 @@
 	"donate_interface-donor-fiscal_number-pe": "Peru-specific term for the fiscal number or tax id.  This is the DNI (Documento Nacional de Identidad) number assigned by the Peruvian government.",
 	"donate_interface-donor-fiscal_number-uy": "Uruguay-specific term for the fiscal number or tax id.  This is the CI (Cédula de Identidad) number assigned by the Uruguayan government.",
 	"donate_interface-donor-opt_in_yes": "Text appearing next to an affirmative radio button that donors can select to agree we can send them email. Ends with an asterisk to call attention to the explanation text below.\n{{Related|Donate interface-donor-opt_in_no}}",
-	"donate_interface-donor-opt_in_no": "Text appearing next to a negative radio button that donors can select to say we cannot send them email.\n{{Related|Donate interface-donor-opt_in_yes}",
+	"donate_interface-donor-opt_in_no": "Text appearing next to a negative radio button that donors can select to say we cannot send them email.\n{{Related|Donate interface-donor-opt_in_yes}}",
 	"donate_interface-donor-opt_in_explain": "Text appearing below radio buttons that donors can select to say whether we can send them email. Starts with an asterisk to link it to the \"yes\" answer above.\n{{Related|Donate interface-donor-opt_in_yes}}\n\nParameters:\n* $1 - URL of donor policy page",
 	"donate_interface-card-name-amex": "Used as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
 	"donate_interface-card-name-visa": "Used as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
