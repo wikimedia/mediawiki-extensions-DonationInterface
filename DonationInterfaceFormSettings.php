@@ -429,19 +429,30 @@ $forms_whitelist['astropay-uy'] = array(
 $forms_whitelist['adyen'] = array(
 	'gateway' => 'adyen',
 	'countries' => array( '+' => array( 'IL', 'JP' ), ),
-	'currencies' => array( '+' => array( 'ILS', 'JPY' ), ),
+	'currencies' => array( '+' => array( 'ILS', 'USD' ), ),
 	'payment_methods' => array(
 		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'jcb' ),
 	),
 	'selection_weight' => 110,
 );
 
+$forms_whitelist['adyen-usd'] = array(
+	'gateway' => 'adyen',
+	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ), ),
+	'currencies' => array( '+' => array( 'USD', ), ),
+	'payment_methods' => array(
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ),
+	),
+	// Setting form chooser weight to zero so this form is not chosen as default
+	'selection_weight' => 0,
+);
+
 $forms_whitelist['adyen-test'] = array(
 	'gateway' => 'adyen',
 	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ), ),
-	'currencies' => array( '+' => array( 'CAD', 'EUR', 'GBP', 'ILS', 'JPY', 'UAH', 'USD', ), ),
+	'currencies' => array( '+' => array( 'CAD', 'EUR', 'GBP', 'JPY'. 'ILS', 'UAH', 'USD', ), ),
 	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ),
+		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb' ),
 	),
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,

@@ -182,7 +182,7 @@
 	"donate_interface-error-msg-visa": "Syötä oikea luottokortin numero Visalle.",
 	"donate_interface-error-msg-discover": "Syötä oikea Discover-korttinumero.",
 	"donate_interface-error-msg-amount": "lahjoitussumma",
-	"donate_interface-error-msg-limit": "Lahjoitustasi ei voitu käsitellä. Voit yrittää uudestaan huomenna, koettaa lahjoittaa pienemmän summan, tai kokeilla <a href=\"$1\">jotain muuta lahjoitustapaa</a> (sivu englanniksi).",
+	"donate_interface-error-msg-limit": "Lahjoitustasi ei voitu käsitellä. Voit yrittää uudestaan huomenna, koettaa lahjoittaa pienemmän summan, tai kokeilla <a href=\"$1\">jotain muuta lahjoitustapaa</a>.",
 	"donate_interface-error-msg-email": "Seuraava kenttä vaaditaan: sähköpostiosoite",
 	"donate_interface-error-msg-first_name": "Seuraava kenttä vaaditaan: etunimi",
 	"donate_interface-error-msg-last_name": "Seuraava kenttä vaaditaan: sukunimi",
