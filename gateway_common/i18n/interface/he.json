@@ -160,7 +160,7 @@
 	"donate_interface-donor-currency-msg": "תרומה זו נעשית ב$1",
 	"donate_interface-donor-fiscal_number": "מספר פיסקלי",
 	"donate_interface-donor-opt_in_yes": "כן! אנא שלחו לי עדכונים לא תכופים ומידע על איך אני יכול לתמוך בוויקיפדיה בעתיד.*",
-	"donate_interface-donor-opt_in_no": "לא, אינני רוצה לקבל דואר אלקטרוני על נושא שאכפת לי ממנו.",
+	"donate_interface-donor-opt_in_no": "לא, אינני רוצה לקבל עדכונים, אפילו אם מדובר במספר הודעות דוא\"ל בודדות בשנה.",
 	"donate_interface-donor-opt_in_explain": "המידע שלך מטופל בהתאם ל<a href=\"$1\">מדיניות הפרטיות של התורמים</a>. כל הודעת דואר אלקטרוני שתגיע אליך תכלול אפשרויות פשוטות לביטול מינוי.",
 	"donate_interface-card-name-amex": "אמריקן אקספרס",
 	"donate_interface-card-name-visa": "ויזה",
