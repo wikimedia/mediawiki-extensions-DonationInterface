@@ -165,7 +165,7 @@
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
 	"donate_interface-donor-opt_in_yes": "Yes! Please send me infrequent email updates and information on how I can support Wikipedia in the future.*",
-	"donate_interface-donor-opt_in_no": "No, I don’t want to receive emails from a cause I care about.",
+	"donate_interface-donor-opt_in_no": "No, I don’t want updates, even if it’s only a few emails a year.",
 	"donate_interface-donor-opt_in_explain": "*Your information is handled in accordance with our <a href=\"$1\">Donor Privacy Policy</a>. Each email you receive will include easy unsubscribe options.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
