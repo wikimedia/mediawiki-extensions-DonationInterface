@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d4b82ec34b8e032c0420992e90d424e",
+    "content-hash": "cd49780daf4af4f9cf0bf9f264f2a41b",
     "packages": [
         {
             "name": "addshore/psr-6-mediawiki-bagostuff-adapter",
@@ -1670,26 +1670,26 @@
         },
         {
             "name": "mediawiki/minus-x",
-            "version": "0.2.0",
+            "version": "0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikimedia/mediawiki-tools-minus-x.git",
-                "reference": "5655eedf572728c4210cecd064d9146fba58983c"
+                "reference": "7e0ec5befc8feceb7572f4918d2db956ff7fc810"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikimedia/mediawiki-tools-minus-x/zipball/5655eedf572728c4210cecd064d9146fba58983c",
-                "reference": "5655eedf572728c4210cecd064d9146fba58983c",
+                "url": "https://api.github.com/repos/wikimedia/mediawiki-tools-minus-x/zipball/7e0ec5befc8feceb7572f4918d2db956ff7fc810",
+                "reference": "7e0ec5befc8feceb7572f4918d2db956ff7fc810",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.5.9",
-                "symfony/console": "3.3.5"
+                "symfony/console": "^3.3.5"
             },
             "require-dev": {
                 "jakub-onderka/php-console-highlighter": "0.3.2",
                 "jakub-onderka/php-parallel-lint": "0.9.2",
-                "mediawiki/mediawiki-codesniffer": "0.12.0"
+                "mediawiki/mediawiki-codesniffer": "16.0.0"
             },
             "bin": [
                 "bin/minus-x"
@@ -1712,7 +1712,7 @@
             ],
             "description": "Removes executable bit from files that shouldn't be executable",
             "homepage": "https://www.mediawiki.org/wiki/MinusX",
-            "time": "2017-10-30T16:27:33+00:00"
+            "time": "2018-02-17T17:27:38+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
