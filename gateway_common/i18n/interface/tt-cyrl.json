@@ -92,5 +92,7 @@
 	"donate_interface-or": "яки",
 	"donate_interface-your-information": "Сезнең турында мәгълүмат",
 	"donate_interface-mailing-address": "Почта юллмасы",
-	"donate_interface-continue": "Дәвам итү"
+	"donate_interface-continue": "Дәвам итү",
+	"donate_interface-change": "Үзгәртү",
+	"donate_interface-currency-change": "Үзгәртергәме?"
 }
