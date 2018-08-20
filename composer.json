@@ -37,6 +37,7 @@
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
+		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"mediawiki/mediawiki-codesniffer": "19.0.0",
 		"wikimedia/testing-access-wrapper": "~1.0",
 		"mediawiki/minus-x": "0.3.1"
@@ -61,7 +62,7 @@
 			"minus-x fix ."
 		],
 		"test": [
-			"parallel-lint . --exclude vendor",
+			"parallel-lint . --exclude vendor --exclude node_modules",
 			"phpcs -p -s",
 			"php tests/phpunit/LintYaml.php",
 			"minus-x check ."
