@@ -165,7 +165,7 @@
 	"donate_interface-donor-currency-msg": "Die Spende wird in $1 vorgenommen",
 	"donate_interface-donor-fiscal_number": "Steuernummer",
 	"donate_interface-donor-opt_in_yes": "Ja! Bitte senden Sie mir unregelmäßige Aktualisierungen und Informationen per E-Mail, wie ich in Zukunft Wikipedia unterstützen kann.*",
-	"donate_interface-donor-opt_in_no": "Nein, ich möchte keine E-Mails erhalten, da ich dies so wünsche.",
+	"donate_interface-donor-opt_in_no": "Nein, ich möchte keine Aktualisierungen erhalten, auch wenn es nur wenige E-Mails pro Jahr sind.",
 	"donate_interface-donor-opt_in_explain": "*Ihre Informationen werden in Übereinstimmung mit unserer <a href=\"$1\">Datenschutzrichtlinie für Spender</a> gehandhabt. Jede E-Mail, die Sie erhalten, enthält einfache Optionen zur Abmeldung.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",

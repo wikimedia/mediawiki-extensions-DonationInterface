@@ -410,6 +410,17 @@ ul#moreinfolinks {
         padding-right: 28px;
     }
 
+    td#donate form input[type="radio"].opt_in_radio {
+        width: 3%;
+        margin: 5px 3px auto;
+        display: inline-block;
+    }
+
+    td#donate form label.opt_in_label {
+        width: 95%;
+        cursor: pointer;
+    }
+
     body #mw-content-text #donate #greenBackground {
         background: transparent;
         border: 0;
