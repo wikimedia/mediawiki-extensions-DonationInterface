@@ -22,7 +22,8 @@
 			"Sujiniku",
 			"SPatton (WMF)",
 			"Omotecho",
-			"Yusuke1109"
+			"Yusuke1109",
+			"Suyama"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -396,5 +397,6 @@
 	"apihelp-donate-param-payment_method": "使用する支払手段",
 	"apihelp-donate-param-payment_submethod": "「使用する支払手段」が使えない時の支払手段",
 	"apihelp-donate-param-language": "言語コード",
-	"apihelp-donate-param-order_id": "IDを申請して下さい。(すでに寄付を開始されている場合)"
+	"apihelp-donate-param-order_id": "IDを申請して下さい。(すでに寄付を開始されている場合)",
+	"apihelp-logPaymentsFormError-param-message": "エラーメッセージ"
 }
