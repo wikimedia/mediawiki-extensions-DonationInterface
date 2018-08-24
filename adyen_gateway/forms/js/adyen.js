@@ -53,6 +53,9 @@
 		// hide our continue button so that people don't get
 		// confused with two of them
 		$( '#paymentContinueBtn' ).hide();
+		// Don't let people edit name, address, or email, since we won't
+		// see any changes they make while the iframe is open.
+		di.forms.disableInput();
 		$( '#adyen-iframe' ).show( 'blind' );
 	}
 
