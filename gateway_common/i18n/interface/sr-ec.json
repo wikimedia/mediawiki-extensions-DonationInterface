@@ -7,7 +7,8 @@
 			"Milicevic01",
 			"Сербијана",
 			"Obsuser",
-			"BadDog"
+			"BadDog",
+			"Zoranzoki21"
 		]
 	},
 	"donate_interface": "Подржите Викимедију",
@@ -330,7 +331,7 @@
 	"donate_interface-translate-redlink1": "Помозите нам да преведемо ову страницу.",
 	"donate_interface-translate-redlink2": "Или пак пошаљите свој превод на translations@wikimedia.org",
 	"donate_interface-email-fallbackname": "пријатељ Задужбине Викимедија",
-	"donate_interface-email-subject": "Захвалност од Задужбине Викимедија",
+	"donate_interface-email-subject": "Овде смо за вас. Хвала вам што сте уз нас.",
 	"donate_interface-email-unsub-title": "Отказивање претплате — Задужбина Викимедија",
 	"donate_interface-email-unsub-button": "Откажи претплату",
 	"donate_interface-email-unsub-success": "Уклоњени сте с наше дописне листе",
