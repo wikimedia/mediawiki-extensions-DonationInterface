@@ -663,11 +663,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 0, 70 );
 		}
 
-		$pendingflag = false; // in case it's pending, don't cancel and no problem message needed
-		$cancelflag = false; // this will denote the thing we're trying to do with the donation attempt
-		$problemflag = false; // this will get set to true, if we can't continue and need to give up and just log the hell out of it.
+		$flag = false;
+		// in case it's 'pending', don't cancel and no problem message needed
+		// 'cancel' will denote the thing we're trying to do with the donation attempt
+		// this will get set to 'problem', if we can't continue and need to give up and just log the hell out of it.
 		$problemmessage = ''; // to be used in conjunction with the flag.
 		$problemseverity = LogLevel::ERROR; // to be used also in conjunction with the flag, to route the message to the appropriate log. Urf.
+		$errors = array();
 		$original_status_code = null;
 
 		$loopcount = $this->getGlobal( 'RetryLoopCount' );
@@ -685,21 +687,21 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// FIXME: "isForceCancel"?
 		if ( $status_result->getForceCancel() ) {
-			$cancelflag = true; // don't retry or Mastercard will fine us
+			$flag = 'cancel'; // don't retry or Mastercard will fine us
 		}
 
 		// we filtered
 		if ( $validationAction !== ValidationAction::PROCESS ) {
-			$cancelflag = true; // don't retry: We've fraud-failed them intentionally.
+			$flag = 'cancel'; // don't retry: We've fraud-failed them intentionally.
 		} elseif ( $status_result->getCommunicationStatus() === false ) {
 		// can't communicate or internal error
-			$problemflag = true;
+			$flag = 'problem';
 			$problemmessage = "Can't communicate or internal error: "
 				. $status_result->getMessage();
 		}
 
 		$order_status_results = false;
-		if ( !$cancelflag && !$problemflag ) {
+		if ( !in_array( $flag, array( 'problem', 'cancel' ) ) ) {
 			$statusCode = $this->getStatusCode( $this->getTransactionData() );
 			if ( $statusCode ) {
 				if ( is_null( $original_status_code ) ) {
@@ -716,23 +718,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 			}
 			if ( !$order_status_results ) {
-				$problemflag = true;
+				$flag = 'problem';
 				$problemmessage = "We don't have an order status after doing a GET_ORDERSTATUS.";
 			}
 			switch ( $order_status_results ) {
 				case FinalStatus::FAILED :
 				case FinalStatus::CANCELLED :
 				case FinalStatus::REVISED :
-					$cancelflag = true; // makes sure we don't try to confirm.
+					$flag = 'cancel'; // makes sure we don't try to confirm.
 					break;
 				case FinalStatus::COMPLETE :
-					$problemflag = true; // nothing to be done.
+					$flag = 'problem'; // nothing to be done.
 					$problemmessage = "GET_ORDERSTATUS reports that the payment is already complete.";
 					$problemseverity = LogLevel::INFO;
 					break;
 				case FinalStatus::PENDING_POKE :
 					if ( $is_orphan && !$gotCVV ) {
-						$problemflag = true;
+						$flag = 'problem';
 						$problemmessage = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
 					}
 
@@ -747,7 +749,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							$this->logger->info( "DO_FINISHPAYMENT ($loops) returned with status ID " . $dopayment_data['STATUSID'] );
 							if ( $this->findCodeAction( 'GET_ORDERSTATUS', 'STATUSID', $dopayment_data['STATUSID'] ) === FinalStatus::FAILED ) {
 								// ack and die.
-								$problemflag = true; // nothing to be done.
+								$flag = 'problem'; // nothing to be done.
 								$problemmessage = "DO_FINISHPAYMENT says the payment failed. Giving up forever.";
 								$this->finalizeInternalStatus( FinalStatus::FAILED );
 							}
@@ -763,7 +765,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					// FIXME: explicit that we want to fall through? <-- do we still want this?
 
 				case FinalStatus::PENDING :
-					$pendingflag = true;
+					$flag = 'pending';
 					// If it's really pending at this point, we need to
 					// leave it alone.
 					// FIXME: If we're orphan slaying, this should stay in
@@ -772,10 +774,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 
-		// if we got here with no problemflag,
-		// confirm or cancel the payment based on $cancelflag
-		if ( !$problemflag ) {
-			if ( !$cancelflag && !$pendingflag ) {
+		// if we got here with no flag for pblem,
+		// confirm or cancel the payment based on $flag
+		switch ( $flag ) {
+			case false :
 				$final = $this->approvePayment();
 				if ( $final->getCommunicationStatus() === true ) {
 					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
@@ -784,10 +786,14 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->postProcessDonation();  // Queueing is in here.
 				} else {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					$problemflag = true;
+					$flag = 'problem';
 					$problemmessage = "SET_PAYMENT couldn't communicate properly!";
 				}
-			} else {
+				break;
+			case 'pending' :
+				// leave it alone, anything to do?
+				break;
+			case 'cancel' :
 				if ( $order_status_results === false ) {
 					// we didn't do the check, because we're going to fail the thing.
 					/**
@@ -801,37 +807,30 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					// in case we got wiped out, set the final status to what it was before.
 					$this->finalizeInternalStatus( $order_status_results );
 				}
-			}
-		}
-
-		if ( $problemflag || $cancelflag ) {
-			if ( $cancelflag ) { // cancel wins
 				$problemmessage = "Cancelling payment";
 				$problemseverity = LogLevel::INFO;
 				$errors = array( '1000001' => $problemmessage );
-			} else {
-				$errors = array( '1000000' => 'Transaction could not be processed due to an internal error.' );
-			}
-
-			// we have probably had a communication problem that could mean stranded payments.
-			$this->logger->log( $problemseverity, $problemmessage );
-			// hurm. It would be swell if we had a message that told the user we had some kind of internal error.
-			$ret = new PaymentTransactionResponse();
-			$ret->setCommunicationStatus( false );
-			// DO NOT PREPEND $problemmessage WITH ANYTHING!
-			// orphans.php is looking for specific things in position 0.
-			$ret->setMessage( $problemmessage );
-			foreach ( $errors as $code => $error ) {
-				$ret->addError( new PaymentError(
-					$code,
-					'Failure in transactionConfirm_CreditCard',
-					$problemseverity
-				) );
-			}
-			// TODO: should we set $this->transaction_response ?
-			return $ret;
+				// fall through
+			case 'problem' :
+				if ( !count( $errors ) ) { $errors = array( '1000000' => 'Transaction could not be processed due to an internal error.' ); }
+				// we have probably had a communication problem that could mean stranded payments.
+				$this->logger->log( $problemseverity, $problemmessage );
+				// hurm. It would be swell if we had a message that told the user we had some kind of internal error.
+				$ret = new PaymentTransactionResponse();
+				$ret->setCommunicationStatus( false );
+				// DO NOT PREPEND $problemmessage WITH ANYTHING!
+				// orphans.php is looking for specific things in position 0.
+				$ret->setMessage( $problemmessage );
+				foreach ( $errors as $code => $error ) {
+					$ret->addError( new PaymentError(
+						$code,
+						'Failure in transactionConfirm_CreditCard',
+						$problemseverity
+					) );
+				}
+				// TODO: should we set $this->transaction_response ?
+				return $ret;
 		}
-
 // return something better... if we need to!
 		return $status_result;
 	}
