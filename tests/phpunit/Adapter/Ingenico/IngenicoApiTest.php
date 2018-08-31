@@ -54,8 +54,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'locale' => 'en_US',
 						'paymentProductFilters' => array(
 							'restrictTo' => array(
-								'products' => array(
-									1
+								'groups' => array(
+									'cards'
 								)
 							)
 						),

@@ -52,12 +52,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 					'returnCancelState',
 					'paymentProductFilters' => array(
 						'restrictTo' => array(
-							'products' => array(
-								// HACK! this array should be a simple
-								// list of payment ids, not an associative array
-								// so... use 'null' to flag that?
-								'paymentProductId' => null
-							)
+							'groups',
 						)
 					),
 					'returnUrl',
@@ -113,6 +108,9 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 				'showResultPage' => 'false',
 				'returnCancelState' => 'true',
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				'groups' => array(
+					'cards',
+				)
 			),
 			'response' => array(
 				'hostedCheckoutId'
