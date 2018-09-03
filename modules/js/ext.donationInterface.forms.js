@@ -4,12 +4,38 @@
 ( function ( $, mw ) {
 	var di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
 
+	/**
+	 * Disable all interaction with the form, including buttons.
+	 * Usually done by drawing a semi-opaque overlay.
+	 */
 	function disableForm() {
 		$( '#overlay' ).show();
 	}
 
+	/**
+	 * Mark all form input fields disabled. This can be used to indicate that
+	 * no revision to donor info is possible after a card iframe is opened.
+	 */
+	function disableInput() {
+		$( '[type=text], [type=number], [type=email], select' ).each( function () {
+			$( this ).attr( 'disabled', true );
+		} );
+	}
+
+	/**
+	 * Makes a form disabled with disableForm usable again.
+	 */
 	function enableForm() {
 		$( '#overlay' ).hide();
+	}
+
+	/**
+	 * Re-enable input fields disabled with disableInput.
+	 */
+	function enableInput() {
+		$( '[type=text], [type=number], [type=email] select' ).each( function () {
+			$( this ).removeAttr( 'disabled' );
+		} );
 	}
 
 	/**
@@ -132,7 +158,9 @@
 	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
+		disableInput: disableInput,
 		enable: enableForm,
+		enableInput: enableInput,
 		clean: cleanInput,
 		// Gateways with more complex form submission can overwrite this
 		// property with their own submission function.
@@ -172,6 +200,7 @@
 			'unload', function () {
 				// wrapped in case it is overwritten
 				di.forms.enable();
+				di.forms.enableInput();
 			}
 		);
 	} );
