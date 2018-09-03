@@ -183,7 +183,7 @@
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
 	"donate_interface-donor-opt_in_yes": "Sim! Enviem-me esporadicamente, por e-mail, atualizações e informação sobre formas como posso ajudar a Wikipédia, por favor.*",
-	"donate_interface-donor-opt_in_no": "Não, não quero receber e-mail sobre uma causa que me interessa.",
+	"donate_interface-donor-opt_in_no": "Não, não quero atualizações, mesmo que sejam só algumas mensagens por ano.",
 	"donate_interface-donor-opt_in_explain": "*A sua informação é tratada de acordo com as nossas <a href=\"$1\">normas de privacidade para doadores</a>. Todas as mensagens que receber incluirão opções simples para deixar de recebê-las.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
