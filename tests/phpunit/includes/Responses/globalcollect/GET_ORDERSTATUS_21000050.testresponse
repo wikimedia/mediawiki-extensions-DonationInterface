@@ -1,5 +1,5 @@
-<!--Plain, no-problems I_OWP-->
 <?xml version = "1.0"?>
+<!--Plain, no-problems I_OWP-->
 <XML>
 	<REQUEST>
 		<ACTION>GET_ORDERSTATUS</ACTION>
