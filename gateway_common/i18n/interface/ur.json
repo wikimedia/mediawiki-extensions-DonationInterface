@@ -110,5 +110,6 @@
 	"donate_interface-dd-bank_name": "بینک کا نام",
 	"donate_interface-dd-branch_code": "شاخ کوڈ",
 	"donate_interface-dd-direct_debit_text": "ڈائریکٹ ڈیبٹ کے متن",
-	"donate_interface-email-unsub-button": "رکنیت ختم"
+	"donate_interface-email-unsub-button": "رکنیت ختم",
+	"donate_interface-currency-change": "تبدیلی؟"
 }

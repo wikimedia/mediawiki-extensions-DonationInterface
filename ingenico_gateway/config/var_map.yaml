@@ -3,7 +3,6 @@ isRecurring: recurring
 locale: language
 amount: amount
 currencyCode: currency
-paymentProductId: payment_product
 city: city
 countryCode: country
 state: state_province

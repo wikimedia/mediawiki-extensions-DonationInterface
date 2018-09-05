@@ -12,7 +12,7 @@
 			.attr( {
 				src: result.formaction,
 				width: 318,
-				height: 314,
+				height: 316,
 				frameborder: 0,
 				name: 'ingenico-iFrame',
 				id: 'ingenico-iFrame'
