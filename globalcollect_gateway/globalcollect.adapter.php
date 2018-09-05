@@ -1756,4 +1756,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		return null;
 	}
+
+	/**
+	 * Check if the curl_response is something we can process.
+	 *
+	 * GlobalCollect sends back an plain text error message when things goes bad
+	 * so we check for it here to halt response processing if detected.
+	 *
+	 * @param mixed $curl_response
+	 *
+	 * @return bool
+	 */
+	protected function curlResponseIsValidFormat( $curl_response ) {
+		// we're searching across the raw request
+		if ( strpos( $curl_response, 'No response from application server. Please contact Global Collect' ) !== false ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

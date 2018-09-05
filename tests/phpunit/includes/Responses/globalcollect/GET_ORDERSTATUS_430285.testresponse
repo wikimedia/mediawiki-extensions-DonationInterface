@@ -1,5 +1,16 @@
-<!--Plain, no-problems I_OWP-->
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+X-OneAgent-JS-Injection: true
+Set-Cookie: dtCookie=1$85FFBC809C251DF8016609A88D345270; Path=/; Domain=.gcsip.nl
+Cache-Control: no-cache, no-store, must-revalidate, max-age=0, proxy-revalidate, no-transform, pre-check=0, post-check=0, private
+Expires: Thu, Jan 01 1970 00:00:00 GMT
+Pragma: no-cache
+Content-Type: text/xml;charset=utf-8
+Content-Length: 1939
+Date: Thu, 06 Dec 2018 17:51:49 GMT
+
 <?xml version = "1.0"?>
+<!--Plain, no-problems I_OWP-->
 <XML>
 	<REQUEST>
 		<ACTION>GET_ORDERSTATUS</ACTION>
