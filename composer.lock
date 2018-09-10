@@ -888,8 +888,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Respect/Validation/zipball/add542ea48be874ca8ab82208367430488a01e77",
-                "reference": "add542ea48be874ca8ab82208367430488a01e77",
+                "url": "https://api.github.com/repos/Respect/Validation/zipball/19d6ec893994912d21b390c43d287816ab070772",
+                "reference": "19d6ec893994912d21b390c43d287816ab070772",
                 "shasum": ""
             },
             "require": {
@@ -1339,11 +1339,11 @@
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "v0.5.7.3",
+            "version": "v0.5.7.5",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "cc94374607c8c191800aa9cb2428debf64080e96"
+                "reference": "5249bcedb45d26897d1959bdfabd237e9f7e5e46"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -1402,7 +1402,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2018-08-22T03:39:34+00:00"
+            "time": "2018-09-08T00:25:55+00:00"
         },
         {
             "name": "zordius/lightncandy",
