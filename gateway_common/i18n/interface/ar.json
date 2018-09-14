@@ -167,7 +167,7 @@
 	"donate_interface-donor-currency-msg": "يتم إجراء هذا التبرع ب$1",
 	"donate_interface-donor-fiscal_number": "الرقم الجبائي",
 	"donate_interface-donor-opt_in_yes": "*نعم! الرجاء إرسال تحديثات غير متكررة عبر البريد الإلكتروني ومعلومات حول كيفية دعم ويكيبيديا في المستقبل.",
-	"donate_interface-donor-opt_in_no": "لا ، لا أريد تلقي رسائل بريد إلكتروني من قضية أهتم بها.",
+	"donate_interface-donor-opt_in_no": "لا، لا أريد تحديثات، حتى لو كانت مجرد رسائل إلكترونية قليلة في السنة.",
 	"donate_interface-donor-opt_in_explain": "* يتم التعامل مع معلوماتك بما يتوافق مع <a href=\"$1\">سياسة خصوصية المانحين</a>، ستتضمن كل رسالة بريد إلكتروني تتلقاها خيارات إلغاء الاشتراك بسهولة.",
 	"donate_interface-card-name-amex": "أمريكان إكسبريس",
 	"donate_interface-card-name-visa": "فيزا",

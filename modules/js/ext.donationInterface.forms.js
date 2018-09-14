@@ -64,7 +64,7 @@
 	 */
 	function getOptIn() {
 		var element = $( 'input[name=opt_in]:checked' );
-		if ( !element ) {
+		if ( element.length === 0 ) {
 			return '';
 		}
 		return element.val();

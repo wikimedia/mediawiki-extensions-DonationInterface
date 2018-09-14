@@ -403,6 +403,8 @@
 	"apihelp-donate-param-card_type": "نوع کارت اعتباری.",
 	"apihelp-donate-param-expiration": "تاریخ انقضا.",
 	"apihelp-donate-param-cvv": "رمز CVV",
+	"apihelp-donate-param-payment_method": "نوع پرداخت برای استفاده.",
+	"apihelp-donate-param-payment_submethod": "نوع پرداخت برای استفاده.",
 	"apihelp-donate-param-language": "کد زبان.",
 	"apihelp-donate-param-wmf_token": "بلیط ویرایش",
 	"apihelp-donate-example-1": "اهدا کنید",

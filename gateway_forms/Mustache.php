@@ -121,11 +121,36 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = $output->parse( '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
+		$this->handleOptIn( $data );
 		$this->addSubmethods( $data );
 		$this->addRequiredFields( $data );
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
+	}
+
+	protected function handleOptIn( &$data ) {
+		// Since this value can be 1, 0, or unset, we need to make
+		// special conditionals for the mustache logic
+		if ( !isset( $data['opt_in'] ) || $data['opt_in'] === '' ) {
+			return;
+		}
+		switch ( (string)$data['opt_in'] ) {
+			case '1':
+				$data['opted_in'] = true;
+				break;
+			case '0':
+				$data['opted_out'] = true;
+				break;
+			default:
+				$logger = DonationLoggerFactory::getLogger(
+					$this->gateway,
+					'',
+					$this->gateway
+				);
+				$logger->warning( "Invalid opt_in value {$data['opt_in']}" );
+				break;
+		}
 	}
 
 	protected function addSubmethods( &$data ) {
