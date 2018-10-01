@@ -40,7 +40,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 
 		$this->setMwGlobals( array(
 			'wgDonationInterfaceEnableFormChooser' => true,
-			'wgGlobalCollectGatewayEnabled' => true,
+			'wgIngenicoGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
 		) );
 	}
