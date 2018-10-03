@@ -79,6 +79,27 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	/**
+	 * Test we're sending an IP address in the right place
+	 */
+	function testSendCustomerIP() {
+		$init = $this->getDonorTestData();
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )
+			->with( $this->callback( function ( $arg ) use ( $gateway ) {
+				return $gateway->getData_Unstaged_Escaped( 'user_ip' ) ===
+					$arg['fraudFields']['customerIpAddress'];
+			} ) )
+			->willReturn(
+				$this->hostedCheckoutCreateResponse
+			);
+		$gateway->do_transaction( 'createHostedCheckout' );
+	}
+
+	/**
 	 * Just run the getHostedCheckoutStatus transaction and make sure we load the data
 	 */
 	function testGetHostedPaymentStatus() {
