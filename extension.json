@@ -318,6 +318,7 @@
 		"DonationInterfaceProblemsEmail": "donate@wikimedia.org",
 		"DonationInterfaceMajorGiftsEmail": "benefactors@wikimedia.org",
 		"DonationInterfaceDefaultEmail": "nobody@wikimedia.org",
+		"DonationInterfaceLogoOverride": [],
 		"DonationInterfaceDebugLog": false,
 		"DonationInterfaceDisplayDebug": false,
 		"DonationInterfaceUseSyslog": false,
