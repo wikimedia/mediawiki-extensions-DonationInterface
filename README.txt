@@ -134,6 +134,25 @@ $wgDonationInterfaceCancelPage = 'Donate-error'
  */
 $wgDonationInterfaceVariantConfigurationDirectory = false
 
+/**
+ * Set this to override the logo for certain querystring values (and persist
+ * the override in session). For example:
+ * $wgDonationInterfaceLogoOverride = [
+ *    [
+ *        'variable' => 'utm_medium',
+ *        'value' => 'endowment',
+ *        'logo' => '/path/to/EndowmentLogo.png',
+ *        'logoHD' => [
+ *                        '1.5x' => '/path/to/Endowment1.5x.png',
+ *                        '2x' => '/path/to/Endowment2x.png',
+ *                    ]
+ *    ],
+ * ];
+ * will use EndowmentLogo.png when the querystring variable 'utm_medium' has
+ * the value 'endowment'. You can specify multiple rulesets.
+ */
+$wgDonationInterfaceLogoOverride = [];
+
 ==== Debug and logging ====
 
 $wgDonationInterfaceDisplayDebug = false

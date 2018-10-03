@@ -60,6 +60,9 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 					// 'tokens', // we don't store user accounts or tokens here
 					// 'variant', // For a/b testing of iframe
 				),
+				'fraudFields' => array(
+					'customerIpAddress',
+				),
 				'order' => array(
 					'amountOfMoney' => array(
 						'amount',
