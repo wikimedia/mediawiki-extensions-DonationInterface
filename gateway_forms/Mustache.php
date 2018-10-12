@@ -295,6 +295,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
+		if ( doubleval( $data['amount'] ) === 0.0 ) {
+			$data['amount'] = '';
+		}
 	}
 
 	/**
