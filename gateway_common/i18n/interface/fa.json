@@ -394,6 +394,8 @@
 	"apihelp-donate-param-currency": "کد واحد پول",
 	"apihelp-donate-param-first_name": "نام.",
 	"apihelp-donate-param-last_name": "نام خانوادگی.",
+	"apihelp-donate-param-street_address": "خط اول آدرس خیابان.",
+	"apihelp-donate-param-supplemental_address_1": "خط دوم آدرس خیابان.",
 	"apihelp-donate-param-city": "شهر.",
 	"apihelp-donate-param-state_province": "مخفف ایالت",
 	"apihelp-donate-param-postal_code": "کد پستی.",
