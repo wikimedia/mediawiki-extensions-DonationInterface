@@ -19,6 +19,12 @@ class DonorLocale
 				}
 			}
 
+			foreach ( $this->getFallbacks() as $original => $fallback ) {
+				if ( $language === $original ) {
+					$language = $fallback;
+					break;
+				}
+			}
 			$staged_data['language'] = "{$language}_{$normalized['country']}";
 		}
 	}
@@ -28,5 +34,16 @@ class DonorLocale
 			$parts = explode( '_', $stagedData['language'] );
 			$unstagedData['language'] = $parts[0];
 		}
+	}
+
+	/**
+	 * In case an API can't handle certain language codes and you need to make
+	 * some replacements, a subclass can override them here but returning an
+	 * array with the unusable codes as keys and replacement codes as values.
+	 *
+	 * @return array
+	 */
+	protected function getFallbacks() {
+		return [];
 	}
 }
