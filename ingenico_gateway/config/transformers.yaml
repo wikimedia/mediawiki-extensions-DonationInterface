@@ -9,7 +9,7 @@
 - FiscalNumber
 - ContributionTrackingPlusUnique
 - IngenicoFinancialNumber
-- DonorLocale
+- IngenicoLocale
 - IngenicoMethodCodec
 - IngenicoReturntoHelper
 - Ingenico3DSecure
