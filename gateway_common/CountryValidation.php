@@ -1,6 +1,7 @@
 <?php
 
 use SmashPig\Core\ValidationError;
+use GeoIp2\Database\Reader;
 
 class CountryValidation implements ValidationHelper {
 
@@ -82,5 +83,22 @@ class CountryValidation implements ValidationHelper {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * @param string $ip Request IP address
+	 * @return string|null country ISO code, or null if there's a problem with the db.
+	 */
+	public static function lookUpCountry( $ip ) {
+		if ( WmfFramework::validateIP( $ip ) ) {
+			try {
+				$dbPath = GatewayAdapter::getGlobal( 'GeoIpDbPath' );
+				$reader = new Reader( $dbPath );
+				return $reader->country( $ip )->country->isoCode;
+			} catch ( Exception $e ) {
+				// Suppressing missing database exception thrown in CI
+			}
+		}
+		return null;
 	}
 }
