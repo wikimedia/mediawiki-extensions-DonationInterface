@@ -11,20 +11,9 @@ window.validateAmount = function () {
 		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
 		minDisplay,
 		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
-		$amountMsg = $( '#amountMsg' );
-
-	// Normalize weird amount formats.
-	// Don't mess with these unless you know what you're doing.
-	/*jshint ignore:start*/
-	amount = amount.replace( /[,.](\d)$/, '\:$10' );
-	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
-	amount = amount.replace( /[,.]/g, '' );
-	amount = amount.replace( /:/, '.' );
-	$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
-	/*jshint ignore:end*/
-
-	// Check amount is a real number, sets error as true (good) if no issues
-	error = ( amount === null || isNaN( amount ) || amount.value <= 0 );
+		$amountMsg = $( '#amountMsg' ),
+		threeDecimalCurrencies = [ 'BHD', 'CLF', 'IQD', 'KWD', 'LYD',
+			'MGA', 'MRO', 'OMR', 'TND' ];
 
 	// Check amount is at least the minimum
 	if ( $( 'input[name="currency"]' ).length ) {
@@ -33,6 +22,22 @@ window.validateAmount = function () {
 	if ( $( 'select[name="currency"]' ).length ) {
 		currency = $( 'select[name="currency"]' ).val();
 	}
+
+	// Normalize weird amount formats.
+	// Don't mess with these unless you know what you're doing.
+	/*jshint ignore:start*/
+	amount = amount.replace( /[,.](\d)$/, '\:$10' );
+	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
+	if ( threeDecimalCurrencies.indexOf( currency ) > -1 ) {
+		amount = amount.replace( /[,.](\d)(\d)(\d)$/, '\:$1$2$3' );
+	}
+	amount = amount.replace( /[,.]/g, '' );
+	amount = amount.replace( /:/, '.' );
+	$( 'input[name="amount"]' ).val( amount ); // set the new amount back into the form
+	/*jshint ignore:end*/
+
+	// Check amount is a real number, sets error as true (good) if no issues
+	error = ( amount === null || isNaN( amount ) || amount.value <= 0 );
 
 	if ( ( typeof rates[ currency ] ) === 'undefined' ) {
 		rate = 1;
