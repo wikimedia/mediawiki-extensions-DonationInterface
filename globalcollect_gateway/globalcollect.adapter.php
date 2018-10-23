@@ -1756,4 +1756,31 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 		return null;
 	}
+
+	/**
+	 * Check if the curl_response is valid XML using simple_load_string call.
+	 * simple_load_string() returns false if it fails to build an XML object from the
+	 * string supplied http://php.net/manual/en/function.simplexml-load-string.php
+	 *
+	 * Note: Using libxml_use_internal_errors() to suppress XML errors
+	 *
+	 * @param mixed $curl_response
+	 *
+	 * @return bool
+	 */
+	protected function curlResponseIsValidFormat( $curl_response ) {
+		// feels like this value is unlikely to change as it's set on line 33
+		// but we check it just to confirm xml is still the desired format
+		if ( $this->getResponseType() == 'xml' ) {
+			libxml_use_internal_errors( true );
+			$xmldoc = simplexml_load_string( $curl_response );
+			if ( $xmldoc === false ) {
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return true;
+		}
+	}
 }

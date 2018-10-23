@@ -1335,7 +1335,7 @@ abstract class GatewayAdapter
 			rewind( $curlDebugLog );
 			$logged = fread( $curlDebugLog, 4096 );
 
-			if ( $curl_response !== false ) {
+			if ( $curl_response !== false && $this->curlResponseIsValidFormat( $curl_response ) === true ) {
 				// The cURL operation was at least successful, what happened in it?
 				// Only log verbose output on success if configured to do so
 				if ( $enableCurlVerboseLogging ) {
@@ -1381,8 +1381,13 @@ abstract class GatewayAdapter
 				// Well the cURL transaction failed for some reason or another. Try again!
 				$continue = true;
 
+				if ( $this->curlResponseIsValidFormat( $curl_response ) ) {
+					$err = curl_error( $ch );
+				} else {
+					$err = "invalid response format: " . $curl_response;
+				}
+
 				$errno = $this->curl_errno( $ch );
-				$err = curl_error( $ch );
 
 				$this->logger->alert(
 					"cURL transaction to $gatewayName failed: ($errno) $err.  " .
@@ -3811,5 +3816,19 @@ abstract class GatewayAdapter
 			$return->addError( $error );
 		}
 		return $return;
+	}
+
+	/**
+	 * Allows adapters to specify curl response format requirements
+	 * (e.g. xml, json, other custom format)
+	 *
+	 * Defaults to true to allow any response format where check not needed.
+	 *
+	 * @param mixed $curl_response
+	 *
+	 * @return bool
+	 */
+	protected function curlResponseIsValidFormat( $curl_response ) {
+		return true;
 	}
 }
