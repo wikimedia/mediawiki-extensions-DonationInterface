@@ -92,7 +92,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'L_PAYMENTREQUEST_0_DESC0' => 'Donation to the Wikimedia Foundation',
 			'PAYMENTREQUEST_0_AMT' => '1.55',
 			'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD',
-			'PAYMENTREQUEST_0_CUSTOM' => $init['contribution_tracking_id'],
+			'PAYMENTREQUEST_0_CUSTOM' => $init['contribution_tracking_id'] . '.1',
 			'PAYMENTREQUEST_0_DESC' => 'Donation to the Wikimedia Foundation',
 			'PAYMENTREQUEST_0_INVNUM' => $init['contribution_tracking_id'] . '.1',
 			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
