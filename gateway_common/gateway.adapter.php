@@ -2464,7 +2464,7 @@ abstract class GatewayAdapter
 					break;
 				default:
 					$check_not_empty = array( $type );
-					continue;
+					break;
 			}
 			$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
 		}
