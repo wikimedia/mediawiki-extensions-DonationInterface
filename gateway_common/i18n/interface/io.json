@@ -23,6 +23,7 @@
 	"donate_interface-error-msg-last_name": "surnomo",
 	"donate_interface-error-msg-city": "urbo",
 	"donate_interface-error-msg-state_province": "stato",
+	"donate_interface-street-address-line-2": "Strado/Avenuo (lineo 2)",
 	"donate_interface-next": "Sequanta",
 	"donate_interface-continue": "Durar"
 }

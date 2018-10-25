@@ -56,6 +56,19 @@ $forms_whitelist['cc-vmad'] = array(
 	'countries' => array(
 		'+' => array( 'US', ),
 	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['cc-vjma'] = array(
@@ -63,6 +76,19 @@ $forms_whitelist['cc-vjma'] = array(
 	'payment_methods' => array( 'cc' => array( 'visa', 'jcb', 'mc', 'amex' ) ),
 	'countries' => array(
 		'+' => array( 'JP', ),
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
 	),
 	'selection_weight' => 10,
 );
@@ -72,6 +98,19 @@ $forms_whitelist['cc-jvma'] = array(
 	'payment_methods' => array( 'cc' => array( 'jcb', 'visa', 'mc', 'amex' ) ),
 	'countries' => array(
 		'+' => array( 'JP', ),
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
 	),
 	'selection_weight' => 0,
 );
@@ -83,6 +122,19 @@ $forms_whitelist['cc-vmaj'] = array(
 		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
 					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
 					  'SG', 'SI', 'SK', 'TH', 'TW', ),
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
 	),
 );
 
@@ -96,6 +148,19 @@ $forms_whitelist['cc-vmd'] = array(
 			array() // as of right now, nothing specific here
 		),
 	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['cc-vmj'] = array(
@@ -107,6 +172,19 @@ $forms_whitelist['cc-vmj'] = array(
 			$forms_whitelist['cc-vmaj']['countries']['+'],
 			array( 'BR', 'ID', 'PH', )
 		),
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
 	),
 );
 
@@ -123,6 +201,19 @@ $forms_whitelist['cc-vma'] = array(
 				 'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
 				 'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
 				 'RU', 'SA', 'SE', 'TN', 'TR', 'UA', )
+		)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		)
 	),
 );
@@ -147,6 +238,19 @@ $forms_whitelist['cc-vm'] = array(
 				 'UZ', 'VA', 'VC', 'VE', 'VI', 'VU', 'YE', 'ZA', 'ZM', 'ZW', )
 		),
 	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['cc-a'] = array(
@@ -158,12 +262,38 @@ $forms_whitelist['cc-a'] = array(
 			array() // as of right now, nothing specific here
 		)
 	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['cc'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => 'ALL' ),
-	'countries' => array( '-' => 'VN' )
+	'countries' => array( '-' => 'VN' ),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 /**
@@ -172,6 +302,19 @@ $forms_whitelist['cc'] = array(
 $forms_whitelist['cc-ingenico'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => 'ALL' ),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 	'selection_weight' => 10,
 );
 
@@ -181,6 +324,19 @@ $forms_whitelist['cc-ingenico'] = array(
 $forms_whitelist['cc-globalcollect'] = array(
 	'gateway' => 'globalcollect',
 	'payment_methods' => array( 'cc' => 'ALL' ),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 	'selection_weight' => 10,
 );
 
@@ -213,7 +369,20 @@ $forms_whitelist['rcc-vmad'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmad']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc-vmaj'] = array(
@@ -222,7 +391,20 @@ $forms_whitelist['rcc-vmaj'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmaj']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc-vmd'] = array(
@@ -231,7 +413,20 @@ $forms_whitelist['rcc-vmd'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmd']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc-vmj'] = array(
@@ -240,7 +435,20 @@ $forms_whitelist['rcc-vmj'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vmj']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc-vma'] = array(
@@ -249,7 +457,20 @@ $forms_whitelist['rcc-vma'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vma']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc-vm'] = array(
@@ -258,13 +479,39 @@ $forms_whitelist['rcc-vm'] = array(
 	'recurring',
 	'countries' => array(
 		'+' => $forms_whitelist['cc-vm']['countries']['+']
-	)
+	),
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 );
 
 $forms_whitelist['rcc'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'recurring',
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 	'selection_weight' => 100,
 );
 
@@ -275,6 +522,19 @@ $forms_whitelist['rcc-ingenico'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'recurring',
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 	'selection_weight' => 10,
 );
 
@@ -285,6 +545,19 @@ $forms_whitelist['rcc-globalcollect'] = array(
 	'gateway' => 'globalcollect',
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'recurring',
+	'currencies' => array(
+		'+' => array(
+			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
+			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
+			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
+			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
+			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
+			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
+			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
+		)
+	),
 	'selection_weight' => 10,
 );
 
