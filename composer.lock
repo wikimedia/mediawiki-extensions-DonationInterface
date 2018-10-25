@@ -57,7 +57,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ejegg/login-and-pay-with-amazon-sdk-php",
-                "reference": "e3f8d1082556104526999740beaf55b481aaf323"
+                "reference": "6cf0941c87097d737ba978b30adabf2ff479e5f9"
             },
             "require": {
                 "ext-curl": "*",
@@ -89,7 +89,7 @@
                 "payment",
                 "payments"
             ],
-            "time": "2018-02-07T02:51:30+00:00"
+            "time": "2018-10-23T17:07:29+00:00"
         },
         {
             "name": "clio/clio",
@@ -1339,11 +1339,11 @@
         },
         {
             "name": "wikimedia/smash-pig",
-            "version": "v0.5.8",
+            "version": "v0.5.8.2",
             "source": {
                 "type": "git",
                 "url": "https://gerrit.wikimedia.org/r/wikimedia/fundraising/SmashPig.git",
-                "reference": "ca90486af20e147723b148db1b0a00d6c886c68f"
+                "reference": "90e92af26b410aba1786da29f3a334862e0fad9f"
             },
             "require": {
                 "amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -1402,7 +1402,7 @@
                 "donations",
                 "payments"
             ],
-            "time": "2018-10-08T22:00:04+00:00"
+            "time": "2018-10-25T20:13:18+00:00"
         },
         {
             "name": "zordius/lightncandy",
