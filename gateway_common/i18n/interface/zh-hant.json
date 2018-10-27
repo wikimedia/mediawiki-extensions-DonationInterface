@@ -173,7 +173,7 @@
 	"donate_interface-donor-currency-msg": "這筆捐款使用的幣種是 $1",
 	"donate_interface-donor-fiscal_number": "財政號",
 	"donate_interface-donor-opt_in_yes": "是的！請不定時寄給我更新內容電子郵件，以及往後我可以如何來支援維基百科的相關資訊。*",
-	"donate_interface-donor-opt_in_no": "不，我不想接收來自我關注事項的電子郵件。",
+	"donate_interface-donor-opt_in_no": "不，我不想收到更新，即使每年僅會發出幾封電子郵件。",
 	"donate_interface-donor-opt_in_explain": "*您的資訊會依照我們的<a href=\"$1\">捐款隱私方針</a>來處理。任何您所收到的電子郵件裡，都會含有簡易的取消訂閱選項。",
 	"donate_interface-card-name-amex": "美國運通卡 (American Express)",
 	"donate_interface-card-name-visa": "Visa 卡",
