@@ -725,7 +725,7 @@ $forms_whitelist['astropay-pe'] = array(
 			'cash_pago_efectivo',
 		),
 	),
-	'selection_weight' => 110,
+	'selection_weight' => 1,
 );
 $forms_whitelist['astropay-uy'] = array(
 	'gateway' => 'astropay',
@@ -741,7 +741,7 @@ $forms_whitelist['astropay-uy'] = array(
 			'cash_red_pagos',
 		),
 	),
-	'selection_weight' => 110,
+	'selection_weight' => 1,
 );
 
 /**********
