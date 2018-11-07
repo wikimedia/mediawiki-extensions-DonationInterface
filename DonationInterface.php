@@ -28,11 +28,11 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 	$wgExtensionMessagesFiles['AdyenGatewayAlias'] = __DIR__ . '/adyen_gateway/adyen_gateway.alias.php';
 	$wgExtensionMessagesFiles['AstropayGatewayAlias'] = __DIR__ . '/astropay_gateway/astropay_gateway.alias.php';
 	$wgExtensionMessagesFiles['PaypalGatewayAlias'] = __DIR__ . '/paypal_gateway/paypal_gateway.alias.php';
-	/* wfWarn(
+	wfWarn(
 		'Deprecated PHP entry point used for DonationInterface extension. ' .
 		'Please use wfLoadExtension instead, ' .
 		'see https://www.mediawiki.org/wiki/Extension_registration for more details.'
-	); */
+	);
 	return;
 } else {
 	die( 'This version of the DonationInterface extension requires MediaWiki 1.27+' );

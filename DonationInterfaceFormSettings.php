@@ -709,11 +709,34 @@ $forms_whitelist['astropay-mx'] = array(
 	),
 	'selection_weight' => 110,
 );
+$forms_whitelist['astropay-pe'] = array(
+	'gateway' => 'astropay',
+	'countries' => array( '+' => 'PE' ),
+	'currencies' => array( '+' => 'PEN' ),
+	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'amex',
+			'diners',
+			'visa-debit',
+		),
+		'cash' => array(
+			'cash_pago_efectivo',
+		),
+	),
+	'selection_weight' => 110,
+);
 $forms_whitelist['astropay-uy'] = array(
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'UY' ),
 	'currencies' => array( '+' => 'UYU' ),
 	'payment_methods' => array(
+		'cc' => array(
+			'visa',
+			'mc',
+			'diners',
+		),
 		'cash' => array(
 			'cash_red_pagos',
 		),

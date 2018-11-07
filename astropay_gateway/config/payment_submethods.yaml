@@ -6,8 +6,10 @@ visa:
         AR: true
         BR: true
 #       CL: true  #waiting on AstroPay
-        MX: true
         CO: true
+        MX: true
+        PE: true
+        UY: true
     logo: card-visa-lg.png
 mc:
     bank_code: MC
@@ -17,8 +19,10 @@ mc:
         AR: true
         BR: true
 #       CL: true  #waiting on AstroPay
-        MX: true
         CO: true
+        MX: true
+        PE: true
+        UY: true
     logo: card-mastercard.png
     logo_hd:
         2x: card-mastercard_2x.png
@@ -39,6 +43,7 @@ amex:
         AR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        PE: true
     logo: card-amex-lg.png
 visa-debit:
     bank_code: VD
@@ -46,6 +51,7 @@ visa-debit:
     group: cc
     countries:
         MX: true
+        PE: true
     logo: card-visa-lg.png
     sub_text_key: donate_interface-debit
 mc-debit:
@@ -74,6 +80,8 @@ diners:
         BR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        PE: true
+        UY: true
     logo: card-dinersclub-lg.png
 hiper:
     bank_code: HI

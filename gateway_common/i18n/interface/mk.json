@@ -156,7 +156,7 @@
 	"donate_interface-donor-currency-msg": "Ова дарување се врши во $1",
 	"donate_interface-donor-fiscal_number": "Фискален број",
 	"donate_interface-donor-opt_in_yes": "Да! Повремено (ретко) испраќајте ми сознанија за тоа како во иднина можам да ја поддржам Википедија.*",
-	"donate_interface-donor-opt_in_no": "Не, не сакам да добивам е-пошта.",
+	"donate_interface-donor-opt_in_no": "Не, не сакам да добивам новости, дури и ако се само неколку годишно.",
 	"donate_interface-donor-opt_in_explain": "*Со вашите податоци се постапува во склад со <a href=\"$1\">Правилата за дарители</a>. Во секое известување по е-пошта е вклучена и можност за отпис.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
