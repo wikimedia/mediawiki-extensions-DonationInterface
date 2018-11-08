@@ -198,4 +198,8 @@ html body #donate .errorHighlight {
 	ul#cards li.has_sub_text input {
 		margin-bottom: 0.3em !important;
 	}
+
+	ul#cards li.has_sub_text label img.submethod-logo {
+		margin: 0.1em auto;
+	}
 }

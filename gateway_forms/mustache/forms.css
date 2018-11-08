@@ -304,10 +304,13 @@ p#monthlycancel,
     margin-top: 0;
 }
 #cards li.has_sub_text input {
-    margin-bottom: 0.1em;
+    margin: -0.15em 0;
+}
+ul#cards li.has_sub_text label img {
+    margin: 0.2em auto;
 }
 #cards li label p.card_sub_text {
-    margin: -0.5em auto;
+    margin: -0.7em auto;
 }
 #paymentContinue, #paymentSubmit {
   margin-top: 1em;
