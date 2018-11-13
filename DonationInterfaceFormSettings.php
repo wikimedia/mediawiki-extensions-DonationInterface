@@ -709,7 +709,7 @@ $forms_whitelist['astropay-mx'] = array(
 	),
 	'selection_weight' => 110,
 );
-$forms_whitelist['astropay-pe'] = array(
+/*$forms_whitelist['astropay-pe'] = array(
 	'gateway' => 'astropay',
 	'countries' => array( '+' => 'PE' ),
 	'currencies' => array( '+' => 'PEN' ),
@@ -743,7 +743,7 @@ $forms_whitelist['astropay-uy'] = array(
 	),
 	'selection_weight' => 1,
 );
-
+*/
 /**********
  * Adyen *
  **********/
