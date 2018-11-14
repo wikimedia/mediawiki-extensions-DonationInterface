@@ -517,17 +517,22 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// we apply any other criteria.
 		// FIXME: once other FIXMEs are complete, use a more explicit settings
 		// key like 'onlyOnRequest' => true and filter in getAllValidForms
-		$failforms = array();
+		$zeroWeightForms = array();
 		foreach ( $valid_forms as $form_name => $meta ) {
 			if (
 				isset( $meta['selection_weight'] ) &&
 				$meta['selection_weight'] === 0
 			) {
-				$failforms[] = $form_name;
+				$zeroWeightForms[] = $form_name;
 			}
 		}
-		foreach ( $failforms as $failform ) {
-			unset( $valid_forms[$failform] );
+		// If all the valid forms are zero-weighted at this point,
+		// we're probably specifying gateway. If only some valid forms
+		// are zero-weighted, remove those from consideration.
+		if ( count( $zeroWeightForms ) < count( $valid_forms ) ) {
+			foreach ( $zeroWeightForms as $failform ) {
+				unset( $valid_forms[$failform] );
+			}
 		}
 		// general idea: If one form has constraints for the following ordered
 		// keys, and some forms do not have that constraint, prefer the one with
