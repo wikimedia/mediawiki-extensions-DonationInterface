@@ -182,6 +182,10 @@
 		"ext.donationInterface.emailExplain": {
 			"scripts": "modules/js/ext.donationInterface.emailExplain.js"
 		},
+		"ext.donationInterface.alwaysRedirect": {
+			"scripts": "modules/js/ext.donationInterface.alwaysRedirect.js",
+			"dependencies": "ext.donationInterface.forms"
+		},
 		"donationInterface.styles": {
 			"styles": [
 				"modules/css/gateway.css",
