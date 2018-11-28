@@ -197,7 +197,7 @@ $forms_whitelist['cc-vma'] = array(
 		'+' => array_merge(
 			$forms_whitelist['cc-vmaj']['countries']['+'],
 			$forms_whitelist['cc-vmad']['countries']['+'],
-			array( 'AE', 'AL', 'AN', 'AR', 'BG', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
+			array( 'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
 				 'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
 				 'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
 				 'RU', 'SA', 'SE', 'TN', 'TR', 'UA', )
@@ -708,21 +708,6 @@ $forms_whitelist['astropay-mx'] = array(
 		),
 	),
 	'selection_weight' => 110,
-);
-$forms_whitelist['globalcollect-ca'] = array(
-	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'CA' ),
-	'currencies' => array( '+' => array( 'CAD', 'USD' ) ),
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 150,
-);
-$forms_whitelist['globalcollect-ca-recur'] = array(
-	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'CA' ),
-	'currencies' => array( '+' => array( 'CAD', 'USD' ) ),
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'selection_weight' => 150,
-	'recurring',
 );
 /*$forms_whitelist['astropay-pe'] = array(
 	'gateway' => 'astropay',
