@@ -814,7 +814,11 @@ $forms_whitelist['error-cc'] = array(
 	'special_type' => 'error',
 );
 
-$wgDonationInterfaceAllowedHtmlForms = $forms_whitelist;
+if ( empty( $wgDonationInterfaceAllowedHtmlForms ) ) {
+	$wgDonationInterfaceAllowedHtmlForms = $forms_whitelist;
+} else {
+	$wgDonationInterfaceAllowedHtmlForms = array_merge_recursive( $wgDonationInterfaceAllowedHtmlForms, $forms_whitelist );
+}
 
 unset( $forms_whitelist );
 unset( $form_dirs );
