@@ -37,23 +37,27 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 			return true;
 		}
 
-		foreach ( $functions as $function_name => $risk_score_modifier ) {
+		foreach ( $functions as $function => $risk_score_modifier ) {
 			// run the function specified, if it exists.
-			if ( method_exists( $this->gateway_adapter, $function_name ) ) {
-				$score = $this->gateway_adapter->{$function_name}();
-				if ( is_null( $score ) ) {
-					$score = 0; // TODO: Is this the correct behavior?
-				} elseif ( is_bool( $score ) ) {
-					$score = ( $score ? 0 : $risk_score_modifier );
-				} elseif ( is_numeric( $score ) && $score <= 100 ) {
-					$score = $score * $risk_score_modifier / 100;
-				} else {
-// error_log("Function Filter: $function_name returned $score");
-					throw new UnexpectedValueException( "Filter functions are returning somekinda nonsense." );
-				}
-
-				$this->cfo->addRiskScore( $score, $function_name );
+			if ( method_exists( $this->gateway_adapter, $function ) ) {
+				$score = $this->gateway_adapter->{$function}();
+			} elseif ( function_exists( $function ) ) {
+				$score = call_user_func( $function, $this->gateway_adapter );
+			} else {
+				throw new RuntimeException( "$function listed in $filterListGlobal is not runnable" );
 			}
+			if ( is_null( $score ) ) {
+				$score = 0; // TODO: Is this the correct behavior?
+			} elseif ( is_bool( $score ) ) {
+				$score = ( $score ? 0 : $risk_score_modifier );
+			} elseif ( is_numeric( $score ) && $score <= 100 ) {
+				$score = $score * $risk_score_modifier / 100;
+			} else {
+// error_log("Function Filter: $function returned $score");
+				throw new UnexpectedValueException( "Filter functions are returning somekinda nonsense." );
+			}
+
+			$this->cfo->addRiskScore( $score, $function );
 		}
 
 		return true;
