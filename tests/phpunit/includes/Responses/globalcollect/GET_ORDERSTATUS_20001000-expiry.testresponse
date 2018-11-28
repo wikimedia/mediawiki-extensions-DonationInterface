@@ -1,5 +1,5 @@
-<?xml version = "1.0"?>
 <!--GET_ORDERSTATUS with the most common error 20001000 cause-->
+<?xml version = "1.0"?>
 <XML>
 	<REQUEST>
 		<ACTION>GET_ORDERSTATUS</ACTION>

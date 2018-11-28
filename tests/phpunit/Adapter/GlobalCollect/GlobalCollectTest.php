@@ -639,28 +639,4 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		) );
 		$this->assertTrue( $result->isFailed() );
 	}
-
-	/**
-	 * We should retry when SET_PAYMENT comes back with non-XML, but call
-	 * failed if it keeps giving us bad data.
-	 */
-	function testMangledSetPayment() {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@localhost.net';
-		$init['ffname'] = 'cc-vmad';
-		$init['order_id'] = mt_rand();
-		$session['Donor'] = $init;
-		$this->setUpRequest( $init, $session );
-
-		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( 'bad_set_payment' );
-		$result = $gateway->processDonorReturn( array(
-			'REF' => $init['order_id'],
-			'CVVRESULT' => 'M',
-			'AVSRESULT' => '0'
-		) );
-		$this->assertTrue( $result->isFailed() );
-	}
 }
