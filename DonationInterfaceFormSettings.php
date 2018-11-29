@@ -54,7 +54,7 @@ $forms_whitelist['cc-vmad'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
 	'countries' => array(
-		'+' => array( 'US', ),
+		'+' => array(),
 	),
 	'currencies' => array(
 		'+' => array(
@@ -119,8 +119,8 @@ $forms_whitelist['cc-vmaj'] = array(
 	'gateway' => 'ingenico',
 	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
 	'countries' => array(
-		'+' => array( 'AD', 'AT', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
-					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
+		'+' => array( 'AD', 'AT', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI',
+					  'GF', 'GR', 'HK', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
 					  'SG', 'SI', 'SK', 'TH', 'TW', ),
 	),
 	'currencies' => array(
@@ -709,17 +709,17 @@ $forms_whitelist['astropay-mx'] = array(
 	),
 	'selection_weight' => 110,
 );
-$forms_whitelist['globalcollect-ca-au-nz'] = array(
+$forms_whitelist['globalcollect-au-ca-gb-ie-nz-us'] = array(
 	'gateway' => 'globalcollect',
-	'countries' => array( '+' => array( 'AU', 'CA', 'NZ' ) ),
-	'currencies' => array( '+' => array( 'AUD', 'CAD', 'CNY', 'GBP', 'USD', 'NZD' ) ),
+	'countries' => array( '+' => array( 'AU', 'CA', 'GB', 'IE', 'NZ', 'US' ) ),
+	'currencies' => array( '+' => array( 'AUD', 'CAD', 'CNY', 'GBP', 'EUR', 'USD', 'NZD' ) ),
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'selection_weight' => 150,
 );
-$forms_whitelist['globalcollect-ca-au-nz-recur'] = array(
+$forms_whitelist['globalcollect-au-ca-gb-ie-nz-us-recur'] = array(
 	'gateway' => 'globalcollect',
-	'countries' => array( '+' => array( 'AU', 'CA', 'NZ' ) ),
-	'currencies' => array( '+' => array( 'AUD', 'CAD', 'CNY', 'GBP', 'USD', 'NZD' ) ),
+	'countries' => array( '+' => array( 'AU', 'CA', 'GB', 'IE', 'NZ', 'US' ) ),
+	'currencies' => array( '+' => array( 'AUD', 'CAD', 'CNY', 'GBP', 'EUR', 'USD', 'NZD' ) ),
 	'payment_methods' => array( 'cc' => 'ALL' ),
 	'selection_weight' => 150,
 	'recurring',
