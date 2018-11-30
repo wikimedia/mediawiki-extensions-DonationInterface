@@ -303,6 +303,15 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			$flattened['FORMACTION'] = $provider->getHostedPaymentUrl(
 				$flattened['partialRedirectUrl']
 			);
+			// Ingenico tells us we're sometimes sending users to the bare
+			// checkout URL (55-ish chars) instead of the one with the checkout
+			// ID on it (165 chars)
+			if ( strlen( $flattened['FORMACTION'] ) < 100 ) {
+				$message = 'FORMACTION suspiciously short! response was: ' .
+					print_r( $response, true );
+				$this->logger->error( $message );
+			}
+
 		}
 		return $flattened;
 	}
