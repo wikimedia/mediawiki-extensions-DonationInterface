@@ -221,7 +221,7 @@
 	"donate_interface-otherways": "Možné jsou <a href=\"$1\">jiné způsoby, jak přispět, včetně PayPalu, šeků či pošty</a>.",
 	"donate_interface-otherways-alt": "Možné jsou <a href=\"$1\">jiné způsoby, jak přispět</a>, včetně šeků.",
 	"donate_interface-otherways-short": "Jiné způsoby, jak přispět",
-	"donate_interface-token-mismatch": "Platnost vašeho sezení vypršela. Zkuste, prosím, formulář vyplnit ještě jednou a znovu jej odeslat.",
+	"donate_interface-token-mismatch": "Vaše relace vypršela. Zkuste, prosíme, formulář vyplnit ještě jednou a znovu jej odeslat.",
 	"donate_interface-try-again": "Momentálně nedokážeme zpracovat váš dar. Zkuste to prosím znovu za chvíli.",
 	"donate_interface-cc-form-header-personal": "Údaje o platbě",
 	"donate_interface-cc-form-header-payment": "Údaje o platbě",
