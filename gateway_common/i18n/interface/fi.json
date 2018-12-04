@@ -18,7 +18,8 @@
 			"VezonThunder",
 			"ZeiP",
 			"Pitke",
-			"Pyscowicz"
+			"Pyscowicz",
+			"Valtlait"
 		]
 	},
 	"donate_interface": "Tue Wikimediaa",
@@ -345,7 +346,7 @@
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Valitse pankki",
 	"donate_interface-rtbt-issuer_id-longlist": "Muut pankit",
-	"donate_interface-sofortbanking": "Sofortbanking on suora, reaaliaikainan pankkisiirto DIRECTebanking.com:n kautta, jolla voit tehdä pankkisiirron välittömästi verkkopankkitiedoillasi. Jos pankkitilissäsi ei ole verkkotoimintoja, kannattanee sinun käyttää \"Lahjoita itse tehtävällä pankkisiirrolla\"-toimintoa.",
+	"donate_interface-sofortbanking": "Sofortbanking on suora, reaaliaikainan pankkisiirto DIRECTebanking.com:n kautta, jolla voit tehdä pankkisiirron välittömästi verkkopankkitiedoillasi. Jos pankkitilissäsi ei ole verkkotoimintoja, kannattanee sinun käyttää ”Lahjoita itse tehtävällä pankkisiirrolla”-toimintoa.",
 	"donate_interface-dd-account_name": "Tilin nimi",
 	"donate_interface-dd-account_number": "Tilinumero",
 	"donate_interface-dd-authorization_id": "Lupatunniste",
@@ -372,7 +373,7 @@
 	"donate_interface-informationsharing": "Lahjoittaessasi hyväksyt, että henkilökohtaisia tietojasi annetaan Wikimedia Foundationille, joka on voittoa tavoittelematon järjestö ja joka ylläpitää Wikipediaa ja muita Wikimedian projekteja, sekä Wikimedia Foundationin palveluntarjoajille <a href=\"$1\">lahjoittakäytäntömme mukaisesti</a>. Wikimedia Foundation ja sen palveluntarjoajat sijaitsevat Yhdysvalloissa ja muissa maissa, joiden yksityisyyttä koskevat lait eivät välttämättä vastaa oman maasi lakeja. Emme myy tai käy kauppaa tiedoillaisi kenenkään kanssa. Lisätietoja <a href=\"$1\">lahjoittajakäytännöistämme</a>.",
 	"donate_interface-currency-change": "Muutetaanko?",
 	"donate_interface-bank_transfer_message": "Huomaathan, että lahjoituksen vastaanottajana on Global Collect. Global Collect on valtuutettu hyväksymään ja käsittelemään maksuja Wikimedia Foundationin puolesta. Muista laittaa mukaan tässä esitetty viitenumero pankkisiirtoon. Jos mielessäsi on kysymyksiä, voit lähettää sähköpostia osoitteeseen $1.",
-	"donate_interface-globalcollect-proxy": "Huomaa, että tiliotteessasi näkyy \"Global Collect\" tämän lahjoituksen vastaanottajana. Global Collectilla on lupa vastaanottaa ja käsitellä Wikimedia-säätiölle tulevia maksuja.",
+	"donate_interface-globalcollect-proxy": "Huomaa, että tiliotteessasi näkyy ”Global Collect” tämän lahjoituksen vastaanottajana. Global Collectilla on lupa vastaanottaa ja käsitellä Wikimedia-säätiölle tulevia maksuja.",
 	"donate_interface-taxded-link-int": "Verotus- ja muut oikeudelliset tiedot",
 	"donate_interface-taxded-link-us": "Verovähennystietoja",
 	"donate_interface-taxded-msg-int": "Wikimedia-säätiö on voittoa tavoittelematon säätiö, joka on perustettu Yhdysvalloissa US IRS-koodin Section 501(c)(3) alaisena. Tästä syystä yksityisten tai yhteisöjen lahjoitukset Yhdysvalloista saattavat olla verovähennyskelpoisia. Lahjoitukset yksityisiltä ja yhteisöiltä Yhdysvaltain ulkopuolella eivät välttämtätä ole verovähennyskelpoisia. Ko. tapauksissa lahjoittajien pitäisi kysyä asiasta paikallisilta veroneuvojilta. Wikipedia ei kerää lahjoituksia yksityisiltä tai yhteisöiltä alueella, jossa on kielletty tai rajoitettu kansainvälisiä lahjoituksia tai alueella, joissa verot kerätään lahjoituksista.",
