@@ -35,6 +35,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	const SESS_SCORE = "score";
 	const SESS_TIME = "time";
 	const SESS_MULTIPLIER = "multiplier";
+	const SESS_MAX_SCORE = 1000;
 
 	/**
 	 * @static Construct the singleton instance of this class.
@@ -122,6 +123,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		if ( $cRequestTime != $lastTime ) {
 			$score = max( 0, $score - ( ( $cRequestTime - $lastTime ) * $decayRate ) );
 			$score += $this->getVar( 'HitScore', $transaction ) * $lastMultiplier;
+			$score = min( $score, self::SESS_MAX_SCORE );
 
 			$sessionData[$gateway][$transaction][$this::SESS_SCORE] = $score;
 			$sessionData[$gateway][$transaction][$this::SESS_TIME] = $cRequestTime;
