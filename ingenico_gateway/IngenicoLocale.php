@@ -141,6 +141,7 @@ class IngenicoLocale extends DonorLocale {
 			'jam' => 'en',
 			'jax' => 'ms',
 			'jut' => 'da',
+			'kab' => 'ar',
 			'kbp' => 'fr',
 			'kby' => 'kr',
 			'khk' => 'mn',
