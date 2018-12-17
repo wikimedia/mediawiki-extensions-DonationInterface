@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Yekrats",
 			"Pcoombe",
-			"Orikrin1998"
+			"Orikrin1998",
+			"Robin van der Vliet"
 		]
 	},
 	"donate_interface": "Subteni Fondaĵon Wikimedia",
@@ -268,7 +269,7 @@
 	"donate_interface-enter-your-amount": "Aŭ enigi vian donacontaĵon en la supran skatolon",
 	"donate_interface-will-support-with-gift": "Mi subtenos per donaco de:",
 	"donate_interface-will-make-tax-deductible-gift": "Mi faro per imposto-minusebla donaco de:",
-	"donate_interface-next": "Sekven",
+	"donate_interface-next": "Sekva",
 	"donate_interface-continue": "Pli...",
 	"donate_interface-cancel": "Nuligi",
 	"donate_interface-payment": "Pago",
