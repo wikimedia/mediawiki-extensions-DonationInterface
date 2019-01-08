@@ -1,5 +1,6 @@
 ( function ( $, mw ) {
-	var di = mw.donationInterface;
+	var di = mw.donationInterface,
+		oldSubmit = di.forms.submit;
 
 	function showIframe( result ) {
 		// Remove any preexisting iFrames
@@ -17,11 +18,22 @@
 		$( '#payment-form' ).append( $div );
 	}
 
-	if ( di.forms.isIframe() ) {
-		di.forms.submit = function () {
-			di.forms.callDonateApi( function ( result ) {
-				showIframe( result );
-			} );
-		};
+	function redirect( result ) {
+		document.location.replace( result.formaction );
 	}
+
+	di.forms.submit = function () {
+		var paymentMethod = $( '#payment_method' ).val(),
+			isIframe = di.forms.isIframe();
+		if ( !isIframe && paymentMethod !== 'cc' ) {
+			return oldSubmit();
+		}
+		di.forms.callDonateApi( function ( result ) {
+			if ( isIframe ) {
+				showIframe( result );
+			} else {
+				redirect( result );
+			}
+		} );
+	};
 } )( jQuery, mediaWiki );
