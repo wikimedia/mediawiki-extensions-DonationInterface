@@ -47,6 +47,19 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		};
 
 		$country = $getValOrNull( 'country' );
+
+		if ( !CountryValidation::isValidIsoCode( $country ) ) {
+			// Lookup the country
+			if ( function_exists( 'geoip_country_code_by_name' ) ) {
+				$ip = $this->getRequest()->getIP();
+				try {
+					$country = geoip_country_code_by_name( $ip );
+				} catch ( Exception $e ) {
+					// Suppressing missing database exception thrown in CI
+				}
+			}
+		}
+
 		$currency = $getValOrNull( 'currency' );
 		// TODO: remove when incoming links are updated
 		if ( !$currency ) {
