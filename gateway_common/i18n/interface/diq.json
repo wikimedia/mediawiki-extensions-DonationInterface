@@ -200,6 +200,8 @@
 	"donate_interface-country": "Dewlet",
 	"donate_interface-select-country": "Dewlet weçinê",
 	"donate_interface-confirm-email": "E-postay araşt kerê",
+	"donate_interface-expires-question": "Tarixê qediyayışi?",
+	"donate_interface-expires": "Tarixê qediyayışi",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
