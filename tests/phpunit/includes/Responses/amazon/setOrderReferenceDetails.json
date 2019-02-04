@@ -1,0 +1,23 @@
+{
+    "SetOrderReferenceDetailsResult": {
+        "OrderReferenceDetails": {
+            "OrderReferenceStatus": {
+                "State": "Draft"
+            },
+            "ExpirationTimestamp": "2016-02-20T21:03:47.077Z",
+            "SellerOrderAttributes": [],
+            "OrderTotal": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            },
+            "ReleaseEnvironment": "Sandbox",
+            "SellerNote": "Donation to the Wikimedia Foundation",
+            "AmazonOrderReferenceId": "S01-0391295-0674065",
+            "CreationTimestamp": "2015-08-24T21:03:47.077Z"
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "fce0cb84-1aa9-4f82-83a1-acf64ece1b56"
+    },
+    "ResponseStatus": "200"
+}

@@ -1,0 +1,37 @@
+{
+    "AuthorizeResult": {
+        "AuthorizationDetails": {
+            "AuthorizationAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            },
+            "CapturedAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "0"
+            },
+            "SoftDescriptor": "AMZ*Wikimedia Founda",
+            "ExpirationTimestamp": "2015-09-23T21:50:58.221Z",
+            "IdList": {
+                "member": "S01-0391295-0674065-C095112"
+            },
+            "AuthorizationStatus": {
+                "LastUpdateTimestamp": "2015-08-24T21:50:58.221Z",
+                "ReasonCode": "MaxCapturesProcessed",
+                "State": "Closed"
+            },
+            "AuthorizationFee": {
+                "CurrencyCode": "USD",
+                "Amount": "0.00"
+            },
+            "CaptureNow": "true",
+            "SellerAuthorizationNote": [],
+            "CreationTimestamp": "2015-08-24T21:50:58.221Z",
+            "AmazonAuthorizationId": "S01-0391295-0674065-A095112",
+            "AuthorizationReferenceId": "31243-1"
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "785d061e-e152-4180-80d1-3a492d16e24e"
+    },
+    "ResponseStatus": "200"
+}

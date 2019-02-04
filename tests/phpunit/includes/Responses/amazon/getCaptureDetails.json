@@ -1,0 +1,32 @@
+{
+    "GetCaptureDetailsResult": {
+        "CaptureDetails": {
+            "CaptureReferenceId": "31243-1",
+            "CaptureFee": {
+                "CurrencyCode": "USD",
+                "Amount": "0.00"
+            },
+            "AmazonCaptureId": "S01-0391295-0674065-C095112",
+            "CreationTimestamp": "2015-08-24T21:50:58.321Z",
+            "SoftDescriptor": "AMZ*Wikimedia Founda",
+            "IdList": [],
+            "CaptureStatus": {
+                "LastUpdateTimestamp": "2015-08-24T21:50:58.321Z",
+                "State": "Completed"
+            },
+            "SellerCaptureNote": [],
+            "RefundedAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "0"
+            },
+            "CaptureAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            }
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "f863dd05-99f3-4e9c-b0b6-561d65281cd7"
+    },
+    "ResponseStatus": "200"
+}

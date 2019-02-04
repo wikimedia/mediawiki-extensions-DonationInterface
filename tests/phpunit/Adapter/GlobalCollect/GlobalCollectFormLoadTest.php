@@ -1,0 +1,292 @@
+<?php
+/**
+ * Wikimedia Foundation
+ *
+ * LICENSE
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ */
+
+/**
+ *
+ * @group Fundraising
+ * @group DonationInterface
+ * @group GlobalCollect
+ */
+class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
+	public function setUp() {
+		parent::setUp();
+
+		$vmad_countries = array( 'US', );
+		$vmaj_countries = array(
+			'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
+			'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
+			'PT', 'SG', 'SI', 'SK', 'TH', 'TW',
+		);
+		$vma_countries = array(
+			'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
+			'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
+			'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
+			'RU', 'SA', 'SE', 'TN', 'TR', 'UA',
+		);
+		$this->setMwGlobals( array(
+			'wgGlobalCollectGatewayEnabled' => true,
+			'wgDonationInterfaceAllowedHtmlForms' => array(
+				'cc-vmad' => array(
+					'gateway' => 'globalcollect',
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
+					'countries' => array(
+						'+' => $vmad_countries,
+					),
+				),
+				'cc-vmaj' => array(
+					'gateway' => 'globalcollect',
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
+					'countries' => array(
+						'+' => $vmaj_countries,
+					),
+				),
+				'cc-vma' => array(
+					'gateway' => 'globalcollect',
+					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
+					'countries' => array(
+						// Array merge with cc-vmaj as fallback in case 'j' goes down
+						// Array merge with cc-vmad as fallback in case 'd' goes down
+						'+' => array_merge(
+							$vmaj_countries,
+							$vmad_countries,
+							$vma_countries
+						),
+					),
+				),
+				'rtbt-sofo' => array(
+					'gateway' => 'globalcollect',
+					'countries' => array(
+						'+' => array( 'AT', 'BE', 'CH', 'DE' ),
+						'-' => 'GB'
+					),
+					'currencies' => array( '+' => 'EUR' ),
+					'payment_methods' => array( 'rtbt' => 'rtbt_sofortuberweisung' ),
+				),
+			),
+		) );
+	}
+
+	public function testGCFormLoad() {
+		$init = $this->getDonorTestData( 'US' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+
+		$assertNodes = array(
+			'submethod-mc' => array(
+				'nodename' => 'input'
+			),
+			'selected-amount' => array(
+				'nodename' => 'span',
+				'innerhtmlmatches' => '/^\s*' .
+					str_replace( '$', '\$',
+						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
+					).
+					'\s*$/',
+			),
+			'state_province' => array(
+				'nodename' => 'select',
+				'selected' => 'CA',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	function testGCFormLoad_FR() {
+		$init = $this->getDonorTestData( 'FR' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+
+		$assertNodes = array(
+			'selected-amount' => array(
+				'nodename' => 'span',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
+			),
+			'first_name' => array(
+				'nodename' => 'input',
+				'value' => 'Prénom',
+			),
+			'last_name' => array(
+				'nodename' => 'input',
+				'value' => 'Nom',
+			),
+			'country' => array(
+				'nodename' => 'input',
+				'value' => 'FR',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Ensure that form loads for Italy
+	 */
+	public function testGlobalCollectFormLoad_IT() {
+		$init = $this->getDonorTestData( 'IT' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+
+		$assertNodes = array(
+			'selected-amount' => array(
+				'nodename' => 'span',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
+			),
+			'first_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( 'it' )->text(),
+			),
+			'last_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( 'it' )->text(),
+			),
+			'informationsharing' => array(
+				'nodename' => 'p',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text() . '~',
+			),
+			'country' => array(
+				'nodename' => 'input',
+				'value' => 'IT',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Make sure Belgian form loads in all of that country's supported languages
+	 * @dataProvider belgiumLanguageProvider
+	 */
+	public function testGlobalCollectFormLoad_BE( $language ) {
+		$init = $this->getDonorTestData( 'BE' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmaj';
+		$init['language'] = $language;
+
+		$assertNodes = array(
+			'selected-amount' => array(
+				'nodename' => 'span',
+				'innerhtmlmatches' => '/^\s*' .
+					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					'\s*$/',
+			),
+			'first_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
+			),
+			'last_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array(
+				'nodename' => 'p',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
+			),
+			'country' => array(
+				'nodename' => 'input',
+				'value' => 'BE',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Make sure Canadian CC form loads in English and French
+	 * @dataProvider canadaLanguageProvider
+	 */
+	public function testGlobalCollectFormLoad_CA( $language ) {
+		$init = $this->getDonorTestData( 'CA' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vma';
+		$init['language'] = $language;
+
+		$assertNodes = array(
+			'selected-amount' => array(
+				'nodename' => 'span',
+				'innerhtmlmatches' => '/^\s*' .
+					str_replace( '$', '\$',
+						Amount::format( 1.55, 'CAD', $init['language'] . '_' . $init['country'] )
+					) .
+					'\s*$/',
+			),
+			'first_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
+			),
+			'last_name' => array(
+				'nodename' => 'input',
+				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
+			),
+			'informationsharing' => array(
+				'nodename' => 'p',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
+			),
+			'state_province' => array(
+				'nodename' => 'select',
+				'selected' => 'SK',
+			),
+			'postal_code' => array(
+				'nodename' => 'input',
+				'value' => $init['postal_code'],
+			),
+			'country' => array(
+				'nodename' => 'input',
+				'value' => 'CA',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Test that we show an email opt-in checkbox for Great Britain
+	 */
+	public function testGCFormLoadGB() {
+		$init = $this->getDonorTestData( 'GB' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+
+		$assertNodes = array(
+			'opt_in_yes' => array(
+				'nodename' => 'input',
+			),
+			'opt_in_no' => array(
+				'nodename' => 'input',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+}

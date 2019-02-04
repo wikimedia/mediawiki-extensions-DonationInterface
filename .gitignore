@@ -2,6 +2,6 @@
 *~
 *.kate-swp
 .*.swp
-
+vendor
 .version-stamp
 node_modules
