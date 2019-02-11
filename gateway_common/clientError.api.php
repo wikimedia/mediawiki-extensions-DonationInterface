@@ -23,9 +23,9 @@ class ClientErrorApi extends ApiBase {
 	public function getAllowedParams() {
 		return array(
 			'message' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
-			'file' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
-			'line' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
-			'col' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
+			'file' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
+			'line' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
+			'col' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
 			'userAgent' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
 			'stack' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
 		);

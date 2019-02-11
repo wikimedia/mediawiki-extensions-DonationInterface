@@ -29,6 +29,19 @@
 			return oldSubmit();
 		}
 		di.forms.callDonateApi( function ( result ) {
+			if ( result.formaction.length < 100 ) {
+				$.ajax( {
+					url: mw.util.wikiScript( 'api' ),
+					data: {
+						action: 'logPaymentsFormError',
+						message: 'FORMACTION suspiciously short! response was: ' +
+						    JSON.stringify( result ),
+						userAgent: navigator.userAgent
+					},
+					dataType: 'json',
+					type: 'POST'
+				} );
+			}
 			if ( isIframe ) {
 				showIframe( result );
 			} else {
