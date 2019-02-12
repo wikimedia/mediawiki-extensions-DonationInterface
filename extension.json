@@ -180,7 +180,10 @@
 			"scripts": "modules/iframe.liberator.js"
 		},
 		"ext.donationInterface.emailExplain": {
-			"scripts": "modules/js/ext.donationInterface.emailExplain.js"
+			"scripts": "modules/js/ext.donationInterface.emailExplain.js",
+			"messages": [
+				"donate_interface-email-explain"
+			]
 		},
 		"ext.donationInterface.alwaysRedirect": {
 			"scripts": "modules/js/ext.donationInterface.alwaysRedirect.js",

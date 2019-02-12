@@ -403,6 +403,7 @@
 	"donate_interface-email-unsub-fail": "There was an error processing your request, please contact <$1>.",
 	"donate_interface-email-unsub-confirm": "Are you sure you want to unsubscribe <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "This will opt you out of emails from the Wikimedia Foundation sent to you as a donor. You may still receive emails to this email address if it is associated with an account on one of our projects. If you have any questions, please contact <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-email-explain": "We will email you a receipt to confirm your donation.",
 	"donate_interface-faqs": "Frequently asked questions",
 	"donate_interface-tax-info": "Tax deductibility information",
 	"donate_interface-informationsharing": "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organization that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our <a href=\"$1\">donor policy</a>. Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our <a href=\"$1\">donor policy</a>.",
