@@ -472,8 +472,6 @@
 		"DonationInterfaceCustomFiltersSrcRules": [],
 		"DonationInterfaceCustomFiltersFunctions": [],
 		"DonationInterfaceNameFilterRules": [],
-		"DonationInterfaceMemcacheHost": "localhost",
-		"DonationInterfaceMemcachePort": "11211",
 		"DonationInterfaceIPVelocityFailScore": 100,
 		"DonationInterfaceIPVelocityTimeout": 300,
 		"DonationInterfaceIPVelocityThreshhold": 3,
