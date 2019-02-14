@@ -389,6 +389,7 @@
 	"donate_interface-email-unsub-fail": "在處理您的請求時發生錯誤，請聯絡<$1> 。",
 	"donate_interface-email-unsub-confirm": "您確認要退訂<b>$1</b>嗎？",
 	"donate_interface-email-unsub-warning": "您將從維基媒體基金會作為捐助者傳送給您的電子郵件群中退出。您可能仍會在這個 Email 位址收到電子郵件，如果它與我們的某個項目相關聯。如果您有任何疑問，請聯繫：<a href=\"mailto:$1\">$1</a>。",
+	"donate_interface-email-explain": "我們會電郵給您一份收據來確認您的捐款。",
 	"donate_interface-faqs": "常見問題",
 	"donate_interface-tax-info": "減稅資訊",
 	"donate_interface-informationsharing": "我們不會向任何人販賣或洩漏您的資訊。透過捐款，您同意依據我們的<a href=\"$1\">捐款人方針</a>與維基媒體基金會，運作維基百科與其他姊妹計劃專案的非盈利組織，及其服務提供方分享您的個人資訊。維基媒體基金會與其服務提供方位於美國與其他法律與您所在國法律不同的國家。更多資訊請閱覽我們的<a href=\"$1\">捐款人方針</a>。",
