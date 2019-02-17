@@ -1,15 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kenrick95"
+			"Kenrick95",
+			"William Surya Permana"
 		]
 	},
 	"globalcollect_gateway-desc": "Pemrosesan pembayaran GlobalCollect",
+	"globalcollect_gateway-fakesucceed": "Palsukan pembayaran berhasil",
+	"globalcollect_gateway-fakefail": "Palsukan pembayaran gagal",
 	"globalcollect_gateway-response-9130": "Negara tidak valid.",
 	"globalcollect_gateway-response-9140": "Mata uang tidak valid.",
 	"globalcollect_gateway-response-9150": "Bahasa tidak valid.",
 	"globalcollect_gateway-response-400530": "Metode pembayaran tidak valid.",
-	"globalcollect_gateway-response-430306": "Kartu kredit Anda telah kadaluarsa. Silakan coba dengan kartu kredit yang lain atau metode pembayaran lainnya.",
+	"globalcollect_gateway-response-430306": "Kartu kredit Anda telah kedaluwarsa. Silakan coba dengan kartu kredit yang lain atau salah satu dari metode pembayaran lainnya kami.",
 	"globalcollect_gateway-response-430330": "Nomor kartu tidak valid.",
 	"globalcollect_gateway-response-430421": "Kartu kredit Anda tidak dapat divalidasi. Mohon verifikasi bahwa semua informasi cocok dengan profil kartu kredit Anda, atau coba dengan kartu yang lain.",
 	"globalcollect_gateway-response-430360": "Transaksi tidak dapat diotorisasi. Silakan coba dengan kartu yang lain atau metode pembayaran lainnya.",

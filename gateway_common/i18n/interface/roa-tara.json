@@ -386,6 +386,7 @@
 	"donate_interface-email-unsub-fail": "Avìme avùte 'nu prubbleme elaboranne 'a rechieste tove, pe' piacere condatte <$1>.",
 	"donate_interface-email-unsub-confirm": "Sì secure ca tu vuè scangellà <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Quiste te lève da avè le email da 'a Wikimedia Foundation mannate a te cumme donatore. Puè ricevere angore email a st'indirizze ce jè associate a quaccheotre cunde sus a une de le pruggette nuèstre. Ce tìne domande da fà, pe piacere condattane a <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-email-explain": "Nuje te manname 'na mail pe ricezione d'a conferme d'a donaziona toje",
 	"donate_interface-faqs": "Domande frequende",
 	"donate_interface-tax-info": "'Mbormazione sus 'a deducibbeletate fiscale",
 	"donate_interface-informationsharing": "Non ge vulè ccu vennime o commerccià 'mbormaziune a nisciune. Pe donà, tu a condividere le 'mbormaziune tune cu Wikimedia Foundation, l'organizzazzione senze lucre ca ospitesce Uicchipèdie e otre pruggette de Uicchimedia, a le forniture de servizie <a href=\"$1\">le regole de le donazziune</a>. Uicchimedia a le forniture de servizie jndr'à le State Aunìte d'Americhe e a tutte le vanne addò valene le regole d'a privacy de le donature. Pe cchiù 'mbormaziune pe piacere ligge <a href=\"$1\">le regole de le donazziune nuèstre</a>.",
