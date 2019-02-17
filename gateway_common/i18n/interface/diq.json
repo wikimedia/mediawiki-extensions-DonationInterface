@@ -164,7 +164,7 @@
 	"donate_interface-error-msg-card_num": "Amarê kard ê kredi",
 	"donate_interface-error-msg-expiration": "kard key qediyeno",
 	"donate_interface-error-msg-cvv": "CVV ke hê peniyê kard ê kardi tu de",
-	"donate_interface-error-msg-account_name": "Namey hesabi",
+	"donate_interface-error-msg-account_name": "Nameyê hesabi",
 	"donate_interface-error-msg-account_number": "Amarê hesabi",
 	"php-response-declined": "Kariya şıma qebul nêbı",
 	"donate_interface-thankyou": "Seba beğşê xo weş u war be!",
@@ -226,11 +226,12 @@
 	"donate_interface-obt-customer_payment_reference": "Referans #",
 	"donate_interface-rtbt-issuer_id": "Yew banka weçine",
 	"donate_interface-rtbt-issuer_id-longlist": "Bankey bini",
-	"donate_interface-dd-account_name": "Namey hesabi",
+	"donate_interface-dd-account_name": "Nameyê hesabi",
 	"donate_interface-dd-bank_name": "Namey banker",
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-currency-change": "Wa Bıvuryo?",
 	"donate_interface-monthlybox-title": "Wa Aşmek bo?",
 	"donate_interface-monthly-short": "Aşmeke",
-	"apihelp-donate-param-city": "Sûke."
+	"apihelp-donate-param-city": "Sûke.",
+	"apihelp-donate-param-language": "Kodê zıwani."
 }

@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"IvanLanin"
+			"IvanLanin",
+			"William Surya Permana"
 		]
 	},
-	"paypal_gateway-desc": "Mendaftarkan PayPal sebagai suatu mekanisme donasi"
+	"paypal_gateway-desc": "Pemrosesan pembayaran PayPal"
 }

@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"William Surya Permana"
+		]
+	},
+	"adyen_gateway-desc": "Pemrosesan pembayaran Adyen",
+	"adyen_gateway-response-default": "Terjadi galat saat memproses transaksi Anda.\nSilakan coba lagi nanti."
+}
