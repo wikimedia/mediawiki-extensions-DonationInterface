@@ -30,18 +30,18 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'cc-vmad' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'cc-vmad' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
-					'countries' => array(
-						'+' => array( 'US', ),
-					),
-				),
-			),
-		) );
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
+					'countries' => [
+						'+' => [ 'US', ],
+					],
+				],
+			],
+		] );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
@@ -64,15 +64,15 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testNormalizeOrderID() {
 		$request = $this->getDonorTestData();
 		$externalData = $this->getDonorTestData();
-		$session = array( 'Donor' => $this->getDonorTestData() );
+		$session = [ 'Donor' => $this->getDonorTestData() ];
 
 		// no order_id from anywhere, explicit no generate
-		$gateway = $this->getFreshGatewayObject( $externalData, array( 'order_id_meta' => array( 'generate' => false ) ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => false ] ] );
 		$this->assertFalse( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Deferred order_id generation may be broken.' );
 		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
 
 		// no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $externalData, array( 'order_id_meta' => array( 'generate' => true ) ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => true ] ] );
 		$this->assertTrue( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Self order_id generation may be broken.' );
 		$this->assertInternalType( 'numeric', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is not numeric, which it should be for GlobalCollect' );
 
@@ -99,7 +99,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$request['order_id'] = '33333';
 		$externalData['order_id'] = '22222';
 		$this->setUpRequest( $request, $session );
-		$gateway = $this->getFreshGatewayObject( $externalData, array( 'order_id_meta' => array( 'generate' => true ), 'batch_mode' => true ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => true ], 'batch_mode' => true ] );
 		$this->assertEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an extrenally provided order id is being honored in batch mode' );
 
 		// make sure that decimal numbers are rejected by GC. Should be a toss and regen
@@ -108,7 +108,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $session['Donor']['order_id'] );
 		$this->setUpRequest( $request, $session );
 		// conflicting order_id in external data, request and session, explicit GC generation, batch mode
-		$gateway = $this->getFreshGatewayObject( $externalData, array( 'order_id_meta' => array( 'generate' => true, 'disallow_decimals' => true ), 'batch_mode' => true ) );
+		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => true, 'disallow_decimals' => true ], 'batch_mode' => true ] );
 		$this->assertNotEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true' );
 	}
 
@@ -123,7 +123,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 
 		// no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $init, array( 'order_id_meta' => array( 'generate' => true ) ) );
+		$gateway = $this->getFreshGatewayObject( $init, [ 'order_id_meta' => [ 'generate' => true ] ] );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is null. The rest of this test is broken.' );
 		$original_order_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
 
@@ -149,7 +149,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 
 		// no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $init, array( 'order_id_meta' => array( 'generate' => false ) ) );
+		$gateway = $this->getFreshGatewayObject( $init, [ 'order_id_meta' => [ 'generate' => false ] ] );
 		$this->assertNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Ungenerated order_id is not null. The rest of this test is broken.' );
 
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
@@ -186,7 +186,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
+		$this->setUpRequest( [ 'CVVRESULT' => 'M' ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '25' );
@@ -201,13 +201,13 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * fraud scores.
 	 */
 	function testGetOrderstatusPostProcessFraud() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
-			'wgGlobalCollectGatewayCustomFiltersFunctions' => array(
+			'wgGlobalCollectGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 30,
-			),
-		) );
+			],
+		] );
 
 		$init = $this->getDonorTestData();
 		$init['ffname'] = 'cc-vmad';
@@ -239,7 +239,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( array( 'CVVRESULT' => 'M' ) );
+		$this->setUpRequest( [ 'CVVRESULT' => 'M' ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 
@@ -288,7 +288,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testDefineVarMap() {
 		$gateway = $this->getFreshGatewayObject( self::$initial_vars );
 
-		$var_map = array(
+		$var_map = [
 			'ORDERID' => 'order_id',
 			'AMOUNT' => 'amount',
 			'CURRENCYCODE' => 'currency',
@@ -349,7 +349,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'AVSRESULT' => 'avs_result',
 			'CVVRESULT' => 'cvv_result',
 			'PROFILETOKEN' => 'recurring_payment_token',
-		);
+		];
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( $var_map, $exposed->var_map );
@@ -395,9 +395,9 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$ctid = mt_rand();
 
-		$gateway->addResponseData( array(
+		$gateway->addResponseData( [
 			'contribution_tracking_id' => $ctid . '.1',
-		) );
+		] );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		// Desired vars were written into normalized data.
@@ -430,7 +430,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertNotEmpty( $loglines, 'GC Error 21000050 is not generating the expected payments log error' );
 
 		// Reset logs
-		DonationLoggerFactory::$overrideLogger->messages = array();
+		DonationLoggerFactory::$overrideLogger->messages = [];
 
 		// Most irritating version of 20001000 - They failed to enter an expiration date on GC's form. This should log some specific info, but not an error.
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -451,10 +451,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		// Make it not look like an orphan
-		$this->setUpRequest( array(
+		$this->setUpRequest( [
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
-		) );
+		] );
 
 		// Toxic card should not retry, even if there's an order id collision
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -472,7 +472,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * an exception during the 1st response.
 	 */
 	public function testNoDupeOrderId() {
-		$this->setUpRequest( array(
+		$this->setUpRequest( [
 			'action' => 'donate',
 			'amount' => '3.00',
 			'card_type' => 'amex',
@@ -494,7 +494,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'utm_medium' => 'sitenotice',
 			'utm_source' => 'B14_120921_5C_lg_fnt_sans.no-LP.cc',
 			'postal_code' => '90210'
-		) );
+		] );
 
 		$gateway = new TestingGlobalCollectAdapter();
 		TestingGlobalCollectAdapter::setDummyGatewayResponseCode( 'Exception' );
@@ -523,10 +523,10 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
 		// Make it not look like an orphan
-		$this->setUpRequest( array(
+		$this->setUpRequest( [
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
-		) );
+		] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( $code );
@@ -611,12 +611,12 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$result = $gateway->processDonorReturn( array(
+		$gateway = $this->getFreshGatewayObject( [] );
+		$result = $gateway->processDonorReturn( [
 			'REF' => $init['order_id'],
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
-		) );
+		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertEmpty( $result->getErrors() );
 		// TODO inspect the queue message
@@ -630,13 +630,13 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
+		$gateway = $this->getFreshGatewayObject( [] );
 		$gateway::setDummyGatewayResponseCode( '430285' ); // invalid card
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'REF' => $init['order_id'],
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
-		) );
+		] );
 		$this->assertTrue( $result->isFailed() );
 	}
 
@@ -656,11 +656,11 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( 'bad_set_payment' );
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'REF' => $init['order_id'],
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0'
-		) );
+		] );
 		$this->assertTrue( $result->isFailed() );
 	}
 }

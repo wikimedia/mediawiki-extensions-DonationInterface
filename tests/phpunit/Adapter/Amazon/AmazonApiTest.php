@@ -20,24 +20,24 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testDoPaymentSuccess() {
-		$params = array(
+		$params = [
 			'amount' => '1.55',
 			'currency' => 'USD',
 			'recurring' => '0',
 			'wmf_token' => 'e601502632e5e51dc2a17a0045162272+\\',
 			'orderReferenceId' => mt_rand( 0, 10000000 ),
 			'action' => 'di_amazon_bill',
-		);
-		$session = array(
-			'Donor' => array(
+		];
+		$session = [
+			'Donor' => [
 				'amount' => '1.55',
 				'currency' => 'USD',
 				'recurring' => '0',
 				'contribution_tracking_id' => mt_rand( 0, 10000000 ),
 				'country' => 'US',
-			),
+			],
 			'amazonEditToken' => 'kjaskdjahsdkjsad',
-		);
+		];
 		$apiResult = $this->doApiRequest( $params, $session );
 		$redirect = $apiResult[0]['redirect'];
 		$this->assertEquals( 'https://donate.wikimedia.org/wiki/Thank_You/en?country=US', $redirect );
@@ -58,24 +58,24 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 	 * 'general' section.
 	 */
 	public function testDoPaymentErrors() {
-		$params = array(
+		$params = [
 			'amount' => '1.55',
 			'currency' => 'USD',
 			'recurring' => '0',
 			'wmf_token' => 'e601502632e5e51dc2a17a0045162272+\\',
 			'orderReferenceId' => mt_rand( 0, 10000000 ),
 			'action' => 'di_amazon_bill',
-		);
-		$session = array(
-			'Donor' => array(
+		];
+		$session = [
+			'Donor' => [
 				'amount' => '1.55',
 				'currency' => 'USD',
 				'recurring' => '0',
 				'contribution_tracking_id' => mt_rand( 0, 10000000 ),
 				'country' => 'US',
-			),
+			],
 			'amazonEditToken' => 'kjaskdjahsdkjsad',
-		);
+		];
 		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';
 

@@ -1,15 +1,15 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'AstroPayGateway' => array(
+$specialPageAliases['en'] = [
+	'AstroPayGateway' => [
 		'AstroPayGateway',
 		'AstropayGateway', // deprecated
-	),
-	'AstroPayGatewayResult' => array(
+	],
+	'AstroPayGatewayResult' => [
 		'AstroPayGatewayResult',
 		'AstropayGatewayResult', // deprecated
-	),
-);
+	],
+];

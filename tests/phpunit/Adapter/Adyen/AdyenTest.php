@@ -31,7 +31,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingAdyenAdapter::class;
 	}
@@ -43,9 +43,9 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 				$this->smashPigGlobalConfig
 			);
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgAdyenGatewayEnabled' => true,
-		) );
+		] );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
 
-		$expected = array(
+		$expected = [
 			'allowedMethods' => 'card',
 			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
@@ -82,14 +82,14 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperLocale' => 'en_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52', // once we construct the FraudFiltersTestCase, it should land here.
-		);
+		];
 
 		// deal with problem keys.
 		// @TODO: Refactor gateway so these are more testable
-		$problems = array(
+		$problems = [
 			'sessionValidity',
 			'shipBeforeDate',
-		);
+		];
 
 		foreach ( $problems as $oneproblem ) {
 			if ( isset( $ret[$oneproblem] ) ) {
@@ -125,7 +125,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
 
-		$expected = array(
+		$expected = [
 			'allowedMethods' => 'card',
 			'billingAddress.street' => $init['street_address'],
 			'billingAddress.city' => $init['city'],
@@ -145,14 +145,14 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperLocale' => 'fr_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52',
-		);
+		];
 
 		// deal with problem keys.
 		// @TODO: Refactor gateway so these are more testable
-		$problems = array(
+		$problems = [
 			'sessionValidity',
 			'shipBeforeDate',
-		);
+		];
 
 		foreach ( $problems as $oneproblem ) {
 			if ( isset( $ret[$oneproblem] ) ) {
@@ -172,8 +172,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init['order_id'] = '55555';
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$result = $gateway->processDonorReturn( array(
+		$gateway = $this->getFreshGatewayObject( [] );
+		$result = $gateway->processDonorReturn( [
 			'authResult' => 'AUTHORISED',
 			'merchantReference' => '55555.1',
 			'merchantSig' => 'NPG6j/g5LVORxSXb8WLegoG6e2Fd7D4986p736yozbI=',
@@ -182,7 +182,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperLocale' => 'fr_FR',
 			'skinCode' => 'testskin',
 			'title' => 'Special:AdyenGatewayResult'
-		) );
+		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertEmpty( $result->getErrors() );
 		// TODO inspect the queue message
@@ -199,8 +199,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init['order_id'] = '55555';
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$result = $gateway->processDonorReturn( array(
+		$gateway = $this->getFreshGatewayObject( [] );
+		$result = $gateway->processDonorReturn( [
 			'authResult' => 'AUTHORISED',
 			'merchantReference' => '55555.1',
 			'merchantSig' => '/uzhDRZ3zSzFNLgBj4tI6pHYDynVQAqCeKcJWsXeWo0=',
@@ -209,7 +209,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperLocale' => 'fr_FR',
 			'skinCode' => 'altskin',
 			'title' => 'Special:AdyenGatewayResult'
-		) );
+		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertEmpty( $result->getErrors() );
 	}
@@ -222,8 +222,8 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init['order_id'] = '55555';
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
-		$result = $gateway->processDonorReturn( array(
+		$gateway = $this->getFreshGatewayObject( [] );
+		$result = $gateway->processDonorReturn( [
 			'authResult' => 'REFUSED',
 			'merchantReference' => '55555.1',
 			'merchantSig' => 's8t3037BPcWl8niWHsrnwOXh+EqdPHmKyaLHYLf1tz4=',
@@ -232,7 +232,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperLocale' => 'fr_FR',
 			'skinCode' => 'testskin',
 			'title' => 'Special:AdyenGatewayResult'
-		) );
+		] );
 		$this->assertTrue( $result->isFailed() );
 	}
 

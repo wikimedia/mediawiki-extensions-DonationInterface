@@ -14,9 +14,9 @@ class AstroPaySignature implements StagingHelper {
 	}
 
 	public static function getNewInvoiceMessage( $stagedData ) {
-		$requiredKeys = array(
+		$requiredKeys = [
 			'order_id', 'amount', 'donor_id', 'bank_code', 'fiscal_number', 'email'
-		);
+		];
 		$stagedKeys = array_keys( $stagedData );
 		if ( array_intersect( $requiredKeys, $stagedKeys ) != $requiredKeys ) {
 			return '';

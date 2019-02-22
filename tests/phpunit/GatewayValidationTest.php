@@ -31,30 +31,30 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			// FIXME: base class sketchiness.
-			'wgDonationInterfaceGatewayAdapters' => array(
+			'wgDonationInterfaceGatewayAdapters' => [
 				'donation' => TestingGatewayAdapter::class,
-			),
+			],
 			'wgDonationInterfacePriceFloor' => 2.00,
 			'wgDonationInterfacePriceCeiling' => 100.00,
-		) );
+		] );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 
 		$this->page = new TestingGatewayPage();
 	}
 
-	protected function setUpAdapter( $data = array() ) {
-		$this->adapter = new TestingGenericAdapter( array(
+	protected function setUpAdapter( $data = [] ) {
+		$this->adapter = new TestingGenericAdapter( [
 			'external_data' => $data,
-		) );
+		] );
 		$this->page->adapter = $this->adapter;
 	}
 
 	public function tearDown() {
 		TestingGenericAdapter::$fakeIdentifier = null;
-		TestingGenericAdapter::$acceptedCurrencies = array();
+		TestingGenericAdapter::$acceptedCurrencies = [];
 		parent::tearDown();
 	}
 
@@ -75,22 +75,22 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPassesValidation() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.00',
 			'country' => 'US',
 			'currency' => 'USD',
 			'email' => 'foo@localhost.net',
-		) );
+		] );
 
 		$this->assertTrue( $this->adapter->validatedOK() );
 	}
 
 	public function testLowAmountError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '1.99',
 			'country' => 'US',
 			'currency' => 'USD',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
@@ -99,11 +99,11 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testHighAmountError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '100.99',
 			'country' => 'US',
 			'currency' => 'USD',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
@@ -112,11 +112,11 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testCurrencyCodeError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.99',
 			'country' => 'BR',
 			'currency' => 'BRL',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
@@ -126,15 +126,15 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	public function testCountryError() {
 		// TODO: also validate and test country=ZZ and XX
 
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceForbiddenCountries' => array( 'US' )
-		) );
+		$this->setMwGlobals( [
+			'wgDonationInterfaceForbiddenCountries' => [ 'US' ]
+		] );
 
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.99',
 			'country' => 'US',
 			'currency' => 'USD',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
@@ -142,11 +142,11 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testEmailError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.99',
 			'currency' => 'USD',
 			'email' => 'foo',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 
@@ -154,20 +154,20 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	}
 
 	public function testSpuriousCcError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.99',
 			'currency' => 'USD',
 			'first_name' => '4111111111111111',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 		$this->assertHasValidationError( 'first_name' );
 	}
 
 	public function testMissingFieldError() {
-		$this->setUpAdapter( array(
+		$this->setUpAdapter( [
 			'amount' => '2.99',
-		) );
+		] );
 
 		$this->assertFalse( $this->adapter->validatedOK() );
 		$this->assertHasValidationError( 'currency' );

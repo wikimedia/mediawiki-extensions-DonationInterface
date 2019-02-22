@@ -2,10 +2,10 @@
 
 class PayPalCountry implements UnstagingHelper {
 
-	static $nonStandardCodes = array(
+	static $nonStandardCodes = [
 		'C2' => 'CN', // mutant China code for merchants outside of Chine
 		'AN' => 'NL', // Netherlands Antilles is part of Netherlands since 2010
-	);
+	];
 
 	function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		if ( empty( $stagedData['country'] ) ) {

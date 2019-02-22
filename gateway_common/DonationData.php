@@ -16,8 +16,8 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * @author khorn
  */
 class DonationData implements LogPrefixProvider {
-	protected $normalized = array();
-	protected $dataSources = array();
+	protected $normalized = [];
+	protected $dataSources = [];
 	protected $gateway;
 	protected $gatewayID;
 	/**
@@ -38,7 +38,7 @@ class DonationData implements LogPrefixProvider {
 	 * keys we want to see disappear forever, complete with
 	 * ffname and referrer for easy total destruction.
 	 */
-	protected static $fieldNames = array(
+	protected static $fieldNames = [
 		'amount',
 		'amountGiven',
 		'amountOther',
@@ -106,7 +106,7 @@ class DonationData implements LogPrefixProvider {
 		'server_ip',
 		'variant',
 		'opt_in',
-	);
+	];
 
 	/**
 	 * DonationData constructor
@@ -134,7 +134,7 @@ class DonationData implements LogPrefixProvider {
 	 * Default is false.
 	 */
 	protected function populateData( $external_data = false ) {
-		$this->normalized = array();
+		$this->normalized = [];
 		if ( is_array( $external_data ) ) {
 			// I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
@@ -214,7 +214,7 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 		// fields that should always overwrite with their original values
-		$overwrite = array( 'referrer', 'contribution_tracking_id' );
+		$overwrite = [ 'referrer', 'contribution_tracking_id' ];
 		foreach ( $donorData as $key => $val ) {
 			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );
@@ -320,7 +320,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return array An array of values matching all recalculated fields.
 	 */
 	public function getCalculatedFields() {
-		$fields = array(
+		$fields = [
 			'utm_source',
 			'amount',
 			'order_id',
@@ -330,7 +330,7 @@ class DonationData implements LogPrefixProvider {
 			'contribution_tracking_id', // sort of...
 			'currency',
 			'user_ip',
-		);
+		];
 		return $fields;
 	}
 
@@ -429,7 +429,7 @@ class DonationData implements LogPrefixProvider {
 				// check to see if it's one of those other codes that comes out of CN, for the logs
 				// If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
 				// we're still going to try to regen.
-				$near_countries = array( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
+				$near_countries = [ 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' ];
 				if ( !in_array( $country, $near_countries ) ) {
 					$this->logger->warning( __FUNCTION__ . ": $country is not a country, or a recognized placeholder." );
 				}
@@ -568,13 +568,13 @@ class DonationData implements LogPrefixProvider {
 			// fail validation later, log some things.
 			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
-			$keys = array(
+			$keys = [
 				'amount',
 				'utm_source',
 				'utm_campaign',
 				'email',
 				'user_ip', // to help deal with fraudulent traffic.
-			);
+			];
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
@@ -829,7 +829,7 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function getCleanTrackingData( $unset = false ) {
 		// define valid tracking fields
-		$tracking_fields = array(
+		$tracking_fields = [
 			'note',
 			'referrer',
 			'anonymous',
@@ -840,9 +840,9 @@ class DonationData implements LogPrefixProvider {
 			'language',
 			'country',
 			'ts'
-		);
+		];
 
-		$tracking_data = array();
+		$tracking_data = [];
 
 		foreach ( $tracking_fields as $value ) {
 			if ( $this->isSomething( $value ) ) {
@@ -897,7 +897,7 @@ class DonationData implements LogPrefixProvider {
 				$db->update(
 					'contribution_tracking',
 					$tracking_data,
-					array( 'id' => $ctid )
+					[ 'id' => $ctid ]
 				);
 			}
 		} else {
@@ -946,7 +946,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return array
 	 */
 	public static function getMessageFields() {
-		return array(
+		return [
 			'contribution_tracking_id',
 			'anonymous',
 			'utm_source',
@@ -978,7 +978,7 @@ class DonationData implements LogPrefixProvider {
 			'gateway_session_id',
 			'recurring_payment_token',
 			'opt_in',
-		);
+		];
 	}
 
 	/**
@@ -987,7 +987,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return array
 	 */
 	public static function getRetryFields() {
-		$fields = array(
+		$fields = [
 			'contact_id',
 			'contact_hash',
 			'gateway',
@@ -999,7 +999,7 @@ class DonationData implements LogPrefixProvider {
 			'utm_medium',
 			'utm_campaign',
 			'payment_method',
-		);
+		];
 		return $fields;
 	}
 

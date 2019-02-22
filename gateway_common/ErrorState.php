@@ -4,7 +4,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 
 class ErrorState {
-	protected $errors = array();
+	protected $errors = [];
 
 	/**
 	 * Unset validation error for a specific field

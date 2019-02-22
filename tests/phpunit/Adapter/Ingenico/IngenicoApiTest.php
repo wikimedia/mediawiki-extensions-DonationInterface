@@ -50,58 +50,58 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
 				$this->callback( function ( $actual ) {
-					$hcsi = array(
+					$hcsi = [
 						'locale' => 'en_US',
-						'paymentProductFilters' => array(
-							'restrictTo' => array(
-								'groups' => array(
+						'paymentProductFilters' => [
+							'restrictTo' => [
+								'groups' => [
 									'cards'
-								)
-							)
-						),
+								]
+							]
+						],
 						'showResultPage' => 'false'
-					);
+					];
 					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExp(
 						'/Special:IngenicoGatewayResult/',
 						$actual['hostedCheckoutSpecificInput']['returnUrl']
 					);
-					$order = array(
-						'amountOfMoney' => array(
+					$order = [
+						'amountOfMoney' => [
 							'currencyCode' => 'USD',
 							'amount' => 155
-						),
-						'customer' => array(
-							'billingAddress' => array(
+						],
+						'customer' => [
+							'billingAddress' => [
 								'countryCode' => 'US',
 								'city' => 'San Francisco',
 								'state' => 'CA',
 								'zip' => '94105',
 								'street' => '123 Fake Street'
-							),
-							'contactDetails' => array(
+							],
+							'contactDetails' => [
 								'emailAddress' => 'good@innocent.com'
-							),
+							],
 							'locale' => 'en_US',
-							'personalInformation' => array(
-								'name' => array(
+							'personalInformation' => [
+								'name' => [
 									'firstName' => 'Firstname',
 									'surname' => 'Surname'
-								)
-							)
-						)
-					);
+								]
+							]
+						]
+					];
 					$this->assertArraySubset( $order, $actual['order'] );
 					$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
 					return true;
 				} )
 			)
 			->willReturn(
-				array(
+				[
 					'partialRedirectUrl' => $this->partialUrl,
 					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				)
+				]
 			);
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
@@ -122,7 +122,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'fee' => 0,
 			'utm_source' => '..cc',
 			'language' => 'en',
@@ -142,7 +142,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'state_province' => 'CA',
 			'postal_code' => '94105',
 			'gateway_session_id' => '8915-28e5b79c889641c8ba770f1ba576c1fe'
-		);
+		];
 		$this->assertArraySubset( $expected, $message );
 	}
 
@@ -158,27 +158,27 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
 				$this->callback( function ( $actual ) {
-					$hcsi = array(
+					$hcsi = [
 						'locale' => 'zh_US',
-						'paymentProductFilters' => array(
-							'restrictTo' => array(
-								'groups' => array(
+						'paymentProductFilters' => [
+							'restrictTo' => [
+								'groups' => [
 									'cards'
-								)
-							)
-						),
+								]
+							]
+						],
 						'showResultPage' => 'false'
-					);
+					];
 					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
 				} )
 			)
 			->willReturn(
-				array(
+				[
 					'partialRedirectUrl' => $this->partialUrl,
 					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				)
+				]
 			);
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
@@ -205,41 +205,41 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
 				$this->callback( function ( $actual ) use ( $init ) {
-					$order = array(
-						'amountOfMoney' => array(
+					$order = [
+						'amountOfMoney' => [
 							'currencyCode' => 'USD',
 							'amount' => 155
-						),
-						'customer' => array(
-							'billingAddress' => array(
+						],
+						'customer' => [
+							'billingAddress' => [
 								'countryCode' => 'US',
 								'city' => 'San Francisco',
 								'state' => 'CA',
 								'zip' => '94105',
 								'street' => '123 Fake Street'
-							),
-							'contactDetails' => array(
+							],
+							'contactDetails' => [
 								'emailAddress' => 'good@innocent.com'
-							),
+							],
 							'locale' => 'en_US',
-							'personalInformation' => array(
-								'name' => array(
+							'personalInformation' => [
+								'name' => [
 									'firstName' => $init['first_name'],
 									'surname' => $init['last_name']
-								)
-							)
-						)
-					);
+								]
+							]
+						]
+					];
 					$this->assertArraySubset( $order, $actual['order'] );
 					return true;
 				} )
 			)
 			->willReturn(
-				array(
+				[
 					'partialRedirectUrl' => $this->partialUrl,
 					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				)
+				]
 			);
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentUrl' )->with(

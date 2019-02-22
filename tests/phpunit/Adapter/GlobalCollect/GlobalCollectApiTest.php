@@ -31,7 +31,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'gateway_txn_id' => '626113410',
 			'response' => 'Response Status: 20',
 			'fee' => 0,
@@ -53,7 +53,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'city' => 'San Francisco',
 			'state_province' => 'CA',
 			'postal_code' => '94105'
-		);
+		];
 		$this->assertArraySubset( $expected, $message );
 		// Don't send any value for opt_in if not set or shown
 		$this->assertTrue( !isset( $message['opt_in'] ) );

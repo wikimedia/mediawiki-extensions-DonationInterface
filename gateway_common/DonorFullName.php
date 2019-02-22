@@ -9,7 +9,7 @@ class DonorFullName implements StagingHelper {
 	 * @param array &$stagedData
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		$name_parts = array();
+		$name_parts = [];
 		if ( isset( $normalized['first_name'] ) ) {
 			$name_parts[] = $normalized['first_name'];
 		}

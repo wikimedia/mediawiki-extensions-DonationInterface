@@ -11,9 +11,9 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 * Also set a useful MerchantID.
 	 * @param array|null $options
 	 */
-	public function __construct( $options = array() ) {
+	public function __construct( $options = [] ) {
 		if ( is_null( $options ) ) {
-			$options = array();
+			$options = [];
 		}
 
 		// I hate myself for this part, and so do you.

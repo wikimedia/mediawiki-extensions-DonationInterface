@@ -7,9 +7,9 @@ use Psr\Log\AbstractLogger;
  * @author Elliott Eggleston <eeggleston@wikimedia.org>
  */
 class TestingDonationLogger extends AbstractLogger {
-	public $messages = array();
+	public $messages = [];
 
-	public function log( $level, $message, array $context = array() ) {
+	public function log( $level, $message, array $context = [] ) {
 		$this->messages[$level][] = $message;
 	}
 }

@@ -60,14 +60,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	function defineAccountInfo() {
-		$this->accountInfo = array();
+		$this->accountInfo = [];
 	}
 
 	/**
 	 * TODO: Get L_SHORTMESSAGE0 and L_LONGMESSAGE0
 	 */
 	function defineReturnValueMap() {
-		$this->return_value_map = array();
+		$this->return_value_map = [];
 		// 0: No errors
 		$this->addCodeRange( 'DoExpressCheckoutPayment', 'PAYMENTINFO_0_ERRORCODE', FinalStatus::COMPLETE, 0 );
 		// 10412: Payment has already been made for this InvoiceID.
@@ -78,16 +78,16 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * Use our own Order ID sequence.
 	 */
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array(
+		$this->order_id_meta = [
 			'generate' => true,
 			'ct_id' => true,
-		);
+		];
 	}
 
-	function setGatewayDefaults( $options = array() ) {
+	function setGatewayDefaults( $options = [] ) {
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
-				array( 'payment_method' => 'paypal' )
+				[ 'payment_method' => 'paypal' ]
 			);
 		}
 	}
@@ -107,11 +107,11 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * TODO: Support "response" specification.
 	 */
 	function defineTransactions() {
-		$this->transactions = array();
+		$this->transactions = [];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/
-		$this->transactions['SetExpressCheckout'] = array(
-			'request' => array(
+		$this->transactions['SetExpressCheckout'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				// 'SIGNATURE', // See below.
@@ -142,8 +142,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// TODO: Investigate why can we give this as an input:
 				// PAYMENTREQUEST_n_TRANSACTIONID
 				// TODO: BUYEREMAILOPTINENABLE=1
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
@@ -158,15 +158,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
 				// SOLUTIONTYPE Mark means PayPal account is required
 				'SOLUTIONTYPE' => 'Mark',
-			),
-			'response' => array(
+			],
+			'response' => [
 				'TOKEN',
-			),
-		);
+			],
+		];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/
-		$this->transactions['SetExpressCheckout_recurring'] = array(
-			'request' => array(
+		$this->transactions['SetExpressCheckout_recurring'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
@@ -200,8 +200,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// // TODO: Investigate why would give this as an input:
 				// // PAYMENTREQUEST_n_TRANSACTIONID,
 				'SOLUTIONTYPE'
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
@@ -224,36 +224,36 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
 				// SOLUTIONTYPE Mark means PayPal account is required
 				'SOLUTIONTYPE' => 'Mark',
-			),
-			'response' => array(
+			],
+			'response' => [
 				'TOKEN',
-			),
-		);
+			],
+		];
 
 		// Incoming parameters after returning from the PayPal workflow
-		$this->transactions['ProcessReturn'] = array(
-			'request' => array(
+		$this->transactions['ProcessReturn'] = [
+			'request' => [
 				'token',
 				'PayerID',
-			),
-		);
+			],
+		];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/GetExpressCheckoutDetails_API_Operation_NVP/
-		$this->transactions['GetExpressCheckoutDetails'] = array(
-			'request' => array(
+		$this->transactions['GetExpressCheckoutDetails'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
 				'METHOD',
 				'TOKEN',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'GetExpressCheckoutDetails',
-			),
-			'response' => array(
+			],
+			'response' => [
 				'ACK',
 				'TOKEN',
 				'CORRELATIONID',
@@ -278,12 +278,12 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_INVNUM',
 				'PAYMENTREQUEST_0_TRANSACTIONID',
 				// Or, the L_ item?
-			),
-		);
+			],
+		];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/
-		$this->transactions['DoExpressCheckoutPayment'] = array(
-			'request' => array(
+		$this->transactions['DoExpressCheckoutPayment'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
@@ -301,8 +301,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_ITEMAMT', // FIXME: Not clear why this is required.
 				'PAYMENTREQUEST_0_PAYMENTACTION',
 				'PAYMENTREQUEST_0_PAYMENTREASON',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
@@ -310,12 +310,12 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
 				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
-			),
-		);
+			],
+		];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/
-		$this->transactions['CreateRecurringPaymentsProfile'] = array(
-			'request' => array(
+		$this->transactions['CreateRecurringPaymentsProfile'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
@@ -336,8 +336,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'AMT',
 				'CURRENCYCODE',
 				'EMAIL',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
@@ -352,56 +352,56 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'BILLINGFREQUENCY' => 1,
 				'TOTALBILLINGCYCLES' => 0, // Forever.
 				'MAXFAILEDPAYMENTS' => 3,
-			),
-			'response' => array(
+			],
+			'response' => [
 				# FIXME: Make sure this gets passed as subscription_id in the message
 				'PROFILEID',
 				'PROFILESTATUS'
-			),
-		);
+			],
+		];
 
-		$this->transactions['RefundTransaction'] = array(
-			'request' => array(
+		$this->transactions['RefundTransaction'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
 				'METHOD',
 				'TRANSACTIONID'
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'RefundTransaction'
 
-			),
-			'response' => array(
+			],
+			'response' => [
 				'REFUNDSTATUS',
 				'NETREFUNDAMT',
 				'GROSSREFUNDAMT'
-			)
-		);
+			]
+		];
 
-		$this->transactions['ManageRecurringPaymentsProfileStatusCancel'] = array(
-			'request' => array(
+		$this->transactions['ManageRecurringPaymentsProfileStatusCancel'] = [
+			'request' => [
 				'USER',
 				'PWD',
 				'VERSION',
 				'METHOD',
 				'ACTION',
 				'PROFILEID'
-			),
-			'values' => array(
+			],
+			'values' => [
 				'USER' => $this->account_config['User'],
 				'PWD' => $this->account_config['Password'],
 				'VERSION' => self::API_VERSION,
 				'METHOD' => 'ManageRecurringPaymentsProfileStatus',
 				'ACTION' => 'Cancel'
-			),
-			'response' => array(
+			],
+			'response' => [
 				'PROFILEID'
-			)
-		);
+			]
+		];
 
 		// Add the Signature field to all API calls, if necessary.
 		// Note that this gives crappy security, vulnerable to replay attacks.
@@ -489,9 +489,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->addResponseData( $this->unstageKeys( $response ) );
 				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
 				$this->transaction_response->setRedirect( $redirectUrl );
-				$this->transaction_response->setData( array(
+				$this->transaction_response->setData( [
 					'FORMACTION' => $redirectUrl
-				) );
+				] );
 				break;
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
@@ -585,7 +585,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @return PaymentError[]
 	 */
 	protected function parseResponseErrors( $response ) {
-		$errors = array();
+		$errors = [];
 		// TODO: can they put errors in other places too?
 		if ( isset( $response['L_ERRORCODE0'] ) ) {
 			$errors[] = new PaymentError(
@@ -606,7 +606,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				ResponseCodes::MISSING_REQUIRED_DATA
 			);
 		}
-		$requestData = array();
+		$requestData = [];
 		$requestData['gateway_session_id'] = $requestValues['token'];
 		if (
 			empty( $requestValues['PayerID'] )
@@ -629,9 +629,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		if ( $this->getFinalStatus() !== FinalStatus::COMPLETE ) {
 			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 				// Set up recurring billing agreement.
-				$this->addRequestData( array(
+				$this->addRequestData( [
 					'date' => time()
-				) );
+				] );
 				$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
 				if ( !$resultData->getCommunicationStatus() ) {
 					throw new ResponseProcessingException(
@@ -707,7 +707,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @return array
 	 */
 	public function createDonorReturnParams() {
-		return array( 'token' => $this->getData_Staged( 'gateway_session_id' ) );
+		return [ 'token' => $this->getData_Staged( 'gateway_session_id' ) ];
 	}
 
 	/**

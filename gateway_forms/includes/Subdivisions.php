@@ -20,13 +20,13 @@ class Subdivisions {
 		return false;
 	}
 
-	private static $keyBase = array(
+	private static $keyBase = [
 		'CA' => 'donate_interface-province-dropdown-',
 		'US' => 'donate_interface-state_province-dropdown-',
-	);
+	];
 
-	private static $list = array(
-		'AU' => array(
+	private static $list = [
+		'AU' => [
 			'ACI' => 'Ashmore and Cartier Islands',
 			'AAT' => 'Australian Antarctic Territory',
 			'ACT' => 'Australian Capital Territory',
@@ -43,8 +43,8 @@ class Subdivisions {
 			'TAS' => 'Tasmania',
 			'VIC' => 'Victoria',
 			'WA' => 'Western Australia',
-		),
-		'CA' => array(
+		],
+		'CA' => [
 			'AB' => 'Alberta',
 			'BC' => 'British Columbia',
 			'MB' => 'Manitoba',
@@ -58,8 +58,8 @@ class Subdivisions {
 			'QC' => 'Quebec',
 			'SK' => 'Saskatchewan',
 			'YT' => 'Yukon',
-		),
-		'US' => array(
+		],
+		'US' => [
 			'AK' => 'Alaska',
 			'AL' => 'Alabama',
 			'AR' => 'Arkansas',
@@ -115,6 +115,6 @@ class Subdivisions {
 			'AA' => 'AA',
 			'AE' => 'AE',
 			'AP' => 'AP',
-		),
-	);
+		],
+	];
 }

@@ -13,7 +13,7 @@ class WmfFramework_Drupal {
 		$severity = constant( "WATCHDOG_$level" ); // Yep, they all match!
 		// Janky XML sanitization so we can see the tags
 		// watchdog strips so aggressively that htmlspecialchars doesn't help
-		$escaped = str_replace( array( '<', '>' ), array( '{', '}' ), $msg );
+		$escaped = str_replace( [ '<', '>' ], [ '{', '}' ], $msg );
 		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", null, $severity );
 	}
 
@@ -47,7 +47,7 @@ class WmfFramework_Drupal {
 	}
 
 	public static function getLanguageFallbacks( $language ) {
-		$fallbacks = array();
+		$fallbacks = [];
 		if ( $language ) {
 			$fallbacks[] = $language;
 		}

@@ -27,9 +27,9 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationIn
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-		) );
+		] );
 	}
 
 	/**
@@ -41,11 +41,11 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationIn
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXmlForDirectDebitSpain() {
-		$optionsForTestData = array(
+		$optionsForTestData = [
 			'payment_method' => 'dd',
 			'payment_submethod' => 'dd_es',
 			'payment_product_id' => 709,
-		);
+		];
 
 		// somewhere else?
 		$options = $this->getDonorTestData( 'ES' );
@@ -53,22 +53,22 @@ class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationIn
 		unset( $options['payment_product_id'] );
 		unset( $options['payment_submethod'] );
 
-		$dd_info_supplied = array(
+		$dd_info_supplied = [
 			'branch_code' => '123',
 			'account_name' => 'Henry',
 			'account_number' => '21',
 			'bank_code' => '37',
 			'bank_check_digit' => 'BD',
 			'direct_debit_text' => 'testy test test',
-		);
-		$dd_info_expected = array(
+		];
+		$dd_info_expected = [
 			'branch_code' => '0123', // 4, apparently.
 			'account_name' => 'Henry',
 			'account_number' => '0000000021', // 10
 			'bank_code' => '0037', // 4
 			'bank_check_digit' => 'BD',
 			'direct_debit_text' => 'Wikimedia Foundation', // hard-coded in the gateway
-		);
+		];
 		$optionsForTestData = array_merge( $optionsForTestData, $dd_info_expected );
 		$options = array_merge( $options, $dd_info_supplied );
 

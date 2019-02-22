@@ -43,22 +43,22 @@ class AmountTest  extends DonationInterfaceTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfacePriceFloor' => 1.50,
 			'wgDonationInterfacePriceCeiling' => 100,
 			'wgLanguageCode' => 'en',
-		) );
+		] );
 
-		$this->setUpRequest( array(
+		$this->setUpRequest( [
 			'country' => 'US',
 			'uselang' => 'en',
-		) );
+		] );
 
-		$this->normalized = array(
+		$this->normalized = [
 			'language' => 'en',
 			'country' => 'US',
 			'currency' => 'USD',
-		);
+		];
 
 		$this->errors = new ErrorState();
 		$this->adapter = new TestingGenericAdapter();
@@ -163,11 +163,11 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$expected = new ValidationError(
 			'amount',
 			'donate_interface-bigamount-error',
-			array(
+			[
 				100,
 				'USD',
 				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
-			)
+			]
 		);
 		$this->assertEquals(
 			$expected,
@@ -189,7 +189,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$expected = new ValidationError(
 			'amount',
 			'donate_interface-smallamount-error',
-			array( $formattedMin )
+			[ $formattedMin ]
 		);
 		$this->assertEquals(
 			$expected,
@@ -212,11 +212,11 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$expected = new ValidationError(
 			'amount',
 			'donate_interface-bigamount-error',
-			array(
+			[
 				200,
 				'BBD',
 				$this->adapter->getGlobal( 'MajorGiftsEmail' )
-			)
+			]
 		);
 		$this->assertEquals(
 			$expected,
@@ -238,7 +238,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 		$expected = new ValidationError(
 			'amount',
 			'donate_interface-smallamount-error',
-			array( $formattedMin )
+			[ $formattedMin ]
 		);
 		$this->assertEquals(
 			$expected,

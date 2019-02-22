@@ -29,9 +29,9 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationI
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-		) );
+		] );
 	}
 
 	/**
@@ -43,12 +43,12 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationI
 	 * @covers GatewayAdapter::getData_Unstaged_Escaped
 	 */
 	public function testBuildRequestXml() {
-		$optionsForTestData = array(
+		$optionsForTestData = [
 			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'bt',
 			'payment_submethod' => 'bt',
 			'payment_product_id' => 11,
-		);
+		];
 
 		$options = $this->getDonorTestData( 'ES' );
 		$options = array_merge( $options, $optionsForTestData );

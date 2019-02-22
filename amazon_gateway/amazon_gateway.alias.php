@@ -1,8 +1,8 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'AmazonGateway' => array( 'AmazonGateway' ),
-);
+$specialPageAliases['en'] = [
+	'AmazonGateway' => [ 'AmazonGateway' ],
+];

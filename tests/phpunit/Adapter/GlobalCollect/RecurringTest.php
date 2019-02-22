@@ -31,7 +31,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
@@ -39,9 +39,9 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-		) );
+		] );
 	}
 
 	/**
@@ -50,13 +50,13 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringCharge() {
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-OK' );
@@ -73,13 +73,13 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
 	 */
 	public function testDeclinedRecurringCharge() {
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-declined' );
@@ -99,13 +99,13 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringTimeout() {
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-timeout' );
@@ -124,13 +124,13 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 * @covers GlobalCollectAdapter::transactionRecurring_Charge
 	 */
 	public function testRecurringResume() {
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-resume' );
@@ -142,13 +142,13 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	}
 
 	public function testConvertPaymentToProfile() {
-		$init = array(
+		$init = [
 			'amount' => '1234',
 			'currency' => 'USD',
 			'order_id' => '879656905',
 			'payment_product' => 'cc',
 			'country' => 'US',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'CONVERT_PAYMENTTOPROFILE' );

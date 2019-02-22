@@ -21,14 +21,14 @@ class ClientErrorApi extends ApiBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
-			'message' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
-			'file' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
-			'line' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
-			'col' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
-			'userAgent' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ),
-			'stack' => array( ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ),
-		);
+		return [
+			'message' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ],
+			'file' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ],
+			'line' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ],
+			'col' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ],
+			'userAgent' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ],
+			'stack' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => false ],
+		];
 	}
 
 	/**

@@ -53,7 +53,7 @@ class PaymentMethod {
 
 		try {
 			// FIXME: I don't like that we're couple to the gateway already.
-			$spec = array();
+			$spec = [];
 			if ( $method_name ) {
 				$spec = $gateway->getPaymentMethodMeta( $method_name );
 			}
@@ -69,7 +69,7 @@ class PaymentMethod {
 		} catch ( Exception $ex ) {
 			// Return empty method.
 			$method->name = "none";
-			$method->spec = array();
+			$method->spec = [];
 		}
 
 		return $method;
@@ -86,7 +86,7 @@ class PaymentMethod {
 	 * @return string unique method id
 	 */
 	public static function parseCompoundMethod( $bareMethod, $subMethod ) {
-		$parts = array();
+		$parts = [];
 		if ( $subMethod ) {
 			$parts = explode( '_', $subMethod );
 		}

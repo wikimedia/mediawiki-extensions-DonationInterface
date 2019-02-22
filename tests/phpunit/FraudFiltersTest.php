@@ -54,14 +54,14 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			$this->request
 		);
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableMinFraud' => true,
 			'wgDonationInterfaceMinFraudErrorScore' => 50,
-			'wgDonationInterfaceMinFraudClientOptions' => array(
+			'wgDonationInterfaceMinFraudClientOptions' => [
 				'host' => '0.0.0.0',
 				'httpRequestFactory' => $this->requestFactory
-			),
-		) );
+			],
+		] );
 	}
 
 	/**
@@ -83,10 +83,10 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 107.5, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'validation_action' => ValidationAction::REJECT,
 			'risk_score' => 107.5,
-			'score_breakdown' => array(
+			'score_breakdown' => [
 				'initial' => 0,
 				'getScoreUtmCampaignMap' => 0,
 				'getScoreCountryMap' => 20,
@@ -96,7 +96,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'getCVVResult' => 0,
 				'getAVSResult' => 0,
 				'minfraud_filter' => 50,
-			),
+			],
 			'user_ip' => '127.0.0.1',
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
@@ -105,7 +105,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 	}
 
@@ -140,10 +140,10 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 72.75, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 72.75,
-			'score_breakdown' => array(
+			'score_breakdown' => [
 				'initial' => 0,
 				'getScoreUtmCampaignMap' => 0,
 				'getScoreCountryMap' => 20,
@@ -153,7 +153,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'getCVVResult' => 0,
 				'getAVSResult' => 0,
 				'minfraud_filter' => 15.25,
-			),
+			],
 			'user_ip' => '127.0.0.1',
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
@@ -162,7 +162,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 	}
 
@@ -209,10 +209,10 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 72.75, $exposed->risk_score, 'RiskScore is not as expected for failure mode' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 72.75,
-			'score_breakdown' => array(
+			'score_breakdown' => [
 				'initial' => 0,
 				'getScoreUtmCampaignMap' => 0,
 				'getScoreCountryMap' => 20,
@@ -222,7 +222,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'getCVVResult' => 0,
 				'getAVSResult' => 0,
 				'minfraud_filter' => 15.25,
-			),
+			],
 			'user_ip' => '127.0.0.1',
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
@@ -231,7 +231,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 	}
 

@@ -86,7 +86,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		try {
 			$variant = $this->getRequest()->getVal( 'variant' );
-			$this->adapter = new $className( array( 'variant' => $variant ) );
+			$this->adapter = new $className( [ 'variant' => $variant ] );
 			$this->overrideLogo();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
@@ -99,10 +99,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// Stolen from Minerva skin
 			$out->addHeadItem( 'viewport',
 				Html::element(
-					'meta', array(
+					'meta', [
 						'name' => 'viewport',
 						'content' => 'initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0, width=device-width',
-					)
+					]
 				)
 			);
 
@@ -135,7 +135,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		Hooks::register( 'MakeGlobalVariablesScript', array( $this, 'setClientVariables' ) );
+		Hooks::register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
 
 		try {
 			$this->handleRequest();
@@ -218,7 +218,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			if ( !filter_var( $page, FILTER_VALIDATE_URL ) ) {
 				// If it's not a URL, we're rendering a RapidFail form
 				$this->logger->info( "Displaying fail form $page" );
-				$this->adapter->addRequestData( array( 'ffname' => $page ) );
+				$this->adapter->addRequestData( [ 'ffname' => $page ] );
 				$this->displayForm();
 				return;
 			}
@@ -503,9 +503,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} elseif ( $form = $result->getForm() ) {
 			// Show another form.
 
-			$this->adapter->addRequestData( array(
+			$this->adapter->addRequestData( [
 				'ffname' => $form,
-			) );
+			] );
 			$this->displayForm();
 		} elseif ( count( $result->getErrors() ) ) {
 			$this->displayForm();
@@ -525,12 +525,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @param string $url
 	 */
 	protected function renderIframe( $url ) {
-		$attrs = array(
+		$attrs = [
 			'id' => 'paymentiframe',
 			'name' => 'paymentiframe',
 			'width' => '680',
 			'height' => '300'
-		);
+		];
 
 		$attrs['frameborder'] = '0';
 		$attrs['style'] = 'display:block;';
@@ -547,7 +547,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return string
 	 */
 	protected function getLogPrefix() {
-		$info = array();
+		$info = [];
 		$donorData = $this->getRequest()->getSessionData( 'Donor' );
 		if ( is_array( $donorData ) ) {
 			if ( isset( $donorData['contribution_tracking_id'] ) ) {

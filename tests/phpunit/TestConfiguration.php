@@ -98,7 +98,7 @@ global $wgDonationInterfaceTest,
 
 $wgMainCacheType = 'hash';
 
-$wgDonationInterfaceGatewayAdapters = array(
+$wgDonationInterfaceGatewayAdapters = [
 	'globalcollect' => TestingGlobalCollectAdapter::class,
 	'ingenico' => IngenicoAdapter::class,
 	'amazon' => AmazonAdapter::class,
@@ -106,7 +106,7 @@ $wgDonationInterfaceGatewayAdapters = array(
 	'astropay' => TestingAstroPayAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
 	'paypal' => TestingPaypalLegacyAdapter::class,
-);
+];
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
  */
@@ -117,46 +117,46 @@ $wgDonationInterfaceMerchantID = 'test';
 $wgDonationInterfaceThankYouPage = 'https://donate.wikimedia.org/wiki/Thank_You';
 
 /** GlobalCollect **/
-$wgGlobalCollectGatewayAccountInfo = array();
-$wgGlobalCollectGatewayAccountInfo['test'] = array(
+$wgGlobalCollectGatewayAccountInfo = [];
+$wgGlobalCollectGatewayAccountInfo['test'] = [
 	'MerchantID' => 'test',
-);
+];
 
 /** Paypal **/
-$wgPaypalGatewayAccountInfo = array();
-$wgPaypalGatewayAccountInfo['testing'] = array(
+$wgPaypalGatewayAccountInfo = [];
+$wgPaypalGatewayAccountInfo['testing'] = [
 	'AccountEmail' => 'phpunittesting@wikimedia.org',
-);
+];
 $wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
 
 /** Paypal Express Checkout **/
 $wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewaySignatureURL = $wgPaypalExpressGatewayURL;
-$wgPaypalExpressGatewayAccountInfo['test'] = array(
+$wgPaypalExpressGatewayAccountInfo['test'] = [
 	'User' => 'phpunittesting@wikimedia.org',
 	'Password' => '9876543210',
 	'Signature' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
 	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=',
-);
+];
 
 /** Amazon **/
 $wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
-$wgAmazonGatewayAccountInfo = array();
-$wgAmazonGatewayAccountInfo['test'] = array(
+$wgAmazonGatewayAccountInfo = [];
+$wgAmazonGatewayAccountInfo['test'] = [
 	'SellerID' => 'ABCDEFGHIJKL',
 	'ClientID' => 'amzn1.application-oa2-client.1a2b3c4d5e',
 	'WidgetScriptURL' =>
 		'https://static-na.payments-amazon.com/OffAmazonPayments/us/sandbox/js/Widgets.js',
 	'ReturnURL' => "https://example.org/index.php/Special:AmazonGateway?debug=true",
-);
+];
 $wgAmazonGatewayFallbackCurrency = false;
 $wgAmazonGatewayNotifyOnConvert = false;
 
 /** Adyen **/
 $wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';
-$wgAdyenGatewayAccountInfo = array();
-$wgAdyenGatewayAccountInfo['test'] = array(
+$wgAdyenGatewayAccountInfo = [];
+$wgAdyenGatewayAccountInfo['test'] = [
 	'AccountName' => 'wikitest',
 	'Skins' => [
 		'testskin' => [
@@ -168,31 +168,31 @@ $wgAdyenGatewayAccountInfo['test'] = array(
 			'Name' => 'redirect',
 		]
 	],
-);
+];
 
 /** AstroPay **/
 $wgAstroPayGatewayURL = 'https://astropay.example.com/';
 $wgAstroPayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
-$wgAstroPayGatewayAccountInfo = array();
-$wgAstroPayGatewayAccountInfo['test'] = array(
-	'Create' => array(
+$wgAstroPayGatewayAccountInfo = [];
+$wgAstroPayGatewayAccountInfo['test'] = [
+	'Create' => [
 		'Login' => 'createlogin',
 		'Password' => 'createpass',
-	),
-	'Status' => array(
+	],
+	'Status' => [
 		'Login' => 'statuslogin',
 		'Password' => 'statuspass',
-	),
+	],
 	'SecretKey' => 'NanananananananananananananananaBatman',
-);
+];
 $wgAstroPayGatewayFallbackCurrency = false;
 
 $wgDonationInterfaceMinFraudAccountId = 1;
 $wgDonationInterfaceMinFraudLicenseKey = 'testkey';
 
-$wgDonationInterfaceMinFraudClientOptions = array(
+$wgDonationInterfaceMinFraudClientOptions = [
 	'host' => 'minfraud.wikimedia.org',
-);
+];
 
 // still can't quite handle minFraud by itself yet, so default like this.
 // I will turn it on for individual tests in which I want to verify that it at
@@ -204,56 +204,56 @@ $wgDonationInterfaceEnableFunctionsFilter = true;
 $wgDonationInterfaceEnableReferrerFilter = true;
 $wgDonationInterfaceEnableSourceFilter = true;
 
-$customFilters = array(
+$customFilters = [
 	'getScoreCountryMap' => 50,
 	'getScoreUtmCampaignMap' => 50,
 	'getScoreUtmSourceMap' => 15,
 	'getScoreUtmMediumMap' => 15,
 	'getScoreEmailDomainMap' => 75,
-);
+];
 
-$wgDonationInterfaceCustomFiltersActionRanges = array(
-	ValidationAction::PROCESS => array( 0, 25 ),
-	ValidationAction::REVIEW => array( 25, 50 ),
-	ValidationAction::CHALLENGE => array( 50, 75 ),
-	ValidationAction::REJECT => array( 75, 100 ),
-);
+$wgDonationInterfaceCustomFiltersActionRanges = [
+	ValidationAction::PROCESS => [ 0, 25 ],
+	ValidationAction::REVIEW => [ 25, 50 ],
+	ValidationAction::CHALLENGE => [ 50, 75 ],
+	ValidationAction::REJECT => [ 75, 100 ],
+];
 
-$wgDonationInterfaceCustomFiltersRefRules = array(
+$wgDonationInterfaceCustomFiltersRefRules = [
 	'/donate-error/i' => 5,
-);
+];
 
-$wgDonationInterfaceCustomFiltersSrcRules = array( '/wikimedia\.org/i' => 80 );
+$wgDonationInterfaceCustomFiltersSrcRules = [ '/wikimedia\.org/i' => 80 ];
 
 $wgDonationInterfaceCustomFiltersFunctions = $customFilters;
 
-$wgGlobalCollectGatewayCustomFiltersFunctions = array(
+$wgGlobalCollectGatewayCustomFiltersFunctions = [
 	'getCVVResult' => 20,
 	'getAVSResult' => 25,
-) + $customFilters;
+] + $customFilters;
 
 $wgIngenicoGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
-$wgDonationInterfaceCountryMap = array(
+$wgDonationInterfaceCountryMap = [
 	'US' => 40,
 	'CA' => 15,
 	'RU' => -4,
-);
+];
 
-$wgDonationInterfaceUtmCampaignMap = array(
+$wgDonationInterfaceUtmCampaignMap = [
 	'/^(C14_)/' => 14,
 	'/^(spontaneous)/' => 5
-);
+];
 
-$wgDonationInterfaceUtmSourceMap = array(
+$wgDonationInterfaceUtmSourceMap = [
 	'/somethingmedia/' => 70
-);
+];
 
-$wgDonationInterfaceUtmMediumMap = array(
+$wgDonationInterfaceUtmMediumMap = [
 	'/somethingmedia/' => 80
-);
+];
 
-$wgDonationInterfaceEmailDomainMap = array(
+$wgDonationInterfaceEmailDomainMap = [
 	'wikimedia.org' => 42,
 	'wikipedia.org' => 50,
-);
+];

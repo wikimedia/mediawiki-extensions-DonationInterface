@@ -29,7 +29,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
@@ -39,23 +39,23 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'cc-vmad' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'cc-vmad' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
-					'countries' => array(
-						'+' => array( 'US', ),
-					),
-				),
-				'paypal' => array(
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
+					'countries' => [
+						'+' => [ 'US', ],
+					],
+				],
+				'paypal' => [
 					'gateway' => 'paypal',
-					'payment_methods' => array( 'paypal' => 'ALL' ),
-				),
-			),
-		) );
+					'payment_methods' => [ 'paypal' => 'ALL' ],
+				],
+			],
+		] );
 	}
 
 	// this is meant to simulate a user choosing paypal, then going back and choosing GC.

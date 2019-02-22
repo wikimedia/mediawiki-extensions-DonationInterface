@@ -3,7 +3,7 @@
 class PaypalLegacyLocale implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// FIXME: Document the upstream source for this reference data.
-		$supported_countries = array(
+		$supported_countries = [
 			'AU',
 			'AT',
 			'BE',
@@ -21,8 +21,8 @@ class PaypalLegacyLocale implements StagingHelper {
 			'PT',
 			'RU',
 			'US',
-		);
-		$supported_full_locales = array(
+		];
+		$supported_full_locales = [
 			'da_DK',
 			'he_IL',
 			'id_ID',
@@ -36,7 +36,7 @@ class PaypalLegacyLocale implements StagingHelper {
 			'zh_CN',
 			'zh_HK',
 			'zh_TW',
-		);
+		];
 
 		if ( in_array( $normalized['country'], $supported_countries ) ) {
 			$stagedData['locale'] = $normalized['country'];

@@ -46,19 +46,19 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		parent::setUp();
 		$this->markTestSkipped( 'Orphan rectifier not yet implemented' );
 
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceOrphanCron' => array(
+		$this->setMwGlobals( [
+			'wgDonationInterfaceOrphanCron' => [
 				'enable' => true,
 				'target_execute_time' => self::TARGET_EXECUTE_TIME,
 				'time_buffer' => self::TIME_BUFFER,
-			),
+			],
 			'wgIngenicoGatewayEnabled' => true,
-			'wgDonationInterfaceGatewayAdapters' => array(
+			'wgDonationInterfaceGatewayAdapters' => [
 				// We include the regular adapter in order to pass gateway validation D:
 				'ingenico' => 'IngenicoOrphanAdapter',
 				'ingenico_orphan' => 'IngenicoOrphanAdapter',
-			),
-		) );
+			],
+		] );
 
 		$this->pendingDb = PendingDatabase::get();
 
@@ -83,9 +83,9 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped.' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS'
-		) );
+		] );
 	}
 
 	/**
@@ -104,10 +104,10 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS',
 			'SET_PAYMENT',
-		) );
+		] );
 
 		// TODO: test that we sent a completion message
 	}
@@ -128,9 +128,9 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS',
-		) );
+		] );
 
 		// TODO: test that we sent a completion message
 	}
@@ -139,9 +139,9 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 	 * Don't process recent messages.
 	 */
 	public function testTooRecentMessage() {
-		$orphan_complete = $this->createOrphan( array(
+		$orphan_complete = $this->createOrphan( [
 			'date' => time() - self::TIME_BUFFER + 30,
-		) );
+		] );
 
 		$rectifier = new IngenicoOrphanRectifier();
 		$this->gateway = $rectifier->getAdapter();
@@ -152,7 +152,7 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 		$this->assertNotNull( $fetched,
 			'Message was not popped' );
 
-		$this->assertGatewayCallsExactly( array() );
+		$this->assertGatewayCallsExactly( [] );
 
 		// TODO: Test that we:
 		// * Logged the "done with old messages" line.
@@ -163,9 +163,9 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 	 *
 	 * TODO: Reuse SmashPigBaseTest#createMessage
 	 */
-	public function createOrphan( $overrides = array() ) {
+	public function createOrphan( $overrides = [] ) {
 		$uniq = mt_rand();
-		$message = $overrides + array(
+		$message = $overrides + [
 			'contribution_tracking_id' => $uniq,
 			'first_name' => 'Flighty',
 			'last_name' => 'Dono',
@@ -180,7 +180,7 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 			'date' => time() - 25 * 60,
 			'amount' => 123,
 			'currency' => 'EUR',
-		);
+		];
 		$this->pendingDb->storeMessage( $message );
 		return $message;
 	}

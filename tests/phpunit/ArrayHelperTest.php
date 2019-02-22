@@ -32,99 +32,99 @@ class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function getTestData() {
-		return array(
+		return [
 			// 1st test case
-			array(
+			[
 				'flat array',
 				// input
-				array(
+				[
 					'double',
 					'toil',
 					'trouble'
-				),
+				],
 				// output
-				array(
+				[
 					'double' => 'value for -double-',
 					'toil' => 'value for -toil-',
 					'trouble' => 'value for -trouble-',
-				),
-			),
+				],
+			],
 			// 2nd test case
-			array(
+			[
 				'nested array',
 				// input
-				array(
-					'fire' => array(
+				[
+					'fire' => [
 						'burn',
-					),
-					'cauldron' => array(
+					],
+					'cauldron' => [
 						'bubble',
-					)
-				),
+					]
+				],
 				// output
-				array(
-					'fire' => array(
+				[
+					'fire' => [
 						'burn' => 'value for -burn-',
-					),
-					'cauldron' => array(
+					],
+					'cauldron' => [
 						'bubble' => 'value for -bubble-',
-					)
-				),
-			),
+					]
+				],
+			],
 			// 3rd test case
-			array(
+			[
 				'mixed array',
 				// input
-				array(
+				[
 					'poisoned entrails',
-					'toad' => array(
+					'toad' => [
 						'under_cold_stone',
 						'days_and_nights',
 						'thirty_one'
-					),
-				),
+					],
+				],
 				// output
-				array(
+				[
 					'poisoned entrails' => 'value for -poisoned entrails-',
-					'toad' => array(
+					'toad' => [
 						'under_cold_stone' => 'value for -under_cold_stone-',
 						'days_and_nights' => 'value for -days_and_nights-',
 						'thirty_one' => 'value for -thirty_one-'
-					)
-				),
-			),
+					]
+				],
+			],
 			// 4th test case
-			array(
+			[
 				'omit empty',
 				// input
-				array(
+				[
 					'eye_of_newt',
 					'toe_of_frog',
 					'wool_of_bat', // callback returns '' for this value
 					'tongue_of_dog',
-				),
+				],
 				// output
-				array(
+				[
 					'eye_of_newt' => 'value for -eye_of_newt-',
 					'toe_of_frog' => 'value for -toe_of_frog-',
 					'tongue_of_dog' => 'value for -tongue_of_dog-'
-				),
-			),
+				],
+			],
 			// 5th test case
-			array(
+			[
 				'non-associative output',
 				// input
-				array(
+				[
 					'scale_of_dragon' => null,
 					'tooth_of_wolf' => null
-				),
+				],
 				// output
-				array(
+				[
 					'value for -scale_of_dragon-',
 					'value for -tooth_of_wolf-'
-				),
-			)
-		);
+				],
+			]
+		];
 	}
 
 	protected function getCallback() {

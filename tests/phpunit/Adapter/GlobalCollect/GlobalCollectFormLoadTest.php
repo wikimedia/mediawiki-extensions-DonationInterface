@@ -26,39 +26,39 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$vmad_countries = array( 'US', );
-		$vmaj_countries = array(
+		$vmad_countries = [ 'US', ];
+		$vmaj_countries = [
 			'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
 			'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
 			'PT', 'SG', 'SI', 'SK', 'TH', 'TW',
-		);
-		$vma_countries = array(
+		];
+		$vma_countries = [
 			'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
 			'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
 			'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
 			'RU', 'SA', 'SE', 'TN', 'TR', 'UA',
-		);
-		$this->setMwGlobals( array(
+		];
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'cc-vmad' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'cc-vmad' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
-					'countries' => array(
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
+					'countries' => [
 						'+' => $vmad_countries,
-					),
-				),
-				'cc-vmaj' => array(
+					],
+				],
+				'cc-vmaj' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
-					'countries' => array(
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'jcb' ] ],
+					'countries' => [
 						'+' => $vmaj_countries,
-					),
-				),
-				'cc-vma' => array(
+					],
+				],
+				'cc-vma' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
-					'countries' => array(
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
+					'countries' => [
 						// Array merge with cc-vmaj as fallback in case 'j' goes down
 						// Array merge with cc-vmad as fallback in case 'd' goes down
 						'+' => array_merge(
@@ -66,19 +66,19 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 							$vmad_countries,
 							$vma_countries
 						),
-					),
-				),
-				'rtbt-sofo' => array(
+					],
+				],
+				'rtbt-sofo' => [
 					'gateway' => 'globalcollect',
-					'countries' => array(
-						'+' => array( 'AT', 'BE', 'CH', 'DE' ),
+					'countries' => [
+						'+' => [ 'AT', 'BE', 'CH', 'DE' ],
 						'-' => 'GB'
-					),
-					'currencies' => array( '+' => 'EUR' ),
-					'payment_methods' => array( 'rtbt' => 'rtbt_sofortuberweisung' ),
-				),
-			),
-		) );
+					],
+					'currencies' => [ '+' => 'EUR' ],
+					'payment_methods' => [ 'rtbt' => 'rtbt_sofortuberweisung' ],
+				],
+			],
+		] );
 	}
 
 	public function testGCFormLoad() {
@@ -88,23 +88,23 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 
-		$assertNodes = array(
-			'submethod-mc' => array(
+		$assertNodes = [
+			'submethod-mc' => [
 				'nodename' => 'input'
-			),
-			'selected-amount' => array(
+			],
+			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
 						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
 					).
 					'\s*$/',
-			),
-			'state_province' => array(
+			],
+			'state_province' => [
 				'nodename' => 'select',
 				'selected' => 'CA',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -116,26 +116,26 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
-		$assertNodes = array(
-			'selected-amount' => array(
+		$assertNodes = [
+			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
-			),
-			'first_name' => array(
+			],
+			'first_name' => [
 				'nodename' => 'input',
 				'value' => 'Prénom',
-			),
-			'last_name' => array(
+			],
+			'last_name' => [
 				'nodename' => 'input',
 				'value' => 'Nom',
-			),
-			'country' => array(
+			],
+			'country' => [
 				'nodename' => 'input',
 				'value' => 'FR',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -150,30 +150,30 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
-		$assertNodes = array(
-			'selected-amount' => array(
+		$assertNodes = [
+			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
-			),
-			'first_name' => array(
+			],
+			'first_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( 'it' )->text(),
-			),
-			'last_name' => array(
+			],
+			'last_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( 'it' )->text(),
-			),
-			'informationsharing' => array(
+			],
+			'informationsharing' => [
 				'nodename' => 'p',
 				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text() . '~',
-			),
-			'country' => array(
+			],
+			'country' => [
 				'nodename' => 'input',
 				'value' => 'IT',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -190,30 +190,30 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmaj';
 		$init['language'] = $language;
 
-		$assertNodes = array(
-			'selected-amount' => array(
+		$assertNodes = [
+			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
-			),
-			'first_name' => array(
+			],
+			'first_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
-			),
-			'last_name' => array(
+			],
+			'last_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
-			),
-			'informationsharing' => array(
+			],
+			'informationsharing' => [
 				'nodename' => 'p',
 				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
-			),
-			'country' => array(
+			],
+			'country' => [
 				'nodename' => 'input',
 				'value' => 'BE',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -230,40 +230,40 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
 
-		$assertNodes = array(
-			'selected-amount' => array(
+		$assertNodes = [
+			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
 						Amount::format( 1.55, 'CAD', $init['language'] . '_' . $init['country'] )
 					) .
 					'\s*$/',
-			),
-			'first_name' => array(
+			],
+			'first_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
-			),
-			'last_name' => array(
+			],
+			'last_name' => [
 				'nodename' => 'input',
 				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
-			),
-			'informationsharing' => array(
+			],
+			'informationsharing' => [
 				'nodename' => 'p',
 				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
-			),
-			'state_province' => array(
+			],
+			'state_province' => [
 				'nodename' => 'select',
 				'selected' => 'SK',
-			),
-			'postal_code' => array(
+			],
+			'postal_code' => [
 				'nodename' => 'input',
 				'value' => $init['postal_code'],
-			),
-			'country' => array(
+			],
+			'country' => [
 				'nodename' => 'input',
 				'value' => 'CA',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -278,14 +278,14 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 
-		$assertNodes = array(
-			'opt_in_yes' => array(
+		$assertNodes = [
+			'opt_in_yes' => [
 				'nodename' => 'input',
-			),
-			'opt_in_no' => array(
+			],
+			'opt_in_no' => [
 				'nodename' => 'input',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -302,10 +302,10 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '1';
 
-		$assertNodes = array(
+		$assertNodes = [
 			'opt_in_yes' => 'gone',
 			'opt_in_no' => 'gone',
-		);
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
@@ -322,14 +322,14 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '0';
 
-		$assertNodes = array(
-			'opt_in_yes' => array(
+		$assertNodes = [
+			'opt_in_yes' => [
 				'nodename' => 'input',
-			),
-			'opt_in_no' => array(
+			],
+			'opt_in_no' => [
 				'nodename' => 'input',
-			),
-		);
+			],
+		];
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true, null, true );
 	}

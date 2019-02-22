@@ -30,7 +30,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		$this->outputPage = $this->getMockBuilder( OutputPage::class )
 			->disableOriginalConstructor()
-			->setMethods( array( 'parse' ) )
+			->setMethods( [ 'parse' ] )
 			->getMock();
 
 		$this->gatewayPage = new TestingGatewayPage();
@@ -41,24 +41,24 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		RequestContext::getMain()->setRequest( $req );
 
 		$this->adapter = new TestingGenericAdapter();
-		$this->adapter->addRequestData( array(
+		$this->adapter->addRequestData( [
 			'amount' => '12',
 			'currency' => 'EUR',
-		) );
+		] );
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' )
-		) );
+		] );
 
 		parent::setUp();
 	}
 
 	public function formCases() {
-		return array(
-			array( 'empty', '/^$/' ),
-			array( 'foo', '/FOO/' ),
-			array( 'currency', '/EUR/' ),
-		);
+		return [
+			[ 'empty', '/^$/' ],
+			[ 'foo', '/FOO/' ],
+			[ 'currency', '/EUR/' ],
+		];
 	}
 
 	/**
@@ -67,9 +67,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @dataProvider formCases
 	 */
 	public function testRendering( $name, $regexp ) {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/{$name}.mustache",
-		) );
+		] );
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
 		$this->form->setGatewayPage( $this->gatewayPage );
@@ -83,9 +83,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @expectedExceptionMessage Template file unavailable
 	 */
 	public function testNoTemplateFile() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
-		) );
+		] );
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
 		$this->form->setGatewayPage( $this->gatewayPage );
@@ -97,10 +97,10 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testAppealRendering() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
-		) );
+		] );
 
 		$this->outputPage->method( 'parse' )
 			->willReturn( '<p>This is the template text</p>' );
@@ -121,12 +121,12 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testOverrideAppeal() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
-		) );
+		] );
 
-		$this->adapter->addRequestData( array( 'appeal' => 'differentAppeal' ) );
+		$this->adapter->addRequestData( [ 'appeal' => 'differentAppeal' ] );
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parse' )
@@ -143,14 +143,14 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testSanitizeOverrideAppeal() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
-		) );
+		] );
 
-		$this->adapter->addRequestData( array(
+		$this->adapter->addRequestData( [
 			'appeal' => '}}<script>alert("all your base are belong to us");</script>{{',
-		) );
+		] );
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parse' )
@@ -167,11 +167,11 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @dataProvider belgiumLanguageProvider
 	 */
 	public function testL10nParams( $language ) {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/l10n.mustache",
-		) );
+		] );
 		$this->setLanguage( $language );
-		$this->adapter->addRequestData( array( 'language' => $language ) );
+		$this->adapter->addRequestData( [ 'language' => $language ] );
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
 		$this->form->setGatewayPage( $this->gatewayPage );

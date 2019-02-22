@@ -41,18 +41,18 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 				$this->smashPigGlobalConfig
 			);
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'cc-vmad' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'cc-vmad' => [
 					'gateway' => 'globalcollect',
-					'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
-					'countries' => array(
-						'+' => array( 'US', ),
-					),
-				),
-			),
-		) );
+					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
+					'countries' => [
+						'+' => [ 'US', ],
+					],
+				],
+			],
+		] );
 	}
 
 	/**
@@ -60,15 +60,15 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectOrphanAdapter::class;
-		$this->dummy_utm_data = array(
+		$this->dummy_utm_data = [
 			'utm_source' => 'dummy_source',
 			'utm_campaign' => 'dummy_campaign',
 			'utm_medium' => 'dummy_medium',
 			'date' => time(),
-		);
+		];
 	}
 
 	public function testConstructor() {
@@ -84,7 +84,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 	public function testBatchOrderID_generate() {
 		// no data on construct, generate Order IDs
-		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => true ) ) );
+		$gateway = $this->getFreshGatewayObject( null, [ 'order_id_meta' => [ 'generate' => true ] ] );
 		$this->assertTrue( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Order_id generation may be broken.' );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is not left as null, when generating our own' );
 
@@ -104,7 +104,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 	public function testBatchOrderID_no_generate() {
 		// no data on construct, do not generate Order IDs
-		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
+		$gateway = $this->getFreshGatewayObject( null, [ 'order_id_meta' => [ 'generate' => false ] ] );
 		$this->assertFalse( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Deferred order_id generation may be broken.' );
 		$this->assertEmpty( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed asserting that an absent order id is left as null, when not generating our own' );
 
@@ -128,7 +128,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * @dataProvider mcNoRetryCodeProvider
 	 */
 	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
-		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
+		$gateway = $this->getFreshGatewayObject( null, [ 'order_id_meta' => [ 'generate' => false ] ] );
 
 		// Toxic card should not retry, even if there's an order id collision
 		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
@@ -157,14 +157,14 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * fraud scores.
 	 */
 	function testGetOrderstatusPostProcessFraud() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
-			'wgGlobalCollectGatewayCustomFiltersFunctions' => array(
+			'wgGlobalCollectGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 30,
-			),
-		) );
-		$gateway = $this->getFreshGatewayObject( null, array( 'order_id_meta' => array( 'generate' => false ) ) );
+			],
+		] );
+		$gateway = $this->getFreshGatewayObject( null, [ 'order_id_meta' => [ 'generate' => false ] ] );
 
 		$init = array_merge( $this->getDonorTestData(), $this->dummy_utm_data );
 		$init['ffname'] = 'cc-vmad';
@@ -186,15 +186,15 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 			'Risk score was incremented correctly.' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'validation_action' => ValidationAction::REVIEW,
 			'risk_score' => 40,
-			'score_breakdown' => array(
+			'score_breakdown' => [
 				// FIXME: need to enable utm / email / country checks ???
 				'initial' => 0,
 				'getCVVResult' => 10,
 				'getAVSResult' => 30,
-			),
+			],
 			'user_ip' => null, // FIXME
 			'gateway_txn_id' => '55555',
 			'date' => $message['date'],
@@ -203,7 +203,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 	}
 }

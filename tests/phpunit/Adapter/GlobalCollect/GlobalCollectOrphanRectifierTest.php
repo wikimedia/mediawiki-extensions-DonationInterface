@@ -45,19 +45,19 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceOrphanCron' => array(
+		$this->setMwGlobals( [
+			'wgDonationInterfaceOrphanCron' => [
 				'enable' => true,
 				'target_execute_time' => self::TARGET_EXECUTE_TIME,
 				'time_buffer' => self::TIME_BUFFER,
-			),
+			],
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceGatewayAdapters' => array(
+			'wgDonationInterfaceGatewayAdapters' => [
 				// We include the regular adapter in order to pass gateway validation D:
 				'globalcollect' => TestingGlobalCollectOrphanAdapter::class,
 				'globalcollect_orphan' => TestingGlobalCollectOrphanAdapter::class,
-			),
-		) );
+			],
+		] );
 
 		$this->pendingDb = PendingDatabase::get();
 	}
@@ -79,9 +79,9 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped.' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS'
-		) );
+		] );
 	}
 
 	/**
@@ -100,10 +100,10 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS',
 			'SET_PAYMENT',
-		) );
+		] );
 
 		// TODO: test that we sent a completion message
 	}
@@ -124,9 +124,9 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$this->assertNull( $fetched,
 			'Message was popped' );
 
-		$this->assertGatewayCallsExactly( array(
+		$this->assertGatewayCallsExactly( [
 			'GET_ORDERSTATUS',
-		) );
+		] );
 
 		// TODO: test that we sent a completion message
 	}
@@ -135,9 +135,9 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 	 * Don't process recent messages.
 	 */
 	public function testTooRecentMessage() {
-		$orphan_complete = $this->createOrphan( array(
+		$orphan_complete = $this->createOrphan( [
 			'date' => time() - self::TIME_BUFFER + 30,
-		) );
+		] );
 
 		$rectifier = new GlobalCollectOrphanRectifier();
 		$this->gateway = $rectifier->getAdapter();
@@ -148,7 +148,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 		$this->assertNotNull( $fetched,
 			'Message was not popped' );
 
-		$this->assertGatewayCallsExactly( array() );
+		$this->assertGatewayCallsExactly( [] );
 
 		// TODO: Test that we:
 		// * Logged the "done with old messages" line.
@@ -157,7 +157,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 	/**
 	 * Create an orphaned tranaction and store it to the pending database.
 	 */
-	public function createOrphan( $overrides = array() ) {
+	public function createOrphan( $overrides = [] ) {
 		$message = parent::createOrphan( $overrides );
 		$this->pendingDb->storeMessage( $message );
 		return $message;

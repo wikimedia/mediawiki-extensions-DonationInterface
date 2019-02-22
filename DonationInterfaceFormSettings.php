@@ -8,56 +8,56 @@ global $wgDonationInterfaceAllowedHtmlForms;
 /**
  * Temp var for terseness, unset at end of file
  */
-$forms_whitelist = array();
+$forms_whitelist = [];
 
 /*
  * Amazon
  */
-$forms_whitelist['amazon'] = array(
+$forms_whitelist['amazon'] = [
 	'gateway' => 'amazon',
-	'payment_methods' => array( 'amazon' => 'ALL' ),
-);
+	'payment_methods' => [ 'amazon' => 'ALL' ],
+];
 
-$forms_whitelist['amazon-recurring'] = array(
+$forms_whitelist['amazon-recurring'] = [
 	'gateway' => 'amazon',
-	'payment_methods' => array( 'amazon' => 'ALL' ),
+	'payment_methods' => [ 'amazon' => 'ALL' ],
 	'recurring',
-);
+];
 
 /*******************************
  * RealTime Banking - Two Step *
  *******************************/
 
-$forms_whitelist['rtbt-ideal'] = array(
+$forms_whitelist['rtbt-ideal'] = [
 	'gateway' => 'globalcollect',
-	'payment_methods' => array( 'rtbt' => 'rtbt_ideal' ),
-	'countries' => array( '+' => 'NL' ),
-	'currencies' => array( '+' => 'EUR' ),
-);
+	'payment_methods' => [ 'rtbt' => 'rtbt_ideal' ],
+	'countries' => [ '+' => 'NL' ],
+	'currencies' => [ '+' => 'EUR' ],
+];
 
 /********
  * BPAY *
  ********/
 
-$forms_whitelist['obt-bpay'] = array(
+$forms_whitelist['obt-bpay'] = [
 	'gateway' => 'globalcollect',
-	'countries' => array( '+' => 'AU' ),
-	'currencies' => array( '+' => 'AUD' ),
-	'payment_methods' => array( 'obt' => 'bpay' )
-);
+	'countries' => [ '+' => 'AU' ],
+	'currencies' => [ '+' => 'AUD' ],
+	'payment_methods' => [ 'obt' => 'bpay' ]
+];
 
 /**********************
  * Credit Card - Misc *
  **********************/
 
-$forms_whitelist['cc-vmad'] = array(
+$forms_whitelist['cc-vmad'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
-	'countries' => array(
-		'+' => array( 'US', ),
-	),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
+	'countries' => [
+		'+' => [ 'US', ],
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -67,18 +67,18 @@ $forms_whitelist['cc-vmad'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-vjma'] = array(
+$forms_whitelist['cc-vjma'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'jcb', 'mc', 'amex' ) ),
-	'countries' => array(
-		'+' => array( 'JP', ),
-	),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'jcb', 'mc', 'amex' ] ],
+	'countries' => [
+		'+' => [ 'JP', ],
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -88,19 +88,19 @@ $forms_whitelist['cc-vjma'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 10,
-);
+];
 
-$forms_whitelist['cc-jvma'] = array(
+$forms_whitelist['cc-jvma'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'jcb', 'visa', 'mc', 'amex' ) ),
-	'countries' => array(
-		'+' => array( 'JP', ),
-	),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => [ 'jcb', 'visa', 'mc', 'amex' ] ],
+	'countries' => [
+		'+' => [ 'JP', ],
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -110,21 +110,21 @@ $forms_whitelist['cc-jvma'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 0,
-);
+];
 
-$forms_whitelist['cc-vmaj'] = array(
+$forms_whitelist['cc-vmaj'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
-	'countries' => array(
-		'+' => array( 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'jcb' ] ],
+	'countries' => [
+		'+' => [ 'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'GB',
 					  'GF', 'GR', 'HK', 'IE', 'IT', 'KR', 'LU', 'MY', 'NL', 'PR', 'PT',
-					  'SG', 'SI', 'SK', 'TH', 'TW', ),
-	),
-	'currencies' => array(
-		'+' => array(
+					  'SG', 'SI', 'SK', 'TH', 'TW', ],
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -134,22 +134,22 @@ $forms_whitelist['cc-vmaj'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-vmd'] = array(
+$forms_whitelist['cc-vmd'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'discover' ) ),
-	'countries' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'discover' ] ],
+	'countries' => [
 		// Array merge with cc-vmad as fallback in case 'a' goes down
 		'+' => array_merge(
 			$forms_whitelist['cc-vmad']['countries']['+'],
-			array() // as of right now, nothing specific here
+			[] // as of right now, nothing specific here
 		),
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -159,22 +159,22 @@ $forms_whitelist['cc-vmd'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-vmj'] = array(
+$forms_whitelist['cc-vmj'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'jcb' ) ),
-	'countries' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'jcb' ] ],
+	'countries' => [
 		// Array merge with cc-vmaj as fallback in case 'a' goes down
 		'+' => array_merge(
 			$forms_whitelist['cc-vmaj']['countries']['+'],
-			array( 'BR', 'ID', 'PH', )
+			[ 'BR', 'ID', 'PH', ]
 		),
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -184,27 +184,27 @@ $forms_whitelist['cc-vmj'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-vma'] = array(
+$forms_whitelist['cc-vma'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
-	'countries' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
+	'countries' => [
 		// Array merge with cc-vmaj as fallback in case 'j' goes down
 		// Array merge with cc-vmad as fallback in case 'd' goes down
 		'+' => array_merge(
 			$forms_whitelist['cc-vmaj']['countries']['+'],
 			$forms_whitelist['cc-vmad']['countries']['+'],
-			array( 'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
+			[ 'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
 				 'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
 				 'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
-				 'RU', 'SA', 'SE', 'TN', 'TR', 'UA', )
+				 'RU', 'SA', 'SE', 'TN', 'TR', 'UA', ]
 		)
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -214,20 +214,20 @@ $forms_whitelist['cc-vma'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-vm'] = array(
+$forms_whitelist['cc-vm'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
-	'countries' => array(
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc' ] ],
+	'countries' => [
 		// Array merge with cc-vmj as fallback in case 'j' goes down
 		// Array merge with cc-vmd as fallback in case 'd' goes down
 		'+' => array_merge(
 			$forms_whitelist['cc-vmj']['countries']['+'],
 			$forms_whitelist['cc-vmd']['countries']['+'],
-			array( 'AG', 'AM', 'AO', 'AS', 'AW', 'AZ', 'BA', 'BB', 'BD', 'BF', 'BI', 'BJ',
+			[ 'AG', 'AM', 'AO', 'AS', 'AW', 'AZ', 'BA', 'BB', 'BD', 'BF', 'BI', 'BJ',
 				 'BM', 'BN', 'BO', 'BS', 'BW', 'BY', 'BZ', 'CF', 'CG', 'CI', 'CK', 'CL',
 				 'CM', 'CO', 'CV', 'DJ', 'DM', 'DO', 'ER', 'ET', 'FJ', 'FM', 'FO', 'GA',
 				 'GD', 'GE', 'GL', 'GM', 'GT', 'GU', 'HN', 'IN', 'IQ', 'IS', 'JM', 'KH',
@@ -235,11 +235,11 @@ $forms_whitelist['cc-vm'] = array(
 				 'MK', 'ML', 'MO', 'MP', 'MR', 'MV', 'MW', 'MX', 'MZ', 'NA', 'NE', 'NG',
 				 'NI', 'NR', 'PA', 'PE', 'PG', 'PS', 'PW', 'PY', 'RE', 'RS', 'SB', 'SC',
 				 'SD', 'SM', 'SN', 'SR', 'TD', 'TG', 'TM', 'TO', 'TP', 'TT', 'TZ', 'UY',
-				 'UZ', 'VA', 'VC', 'VE', 'VI', 'VU', 'YE', 'ZA', 'ZM', 'ZW', )
+				 'UZ', 'VA', 'VC', 'VE', 'VI', 'VU', 'YE', 'ZA', 'ZM', 'ZW', ]
 		),
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -249,21 +249,21 @@ $forms_whitelist['cc-vm'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc-a'] = array(
+$forms_whitelist['cc-a'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'amex' ) ),
-	'countries' => array(
+	'payment_methods' => [ 'cc' => [ 'amex' ] ],
+	'countries' => [
 		'+' => array_merge(
 			$forms_whitelist['cc-vma']['countries']['+'],
-			array() // as of right now, nothing specific here
+			[] // as of right now, nothing specific here
 		)
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -273,16 +273,16 @@ $forms_whitelist['cc-a'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['cc'] = array(
+$forms_whitelist['cc'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'countries' => array( '-' => 'VN' ),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => 'ALL' ],
+	'countries' => [ '-' => 'VN' ],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -292,18 +292,18 @@ $forms_whitelist['cc'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
 /**
  * FIXME: remove as soon as we know this isn't being sent by anyone.
  */
-$forms_whitelist['cc-ingenico'] = array(
+$forms_whitelist['cc-ingenico'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => 'ALL' ],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -313,19 +313,19 @@ $forms_whitelist['cc-ingenico'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 10,
-);
+];
 
 /**
  * Fallback for old Ingenico API
  */
-$forms_whitelist['cc-globalcollect'] = array(
+$forms_whitelist['cc-globalcollect'] = [
 	'gateway' => 'globalcollect',
-	'payment_methods' => array( 'cc' => 'ALL' ),
-	'currencies' => array(
-		'+' => array(
+	'payment_methods' => [ 'cc' => 'ALL' ],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -335,21 +335,21 @@ $forms_whitelist['cc-globalcollect'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 10,
-);
+];
 
 // FIXME: is this still needed?
 /* Special case for Vietnam while GC is still having problems.
  * In the meantime: Visa & Mastercard, USD-only.
  */
-$forms_whitelist['cc-vietnam'] = array(
+$forms_whitelist['cc-vietnam'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
-	'countries' => array( '+' => 'VN' ),
-	'currencies' => array( '+' => 'USD' ),
-);
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc' ] ],
+	'countries' => [ '+' => 'VN' ],
+	'currencies' => [ '+' => 'USD' ],
+];
 
 /****************************
  * Name and Email-Only Test *
@@ -363,15 +363,15 @@ $forms_whitelist['email-cc-vm'] = $forms_whitelist['cc-vm'];
  * Recurring Credit Card *
  *************************/
 
-$forms_whitelist['rcc-vmad'] = array(
+$forms_whitelist['rcc-vmad'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'discover' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vmad']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -381,19 +381,19 @@ $forms_whitelist['rcc-vmad'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc-vmaj'] = array(
+$forms_whitelist['rcc-vmaj'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex', 'jcb' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'jcb' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vmaj']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -403,19 +403,19 @@ $forms_whitelist['rcc-vmaj'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc-vmd'] = array(
+$forms_whitelist['rcc-vmd'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'discover' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'discover' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vmd']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -425,19 +425,19 @@ $forms_whitelist['rcc-vmd'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc-vmj'] = array(
+$forms_whitelist['rcc-vmj'] = [
 	'gateway' => 'globalcollect',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'jcb' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'jcb' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vmj']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -447,19 +447,19 @@ $forms_whitelist['rcc-vmj'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc-vma'] = array(
+$forms_whitelist['rcc-vma'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc', 'amex' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vma']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -469,19 +469,19 @@ $forms_whitelist['rcc-vma'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc-vm'] = array(
+$forms_whitelist['rcc-vm'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => array( 'visa', 'mc' ) ),
+	'payment_methods' => [ 'cc' => [ 'visa', 'mc' ] ],
 	'recurring',
-	'countries' => array(
+	'countries' => [
 		'+' => $forms_whitelist['cc-vm']['countries']['+']
-	),
-	'currencies' => array(
-		'+' => array(
+	],
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -491,16 +491,16 @@ $forms_whitelist['rcc-vm'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
-);
+		]
+	],
+];
 
-$forms_whitelist['rcc'] = array(
+$forms_whitelist['rcc'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => 'ALL' ),
+	'payment_methods' => [ 'cc' => 'ALL' ],
 	'recurring',
-	'currencies' => array(
-		'+' => array(
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -510,20 +510,20 @@ $forms_whitelist['rcc'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 100,
-);
+];
 
 /**
  * FIXME: remove as soon as we know this isn't being sent by anyone.
  */
-$forms_whitelist['rcc-ingenico'] = array(
+$forms_whitelist['rcc-ingenico'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => array( 'cc' => 'ALL' ),
+	'payment_methods' => [ 'cc' => 'ALL' ],
 	'recurring',
-	'currencies' => array(
-		'+' => array(
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -533,20 +533,20 @@ $forms_whitelist['rcc-ingenico'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 10,
-);
+];
 
 /**
  * Fallback for old Ingenico API
  */
-$forms_whitelist['rcc-globalcollect'] = array(
+$forms_whitelist['rcc-globalcollect'] = [
 	'gateway' => 'globalcollect',
-	'payment_methods' => array( 'cc' => 'ALL' ),
+	'payment_methods' => [ 'cc' => 'ALL' ],
 	'recurring',
-	'currencies' => array(
-		'+' => array(
+	'currencies' => [
+		'+' => [
 			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
 			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
 			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
@@ -556,50 +556,50 @@ $forms_whitelist['rcc-globalcollect'] = array(
 			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		)
-	),
+		]
+	],
 	'selection_weight' => 10,
-);
+];
 
 /*************************
  * Paypal
  *************************/
 
-$forms_whitelist['paypal'] = array(
+$forms_whitelist['paypal'] = [
 	'gateway' => 'paypal',
-	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'payment_methods' => [ 'paypal' => 'ALL' ],
 	'selection_weight' => 10,
-);
+];
 
-$forms_whitelist['paypal-recurring'] = array(
+$forms_whitelist['paypal-recurring'] = [
 	'gateway' => 'paypal',
-	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'payment_methods' => [ 'paypal' => 'ALL' ],
 	'recurring',
 	'selection_weight' => 10,
-);
+];
 
-$forms_whitelist['paypal_ec'] = array(
+$forms_whitelist['paypal_ec'] = [
 	'gateway' => 'paypal_ec',
-	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'payment_methods' => [ 'paypal' => 'ALL' ],
 	'selection_weight' => 100,
-);
+];
 
-$forms_whitelist['paypal_ec-recurring'] = array(
+$forms_whitelist['paypal_ec-recurring'] = [
 	'gateway' => 'paypal_ec',
-	'payment_methods' => array( 'paypal' => 'ALL' ),
+	'payment_methods' => [ 'paypal' => 'ALL' ],
 	'recurring',
 	'selection_weight' => 100,
-);
+];
 
 /************
  * AstroPay *
  ************/
-$forms_whitelist['astropay'] = array(
+$forms_whitelist['astropay'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'BR' ),
-	'currencies' => array( '+' => 'BRL' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'BR' ],
+	'currencies' => [ '+' => 'BRL' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'amex',
@@ -607,25 +607,25 @@ $forms_whitelist['astropay'] = array(
 			'diners',
 			'hiper',
 			'mercadolivre',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_boleto',
-		),
-		'bt' => array(
+		],
+		'bt' => [
 			'banco_do_brasil',
 			'itau',
 			'bradesco',
 			'santander',
-		),
-	),
+		],
+	],
 	'selection_weight' => 110,
-);
-$forms_whitelist['astropay-ar'] = array(
+];
+$forms_whitelist['astropay-ar'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'AR' ),
-	'currencies' => array( '+' => 'ARS' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'AR' ],
+	'currencies' => [ '+' => 'ARS' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'amex',
@@ -635,24 +635,24 @@ $forms_whitelist['astropay-ar'] = array(
 			'nativa',
 			'cencosud',
 			'argen',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_rapipago',
 			'cash_pago_facil',
 			'cash_provencia_pagos',
-		),
-		'bt' => array(
+		],
+		'bt' => [
 			'santander_rio',
-		),
-	),
+		],
+	],
 	'selection_weight' => 110,
-);
-$forms_whitelist['astropay-cl'] = array(
+];
+$forms_whitelist['astropay-cl'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'CL' ),
-	'currencies' => array( '+' => 'CLP' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'CL' ],
+	'currencies' => [ '+' => 'CLP' ],
+	'payment_methods' => [
+		'cc' => [
 # 'visa',
 # 'mc',
 # 'amex',
@@ -661,143 +661,143 @@ $forms_whitelist['astropay-cl'] = array(
 # 'cmr',
 # 'presto',
 			'webpay',
-		),
-		'bt' => array(
+		],
+		'bt' => [
 			'webpay_bt',
-		),
-	),
+		],
+	],
 	'selection_weight' => 110,
-);
-$forms_whitelist['astropay-co'] = array(
+];
+$forms_whitelist['astropay-co'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'CO' ),
-	'currencies' => array( '+' => 'COP' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'CO' ],
+	'currencies' => [ '+' => 'COP' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'amex',
 			'diners',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_efecty',
 			'cash_davivienda',
-		),
-		'bt' => array(
+		],
+		'bt' => [
 			'pse',
-		),
-	),
+		],
+	],
 	'selection_weight' => 110,
-);
-$forms_whitelist['astropay-mx'] = array(
+];
+$forms_whitelist['astropay-mx'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'MX' ),
-	'currencies' => array( '+' => 'MXN' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'MX' ],
+	'currencies' => [ '+' => 'MXN' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'visa-debit',
 			'mc-debit',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_oxxo',
 			'cash_santander',
 			'cash_banamex',
 			'cash_bancomer',
-		),
-	),
+		],
+	],
 	'selection_weight' => 110,
-);
-/*$forms_whitelist['astropay-pe'] = array(
+];
+/*$forms_whitelist['astropay-pe'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'PE' ),
-	'currencies' => array( '+' => 'PEN' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'PE' ],
+	'currencies' => [ '+' => 'PEN' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'amex',
 			'diners',
 			'visa-debit',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_pago_efectivo',
-		),
-	),
+		],
+	],
 	'selection_weight' => 1,
-);
-$forms_whitelist['astropay-uy'] = array(
+];
+$forms_whitelist['astropay-uy'] = [
 	'gateway' => 'astropay',
-	'countries' => array( '+' => 'UY' ),
-	'currencies' => array( '+' => 'UYU' ),
-	'payment_methods' => array(
-		'cc' => array(
+	'countries' => [ '+' => 'UY' ],
+	'currencies' => [ '+' => 'UYU' ],
+	'payment_methods' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'diners',
-		),
-		'cash' => array(
+		],
+		'cash' => [
 			'cash_red_pagos',
-		),
-	),
+		],
+	],
 	'selection_weight' => 1,
-);
+];
 */
 /**********
  * Adyen *
  **********/
-$forms_whitelist['adyen'] = array(
+$forms_whitelist['adyen'] = [
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'IL', 'JP' ), ),
-	'currencies' => array( '+' => array( 'ILS', 'USD' ), ),
-	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'jcb' ),
-	),
+	'countries' => [ '+' => [ 'IL', 'JP' ], ],
+	'currencies' => [ '+' => [ 'ILS', 'USD' ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'jcb' ],
+	],
 	'selection_weight' => 110,
-);
+];
 
-$forms_whitelist['adyen-usd'] = array(
+$forms_whitelist['adyen-usd'] = [
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ), ),
-	'currencies' => array( '+' => array( 'USD', ), ),
-	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ),
-	),
+	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
+	'currencies' => [ '+' => [ 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ],
+	],
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
-);
+];
 
-$forms_whitelist['adyen-test'] = array(
+$forms_whitelist['adyen-test'] = [
 	'gateway' => 'adyen',
-	'countries' => array( '+' => array( 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ), ),
-	'currencies' => array( '+' => array( 'CAD', 'EUR', 'GBP', 'JPY'. 'ILS', 'UAH', 'USD', ), ),
-	'payment_methods' => array(
-		'cc' => array( 'visa', 'mc', 'amex', 'discover', 'cb' ),
-	),
+	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
+	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY'. 'ILS', 'UAH', 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
+	],
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
-);
+];
 
 /* * ***********
  * Error Pages *
  * *********** */
 
-$forms_whitelist['error-default'] = array(
-	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+$forms_whitelist['error-default'] = [
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
 	'special_type' => 'error',
-);
+];
 
-$forms_whitelist['error-noform'] = array(
-	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ),
+$forms_whitelist['error-noform'] = [
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
 	'special_type' => 'error',
-);
+];
 
-$forms_whitelist['error-cc'] = array(
-	'gateway' => array( 'globalcollect', 'ingenico', 'adyen', 'astropay' ),
-	'payment_methods' => array( 'cc' => 'ALL' ),
+$forms_whitelist['error-cc'] = [
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'astropay' ],
+	'payment_methods' => [ 'cc' => 'ALL' ],
 	'special_type' => 'error',
-);
+];
 
 $wgDonationInterfaceAllowedHtmlForms = $forms_whitelist;
 

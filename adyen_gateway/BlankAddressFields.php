@@ -8,13 +8,13 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 	 * unused fields.
 	 * @var string[]
 	 */
-	private static $addressFields = array(
+	private static $addressFields = [
 		'city',
 		'state_province',
 		'street_address',
 		'supplemental_address_1',
 		'postal_code',
-		);
+		];
 
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// If any address field is not blank, fill in blanks with 'NA'

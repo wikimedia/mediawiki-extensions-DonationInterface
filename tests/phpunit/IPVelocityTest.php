@@ -30,22 +30,22 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		$wgDonationInterfaceIPVelocityToxicDuration = 1000;
 		$wgDonationInterfaceIPVelocityFailDuration = 500;
 
-		$wgDonationInterfaceIPWhitelist = array( '1.2.3.4' );
-		$wgDonationInterfaceIPBlacklist = array( '5.6.7.8' );
-		$this->setMwGlobals( array(
+		$wgDonationInterfaceIPWhitelist = [ '1.2.3.4' ];
+		$wgDonationInterfaceIPBlacklist = [ '5.6.7.8' ];
+		$this->setMwGlobals( [
 			'wgMainCacheType' => CACHE_DB,
 			'wgDonationInterfaceEnableIPVelocityFilter' => true,
 			'wgDonationInterfaceIPVelocityFailDuration' => 150,
 			'wgDonationInterfaceIPVelocityTimeout' => 200,
 			'wgDonationInterfaceIPVelocityFailScore' => 100,
 			'wgDonationInterfaceIPVelocityThreshhold' => 3,
-		) );
+		] );
 		$this->oldCache = ObjectCache::$instances[CACHE_DB];
 		$this->cache = new HashBagOStuff();
 		ObjectCache::$instances[CACHE_DB] = $this->cache;
-		$this->gatewayAdapter = new TestingGenericAdapter( array(
+		$this->gatewayAdapter = new TestingGenericAdapter( [
 			'batch_mode' => false
-		) );
+		] );
 		$this->cfo = Gateway_Extras_CustomFilters::singleton(
 			$this->gatewayAdapter
 		);

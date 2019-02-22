@@ -32,64 +32,64 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function luhnDataProvider() {
-		return array(
+		return [
 			// Mastercard
-			array( '5333331605740535', true, 'Mastercard' ),
-			array( '5143792293131636', true, 'Mastercard' ),
-			array( 'John Doe 5199122553269905 Random', true, 'Mastercard' ),
-			array( '5497-8801-7320-5943', true, 'Mastercard' ),
-			array( '5370 5369 5295 3903', true, 'Mastercard' ),
-			array( '5295975049354398', true, 'Mastercard' ),
-			array( '5122728197617259', true, 'Mastercard' ),
-			array( '5372869474419840', true, 'Mastercard' ),
-			array( '5479089850576103', true, 'Mastercard' ),
-			array( '5375122664558457', true, 'Mastercard' ),
+			[ '5333331605740535', true, 'Mastercard' ],
+			[ '5143792293131636', true, 'Mastercard' ],
+			[ 'John Doe 5199122553269905 Random', true, 'Mastercard' ],
+			[ '5497-8801-7320-5943', true, 'Mastercard' ],
+			[ '5370 5369 5295 3903', true, 'Mastercard' ],
+			[ '5295975049354398', true, 'Mastercard' ],
+			[ '5122728197617259', true, 'Mastercard' ],
+			[ '5372869474419840', true, 'Mastercard' ],
+			[ '5479089850576103', true, 'Mastercard' ],
+			[ '5375122664558457', true, 'Mastercard' ],
 			// VISA array(16), digit
-			array( '4024007145540307', true, 'Visa 16 digit' ),
-			array( '4532676809474030', true, 'Visa 16 digit' ),
-			array( '4024007139174626', true, 'Visa 16 digit' ),
-			array( '4556384391069166', true, 'Visa 16 digit' ),
-			array( '4916423001204113', true, 'Visa 16 digit' ),
-			array( '4716409516522919', true, 'Visa 16 digit' ),
-			array( '4296465885589572', true, 'Visa 16 digit' ),
-			array( '4532969094459737', true, 'Visa 16 digit' ),
-			array( '4485480938896362', true, 'Visa 16 digit' ),
-			array( '4539357366702682', true, 'Visa 16 digit' ),
+			[ '4024007145540307', true, 'Visa 16 digit' ],
+			[ '4532676809474030', true, 'Visa 16 digit' ],
+			[ '4024007139174626', true, 'Visa 16 digit' ],
+			[ '4556384391069166', true, 'Visa 16 digit' ],
+			[ '4916423001204113', true, 'Visa 16 digit' ],
+			[ '4716409516522919', true, 'Visa 16 digit' ],
+			[ '4296465885589572', true, 'Visa 16 digit' ],
+			[ '4532969094459737', true, 'Visa 16 digit' ],
+			[ '4485480938896362', true, 'Visa 16 digit' ],
+			[ '4539357366702682', true, 'Visa 16 digit' ],
 			// VISA array(13), digit
-			array( '4916199124929', true, 'Visa 13 digit' ),
-			array( '4916237697951', true, 'Visa 13 digit' ),
-			array( '4929247091115', true, 'Visa 13 digit' ),
-			array( '4024007169572', true, 'Visa 13 digit' ),
-			array( '4716716919391', true, 'Visa 13 digit' ),
+			[ '4916199124929', true, 'Visa 13 digit' ],
+			[ '4916237697951', true, 'Visa 13 digit' ],
+			[ '4929247091115', true, 'Visa 13 digit' ],
+			[ '4024007169572', true, 'Visa 13 digit' ],
+			[ '4716716919391', true, 'Visa 13 digit' ],
 			// American Express
-			array( '343114236688284', true, 'Amex' ),
-			array( '379274178561225', true, 'Amex' ),
+			[ '343114236688284', true, 'Amex' ],
+			[ '379274178561225', true, 'Amex' ],
 			// Discover
-			array( '6011013905647431', true, 'Discover' ),
-			array( '6011045341391380', true, 'Discover' ),
-			array( '6011324325736120', true, 'Discover' ),
+			[ '6011013905647431', true, 'Discover' ],
+			[ '6011045341391380', true, 'Discover' ],
+			[ '6011324325736120', true, 'Discover' ],
 			// Diners Club is not currently working at all
-			// array ( '30343484937451', true, 'Diners Club' ),
-			// array ( '30037415730064', true, 'Diners Club' ),
-			// array ( '30392872026500', true, 'Diners Club' ),
+			// [ '30343484937451', true, 'Diners Club' ],
+			// [ '30037415730064', true, 'Diners Club' ],
+			// [ '30392872026500', true, 'Diners Club' ],
 			// enRoute
-			array( '201454799826249', true, 'enRoute' ),
-			array( '201498205795993', true, 'enRoute' ),
-			array( '214960886496931', true, 'enRoute' ),
+			[ '201454799826249', true, 'enRoute' ],
+			[ '201498205795993', true, 'enRoute' ],
+			[ '214960886496931', true, 'enRoute' ],
 			// JCB
-			array( '3582219461343499', true, 'JCB' ),
-			array( '3534022982879267', true, 'JCB' ),
+			[ '3582219461343499', true, 'JCB' ],
+			[ '3534022982879267', true, 'JCB' ],
 			// not sure what is wrong with the next one, but it's failing
-			// array ( '3519002211673029', true, 'JCB' ),
+			// [ '3519002211673029', true, 'JCB' ],
 			// Voyager is also not currently working at all
-			// array ( '869952786819898', true, 'Voyager' ),
-			// array ( '869967184704708', true, 'Voyager' ),
-			// array ( '869901879171733', true, 'Voyager' ),
+			// [ '869952786819898', true, 'Voyager' ],
+			// [ '869967184704708', true, 'Voyager' ],
+			// [ '869901879171733', true, 'Voyager' ],
 			// Not credit cards
-			array( 'John Doe', false, 'Not a valid credit card' ),
-			array( 'Peter 123456', false, 'Not a valid credit card' ),
-			array( '1234567', false, 'Not a valid credit card' )
-		);
+			[ 'John Doe', false, 'Not a valid credit card' ],
+			[ 'Peter 123456', false, 'Not a valid credit card' ],
+			[ '1234567', false, 'Not a valid credit card' ]
+		];
 	}
 
 	/**
@@ -106,28 +106,28 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 	}
 
 	public function fiscalNumberProvider() {
-		return array(
-			array( 'BR', '', false ), // empty not OK for BR
-			array( 'US', '', true ), // empty OK for US
-			array( 'BR', '12345', false ), // too short for BR
-			array( 'BR', '00003456789', true ),
-			array( 'BR', '000.034.567-89', true ), // strip punctuation
-			array( 'BR', '00.000.000/0001-00', true ), // CPNJ should pass too
-			array( 'BR', '1111222233334444', false ),
-			array( 'BR', 'ABC11122233', false ),
-			array( 'CL', '12.123.123-K', true ),
-			array( 'CL', '12.12.12-4', false ),
-			array( 'CO', '123-456', true ),
-			array( 'CO', '1234-5678-90', true ),
-			array( 'CO', '12A-456-7', false ),
-			array( 'CO', '1234-5678-901', false ),
-			array( 'AR', 'ABC12312', false ),
-			array( 'AR', '12341234', true ),
-			array( 'AR', '12-34123412-1', true ), // 11 digit CUIT should pass
-			array( 'AR', '1112223', true ),
-			array( 'AR', '111222', false ),
-			array( 'MX', '', true ), // Not required for MX
-		);
+		return [
+			[ 'BR', '', false ], // empty not OK for BR
+			[ 'US', '', true ], // empty OK for US
+			[ 'BR', '12345', false ], // too short for BR
+			[ 'BR', '00003456789', true ],
+			[ 'BR', '000.034.567-89', true ], // strip punctuation
+			[ 'BR', '00.000.000/0001-00', true ], // CPNJ should pass too
+			[ 'BR', '1111222233334444', false ],
+			[ 'BR', 'ABC11122233', false ],
+			[ 'CL', '12.123.123-K', true ],
+			[ 'CL', '12.12.12-4', false ],
+			[ 'CO', '123-456', true ],
+			[ 'CO', '1234-5678-90', true ],
+			[ 'CO', '12A-456-7', false ],
+			[ 'CO', '1234-5678-901', false ],
+			[ 'AR', 'ABC12312', false ],
+			[ 'AR', '12341234', true ],
+			[ 'AR', '12-34123412-1', true ], // 11 digit CUIT should pass
+			[ 'AR', '1112223', true ],
+			[ 'AR', '111222', false ],
+			[ 'MX', '', true ], // Not required for MX
+		];
 	}
 
 	/**
@@ -139,7 +139,7 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 		$errors = new ErrorState();
 		$validator->validate(
 			new TestingGenericAdapter(),
-			array( 'country' => $country, 'fiscal_number' => $value, 'language' => 'en' ),
+			[ 'country' => $country, 'fiscal_number' => $value, 'language' => 'en' ],
 			$errors
 		);
 		$expectation = $valid ? "should" : "should not";

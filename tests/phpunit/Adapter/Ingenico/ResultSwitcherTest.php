@@ -19,22 +19,22 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$session['Donor'] = $donorTestData;
 		// Mark the order as already popped out of the iframe
 		$session['order_status'][$donorTestData['order_id']] = 'liberated';
-		$request = array(
+		$request = [
 			'REF' => $donorTestData['order_id'],
 			'CVVRESULT' => 'M',
 			'AVSRESULT' => '0',
 			'language' => 'fr', // FIXME: verifyFormOutput conflates request with other stuff
-		);
-		$assertNodes = array(
-			'headers' => array(
+		];
+		$assertNodes = [
+			'headers' => [
 				'Location' => function ( $location ) use ( $donorTestData ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $donorTestData );
 					$url = ResultPages::getThankYouPage( $gateway );
 					$this->assertEquals( $url, $location );
 				}
-			)
-		);
+			]
+		];
 
 		$this->verifyFormOutput( 'IngenicoGatewayResult', $request, $assertNodes, false, $session );
 		// Make sure we logged the expected cURL attempts

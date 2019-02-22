@@ -36,15 +36,15 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		TestingContext::get()->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
 			'paypal', $this->smashPigGlobalConfig
 		);
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,
 			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
-		) );
+		] );
 	}
 
 	function testPaymentSetup() {
-		$init = array(
+		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
 			'payment_method' => 'paypal',
@@ -53,7 +53,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'country' => 'US',
 			'contribution_tracking_id' => strval( mt_rand() ),
 			'language' => 'fr',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( 'OK' );
 		$result = $gateway->doPayment();
@@ -107,7 +107,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'country' => 'US',
 			'fee' => '0',
 			'gateway' => 'paypal_ec',
@@ -128,7 +128,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'user_ip' => '127.0.0.1',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
-		);
+		];
 		$this->assertEquals(
 			$expected,
 			$message,
@@ -137,7 +137,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	}
 
 	function testPaymentSetupRecurring() {
-		$init = array(
+		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
 			'payment_method' => 'paypal',
@@ -147,7 +147,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'recurring' => '1',
 			'contribution_tracking_id' => strval( mt_rand() ),
 			'language' => 'fr',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$result = $gateway->doPayment();
@@ -202,7 +202,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'country' => 'US',
 			'fee' => '0',
 			'gateway' => 'paypal_ec',
@@ -223,7 +223,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'user_ip' => '127.0.0.1',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
-		);
+		];
 		$this->assertEquals(
 			$expected,
 			$message,
@@ -238,19 +238,19 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testProcessDonorReturn() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
-		$gateway->processDonorReturn( array(
+		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
-		) );
+		] );
 
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		self::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
 			'fee' => '0',
@@ -276,7 +276,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'postal_code' => '94105',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 
 		$this->assertNull(
@@ -289,13 +289,13 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['recurring'] = '1';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( 'Recurring-OK' );
-		$gateway->processDonorReturn( array(
+		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD'
-		) );
+		] );
 
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Recurring should not send a message to the donations queue' );
@@ -307,14 +307,14 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testProcessDonorReturnPaymentRetry() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '10486' );
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'
-		) );
+		] );
 
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
@@ -332,23 +332,23 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	function testProcessDonorReturnWarning() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( array(
+		$gateway::setDummyGatewayResponseCode( [
 			'OK', // For GetExpressCheckoutDetails
 			'11607' // For DoExpressCheckoutPayment
-		) );
-		$result = $gateway->processDonorReturn( array(
+		] );
+		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'
-		) );
+		] );
 
 		$this->assertFalse( $result->isFailed() );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the donations queue' );
 		self::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
 			'fee' => '0',
@@ -374,7 +374,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'postal_code' => '94105',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 
 		$this->assertNull(
@@ -391,13 +391,13 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['recurring'] = '1';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '10486' );
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'
-		) );
+		] );
 
 		$this->assertNull(
 			QueueWrapper::getQueue( 'donations' )->pop(),
@@ -417,15 +417,15 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	public function testProcessDonorReturnPaymentActionCompleted() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$options = array( 'batch_mode' => true );
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$options = [ 'batch_mode' => true ];
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
 		$gateway = $this->getFreshGatewayObject( $init, $options );
 		$gateway::setDummyGatewayResponseCode( 'Complete' );
-		$gateway->processDonorReturn( array(
+		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
-		) );
+		] );
 
 		$this->assertEquals( FinalStatus::COMPLETE, $gateway->getFinalStatus(), 'Should have Final Status Complete' );
 		$this->assertEquals( 1, count( $gateway->curled ), 'Should only call curl once' );
@@ -439,15 +439,15 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	public function testProcessDonorReturnTokenTimeout() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$options = array( 'batch_mode' => true );
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$options = [ 'batch_mode' => true ];
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
 		$gateway = $this->getFreshGatewayObject( $init, $options );
 		$gateway::setDummyGatewayResponseCode( 'Timeout' );
-		$gateway->processDonorReturn( array(
+		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
-		) );
+		] );
 
 		$this->assertEquals( FinalStatus::TIMEOUT, $gateway->getFinalStatus(), 'Should have Final Status Timeout' );
 		$this->assertEquals( 1, count( $gateway->curled ), 'Should only call curl once' );
@@ -465,23 +465,23 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';
-		$session = array( 'Donor' => $init );
+		$session = [ 'Donor' => $init ];
 
-		$request = array(
+		$request = [
 			'token' => $init['gateway_session_id'],
 			'PayerID' => 'ASdASDAS',
 			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
-		);
-		$assertNodes = array(
-			'headers' => array(
+		];
+		$assertNodes = [
+			'headers' => [
 				'Location' => function ( $location ) use ( $init ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
 					$this->assertEquals( $url, $location );
 				}
-			)
-		);
+			]
+		];
 
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 		$key = 'processed_request-' . $request['token'];
@@ -504,28 +504,28 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';
-		$session = array(
+		$session = [
 			'Donor' => $init
-		);
+		];
 
 		$key = 'processed_request-' . $init['gateway_session_id'];
 		wfGetMainCache()->add( $key, true, 100 );
 
-		$request = array(
+		$request = [
 			'token' => $init['gateway_session_id'],
 			'PayerID' => 'ASdASDAS',
 			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
-		);
-		$assertNodes = array(
-			'headers' => array(
+		];
+		$assertNodes = [
+			'headers' => [
 				'Location' => function ( $location ) use ( $init ) {
 					// Do this after the real processing to avoid side effects
 					$gateway = $this->getFreshGatewayObject( $init );
 					$url = ResultPages::getThankYouPage( $gateway );
 					$this->assertEquals( $url, $location );
 				}
-			)
-		);
+			]
+		];
 
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 
@@ -535,7 +535,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	}
 
 	public function testShouldRectifyOrphan() {
-		$message = $this->createOrphan( array( 'gateway' => 'paypal', 'payment_method' => 'paypal' ) );
+		$message = $this->createOrphan( [ 'gateway' => 'paypal', 'payment_method' => 'paypal' ] );
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $message );
 		$result = $this->gatewayAdapter->shouldRectifyOrphan();
 		$this->assertEquals( $result, true, 'shouldRectifyOrphan returning false.' );
@@ -551,13 +551,13 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';
-		$session = array( 'Donor' => $init );
+		$session = [ 'Donor' => $init ];
 
-		$request = array(
+		$request = [
 			'token' => $init['gateway_session_id'],
 			'PayerID' => 'ASdASDAS',
 			'language' => $init['language'] // FIXME: mashing up request vars and other stuff in verifyFormOutput
-		);
+		];
 		$this->setUpRequest( $request, $session );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->processDonorReturn( $request );

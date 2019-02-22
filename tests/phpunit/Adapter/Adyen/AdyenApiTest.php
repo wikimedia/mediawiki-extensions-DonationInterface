@@ -20,10 +20,10 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			AdyenTestConfiguration::createWithSuccessfulApi(
 			$ctx->getGlobalConfiguration()
 		);
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgAdyenGatewayEnabled' => true,
 			'wgAdyenGatewayTestingURL' => 'https://example.org',
-		) );
+		] );
 	}
 
 	public function testGoodSubmit() {
@@ -38,7 +38,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			$result['formaction'],
 			'Adyen API not setting correct formaction'
 		);
-		$expectedParams = array(
+		$expectedParams = [
 			'allowedMethods' => 'card',
 			'brandCode' => 'visa',
 			'card.cardHolderName' => 'Firstname Surname',
@@ -56,7 +56,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'billingAddress.country' => 'US',
 			'billingAddressType' => '2',
 			'billingAddress.houseNumberOrName' => 'NA'
-		);
+		];
 		$actualParams = $result['gateway_params'];
 		unset( $actualParams['sessionValidity'] );
 		unset( $actualParams['shipBeforeDate'] );
@@ -70,7 +70,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'gateway_txn_id' => false,
 			'response' => false,
 			'fee' => 0,
@@ -90,7 +90,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'street_address' => '123 Fake Street',
 			'postal_code' => '94105',
 			'risk_score' => 20
-		);
+		];
 		$this->assertArraySubset( $expected, $message );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );

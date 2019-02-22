@@ -17,13 +17,13 @@
  */
 
 trait TTestingAdapter {
-	public static $fakeGlobals = array();
+	public static $fakeGlobals = [];
 
 	public static $fakeIdentifier;
 
 	public static $dummyGatewayResponseCode = null;
 
-	public $curled = array();
+	public $curled = [];
 
 	public static function getIdentifier() {
 		if ( static::$fakeIdentifier ) {
@@ -54,19 +54,19 @@ trait TTestingAdapter {
 	}
 
 	public function _addCodeRange() {
-		return call_user_func_array( array( $this, 'addCodeRange' ), func_get_args() );
+		return call_user_func_array( [ $this, 'addCodeRange' ], func_get_args() );
 	}
 
 	public function _findCodeAction() {
-		return call_user_func_array( array( $this, 'findCodeAction' ), func_get_args() );
+		return call_user_func_array( [ $this, 'findCodeAction' ], func_get_args() );
 	}
 
 	public function _buildRequestXML() {
-		return call_user_func_array( array( $this, 'buildRequestXML' ), func_get_args() );
+		return call_user_func_array( [ $this, 'buildRequestXML' ], func_get_args() );
 	}
 
 	public function _getData_Staged() {
-		return call_user_func_array( array( $this, 'getData_Staged' ), func_get_args() );
+		return call_user_func_array( [ $this, 'getData_Staged' ], func_get_args() );
 	}
 
 	public function _stageData() {
@@ -163,9 +163,9 @@ trait TTestingAdapter {
 		$code = 200;
 
 		// put more here if it ever turns out that we care about it.
-		return array(
+		return [
 			'http_code' => $code,
-		);
+		];
 	}
 
 }

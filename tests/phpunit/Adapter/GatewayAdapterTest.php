@@ -41,18 +41,18 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'testytest' => array(
+		$this->setMwGlobals( [
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'testytest' => [
 					'gateway' => 'globalcollect', // RAR.
-				),
-				'rapidFailError' => array(
+				],
+				'rapidFailError' => [
 					'file' => 'error-cc.html',
-					'gateway' => array( 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ),
+					'gateway' => [ 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ],
 					'special_type' => 'error',
-				)
-			),
-		) );
+				]
+			],
+		] );
 	}
 
 	/**
@@ -67,14 +67,14 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$class = $this->testAdapterClass;
 
 		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL(
-			'testytest', array( 'gateway' => $class::getIdentifier() )
+			'testytest', [ 'gateway' => $class::getIdentifier() ]
 		);
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
 
 		self::resetAllEnv();
-		$gateway = $this->getFreshGatewayObject( $options = array() );
+		$gateway = $this->getFreshGatewayObject( $options = [] );
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway, "Having trouble constructing a blank adapter." );
 	}
 
@@ -88,76 +88,76 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init = $this->getDonorTestData( $country );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['payment_method'] = 'cc';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$requiredFields = $gateway->getRequiredFields();
 		$this->assertArrayEquals( $fields, $requiredFields );
 	}
 
 	public function getRequiredFields() {
-		return array(
-			array( 'AU', array(
+		return [
+			[ 'AU', [
 				'country', 'first_name', 'last_name',
 				'email', 'state_province'
-			) ),
-			array( 'ES', array(
+			] ],
+			[ 'ES', [
 				'country', 'first_name', 'last_name',
 				'email'
-			) ),
-			array( 'US', array(
+			] ],
+			[ 'US', [
 				'country', 'first_name', 'last_name',
 				'email', 'street_address', 'city',
 				'postal_code', 'state_province'
-			) ),
-		);
+			] ],
+		];
 	}
 
 	/**
 	 * Load an alternate yaml file based on 'variant'
 	 */
 	public function testVariantConfig() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
-		) );
+		] );
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['payment_method'] = 'cc';
 		$init['variant'] = 'nostate';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 		$gateway = $this->getFreshGatewayObject(
-			$init, array( 'variant' => 'nostate' )
+			$init, [ 'variant' => 'nostate' ]
 		);
 		// The 'nostate' variant requires fewer fields in the US
 		$requiredFields = $gateway->getRequiredFields();
-		$this->assertEquals( array(
+		$this->assertEquals( [
 			'country', 'first_name', 'last_name',
 			'email', 'street_address', 'postal_code'
-		), $requiredFields );
+		], $requiredFields );
 	}
 
 	/**
 	 * Don't allow directory traversal via 'variant'
 	 */
 	public function testIllegalVariantConfig() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
-		) );
+		] );
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['payment_method'] = 'cc';
 		$init['variant'] = '../notallowedvariants/nostate';
-		$this->setUpRequest( $init, array( 'Donor' => $init ) );
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 		$gateway = $this->getFreshGatewayObject(
-			$init, array( 'variant' => '../notallowedvariants/nostate' )
+			$init, [ 'variant' => '../notallowedvariants/nostate' ]
 		);
 		$requiredFields = $gateway->getRequiredFields();
-		$this->assertArrayEquals( array(
+		$this->assertArrayEquals( [
 			'country', 'first_name', 'last_name',
 			'email', 'street_address', 'city',
 			'postal_code', 'state_province'
-		), $requiredFields );
+		], $requiredFields );
 	}
 
 	/**
@@ -371,9 +371,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testGetRapidFailPage() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceRapidFail' => true,
-		) );
+		] );
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'cc';
 		$gateway = $this->getFreshGatewayObject( $options );
@@ -381,10 +381,10 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testGetFallbackFailPage() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceRapidFail' => false,
 			'wgDonationInterfaceFailPage' => 'Main_Page', // coz we know it exists
-		) );
+		] );
 		$options = $this->getDonorTestData( 'US' );
 		$gateway = $this->getFreshGatewayObject( $options );
 		$page = ResultPages::getFailPage( $gateway );
@@ -402,9 +402,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testCancelPage() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'Ways to give'
-		) );
+		] );
 		$gateway = $this->getFreshGatewayObject();
 		$url = ResultPages::getCancelPage( $gateway );
 		$expectedTitle = Title::newFromText( 'Ways to give/en' );
@@ -425,20 +425,20 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $data['country'] );
 		$data['user_ip'] = '8.8.8.8';
 
-		$gateway = $this->getFreshGatewayObject( $data, array( 'batch_mode' => true ) );
+		$gateway = $this->getFreshGatewayObject( $data, [ 'batch_mode' => true ] );
 		$this->assertEquals( '8.8.8.8', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
 	}
 
 	function testGetScoreName() {
-		$rule = array(
-			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
-			'KeyMapB' => array(),
+		$rule = [
+			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
+			'KeyMapB' => [],
 			'GibberishWeight' => 0.9,
 			'Score' => 10,
 			'MinimumLength' => 2,
-		);
+		];
 		$this->setMwGlobals(
-			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
+			[ 'wgDonationInterfaceNameFilterRules' => [ $rule ] ]
 		);
 		$init = $this->getDonorTestData();
 		$init['first_name'] = 'asdf';
@@ -450,15 +450,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	function testGetScoreNameMinimumLength() {
-		$rule = array(
-			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
-			'KeyMapB' => array(),
+		$rule = [
+			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
+			'KeyMapB' => [],
 			'GibberishWeight' => 0.9,
 			'Score' => 10,
 			'MinimumLength' => 2,
-		);
+		];
 		$this->setMwGlobals(
-			array( 'wgDonationInterfaceNameFilterRules' => array( $rule ) )
+			[ 'wgDonationInterfaceNameFilterRules' => [ $rule ] ]
 		);
 		$init = $this->getDonorTestData();
 		$init['first_name'] = 'a';
@@ -481,7 +481,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testRectifyOrphan() {
-		$orphan = $this->createOrphan( array( 'gateway' => 'donation' ) );
+		$orphan = $this->createOrphan( [ 'gateway' => 'donation' ] );
 		$gateway = $this->getFreshGatewayObject( $orphan );
 		// FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
 		$is_rectified = $gateway->rectifyOrphan();
@@ -494,7 +494,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$message = $exposed->getQueueDonationMessage();
 		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
-		$expected += array(
+		$expected += [
 			'gateway_txn_id' => false,
 			'response' => false,
 			'gateway_account' => 'test',
@@ -509,7 +509,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'payment_submethod' => '',
 			'gross' => $data['amount'],
 			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
-		);
+		];
 		unset( $message['date'] );
 		unset( $expected['amount'] );
 		$this->assertEquals( $expected, $message );
@@ -526,7 +526,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$message = $exposed->getQueueDonationMessage();
 		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
-		$expected += array(
+		$expected += [
 			'contact_id' => $data['contact_id'],
 			'contact_hash' => $data['contact_hash'],
 			'gateway_txn_id' => false,
@@ -543,7 +543,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'payment_submethod' => '',
 			'gross' => $data['amount'],
 			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
-		);
+		];
 		unset( $message['date'] );
 		unset( $expected['amount'] );
 		$this->assertEquals( $expected, $message );
@@ -559,7 +559,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$message = $exposed->getQueueDonationMessage();
 		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
-		$expected += array(
+		$expected += [
 			'gateway_txn_id' => false,
 			'response' => false,
 			'gateway_account' => 'test',
@@ -574,7 +574,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'payment_submethod' => '',
 			'gross' => $data['amount'],
 			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
-		);
+		];
 		unset( $message['date'] );
 		unset( $expected['amount'] );
 		$this->assertEquals( $expected, $message );

@@ -30,7 +30,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		$request = RequestContext::getMain()->getRequest();
 
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
@@ -38,7 +38,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		parent::__construct( $name, $data, $dataName );
 
-		$this->testData = array(
+		$this->testData = [
 			'amount' => '128.00',
 			'appeal' => 'JimmyQuote',
 			'email' => 'unittest@example.com',
@@ -66,7 +66,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'owa_ref' => 'http://localhost/importedTestData',
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
-		);
+		];
 	}
 
 	/**
@@ -80,7 +80,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) ); // as if we were posted.
 		$returned = $ddObj->getData();
-		$expected = array(
+		$expected = [
 			'amount' => '0.00',
 			'appeal' => 'JimmyQuote',
 			'country' => 'XX',
@@ -95,7 +95,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'recurring' => '',
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
-		);
+		];
 		unset( $returned['contribution_tracking_id'] );
 		unset( $returned['order_id'] );
 		$this->assertEquals( $expected, $returned, "Staged post data does not match expected (largely empty)." );
@@ -107,7 +107,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function testConstructWithExternalData() {
 		$request = RequestContext::getMain()->getRequest();
 
-		$expected = array(
+		$expected = [
 			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
 			'contribution_tracking_id' => (string)mt_rand(),
@@ -137,9 +137,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => '12.12.12.12',
 			'server_ip' => $request->getIP(),
 			'recurring' => '',
-		);
+		];
 
-		$adapter = $this->getFreshGatewayObject( self::$initial_vars, array( 'batch_mode' => true ) );
+		$adapter = $this->getFreshGatewayObject( self::$initial_vars, [ 'batch_mode' => true ] );
 		$ddObj = new DonationData( $adapter, $expected ); // external data
 		$returned = $ddObj->getData();
 
@@ -157,7 +157,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function testConstructWithFauxRequest() {
 		$request = RequestContext::getMain()->getRequest();
 
-		$expected = array(
+		$expected = [
 			'amount' => '35.00',
 			'appeal' => 'JimmyQuote',
 			'email' => 'testingdata@wikimedia.org',
@@ -186,7 +186,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 			'recurring' => '',
-		);
+		];
 
 		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
 
@@ -206,14 +206,14 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	 * Check that constructor outputs certain information to logs
 	 */
 	public function testDebugLog() {
-		$expected = array(
+		$expected = [
 			'payment_method' => 'cc',
 			'utm_source' => 'test_src..cc',
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'payment_submethod' => 'amex',
 			'currency' => 'USD',
-		);
+		];
 
 		$this->setUpRequest( $expected );
 
@@ -243,10 +243,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $expected ); // change to test mode with explicit test data
 		$returned = $ddObj->getData();
 		// unset these, because they're always new
-		$unsettable = array(
+		$unsettable = [
 			'order_id',
 			'contribution_tracking_id'
-		);
+		];
 
 		foreach ( $unsettable as $thing ) {
 			unset( $returned[$thing] );

@@ -131,7 +131,7 @@ interface GatewayType {
 	 * information about the origin and state of the order_id data.
 	 *
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key )
+	 * 'alt_locations' => [ $dataset_name, $dataset_key ]
 	 * 	** alt_locations is intended to contain a list of arrays that
 	 * 	are always available (or should be), from which we can pull the
 	 * 	order_id.
@@ -168,7 +168,7 @@ interface GatewayType {
 	 * @param array $options associative array of values as given to the
 	 *  GateWayType constructor.
 	 */
-	function setGatewayDefaults( $options = array() );
+	function setGatewayDefaults( $options = [] );
 
 	/**
 	 * @param array $options If given, try to filter supported currencies by:
@@ -179,7 +179,7 @@ interface GatewayType {
 	 * the given options. If options are not given, the adapter may return
 	 * all supported currencies of filter by the unstaged data.
 	 */
-	function getCurrencies( $options = array() );
+	function getCurrencies( $options = [] );
 
 	/**
 	 * Attempt the default transaction for the current DonationData

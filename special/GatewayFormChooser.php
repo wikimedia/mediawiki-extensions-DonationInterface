@@ -103,13 +103,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			return;
 		}
 
-		$params = array(
+		$params = [
 			'recurring' => $recurring,
-		);
+		];
 
 		// Pass any other params that are set. We do not skip ffname or form_name because
 		// we wish to retain the query string override.
-		$excludeKeys = array( 'title', 'recurring' );
+		$excludeKeys = [ 'title', 'recurring' ];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
 			// Skip the required variables
 			if ( !in_array( $key, $excludeKeys ) ) {
@@ -145,14 +145,14 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @throws MWException on ambiguous gateway or bad gateway name
 	 * @return string The form URL
 	 */
-	static function buildPaymentsFormURL( $form_key, $other_params = array() ) {
+	static function buildPaymentsFormURL( $form_key, $other_params = [] ) {
 		global $wgDonationInterfaceDefaultAppeal;
 
 		// And... construct the URL
-		$params = array(
+		$params = [
 			'appeal' => $wgDonationInterfaceDefaultAppeal,
 			'ffname' => $form_key,
-		);
+		];
 
 		if ( array_key_exists( 'ffname', $other_params ) ) {
 			unset( $other_params['ffname'] );
@@ -232,13 +232,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$forms = $wgDonationInterfaceAllowedHtmlForms;
 
 		// Destroy all optional params that have no values and should be null.
-		$optionals = array(
+		$optionals = [
 			'country',
 			'currency',
 			'payment_method',
 			'payment_submethod',
 			'gateway'
-		);
+		];
 
 		foreach ( $optionals as $var ) {
 			if ( $$var === '' ) {
@@ -252,7 +252,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			// If the requested gateway is valid and enabled, only allow
 			// forms for that gateway. Otherwise try 'em all.
 			if ( in_array( $gateway, $valid_gateways ) ) {
-				$valid_gateways = array( $gateway );
+				$valid_gateways = [ $gateway ];
 			}
 		}
 
@@ -265,13 +265,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				continue;
 			}
 
-			foreach ( array( 'gateway', 'payment_methods' ) as $paramName ) {
+			foreach ( [ 'gateway', 'payment_methods' ] as $paramName ) {
 				if ( !array_key_exists( $paramName, $meta ) ) {
 					unset( $forms[$name] );
 					continue 2;
 				}
 			}
-			foreach ( array( 'countries', 'currencies' ) as $paramName ) {
+			foreach ( [ 'countries', 'currencies' ] as $paramName ) {
 				if ( !array_key_exists( $paramName, $meta ) ) {
 					$meta[$paramName] = 'ALL';
 				}
@@ -380,7 +380,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @return bool true if the country is supported
 	 */
 	static function isSupportedCountry( $country_iso, $form_key ) {
-		static $countries = array();
+		static $countries = [];
 		if ( !array_key_exists( $form_key, $countries ) ) {
 			$def = self::getFormDefinition( $form_key );
 			if ( !$def ) {
@@ -413,18 +413,18 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 *  gateway Optional gateway to force
 	 * @return bool True if the named form matches the requirements
 	 */
-	public static function isValidForm( $ffname, $prefs = array() ) {
+	public static function isValidForm( $ffname, $prefs = [] ) {
 		$form = self::getFormDefinition( $ffname );
 		if ( !$form ) {
 			return false;
 		}
 
 		// First make sure these match if present
-		$keyMap = array(
+		$keyMap = [
 			'country' => 'countries',
 			'gateway' => 'gateway',
 			'currency' => 'currencies',
-		);
+		];
 		foreach ( $keyMap as $prefKey => $formKey ) {
 			if (
 				!self::prefAllowedBySpec( $prefs, $prefKey, $form, $formKey )
@@ -495,7 +495,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	static function getAllEnabledGateways() {
 		global $wgDonationInterfaceGatewayAdapters;
 
-		$enabledGateways = array();
+		$enabledGateways = [];
 		foreach ( $wgDonationInterfaceGatewayAdapters as $identifier => $gatewayClass ) {
 			if ( $gatewayClass::getGlobal( 'Enabled' ) ) {
 				$enabledGateways[] = $identifier;
@@ -530,7 +530,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// we apply any other criteria.
 		// FIXME: once other FIXMEs are complete, use a more explicit settings
 		// key like 'onlyOnRequest' => true and filter in getAllValidForms
-		$zeroWeightForms = array();
+		$zeroWeightForms = [];
 		foreach ( $valid_forms as $form_name => $meta ) {
 			if (
 				isset( $meta['selection_weight'] ) &&
@@ -552,13 +552,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// the explicit constraints.
 		// But, it naturally got more complicated when I started considering the
 		// ivnerse.
-		$keys = array(
+		$keys = [
 			'currencies' => $currency,
 			'countries' => $country,
-		);
+		];
 		foreach ( $keys as $key => $look ) {
 		// got to loop on keys first, as valid_forms loop will hopefully shrink as we're going.
-			$failforms = array();
+			$failforms = [];
 			foreach ( $valid_forms as $form_name => $meta ) {
 				if ( ( !is_null( $look ) && !array_key_exists( $key, $meta ) )
 					|| is_null( $look ) && array_key_exists( $key, $meta ) ) {
@@ -578,7 +578,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		}
 
 		// now, go for the one with the most explicitly defined payment submethods.
-		$submethod_counter = array();
+		$submethod_counter = [];
 		foreach ( $valid_forms as $form_name => $meta ) {
 			$submethod_counter[$form_name] = 0;
 			foreach ( $meta['payment_methods'] as $method ) {
@@ -636,7 +636,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 */
 	static function getBestErrorForm( $gateway, $payment_method, $payment_submethod = null ) {
 		global $wgDonationInterfaceAllowedHtmlForms;
-		$error_forms = array();
+		$error_forms = [];
 		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $data ) {
 			if ( array_key_exists( 'special_type', $data ) && $data['special_type'] === 'error' ) {
 				$is_match = true;

@@ -117,7 +117,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	}
 
 	protected static function addNowToVelocityData( $stored = false, $timeout = false ) {
-		$new_velocity_records = array();
+		$new_velocity_records = [];
 		$nowstamp = time();
 		if ( is_array( $stored ) ) {
 			foreach ( $stored as $timestamp ) {

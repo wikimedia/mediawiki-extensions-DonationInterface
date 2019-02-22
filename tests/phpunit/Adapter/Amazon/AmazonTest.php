@@ -56,22 +56,22 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 		$this->providerConfig = self::setUpAmazonTestingContext( $this );
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgAmazonGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'amazon' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'amazon' => [
 					'gateway' => 'amazon',
-					'payment_methods' => array( 'amazon' => 'ALL' ),
+					'payment_methods' => [ 'amazon' => 'ALL' ],
 					'redirect',
-				),
-				'amazon-recurring' => array(
+				],
+				'amazon-recurring' => [
 					'gateway' => 'amazon',
-					'payment_methods' => array( 'amazon' => 'ALL' ),
+					'payment_methods' => [ 'amazon' => 'ALL' ],
 					'redirect',
 					'recurring',
-				),
-			),
-		) );
+				],
+			],
+		] );
 	}
 
 	/**
@@ -93,10 +93,10 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$cadRate = $rates['CAD'];
 
 		$expectedAmount = floor( $init['amount'] / $cadRate );
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgAmazonGatewayFallbackCurrency' => 'USD',
 			'wgAmazonGatewayNotifyOnConvert' => true,
-		) );
+		] );
 
 		$expectedNotification = wfMessage(
 			'donate_interface-fallback-currency-notice',
@@ -110,12 +110,12 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 			$this->assertEquals( $expectedDisplayAmount, trim( $amountString ), 'Displaying wrong amount' );
 		};
 
-		$assertNodes = array(
-			'selected-amount' => array( 'innerhtml' => $convertTest ),
-			'mw-content-text' => array(
+		$assertNodes = [
+			'selected-amount' => [ 'innerhtml' => $convertTest ],
+			'mw-content-text' => [
 				'innerhtmlmatches' => "/.*$expectedNotification.*/"
-			)
-		);
+			]
+		];
 		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false );
 	}
 
@@ -127,13 +127,13 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init['OTT'] = 'SALT123456789';
 		$init['amount'] = '-100.00';
 		$init['ffname'] = 'amazon';
-		$session = array( 'Donor' => $init );
+		$session = [ 'Donor' => $init ];
 		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-amount' )->text();
-		$assertNodes = array(
-			'mw-content-text' => array(
+		$assertNodes = [
+			'mw-content-text' => [
 				'innerhtmlmatches' => "/.*$errorMessage.*/"
-			)
-		);
+			]
+		];
 
 		$this->verifyFormOutput( 'AmazonGateway', $init, $assertNodes, false, $session );
 	}

@@ -45,19 +45,19 @@ class PaypalRefundMaintenance extends Maintenance {
 			$oid = $refund[0];
 			$gateway_txn_id = $refund[1];
 			$subscription_id = $refund[2];
-			$gateway_opts = array(
+			$gateway_opts = [
 				'batch_mode' => true,
-				'external_data' => array(
+				'external_data' => [
 					'payment_method' => 'paypal',
 					'currency' => $refund[3],
 					'amount' => $refund[4]
-				),
-			);
+				],
+			];
 
 			$adapter = new PaypalExpressAdapter( $gateway_opts );
 
 			$this->output( "Refunding transaction $oid from gateway transaction $oid\n" );
-			$adapter->addRequestData( array( 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id, 'subscr_id' => $subscription_id ) );
+			$adapter->addRequestData( [ 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id, 'subscr_id' => $subscription_id ] );
 			$result = $adapter->doRefund();
 			if ( $result->isFailed() ) {
 				$this->error( "Failed refunding transaction $oid " . print_r( $result->getErrors(), true ) );

@@ -15,7 +15,7 @@ class ResponseProcessingException extends Exception {
 	 */
 	protected $errorCode;
 
-	public function __construct( $message, $errorCode, $retryVars = array() ) {
+	public function __construct( $message, $errorCode, $retryVars = [] ) {
 		parent::__construct( $message );
 		$this->errorCode = $errorCode;
 		$this->retryVars = $retryVars;

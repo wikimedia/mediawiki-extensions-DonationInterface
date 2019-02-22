@@ -26,9 +26,9 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceLogCompleted' => true,
-		) );
+		] );
 	}
 
 	/**
@@ -36,7 +36,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
@@ -52,7 +52,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['ffname'] = 'cc-vmad';
 		unset( $init['order_id'] );
 
-		$expectedObject = array(
+		$expectedObject = [
 			'gross' => 23.45,
 			'city' => 'San Francisco',
 			// 'contribution_tracking_id' => '1',
@@ -74,7 +74,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'postal_code' => '94105',
 			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
 			'gateway_account' => 'test',
-		);
+		];
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '200' );
@@ -106,7 +106,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['unusual_key'] = mt_rand();
 		unset( $init['order_id'] );
 
-		$expectedObject = array(
+		$expectedObject = [
 			'gross' => 23.45,
 			'fee' => 0,
 			'city' => 'San Francisco',
@@ -127,7 +127,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'postal_code' => '94105',
 			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
 			'gateway_account' => 'test',
-		);
+		];
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '200' );
@@ -145,12 +145,12 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	}
 
 	protected function stripRandomFields( $data ) {
-		$toUnset = array(
+		$toUnset = [
 			'contribution_tracking_id',
 			'date',
 			'gateway_txn_id',
 			'order_id',
-		);
+		];
 		array_map( function ( $key ) use ( &$data ) {
 			unset( $data[$key] );
 		}, $toUnset );

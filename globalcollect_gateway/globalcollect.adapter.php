@@ -51,18 +51,18 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Define accountInfo
 	 */
 	public function defineAccountInfo() {
-		$this->accountInfo = array(
+		$this->accountInfo = [
 			'MERCHANTID' => $this->account_config[ 'MerchantID' ],
 			// 'IPADDRESS' => '', //TODO: Not sure if this should be OUR ip, or the user's ip. Hurm.
 			'VERSION' => "1.0",
-		);
+		];
 	}
 
 	/**
 	 * Setting some GC-specific defaults.
 	 * @param array $options These get extracted in the parent.
 	 */
-	function setGatewayDefaults( $options = array() ) {
+	function setGatewayDefaults( $options = [] ) {
 		if ( isset( $options['returnTo'] ) ) {
 			$returnTo = $options['returnTo'];
 		} else {
@@ -74,11 +74,11 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$returnTo = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
 		}
 
-		$defaults = array(
+		$defaults = [
 			'returnto' => $returnTo,
 			'attempt_id' => '1',
 			'effort_id' => '1',
-		);
+		];
 
 		$this->addRequestData( $defaults );
 	}
@@ -87,10 +87,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Define return_value_map
 	 */
 	public function defineReturnValueMap() {
-		$this->return_value_map = array(
+		$this->return_value_map = [
 			'OK' => true,
 			'NOK' => false,
-		);
+		];
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 0, 10 );
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::FAILED, 15 ); // Refund failed
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::PENDING, 20, 70 );
@@ -119,16 +119,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Sets up the $order_id_meta array.
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'alt_locations' => [ $dataset_name, $dataset_key ] //ordered
 	 * 'type' => numeric, or alphanumeric
 	 * 'length' => $max_charlen
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array(
-			'alt_locations' => array( 'request' => 'order_id' ),
+		$this->order_id_meta = [
+			'alt_locations' => [ 'request' => 'order_id' ],
 			'generate' => true, // freaking FINALLY.
 			'disallow_decimals' => true, // hacky hack hack...
-		);
+		];
 	}
 
 	/**
@@ -149,12 +149,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 *
 	 */
 	public function defineGoToThankYouOn() {
-		$this->goToThankYouOn = array(
+		$this->goToThankYouOn = [
 			FinalStatus::COMPLETE,
 			FinalStatus::PENDING,
 			FinalStatus::PENDING_POKE,
 			FinalStatus::REVISED,
-		);
+		];
 	}
 
 	/**
@@ -173,19 +173,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - GET_ORDERSTATUS
 	 */
 	public function defineTransactions() {
-		$this->transactions = array();
+		$this->transactions = [];
 
-		$this->transactions['DO_BANKVALIDATION'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['DO_BANKVALIDATION'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'GENERAL' => array(
+					],
+					'PARAMS' => [
+						'GENERAL' => [
 							'ACCOUNTNAME',
 							'ACCOUNTNUMBER',
 							'AUTHORISATIONID',
@@ -199,49 +199,49 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'IBAN',
 							'MERCHANTREFERENCE',
 							'TRANSACTIONTYPE',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'DO_BANKVALIDATION',
-			),
-		);
+			],
+		];
 
-		$this->transactions['GET_DIRECTORY'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['GET_DIRECTORY'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION',
-					),
-					'PARAMS' => array(
-						'GENERAL' => array(
+					],
+					'PARAMS' => [
+						'GENERAL' => [
 							'PAYMENTPRODUCTID',
 							'COUNTRYCODE',
 							'CURRENCYCODE',
-						),
-					),
-				),
-			),
-			'values' => array(
+						],
+					],
+				],
+			],
+			'values' => [
 				'ACTION' => 'GET_DIRECTORY',
-			),
-		);
+			],
+		];
 
-		$this->transactions['INSERT_ORDERWITHPAYMENT'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['INSERT_ORDERWITHPAYMENT'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'ORDER' => array(
+					],
+					'PARAMS' => [
+						'ORDER' => [
 							'ORDERID',
 							'AMOUNT',
 							'CURRENCYCODE',
@@ -250,8 +250,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'MERCHANTREFERENCE',
 							'IPADDRESSCUSTOMER',
 							'EMAIL',
-						),
-						'PAYMENT' => array(
+						],
+						'PAYMENT' => [
 							'PAYMENTPRODUCTID',
 							'AMOUNT',
 							'CURRENCYCODE',
@@ -270,108 +270,108 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'STATE',
 							'ZIP',
 							'EMAIL',
-						)
-					)
-				)
-			),
-			'values' => array(
+						]
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'INSERT_ORDERWITHPAYMENT',
 				'HOSTEDINDICATOR' => '1',
 				'AUTHENTICATIONINDICATOR' => 0, // default to no 3DSecure ourselves
-			),
+			],
 			'check_required' => true,
-		);
+		];
 
-		$this->transactions['DO_REFUND'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['DO_REFUND'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'PAYMENTPRODUCTID',
 							'ORDERID',
 							'EFFORTID',
 							'MERCHANTREFERENCE',
 							'AMOUNT',
 							'CURRENCYCODE',
-						)
-					)
-				)
-			),
-			'values' => array(
+						]
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'DO_REFUND',
 				'VERSION' => '1.0',
-			),
-		);
+			],
+		];
 
-		$this->transactions['SET_REFUND'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['SET_REFUND'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'PAYMENTPRODUCTID',
 							'ORDERID',
 							'EFFORTID',
-						)
-					)
-				)
-			),
-			'values' => array(
+						]
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'SET_REFUND',
 				'VERSION' => '1.0',
-			),
-		);
+			],
+		];
 
-		$this->transactions['TEST_CONNECTION'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['TEST_CONNECTION'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 							'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array()
-				)
-			),
-			'values' => array(
+					],
+					'PARAMS' => []
+				]
+			],
+			'values' => [
 				'ACTION' => 'TEST_CONNECTION'
-			)
-		);
+			]
+		];
 
-		$this->transactions['GET_ORDERSTATUS'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['GET_ORDERSTATUS'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'ORDER' => array(
+					],
+					'PARAMS' => [
+						'ORDER' => [
 							'ORDERID',
 							'EFFORTID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'GET_ORDERSTATUS',
 				'VERSION' => '2.0'
-			),
-			'response' => array(
+			],
+			'response' => [
 				'EFFORTID',
 				'ATTEMPTID',
 				'CURRENCYCODE',
@@ -379,92 +379,92 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				'AVSRESULT',
 				'CVVRESULT',
 				'STATUSID',
-			),
-		);
+			],
+		];
 
-		$this->transactions['CANCEL_PAYMENT'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['CANCEL_PAYMENT'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'ORDERID',
 							'EFFORTID',
 							'ATTEMPTID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'CANCEL_PAYMENT',
 				'VERSION' => '1.0'
-			),
-		);
+			],
+		];
 
-		$this->transactions['SET_PAYMENT'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['SET_PAYMENT'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'ORDERID',
 							'EFFORTID',
 							'PAYMENTPRODUCTID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'SET_PAYMENT',
 				'VERSION' => '1.0'
-			),
-		);
+			],
+		];
 
-		$this->transactions['DO_FINISHPAYMENT'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['DO_FINISHPAYMENT'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION'
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'ORDERID',
 							'EFFORTID',
 							'ATTEMPTID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'DO_FINISHPAYMENT',
 				'VERSION' => '1.0',
-			),
-		);
+			],
+		];
 
-		$this->transactions['DO_PAYMENT'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['DO_PAYMENT'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION',
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'MERCHANTREFERENCE',
 							'ORDERID',
 							'EFFORTID',
@@ -473,89 +473,89 @@ class GlobalCollectAdapter extends GatewayAdapter {
 							'CURRENCYCODE',
 							'HOSTEDINDICATOR',
 							'AUTHENTICATIONINDICATOR',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'DO_PAYMENT',
 				'VERSION' => '1.0',
 				'HOSTEDINDICATOR' => '0',
 				'AUTHENTICATIONINDICATOR' => '0',
-			),
-		);
+			],
+		];
 
 		// Cancel a recurring transaction if all payment attempts can be canceled
-		$this->transactions['CANCEL_ORDER'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['CANCEL_ORDER'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION',
-					),
-					'PARAMS' => array(
-						'ORDER' => array(
+					],
+					'PARAMS' => [
+						'ORDER' => [
 							'ORDERID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'CANCEL_ORDER',
 				'VERSION' => '1.0',
-			),
-		);
+			],
+		];
 
 		// End a recurring transaction, disallowing further payment attempts
-		$this->transactions['END_ORDER'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['END_ORDER'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION',
-					),
-					'PARAMS' => array(
-						'ORDER' => array(
+					],
+					'PARAMS' => [
+						'ORDER' => [
 							'ORDERID',
-						),
-					)
-				)
-			),
-			'values' => array(
+						],
+					]
+				]
+			],
+			'values' => [
 				'ACTION' => 'END_ORDER',
 				'VERSION' => '1.0',
-			),
-		);
+			],
+		];
 
 		// Convert an old-style recurring payment to a profile for Connect
-		$this->transactions['CONVERT_PAYMENTTOPROFILE'] = array(
-			'request' => array(
-				'REQUEST' => array(
+		$this->transactions['CONVERT_PAYMENTTOPROFILE'] = [
+			'request' => [
+				'REQUEST' => [
 					'ACTION',
-					'META' => array(
+					'META' => [
 						'MERCHANTID',
 						'IPADDRESS',
 						'VERSION',
-					),
-					'PARAMS' => array(
-						'PAYMENT' => array(
+					],
+					'PARAMS' => [
+						'PAYMENT' => [
 							'ORDERID',
-						),
-					)
-				)
-			),
-			'response' => array(
+						],
+					]
+				]
+			],
+			'response' => [
 				'PROFILETOKEN',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'ACTION' => 'CONVERT_PAYMENTTOPROFILE',
 				'VERSION' => '2.0',
-			),
-		);
+			],
+		];
 	}
 
 	function getBasedir() {
@@ -570,9 +570,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				and !$this->getPaymentSubmethod() ) {
 			// Synthesize a submethod based on the country.
 			$country_code = strtolower( $this->getData_Unstaged_Escaped( 'country' ) );
-			$this->addRequestData( array(
+			$this->addRequestData( [
 				'payment_submethod' => "dd_{$country_code}",
-			) );
+			] );
 		}
 
 		// Execute the proper transaction code:
@@ -664,12 +664,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 
 		// problem['flag'] will get set to true if we can't continue and need to give up and just log the hell out of it.
-		$problem = array(
+		$problem = [
 			'flag' => false,
 			'message' => '', // to be used in conjunction with the flag 'problem'.
 			'severity' => LogLevel::ERROR, // to route the message to the appropriate log. Urf.
-			'errors' => array()
-		);
+			'errors' => []
+		];
 		// FIXME: This feels like it's moving towards an object, but I'm not sure it's worth creating one for such a small use case
 
 		$status_result = $this->getOrderStatusFromProcessor();
@@ -771,12 +771,12 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 	protected function cancelCreditCardPayment() {
 		$this->finalizeInternalStatus( FinalStatus::FAILED );
-		return array( 'flag' => 'true', 'message' => 'Cancelling payment', 'severity' => LogLevel::INFO, 'errors' => array( '1000001' => 'Cancelling payment' ) );
+		return [ 'flag' => 'true', 'message' => 'Cancelling payment', 'severity' => LogLevel::INFO, 'errors' => [ '1000001' => 'Cancelling payment' ] ];
 	}
 
 	protected function handleCreditCardProblem( $problem ) {
 		if ( !count( $problem['errors'] ) ) {
-			$problem['errors'] = array( '1000000' => 'Transaction could not be processed due to an internal error.' );
+			$problem['errors'] = [ '1000000' => 'Transaction could not be processed due to an internal error.' ];
 		}
 		// we have probably had a communication problem that could mean stranded payments.
 		$this->logger->log( $problem['severity'], $problem['message'] );
@@ -1029,7 +1029,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return array
 	 */
 	public function parseResponseErrors( $response ) {
-		$errors = array();
+		$errors = [];
 		foreach ( $response->getElementsByTagName( 'ERROR' ) as $node ) {
 			$code = '';
 			$debugInfo = '';
@@ -1068,7 +1068,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return array
 	 */
 	public function parseResponseData( $response ) {
-		$data = array();
+		$data = [];
 
 		$transaction = $this->getCurrentTransaction();
 
@@ -1083,7 +1083,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					$this->logger->info( "inside " . $data['ORDERID'] );
 					$this->normalizeOrderID( $data['ORDERID'] );
 					$this->logger->info( print_r( $this->getOrderIDMeta(), true ) );
-					$this->addRequestData( array( 'order_id' => $data['ORDERID'] ) );
+					$this->addRequestData( [ 'order_id' => $data['ORDERID'] ] );
 					$this->logger->info( print_r( $this->getOrderIDMeta(), true ) );
 					$this->session_addDonorData();
 				}
@@ -1105,7 +1105,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case 'DO_BANKVALIDATION':
 				$data = $this->xmlChildrenToArray( $response, 'RESPONSE' );
 				unset( $data['META'] );
-				$data['errors'] = array();
+				$data['errors'] = [];
 				$data['CHECKSPERFORMED'] = $this->xmlGetChecks( $response );
 				$data['VALIDATIONID'] = $this->xmlChildrenToArray( $response, 'VALIDATIONID' );
 
@@ -1145,9 +1145,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return array
 	 */
 	protected function xmlGetChecks( $response ) {
-		$data = array(
-			'CHECKS' => array(),
-		);
+		$data = [
+			'CHECKS' => [],
+		];
 
 		$checks = $response->getElementsByTagName( 'CHECK' );
 
@@ -1324,7 +1324,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$this->setGatewayTransactionId();
 
 		$retErrCode = null;
-		$retryVars = array();
+		$retryVars = [];
 
 		// We are also curious to know if there were any recoverable errors
 		foreach ( $errors as $errObj ) {
@@ -1406,10 +1406,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 					// Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
 					// The only way to tell is to search the English message.
 					// @TODO: Refactor all 3rd party error handling for GC. This whole switch should definitely be in parseResponseErrors; It is very silly that this is here at all.
-					$not_errors = array( // add more of these stupid things here, if log noise makes you want to
+					$not_errors = [ // add more of these stupid things here, if log noise makes you want to
 						'/NULL VALUE NOT ALLOWED FOR EXPIRYDATE/',
 						'/DID NOT PASS THE LUHNCHECK/',
-					);
+					];
 					foreach ( $not_errors as $regex ) {
 						if ( preg_match( $regex, $messageFromProcessor ) ) {
 							// not a system error, but definitely the end of the payment attempt. Log it to info and leave.
@@ -1470,7 +1470,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return array
 	 */
 	public function getAvailableLanguages() {
-		$languages = array(
+		$languages = [
 			'ar', // Arabic
 			'cs', // Czech
 			'da', // Danish
@@ -1500,7 +1500,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'ur', // Urdu
 			'vi', // Vietnamese
 			'zh', // the REAL chinese code.
-		);
+		];
 		return $languages;
 	}
 
@@ -1646,7 +1646,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function post_process_get_orderstatus() {
 		// Run antifraud only once per request.
-		static $checked = array();
+		static $checked = [];
 
 		$oid = $this->getData_Unstaged_Escaped( 'order_id' );
 		$method = $this->getData_Unstaged_Escaped( 'payment_method' );

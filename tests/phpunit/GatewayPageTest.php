@@ -36,39 +36,39 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		$this->page = new TestingGatewayPage();
 		// put these here so tests can override them
-		TestingGenericAdapter::$fakeGlobals = array( 'FallbackCurrency' => 'USD' );
+		TestingGenericAdapter::$fakeGlobals = [ 'FallbackCurrency' => 'USD' ];
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 		TestingGenericAdapter::$fakeIdentifier = 'globalcollect';
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgPaypalGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => array(
-				'paypal' => array(
+			'wgDonationInterfaceAllowedHtmlForms' => [
+				'paypal' => [
 					'gateway' => 'paypal',
-					'payment_methods' => array( 'paypal' => 'ALL' ),
-				),
-			),
-		) );
+					'payment_methods' => [ 'paypal' => 'ALL' ],
+				],
+			],
+		] );
 		parent::setUp();
 	}
 
-	protected function setUpAdapter( $extra = array() ) {
+	protected function setUpAdapter( $extra = [] ) {
 		$externalData = array_merge(
-			array(
+			[
 				'amount' => '200',
 				'currency' => 'BBD',
 				'contribution_tracking_id' => mt_rand( 10000, 10000000 ),
-			),
+			],
 			$extra
 		);
-		$this->adapter = new TestingGenericAdapter( array(
+		$this->adapter = new TestingGenericAdapter( [
 			'external_data' => $externalData,
-		) );
+		] );
 		$this->page->adapter = $this->adapter;
 	}
 
 	public function tearDown() {
-		TestingGenericAdapter::$acceptedCurrencies = array();
-		TestingGenericAdapter::$fakeGlobals = array();
+		TestingGenericAdapter::$acceptedCurrencies = [];
+		TestingGenericAdapter::$fakeGlobals = [];
 		TestingGenericAdapter::$fakeIdentifier = false;
 		parent::tearDown();
 	}
@@ -114,7 +114,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 	public function testCurrencyFallbackAlwaysNotifiesIfOtherErrors() {
 		TestingGenericAdapter::$fakeGlobals['NotifyOnConvert'] = false;
-		$this->setUpAdapter( array( 'email' => 'notanemail' ) );
+		$this->setUpAdapter( [ 'email' => 'notanemail' ] );
 
 		$errors = $this->adapter->getErrorState()->getErrors();
 		$msgKey = 'donate_interface-fallback-currency-notice';
@@ -142,14 +142,14 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 	public function testCurrencyFallbackByCountry() {
 		// With 'FallbackCurrencyByCountry', we need to return a single supported currency
-		TestingGenericAdapter::$acceptedCurrencies = array( 'USD' );
-		TestingGenericAdapter::$fakeGlobals = array(
+		TestingGenericAdapter::$acceptedCurrencies = [ 'USD' ];
+		TestingGenericAdapter::$fakeGlobals = [
 			'FallbackCurrency' => false,
 			'FallbackCurrencyByCountry' => true,
-		);
-		$extra = array(
+		];
+		$extra = [
 			'country' => 'US',
-		);
+		];
 		$this->setUpAdapter( $extra );
 
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
@@ -162,15 +162,15 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	 */
 	function testLogDetailsOnRedirect() {
 		$init = $this->getDonorTestData();
-		$session = array( 'Donor' => $init );
+		$session = [ 'Donor' => $init ];
 
-		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, array(), false, $session );
+		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, [], false, $session );
 
 		$logged = self::getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );
 		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
-		$expected = array(
+		$expected = [
 			'currency' => 'USD',
 			'payment_submethod' => '',
 			'first_name' => 'Firstname',
@@ -192,7 +192,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 			'city' => 'San Francisco',
 			'state_province' => 'CA',
 			'postal_code' => '94105',
-		);
+		];
 		$actual = json_decode( $detailString, true );
 		// TODO: when tests use PHPUnit 4.4
 		// $this->assertArraySubset( $expected, $actual, false, 'Logged the wrong stuff' );

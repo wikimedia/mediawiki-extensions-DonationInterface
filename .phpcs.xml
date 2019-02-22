@@ -5,7 +5,6 @@
                 <exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
                 <exclude name="Squiz.Scope.MemberVarScope.Missing" />
                 <exclude name="Squiz.Scope.MethodScope.Missing" />
-                <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found" />
                 <exclude name="Generic.Files.LineLength.TooLong" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />

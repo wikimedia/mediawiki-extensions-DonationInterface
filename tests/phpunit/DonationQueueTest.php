@@ -35,7 +35,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 
 		$this->queue_name = 'test';
 
-		$this->transaction = array(
+		$this->transaction = [
 			'gross' => '1.24',
 			'fee' => '0',
 			'city' => 'Dunburger',
@@ -59,9 +59,9 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'user_ip' => '127.0.0.1',
 			'utm_source' => 'testing',
 			'postal_code' => '12345',
-		);
+		];
 
-		$this->expected_message = array(
+		$this->expected_message = [
 			'contribution_tracking_id' => $this->transaction['contribution_tracking_id'],
 			'utm_source' => 'testing',
 			'language' => 'en',
@@ -90,7 +90,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 			'source_run_id' => getmypid(),
 			'source_type' => 'payments',
 			'source_version' => Context::get()->getSourceRevision(),
-		);
+		];
 	}
 
 	public function testPushMessage() {

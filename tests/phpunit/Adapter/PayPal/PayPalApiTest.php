@@ -19,16 +19,16 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$ctx->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
 			'paypal', $ctx->getGlobalConfiguration()
 		);
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,
 			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
-		) );
+		] );
 	}
 
 	public function testGoodSubmit() {
 		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
-		$init = array(
+		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
 			'payment_method' => 'paypal',
@@ -36,7 +36,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'utm_medium' => 'sitenotice',
 			'country' => 'US',
 			'language' => 'fr',
-		);
+		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
@@ -50,7 +50,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'country' => 'US',
 			'fee' => 0,
 			'gateway' => 'paypal_ec',
@@ -67,7 +67,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'payment_submethod' => '',
 			'gateway_session_id' => 'EC-8US12345X1234567U',
 			'user_ip' => '127.0.0.1',
-		);
+		];
 		// FIXME: want to assert stuff about countribution_tracking_id, but we
 		// have no way of overriding that for API tests
 		$this->assertArraySubset(
@@ -88,7 +88,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testTooSmallDonation() {
-		$init = array(
+		$init = [
 			'amount' => 0.75,
 			'currency' => 'USD',
 			'payment_method' => 'paypal',
@@ -96,7 +96,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'utm_medium' => 'sitenotice',
 			'country' => 'US',
 			'language' => 'fr',
-		);
+		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
@@ -114,7 +114,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 
 	public function testGoodRecurringSubmit() {
 		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
-		$init = array(
+		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
 			'payment_method' => 'paypal',
@@ -124,7 +124,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'recurring' => '1',
 			'contribution_tracking_id' => strval( mt_rand() ),
 			'language' => 'fr',
-		);
+		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
@@ -139,7 +139,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
-		$expected = array(
+		$expected = [
 			'country' => 'US',
 			'fee' => 0,
 			'gateway' => 'paypal_ec',
@@ -156,7 +156,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'payment_submethod' => '',
 			'gateway_session_id' => 'EC-8US12345X1234567U',
 			'user_ip' => '127.0.0.1',
-		);
+		];
 		// FIXME: want to assert stuff about countribution_tracking_id, but we
 		// have no way of overriding that for API tests
 		$this->assertArraySubset(

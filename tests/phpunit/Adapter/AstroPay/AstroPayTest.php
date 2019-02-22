@@ -38,16 +38,16 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingAstroPayAdapter::class;
 	}
 
 	function setUp() {
 		parent::setUp();
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgAstroPayGatewayEnabled' => true,
-		) );
+		] );
 		TestingContext::get()->providerConfigurationOverride =
 			TestingProviderConfiguration::createForProvider(
 				'astropay',
@@ -87,7 +87,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'NewInvoice' );
 		parse_str( $gateway->curled[0], $actual );
 
-		$expected = array(
+		$expected = [
 			'x_login' => 'createlogin',
 			'x_trans_key' => 'createpass',
 			'x_invoice' => '123456789',
@@ -106,7 +106,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			// 'x_state' => 'SP',
 			'control' => 'AC43664E0C4DF30607A26F271C8998BC4EE26511366E65AFB69B96E89BFD4359',
 			'type' => 'json',
-		);
+		];
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
 	}
 
@@ -319,7 +319,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'PaymentStatus' );
 
 		// from the test response
-		$expected = array(
+		$expected = [
 			'result' => '9',
 			'x_amount' => '100.00',
 			'x_iduser' => '08feb2d12771bbcfeb86',
@@ -331,7 +331,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_payment_type' => '03',
 			'x_bank_name' => 'GNB',
 			'x_currency' => 'BRL',
-		);
+		];
 		$results = $gateway->getTransactionData();
 		$this->assertEquals( $expected, $results,
 			'PaymentStatus response not interpreted correctly' );
@@ -366,7 +366,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		$requestValues = array(
+		$requestValues = [
 			'result' => '9',
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -375,7 +375,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_document' => '32869',
 			'x_iduser' => '08feb2d12771bbcfeb86',
 			'x_invoice' => '123456789',
-		);
+		];
 
 		$result = $gateway->processDonorReturn( $requestValues );
 		$this->assertFalse( $result->isFailed() );
@@ -397,7 +397,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$this->assertEquals( '22.55', $amount );
 
-		$requestValues = array(
+		$requestValues = [
 			'result' => '9',
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -406,7 +406,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_document' => '32869',
 			'x_iduser' => '08feb2d12771bbcfeb86',
 			'x_invoice' => '123456789',
-		);
+		];
 
 		$result = $gateway->processDonorReturn( $requestValues );
 		$this->assertFalse( $result->isFailed() );
@@ -423,7 +423,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->setUpRequest( $init, $session );
 		$gateway = new TestingAstroPayAdapter();
 
-		$requestValues = array(
+		$requestValues = [
 			'result' => '8', // rejected by bank
 			'x_amount' => '100.00',
 			'x_amount_usd' => '42.05',
@@ -432,7 +432,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_document' => '32869',
 			'x_iduser' => '08feb2d12771bbcfeb86',
 			'x_invoice' => '123456789',
-		);
+		];
 
 		$result = $gateway->processDonorReturn( $requestValues );
 		$this->assertTrue( $result->isFailed() );
@@ -475,17 +475,17 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
 		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
 		SourceFields::removeFromMessage( $message );
-		$expected = array(
+		$expected = [
 			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 60,
-			'score_breakdown' => array(
+			'score_breakdown' => [
 				'initial' => 0,
 				'getScoreUtmCampaignMap' => 0,
 				'getScoreCountryMap' => 0,
 				'getScoreUtmSourceMap' => 10.5,
 				'getScoreUtmMediumMap' => 12,
 				'getScoreEmailDomainMap' => 37.5,
-			),
+			],
 			'user_ip' => '127.0.0.1',
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
@@ -494,7 +494,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
-		);
+		];
 		$this->assertEquals( $expected, $message );
 	}
 

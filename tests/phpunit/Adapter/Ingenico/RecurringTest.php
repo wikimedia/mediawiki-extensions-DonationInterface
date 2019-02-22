@@ -43,16 +43,16 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )
 			->with( $this->callback( function ( $arg ) {
-				$this->assertArraySubset( array(
-					'cardPaymentMethodSpecificInput' => array(
+				$this->assertArraySubset( [
+					'cardPaymentMethodSpecificInput' => [
 						'tokenize' => true,
 						'recurringPaymentSequenceIndicator' => 'first',
 						'skipAuthentication' => true,
-					),
-					'hostedCheckoutSpecificInput' => array(
+					],
+					'hostedCheckoutSpecificInput' => [
 						'returnCancelState' => true,
-					)
-				), $arg );
+					]
+				], $arg );
 				return true;
 			} ) )
 			->willReturn( $this->hostedCheckoutCreateResponse );
@@ -78,11 +78,11 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 			->willReturn( $statusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'M',
 			'avsResult' => '0'
-		) );
+		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertEmpty( $result->getErrors() );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
@@ -101,13 +101,13 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 */
 	public function testRecurringCharge() {
 		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-OK' );
@@ -125,13 +125,13 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 */
 	public function testDeclinedRecurringCharge() {
 		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-declined' );
@@ -158,13 +158,13 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 */
 	public function testRecurringTimeout() {
 		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-timeout' );
@@ -184,13 +184,13 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 */
 	public function testRecurringResume() {
 		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = array(
+		$init = [
 			'amount' => '2345',
 			'effort_id' => 2,
 			'order_id' => '9998890004',
 			'currency' => 'EUR',
 			'payment_product' => '',
-		);
+		];
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway::setDummyGatewayResponseCode( 'recurring-resume' );

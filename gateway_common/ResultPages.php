@@ -10,7 +10,7 @@ class ResultPages {
 	 * @param array $extraParams any extra parameters to add to the URL
 	 * @return string full URL of the thank you page
 	 */
-	public static function getThankYouPage( GatewayType $adapter, $extraParams = array() ) {
+	public static function getThankYouPage( GatewayType $adapter, $extraParams = [] ) {
 		$page = $adapter::getGlobal( "ThankYouPage" );
 		if ( $page ) {
 			$page = self::appendLanguageAndMakeURL(
@@ -49,11 +49,11 @@ class ResultPages {
 		return self::getFailPageFromParams(
 			false, // Can't render RapidFail form without an instance
 			$adapterType::getGlobal( 'FailPage' ),
-			array(
+			[
 				'gateway' => $adapterType::getIdentifier(),
 				'payment_method' => '',
 				'payment_submethod' => '',
-			),
+			],
 			DonationLoggerFactory::getLoggerForType( $adapterType, $logPrefix )
 		);
 	}
@@ -95,7 +95,7 @@ class ResultPages {
 		// or update the content on payments to be consistent with the /lang
 		// format of ThankYou pages so we can use appendLanguageAndMakeURL here.
 		$failTitle = Title::newFromText( $failPage );
-		$url = wfAppendQuery( $failTitle->getFullURL(), array( 'uselang' => $language ) );
+		$url = wfAppendQuery( $failTitle->getFullURL(), [ 'uselang' => $language ] );
 
 		return $url;
 	}

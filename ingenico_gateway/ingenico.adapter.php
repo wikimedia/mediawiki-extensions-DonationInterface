@@ -22,53 +22,53 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	 * Setting some Ingenico-specific defaults.
 	 * @param array $options These get extracted in the parent.
 	 */
-	function setGatewayDefaults( $options = array() ) {
+	function setGatewayDefaults( $options = [] ) {
 		if ( isset( $options['returnTo'] ) ) {
 			$returnTo = $options['returnTo'];
 		} else {
 			$returnTo = Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
 		}
 
-		$defaults = array(
+		$defaults = [
 			'returnto' => $returnTo,
 			'attempt_id' => '1',
 			'effort_id' => '1',
-		);
+		];
 
 		$this->addRequestData( $defaults );
 	}
 
 	public function defineTransactions() {
 		parent::defineTransactions();
-		$this->transactions['createHostedCheckout'] = array(
-			'request' => array(
-				'cardPaymentMethodSpecificInput' => array(
+		$this->transactions['createHostedCheckout'] = [
+			'request' => [
+				'cardPaymentMethodSpecificInput' => [
 					'skipAuthentication'
-				),
-				'hostedCheckoutSpecificInput' => array(
+				],
+				'hostedCheckoutSpecificInput' => [
 					'isRecurring',
 					'locale',
 					'returnCancelState',
-					'paymentProductFilters' => array(
-						'restrictTo' => array(
+					'paymentProductFilters' => [
+						'restrictTo' => [
 							'groups',
-						)
-					),
+						]
+					],
 					'returnUrl',
 					'showResultPage',
 					// 'tokens', // we don't store user accounts or tokens here
 					// 'variant', // For a/b testing of iframe
-				),
-				'fraudFields' => array(
+				],
+				'fraudFields' => [
 					'customerIpAddress',
-				),
-				'order' => array(
-					'amountOfMoney' => array(
+				],
+				'order' => [
+					'amountOfMoney' => [
 						'amount',
 						'currencyCode',
-					),
-					'customer' => array(
-						'billingAddress' => array(
+					],
+					'customer' => [
+						'billingAddress' => [
 							'city',
 							'countryCode',
 							// 'houseNumber' // hmm, hope this isn't used for fraud detection!
@@ -76,96 +76,96 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 							// 'stateCode', // should we use this instead?
 							'street',
 							'zip',
-						),
-						'contactDetails' => array(
+						],
+						'contactDetails' => [
 							'emailAddress'
-						),
+						],
 						// 'fiscalNumber' // only required for boletos & Brazil paypal
 						'locale', // used for redirection to 3rd parties
-						'personalInformation' => array(
-							'name' => array(
+						'personalInformation' => [
+							'name' => [
 								'firstName',
 								'surname',
-							)
-						)
-					),
-					/*'items' => array(
-						array(
-							'amountOfMoney' => array(
+							]
+						]
+					],
+					/*'items' => [
+						[
+							'amountOfMoney' => [
 								'amount',
 								'currencyCode',
-							),
-							'invoiceData' => array(
+							],
+							'invoiceData' => [
 								'description'
-							)
-						)
-					),*/
-					'references' => array(
+							]
+						]
+					],*/
+					'references' => [
 						'descriptor', // First 22+ chars appear on card statement
 						'merchantReference', // unique, string(30)
-					)
-				)
-			),
-			'values' => array(
+					]
+				]
+			],
+			'values' => [
 				'showResultPage' => 'false',
 				'returnCancelState' => 'true',
 				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'groups' => array(
+				'groups' => [
 					'cards',
-				)
-			),
-			'response' => array(
+				]
+			],
+			'response' => [
 				'hostedCheckoutId'
-			)
-		);
+			]
+		];
 
-		$this->transactions['getHostedPaymentStatus'] = array(
-			'request' => array( 'hostedCheckoutId' ),
-			'response' => array(
+		$this->transactions['getHostedPaymentStatus'] = [
+			'request' => [ 'hostedCheckoutId' ],
+			'response' => [
 				'id',
 				'amount',
 				'currencyCode',
 				'avsResult',
 				'cvvResult',
 				'statusCode',
-			)
-		);
+			]
+		];
 
-		$this->transactions['getPaymentStatus'] = array(
-			'request' => array( 'id' ),
-			'response' => array(
+		$this->transactions['getPaymentStatus'] = [
+			'request' => [ 'id' ],
+			'response' => [
 				'amount',
 				'currencyCode',
 				'avsResult',
 				'cvvResult',
 				'statusCode',
-			)
-		);
+			]
+		];
 
-		$this->transactions['approvePayment'] = array(
-			'request' => array( 'id' ),
-			'response' => array( 'statusCode' )
-		);
+		$this->transactions['approvePayment'] = [
+			'request' => [ 'id' ],
+			'response' => [ 'statusCode' ]
+		];
 
-		$this->transactions['cancelPayment'] = array(
-			'request' => array( 'id' ),
-			'response' => array( 'statusCode' )
-		);
+		$this->transactions['cancelPayment'] = [
+			'request' => [ 'id' ],
+			'response' => [ 'statusCode' ]
+		];
 	}
 
 	/**
 	 * Sets up the $order_id_meta array.
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'alt_locations' => [ $dataset_name, $dataset_key ] //ordered
 	 * 'type' => numeric, or alphanumeric
 	 * 'length' => $max_charlen
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array(
-			'alt_locations' => array(),
+		$this->order_id_meta = [
+			'alt_locations' => [],
 			'ct_id' => true,
 			'generate' => true,
-		);
+		];
 	}
 
 	/**
@@ -241,10 +241,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
 					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],
-					array(
+					[
 						'tokenize',
 						'recurringPaymentSequenceIndicator'
-					)
+					]
 				);
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
@@ -267,7 +267,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function parseResponseErrors( $response ) {
-		$errors = array();
+		$errors = [];
 		if ( !empty( $response['errors'] ) ) {
 			foreach ( $response['errors'] as $error ) {
 				$errors[] = new PaymentError(
@@ -285,7 +285,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		// FIXME: This should probably happen in the SmashPig library where
 		// we can flatten in a custom way per transaction type. Or we should
 		// expand var_map to work with nested stuff.
-		$flattened = array();
+		$flattened = [];
 		$squashMe = function ( $sourceData, $squashMe ) use ( &$flattened ) {
 			foreach ( $sourceData as $key => $value ) {
 				if ( is_array( $value ) ) {

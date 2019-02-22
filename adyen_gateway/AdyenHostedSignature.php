@@ -23,13 +23,13 @@ class AdyenHostedSignature implements StagingHelper {
 	 * @return string
 	 */
 	public static function calculateSignature( GatewayType $adapter, $values ) {
-		$ignoredKeys = array(
+		$ignoredKeys = [
 			'sig',
 			'merchantSig',
 			'title',
 			'liberated',
 			'debug',
-		);
+		];
 
 		foreach ( array_keys( $values ) as $key ) {
 			if (

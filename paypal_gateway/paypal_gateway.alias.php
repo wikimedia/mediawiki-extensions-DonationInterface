@@ -2,14 +2,14 @@
 
 // TODO: Isn't this deprecated yet?
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'PaypalExpressGateway' => array( 'PaypalExpressGateway' ),
-	'PaypalExpressGatewayResult' => array( 'PaypalExpressGatewayResult' ),
-	'PaypalLegacyGateway' => array(
+$specialPageAliases['en'] = [
+	'PaypalExpressGateway' => [ 'PaypalExpressGateway' ],
+	'PaypalExpressGatewayResult' => [ 'PaypalExpressGatewayResult' ],
+	'PaypalLegacyGateway' => [
 		'PaypalLegacyGateway',
 		'PaypalGateway', // deprecated
-	),
-);
+	],
+];

@@ -28,7 +28,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
 
@@ -38,28 +38,28 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableFormChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
-		) );
+		] );
 	}
 
 	function testGetOneValidForm_CC_SpecificCountry() {
-		$tests = array(
-			0 => array(
+		$tests = [
+			0 => [
 				'country' => 'US',
 				'payment_method' => 'cc',
 				'currency' => 'USD',
 				'expected' => 'cc-vmad'
-			),
-			1 => array(
+			],
+			1 => [
 				'country' => 'DK',
 				'payment_method' => 'cc',
 				'currency' => 'DKK',
 				'expected' => 'cc-vma'
-			),
-		);
+			],
+		];
 
 		foreach ( $tests as $testno => $data ) {
 			$form = GatewayFormChooser::getOneValidForm( $data['country'], $data['currency'], $data['payment_method'] );
@@ -68,19 +68,19 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	}
 
 	function testMaintenanceMode_Redirect() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgContributionTrackingFundraiserMaintenance' => true,
-		) );
+		] );
 
 		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL( '', false, PROTO_CURRENT );
-		$assertNodes = array(
-			'headers' => array(
+		$assertNodes = [
+			'headers' => [
 				'Location' => $expectedLocation
-			),
-		);
-		$initial = array(
+			],
+		];
+		$initial = [
 			'language' => 'en'
-		);
+		];
 		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
 	}
 
@@ -89,21 +89,21 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	 * over paymentmethod, etc.
 	 */
 	function testPreferCanonicalParams() {
-		$assertNodes = array(
-			'headers' => array(
+		$assertNodes = [
+			'headers' => [
 				'Location' => function ( $val ) {
-					$qs = array();
+					$qs = [];
 					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
 					$this->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
 				}
-			),
-		);
-		$initial = array(
+			],
+		];
+		$initial = [
 			'language' => 'en',
 			'payment_method' => 'paypal',
 			'paymentmethod' => 'amazon',
 			'country' => 'US',
-		);
+		];
 		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
 	}
 

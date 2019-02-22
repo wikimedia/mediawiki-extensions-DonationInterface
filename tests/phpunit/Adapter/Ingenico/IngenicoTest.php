@@ -38,7 +38,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		unset( $init['order_id'] );
 
 		// no order_id from anywhere, explicit generate
-		$gateway = $this->getFreshGatewayObject( $init, array( 'order_id_meta' => array( 'generate' => true ) ) );
+		$gateway = $this->getFreshGatewayObject( $init, [ 'order_id_meta' => [ 'generate' => true ] ] );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is null. The rest of this test is broken.' );
 		$original_order_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
 
@@ -133,53 +133,53 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( array( 'cvvResult' => 'M' ) );
+		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn(
-				array(
-					"createdPaymentOutput" => array(
-						"payment" => array(
+				[
+					"createdPaymentOutput" => [
+						"payment" => [
 							"id" => "000000891566072501680000200001",
-							"paymentOutput" => array(
-								"amountOfMoney" => array(
+							"paymentOutput" => [
+								"amountOfMoney" => [
 									"amount" => 2345,
 									"currencyCode" => "USD"
-								),
-								"references" => array(
+								],
+								"references" => [
 									"paymentReference" => "0"
-								),
+								],
 								"paymentMethod" => "card",
-								"cardPaymentMethodSpecificOutput" => array(
+								"cardPaymentMethodSpecificOutput" => [
 									"paymentProductId" => 1,
 									"authorisationCode" => "123456",
-									"card" => array(
+									"card" => [
 										"cardNumber" => "************7977",
 										"expiryDate" => "1220"
-									),
-									"fraudResults" => array(
+									],
+									"fraudResults" => [
 										"fraudServiceResult" => "no-advice"
-									)
-								)
-							),
+									]
+								]
+							],
 							"status" => "APPROVED",
-							"statusOutput" => array(
+							"statusOutput" => [
 								"isCancellable" => true,
 								"statusCode" => 25,
 								"statusCodeChangeDateTime" => "20140717145840",
 								"isAuthorized" => true
-							)
-						),
-						"paymentCreationReferences" => array(
+							]
+						],
+						"paymentCreationReferences" => [
 							"additionalReference" => "00000089156607250168",
 							"externalReference" => "000000891566072501680000200001"
-						),
+						],
 						"tokens" => ""
-					),
+					],
 					"status" => "PAYMENT_APPROVED"
-				)
+				]
 
 			);
 
@@ -197,19 +197,19 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( array( 'cvvResult' => 'M' ) );
+		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn(
-				array(
+				[
 					"status" => "IN_PROGRESS",
-				)
+				]
 			);
 
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
-		$this->assertArrayEquals( array(), $result->getErrors(),
+		$this->assertArrayEquals( [], $result->getErrors(),
 			'In Progress status should return no errors' );
 	}
 
@@ -225,9 +225,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn(
-				array(
+				[
 					"status" => "CANCELLED_BY_CONSUMER",
-				)
+				]
 			);
 
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
@@ -244,13 +244,13 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * fraud scores.
 	 */
 	function testGetHostedPaymentStatusPostProcessFraud() {
-		$this->setMwGlobals( array(
+		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
-			'wgIngenicoGatewayCustomFiltersFunctions' => array(
+			'wgIngenicoGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 30,
-			),
-		) );
+			],
+		] );
 
 		$init = $this->getDonorTestData();
 		$init['ffname'] = 'cc-vmad';
@@ -263,49 +263,49 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn(
-				array(
-					"createdPaymentOutput" => array(
-						"payment" => array(
+				[
+					"createdPaymentOutput" => [
+						"payment" => [
 							"id" => "000000891566072501680000200001",
-							"paymentOutput" => array(
-								"amountOfMoney" => array(
+							"paymentOutput" => [
+								"amountOfMoney" => [
 									"amount" => 2345,
 									"currencyCode" => "USD"
-								),
-								"references" => array(
+								],
+								"references" => [
 									"paymentReference" => "0"
-								),
+								],
 								"paymentMethod" => "card",
-								"cardPaymentMethodSpecificOutput" => array(
+								"cardPaymentMethodSpecificOutput" => [
 									"paymentProductId" => 1,
 									"authorisationCode" => "123456",
-									"card" => array(
+									"card" => [
 										"cardNumber" => "************7977",
 										"expiryDate" => "1220"
-									),
-									"fraudResults" => array(
+									],
+									"fraudResults" => [
 										"avsResult" => "E",
 										"cvvResult" => "N",
 										"fraudServiceResult" => "no-advice"
-									)
-								)
-							),
+									]
+								]
+							],
 							"status" => "PENDING_APPROVAL",
-							"statusOutput" => array(
+							"statusOutput" => [
 								"isCancellable" => true,
 								"statusCode" => 600,
 								"statusCodeChangeDateTime" => "20140717145840",
 								"isAuthorized" => true
-							)
-						),
-						"paymentCreationReferences" => array(
+							]
+						],
+						"paymentCreationReferences" => [
 							"additionalReference" => "00000089156607250168",
 							"externalReference" => "000000891566072501680000200001"
-						),
+						],
 						"tokens" => ""
-					),
+					],
 					"status" => "PAYMENT_CREATED"
-				)
+				]
 
 			);
 
@@ -329,41 +329,41 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'approvePayment' )
 			->willReturn(
-				array(
-					"payment" => array(
+				[
+					"payment" => [
 						"id" => "000000850010000188180000200001",
-						"paymentOutput" => array(
-							"amountOfMoney" => array(
+						"paymentOutput" => [
+							"amountOfMoney" => [
 								"amount" => 2890,
 								"currencyCode" => "EUR"
-							),
-							"references" => array(
+							],
+							"references" => [
 								"paymentReference" => "0"
-							),
+							],
 							"paymentMethod" => "card",
-							"cardPaymentMethodSpecificOutput" => array(
+							"cardPaymentMethodSpecificOutput" => [
 								"paymentProductId" => 1,
 								"authorisationCode" => "123456",
-								"card" => array(
+								"card" => [
 									"cardNumber" => "************7977",
 									"expiryDate" => "1220"
-								),
-								"fraudResults" => array(
+								],
+								"fraudResults" => [
 									"avsResult" => "0",
 									"cvvResult" => "M",
 									"fraudServiceResult" => "no-advice"
-								)
-							)
-						),
+								]
+							]
+						],
 						"status" => "CAPTURE_REQUESTED",
-						"statusOutput" => array(
+						"statusOutput" => [
 							"isCancellable" => false,
 							"statusCode" => 800,
 							"statusCodeChangeDateTime" => "20140627140735",
 							"isAuthorized" => true
-						)
-					)
-				)
+						]
+					]
+				]
 			);
 		$gateway->do_transaction( 'approvePayment' );
 		$data = $gateway->getTransactionData();
@@ -381,44 +381,44 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			->method( 'cancelPayment' )
 			->with( $init['gateway_txn_id'] )
 			->willReturn(
-				array(
-					"payment" => array(
+				[
+					"payment" => [
 						"id" => "000000850010000188180000200001",
-						"paymentOutput" => array(
-							"amountOfMoney" => array(
+						"paymentOutput" => [
+							"amountOfMoney" => [
 								"amount" => 2890,
 								"currencyCode" => "EUR"
-							),
-							"references" => array(
+							],
+							"references" => [
 								"merchantReference" => "merchantReference",
 								"paymentReference" => "0"
-							),
+							],
 							"paymentMethod" => "card",
-							"cardPaymentMethodSpecificOutput" => array(
+							"cardPaymentMethodSpecificOutput" => [
 								"paymentProductId" => 1,
 								"authorisationCode" => "726747",
-								"card" => array(
+								"card" => [
 									"cardNumber" => "************7977",
 									"expiryDate" => "1220"
-								),
-								"fraudResults" => array(
+								],
+								"fraudResults" => [
 									"avsResult" => "0",
 									"cvvResult" => "0",
 									"fraudServiceResult" => "no-advice"
-								)
-							)
-						),
+								]
+							]
+						],
 						"status" => "CANCELLED",
-						"statusOutput" => array(
+						"statusOutput" => [
 							"isCancellable" => false,
 							"statusCode" => 99999,
 							"statusCodeChangeDateTime" => "20150223153431"
-						)
-					),
-					"cardPaymentMethodSpecificOutput" => array(
+						]
+					],
+					"cardPaymentMethodSpecificOutput" => [
 						"voidResponseId" => "0"
-					)
-				)
+					]
+				]
 			);
 		$gateway->do_transaction( 'cancelPayment' );
 		$data = $gateway->getTransactionData();
@@ -452,9 +452,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$ctid = mt_rand();
 
-		$gateway->addResponseData( array(
+		$gateway->addResponseData( [
 			'contribution_tracking_id' => $ctid . '.1',
-		) );
+		] );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		// Desired vars were written into normalized data.
@@ -473,7 +473,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * an exception during the 1st response.
 	 */
 	public function testNoDupeOrderId() {
-		$this->setUpRequest( array(
+		$this->setUpRequest( [
 			'action' => 'donate',
 			'amount' => '3.00',
 			'card_type' => 'amex',
@@ -495,7 +495,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'utm_medium' => 'sitenotice',
 			'utm_source' => 'B14_120921_5C_lg_fnt_sans.no-LP.cc',
 			'postal_code' => '90210'
-		) );
+		] );
 
 		$gateway = new IngenicoAdapter();
 		$calls = [];
@@ -531,17 +531,17 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
+		$gateway = $this->getFreshGatewayObject( [] );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'M',
 			'avsResult' => '0'
-		) );
+		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertEmpty( $result->getErrors() );
 		// TODO inspect the queue message
@@ -555,16 +555,16 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
-		$gateway = $this->getFreshGatewayObject( array() );
+		$gateway = $this->getFreshGatewayObject( [] );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )->willReturn(
 				$this->hostedPaymentStatusResponseBadCvv
 			);
-		$result = $gateway->processDonorReturn( array(
+		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'N',
 			'avsResult' => '0'
-		) );
+		] );
 		$this->assertTrue( $result->isFailed() );
 	}
 
@@ -577,23 +577,23 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$session['Donor'] = $init;
 		$firstRequest = $this->setUpRequest( $init, $session );
 
-		$gateway = $this->getFreshGatewayObject( array() );
+		$gateway = $this->getFreshGatewayObject( [] );
 		$firstCt_id = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->hostedCheckoutProvider->method( 'getHostedPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
 
-		$gateway->processDonorReturn( array(
+		$gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'M',
 			'avsResult' => '0'
-		) );
+		] );
 
 		$resultingSession = $firstRequest->getSessionArray();
 
 		$this->setUpRequest( $init, $resultingSession );
-		$anotherGateway = $this->getFreshGatewayObject( array() );
+		$anotherGateway = $this->getFreshGatewayObject( [] );
 		$secondCt_id = $anotherGateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
 		$this->assertNotEquals( $firstCt_id, $secondCt_id, 'ct_id not cleared.' );
