@@ -289,4 +289,48 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
+
+	/**
+	 * Test that we don't show an email opt-in checkbox for Great Britain if the value
+	 * is given on the querystring
+	 */
+	public function testGCFormLoadGBOptInOnQuery() {
+		$init = $this->getDonorTestData( 'GB' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+		$init['opt_in'] = '1';
+
+		$assertNodes = array(
+			'opt_in_yes' => 'gone',
+			'opt_in_no' => 'gone',
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
+	}
+
+	/**
+	 * Test that we DO show an email opt-in checkbox for Great Britain when the value
+	 * was posted.
+	 */
+	public function testGCFormLoadGBOptInOnPost() {
+		$init = $this->getDonorTestData( 'GB' );
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['ffname'] = 'cc-vmad';
+		$init['opt_in'] = '0';
+
+		$assertNodes = array(
+			'opt_in_yes' => array(
+				'nodename' => 'input',
+			),
+			'opt_in_no' => array(
+				'nodename' => 'input',
+			),
+		);
+
+		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true, null, true );
+	}
 }
