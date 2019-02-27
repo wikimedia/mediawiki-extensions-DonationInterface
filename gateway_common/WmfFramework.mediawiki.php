@@ -23,6 +23,10 @@ class WmfFramework_Mediawiki {
 		return $ret;
 	}
 
+	public static function getQueryValues() {
+		return RequestContext::getMain()->getRequest()->getQueryValues();
+	}
+
 	public static function getRequestHeader( $key ) {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}

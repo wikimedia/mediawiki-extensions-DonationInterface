@@ -547,6 +547,10 @@ abstract class GatewayAdapter
 		}
 	}
 
+	public function getDataSources() {
+		return $this->dataObj->getDataSources();
+	}
+
 	static function getGlobal( $varname ) {
 		// adding another layer of depth here, in case you're working with two gateways in the same request.
 		// That does, in fact, ruin everything. :/
