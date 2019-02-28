@@ -181,6 +181,9 @@
 		},
 		"ext.donationInterface.emailExplain": {
 			"scripts": "modules/js/ext.donationInterface.emailExplain.js",
+			"dependencies": [
+				"ext.donationInterface.forms"
+			],
 			"messages": [
 				"donate_interface-email-explain"
 			]
