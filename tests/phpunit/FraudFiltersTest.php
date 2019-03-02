@@ -16,6 +16,8 @@
  *
  */
 
+use MaxMind\WebService\Http\CurlRequest;
+use MaxMind\WebService\Http\RequestFactory;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\CrmLink\ValidationAction;
@@ -41,11 +43,11 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->requestFactory = $this->getMockBuilder(
-			'\MaxMind\WebService\Http\RequestFactory'
+			RequestFactory::class
 		)->disableOriginalConstructor()->getMock();
 
 		$this->request = $this->getMockBuilder(
-			'MaxMind\WebService\Http\CurlRequest'
+			CurlRequest::class
 		)->disableOriginalConstructor()->getMock();
 
 		$this->requestFactory->method( 'request' )->willReturn(

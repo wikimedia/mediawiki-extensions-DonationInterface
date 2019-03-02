@@ -2,6 +2,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
@@ -31,7 +32,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$ctx->providerConfigurationOverride = $providerConfig;
 
 		$this->hostedCheckoutProvider = $this->getMockBuilder(
-			'SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider'
+			HostedCheckoutProvider::class
 		)->disableOriginalConstructor()->getMock();
 
 		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $this->hostedCheckoutProvider );

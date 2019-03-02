@@ -62,7 +62,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingGlobalCollectOrphanAdapter';
+		$this->testAdapterClass = TestingGlobalCollectOrphanAdapter::class;
 		$this->dummy_utm_data = array(
 			'utm_source' => 'dummy_source',
 			'utm_campaign' => 'dummy_campaign',

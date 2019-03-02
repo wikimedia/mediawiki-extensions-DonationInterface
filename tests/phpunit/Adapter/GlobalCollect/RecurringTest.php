@@ -33,7 +33,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
+		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
 
 	public function setUp() {

@@ -52,7 +52,7 @@ define( 'TESTS_GATEWAY_DEFAULT', 'GlobalCollectGateway' );
  *
  * This is the default adapter that will be used to implement unit tests.
  */
-define( 'TESTS_ADAPTER_DEFAULT', 'TestingGlobalCollectAdapter' );
+define( 'TESTS_ADAPTER_DEFAULT', TestingGlobalCollectAdapter::class );
 
 global $wgDonationInterfaceTest,
 	$wgDonationInterfaceMerchantID,
@@ -99,13 +99,13 @@ global $wgDonationInterfaceTest,
 $wgMainCacheType = 'hash';
 
 $wgDonationInterfaceGatewayAdapters = array(
-	'globalcollect' => 'TestingGlobalCollectAdapter',
-	'ingenico' => 'IngenicoAdapter',
-	'amazon' => 'AmazonAdapter',
-	'adyen' => 'TestingAdyenAdapter',
-	'astropay' => 'TestingAstroPayAdapter',
-	'paypal_ec' => 'TestingPaypalExpressAdapter',
-	'paypal' => 'TestingPaypalLegacyAdapter'
+	'globalcollect' => TestingGlobalCollectAdapter::class,
+	'ingenico' => IngenicoAdapter::class,
+	'amazon' => AmazonAdapter::class,
+	'adyen' => TestingAdyenAdapter::class,
+	'astropay' => TestingAstroPayAdapter::class,
+	'paypal_ec' => TestingPaypalExpressAdapter::class,
+	'paypal' => TestingPaypalLegacyAdapter::class,
 );
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.

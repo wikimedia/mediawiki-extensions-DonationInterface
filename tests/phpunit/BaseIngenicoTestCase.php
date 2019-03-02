@@ -22,14 +22,14 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	 */
 	protected $hostedCheckoutProvider;
 
-	protected $testAdapterClass = 'IngenicoAdapter';
+	protected $testAdapterClass = IngenicoAdapter::class;
 
 	protected function setUp() {
 		parent::setUp();
 		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
 
 		$this->hostedCheckoutProvider = $this->getMockBuilder(
-			'SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider'
+			HostedCheckoutProvider::class
 		)->disableOriginalConstructor()->getMock();
 
 		$providerConfig->overrideObjectInstance(

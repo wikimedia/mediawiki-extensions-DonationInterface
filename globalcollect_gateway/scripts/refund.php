@@ -83,5 +83,5 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'GlobalCollectRefundMaintenance';
+$maintClass = GlobalCollectRefundMaintenance::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

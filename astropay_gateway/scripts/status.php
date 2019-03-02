@@ -44,5 +44,5 @@ class AstroPayStatusQuery extends Maintenance {
 	}
 }
 
-$maintClass = 'AstroPayStatusQuery';
+$maintClass = AstroPayStatusQuery::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

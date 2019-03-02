@@ -51,7 +51,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
+		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
 
 	/**

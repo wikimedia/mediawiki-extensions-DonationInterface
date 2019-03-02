@@ -263,7 +263,7 @@ class AmountTest  extends DonationInterfaceTestCase {
 	}
 
 	public function testFormat() {
-		if ( !class_exists( 'NumberFormatter' ) ) {
+		if ( !class_exists( NumberFormatter::class ) ) {
 			$this->markTestSkipped( 'No NumberFormatter present' );
 		}
 		$validator = new Amount();

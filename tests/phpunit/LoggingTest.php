@@ -38,7 +38,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingGlobalCollectAdapter';
+		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
 
 	/**

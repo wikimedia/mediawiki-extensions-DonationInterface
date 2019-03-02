@@ -28,7 +28,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	protected $gatewayPage;
 
 	public function setUp() {
-		$this->outputPage = $this->getMockBuilder( 'OutputPage' )
+		$this->outputPage = $this->getMockBuilder( OutputPage::class )
 			->disableOriginalConstructor()
 			->setMethods( array( 'parse' ) )
 			->getMock();
