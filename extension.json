@@ -20,7 +20,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
 	"type": "specialpage",
 	"requires": {
-		"MediaWiki": ">= 1.27.0"
+		"MediaWiki": ">= 1.30.0"
 	},
 	"callback": "DonationInterface::registerExtension",
 	"SpecialPages": {
