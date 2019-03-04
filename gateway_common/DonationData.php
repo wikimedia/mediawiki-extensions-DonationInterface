@@ -17,6 +17,7 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  */
 class DonationData implements LogPrefixProvider {
 	protected $normalized = array();
+	protected $dataSources = array();
 	protected $gateway;
 	protected $gatewayID;
 	/**
@@ -137,9 +138,12 @@ class DonationData implements LogPrefixProvider {
 		if ( is_array( $external_data ) ) {
 			// I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
+			$this->dataSources = array_fill_keys( array_keys( $external_data ), 'external' );
 		} else {
 			foreach ( self::$fieldNames as $var ) {
-				$this->normalized[$var] = $this->sourceHarvest( $var );
+				list( $val, $source ) = $this->sourceHarvest( $var );
+				$this->normalized[$var] = $val;
+				$this->dataSources[$var] = $source;
 			}
 
 			if ( !$this->wasPosted() ) {
@@ -167,14 +171,26 @@ class DonationData implements LogPrefixProvider {
 	 * Harvest a varname from its source - post, get, maybe even session eventually.
 	 * @TODO: Provide a way that gateways can override default behavior here for individual keys.
 	 * @param string $var The incoming var name we need to get a value for
-	 * @return mixed The final value of the var, or null if we don't actually have it.
+	 * @return array First element is the final value of the var, or null if we don't actually have it.
+	 *  Second element is the source of the value, null if nonexistant, get, or post
 	 */
 	protected function sourceHarvest( $var ) {
 		if ( $this->gateway->isBatchProcessor() ) {
-			return null;
+			return [ null, null ];
 		}
 		$ret = WmfFramework::getRequestValue( $var, null );
-		return $ret;
+		$queryValues = WmfFramework::getQueryValues();
+		// When a value is both on the QS and in POST, getRequestValue prefers POST
+		// So if it's the same as the version from getQueryValues, say the source is
+		// 'get', otherwise if there is any value at all say the source is 'post'
+		if ( isset( $queryValues[$var] ) && $ret == $queryValues[$var] ) {
+			$source = 'get';
+		} elseif ( $ret !== null ) {
+			$source = 'post';
+		} else {
+			$source = null;
+		}
+		return [ $ret, $source ];
 	}
 
 	/**
@@ -202,6 +218,7 @@ class DonationData implements LogPrefixProvider {
 		foreach ( $donorData as $key => $val ) {
 			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );
+				$this->dataSources[$key] = 'session';
 			} else {
 				if ( in_array( $key, $overwrite ) ) {
 					$this->setVal( $key, $val );
@@ -217,6 +234,15 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function getData() {
 		return $this->normalized;
+	}
+
+	/**
+	 * Returns the array of all normalized donation data.
+	 *
+	 * @return array
+	 */
+	public function getDataSources() {
+		return $this->dataSources;
 	}
 
 	/**
@@ -901,11 +927,12 @@ class DonationData implements LogPrefixProvider {
 	 * @param array $newdata An array of data to integrate with the existing
 	 * data held by the DonationData object.
 	 */
-	public function addData( $newdata ) {
+	public function addData( $newdata, $source = 'internal' ) {
 		if ( is_array( $newdata ) && !empty( $newdata ) ) {
 			foreach ( $newdata as $key => $val ) {
 				if ( !is_array( $val ) ) {
 					$this->setVal( $key, $val );
+					$this->dataSources[$key] = $source;
 				}
 			}
 		}

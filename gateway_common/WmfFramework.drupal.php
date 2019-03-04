@@ -25,6 +25,10 @@ class WmfFramework_Drupal {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
+	public static function getQueryValues() {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
 	public static function getRequestHeader( $key ) {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}

@@ -121,9 +121,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
-		$this->handleOptIn( $data );
 		$this->addSubmethods( $data );
 		$this->addRequiredFields( $data );
+		$this->handleOptIn( $data );
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
@@ -145,12 +145,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( !isset( $data['opt_in'] ) || $data['opt_in'] === '' ) {
 			return;
 		}
+		$hasValidValue = false;
 		switch ( (string)$data['opt_in'] ) {
 			case '1':
 				$data['opted_in'] = true;
+				$hasValidValue = true;
 				break;
 			case '0':
 				$data['opted_out'] = true;
+				$hasValidValue = true;
 				break;
 			default:
 				$logger = DonationLoggerFactory::getLogger(
@@ -160,6 +163,16 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				);
 				$logger->warning( "Invalid opt_in value {$data['opt_in']}" );
 				break;
+		}
+		// If we have a valid value passed in on the query string, don't
+		// show the radio buttons to the user (they've already seen them
+		// in the banner or on donatewiki)
+		// If the value came from 'post' we may be re-rendering a form
+		// with some kind of validation error and should keep showing
+		// the opt_in radio buttons.
+		$dataSources = $this->gateway->getDataSources();
+		if ( $hasValidValue && $dataSources['opt_in'] === 'get' ) {
+			$data['opt_in_required'] = false;
 		}
 	}
 

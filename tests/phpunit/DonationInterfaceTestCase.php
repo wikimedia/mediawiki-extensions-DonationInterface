@@ -561,19 +561,27 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 *
 	 * @param string $special_page_class A testing descendant of GatewayPage
 	 * @param array $initial_vars Array that will be loaded straight into a
-	 * test version of the http request.
+	 *  test version of the http request.
 	 * @param array $perform_these_checks Array of checks to perform in the
-	 * following format:
-	 * $perform_these_checks[$element_id][$check_to_perform][$expected_result]
-	 * So far, $check_to_perform can be either 'nodename' or 'innerhtml'
-	 * @param bool $fail_on_log_errors When true, this will fail the current test if there are entries in the gateway's error log.
+	 *  following format:
+	 *  $perform_these_checks[$element_id][$check_to_perform][$expected_result]
+	 *  $check_to_perform can be 'nodename', 'innerhtml', 'innerhtmlmatches',
+	 *  'value', 'selected', or 'gone' (node should not be found).
+	 * @param bool $fail_on_log_errors When true, this will fail the current test
+	 *  if there are entries in the gateway's error log.
 	 * @param array $session pre-existing session data.
+	 * @param bool $posted true to simulate a form post, false to simulate
+	 *  loading values from the querystring.
+	 * @throws MWException
 	 */
-	function verifyFormOutput( $special_page_class, $initial_vars, $perform_these_checks, $fail_on_log_errors = false, $session = null ) {
+	function verifyFormOutput(
+		$special_page_class, $initial_vars, $perform_these_checks,
+		$fail_on_log_errors = false, $session = null, $posted = false
+	) {
 		// Nasty hack to clear output from any previous tests.
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
-		$newRequest = new TestingRequest( $initial_vars, false, $session );
+		$newRequest = new TestingRequest( $initial_vars, $posted, $session );
 		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
 		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
@@ -627,6 +635,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			unset( $perform_these_checks['headers'] );
 
 			$input_node = $dom_thingy->getElementById( $id );
+			if ( $checks === 'gone' ) {
+				$this->assertNull( $input_node, "'$id' element supposed to be gone, but was found" );
+				continue;
+			}
 			$this->assertNotNull( $input_node, "Couldn't find the '$id' element in html. Log entries: \n" .
 				print_r( DonationLoggerFactory::$overrideLogger->messages, true ) . "\n\nHTML:\n$form_html" );
 			foreach ( $checks as $name => $expected ) {
