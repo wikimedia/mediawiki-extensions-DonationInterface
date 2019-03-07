@@ -11,6 +11,9 @@
 	"donate_interface-EUR": "Euro",
 	"donate_interface-GBP": "Britaniana Pundo",
 	"donate_interface-USD": "Usana Dolaro",
+	"donate_interface-ccdc-button": "Donar per debitokarto o kreditokarto",
+	"donate_interface-bt-button": "Donacar per bankala transfero",
+	"donate_interface-amount-legend": "Sumo donata",
 	"donate_interface-cvv-link": "Ube es ito?",
 	"donate_interface-donor-amount": "Sumo:",
 	"donate_interface-donor-currency-label": "Monetaro:",
@@ -23,7 +26,13 @@
 	"donate_interface-error-msg-last_name": "surnomo",
 	"donate_interface-error-msg-city": "urbo",
 	"donate_interface-error-msg-state_province": "stato",
+	"donate_interface-problemsdonating": "Problemi pri donacar?",
+	"donate_interface-otherways-short": "Altra formi por donacar",
+	"donate_interface-make-your-donation": "Facez vua donaco nun",
 	"donate_interface-street-address-line-2": "Strado/Avenuo (lineo 2)",
 	"donate_interface-next": "Sequanta",
-	"donate_interface-continue": "Durar"
+	"donate_interface-continue": "Durar",
+	"donate_interface-informationsharing": "Ni nulatempe vendas vua informo ad irgu. Kande vu donacas, vu konkordas pri partigar vua personal informi kun ''Wikimedia Foundation'', l'organizuro senprofita skopo qua gastikas Wikipedio ed altra projeti de Wikimedia, segun nia <a href=\"$1\">politiko pri donacaji</a>. ''Wikimedia Foundation'' e lua servado-furnisanti jacas en Usa ed en altra landi, qui povas havar legaro pri privateso diferanta de la legaro di vua lando. Por plusa informi, voluntez lektar nia <a href=\"$1\">politiko pri donacaji</a>.",
+	"donate_interface-taxded-link-us": "Informo pri quale deduktar la donaco del imposti",
+	"donate_interface-monthly-cancel": "Por frequa donacanti, la pagi monatala debetigos da Wikimedia Foundation en la monatala aniversario de vua unesma donacajo, til ke vu imperos ke ni interuptos ol. Donacaji qui komencos ye la 29ma, 30ma, o 31ma dio di la monato riaparos ye la lasta dio di la monato por monati plu kurta, omnafoye kam posibla proxim l'originala dato. Por altra dubi, voluntez konsultar $1."
 }
