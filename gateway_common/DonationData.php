@@ -982,9 +982,28 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
+	 * These fields relate to the donor contact info, not the donation.
+	 * Used to build a message for the opt-in queue when a donation fails.
+	 * @return string[] Fields relating to the donor's personal info
+	 */
+	public static function getContactFields() {
+		return [
+			'language',
+			'email',
+			'first_name',
+			'last_name',
+			'street_address',
+			'city',
+			'state_province',
+			'country',
+			'postal_code',
+		];
+	}
+
+	/**
 	 * Returns an array of field names we need in order to retry a payment
 	 * after the session has been destroyed by... overzealousness.
-	 * @return array
+	 * @return string[] Fields to preserve when retrying a payment
 	 */
 	public static function getRetryFields() {
 		$fields = [

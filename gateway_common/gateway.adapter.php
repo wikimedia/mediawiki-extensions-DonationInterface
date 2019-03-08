@@ -1814,6 +1814,15 @@ abstract class GatewayAdapter
 		}
 	}
 
+	protected function getQueueContactMessage() {
+		$queueMessage = [];
+		foreach ( DonationData::getContactFields() as $field ) {
+			$queueMessage[$field] = $this->getData_Unstaged_Escaped( $field );
+		}
+		$queueMessage = $this->addContactMessageFields( $queueMessage );
+		return $queueMessage;
+	}
+
 	/**
 	 * Collect donation details and normalize keys for pending or
 	 * donations queue
@@ -2084,6 +2093,11 @@ abstract class GatewayAdapter
 			case FinalStatus::FAILED:
 			case FinalStatus::CANCELLED:
 			case FinalStatus::REVISED:
+				if ( $this->getData_Unstaged_Escaped( 'opt_in' ) == '1' ) {
+					// When a donation fails but the donor has opted in to emails,
+					// just send the donor contact data to the opt-in queue.
+					$this->pushMessage( 'opt-in', true );
+				}
 				$force = false;
 				break;
 		}
@@ -2307,9 +2321,14 @@ abstract class GatewayAdapter
 		}
 	}
 
-	protected function pushMessage( $queue ) {
+	protected function pushMessage( $queue, $contactOnly = false ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
-		QueueWrapper::push( $queue, $this->getQueueDonationMessage() );
+		if ( $contactOnly ) {
+			$message = $this->getQueueContactMessage();
+		} else {
+			$message = $this->getQueueDonationMessage();
+		}
+		QueueWrapper::push( $queue, $message );
 	}
 
 	protected function sendPendingMessage() {

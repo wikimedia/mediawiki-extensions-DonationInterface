@@ -16,6 +16,8 @@
  *
  */
 
+use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\CrmLink\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
@@ -566,6 +568,32 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'avsResult' => '0'
 		] );
 		$this->assertTrue( $result->isFailed() );
+	}
+
+	public function testDonorReturnFailureOptIn() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['email'] = 'innocent@localhost.net';
+		$init['opt_in'] = '1';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( [] );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )->willReturn(
+				$this->hostedPaymentStatusResponseBadCvv
+			);
+		$result = $gateway->processDonorReturn( [
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'N',
+			'avsResult' => '0'
+		] );
+		$this->assertTrue( $result->isFailed() );
+		$queueMessage = QueueWrapper::getQueue( 'opt-in' )->pop();
+		SourceFields::removeFromMessage( $queueMessage );
+		$contactFields = array_fill_keys( DonationData::getContactFields(), '' );
+		$this->assertEquals( array_intersect_key( $init, $contactFields ), $queueMessage );
 	}
 
 	public function testClearDataWhenDone() {
