@@ -1,7 +1,5 @@
 <?php
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\Tests\TestingContext;
-use SmashPig\Tests\TestingGlobalConfiguration;
 
 /**
  * @group Amazon

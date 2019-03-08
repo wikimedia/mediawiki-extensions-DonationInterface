@@ -1,9 +1,6 @@
 <?php
 
-use SmashPig\Core\Context;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
-use SmashPig\Tests\TestingContext;
-use SmashPig\Tests\TestingProviderConfiguration;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 

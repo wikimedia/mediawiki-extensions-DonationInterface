@@ -1,6 +1,5 @@
 <?php
 
-use PayWithAmazon\PaymentsClient as PwaClient;
 use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;

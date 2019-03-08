@@ -2,7 +2,6 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
-use SmashPig\CrmLink\FinalStatus;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 

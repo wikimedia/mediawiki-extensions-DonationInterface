@@ -1,6 +1,5 @@
 <?php
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\CrmLink\Messages\SourceFields;
 
 /**
  * @group Fundraising

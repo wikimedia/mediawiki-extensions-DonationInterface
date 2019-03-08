@@ -15,7 +15,6 @@
  * GNU General Public License for more details.
  *
  */
-use Psr\Log\LogLevel;
 use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\ValidationAction;
 

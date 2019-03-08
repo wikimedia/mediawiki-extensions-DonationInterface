@@ -9,7 +9,6 @@
                 <exclude name="Generic.Arrays.DisallowLongArraySyntax.Found" />
                 <exclude name="Generic.Files.LineLength.TooLong" />
                 <exclude name="MediaWiki.AlternativeSyntax.LeadingZeroInFloat.Found" />
-                <exclude name="MediaWiki.Classes.UnusedUseStatement.UnusedUse" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.DefaultNullTypeParam" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.LowercaseInheritDoc" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />

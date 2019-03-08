@@ -1,6 +1,5 @@
 <?php
 
-use SmashPig\Core\Context;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 
