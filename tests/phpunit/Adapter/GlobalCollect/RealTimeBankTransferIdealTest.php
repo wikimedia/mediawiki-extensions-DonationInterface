@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use SmashPig\PaymentProviders\Ingenico\BankPaymentProvider;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
@@ -40,7 +41,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		TestingContext::get()->providerConfigurationOverride = $config;
 
 		$this->bankPaymentProvider = $this->getMockBuilder(
-			'\SmashPig\PaymentProviders\Ingenico\BankPaymentProvider'
+			BankPaymentProvider::class
 		)->disableOriginalConstructor()->getMock();
 
 		$config->overrideObjectInstance( 'payment-provider/rtbt', $this->bankPaymentProvider );

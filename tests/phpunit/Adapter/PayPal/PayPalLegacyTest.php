@@ -30,7 +30,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingPaypalLegacyAdapter';
+		$this->testAdapterClass = TestingPaypalLegacyAdapter::class;
 	}
 
 	public function setUp() {

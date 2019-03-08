@@ -29,7 +29,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTestCase {
 
-	protected $testAdapterClass = 'TestingPaypalExpressAdapter';
+	protected $testAdapterClass = TestingPaypalExpressAdapter::class;
 
 	public function setUp() {
 		parent::setUp();

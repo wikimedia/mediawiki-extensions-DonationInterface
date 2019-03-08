@@ -54,8 +54,8 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 			'wgGlobalCollectGatewayEnabled' => true,
 			'wgDonationInterfaceGatewayAdapters' => array(
 				// We include the regular adapter in order to pass gateway validation D:
-				'globalcollect' => 'TestingGlobalCollectOrphanAdapter',
-				'globalcollect_orphan' => 'TestingGlobalCollectOrphanAdapter',
+				'globalcollect' => TestingGlobalCollectOrphanAdapter::class,
+				'globalcollect_orphan' => TestingGlobalCollectOrphanAdapter::class,
 			),
 		) );
 

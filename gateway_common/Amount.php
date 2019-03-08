@@ -173,7 +173,7 @@ class Amount implements ValidationHelper {
 	 */
 	public static function format( $amount, $currencyCode, $locale ) {
 		$amount = self::round( $amount, $currencyCode );
-		if ( class_exists( 'NumberFormatter' ) ) {
+		if ( class_exists( NumberFormatter::class ) ) {
 			$formatter = new NumberFormatter( $locale, NumberFormatter::CURRENCY );
 
 			if ( $formatter instanceof NumberFormatter ) {

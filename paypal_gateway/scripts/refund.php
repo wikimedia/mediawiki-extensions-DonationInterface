@@ -80,5 +80,5 @@ class PaypalRefundMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'PaypalRefundMaintenance';
+$maintClass = PaypalRefundMaintenance::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

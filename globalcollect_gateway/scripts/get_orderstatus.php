@@ -66,5 +66,5 @@ class IngenicoGetOrderStatusMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'IngenicoGetOrderStatusMaintenance';
+$maintClass = IngenicoGetOrderStatusMaintenance::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

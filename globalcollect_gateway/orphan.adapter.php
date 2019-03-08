@@ -111,7 +111,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			// We already have the info.
 			return array();
 		}
-		if ( !class_exists( 'ContributionTrackingProcessor' ) ) {
+		if ( !class_exists( ContributionTrackingProcessor::class ) ) {
 			$this->logger->error( 'We needed to get contribution_tracking data but cannot on this platform!' );
 			return array();
 		}

@@ -171,13 +171,13 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->assertInstanceOf( 'TestingGlobalCollectAdapter', $gateway );
+		$this->assertInstanceOf( TestingGlobalCollectAdapter::class, $gateway );
 
 		// please define this function only inside the TESTS_ADAPTER_DEFAULT,
 		// which should be a test adapter object that descende from one of the
 		// production adapters.
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertInstanceOf( 'DonationData', $exposed->dataObj );
+		$this->assertInstanceOf( DonationData::class, $exposed->dataObj );
 	}
 
 	public function testLanguageChange() {

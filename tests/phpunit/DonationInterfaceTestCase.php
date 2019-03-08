@@ -68,13 +68,13 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	public static function resetTestingAdapters() {
 		$testing_adapters = array(
-			'TestingAdyenAdapter',
-			'TestingAstroPayAdapter',
-			'TestingGenericAdapter',
-			'TestingGlobalCollectAdapter',
-			'TestingGlobalCollectOrphanAdapter',
-			'TestingPaypalExpressAdapter',
-			'TestingPaypalLegacyAdapter',
+			TestingAdyenAdapter::class,
+			TestingAstroPayAdapter::class,
+			TestingGenericAdapter::class,
+			TestingGlobalCollectAdapter::class,
+			TestingGlobalCollectOrphanAdapter::class,
+			TestingPaypalExpressAdapter::class,
+			TestingPaypalLegacyAdapter::class,
 		);
 		foreach ( $testing_adapters as $testing_adapter ) {
 			$testing_adapter::setDummyGatewayResponseCode( null );

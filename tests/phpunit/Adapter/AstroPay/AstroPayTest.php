@@ -40,7 +40,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 	 */
 	function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = 'TestingAstroPayAdapter';
+		$this->testAdapterClass = TestingAstroPayAdapter::class;
 	}
 
 	function setUp() {
