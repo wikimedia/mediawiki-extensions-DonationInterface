@@ -188,4 +188,64 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$this->doApiRequest( $init );
 	}
+
+	/**
+	 * Don't mangle UTF-8 names when truncating data
+	 */
+	public function testNoMangleDataOnTruncate() {
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['gateway'] = 'ingenico';
+		$init['action'] = 'donate';
+		$init['first_name'] = 'ФёдорÐÐÐ';
+		$init['last_name'] = 'Достоевский';
+
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )->with(
+				$this->callback( function ( $actual ) use ( $init ) {
+					$order = array(
+						'amountOfMoney' => array(
+							'currencyCode' => 'USD',
+							'amount' => 155
+						),
+						'customer' => array(
+							'billingAddress' => array(
+								'countryCode' => 'US',
+								'city' => 'San Francisco',
+								'state' => 'CA',
+								'zip' => '94105',
+								'street' => '123 Fake Street'
+							),
+							'contactDetails' => array(
+								'emailAddress' => 'good@innocent.com'
+							),
+							'locale' => 'en_US',
+							'personalInformation' => array(
+								'name' => array(
+									'firstName' => $init['first_name'],
+									'surname' => $init['last_name']
+								)
+							)
+						)
+					);
+					$this->assertArraySubset( $order, $actual['order'] );
+					return true;
+				} )
+			)
+			->willReturn(
+				array(
+					'partialRedirectUrl' => $this->partialUrl,
+					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+				)
+			);
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentUrl' )->with(
+				$this->equalTo( $this->partialUrl )
+			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+
+		$this->doApiRequest( $init );
+	}
 }
