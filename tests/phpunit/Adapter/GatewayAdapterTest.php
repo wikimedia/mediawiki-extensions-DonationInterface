@@ -433,7 +433,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$rule = array(
 			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
 			'KeyMapB' => array(),
-			'GibberishWeight' => .9,
+			'GibberishWeight' => 0.9,
 			'Score' => 10,
 			'MinimumLength' => 2,
 		);
@@ -453,7 +453,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$rule = array(
 			'KeyMapA' => array( 'a','s','d','f','q','w','e','r','t' ),
 			'KeyMapB' => array(),
-			'GibberishWeight' => .9,
+			'GibberishWeight' => 0.9,
 			'Score' => 10,
 			'MinimumLength' => 2,
 		);
