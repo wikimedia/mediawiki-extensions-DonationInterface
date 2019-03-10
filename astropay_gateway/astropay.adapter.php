@@ -219,7 +219,7 @@ class AstroPayAdapter extends GatewayAdapter {
 
 	/**
 	 * Overriding parent method to add fiscal number
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getRequiredFields( $knownData = null ) {
 		$fields = parent::getRequiredFields( $knownData );

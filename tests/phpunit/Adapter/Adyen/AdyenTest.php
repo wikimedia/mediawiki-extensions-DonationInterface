@@ -27,9 +27,9 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 	/**
-	 * @param $name string The name of the test case
-	 * @param $data array Any parameters read from a dataProvider
-	 * @param $dataName string|int The name or index of the data set
+	 * @param string$name The name of the test case
+	 * @param array $data Any parameters read from a dataProvider
+	 * @param string|int $dataName The name or index of the data set
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );

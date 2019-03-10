@@ -217,12 +217,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * These parameters should exactly match the params in getOneValidForm.
 	 * TODO: Should be passed as a hash or object.
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
-	 * @param string $country Optional country code filter
-	 * @param string $currency Optional currency code filter
-	 * @param string $payment_method Optional payment method filter
-	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
+	 * @param string|null $country Optional country code filter
+	 * @param string|null $currency Optional currency code filter
+	 * @param string|null $payment_method Optional payment method filter
+	 * @param string|null $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
 	 * @param bool $recurring Whether or not we should return recurring forms. Default = false.
-	 * @param string $gateway Optional gateway to force.
+	 * @param string|null $gateway Optional gateway to force.
 	 * @return array
 	 */
 	static function getAllValidForms( $country = null, $currency = null, $payment_method = null,
@@ -332,12 +332,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	/**
 	 * Gets one valid forms that match the provided paramters.
 	 * These parameters should exactly match the params in getAllValidForms.
-	 * @param string $country Optional country code filter
-	 * @param string $currency Optional currency code filter
-	 * @param string $payment_method Optional payment method filter
-	 * @param string $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
+	 * @param string|null $country Optional country code filter
+	 * @param string|null $currency Optional currency code filter
+	 * @param string|null $payment_method Optional payment method filter
+	 * @param string|null $payment_submethod Optional payment submethod filter. THIS WILL ONLY WORK IF YOU ALSO SEND THE PAYMENT METHOD.
 	 * @param bool $recurring Whether or not we should return recurring forms. Default = false.
-	 * @param string $gateway Optional gateway to force.
+	 * @param string|null $gateway Optional gateway to force.
 	 * @return array
 	 */
 	static function getOneValidForm( $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false, $gateway = null
@@ -360,7 +360,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @param string $form_key The name of the form (ffname) we're looking
 	 * for. Should map to a first-level key in
 	 * $wgDonationInterfaceAllowedHtmlForms.
-	 * @return array|boolean The settings and capability definitions for
+	 * @return array|bool The settings and capability definitions for
 	 * that form in array format, or false if it isn't a valid and enabled
 	 * form.
 	 */
@@ -514,8 +514,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * If we *still* have more than one, just... take the top or something.
 	 * @param array $valid_forms All the forms that are valid for the parameters
 	 * we've used.
-	 * @param $currency
-	 * @param $country
+	 * @param string $currency
+	 * @param string $country
 	 * @return mixed
 	 */
 	static function pickOneForm( $valid_forms, $currency, $country ) {
@@ -630,7 +630,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
 	 * @param string $gateway The gateway used for the payment that failed
 	 * @param string $payment_method The code for the payment method that failed
-	 * @param string $payment_submethod Code for the payment submethod that failed
+	 * @param string|null $payment_submethod Code for the payment submethod that failed
 	 * @throws RuntimeException if no form found
 	 * @return string The name of the best error form
 	 */

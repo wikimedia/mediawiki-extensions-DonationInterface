@@ -60,7 +60,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	/**
 	 * Show the special page
 	 *
-	 * @param $par Mixed: parameter passed to the page or null
+	 * @param string|null $par parameter passed to the page or null
 	 */
 	public function execute( $par ) {
 		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
@@ -251,7 +251,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 *
 	 * Displays useful information for debugging purposes.
 	 * Enable with $wgDonationInterfaceDisplayDebug, or the adapter equivalent.
-	 * @param PaymentTransactionResponse $results
+	 * @param PaymentTransactionResponse|null $results
 	 * @return null
 	 */
 	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
@@ -544,6 +544,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	/**
 	 * Try to get donor information to tag log entries in case we don't
 	 * have an adapter instance.
+	 * @return string
 	 */
 	protected function getLogPrefix() {
 		$info = array();
@@ -569,7 +570,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * MakeGlobalVariablesScript handler, sends settings to Javascript
-	 * @param array $vars
+	 * @param array &$vars
 	 */
 	public function setClientVariables( &$vars ) {
 		$language = $this->adapter->getData_Unstaged_Escaped( 'language' );

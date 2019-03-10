@@ -43,7 +43,7 @@ trait TTestingAdapter {
 	 * Returns the variable $this->dataObj which should be an instance of
 	 * DonationData.
 	 *
-	 * @returns DonationData
+	 * @return DonationData
 	 */
 	public function getDonationData() {
 		return $this->dataObj;
@@ -101,7 +101,7 @@ trait TTestingAdapter {
 
 	/**
 	 * Set the error code you want the dummy response to return
-	 * @param $code
+	 * @param string|null $code
 	 */
 	public static function setDummyGatewayResponseCode( $code ) {
 		static::$dummyGatewayResponseCode = $code;
@@ -114,6 +114,8 @@ trait TTestingAdapter {
 
 	/**
 	 * Load in some dummy response XML so we can test proper response processing
+	 * @param string $ch
+	 * @return string|false
 	 */
 	protected function curl_exec( $ch ) {
 		$code = '';
@@ -151,6 +153,9 @@ trait TTestingAdapter {
 
 	/**
 	 * Load in some dummy curl response info so we can test proper response processing
+	 * @param string $ch
+	 * @param array|null $opt
+	 * @return array
 	 */
 	protected function curl_getinfo( $ch, $opt = null ) {
 		$code = 200;

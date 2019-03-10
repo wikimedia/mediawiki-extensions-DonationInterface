@@ -33,6 +33,7 @@ class ClientErrorApi extends ApiBase {
 
 	/**
 	 * Don't require API read rights
+	 * @return bool
 	 */
 	public function isReadMode() {
 		return false;

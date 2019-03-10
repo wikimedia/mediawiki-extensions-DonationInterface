@@ -676,6 +676,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	/**
 	 * FIXME: this is coming out of the ambient transaction response
 	 * in the parent adapters. Probably a bad idea everywhere.
+	 * @return string
 	 */
 	public function getTransactionGatewayTxnID() {
 		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );

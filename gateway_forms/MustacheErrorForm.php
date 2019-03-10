@@ -9,7 +9,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 	 * Return the rendered HTML form, using template parameters from the gateway object
 	 *
 	 * @return string
-	 * @throw RuntimeException
+	 * @throws RuntimeException
 	 */
 	public function getForm() {
 		$data = $this->gateway->getData_Unstaged_Escaped();

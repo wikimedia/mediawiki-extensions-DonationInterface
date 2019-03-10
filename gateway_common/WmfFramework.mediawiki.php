@@ -82,7 +82,7 @@ class WmfFramework_Mediawiki {
 	 * for the string and language that have been passed in, false if none is
 	 * present. If no language is passed in, defaults to self::getLanguageCode()
 	 * @param string $msg_key The message string to look up.
-	 * @param string $language A valid mediawiki language code, or null.
+	 * @param string|null $language A valid mediawiki language code, or null.
 	 * @return bool - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language = null ) {

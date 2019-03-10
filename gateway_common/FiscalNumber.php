@@ -42,7 +42,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 	 *
 	 * @param GatewayType $adapter
 	 * @param array $normalized Normalized donation data
-	 * @param array $stagedData Data to send to payment processor
+	 * @param array &$stagedData Data to send to payment processor
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !empty( $normalized[self::$key] ) ) {
@@ -59,7 +59,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 	 *
 	 * @param GatewayType $unused
 	 * @param array $normalized Normalized donation data
-	 * @param ErrorState $errors Results of validation to this point
+	 * @param ErrorState &$errors Results of validation to this point
 	 */
 	public function validate( GatewayType $unused, $normalized, &$errors ) {
 		if (

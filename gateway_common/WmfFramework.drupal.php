@@ -40,6 +40,7 @@ class WmfFramework_Drupal {
 
 	/**
 	 * Do not guess.
+	 * @return string|null
 	 */
 	public static function getLanguageCode() {
 		return null;
@@ -99,7 +100,7 @@ class WmfFramework_Drupal {
 	 * Returns true if a translatable message has been defined for the string
 	 * that has been passed in, false if none is present.
 	 * @param string $msg_key The message string to look up.
-	 * @param string $language unused
+	 * @param string|null $language unused
 	 * @return bool - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language = null ) {

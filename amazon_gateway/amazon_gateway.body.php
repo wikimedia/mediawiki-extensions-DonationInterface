@@ -22,7 +22,7 @@ class AmazonGateway extends GatewayPage {
 
 	/**
 	 * MakeGlobalVariablesScript handler, sends settings to Javascript
-	 * @param array $vars
+	 * @param array &$vars
 	 */
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
