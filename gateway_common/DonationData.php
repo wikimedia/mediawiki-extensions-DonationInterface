@@ -647,8 +647,8 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * Intended to be used with something like array_walk.
 	 *
-	 * @param $value string The value of the array
-	 * @param $key string The key of the array
+	 * @param string &$value The value of the array
+	 * @param string $key The key of the array
 	 */
 	protected function sanitizeInput( &$value, $key ) {
 		$value = htmlspecialchars( $value, ENT_COMPAT, 'UTF-8', false );
@@ -926,6 +926,7 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * @param array $newdata An array of data to integrate with the existing
 	 * data held by the DonationData object.
+	 * @param string $source
 	 */
 	public function addData( $newdata, $source = 'internal' ) {
 		if ( is_array( $newdata ) && !empty( $newdata ) ) {
@@ -942,6 +943,7 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * Returns an array of field names we typically send out in a queue
 	 * message.
+	 * @return array
 	 */
 	public static function getMessageFields() {
 		return array(
@@ -982,6 +984,7 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * Returns an array of field names we need in order to retry a payment
 	 * after the session has been destroyed by... overzealousness.
+	 * @return array
 	 */
 	public static function getRetryFields() {
 		$fields = array(
@@ -1002,6 +1005,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * Returns an array of names of fields we store in session
+	 * @return array
 	 */
 	public static function getSessionFields() {
 		$fields = self::getMessageFields();
@@ -1020,6 +1024,7 @@ class DonationData implements LogPrefixProvider {
 	 * I realize this is pretty lame.
 	 * Notices, however, are more lame.
 	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
+	 * @return bool
 	 */
 	public function wasPosted() {
 		static $posted = null;

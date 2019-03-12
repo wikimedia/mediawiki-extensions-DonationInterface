@@ -161,7 +161,7 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * FIXME: I can't help but feel like it's bad that the parent's do_transaction
 	 * is never used at all.
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	function do_transaction( $transaction ) {
 		$this->ensureUniqueOrderID();
@@ -327,6 +327,7 @@ class AdyenAdapter extends GatewayAdapter {
 
 	/**
 	 * Reformat skin codes array to access by Name
+	 * @return string[]
 	 */
 	public function getSkinCodes() {
 		$skins = $this->accountInfo['skins'];

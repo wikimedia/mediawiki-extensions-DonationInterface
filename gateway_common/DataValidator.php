@@ -429,7 +429,7 @@ class DataValidator {
 
 	/**
 	 * Gets rid of numbers that pass luhn in address fields - @see validate_name
-	 * @param $value
+	 * @param string $value
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
@@ -445,7 +445,7 @@ class DataValidator {
 	/**
 	 * Analyzes a string to see if any credit card numbers are hiding out in it
 	 *
-	 * @param $str
+	 * @param string $str
 	 *
 	 * @return bool True if a CC number was found sneaking about in the shadows
 	 */

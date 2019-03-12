@@ -8,7 +8,7 @@ class IngenicoMethodCodec implements StagingHelper {
 	 * Stage: payment_product and a few minor tweaks
 	 * Stages the payment product ID for GC.
 	 * Not what I had in mind to begin with, but this *completely* blew up.\
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$logger = DonationLoggerFactory::getLogger( $adapter );

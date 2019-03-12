@@ -32,7 +32,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * Return the rendered HTML form, using template parameters from the gateway object
 	 *
 	 * @return string
-	 * @throw RuntimeException
+	 * @throws RuntimeException
 	 */
 	public function getForm() {
 		$data = $this->getData();

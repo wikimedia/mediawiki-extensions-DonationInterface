@@ -122,7 +122,7 @@ class ResultPages {
 	 * appended onto the end.
 	 * @param string $url Either a wiki page title, or a URL to an external wiki
 	 * page title.
-	 * @param $language
+	 * @param string $language
 	 * @return string localized full URL
 	 */
 	protected static function appendLanguageAndMakeURL( $url, $language ) {

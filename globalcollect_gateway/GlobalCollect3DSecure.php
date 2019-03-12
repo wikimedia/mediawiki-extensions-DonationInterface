@@ -10,7 +10,7 @@ class GlobalCollect3DSecure implements StagingHelper {
 	 *
 	 * @param GatewayType $adapter
 	 * @param array $normalized Donation data in normalized form.
-	 * @param array $stagedData Reference to output data.
+	 * @param array &$stagedData Reference to output data.
 	 */
 	function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !$this->canSet3dSecure( $normalized ) ) {

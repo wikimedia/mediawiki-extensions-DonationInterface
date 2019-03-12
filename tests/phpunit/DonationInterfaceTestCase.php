@@ -54,9 +54,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	public $smashPigGlobalConfig;
 
 	/**
-	 * @param $name string The name of the test case
-	 * @param $data array Any parameters read from a dataProvider
-	 * @param $dataName string|int The name or index of the data set
+	 * @param string|null $name The name of the test case
+	 * @param array $data Any parameters read from a dataProvider
+	 * @param string|int $dataName The name or index of the data set
 	 */
 	public function __construct( $name = null, array $data = array(), $dataName = '' ) {
 		// Just in case you got here without running the configuration...
@@ -102,7 +102,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	/**
 	 * Set up a fake request with the given data. Returns the fake request.
 	 * @param array $data
-	 * @param array $session
+	 * @param array|null $session
 	 * @return FauxRequest
 	 */
 	protected function setUpRequest( $data, $session = null ) {
@@ -145,6 +145,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::setCurrentTransaction
 	 * @covers GatewayAdapter::buildRequestXML
+	 * @param array $optionsForTestData
+	 * @param array $options
 	 */
 	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
 		global $wgDonationInterfaceTest;
@@ -342,6 +344,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	/**
 	 * Supported languages for Belgium
+	 * @return array
 	 */
 	public function belgiumLanguageProvider() {
 		return array(
@@ -353,6 +356,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 
 	/**
 	 * Supported languages for Canada
+	 * @return array
 	 */
 	public function canadaLanguageProvider() {
 		return array(
@@ -364,6 +368,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	/**
 	 * Transaction codes for GC and GC orphan adapters not to be retried
 	 * on pain of $1000+ fines by Mastercard
+	 * @return array
 	 */
 	public function mcNoRetryCodeProvider() {
 		return array(
@@ -384,9 +389,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	/**
 	 * Get the expected XML request from GlobalCollect
 	 *
-	 * @param $optionsForTestData
+	 * @param array $optionsForTestData
 	 * @param array $options
-	 * @return string    The expected XML request
+	 * @return string The expected XML request
 	 */
 	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = array() ) {
 		global $wgDonationInterfaceThankYouPage;
@@ -473,7 +478,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	/**
 	 * Get a fresh gateway object of the type specified in the variable
 	 * $this->testAdapterClass.
-	 * @param array $external_data If you want to shoehorn in some external
+	 * @param array|null $external_data If you want to shoehorn in some external
 	 * data, do that here.
 	 * @param array $setup_hacks An array of things that override stuff in
 	 * the constructor of the gateway object that I can't get to without
@@ -569,7 +574,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 *  'value', 'selected', or 'gone' (node should not be found).
 	 * @param bool $fail_on_log_errors When true, this will fail the current test
 	 *  if there are entries in the gateway's error log.
-	 * @param array $session pre-existing session data.
+	 * @param array|null $session pre-existing session data.
 	 * @param bool $posted true to simulate a form post, false to simulate
 	 *  loading values from the querystring.
 	 * @throws MWException
@@ -769,6 +774,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * Create an orphaned tranaction.
 	 *
 	 * TODO: Reuse SmashPigBaseTest#createMessage
+	 * @param array $overrides
+	 * @return array
 	 */
 	public function createOrphan( $overrides = array() ) {
 		$uniq = mt_rand();

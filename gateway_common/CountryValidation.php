@@ -9,7 +9,7 @@ class CountryValidation implements ValidationHelper {
 	 *
 	 * @param GatewayType $adapter
 	 * @param array $normalized Donation data in normalized form.
-	 * @param ErrorState $errors Reference to error array
+	 * @param ErrorState &$errors Reference to error array
 	 */
 	function validate( GatewayType $adapter, $normalized, &$errors ) {
 		global $wgDonationInterfaceForbiddenCountries;

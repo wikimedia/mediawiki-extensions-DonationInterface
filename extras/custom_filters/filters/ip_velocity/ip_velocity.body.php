@@ -87,7 +87,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * If the $fail var is set and true, this denotes that the sensor has been
 	 * tripped and will cause the data to live for the (potentially longer)
 	 * duration defined in the IPVelocityFailDuration global
-	 * @param array $oldvalue The value we've just pulled from memcache for this
+	 * @param array|null $oldvalue The value we've just pulled from memcache for this
 	 * ip address
 	 * @param bool $fail If this entry was added on the filter being tripped
 	 * @param bool $toxic If we're adding this entry to penalize a toxic card

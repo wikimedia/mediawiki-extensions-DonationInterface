@@ -164,6 +164,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	 * Copy the timestamp rather than using the current time.
 	 *
 	 * FIXME: Carefully move this to the base class and decide when appropriate.
+	 * @return array
 	 */
 	protected function getQueueDonationMessage() {
 		$transaction = parent::getQueueDonationMessage();

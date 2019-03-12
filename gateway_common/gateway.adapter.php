@@ -206,6 +206,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Get @see GatewayAdapter::$goToThankYouOn
+	 * @return array
 	 */
 	public function getGoToThankYouOn() {
 		return $this->goToThankYouOn;
@@ -316,6 +317,7 @@ abstract class GatewayAdapter
 	 * Some adapters will append a path component and query parameters.
 	 * That variation should be handled by the request controller.  Customize
 	 * things like varying server endpoints by overriding this function.
+	 * @return string
 	 */
 	protected function getProcessorUrl() {
 		if ( !self::getGlobal( 'Test' ) ) {
@@ -511,7 +513,7 @@ abstract class GatewayAdapter
 	 * Change the keys on this data from processor API names to normalized names.
 	 *
 	 * @param array $processor_data Response data with raw API keys
-	 * @param array $key_map map processor keys to our keys, defaults to
+	 * @param array|null $key_map map processor keys to our keys, defaults to
 	 *                       $this->var_map
 	 * @return array data with normalized keys
 	 *
@@ -592,9 +594,9 @@ abstract class GatewayAdapter
 	 * NOTE: This method will check to see if the message exists in translation
 	 * and use that message instead of the default. This would override error_map.
 	 *
-	 * @param    string $code The error code to look up in the map
-	 * @param    array $options
-	 * @return   array|string    Returns @see GatewayAdapter::$error_map
+	 * @param string $code The error code to look up in the map
+	 * @param array $options
+	 * @return array|string Returns @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMap( $code, $options = array() ) {
 		$defaults = array(
@@ -746,8 +748,8 @@ abstract class GatewayAdapter
 
 	/**
 	 * Builds a set of transaction data in name/value format
-	 *		*)The current transaction must be set before you call this function.
-	 *		*)Uses getTransactionSpecificValue to assign staged values to the
+	 *  *)The current transaction must be set before you call this function.
+	 *  *)Uses getTransactionSpecificValue to assign staged values to the
 	 * fields required by the gateway. Look there for more insight into the
 	 * heirarchy of all possible data sources.
 	 * @return string The raw transaction in name/value format, ready to be
@@ -823,7 +825,7 @@ abstract class GatewayAdapter
 	 * structure and adding populated nodes by reference.
 	 * @param array $structure Current transaction's more leafward structure,
 	 * from the point of view of the current XML node.
-	 * @param DOMElement $node The current XML node.
+	 * @param DOMElement &$node The current XML node.
 	 * @param bool $js More likely cruft relating back to buildTransactionFormat
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
@@ -876,7 +878,7 @@ abstract class GatewayAdapter
 	 * the passed-in parent node, only if the current node would have a
 	 * non-empty value.
 	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param DOMElement $node The parent node this node will be contained in, if it
+	 * @param DOMElement &$node The parent node this node will be contained in, if it
 	 *  is determined to have a non-empty value.
 	 * @param bool $js Probably cruft at this point. This is connected to the
 	 * function buildTransactionFormat.
@@ -1491,7 +1493,7 @@ abstract class GatewayAdapter
 	 * Default implementation just says we got a response.
 	 *
 	 * @param array|DomDocument $response Cleaned-up response returned from
-	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @see getFormattedResponse.  Type depends on $this->getResponseType
 	 * @throws ResponseProcessingException with an actionable error code and any
 	 *         variables to retry
 	 *
@@ -1686,7 +1688,7 @@ abstract class GatewayAdapter
 	 * we're defining here.
 	 * @param string $action One of the constants defined in @see FinalStatus.
 	 * @param int $lower The integer value of the lower-bound in this code range.
-	 * @param int $upper Optional: The integer value of the upper-bound in the
+	 * @param int|null $upper Optional: The integer value of the upper-bound in the
 	 * code range. If omitted, it will make a range of one value: The lower bound.
 	 * @throws UnexpectedValueException
 	 * @return void
@@ -1704,7 +1706,7 @@ abstract class GatewayAdapter
 	 *
 	 * @param string $transaction
 	 * @param string $key The key to lookup in the transaction such as STATUSID
-	 * @param integer|string $code This gets converted to an integer if the values is numeric.
+	 * @param int|string $code This gets converted to an integer if the values is numeric.
 	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
 	 * @return null|string Returns the code action if a valid code is supplied. Otherwise, the return is null.
@@ -1902,7 +1904,7 @@ abstract class GatewayAdapter
 	 * ...I like to keep the voodoo functions tidy.
 	 * @param string $function_name The name of the function you're hoping to
 	 * execute.
-	 * @param mixed $parameter That's right: For now you only get one.
+	 * @param mixed|null $parameter That's right: For now you only get one.
 	 * @return bool True if a function was found and executed.
 	 */
 	function executeIfFunctionExists( $function_name, $parameter = null ) {
@@ -2893,7 +2895,7 @@ abstract class GatewayAdapter
 	/**
 	 * Retrieve data from the session if it's set, and null if it's not.
 	 * @param string $key The array key to return from the session.
-	 * @param string $subkey Optional: The subkey to return from the session.
+	 * @param string|null $subkey Optional: The subkey to return from the session.
 	 * Only really makes sense if $key is an array.
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
@@ -3235,7 +3237,7 @@ abstract class GatewayAdapter
 	 * On failure, it resets the edit token both in the session and in the form,
 	 * so they will match on the user's next load.
 	 *
-	 * @var string $val
+	 * @param string $val
 	 * @return bool
 	 */
 	protected function token_matchEditToken( $val ) {
@@ -3439,7 +3441,7 @@ abstract class GatewayAdapter
 	 * To put it another way: If we are meant to be getting the OrderID from
 	 * a piece of gateway communication that hasn't been done yet, this
 	 * should return NULL. I think.
-	 * @param string $override The pre-determined value of order_id.
+	 * @param string|null $override The pre-determined value of order_id.
 	 * When you want to normalize an order_id to something you have already
 	 * sorted out (anything running in batch mode is a good candidate - you
 	 * have probably grabbed a preexisting order_id from some external data
@@ -3448,7 +3450,7 @@ abstract class GatewayAdapter
 	 * Also used when receiving the order_id from external sources
 	 * (example: An API response)
 	 *
-	 * @param DonationData $dataObj Reference to the donation data object when
+	 * @param DonationData|null $dataObj Reference to the donation data object when
 	 * we're creating the order ID in the constructor of the object (and thus
 	 * do not yet have a reference to it.)
 	 * @return string The normalized value of order_id
@@ -3503,7 +3505,7 @@ abstract class GatewayAdapter
 	 * This used to be done in DonationData, but gateways should control
 	 * the format here. Override this in child classes.
 	 *
-	 * @param DonationData $dataObj Reference to the donation data object
+	 * @param DonationData|null $dataObj Reference to the donation data object
 	 * when we are forced to create the order ID during construction of it
 	 * and thus do not already have a reference. THIS IS A HACK! /me vomits
 	 *
@@ -3641,8 +3643,7 @@ abstract class GatewayAdapter
 	 * in LocalSettings.  Idea: same metadata array structure as used in
 	 * definePaymentMethods, overrides cascade from
 	 * methodMeta -> submethodMeta -> settingsMethodMeta -> settingsSubmethodMeta
-	 * @return array with available submethods
-	 *	'visa' => array( 'label' => 'Visa' )
+	 * @return array with available submethods 'visa' => array( 'label' => 'Visa' )
 	 */
 	function getAvailableSubmethods() {
 		$method = $this->getPaymentMethod();
@@ -3723,6 +3724,7 @@ abstract class GatewayAdapter
 	 * Each entry's key should correspond to the id of the target field, and
 	 * the value should be a list of rules with keys as described in
 	 * @see ClientSideValidationHelper::getClientSideValidation
+	 * @return array
 	 */
 	public function getClientSideValidationRules() {
 		// Start with the server required field validations.

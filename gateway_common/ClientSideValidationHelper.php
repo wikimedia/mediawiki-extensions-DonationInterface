@@ -14,7 +14,7 @@ interface ClientSideValidationHelper {
 	 *      'message' error message to display if this rule fails
 	 *
 	 * @param array $normalized The gateway's normalized donation data
-	 * @param array $clientRules Associates field keys with lists of rules
+	 * @param array &$clientRules Associates field keys with lists of rules
 	 */
 	public function getClientSideValidation( $normalized, &$clientRules );
 

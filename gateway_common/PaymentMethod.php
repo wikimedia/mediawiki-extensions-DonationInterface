@@ -119,7 +119,8 @@ class PaymentMethod {
 	}
 
 	/**
-	 * @return true if the $method descends from a more general $ancestor method, or if they are equal.
+	 * @param string $ancestor
+	 * @return bool if the $method descends from a more general $ancestor method, or if they are equal.
 	 */
 	public function isInstanceOf( $ancestor ) {
 		$method = $this;

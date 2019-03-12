@@ -8,6 +8,7 @@ class TestingGlobalCollectAdapter extends GlobalCollectAdapter {
 
 	/**
 	 * Also set a useful MerchantID.
+	 * @param array|null $options
 	 */
 	public function __construct( $options = array() ) {
 		if ( is_null( $options ) ) {

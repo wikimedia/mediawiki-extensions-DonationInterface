@@ -132,29 +132,29 @@ interface GatewayType {
 	 *
 	 * Should contain the following keys/values:
 	 * 'alt_locations' => array( $dataset_name, $dataset_key )
-	 *	** alt_locations is intended to contain a list of arrays that
-	 *	are always available (or should be), from which we can pull the
-	 *	order_id.
-	 *	** Examples of valid things to throw in $dataset_name are 'request'
-	 *	and 'session'
-	 *	** $dataset_key : The key in the associated dataset that is
-	 *	expected to contain the order_id. Probably going to be order_id
-	 *	if we are generating the dataset internally. Probably something
-	 *	else if a gateway is posting or getting back to us in a
-	 *	resultswitcher situation.
-	 *	** These should be expressed in $order_id_meta in order of
-	 *	preference / authority.
+	 * 	** alt_locations is intended to contain a list of arrays that
+	 * 	are always available (or should be), from which we can pull the
+	 * 	order_id.
+	 * 	** Examples of valid things to throw in $dataset_name are 'request'
+	 * 	and 'session'
+	 * 	** $dataset_key : The key in the associated dataset that is
+	 * 	expected to contain the order_id. Probably going to be order_id
+	 * 	if we are generating the dataset internally. Probably something
+	 * 	else if a gateway is posting or getting back to us in a
+	 * 	resultswitcher situation.
+	 * 	** These should be expressed in $order_id_meta in order of
+	 * 	preference / authority.
 	 * 'generate' => boolean value. True if we will be generating our own
-	 *	order IDs, false if we are deferring order_id generation to the
-	 *	gateway.
+	 * 	order IDs, false if we are deferring order_id generation to the
+	 * 	gateway.
 	 * 'ct_id' => boolean value.  If True, when generating order ID use
 	 * the contribution tracking ID with the sequence number appended
 	 *
 	 * Will eventually contain the following keys/values:
 	 * 'final'=> The value that we have chosen as the valid order ID for
-	 *	this request.
+	 * 	this request.
 	 * 'final_source' => Where we ultimately decided to grab the value we
-	 *	chose to stuff in 'final'.
+	 * 	chose to stuff in 'final'.
 	 */
 	function defineOrderIDMeta();
 
@@ -214,12 +214,12 @@ interface GatewayType {
 	 * This is the ONLY getData type function anything should be using
 	 * outside the adapter.
 	 * Short explanation of the data population up to now:
-	 *	*) When the gateway adapter is constructed, it constructs a DonationData
-	 *		object.
-	 *	*) On construction, the DonationData object pulls donation data from an
-	 *		appropriate source, and normalizes the entire data set for storage.
-	 *	*) The gateway adapter pulls normalized, html escaped data out of the
-	 *		DonationData object, as the base of its own data set.
+	 * 	*) When the gateway adapter is constructed, it constructs a DonationData
+	 * 		object.
+	 * 	*) On construction, the DonationData object pulls donation data from an
+	 * 		appropriate source, and normalizes the entire data set for storage.
+	 * 	*) The gateway adapter pulls normalized, html escaped data out of the
+	 * 		DonationData object, as the base of its own data set.
 	 * @param string $val The specific key you're looking for (if any)
 	 * @return mixed An array of all the raw, unstaged (but normalized and
 	 * sanitized) data sent to the adapter, or if $val was set, either the

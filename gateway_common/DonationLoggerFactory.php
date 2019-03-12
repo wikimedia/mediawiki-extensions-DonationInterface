@@ -18,7 +18,7 @@ class DonationLoggerFactory {
 	/**
 	 * @param GatewayType $adapter Get settings from this instance
 	 * @param string $suffix Append this string to the adapter identifier
-	 * @param LogPrefixProvider $prefixer Optionally use this to override
+	 * @param LogPrefixProvider|null $prefixer Optionally use this to override
 	 *        prefixing via the adapter.
 	 * @return \Psr\Log\LoggerInterface
 	 */

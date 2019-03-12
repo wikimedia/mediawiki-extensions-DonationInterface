@@ -128,6 +128,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * party SDK to make all processor API calls.  Since we're never calling
 	 * do_transaction and friends, we synthesize a PaymentTransactionResponse
 	 * to hold any errors returned from the SDK.
+	 * @return PaymentResult
 	 */
 	public function doPayment() {
 		$this->client = $this->getPwaClient();
@@ -385,7 +386,7 @@ class AmazonAdapter extends GatewayAdapter {
 	/**
 	 * Replace decimal point with a dash to comply with Amazon's restrictions on
 	 * seller reference ID format.
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function generateOrderID( $dataObj = null ) {
 		$dotted = parent::generateOrderID( $dataObj );
@@ -407,6 +408,7 @@ class AmazonAdapter extends GatewayAdapter {
 
 	/**
 	 * Override default behavior
+	 * @return array
 	 */
 	function getAvailableSubmethods() {
 		return array();

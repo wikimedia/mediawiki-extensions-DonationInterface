@@ -625,7 +625,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Because GC has some processes that involve more than one do_transaction
 	 * chained together, we're catching those special ones in an overload and
 	 * letting the rest behave normally.
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
@@ -1191,7 +1191,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * - What do we do about WARNING? For now, it is fail?
 	 * - Get the validation id
 	 *
-	 * @param array $data The data array
+	 * @param array &$data The data array
 	 *
 	 * @throws UnexpectedValueException
 	 * @return string One of the constants defined in @see FinalStatus
@@ -1665,6 +1665,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * getCVVResult is intended to be used by the functions filter, to
 	 * determine if we want to fail the transaction ourselves or not.
+	 * @return null|false|array
 	 */
 	public function getCVVResult() {
 		$from_processor = $this->getData_Unstaged_Escaped( 'cvv_result' );
@@ -1686,6 +1687,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * getAVSResult is intended to be used by the functions filter, to
 	 * determine if we want to fail the transaction ourselves or not.
+	 * @return null|array
 	 */
 	public function getAVSResult() {
 		if ( is_null( $this->getData_Unstaged_Escaped( 'avs_result' ) ) ) {
