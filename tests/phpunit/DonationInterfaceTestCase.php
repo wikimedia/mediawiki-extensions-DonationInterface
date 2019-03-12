@@ -142,9 +142,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * - there are many cases to this that need to be developed.
 	 * - Do not consider this a complete test!
 	 *
-	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::setCurrentTransaction
-	 * @covers GatewayAdapter::buildRequestXML
 	 * @param array $optionsForTestData
 	 * @param array $options
 	 */

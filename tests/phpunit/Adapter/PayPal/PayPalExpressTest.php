@@ -411,7 +411,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
-	/*
+	/**
 	 * Check that it does not call doPayment when status is PaymentNotInitiated
 	 */
 	public function testProcessDonorReturnPaymentActionCompleted() {
@@ -433,7 +433,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertNull( $message, 'Should not queue a message' );
 	}
 
-	/*
+	/**
 	 * Check that it does not call doPayment when the token has timed out
 	 */
 	public function testProcessDonorReturnTokenTimeout() {

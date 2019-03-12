@@ -2,10 +2,11 @@
 
 class BlankAddressFields implements StagingHelper, UnstagingHelper {
 
-	/*
+	/**
 	 * Supply default value 'NA' for blank address fields when required
 	 * as per Adyen's suggestion for passing their validation with
 	 * unused fields.
+	 * @var string[]
 	 */
 	private static $addressFields = array(
 		'city',

@@ -2,7 +2,6 @@
 <ruleset>
         <rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
                 <exclude name="MediaWiki.Commenting.MissingCovers.MissingCovers" />
-                <exclude name="MediaWiki.Commenting.PhpunitAnnotations.NotTestFunction" />
                 <exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
                 <exclude name="Squiz.Scope.MemberVarScope.Missing" />
                 <exclude name="Squiz.Scope.MethodScope.Missing" />
@@ -10,8 +9,6 @@
                 <exclude name="Generic.Files.LineLength.TooLong" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
                 <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-                <exclude name="MediaWiki.Commenting.FunctionComment.WrongStyle" />
-                <exclude name="MediaWiki.Commenting.PhpunitAnnotations.NotClassTrait" />
                 <exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
                 <exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
                 <exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />

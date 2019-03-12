@@ -63,7 +63,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$this->accountInfo = array();
 	}
 
-	// TODO: Get L_SHORTMESSAGE0 and L_LONGMESSAGE0
+	/**
+	 * TODO: Get L_SHORTMESSAGE0 and L_LONGMESSAGE0
+	 */
 	function defineReturnValueMap() {
 		$this->return_value_map = array();
 		// 0: No errors
@@ -101,7 +103,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return $opts;
 	}
 
-	// TODO: Support "response" specification.
+	/**
+	 * TODO: Support "response" specification.
+	 */
 	function defineTransactions() {
 		$this->transactions = array();
 
@@ -698,16 +702,18 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
 
-	/*
+	/**
 	 * TODO: add test
+	 * @return array
 	 */
 	public function createDonorReturnParams() {
 		return array( 'token' => $this->getData_Staged( 'gateway_session_id' ) );
 	}
 
-	/*
+	/**
 	 * Returns true becaues all payment methods can be rectified
 	 * FIXME: Add handling for session expiration limits?
+	 * @return bool
 	 */
 	public function shouldRectifyOrphan() {
 		return true;

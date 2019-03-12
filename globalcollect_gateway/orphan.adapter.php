@@ -25,7 +25,12 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		parent::__construct( $options );
 	}
 
-	// FIXME: Get rid of this.
+	/**
+	 * FIXME: Get rid of this.
+	 * @param array $data
+	 * @param bool $final
+	 * @return array
+	 */
 	public function unstage_data( $data = array(), $final = true ) {
 		$unstaged = array();
 		foreach ( $data as $key => $val ) {
@@ -52,7 +57,10 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $unstaged;
 	}
 
-	// FIXME: This needs some serious code reuse trickery.
+	/**
+	 * FIXME: This needs some serious code reuse trickery.
+	 * @param array $data
+	 */
 	public function loadDataAndReInit( $data ) {
 		// re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure

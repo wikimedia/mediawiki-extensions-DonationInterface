@@ -1,8 +1,11 @@
 <?php
 
 class RiskScore implements StagingHelper {
-	/*
+	/**
 	 * Send our fraud score to Adyen so we can see it in the console
+	 * @param GatewayType $adapter
+	 * @param array $normalized
+	 * @param array &$stagedData
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// This isn't smart enough to grab a new value here;

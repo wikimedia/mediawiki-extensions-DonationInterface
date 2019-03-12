@@ -69,11 +69,9 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 			array( '6011045341391380', true, 'Discover' ),
 			array( '6011324325736120', true, 'Discover' ),
 			// Diners Club is not currently working at all
-			/**
-			  array ( '30343484937451', true, 'Diners Club' ),
-			  array ( '30037415730064', true, 'Diners Club' ),
-			  array ( '30392872026500', true, 'Diners Club' ),
-			 */
+			// array ( '30343484937451', true, 'Diners Club' ),
+			// array ( '30037415730064', true, 'Diners Club' ),
+			// array ( '30392872026500', true, 'Diners Club' ),
 			// enRoute
 			array( '201454799826249', true, 'enRoute' ),
 			array( '201498205795993', true, 'enRoute' ),
@@ -84,11 +82,9 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 			// not sure what is wrong with the next one, but it's failing
 			// array ( '3519002211673029', true, 'JCB' ),
 			// Voyager is also not currently working at all
-			/**
-			  array ( '869952786819898', true, 'Voyager' ),
-			  array ( '869967184704708', true, 'Voyager' ),
-			  array ( '869901879171733', true, 'Voyager' ),
-			 */
+			// array ( '869952786819898', true, 'Voyager' ),
+			// array ( '869967184704708', true, 'Voyager' ),
+			// array ( '869901879171733', true, 'Voyager' ),
 			// Not credit cards
 			array( 'John Doe', false, 'Not a valid credit card' ),
 			array( 'Peter 123456', false, 'Not a valid credit card' ),

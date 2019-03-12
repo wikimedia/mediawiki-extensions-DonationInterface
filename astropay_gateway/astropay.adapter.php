@@ -46,7 +46,9 @@ class AstroPayAdapter extends GatewayAdapter {
 		$this->accountInfo = $this->account_config;
 	}
 
-	// TODO: How to DRYly configurify?
+	/**
+	 * TODO: How to DRYly configurify?
+	 */
 	function defineErrorMap() {
 		$this->error_map = array(
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.

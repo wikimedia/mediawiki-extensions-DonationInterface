@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * GatewayFormChooser acts as a gateway-agnostic landing page for second-step forms.
  * When passed a country, currency, and payment method combination, it determines the
  * appropriate form based on the forms defined for that combination taking into account

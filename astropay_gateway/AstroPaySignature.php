@@ -1,9 +1,12 @@
 <?php
 
 class AstroPaySignature implements StagingHelper {
-	/*
+	/**
 	 * Sign an AstroPay NewInvoice request
 	 * TODO: switch on transaction, build correct message for refund
+	 * @param GatewayType $adapter
+	 * @param array $normalized
+	 * @param array &$stagedData
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$message = self::getNewInvoiceMessage( $stagedData );

@@ -14,7 +14,6 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterfaceApi
  * @group medium
  */
-
 class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 	protected $hostedCheckoutProvider;

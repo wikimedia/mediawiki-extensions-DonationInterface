@@ -54,8 +54,10 @@ class AdyenAdapter extends GatewayAdapter {
 		}
 	}
 
-	// FIXME: That's not what ReturnValueMap is for!
-	// Unused?
+	/**
+	 * FIXME: That's not what ReturnValueMap is for!
+	 * Unused?
+	 */
 	function defineReturnValueMap() {
 		$this->return_value_map = array(
 			'authResult' => 'result',

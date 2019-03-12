@@ -1641,7 +1641,9 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	// hook pre_process for GET_ORDERSTATUS
+	/**
+	 * hook pre_process for GET_ORDERSTATUS
+	 */
 	protected function post_process_get_orderstatus() {
 		// Run antifraud only once per request.
 		static $checked = array();

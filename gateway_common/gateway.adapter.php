@@ -328,8 +328,10 @@ abstract class GatewayAdapter
 		return $url;
 	}
 
-	// For legacy support.
-	// TODO replace with access to config structure
+	/**
+	 * For legacy support.
+	 * TODO replace with access to config structure
+	 */
 	public function definePaymentMethods() {
 		// All adapters have payment_method(s)
 		$this->payment_methods = $this->config['payment_methods'];
@@ -339,21 +341,27 @@ abstract class GatewayAdapter
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineVarMap() {
 		if ( isset( $this->config['var_map'] ) ) {
 			$this->var_map = $this->config['var_map'];
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineDataConstraints() {
 		if ( isset( $this->config['data_constraints'] ) ) {
 			$this->dataConstraints = $this->config['data_constraints'];
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineErrorMap() {
 		if ( isset( $this->config['error_map'] ) ) {
 			$this->error_map = $this->config['error_map'];
@@ -372,7 +380,10 @@ abstract class GatewayAdapter
 		}
 	}
 
-	// FIXME: Not convinced we need this.
+	/**
+	 * FIXME: Not convinced we need this.
+	 * @return array
+	 */
 	public function getDataTransformers() {
 		return $this->data_transformers;
 	}
@@ -1608,7 +1619,11 @@ abstract class GatewayAdapter
 		return $justXML;
 	}
 
-	// To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+	/**
+	 * To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+	 * @param string $xml
+	 * @return string
+	 */
 	function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
 		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
@@ -3767,8 +3782,9 @@ abstract class GatewayAdapter
 		return false;
 	}
 
-	/*
+	/**
 	 * Cancel payment based on adapter and set status to cancelled
+	 * @return PaymentResult
 	 */
 	public function cancel() {
 		return PaymentResult::newFailure();
