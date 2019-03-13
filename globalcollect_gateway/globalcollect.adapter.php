@@ -857,7 +857,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( $result->getCommunicationStatus() === true ) {
 				if ( $this->getFinalStatus() === FinalStatus::PENDING_POKE ) {
 					$txn_data = $this->getTransactionData();
-					$original_status_code = isset( $txn_data['STATUSID'] ) ? $txn_data['STATUSID'] : 'NOT SET';
+					$original_status_code = $txn_data['STATUSID'] ?? 'NOT SET';
 
 					$result = $this->do_transaction( 'SET_PAYMENT' );
 					if ( $result->getCommunicationStatus() === true ) {
@@ -1319,7 +1319,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$data = $this->parseResponseData( $response );
 		$this->transaction_response->setData( $data );
 		// set the transaction result message
-		$responseStatus = isset( $data['STATUSID'] ) ? $data['STATUSID'] : '';
+		$responseStatus = $data['STATUSID'] ?? '';
 		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); // TODO: Translate for GC.
 		$this->setGatewayTransactionId();
 
