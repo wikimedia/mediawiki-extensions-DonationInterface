@@ -1,6 +1,8 @@
 <?php
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
+use SmashPig\Core\SequenceGenerators;
+use SmashPig\Core\DataStores\QueueWrapper;
 
 /**
  * DonationData
@@ -512,15 +514,23 @@ class DonationData implements LogPrefixProvider {
 	 * current contribution we're tracking.
 	 * If a contribution tracking id is already present, no new rows will be
 	 * assigned.
+	 * If we're using the contribution tracking queue, get a contribution_tracking_id
+	 * from the sequence generator. Return false because we're not creating a new record
+	 * yet, so no need to update the db.
 	 *
 	 * @return bool True if a new record was created
 	 */
 	protected function handleContributionTrackingID() {
 		if ( !$this->isSomething( 'contribution_tracking_id' ) ) {
-			$ctid = $this->saveContributionTrackingData();
-			if ( $ctid ) {
-				$this->setVal( 'contribution_tracking_id', $ctid );
+			if ( $this->gateway->getGlobal( 'EnableContributionTrackingQueue' ) ) {
+				$this->setVal( 'contribution_tracking_id', $this->getIdFromSequenceGenerator() );
 				return true;
+			} else {
+				$ctid = $this->saveContributionTrackingData();
+				if ( $ctid ) {
+					$this->setVal( 'contribution_tracking_id', $ctid );
+					return true;
+				}
 			}
 		}
 		return false;
@@ -864,6 +874,35 @@ class DonationData implements LogPrefixProvider {
 		return $tracking_data;
 	}
 
+	public function getIdFromSequenceGenerator( $generatorName = 'contribution-tracking' ) {
+		$generator = SequenceGenerators\Factory::getSequenceGenerator( $generatorName );
+
+		$id = $generator->getNext();
+
+		return $id;
+	}
+
+	public function sendToContributionTrackingQueue( $tracking_data, $ctid = null, $queueName = 'contribution-tracking' ) {
+		if ( !$ctid ) {
+			$ctid = $this->getIdFromSequenceGenerator();
+		}
+
+		if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
+			$tracking_data['ts'] = wfTimestamp( TS_MW );
+		}
+
+		$queueMessage = [
+			'id' => $ctid,
+			'ts' => $tracking_data['ts'],
+			];
+
+		$queueMessage = $queueMessage + $tracking_data;
+
+		QueueWrapper::push( $queueName, $queueMessage );
+
+		return $queueMessage['id'];
+	}
+
 	/**
 	 * Inserts a new or updates a record in the contribution_tracking table.
 	 *
@@ -876,38 +915,46 @@ class DonationData implements LogPrefixProvider {
 		}
 		$ctid = $this->getVal( 'contribution_tracking_id' );
 		$tracking_data = $this->getCleanTrackingData( true );
-		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
-		if ( !$db ) {
-			// TODO: This might be a critical failure; do we want to throw an exception instead?
-			$this->logger->error( 'Failed to create a connect to contribution_tracking database' );
-			return false;
-		}
+		if ( $this->gateway->getGlobal( 'EnableContributionTrackingQueue' ) ) {
 
-		if ( $ctid ) {
-			// We're updating a record, but only if we actually have data to update
-			if ( count( $tracking_data ) ) {
-				$db->update(
-					'contribution_tracking',
-					$tracking_data,
-					[ 'id' => $ctid ]
-				);
-			}
+			$ctid = $this->sendToContributionTrackingQueue( $tracking_data, $ctid );
+
 		} else {
-			// We need a new record
-			// set the time stamp if it's not already set
-			if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
-				$tracking_data['ts'] = $db->timestamp();
-			}
+			$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
-			// Store the contribution data
-			if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
-				$ctid = $db->insertId();
-			} else {
-				$this->logger->error( 'Failed to create a new contribution_tracking record' );
+			if ( !$db ) {
+				// TODO: This might be a critical failure; do we want to throw an exception instead?
+				$this->logger->error( 'Failed to create a connect to contribution_tracking database' );
 				return false;
 			}
+
+			if ( $ctid ) {
+				// We're updating a record, but only if we actually have data to update
+				if ( count( $tracking_data ) ) {
+					$db->update(
+						'contribution_tracking',
+						$tracking_data,
+						[ 'id' => $ctid ]
+					);
+				}
+			} else {
+				// We need a new record
+				// set the time stamp if it's not already set
+				if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
+					$tracking_data['ts'] = $db->timestamp();
+				}
+
+				// Store the contribution data
+				if ( $db->insert( 'contribution_tracking', $tracking_data ) ) {
+					$ctid = $db->insertId();
+				} else {
+					$this->logger->error( 'Failed to create a new contribution_tracking record' );
+					return false;
+				}
+			}
 		}
+
 		return $ctid;
 	}
 

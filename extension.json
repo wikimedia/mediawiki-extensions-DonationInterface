@@ -511,6 +511,7 @@
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
 		"DonationInterfaceLogClientErrors": true,
+		"DonationInterfaceEnableContributionTrackingQueue": false,
 		"DonationInterfaceGeoIpDbPath": "/usr/share/GeoIP/GeoLite2-Country.mmdb",
 		"DonationInterfaceGatewayAdapters": {
 			"globalcollect": "GlobalCollectAdapter",

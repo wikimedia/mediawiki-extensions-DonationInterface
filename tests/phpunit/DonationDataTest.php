@@ -16,6 +16,9 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\Core\SequenceGenerators;
 
 /**
  * @group Fundraising
@@ -67,6 +70,11 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 		];
+	}
+
+	public function setUp() {
+		$this->setMwGlobals( [ 'wgDonationInterfaceEnableContributionTrackingQueue' => true ] );
+		parent::setUp();
 	}
 
 	/**
@@ -366,6 +374,39 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$returned = $ddObj->getData();
 		$this->assertEquals( 'no', $returned['language'], "Language 'no' was normalized out of existance. Sad." );
 		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );
+	}
+
+	/**
+	 *
+	*/
+	public function testSendToContributionTrackingQueue() {
+		$queueName = 'contribution-tracking';
+		$generator = SequenceGenerators\Factory::getSequenceGenerator( $queueName );
+		$generator->initializeSequence();
+		$expected = [
+			'referrer' => 'http://www.testing.com/',
+			'utm_source' => '..cc',
+			'utm_medium' => 'large',
+			'utm_campaign' => 'yes',
+			'language' => 'en',
+			'country' => 'US',
+			'form_amount' => 'USD 128.00',
+			'payments_form' => 'globalcollect.JimmyQuote',
+			'id' => '1',
+			];
+
+		$gateway = $this->getFreshGatewayObject( $this->testData );
+		$ctId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+
+		$actual = QueueWrapper::getQueue( $queueName )->pop();
+		SourceFields::removeFromMessage( $actual );
+		unset( $actual['ts'] );
+
+		$this->assertEquals( $expected, $actual, 'Message on the queue does not match' );
+		$this->assertEquals( $expected[ 'id' ], $ctId, 'Wrong contribution tracking ID set' );
+
+		$empty = QueueWrapper::getQueue( $queueName )->pop();
+		$this->assertNull( $empty, 'Too many messages on the queue' );
 	}
 
 	/**
