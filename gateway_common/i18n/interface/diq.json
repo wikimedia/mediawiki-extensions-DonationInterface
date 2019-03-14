@@ -223,7 +223,7 @@
 	"donate_interface-change": "Bıvurne",
 	"donate_interface-optional": "opsiyonel",
 	"donate_interface-bt-finished": "Qedyayo",
-	"donate_interface-obt-customer_payment_reference": "Referans #",
+	"donate_interface-obt-customer_payment_reference": "Çıme #",
 	"donate_interface-rtbt-issuer_id": "Yew banka weçine",
 	"donate_interface-rtbt-issuer_id-longlist": "Bankey bini",
 	"donate_interface-dd-account_name": "Nameyê hesabi",
@@ -231,7 +231,7 @@
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-currency-change": "Wa Bıvuryo?",
 	"donate_interface-monthlybox-title": "Wa Aşmek bo?",
-	"donate_interface-monthly-short": "Aşmeke",
+	"donate_interface-monthly-short": "Aşmane",
 	"apihelp-donate-param-city": "Sûke.",
 	"apihelp-donate-param-language": "Kodê zıwani."
 }
