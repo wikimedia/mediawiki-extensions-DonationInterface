@@ -1,26 +1,25 @@
 <?xml version="1.0"?>
 <ruleset>
-        <rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-                <exclude name="MediaWiki.Commenting.MissingCovers.MissingCovers" />
-                <exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
-                <exclude name="Squiz.Scope.MemberVarScope.Missing" />
-                <exclude name="Squiz.Scope.MethodScope.Missing" />
-                <exclude name="Generic.Files.LineLength.TooLong" />
-                <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
-                <exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-                <exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
-                <exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
-                <exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />
-                <exclude name="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix" />
-                <exclude name="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals" />
-                <exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
-                <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
-                <exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-                <exclude name="Squiz.Operators.ValidLogicalOperators.NotAllowed" />
-                <exclude name="Squiz.WhiteSpace.ScopeClosingBrace.ContentBefore" />
-        </rule>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.Commenting.MissingCovers.MissingCovers" />
+		<exclude name="MediaWiki.Files.ClassMatchesFilename.NotMatch" />
+		<exclude name="Squiz.Scope.MemberVarScope.Missing" />
+		<exclude name="Squiz.Scope.MethodScope.Missing" />
+		<exclude name="Generic.Files.LineLength.TooLong" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
+		<exclude name="MediaWiki.ControlStructures.AssignmentInControlStructures.AssignmentInControlStructures" />
+		<exclude name="MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName" />
+		<exclude name="MediaWiki.NamingConventions.PrefixedGlobalFunctions.wfPrefix" />
+		<exclude name="MediaWiki.NamingConventions.ValidGlobalName.wgPrefix" />
+		<exclude name="MediaWiki.Usage.SuperGlobalsUsage.SuperGlobals" />
+		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
+		<exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
+		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+		<exclude name="Squiz.Operators.ValidLogicalOperators.NotAllowed" />
+	</rule>
 
-        <file>.</file>
-        <arg name="extensions" value="php" />
-        <arg name="encoding" value="UTF-8" />
+	<file>.</file>
+	<arg name="extensions" value="php" />
+	<arg name="encoding" value="UTF-8" />
 </ruleset>

@@ -91,7 +91,8 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->accountInfo = [];
 	}
 
-	function defineReturnValueMap() { }
+	function defineReturnValueMap() {
+	}
 
 	function defineOrderIDMeta() {
 		$this->order_id_meta = [

@@ -155,10 +155,10 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	/**
 	 * Providing that additional layer of indirection and confusion.
 	 *
-	 * @param string    $baseVar  The root name of the variable
-	 * @param string    $txn      The name of the transaction
+	 * @param string $baseVar The root name of the variable
+	 * @param string $txn The name of the transaction
 	 *
-	 * @return mixed    The contents of the configuration variable
+	 * @return mixed The contents of the configuration variable
 	 */
 	private function getVar( $baseVar, $txn ) {
 		$var = $this->gateway_adapter->getGlobal( 'SessionVelocity_' . $txn . '_' . $baseVar );
