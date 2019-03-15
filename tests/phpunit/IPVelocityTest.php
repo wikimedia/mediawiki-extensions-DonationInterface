@@ -55,9 +55,9 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		parent::tearDown();
 
 		global $wgDonationInterfaceIPVelocityToxicDuration,
-			   $wgDonationInterfaceIPVelocityFailDuration,
-			   $wgDonationInterfaceIPWhitelist,
-			   $wgDonationInterfaceIPBlacklist;
+			$wgDonationInterfaceIPVelocityFailDuration,
+			$wgDonationInterfaceIPWhitelist,
+			$wgDonationInterfaceIPBlacklist;
 
 		unset( $wgDonationInterfaceIPVelocityToxicDuration );
 		unset( $wgDonationInterfaceIPVelocityFailDuration );

@@ -302,7 +302,8 @@ class AdyenAdapter extends GatewayAdapter {
 	 * before we redirect the user, so we don't need to send another one
 	 * when doStompTransaction is called from postProcessDonation.
 	 */
-	protected function doStompTransaction() { }
+	protected function doStompTransaction() {
+	}
 
 	/**
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip

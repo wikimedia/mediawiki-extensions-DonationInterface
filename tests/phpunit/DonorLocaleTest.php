@@ -20,7 +20,7 @@
  * @group DonationInterface
  * @group Localisation
  */
-class DonorLocaleTest  extends DonationInterfaceTestCase {
+class DonorLocaleTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @var GatewayType

@@ -66,7 +66,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		// 8: Operation rejected by bank
 		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 8 );
 		// 9: Amount Paid.  Transaction successfully concluded
-		$this->addCodeRange( 'PaymentStatus', 'result',	 FinalStatus::COMPLETE, 9 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::COMPLETE, 9 );
 	}
 
 	/**
@@ -403,9 +403,10 @@ class AstroPayAdapter extends GatewayAdapter {
 	 */
 	protected function processStatusResponse( $response ) {
 		if ( !isset( $response['result'] ) ||
-			 !isset( $response['x_amount'] ) ||
-			 !isset( $response['x_invoice'] ) ||
-			 !isset( $response['x_control'] ) ) {
+			!isset( $response['x_amount'] ) ||
+			!isset( $response['x_invoice'] ) ||
+			!isset( $response['x_control'] )
+		) {
 			$this->transaction_response->setCommunicationStatus( false );
 			$message = 'AstroPay response missing one or more required keys.  Full response: '
 				. print_r( $response, true );
