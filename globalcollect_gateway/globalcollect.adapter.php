@@ -567,7 +567,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// FIXME: this should happen during normalization, and before validatation.
 		if ( $payment_method === 'dd'
-				and !$this->getPaymentSubmethod() ) {
+				&& !$this->getPaymentSubmethod() ) {
 			// Synthesize a submethod based on the country.
 			$country_code = strtolower( $this->getData_Unstaged_Escaped( 'country' ) );
 			$this->addRequestData( [

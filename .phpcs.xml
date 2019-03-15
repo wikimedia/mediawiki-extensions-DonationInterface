@@ -16,7 +16,6 @@
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 		<exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing" />
 		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
-		<exclude name="Squiz.Operators.ValidLogicalOperators.NotAllowed" />
 	</rule>
 
 	<file>.</file>

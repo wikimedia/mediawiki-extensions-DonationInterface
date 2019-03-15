@@ -61,7 +61,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	public function assertHasValidationError( $field, $messageKey = null, $messageParams = null ) {
 		$hasError = false;
 		foreach ( $this->adapter->getErrorState()->getErrors() as $error ) {
-			if ( $error instanceof ValidationError and $error->getField() === $field ) {
+			if ( $error instanceof ValidationError && $error->getField() === $field ) {
 				$hasError = true;
 				if ( $messageKey !== null ) {
 					$this->assertEquals( $messageKey, $error->getMessageKey() );
