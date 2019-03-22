@@ -46,17 +46,19 @@ class AstroPayAdapter extends GatewayAdapter {
 		$this->accountInfo = $this->account_config;
 	}
 
-	// TODO: How to DRYly configurify?
+	/**
+	 * TODO: How to DRYly configurify?
+	 */
 	function defineErrorMap() {
-		$this->error_map = array(
+		$this->error_map = [
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
 			'internal-0001' => 'donate_interface-try-again',
 			ResponseCodes::DUPLICATE_ORDER_ID => 'donate_interface-processing-error', // Order ID already used in a previous transaction
-		);
+		];
 	}
 
 	function defineReturnValueMap() {
-		$this->return_value_map = array();
+		$this->return_value_map = [];
 		// 6: Transaction not found in the system
 		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 6 );
 		// 7: Pending transaction awaiting approval
@@ -64,7 +66,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		// 8: Operation rejected by bank
 		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 8 );
 		// 9: Amount Paid.  Transaction successfully concluded
-		$this->addCodeRange( 'PaymentStatus', 'result',	 FinalStatus::COMPLETE, 9 );
+		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::COMPLETE, 9 );
 	}
 
 	/**
@@ -76,20 +78,20 @@ class AstroPayAdapter extends GatewayAdapter {
 	 * audit entry or listener message that tells us the payment succeeded.
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array(
-			'alt_locations' => array( 'request' => 'x_invoice' ),
+		$this->order_id_meta = [
+			'alt_locations' => [ 'request' => 'x_invoice' ],
 			'generate' => true,
 			'ct_id' => true,
 			'length' => 20,
-		);
+		];
 	}
 
 	function defineTransactions() {
-		$this->transactions = array();
+		$this->transactions = [];
 
-		$this->transactions['NewInvoice'] = array(
+		$this->transactions['NewInvoice'] = [
 			'path' => 'api_curl/streamline/NewInvoice',
-			'request' => array(
+			'request' => [
 				'x_login',
 				'x_trans_key', // password
 				'x_invoice', // order id
@@ -110,45 +112,45 @@ class AstroPayAdapter extends GatewayAdapter {
 				// 'x_state',
 				'control',
 				'type',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'x_login' => $this->accountInfo['Create']['Login'],
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'x_description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'type' => 'json',
-			),
+			],
 			'check_required' => true
-		);
+		];
 
-		$this->transactions[ 'GetBanks' ] = array(
+		$this->transactions[ 'GetBanks' ] = [
 			'path' => 'api_curl/apd/get_banks_by_country',
-			'request' => array(
+			'request' => [
 				'x_login',
 				'x_trans_key',
 				'country_code',
 				'type',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'x_login' => $this->accountInfo['Create']['Login'],
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'type' => 'json',
-			)
-		);
+			]
+		];
 
-		$this->transactions[ 'PaymentStatus' ] = array(
+		$this->transactions[ 'PaymentStatus' ] = [
 			'path' => '/apd/webpaystatus',
-			'request' => array(
+			'request' => [
 				'x_login',
 				'x_trans_key',
 				'x_invoice',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'x_login' => $this->accountInfo['Status']['Login'],
 				'x_trans_key' => $this->accountInfo['Status']['Password'],
-			),
+			],
 			'response_type' => 'delimited',
 			'response_delimiter' => '|',
-			'response_keys' => array(
+			'response_keys' => [
 				'result', // status code
 				'x_iduser',
 				'x_invoice',
@@ -162,13 +164,13 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_payment_type',
 				'x_bank_name',
 				'x_currency',
-			)
-		);
+			]
+		];
 
 		// Not for running with do_transaction, just a handy place to keep track
 		// of what we expect POSTed to the resultswitcher.
-		$this->transactions[ 'ProcessReturn' ] = array(
-			'request' => array(
+		$this->transactions[ 'ProcessReturn' ] = [
+			'request' => [
 				'result',
 				'x_invoice',
 				'x_iduser',
@@ -176,8 +178,8 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_document',
 				'x_amount',
 				'x_control',
-			)
-		);
+			]
+		];
 	}
 
 	function getBasedir() {
@@ -194,11 +196,11 @@ class AstroPayAdapter extends GatewayAdapter {
 			// Email: testing2@dlocal.com
 			// Name: DLOCAL TESTING
 			// Birthdate: 04/03/1984
-			$this->payment_submethods['test_bank'] = array(
+			$this->payment_submethods['test_bank'] = [
 				'bank_code' => 'TE',
 				'label' => 'GNB',
 				'group' => 'cc',
-			);
+			];
 		}
 	}
 
@@ -219,11 +221,11 @@ class AstroPayAdapter extends GatewayAdapter {
 
 	/**
 	 * Overriding parent method to add fiscal number
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function getRequiredFields( $knownData = null ) {
 		$fields = parent::getRequiredFields( $knownData );
-		$noFiscalRequired = array( 'MX', 'PE' );
+		$noFiscalRequired = [ 'MX', 'PE' ];
 		$country = $this->getData_Unstaged_Escaped( 'country' );
 		if ( !in_array( $country, $noFiscalRequired ) ) {
 			$fields[] = 'fiscal_number';
@@ -232,7 +234,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		return $fields;
 	}
 
-	public function getCurrencies( $options = array() ) {
+	public function getCurrencies( $options = [] ) {
 		$country = isset( $options['country'] ) ?
 					$options['country'] :
 					$this->getData_Unstaged_Escaped( 'country' );
@@ -288,9 +290,9 @@ class AstroPayAdapter extends GatewayAdapter {
 		// Make sure we record the right amount, even if the donor has opened
 		// a new window and messed with their session data.
 		// Unfortunately, we don't get the currency code back.
-		$this->addResponseData( array(
+		$this->addResponseData( [
 			'amount' => $requestValues['x_amount']
-		) );
+		] );
 		// FIXME: There is no real API response, so maybe we should put the
 		// gateway txn id in unstaged data. As is, we need to fabricate a
 		// transaction response and set it there so it is picked up when
@@ -349,7 +351,7 @@ class AstroPayAdapter extends GatewayAdapter {
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
 						ResponseCodes::DUPLICATE_ORDER_ID,
-						array( 'order_id' )
+						[ 'order_id' ]
 					);
 				} elseif ( preg_match( '/^could not (register user|make the deposit)/i', $response['desc'] ) ) {
 					// AstroPay is overwhelmed.  Tell the donor to try again soon.
@@ -401,9 +403,10 @@ class AstroPayAdapter extends GatewayAdapter {
 	 */
 	protected function processStatusResponse( $response ) {
 		if ( !isset( $response['result'] ) ||
-			 !isset( $response['x_amount'] ) ||
-			 !isset( $response['x_invoice'] ) ||
-			 !isset( $response['x_control'] ) ) {
+			!isset( $response['x_amount'] ) ||
+			!isset( $response['x_invoice'] ) ||
+			!isset( $response['x_control'] )
+		) {
 			$this->transaction_response->setCommunicationStatus( false );
 			$message = 'AstroPay response missing one or more required keys.  Full response: '
 				. print_r( $response, true );

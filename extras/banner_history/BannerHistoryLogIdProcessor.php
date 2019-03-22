@@ -66,10 +66,10 @@ class BannerHistoryLogIdProcessor {
 			return;
 		}
 
-		$data = array(
+		$data = [
 			'banner_history_id' => $bannerHistoryId,
 			'contribution_tracking_id' => $contributionTrackingId,
-		);
+		];
 
 		$this->logger->info( 'Pushing to banner-history queue.' );
 		QueueWrapper::push( 'banner-history', $data );

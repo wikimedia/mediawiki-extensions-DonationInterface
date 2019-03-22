@@ -23,7 +23,7 @@ class IngenicoReturntoHelper implements StagingHelper {
 				&& !empty( $returnto )
 				&& !strpos( $returnto, 'order_id' )
 			) {
-				$queryArray = array( 'order_id' => $normalized['order_id'] );
+				$queryArray = [ 'order_id' => $normalized['order_id'] ];
 				$stagedData['returnto'] = wfAppendQuery( $returnto, $queryArray );
 			}
 		} else {

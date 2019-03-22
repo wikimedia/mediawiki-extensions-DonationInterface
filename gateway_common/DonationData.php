@@ -16,7 +16,8 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * @author khorn
  */
 class DonationData implements LogPrefixProvider {
-	protected $normalized = array();
+	protected $normalized = [];
+	protected $dataSources = [];
 	protected $gateway;
 	protected $gatewayID;
 	/**
@@ -37,7 +38,7 @@ class DonationData implements LogPrefixProvider {
 	 * keys we want to see disappear forever, complete with
 	 * ffname and referrer for easy total destruction.
 	 */
-	protected static $fieldNames = array(
+	protected static $fieldNames = [
 		'amount',
 		'amountGiven',
 		'amountOther',
@@ -105,7 +106,7 @@ class DonationData implements LogPrefixProvider {
 		'server_ip',
 		'variant',
 		'opt_in',
-	);
+	];
 
 	/**
 	 * DonationData constructor
@@ -133,13 +134,16 @@ class DonationData implements LogPrefixProvider {
 	 * Default is false.
 	 */
 	protected function populateData( $external_data = false ) {
-		$this->normalized = array();
+		$this->normalized = [];
 		if ( is_array( $external_data ) ) {
 			// I don't care if you're a test or not. At all.
 			$this->normalized = $external_data;
+			$this->dataSources = array_fill_keys( array_keys( $external_data ), 'external' );
 		} else {
 			foreach ( self::$fieldNames as $var ) {
-				$this->normalized[$var] = $this->sourceHarvest( $var );
+				list( $val, $source ) = $this->sourceHarvest( $var );
+				$this->normalized[$var] = $val;
+				$this->dataSources[$var] = $source;
 			}
 
 			if ( !$this->wasPosted() ) {
@@ -167,14 +171,26 @@ class DonationData implements LogPrefixProvider {
 	 * Harvest a varname from its source - post, get, maybe even session eventually.
 	 * @TODO: Provide a way that gateways can override default behavior here for individual keys.
 	 * @param string $var The incoming var name we need to get a value for
-	 * @return mixed The final value of the var, or null if we don't actually have it.
+	 * @return array First element is the final value of the var, or null if we don't actually have it.
+	 *  Second element is the source of the value, null if nonexistant, get, or post
 	 */
 	protected function sourceHarvest( $var ) {
 		if ( $this->gateway->isBatchProcessor() ) {
-			return null;
+			return [ null, null ];
 		}
 		$ret = WmfFramework::getRequestValue( $var, null );
-		return $ret;
+		$queryValues = WmfFramework::getQueryValues();
+		// When a value is both on the QS and in POST, getRequestValue prefers POST
+		// So if it's the same as the version from getQueryValues, say the source is
+		// 'get', otherwise if there is any value at all say the source is 'post'
+		if ( isset( $queryValues[$var] ) && $ret == $queryValues[$var] ) {
+			$source = 'get';
+		} elseif ( $ret !== null ) {
+			$source = 'post';
+		} else {
+			$source = null;
+		}
+		return [ $ret, $source ];
 	}
 
 	/**
@@ -198,10 +214,11 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 		// fields that should always overwrite with their original values
-		$overwrite = array( 'referrer', 'contribution_tracking_id' );
+		$overwrite = [ 'referrer', 'contribution_tracking_id' ];
 		foreach ( $donorData as $key => $val ) {
 			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );
+				$this->dataSources[$key] = 'session';
 			} else {
 				if ( in_array( $key, $overwrite ) ) {
 					$this->setVal( $key, $val );
@@ -217,6 +234,15 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function getData() {
 		return $this->normalized;
+	}
+
+	/**
+	 * Returns the array of all normalized donation data.
+	 *
+	 * @return array
+	 */
+	public function getDataSources() {
+		return $this->dataSources;
 	}
 
 	/**
@@ -294,7 +320,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return array An array of values matching all recalculated fields.
 	 */
 	public function getCalculatedFields() {
-		$fields = array(
+		$fields = [
 			'utm_source',
 			'amount',
 			'order_id',
@@ -304,7 +330,7 @@ class DonationData implements LogPrefixProvider {
 			'contribution_tracking_id', // sort of...
 			'currency',
 			'user_ip',
-		);
+		];
 		return $fields;
 	}
 
@@ -403,7 +429,7 @@ class DonationData implements LogPrefixProvider {
 				// check to see if it's one of those other codes that comes out of CN, for the logs
 				// If this logs annoying quantities of nothing useful, go ahead and kill this whole else block later.
 				// we're still going to try to regen.
-				$near_countries = array( 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' );
+				$near_countries = [ 'XX', 'EU', 'AP', 'A1', 'A2', 'O1' ];
 				if ( !in_array( $country, $near_countries ) ) {
 					$this->logger->warning( __FUNCTION__ . ": $country is not a country, or a recognized placeholder." );
 				}
@@ -542,13 +568,13 @@ class DonationData implements LogPrefixProvider {
 			// fail validation later, log some things.
 			// FIXME: Generalize this, be more careful with user_ip.
 			$mess = 'Non-numeric Amount.';
-			$keys = array(
+			$keys = [
 				'amount',
 				'utm_source',
 				'utm_campaign',
 				'email',
 				'user_ip', // to help deal with fraudulent traffic.
-			);
+			];
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
 			}
@@ -621,8 +647,8 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * Intended to be used with something like array_walk.
 	 *
-	 * @param $value string The value of the array
-	 * @param $key string The key of the array
+	 * @param string &$value The value of the array
+	 * @param string $key The key of the array
 	 */
 	protected function sanitizeInput( &$value, $key ) {
 		$value = htmlspecialchars( $value, ENT_COMPAT, 'UTF-8', false );
@@ -803,7 +829,7 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function getCleanTrackingData( $unset = false ) {
 		// define valid tracking fields
-		$tracking_fields = array(
+		$tracking_fields = [
 			'note',
 			'referrer',
 			'anonymous',
@@ -814,9 +840,9 @@ class DonationData implements LogPrefixProvider {
 			'language',
 			'country',
 			'ts'
-		);
+		];
 
-		$tracking_data = array();
+		$tracking_data = [];
 
 		foreach ( $tracking_fields as $value ) {
 			if ( $this->isSomething( $value ) ) {
@@ -871,7 +897,7 @@ class DonationData implements LogPrefixProvider {
 				$db->update(
 					'contribution_tracking',
 					$tracking_data,
-					array( 'id' => $ctid )
+					[ 'id' => $ctid ]
 				);
 			}
 		} else {
@@ -900,12 +926,14 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * @param array $newdata An array of data to integrate with the existing
 	 * data held by the DonationData object.
+	 * @param string $source
 	 */
-	public function addData( $newdata ) {
+	public function addData( $newdata, $source = 'internal' ) {
 		if ( is_array( $newdata ) && !empty( $newdata ) ) {
 			foreach ( $newdata as $key => $val ) {
 				if ( !is_array( $val ) ) {
 					$this->setVal( $key, $val );
+					$this->dataSources[$key] = $source;
 				}
 			}
 		}
@@ -915,9 +943,10 @@ class DonationData implements LogPrefixProvider {
 	/**
 	 * Returns an array of field names we typically send out in a queue
 	 * message.
+	 * @return array
 	 */
 	public static function getMessageFields() {
-		return array(
+		return [
 			'contribution_tracking_id',
 			'anonymous',
 			'utm_source',
@@ -949,15 +978,35 @@ class DonationData implements LogPrefixProvider {
 			'gateway_session_id',
 			'recurring_payment_token',
 			'opt_in',
-		);
+		];
+	}
+
+	/**
+	 * These fields relate to the donor contact info, not the donation.
+	 * Used to build a message for the opt-in queue when a donation fails.
+	 * @return string[] Fields relating to the donor's personal info
+	 */
+	public static function getContactFields() {
+		return [
+			'language',
+			'email',
+			'first_name',
+			'last_name',
+			'street_address',
+			'city',
+			'state_province',
+			'country',
+			'postal_code',
+		];
 	}
 
 	/**
 	 * Returns an array of field names we need in order to retry a payment
 	 * after the session has been destroyed by... overzealousness.
+	 * @return string[] Fields to preserve when retrying a payment
 	 */
 	public static function getRetryFields() {
-		$fields = array(
+		$fields = [
 			'contact_id',
 			'contact_hash',
 			'gateway',
@@ -969,12 +1018,13 @@ class DonationData implements LogPrefixProvider {
 			'utm_medium',
 			'utm_campaign',
 			'payment_method',
-		);
+		];
 		return $fields;
 	}
 
 	/**
 	 * Returns an array of names of fields we store in session
+	 * @return array
 	 */
 	public static function getSessionFields() {
 		$fields = self::getMessageFields();
@@ -993,6 +1043,7 @@ class DonationData implements LogPrefixProvider {
 	 * I realize this is pretty lame.
 	 * Notices, however, are more lame.
 	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
+	 * @return bool
 	 */
 	public function wasPosted() {
 		static $posted = null;

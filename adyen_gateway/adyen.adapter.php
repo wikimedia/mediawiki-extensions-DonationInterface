@@ -15,7 +15,6 @@
  * GNU General Public License for more details.
  *
  */
-use Psr\Log\LogLevel;
 use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\ValidationAction;
 
@@ -39,56 +38,58 @@ class AdyenAdapter extends GatewayAdapter {
 	}
 
 	function defineAccountInfo() {
-		$this->accountInfo = array(
+		$this->accountInfo = [
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
 			'skins' => $this->account_config[ 'Skins' ],
-		);
+		];
 	}
 
-	function setGatewayDefaults( $options = array() ) {
+	function setGatewayDefaults( $options = [] ) {
 		if ( $this->getData_Unstaged_Escaped( 'processor_form' ) == null ) {
 			$skinCodes = $this->getSkinCodes();
 			$processor_form = $skinCodes['base'];
 			$this->addRequestData(
-				array( 'processor_form' => $processor_form )
+				[ 'processor_form' => $processor_form ]
 			);
 		}
 	}
 
-	// FIXME: That's not what ReturnValueMap is for!
-	// Unused?
+	/**
+	 * FIXME: That's not what ReturnValueMap is for!
+	 * Unused?
+	 */
 	function defineReturnValueMap() {
-		$this->return_value_map = array(
+		$this->return_value_map = [
 			'authResult' => 'result',
 			'merchantReference' => 'order_id',
 			'merchantReturnData' => 'return_data',
 			'pspReference' => 'gateway_txn_id',
 			'skinCode' => 'processor_form',
-		);
+		];
 	}
 
 	/**
 	 * Sets up the $order_id_meta array.
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => array( $dataset_name, $dataset_key ) //ordered
+	 * 'alt_locations' => [ $dataset_name, $dataset_key ] //ordered
 	 * 'type' => numeric, or alphanumeric
 	 * 'length' => $max_charlen
 	 */
 	public function defineOrderIDMeta() {
-		$this->order_id_meta = array(
-			'alt_locations' => array( 'request' => 'merchantReference' ),
+		$this->order_id_meta = [
+			'alt_locations' => [ 'request' => 'merchantReference' ],
 			'ct_id' => true,
 			'generate' => true,
-		);
+		];
 	}
 
 	/**
 	 * Define transactions
 	 */
 	function defineTransactions() {
-		$this->transactions = array();
+		$this->transactions = [];
 
-		$requestFields = array(
+		$requestFields = [
 				'allowedMethods',
 				'brandCode',
 				'card.cardHolderName',
@@ -110,10 +111,10 @@ class AdyenAdapter extends GatewayAdapter {
 				// 'shopperStatement',
 				// 'merchantReturnData',
 				// 'deliveryAddressType',
-		);
+		];
 
 		// Add address fields for countries that use them.
-		$addressFields = array(
+		$addressFields = [
 			'billingAddress.street',
 			'billingAddress.city',
 			'billingAddress.postalCode',
@@ -121,31 +122,31 @@ class AdyenAdapter extends GatewayAdapter {
 			'billingAddress.country',
 			'billingAddressType',
 			'billingAddress.houseNumberOrName',
-		);
+		];
 
 		if ( in_array( 'street_address', $this->getRequiredFields() ) ) {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
-		$this->transactions['donate'] = array(
+		$this->transactions['donate'] = [
 			'request' => $requestFields,
-			'values' => array(
+			'values' => [
 				'allowedMethods' => implode( ',', $this->getAllowedPaymentMethods() ),
 				'billingAddressType' => 2, // hide billing UI fields
 				'merchantAccount' => $this->accountInfo[ 'merchantAccount' ],
 				'sessionValidity' => date( 'c', strtotime( '+2 days' ) ),
 				'shipBeforeDate' => date( 'Y-M-d', strtotime( '+2 days' ) ),
 				// 'shopperLocale' => language _ country
-			),
+			],
 			'check_required' => true,
 			'iframe' => true,
-		);
+		];
 	}
 
 	protected function getAllowedPaymentMethods() {
-		return array(
+		return [
 			'card',
-		);
+		];
 	}
 
 	function getBasedir() {
@@ -162,7 +163,7 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * FIXME: I can't help but feel like it's bad that the parent's do_transaction
 	 * is never used at all.
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	function do_transaction( $transaction ) {
 		$this->ensureUniqueOrderID();
@@ -197,14 +198,14 @@ class AdyenAdapter extends GatewayAdapter {
 					// will leave it for manual review. If it's hella fraudy
 					// the listener will cancel it.
 
-					$this->addRequestData( array( 'risk_score' => $this->risk_score ) );
+					$this->addRequestData( [ 'risk_score' => $this->risk_score ] );
 
 					$requestParams = $this->buildRequestParams();
 
-					$this->transaction_response->setData( array(
+					$this->transaction_response->setData( [
 						'FORMACTION' => $formaction,
 						'gateway_params' => $requestParams,
-					) );
+					] );
 					$this->logger->info(
 						"launching external iframe request: " . print_r( $requestParams, true )
 					);
@@ -258,9 +259,9 @@ class AdyenAdapter extends GatewayAdapter {
 		// Overwrite the order ID we have with the return data, in case the
 		// donor opened a second window.
 		$orderId = $requestValues['merchantReference'];
-		$this->addRequestData( array(
+		$this->addRequestData( [
 			'order_id' => $orderId,
-		) );
+		] );
 		$gateway_txn_id = isset( $requestValues['pspReference'] ) ? $requestValues['pspReference'] : '';
 		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
@@ -301,7 +302,8 @@ class AdyenAdapter extends GatewayAdapter {
 	 * before we redirect the user, so we don't need to send another one
 	 * when doStompTransaction is called from postProcessDonation.
 	 */
-	protected function doStompTransaction() { }
+	protected function doStompTransaction() {
+	}
 
 	/**
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip
@@ -328,10 +330,11 @@ class AdyenAdapter extends GatewayAdapter {
 
 	/**
 	 * Reformat skin codes array to access by Name
+	 * @return string[]
 	 */
 	public function getSkinCodes() {
 		$skins = $this->accountInfo['skins'];
-		$skinCodes = array();
+		$skinCodes = [];
 		foreach ( $skins as $code => $skin ) {
 			$skinCodes[$skin['Name']] = $code;
 		}

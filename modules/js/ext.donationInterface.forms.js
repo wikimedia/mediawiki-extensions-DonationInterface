@@ -55,19 +55,25 @@
 	}
 
 	/**
-	 * Get a trinary value from a checkbox that may exist.
-	 * '0' = checkbox shown and not checked
-	 * '1' = checkbox shown and checked
-	 * '' = checkbox not shown
+	 * Get a trinary value from a checkbox that may exist, falling back
+	 *  to a querystring value.
+	 *  '0' = checkbox shown and not checked, or 0 on querystring
+	 *  '1' = checkbox shown and checked, or 1 on querystring
+	 *  '' = checkbox not shown, querystring value missing
 	 *
 	 * @return {string}
 	 */
 	function getOptIn() {
-		var element = $( 'input[name=opt_in]:checked' );
-		if ( element.length === 0 ) {
-			return '';
+		var val, element = $( 'input[name=opt_in]:checked' );
+		if ( element.length === 1 ) {
+			val = element.val();
+		} else {
+			val = mw.util.getParamValue( 'opt_in' );
+			if ( val === null ) {
+				val = '';
+			}
 		}
-		return element.val();
+		return val;
 	}
 
 	/**

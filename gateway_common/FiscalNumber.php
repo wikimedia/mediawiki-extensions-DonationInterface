@@ -9,40 +9,40 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 
 	protected static $key = 'fiscal_number';
 
-	protected static $countryRules = array(
+	protected static $countryRules = [
 		// Argentina's DNI numbers have 7-10 digits and CUIT numbers have 11
-		'AR' => array(
+		'AR' => [
 			'numeric' => true,
 			'min' => 7,
 			'max' => 11,
-		),
-		'BR' => array(
+		],
+		'BR' => [
 			'numeric' => true,
 			'min' => 11,
 			'max' => 14,
-		),
-		'CO' => array(
+		],
+		'CO' => [
 			'numeric' => true,
 			'min' => 6,
 			'max' => 10,
-		),
-		'CL' => array(
+		],
+		'CL' => [
 			'min' => 8,
 			'max' => 9,
-		),
-		'UY' => array(
+		],
+		'UY' => [
 			'numeric' => true,
 			'min' => 6,
 			'max' => 8,
-		),
-	);
+		],
+	];
 
 	/**
 	 * Strip any punctuation before submitting
 	 *
 	 * @param GatewayType $adapter
 	 * @param array $normalized Normalized donation data
-	 * @param array $stagedData Data to send to payment processor
+	 * @param array &$stagedData Data to send to payment processor
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !empty( $normalized[self::$key] ) ) {
@@ -59,7 +59,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 	 *
 	 * @param GatewayType $unused
 	 * @param array $normalized Normalized donation data
-	 * @param ErrorState $errors Results of validation to this point
+	 * @param ErrorState &$errors Results of validation to this point
 	 */
 	public function validate( GatewayType $unused, $normalized, &$errors ) {
 		if (
@@ -126,10 +126,10 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		}
 		$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
 
-		$fiscalRules = array( array(
+		$fiscalRules = [ [
 			'pattern' => $pattern,
 			'messageKey' => 'donate_interface-error-msg-invalid-fiscal_number'
-		) );
+		] ];
 
 		$clientRules[self::$key] = $fiscalRules;
 	}

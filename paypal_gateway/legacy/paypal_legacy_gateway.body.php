@@ -32,6 +32,7 @@ class PaypalLegacyGateway extends GatewayPage {
 	 * Always attempt to pass through transparently.
 	 *
 	 * @see GatewayPage::isProcessImmediate()
+	 * @return bool
 	 */
 	protected function isProcessImmediate() {
 		return true;

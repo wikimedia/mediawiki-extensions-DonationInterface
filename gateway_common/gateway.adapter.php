@@ -47,18 +47,18 @@ abstract class GatewayAdapter
 	/**
 	 * config tree
 	 */
-	protected $config = array();
+	protected $config = [];
 
 	/**
 	 * $dataConstraints provides information on how to handle variables.
 	 *
 	 * 	 <code>
-	 * 		'account_holder'		=> array( 'type' => 'alphanumeric',		'length' => 50, )
+	 * 		'account_holder'		=> [ 'type' => 'alphanumeric',		'length' => 50, ]
 	 * 	 </code>
 	 *
 	 * @var array $dataConstraints
 	 */
-	protected $dataConstraints = array();
+	protected $dataConstraints = [];
 
 	/**
 	 * $error_map Reference map from gateway error to client error.
@@ -76,21 +76,21 @@ abstract class GatewayAdapter
 	 *
 	 * @var array $error_map
 	 */
-	protected $error_map = array();
+	protected $error_map = [];
 
 	/**
 	 * @see GlobalCollectAdapter::defineGoToThankYouOn()
 	 *
 	 * @var array $goToThankYouOn
 	 */
-	protected $goToThankYouOn = array();
+	protected $goToThankYouOn = [];
 
 	/**
 	 * $var_map maps gateway variables to client variables
 	 *
 	 * @var array $var_map
 	 */
-	protected $var_map = array();
+	protected $var_map = [];
 
 	protected $account_name;
 	protected $account_config;
@@ -102,14 +102,14 @@ abstract class GatewayAdapter
 	 *
 	 * @var array $payment_methods
 	 */
-	protected $payment_methods = array();
+	protected $payment_methods = [];
 
 	/**
 	 * $payment_submethods will be defined by the adapter.
 	 *
 	 * @var array $payment_submethods
 	 */
-	protected $payment_submethods = array();
+	protected $payment_submethods = [];
 
 	protected $return_value_map;
 	protected $staged_data;
@@ -119,7 +119,7 @@ abstract class GatewayAdapter
 	 * Data transformation helpers.  These implement the StagingHelper interface for now,
 	 * and are responsible for staging and unstaging data.
 	 */
-	protected $data_transformers = array();
+	protected $data_transformers = [];
 
 	/**
 	 * For gateways that speak XML, we use this variable to hold the document
@@ -206,6 +206,7 @@ abstract class GatewayAdapter
 
 	/**
 	 * Get @see GatewayAdapter::$goToThankYouOn
+	 * @return array
 	 */
 	public function getGoToThankYouOn() {
 		return $this->goToThankYouOn;
@@ -219,11 +220,11 @@ abstract class GatewayAdapter
 	 *   - external_data - array, data from unusual sources (such as test fixture)
 	 * @see DonationData
 	 */
-	public function __construct( $options = array() ) {
-		$defaults = array(
+	public function __construct( $options = [] ) {
+		$defaults = [
 			'external_data' => null,
 			'variant' => null,
-		);
+		];
 		$options = array_merge( $defaults, $options );
 		if ( array_key_exists( 'batch_mode', $options ) ) {
 			$this->batch = $options['batch_mode'];
@@ -316,6 +317,7 @@ abstract class GatewayAdapter
 	 * Some adapters will append a path component and query parameters.
 	 * That variation should be handled by the request controller.  Customize
 	 * things like varying server endpoints by overriding this function.
+	 * @return string
 	 */
 	protected function getProcessorUrl() {
 		if ( !self::getGlobal( 'Test' ) ) {
@@ -326,8 +328,10 @@ abstract class GatewayAdapter
 		return $url;
 	}
 
-	// For legacy support.
-	// TODO replace with access to config structure
+	/**
+	 * For legacy support.
+	 * TODO replace with access to config structure
+	 */
 	public function definePaymentMethods() {
 		// All adapters have payment_method(s)
 		$this->payment_methods = $this->config['payment_methods'];
@@ -337,21 +341,27 @@ abstract class GatewayAdapter
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineVarMap() {
 		if ( isset( $this->config['var_map'] ) ) {
 			$this->var_map = $this->config['var_map'];
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineDataConstraints() {
 		if ( isset( $this->config['data_constraints'] ) ) {
 			$this->dataConstraints = $this->config['data_constraints'];
 		}
 	}
 
-	// TODO: see comment on definePaymentMethods
+	/**
+	 * TODO: see comment on definePaymentMethods
+	 */
 	public function defineErrorMap() {
 		if ( isset( $this->config['error_map'] ) ) {
 			$this->error_map = $this->config['error_map'];
@@ -370,7 +380,10 @@ abstract class GatewayAdapter
 		}
 	}
 
-	// FIXME: Not convinced we need this.
+	/**
+	 * FIXME: Not convinced we need this.
+	 * @return array
+	 */
 	public function getDataTransformers() {
 		return $this->data_transformers;
 	}
@@ -452,7 +465,7 @@ abstract class GatewayAdapter
 	}
 
 	public function getCoreDataTransformers() {
-		return array(
+		return [
 			// Always stage email address first, to set default if missing
 			new DonorEmail(),
 			new DonorFullName(),
@@ -460,7 +473,7 @@ abstract class GatewayAdapter
 			new Amount(),
 			new AmountInCents(),
 			new StreetAddress(),
-		);
+		];
 	}
 
 	/**
@@ -497,7 +510,7 @@ abstract class GatewayAdapter
 		$this->unstageData();
 
 		// Only copy the affected values back into the normalized data.
-		$newlyUnstagedData = array();
+		$newlyUnstagedData = [];
 		foreach ( $dataArray as $key => $stagedValue ) {
 			if ( array_key_exists( $key, $this->unstaged_data ) ) {
 				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
@@ -511,7 +524,7 @@ abstract class GatewayAdapter
 	 * Change the keys on this data from processor API names to normalized names.
 	 *
 	 * @param array $processor_data Response data with raw API keys
-	 * @param array $key_map map processor keys to our keys, defaults to
+	 * @param array|null $key_map map processor keys to our keys, defaults to
 	 *                       $this->var_map
 	 * @return array data with normalized keys
 	 *
@@ -524,7 +537,7 @@ abstract class GatewayAdapter
 			$key_map = $this->var_map;
 		}
 
-		$staged_data = array();
+		$staged_data = [];
 		foreach ( $key_map as $their_key => $our_key ) {
 			if ( isset( $processor_data[$their_key] ) ) {
 				$staged_data[$our_key] = $processor_data[$their_key];
@@ -545,6 +558,10 @@ abstract class GatewayAdapter
 				return null;
 			}
 		}
+	}
+
+	public function getDataSources() {
+		return $this->dataObj->getDataSources();
 	}
 
 	static function getGlobal( $varname ) {
@@ -588,14 +605,14 @@ abstract class GatewayAdapter
 	 * NOTE: This method will check to see if the message exists in translation
 	 * and use that message instead of the default. This would override error_map.
 	 *
-	 * @param    string $code The error code to look up in the map
-	 * @param    array $options
-	 * @return   array|string    Returns @see GatewayAdapter::$error_map
+	 * @param string $code The error code to look up in the map
+	 * @param array $options
+	 * @return array|string Returns @see GatewayAdapter::$error_map
 	 */
-	public function getErrorMap( $code, $options = array() ) {
-		$defaults = array(
+	public function getErrorMap( $code, $options = [] ) {
+		$defaults = [
 			'translate' => false,
-		);
+		];
 		$options = array_merge( $defaults, $options );
 
 		$response_message = $this->getIdentifier() . '_gateway-response-' . $code;
@@ -638,7 +655,7 @@ abstract class GatewayAdapter
 	 * @return string Returns the translated message from @see GatewayAdapter::$error_map
 	 */
 	public function getErrorMapByCodeAndTranslate( $code ) {
-		return $this->getErrorMap( $code, array( 'translate' => true, ) );
+		return $this->getErrorMap( $code, [ 'translate' => true, ] );
 	}
 
 	/**
@@ -742,8 +759,8 @@ abstract class GatewayAdapter
 
 	/**
 	 * Builds a set of transaction data in name/value format
-	 *		*)The current transaction must be set before you call this function.
-	 *		*)Uses getTransactionSpecificValue to assign staged values to the
+	 *  *)The current transaction must be set before you call this function.
+	 *  *)Uses getTransactionSpecificValue to assign staged values to the
 	 * fields required by the gateway. Look there for more insight into the
 	 * heirarchy of all possible data sources.
 	 * @return string The raw transaction in name/value format, ready to be
@@ -759,9 +776,9 @@ abstract class GatewayAdapter
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
-			return array();
+			return [];
 		}
-		$callback = array( $this, 'getTransactionSpecificValue' );
+		$callback = [ $this, 'getTransactionSpecificValue' ];
 		return ArrayHelper::buildRequestArray( $callback, $structure );
 	}
 
@@ -819,7 +836,7 @@ abstract class GatewayAdapter
 	 * structure and adding populated nodes by reference.
 	 * @param array $structure Current transaction's more leafward structure,
 	 * from the point of view of the current XML node.
-	 * @param DOMElement $node The current XML node.
+	 * @param DOMElement &$node The current XML node.
 	 * @param bool $js More likely cruft relating back to buildTransactionFormat
 	 */
 	protected function buildTransactionNodes( $structure, &$node, $js = false ) {
@@ -872,7 +889,7 @@ abstract class GatewayAdapter
 	 * the passed-in parent node, only if the current node would have a
 	 * non-empty value.
 	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param DOMElement $node The parent node this node will be contained in, if it
+	 * @param DOMElement &$node The parent node this node will be contained in, if it
 	 *  is determined to have a non-empty value.
 	 * @param bool $js Probably cruft at this point. This is connected to the
 	 * function buildTransactionFormat.
@@ -1170,7 +1187,7 @@ abstract class GatewayAdapter
 		if ( !$path ) {
 			$path = '';
 		}
-		$opts = array(
+		$opts = [
 			CURLOPT_URL => $this->getProcessorUrl() . $path,
 			CURLOPT_USERAGENT => WmfFramework::getUserAgent(),
 			CURLOPT_HEADER => 1,
@@ -1182,7 +1199,7 @@ abstract class GatewayAdapter
 			CURLOPT_FORBID_REUSE => true,
 			CURLOPT_POST => 1,
 			CURLOPT_VERBOSE => true
-		);
+		];
 
 		return $opts;
 	}
@@ -1192,11 +1209,11 @@ abstract class GatewayAdapter
 		if ( $this->getCommunicationType() === 'xml' ) {
 			$content_type = 'text/xml';
 		}
-		$headers = array(
+		$headers = [
 			'Content-Type: ' . $content_type . '; charset=utf-8',
 			'X-VPS-Client-Timeout: 45',
 			'X-VPS-Request-ID:' . $this->getData_Staged( 'order_id' ),
-		);
+		];
 		return $headers;
 	}
 
@@ -1259,10 +1276,10 @@ abstract class GatewayAdapter
 		return $this->payment_submethods;
 	}
 
-	function setGatewayDefaults( $options = array() ) {
+	function setGatewayDefaults( $options = [] ) {
 	}
 
-	public function getCurrencies( $options = array() ) {
+	public function getCurrencies( $options = [] ) {
 		return $this->config['currencies'];
 	}
 
@@ -1409,10 +1426,10 @@ abstract class GatewayAdapter
 		// Clean up and return
 		curl_close( $ch );
 		fclose( $curlDebugLog );
-		$log_results = array(
+		$log_results = [
 			'result' => $curl_response,
 			'headers' => $headers,
-		);
+		];
 		$this->profiler->saveCommunicationStats( __FUNCTION__, $this->getCurrentTransaction(), "Response: " . print_r( $log_results, true ) );
 
 		return $retval;
@@ -1487,7 +1504,7 @@ abstract class GatewayAdapter
 	 * Default implementation just says we got a response.
 	 *
 	 * @param array|DomDocument $response Cleaned-up response returned from
-	 *        @see getFormattedResponse.  Type depends on $this->getResponseType
+	 * @see getFormattedResponse.  Type depends on $this->getResponseType
 	 * @throws ResponseProcessingException with an actionable error code and any
 	 *         variables to retry
 	 *
@@ -1524,7 +1541,7 @@ abstract class GatewayAdapter
 	 * rather than empty although non-abstract.
 	 */
 	protected function parseResponseErrors( $response ) {
-		return array();
+		return [];
 	}
 
 	/**
@@ -1533,7 +1550,7 @@ abstract class GatewayAdapter
 	 * @return array a key/value array
 	 */
 	protected function parseResponseData( $response ) {
-		return array();
+		return [];
 	}
 
 	/**
@@ -1580,7 +1597,7 @@ abstract class GatewayAdapter
 			return $combined;
 
 		case 'query_string':
-			$parsed = array();
+			$parsed = [];
 			parse_str( $noHeaders, $parsed );
 			return $parsed;
 		}
@@ -1602,7 +1619,11 @@ abstract class GatewayAdapter
 		return $justXML;
 	}
 
-	// To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+	/**
+	 * To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
+	 * @param string $xml
+	 * @return string
+	 */
 	function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
 		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
@@ -1611,7 +1632,7 @@ abstract class GatewayAdapter
 		$token = strtok( $xml, "\n" );
 		$result = ''; // holds formatted version as it is built
 		$pad = 0; // initial indent
-		$matches = array(); // returns from preg_matches()
+		$matches = []; // returns from preg_matches()
 		// scan each line and adjust indent based on opening/closing tags
 		while ( $token !== false ) {
 			// test for the various tag states
@@ -1659,7 +1680,7 @@ abstract class GatewayAdapter
 	}
 
 	function xmlChildrenToArray( $xml, $nodename ) {
-		$data = array();
+		$data = [];
 		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
 			foreach ( $node->childNodes as $childnode ) {
 				if ( trim( $childnode->nodeValue ) != '' ) {
@@ -1682,7 +1703,7 @@ abstract class GatewayAdapter
 	 * we're defining here.
 	 * @param string $action One of the constants defined in @see FinalStatus.
 	 * @param int $lower The integer value of the lower-bound in this code range.
-	 * @param int $upper Optional: The integer value of the upper-bound in the
+	 * @param int|null $upper Optional: The integer value of the upper-bound in the
 	 * code range. If omitted, it will make a range of one value: The lower bound.
 	 * @throws UnexpectedValueException
 	 * @return void
@@ -1691,7 +1712,7 @@ abstract class GatewayAdapter
 		if ( $upper === null ) {
 			$this->return_value_map[$transaction][$key][$lower] = $action;
 		} else {
-			$this->return_value_map[$transaction][$key][$upper] = array( 'action' => $action, 'lower' => $lower );
+			$this->return_value_map[$transaction][$key][$upper] = [ 'action' => $action, 'lower' => $lower ];
 		}
 	}
 
@@ -1700,7 +1721,7 @@ abstract class GatewayAdapter
 	 *
 	 * @param string $transaction
 	 * @param string $key The key to lookup in the transaction such as STATUSID
-	 * @param integer|string $code This gets converted to an integer if the values is numeric.
+	 * @param int|string $code This gets converted to an integer if the values is numeric.
 	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
 	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
 	 * @return null|string Returns the code action if a valid code is supplied. Otherwise, the return is null.
@@ -1793,6 +1814,15 @@ abstract class GatewayAdapter
 		}
 	}
 
+	protected function getQueueContactMessage() {
+		$queueMessage = [];
+		foreach ( DonationData::getContactFields() as $field ) {
+			$queueMessage[$field] = $this->getData_Unstaged_Escaped( $field );
+		}
+		$queueMessage = $this->addContactMessageFields( $queueMessage );
+		return $queueMessage;
+	}
+
 	/**
 	 * Collect donation details and normalize keys for pending or
 	 * donations queue
@@ -1800,16 +1830,16 @@ abstract class GatewayAdapter
 	 * @return array
 	 */
 	protected function getQueueDonationMessage() {
-		$queueMessage = array(
+		$queueMessage = [
 			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
 			'response' => $this->getTransactionMessage(),
 			'gateway_account' => $this->account_name,
 			'fee' => 0, // FIXME: don't we know this for some gateways?
-		);
+		];
 
 		$messageKeys = DonationData::getMessageFields();
 
-		$requiredKeys = array(
+		$requiredKeys = [
 			'amount',
 			'contribution_tracking_id',
 			'country',
@@ -1820,11 +1850,11 @@ abstract class GatewayAdapter
 			'payment_submethod',
 			'user_ip',
 			'utm_source',
-		);
+		];
 
-		$remapKeys = array(
+		$remapKeys = [
 			'amount' => 'gross',
-		);
+		];
 
 		// Add the rest of the relevant data
 		// FIXME: This is "normalized" data.  We should refer to it as such,
@@ -1879,12 +1909,12 @@ abstract class GatewayAdapter
 		$transaction['date'] = UtcDate::getUtcTimestamp();
 		$transaction['server'] = gethostname();
 
-		$these_too = array(
+		$these_too = [
 			'gateway',
 			'contribution_tracking_id',
 			'order_id',
 			'payment_method',
-		);
+		];
 		foreach ( $these_too as $field ) {
 			$transaction[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
@@ -1898,7 +1928,7 @@ abstract class GatewayAdapter
 	 * ...I like to keep the voodoo functions tidy.
 	 * @param string $function_name The name of the function you're hoping to
 	 * execute.
-	 * @param mixed $parameter That's right: For now you only get one.
+	 * @param mixed|null $parameter That's right: For now you only get one.
 	 * @return bool True if a function was found and executed.
 	 */
 	function executeIfFunctionExists( $function_name, $parameter = null ) {
@@ -1964,7 +1994,7 @@ abstract class GatewayAdapter
 
 				if ( !empty( $length ) && !empty( $value ) ) {
 					// Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
-					$value = substr( $value, 0, $length );
+					$value = mb_substr( $value, 0, $length, 'UTF-8' );
 				}
 
 			}
@@ -1985,7 +2015,7 @@ abstract class GatewayAdapter
 			return '';
 		}
 
-		$queryparams = array();
+		$queryparams = [];
 
 		// we are going to assume a flat array, because... namevalue.
 		foreach ( $structure as $fieldname ) {
@@ -2063,6 +2093,11 @@ abstract class GatewayAdapter
 			case FinalStatus::FAILED:
 			case FinalStatus::CANCELLED:
 			case FinalStatus::REVISED:
+				if ( $this->getData_Unstaged_Escaped( 'opt_in' ) == '1' ) {
+					// When a donation fails but the donor has opted in to emails,
+					// just send the donor contact data to the opt-in queue.
+					$this->pushMessage( 'opt-in', true );
+				}
 				$force = false;
 				break;
 		}
@@ -2089,14 +2124,14 @@ abstract class GatewayAdapter
 		// what do we want in here?
 		// Attempted payment type, country of origin, $status, amount... campaign?
 		// error message if one exists.
-		$keys = array(
+		$keys = [
 			'payment_submethod',
 			'payment_method',
 			'country',
 			'utm_campaign',
 			'amount',
 			'currency',
-		);
+		];
 
 		foreach ( $keys as $key ) {
 			$msg .= $this->getData_Unstaged_Escaped( $key ) . ', ';
@@ -2115,19 +2150,19 @@ abstract class GatewayAdapter
 	 * @param string $status one of the constants in @see SmashPig\CrmLink\FinalStatus
 	 */
 	public function sendFinalStatusMessage( $status ) {
-		$transaction = array(
+		$transaction = [
 			'validation_action' => $this->getValidationAction(),
 			'payments_final_status' => $status,
-		);
+		];
 
 		// add more keys here if you want it in the db equivalent of the payments-init queue.
 		// for now, though, just taking the ones that make it to the logs.
-		$keys = array(
+		$keys = [
 			'payment_submethod',
 			'country',
 			'amount',
 			'currency',
-		);
+		];
 
 		foreach ( $keys as $key ) {
 			$transaction[$key] = $this->getData_Unstaged_Escaped( $key );
@@ -2286,9 +2321,14 @@ abstract class GatewayAdapter
 		}
 	}
 
-	protected function pushMessage( $queue ) {
+	protected function pushMessage( $queue, $contactOnly = false ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
-		QueueWrapper::push( $queue, $this->getQueueDonationMessage() );
+		if ( $contactOnly ) {
+			$message = $this->getQueueContactMessage();
+		} else {
+			$message = $this->getQueueDonationMessage();
+		}
+		QueueWrapper::push( $queue, $message );
 	}
 
 	protected function sendPendingMessage() {
@@ -2350,12 +2390,12 @@ abstract class GatewayAdapter
 
 	public function setValidationAction( $action, $reset = false ) {
 		// our choices are:
-		$actions = array(
+		$actions = [
 			ValidationAction::PROCESS => 0,
 			ValidationAction::REVIEW => 1,
 			ValidationAction::CHALLENGE => 2,
 			ValidationAction::REJECT => 3,
-		);
+		];
 		if ( !isset( $actions[$action] ) ) {
 			throw new UnexpectedValueException( "Action $action is invalid." );
 		}
@@ -2395,8 +2435,8 @@ abstract class GatewayAdapter
 		if ( $knownData === null ) {
 			$knownData = $this->getData_Unstaged_Escaped();
 		}
-		$required_fields = array();
-		$validation = array();
+		$required_fields = [];
+		$validation = [];
 
 		// Add any country-specific required fields
 		if (
@@ -2433,14 +2473,14 @@ abstract class GatewayAdapter
 
 			switch ( $type ) {
 				case 'address' :
-					$check_not_empty = array(
+					$check_not_empty = [
 						'street_address',
 						'city',
 						'country',
 						'postal_code', // this should really be added or removed, depending on the country and/or gateway requirements.
 						// however, that's not happening in this class in the code I'm replacing, so...
 						// TODO: Something clever in the DataValidator with data groups like these.
-					);
+					];
 					if ( !empty( $knownData['country'] ) ) {
 						$country = $knownData['country'];
 						if ( $country && Subdivisions::getByCountry( $country ) ) {
@@ -2449,21 +2489,21 @@ abstract class GatewayAdapter
 					}
 					break;
 				case 'creditCard' :
-					$check_not_empty = array(
+					$check_not_empty = [
 						'card_num',
 						'cvv',
 						'expiration',
 						'card_type'
-					);
+					];
 					break;
 				case 'name' :
-					$check_not_empty = array(
+					$check_not_empty = [
 						'first_name',
 						'last_name'
-					);
+					];
 					break;
 				default:
-					$check_not_empty = array( $type );
+					$check_not_empty = [ $type ];
 					break;
 			}
 			$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
@@ -2491,7 +2531,7 @@ abstract class GatewayAdapter
 			// actually return different things for different transactions
 			$check_not_empty = $this->getRequiredFields();
 		} else {
-			$check_not_empty = array();
+			$check_not_empty = [];
 		}
 		$this->errorState->addErrors(
 			DataValidator::validate( $this, $normalized, $check_not_empty )
@@ -2579,10 +2619,10 @@ abstract class GatewayAdapter
 			return;
 		}
 
-		$formData = array(
+		$formData = [
 			'amount' => $newAmount,
 			'currency' => $defaultCurrency,
-		);
+		];
 		$this->dataObj->addData( $formData );
 
 		$this->logger->info( "Unsupported currency $oldCurrency forced to $defaultCurrency" );
@@ -2599,7 +2639,7 @@ abstract class GatewayAdapter
 				new ValidationError(
 					'currency',
 					'donate_interface-fallback-currency-notice',
-					array( $defaultCurrency )
+					[ $defaultCurrency ]
 				)
 			);
 		}
@@ -2889,7 +2929,7 @@ abstract class GatewayAdapter
 	/**
 	 * Retrieve data from the session if it's set, and null if it's not.
 	 * @param string $key The array key to return from the session.
-	 * @param string $subkey Optional: The subkey to return from the session.
+	 * @param string|null $subkey Optional: The subkey to return from the session.
 	 * Only really makes sense if $key is an array.
 	 * @return mixed The session value if present, or null if it is not set.
 	 */
@@ -2942,7 +2982,7 @@ abstract class GatewayAdapter
 		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId''" );
 		$sessionFields = DonationData::getSessionFields();
 
-		$data = array();
+		$data = [];
 		foreach ( $sessionFields as $field ) {
 			$data[$field] = $this->getData_Unstaged_Escaped( $field );
 		}
@@ -3001,14 +3041,14 @@ abstract class GatewayAdapter
 			// leave the payment forms and antifraud data alone.
 			// but, under no circumstances should the gateway edit
 			// token appear in the preserve array...
-			$preserveKeys = array(
+			$preserveKeys = [
 				'DonationInterface_SessVelocity',
 				'PaymentForms',
 				'numAttempt',
 				'order_status', // for post-payment activities
 				'sequence',
-			);
-			$preservedData = array();
+			];
+			$preservedData = [];
 			$msg = '';
 			foreach ( $preserveKeys as $keep ) {
 				$value = WmfFramework::getSessionValue( $keep );
@@ -3028,9 +3068,9 @@ abstract class GatewayAdapter
 			}
 		} else {
 			// I'm sure we could put more here...
-			$soft_reset = array(
+			$soft_reset = [
 				'order_id',
-			);
+			];
 			$donorData = $this->session_getData( 'Donor' );
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $donorData[$reset_me] );
@@ -3091,7 +3131,7 @@ abstract class GatewayAdapter
 		if ( isset( $oldData['recurring'] ) && !empty( $oldData['order_id'] ) ) {
 			$newRecurring = '';
 			$hasRecurParam = false;
-			foreach ( array( 'recurring_paypal', 'recurring' ) as $key ) {
+			foreach ( [ 'recurring_paypal', 'recurring' ] as $key ) {
 				$newVal = WmfFramework::getRequestValue( $key, null );
 				if ( $newVal !== null ) {
 					$hasRecurParam = true;
@@ -3127,7 +3167,7 @@ abstract class GatewayAdapter
 
 		$paymentForms = $this->session_getData( 'PaymentForms' );
 		if ( !is_array( $paymentForms ) ) {
-			$paymentForms = array();
+			$paymentForms = [];
 		}
 
 		// don't want duplicates
@@ -3221,7 +3261,7 @@ abstract class GatewayAdapter
 		WmfFramework::setSessionValue( $gateway_ident . 'EditToken', $unsalted );
 		$salted = $this->token_getSaltedSessionToken();
 
-		$this->addRequestData( array( 'wmf_token' => $salted ) );
+		$this->addRequestData( [ 'wmf_token' => $salted ] );
 	}
 
 	/**
@@ -3231,7 +3271,7 @@ abstract class GatewayAdapter
 	 * On failure, it resets the edit token both in the session and in the form,
 	 * so they will match on the user's next load.
 	 *
-	 * @var string $val
+	 * @param string $val
 	 * @return bool
 	 */
 	protected function token_matchEditToken( $val ) {
@@ -3271,7 +3311,7 @@ abstract class GatewayAdapter
 
 			// match token
 			if ( !$this->dataObj->isSomething( 'wmf_token' ) ) {
-				$this->addRequestData( array( 'wmf_token' => $token ) );
+				$this->addRequestData( [ 'wmf_token' => $token ] );
 			}
 			$token_check = $this->getData_Unstaged_Escaped( 'wmf_token' );
 
@@ -3305,10 +3345,10 @@ abstract class GatewayAdapter
 		}
 
 		// pull all order ids and variants from all their usual locations
-		$locations = array(
+		$locations = [
 			'request' => 'order_id',
-			'session' => array( 'Donor' => 'order_id' ),
-		);
+			'session' => [ 'Donor' => 'order_id' ],
+		];
 
 		$alt_locations = $this->getOrderIDMeta( 'alt_locations' );
 		if ( $alt_locations && is_array( $alt_locations ) ) {
@@ -3319,14 +3359,14 @@ abstract class GatewayAdapter
 
 		if ( $this->isBatchProcessor() ) {
 			// Can't use request or session from here.
-			$locations = array_diff_key( $locations, array_flip( array(
+			$locations = array_diff_key( $locations, array_flip( [
 				'request',
 				'session',
-			) ) );
+			] ) );
 		}
 
 		// Now pull all the locations and populate the candidate array.
-		$oid_candidates = array();
+		$oid_candidates = [];
 
 		foreach ( $locations as $var => $key ) {
 			switch ( $var ) {
@@ -3382,7 +3422,7 @@ abstract class GatewayAdapter
 		if ( array_key_exists( $field, $this->dataConstraints ) ) {
 			return $this->dataConstraints[$field];
 		}
-		return array();
+		return [];
 	}
 
 	/**
@@ -3435,7 +3475,7 @@ abstract class GatewayAdapter
 	 * To put it another way: If we are meant to be getting the OrderID from
 	 * a piece of gateway communication that hasn't been done yet, this
 	 * should return NULL. I think.
-	 * @param string $override The pre-determined value of order_id.
+	 * @param string|null $override The pre-determined value of order_id.
 	 * When you want to normalize an order_id to something you have already
 	 * sorted out (anything running in batch mode is a good candidate - you
 	 * have probably grabbed a preexisting order_id from some external data
@@ -3444,7 +3484,7 @@ abstract class GatewayAdapter
 	 * Also used when receiving the order_id from external sources
 	 * (example: An API response)
 	 *
-	 * @param DonationData $dataObj Reference to the donation data object when
+	 * @param DonationData|null $dataObj Reference to the donation data object when
 	 * we're creating the order ID in the constructor of the object (and thus
 	 * do not yet have a reference to it.)
 	 * @return string The normalized value of order_id
@@ -3499,7 +3539,7 @@ abstract class GatewayAdapter
 	 * This used to be done in DonationData, but gateways should control
 	 * the format here. Override this in child classes.
 	 *
-	 * @param DonationData $dataObj Reference to the donation data object
+	 * @param DonationData|null $dataObj Reference to the donation data object
 	 * when we are forced to create the order ID during construction of it
 	 * and thus do not already have a reference. THIS IS A HACK! /me vomits
 	 *
@@ -3541,13 +3581,13 @@ abstract class GatewayAdapter
 		} else {
 			// we are not regenerating ourselves, but we need a new one...
 			// so, blank it and wait.
-			$this->order_id_candidates = array();
+			$this->order_id_candidates = [];
 			unset( $this->order_id_meta['final'] );
 			unset( $this->order_id_meta['final_source'] );
 		}
 
 		// tell DonationData about it
-		$this->addRequestData( array( 'order_id' => $id ) );
+		$this->addRequestData( [ 'order_id' => $id ] );
 		// Add new Order ID to the session.
 		$this->session_addDonorData();
 		return $id;
@@ -3617,7 +3657,7 @@ abstract class GatewayAdapter
 
 			// Ensure that the validation index is set.
 			if ( !isset( $this->payment_submethods[ $payment_submethod ]['validation'] ) ) {
-				$this->payment_submethods[ $payment_submethod ]['validation'] = array();
+				$this->payment_submethods[ $payment_submethod ]['validation'] = [];
 			}
 
 			return $this->payment_submethods[ $payment_submethod ];
@@ -3637,13 +3677,12 @@ abstract class GatewayAdapter
 	 * in LocalSettings.  Idea: same metadata array structure as used in
 	 * definePaymentMethods, overrides cascade from
 	 * methodMeta -> submethodMeta -> settingsMethodMeta -> settingsSubmethodMeta
-	 * @return array with available submethods
-	 *	'visa' => array( 'label' => 'Visa' )
+	 * @return array with available submethods 'visa' => [ 'label' => 'Visa' ]
 	 */
 	function getAvailableSubmethods() {
 		$method = $this->getPaymentMethod();
 
-		$submethods = array();
+		$submethods = [];
 		foreach ( $this->payment_submethods as $key => $available_submethod ) {
 			$group = $available_submethod['group'];
 			if ( $method !== $group ) {
@@ -3671,7 +3710,7 @@ abstract class GatewayAdapter
 	 * @return string JSON-encoded donation data
 	 */
 	public function getLogDebugJSON() {
-		$logObj = array(
+		$logObj = [
 			'amount',
 			'ffname',
 			'country',
@@ -3682,7 +3721,7 @@ abstract class GatewayAdapter
 			'gateway',
 			'utm_source',
 			'referrer',
-		);
+		];
 
 		foreach ( $logObj as $key => $value ) {
 			$logObj[$value] = $this->getData_Unstaged_Escaped( $value );
@@ -3719,21 +3758,22 @@ abstract class GatewayAdapter
 	 * Each entry's key should correspond to the id of the target field, and
 	 * the value should be a list of rules with keys as described in
 	 * @see ClientSideValidationHelper::getClientSideValidation
+	 * @return array
 	 */
 	public function getClientSideValidationRules() {
 		// Start with the server required field validations.
-		$requiredRules = array();
+		$requiredRules = [];
 		foreach ( $this->getRequiredFields() as $field ) {
 			$key = 'donate_interface-error-msg-' . $field;
-			$requiredRules[$field] = array(
-				array(
+			$requiredRules[$field] = [
+				[
 					'required' => true,
 					'messageKey' => $key,
-				)
-			);
+				]
+			];
 		};
 
-		$transformerRules = array();
+		$transformerRules = [];
 		foreach ( $this->data_transformers as $transformer ) {
 			if ( $transformer instanceof ClientSideValidationHelper ) {
 				$transformer->getClientSideValidation(
@@ -3750,7 +3790,7 @@ abstract class GatewayAdapter
 	 * @return array
 	 */
 	public function createDonorReturnParams() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -3761,8 +3801,9 @@ abstract class GatewayAdapter
 		return false;
 	}
 
-	/*
+	/**
 	 * Cancel payment based on adapter and set status to cancelled
+	 * @return PaymentResult
 	 */
 	public function cancel() {
 		return PaymentResult::newFailure();

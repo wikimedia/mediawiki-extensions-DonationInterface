@@ -30,32 +30,32 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		return 'redirect';
 	}
 
-	function __construct( $options = array() ) {
+	function __construct( $options = [] ) {
 		parent::__construct( $options );
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
-				array( 'payment_method' => 'paypal' )
+				[ 'payment_method' => 'paypal' ]
 			);
 		}
 	}
 
 	function defineAccountInfo() {
-		$this->accountInfo = array();
+		$this->accountInfo = [];
 	}
 	function defineReturnValueMap() {
 	}
 
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array(
+		$this->order_id_meta = [
 			'generate' => false,
-		);
+		];
 	}
 
 	function defineTransactions() {
-		$this->transactions = array();
-		$this->transactions[ 'Donate' ] = array(
-			'request' => array(
+		$this->transactions = [];
+		$this->transactions[ 'Donate' ] = [
+			'request' => [
 				'amount',
 				'currency_code',
 				'country',
@@ -68,8 +68,8 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'return',
 				'custom',
 				'lc',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'business' => $this->account_config[ 'AccountEmail' ],
 				'cancel_return' => ResultPages::getCancelPage( $this ),
 				'cmd' => '_donations',
@@ -77,10 +77,10 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'no_note' => 0,
 				'return' => ResultPages::getThankYouPage( $this ),
-			),
-		);
-		$this->transactions[ 'DonateXclick' ] = array(
-			'request' => array(
+			],
+		];
+		$this->transactions[ 'DonateXclick' ] = [
+			'request' => [
 				'cmd',
 				'item_number',
 				'item_name',
@@ -94,8 +94,8 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'currency_code',
 				'country',
 				'custom'
-			),
-			'values' => array(
+			],
+			'values' => [
 				'item_number' => 'DONATE',
 				'item_name' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 				'cancel_return' => ResultPages::getCancelPage( $this ),
@@ -104,10 +104,10 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'business' => $this->account_config[ 'AccountEmail' ],
 				'cmd' => '_xclick',
 				'no_shipping' => '1'
-			),
-		);
-		$this->transactions[ 'DonateRecurring' ] = array(
-			'request' => array(
+			],
+		];
+		$this->transactions[ 'DonateRecurring' ] = [
+			'request' => [
 				'a3',
 				'currency_code',
 				'country',
@@ -124,8 +124,8 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'src',
 				'srt',
 				'lc',
-			),
-			'values' => array(
+			],
+			'values' => [
 				'business' => $this->account_config[ 'AccountEmail' ],
 				'cancel_return' => ResultPages::getCancelPage( $this ),
 				'cmd' => '_xclick-subscriptions',
@@ -138,8 +138,8 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 				'p3' => '1',
 				'src' => '1',
 				'srt' => $this->getGlobal( 'RecurringLength' ), // number of installments
-			),
-		);
+			],
+		];
 	}
 
 	function getBasedir() {
@@ -149,7 +149,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 	public function doPayment() {
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->normalizeOrderID( $ctid );
-		$this->addRequestData( array( 'order_id' => $ctid ) );
+		$this->addRequestData( [ 'order_id' => $ctid ] );
 
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 			$resultData = $this->do_transaction( 'DonateRecurring' );

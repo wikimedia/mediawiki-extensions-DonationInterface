@@ -1,9 +1,9 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'GlobalCollectGateway' => array( 'GlobalCollectGateway' ),
-	'GlobalCollectGatewayResult' => array( 'GlobalCollectGatewayResult' ),
-);
+$specialPageAliases['en'] = [
+	'GlobalCollectGateway' => [ 'GlobalCollectGateway' ],
+	'GlobalCollectGatewayResult' => [ 'GlobalCollectGatewayResult' ],
+];

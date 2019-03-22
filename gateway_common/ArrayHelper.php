@@ -33,7 +33,7 @@ class ArrayHelper {
 	 * @return array
 	 */
 	public static function buildRequestArray( $callback, $structure ) {
-		$data = array();
+		$data = [];
 		foreach ( $structure as $key => $value ) {
 			self::addArrayElement( $data, $structure, $key, $value, $callback );
 		}
@@ -51,7 +51,7 @@ class ArrayHelper {
 			return;
 		}
 		if ( is_array( $structureElement[$key] ) ) {
-			$targetElement[$key] = array();
+			$targetElement[$key] = [];
 			foreach ( $structureElement[$key] as $subKey => $subValue ) {
 				self::addArrayElement(
 					$targetElement[$key],

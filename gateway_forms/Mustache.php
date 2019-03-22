@@ -32,7 +32,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * Return the rendered HTML form, using template parameters from the gateway object
 	 *
 	 * @return string
-	 * @throw RuntimeException
+	 * @throws RuntimeException
 	 */
 	public function getForm() {
 		$data = $this->getData();
@@ -48,14 +48,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$this->gateway->session_pushFormName( $data['ffname'] );
 		}
 
-		$options = array(
-			'helpers' => array(
+		$options = [
+			'helpers' => [
 				'l10n' => 'Gateway_Form_Mustache::l10n',
 				'fieldError' => 'Gateway_Form_Mustache::fieldError',
-			),
-			'basedir' => array( self::$baseDir ),
+			],
+			'basedir' => [ self::$baseDir ],
 			'fileext' => self::EXTENSION,
-		);
+		];
 		return self::render( $this->getTopLevelTemplate(), $data, $options );
 	}
 
@@ -67,10 +67,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * @param array $options options for LightnCandy::compile function
 	 * @return string rendered template
 	 */
-	public static function render( $fileName, $data, $options = array() ) {
-		$defaultOptions = array(
+	public static function render( $fileName, $data, $options = [] ) {
+		$defaultOptions = [
 			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
-		);
+		];
 
 		$options = $options + $defaultOptions;
 
@@ -97,7 +97,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			);
 		}
 
-		$html = call_user_func( $renderer, $data, array() );
+		$html = call_user_func( $renderer, $data, [] );
 
 		return $html;
 	}
@@ -121,9 +121,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
-		$this->handleOptIn( $data );
 		$this->addSubmethods( $data );
 		$this->addRequiredFields( $data );
+		$this->handleOptIn( $data );
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
@@ -145,12 +145,15 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( !isset( $data['opt_in'] ) || $data['opt_in'] === '' ) {
 			return;
 		}
+		$hasValidValue = false;
 		switch ( (string)$data['opt_in'] ) {
 			case '1':
 				$data['opted_in'] = true;
+				$hasValidValue = true;
 				break;
 			case '0':
 				$data['opted_out'] = true;
+				$hasValidValue = true;
 				break;
 			default:
 				$logger = DonationLoggerFactory::getLogger(
@@ -161,6 +164,16 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$logger->warning( "Invalid opt_in value {$data['opt_in']}" );
 				break;
 		}
+		// If we have a valid value passed in on the query string, don't
+		// show the radio buttons to the user (they've already seen them
+		// in the banner or on donatewiki)
+		// If the value came from 'post' we may be re-rendering a form
+		// with some kind of validation error and should keep showing
+		// the opt_in radio buttons.
+		$dataSources = $this->gateway->getDataSources();
+		if ( $hasValidValue && $dataSources['opt_in'] === 'get' ) {
+			$data['opt_in_required'] = false;
+		}
 	}
 
 	protected function addSubmethods( &$data ) {
@@ -168,7 +181,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['show_submethods'] = ( count( $availableSubmethods ) > 1 );
 		if ( $data['show_submethods'] ) {
 			// Need to add submethod key to its array 'cause mustache doesn't get keys
-			$data['submethods'] = array();
+			$data['submethods'] = [];
 			foreach ( $availableSubmethods as $key => $submethod ) {
 				$submethod['key'] = $key;
 				if ( isset( $submethod['logo'] ) ) {
@@ -199,12 +212,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 			if ( isset( $submethod['issuerids'] ) ) {
 				$data['show_issuers'] = true;
-				$data['issuers'] = array();
+				$data['issuers'] = [];
 				foreach ( $submethod['issuerids'] as $code => $label ) {
-					$data['issuers'][] = array(
+					$data['issuers'][] = [
 						'code' => $code,
 						'label' => $label,
-					);
+					];
 				}
 			}
 		}
@@ -214,7 +227,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( empty( $submethod['logo_hd'] ) ) {
 			return '';
 		}
-		$srcSet = array();
+		$srcSet = [];
 		foreach ( $submethod['logo_hd'] as $scale => $filename ) {
 			$path = $this->getImagePath( $filename );
 			$srcSet[] = "$path $scale";
@@ -224,16 +237,16 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function addRequiredFields( &$data ) {
 		// If any of these are required, show the address block
-		$address_fields = array(
+		$address_fields = [
 			'city',
 			'state_province',
 			'postal_code',
 			'street_address',
-		);
+		];
 		// These are shown outside of the 'Billing information' block
-		$outside_personal_block = array(
+		$outside_personal_block = [
 			'opt_in'
-		);
+		];
 		$show_personal_block = false;
 		$address_field_count = 0;
 		$required_fields = $this->gateway->getRequiredFields();
@@ -254,12 +267,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['show_personal_fields'] = $show_personal_block;
 
 		if ( !empty( $data['address_required'] ) ) {
-			$classes = array(
+			$classes = [
 				0 => 'fullwidth',
 				1 => 'fullwidth',
 				2 => 'halfwidth',
 				3 => 'thirdwidth'
-			);
+			];
 			$data['address_css_class'] = $classes[$address_field_count];
 			if ( !empty( $data['state_province_required'] ) ) {
 				$this->setStateOptions( $data );
@@ -269,17 +282,17 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setStateOptions( &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
-		$data['state_province_options'] = array();
+		$data['state_province_options'] = [];
 
 		foreach ( $state_list as $abbr => $name ) {
 			$selected = isset( $data['state_province'] )
 				&& $data['state_province'] === $abbr;
 
-			$data['state_province_options'][] = array(
+			$data['state_province_options'][] = [
 				'abbr' => $abbr,
 				'name' => $name,
 				'selected' => $selected,
-			);
+			];
 		}
 	}
 
@@ -294,10 +307,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['show_currency_selector'] = true;
 		}
 		foreach ( $supportedCurrencies as $currency ) {
-			$data['currencies'][] = array(
+			$data['currencies'][] = [
 				'code' => $currency,
 				'selected' => ( $currency === $data['currency'] ),
-			);
+			];
 		}
 
 		$data['display_amount'] = Amount::format(
@@ -318,10 +331,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 */
 	protected function getErrors() {
 		$errors = $this->gateway->getErrorState()->getErrors();
-		$return = array( 'errors' => array(
-			'general' => array(),
-			'field' => array(),
-		) );
+		$return = [ 'errors' => [
+			'general' => [],
+			'field' => [],
+		] ];
 		$fieldNames = DonationData::getFieldNames();
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
@@ -340,10 +353,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				throw new RuntimeException( "Unknown error type: " . var_export( $error, true ) );
 			}
 
-			$errorContext = array(
+			$errorContext = [
 				'key' => $key,
 				'message' => $message,
-			);
+			];
 
 			if ( in_array( $key, $fieldNames ) ) {
 				$return['errors']['field'][$key] = $errorContext;
@@ -420,10 +433,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$context = self::$fieldErrors[$fieldName];
 			$context['cssClass'] = 'errorMsg';
 		} else {
-			$context = array(
+			$context = [
 				'cssClass' => 'errorMsgHide',
 				'key' => $fieldName,
-			);
+			];
 		}
 
 		$path = self::$baseDir . DIRECTORY_SEPARATOR

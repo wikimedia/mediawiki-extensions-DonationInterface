@@ -3,7 +3,7 @@
 class AstroPayMethodCodec implements UnstagingHelper {
 	/**
 	 * Transforms the astropay payment method into our method name
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		$method = $stagedData['payment_method'];

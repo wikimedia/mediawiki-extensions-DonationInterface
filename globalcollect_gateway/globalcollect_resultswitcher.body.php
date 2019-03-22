@@ -11,6 +11,7 @@ class GlobalCollectGatewayResult extends GatewayPage {
 	/**
 	 * Overriding so the answer is correct in case we refactor handleRequest
 	 * to use base class's handleResultRequest method.
+	 * @return bool
 	 */
 	protected function isReturnFramed() {
 		return true;

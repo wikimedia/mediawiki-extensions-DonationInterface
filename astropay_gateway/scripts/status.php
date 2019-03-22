@@ -24,9 +24,9 @@ class AstroPayStatusQuery extends Maintenance {
 		$oid = $this->getArg( 0 );
 		$parts = explode( '.', $oid );
 		$ctid = $parts[0];
-		$gateway_opts = array(
+		$gateway_opts = [
 			'batch_mode' => true,
-			'external_data' => array(
+			'external_data' => [
 				'order_id' => $this->getArg( 'id' ),
 				'contribution_tracking_id' => $ctid,
 				// Dummy data to satisfy validation :P
@@ -35,8 +35,8 @@ class AstroPayStatusQuery extends Maintenance {
 				'currency' => 'BRL',
 				'amount' => 10,
 				'email' => 'dummy@example.org',
-			),
-		);
+			],
+		];
 		$this->output( "Checking order $oid\n" );
 		$adapter = new AstroPayAdapter( $gateway_opts );
 		$result = $adapter->do_transaction( 'PaymentStatus' );
@@ -44,5 +44,5 @@ class AstroPayStatusQuery extends Maintenance {
 	}
 }
 
-$maintClass = 'AstroPayStatusQuery';
+$maintClass = AstroPayStatusQuery::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

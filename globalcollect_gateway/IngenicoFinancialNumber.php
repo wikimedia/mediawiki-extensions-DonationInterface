@@ -3,11 +3,11 @@
 class IngenicoFinancialNumber implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// Pad some fields with zeros, to their maximum length.
-		$fields = array(
+		$fields = [
 			'account_number',
 			'bank_code',
 			'branch_code',
-		);
+		];
 
 		foreach ( $fields as $field ) {
 			if ( isset( $normalized[$field] ) ) {

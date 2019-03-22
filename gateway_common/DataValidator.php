@@ -58,7 +58,7 @@ class DataValidator {
 	 * @return array All the possible error tokens as keys, with blank errors.
 	 */
 	public static function getEmptyErrorArray() {
-		return array(
+		return [
 			'general' => '',
 			'retryMsg' => '',
 			'amount' => '',
@@ -73,7 +73,7 @@ class DataValidator {
 			'state_province' => '',
 			'postal_code' => '',
 			'email' => '',
-		);
+		];
 	}
 
 	/**
@@ -127,7 +127,7 @@ class DataValidator {
 	 * @throws BadMethodCallException
 	 * @return array A list of ValidationError objects, or empty on successful validation.
 	 */
-	public static function validate( GatewayType $gateway, $data, $check_not_empty = array() ) {
+	public static function validate( GatewayType $gateway, $data, $check_not_empty = [] ) {
 		// return the array of errors that should be generated on validate.
 		// just the same way you'd do it if you were a form passing the error array around.
 
@@ -145,12 +145,12 @@ class DataValidator {
 		 */
 
 		// Define all default validations.
-		$validations = array(
-			'not_empty' => array(
+		$validations = [
+			'not_empty' => [
 				'currency',
 				'gateway',
-			),
-			'valid_type' => array(
+			],
+			'valid_type' => [
 				'_cache_' => 'validate_boolean',
 				'account_number' => 'validate_numeric',
 				'anonymous' => 'validate_boolean',
@@ -161,9 +161,9 @@ class DataValidator {
 				'opt-in' => 'validate_boolean',
 				'posted' => 'validate_boolean',
 				'recurring' => 'validate_boolean',
-			),
+			],
 			// Note that order matters for this group, dependencies must come first.
-			'calculated' => array(
+			'calculated' => [
 				'gateway' => 'validate_gateway',
 				'address' => 'validate_address',
 				'city' => 'validate_address',
@@ -174,8 +174,8 @@ class DataValidator {
 				'first_name' => 'validate_name',
 				'last_name' => 'validate_name',
 				'name' => 'validate_name',
-			),
-		);
+			],
+		];
 
 		// Additional fields we should check for emptiness.
 		if ( $check_not_empty ) {
@@ -184,9 +184,9 @@ class DataValidator {
 			) );
 		}
 
-		$errors = array();
-		$errored_fields = array();
-		$results = array();
+		$errors = [];
+		$errored_fields = [];
+		$results = [];
 
 		foreach ( $validations as $phase => $fields ) {
 			foreach ( $fields as $key => $custom ) {
@@ -216,7 +216,7 @@ class DataValidator {
 				}
 
 				// Prepare to call the thing.
-				$callable = array( 'DataValidator', $validation_function );
+				$callable = [ 'DataValidator', $validation_function ];
 				if ( !is_callable( $callable ) ) {
 					throw new BadMethodCallException( __FUNCTION__ . " BAD PROGRAMMER. No function {$validation_function} for $field" );
 				}
@@ -333,7 +333,7 @@ class DataValidator {
 	 * @return bool True if $value is a valid boolean, otherwise false.
 	 */
 	protected static function validate_boolean( $value ) {
-		$validValues = array(
+		$validValues = [
 			0,
 			'0',
 			false,
@@ -342,7 +342,7 @@ class DataValidator {
 			'1',
 			true,
 			'true',
-		);
+		];
 		return in_array( $value, $validValues, true );
 	}
 
@@ -429,7 +429,7 @@ class DataValidator {
 
 	/**
 	 * Gets rid of numbers that pass luhn in address fields - @see validate_name
-	 * @param $value
+	 * @param string $value
 	 * @return bool True if suspiciously like a CC number
 	 */
 	public static function validate_address( $value ) {
@@ -445,7 +445,7 @@ class DataValidator {
 	/**
 	 * Analyzes a string to see if any credit card numbers are hiding out in it
 	 *
-	 * @param $str
+	 * @param string $str
 	 *
 	 * @return bool True if a CC number was found sneaking about in the shadows
 	 */
@@ -487,13 +487,13 @@ EOT;
 		$str = implode( ' ', preg_split( '/[^0-9]+/', $str, PREG_SPLIT_NO_EMPTY ) );
 
 		// First do we have any numbers that match a pattern but is not luhn checkable?
-		$matches = array();
+		$matches = [];
 		if ( preg_match_all( $nonLuhnRegex, $str, $matches ) > 0 ) {
 			return true;
 		}
 
 		// Find potential CC numbers that do luhn check and run 'em
-		$matches = array();
+		$matches = [];
 		preg_match_all( $luhnRegex, $str, $matches );
 		foreach ( $matches[0] as $candidate ) {
 			if ( self::luhn_check( $candidate ) ) {
@@ -581,14 +581,14 @@ EOT;
 	public static function expandIPBlockToArray( $ip ) {
 		$parts = explode( '/', $ip );
 		if ( count( $parts ) === 1 ) {
-			return array( $ip );
+			return [ $ip ];
 		} else {
 			// expand that mess.
 			// this next bit was stolen from php.net and smacked around some
 			$corr = ( pow( 2, 32 ) - 1 ) - ( pow( 2, 32 - $parts[1] ) - 1 );
 			$first = ip2long( $parts[0] ) & ( $corr );
 			$length = pow( 2, 32 - $parts[1] ) - 1;
-			$ips = array();
+			$ips = [];
 			for ( $i = 0; $i <= $length; $i++ ) {
 				$ips[] = long2ip( $first + $i );
 			}
@@ -606,7 +606,7 @@ EOT;
 	 * @return bool
 	 */
 	public static function ip_is_listed( $ip, $ip_list ) {
-		$expanded = array();
+		$expanded = [];
 		foreach ( $ip_list as $address ) {
 			$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
 		}
@@ -625,8 +625,8 @@ EOT;
 	 * @return bool
 	 */
 	public static function value_appears_in( $needle, $haystack ) {
-		$needle = ( is_array( $needle ) ) ? $needle : array( $needle );
-		$haystack = ( is_array( $haystack ) ) ? $haystack : array( $haystack );
+		$needle = ( is_array( $needle ) ) ? $needle : [ $needle ];
+		$haystack = ( is_array( $haystack ) ) ? $haystack : [ $haystack ];
 
 		$plusCheck = array_key_exists( '+', $haystack );
 		$minusCheck = array_key_exists( '-', $haystack );

@@ -27,7 +27,7 @@ class EncodingMangler implements StagingHelper {
 	protected $transliterator;
 
 	public function __construct() {
-		if ( class_exists( 'Transliterator' ) ) {
+		if ( class_exists( Transliterator::class ) ) {
 			$this->use_transliterator = true;
 			// Use Any-Latin to munge Cyrillic, Kanji, etc
 			// Then convert anything outside the ISO-8859-1 range to nearest ASCII

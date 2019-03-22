@@ -13,7 +13,7 @@ class WmfFramework_Drupal {
 		$severity = constant( "WATCHDOG_$level" ); // Yep, they all match!
 		// Janky XML sanitization so we can see the tags
 		// watchdog strips so aggressively that htmlspecialchars doesn't help
-		$escaped = str_replace( array( '<', '>' ), array( '{', '}' ), $msg );
+		$escaped = str_replace( [ '<', '>' ], [ '{', '}' ], $msg );
 		watchdog( 'DonationInterface', "{$identifier}: {$escaped}", null, $severity );
 	}
 
@@ -22,6 +22,10 @@ class WmfFramework_Drupal {
 	}
 
 	public static function getRequestValue( $key, $default ) {
+		throw new BadMethodCallException( 'Unimplemented' );
+	}
+
+	public static function getQueryValues() {
 		throw new BadMethodCallException( 'Unimplemented' );
 	}
 
@@ -36,13 +40,14 @@ class WmfFramework_Drupal {
 
 	/**
 	 * Do not guess.
+	 * @return string|null
 	 */
 	public static function getLanguageCode() {
 		return null;
 	}
 
 	public static function getLanguageFallbacks( $language ) {
-		$fallbacks = array();
+		$fallbacks = [];
 		if ( $language ) {
 			$fallbacks[] = $language;
 		}
@@ -95,7 +100,7 @@ class WmfFramework_Drupal {
 	 * Returns true if a translatable message has been defined for the string
 	 * that has been passed in, false if none is present.
 	 * @param string $msg_key The message string to look up.
-	 * @param string $language unused
+	 * @param string|null $language unused
 	 * @return bool - true if message exists, otherwise false.
 	 */
 	public static function messageExists( $msg_key, $language = null ) {

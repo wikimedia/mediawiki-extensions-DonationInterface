@@ -5,7 +5,7 @@ use SmashPig\CrmLink\FinalStatus;
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	// Data we know to be good, that we always want to re-assert after a load or an addData.
 	// so far: order_id and the data we pull from contribution tracking.
-	protected $hard_data = array();
+	protected $hard_data = [];
 
 	public static function getLogIdentifier() {
 		return 'orphans:' . self::getIdentifier() . "_gateway_trxn";
@@ -16,18 +16,23 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		// FIXME: This is just to trigger batch code paths within DonationData.
 		// Do so explicitly instead.
-		$options = array(
-			'external_data' => array(
+		$options = [
+			'external_data' => [
 				'wheeee' => 'yes'
-			),
-		);
+			],
+		];
 
 		parent::__construct( $options );
 	}
 
-	// FIXME: Get rid of this.
-	public function unstage_data( $data = array(), $final = true ) {
-		$unstaged = array();
+	/**
+	 * FIXME: Get rid of this.
+	 * @param array $data
+	 * @param bool $final
+	 * @return array
+	 */
+	public function unstage_data( $data = [], $final = true ) {
+		$unstaged = [];
 		foreach ( $data as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$unstaged += $this->unstage_data( $val, false );
@@ -52,17 +57,20 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $unstaged;
 	}
 
-	// FIXME: This needs some serious code reuse trickery.
+	/**
+	 * FIXME: This needs some serious code reuse trickery.
+	 * @param array $data
+	 */
 	public function loadDataAndReInit( $data ) {
 		// re-init all these arrays, because this is a batch thing.
 		$this->session_killAllEverything(); // just to be sure
 		$this->errorState = new ErrorState();
 		$this->transaction_response = new PaymentTransactionResponse();
-		$this->hard_data = array(
+		$this->hard_data = [
 			'order_id' => $data['order_id']
-		);
-		$this->unstaged_data = array();
-		$this->staged_data = array();
+		];
+		$this->unstaged_data = [];
+		$this->staged_data = [];
 
 		$this->dataObj = new DonationData( $this, $data );
 
@@ -109,11 +117,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	public function getContributionTracking() {
 		if ( $this->getData_Unstaged_Escaped( 'utm_source' ) ) {
 			// We already have the info.
-			return array();
+			return [];
 		}
-		if ( !class_exists( 'ContributionTrackingProcessor' ) ) {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'ContributionTracking' ) ) {
 			$this->logger->error( 'We needed to get contribution_tracking data but cannot on this platform!' );
-			return array();
+			return [];
 		}
 		$db = ContributionTrackingProcessor::contributionTrackingConnection();
 
@@ -124,20 +132,20 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
-		$data = array();
+		$data = [];
 
 		// if contrib tracking id is not already set, we need to insert the data, otherwise update
 		if ( $ctid ) {
 			$res = $db->select(
 				'contribution_tracking',
-				array(
+				[
 					'contribution_id',
 					'utm_source',
 					'utm_campaign',
 					'utm_medium',
 					'ts'
-				),
-				array( 'id' => $ctid )
+				],
+				[ 'id' => $ctid ]
 			);
 			// Fixme: if we get more than one row back, MySQL is broken
 			foreach ( $res as $thing ) {
@@ -164,6 +172,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	 * Copy the timestamp rather than using the current time.
 	 *
 	 * FIXME: Carefully move this to the base class and decide when appropriate.
+	 * @return array
 	 */
 	protected function getQueueDonationMessage() {
 		$transaction = parent::getQueueDonationMessage();
@@ -178,11 +187,11 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $transaction;
 	}
 
-	public function setGatewayDefaults( $options = array() ) {
+	public function setGatewayDefaults( $options = [] ) {
 		// Prevent MediaWiki code paths.
-		parent::setGatewayDefaults( array(
+		parent::setGatewayDefaults( [
 			'returnTo' => '',
-		) );
+		] );
 	}
 
 	/**

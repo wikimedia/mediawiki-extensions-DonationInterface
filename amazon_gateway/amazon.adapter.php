@@ -1,6 +1,5 @@
 <?php
 
-use PayWithAmazon\PaymentsClient as PwaClient;
 use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
@@ -43,32 +42,32 @@ class AmazonAdapter extends GatewayAdapter {
 	protected $client;
 
 	// FIXME: return_value_map should handle non-numeric return values
-	protected $capture_status_map = array(
+	protected $capture_status_map = [
 		'Completed' => FinalStatus::COMPLETE,
 		'Pending' => FinalStatus::PENDING,
 		'Declined' => FinalStatus::FAILED,
-	);
+	];
 
 	// When an authorization or capture is declined, some reason codes indicate
 	// a situation where the donor can retry later or try a different card
-	protected $retry_reasons = array(
+	protected $retry_reasons = [
 		'InternalServerError',
 		'RequestThrottled',
 		'ServiceUnavailable',
 		'ProcessingFailure',
 		'InvalidPaymentMethod',
-	);
+	];
 
-	protected $pending_reasons = array(
+	protected $pending_reasons = [
 		'TransactionTimedOut',
-	);
+	];
 
-	function __construct( $options = array() ) {
+	function __construct( $options = [] ) {
 		parent::__construct( $options );
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
-				array( 'payment_method' => 'amazon' )
+				[ 'payment_method' => 'amazon' ]
 			);
 		}
 		// Provide our logger instance to the SmashPig payments-client parameters.
@@ -89,16 +88,17 @@ class AmazonAdapter extends GatewayAdapter {
 
 	function defineAccountInfo() {
 		// We use account_config instead
-		$this->accountInfo = array();
+		$this->accountInfo = [];
 	}
 
-	function defineReturnValueMap() { }
+	function defineReturnValueMap() {
+	}
 
 	function defineOrderIDMeta() {
-		$this->order_id_meta = array(
+		$this->order_id_meta = [
 			'generate' => true,
 			'ct_id' => true,
-		);
+		];
 	}
 
 	public function defineErrorMap() {
@@ -117,7 +117,7 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	function defineTransactions() {
-		$this->transactions = array();
+		$this->transactions = [];
 	}
 
 	function getBasedir() {
@@ -129,6 +129,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * party SDK to make all processor API calls.  Since we're never calling
 	 * do_transaction and friends, we synthesize a PaymentTransactionResponse
 	 * to hold any errors returned from the SDK.
+	 * @return PaymentResult
 	 */
 	public function doPayment() {
 		$this->client = $this->getPwaClient();
@@ -174,7 +175,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @return array Results of the SDK client call
 	 */
 	protected function callPwaClient( $functionName, $parameters ) {
-		$callMe = array( $this->client, $functionName );
+		$callMe = [ $this->client, $functionName ];
 		try {
 			$this->profiler->getStopwatch( $functionName, true );
 			$result = call_user_func( $callMe, $parameters )->toArray();
@@ -201,11 +202,11 @@ class AmazonAdapter extends GatewayAdapter {
 		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
 		$fname = $nameParts[0];
 		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
-		$this->addRequestData( array(
+		$this->addRequestData( [
 			'email' => $email,
 			'first_name' => $fname,
 			'last_name' => $lname,
-		) );
+		] );
 		// Stash their info in pending queue and logs to fill in data for
 		// audit and IPN messages
 		$details = $this->getQueueDonationMessage();
@@ -242,14 +243,14 @@ class AmazonAdapter extends GatewayAdapter {
 		// IdList has identifiers for related objects, in this case the capture
 		$captureId = $authDetails['IdList']['member'];
 		// Use capture ID as gateway_txn_id, since we need that for refunds
-		$this->addResponseData( array( 'gateway_txn_id' => $captureId ) );
+		$this->addResponseData( [ 'gateway_txn_id' => $captureId ] );
 		// And add it to the ambient transaction_response for doStompTransaction
 		$this->transaction_response->setGatewayTransactionId( $captureId );
 
 		$this->logger->info( "Getting details of capture $captureId" );
-		$captureResponse = $this->callPwaClient( 'getCaptureDetails', array(
+		$captureResponse = $this->callPwaClient( 'getCaptureDetails', [
 			'amazon_capture_id' => $captureId,
-		) );
+		] );
 
 		$captureDetails = $captureResponse['GetCaptureDetailsResult']['CaptureDetails'];
 		$captureState = $captureDetails['CaptureStatus']['State'];
@@ -273,16 +274,16 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->setOrderReferenceDetailsIfUnset( $orderReferenceId );
 
 		$this->logger->info( "Confirming order $orderReferenceId" );
-		$this->callPwaClient( 'confirmOrderReference', array(
+		$this->callPwaClient( 'confirmOrderReference', [
 			'amazon_order_reference_id' => $orderReferenceId,
-		) );
+		] );
 
 		// TODO: either check the status, or skip this call when we already have
 		// donor details
 		$this->logger->info( "Getting details of order $orderReferenceId" );
-		$getDetailsResult = $this->callPwaClient( 'getOrderReferenceDetails', array(
+		$getDetailsResult = $this->callPwaClient( 'getOrderReferenceDetails', [
 			'amazon_order_reference_id' => $orderReferenceId,
-		) );
+		] );
 
 		$this->addDonorDetails(
 			$getDetailsResult['GetOrderReferenceDetailsResult']['OrderReferenceDetails']['Buyer']
@@ -299,13 +300,13 @@ class AmazonAdapter extends GatewayAdapter {
 			return;
 		}
 		$this->logger->info( "Setting details for order $orderReferenceId" );
-		$this->callPwaClient( 'setOrderReferenceDetails', array(
+		$this->callPwaClient( 'setOrderReferenceDetails', [
 			'amazon_order_reference_id' => $orderReferenceId,
 			'amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency' ),
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			'seller_order_id' => $this->getData_Staged( 'order_id' ),
-		) );
+		] );
 		$orderRefs = WmfFramework::getSessionValue( 'order_refs' );
 		$orderRefs[$orderReferenceId] = true;
 		WmfFramework::setSessionValue( 'order_refs', $orderRefs );
@@ -315,7 +316,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
 		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
-		$authResponse = $this->callPwaClient( 'authorize', array(
+		$authResponse = $this->callPwaClient( 'authorize', [
 			'amazon_order_reference_id' => $orderReferenceId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency' ),
@@ -327,7 +328,7 @@ class AmazonAdapter extends GatewayAdapter {
 			// See https://payments.amazon.com/documentation/lpwa/201749840#201750790
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"TransactionTimedOut"}}',
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
-		) );
+		] );
 		return $authResponse['AuthorizeResult']['AuthorizationDetails'];
 	}
 
@@ -336,14 +337,14 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->setBillingAgreementDetailsIfUnset( $billingAgreementId );
 
 		$this->logger->info( "Confirming billing agreement $billingAgreementId" );
-		$this->callPwaClient( 'confirmBillingAgreement', array(
+		$this->callPwaClient( 'confirmBillingAgreement', [
 			'amazon_billing_agreement_id' => $billingAgreementId,
-		) );
+		] );
 
 		$this->logger->info( "Getting details of billing agreement $billingAgreementId" );
-		$getDetailsResult = $this->callPwaClient( 'getBillingAgreementDetails', array(
+		$getDetailsResult = $this->callPwaClient( 'getBillingAgreementDetails', [
 			'amazon_billing_agreement_id' => $billingAgreementId,
-		) );
+		] );
 
 		$this->addDonorDetails(
 			$getDetailsResult['GetBillingAgreementDetailsResult']['BillingAgreementDetails']['Buyer']
@@ -355,11 +356,11 @@ class AmazonAdapter extends GatewayAdapter {
 			return;
 		}
 		$this->logger->info( "Setting details for billing agreement $billingAgreementId" );
-		$this->callPwaClient( 'setBillingAgreementDetails', array(
+		$this->callPwaClient( 'setBillingAgreementDetails', [
 			'amazon_billing_agreement_id' => $billingAgreementId,
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			'seller_billing_agreement_id' => $this->getData_Staged( 'order_id' ),
-		) );
+		] );
 		$billingAgreements = WmfFramework::getSessionValue( 'billing_agreements' );
 		$billingAgreements[$billingAgreementId] = true;
 		WmfFramework::setSessionValue( 'billing_agreements', $billingAgreements );
@@ -369,7 +370,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$billingAgreementId = $this->getData_Staged( 'subscr_id' );
 
 		$this->logger->info( "Authorizing and capturing payment on billing agreement $billingAgreementId" );
-		$authResponse = $this->callPwaClient( 'authorizeOnBillingAgreement', array(
+		$authResponse = $this->callPwaClient( 'authorizeOnBillingAgreement', [
 			'amazon_billing_agreement_id' => $billingAgreementId,
 			'authorization_amount' => $this->getData_Staged( 'amount' ),
 			'currency_code' => $this->getData_Staged( 'currency' ),
@@ -379,14 +380,14 @@ class AmazonAdapter extends GatewayAdapter {
 			'seller_note' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			'transaction_timeout' => 0, // authorize synchronously
 			// 'seller_authorization_note' => '{"SandboxSimulation": {"State":"Declined", "ReasonCode":"InvalidPaymentMethod"}}',
-		) );
+		] );
 		return $authResponse['AuthorizeOnBillingAgreementResult']['AuthorizationDetails'];
 	}
 
 	/**
 	 * Replace decimal point with a dash to comply with Amazon's restrictions on
 	 * seller reference ID format.
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function generateOrderID( $dataObj = null ) {
 		$dotted = parent::generateOrderID( $dataObj );
@@ -408,9 +409,10 @@ class AmazonAdapter extends GatewayAdapter {
 
 	/**
 	 * Override default behavior
+	 * @return array
 	 */
 	function getAvailableSubmethods() {
-		return array();
+		return [];
 	}
 
 	/**

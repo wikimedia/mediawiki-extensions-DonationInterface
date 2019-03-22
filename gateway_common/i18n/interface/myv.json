@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Botuzhaleny-sodamo"
+			"Botuzhaleny-sodamo",
+			"Rueter"
 		]
 	},
 	"donate_interface-amount": "Зяро",
@@ -30,6 +31,7 @@
 	"donate_interface-error-msg-state_province": "штатот",
 	"donate_interface-error-msg-postal_code-us": "индексэть",
 	"donate_interface-error-msg-country": "мастор",
+	"donate_interface-mailing-address": "Сёрмапарго",
 	"donate_interface-city-town": "Ош/Веле",
 	"donate_interface-town-city": "Веле/Ош",
 	"donate_interface-donate-now": "Макста лезксйармак нейке"

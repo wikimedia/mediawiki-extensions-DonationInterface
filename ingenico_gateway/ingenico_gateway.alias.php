@@ -1,9 +1,9 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'IngenicoGateway' => array( 'IngenicoGateway' ),
-	'IngenicoGatewayResult' => array( 'IngenicoGatewayResult' ),
-);
+$specialPageAliases['en'] = [
+	'IngenicoGateway' => [ 'IngenicoGateway' ],
+	'IngenicoGatewayResult' => [ 'IngenicoGatewayResult' ],
+];

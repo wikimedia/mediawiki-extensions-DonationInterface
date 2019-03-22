@@ -8,6 +8,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 
 	/**
 	 * Logs the response from a transaction
+	 * @return bool
 	 */
 	protected function post_process() {
 		// if the trxn has been outright rejected, log it
