@@ -449,22 +449,15 @@ class DonationData implements LogPrefixProvider {
 			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
 				$this->logger->info( "Using country code $sessionCountry from session" );
 				$country = $sessionCountry;
-			} elseif ( function_exists( 'geoip_country_code_by_name' ) ) {
-				// Then try to do GeoIP lookup
-				// Requires php5-geoip package
-				$ip = $this->getVal( 'user_ip' );
-				if ( WmfFramework::validateIP( $ip ) ) {
-					try {
-						$country = geoip_country_code_by_name( $ip );
-					} catch ( Exception $e ) {
-						// Suppressing missing database exception thrown in CI
-					}
-					if ( !$country ) {
-						$this->logger->warning( __FUNCTION__ . ": GeoIP lookup function found nothing for $ip! No country available." );
-					}
-				}
 			} else {
-				$this->logger->warning( 'GeoIP lookup function is missing! No country available.' );
+				// Then try to do GeoIP lookup using Maxmind's SDK
+				$ip = $this->getVal( 'user_ip' );
+				$country = CountryValidation::lookUpCountry( $ip );
+				if ( $country && !CountryValidation::isValidIsoCode( $country ) ) {
+					$this->logger->warning(
+						"GeoIP lookup returned bogus code '$country'! No country available."
+					);
+				}
 			}
 
 			// still nothing good? Give up.
