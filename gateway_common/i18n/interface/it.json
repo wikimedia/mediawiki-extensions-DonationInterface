@@ -150,7 +150,7 @@
 	"donate_interface-donor-last_name": "Cognome",
 	"donate_interface-donor-street_address": "Via",
 	"donate_interface-donor-street-number": "Numero",
-	"donate_interface-donor-city": "Comune:",
+	"donate_interface-donor-city": "Città",
 	"donate_interface-donor-county": "Contea (in Italia NON usare)",
 	"donate_interface-donor-island": "Isola",
 	"donate_interface-donor-state_province": "Stato:",

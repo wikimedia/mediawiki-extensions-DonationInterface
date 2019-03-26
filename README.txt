@@ -65,6 +65,11 @@ to your SmashPig configuration under key 'cache':
  class: LocalClusterPsr6Cache
 (no constructor-parameters need to be specified)
 
+Geolocation for donors coming in without country on the url:
+Set this to the path of a MaxMind format GeoIP database.
+These databases can be obtained at https://dev.maxmind.com/geoip/geoip2/geolite2/
+$wgDonationInterfaceGeoIpDbPath = '/usr/share/GeoIP/GeoLite2-Country.mmdb'
+
 ==== Form appearance and content ====
 
 Besides these settings, please see DonationInterfaceFormSettings.php

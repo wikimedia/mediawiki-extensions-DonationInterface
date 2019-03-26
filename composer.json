@@ -24,7 +24,8 @@
 	},
 	"require": {
 		"maxmind/minfraud": "^1.4",
-		"monolog/monolog": "^1.18",
+		"geoip2/geoip2": "^2.9",
+		"monolog/monolog": "~1.18",
 		"neitanod/forceutf8": "^2.0",
 		"php": ">=5.4",
 		"predis/predis": "^1.1",

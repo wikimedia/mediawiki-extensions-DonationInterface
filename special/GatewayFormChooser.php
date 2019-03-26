@@ -50,13 +50,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		if ( !CountryValidation::isValidIsoCode( $country ) ) {
 			// Lookup the country
-			if ( function_exists( 'geoip_country_code_by_name' ) ) {
-				$ip = $this->getRequest()->getIP();
-				try {
-					$country = geoip_country_code_by_name( $ip );
-				} catch ( Exception $e ) {
-					// Suppressing missing database exception thrown in CI
-				}
+			$ip = $this->getRequest()->getIP();
+			$country = CountryValidation::lookUpCountry( $ip );
+			if ( $country && !CountryValidation::isValidIsoCode( $country ) ) {
+				$this->logger->warning(
+					"GeoIP lookup returned bogus code '$country'! No country available."
+				);
 			}
 		}
 
