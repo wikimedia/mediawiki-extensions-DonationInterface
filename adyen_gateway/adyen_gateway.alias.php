@@ -1,9 +1,9 @@
 <?php
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'AdyenGateway' => array( 'AdyenGateway' ),
-	'AdyenGatewayResult' => array( 'AdyenGatewayResult' ),
-);
+$specialPageAliases['en'] = [
+	'AdyenGateway' => [ 'AdyenGateway' ],
+	'AdyenGatewayResult' => [ 'AdyenGatewayResult' ],
+];

@@ -3,7 +3,7 @@
 class AdyenHostedSignature implements StagingHelper {
 	/**
 	 * Sign the Adyen API request
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$params = $adapter->buildRequestParams();
@@ -23,13 +23,13 @@ class AdyenHostedSignature implements StagingHelper {
 	 * @return string
 	 */
 	public static function calculateSignature( GatewayType $adapter, $values ) {
-		$ignoredKeys = array(
+		$ignoredKeys = [
 			'sig',
 			'merchantSig',
 			'title',
 			'liberated',
 			'debug',
-		);
+		];
 
 		foreach ( array_keys( $values ) as $key ) {
 			if (

@@ -63,7 +63,7 @@ class DonationApi extends ApiBase {
 		}
 
 		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();
-		$outputResult = array();
+		$outputResult = [];
 		if ( $result->getMessage() !== null ) {
 			$outputResult['message'] = $result->getMessage();
 		}
@@ -107,7 +107,7 @@ class DonationApi extends ApiBase {
 	}
 
 	public static function serializeErrors( $errors, GatewayAdapter $adapter ) {
-		$serializedErrors = array();
+		$serializedErrors = [];
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
 				$message = WmfFramework::formatMessage(
@@ -131,7 +131,7 @@ class DonationApi extends ApiBase {
 	}
 
 	public function getAllowedParams() {
-		return array(
+		return [
 			'gateway' => $this->defineParam( true ),
 			'contact_id' => $this->defineParam( false ),
 			'contact_hash' => $this->defineParam( false ),
@@ -163,26 +163,27 @@ class DonationApi extends ApiBase {
 			'recurring' => $this->defineParam( false ),
 			'variant' => $this->defineParam( false ),
 			'opt_in' => $this->defineParam( false ),
-		);
+		];
 	}
 
 	private function defineParam( $required = false, $type = 'string' ) {
 		if ( $required ) {
-			$param = array( ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true );
+			$param = [ ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true ];
 		} else {
-			$param = array( ApiBase::PARAM_TYPE => $type );
+			$param = [ ApiBase::PARAM_TYPE => $type ];
 		}
 		return $param;
 	}
 
 	/**
 	 * @see ApiBase::getExamplesMessages()
+	 * @return array
 	 */
 	protected function getExamplesMessages() {
-		return array(
+		return [
 			'action=donate&gateway=globalcollect&amount=2.00&currency=USD'
 				=> 'apihelp-donate-example-1',
-		);
+		];
 	}
 
 	/**
@@ -191,6 +192,6 @@ class DonationApi extends ApiBase {
 	protected function getGatewayObject() {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 		$variant = $this->getRequest()->getVal( 'variant' );
-		return new $className( array( 'variant' => $variant ) );
+		return new $className( [ 'variant' => $variant ] );
 	}
 }

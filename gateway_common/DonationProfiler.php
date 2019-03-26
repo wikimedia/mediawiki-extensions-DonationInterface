@@ -14,7 +14,7 @@ class DonationProfiler {
 	/**
 	 * @var array The microtime at which each stopwatch was started.
 	 */
-	protected static $start = array();
+	protected static $start = [];
 
 	/**
 	 * DonationProfiler constructor.
@@ -62,13 +62,13 @@ class DonationProfiler {
 			return;
 		}
 
-		$params = array(
+		$params = [
 			'duration' => $this->getStopwatch( $function ),
 			'gateway' => $this->gatewayName,
 			'function' => $function,
 			'vars' => $vars,
 			'additional' => $additional,
-		);
+		];
 		$msg = '';
 		foreach ( $params as $key => $val ) {
 			$msg .= "$key:$val - ";

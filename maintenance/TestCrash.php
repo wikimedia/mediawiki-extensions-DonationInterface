@@ -38,5 +38,5 @@ class TestCrash extends Maintenance {
 	}
 }
 
-$maintClass = 'TestCrash';
+$maintClass = TestCrash::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

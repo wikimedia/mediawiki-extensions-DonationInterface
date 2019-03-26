@@ -18,9 +18,9 @@ class GlobalCollectGetDirectory extends Maintenance {
 			$this->requireExtension( 'Donation Interface' );
 		}
 
-		$gateway_opts = array(
+		$gateway_opts = [
 			'batch_mode' => true,
-			'external_data' => array(
+			'external_data' => [
 				'payment_method' => 'rtbt',
 				'payment_submethod' => 'rtbt_ideal',
 				'country' => 'NL',
@@ -28,8 +28,8 @@ class GlobalCollectGetDirectory extends Maintenance {
 
 				// FIXME: nonsense to satisfy validation
 				'amount' => 1,
-			),
-		);
+			],
+		];
 
 		$this->output( "Querying available banks.\n" );
 		$adapter = new GlobalCollectAdapter( $gateway_opts );
@@ -44,5 +44,5 @@ class GlobalCollectGetDirectory extends Maintenance {
 	}
 }
 
-$maintClass = 'GlobalCollectGetDirectory';
+$maintClass = GlobalCollectGetDirectory::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

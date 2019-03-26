@@ -25,12 +25,12 @@ abstract class FraudFilter extends Gateway_Extras {
 	 */
 	protected function sendAntifraudMessage( $validationAction, $totalScore, $scoreBreakdown ) {
 		// add a message to the fraud stats queue, so we can shovel it into the fredge.
-		$stomp_msg = array(
+		$stomp_msg = [
 			'validation_action' => $validationAction,
 			'risk_score' => $totalScore,
 			'score_breakdown' => $scoreBreakdown,
 			'user_ip' => $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' ),
-		);
+		];
 		// If we need much more here to help combat fraud, we could just
 		// start stuffing the whole maxmind query in the fredge, too.
 		// Legal said ok... but this seems a bit excessive to me at the

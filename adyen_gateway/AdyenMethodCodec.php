@@ -7,7 +7,7 @@
 class AdyenMethodCodec implements StagingHelper {
 	/**
 	 * Stage: brandCode
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( empty( $normalized['payment_submethod'] ) ) {

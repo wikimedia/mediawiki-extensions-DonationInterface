@@ -66,6 +66,11 @@ h1#firstHeading, div#contentSub {
 	display: none;
 }
 
+/* Log in link on MW 1.31+ */
+#p-personal {
+    display: none;
+}
+
 /* NEW STUFF */
 ul#moreinfolinks li{
     list-style: none;

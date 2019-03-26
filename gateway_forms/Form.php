@@ -59,7 +59,7 @@ abstract class Gateway_Form {
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );
 		} else {
-			$query_array = array();
+			$query_array = [];
 		}
 
 		// ensure that _cache_ does not get set in the URL
@@ -68,13 +68,13 @@ abstract class Gateway_Form {
 		// make sure no other data that might overwrite posted data makes it into the URL
 
 		$all_form_data = $this->gateway->getData_Unstaged_Escaped();
-		$keys_we_need_for_form_loading = array(
+		$keys_we_need_for_form_loading = [
 			'form_name',
 			'ffname',
 			'country',
 			'currency',
 			'language'
-		);
+		];
 		$form_data_keys = array_keys( $all_form_data );
 
 		foreach ( $query_array as $key => $value ) {
@@ -93,7 +93,7 @@ abstract class Gateway_Form {
 	}
 
 	public function getResources() {
-		return array();
+		return [];
 	}
 
 	/**
@@ -103,7 +103,7 @@ abstract class Gateway_Form {
 	 * @return array
 	 */
 	public function getStyleModules() {
-		return array();
+		return [];
 	}
 
 	/**

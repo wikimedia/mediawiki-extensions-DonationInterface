@@ -178,7 +178,7 @@
 	"donate_interface-first": "Sıfteyên",
 	"donate_interface-middle": "Dıdınki",
 	"donate_interface-last": "Namey sodi",
-	"donate_interface-other": "Zewbi",
+	"donate_interface-other": "Sewbi",
 	"donate_interface-anon-message": "Ez rica keno nameyê mi listeyê bêc dayanan de liste fiyê.",
 	"donate_interface-donate-wikipedia": "Wikipedia rê bêc bıdê",
 	"donate_interface-or": "ya na",
@@ -223,7 +223,7 @@
 	"donate_interface-change": "Bıvurne",
 	"donate_interface-optional": "opsiyonel",
 	"donate_interface-bt-finished": "Qedyayo",
-	"donate_interface-obt-customer_payment_reference": "Referans #",
+	"donate_interface-obt-customer_payment_reference": "Çıme #",
 	"donate_interface-rtbt-issuer_id": "Yew banka weçine",
 	"donate_interface-rtbt-issuer_id-longlist": "Bankey bini",
 	"donate_interface-dd-account_name": "Nameyê hesabi",
@@ -231,7 +231,7 @@
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-currency-change": "Wa Bıvuryo?",
 	"donate_interface-monthlybox-title": "Wa Aşmek bo?",
-	"donate_interface-monthly-short": "Aşmeke",
+	"donate_interface-monthly-short": "Aşmane",
 	"apihelp-donate-param-city": "Sûke.",
 	"apihelp-donate-param-language": "Kodê zıwani."
 }

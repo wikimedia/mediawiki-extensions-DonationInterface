@@ -41,22 +41,22 @@ class IngenicoGetOrderStatusMaintenance extends Maintenance {
 				$this->error( 'Input lines must have either one or two columns', true );
 			}
 			$oid = $order[0];
-			$gateway_opts = array(
+			$gateway_opts = [
 				'batch_mode' => true,
-				'external_data' => array(
+				'external_data' => [
 					'order_id' => $oid,
 					'effort_id' => $effort_id,
 					'payment_method' => 'cc',
 					'payment_submethod' => 'visa',
 					'currency_code' => 'USD',
 					'amount' => 500,
-				),
-			);
+				],
+			];
 
 			$this->output( "Looking up transaction $oid\n" );
 			$adapter = new GlobalCollectAdapter( $gateway_opts );
 			// FIXME: effort_id is clobbered in setGatewayDefaults
-			$adapter->addRequestData( array( 'effort_id' => $effort_id ) );
+			$adapter->addRequestData( [ 'effort_id' => $effort_id ] );
 			$result = $adapter->do_transaction( 'GET_ORDERSTATUS' );
 
 			// TODO: better formatting?
@@ -66,5 +66,5 @@ class IngenicoGetOrderStatusMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'IngenicoGetOrderStatusMaintenance';
+$maintClass = IngenicoGetOrderStatusMaintenance::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

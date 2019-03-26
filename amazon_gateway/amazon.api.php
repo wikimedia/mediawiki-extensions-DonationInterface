@@ -1,28 +1,28 @@
 <?php
 
 class AmazonBillingApi extends ApiBase {
-	protected $allowedParams = array(
+	protected $allowedParams = [
 		'amount',
 		'billingAgreementId',
 		'currency',
 		'orderReferenceId',
 		'recurring',
 		'wmf_token',
-	);
+	];
 
 	public function execute() {
 		DonationInterface::setSmashPigProvider( 'amazon' );
 		$output = $this->getResult();
 		$recurring = $this->getParameter( 'recurring' );
 		$token = $this->getParameter( 'wmf_token' );
-		$adapterParams = array(
-			'external_data' => array(
+		$adapterParams = [
+			'external_data' => [
 				'amount' => $this->getParameter( 'amount' ),
 				'currency' => $this->getParameter( 'currency' ),
 				'recurring' => $recurring,
 				'wmf_token' => $token,
-			),
-		);
+			],
+		];
 
 		$adapterClass = DonationInterface::getAdapterClassForGateway( 'amazon' );
 		// @var AmazonAdapter
@@ -39,13 +39,13 @@ class AmazonBillingApi extends ApiBase {
 			);
 		} elseif ( $token && $adapter->checkTokens() ) {
 			if ( $recurring ) {
-				$adapter->addRequestData( array(
+				$adapter->addRequestData( [
 					'subscr_id' => $this->getParameter( 'billingAgreementId' ),
-				) );
+				] );
 			} else {
-				$adapter->addRequestData( array(
+				$adapter->addRequestData( [
 					'order_reference_id' => $this->getParameter( 'orderReferenceId' ),
-				) );
+				] );
 			}
 			$result = $adapter->doPayment();
 			if ( $result->isFailed() ) {
@@ -75,13 +75,13 @@ class AmazonBillingApi extends ApiBase {
 			$output->addValue(
 				null,
 				'errors',
-				array( 'token-mismatch' => $this->msg( 'donate_interface-cc-token-expired' )->text() )
+				[ 'token-mismatch' => $this->msg( 'donate_interface-cc-token-expired' )->text() ]
 			);
 		}
 	}
 
 	public function getAllowedParams() {
-		$params = array();
+		$params = [];
 		foreach ( $this->allowedParams as $param ) {
 			$params[$param] = null;
 		}

@@ -17,7 +17,7 @@ class MessageUtils {
 	 * @return String the text of the first existing message
 	 */
 	public static function languageSpecificFallback(
-		$language = 'en', $msg_keys = array(), $params = array()
+		$language = 'en', $msg_keys = [], $params = []
 	) {
 		if ( count( $msg_keys ) < 1 ) {
 			throw new InvalidArgumentException( __FUNCTION__ . " BAD PROGRAMMER. No message keys given." );
@@ -50,9 +50,9 @@ class MessageUtils {
 	 * @param array $params extra message parameters
 	 * @return string Localized message
 	 */
-	public static function getCountrySpecificMessage( $key, $country, $language, $params = array() ) {
+	public static function getCountrySpecificMessage( $key, $country, $language, $params = [] ) {
 		return self::languageSpecificFallback(
-			$language, array( $key . '-' . strtolower( $country ), $key ), $params
+			$language, [ $key . '-' . strtolower( $country ), $key ], $params
 		);
 	}
 

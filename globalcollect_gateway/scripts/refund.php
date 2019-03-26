@@ -43,9 +43,9 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 			}
 			$oid = $refund[0];
 			$effort_id = $refund[2];
-			$gateway_opts = array(
+			$gateway_opts = [
 				'batch_mode' => true,
-				'external_data' => array(
+				'external_data' => [
 					'order_id' => $oid,
 					'merchant_reference' => $refund[1],
 					'effort_id' => $effort_id,
@@ -54,13 +54,13 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 					'currency' => $refund[4],
 					'amount' => $refund[5],
 					'country' => 'US', // Stuff with default to pass validation, not actually sent in refund API call
-				),
-			);
+				],
+			];
 
 			$this->output( "Refunding transaction $oid\n" );
 			$adapter = new GlobalCollectAdapter( $gateway_opts );
 			// FIXME: effort_id is clobbered in setGatewayDefaults
-			$adapter->addRequestData( array( 'effort_id' => $effort_id ) );
+			$adapter->addRequestData( [ 'effort_id' => $effort_id ] );
 			$result = $adapter->doRefund();
 
 			if ( $result->isFailed() ) {
@@ -83,5 +83,5 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 	}
 }
 
-$maintClass = 'GlobalCollectRefundMaintenance';
+$maintClass = GlobalCollectRefundMaintenance::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

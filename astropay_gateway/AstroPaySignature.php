@@ -1,9 +1,12 @@
 <?php
 
 class AstroPaySignature implements StagingHelper {
-	/*
+	/**
 	 * Sign an AstroPay NewInvoice request
 	 * TODO: switch on transaction, build correct message for refund
+	 * @param GatewayType $adapter
+	 * @param array $normalized
+	 * @param array &$stagedData
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$message = self::getNewInvoiceMessage( $stagedData );
@@ -11,9 +14,9 @@ class AstroPaySignature implements StagingHelper {
 	}
 
 	public static function getNewInvoiceMessage( $stagedData ) {
-		$requiredKeys = array(
+		$requiredKeys = [
 			'order_id', 'amount', 'donor_id', 'bank_code', 'fiscal_number', 'email'
-		);
+		];
 		$stagedKeys = array_keys( $stagedData );
 		if ( array_intersect( $requiredKeys, $stagedKeys ) != $requiredKeys ) {
 			return '';

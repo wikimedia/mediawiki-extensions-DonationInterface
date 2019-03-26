@@ -11,7 +11,7 @@ class PaymentTransactionResponse {
 	/**
 	 * @var array List of PaymentErrors
 	 */
-	protected $errors = array();
+	protected $errors = [];
 
 	/**
 	 * @var string Raw return data from the cURL transaction

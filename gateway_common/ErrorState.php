@@ -4,7 +4,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 
 class ErrorState {
-	protected $errors = array();
+	protected $errors = [];
 
 	/**
 	 * Unset validation error for a specific field
@@ -59,7 +59,7 @@ class ErrorState {
 	/**
 	 * Is a specific field invalid, or is any field invalid?
 	 *
-	 * @param string $field data field name, or null to check all fields
+	 * @param string|null $field data field name, or null to check all fields
 	 * @return bool true if a validation error exists for the given field
 	 */
 	public function hasValidationError( $field = null ) {
