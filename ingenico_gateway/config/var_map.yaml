@@ -23,3 +23,4 @@ tokens: recurring_payment_token
 # is only about formatting values, so flipping the sense of it is out of scope.
 skipAuthentication: skip_authentication
 customerIpAddress: user_ip
+variant: processor_form

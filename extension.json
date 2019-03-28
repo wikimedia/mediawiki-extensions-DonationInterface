@@ -120,6 +120,7 @@
 		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
 		"GlobalCollect3DSecure": "globalcollect_gateway/GlobalCollect3DSecure.php",
 		"Ingenico3DSecure": "ingenico_gateway/Ingenico3DSecure.php",
+		"IngenicoFormVariant": "ingenico_gateway/IngenicoFormVariant.php",
 		"IngenicoGateway": "ingenico_gateway/ingenico_gateway.body.php",
 		"IngenicoGatewayResult": "ingenico_gateway/ingenico_resultswitcher.body.php",
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",
