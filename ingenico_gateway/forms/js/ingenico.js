@@ -42,7 +42,7 @@
 					type: 'POST'
 				} );
 			}
-			if ( isIframe && !result.gateway_params.redirect ) {
+			if ( isIframe ) {
 				showIframe( result );
 			} else {
 				redirect( result );
