@@ -2095,7 +2095,8 @@ abstract class GatewayAdapter
 			case FinalStatus::REVISED:
 				if (
 					$this->getData_Unstaged_Escaped( 'opt_in' ) == '1' &&
-					!empty( $this->getData_Unstaged_Escaped( 'email' ) )
+					!empty( $this->getData_Unstaged_Escaped( 'email' ) ) &&
+					$this->getGlobal( 'SendOptInOnFailure' )
 				) {
 					// When a donation fails but the donor has opted in to emails,
 					// just send the donor contact data to the opt-in queue.

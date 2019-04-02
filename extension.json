@@ -343,6 +343,7 @@
 		"DonationInterfaceFallbackCurrency": false,
 		"DonationInterfaceFallbackCurrencyByCountry": false,
 		"DonationInterfaceNotifyOnConvert": true,
+		"DonationInterfaceSendOptInOnFailure": false,
 		"DonationInterfaceSalt": null,
 		"DonationInterfaceHeader": null,
 		"DonationInterfaceNoScriptRedirect": null,

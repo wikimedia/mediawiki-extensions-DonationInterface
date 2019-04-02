@@ -202,7 +202,10 @@ fallback (see above), we show an interstitial page notifying the user
 of the conversion before sending the donation to the gateway.
 $wgDonationInterfaceNotifyOnConvert = true
 
-
+When this is true, and a donor has provided their email address and
+opted in to receive emails, send a message to the opt-in queue even
+on payment failure.
+$wgDonationInterfaceSendOptInOnFailure = false
 
 ==== Processors and accounts ====
 
