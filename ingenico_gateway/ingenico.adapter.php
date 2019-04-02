@@ -223,13 +223,6 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			$this->incrementSequenceNumber();
 		}
 		$result = parent::do_transaction( $transaction );
-		// If we're using 3DSecure, we should always redirect
-		if ( $transaction === 'createHostedCheckout' ) {
-			$newData = $result->getData() + [ 'gateway_params' => [
-				'redirect' => intval( $this->getData_Staged( 'use_authentication' ) )
-			] ];
-			$result->setData( $newData );
-		}
 		// Add things to session which may have been retrieved from API
 		if ( !$this->getFinalStatus() ) {
 			$this->session_addDonorData();
