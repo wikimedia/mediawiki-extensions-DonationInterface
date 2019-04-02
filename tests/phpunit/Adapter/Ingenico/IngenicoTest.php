@@ -571,6 +571,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	public function testDonorReturnFailureOptIn() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceSendOptInOnFailure' => true
+		] );
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
