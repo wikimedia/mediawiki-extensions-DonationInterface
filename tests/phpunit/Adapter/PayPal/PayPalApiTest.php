@@ -45,8 +45,8 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( empty( $result['errors'] ) );
 
 		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U';
-		$this->assertEquals( $expectedUrl, $result['formaction'], 'PayPal Express API not setting formaction' );
-		$this->assertTrue( $result['status'], 'PayPal Express result status should be true' );
+		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
+
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		DonationInterfaceTestCase::unsetVariableFields( $message );
@@ -133,8 +133,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( empty( $result['errors'] ) );
 
 		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U';
-		$this->assertEquals( $expectedUrl, $result['formaction'], 'PayPal Express API not setting formaction' );
-		$this->assertTrue( $result['status'], 'PayPal Express result status should be true' );
+		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );

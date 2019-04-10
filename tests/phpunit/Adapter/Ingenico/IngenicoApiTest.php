@@ -114,10 +114,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$this->assertEquals(
 			'https://wmf-pay.' . $this->partialUrl,
-			$result['formaction'],
-			'Ingenico API not setting formaction'
+			$result['iframe'],
+			'Ingenico API not setting iframe'
 		);
-		$this->assertTrue( $result['status'], 'Ingenico API result status should be true' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );

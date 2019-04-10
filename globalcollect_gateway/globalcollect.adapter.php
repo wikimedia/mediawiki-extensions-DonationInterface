@@ -578,9 +578,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Execute the proper transaction code:
 		switch ( $payment_method ) {
 			case 'cc':
-				// FIXME: we don't actually use this code path, it's done from
-				// the donation api instead.
-
 				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 				// Display an iframe for credit cards

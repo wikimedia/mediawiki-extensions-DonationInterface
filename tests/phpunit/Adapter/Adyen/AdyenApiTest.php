@@ -35,8 +35,8 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 
 		$this->assertEquals(
 			'https://example.org/hpp/pay.shtml',
-			$result['formaction'],
-			'Adyen API not setting correct formaction'
+			$result['iframe'],
+			'Adyen API not setting correct iframe'
 		);
 		$expectedParams = [
 			'allowedMethods' => 'card',
@@ -57,7 +57,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'billingAddressType' => '2',
 			'billingAddress.houseNumberOrName' => 'NA'
 		];
-		$actualParams = $result['gateway_params'];
+		$actualParams = $result['formData'];
 		unset( $actualParams['sessionValidity'] );
 		unset( $actualParams['shipBeforeDate'] );
 		unset( $actualParams['merchantSig'] );
@@ -65,7 +65,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$this->assertEquals(
 			$expectedParams,
 			$actualParams,
-			'Adyen API not setting correct gateway_params'
+			'Adyen API not setting correct formData'
 		);
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotNull( $message, 'Not sending a message to the pending queue' );
