@@ -14,6 +14,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
+
 use SmashPig\PaymentProviders\Adyen\Tests\AdyenTestConfiguration;
 use SmashPig\Tests\TestingContext;
 use Wikimedia\TestingAccessWrapper;
@@ -99,6 +100,64 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 		$this->assertEquals( $expected, $ret, 'Adyen "donate" transaction not constructing the expected redirect URL' );
 		$this->assertNotNull( $gateway->getData_Unstaged_Escaped( 'order_id' ), "Adyen order_id is null, and we need one for 'merchantReference'" );
+	}
+
+	/**
+	 * Integration test to verify that the donate transaction works as expected when all necessary data is present.
+	 */
+	function testDoPayment() {
+		$init = $this->getDonorTestData();
+		$init['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$result = $gateway->doPayment();
+		$actualUrl = $result->getIframe();
+		$actualData = $result->getFormData();
+		$this->assertEquals( 'https://test.adyen.com/hpp/pay.shtml', $actualUrl );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$orderId = $exposed->getData_Staged( 'order_id' );
+		$this->assertNotNull( $orderId, 'No order ID generated' );
+		$expected = [
+			'allowedMethods' => 'card',
+			'billingAddress.street' => $init['street_address'],
+			'billingAddress.city' => $init['city'],
+			'billingAddress.postalCode' => $init['postal_code'],
+			'billingAddress.stateOrProvince' => $init['state_province'],
+			'billingAddress.country' => $init['country'],
+			'billingAddress.houseNumberOrName' => 'NA',
+			'billingAddressType' => 2,
+			'brandCode' => 'visa',
+			'card.cardHolderName' => $init['first_name'] . ' ' . $init['last_name'],
+			'currencyCode' => $init['currency'],
+			'merchantAccount' => 'wikitest',
+			'merchantReference' => $orderId,
+			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
+			'paymentAmount' => ( $init['amount'] ) * 100,
+			// 'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
+			// 'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
+			'skinCode' => 'testskin',
+			'shopperLocale' => 'en_US',
+			'shopperEmail' => 'nobody@wikimedia.org',
+			'offset' => '52', // once we construct the FraudFiltersTestCase, it should land here.
+		];
+		$this->assertArraySubset( $expected, $actualData );
+	}
+
+	public function testdoPaymentError() {
+		$init = $this->getDonorTestData();
+		unset( $init['postal_code'] );
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+		$errors = $result->getErrors();
+		$this->assertNotEmpty( $errors, 'Should have returned an error' );
+		$foundPostalCodeError = false;
+		foreach ( $errors as $error ) {
+			if ( $error->getField() === 'postal_code' ) {
+				$foundPostalCodeError = true;
+			}
+		}
+		$this->assertTrue( $foundPostalCodeError, 'postal_code should be in error' );
 	}
 
 	function testRiskScoreAddedToQueueMessage() {
