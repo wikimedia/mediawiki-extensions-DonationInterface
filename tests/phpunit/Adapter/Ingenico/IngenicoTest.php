@@ -629,4 +629,73 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$this->assertNotEquals( $firstCt_id, $secondCt_id, 'ct_id not cleared.' );
 	}
+
+	public function testDoPayment() {
+		$init = $this->getDonorTestData();
+		unset( $init['order_id'] );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )
+			->with( $this->callback( function ( $actual ) {
+				$hcsi = [
+					'locale' => 'en_US',
+					'paymentProductFilters' => [
+						'restrictTo' => [
+							'groups' => [
+								'cards'
+							]
+						]
+					],
+					'showResultPage' => 'false'
+				];
+				$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+				$this->assertRegExp(
+					'/Special:IngenicoGatewayResult/',
+					$actual['hostedCheckoutSpecificInput']['returnUrl']
+				);
+				$order = [
+					'amountOfMoney' => [
+						'currencyCode' => 'USD',
+						'amount' => 155
+					],
+					'customer' => [
+						'billingAddress' => [
+							'countryCode' => 'US',
+							'city' => 'San Francisco',
+							'state' => 'CA',
+							'zip' => '94105',
+							'street' => '123 Fake Street'
+						],
+						'contactDetails' => [
+							'emailAddress' => 'nobody@wikimedia.org'
+						],
+						'locale' => 'en_US',
+						'personalInformation' => [
+							'name' => [
+								'firstName' => 'Firstname',
+								'surname' => 'Surname'
+							]
+						]
+					]
+				];
+				$this->assertArraySubset( $order, $actual['order'] );
+				$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
+				return true;
+			} )
+			)
+			->willReturn(
+				$this->hostedCheckoutCreateResponse
+			);
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentUrl' )->with(
+				$this->equalTo( $this->partialUrl )
+			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+		$result = $gateway->doPayment();
+		$this->assertEquals(
+			'https://wmf-pay.' . $this->partialUrl, $result->getIframe()
+		);
+		$this->assertEmpty( $result->getErrors() );
+	}
 }

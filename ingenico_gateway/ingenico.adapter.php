@@ -168,6 +168,20 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		];
 	}
 
+	public function doPayment() {
+		$apiResult = $this->do_transaction( 'createHostedCheckout' );
+		$data = $apiResult->getData();
+		// FIXME: stop using this legacy key here and in parseResponseData
+		if ( !empty( $data['FORMACTION'] ) ) {
+			if ( $this->getData_Staged( 'use_authentication' ) ) {
+				// We're using 3D Secure, so we should redirect
+				return PaymentResult::newRedirect( $data['FORMACTION'] );
+			}
+			return PaymentResult::newIframe( $data['FORMACTION'] );
+		}
+		return PaymentResult::newFailure( $apiResult->getErrors() );
+	}
+
 	/**
 	 * Make an API call to Ingenico Connect.
 	 *
