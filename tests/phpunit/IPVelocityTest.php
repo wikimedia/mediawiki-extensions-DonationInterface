@@ -40,7 +40,9 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceIPVelocityFailScore' => 100,
 			'wgDonationInterfaceIPVelocityThreshhold' => 3,
 		] );
-		$this->oldCache = ObjectCache::$instances[CACHE_DB];
+		if ( !empty( ObjectCache::$instances[CACHE_DB] ) ) {
+			$this->oldCache = ObjectCache::$instances[CACHE_DB];
+		}
 		$this->cache = new HashBagOStuff();
 		ObjectCache::$instances[CACHE_DB] = $this->cache;
 		$this->gatewayAdapter = new TestingGenericAdapter( [

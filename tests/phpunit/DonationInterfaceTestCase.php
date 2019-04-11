@@ -581,6 +581,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$fail_on_log_errors = false, $session = null, $posted = false
 	) {
 		// Nasty hack to clear output from any previous tests.
+		if ( empty( $_SERVER['REQUEST_TIME_FLOAT'] ) ) {
+			$_SERVER['REQUEST_TIME_FLOAT'] = microtime( true );
+		}
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
 		$newRequest = new TestingRequest( $initial_vars, $posted, $session );

@@ -99,7 +99,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['amount'] = '23';
 		// Fake name with a bad character encoding.
-		$init['first_name'] = 'Алексан�';
+		$init['first_name'] = 'Алексан' . chr( 239 );
 		$init['last_name'] = 'Гончар';
 		$init['email'] = 'innocent@manichean.com';
 		$init['ffname'] = 'cc-vmad';
