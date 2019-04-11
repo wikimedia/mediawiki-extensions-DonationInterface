@@ -56,7 +56,6 @@ class PaymentTransactionResponse {
 	protected $txnMessage;
 
 	/**
-	 * TODO: get rid of this.  Fold it into $data, maybe?
 	 * @var string where the donor should go next.
 	 */
 	protected $redirect;
