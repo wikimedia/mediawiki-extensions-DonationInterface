@@ -74,7 +74,7 @@ trait TTestingAdapter {
 	}
 
 	/**
-	 * @TODO: Get rid of this and the override mechanism as soon as you
+	 * @todo Get rid of this and the override mechanism as soon as you
 	 * refactor the constructor into something reasonable.
 	 */
 	public function defineOrderIDMeta() {
@@ -85,7 +85,7 @@ trait TTestingAdapter {
 	}
 
 	/**
-	 * @TODO: That minFraud jerk needs its own isolated tests.
+	 * @todo That minFraud jerk needs its own isolated tests.
 	 */
 	function runAntifraudFilters() {
 		// now screw around with the batch settings to trick the fraud filters into triggering

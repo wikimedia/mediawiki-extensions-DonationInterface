@@ -126,7 +126,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'"device":{"ip_address":"127.0.0.1"},' .
 				'"email":{"address":"daf162af7e894faf3d55a18ec7bfa795","domain":"wikipedia.org"},' .
 				'"event":{"transaction_id":"' .
-				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .'"}}'
+				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . '"}}'
 			)->willReturn( [
 				200, 'application/json', file_get_contents(
 					__DIR__ . '/includes/Responses/minFraud/15points.json'
