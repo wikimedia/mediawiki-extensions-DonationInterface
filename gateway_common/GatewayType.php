@@ -119,7 +119,7 @@ interface GatewayType {
 
 	/**
 	 * Sets up the $order_id_meta array.
-	 * @TODO: Data Item Class. There should be a class that keeps track of
+	 * @todo Data Item Class. There should be a class that keeps track of
 	 * the metadata for every field we use (everything that currently comes
 	 * back from DonationData), that can be overridden per gateway. Revisit
 	 * this in a more universal way when that time comes.

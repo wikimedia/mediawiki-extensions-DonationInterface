@@ -423,7 +423,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->logger->warning(
 				'Donor is trying to process an already-processed payment. ' .
 				"Adapter Order ID: $oid.\n" .
-				"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
+				"Cookies: " . print_r( $_COOKIE, true ) . "\n" .
 				"User-Agent: " . $userAgent
 			);
 			$this->displayThankYouPage( 'repeat return processing' );
@@ -436,7 +436,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				throw new RuntimeException(
 					'Resultswitcher: Request forbidden. No active donation in the session. ' .
 					"Adapter Order ID: $oid.\n" .
-					"Cookies: " . print_r( $_COOKIE, true ) ."\n" .
+					"Cookies: " . print_r( $_COOKIE, true ) . "\n" .
 					"User-Agent: " . $userAgent
 				);
 			}

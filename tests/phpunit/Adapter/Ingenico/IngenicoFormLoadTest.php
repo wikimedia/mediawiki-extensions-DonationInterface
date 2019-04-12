@@ -41,7 +41,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
 						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
-					).
+					) .
 					'\s*$/',
 			],
 			'state_province' => [

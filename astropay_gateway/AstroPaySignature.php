@@ -28,7 +28,7 @@ class AstroPaySignature implements StagingHelper {
 				. $stagedData['bank_code'] . '1'
 				. $stagedData['fiscal_number'] . 'H'
 				. /* bdate omitted */ 'G'
-				. $stagedData['email'] .'Y'
+				. $stagedData['email'] . 'Y'
 				. /* postal_code omitted */ 'A'
 				. /* street omitted */ 'P'
 				. /* city omitted */ 'S'

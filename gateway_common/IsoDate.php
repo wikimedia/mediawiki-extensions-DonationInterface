@@ -1,10 +1,6 @@
 <?php
 
-class IsoDate
-	implements
-		StagingHelper,
-		UnstagingHelper
-{
+class IsoDate implements StagingHelper, UnstagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$staged_data ) {
 		// Print timestamp as ISO 8601 string.
 		if ( isset( $normalized['date'] ) ) {
