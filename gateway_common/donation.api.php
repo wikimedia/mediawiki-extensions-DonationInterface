@@ -45,11 +45,12 @@ class DonationApi extends ApiBase {
 
 		$errors = $paymentResult->getErrors();
 
-		$shouldLogPending = empty( $errors ) &&
+		$sendingDonorToProcessor = empty( $errors ) &&
 			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
 
-		if ( $shouldLogPending ) {
+		if ( $sendingDonorToProcessor ) {
 			$gatewayObj->logPending();
+			$this->markLiberatedOnRedirect( $paymentResult, $gatewayObj );
 		}
 
 		if ( !empty( $errors ) ) {
@@ -147,5 +148,27 @@ class DonationApi extends ApiBase {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 		$variant = $this->getRequest()->getVal( 'variant' );
 		return new $className( [ 'variant' => $variant ] );
+	}
+
+	/**
+	 * If we are sending the donor to a payment processor with a full redirect
+	 * rather than inside an iframe, mark the order ID as 'liberated' so when
+	 * they come back, we don't waste time trying to pop them out of a frame.
+	 *
+	 * @param PaymentResult $paymentResult
+	 * @param GatewayAdapter $adapter
+	 */
+	protected function markLiberatedOnRedirect(
+		PaymentResult $paymentResult, GatewayAdapter $adapter
+	) {
+		if ( !$paymentResult->getRedirect() ) {
+			return;
+		}
+		// Save a flag in session saying we don't need to pop out of an iframe
+		// See related code in GatewayPage::handleResultRequest
+		$oid = $adapter->getData_Unstaged_Escaped( 'order_id' );
+		$sessionOrderStatus = $adapter->session_getData( 'order_status' );
+		$sessionOrderStatus[$oid] = 'liberated';
+		WmfFramework::setSessionValue( 'order_status', $sessionOrderStatus );
 	}
 }
