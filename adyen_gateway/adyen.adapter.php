@@ -156,8 +156,9 @@ class AdyenAdapter extends GatewayAdapter {
 	function doPayment() {
 		$apiResult = $this->do_transaction( 'donate' );
 		$data = $apiResult->getData();
-		// FIXME: Ugh, weird key inherited from legacy GlobalCollect
-		if ( !empty( $data['FORMACTION'] ) && !empty( $data['gateway_params'] ) ) {
+		$url = $apiResult->getRedirect();
+
+		if ( !empty( $url ) && !empty( $data ) ) {
 			// We've got a URL to send them to and data to post.
 			// Now figure out if we're using an iframe or a redirect
 			// For the Adyen workflow, we do a full redirect for all iOS
@@ -167,13 +168,9 @@ class AdyenAdapter extends GatewayAdapter {
 			$processorForm = $this->getData_Unstaged_Escaped( 'processor_form' );
 			$skinCodes = $this->getSkinCodes();
 			if ( $processorForm === $skinCodes['redirect'] ) {
-				return PaymentResult::newRedirect(
-					$data['FORMACTION'], $data['gateway_params']
-				);
+				return PaymentResult::newRedirect( $url, $data );
 			}
-			return PaymentResult::newIframe(
-				$data['FORMACTION'], $data['gateway_params']
-			);
+			return PaymentResult::newIframe( $url, $data );
 		}
 		// If we've fallen through to here, there must be some problem. Use the
 		// default instantiation function.
@@ -225,10 +222,8 @@ class AdyenAdapter extends GatewayAdapter {
 
 					$requestParams = $this->buildRequestParams();
 
-					$this->transaction_response->setData( [
-						'FORMACTION' => $formaction,
-						'gateway_params' => $requestParams,
-					] );
+					$this->transaction_response->setRedirect( $formaction );
+					$this->transaction_response->setData( $requestParams );
 					// FIXME: might be an iframe, might be a redirect
 					$this->logger->info(
 						"launching external iframe request: " . print_r( $requestParams, true )

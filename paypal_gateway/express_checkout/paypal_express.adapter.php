@@ -489,10 +489,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->addResponseData( $this->unstageKeys( $response ) );
 				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
 				$this->transaction_response->setRedirect( $redirectUrl );
-				// TODO: delete this after deploying donation api update
-				$this->transaction_response->setData( [
-					'FORMACTION' => $redirectUrl
-				] );
 				break;
 			case 'GetExpressCheckoutDetails':
 				$this->checkResponseAck( $response );
