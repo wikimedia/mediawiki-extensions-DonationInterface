@@ -201,7 +201,7 @@ class AmazonAdapter extends GatewayAdapter {
 		$name = $donorDetails['Name'];
 		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
 		$fname = $nameParts[0];
-		$lname = isset( $nameParts[1] ) ? $nameParts[1] : '';
+		$lname = $nameParts[1] ?? '';
 		$this->addRequestData( [
 			'email' => $email,
 			'first_name' => $fname,

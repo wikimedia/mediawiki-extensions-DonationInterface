@@ -262,10 +262,10 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->addRequestData( [
 			'order_id' => $orderId,
 		] );
-		$gateway_txn_id = isset( $requestValues['pspReference'] ) ? $requestValues['pspReference'] : '';
+		$gateway_txn_id = $requestValues['pspReference'] ?? '';
 		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
-		$result_code = isset( $requestValues['authResult'] ) ? $requestValues['authResult'] : '';
+		$result_code = $requestValues['authResult'] ?? '';
 		$paymentResult = null;
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
 			// Both of these are listed as pending because we have to submit a capture

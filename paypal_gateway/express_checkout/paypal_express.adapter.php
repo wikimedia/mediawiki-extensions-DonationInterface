@@ -590,7 +590,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		if ( isset( $response['L_ERRORCODE0'] ) ) {
 			$errors[] = new PaymentError(
 				$response['L_ERRORCODE0'],
-				isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+				$response['L_LONGMESSAGE0'] ?? '',
 				LogLevel::ERROR
 			);
 		}
