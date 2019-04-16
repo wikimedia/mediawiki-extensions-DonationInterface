@@ -1,0 +1,10 @@
+<form method="POST" action="{{ action }}">
+    <input type="hidden" name="t" value="{{ token }}" />
+    <input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
+
+    <p>{{{ l10n "donate_interface-email-unsub-confirm" email }}}</p>
+    <p>{{{ l10n "donate_interface-email-unsub-delay" help_email }}}"</p>
+
+    <input type="submit" id="unsubscribe" value="{{ l10n "donate_interface-email-unsub-button" }}" />
+    <input type="submit" value="{{ l10n "donate_interface-cancel" }}" />
+</form>

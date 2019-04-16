@@ -26,6 +26,7 @@
 	"SpecialPages": {
 		"GatewayFormChooser": "GatewayFormChooser",
 		"SystemStatus": "SystemStatus",
+		"EmailPreferences": "EmailPreferences",
 		"GlobalCollectGateway": "GlobalCollectGateway",
 		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
 		"IngenicoGateway": "IngenicoGateway",
@@ -111,6 +112,7 @@
 		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
+		"EmailForm": "email_forms/EmailForm.php",
 		"Gateway_Form": "gateway_forms/Form.php",
 		"MustacheHelper": "gateway_forms/MustacheHelper.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
@@ -174,6 +176,7 @@
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
 		"GatewayFormChooser": "special/GatewayFormChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
+		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php"
 	},
 	"ResourceModules": {
@@ -308,6 +311,12 @@
 			"dependencies": [
 				"ext.donationInterface.currencyRates",
 				"ext.donationInterface.errorMessages"
+			]
+		},
+		"ext.donationInterface.lightgallery": {
+			"scripts": [
+				"modules/js/lightgallery.js",
+				"modules/js/lg-hash.js"
 			]
 		}
 	},
