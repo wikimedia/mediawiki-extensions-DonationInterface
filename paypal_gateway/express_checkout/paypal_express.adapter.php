@@ -489,6 +489,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->addResponseData( $this->unstageKeys( $response ) );
 				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
 				$this->transaction_response->setRedirect( $redirectUrl );
+				// TODO: delete this after deploying donation api update
 				$this->transaction_response->setData( [
 					'FORMACTION' => $redirectUrl
 				] );
@@ -590,7 +591,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		if ( isset( $response['L_ERRORCODE0'] ) ) {
 			$errors[] = new PaymentError(
 				$response['L_ERRORCODE0'],
-				isset( $response['L_LONGMESSAGE0'] ) ? $response['L_LONGMESSAGE0'] : '',
+				$response['L_LONGMESSAGE0'] ?? '',
 				LogLevel::ERROR
 			);
 		}

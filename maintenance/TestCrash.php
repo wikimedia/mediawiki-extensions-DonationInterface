@@ -14,9 +14,8 @@ class TestCrash extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 
-		if ( method_exists( $this, 'requireExtension' ) ) {
-			$this->requireExtension( 'Donation Interface' );
-		}
+		$this->requireExtension( 'Donation Interface' );
+
 		$this->addOption( 'error', 'Yell ->error and exit' );
 		$this->addOption( 'exception', 'Crash with an exception' );
 		$this->addOption( 'fatal', 'Do something unexpected' );

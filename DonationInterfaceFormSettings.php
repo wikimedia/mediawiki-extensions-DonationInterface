@@ -777,7 +777,7 @@ $forms_whitelist['adyen-usd'] = [
 $forms_whitelist['adyen-test'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
-	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY'. 'ILS', 'UAH', 'USD', ], ],
+	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY', 'ILS', 'UAH', 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
 	],

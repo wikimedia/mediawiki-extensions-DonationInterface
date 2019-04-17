@@ -683,7 +683,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		// reason to cancel?
 		// FIXME: "isForceCancel"?
-		if ( $status_result-> getForceCancel() || $validationAction !== ValidationAction::PROCESS ) {
+		if ( $status_result->getForceCancel() || $validationAction !== ValidationAction::PROCESS ) {
 			$problem = $this->cancelCreditCardPayment(); // don't retry: We've fraud-failed them intentionally.
 		} elseif ( $status_result->getCommunicationStatus() === false ) {
 		// can't communicate or internal error
@@ -857,7 +857,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			if ( $result->getCommunicationStatus() === true ) {
 				if ( $this->getFinalStatus() === FinalStatus::PENDING_POKE ) {
 					$txn_data = $this->getTransactionData();
-					$original_status_code = isset( $txn_data['STATUSID'] ) ? $txn_data['STATUSID'] : 'NOT SET';
+					$original_status_code = $txn_data['STATUSID'] ?? 'NOT SET';
 
 					$result = $this->do_transaction( 'SET_PAYMENT' );
 					if ( $result->getCommunicationStatus() === true ) {
@@ -1264,7 +1264,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			$oid = $requestValues['REF'];
 		}
 
-		if ( ! $oid ) {
+		if ( !$oid ) {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$this->logger->error( 'Missing Order ID' );
 			return PaymentResult::newFailure();
@@ -1278,7 +1278,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 
 		$session_oid = $this->session_getData( 'Donor', 'order_id' );
 
-		if ( ! $session_oid ) {
+		if ( !$session_oid ) {
 			$this->logger->info( "Missing Session Order ID for OID: {$oid}" );
 			// Donor has made two payment attempts, and we have the wrong one's
 			// info in session. To avoid recording the wrong details, leave the
@@ -1319,7 +1319,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$data = $this->parseResponseData( $response );
 		$this->transaction_response->setData( $data );
 		// set the transaction result message
-		$responseStatus = isset( $data['STATUSID'] ) ? $data['STATUSID'] : '';
+		$responseStatus = $data['STATUSID'] ?? '';
 		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); // TODO: Translate for GC.
 		$this->setGatewayTransactionId();
 

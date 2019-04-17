@@ -20,7 +20,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
 	"type": "specialpage",
 	"requires": {
-		"MediaWiki": ">= 1.27.0"
+		"MediaWiki": ">= 1.30.0"
 	},
 	"callback": "DonationInterface::registerExtension",
 	"SpecialPages": {
@@ -262,7 +262,6 @@
 				"donate_interface-noscript-msg",
 				"donate_interface-noscript-redirect-msg",
 				"donate_interface-error-msg-general",
-				"donate_interface-error-msg-js",
 				"donate_interface-error-msg-validation",
 				"donate_interface-error-msg-invalid-amount",
 				"donate_interface-error-msg-invalid-email",

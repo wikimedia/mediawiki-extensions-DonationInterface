@@ -13,11 +13,14 @@ require_once "$IP/maintenance/Maintenance.php";
 // Currently takes a CSV with no header and columns in this order:
 // order_id, merchant_reference, effort_id, payment_submethod, country, currency, amount
 class GlobalCollectGetDirectory extends Maintenance {
-	public function execute() {
-		if ( method_exists( $this, 'requireExtension' ) ) {
-			$this->requireExtension( 'Donation Interface' );
-		}
 
+	public function __construct() {
+		parent::__construct();
+
+		$this->requireExtension( 'Donation Interface' );
+	}
+
+	public function execute() {
 		$gateway_opts = [
 			'batch_mode' => true,
 			'external_data' => [

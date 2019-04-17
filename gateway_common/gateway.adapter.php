@@ -34,10 +34,7 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * GatewayAdapter
  *
  */
-abstract class GatewayAdapter
-	implements GatewayType,
-		LogPrefixProvider
-{
+abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * Don't change these strings without fixing cross-repo usages.
 	 */
@@ -2791,7 +2788,7 @@ abstract class GatewayAdapter
 	 *
 	 * UtmCampaignMap
 	 *
-	 * @TODO: All these regex map matching functions that are identical with
+	 * @todo All these regex map matching functions that are identical with
 	 * different internal var names are making me rilly mad. Collapse.
 	 *
 	 * How the score is tabulated:
@@ -2834,7 +2831,7 @@ abstract class GatewayAdapter
 	 *
 	 * UtmMediumMap
 	 *
-	 * @TODO: Again. Regex map matching functions, identical, with minor
+	 * @todo Again. Regex map matching functions, identical, with minor
 	 * internal var names. Collapse.
 	 *
 	 * How the score is tabulated:
@@ -2877,7 +2874,7 @@ abstract class GatewayAdapter
 	 *
 	 * UtmSourceMap
 	 *
-	 * @TODO: Argharghargh, inflated code! Collapse!
+	 * @todo Argharghargh, inflated code! Collapse!
 	 *
 	 * How the score is tabulated:
 	 *  - Add the score(value) associated with each regex(key) in the map var.
@@ -3336,7 +3333,7 @@ abstract class GatewayAdapter
 	 * gateway-specific data constraints for that field, and are therefore
 	 * invalid.
 	 *
-	 * @TODO: Data Item Class. There should be a class that keeps track of
+	 * @todo Data Item Class. There should be a class that keeps track of
 	 * the metadata for every field we use (everything that currently comes
 	 * back from DonationData), that can be overridden per gateway. Revisit
 	 * this in a more universal way when that time comes.

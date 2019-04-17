@@ -33,14 +33,16 @@ class PaymentResult {
 	protected $redirect;
 	protected $refresh = false;
 	protected $errors = [];
+	protected $formData = [];
 	protected $failed = false;
 
 	protected function __construct() {
 	}
 
-	public static function newIframe( $name ) {
+	public static function newIframe( $url, $formData = [] ) {
 		$response = new PaymentResult();
-		$response->iframe = $name;
+		$response->iframe = $url;
+		$response->formData = $formData;
 		return $response;
 	}
 
@@ -50,9 +52,10 @@ class PaymentResult {
 		return $response;
 	}
 
-	public static function newRedirect( $url ) {
+	public static function newRedirect( $url, $formData = [] ) {
 		$response = new PaymentResult();
 		$response->redirect = $url;
+		$response->formData = $formData;
 		return $response;
 	}
 
@@ -90,6 +93,10 @@ class PaymentResult {
 
 	public function getForm() {
 		return $this->form;
+	}
+
+	public function getFormData() {
+		return $this->formData;
 	}
 
 	public function getRedirect() {

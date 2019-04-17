@@ -169,7 +169,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * Harvest a varname from its source - post, get, maybe even session eventually.
-	 * @TODO: Provide a way that gateways can override default behavior here for individual keys.
+	 * @todo Provide a way that gateways can override default behavior here for individual keys.
 	 * @param string $var The incoming var name we need to get a value for
 	 * @return array First element is the final value of the var, or null if we don't actually have it.
 	 *  Second element is the source of the value, null if nonexistant, get, or post

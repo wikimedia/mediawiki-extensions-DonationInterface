@@ -235,9 +235,7 @@ class AstroPayAdapter extends GatewayAdapter {
 	}
 
 	public function getCurrencies( $options = [] ) {
-		$country = isset( $options['country'] ) ?
-					$options['country'] :
-					$this->getData_Unstaged_Escaped( 'country' );
+		$country = $options['country'] ?? $this->getData_Unstaged_Escaped( 'country' );
 
 		if ( !$country ) {
 			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );

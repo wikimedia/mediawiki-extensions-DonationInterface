@@ -9,7 +9,7 @@
 		var $div = $( '<div id="ingenico-div">'),
 			$form = $( '<iframe>' )
 			.attr( {
-				src: result.formaction,
+				src: result.iframe || result.formaction,
 				frameborder: 0,
 				name: 'ingenico-iFrame',
 				id: 'ingenico-iFrame'
@@ -19,7 +19,7 @@
 	}
 
 	function redirect( result ) {
-		document.location.replace( result.formaction );
+		document.location.replace( result.redirect || result.formaction );
 	}
 
 	di.forms.submit = function () {
@@ -29,12 +29,13 @@
 			return oldSubmit();
 		}
 		di.forms.callDonateApi( function ( result ) {
-			if ( result.formaction.length < 100 ) {
+			var url = result.redirect || result.iframe || result.formaction;
+			if ( url.length < 100 ) {
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),
 					data: {
 						action: 'logPaymentsFormError',
-						message: 'FORMACTION suspiciously short! response was: ' +
+						message: 'Redirect/iframe URL suspiciously short! response was: ' +
 						    JSON.stringify( result ),
 						userAgent: navigator.userAgent
 					},
@@ -42,7 +43,7 @@
 					type: 'POST'
 				} );
 			}
-			if ( isIframe ) {
+			if ( isIframe && !result.redirect ) {
 				showIframe( result );
 			} else {
 				redirect( result );

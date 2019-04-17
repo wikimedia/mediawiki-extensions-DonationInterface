@@ -22,7 +22,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 * Container for an instance of self
 	 * @var Gateway_Extras_SessionVelocityFilter
 	 */
-	static $instance;
+	private static $instance;
 
 	// This filter stores it's information in a session array SESS_ROOT which maps like so:
 	// SESS_ROOT[GatewayIdentifier][Transaction]

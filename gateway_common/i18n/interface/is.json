@@ -168,6 +168,7 @@
 	"donate_interface-error-msg-authorization_id": "auðkennisnúmer",
 	"donate_interface-error-msg-cookies": "Vinsamlegast virkjaðu vefkökur í vafranum þínum.",
 	"donate_interface-error-msg-issuer_id": "banki",
+	"donate_interface-donate-error-thank-you-for-your-support": "Takk fyrir stuðninginn þinn!",
 	"donate_interface-otherways": "Það eru <a href=\"$1\">aðrar leiðir til þess að styrkja, meðal annars með PayPal, ávísun eða sniglapósti</a>.",
 	"donate_interface-cc-form-header-personal": "Upplýsingar um greiðanda",
 	"donate_interface-comment": "Athugasemd",
