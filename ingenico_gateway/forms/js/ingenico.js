@@ -9,7 +9,7 @@
 		var $div = $( '<div id="ingenico-div">'),
 			$form = $( '<iframe>' )
 			.attr( {
-				src: result.iframe || result.formaction,
+				src: result.iframe,
 				frameborder: 0,
 				name: 'ingenico-iFrame',
 				id: 'ingenico-iFrame'
@@ -19,7 +19,7 @@
 	}
 
 	function redirect( result ) {
-		document.location.replace( result.redirect || result.formaction );
+		document.location.replace( result.redirect);
 	}
 
 	di.forms.submit = function () {
@@ -29,7 +29,7 @@
 			return oldSubmit();
 		}
 		di.forms.callDonateApi( function ( result ) {
-			var url = result.redirect || result.iframe || result.formaction;
+			var url = result.redirect || result.iframe;
 			if ( url.length < 100 ) {
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),

@@ -10,8 +10,7 @@
 
 		var $form = $( '<iframe>' )
 			.attr( {
-				// TODO: remove formaction after deploying donation api change
-				src: result.iframe || result.formaction,
+				src: result.iframe,
 				width: 318,
 				height: 316,
 				frameborder: 0,

@@ -15,10 +15,6 @@ class DonationApi extends ApiBase {
 
 		$this->gateway = $this->donationData['gateway'];
 
-		$method = $this->donationData['payment_method'];
-		// @todo FIXME: Unused local variable.
-		$submethod = $this->donationData['payment_submethod'];
-
 		DonationInterface::setSmashPigProvider( $this->gateway );
 		$gatewayObj = $this->getGatewayObject();
 
@@ -39,70 +35,29 @@ class DonationApi extends ApiBase {
 			return;
 		}
 
-		switch ( $this->gateway ) {
-			case 'globalcollect':
-				switch ( $method ) {
-					// TODO: add other iframe payment methods
-					case 'cc':
-						$result = $gatewayObj->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-						break;
-					default:
-						$result = $gatewayObj->do_transaction( 'TEST_CONNECTION' );
-				}
-				break;
-			case 'ingenico':
-				$result = $gatewayObj->do_transaction( 'createHostedCheckout' );
-				break;
-			case 'adyen':
-				$result = $gatewayObj->do_transaction( 'donate' );
-				break;
-			case 'paypal_ec':
-				$gatewayObj->doPayment();
-				$result = $gatewayObj->getTransactionResponse();
-				break;
+		$paymentResult = $gatewayObj->doPayment();
+
+		$outputResult = [
+			'iframe' => $paymentResult->getIframe(),
+			'redirect' => $paymentResult->getRedirect(),
+			'formData' => $paymentResult->getFormData()
+		];
+
+		$errors = $paymentResult->getErrors();
+
+		$sendingDonorToProcessor = empty( $errors ) &&
+			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
+
+		if ( $sendingDonorToProcessor ) {
+			$gatewayObj->logPending();
+			$this->markLiberatedOnRedirect( $paymentResult, $gatewayObj );
 		}
 
-		// $normalizedData = $gatewayObj->getData_Unstaged_Escaped();
-		$outputResult = [];
-		if ( $result->getMessage() !== null ) {
-			$outputResult['message'] = $result->getMessage();
-		}
-		if ( $result->getCommunicationStatus() !== null ) {
-			$outputResult['status'] = $result->getCommunicationStatus();
-		}
-
-		$errors = $result->getErrors();
-		$data = $result->getData();
-		if ( !empty( $data ) ) {
-			if ( array_key_exists( 'PAYMENT', $data )
-				&& array_key_exists( 'RETURNURL', $data['PAYMENT'] )
-			) {
-				$outputResult['returnurl'] = $data['PAYMENT']['RETURNURL'];
-			}
-			if ( array_key_exists( 'FORMACTION', $data ) ) {
-				$outputResult['formaction'] = $data['FORMACTION'];
-				if ( empty( $errors ) ) {
-					$gatewayObj->logPending();
-				}
-			}
-			if ( array_key_exists( 'gateway_params', $data ) ) {
-				$outputResult['gateway_params'] = $data['gateway_params'];
-			}
-			if ( array_key_exists( 'RESPMSG', $data ) ) {
-				$outputResult['responsemsg'] = $data['RESPMSG'];
-			}
-			if ( array_key_exists( 'ORDERID', $data ) ) {
-				$outputResult['orderid'] = $data['ORDERID'];
-			}
-		}
 		if ( !empty( $errors ) ) {
 			$outputResult['errors'] = self::serializeErrors( $errors, $gatewayObj );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
-		if ( $this->donationData ) {
-			$this->getResult()->addValue( null, 'request', $this->donationData );
-		}
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
@@ -193,5 +148,27 @@ class DonationApi extends ApiBase {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 		$variant = $this->getRequest()->getVal( 'variant' );
 		return new $className( [ 'variant' => $variant ] );
+	}
+
+	/**
+	 * If we are sending the donor to a payment processor with a full redirect
+	 * rather than inside an iframe, mark the order ID as 'liberated' so when
+	 * they come back, we don't waste time trying to pop them out of a frame.
+	 *
+	 * @param PaymentResult $paymentResult
+	 * @param GatewayAdapter $adapter
+	 */
+	protected function markLiberatedOnRedirect(
+		PaymentResult $paymentResult, GatewayAdapter $adapter
+	) {
+		if ( !$paymentResult->getRedirect() ) {
+			return;
+		}
+		// Save a flag in session saying we don't need to pop out of an iframe
+		// See related code in GatewayPage::handleResultRequest
+		$oid = $adapter->getData_Unstaged_Escaped( 'order_id' );
+		$sessionOrderStatus = $adapter->session_getData( 'order_status' );
+		$sessionOrderStatus[$oid] = 'liberated';
+		WmfFramework::setSessionValue( 'order_status', $sessionOrderStatus );
 	}
 }

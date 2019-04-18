@@ -578,13 +578,16 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// Execute the proper transaction code:
 		switch ( $payment_method ) {
 			case 'cc':
-				// FIXME: we don't actually use this code path, it's done from
-				// the donation api instead.
-
 				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
-				// Display an iframe for credit cards
-				return PaymentResult::newIframe( $this->getTransactionDataFormAction() );
+				if ( $this->getData_Staged( 'use_authentication' ) ) {
+					// 3D Secure is on, redirect the whole page so the donor
+					// can type in their bank verification code.
+					return PaymentResult::newRedirect( $this->getTransactionDataFormAction() );
+				} else {
+					// Display an iframe for credit card entry
+					return PaymentResult::newIframe( $this->getTransactionDataFormAction() );
+				}
 
 			case 'bt':
 			case 'obt':

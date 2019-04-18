@@ -7,10 +7,7 @@
 
 	function redirect( result ) {
 		var $pForm, $payment = $( '#payment-form' ),
-			// TODO: delete formaction and gateway_params
-			// after caches are all clear
-			url = result.redirect || result.formaction,
-			params = result.formData || result.gateway_params;
+			url = result.redirect;
 		$pForm = $(
 			'<form></form>', {
 				method: 'post',
@@ -18,7 +15,7 @@
 				id: 'submit-payment'
 			}
 		);
-		populateHiddenFields( params, $pForm );
+		populateHiddenFields( result.formData, $pForm );
 		$payment.append( $pForm );
 
 		$pForm.prop( 'action', url );
@@ -26,11 +23,7 @@
 	}
 
 	function showIframe( result ) {
-		var $pForm, $payment = $( '#payment-form' ),
-			// TODO: delete formaction and gateway_params
-			// after deploying 'donation' API update
-			url = result.iframe || result.formaction,
-			params = result.formData || result.gateway_params;
+		var $pForm, $payment = $( '#payment-form' );
 
 		// Empty the div; add the target iframe; then submit the request for the iframe contents
 		$payment.append(
@@ -48,12 +41,12 @@
 		$pForm = $(
 			'<form></form>', {
 				method: 'post',
-				action: url,
+				action: result.iframe,
 				target: 'adyen-iframe',
 				id: 'fetch-iframe-form'
 			}
 		);
-		populateHiddenFields( params, $pForm );
+		populateHiddenFields( result.formData, $pForm );
 		$payment.append( $pForm );
 
 		$payment.find( '#fetch-iframe-form' ).submit();
