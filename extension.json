@@ -112,6 +112,7 @@
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
 		"Gateway_Form": "gateway_forms/Form.php",
+		"MustacheHelper": "gateway_forms/MustacheHelper.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",

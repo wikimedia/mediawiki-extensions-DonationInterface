@@ -25,7 +25,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 			'basedir' => [ self::$baseDir ],
 			'fileext' => self::EXTENSION,
 		];
-		return self::render( $this->getTopLevelTemplate(), $data, $options );
+		return MustacheHelper::render( $this->getTopLevelTemplate(), $data, $options );
 	}
 
 	protected function addRetryLink( &$data ) {
