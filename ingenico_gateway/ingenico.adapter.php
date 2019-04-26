@@ -33,6 +33,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			'returnto' => $returnTo,
 			'attempt_id' => '1',
 			'effort_id' => '1',
+			'processor_form' => 'default',
 		];
 
 		$this->addRequestData( $defaults );
@@ -57,7 +58,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 					'returnUrl',
 					'showResultPage',
 					// 'tokens', // we don't store user accounts or tokens here
-					// 'variant', // For a/b testing of iframe
+					'variant', // For a/b testing of iframe
 				],
 				'fraudFields' => [
 					'customerIpAddress',
