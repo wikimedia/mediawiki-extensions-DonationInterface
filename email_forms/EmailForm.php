@@ -57,6 +57,8 @@ class EmailForm {
 			'e' => 'email',
 			'v' => 'variant',
 			't' => 'token',
+			'contact_id' => 'contact_id',
+			'contact_hash' => 'contact_hash'
 		];
 		$templateParams = [];
 		foreach ( $map as $short => $long ) {
@@ -64,6 +66,7 @@ class EmailForm {
 				$templateParams[$long] = $this->params[$short];
 			}
 		}
+
 		$context = RequestContext::getMain();
 
 		if ( !isset( $templateParams['token'] ) ) {

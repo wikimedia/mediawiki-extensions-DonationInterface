@@ -36,13 +36,24 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function executeOptIn( $params ) {
+	public function setupOptIn( $params ) {
 		$message = [
 			'email' => $params['e'],
 		];
 		if ( !empty( $params['v'] ) ) {
 			$message['variant'] = $params['v'];
 		}
+		if ( !empty( $params['contact_id'] ) && !empty( $params['contact_hash'] ) ) {
+			$message['contact_id'] = $params['contact_id'];
+			$message['contact_hash'] = $params['contact_hash'];
+		}
+
+		return $message;
+	}
+
+	protected function executeOptIn( $params ) {
+		$message = $this->setupOptIn( $params );
+
 		try {
 			QueueWrapper::push( 'opt-in', $message );
 			$this->renderSuccess( 'optin' );
