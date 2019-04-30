@@ -118,6 +118,7 @@
 			variant: $( '#variant' ).val(),
 			wmf_token: $( '#wmf_token' ).val(),
 			opt_in: getOptIn(),
+			employer: $( '#employer' ).val(),
 			format: 'json'
 		};
 

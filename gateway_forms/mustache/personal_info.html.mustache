@@ -59,3 +59,10 @@
                         </tr>
                         {{{ fieldError "email" }}}
 {{/ email_visible }}
+{{# employer_visible }}
+						<tr>
+							<td>
+								<input class="fullwidth" name="employer" value="{{ employer }}" type="text" title="{{ l10n "donate_interface-donor-employer" }}" placeholder="{{ l10n "donate_interface-donor-employer" }}" id="employer" maxlength="64">
+							</td>
+						</tr>
+{{/ employer_visible }}

@@ -108,6 +108,7 @@ class DonationData implements LogPrefixProvider {
 		'server_ip',
 		'variant',
 		'opt_in',
+		'employer',
 	];
 
 	/**
@@ -1018,6 +1019,7 @@ class DonationData implements LogPrefixProvider {
 			'gateway_session_id',
 			'recurring_payment_token',
 			'opt_in',
+			'employer',
 		];
 	}
 

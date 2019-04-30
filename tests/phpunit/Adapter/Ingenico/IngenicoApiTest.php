@@ -279,6 +279,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * alternative home for it at the time. Ideally it will be moved to a newly created
 	 * GatewatAdapterApiTest suite once we get that up and running.
 	 *
+	 * @group DonationInterfaceOptionalFields
+	 *
 	 */
 	public function testOptionalFieldBehaviour() {
 		$this->setMwGlobals( [
@@ -327,5 +329,44 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		// check optional field not present
 		$this->assertArrayNotHasKey( 'last_name', $message );
+	}
+
+	/**
+	 * @group DonationInterfaceOptionalFields
+	 */
+	public function testSubmitEmployerField() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants'
+		] );
+
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['gateway'] = 'ingenico';
+		$init['action'] = 'donate';
+		$init['variant'] = 'employer';
+
+		// optional field 'last_name' present
+		$init['employer'] = 'wikimedia foundation';
+
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )
+			->willReturn(
+				[
+					'partialRedirectUrl' => $this->partialUrl,
+					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+				]
+			);
+
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentUrl' )
+			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+
+		$this->doApiRequest( $init );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+		$this->assertEquals( 'wikimedia foundation', $message['employer'] );
 	}
 }
