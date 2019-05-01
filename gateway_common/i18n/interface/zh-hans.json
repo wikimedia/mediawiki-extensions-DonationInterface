@@ -31,7 +31,8 @@
 			"Hudafu",
 			"Jiang123aa",
 			"Jrobell",
-			"Hanyanbo98"
+			"Hanyanbo98",
+			"佛壁灯"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -185,6 +186,7 @@
 	"donate_interface-donor-opt_in_yes": "好的! 请向我发送不频繁的电子邮件更新以及有关我将来如何支持维基百科的信息。*",
 	"donate_interface-donor-opt_in_no": "不，我不想获得更新，即便每年只有几分电子邮件。",
 	"donate_interface-donor-opt_in_explain": "*您的信息将根据我们的<a href=\"$1\">捐赠者隐私政策</a>进行处理。 您收到的每封电子邮件都包含取消订阅的简单选项。",
+	"donate_interface-donor-opt_in_explain_001": "您收到的每封邮件将带有简单的取消订阅选项。您的信息将根据我们的<a href=\"$1\">捐赠者隐私政策</a>妥善保管。",
 	"donate_interface-card-name-amex": "美国运通卡",
 	"donate_interface-card-name-visa": "Visa卡",
 	"donate_interface-card-name-mc": "万事达卡",
@@ -408,6 +410,8 @@
 	"donate_interface-email-unsub-fail": "在处理您的请求时发生错误，请联系 <$1> 。",
 	"donate_interface-email-unsub-confirm": "您确认要退订<b>$1</b>吗？",
 	"donate_interface-email-unsub-warning": "您将从维基媒体基金会作为捐助者发送给您的电子邮件群中退出。您可能仍然通过这个电子邮件地址接收到邮件，如果它与我们的某个项目相关联。如果您有任何疑问，请联系<a href=\"mailto:$1\">$1</a>。",
+	"donate_interface-email-explain": "我们会发送您一份电子收据以确认您的捐赠。",
+	"donate_interface-email-optin-fail": "处理请求时发生错误。请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-faqs": "常见问题",
 	"donate_interface-tax-info": "减税信息",
 	"donate_interface-informationsharing": "我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的<a href=\"$1\">捐款人隐私政策</a>。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。关于更多信息，请阅读我们的<a href=\"$1\">捐款人隐私政策</a>。",
