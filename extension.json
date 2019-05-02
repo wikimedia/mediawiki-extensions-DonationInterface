@@ -198,13 +198,11 @@
 			"dependencies": "ext.donationInterface.forms"
 		},
 		"donationInterface.styles": {
-			"styles": [
-				"modules/css/gateway.css",
-				"modules/css/skinOverride.css"
-			]
+			"styles": "modules/css/gateway.css"
 		},
 		"donationInterface.skinOverride": {
-			"scripts": "modules/js/skinOverride.js"
+			"scripts": "modules/js/skinOverride.js",
+			"styles": "modules/css/skinOverride.css"
 		},
 		"ext.donationInterface.errorLog": {
 			"scripts": "modules/js/ext.donationInterface.errorLog.js"
