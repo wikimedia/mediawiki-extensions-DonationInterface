@@ -23,8 +23,9 @@
 	function handleResult( result ) {
 		if ( di.forms.isIframe() && !result.redirect ) {
 			showIframe( result );
+		} else {
+			location.replace( result.redirect );
 		}
-		location.replace( result.redirect );
 	}
 
 	di.forms.submit = function () {

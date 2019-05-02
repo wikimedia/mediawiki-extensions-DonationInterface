@@ -215,7 +215,7 @@
 	"donate_interface-otherways": "Υπάρχουν <a href=\"$1\">άλλοι τρόποι για να δώσετε, όπως το PayPal,  η επιταγή, ή το ταχυδρομείο</a>.",
 	"donate_interface-otherways-alt": "Υπάρχουν <a href=\"$1\">άλλοι τρόποι για να δωρίσετε, όπως το PayPal,  η επιταγή, ή το ταχυδρομείο</a>.",
 	"donate_interface-otherways-short": "Άλλοι τρόποι για να δώσετε",
-	"donate_interface-token-mismatch": "Συνεδρία σας έληξε.  Παρακαλούμε δοκιμάστε να συμπληρώσετε και να υποβάλετε ξανά τη φόρμα.",
+	"donate_interface-token-mismatch": "Η περίοδος σύνδεσής σας έληξε. Παρακαλούμε δοκιμάστε να συμπληρώσετε και να υποβάλετε ξανά τη φόρμα.",
 	"donate_interface-cc-form-header-personal": "Πληροφορίες χρέωσης",
 	"donate_interface-cc-form-header-payment": "Πληροφορίες πληρωμής",
 	"donate_interface-make-your-donation": "Κάντε τη δωρεά σας τώρα",

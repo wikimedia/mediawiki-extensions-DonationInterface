@@ -26,6 +26,7 @@
 	"SpecialPages": {
 		"GatewayFormChooser": "GatewayFormChooser",
 		"SystemStatus": "SystemStatus",
+		"EmailPreferences": "EmailPreferences",
 		"GlobalCollectGateway": "GlobalCollectGateway",
 		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
 		"IngenicoGateway": "IngenicoGateway",
@@ -111,7 +112,9 @@
 		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
+		"EmailForm": "email_forms/EmailForm.php",
 		"Gateway_Form": "gateway_forms/Form.php",
+		"MustacheHelper": "gateway_forms/MustacheHelper.php",
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
@@ -120,6 +123,7 @@
 		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
 		"GlobalCollect3DSecure": "globalcollect_gateway/GlobalCollect3DSecure.php",
 		"Ingenico3DSecure": "ingenico_gateway/Ingenico3DSecure.php",
+		"IngenicoFormVariant": "ingenico_gateway/IngenicoFormVariant.php",
 		"IngenicoGateway": "ingenico_gateway/ingenico_gateway.body.php",
 		"IngenicoGatewayResult": "ingenico_gateway/ingenico_resultswitcher.body.php",
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",
@@ -173,6 +177,7 @@
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
 		"GatewayFormChooser": "special/GatewayFormChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
+		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php"
 	},
 	"ResourceModules": {
@@ -307,6 +312,12 @@
 			"dependencies": [
 				"ext.donationInterface.currencyRates",
 				"ext.donationInterface.errorMessages"
+			]
+		},
+		"ext.donationInterface.lightgallery": {
+			"scripts": [
+				"modules/js/lightgallery.js",
+				"modules/js/lg-hash.js"
 			]
 		}
 	},
@@ -511,6 +522,7 @@
 		"DonationInterfaceEnableSessionVelocityFilter": false,
 		"DonationInterfaceEnableSystemStatus": false,
 		"DonationInterfaceLogClientErrors": true,
+		"DonationInterfaceEnableContributionTrackingQueue": false,
 		"DonationInterfaceGeoIpDbPath": "/usr/share/GeoIP/GeoLite2-Country.mmdb",
 		"DonationInterfaceGatewayAdapters": {
 			"globalcollect": "GlobalCollectAdapter",

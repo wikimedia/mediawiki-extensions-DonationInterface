@@ -23,7 +23,9 @@ module.exports = function ( grunt ) {
 				'*.js',
 				'modules/*.js',
 				'modules/js/*.js',
-				'!modules/js/mailcheck.js'
+				'!modules/js/mailcheck.js',
+				'!modules/js/lg-hash.js',
+				'!modules/js/lightgallery.js'
 			],
 			tests: 'tests/*/*.js',
 			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/forms/**/*.js'
