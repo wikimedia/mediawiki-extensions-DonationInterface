@@ -414,7 +414,7 @@
 	"donate_interface-email-optin-fail": "处理请求时发生错误。请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-faqs": "常见问题",
 	"donate_interface-tax-info": "减税信息",
-	"donate_interface-informationsharing": "我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的<a href=\"$1\">捐款人隐私政策</a>。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。关于更多信息，请阅读我们的<a href=\"$1\">捐款人隐私政策</a>。",
+	"donate_interface-informationsharing": "我们已更新我们的<a href=\"$1\">捐款人隐私政策</a>，生效日期为 2019 年 4 月 15 日。我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的<a href=\"$1\">捐款人隐私政策</a>。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。",
 	"donate_interface-currency-change": "修改？",
 	"donate_interface-bank_transfer_message": "请注意您的账单会显示该捐赠的收款人为“Global Collect”。Global Collect被授权代表维基媒体基金会接受并处理捐款。请记得在您银行转帐时将这里提供的数字加在附言中，如有任何问题或疑虑，欢迎垂询 $1 。",
 	"donate_interface-globalcollect-proxy": "请注意，您的账单将显示“Global Collect”作为这份礼物的收款人。Global Collect是已经过维基媒体基金会授权的接受和处理付款的代表。",
