@@ -1,9 +1,9 @@
 <form method="POST" action="{{ action }}">
-    <input type="hidden" name="t" value="{{ token }}" />
+    <input type="hidden" name="token" value="{{ token }}" />
     <input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
     <input type="hidden" name="contact_id" value="{{ contact_id }}" />
     <input type="hidden" name="contact_hash" value="{{contact_hash}}" />
-    <input type="text" name="e" id="email" value="{{ email }}" />
+    <input type="text" name="email" id="email" value="{{ email }}" />
     <p>{{ l10n "donate_interface-donor-opt_in_yes" }}</p>
     <p class="small">{{{ l10n "donate_interface-donor-opt_in_explain" policy_url }}}</p>
 

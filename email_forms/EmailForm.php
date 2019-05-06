@@ -33,10 +33,14 @@ class EmailForm {
 			'basedir' => [ __DIR__ . '/templates' ],
 			'fileext' => self::EXTENSION,
 		];
-		$variant = !empty( $this->params['v'] ) ? '_' . $this->params['v'] : '';
+		if ( empty( $this->params['variant'] ) ) {
+			$variant = '';
+		} else {
+			$variant = '_' . $this->params['variant'];
+		}
 		$fileName = $this->process . $variant . self::EXTENSION;
 		$templatePath = __DIR__ . '/templates/' . $fileName;
-		if ( !file_exists( $templatePath ) && !empty( $variant ) ) {
+		if ( !file_exists( $templatePath ) && $variant !== '' ) {
 			// Fall back to non-variant version if the variant doesn't exist
 			$fileName = $this->process . self::EXTENSION;
 			$templatePath = __DIR__ . '/templates/' . $fileName;
@@ -53,17 +57,13 @@ class EmailForm {
 	protected function getTemplateParams() {
 		global $wgFundraisingEmailUnsubscribeHelpEmail;
 
-		$map = [
-			'e' => 'email',
-			'v' => 'variant',
-			't' => 'token',
-			'contact_id' => 'contact_id',
-			'contact_hash' => 'contact_hash'
+		$paramList = [
+			'contact_hash', 'contact_id', 'email', 'token', 'variant'
 		];
 		$templateParams = [];
-		foreach ( $map as $short => $long ) {
-			if ( isset( $this->params[$short] ) ) {
-				$templateParams[$long] = $this->params[$short];
+		foreach ( $paramList as $paramName ) {
+			if ( isset( $this->params[$paramName] ) ) {
+				$templateParams[$paramName] = $this->params[$paramName];
 			}
 		}
 

@@ -47,10 +47,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	public function setupOptIn( $params ) {
 		$message = [
-			'email' => $params['e'],
+			'email' => $params['email'],
 		];
-		if ( !empty( $params['v'] ) ) {
-			$message['variant'] = $params['v'];
+		if ( !empty( $params['variant'] ) ) {
+			$message['variant'] = $params['variant'];
 		}
 		if ( !empty( $params['contact_id'] ) && !empty( $params['contact_hash'] ) ) {
 			$message['contact_id'] = $params['contact_id'];
@@ -99,7 +99,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 		// The rest of the parameters should just be alphanumeric, underscore, and hyphen
 		foreach ( $params as $name => $value ) {
-			if ( in_array( $name, [ 'e', 't', 'title' ], true ) ) {
+			if ( in_array( $name, [ 'email', 'token', 'title' ], true ) ) {
 				continue;
 			}
 			if ( !preg_match( '/^[a-zA-Z0-9_-]*$/', $value ) ) {
@@ -110,13 +110,13 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function validateEmail( array $params, $posted ) {
-		if ( empty( $params['e'] ) ) {
+		if ( empty( $params['email'] ) ) {
 			// When we post back, we need an email
 			if ( $posted ) {
 				return false;
 			}
 		} else {
-			if ( !filter_var( $params['e'], FILTER_VALIDATE_EMAIL ) ) {
+			if ( !filter_var( $params['email'], FILTER_VALIDATE_EMAIL ) ) {
 				return false;
 			}
 		}
@@ -124,14 +124,14 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function validateToken( array $params, $posted ) {
-		if ( empty( $params['t'] ) ) {
+		if ( empty( $params['token'] ) ) {
 			if ( $posted ) {
 				return false;
 			}
 		} else {
 			$session = RequestContext::getMain()->getRequest()->getSession();
 			$token = $session->getToken();
-			if ( !$token->match( $params['t'] ) ) {
+			if ( !$token->match( $params['token'] ) ) {
 				return false;
 			}
 		}

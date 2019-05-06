@@ -40,7 +40,8 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 		];
 
 		$params = [
-			'e' => 'test@test.com',
+			'title' => 'Special:EmailPreferences/optin',
+			'email' => 'test@test.com',
 			'contact_id' => '1',
 			'contact_hash' => 'df3rf',
 		];

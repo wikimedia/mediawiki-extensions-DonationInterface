@@ -1418,15 +1418,15 @@
 
     <form method="POST" action="{{ action }}">
 
-        <input name="t" value="{{ token }}" type="hidden">
-        <input type="hidden" name="v" id="variant" value="wle_001" />
+        <input name="token" value="{{ token }}" type="hidden">
+        <input type="hidden" name="variant" id="variant" value="wle_001" />
         <input name="uselang" id="uselang" value="{{ uselang }}" type="hidden">
 
         <h2>{{ l10n 'fundraisersubscribe-appeal-headline-001' }}</h2>
         <p>{{ l10n 'fundraisersubscribe-appeal-text-001' }}</p>
 
         <div class="cf">
-            <input name="e" id="email" placeholder="{{ l10n 'donate_interface-donor-email' }}" type="text" value="{{ email }}">
+            <input name="email" id="email" placeholder="{{ l10n 'donate_interface-donor-email' }}" type="text" value="{{ email }}">
             <button id="continue" name="submit" value="continue" class="button" type="submit">{{ l10n 'fundraisersubscribe-opt-in-continue-001' }}</button>
             <button id="cancel" name="submit" value="cancel" class="cancel" type="submit">{{ l10n 'donate_interface-cancel' }}</button>
         </div>
