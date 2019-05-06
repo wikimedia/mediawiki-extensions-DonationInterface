@@ -278,7 +278,7 @@
         margin: 0 0 20px 0;
     }
 
-    form input {
+    form input, form button {
         background: white;
         color: black;
         text-align: left;
@@ -312,7 +312,7 @@
         transform:         translateY(-2%);
     }
 
-    form .cancel {
+    form button.cancel {
         display: none;
     }
 
@@ -1427,8 +1427,8 @@
 
         <div class="cf">
             <input name="e" id="email" placeholder="{{ l10n 'donate_interface-donor-email' }}" type="text" value="{{ email }}">
-            <input id="continue" value="{{ l10n 'fundraisersubscribe-opt-in-continue-001' }}" class="button" type="submit">
-            <input value="{{ l10n 'donate_interface-cancel' }}" class="cancel" type="submit">
+            <button id="continue" name="submit" value="continue" class="button" type="submit">{{ l10n 'fundraisersubscribe-opt-in-continue-001' }}</button>
+            <button id="cancel" name="submit" value="cancel" class="cancel" type="submit">{{ l10n 'donate_interface-cancel' }}</button>
         </div>
 
         <small>

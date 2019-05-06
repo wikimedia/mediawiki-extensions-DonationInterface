@@ -7,6 +7,6 @@
     <p>{{ l10n "donate_interface-donor-opt_in_yes" }}</p>
     <p class="small">{{{ l10n "donate_interface-donor-opt_in_explain" policy_url }}}</p>
 
-    <input type="submit" id="continue" value="{{ l10n "donate_interface-continue" }}" />
-    <input type="submit" value="{{ l10n "donate_interface-cancel" }}" />
+    <button type="submit" name="submit" id="continue" value="continue" >{{ l10n "donate_interface-continue" }}</button>
+    <button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
 </form>

@@ -5,6 +5,6 @@
     <p>{{{ l10n "donate_interface-email-unsub-confirm" email }}}</p>
     <p>{{{ l10n "donate_interface-email-unsub-delay" help_email }}}"</p>
 
-    <input type="submit" id="unsubscribe" value="{{ l10n "donate_interface-email-unsub-button" }}" />
-    <input type="submit" value="{{ l10n "donate_interface-cancel" }}" />
+    <button type="submit" name="submit" id="unsubscribe" value="continue" >{{ l10n "donate_interface-email-unsub-button" }}</button>
+    <button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
 </form>

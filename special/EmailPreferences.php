@@ -9,12 +9,21 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	public function execute( $subpage ) {
+		// FIXME switch this to a DonationInterface setting
+		global $wgFundraisingEmailUnsubscribeCancelUri;
+
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
+		if ( $posted && $this->wasCanceled( $params ) ) {
+			$this->getOutput()->redirect(
+				$wgFundraisingEmailUnsubscribeCancelUri
+			);
+			return;
+		}
 		if ( !$this->validate( $params, $posted ) ) {
 			$this->renderError( $subpage );
 			return;
@@ -141,5 +150,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 				$title = wfMessage( 'donate_interface-error-msg-general' );
 		}
 		$this->getOutput()->setPageTitle( $title );
+	}
+
+	protected function wasCanceled( $params ) {
+		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
 	}
 }
