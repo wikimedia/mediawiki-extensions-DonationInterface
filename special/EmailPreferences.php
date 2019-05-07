@@ -65,7 +65,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		try {
 			QueueWrapper::push( 'opt-in', $message );
-			$this->renderSuccess( 'optin' );
+			$this->renderSuccess( 'optin', $params );
 		} catch ( Exception $e ) {
 			$this->renderError( 'optin' );
 		}
@@ -80,9 +80,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->renderQuery( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'optin' ) {
+	protected function renderSuccess( $subpage = 'optin', $params = [] ) {
 		$subpage .= 'Success';
-		$this->renderQuery( $subpage, [] );
+		$this->renderQuery( $subpage, $params );
 	}
 
 	protected function renderQuery( $subpage, array $params ) {
