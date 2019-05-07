@@ -9,12 +9,21 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	public function execute( $subpage ) {
+		// FIXME switch this to a DonationInterface setting
+		global $wgFundraisingEmailUnsubscribeCancelUri;
+
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
+		if ( $posted && $this->wasCanceled( $params ) ) {
+			$this->getOutput()->redirect(
+				$wgFundraisingEmailUnsubscribeCancelUri
+			);
+			return;
+		}
 		if ( !$this->validate( $params, $posted ) ) {
 			$this->renderError( $subpage );
 			return;
@@ -36,16 +45,27 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function executeOptIn( $params ) {
+	public function setupOptIn( $params ) {
 		$message = [
-			'email' => $params['e'],
+			'email' => $params['email'],
 		];
-		if ( !empty( $params['v'] ) ) {
-			$message['variant'] = $params['v'];
+		if ( !empty( $params['variant'] ) ) {
+			$message['variant'] = $params['variant'];
 		}
+		if ( !empty( $params['contact_id'] ) && !empty( $params['contact_hash'] ) ) {
+			$message['contact_id'] = $params['contact_id'];
+			$message['contact_hash'] = $params['contact_hash'];
+		}
+
+		return $message;
+	}
+
+	protected function executeOptIn( $params ) {
+		$message = $this->setupOptIn( $params );
+
 		try {
 			QueueWrapper::push( 'opt-in', $message );
-			$this->renderSuccess( 'optin' );
+			$this->renderSuccess( 'optin', $params );
 		} catch ( Exception $e ) {
 			$this->renderError( 'optin' );
 		}
@@ -60,9 +80,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->renderQuery( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'optin' ) {
+	protected function renderSuccess( $subpage = 'optin', $params = [] ) {
 		$subpage .= 'Success';
-		$this->renderQuery( $subpage, [] );
+		$this->renderQuery( $subpage, $params );
 	}
 
 	protected function renderQuery( $subpage, array $params ) {
@@ -79,7 +99,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 		// The rest of the parameters should just be alphanumeric, underscore, and hyphen
 		foreach ( $params as $name => $value ) {
-			if ( in_array( $name, [ 'e', 't', 'title' ], true ) ) {
+			if ( in_array( $name, [ 'email', 'token', 'title' ], true ) ) {
 				continue;
 			}
 			if ( !preg_match( '/^[a-zA-Z0-9_-]*$/', $value ) ) {
@@ -90,13 +110,13 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function validateEmail( array $params, $posted ) {
-		if ( empty( $params['e'] ) ) {
+		if ( empty( $params['email'] ) ) {
 			// When we post back, we need an email
 			if ( $posted ) {
 				return false;
 			}
 		} else {
-			if ( !filter_var( $params['e'], FILTER_VALIDATE_EMAIL ) ) {
+			if ( !filter_var( $params['email'], FILTER_VALIDATE_EMAIL ) ) {
 				return false;
 			}
 		}
@@ -104,14 +124,14 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function validateToken( array $params, $posted ) {
-		if ( empty( $params['t'] ) ) {
+		if ( empty( $params['token'] ) ) {
 			if ( $posted ) {
 				return false;
 			}
 		} else {
 			$session = RequestContext::getMain()->getRequest()->getSession();
 			$token = $session->getToken();
-			if ( !$token->match( $params['t'] ) ) {
+			if ( !$token->match( $params['token'] ) ) {
 				return false;
 			}
 		}
@@ -130,5 +150,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 				$title = wfMessage( 'donate_interface-error-msg-general' );
 		}
 		$this->getOutput()->setPageTitle( $title );
+	}
+
+	protected function wasCanceled( $params ) {
+		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
 	}
 }
