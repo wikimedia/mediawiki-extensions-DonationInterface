@@ -97,7 +97,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$this->getOutput()->showErrorPage(
 				'donate_interface-error-msg-general',
 				'donate_interface-error-no-form',
-				[ GatewayType::getGlobal( 'ProblemsEmail' ) ]
+				[ GatewayAdapter::getGlobal( 'ProblemsEmail' ) ]
 			);
 			return;
 		}
