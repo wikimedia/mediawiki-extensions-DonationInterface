@@ -733,23 +733,25 @@ $forms_whitelist['astropay-mx'] = [
 	],
 	'selection_weight' => 1,
 ];
+*/
+
 $forms_whitelist['astropay-uy'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'UY' ],
 	'currencies' => [ '+' => 'UYU' ],
 	'payment_methods' => [
-		'cc' => [
+/*		'cc' => [
 			'visa',
 			'mc',
 			'diners',
-		],
+		],*/
 		'cash' => [
 			'cash_red_pagos',
 		],
 	],
 	'selection_weight' => 1,
 ];
-*/
+
 /**********
  * Adyen *
  **********/
