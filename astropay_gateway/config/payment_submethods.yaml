@@ -250,13 +250,6 @@ cash_pago_facil:
     countries:
         AR: true
     logo: cash-pago-facil.png
-cash_provencia_pagos:
-    bank_code: BG
-    label: Provencia Pagos
-    group: cash
-    countries:
-        AR: true
-    logo: cash-provencia-pagos.png
 cash_efecty:
     bank_code: EY
     label: Efecty
