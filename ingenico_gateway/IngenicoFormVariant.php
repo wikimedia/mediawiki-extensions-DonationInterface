@@ -14,11 +14,14 @@ class IngenicoFormVariant implements StagingHelper {
 	 * @param array &$stagedData Reference to output data.
 	 */
 	function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+		$variants = $adapter->getGlobal( 'HostedFormVariants' );
 		if (
 			isset( $stagedData['use_authentication'] ) &&
 			$stagedData['use_authentication'] === true
 		) {
-			$stagedData['processor_form'] = 'redirect';
+			$stagedData['processor_form'] = $variants['redirect'];
+		} else {
+			$stagedData['processor_form'] = $variants['iframe'];
 		}
 	}
 }

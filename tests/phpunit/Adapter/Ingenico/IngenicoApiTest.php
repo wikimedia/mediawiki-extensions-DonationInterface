@@ -22,6 +22,12 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		$this->setMwGlobals( [
+			'wgIngenicoGatewayHostedFormVariants' => [
+				'iframe' => 105,
+				'redirect' => 102,
+			]
+		] );
 		$ctx = TestingContext::get();
 		$globalConfig = $ctx->getGlobalConfiguration();
 
@@ -59,7 +65,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 								]
 							]
 						],
-						'showResultPage' => 'false'
+						'showResultPage' => 'false',
+						'variant' => 105
 					];
 					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExp(
@@ -166,7 +173,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 								]
 							]
 						],
-						'showResultPage' => 'false'
+						'showResultPage' => 'false',
+						'variant' => 105
 					];
 					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
