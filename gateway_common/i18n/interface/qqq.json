@@ -421,8 +421,6 @@
 	"donate_interface-translate-bluelink": "Link at the bottom of an appeal to the page on Meta where one can help translate the appeal one is viewing.",
 	"donate_interface-translate-redlink1": "Link at the bottom of an appeal to the Meta hub for translations. Is followed by [[MediaWiki:Donate interface-translate-redlink2]].",
 	"donate_interface-translate-redlink2": "Plain text (not link) at the bottom of an appeal telling people that they can e-mail a translation. Preceded by {{msg-mw|Donate interface-translate-redlink1}}.",
-	"donate_interface-email-fallbackname": "String that will be used instead of the donor's name in the [[meta:Fundraising_2011/Thank_You_Mail/en|e-mail]] in case it is missing.",
-	"donate_interface-email-subject": "Subject line of thank you e-mail",
 	"donate_interface-email-unsub-title": "Title for unsubscription box",
 	"donate_interface-email-unsub-button": "The button you click to unsubscribe from receiving e-mails.\n{{Identical|Unsubscribe}}",
 	"donate_interface-email-unsub-success": "The message that is shown when a user is successfully unsubscribed from the mailing list",
