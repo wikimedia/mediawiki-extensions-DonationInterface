@@ -295,8 +295,6 @@
 	"donate_interface-translate-bluelink": "இந்த மொழிபெயர்ப்பை மேம்படுத்தவும்",
 	"donate_interface-translate-redlink1": "இந்த பக்கத்தை மொழிபெயர்க்க உதவி",
 	"donate_interface-translate-redlink2": "அல்லது translations@wikimedia.orgக்கு உங்கள் மொழிபெயர்ப்புகளை மின்னஞ்சல் செய்யவும்",
-	"donate_interface-email-fallbackname": "விக்கிமீடியா அறக்கட்டளையின் நண்பர்",
-	"donate_interface-email-subject": "விக்கிமீடியா அறக்கட்டளையிலிருந்து நன்றி",
 	"donate_interface-email-unsub-success": "நீங்கள் வெற்றிகரமாக எங்கள் மின்னஞ்சல் பட்டியலில் இருந்து நீக்கப்பட்டுவிட்டீர்கள்.",
 	"donate_interface-email-unsub-fail": "உங்கள் கோரிக்கையை செயல்படுத்தும்போது பிழை ஏற்பட்டது, தயவுகூர்ந்து <$1>ஐ தொடர்பு கொள்ளவும்.",
 	"donate_interface-faqs": "அடிக்கடி கேட்கப்படும் கேள்விகள்",

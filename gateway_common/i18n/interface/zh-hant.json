@@ -381,8 +381,6 @@
 	"donate_interface-translate-bluelink": "修改此翻譯",
 	"donate_interface-translate-redlink1": "協助翻譯此頁面",
 	"donate_interface-translate-redlink2": "或將您翻譯的內容寄到 translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "維基媒體基金會的朋友",
-	"donate_interface-email-subject": "我們在此感謝您對我們的幫助",
 	"donate_interface-email-unsub-title": "取消訂閱來自維基媒體基金會的訊息",
 	"donate_interface-email-unsub-button": "取消訂閱",
 	"donate_interface-email-unsub-success": "您的電子郵件帳號已成功從我們的電子郵件清單中移除",

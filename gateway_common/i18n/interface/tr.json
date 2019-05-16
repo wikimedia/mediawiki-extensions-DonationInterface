@@ -334,8 +334,6 @@
 	"donate_interface-translate-bluelink": "Bu çeviriyi geliştirin/düzenleyin",
 	"donate_interface-translate-redlink1": "Bu sayfanın çevrilmesine yardım edin.",
 	"donate_interface-translate-redlink2": "Veya çevirilerinizi translations@wikimedia.org adresine e-postalayın",
-	"donate_interface-email-fallbackname": "Wikimedia Vakfı'nın arkadaşı",
-	"donate_interface-email-subject": "Wikimedia Vakfı'ndan teşekkürler",
 	"donate_interface-email-unsub-title": "Wikimedia Vakfı Aboneliğini bitir",
 	"donate_interface-email-unsub-button": "Abonelikten çık",
 	"donate_interface-email-unsub-success": "Posta listemizden sorunsuzca çıkarıldınız",

@@ -383,8 +383,6 @@
 	"donate_interface-translate-bluelink": "Исправить этот перевод",
 	"donate_interface-translate-redlink1": "Помочь перевести эту страницу.",
 	"donate_interface-translate-redlink2": "Или пришлите ваш перевод по электронной почте на адрес translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "друг Фонда Викимедиа",
-	"donate_interface-email-subject": "Благодарность от Фонда Викимедиа",
 	"donate_interface-email-unsub-title": "Отказ от подписки на сообщения Фонда Викимедиа",
 	"donate_interface-email-unsub-button": "Отписаться",
 	"donate_interface-email-unsub-success": "Вы успешно исключены из нашего списка рассылки",

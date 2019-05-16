@@ -346,8 +346,6 @@
 	"donate_interface-translate-bluelink": "Javaslat jobb fordításra",
 	"donate_interface-translate-redlink1": "Segíts lefordítani ezt az oldalt",
 	"donate_interface-translate-redlink2": "Vagy küldd el a fordításodat a translations@wikimedia.org címre",
-	"donate_interface-email-fallbackname": "Wikimédia-támogató",
-	"donate_interface-email-subject": "A Wikimédia Alapítvány köszöni a segítségedet",
 	"donate_interface-email-unsub-title": "Wikimédia Alapítvány leiratkozás",
 	"donate_interface-email-unsub-button": "Leiratkozás",
 	"donate_interface-email-unsub-success": "Sikeresen leiratkoztál a levelezési listánkról",

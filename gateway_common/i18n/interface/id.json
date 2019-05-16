@@ -381,8 +381,6 @@
 	"donate_interface-translate-bluelink": "Perbaiki terjemahan ini",
 	"donate_interface-translate-redlink1": "Bantu terjemahkan halaman ini.",
 	"donate_interface-translate-redlink2": "Atau surelkan terjemahan Anda ke translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "sahabat Wikimedia Foundation",
-	"donate_interface-email-subject": "Kami ada untukmu. Terima kasih telah bersama dengan kami.",
 	"donate_interface-email-unsub-title": "Berhenti berlangganan Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Berhenti berlangganan",
 	"donate_interface-email-unsub-success": "Anda telah berhasil menghapus diri Anda dari milis kami.",

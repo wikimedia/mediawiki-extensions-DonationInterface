@@ -334,8 +334,6 @@
 	"donate_interface-translate-bluelink": "Gwellwch ar y cyfieithiad hwn",
 	"donate_interface-translate-redlink1": "Ymunwch yn y gwaith o gyfieithu'r dudalen hon.",
 	"donate_interface-translate-redlink2": "Neu e-bostiwch eich cyfieithiad i translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "Cyfaill i'r Sefydliad Wikimedia",
-	"donate_interface-email-subject": "Diolch oddi wrth Sefydliad Wikimedia",
 	"donate_interface-email-unsub-title": "Dad-danysgrifio i Sefydliad Wikimedia",
 	"donate_interface-email-unsub-button": "Dad-tanysgrifio",
 	"donate_interface-email-unsub-success": "Cawsoch eich symud o'n rhestr bostio yn llwyddiannus.",

@@ -175,6 +175,5 @@
 	"donate_interface-question-comment": "วิกิพีเดียเป็นหนึ่งในโครงการในมูลนิธิวิกิมีเดีย หากมีข้อสงสัยหรือติชมประการใด กรุณาติดต่อที่ <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-donate-click": "หลังจากคลิก \"{{int:payflowpro_gateway-donor-submit}}\" บัตรเครดิตของคุณจะเข้าสู่กระบวนการตัดยอด",
 	"donate_interface-anon-message": "กรุณาแสดงชื่อของฉันในรายนามผู้บริจาคสาธารณะ",
-	"donate_interface-email-subject": "ขอบคุณ จากมูลนิธิวิกิมีเดีย",
 	"donate_interface-informationsharing": "ในการบริจาค คุณจะยอมรับตาม<a class=\"localize\" target=\"_blank\" href=\"$1\">นโยบายรักษาความเป็นส่วนตัวของผู้บริจาค</a> และยอมรับที่จะแบ่งปันข้อมูลของท่านให้กับ<a class=\"localize\" target=\"_blank\" href=\"https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility\">มูลนิธิวิกิมีเดีย</a>และผู้ให้บริการของมูลนิธิฯ ในสหรัฐอเมริกาและที่อื่นๆ"
 }

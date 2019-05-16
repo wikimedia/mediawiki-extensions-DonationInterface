@@ -339,8 +339,6 @@
 	"donate_interface-translate-bluelink": "Подобрете този превод",
 	"donate_interface-translate-redlink1": "Помогнете за превода на тази страница.",
 	"donate_interface-translate-redlink2": "Или изпратете по електронна поща вашия превод на адрес translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "приятелю на Фондация Уикимедия",
-	"donate_interface-email-subject": "Ние сме тук благодарение на вас. Благодарим ви, че сте тук заради нас",
 	"donate_interface-email-unsub-title": "Отписване от пощенския списък на Фондация Уикимедия",
 	"donate_interface-email-unsub-button": "Отписване",
 	"donate_interface-email-unsub-success": "Успешно бяхте отписан(а) от нашия пощенски списък",

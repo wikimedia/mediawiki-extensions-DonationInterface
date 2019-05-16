@@ -243,8 +243,6 @@
 	"donate_interface-translate-bluelink": "Boresha tafsiri hii",
 	"donate_interface-translate-redlink1": "Saidia kutafsiri ukurasa huu.",
 	"donate_interface-translate-redlink2": "Au tuma uliotafsiri kwa barua pepe kwa translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "rafiki wa Wikimedia Foundation",
-	"donate_interface-email-subject": "Asante kutoka kwa Wikimedia Foundation",
 	"donate_interface-email-unsub-title": "Kutopokea habari za Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Nisipokee habari",
 	"donate_interface-email-unsub-success": "Jina lako limetolewa kutoka katika orodha ya watu wanaopokea habari zetu",
