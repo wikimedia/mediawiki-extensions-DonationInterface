@@ -6,6 +6,7 @@
 			"Joao Xavier"
 		]
 	},
+	"donate_interface-desc": "Chefpagino por facar donacaji, qua permisas altra formi di pago ''(payment gateways)''",
 	"donate_interface-AUD": "Australiana Dolaro",
 	"donate_interface-CAD": "Kanadana Dolaro",
 	"donate_interface-EUR": "Euro",
@@ -22,6 +23,7 @@
 	"donate_interface-donor-city": "Urbo:",
 	"donate_interface-donor-state_province": "Stato:",
 	"donate_interface-donor-address": "Adreso:",
+	"donate_interface-donor-expiration": "Expiro-dato",
 	"donate_interface-error-msg-first_name": "prenomo",
 	"donate_interface-error-msg-last_name": "surnomo",
 	"donate_interface-error-msg-city": "urbo",

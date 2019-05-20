@@ -350,8 +350,6 @@
 	"donate_interface-translate-bluelink": "Forbedr denne oversættelse",
 	"donate_interface-translate-redlink1": "Hjælp med at oversætte denne side",
 	"donate_interface-translate-redlink2": "Eller send din oversættelse til translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "ven af Wikimedia Foundation",
-	"donate_interface-email-subject": "Tak fra Wikimedia Foundation",
 	"donate_interface-email-unsub-title": "Framelding fra Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Afmeld",
 	"donate_interface-email-unsub-success": "Du er ikke længere på mailinglisten",

@@ -116,7 +116,7 @@
 	"donate_interface-donor-legend": "Enformasyonê bexş dayogi",
 	"donate_interface-donor-amount": "Miqdar",
 	"donate_interface-donor-currency-label": "Dewiz",
-	"donate_interface-donor-email": "Adresê e-posta",
+	"donate_interface-donor-email": "Adresa e-posteyi",
 	"donate_interface-donor-name": "Name:",
 	"donate_interface-donor-first_name": "Name:",
 	"donate_interface-donor-mname": "Nameyê wertin",
@@ -233,5 +233,6 @@
 	"donate_interface-monthlybox-title": "Wa Aşmek bo?",
 	"donate_interface-monthly-short": "Aşmane",
 	"apihelp-donate-param-city": "Sûke.",
+	"apihelp-donate-param-email": "Adresa e-posteyi.",
 	"apihelp-donate-param-language": "Kodê zıwani."
 }

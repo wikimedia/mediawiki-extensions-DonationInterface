@@ -379,8 +379,6 @@
 	"donate_interface-translate-bluelink": "Поліпшити цей переклад",
 	"donate_interface-translate-redlink1": "Допоможіть перекласти цю сторінку.",
 	"donate_interface-translate-redlink2": "Або надішліть ваш переклад на translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "товариш Фонду Вікімедіа",
-	"donate_interface-email-subject": "Ми тут для вас. Дякуємо, що ви з нами",
 	"donate_interface-email-unsub-title": "Відписатися від Фонду Вікімедіа",
 	"donate_interface-email-unsub-button": "Відписатися",
 	"donate_interface-email-unsub-success": "Вас успішно вилучено зі списку розсилки",

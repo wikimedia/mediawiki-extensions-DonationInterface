@@ -377,8 +377,6 @@
 	"donate_interface-translate-bluelink": "この翻訳を改善する",
 	"donate_interface-translate-redlink1": "このページの翻訳を手伝ってください。",
 	"donate_interface-translate-redlink2": "またはあなたの翻訳を translations@wikimedia.org にメールで送信してください",
-	"donate_interface-email-fallbackname": "ウィキメディア財団の友人",
-	"donate_interface-email-subject": "お陰様で活動を継続でき、ご芳志に感謝申し上げます。",
 	"donate_interface-email-unsub-title": "ウィキメディア財団メーリングリストの購読解除",
 	"donate_interface-email-unsub-button": "購読解除します。",
 	"donate_interface-email-unsub-success": "メーリングリストを購読解除しました",

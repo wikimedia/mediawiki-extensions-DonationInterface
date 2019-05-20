@@ -394,8 +394,6 @@
 	"donate_interface-translate-bluelink": "Améliorer cette traduction",
 	"donate_interface-translate-redlink1": "Aidez à traduire cette page.",
 	"donate_interface-translate-redlink2": "Ou envoyez votre traduction à translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "ami de la Fondation Wikimédia",
-	"donate_interface-email-subject": "Nous sommes ici pour vous. Merci d’être là pour nous",
 	"donate_interface-email-unsub-title": "Se désabonner de la Fondation Wikimédia",
 	"donate_interface-email-unsub-button": "Se désabonner",
 	"donate_interface-email-unsub-success": "Votre nom a bien été retiré de notre liste de diffusion",

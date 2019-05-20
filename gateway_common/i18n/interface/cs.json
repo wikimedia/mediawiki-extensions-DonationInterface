@@ -348,8 +348,6 @@
 	"donate_interface-translate-bluelink": "Vylepšete tento překlad",
 	"donate_interface-translate-redlink1": "Pomozte přeložit tuto stránku.",
 	"donate_interface-translate-redlink2": "Nebo svůj překlad pošlete e-mailem na translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "přítel Wikimedia Foundation",
-	"donate_interface-email-subject": "Poděkování od Wikimedia Foundation",
 	"donate_interface-email-unsub-title": "Odhlášení Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Odhlásit",
 	"donate_interface-email-unsub-success": "Byli jste úspěšně odebráni z našeho seznamu adresátů",

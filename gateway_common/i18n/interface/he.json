@@ -10,7 +10,8 @@
 			"Ofrahod",
 			"YaronSh",
 			"Jrobell",
-			"חיים"
+			"חיים",
+			"Erelon"
 		]
 	},
 	"donate_interface": "תמיכה בוויקימדיה",
@@ -368,8 +369,6 @@
 	"donate_interface-translate-bluelink": "לשפר את התרגום הזה",
 	"donate_interface-translate-redlink1": "עזרו לתרגם את הדף הזה.",
 	"donate_interface-translate-redlink2": "או שלחו את התרגום שלכם לכתובת translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "ידיד קרן ויקימדיה",
-	"donate_interface-email-subject": "אנחנו כאן בשבילכם. תודה שאתם כאן בשבילנו",
 	"donate_interface-email-unsub-title": "ביטול מינוי לקרן ויקימדיה",
 	"donate_interface-email-unsub-button": "ביטול מינוי",
 	"donate_interface-email-unsub-success": "כתובתך הוסרה בהצלחה מרשימת התפוצה שלנו",
@@ -401,6 +400,7 @@
 	"donate_interface-onetime-short": "חד־פעמי",
 	"donate_interface-error-http-403": "אין לך הרשאה לגשת לדף הזה.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-emailprefs-thank-you-title": "תודה לך!",
 	"apihelp-donate-description": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, globalcollect, וכו'.",

@@ -709,7 +709,6 @@ $forms_whitelist['astropay-mx'] = [
 		'cash' => [
 			'cash_oxxo',
 			'cash_santander',
-			'cash_banamex',
 			'cash_bancomer',
 		],
 	],

@@ -222,13 +222,6 @@ cash_santander:
     countries:
         MX: true
     logo: bank-santander.png
-cash_banamex:
-    bank_code: BM
-    label: Banamex
-    group: cash
-    countries:
-        MX: true
-    logo: cash-banamex.png
 cash_bancomer:
     bank_code: BV
     label: Bancomer

@@ -363,8 +363,6 @@
 	"donate_interface-translate-bluelink": "Mellorar esta tradución",
 	"donate_interface-translate-redlink1": "Axuda a traducir esta páxina.",
 	"donate_interface-translate-redlink2": "Ou envía a túa tradución a translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "amigo da Fundación Wikimedia",
-	"donate_interface-email-subject": "Estamos aquí para vostede. Grazas por estar aí para acompañarnos",
 	"donate_interface-email-unsub-title": "Cancelar a subscrición á Fundación Wikimedia",
 	"donate_interface-email-unsub-button": "Cancelar a subscrición",
 	"donate_interface-email-unsub-success": "Eliminamos correctamente o teu nome da lista de correo",

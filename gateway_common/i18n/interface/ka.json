@@ -319,8 +319,6 @@
 	"donate_interface-translate-bluelink": "გააუმჯობესეთ ეს თარგმანი",
 	"donate_interface-translate-redlink1": "დაგვეხმარეთ ამ გვერდის თარგმნაში.",
 	"donate_interface-translate-redlink2": "ან გამოგზავნეთ თქვენი ნათარგმნი ელ. ფოსტით მისამართზე translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "ფონდი ვიკიმედიის მეგობარი",
-	"donate_interface-email-subject": "მადლობა ფონდი ვიკიმედიისაგან",
 	"donate_interface-email-unsub-title": "ფონდი ვიკიმედიის გამოწერების გაუქმება",
 	"donate_interface-email-unsub-button": "გამოწერის გაუქმება",
 	"donate_interface-email-unsub-success": "თქვენ წარმატებით ამოიშალეთ ჩვენი წერილების დაგზავნის სიიდან",

@@ -303,8 +303,6 @@
 	"donate_interface-translate-bluelink": "Poboljšajte ovaj prijevod",
 	"donate_interface-translate-redlink1": "Pomozite nam da prevedemo ovu stranicu.",
 	"donate_interface-translate-redlink2": "Ili pak pošaljite svoj prevod na translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "prijatelj Fondacije Wikimedija",
-	"donate_interface-email-subject": "Hvala od Fondacije Wikimedia",
 	"donate_interface-email-unsub-title": "Otkazivanje pretplate poruka od Fondacije Wikimedia",
 	"donate_interface-email-unsub-button": "Otkaži pretplatu",
 	"donate_interface-email-unsub-success": "Uspješno ste uklonjeni s naše dopisne liste",

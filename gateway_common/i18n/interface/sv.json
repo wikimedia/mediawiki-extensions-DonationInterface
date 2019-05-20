@@ -376,8 +376,6 @@
 	"donate_interface-translate-bluelink": "Förbättra denna översättning",
 	"donate_interface-translate-redlink1": "Hjälp till att översätta denna sida.",
 	"donate_interface-translate-redlink2": "Eller e-maila din översättning till translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "vän av Wikimedia Foundation",
-	"donate_interface-email-subject": "Vi är här för dig. Tack för att du är här för oss",
 	"donate_interface-email-unsub-title": "Wikimedia Foundation avanmälan",
 	"donate_interface-email-unsub-button": "Avsluta abonnemang",
 	"donate_interface-email-unsub-success": "Du har framgångsrikt tagits bort från vår sändlista",

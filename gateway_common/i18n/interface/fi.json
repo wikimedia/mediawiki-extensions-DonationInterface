@@ -359,8 +359,6 @@
 	"donate_interface-translate-bluelink": "Paranna tätä käännöstä",
 	"donate_interface-translate-redlink1": "Auta tämän sivun kääntämisessä.",
 	"donate_interface-translate-redlink2": "Tai lähetä käännöksesi sähköpostilla osoitteeseen translations@wikimedia.org",
-	"donate_interface-email-fallbackname": "Wikimedia-säätiön ystävä",
-	"donate_interface-email-subject": "Olemme täällä sinua varten. Kiitos, että olet täällä meitä varten",
 	"donate_interface-email-unsub-title": "Lopeta Wikimedia-säätiön sähköpostien tilaus",
 	"donate_interface-email-unsub-button": "Peruuta tilaus",
 	"donate_interface-email-unsub-success": "Sinut on onnistuneesti poistettu postituslistaltamme",
