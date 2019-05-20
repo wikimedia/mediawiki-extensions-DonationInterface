@@ -111,11 +111,6 @@ div#content {
 	border: 0;
 }
 
-/* extra-specific to take precedence */
-html body #donate .errorHighlight {
-	border: 2px solid #f00 !important;
-}
-
 .errorMsg {
 	color: #f00;
 	display: inherit;

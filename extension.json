@@ -193,6 +193,10 @@
 				"donate_interface-email-explain"
 			]
 		},
+		"ext.donationInterface.emailPreferences": {
+			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
+			"dependencies": "donationInterface.skinOverride"
+		},
 		"ext.donationInterface.alwaysRedirect": {
 			"scripts": "modules/js/ext.donationInterface.alwaysRedirect.js",
 			"dependencies": "ext.donationInterface.forms"
