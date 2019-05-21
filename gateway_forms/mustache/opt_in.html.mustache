@@ -1,4 +1,4 @@
-{{# opt_in_required }}
+{{# opt_in_visible }}
                         <tr>
                             <td>
                                 <input class="opt_in_radio" name="opt_in" value="1"{{# opted_in }} checked{{/ opted_in }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_yes" }}" id="opt_in_yes" />
@@ -17,4 +17,4 @@
                             </td>
                         </tr>
                         {{{ fieldError "opt_in" }}}
-{{/ opt_in_required }}
+{{/ opt_in_visible }}

@@ -80,7 +80,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
 		$this->addSubmethods( $data );
-		$this->addRequiredFields( $data );
+		$this->addFormFields( $data );
 		$this->handleOptIn( $data );
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
@@ -130,7 +130,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		// the opt_in radio buttons.
 		$dataSources = $this->gateway->getDataSources();
 		if ( $hasValidValue && $dataSources['opt_in'] === 'get' ) {
-			$data['opt_in_required'] = false;
+			// assuming it's always going to be '_visible' isn't safe, see comment on L234
+			$data['opt_in_visible'] = false;
 		}
 	}
 
@@ -193,7 +194,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return 'srcset="' . implode( ',', $srcSet ) . '" ';
 	}
 
-	protected function addRequiredFields( &$data ) {
+	protected function addFormFields( &$data ) {
 		// If any of these are required, show the address block
 		$address_fields = [
 			'city',
@@ -207,24 +208,42 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		];
 		$show_personal_block = false;
 		$address_field_count = 0;
-		$required_fields = $this->gateway->getRequiredFields();
-		foreach ( $required_fields as $field ) {
-			$data["{$field}_required"] = true;
+		$fields = $this->gateway->getFormFields();
+		foreach ( $fields as $field => $type ) {
+			if ( $type === false ) {
+				continue;
+			}
 
-			if ( in_array( $field, $address_fields ) ) {
-				$data['address_required'] = true;
-				if ( $field !== 'street_address' ) {
-					// street gets its own line
-					$address_field_count++;
+			// if field type is true(required) or optional it should be visible
+			if ( in_array( $type, [ true, 'optional' ] ) ) {
+				$data["{$field}_visible"] = true;
+				if ( in_array( $field, $address_fields ) ) {
+					$data["address_visible"] = true;
+					if ( $field !== 'street_address' ) {
+						// street gets its own line
+						$address_field_count++;
+					}
+				}
+
+				// if field type is true(required), we also inject a *_required var to inform the view
+				if ( $type === true ) {
+					$data["{$field}_required"] = true;
+					if ( in_array( $field, $address_fields ) ) {
+						$data["address_required"] = true;
+					}
 				}
 			}
+
 			if ( !in_array( $field, $outside_personal_block ) ) {
 				$show_personal_block = true;
 			}
 		}
+
 		$data['show_personal_fields'] = $show_personal_block;
 
-		if ( !empty( $data['address_required'] ) ) {
+		// this is not great, we're assuming 'visible' (previously 'required') will always be a thing.
+		// the decision for the current _visible suffix is made on line 217
+		if ( !empty( $data["address_visible"] ) ) {
 			$classes = [
 				0 => 'fullwidth',
 				1 => 'fullwidth',
@@ -232,7 +251,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				3 => 'thirdwidth'
 			];
 			$data['address_css_class'] = $classes[$address_field_count];
-			if ( !empty( $data['state_province_required'] ) ) {
+			// not great for the ranty reasons mentioned on line 234
+			if ( !empty( $data["state_province_visible"] ) ) {
 				$this->setStateOptions( $data );
 			}
 		}

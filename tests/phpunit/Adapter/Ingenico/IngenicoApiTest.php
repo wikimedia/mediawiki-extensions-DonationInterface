@@ -272,4 +272,60 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 	}
+
+	/**
+	 * This test is a general test of the optional field behaviour and not specific to
+	 * ingenico, that sucks I know. It lives here because there was no better
+	 * alternative home for it at the time. Ideally it will be moved to a newly created
+	 * GatewatAdapterApiTest suite once we get that up and running.
+	 *
+	 */
+	public function testOptionalFieldBehaviour() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants'
+		] );
+
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['gateway'] = 'ingenico';
+		$init['action'] = 'donate';
+		$init['variant'] = 'optional';
+
+		// optional field 'last_name' present
+		$init['first_name'] = 'Opty';
+		$init['last_name'] = 'McPresent';
+
+		$this->hostedCheckoutProvider->expects( $this->any() )
+			->method( 'createHostedPayment' )
+			->willReturn(
+				[
+					'partialRedirectUrl' => $this->partialUrl,
+					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+				]
+			);
+
+		$this->hostedCheckoutProvider->expects( $this->any() )
+			->method( 'getHostedPaymentUrl' )
+			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+
+		// make request WITH optional field 'last_name' present
+		$this->doApiRequest( $init );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+
+		// check optional field present when supplied
+		$this->assertEquals( 'McPresent', $message['last_name'] );
+
+		// unset optional field 'last_name' and repeat request.
+		$init['first_name'] = 'OptyPrince';
+		unset( $init['last_name'] );
+		$this->doApiRequest( $init, [] );
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+
+		// check optional field not present
+		$this->assertArrayNotHasKey( 'last_name', $message );
+	}
 }

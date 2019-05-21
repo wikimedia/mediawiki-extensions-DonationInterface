@@ -112,6 +112,36 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		];
 	}
 
+	public function testOptionalFieldsConfig() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants'
+		] );
+
+		$init = $this->getDonorTestData( 'US' );
+		$init['contribution_tracking_id'] = '45931210';
+		$init['payment_method'] = 'cc';
+		$init['variant'] = 'optional';
+		$this->setUpRequest( $init, [ 'Donor' => $init ] );
+		$gateway = $this->getFreshGatewayObject(
+			$init, [ 'variant' => 'optional' ]
+		);
+
+		// all form fields including required and optional
+		$allFields = $gateway->getFormFields();
+		$requiredFields = $gateway->getRequiredFields();
+
+		// check the ConfigurationReader loaded in the optional fields and they're left over
+		// when requiredFields are filtered out
+		$optionals = array_filter( array_keys( $allFields ), function ( $field ) use ( $requiredFields ) {
+			// we only want values NOT in requiredFields
+			return !in_array( $field, $requiredFields );
+		} );
+
+		// optionals are set in tests/phpunit/includes/variants/optional/globalcollect/country_fields.yaml
+		$this->assertEquals( [ 'last_name', 'state_province' ], array_values( $optionals ) );
+	}
+
 	/**
 	 * Load an alternate yaml file based on 'variant'
 	 */
