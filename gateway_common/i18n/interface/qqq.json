@@ -429,7 +429,7 @@
 	"donate_interface-email-unsub-confirm": "To confirm that the user wants to unsubscribe from getting e-mail notifications. '''$1''' is the user's e-mail address.",
 	"donate_interface-email-unsub-warning": "A warning that unsubscribing from donation requests will not unsubscribe from talk page notifications, etc. Parameters:\n* $1 - the email address for donor services.",
 	"donate_interface-email-explain": "A message explaining why we need an email address, even when the donor does not want to be on our mailing list",
-	"donate_interface-email-optin-fail": "Text to display if the opt-in failed. Link to email address:$1 for more support.\n\nParameters:\n* $1 - email address of donor services",
+	"donate_interface-email-optin-fail": "Text to display if the opt-in failed. Link to email address:$1 for more support.\n\nParameters:\n* $1 - email address of donor services, $2 - link to retry",
 	"donate_interface-faqs": "Link text to the frequently asked questions page.\n{{Identical|Frequently asked questions}}",
 	"donate_interface-tax-info": "Link to information about the tax deducability of donations",
 	"donate_interface-informationsharing": "Information sharing disclaimer.\n\n\"and its service providers\" can be read as \"and '''with''' its service providers\". $1: URL of page with detailed policy. NOTE: the change made on May 3 2019 informing donors of an update will be reverted on June 3 2019.",
