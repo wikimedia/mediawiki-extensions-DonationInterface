@@ -13,3 +13,9 @@
 body.ltr #footer #footer-places {
 	display: none !important;
 }
+
+/* extra-specific to take precedence */
+html body #donate .errorHighlight,
+form .errorHighlight {
+	border: 2px solid #f00 !important;
+}

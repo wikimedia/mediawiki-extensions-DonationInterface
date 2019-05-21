@@ -9,7 +9,7 @@
         <p>{{ l10n 'fundraisersubscribe-appeal-text-001' }}</p>
 
         <div class="cf">
-            <input name="email" id="email" placeholder="{{ l10n 'donate_interface-donor-email' }}" type="text" value="{{ email }}">
+            <input name="email" id="email" required placeholder="{{ l10n 'donate_interface-donor-email' }}" type="email" value="{{ email }}">
             <button id="continue" name="submit" value="continue" class="button" type="submit">{{ l10n 'fundraisersubscribe-opt-in-continue-001' }}</button>
             <button id="cancel" name="submit" value="cancel" class="cancel" type="submit">{{ l10n 'donate_interface-cancel' }}</button>
         </div>

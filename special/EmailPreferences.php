@@ -14,7 +14,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		$this->setHeaders();
 		$this->outputHeader();
-		$this->getOutput()->addModules( 'donationInterface.skinOverride' );
+		$this->getOutput()->addModules( 'ext.donationInterface.emailPreferences' );
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
