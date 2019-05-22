@@ -257,6 +257,7 @@ class AdyenAdapter extends GatewayAdapter {
 	public function processDonorReturn( $requestValues ) {
 		// Always called outside do_transaction, so just make a new response object
 		$this->transaction_response = new PaymentTransactionResponse();
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		if ( empty( $requestValues ) ) {
 			$this->logger->info( "No response from gateway" );
 			throw new ResponseProcessingException(

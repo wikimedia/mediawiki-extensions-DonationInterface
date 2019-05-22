@@ -557,6 +557,19 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->assertEquals( 'url_placeholder', $result->getIframe(), 'PaymentResult should have iframe set' );
 	}
 
+	public function testDoPaymentFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['postal_code'] = 'T3 5TA';
+		$init['payment_method'] = 'cc';
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertNotEmpty( $result->getErrors(), 'Should have returned an error' );
+	}
+
 	/**
 	 * doPayment should recover from an attempt to use a duplicate order ID.
 	 */

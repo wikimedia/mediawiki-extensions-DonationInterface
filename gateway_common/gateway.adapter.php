@@ -271,16 +271,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$this->stageData();
 
 		BannerHistoryLogIdProcessor::onGatewayReady( $this );
-		Gateway_Extras_CustomFilters::onGatewayReady( $this );
-
-		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
-			$this->finalizeInternalStatus( FinalStatus::FAILED );
-			$this->errorState->addError( new PaymentError(
-				'internal-0001',
-				'Failed initial filters',
-				LogLevel::INFO
-			) );
-		}
 	}
 
 	/**
@@ -1003,6 +993,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		try {
 
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
+			Gateway_Extras_CustomFilters::onGatewayReady( $this );
 			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
 				$this->transaction_response->setCommunicationStatus( false );

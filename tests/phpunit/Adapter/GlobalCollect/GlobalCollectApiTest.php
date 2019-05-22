@@ -111,4 +111,19 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertEquals( '0', $message['opt_in'] );
 	}
+
+	public function testSubmitFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['postal_code'] = 'T3 5TA';
+		$init['payment_method'] = 'cc';
+		$init['gateway'] = 'globalcollect';
+		$init['action'] = 'donate';
+		unset( $init['ffname'] );
+		$apiResult = $this->doApiRequest( $init );
+		$result = $apiResult[0]['result'];
+		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
+	}
+
 }

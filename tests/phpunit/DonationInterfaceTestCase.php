@@ -135,6 +135,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return $providerConfig;
 	}
 
+	protected function setInitialFiltersToFail() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceCustomFiltersInitialFunctions' => [
+				'getScoreUtmSourceMap' => 100
+			],
+			'wgDonationInterfaceUtmSourceMap' => [
+				'/.*/' => 100,
+			],
+		] );
+	}
+
 	/**
 	 * buildRequestXmlForGlobalCollect
 	 *

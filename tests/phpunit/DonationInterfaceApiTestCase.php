@@ -20,4 +20,15 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		DonationInterfaceTestCase::resetAllEnv();
 		parent::tearDown();
 	}
+
+	protected function setInitialFiltersToFail() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceCustomFiltersInitialFunctions' => [
+				'getScoreUtmSourceMap' => 100
+			],
+			'wgDonationInterfaceUtmSourceMap' => [
+				'/.*/' => 100,
+			],
+		] );
+	}
 }
