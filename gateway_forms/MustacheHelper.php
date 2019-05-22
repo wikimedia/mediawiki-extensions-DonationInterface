@@ -12,7 +12,7 @@ class MustacheHelper {
 	 */
 	public static function render( $fileName, $data, $options = [] ) {
 		$defaultOptions = [
-			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION,
+			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION | LightnCandy::FLAG_ADVARNAME,
 		];
 
 		$options = $options + $defaultOptions;
