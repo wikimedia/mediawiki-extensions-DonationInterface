@@ -247,4 +247,21 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$this->doApiRequest( $init );
 	}
+
+	public function testSubmitFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['gateway'] = 'ingenico';
+		$init['action'] = 'donate';
+		// Should not make any API calls
+		$this->hostedCheckoutProvider->expects( $this->never() )
+			->method( $this->anything() );
+
+		$apiResult = $this->doApiRequest( $init );
+		$result = $apiResult[0]['result'];
+		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
+	}
 }

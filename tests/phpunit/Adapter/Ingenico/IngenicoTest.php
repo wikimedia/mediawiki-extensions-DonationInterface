@@ -698,4 +698,21 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		);
 		$this->assertEmpty( $result->getErrors() );
 	}
+
+	public function testDoPaymentFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['postal_code'] = 'T3 5TA';
+		$init['payment_method'] = 'cc';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		// Should not make any API calls
+		$this->hostedCheckoutProvider->expects( $this->never() )
+			->method( $this->anything() );
+
+		$result = $gateway->doPayment();
+
+		$this->assertNotEmpty( $result->getErrors(), 'Should have returned an error' );
+	}
 }
