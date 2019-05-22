@@ -490,6 +490,7 @@
 		"DonationInterfaceCustomFiltersRefRules": [],
 		"DonationInterfaceCustomFiltersSrcRules": [],
 		"DonationInterfaceCustomFiltersFunctions": [],
+		"DonationInterfaceCustomFiltersInitialFunctions": [],
 		"DonationInterfaceNameFilterRules": [],
 		"DonationInterfaceIPVelocityFailScore": 100,
 		"DonationInterfaceIPVelocityTimeout": 300,

@@ -579,15 +579,19 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $payment_method ) {
 			case 'cc':
 				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+				$checkoutUrl = $this->getTransactionDataFormAction();
 
-				if ( $this->getData_Staged( 'use_authentication' ) ) {
-					// 3D Secure is on, redirect the whole page so the donor
-					// can type in their bank verification code.
-					return PaymentResult::newRedirect( $this->getTransactionDataFormAction() );
-				} else {
-					// Display an iframe for credit card entry
-					return PaymentResult::newIframe( $this->getTransactionDataFormAction() );
+				if ( $checkoutUrl ) {
+					if ( $this->getData_Staged( 'use_authentication' ) ) {
+						// 3D Secure is on, redirect the whole page so the donor
+						// can type in their bank verification code.
+						return PaymentResult::newRedirect( $checkoutUrl );
+					} else {
+						// Display an iframe for credit card entry
+						return PaymentResult::newIframe( $checkoutUrl );
+					}
 				}
+				break;
 
 			case 'bt':
 			case 'obt':
