@@ -4,8 +4,7 @@
     width:100%;
 }
 #ingenico-iFrame {
-    margin-top:-128px;
     overflow: hidden;
-    height:50em;
+    height:20em;
     width:100%;
 }

@@ -448,6 +448,10 @@
 			"": 100,
 			"_merge_strategy": "array_plus"
 		},
+		"IngenicoGatewayHostedFormVariants": {
+			"redirect": 100,
+			"iframe": 100
+		},
 		"AmazonGatewayLoginScript": "https://api-cdn.amazon.com/sdk/login1.js",
 		"PaypalGatewayURL": "https://www.paypal.com/cgi-bin/webscr",
 		"PaypalGatewayTestingURL": "https://www.sandbox.paypal.com/cgi-bin/webscr",

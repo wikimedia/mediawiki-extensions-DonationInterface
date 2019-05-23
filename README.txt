@@ -252,6 +252,21 @@ $wgGlobalCollectGatewayAvsMap = [
 	'0' => 25, //No service available.
 	'' => 100, //No code returned. All the points.
 ]
+Ingenico Connect account info is read from SmashPig configuration, but you can
+set a map of hosted checkout variant names to IDs here. The logic in this
+extension chooses between 'redirect' and 'iframe' variants. The 'iframe'
+variant will be used by default for card transactions, and the 'redirect'
+variant will be used when bank authentication (3D Secure) might be used. By
+default both point to ID 100, the ID number Ingenico assigns to the pre-created
+look and feel. At the Connect console, you should create your 'iframe' variant
+based on the 'Minimal' template for proper positioning. If you use a variant
+based on the 'Responsive' template, you will need to change the
+#ingenico-iFrame CSS rules in this extension's ingenico.css to compensate.
+
+$wgIngenicoGatewayHostedFormVariants = [
+    'redirect' => 100,
+    'iframe' => 100
+]
 
 Amazon account info is mostly read from SmashPig configuration
 FIXME: stop duplicating SellerID and ClientID
