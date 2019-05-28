@@ -151,4 +151,12 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		unset( $init['state_province'] );
 		return $init;
 	}
+
+	public function testSubmitFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = $this->getDonorData();
+		$apiResult = $this->doApiRequest( $init );
+		$result = $apiResult[0]['result'];
+		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
+	}
 }

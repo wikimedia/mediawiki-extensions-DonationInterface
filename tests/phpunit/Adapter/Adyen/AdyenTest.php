@@ -45,7 +45,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			);
 
 		$this->setMwGlobals( [
-			'wgAdyenGatewayEnabled' => true,
+			'wgAdyenGatewayEnabled' => true
 		] );
 	}
 
@@ -230,6 +230,9 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init['language'] = 'FR';
 		$init['order_id'] = '55555';
 		$session['Donor'] = $init;
+		$session['risk_scores'] = [
+			'getScoreUtmMedium' => 10,
+		];
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
 		$result = $gateway->processDonorReturn( [
@@ -257,6 +260,9 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init['language'] = 'FR';
 		$init['order_id'] = '55555';
 		$session['Donor'] = $init;
+		$session['risk_scores'] = [
+			'getScoreUtmMedium' => 10,
+		];
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
 		$result = $gateway->processDonorReturn( [
@@ -333,5 +339,15 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 		$skinCodes = $gateway->getSkinCodes();
 		$this->assertEquals( $skinCodes['base'], 'testskin' );
+	}
+
+	public function testDoPaymentFailInitialFilters() {
+		$this->setInitialFiltersToFail();
+		$init = $this->getDonorTestData();
+
+		$gateway = $this->getFreshGatewayObject( $init );
+		$result = $gateway->doPayment();
+
+		$this->assertNotEmpty( $result->getErrors(), 'Should have returned an error' );
 	}
 }
