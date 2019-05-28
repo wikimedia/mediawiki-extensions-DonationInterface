@@ -55,10 +55,6 @@ class WmfFramework_Drupal {
 		return $fallbacks;
 	}
 
-	public static function isUseSquid() {
-		return false;
-	}
-
 	public static function setupSession( $sessionId = false ) {
 		if ( session_id() ) {
 			return;
