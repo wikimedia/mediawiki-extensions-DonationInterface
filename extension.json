@@ -184,15 +184,6 @@
 		"iframe.liberator": {
 			"scripts": "modules/iframe.liberator.js"
 		},
-		"ext.donationInterface.emailExplain": {
-			"scripts": "modules/js/ext.donationInterface.emailExplain.js",
-			"dependencies": [
-				"ext.donationInterface.forms"
-			],
-			"messages": [
-				"donate_interface-email-explain"
-			]
-		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
 			"dependencies": "donationInterface.skinOverride"
@@ -229,6 +220,9 @@
 			"dependencies": [
 				"ext.donationInterface.validation",
 				"mediawiki.util"
+			],
+			"messages": [
+				"donate_interface-email-explain"
 			]
 		},
 		"ext.donationInterface.mustache.styles": {

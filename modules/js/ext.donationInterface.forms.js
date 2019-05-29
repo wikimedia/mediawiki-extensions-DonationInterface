@@ -179,6 +179,10 @@
 
 	$( function () {
 
+		var emailRow = $( '#email' ).closest( 'tr' ),
+			emailExplainMessage = mw.msg( 'donate_interface-email-explain' ),
+			optInValue = mw.donationInterface.forms.getOptIn();
+
 		$( '#first_name' ).focus();
 
 		// If submethods are visible, and a submethod is already selected on
@@ -211,5 +215,13 @@
 				di.forms.enableInput();
 			}
 		);
+
+		function showEmailExplain() {
+			emailRow.after( '<tr id="email_explain"><td>' + emailExplainMessage + '</td></tr>' );
+		}
+
+		if ( optInValue === '0' ) {
+			showEmailExplain();
+		}
 	} );
 } )( jQuery, mediaWiki );
