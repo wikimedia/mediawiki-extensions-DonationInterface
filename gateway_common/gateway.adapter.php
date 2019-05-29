@@ -2510,7 +2510,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return array
 	 */
 	public function getRequiredFields( $knownData = null ) {
-		$all_fields = $this->getFormFields();
+		$all_fields = $this->getFormFields( $knownData );
 		$required_fields = array_filter( $all_fields, function ( $val ) {
 			return $val === true;
 		} );

@@ -215,7 +215,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 
 			// if field type is true(required) or optional it should be visible
-			if ( in_array( $type, [ true, 'optional' ] ) ) {
+			if ( in_array( $type, [ true, 'optional' ], true ) ) {
 				$data["{$field}_visible"] = true;
 				if ( in_array( $field, $address_fields ) ) {
 					$data["address_visible"] = true;
