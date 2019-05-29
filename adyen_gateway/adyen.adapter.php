@@ -15,6 +15,9 @@
  * GNU General Public License for more details.
  *
  */
+
+use Psr\Log\LogLevel;
+use SmashPig\Core\PaymentError;
 use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\ValidationAction;
 
@@ -205,11 +208,32 @@ class AdyenAdapter extends GatewayAdapter {
 
 			switch ( $transaction ) {
 				case 'donate':
-					$formaction = $this->getProcessorUrl() . '/hpp/pay.shtml';
 					// Run Session Velocity here because we don't cURL anything
-					$this->runSessionVelocityFilter();
-					// FIXME: should skip next step if session velocity rejected
-					$this->runAntifraudFilters();
+					if ( $this->runSessionVelocityFilter() ) {
+						// We run the full antifraud filter list here and not just the 'initial'
+						// list like we do in other adaptors. This is so we can have all the
+						// scores, including minFraud, available to send to the pending queue.
+						// They need to be in 'pending' because we make the final call as to
+						// whether we want to capture the payment in the IPN handler, not in
+						// this class's return processing.
+						Gateway_Extras_CustomFilters::onGatewayReady( $this );
+						$this->runAntifraudFilters();
+					}
+					if ( $this->getValidationAction() === ValidationAction::REJECT ) {
+						$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
+						$this->transaction_response->setCommunicationStatus( false );
+						$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+						$this->transaction_response->addError(
+							new PaymentError(
+								'internal-0000',
+								"Failed pre-process checks for transaction type $transaction.",
+								LogLevel::INFO
+							)
+						);
+						// No need to increment sequence number, since we
+						// won't be sending the donor to the processor.
+						return $this->transaction_response;
+					}
 					// Add the risk score to our data. This will also trigger
 					// staging, placing the risk score in the constructed URL
 					// as 'offset' for use in processor-side fraud filters.
@@ -222,6 +246,7 @@ class AdyenAdapter extends GatewayAdapter {
 
 					$requestParams = $this->buildRequestParams();
 
+					$formaction = $this->getProcessorUrl() . '/hpp/pay.shtml';
 					$this->transaction_response->setRedirect( $formaction );
 					$this->transaction_response->setData( $requestParams );
 					// FIXME: might be an iframe, might be a redirect
@@ -257,7 +282,7 @@ class AdyenAdapter extends GatewayAdapter {
 	public function processDonorReturn( $requestValues ) {
 		// Always called outside do_transaction, so just make a new response object
 		$this->transaction_response = new PaymentTransactionResponse();
-		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+
 		if ( empty( $requestValues ) ) {
 			$this->logger->info( "No response from gateway" );
 			throw new ResponseProcessingException(
