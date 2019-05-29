@@ -4,3 +4,4 @@ cc:
         country: true
         name: true
         email: true
+        payment_submethod: true
