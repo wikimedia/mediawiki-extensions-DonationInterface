@@ -2414,7 +2414,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Build list of required fields
+	 * Build list of form fields
 	 * TODO: Determine if this ever needs to be overridden per gateway, or if
 	 * all the per-country / per-gateway cases can be expressed declaratively
 	 * in payment method / submethod metadata.  If that's the case, move this
@@ -2423,12 +2423,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *  depend on country or payment method. Falls back to unstaged data.
 	 * @return array of field names (empty if no payment method set)
 	 */
-	public function getRequiredFields( $knownData = null ) {
+	public function getFormFields( $knownData = null ) {
 		if ( $knownData === null ) {
 			$knownData = $this->getData_Unstaged_Escaped();
 		}
-		$required_fields = [];
-		$validation = [];
+		$fields = [];
+		$fieldsConfig = [];
 
 		// Add any country-specific required fields
 		if (
@@ -2437,14 +2437,14 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		) {
 			$country = $knownData['country'];
 			if ( isset( $this->config['country_fields'][$country] ) ) {
-				$validation = $this->config['country_fields'][$country];
+				$fieldsConfig = $this->config['country_fields'][$country];
 			}
 		}
 
 		if ( !empty( $knownData['payment_method'] ) ) {
 			$methodMeta = $this->getPaymentMethodMeta( $knownData['payment_method'] );
 			if ( isset( $methodMeta['validation'] ) ) {
-				$validation = $methodMeta['validation'] + $validation;
+				$fieldsConfig = $methodMeta['validation'] + $fieldsConfig;
 			}
 		}
 
@@ -2454,54 +2454,68 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				// submethod validation can override method validation
 				// TODO: child method anything should supersede parent method
 				// anything, and PaymentMethod should handle that.
-				$validation = $submethodMeta['validation'] + $validation;
+				$fieldsConfig = $submethodMeta['validation'] + $fieldsConfig;
 			}
 		}
 
-		foreach ( $validation as $type => $enabled ) {
-			if ( $enabled !== true ) {
+		foreach ( $fieldsConfig as $fieldName => $requirementFlag ) {
+			if ( $requirementFlag === false ) {
 				continue;
 			}
 
-			switch ( $type ) {
+			switch ( $fieldName ) {
 				case 'address' :
-					$check_not_empty = [
-						'street_address',
-						'city',
-						'country',
-						'postal_code', // this should really be added or removed, depending on the country and/or gateway requirements.
+					$field = [
+						'street_address' => $requirementFlag,
+						'city' => $requirementFlag,
+						'country' => $requirementFlag,
+						'postal_code' => $requirementFlag,
+						// 'postal_code' this should really be added or removed, depending on the country and/or gateway requirements.
 						// however, that's not happening in this class in the code I'm replacing, so...
 						// TODO: Something clever in the DataValidator with data groups like these.
 					];
 					if ( !empty( $knownData['country'] ) ) {
 						$country = $knownData['country'];
 						if ( $country && Subdivisions::getByCountry( $country ) ) {
-							$check_not_empty[] = 'state_province';
+							$field['state_province'] = $requirementFlag;
 						}
 					}
 					break;
 				case 'creditCard' :
-					$check_not_empty = [
-						'card_num',
-						'cvv',
-						'expiration',
-						'card_type'
+					$field = [
+						'card_num' => $requirementFlag,
+						'cvv' => $requirementFlag,
+						'expiration' => $requirementFlag,
+						'card_type' => $requirementFlag
 					];
 					break;
 				case 'name' :
-					$check_not_empty = [
-						'first_name',
-						'last_name'
+					$field = [
+						'first_name' => $requirementFlag,
+						'last_name'  => $requirementFlag
 					];
 					break;
 				default:
-					$check_not_empty = [ $type ];
+					$field = [ $fieldName => $requirementFlag ];
 					break;
 			}
-			$required_fields = array_unique( array_merge( $required_fields, $check_not_empty ) );
+			$fields = array_merge( $fields, $field );
 		}
 
-		return $required_fields;
+		return $fields;
+	}
+
+	/**
+	 * @param null $knownData
+	 * @return array
+	 */
+	public function getRequiredFields( $knownData = null ) {
+		$all_fields = $this->getFormFields( $knownData );
+		$required_fields = array_filter( $all_fields, function ( $val ) {
+			return $val === true;
+		} );
+
+		return array_keys( $required_fields );
 	}
 
 	/**

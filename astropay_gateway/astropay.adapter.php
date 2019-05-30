@@ -219,21 +219,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		return $result;
 	}
 
-	/**
-	 * Overriding parent method to add fiscal number
-	 * @inheritDoc
-	 */
-	public function getRequiredFields( $knownData = null ) {
-		$fields = parent::getRequiredFields( $knownData );
-		$noFiscalRequired = [ 'MX', 'PE' ];
-		$country = $this->getData_Unstaged_Escaped( 'country' );
-		if ( !in_array( $country, $noFiscalRequired ) ) {
-			$fields[] = 'fiscal_number';
-		}
-		$fields[] = 'payment_submethod';
-		return $fields;
-	}
-
 	public function getCurrencies( $options = [] ) {
 		$country = $options['country'] ?? $this->getData_Unstaged_Escaped( 'country' );
 

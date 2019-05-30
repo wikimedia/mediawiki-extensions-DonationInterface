@@ -34,12 +34,6 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	public function getRequiredFields( $knownData = null ) {
-		$fields = parent::getRequiredFields( $knownData );
-		$fields[] = 'payment_submethod';
-		return $fields;
-	}
-
 	function defineAccountInfo() {
 		$this->accountInfo = [
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
