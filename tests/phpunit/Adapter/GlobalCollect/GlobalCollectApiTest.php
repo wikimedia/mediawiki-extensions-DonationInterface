@@ -125,24 +125,4 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 	}
-//
-// public function testSubmitEmployerField() {
-// $this->setMwGlobals( [
-// 'wgDonationInterfaceVariantConfigurationDirectory' =>
-// __DIR__ . '/../includes/variants'
-// ] );
-//
-// $init = DonationInterfaceTestCase::getDonorTestData( 'GB' );
-// $init['email'] = 'good@innocent.com';
-// $init['postal_code'] = 'T3 5TA';
-// $init['payment_method'] = 'cc';
-// $init['gateway'] = 'globalcollect';
-// $init['action'] = 'donate';
-// $init['variant'] = 'employer';
-// $init['employer'] = 'wikimedia foundation';
-//
-// $this->doApiRequest( $init );
-// $message = QueueWrapper::getQueue( 'pending' )->pop();
-// $this->assertEquals( 'wikimedia foundation', $message['employer'] );
-// }
 }
