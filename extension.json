@@ -184,6 +184,12 @@
 		"iframe.liberator": {
 			"scripts": "modules/iframe.liberator.js"
 		},
+		"ext.donationInterface.employerExplain": {
+			"scripts": "modules/js/ext.donationInterface.employerExplain.js"
+		},
+		"ext.donationInterface.employerExplainAlt": {
+			"scripts": "modules/js/ext.donationInterface.employerExplainAlt.js"
+		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
 			"dependencies": "donationInterface.skinOverride"
