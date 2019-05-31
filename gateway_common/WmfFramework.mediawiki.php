@@ -44,11 +44,6 @@ class WmfFramework_Mediawiki {
 		return Language::getFallbacksFor( $language );
 	}
 
-	public static function isUseSquid() {
-		global $wgUseSquid;
-		return $wgUseSquid;
-	}
-
 	public static function setupSession( $sessionId = false ) {
 		SessionManager::getGlobalSession()->persist();
 	}
