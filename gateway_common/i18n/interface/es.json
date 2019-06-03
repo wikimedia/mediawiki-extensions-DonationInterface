@@ -37,7 +37,8 @@
 			"Indiralena",
 			"2axterix2",
 			"KATRINE1992",
-			"Jelou"
+			"Jelou",
+			"MShaver"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -408,7 +409,7 @@
 	"donate_interface-email-unsub-warning": "Esto va a cancelar tu suscripción de los correos electrónicos que la Fundación Wikimedia te envía como donante. Todavía puedes recibir mensajes en esta dirección de correo electrónico si está asociada con una cuenta en uno de nuestros proyectos. Si tienes alguna pregunta, ponte en contacto con <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-faqs": "Preguntas frecuentes",
 	"donate_interface-tax-info": "Información de desgravación de impuestos",
-	"donate_interface-informationsharing": "Hemos actualizado nuestra <a href=\"$1\">normativa de privacidad para donantes</a>, que entró en vigor el 15 de abril de 2019. No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con la Fundación Wikimedia, la organización sin fines de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">normativa de donantes</a>. La Fundación Wikimedia y sus proveedores de servicios se ubican en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las tuyas.",
+	"donate_interface-informationsharing": "Hemos actualizado nuestra <a href=\"$1\">normativa de privacidad para donantes</a>, que entró en vigor el 15 de abril de 2019. No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con la Fundación Wikimedia, la organización sin ánimo de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">normativa de donantes</a>. La Fundación Wikimedia y sus proveedores de servicios se ubican en los Estados Unidos y en otros países cuyas leyes de privacidad pueden ser distintas a las tuyas.",
 	"donate_interface-currency-change": "¿Cambiar?",
 	"donate_interface-bank_transfer_message": "Ten en cuenta que tu declaración mostrará \"Global Collect\" como el destinatario de este regalo. Global Collect está autorizado para aceptar y procesar los pagos en nombre de la Fundación Wikimedia. Recuerda incluir el número de referencia que se muestra aquí en tu transferencia bancaria y siéntete libre de enviarnos un correo electrónico a $1 si tienes alguna pregunta o inquietud.",
 	"donate_interface-globalcollect-proxy": "Ten en cuenta que el extracto bancario mostrará a \"Global Collect\" como destinatario de este regalo. Global Collect está autorizado para aceptar y procesar pagos en nombre de la Fundación Wikimedia.",
@@ -423,7 +424,7 @@
 	"donate_interface-monthlybox-yes": "Sin duda, hacerla mensual",
 	"donate_interface-monthlybox-no": "NO, hacer una donación única",
 	"donate_interface-monthlybox-bottom": "Tu donación se procesará de forma segura.",
-	"donate_interface-monthly-cancel": "En el caso de las donadores periódicos, la Fundación Wikimedia realizará todos los meses el cargo correspondiente el mismo día del mes de la primera donación, hasta el momento en que nos notifiques que quieras cancelar tu pago. Las donaciones iniciadas en los días 29, 30 o 31 se cargarán el último día del mes en los meses que sean más cortos, lo más cerca posible en el tiempo a la fecha original. Para cualquier pregunta o duda, pónte en contacto con $1.",
+	"donate_interface-monthly-cancel": "En el caso de las donaciones periódicas, la Fundación Wikimedia realizará todos los meses el cargo correspondiente el mismo día del mes de la primera donación, hasta el momento en que nos notifiques que quieras cancelar tu pago. Las donaciones iniciadas en los días 29, 30 o 31 se cargarán el último día del mes en los meses que sean más cortos, lo más cerca posible en el tiempo a la fecha original. Para cualquier pregunta o duda, ponte en contacto con $1.",
 	"donate_interface-onetime": "Hacer una donación única",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Una sola vez",
