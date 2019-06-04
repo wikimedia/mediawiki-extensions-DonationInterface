@@ -256,6 +256,50 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->doApiRequest( $init );
 	}
 
+	/**
+	 * Submit payments with option to recur when variant like upsell*
+	 * Note that the variant behavior under test here is handled in
+	 * code and not in a variant config directory.
+	 */
+	public function testUpsellVariant() {
+		$init = DonationInterfaceTestCase::getDonorTestData();
+		$init['email'] = 'good@innocent.com';
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['gateway'] = 'ingenico';
+		$init['action'] = 'donate';
+		$init['variant'] = 'upsell123';
+
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'createHostedPayment' )->with(
+				$this->callback( function ( $actual ) use ( $init ) {
+					$hcsi = [
+						'isRecurring' => true
+					];
+					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$cpmsi = [
+						'tokenize' => true,
+						'recurringPaymentSequenceIndicator' => 'first'
+					];
+					$this->assertArraySubset( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
+					return true;
+				} )
+			)
+			->willReturn(
+				[
+					'partialRedirectUrl' => $this->partialUrl,
+					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+				]
+			);
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentUrl' )->with(
+				$this->equalTo( $this->partialUrl )
+			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+
+		$this->doApiRequest( $init );
+	}
+
 	public function testSubmitFailInitialFilters() {
 		$this->setInitialFiltersToFail();
 		$init = DonationInterfaceTestCase::getDonorTestData();
