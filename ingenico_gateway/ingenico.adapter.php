@@ -253,9 +253,7 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	 */
 	protected function tuneForRecurring() {
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
-		$variant = $this->getData_Unstaged_Escaped( 'variant' );
-		$willUpsell = strstr( $variant, 'upsell' ) !== false;
-		if ( $isRecurring || $willUpsell ) {
+		if ( $isRecurring || $this->showRecurringUpsell() ) {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
 					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],
@@ -403,6 +401,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function shouldRectifyOrphan() {
+		return true;
+	}
+
+	protected function supportsRecurringUpsell() {
 		return true;
 	}
 }

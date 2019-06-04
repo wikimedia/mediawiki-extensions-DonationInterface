@@ -401,4 +401,13 @@ interface GatewayType {
 	 */
 	public function logPending();
 
+	/**
+	 * Returns true if we should try to ask one-time donors to upgrade
+	 * their donation to a monthly donation. This is only possible with
+	 * certain processors, and may depend on a variant parameter passed
+	 * in on the query string.
+	 *
+	 * @return boolean
+	 */
+	public function showRecurringUpsell();
 }
