@@ -28,11 +28,11 @@ module.exports = function ( grunt ) {
 				syntax: 'less'
 			},
 			shared: '{modules,gateway_forms}/{**/,}*.{css,less}',
-			gateways: '{globalcollect,amazon,adyen,ingenico}_gateway/{**/,}*.{css,less}'
+			gateways: '{amazon,ingenico}_gateway/{**/,}*.{css,less}'
 		},
 		banana: {
 			options: {
-					requireLowerCase: false
+				requireLowerCase: false
 			},
 			shared: 'gateway_common/i18n/*/',
 			gateways: '{adyen,amazon,astropay,globalcollect,paypal}_gateway/i18n/'
