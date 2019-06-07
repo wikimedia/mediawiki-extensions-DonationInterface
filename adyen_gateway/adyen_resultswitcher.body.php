@@ -1,12 +1,8 @@
 <?php
 
-class AdyenGatewayResult extends GatewayPage {
+class AdyenGatewayResult extends ResultSwitcher {
 
 	protected $gatewayIdentifier = AdyenAdapter::IDENTIFIER;
-
-	protected function handleRequest() {
-		$this->handleResultRequest();
-	}
 
 	protected function isReturnFramed() {
 		$skinCode = $this->getRequest()->getVal( 'skinCode' );

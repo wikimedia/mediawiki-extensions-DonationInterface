@@ -106,6 +106,7 @@
 		"ResponseCodes": "gateway_common/ResponseCodes.php",
 		"ResponseProcessingException": "gateway_common/ResponseProcessingException.php",
 		"ResultPages": "gateway_common/ResultPages.php",
+		"ResultSwitcher": "gateway_common/ResultSwitcher.php",
 		"StagingHelper": "gateway_common/StagingHelper.php",
 		"StreetAddress": "gateway_common/StreetAddress.php",
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
