@@ -387,7 +387,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				'ffname' => $form,
 			] );
 			$this->displayForm();
-		} elseif ( count( $result->getErrors() ) ) {
+		} elseif (
+			count( $result->getErrors() ) ||
+			$this->adapter->showRecurringUpsell()
+		) {
 			$this->displayForm();
 		} else {
 			// Success.
