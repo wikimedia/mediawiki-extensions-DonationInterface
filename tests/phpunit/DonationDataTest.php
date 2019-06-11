@@ -409,6 +409,52 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertNull( $empty, 'Too many messages on the queue' );
 	}
 
+	public function testGetSessionFields() {
+		$actual = DonationData::getSessionFields();
+		$expected = [
+			'contribution_tracking_id',
+			'anonymous',
+			'utm_source',
+			'utm_medium',
+			'utm_campaign',
+			'language',
+			'email',
+			'first_name',
+			'last_name',
+			'street_address',
+			'supplemental_address_1',
+			'city',
+			'state_province',
+			'country',
+			'postal_code',
+			'gateway',
+			'gateway_account',
+			'gateway_txn_id',
+			'order_id',
+			'subscr_id',
+			'recurring',
+			'payment_method',
+			'payment_submethod',
+			'response',
+			'currency',
+			'amount',
+			'user_ip',
+			'date',
+			'gateway_session_id',
+			'recurring_payment_token',
+			'opt_in',
+			'employer',
+			'order_id',
+			'appeal',
+			'variant',
+			'processor_form',
+			'referrer',
+			'contact_id',
+			'contact_hash'
+		];
+		$this->assertArrayEquals( $expected, $actual, false );
+	}
+
 	/**
 	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function.
 	 * I know that's more regression-ish, but I stand by it. :p
