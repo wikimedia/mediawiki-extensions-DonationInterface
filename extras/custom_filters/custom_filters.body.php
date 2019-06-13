@@ -1,7 +1,5 @@
 <?php
 
-use SmashPig\CrmLink\ValidationAction;
-
 class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	// filter list to run on adapter construction
@@ -150,11 +148,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
 
-		// Always send a message if we're about to charge or redirect the donor
-		// Only send a message on initial validation if things look fishy
-		if ( $phase === self::PHASE_VALIDATE || $localAction !== ValidationAction::PROCESS ) {
-			$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
-		}
+		$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
 
 		if ( !$this->gateway_adapter->isBatchProcessor() ) {
 			// Always keep the stored scores up to date

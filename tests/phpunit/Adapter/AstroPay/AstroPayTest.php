@@ -473,9 +473,30 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( ValidationAction::CHALLENGE, $gateway->getValidationAction(), 'Validation action is not as expected' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 60, $exposed->risk_score, 'RiskScore is not as expected' );
-		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
-		SourceFields::removeFromMessage( $message );
-		$expected = [
+
+		$initialMessage = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		$validateMessage = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+
+		SourceFields::removeFromMessage( $initialMessage );
+		SourceFields::removeFromMessage( $validateMessage );
+
+		$expectedInitial = [
+			'validation_action' => ValidationAction::PROCESS,
+			'risk_score' => 0,
+			'score_breakdown' => [
+				'initial' => 0,
+			],
+			'user_ip' => '127.0.0.1',
+			'gateway_txn_id' => false,
+			'date' => $initialMessage['date'],
+			'server' => gethostname(),
+			'gateway' => 'astropay',
+			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'payment_method' => 'cc',
+		];
+
+		$expectedValidate = [
 			'validation_action' => ValidationAction::CHALLENGE,
 			'risk_score' => 60,
 			'score_breakdown' => [
@@ -488,14 +509,16 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			],
 			'user_ip' => '127.0.0.1',
 			'gateway_txn_id' => false,
-			'date' => $message['date'],
+			'date' => $validateMessage['date'],
 			'server' => gethostname(),
 			'gateway' => 'astropay',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
 		];
-		$this->assertEquals( $expected, $message );
+
+		$this->assertEquals( $expectedInitial, $initialMessage );
+		$this->assertEquals( $expectedValidate, $validateMessage );
 	}
 
 	function testStageFiscalNumber() {

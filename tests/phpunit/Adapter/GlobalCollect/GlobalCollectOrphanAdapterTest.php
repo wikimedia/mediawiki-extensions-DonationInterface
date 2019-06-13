@@ -184,9 +184,31 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
-		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
-		SourceFields::removeFromMessage( $message );
-		$expected = [
+
+		$initialMessage = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		$validateMessage = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+
+		SourceFields::removeFromMessage( $initialMessage );
+		SourceFields::removeFromMessage( $validateMessage );
+
+		$expectedInitial = [
+			'validation_action' => ValidationAction::PROCESS,
+			'risk_score' => 0,
+			'score_breakdown' => [
+				// FIXME: need to enable utm / email / country checks ???
+				'initial' => 0,
+			],
+			'user_ip' => null, // FIXME
+			'gateway_txn_id' => false,
+			'date' => $initialMessage['date'],
+			'server' => gethostname(),
+			'gateway' => 'globalcollect',
+			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'payment_method' => 'cc',
+		];
+
+		$expectedValidate = [
 			'validation_action' => ValidationAction::REVIEW,
 			'risk_score' => 40,
 			'score_breakdown' => [
@@ -197,13 +219,15 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 			],
 			'user_ip' => null, // FIXME
 			'gateway_txn_id' => '55555',
-			'date' => $message['date'],
+			'date' => $validateMessage['date'],
 			'server' => gethostname(),
 			'gateway' => 'globalcollect',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
 		];
-		$this->assertEquals( $expected, $message );
+
+		$this->assertEquals( $expectedInitial, $initialMessage );
+		$this->assertEquals( $expectedValidate, $validateMessage );
 	}
 }
