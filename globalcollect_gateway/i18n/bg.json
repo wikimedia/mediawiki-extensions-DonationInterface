@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"StanProg"
+			"StanProg",
+			"Ted Masters"
 		]
 	},
-	"globalcollect_gateway-response-9150": "Невалиден език."
+	"globalcollect_gateway-response-9150": "Невалиден език.",
+	"globalcollect_gateway-response-default": "Възникна грешка при обработката на Вашата транзакция.\nМоля, опитайте отново."
 }
