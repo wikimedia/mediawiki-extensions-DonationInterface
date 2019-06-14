@@ -993,6 +993,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		try {
 
 			$this->executeIfFunctionExists( 'pre_process_' . $transaction );
+			$this->logger->debug( 'Running onGatewayReady filters' );
 			Gateway_Extras_CustomFilters::onGatewayReady( $this );
 			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
 				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );

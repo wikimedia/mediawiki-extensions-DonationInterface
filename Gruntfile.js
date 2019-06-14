@@ -4,65 +4,41 @@
  * @package DonationInterface
  */
 
-/*jshint node:true */
+/* eslint-env node */
 module.exports = function ( grunt ) {
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
-	grunt.loadNpmTasks( 'grunt-jscs' );
+	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-stylelint' );
 
 	grunt.initConfig( {
-		pkg: grunt.file.readJSON( 'package.json' ),
-		jshint: {
+		eslint: {
 			options: {
-				jshintrc: true
+				reportUnusedDisableDirectives: true,
+				extensions: [ '.js', '.json' ],
+				cache: true
 			},
 			shared: [
-				'*.js',
-				'modules/*.js',
-				'modules/js/*.js',
-				'!modules/js/mailcheck.js',
-				'!modules/js/lg-hash.js',
-				'!modules/js/lightgallery.js'
+				'{.,modules/**}/*.js{,on}',
+				'!modules/js/{mailcheck,lg-hash,lightgallery}.js'
 			],
-			tests: 'tests/*/*.js',
 			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/forms/**/*.js'
 		},
-		jscs: {
-			shared: { src: '<%= jshint.shared %>' },
-			tests: { src: '<%= jshint.tests %>' },
-			gateways: { src: '<%= jshint.gateways %>' }
+		stylelint: {
+			options: {
+				syntax: 'less'
+			},
+			shared: '{modules,gateway_forms}/{**/,}*.{css,less}',
+			gateways: '{amazon,ingenico}_gateway/{**/,}*.{css,less}'
 		},
 		banana: {
+			options: {
+				requireLowerCase: false
+			},
 			shared: 'gateway_common/i18n/*/',
 			gateways: '{adyen,amazon,astropay,globalcollect,paypal}_gateway/i18n/'
-		},
-		watch: {
-			files: [
-				'.{jscsrc,jshintignore,jshintrc}',
-				'<%= jshint.shared %>',
-				'<%= jshint.tests %>',
-				'<%= jshint.gateways %>'
-			],
-			tasks: 'test'
-		},
-		jsonlint: {
-			all: [
-				'**/*.json',
-				'!node_modules/**',
-				'!vendor/**'
-			]
-		},
-		stylelint: {
-			all: [
-				'modules/css/*.css'
-			]
 		}
 	} );
 
-	grunt.registerTask( 'lint', [ 'jshint', 'jscs', 'jsonlint', 'banana', 'stylelint' ] );
-	grunt.registerTask( 'test', [ 'lint' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'banana' ] );
 	grunt.registerTask( 'default', 'test' );
 };

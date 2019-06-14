@@ -199,7 +199,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Исправите грешке у свом CURP/RFC/IFE",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Исправите грешке у свом DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Исправите грешке у свом CI",
-	"donate_interface-donate-error-try-a-different-card": "Молимо [$1 пробајте другу картицу] или један од [$2 других начина донирања], или нас контактирајте преко $3",
+	"donate_interface-donate-error-try-a-different-card": "[$1 Покушајте да донирате другом картицом], на један од [$2 других начина] или нам се обратите преко $3",
 	"donate_interface-donate-error-thank-you-for-your-support": "Хвала на вашој подршци!",
 	"php-response-declined": "Плаћање није прихваћено.",
 	"donate_interface-thankyou": "Хвала вам на прилогу!",

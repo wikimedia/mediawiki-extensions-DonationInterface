@@ -2,12 +2,15 @@
 #left-navigation {
 	display: none !important;
 }
+
 #right-navigation {
 	display: none !important;
 }
+
 #p-search {
 	display: none !important;
 }
+
 body.ltr #footer #footer-places {
 	display: none !important;
 }
@@ -43,6 +46,7 @@ div.donor {
 	background-color: #cce7cd;
 	border: 1px solid #5eac58;
 }
+
 p#informationsharing,
 p#monthlycancel {
 	padding: 0 15px;
@@ -56,6 +60,7 @@ body.rtl input {
 	/* @noflip */
 	direction: rtl;
 }
+
 input#email {
 	/* @noflip */
 	direction: ltr;
@@ -68,6 +73,7 @@ input#email {
 .halfwidth {
 	width: 50%;
 }
+
 .halfwidth:not( :first-child ) {
 	margin-left: 2%;
 	width: 48%;
@@ -76,6 +82,7 @@ input#email {
 .thirdwidth:first-child {
 	width: 34%;
 }
+
 .thirdwidth:not( :first-child ) {
 	margin-left: 2%;
 	width: 31%;
@@ -97,6 +104,7 @@ input#email {
 #mw-panel div.portal {
 	display: none !important;
 }
+
 div#footer #footer-icons {
 	display: none !important;
 }
@@ -133,19 +141,24 @@ div#content {
 		margin: 0;
 		padding: 1em;
 	}
+
 	#mw-navigation {
 		display: none;
 	}
+
 	#appeal {
 		display: none;
 	}
+
 	#donate {
 		display: block;
 	}
+
 	div#greenBackground {
 		padding: 1em;
 		width: inherit;
 	}
+
 	table#payment-table-donor {
 		width: 100%;
 	}
@@ -154,6 +167,7 @@ div#content {
 	table#payment-table-donor td {
 		padding: 0;
 	}
+
 	td#donate form select,
 	td#donate form input {
 		display: block;
@@ -164,6 +178,7 @@ div#content {
 		margin: 5px 0;
 		padding: 10px 3%;
 	}
+
 	td#donate form input.hidden {
 		display: none;
 	}
