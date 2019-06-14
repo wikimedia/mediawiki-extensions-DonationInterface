@@ -14,6 +14,11 @@ class ConfigurationReader {
 	protected $baseDirectory;
 
 	/**
+	 * @var string $localSettingDirectory
+	 */
+	protected $localSettingDirectory;
+
+	/**
 	 * @var string
 	 */
 	protected $variantBaseDirectory;
@@ -23,9 +28,10 @@ class ConfigurationReader {
 	 */
 	protected $gatewayIdentifier;
 
-	public function __construct( $baseDirectory, $gatewayIdentifier, $variantBaseDirectory = null ) {
+	public function __construct( $baseDirectory, $gatewayIdentifier, $localSettingDirectory = null, $variantBaseDirectory = null ) {
 		$this->baseDirectory = $baseDirectory;
 		$this->variantBaseDirectory = $variantBaseDirectory;
+		$this->localSettingDirectory = $localSettingDirectory;
 		$this->gatewayIdentifier = $gatewayIdentifier;
 	}
 
@@ -33,6 +39,20 @@ class ConfigurationReader {
 		$config = $this->setConfigurationFromDirectory(
 			$this->baseDirectory . DIRECTORY_SEPARATOR . 'config'
 		);
+		if ( $this->localSettingDirectory ) {
+			$localSettings = implode(
+				DIRECTORY_SEPARATOR,
+				[
+					$this->localSettingDirectory,
+					$this->gatewayIdentifier
+				]
+			);
+			if ( is_dir( $localSettings ) ) {
+				$config = $this->setConfigurationFromDirectory(
+					$localSettings, $config
+				);
+			}
+		}
 		if (
 			$variant &&
 			$this->variantBaseDirectory &&

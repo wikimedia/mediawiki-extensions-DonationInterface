@@ -283,6 +283,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$configurationReader = new ConfigurationReader(
 			$this->getBasedir(),
 			static::getIdentifier(),
+			$this->getGlobal( 'LocalConfigurationDirectory' ),
 			$this->getGlobal( 'VariantConfigurationDirectory' )
 		);
 		$this->config = $configurationReader->readConfiguration( $variant );
