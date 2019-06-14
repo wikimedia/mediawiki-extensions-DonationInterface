@@ -85,7 +85,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		DonationInterface::setSmashPigProvider( $gatewayName );
 
 		try {
-			$variant = $this->getRequest()->getVal( 'variant' );
+			$variant = $this->getVariant();
 			$this->adapter = new $className( [ 'variant' => $variant ] );
 			$this->overrideLogo();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
@@ -555,5 +555,20 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			}
 			$this->getOutput()->addInlineStyle( $css );
 		}
+	}
+
+	protected function getVariant() {
+		// FIXME: This is the sort of thing DonationData is supposed to do,
+		// but we construct it too late to use variant in the configuration
+		// reader. We should be pulling all the get / post / session variables
+		// up here in the page class before creating the adapter.
+		$variant = $this->getRequest()->getVal( 'variant' );
+		if ( !$variant ) {
+			$donorData = $this->getRequest()->getSessionData( 'Donor' );
+			if ( $donorData && !empty( $donorData['variant'] ) ) {
+				$variant = $donorData['variant'];
+			}
+		}
+		return $variant;
 	}
 }
