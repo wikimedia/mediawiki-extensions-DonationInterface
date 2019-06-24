@@ -695,6 +695,26 @@ $forms_whitelist['astropay-co'] = [
 	],
 	'selection_weight' => 110,
 ];
+$forms_whitelist['astropay-in'] = [
+	'gateway' => 'astropay',
+	'countries' => [ '+' => 'IN' ],
+	'currencies' => [ '+' => 'INR' ],
+	'payment_methods' => [
+		'cc' => [
+			'visa',
+			'mc',
+			'amex',
+			'diners',
+			'rupay'
+		],
+		'bt' => [
+			'netbanking',
+			// 'paytmwallet'
+			'upi'
+		],
+	],
+	'selection_weight' => 110,
+];
 $forms_whitelist['astropay-mx'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'MX' ],
