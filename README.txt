@@ -129,6 +129,15 @@ $wgDonationInterfaceFailPage = 'Donate-error'
 $wgDonationInterfaceCancelPage = 'Donate-error'
 
 /**
+ * If this is set to a valid directory path, yaml files under this path will
+ * replace built-in config files. For example, if this is set to /etc/di/,
+ * then /etc/di/globalcollect/country_fields.yaml will be used instead of
+ * the built-in globalcollect_gateway/config/country_fields.yaml.
+ * Superseded files will be completely ignored, so copy and modify originals.
+ */
+$wgDonationInterfaceLocalConfigurationDirectory = false
+
+/**
  * If this is set to a valid directory path, yaml files under this path can
  * potentially replace built-in config files. For example, if this is set to
  * /etc/di_alt/, and query string variable 'variant' has value 'nostate',
@@ -136,6 +145,7 @@ $wgDonationInterfaceCancelPage = 'Donate-error'
  * instead of the built-in globalcollect_gateway/config/country_fields.yaml.
  * Superseded files will be completely ignored, so copy and modify originals.
  * Only latin letters, numbers, and underscores are allowed in variant.
+ * Variant configurations override both local and built-in configurations.
  */
 $wgDonationInterfaceVariantConfigurationDirectory = false
 

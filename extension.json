@@ -365,6 +365,7 @@
 		"DonationInterfaceThankYouPage": "Donate-thanks",
 		"DonationInterfaceFailPage": "Donate-error",
 		"DonationInterfaceCancelPage": "Donate-cancel",
+		"DonationInterfaceLocalConfigurationDirectory": false,
 		"DonationInterfaceVariantConfigurationDirectory": false,
 		"DonationInterfaceRetryLoopCount": 3,
 		"DonationInterfaceOrphanCron": {
