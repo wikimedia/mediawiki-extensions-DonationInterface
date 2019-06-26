@@ -6,6 +6,9 @@
 		// Remove any preexisting iFrames
 		$( '#ingenico-div' ).remove();
 
+		// Don't let people edit name, address, or email, since we won't
+		// see any changes they make while the iframe is open.
+		di.forms.disableInput();
 		var $div = $( '<div id="ingenico-div">'),
 			$form = $( '<iframe>' )
 			.attr( {
