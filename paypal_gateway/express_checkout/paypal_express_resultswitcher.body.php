@@ -1,6 +1,6 @@
 <?php
 
-class PaypalExpressGatewayResult extends GatewayPage {
+class PaypalExpressGatewayResult extends ResultSwitcher {
 
 	protected $gatewayIdentifier = PaypalExpressAdapter::IDENTIFIER;
 
