@@ -1055,6 +1055,7 @@ class DonationData implements LogPrefixProvider {
 			'country',
 			'currency',
 			'amount',
+			'variant',
 			'language',
 			'utm_source',
 			'utm_medium',
@@ -1069,13 +1070,15 @@ class DonationData implements LogPrefixProvider {
 	 * @return array
 	 */
 	public static function getSessionFields() {
-		$fields = self::getMessageFields();
-		$fields[] = 'order_id';
-		$fields[] = 'appeal';
-		$fields[] = 'processor_form';
-		$fields[] = 'referrer';
-		$fields[] = 'contact_id';
-		$fields[] = 'contact_hash';
+		$fields = array_merge( self::getMessageFields(), [
+			'order_id',
+			'appeal',
+			'variant',
+			'processor_form',
+			'referrer',
+			'contact_id',
+			'contact_hash'
+		] );
 		return $fields;
 	}
 
