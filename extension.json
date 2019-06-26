@@ -322,6 +322,10 @@
 				"modules/js/lightgallery.js",
 				"modules/js/lg-hash.js"
 			]
+		},
+		"ext.donationInterface.recurringUpsell": {
+			"scripts": "modules/js/ext.donationInterface.recurringUpsell.js",
+			"styles": "modules/css/recurringUpsell.css"
 		}
 	},
 	"ResourceFileModulePaths": {

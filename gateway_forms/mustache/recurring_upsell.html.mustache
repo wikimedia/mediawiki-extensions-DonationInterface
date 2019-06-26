@@ -1,0 +1,37 @@
+{{# recurring_upsell }}
+    <div class="ru-modal">
+        <div class="ru-close" tabindex="0">
+            <svg class="ru-icon ru-icon-close" width="11" height="11" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg"><title>Close</title><g stroke="#72777d" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M2 3l7 7M9 3l-7 7"/></g></svg>
+        </div>
+        <div class="ru-back" tabindex="0">
+            <svg class="ru-icon ru-icon-back" aria-labelledby="frb-icon-back-title" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><title id="frb-icon-back-title">Back</title><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><path stroke="#72777D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.778" d="M7.181 13.285L.753 7 7.181.715"/><rect width="18.182" height="1.778" x=".818" y="6.111" fill="#72777D" rx=".889"/></g></svg>
+        </div>
+        <div class="ru-choice">
+            <h1>{{{ l10n "donate_interface-recurring-upsell-title" }}}</h1>
+            <p>{{ l10n "donate_interface-recurring-upsell-text" }}</p>
+
+            <div class="ru-buttons">
+                <div id="" class="ru-button ru-yes-button" tabindex="0">{{ l10n "confirmable-yes" }}</div>
+                <div class="ru-button ru-no-button" tabindex="0">{{ l10n "confirmable-no" }}</div>
+            </div><!--ru-buttons-->
+
+            <div class="ru-link ru-diff-amount-link">{{ l10n "donate_interface-recurring-upsell-change-amount" }}</div>
+        </div><!--ru-choice-->
+
+        <div class="ru-edit-amount" style="display: none">
+            <h1>{{ l10n "donate_interface-donate-error-thank-you-for-your-support" }}</h1>
+            <p>{{ l10n "donate_interface-recurring-upsell-enter-amount" }}</p>
+
+            <div class="ru-other-amount">
+                ${{! FIXME: currency symbol }}
+                <input name="otherMonthlyAmount" type="number" class="ru-other-amount-input" autocomplete="off" value="" tabindex="-1" />
+                <div class="ru-error ru-error-smallamount">{{ l10n "donate_interface-smallamount-error" }}</div>
+                <div class="ru-error ru-error-bigamount">{{ l10n "donate_interface-recurring-upsell-max-amount" }}</div>
+            </div>
+
+            <div class="ru-buttons">
+                <div class="ru-button ru-donate-monthly-button">{{ l10n "donate_interface-recurring-upsell-action-button" }}</div>
+            </div><!--ru-buttons-->
+        </div><!--ru-edit-amount-->
+    </div><!--ru-modal-->
+{{/ recurring_upsell }}

@@ -79,6 +79,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
+		// Only render recurring upsell when we come back from a qualified processor
+		if (
+			$this->gateway->showRecurringUpsell() &&
+			$this->gatewayPage instanceof ResultSwitcher
+		) {
+			$data['recurring_upsell'] = true;
+		}
+
 		$this->addSubmethods( $data );
 		$this->addFormFields( $data );
 		$this->handleOptIn( $data );
