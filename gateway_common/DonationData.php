@@ -82,8 +82,6 @@ class DonationData implements LogPrefixProvider {
 		'data_hash',
 		'action',
 		'gateway',
-		'owa_session',
-		'owa_ref',
 		'descriptor',
 		'account_name',
 		'account_number',

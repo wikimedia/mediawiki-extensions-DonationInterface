@@ -66,7 +66,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_campaign' => 'yes',
 			'wmf_token' => '113811',
 			'gateway' => 'DonationData',
-			'owa_ref' => 'http://localhost/importedTestData',
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 		];
@@ -139,7 +138,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
 			'gateway' => 'globalcollect',
-			'owa_ref' => 'http://localhost/defaultTestData',
 			'supplemental_address_1' => '3rd floor',
 			'payment_submethod' => 'amex',
 			'user_ip' => '12.12.12.12',
@@ -188,7 +186,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
 			'gateway' => 'globalcollect',
-			'owa_ref' => 'http://localhost/getTestData',
 			'supplemental_address_1' => '3rd floor',
 			'payment_submethod' => 'amex',
 			'user_ip' => $request->getIP(),
