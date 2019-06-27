@@ -252,7 +252,8 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	 * and getHostedPaymentStatus if the recurring field is populated.
 	 */
 	protected function tuneForRecurring() {
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+		if ( $isRecurring || $this->showRecurringUpsell() ) {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
 					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],
@@ -264,11 +265,13 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
 			$this->transactions['createHostedCheckout']['values']['recurringPaymentSequenceIndicator'] = 'first';
-			$desc = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );
-			$this->transactions['createHostedCheckout']['values']['descriptor'] = $desc;
 			if ( array_search( 'tokens', $this->transactions['getHostedPaymentStatus']['response'] ) === false ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
+		}
+		if ( $isRecurring ) {
+			$desc = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );
+			$this->transactions['createHostedCheckout']['values']['descriptor'] = $desc;
 		}
 	}
 
@@ -398,6 +401,10 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 	}
 
 	public function shouldRectifyOrphan() {
+		return true;
+	}
+
+	protected function supportsRecurringUpsell() {
 		return true;
 	}
 }

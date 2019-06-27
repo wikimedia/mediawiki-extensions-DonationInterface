@@ -1,6 +1,0 @@
-US:
-    first_name: true
-    last_name: optional
-    street_address: true
-    state_province: optional
-    postal_code: true

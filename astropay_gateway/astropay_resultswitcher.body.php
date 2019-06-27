@@ -1,10 +1,6 @@
 <?php
 
-class AstroPayGatewayResult extends GatewayPage {
+class AstroPayGatewayResult extends ResultSwitcher {
 
 	protected $gatewayIdentifier = AstroPayAdapter::IDENTIFIER;
-
-	protected function handleRequest() {
-		$this->handleResultRequest();
-	}
 }

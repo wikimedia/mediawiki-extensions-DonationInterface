@@ -3055,6 +3055,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'numAttempt',
 				'order_status', // for post-payment activities
 				'sequence',
+				'variant',
 			];
 			$preservedData = [];
 			$msg = '';
@@ -3879,5 +3880,24 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	protected function curlResponseIsValidFormat( $curl_response ) {
 		return true;
+	}
+
+	/**
+	 * Returns true when the processor integration makes it possible to
+	 * convert a one-time donation into a series of monthly donations.
+	 *
+	 * @return bool
+	 */
+	protected function supportsRecurringUpsell() {
+		return false;
+	}
+
+	public function showRecurringUpsell() {
+		if ( !$this->supportsRecurringUpsell() ) {
+			return false;
+		}
+		$variant = $this->getData_Unstaged_Escaped( 'variant' );
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+		return !$isRecurring && ( strstr( $variant, 'upsell' ) !== false );
 	}
 }

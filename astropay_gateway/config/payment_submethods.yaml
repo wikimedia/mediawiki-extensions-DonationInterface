@@ -7,6 +7,7 @@ visa:
         BR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        IN: true
         MX: true
         PE: true
         UY: true
@@ -20,6 +21,7 @@ mc:
         BR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        IN: true
         MX: true
         PE: true
         UY: true
@@ -43,6 +45,7 @@ amex:
         AR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        IN: true
         PE: true
     logo: card-amex-lg.png
 visa-debit:
@@ -80,6 +83,7 @@ diners:
         BR: true
 #       CL: true  #waiting on AstroPay
         CO: true
+        IN: true
         PE: true
         UY: true
     logo: card-dinersclub-lg.png
@@ -277,3 +281,40 @@ cash_red_pagos:
     countries:
         UY: true
     logo: cash-red-pagos.png
+#india
+netbanking:
+    bank_code: NB
+    label: Netbanking
+    group: bt
+    countries:
+        IN: true
+    logo: bank-netbanking.png
+    logo_hd:
+        2x: bank-netbanking_2x.png
+upi:
+    bank_code: UI
+    label: UPI
+    group: bt
+    countries:
+        IN: true
+    logo: bank-upi.png
+    logo_hd:
+        2x: bank-upi_2x.png
+#paytmwallet:
+#    bank_code: PW
+#    label: PayTM Wallet
+#    group: bt
+#    countries:
+#        IN: true
+#    logo: bank-paytm.png
+#    logo_hd:
+#        2x: bank-paytm_2x.png
+rupay:
+    bank_code: RU
+    label: RuPay
+    group: cc
+    countries:
+        IN: true
+    logo: card-rupay.png
+    logo_hd:
+        2x: card-rupay_2x.png

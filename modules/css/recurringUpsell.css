@@ -1,0 +1,205 @@
+.ru-modal *,
+.ru-modal *:before,
+.ru-modal *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* Close button */
+.ru-close {
+	display: inline-block;
+	position: absolute;
+	right: 15px;
+	top: 15px;
+	z-index: 999;
+	cursor: pointer;
+	padding: 0;
+}
+
+body.rtl .ru-close {
+	right: auto;
+	left: 0;
+}
+
+.ru-close:hover .ru-icon g {
+	stroke: #000;
+}
+
+.ru-icon-close {
+	width: 26px;
+	height: 26px;
+}
+
+/* Back button */
+.ru-back {
+	display: none;
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	left: 15px;
+}
+
+.ru-back:hover .ru-icon path {
+	stroke: #000;
+}
+
+.ru-back:hover .ru-icon rect {
+	fill: #000;
+}
+
+.ru-icon-back {
+	height: 18px;
+	width: 26px;
+}
+
+/* Modal Screen */
+.ru-modal-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	background: rgba( 0, 0, 0, 0.8 );
+	width: 100%;
+	height: 100%;
+	height: 100vh;
+}
+
+/* Modal Box */
+.ru-modal {
+	position: absolute;
+	top: 5vh;
+	left: 5%;
+	z-index: 110;
+	background: #fff;
+	padding: 40px 30px;
+	text-align: center;
+	color: #000;
+	font-size: 16px;
+	line-height: 1.4;
+	font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	font-style: normal;
+	box-shadow: 0 0 20px rgba( 0, 0, 0, 0.3 );
+	width: calc( 90% - 60px );
+}
+
+@media ( min-width: 800px ) {
+	.ru-modal {
+		left: 50%;
+		top: 10vh;
+		margin-left: -390px;
+		padding: 60px;
+		font-size: 17px;
+		width: 660px;
+	}
+}
+
+.ru-modal h1 {
+	line-height: 1.1;
+	font-size: 150%;
+}
+
+.ru-modal p {
+	margin: 1em 0 0;
+}
+
+/* Buttons */
+.ru-buttons {
+	margin: 1em auto;
+	text-align: center;
+}
+
+@media ( min-width: 800px ) {
+	.ru-buttons {
+		margin: 2em auto 1em;
+	}
+}
+
+.ru-button {
+	display: inline-block;
+	vertical-align: middle;
+	width: 100px;
+	height: 54px;
+	padding: 13px;
+	margin: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 1;
+	background-color: #36c;
+	border: 1px solid #36c;
+	border-radius: 6px;
+	outline: 0;
+	color: #fff;
+	cursor: pointer;
+	-webkit-transition: all 0.25s ease-in-out;
+	-moz-transition: all 0.25s ease-in-out;
+	transition: all 0.25s ease-in-out;
+}
+
+@media ( min-width: 800px ) {
+	.ru-button {
+		width: 130px;
+		height: 60px;
+		padding: 14px;
+		font-size: 32px;
+	}
+}
+
+.ru-button:focus {
+	outline: 0;
+	border-color: #36c !important;
+	box-shadow: inset 0 0 0 1px #36c, inset 0 0 0 2px #fff;
+}
+
+.ru-button:hover {
+	background-color: #447ff5;
+	border-color: #447ff5;
+}
+
+.ru-button:active {
+	background-color: #2a4b8d;
+	border-color: #2a4b8d;
+	box-shadow: none;
+}
+
+.ru-link {
+	color: #36c;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.ru-edit-amount p {
+	margin-bottom: 2em;
+}
+
+.ru-other-amount {
+	font-size: 200%;
+}
+
+.ru-other-amount-input {
+	width: 30%;
+	font-size: 100%;
+	border: 0;
+	outline: 0;
+	border-bottom: 1px solid #000;
+}
+
+.ru-edit-amount .ru-button {
+	width: calc( 100% - 60px );
+}
+
+@media ( min-width: 800px ) {
+	.ru-edit-amount .ru-button {
+		width: 300px;
+	}
+}
+
+/* Error messages */
+.ru-error {
+	display: none;
+	width: calc( 100% + 10px );
+	margin: 5px 0 5px 5px;
+	font-size: 14px;
+	color: #d33;
+}

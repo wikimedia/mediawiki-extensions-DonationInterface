@@ -79,6 +79,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
+		// Only render recurring upsell when we come back from a qualified processor
+		if (
+			$this->gateway->showRecurringUpsell() &&
+			$this->gatewayPage instanceof ResultSwitcher
+		) {
+			$data['recurring_upsell'] = true;
+		}
+
 		$this->addSubmethods( $data );
 		$this->addFormFields( $data );
 		$this->handleOptIn( $data );
@@ -425,8 +433,31 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 	// phpcs:enable Squiz.Classes.SelfMemberReference.NotUsed
 
+	public function getResources() {
+		$resources = parent::getResources();
+		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
+		if ( !empty( $gatewayModules['scripts'] ) ) {
+			$resources = array_merge(
+				$resources,
+				(array)$gatewayModules['scripts']
+			);
+		}
+		if ( $this->gateway->getGlobal( 'LogClientErrors' ) ) {
+			$resources[] = 'ext.donationInterface.errorLog';
+		}
+		return $resources;
+	}
+
 	public function getStyleModules() {
-		return 'ext.donationInterface.mustache.styles';
+		$modules = [ 'ext.donationInterface.mustache.styles' ];
+		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
+		if ( !empty( $gatewayModules['styles'] ) ) {
+			$modules = array_merge(
+				$modules,
+				(array)$gatewayModules['styles']
+			);
+		}
+		return $modules;
 	}
 
 	protected function getTopLevelTemplate() {
