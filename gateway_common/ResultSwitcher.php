@@ -136,4 +136,12 @@ abstract class ResultSwitcher extends GatewayPage {
 		$this->logger->info( "Displaying thank you page $thankYouPage for status $logReason." );
 		$this->getOutput()->redirect( $thankYouPage );
 	}
+
+	public function setClientVariables( &$vars ) {
+		parent::setClientVariables( $vars );
+		if ( $this->adapter->showRecurringUpsell() ) {
+			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
+			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
+		}
+	}
 }
