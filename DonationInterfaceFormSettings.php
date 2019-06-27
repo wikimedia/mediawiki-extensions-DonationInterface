@@ -713,7 +713,7 @@ $forms_whitelist['astropay-in'] = [
 			'upi'
 		],
 	],
-	'selection_weight' => 110,
+	'selection_weight' => 0,
 ];
 $forms_whitelist['astropay-mx'] = [
 	'gateway' => 'astropay',
