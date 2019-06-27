@@ -21,6 +21,9 @@ class AstroPaySignature implements StagingHelper {
 		if ( array_intersect( $requiredKeys, $stagedKeys ) != $requiredKeys ) {
 			return '';
 		} else {
+			// Set city to null when not needed
+			$city = isset( $stagedData['city'] ) ? $stagedData['city'] : '';
+
 			return str_replace( '+', ' ',
 				$stagedData['order_id'] . 'V'
 				. $stagedData['amount'] . 'I'
@@ -30,8 +33,8 @@ class AstroPaySignature implements StagingHelper {
 				. /* bdate omitted */ 'G'
 				. $stagedData['email'] . 'Y'
 				. /* postal_code omitted */ 'A'
-				. /* street omitted */ 'P'
-				. /* city omitted */ 'S'
+				. $stagedData['street_address'] . 'P'
+				. $city . 'S'
 				. /* state_province omitted */ 'P'
 			);
 		}

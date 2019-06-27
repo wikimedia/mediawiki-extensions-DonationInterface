@@ -293,6 +293,18 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'amount' => '1.55',
 				'language' => 'it',
 			],
+			'IN' => [
+				'currency' => 'INR',
+				'fiscal_number' => '0000123456',
+				'payment_submethod' => 'test_bank',
+				'street_address' => 'Test Street',
+				'city' => 'Chennai',
+				'first_name' => 'Test',
+				'last_name' => 'India',
+				'amount' => '100',
+				'language' => 'en',
+				'email' => 'testindia@test.com'
+			],
 			'CA' => [
 				'city' => 'Saskatoon',
 				'state_province' => 'SK',

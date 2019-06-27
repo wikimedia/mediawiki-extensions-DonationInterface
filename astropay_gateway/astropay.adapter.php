@@ -104,11 +104,12 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_cpf',
 				'x_name',
 				'x_email',
+				'x_version',
 				// Omitting the following optional fields
 				// 'x_bdate',
-				// 'x_address',
+				 'x_address',
 				// 'x_zip',
-				// 'x_city',
+				 'x_city',
 				// 'x_state',
 				'control',
 				'type',
@@ -117,6 +118,7 @@ class AstroPayAdapter extends GatewayAdapter {
 				'x_login' => $this->accountInfo['Create']['Login'],
 				'x_trans_key' => $this->accountInfo['Create']['Password'],
 				'x_description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				'x_version' => "1.1",
 				'type' => 'json',
 			],
 			'check_required' => true

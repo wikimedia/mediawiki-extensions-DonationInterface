@@ -100,11 +100,49 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 			'x_cpf' => '00003456789',
 			'x_name' => 'Nome Apelido',
 			'x_email' => 'nobody@example.org',
-			// 'x_address' => 'Rua Falso 123',
+			'x_version' => '1.1',
+			'x_address' => 'N0NE PROVIDED',
 			// 'x_zip' => '01110-111',
 			// 'x_city' => 'São Paulo',
 			// 'x_state' => 'SP',
-			'control' => 'AC43664E0C4DF30607A26F271C8998BC4EE26511366E65AFB69B96E89BFD4359',
+			'control' => 'D00BB4BF818EA9C3E944EF01FB470CBC34FE97E7F6346E6EE5A915EB957BB3FF',
+			'type' => 'json',
+		];
+		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
+	}
+
+	/**
+	 * Test the NewInvoice transaction is sending address and city correctly for India
+	 */
+	function testNewInvoiceRequestAddressAndCity() {
+		$init = $this->getDonorTestData( 'IN' );
+		$session['Donor']['order_id'] = '123456789';
+		$this->setUpRequest( $init, $session );
+		$this->setLanguage( $init['language'] );
+		$gateway = new TestingAstroPayAdapter();
+
+		$gateway->do_transaction( 'NewInvoice' );
+		parse_str( $gateway->curled[0], $actual );
+
+		$expected = [
+			'x_login' => 'createlogin',
+			'x_trans_key' => 'createpass',
+			'x_invoice' => '123456789',
+			'x_amount' => '100.00',
+			'x_currency' => 'INR',
+			'x_bank' => 'TE',
+			'x_country' => 'IN',
+			'x_description' => wfMessage( 'donate_interface-donation-description' )->inLanguage( $init['language'] )->text(),
+			'x_iduser' => 'testindia@test.com',
+			'x_cpf' => '0000123456',
+			'x_name' => 'Test India',
+			'x_email' => 'testindia@test.com',
+			'x_version' => '1.1',
+			'x_address' => 'Test Street',
+			// 'x_zip' => '01110-111',
+			'x_city' => 'Chennai',
+			// 'x_state' => 'SP',
+			'control' => '1A3BA9E7AC831F3CC9A558D98BD5DF7C88A39B9FF245DA78974B273A5F659DCD',
 			'type' => 'json',
 		];
 		$this->assertEquals( $expected, $actual, 'NewInvoice is not including the right parameters' );
