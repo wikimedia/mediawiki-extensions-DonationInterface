@@ -37,6 +37,9 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 			'email' => 'test@test.com',
 			'contact_id' => '1',
 			'contact_hash' => 'df3rf',
+			'utm_source' => 'source',
+			'utm_medium' => 'medium',
+			'utm_campaign' => 'campaign',
 		];
 
 		$params = [
@@ -44,6 +47,9 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 			'email' => 'test@test.com',
 			'contact_id' => '1',
 			'contact_hash' => 'df3rf',
+			'utm_source' => 'source',
+			'utm_medium' => 'medium',
+			'utm_campaign' => 'campaign'
 		];
 
 		$test = new EmailPreferences;

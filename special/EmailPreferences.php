@@ -57,6 +57,16 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$message['contact_hash'] = $params['contact_hash'];
 		}
 
+		if ( !empty( $params['utm_source'] ) ) {
+			$message['utm_source'] = $params['utm_source'];
+		}
+		if ( !empty( $params['utm_medium'] ) ) {
+			$message['utm_medium'] = $params['utm_medium'];
+		}
+		if ( !empty( $params['utm_campaign'] ) ) {
+			$message['utm_campaign'] = $params['utm_campaign'];
+		}
+
 		return $message;
 	}
 
