@@ -1,5 +1,6 @@
 <?php
 
+use SmashPig\Core\Logging\Logger;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 
@@ -47,6 +48,33 @@ abstract class DonationApiBase extends ApiBase {
 			}
 		}
 		return $serializedErrors;
+	}
+
+	protected function setAdapterAndValidate() {
+		$this->donationData = $this->extractRequestParams();
+
+		$this->gateway = $this->donationData['gateway'];
+
+		DonationInterface::setSmashPigProvider( $this->gateway );
+		$this->adapter = $this->getGatewayObject();
+
+		if ( !$this->adapter ) {
+			return false; // already failed with a dieUsage call
+		}
+
+		// FIXME: SmashPig should just use Monolog.
+		Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
+
+		$validated_ok = $this->adapter->validatedOK();
+		if ( !$validated_ok ) {
+			$errors = $this->adapter->getErrorState()->getErrors();
+			$outputResult['errors'] = $this->serializeErrors( $errors );
+			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
+			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
+			$this->getResult()->addValue( null, 'result', $outputResult );
+			return false;
+		}
+		return true;
 	}
 
 	public function isReadMode() {
