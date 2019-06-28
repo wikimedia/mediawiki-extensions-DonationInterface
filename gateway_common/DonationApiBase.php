@@ -16,6 +16,11 @@ abstract class DonationApiBase extends ApiBase {
 	public $gateway;
 
 	/**
+	 * @var GatewayAdapter
+	 */
+	protected $adapter;
+
+	/**
 	 * @return GatewayAdapter
 	 */
 	protected function getGatewayObject() {
