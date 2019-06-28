@@ -179,7 +179,8 @@
 		"GatewayFormChooser": "special/GatewayFormChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
 		"EmailPreferences": "special/EmailPreferences.php",
-		"DonationApi": "gateway_common/donation.api.php"
+		"DonationApi": "gateway_common/donation.api.php",
+		"DonationApiBase": "gateway_common/DonationApiBase.php"
 	},
 	"ResourceModules": {
 		"iframe.liberator": {

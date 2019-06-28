@@ -1,15 +1,12 @@
 <?php
 use SmashPig\Core\Logging\Logger;
-use SmashPig\Core\PaymentError;
-use SmashPig\Core\ValidationError;
 
 /**
  * Generic Donation API
  * This API should be able to accept donation submissions for any gateway or payment type
  * Call with api.php?action=donate
  */
-class DonationApi extends ApiBase {
-	public $donationData, $gateway;
+class DonationApi extends DonationApiBase {
 	public function execute() {
 		$this->donationData = $this->extractRequestParams();
 
@@ -59,30 +56,6 @@ class DonationApi extends ApiBase {
 		}
 
 		$this->getResult()->addValue( null, 'result', $outputResult );
-	}
-
-	public static function serializeErrors( $errors, GatewayAdapter $adapter ) {
-		$serializedErrors = [];
-		foreach ( $errors as $error ) {
-			if ( $error instanceof ValidationError ) {
-				$message = WmfFramework::formatMessage(
-					$error->getMessageKey(),
-					$error->getMessageParams()
-				);
-				$serializedErrors[$error->getField()] = $message;
-			} elseif ( $error instanceof PaymentError ) {
-				$message = $adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
-				$serializedErrors['general'][] = $message;
-			} else {
-				$logger = DonationLoggerFactory::getLogger( $adapter );
-				$logger->error( 'API trying to serialize unknown error type: ' . get_class( $error ) );
-			}
-		}
-		return $serializedErrors;
-	}
-
-	public function isReadMode() {
-		return false;
 	}
 
 	public function getAllowedParams() {
@@ -140,15 +113,6 @@ class DonationApi extends ApiBase {
 			'action=donate&gateway=globalcollect&amount=2.00&currency=USD'
 				=> 'apihelp-donate-example-1',
 		];
-	}
-
-	/**
-	 * @return GatewayAdapter
-	 */
-	protected function getGatewayObject() {
-		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
-		$variant = $this->getRequest()->getVal( 'variant' );
-		return new $className( [ 'variant' => $variant ] );
 	}
 
 	/**
