@@ -25,7 +25,7 @@ class DonationApi extends DonationApiBase {
 		$validated_ok = $this->adapter->validatedOK();
 		if ( !$validated_ok ) {
 			$errors = $this->adapter->getErrorState()->getErrors();
-			$outputResult['errors'] = self::serializeErrors( $errors, $this->adapter );
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
@@ -51,7 +51,7 @@ class DonationApi extends DonationApiBase {
 		}
 
 		if ( !empty( $errors ) ) {
-			$outputResult['errors'] = self::serializeErrors( $errors, $this->adapter );
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 

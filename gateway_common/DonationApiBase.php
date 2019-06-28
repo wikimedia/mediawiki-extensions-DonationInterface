@@ -29,7 +29,7 @@ abstract class DonationApiBase extends ApiBase {
 		return new $className( [ 'variant' => $variant ] );
 	}
 
-	public static function serializeErrors( $errors, GatewayAdapter $adapter ) {
+	protected function serializeErrors( $errors ) {
 		$serializedErrors = [];
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
@@ -39,10 +39,10 @@ abstract class DonationApiBase extends ApiBase {
 				);
 				$serializedErrors[$error->getField()] = $message;
 			} elseif ( $error instanceof PaymentError ) {
-				$message = $adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
+				$message = $this->adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
 				$serializedErrors['general'][] = $message;
 			} else {
-				$logger = DonationLoggerFactory::getLogger( $adapter );
+				$logger = DonationLoggerFactory::getLogger( $this->adapter );
 				$logger->error( 'API trying to serialize unknown error type: ' . get_class( $error ) );
 			}
 		}
@@ -51,5 +51,9 @@ abstract class DonationApiBase extends ApiBase {
 
 	public function isReadMode() {
 		return false;
+	}
+
+	public function mustBePosted() {
+		return true;
 	}
 }
