@@ -413,4 +413,75 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertEquals( 'wikimedia foundation', $message['employer'] );
 	}
+
+	/**
+	 * On a successful recurring conversion API call, we should
+	 * send a subscr_signup message to the recurring queue.
+	 */
+	public function testRecurringConversionApiSuccess() {
+		$donorTestData = DonationInterfaceTestCase::getDonorTestData();
+		$donorTestData['email'] = 'good@innocent.com';
+		$donorTestData['payment_method'] = 'cc';
+		$donorTestData['payment_submethod'] = 'visa';
+		$donorTestData['gateway'] = 'ingenico';
+		$donorTestData['variant'] = 'upsell';
+		$donorTestData['recurring_payment_token'] = 'T1234-5432-9876';
+		$session = [
+			'Donor' => $donorTestData
+		];
+
+		$apiParams = [
+			'amount' => '1.22',
+			'action' => 'di_recurring_convert',
+			'gateway' => 'ingenico'
+		];
+
+		$apiResult = $this->doApiRequest( $apiParams, $session );
+		$result = $apiResult[0]['result'];
+		$this->assertTrue( empty( $result['errors'] ) );
+
+		$message = QueueWrapper::getQueue( 'recurring' )->pop();
+		SourceFields::removeFromMessage( $message );
+		$expected = array_merge( $donorTestData, [
+			'txn_type' => 'subscr_signup',
+			'frequency_unit' => 'month',
+			'frequency_interval' => 1,
+		] );
+		unset( $expected['amount'] );
+		unset( $expected['referrer'] );
+		unset( $expected['ffname'] );
+		unset( $expected['processor_form'] );
+		unset( $expected['variant'] );
+		$expected['gross'] = '1.22';
+		$this->assertArraySubset( $expected, $message );
+	}
+
+	/**
+	 * If there's no token in session, the recurring conversion should return
+	 * an error and we shouldn't send anything to the recurring queue.
+	 */
+	public function testRecurringConversionApiError() {
+		$donorTestData = DonationInterfaceTestCase::getDonorTestData();
+		$donorTestData['email'] = 'good@innocent.com';
+		$donorTestData['payment_method'] = 'cc';
+		$donorTestData['payment_submethod'] = 'visa';
+		$donorTestData['gateway'] = 'ingenico';
+		$donorTestData['variant'] = 'upsell';
+		$session = [
+			'Donor' => $donorTestData
+		];
+
+		$apiParams = [
+			'amount' => '1.22',
+			'action' => 'di_recurring_convert',
+			'gateway' => 'ingenico'
+		];
+
+		$apiResult = $this->doApiRequest( $apiParams, $session );
+		$result = $apiResult[0]['result'];
+		$this->assertNotEmpty( $result['errors'] );
+
+		$message = QueueWrapper::getQueue( 'recurring' )->pop();
+		$this->assertNull( $message );
+	}
 }
