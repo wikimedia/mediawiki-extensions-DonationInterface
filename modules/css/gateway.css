@@ -115,7 +115,7 @@ a[ href^='https://' ],
 	padding: 0 !important;
 }
 
-.mw-body {
+div#content {
 	border: 0;
 }
 
@@ -137,7 +137,7 @@ a[ href^='https://' ],
 /* Respond to small viewport */
 @media screen and ( max-device-width: 981px ) {
 	/* Overall layout */
-	.mw-body {
+	div#content {
 		margin: 0;
 		padding: 1em;
 	}
