@@ -33,7 +33,8 @@
 			"L",
 			"Orlodrim",
 			"Thibaut120094",
-			"Framawiki"
+			"Framawiki",
+			"Derugon"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -430,6 +431,12 @@
 	"donate_interface-photo-license": "Toutes les images sont sous la licence <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a>.",
 	"donate_interface-emailprefs-thank-you-title": "Merci",
 	"donate_interface-emailprefs-thank-you-text": "Nous attendons impatiemment une relation durable ensemble.",
+	"donate_interface-recurring-upsell-title": "Ajouter un <span class=\"ru-upsell-ask\"></span> don mensuel en commençant le mois prochain&nbsp;?",
+	"donate_interface-recurring-upsell-text": "Un soutien mensuel est la meilleure façon de garantir que Wikimédia reste prospère.",
+	"donate_interface-recurring-upsell-change-amount": "Oui, mais pour un montant différent",
+	"donate_interface-recurring-upsell-enter-amount": "Saisir votre montant de don mensuel à commencer le mois prochain.",
+	"donate_interface-recurring-upsell-max-amount": "Nous ne pouvons pas prendre en compte un don récurrent d’un montant supérieur à celui du don unique d’origine.",
+	"donate_interface-recurring-upsell-action-button": "Donner Mensuellement",
 	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",
 	"apihelp-donate-summary": "Cet API vous permet de soumettre une donnation à la Fondation Wikimedia en utilisant divers modes de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser – adyen, globalcollect, etc.",
