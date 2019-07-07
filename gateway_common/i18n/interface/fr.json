@@ -186,6 +186,7 @@
 	"donate_interface-donor-submit": "Faire un don",
 	"donate_interface-donor-currency-msg": "Ce don est effectué en $1",
 	"donate_interface-donor-fiscal_number": "Numéro fiscal",
+	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-opt_in_yes": "Oui, envoyez-moi des emails à l'occasion afin de me tenir informé des diverses manières de soutenir Wikipédia.*",
 	"donate_interface-donor-opt_in_no": "Non, s'il-vous-plait pas d'emails, même s'ils sont rares.",
 	"donate_interface-donor-opt_in_explain": "*Vos informations sont gérées en accord avec notre <a href=\"$1\">Politique de confidentialité du donateur</a>. Chaque courriel que vous recevrez inclura des options de désinscription facile.",

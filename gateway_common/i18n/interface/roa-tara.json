@@ -156,6 +156,7 @@
 	"donate_interface-donor-submit": "Done",
 	"donate_interface-donor-currency-msg": "Quèste donaziune jè state fatte jndre $1",
 	"donate_interface-donor-fiscal_number": "Numere fiscale",
+	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-opt_in_yes": "Sìne! Pie piacere manneme le aggiornaminde pe email e le 'mbormaziune sus a cumme Ije pozze dà 'na màne a Uicchipedie jndr'à 'u future.*",
 	"donate_interface-donor-opt_in_no": "No, non ge vogghie avè aggiornaminde, pure ca so sulamende picche email a l'anne.",
 	"donate_interface-donor-opt_in_explain": "*Le 'mbormaziune tune onne state gestite in accorde cu <a href=\"$1\">Donor Privacy Policy</a>. Ogne email ca tu ave tène le opziune pe te scangellà facile facile.",
