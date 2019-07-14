@@ -68,5 +68,8 @@
 			"php tests/phpunit/LintYaml.php",
 			"minus-x check ."
 		]
+	},
+	"extra": {
+		"phan-taint-check-plugin": "2.0.2"
 	}
 }
