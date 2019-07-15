@@ -1,1 +1,342 @@
-../../globalcollect_gateway/config/payment_submethods.yaml
+bt:
+    paymentproductid: 11
+    label: Bank Transfer
+    group: bt
+    validation: {  }
+    keys: {  }
+visa:
+    paymentproductid: 1
+    label_key: donate_interface-card-name-visa
+    group: cc
+    keys: {  }
+    logo: card-visa-lg.png
+mc:
+    paymentproductid: 3
+    label_key: donate_interface-card-name-mc
+    group: cc
+    keys: {  }
+    logo: card-mastercard.png
+    logo_hd:
+        2x: card-mastercard_2x.png
+        3x: card-mastercard_3x.png
+amex:
+    paymentproductid: 2
+    label_key: donate_interface-card-name-amex
+    group: cc
+    keys: {  }
+    countries:
+        AD: true
+        AE: true
+        AL: true
+        AR: true
+        AT: true
+        AU: true
+        BA: true
+        BE: true
+        BG: true
+        BH: true
+        CA: true
+        CH: true
+        CN: true
+        CR: true
+        CW: true
+        CY: true
+        CZ: true
+        DE: true
+        DK: true
+        DZ: true
+        EC: true
+        EE: true
+        EG: true
+        ES: true
+        FI: true
+        GB: true
+        GR: true
+        HK: true
+        HR: true
+        HU: true
+        IE: true
+        IL: true
+# Temporarily disabled 10/7/2016, see T147673
+#        IN: true
+        IT: true
+        JO: true
+        JP: true
+        KE: true
+        KR: true
+        KW: true
+        KZ: true
+        LI: true
+        LK: true
+        LT: true
+        LU: true
+        LV: true
+        MA: true
+        ME: true
+        MG: true
+        MT: true
+        MY: true
+        NL: true
+        NO: true
+        NP: true
+        NZ: true
+        OM: true
+        PK: true
+        PL: true
+        PR: true
+        PT: true
+        QA: true
+        RO: true
+        RU: true
+        SA: true
+        SE: true
+        SG: true
+        SI: true
+        SK: true
+        SM: true
+        SX: true
+        TH: true
+        TR: true
+        TW: true
+        UA: true
+        US: true
+
+    logo: card-amex-lg.png
+jcb:
+    paymentproductid: 125
+    label: JCB
+    group: cc
+    keys: {  }
+    countries:
+        AD: true
+        AT: true
+        AU: true
+        BE: true
+        BH: true
+        BR: true
+        DE: true
+        EC: true
+        ES: true
+        FI: true
+        GB: true
+        GF: true
+        GR: true
+        HK: true
+        ID: true
+        IE: true
+        IT: true
+        JP: true
+        KR: true
+        LU: true
+        MY: true
+        NL: true
+        PH: true
+        PR: true
+        PT: true
+        SG: true
+        SI: true
+        SK: true
+        TH: true
+        TW: true
+    logo: card-jcb-lg.png
+discover:
+    paymentproductid: 128
+    label_key: donate_interface-card-name-discover
+    group: cc
+    keys: {  }
+    countries:
+        US: true
+    logo: card-discover-lg.png
+dd_at:
+    paymentproductid: 703
+    label: 'Direct debit: AT'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_be:
+    paymentproductid: 706
+    label: 'Direct debit: BE'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - AUTHORISATIONID
+        - BANKCHECKDIGIT
+        - BANKCODE
+        - BANKNAME
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_ch:
+    paymentproductid: 707
+    label: 'Direct debit: CH'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - ADDRESSLINE1E
+        - ADDRESSLINE2
+        - ADDRESSLINE3
+        - ADDRESSLINE4
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - IBAN
+dd_de:
+    paymentproductid: 702
+    label: 'Direct debit: DE'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_es:
+    paymentproductid: 709
+    label: 'Direct debit: ES'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_fr:
+    paymentproductid: 704
+    label: 'Direct debit: FR'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_gb:
+    paymentproductid: 705
+    label: 'Direct debit: GB'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - AUTHORISATIONID
+        - BANKCODE
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - TRANSACTIONTYPE
+dd_it:
+    paymentproductid: 708
+    label: 'Direct debit: IT'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - BANKCODE
+        - BRANCHCODE
+        - BANKAGENZIA
+        - BANKCHECKDIGIT
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+dd_nl:
+    paymentproductid: 701
+    label: 'Direct debit: NL'
+    group: dd
+    validation: {  }
+    keys:
+        - ACCOUNTNAME
+        - ACCOUNTNUMBER
+        - DATECOLLECT
+        - DIRECTDEBITTEXT
+        - TRANSACTIONTYPE
+ew_paypal:
+    paymentproductid: 840
+    label: 'eWallets: PayPal'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_webmoney:
+    paymentproductid: 841
+    label: 'eWallets: WebMoney'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_yandex:
+    paymentproductid: 849
+    label: 'eWallets: Yandex'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_alipay:
+    paymentproductid: 861
+    label: 'eWallets: Alipay'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_moneybookers:
+    paymentproductid: 843
+    label: 'eWallets: Moneybookers'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+ew_cashu:
+    paymentproductid: 845
+    label: 'eWallets: cashU'
+    group: ew
+    validation: {  }
+    keys:
+        - DESCRIPTOR
+bpay:
+    paymentproductid: 500
+    label: 'Online Bank Transfer: Bpay'
+    group: obt
+    show_single_logo: true
+    validation: {  }
+    keys: {  }
+    logo: BPAY_Landscape_MONO.gif
+
+rtbt_ideal:
+    paymentproductid: 809
+    label: iDEAL
+    group: rtbt
+    countries:
+        NL: true
+    validation:
+        issuer_id: true
+    keys:
+        - ISSUERID
+    logo: iDEAL-klein.gif
+    show_single_logo: true
+    issuerids:
+        ABNANL2A: ABN Amro
+        ASNBNL21: ASN Bank
+        # No decision to enable yet.
+        #FRBKNL2L: Friesland Bank
+        INGBNL2A: ING
+        # Disabled for T131181 on 2016-04-05
+        #KNABNL2H: Knab
+        RABONL2U: Rabobank
+        RBRBNL21: RegioBank
+        SNSBNL2A: SNS Bank
+        TRIONL2U: Triodos Bank
+        FVLBNL22: Van Lanschot Bankiers
+        BUNQNL2A: bunq

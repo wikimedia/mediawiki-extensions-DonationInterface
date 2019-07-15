@@ -388,9 +388,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			] );
 			$this->displayForm();
 		} elseif (
-			count( $result->getErrors() ) ||
-			$this->adapter->showRecurringUpsell()
+			count( $result->getErrors() )
 		) {
+			$this->displayForm();
+		} elseif ( $this->adapter->showRecurringUpsell() ) {
+			$this->logger->info( "PaymentResult successful, now asking for a recurring donation." );
 			$this->displayForm();
 		} else {
 			// Success.

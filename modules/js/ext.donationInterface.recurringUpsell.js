@@ -1,5 +1,5 @@
-( function ( $ ) {
-	var ru = {};
+( function ( $, mw ) {
+	var ru = {}, tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
 
 	ru.setUpsellAsk = function ( amount ) {
 		var upsellAmount, upsellAmountFormatted;
@@ -34,7 +34,11 @@
 
 	$( function () {
 		ru.setUpsellAsk( $( '#amount' ).val() );
-
+		$( '.ru-no-button, .ru-close' ).on( 'click keypress' , function ( e ) {
+			if ( e.which === 13 || e.type === 'click' ) {
+				document.location.assign( tyUrl );
+			}
+		} );
         /* eslint-disable no-jquery/no-fade */
 		$( '.ru-diff-amount-link' ).on( 'click keypress', function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
@@ -54,5 +58,6 @@
 			}
 		} );
 		/* eslint-enable no-jquery/no-fade */
+
 	} );
-} )( jQuery );
+} )( jQuery, mediaWiki );

@@ -1,41 +1,38 @@
 <?php
 use SmashPig\Core\Logging\Logger;
-use SmashPig\Core\PaymentError;
-use SmashPig\Core\ValidationError;
 
 /**
  * Generic Donation API
  * This API should be able to accept donation submissions for any gateway or payment type
  * Call with api.php?action=donate
  */
-class DonationApi extends ApiBase {
-	public $donationData, $gateway;
+class DonationApi extends DonationApiBase {
 	public function execute() {
 		$this->donationData = $this->extractRequestParams();
 
 		$this->gateway = $this->donationData['gateway'];
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
-		$gatewayObj = $this->getGatewayObject();
+		$this->adapter = $this->getGatewayObject();
 
-		// FIXME: SmashPig should just use Monolog.
-		Logger::getContext()->enterContext( $gatewayObj->getLogMessagePrefix() );
-
-		if ( !$gatewayObj ) {
+		if ( !$this->adapter ) {
 			return; // already failed with a dieUsage call
 		}
 
-		$validated_ok = $gatewayObj->validatedOK();
+		// FIXME: SmashPig should just use Monolog.
+		Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
+
+		$validated_ok = $this->adapter->validatedOK();
 		if ( !$validated_ok ) {
-			$errors = $gatewayObj->getErrorState()->getErrors();
-			$outputResult['errors'] = self::serializeErrors( $errors, $gatewayObj );
+			$errors = $this->adapter->getErrorState()->getErrors();
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
 			return;
 		}
 
-		$paymentResult = $gatewayObj->doPayment();
+		$paymentResult = $this->adapter->doPayment();
 
 		$outputResult = [
 			'iframe' => $paymentResult->getIframe(),
@@ -49,40 +46,16 @@ class DonationApi extends ApiBase {
 			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
 
 		if ( $sendingDonorToProcessor ) {
-			$gatewayObj->logPending();
-			$this->markLiberatedOnRedirect( $paymentResult, $gatewayObj );
+			$this->adapter->logPending();
+			$this->markLiberatedOnRedirect( $paymentResult );
 		}
 
 		if ( !empty( $errors ) ) {
-			$outputResult['errors'] = self::serializeErrors( $errors, $gatewayObj );
+			$outputResult['errors'] = $this->serializeErrors( $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}
 
 		$this->getResult()->addValue( null, 'result', $outputResult );
-	}
-
-	public static function serializeErrors( $errors, GatewayAdapter $adapter ) {
-		$serializedErrors = [];
-		foreach ( $errors as $error ) {
-			if ( $error instanceof ValidationError ) {
-				$message = WmfFramework::formatMessage(
-					$error->getMessageKey(),
-					$error->getMessageParams()
-				);
-				$serializedErrors[$error->getField()] = $message;
-			} elseif ( $error instanceof PaymentError ) {
-				$message = $adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
-				$serializedErrors['general'][] = $message;
-			} else {
-				$logger = DonationLoggerFactory::getLogger( $adapter );
-				$logger->error( 'API trying to serialize unknown error type: ' . get_class( $error ) );
-			}
-		}
-		return $serializedErrors;
-	}
-
-	public function isReadMode() {
-		return false;
 	}
 
 	public function getAllowedParams() {
@@ -143,32 +116,20 @@ class DonationApi extends ApiBase {
 	}
 
 	/**
-	 * @return GatewayAdapter
-	 */
-	protected function getGatewayObject() {
-		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
-		$variant = $this->getRequest()->getVal( 'variant' );
-		return new $className( [ 'variant' => $variant ] );
-	}
-
-	/**
 	 * If we are sending the donor to a payment processor with a full redirect
 	 * rather than inside an iframe, mark the order ID as 'liberated' so when
 	 * they come back, we don't waste time trying to pop them out of a frame.
 	 *
 	 * @param PaymentResult $paymentResult
-	 * @param GatewayAdapter $adapter
 	 */
-	protected function markLiberatedOnRedirect(
-		PaymentResult $paymentResult, GatewayAdapter $adapter
-	) {
+	protected function markLiberatedOnRedirect( PaymentResult $paymentResult ) {
 		if ( !$paymentResult->getRedirect() ) {
 			return;
 		}
 		// Save a flag in session saying we don't need to pop out of an iframe
 		// See related code in GatewayPage::handleResultRequest
-		$oid = $adapter->getData_Unstaged_Escaped( 'order_id' );
-		$sessionOrderStatus = $adapter->session_getData( 'order_status' );
+		$oid = $this->adapter->getData_Unstaged_Escaped( 'order_id' );
+		$sessionOrderStatus = $this->adapter->session_getData( 'order_status' );
 		$sessionOrderStatus[$oid] = 'liberated';
 		WmfFramework::setSessionValue( 'order_status', $sessionOrderStatus );
 	}
