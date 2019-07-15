@@ -126,7 +126,7 @@
 			url: mw.util.wikiScript( 'api' ),
 			data: sendData,
 			dataType: 'json',
-			type: 'GET',
+			type: 'POST',
 			success: function ( data ) {
 				if ( typeof data.error !== 'undefined' ) {
 					// FIXME alert sux
