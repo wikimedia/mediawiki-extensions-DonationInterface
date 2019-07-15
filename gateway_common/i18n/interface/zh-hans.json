@@ -33,7 +33,8 @@
 			"Jrobell",
 			"Hanyanbo98",
 			"佛壁灯",
-			"神樂坂秀吉"
+			"神樂坂秀吉",
+			"WQL"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -410,10 +411,10 @@
 	"donate_interface-email-unsub-confirm": "您确认要退订<b>$1</b>吗？",
 	"donate_interface-email-unsub-warning": "您将从维基媒体基金会作为捐助者发送给您的电子邮件群中退出。您可能仍然通过这个电子邮件地址接收到邮件，如果它与我们的某个项目相关联。如果您有任何疑问，请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-explain": "我们会发送您一份电子收据以确认您的捐赠。",
-	"donate_interface-email-optin-fail": "处理请求时发生错误。请联系<a href=\"mailto:$1\">$1</a>。",
+	"donate_interface-email-optin-fail": "处理您的请求时发生错误。请联系<a href=\"mailto:$1\">$1</a>，或<a href=\"$2\">点此重试</a>。",
 	"donate_interface-faqs": "常见问题",
 	"donate_interface-tax-info": "减税信息",
-	"donate_interface-informationsharing": "我们已更新我们的<a href=\"$1\">捐款人隐私政策</a>，生效日期为 2019 年 4 月 15 日。我们不会向任何人出售或交易您的信息。通过捐款，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科、其他维基媒体项目，并且其服务提供商遵照我们的<a href=\"$1\">捐款人隐私政策</a>。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在国的可能不等价。",
+	"donate_interface-informationsharing": "我们已更新我们的<a href=\"$1\">捐款人隐私政策</a>，生效于2019年4月15日。我们不会向任何人出售或交易您的信息。捐款时，您同意与维基媒体基金会共享您的个人信息。维基媒体基金会是非营利性组织，主要负责管理维基百科和其他维基媒体项目，其服务提供商遵守我们的<a href=\"$1\">捐款人隐私政策</a>。维基媒体基金会及其服务提供商位于美国和其他国家，这些国家的隐私法律与您所在的国家的可能不相同。",
 	"donate_interface-currency-change": "修改？",
 	"donate_interface-bank_transfer_message": "请注意您的账单会显示该捐赠的收款人为“Global Collect”。Global Collect被授权代表维基媒体基金会接受并处理捐款。请记得在您银行转帐时将这里提供的数字加在附言中，如有任何问题或疑虑，欢迎垂询 $1 。",
 	"donate_interface-globalcollect-proxy": "请注意，您的账单将显示“Global Collect”作为这份礼物的收款人。Global Collect是已经过维基媒体基金会授权的接受和处理付款的代表。",
@@ -434,6 +435,7 @@
 	"donate_interface-onetime-short": "单次",
 	"donate_interface-error-http-403": "您没有权限访问该页面。",
 	"donate_interface-statement": "维基媒体 $1",
+	"donate_interface-photo-license": "所有图片以<a href=\"$1\">在知识共享 署名-相同方式共享 4.0 国际</a>协议下提供。",
 	"donate_interface-emailprefs-thank-you-title": "感谢您",
 	"apihelp-donate-description": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
 	"apihelp-donate-summary": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
