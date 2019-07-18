@@ -488,5 +488,8 @@
 	"apihelp-logPaymentsFormError-param-line": "الخط الذي حدث فيه الخطأ",
 	"apihelp-logPaymentsFormError-param-col": "العمود الذي حدث فيه الخطأ",
 	"apihelp-logPaymentsFormError-param-userAgent": "سلسلة وكيل مستخدم المتصفح",
-	"apihelp-logPaymentsFormError-param-stack": "خطأ تتبع مكدس، عندما يكون متاحا"
+	"apihelp-logPaymentsFormError-param-stack": "خطأ تتبع مكدس، عندما يكون متاحا",
+	"apihelp-di_recurring_convert-summary": "يتم استخدام API هذه عندما يوافق المتبرع على إضافة تبرع شهري بعد إكمال تبرع ناجح لمرة واحدة.",
+	"apihelp-di_recurring_convert-param-amount": "مبلغ التبرع الشهري.",
+	"apihelp-di_recurring_convert-param-gateway": "أية بوابة دفع يجب استخدامها - adyen، globalcollect، إلخ."
 }

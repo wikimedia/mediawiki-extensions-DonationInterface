@@ -480,5 +480,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Ligne sur laquelle l’erreur s’est produite",
 	"apihelp-logPaymentsFormError-param-col": "Colonne sur laquelle l’erreur s’est produite",
 	"apihelp-logPaymentsFormError-param-userAgent": "Chaîne user-agent du navigateur",
-	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible"
+	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
+	"apihelp-di_recurring_convert-summary": "Cette API est utilisée quand un donneur accepte d’ajouter un don mensuel après avoir réussi une donation ponctuelle.",
+	"apihelp-di_recurring_convert-param-amount": "Le montant du don mensuel.",
+	"apihelp-di_recurring_convert-param-gateway": "Quel interface de paiement utiliser — adyen, globalcollect, etc."
 }

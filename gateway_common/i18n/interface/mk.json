@@ -458,5 +458,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Во кој ред се јавила грешката",
 	"apihelp-logPaymentsFormError-param-col": "Во кој столб се јавила грешката",
 	"apihelp-logPaymentsFormError-param-userAgent": "Низата корисник-извршител на прелистувачот",
-	"apihelp-logPaymentsFormError-param-stack": "Пластната трага на грешката, ако ја има"
+	"apihelp-logPaymentsFormError-param-stack": "Пластната трага на грешката, ако ја има",
+	"apihelp-di_recurring_convert-summary": "Извршникот се користи кога дарителот ќе се согласи да дава месечни прилози при успешно давање на еднократен прилог.",
+	"apihelp-di_recurring_convert-param-amount": "Износ на паричниот прилог.",
+	"apihelp-di_recurring_convert-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн."
 }
