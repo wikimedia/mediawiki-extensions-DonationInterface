@@ -426,6 +426,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['gateway'] = 'ingenico';
 		$donorTestData['variant'] = 'upsell';
 		$donorTestData['recurring_payment_token'] = 'T1234-5432-9876';
+		$donorTestData['gateway_txn_id'] = 'TXN-999-1234';
 		$session = [
 			'Donor' => $donorTestData
 		];

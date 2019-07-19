@@ -415,7 +415,10 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 */
 	public function doRecurringConversion() {
 		$sessionData = $this->session_getData( 'Donor' );
-		if ( empty( $sessionData['recurring_payment_token'] ) ) {
+		if (
+			empty( $sessionData['recurring_payment_token'] ) ||
+			empty( $sessionData['gateway_txn_id'] )
+		) {
 			return PaymentResult::newFailure( [
 				new PaymentError(
 					'internal-0001',
@@ -427,14 +430,17 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		$message = array_merge(
 			$this->getQueueDonationMessage(),
 			[
+				'recurring' => 1,
 				'txn_type' => 'subscr_signup',
+				'create_date' => UtcDate::getUtcTimestamp(),
 				// FIXME: Use same 'next donation date' logic as Civi extension
 				'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
 				'frequency_unit' => 'month',
-				'frequency_interval' => 1
+				'frequency_interval' => 1,
+				'gateway_txn_id' => $sessionData['gateway_txn_id'],
+				'subscr_id' => $sessionData['gateway_txn_id'],
 			]
 		);
-		$message['recurring'] = 1;
 		QueueWrapper::push( 'recurring', $message );
 		$this->session_resetForNewAttempt( true );
 		return PaymentResult::newSuccess();
