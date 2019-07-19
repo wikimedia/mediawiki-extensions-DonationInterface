@@ -355,13 +355,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		return parent::post_process_get_orderstatus();
 	}
 
-	protected function setGatewayTransactionId() {
-		// FIXME: See 'Silly' comment in PayPal Express adapter
-		$this->transaction_response->setGatewayTransactionId(
-			$this->getData_Unstaged_Escaped( 'gateway_txn_id' )
-		);
-	}
-
 	protected function approvePayment() {
 		return $this->do_transaction( 'approvePayment' );
 	}
@@ -437,7 +430,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
 				'frequency_unit' => 'month',
 				'frequency_interval' => 1,
-				'gateway_txn_id' => $sessionData['gateway_txn_id'],
 				'subscr_id' => $sessionData['gateway_txn_id'],
 			]
 		);

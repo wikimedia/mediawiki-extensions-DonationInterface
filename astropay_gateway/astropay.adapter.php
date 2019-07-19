@@ -276,14 +276,11 @@ class AstroPayAdapter extends GatewayAdapter {
 		// a new window and messed with their session data.
 		// Unfortunately, we don't get the currency code back.
 		$this->addResponseData( [
-			'amount' => $requestValues['x_amount']
+			'amount' => $requestValues['x_amount'],
+			'gateway_txn_id' => $requestValues['x_document']
 		] );
-		// FIXME: There is no real API response, so maybe we should put the
-		// gateway txn id in unstaged data. As is, we need to fabricate a
-		// transaction response and set it there so it is picked up when
-		// we send the message to the queue
+		// FIXME: There is no real API response, so we just create a blank one
 		$this->transaction_response = new PaymentTransactionResponse();
-		$this->transaction_response->setGatewayTransactionId( $requestValues['x_document'] );
 		$status = $this->findCodeAction( 'PaymentStatus', 'result', $requestValues['result'] );
 		$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 		$this->finalizeInternalStatus( $status );
