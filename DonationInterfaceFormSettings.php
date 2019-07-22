@@ -324,39 +324,6 @@ $forms_whitelist['cc-ingenico'] = [
 	'selection_weight' => 10,
 ];
 
-/**
- * Fallback for old Ingenico API
- */
-$forms_whitelist['cc-globalcollect'] = [
-	'gateway' => 'globalcollect',
-	'payment_methods' => [ 'cc' => 'ALL' ],
-	'currencies' => [
-		'+' => [
-			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
-			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
-			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
-			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
-			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
-			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
-			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
-			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		]
-	],
-	'selection_weight' => 10,
-];
-
-// FIXME: is this still needed?
-/* Special case for Vietnam while GC is still having problems.
- * In the meantime: Visa & Mastercard, USD-only.
- */
-$forms_whitelist['cc-vietnam'] = [
-	'gateway' => 'ingenico',
-	'payment_methods' => [ 'cc' => [ 'visa', 'mc' ] ],
-	'countries' => [ '+' => 'VN' ],
-	'currencies' => [ '+' => 'USD' ],
-];
-
 /****************************
  * Name and Email-Only Test *
  ****************************/
@@ -419,28 +386,6 @@ $forms_whitelist['rcc-vmd'] = [
 	'recurring',
 	'countries' => [
 		'+' => $forms_whitelist['cc-vmd']['countries']['+']
-	],
-	'currencies' => [
-		'+' => [
-			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
-			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
-			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
-			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
-			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
-			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
-			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
-			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		]
-	],
-];
-
-$forms_whitelist['rcc-vmj'] = [
-	'gateway' => 'globalcollect',
-	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'jcb' ] ],
-	'recurring',
-	'countries' => [
-		'+' => $forms_whitelist['cc-vmj']['countries']['+']
 	],
 	'currencies' => [
 		'+' => [
@@ -526,29 +471,6 @@ $forms_whitelist['rcc'] = [
  */
 $forms_whitelist['rcc-ingenico'] = [
 	'gateway' => 'ingenico',
-	'payment_methods' => [ 'cc' => 'ALL' ],
-	'recurring',
-	'currencies' => [
-		'+' => [
-			'AED', 'ALL', 'ANG', 'ARS', 'AUD', 'BBD', 'BDT', 'BGN', 'BHD',
-			'BMD', 'BOB', 'BRL', 'BZD', 'CAD', 'CHF', 'CNY', 'COP', 'CRC',
-			'CZK', 'DKK', 'DOP', 'DZD', 'EGP', 'EUR', 'FJD', 'GBP', 'GTQ',
-			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
-			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
-			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
-			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
-			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
-		]
-	],
-	'selection_weight' => 10,
-];
-
-/**
- * Fallback for old Ingenico API
- */
-$forms_whitelist['rcc-globalcollect'] = [
-	'gateway' => 'globalcollect',
 	'payment_methods' => [ 'cc' => 'ALL' ],
 	'recurring',
 	'currencies' => [
