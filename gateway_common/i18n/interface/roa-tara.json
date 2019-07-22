@@ -421,6 +421,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Sckaffe 'u 'mborte d'a donazione mensile accumenzanne da 'u mese prosseme.",
 	"donate_interface-recurring-upsell-max-amount": "No ge putime carecà 'na donazione recorrende cu 'nu 'mborte cchiù granne de quidde ca è scacchiate a l'inizie.",
 	"donate_interface-recurring-upsell-action-button": "Done mensilmende",
+	"donate_interface-recurring-upsell-error": "'A donazione de 'na vota sole ha sciute bbone, ma nuje non ge putime accumenzà 'na donazione recorrende.",
 	"apihelp-donate-description": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
 	"apihelp-donate-summary": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
 	"apihelp-donate-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, globalcollect, etc.",

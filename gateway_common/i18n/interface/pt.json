@@ -426,6 +426,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Introduzir o valor do seu donativo mensal a partir do próximo mês.",
 	"donate_interface-recurring-upsell-max-amount": "Não nos é possível cobrar um donativo recorrente de valor superior ao do seu donativo pontual original.",
 	"donate_interface-recurring-upsell-action-button": "Donativo mensal",
+	"donate_interface-recurring-upsell-error": "O seu donativo pontual foi feito, mas não nos foi possível iniciar um donativo regular.",
 	"apihelp-donate-description": "Esta API permite o envio de um donativo para a Wikimedia Foundation usando vários processadores de pagamentos.",
 	"apihelp-donate-summary": "Esta API permite o envio de um donativo para a Wikimedia Foundation usando vários processadores de pagamentos.",
 	"apihelp-donate-param-gateway": "Que processador de pagamentos usar, adyen, globalcollect, etc.",

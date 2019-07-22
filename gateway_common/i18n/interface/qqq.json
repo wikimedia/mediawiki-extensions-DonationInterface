@@ -464,7 +464,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Instructions for changing the suggested monthly donation amount.",
 	"donate_interface-recurring-upsell-max-amount": "Error message shown when a donor tries to enter a monthly donation amount that is greater than the initial one-time donation.",
 	"donate_interface-recurring-upsell-action-button": "Button text a donor can press to confirm their monthly donation. Should be short.",
-	"donate_interface-recurring-upsell-error": "Error message ",
+	"donate_interface-recurring-upsell-error": "Error message",
 	"apihelp-donate-description": "{{doc-apihelp-description|donate}}",
 	"apihelp-donate-summary": "{{doc-apihelp-summary|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",

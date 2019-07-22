@@ -446,6 +446,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "أدخل مبلغ التبرع الشهري ليبدأ الشهر المقبل.",
 	"donate_interface-recurring-upsell-max-amount": "يتعذر علينا تحصيل تبرع متكرر بمبلغ أكبر من تبرعك الأصلي لمرة واحدة.",
 	"donate_interface-recurring-upsell-action-button": "التبرع الشهري",
+	"donate_interface-recurring-upsell-error": "كان تبرعك لمرة واحدة ناجحا، لكننا لم نتمكن من بدء تبرع متكرر.",
 	"apihelp-donate-description": "تسمح لك API هذه بتقديم تبرع لمؤسسة ويكيميديا ​​باستخدام مجموعة متنوعة من معالجات الدفع.",
 	"apihelp-donate-summary": "تسمح لك API هذه بتقديم تبرع لمؤسسة ويكيميديا ​​باستخدام مجموعة متنوعة من معالجات الدفع.",
 	"apihelp-donate-param-gateway": "أي بوابة دفع لاستخدامها، adyen، globalcollect، إلخ.",

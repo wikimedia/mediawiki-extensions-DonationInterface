@@ -416,6 +416,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Внесете износ на месечниот прилог кој ќе почне од следниот месец.",
 	"donate_interface-recurring-upsell-max-amount": "Не можеме да одбиваме редовни прилози со износ повисок од првичниот еднократен прилог.",
 	"donate_interface-recurring-upsell-action-button": "Дарувајте месечно",
+	"donate_interface-recurring-upsell-error": "Вашиот еднократен прилог е успешен, но не можевме да го отпочнеме редовниот.",
 	"apihelp-donate-description": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-summary": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн.",
