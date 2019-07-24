@@ -240,7 +240,7 @@
 	"donate_interface-donate-error-try-a-different-card-html": "請嘗試其它的卡片，或是使用我們的<a href=\"$1\">其他捐款方式</a>之一，或著是在 <a href=\"mailto:$2\">$2</a> 聯絡我們",
 	"donate_interface-donate-error-try-again-html": "請<a href=\"$1\">重試</a>，嘗試我們的<a href=\"$2\">其他捐款方式</a>，或是在 <a href=\"mailto:$3\">$3</a> 聯絡我們",
 	"donate_interface-donate-error-thank-you-for-your-support": "感謝您的支持！",
-	"donate_interface-error-no-form": "我們無法找出符合您的參數之捐款方式。請聯絡[mailto:$1 我們的協助團隊]來獲得更多訊息。",
+	"donate_interface-error-no-form": "我們無法找出符合您的參數之捐款方式。請聯絡[mailto:$1 我們的協助團隊]來取得更多資訊。",
 	"donate_interface-error-no-form-html": "我們無法找出符合您的參數之捐款方式。請嘗試我們的<a href=\"$1\">其他捐款方式</a>，或是在 <a href=\"mailto:$2\">$2</a> 來聯絡我們。",
 	"donate_interface-error-reference": "錯誤參考碼：$1",
 	"php-response-declined": "您的交易已被拒絕。",

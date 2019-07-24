@@ -413,6 +413,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "נא להזין את סכום התרומה החודשית שתתחיל מהחודש הבא.",
 	"donate_interface-recurring-upsell-max-amount": "איננו יכולים לחייב תרומה חוזרת בסכום גבוה מהתרומה החד־פעמית המקורית.",
 	"donate_interface-recurring-upsell-action-button": "לתרום מדי חודש",
+	"donate_interface-recurring-upsell-error": "התרומה החד־פעמית שלך עבדה, אבל לא הצלחנו להתניע תרומה חוזרת.",
 	"apihelp-donate-description": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-summary": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
 	"apihelp-donate-param-gateway": "באיזה מעבד תשלומים להשתמש - adyen‏, globalcollect, וכו'.",
