@@ -2095,7 +2095,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				$force = false;
 				break;
 		}
-		$this->session_resetForNewAttempt( $force );
+		// If we're asking the donor to convert their donation to recurring,
+		// don't delete everything from session just yet.
+		if ( !$this->showRecurringUpsell() ) {
+			$this->session_resetForNewAttempt( $force );
+		}
 
 		$this->logFinalStatus( $status );
 
@@ -3055,7 +3059,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 				'numAttempt',
 				'order_status', // for post-payment activities
 				'sequence',
-				'variant',
+				'variant', // FIXME: this is actually a sub-key of Donor :(
 			];
 			$preservedData = [];
 			$msg = '';
@@ -3883,17 +3887,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Returns true when the processor integration makes it possible to
-	 * convert a one-time donation into a series of monthly donations.
-	 *
-	 * @return bool
+	 * @return bool true when we want to ask a one-time donor for a recurring
+	 *  donation after their one-time donation is complete.
 	 */
-	protected function supportsRecurringUpsell() {
-		return false;
-	}
-
 	public function showRecurringUpsell() {
-		if ( !$this->supportsRecurringUpsell() ) {
+		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}
 		$variant = $this->getData_Unstaged_Escaped( 'variant' );

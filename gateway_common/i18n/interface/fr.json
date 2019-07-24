@@ -438,6 +438,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Saisir votre montant de don mensuel à commencer le mois prochain.",
 	"donate_interface-recurring-upsell-max-amount": "Nous ne pouvons pas prendre en compte un don récurrent d’un montant supérieur à celui du don unique d’origine.",
 	"donate_interface-recurring-upsell-action-button": "Donner Mensuellement",
+	"donate_interface-recurring-upsell-error": "Votre don unitaire a réussi, mais nous n’avons pas pu commencer un don récurrent.",
 	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",
 	"apihelp-donate-summary": "Cet API vous permet de soumettre une donnation à la Fondation Wikimedia en utilisant divers modes de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser – adyen, globalcollect, etc.",
@@ -480,5 +481,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Ligne sur laquelle l’erreur s’est produite",
 	"apihelp-logPaymentsFormError-param-col": "Colonne sur laquelle l’erreur s’est produite",
 	"apihelp-logPaymentsFormError-param-userAgent": "Chaîne user-agent du navigateur",
-	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible"
+	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
+	"apihelp-di_recurring_convert-summary": "Cette API est utilisée quand un donneur accepte d’ajouter un don mensuel après avoir réussi une donation ponctuelle.",
+	"apihelp-di_recurring_convert-param-amount": "Le montant du don mensuel.",
+	"apihelp-di_recurring_convert-param-gateway": "Quel interface de paiement utiliser — adyen, globalcollect, etc."
 }

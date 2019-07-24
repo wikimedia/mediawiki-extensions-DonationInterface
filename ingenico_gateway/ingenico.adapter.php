@@ -1,11 +1,13 @@
 <?php
 
 use Psr\Log\LogLevel;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\PaymentError;
+use SmashPig\Core\UtcDate;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
-class IngenicoAdapter extends GlobalCollectAdapter {
+class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversion {
 	const GATEWAY_NAME = 'Ingenico';
 	const IDENTIFIER = 'ingenico';
 	const GLOBAL_PREFIX = 'wgIngenicoGateway';
@@ -404,7 +406,37 @@ class IngenicoAdapter extends GlobalCollectAdapter {
 		return true;
 	}
 
-	protected function supportsRecurringUpsell() {
-		return true;
+	/**
+	 * If we have just made a one-time donation that is possible to convert to
+	 * recurring, do the conversion. The PaymentResult will be in error if there
+	 * is no eligible donation in session.
+	 *
+	 * @return PaymentResult
+	 */
+	public function doRecurringConversion() {
+		$sessionData = $this->session_getData( 'Donor' );
+		if ( empty( $sessionData['recurring_payment_token'] ) ) {
+			return PaymentResult::newFailure( [
+				new PaymentError(
+					'internal-0001',
+					'No tokenized donation in session',
+					LogLevel::INFO
+				)
+			] );
+		}
+		$message = array_merge(
+			$this->getQueueDonationMessage(),
+			[
+				'txn_type' => 'subscr_signup',
+				// FIXME: Use same 'next donation date' logic as Civi extension
+				'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
+				'frequency_unit' => 'month',
+				'frequency_interval' => 1
+			]
+		);
+		$message['recurring'] = 1;
+		QueueWrapper::push( 'recurring', $message );
+		$this->session_resetForNewAttempt( true );
+		return PaymentResult::newSuccess();
 	}
 }

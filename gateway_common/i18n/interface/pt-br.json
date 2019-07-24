@@ -456,6 +456,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Insira seu valor mensal de doação para começar no próximo mês.",
 	"donate_interface-recurring-upsell-max-amount": "Não podemos cobrar uma doação recorrente em valor superior à sua doação única original.",
 	"donate_interface-recurring-upsell-action-button": "Doe Mensalmente",
+	"donate_interface-recurring-upsell-error": "Sua doação única foi bem-sucedida, mas não conseguimos iniciar uma doação recorrente.",
 	"apihelp-donate-description": "Essa API permite que você envie uma doação para a Fundação Wikimedia usando uma variedade de métodos de pagamento.",
 	"apihelp-donate-summary": "Essa API permite que você envie uma doação para a Fundação Wikimedia usando uma variedade de métodos de pagamento.",
 	"apihelp-donate-param-gateway": "Que portal de pagamento usar - adyen, globalcollect, etc.",
@@ -498,5 +499,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Linha na qual o erro ocorreu",
 	"apihelp-logPaymentsFormError-param-col": "Coluna na qual o erro ocorreu",
 	"apihelp-logPaymentsFormError-param-userAgent": "Texto user-agent do browser",
-	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível"
+	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível",
+	"apihelp-di_recurring_convert-summary": "Esta API é usada quando um benfeitor concorda em adicionar um donativo mensal após ter concluído um donativo pontual.",
+	"apihelp-di_recurring_convert-param-amount": "O valor do donativo mensal.",
+	"apihelp-di_recurring_convert-param-gateway": "Que portal de pagamento usar - adyen, globalcollect, etc."
 }

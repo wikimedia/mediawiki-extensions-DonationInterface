@@ -43,6 +43,7 @@
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
 		"donate": "DonationApi",
+		"di_recurring_convert": "RecurringConversionApi",
 		"logPaymentsFormError": "ClientErrorApi"
 	},
 	"MessagesDirs": {
@@ -181,7 +182,8 @@
 		"SystemStatus": "special/SystemStatus.php",
 		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php",
-		"DonationApiBase": "gateway_common/DonationApiBase.php"
+		"DonationApiBase": "gateway_common/DonationApiBase.php",
+		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php"
 	},
 	"ResourceModules": {
 		"iframe.liberator": {
@@ -327,7 +329,14 @@
 		},
 		"ext.donationInterface.recurringUpsell": {
 			"scripts": "modules/js/ext.donationInterface.recurringUpsell.js",
-			"styles": "modules/css/recurringUpsell.css"
+			"styles": "modules/css/recurringUpsell.css",
+			"dependencies": [
+				"mediawiki.Uri",
+				"mediawiki.util"
+			],
+			"messages": [
+				"donate_interface-recurring-upsell-error"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

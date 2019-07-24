@@ -438,6 +438,7 @@
 	"donate_interface-recurring-upsell-enter-amount": "Enter your monthly donation amount to begin next month.",
 	"donate_interface-recurring-upsell-max-amount": "We are unable to charge a recurring donation in an amount greater than your original one-time donation.",
 	"donate_interface-recurring-upsell-action-button": "Donate Monthly",
+	"donate_interface-recurring-upsell-error": "Your one-time donation was successful, but we were unable to start a recurring donation.",
 	"apihelp-donate-description": "This API allow you to submit a donation to the Wikimedia Foundation using a variety of payment processors.",
 	"apihelp-donate-summary": "This API allow you to submit a donation to the Wikimedia Foundation using a variety of payment processors.",
 	"apihelp-donate-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc.",
@@ -480,5 +481,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Line on which the error occurred",
 	"apihelp-logPaymentsFormError-param-col": "Column on which the error occurred",
 	"apihelp-logPaymentsFormError-param-userAgent": "Browser's user-agent string",
-	"apihelp-logPaymentsFormError-param-stack": "Error's stack trace, when available"
+	"apihelp-logPaymentsFormError-param-stack": "Error's stack trace, when available",
+	"apihelp-di_recurring_convert-summary": "This API is used when a donor agrees to add a monthly donation after completing a successful one-time donation.",
+	"apihelp-di_recurring_convert-param-amount": "The amount of the monthly donation.",
+	"apihelp-di_recurring_convert-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc."
 }

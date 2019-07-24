@@ -5,7 +5,8 @@
 			"Ильнар",
 			"Pcoombe",
 			"Исмаил Садуев",
-			"Умар"
+			"Умар",
+			"Ерней"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярдәм итик!",
@@ -75,9 +76,9 @@
 	"donate_interface-error-msg-first_name": "Зинһар, исем кертегез",
 	"donate_interface-error-msg-last_name": "Зинһар, фамилия кертегез",
 	"donate_interface-error-msg-street_address": "Зинһар, почта адресы кертегез",
-	"donate_interface-error-msg-city": "Зинһар, шәһәр кертегез",
+	"donate_interface-error-msg-city": "Шәһәрне кертегез әле",
 	"donate_interface-error-msg-state_province": "Зинһар, штат кертегез",
-	"donate_interface-error-msg-postal_code-us": "Зинһар, индекс кертегез",
+	"donate_interface-error-msg-postal_code-us": "Почта индексын кертегез әле",
 	"donate_interface-error-msg-card_num": "кредит картасының номеры",
 	"donate_interface-error-msg-expiration": "Картаның бетү вакытын күрсәтегез",
 	"donate_interface-error-msg-cvv": "CVV кодын күрсәтегез,күбесе очракта картаның кире ягында",
