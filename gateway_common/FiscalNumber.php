@@ -30,6 +30,10 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			'min' => 8,
 			'max' => 9,
 		],
+		'IN' => [
+			'min' => 10,
+			'max' => 10,
+		],
 		'UY' => [
 			'numeric' => true,
 			'min' => 6,
