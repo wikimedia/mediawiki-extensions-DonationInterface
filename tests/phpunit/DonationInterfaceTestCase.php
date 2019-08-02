@@ -728,6 +728,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 		$this->assertEquals( $check, $value, "Expected $label to be $check, found $value instead." );
 	}
+
 	/**
 	 * Asserts that there are no log entries of LOG_ERR or worse.
 	 */

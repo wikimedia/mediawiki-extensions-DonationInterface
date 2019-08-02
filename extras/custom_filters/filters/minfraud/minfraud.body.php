@@ -243,6 +243,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		}
 		return $query;
 	}
+
 	/**
 	 * Check to see if we can bypass minFraud check
 	 *

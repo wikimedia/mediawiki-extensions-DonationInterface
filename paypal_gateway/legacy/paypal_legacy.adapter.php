@@ -43,6 +43,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 	function defineAccountInfo() {
 		$this->accountInfo = [];
 	}
+
 	function defineReturnValueMap() {
 	}
 

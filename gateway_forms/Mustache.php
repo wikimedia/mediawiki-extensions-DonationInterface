@@ -431,6 +431,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		return MustacheHelper::render( $path, $context );
 	}
+
 	// phpcs:enable Squiz.Classes.SelfMemberReference.NotUsed
 
 	public function getResources() {
