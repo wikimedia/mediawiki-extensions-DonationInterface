@@ -384,6 +384,8 @@
 	"donate_interface-tax-info": "Informoj pri impostmalkalkuleblo",
 	"donate_interface-informationsharing": "Donacante, vi kundividas informojn kun la Vikimedia Fondaĵo, senprofita organizo kiu gastigas Vikipedion kaj aliajn vikimediajn projektojn, kaj kun ĝiaj servoprovizantoj en Usono kaj aliloke laŭ nia privatecpolitiko por donacantoj. Ni ne vendas nek negocas viajn informojn kun aliuloj. Por pli da informoj legu <a href=\"$1\">nian politikon por donacantoj</a>.",
 	"donate_interface-currency-change": "Ŝanĝi?",
+	"donate_interface-bank_transfer_message": "Bonvolu rimarki ke via konto montras \"Global Collect\" kiel la ricevinto de ĉi tiu donaco. Global Collect havas la rajton akcepti kaj trakti pagojn por Fondaĵo Vikimedio. Ne forgesu inkluzivadon de la referenca numero ĉi tie specifita dum via banka transdono, kaj bonvolu kontakti nin ĉe $1 se vi havas ajnan demandon aŭ zorgon.",
+	"donate_interface-globalcollect-proxy": "Bonvolu rimarki ke via konto montras \"Global Collect\" kiel la ricevinto de ĉi tiu donaco. Global Collect havas la rajton akcepti kaj trakti pagojn por Fondaĵo Vikimedio.",
 	"donate_interface-taxded-link-int": "Impostaj kaj aliaj juraj informoj",
 	"donate_interface-taxded-link-us": "Informoj pri impostmalkalkulebloS",
 	"donate_interface-legal-original": "Tio ĉi estas kromtraduko. En kazo de konflikto inter la traduko kaj la angla versio, la angla versio havas prioritaton.",
