@@ -54,7 +54,7 @@
 	"donate_interface-monthly-donation-description": "维基媒体基金会的每月捐款",
 	"donate_interface-amount-error": "请选择一个金额以捐款",
 	"donate_interface-smallamount-error": "请选择一个金额（最少$1）",
-	"donate_interface-bigamount-error": "我们不能通过网站接受大于10000美元（$1 $2）的捐款。请联系我们的礼物职员（$3）。",
+	"donate_interface-bigamount-error": "我们不能通过网站接受大于$4美元（$1 $2）的捐款。请联系我们的礼物职员（$3）。",
 	"donate_interface-processing-error": "处理您的请求时发生错误。\n请在<a href=\"mailto:$1\">$1</a>联络捐赠者服务。",
 	"donate_interface-fallback-currency-notice": "不支持您的货币。如果您决定继续，将使用$1处理。",
 	"donate_interface-maintenance-notice": "很抱歉，这种类型的付款已被暂时禁用。",

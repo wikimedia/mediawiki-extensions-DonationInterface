@@ -23,7 +23,7 @@
 	"donate_interface-monthly-donation-description": "Sumbangan bulanan kepada Yayasan Wikimedia",
 	"donate_interface-amount-error": "Sila masukkan jumlah yang sah",
 	"donate_interface-smallamount-error": "Anda mesti menyumbangkan sekurang-kurangya $1",
-	"donate_interface-bigamount-error": "Kami tidak boleh menerima sumbangan yang melebihi USD 10000 ($1 $2) melalui tapak web kami. Sila hubungi kakitangan kami melalui $3.",
+	"donate_interface-bigamount-error": "Kami tidak boleh menerima sumbangan yang melebihi USD $4 ($1 $2) melalui tapak web kami. Sila hubungi kakitangan kami melalui $3.",
 	"donate_interface-processing-error": "Terdapat masalah untuk memproses permintaan anda. \nSila kembali ke laman terdahulu.",
 	"donate_interface-fallback-currency-notice": "Mata wang anda tidak disokong. Pemprosesan akan dilakukan dengan menggunakan $1 jika anda ingin teruskan.",
 	"donate_interface-maintenance-notice": "Kami mohon maaf kerana pembayaran ini diberhentikan buat sementara waktu.",

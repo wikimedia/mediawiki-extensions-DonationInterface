@@ -54,7 +54,7 @@
 	"donate_interface-monthly-donation-description": "Don mensuel à la Fondation Wikimédia",
 	"donate_interface-amount-error": "Veuillez sélectionner le montant du don",
 	"donate_interface-smallamount-error": "Veuillez sélectionner une somme (minimum de $1)",
-	"donate_interface-bigamount-error": "Nous ne pouvons pas accepter les dons supérieurs à 10&nbsp;000&nbsp;USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.",
+	"donate_interface-bigamount-error": "Nous ne pouvons pas accepter les dons supérieurs à $4&nbsp;USD ($1&nbsp;$2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.",
 	"donate_interface-processing-error": "Une erreur est survenue lors du traitement de votre requête.\nVeuillez contacter le service des dons à <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Votre devise n’étant pas prise en charge, le traitement s’effectuera en $1, si vous décidez de continuer.",
 	"donate_interface-maintenance-notice": "Nous sommes désolés, mais ce type de paiement a été temporairement désactivé.",

@@ -41,7 +41,7 @@
 	"donate_interface-monthly-donation-description": "每月捐款給維基媒體基金會",
 	"donate_interface-amount-error": "請選擇要捐贈的金額",
 	"donate_interface-smallamount-error": "請選擇金額 (至少 $1)",
-	"donate_interface-bigamount-error": "我們不能透過網站接收大於 USD 10000 ($1 $2) 的捐款。請聯絡我們在 $3 的禮物專員。",
+	"donate_interface-bigamount-error": "我們不能透過網站接收大於 USD $4 ($1 $2) 的捐款。請聯絡我們在 $3 的禮物專員。",
 	"donate_interface-processing-error": "處理您的請求時發生錯誤。請聯絡：<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-fallback-currency-notice": "不支援您使用的貨幣。如果您要繼續，將會採用 $1 繼續交易。",
 	"donate_interface-maintenance-notice": "抱歉，此類型的付款方式已暫時停用。",

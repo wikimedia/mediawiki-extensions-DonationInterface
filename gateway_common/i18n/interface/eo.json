@@ -28,7 +28,7 @@
 	"donate_interface-monthly-donation-description": "Ĉiumonata donaco al la Vikimedia Fondaĵo",
 	"donate_interface-amount-error": "Bonvolu enigi validan iomon",
 	"donate_interface-smallamount-error": "Bonvolu elekti kvanton (minumume $1)",
-	"donate_interface-bigamount-error": "Ni ne povas akcepti pli altajn donacojn ol 10.000 USD ($1 $2) per tiu ĉi retejo. Bonvolu kontakti niajn dungitojn pri altaj donacoj ĉe $3.",
+	"donate_interface-bigamount-error": "Ni ne povas akcepti pli altajn donacojn ol $4 USD ($1 $2) per tiu ĉi retejo. Bonvolu kontakti niajn dungitojn pri altaj donacoj ĉe $3.",
 	"donate_interface-processing-error": "Eraro okazis traktante vian peton.\nBonvolu kontakti Servojn por Donacontoj ĉe <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Via valuto ne estas subtenata. La pagado okazos per la valuto $1, se vi decidas daŭrigi.",
 	"donate_interface-maintenance-notice": "Bedaŭrinde, ĉi tiu pagmetodo estas portempe malfunkciigita.",

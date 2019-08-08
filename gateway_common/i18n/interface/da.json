@@ -36,7 +36,7 @@
 	"donate_interface-monthly-donation-description": "Månedlig donation til Wikimedia Foundation",
 	"donate_interface-amount-error": "Angiv et gyldigt støttebeløb",
 	"donate_interface-smallamount-error": "Vælg venligst et beløb (mindst $1)",
-	"donate_interface-bigamount-error": "Vi kan ikke acceptere bidrag større end USD 10.000 ($1 $2) via vores websted. Vær venlig at kontakte vores personale med ansvar for store bidrag på $3.",
+	"donate_interface-bigamount-error": "Vi kan ikke acceptere bidrag større end USD $4 ($1 $2) via vores websted. Vær venlig at kontakte vores personale med ansvar for store bidrag på $3.",
 	"donate_interface-processing-error": "Der opstod en fejl under behandlingen af din forespørgsel.\nIngen behandlere er tilgængelige.",
 	"donate_interface-fallback-currency-notice": "Din valuta understøttes ikke. Behandling vil finde sted ved hjælp af $1, hvis du beslutter dig for at fortsætte.",
 	"donate_interface-maintenance-notice": "Vi beklager, men denne form for betaling er midlertidigt deaktiveret.",

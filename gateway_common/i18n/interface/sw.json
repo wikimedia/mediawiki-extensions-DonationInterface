@@ -21,7 +21,7 @@
 	"donate_interface-comment-title": "Maoni ya umma",
 	"donate_interface-amount-error": "Tafadhali ingiza kiasi halali",
 	"donate_interface-smallamount-error": "Jitahidi uchangie japo $1",
-	"donate_interface-bigamount-error": "Hatuwezi kupokea michango inayozidi dola za Marekani 10000 ($2 $1) kwa kupitia tovuti. Tafadhali wasiliana na idara yetu ya michango mikubwa kwa $3.",
+	"donate_interface-bigamount-error": "Hatuwezi kupokea michango inayozidi dola za Marekani $4 ($2 $1) kwa kupitia tovuti. Tafadhali wasiliana na idara yetu ya michango mikubwa kwa $3.",
 	"donate_interface-processing-error": "Kumetokea hitilafu wakati wa uchakataji wa ombi lako.\nHakuna vichakataji vinavyopatikana.",
 	"donate_interface-AUD": "Dola ya Australia",
 	"donate_interface-CAD": "Dola ya Kanada",

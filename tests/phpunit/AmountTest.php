@@ -167,6 +167,7 @@ class AmountTest extends DonationInterfaceTestCase {
 				100,
 				'USD',
 				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
+				100,
 			]
 		);
 		$this->assertEquals(
@@ -215,7 +216,8 @@ class AmountTest extends DonationInterfaceTestCase {
 			[
 				200,
 				'BBD',
-				$this->adapter->getGlobal( 'MajorGiftsEmail' )
+				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
+				100,
 			]
 		);
 		$this->assertEquals(

@@ -177,7 +177,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->form->setGatewayPage( $this->gatewayPage );
 		$html = $this->form->getForm();
 		$expected = htmlspecialchars(
-			wfMessage( 'donate_interface-bigamount-error', '12.00', 'EUR', 'donor-support@worthyfoundation.org' )->text()
+			wfMessage( 'donate_interface-bigamount-error', '12.00', 'EUR', 'donor-support@worthyfoundation.org', 10000 )->text()
 		);
 		$this->assertEquals( $expected, trim( $html ) );
 	}

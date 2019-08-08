@@ -25,7 +25,7 @@
 	"donate_interface-monthly-donation-description": "Cyfraniad misol at Sefydliad Wicifryngau",
 	"donate_interface-amount-error": "Byddwch gystal a dewis swm i gyfrannu",
 	"donate_interface-smallamount-error": "Dewisiwch eich swm (lleiafswm $1)",
-	"donate_interface-bigamount-error": "Ni allwn dderbyn rhoddion sy'n fwy na USD 10000 ($1 $2) trwy'r wefan. Cysylltwch â'r staff sy'n trafod rhoddion mawrion, trwy anfon e-bost at $3.",
+	"donate_interface-bigamount-error": "Ni allwn dderbyn rhoddion sy'n fwy na USD $4 ($1 $2) trwy'r wefan. Cysylltwch â'r staff sy'n trafod rhoddion mawrion, trwy anfon e-bost at $3.",
 	"donate_interface-processing-error": "Cafwyd gwall wrth drin eich cais. Nid oes prosesydd ar gael.",
 	"donate_interface-fallback-currency-notice": "Ni allwn dderbyn taliad yn eich arian breiniol chi. Os ydych am barhau i dalu, fe ddefnyddiwn yr arian breiniol $1 wrth brosesu.",
 	"donate_interface-maintenance-notice": "Ymddiheurwn fod y modd hwn o dalu wedi ei analluogi dros dro.",

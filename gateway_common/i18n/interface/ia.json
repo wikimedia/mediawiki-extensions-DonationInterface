@@ -24,7 +24,7 @@
 	"donate_interface-monthly-donation-description": "Donation mensual al Fundation Wikimedia",
 	"donate_interface-amount-error": "Per favor selige un amonta a donar",
 	"donate_interface-smallamount-error": "Per favor selige un amonta (minimo $1)",
-	"donate_interface-bigamount-error": "Nos non accepta donationes plus grande que USD 10000 ($1 $2) per nostre sito web. Per favor contacta nostre equipa de major donationes a $3.",
+	"donate_interface-bigamount-error": "Nos non accepta donationes plus grande que USD $4 ($1 $2) per nostre sito web. Per favor contacta nostre equipa de major donationes a $3.",
 	"donate_interface-processing-error": "Un error occurreva durante le tractamento de tu requesta.\nPer favor, contacta le servicio de donationes a <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vostre moneta non es supportate. Le pagamento essera exequite in $1, si vos decide continuar.",
 	"donate_interface-maintenance-notice": "Regrettabilemente, iste typo de pagamento ha essite temporarimente disactivate.",

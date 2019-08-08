@@ -23,7 +23,7 @@
 	"donate_interface-comment-title": "පොදු විවේචන",
 	"donate_interface-amount-error": "කරුණාකර වලංගු අගයක් ඇතුලත් කරන්න",
 	"donate_interface-smallamount-error": "ඔබ අඩුම තරමින් $1 ක් වත් පරිත්‍යාග කල යුතුයි",
-	"donate_interface-bigamount-error": "අපිට එජඩො 10000 ($1 $2) වඩා දෙන පරිත්‍යාග අපගේ වෙබ් අඩවිය හරහා බාරගත නොහැක. කරුණාකර $3 හීදී අපගේ ප්‍රධාන ත්‍යාග සේවක මණ්ඩලය සම්බන්ධ කරගන්න.",
+	"donate_interface-bigamount-error": "අපිට එජඩො $4 ($1 $2) වඩා දෙන පරිත්‍යාග අපගේ වෙබ් අඩවිය හරහා බාරගත නොහැක. කරුණාකර $3 හීදී අපගේ ප්‍රධාන ත්‍යාග සේවක මණ්ඩලය සම්බන්ධ කරගන්න.",
 	"donate_interface-processing-error": "ඔබේ අයදුම සැකසීමේදී දෝෂයක් හට ගැනුණි.\nසකසනයන් කිසිවක් නොමැත.",
 	"donate_interface-AED": "යූ.ඒ.ඊ ධිරාම්",
 	"donate_interface-ARS": "ආර්ජේන්ටියානු පෙසෝ",
