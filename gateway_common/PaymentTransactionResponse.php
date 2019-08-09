@@ -178,7 +178,6 @@ class PaymentTransactionResponse {
 	public function __toString() {
 		$stringVal = "Communication Status: '{$this->communicationStatus}', " .
 			"Communication Status: '{$this->communicationStatus}', " .
-			"Gateway Txn ID: '{$this->gatewayTransactionId}', " .
 			"Message: '{$this->message}', " .
 			"Txn Message: '{$this->txnMessage}', " .
 			'Data: ' . print_r( $this->data, true ) . ', ' .
