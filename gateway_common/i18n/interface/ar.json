@@ -35,7 +35,7 @@
 	"donate_interface-monthly-donation-description": "تبرع شهري لمؤسسة ويكيميديا",
 	"donate_interface-amount-error": "من فضلك أختر مقدارا للتبرع",
 	"donate_interface-smallamount-error": "يُرجَى تحديد مبلغ (الحد الأدنى $1)",
-	"donate_interface-bigamount-error": "لا يمكننا قبول تبرعات تزيد قيمتها عن 10000 دولار أمريكي ($1$2) من خلال موقعنا الإلكتروني; يُرجَى الاتصال موظفي هدايانا الرئيسيين في $3.",
+	"donate_interface-bigamount-error": "لا يمكننا قبول تبرعات تزيد قيمتها عن $4 دولار أمريكي ($1$2) من خلال موقعنا الإلكتروني; يُرجَى الاتصال موظفي هدايانا الرئيسيين في $3.",
 	"donate_interface-processing-error": "حدث خطأ أثناء معالجة طلبك;\nالرجاء الاتصال بخدمات المانح على <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "كانت عملتك غير مدعومة، ستتم المعالجة باستخدام $1، إذا قررت المتابعة.",
 	"donate_interface-maintenance-notice": "نعتذر ، ولكن تم تعطيل هذا النوع من الدفع مؤقتًا.",

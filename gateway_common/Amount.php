@@ -27,7 +27,8 @@ class Amount implements ValidationHelper {
 		}
 		$currency = $normalized['currency'];
 		$min = self::convert( $adapter->getGlobal( 'PriceFloor' ), $currency );
-		$max = self::convert( $adapter->getGlobal( 'PriceCeiling' ), $currency );
+		$maxUsd = $adapter->getGlobal( 'PriceCeiling' );
+		$max = self::convert( $maxUsd, $currency );
 		if (
 			!is_numeric( $value ) ||
 			$value < 0
@@ -45,6 +46,7 @@ class Amount implements ValidationHelper {
 					$max,
 					$currency,
 					$adapter->getGlobal( 'MajorGiftsEmail' ),
+					$maxUsd
 				]
 			) );
 		} elseif ( $value < $min ) {

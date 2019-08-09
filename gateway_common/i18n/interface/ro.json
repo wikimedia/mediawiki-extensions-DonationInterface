@@ -30,7 +30,7 @@
 	"donate_interface-monthly-donation-description": "Donație lunară către Fundația Wikimedia",
 	"donate_interface-amount-error": "Vă rugăm să introduceți o sumă validă",
 	"donate_interface-smallamount-error": "Vă rugăm să alegeți o sumă (minim $1)",
-	"donate_interface-bigamount-error": "Nu putem accepta donații mai mari de 10000 de dolari ($1 $2) prin intermediul site-ului nostru. Vă rugăm să contactați personalul nostru specializat la $3.",
+	"donate_interface-bigamount-error": "Nu putem accepta donații mai mari de $4 de dolari ($1 $2) prin intermediul site-ului nostru. Vă rugăm să contactați personalul nostru specializat la $3.",
 	"donate_interface-processing-error": "S-a produs o eroare în timpul prelucrării cererii dumneavoastră. Vă rugăm să contactați Departamentul pentru Donații la <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Moneda dumneavoastră nu a fost acceptată. Dacă decideți să continuați, procesarea plății se va face în $1.",
 	"donate_interface-maintenance-notice": "Ne cerem scuze, dar această modalitate de plată a fost oprită temporar.",

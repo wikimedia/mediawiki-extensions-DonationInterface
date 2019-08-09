@@ -32,7 +32,7 @@
 	"donate_interface-monthly-donation-description": "Měsíční příspěvek nadaci Wikimedia Foundation",
 	"donate_interface-amount-error": "Zvolte prosím částku, kterou chcete darovat",
 	"donate_interface-smallamount-error": "Zvolte prosím částku (minimum je $1)",
-	"donate_interface-bigamount-error": "Prostřednictvím našeho webu nemůžeme přijmout dary vyšší než 10&nbsp;000&nbsp;USD ($1&nbsp;$2). Prosíme, kontaktujte naše pracovníky pro velké dary na $3.",
+	"donate_interface-bigamount-error": "Prostřednictvím našeho webu nemůžeme přijmout dary vyšší než $4&nbsp;USD ($1&nbsp;$2). Prosíme, kontaktujte naše pracovníky pro velké dary na $3.",
 	"donate_interface-processing-error": "Při zpracovávání vašeho příspěvku došlo k chybě.\nKontaktujte prosím dárcovskou službu na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vaše měna není podporována. Pokud se rozhodnete pokračovat, bude platba provedena v $1.",
 	"donate_interface-maintenance-notice": "Omlouváme se, ale tento typ platby byl dočasně zakázán.",

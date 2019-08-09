@@ -29,7 +29,7 @@
 	"donate_interface-monthly-donation-description": "Mesečne donacije Fundaciji Wikimedia",
 	"donate_interface-amount-error": "Prosimo, izberite znesek za darovanje.",
 	"donate_interface-smallamount-error": "Prosimo, izberite znesek (najmanj $1)",
-	"donate_interface-bigamount-error": "Donacij večjih od 10000 dolarjev ($1 $2) ne moremo sprejemati na naši spletni strani. Prosimo, da se obrnete na naše osebje na $3.",
+	"donate_interface-bigamount-error": "Donacij večjih od $4 dolarjev ($1 $2) ne moremo sprejemati na naši spletni strani. Prosimo, da se obrnete na naše osebje na $3.",
 	"donate_interface-processing-error": "Prišlo je do napake pri obdelavi vašega zahtevka. \nProsimo, stopite v stik s Storitvami za donatorje na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vaša valuta ni podprta. Če nadaljujete, bo obdelava potekala z uporabo $1.",
 	"donate_interface-maintenance-notice": "Se opravičujemo, vendar je ta vrsta plačila začasno onemogočena.",

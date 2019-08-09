@@ -22,7 +22,7 @@
 	"donate_interface-donation-description": "Dar załožbje Wikimedia Foundation",
 	"donate_interface-amount-error": "Prošu zapodaj płaćiwu sumu",
 	"donate_interface-smallamount-error": "Minimalny přinošk je $1",
-	"donate_interface-bigamount-error": "Njemóžemy dary  přez naše websydło akceptować, kotrychž hódnota je přez 10.000 USD ($1 $2). Prošu stajće z našim wotdźělom za wulke dary přez e-mejl $3 do zwiska.",
+	"donate_interface-bigamount-error": "Njemóžemy dary  přez naše websydło akceptować, kotrychž hódnota je přez $4 USD ($1 $2). Prošu stajće z našim wotdźělom za wulke dary přez e-mejl $3 do zwiska.",
 	"donate_interface-processing-error": "Zmylk je při předźěłowanju twojeho naprašowanja wustupił. Procesor k dispoziciji njesteji.",
 	"donate_interface-AED": "Dirham ZAE",
 	"donate_interface-ARS": "Argentinske peso",

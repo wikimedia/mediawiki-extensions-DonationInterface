@@ -22,7 +22,7 @@
 	"donate_interface-comment-title": "Coment pùblich",
 	"donate_interface-amount-error": "Për piasì anseriss un total bon",
 	"donate_interface-smallamount-error": "A dev contribuì almanch con $1",
-	"donate_interface-bigamount-error": "I podoma pa aceté donassion pi gròsse che 10000 USD ($1 $2) dzora a nòst sit. Për piasì, ch'a contata nòstra echip për le gròsse donassion a $3.",
+	"donate_interface-bigamount-error": "I podoma pa aceté donassion pi gròsse che $4 USD ($1 $2) dzora a nòst sit. Për piasì, ch'a contata nòstra echip për le gròsse donassion a $3.",
 	"donate_interface-processing-error": "A-i é stàje n'eror an processand toa arcesta. Pa gnun processor disponìbij.",
 	"donate_interface-AED": "Dirham UAE",
 	"donate_interface-ARS": "Peso argentin",

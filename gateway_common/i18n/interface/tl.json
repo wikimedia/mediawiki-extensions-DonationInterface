@@ -25,7 +25,7 @@
 	"donate_interface-monthly-donation-description": "Buwanang kaloob sa Pundasyong Wikimedia",
 	"donate_interface-amount-error": "Mangyaring magpasok ng isang tanggap na halaga",
 	"donate_interface-smallamount-error": "Kailangan mong umambag ng hindi bababa sa $1",
-	"donate_interface-bigamount-error": "Hindi kami maaaring tumanggap ng mga abuloy na mas mahigit kaysa sa USD 10,000 ($1 $2) sa pamamagitan ng aming websayt. Paki makipag-ugnayan sa aming tauhan ng malakihang mga handog doon sa $3",
+	"donate_interface-bigamount-error": "Hindi kami maaaring tumanggap ng mga abuloy na mas mahigit kaysa sa USD $4 ($1 $2) sa pamamagitan ng aming websayt. Paki makipag-ugnayan sa aming tauhan ng malakihang mga handog doon sa $3",
 	"donate_interface-processing-error": "Nagkaroon ng isang kamalian sa pagsasagawa ng iyong kahilingan.\nWalang makukuhang mga tagapagsagawa.",
 	"donate_interface-fallback-currency-notice": "Hindi sinusuportahan ang inyong salapi.  Gaganapin ang pagpoproseso gamit ang $1, kung nais ninyong tumuloy.",
 	"donate_interface-maintenance-notice": "Paumanhin, ngunit pansamantalang isinalanta ang itong uri ng pagbayad.",

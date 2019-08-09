@@ -43,7 +43,7 @@
 	"donate_interface-monthly-donation-description": "ウィキメディア財団への毎月の寄付",
 	"donate_interface-amount-error": "寄付する金額を選択してください",
 	"donate_interface-smallamount-error": "金額を選択してください (少なくとも$1のご寄付が必要です)",
-	"donate_interface-bigamount-error": "10000 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。",
+	"donate_interface-bigamount-error": "$4 米ドル ($1 $2) 以上の寄付はウェブでは受理できません。大口寄付担当のスタッフ $3 に連絡してください。",
 	"donate_interface-processing-error": "要求の処理中にエラーが発生しました。\nDonor Services（<a href=\"mailto:$1\"> $1</a>）までご連絡ください。",
 	"donate_interface-fallback-currency-notice": "ご希望の通貨には対応していません。続行される場合は、以降の処理に $1 を使用します。",
 	"donate_interface-maintenance-notice": "申し訳ありませんが、この種類のお支払いは一時的に無効になっています。",
