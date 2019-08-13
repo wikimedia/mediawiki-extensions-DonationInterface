@@ -147,7 +147,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'city' => 'San Francisco',
 			'state_province' => 'CA',
 			'postal_code' => '94105',
-			'gateway_session_id' => '8915-28e5b79c889641c8ba770f1ba576c1fe'
+			'gateway_session_id' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+			'gateway_txn_id' => false,
 		];
 		$this->assertArraySubset( $expected, $message );
 	}

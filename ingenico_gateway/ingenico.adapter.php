@@ -355,6 +355,10 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		return parent::post_process_get_orderstatus();
 	}
 
+	protected function getGatewayTransactionId() {
+		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+	}
+
 	protected function approvePayment() {
 		return $this->do_transaction( 'approvePayment' );
 	}
