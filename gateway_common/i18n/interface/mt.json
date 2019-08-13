@@ -20,7 +20,7 @@
 	"donate_interface-comment-title": "Kumment pubbliku",
 	"donate_interface-amount-error": "Jekk jogħġbok daħħal ammont validu",
 	"donate_interface-smallamount-error": "Trid tikkontribwixxi minn tal-inqas $1",
-	"donate_interface-bigamount-error": "Ma nistgħux naċċettaw donazzjonijiet ikbar minn USD 10000 ($1 $2) mis-sit tagħna. Jekk jogħġbok ikkuntatja l-uffiċċju tad-donazzjonijiet kbar fl-indirizz $3.",
+	"donate_interface-bigamount-error": "Ma nistgħux naċċettaw donazzjonijiet ikbar minn USD $4 ($1 $2) mis-sit tagħna. Jekk jogħġbok ikkuntatja l-uffiċċju tad-donazzjonijiet kbar fl-indirizz $3.",
 	"donate_interface-processing-error": "Kien hemm problema fl-iproċessar tar-rikjesta tiegħek. L-ebda proċessur mhu disponibbli.",
 	"donate_interface-AED": "Dirham tal-Emirati Għarab Magħquda",
 	"donate_interface-ARS": "Peso Arġentin",

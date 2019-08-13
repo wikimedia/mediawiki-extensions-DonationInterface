@@ -33,7 +33,7 @@
 	"donate_interface-monthly-donation-description": "Månedlig gave til Wikimedia Foundation",
 	"donate_interface-amount-error": "Velg et beløp å gi",
 	"donate_interface-smallamount-error": "Velg et beløp (minimum $1)",
-	"donate_interface-bigamount-error": "Vi kan dessverre ikke ta imot donasjoner på mer enn 10&nbsp;000&nbsp;USD ($1&nbsp;$2) via denne nettsiden. Kontakt gjerne våre ansatte for store gaver på $3.",
+	"donate_interface-bigamount-error": "Vi kan dessverre ikke ta imot donasjoner på mer enn $4&nbsp;USD ($1&nbsp;$2) via denne nettsiden. Kontakt gjerne våre ansatte for store gaver på $3.",
 	"donate_interface-processing-error": "Det har oppstått en feil ved behandlingen av forespørselen din.\nKontakt giverservice på <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Valutaen din støttes ikke. Betalingen vil utføres ved hjelp av $1 om du ønsker å fortsette.",
 	"donate_interface-maintenance-notice": "Beklager, men denne betalingsmåten er midlertidig slått av.",

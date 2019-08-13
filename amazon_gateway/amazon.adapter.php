@@ -244,8 +244,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$captureId = $authDetails['IdList']['member'];
 		// Use capture ID as gateway_txn_id, since we need that for refunds
 		$this->addResponseData( [ 'gateway_txn_id' => $captureId ] );
-		// And add it to the ambient transaction_response for doStompTransaction
-		$this->transaction_response->setGatewayTransactionId( $captureId );
 
 		$this->logger->info( "Getting details of capture $captureId" );
 		$captureResponse = $this->callPwaClient( 'getCaptureDetails', [

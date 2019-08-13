@@ -34,7 +34,7 @@
 	"donate_interface-monthly-donation-description": "Havonta ismétlődő adományozás a Wikimédia Alapítványnak",
 	"donate_interface-amount-error": "Válassz ki egy mennyiséget az adományozáshoz",
 	"donate_interface-smallamount-error": "Válassz ki egy mennyiséget (legalább $1)",
-	"donate_interface-bigamount-error": "Nem fogadhatunk el 10 000 USD-nél ($1 $2) nagyobb adományt a honlapon keresztül. Kérjük, vedd fel a kapcsolatot a nagy adományokat kezelő személyzettel itt: $3!",
+	"donate_interface-bigamount-error": "Nem fogadhatunk el $4 USD-nél ($1 $2) nagyobb adományt a honlapon keresztül. Kérjük, vedd fel a kapcsolatot a nagy adományokat kezelő személyzettel itt: $3!",
 	"donate_interface-processing-error": "Hiba történt a kérés feldolgozása közben. Nincs szabad kapacitás.",
 	"donate_interface-fallback-currency-notice": "Nem támogatott pénznem. Ha a folytatás mellett döntesz, a feldolgozás $1 alapú lesz.",
 	"donate_interface-maintenance-notice": "Elnézést kérünk, de ez a fajta fizetési átmenetileg le van tiltva.",

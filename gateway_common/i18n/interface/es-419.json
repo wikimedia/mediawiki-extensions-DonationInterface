@@ -56,7 +56,7 @@
 	"donate_interface-monthly-donation-description": "Donación mensual a la Fundación Wikimedia",
 	"donate_interface-amount-error": "Selecciona un monto que donar",
 	"donate_interface-smallamount-error": "Selecciona una cantidad (mínimo $1)",
-	"donate_interface-bigamount-error": "No podemos aceptar donaciones de más de 10000 USD ($1 $2) a través de nuestro sitio web. Pónte en contacto con nuestro personal de grandes donaciones en $3 .",
+	"donate_interface-bigamount-error": "No podemos aceptar donaciones de más de $4 USD ($1 $2) a través de nuestro sitio web. Pónte en contacto con nuestro personal de grandes donaciones en $3 .",
 	"donate_interface-processing-error": "Se produjo un error al procesar la solicitud.\nPonte en contacto con Servicios a donantes por medio de <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Tu moneda no se reconoce. Si decides continuar, el procesamiento se hará utilizando $1.",
 	"donate_interface-maintenance-notice": "Lo sentimos, pero se ha deshabilitado temporalmente este tipo de pago.",

@@ -22,7 +22,7 @@
 	"donate_interface-monthly-donation-description": "Donatibo mensal a la Fundaçon Wikimedia",
 	"donate_interface-amount-error": "Ansira ua cantidade pa l donatibo, por fabor",
 	"donate_interface-smallamount-error": "Por fabor, ansira ua cantidade (mínimo de $1)",
-	"donate_interface-bigamount-error": "Nun podemos aceitar donatibos superiores a 10,000 dólares amaricanos ($1 $2) atrabeç de l nuosso sítio. Antre an cuntato cula nuossa eiquipa pa grandes donatibos ne l andereço $3.",
+	"donate_interface-bigamount-error": "Nun podemos aceitar donatibos superiores a $4 dólares amaricanos ($1 $2) atrabeç de l nuosso sítio. Antre an cuntato cula nuossa eiquipa pa grandes donatibos ne l andereço $3.",
 	"donate_interface-processing-error": "Acunteciu un erro ne l processamiento de l sou pedido.\nCuntate ls Serbícios de Donatibos an <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "La sue moneda nun ye suportada. Se decidir cuntinar, l processamiento acuntecerá outelizando $1.",
 	"donate_interface-maintenance-notice": "Çculpe-mos, mas este tipo de pagamiento stá temporariamente zatibado.",

@@ -300,9 +300,8 @@ class AdyenAdapter extends GatewayAdapter {
 		$orderId = $requestValues['merchantReference'];
 		$this->addRequestData( [
 			'order_id' => $orderId,
+			'gateway_txn_id' => $requestValues['pspReference'] ?? ''
 		] );
-		$gateway_txn_id = $requestValues['pspReference'] ?? '';
-		$this->transaction_response->setGatewayTransactionId( $gateway_txn_id );
 
 		$result_code = $requestValues['authResult'] ?? '';
 		$paymentResult = null;

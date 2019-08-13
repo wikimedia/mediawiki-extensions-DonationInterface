@@ -36,7 +36,7 @@
 	"donate_interface-monthly-donation-description": "اهدای ماهانه به بنیاد ویکی‌مدیا",
 	"donate_interface-amount-error": "لطفاً یک مبلغ معتبر وارد کنید",
 	"donate_interface-smallamount-error": "لطفا یک مقدار انتخاب کنید (حداقل $1)",
-	"donate_interface-bigamount-error": "ما نمی‌توانیم کمک‌های بیشتر از ۱۰۰۰۰ دلار ($1 $2) را از طریق وب‌سایت‌مان بپذیریم.لطفاً با کارمندان هدایای بزرگ ما در $3 تماس بگیرید.",
+	"donate_interface-bigamount-error": "ما نمی‌توانیم کمک‌های بیشتر از $4 دلار ($1 $2) را از طریق وب‌سایت‌مان بپذیریم.لطفاً با کارمندان هدایای بزرگ ما در $3 تماس بگیرید.",
 	"donate_interface-processing-error": "خطایی در پردازش درخواست شما رخ داد.\nلطفا با سامانه پشتیبانی اهدا در <a href=\"mailto:$1\">$1</a> تماس بگیرید.",
 	"donate_interface-fallback-currency-notice": "ازر شما پشتیبانی نشده.اگر تصمیم به ادامه دارید، روند جایش را به استفاده از $1 خواهد‌ داد.",
 	"donate_interface-maintenance-notice": "عذرخواهی می‌کنیم، اما این نوع پرداخت موقتاً غیرفعال شده‌است.",

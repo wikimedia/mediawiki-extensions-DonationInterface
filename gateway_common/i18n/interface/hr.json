@@ -31,7 +31,7 @@
 	"donate_interface-monthly-donation-description": "Mjesečna donacija Zakladi Wikimedia",
 	"donate_interface-amount-error": "Molimo, odaberite iznos donacije",
 	"donate_interface-smallamount-error": "Molimo, odaberite iznos (najmanje $1)",
-	"donate_interface-bigamount-error": "Ne možemo prihvatiti donacije veće od 10.000 USD ($1 $2) a preko naše web stranice. Molimo vas da se obratite našim stručnjacima za velike donacije preko $3.",
+	"donate_interface-bigamount-error": "Ne možemo prihvatiti donacije veće od $4 USD ($1 $2) a preko naše web stranice. Molimo vas da se obratite našim stručnjacima za velike donacije preko $3.",
 	"donate_interface-processing-error": "Tijekom obrade vašega zahtjeva došlo je do pogreške.\nMolimo kontaktirajte Usluge donacije na adresu <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vaša valuta nije podržana. Ako odlučite nastaviti, donacija će se izvršiti preko $1.",
 	"donate_interface-maintenance-notice": "Ispričavamo se, no ova je vrsta plaćanja privremeno nemoguća.",

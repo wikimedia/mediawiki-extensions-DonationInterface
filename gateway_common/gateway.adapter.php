@@ -1820,8 +1820,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return array
 	 */
 	protected function getQueueDonationMessage() {
+		$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+		if ( is_null( $gatewayTxnId ) ) {
+			$gatewayTxnId = false;
+		}
 		$queueMessage = [
-			'gateway_txn_id' => $this->getTransactionGatewayTxnID(),
+			'gateway_txn_id' => $gatewayTxnId,
 			'response' => $this->getTransactionMessage(),
 			'gateway_account' => $this->account_name,
 			'fee' => 0, // FIXME: don't we know this for some gateways?
@@ -1895,12 +1899,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	public function addStandardMessageFields( $transaction ) {
 		// basically, add all the stuff we have come to take for granted, because syslog.
-		$transaction['gateway_txn_id'] = $this->getTransactionGatewayTxnId();
 		$transaction['date'] = UtcDate::getUtcTimestamp();
 		$transaction['server'] = gethostname();
 
 		$these_too = [
 			'gateway',
+			'gateway_txn_id',
 			'contribution_tracking_id',
 			'order_id',
 			'payment_method',
@@ -2185,17 +2189,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	public function getTransactionMessage() {
 		if ( $this->transaction_response && $this->transaction_response->getTxnMessage() ) {
 			return $this->transaction_response->getTxnMessage();
-		}
-		return false;
-	}
-
-	/**
-	 * @deprecated
-	 * @return string|boolean
-	 */
-	public function getTransactionGatewayTxnID() {
-		if ( $this->transaction_response && $this->transaction_response->getGatewayTransactionId() ) {
-			return $this->transaction_response->getGatewayTransactionId();
 		}
 		return false;
 	}

@@ -513,10 +513,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->checkResponseAck( $response );
 
 				$this->addResponseData( $this->unstageKeys( $response ) );
-				// FIXME: Silly to store this thing in two places (and say this twice).
-				// See comment in CreateRecurringPaymentsProfile case
-				$this->transaction_response->setGatewayTransactionId(
-					$this->getData_Unstaged_Escaped( 'gateway_txn_id' ) );
 				$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
 					'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
 
@@ -672,15 +668,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		} else {
 			throw new ResponseProcessingException( "Failure response", $response['ACK'] );
 		}
-	}
-
-	/**
-	 * FIXME: this is coming out of the ambient transaction response
-	 * in the parent adapters. Probably a bad idea everywhere.
-	 * @return string
-	 */
-	public function getTransactionGatewayTxnID() {
-		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 	}
 
 	public function doRefund() {

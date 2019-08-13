@@ -22,7 +22,7 @@
 	"donate_interface-monthly-donation-description": "การบริจาครายเดือนให้แก่มูลนิธิวิกิมีเดีย",
 	"donate_interface-amount-error": "กรุณาใส่จำนวนเงินให้ถูกต้อง",
 	"donate_interface-smallamount-error": "กรุณาใส่จำนวนเงินให้ถูกต้อง (ขั้นต่ำ $1)",
-	"donate_interface-bigamount-error": "เราจะไม่รับเงินบริจาคที่มากกว่า 10000 ดอลลาร์สหรัฐ ($1 $2) ผ่านเว็บไซต์ของเรา กรุณาติดต่อพนักงานรับบริจาคจำนวนมากที่ $3",
+	"donate_interface-bigamount-error": "เราจะไม่รับเงินบริจาคที่มากกว่า $4 ดอลลาร์สหรัฐ ($1 $2) ผ่านเว็บไซต์ของเรา กรุณาติดต่อพนักงานรับบริจาคจำนวนมากที่ $3",
 	"donate_interface-processing-error": "มีข้อผิดพลาดในการประมวลผลการร้องขอของคุณ\nกรุณาติดต่อ Donor Services ที่ <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-fallback-currency-notice": "ไม่รองรับสกุลเงินที่คุณต้องการ หากคุณเลือกดำเนินการต่อ จะดำเนินการต่อโดยใช้ $1",
 	"donate_interface-maintenance-notice": "เราขออภัย แต่การชำระเงินประเภทนี้ถูกปิดใช้งานชั่วคราว",

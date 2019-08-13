@@ -22,7 +22,7 @@
 	"donate_interface-monthly-donation-description": "Donaçion menscî a-a Wikimedia Foundation",
 	"donate_interface-amount-error": "Se prega de seleçionâ 'n importo da donâ",
 	"donate_interface-smallamount-error": "Se prega de seleçionâ 'n importo (minnimo $1)",
-	"donate_interface-bigamount-error": "No poemo açetâ donaçioin supeioî a 10000 USD ($1 $2) da-o nostro scito web. Se prega de contatâ o nostro ufiççio pe-e gren donaçioin a l'indiriçço $3.",
+	"donate_interface-bigamount-error": "No poemo açetâ donaçioin supeioî a $4 USD ($1 $2) da-o nostro scito web. Se prega de contatâ o nostro ufiççio pe-e gren donaçioin a l'indiriçço $3.",
 	"donate_interface-processing-error": "Gh'è stæto in aro d'elaboaçion da to recesta.\nContatta o serviççio donaçioin a <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "A to valuta a no l'è supportâ. A procedua a saiâ eseguia in $1, se ti deciddi de continoâ.",
 	"donate_interface-maintenance-notice": "Se scusemmo, ma sto tipo de pagamento o l'è stæto tempoanniamente disabilitou.",

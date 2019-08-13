@@ -42,7 +42,7 @@
 	"donate_interface-monthly-donation-description": "Maandelijkse donatie aan de Wikimedia Foundation",
 	"donate_interface-amount-error": "Selecteer alstublieft een te doneren bedrag",
 	"donate_interface-smallamount-error": "Selecteer alstublieft een bedrag (minimaal $1)",
-	"donate_interface-bigamount-error": "We kunnen geen giften van USD 10.000 of groter ($1 $2) accepteren via onze website. Neem contact op met onze medewerkers voor grote giften via $3.",
+	"donate_interface-bigamount-error": "We kunnen geen giften van USD $4 of groter ($1 $2) accepteren via onze website. Neem contact op met onze medewerkers voor grote giften via $3.",
 	"donate_interface-processing-error": "Er is een fout opgetreden bij het verwerken van uw verzoek.\nNeem contact op met Donor Services via <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Uw valuta wordt niet ondersteund. Als u besluit om door te gaan, vindt de verwerking plaats met behulp van $1.",
 	"donate_interface-maintenance-notice": "Deze betaalwijze is helaas tijdelijk uitgeschakeld.",

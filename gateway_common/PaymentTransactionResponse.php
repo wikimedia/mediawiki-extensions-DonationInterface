@@ -26,11 +26,6 @@ class PaymentTransactionResponse {
 	protected $message;
 
 	/**
-	 * @var string unique identifier for the transaction at the processor
-	 */
-	protected $gatewayTransactionId;
-
-	/**
 	 * @var boolean denoting if there were internal errors on our end,
 	 * or at the gateway.
 	 */
@@ -82,13 +77,6 @@ class PaymentTransactionResponse {
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getGatewayTransactionId() {
-		return $this->gatewayTransactionId;
-	}
-
-	/**
 	 * @return bool
 	 */
 	public function getCommunicationStatus() {
@@ -129,13 +117,6 @@ class PaymentTransactionResponse {
 	 */
 	public function setMessage( $message ) {
 		$this->message = $message;
-	}
-
-	/**
-	 * @param string $gatewayTransactionId
-	 */
-	public function setGatewayTransactionId( $gatewayTransactionId ) {
-		$this->gatewayTransactionId = $gatewayTransactionId;
 	}
 
 	/**
@@ -197,7 +178,6 @@ class PaymentTransactionResponse {
 	public function __toString() {
 		$stringVal = "Communication Status: '{$this->communicationStatus}', " .
 			"Communication Status: '{$this->communicationStatus}', " .
-			"Gateway Txn ID: '{$this->gatewayTransactionId}', " .
 			"Message: '{$this->message}', " .
 			"Txn Message: '{$this->txnMessage}', " .
 			'Data: ' . print_r( $this->data, true ) . ', ' .

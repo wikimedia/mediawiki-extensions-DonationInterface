@@ -18,7 +18,7 @@
 	"donate_interface-comment-title": "Tuihnihna vantlang hmuh theih",
 	"donate_interface-amount-error": "A zât mümal tak ziak hräm rawh",
 	"donate_interface-smallamount-error": "$1 tal thawh a ngái.",
-	"donate_interface-bigamount-error": "Thawhlawm USD 10000 ($1 $2) aia tam kan rangpuihmunram aṭang hian kan dawng thei lo tlat. Thawhlawm thawhna hmunpui $3 hi khawngaihin bepawp rawh.",
+	"donate_interface-bigamount-error": "Thawhlawm USD $4 ($1 $2) aia tam kan rangpuihmunram aṭang hian kan dawng thei lo tlat. Thawhlawm thawhna hmunpui $3 hi khawngaihin bepawp rawh.",
 	"donate_interface-processing-error": "I dilna buaipuiah thil tih sual a awm tlat.\nBuaipuitu pakhat mah an awm lo.",
 	"donate_interface-AED": "UAE dirham",
 	"donate_interface-ARS": "Arzentina peso",

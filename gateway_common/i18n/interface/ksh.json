@@ -22,7 +22,7 @@
 	"donate_interface-monthly-donation-description": "De moonatlesche Schpänd aan de Wikimeedija Schteftong",
 	"donate_interface-amount-error": "Wähl ene Bedraach zum Jävve aan",
 	"donate_interface-smallamount-error": "Söhg ene Bedraach us. Der kleinste müjjelesche Bedraach es $1",
-	"donate_interface-bigamount-error": "Mer künne övver uns Schpändesigg nix övver 10000 US$ ($1 $2) aannämme.\nBes esu jood un donn met ons Lück för jruuße Schpände schwaade.\nDänne ier Addräß för de <i lang=\"en\">e-mail</i> es $3.",
+	"donate_interface-bigamount-error": "Mer künne övver uns Schpändesigg nix övver $4 US$ ($1 $2) aannämme.\nBes esu jood un donn met ons Lück för jruuße Schpände schwaade.\nDänne ier Addräß för de <i lang=\"en\">e-mail</i> es $3.",
 	"donate_interface-processing-error": "Ene Fähler es beim Beärbeide vun Dinge Enjaab opjetrodde.\nEt sinn_er kein Prozäßoore mih frei.",
 	"donate_interface-fallback-currency-notice": "Met Dinge Zoot Jäld jing et leider nit. Wann De wigger maache wells, künne mer Der ävver aanbeede, dat en $1 ze maache.",
 	"donate_interface-maintenance-notice": "Schaad dröm, di Aat ze bezahle es em Momang ußjesaz.",

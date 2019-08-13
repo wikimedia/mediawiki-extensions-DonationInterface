@@ -39,7 +39,7 @@
 	"donate_interface-monthly-donation-description": "Kuukausittainen lahjoitus Wikimedia-säätiölle",
 	"donate_interface-amount-error": "Syötä kelvollinen määrä",
 	"donate_interface-smallamount-error": "Valitse summa (vähintään $1)",
-	"donate_interface-bigamount-error": "Emme voi vastaanottaa sivustomme kautta lahjoituksia, jotka ovat suurempia kuin 10 000 Yhdysvaltain dollaria ($1 $2). Jos haluat lahjoittaa tätä suuremman summan, lähetä sähköpostia osoitteeseen $3 suurista lahjoituksista vastaavalle osastolle.",
+	"donate_interface-bigamount-error": "Emme voi vastaanottaa sivustomme kautta lahjoituksia, jotka ovat suurempia kuin $4 Yhdysvaltain dollaria ($1 $2). Jos haluat lahjoittaa tätä suuremman summan, lähetä sähköpostia osoitteeseen $3 suurista lahjoituksista vastaavalle osastolle.",
 	"donate_interface-processing-error": "Tapahtui virhe käsiteltäessä pyyntöäsi. Ei käsittelijää saatavilla.",
 	"donate_interface-fallback-currency-notice": "Valuuttaasi ei voida vastaanottaa. Jos jatkat, lahjoitus tehdään valuutalla $1.",
 	"donate_interface-maintenance-notice": "Olemme pahoillamme, mutta tämä maksutapa on poistettu tilapäisesti käytöstä.",
