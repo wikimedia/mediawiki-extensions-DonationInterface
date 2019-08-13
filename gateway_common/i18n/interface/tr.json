@@ -8,7 +8,8 @@
 			"Tarkovsky",
 			"Vito Genovese",
 			"Sayginer",
-			"Rapsar"
+			"Rapsar",
+			"Suvarioglu"
 		]
 	},
 	"donate_interface": "Wikimedia'yı destekleyin",
@@ -28,7 +29,7 @@
 	"donate_interface-monthly-donation-description": "Wikimedia Vakfı'na aylık bağış",
 	"donate_interface-amount-error": "Lütfen geçerli bir miktar girin",
 	"donate_interface-smallamount-error": "En az $1 kadar bağış bulunulmalıdır.",
-	"donate_interface-bigamount-error": "Web sitesi üzerinden $4 USD ($1 $2) üstünde bağışları kabul edemiyoruz. Lütfen $3 adresinden büyük hediyeler kadromuzla temasa geçiniz.",
+	"donate_interface-bigamount-error": "Web sitesi üzerinden $4 USD ($1 $2) üstünde bağışları kabul edemiyoruz. Lütfen $3'dan büyük hediyeler için kadromuzla temasa geçiniz.",
 	"donate_interface-processing-error": "İsteğinizin işlenmesinde bir hata oluştu.\nUygun işlemci bulunmuyor.",
 	"donate_interface-fallback-currency-notice": "Para biriminiz desteklenmemekte. Devam etmeye karar verirseniz, işleme $1 kullanılarak devam edilecek.",
 	"donate_interface-maintenance-notice": "Özür dileriz, ancak bu tür ödeme geçici olarak devre dışı bırakılmıştır.",
