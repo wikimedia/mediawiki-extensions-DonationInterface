@@ -200,6 +200,7 @@
 	"donate_interface-card-name-visa": "Used as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
 	"donate_interface-card-name-mc": "Used as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
 	"donate_interface-card-name-discover": "Used as item in the \"Credit card type\" select box.\n\nTrademark name of credit card Discover®, '''not''' the verb \"to discover\".\n{{Related|Donate interface-card}}\n{{Identical|Discover}}",
+	"donate_interface-bank-name-netbanking": "Label for the icon of the 'Netbanking' payment method used in India. Probably only needed for languages used in India",
 	"donate_interface-error-msg-general": "A generic error message.",
 	"donate_interface-error-msg-nopaypal": "Error message.",
 	"donate_interface-error-msg-validation": "Generic error message for form validation failure",
