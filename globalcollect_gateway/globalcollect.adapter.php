@@ -1329,7 +1329,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		$responseStatus = $data['STATUSID'] ?? '';
 		$this->transaction_response->setTxnMessage( "Response Status: " . $responseStatus ); // TODO: Translate for GC.
 		$this->addRequestData( [
-			'gateway_txn_id' => $this->getData_Unstaged_Escaped( 'order_id' )
+			'gateway_txn_id' => $this->getGatewayTransactionId()
 		] );
 
 		$retErrCode = null;
@@ -1753,6 +1753,10 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		} else {
 			return false;
 		}
+	}
+
+	protected function getGatewayTransactionId() {
+		return $this->getData_Unstaged_Escaped( 'order_id' );
 	}
 
 	protected function approvePayment() {
