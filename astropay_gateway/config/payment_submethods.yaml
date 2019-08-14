@@ -300,15 +300,15 @@ upi:
     logo: bank-upi.png
     logo_hd:
         2x: bank-upi_2x.png
-#paytmwallet:
-#    bank_code: PW
-#    label: PayTM Wallet
-#    group: bt
-#    countries:
-#        IN: true
-#    logo: bank-paytm.png
-#    logo_hd:
-#        2x: bank-paytm_2x.png
+paytmwallet:
+    bank_code: PW
+    label: PayTM Wallet
+    group: bt
+    countries:
+        IN: true
+    logo: bank-paytm.png
+    logo_hd:
+        2x: bank-paytm_2x.png
 rupay:
     bank_code: RU
     label: RuPay
