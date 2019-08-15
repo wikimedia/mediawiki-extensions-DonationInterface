@@ -22,11 +22,21 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	public static $baseDir;
 
+	/**
+	 * @var array Keys are message keys used in templates, values are
+	 *  message keys to replace them with.
+	 */
+	public static $messageReplacements = [];
+
 	public function setGateway( GatewayType $gateway ) {
 		parent::setGateway( $gateway );
 
 		// FIXME: late binding fail?
 		self::$baseDir = dirname( $this->getTopLevelTemplate() );
+		$replacements = $gateway->getConfig( 'message_replacements' );
+		if ( $replacements ) {
+			self::$messageReplacements = $replacements;
+		}
 	}
 
 	/**
@@ -395,6 +405,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 		$language = RequestContext::getMain()->getLanguage()->getCode();
 		$key = array_shift( $params );
+		if ( isset( Gateway_Form_Mustache::$messageReplacements[$key] ) ) {
+			$key = Gateway_Form_Mustache::$messageReplacements[$key];
+		}
 		return MessageUtils::getCountrySpecificMessage(
 			$key,
 			Gateway_Form_Mustache::$country,
