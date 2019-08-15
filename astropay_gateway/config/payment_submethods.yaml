@@ -284,13 +284,14 @@ cash_red_pagos:
 #india
 netbanking:
     bank_code: NB
-    label: Netbanking
+    label_key: donate_interface-bank-name-netbanking
     group: bt
     countries:
         IN: true
     logo: bank-netbanking.png
     logo_hd:
         2x: bank-netbanking_2x.png
+    sub_text_key: donate_interface-bank-name-netbanking
 upi:
     bank_code: UI
     label: UPI
