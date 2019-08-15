@@ -47,8 +47,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 
 	protected function addMessageParameters( &$data ) {
 		// Add otherways_url
-		$data += $this->getUrls();
-		$data['problems_email'] = $this->gateway->getGlobal( 'ProblemsEmail' );
+		$data += $this->getUrlsAndEmails();
 		// set the appropriate header
 		$headers = [
 			'error-cc' => 'php-response-declined',
