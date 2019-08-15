@@ -174,6 +174,7 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
+	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "There was an error processing your request.",
 	"donate_interface-error-msg-nopaypal": "Due to a technical error, we cannot send your request to PayPal. Please try using our regular credit card donation form.",
 	"donate_interface-error-msg-validation": "Please correct the errors in the form.",

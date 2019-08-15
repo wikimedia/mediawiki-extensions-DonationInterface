@@ -7,7 +7,9 @@
 	ru.setUpsellAsk = function ( amount ) {
 		var upsellAmountFormatted;
 
-		if ( amount <= 5 ) {
+		if ( amount < 3 ) {
+			presetAmount = 1;
+		} else if ( amount <= 5 ) {
 			presetAmount = 2.75;
 		} else if ( amount <= 10 ) {
 			presetAmount = 3;
