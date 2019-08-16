@@ -40,7 +40,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		self::$country = $data['country'];
 
 		$data = $data + $this->getErrors();
-		$data = $data + $this->getUrls();
+		$data = $data + $this->getUrlsAndEmails();
 
 		self::$fieldErrors = $data['errors']['field'];
 
@@ -362,7 +362,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $return;
 	}
 
-	protected function getUrls() {
+	protected function getUrlsAndEmails() {
 		$map = [
 			'problems' => 'Problems',
 			'otherways' => 'OtherWays',
@@ -370,13 +370,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			'tax' => 'Tax',
 			'policy' => 'Policy'
 		];
-		$urls = [];
+		$urlsAndEmails = [];
 		foreach ( $map as $contextName => $globalName ) {
-			$urls[$contextName . '_url'] = htmlspecialchars(
+			$urlsAndEmails[$contextName . '_url'] = htmlspecialchars(
 				$this->gateway->localizeGlobal( $globalName . 'URL' )
 			);
 		}
-		return $urls;
+		$urlsAndEmails['problems_email'] = $this->gateway->getGlobal( 'ProblemsEmail' );
+		return $urlsAndEmails;
 	}
 
 	// For the following helper functions, we can't use self:: to refer to
