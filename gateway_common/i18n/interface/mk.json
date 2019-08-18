@@ -165,6 +165,7 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
+	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "Се појави грешка при обработката на вашето барање.",
 	"donate_interface-error-msg-nopaypal": "Поради техничка грешка, не можеме да го испратиме вашето барање во PayPal. Наместо ова, послужете се со образецот за дарување со кредитна картичка.",
 	"donate_interface-error-msg-validation": "Исправете ги грешките во образецот.",
