@@ -182,6 +182,7 @@
 	"donate_interface-card-name-visa": "فيزا",
 	"donate_interface-card-name-mc": "ماستر كارد",
 	"donate_interface-card-name-discover": "ديسكفر",
+	"donate_interface-bank-name-netbanking": "الصيرفة الإلكترونية",
 	"donate_interface-error-msg-general": "حدث خطأ أثناء معالجة طلبك.",
 	"donate_interface-error-msg-nopaypal": "تعذّر علينا إرسال طلبك إلى باي بال نظرًا لوقوع خطأ فني. حاول رجاءً باستخدام نموذج التبرع ببطاقة الائتمان أدناه.",
 	"donate_interface-error-msg-validation": "من فضلك صحح أخطاء النموذج.",

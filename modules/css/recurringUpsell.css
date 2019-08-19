@@ -203,3 +203,8 @@ body.rtl .ru-close {
 	font-size: 14px;
 	color: #d33;
 }
+
+/* This prevents the WMF logo from showing through the modal */
+.mw-body-content {
+	position: inherit;
+}
