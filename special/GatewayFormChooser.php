@@ -212,7 +212,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Gets all the valid forms that match the provided paramters.
+	 * Gets all the valid forms that match the provided parameters.
 	 * These parameters should exactly match the params in getOneValidForm.
 	 * TODO: Should be passed as a hash or object.
 	 * @global array $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
@@ -329,7 +329,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Gets one valid forms that match the provided paramters.
+	 * Gets one valid forms that match the provided parameters.
 	 * These parameters should exactly match the params in getAllValidForms.
 	 * @param string|null $country Optional country code filter
 	 * @param string|null $currency Optional currency code filter
