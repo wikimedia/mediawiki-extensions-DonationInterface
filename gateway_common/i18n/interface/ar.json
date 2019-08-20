@@ -146,6 +146,8 @@
 	"donate_interface-donor-last_name": "الاسم الأخير:",
 	"donate_interface-donor-last_name-alt": "اللقب",
 	"donate_interface-donor-employer": "اسم صاحب العمل (اختياري)",
+	"donate_interface-donor-employer-variant4": "صاحب العمل (اختياري)",
+	"donate_interface-donor-employer-variant5": "صاحب العمل",
 	"donate_interface-donor-street_address": "الشارع:",
 	"donate_interface-donor-street-number": "رقم",
 	"donate_interface-donor-city": "المدينة:",

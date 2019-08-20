@@ -165,6 +165,8 @@
 	"donate_interface-donor-last_name": "Nom",
 	"donate_interface-donor-last_name-alt": "Nom de famille",
 	"donate_interface-donor-employer": "Nom de l’employé (facultatif)",
+	"donate_interface-donor-employer-variant4": "Employeur (facultatif)",
+	"donate_interface-donor-employer-variant5": "Employeur",
 	"donate_interface-donor-street_address": "Rue",
 	"donate_interface-donor-street-number": "Numéro",
 	"donate_interface-donor-city": "Ville",
