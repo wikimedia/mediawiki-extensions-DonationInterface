@@ -135,6 +135,8 @@
 	"donate_interface-donor-last_name": "Urteme nome",
 	"donate_interface-donor-last_name-alt": "Cognome",
 	"donate_interface-donor-employer": "Nome d'u 'mbiegate (Facoltative)",
+	"donate_interface-donor-employer-variant4": "'Mbiegate (Facoltative)",
+	"donate_interface-donor-employer-variant5": "'Mbiegate",
 	"donate_interface-donor-street_address": "Indirizze",
 	"donate_interface-donor-street-number": "Numere",
 	"donate_interface-donor-city": "Cetate:",
