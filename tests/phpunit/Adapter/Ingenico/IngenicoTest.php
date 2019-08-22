@@ -525,6 +525,33 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$anotherGateway->do_transaction( 'createHostedCheckout' );
 	}
 
+	/**
+	 * Tests that we don't loop when ct_id starts with 4 or 7
+	 */
+	public function testOrderIdsWith4Or7Ok() {
+		$this->setUpRequest( [
+			'contribution_tracking_id' => '4012301230',
+		] );
+		$gateway = new IngenicoAdapter( [
+			'external_data' => [
+				'contribution_tracking_id' => '4012301230',
+			]
+		] );
+		$orderId = $gateway->generateOrderID();
+		$this->assertEquals( '4012301230.1', $orderId );
+
+		$this->setUpRequest( [
+			'contribution_tracking_id' => '7012301230',
+		] );
+		$gateway = new IngenicoAdapter( [
+			'external_data' => [
+				'contribution_tracking_id' => '7012301230',
+			]
+		] );
+		$orderId = $gateway->generateOrderID();
+		$this->assertEquals( '7012301230.1', $orderId );
+	}
+
 	public function testDonorReturnSuccess() {
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
