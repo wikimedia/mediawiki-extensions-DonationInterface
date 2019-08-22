@@ -1788,4 +1788,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			return true;
 		}
 	}
+
+	/**
+	 * Override parent function to disallow order IDs starting with
+	 * 4 or 7, which can collide with those created via the Connect
+	 * API (as implemented in the 'Ingenico' adapter)
+	 * @inheritDoc
+	 */
+	public function generateOrderID( $dataObj = null ) {
+		do {
+			$orderId = parent::generateOrderID( $dataObj );
+			$firstChar = substr( (string)$orderId, 0, 1 );
+		} while (
+			// UGLY! But we don't want this to apply to the child
+			// class ingenico adapter.
+			self::getIdentifier() === 'globalcollect' &&
+			( $firstChar === '4' || $firstChar === '7' )
+		);
+		return $orderId;
+	}
 }

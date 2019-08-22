@@ -181,6 +181,7 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
+	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "Помилка під час обробки Вашого запиту.",
 	"donate_interface-error-msg-nopaypal": "Через технічну помилку ми не можемо відправити ваш запит до PayPal.  Будь ласка, спробуйте скористатися нашою стандартною формою для пожертв з кредитної картки.",
 	"donate_interface-error-msg-validation": "Будь ласка, виправте помилки у формі.",
