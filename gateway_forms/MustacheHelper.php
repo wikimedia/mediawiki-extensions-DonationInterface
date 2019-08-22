@@ -14,8 +14,11 @@ class MustacheHelper {
 		$defaultOptions = [
 			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION | LightnCandy::FLAG_ADVARNAME,
 		];
-
-		$options = $options + $defaultOptions;
+		if ( isset( $options['flags'] ) ) {
+			$options['flags'] = $options['flags'] | $defaultOptions['flags'];
+		} else {
+			$options = $options + $defaultOptions;
+		}
 
 		if ( !file_exists( $fileName ) ) {
 			throw new RuntimeException( "Template file unavailable: [$fileName]" );
