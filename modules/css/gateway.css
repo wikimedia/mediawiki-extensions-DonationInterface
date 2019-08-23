@@ -20,12 +20,13 @@ body.ltr #footer #footer-places {
 	color: #c10;
 }
 
-#payment-table-donor {
-	background-color: transparent;
+#appeal,
+#donate {
+	display: table-cell;
 }
 
-#payment-table-donor td {
-	text-align: left;
+#donate {
+	background-color: transparent;
 }
 
 #bodyContent input[ type='text' ],
@@ -66,6 +67,16 @@ input#email {
 	direction: ltr;
 }
 
+.halfwidth,
+.thirdwidth {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.halfwidth input,
+.halfwidth select,
+.thirdwidth input,
+.thirdwidth select,
 .fullwidth {
 	width: 100%;
 }
@@ -80,17 +91,12 @@ input#email {
 }
 
 .thirdwidth:first-child {
-	width: 34%;
+	width: 32%;
 }
 
 .thirdwidth:not( :first-child ) {
 	margin-left: 2%;
 	width: 31%;
-}
-
-.halfwidth,
-.thirdwidth {
-	float: left;
 }
 
 /* From 2014 appeal */
@@ -122,6 +128,7 @@ div#content {
 .errorMsg {
 	color: #f00;
 	display: inherit;
+	clear: left;
 }
 
 .errorMsgHide {
@@ -150,26 +157,13 @@ div#content {
 		display: none;
 	}
 
-	#donate {
-		display: block;
-	}
-
 	div#greenBackground {
 		padding: 1em;
 		width: inherit;
 	}
 
-	table#payment-table-donor {
-		width: 100%;
-	}
-
-	/* Form - Contact/Donation Info */
-	table#payment-table-donor td {
-		padding: 0;
-	}
-
-	td#donate form select,
-	td#donate form input {
+	#donate form select,
+	#donate form input {
 		display: block;
 		float: left;
 		clear: both;
@@ -179,7 +173,7 @@ div#content {
 		padding: 10px 3%;
 	}
 
-	td#donate form input.hidden {
+	#donate form input.hidden {
 		display: none;
 	}
 

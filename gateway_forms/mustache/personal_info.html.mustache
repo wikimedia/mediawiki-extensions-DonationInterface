@@ -1,32 +1,21 @@
 {{# first_name_visible }}{{! if we don't need the first_name, hide the whole name cell }}
-						<tr>
-							<td>
+    <div>
 								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" {{# first_name_required }}required {{/ first_name_required }}autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="last_name" value="{{ last_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-last_name" }}" id="last_name" {{# last_name_required }}required {{/ last_name_required }} autocomplete="billing family-name cc-family-name" maxlength="64">
-							</td>
-						</tr>
                         {{{ fieldError "first_name" }}}
                         {{{ fieldError "last_name" }}}
+    </div>
 {{/ first_name_visible }}
 {{# address_visible }}
 {{# street_address_visible }}
-						<tr>
-							<td>
+    <div>
 								<input class="fullwidth" name="street_address" value="{{ street_address }}" type="text" title="{{ l10n "donate_interface-donor-street_address" }}" placeholder="{{ l10n "donate_interface-donor-street_address" }}" id="street_address" {{# street_address_required }}required {{/ street_address_required }} autocomplete="billing address-line1" maxlength="96">
-							</td>
-						</tr>
                         {{{ fieldError "street_address" }}}
+    </div>
 {{/ street_address_visible }}
-						<tr>
-							<td>
-{{# city_visible }}
-								<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">
-{{/ city_visible }}
-{{> state_dropdown }}{{! only renders if required }}
-{{# postal_code_visible }}
-								<input class="{{ address_css_class }}" name="postal_code" value="{{ postal_code }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal_code" }}" id="postal_code" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">
-{{/ postal_code_visible }}
-							</td>
-						</tr>
+    <div>
+{{# city_visible }}<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">{{/ city_visible }}{{! don't render space
+}}{{> state_dropdown }}{{! only renders if required }}{{! don't render space
+}}{{# postal_code_visible }}<input class="{{ address_css_class }}" name="postal_code" value="{{ postal_code }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal_code" }}" id="postal_code" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">{{/ postal_code_visible }}
 
     {{# city_visible }}
                         {{{ fieldError "city" }}}
@@ -37,32 +26,26 @@
     {{# postal_code_visible }}
                         {{{ fieldError "postal_code" }}}
     {{/ postal_code_visible }}
+    </div>
 {{/ address_visible }}
 {{# fiscal_number_visible }}
-						<tr>
-							<td>{{! TODO: Explore the new pattern attribute for browser validation while allowing the donor to enter whatever punctuated format they're used to }}
+    <div>
+                                {{! TODO: Explore the new pattern attribute for browser validation while allowing the donor to enter whatever punctuated format they're used to }}
 								<input class="fullwidth" name="fiscal_number" value="{{ fiscal_number }}" type="text" title="{{ l10n "donate_interface-donor-fiscal_number" }}" placeholder="{{ l10n "donate_interface-donor-fiscal_number" }}" id="fiscal_number" {{# fiscal_number_required }}required {{/ fiscal_number_required }} >
-							</td>
-						</tr>
                         {{{ fieldError "fiscal_number" }}}
+    </div>
 {{/ fiscal_number_visible }}
 {{# email_visible }}
-						<tr>
-							<td>
+    <div>
 								<input class="fullwidth" name="email" value="{{ email }}" type="email" title="{{ l10n "donate_interface-donor-email" }}" placeholder="{{ l10n "donate_interface-donor-email" }}" id="email" {{# email_required }}required {{/ email_required }} autocomplete="email" maxlength="254">
-							</td>
-						</tr>
-                        <tr id="emailSuggestion" >
-                            <td>
-                                <span></span><div class="close-button">×</div>
-                            </td>
-                        </tr>
+                                <div id="emailSuggestion">
+                                    <span></span><div class="close-button">×</div>
+                                </div>
                         {{{ fieldError "email" }}}
+    </div>
 {{/ email_visible }}
 {{# employer_visible }}
-						<tr>
-							<td>
+    <div>
 								<input class="fullwidth" name="employer" value="{{ employer }}" type="text" title="{{ l10n "donate_interface-donor-employer" }}" placeholder="{{ l10n "donate_interface-donor-employer" }}" id="employer" maxlength="64">
-							</td>
-						</tr>
+    </div>
 {{/ employer_visible }}

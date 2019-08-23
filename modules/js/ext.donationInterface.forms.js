@@ -179,7 +179,7 @@
 
 	$( function () {
 
-		var emailRow = $( '#email' ).closest( 'tr' ),
+		var emailDiv = $( '#email' ).closest( 'div' ),
 			emailExplainMessage = mw.msg( 'donate_interface-email-explain' ),
 			optInValue = mw.donationInterface.forms.getOptIn();
 
@@ -217,7 +217,7 @@
 		);
 
 		function showEmailExplain() {
-			emailRow.after( '<tr id="email_explain"><td>' + emailExplainMessage + '</td></tr>' );
+			emailDiv.after( '<div id="email_explain">' + emailExplainMessage + '</div>' );
 		}
 
 		if ( optInValue === '0' ) {
