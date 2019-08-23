@@ -4,7 +4,7 @@
 		presetAmount,
 		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
 
-	ru.setUpsellAsk = function ( amount ) {
+	ru.setUpsellAsk = function ( amount, locale, currency ) {
 		var upsellAmountFormatted;
 
 		if ( amount < 3 ) {
@@ -29,9 +29,14 @@
 			presetAmount = 100;
 		}
 
-		// Need currency formatter function like the below.  Hardcoded for now.
-		//upsellAmountFormatted = frb.formatCurrency(currency, presetAmount, language);
-		upsellAmountFormatted = '$' + presetAmount;
+		upsellAmountFormatted = presetAmount.toLocaleString(
+			locale,
+			{
+				currency: currency,
+				style: 'currency'
+			}
+		);
+
 		$( '.ru-upsell-ask' ).text( upsellAmountFormatted );
 
 		return presetAmount;
@@ -79,7 +84,11 @@
 
 	$( function () {
 		originalAmount = $( '#amount' ).val();
-		ru.setUpsellAsk( originalAmount );
+		ru.setUpsellAsk(
+			originalAmount,
+			$( '#language' ).val() + '-' + $( '#country' ).val(),
+			$( '#currency' ).val()
+		);
 		$( '.ru-no-button, .ru-close' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
 				document.location.assign( tyUrl );
