@@ -51,6 +51,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		// set the appropriate header
 		$headers = [
 			'error-cc' => 'php-response-declined',
+			'error-cancel' => 'donate_interface-donation-cancelled-header',
 			'error-default' => 'donate_interface-error-msg-general',
 			'error-noform' => 'donate_interface-error-msg-general',
 			'maintenance' => 'donate_interface-maintenance-notice',

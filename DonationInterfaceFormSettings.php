@@ -4,6 +4,8 @@
  * parameters. The chooser should instead query enabled gateway capabilities
  * and simply pass along any ffname from the banner to allow A/B testing.
  */
+use SmashPig\CrmLink\FinalStatus;
+
 global $wgDonationInterfaceAllowedHtmlForms;
 /**
  * Temp var for terseness, unset at end of file
@@ -745,6 +747,12 @@ $forms_whitelist['error-noform'] = [
 $forms_whitelist['error-cc'] = [
 	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'astropay' ],
 	'payment_methods' => [ 'cc' => 'ALL' ],
+	'special_type' => 'error',
+];
+
+$forms_whitelist['error-cancel'] = [
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
+	'payment_status' => [ FinalStatus::CANCELLED ],
 	'special_type' => 'error',
 ];
 

@@ -725,7 +725,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			case FinalStatus::FAILED :
 			case FinalStatus::REVISED :
 			case FinalStatus::CANCELLED:
-				$problem = $this->cancelCreditCardPayment();
+				$problem = $this->cancelCreditCardPayment( $order_status_results );
 				break;
 			case FinalStatus::COMPLETE :
 				$problem['flag'] = true; // nothing to be done.
@@ -776,8 +776,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function cancelCreditCardPayment() {
-		$this->finalizeInternalStatus( FinalStatus::FAILED );
+	protected function cancelCreditCardPayment( $status = FinalStatus::FAILED ) {
+		$this->finalizeInternalStatus( $status );
 		return [ 'flag' => 'true', 'message' => 'Cancelling payment', 'severity' => LogLevel::INFO, 'errors' => [ '1000001' => 'Cancelling payment' ] ];
 	}
 
