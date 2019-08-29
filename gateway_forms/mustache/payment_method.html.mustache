@@ -8,7 +8,7 @@
                                                 <li title="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" {{# sub_text_key }}class="has_sub_text" {{/ sub_text_key }}>
                                                 <label for="submethod-{{ key }}">
                                                     <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
-                                                    <img class="submethod-logo" alt="{{ label }}" src="{{ logo }}" {{{ srcset }}}/>
+                                                    <img class="submethod-logo" alt="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" src="{{ logo }}" {{{ srcset }}}/>
 {{# sub_text_key }}
                                                     <p class="card_sub_text">{{ l10n . }}</p>
 {{/ sub_text_key }}
