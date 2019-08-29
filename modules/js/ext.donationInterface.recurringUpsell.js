@@ -1,10 +1,11 @@
 ( function ( $, mw ) {
 	var ru = {},
+		currency,
 		originalAmount,
 		presetAmount,
 		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
 
-	ru.setUpsellAsk = function ( amount ) {
+	ru.setUpsellAsk = function ( amount, locale, currency ) {
 		var upsellAmountFormatted;
 
 		if ( amount < 3 ) {
@@ -29,9 +30,14 @@
 			presetAmount = 100;
 		}
 
-		// Need currency formatter function like the below.  Hardcoded for now.
-		//upsellAmountFormatted = frb.formatCurrency(currency, presetAmount, language);
-		upsellAmountFormatted = '$' + presetAmount;
+		upsellAmountFormatted = presetAmount.toLocaleString(
+			locale,
+			{
+				currency: currency,
+				style: 'currency'
+			}
+		);
+
 		$( '.ru-upsell-ask' ).text( upsellAmountFormatted );
 
 		return presetAmount;
@@ -78,8 +84,13 @@
 	};
 
 	$( function () {
-		originalAmount = $( '#amount' ).val();
-		ru.setUpsellAsk( originalAmount );
+		originalAmount = +$( '#amount' ).val();
+		currency = $( '#currency' ).val();
+		ru.setUpsellAsk(
+			originalAmount,
+			$( '#language' ).val() + '-' + $( '#country' ).val(),
+			currency
+		);
 		$( '.ru-no-button, .ru-close' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
 				document.location.assign( tyUrl );
@@ -93,11 +104,10 @@
 		$( '.ru-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
 				var otherAmountField = $( '.ru-other-amount-input' ),
-					otherAmount = otherAmountField.val(),
+					otherAmount = +otherAmountField.val(),
 					rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 					rate,
-					minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
-					currency = $( 'input[name="currency"]' ).val();
+					minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
 
 				if ( rates[ currency ] ) {
 					rate = rates[ currency ];

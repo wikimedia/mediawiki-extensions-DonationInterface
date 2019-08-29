@@ -24,8 +24,7 @@
             <p>{{ l10n "donate_interface-recurring-upsell-enter-amount" }}</p>
 
             <div class="ru-other-amount">
-                ${{! FIXME: currency symbol }}
-                <input name="otherMonthlyAmount" type="number" class="ru-other-amount-input" autocomplete="off" value="" tabindex="-1" />
+                <input name="otherMonthlyAmount" type="number" class="ru-other-amount-input" autocomplete="off" value="" tabindex="-1" /> {{ currency }}
                 <div class="ru-error ru-error-smallamount">{{ l10n "donate_interface-smallamount-error" }}</div>
                 <div class="ru-error ru-error-bigamount">{{ l10n "donate_interface-recurring-upsell-max-amount" }}</div>
             </div>
