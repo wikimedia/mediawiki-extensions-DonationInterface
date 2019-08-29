@@ -1,5 +1,6 @@
 ( function ( $, mw ) {
 	var ru = {},
+		currency,
 		originalAmount,
 		presetAmount,
 		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
@@ -83,11 +84,12 @@
 	};
 
 	$( function () {
-		originalAmount = $( '#amount' ).val();
+		originalAmount = +$( '#amount' ).val();
+		currency = $( '#currency' ).val();
 		ru.setUpsellAsk(
 			originalAmount,
 			$( '#language' ).val() + '-' + $( '#country' ).val(),
-			$( '#currency' ).val()
+			currency
 		);
 		$( '.ru-no-button, .ru-close' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
@@ -102,11 +104,10 @@
 		$( '.ru-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
 				var otherAmountField = $( '.ru-other-amount-input' ),
-					otherAmount = otherAmountField.val(),
+					otherAmount = +otherAmountField.val(),
 					rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 					rate,
-					minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
-					currency = $( 'input[name="currency"]' ).val();
+					minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
 
 				if ( rates[ currency ] ) {
 					rate = rates[ currency ];
