@@ -154,6 +154,8 @@
 	"donate_interface-donor-last_name": "Sobrenome",
 	"donate_interface-donor-last_name-alt": "Sobrenome",
 	"donate_interface-donor-employer": "Nome do empregador (opcional)",
+	"donate_interface-donor-employer-variant4": "Empregador (opcional)",
+	"donate_interface-donor-employer-variant5": "Empregador",
 	"donate_interface-donor-street_address": "Rua",
 	"donate_interface-donor-street-number": "Número",
 	"donate_interface-donor-city": "Cidade",
