@@ -63,8 +63,9 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$init = $this->getDonorTestData( 'BR' );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway->setCurrentTransaction( 'NewInvoice' );
+		$accessible = TestingAccessWrapper::newFromObject( $gateway );
 
-		$result = $gateway->getCurlBaseOpts();
+		$result = $accessible->getCurlBaseOpts();
 
 		$this->assertEquals(
 			'https://sandbox.astropay.example.com/api_curl/streamline/NewInvoice',
