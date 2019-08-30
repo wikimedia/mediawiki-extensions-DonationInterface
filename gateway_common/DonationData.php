@@ -1085,10 +1085,10 @@ class DonationData implements LogPrefixProvider {
 	 * won't give us notices if we weren't even a web request.
 	 * I realize this is pretty lame.
 	 * Notices, however, are more lame.
-	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 * @return bool
 	 */
 	public function wasPosted() {
+		// Keeps track so we don't have to figure it out twice.
 		static $posted = null;
 		if ( $posted === null ) {
 			$posted = ( array_key_exists( 'REQUEST_METHOD', $_SERVER ) && WmfFramework::isPosted() );

@@ -3397,7 +3397,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * should have saved to the user's session.
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.
-	 * @staticvar string $match
 	 * @return bool
 	 */
 	protected function token_checkTokens() {
