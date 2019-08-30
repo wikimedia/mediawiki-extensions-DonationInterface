@@ -45,7 +45,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		] );
 	}
 
-	function testGetOneValidForm_CC_SpecificCountry() {
+	public function testGetOneValidForm_CC_SpecificCountry() {
 		$tests = [
 			0 => [
 				'country' => 'US',
@@ -67,7 +67,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		}
 	}
 
-	function testMaintenanceMode_Redirect() {
+	public function testMaintenanceMode_Redirect() {
 		$this->setMwGlobals( [
 			'wgContributionTrackingFundraiserMaintenance' => true,
 		] );
@@ -88,7 +88,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	 * currency should take precedence over currency_code, payment_method
 	 * over paymentmethod, etc.
 	 */
-	function testPreferCanonicalParams() {
+	public function testPreferCanonicalParams() {
 		$assertNodes = [
 			'headers' => [
 				'Location' => function ( $val ) {
@@ -110,7 +110,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	/**
 	 * Make sure none of the payment form settings are horribly broken.
 	 */
-	function testBuildAllFormUrls() {
+	public function testBuildAllFormUrls() {
 		global $wgDonationInterfaceAllowedHtmlForms;
 		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
 			if ( empty( $config['special_type'] ) || $config['special_type'] != 'error' ) {

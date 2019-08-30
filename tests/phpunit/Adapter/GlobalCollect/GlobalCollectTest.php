@@ -49,7 +49,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = [], $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
 	}
@@ -118,7 +118,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * @covers GatewayAdapter::normalizeOrderID
 	 * @covers GatewayAdapter::regenerateOrderID
 	 */
-	function testStickyGeneratedOrderID() {
+	public function testStickyGeneratedOrderID() {
 		$init = self::$initial_vars;
 		unset( $init['order_id'] );
 
@@ -142,7 +142,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * Integration test to verify that order_id can be retrieved from
 	 * performing an INSERT_ORDERWITHPAYMENT.
 	 */
-	function testOrderIDRetrieval() {
+	public function testOrderIDRetrieval() {
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -160,7 +160,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	/**
 	 * Just run the GET_ORDERSTATUS transaction and make sure we load the data
 	 */
-	function testGetOrderStatus() {
+	public function testGetOrderStatus() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -180,7 +180,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * comes back with STATUSID 25 and no CVVRESULT
 	 * @group CvvResult
 	 */
-	function testConfirmCreditCardStatus25() {
+	public function testConfirmCreditCardStatus25() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -200,7 +200,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * Make sure we're incorporating GET_ORDERSTATUS AVS and CVV responses into
 	 * fraud scores.
 	 */
-	function testGetOrderstatusPostProcessFraud() {
+	public function testGetOrderstatusPostProcessFraud() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgGlobalCollectGatewayCustomFiltersFunctions' => [
@@ -233,7 +233,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * Ensure the Confirm_CreditCard transaction prefers CVVRESULT from the XML
 	 * over any value from the querystring
 	 */
-	function testConfirmCreditCardPrefersXmlCvv() {
+	public function testConfirmCreditCardPrefersXmlCvv() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -252,7 +252,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * Make sure we record the actual amount charged, even if the donor has
 	 * opened a new window and screwed up their session data.
 	 */
-	function testConfirmCreditCardUpdatesAmount() {
+	public function testConfirmCreditCardUpdatesAmount() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -411,7 +411,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * Tests to make sure that certain error codes returned from GC will or
 	 * will not create payments error loglines.
 	 */
-	function testCCLogsOnGatewayError() {
+	public function testCCLogsOnGatewayError() {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['ffname'] = 'cc-vmad';
@@ -542,7 +542,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	/**
 	 * doPayment should return an iframe result with normal data
 	 */
-	function testDoPaymentSuccess() {
+	public function testDoPaymentSuccess() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -573,7 +573,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	/**
 	 * doPayment should recover from an attempt to use a duplicate order ID.
 	 */
-	function testDuplicateOrderId() {
+	public function testDuplicateOrderId() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -602,7 +602,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	/**
 	 * doPayment should recover from Ingenico-side timeouts.
 	 */
-	function testTimeoutRecover() {
+	public function testTimeoutRecover() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -657,7 +657,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	 * We should retry when SET_PAYMENT comes back with non-XML, but call
 	 * failed if it keeps giving us bad data.
 	 */
-	function testMangledSetPayment() {
+	public function testMangledSetPayment() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';

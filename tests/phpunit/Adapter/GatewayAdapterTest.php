@@ -459,7 +459,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( '8.8.8.8', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
 	}
 
-	function testGetScoreName() {
+	public function testGetScoreName() {
 		$rule = [
 			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
 			'KeyMapB' => [],
@@ -479,7 +479,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertNotEquals( 0, $result, 'Bad name not detected' );
 	}
 
-	function testGetScoreNameMinimumLength() {
+	public function testGetScoreNameMinimumLength() {
 		$rule = [
 			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
 			'KeyMapB' => [],

@@ -53,7 +53,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
 	}
 
-	function testIngenicoFormLoad_FR() {
+	public function testIngenicoFormLoad_FR() {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';

@@ -43,7 +43,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		] );
 	}
 
-	function testPaymentSetup() {
+	public function testPaymentSetup() {
 		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
@@ -136,7 +136,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
-	function testPaymentSetupRecurring() {
+	public function testPaymentSetupRecurring() {
 		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
@@ -235,7 +235,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	 * Check that the adapter makes the correct calls for successful donations
 	 * and sends a good queue message.
 	 */
-	function testProcessDonorReturn() {
+	public function testProcessDonorReturn() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$this->setUpRequest( $init, [ 'Donor' => $init ] );
@@ -304,7 +304,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	/**
 	 * Check that we send the donor back to paypal to try a different source
 	 */
-	function testProcessDonorReturnPaymentRetry() {
+	public function testProcessDonorReturnPaymentRetry() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$this->setUpRequest( $init, [ 'Donor' => $init ] );
@@ -329,7 +329,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	/**
 	 * Check that we don't send donors to the fail page for warnings
 	 */
-	function testProcessDonorReturnWarning() {
+	public function testProcessDonorReturnWarning() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
 		$this->setUpRequest( $init, [ 'Donor' => $init ] );

@@ -63,7 +63,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the Donate transaction works as expected when all necessary data is present.
 	 */
-	function testDoTransactionDonate() {
+	public function testDoTransactionDonate() {
 		$init = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $init );
 
@@ -96,7 +96,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the DonateRecurring transaction works as expected when all necessary data is present.
 	 */
-	function testDoTransactionDonateRecurring() {
+	public function testDoTransactionDonateRecurring() {
 		$init = $this->getDonorTestData();
 		$init['recurring'] = '1';
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -129,7 +129,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the Donate transaction works as expected when all necessary data is present.
 	 */
-	function testDoTransactionDonateXclick() {
+	public function testDoTransactionDonateXclick() {
 		$init = $this->getDonorTestData();
 
 		TestingPaypalLegacyAdapter::$fakeGlobals = [
@@ -163,7 +163,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the Paypal gateway redirects when validation is successful.
 	 */
-	function testRedirectFormOnValid() {
+	public function testRedirectFormOnValid() {
 		$init = $this->getDonorTestData();
 		$session = [ 'Donor' => $init ];
 
@@ -183,7 +183,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the Paypal gateway shows an error message when validation fails.
 	 */
-	function testShowFormOnError() {
+	public function testShowFormOnError() {
 		$init = $this->getDonorTestData();
 		$init['amount'] = '-100.00';
 		$session = [ 'Donor' => $init ];
@@ -200,7 +200,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Stay on the payments form if there's a currency conversion notification.
 	 */
-	function testShowFormOnCurrencyFallback() {
+	public function testShowFormOnCurrencyFallback() {
 		$init = $this->getDonorTestData();
 		$init['currency'] = 'BBD';
 		$init['amount'] = 15.00;
@@ -227,7 +227,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	 *
 	 * @dataProvider belgiumLanguageProvider
 	 */
-	function testDoTransactionDonate_BE( $language ) {
+	public function testDoTransactionDonate_BE( $language ) {
 		$init = $this->getDonorTestData( 'BE' );
 		$init['language'] = $language;
 		$this->setLanguage( $language );
@@ -265,7 +265,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	 *
 	 * @dataProvider canadaLanguageProvider
 	 */
-	function testDoTransactionDonate_CA( $language ) {
+	public function testDoTransactionDonate_CA( $language ) {
 		$init = $this->getDonorTestData( 'CA' );
 		$init['language'] = $language;
 		$this->setLanguage( $language );
@@ -300,7 +300,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 	/**
 	 * Integration test to verify that the Donate transaction works as expected in Italy
 	 */
-	function testDoTransactionDonate_IT() {
+	public function testDoTransactionDonate_IT() {
 		$init = $this->getDonorTestData( 'IT' );
 		$this->setLanguage( 'it' );
 		$gateway = $this->getFreshGatewayObject( $init );

@@ -60,7 +60,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
-	function __construct( $name = null, array $data = [], $dataName = '' ) {
+	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
 		$this->testAdapterClass = TestingGlobalCollectOrphanAdapter::class;
 		$this->dummy_utm_data = [
@@ -156,7 +156,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	 * Make sure we're incorporating GET_ORDERSTATUS AVS and CVV responses into
 	 * fraud scores.
 	 */
-	function testGetOrderstatusPostProcessFraud() {
+	public function testGetOrderstatusPostProcessFraud() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgGlobalCollectGatewayCustomFiltersFunctions' => [

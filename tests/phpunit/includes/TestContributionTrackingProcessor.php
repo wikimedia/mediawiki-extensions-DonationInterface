@@ -1,7 +1,7 @@
 <?php
 
 class ContributionTrackingProcessor {
-	static function contributionTrackingConnection() {
+	public static function contributionTrackingConnection() {
 		return wfGetDB( DB_MASTER );
 	}
 }
