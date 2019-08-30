@@ -13,7 +13,7 @@ class IngenicoFormVariant implements StagingHelper {
 	 * @param array $normalized Donation data in normalized form.
 	 * @param array &$stagedData Reference to output data.
 	 */
-	function stage( GatewayType $adapter, $normalized, &$stagedData ) {
+	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$variants = $adapter->getGlobal( 'HostedFormVariants' );
 		if (
 			isset( $stagedData['use_authentication'] ) &&

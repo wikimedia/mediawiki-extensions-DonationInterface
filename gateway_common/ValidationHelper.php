@@ -10,5 +10,5 @@ interface ValidationHelper {
 	 * @param ErrorState &$errors Reference to error state
 	 * @return void
 	 */
-	function validate( GatewayType $adapter, $normalized, &$errors );
+	public function validate( GatewayType $adapter, $normalized, &$errors );
 }

@@ -7,11 +7,11 @@
  */
 class SystemStatus extends UnlistedSpecialPage {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'SystemStatus' );
 	}
 
-	function execute( $par ) {
+	public function execute( $par ) {
 		global $wgDonationInterfaceEnableSystemStatus;
 
 		if ( !$wgDonationInterfaceEnableSystemStatus ) {

@@ -24,7 +24,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 * Setting some Ingenico-specific defaults.
 	 * @param array $options These get extracted in the parent.
 	 */
-	function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 		if ( isset( $options['returnTo'] ) ) {
 			$returnTo = $options['returnTo'];
 		} else {

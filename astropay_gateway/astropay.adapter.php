@@ -42,14 +42,14 @@ class AstroPayAdapter extends GatewayAdapter {
 		return 'json';
 	}
 
-	function defineAccountInfo() {
+	protected function defineAccountInfo() {
 		$this->accountInfo = $this->account_config;
 	}
 
 	/**
 	 * TODO: How to DRYly configurify?
 	 */
-	function defineErrorMap() {
+	protected function defineErrorMap() {
 		$this->error_map = [
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
 			'internal-0001' => 'donate_interface-try-again',
@@ -57,7 +57,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		];
 	}
 
-	function defineReturnValueMap() {
+	protected function defineReturnValueMap() {
 		$this->return_value_map = [];
 		// 6: Transaction not found in the system
 		$this->addCodeRange( 'PaymentStatus', 'result', FinalStatus::FAILED, 6 );
@@ -86,7 +86,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		];
 	}
 
-	function defineTransactions() {
+	protected function defineTransactions() {
 		$this->transactions = [];
 
 		$this->transactions['NewInvoice'] = [
@@ -184,7 +184,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 
@@ -206,7 +206,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		}
 	}
 
-	function doPayment() {
+	public function doPayment() {
 		$this->ensureUniqueOrderID();
 
 		$transaction_result = $this->do_transaction( 'NewInvoice' );
@@ -416,7 +416,7 @@ class AstroPayAdapter extends GatewayAdapter {
 	 *        Requires 'result', 'x_amount', 'x_invoice', and 'x_control' keys
 	 * @throws ResponseProcessingException if signature is invalid
 	 */
-	function verifyStatusSignature( $data ) {
+	protected function verifyStatusSignature( $data ) {
 		if ( $this->getCurrentTransaction() === 'ProcessReturn' ) {
 			$login = $this->accountInfo['Create']['Login'];
 		} else {

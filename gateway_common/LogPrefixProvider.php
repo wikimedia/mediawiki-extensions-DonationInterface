@@ -1,5 +1,5 @@
 <?php
 
 interface LogPrefixProvider {
-	function getLogMessagePrefix();
+	public function getLogMessagePrefix();
 }

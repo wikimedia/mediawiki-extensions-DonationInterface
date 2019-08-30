@@ -34,14 +34,14 @@ class AdyenAdapter extends GatewayAdapter {
 		return 'namevalue';
 	}
 
-	function defineAccountInfo() {
+	protected function defineAccountInfo() {
 		$this->accountInfo = [
 			'merchantAccount' => $this->account_config[ 'AccountName' ],
 			'skins' => $this->account_config[ 'Skins' ],
 		];
 	}
 
-	function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 		if ( $this->getData_Unstaged_Escaped( 'processor_form' ) == null ) {
 			$skinCodes = $this->getSkinCodes();
 			$processor_form = $skinCodes['base'];
@@ -55,7 +55,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * FIXME: That's not what ReturnValueMap is for!
 	 * Unused?
 	 */
-	function defineReturnValueMap() {
+	protected function defineReturnValueMap() {
 		$this->return_value_map = [
 			'authResult' => 'result',
 			'merchantReference' => 'order_id',
@@ -83,7 +83,7 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * Define transactions
 	 */
-	function defineTransactions() {
+	protected function defineTransactions() {
 		$this->transactions = [];
 
 		$requestFields = [
@@ -146,11 +146,11 @@ class AdyenAdapter extends GatewayAdapter {
 		];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 
-	function doPayment() {
+	public function doPayment() {
 		$apiResult = $this->do_transaction( 'donate' );
 		$data = $apiResult->getData();
 		$url = $apiResult->getRedirect();
@@ -182,7 +182,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * is never used at all.
 	 * @inheritDoc
 	 */
-	function do_transaction( $transaction ) {
+	public function do_transaction( $transaction ) {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
@@ -355,7 +355,7 @@ class AdyenAdapter extends GatewayAdapter {
 		return str_replace( '\n', '', $value );
 	}
 
-	function checkResponseSignature( $requestVars ) {
+	protected function checkResponseSignature( $requestVars ) {
 		if ( !isset( $requestVars[ 'merchantSig' ] ) ) {
 			return false;
 		}

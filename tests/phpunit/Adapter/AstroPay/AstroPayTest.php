@@ -375,7 +375,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->assertEquals( $expected, $results,
 			'PaymentStatus response not interpreted correctly' );
 		// Should not throw exception
-		$gateway->verifyStatusSignature( $results );
+		$accessible = TestingAccessWrapper::newFromObject( $gateway );
+		$accessible->verifyStatusSignature( $results );
 	}
 
 	/**
@@ -392,7 +393,8 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$results = $gateway->getTransactionData();
 		$this->setExpectedException( 'ResponseProcessingException' );
-		$gateway->verifyStatusSignature( $results );
+		$accessible = TestingAccessWrapper::newFromObject( $gateway );
+		$accessible->verifyStatusSignature( $results );
 	}
 
 	/**

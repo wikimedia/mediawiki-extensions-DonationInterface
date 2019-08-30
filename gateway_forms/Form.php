@@ -28,7 +28,7 @@ abstract class Gateway_Form {
 	 * a form.
 	 * @return string The entire form HTML
 	 */
-	abstract function getForm();
+	abstract public function getForm();
 
 	/**
 	 * Get these objects using "new" with no parameters.
