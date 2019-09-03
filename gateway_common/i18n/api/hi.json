@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"NehalDaveND",
+			"Sfic"
+		]
+	},
+	"apihelp-donate-param-currency": "मुद्रा कोड",
+	"apihelp-donate-param-first_name": "पहला नाम",
+	"apihelp-donate-param-last_name": "अंतिम नाम",
+	"apihelp-donate-param-city": "शहर",
+	"apihelp-donate-param-email": "ईमेल पता",
+	"apihelp-donate-param-country": "देश कोड",
+	"apihelp-donate-param-card_num": "क्रेडिट कार्ड क्रमांक",
+	"apihelp-donate-param-card_type": "क्रेडिट कार्ड का प्रकार",
+	"apihelp-donate-param-expiration": "समाप्ति तिथि",
+	"apihelp-donate-param-cvv": "सीवीवी सुरक्षा कोड",
+	"apihelp-donate-param-payment_method": "उपयोग हेतु देने का तरीका",
+	"apihelp-donate-param-language": "भाषा कोड",
+	"apihelp-donate-example-1": "एक दान करें"
+}

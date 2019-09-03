@@ -16,7 +16,5 @@
 	"donate_interface-next": "Folgjende",
 	"donate_interface-cancel": "Annulearje",
 	"donate_interface-donation": "Donaasje",
-	"donate_interface-optional": "opsjoneel",
-	"apihelp-donate-param-email": "E-mailadres.",
-	"apihelp-donate-param-language": "Taalkoade."
+	"donate_interface-optional": "opsjoneel"
 }

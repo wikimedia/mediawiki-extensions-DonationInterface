@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"apihelp-donate-param-amount": "Ziedojumu summa.",
+	"apihelp-donate-param-currency": "Valūtas kods.",
+	"apihelp-donate-param-first_name": "Vārds.",
+	"apihelp-donate-param-last_name": "Uzvārds.",
+	"apihelp-donate-param-city": "Pilsēta.",
+	"apihelp-donate-param-postal_code": "Pasta indekss.",
+	"apihelp-donate-param-email": "E-pasta adrese.",
+	"apihelp-donate-param-country": "Valsts kods.",
+	"apihelp-donate-param-card_num": "Kredītkartes numurs.",
+	"apihelp-donate-param-card_type": "Kredītkartes veids.",
+	"apihelp-donate-param-expiration": "Derīguma termiņš.",
+	"apihelp-donate-param-cvv": "CVV drošības kods.",
+	"apihelp-donate-example-1": "Ziedot"
+}

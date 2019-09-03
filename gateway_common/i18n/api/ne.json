@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"NehalDaveND"
+		]
+	},
+	"apihelp-donate-param-currency": "मुद्रा कोड",
+	"apihelp-donate-param-city": "शहर",
+	"apihelp-donate-param-language": "भाषा कोड"
+}

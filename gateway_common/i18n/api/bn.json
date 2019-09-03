@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Elias Ahmmad",
+			"আফতাবুজ্জামান"
+		]
+	},
+	"apihelp-donate-param-currency": "মুদ্রা কোড।",
+	"apihelp-donate-param-first_name": "নামের প্রথমাংশ।",
+	"apihelp-donate-param-last_name": "নামের শেষাংশ।",
+	"apihelp-donate-param-city": "শহর।",
+	"apihelp-donate-param-postal_code": "পোস্টাল কোড।",
+	"apihelp-donate-param-email": "ইমেইল ঠিকানা।",
+	"apihelp-donate-param-country": "দেশের কোড।",
+	"apihelp-donate-param-card_num": "ক্রেডিট কার্ড নম্বর।",
+	"apihelp-donate-param-card_type": "ক্রেডিট কার্ডের ধরন।",
+	"apihelp-donate-param-expiration": "মেয়াদ উত্তীর্ণের তারিখ।",
+	"apihelp-donate-param-language": "ভাষা কোড।",
+	"apihelp-donate-example-1": "দান করুন"
+}

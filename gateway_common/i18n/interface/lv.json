@@ -250,18 +250,5 @@
 	"donate_interface-monthly-cancel": "Periodiskiem ziedotājiem noteiktus ikmēneša maksājumus Wikimedia Foundation debetēs vienu mēnesi pēc pirmā ziedojuma līdz laikam, kad lūgsiet tos pārtraukt. Ziedojumi, kas veikti mēneša 29., 30. vai 31. datumā, tiks atkārtoti īsāku mēnešu pēdējā datumā, pēc iespējas tuvāk sākotnējam datumam. Jautājumu gadījumā rakstiet uz e-pasta adresi $1.",
 	"donate_interface-monthly-short": "Ikmēneša",
 	"donate_interface-onetime-short": "Vienu reizi",
-	"donate_interface-emailprefs-thank-you-title": "Paldies",
-	"apihelp-donate-param-amount": "Ziedojumu summa.",
-	"apihelp-donate-param-currency": "Valūtas kods.",
-	"apihelp-donate-param-first_name": "Vārds.",
-	"apihelp-donate-param-last_name": "Uzvārds.",
-	"apihelp-donate-param-city": "Pilsēta.",
-	"apihelp-donate-param-postal_code": "Pasta indekss.",
-	"apihelp-donate-param-email": "E-pasta adrese.",
-	"apihelp-donate-param-country": "Valsts kods.",
-	"apihelp-donate-param-card_num": "Kredītkartes numurs.",
-	"apihelp-donate-param-card_type": "Kredītkartes veids.",
-	"apihelp-donate-param-expiration": "Derīguma termiņš.",
-	"apihelp-donate-param-cvv": "CVV drošības kods.",
-	"apihelp-donate-example-1": "Ziedot"
+	"donate_interface-emailprefs-thank-you-title": "Paldies"
 }

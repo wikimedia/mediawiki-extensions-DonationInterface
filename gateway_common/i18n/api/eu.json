@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Subi"
+		]
+	},
+	"apihelp-donate-param-first_name": "Izena.",
+	"apihelp-donate-param-last_name": "Abizena.",
+	"apihelp-donate-param-city": "Hiria.",
+	"apihelp-donate-param-postal_code": "Posta-kodea.",
+	"apihelp-donate-param-email": "Helbide elektronikoa.",
+	"apihelp-donate-param-country": "Herralde-kodea.",
+	"apihelp-donate-param-card_num": "Kreditu-txartel zenbakia.",
+	"apihelp-donate-param-card_type": "Kreditu-txartel mota.",
+	"apihelp-donate-param-language": "Hizkuntza-kodea."
+}

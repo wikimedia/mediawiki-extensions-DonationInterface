@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen"
+		]
+	},
+	"apihelp-donate-description": "API này cho phép quyên góp cho Quỹ Wikimedia qua nhiều nhà xử lý thanh toán khác nhau.",
+	"apihelp-donate-param-gateway": "Cổng thanh toán để sử dụng: adyen, globalcollect, v.v.",
+	"apihelp-donate-param-amount": "Số tiền quyên góp.",
+	"apihelp-donate-param-currency": "Mã tiền tệ.",
+	"apihelp-donate-param-first_name": "Tên.",
+	"apihelp-donate-param-last_name": "Họ.",
+	"apihelp-donate-param-street_address": "Dòng đầu tiên của địa chỉ đường phố.",
+	"apihelp-donate-param-supplemental_address_1": "Dòng thứ hai của địa chỉ đường phố.",
+	"apihelp-donate-param-city": "Thành phố.",
+	"apihelp-donate-param-state_province": "Viết tắt tỉnh bang.",
+	"apihelp-donate-param-postal_code": "Mã bưu chính.",
+	"apihelp-donate-param-email": "Địa chỉ thư điện tử.",
+	"apihelp-donate-param-country": "Mã quốc gia.",
+	"apihelp-donate-param-card_num": "Mã số thẻ tín dụng.",
+	"apihelp-donate-param-card_type": "Loại thẻ tín dụng.",
+	"apihelp-donate-param-expiration": "Ngày hết hạn.",
+	"apihelp-donate-param-cvv": "Mã bảo vệ CVV.",
+	"apihelp-donate-param-payment_method": "Phương pháp thanh toán.",
+	"apihelp-donate-param-payment_submethod": "Phương pháp thanh toán dứt khoát.",
+	"apihelp-donate-param-language": "Mã ngôn ngữ.",
+	"apihelp-donate-param-order_id": "ID đặt hàng (nếu đã bắt đầu khoản quyên góp).",
+	"apihelp-donate-param-wmf_token": "Dấu hiệu sửa đổi.",
+	"apihelp-donate-param-utm_source": "Biến theo dõi.",
+	"apihelp-donate-param-utm_campaign": "Biến theo dõi.",
+	"apihelp-donate-param-utm_medium": "Biến theo dõi.",
+	"apihelp-donate-param-referrer": "Trang chỉ dẫn ban đầu.",
+	"apihelp-donate-param-recurring": "Cho biết rằng có ý định giao dịch định kỳ.",
+	"apihelp-donate-example-1": "Quyên góp"
+}

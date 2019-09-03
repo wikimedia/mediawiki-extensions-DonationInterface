@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Айбикә",
+			"З. ӘЙЛЕ"
+		]
+	},
+	"apihelp-donate-description": "Был API һеҙгә  төрлө түләү системаларын ҡулланып, Викимедиа фондына хәйриә ярҙамы ебәреү мөмкинлеге бирә.",
+	"apihelp-donate-param-gateway": "Ниндәй түләү шлюзын ҡулланырға: adyen, globalcollect һ.б.",
+	"apihelp-donate-param-amount": "Хәйриә ярҙамы суммаһы.",
+	"apihelp-donate-param-currency": "Валюта коды.",
+	"apihelp-donate-param-first_name": "Исем.",
+	"apihelp-donate-param-last_name": "Фамилия.",
+	"apihelp-donate-param-street_address": "Адрестың беренсе юлы.",
+	"apihelp-donate-param-supplemental_address_1": "Адрестың икенсе юлы.",
+	"apihelp-donate-param-city": "Ҡала.",
+	"apihelp-donate-param-postal_code": "Почта индексы",
+	"apihelp-donate-param-email": "Электрон почта адресы",
+	"apihelp-donate-param-country": "Илдең коды",
+	"apihelp-donate-param-card_num": "Кредит картаһының номеры",
+	"apihelp-donate-param-card_type": "Кредит картаһының төрө",
+	"apihelp-donate-param-expiration": "Һуңғы ҡулланыу ваҡыты:",
+	"apihelp-donate-param-cvv": "CVV хәүефһеҙлеге коды",
+	"apihelp-donate-param-payment_method": "Ҡулланылған түләү ысулы",
+	"apihelp-donate-param-language": "Тел коды.",
+	"apihelp-donate-example-1": "Хәйриә ярҙамы индерергә"
+}

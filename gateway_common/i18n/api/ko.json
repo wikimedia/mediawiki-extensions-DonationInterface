@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Revi",
+			"Ykhwong"
+		]
+	},
+	"apihelp-donate-param-amount": "기부한 금액입니다.",
+	"apihelp-donate-param-currency": "통화 코드.",
+	"apihelp-donate-param-first_name": "이름입니다.",
+	"apihelp-donate-param-last_name": "성입니다.",
+	"apihelp-donate-param-city": "도시입니다.",
+	"apihelp-donate-param-postal_code": "우편 번호.",
+	"apihelp-donate-param-email": "이메일 주소입니다.",
+	"apihelp-donate-param-country": "국가 코드입니다.",
+	"apihelp-donate-param-card_num": "신용 카드 번호입니다.",
+	"apihelp-donate-param-card_type": "신용 카드 종류입니다.",
+	"apihelp-donate-param-expiration": "유효 기한입니다.",
+	"apihelp-donate-param-cvv": "CVV 보안 코드.",
+	"apihelp-donate-param-language": "언어 코드입니다.",
+	"apihelp-donate-param-order_id": "주문 ID (기부가 이미 시작된 경우)",
+	"apihelp-donate-param-wmf_token": "편집 토큰.",
+	"apihelp-donate-param-employer": "고용주 이름",
+	"apihelp-donate-example-1": "기부하기",
+	"apihelp-logPaymentsFormError-param-message": "오류 메시지",
+	"apihelp-logPaymentsFormError-param-file": "오류가 발생한 파일",
+	"apihelp-logPaymentsFormError-param-line": "오류가 발생한 줄",
+	"apihelp-logPaymentsFormError-param-col": "오류가 발생한 컬럼",
+	"apihelp-logPaymentsFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열",
+	"apihelp-logPaymentsFormError-param-stack": "오류의 스택 트레이스 (사용 가능한 경우)"
+}

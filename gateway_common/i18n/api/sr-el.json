@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Milicevic01",
+			"Сербијана"
+		]
+	},
+	"apihelp-donate-param-first_name": "Ime.",
+	"apihelp-donate-param-last_name": "Prezime.",
+	"apihelp-donate-param-city": "Grad.",
+	"apihelp-donate-param-postal_code": "Poštanski broj.",
+	"apihelp-donate-param-email": "Imejl adresa.",
+	"apihelp-donate-param-country": "Kod države.",
+	"apihelp-donate-param-card_num": "Broj kreditne kartice.",
+	"apihelp-donate-param-card_type": "Vrsta kreditne kartice.",
+	"apihelp-donate-param-expiration": "Datum isteka.",
+	"apihelp-donate-param-cvv": "CVV sigurnosni kod."
+}

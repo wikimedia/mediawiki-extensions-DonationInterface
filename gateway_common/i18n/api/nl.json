@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Edoderoo",
+			"Siebrand"
+		]
+	},
+	"apihelp-donate-description": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van een verscheidenheid van payment processors.",
+	"apihelp-donate-param-gateway": "Welke payment gateway te gebruiken - adyen, globalcollect, enz.",
+	"apihelp-donate-param-amount": "Het gedoneerde bedrag.",
+	"apihelp-donate-param-currency": "Valutacode.",
+	"apihelp-donate-param-first_name": "Voornaam.",
+	"apihelp-donate-param-last_name": "Achternaam.",
+	"apihelp-donate-param-street_address": "Eerste regel van het adres.",
+	"apihelp-donate-param-supplemental_address_1": "Tweede regel van het adres.",
+	"apihelp-donate-param-city": "Plaats.",
+	"apihelp-donate-param-state_province": "Afkorting van de staat.",
+	"apihelp-donate-param-postal_code": "Postcode.",
+	"apihelp-donate-param-email": "E-mailadres.",
+	"apihelp-donate-param-country": "Landcode.",
+	"apihelp-donate-param-card_num": "Creditcardnummer.",
+	"apihelp-donate-param-card_type": "Creditcardtype.",
+	"apihelp-donate-param-expiration": "Vervaldatum.",
+	"apihelp-donate-param-cvv": "CVV-beveiligingscode.",
+	"apihelp-donate-param-payment_method": "Te gebruiken betaalmethode.",
+	"apihelp-donate-param-payment_submethod": "Te gebruiken betalingssubmethode.",
+	"apihelp-donate-param-language": "Taalcode.",
+	"apihelp-donate-param-order_id": "Ordernummer (als een donatie al begonnen is).",
+	"apihelp-donate-param-utm_source": "Trackingvariabele.",
+	"apihelp-donate-param-utm_campaign": "Trackingvariabele.",
+	"apihelp-donate-param-utm_medium": "Trackingvariabele.",
+	"apihelp-donate-param-referrer": "Oorspronkelijke verwijzer.",
+	"apihelp-donate-param-recurring": "Geeft aan dat de transactie is herhaald moet worden.",
+	"apihelp-donate-example-1": "Maak een donatie"
+}
