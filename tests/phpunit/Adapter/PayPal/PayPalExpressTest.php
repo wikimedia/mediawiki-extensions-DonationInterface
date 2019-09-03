@@ -59,7 +59,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit',
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
@@ -153,7 +153,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U',
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit',
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
@@ -321,7 +321,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertFalse( $result->isFailed() );
 		$redirect = $result->getRedirect();
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U',
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U&useraction=commit',
 			$redirect
 		);
 	}
@@ -406,7 +406,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertFalse( $result->isFailed() );
 		$redirect = $result->getRedirect();
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U',
+			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U&useraction=commit',
 			$redirect
 		);
 	}
