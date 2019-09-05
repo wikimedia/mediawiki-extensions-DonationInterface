@@ -92,7 +92,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function getCurlBaseOpts() {
+	protected function getCurlBaseOpts() {
 		$opts = parent::getCurlBaseOpts();
 
 		if ( $this->isCertificateAuthentication() ) {

@@ -431,7 +431,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Any unmapped error code will use 'donate_interface-processing-error'
 	 * TODO: see comment on definePaymentMethods
 	 */
-	public function defineErrorMap() {
+	protected function defineErrorMap() {
 		if ( isset( $this->config['error_map'] ) ) {
 			$this->error_map = $this->config['error_map'];
 		}
@@ -1252,7 +1252,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->transaction_response;
 	}
 
-	function getCurlBaseOpts() {
+	protected function getCurlBaseOpts() {
 		// I chose to return this as a function so it's easy to override.
 		// TODO: probably this for all the junk I currently have stashed in the constructor.
 		// ...maybe.
@@ -1278,7 +1278,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $opts;
 	}
 
-	function getCurlBaseHeaders() {
+	protected function getCurlBaseHeaders() {
 		$content_type = 'application/x-www-form-urlencoded';
 		if ( $this->getCommunicationType() === 'xml' ) {
 			$content_type = 'text/xml';
@@ -1646,7 +1646,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @throws InvalidArgumentException
 	 * @throws LogicException
 	 */
-	function getFormattedResponse( $rawResponse ) {
+	protected function getFormattedResponse( $rawResponse ) {
 		$type = $this->getResponseType();
 		if ( $type === 'xml' ) {
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
@@ -1688,7 +1688,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $noHeaders;
 	}
 
-	function stripXMLResponseHeaders( $rawResponse ) {
+	protected function stripXMLResponseHeaders( $rawResponse ) {
 		$xmlStart = strpos( $rawResponse, '<?xml' );
 		if ( $xmlStart === false ) {
 			// I totally saw this happen one time. No XML, just <RESPONSE>...
@@ -1708,7 +1708,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $xml
 	 * @return string
 	 */
-	function formatXmlString( $xml ) {
+	protected function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
 		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
 
@@ -1744,26 +1744,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $result;
 	}
 
-	static function getGatewayName() {
+	public static function getGatewayName() {
 		$c = get_called_class();
 		return $c::GATEWAY_NAME;
 	}
 
-	static function getGlobalPrefix() {
+	public static function getGlobalPrefix() {
 		$c = get_called_class();
 		return $c::GLOBAL_PREFIX;
 	}
 
-	static function getIdentifier() {
+	public static function getIdentifier() {
 		$c = get_called_class();
 		return $c::IDENTIFIER;
 	}
 
-	static function getLogIdentifier() {
+	public static function getLogIdentifier() {
 		return self::getIdentifier() . '_gateway';
 	}
 
-	function xmlChildrenToArray( $xml, $nodename ) {
+	protected function xmlChildrenToArray( $xml, $nodename ) {
 		$data = [];
 		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
 			foreach ( $node->childNodes as $childnode ) {
@@ -2019,7 +2019,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param mixed|null $parameter That's right: For now you only get one.
 	 * @return bool True if a function was found and executed.
 	 */
-	function executeIfFunctionExists( $function_name, $parameter = null ) {
+	protected function executeIfFunctionExists( $function_name, $parameter = null ) {
 		$function_name = strtolower( $function_name ); // Because, that's why.
 		if ( method_exists( $this, $function_name ) ) {
 			$this->{$function_name}( $parameter );
@@ -2375,7 +2375,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * This function is most likely to be called through
 	 * executeFunctionIfExists, early on in do_transaction.
 	 */
-	function runAntifraudFilters() {
+	public function runAntifraudFilters() {
 		// extra layer of Stop Doing This.
 		if ( $this->errorState->hasErrors() ) {
 			$this->logger->info( 'Skipping antifraud filters: Transaction is already in error' );
@@ -2458,7 +2458,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $val The field name that we are looking to retrieve from
 	 * our DonationData object.
 	 */
-	function refreshGatewayValueFromSource( $val ) {
+	protected function refreshGatewayValueFromSource( $val ) {
 		$refreshed = $this->dataObj->getVal( $val );
 		if ( !is_null( $refreshed ) ) {
 			$this->staged_data[$val] = $refreshed;
@@ -3532,7 +3532,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param mixed $value The candidate value of the field we want to check
 	 * @return bool True if it's a valid value for that field, false if it isn't.
 	 */
-	function validateDataConstraintsMet( $field, $value ) {
+	protected function validateDataConstraintsMet( $field, $value ) {
 		$met = true;
 
 		if ( is_array( $this->dataConstraints ) && array_key_exists( $field, $this->dataConstraints ) ) {
