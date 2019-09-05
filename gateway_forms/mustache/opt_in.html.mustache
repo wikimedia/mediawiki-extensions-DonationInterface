@@ -1,20 +1,14 @@
 {{# opt_in_visible }}
-                        <tr>
-                            <td>
-                                <input class="opt_in_radio" name="opt_in" value="1"{{# opted_in }} checked{{/ opted_in }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_yes" }}" id="opt_in_yes" />
-                                <label class="opt_in_label" for="opt_in_yes">{{ l10n "donate_interface-donor-opt_in_yes" }}</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input class="opt_in_radio" name="opt_in" value="0"{{# opted_out }} checked{{/ opted_out }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_no" }}" id="opt_in_no" />
-                                <label class="opt_in_label" for="opt_in_no">{{ l10n "donate_interface-donor-opt_in_no" }}</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="opt_in_explain">
+                        <div>
+                            <input class="opt_in_radio" name="opt_in" value="1"{{# opted_in }} checked{{/ opted_in }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_yes" }}" id="opt_in_yes" />
+                            <label class="opt_in_label" for="opt_in_yes">{{ l10n "donate_interface-donor-opt_in_yes" }}</label>
+                        </div>
+                        <div>
+                            <input class="opt_in_radio" name="opt_in" value="0"{{# opted_out }} checked{{/ opted_out }} type="radio" title="{{ l10n "donate_interface-donor-opt_in_no" }}" id="opt_in_no" />
+                            <label class="opt_in_label" for="opt_in_no">{{ l10n "donate_interface-donor-opt_in_no" }}</label>
+                        </div>
+                        <div class="opt_in_explain">
                                 {{{ l10n "donate_interface-donor-opt_in_explain" policy_url }}}
-                            </td>
-                        </tr>
+                        </div>
                         {{{ fieldError "opt_in" }}}
 {{/ opt_in_visible }}

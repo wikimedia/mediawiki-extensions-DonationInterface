@@ -1,8 +1,8 @@
 ( function ( $ ) {
 	$( function () {
-		var employerRow = $( '#employer' ).closest( 'tr' ),
+		var employerRow = $( '#employer' ).closest( 'div' ),
 			message = 'We\'ll let you know if your employer will match your gift';
 
-		employerRow.after( '<tr><td>' + message + '</td></tr>' );
+		employerRow.after( '<div>' + message + '</div>' );
 	} );
 } )( jQuery );

@@ -1,11 +1,9 @@
 {{{ template_trail }}}
-<table width="100%" cellspacing="0" cellpadding="0" border="0">
-	<tbody>
-	<tr>
-		<td id="appeal" valign="top">
+
+		<div id="appeal">
 			{{{ appeal_text }}}
-		</td>
-		<td id="donate" valign="top">
+		</div>
+		<div id="donate">
 			<div id="greenBackground" class="">
 				{{> no_script }}
 				<div id="topError" class="creditcard-error-msg">{{# errors/general }}<p class="error">{{{ message }}}</p>{{/ errors/general }}</div>
@@ -19,29 +17,17 @@
 
 			<form name="payment" id="payment-form" method="post" action="{{ action }}">
 				<div id="payment_gateway-personal-info">
-					<table id="payment-table-donor">
-						<tbody>
 						{{{ fieldError "amount" }}}
 						{{{ fieldError "currency" }}}
-						<tr>
-							<td>
 								<div id="step1header">
 									{{> payment_amount }}
 								</div>
-							</td>
-						</tr>
 {{# show_personal_fields }}
-						<tr>
-							<td>
-								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif"></h3>
-							</td>
-						</tr>
+								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" /></h3>
 {{> personal_info }}
 {{/ show_personal_fields }}
 {{> opt_in }}
 {{> payment_method }}
-						</tbody>
-					</table>
 				</div>
 				<input type="hidden" value="{{ country }}" name="country" id="country" />
 				<input type="hidden" value="{{ expiration }}" name="expiration" id="expiration"/>
@@ -66,17 +52,8 @@
 {{# recurring }}
 			<p id="monthlycancel">{{{ l10n "donate_interface-monthly-cancel" problems_email }}}</p>
 {{/ recurring }}
-			<table>
-				<tr>
-					<td>
 {{> more_info_links }}
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	</tbody>
-</table>
+		</div>
 <div id="overlay">
 	<img id="loading" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/loading-black.gif" />
 </div>

@@ -15,10 +15,16 @@ div#payment_gateway-donate-submessage img {
 	margin-right: 0;
 }
 
+#payment_gateway-personal-info > div {
+	padding: 6px 1px;
+	vertical-align: top;
+}
+
 #appeal {
 	background-color: transparent;
 	border: 0;
 	padding: 16px 24px 24px;
+	vertical-align: top;
 }
 
 #appeal-head {
@@ -202,11 +208,11 @@ div.donor {
 	width: 100%;
 }
 
-#payment-table-donor input[ type='text' ],
-#payment-table-donor input[ type='email' ],
-#payment-table-donor input[ type='number' ],
-#payment-table-donor input:not( [ type ] ),
-#payment-table-donor select {
+#donate input[ type='text' ],
+#donate input[ type='email' ],
+#donate input[ type='number' ],
+#donate input:not( [ type ] ),
+#donate select {
 	background-color: #fff;
 	border-radius: 2px;
 	border: 1px solid #a2a9b1;
@@ -221,7 +227,7 @@ div.donor {
 	transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 }
 
-#payment-table-donor select {
+#donate select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
@@ -229,26 +235,26 @@ div.donor {
 	padding-right: 24px;
 }
 
-#payment-table-donor input[ type='text' ]:hover,
-#payment-table-donor input[ type='email' ]:hover,
-#payment-table-donor input[ type='number' ]:hover,
-#payment-table-donor select:hover {
+#donate input[ type='text' ]:hover,
+#donate input[ type='email' ]:hover,
+#donate input[ type='number' ]:hover,
+#donate select:hover {
 	border-color: #72777d;
 }
 
-#payment-table-donor input[ type='text' ]:focus,
-#payment-table-donor input[ type='email' ]:focus,
-#payment-table-donor input[ type='number' ]:focus,
-#payment-table-donor select:focus {
+#donate input[ type='text' ]:focus,
+#donate input[ type='email' ]:focus,
+#donate input[ type='number' ]:focus,
+#donate select:focus {
 	outline: 0;
 	border-color: #36c;
 	box-shadow: inset 0 0 0 1px #36c;
 }
 
-#payment-table-donor input[ type='text' ]:disabled,
-#payment-table-donor input[ type='email' ]:disabled,
-#payment-table-donor input[ type='number' ]:disabled,
-#payment-table-donor select:disabled {
+#donate input[ type='text' ]:disabled,
+#donate input[ type='email' ]:disabled,
+#donate input[ type='number' ]:disabled,
+#donate select:disabled {
 	background-color: #ccc;
 	cursor: not-allowed;
 }
@@ -474,10 +480,15 @@ ul#moreinfolinks {
 		background-color: #f5f5f5;
 	}
 
-	td#donate form input[ type='text' ],
-	td#donate form input[ type='email' ],
-	td#donate form input[ type='number' ],
-	td#donate form select {
+	#donate {
+		display: block;
+		width: 100%;
+	}
+
+	#donate form input[ type='text' ],
+	#donate form input[ type='email' ],
+	#donate form input[ type='number' ],
+	#donate form select {
 		display: block;
 		font-size: 16px;
 		padding: 14px;
@@ -485,18 +496,18 @@ ul#moreinfolinks {
 		-webkit-appearance: none;
 	}
 
-	td#donate form select {
+	#donate form select {
 		background-position: center right 14px;
 		padding-right: 28px;
 	}
 
-	td#donate form input[ type='radio' ].opt_in_radio {
+	#donate form input[ type='radio' ].opt_in_radio {
 		width: 3%;
 		margin: 5px 3px auto;
 		display: inline-block;
 	}
 
-	td#donate form label.opt_in_label {
+	#donate form label.opt_in_label {
 		width: 95%;
 		cursor: pointer;
 	}
