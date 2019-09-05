@@ -35,7 +35,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * @covers GatewayAdapter::normalizeOrderID
 	 * @covers GatewayAdapter::regenerateOrderID
 	 */
-	function testStickyGeneratedOrderID() {
+	public function testStickyGeneratedOrderID() {
 		$init = self::$initial_vars;
 		unset( $init['order_id'] );
 
@@ -59,7 +59,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * Integration test to verify that order_id can be retrieved from
 	 * performing an createHostedCheckout.
 	 */
-	function testGatewaySessionRetrieval() {
+	public function testGatewaySessionRetrieval() {
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -82,7 +82,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	/**
 	 * Test we're sending an IP address in the right place
 	 */
-	function testSendCustomerIP() {
+	public function testSendCustomerIP() {
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
@@ -103,7 +103,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	/**
 	 * Just run the getHostedCheckoutStatus transaction and make sure we load the data
 	 */
-	function testGetHostedPaymentStatus() {
+	public function testGetHostedPaymentStatus() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -129,7 +129,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * comes back with STATUSID 25 and no CVVRESULT
 	 * @group CvvResult
 	 */
-	function testGetHostedPaymentStatus25() {
+	public function testGetHostedPaymentStatus25() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -193,7 +193,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	/**
 	 * Return status and re-do if in progress
 	 */
-	function testGetHostedPaymentStatusInProgress() {
+	public function testGetHostedPaymentStatusInProgress() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -215,7 +215,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'In Progress status should return no errors' );
 	}
 
-	function testGetHostedPaymentStatusCancelledByConsumer() {
+	public function testGetHostedPaymentStatusCancelledByConsumer() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -245,7 +245,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * Make sure we're incorporating getHostedPaymentStatus AVS and CVV responses into
 	 * fraud scores.
 	 */
-	function testGetHostedPaymentStatusPostProcessFraud() {
+	public function testGetHostedPaymentStatusPostProcessFraud() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgIngenicoGatewayCustomFiltersFunctions' => [

@@ -52,7 +52,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	/**
 	 * Integration test to verify that the donate transaction works as expected when all necessary data is present.
 	 */
-	function testDoTransactionDonate() {
+	public function testDoTransactionDonate() {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -105,7 +105,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	/**
 	 * Integration test to verify that the donate transaction works as expected when all necessary data is present.
 	 */
-	function testDoPayment() {
+	public function testDoPayment() {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -160,7 +160,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$this->assertTrue( $foundPostalCodeError, 'postal_code should be in error' );
 	}
 
-	function testRiskScoreAddedToQueueMessage() {
+	public function testRiskScoreAddedToQueueMessage() {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -174,7 +174,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	/**
 	 * Make sure language is staged correctly when qs param is uppercase
 	 */
-	function testLanguageCaseSensitivity() {
+	public function testLanguageCaseSensitivity() {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
 		$init['language'] = 'FR';

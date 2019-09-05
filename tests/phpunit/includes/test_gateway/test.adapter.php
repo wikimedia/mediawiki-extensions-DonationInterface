@@ -53,7 +53,7 @@ trait TTestingAdapter {
 	/**
 	 * @todo That minFraud jerk needs its own isolated tests.
 	 */
-	function runAntifraudFilters() {
+	public function runAntifraudFilters() {
 		// now screw around with the batch settings to trick the fraud filters into triggering
 		$is_batch = $this->isBatchProcessor();
 		$this->batch = true;

@@ -68,7 +68,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 * When minFraud gets a blank answer, we should assign points according to
 	 * $wgDonationInterfaceMinFraudErrorScore.
 	 */
-	function testMinFraudErrorScore() {
+	public function testMinFraudErrorScore() {
 		$this->request->method( 'post' )->willReturn( '' );
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
@@ -112,7 +112,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	/**
 	 * Test we correctly add a real score from minFraud
 	 */
-	function testMinFraudRealScore() {
+	public function testMinFraudRealScore() {
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
@@ -169,7 +169,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	/**
 	 * Make sure we send the right stuff when extra fields are enabled
 	 */
-	function testMinFraudExtras() {
+	public function testMinFraudExtras() {
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
@@ -239,7 +239,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 * Make sure we send the right stuff when extra fields are enabled and
 	 * we're not collecting address fields.
 	 */
-	function testMinFraudExtrasNoAddress() {
+	public function testMinFraudExtrasNoAddress() {
 		$options = $this->getDonorTestData( 'BR' );
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';

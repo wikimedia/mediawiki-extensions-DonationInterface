@@ -109,7 +109,7 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$this->verifyFormOutput( 'GlobalCollectGateway', $init, $assertNodes, true );
 	}
 
-	function testGCFormLoad_FR() {
+	public function testGCFormLoad_FR() {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';

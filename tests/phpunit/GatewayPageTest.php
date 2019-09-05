@@ -160,7 +160,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	 * Before redirecting a user to the processor, we should log all of their
 	 * details at info level
 	 */
-	function testLogDetailsOnRedirect() {
+	public function testLogDetailsOnRedirect() {
 		$init = $this->getDonorTestData();
 		$session = [ 'Donor' => $init ];
 

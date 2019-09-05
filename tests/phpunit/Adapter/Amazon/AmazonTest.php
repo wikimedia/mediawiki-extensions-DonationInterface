@@ -83,7 +83,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 * @dataProvider canadaLanguageProvider
 	 * @param string $language language code to test
 	 */
-	function testCanadianDollarConversion( $language ) {
+	public function testCanadianDollarConversion( $language ) {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'amazon';
@@ -122,7 +122,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * Integration test to verify that the Amazon gateway shows an error message when validation fails.
 	 */
-	function testShowFormOnError() {
+	public function testShowFormOnError() {
 		$init = $this->getDonorTestData();
 		$init['OTT'] = 'SALT123456789';
 		$init['amount'] = '-100.00';
@@ -141,7 +141,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * Check that the adapter makes the correct calls for successful donations
 	 */
-	function testDoPaymentSuccess() {
+	public function testDoPaymentSuccess() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
@@ -171,7 +171,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * Check that declined authorization is reflected in the result's errors
 	 */
-	function testDoPaymentDeclined() {
+	public function testDoPaymentDeclined() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
@@ -198,7 +198,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * This apparently indicates a shady enough txn that we should turn them away
 	 */
-	function testFailOnAmazonRejected() {
+	public function testFailOnAmazonRejected() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
@@ -223,7 +223,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	 * When the transaction times out, show the thank you page and call the
 	 * payment 'pending'.
 	 */
-	function testTransactionTimedOut() {
+	public function testTransactionTimedOut() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
@@ -249,7 +249,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * When the SDK throws an exceptions, we should handle it.
 	 */
-	function testClientException() {
+	public function testClientException() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['order_reference_id'] = mt_rand( 0, 10000000 ); // provided by client-side widget IRL
@@ -276,7 +276,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 	/**
 	 * Check the adapter makes the correct calls for successful monthly donations
 	 */
-	function testDoRecurringPaymentSuccess() {
+	public function testDoRecurringPaymentSuccess() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['amount'] = '10.00';
 		$init['recurring'] = '1';

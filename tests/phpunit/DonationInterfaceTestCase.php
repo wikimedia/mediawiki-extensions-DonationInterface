@@ -506,7 +506,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * constructor.
 	 * @return GatewayAdapter The new relevant gateway adapter object.
 	 */
-	function getFreshGatewayObject( $external_data = null, $setup_hacks = [] ) {
+	public function getFreshGatewayObject( $external_data = null, $setup_hacks = [] ) {
 		$data = null;
 		if ( !is_null( $external_data ) ) {
 			$data = [
@@ -595,7 +595,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 *  loading values from the querystring.
 	 * @throws MWException
 	 */
-	function verifyFormOutput(
+	public function verifyFormOutput(
 		$special_page_class, $initial_vars, $perform_these_checks,
 		$fail_on_log_errors = false, $session = null, $posted = false
 	) {
@@ -717,7 +717,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 * @param string $label identifies the value in assertion failures
 	 * @return void
 	 */
-	function performCheck( $value, $check, $label = 'Tested value' ) {
+	public function performCheck( $value, $check, $label = 'Tested value' ) {
 		if ( is_callable( $check ) ) {
 			$check( $value );
 			return;
@@ -728,7 +728,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	/**
 	 * Asserts that there are no log entries of LOG_ERR or worse.
 	 */
-	function verifyNoLogErrors() {
+	public function verifyNoLogErrors() {
 		$log = DonationLoggerFactory::$overrideLogger->messages;
 
 		$this->assertTrue( is_array( $log ), "Missing the test log" );
@@ -772,7 +772,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return $return;
 	}
 
-	static function getInnerHTML( $node ) {
+	public static function getInnerHTML( $node ) {
 		$innerHTML = '';
 		$children = $node->childNodes;
 		foreach ( $children as $child ) {

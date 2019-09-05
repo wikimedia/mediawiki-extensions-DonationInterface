@@ -455,20 +455,20 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	/**
 	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function.
 	 * I know that's more regression-ish, but I stand by it. :p
-	function setNormalizedOrderIDs(){
-	function generateOrderId() {
+	public function setNormalizedOrderIDs(){
+	public function generateOrderId() {
 	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
-	function setGateway(){
-	function doCacheStuff(){
+	public function setGateway(){
+	public function doCacheStuff(){
 	public function getEditToken( $salt = '' ) {
 	public static function generateToken( $salt = '' ) {
-	function matchEditToken( $val, $salt = '' ) {
-	function unsetEditToken() {
+	public function matchEditToken( $val, $salt = '' ) {
+	public function unsetEditToken() {
 	public function checkTokens() {
-	function wasPosted(){
-	function setUtmSource() {
+	public function wasPosted(){
+	public function setUtmSource() {
 	public function getCleanTrackingData( $unset = false ) {
-	function saveContributionTracking() {
+	public function saveContributionTracking() {
 	public static function insertContributionTracking( $tracking_data ) {
 	public function updateContributionTracking( $force = false ) {
 
