@@ -60,7 +60,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	protected function defineDataConstraints() {
 	}
 
-	public function defineErrorMap() {
+	protected function defineErrorMap() {
 	}
 
 	public function defineOrderIDMeta() {

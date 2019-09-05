@@ -558,7 +558,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 

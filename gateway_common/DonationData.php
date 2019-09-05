@@ -117,7 +117,7 @@ class DonationData implements LogPrefixProvider {
 	 * places in the request, or 'false' to gather the data the usual way.
 	 * Default is false.
 	 */
-	function __construct( GatewayType $gateway, $data = false ) {
+	public function __construct( GatewayType $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->logger = DonationLoggerFactory::getLogger( $gateway, '', $this );

@@ -673,7 +673,7 @@ EOT;
 	 * @param int $total_length The fixed number of characters that $value should be padded out to
 	 * @return string The zero-padded value, or false if it was too long to work with.
 	 */
-	static function getZeroPaddedValue( $value, $total_length ) {
+	public static function getZeroPaddedValue( $value, $total_length ) {
 		// first, trim all leading zeroes off the value.
 		$ret = ltrim( $value, '0' );
 

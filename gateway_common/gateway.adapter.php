@@ -3779,7 +3779,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * methodMeta -> submethodMeta -> settingsMethodMeta -> settingsSubmethodMeta
 	 * @return array with available submethods 'visa' => [ 'label' => 'Visa' ]
 	 */
-	function getAvailableSubmethods() {
+	public function getAvailableSubmethods() {
 		$method = $this->getPaymentMethod();
 
 		$submethods = [];

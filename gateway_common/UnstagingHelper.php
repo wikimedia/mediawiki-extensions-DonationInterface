@@ -5,5 +5,5 @@
  * data returned by a payment processing gateway API call.
  */
 interface UnstagingHelper {
-	function unstage( GatewayType $adapter, $stagedData, &$unstagedData );
+	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData );
 }
