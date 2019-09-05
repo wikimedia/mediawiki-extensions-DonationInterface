@@ -62,7 +62,7 @@ class AmazonAdapter extends GatewayAdapter {
 		'TransactionTimedOut',
 	];
 
-	function __construct( $options = [] ) {
+	public function __construct( $options = [] ) {
 		parent::__construct( $options );
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {

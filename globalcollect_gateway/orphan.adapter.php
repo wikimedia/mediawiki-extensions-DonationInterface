@@ -187,7 +187,7 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		return $transaction;
 	}
 
-	public function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 		// Prevent MediaWiki code paths.
 		parent::setGatewayDefaults( [
 			'returnTo' => '',

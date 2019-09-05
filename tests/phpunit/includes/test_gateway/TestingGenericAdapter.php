@@ -57,7 +57,7 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function defineAccountInfo() {
 	}
 
-	public function defineDataConstraints() {
+	protected function defineDataConstraints() {
 	}
 
 	public function defineErrorMap() {
@@ -79,13 +79,13 @@ class TestingGenericAdapter extends GatewayAdapter {
 		$this->data_transformers = parent::getCoreDataTransformers();
 	}
 
-	public function defineVarMap() {
+	protected function defineVarMap() {
 	}
 
 	public function processResponse( $response ) {
 	}
 
-	public function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 	}
 
 	public function getCurrencies( $options = [] ) {
