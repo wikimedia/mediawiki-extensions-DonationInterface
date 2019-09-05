@@ -541,10 +541,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	public static function resetAllEnv() {
-		$_SESSION = [];
-		$_GET = [];
-		$_POST = [];
-
 		$_SERVER = [];
 		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
 		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
