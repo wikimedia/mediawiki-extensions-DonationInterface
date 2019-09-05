@@ -487,7 +487,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'SetExpressCheckout_recurring':
 				$this->checkResponseAck( $response );
 				$this->addResponseData( $this->unstageKeys( $response ) );
-				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
+				$redirectUrl = $this->createRedirectUrl( $response['TOKEN'] );
 				$this->transaction_response->setRedirect( $redirectUrl );
 				break;
 			case 'GetExpressCheckoutDetails':
@@ -547,8 +547,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					case '10486':
 						// Donor's first funding method failed, but they might have another
 						$this->transaction_response->setRedirect(
-							$this->account_config['RedirectURL'] .
-							$this->getData_Unstaged_Escaped( 'gateway_session_id' )
+							$this->createRedirectUrl( $this->getData_Unstaged_Escaped( 'gateway_session_id' ) )
 						);
 						$fatal = false;
 						break;
@@ -701,5 +700,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	public function shouldRectifyOrphan() {
 		return true;
+	}
+
+	protected function createRedirectUrl( $token ) {
+		return $this->account_config['RedirectURL'] . $token . '&useraction=commit';
 	}
 }

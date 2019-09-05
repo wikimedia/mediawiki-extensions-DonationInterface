@@ -44,7 +44,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertTrue( empty( $result['errors'] ) );
 
-		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U';
+		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
 		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
@@ -132,7 +132,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$result = $apiResult[0]['result'];
 		$this->assertTrue( empty( $result['errors'] ) );
 
-		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U';
+		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
 		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
