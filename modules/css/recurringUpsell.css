@@ -177,7 +177,7 @@ body.rtl .ru-close {
 	font-size: 200%;
 }
 
-.ru-other-amount-input {
+#ru-other-amount-input {
 	width: 30%;
 	font-size: 100%;
 	border: 0;

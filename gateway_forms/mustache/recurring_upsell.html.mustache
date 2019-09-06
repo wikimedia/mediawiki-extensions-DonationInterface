@@ -24,9 +24,9 @@
             <p>{{ l10n "donate_interface-recurring-upsell-enter-amount" }}</p>
 
             <div class="ru-other-amount">
-                <input name="otherMonthlyAmount" type="number" class="ru-other-amount-input" autocomplete="off" value="" tabindex="-1" /> {{ currency }}
-                <div class="ru-error ru-error-smallamount">{{ l10n "donate_interface-smallamount-error" }}</div>
-                <div class="ru-error ru-error-bigamount">{{ l10n "donate_interface-recurring-upsell-max-amount" }}</div>
+                <input id="ru-other-amount-input" name="otherMonthlyAmount" type="text" inputmode="decimal" autocomplete="off" value="" tabindex="-1" /> {{ currency }}
+                <div id="ru-error-smallamount" class="ru-error">{{ l10n "donate_interface-smallamount-error" }}</div>
+                <div id="ru-error-largeamount" class="ru-error">{{ l10n "donate_interface-recurring-upsell-max-amount" }}</div>
             </div>
 
             <div class="ru-buttons">

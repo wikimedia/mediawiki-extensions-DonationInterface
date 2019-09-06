@@ -38,7 +38,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	const SESS_MAX_SCORE = 1000;
 
 	/**
-	 * @static Construct the singleton instance of this class.
+	 * Construct the singleton instance of this class.
 	 *
 	 * @param GatewayType $gateway_adapter
 	 *

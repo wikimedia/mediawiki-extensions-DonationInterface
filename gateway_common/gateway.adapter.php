@@ -279,6 +279,75 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	abstract protected function getBasedir();
 
+	/**
+	 * defineTransactions will define the $transactions array.
+	 * The array will contain everything we need to know about the request structure for all the transactions we care about,
+	 * for the current gateway.
+	 * First array key: Some way for us to id the transaction. Doesn't actually have to be the gateway's name for it, but I'm going with that until I have a reason not to.
+	 * Second array key:
+	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours,
+	 * 		according to the precedence established in the getTransactionSpecificValue function.
+	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here.
+	 * 		'check_required' should be set to true for transactions that require donor information,
+	 * 		  like initial payment setup. TODO: different required fields per transaction
+	 */
+	abstract protected function defineTransactions();
+
+	/**
+	 * defineAccountInfo needs to set up the $accountInfo array.
+	 * Keys = the name (or node name) value in the gateway transaction
+	 * Values = The actual values for those keys. Probably have to access a global or two. (use getGlobal()!)
+	 */
+	abstract protected function defineAccountInfo();
+
+	/**
+	 * defineReturnValueMap sets up the $return_value_map array.
+	 * Keys = The different constants that may be contained as values in the gateway's response.
+	 * Values = what that string constant means to mediawiki.
+	 */
+	abstract protected function defineReturnValueMap();
+
+	/**
+	 * Sets up the $order_id_meta array.
+	 * @todo Data Item Class. There should be a class that keeps track of
+	 * the metadata for every field we use (everything that currently comes
+	 * back from DonationData), that can be overridden per gateway. Revisit
+	 * this in a more universal way when that time comes.
+	 *
+	 * In general, $order_id_meta contains default data about how we
+	 * handle/create/gather order_id, which needs to be defined on a
+	 * per-gateway basis. Once $order_id_meta has been used to decide the
+	 * order_id for the current request, it will also be used to keep
+	 * information about the origin and state of the order_id data.
+	 *
+	 * Should contain the following keys/values:
+	 * 'alt_locations' => [ $dataset_name, $dataset_key ]
+	 * 	** alt_locations is intended to contain a list of arrays that
+	 * 	are always available (or should be), from which we can pull the
+	 * 	order_id.
+	 * 	** Examples of valid things to throw in $dataset_name are 'request'
+	 * 	and 'session'
+	 * 	** $dataset_key : The key in the associated dataset that is
+	 * 	expected to contain the order_id. Probably going to be order_id
+	 * 	if we are generating the dataset internally. Probably something
+	 * 	else if a gateway is posting or getting back to us in a
+	 * 	resultswitcher situation.
+	 * 	** These should be expressed in $order_id_meta in order of
+	 * 	preference / authority.
+	 * 'generate' => boolean value. True if we will be generating our own
+	 * 	order IDs, false if we are deferring order_id generation to the
+	 * 	gateway.
+	 * 'ct_id' => boolean value.  If True, when generating order ID use
+	 * the contribution tracking ID with the sequence number appended
+	 *
+	 * Will eventually contain the following keys/values:
+	 * 'final'=> The value that we have chosen as the valid order ID for
+	 * 	this request.
+	 * 'final_source' => Where we ultimately decided to grab the value we
+	 * 	chose to stuff in 'final'.
+	 */
+	abstract protected function defineOrderIDMeta();
+
 	public function loadConfig( $variant = null ) {
 		$configurationReader = new ConfigurationReader(
 			$this->getBasedir(),
@@ -317,6 +386,11 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * Sets up the $payment_methods array.
+	 * Keys = unique name for this method
+	 * Values = metadata about the method
+	 *   'validation' should be an array whose keys are field names and
+	 *                whose values indicate whether the field is required
 	 * For legacy support.
 	 * TODO replace with access to config structure
 	 */
@@ -330,9 +404,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * defineVarMap needs to set up the $var_map array.
+	 * Keys = the name (or node name) value in the gateway transaction
+	 * Values = the mediawiki field name for the corresponding piece of data.
 	 * TODO: see comment on definePaymentMethods
 	 */
-	public function defineVarMap() {
+	protected function defineVarMap() {
 		if ( isset( $this->config['var_map'] ) ) {
 			$this->var_map = $this->config['var_map'];
 		}
@@ -341,21 +418,28 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	/**
 	 * TODO: see comment on definePaymentMethods
 	 */
-	public function defineDataConstraints() {
+	protected function defineDataConstraints() {
 		if ( isset( $this->config['data_constraints'] ) ) {
 			$this->dataConstraints = $this->config['data_constraints'];
 		}
 	}
 
 	/**
+	 * Define the message keys used to display errors to the user.  Should set
+	 * @see $this->error_map to an array whose keys are error codes and whose
+	 * values are i18n keys or callables that return a translated error message.
+	 * Any unmapped error code will use 'donate_interface-processing-error'
 	 * TODO: see comment on definePaymentMethods
 	 */
-	public function defineErrorMap() {
+	protected function defineErrorMap() {
 		if ( isset( $this->config['error_map'] ) ) {
 			$this->error_map = $this->config['error_map'];
 		}
 	}
 
+	/**
+	 * Sets up the $data_transformers array.
+	 */
 	public function defineDataTransformers() {
 		if ( empty( $this->config['transformers'] ) ) {
 			return;
@@ -1168,7 +1252,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->transaction_response;
 	}
 
-	function getCurlBaseOpts() {
+	protected function getCurlBaseOpts() {
 		// I chose to return this as a function so it's easy to override.
 		// TODO: probably this for all the junk I currently have stashed in the constructor.
 		// ...maybe.
@@ -1194,7 +1278,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $opts;
 	}
 
-	function getCurlBaseHeaders() {
+	protected function getCurlBaseHeaders() {
 		$content_type = 'application/x-www-form-urlencoded';
 		if ( $this->getCommunicationType() === 'xml' ) {
 			$content_type = 'text/xml';
@@ -1266,7 +1350,17 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $this->payment_submethods;
 	}
 
-	function setGatewayDefaults( $options = [] ) {
+	/**
+	 * Called in the constructor, this function should be used to define
+	 * pieces of default data particular to the gateway. It will be up to
+	 * the child class to poke the data through to the data object
+	 * (probably with $this->addRequestData()).
+	 * DO NOT set default payment information here (or anywhere, really).
+	 * That would be naughty.
+	 * @param array $options associative array of values as given to the
+	 *  GateWayType constructor.
+	 */
+	protected function setGatewayDefaults( $options = [] ) {
 	}
 
 	public function getCurrencies( $options = [] ) {
@@ -1552,7 +1646,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @throws InvalidArgumentException
 	 * @throws LogicException
 	 */
-	function getFormattedResponse( $rawResponse ) {
+	protected function getFormattedResponse( $rawResponse ) {
 		$type = $this->getResponseType();
 		if ( $type === 'xml' ) {
 			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
@@ -1594,7 +1688,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $noHeaders;
 	}
 
-	function stripXMLResponseHeaders( $rawResponse ) {
+	protected function stripXMLResponseHeaders( $rawResponse ) {
 		$xmlStart = strpos( $rawResponse, '<?xml' );
 		if ( $xmlStart === false ) {
 			// I totally saw this happen one time. No XML, just <RESPONSE>...
@@ -1614,7 +1708,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $xml
 	 * @return string
 	 */
-	function formatXmlString( $xml ) {
+	protected function formatXmlString( $xml ) {
 		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
 		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
 
@@ -1650,26 +1744,26 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		return $result;
 	}
 
-	static function getGatewayName() {
+	public static function getGatewayName() {
 		$c = get_called_class();
 		return $c::GATEWAY_NAME;
 	}
 
-	static function getGlobalPrefix() {
+	public static function getGlobalPrefix() {
 		$c = get_called_class();
 		return $c::GLOBAL_PREFIX;
 	}
 
-	static function getIdentifier() {
+	public static function getIdentifier() {
 		$c = get_called_class();
 		return $c::IDENTIFIER;
 	}
 
-	static function getLogIdentifier() {
+	public static function getLogIdentifier() {
 		return self::getIdentifier() . '_gateway';
 	}
 
-	function xmlChildrenToArray( $xml, $nodename ) {
+	protected function xmlChildrenToArray( $xml, $nodename ) {
 		$data = [];
 		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
 			foreach ( $node->childNodes as $childnode ) {
@@ -1925,7 +2019,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param mixed|null $parameter That's right: For now you only get one.
 	 * @return bool True if a function was found and executed.
 	 */
-	function executeIfFunctionExists( $function_name, $parameter = null ) {
+	protected function executeIfFunctionExists( $function_name, $parameter = null ) {
 		$function_name = strtolower( $function_name ); // Because, that's why.
 		if ( method_exists( $this, $function_name ) ) {
 			$this->{$function_name}( $parameter );
@@ -2281,7 +2375,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * This function is most likely to be called through
 	 * executeFunctionIfExists, early on in do_transaction.
 	 */
-	function runAntifraudFilters() {
+	public function runAntifraudFilters() {
 		// extra layer of Stop Doing This.
 		if ( $this->errorState->hasErrors() ) {
 			$this->logger->info( 'Skipping antifraud filters: Transaction is already in error' );
@@ -2364,7 +2458,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param string $val The field name that we are looking to retrieve from
 	 * our DonationData object.
 	 */
-	function refreshGatewayValueFromSource( $val ) {
+	protected function refreshGatewayValueFromSource( $val ) {
 		$refreshed = $this->dataObj->getVal( $val );
 		if ( !is_null( $refreshed ) ) {
 			$this->staged_data[$val] = $refreshed;
@@ -3303,7 +3397,6 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * should have saved to the user's session.
 	 * token_getSaltedSessionToken() will start off the process if this is a
 	 * first load, and there's no saved token in the session yet.
-	 * @staticvar string $match
 	 * @return bool
 	 */
 	protected function token_checkTokens() {
@@ -3438,7 +3531,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @param mixed $value The candidate value of the field we want to check
 	 * @return bool True if it's a valid value for that field, false if it isn't.
 	 */
-	function validateDataConstraintsMet( $field, $value ) {
+	protected function validateDataConstraintsMet( $field, $value ) {
 		$met = true;
 
 		if ( is_array( $this->dataConstraints ) && array_key_exists( $field, $this->dataConstraints ) ) {
@@ -3685,7 +3778,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * methodMeta -> submethodMeta -> settingsMethodMeta -> settingsSubmethodMeta
 	 * @return array with available submethods 'visa' => [ 'label' => 'Visa' ]
 	 */
-	function getAvailableSubmethods() {
+	public function getAvailableSubmethods() {
 		$method = $this->getPaymentMethod();
 
 		$submethods = [];

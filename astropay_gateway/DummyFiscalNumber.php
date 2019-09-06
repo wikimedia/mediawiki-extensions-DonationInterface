@@ -16,7 +16,7 @@ class DummyFiscalNumber implements StagingHelper {
 		if (
 			empty( $unstagedData['fiscal_number'] ) &&
 			isset( $unstagedData['country'] ) &&
-			in_array( $unstagedData['country'], array_keys( $this->countriesWithWorkaround ) )
+			array_key_exists( $unstagedData['country'], $this->countriesWithWorkaround )
 		) {
 			$lower = $this->countriesWithWorkaround[$unstagedData['country']][0];
 			$upper = $this->countriesWithWorkaround[$unstagedData['country']][1];

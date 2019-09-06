@@ -1,14 +1,9 @@
 {{# show_issuers }}
-	<tr>
-		<td>
 			<select style="margin-top: 15px;" id="issuer_id" name="issuer_id">
 				<option value="">{{ l10n "donate_interface-rtbt-issuer_id" }}</option>
 {{# issuers }}
 				<option value="{{ code }}">{{ label }}</option>
 {{/ issuers }}
 			</select>
-		</td>
-	</tr>
-
 	{{{ fieldError "issuer_id" }}}
 {{/ show_issuers }}

@@ -62,7 +62,7 @@ class AmazonAdapter extends GatewayAdapter {
 		'TransactionTimedOut',
 	];
 
-	function __construct( $options = [] ) {
+	public function __construct( $options = [] ) {
 		parent::__construct( $options );
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
@@ -86,22 +86,22 @@ class AmazonAdapter extends GatewayAdapter {
 		return 'xml';
 	}
 
-	function defineAccountInfo() {
+	protected function defineAccountInfo() {
 		// We use account_config instead
 		$this->accountInfo = [];
 	}
 
-	function defineReturnValueMap() {
+	protected function defineReturnValueMap() {
 	}
 
-	function defineOrderIDMeta() {
+	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
 			'generate' => true,
 			'ct_id' => true,
 		];
 	}
 
-	public function defineErrorMap() {
+	protected function defineErrorMap() {
 		parent::defineErrorMap();
 
 		$differentCard = function () {
@@ -116,11 +116,11 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->error_map['InvalidPaymentMethod'] = $differentCard;
 	}
 
-	function defineTransactions() {
+	protected function defineTransactions() {
 		$this->transactions = [];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 
@@ -396,7 +396,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @throws ResponseProcessingException if response contains an error
 	 * @param array $response
 	 */
-	static function checkErrors( $response ) {
+	protected static function checkErrors( $response ) {
 		if ( !empty( $response['Error'] ) ) {
 			throw new ResponseProcessingException(
 				$response['Error']['Message'],
@@ -409,7 +409,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 * Override default behavior
 	 * @return array
 	 */
-	function getAvailableSubmethods() {
+	public function getAvailableSubmethods() {
 		return [];
 	}
 

@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Leeheonjin"
+		]
+	},
+	"apihelp-donate-param-gateway": "Aling gateway na pang-bayad ang gagamitin - adyen, globalcollect, atbp."
+}

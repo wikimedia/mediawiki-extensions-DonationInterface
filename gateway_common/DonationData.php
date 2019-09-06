@@ -117,7 +117,7 @@ class DonationData implements LogPrefixProvider {
 	 * places in the request, or 'false' to gather the data the usual way.
 	 * Default is false.
 	 */
-	function __construct( GatewayType $gateway, $data = false ) {
+	public function __construct( GatewayType $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->logger = DonationLoggerFactory::getLogger( $gateway, '', $this );
@@ -1085,10 +1085,10 @@ class DonationData implements LogPrefixProvider {
 	 * won't give us notices if we weren't even a web request.
 	 * I realize this is pretty lame.
 	 * Notices, however, are more lame.
-	 * @staticvar string $posted Keeps track so we don't have to figure it out twice.
 	 * @return bool
 	 */
 	public function wasPosted() {
+		// Keeps track so we don't have to figure it out twice.
 		static $posted = null;
 		if ( $posted === null ) {
 			$posted = ( array_key_exists( 'REQUEST_METHOD', $_SERVER ) && WmfFramework::isPosted() );

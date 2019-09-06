@@ -223,15 +223,5 @@
 	"donate_interface-currency-change": "Breyta?",
 	"donate_interface-monthly-short": "Mánaðarlega",
 	"donate_interface-onetime-short": "Einu sinni",
-	"donate_interface-statement": "Wikimedia $1",
-	"apihelp-donate-param-first_name": "Eginnafn.",
-	"apihelp-donate-param-last_name": "Eftirnafn.",
-	"apihelp-donate-param-city": "Borg.",
-	"apihelp-donate-param-postal_code": "Póstnúmer.",
-	"apihelp-donate-param-email": "Tölvupóstfang.",
-	"apihelp-donate-param-country": "Landskóði.",
-	"apihelp-donate-param-card_num": "Greiðslukortanúmer.",
-	"apihelp-donate-param-expiration": "Gildistími.",
-	"apihelp-donate-param-language": "Tungumálakóði.",
-	"apihelp-donate-example-1": "Styrkja verkefnið"
+	"donate_interface-statement": "Wikimedia $1"
 }

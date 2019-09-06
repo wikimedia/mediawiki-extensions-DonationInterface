@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cûndûllah el-Kurdî",
+			"George Animal"
+		]
+	},
+	"apihelp-donate-param-first_name": "Pêşnav.",
+	"apihelp-donate-param-last_name": "Paşnav.",
+	"apihelp-donate-param-city": "Bajar.",
+	"apihelp-logPaymentsFormError-param-message": "Peyama çewtiyê"
+}

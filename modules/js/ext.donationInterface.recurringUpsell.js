@@ -103,7 +103,7 @@
 		} );
 		$( '.ru-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
-				var otherAmountField = $( '.ru-other-amount-input' ),
+				var otherAmountField = $( '#ru-other-amount-input' ),
 					otherAmount = +otherAmountField.val(),
 					rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 					rate,
@@ -116,13 +116,12 @@
 				}
 				if ( otherAmount < minUsd * rate ) {
 					otherAmountField.addClass( 'errorHighlight' );
-					$( '.ru-error-smallamount' ).show();
+					$( '#ru-error-smallamount' ).show();
 				} else if ( otherAmount > originalAmount ) {
 					otherAmountField.addClass( 'errorHighlight' );
-					$( '.ru-error-bigamount' ).show();
+					$( '#ru-error-bigamount' ).show();
 				} else {
-					$( '.ru-error-bigamount' ).hide();
-					$( '.ru-error-smallamount' ).hide();
+					$( '.ru-error' ).hide();
 					otherAmountField.removeClass( 'errorHighlight' );
 					ru.postUpdonate( otherAmount );
 				}

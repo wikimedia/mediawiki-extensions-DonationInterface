@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pyscowicz"
+		]
+	},
+	"apihelp-donate-param-first_name": "Etunimi.",
+	"apihelp-donate-param-last_name": "Sukunimi.",
+	"apihelp-donate-param-street_address": "Katuosoitteen ensimmäinen rivi",
+	"apihelp-donate-param-supplemental_address_1": "Katuosoitteen toinen rivi.",
+	"apihelp-donate-param-city": "Kaupunki.",
+	"apihelp-donate-param-email": "Sähköpostiosoite.",
+	"apihelp-donate-param-card_num": "Luottokortin numero.",
+	"apihelp-donate-param-card_type": "Luottokortin tyyppi.",
+	"apihelp-donate-param-expiration": "Vanhenemispäivä.",
+	"apihelp-donate-param-cvv": "CVV-turvakoodi.",
+	"apihelp-donate-param-language": "Kielikoodi."
+}

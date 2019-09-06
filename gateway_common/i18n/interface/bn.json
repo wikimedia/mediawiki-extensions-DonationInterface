@@ -333,17 +333,5 @@
 	"donate_interface-monthly-cancel": "মাসিক দাতাদের জন্য, নির্দিষ্ট মাসিক পেমেন্ট প্রথম অনুদানের পর মাসিক বার্ষিকীতে উইকিমিডিয়া ফাউন্ডেশনের দ্বারা ডেবিটকৃত করা হবে, সেই সময় পর্যন্ত যতক্ষণ না আপনি তাদের বন্ধ করতে আমাদের অবহিত করছেন। মাসের ২৯, ৩০ বা ৩১ তারিখে দান নেয়া হবে যা ছোট মাসের জন্য মাসের শেষ দিনে পুনরাবৃত্তি হবে, যতটা সম্ভব মূল তারিখে কাছাকাছি। আরো প্রশ্নের জন্য, দয়া করে $1 ঠিকানায় যোগাযোগ করুন।",
 	"donate_interface-monthly-short": "মাসিক",
 	"donate_interface-onetime-short": "এক-কালীন",
-	"donate_interface-statement": "উইকিমিডিয়া $1",
-	"apihelp-donate-param-currency": "মুদ্রা কোড।",
-	"apihelp-donate-param-first_name": "নামের প্রথমাংশ।",
-	"apihelp-donate-param-last_name": "নামের শেষাংশ।",
-	"apihelp-donate-param-city": "শহর।",
-	"apihelp-donate-param-postal_code": "পোস্টাল কোড।",
-	"apihelp-donate-param-email": "ইমেইল ঠিকানা।",
-	"apihelp-donate-param-country": "দেশের কোড।",
-	"apihelp-donate-param-card_num": "ক্রেডিট কার্ড নম্বর।",
-	"apihelp-donate-param-card_type": "ক্রেডিট কার্ডের ধরন।",
-	"apihelp-donate-param-expiration": "মেয়াদ উত্তীর্ণের তারিখ।",
-	"apihelp-donate-param-language": "ভাষা কোড।",
-	"apihelp-donate-example-1": "দান করুন"
+	"donate_interface-statement": "উইকিমিডিয়া $1"
 }

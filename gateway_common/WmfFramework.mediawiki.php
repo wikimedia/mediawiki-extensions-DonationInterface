@@ -14,10 +14,12 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function getRequestValue( $key, $default ) {
+		$request = RequestContext::getMain()->getRequest();
 		// all strings is just fine.
-		$ret = RequestContext::getMain()->getRequest()->getText( $key, $default );
+		$ret = $request->getText( $key, $default );
 		// getText never returns null: It just casts do an empty string. Soooo...
-		if ( $ret === '' && !array_key_exists( $key, $_POST ) && !array_key_exists( $key, $_GET ) ) {
+		// check with getVal, which does return null for a missing key
+		if ( $ret === '' && is_null( $request->getVal( $key ) ) ) {
 			$ret = $default; // not really there, so stop pretending.
 		}
 		return $ret;

@@ -357,15 +357,5 @@
 	"donate_interface-monthlybox-bottom": "Ваш прилог ће бити безбедно обрађен.",
 	"donate_interface-monthly-short": "Месечно",
 	"donate_interface-onetime-short": "Једнократно",
-	"donate_interface-error-http-403": "Немате дозволу да приступите овој страници.",
-	"apihelp-donate-param-first_name": "Име.",
-	"apihelp-donate-param-last_name": "Презиме.",
-	"apihelp-donate-param-city": "Град.",
-	"apihelp-donate-param-postal_code": "Поштански број.",
-	"apihelp-donate-param-email": "Имејл адреса.",
-	"apihelp-donate-param-country": "Код државе.",
-	"apihelp-donate-param-card_num": "Број кредитне картице.",
-	"apihelp-donate-param-card_type": "Тип кредитне картице.",
-	"apihelp-donate-param-expiration": "Датум истека.",
-	"apihelp-donate-param-cvv": "CVV сигурносни код."
+	"donate_interface-error-http-403": "Немате дозволу да приступите овој страници."
 }

@@ -185,8 +185,5 @@
 	"donate_interface-optional": "वैकल्पिक",
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-समय",
-	"donate_interface-statement": "विकिमिडिया $1",
-	"apihelp-donate-param-currency": "मुद्रा कोड",
-	"apihelp-donate-param-city": "शहर",
-	"apihelp-donate-param-language": "भाषा कोड"
+	"donate_interface-statement": "विकिमिडिया $1"
 }

@@ -62,7 +62,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * Setting some GC-specific defaults.
 	 * @param array $options These get extracted in the parent.
 	 */
-	function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 		if ( isset( $options['returnTo'] ) ) {
 			$returnTo = $options['returnTo'];
 		} else {
@@ -558,7 +558,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 

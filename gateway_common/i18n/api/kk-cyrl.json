@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Arystanbek"
+		]
+	},
+	"apihelp-donate-param-currency": "Валюта коды.",
+	"apihelp-donate-param-first_name": "Аты.",
+	"apihelp-donate-param-last_name": "Тегі.",
+	"apihelp-donate-param-city": "Қала.",
+	"apihelp-donate-param-postal_code": "Postal коды",
+	"apihelp-donate-param-email": "Е-пошта мекенжайы.",
+	"apihelp-donate-param-country": "Мемлекет коды.",
+	"apihelp-donate-param-card_num": "Несие карта номері.",
+	"apihelp-donate-param-card_type": "Несие карта түрі.",
+	"apihelp-donate-param-expiration": "Уақыты бітетін мерзім.",
+	"apihelp-donate-param-cvv": "CVV  құпия коды.",
+	"apihelp-donate-param-language": "Тіл коды."
+}

@@ -59,14 +59,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return 'query_string';
 	}
 
-	function defineAccountInfo() {
+	protected function defineAccountInfo() {
 		$this->accountInfo = [];
 	}
 
 	/**
 	 * TODO: Get L_SHORTMESSAGE0 and L_LONGMESSAGE0
 	 */
-	function defineReturnValueMap() {
+	protected function defineReturnValueMap() {
 		$this->return_value_map = [];
 		// 0: No errors
 		$this->addCodeRange( 'DoExpressCheckoutPayment', 'PAYMENTINFO_0_ERRORCODE', FinalStatus::COMPLETE, 0 );
@@ -77,14 +77,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	/**
 	 * Use our own Order ID sequence.
 	 */
-	function defineOrderIDMeta() {
+	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
 			'generate' => true,
 			'ct_id' => true,
 		];
 	}
 
-	function setGatewayDefaults( $options = [] ) {
+	protected function setGatewayDefaults( $options = [] ) {
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
 			$this->addRequestData(
 				[ 'payment_method' => 'paypal' ]
@@ -92,7 +92,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function getCurlBaseOpts() {
+	protected function getCurlBaseOpts() {
 		$opts = parent::getCurlBaseOpts();
 
 		if ( $this->isCertificateAuthentication() ) {
@@ -106,7 +106,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	/**
 	 * TODO: Support "response" specification.
 	 */
-	function defineTransactions() {
+	protected function defineTransactions() {
 		$this->transactions = [];
 
 		// https://developer.paypal.com/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/
@@ -416,7 +416,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 
@@ -487,7 +487,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			case 'SetExpressCheckout_recurring':
 				$this->checkResponseAck( $response );
 				$this->addResponseData( $this->unstageKeys( $response ) );
-				$redirectUrl = $this->account_config['RedirectURL'] . $response['TOKEN'];
+				$redirectUrl = $this->createRedirectUrl( $response['TOKEN'] );
 				$this->transaction_response->setRedirect( $redirectUrl );
 				break;
 			case 'GetExpressCheckoutDetails':
@@ -547,8 +547,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					case '10486':
 						// Donor's first funding method failed, but they might have another
 						$this->transaction_response->setRedirect(
-							$this->account_config['RedirectURL'] .
-							$this->getData_Unstaged_Escaped( 'gateway_session_id' )
+							$this->createRedirectUrl( $this->getData_Unstaged_Escaped( 'gateway_session_id' ) )
 						);
 						$fatal = false;
 						break;
@@ -701,5 +700,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	public function shouldRectifyOrphan() {
 		return true;
+	}
+
+	protected function createRedirectUrl( $token ) {
+		return $this->account_config['RedirectURL'] . $token . '&useraction=commit';
 	}
 }

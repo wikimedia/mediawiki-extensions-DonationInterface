@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robin van der Vliet"
+		]
+	},
+	"apihelp-donate-param-email": "E-mailadres.",
+	"apihelp-donate-param-language": "Taalkoade."
+}

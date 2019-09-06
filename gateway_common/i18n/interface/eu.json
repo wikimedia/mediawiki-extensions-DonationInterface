@@ -172,14 +172,5 @@
 	"donate_interface-translate-redlink1": "Lagundu orrialde hau itzultzen.",
 	"donate_interface-email-unsub-button": "Harpidetza kendu",
 	"donate_interface-currency-change": "Aldatu?",
-	"donate_interface-monthly-short": "Hilero",
-	"apihelp-donate-param-first_name": "Izena.",
-	"apihelp-donate-param-last_name": "Abizena.",
-	"apihelp-donate-param-city": "Hiria.",
-	"apihelp-donate-param-postal_code": "Posta-kodea.",
-	"apihelp-donate-param-email": "Helbide elektronikoa.",
-	"apihelp-donate-param-country": "Herralde-kodea.",
-	"apihelp-donate-param-card_num": "Kreditu-txartel zenbakia.",
-	"apihelp-donate-param-card_type": "Kreditu-txartel mota.",
-	"apihelp-donate-param-language": "Hizkuntza-kodea."
+	"donate_interface-monthly-short": "Hilero"
 }

@@ -378,21 +378,5 @@
 	"donate_interface-monthly-short": "Lunar",
 	"donate_interface-onetime-short": "O dată",
 	"donate_interface-error-http-403": "Nu aveți permisiunea să accesați această pagină.",
-	"donate_interface-statement": "Wikimedia $1",
-	"apihelp-donate-param-amount": "Suma donată.",
-	"apihelp-donate-param-currency": "Codul monedei.",
-	"apihelp-donate-param-first_name": "Prenume.",
-	"apihelp-donate-param-last_name": "Nume de familie.",
-	"apihelp-donate-param-street_address": "Prima linie a adresei.",
-	"apihelp-donate-param-supplemental_address_1": "A doua linie a adresei.",
-	"apihelp-donate-param-city": "Oraș.",
-	"apihelp-donate-param-postal_code": "Cod poștal.",
-	"apihelp-donate-param-email": "Adresă de e-mail.",
-	"apihelp-donate-param-country": "Codul țării.",
-	"apihelp-donate-param-card_num": "Numărul cardului de credit.",
-	"apihelp-donate-param-card_type": "Tipul cardului de credit.",
-	"apihelp-donate-param-expiration": "Data expirării.",
-	"apihelp-donate-param-cvv": "Cod CVV.",
-	"apihelp-donate-param-language": "Codul limbii.",
-	"apihelp-donate-example-1": "Faceți o donație"
+	"donate_interface-statement": "Wikimedia $1"
 }

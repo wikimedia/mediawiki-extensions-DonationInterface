@@ -30,7 +30,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		return 'redirect';
 	}
 
-	function __construct( $options = [] ) {
+	public function __construct( $options = [] ) {
 		parent::__construct( $options );
 
 		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
@@ -40,20 +40,20 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		}
 	}
 
-	function defineAccountInfo() {
+	protected function defineAccountInfo() {
 		$this->accountInfo = [];
 	}
 
-	function defineReturnValueMap() {
+	protected function defineReturnValueMap() {
 	}
 
-	function defineOrderIDMeta() {
+	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
 			'generate' => false,
 		];
 	}
 
-	function defineTransactions() {
+	protected function defineTransactions() {
 		$this->transactions = [];
 		$this->transactions[ 'Donate' ] = [
 			'request' => [
@@ -143,7 +143,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		];
 	}
 
-	function getBasedir() {
+	protected function getBasedir() {
 		return __DIR__;
 	}
 
@@ -169,7 +169,7 @@ class PaypalLegacyAdapter extends GatewayAdapter {
 		);
 	}
 
-	function do_transaction( $transaction ) {
+	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
 
