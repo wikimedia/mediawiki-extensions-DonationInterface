@@ -75,8 +75,10 @@ input#email {
 
 .halfwidth input,
 .halfwidth select,
+.halfwidth .errorMsg,
 .thirdwidth input,
 .thirdwidth select,
+.thirdwidth .errorMsg,
 .fullwidth {
 	width: 100%;
 }
@@ -171,6 +173,12 @@ div#content {
 		width: 100%;
 		margin: 5px 0;
 		padding: 10px 3%;
+	}
+
+	#donate .thirdwidth,
+	#donate .halfwidth {
+		width: 100%;
+		margin-left: 0;
 	}
 
 	#donate form input.hidden {

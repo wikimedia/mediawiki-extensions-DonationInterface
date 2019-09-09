@@ -22,6 +22,17 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	public static $baseDir;
 
+	protected static $partials = [
+		'issuers',
+		'more_info_links',
+		'opt_in',
+		'payment_amount',
+		'payment_method',
+		'personal_info',
+		'recurring_upsell',
+		'state_dropdown'
+	];
+
 	/**
 	 * @var array Keys are message keys used in templates, values are
 	 *  message keys to replace them with.
@@ -66,6 +77,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			],
 			'basedir' => [ self::$baseDir ],
 			'fileext' => self::EXTENSION,
+			'partials' => $this->getPartials( $data ),
+			'options' => LightnCandy::FLAG_RUNTIMEPARTIAL,
 		];
 		return MustacheHelper::render( $this->getTopLevelTemplate(), $data, $options );
 	}
@@ -481,5 +494,31 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getImagePath( $name ) {
 		return "{$this->scriptPath}/extensions/DonationInterface/gateway_forms/includes/{$name}";
+	}
+
+	protected function getPartials( array $data ) {
+		$partials = [];
+		if ( empty( $data['variant'] ) ) {
+			$variantDir = false;
+		} else {
+			$variantDir = $this->gateway->getGlobal( 'VariantConfigurationDirectory' ) .
+				DIRECTORY_SEPARATOR . $data['variant'] . DIRECTORY_SEPARATOR;
+		}
+		foreach ( self::$partials as $partial ) {
+			$filename = $partial . self::EXTENSION;
+			if (
+				$variantDir &&
+				file_exists( $variantDir . $filename )
+			) {
+				$partials[$partial] = file_get_contents(
+					$variantDir . $filename
+				);
+			} else {
+				$partials[$partial] = file_get_contents(
+					self::$baseDir . DIRECTORY_SEPARATOR . $filename
+				);
+			}
+		}
+		return $partials;
 	}
 }

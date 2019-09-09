@@ -23,10 +23,11 @@
 
 	$( function() {
 		// Add a couple divs to hold the widgets
-		var container = $( '.submethods' ).parent();
-		container.prepend( '<div id="consentWidget" />' );
-		container.prepend( '<div id="walletWidget" />' );
-		container.prepend( '<div id="amazonLogin" />' );
+		$( '.submethods' ).before(
+			'<div id="consentWidget" />' +
+			'<div id="walletWidget" />' +
+			'<div id="amazonLogin" />'
+		);
 		// Set the click handler
 		$( '#paymentSubmitBtn' ).click( submitPayment );
 	});

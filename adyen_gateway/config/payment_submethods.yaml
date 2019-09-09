@@ -10,6 +10,7 @@ visa:
         CA: true
         FR: true
         GB: true
+        IE: true
         IL: true
         JP: true
         NL: true
@@ -22,6 +23,7 @@ mc:
         CA: true
         FR: true
         GB: true
+        IE: true
         IL: true
         JP: true
         NL: true
@@ -37,6 +39,7 @@ amex:
         CA: true
         FR: true
         GB: true
+        IE: true
         IL: true
         JP: true
         NL: true
@@ -46,6 +49,7 @@ amex:
     logo: card-amex-lg.png
 jcb:
     countries:
+        IE: true
         JP: true
         NL: true
     group: cc
