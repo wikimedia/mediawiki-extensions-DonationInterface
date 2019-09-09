@@ -197,7 +197,7 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
-	"donate_interface-bank-name-netbanking": "Banque sur internet",
+	"donate_interface-bank-name-netbanking": "Banque en ligne",
 	"donate_interface-error-msg-general": "Une erreur est survenue lors du traitement de votre requête.",
 	"donate_interface-error-msg-nopaypal": "En raison d’un problème technique, nous ne pouvons pas envoyer votre requête à PayPal. Veuillez essayer notre formulaire classique de don par carte bancaire ou de crédit.",
 	"donate_interface-error-msg-validation": "Veuillez corriger les erreurs dans le formulaire.",
