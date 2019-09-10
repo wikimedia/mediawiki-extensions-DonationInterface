@@ -40,8 +40,7 @@ textarea {
 	display: inline-block;
 }
 
-#greenBackground,
-div.donor {
+#greenBackground {
 	padding: 16px 24px;
 	min-width: 300px;
 	background-color: #cce7cd;
@@ -84,21 +83,19 @@ input#email {
 }
 
 .halfwidth {
-	width: 50%;
+	width: 49%;
 }
 
 .halfwidth:not( :first-child ) {
 	margin-left: 2%;
-	width: 48%;
 }
 
-.thirdwidth:first-child {
+.thirdwidth {
 	width: 32%;
 }
 
 .thirdwidth:not( :first-child ) {
 	margin-left: 2%;
-	width: 31%;
 }
 
 /* From 2014 appeal */
