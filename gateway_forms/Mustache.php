@@ -510,13 +510,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$variantDir &&
 				file_exists( $variantDir . $filename )
 			) {
-				$partials[$partial] = file_get_contents(
+				$partials[$partial] = rtrim( file_get_contents(
 					$variantDir . $filename
-				);
+				), "\r\n" );
 			} else {
-				$partials[$partial] = file_get_contents(
+				$partials[$partial] = rtrim( file_get_contents(
 					self::$baseDir . DIRECTORY_SEPARATOR . $filename
-				);
+				), "\r\n" );
 			}
 		}
 		return $partials;
