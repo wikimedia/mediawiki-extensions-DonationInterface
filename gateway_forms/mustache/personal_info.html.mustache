@@ -1,6 +1,6 @@
 {{# first_name_visible }}{{! if we don't need the first_name, hide the whole name cell }}
     <div>
-								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" {{# first_name_required }}required {{/ first_name_required }}autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="last_name" value="{{ last_name }}" type="text" placeholder="{{ l10n "donate_interface-donor-last_name" }}" id="last_name" {{# last_name_required }}required {{/ last_name_required }} autocomplete="billing family-name cc-family-name" maxlength="64">
+								<input class="halfwidth" name="first_name" value="{{ first_name }}" type="text" title="{{ l10n "donate_interface-donor-first_name" }}" placeholder="{{ l10n "donate_interface-donor-first_name" }}" id="first_name" {{# first_name_required }}required {{/ first_name_required }}autocomplete="billing given-name cc-given-name" maxlength="64"><input class="halfwidth" name="last_name" value="{{ last_name }}" type="text" title="{{ l10n "donate_interface-donor-last_name" }}" placeholder="{{ l10n "donate_interface-donor-last_name" }}" id="last_name" {{# last_name_required }}required {{/ last_name_required }} autocomplete="billing family-name cc-family-name" maxlength="64">
                         {{{ fieldError "first_name" }}}
                         {{{ fieldError "last_name" }}}
     </div>
@@ -13,9 +13,9 @@
     </div>
 {{/ street_address_visible }}
     <div>
-{{# city_visible }}<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">{{/ city_visible }}{{! don't render space
+{{# city_visible }}<input class="{{ address_css_class }}" name="city" value="{{ city }}" type="text" title="{{ l10n "donate_interface-donor-city" }}" placeholder="{{ l10n "donate_interface-donor-city" }}" id="city" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">{{/ city_visible }}{{! don't render space
 }}{{> state_dropdown }}{{! only renders if required }}{{! don't render space
-}}{{# postal_code_visible }}<input class="{{ address_css_class }}" name="postal_code" value="{{ postal_code }}" type="text" placeholder="{{ l10n "donate_interface-donor-postal_code" }}" id="postal_code" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">{{/ postal_code_visible }}
+}}{{# postal_code_visible }}<input class="{{ address_css_class }}" name="postal_code" value="{{ postal_code }}" type="text" title="{{ l10n "donate_interface-donor-postal_code" }}" placeholder="{{ l10n "donate_interface-donor-postal_code" }}" id="postal_code" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">{{/ postal_code_visible }}
 
     {{# city_visible }}
                         {{{ fieldError "city" }}}
