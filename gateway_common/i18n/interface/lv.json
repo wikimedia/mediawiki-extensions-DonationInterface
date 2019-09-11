@@ -242,7 +242,7 @@
 	"donate_interface-translate-bluelink": "Uzlabot šo tulkojumu",
 	"donate_interface-faqs": "Bieži uzdotie jautājumi",
 	"donate_interface-tax-info": "Informācija par nodokļu atskaitījumiem",
-	"donate_interface-informationsharing": "Esam atjauninājuši <a href=\"$1\">Donoru privātuma politiku</a>, kas ir spēkā no 2019. gada 15. aprīļa. Jūsu datus mēs nepārdodam vai nenododam nevienam citam. Ziedojot jūs piekrītat savas personīgās informācijas kopīgošanai ar Wikimedia Foundation (bezpeļņas organizāciju, kas nodrošina Vikipēdijas un citu Wikimedia projektu uzturēšanu) un tā pakalpojumu sniedzējiem saskaņā ar <a href=\"$1\">mūsu ziedotāju politiku</a>. Wikimedia Foundation un tā pakalpojumu sniedzēji atrodas Amerikas Savienotajās Valstīs un citās valstīs, kuru privātuma tiesību akti var neatbilst tiesību aktiem jūsu valstī.",
+	"donate_interface-informationsharing": "Ziedojot jūs piekrītat savas personīgās informācijas kopīgošanai ar Wikimedia Foundation (bezpeļņas organizāciju, kas nodrošina Wikipedia un citu Wikimedia projektu mitināšanu) un tā pakalpojumu sniedzējiem saskaņā ar <a href=\"$1\">mūsu ziedotāju politiku</a>. Wikimedia Foundation un tā pakalpojumu sniedzēji atrodas Amerikas Savienotajās Valstīs un citās valstīs, kuru privātuma tiesību akti var neatbilst tiesību aktiem jūsu valstī. Mēs jūsu informāciju nevienam nepārdosim un netirgosim. Lai saņemtu plašāku informāciju, lūdzu, izlasiet <a href=\"$1\">mūsu ziedotāju politiku</a>.",
 	"donate_interface-currency-change": "Mainīt?",
 	"donate_interface-taxded-link-int": "Nodokļu un cita juridiskā informācija",
 	"donate_interface-taxded-link-us": "Informācija par nodokļu atskaitījumiem",
