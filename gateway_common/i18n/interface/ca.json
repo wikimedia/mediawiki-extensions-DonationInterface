@@ -290,7 +290,7 @@
 	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-faqs": "Respostes a preguntes freqüents",
 	"donate_interface-tax-info": "Informació de deducció fiscal",
-	"donate_interface-informationsharing": "Hem actualitzat <a href=\"$1\">la nostra Política de privacitat del donant</a>, que entrarà en vigor el 15 d'abril de 2019. En fer una donació, accepteu compartir la vostra informació personal amb la Wikimedia Foundation, l'organització sense ànim de lucre amfitriona de Wikipedia i d'altres projectes de Wikimedia, i amb els seus proveïdors de serveis segons <a href=\"$1\">la nostra política de donant</a>.\nWikimedia Foundation i els seus proveïdors de serveis estan situats als Estats Units i a altres països les lleis de privacitat dels quals podrien no ser equivalents a les vostres. No venem les vostres dades ni en fem negoci amb ningú.",
+	"donate_interface-informationsharing": "En fer una donació, accepteu compartir la vostra informació personal amb la Wikimedia Foundation, l'organització sense ànim de lucre amfitriona de Wikipedia i d'altres projectes de Wikimedia, i amb els seus proveïdors de serveis segons <a href=\"$1\">la nostra política de donant</a>.\nWikimedia Foundation i els seus proveïdors de serveis estan situats als Estats Units i a altres països les lleis de privacitat dels quals podrien no ser equivalents a les vostres. No venem les vostres dades ni en fem negoci amb ningú. Per a més informació, llegiu <a href=\"$1\">la nostra política de donant</a>.",
 	"donate_interface-currency-change": "Ho voleu canviar?",
 	"donate_interface-monthlybox-title": "Ho voleu fer mensualment?",
 	"donate_interface-monthlybox-amount": "Import de la donació mensual",
