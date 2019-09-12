@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"adyen_gateway-response-default": "Desila se greška pri obradi plaćanja.\nMolimo pokušajte ponovno."
+}
