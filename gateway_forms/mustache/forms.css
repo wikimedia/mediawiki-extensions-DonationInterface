@@ -535,26 +535,6 @@ ul#moreinfolinks {
 		display: none;
 	}
 
-	#cards li {
-		position: relative;
-		background: #fff;
-		padding: 0;
-		font-size: 13px;
-		border: 1px solid #ccc;
-	}
-
-	#cards li input.cardradio {
-		margin: 5px 0;
-		display: block;
-		width: auto;
-		float: none;
-		font-size: 13px;
-	}
-
-	#cards li label {
-		margin: 0;
-	}
-
 	p#informationsharing {
 		margin-top: 2em;
 		font-size: 12px;

@@ -360,5 +360,10 @@
 	"donate_interface-monthlybox-yes": "Da, neka bude mjesečni prilog",
 	"donate_interface-monthlybox-no": "NE, ovo je jednokratno darivanje",
 	"donate_interface-monthlybox-bottom": "Vaša donacija biti će sigurno obrađena.",
-	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici."
+	"donate_interface-onetime": "Dajte jednokratan prilog",
+	"donate_interface-monthly-short": "Mjesečno",
+	"donate_interface-onetime-short": "Jednokratno",
+	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici.",
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-emailprefs-thank-you-title": "Hvala vam"
 }
