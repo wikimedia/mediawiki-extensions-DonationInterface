@@ -170,6 +170,15 @@ interface GatewayType {
 	public function getValidationAction();
 
 	/**
+	 * If it has been set: returns the final payment status in the $final_status
+	 * member variable. This is the one we care about for switching
+	 * on overall behavior. Otherwise, returns false.
+	 * @return mixed Final Transaction results status, or false if not set.
+	 * Should be one of the constants defined in @see FinalStatus
+	 */
+	public function getFinalStatus();
+
+	/**
 	 * Returns the response object with the details of the latest
 	 * transaction, or null if the adapter has not yet performed one.
 	 *

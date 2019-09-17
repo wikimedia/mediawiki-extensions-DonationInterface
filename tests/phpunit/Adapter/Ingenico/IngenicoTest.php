@@ -17,6 +17,7 @@
  */
 
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\FinalStatus;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\CrmLink\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
@@ -234,6 +235,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
 
+		$this->assertEquals( FinalStatus::CANCELLED, $gateway->getFinalStatus() );
 		$this->assertEquals( "Cancelling payment", $result->getMessage(),
 			'Cancelled by consumer status should return the message Cancelling payment' );
 

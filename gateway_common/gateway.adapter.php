@@ -2133,11 +2133,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * If it has been set: returns the final payment status in the $final_status
-	 * member variable. This is the one we care about for switching
-	 * on overall behavior. Otherwise, returns false.
-	 * @return mixed Final Transaction results status, or false if not set.
-	 * Should be one of the constants defined in @see FinalStatus
+	 * @inheritDoc
 	 */
 	public function getFinalStatus() {
 		if ( $this->final_status ) {
