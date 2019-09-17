@@ -629,11 +629,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
 	 * @param string $gateway The gateway used for the payment that failed
 	 * @param string $payment_method The code for the payment method that failed
-	 * @param string|null $payment_submethod Code for the payment submethod that failed
+	 * @param string|null $payment_status Specific status code for donation, from @see FinalStatus
 	 * @throws RuntimeException if no form found
 	 * @return string The name of the best error form
 	 */
-	public static function getBestErrorForm( $gateway, $payment_method, $payment_submethod = null ) {
+	public static function getBestErrorForm( $gateway, $payment_method, $payment_status = null ) {
 		global $wgDonationInterfaceAllowedHtmlForms;
 		$error_forms = [];
 		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $data ) {
@@ -653,18 +653,23 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				}
 
 				if ( $is_match ) {
-					// if no payment methods specified in the error form, we don't have to throw it away...
+					// Filter for payment-method specific forms. 'group' will be used to break ties, with
+					// group 0 being the highest priority.
 					if ( array_key_exists( 'payment_methods', $data ) ) {
-						if ( !array_key_exists( $payment_method, $data['payment_methods'] ) ) {
-							// key exists, but we're not in there.
-							$is_match = false;
+						if ( array_key_exists( $payment_method, $data['payment_methods'] ) ) {
+							$group = 1;
 						} else {
-							$group = 1; // payment method specificity
-							if ( !is_null( $payment_submethod ) && !in_array( $payment_submethod, $data['payment_methods'] ) && !in_array( 'ALL', $data['payment_methods'] ) ) {
-								$is_match = false;
-							} else {
-								$group = 0; // payment submethod specificity
-							}
+							// key exists in form definition, but specified method is not in there.
+							$is_match = false;
+						}
+					}
+					// And also filter for payment-status specific forms
+					if ( array_key_exists( 'payment_status', $data ) ) {
+						// When form definition includes a status, only match if we specify the matching status
+						if ( !is_null( $payment_status ) && in_array( $payment_status, $data['payment_status'] ) ) {
+							$group = 0;
+						} else {
+							$is_match = false;
 						}
 					}
 				}

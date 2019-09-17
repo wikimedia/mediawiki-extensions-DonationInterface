@@ -244,6 +244,8 @@
 	"donate_interface-donate-error-try-a-different-card": "Please [$1 try a different card] or one of our [$2 other ways to give] or contact us at $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Please try a different card or one of our <a href=\"$1\">other ways to give</a>, or contact us at <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Please <a href=\"$1\">try again</a>, try one of our <a href=\"$2\">other ways to give</a>, or contact us at <a href=\"mailto:$3\">$3</a>",
+	"donate_interface-donation-cancelled-header": "Your transaction was successfully cancelled",
+	"donate_interface-donation-cancelled": "Didn't mean to cancel? You can <a href=\"$1\">go back</a>, try one of our <a href=\"$2\">other ways to give</a>, or contact us at <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Thank you for your support!",
 	"donate_interface-error-no-form": "We were unable to find a donation form matching your parameters. Please contact [mailto:$1 our help team] for more information.",
 	"donate_interface-error-no-form-html": "We were unable to find a donation form matching your parameters. Please try one of our <a href=\"$1\">other ways to give</a>, or contact us at <a href=\"mailto:$2\">$2</a>.",

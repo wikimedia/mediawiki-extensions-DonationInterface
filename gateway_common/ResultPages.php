@@ -32,7 +32,8 @@ class ResultPages {
 			$adapter->getGlobal( 'RapidFail' ),
 			$adapter->getGlobal( 'FailPage' ),
 			$adapter->getData_Unstaged_Escaped(),
-			DonationLoggerFactory::getLogger( $adapter )
+			DonationLoggerFactory::getLogger( $adapter ),
+			$adapter->getFinalStatus()
 		);
 	}
 
@@ -52,7 +53,6 @@ class ResultPages {
 			[
 				'gateway' => $adapterType::getIdentifier(),
 				'payment_method' => '',
-				'payment_submethod' => '',
 			],
 			DonationLoggerFactory::getLoggerForType( $adapterType, $logPrefix )
 		);
@@ -65,9 +65,12 @@ class ResultPages {
 	 * @param array $data information about the current request.
 	 *                    language, gateway, payment_method, and payment_submethod must be set
 	 * @param Psr\Log\LoggerInterface $logger
+	 * @param string|null $paymentStatus one of the FinalStatus constants
 	 * @return string full URL of the fail page, or just form name in case of rapidFail
 	 */
-	private static function getFailPageFromParams( $rapidFail, $failPage, $data, LoggerInterface $logger ) {
+	private static function getFailPageFromParams(
+		$rapidFail, $failPage, $data, LoggerInterface $logger, $paymentStatus = null
+	) {
 		if ( isset( $data['language'] ) ) {
 			$language = $data['language'];
 		} else {
@@ -80,7 +83,7 @@ class ResultPages {
 				$fail_ffname = GatewayFormChooser::getBestErrorForm(
 					$data['gateway'],
 					$data['payment_method'],
-					$data['payment_submethod']
+					$paymentStatus
 				);
 				return $fail_ffname;
 			} catch ( Exception $e ) {
