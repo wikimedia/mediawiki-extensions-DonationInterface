@@ -132,6 +132,7 @@
 		"IngenicoGatewayResult": "ingenico_gateway/ingenico_resultswitcher.body.php",
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",
 		"IngenicoLocale": "ingenico_gateway/IngenicoLocale.php",
+		"IngenicoPaymentSubmethod": "ingenico_gateway/IngenicoPaymentSubmethod.php",
 		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
 		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
 		"IngenicoOrphanAdapter": "ingenico_gateway/orphan.adapter.php",
@@ -195,6 +196,10 @@
 		},
 		"ext.donationInterface.employerExplainAlt": {
 			"scripts": "modules/js/ext.donationInterface.employerExplainAlt.js"
+		},
+		"ext.donationInterface.noCardSelect": {
+			"styles": "modules/css/noCardSelect.css",
+			"dependencies": "ext.donationInterface.forms"
 		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",

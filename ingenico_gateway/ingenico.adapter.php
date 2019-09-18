@@ -131,6 +131,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'avsResult',
 				'cvvResult',
 				'statusCode',
+				'paymentProductId',
 			]
 		];
 
@@ -142,6 +143,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'avsResult',
 				'cvvResult',
 				'statusCode',
+				'paymentProductId',
 			]
 		];
 

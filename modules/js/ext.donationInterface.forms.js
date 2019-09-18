@@ -90,7 +90,16 @@
 			.addClass( 'errorMsgHide' );
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
-		var sendData = {
+		var sendData,
+			paymentSubmethod;
+
+		if ( typeof ( $( 'input[name="payment_submethod"]:checked' ).val() ) === 'undefined' ) {
+			paymentSubmethod = '';
+		} else {
+			paymentSubmethod = $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase();
+		}
+
+		sendData = {
 			action: 'donate',
 			gateway: $( '#gateway' ).val(),
 			contact_id: $( '#contact_id' ).val(),
@@ -107,7 +116,7 @@
 			country: $( '#country' ).val(),
 			payment_method: $( '#payment_method' ).val(),
 			language: $( '#language' ).val(),
-			payment_submethod: $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase(),
+			payment_submethod: paymentSubmethod,
 			processor_form: $( '#processor_form' ).val(),
 			issuer_id: $( '#issuer_id' ).val(),
 			utm_source: $( '#utm_source' ).val(),
