@@ -3,7 +3,8 @@
 		"authors": [
 			"Asoxor",
 			"Calak",
-			"Sarchia"
+			"Sarchia",
+			"Muhammed taha"
 		]
 	},
 	"donate_interface": "پشتگیریی ویکیمیدیا بکە",
@@ -17,9 +18,9 @@
 	"donate_interface-donor-county": "شارستان",
 	"donate_interface-donor-zone": "ناوچە",
 	"donate_interface-donor-address": "ناونیشان",
-	"donate_interface-error-msg-email": "ناونیشانی ئیمەیل",
+	"donate_interface-error-msg-email": "تکایە ناونیشانی ئیمەیڵەکەت داخل بکە",
 	"donate_interface-error-msg-last_name": "دواناو:",
-	"donate_interface-error-msg-city": "شار:",
+	"donate_interface-error-msg-city": "تکایە شارەکەت بنووسە",
 	"donate_interface-comment": "بۆچوون",
 	"donate_interface-other": "دیکە",
 	"donate_interface-title": "سەردێڕ",
