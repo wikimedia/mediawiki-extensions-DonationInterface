@@ -85,7 +85,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = [
@@ -113,7 +112,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = [
@@ -147,7 +145,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'IT' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = [
@@ -186,7 +183,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'BE' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmaj';
 		$init['language'] = $language;
 
@@ -226,7 +222,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
 
@@ -275,7 +270,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = [
@@ -298,7 +292,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '1';
 
@@ -318,7 +311,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
 		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '0';
 
