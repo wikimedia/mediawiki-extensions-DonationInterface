@@ -326,6 +326,15 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 				'language' => 'pt',
 				'email' => 'nobody@example.org'
 			],
+			'CO' => [
+				'currency' => 'COP',
+				'fiscal_number' => '9.999.999.999',
+				'first_name' => 'Nombre',
+				'last_name' => 'Apellido',
+				'amount' => '5',
+				'language' => 'es',
+				'email' => 'nobody@example.org'
+			],
 			'MX' => [
 				'city' => 'Tuxtla Gutiérrez',
 				'state_province' => 'CHP',
