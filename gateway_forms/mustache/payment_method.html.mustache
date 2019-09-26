@@ -19,7 +19,7 @@
 										<input class="hidden" id="submethod-{{ submethod }}" name="payment_submethod" type="radio" value="{{ submethod }}" checked />
 {{/ show_submethods }}
 {{# show_single_submethod }}
-										<img class="submethod-logo" alt="{{ label }}" src="{{ submethod_logo }}" {{{ submethod_srcset }}}/>
+										<img class="submethod-logo" alt="{{# submethod_label_key }}{{ l10n . }}{{/ submethod_label_key }}{{^ submethod_label_key }}{{ submethod_label }}{{/ submethod_label_key }}" src="{{ submethod_logo }}" {{{ submethod_srcset }}}/>
 {{/ show_single_submethod }}
 									</dd>
 								</dl>

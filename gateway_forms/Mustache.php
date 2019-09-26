@@ -195,7 +195,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				!empty( $submethod['show_single_logo'] )
 			) {
 				$data['show_single_submethod'] = true;
-				$data['label'] = $submethod['label'];
+				$data['submethod_label_key'] = $submethod['label_key'] ?? false;
+				$data['submethod_label'] = $submethod['label'] ?? false;
 				$data['submethod_logo'] = $this->getImagePath( $submethod['logo'] );
 				$data['submethod_srcset'] = $this->getSrcSet( $submethod );
 			}
