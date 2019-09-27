@@ -1,0 +1,9 @@
+#paymentContinue {
+	margin-top: 1em;
+	clear: both;
+	display: block;
+}
+
+#cards {
+	display: none;
+}

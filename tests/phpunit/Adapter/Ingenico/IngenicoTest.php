@@ -628,6 +628,30 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertEquals( array_intersect_key( $init, $contactFields ), $queueMessage );
 	}
 
+	public function testDonorReturnPaymentSubmethod() {
+		$init = $this->getDonorTestData( 'FR' );
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = '';
+		$init['email'] = 'innocent@localhost.net';
+		$init['order_id'] = mt_rand();
+		$session['Donor'] = $init;
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( [] );
+		$this->hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getHostedPaymentStatus' )
+			->willReturn( $this->hostedPaymentStatusResponse );
+		$this->hostedCheckoutProvider->method( 'approvePayment' )
+			->willReturn( $this->approvePaymentResponse );
+		$result = $gateway->processDonorReturn( [
+			'merchantReference' => $init['order_id'],
+			'cvvResult' => 'M',
+			'avsResult' => '0'
+		] );
+		$queueMessage = QueueWrapper::getQueue( 'payments-init' )->pop();
+		SourceFields::removeFromMessage( $queueMessage );
+		$this->assertEquals( 'visa', $queueMessage['payment_submethod'] );
+	}
+
 	public function testClearDataWhenDone() {
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
