@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pyscowicz"
+			"Pyscowicz",
+			"Silvonen"
 		]
 	},
 	"apihelp-donate-param-first_name": "Etunimi.",
@@ -14,5 +15,6 @@
 	"apihelp-donate-param-card_type": "Luottokortin tyyppi.",
 	"apihelp-donate-param-expiration": "Vanhenemispäivä.",
 	"apihelp-donate-param-cvv": "CVV-turvakoodi.",
-	"apihelp-donate-param-language": "Kielikoodi."
+	"apihelp-donate-param-language": "Kielikoodi.",
+	"apihelp-donate-param-employer": "Työnantajan nimi"
 }

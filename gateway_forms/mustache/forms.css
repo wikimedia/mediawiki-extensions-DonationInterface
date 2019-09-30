@@ -23,44 +23,8 @@ div#payment_gateway-donate-submessage img {
 #appeal {
 	background-color: transparent;
 	border: 0;
-	padding: 16px 24px 24px;
+	padding: 16px 24px 0 24px;
 	vertical-align: top;
-}
-
-#appeal-head {
-	font-size: 1.5em;
-	line-height: 1.125em;
-	padding-bottom: 0.5em;
-	padding-top: 0.125em;
-}
-
-#appeal-body {
-	font-size: 1.125em;
-	margin-bottom: 1em;
-	padding: 0.2em 0;
-}
-
-#donate-head {
-	border: 0;
-	font-size: 1.5em;
-	line-height: 1.125em;
-	padding-bottom: 0;
-	padding-top: 0.125em;
-}
-
-#donate-body {
-	font-size: 1.125em;
-	margin-bottom: 1em;
-}
-
-/* Move the form up */
-#mw-head-base {
-	height: 1em !important;
-}
-
-/* Hiding content border */
-table {
-	background-color: transparent;
 }
 
 div#content {
@@ -70,19 +34,14 @@ div#content {
 
 div#mw-head-base {
 	background-image: none;
-}
-
-#footer {
-	background-image: none;
+	/* Move the form up */
+	height: 1em !important;
 }
 
 /* Hiding stuff we don't need */
 h1#firstHeading,
-div#contentSub {
-	display: none;
-}
-
-/* Log in link on MW 1.31+ */
+div#contentSub,
+#footer,
 #p-personal {
 	display: none;
 }
@@ -131,30 +90,17 @@ input:-moz-placeholder {
 	opacity: 1;
 }
 
-input::-moz-placeholder {
-	opacity: 1;
-}
-
-select:-moz-placeholder {
-	opacity: 1;
-}
-
-select::-moz-placeholder {
-	opacity: 1;
-}
-
-textarea:-moz-placeholder {
-	opacity: 1;
-}
-
-textarea::-moz-placeholder {
+input::placeholder,
+select::placeholder,
+textarea::placeholder,
+textarea::placeholder {
 	opacity: 1;
 }
 
 #donate {
 	min-width: 32em;
 	max-width: 46.5em;
-	padding: 1em;
+	padding: 1em 1em 0 1em;
 }
 
 #greenBackground {
@@ -199,14 +145,6 @@ span#selected-amount {
 .cc_header img {
 	vertical-align: baseline;
 	margin-left: 8px;
-}
-
-div.donor {
-	width: auto;
-}
-
-div.donor {
-	width: 100%;
 }
 
 #donate input[ type='text' ],
@@ -276,6 +214,10 @@ p#monthlycancel,
 	font-size: 0.75em;
 	color: #72777d;
 	text-align: center;
+}
+
+#content.mw-body {
+	padding-bottom: 0;
 }
 
 #cards {

@@ -236,6 +236,8 @@
 	"donate_interface-donate-error-try-a-different-card": "Ве молиме [$1 обидете се со друга картичка] или еден од [$2 другите начини на дарување], или пак контактирајте нè на $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Пробајте со друга картичка или еден од <a href=\"$1\">другите начини на дарување</a>. Можете и да ни се обратите на <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Обидете се повторно</a>, пробајте со <a href=\"$2\">другите начини на дарување</a> или пак обратате ни се на <a href=\"mailto:$3\">$3</a>",
+	"donate_interface-donation-cancelled-header": "Уплатата е успешно отповикана",
+	"donate_interface-donation-cancelled": "Не сакавте да се откажете? Можете да <a href=\"$1\">се навратите</a> и да пробате еден од <a href=\"$2\">другите начини на дарување</a>, или пак да ни се обратите на <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Ви благодариме за Вашата поддршка!",
 	"donate_interface-error-no-form": "Не можам да проанјдам образец за доброволни прилози што одговара на зададените параметри. За повеќе информации, обратете се на нашето [mailto:$1 биро за помош].",
 	"donate_interface-error-no-form-html": "Не можевме да го најдеме образецот за што одговара на вашите параметри. Пробајте ги <a href=\"$1\">другите начини на дарување</a>, или пак обратете ни се на <a href=\"mailto:$2\">$2</a>.",

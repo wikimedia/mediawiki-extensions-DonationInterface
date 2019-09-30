@@ -19,7 +19,8 @@
 			"ZeiP",
 			"Pitke",
 			"Pyscowicz",
-			"Valtlait"
+			"Valtlait",
+			"Silvonen"
 		]
 	},
 	"donate_interface": "Tue Wikimediaa",
@@ -144,9 +145,11 @@
 	"donate_interface-donor-email": "Sähköpostiosoite",
 	"donate_interface-donor-name": "Nimi",
 	"donate_interface-donor-first_name": "Etunimi",
+	"donate_interface-donor-first_name-alt": "Etunimi",
 	"donate_interface-donor-mname": "Toiset etunimet",
 	"donate_interface-donor-last_name": "Sukunimi",
 	"donate_interface-donor-last_name-alt": "Sukunimi",
+	"donate_interface-donor-employer-variant5": "Työnantaja",
 	"donate_interface-donor-street_address": "Katu",
 	"donate_interface-donor-street-number": "Numero",
 	"donate_interface-donor-city": "Kaupunki",
@@ -387,5 +390,6 @@
 	"donate_interface-onetime": "Tee kertalahjoitus",
 	"donate_interface-monthly-short": "Kuukausittain",
 	"donate_interface-onetime-short": "Vain kerran",
-	"donate_interface-error-http-403": "Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen."
+	"donate_interface-error-http-403": "Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen.",
+	"donate_interface-emailprefs-thank-you-title": "Kiitos"
 }

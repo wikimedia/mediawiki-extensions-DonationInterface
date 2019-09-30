@@ -252,6 +252,8 @@
 	"donate_interface-donate-error-try-a-different-card": "رجاء [$1 قم بتجربة بطاقة أخرى] أو أحد [$2 طرقنا الخرى للعطاء] أو تواصل معنا عبر $3",
 	"donate_interface-donate-error-try-a-different-card-html": "تٌرجَى تجربة بطاقة مختلفة أو إحدى <a href=\"$1\">طرقنا الأخرى في التقديم</a>، أو الاتصال بنا على <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "تٌرجَى <a href=\"$1\">إعادة المحاولة</a>، أو تجربة بطاقة مختلفة أو إحدى <a href=\"$2\">طرقنا الأخرى في التقديم</a>، أو الاتصال بنا على <a href=\"mailto:$3\">$3</a>",
+	"donate_interface-donation-cancelled-header": "تم إلغاء معاملتك بنجاح",
+	"donate_interface-donation-cancelled": "لم تقصد الإلغاء؟ يمكنك <a href=\"$1\">العودة</a>، أو تجربة إحدى <a href=\"$2\"> طرق أخرى للعطاء</a>، أو الاتصال بنا على <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "شكرا لدعمك!",
 	"donate_interface-error-no-form": "لم نتمكن من العثور على نموذج تبرع مطابق لوسائطك، يُرجَى الاتصال بـ [mailto: $1 فريق المساعدة لدينا] لمزيد من المعلومات.",
 	"donate_interface-error-no-form-html": "لم نتمكن من العثور على نموذج تبرع مطابق لوسائطك; تٌرجَى تجربة بطاقة مختلفة أو إحدى <a href=\"$1\">طرقنا الأخرى في التقديم</a>، أو الاتصال بنا على <a href=\"mailto:$2\">$2</a>",
