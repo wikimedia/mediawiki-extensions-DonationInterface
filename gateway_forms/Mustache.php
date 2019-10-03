@@ -168,8 +168,21 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function addSubmethods( &$data ) {
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
-		$data['show_submethods'] = ( count( $availableSubmethods ) > 1 );
-		if ( $data['show_submethods'] ) {
+		$showPresetSubmethod = !empty( $data['payment_submethod'] ) &&
+			array_key_exists( $data['payment_submethod'], $availableSubmethods );
+
+		// if the payment_submethod is not sent explicitly via the query string let's
+		// assume the user will benefit from seeing all available options
+		if ( $this->gateway->getDataSources()['payment_submethod'] != 'get'
+			&& $showPresetSubmethod ) {
+			$showPresetSubmethod = false;
+		}
+
+		$showMultipleSubmethods = ( !$showPresetSubmethod && count( $availableSubmethods ) > 1 );
+		$showSingleSubmethod = count( $availableSubmethods ) == 1;
+
+		if ( $showMultipleSubmethods ) {
+			$data['show_submethods'] = true;
 			// Need to add submethod key to its array 'cause mustache doesn't get keys
 			$data['submethods'] = [];
 			foreach ( $availableSubmethods as $key => $submethod ) {
@@ -184,18 +197,18 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['button_class'] = count( $data['submethods'] ) % 4 === 0
 				? 'four-per-line'
 				: 'three-per-line';
-		} elseif ( count( $availableSubmethods ) > 0 ) {
-			$submethodNames = array_keys( $availableSubmethods );
-			$submethodName = $submethodNames[0];
+		} elseif ( $showSingleSubmethod || $showPresetSubmethod ) {
+
+			$submethodName = ( $showPresetSubmethod ) ? $data['payment_submethod'] :
+				array_keys( $availableSubmethods )[0];
 			$submethod = $availableSubmethods[$submethodName];
 			$data['submethod'] = $submethodName;
 
-			if (
-				isset( $submethod['logo'] ) &&
-				!empty( $submethod['show_single_logo'] )
-			) {
+			if ( isset( $submethod['logo'] ) &&
+				( $showPresetSubmethod || !empty( $submethod['show_single_logo'] ) ) ) {
 				$data['show_single_submethod'] = true;
-				$data['label'] = $submethod['label'];
+				$data['submethod_label_key'] = $submethod['label_key'] ?? false;
+				$data['submethod_label'] = $submethod['label'] ?? false;
 				$data['submethod_logo'] = $this->getImagePath( $submethod['logo'] );
 				$data['submethod_srcset'] = $this->getSrcSet( $submethod );
 			}
