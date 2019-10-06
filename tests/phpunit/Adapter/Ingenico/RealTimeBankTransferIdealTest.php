@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  *
  */
+
+use PHPUnit\Framework\MockObject\MockObject;
 use SmashPig\PaymentProviders\Ingenico\BankPaymentProvider;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -28,7 +30,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends BaseIngenicoTestCase {
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject
+	 * @var MockObject
 	 */
 	protected $bankPaymentProvider;
 

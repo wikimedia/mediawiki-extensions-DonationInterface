@@ -18,6 +18,7 @@
 
 use MaxMind\WebService\Http\CurlRequest;
 use MaxMind\WebService\Http\RequestFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\CrmLink\ValidationAction;
@@ -31,12 +32,12 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject $requestFactory
+	 * @var MockObject $requestFactory
 	 */
 	protected $requestFactory;
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject $request
+	 * @var MockObject $request
 	 */
 	protected $request;
 

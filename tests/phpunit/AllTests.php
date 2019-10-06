@@ -16,12 +16,14 @@
  *
  */
 
+use PHPUnit\Framework\TestSuite;
+
 /**
  * Suite containing all DonationInterface test cases
  *
  * @see DonationInterface_Adapter_AllTests
  */
-class DonationInterface_AllTests extends PHPUnit_Framework_TestSuite {
+class DonationInterface_AllTests extends TestSuite {
 	public function __construct() {
 		parent::__construct( 'DonationInterface test suite' );
 
