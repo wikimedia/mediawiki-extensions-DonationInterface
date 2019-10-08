@@ -439,7 +439,7 @@
 	"donate_interface-photo-license": "All images are licensed under the <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> license.",
 	"donate_interface-emailprefs-thank-you-title": "Thank you",
 	"donate_interface-emailprefs-thank-you-text": "We look forward to a long relationship together.",
-	"donate_interface-recurring-upsell-title": "Why not make it <span class=\"ru-upsell-ask\"></span> monthly?",
+	"donate_interface-recurring-upsell-title": "Add a <span class=\"ru-upsell-ask\"></span> monthly donation starting next month?",
 	"donate_interface-recurring-upsell-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-recurring-upsell-change-amount": "Yes, I'll donate monthly, but for a different amount",
 	"donate_interface-recurring-upsell-enter-amount": "Enter your monthly donation amount to begin next month.",

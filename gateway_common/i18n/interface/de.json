@@ -406,7 +406,7 @@
 	"donate_interface-onetime-short": "Einmalig",
 	"donate_interface-error-http-403": "Sie haben nicht die erforderliche Berechtigung, um diese Seite aufzurufen.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-photo-license": "Alle Bilder sind unter der Lizenz <a href=\"$1\">„Creative Commons Attribution-Share Alike 4.0 International“</a> lizenziert.",
+	"donate_interface-photo-license": "Alle Bilder sind unter der Creative-Commons-Lizenz <a href=\"$1\">„Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 international“</a> lizenziert.",
 	"donate_interface-emailprefs-thank-you-title": "Vielen Dank",
 	"donate_interface-emailprefs-thank-you-text": "Wir freuen uns auf eine lange Beziehung zusammen."
 }
