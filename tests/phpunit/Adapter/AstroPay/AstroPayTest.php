@@ -392,7 +392,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$gateway->do_transaction( 'PaymentStatus' );
 
 		$results = $gateway->getTransactionData();
-		$this->setExpectedException( 'ResponseProcessingException' );
+		$this->expectException( ResponseProcessingException::class );
 		$accessible = TestingAccessWrapper::newFromObject( $gateway );
 		$accessible->verifyStatusSignature( $results );
 	}
