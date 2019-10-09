@@ -351,7 +351,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'BILLINGPERIOD' => 'Month',
 				'BILLINGFREQUENCY' => 1,
 				'TOTALBILLINGCYCLES' => 0, // Forever.
-				'MAXFAILEDPAYMENTS' => 3,
+				'MAXFAILEDPAYMENTS' => 0, // Just keep trying
 			],
 			'response' => [
 				# FIXME: Make sure this gets passed as subscription_id in the message
