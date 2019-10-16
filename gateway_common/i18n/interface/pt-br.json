@@ -459,7 +459,7 @@
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
 	"donate_interface-recurring-upsell-title": "Adicione uma <span class=\"ru-upsell-ask\"></span> doação mensal a partir do próximo mês?",
 	"donate_interface-recurring-upsell-text": "O suporte mensal é a melhor maneira de garantir que a Wikipédia continue prosperando.",
-	"donate_interface-recurring-upsell-change-amount": "Sim, mas por um valor diferente",
+	"donate_interface-recurring-upsell-change-amount": "Sim, doarei mensalmente, mas por um valor diferente",
 	"donate_interface-recurring-upsell-enter-amount": "Insira seu valor mensal de doação para começar no próximo mês.",
 	"donate_interface-recurring-upsell-max-amount": "Não podemos cobrar uma doação recorrente em valor superior à sua doação única original.",
 	"donate_interface-recurring-upsell-action-button": "Doe Mensalmente",
