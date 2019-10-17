@@ -7,7 +7,7 @@
 class IngenicoPaymentSubmethod implements UnstagingHelper {
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
-		$paymentID = isset( $stagedData['payment_product_id'] ) ? $stagedData['payment_product_id'] : false;
+		$paymentID = $stagedData['payment_product_id'] ?? false;
 		$subMethods = $adapter->getPaymentSubmethods();
 
 		foreach ( $subMethods as $key => $subMethod ) {
