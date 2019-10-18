@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Pyscowicz",
-			"Silvonen"
+			"Silvonen",
+			"Nike"
 		]
 	},
 	"apihelp-donate-param-first_name": "Etunimi.",
@@ -16,5 +17,6 @@
 	"apihelp-donate-param-expiration": "Vanhenemispäivä.",
 	"apihelp-donate-param-cvv": "CVV-turvakoodi.",
 	"apihelp-donate-param-language": "Kielikoodi.",
+	"apihelp-donate-param-wmf_token": "Muokkauspoletti.",
 	"apihelp-donate-param-employer": "Työnantajan nimi"
 }
