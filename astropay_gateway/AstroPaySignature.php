@@ -22,7 +22,7 @@ class AstroPaySignature implements StagingHelper {
 			return '';
 		} else {
 			// Set city to null when not needed
-			$city = isset( $stagedData['city'] ) ? $stagedData['city'] : '';
+			$city = $stagedData['city'] ?? '';
 
 			return str_replace( '+', ' ',
 				$stagedData['order_id'] . 'V'

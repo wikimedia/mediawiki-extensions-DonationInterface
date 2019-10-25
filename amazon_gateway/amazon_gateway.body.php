@@ -32,7 +32,12 @@ class AmazonGateway extends GatewayPage {
 		$vars['wgAmazonGatewayReturnURL'] = $this->adapter->getAccountConfig( 'ReturnURL' );
 		$vars['wgAmazonGatewayWidgetScript'] = $this->adapter->getAccountConfig( 'WidgetScriptURL' );
 		$vars['wgAmazonGatewayLoginScript'] = $this->adapter->getGlobal( 'LoginScript' );
-		$vars['wgAmazonGatewayFailPage'] = $this->adapter->getGlobal( 'FailPage' );
+		$failPage = ResultPages::getFailPage( $this->adapter );
+		if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
+			// It's a rapidfail form, but we need an actual URL:
+			$failPage = GatewayFormChooser::buildPaymentsFormURL( $failPage, [ 'gateway' => 'amazon' ] );
+		}
+		$vars['wgAmazonGatewayFailPage'] = $failPage;
 		$vars['wgAmazonGatewayOtherWaysURL'] = $this->adapter->localizeGlobal( 'OtherWaysURL' );
 	}
 

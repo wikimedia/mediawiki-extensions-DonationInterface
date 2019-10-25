@@ -64,4 +64,20 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 	protected function getTopLevelTemplate() {
 		return $this->gateway->getGlobal( 'ErrorTemplate' );
 	}
+
+	/**
+	 * Override the parent implementation to get rid of any payment-method-specific CSS
+	 * @return array
+	 */
+	public function getStyleModules() {
+		return [ 'ext.donationInterface.mustache.styles' ];
+	}
+
+	/**
+	 * Override the parent implementation to get rid of any payment-method-specific JavaScript
+	 * @return array
+	 */
+	public function getResources() {
+		return [];
+	}
 }

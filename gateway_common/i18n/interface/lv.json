@@ -275,5 +275,6 @@
 	"donate_interface-monthly-short": "Ikmēneša",
 	"donate_interface-onetime-short": "Vienu reizi",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-emailprefs-thank-you-title": "Paldies"
+	"donate_interface-emailprefs-thank-you-title": "Paldies",
+	"donate_interface-recurring-upsell-change-amount": "Jā, es ziedošu katru mēnesi, bet citu summu"
 }
