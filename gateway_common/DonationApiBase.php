@@ -68,7 +68,7 @@ abstract class DonationApiBase extends ApiBase {
 		$validated_ok = $this->adapter->validatedOK();
 		if ( !$validated_ok ) {
 			$errors = $this->adapter->getErrorState()->getErrors();
-			$outputResult['errors'] = $this->serializeErrors( $errors );
+			$outputResult = [ 'errors' => $this->serializeErrors( $errors ) ];
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );
