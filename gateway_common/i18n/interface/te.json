@@ -8,7 +8,7 @@
 		]
 	},
 	"donate_interface": "వికీమీడియాకి తోడ్పడండి",
-	"donate_interface-intro": "దయచేసి, చెల్లింపు పద్ధతిని, విరాళము మొత్తాన్ని, మరియు మారక ద్రవ్యాన్ని ఎంచుకోండి.",
+	"donate_interface-intro": "దయచేసి, చెల్లింపు పద్ధతిని, విరాళం మొత్తాన్ని, మారక ద్రవ్యాన్నీ ఎంచుకోండి.",
 	"donate_interface-amount": "మొత్తం",
 	"donate_interface-other-amount": "ఇతర మొత్తం",
 	"donate_interface-currency": "మారక ద్రవ్యం:",
@@ -309,7 +309,7 @@
 	"donate_interface-faqs": "తరచూ అడిగే ప్రశ్నలు",
 	"donate_interface-tax-info": "పన్ను తగ్గింపు సమాచారం",
 	"donate_interface-currency-change": "మార్చాలా?",
-	"donate_interface-taxded-link-int": "పన్ను మరియు ఇతర చట్టపరమైన సమాచారం",
+	"donate_interface-taxded-link-int": "పన్ను తదితర చట్టపరమైన సమాచారం",
 	"donate_interface-taxded-link-us": "పన్ను తగ్గింపు సమాచారం",
 	"donate_interface-monthlybox-title": "నెలనెలా విరాళమిస్తారా?",
 	"donate_interface-monthlybox-content": "నెలవారీ విరాళాలు ప్రతినెలా రెండో తేదీన ప్రాసెస్ చేస్తాం. మీరు దాన్ని ఎప్పుడైనా రద్దు చెయ్యవచ్చు.",
