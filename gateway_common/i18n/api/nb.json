@@ -38,6 +38,7 @@
 	"apihelp-donate-param-recurring": "Indikerer at overføringen er ment å være gjentakende.",
 	"apihelp-donate-param-variant": "Indikerer hvilken skjemavariant giveren har fylt ut.",
 	"apihelp-donate-param-opt_in": "Indikerer at giveren har valgt å motta innsamlingseposter.",
+	"apihelp-donate-param-employer": "Arbeidsgivers navn",
 	"apihelp-donate-example-1": "Doner",
 	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden.",
 	"apihelp-logPaymentsFormError-summary": "Dette API-et logger donasjonsskjemafiel på klientsiden.",
@@ -46,5 +47,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Linjen feilen oppsto på",
 	"apihelp-logPaymentsFormError-param-col": "Kolonnen feilen oppsto i",
 	"apihelp-logPaymentsFormError-param-userAgent": "Netteleserens brukeragentstreng",
-	"apihelp-logPaymentsFormError-param-stack": "Feilens stack trace, om tilgjengelig"
+	"apihelp-logPaymentsFormError-param-stack": "Feilens stack trace, om tilgjengelig",
+	"apihelp-di_recurring_convert-summary": "Dette API-er brukes når en donor ønsker å gi et månedlig beløp etter å ha fullført en engangsgave.",
+	"apihelp-di_recurring_convert-param-amount": "Beløpet i den månedlige donasjonen.",
+	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, globalcollect, osv."
 }
