@@ -1,0 +1,57 @@
+{{# monthly_convert }}
+<div class="mc-modal-screen">
+    <div class="mc-modal">
+        <div class="mc-close" tabindex="0">
+            <svg class="mc-icon mc-icon-close" width="11" height="11" viewBox="0 0 11 11" xmlns="http://www.w3.org/2000/svg"><title>Close</title><g stroke="#72777d" fill="none" fill-rule="evenodd" stroke-linecap="round"><path d="M2 3l7 7M9 3l-7 7"/></g></svg>
+        </div>
+        <div class="mc-back" tabindex="0">
+            <svg class="mc-icon mc-icon-back" aria-labelledby="frb-icon-back-title" xmlns="http://www.w3.org/2000/svg" width="20" height="16" viewBox="0 0 20 16"><title id="frb-icon-back-title">Back</title><g fill="none" fill-rule="evenodd" transform="translate(1 1)"><path stroke="#72777D" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.778" d="M7.181 13.285L.753 7 7.181.715"/><rect width="18.182" height="1.778" x=".818" y="6.111" fill="#72777D" rx=".889"/></g></svg>
+        </div>
+        <div class="mc-choice">
+            <h1>{{{ l10n "donate_interface-monthly-convert-title" }}}</h1>
+            <p>{{ l10n "donate_interface-monthly-convert-text" }}</p>
+
+            <div class="mc-buttons">
+                <div id="" class="mc-button mc-yes-button" tabindex="0">{{ l10n "confirmable-yes" }}</div>
+                <div class="mc-button mc-no-button" tabindex="0">{{ l10n "confirmable-no" }}</div>
+            </div><!--mc-buttons-->
+
+            <div class="mc-link mc-diff-amount-link">{{ l10n "donate_interface-monthly-convert-change-amount" }}</div>
+        </div><!--mc-choice-->
+
+        <div class="mc-edit-amount" style="display: none">
+            <h1>{{ l10n "donate_interface-donate-error-thank-you-for-your-support" }}</h1>
+            <p>{{ l10n "donate_interface-monthly-convert-enter-amount" }}</p>
+
+            <div class="mc-other-amount">
+                <input id="mc-other-amount-input" name="otherMonthlyAmount" type="text" inputmode="decimal" autocomplete="off" value="" tabindex="-1" /> {{ currency }}
+                <div id="mc-error-smallamount" class="mc-error">{{ l10n "donate_interface-smallamount-error" }}</div>
+                <div id="mc-error-largeamount" class="mc-error">{{ l10n "donate_interface-monthly-convert-max-amount" }}</div>
+            </div>
+
+            <div class="mc-buttons">
+                <div class="mc-button mc-donate-monthly-button">{{ l10n "donate_interface-monthly-convert-action-button" }}</div>
+            </div><!--mc-buttons-->
+        </div><!--mc-edit-amount-->
+    </div><!--mc-modal-->
+</div>
+
+<!--Set hide cookies-->
+<div style="line-height: 1px;">
+
+    <img height="1" width="1" src="//en.wikipedia.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wiktionary.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikisource.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikibooks.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikiversity.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikiquote.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikinews.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//meta.wikimedia.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//commons.wikimedia.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//species.wikimedia.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//www.mediawiki.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//www.wikidata.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+    <img height="1" width="1" src="//en.wikivoyage.org/w/index.php?title=Special:HideBanners&amp;category=fundraising&amp;reason=donate" />
+
+</div>
+{{/ monthly_convert }}

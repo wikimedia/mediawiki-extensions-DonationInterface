@@ -257,7 +257,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 */
 	protected function tuneForRecurring() {
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
-		if ( $isRecurring || $this->showRecurringUpsell() ) {
+		if ( $isRecurring || $this->showMonthlyConvert() ) {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
 					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],

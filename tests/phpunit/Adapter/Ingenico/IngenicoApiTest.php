@@ -258,7 +258,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	/**
-	 * Submit payments with option to recur when variant like upsell*
+	 * Submit payments with option to recur when variant like monthlyConvert*
 	 * Note that the variant behavior under test here is handled in
 	 * code and not in a variant config directory.
 	 */
@@ -269,7 +269,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
-		$init['variant'] = 'upsell123';
+		$init['variant'] = 'monthlyConvert123';
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
@@ -425,7 +425,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['payment_method'] = 'cc';
 		$donorTestData['payment_submethod'] = 'visa';
 		$donorTestData['gateway'] = 'ingenico';
-		$donorTestData['variant'] = 'upsell';
+		$donorTestData['variant'] = 'monthlyConvert';
 		$donorTestData['recurring_payment_token'] = 'T1234-5432-9876';
 		$donorTestData['gateway_txn_id'] = 'TXN-999-1234';
 		$session = [
@@ -468,7 +468,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['payment_method'] = 'cc';
 		$donorTestData['payment_submethod'] = 'visa';
 		$donorTestData['gateway'] = 'ingenico';
-		$donorTestData['variant'] = 'upsell';
+		$donorTestData['variant'] = 'monthlyConvert';
 		$session = [
 			'Donor' => $donorTestData
 		];

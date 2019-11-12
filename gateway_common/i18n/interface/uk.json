@@ -424,11 +424,11 @@
 	"donate_interface-photo-license": "Усі зображення ліцензовані на умовах ліцензії <a href=\"$1\">Creative Commons З вказанням авторства — Поширення на тих самих умовах 4.0 Міжнародна</a>\n.",
 	"donate_interface-emailprefs-thank-you-title": "Дякуємо",
 	"donate_interface-emailprefs-thank-you-text": "Сподіваємося на довгі партнерські стосунки.",
-	"donate_interface-recurring-upsell-title": "Додати щомісячну пожертву у <span class=\"ru-upsell-ask\"></span>, починаючи з наступного місяця?",
-	"donate_interface-recurring-upsell-text": "Щомісячна підтримка — найкращий спосіб забезпечити процвітання Вікіпедії.",
-	"donate_interface-recurring-upsell-change-amount": "Так, я буду жертвувати щомісяця, але іншу суму",
-	"donate_interface-recurring-upsell-enter-amount": "Уведіть суму своєї щомісячної пожертви, що почнеться з наступного місяця.",
-	"donate_interface-recurring-upsell-max-amount": "Ми не можемо взяти повторювану пожертву на більшу суму, ніж ваша початкова одноразова пожертва.",
-	"donate_interface-recurring-upsell-action-button": "Жертвувати щомісячно",
-	"donate_interface-recurring-upsell-error": "Ваша одноразова пожертва пройшла успішно, але нам не вдалося започаткувати повторювану пожертву."
+	"donate_interface-monthly-convert-title": "Додати щомісячну пожертву у <span class=\"mc-convert-ask\"></span>, починаючи з наступного місяця?",
+	"donate_interface-monthly-convert-text": "Щомісячна підтримка — найкращий спосіб забезпечити процвітання Вікіпедії.",
+	"donate_interface-monthly-convert-change-amount": "Так, я буду жертвувати щомісяця, але іншу суму",
+	"donate_interface-monthly-convert-enter-amount": "Уведіть суму своєї щомісячної пожертви, що почнеться з наступного місяця.",
+	"donate_interface-monthly-convert-max-amount": "Ми не можемо взяти повторювану пожертву на більшу суму, ніж ваша початкова одноразова пожертва.",
+	"donate_interface-monthly-convert-action-button": "Жертвувати щомісячно",
+	"donate_interface-monthly-convert-error": "Ваша одноразова пожертва пройшла успішно, але нам не вдалося започаткувати повторювану пожертву."
 }

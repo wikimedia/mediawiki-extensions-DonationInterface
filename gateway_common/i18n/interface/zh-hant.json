@@ -425,11 +425,11 @@
 	"donate_interface-photo-license": "所有圖片是根據<a href=\"$1\">創用CC姓名標示-相同方式分享4.0國際</a>授權。",
 	"donate_interface-emailprefs-thank-you-title": "感謝您",
 	"donate_interface-emailprefs-thank-you-text": "我們期待能有長期的關係。",
-	"donate_interface-recurring-upsell-title": "從下個月起增加 <span class=\"ru-upsell-ask\"></span> 每月捐款？",
-	"donate_interface-recurring-upsell-text": "每月的定期捐款，是確保維基百科蓬勃發展的最好方式。",
-	"donate_interface-recurring-upsell-change-amount": "是的，我要每月以不同金額捐款",
-	"donate_interface-recurring-upsell-enter-amount": "輸入您從下個月開始的每月捐款金額。",
-	"donate_interface-recurring-upsell-max-amount": "我們無法收取金額大於您最初單筆捐款的定期捐款。",
-	"donate_interface-recurring-upsell-action-button": "每月捐款",
-	"donate_interface-recurring-upsell-error": "您的單筆捐款已成功；但我們無法進行定期捐款。"
+	"donate_interface-monthly-convert-title": "從下個月起增加 <span class=\"mc-convert-ask\"></span> 每月捐款？",
+	"donate_interface-monthly-convert-text": "每月的定期捐款，是確保維基百科蓬勃發展的最好方式。",
+	"donate_interface-monthly-convert-change-amount": "是的，我要每月以不同金額捐款",
+	"donate_interface-monthly-convert-enter-amount": "輸入您從下個月開始的每月捐款金額。",
+	"donate_interface-monthly-convert-max-amount": "我們無法收取金額大於您最初單筆捐款的定期捐款。",
+	"donate_interface-monthly-convert-action-button": "每月捐款",
+	"donate_interface-monthly-convert-error": "您的單筆捐款已成功；但我們無法進行定期捐款。"
 }

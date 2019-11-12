@@ -303,5 +303,5 @@ interface GatewayType {
 	 *
 	 * @return boolean
 	 */
-	public function showRecurringUpsell();
+	public function showMonthlyConvert();
 }

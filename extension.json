@@ -333,15 +333,15 @@
 				"modules/js/lg-hash.js"
 			]
 		},
-		"ext.donationInterface.recurringUpsell": {
-			"scripts": "modules/js/ext.donationInterface.recurringUpsell.js",
-			"styles": "modules/css/recurringUpsell.css",
+		"ext.donationInterface.monthlyConvert": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert.js",
+			"styles": "modules/css/monthlyConvert.css",
 			"dependencies": [
 				"mediawiki.Uri",
 				"mediawiki.util"
 			],
 			"messages": [
-				"donate_interface-recurring-upsell-error"
+				"donate_interface-monthly-convert-error"
 			]
 		}
 	},

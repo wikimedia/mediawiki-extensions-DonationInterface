@@ -139,7 +139,7 @@ abstract class ResultSwitcher extends GatewayPage {
 
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
-		if ( $this->adapter->showRecurringUpsell() ) {
+		if ( $this->adapter->showMonthlyConvert() ) {
 			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
 			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
 		}

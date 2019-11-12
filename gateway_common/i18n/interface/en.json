@@ -439,11 +439,11 @@
 	"donate_interface-photo-license": "All images are licensed under the <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> license.",
 	"donate_interface-emailprefs-thank-you-title": "Thank you",
 	"donate_interface-emailprefs-thank-you-text": "We look forward to a long relationship together.",
-	"donate_interface-recurring-upsell-title": "Add a <span class=\"ru-upsell-ask\"></span> monthly donation starting next month?",
-	"donate_interface-recurring-upsell-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
-	"donate_interface-recurring-upsell-change-amount": "Yes, I'll donate monthly, but for a different amount",
-	"donate_interface-recurring-upsell-enter-amount": "Enter your monthly donation amount to begin next month.",
-	"donate_interface-recurring-upsell-max-amount": "We are unable to charge a recurring donation in an amount greater than your original one-time donation.",
-	"donate_interface-recurring-upsell-action-button": "Donate Monthly",
-	"donate_interface-recurring-upsell-error": "Your one-time donation was successful, but we were unable to start a recurring donation."
+	"donate_interface-monthly-convert-title": "Add a <span class=\"mc-convert-ask\"></span> monthly donation starting next month?",
+	"donate_interface-monthly-convert-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
+	"donate_interface-monthly-convert-change-amount": "Yes, I'll donate monthly, but for a different amount",
+	"donate_interface-monthly-convert-enter-amount": "Enter your monthly donation amount to begin next month.",
+	"donate_interface-monthly-convert-max-amount": "We are unable to charge a recurring donation in an amount greater than your original one-time donation.",
+	"donate_interface-monthly-convert-action-button": "Donate Monthly",
+	"donate_interface-monthly-convert-error": "Your one-time donation was successful, but we were unable to start a recurring donation."
 }

@@ -1,12 +1,12 @@
 ( function ( $, mw ) {
-	var ru = {},
+	var mc = {},
 		currency,
 		originalAmount,
 		presetAmount,
 		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
 
-	ru.setUpsellAsk = function ( amount, locale, currency ) {
-		var upsellAmountFormatted;
+	mc.setConvertAsk = function ( amount, locale, currency ) {
+		var convertAmountFormatted;
 
 		if ( amount < 9 ) {
 			presetAmount = 1.75;
@@ -64,7 +64,7 @@
 			presetAmount = 100;
 		}
 
-		upsellAmountFormatted = presetAmount.toLocaleString(
+		convertAmountFormatted = presetAmount.toLocaleString(
 			locale,
 			{
 				currency: currency,
@@ -72,12 +72,12 @@
 			}
 		);
 
-		$( '.ru-upsell-ask' ).text( upsellAmountFormatted );
+		$( '.mc-convert-ask' ).text( convertAmountFormatted );
 
 		return presetAmount;
 	};
 
-	ru.postUpdonate = function ( amount ) {
+	mc.postUpdonate = function ( amount ) {
 		var sendData = {
 			action: 'di_recurring_convert',
 			format: 'json',
@@ -105,13 +105,13 @@
 					// We should let 'em know the recurring conversion failed
 					// but the initial donation worked, then show them the thank
 					// you page.
-					alert( mw.msg( 'donate_interface-recurring-upsell-error' ) );
+					alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
 					document.location.assign( tyUrl );
 				}
 			},
 			error: function () {
 				// FIXME too
-				alert( mw.msg( 'donate_interface-recurring-upsell-error' ) );
+				alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
 				document.location.assign( tyUrl );
 			}
 		} );
@@ -120,24 +120,24 @@
 	$( function () {
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
-		ru.setUpsellAsk(
+		mc.setConvertAsk(
 			originalAmount,
 			$( '#language' ).val() + '-' + $( '#country' ).val(),
 			currency
 		);
-		$( '.ru-no-button, .ru-close' ).on( 'click keypress' , function ( e ) {
+		$( '.mc-no-button, .mc-close' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
 				document.location.assign( tyUrl );
 			}
 		} );
-		$( '.ru-yes-button' ).on( 'click keypress' , function ( e ) {
+		$( '.mc-yes-button' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
-				ru.postUpdonate( presetAmount );
+				mc.postUpdonate( presetAmount );
 			}
 		} );
-		$( '.ru-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
+		$( '.mc-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
-				var otherAmountField = $( '#ru-other-amount-input' ),
+				var otherAmountField = $( '#mc-other-amount-input' ),
 					otherAmount = +otherAmountField.val(),
 					rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 					rate,
@@ -150,32 +150,32 @@
 				}
 				if ( otherAmount < minUsd * rate ) {
 					otherAmountField.addClass( 'errorHighlight' );
-					$( '#ru-error-smallamount' ).show();
+					$( '#mc-error-smallamount' ).show();
 				} else if ( otherAmount > originalAmount ) {
 					otherAmountField.addClass( 'errorHighlight' );
-					$( '#ru-error-bigamount' ).show();
+					$( '#mc-error-bigamount' ).show();
 				} else {
-					$( '.ru-error' ).hide();
+					$( '.mc-error' ).hide();
 					otherAmountField.removeClass( 'errorHighlight' );
-					ru.postUpdonate( otherAmount );
+					mc.postUpdonate( otherAmount );
 				}
 			}
 		} );
         /* eslint-disable no-jquery/no-fade */
-		$( '.ru-diff-amount-link' ).on( 'click keypress', function ( e ) {
+		$( '.mc-diff-amount-link' ).on( 'click keypress', function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
-				$( '.ru-choice' ).fadeOut( function () {
-					$( '.ru-edit-amount' ).fadeIn();
-					$( '.ru-back' ).fadeIn();
-					$( '.ru-other-amount-input' ).focus();
+				$( '.mc-choice' ).fadeOut( function () {
+					$( '.mc-edit-amount' ).fadeIn();
+					$( '.mc-back' ).fadeIn();
+					$( '.mc-other-amount-input' ).focus();
 				} );
 			}
 		} );
-		$( '.ru-back' ).on( 'click keypress', function ( e ) {
+		$( '.mc-back' ).on( 'click keypress', function ( e ) {
 			if ( e.which === 13 || e.type === 'click' ) {
-				$( '.ru-back' ).fadeOut();
-				$( '.ru-edit-amount' ).fadeOut( function () {
-					$( '.ru-choice' ).fadeIn();
+				$( '.mc-back' ).fadeOut();
+				$( '.mc-edit-amount' ).fadeOut( function () {
+					$( '.mc-choice' ).fadeIn();
 				} );
 			}
 		} );
