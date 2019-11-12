@@ -2,69 +2,95 @@
 	var mc = {},
 		currency,
 		originalAmount,
-		presetAmount,
-		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' );
+		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' ),
+		// If one-time amount <= left amount, suggest right amount for monthly
+		convertAmounts = {
+			USD: [ // also CAD, AUD, NZD
+				[ 2.74, 0 ],
+				[ 9, 1.75 ],
+				[ 12, 2 ],
+				[ 15, 2.5 ],
+				[ 18, 3 ],
+				[ 21, 3.5 ],
+				[ 24, 4 ],
+				[ 27, 4.5 ],
+				[ 30, 5 ],
+				[ 33, 5.5 ],
+				[ 36, 6 ],
+				[ 39, 6.5 ],
+				[ 42, 7 ],
+				[ 45, 7.5 ],
+				[ 48, 8 ],
+				[ 51, 8.5 ],
+				[ 54, 9 ],
+				[ 57, 9.5 ],
+				[ 60, 10 ],
+				[ 63, 10.5 ],
+				[ 66, 11 ],
+				[ 69, 11.5 ],
+				[ 72, 12 ],
+				[ 75, 12.5 ],
+				[ 102, 17 ],
+				[ 250, 25 ],
+				[ 499, 50 ],
+				[ Infinity, 0 ]
+			],
+			GBP: [ // also EUR
+				[ 1.99, 0 ],
+				[ 9, 1.75 ],
+				[ 12, 2 ],
+				[ 15, 2.5 ],
+				[ 18, 3 ],
+				[ 21, 3.5 ],
+				[ 24, 4 ],
+				[ 27, 4.5 ],
+				[ 30, 5 ],
+				[ 33, 5.5 ],
+				[ 36, 6 ],
+				[ 39, 6.5 ],
+				[ 42, 7 ],
+				[ 45, 7.5 ],
+				[ 48, 8 ],
+				[ 51, 8.5 ],
+				[ 54, 9 ],
+				[ 57, 9.5 ],
+				[ 60, 10 ],
+				[ 63, 10.5 ],
+				[ 66, 11 ],
+				[ 69, 11.5 ],
+				[ 72, 12 ],
+				[ 75, 12.5 ],
+				[ 102, 17 ],
+				[ 250, 25 ],
+				[ 499, 50 ],
+				[ Infinity, 0 ]
+			]
+		};
+	convertAmounts.EUR = convertAmounts.GBP;
+	convertAmounts.CAD = convertAmounts.USD;
+	convertAmounts.AUD = convertAmounts.USD;
+	convertAmounts.NZD = convertAmounts.USD;
 
-	mc.setConvertAsk = function ( amount, locale, currency ) {
+	mc.getConvertAsk = function ( amount, currency ) {
+		var i,
+			amountsForCurrency = convertAmounts[ currency ],
+			numAmounts;
+		if ( !amountsForCurrency ) {
+			return 0;
+		}
+		numAmounts = amountsForCurrency.length;
+		for ( i = 0; i < numAmounts; i++ ) {
+			if ( amount < amountsForCurrency[ i ][ 0 ] ) {
+				return amountsForCurrency[ i ][ 1 ];
+			}
+		}
+		return 0;
+	};
+
+	mc.setConvertAsk = function ( suggestedAmount, locale, currency ) {
 		var convertAmountFormatted;
 
-		if ( amount < 9 ) {
-			presetAmount = 1.75;
-		} else if ( amount <= 12 ) {
-			presetAmount = 2;
-		} else if ( amount <= 15 ) {
-			presetAmount = 2.5;
-		} else if ( amount <= 18 ) {
-			presetAmount = 3;
-		} else if ( amount <= 21 ) {
-			presetAmount = 3.5;
-		} else if ( amount <= 24 ) {
-			presetAmount = 4;
-		} else if ( amount <= 27 ) {
-			presetAmount = 4.5;
-		} else if ( amount <= 30 ) {
-			presetAmount = 5;
-		} else if ( amount <= 33 ) {
-			presetAmount = 5.5;
-		} else if ( amount <= 36 ) {
-			presetAmount = 6;
-		} else if ( amount <= 39 ) {
-			presetAmount = 6.5;
-		} else if ( amount <= 42 ) {
-			presetAmount = 7;
-		} else if ( amount <= 45 ) {
-			presetAmount = 7.5;
-		} else if ( amount <= 48 ) {
-			presetAmount = 8;
-		} else if ( amount <= 51 ) {
-			presetAmount = 8.5;
-		} else if ( amount <= 54 ) {
-			presetAmount = 9;
-		} else if ( amount <= 57 ) {
-			presetAmount = 9.5;
-		} else if ( amount <= 60 ) {
-			presetAmount = 10;
-		} else if ( amount <= 63 ) {
-			presetAmount = 10.5;
-		} else if ( amount <= 66 ) {
-			presetAmount = 11;
-		} else if ( amount <= 69 ) {
-			presetAmount = 11.5;
-		} else if ( amount <= 72 ) {
-			presetAmount = 12;
-		} else if ( amount <= 75 ) {
-			presetAmount = 12.5;
-		} else if ( amount <= 102 ) {
-			presetAmount = 17;
-		} else if ( amount <= 250 ) {
-			presetAmount = 25;
-		} else if ( amount <= 500 ) {
-			presetAmount = 50;
-		} else {
-			presetAmount = 100;
-		}
-
-		convertAmountFormatted = presetAmount.toLocaleString(
+		convertAmountFormatted = suggestedAmount.toLocaleString(
 			locale,
 			{
 				currency: currency,
@@ -73,8 +99,6 @@
 		);
 
 		$( '.mc-convert-ask' ).text( convertAmountFormatted );
-
-		return presetAmount;
 	};
 
 	mc.postUpdonate = function ( amount ) {
@@ -118,68 +142,77 @@
 	};
 
 	$( function () {
+		var presetAmount;
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
-		mc.setConvertAsk(
-			originalAmount,
-			$( '#language' ).val() + '-' + $( '#country' ).val(),
-			currency
-		);
-		$( '.mc-no-button, .mc-close' ).on( 'click keypress' , function ( e ) {
-			if ( e.which === 13 || e.type === 'click' ) {
-				document.location.assign( tyUrl );
-			}
-		} );
-		$( '.mc-yes-button' ).on( 'click keypress' , function ( e ) {
-			if ( e.which === 13 || e.type === 'click' ) {
-				mc.postUpdonate( presetAmount );
-			}
-		} );
-		$( '.mc-donate-monthly-button' ).on( 'click keypress' , function ( e ) {
-			if ( e.which === 13 || e.type === 'click' ) {
-				var otherAmountField = $( '#mc-other-amount-input' ),
-					otherAmount = +otherAmountField.val(),
-					rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
-					rate,
-					minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
+		presetAmount = mc.getConvertAsk( originalAmount, currency );
+		if ( presetAmount === 0 && tyUrl !== null ) {
+			// They're donating in an unsupported currency, or are
+			// outside of the range where it makes sense to ask for
+			// a monthly donation. Just send them to the TY page.
+			document.location.assign( tyUrl );
+		} else {
+			mc.setConvertAsk(
+				presetAmount,
+				$( '#language' ).val() + '-' + $( '#country' ).val(),
+				currency
+			);
+			$( '.mc-no-button, .mc-close' ).on( 'click keypress', function ( e ) {
+				if ( e.which === 13 || e.type === 'click' ) {
+					document.location.assign( tyUrl );
+				}
+			} );
+			$( '.mc-yes-button' ).on( 'click keypress', function ( e ) {
+				if ( e.which === 13 || e.type === 'click' ) {
+					mc.postUpdonate( presetAmount );
+				}
+			} );
+			$( '.mc-donate-monthly-button' ).on( 'click keypress', function ( e ) {
+				if ( e.which === 13 || e.type === 'click' ) {
+					var otherAmountField = $( '#mc-other-amount-input' ),
+						otherAmount = +otherAmountField.val(),
+						rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+						rate,
+						minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
 
-				if ( rates[ currency ] ) {
-					rate = rates[ currency ];
-				} else {
-					rate = 1;
+					if ( rates[ currency ] ) {
+						rate = rates[ currency ];
+					} else {
+						rate = 1;
+					}
+					if ( otherAmount < minUsd * rate ) {
+						otherAmountField.addClass( 'errorHighlight' );
+						$( '#mc-error-smallamount' ).show();
+					} else if ( otherAmount > originalAmount ) {
+						otherAmountField.addClass( 'errorHighlight' );
+						$( '#mc-error-bigamount' ).show();
+					} else {
+						$( '.mc-error' ).hide();
+						otherAmountField.removeClass( 'errorHighlight' );
+						mc.postUpdonate( otherAmount );
+					}
 				}
-				if ( otherAmount < minUsd * rate ) {
-					otherAmountField.addClass( 'errorHighlight' );
-					$( '#mc-error-smallamount' ).show();
-				} else if ( otherAmount > originalAmount ) {
-					otherAmountField.addClass( 'errorHighlight' );
-					$( '#mc-error-bigamount' ).show();
-				} else {
-					$( '.mc-error' ).hide();
-					otherAmountField.removeClass( 'errorHighlight' );
-					mc.postUpdonate( otherAmount );
+			} );
+			/* eslint-disable no-jquery/no-fade */
+			$( '.mc-diff-amount-link' ).on( 'click keypress', function ( e ) {
+				if ( e.which === 13 || e.type === 'click' ) {
+					$( '.mc-choice' ).fadeOut( function () {
+						$( '.mc-edit-amount' ).fadeIn();
+						$( '.mc-back' ).fadeIn();
+						$( '.mc-other-amount-input' ).focus();
+					} );
 				}
-			}
-		} );
-        /* eslint-disable no-jquery/no-fade */
-		$( '.mc-diff-amount-link' ).on( 'click keypress', function ( e ) {
-			if ( e.which === 13 || e.type === 'click' ) {
-				$( '.mc-choice' ).fadeOut( function () {
-					$( '.mc-edit-amount' ).fadeIn();
-					$( '.mc-back' ).fadeIn();
-					$( '.mc-other-amount-input' ).focus();
-				} );
-			}
-		} );
-		$( '.mc-back' ).on( 'click keypress', function ( e ) {
-			if ( e.which === 13 || e.type === 'click' ) {
-				$( '.mc-back' ).fadeOut();
-				$( '.mc-edit-amount' ).fadeOut( function () {
-					$( '.mc-choice' ).fadeIn();
-				} );
-			}
-		} );
-		/* eslint-enable no-jquery/no-fade */
+			} );
+			$( '.mc-back' ).on( 'click keypress', function ( e ) {
+				if ( e.which === 13 || e.type === 'click' ) {
+					$( '.mc-back' ).fadeOut();
+					$( '.mc-edit-amount' ).fadeOut( function () {
+						$( '.mc-choice' ).fadeIn();
+					} );
+				}
+			} );
+			/* eslint-enable no-jquery/no-fade */
+		}
 
 	} );
 } )( jQuery, mediaWiki );
