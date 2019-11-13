@@ -444,6 +444,7 @@
 	"donate_interface-monthly-convert-title-variant-004": "You just donated <span class=\"mc-convert-donated-amount\"></span>. Thank you. Would you consider adding a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
 	"donate_interface-monthly-convert-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-monthly-convert-text-variant-002": "Only a tiny number of our donors give monthly, but it's the best way to ensure that Wikipedia keeps thriving.",
+	"donate_interface-monthly-convert-text-variant-005": "We'll be honest: knowledge isn't a one-time cure, it's a long term commitment. Can you turn your support into a monthly donation?",
 	"donate_interface-monthly-convert-change-amount": "Yes, I'll donate monthly, but for a different amount",
 	"donate_interface-monthly-convert-enter-amount": "Enter your monthly donation amount to begin next month.",
 	"donate_interface-monthly-convert-max-amount": "We are unable to charge a recurring donation in an amount greater than your original one-time donation.",
