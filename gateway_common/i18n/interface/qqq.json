@@ -472,6 +472,7 @@
 	"donate_interface-monthly-convert-text-variant-002": "Alternate version of the monthly donation appeal explanation text.\n{{Related|donate_interface-monthly-convert-text}}",
 	"donate_interface-monthly-convert-text-variant-005": "Alternate version of the monthly donation appeal explanation text.\n{{Related|donate_interface-monthly-convert-text}}",
 	"donate_interface-monthly-convert-change-amount": "Text of a link that a donor can click to edit the suggested monthly donation amount",
+	"donate_interface-monthly-convert-change-amount-variant-007": "Alternate version of link that a donor can click to edit the suggested monthly donation amount.\n{{Related|donate_interface-monthly-convert-change-amount}}",
 	"donate_interface-monthly-convert-enter-amount": "Instructions for changing the suggested monthly donation amount.",
 	"donate_interface-monthly-convert-max-amount": "Error message shown when a donor tries to enter a monthly donation amount that is greater than the initial one-time donation.",
 	"donate_interface-monthly-convert-action-button": "Button text a donor can press to confirm their monthly donation. Should be short.",
