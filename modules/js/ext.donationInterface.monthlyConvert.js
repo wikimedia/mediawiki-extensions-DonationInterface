@@ -99,6 +99,7 @@
 		);
 
 		$( '.mc-convert-ask' ).text( convertAmountFormatted );
+		$( '.mc-modal-screen' ).show();
 	};
 
 	mc.postUpdonate = function ( amount ) {
