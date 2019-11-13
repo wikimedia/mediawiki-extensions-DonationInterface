@@ -441,6 +441,7 @@
 	"donate_interface-emailprefs-thank-you-text": "We look forward to a long relationship together.",
 	"donate_interface-monthly-convert-title": "Add a <span class=\"mc-convert-ask\"></span> monthly donation starting next month?",
 	"donate_interface-monthly-convert-title-variant-003": "Thank you for your <span class=\"mc-convert-donated-amount\"></span> donation. Want to increase your impact with a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
+	"donate_interface-monthly-convert-title-variant-004": "You just donated <span class=\"mc-convert-donated-amount\"></span>. Thank you. Would you consider adding a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
 	"donate_interface-monthly-convert-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-monthly-convert-text-variant-002": "Only a tiny number of our donors give monthly, but it's the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-monthly-convert-change-amount": "Yes, I'll donate monthly, but for a different amount",
