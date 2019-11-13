@@ -351,6 +351,10 @@
 		"ext.donationInterface.monthlyConvert_003": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvert_003.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.monthlyConvert_006": {
+			"styles": "modules/css/monthlyConvert_006.css",
+			"dependencies": "ext.donationInterface.monthlyConvert"
 		}
 	},
 	"ResourceFileModulePaths": {
