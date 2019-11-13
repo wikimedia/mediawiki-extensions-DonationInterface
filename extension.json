@@ -343,6 +343,10 @@
 			"messages": [
 				"donate_interface-monthly-convert-error"
 			]
+		},
+		"ext.donationInterface.monthlyConvert_001": {
+			"styles": "modules/css/monthlyConvert_001.css",
+			"dependencies": "ext.donationInterface.monthlyConvert"
 		}
 	},
 	"ResourceFileModulePaths": {
