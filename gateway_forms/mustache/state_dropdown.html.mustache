@@ -1,6 +1,6 @@
 {{# state_province_visible }}<div class="{{ address_css_class }}">
         <label for="state_province">{{ l10n "donate_interface-donor-state_province" }}</label>
-        <select class="{{ address_css_class }}" id="state_province" name="state_province" title="{{ l10n
+        <select id="state_province" name="state_province" title="{{ l10n
                 "donate_interface-donor-state_province" }}" {{# state_province_required }}required {{/ state_province_required }}
                 autocomplete="billing address-level1">
             <option value="" {{^ state_province }}selected {{/ state_province }}> -- </option>
