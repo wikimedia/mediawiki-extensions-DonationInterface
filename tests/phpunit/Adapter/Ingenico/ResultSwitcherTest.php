@@ -30,6 +30,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		// Mark the order as already popped out of the iframe
 		$session['order_status'][$donorTestData['order_id']] = 'liberated';
 		$request = [
+			'hostedCheckoutId' => 'askdjas8dyA9sdasodia',
 			'merchantReference' => $donorTestData['order_id'],
 			'language' => 'fr', // FIXME: verifyFormOutput conflates request with other stuff
 		];
