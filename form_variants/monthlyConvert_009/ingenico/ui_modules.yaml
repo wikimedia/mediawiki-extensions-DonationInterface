@@ -1,0 +1,5 @@
+scripts:
+  - ext.donationInterface.ingenico-hosted
+  - ext.donationInterface.monthlyConvert_001
+  - ext.donationInterface.monthlyConvert_003
+  - ext.donationInterface.monthlyConvert_006

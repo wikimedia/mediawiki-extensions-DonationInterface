@@ -418,11 +418,11 @@
 	"donate_interface-photo-license": "Сите слики се нудат под лиценцата <a href=\"$1\">Криејтив комонс Наведи извор-Сподели под исти услови 4.0 Меѓународна</a>.",
 	"donate_interface-emailprefs-thank-you-title": "Ви благодариме",
 	"donate_interface-emailprefs-thank-you-text": "Се надеваме на долго пријателство и соработка.",
-	"donate_interface-recurring-upsell-title": "Да направам <span class=\"ru-upsell-ask\"></span> месечен прилог почнувајќи од следниот месец?",
-	"donate_interface-recurring-upsell-text": "Месечните прилози се најдобриот начин да го поддржите опстанокот на Википедија.",
-	"donate_interface-recurring-upsell-change-amount": "Да, сакам да уплаќам месечно, но во друг износ",
-	"donate_interface-recurring-upsell-enter-amount": "Внесете износ на месечниот прилог кој ќе почне од следниот месец.",
-	"donate_interface-recurring-upsell-max-amount": "Не можеме да одбиваме редовни прилози со износ повисок од првичниот еднократен прилог.",
-	"donate_interface-recurring-upsell-action-button": "Дарувајте месечно",
-	"donate_interface-recurring-upsell-error": "Вашиот еднократен прилог е успешен, но не можевме да го отпочнеме редовниот."
+	"donate_interface-monthly-convert-title": "Да направам <span class=\"mc-convert-ask\"></span> месечен прилог почнувајќи од следниот месец?",
+	"donate_interface-monthly-convert-text": "Месечните прилози се најдобриот начин да го поддржите опстанокот на Википедија.",
+	"donate_interface-monthly-convert-change-amount": "Да, сакам да уплаќам месечно, но во друг износ",
+	"donate_interface-monthly-convert-enter-amount": "Внесете износ на месечниот прилог кој ќе почне од следниот месец.",
+	"donate_interface-monthly-convert-max-amount": "Не можеме да одбиваме редовни прилози со износ повисок од првичниот еднократен прилог.",
+	"donate_interface-monthly-convert-action-button": "Дарувајте месечно",
+	"donate_interface-monthly-convert-error": "Вашиот еднократен прилог е успешен, но не можевме да го отпочнеме редовниот."
 }

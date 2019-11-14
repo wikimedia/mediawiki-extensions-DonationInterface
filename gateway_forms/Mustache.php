@@ -29,7 +29,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'payment_amount',
 		'payment_method',
 		'personal_info',
-		'recurring_upsell',
+		'monthly_convert',
 		'state_dropdown'
 	];
 
@@ -102,12 +102,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
-		// Only render recurring upsell when we come back from a qualified processor
+		// Only render monthly convert when we come back from a qualified processor
 		if (
-			$this->gateway->showRecurringUpsell() &&
+			$this->gateway->showMonthlyConvert() &&
 			$this->gatewayPage instanceof ResultSwitcher
 		) {
-			$data['recurring_upsell'] = true;
+			$data['monthly_convert'] = true;
 		}
 
 		$this->addSubmethods( $data );

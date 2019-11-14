@@ -1,13 +1,13 @@
-.ru-modal *,
-.ru-modal *:before,
-.ru-modal *:after {
+.mc-modal *,
+.mc-modal *:before,
+.mc-modal *:after {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 
 /* Close button */
-.ru-close {
+.mc-close {
 	display: inline-block;
 	position: absolute;
 	right: 15px;
@@ -17,22 +17,22 @@
 	padding: 0;
 }
 
-body.rtl .ru-close {
+body.rtl .mc-close {
 	right: auto;
 	left: 0;
 }
 
-.ru-close:hover .ru-icon g {
+.mc-close:hover .mc-icon g {
 	stroke: #000;
 }
 
-.ru-icon-close {
+.mc-icon-close {
 	width: 26px;
 	height: 26px;
 }
 
 /* Back button */
-.ru-back {
+.mc-back {
 	display: none;
 	cursor: pointer;
 	position: absolute;
@@ -40,21 +40,21 @@ body.rtl .ru-close {
 	left: 15px;
 }
 
-.ru-back:hover .ru-icon path {
+.mc-back:hover .mc-icon path {
 	stroke: #000;
 }
 
-.ru-back:hover .ru-icon rect {
+.mc-back:hover .mc-icon rect {
 	fill: #000;
 }
 
-.ru-icon-back {
+.mc-icon-back {
 	height: 18px;
 	width: 26px;
 }
 
 /* Modal Screen */
-.ru-modal-screen {
+.mc-modal-screen {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -63,10 +63,11 @@ body.rtl .ru-close {
 	width: 100%;
 	height: 100%;
 	height: 100vh;
+	display: none;
 }
 
 /* Modal Box */
-.ru-modal {
+.mc-modal {
 	position: absolute;
 	top: 5vh;
 	left: 5%;
@@ -84,7 +85,7 @@ body.rtl .ru-close {
 }
 
 @media ( min-width: 800px ) {
-	.ru-modal {
+	.mc-modal {
 		left: 50%;
 		top: 10vh;
 		margin-left: -390px;
@@ -94,28 +95,28 @@ body.rtl .ru-close {
 	}
 }
 
-.ru-modal h1 {
+.mc-modal h1 {
 	line-height: 1.1;
 	font-size: 150%;
 }
 
-.ru-modal p {
+.mc-modal p {
 	margin: 1em 0 0;
 }
 
 /* Buttons */
-.ru-buttons {
+.mc-buttons {
 	margin: 1em auto;
 	text-align: center;
 }
 
 @media ( min-width: 800px ) {
-	.ru-buttons {
+	.mc-buttons {
 		margin: 2em auto 1em;
 	}
 }
 
-.ru-button {
+.mc-button {
 	display: inline-block;
 	vertical-align: middle;
 	width: 100px;
@@ -137,7 +138,7 @@ body.rtl .ru-close {
 }
 
 @media ( min-width: 800px ) {
-	.ru-button {
+	.mc-button {
 		width: 130px;
 		height: 60px;
 		padding: 14px;
@@ -145,39 +146,39 @@ body.rtl .ru-close {
 	}
 }
 
-.ru-button:focus {
+.mc-button:focus {
 	outline: 0;
 	border-color: #36c !important;
 	box-shadow: inset 0 0 0 1px #36c, inset 0 0 0 2px #fff;
 }
 
-.ru-button:hover {
+.mc-button:hover {
 	background-color: #447ff5;
 	border-color: #447ff5;
 }
 
-.ru-button:active {
+.mc-button:active {
 	background-color: #2a4b8d;
 	border-color: #2a4b8d;
 	box-shadow: none;
 }
 
-.ru-link {
+.mc-link {
 	color: #36c;
 	font-weight: bold;
 	text-decoration: underline;
 	cursor: pointer;
 }
 
-.ru-edit-amount p {
+.mc-edit-amount p {
 	margin-bottom: 2em;
 }
 
-.ru-other-amount {
+.mc-other-amount {
 	font-size: 200%;
 }
 
-#ru-other-amount-input {
+#mc-other-amount-input {
 	width: 30%;
 	font-size: 100%;
 	border: 0;
@@ -185,18 +186,18 @@ body.rtl .ru-close {
 	border-bottom: 1px solid #000;
 }
 
-.ru-edit-amount .ru-button {
+.mc-edit-amount .mc-button {
 	width: calc( 100% - 60px );
 }
 
 @media ( min-width: 800px ) {
-	.ru-edit-amount .ru-button {
+	.mc-edit-amount .mc-button {
 		width: 300px;
 	}
 }
 
 /* Error messages */
-.ru-error {
+.mc-error {
 	display: none;
 	width: calc( 100% + 10px );
 	margin: 5px 0 5px 5px;

@@ -22,7 +22,7 @@
 	"donate_interface-email-agreement": "Мин, электрон почтадан, Викимедиа Фондыннан хәбәрләр алырга риза.",
 	"donate_interface-comment-title": "Гомум җәмәгатчелеккә бирелгән искәрмә",
 	"donate_interface-amount-error": "Иганә күләмен күрсәтегез әле",
-	"donate_interface-processing-error": "Сезнең соравыгызны эшкәрткән вакытта хаталар килеп чыкты. \nЗинһар, Иганә Хезмәтенә әлеге адрес буенча мөрәҗәгать итегез: <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-processing-error": "Соратугызны эшкәртү вакытта хата килеп чыкты. \nИганә Хезмәте белән элемтәгә керегез әле: <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-AUD": "Австралия доллары",
 	"donate_interface-CAD": "Канада доллары",
 	"donate_interface-CHF": "Швейцар франкы",

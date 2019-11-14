@@ -333,16 +333,32 @@
 				"modules/js/lg-hash.js"
 			]
 		},
-		"ext.donationInterface.recurringUpsell": {
-			"scripts": "modules/js/ext.donationInterface.recurringUpsell.js",
-			"styles": "modules/css/recurringUpsell.css",
+		"ext.donationInterface.monthlyConvert": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert.js",
+			"styles": "modules/css/monthlyConvert.css",
 			"dependencies": [
 				"mediawiki.Uri",
 				"mediawiki.util"
 			],
 			"messages": [
-				"donate_interface-recurring-upsell-error"
+				"donate_interface-monthly-convert-error"
 			]
+		},
+		"ext.donationInterface.monthlyConvert_001": {
+			"styles": "modules/css/monthlyConvert_001.css",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.monthlyConvert_003": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert_003.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.monthlyConvert_006": {
+			"styles": "modules/css/monthlyConvert_006.css",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.monthlyConvert_010": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert_010.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
 		}
 	},
 	"ResourceFileModulePaths": {

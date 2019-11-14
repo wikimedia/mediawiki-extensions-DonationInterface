@@ -428,11 +428,11 @@
 	"donate_interface-photo-license": "Todas as imagens têm a licença <a href=\"$1\">Creative Commons Atribuição-Compartilha Igual 4.0 Internacional</a>.",
 	"donate_interface-emailprefs-thank-you-title": "Obrigado",
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
-	"donate_interface-recurring-upsell-title": "Adicionar um donativo mensal de <span class=\"ru-upsell-ask\"></span> a partir do próximo mês?",
-	"donate_interface-recurring-upsell-text": "Um apoio mensal é a melhor maneira de garantir que a Wikipédia continua a prosperar.",
-	"donate_interface-recurring-upsell-change-amount": "Sim, farei um donativo mensal, mas de valor diferente",
-	"donate_interface-recurring-upsell-enter-amount": "Introduzir o valor do seu donativo mensal a partir do próximo mês.",
-	"donate_interface-recurring-upsell-max-amount": "Não nos é possível cobrar um donativo recorrente de valor superior ao do seu donativo pontual original.",
-	"donate_interface-recurring-upsell-action-button": "Donativo mensal",
-	"donate_interface-recurring-upsell-error": "O seu donativo pontual foi feito, mas não nos foi possível iniciar um donativo regular."
+	"donate_interface-monthly-convert-title": "Adicionar um donativo mensal de <span class=\"mc-convert-ask\"></span> a partir do próximo mês?",
+	"donate_interface-monthly-convert-text": "Um apoio mensal é a melhor maneira de garantir que a Wikipédia continua a prosperar.",
+	"donate_interface-monthly-convert-change-amount": "Sim, farei um donativo mensal, mas de valor diferente",
+	"donate_interface-monthly-convert-enter-amount": "Introduzir o valor do seu donativo mensal a partir do próximo mês.",
+	"donate_interface-monthly-convert-max-amount": "Não nos é possível cobrar um donativo recorrente de valor superior ao do seu donativo pontual original.",
+	"donate_interface-monthly-convert-action-button": "Donativo mensal",
+	"donate_interface-monthly-convert-error": "O seu donativo pontual foi feito, mas não nos foi possível iniciar um donativo regular."
 }

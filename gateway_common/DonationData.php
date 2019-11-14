@@ -651,6 +651,7 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * @param string &$value The value of the array
 	 * @param string $key The key of the array
+	 * @suppress SecurityCheck-DoubleEscaped
 	 */
 	protected function sanitizeInput( &$value, $key ) {
 		$value = htmlspecialchars( $value, ENT_COMPAT, 'UTF-8', false );
