@@ -80,7 +80,7 @@
 		}
 		numAmounts = amountsForCurrency.length;
 		for ( i = 0; i < numAmounts; i++ ) {
-			if ( amount < amountsForCurrency[ i ][ 0 ] ) {
+			if ( amount <= amountsForCurrency[ i ][ 0 ] ) {
 				return amountsForCurrency[ i ][ 1 ];
 			}
 		}
