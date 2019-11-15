@@ -26,7 +26,7 @@
 	"apihelp-donate-param-payment_submethod": "Submethodo de pagamento a usar.",
 	"apihelp-donate-param-language": "Codice de lingua.",
 	"apihelp-donate-param-order_id": "ID del ordine (si un donation ha jam essite initiate).",
-	"apihelp-donate-param-wmf_token": "Indicio de modification.",
+	"apihelp-donate-param-wmf_token": "Token de modification.",
 	"apihelp-donate-param-utm_source": "Variabile de traciamento.",
 	"apihelp-donate-param-utm_campaign": "Variabile de traciamento.",
 	"apihelp-donate-param-utm_medium": "Variabile de traciamento.",

@@ -448,10 +448,18 @@
 	"donate_interface-emailprefs-thank-you-title": "شكرا لك",
 	"donate_interface-emailprefs-thank-you-text": "نحن نتطلع إلى علاقة طويلة معا.",
 	"donate_interface-monthly-convert-title": "إضافة <span class=\"mc-convert-ask\"></span> تبرع شهري يبدأ الشهر القادم؟",
+	"donate_interface-monthly-convert-title-variant-003": "شكرا على <span class=\"mc-convert-donated-amount\"></span> تبرعك، هل تريد زيادة تأثيرك من خلال<span class=\"mc-convert-ask\"></span> تبرع شهري، يبدأ الشهر القادم؟",
+	"donate_interface-monthly-convert-title-variant-004": "لقد تبرعت للتو <span class=\"mc-convert-donated-amount\"></span>. شكرا. هل تفكر في إضافة <span class=\"mc-convert-ask\"></span> تبرع شهري، يبدأ الشهر القادم؟",
 	"donate_interface-monthly-convert-text": "الدعم الشهري هو أفضل وسيلة لضمان استمرار ويكيبيديا في ازدهار.",
+	"donate_interface-monthly-convert-text-variant-002": "هناك عدد صغير فقط من مانحينا يقدمون شهريًدا، لكنها أفضل طريقة لضمان استمرار ويكيبيديا في الازدهار.",
+	"donate_interface-monthly-convert-text-variant-005": "سنكون صادقين: المعرفة ليست علاجا لمرة واحدة، إنها التزام طويل الأجل، هل يمكنك تحويل دعمك إلى تبرع شهري؟",
+	"donate_interface-monthly-convert-text-variant-008": "شكرا لك على هديتك، يجب أن نسأل: هل أنت قادر على فعل المزيد؟  فقط جزء صغير من جميع قرائنا وصلوا إلى هذه النقطة؛ لأن معظمهم لا يتبرعون، ومن بين جميع الجهات المانحة، هناك جزء صغير فقط يفكر في هدية شهرية تلقائية، لكن الدعم الشهري هو أفضل وسيلة لضمان استمرار ويكيبيديا في الازدهار، هل ستساعد في ضمان استقرارنا المالي من خلال تبرع مستمر؟",
 	"donate_interface-monthly-convert-change-amount": "نعم، سأتبرع شهريا، ولكن بمبلغ مختلف",
+	"donate_interface-monthly-convert-change-amount-variant-007": "بالتأكيد ، اسمحوا لي باختيار المقدار",
 	"donate_interface-monthly-convert-enter-amount": "أدخل مبلغ التبرع الشهري ليبدأ الشهر المقبل.",
 	"donate_interface-monthly-convert-max-amount": "يتعذر علينا تحصيل تبرع متكرر بمبلغ أكبر من تبرعك الأصلي لمرة واحدة.",
 	"donate_interface-monthly-convert-action-button": "التبرع الشهري",
-	"donate_interface-monthly-convert-error": "كان تبرعك لمرة واحدة ناجحا، لكننا لم نتمكن من بدء تبرع متكرر."
+	"donate_interface-monthly-convert-error": "كان تبرعك لمرة واحدة ناجحا، لكننا لم نتمكن من بدء تبرع متكرر.",
+	"donate_interface-monthly-convert-yes-button-variant-006": "نعم، أريد المساعدة",
+	"donate_interface-monthly-convert-no-button-variant-006": "لا، شكرا"
 }

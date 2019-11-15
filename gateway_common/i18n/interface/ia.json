@@ -229,7 +229,7 @@
 	"donate_interface-otherways-alt": "Il ha <a href=\"$1\">altere modos de donar</a>, como per cheque.",
 	"donate_interface-otherways-short": "Altere modos de donation",
 	"donate_interface-token-mismatch": "Tu session ha expirate. Per favor tenta completar e submitter le formulario de novo.",
-	"donate_interface-cc-token-expired": "Tu indicio ha expirate. Clicca sur OK pro refrescar.",
+	"donate_interface-cc-token-expired": "Tu token ha expirate. Clicca sur OK pro refrescar.",
 	"donate_interface-try-again": "Nos es temporarimente incapace de processar tu donation. Per favor essaya lo de novo in un poco de tempore.",
 	"donate_interface-cc-form-header-personal": "Informationes de facturation",
 	"donate_interface-cc-form-header-payment": "Informationes de pagamento",
