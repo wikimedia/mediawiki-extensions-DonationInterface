@@ -443,4 +443,8 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		$this->session_resetForNewAttempt( true );
 		return PaymentResult::newSuccess();
 	}
+
+	public function getRequestProcessId( $requestValues ) {
+		return $requestValues['hostedCheckoutId'];
+	}
 }

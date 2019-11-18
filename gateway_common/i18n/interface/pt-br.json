@@ -458,10 +458,19 @@
 	"donate_interface-emailprefs-thank-you-title": "Obrigado",
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
 	"donate_interface-monthly-convert-title": "Adicione uma <span class=\"mc-convert-ask\"></span> doação mensal a partir do próximo mês?",
+	"donate_interface-monthly-convert-title-variant-003": "Obrigado pelo seu <span class=\"mc-convert-donated-amount\"></span> doação. Deseja aumentar seu impacto com uma <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
+	"donate_interface-monthly-convert-title-variant-004": "Você acabou de doar <span class=\"mc-convert-donated-amount\"></span>. Obrigado. Você consideraria adicionar um <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
+	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, Obrigado por seu presente. Deseja aumentar seu impacto com uma <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
 	"donate_interface-monthly-convert-text": "O suporte mensal é a melhor maneira de garantir que a Wikipédia continue prosperando.",
+	"donate_interface-monthly-convert-text-variant-002": "Apenas um pequeno número de nossos doadores doa mensalmente, mas é a melhor maneira de garantir que a Wikipédia continue prosperando.",
+	"donate_interface-monthly-convert-text-variant-005": "Seremos honestos: o conhecimento não é uma cura única, é um compromisso de longo prazo. Você pode transformar seu apoio em uma doação mensal?",
+	"donate_interface-monthly-convert-text-variant-008": "Obrigado por seu presente. Temos que perguntar: você é capaz de fazer um pouco mais? Apenas uma fração de todos os nossos leitores chega a esse ponto, porque a maioria não doa. E de todos os nossos doadores, apenas uma pequena parcela considera um presente mensal automático. Mas o suporte mensal é a melhor maneira de garantir que a Wikipédia continue prosperando. Você ajudará a garantir nossa estabilidade financeira com uma doação sustentada?",
 	"donate_interface-monthly-convert-change-amount": "Sim, doarei mensalmente, mas por um valor diferente",
+	"donate_interface-monthly-convert-change-amount-variant-007": "Claro, deixe-me escolher quanto",
 	"donate_interface-monthly-convert-enter-amount": "Insira seu valor mensal de doação para começar no próximo mês.",
 	"donate_interface-monthly-convert-max-amount": "Não podemos cobrar uma doação recorrente em valor superior à sua doação única original.",
 	"donate_interface-monthly-convert-action-button": "Doe Mensalmente",
-	"donate_interface-monthly-convert-error": "Sua doação única foi bem-sucedida, mas não conseguimos iniciar uma doação recorrente."
+	"donate_interface-monthly-convert-error": "Sua doação única foi bem-sucedida, mas não conseguimos iniciar uma doação recorrente.",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Sim, eu quero ajudar",
+	"donate_interface-monthly-convert-no-button-variant-006": "Não, obrigado"
 }
