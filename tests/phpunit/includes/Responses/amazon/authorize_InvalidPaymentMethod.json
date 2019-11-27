@@ -1,0 +1,33 @@
+{
+    "AuthorizeResult": {
+        "AuthorizationDetails": {
+            "AuthorizationAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            },
+            "CapturedAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "0"
+            },
+            "SoftDescriptor": "AMZ*Wikimedia Founda",
+            "ExpirationTimestamp": "2015-09-24T18:24:37.748Z",
+            "AuthorizationStatus": {
+                "LastUpdateTimestamp": "2015-08-25T18:24:37.748Z",
+                "State": "Declined",
+                "ReasonCode": "InvalidPaymentMethod"
+            },
+            "AuthorizationFee": {
+                "CurrencyCode": "USD",
+                "Amount": "0.00"
+            },
+            "CaptureNow": "true",
+            "CreationTimestamp": "2015-08-25T18:24:37.748Z",
+            "AmazonAuthorizationId": "S01-2525143-9142520-A075353",
+            "AuthorizationReferenceId": "31243-1"
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "0122bebe-b8c3-4435-8169-8b3a92ba1800"
+    },
+    "ResponseStatus": "200"
+}

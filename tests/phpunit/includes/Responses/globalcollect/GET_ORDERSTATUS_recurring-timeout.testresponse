@@ -1,0 +1,39 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+X-OneAgent-JS-Injection: true
+Set-Cookie: dtCookie=1$85FFBC809C251DF8016609A88D345270; Path=/; Domain=.gcsip.nl
+Cache-Control: no-cache, no-store, must-revalidate, max-age=0, proxy-revalidate, no-transform, pre-check=0, post-check=0, private
+Expires: Thu, Jan 01 1970 00:00:00 GMT
+Pragma: no-cache
+Content-Type: text/xml;charset=utf-8
+Content-Length: 1939
+Date: Thu, 06 Dec 2018 17:51:49 GMT
+
+<XML>
+	<REQUEST>
+		<ACTION>GET_ORDERSTATUS</ACTION>
+		<META>
+			<MERCHANTID>test</MERCHANTID>
+			<IPADDRESS>123.123.123.123</IPADDRESS>
+			<VERSION>2.0</VERSION>
+			<REQUESTIPADDRESS>123.123.123.123</REQUESTIPADDRESS>
+		</META>
+		<PARAMS>
+			<ORDER>
+				<ORDERID>626113410</ORDERID>
+				<EFFORTID>2</EFFORTID>
+			</ORDER>
+		</PARAMS>
+		<RESPONSE>
+			<RESULT>NOK</RESULT>
+			<META>
+				<REQUESTID>245</REQUESTID>
+				<RESPONSEDATETIME>20100419133351</RESPONSEDATETIME>
+			</META>
+			<ERROR>
+				<CODE>000000</CODE>
+				<MESSAGE>Timeout occurred while processing the request</MESSAGE>
+			</ERROR>
+		</RESPONSE>
+	</REQUEST>
+</XML>

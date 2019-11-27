@@ -1,0 +1,34 @@
+{
+    "AuthorizeResult": {
+        "AuthorizationDetails": {
+            "AuthorizationAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            },
+            "CapturedAmount": {
+                "CurrencyCode": "USD",
+                "Amount": "0"
+            },
+            "SoftDescriptor": "AMZ*Wikimedia Founda",
+            "ExpirationTimestamp": "2015-10-02T17:14:02.214Z",
+            "AuthorizationStatus": {
+                "LastUpdateTimestamp": "2015-09-02T17:14:02.214Z",
+                "State": "Declined",
+                "ReasonCode": "TransactionTimedOut"
+            },
+            "AuthorizationFee": {
+                "CurrencyCode": "USD",
+                "Amount": "0.00"
+            },
+            "CaptureNow": "true",
+            "SellerAuthorizationNote": "{\"SandboxSimulation\": {\"State\":\"Declined\", \"ReasonCode\":\"TransactionTimedOut\"}}",
+            "CreationTimestamp": "2015-09-02T17:14:02.214Z",
+            "AmazonAuthorizationId": "S01-6689996-9664966-A069817",
+            "AuthorizationReferenceId": "36450-1"
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "06488d3c-bcee-4448-8f0a-bd6f816e6fec"
+    },
+    "ResponseStatus": "200"
+}
