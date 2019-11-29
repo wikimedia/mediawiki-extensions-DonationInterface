@@ -447,8 +447,8 @@
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, merci pour votre don. Voulez-vous augmenter votre impact avec un <span class=\"mc-convert-ask\"></span> don mensuel, en commençant le mois prochain ?",
 	"donate_interface-monthly-convert-text": "Un soutien mensuel est la meilleure façon de garantir que Wikimédia reste prospère.",
 	"donate_interface-monthly-convert-text-variant-002": "Seul un très petit nombre de nos donateurs donne mensuellement, mais c’est la meilleure manière de s’assurer que Wikipédia continue à prospérer.",
-	"donate_interface-monthly-convert-text-variant-005": "Soyons honnête : la connaissance n’est pas un remède ponctuel, c’est un investissement à long terme. Pouvez-vous transformer votre soutien en un don mensuel ?",
-	"donate_interface-monthly-convert-text-variant-008": "Merci pour votre don. Nous aimerions vous demander : pourriez-vous en faire un petit peu plus ? Seule une fraction parmi tous nos lecteurs parviennent jusqu’ici, parce que la plupart ne donnent pas. Et parmi tous nos donateurs, seule une petite partie envisage un don mensuel automatique. Le soutien mensuel est pourtant la meilleure manière de garantir que Wikipedia continue de prospérer. Aiderez-vous à garantir notre stabilité financière par un don régulier ?",
+	"donate_interface-monthly-convert-text-variant-005": "Soyons honnête : la connaissance n’est pas un remède ponctuel, c’est un engagement à long terme. Pouvez-vous transformer votre soutien en un don mensuel ?",
+	"donate_interface-monthly-convert-text-variant-008": "Merci pour votre don. Nous aimerions vous demander : pourriez-vous en faire un petit peu plus ? Seule une fraction parmi tous nos lecteurs parviennent jusqu’ici, parce que la plupart ne donnent pas. Et parmi tous nos donateurs, seule une petite partie envisage un don mensuel automatique. Le soutien mensuel est pourtant la meilleure manière de garantir que Wikipédia continue à prospérer. Aiderez-vous à garantir notre stabilité financière par un don régulier ?",
 	"donate_interface-monthly-convert-change-amount": "Oui, je donnerai mensuellement, mais pour un montant différent",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Bien sûr, laissez-moi choisir combien",
 	"donate_interface-monthly-convert-enter-amount": "Saisir votre montant de don mensuel à commencer le mois prochain.",
@@ -456,5 +456,5 @@
 	"donate_interface-monthly-convert-action-button": "Donner Mensuellement",
 	"donate_interface-monthly-convert-error": "Votre don unitaire a réussi, mais nous n’avons pas pu commencer un don récurrent.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Oui, je veux aider",
-	"donate_interface-monthly-convert-no-button-variant-006": "Non, merci"
+	"donate_interface-monthly-convert-no-button-variant-006": "Non merci"
 }
