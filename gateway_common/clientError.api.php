@@ -10,6 +10,10 @@ class ClientErrorApi extends ApiBase {
 			// Only log errors from ppl with a legitimate donation attempt
 			return;
 		}
+		if ( RequestContext::getMain()->getUser()->pingLimiter( 'clienterror' ) ) {
+			// Allow rate limiting by setting e.g. $wgRateLimits['clienterror']['ip']
+			return;
+		}
 		$gatewayName = $sessionData['gateway'];
 		$gatewayClass = DonationInterface::getAdapterClassForGateway( $gatewayName );
 		$gateway = new $gatewayClass();
