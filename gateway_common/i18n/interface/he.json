@@ -214,7 +214,7 @@
 	"donate_interface-error-msg-branch_code": "קוד הסניף",
 	"donate_interface-error-msg-captcha": "הערך שהזנת במבחן האנושיות (CPATCHA) שגוי.  נא לנסות שוב.",
 	"donate_interface-error-msg-captcha-please": "לאבטחת כרטיס האשראי שלך, נא להזין את התווים המופיעים למעלה.",
-	"donate_interface-error-msg-cookies": "נא להפעיל את העוגיות בדפדפן.",
+	"donate_interface-error-msg-cookies": "נא להפעיל את העוגיות בדפדפן שלך.",
 	"donate_interface-error-msg-country-calc": "שגיאה – איננו יכולים לקבל את תרומתך כעת.",
 	"donate_interface-error-msg-fiscal_number": "נא להזין את המספר הפיסקלי",
 	"donate_interface-error-msg-fiscal_number-in": "נא להזין את ה־PAN שלך",
