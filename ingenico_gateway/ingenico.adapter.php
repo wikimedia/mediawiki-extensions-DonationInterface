@@ -439,6 +439,10 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'subscr_id' => $sessionData['gateway_txn_id'],
 			]
 		);
+		$this->logger->info(
+			'Pushing transaction to queue [recurring] with amount ' .
+			"{$message['currency']} {$message['gross']}"
+		);
 		QueueWrapper::push( 'recurring', $message );
 		$this->session_resetForNewAttempt( true );
 		return PaymentResult::newSuccess();
