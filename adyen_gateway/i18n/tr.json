@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"BaRaN6161 TURK"
+		]
+	},
+	"adyen_gateway-desc": "Adyen ödeme işlemleri",
+	"adyen_gateway-response-default": "İşleminiz işlenirken bir hata oluştu.\nLütfen daha sonra tekrar deneyiniz."
+}
