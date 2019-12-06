@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Edoderoo",
-			"Siebrand"
+			"Siebrand",
+			"Mainframe98"
 		]
 	},
 	"apihelp-donate-description": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van een verscheidenheid van payment processors.",
@@ -31,5 +32,6 @@
 	"apihelp-donate-param-utm_medium": "Trackingvariabele.",
 	"apihelp-donate-param-referrer": "Oorspronkelijke verwijzer.",
 	"apihelp-donate-param-recurring": "Geeft aan dat de transactie is herhaald moet worden.",
-	"apihelp-donate-example-1": "Maak een donatie"
+	"apihelp-donate-example-1": "Maak een donatie",
+	"apihelp-logPaymentsFormError-param-message": "De foutmelding"
 }

@@ -175,6 +175,11 @@ span#selected-amount {
 	padding-right: 24px;
 }
 
+#donate select::-ms-expand {
+	/* Hide arrow on IE 10-11 */
+	display: none;
+}
+
 #donate input[ type='text' ]:hover,
 #donate input[ type='email' ]:hover,
 #donate input[ type='number' ]:hover,
