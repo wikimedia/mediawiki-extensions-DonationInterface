@@ -37,6 +37,7 @@
 	"apihelp-donate-param-recurring": "Indica que la operación tien l'envís de repetise .",
 	"apihelp-donate-param-variant": "Indica qué variante del formulariu rellenó l'usuariu.",
 	"apihelp-donate-param-opt_in": "Indica que'l donante  aceutó los correos de collecha de fondos.",
+	"apihelp-donate-param-employer": "Nome del emplegador",
 	"apihelp-donate-example-1": "Facer una donación",
 	"apihelp-logPaymentsFormError-description": "Esta API rexistra los errores nel formulariu de donación nel llau del cliente.",
 	"apihelp-logPaymentsFormError-summary": "Esta API rexistra los errores del formulariu de donaciones nel llau del cliente.",
@@ -45,5 +46,8 @@
 	"apihelp-logPaymentsFormError-param-line": "Llinia na qu'asocedió l'error",
 	"apihelp-logPaymentsFormError-param-col": "Columna na qu'asocedió l'error",
 	"apihelp-logPaymentsFormError-param-userAgent": "Cadena del axente d'usuariu del restolador",
-	"apihelp-logPaymentsFormError-param-stack": "Traza de la pila del error, si ta disponible"
+	"apihelp-logPaymentsFormError-param-stack": "Traza de la pila del error, si ta disponible",
+	"apihelp-di_recurring_convert-summary": "Esta API úsase cuando un donante aceuta amestar una donación mensual después de completar correutamente una donación única.",
+	"apihelp-di_recurring_convert-param-amount": "L'importe de la donación mensual.",
+	"apihelp-di_recurring_convert-param-gateway": "Qué pasera de pagu utilizar: adyen, globalcollect, etc."
 }
