@@ -281,5 +281,8 @@
 	"donate_interface-onetime-short": "Vienu reizi",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-emailprefs-thank-you-title": "Paldies",
-	"donate_interface-monthly-convert-change-amount": "Jā, es ziedošu katru mēnesi, bet citu summu"
+	"donate_interface-monthly-convert-change-amount": "Jā, es ziedošu katru mēnesi, bet citu summu",
+	"donate_interface-monthly-convert-action-button": "Ziedot katru mēnesi",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Jā, es vēlos palīdzēt",
+	"donate_interface-monthly-convert-no-button-variant-006": "Nē, paldies"
 }
