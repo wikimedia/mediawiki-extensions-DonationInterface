@@ -94,6 +94,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
 
 			$out = $this->getOutput();
+			$out->preventClickjacking();
 			$out->addModuleStyles( 'donationInterface.styles' );
 			$out->addModules( 'donationInterface.skinOverride' );
 			// Stolen from Minerva skin
