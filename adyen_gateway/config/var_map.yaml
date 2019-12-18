@@ -9,6 +9,7 @@ billingAddressType: billing_address_type
 blockedMethods: blocked_methods
 brandCode: payment_product
 card.cardHolderName: full_name
+countryCode: country
 currencyCode: currency
 deliveryAddressType: delivery_address_type
 merchantAccount: merchant_account

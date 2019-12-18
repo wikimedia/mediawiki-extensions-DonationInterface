@@ -60,5 +60,13 @@ discover:
         US: true
     group: cc
     logo: card-discover-lg.png
+rtbt_ideal:
+    label: iDEAL
+    group: rtbt
+    countries:
+        NL: true
+    logo: iDEAL-klein.gif
+    show_single_logo: true
+    brandCode: ideal
 
 
