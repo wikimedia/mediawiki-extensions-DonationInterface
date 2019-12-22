@@ -9,7 +9,8 @@
 			"Pcoombe",
 			"Jrobell",
 			"LacoR",
-			"Teslaton"
+			"Teslaton",
+			"Luky001"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -101,10 +102,10 @@
 	"donate_interface-error-msg-state_province": "Prosím, zadajte štát",
 	"donate_interface-error-msg-postal_code-us": "Prosím, zadajte poštové smerovacie číslo",
 	"donate_interface-error-msg-postal_code": "Prosím, zadajte poštové smerovacie číslo",
-	"donate_interface-error-msg-country": "krajina",
+	"donate_interface-error-msg-country": "Prosím, zadajte vašu krajinu",
 	"donate_interface-error-msg-card_type": "typ kreditnej karty",
 	"donate_interface-error-msg-card_num": "číslo kreditnej karty",
-	"donate_interface-error-msg-expiration": "dátum expirácie karty",
+	"donate_interface-error-msg-expiration": "Prosím, zadajte dátum exspirácie karty",
 	"donate_interface-error-msg-cvv": "CVV zo zadnej strany karty",
 	"donate_interface-error-msg-account_name": "Názov účtu",
 	"donate_interface-error-msg-account_number": "Číslo účtu",
