@@ -20,15 +20,6 @@ class PaypalLegacyGateway extends GatewayPage {
 	protected $gatewayIdentifier = PaypalLegacyAdapter::IDENTIFIER;
 
 	/**
-	 * Show the special page
-	 */
-	protected function handleRequest() {
-		// FIXME: is this necessary?
-		$this->getOutput()->allowClickjacking();
-		parent::handleRequest();
-	}
-
-	/**
 	 * Always attempt to pass through transparently.
 	 *
 	 * @see GatewayPage::isProcessImmediate()
