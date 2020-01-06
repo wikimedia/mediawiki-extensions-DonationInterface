@@ -2,11 +2,24 @@
 	"@metadata": {
 		"authors": [
 			"Emperyan",
-			"Sayginer"
+			"Sayginer",
+			"BaRaN6161 TURK"
 		]
 	},
 	"globalcollect_gateway-desc": "GlobalCollect ödeme işlemleri",
+	"globalcollect_gateway-fakesucceed": "Başarılı bir ödeme yapma",
+	"globalcollect_gateway-fakefail": "Başarısız bir ödeme sahte",
+	"globalcollect_gateway-response-9130": "Geçersiz ülke",
+	"globalcollect_gateway-response-9140": "Geçersiz para birimi.",
+	"globalcollect_gateway-response-9150": "Geçersiz dil.",
+	"globalcollect_gateway-response-400530": "Geçersiz ödeme yöntemi",
+	"globalcollect_gateway-response-430306": "Kredi kartınızın süresi doldu. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
 	"globalcollect_gateway-response-430330": "Geçersiz kart numarası.",
+	"globalcollect_gateway-response-430421": "Kredi kartınız doğrulanamadı. Lütfen tüm bilgilerin kredi kartı profilinizle eşleştiğini doğrulayın veya farklı bir kart deneyin.",
+	"globalcollect_gateway-response-430360": "İşlem yetkilendirilemedi. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
+	"globalcollect_gateway-response-430285": "İşlem yetkilendirilemedi. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
 	"globalcollect_gateway-response-21000150": "Geçersiz banka hesap numarası.",
-	"globalcollect_gateway-response-21000155": "Geçersiz banka kodu."
+	"globalcollect_gateway-response-21000155": "Geçersiz banka kodu.",
+	"globalcollect_gateway-response-21000160": "Geçersiz ciro hesap numarası.",
+	"globalcollect_gateway-response-default": "İşleminiz işlenirken bir hata oluştu.\nLütfen daha sonra tekrar deneyiniz."
 }

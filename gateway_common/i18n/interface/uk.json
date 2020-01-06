@@ -425,10 +425,19 @@
 	"donate_interface-emailprefs-thank-you-title": "Дякуємо",
 	"donate_interface-emailprefs-thank-you-text": "Сподіваємося на довгі партнерські стосунки.",
 	"donate_interface-monthly-convert-title": "Додати щомісячну пожертву у <span class=\"mc-convert-ask\"></span>, починаючи з наступного місяця?",
+	"donate_interface-monthly-convert-title-variant-003": "Дякуємо за вашу пожертву <span class=\"mc-convert-donated-amount\"></span>. Бажаєте збільшити свій вплив, роблячи щомісячну пожертву <span class=\"mc-convert-ask\"></span>, починаючи з наступного місяця?",
+	"donate_interface-monthly-convert-title-variant-004": "Ви щойно пожертвували <span class=\"mc-convert-donated-amount\"></span>. Дякуємо. Чи хотіли б ви додати щомісячну пожертву <span class=\"mc-convert-ask\"></span>, починаючи з наступного місяця?",
+	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, дякуємо за ваш дарунок. Бажаєте збільшити свій вплив, роблячи щомісячну пожертву <span class=\"mc-convert-ask\"></span>, починаючи з наступного місяця?",
 	"donate_interface-monthly-convert-text": "Щомісячна підтримка — найкращий спосіб забезпечити процвітання Вікіпедії.",
+	"donate_interface-monthly-convert-text-variant-002": "Зовсім невелика частина наших жертводавців переказують гроші щомісяця, але це найкращий спосіб забезпечити процвітання Вікіпедії.",
+	"donate_interface-monthly-convert-text-variant-005": "Будемо чесними: знання не є одноразовими ліками, це довготермінова відданість. Чи могли б ви обернути свою підтримку на щомісячну пожертву?",
+	"donate_interface-monthly-convert-text-variant-008": "Дякуємо за ваш дарунок. Маємо запитати: чи можете ви зробити трошки більше? Лише незначна частка наших читачів дочитують аж сюди, тому що більшість не жертвують. А серед наших жертводавців лише мала частка робить автоматичну щомісячну пожертву. Але щомісячна підтримка — це найкращий спосіб забезпечити процвітання Вікіпедії. Ви допоможете забезпечити нашу фінансову стабільність сталою пожертвою?",
 	"donate_interface-monthly-convert-change-amount": "Так, я буду жертвувати щомісяця, але іншу суму",
+	"donate_interface-monthly-convert-change-amount-variant-007": "Звісно, дайте мені обрати суму",
 	"donate_interface-monthly-convert-enter-amount": "Уведіть суму своєї щомісячної пожертви, що почнеться з наступного місяця.",
 	"donate_interface-monthly-convert-max-amount": "Ми не можемо взяти повторювану пожертву на більшу суму, ніж ваша початкова одноразова пожертва.",
 	"donate_interface-monthly-convert-action-button": "Жертвувати щомісячно",
-	"donate_interface-monthly-convert-error": "Ваша одноразова пожертва пройшла успішно, але нам не вдалося започаткувати повторювану пожертву."
+	"donate_interface-monthly-convert-error": "Ваша одноразова пожертва пройшла успішно, але нам не вдалося започаткувати повторювану пожертву.",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Так, я хочу допомогти",
+	"donate_interface-monthly-convert-no-button-variant-006": "Ні, дякую"
 }

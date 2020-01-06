@@ -24,18 +24,6 @@ class GlobalCollectGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
 
-	/**
-	 * Show the special page
-	 *
-	 * @todo
-	 * - Finish error handling
-	 */
-	protected function handleRequest() {
-		// FIXME: do we really need this?
-		$this->getOutput()->allowClickjacking();
-		parent::handleRequest();
-	}
-
 	protected function renderResponse( PaymentResult $result ) {
 		// FIXME: This workaround can be deleted once we convert
 		// these two result pages to render using normal templates.
