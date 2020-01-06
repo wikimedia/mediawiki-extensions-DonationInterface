@@ -10,7 +10,8 @@
 			"Jrobell",
 			"LacoR",
 			"Teslaton",
-			"Luky001"
+			"Luky001",
+			"TomášPolonec"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -26,7 +27,7 @@
 	"donate_interface-email-agreement": "Súhlasím, aby mi Wikimedia Foundation občas posielala novinky e-mailom.",
 	"donate_interface-comment-title": "Verejný komentár",
 	"donate_interface-amount-error": "Prosím, zadajte platnú čiastku",
-	"donate_interface-processing-error": "Došlo k chybe pri spracovaní vašej požiadavky. \nŽiadne procesory sú k dispozícii.",
+	"donate_interface-processing-error": "Došlo k chybe pri spracovaní vašej požiadavky. \nProsím, kontaktujte darcovskú službu na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-ARS": "Argentínske peso",
 	"donate_interface-AUD": "austrálsky dolár",
 	"donate_interface-BBD": "barbadoský dolár",
@@ -220,9 +221,9 @@
 	"donate_interface-translate-redlink2": "Alebo pošlite váš preklad na translations@wikimedia.org",
 	"donate_interface-faqs": "Často kladené otázky",
 	"donate_interface-tax-info": "Informácie o možnosti odpočítania dane",
-	"donate_interface-informationsharing": "Svojim príspevkom súhlasíte so sprístupnením osobných informácií nadácii Wikimedia Foundation, neziskovej organizácii, ktorá spravuje Wikipediu a iné projekty Wikimedia, a jej poskytovateľom služieb v súlade s našimi <a href=\"$1\">pravidlami darcovstva</a>. Nadácia Wikimedia Foundation a jej poskytovatelia služieb majú sídlo v USA a v iných krajinách, ktorých právne predpisy týkajúce sa ochrany súkromia nemusia byť rovnaké ako právne predpisy vo Vašej krajine. Vaše informácie nikomu nepredávame ani s nimi neobchodujeme. Ďalšie informácie nájdete v našich <a href=\"$1\">pravidlách darcovstva</a>.",
+	"donate_interface-informationsharing": "Vaše informácie nikomu nepredávame, ani s nimi neobchodujeme. Svojim príspevkom súhlasíte so sprístupnením osobných informácií nadácii Wikimedia Foundation, neziskovej organizácii, ktorá spravuje Wikipédiu a iné projekty Wikimedia, a jej poskytovateľom služieb v súlade s našimi <a href=\"$1\">pravidlami darcovstva</a>. Nadácia Wikimedia Foundation a jej poskytovatelia služieb majú sídlo v USA a v iných krajinách, ktorých právne predpisy týkajúce sa ochrany súkromia nemusia byť rovnaké ako právne predpisy vo Vašej krajine. Ďalšie informácie nájdete v našich <a href=\"$1\">pravidlách darcovstva</a>.",
 	"donate_interface-taxded-link-us": "Informácie o možnosti odpočítania dane",
-	"donate_interface-monthly-cancel": "Pevné mesačné platby pravidelných darcov budú pripisované na účet nadácie Wikimedia Foundation jedenkrát mesačne v deň prvého príspevku, až kým nás nepožiadate o ich zastavenie. Dary, ktoré boli prvýkrát poskytnuté 29., 30. alebo 31. deň v mesiaci, sa budú v prípade kratších mesiacov opakovať posledný deň v mesiaci čo najbližšie k pôvodnému dátumu. V prípade otázok napíšte na e-mailovú adresu $1.",
+	"donate_interface-monthly-cancel": "Pevné mesačné platby pravidelných darcov budú pripisované na účet nadácie Wikimedia Foundation jedenkrát mesačne v deň prvého príspevku, až kým nás nepožiadate o ich zastavenie. Dary, ktoré boli prvýkrát poskytnuté 29., 30. alebo 31. deň v mesiaci, sa budú v prípade kratších mesiacov opakovať posledný deň v mesiaci čo najbližšie k pôvodnému dátumu. V prípade otázok nás, prosím, kontaktujte na $1.",
 	"donate_interface-monthly-short": "Mesačne",
 	"donate_interface-onetime-short": "Jednorazovo"
 }
