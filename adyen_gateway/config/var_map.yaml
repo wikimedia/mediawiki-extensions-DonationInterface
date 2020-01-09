@@ -24,6 +24,6 @@ sessionValidity: session_expiration
 shipBeforeDate: expiration
 shopperEmail: email
 shopperLocale: language
-shopperReference: customer_id
+shopperReference: order_id
 shopperStatement: statement_template
 skinCode: processor_form

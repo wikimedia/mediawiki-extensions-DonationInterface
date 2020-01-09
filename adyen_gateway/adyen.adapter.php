@@ -101,8 +101,8 @@ class AdyenAdapter extends GatewayAdapter {
 				'skinCode',
 				'shopperLocale',
 				'shopperEmail',
+				'shopperReference',
 				// TODO more fields we might want to send to Adyen
-				// 'shopperReference',
 				// 'recurringContract',
 				// 'blockedMethods',
 				// 'shopperStatement',
@@ -183,6 +183,7 @@ class AdyenAdapter extends GatewayAdapter {
 	 * @inheritDoc
 	 */
 	public function do_transaction( $transaction ) {
+		$this->tuneForRecurring();
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( $transaction );
@@ -255,6 +256,14 @@ class AdyenAdapter extends GatewayAdapter {
 		return $this->transaction_response;
 	}
 
+	protected function tuneForRecurring() {
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+		if ( $isRecurring ) {
+			array_push( $this->transactions['donate']['request'], 'recurringContract' );
+			$this->transactions['donate']['values']['recurringContract'] = 'RECURRING';
+		}
+	}
+
 	/**
 	 * Add risk score to the message we send to the pending queue.
 	 * The IPN listener will combine this with scores based on CVV and AVS
@@ -265,6 +274,11 @@ class AdyenAdapter extends GatewayAdapter {
 	protected function getQueueDonationMessage() {
 		$transaction = parent::getQueueDonationMessage();
 		$transaction['risk_score'] = $this->risk_score;
+		// map order_id to recurring_payment_token as this is our recurring token ID for Adyen
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+		if ( $isRecurring ) {
+			$transaction['recurring_payment_token'] = $transaction['order_id'];
+		}
 		return $transaction;
 	}
 

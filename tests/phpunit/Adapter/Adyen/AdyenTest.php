@@ -55,11 +55,15 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	public function testDoTransactionDonate() {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
+		$init['contribution_tracking_id'] = mt_rand( 0, 10000000 );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'donate' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
+
+		// the shopperReference field should match our ct_id.sequence ID
+		$expectedShopperReference = $init['contribution_tracking_id'] . ".1";
 
 		$expected = [
 			'allowedMethods' => 'card',
@@ -82,6 +86,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'en_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
+			'shopperReference' => $expectedShopperReference,
 			'offset' => '52', // once we construct the FraudFiltersTestCase, it should land here.
 		];
 
@@ -178,11 +183,15 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData();
 		$init['payment_submethod'] = 'visa';
 		$init['language'] = 'FR';
+		$init['contribution_tracking_id'] = mt_rand( 0, 10000000 );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$gateway->do_transaction( 'donate' );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$ret = $exposed->buildRequestParams();
+
+		// the shopperReference field should match our ct_id.sequence ID
+		$expectedShopperReference = $init['contribution_tracking_id'] . ".1";
 
 		$expected = [
 			'allowedMethods' => 'card',
@@ -203,6 +212,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'skinCode' => 'testskin',
 			'shopperLocale' => 'fr_US',
 			'shopperEmail' => 'nobody@wikimedia.org',
+			'shopperReference' => $expectedShopperReference,
 			'offset' => '52',
 		];
 
