@@ -295,7 +295,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			],
 			'IN' => [
 				'currency' => 'INR',
-				'fiscal_number' => '0000123456',
+				'fiscal_number' => 'AAAPL1234C',
 				'payment_submethod' => 'test_bank',
 				'street_address' => 'Test Street',
 				'city' => 'Chennai',
