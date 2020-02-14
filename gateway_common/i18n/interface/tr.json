@@ -340,7 +340,7 @@
 	"donate_interface-email-receipt": "E-posta makbuzu alıcısı",
 	"donate_interface-monthly-donation": "Bir aylık bağışta bulunun",
 	"donate_interface-via-paypal": "(PayPal üzerinden)",
-	"donate_interface-select": "Boyut:",
+	"donate_interface-select": "Seç",
 	"donate_interface-donation-must-equal": "Bağış miktarı mutlaka  $1'a  ya da daha fazlasına eşit olmalıdır.",
 	"donate_interface-thank-you": "Teşekkür ederiz! Bağışınız alınmıştır.",
 	"donate_interface-change": "Değiştir",
