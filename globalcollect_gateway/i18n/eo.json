@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yekrats"
+			"Yekrats",
+			"Robin van der Vliet"
 		]
 	},
-	"globalcollect_gateway-response-9130": "Malvalida lando.",
-	"globalcollect_gateway-response-9140": "Malvalida valuto.",
-	"globalcollect_gateway-response-9150": "Malvalida lingvo."
+	"globalcollect_gateway-response-9130": "Nevalida lando.",
+	"globalcollect_gateway-response-9140": "Nevalida valuto.",
+	"globalcollect_gateway-response-9150": "Nevalida lingvo."
 }

@@ -22,7 +22,8 @@
 			"Matteocng",
 			"Selven",
 			"Nicole Scalinci",
-			"TheRukk"
+			"TheRukk",
+			"Albe Albe460"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -35,7 +36,7 @@
 	"donate_interface-gateway": "Metodo di pagamento:",
 	"donate_interface-submit-button": "Dona",
 	"donate_interface-comment-message": "Hai un pensiero da condividere con il mondo? Inserisci massimo 200 caratteri qui:",
-	"donate_interface-comment-label": "Commenti:",
+	"donate_interface-comment-label": "Commento:",
 	"donate_interface-email-agreement": "Accetto di ricevere aggiornamenti occasionali tramite e-mail dalla Wikimedia Foundation.",
 	"donate_interface-comment-title": "Commento pubblico",
 	"donate_interface-donation-description": "Donazione alla Wikimedia Foundation",
