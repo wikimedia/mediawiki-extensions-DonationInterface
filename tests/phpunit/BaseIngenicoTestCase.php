@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentProviders\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
@@ -146,41 +148,46 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			['paymentOutput'] ['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
 
-		$this->approvePaymentResponse = [
-			"payment" => [
-				"id" => "000000850010000188180000200001",
-				"paymentOutput" => [
-					"amountOfMoney" => [
-						"amount" => 2890,
-						"currencyCode" => "EUR"
-					],
-					"references" => [
-						"paymentReference" => "0"
-					],
-					"paymentMethod" => "card",
-					"cardPaymentMethodSpecificOutput" => [
-						"paymentProductId" => 1,
-						"authorisationCode" => "123456",
-						"card" => [
-							"cardNumber" => "************7977",
-							"expiryDate" => "1220"
+		$this->approvePaymentResponse = ( new ApprovePaymentResponse() )
+			->setRawResponse(
+				[
+					"payment" => [
+						"id" => "000000850010000188180000200001",
+						"paymentOutput" => [
+							"amountOfMoney" => [
+								"amount" => 2890,
+								"currencyCode" => "EUR"
+							],
+							"references" => [
+								"paymentReference" => "0"
+							],
+							"paymentMethod" => "card",
+							"cardPaymentMethodSpecificOutput" => [
+								"paymentProductId" => 1,
+								"authorisationCode" => "123456",
+								"card" => [
+									"cardNumber" => "************7977",
+									"expiryDate" => "1220"
+								],
+								"fraudResults" => [
+									"avsResult" => "0",
+									"cvvResult" => "M",
+									"fraudServiceResult" => "no-advice"
+								]
+							]
 						],
-						"fraudResults" => [
-							"avsResult" => "0",
-							"cvvResult" => "M",
-							"fraudServiceResult" => "no-advice"
+						"status" => "CAPTURE_REQUESTED",
+						"statusOutput" => [
+							"isCancellable" => false,
+							"statusCode" => 800,
+							"statusCodeChangeDateTime" => "20140627140735",
+							"isAuthorized" => true
 						]
 					]
-				],
-				"status" => "CAPTURE_REQUESTED",
-				"statusOutput" => [
-					"isCancellable" => false,
-					"statusCode" => 800,
-					"statusCodeChangeDateTime" => "20140627140735",
-					"isAuthorized" => true
 				]
-			]
-		];
+			)
+			->setStatus( FinalStatus::COMPLETE )
+			->setGatewayTxnId( '000000850010000188180000200001' );
 	}
 
 	public static function getDonorTestData( $country = '' ) {

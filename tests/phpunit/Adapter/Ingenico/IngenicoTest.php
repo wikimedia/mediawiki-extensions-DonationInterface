@@ -21,6 +21,7 @@ use SmashPig\PaymentData\FinalStatus;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
+use SmashPig\PaymentProviders\ApprovePaymentResponse;
 
 /**
  *
@@ -332,7 +333,8 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'approvePayment' )
-			->willReturn(
+			->with( [ 'gateway_txn_id' => $init['gateway_txn_id'] ] )
+			->willReturn( ( new ApprovePaymentResponse() )->setRawResponse(
 				[
 					"payment" => [
 						"id" => "000000850010000188180000200001",
@@ -367,7 +369,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 							"isAuthorized" => true
 						]
 					]
-				]
+				] )
 			);
 		$gateway->do_transaction( 'approvePayment' );
 		$data = $gateway->getTransactionData();

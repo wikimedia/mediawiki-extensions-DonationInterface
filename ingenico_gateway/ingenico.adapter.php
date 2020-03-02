@@ -214,9 +214,11 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				);
 				break;
 			case 'approvePayment':
-				$id = $data['id'];
+				$data['gateway_txn_id'] = $data['id'];
 				unset( $data['id'] );
-				$result = $provider->approvePayment( $id, $data );
+				/** @var \SmashPig\PaymentProviders\ApprovePaymentResponse $approvePaymentResponse */
+				$approvePaymentResponse = $provider->approvePayment( $data );
+				$result = $approvePaymentResponse->getRawResponse();
 				break;
 			case 'cancelPayment':
 				$id = $data['id'];
