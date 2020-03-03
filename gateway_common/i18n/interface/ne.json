@@ -7,7 +7,8 @@
 			"सरोज कुमार ढकाल",
 			"NehalDaveND",
 			"राम प्रसाद जोशी",
-			"हिमाल सुबेदी"
+			"हिमाल सुबेदी",
+			"पर्वत सुबेदी"
 		]
 	},
 	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
@@ -185,6 +186,7 @@
 	"donate_interface-select": "चुन्ने",
 	"donate_interface-change": "परिवर्तन",
 	"donate_interface-optional": "वैकल्पिक",
+	"donate_interface-obt-customer_payment_reference": "सन्दर्भ #",
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-समय",
 	"donate_interface-statement": "विकिमिडिया $1"
