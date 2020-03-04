@@ -17,7 +17,7 @@
  */
 
 use Psr\Log\LogLevel;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**

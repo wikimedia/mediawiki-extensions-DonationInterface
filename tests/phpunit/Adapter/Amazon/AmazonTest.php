@@ -14,9 +14,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
+
+use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
@@ -267,7 +269,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$errors = $result->getErrors();
 
 		$this->assertEquals(
-			ResponseCodes::NO_RESPONSE,
+			ErrorCode::NO_RESPONSE,
 			$errors[0]->getErrorCode(),
 			'NO_RESPONSE error should be set'
 		);

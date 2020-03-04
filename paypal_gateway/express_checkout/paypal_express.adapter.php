@@ -2,8 +2,9 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
-use SmashPig\CrmLink\FinalStatus;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentData\ErrorCode;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -463,7 +464,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			if ( !$response ) {
 				throw new ResponseProcessingException(
 					'Missing or badly formatted response',
-					ResponseCodes::NO_RESPONSE
+					ErrorCode::NO_RESPONSE
 				);
 			}
 
@@ -595,7 +596,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		) {
 			throw new ResponseProcessingException(
 				'Missing required parameters in request',
-				ResponseCodes::MISSING_REQUIRED_DATA
+				ErrorCode::MISSING_REQUIRED_DATA
 			);
 		}
 		$requestData = [];
@@ -615,7 +616,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 		if ( !$resultData->getCommunicationStatus() ) {
 			throw new ResponseProcessingException( 'Failed to get customer details',
-				ResponseCodes::UNKNOWN );
+				ErrorCode::UNKNOWN );
 		}
 
 		if ( $this->getFinalStatus() !== FinalStatus::COMPLETE ) {
@@ -627,7 +628,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
 				if ( !$resultData->getCommunicationStatus() ) {
 					throw new ResponseProcessingException(
-						'Failed to create a recurring profile', ResponseCodes::UNKNOWN );
+						'Failed to create a recurring profile', ErrorCode::UNKNOWN );
 				}
 			} else {
 				// One-time payment, or initial payment in a subscription.

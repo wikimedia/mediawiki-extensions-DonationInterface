@@ -17,7 +17,7 @@
  * This file contains custom options and constants for test configuration.
  */
 
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 
 /**
  * TESTS_MESSAGE_NOT_IMPLEMENTED

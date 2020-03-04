@@ -19,8 +19,8 @@
 use \Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
-use SmashPig\CrmLink\FinalStatus;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;

@@ -33,7 +33,7 @@
 		"zordius/lightncandy": "0.23",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
 		"symfony/yaml": "^3",
-		"wikimedia/smash-pig": "^0.5",
+		"wikimedia/smash-pig": "^0.6",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1"
 	},
 	"require-dev": {

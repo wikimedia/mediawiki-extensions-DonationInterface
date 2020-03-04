@@ -21,7 +21,7 @@ use MaxMind\WebService\Http\RequestFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**

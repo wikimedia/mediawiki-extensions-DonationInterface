@@ -17,9 +17,9 @@
  */
 
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\CrmLink\Messages\SourceFields;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 use Wikimedia\TestingAccessWrapper;
 
 /**

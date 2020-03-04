@@ -17,7 +17,7 @@
  */
 
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 
 /**
  *

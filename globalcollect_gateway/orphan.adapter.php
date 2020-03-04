@@ -1,6 +1,6 @@
 <?php
 
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 	// Data we know to be good, that we always want to re-assert after a load or an addData.

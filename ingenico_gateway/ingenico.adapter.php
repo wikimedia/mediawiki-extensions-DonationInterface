@@ -370,14 +370,14 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 *
 	 * Note: We currently add in substitute status codes for
 	 * IN_PROGRESS and CANCELLED_BY_CONSUMER so that we can map these
-	 * to a valid \SmashPig\CrmLink\FinalStatus. Ingenico does not return a
+	 * to a valid \SmashPig\PaymentData\FinalStatus. Ingenico does not return a
 	 * status code for these two states, only the text description.
 	 * This behaviour should updated when globalcollect is retired.
 	 *
 	 * @param array $txnData
 	 *
 	 * @return int|null
-	 * @see \SmashPig\CrmLink\FinalStatus
+	 * @see \SmashPig\PaymentData\FinalStatus
 	 */
 	protected function getStatusCode( $txnData ) {
 		$statusCode = $this->getData_Unstaged_Escaped( 'gateway_status' );

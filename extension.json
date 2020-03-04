@@ -106,7 +106,6 @@
 		"PaymentResult": "gateway_common/PaymentResult.php",
 		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",
 		"RecurringConversion": "gateway_common/RecurringConversion.php",
-		"ResponseCodes": "gateway_common/ResponseCodes.php",
 		"ResponseProcessingException": "gateway_common/ResponseProcessingException.php",
 		"ResultPages": "gateway_common/ResultPages.php",
 		"ResultSwitcher": "gateway_common/ResultSwitcher.php",

@@ -18,8 +18,9 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
-use SmashPig\CrmLink\FinalStatus;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentData\ErrorCode;
 
 /**
  * AstroPayAdapter
@@ -53,7 +54,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		$this->error_map = [
 			'internal-0000' => 'donate_interface-processing-error', // Failed pre-process checks.
 			'internal-0001' => 'donate_interface-try-again',
-			ResponseCodes::DUPLICATE_ORDER_ID => 'donate_interface-processing-error', // Order ID already used in a previous transaction
+			ErrorCode::DUPLICATE_ORDER_ID => 'donate_interface-processing-error', // Order ID already used in a previous transaction
 		];
 	}
 
@@ -244,7 +245,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		if ( !$response ) {
 			throw new ResponseProcessingException(
 				'Missing or badly formatted response',
-				ResponseCodes::NO_RESPONSE
+				ErrorCode::NO_RESPONSE
 			);
 		}
 		switch ( $this->getCurrentTransaction() ) {
@@ -269,7 +270,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			$this->logger->error( 'AstroPay did not post back their transaction ID in x_document' );
 			throw new ResponseProcessingException(
 				'AstroPay did not post back their transaction ID in x_document',
-				ResponseCodes::MISSING_TRANSACTION_ID
+				ErrorCode::MISSING_TRANSACTION_ID
 			);
 		}
 		// Make sure we record the right amount, even if the donor has opened
@@ -303,7 +304,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			$this->logger->error( 'AstroPay response does not have a status code' );
 			throw new ResponseProcessingException(
 				'AstroPay response does not have a status code',
-				ResponseCodes::MISSING_REQUIRED_DATA
+				ErrorCode::MISSING_REQUIRED_DATA
 			);
 		}
 		$this->transaction_response->setCommunicationStatus( true );
@@ -312,7 +313,7 @@ class AstroPayAdapter extends GatewayAdapter {
 				$this->logger->error( 'AstroPay NewInvoice success has no link' );
 				throw new ResponseProcessingException(
 					'AstroPay NewInvoice success has no link',
-					ResponseCodes::MISSING_REQUIRED_DATA
+					ErrorCode::MISSING_REQUIRED_DATA
 				);
 			}
 		} else {
@@ -332,7 +333,7 @@ class AstroPayAdapter extends GatewayAdapter {
 					$this->logger->error( 'Order ID collision! Starting again.' );
 					throw new ResponseProcessingException(
 						'Order ID collision! Starting again.',
-						ResponseCodes::DUPLICATE_ORDER_ID,
+						ErrorCode::DUPLICATE_ORDER_ID,
 						[ 'order_id' ]
 					);
 				} elseif ( preg_match( '/^could not (register user|make the deposit)/i', $response['desc'] ) ) {
@@ -393,7 +394,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			$message = 'AstroPay response missing one or more required keys.  Full response: '
 				. print_r( $response, true );
 			$this->logger->error( $message );
-			throw new ResponseProcessingException( $message, ResponseCodes::MISSING_REQUIRED_DATA );
+			throw new ResponseProcessingException( $message, ErrorCode::MISSING_REQUIRED_DATA );
 		}
 		$this->verifyStatusSignature( $response );
 		if ( $response['result'] === '6' ) {
@@ -432,7 +433,7 @@ class AstroPayAdapter extends GatewayAdapter {
 		if ( $signature !== $data['x_control'] ) {
 			$message = 'Bad signature in transaction ' . $this->getCurrentTransaction();
 			$this->logger->error( $message );
-			throw new ResponseProcessingException( $message, ResponseCodes::BAD_SIGNATURE );
+			throw new ResponseProcessingException( $message, ErrorCode::BAD_SIGNATURE );
 		}
 	}
 }
