@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Soued031"
 		]
 	},
 	"adyen_gateway-desc": "Bezuelen iwwer Ayden",
-	"adyen_gateway-response-default": "Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.\nProbéiert et w.e.g. spéider nach eng Kéier."
+	"adyen_gateway-response-default": "Et gouf e Feeler beim Verschaffe vun Ärer Transaktioun.\nProbéiert et wgl. spéider nach eng Kéier."
 }

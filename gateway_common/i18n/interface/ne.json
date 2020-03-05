@@ -6,7 +6,9 @@
 			"RajeshPandey",
 			"सरोज कुमार ढकाल",
 			"NehalDaveND",
-			"राम प्रसाद जोशी"
+			"राम प्रसाद जोशी",
+			"हिमाल सुबेदी",
+			"पर्वत सुबेदी"
 		]
 	},
 	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
@@ -136,6 +138,7 @@
 	"donate_interface-error-msg-cvv": "कार्डको पछाडि पटिबाट CVV",
 	"donate_interface-error-msg-captcha": "तपाईंले हालेको काप्चा भ्यालु सही भएन। फेरि प्रयास गर्नुहोस्।",
 	"donate_interface-error-msg-captcha-please": "तपाईंको क्रेडिटकार्ड सुरक्षाको निम्ति माथि दिएका अक्षरहरू टाइप गर्नुहोस्",
+	"donate_interface-donate-error-thank-you-for-your-support": "तपाइको समर्थनका लागि धन्यवाद छ!",
 	"php-response-declined": "तपाईंको ट्रान्ज्याक्सन स्वीकार गर्न सकिएन।",
 	"donate_interface-thankyou": "दानको निम्ति धन्यवाद!",
 	"donate_interface-post-transaction": "ट्रान्ज्याक्सन विवरण",
@@ -183,6 +186,7 @@
 	"donate_interface-select": "चुन्ने",
 	"donate_interface-change": "परिवर्तन",
 	"donate_interface-optional": "वैकल्पिक",
+	"donate_interface-obt-customer_payment_reference": "सन्दर्भ #",
 	"donate_interface-monthly-short": "मासिक",
 	"donate_interface-onetime-short": "एक-समय",
 	"donate_interface-statement": "विकिमिडिया $1"
