@@ -366,9 +366,7 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"UnitTestsList": [
-			"DonationInterface::onDonationInterfaceUnitTests"
-		]
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
 	},
 	"config": {
 		"DonationInterfaceTest": false,
