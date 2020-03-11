@@ -4,7 +4,8 @@ use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\PaymentError;
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ErrorCode;
 
 /**
  * Wikimedia Foundation
@@ -189,7 +190,7 @@ class AmazonAdapter extends GatewayAdapter {
 			$email = $this->getGlobal( 'ProblemsEmail' );
 			$donorMessage = WmfFramework::formatMessage( 'donate_interface-processing-error', $email );
 			$this->transaction_response->setCommunicationStatus( false );
-			throw new ResponseProcessingException( $donorMessage, ResponseCodes::NO_RESPONSE );
+			throw new ResponseProcessingException( $donorMessage, ErrorCode::NO_RESPONSE );
 		}
 		$this->transaction_response->setCommunicationStatus( true );
 		$this->checkErrors( $result );

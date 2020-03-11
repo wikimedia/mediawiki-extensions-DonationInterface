@@ -2,7 +2,7 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 
 /**
  * Contains donation workflow UI hints

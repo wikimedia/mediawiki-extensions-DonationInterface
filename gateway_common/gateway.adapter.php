@@ -25,8 +25,8 @@ use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 use SmashPig\Core\ValidationError;
-use SmashPig\CrmLink\FinalStatus;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
@@ -2239,7 +2239,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Build and send a message to the payments-init queue, once the initial workflow is complete.
-	 * @param string $status one of the constants in @see SmashPig\CrmLink\FinalStatus
+	 * @param string $status one of the constants in @see SmashPig\PaymentData\FinalStatus
 	 */
 	public function sendFinalStatusMessage( $status ) {
 		$transaction = [

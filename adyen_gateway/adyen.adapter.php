@@ -18,8 +18,9 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
-use SmashPig\CrmLink\FinalStatus;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentData\ErrorCode;
 
 /**
  * AdyenAdapter
@@ -295,7 +296,7 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->logger->info( "No response from gateway" );
 			throw new ResponseProcessingException(
 				'No response from gateway',
-				ResponseCodes::NO_RESPONSE
+				ErrorCode::NO_RESPONSE
 			);
 		}
 		$this->logger->info( "Processing user return data: " . print_r( $requestValues, true ) );
@@ -304,7 +305,7 @@ class AdyenAdapter extends GatewayAdapter {
 			$this->logger->info( "Bad signature in response" );
 			throw new ResponseProcessingException(
 				'Bad signature in response',
-				ResponseCodes::BAD_SIGNATURE
+				ErrorCode::BAD_SIGNATURE
 			);
 		}
 		$this->logger->debug( 'Good signature' );

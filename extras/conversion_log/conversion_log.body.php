@@ -1,6 +1,6 @@
 <?php
 
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 
 class Gateway_Extras_ConversionLog extends Gateway_Extras {
 

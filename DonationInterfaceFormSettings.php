@@ -4,7 +4,7 @@
  * parameters. The chooser should instead query enabled gateway capabilities
  * and simply pass along any ffname from the banner to allow A/B testing.
  */
-use SmashPig\CrmLink\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 
 global $wgDonationInterfaceAllowedHtmlForms;
 /**

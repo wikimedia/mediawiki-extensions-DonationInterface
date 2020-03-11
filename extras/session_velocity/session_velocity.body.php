@@ -1,6 +1,6 @@
 <?php
 
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 
 /**
  * Filter to control the number of times a session may hit the backend APIs in a time period.

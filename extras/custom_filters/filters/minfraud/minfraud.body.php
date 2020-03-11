@@ -18,7 +18,7 @@
 use MaxMind\MinFraud;
 use MaxMind\MinFraud\Model\Score;
 use Psr\Log\LogLevel;
-use SmashPig\CrmLink\ValidationAction;
+use SmashPig\PaymentData\ValidationAction;
 
 /**
  * Gateway_Extras_CustomFilters_MinFraud

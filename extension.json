@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.4.0",
+	"version": "2.5.0",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -14,7 +14,8 @@
 		"Dylan Kozlowski",
 		"Casey Dentinger",
 		"Maggie Epps",
-		"Jack Gleeson"
+		"Jack Gleeson",
+		"Christine Stone"
 	],
 	"license-name": "GPL-2.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
@@ -106,7 +107,6 @@
 		"PaymentResult": "gateway_common/PaymentResult.php",
 		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",
 		"RecurringConversion": "gateway_common/RecurringConversion.php",
-		"ResponseCodes": "gateway_common/ResponseCodes.php",
 		"ResponseProcessingException": "gateway_common/ResponseProcessingException.php",
 		"ResultPages": "gateway_common/ResultPages.php",
 		"ResultSwitcher": "gateway_common/ResultSwitcher.php",
@@ -366,9 +366,7 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"UnitTestsList": [
-			"DonationInterface::onDonationInterfaceUnitTests"
-		]
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
 	},
 	"config": {
 		"DonationInterfaceTest": false,
