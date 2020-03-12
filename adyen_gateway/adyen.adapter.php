@@ -353,9 +353,9 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * Overriding this function because we're queueing our pending message
 	 * before we redirect the user, so we don't need to send another one
-	 * when doStompTransaction is called from postProcessDonation.
+	 * when doQueueTransaction is called from postProcessDonation.
 	 */
-	protected function doStompTransaction() {
+	protected function doQueueTransaction() {
 	}
 
 	/**

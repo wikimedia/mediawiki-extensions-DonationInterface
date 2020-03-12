@@ -1860,7 +1860,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
-	 * Saves a stomp frame to the configured server and queue, based on the
+	 * Sends a queue message to the configured server and queue, based on the
 	 * outcome of our current transaction.
 	 * The big tricky thing here, is that we DO NOT SET a FinalStatus,
 	 * unless we have just learned what happened to a donation in progress,
@@ -1872,7 +1872,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * Probably called in postProcessDonation(), which is itself most likely to
 	 * be called through executeFunctionIfExists, later on in do_transaction.
 	 */
-	protected function doStompTransaction() {
+	protected function doQueueTransaction() {
 		$status = $this->getFinalStatus();
 		switch ( $status ) {
 			case FinalStatus::COMPLETE:
@@ -2385,8 +2385,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 	/**
 	 * Runs all the post-process logic that has been enabled and configured in
-	 * donationdata.php and/or LocalSettings.php, including the ActiveMQ/Stomp
-	 * queue message.
+	 * donationdata.php and/or LocalSettings.php, including the queue message.
 	 * This function is most likely to be called through
 	 * executeFunctionIfExists, later on in do_transaction.
 	 */
@@ -2395,7 +2394,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		Gateway_Extras_ConversionLog::onPostProcess( $this );
 
 		try {
-			$this->doStompTransaction();
+			$this->doQueueTransaction();
 		}
 		catch ( Exception $ex ) {
 			$this->logger->alert( "Failure queueing final status message: {$ex->getMessage()}" );
