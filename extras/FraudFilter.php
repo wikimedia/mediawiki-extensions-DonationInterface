@@ -25,7 +25,7 @@ abstract class FraudFilter extends Gateway_Extras {
 	 */
 	protected function sendAntifraudMessage( $validationAction, $totalScore, $scoreBreakdown ) {
 		// add a message to the fraud stats queue, so we can shovel it into the fredge.
-		$stomp_msg = [
+		$queue_msg = [
 			'validation_action' => $validationAction,
 			'risk_score' => $totalScore,
 			'score_breakdown' => $scoreBreakdown,
@@ -36,7 +36,7 @@ abstract class FraudFilter extends Gateway_Extras {
 		// Legal said ok... but this seems a bit excessive to me at the
 		// moment.
 
-		$transaction = $this->gateway_adapter->addStandardMessageFields( $stomp_msg );
+		$transaction = $this->gateway_adapter->addStandardMessageFields( $queue_msg );
 
 		// In the rare case that we fraud-fail before we have an order ID, use ct_id
 		if ( empty( $transaction['order_id'] ) ) {
