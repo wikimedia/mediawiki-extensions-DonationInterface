@@ -170,8 +170,8 @@
 			} );
 			$( '.mc-donate-monthly-button' ).on( 'click keypress', function ( e ) {
 				if ( e.which === 13 || e.type === 'click' ) {
-					var otherAmountField = $( '#mc-other-amount-input' ),
-						otherAmount = +otherAmountField.val(),
+					var $otherAmountField = $( '#mc-other-amount-input' ),
+						otherAmount = +$otherAmountField.val(),
 						rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 						rate,
 						minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
@@ -182,14 +182,14 @@
 						rate = 1;
 					}
 					if ( otherAmount < minUsd * rate ) {
-						otherAmountField.addClass( 'errorHighlight' );
+						$otherAmountField.addClass( 'errorHighlight' );
 						$( '#mc-error-smallamount' ).show();
 					} else if ( otherAmount > originalAmount ) {
-						otherAmountField.addClass( 'errorHighlight' );
+						$otherAmountField.addClass( 'errorHighlight' );
 						$( '#mc-error-bigamount' ).show();
 					} else {
 						$( '.mc-error' ).hide();
-						otherAmountField.removeClass( 'errorHighlight' );
+						$otherAmountField.removeClass( 'errorHighlight' );
 						mc.postUpdonate( otherAmount );
 					}
 				}

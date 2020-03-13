@@ -64,9 +64,9 @@
 	 * @return {string}
 	 */
 	function getOptIn() {
-		var val, element = $( 'input[name=opt_in]:checked' );
-		if ( element.length === 1 ) {
-			val = element.val();
+		var val, $element = $( 'input[name=opt_in]:checked' );
+		if ( $element.length === 1 ) {
+			val = $element.val();
 		} else {
 			val = mw.util.getParamValue( 'opt_in' );
 			if ( val === null ) {
@@ -188,7 +188,7 @@
 
 	$( function () {
 
-		var emailDiv = $( '#email' ).closest( 'div' ),
+		var $emailDiv = $( '#email' ).closest( 'div' ),
 			emailExplainMessage = mw.msg( 'donate_interface-email-explain' ),
 			optInValue = mw.donationInterface.forms.getOptIn();
 
@@ -226,7 +226,7 @@
 		);
 
 		function showEmailExplain() {
-			emailDiv.after( '<div id="email_explain">' + emailExplainMessage + '</div>' );
+			$emailDiv.after( '<div id="email_explain">' + emailExplainMessage + '</div>' );
 		}
 
 		if ( optInValue === '0' ) {
