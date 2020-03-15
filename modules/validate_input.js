@@ -77,7 +77,7 @@ window.validateAmount = function () {
  * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
 window.validate_personal = function () {
-	var value, countryField, $emailAdd, invalid, apos, dotpos, domain,
+	var value, countryField, emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		$formField,
 		i,
@@ -166,16 +166,16 @@ window.validate_personal = function () {
 
 	// validate email address
 	// FIXME: replace with regex in wgDonationInterfaceValidationRules
-	$emailAdd = document.getElementById( 'email' );
+	emailAdd = document.getElementById( 'email' );
 	if (
-		$emailAdd &&
-		$.trim( $emailAdd.value ) &&
-		$emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' )
+		emailAdd &&
+		$.trim( emailAdd.value ) &&
+		emailAdd.value !== mediaWiki.msg( 'donate_interface-donor-email' )
 	) {
 		invalid = false;
 
-		apos = $emailAdd.value.indexOf( '@' );
-		dotpos = $emailAdd.value.lastIndexOf( '.' );
+		apos = emailAdd.value.indexOf( '@' );
+		dotpos = emailAdd.value.lastIndexOf( '.' );
 
 		if ( apos < 1 || dotpos - apos < 2 ) {
 			setError(
@@ -185,7 +185,7 @@ window.validate_personal = function () {
 			invalid = true;
 		}
 
-		domain = $emailAdd.value.substring( apos + 1 );
+		domain = emailAdd.value.substring( apos + 1 );
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
 			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {
