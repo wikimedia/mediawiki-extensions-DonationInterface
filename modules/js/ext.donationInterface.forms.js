@@ -93,7 +93,7 @@
 		var sendData,
 			paymentSubmethod;
 
-		if ( typeof ( $( 'input[name="payment_submethod"]:checked' ).val() ) === 'undefined' ) {
+		if ( typeof $( 'input[name="payment_submethod"]:checked' ).val() === 'undefined' ) {
 			paymentSubmethod = '';
 		} else {
 			paymentSubmethod = $( 'input[name="payment_submethod"]:checked' ).val().toLowerCase();
