@@ -25,7 +25,8 @@
 			"Liuxinyu970226",
 			"Amire80",
 			"Nemo bis",
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Zoranzoki21"
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
@@ -190,7 +191,7 @@
 	"donate_interface-donor-fiscal_number-br": "Brazil-specific term for the fiscal number.  This is the CPF (Cadastro de Pessoas Físicas) or CNPJ (Cadastro Nacional de Pessoas Jurídicas) number issued by the government of Brazil.  Probably only needs to be translated into Portuguese, Spanish, Italian, and German.",
 	"donate_interface-donor-fiscal_number-cl": "Chile-specific term for the fiscal number or tax id.  This is the RUL (Rol Único Tributario) assigned by the Chilean government.",
 	"donate_interface-donor-fiscal_number-co": "Colombia-specific term for the fiscal number or tax id.  This is the 'Cédula de Ciudadanía' number assigned by the Colombian government.",
-	"donate_interface-donor-fiscal_number-in": "India-specific term for the fiscal number or tax id. This is the PAN (Permanent Account Number) assigned by the Indian government.",
+	"donate_interface-donor-fiscal_number-in": "India-specific term for the fiscal number or tax id. This is the PAN (Permanent Account Number) assigned by the Indian government.\n{{optional}}",
 	"donate_interface-donor-fiscal_number-mx": "Mexico-specific term for the fiscal number or tax id.  This is the CURP (Clave Única de Registro de Población), RFC (Registro Federal de Contribuyentes) or IFE (Instituto Federal Electoral) number assigned by the Mexican government.",
 	"donate_interface-donor-fiscal_number-pe": "Peru-specific term for the fiscal number or tax id.  This is the DNI (Documento Nacional de Identidad) number assigned by the Peruvian government.",
 	"donate_interface-donor-fiscal_number-uy": "Uruguay-specific term for the fiscal number or tax id.  This is the CI (Cédula de Identidad) number assigned by the Uruguayan government.",
