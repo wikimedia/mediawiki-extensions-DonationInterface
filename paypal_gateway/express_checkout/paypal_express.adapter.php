@@ -673,7 +673,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	public function doRefund() {
 		$response = $this->do_transaction( 'RefundTransaction' );
 		if ( !$response->getCommunicationStatus() ) {
-			return PaymentResult::newFailure( $response->getErrors(), FinalStatus::FAILED );
+			return PaymentResult::newFailure( $response->getErrors() );
 		}
 		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
@@ -681,7 +681,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	public function cancelSubscription() {
 		$response = $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
 		if ( !$response->getCommunicationStatus() ) {
-			return PaymentResult::newFailure( $response->getErrors(), FinalStatus::FAILED );
+			return PaymentResult::newFailure( $response->getErrors() );
 		}
 		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
 	}
