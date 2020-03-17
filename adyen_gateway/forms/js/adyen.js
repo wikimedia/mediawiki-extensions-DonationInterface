@@ -3,7 +3,8 @@
 		resultFunction,
 		skinCodes = mw.config.get( 'wgAdyenGatewaySkinCodes' ),
 		ios = /iPad|iPhone|iPod/.test( navigator.userAgent ) && !window.MSStream,
-		safari = window.safari !== undefined;
+		safari = window.safari !== undefined,
+		isRTBT = false;
 
 	function redirect( result ) {
 		var $pForm, $payment = $( '#payment-form' ),
@@ -63,7 +64,10 @@
 	// iframe is base
 	resultFunction = showIframe;
 	$( '#processor_form' ).val( skinCodes.base );
-	if (  ios || safari ) {
+	if ( $( '#payment_method' ).val() === 'rtbt' ) {
+		isRTBT = true;
+	}
+	if ( ios || safari || isRTBT ) {
 		resultFunction = redirect;
 		$( '#processor_form' ).val( skinCodes.redirect );
 	}

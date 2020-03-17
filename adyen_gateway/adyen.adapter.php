@@ -91,6 +91,7 @@ class AdyenAdapter extends GatewayAdapter {
 				'allowedMethods',
 				'brandCode',
 				'card.cardHolderName',
+				'countryCode',
 				'currencyCode',
 				'merchantAccount',
 				'merchantReference',
@@ -126,10 +127,19 @@ class AdyenAdapter extends GatewayAdapter {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
+		$paymentMethod = $this->getPaymentMethod();
+		if ( $paymentMethod == 'cc' ) {
+			$allowedAdyenMethods = 'card';
+		} elseif ( $paymentMethod == 'rtbt' ) {
+			$allowedAdyenMethods = 'ideal';
+		} else {
+			throw new UnexpectedValueException( "Invalid Payment Method supplied" );
+		}
+
 		$this->transactions['donate'] = [
 			'request' => $requestFields,
 			'values' => [
-				'allowedMethods' => implode( ',', $this->getAllowedPaymentMethods() ),
+				'allowedMethods' => $allowedAdyenMethods,
 				'billingAddressType' => 2, // hide billing UI fields
 				'merchantAccount' => $this->accountInfo[ 'merchantAccount' ],
 				'sessionValidity' => date( 'c', strtotime( '+2 days' ) ),
@@ -138,12 +148,6 @@ class AdyenAdapter extends GatewayAdapter {
 			],
 			'check_required' => true,
 			'iframe' => true,
-		];
-	}
-
-	protected function getAllowedPaymentMethods() {
-		return [
-			'card',
 		];
 	}
 
@@ -320,31 +324,41 @@ class AdyenAdapter extends GatewayAdapter {
 
 		$result_code = $requestValues['authResult'] ?? '';
 		$paymentResult = null;
+
 		if ( $result_code == 'PENDING' || $result_code == 'AUTHORISED' ) {
-			// Both of these are listed as pending because we have to submit a capture
-			// request on 'AUTHORIZATION' ipn message receipt.
-			// We should still have risk scores in the session from before we
-			// showed the iframe. What did we decide then? Show a fail page if
-			// the donation was fishy enough that our listener isn't going to
-			// auto-capture it, so as not to tell carders the auth worked.
-			// FIXME: need to keep action ranges in sync between DI and listener.
-			$action = Gateway_Extras_CustomFilters::determineStoredAction( $this );
-			if ( $action === ValidationAction::PROCESS ) {
-				$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
-				$this->finalizeInternalStatus( FinalStatus::PENDING );
+			$payment_method = $this->getPaymentMethod();
+			if ( $payment_method == 'rtbt' && $result_code == 'AUTHORISED' ) {
+				// Check to see if it's an AUTHORISED real time bank transfer
+				// as these need marking as complete.
+				$this->finalizeInternalStatus( FinalStatus::COMPLETE );
 				$paymentResult = PaymentResult::newSuccess();
 			} else {
+				// Both of these are listed as pending because we have to submit a capture
+				// request on 'AUTHORIZATION' ipn message receipt.
+				// We should still have risk scores in the session from before we
+				// showed the iframe. What did we decide then? Show a fail page if
+				// the donation was fishy enough that our listener isn't going to
+				// auto-capture it, so as not to tell carders the auth worked.
+				// FIXME: need to keep action ranges in sync between DI and listener.
+				$action = Gateway_Extras_CustomFilters::determineStoredAction( $this );
+				if ( $action === ValidationAction::PROCESS ) {
+					$this->logger->info( "User came back as pending or authorised, placing in payments-init queue" );
+					$this->finalizeInternalStatus( FinalStatus::PENDING );
+					$paymentResult = PaymentResult::newSuccess();
+				} else {
 				$this->logger->info(
 					"User came back authorized but with action $action. " .
 					"Showing a fail page, but leaving details in case of manual capture."
 				);
-				$this->finalizeInternalStatus( FinalStatus::FAILED );
-				$paymentResult = PaymentResult::newFailure();
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
+					$paymentResult = PaymentResult::newFailure();
+				}
 			}
 		} else {
 			$this->finalizeInternalStatus( FinalStatus::FAILED );
 			$paymentResult = PaymentResult::newFailure();
-			$this->logger->info( "Negative response from gateway. Full response: " . print_r( $requestValues, true ) );
+			$this->logger->info( "Negative response from gateway. Full response: "
+				. print_r( $requestValues, true ) );
 		}
 		$this->postProcessDonation();
 		return $paymentResult;
@@ -353,9 +367,18 @@ class AdyenAdapter extends GatewayAdapter {
 	/**
 	 * Overriding this function because we're queueing our pending message
 	 * before we redirect the user, so we don't need to send another one
-	 * when doStompTransaction is called from postProcessDonation.
+	 * when doQueueTransaction is called from postProcessDonation.
+	 *
+	 * HOWEVER!!! if we're dealing with a real time bank transfer which
+	 * is authorized and complete then in that case we DO need to push
+	 * a new message to donations queue.
 	 */
-	protected function doStompTransaction() {
+	protected function doQueueTransaction() {
+		$payment_method = $this->getPaymentMethod();
+		if ( $payment_method == 'rtbt' && $this->getFinalStatus() == FinalStatus::COMPLETE ) {
+			$this->logCompletedPayment();
+			$this->pushMessage( 'donations' );
+		}
 	}
 
 	/**
