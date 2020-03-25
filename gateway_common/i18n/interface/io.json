@@ -35,6 +35,7 @@
 	"donate_interface-next": "Sequanta",
 	"donate_interface-continue": "Durar",
 	"donate_interface-description": "Deskripto",
+	"donate_interface-obt-customer_payment_reference": "Refero #",
 	"donate_interface-translate-redlink1": "Helpez tradukar ca pagino",
 	"donate_interface-informationsharing": "Ni nulatempe vendas vua informo ad irgu. Kande vu donacas, vu konkordas pri partigar vua personal informi kun ''Wikimedia Foundation'', l'organizuro senprofita skopo qua gastikas Wikipedio ed altra projeti de Wikimedia, segun nia <a href=\"$1\">politiko pri donacaji</a>. ''Wikimedia Foundation'' e lua servado-furnisanti jacas en Usa ed en altra landi, qui povas havar legaro pri privateso diferanta de la legaro di vua lando. Por plusa informi, voluntez lektar nia <a href=\"$1\">politiko pri donacaji</a>.",
 	"donate_interface-taxded-link-us": "Informo pri quale deduktar la donaco del imposti",
