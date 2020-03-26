@@ -725,6 +725,7 @@ $forms_whitelist['adyen-test'] = [
 	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY', 'ILS', 'UAH', 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
+		'rtbt' => [ 'rtbt_ideal' ],
 	],
 	// Setting form chooser weight to zero so this form is not chosen as default
 	'selection_weight' => 0,
@@ -736,6 +737,7 @@ $forms_whitelist['adyen-test-recurring'] = [
 	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY', 'ILS', 'UAH', 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
+		'rtbt' => [ 'rtbt_ideal' ],
 	],
 	'recurring',
 	// Setting form chooser weight to zero so this form is not chosen as default

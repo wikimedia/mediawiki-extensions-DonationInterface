@@ -14,7 +14,7 @@ class MessageUtils {
 	 * @param array $msg_keys
 	 * @param array $params extra message parameters
 	 * @throws InvalidArgumentException
-	 * @return String the text of the first existing message
+	 * @return string the text of the first existing message
 	 */
 	public static function languageSpecificFallback(
 		$language = 'en', $msg_keys = [], $params = []
