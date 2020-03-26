@@ -1,8 +1,6 @@
 <?php
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\PaymentProviders\Adyen\Tests\AdyenTestConfiguration;
-use SmashPig\Tests\TestingContext;
 
 /**
  * @group Fundraising
@@ -15,11 +13,6 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$ctx = TestingContext::get();
-		$ctx->providerConfigurationOverride =
-			AdyenTestConfiguration::createWithSuccessfulApi(
-			$ctx->getGlobalConfiguration()
-		);
 		$this->setMwGlobals( [
 			'wgAdyenGatewayEnabled' => true,
 			'wgAdyenGatewayTestingURL' => 'https://example.org',
