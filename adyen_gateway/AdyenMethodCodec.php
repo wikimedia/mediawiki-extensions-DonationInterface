@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Convert our payment submethods into Adyen brandCodes.
+ * Convert our payment methods into Adyen allowedMethods.
  * https://docs.adyen.com/developers/payment-methods/payment-methods-overview
  */
 class AdyenMethodCodec implements StagingHelper {
@@ -10,17 +10,20 @@ class AdyenMethodCodec implements StagingHelper {
 	 * @inheritDoc
 	 */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
-		if ( empty( $normalized['payment_submethod'] ) ) {
+		if ( empty( $normalized['payment_method'] ) ) {
 			return;
 		}
-		$payment_submethod = $normalized['payment_submethod'];
-		$submethod_data = $adapter->getPaymentSubmethodMeta( $payment_submethod );
-		if ( isset( $submethod_data['brandCode'] ) ) {
-			$stagedData['payment_product'] = $submethod_data['brandCode'];
-		} else {
-			// In a surprisingly large number of cases, our internal code
-			// matches theirs.
-			$stagedData['payment_product'] = $payment_submethod;
+		switch ( $normalized['payment_method'] ) {
+			case 'cc':
+				$allowedMethods = 'card';
+				break;
+			case 'rtbt':
+				// TODO: will we ever support non-iDEAL rtbt via Adyen?
+				$allowedMethods = 'ideal';
+				break;
+			default:
+				throw new UnexpectedValueException( "Invalid Payment Method '${normalized['payment_method']}' supplied" );
 		}
+		$stagedData['allowed_methods'] = $allowedMethods;
 	}
 }

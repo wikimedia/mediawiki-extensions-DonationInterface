@@ -127,19 +127,9 @@ class AdyenAdapter extends GatewayAdapter {
 			$requestFields = array_merge( $requestFields, $addressFields );
 		}
 
-		$paymentMethod = $this->getPaymentMethod();
-		if ( $paymentMethod == 'cc' ) {
-			$allowedAdyenMethods = 'card';
-		} elseif ( $paymentMethod == 'rtbt' ) {
-			$allowedAdyenMethods = 'ideal';
-		} else {
-			throw new UnexpectedValueException( "Invalid Payment Method supplied" );
-		}
-
 		$this->transactions['donate'] = [
 			'request' => $requestFields,
 			'values' => [
-				'allowedMethods' => $allowedAdyenMethods,
 				'billingAddressType' => 2, // hide billing UI fields
 				'merchantAccount' => $this->accountInfo[ 'merchantAccount' ],
 				'sessionValidity' => date( 'c', strtotime( '+2 days' ) ),
