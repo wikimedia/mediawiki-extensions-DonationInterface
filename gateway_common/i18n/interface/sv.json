@@ -21,7 +21,8 @@
 			"Jopparn",
 			"Josve05a",
 			"Caycothu",
-			"Skalman"
+			"Skalman",
+			"Technic2"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -41,7 +42,7 @@
 	"donate_interface-monthly-donation-description": "Månatlig donation till Wikimedia Foundation",
 	"donate_interface-amount-error": "Ange ett giltigt donationsbelopp",
 	"donate_interface-smallamount-error": "Välj ett belopp (minst $1)",
-	"donate_interface-bigamount-error": "Vi kan inte acceptera gåvor över USD $4 ($1  $2) via vår webbplats. Kontakta gärna vår personal för stora gåvor på $3.",
+	"donate_interface-bigamount-error": "Vi kan inte acceptera donationer över USD $4 ($1  $2) via vår webbplats. Kontakta gärna vår personal för stora gåvor på $3.",
 	"donate_interface-processing-error": "Det uppstod ett fel när din begäran behandlades. \nKontakta donationstjänsten på <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Din valuta var stöds inte. Processen kommer att använda $1 om du väljer att fortsätta.",
 	"donate_interface-maintenance-notice": "Vi ber om ursäkt, men denna typ av betalning är för tillfället otillgänglig.",

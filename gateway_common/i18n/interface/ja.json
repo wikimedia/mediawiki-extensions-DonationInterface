@@ -238,7 +238,7 @@
 	"donate_interface-donate-error-try-a-different-card-html": "別のカード、もしくは<a href=\"$1\">その他の寄付方法</a>をお試しいただくか、または<a href=\"mailto:$2\">$2</a>までお問い合わせください。",
 	"donate_interface-donate-error-try-again-html": "もう一度<a href=\"$1\">お試し</a>いただくか、別の<a href=\"$2\">寄付方法</a>、または<a href=\"mailto:$3\">$3</a>までお問い合わせください。",
 	"donate_interface-donate-error-thank-you-for-your-support": "ご支援いただきありがとうございます。",
-	"donate_interface-error-no-form-html": "パラメータに適合する寄付フォームが見つかりませんでした。 <a href=\"$1\">他の寄付方法</a>をお試しください。または、<a href=\"mailto:$2\">$2</a> にご連絡ください。",
+	"donate_interface-error-no-form-html": "パラメーターに適合する寄付フォームが見つかりませんでした。 <a href=\"$1\">他の寄付方法</a>をお試しください。または、<a href=\"mailto:$2\">$2</a> にご連絡ください。",
 	"php-response-declined": "お取引が承認されませんでした。",
 	"donate_interface-thankyou": "ご寄付ありがとうございました!",
 	"donate_interface-post-transaction": "取引詳細",
