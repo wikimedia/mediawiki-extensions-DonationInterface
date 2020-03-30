@@ -4,7 +4,7 @@
  * Convert our payment methods into Adyen allowedMethods.
  * https://docs.adyen.com/developers/payment-methods/payment-methods-overview
  */
-class AdyenMethodCodec implements StagingHelper {
+class AdyenMethodCodec implements StagingHelper, UnstagingHelper {
 	/**
 	 * Stage: brandCode
 	 * @inheritDoc
@@ -26,4 +26,12 @@ class AdyenMethodCodec implements StagingHelper {
 		}
 		$stagedData['allowed_methods'] = $allowedMethods;
 	}
+
+	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
+		// let's map the adyen returned 'ideal' to our rtbt payment method to fix T248712
+		if ( $stagedData['payment_method'] == 'ideal' ) {
+			$unstagedData['payment_method'] = 'rtbt';
+		}
+	}
+
 }
