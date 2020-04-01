@@ -314,6 +314,39 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * When a donor uses a different card, test that we map
+	 * the returned paymentMethod using the ReferenceData
+	 * class.
+	 */
+	public function testDonorReturnUnstage() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['language'] = 'FR';
+		$init['order_id'] = '55555';
+		$session['Donor'] = $init;
+		$session['risk_scores'] = [
+			'getScoreUtmMedium' => 10,
+		];
+		$this->setUpRequest( $init, $session );
+		$gateway = $this->getFreshGatewayObject( [] );
+		$result = $gateway->processDonorReturn( [
+			'authResult' => 'AUTHORISED',
+			'merchantReference' => '55555.1',
+			'merchantSig' => 'lSrF/hnpYfOCBNJLMjTIK6MtodosAKbEx+rXSogxBQ8=',
+			'paymentMethod' => 'diners',
+			'pspReference' => '123987612346789',
+			'shopperLocale' => 'fr_FR',
+			'skinCode' => 'testskin',
+			'title' => 'Special:AdyenGatewayResult'
+		] );
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		$mappedSubmethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
+		$this->assertEquals( 'dc', $mappedSubmethod, 'Failed unstaging Adyen submethod' );
+	}
+
+	/**
 	 * Test that we verify the signature with the alternate skin code's HMAC
 	 */
 	public function testDonorReturnSuccessAltSkin() {
