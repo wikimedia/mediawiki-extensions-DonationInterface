@@ -67,10 +67,19 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
+		if ( !$language ) {
+			// For some result pages, language does not come in on a standard URL param
+			// (langauge or uselang). For those cases, it's pretty safe to assume the
+			// correct language is in session.
+			// FIXME Restrict the places where we access session data
+			$donorData = WmfFramework::getSessionValue( 'Donor' );
+			if ( ( $donorData !== null ) && isset( $donorData[ 'language' ] ) ) {
+				$language = $donorData[ 'language' ];
+			}
+		}
+
 		if ( $language ) {
 			$this->getContext()->setLanguage( $language );
-			global $wgLang;
-			$wgLang = $this->getContext()->getLanguage(); // BackCompat
 		}
 
 		if ( $wgContributionTrackingFundraiserMaintenance
