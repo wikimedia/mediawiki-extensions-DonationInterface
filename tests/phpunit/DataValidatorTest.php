@@ -126,6 +126,9 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 			[ 'AR', '12-34123412-1', true ], // 11 digit CUIT should pass
 			[ 'AR', '1112223', true ],
 			[ 'AR', '111222', false ],
+			[ 'IN', 'AAAPL1234C', true ],
+			[ 'IN', 'AA1PL1234C', false ],
+			[ 'IN', 'AAAXL1234C', false ],
 			[ 'MX', '', true ], // Not required for MX
 		];
 	}
