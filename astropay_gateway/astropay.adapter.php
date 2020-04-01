@@ -344,7 +344,7 @@ class AstroPayAdapter extends GatewayAdapter {
 						LogLevel::WARNING
 					);
 				} elseif ( preg_match( '/^user (unauthorized|blacklisted)/i', $response['desc'] ) ) {
-					// They are blacklisted by AstroPay for shady doings,
+					// They are marked as suspicious by AstroPay,
 					// or listed delinquent by their government.
 					// Either way, we can't process 'em through AstroPay
 					$this->finalizeInternalStatus( FinalStatus::FAILED );

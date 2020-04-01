@@ -291,7 +291,7 @@ $wgAmazonGatewayAccountInfo['example'] = [
     // remove 'sandbox/' from above URLs for production use
     'ReturnURL' => ''
     // Sorry, devs, ReturnURL HAS to be https.
-    // Also, it has to be whitelisted for your application at sellercentral.amazon.com
+    // Also, it has to be enabled for your application at sellercentral.amazon.com
     // e.g. https://payments.wikimedia.org/index.php/Special:AmazonGateway
 ]
 

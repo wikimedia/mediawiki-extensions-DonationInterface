@@ -4,7 +4,7 @@ use SmashPig\PaymentData\ValidationAction;
 
 /**
  * Filter to control the number of times a session may hit the backend APIs in a time period.
- * Uses the standard Whitelist/Blacklist objects.
+ * Uses the standard allow / deny list objects.
  *
  * Each gateway transaction pair can have it's own decay rate and threshold. These need to be
  * in variables named *DecayRate and *Threshold. The * is there because this module has additional
@@ -75,15 +75,15 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
 		// Determine IP status before doing anything complex
-		$wl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPWhitelist' ) );
-		$bl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPBlacklist' ) );
+		$wl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPAllowList' ) );
+		$bl = DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPDenyList' ) );
 
 		if ( $wl ) {
-			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in whitelist.";
+			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in allow list.";
 			return true;
 		}
 		if ( $bl ) {
-			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in blacklist.";
+			$this->gateway_adapter->debugarray[] = "SessionVelocity: IP present in deny list.";
 			return false;
 		}
 
