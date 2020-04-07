@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Nike",
 			"Pyscowicz",
-			"Silvonen",
-			"Nike"
+			"Silvonen"
 		]
 	},
 	"apihelp-donate-param-first_name": "Etunimi.",

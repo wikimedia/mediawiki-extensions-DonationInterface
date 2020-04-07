@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kaganer",
-			"Александр Сигачёв",
-			"Okras"
+			"Okras",
+			"Александр Сигачёв"
 		]
 	},
 	"globalcollect_gateway-desc": "Шлюз обработки платежей GlobalCollect",
