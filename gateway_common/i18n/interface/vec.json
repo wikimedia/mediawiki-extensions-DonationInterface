@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Candalua",
+			"Fierodelveneto",
 			"Jsoby",
 			"Pcoombe"
 		]
@@ -39,10 +40,10 @@
 	"donate_interface-USD": "Dolaro merican",
 	"donate_interface-paypal-button": "Dona tramite PayPal",
 	"donate_interface-cc-button": "Dona co la carta de credito",
-	"donate_interface-card-legend": "Informassion su la carta de credito",
+	"donate_interface-card-legend": "informasion so ła carta de credito",
 	"donate_interface-amount-legend": "Inporto de la donassion",
 	"donate_interface-cvv-link": "Dove lo cato?",
-	"donate_interface-donor-legend": "Informassion sul donator",
+	"donate_interface-donor-legend": "informasion sol donatore",
 	"donate_interface-donor-amount": "Inporto:",
 	"donate_interface-donor-currency-label": "Scheo:",
 	"donate_interface-donor-email": "Indirisso e-mail:",
@@ -90,8 +91,8 @@
 	"donate_interface-donate-click": "Le informassion su la to carta de credito le vegnarà elaborà in tuta sicuressa.",
 	"donate_interface-otherways": "Ghe xe anca <a href=\"$1\">altre maniere par donar, come PayPal, co un assegno, o par posta</a>.",
 	"donate_interface-token-mismatch": "Xe scadùa la session. Riprova da novo.",
-	"donate_interface-cc-form-header-personal": "Informassion de faturassion",
-	"donate_interface-cc-form-header-payment": "Informassion de pagamento",
+	"donate_interface-cc-form-header-personal": "informasion de faturasion",
+	"donate_interface-cc-form-header-payment": "informasion de pagamento",
 	"donate_interface-make-your-donation": "Fa na donassion desso",
 	"donate_interface-comment": "Comento",
 	"donate_interface-first": "Primo",
