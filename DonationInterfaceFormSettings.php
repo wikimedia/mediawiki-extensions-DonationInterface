@@ -719,6 +719,27 @@ $forms_whitelist['adyen-usd'] = [
 	'selection_weight' => 0,
 ];
 
+$forms_whitelist['adyen-ideal'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'NL', ], ],
+	'currencies' => [ '+' => [ 'EUR', ], ],
+	'payment_methods' => [
+		'rtbt' => [ 'rtbt_ideal' ],
+	],
+	'selection_weight' => 101,
+];
+
+$forms_whitelist['adyen-ideal-recurring'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'NL', ], ],
+	'currencies' => [ '+' => [ 'EUR', ], ],
+	'payment_methods' => [
+		'rtbt' => [ 'rtbt_ideal' ],
+	],
+	'recurring',
+	'selection_weight' => 101,
+];
+
 $forms_whitelist['adyen-test'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IE', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
