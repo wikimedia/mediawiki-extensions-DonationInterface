@@ -69,17 +69,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		$gateway = $getValOrNull( 'gateway' );
 		$recurring = $this->getRequest()->getVal( 'recurring', false );
 
-		// FIXME: This is clearly going to go away before we deploy this bizniss.
-		$testNewGetAll = $this->getRequest()->getVal( 'testGetAll', false );
-		if ( $testNewGetAll ) {
-			$forms = self::getAllValidForms( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
-			echo "<pre>" . print_r( $forms, true ) . "</pre>";
-			$form = self::pickOneForm( $forms, $currency, $country );
-			echo "<pre>I choose you, " . print_r( $form, true ) . "!</pre>";
-			echo "<pre>Trying: " . ucfirst( $forms[$form]['gateway'] ) . "Gateway</pre>";
-			die();
-		}
-
 		// FIXME: here we should check for ffname, and if that's a valid form skip the choosing
 		$form = self::getOneValidForm( $country, $currency, $paymentMethod, $paymentSubMethod, $recurring, $gateway );
 
