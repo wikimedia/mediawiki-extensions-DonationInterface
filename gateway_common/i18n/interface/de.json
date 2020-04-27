@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ameisenigel",
 			"ChrisiPK",
 			"Danielbeerbonn",
 			"Filzstift",
@@ -216,12 +217,14 @@
 	"donate_interface-error-msg-cookies": "Bitte aktivieren Sie Cookies in Ihrem Browser.",
 	"donate_interface-error-msg-country-calc": "Fehler. Wir können derzeit Ihre Spende leider nicht akzeptieren.",
 	"donate_interface-error-msg-fiscal_number": "Bitte geben Sie Ihre Steuernummer ein",
+	"donate_interface-error-msg-fiscal_number-in": "Bitte gib deine PAN an",
 	"donate_interface-error-msg-invalid-fiscal_number": "Bitte korrigieren Sie die Fehler in Ihrer Steuernummer",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "Bitte korrigieren Sie die Fehler in Ihrem DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "Bitte korrigieren Sie die Fehler in Ihrem NIT",
 	"donate_interface-error-msg-invalid-fiscal_number-br": "Bitte korrigieren Sie die Fehler in Ihrem CPF/CNPJ",
 	"donate_interface-error-msg-invalid-fiscal_number-cl": "Bitte korrigieren Sie die Fehler in Ihrem RUT",
 	"donate_interface-error-msg-invalid-fiscal_number-co": "Bitte korrigieren Sie die Fehler in Ihrem Cédula de Ciudadanía",
+	"donate_interface-error-msg-invalid-fiscal_number-in": "Bitte korrigiere die Fehler in deiner PAN",
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Bitte korrigieren Sie die Fehler in Ihrem CURP/RFC/IFE",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Bitte korrigieren Sie die Fehler in Ihrem DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Bitte korrigieren Sie die Fehler in Ihrem CI",
@@ -230,6 +233,7 @@
 	"donate_interface-donate-error-try-a-different-card": "Bitte [$1 versuchen Sie es mit einer anderen Kreditkarte] oder [$2 nutzen Sie eine der anderen Spendenmöglichkeiten], oder kontaktieren Sie uns unter der E-Mail-Adresse $3.",
 	"donate_interface-donate-error-try-a-different-card-html": "Bitte versuchen Sie eine andere Karte, eine unserer <a href=\"$1\">anderen Spendemöglichkeiten</a> oder kontaktieren Sie uns unter <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Bitte <a href=\"$1\">versuchen Sie es erneut</a>, benutzen Sie einen unserer <a href=\"$2\">anderen Wege zum Spenden</a> oder kontaktieren Sie uns unter <a href=\"mailto:$3\">$3</a>",
+	"donate_interface-donation-cancelled-header": "Deine Transaktion wurde erfolgreich abgebrochen",
 	"donate_interface-donate-error-thank-you-for-your-support": "Vielen Dank für Ihre Unterstützung.",
 	"donate_interface-error-no-form": "Wir konnten kein Spendenformular finden, das Ihren Parametern entspricht. Bitte kontaktieren Sie [mailto:$1 unser Hilfeteam] für mehr Informationen.",
 	"donate_interface-error-no-form-html": "Wir konnten kein Spendenformular mit Ihren Parametern finden. Bitte versuchen Sie eine unserer <a href=\"$1\">anderen Spendemöglichkeiten</a> oder kontaktieren Sie uns unter <a href=\"mailto:$2\">$2</a>.",
@@ -408,5 +412,9 @@
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "Alle Bilder sind unter der Creative-Commons-Lizenz <a href=\"$1\">„Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 international“</a> lizenziert.",
 	"donate_interface-emailprefs-thank-you-title": "Vielen Dank",
-	"donate_interface-emailprefs-thank-you-text": "Wir freuen uns auf eine lange Beziehung zusammen."
+	"donate_interface-emailprefs-thank-you-text": "Wir freuen uns auf eine lange Beziehung zusammen.",
+	"donate_interface-monthly-convert-change-amount": "Ja, ich spende monatlich, aber eine andere Summe.",
+	"donate_interface-monthly-convert-action-button": "Monatlich spenden",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
+	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke"
 }
