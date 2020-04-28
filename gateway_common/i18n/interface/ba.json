@@ -4,16 +4,17 @@
 			"Assele",
 			"Haqmar",
 			"Jsoby",
-			"Ләйсән",
-			"Рустам Нурыев",
+			"Lizalizaufa",
+			"Pacha Tchernof",
 			"Pcoombe",
+			"Азат Хәлилов",
+			"Айбикә",
 			"Айсар",
 			"Аҡҡашҡа",
-			"Мухамадеева",
-			"Азат Хәлилов",
 			"З. ӘЙЛЕ",
-			"Айбикә",
-			"Lizalizaufa"
+			"Ләйсән",
+			"Мухамадеева",
+			"Рустам Нурыев"
 		]
 	},
 	"donate_interface": "Викимедиа Фондына ярҙам",
@@ -378,5 +379,5 @@
 	"donate_interface-monthly-short": "Ай һайын",
 	"donate_interface-onetime-short": "Бер тапҡыр",
 	"donate_interface-error-http-403": "Һеҙҙең биткә инеү хоҡуғығыҙ юҡ",
-	"donate_interface-statement": "Викимедия $1"
+	"donate_interface-statement": "Викимедиа $1"
 }

@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Toliño",
-			"Banjo"
+			"Banjo",
+			"Toliño"
 		]
 	},
 	"globalcollect_gateway-desc": "Procesamento de pagamentos de GlobalCollect",

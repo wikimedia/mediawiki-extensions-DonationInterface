@@ -106,11 +106,11 @@ input#email {
 }
 
 /* Slurped from https://payments.wikimedia.org/index.php?title=MediaWiki:Common.css&oldid=2183 */
-#mw-panel div.portal {
+#mw-panel .portal {
 	display: none !important;
 }
 
-div#footer #footer-icons {
+#footer #footer-icons {
 	display: none !important;
 }
 
@@ -120,7 +120,7 @@ a[ href^='https://' ],
 	padding: 0 !important;
 }
 
-div#content {
+#content.mw-body {
 	border: 0;
 }
 
@@ -143,7 +143,7 @@ div#content {
 /* Respond to small viewport */
 @media screen and ( max-device-width: 981px ) {
 	/* Overall layout */
-	div#content {
+	#content.mw-body {
 		margin: 0;
 		padding: 1em;
 	}

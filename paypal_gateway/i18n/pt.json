@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fúlvio",
 			"Hamilton Abreu",
-			"Imperadeiro98",
-			"Fúlvio"
+			"Imperadeiro98"
 		]
 	},
 	"paypal_gateway-desc": "Processamento de pagamentos PayPal"

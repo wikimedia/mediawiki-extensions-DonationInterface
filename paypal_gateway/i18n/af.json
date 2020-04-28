@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Naudefj",
-			"Fwolff"
+			"Fwolff",
+			"Naudefj"
 		]
 	},
 	"paypal_gateway-desc": "Betalingsverwerking met PayPal"

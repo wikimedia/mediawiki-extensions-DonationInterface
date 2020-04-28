@@ -31,8 +31,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			'max' => 9,
 		],
 		'IN' => [
-			'min' => 10,
-			'max' => 10,
+			'pattern' => '[A-Z]{3}[ABCFGHLJPTF]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}',
 		],
 		'UY' => [
 			'numeric' => true,
@@ -84,16 +83,22 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 
 		$rules = self::$countryRules[$country];
 		$unpunctuated = preg_replace( '/[^A-Za-z0-9]/', '', $value );
+		$length = strlen( $unpunctuated );
 
-		if ( !empty( $rules['numeric'] ) ) {
-			if ( !is_numeric( $unpunctuated ) ) {
+		if ( !empty( $rules['pattern'] ) ) {
+			if ( !preg_match( '/' . $rules['pattern'] . '/', $unpunctuated ) ) {
 				$hasError = true;
 			}
-		}
+		} else {
+			if ( !empty( $rules['numeric'] ) ) {
+				if ( !is_numeric( $unpunctuated ) ) {
+					$hasError = true;
+				}
+			}
 
-		$length = strlen( $unpunctuated );
-		if ( $length < $rules['min'] || $length > $rules['max'] ) {
-			$hasError = true;
+			if ( $length < $rules['min'] || $length > $rules['max'] ) {
+				$hasError = true;
+			}
 		}
 
 		if ( $hasError ) {
@@ -123,12 +128,16 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		}
 
 		$rule = self::$countryRules[$normalized['country']];
-		if ( empty( $rule['numeric'] ) ) {
-			$pattern = '^[^0-9a-zA-Z]*([0-9a-zA-Z][^0-9a-zA-Z]*)';
+		if ( !empty( $rule['pattern'] ) ) {
+			$pattern = $rule['pattern'];
 		} else {
-			$pattern = '^[^0-9]*([0-9][^0-9]*)';
+			if ( empty( $rule['numeric'] ) ) {
+				$pattern = '^[^0-9a-zA-Z]*([0-9a-zA-Z][^0-9a-zA-Z]*)';
+			} else {
+				$pattern = '^[^0-9]*([0-9][^0-9]*)';
+			}
+			$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
 		}
-		$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
 
 		$fiscalRules = [ [
 			'pattern' => $pattern,

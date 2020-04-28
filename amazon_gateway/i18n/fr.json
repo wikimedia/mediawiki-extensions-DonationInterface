@@ -1,8 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Erkethan",
-			"Benoit Rochon"
+			"Benoit Rochon",
+			"Erkethan"
 		]
 	},
 	"amazon_gateway-desc": "Traitement des paiements Amazon"

@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Liangent",
-			"Simon Shek",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Simon Shek"
 		]
 	},
 	"paypal_gateway-desc": "將PayPal註冊為捐助方式"

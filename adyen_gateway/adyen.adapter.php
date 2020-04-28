@@ -307,9 +307,10 @@ class AdyenAdapter extends GatewayAdapter {
 		// Overwrite the order ID we have with the return data, in case the
 		// donor opened a second window.
 		$orderId = $requestValues['merchantReference'];
-		$this->addRequestData( [
+		$this->addResponseData( [
 			'order_id' => $orderId,
-			'gateway_txn_id' => $requestValues['pspReference'] ?? ''
+			'gateway_txn_id' => $requestValues['pspReference'] ?? '',
+			'payment_method' => $requestValues['paymentMethod']
 		] );
 
 		$result_code = $requestValues['authResult'] ?? '';

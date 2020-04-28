@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Shirayuki",
-			"Simon Shek",
 			"LNDDYL",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Shirayuki",
+			"Simon Shek"
 		]
 	},
 	"globalcollect_gateway-desc": "GlobalCollect付款處理",

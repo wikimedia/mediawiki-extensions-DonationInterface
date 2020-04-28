@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fúlvio",
 			"Hamilton Abreu",
-			"João Sousa",
-			"Fúlvio"
+			"João Sousa"
 		]
 	},
 	"globalcollect_gateway-desc": "Processamento de pagamentos GlobalCollect",
