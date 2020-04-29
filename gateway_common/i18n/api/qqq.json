@@ -62,6 +62,7 @@
 	"apihelp-donate-param-variant": "{{doc-apihelp-param|donate|variant}}",
 	"apihelp-donate-param-opt_in": "{{doc-apihelp-param|donate|opt_in}}",
 	"apihelp-donate-param-employer": "{{doc-apihelp-param|donate|employer}}",
+	"apihelp-donate-param-employer_id": "{{doc-apihelp-param|donate|employer_id}}",
 	"apihelp-donate-example-1": "{{doc-apihelp-example|donate}}",
 	"apihelp-logPaymentsFormError-description": "{{doc-apihelp-description|logPaymentsFormError}}",
 	"apihelp-logPaymentsFormError-summary": "{{doc-apihelp-summary|logPaymentsFormError}}",

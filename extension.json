@@ -200,6 +200,10 @@
 		"ext.donationInterface.employerExplainAlt": {
 			"scripts": "modules/js/ext.donationInterface.employerExplainAlt.js"
 		},
+		"ext.donationInterface.employerAutoComplete": {
+			"scripts": "modules/js/ext.donationInterface.employerAutoComplete.js",
+			"dependencies": "jquery.ui.autocomplete"
+		},
 		"ext.donationInterface.noCardSelect": {
 			"styles": "modules/css/noCardSelect.css",
 			"dependencies": "ext.donationInterface.forms"

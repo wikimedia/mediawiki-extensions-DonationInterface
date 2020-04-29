@@ -436,6 +436,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'recurring_payment_token',
 			'opt_in',
 			'employer',
+			'employer_id',
 			'order_id',
 			'appeal',
 			'variant',

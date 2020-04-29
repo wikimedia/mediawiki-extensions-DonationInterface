@@ -107,6 +107,7 @@ class DonationData implements LogPrefixProvider {
 		'variant',
 		'opt_in',
 		'employer',
+		'employer_id',
 	];
 
 	/**
@@ -982,6 +983,7 @@ class DonationData implements LogPrefixProvider {
 			'recurring_payment_token',
 			'opt_in',
 			'employer',
+			'employer_id',
 		];
 	}
 

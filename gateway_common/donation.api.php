@@ -72,6 +72,7 @@ class DonationApi extends DonationApiBase {
 			'variant' => $this->defineParam( false ),
 			'opt_in' => $this->defineParam( false ),
 			'employer' => $this->defineParam( false ),
+			'employer_id' => $this->defineParam( false ),
 		];
 	}
 

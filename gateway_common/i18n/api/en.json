@@ -44,6 +44,7 @@
 	"apihelp-donate-param-variant": "Indicates which form variant the donor has filled out.",
 	"apihelp-donate-param-opt_in": "Indicates that the donor has opted in to fundraising emails.",
 	"apihelp-donate-param-employer": "Employer name",
+	"apihelp-donate-param-employer_id": "Employer ID",
 	"apihelp-donate-example-1": "Make a donation",
 	"apihelp-logPaymentsFormError-description": "This API logs client-side donation form errors.",
 	"apihelp-logPaymentsFormError-summary": "This API logs client-side donation form errors.",
