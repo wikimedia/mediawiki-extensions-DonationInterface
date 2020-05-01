@@ -15,7 +15,8 @@ module.exports = function ( grunt ) {
 			options: {
 				reportUnusedDisableDirectives: true,
 				extensions: [ '.js', '.json' ],
-				cache: true
+				cache: true,
+				fix: grunt.option( 'fix' )
 			},
 			shared: [
 				'{.,modules/**}/*.js{,on}',
