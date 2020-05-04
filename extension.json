@@ -45,7 +45,8 @@
 		"di_amazon_bill": "AmazonBillingApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
-		"logPaymentsFormError": "ClientErrorApi"
+		"logPaymentsFormError": "ClientErrorApi",
+		"employerSearch": "EmployerSearchAPI"
 	},
 	"MessagesDirs": {
 		"DonationInterface": [
@@ -77,6 +78,7 @@
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"ClientErrorApi": "gateway_common/clientError.api.php",
+		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
