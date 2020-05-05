@@ -1,5 +1,5 @@
 /*global amazon:true, OffAmazonPayments:true*/
-( function( $, mw ) {
+( function ( $, mw ) {
 	var clientId = mw.config.get( 'wgAmazonGatewayClientID' ),
 		sellerId = mw.config.get( 'wgAmazonGatewaySellerID' ),
 		sandbox = mw.config.get( 'wgAmazonGatewaySandbox' ),
@@ -21,7 +21,7 @@
 		// in case the donor has no cards registered with Amazon
 		CARD_SELECT_DELAY = 5000;
 
-	$( function() {
+	$( function () {
 		// Add a couple divs to hold the widgets
 		$( '.submethods' ).before(
 			'<div id="consentWidget" />' +
@@ -30,14 +30,14 @@
 		);
 		// Set the click handler
 		$( '#paymentSubmitBtn' ).click( submitPayment );
-	});
+	} );
 
 	// Adapted from Amazon documentation, will get parameters from fragment as
 	// well as querystring and accepts Amazon's custom delimiters
 	function getURLParameter( name, source ) {
 		var pattern = '[?&#]' + name + '=([^&;#]*)',
-			matches = new RegExp( pattern ).exec( source ) || ['', ''],
-			value = matches[1].replace( /\+/g, '%20' );
+			matches = new RegExp( pattern ).exec( source ) || [ '', '' ],
+			value = matches[ 1 ].replace( /\+/g, '%20' );
 
 		return decodeURIComponent( value ) || null;
 	}
@@ -99,7 +99,7 @@
 	loginError = getURLParameter( 'error', location.search );
 
 	// This will be called as soon as the login script is loaded
-	window.onAmazonLoginReady = function() {
+	window.onAmazonLoginReady = function () {
 
 		amazon.Login.setClientId( clientId );
 		amazon.Login.setUseCookie( true );
@@ -115,7 +115,7 @@
 		}
 	};
 
-	window.onAmazonPaymentsReady = function() {
+	window.onAmazonPaymentsReady = function () {
 		var tokenLifetime;
 		if ( loggedIn ) {
 			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
@@ -126,7 +126,7 @@
 
 	if ( typeof accessToken === 'string' && accessToken.match( validTokenPattern ) ) {
 		// Payment widgets need this cookie
-		document.cookie = "amazon_Login_accessToken=" + accessToken + ";secure";
+		document.cookie = 'amazon_Login_accessToken=' + accessToken + ';secure';
 		loggedIn = true;
 		loadScript( widgetScript ); // This will load the login script for you
 	} else {
@@ -163,7 +163,7 @@
 	function createWalletWidget() {
 		var params = {
 			sellerId: sellerId,
-			onReady: function( billingAgreement ) {
+			onReady: function ( billingAgreement ) {
 				if ( !cardSelected ) {
 					cardSelectTimeout = setTimeout( showOtherWaysLink, CARD_SELECT_DELAY );
 				}
@@ -175,27 +175,27 @@
 				}
 			},
 			agreementType: isRecurring ? 'BillingAgreement' : 'OrderReference',
-			onOrderReferenceCreate: function( orderReference ) {
+			onOrderReferenceCreate: function ( orderReference ) {
 				if ( orderReferenceId ) {
 					// Redisplaying for an existing order, no need to continue
 					return;
 				}
 				orderReferenceId = orderReference.getAmazonOrderReferenceId();
 			},
-			onPaymentSelect: function() {
+			onPaymentSelect: function () {
 				if ( !cardSelected ) {
 					cardSelected = true;
 					setSubmitVisibility();
 				}
 				if ( cardSelectTimeout ) {
 					clearTimeout( cardSelectTimeout );
-					delete cardSelectTimeout;
+					cardSelectTimeout = false;
 				}
 			},
 			design: {
 				designMode: 'responsive'
 			},
-			onError: function( error ) {
+			onError: function ( error ) {
 				// Error message appears directly in widget
 				showErrorAndLoginButton();
 			}
@@ -227,7 +227,7 @@
 			},
 			onReady: handleConsentStatus,
 			onConsent: handleConsentStatus,
-			onError: function( error ) {
+			onError: function ( error ) {
 				showErrorAndLoginButton();
 			}
 		};
@@ -240,16 +240,16 @@
 			refreshWallet = false;
 
 		for ( code in errors ) {
-			if ( !errors.hasOwnProperty( code ) ) {
+			if ( !Object.prototype.hasOwnProperty.call( errors, code ) ) {
 				continue;
 			}
 			if ( code === 'token-mismatch' ) {
 				// Session has expired, we need to reload the whole page.
 				// FIXME: something nicer than an alert box
-				alert( errors[code] );
+				alert( errors[ code ] );
 				reloadPage();
 			}
-			addErrorMessage( errors[code] );
+			addErrorMessage( errors[ code ] );
 			if ( code === 'InvalidPaymentMethod' ) {
 				// Card declined, but they can try another
 				refreshWallet = true;
@@ -278,14 +278,14 @@
 			return;
 		}
 		if ( !cardSelected ) {
-			showOtherWays();
+			showOtherWaysLink();
 			return;
 		}
 		if ( isRecurring && !recurConsentGranted ) {
 			//TODO: error message
 			return;
 		}
-		$( '#topError' ).html('');
+		$( '#topError' ).html( '' );
 		$( '#errorReference' )
 			.removeClass( 'errorMsg' )
 			.addClass( 'errorMsgHide' );
@@ -306,7 +306,7 @@
 			postdata.orderReferenceId = orderReferenceId;
 		}
 
-		$.ajax({
+		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
 			data: postdata,
 			dataType: 'json',
@@ -324,6 +324,6 @@
 			error: function () {
 				location.href = failPage;
 			}
-		});
+		} );
 	}
 } )( jQuery, mediaWiki );

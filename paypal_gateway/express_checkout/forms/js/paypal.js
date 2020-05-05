@@ -6,7 +6,7 @@
 	function redirect( result ) {
 		// We don't actually want to enable the form on redirect or in the
 		// complete phase of callDonateApi, so we override enable here.
-		di.forms.enable = function(){};
+		di.forms.enable = function () {};
 		location.assign( result.redirect );
 	}
 

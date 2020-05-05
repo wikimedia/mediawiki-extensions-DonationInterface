@@ -9,7 +9,7 @@
 		// Don't let people edit name, address, or email, since we won't
 		// see any changes they make while the iframe is open.
 		di.forms.disableInput();
-		var $div = $( '<div id="ingenico-div">'),
+		var $div = $( '<div>' ).attr( { id: 'ingenico-div' } ),
 			$form = $( '<iframe>' )
 			.attr( {
 				src: result.iframe,
@@ -22,7 +22,7 @@
 	}
 
 	function redirect( result ) {
-		document.location.replace( result.redirect);
+		document.location.replace( result.redirect );
 	}
 
 	di.forms.submit = function () {
@@ -39,7 +39,7 @@
 					data: {
 						action: 'logPaymentsFormError',
 						message: 'Redirect/iframe URL suspiciously short! response was: ' +
-						    JSON.stringify( result ),
+							JSON.stringify( result ),
 						userAgent: navigator.userAgent
 					},
 					dataType: 'json',
