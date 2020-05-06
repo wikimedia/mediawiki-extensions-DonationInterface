@@ -408,4 +408,22 @@ class AdyenAdapter extends GatewayAdapter {
 		return $skinCodes;
 	}
 
+	/**
+	 * Debug logging for missing payment_submethod bug
+	 * https://phabricator.wikimedia.org/T251025
+	 */
+	public function logPending() {
+		$details = $this->getQueueDonationMessage();
+		if ( empty( $details['payment_submethod'] ) ) {
+			$request = RequestContext::getMain()->getRequest();
+			$this->logger->warning(
+				'Missing payment_submethod when logging pending donation. ' .
+				'Request URL is: ' . $request->getFullRequestURL() . '. ' .
+				'Request method is: ' . $request->getMethod() . '. ' .
+				'Request parameters are: ' . print_r( $request->getValues(), true ) . '. ' .
+				'User agent is: ' . $request->getHeader( 'User-Agent' )
+			);
+		}
+		parent::logPending();
+	}
 }
