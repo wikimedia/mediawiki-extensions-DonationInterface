@@ -21,7 +21,7 @@ module.exports = function ( grunt ) {
 				'{.,modules/**}/*.js{,on}',
 				'!modules/js/{mailcheck,lg-hash,lightgallery}.js'
 			],
-			gateways: '{adyen,amazon,globalcollect,paypal}_gateway/forms/**/*.js'
+			gateways: '{adyen,amazon,globalcollect,ingenico,paypal}_gateway/**/*.js'
 		},
 		stylelint: {
 			options: {
