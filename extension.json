@@ -370,217 +370,440 @@
 		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
 	},
 	"config": {
-		"DonationInterfaceTest": false,
-		"DonationInterfaceAppealWikiTemplate": "LanguageSwitch|2011FR/$appeal/text|$language",
-		"DonationInterfaceDefaultAppeal": "JimmyQuote",
-		"DonationInterfaceProblemsURL": "https://donate.wikimedia.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&language=$language&country=$country",
-		"DonationInterfaceOtherWaysURL": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country",
-		"DonationInterfaceFaqURL": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country",
-		"DonationInterfaceTaxURL": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_deductibility&language=$language&country=$country",
-		"DonationInterfacePolicyURL": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country",
-		"DonationInterfaceProblemsEmail": "donate@wikimedia.org",
-		"DonationInterfaceMajorGiftsEmail": "benefactors@wikimedia.org",
-		"DonationInterfaceDefaultEmail": "nobody@wikimedia.org",
-		"DonationInterfaceLogoOverride": [],
-		"DonationInterfaceDebugLog": false,
-		"DonationInterfaceDisplayDebug": false,
-		"DonationInterfaceUseSyslog": false,
-		"DonationInterfaceSaveCommStats": false,
-		"DonationInterfaceCurlVerboseLog": false,
-		"DonationInterfaceLogCompleted": false,
-		"DonationInterfaceTimeout": 5,
-		"DonationInterfaceFallbackCurrency": false,
-		"DonationInterfaceFallbackCurrencyByCountry": false,
-		"DonationInterfaceNotifyOnConvert": true,
-		"DonationInterfaceSendOptInOnFailure": false,
-		"DonationInterfaceSalt": null,
-		"DonationInterfaceHeader": null,
-		"DonationInterfaceNoScriptRedirect": null,
-		"DonationInterfacePriceFloor": 1,
-		"DonationInterfacePriceCeiling": 10000,
-		"DonationInterfaceRapidFail": false,
-		"DonationInterfaceThankYouPage": "Donate-thanks",
-		"DonationInterfaceFailPage": "Donate-error",
-		"DonationInterfaceCancelPage": "Donate-cancel",
-		"DonationInterfaceLocalConfigurationDirectory": false,
-		"DonationInterfaceVariantConfigurationDirectory": false,
-		"DonationInterfaceRetryLoopCount": 3,
+		"DonationInterfaceTest": {
+			"value": false
+		},
+		"DonationInterfaceAppealWikiTemplate": {
+			"value": "LanguageSwitch|2011FR/$appeal/text|$language"
+		},
+		"DonationInterfaceDefaultAppeal": {
+			"value": "JimmyQuote"
+		},
+		"DonationInterfaceProblemsURL": {
+			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?landing_page=Problems_donating&basic=true&language=$language&country=$country"
+		},
+		"DonationInterfaceOtherWaysURL": {
+			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country"
+		},
+		"DonationInterfaceFaqURL": {
+			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country"
+		},
+		"DonationInterfaceTaxURL": {
+			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_deductibility&language=$language&country=$country"
+		},
+		"DonationInterfacePolicyURL": {
+			"value": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country"
+		},
+		"DonationInterfaceProblemsEmail": {
+			"value": "donate@wikimedia.org"
+		},
+		"DonationInterfaceMajorGiftsEmail": {
+			"value": "benefactors@wikimedia.org"
+		},
+		"DonationInterfaceDefaultEmail": {
+			"value": "nobody@wikimedia.org"
+		},
+		"DonationInterfaceLogoOverride": {
+			"value": []
+		},
+		"DonationInterfaceDebugLog": {
+			"value": false
+		},
+		"DonationInterfaceDisplayDebug": {
+			"value": false
+		},
+		"DonationInterfaceUseSyslog": {
+			"value": false
+		},
+		"DonationInterfaceSaveCommStats": {
+			"value": false
+		},
+		"DonationInterfaceCurlVerboseLog": {
+			"value": false
+		},
+		"DonationInterfaceLogCompleted": {
+			"value": false
+		},
+		"DonationInterfaceTimeout": {
+			"value": 5
+		},
+		"DonationInterfaceFallbackCurrency": {
+			"value": false
+		},
+		"DonationInterfaceFallbackCurrencyByCountry": {
+			"value": false
+		},
+		"DonationInterfaceNotifyOnConvert": {
+			"value": true
+		},
+		"DonationInterfaceSendOptInOnFailure": {
+			"value": false
+		},
+		"DonationInterfaceSalt": {
+			"value": null
+		},
+		"DonationInterfaceHeader": {
+			"value": null
+		},
+		"DonationInterfaceNoScriptRedirect": {
+			"value": null
+		},
+		"DonationInterfacePriceFloor": {
+			"value": 1
+		},
+		"DonationInterfacePriceCeiling": {
+			"value": 10000
+		},
+		"DonationInterfaceRapidFail": {
+			"value": false
+		},
+		"DonationInterfaceThankYouPage": {
+			"value": "Donate-thanks"
+		},
+		"DonationInterfaceFailPage": {
+			"value": "Donate-error"
+		},
+		"DonationInterfaceCancelPage": {
+			"value": "Donate-cancel"
+		},
+		"DonationInterfaceLocalConfigurationDirectory": {
+			"value": false
+		},
+		"DonationInterfaceVariantConfigurationDirectory": {
+			"value": false
+		},
+		"DonationInterfaceRetryLoopCount": {
+			"value": 3
+		},
 		"DonationInterfaceOrphanCron": {
-			"enable": true,
-			"target_execute_time": 300,
-			"time_buffer": 1200,
-			"_merge_strategy": "array_plus"
+			"value": {
+				"enable": true,
+				"target_execute_time": 300,
+				"time_buffer": 1200,
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
-		"DonationInterfaceForbiddenCountries": [],
+		"DonationInterfaceForbiddenCountries": {
+			"value": []
+		},
 		"DonationInterface3DSRules": {
-			"INR": [],
-			"_merge_strategy": "array_plus"
+			"value": {
+				"INR": [],
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
-		"GlobalCollectGatewayTestingURL": "https://ps.gcsip.nl/wdl/wdl",
-		"GlobalCollectGatewayURL": "https://ps.gcsip.nl/wdl/wdl",
+		"GlobalCollectGatewayTestingURL": {
+			"value": "https://ps.gcsip.nl/wdl/wdl"
+		},
+		"GlobalCollectGatewayURL": {
+			"value": "https://ps.gcsip.nl/wdl/wdl"
+		},
 		"GlobalCollectGatewayCvvMap": {
-			"M": true,
-			"N": false,
-			"P": true,
-			"S": false,
-			"U": true,
-			"Y": false,
-			"0": true,
-			"": false,
-			"_merge_strategy": "array_plus"
+			"value": {
+				"M": true,
+				"N": false,
+				"P": true,
+				"S": false,
+				"U": true,
+				"Y": false,
+				"0": true,
+				"": false,
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
 		"GlobalCollectGatewayAvsMap": {
-			"A": 50,
-			"B": 50,
-			"C": 50,
-			"D": 0,
-			"E": 100,
-			"F": 0,
-			"G": 50,
-			"I": 50,
-			"M": 0,
-			"N": 100,
-			"P": 50,
-			"R": 100,
-			"S": 50,
-			"U": 50,
-			"W": 50,
-			"X": 0,
-			"Y": 0,
-			"Z": 50,
-			"0": 25,
-			"": 100,
-			"_merge_strategy": "array_plus"
+			"value": {
+				"A": 50,
+				"B": 50,
+				"C": 50,
+				"D": 0,
+				"E": 100,
+				"F": 0,
+				"G": 50,
+				"I": 50,
+				"M": 0,
+				"N": 100,
+				"P": 50,
+				"R": 100,
+				"S": 50,
+				"U": 50,
+				"W": 50,
+				"X": 0,
+				"Y": 0,
+				"Z": 50,
+				"0": 25,
+				"": 100,
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
 		"IngenicoGatewayCvvMap": {
-			"M": true,
-			"N": false,
-			"P": true,
-			"S": false,
-			"U": true,
-			"Y": false,
-			"0": true,
-			"": false,
-			"_merge_strategy": "array_plus"
+			"value": {
+				"M": true,
+				"N": false,
+				"P": true,
+				"S": false,
+				"U": true,
+				"Y": false,
+				"0": true,
+				"": false,
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
 		"IngenicoGatewayAvsMap": {
-			"A": 50,
-			"B": 50,
-			"C": 50,
-			"D": 0,
-			"E": 100,
-			"F": 0,
-			"G": 50,
-			"I": 50,
-			"M": 0,
-			"N": 100,
-			"P": 50,
-			"R": 100,
-			"S": 50,
-			"U": 50,
-			"W": 50,
-			"X": 0,
-			"Y": 0,
-			"Z": 50,
-			"0": 25,
-			"": 100,
-			"_merge_strategy": "array_plus"
+			"value": {
+				"A": 50,
+				"B": 50,
+				"C": 50,
+				"D": 0,
+				"E": 100,
+				"F": 0,
+				"G": 50,
+				"I": 50,
+				"M": 0,
+				"N": 100,
+				"P": 50,
+				"R": 100,
+				"S": 50,
+				"U": 50,
+				"W": 50,
+				"X": 0,
+				"Y": 0,
+				"Z": 50,
+				"0": 25,
+				"": 100,
+				"_merge_strategy": "array_plus"
+			},
+			"merge_strategy": "array_plus"
 		},
 		"IngenicoGatewayHostedFormVariants": {
-			"redirect": 100,
-			"iframe": 100
+			"value": {
+				"redirect": 100,
+				"iframe": 100
+			}
 		},
-		"AmazonGatewayLoginScript": "https://api-cdn.amazon.com/sdk/login1.js",
-		"PaypalGatewayURL": "https://www.paypal.com/cgi-bin/webscr",
-		"PaypalGatewayTestingURL": "https://www.sandbox.paypal.com/cgi-bin/webscr",
-		"PaypalGatewayRecurringLength": "0",
-		"PaypalGatewayXclickCountries": [],
-		"PaypalExpressGatewayCertificateURL": "https://api.paypal.com/nvp",
-		"PaypalExpressGatewaySignatureURL": "https://api-3t.paypal.com/nvp",
-		"PaypalExpressGatewayTestingCertificateURL": "https://api.sandbox.paypal.com/nvp",
-		"PaypalExpressGatewayTestingSignatureURL": "https://api-3t.sandbox.paypal.com/nvp",
-		"AdyenGatewayURL": "https://live.adyen.com",
-		"AdyenGatewayTestingURL": "https://test.adyen.com",
-		"AdyenGatewayMaxRiskScore": 95,
-		"AstroPayGatewayURL": "https://api.dlocal.com/",
-		"AstroPayGatewayTestingURL": "https://sandbox.dlocal.com/",
+		"AmazonGatewayLoginScript": {
+			"value": "https://api-cdn.amazon.com/sdk/login1.js"
+		},
+		"PaypalGatewayURL": {
+			"value": "https://www.paypal.com/cgi-bin/webscr"
+		},
+		"PaypalGatewayTestingURL": {
+			"value": "https://www.sandbox.paypal.com/cgi-bin/webscr"
+		},
+		"PaypalGatewayRecurringLength": {
+			"value": "0"
+		},
+		"PaypalGatewayXclickCountries": {
+			"value": []
+		},
+		"PaypalExpressGatewayCertificateURL": {
+			"value": "https://api.paypal.com/nvp"
+		},
+		"PaypalExpressGatewaySignatureURL": {
+			"value": "https://api-3t.paypal.com/nvp"
+		},
+		"PaypalExpressGatewayTestingCertificateURL": {
+			"value": "https://api.sandbox.paypal.com/nvp"
+		},
+		"PaypalExpressGatewayTestingSignatureURL": {
+			"value": "https://api-3t.sandbox.paypal.com/nvp"
+		},
+		"AdyenGatewayURL": {
+			"value": "https://live.adyen.com"
+		},
+		"AdyenGatewayTestingURL": {
+			"value": "https://test.adyen.com"
+		},
+		"AdyenGatewayMaxRiskScore": {
+			"value": 95
+		},
+		"AstroPayGatewayURL": {
+			"value": "https://api.dlocal.com/"
+		},
+		"AstroPayGatewayTestingURL": {
+			"value": "https://sandbox.dlocal.com/"
+		},
 		"DonationInterfaceCustomFiltersActionRanges": {
-			"process": [
-				0,
-				100
-			],
-			"review": [
-				-1,
-				-1
-			],
-			"challenge": [
-				-1,
-				-1
-			],
-			"reject": [
-				-1,
-				-1
-			],
-			"_merge_strategy": "array_plus_2d"
+			"value": {
+				"process": [
+					0,
+					100
+				],
+				"review": [
+					-1,
+					-1
+				],
+				"challenge": [
+					-1,
+					-1
+				],
+				"reject": [
+					-1,
+					-1
+				],
+				"_merge_strategy": "array_plus_2d"
+			},
+			"merge_strategy": "array_plus_2d"
 		},
-		"DonationInterfaceCustomFiltersRiskScore": 0,
-		"DonationInterfaceMinFraudAccountId": "",
-		"DonationInterfaceMinFraudLicenseKey": "",
-		"DonationInterfaceMinFraudClientOptions": [],
-		"DonationInterfaceMinFraudExtraFields": [],
-		"DonationInterfaceMinFraudAlarmLimit": 25000,
-		"DonationInterfaceCustomFiltersRefRules": [],
-		"DonationInterfaceCustomFiltersSrcRules": [],
-		"DonationInterfaceCustomFiltersFunctions": [],
-		"DonationInterfaceCustomFiltersInitialFunctions": [],
-		"DonationInterfaceNameFilterRules": [],
-		"DonationInterfaceIPVelocityFailScore": 100,
-		"DonationInterfaceIPVelocityTimeout": 300,
-		"DonationInterfaceIPVelocityThreshhold": 3,
-		"DonationInterfaceSessionVelocity_HitScore": 10,
-		"DonationInterfaceSessionVelocity_DecayRate": 1,
-		"DonationInterfaceSessionVelocity_Threshold": 50,
-		"DonationInterfaceSessionVelocity_Multiplier": 1,
-		"DonationInterfaceCountryMap": [],
-		"DonationInterfaceEmailDomainMap": [],
-		"DonationInterfaceUtmCampaignMap": [],
-		"DonationInterfaceUtmMediumMap": [],
-		"DonationInterfaceUtmSourceMap": [],
-		"DonationInterfaceEnableConversionLog": false,
-		"DonationInterfaceEnableMinFraud": false,
-		"DonationInterfaceMinFraudWeight": 100,
-		"DonationInterfaceMinFraudErrorScore": 50,
-		"DonationInterfaceEnableBannerHistoryLog": false,
-		"GlobalCollectGatewayEnabled": false,
-		"IngenicoGatewayEnabled": false,
-		"AmazonGatewayEnabled": false,
-		"AdyenGatewayEnabled": false,
-		"AstroPayGatewayEnabled": false,
-		"PaypalGatewayEnabled": false,
-		"PaypalExpressGatewayEnabled": false,
-		"DonationInterfaceEnableCustomFilters": true,
-		"DonationInterfaceEnableFormChooser": false,
-		"DonationInterfaceEnableReferrerFilter": false,
-		"DonationInterfaceEnableSourceFilter": false,
-		"DonationInterfaceEnableFunctionsFilter": false,
-		"DonationInterfaceEnableIPVelocityFilter": false,
-		"DonationInterfaceEnableSessionVelocityFilter": false,
-		"DonationInterfaceEnableSystemStatus": false,
-		"DonationInterfaceLogClientErrors": true,
-		"DonationInterfaceEnableContributionTrackingQueue": false,
-		"DonationInterfaceGeoIpDbPath": "/usr/share/GeoIP/GeoLite2-Country.mmdb",
+		"DonationInterfaceCustomFiltersRiskScore": {
+			"value": 0
+		},
+		"DonationInterfaceMinFraudAccountId": {
+			"value": ""
+		},
+		"DonationInterfaceMinFraudLicenseKey": {
+			"value": ""
+		},
+		"DonationInterfaceMinFraudClientOptions": {
+			"value": []
+		},
+		"DonationInterfaceMinFraudExtraFields": {
+			"value": []
+		},
+		"DonationInterfaceMinFraudAlarmLimit": {
+			"value": 25000
+		},
+		"DonationInterfaceCustomFiltersRefRules": {
+			"value": []
+		},
+		"DonationInterfaceCustomFiltersSrcRules": {
+			"value": []
+		},
+		"DonationInterfaceCustomFiltersFunctions": {
+			"value": []
+		},
+		"DonationInterfaceCustomFiltersInitialFunctions": {
+			"value": []
+		},
+		"DonationInterfaceNameFilterRules": {
+			"value": []
+		},
+		"DonationInterfaceIPVelocityFailScore": {
+			"value": 100
+		},
+		"DonationInterfaceIPVelocityTimeout": {
+			"value": 300
+		},
+		"DonationInterfaceIPVelocityThreshhold": {
+			"value": 3
+		},
+		"DonationInterfaceSessionVelocity_HitScore": {
+			"value": 10
+		},
+		"DonationInterfaceSessionVelocity_DecayRate": {
+			"value": 1
+		},
+		"DonationInterfaceSessionVelocity_Threshold": {
+			"value": 50
+		},
+		"DonationInterfaceSessionVelocity_Multiplier": {
+			"value": 1
+		},
+		"DonationInterfaceCountryMap": {
+			"value": []
+		},
+		"DonationInterfaceEmailDomainMap": {
+			"value": []
+		},
+		"DonationInterfaceUtmCampaignMap": {
+			"value": []
+		},
+		"DonationInterfaceUtmMediumMap": {
+			"value": []
+		},
+		"DonationInterfaceUtmSourceMap": {
+			"value": []
+		},
+		"DonationInterfaceEnableConversionLog": {
+			"value": false
+		},
+		"DonationInterfaceEnableMinFraud": {
+			"value": false
+		},
+		"DonationInterfaceMinFraudWeight": {
+			"value": 100
+		},
+		"DonationInterfaceMinFraudErrorScore": {
+			"value": 50
+		},
+		"DonationInterfaceEnableBannerHistoryLog": {
+			"value": false
+		},
+		"GlobalCollectGatewayEnabled": {
+			"value": false
+		},
+		"IngenicoGatewayEnabled": {
+			"value": false
+		},
+		"AmazonGatewayEnabled": {
+			"value": false
+		},
+		"AdyenGatewayEnabled": {
+			"value": false
+		},
+		"AstroPayGatewayEnabled": {
+			"value": false
+		},
+		"PaypalGatewayEnabled": {
+			"value": false
+		},
+		"PaypalExpressGatewayEnabled": {
+			"value": false
+		},
+		"DonationInterfaceEnableCustomFilters": {
+			"value": true
+		},
+		"DonationInterfaceEnableFormChooser": {
+			"value": false
+		},
+		"DonationInterfaceEnableReferrerFilter": {
+			"value": false
+		},
+		"DonationInterfaceEnableSourceFilter": {
+			"value": false
+		},
+		"DonationInterfaceEnableFunctionsFilter": {
+			"value": false
+		},
+		"DonationInterfaceEnableIPVelocityFilter": {
+			"value": false
+		},
+		"DonationInterfaceEnableSessionVelocityFilter": {
+			"value": false
+		},
+		"DonationInterfaceEnableSystemStatus": {
+			"value": false
+		},
+		"DonationInterfaceLogClientErrors": {
+			"value": true
+		},
+		"DonationInterfaceEnableContributionTrackingQueue": {
+			"value": false
+		},
+		"DonationInterfaceGeoIpDbPath": {
+			"value": "/usr/share/GeoIP/GeoLite2-Country.mmdb"
+		},
 		"DonationInterfaceGatewayAdapters": {
-			"globalcollect": "GlobalCollectAdapter",
-			"globalcollect_orphan": "GlobalCollectOrphanAdapter",
-			"ingenico": "IngenicoAdapter",
-			"ingenico_orphan": "IngenicoOrphanAdapter",
-			"amazon": "AmazonAdapter",
-			"adyen": "AdyenAdapter",
-			"astropay": "AstroPayAdapter",
-			"paypal_ec": "PaypalExpressAdapter",
-			"paypal": "PaypalLegacyAdapter"
+			"value": {
+				"globalcollect": "GlobalCollectAdapter",
+				"globalcollect_orphan": "GlobalCollectOrphanAdapter",
+				"ingenico": "IngenicoAdapter",
+				"ingenico_orphan": "IngenicoOrphanAdapter",
+				"amazon": "AmazonAdapter",
+				"adyen": "AdyenAdapter",
+				"astropay": "AstroPayAdapter",
+				"paypal_ec": "PaypalExpressAdapter",
+				"paypal": "PaypalLegacyAdapter"
+			}
 		},
-		"DonationInterfaceAllowedHtmlForms": []
+		"DonationInterfaceAllowedHtmlForms": {
+			"value": []
+		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
