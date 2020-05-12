@@ -479,8 +479,7 @@
 			"value": {
 				"enable": true,
 				"target_execute_time": 300,
-				"time_buffer": 1200,
-				"_merge_strategy": "array_plus"
+				"time_buffer": 1200
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -489,8 +488,7 @@
 		},
 		"DonationInterface3DSRules": {
 			"value": {
-				"INR": [],
-				"_merge_strategy": "array_plus"
+				"INR": []
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -509,8 +507,7 @@
 				"U": true,
 				"Y": false,
 				"0": true,
-				"": false,
-				"_merge_strategy": "array_plus"
+				"": false
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -535,8 +532,7 @@
 				"Y": 0,
 				"Z": 50,
 				"0": 25,
-				"": 100,
-				"_merge_strategy": "array_plus"
+				"": 100
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -549,8 +545,7 @@
 				"U": true,
 				"Y": false,
 				"0": true,
-				"": false,
-				"_merge_strategy": "array_plus"
+				"": false
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -575,8 +570,7 @@
 				"Y": 0,
 				"Z": 50,
 				"0": 25,
-				"": 100,
-				"_merge_strategy": "array_plus"
+				"": 100
 			},
 			"merge_strategy": "array_plus"
 		},
@@ -645,8 +639,7 @@
 				"reject": [
 					-1,
 					-1
-				],
-				"_merge_strategy": "array_plus_2d"
+				]
 			},
 			"merge_strategy": "array_plus_2d"
 		},
