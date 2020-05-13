@@ -34,16 +34,16 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	protected function filter() {
 		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 
-		// first, handle the whitelist / blacklist before you do anything else.
-		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPWhitelist' ) ) ) {
-			$this->gateway_logger->debug( "IP present in whitelist." );
-			$this->cfo->addRiskScore( 0, 'IPWhitelist' );
+		// first, handle the allow / deny list before you do anything else.
+		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPAllowList' ) ) ) {
+			$this->gateway_logger->debug( "IP present in allow list." );
+			$this->cfo->addRiskScore( 0, 'IPAllowList' );
 			return true;
 		}
-		// TODO: this blacklist business should happen elsewhere, and on every hit.
-		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPBlacklist' ) ) ) {
-			$this->gateway_logger->info( "IP $user_ip present in blacklist." );
-			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPBlacklist' );
+		// TODO: this deny list business should happen elsewhere, and on every hit.
+		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPDenyList' ) ) ) {
+			$this->gateway_logger->info( "IP $user_ip present in deny list." );
+			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPDenyList' );
 			return true;
 		}
 

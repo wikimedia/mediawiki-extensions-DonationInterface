@@ -496,7 +496,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				// Merge response into our transaction data.
 				// TODO: Use getFormattedData instead.
 				// FIXME: We don't want to allow overwriting of ctid, need a
-				// blacklist of protected fields.
+				// list of protected fields.
 				$this->addResponseData( $this->unstageKeys( $response ) );
 
 				// Complete if payment already finalized

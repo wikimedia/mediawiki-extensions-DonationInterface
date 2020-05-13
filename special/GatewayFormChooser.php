@@ -204,7 +204,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * Gets all the valid forms that match the provided parameters.
 	 * These parameters should exactly match the params in getOneValidForm.
 	 * TODO: Should be passed as a hash or object.
-	 * $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
+	 * $wgDonationInterfaceAllowedHtmlForms Contains all enabled forms and meta data
 	 * @param string|null $country Optional country code filter
 	 * @param string|null $currency Optional currency code filter
 	 * @param string|null $payment_method Optional payment method filter
@@ -344,7 +344,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * Gets the array of settings and capability definitions for the form
 	 * specified in $form_key.
 	 * $wgDonationInterfaceAllowedHtmlForms is the global array
-	 * of whitelisted (enabled) forms.
+	 * of enabled forms.
 	 * @param string $form_key The name of the form (ffname) we're looking
 	 * for. Should map to a first-level key in
 	 * $wgDonationInterfaceAllowedHtmlForms.
@@ -615,7 +615,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	/**
 	 * Get the best defined error form for all your error form needs!
 	 * ...based on gateway, method, and optional submethod.
-	 * $wgDonationInterfaceAllowedHtmlForms Contains all whitelisted forms and meta data
+	 * $wgDonationInterfaceAllowedHtmlForms Contains all enabled forms and meta data
 	 * @param string $gateway The gateway used for the payment that failed
 	 * @param string $payment_method The code for the payment method that failed
 	 * @param string|null $payment_status Specific status code for donation, from @see FinalStatus

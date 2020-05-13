@@ -3,7 +3,7 @@
 /**
  * Not validated, but currently required by the AstroPay API. Needs to
  * be 13 digits for MX and 8-9 digits for PE, and random so they don't
- * blacklist a repeated one.
+ * block a repeated one.
  * TODO: Remove this when they fix it
  */
 class DummyFiscalNumber implements StagingHelper {

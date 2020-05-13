@@ -1355,7 +1355,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * pieces of default data particular to the gateway. It will be up to
 	 * the child class to poke the data through to the data object
 	 * (probably with $this->addRequestData()).
-	 * DO NOT set default payment information here (or anywhere, really).
+	 * DO NOT set default payment informati
+	 * on here (or anywhere, really).
 	 * That would be naughty.
 	 * @param array $options associative array of values as given to the
 	 *  GateWayType constructor.

@@ -100,5 +100,6 @@
 	"donate_interface-other": "Altro",
 	"donate_interface-noscript-msg": "Pararìa che te gavi mia el JavaScript intacà, o el to browser no'l lo suporta mia.\nPar motivi de sicuressa, par el modulo de donassion ghe vole pa forsa JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Se no te poli o no te voli intacar el JavaScript, te poli istesso contribuir visitando:",
-	"donate_interface-anon-message": "Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori."
+	"donate_interface-anon-message": "Par piaser, fà védar el me nome (rente el me comento) in te la lista publica dei donatori.",
+	"donate_interface-continue": "Sèvita"
 }
