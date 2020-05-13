@@ -92,9 +92,6 @@ window.validate_personal = function () {
 	}
 
 	function setError( field, message ) {
-
-		$( 'input:radio[name=payment_submethod]' ).prop( 'checked', false );
-
 		errorsPresent = true;
 		$( '#' + field ).addClass( 'errorHighlight' );
 		$( '#' + field + 'Msg' )

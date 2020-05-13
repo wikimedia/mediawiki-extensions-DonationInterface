@@ -54,6 +54,13 @@
 		} );
 	}
 
+	function resetSubmethod() {
+		var $submethodInput = $( 'input:radio[name=payment_submethod]' );
+		if ( $submethodInput.length > 1 ) {
+			$submethodInput.prop( 'checked', false );
+		}
+	}
+
 	/**
 	 * Get a trinary value from a checkbox that may exist, falling back
 	 *  to a querystring value.
@@ -183,6 +190,7 @@
 		submit: submitForm,
 		callDonateApi: callDonateApi,
 		isIframe: isIframe,
+		resetSubmethod: resetSubmethod,
 		getOptIn: getOptIn
 	};
 
@@ -197,14 +205,15 @@
 		// If submethods are visible, and a submethod is already selected on
 		// page load, clear it.
 		if ( $( 'input[name="payment_submethod"]:checked:visible' ).length > 0 ) {
-			$( 'input[name="payment_submethod"]' ).attr( 'checked', false );
+			di.forms.resetSubmethod();
 		}
 
-		// Submit on submethod click if valid, otherwise do nothing.
+		// Submit on submethod click if valid, otherwise clear submethod selection.
 		$( 'input[name="payment_submethod"]' ).on( 'click', function () {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
 			} else {
+				di.forms.resetSubmethod();
 				return false;
 			}
 		} );
