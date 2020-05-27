@@ -38,7 +38,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		parent::setUp();
 
 		$config = TestingProviderConfiguration::createForProvider(
-			'ingenico', $this->smashPigGlobalConfig
+			'ingenico', self::$smashPigGlobalConfig
 		);
 		TestingContext::get()->providerConfigurationOverride = $config;
 

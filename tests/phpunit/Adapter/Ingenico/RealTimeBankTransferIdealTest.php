@@ -39,7 +39,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 		$this->markTestSkipped( 'RTBT not implemented' );
 		$config = TestingProviderConfiguration::createForProvider(
 			'ingenico',
-			$this->smashPigGlobalConfig
+			self::$smashPigGlobalConfig
 		);
 		TestingContext::get()->providerConfigurationOverride = $config;
 

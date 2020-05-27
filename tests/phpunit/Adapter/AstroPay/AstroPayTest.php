@@ -51,7 +51,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		TestingContext::get()->providerConfigurationOverride =
 			TestingProviderConfiguration::createForProvider(
 				'astropay',
-				$this->smashPigGlobalConfig
+				self::$smashPigGlobalConfig
 			);
 	}
 

@@ -40,17 +40,17 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$req = new TestingRequest();
 		RequestContext::getMain()->setRequest( $req );
 
-		$this->adapter = new TestingGenericAdapter();
-		$this->adapter->addRequestData( [
-			'amount' => '12',
-			'currency' => 'EUR',
-		] );
-
 		$this->setMwGlobals( [
 			'wgTitle' => Title::newFromText( 'nonsense is apparently fine' )
 		] );
 
 		parent::setUp();
+
+		$this->adapter = new TestingGenericAdapter();
+		$this->adapter->addRequestData( [
+			'amount' => '12',
+			'currency' => 'EUR',
+		] );
 	}
 
 	public function formCases() {

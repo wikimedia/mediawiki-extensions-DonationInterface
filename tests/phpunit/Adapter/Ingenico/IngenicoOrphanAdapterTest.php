@@ -39,7 +39,7 @@ class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationIn
 		TestingContext::get()->providerConfigurationOverride =
 			TestingProviderConfiguration::createForProvider(
 				'ingenico',
-				$this->smashPigGlobalConfig
+				self::$smashPigGlobalConfig
 			);
 
 		$this->setMwGlobals( [

@@ -71,11 +71,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		];
 	}
 
-	public function setUp() {
-		$this->setMwGlobals( [ 'wgDonationInterfaceEnableContributionTrackingQueue' => true ] );
-		parent::setUp();
-	}
-
 	/**
 	 * @covers DonationData::__construct
 	 * @covers DonationData::getData

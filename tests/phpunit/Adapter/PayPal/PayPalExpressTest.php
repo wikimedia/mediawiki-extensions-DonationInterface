@@ -34,7 +34,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	public function setUp() {
 		parent::setUp();
 		TestingContext::get()->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
-			'paypal', $this->smashPigGlobalConfig
+			'paypal', self::$smashPigGlobalConfig
 		);
 		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',

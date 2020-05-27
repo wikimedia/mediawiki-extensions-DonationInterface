@@ -38,7 +38,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 		TestingContext::get()->providerConfigurationOverride =
 			TestingProviderConfiguration::createForProvider(
 				'globalcollect',
-				$this->smashPigGlobalConfig
+				self::$smashPigGlobalConfig
 			);
 
 		$this->setMwGlobals( [

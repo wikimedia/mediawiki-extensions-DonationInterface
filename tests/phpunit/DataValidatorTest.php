@@ -22,6 +22,10 @@
  * @category	UnitTesting
  */
 class DataValidatorTest extends PHPUnit\Framework\TestCase {
+	public function setUp() {
+		DonationInterfaceTestCase::setUpSmashPigContext();
+	}
+
 	/**
 	 * Test the Luhn check algorithm
 	 * @dataProvider luhnDataProvider

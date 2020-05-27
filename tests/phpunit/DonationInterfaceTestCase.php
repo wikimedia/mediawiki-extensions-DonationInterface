@@ -51,7 +51,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	protected $gatewayAdapter;
 
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
-	public $smashPigGlobalConfig;
+	public static $smashPigGlobalConfig;
 
 	/**
 	 * @param string|null $name The name of the test case
@@ -85,13 +85,17 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
+		self::setUpSmashPigContext();
+		parent::setUp();
+	}
+
+	public static function setUpSmashPigContext() {
 		// Replace real SmashPig context with test version that lets us
 		// override provider configurations that may be set in code
-		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
-		TestingContext::init( $this->smashPigGlobalConfig );
+		self::$smashPigGlobalConfig = TestingGlobalConfiguration::create();
+		TestingContext::init( self::$smashPigGlobalConfig );
 		Context::get()->setSourceType( 'payments' );
 		Context::get()->setSourceName( 'DonationInterface' );
-		parent::setUp();
 	}
 
 	protected function tearDown() {
@@ -129,7 +133,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	 */
 	protected function setSmashPigProvider( $provider ) {
 		$providerConfig = TestingProviderConfiguration::createForProvider(
-			$provider, $this->smashPigGlobalConfig
+			$provider, self::$smashPigGlobalConfig
 		);
 		TestingContext::get()->providerConfigurationOverride = $providerConfig;
 		return $providerConfig;
@@ -577,6 +581,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 		// Reset SmashPig context
 		Context::set( null );
+		self::setUpSmashPigContext();
 		// Clear out our HashBagOStuff, used for testing
 		wfGetMainCache()->clear();
 		DonationLoggerFactory::$overrideLogger = null;
