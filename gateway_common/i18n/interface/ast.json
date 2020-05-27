@@ -392,5 +392,7 @@
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Una sola vegada",
 	"donate_interface-error-http-403": "Nun tienes permisu d'accesu pa esta páxina.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Zarráu temporalmente por mantenimientu",
+	"donate_interface-fundraiser-maintenance-notice": "Nesti momentu tamos faciendo un mantenimientu programáu y nun somos a aceutar donativos. Por favor, vuelvi a intentalo ceo. Si tienes dalguna entruga, manda un corréu a $1."
 }

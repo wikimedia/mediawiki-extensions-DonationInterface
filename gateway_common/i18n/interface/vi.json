@@ -395,5 +395,7 @@
 	"donate_interface-monthly-short": "Hàng tháng",
 	"donate_interface-onetime-short": "Một lần",
 	"donate_interface-error-http-403": "Bạn không có quyền truy cập trang này.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Tạm ngừng hoạt động để bảo trì",
+	"donate_interface-fundraiser-maintenance-notice": "Chúng tôi hiện đang thực hiện những công việc bảo trì định kỳ nên không nhận được tiền đóng góp. Xin vui lòng thử lại sau. Nếu bạn có thắc mắc, xin gửi thư điện tử cho $1."
 }

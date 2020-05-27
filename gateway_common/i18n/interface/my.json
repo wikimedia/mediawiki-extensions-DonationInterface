@@ -44,5 +44,6 @@
 	"donate_interface-donor-address": "လိပ်စာ",
 	"donate_interface-country": "နိုင်ငံ",
 	"donate_interface-description": "ဖော်ပြချက်",
-	"donate_interface-obt-customer_payment_reference": "ကိုးကား #"
+	"donate_interface-obt-customer_payment_reference": "ကိုးကား #",
+	"donate_interface-fundraiser-maintenance-header": "ထိန်းသိမ်းပြုပြင်ရန်အတွက် ယာယီ သုံးမရသေးပါ"
 }

@@ -406,5 +406,7 @@
 	"donate_interface-monthly-short": "毎月",
 	"donate_interface-onetime-short": "一度だけ",
 	"donate_interface-error-http-403": "あなたにはこのページへのアクセス権がありません。",
-	"donate_interface-statement": "ウィキメディア$1"
+	"donate_interface-statement": "ウィキメディア$1",
+	"donate_interface-fundraiser-maintenance-header": "メンテナンスのため一時的に停止中",
+	"donate_interface-fundraiser-maintenance-notice": "現在、定期的なメンテナンス作業を行っているため寄付を受け付けることができません。ご質問があれば、$1 にメールをください。"
 }

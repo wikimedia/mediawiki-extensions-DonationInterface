@@ -439,5 +439,7 @@
 	"donate_interface-emailprefs-thank-you-title": "Gracias",
 	"donate_interface-monthly-convert-action-button": "Donar mensualmente",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sí, quiero ayudar",
-	"donate_interface-monthly-convert-no-button-variant-006": "No, gracias"
+	"donate_interface-monthly-convert-no-button-variant-006": "No, gracias",
+	"donate_interface-fundraiser-maintenance-header": "Parado temporalmente por mantenimiento",
+	"donate_interface-fundraiser-maintenance-notice": "Actualmente estamos realizando mantenimiento programado y somos incapaces de aceptar donaciones. Inténtalo de nuevo en otro momento.  Si tienes alguna pregunta, por favor, envíanos un correo electrónico a $1."
 }

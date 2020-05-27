@@ -403,5 +403,7 @@
 	"donate_interface-monthly-short": "Mensile",
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
+	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1."
 }

@@ -4,5 +4,6 @@
 			"Imre"
 		]
 	},
-	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf unser Spendenformular JavaScript."
+	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, bedarf unser Spendenformular JavaScript.",
+	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuchen Sie es später erneut. Falls Sie irgendwelche Fragen haben, senden Sie bitte eine E-Mail an $1."
 }

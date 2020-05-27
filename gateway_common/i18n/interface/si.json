@@ -327,5 +327,6 @@
 	"donate_interface-onetime": "එක්-වතාවක පරිත්‍යාගයක් සිදු කරන්න",
 	"donate_interface-monthly-short": "මාසිකව",
 	"donate_interface-onetime-short": "එක්-වතාවක්",
-	"donate_interface-error-http-403": "මෙම පිටුවට පිවිසීමට ඔබට අවසර නැත."
+	"donate_interface-error-http-403": "මෙම පිටුවට පිවිසීමට ඔබට අවසර නැත.",
+	"donate_interface-fundraiser-maintenance-header": "නඩත්තුව සඳහා තාවකාලිකව මැඩපවත්වා ඇත"
 }

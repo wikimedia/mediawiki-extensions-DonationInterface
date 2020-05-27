@@ -411,5 +411,7 @@
 	"donate_interface-monthly-short": "Bulanan",
 	"donate_interface-onetime-short": "Sekali saja",
 	"donate_interface-error-http-403": "Anda tidak memiliki izin untuk mengakses halaman ini.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Dimatikan sementara untuk pemeliharaan",
+	"donate_interface-fundraiser-maintenance-notice": "Kami sedang melakukan pemeliharaan terjadwal dan tidak dapat menerima sumbangan. Silakan coba lagi nanti. Jika Anda memiliki pertanyaan, silakan kirim surel ke $1."
 }

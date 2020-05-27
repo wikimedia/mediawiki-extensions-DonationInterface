@@ -386,5 +386,7 @@
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Unic",
 	"donate_interface-error-http-403": "Tu non ha le permission de acceder a iste pagina.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Temporarimente foras de servicio pro mantenentia",
+	"donate_interface-fundraiser-maintenance-notice": "In iste momento, nos exeque un mantenentia programmate e non pote acceptar donationes. Per favor reproba bentosto. Si tu ha questiones, per favor invia e-mail a $1."
 }

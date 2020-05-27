@@ -340,5 +340,7 @@
 	"donate_interface-onetime": "Fé na donassion na vira sola",
 	"donate_interface-monthly-short": "Mensil",
 	"donate_interface-onetime-short": "Na vira",
-	"donate_interface-error-http-403": "It l'has pa ij përmess për vëdde sta pàgina-sì."
+	"donate_interface-error-http-403": "It l'has pa ij përmess për vëdde sta pàgina-sì.",
+	"donate_interface-fundraiser-maintenance-header": "Temporaneament giù për manutension",
+	"donate_interface-fundraiser-maintenance-notice": "I soma an camin ch'i foma na manutension pianificà e i podoma pa aceté dle donassion. Për piasì ch'a preuva torna tòst. S'a l'ha dle chestion, për piasì ch'a scriva a $1."
 }

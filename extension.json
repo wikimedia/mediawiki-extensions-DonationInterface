@@ -28,6 +28,7 @@
 		"GatewayFormChooser": "GatewayFormChooser",
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
+		"FundraiserMaintenance": "FundraiserMaintenance",
 		"GlobalCollectGateway": "GlobalCollectGateway",
 		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
 		"IngenicoGateway": "IngenicoGateway",
@@ -188,7 +189,8 @@
 		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
-		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php"
+		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
+		"FundraiserMaintenance": "special/FundraiserMaintenance.php"
 	},
 	"ResourceModules": {
 		"iframe.liberator": {
@@ -799,6 +801,9 @@
 		},
 		"DonationInterfaceAllowedHtmlForms": {
 			"value": []
+		},
+		"DonationInterfaceFundraiserMaintenance": {
+			"value": false
 		}
 	},
 	"manifest_version": 2

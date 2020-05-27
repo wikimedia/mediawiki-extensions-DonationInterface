@@ -22,16 +22,14 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	public function execute( $par ) {
-		global $wgContributionTrackingFundraiserMaintenance,
-			$wgContributionTrackingFundraiserMaintenanceUnsched,
+		global $wgDonationInterfaceFundraiserMaintenance,
 			$wgDonationInterfaceEnableFormChooser;
 
 		if ( !$wgDonationInterfaceEnableFormChooser ) {
 			throw new BadTitleError();
 		}
 
-		if ( $wgContributionTrackingFundraiserMaintenance
-			|| $wgContributionTrackingFundraiserMaintenanceUnsched ) {
+		if ( $wgDonationInterfaceFundraiserMaintenance ) {
 			$this->getOutput()->redirect( Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL(), '302' );
 			return;
 		}

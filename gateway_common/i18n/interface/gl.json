@@ -392,5 +392,7 @@
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Única",
 	"donate_interface-error-http-403": "Non ten permiso para acceder a esta páxina.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Fóra de servizo temporalmente por mantemento",
+	"donate_interface-fundraiser-maintenance-notice": "Estamos levando a cabo tarefas programadas de mantemento e non podemos aceptar doazóns. Inténtao de novo máis tarde. Se tes algunha pregunta, envía un correo ao enderezo $1."
 }

@@ -39,5 +39,6 @@
 	"donate_interface-monthlybox-content": "Maandelijkse donaties worden verwerkt op de tweede dag van iedere maand. Je kunt deze machtiging op ieder moment intrekken.",
 	"donate_interface-monthlybox-bottom": "Je donatie wordt veilig verwerkt.",
 	"donate_interface-monthly-cancel": "Maandelijkse betalingen worden gedebiteerd door de Wikimedia Foundation, totdat je ons verwittigd om ze te staken.",
-	"donate_interface-error-http-403": "Je hebt geen rechten om deze pagina te bekijken."
+	"donate_interface-error-http-403": "Je hebt geen rechten om deze pagina te bekijken.",
+	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als je vragen hebt."
 }

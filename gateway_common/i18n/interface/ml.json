@@ -356,5 +356,6 @@
 	"donate_interface-onetime": "ഒറ്റത്തവണ സംഭാവന നടപ്പിലാക്കുക",
 	"donate_interface-monthly-short": "മാസംതോറും",
 	"donate_interface-onetime-short": "ഒറ്റത്തവണ",
-	"donate_interface-error-http-403": "ഈ താളിൽ പ്രവേശിക്കുവാൻ താങ്കൾക്ക് അനുമതിയില്ല"
+	"donate_interface-error-http-403": "ഈ താളിൽ പ്രവേശിക്കുവാൻ താങ്കൾക്ക് അനുമതിയില്ല",
+	"donate_interface-fundraiser-maintenance-header": "പരിപാലനത്തിനായി താത്കാലികമായി പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു"
 }

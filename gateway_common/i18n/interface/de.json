@@ -424,5 +424,7 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, ich spende monatlich, aber eine andere Summe.",
 	"donate_interface-monthly-convert-action-button": "Monatlich spenden",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
-	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke"
+	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke",
+	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
+	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1."
 }

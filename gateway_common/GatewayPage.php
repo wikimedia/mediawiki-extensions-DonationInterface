@@ -63,7 +63,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @param string|null $par parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgContributionTrackingFundraiserMaintenance, $wgContributionTrackingFundraiserMaintenanceUnsched;
+		global $wgDonationInterfaceFundraiserMaintenance;
 
 		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
@@ -82,8 +82,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getContext()->setLanguage( $language );
 		}
 
-		if ( $wgContributionTrackingFundraiserMaintenance
-			|| $wgContributionTrackingFundraiserMaintenanceUnsched ) {
+		if ( $wgDonationInterfaceFundraiserMaintenance ) {
 			$this->getOutput()->redirect( Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL(), '302'
 			);
 			return;

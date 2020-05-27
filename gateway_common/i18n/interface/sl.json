@@ -367,5 +367,7 @@
 	"donate_interface-onetime": "Dajte enkratni prispevek",
 	"donate_interface-monthly-short": "Mesečno",
 	"donate_interface-onetime-short": "Enkratno",
-	"donate_interface-error-http-403": "Za dostop do te strani nimate dovoljenja."
+	"donate_interface-error-http-403": "Za dostop do te strani nimate dovoljenja.",
+	"donate_interface-fundraiser-maintenance-header": "Trenutno ne deluje zaradi vzdrževalnih del",
+	"donate_interface-fundraiser-maintenance-notice": "Trenutno izvajamo načrtovana vzdrževalna dela in ne moremo sprejemati donacij.  Prosimo, kmalu poskusite znova.  Če imate kakršna koli vprašanja, nam pišite na $1."
 }

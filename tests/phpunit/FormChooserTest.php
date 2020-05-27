@@ -69,7 +69,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 
 	public function testMaintenanceMode_Redirect() {
 		$this->setMwGlobals( [
-			'wgContributionTrackingFundraiserMaintenance' => true,
+			'wgDonationInterfaceFundraiserMaintenance' => true,
 		] );
 
 		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL( '', false, PROTO_CURRENT );
