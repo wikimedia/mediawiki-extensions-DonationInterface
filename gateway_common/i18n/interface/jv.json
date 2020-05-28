@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Diki Ananta",
 			"NoiX180"
 		]
 	},
@@ -139,7 +140,7 @@
 	"donate_interface-donor-card": "Kertu krèdit",
 	"donate_interface-donor-card-num": "Nomer kertu",
 	"donate_interface-donor-expiration": "Tanggal kedaluwarsa",
-	"donate_interface-donor-security": "Kode kamanan",
+	"donate_interface-donor-security": "Kodhe kamanan",
 	"donate_interface-donor-submit": "Sumbang",
 	"donate_interface-donor-currency-msg": "Sumbangan iki lagi digawé ing $1",
 	"donate_interface-card-name-amex": "American Express",
@@ -172,12 +173,12 @@
 	"donate_interface-error-msg-cvv": "CVV nèng mburiné kertu panjenengan",
 	"donate_interface-error-msg-captcha": "Captcha sing penjenengan isi salah. Mangga jajal manèh.",
 	"donate_interface-error-msg-captcha-please": "Kanggo kamanan kertu krèdit panjenengan, mangga tulisaké karakter sing katon nèng ndhuwur.",
-	"donate_interface-error-msg-cookies": "Urubaké cookie nèng pramban panjenengan.",
+	"donate_interface-error-msg-cookies": "Urubaké kuki nèng pangluru wèb panjenengan.",
 	"donate_interface-donate-error-try-a-different-card": "Mangga [$1 jajal kertu liya] utawa sawijining [$2 carané awak dhéwé kanggo ngawèhi] utawa ngubungi awak dhéwé nèng $3",
 	"donate_interface-donate-error-thank-you-for-your-support": "Matur nuwun sampung nyengkuyung!",
 	"php-response-declined": "Transaksi panjenengan ora bisa ditampa.",
 	"donate_interface-thankyou": "Matur nuwun sampun nyumbang!",
-	"donate_interface-post-transaction": "Rincian transaksi",
+	"donate_interface-post-transaction": "Rerincèn transaksi",
 	"donate_interface-cvv-explain": "<h4>Apa CVV kuwi?</h4>\n<p>Cardholder Verification Value (CVV): Angka telu utawa papat digit iki ngèwangi mesthèkaké yèn kertu fisik ana nèng tangané sing nduwèni. Iki uga ngèwangi nyegah saka panganggo sing ora dililakaké utawa tukang ngapusi.</p>\n<h4>Visa, Mastercard</h4>\n<p>Kodhé 3-digit ana ing mburi kertu Sampéyan, nèng njero bagéyan tapak asta.\nBiasané panèl tapak asta nduwèni rerangkèn angka, nanging namung 3 digit pungkasan sing kasebut kodhe CVV.</p>\n<h4>American Express</h4>\n<p>Kodhé <i>mesthi</i> ana <i>nèng ndhuwur</i> nomer rèkening sing njedhul nèng ngarep kertu.\nIng sapérangan, kodhé ana ing sisih kiwa kertu, nanging mesthi nèng ndhuwuré nomer rèkening.</p><br />",
 	"donate_interface-question-comment": "Pitakon utawa tanggepan? Kontak: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Awak dhéwé ngupayakaké mayaraké uwong sing kersa nyumbang nèng kabèh nagara. Kandhani awak dhéwé piyé supaya luwih mayar kanggo Sampéyan. Kirim saran Sampéyan nèng: $1.",
@@ -195,7 +196,7 @@
 	"donate_interface-middle": "Tengah",
 	"donate_interface-last": "Pungkasan",
 	"donate_interface-other": "Liya",
-	"donate_interface-noscript-msg": "Kaya-kayané JavaScript Sampéyan ora murub, utawa pramban Sampéyan ora nduwé kuwi.\nKanggo nyadhiyakaké playanan sing aman lan nyenengaké, formulir panyumbangan awak dhéwé mbutuhaké JavaScript.",
+	"donate_interface-noscript-msg": "Kaya-kayané JavaScript sampéyan ora murub, utawa pangluru wèb sampéyan ora nduwé kuwi.\nKanggo nyadhiyakaké playanan sing aman lan nyenengaké, formulir panyumbangan awak dhéwé mbutuhaké JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Yèn Sampéyan ora bisa utawa ora pingin ngurubaké JavaScript, Sampéyan isih bisa nyumbang mawa teka ing:",
 	"donate_interface-anon-message": "Nuwun daptar jeneng kula nèng daptar panyumbang umum.",
 	"donate_interface-donate-wikipedia": "Nyumbangi Wikipédia",
