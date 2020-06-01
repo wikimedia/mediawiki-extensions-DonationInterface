@@ -908,7 +908,16 @@ class DonationData implements LogPrefixProvider {
 		}
 		$ctid = $this->getVal( 'contribution_tracking_id' );
 		$tracking_data = $this->getCleanTrackingData( true );
-		$ctid = $this->sendToContributionTrackingQueue( $tracking_data, $ctid );
+
+		// Let's check that there's something new in $tracking_data to send to the queue
+		$last_saved_hash = $this->gateway->session_getData( 'ct_hash' );
+		$current_hash = sha1( serialize( $tracking_data ) );
+
+		if ( $current_hash !== $last_saved_hash ) {
+			$ctid = $this->sendToContributionTrackingQueue( $tracking_data, $ctid );
+			// Add a hash of the current tracking data to help prevent duplicate queue msgs
+			WmfFramework::setSessionValue( 'ct_hash', $current_hash );
+		}
 		return $ctid;
 	}
 
