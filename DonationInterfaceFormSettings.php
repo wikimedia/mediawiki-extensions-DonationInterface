@@ -715,8 +715,8 @@ $forms['adyen-usd'] = [
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb', 'jcb' ],
 	],
-	// Setting form chooser weight to zero so this form is not chosen as default
-	'selection_weight' => 0,
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
 ];
 
 $forms['adyen-nl'] = [
