@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Armando-Martin"
+			"Armando-Martin",
+			"MarcoAurelio"
 		]
 	},
-	"paypal_gateway-desc": "Proceso de pagos de Paypal"
+	"paypal_gateway-desc": "Proceso de pagos de PayPal"
 }
