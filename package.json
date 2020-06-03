@@ -10,11 +10,11 @@
 	},
 	"devDependencies": {
 		"eslint-config-wikimedia": "0.12.0",
-		"grunt": "1.0.4",
-		"grunt-banana-checker": "0.8.1",
+		"grunt": "1.1.0",
+		"grunt-banana-checker": "0.9.0",
 		"grunt-contrib-watch": "1.1.0",
 		"grunt-eslint": "21.0.0",
-		"grunt-stylelint": "0.11.1",
-		"stylelint-config-wikimedia": "0.6.0"
+		"grunt-stylelint": "0.15.0",
+		"stylelint-config-wikimedia": "0.10.1"
 	}
 }
