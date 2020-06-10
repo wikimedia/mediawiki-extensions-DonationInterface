@@ -22,6 +22,7 @@ class DonationData implements LogPrefixProvider {
 	protected $dataSources = [];
 	protected $gateway;
 	protected $gatewayID;
+
 	/**
 	 * @var \Psr\Log\LoggerInterface
 	 */
@@ -908,12 +909,9 @@ class DonationData implements LogPrefixProvider {
 		}
 		$ctid = $this->getVal( 'contribution_tracking_id' );
 		$tracking_data = $this->getCleanTrackingData( true );
-
-		// Let's check that there's something new in $tracking_data to send to the queue
-		$last_saved_hash = $this->gateway->session_getData( 'ct_hash' );
 		$current_hash = sha1( serialize( $tracking_data ) );
 
-		if ( $current_hash !== $last_saved_hash ) {
+		if ( $this->trackingDataUpdated( $current_hash ) ) {
 			$ctid = $this->sendToContributionTrackingQueue( $tracking_data, $ctid );
 			// Add a hash of the current tracking data to help prevent duplicate queue msgs
 			WmfFramework::setSessionValue( 'ct_hash', $current_hash );
@@ -1058,6 +1056,17 @@ class DonationData implements LogPrefixProvider {
 			$posted = ( array_key_exists( 'REQUEST_METHOD', $_SERVER ) && WmfFramework::isPosted() );
 		}
 		return $posted;
+	}
+
+	/**
+	 * @param array $tracking_data
+	 * @return boolean
+	 */
+	private function trackingDataUpdated( $current_hash ) {
+		// Let's check that there's something new in $tracking_data to send to the queue
+		$last_saved_hash = $this->gateway->session_getData( 'ct_hash' );
+		$hasNewData = $current_hash !== $last_saved_hash;
+		return $hasNewData;
 	}
 
 	private function expungeNulls() {
