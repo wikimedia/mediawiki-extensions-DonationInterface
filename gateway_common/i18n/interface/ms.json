@@ -366,5 +366,7 @@
 	"donate_interface-monthly-short": "Setiap bulan",
 	"donate_interface-onetime-short": "Sekali sahaja",
 	"donate_interface-error-http-403": "Anda tidak dibenarkan untuk memasuki laman ini.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Ditutup Buat Sementara untuk Kerja Penyelenggaraan",
+	"donate_interface-fundraiser-maintenance-notice": "Kami sedang melakukan kerja penyelenggaraan berjadual, oleh itu kami tidak dapat menerima dermaan. Sila cuba lagi nanti. Jika anda ada apa-apa soalan, sila e-melkan ke $1."
 }

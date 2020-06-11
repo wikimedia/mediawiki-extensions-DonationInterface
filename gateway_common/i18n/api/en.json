@@ -44,6 +44,7 @@
 	"apihelp-donate-param-variant": "Indicates which form variant the donor has filled out.",
 	"apihelp-donate-param-opt_in": "Indicates that the donor has opted in to fundraising emails.",
 	"apihelp-donate-param-employer": "Employer name",
+	"apihelp-donate-param-employer_id": "Employer ID",
 	"apihelp-donate-example-1": "Make a donation",
 	"apihelp-logPaymentsFormError-description": "This API logs client-side donation form errors.",
 	"apihelp-logPaymentsFormError-summary": "This API logs client-side donation form errors.",
@@ -55,5 +56,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Error's stack trace, when available",
 	"apihelp-di_recurring_convert-summary": "This API is used when a donor agrees to add a monthly donation after completing a successful one-time donation.",
 	"apihelp-di_recurring_convert-param-amount": "The amount of the monthly donation.",
-	"apihelp-di_recurring_convert-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc."
+	"apihelp-di_recurring_convert-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc.",
+	"apihelp-employerSearch-description": "This API allow you to search for employers participating in the WMF matching gifts program.",
+	"apihelp-employerSearch-summary": "This API allow you to search for employers participating in the WMF matching gifts program.",
+	"apihelp-employerSearch-param-employer": "Which employer to search for e.g. Red Cross, WWF, Salvation Army, etc. ",
+	"apihelp-employerSearch-example-1": "Search an employer"
 }

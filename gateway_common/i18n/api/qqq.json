@@ -62,6 +62,7 @@
 	"apihelp-donate-param-variant": "{{doc-apihelp-param|donate|variant}}",
 	"apihelp-donate-param-opt_in": "{{doc-apihelp-param|donate|opt_in}}",
 	"apihelp-donate-param-employer": "{{doc-apihelp-param|donate|employer}}",
+	"apihelp-donate-param-employer_id": "{{doc-apihelp-param|donate|employer_id}}",
 	"apihelp-donate-example-1": "{{doc-apihelp-example|donate}}",
 	"apihelp-logPaymentsFormError-description": "{{doc-apihelp-description|logPaymentsFormError}}",
 	"apihelp-logPaymentsFormError-summary": "{{doc-apihelp-summary|logPaymentsFormError}}",
@@ -73,5 +74,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "{{doc-apihelp-param|logPaymentsFormError|stack}}",
 	"apihelp-di_recurring_convert-summary": "{{doc-apihelp-summary|di_recurring_convert}}",
 	"apihelp-di_recurring_convert-param-amount": "{{doc-apihelp-param|di_recurring_convert|amount}}",
-	"apihelp-di_recurring_convert-param-gateway": "{{doc-apihelp-param|di_recurring_convert|gateway}}"
+	"apihelp-di_recurring_convert-param-gateway": "{{doc-apihelp-param|di_recurring_convert|gateway}}",
+	"apihelp-employerSearch-description": "{{doc-apihelp-description|employerSearch}}",
+	"apihelp-employerSearch-summary": "{{doc-apihelp-summary|employerSearch}}",
+	"apihelp-employerSearch-param-employer": "{{doc-apihelp-param|employerSearch|employer}}",
+	"apihelp-employerSearch-example-1": "{{doc-apihelp-example|employerSearch}}"
 }

@@ -379,5 +379,7 @@
 	"donate_interface-monthly-short": "Ай һайын",
 	"donate_interface-onetime-short": "Бер тапҡыр",
 	"donate_interface-error-http-403": "Һеҙҙең биткә инеү хоҡуғығыҙ юҡ",
-	"donate_interface-statement": "Викимедиа $1"
+	"donate_interface-statement": "Викимедиа $1",
+	"donate_interface-fundraiser-maintenance-header": "Техник хеҙмәтләндереү өсөн ваҡытлыса һүндерелде",
+	"donate_interface-fundraiser-maintenance-notice": "Хәҙерге ваҡытта техник хеҙмәтләндереү үткәрелә, беҙ иғәнә ҡабул итә алмайбыҙ. Һуңыраҡ ҡабатлап ҡарағыҙ. Һорауҙарығыҙ булһа $1 адресына яҙығыҙ."
 }

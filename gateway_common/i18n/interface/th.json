@@ -335,5 +335,6 @@
 	"donate_interface-onetime": "ทำการบริจาคแบบครั้งเดียว",
 	"donate_interface-monthly-short": "รายเดือน",
 	"donate_interface-onetime-short": "ครั้งเดียว",
-	"donate_interface-error-http-403": "คุณไม่มีสิทธิ์เข้าถึงหน้านี้"
+	"donate_interface-error-http-403": "คุณไม่มีสิทธิ์เข้าถึงหน้านี้",
+	"donate_interface-fundraiser-maintenance-header": "ระงับการให้บริการชั่วคราวเนื่องจากอยู่ในระหว่างการบำรุงรักษา"
 }

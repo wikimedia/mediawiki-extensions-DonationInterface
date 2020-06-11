@@ -376,14 +376,12 @@ Non-critical queues:
 'banner-history': Banner history log ID-contribution tracking ID associations
     that go in Drupal in banner_history_contribution_associations.
     See crm/modules/queue2civicrm/banner_history.
-'contribution_tracking': Optional queue for saving contribution tracking data
-	to the contribution tracking table for the purpose of decoupling from the
-	database itself.
+'contribution_tracking': Queue for saving data about the source of donations
+    to the contribution tracking table without needing a direct db connection.
 
-When this is true, a contribution tracking ID is generated from a sequence
-generator, and tracking information is inserted into the contribution tracking
-queue, as opposed to being inserted into the database directly.
-$wgDonationInterfaceEnableContributionTrackingQueue = false;
+Contribution tracking IDs are generated from a sequence generator and used to
+generate unique merchant references for payments. These are also used to prefix
+log entries about a donation attempt.
 
 ==== Fraud filters and blocking ====
 

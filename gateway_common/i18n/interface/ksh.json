@@ -400,5 +400,7 @@
 	"donate_interface-monthly-short": "Jeede Mohnd",
 	"donate_interface-onetime-short": "Eijmohl",
 	"donate_interface-error-http-403": "Do häs nit dat Rääsch, op heh di Sigg zohzejriife",
-	"donate_interface-statement": "Wikkimehdija $1"
+	"donate_interface-statement": "Wikkimehdija $1",
+	"donate_interface-fundraiser-maintenance-header": "Jraad em Momang erongerjefahre för de Wahdong",
+	"donate_interface-fundraiser-maintenance-notice": "Mer sin jrahd en jeplante Waadong am Maache, un künne dröm kein Schpände aannämme. Bes esu johd un versöhg et bald wider. Schegg en <i lang=\"en\" xml:lang=\"en\" dir=\"ltr\" title=\"„de eläktrohnesche Poß“\">e-mail</i>-Brehv aan di Addräß <code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">$1</code> wann De Frohre häs."
 }

@@ -374,5 +374,6 @@
 	"donate_interface-onetime": "Egyszeri adományozás",
 	"donate_interface-monthly-short": "Havi",
 	"donate_interface-onetime-short": "Egyszeri",
-	"donate_interface-error-http-403": "Nincs jogosultsága ennek a lapnak az eléréséhez."
+	"donate_interface-error-http-403": "Nincs jogosultsága ennek a lapnak az eléréséhez.",
+	"donate_interface-fundraiser-maintenance-header": "Karbantartás miatt időlegesen leállítva"
 }

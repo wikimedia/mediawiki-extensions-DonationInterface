@@ -380,5 +380,7 @@
 	"donate_interface-monthly-short": "All Mount",
 	"donate_interface-onetime-short": "Eemol",
 	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Temporär net disponibel wéint Maintenance",
+	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1."
 }

@@ -135,6 +135,7 @@
 			wmf_token: $( '#wmf_token' ).val(),
 			opt_in: getOptIn(),
 			employer: $( '#employer' ).val(),
+			employer_id: $( '#employer_id' ).val(),
 			format: 'json'
 		};
 

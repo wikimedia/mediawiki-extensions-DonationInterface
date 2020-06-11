@@ -175,6 +175,7 @@ class DataValidator {
 				'last_name' => 'validate_name',
 				'name' => 'validate_name',
 				'employer' => 'validate_name',
+				'employer_id' => 'validate_numeric',
 			],
 		];
 

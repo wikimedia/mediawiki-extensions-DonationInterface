@@ -371,5 +371,7 @@
 	"donate_interface-statement": "Викимедија $1",
 	"donate_interface-emailprefs-thank-you-title": "Хвала вам!",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Да, желим да помогнем!",
-	"donate_interface-monthly-convert-no-button-variant-006": "Не, хвала."
+	"donate_interface-monthly-convert-no-button-variant-006": "Не, хвала.",
+	"donate_interface-fundraiser-maintenance-header": "Привремено недоступно ради одржавања",
+	"donate_interface-fundraiser-maintenance-notice": "Тренутно обављамо редовно одржавање и нисмо у могућности да прихватимо донације. Покушајте поново ускоро. Ако имате било каквих питања, пошаљите имејл на $1."
 }

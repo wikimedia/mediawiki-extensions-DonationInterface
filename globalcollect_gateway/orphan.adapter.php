@@ -119,46 +119,29 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 			// We already have the info.
 			return [];
 		}
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'ContributionTracking' ) ) {
-			$this->logger->error( 'We needed to get contribution_tracking data but cannot on this platform!' );
-			return [];
-		}
-		$db = ContributionTrackingProcessor::contributionTrackingConnection();
-
-		if ( !$db ) {
-			$this->logger->error( 'There is something terribly wrong with your Contribution Tracking database. fixit.' );
-			throw new RuntimeException( 'Might as well fall over.' );
-		}
 
 		$ctid = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-
 		$data = [];
 
-		// if contrib tracking id is not already set, we need to insert the data, otherwise update
 		if ( $ctid ) {
-			$res = $db->select(
-				'contribution_tracking',
-				[
-					'contribution_id',
-					'utm_source',
-					'utm_campaign',
-					'utm_medium',
-					'ts'
-				],
-				[ 'id' => $ctid ]
-			);
-			// Fixme: if we get more than one row back, MySQL is broken
-			foreach ( $res as $thing ) {
-				$data['contribution_id'] = $thing->contribution_id;
-				$data['utm_source'] = $thing->utm_source;
-				$data['utm_campaign'] = $thing->utm_campaign;
-				$data['utm_medium'] = $thing->utm_medium;
-				$data['ts'] = $thing->ts;
-				$msg = '';
-				foreach ( $data as $key => $val ) {
-					$msg .= "$key = $val ";
-				}
-				$this->logger->info( "$ctid: Found UTM Data. $msg" );
+			// This should only ever execute under drupal/CiviCRM
+			$data = db_select( 'contribution_tracking', 'contribution_tracking' )
+				->fields(
+					'contribution_tracking',
+					[
+						'contribution_id',
+						'utm_source',
+						'utm_campaign',
+						'utm_medium',
+						'ts'
+					]
+				)
+				->condition( 'id', $ctid )
+				->execute()
+				->fetchAssoc();
+
+			if ( !empty( $data ) ) {
+				$this->logger->info( "$ctid: Found UTM Data. " . print_r( $data, true ) );
 				return $data;
 			}
 		}

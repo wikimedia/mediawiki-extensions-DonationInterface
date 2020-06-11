@@ -407,5 +407,7 @@
 	"donate_interface-monthly-short": "Månatlig",
 	"donate_interface-onetime-short": "Engångs",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Tillfälligt nere för underhåll",
+	"donate_interface-fundraiser-maintenance-notice": "Vi utför planerat underhåll och inte kan ta emot donationer.  Försök igen snart.  Om du har några frågor, vänligen maila $1."
 }

@@ -5,5 +5,6 @@
 		]
 	},
 	"donate_interface-email-unsub-warning": "Hiermit entscheiden Sie sich, keine E-Mails mehr von der Wikimedia Foundation zu erhalten, die Spendern zugesandt werden. Sie könnten allerdings immer noch E-Mails erhalten, sofern diese E-Mail-Adresse mit einem Benutzerkonto eines Wikimedia-Projekts verknüpft ist. Im Fall von Fragen, können Sie sich gerne ein E-Mail an <a href=\"mailto:$1\">$1</a> senden.",
-	"donate_interface-bank_transfer_message": "Als Zahlungsempfänger wird «Global Collect» auf Ihrem Kontoauszug angegeben. «Global Collect» ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie bitte ein E-Mail an $1."
+	"donate_interface-bank_transfer_message": "Als Zahlungsempfänger wird «Global Collect» auf Ihrem Kontoauszug angegeben. «Global Collect» ist berechtigt, Zahlungen im Auftrag der Wikimedia Foundation zu akzeptieren sowie zu verarbeiten. Vergessen Sie bitte nicht, die hier angegebene Referenznummer bei der Überweisung anzugeben. Falls Sie Fragen oder Beschwerden haben, senden Sie bitte ein E-Mail an $1.",
+	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte ein E-Mail an $1."
 }

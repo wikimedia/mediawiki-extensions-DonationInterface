@@ -28,6 +28,7 @@
 		"GatewayFormChooser": "GatewayFormChooser",
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
+		"FundraiserMaintenance": "FundraiserMaintenance",
 		"GlobalCollectGateway": "GlobalCollectGateway",
 		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
 		"IngenicoGateway": "IngenicoGateway",
@@ -45,7 +46,8 @@
 		"di_amazon_bill": "AmazonBillingApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
-		"logPaymentsFormError": "ClientErrorApi"
+		"logPaymentsFormError": "ClientErrorApi",
+		"employerSearch": "EmployerSearchAPI"
 	},
 	"MessagesDirs": {
 		"DonationInterface": [
@@ -77,6 +79,7 @@
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"ClientErrorApi": "gateway_common/clientError.api.php",
+		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
@@ -186,7 +189,8 @@
 		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
-		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php"
+		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
+		"FundraiserMaintenance": "special/FundraiserMaintenance.php"
 	},
 	"ResourceModules": {
 		"iframe.liberator": {
@@ -197,6 +201,10 @@
 		},
 		"ext.donationInterface.employerExplainAlt": {
 			"scripts": "modules/js/ext.donationInterface.employerExplainAlt.js"
+		},
+		"ext.donationInterface.employerAutoComplete": {
+			"scripts": "modules/js/ext.donationInterface.employerAutoComplete.js",
+			"dependencies": "jquery.ui.autocomplete"
 		},
 		"ext.donationInterface.noCardSelect": {
 			"styles": "modules/css/noCardSelect.css",
@@ -775,9 +783,6 @@
 		"DonationInterfaceLogClientErrors": {
 			"value": true
 		},
-		"DonationInterfaceEnableContributionTrackingQueue": {
-			"value": false
-		},
 		"DonationInterfaceGeoIpDbPath": {
 			"value": "/usr/share/GeoIP/GeoLite2-Country.mmdb"
 		},
@@ -796,6 +801,9 @@
 		},
 		"DonationInterfaceAllowedHtmlForms": {
 			"value": []
+		},
+		"DonationInterfaceFundraiserMaintenance": {
+			"value": false
 		}
 	},
 	"manifest_version": 2

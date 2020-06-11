@@ -380,5 +380,7 @@
 	"donate_interface-monthly-short": "Co miesiąc",
 	"donate_interface-onetime-short": "Jeden raz",
 	"donate_interface-error-http-403": "Nie masz uprawnień do dostępu do tej strony.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-fundraiser-maintenance-header": "Tymczasowo wyłączone z powodu konserwacji",
+	"donate_interface-fundraiser-maintenance-notice": "Jesteśmy w trakcie wykonywania zaplanowanych konserwacji i nie jesteśmy w stanie przyjmować darowizn. Proszę spróbować ponownie później.  Jeżeli masz pytania napisz na e-mail $1"
 }

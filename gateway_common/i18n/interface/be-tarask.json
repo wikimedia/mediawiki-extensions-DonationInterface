@@ -345,5 +345,7 @@
 	"donate_interface-onetime": "Зрабіць аднаразовае ахвяраваньне",
 	"donate_interface-monthly-short": "Штомесячнае",
 	"donate_interface-onetime-short": "Аднаразовае",
-	"donate_interface-error-http-403": "Вы ня маеце дазволу на доступ да гэтай старонкі"
+	"donate_interface-error-http-403": "Вы ня маеце дазволу на доступ да гэтай старонкі",
+	"donate_interface-fundraiser-maintenance-header": "Часава выключана для тэхнічнага абслугоўваньня",
+	"donate_interface-fundraiser-maintenance-notice": "У гэты час вы выконваем плянаванае тэхнічнае абслугоўваньне і ня можам прымаць ахвяраваньні. Калі ласка, паспрабуйце пазьней. Калі ў вас ёсьць пытаньні, дасылайце іх на $1."
 }

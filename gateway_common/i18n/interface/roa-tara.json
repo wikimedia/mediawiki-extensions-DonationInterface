@@ -437,5 +437,7 @@
 	"donate_interface-monthly-convert-action-button": "Done mensilmende",
 	"donate_interface-monthly-convert-error": "'A donazione de 'na vota sole ha sciute bbone, ma nuje non ge putime accumenzà 'na donazione recorrende.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sìne, vogghie ccu aijute",
-	"donate_interface-monthly-convert-no-button-variant-006": "None, grazie"
+	"donate_interface-monthly-convert-no-button-variant-006": "None, grazie",
+	"donate_interface-fundraiser-maintenance-header": "Temboraneamende abbasce pe manutenzione",
+	"donate_interface-fundraiser-maintenance-notice": "Nuje ste facime mo 'na manutenzione schedulate e non ge putime accettà dunazziune. Pe piacere pruève cchiù tarde. Ce tìne domande da fà, manne 'n'email a $1."
 }
