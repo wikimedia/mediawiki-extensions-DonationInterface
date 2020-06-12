@@ -39,6 +39,7 @@
 	"apihelp-donate-param-variant": "מציים איזה טופס התורם מילא.",
 	"apihelp-donate-param-opt_in": "מציין שהתורם בחר לקבל דואר אלקטרוני על התרמה.",
 	"apihelp-donate-param-employer": "שם המעסיק",
+	"apihelp-donate-param-employer_id": "מזהה מעסיק",
 	"apihelp-donate-example-1": "לעשות תרומה",
 	"apihelp-logPaymentsFormError-description": "ה־API הזה מתעד שגיאות בטופס התרומה בצד הלקוח.",
 	"apihelp-logPaymentsFormError-summary": "ה־API הזה מתעד שגיאות בטופס התרומה בצד הלקוח.",
@@ -50,5 +51,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "מעקב אחרי ערימת השגיאות, כאשר זמין",
 	"apihelp-di_recurring_convert-summary": "ה־API משמש כשתורם מסכים להוסיף תרומה חודשית אחרי השלמת תרומה חד־פעמית.",
 	"apihelp-di_recurring_convert-param-amount": "גובה התרומה החודשית.",
-	"apihelp-di_recurring_convert-param-gateway": "באיזה שער תשלום להשתמש – ב־adyen, ב־globalcollect, וכו'."
+	"apihelp-di_recurring_convert-param-gateway": "באיזה שער תשלום להשתמש – ב־adyen, ב־globalcollect, וכו'.",
+	"apihelp-employerSearch-description": "ה־API הזה מאפשר לך לחפש מעסיקים שמשתתפים בתוכנית התאמת בתרומות של קרן ויקימדיה.",
+	"apihelp-employerSearch-summary": "ה־API הזה מאפשר לך לחפש מעסיקים שמשתתפים בתוכנית התאמת בתרומות של קרן ויקימדיה.",
+	"apihelp-employerSearch-param-employer": "איזה מעסיק לחפש, למשל הצלב האדום (Red Cross), הקרן העולמית לשימור חיות הבר (WWF), צבא הישע (Salvation Army), וכו'.",
+	"apihelp-employerSearch-example-1": "חיפוש מעסיק"
 }

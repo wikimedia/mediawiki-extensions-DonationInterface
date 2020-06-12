@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
+			"Thibaut120094",
 			"Verdy p",
 			"Windes",
 			"Wladek92"
@@ -41,6 +42,7 @@
 	"apihelp-donate-param-variant": "Indique quelle variante du formulaire le donateur a remplie.",
 	"apihelp-donate-param-opt_in": "Indique que le donateur a opté pour les courriels de collecte de fonds.",
 	"apihelp-donate-param-employer": "Nom de l’employé",
+	"apihelp-donate-param-employer_id": "ID de l’employeur",
 	"apihelp-donate-example-1": "Faire un don",
 	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de donation côté client.",
 	"apihelp-logPaymentsFormError-summary": "Cet API journalise côté client les erreurs  des formulaires de donation.",
@@ -52,5 +54,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
 	"apihelp-di_recurring_convert-summary": "Cette API est utilisée quand un donneur accepte d’ajouter un don mensuel après avoir réussi une donation ponctuelle.",
 	"apihelp-di_recurring_convert-param-amount": "Le montant du don mensuel.",
-	"apihelp-di_recurring_convert-param-gateway": "Quel interface de paiement utiliser — adyen, globalcollect, etc."
+	"apihelp-di_recurring_convert-param-gateway": "Quel interface de paiement utiliser — adyen, globalcollect, etc.",
+	"apihelp-employerSearch-description": "Cet API vous permet de rechercher des employeurs participant au programme de dons correspondant à WMF.",
+	"apihelp-employerSearch-summary": "Cet API vous permet de rechercher des employeurs participant au programme de dons correspondant à WMF.",
+	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
+	"apihelp-employerSearch-example-1": "Rechercher un employeur"
 }
