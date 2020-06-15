@@ -38,6 +38,7 @@
 	"apihelp-donate-param-variant": "Укажува која варијанта на образецот ја пополнил дарителот.",
 	"apihelp-donate-param-opt_in": "Укажува дека дарителот избрал да биде известуван за прибирање средства по е-пошта.",
 	"apihelp-donate-param-employer": "Назив на работодавачот",
+	"apihelp-donate-param-employer_id": "Назнака на работодавачот",
 	"apihelp-donate-example-1": "Дарувајте",
 	"apihelp-logPaymentsFormError-description": "Овој извршник заведува грешките во обрасците за дарување од клиентска страна.",
 	"apihelp-logPaymentsFormError-summary": "Овој извршник заведува грешки во обрасците за дарување од клиентска страна.",
@@ -49,5 +50,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Пластната трага на грешката, ако ја има",
 	"apihelp-di_recurring_convert-summary": "Извршникот се користи кога дарителот ќе се согласи да дава месечни прилози при успешно давање на еднократен прилог.",
 	"apihelp-di_recurring_convert-param-amount": "Износ на паричниот прилог.",
-	"apihelp-di_recurring_convert-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн."
+	"apihelp-di_recurring_convert-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect и тн.",
+	"apihelp-employerSearch-description": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
+	"apihelp-employerSearch-summary": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
+	"apihelp-employerSearch-param-employer": "Кој работодавач да се побара. На пр. Црвен крст, Светски фонд за природа, Војска на спасот и тн.",
+	"apihelp-employerSearch-example-1": "Пребарајте работодавач"
 }
