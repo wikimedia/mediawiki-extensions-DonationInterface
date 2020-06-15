@@ -804,6 +804,9 @@
 		},
 		"DonationInterfaceFundraiserMaintenance": {
 			"value": false
+		},
+		"DonationInterfaceEmployersListDataFileLocation": {
+			"value": "/var/share/DonationInterface/matchingGiftsEmployerData.csv"
 		}
 	},
 	"manifest_version": 2
