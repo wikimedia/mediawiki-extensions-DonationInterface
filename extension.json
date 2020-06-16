@@ -806,7 +806,7 @@
 			"value": false
 		},
 		"DonationInterfaceEmployersListDataFileLocation": {
-			"value": "/var/share/DonationInterface/matchingGiftsEmployerData.csv"
+			"value": "/vagrant/employerData.csv"
 		}
 	},
 	"manifest_version": 2

@@ -24,28 +24,60 @@ class EmployerSearchAPI extends ApiBase {
 	protected $logger;
 
 	/**
+	 * Key for employers list in object cache
+	 */
+	const CACHE_KEY = 'EmployersList';
+
+	/**
+	 * TTL for employers list in object cache, in seconds (set to 1 hour)
+	 */
+	const CACHE_TTL = 3600;
+
+	/**
+	 * Maximum number of results to return
+	 */
+	const MAX_RESULTS = 10;
+
+	/**
 	 * Read in the Employers file, transform it to an array and then filter
 	 * results against the search query.
 	 */
 	public function execute() {
 		$this->initLogger();
 		$query = $this->getParameter( 'employer' );
-		$results = '';
-		// read in employers data file
-		$employersFile = $this->readEmployersFile();
-		if ( $employersFile ) {
-			// transform the employer data into an array of id=>name items
-			$employersList = $this->transformEmployerFileToArray( $employersFile );
-			// filter the employers array to only return items that contain the search query
-			$filteredEmployersList = array_filter( $employersList, function ( $value ) use ( $query ) {
-				return stripos( array_values( $value )[0], $query ) !== false;
-			} );
-			// reset array keys
-			$results = array_values( $filteredEmployersList );
-		} else {
+		$cache = ObjectCache::getLocalClusterInstance();
+
+		// Get the employers list from the cache, or, if it's not there, read it from disk
+		// and set the value in the cache. If the callback returns false, it indicates an
+		// error reading or parsing the file, and nothing is stored in the cache.
+		$employersList = $cache->getWithSetCallback(
+			self::CACHE_KEY,
+			self::CACHE_TTL,
+			function () {
+				return $this->getEmployersList();
+			}
+		);
+
+		// A false value for $employersList indicates an issue reading or parsing the file.
+		if ( $employersList === false ) {
 			$this->getResult()->addValue( null, 'error', $this->apiError );
+		} else {
+			// Filter the list with query string
+			$resultCount = 0;
+			$filteredEmployersList = array_filter(
+				$employersList,
+				function ( $value ) use ( $query, &$resultCount ) {
+					return ( stripos( $value[ 'name' ], $query ) !== false &&
+						( $resultCount++ < self::MAX_RESULTS ) );
+				}
+			);
+
+			// Re-create the array with array_values to make it numerically indexed,
+			// needed to output as an array in json.
+			$filteredEmployersList = array_values( $filteredEmployersList );
+
+			$this->getResult()->addValue( null, 'result', $filteredEmployersList );
 		}
-		$this->getResult()->addValue( null, 'result', $results );
 	}
 
 	/**
@@ -64,49 +96,65 @@ class EmployerSearchAPI extends ApiBase {
 	}
 
 	/**
-	 * Read Employer list file.
+	 * Return an array of employers, where values are associative arrays with id and name
+	 * keys. The data is based on the configured employer csv file. Returns false if there
+	 * was a problem loading or parsing the file.
 	 *
-	 * Currently expected to be a CSV and we try to confirm that with some funky
-	 * validation checks.
-	 *
-	 * @return array|bool|false
+	 * @return array|bool
 	 */
-	protected function readEmployersFile() {
+	protected function getEmployersList() {
 		global $wgDonationInterfaceEmployersListDataFileLocation;
-		if ( $wgDonationInterfaceEmployersListDataFileLocation && file_exists( $wgDonationInterfaceEmployersListDataFileLocation ) ) {
-			$fileHandle = fopen( $wgDonationInterfaceEmployersListDataFileLocation, "r" );
-			if ( fgetcsv( $fileHandle ) === false || fgetcsv( $fileHandle ) === null ) {
-				$this->apiError = "Employer data file is either not a valid CSV or is empty: " . $wgDonationInterfaceEmployersListDataFileLocation;
-				if ( $this->logger ) {
-					$this->logger->error( 'employerSearch API error: ' . $this->apiError );
-				}
-				return false;
-			}
-			return file( $wgDonationInterfaceEmployersListDataFileLocation );
-		} else {
-			$this->apiError = "Invalid path for employer data file supplied: " . $wgDonationInterfaceEmployersListDataFileLocation;
-			if ( $this->logger ) {
-				$this->logger->error( 'employerSearch API error: ' . $this->apiError );
-			}
+
+		// Check the employer data file exists
+		if ( !file_exists( $wgDonationInterfaceEmployersListDataFileLocation ) ) {
+			$this->setError( 'Employer data file doesn\'t exist: '
+				. $wgDonationInterfaceEmployersListDataFileLocation );
 			return false;
 		}
+
+		// Try to open the file
+		$fileHandle = fopen( $wgDonationInterfaceEmployersListDataFileLocation, "r" );
+		if ( !$fileHandle ) {
+			$this->setError( 'Couldn\'t open employer data file: '
+				. $wgDonationInterfaceEmployersListDataFileLocation );
+			return false;
+		}
+
+		// Read in and parse the file
+		$employerList = [];
+		while ( ( $row = fgetcsv( $fileHandle ) ) !== false ) {
+			if ( count( $row ) !== 2 ) {
+				$this->setError( 'Wrong number of columns in a row of employer data file.' );
+				fclose( $fileHandle );
+				return false;
+			}
+
+			$employerList[] = [
+				'id' => $row[ 0 ],
+				'name' => $row[ 1 ]
+			];
+		}
+
+		if ( empty( $employerList ) ) {
+			$this->setError( 'Employer data file is empty or can\'t be parsed.' );
+			fclose( $fileHandle );
+			return false;
+		}
+
+		fclose( $fileHandle );
+		return $employerList;
 	}
 
 	/**
-	 * Transform parsed Employer CSV into a useful array
+	 * Set the API error string and log an error.
 	 *
-	 * @param array $employersFile CSV file array
-	 * @return array
+	 * @param string $errorMsg
 	 */
-	protected function transformEmployerFileToArray( array $employersFile ) {
-		$employers = array_map( 'str_getcsv', $employersFile );
-		$result = [];
-		// iterate over each row and set the 1st el as key and 2nd el as val
-		array_walk( $employers, function ( $row ) use ( &$result ) {
-			$arr[$row[0]] = $row[1];
-			$result[] = $arr;
-		} );
-		return $result;
+	private function setError( $errorMsg ) {
+		$this->apiError = $errorMsg;
+		if ( $this->logger ) {
+			$this->logger->error( 'employerSearch API error: ' . $errorMsg );
+		}
 	}
 
 	/**

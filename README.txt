@@ -697,4 +697,4 @@ $wgDonationInterfaceEnableSystemStatus = false //extra
  * for their employees. The first column should be the employer id, the second column
  * should be the employer name, and the file should not have a header row.
  */
-$wgDonationInterfaceEmployersListDataFileLocation = "/var/share/DonationInterface/matchingGiftsEmployerData.csv"
+$wgDonationInterfaceEmployersListDataFileLocation = '/vagrant/employerData.csv'

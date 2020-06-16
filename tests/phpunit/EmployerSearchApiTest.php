@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\TestingAccessWrapper;
+
 /**
  * @group Fundraising
  * @group DonationInterface
@@ -14,8 +16,11 @@ class EmployerSearchApiTest extends ApiTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->csvDataSource = tmpfile();
-		global $wgDonationInterfaceEmployersListDataFileLocation;
-		$wgDonationInterfaceEmployersListDataFileLocation = stream_get_meta_data( $this->csvDataSource )['uri'];
+		$this->setMwGlobals(
+			'wgDonationInterfaceEmployersListDataFileLocation',
+			stream_get_meta_data( $this->csvDataSource )['uri']
+		);
+		ObjectCache::getLocalClusterInstance()->delete( EmployerSearchAPI::CACHE_KEY );
 	}
 
 	public function testSingleResultFromExactSearchLookup() {
@@ -36,11 +41,11 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 		$expected = [
-			[ 2 => 'ACME Inc' ]
+			[ 'id' => '2', 'name' => 'ACME Inc' ]
 		];
 
 		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
-		$this->assertEquals( $expected, $apiResult[0]['result'] );
+		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
 	public function testSingleResultFromPartialSearchLookup() {
@@ -61,11 +66,11 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 		$expected = [
-			[ 2 => 'ACME Inc' ]
+			[ 'id' => '2', 'name' => 'ACME Inc' ]
 		];
 
 		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
-		$this->assertEquals( $expected, $apiResult[0]['result'] );
+		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
 	public function testMultipleResultsFromPartialSearchLookup() {
@@ -86,12 +91,12 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 		$expected = [
-			[ 1 => 'Bills Sandwiches' ],
-			[ 3 => 'Bills Skateboards' ]
+			[ 'id' => '1', 'name' => 'Bills Sandwiches' ],
+			[ 'id' => '3', 'name' => 'Bills Skateboards' ]
 		];
 
 		$this->assertEquals( 2, count( $apiResult[0]['result'] ) );
-		$this->assertEquals( $expected, $apiResult[0]['result'] );
+		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
 	public function testSubsidiaryAndParentCompanyCombinedResultSearch() {
@@ -111,11 +116,11 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 		$expected = [
-			[ 1 => 'ACME Subsidiary Company' ]
+			[ 'id' => '1', 'name' => 'ACME Subsidiary Company' ]
 		];
 
 		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
-		$this->assertEquals( $expected, $apiResult[0]['result'] );
+		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
 	public function testEmptyResultsSearch() {
@@ -139,7 +144,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 		$this->assertEquals( 0, count( $apiResult[0]['result'] ) );
 	}
 
-	public function testInvalidApiDatasourceContent() {
+	public function testAPIInvalidData() {
 		// api action
 		$params['action'] = 'employerSearch';
 		// api employer search query
@@ -149,20 +154,75 @@ class EmployerSearchApiTest extends ApiTestCase {
 		// populate API data source with bogus data
 		fwrite( $this->csvDataSource, '!"£$%^&*(' );
 
-		$this->assertRegExp( '/^Employer data file is either not a valid CSV or is empty: .*/', $apiResult[0]['error'] );
+		$this->assertRegExp( '/^Employer data file is empty or can\'t be parsed.*/',
+			$apiResult[0]['error'] );
 	}
 
-	public function testInvalidApiDatasourceLocation() {
+	public function testGetEmployersListRetValInvalidData() {
+		fwrite( $this->csvDataSource, '!"£$%^&*(' );
+
+		$api = TestingAccessWrapper::newFromObject(
+			new EmployerSearchAPI( new ApiMain(), null ) );
+
+		$retVal = $api->getEmployersList();
+		$this->assertFalse( $retVal );
+	}
+
+	public function testAPIInvalidDataLocation() {
 		// api action
 		$params['action'] = 'employerSearch';
 		// api employer search query
 		$params['employer'] = 'unknown';
 
-		global $wgDonationInterfaceEmployersListDataFileLocation;
-		$wgDonationInterfaceEmployersListDataFileLocation = '/road/to/nowhere.csv';
+		$this->setMwGlobals(
+			'wgDonationInterfaceEmployersListDataFileLocation',
+			'/road/to/nowhere.csv'
+		);
 
 		$apiResult = $this->doApiRequest( $params );
 
-		$this->assertRegExp( '/^Invalid path for employer data file supplied: .*/', $apiResult[0]['error'] );
+		$this->assertRegExp( '/^Employer data file doesn\'t exist.*/',
+			$apiResult[0]['error'] );
+	}
+
+	public function testGetEmployersListInvalidDataLocation() {
+		$this->setMwGlobals(
+			'wgDonationInterfaceEmployersListDataFileLocation',
+			'/road/to/nowhere.csv'
+		);
+
+		$api = TestingAccessWrapper::newFromObject(
+			new EmployerSearchAPI( new ApiMain(), null ) );
+
+		$retVal = $api->getEmployersList();
+		$this->assertFalse( $retVal );
+	}
+
+	public function testAPIWrongNumberOfColumns() {
+		// api action
+		$params['action'] = 'employerSearch';
+		// api employer search query
+		$params['employer'] = 'unknown';
+
+		// populate API data source
+		$testCSVDataLine = [ '1', 'Bills Sandwiches', 'Yetch' ];
+		fputcsv( $this->csvDataSource, $testCSVDataLine );
+
+		$apiResult = $this->doApiRequest( $params );
+
+		$this->assertRegExp( '/^Wrong number of columns in a row of employer data file.*/',
+			$apiResult[0]['error'] );
+	}
+
+	public function testGetEmployersListWrongNumberOfColumns() {
+		$api = TestingAccessWrapper::newFromObject(
+			new EmployerSearchAPI( new ApiMain(), null ) );
+
+		// populate API data source
+		$testCSVDataLine = [ '1', 'Bills Sandwiches', 'Yetch' ];
+		fputcsv( $this->csvDataSource, $testCSVDataLine );
+
+		$retVal = $api->getEmployersList();
+		$this->assertFalse( $retVal );
 	}
 }
