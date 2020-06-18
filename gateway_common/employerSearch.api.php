@@ -126,4 +126,9 @@ class EmployerSearchAPI extends ApiBase {
 		$gateway = new $gatewayClass();
 		$this->logger = DonationLoggerFactory::getLogger( $gateway );
 	}
+
+	public function isReadMode() {
+		return false;
+	}
+
 }
