@@ -38,6 +38,7 @@
 	"apihelp-donate-param-variant": "Bağışı hangi form varyantını doldurduğunu gösterir.",
 	"apihelp-donate-param-opt_in": "Bağışçının bağış toplama e-postalarını tercih ettiğini belirtir.",
 	"apihelp-donate-param-employer": "İşveren adı",
+	"apihelp-donate-param-employer_id": "İşveren kimliği",
 	"apihelp-donate-example-1": "Bağış yap",
 	"apihelp-logPaymentsFormError-description": "Bu API, istemci tarafı bağış formu hatalarını günlüğe kaydeder.",
 	"apihelp-logPaymentsFormError-summary": "Bu API, istemci tarafı bağış formu hatalarını günlüğe kaydeder.",
@@ -49,5 +50,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Kullanılabilir olduğunda hatanın yığın izlemesi",
 	"apihelp-di_recurring_convert-summary": "Bu API, bir bağışçı başarılı bir defalık bağış tamamlandıktan sonra aylık bağış eklemeyi kabul ettiğinde kullanılır.",
 	"apihelp-di_recurring_convert-param-amount": "Aylık bağış miktarı.",
-	"apihelp-di_recurring_convert-param-gateway": "Hangi ödeme ağ geçidinin kullanılacağı - adyen, globalcollect, vb."
+	"apihelp-di_recurring_convert-param-gateway": "Hangi ödeme ağ geçidinin kullanılacağı - adyen, globalcollect, vb.",
+	"apihelp-employerSearch-description": "Bu API, WMF eşleştirme hediyeler programına katılan işverenleri aramanızı sağlar.",
+	"apihelp-employerSearch-summary": "Bu API, WMF eşleştirme hediyeler programına katılan işverenleri aramanızı sağlar.",
+	"apihelp-employerSearch-param-employer": "İşvereni arayacak örneği; Kızıl Haç, WWF, Kurtuluş Ordusu vb.",
+	"apihelp-employerSearch-example-1": "İşveren arayın"
 }
