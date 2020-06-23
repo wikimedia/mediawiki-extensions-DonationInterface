@@ -22,8 +22,8 @@
                             // transform result to suit autocomplete format
                             var result = data.result.map( function ( item ) {
                                     return {
-                                        label: Object.values( item )[ 0 ],
-                                        value: Object.keys( item )[ 0 ]
+                                        label: item.name,
+                                        value: item.id
                                     };
                                 } ),
                             //trim results

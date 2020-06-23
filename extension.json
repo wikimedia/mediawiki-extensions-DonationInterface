@@ -804,6 +804,9 @@
 		},
 		"DonationInterfaceFundraiserMaintenance": {
 			"value": false
+		},
+		"DonationInterfaceEmployersListDataFileLocation": {
+			"value": "/vagrant/employerData.csv"
 		}
 	},
 	"manifest_version": 2

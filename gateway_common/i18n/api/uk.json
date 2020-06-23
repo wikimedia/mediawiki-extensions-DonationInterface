@@ -41,6 +41,7 @@
 	"apihelp-donate-param-variant": "Зазначає, який варіант форми заповнив жертводавець.",
 	"apihelp-donate-param-opt_in": "Зазначає, що донор підписався на електронні листи щодо питань здійснення пожертв.",
 	"apihelp-donate-param-employer": "Ім'я роботодавця",
+	"apihelp-donate-param-employer_id": "Ідентифікатор працедавця",
 	"apihelp-donate-example-1": "Зробити пожертву",
 	"apihelp-logPaymentsFormError-description": "Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
 	"apihelp-logPaymentsFormError-summary": "Цей Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
@@ -52,5 +53,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Траса стеку помилки, якщо доступно",
 	"apihelp-di_recurring_convert-summary": "Цей API використовується, коли жертводавець погоджується на щомісячну пожертву після завершення успішної одноразової пожертви.",
 	"apihelp-di_recurring_convert-param-amount": "Сума щомісячної пожертви.",
-	"apihelp-di_recurring_convert-param-gateway": "Якої платіжний шлюз використовувати — adyen, globalcollect тощо."
+	"apihelp-di_recurring_convert-param-gateway": "Якої платіжний шлюз використовувати — adyen, globalcollect тощо.",
+	"apihelp-employerSearch-description": "Цей API дозволяє вам шукати працедавців, які беруть участь у програмі підтримки благодійності від ФВМ.",
+	"apihelp-employerSearch-summary": "Цей API дозволяє вам шукати працедавців, які беруть участь у програмі підтримки благодійності від ФВМ.",
+	"apihelp-employerSearch-param-employer": "Якого працедавця шукати, наприклад, Red Cross, WWF, Salvation Army, etc.",
+	"apihelp-employerSearch-example-1": "Шукати працедавця"
 }

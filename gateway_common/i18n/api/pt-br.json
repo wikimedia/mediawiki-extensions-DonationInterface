@@ -40,6 +40,7 @@
 	"apihelp-donate-param-variant": "Indica qual foi a variante do formulário que o benfeitor preencheu.",
 	"apihelp-donate-param-opt_in": "Indica que o benfeitor optou por receber e-mail de angariação de fundos.",
 	"apihelp-donate-param-employer": "Nome do empregador",
+	"apihelp-donate-param-employer_id": "ID do empregador",
 	"apihelp-donate-example-1": "Faça uma doação",
 	"apihelp-logPaymentsFormError-description": "Esta API regista erros no formulário de donativos do lado do cliente.",
 	"apihelp-logPaymentsFormError-summary": "Esta API regista erros do lado do cliente no formulário de donativos.",
@@ -51,5 +52,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível",
 	"apihelp-di_recurring_convert-summary": "Esta API é usada quando um benfeitor concorda em adicionar um donativo mensal após ter concluído um donativo pontual.",
 	"apihelp-di_recurring_convert-param-amount": "O valor do donativo mensal.",
-	"apihelp-di_recurring_convert-param-gateway": "Que portal de pagamento usar - adyen, globalcollect, etc."
+	"apihelp-di_recurring_convert-param-gateway": "Que portal de pagamento usar - adyen, globalcollect, etc.",
+	"apihelp-employerSearch-description": "Essa API permite procurar empregadores que participam do programa de presentes correspondentes do WMF.",
+	"apihelp-employerSearch-summary": "Essa API permite procurar empregadores que participam do programa de presentes correspondentes do WMF.",
+	"apihelp-employerSearch-param-employer": "Qual empregador procurar, por exemplo Cruz Vermelha, WWF, Exército de Salvação, etc.",
+	"apihelp-employerSearch-example-1": "Pesquisar um empregador"
 }
