@@ -28,6 +28,11 @@
                                 } ),
                             //trim results
                             output = result.slice( 0, 10 );
+
+                            // Note: jquery autocomplete handles escaping by injecting
+                            // values and labels into the DOM using jquery text() and
+                            // val() methods. So, additional escaping is not needed.
+
                             //cache result
                             autocompleteCache[ request.term ] = output;
                             response( output );
