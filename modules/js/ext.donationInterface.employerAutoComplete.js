@@ -5,6 +5,9 @@
         $( '#employer' ).autocomplete( {
             delay: 300, //throttle in milliseconds
             source: function ( request, response ) {
+                //reset employer_id each time a new search starts
+                $( '#employer_id' ).val( '' );
+
                 var data = {
                     action: 'employerSearch',
                     employer: request.term,
