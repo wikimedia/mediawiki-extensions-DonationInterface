@@ -6,7 +6,10 @@
 			"Danmichaelo",
 			"Hylle",
 			"Jon Harald Søby",
+			"Jrobell",
+			"Jsoby",
 			"Kaare",
+			"McDutchie",
 			"Medic",
 			"Peter Alberti",
 			"Saederup92",
@@ -377,8 +380,6 @@
 	"donate_interface-onetime-short": "Engangs",
 	"donate_interface-error-http-403": "Du har ikke tilladelse til at få adgang til denne side.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, jeg vil gerne hjælpe",
-	"donate_interface-monthly-convert-no-button-variant-006": "Nej, tak",
 	"donate_interface-fundraiser-maintenance-header": "Midlertidigt nede pga. vedligeholdelse",
 	"donate_interface-fundraiser-maintenance-notice": "Vi udfører i øjeblikket planlagt vedligeholdelse og er ude af stand til at acceptere donationer. Prøv venligst igen snart. Hvis du har spørgsmål, bedes du e-maile $1."
 }
