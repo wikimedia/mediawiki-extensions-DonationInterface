@@ -5,6 +5,9 @@
         $( '#employer' ).autocomplete( {
             delay: 300, //throttle in milliseconds
             source: function ( request, response ) {
+                //reset employer_id each time a new search starts
+                $( '#employer_id' ).val( '' );
+
                 var data = {
                     action: 'employerSearch',
                     employer: request.term,
@@ -28,6 +31,11 @@
                                 } ),
                             //trim results
                             output = result.slice( 0, 10 );
+
+                            // Note: jquery autocomplete handles escaping by injecting
+                            // values and labels into the DOM using jquery text() and
+                            // val() methods. So, additional escaping is not needed.
+
                             //cache result
                             autocompleteCache[ request.term ] = output;
                             response( output );

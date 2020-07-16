@@ -159,7 +159,6 @@ span#selected-amount {
 	font-family: inherit;
 	font-size: 13px;
 	padding: 0.8em;
-	cursor: pointer;
 	margin-bottom: 0.2em;
 	-webkit-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 	-moz-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
@@ -173,6 +172,7 @@ span#selected-amount {
 	appearance: none;
 	background: url( ../includes/triangle.svg ) no-repeat center right 8px;
 	padding-right: 24px;
+	cursor: pointer;
 }
 
 #donate select::-ms-expand {
@@ -293,6 +293,7 @@ p#monthlycancel,
 	margin: 0;
 	box-shadow: none;
 	float: none;
+	cursor: pointer;
 }
 
 #cards li label {

@@ -39,6 +39,7 @@
 	"apihelp-donate-param-variant": "Indikerer hvilken skjemavariant giveren har fylt ut.",
 	"apihelp-donate-param-opt_in": "Indikerer at giveren har valgt å motta innsamlingseposter.",
 	"apihelp-donate-param-employer": "Arbeidsgivers navn",
+	"apihelp-donate-param-employer_id": "Arbeidsgiver-ID",
 	"apihelp-donate-example-1": "Doner",
 	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden.",
 	"apihelp-logPaymentsFormError-summary": "Dette API-et logger donasjonsskjemafiel på klientsiden.",
@@ -50,5 +51,9 @@
 	"apihelp-logPaymentsFormError-param-stack": "Feilens stack trace, om tilgjengelig",
 	"apihelp-di_recurring_convert-summary": "Dette API-er brukes når en donor ønsker å gi et månedlig beløp etter å ha fullført en engangsgave.",
 	"apihelp-di_recurring_convert-param-amount": "Beløpet i den månedlige donasjonen.",
-	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, globalcollect, osv."
+	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, globalcollect, osv.",
+	"apihelp-employerSearch-description": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
+	"apihelp-employerSearch-summary": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
+	"apihelp-employerSearch-param-employer": "Hvilken arbeidsgiver det skal søkes etter, f.eks. Røde Kors, WWF, Frelsesarmeen osv.",
+	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver"
 }
