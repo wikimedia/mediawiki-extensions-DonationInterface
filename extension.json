@@ -368,6 +368,13 @@
 		"ext.donationInterface.monthlyConvert_010": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvert_010.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.panExplain": {
+			"scripts": "modules/js/ext.donationInterface.panExplain.js",
+			"dependencies": "ext.donationInterface.forms",
+			"messages": [
+				"donate_interface-donor-fiscal_number-explain-in"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

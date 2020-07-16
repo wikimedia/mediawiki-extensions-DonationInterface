@@ -1,0 +1,3 @@
+scripts:
+    - ext.donationInterface.forms
+    - ext.donationInterface.panExplain
