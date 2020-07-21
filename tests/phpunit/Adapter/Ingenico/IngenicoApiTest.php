@@ -280,13 +280,11 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
 				$this->callback( function ( $actual ) use ( $init ) {
-					$hcsi = [
-						'isRecurring' => true
-					];
-					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertFalse(
+						array_key_exists( 'isRecurring', $actual['hostedCheckoutSpecificInput'] )
+					);
 					$cpmsi = [
 						'tokenize' => true,
-						'recurringPaymentSequenceIndicator' => 'first'
 					];
 					$this->assertArraySubset( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
 					return true;
