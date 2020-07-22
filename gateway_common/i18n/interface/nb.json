@@ -167,6 +167,7 @@
 	"donate_interface-donor-currency-msg": "Denne gaven blir gitt i $1",
 	"donate_interface-donor-fiscal_number": "Fiscal number",
 	"donate_interface-donor-fiscal_number-in": "PAN",
+	"donate_interface-donor-fiscal_number-explain-in": "Betalingsprosesseringen vår er påkrevd av Reserve Bank of India for å samle inn din PAN, men vi beholder eller lagrer ikke denne informasjonen.",
 	"donate_interface-donor-opt_in_yes": "Ja! Send meg epostoppdateringer og informasjon av og til om hvordan jeg kan støtte Wikipedia i fremtiden.*",
 	"donate_interface-donor-opt_in_no": "Nei takk, jeg ønsker ikke å motta epostoppdateringer selv om det bare er snakk om noen få eposter årlig.",
 	"donate_interface-donor-opt_in_explain": "*Informasjonen din behandles i samsvar med <a href=\"$1\">personvernspolicyen vår for donorer</a>. Hver epost du mottar vil inkludere måter å avslutte abonnementet på.",
