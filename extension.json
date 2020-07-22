@@ -163,7 +163,7 @@
 		"AstroPayFinancialNumbers": "astropay_gateway/AstroPayFinancialNumbers.php",
 		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
 		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
-		"DummyFiscalNumber": "astropay_gateway/DummyFiscalNumber.php",
+		"PlaceholderFiscalNumber": "astropay_gateway/PlaceholderFiscalNumber.php",
 		"CleanupRecurringLength": "paypal_gateway/CleanupRecurringLength.php",
 		"PayPalCountry": "paypal_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_gateway/express_checkout/paypal_express.adapter.php",

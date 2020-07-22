@@ -31,7 +31,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			'max' => 9,
 		],
 		'IN' => [
-			'pattern' => '[a-zA-Z]{3}[abcfghljptfABCFGHLJPTF]{1}[a-zA-Z]{1}[0-9]{4}[a-zA-Z]{1}',
+			'pattern' => '^$|^[a-zA-Z]{3}[abcfghljptfABCFGHLJPTF]{1}[a-zA-Z]{1}[0-9]{4}[a-zA-Z]{1}$',
 		],
 		'UY' => [
 			'numeric' => true,
