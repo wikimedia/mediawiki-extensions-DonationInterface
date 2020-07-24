@@ -3,9 +3,9 @@
 - AstroPayFinancialNumbers
 - AstroPayMethodCodec
 - CountryValidation
-- FiscalNumber
 - DonorEmail
-- DummyFiscalNumber # see class comment
+- FiscalNumber
+- PlaceholderFiscalNumber # see class comment
 - DonorFullName
 - StreetAddress
 # Signature calculation must come last

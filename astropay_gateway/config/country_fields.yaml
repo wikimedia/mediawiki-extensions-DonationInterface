@@ -7,7 +7,7 @@ CL:
 CO:
     fiscal_number: true
 IN:
-    fiscal_number: true
+    fiscal_number: optional
     street_address: true
     city: true
 UY:
