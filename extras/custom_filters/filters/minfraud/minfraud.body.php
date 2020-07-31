@@ -437,7 +437,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * @param Score $response result from minFraud client score() call
 	 */
 	protected function healthCheck( Score $response ) {
-		global $wgEmergencyContact, $wgMemc;
+		global $wgEmergencyContact;
+
+		$cache = ObjectCache::getLocalClusterInstance();
 
 		if ( isset( $response->queriesRemaining ) ) {
 			$queries = intval( $response->queriesRemaining );
@@ -445,10 +447,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			if ( $queries < $this->gateway_adapter->getGlobal( 'MinFraudAlarmLimit' ) ) {
 				$this->gateway_logger->warning( "minFraud alarm limit reached! Queries remaining: $queries" );
 
-				$key = wfMemcKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
-				$lastAlarmAt = $wgMemc->get( $key ) | 0;
+				$key = $cache->makeKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
+				$lastAlarmAt = $cache->get( $key ) | 0;
 				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
-					$wgMemc->set( $key, time(), ( 60 * 60 * 48 ) );
+					$cache->set( $key, time(), ( 60 * 60 * 48 ) );
 					$this->gateway_logger->info( "minFraud alarm on query limit -- sending email" );
 
 					$result = UserMailer::send(
