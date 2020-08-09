@@ -22,10 +22,13 @@ abstract class DonationApiBase extends ApiBase {
 	protected $adapter;
 
 	/**
-	 * @return GatewayAdapter
+	 * @return GatewayAdapter|null
 	 */
 	protected function getGatewayObject() {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
+		if ( $className::getGlobal( 'Enabled' ) !== true ) {
+			return null;
+		}
 		$variant = $this->getRequest()->getVal( 'variant' );
 		return new $className( [ 'variant' => $variant ] );
 	}

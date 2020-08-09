@@ -11,6 +11,13 @@ use SmashPig\Core\DataStores\QueueWrapper;
  */
 class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
+	public function setUp() {
+		$this->setMwGlobals( [
+			'wgGlobalCollectGatewayEnabled' => true
+		] );
+		parent::setUp();
+	}
+
 	public function testGoodSubmit() {
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';

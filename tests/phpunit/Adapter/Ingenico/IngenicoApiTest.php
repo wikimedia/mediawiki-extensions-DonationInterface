@@ -26,8 +26,10 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'wgIngenicoGatewayHostedFormVariants' => [
 				'iframe' => 105,
 				'redirect' => 102,
-			]
+			],
+			'wgIngenicoGatewayEnabled' => true
 		] );
+
 		$ctx = TestingContext::get();
 		$globalConfig = $ctx->getGlobalConfiguration();
 
