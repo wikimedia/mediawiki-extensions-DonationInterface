@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Antonytse",
+			"Hello903hello",
 			"Jsoby",
 			"Moon0319",
 			"Pcoombe",
@@ -93,7 +94,7 @@
 	"donate_interface-donate-click": "當撳咗 \"{{int:payflowpro_gateway-donor-submit}}\" 之後，你嘅信用咭資料將會被處理。",
 	"donate_interface-otherways-short": "第啲捐錢方法",
 	"donate_interface-cc-form-header-personal": "賬單訊息",
-	"donate_interface-other": "第啲數目",
+	"donate_interface-other": "第個金額",
 	"donate_interface-anon-message": "請列示我個名（響我嘅註解隔離）響個公共捐錢者度。",
 	"donate_interface-rtbt-issuer_id-longlist": "第啲銀行",
 	"donate_interface-faqs": "成日遇到嘅問題",

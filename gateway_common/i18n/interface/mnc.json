@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Moon0319"
+		]
+	},
+	"donate_interface-amount": "ᠪᡝᡩᡵᡳᡝᡤᡝᠨ",
+	"donate_interface-other-amount": "ᠠᠨᡩᡝᡵᡝ ᠪᡝᡩᡵᡳᡝᡤᡝᠨ",
+	"donate_interface-currency": "ᡡᠠᠯᡠᡨᠠ ᠨᡳ",
+	"donate_interface-gateway": "ᠪᡝᡨᠠᠯᡳᠩ ᠪᠣᡝᡴ ᠮᠣᡩᡝ ᠨᡳ",
+	"donate_interface-submit-button": "ᠮᡝᠨᡩᡝ ᡨᡠᠰᠠ ᠠᡵᠠᠮᠪᡳ",
+	"donate_interface-comment-label": "ᡮᠣᠮᠮᡝᡵᡮᡳᡝᡝᠯ ᠨᡳ",
+	"donate_interface-donation-information": "ᠰᡮᡥᡝᠨᡴᡝᠨ ᡳᠨᡶᠣᡵᠮᠠᡨᡳᡝ:"
+}

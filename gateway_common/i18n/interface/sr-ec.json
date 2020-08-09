@@ -314,7 +314,7 @@
 	"donate_interface-thank-you": "Хвала вам! Ваш прилог је примљен.",
 	"donate_interface-change": "Уреди",
 	"donate_interface-select-credit-card": "Изаберите кредитну картицу",
-	"donate_interface-optional": "опционално",
+	"donate_interface-optional": "необавезно",
 	"donate_interface-state_province-dropdown-YY": "Изаберите државу",
 	"donate_interface-state_province-dropdown-XX": "Изван САД",
 	"donate_interface-bt-account_holder": "Власник рачуна",
