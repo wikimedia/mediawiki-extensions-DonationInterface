@@ -68,10 +68,19 @@ abstract class DonationApiBase extends ApiBase {
 		// FIXME: SmashPig should just use Monolog.
 		Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
 
-		$validated_ok = $this->adapter->validatedOK();
-		if ( !$validated_ok ) {
-			$errors = $this->adapter->getErrorState()->getErrors();
-			$outputResult = [ 'errors' => $this->serializeErrors( $errors ) ];
+		$errors = [];
+		if ( !$this->adapter->checkTokens() ) {
+			$errors['wmf_token'] = WmfFramework::formatMessage( 'donate_interface-token-mismatch' );
+		} else {
+			$validated_ok = $this->adapter->validatedOK();
+			if ( !$validated_ok ) {
+				$errors = $this->serializeErrors(
+					$this->adapter->getErrorState()->getErrors()
+				);
+			}
+		}
+		if ( !empty( $errors ) ) {
+			$outputResult = [ 'errors' => $errors ];
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 			$this->getResult()->addValue( null, 'result', $outputResult );

@@ -54,6 +54,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
+		$init['wmf_token'] = $this->saltedToken;
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
@@ -118,7 +119,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 				$this->equalTo( $this->partialUrl )
 			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 
 		$this->assertEquals(
@@ -163,6 +164,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
 		$init['language'] = 'zh-ha';
+		$init['wmf_token'] = $this->saltedToken;
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
@@ -196,7 +198,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 				$this->equalTo( $this->partialUrl )
 			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
 
 	/**
@@ -211,6 +213,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['action'] = 'donate';
 		$init['first_name'] = 'ФёдорÐÐÐ';
 		$init['last_name'] = 'Достоевский';
+		$init['wmf_token'] = $this->saltedToken;
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
@@ -256,7 +259,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 				$this->equalTo( $this->partialUrl )
 			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
 
 	/**
@@ -272,6 +275,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
 		$init['variant'] = 'monthlyConvert123';
+		$init['wmf_token'] = $this->saltedToken;
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )->with(
@@ -300,7 +304,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 				$this->equalTo( $this->partialUrl )
 			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
 
 	public function testSubmitFailInitialFilters() {
@@ -311,11 +315,12 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
+		$init['wmf_token'] = $this->saltedToken;
 		// Should not make any API calls
 		$this->hostedCheckoutProvider->expects( $this->never() )
 			->method( $this->anything() );
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 	}
@@ -342,6 +347,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
 		$init['variant'] = 'optional';
+		$init['wmf_token'] = $this->saltedToken;
 
 		// optional field 'last_name' present
 		$init['first_name'] = 'Opty';
@@ -362,7 +368,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
 		// make request WITH optional field 'last_name' present
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 
 		// check optional field present when supplied
@@ -371,7 +377,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		// unset optional field 'last_name' and repeat request.
 		$init['first_name'] = 'OptyPrince';
 		unset( $init['last_name'] );
-		$this->doApiRequest( $init, [] );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 
 		// check optional field not present
@@ -394,6 +400,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
 		$init['variant'] = 'employer';
+		$init['wmf_token'] = $this->saltedToken;
 
 		// optional field 'last_name' present
 		$init['employer'] = 'wikimedia foundation';
@@ -412,7 +419,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			->method( 'getHostedPaymentUrl' )
 			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertEquals( 'wikimedia foundation', $message['employer'] );
 	}
@@ -431,13 +438,15 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['recurring_payment_token'] = 'T1234-5432-9876';
 		$donorTestData['gateway_txn_id'] = 'TXN-999-1234';
 		$session = [
-			'Donor' => $donorTestData
+			'Donor' => $donorTestData,
+			'ingenicoEditToken' => $this->clearToken,
 		];
 
 		$apiParams = [
 			'amount' => '1.22',
 			'action' => 'di_recurring_convert',
-			'gateway' => 'ingenico'
+			'gateway' => 'ingenico',
+			'wmf_token' => $this->saltedToken,
 		];
 
 		$apiResult = $this->doApiRequest( $apiParams, $session );
@@ -472,13 +481,15 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$donorTestData['gateway'] = 'ingenico';
 		$donorTestData['variant'] = 'monthlyConvert';
 		$session = [
-			'Donor' => $donorTestData
+			'Donor' => $donorTestData,
+			'ingenicoEditToken' => $this->clearToken,
 		];
 
 		$apiParams = [
 			'amount' => '1.22',
 			'action' => 'di_recurring_convert',
-			'gateway' => 'ingenico'
+			'gateway' => 'ingenico',
+			'wmf_token' => $this->saltedToken,
 		];
 
 		$apiResult = $this->doApiRequest( $apiParams, $session );

@@ -24,8 +24,10 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_method'] = 'cc';
 		$init['gateway'] = 'globalcollect';
 		$init['action'] = 'donate';
+		$init['wmf_token'] = $this->saltedToken;
+		$session = $this->getDonorSession();
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, $session );
 		$result = $apiResult[0]['result'];
 		$this->assertTrue( empty( $result['errors'] ) );
 		$actualUrl = $result['iframe'];
@@ -74,8 +76,10 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'globalcollect';
 		$init['action'] = 'donate';
 		$init['amount'] = 0.75;
+		$init['wmf_token'] = $this->saltedToken;
+		$session = $this->getDonorSession();
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, $session );
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
@@ -95,8 +99,10 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		// ffname causes a validation trip up
 		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
 		unset( $init['ffname'] );
+		$init['wmf_token'] = $this->saltedToken;
+		$session = $this->getDonorSession();
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, $session );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertEquals( '1', $message['opt_in'] );
 	}
@@ -113,8 +119,10 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		// ffname causes a validation trip up
 		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
 		unset( $init['ffname'] );
+		$init['wmf_token'] = $this->saltedToken;
+		$session = $this->getDonorSession();
 
-		$this->doApiRequest( $init );
+		$this->doApiRequest( $init, $session );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertEquals( '0', $message['opt_in'] );
 	}
@@ -128,8 +136,18 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['gateway'] = 'globalcollect';
 		$init['action'] = 'donate';
 		unset( $init['ffname'] );
-		$apiResult = $this->doApiRequest( $init );
+		$init['wmf_token'] = $this->saltedToken;
+		$session = $this->getDonorSession();
+
+		$apiResult = $this->doApiRequest( $init, $session );
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
+	}
+
+	protected function getDonorSession() {
+		return [
+			'Donor' => [ 'contribution_tracking_id' => mt_rand( 0, 10000000 ) ],
+			'globalcollectEditToken' => 'blahblah',
+		];
 	}
 }
