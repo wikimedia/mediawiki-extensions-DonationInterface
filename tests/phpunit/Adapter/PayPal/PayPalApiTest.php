@@ -36,11 +36,12 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'utm_medium' => 'sitenotice',
 			'country' => 'US',
 			'language' => 'fr',
+			'wmf_token' => $this->saltedToken,
 		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertTrue( empty( $result['errors'] ) );
 
@@ -96,11 +97,12 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'utm_medium' => 'sitenotice',
 			'country' => 'US',
 			'language' => 'fr',
+			'wmf_token' => $this->saltedToken
 		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertNotEmpty( $result['errors'], 'Should have returned an error' );
 		$this->assertNotEmpty( $result['errors']['amount'], 'Error should be in amount' );
@@ -124,11 +126,12 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 			'recurring' => '1',
 			'contribution_tracking_id' => strval( mt_rand() ),
 			'language' => 'fr',
+			'wmf_token' => $this->saltedToken
 		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
 
-		$apiResult = $this->doApiRequest( $init );
+		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertTrue( empty( $result['errors'] ) );
 

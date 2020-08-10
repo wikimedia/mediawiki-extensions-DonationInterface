@@ -107,6 +107,7 @@
 			action: 'di_recurring_convert',
 			format: 'json',
 			gateway: $( '#gateway' ).val(),
+			wmf_token: $( '#wmf_token' ).val(),
 			amount: amount
 		};
 		$.ajax( {

@@ -232,6 +232,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_submethod'] = 'visa';
 		$init['gateway'] = 'adyen';
 		$init['action'] = 'donate';
+		$init['wmf_token'] = $this->saltedToken;
 		// The US form doesn't have these two as we can look them up by zip
 		unset( $init['city'] );
 		unset( $init['state_province'] );
@@ -241,7 +242,10 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 	protected function getDonorSession() {
 		// this ends up being the first part of our order_id.sequence which maps to shopperReference
 		$ct_id = mt_rand( 0, 10000000 );
-		return [ 'Donor' => [ 'contribution_tracking_id' => $ct_id ] ];
+		return [
+			'Donor' => [ 'contribution_tracking_id' => $ct_id, ],
+			'adyenEditToken' => 'blahblah',
+		];
 	}
 
 	public function testSubmitFailInitialFilters() {
@@ -268,7 +272,8 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'payment_submethod' => 'rtbt_ideal',
 			'processor_form' => 'testskin',
 			'utm_source' => 'test',
-			'referrer' => 'blah.com/blah'
+			'referrer' => 'blah.com/blah',
+			'wmf_token' => $this->saltedToken,
 		];
 		$apiResult = $this->doApiRequest( $postData, $session );
 		$result = $apiResult[0]['result'];
