@@ -1610,6 +1610,46 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * @param string $stringToCheck
+	 * @return int|mixed
+	 */
+	public function calculateKeyMashScore( $stringToCheck ) {
+		$letters = str_split( strtolower( $stringToCheck ) );
+		$rules = $this->getGlobal( 'NameFilterRules' );
+		$score = 0;
+
+		foreach ( $rules as $rule ) {
+			$keyMapA = $rule['KeyMapA'];
+			$keyMapB = $rule['KeyMapB'];
+
+			$gibberishWeight = $rule['GibberishWeight'];
+
+			$minimumLength = $rule['MinimumLength'];
+
+			$failScore = $rule['Score'];
+
+			$points = 0;
+
+			if ( is_array( $letters ) && !empty( $letters ) && count( $letters ) > $minimumLength ) {
+				foreach ( $letters as $letter ) {
+					// For each char in zone A add a point, zone B subtract.
+					if ( in_array( $letter, $keyMapA ) ) {
+						$points++;
+					}
+					if ( in_array( $letter, $keyMapB ) ) {
+						$points--;
+					}
+				}
+
+				if ( abs( $points ) / count( $letters ) >= $gibberishWeight ) {
+					$score += $failScore;
+				}
+			}
+		}
+		return $score;
+	}
+
+	/**
 	 * Check the response for general sanity - e.g. correct data format, keys exists
 	 * @param mixed $response Whatever came back from the API call
 	 * @return bool true if response looks sane
@@ -2761,39 +2801,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		$fName = $this->getData_Unstaged_Escaped( 'first_name' );
 		$lName = $this->getData_Unstaged_Escaped( 'last_name' );
 
-		$nameArray = str_split( strtolower( $fName . $lName ) );
-		$rules = $this->getGlobal( 'NameFilterRules' );
-		$score = 0;
-
-		foreach ( $rules as $rule ) {
-			$keyMapA = $rule['KeyMapA'];
-			$keyMapB = $rule['KeyMapB'];
-
-			$gibberishWeight = $rule['GibberishWeight'];
-
-			$minimumLength = $rule['MinimumLength'];
-
-			$failScore = $rule['Score'];
-
-			$points = 0;
-
-			if ( is_array( $nameArray ) && !empty( $nameArray ) && count( $nameArray ) > $minimumLength ) {
-				foreach ( $nameArray as $letter ) {
-					// For each char in zone A add a point, zone B subtract.
-					if ( in_array( $letter, $keyMapA ) ) {
-						$points++;
-					}
-					if ( in_array( $letter, $keyMapB ) ) {
-						$points--;
-					}
-				}
-
-				if ( abs( $points ) / count( $nameArray ) >= $gibberishWeight ) {
-					$score += $failScore;
-				}
-			}
-		}
-		return $score;
+		$fullName = $fName . $lName;
+		return $this->calculateKeyMashScore( $fullName );
 	}
 
 	/**
