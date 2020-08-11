@@ -259,10 +259,20 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 */
 	protected function tuneForRecurring() {
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
-		if ( $isRecurring || $this->showMonthlyConvert() ) {
+		$cardSpecificInput = $this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'];
+		$getStatusResponse = $this->transactions['getHostedPaymentStatus']['response'];
+		if ( $this->showMonthlyConvert() ) {
+			if ( array_search( 'tokenize', $cardSpecificInput ) === false ) {
+				$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'][] = 'tokenize';
+			}
+			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
+			if ( array_search( 'tokens', $getStatusResponse ) === false ) {
+				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
+			}
+		} elseif ( $isRecurring ) {
 			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
 				array_merge(
-					$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'],
+					$cardSpecificInput,
 					[
 						'tokenize',
 						'recurringPaymentSequenceIndicator'
@@ -271,11 +281,9 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
 			$this->transactions['createHostedCheckout']['values']['recurringPaymentSequenceIndicator'] = 'first';
-			if ( array_search( 'tokens', $this->transactions['getHostedPaymentStatus']['response'] ) === false ) {
+			if ( array_search( 'tokens', $getStatusResponse ) === false ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
-		}
-		if ( $isRecurring ) {
 			$desc = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );
 			$this->transactions['createHostedCheckout']['values']['descriptor'] = $desc;
 		}
