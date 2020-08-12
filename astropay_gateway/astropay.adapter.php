@@ -229,7 +229,7 @@ class AstroPayAdapter extends GatewayAdapter {
 			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
 		}
 		if ( !isset( $this->config['currencies'][$country] ) ) {
-			throw new OutOfBoundsException( "No supported currencies for $country" );
+			return [];
 		}
 		return (array)$this->config['currencies'][$country];
 	}
