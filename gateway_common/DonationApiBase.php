@@ -59,6 +59,12 @@ abstract class DonationApiBase extends ApiBase {
 		$this->gateway = $this->donationData['gateway'];
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
+		if ( isset( $this->donationData['language'] ) ) {
+			// setLanguage will sanitize the code, replacing it with the base wiki
+			// language in case it's invalid.
+			RequestContext::getMain()->setLanguage( $this->donationData['language'] );
+		}
+
 		$this->adapter = $this->getGatewayObject();
 
 		if ( !$this->adapter ) {
