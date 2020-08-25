@@ -2,6 +2,7 @@
 
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use LightnCandy\LightnCandy;
 
 /**
  * Gateway form rendering using Mustache
@@ -25,6 +26,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	protected static $partials = [
 		'issuers',
 		'more_info_links',
+		'no_script',
 		'opt_in',
 		'payment_amount',
 		'payment_method',
@@ -423,15 +425,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	/**
 	 * Get a message value specific to the donor's country and language.
 	 *
-	 * @param array $params first value is used as message key
+	 * @param string $key message key
+	 * @param array ...$params values to fill in message placeholders
 	 * @return string
 	 */
-	public static function l10n( $params ) {
-		if ( !$params ) {
-			throw new BadMethodCallException( 'Need at least one message key' );
-		}
+	public static function l10n( $key, ...$params ) {
 		$language = RequestContext::getMain()->getLanguage()->getCode();
-		$key = array_shift( $params );
+		// If there are any form variant messages configured swap them out here
 		if ( isset( Gateway_Form_Mustache::$messageReplacements[$key] ) ) {
 			$key = Gateway_Form_Mustache::$messageReplacements[$key];
 		}
@@ -446,16 +446,10 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	/**
 	 * Render a validation error message or blank error placeholder.
 	 *
-	 * @param array $params first should be the field name
+	 * @param string $fieldName
 	 * @return string
 	 */
-	public static function fieldError( $params ) {
-		if ( !$params ) {
-			throw new BadMethodCallException( 'Need field key' );
-		}
-
-		$fieldName = array_shift( $params );
-
+	public static function fieldError( $fieldName ) {
 		if ( isset( Gateway_Form_Mustache::$fieldErrors[$fieldName] ) ) {
 			$context = Gateway_Form_Mustache::$fieldErrors[$fieldName];
 			$context['cssClass'] = 'errorMsg';

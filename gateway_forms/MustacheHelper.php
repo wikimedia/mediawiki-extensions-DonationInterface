@@ -1,5 +1,7 @@
 <?php
 
+use LightnCandy\LightnCandy;
+
 class MustacheHelper {
 
 	/**
@@ -28,11 +30,14 @@ class MustacheHelper {
 			throw new RuntimeException( "Template file unavailable: [$fileName]" );
 		}
 
+		// Not sure entirely what would happen here but {{l10n header_key}} should be done in mustache?
+
 		// TODO: Use MW-core implementation once it allows helper functions
 		$code = LightnCandy::compile( $template, $options );
 		if ( !$code ) {
 			throw new RuntimeException( 'Couldn\'t compile template!' );
 		}
+
 		if ( substr( $code, 0, 5 ) === '<?php' ) {
 			$code = substr( $code, 5 );
 		}

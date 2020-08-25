@@ -30,7 +30,6 @@
 		"php": ">=7.0",
 		"predis/predis": "^1.1",
 		"psr/log": "^1.0",
-		"zordius/lightncandy": "0.23",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
 		"symfony/yaml": "^3",
 		"wikimedia/smash-pig": "^0.6",
