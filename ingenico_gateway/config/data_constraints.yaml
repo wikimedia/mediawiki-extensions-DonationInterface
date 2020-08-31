@@ -59,4 +59,7 @@ last_name:
 postal_code:
     type: alphanumeric
     length: 10
-
+# Only the first 22 chars or so actually appear
+descriptor:
+    type: alphanumeric
+    length: 40
