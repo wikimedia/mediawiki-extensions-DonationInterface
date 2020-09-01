@@ -20,7 +20,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 	protected $partialUrl;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
 			'wgIngenicoGatewayHostedFormVariants' => [

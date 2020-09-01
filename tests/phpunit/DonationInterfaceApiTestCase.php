@@ -9,7 +9,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	protected $clearToken = 'blahblah';
 	protected $saltedToken;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
 		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
@@ -20,7 +20,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		DonationInterfaceTestCase::resetAllEnv();
 		parent::tearDown();
 	}

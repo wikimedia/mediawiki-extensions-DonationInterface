@@ -32,7 +32,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group OrphanSlayer
  */
 class DonationInterface_Adapter_Ingenico_Orphans_IngenicoTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->markTestSkipped( 'Orphan adapter not yet implemented' );
 

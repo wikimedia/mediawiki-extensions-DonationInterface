@@ -31,7 +31,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 	protected $testAdapterClass = TestingPaypalExpressAdapter::class;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		TestingContext::get()->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
 			'paypal', self::$smashPigGlobalConfig

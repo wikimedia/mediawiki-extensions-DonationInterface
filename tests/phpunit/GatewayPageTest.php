@@ -33,7 +33,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 	 */
 	protected $adapter;
 
-	public function setUp() {
+	public function setUp(): void {
 		$this->page = new TestingGatewayPage();
 		// put these here so tests can override them
 		TestingGenericAdapter::$fakeGlobals = [ 'FallbackCurrency' => 'USD' ];
@@ -66,7 +66,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->page->adapter = $this->adapter;
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		TestingGenericAdapter::$acceptedCurrencies = [];
 		TestingGenericAdapter::$fakeGlobals = [];
 		TestingGenericAdapter::$fakeIdentifier = false;

@@ -7,7 +7,7 @@
 class DonationInterface_Adapter_GlobalCollect_ResultSwitcherTest extends DonationInterfaceTestCase {
 	protected $testAdapterClass = TestingGlobalCollectAdapter::class;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals(

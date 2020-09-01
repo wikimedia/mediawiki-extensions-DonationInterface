@@ -28,7 +28,7 @@ class EncodingManglerTest extends PHPUnit\Framework\TestCase {
 	 */
 	protected $mangler;
 
-	public function setUp() {
+	public function setUp(): void {
 		$this->mangler = new EncodingMangler();
 	}
 

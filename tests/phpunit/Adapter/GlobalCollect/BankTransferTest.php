@@ -26,7 +26,7 @@
  * @group BankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

@@ -28,7 +28,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	protected $page;
 	protected $adapter;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -52,7 +52,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 		$this->page->adapter = $this->adapter;
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		TestingGenericAdapter::$fakeIdentifier = null;
 		TestingGenericAdapter::$acceptedCurrencies = [];
 		parent::tearDown();

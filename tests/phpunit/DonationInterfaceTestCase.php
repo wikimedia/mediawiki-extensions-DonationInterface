@@ -81,7 +81,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		}
 	}
 
-	protected function setUp() {
+	protected function setUp(): void {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
@@ -98,7 +98,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		Context::get()->setSourceName( 'DonationInterface' );
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		self::resetAllEnv();
 		parent::tearDown();
 	}

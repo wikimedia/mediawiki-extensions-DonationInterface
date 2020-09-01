@@ -65,8 +65,6 @@ class DonationInterface {
 			return true;
 		}
 
-		$files[] = $testDir . 'AllTests.php';
-
 		$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
 		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
 		$wgAutoloadClasses['BaseIngenicoTestCase'] = $testDir . 'BaseIngenicoTestCase.php';

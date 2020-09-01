@@ -13,7 +13,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 	protected $csvDataSource;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->csvDataSource = tmpfile();
 		$this->setMwGlobals(

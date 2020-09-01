@@ -23,7 +23,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 	protected $testAdapterClass = IngenicoAdapter::class;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		parent::setUp();
 		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
 

@@ -24,7 +24,7 @@
  * @group RealTimeBankTransfer
  */
 class DonationInterface_Adapter_GlobalCollect_DirectDebitTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

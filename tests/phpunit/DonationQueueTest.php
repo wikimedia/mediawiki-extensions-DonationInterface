@@ -30,7 +30,7 @@ class DonationQueueTest extends DonationInterfaceTestCase {
 	protected $queue_name;
 	protected $expected_message;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->queue_name = 'test';

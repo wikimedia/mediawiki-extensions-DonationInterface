@@ -41,7 +41,7 @@ class AmountTest extends DonationInterfaceTestCase {
 	 */
 	protected $normalized;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
 			'wgDonationInterfacePriceFloor' => 1.50,

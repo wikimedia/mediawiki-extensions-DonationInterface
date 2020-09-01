@@ -11,7 +11,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
  */
 class AdyenApiTest extends DonationInterfaceApiTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
 			'wgAdyenGatewayEnabled' => true,
