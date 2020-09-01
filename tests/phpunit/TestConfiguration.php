@@ -176,11 +176,11 @@ $wgAstroPayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
 $wgAstroPayGatewayAccountInfo = [];
 $wgAstroPayGatewayAccountInfo['test'] = [
 	'Create' => [
-		'Login' => 'createlogin',
+		'Login' => 'creator',
 		'Password' => 'createpass',
 	],
 	'Status' => [
-		'Login' => 'statuslogin',
+		'Login' => 'statusor',
 		'Password' => 'statuspass',
 	],
 	'SecretKey' => 'NanananananananananananananananaBatman',

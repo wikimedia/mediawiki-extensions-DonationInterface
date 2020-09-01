@@ -772,7 +772,8 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 			if ( array_key_exists( $transaction, $this->transactions ) && is_array( $this->transactions[$transaction] ) &&
 				array_key_exists( 'values', $this->transactions[$transaction] ) &&
 				array_key_exists( $gateway_field_name, $this->transactions[$transaction]['values'] ) ) {
-				return $this->transactions[$transaction]['values'][$gateway_field_name];
+				$value = $this->transactions[$transaction]['values'][$gateway_field_name];
+				return $this->trimFieldToConstraints( $value, $gateway_field_name );
 			}
 		}
 
@@ -2110,26 +2111,36 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 */
 	public function formatStagedData() {
 		foreach ( $this->staged_data as $field => $value ) {
-			// Trim all values if they are a string
-			$value = is_string( $value ) ? trim( $value ) : $value;
+			// Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
+			$this->staged_data[ $field ] = $this->trimFieldToConstraints( $value, $field );
+		}
+	}
 
-			if ( isset( $this->dataConstraints[ $field ] ) && is_string( $value ) ) {
-				// Truncate the field if it has a length specified
-				if ( isset( $this->dataConstraints[ $field ]['length'] ) ) {
-					$length = (int)$this->dataConstraints[ $field ]['length'];
-				} else {
-					$length = false;
-				}
+	/**
+	 * Trims a single field according to length constraints in data_constraints.yaml
+	 *
+	 * @param mixed $value
+	 * @param string $field the name of the field specified in data_constraints
+	 * @return mixed|string
+	 */
+	protected function trimFieldToConstraints( $value, $field ) {
+		// Trim all values if they are a string
+		$value = is_string( $value ) ? trim( $value ) : $value;
 
-				if ( !empty( $length ) && !empty( $value ) ) {
-					// Note: This is the very last resort. This should already have been dealt with thoroughly in staging.
-					$value = mb_substr( $value, 0, $length, 'UTF-8' );
-				}
-
+		if ( isset( $this->dataConstraints[$field] ) && is_string( $value ) ) {
+			// Truncate the field if it has a length specified
+			if ( isset( $this->dataConstraints[$field]['length'] ) ) {
+				$length = (int)$this->dataConstraints[$field]['length'];
+			} else {
+				$length = false;
 			}
 
-			$this->staged_data[ $field ] = $value;
+			if ( !empty( $length ) && !empty( $value ) ) {
+				$value = mb_substr( $value, 0, $length, 'UTF-8' );
+			}
+
 		}
+		return $value;
 	}
 
 	/**
