@@ -236,7 +236,7 @@ class AdyenAdapter extends GatewayAdapter {
 
 					$requestParams = $this->buildRequestParams();
 
-					$formaction = $this->getProcessorUrl() . '/hpp/pay.shtml';
+					$formaction = $this->getProcessorUrl() . '/hpp/details.shtml';
 					$this->transaction_response->setRedirect( $formaction );
 					$this->transaction_response->setData( $requestParams );
 					// FIXME: might be an iframe, might be a redirect
