@@ -177,10 +177,11 @@ table.od th {
 #footerb1div {
 	float: left;
 	text-align: left;
+	display: none;
 }
 
 #footerb2div {
-	float: right;
+	float: left;
 	text-align: right;
 }
 
@@ -645,6 +646,10 @@ input::-webkit-inner-spin-button {
 
 .hpp-stage-header {
 	margin: 30px 0;
+}
+
+#stageheader {
+        display: none;
 }
 
 #content .hpp-bcmc_mobile-title,
