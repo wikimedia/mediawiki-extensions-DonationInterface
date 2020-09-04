@@ -27,7 +27,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( empty( $result['errors'] ) );
 
 		$this->assertEquals(
-			'https://example.org/hpp/pay.shtml',
+			'https://example.org/hpp/details.shtml',
 			$result['iframe'],
 			'Adyen API not setting correct iframe'
 		);
@@ -147,7 +147,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( empty( $result['errors'] ) );
 
 		$this->assertEquals(
-			'https://example.org/hpp/pay.shtml',
+			'https://example.org/hpp/details.shtml',
 			$result['iframe'],
 			'Adyen API not setting correct iframe'
 		);
@@ -280,7 +280,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$this->assertTrue( empty( $result['errors'] ) );
 
 		$this->assertEquals(
-			'https://example.org/hpp/pay.shtml',
+			'https://example.org/hpp/details.shtml',
 			$result['iframe'],
 			'Adyen API not setting correct iframe'
 		);
