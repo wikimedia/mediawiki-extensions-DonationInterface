@@ -375,6 +375,10 @@
 			"messages": [
 				"donate_interface-donor-fiscal_number-explain-in"
 			]
+		},
+		"ext.donationInterface.adyenIframe": {
+			"scripts": "adyen_gateway/forms/js/adyen-iframe.js",
+			"dependencies": "ext.donationInterface.forms"
 		}
 	},
 	"ResourceFileModulePaths": {
