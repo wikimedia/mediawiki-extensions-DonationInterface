@@ -609,6 +609,9 @@ EOT;
 	 */
 	public static function ip_is_listed( $ip, $ip_list ) {
 		$expanded = [];
+		if ( empty( $ip_list ) ) {
+			return false;
+		}
 		foreach ( $ip_list as $address ) {
 			$expanded = array_merge( $expanded, self::expandIPBlockToArray( $address ) );
 		}
