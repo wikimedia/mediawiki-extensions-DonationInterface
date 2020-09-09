@@ -554,12 +554,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 	}
 
 	public static function resetAllEnv() {
-		$_SERVER = [];
-		$_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
-		$_SERVER['HTTP_HOST'] = TESTS_HOSTNAME;
-		$_SERVER['SERVER_NAME'] = TESTS_HOSTNAME;
-		$_SERVER['SCRIPT_NAME'] = __FILE__;
-
 		RequestContext::resetMain();
 
 		self::resetTestingAdapters();
@@ -613,10 +607,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		$special_page_class, $initial_vars, $perform_these_checks,
 		$fail_on_log_errors = false, $session = null, $posted = false
 	) {
-		// Nasty hack to clear output from any previous tests.
-		if ( empty( $_SERVER['REQUEST_TIME_FLOAT'] ) ) {
-			$_SERVER['REQUEST_TIME_FLOAT'] = microtime( true );
-		}
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
 		$newRequest = new TestingRequest( $initial_vars, $posted, $session );
