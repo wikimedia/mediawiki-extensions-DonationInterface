@@ -154,7 +154,7 @@
 	"donate_interface-rt-button": "Faire un don via la banque $1",
 	"donate_interface-ewallet-button": "Faire un don via $1",
 	"donate_interface-card-legend": "Informations sur la carte bancaire ou de crédit",
-	"donate_interface-amount-legend": "Montant du don",
+	"donate_interface-amount-legend": "Montant du don&nbsp;",
 	"donate_interface-cvv-link": "Où est-ce ?",
 	"donate_interface-donor-legend": "Informations sur le donateur",
 	"donate_interface-donor-amount": "Montant",
