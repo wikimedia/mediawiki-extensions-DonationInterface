@@ -2,8 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Joseph",
+			"MuratTheTurkish",
 			"Sayginer"
 		]
 	},
-	"paypal_gateway-desc": "PayPal ödemesi işleniyor"
+	"paypal_gateway-desc": "PayPal ödeme işlemi"
 }
