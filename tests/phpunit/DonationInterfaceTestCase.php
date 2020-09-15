@@ -20,6 +20,10 @@ use SmashPig\Core\Context;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
+use RemexHtml\DOM;
+use RemexHtml\HTMLData;
+use RemexHtml\Tokenizer;
+use RemexHtml\TreeBuilder;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -638,7 +642,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 			$this->verifyNoLogErrors();
 		}
 
-		$dom_thingy = new DomDocument();
 		//// DEBUGGING, foo
 		// if (property_exists($this, 'FOO')) {
 		// error_log(var_export($formpage->getRequest()->response()->getheader('Location'), true));
@@ -646,8 +649,29 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		// }
 
 		if ( $form_html ) {
+			// use RemexHtml to get a DomDocument so we don't get errors on
+			// unknown HTML5 elements.
+			$domBuilder = new DOM\DOMBuilder( [
+				'suppressHtmlNamespace' => true
+			] );
+			$treeBuilder = new TreeBuilder\TreeBuilder(
+				$domBuilder,
+				[ 'ignoreErrors' => true ]
+			);
+			$dispatcher = new TreeBuilder\Dispatcher( $treeBuilder );
+			$tokenizer = new Tokenizer\Tokenizer(
+				$dispatcher,
+				'<?xml encoding="UTF-8">' . $form_html,
+				[ 'ignoreErrors' => true ]
+			);
+			$tokenizer->execute( [
+				// Need to send null here so getFragment() returns DomDocument
+				// instead of a DomElement
+				'fragmentNamespace' => null,
+				'fragmentName' => 'document'
+			] );
+			$dom_thingy = $domBuilder->getFragment();
 			// p.s. i'm SERIOUS about the character encoding.
-			$dom_thingy->loadHTML( '<?xml encoding="UTF-8">' . $form_html );
 			$dom_thingy->encoding = 'UTF-8';
 		}
 

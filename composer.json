@@ -42,6 +42,7 @@
 		"mediawiki/minus-x": "0.3.2",
 		"php-parallel-lint/php-console-highlighter": "0.4.0",
 		"php-parallel-lint/php-parallel-lint": "1.0.0",
+		"wikimedia/remex-html": "~2.2",
 		"wikimedia/testing-access-wrapper": "~1.0"
 	},
 	"repositories": [
