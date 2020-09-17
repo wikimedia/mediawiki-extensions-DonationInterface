@@ -1,0 +1,67 @@
+HTTP/1.1 200 OK
+Server: Apache-Coyote/1.1
+X-OneAgent-JS-Injection: true
+Set-Cookie: dtCookie=1$85FFBC809C251DF8016609A88D345270; Path=/; Domain=.gcsip.nl
+Cache-Control: no-cache, no-store, must-revalidate, max-age=0, proxy-revalidate, no-transform, pre-check=0, post-check=0, private
+Expires: Thu, Jan 01 1970 00:00:00 GMT
+Pragma: no-cache
+Content-Type: text/xml;charset=utf-8
+Content-Length: 1939
+Date: Thu, 06 Dec 2018 17:51:49 GMT
+
+<?xml version = "1.0"?>
+<!--Expired card error and dupe order id.  Should not be retried even though
+there is a recoverable error. Tests the case with the recoverable error last. -->
+<XML>
+	<REQUEST>
+		<ACTION>GET_ORDERSTATUS</ACTION>
+		<META>
+			<MERCHANTID>test</MERCHANTID>
+			<IPADDRESS>127.0.0.1</IPADDRESS>
+			<VERSION>2.0</VERSION>
+		</META>
+		<PARAMS>
+			<ORDER>
+				<ORDERID>1234567890</ORDERID>
+			</ORDER>
+		</PARAMS>
+		<RESPONSE>
+			<RESULT>OK</RESULT>
+			<META>
+				<REQUESTID>1234567</REQUESTID>
+				<RESPONSEDATETIME>20140704021818</RESPONSEDATETIME>
+			</META>
+			<STATUS>
+				<STATUSDATE>20140704021814</STATUSDATE>
+				<PAYMENTMETHODID>1</PAYMENTMETHODID>
+				<MERCHANTREFERENCE>14222.39313</MERCHANTREFERENCE>
+				<FRAUDRESULT>N</FRAUDRESULT>
+				<ATTEMPTID>1</ATTEMPTID>
+				<PAYMENTREFERENCE>0</PAYMENTREFERENCE>
+				<AMOUNT>155</AMOUNT>
+				<AVSRESULT>0</AVSRESULT>
+				<EXPIRYDATE>0714</EXPIRYDATE>
+				<MERCHANTID>1234</MERCHANTID>
+				<ORDERID>1234567890</ORDERID>
+				<STATUSID>100</STATUSID>
+				<CREDITCARDNUMBER>************2105</CREDITCARDNUMBER>
+				<EFFORTID>1</EFFORTID>
+				<CVVRESULT>M</CVVRESULT>
+				<CURRENCYCODE>USD</CURRENCYCODE>
+				<PAYMENTPRODUCTID>3</PAYMENTPRODUCTID>
+				<ERRORS>
+					<ERROR>
+						<TYPE>B</TYPE>
+						<CODE>430306</CODE>
+						<MESSAGE>430306 Card Expired</MESSAGE>
+					</ERROR>
+					<ERROR>
+						<TYPE>B</TYPE>
+						<CODE>300620</CODE>
+						<MESSAGE>300620 Duplicate Order ID</MESSAGE>
+					</ERROR>
+				</ERRORS>
+			</STATUS>
+		</RESPONSE>
+	</REQUEST>
+</XML>

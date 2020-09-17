@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Server: nginx/1.7.9
+Date: Wed, 08 Apr 2015 00:19:52 GMT
+Content-Type: application/json; charset=UTF-8
+Content-Length: 70
+Connection: keep-alive
+X-Powered-By: PHP/5.3.27
+
+{"status":"1","desc":"Could not make the deposit","error_code":"701"}

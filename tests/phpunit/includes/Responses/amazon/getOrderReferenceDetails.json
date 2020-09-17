@@ -1,0 +1,29 @@
+{
+    "GetOrderReferenceDetailsResult": {
+        "OrderReferenceDetails": {
+            "OrderReferenceStatus": {
+                "LastUpdateTimestamp": "2015-08-24T21:50:01.773Z",
+                "State": "Open"
+            },
+            "ExpirationTimestamp": "2016-02-20T21:03:47.077Z",
+            "IdList": [],
+            "SellerOrderAttributes": [],
+            "OrderTotal": {
+                "CurrencyCode": "USD",
+                "Amount": "10.00"
+            },
+            "Buyer": {
+                "Name": "Testy Test",
+                "Email": "nobody@wikimedia.org"
+            },
+            "ReleaseEnvironment": "Sandbox",
+            "SellerNote": "Donation to the Wikimedia Foundation",
+            "AmazonOrderReferenceId": "S01-0391295-0674065",
+            "CreationTimestamp": "2015-08-24T21:03:47.077Z"
+        }
+    },
+    "ResponseMetadata": {
+        "RequestId": "d2759fcb-fdb0-4e93-8b9f-c3156d6bc5fd"
+    },
+    "ResponseStatus": "200"
+}
