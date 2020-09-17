@@ -14,6 +14,7 @@
 			"Mirws",
 			"Pcoombe",
 			"Presidenvolksraad",
+			"RXerself",
 			"Seddon",
 			"William Surya Permana"
 		]
@@ -253,7 +254,7 @@
 	"donate_interface-otherways-alt": "Ada <a href=\"$1\">cara lain untuk memberi</a>, termasuk melalui cek.",
 	"donate_interface-otherways-short": "Cara lain untuk memberi",
 	"donate_interface-token-mismatch": "Sesi Anda telah kedaluwarssa. Silakan coba isi formulir dan mengirimkannya lagi.",
-	"donate_interface-cc-token-expired": "Token Anda telah kedaluwarsa, klik Oke to memuat ulang.",
+	"donate_interface-cc-token-expired": "Token Anda telah kedaluwarsa, klik Oke untuk memuat ulang.",
 	"donate_interface-try-again": "Kami tidak dapat memproses donasi Anda untuk sementara waktu. Cobalah beberapa saat lagi.",
 	"donate_interface-cc-form-header-personal": "Informasi penagihan",
 	"donate_interface-cc-form-header-payment": "Informasi pembayaran",
