@@ -1066,7 +1066,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 * @return PaymentTransactionResponse
 	 * @throws UnexpectedValueException
 	 */
-	final private function do_transaction_internal( $transaction, &$retryVars = null ) {
+	private function do_transaction_internal( $transaction, &$retryVars = null ) {
 		$this->debugarray[] = __FUNCTION__ . " is doing a $transaction.";
 
 		// reset, in case this isn't our first time.
