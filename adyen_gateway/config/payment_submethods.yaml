@@ -1,10 +1,11 @@
-cb:
-    countries:
-        FR: true
-    group: cc
-    logo: card-cb-lg.png
-    # For all the rest, our key matches the brandCode
-    brandCode: cartebancaire
+# Disabled due to Adyen not having it enabled on our account
+# cb:
+#   countries:
+#        FR: true
+#    group: cc
+#    logo: card-cb-lg.png
+#    # For all the rest, our key matches the brandCode
+#    brandCode: cartebancaire
 visa:
     countries:
         CA: true
