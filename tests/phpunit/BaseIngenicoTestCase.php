@@ -192,7 +192,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 	public static function getDonorTestData( $country = '' ) {
 		$data = parent::getDonorTestData( $country );
-		$data['gateway_session_id'] = mt_rand();
+		$data['gateway_session_id'] = (string)mt_rand();
 		return $data;
 	}
 }

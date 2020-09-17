@@ -18,7 +18,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$donorTestData['payment_method'] = 'cc';
 		$donorTestData['payment_submethod'] = 'visa';
 		$donorTestData['email'] = 'innocent@localhost.net';
-		$donorTestData['order_id'] = mt_rand();
+		$donorTestData['order_id'] = (string)mt_rand();
 		$this->hostedPaymentStatusResponse['createdPaymentOutput']
 			['payment']
 			['paymentOutput']
@@ -54,13 +54,13 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
 		SourceFields::removeFromMessage( $queueMessage );
 		$expected = $donorTestData;
-		$expected['gross'] = $donorTestData['amount'];
+		$expected['gross'] = (float)$donorTestData['amount'];
 		unset( $expected['ffname'] );
 		unset( $expected['referrer'] );
 		unset( $expected['amount'] );
 		unset( $expected['processor_form'] );
 		unset( $expected['postal_code'] );
-		$this->assertArraySubset(
+		$this->assertArraySubmapSame(
 			$expected,
 			$queueMessage
 		);

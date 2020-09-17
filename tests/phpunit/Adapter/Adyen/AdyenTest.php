@@ -127,7 +127,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'billingAddress.stateOrProvince' => $init['state_province'],
 			'billingAddress.country' => $init['country'],
 			'billingAddress.houseNumberOrName' => 'NA',
-			'billingAddressType' => 2,
+			'billingAddressType' => '2',
 			'brandCode' => 'visa',
 			'card.cardHolderName' => $init['first_name'] . ' ' . $init['last_name'],
 			'countryCode' => $init['country'],
@@ -135,7 +135,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'merchantAccount' => 'wikitest',
 			'merchantReference' => $orderId,
 			'merchantSig' => $exposed->getData_Staged( 'hpp_signature' ),
-			'paymentAmount' => ( $init['amount'] ) * 100,
+			'paymentAmount' => (string)( ( $init['amount'] ) * 100 ),
 			// 'sessionValidity' => '2014-03-09T19:41:50+00:00',	//commenting out, because this is a problem.
 			// 'shipBeforeDate' => $exposed->getData_Staged( 'expiration' ),	//this too.
 			'skinCode' => 'testskin',
@@ -143,7 +143,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 			'shopperEmail' => 'nobody@wikimedia.org',
 			'offset' => '52', // once we construct the FraudFiltersTestCase, it should land here.
 		];
-		$this->assertArraySubset( $expected, $actualData );
+		$this->assertArraySubmapSame( $expected, $actualData );
 	}
 
 	public function testdoPaymentError() {

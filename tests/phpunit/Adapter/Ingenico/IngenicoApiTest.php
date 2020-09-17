@@ -71,7 +71,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'showResultPage' => 'false',
 						'variant' => 105
 					];
-					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExp(
 						'/Special:IngenicoGatewayResult/',
 						$actual['hostedCheckoutSpecificInput']['returnUrl']
@@ -79,7 +79,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 155
+							'amount' => 155.0
 						],
 						'customer' => [
 							'billingAddress' => [
@@ -101,7 +101,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							]
 						]
 					];
-					$this->assertArraySubset( $order, $actual['order'] );
+					$this->assertArraySubmapSame( $order, $actual['order'] );
 					$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
 					return true;
 				} )
@@ -153,7 +153,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'gateway_session_id' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 			'gateway_txn_id' => false,
 		];
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 	}
 
 	public function testStageLocale() {
@@ -181,7 +181,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'showResultPage' => 'false',
 						'variant' => 105
 					];
-					$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
 				} )
 			)
@@ -221,7 +221,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 155
+							'amount' => 155.0
 						],
 						'customer' => [
 							'billingAddress' => [
@@ -243,7 +243,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							]
 						]
 					];
-					$this->assertArraySubset( $order, $actual['order'] );
+					$this->assertArraySubmapSame( $order, $actual['order'] );
 					return true;
 				} )
 			)
@@ -286,7 +286,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$cpmsi = [
 						'tokenize' => true,
 					];
-					$this->assertArraySubset( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
+					$this->assertArraySubmapSame( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
 					return true;
 				} )
 			)
@@ -464,7 +464,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		unset( $expected['processor_form'] );
 		unset( $expected['variant'] );
 		$expected['gross'] = '1.22';
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 	}
 
 	/**

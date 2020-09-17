@@ -78,14 +78,13 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->assertRegExp( $regexp, $html );
 	}
 
-	/**
-	 * @expectedException Exception
-	 * @expectedExceptionMessage Template file unavailable
-	 */
 	public function testNoTemplateFile() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
 		] );
+
+		$this->expectException( RuntimeException::class );
+		$this->expectExceptionMessage( 'Template file unavailable' );
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
 		$this->form->setGatewayPage( $this->gatewayPage );

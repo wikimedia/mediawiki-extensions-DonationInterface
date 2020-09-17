@@ -705,7 +705,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 					],
 					'showResultPage' => 'false'
 				];
-				$this->assertArraySubset( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+				$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 				$this->assertRegExp(
 					'/Special:IngenicoGatewayResult/',
 					$actual['hostedCheckoutSpecificInput']['returnUrl']
@@ -713,7 +713,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 				$order = [
 					'amountOfMoney' => [
 						'currencyCode' => 'USD',
-						'amount' => 155
+						'amount' => 155.0
 					],
 					'customer' => [
 						'billingAddress' => [
@@ -735,7 +735,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 						]
 					]
 				];
-				$this->assertArraySubset( $order, $actual['order'] );
+				$this->assertArraySubmapSame( $order, $actual['order'] );
 				$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
 				return true;
 			} )

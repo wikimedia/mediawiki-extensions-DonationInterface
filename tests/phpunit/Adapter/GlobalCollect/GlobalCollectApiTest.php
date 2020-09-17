@@ -62,7 +62,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'state_province' => 'CA',
 			'postal_code' => '94105'
 		];
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 		// Don't send any value for opt_in if not set or shown
 		$this->assertTrue( !isset( $message['opt_in'] ) );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();

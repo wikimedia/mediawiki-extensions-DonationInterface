@@ -90,7 +90,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'postal_code' => '94105',
 			'risk_score' => 20
 		];
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
@@ -100,7 +100,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
-		$this->assertArraySubset( $expected, $actual, 'Logged the wrong stuff!' );
+		$this->assertArraySubmapSame( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 
 	public function testTooSmallDonation() {
@@ -212,7 +212,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'postal_code' => '94105',
 			'risk_score' => 20
 		];
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
@@ -222,7 +222,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
-		$this->assertArraySubset( $expected, $actual, 'Logged the wrong stuff!' );
+		$this->assertArraySubmapSame( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 
 	protected function getDonorData() {
@@ -307,7 +307,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 			'user_ip' => '127.0.0.1',
 			'risk_score' => 31.5
 		];
-		$this->assertArraySubset( $expected, $message );
+		$this->assertArraySubmapSame( $expected, $message );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNull( $message, 'Sending extra pending messages' );
 		$logged = DonationInterfaceTestCase::getLogMatches(
@@ -317,6 +317,6 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
-		$this->assertArraySubset( $expected, $actual, 'Logged the wrong stuff!' );
+		$this->assertArraySubmapSame( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 }

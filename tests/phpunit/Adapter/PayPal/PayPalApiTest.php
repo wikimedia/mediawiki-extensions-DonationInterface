@@ -71,7 +71,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		];
 		// FIXME: want to assert stuff about countribution_tracking_id, but we
 		// have no way of overriding that for API tests
-		$this->assertArraySubset(
+		$this->assertArraySubmapSame(
 			$expected,
 			$message,
 			'PayPal EC setup sending wrong pending message'
@@ -85,7 +85,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
-		$this->assertArraySubset( $expected, $actual, 'Logged the wrong stuff!' );
+		$this->assertArraySubmapSame( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 
 	public function testTooSmallDonation() {
@@ -161,7 +161,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		];
 		// FIXME: want to assert stuff about countribution_tracking_id, but we
 		// have no way of overriding that for API tests
-		$this->assertArraySubset(
+		$this->assertArraySubmapSame(
 			$expected,
 			$message,
 			'PayPal EC setup sending wrong pending message'
@@ -175,6 +175,6 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
-		$this->assertArraySubset( $expected, $actual, 'Logged the wrong stuff!' );
+		$this->assertArraySubmapSame( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 }
