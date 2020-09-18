@@ -698,6 +698,17 @@ $forms['astropay-uy'] = [
 /**********
  * Adyen *
  **********/
+$forms['adyen-au'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'AU' ], ],
+	'currencies' => [ '+' => [ 'AUD', 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
+	],
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
+];
+
 $forms['adyen-ca'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'CA' ], ],
@@ -783,6 +794,17 @@ $forms['adyen-nl-recurring'] = [
 	],
 	'recurring',
 	'selection_weight' => 101,
+];
+
+$forms['adyen-nz'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'NZ' ], ],
+	'currencies' => [ '+' => [ 'NZD', 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex', ],
+	],
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
 ];
 
 $forms['adyen-ua'] = [
