@@ -724,7 +724,6 @@ $forms['adyen-au-recurring'] = [
 $forms['adyen-ca'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'CA' ], ],
-	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
@@ -735,7 +734,6 @@ $forms['adyen-ca'] = [
 $forms['adyen-fr'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'FR' ], ],
-	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'cb', 'visa', 'mc', 'amex', ],
 	],
@@ -746,7 +744,6 @@ $forms['adyen-fr'] = [
 $forms['adyen-gb'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'GB' ], ],
-	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
@@ -757,7 +754,6 @@ $forms['adyen-gb'] = [
 $forms['adyen-ie'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'IE' ], ],
-	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb', ],
 	],
@@ -778,7 +774,6 @@ $forms['adyen-il'] = [
 $forms['adyen-jp'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'JP', ], ],
-	'currencies' => [ '+' => [ 'USD' ], ],
 	'payment_methods' => [
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 	],
