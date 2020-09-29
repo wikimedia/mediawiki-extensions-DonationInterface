@@ -115,7 +115,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		$result = $gateway->doPayment();
 		$actualUrl = $result->getIframe();
 		$actualData = $result->getFormData();
-		$this->assertEquals( 'https://test.adyen.com/hpp/details.shtml', $actualUrl );
+		$this->assertEquals( 'https://test.adyen.com/hpp/pay.shtml', $actualUrl );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$orderId = $exposed->getData_Staged( 'order_id' );
 		$this->assertNotNull( $orderId, 'No order ID generated' );

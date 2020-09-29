@@ -7,6 +7,7 @@ cb:
     brandCode: cartebancaire
 visa:
     countries:
+        AU: true
         CA: true
         FR: true
         GB: true
@@ -14,12 +15,14 @@ visa:
         IL: true
         JP: true
         NL: true
+        NZ: true
         UA: true
         US: true
     group: cc
     logo: card-visa-lg.png
 mc:
     countries:
+        AU: true
         CA: true
         FR: true
         GB: true
@@ -27,6 +30,7 @@ mc:
         IL: true
         JP: true
         NL: true
+        NZ: true
         UA: true
         US: true
     group: cc
@@ -36,6 +40,7 @@ mc:
         3x: card-mastercard_3x.png
 amex:
     countries:
+        AU: true
         CA: true
         FR: true
         GB: true
@@ -43,12 +48,14 @@ amex:
         IL: true
         JP: true
         NL: true
+        NZ: true
         UA: true
         US: true
     group: cc
     logo: card-amex-lg.png
 jcb:
     countries:
+        AU: true
         IE: true
         JP: true
         NL: true
