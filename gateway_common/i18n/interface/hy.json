@@ -60,5 +60,6 @@
 	"donate_interface-donor-security": "Անվտանգության կոդ",
 	"donate_interface-token-mismatch": "Ձեր սեսիայի ժամկետն անցել է։ Խնդրում ենք, փորձեք նորից լրացնել և ուղարկել ֆորման։",
 	"donate_interface-first": "Առաջին",
-	"donate_interface-or": "կամ"
+	"donate_interface-or": "կամ",
+	"donate_interface-statement": "Վիքիմեդիա $1"
 }
