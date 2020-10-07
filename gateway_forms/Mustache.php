@@ -477,14 +477,12 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getResources() {
 		$resources = parent::getResources();
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
-		if ( !empty( $gatewayModules['scripts'] ) ) {
-			$resources = array_merge(
-				$resources,
-				(array)$gatewayModules['scripts']
-			);
-		}
+		$this->addModules( 'scripts', $resources, $gatewayModules );
 		if ( $this->gateway->getGlobal( 'LogClientErrors' ) ) {
 			$resources[] = 'ext.donationInterface.errorLog';
+		}
+		if ( $this->gateway->showMonthlyConvert() ) {
+			$resources[] = 'ext.donationInterface.monthlyConvert';
 		}
 		return $resources;
 	}
@@ -492,13 +490,17 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getStyleModules() {
 		$modules = [ 'ext.donationInterface.mustache.styles' ];
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
-		if ( !empty( $gatewayModules['styles'] ) ) {
+		$this->addModules( 'style', $modules, $gatewayModules );
+		return $modules;
+	}
+
+	protected function addModules( $key, &$modules, $newModules ) {
+		if ( !empty( $newModules[$key] ) ) {
 			$modules = array_merge(
 				$modules,
-				(array)$gatewayModules['styles']
+				(array)$newModules[$key]
 			);
 		}
-		return $modules;
 	}
 
 	protected function getTopLevelTemplate() {

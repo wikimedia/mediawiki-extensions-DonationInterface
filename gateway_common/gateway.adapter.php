@@ -3989,15 +3989,36 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	}
 
 	/**
+	 * Check if currency is in the list for $wgDonationInterfaceMonthlyConvertCountries
+	 * @return bool
+	 */
+	protected function isMonthlyConvertCountry() {
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		$monthlyConvertCountries = $this->getGlobal( 'MonthlyConvertCountries' );
+		return in_array( $country, $monthlyConvertCountries );
+	}
+
+	/**
 	 * @return bool true when we want to ask a one-time donor for a recurring
 	 *  donation after their one-time donation is complete.
+	 *
+	 * @see $wgDonationInterfaceMonthlyConvertCountries
 	 */
 	public function showMonthlyConvert() {
 		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}
+		$medium = $this->getData_Unstaged_Escaped( 'utm_medium' );
+		// never show for endowment
+		if ( $medium == "endowment" ) {
+			return false;
+		}
 		$variant = $this->getData_Unstaged_Escaped( 'variant' );
+		$isMonthlyConvert = strstr( $variant, 'monthlyConvert' ) !== false;
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
-		return !$isRecurring && ( strstr( $variant, 'monthlyConvert' ) !== false );
+		if ( !$isMonthlyConvert && $this->isMonthlyConvertCountry() ) {
+			$isMonthlyConvert = true;
+		}
+		return !$isRecurring && $isMonthlyConvert;
 	}
 }
