@@ -20,6 +20,13 @@ visa:
         US: true
     group: cc
     logo: card-visa-lg.png
+# FIXME: we don't actually want a separate button for visa-debit
+# but we DO need it in this array to avoid an exception on return
+# to the ResultSwitcher.
+visa-debit:
+    countries:
+        XX: true
+    group: cc
 mc:
     countries:
         AU: true
