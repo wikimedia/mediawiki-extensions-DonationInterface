@@ -204,7 +204,7 @@
 		},
 		"ext.donationInterface.employerAutoComplete": {
 			"scripts": "modules/js/ext.donationInterface.employerAutoComplete.js",
-			"dependencies": "jquery.ui.autocomplete"
+			"dependencies": "jquery.ui"
 		},
 		"ext.donationInterface.noCardSelect": {
 			"styles": "modules/css/noCardSelect.css",
