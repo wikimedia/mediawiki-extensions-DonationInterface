@@ -101,7 +101,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
-		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
+		$data['appeal_text'] = $output->parseAsContent( '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
 		// Only render monthly convert when we come back from a qualified processor
@@ -118,16 +118,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
-	}
-
-	// Backwards compatibility with pre-MW 1.33
-	private static function parseAsContent( $out, $text ) {
-		if ( is_callable( [ $out, 'parseAsContent' ] ) ) {
-			return $out->parseAsContent( $text );
-		} else {
-			// Deprecated in 1.33
-			return $out->parse( $text, /*linestart*/true, /*interface*/false );
-		}
 	}
 
 	protected function handleOptIn( &$data ) {
