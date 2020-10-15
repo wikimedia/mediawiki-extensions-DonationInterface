@@ -30,7 +30,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	public function setUp(): void {
 		$this->outputPage = $this->getMockBuilder( OutputPage::class )
 			->disableOriginalConstructor()
-			->setMethods( [ 'parse' ] )
+			->onlyMethods( [ 'parseAsContent' ] )
 			->getMock();
 
 		$this->gatewayPage = new TestingGatewayPage();
@@ -102,11 +102,10 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		] );
 
-		$this->outputPage->method( 'parse' )
-			->willReturn( '<p>This is the template text</p>' );
 		$this->outputPage->expects( $this->once() )
-			->method( 'parse' )
-			->with( $this->equalTo( '{{JimmySezPleeeeeze/JimmyQuote/en}}' ) );
+			->method( 'parseAsContent' )
+			->with( $this->equalTo( '{{JimmySezPleeeeeze/JimmyQuote/en}}' ) )
+		    ->willReturn( '<p>This is the template text</p>' );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
@@ -129,7 +128,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->adapter->addRequestData( [ 'appeal' => 'differentAppeal' ] );
 
 		$this->outputPage->expects( $this->once() )
-			->method( 'parse' )
+			->method( 'parseAsContent' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/differentAppeal/en}}' ) );
 
 		$this->form = new Gateway_Form_Mustache();
@@ -153,7 +152,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		] );
 
 		$this->outputPage->expects( $this->once() )
-			->method( 'parse' )
+			->method( 'parseAsContent' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' ) );
 
 		$this->form = new Gateway_Form_Mustache();
