@@ -33,7 +33,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		$this->testAdapterClass = TestingPaypalLegacyAdapter::class;
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [
@@ -54,7 +54,7 @@ class DonationInterface_Adapter_PayPal_Legacy_Test extends DonationInterfaceTest
 		] );
 	}
 
-	public function tearDown() {
+	public function tearDown(): void {
 		TestingPaypalLegacyAdapter::$fakeGlobals = [];
 
 		parent::tearDown();

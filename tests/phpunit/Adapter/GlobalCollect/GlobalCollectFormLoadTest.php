@@ -23,7 +23,7 @@
  * @group GlobalCollect
  */
 class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$vmad_countries = [ 'US', ];

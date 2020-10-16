@@ -35,7 +35,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		parent::__construct( $name, $data, $dataName );
 	}
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

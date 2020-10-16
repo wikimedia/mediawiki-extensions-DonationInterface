@@ -32,7 +32,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group OrphanSlayer
  */
 class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		TestingContext::get()->providerConfigurationOverride =

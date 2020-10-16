@@ -24,7 +24,7 @@ use SmashPig\CrmLink\Messages\SourceFields;
  */
 class EmailPreferencesTest extends DonationInterfaceTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 	}
 

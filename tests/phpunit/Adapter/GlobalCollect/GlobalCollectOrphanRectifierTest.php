@@ -42,7 +42,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 
 	public $pendingDb;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

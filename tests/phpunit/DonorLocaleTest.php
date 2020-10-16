@@ -42,7 +42,7 @@ class DonorLocaleTest extends DonationInterfaceTestCase {
 	 */
 	protected $staged;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setUpRequest( [

@@ -23,7 +23,7 @@ use Psr\Log\LogLevel;
  * @group DonationInterface
  */
 class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

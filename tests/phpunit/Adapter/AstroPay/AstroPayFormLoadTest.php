@@ -23,7 +23,7 @@
  * @group AstroPay
  */
 class AstroPayFormLoadTest extends DonationInterfaceTestCase {
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$cc_countries = [ 'CO' ];

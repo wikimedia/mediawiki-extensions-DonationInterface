@@ -14,7 +14,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 	 */
 	protected $providerConfig;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->providerConfig = DonationInterface_Adapter_Amazon_Test::setUpAmazonTestingContext();
 	}
