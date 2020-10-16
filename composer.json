@@ -55,7 +55,7 @@
 		"optimize-autoloader": true,
 		"prepend-autoloader": false,
 		"platform": {
-			"php": "7.0"
+			"php": "7.3"
 		}
 	},
 	"scripts": {
