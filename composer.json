@@ -27,7 +27,7 @@
 		"geoip2/geoip2": "^2.9",
 		"monolog/monolog": "~1.22.1||~1.24",
 		"neitanod/forceutf8": "^2.0",
-		"php": ">=7.1",
+		"php": ">=7.3.19",
 		"predis/predis": "^1.1",
 		"psr/log": "^1.0",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
@@ -55,7 +55,7 @@
 		"optimize-autoloader": true,
 		"prepend-autoloader": false,
 		"platform": {
-			"php": "7.3"
+			"php": "7.3.19"
 		}
 	},
 	"scripts": {
