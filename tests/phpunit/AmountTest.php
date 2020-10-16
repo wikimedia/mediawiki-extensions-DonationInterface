@@ -275,7 +275,7 @@ class AmountTest extends DonationInterfaceTestCase {
 		$amount = $validator->format( 100.59, 'USB', 'en_US' );
 		// Unknown currency code is just plunked next to amount
 		// with a non-breaking space in between.
-		$this->assertEquals( "USB\xa0100.59", $amount );
+		$this->assertEquals( "USB\u{a0}100.59", $amount );
 
 		$amount = $validator->format( 100.59, 'USD', 'en_CA' );
 		$this->assertEquals( 'US$100.59', $amount );
