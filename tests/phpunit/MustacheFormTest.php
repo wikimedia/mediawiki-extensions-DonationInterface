@@ -105,7 +105,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->outputPage->expects( $this->once() )
 			->method( 'parseAsContent' )
 			->with( $this->equalTo( '{{JimmySezPleeeeeze/JimmyQuote/en}}' ) )
-		    ->willReturn( '<p>This is the template text</p>' );
+			->willReturn( '<p>This is the template text</p>' );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );

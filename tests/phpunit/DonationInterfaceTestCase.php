@@ -21,7 +21,6 @@ use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
 use RemexHtml\DOM;
-use RemexHtml\HTMLData;
 use RemexHtml\Tokenizer;
 use RemexHtml\TreeBuilder;
 use Wikimedia\TestingAccessWrapper;

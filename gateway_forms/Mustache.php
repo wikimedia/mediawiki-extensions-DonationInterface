@@ -429,7 +429,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		// information as the last param. Remove any params that are themselves
 		// arrays, as our message formatting can't handle them.
 		$filteredParams = [];
-		foreach( $params as $param ){
+		foreach ( $params as $param ) {
 			if ( is_scalar( $param ) ) {
 				$filteredParams[] = $param;
 			}
