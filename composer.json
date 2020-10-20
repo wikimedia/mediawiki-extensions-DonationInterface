@@ -27,10 +27,9 @@
 		"geoip2/geoip2": "^2.9",
 		"monolog/monolog": "~1.22.1||~1.24",
 		"neitanod/forceutf8": "^2.0",
-		"php": ">=7.0",
+		"php": ">=7.3.19",
 		"predis/predis": "^1.1",
 		"psr/log": "^1.0",
-		"zordius/lightncandy": "0.23",
 		"amzn/login-and-pay-with-amazon-sdk-php": "dev-master",
 		"symfony/yaml": "^3",
 		"wikimedia/smash-pig": "^0.6",
@@ -43,6 +42,7 @@
 		"mediawiki/minus-x": "0.3.2",
 		"php-parallel-lint/php-console-highlighter": "0.4.0",
 		"php-parallel-lint/php-parallel-lint": "1.0.0",
+		"wikimedia/remex-html": "~2.2",
 		"wikimedia/testing-access-wrapper": "~1.0"
 	},
 	"repositories": [
@@ -55,7 +55,7 @@
 		"optimize-autoloader": true,
 		"prepend-autoloader": false,
 		"platform": {
-			"php": "7.0"
+			"php": "7.3.19"
 		}
 	},
 	"scripts": {

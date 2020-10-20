@@ -2,6 +2,7 @@
 
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use LightnCandy\LightnCandy;
 
 /**
  * Gateway form rendering using Mustache
@@ -25,6 +26,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	protected static $partials = [
 		'issuers',
 		'more_info_links',
+		'no_script',
 		'opt_in',
 		'payment_amount',
 		'payment_method',
@@ -99,7 +101,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
-		$data['appeal_text'] = self::parseAsContent( $output, '{{' . $appealWikiTemplate . '}}' );
+		$data['appeal_text'] = $output->parseAsContent( '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
 		// Only render monthly convert when we come back from a qualified processor
@@ -116,16 +118,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$this->addCurrencyData( $data );
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
-	}
-
-	// Backwards compatibility with pre-MW 1.33
-	private static function parseAsContent( $out, $text ) {
-		if ( is_callable( [ $out, 'parseAsContent' ] ) ) {
-			return $out->parseAsContent( $text );
-		} else {
-			// Deprecated in 1.33
-			return $out->parse( $text, /*linestart*/true, /*interface*/false );
-		}
 	}
 
 	protected function handleOptIn( &$data ) {
@@ -423,39 +415,40 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	/**
 	 * Get a message value specific to the donor's country and language.
 	 *
-	 * @param array $params first value is used as message key
+	 * @param string $key message key
+	 * @param array ...$params values to fill in message placeholders
 	 * @return string
 	 */
-	public static function l10n( $params ) {
-		if ( !$params ) {
-			throw new BadMethodCallException( 'Need at least one message key' );
-		}
+	public static function l10n( $key, ...$params ) {
 		$language = RequestContext::getMain()->getLanguage()->getCode();
-		$key = array_shift( $params );
+		// If there are any form variant messages configured swap them out here
 		if ( isset( Gateway_Form_Mustache::$messageReplacements[$key] ) ) {
 			$key = Gateway_Form_Mustache::$messageReplacements[$key];
+		}
+		// Sometimes Lightncandy seems to send us an array with way too much
+		// information as the last param. Remove any params that are themselves
+		// arrays, as our message formatting can't handle them.
+		$filteredParams = [];
+		foreach ( $params as $param ) {
+			if ( is_scalar( $param ) ) {
+				$filteredParams[] = $param;
+			}
 		}
 		return MessageUtils::getCountrySpecificMessage(
 			$key,
 			Gateway_Form_Mustache::$country,
 			$language,
-			$params
+			$filteredParams
 		);
 	}
 
 	/**
 	 * Render a validation error message or blank error placeholder.
 	 *
-	 * @param array $params first should be the field name
+	 * @param string $fieldName
 	 * @return string
 	 */
-	public static function fieldError( $params ) {
-		if ( !$params ) {
-			throw new BadMethodCallException( 'Need field key' );
-		}
-
-		$fieldName = array_shift( $params );
-
+	public static function fieldError( $fieldName ) {
 		if ( isset( Gateway_Form_Mustache::$fieldErrors[$fieldName] ) ) {
 			$context = Gateway_Form_Mustache::$fieldErrors[$fieldName];
 			$context['cssClass'] = 'errorMsg';

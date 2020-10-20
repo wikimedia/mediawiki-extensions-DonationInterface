@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Aefgh39622"
+			"Aefgh39622",
+			"Patsagorn Y."
 		]
 	},
-	"amazon_gateway-desc": "การประมวลผลการชำระเงินผ่าน Amazon"
+	"amazon_gateway-desc": "กำลังประมวลผลธุรกรรมที่ผ่าน Amazon"
 }
