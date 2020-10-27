@@ -53,23 +53,23 @@ class ConfigurationReader {
 				);
 			}
 		}
+		$config = $this->addVariant( $config, $variant );
+		return $config;
+	}
+
+	protected function addVariant( $config, $variant ) {
 		if (
 			$variant &&
 			$this->variantBaseDirectory &&
 			preg_match( '/^[a-zA-Z0-9_]+$/', $variant )
 		) {
-			$variantDirectory = implode(
-				DIRECTORY_SEPARATOR,
-				[
+			$variantDirectory = implode( DIRECTORY_SEPARATOR, [
 					$this->variantBaseDirectory,
 					$variant,
 					$this->gatewayIdentifier
-				]
-			);
+				] );
 			if ( is_dir( $variantDirectory ) ) {
-				$config = $this->setConfigurationFromDirectory(
-					$variantDirectory, $config
-				);
+				 return $this->setConfigurationFromDirectory( $variantDirectory, $config );
 			}
 		}
 		return $config;

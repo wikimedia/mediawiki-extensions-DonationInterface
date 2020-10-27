@@ -698,3 +698,12 @@ $wgDonationInterfaceEnableSystemStatus = false //extra
  * should be the employer name, and the file should not have a header row.
  */
 $wgDonationInterfaceEmployersListDataFileLocation = '/vagrant/employerData.csv'
+
+/**
+ * $wgDonationInterfaceMonthlyConvertCountries
+ *
+ * Array of countries that should have the monthly convert modal shown
+ * by default
+ */
+$wgDonationInterfaceMonthlyConvertCountries = []
+
