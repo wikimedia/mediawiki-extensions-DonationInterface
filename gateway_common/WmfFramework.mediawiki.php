@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Session\SessionManager;
+use Wikimedia\IPUtils;
 
 class WmfFramework_Mediawiki {
 	public static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
@@ -19,7 +20,7 @@ class WmfFramework_Mediawiki {
 		$ret = $request->getText( $key, $default );
 		// getText never returns null: It just casts do an empty string. Soooo...
 		// check with getVal, which does return null for a missing key
-		if ( $ret === '' && is_null( $request->getVal( $key ) ) ) {
+		if ( $ret === '' && $request->getVal( $key ) === null ) {
 			$ret = $default; // not really there, so stop pretending.
 		}
 		return $ret;
@@ -63,7 +64,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function validateIP( $ip ) {
-		return IP::isValid( $ip );
+		return IPUtils::isValid( $ip );
 	}
 
 	public static function isValidBuiltInLanguageCode( $code ) {
