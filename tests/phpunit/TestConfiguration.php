@@ -76,6 +76,7 @@ global $wgDonationInterfaceTest,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
 	$wgAstroPayGatewayFallbackCurrency,
+	$wgAstroPayGatewayPriceFloor,
 	$wgDonationInterfaceMinFraudAccountId,
 	$wgDonationInterfaceMinFraudLicenseKey,
 	$wgDonationInterfaceMinFraudClientOptions,
@@ -87,6 +88,7 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceCustomFiltersRefRules,
 	$wgDonationInterfaceCustomFiltersSrcRules,
 	$wgDonationInterfaceCustomFiltersFunctions,
+	$wgDonationInterfaceCustomFiltersInitialFunctions,
 	$wgGlobalCollectGatewayCustomFiltersFunctions,
 	$wgIngenicoGatewayCustomFiltersFunctions,
 	$wgDonationInterfaceCountryMap,
@@ -234,6 +236,8 @@ $wgGlobalCollectGatewayCustomFiltersFunctions = [
 
 $wgIngenicoGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
+$wgDonationInterfaceCustomFiltersInitialFunctions = [];
+
 $wgDonationInterfaceCountryMap = [
 	'US' => 40,
 	'CA' => 15,
@@ -257,3 +261,5 @@ $wgDonationInterfaceEmailDomainMap = [
 	'wikimedia.org' => 42,
 	'wikipedia.org' => 50,
 ];
+
+$wgAstroPayGatewayPriceFloor = 1;
