@@ -42,6 +42,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceEnableFormChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
+			'wgPaypalExpressGatewayEnabled' => false,
 		] );
 	}
 
