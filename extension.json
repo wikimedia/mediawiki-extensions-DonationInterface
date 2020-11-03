@@ -373,6 +373,10 @@
 			"styles": "modules/css/monthlyConvert_011.css",
 			"dependencies": "ext.donationInterface.monthlyConvert"
 		},
+		"ext.donationInterface.monthlyConvertButtonFlip": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
 		"ext.donationInterface.panExplain": {
 			"scripts": "modules/js/ext.donationInterface.panExplain.js",
 			"dependencies": "ext.donationInterface.forms",
