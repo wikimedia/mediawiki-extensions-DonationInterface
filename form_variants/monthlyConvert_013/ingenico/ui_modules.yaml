@@ -1,0 +1,4 @@
+scripts:
+    - ext.donationInterface.ingenico-hosted
+    - ext.donationInterface.monthlyConvert_006
+    - ext.donationInterface.monthlyConvertButtonFlip
