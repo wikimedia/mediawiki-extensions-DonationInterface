@@ -431,6 +431,8 @@
 	"donate_interface-monthly-convert-error": "Bir defalık bağışınız başarılı oldu, ancak yinelenen bir bağış başlatamadık.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Evet, yardım etmek istiyorum",
 	"donate_interface-monthly-convert-no-button-variant-006": "Hayır, teşekkürler",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Evet, <span class=\"mc-convert-ask\"></span> aylık bağış ekleyeceğim",
+	"donate_interface-monthly-convert-no-button-variant-011": "Hayır teşekkürler!",
 	"donate_interface-fundraiser-maintenance-header": "Bakım için geçici olarak kapalı",
 	"donate_interface-fundraiser-maintenance-notice": "Şu anda zamanlanmış bakım yapıyoruz ve bağış kabul edemiyoruz. Lütfen kısa süre sonra tekrar deneyin. Herhangi bir sorunuz varsa, lütfen $1 e-posta gönderin."
 }
