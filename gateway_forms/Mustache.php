@@ -483,7 +483,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public function getStyleModules() {
 		$modules = [ 'ext.donationInterface.mustache.styles' ];
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
-		$this->addModules( 'style', $modules, $gatewayModules );
+		$this->addModules( 'styles', $modules, $gatewayModules );
 		return $modules;
 	}
 
