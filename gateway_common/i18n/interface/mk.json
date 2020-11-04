@@ -435,6 +435,8 @@
 	"donate_interface-monthly-convert-error": "Вашиот еднократен прилог е успешен, но не можевме да го отпочнеме редовниот.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Да, сакам да помогнам",
 	"donate_interface-monthly-convert-no-button-variant-006": "Не, благодарам",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Да, ќе додадам месечен прилог од <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-no-button-variant-011": "Не, благодарам!",
 	"donate_interface-fundraiser-maintenance-header": "Привремено недостапно поради одржување",
 	"donate_interface-fundraiser-maintenance-notice": "Во моментов вршиме планирано одржување и не можеме да прифаќаме уплати. Вратете се малку подоцна. Ако имате некакви прашања, обратете се на $1."
 }
