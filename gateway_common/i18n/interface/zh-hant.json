@@ -442,6 +442,8 @@
 	"donate_interface-monthly-convert-error": "您的單筆捐款已成功；但我們無法進行定期捐款。",
 	"donate_interface-monthly-convert-yes-button-variant-006": "是的，我想幫助",
 	"donate_interface-monthly-convert-no-button-variant-006": "不用了，謝謝",
+	"donate_interface-monthly-convert-yes-button-variant-011": "是的，我想要新增<span class=\"mc-convert-ask\"></span>每月捐款",
+	"donate_interface-monthly-convert-no-button-variant-011": "不用了，謝謝！",
 	"donate_interface-fundraiser-maintenance-header": "暫停以進行維護作業",
 	"donate_interface-fundraiser-maintenance-notice": "我們目前正在進行例行性維護作業，目前無法接受捐贈，請稍後再試。如您有任何疑問，請透過電子郵件聯絡 $1。"
 }
