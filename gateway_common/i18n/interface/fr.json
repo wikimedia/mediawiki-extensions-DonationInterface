@@ -469,6 +469,7 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "Non merci",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Oui, j’ajouterai une <span class=\"mc-convert-ask\"></span> donation mensuelle",
 	"donate_interface-monthly-convert-no-button-variant-011": "Non merci !",
+	"donate_interface-monthly-convert-no-button-variant-014": "Non, aucun droit maintenant",
 	"donate_interface-fundraiser-maintenance-header": "Arrêté momentanément pour maintenance",
 	"donate_interface-fundraiser-maintenance-notice": "Nous effectuons actuellement une maintenance programmée et ne pouvons pas accepter les dons. Veuillez réessayer prochainement. Si vous avez des question, veuillez envoyer un courriel à $1."
 }

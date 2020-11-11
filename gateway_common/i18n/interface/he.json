@@ -433,6 +433,7 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "לא, תודה",
 	"donate_interface-monthly-convert-yes-button-variant-011": "כן, אני אוסיף <span class=\"mc-convert-ask\"></span> תרומה חודשית",
 	"donate_interface-monthly-convert-no-button-variant-011": "לא, תודה!",
+	"donate_interface-monthly-convert-no-button-variant-014": "לא, לא עכשיו",
 	"donate_interface-fundraiser-maintenance-header": "השירות אינו פעיל באופן זמני לצורך תחזוקה",
 	"donate_interface-fundraiser-maintenance-notice": "כרגע אנחנו עושים פעולות תחזוקה מתוכננות ואיננו יכולים לקבל עכשיו תרומות. נא לנסות שוב בקרוב. אם יש לך שאלות כלשהן, אפשר לשלוח אותן לכתובת $1."
 }
