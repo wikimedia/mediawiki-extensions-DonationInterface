@@ -474,6 +474,9 @@
 	"donate_interface-monthly-convert-error": "Sua doação única foi bem-sucedida, mas não conseguimos iniciar uma doação recorrente.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sim, eu quero ajudar",
 	"donate_interface-monthly-convert-no-button-variant-006": "Não, obrigado",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Sim, vou adicionar uma <span class=\"mc-convert-ask\"></span> doação mensal",
+	"donate_interface-monthly-convert-no-button-variant-011": "Não, obrigado!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Não, agora não",
 	"donate_interface-fundraiser-maintenance-header": "Temporariamente indisponível para manutenção",
 	"donate_interface-fundraiser-maintenance-notice": "Estamos no momento executando tarefas agendadas de manutenção e impedidos de receber donativos. Tente novamente em breve, por favor. Se tiver qualquer dúvida, contacte-nos pelo endereço $1."
 }

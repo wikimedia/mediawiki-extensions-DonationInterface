@@ -438,6 +438,7 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ich werde eine <span class=\"mc-convert-ask\"></span> monatliche Spende hinzufügen",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nein danke!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
 	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1."
 }
