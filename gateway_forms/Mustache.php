@@ -3,6 +3,7 @@
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use LightnCandy\LightnCandy;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Gateway form rendering using Mustache
@@ -71,6 +72,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( isset( $data['ffname'] ) ) {
 			$this->gateway->session_pushFormName( $data['ffname'] );
 		}
+
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
+		$hookContainer->run(
+			'AlterPaymentFormData',
+			[ &$data ],
+			[ 'abortable' => false ]
+		);
 
 		$options = [
 			'helpers' => [
