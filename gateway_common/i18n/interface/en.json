@@ -183,6 +183,7 @@
 	"donate_interface-error-msg-validation": "Please correct the errors in the form.",
 	"donate_interface-error-msg-invalid-amount": "Please enter a valid amount",
 	"donate_interface-error-msg-invalid-country": "Sorry, we are unable to detect your country. Please select a country on our <a href=\"$1\">Ways to Give</a> page.",
+	"donate_interface-error-msg-invalid-currency": "Please select a valid currency",
 	"donate_interface-error-msg-invalid-email": "Please enter a valid email address i.e. name@domain.com",
 	"donate_interface-error-msg-card-num": "Please enter a valid credit card number for one of the accepted credit card types",
 	"donate_interface-error-msg-amex": "Please enter a correct card number for American Express.",
