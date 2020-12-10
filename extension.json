@@ -96,6 +96,7 @@
 		"DonorLanguage": "gateway_common/DonorLanguage.php",
 		"DonorLocale": "gateway_common/DonorLocale.php",
 		"EncodingMangler": "gateway_common/EncodingMangler.php",
+		"EndowmentHooks": "gateway_common/EndowmentHooks.php",
 		"ErrorState": "gateway_common/ErrorState.php",
 		"FallbackLogPrefixer": "gateway_common/FallbackLogPrefixer.php",
 		"GatewayAdapter": "gateway_common/gateway.adapter.php",
