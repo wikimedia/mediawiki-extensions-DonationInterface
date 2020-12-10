@@ -4008,6 +4008,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}
+		// FIXME:: make a hook, move this check to EndowmentHooks
 		$medium = $this->getData_Unstaged_Escaped( 'utm_medium' );
 		// never show for endowment
 		if ( $medium == "endowment" ) {

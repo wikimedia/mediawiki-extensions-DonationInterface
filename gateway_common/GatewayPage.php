@@ -500,6 +500,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * If certain conditions are met, override the logo
+	 * TODO: this is only being used to use the endowment logo when
+	 * utm_medium=endowment. Move to a hook handled in EndowmentHooks
 	 */
 	protected function overrideLogo() {
 		$logoOverrideRules = $this->adapter->getGlobal( 'LogoOverride' );
