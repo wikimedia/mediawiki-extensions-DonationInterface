@@ -180,6 +180,7 @@
 	"donate_interface-error-msg-validation": "Lütfen formdaki hataları düzeltin.",
 	"donate_interface-error-msg-invalid-amount": "Lütfen geçerli bir miktar girin",
 	"donate_interface-error-msg-invalid-country": "Üzgünüz, ülkenizi tespit edemiyoruz. Lütfen <a href=\"$1\">Verme Yolları</a> sayfamızdan bir ülke seçin.",
+	"donate_interface-error-msg-invalid-currency": "Lütfen geçerli bir para birimi seçin",
 	"donate_interface-error-msg-invalid-email": "Lütfen geçerli bir e-posta adresi girin, yani ad@alan.com",
 	"donate_interface-error-msg-card-num": "Kabul edilen kredi kartı türlerinden biri için geçerli bir kredi kartı numarası giriniz",
 	"donate_interface-error-msg-amex": "Lütfen American Express için doğru bir kart numarası girin.",
