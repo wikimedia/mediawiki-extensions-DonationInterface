@@ -16,6 +16,7 @@ visa:
         JP: true
         NL: true
         NZ: true
+        SE: true
         UA: true
         US: true
     group: cc
@@ -38,6 +39,7 @@ mc:
         JP: true
         NL: true
         NZ: true
+        SE: true
         UA: true
         US: true
     group: cc
@@ -56,6 +58,7 @@ amex:
         JP: true
         NL: true
         NZ: true
+        SE: true
         UA: true
         US: true
     group: cc

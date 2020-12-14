@@ -826,6 +826,29 @@ $forms['adyen-nz-recurring'] = [
 	'selection_weight' => 1,
 ];
 
+$forms['adyen-se'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'SE' ], ],
+	'currencies' => [ '+' => [ 'EUR', 'SEK', 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex' ],
+	],
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
+];
+
+$forms['adyen-se-recurring'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'SE' ], ],
+	'currencies' => [ '+' => [ 'EUR', 'SEK', 'USD', ], ],
+	'payment_methods' => [
+		'cc' => [ 'visa', 'mc', 'amex' ],
+	],
+	'recurring',
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
+];
+
 $forms['adyen-ua'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'UA', ], ],
