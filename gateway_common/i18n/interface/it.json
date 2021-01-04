@@ -381,6 +381,7 @@
 	"donate_interface-email-unsub-fail": "Si è verificato un errore di elaborazione della tua richiesta, contatta <$1>.",
 	"donate_interface-email-unsub-confirm": "Sei sicuro di voler annullare l'iscrizione <b> $1 </b>?",
 	"donate_interface-email-unsub-warning": "Disiscrivendoti, non riceverai più le email che Wikimedia Foundation spedisce ai donatori. Potresti ancora ricevere messaggi a questo indirizzo email qualora fosse associato a un'utenza in uno dei nostri progetti. Se hai qualche domanda, contatta <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-email-explain": "Ti invieremo un'email con la ricevuta per confermare la tua donazione.",
 	"donate_interface-faqs": "Domande frequenti",
 	"donate_interface-tax-info": "Informazioni di deducibilità fiscale",
 	"donate_interface-informationsharing": "Non vendiamo o commercializziamo le tue informazioni con nessuno. Tramite le donazioni, accetti di condividere le tue informazioni personali con Wikimedia Foundation, l'organizzazione no profit che ospita Wikipedia e altri progetti Wikimedia, e i suoi fornitori di servizi ai sensi della nostra <a href=\"$1\">politica sulle donazioni</a>. Wikimedia Foundation e i suoi fornitori di servizi sono ubicati negli Stati Uniti e in altri Paesi in cui le leggi sulla privacy potrebbero non essere equivalenti a quelle del tuo Paese. Per ulteriori informazioni, consulta la nostra <a href=\"$1\">politica sulle donazioni</a>.",
