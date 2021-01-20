@@ -7,6 +7,7 @@
 			"Jsoby",
 			"Naudefj",
 			"Pcoombe",
+			"Winstonza",
 			"පසිඳු කාවින්ද"
 		]
 	},
@@ -206,7 +207,7 @@
 	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Beskrywing",
 	"donate_interface-donation": "Donasie",
-	"donate_interface-email-receipt": "E-pos ontvangs te",
+	"donate_interface-email-receipt": "E-pos ontvangs na",
 	"donate_interface-monthly-donation": "Maak 'n maandelikse skenking",
 	"donate_interface-via-paypal": "(via PayPal)",
 	"donate_interface-select": "Grootte:",
