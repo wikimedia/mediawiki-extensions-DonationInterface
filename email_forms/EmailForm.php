@@ -49,7 +49,7 @@ class EmailForm {
 		return MustacheHelper::render( $templatePath, $templateParams, $options );
 	}
 
-	public static function l10n( $params ) {
+	public static function l10n( ...$params ) {
 		$key = array_shift( $params );
 		return call_user_func_array( 'wfMessage', [ $key, $params ] )->text();
 	}
