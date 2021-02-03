@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Beta16",
 			"Joetaras",
 			"Pcoombe",
@@ -45,7 +46,7 @@
 	"donate_interface-CHF": "Franghe svizzere",
 	"donate_interface-CLP": "Peso cilene",
 	"donate_interface-CNY": "Yuan renminbi cenise",
-	"donate_interface-COP": "Columb d'a Colombie",
+	"donate_interface-COP": "Peso colombiane",
 	"donate_interface-CRC": "Colon d'a Costa Rica",
 	"donate_interface-CZK": "Corone ceche",
 	"donate_interface-DKK": "Corone danese",
@@ -174,6 +175,7 @@
 	"donate_interface-error-msg-validation": "Pe' piacere corregge le errore jndr'ô module.",
 	"donate_interface-error-msg-invalid-amount": "Pe piacere mitte 'n'imborte valide",
 	"donate_interface-error-msg-invalid-country": "Ne despiace, non ge putime acchià 'u pajesere tune. Pe piacere scacchie 'nu pajesere sus 'a pàgena <a href=\"$1\">Mode de acchià</a>.",
+	"donate_interface-error-msg-invalid-currency": "Pe piacere scacchie 'na valute valide",
 	"donate_interface-error-msg-invalid-email": "Pe piacere mitte 'n'indirizze email valide pe esembie cicce@cappucce.com",
 	"donate_interface-error-msg-card-num": "Pe piacere mitte 'u numere corrette de carte de credite pe' une de le tipe de carte accettate",
 	"donate_interface-error-msg-amex": "Pe piacere mitte 'nu numere corrette d'a carte pe l'American Express.",
@@ -265,7 +267,7 @@
 	"donate_interface-mailing-address": "Indirizze de spedizione",
 	"donate_interface-billing-address": "Indirizze de fatturazione",
 	"donate_interface-billing-name": "Nome d'a fatturazione",
-	"donate_interface-title": "Titele",
+	"donate_interface-title": "Titole",
 	"donate_interface-company-name": "Suggettate o nome de l'organizzazzione",
 	"donate_interface-address-1": "Indirizze 1",
 	"donate_interface-address-2": "Indirizze 2",

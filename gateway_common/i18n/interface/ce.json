@@ -129,6 +129,8 @@
 	"donate_interface-donor-card-num": "Картан номер:",
 	"donate_interface-donor-submit": "ГӀодар",
 	"donate_interface-error-msg-amount": "гӀоьна ахча",
+	"donate_interface-error-msg-email": "Дехар до, электронан поштан адрес язде",
+	"donate_interface-error-msg-street_address": "Дехар до, поштан адрес язде",
 	"donate_interface-error-msg-bank_code": "Банкан код (Sort Code)",
 	"donate_interface-error-msg-branch_code": "Банкан декъан код",
 	"donate_interface-error-msg-country-calc": "ГӀалат - тха хӀинца а йиш яц хьан гӀо тӀелаца.",

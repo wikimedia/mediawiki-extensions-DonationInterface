@@ -2,14 +2,12 @@
 	"root": true,
 	"extends": [
 		"wikimedia/client",
-		"wikimedia/jquery"
+		"wikimedia/jquery",
+		"wikimedia/mediawiki"
 	],
 	"globals": {
-		"require": false,
-		"OO": false,
 		"mediaWiki": false,
-		"jQuery": false,
-		"mw": false
+		"jQuery": false
 	},
 	"rules": {
 		"camelcase": 0,
@@ -31,6 +29,13 @@
 		"spaced-comment": 0,
 		"valid-jsdoc": 0,
 		"vars-on-top": 0,
-		"wrap-iife": 0
+		"wrap-iife": 0,
+		"no-jquery/no-constructor-attributes": "warn",
+		"no-jquery/no-parse-html-literal": "warn",
+		"no-jquery/no-sizzle": "warn",
+		"no-redeclare": "warn",
+		"no-shadow": "warn",
+		"prefer-regex-literals": "warn",
+		"mediawiki/msg-doc": "warn"
 	}
 }

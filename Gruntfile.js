@@ -13,23 +13,23 @@ module.exports = function ( grunt ) {
 	grunt.initConfig( {
 		eslint: {
 			options: {
-				reportUnusedDisableDirectives: true,
-				extensions: [ '.js', '.json' ],
 				cache: true,
 				fix: grunt.option( 'fix' )
 			},
-			shared: [
+			all: [
 				'{.,modules/**}/*.js{,on}',
-				'!modules/js/{mailcheck,lg-hash,lightgallery}.js'
-			],
-			gateways: '{adyen,amazon,globalcollect,ingenico,paypal}_gateway/**/*.js'
+				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
+				'{adyen,amazon,globalcollect,ingenico,paypal}_gateway/**/*.js'
+			]
 		},
 		stylelint: {
 			options: {
 				syntax: 'less'
 			},
-			shared: '{modules,gateway_forms}/{**/,}*.{css,less}',
-			gateways: '{amazon,ingenico}_gateway/{**/,}*.{css,less}'
+			all: [
+				'{modules,gateway_forms}/{**/,}*.{css,less}',
+				'{amazon,ingenico}_gateway/{**/,}*.{css,less}'
+			]
 		},
 		banana: {
 			options: {
