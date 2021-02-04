@@ -121,7 +121,7 @@
 	"donate_interface-amazon-button": "Donirajte z Amazonom",
 	"donate_interface-cc-button": "Prispevajte s kreditno kartico",
 	"donate_interface-ccdc-button": "Prispevajte s kreditno/debetno kartico",
-	"donate_interface-dd-button": "Prispevajte prek neposredne bremenitve",
+	"donate_interface-dd-button": "Prispevajte z neposredno bremenitvijo",
 	"donate_interface-bt-button": "Prispevajte z bančnim nakazilom",
 	"donate_interface-rt-button": "Prispevajte prek banke $1",
 	"donate_interface-ewallet-button": "Prispevajte prek $1",
