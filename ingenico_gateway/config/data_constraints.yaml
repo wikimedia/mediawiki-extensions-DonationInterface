@@ -31,10 +31,10 @@ user_ip:
 language:
     type: alphanumeric
     length: 5
-# merchantReference: N10
+# merchantReference: AN30
 order_id:
-    type: numeric
-    length: 10
+    type: alphanumeric
+    length: 30
 # paymentProductId
 payment_product:
     type: numeric
