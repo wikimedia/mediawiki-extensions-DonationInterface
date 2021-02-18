@@ -24,4 +24,4 @@ tokens: recurring_payment_token
 skipAuthentication: skip_authentication
 customerIpAddress: user_ip
 variant: processor_form
-paymentProductId: payment_product_id
+paymentProductId: payment_submethod

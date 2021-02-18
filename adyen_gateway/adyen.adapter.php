@@ -310,7 +310,11 @@ class AdyenAdapter extends GatewayAdapter {
 		$this->addResponseData( [
 			'order_id' => $orderId,
 			'gateway_txn_id' => $requestValues['pspReference'] ?? '',
-			'payment_method' => $requestValues['paymentMethod']
+			'payment_method' => $requestValues['paymentMethod'],
+			// We send in an empty value for the submethod to tell addResponseData
+			// to use the value that is decoded by AdyenMethodCodec. Keys that
+			// are not passed into addResponseData are left unchanged.
+			'payment_submethod' => ''
 		] );
 
 		$result_code = $requestValues['authResult'] ?? '';
