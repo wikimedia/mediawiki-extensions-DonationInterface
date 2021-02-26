@@ -54,7 +54,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
 		SourceFields::removeFromMessage( $queueMessage );
 		$expected = $donorTestData;
-		$expected['gross'] = (float)$donorTestData['amount'];
+		$expected['gross'] = $donorTestData['amount'];
 		unset( $expected['ffname'] );
 		unset( $expected['referrer'] );
 		unset( $expected['amount'] );
