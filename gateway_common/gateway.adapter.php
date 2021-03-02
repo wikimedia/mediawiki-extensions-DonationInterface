@@ -573,12 +573,18 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 	 *
 	 * @param array $dataArray An associative array of data, with normalized
 	 * keys and raw processor values.
+	 *
+	 * Only keys that are included in $dataArray will be persisted to the stored
+	 * normalized data. This prevents us from overwriting items which should
+	 * only ever hold data determined in this extension, not data from the
+	 * processor or return querystring.
 	 */
 	public function addResponseData( $dataArray ) {
 		foreach ( $dataArray as $key => $value ) {
 			$this->staged_data[$key] = $value;
 		}
 
+		$originalNormalizedData = $this->unstaged_data;
 		$this->unstageData();
 
 		// Only copy the affected values back into the normalized data.
@@ -586,10 +592,12 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 		foreach ( $dataArray as $key => $stagedValue ) {
 			if ( array_key_exists( $key, $this->unstaged_data ) ) {
 				$newlyUnstagedData[$key] = $this->unstaged_data[$key];
+				$originalNormalizedData[$key] = $this->unstaged_data[$key];
 			}
 		}
 		$this->logger->debug( "Adding response data: " . json_encode( $newlyUnstagedData ) );
 		$this->dataObj->addData( $newlyUnstagedData );
+		$this->unstaged_data = $originalNormalizedData;
 	}
 
 	/**
