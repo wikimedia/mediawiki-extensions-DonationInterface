@@ -95,7 +95,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		try {
 			$variant = $this->getVariant();
 			$this->adapter = new $className( [ 'variant' => $variant ] );
-			$this->overrideLogo();
 			$this->logger = DonationLoggerFactory::getLogger( $this->adapter );
 
 			// FIXME: SmashPig should just use Monolog.
@@ -495,67 +494,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				'Caught exception setting client-side validation rules: ' .
 				$ex->getMessage()
 			);
-		}
-	}
-
-	/**
-	 * If certain conditions are met, override the logo
-	 * TODO: this is only being used to use the endowment logo when
-	 * utm_medium=endowment. Move to a hook handled in EndowmentHooks
-	 */
-	protected function overrideLogo() {
-		$logoOverrideRules = $this->adapter->getGlobal( 'LogoOverride' );
-		if ( !$logoOverrideRules ) {
-			return;
-		}
-		$request = $this->getRequest();
-		// If an override is stored in session, use that
-		$storedOverride = $request->getSessionData( 'logoOverride' );
-		if ( !$storedOverride ) {
-			foreach ( $logoOverrideRules as $rule ) {
-				$variableName = $rule['variable'];
-				$value = $rule['value'];
-				$actualValue = $this->getRequest()->getVal( $variableName );
-				if ( $value === $actualValue ) {
-					$storedOverride = [
-						'logo' => $rule['logo'],
-						'logoHD' => $rule['logoHD']
-					];
-					$request->setSessionData( 'logoOverride', $storedOverride );
-					break;
-				}
-			}
-		}
-
-		if ( $storedOverride ) {
-			// need to keep generated CSS in sync with
-			// @see ResourceLoaderSkinModule::getStyles
-			// html body is prepended to give us more-specific selectors
-			$css = 'html body .mw-wiki-logo { background-image: url(' .
-				$storedOverride['logo'] . "); }\n";
-			if (
-				!empty( $storedOverride['logoHD'] ) &&
-				!empty( $storedOverride['logoHD']['1.5x'] )
-			) {
-				$css .= '@media (-webkit-min-device-pixel-ratio: 1.5), ' .
-					'(min--moz-device-pixel-ratio: 1.5), (min-resolution: ' .
-					'1.5dppx), (min-resolution: 144dpi) { html body ' .
-					'.mw-wiki-logo { background-image: url(' .
-					$storedOverride['logoHD']['1.5x'] .
-					");background-size: 135px auto; }}\n";
-			}
-			if (
-				!empty( $storedOverride['logoHD'] ) &&
-				!empty( $storedOverride['logoHD']['2x'] )
-			) {
-				$css .= '@media (-webkit-min-device-pixel-ratio: 2), ' .
-					'(min--moz-device-pixel-ratio: 2), (min-resolution: ' .
-					'2dppx), (min-resolution: 192dpi) { html body ' .
-					'.mw-wiki-logo { background-image: url(' .
-					$storedOverride['logoHD']['2x'] .
-					");background-size: 135px auto; }}\n";
-			}
-			$this->getOutput()->addInlineStyle( $css );
 		}
 	}
 
