@@ -1,0 +1,36 @@
+
+/* Override the sitedir-ltr input direction */
+/* FIXME Do we want these? Copied from gateway.css. */
+body.rtl input {
+	/* @noflip */
+	direction: rtl;
+}
+
+input#email {
+	/* @noflip */
+	direction: ltr;
+}
+
+.emailPrefForm {
+	display: inline-block;
+	vertical-align: top;
+	width: 50em;
+	padding: 8px;
+}
+
+.emailPrefForm input,
+.emailPrefForm select,
+.emailPrefForm button,
+.emailPrefForm .errorMsg {
+	margin: 6px;
+}
+
+.errorMsg {
+	color: #f00;
+	display: inherit;
+	clear: left;
+}
+
+.errorMsgHide {
+	display: none;
+}

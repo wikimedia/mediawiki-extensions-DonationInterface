@@ -55,10 +55,12 @@ class EmailForm {
 	}
 
 	protected function getTemplateParams() {
+		# FIXME Switch to a DonationInterface setting
 		global $wgFundraisingEmailUnsubscribeHelpEmail;
 
 		$paramList = [
-			'contact_hash', 'contact_id', 'email', 'token', 'variant'
+			'contact_hash', 'contact_id', 'email', 'token', 'variant', 'countries',
+				'languages', 'sendEmail', 'dontSendEmail'
 		];
 		$templateParams = [];
 		foreach ( $paramList as $paramName ) {

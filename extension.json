@@ -61,7 +61,8 @@
 			"globalcollect_gateway/i18n",
 			"adyen_gateway/i18n",
 			"astropay_gateway/i18n",
-			"paypal_gateway/i18n"
+			"paypal_gateway/i18n",
+			"email_forms/i18n"
 		]
 	},
 	"ExtensionMessagesFiles": {
@@ -213,6 +214,7 @@
 		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
+			"styles": "modules/css/emailPreferences.css",
 			"dependencies": "donationInterface.skinOverride"
 		},
 		"ext.donationInterface.alwaysRedirect": {
@@ -831,6 +833,35 @@
 		},
 		"DonationInterfaceMonthlyConvertCountries": {
 			"value": []
+		},
+		"DonationInterfaceEmailPrefCtrLanguages": {
+			"value": [
+				"ca",
+				"da",
+				"de",
+				"en",
+				"es",
+				"es-mx",
+				"fr-ca",
+				"fr",
+				"he",
+				"hu",
+				"it",
+				"ja",
+				"lv",
+				"mk",
+				"nb",
+				"nl",
+				"pl",
+				"pt-br",
+				"pt",
+				"ro",
+				"ru",
+				"sk",
+				"sv",
+				"uk",
+				"zh"
+			]
 		}
 	},
 	"manifest_version": 2

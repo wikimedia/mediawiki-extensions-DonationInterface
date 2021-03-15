@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
+	"emailpreferences-country": "Label for country drop-down control.",
+	"emailpreferences-country": "Label for language drop-down control.",
+	"emailpreferences-send-email": "Label for e-mail opt-in radio button.",
+	"emailpreferences-dont-send-email": "Label for e-mail opt-out radio button.",
+	"emailpreferences-save": "Label for button to save e-mail preferences",
+	"emailpreferences-success": "Message following successful submission of preferences update."
+}

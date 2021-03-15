@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "Set your preferences for Wikimedia Fundraising e-mails",
+	"emailpreferences-country": "Country",
+	"emailpreferences-language": "Language",
+	"emailpreferences-send-email": "I love hearing about Wikimedia, keep your regular schedule!",
+	"emailpreferences-dont-send-email": "Unsubscribe me from all emails.",
+	"emailpreferences-save": "Save preferences",
+	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted."
+}
