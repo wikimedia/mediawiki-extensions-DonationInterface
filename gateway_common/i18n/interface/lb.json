@@ -158,7 +158,7 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-general": "Et gouf e Feeler beim Verschaffe vun Ärer Ufro.",
-	"donate_interface-error-msg-nopaypal": "Wéint engem technesche Feeler kënne mir Är Ufro net u PayPal schécken. Probéiert wgl. eise Formulaire fir en Don per Kreditkaart ze maachen",
+	"donate_interface-error-msg-nopaypal": "Wéinst engem technesche Feeler kënne mir Är Ufro net u PayPal schécken. Probéiert wgl. eise Formulaire fir en Don per Kreditkaart ze maachen",
 	"donate_interface-error-msg-validation": "Verbessert wgl. d'Feeler am Formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Gitt wgl. e valabele Betrag un",
 	"donate_interface-error-msg-invalid-email": "Gitt wgl. eng valabel E-Mailadress an z. Bsp. numm@domain.com",
@@ -338,7 +338,7 @@
 	"donate_interface-online_bank_transfer_message": "Telefon & Internet-Banking - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Bank",
 	"donate_interface-rtbt-issuer_id-longlist": "Aner Banken",
-	"donate_interface-sofortbanking": "Sofortbanking ass eng direkt Bankiwwerweisung déi an Echtzäit via DIRECTBanking.com gemaach gëtt. Et erlaabt Iech, direkt während dem Online-Don, eng Iwwerweisung mat den Informatiounen vun Ärem Online-Banking nozeverfolgen. Wann op Ärem Bankkont den Online-Banking fräigeschalt ass, kënnt Dir alternativ d'Optioun \"En Don mat enger manueller Iwwerweisung\" op der Startsäit vun den Donen eraussichen.",
+	"donate_interface-sofortbanking": "Sofortbanking ass eng direkt Bankiwwerweisung déi an Echtzäit via DIRECTBanking.com gemaach gëtt. Et erlaabt Iech, direkt wärend dem Online-Don, eng Iwwerweisung mat den Informatiounen vun Ärem Online-Banking nozeverfollegen. Wann op Ärem Bankkont den Online-Banking fräigeschalt ass, kënnt Dir alternativ d'Optioun \"En Don mat enger manueller Iwwerweisung\" op der Startsäit vun den Donen eraussichen.",
 	"donate_interface-dd-account_name": "Numm vum Kont",
 	"donate_interface-dd-account_number": "Kontonummer",
 	"donate_interface-dd-authorization_id": "Autorisatiounsnummer",
@@ -381,6 +381,6 @@
 	"donate_interface-onetime-short": "Eemol",
 	"donate_interface-error-http-403": "Dir hutt net déi néideg Rechter fir op dës Säit ze goen",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-fundraiser-maintenance-header": "Temporär net disponibel wéint Maintenance",
+	"donate_interface-fundraiser-maintenance-header": "Temporär net disponibel wéinst Maintenance",
 	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1."
 }
