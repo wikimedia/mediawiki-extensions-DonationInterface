@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joanmp17"
+		]
+	},
+	"donate_interface": "ንዊኪሜድያ ደግፍ",
+	"donate_interface-amount": "ድምር ገንዘብ",
+	"donate_interface-currency": "ባጤራ፦",
+	"donate_interface-comment-label": "ርእይቶ፦",
+	"donate_interface-EUR": "ዩሮ",
+	"donate_interface-donor-amount": "ድምር ገንዘብ",
+	"donate_interface-donor-currency-label": "ባጤራ",
+	"donate_interface-donor-email": "ኣድራሻ ኢመይል",
+	"donate_interface-donor-name": "ሽም",
+	"donate_interface-donor-first_name": "መጀመርያ ሽም",
+	"donate_interface-country": "ሃገር",
+	"donate_interface-monthly-short": "ወርሓዊ",
+	"donate_interface-onetime-short": "ሓደ ግዜ"
+}
