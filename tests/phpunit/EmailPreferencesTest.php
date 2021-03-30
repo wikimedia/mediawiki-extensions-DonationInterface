@@ -24,10 +24,6 @@ use SmashPig\CrmLink\Messages\SourceFields;
  */
 class EmailPreferencesTest extends DonationInterfaceTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-	}
-
 	/**
 	 * Check that the opt-in queue message is what is expected
 	 */
