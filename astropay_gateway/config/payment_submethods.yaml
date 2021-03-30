@@ -254,13 +254,6 @@ cash_efecty:
     countries:
         CO: true
     logo: cash-efecty.png
-cash_davivienda:
-    bank_code: DA
-    label: Davivienda
-    group: cash
-    countries:
-        CO: true
-    logo: cash-davivienda.png
 pse:
     bank_code: PC
     label: PSE
