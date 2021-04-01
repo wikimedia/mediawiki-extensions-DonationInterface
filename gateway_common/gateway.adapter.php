@@ -766,13 +766,11 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		// If there's a hard-coded value in the transaction definition, use that.
-		if ( !empty( $transaction ) ) {
-			if ( array_key_exists( $transaction, $this->transactions ) && is_array( $this->transactions[$transaction] ) &&
-				array_key_exists( 'values', $this->transactions[$transaction] ) &&
-				array_key_exists( $gateway_field_name, $this->transactions[$transaction]['values'] ) ) {
-				$value = $this->transactions[$transaction]['values'][$gateway_field_name];
-				return $this->trimFieldToConstraints( $value, $gateway_field_name );
-			}
+		if ( array_key_exists( $transaction, $this->transactions ) && is_array( $this->transactions[$transaction] ) &&
+			array_key_exists( 'values', $this->transactions[$transaction] ) &&
+			array_key_exists( $gateway_field_name, $this->transactions[$transaction]['values'] ) ) {
+			$value = $this->transactions[$transaction]['values'][$gateway_field_name];
+			return $this->trimFieldToConstraints( $value, $gateway_field_name );
 		}
 
 		// if it's account info, use that.
@@ -1173,7 +1171,7 @@ abstract class GatewayAdapter implements GatewayType {
 				);
 			}
 
-		} elseif ( $txn_ok === false ) { // nothing to process, so we have to build it manually
+		} else { // nothing to process, so we have to build it manually
 			$logMessage = 'Transaction Communication failed' . print_r( $this->transaction_response, true );
 			$this->logger->error( $logMessage );
 
