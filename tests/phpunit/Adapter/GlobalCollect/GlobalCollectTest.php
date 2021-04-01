@@ -475,7 +475,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->setUpRequest( [
 			'action' => 'donate',
 			'amount' => '3.00',
-			'card_type' => 'amex',
+			'payment_submethod' => 'amex',
 			'city' => 'Hollywood',
 			'contribution_tracking_id' => '22901382',
 			'country' => 'US',

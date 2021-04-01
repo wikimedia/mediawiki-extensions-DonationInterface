@@ -321,7 +321,6 @@
 				"donate_interface-error-msg-postal_code",
 				"donate_interface-error-msg-street_address",
 				"donate_interface-error-msg-country",
-				"donate_interface-error-msg-card_type",
 				"donate_interface-error-msg-card_num",
 				"donate_interface-error-msg-expiration",
 				"donate_interface-error-msg-cvv",

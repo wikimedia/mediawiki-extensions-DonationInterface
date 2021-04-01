@@ -69,7 +69,6 @@ class DonationData implements LogPrefixProvider {
 		'postal_code',
 		'country',
 		'card_num',
-		'card_type',
 		'expiration',
 		'cvv',
 		'currency',
@@ -380,7 +379,6 @@ class DonationData implements LogPrefixProvider {
 			$this->setLanguage();
 			$this->setCountry(); // must do this AFTER setIPAddress...
 			$this->setCurrencyCode(); // AFTER setCountry
-			$this->renameCardType();
 			$this->setEmail();
 			$this->setCardNum();
 			$this->setAppeal();
@@ -410,17 +408,6 @@ class DonationData implements LogPrefixProvider {
 		} else {
 			// command line?
 			$this->setVal( 'server_ip', '127.0.0.1' );
-		}
-	}
-
-	/**
-	 * munge the legacy card_type field into payment_submethod
-	 */
-	protected function renameCardType() {
-		if ( $this->getVal( 'payment_method' ) == 'cc' ) {
-			if ( $this->isSomething( 'card_type' ) ) {
-				$this->setVal( 'payment_submethod', $this->getVal( 'card_type' ) );
-			}
 		}
 	}
 
