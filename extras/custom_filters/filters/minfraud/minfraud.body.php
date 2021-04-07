@@ -439,14 +439,13 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected function healthCheck( Score $response ) {
 		global $wgEmergencyContact;
 
-		$cache = ObjectCache::getLocalClusterInstance();
-
 		if ( isset( $response->queriesRemaining ) ) {
 			$queries = intval( $response->queriesRemaining );
 
 			if ( $queries < $this->gateway_adapter->getGlobal( 'MinFraudAlarmLimit' ) ) {
 				$this->gateway_logger->warning( "minFraud alarm limit reached! Queries remaining: $queries" );
 
+				$cache = ObjectCache::getLocalClusterInstance();
 				$key = $cache->makeKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
 				$lastAlarmAt = $cache->get( $key ) | 0;
 				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
