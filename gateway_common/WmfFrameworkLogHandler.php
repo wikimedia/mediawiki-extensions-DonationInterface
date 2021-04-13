@@ -25,7 +25,7 @@ class WmfFrameworkLogHandler extends AbstractProcessingHandler {
 		parent::__construct( $level, $bubble );
 	}
 
-	protected function write( array $record ) {
+	protected function write( array $record ): void {
 		WmfFramework::debugLog( $this->identifier, $record['message'], $record['level_name'] );
 	}
 }
