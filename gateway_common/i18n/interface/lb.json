@@ -220,7 +220,7 @@
 	"donate_interface-cvv-explain": "<h4>Wat ass CVV?</h4>\n<p>Cardholder Verification Value (CVV): Dëst sinn Zuele mat 3 oder 4 Zifferen déi sécherstellen datt déi physesch Kaart, den Ament vum Online-Don, am Besëtz vun deem ass deen op der Kaart dropsteet. Dëst hëlleft de Mëssbrauch vu Kreditkaarten ze reduzéieren.</p>\n<h4>Visa, Mastercard</h4>\n<p>Den 3-stellege Code steet hannen op Ärer Kaart, am Feld wou och d'Ënnerschrëft dran ass.\nNormalerweis stinn am Feld vun der Ënnerschrëft eng Rei vun Zifferen, awer nëmmen déi lescht 3 Stellen sti fir den CVV-Code.</p>\n<h4>American Express</h4>\n<p>De Code steet <i>ëmmer iwwer</i> der agestantzter (ervirgehuewener) Kontosnummer op der viischter Säit vun der Kaart.\nHeiansdo, steet de Code op der lénkser Säit vun der Kaart, awer e steet ëmmer iwwer der Kontonummer.</p><br />",
 	"donate_interface-question-comment": "Froen oder Bemierkungen? Kontaktéiert: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Mir wëllen, datt d'Leit aus alle Länner kënnen Done maachen. Sot eis w.e.gl., wéi mer d'Saach fir Iech méi einfach kënne maachen. Schéckt Är Suggestiounen un: $1.",
-	"donate_interface-problemsdonating": "Probleemer fir en Don ze maachen?",
+	"donate_interface-problemsdonating": "Problemer fir en Don ze maachen?",
 	"donate_interface-donate-click": "Är Kredit-/Debitkaart gëtt mat enger sécherer Technik verschafft.",
 	"donate_interface-otherways": "Et gëtt <a href=\"$1\">Manéiere fir en Don ze maachen, wéi PayPal, check, oder Mail</a>.",
 	"donate_interface-otherways-alt": "Et gëtt <a href=\"$1\">aner Manéiere fir en Don ze maachen</a>, inklusiv per Scheck.",
