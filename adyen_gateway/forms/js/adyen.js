@@ -6,7 +6,7 @@
 		var $pForm, $payment = $( '#payment-form' ),
 			url = result.redirect;
 		$pForm = $(
-			'<form></form>', {
+			'<form>', {
 				method: 'post',
 				action: url,
 				id: 'submit-payment'
