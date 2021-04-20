@@ -5,8 +5,8 @@
 			"Ejegg"
 		]
 	},
-	"donate_interface-donation-description": "Wikimedia donate@wikimedia.org",
-	"donate_interface-monthly-donation-description": "Wikimedia donate@wikimedia.org - donación recurrente",
+	"donate_interface-donation-description": "donate@wikimedia.org",
+	"donate_interface-monthly-donation-description": "donate@wikimedia.org",
 	"donate_interface-problemsdonating": "¿Tienes problemas para donar?",
 	"donate_interface-donate-click": "Tu tarjeta de crédito/débito se procesará de forma segura.",
 	"donate_interface-otherways-short": "Otras formas de donar",
