@@ -433,15 +433,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( isset( Gateway_Form_Mustache::$messageReplacements[$key] ) ) {
 			$key = Gateway_Form_Mustache::$messageReplacements[$key];
 		}
-		// Sometimes Lightncandy seems to send us an array with way too much
-		// information as the last param. Remove any params that are themselves
-		// arrays, as our message formatting can't handle them.
-		$filteredParams = [];
-		foreach ( $params as $param ) {
-			if ( is_scalar( $param ) ) {
-				$filteredParams[] = $param;
-			}
-		}
+		$filteredParams = MustacheHelper::filterMessageParams( $params );
 		return MessageUtils::getCountrySpecificMessage(
 			$key,
 			Gateway_Form_Mustache::$country,

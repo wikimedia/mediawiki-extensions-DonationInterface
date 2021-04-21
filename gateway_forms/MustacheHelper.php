@@ -52,4 +52,16 @@ class MustacheHelper {
 
 		return $html;
 	}
+
+	/**
+	 * Sometimes Lightncandy seems to send us an array with way too much
+	 * information as the last param. Remove any params that are themselves
+	 * arrays, as our message formatting can't handle them.
+	 *
+	 * @param array $params
+	 * @return array
+	 */
+	public static function filterMessageParams( array $params ) {
+		return array_filter( $params, 'is_scalar' );
+	}
 }
