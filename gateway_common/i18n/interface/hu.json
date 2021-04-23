@@ -31,7 +31,7 @@
 	"donate_interface-email-agreement": "Beleegyezem abba, hogy a jövőben néha levelet kapjak a Wikimédia Alapítványtól.",
 	"donate_interface-comment-title": "Nyilvános megjegyzés",
 	"donate_interface-donation-description": "donate@wikimedia.org",
-	"donate_interface-monthly-donation-description": "donate@wikimedia.org",
+	"donate_interface-monthly-donation-description": "donate@wikimedia.org havi adomány",
 	"donate_interface-amount-error": "Válassz ki egy mennyiséget az adományozáshoz",
 	"donate_interface-smallamount-error": "Válassz ki egy mennyiséget (legalább $1)",
 	"donate_interface-bigamount-error": "Nem fogadhatunk el $4 USD-nél ($1 $2) nagyobb adományt a honlapon keresztül. Kérjük, vedd fel a kapcsolatot a nagy adományokat kezelő személyzettel itt: $3!",
