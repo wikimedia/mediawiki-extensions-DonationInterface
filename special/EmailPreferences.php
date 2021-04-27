@@ -4,6 +4,14 @@ use SmashPig\Core\DataStores\QueueWrapper;
 
 class EmailPreferences extends UnlistedSpecialPage {
 
+	const FALLBACK_COUNTRY = 'US';
+	const FALLBACK_LANGUAGE = 'en';
+
+	// Note: Coordinate with Getpreferences.php in Civiproxy API, in wmf-civicrm extension.
+	const CIVI_NO_RESULTS_ERROR = 'No result found';
+
+	const BAD_DATA_SESSION_KEY = 'email-pref-bad_data';
+
 	public function __construct() {
 		parent::__construct( 'EmailPreferences' );
 	}
@@ -45,22 +53,41 @@ class EmailPreferences extends UnlistedSpecialPage {
 			}
 		} else {
 			if ( $subpage === 'emailPreferences' ) {
-				$params += $this->paramsForPreferencesForm();
+				$params += $this->paramsForPreferencesForm(
+					$params[ 'contact_hash' ],
+					$params[ 'contact_id' ]
+				);
 			}
 
 			$this->renderQuery( $subpage, $params );
 		}
 	}
 
-	protected function paramsForPreferencesForm() {
+	protected function paramsForPreferencesForm( $contact_hash, $contact_id ) {
 		global $wgDonationInterfaceEmailPrefCtrLanguages;
 
-		// Stub for data to get from CiviProxy, added up in
-		// https://gerrit.wikimedia.org/r/c/mediawiki/extensions/DonationInterface/+/677018
-		$countryFromCivi = 'NZ';
-		$shortLangFromCivi = 'fr';
-		$fullLangFromCivi = 'fr-ca';
-		$optedInFromCivi = true;
+		$prefs = CiviproxyConnect::getEmailPreferences( $contact_hash, $contact_id );
+
+		if ( $prefs[ 'is_error' ] ) {
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+				'EmailPreferences', true, false, '', null );
+
+			// If Civi returned no match for hash and contact_id, we still show the form,
+			// but log a message and set a session flag to prevent a message being
+			// placed on the queue.
+			if ( $prefs[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
+				$logger->warning(
+					"No results for contact_id $contact_id with hash $contact_hash" );
+
+				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
+
+			} else {
+				$logger->error( 'Error from civiproxy: ' . $prefs[ 'error_message' ] );
+				throw new RuntimeException( 'Error retrieving curent e-mail preferences.' );
+			}
+		} else {
+			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
+		}
 
 		$addedParams = [];
 		$uiLang = $this->getLanguage()->getCode();
@@ -74,17 +101,18 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$addedParams[ 'countries' ][] = [
 				'code' => $code,
 				'name' => $name,
-				'selected' => $code === $countryFromCivi
+				'selected' => $code === ( $prefs[ 'country' ] ?? self::FALLBACK_COUNTRY )
 			];
 		}
 
 		$addedParams[ 'languages' ] = [];
 		$languages = LanguageNames::getNames(
-				$uiLang, LanguageNames::FALLBACK_NATIVE,
-				LanguageNames::LIST_MW_AND_CLDR
+			$uiLang, LanguageNames::FALLBACK_NATIVE,
+			LanguageNames::LIST_MW_AND_CLDR
 		);
 
-		# Only show languages as configured
+		// Only show languages configured in $wgDonationInterfaceEmailPrefCtrLanguages
+		// (should be the languages we can send e-mails to)
 		$displayLanguages = array_filter(
 			$languages,
 			function ( $code ) use ( $wgDonationInterfaceEmailPrefCtrLanguages ) {
@@ -100,45 +128,67 @@ class EmailPreferences extends UnlistedSpecialPage {
 		// FIXME Coordinate this logic with actual e-mail sends? Warn the user if we
 		// actually never send e-mails in the language we want?
 
-		// Exact language from Civi in MW and sendable to?
-		if ( isset( $displayLanguages[ $fullLangFromCivi ] ) ) {
-			$selectedLang = $fullLangFromCivi;
+		$prefsShortLang = ( $prefs[ 'shortLang' ] ?? self::FALLBACK_LANGUAGE );
+
+		// Exact language from Civi in MW and sendable to (for example, in Civi it's fr-ca,
+		// and that language is sendable to, and is in the list from MW)?
+		if ( isset( $displayLanguages[ $prefs[ 'fullLang' ] ] ) ) {
+			$selectedLang = $prefs[ 'fullLang' ];
 
 		// Exact language from Civi not in MW but still sendable to, and the general language
-		// is in MW? Use their Civi lag code in the form but show the general language name.
-		} elseif ( in_array( $fullLangFromCivi, $wgDonationInterfaceEmailPrefCtrLanguages ) &&
-				!isset( $languages[ $fullLangFromCivi ] ) &&
-				isset( $languages[ $shortLangFromCivi ] ) ) {
-			$displayLanguages[ $fullLangFromCivi ] = $languages[ $shortLangFromCivi ];
-			$selectedLang = $fullLangFromCivi;
+		// is in MW (for example, in Civi it's fr-ca, and that language is sendable to,
+		// but it's not in the list from MW, but fr is in that list)?
+		// In that case, use their Civi lang code as the form value but associate that
+		// value with the general language name.
+		} elseif ( in_array( $prefs[ 'fullLang' ], $wgDonationInterfaceEmailPrefCtrLanguages ) &&
+				!isset( $languages[ $prefs[ 'fullLang' ] ] ) &&
+				isset( $languages[ $prefsShortLang ] ) ) {
+			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
+			$selectedLang = $prefs[ 'fullLang' ];
 
-		// General language from Civi in MW and sendable to
-		} elseif ( isset( $displayLanguages[ $shortLangFromCivi ] ) ) {
-			$selectedLang = $shortLangFromCivi;
+			// Also unset any entry there may be in $displayLanguages with the general language
+			// to prevent possible multiple options with the same name in the UI.
+			unset( $displayLanguages[ $prefsShortLang ] );
 
-		// General language from Civi not sendable to but in MW?
-		// Use their Civi lag code in the form but show the general language name.
-		} elseif ( isset( $languages[ $shortLangFromCivi ] ) ) {
-			$displayLanguages[ $fullLangFromCivi ] = $languages[ $shortLangFromCivi ];
-			$selectedLang = $fullLangFromCivi;
+		// General language from Civi in MW and sendable to (for example, in Civi it's
+		// fr-ca, but only fr is sendable to, and fr is in the list from MW)?
+		} elseif ( isset( $displayLanguages[ $prefsShortLang ] ) ) {
+			$selectedLang = $prefsShortLang;
 
+		// General language from Civi not sendable to but is in MW (for example, in Civi it's
+		// fr-ca, and fr is not sendable to, but is in the list from MW)?
+		// In that case their Civi lang code in the form but show the general language name.
+		} elseif ( isset( $languages[ $prefsShortLang ] ) ) {
+			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
+			$selectedLang = $prefs[ 'fullLang' ];
+
+		// FIXME This case occurs if neither language variant nor the general language
+		// in Civi (for example, neither fr-ca nor fr) are sendable to or in the list
+		// from MW. Here the form will just have the first option in the list selected. Maybe
+		// instead we should have a fallback option based on country? Though this
+		// seems unlikely to occur, since only users who did actually get an e-mail
+		// should get here.
 		} else {
-			# FIXME Last-resort fallback?
-			$selectedLang = null;
+			$selectedLang = $prefsShortLang;
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+				'EmailPreferences', true, false, '', null );
+
+			$logger->warning(
+				'No display options available for language ' . $prefs[ 'fullLang' ] );
 		}
 
 		asort( $displayLanguages );
 
 		foreach ( $displayLanguages as $code => $name ) {
 			$addedParams[ 'languages' ][] = [
-					'code' => $code,
-					'name' => $name,
-					'selected' => $code === $selectedLang
+				'code' => $code,
+				'name' => $name,
+				'selected' => $code === $selectedLang
 			];
 		}
 
-		$addedParams[ 'sendEmail' ] = $optedInFromCivi;
-		$addedParams[ 'dontSendEmail' ] = !$optedInFromCivi;
+		$addedParams[ 'sendEmail' ] = $prefs[ 'sendEmail' ];
+		$addedParams[ 'dontSendEmail' ] = !$prefs[ 'sendEmail' ];
 
 		return $addedParams;
 	}
@@ -186,6 +236,12 @@ class EmailPreferences extends UnlistedSpecialPage {
 	protected function executeEmailPreferences( $params ) {
 		// FIXME Also detect when the user made no changes, and send that info back
 		// to the queue consumer?
+
+		// Do nothing if we got bad preferences data to begin with.
+		if ( WmfFramework::getSessionValue( self::BAD_DATA_SESSION_KEY ) ) {
+			$this->renderSuccess( 'emailPreferences', $params );
+			return;
+		}
 
 		$message = [
 			'contact_hash' => $params[ 'contact_hash'],
