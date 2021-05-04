@@ -364,6 +364,11 @@ Contribution tracking IDs are generated from a sequence generator and used to
 generate unique merchant references for payments. These are also used to prefix
 log entries about a donation attempt.
 
+/**
+ * Value for the source_type field on messages pushed to queues
+ */
+$wgDonationInterfaceMessageSourceType = 'payments';
+
 ==== Fraud filters and blocking ====
 
 /**

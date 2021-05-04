@@ -524,6 +524,9 @@
 			},
 			"merge_strategy": "array_plus"
 		},
+		"DonationInterfaceMessageSourceType": {
+			"value": "payments"
+		},
 		"GlobalCollectGatewayTestingURL": {
 			"value": "https://ps.gcsip.nl/wdl/wdl"
 		},
