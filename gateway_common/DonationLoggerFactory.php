@@ -56,7 +56,7 @@ class DonationLoggerFactory {
 		);
 	}
 
-	private static function getLoggerFromParams( $identifier, $useSyslog, $debug, $suffix, $prefixer ) {
+	public static function getLoggerFromParams( $identifier, $useSyslog, $debug, $suffix, $prefixer ) {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
 		}

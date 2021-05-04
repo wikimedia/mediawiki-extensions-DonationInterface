@@ -3,12 +3,13 @@
 		"authors": [
 			"Dimension10",
 			"Nayvik",
-			"VASANTH S.N."
+			"VASANTH S.N.",
+			"ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ"
 		]
 	},
 	"donate_interface-submit-button": "ದೇಣಿಗೆ",
 	"donate_interface-comment-label": "ಟಿಪ್ಪಣಿ :",
-	"donate_interface-cvv-link": "ಉದಾಹರಣೆ",
+	"donate_interface-cvv-link": "ಇದು ಎಲ್ಲಿದೆ?",
 	"donate_interface-donor-city": "ನಗರ:",
 	"donate_interface-donor-state_province": "ರಾಜ್ಯ",
 	"donate_interface-donor-address": "ವಿಳಾಸ:",

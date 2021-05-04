@@ -51,14 +51,19 @@ class EmailForm {
 
 	public static function l10n( ...$params ) {
 		$key = array_shift( $params );
-		return call_user_func_array( 'wfMessage', [ $key, $params ] )->text();
+		return call_user_func_array(
+			'wfMessage',
+			[ $key, MustacheHelper::filterMessageParams( $params ) ]
+		)->text();
 	}
 
 	protected function getTemplateParams() {
+		# FIXME Switch to a DonationInterface setting
 		global $wgFundraisingEmailUnsubscribeHelpEmail;
 
 		$paramList = [
-			'contact_hash', 'contact_id', 'email', 'token', 'variant'
+			'contact_hash', 'contact_id', 'email', 'token', 'variant', 'countries',
+				'languages', 'sendEmail', 'dontSendEmail'
 		];
 		$templateParams = [];
 		foreach ( $paramList as $paramName ) {

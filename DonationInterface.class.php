@@ -12,6 +12,7 @@ class DonationInterface {
 		global $wgDonationInterfaceTest,
 			$wgDonationInterfaceTemplate,
 			$wgDonationInterfaceErrorTemplate,
+			$wgDonationInterfaceMessageSourceType,
 			$IP;
 
 		// Test mode (not for production!)
@@ -48,7 +49,7 @@ class DonationInterface {
 			Context::init( $spConfig );
 			$context = Context::get();
 			$context->setSourceName( 'DonationInterface' );
-			$context->setSourceType( 'payments' );
+			$context->setSourceType( $wgDonationInterfaceMessageSourceType );
 			$context->setVersionFromFile( "$IP/.version-stamp" );
 		}
 	}

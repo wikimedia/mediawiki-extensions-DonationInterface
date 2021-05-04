@@ -228,7 +228,7 @@
 	"donate_interface-noscript-msg": "Zdi se, da nimate omogočenega JavaScripta ali pa ga vaš brskalnik ne podpira.\nNaš obrazec za darovanje zahteva JavaScript, ker vam z njim zagotovimo varno in prijetno uporabniško izkušnjo.",
 	"donate_interface-noscript-redirect-msg": "Če ne morete ali ne želite omogočiti JavaScript, lahko še vedno prispevate z obiskom:",
 	"donate_interface-anon-message": "Želim, da je na javnem seznamu donatorjev moje ime.",
-	"donate_interface-donate-wikipedia": "Darujte na Wikipediji",
+	"donate_interface-donate-wikipedia": "Darujte v Wikipediji",
 	"donate_interface-or": "ali",
 	"donate_interface-your-information": "Vaši podatki",
 	"donate_interface-mailing-address": "Poštni naslov",
