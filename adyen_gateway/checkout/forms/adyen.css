@@ -1,0 +1,20 @@
+dl.submethods {
+	display: none;
+}
+/* Hide the "Credit cards" header */
+#dropin-container div.adyen-checkout__payment-method__header {
+	display: none;
+}
+/* Get rid of background + border from card inputs group */
+#dropin-container li.adyen-checkout__payment-method--selected {
+	background: #fff;
+	border: none;
+}
+/* Let card inputs stretch as wide as other inputs */
+#dropin-container div.adyen-checkout__payment-method__details {
+	padding: 0;
+}
+#dropin-container span.adyen-checkout__label__text {
+	font-size: calc(1em * 0.875);
+	color: #202122;
+}
