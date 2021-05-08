@@ -28,4 +28,9 @@ class AdyenCheckoutGateway extends GatewayPage {
 			]
 		);
 	}
+
+	public function setClientVariables( &$vars ) {
+		parent::setClientVariables( $vars );
+		$vars['adyenConfiguration'] = $this->adapter->getCheckoutConfiguration();
+	}
 }

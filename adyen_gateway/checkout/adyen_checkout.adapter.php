@@ -32,4 +32,29 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	protected function defineOrderIDMeta() {
 		// TODO: Implement defineOrderIDMeta() method.
 	}
+
+	public function getCheckoutConfiguration() {
+		return [
+			'clientKey' => $this->getAccountConfig( 'ClientKey' ),
+			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
+			// TODO: either make a getAvailablePaymentMethods request for this
+			// or return a paymentMethods array customized to the donor's
+			// selected paymentMethod.
+			'paymentMethodsResponse' => [
+				'paymentMethods' => [ [
+					'brands' => [ 'visa', 'mc', 'amex', 'discover', 'cup', 'maestro', 'diners', 'jcb' ],
+					'details' => [
+						[ 'key' => 'encryptedCardNumber', 'type' => 'cardToken' ],
+						[ 'key' => 'encryptedSecurityCode', 'type' => 'cardToken' ],
+						[ 'key' => 'encryptedExpiryMonth', 'type' => 'cardToken' ],
+						[ 'key' => 'encryptedExpiryYear', 'type' => 'cardToken' ],
+						[ 'key' => 'holderName', 'optional' => true, 'type' => 'text' ]
+					],
+					'type' => 'scheme'
+				] ]
+			],
+			// TODO: maybe make this dynamic based on donor location
+			'environment' => $this->getAccountConfig( 'Environment' ),
+		];
+	}
 }
