@@ -132,7 +132,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * @return string The form URL
 	 */
 	public static function buildPaymentsFormURL( $form_key, $other_params = [] ) {
-		global $wgDonationInterfaceDefaultAppeal;
+		global $wgDonationInterfaceDefaultAppeal,
+			$wgDonationInterfaceGatewayAdapters;
 
 		// And... construct the URL
 		$params = [
@@ -175,23 +176,13 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				}
 			}
 
-			// FIXME: We aren't doing ucfirst, more like camlcase.  Kludge like hell:
-			switch ( $gateway ) {
-				case 'astropay':
-					$specialpage = 'AstroPayGateway';
-					break;
-				case 'globalcollect':
-					$specialpage = 'GlobalCollectGateway';
-					break;
-				case 'paypal':
-					$specialpage = 'PaypalLegacyGateway';
-					break;
-				case 'paypal_ec':
-					$specialpage = 'PaypalExpressGateway';
-					break;
-				default:
-					$specialpage = ucfirst( $gateway ) . "Gateway";
-			}
+			// The special page name is the gateway adapter name but with
+			// 'Adapter' replaced with 'Gateway'
+			$specialpage = str_replace(
+				'Adapter',
+				'Gateway',
+				$wgDonationInterfaceGatewayAdapters[$gateway]
+			);
 		}
 
 		// set the default redirect
