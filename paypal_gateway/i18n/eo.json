@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"KuboF",
 			"Yekrats"
 		]
 	},
-	"paypal_gateway-desc": "Registras Paypal-on kiel donacilo"
+	"paypal_gateway-desc": "Traktado de pagado per Paypal"
 }
