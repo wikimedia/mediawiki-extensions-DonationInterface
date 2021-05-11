@@ -4,7 +4,6 @@ cc:
         country: true
         name: true
         email: true
-        payment_submethod: true
 rtbt:
     label: Real time bank transfer
     validation:

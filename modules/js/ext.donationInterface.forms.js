@@ -87,8 +87,9 @@
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
+	 * @param {array} extraData will be merged into the data collected from the form
 	 */
-	function callDonateApi( successCallback ) {
+	function callDonateApi( successCallback, extraData ) {
 		di.forms.disable();
 		di.forms.clean();
 		$( '#topError' ).html( '' );
@@ -138,6 +139,10 @@
 			employer_id: $( '#employer_id' ).val(),
 			format: 'json'
 		};
+
+		if ( extraData ) {
+			$.extend( sendData, extraData );
+		}
 
 		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
