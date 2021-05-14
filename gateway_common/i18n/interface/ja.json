@@ -413,7 +413,7 @@
 	"donate_interface-statement": "ウィキメディア$1",
 	"donate_interface-monthly-convert-title": "来月から、毎月<span class=\"mc-convert-ask\"></span>を寄付していただけますか？",
 	"donate_interface-monthly-convert-title-variant-003": " <span class=\"mc-convert-donated-amount\"></span>のご寄付をいただきありがとうございました。より大きなインパクトをもたらすために、来月から毎月<span class=\"mc-convert-ask\"></span> の定額寄付をご検討いただけませんか？",
-	"donate_interface-monthly-convert-title-variant-004": "<span class=\"mc-convert-donated-amount\"></spanをご寄付いただきありがとうございました。よろしければ、来月から毎月<span class=\"mc-convert-ask\"></span>の定額寄付をご検討いただけませんか？",
+	"donate_interface-monthly-convert-title-variant-004": "<span class=\"mc-convert-donated-amount\"></span>をご寄付いただきありがとうございました。よろしければ、来月から毎月<span class=\"mc-convert-ask\"></span>の定額寄付をご検討いただけませんか？",
 	"donate_interface-monthly-convert-text": "毎月のご寄付は、ウィキペディアの継続と繁栄を支えるための最適な方法です。",
 	"donate_interface-monthly-convert-change-amount": "はい、別の金額で毎月寄付をします。",
 	"donate_interface-monthly-convert-enter-amount": "来月から毎月寄付してくださる金額を入力してください。",
