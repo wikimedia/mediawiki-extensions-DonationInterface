@@ -1,5 +1,9 @@
 <?php
 
+use Psr\Log\LogLevel;
+use SmashPig\Core\PaymentError;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class AdyenCheckoutAdapter extends GatewayAdapter {
@@ -10,6 +14,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+		$this->runSessionVelocityFilter();
+		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+			return PaymentResult::newFailure( [ new PaymentError(
+				'internal-0000',
+				"Failed pre-process checks for payment.",
+				LogLevel::INFO
+			) ] );
+		}
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
@@ -49,17 +62,26 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$authorizeParams[$paramName] = $this->getData_Staged( $paramName );
 		}
 		$authorizeResult = $provider->createPayment( $authorizeParams );
+		$riskScores = $authorizeResult->getRiskScores();
+		$this->addResponseData( [
+			'avs_result' => $riskScores['avs'],
+			'cvv_result' => $riskScores['cvv']
+		] );
+		$this->runAntifraudFilters();
 		if ( !$authorizeResult->isSuccessful() ) {
 			return PaymentResult::newFailure();
 		}
-		if ( $authorizeResult->requiresApproval() ) {
-			// TODO: run minfraud, check risk score from AVS / CVV
+		if (
+			$authorizeResult->requiresApproval() &&
+			$this->getValidationAction() === ValidationAction::PROCESS
+		) {
 			$captureResult = $provider->approvePayment( [
 				// Note that approvePayment takes the unstaged amount
 				'amount' => $this->getData_Unstaged_Escaped( 'amount' ),
 				'currency' => $this->getData_Staged( 'currency' ),
 				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
 			] );
+			// FIXME: check for success
 			// Note: this transaction ID is different from the authorizeResult's
 			// transaction ID. For credit cards, this is the one we want to store
 			// in CiviCRM.
@@ -71,7 +93,14 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
 			] );
 		}
-		// TODO send messages to payments-init, donations, and payments-antifraud
+		// So many side-effects! This call also sends opt-in on failure
+		// if configured to do so, sends the payments-init message, and
+		// cleans out the donor's session. FIXME: should be something
+		// other than 'COMPLETE' for txns left in review due to liminal
+		// fraud scores.
+		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+		// Runs some post-donation filters and sends donation queue message
+		$this->postProcessDonation();
 		return PaymentResult::newSuccess();
 	}
 
@@ -126,5 +155,23 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			// TODO: maybe make this dynamic based on donor location
 			'environment' => $this->getAccountConfig( 'Environment' ),
 		];
+	}
+
+	/**
+	 * getAVSResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 * @return int
+	 */
+	public function getAVSResult() {
+		return $this->getData_Unstaged_Escaped( 'avs_result' );
+	}
+
+	/**
+	 * getCVVResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 * @return int
+	 */
+	public function getCVVResult() {
+		return $this->getData_Unstaged_Escaped( 'cvv_result' );
 	}
 }
