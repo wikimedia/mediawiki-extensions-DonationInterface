@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Albe Albe460",
 			"Alexmar983",
 			"Aushulz",
@@ -405,6 +406,8 @@
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-no-button-variant-006": "No, grazie",
+	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
 	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1."
 }
