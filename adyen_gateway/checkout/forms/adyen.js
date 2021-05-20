@@ -44,9 +44,14 @@
 			} );
 		}
 	}
-	function handleApiResult( data ) {
 
+	function handleApiResult( data ) {
+		// TODO: handle anything except success
+		if ( data.redirect ) {
+			document.location.replace( data.redirect );
+		}
 	}
+
 	function onAdditionalDetails( state, dropin ) {
 		// Handle 3D secure
 	}

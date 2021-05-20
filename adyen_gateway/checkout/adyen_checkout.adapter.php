@@ -2,7 +2,6 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
-use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
@@ -40,10 +39,23 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			'cvv_result' => $riskScores['cvv']
 		] );
 		$this->runAntifraudFilters();
-		if ( !$authorizeResult->isSuccessful() ) {
-			return PaymentResult::newFailure();
-		}
+		$transactionStatus = $authorizeResult->getStatus();
+		// When authorization is successful but capture fails (or is not
+		// attempted because our ValidationAction is 'review', we still
+		// send the donor to the Thank You page. This is because the
+		// donation can still be captured manually by Donor Relations and
+		// we don't want the donor to try again.
+		$paymentResult = PaymentResult::newRedirect(
+			ResultPages::getThankYouPage( $this )
+		);
+		$gatewayTransactionId = $authorizeResult->getGatewayTxnId();
 		if (
+			!$authorizeResult->isSuccessful() ||
+			$this->getValidationAction() === ValidationAction::REJECT
+		) {
+			// TODO: map any errors from $authorizationResult
+			$paymentResult = PaymentResult::newFailure();
+		} elseif (
 			$authorizeResult->requiresApproval() &&
 			$this->getValidationAction() === ValidationAction::PROCESS
 		) {
@@ -53,27 +65,20 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				'currency' => $this->getData_Staged( 'currency' ),
 				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
 			] );
-			// FIXME: check for success
-			// Note: this transaction ID is different from the authorizeResult's
-			// transaction ID. For credit cards, this is the one we want to store
-			// in CiviCRM.
-			$this->addResponseData( [
-				'gateway_txn_id' => $captureResult->getGatewayTxnId(),
-			] );
-		} else {
-			$this->addResponseData( [
-				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
-			] );
+			$transactionStatus = $captureResult->getStatus();
+			if ( $captureResult->isSuccessful() ) {
+				// Note: this transaction ID is different from the authorizeResult's
+				// transaction ID. For credit cards, this is the one we want to store
+				// in CiviCRM.
+				$gatewayTransactionId = $captureResult->getGatewayTxnId();
+			}
 		}
-		// So many side-effects! This call also sends opt-in on failure
-		// if configured to do so, sends the payments-init message, and
-		// cleans out the donor's session. FIXME: should be something
-		// other than 'COMPLETE' for txns left in review due to liminal
-		// fraud scores.
-		$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-		// Runs some post-donation filters and sends donation queue message
+		$this->addResponseData( [ 'gateway_txn_id' => $gatewayTransactionId ] );
+		// Log and send the payments-init message, and clean out the session
+		$this->finalizeInternalStatus( $transactionStatus );
+		// Run some post-donation filters and send donation queue message
 		$this->postProcessDonation();
-		return PaymentResult::newSuccess();
+		return $paymentResult;
 	}
 
 	public function getCommunicationType() {

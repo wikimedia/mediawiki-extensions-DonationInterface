@@ -22,6 +22,8 @@ class DonationApi extends DonationApiBase {
 
 		$errors = $paymentResult->getErrors();
 
+		// FIXME: don't need this if we've gotten a payment all the way
+		// done at this point. Stop double logging for adyen checkout
 		$sendingDonorToProcessor = empty( $errors ) &&
 			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
 
