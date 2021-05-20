@@ -808,6 +808,7 @@ abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
 
 		// not in the map, or hard coded. What then?
 		// Complain furiously, for your code is faulty.
+		// TODO maybe just assume the name doesn't need to be var_mapped?
 		$msg = self::getGatewayName() . ': Requested value ' . $gateway_field_name . ' cannot be found in the transactions structure.';
 		$this->logger->critical( $msg );
 		throw new LogicException( $msg );

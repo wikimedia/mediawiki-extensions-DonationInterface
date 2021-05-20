@@ -27,40 +27,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$this->getPaymentMethod()
 		);
 		// Log details of the payment in case we need to reconstruct it for
-		// audit files. TODO: this says 'redirecting' but we're not actually
+		// audit files. Note: this says 'redirecting' but we're not actually
 		// sending the donor off site. Log a different prefix here and update
 		// the audit grepper to find that prefix.
 		$this->logPaymentDetails();
-		// TODO: define txn structure + use var_map
-		$authorizeParams = [
-			'encrypted_payment_data' => [
-				// FIXME silly mapping back and forth on both sides of the mediawiki
-				// donate API call. Maybe just send blob from front end?
-				'encryptedCardNumber' => $this->getData_Staged( 'card_num' ),
-				'encryptedExpiryMonth' => $this->getData_Staged( 'expiration' ),
-				// HACK HACK HACK, using a totally dumb field here to not touch API yet
-				'encryptedExpiryYear' => $this->getData_Staged( 'processor_form' ),
-				'encryptedSecurityCode' => $this->getData_Staged( 'cvv' )
-			],
-			'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
-		];
-		$paramsToCopy = [
-			'amount',
-			'city',
-			'country',
-			'currency',
-			'email',
-			'first_name',
-			'last_name',
-			'order_id',
-			'postal_code',
-			'state_province',
-			'street_address',
-			'user_ip'
-		];
-		foreach ( $paramsToCopy as $paramName ) {
-			$authorizeParams[$paramName] = $this->getData_Staged( $paramName );
-		}
+		$this->setCurrentTransaction( 'authorize' );
+		$authorizeParams = $this->buildRequestArray();
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		$riskScores = $authorizeResult->getRiskScores();
 		$this->addResponseData( [
@@ -105,7 +77,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	}
 
 	public function getCommunicationType() {
-		// TODO: Implement getCommunicationType() method.
+		return 'array';
 	}
 
 	protected function getBasedir() {
@@ -113,7 +85,34 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	}
 
 	protected function defineTransactions() {
-		// TODO: Implement defineTransactions() method.
+		$this->transactions = [
+			'authorize' => [
+				'request' => [
+					'encrypted_payment_data' => [
+						'encryptedCardNumber',
+						'encryptedExpiryMonth',
+						'encryptedExpiryYear',
+						'encryptedSecurityCode'
+					],
+					'amount',
+					'city',
+					'country',
+					'currency',
+					'description',
+					'email',
+					'first_name',
+					'last_name',
+					'order_id',
+					'postal_code',
+					'state_province',
+					'street_address',
+					'user_ip'
+				],
+				'values' => [
+					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
+				]
+			]
+		];
 	}
 
 	protected function defineAccountInfo() {
