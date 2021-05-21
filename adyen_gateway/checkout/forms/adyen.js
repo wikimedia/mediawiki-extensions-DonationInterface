@@ -1,11 +1,26 @@
 /* global AdyenCheckout */
 ( function ( $, mw ) {
-	$( '.submethods' ).before(
-		'<div id="dropin-container" />'
-	);
+	/**
+	 * Set up Adyen Checkout
+	 *
+	 * @param config
+	 * @returns AdyenCheckout
+	 */
+	function getCheckout( config ) {
+		config.onSubmit = onSubmit;
+		config.onAdditionalDetails = onAdditionalDetails;
+		config.onError = onError;
+		config.showPayButton = false;
+		return new AdyenCheckout( config );
+	}
 
-	// TODO should we do this mapping server-side
-	// using SmashPig's ReferenceData?
+	/**
+	 *
+	 * TODO: should we do this mapping server-side
+	 * using SmashPig's ReferenceData?
+	 * @param adyenBrandCode
+	 * @returns string
+	 */
 	function mapAdyenSubmethod( adyenBrandCode ) {
 		switch ( adyenBrandCode ) {
 			case 'diners':
@@ -55,6 +70,7 @@
 	function onAdditionalDetails( state, dropin ) {
 		// Handle 3D secure
 	}
+
 	function onError( error ) {
 		var fieldId = error.fieldType,
 			isValid = error.error === '',
@@ -66,24 +82,22 @@
 			$fieldDiv.addClass( 'errorHighlight' );
 		}
 	}
-	$( function () {
-		var checkout,
-			config = mw.config.get( 'adyenConfiguration' ),
-			dropin;
-		config.onSubmit = onSubmit;
-		config.onAdditionalDetails = onAdditionalDetails;
-		config.onError = onError;
-		checkout = new AdyenCheckout( config );
-		dropin = checkout
-			.create( 'dropin' , {
-				openFirstPaymentMethod: true,
-				showPayButton: false
-			} )
-			.mount( '#dropin-container' );
-		$( '#paymentSubmit' ).show();
-		$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
-			mw.donationInterface.validation.validate();
-			dropin.submit( evt );
-		} );
+
+	// drop in the components container ready
+	// to be bound to.
+	$( '.submethods' ).before(
+		'<div id="component-container" />'
+	);
+
+	// Load Adyen card component
+	var config, checkout, adyen;
+	config = mw.config.get( 'adyenConfiguration' );
+	checkout = getCheckout( config );
+	adyen = checkout.create( 'card' ).mount( '#component-container' );
+
+	$( '#paymentSubmit' ).show();
+	$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
+		mw.donationInterface.validation.validate();
+		adyen.submit( evt );
 	} );
 } )( jQuery, mediaWiki );
