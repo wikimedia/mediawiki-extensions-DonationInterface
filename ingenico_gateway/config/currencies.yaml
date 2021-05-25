@@ -42,8 +42,6 @@
 - KZT # Kazakhstani tenge
 - LBP # Lebanese pound
 - LKR # Sri Lankan rupee
-- LTL # Lithuanian litas
-- LVL # Latvian lats
 - MAD # Moroccan dirham
 - MKD # Macedonia denar
 - MUR # Mauritius rupee
@@ -77,7 +75,7 @@
 - UYU # Uruguayan peso
 - USD # U.S. dollar
 # - Removed temporarily for WellsFargo (28/06/13)			- UZS # Uzbekistani som
-# - removed temporarily (Worldpay)			- VND # Vietnamese dong
+- VND # Vietnamese dong
 #- VEF # Venezuelan bolívar - Currently (2017-09-22) unavailable as per GlobalCollect
 - XAF # Central African CFA franc
 - XCD # East Caribbean dollar
