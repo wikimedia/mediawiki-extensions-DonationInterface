@@ -54,7 +54,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$this->getValidationAction() === ValidationAction::REJECT
 		) {
 			// TODO: map any errors from $authorizationResult
-			$paymentResult = PaymentResult::newFailure();
+			$failPage = ResultPages::getFailPage( $this );
+			if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
+				// It's a rapidfail form, but we need an actual URL:
+				$failPage = GatewayFormChooser::buildPaymentsFormURL(
+					$failPage,
+					[ 'gateway' => 'adyen' ]
+				);
+			}
+			$paymentResult = PaymentResult::newFailureAndRedirect( $failPage );
 		} elseif (
 			$authorizeResult->requiresApproval() &&
 			$this->getValidationAction() === ValidationAction::PROCESS

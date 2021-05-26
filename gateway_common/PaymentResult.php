@@ -78,6 +78,15 @@ class PaymentResult {
 		return $response;
 	}
 
+	public static function newFailureAndRedirect( $url, $errors = [] ) {
+		$response = new PaymentResult();
+		$response->failed = true;
+		$response->errors = $errors;
+		$response->redirect = $url;
+
+		return $response;
+	}
+
 	public static function newEmpty() {
 		$response = new PaymentResult();
 		$response->errors = [ new PaymentError(
