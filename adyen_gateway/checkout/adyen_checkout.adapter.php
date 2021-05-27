@@ -63,6 +63,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				);
 			}
 			$paymentResult = PaymentResult::newFailureAndRedirect( $failPage );
+
+			# log the error details on failure
+			$errorLogMessage = "Error response from gateway: ";
+			$errorLogMessage .= $authorizeResult->getStatus() . " : ";
+			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
+			$this->logger->info( $errorLogMessage );
 		} elseif (
 			$authorizeResult->requiresApproval() &&
 			$this->getValidationAction() === ValidationAction::PROCESS
