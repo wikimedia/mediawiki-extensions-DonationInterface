@@ -3,6 +3,7 @@
 - CountryValidation
 - DonorEmail
 - StreetAddress
+- ReturnUrl
 # Adyen-specific
 - AdyenMethodCodec
 - AdyenSubmethodCodec

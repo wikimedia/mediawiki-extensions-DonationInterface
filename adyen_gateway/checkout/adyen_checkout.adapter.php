@@ -117,6 +117,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					'last_name',
 					'order_id',
 					'postal_code',
+					'return_url',
 					'state_province',
 					'street_address',
 					'user_ip'
