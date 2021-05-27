@@ -1,5 +1,6 @@
 /* global AdyenCheckout */
 ( function ( $, mw ) {
+	var checkout;
 
 	/**
 	 * TODO: Determine if any component-specific cfg is needed
@@ -103,10 +104,24 @@
 		}
 	}
 
-	function handleApiResult( data ) {
+	function handleApiResult( result ) {
 		// TODO: handle anything except success
-		if ( data.redirect ) {
-			document.location.replace( data.redirect );
+		if ( result.formData ) {
+			// FIXME: reconstructing the raw result from the API
+			// which has been normalized down to just these two
+			// fields. Should we just pass the raw Adyen API result
+			// back to the front end? Seems like we would only want
+			// a rawResult property on the front-end donation API
+			// response when we are damn sure it's sanitized.
+			checkout.createFromAction( {
+				paymentMethodType: 'scheme',
+				url: result.redirect,
+				data: result.formData,
+				method: 'POST',
+				type: 'redirect'
+			} ).mount( '#action-container' );
+		} else if ( result.redirect ) {
+			document.location.replace( result.redirect );
 		}
 	}
 
@@ -132,7 +147,6 @@
 			component,
 			component_config,
 			config,
-			checkout,
 			ui_container_name;
 
 		payment_method = $( '#payment_method' ).val();
@@ -142,6 +156,8 @@
 		// Drop in the adyen components placeholder container
 		$( '.submethods' ).before(
 			'<div id="' + ui_container_name + '" />'
+		).before(
+			'<div id="action-container" />'
 		);
 
 		// TODO: useful comments

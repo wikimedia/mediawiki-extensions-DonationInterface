@@ -31,8 +31,22 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// sending the donor off site. Log a different prefix here and update
 		// the audit grepper to find that prefix.
 		$this->logPaymentDetails();
+		$this->tuneFor3DSecure();
 		$authorizeParams = $this->buildRequestArray();
 		$authorizeResult = $provider->createPayment( $authorizeParams );
+		if ( $authorizeResult->requiresRedirect() ) {
+			// Looks like we're not going to finish the payment in this
+			// request - our dear donor needs to take more actions on
+			// another site. Short-circuit the finalization, just stash
+			// the gateway txn id and redirect them.
+			$this->addResponseData( [
+				'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
+			] );
+			return PaymentResult::newRedirect(
+				$authorizeResult->getRedirectUrl(),
+				$authorizeResult->getRedirectData()
+			);
+		}
 		$riskScores = $authorizeResult->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
@@ -137,6 +151,26 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				]
 			]
 		];
+	}
+
+	/**
+	 * If the device fingerprinting data needed for 3D Secure is staged up,
+	 * add it to the transaction structure. Has to be called after staging
+	 * but before getting the transaction structure (gross).
+	 */
+	protected function tuneFor3DSecure() {
+		if ( $this->getData_Staged( 'user_agent' ) !== null ) {
+			$this->transactions['authorize']['request']['browser_info'] = [
+				'userAgent',
+				'acceptHeader',
+				'language',
+				'colorDepth',
+				'screenHeight',
+				'screenWidth',
+				'timeZoneOffset',
+				'javaEnabled'
+			];
+		}
 	}
 
 	protected function defineAccountInfo() {

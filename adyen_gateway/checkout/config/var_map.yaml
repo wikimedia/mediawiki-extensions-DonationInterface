@@ -16,3 +16,12 @@ return_url: return_url
 state_province: state_province
 street_address: street_address
 user_ip: user_ip
+# all of the below are for browser fingerprinting, used in 3DSecure
+userAgent: user_agent
+acceptHeader: accept_header
+language: locale
+colorDepth: color_depth
+screenHeight: screen_height
+screenWidth: screen_width
+timeZoneOffset: time_zone_offset
+javaEnabled: java_enabled

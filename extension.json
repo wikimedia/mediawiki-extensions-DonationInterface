@@ -160,6 +160,7 @@
 		"AdyenMethodCodec": "adyen_gateway/AdyenMethodCodec.php",
 		"AdyenSubmethodCodec": "adyen_gateway/AdyenSubmethodCodec.php",
 		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
+		"Adyen3DSecure": "adyen_gateway/checkout/Adyen3DSecure.php",
 		"AdyenCheckoutAdapter": "adyen_gateway/checkout/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/checkout/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/checkout/adyen_checkout_resultswitcher.body.php",
