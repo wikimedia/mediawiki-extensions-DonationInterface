@@ -114,8 +114,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		// Only render monthly convert when we come back from a qualified processor
 		if (
-			$this->gateway->showMonthlyConvert() &&
-			$this->gatewayPage instanceof ResultSwitcher
+			// Or when we force display with a querystring flag
+			RequestContext::getMain()->getRequest()->getBool( 'debugMonthlyConvert' ) || (
+				$this->gateway->showMonthlyConvert() &&
+				$this->gatewayPage instanceof ResultSwitcher
+			)
 		) {
 			$data['monthly_convert'] = true;
 		}

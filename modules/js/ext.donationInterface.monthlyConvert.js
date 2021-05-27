@@ -117,11 +117,19 @@
 		return 0;
 	};
 
-	mc.setConvertAsk = function ( suggestedAmount, locale, currency ) {
-		var convertAmountFormatted;
+	mc.setConvertAsk = function ( suggestedAmount, currency, locale ) {
+		var convertAmountFormatted = mc.formatAmount(
+			suggestedAmount, currency, locale
+		);
+		$( '.mc-convert-ask' ).text( convertAmountFormatted );
+		$( '.mc-modal-screen' ).show();
+	};
+
+	mc.formatAmount = function ( amount, currency, locale ) {
+		var formattedAmount;
 
 		try {
-			convertAmountFormatted = suggestedAmount.toLocaleString(
+			formattedAmount = amount.toLocaleString(
 				locale,
 				{
 					currency: currency,
@@ -130,11 +138,9 @@
 			);
 		} catch ( e ) {
 			// Assume a two decimal place currency for fallback
-			convertAmountFormatted = currency + ' ' + suggestedAmount.toFixed( 2 );
+			formattedAmount = currency + ' ' + amount.toFixed( 2 );
 		}
-
-		$( '.mc-convert-ask' ).text( convertAmountFormatted );
-		$( '.mc-modal-screen' ).show();
+		return formattedAmount;
 	};
 
 	mc.postUpdonate = function ( amount ) {
@@ -179,7 +185,8 @@
 	};
 
 	$( function () {
-		var presetAmount;
+		var presetAmount,
+			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
 		presetAmount = mc.getConvertAsk( originalAmount, currency );
@@ -191,8 +198,8 @@
 		} else {
 			mc.setConvertAsk(
 				presetAmount,
-				$( '#language' ).val() + '-' + $( '#country' ).val(),
-				currency
+				currency,
+				locale
 			);
 			$( '.mc-no-button, .mc-close' ).on( 'click keypress', function ( e ) {
 				if ( e.which === 13 || e.type === 'click' ) {
@@ -210,16 +217,27 @@
 						otherAmount = +$otherAmountField.val(),
 						rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 						rate,
-						minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' );
+						minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
+						minLocal,
+						formattedMin,
+						$smallAmountMessage;
 
 					if ( rates[ currency ] ) {
 						rate = rates[ currency ];
 					} else {
 						rate = 1;
 					}
-					if ( otherAmount < minUsd * rate ) {
+					minLocal = minUsd * rate;
+					if ( otherAmount < minLocal ) {
+						formattedMin = mc.formatAmount(
+							minLocal, currency, locale
+						);
 						$otherAmountField.addClass( 'errorHighlight' );
-						$( '#mc-error-smallamount' ).show();
+						$smallAmountMessage = $( '#mc-error-smallamount' );
+						$smallAmountMessage.text(
+							$smallAmountMessage.text().replace( '$1', formattedMin )
+						);
+						$smallAmountMessage.show();
 					} else if ( otherAmount > originalAmount ) {
 						$otherAmountField.addClass( 'errorHighlight' );
 						$( '#mc-error-bigamount' ).show();
