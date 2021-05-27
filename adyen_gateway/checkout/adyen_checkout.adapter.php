@@ -121,7 +121,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	}
 
 	protected function defineAccountInfo() {
-		// TODO: Implement defineAccountInfo() method.
+		// We use account_config instead
+		$this->accountInfo = [];
 	}
 
 	protected function defineReturnValueMap() {
