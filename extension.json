@@ -121,6 +121,7 @@
 		"ReturnUrl": "gateway_common/ReturnUrl.php",
 		"StagingHelper": "gateway_common/StagingHelper.php",
 		"StreetAddress": "gateway_common/StreetAddress.php",
+		"Abstract3DSecure": "gateway_common/Abstract3DSecure.php",
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
 		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
