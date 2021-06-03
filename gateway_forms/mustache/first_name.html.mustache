@@ -1,0 +1,5 @@
+<div class="halfwidth">
+    <label for="first_name">{{ l10n "donate_interface-donor-first_name" }}</label>
+    <input id="first_name" name="first_name" value="{{ first_name }}" type="text" title="{{ l10n "donate_interface-donor-first_name" }}" {{# first_name_required }}required {{/ first_name_required }}autocomplete="billing given-name cc-given-name" maxlength="64">
+    {{{ fieldError "first_name" }}}
+</div>

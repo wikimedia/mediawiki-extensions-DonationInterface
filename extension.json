@@ -477,6 +477,9 @@
 		"DonationInterfaceHeader": {
 			"value": null
 		},
+		"DonationInterfaceSurnameFirstCountries": {
+			"value": [ "JP" ]
+		},
 		"DonationInterfaceNoScriptRedirect": {
 			"value": null
 		},
