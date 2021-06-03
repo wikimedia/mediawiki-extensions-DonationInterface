@@ -8,6 +8,7 @@ country: country
 currency: currency
 email: email
 first_name: first_name
+issuer_id: issuer_id
 last_name: last_name
 order_id: order_id
 postal_code: postal_code

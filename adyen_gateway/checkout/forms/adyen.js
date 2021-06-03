@@ -90,23 +90,33 @@
 	}
 
 	function onSubmit( state, component ) {
-		var extraData;
+		var extraData,
+			payment_method;
 		// Submit to our server
 		if ( mw.donationInterface.validation.validate() && state.isValid ) {
-			extraData = {
-				encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
-				encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
-				encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
-				encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
-				payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
-			};
-			if ( state.data.browserInfo ) {
-				extraData.color_depth = state.data.browserInfo.colorDepth;
-				extraData.java_enabled = state.data.browserInfo.javaEnabled;
-				extraData.screen_height = state.data.browserInfo.screenHeight;
-				extraData.screen_width = state.data.browserInfo.screenWidth;
-				extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+			payment_method = $( '#payment_method' ).val();
+			if ( payment_method === 'rtbt' && state.data.paymentMethod.type === 'ideal' ) {
+				extraData = {
+					// issuer is bank chosen from dropdown
+					issuer_id: state.data.paymentMethod.issuer
+				};
+			} else {
+				extraData = {
+					encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
+					encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
+					encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
+					encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
+					payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
+				};
+				if ( state.data.browserInfo ) {
+					extraData.color_depth = state.data.browserInfo.colorDepth;
+					extraData.java_enabled = state.data.browserInfo.javaEnabled;
+					extraData.screen_height = state.data.browserInfo.screenHeight;
+					extraData.screen_width = state.data.browserInfo.screenWidth;
+					extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+				}
 			}
+
 			mw.donationInterface.forms.callDonateApi(
 				handleApiResult, extraData, 'di_donate_adyen'
 			);
@@ -114,8 +124,11 @@
 	}
 
 	function handleApiResult( result ) {
-		// TODO: handle anything except success
-		if ( result.formData ) {
+		if ( result.isFailed ) {
+			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+		}
+
+		if ( result.formData && Object.keys( result.formData ).length > 0 ) {
 			// FIXME: reconstructing the raw result from the API
 			// which has been normalized down to just these two
 			// fields. Should we just pass the raw Adyen API result
@@ -129,6 +142,7 @@
 				method: 'POST',
 				type: 'redirect'
 			} ).mount( '#action-container' );
+
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		}

@@ -7,6 +7,7 @@ class AdyenDonationApi extends DonationApi {
 			'encrypted_expiration_month' => $this->defineParam(),
 			'encrypted_expiration_year' => $this->defineParam(),
 			'encrypted_security_code' => $this->defineParam(),
+			'issuer_id' => $this->defineParam(),
 			'java_enabled' => $this->defineParam(),
 			'screen_height' => $this->defineParam(),
 			'screen_width' => $this->defineParam(),

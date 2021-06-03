@@ -159,6 +159,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					'description',
 					'email',
 					'first_name',
+					'issuer_id',
 					'last_name',
 					'order_id',
 					'postal_code',
@@ -212,25 +213,21 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	}
 
 	public function getCheckoutConfiguration() {
+		$provider = PaymentProviderFactory::getProviderForMethod(
+			$this->getPaymentMethod()
+		);
+		$methodparams['country'] = $this->staged_data['country'];
+		$methodparams['currency'] = $this->staged_data['currency'];
+		$methodparams['amount'] = $this->staged_data['amount'];
+		$methodparams['language'] = $this->staged_data['language'];
+		// this has all the payment methods available
+		// Todo: what happens if it doesnt return anything
+		$paymentMethodResult = $provider->getPaymentMethods( $methodparams )->getRawResponse();
+
 		return [
 			'clientKey' => $this->getAccountConfig( 'ClientKey' ),
 			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
-			// TODO: either make a getAvailablePaymentMethods request for this
-			// or return a paymentMethods array customized to the donor's
-			// selected paymentMethod.
-			'paymentMethodsResponse' => [
-				'paymentMethods' => [ [
-					'brands' => [ 'visa', 'mc', 'amex', 'discover', 'cup', 'maestro', 'diners', 'jcb' ],
-					'details' => [
-						[ 'key' => 'encryptedCardNumber', 'type' => 'cardToken' ],
-						[ 'key' => 'encryptedSecurityCode', 'type' => 'cardToken' ],
-						[ 'key' => 'encryptedExpiryMonth', 'type' => 'cardToken' ],
-						[ 'key' => 'encryptedExpiryYear', 'type' => 'cardToken' ],
-						[ 'key' => 'holderName', 'optional' => true, 'type' => 'text' ]
-					],
-					'type' => 'scheme'
-				] ]
-			],
+			'paymentMethodsResponse' => $paymentMethodResult,
 			// TODO: maybe make this dynamic based on donor location
 			'environment' => $this->getAccountConfig( 'Environment' ),
 		];

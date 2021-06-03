@@ -17,7 +17,11 @@ class DonationApi extends DonationApiBase {
 		$outputResult = [
 			'iframe' => $paymentResult->getIframe(),
 			'redirect' => $paymentResult->getRedirect(),
-			'formData' => $paymentResult->getFormData()
+			'formData' => $paymentResult->getFormData(),
+			'isFailed' => $paymentResult->isFailed(),
+			// META_BC_BOOLS is a metadata key to tell ApiResult which keys
+			// should be preserved in the output even if their value is false
+			ApiResult::META_BC_BOOLS => [ 'isFailed' ]
 		];
 
 		$errors = $paymentResult->getErrors();
