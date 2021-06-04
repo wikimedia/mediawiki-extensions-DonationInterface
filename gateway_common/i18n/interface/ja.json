@@ -401,7 +401,7 @@
 	"donate_interface-legal-original": "これは便宜上の翻訳です。この翻訳と英語版が競合した場合は、英語版に従って運用されます。",
 	"donate_interface-monthlybox-title": "毎月、寄付しますか?",
 	"donate_interface-monthlybox-content": "毎月の寄付は、毎月2日に実行されます。いつでも取り消すことができます。",
-	"donate_interface-monthlybox-amount": "月ごとの寄付金額",
+	"donate_interface-monthlybox-amount": "毎月の寄付額",
 	"donate_interface-monthlybox-yes": "毎月寄付します",
 	"donate_interface-monthlybox-no": "いいえ、一度だけ寄付します",
 	"donate_interface-monthlybox-bottom": "あなたの寄付は、安全に処理されます。",
