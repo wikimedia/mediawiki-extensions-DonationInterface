@@ -1,5 +1,27 @@
 /* global AdyenCheckout */
 ( function ( $, mw ) {
+
+	/**
+	 * TODO: Determine if any component-specific cfg is needed
+	 *
+	 * @param type
+	 * @returns {string}
+	 */
+	function getComponentConfig( type ) {
+		var config = {};
+		switch ( type ) {
+			// for card and ideal, additional config is optional
+			case 'card':
+			case 'ideal':
+				return config;
+			// for applepay, additional config will be required
+			case 'applepay':
+				return config;
+			default:
+				throw Error( 'Component type not found' );
+		}
+	}
+
 	/**
 	 * Set up Adyen Checkout
 	 *
@@ -12,6 +34,25 @@
 		config.onError = onError;
 		config.showPayButton = false;
 		return new AdyenCheckout( config );
+	}
+
+	/**
+	 *
+	 * @param paymentMethod
+	 * @returns string
+	 */
+	function mapPaymentMethodToComponentType( paymentMethod ) {
+		switch ( paymentMethod ) {
+			case 'cc':
+				return 'card';
+			case 'rtbt':
+			case 'bt':
+				return 'ideal';
+			case 'ap':
+				return 'applepay';
+			default:
+				throw Error( 'paymentMethod not found' );
+		}
 	}
 
 	/**
@@ -83,21 +124,34 @@
 		}
 	}
 
-	// drop in the components container ready
-	// to be bound to.
-	$( '.submethods' ).before(
-		'<div id="component-container" />'
-	);
+	$( function () {
+		var payment_method,
+			component_type,
+			component,
+			component_config,
+			config,
+			checkout,
+			ui_container_name;
 
-	// Load Adyen card component
-	var config, checkout, adyen;
-	config = mw.config.get( 'adyenConfiguration' );
-	checkout = getCheckout( config );
-	adyen = checkout.create( 'card' ).mount( '#component-container' );
+		payment_method = $( '#payment_method' ).val();
+		component_type = mapPaymentMethodToComponentType( payment_method );
+		ui_container_name = component_type + '-container';
 
-	$( '#paymentSubmit' ).show();
-	$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
-		mw.donationInterface.validation.validate();
-		adyen.submit( evt );
+		// Drop in the adyen components placeholder container
+		$( '.submethods' ).before(
+			'<div id="' + ui_container_name + '" />'
+		);
+
+		// TODO: useful comments
+		config = mw.config.get( 'adyenConfiguration' );
+		checkout = getCheckout( config );
+		component_config = getComponentConfig( component_type );
+		component = checkout.create( component_type, component_config ).mount( '#' + ui_container_name );
+
+		$( '#paymentSubmit' ).show();
+		$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
+			mw.donationInterface.validation.validate();
+			component.submit( evt );
+		} );
 	} );
 } )( jQuery, mediaWiki );
