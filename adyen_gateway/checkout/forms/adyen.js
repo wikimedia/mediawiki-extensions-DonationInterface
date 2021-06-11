@@ -3,20 +3,29 @@
 	var checkout;
 
 	/**
-	 * TODO: Determine if any component-specific cfg is needed
+	 * Get extra configuration values for specific payment types
 	 *
 	 * @param {string} type Adyen-side name of component type
-	 * @return {string}
+	 * @return Object
 	 */
 	function getComponentConfig( type ) {
 		var config = {};
 		switch ( type ) {
-			// for card and ideal, additional config is optional
 			case 'card':
 			case 'ideal':
+				// for cc and ideal, additional config is optional
 				return config;
-			// for applepay, additional config will be required
 			case 'applepay':
+				// for applepay, additional config is required
+				var amount = {},
+					currency = $( '#currency' ).val(),
+					amount_value = $( '#amount' ).val(),
+					country = $( '#country' ).val();
+
+				amount.currency = currency;
+				amount.value = amount_value * 100; // FIXME needs AmountInMinorUnits staging
+				config.amount = amount;
+				config.countryCode = country;
 				return config;
 			default:
 				throw Error( 'Component type not found' );
@@ -52,7 +61,7 @@
 			case 'rtbt':
 			case 'bt':
 				return 'ideal';
-			case 'ap':
+			case 'apple':
 				return 'applepay';
 			default:
 				throw Error( 'paymentMethod not found' );
@@ -91,32 +100,42 @@
 	}
 
 	function onSubmit( state, component ) {
-		var extraData,
+		var extraData = {},
 			payment_method;
 		// Submit to our server
 		if ( mw.donationInterface.validation.validate() && state.isValid ) {
 			payment_method = $( '#payment_method' ).val();
-			if ( payment_method === 'rtbt' && state.data.paymentMethod.type === 'ideal' ) {
-				extraData = {
-					// issuer is bank chosen from dropdown
-					issuer_id: state.data.paymentMethod.issuer,
-					payment_submethod: 'rtbt_ideal'
-				};
-			} else {
-				extraData = {
-					encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
-					encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
-					encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
-					encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
-					payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
-				};
-				if ( state.data.browserInfo ) {
-					extraData.color_depth = state.data.browserInfo.colorDepth;
-					extraData.java_enabled = state.data.browserInfo.javaEnabled;
-					extraData.screen_height = state.data.browserInfo.screenHeight;
-					extraData.screen_width = state.data.browserInfo.screenWidth;
-					extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
-				}
+			switch ( payment_method ) {
+				case 'rtbt':
+					if ( state.data.paymentMethod.type === 'ideal' ) {
+						extraData = {
+							// issuer is bank chosen from dropdown
+							issuer_id: state.data.paymentMethod.issuer,
+							payment_submethod: 'rtbt_ideal'
+						};
+					}
+					break;
+				case 'cc':
+					extraData = {
+						encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
+						encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
+						encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
+						encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
+						payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
+					};
+					if ( state.data.browserInfo ) {
+						extraData.color_depth = state.data.browserInfo.colorDepth;
+						extraData.java_enabled = state.data.browserInfo.javaEnabled;
+						extraData.screen_height = state.data.browserInfo.screenHeight;
+						extraData.screen_width = state.data.browserInfo.screenWidth;
+						extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+					}
+					break;
+				case 'apple':
+					extraData = {
+						gateway_session_id: state.data.paymentMethod.applePayToken
+					};
+					break;
 			}
 
 			mw.donationInterface.forms.callDonateApi(
@@ -177,7 +196,17 @@
 		config = mw.config.get( 'adyenConfiguration' );
 		checkout = getCheckout( config );
 		component_config = getComponentConfig( component_type );
-		component = checkout.create( component_type, component_config ).mount( '#' + ui_container_name );
+		component = checkout.create( component_type, component_config );
+
+		if ( component_type === 'applepay' ) {
+			component.isAvailable().then( function () {
+				component.mount( '#' + ui_container_name );
+			} ).catch( function () {
+				throw Error( 'Apple Pay is not available!' );
+			} );
+		} else {
+			component.mount( '#' + ui_container_name );
+		}
 
 		$( '#paymentSubmit' ).show();
 		$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {

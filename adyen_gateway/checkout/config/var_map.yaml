@@ -11,6 +11,7 @@ first_name: first_name
 issuer_id: issuer_id
 last_name: last_name
 order_id: order_id
+gateway_session_id: gateway_session_id
 postal_code: postal_code
 return_url: return_url
 state_province: state_province

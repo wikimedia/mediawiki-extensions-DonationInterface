@@ -57,6 +57,7 @@ class DonationData implements LogPrefixProvider {
 		'encrypted_expiry_year',
 		'encrypted_security_code',
 		'first_name',
+		'gateway_session_id',
 		'java_enabled', // device fingerprinting
 		'last_name',
 		'screen_height', // device fingerprinting
