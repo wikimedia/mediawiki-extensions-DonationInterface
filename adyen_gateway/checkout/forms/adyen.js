@@ -4,8 +4,8 @@
 	/**
 	 * TODO: Determine if any component-specific cfg is needed
 	 *
-	 * @param type
-	 * @returns {string}
+	 * @param {string} type Adyen-side name of component type
+	 * @return {string}
 	 */
 	function getComponentConfig( type ) {
 		var config = {};
@@ -23,10 +23,11 @@
 	}
 
 	/**
-	 * Set up Adyen Checkout
+	 * Set up Adyen Checkout object
 	 *
-	 * @param config
-	 * @returns AdyenCheckout
+	 * @param {Object} config requires clientKey, environment, locale,
+	 *  and paymentMethodsResponse
+	 * @return {AdyenCheckout}
 	 */
 	function getCheckout( config ) {
 		config.onSubmit = onSubmit;
@@ -37,9 +38,10 @@
 	}
 
 	/**
+	 * Get the name of the Adyen Checkout component to instantiate
 	 *
-	 * @param paymentMethod
-	 * @returns string
+	 * @param {string} paymentMethod our top-level payment method code
+	 * @return {string} name of Adyen Checkout component to instantiate
 	 */
 	function mapPaymentMethodToComponentType( paymentMethod ) {
 		switch ( paymentMethod ) {
@@ -56,11 +58,11 @@
 	}
 
 	/**
-	 *
 	 * TODO: should we do this mapping server-side
 	 * using SmashPig's ReferenceData?
-	 * @param adyenBrandCode
-	 * @returns string
+	 *
+	 * @param {string} adyenBrandCode Adyen-side identifier for the payment submethod
+	 * @return {string} Our identifier for the payment submethod
 	 */
 	function mapAdyenSubmethod( adyenBrandCode ) {
 		switch ( adyenBrandCode ) {
@@ -86,7 +88,7 @@
 		}
 	}
 
-	function onSubmit( state, dropin ) {
+	function onSubmit( state, component ) {
 		// Submit to our server
 		if ( mw.donationInterface.validation.validate() && state.isValid ) {
 			mw.donationInterface.forms.callDonateApi( handleApiResult, {
