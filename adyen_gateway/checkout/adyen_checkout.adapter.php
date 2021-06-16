@@ -3,6 +3,9 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\CreatePaymentResponse;
+use SmashPig\PaymentProviders\IPaymentProvider;
+use SmashPig\PaymentProviders\PaymentDetailResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class AdyenCheckoutAdapter extends GatewayAdapter {
@@ -47,6 +50,21 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				$authorizeResult->getRedirectData()
 			);
 		}
+		// If we DON'T need to redirect, handle the fraud checks and any
+		// necessary payment capture step here and now.
+		return $this->handleCreatedPayment( $provider, $authorizeResult );
+	}
+
+	/**
+	 * After a payment has been created and we have the processor-side fraud results
+	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
+	 *
+	 * @param IPaymentProvider $provider
+	 * @param CreatePaymentResponse|PaymentDetailResponse $authorizeResult
+	 * @return PaymentResult
+	 * @throws MWException
+	 */
+	protected function handleCreatedPayment( IPaymentProvider $provider, $authorizeResult ): PaymentResult {
 		$riskScores = $authorizeResult->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
@@ -59,6 +77,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// send the donor to the Thank You page. This is because the
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
+		// FIXME: this should be a newSuccess so we don't trigger extra
+		// pending logging.
 		$paymentResult = PaymentResult::newRedirect(
 			ResultPages::getThankYouPage( $this )
 		);
@@ -231,5 +251,24 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	 */
 	public function getCVVResult() {
 		return $this->getData_Unstaged_Escaped( 'cvv_result' );
+	}
+
+	public function processDonorReturn( $requestValues ) {
+		if (
+			isset( $requestValues['redirectResult'] )
+		) {
+			// We're dealing with a donor coming back from a page they have
+			// been redirected to in order to make a payment, e.g. the 'Redirect'
+			// 3D Secure flow after verifying the transaction with their bank.
+			// https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2-3ds1/web-drop-in#handle-the-redirect-result
+			$redirectResult = urldecode( $requestValues['redirectResult'] );
+			$provider = PaymentProviderFactory::getProviderForMethod(
+				$this->getPaymentMethod()
+			);
+			$detailsResult = $provider->getHostedPaymentDetails( $redirectResult );
+			return $this->handleCreatedPayment( $provider, $detailsResult );
+		}
+		// Default behavior is to finalize and return success
+		return parent::processDonorReturn( $requestValues );
 	}
 }
