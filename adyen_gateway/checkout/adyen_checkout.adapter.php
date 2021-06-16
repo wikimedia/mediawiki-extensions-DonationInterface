@@ -35,8 +35,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		$riskScores = $authorizeResult->getRiskScores();
 		$this->addResponseData( [
-			'avs_result' => $riskScores['avs'],
-			'cvv_result' => $riskScores['cvv']
+			'avs_result' => $riskScores['avs'] ?? 0,
+			'cvv_result' => $riskScores['cvv'] ?? 0
 		] );
 		$this->runAntifraudFilters();
 		$transactionStatus = $authorizeResult->getStatus();
