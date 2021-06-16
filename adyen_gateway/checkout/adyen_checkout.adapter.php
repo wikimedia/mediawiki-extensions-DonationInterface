@@ -65,7 +65,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$paymentResult = PaymentResult::newFailureAndRedirect( $failPage );
 
 			# log the error details on failure
-			$errorLogMessage = "Error response from gateway: ";
+			if ( !$authorizeResult->isSuccessful() ) {
+				$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
+			} else {
+				$errorLogMessage = 'Created payment rejected by our fraud filters: ';
+			}
 			$errorLogMessage .= $authorizeResult->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
