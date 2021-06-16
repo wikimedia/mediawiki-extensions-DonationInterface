@@ -13,6 +13,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
+		$this->setCurrentTransaction( 'authorize' );
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
@@ -30,7 +31,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// sending the donor off site. Log a different prefix here and update
 		// the audit grepper to find that prefix.
 		$this->logPaymentDetails();
-		$this->setCurrentTransaction( 'authorize' );
 		$authorizeParams = $this->buildRequestArray();
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		$riskScores = $authorizeResult->getRiskScores();
