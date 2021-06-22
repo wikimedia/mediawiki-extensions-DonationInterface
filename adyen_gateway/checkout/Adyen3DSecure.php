@@ -16,7 +16,7 @@ class Adyen3DSecure extends Abstract3DSecure {
 		if ( !$this->canSet3dSecure( $normalized ) ) {
 			return;
 		}
-		if ( !$this->use3dSecure( $adapter, $normalized ) ) {
+		if ( !$this->isRecommend3dSecure( $adapter, $normalized ) ) {
 			return;
 		}
 		$request = RequestContext::getMain()->getRequest();

@@ -16,6 +16,6 @@ class Ingenico3DSecure extends Abstract3DSecure {
 		if ( !$this->canSet3dSecure( $normalized ) ) {
 			return;
 		}
-		$stagedData['skip_authentication'] = !$this->use3dSecure( $adapter, $normalized );
+		$stagedData['skip_authentication'] = !$this->isRecommend3dSecure( $adapter, $normalized );
 	}
 }

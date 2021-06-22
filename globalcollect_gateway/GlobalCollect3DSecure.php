@@ -14,6 +14,6 @@ class GlobalCollect3DSecure extends Abstract3DSecure {
 		if ( !$this->canSet3dSecure( $normalized ) ) {
 			return;
 		}
-		$stagedData['use_authentication'] = $this->use3dSecure( $adapter, $normalized );
+		$stagedData['use_authentication'] = $this->isRecommend3dSecure( $adapter, $normalized );
 	}
 }
