@@ -3,7 +3,6 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\ValidationAction;
-use SmashPig\PaymentProviders\CreatePaymentResponse;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -60,11 +59,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
 	 *
 	 * @param IPaymentProvider $provider
-	 * @param CreatePaymentResponse|PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $authorizeResult
 	 * @return PaymentResult
 	 * @throws MWException
 	 */
-	protected function handleCreatedPayment( IPaymentProvider $provider, $authorizeResult ): PaymentResult {
+	protected function handleCreatedPayment(
+		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
+	): PaymentResult {
 		$riskScores = $authorizeResult->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
