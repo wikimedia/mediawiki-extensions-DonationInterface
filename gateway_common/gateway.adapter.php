@@ -34,7 +34,7 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * GatewayAdapter
  *
  */
-abstract class GatewayAdapter implements GatewayType, LogPrefixProvider {
+abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Don't change these strings without fixing cross-repo usages.
 	 */
