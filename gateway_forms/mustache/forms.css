@@ -157,6 +157,7 @@ span#selected-amount {
 	color: #000;
 	font-family: inherit;
 	font-size: 13px;
+	line-height: 17px;
 	padding: 0.8em;
 	margin-bottom: 0.2em;
 	-webkit-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
