@@ -78,7 +78,7 @@ class DonationApi extends DonationApiBase {
 		];
 	}
 
-	private function defineParam( $required = false, $type = 'string' ) {
+	protected function defineParam( $required = false, $type = 'string' ) {
 		if ( $required ) {
 			$param = [ ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true ];
 		} else {

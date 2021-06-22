@@ -90,17 +90,26 @@
 	}
 
 	function onSubmit( state, component ) {
+		var extraData;
 		// Submit to our server
 		if ( mw.donationInterface.validation.validate() && state.isValid ) {
-			mw.donationInterface.forms.callDonateApi( handleApiResult, {
-				// FIXME, add new API params for encrypted data instead of reusing old ones
-				card_num: state.data.paymentMethod.encryptedCardNumber,
-				expiration: state.data.paymentMethod.encryptedExpiryMonth,
-				// HACK HACK HACK, using a totally dumb field here to not touch API yet
-				processor_form: state.data.paymentMethod.encryptedExpiryYear,
-				cvv: state.data.paymentMethod.encryptedSecurityCode,
+			extraData = {
+				encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
+				encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
+				encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
+				encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
 				payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
-			} );
+			};
+			if ( state.data.browserInfo ) {
+				extraData.color_depth = state.data.browserInfo.colorDepth;
+				extraData.java_enabled = state.data.browserInfo.javaEnabled;
+				extraData.screen_height = state.data.browserInfo.screenHeight;
+				extraData.screen_width = state.data.browserInfo.screenWidth;
+				extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+			}
+			mw.donationInterface.forms.callDonateApi(
+				handleApiResult, extraData, 'di_donate_adyen'
+			);
 		}
 	}
 

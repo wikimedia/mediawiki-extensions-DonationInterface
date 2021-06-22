@@ -1,8 +1,7 @@
-encryptedCardNumber: card_num
-encryptedExpiryMonth: expiration
-# HACK HACK HACK, using a totally unrelated field here to not touch API yet
-encryptedExpiryYear: processor_form
-encryptedSecurityCode: cvv
+encryptedCardNumber: encrypted_card_number
+encryptedExpiryMonth: encrypted_expiry_month
+encryptedExpiryYear: encrypted_expiry_year
+encryptedSecurityCode: encrypted_security_code
 amount: amount
 city: city
 country: country

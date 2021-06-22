@@ -88,8 +88,9 @@
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
 	 * @param {array} extraData will be merged into the data collected from the form
+	 * @param {string} action action param to pass to MW API, defaults to 'donate'
 	 */
-	function callDonateApi( successCallback, extraData ) {
+	function callDonateApi( successCallback, extraData, action ) {
 		di.forms.disable();
 		di.forms.clean();
 		$( '#topError' ).html( '' );
@@ -108,7 +109,7 @@
 		}
 
 		sendData = {
-			action: 'donate',
+			action: action || 'donate',
 			gateway: $( '#gateway' ).val(),
 			contact_id: $( '#contact_id' ).val(),
 			contact_hash: $( '#contact_hash' ).val(),

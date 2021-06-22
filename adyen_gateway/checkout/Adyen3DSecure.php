@@ -24,12 +24,5 @@ class Adyen3DSecure extends Abstract3DSecure {
 		$stagedData['accept_header'] = $request->getHeader( 'Accept' );
 		// TODO: check what Adyen does when locale is a combination they don't have
 		$stagedData['locale'] = $normalized['language'] . '-' . $normalized['country'];
-		// FIXME: need to bring the rest of these in from the API request
-		// currently just stuffing 'em with plausible placeholders
-		$stagedData['color_depth'] = 24;
-		$stagedData['screen_height'] = 723;
-		$stagedData['screen_width'] = 1536;
-		$stagedData['time_zone_offset'] = 0;
-		$stagedData['java_enabled'] = true;
 	}
 }
