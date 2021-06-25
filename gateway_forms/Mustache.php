@@ -25,7 +25,9 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	public static $baseDir;
 
 	protected static $partials = [
+		'first_name',
 		'issuers',
+		'last_name',
 		'more_info_links',
 		'no_script',
 		'opt_in',
@@ -114,8 +116,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		// Only render monthly convert when we come back from a qualified processor
 		if (
-			$this->gateway->showMonthlyConvert() &&
-			$this->gatewayPage instanceof ResultSwitcher
+			// Or when we force display with a querystring flag
+			RequestContext::getMain()->getRequest()->getBool( 'debugMonthlyConvert' ) || (
+				$this->gateway->showMonthlyConvert() &&
+				$this->gatewayPage instanceof ResultSwitcher
+			)
 		) {
 			$data['monthly_convert'] = true;
 		}
@@ -284,6 +289,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 
 		$data['show_personal_fields'] = $show_personal_block;
+
+		// In some countries, the surname (last_name) field should appear before the
+		// given name (first_name) field.
+		$surnameFirstCountries = $this->gateway->getGlobal( 'SurnameFirstCountries' );
+		if ( in_array( $data['country'], $surnameFirstCountries ) ) {
+			$data['show_surname_first'] = true;
+		}
 
 		// this is not great, we're assuming 'visible' (previously 'required') will always be a thing.
 		// the decision for the current _visible suffix is made on line 217

@@ -106,6 +106,9 @@ $wgDonationInterfaceProblemsEmail = 'donate@wikimedia.org'
 Email address donors should contact with donations too big to process online
 $wgDonationInterfaceMajorGiftsEmail = 'benefactors@wikimedia.org';
 
+Countries where the surname/family name (last_name) input should be rendered before the given name (first_name) input.
+$wgDonationInterfaceSurnameFirstCountries = [ 'JP' ];
+
 The full URL for Javascript-disabled credit card form redirect
 $wgDonationInterfaceNoScriptRedirect = null
 

@@ -70,7 +70,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 * $wgDonationInterfaceMinFraudErrorScore.
 	 */
 	public function testMinFraudErrorScore() {
-		$this->request->method( 'post' )->willReturn( '' );
+		$this->request->method( 'post' )->willReturn( [] );
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';

@@ -74,7 +74,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		// no order_id from anywhere, explicit generate
 		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => true ] ] );
 		$this->assertTrue( $gateway->getOrderIDMeta( 'generate' ), 'The order_id meta generate setting override is not working properly. Self order_id generation may be broken.' );
-		$this->assertInternalType( 'numeric', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is not numeric, which it should be for GlobalCollect' );
+		$this->assertIsNumeric( $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Generated order_id is not numeric, which it should be for GlobalCollect' );
 
 		// conflicting order_id in request and session, default GC generation
 		$request['order_id'] = '55555';
