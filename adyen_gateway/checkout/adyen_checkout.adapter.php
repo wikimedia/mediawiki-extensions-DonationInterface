@@ -33,7 +33,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// sending the donor off site. Log a different prefix here and update
 		// the audit grepper to find that prefix.
 		$this->logPaymentDetails();
-		$this->tuneFor3DSecure();
+		$this->tuneForPaymentMethod();
 		$authorizeParams = $this->buildRequestArray();
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		if ( $authorizeResult->requiresRedirect() ) {
@@ -146,12 +146,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$this->transactions = [
 			'authorize' => [
 				'request' => [
-					'encrypted_payment_data' => [
-						'encryptedCardNumber',
-						'encryptedExpiryMonth',
-						'encryptedExpiryYear',
-						'encryptedSecurityCode'
-					],
 					'amount',
 					'city',
 					'country',
@@ -159,7 +153,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					'description',
 					'email',
 					'first_name',
-					'issuer_id',
 					'last_name',
 					'order_id',
 					'postal_code',
@@ -173,6 +166,27 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				]
 			]
 		];
+	}
+
+	/**
+	 * Add payment-method-specific parameters to the 'authorize' transaction
+	 */
+	protected function tuneForPaymentMethod() {
+		switch ( $this->getPaymentMethod() ) {
+			case 'cc':
+				$this->transactions['authorize']['request']['encrypted_payment_data'] = [
+					'encryptedCardNumber',
+					'encryptedExpiryMonth',
+					'encryptedExpiryYear',
+					'encryptedSecurityCode'
+				];
+				// 3D Secure is only used for cards
+				$this->tuneFor3DSecure();
+				break;
+			case 'rtbt':
+				$this->transactions['authorize']['request'][] = 'issuer_id';
+				break;
+		}
 	}
 
 	/**
