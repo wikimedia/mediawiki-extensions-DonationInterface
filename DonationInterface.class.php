@@ -68,6 +68,7 @@ class DonationInterface {
 
 		$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
 		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
+		$wgAutoloadClasses['BaseAdyenCheckoutTestCase'] = $testDir . 'BaseAdyenCheckoutTestCase.php';
 		$wgAutoloadClasses['BaseIngenicoTestCase'] = $testDir . 'BaseIngenicoTestCase.php';
 		$wgAutoloadClasses['TestingAdyenAdapter'] = $testDir . 'includes/test_gateway/TestingAdyenAdapter.php';
 		$wgAutoloadClasses['TestingAstroPayAdapter'] = $testDir . 'includes/test_gateway/TestingAstroPayAdapter.php';

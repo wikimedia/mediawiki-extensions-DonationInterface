@@ -17,6 +17,7 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
+use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -856,4 +857,30 @@ abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
 		return $message;
 	}
 
+	public static function getAllQueueMessages() {
+		$messages = [];
+		$queues = [
+			'contribution-tracking',
+			'donations',
+			'email-preferences',
+			'opt-in',
+			'payments-antifraud',
+			'payments-init',
+			'pending',
+			'recurring',
+		];
+		foreach ( $queues as $queueName ) {
+			$messages[$queueName] = [];
+			$queue = QueueWrapper::getQueue( $queueName );
+			while ( 1 ) {
+				$message = $queue->pop();
+				if ( $message == null ) {
+					break;
+				} else {
+					$messages[$queueName][] = $message;
+				}
+			}
+		}
+		return $messages;
+	}
 }

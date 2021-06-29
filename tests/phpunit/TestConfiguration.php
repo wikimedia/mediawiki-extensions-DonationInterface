@@ -59,6 +59,7 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceGatewayAdapters,
 	$wgDonationInterfaceAllowedHtmlForms,
 	$wgDonationInterfaceThankYouPage,
+	$wgDonationInterface3DSRules,
 	$wgGlobalCollectGatewayAccountInfo,
 	$wgPaypalGatewayAccountInfo,
 	$wgPaypalGatewayReturnURL,
@@ -263,3 +264,5 @@ $wgDonationInterfaceEmailDomainMap = [
 ];
 
 $wgAstroPayGatewayPriceFloor = 1;
+
+$wgDonationInterface3DSRules = [ 'INR' => 'IN' ];
