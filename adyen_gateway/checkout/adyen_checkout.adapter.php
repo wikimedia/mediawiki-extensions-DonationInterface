@@ -67,6 +67,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
 	): PaymentResult {
 		$transactionStatus = $authorizeResult->getStatus();
+		$this->addResponseData(
+			[ 'gateway_txn_id' => $authorizeResult->getGatewayTxnId() ]
+		);
 		// When authorization is successful but capture fails (or is not
 		// attempted because our ValidationAction is 'review', we still
 		// send the donor to the Thank You page. This is because the
@@ -77,7 +80,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$paymentResult = PaymentResult::newRedirect(
 			ResultPages::getThankYouPage( $this )
 		);
-		$gatewayTransactionId = $authorizeResult->getGatewayTxnId();
 		if ( !$authorizeResult->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			// TODO: map any errors from $authorizeResult

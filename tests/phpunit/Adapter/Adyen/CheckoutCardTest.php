@@ -150,7 +150,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			$messages['payments-antifraud'][0]
 		);
 		$expectedAntiFraudProcess = [
-				// FIXME we should set gateway_txn_id here but don't yet
+				'gateway_txn_id' => $pspReferenceAuth,
 				'risk_score' => 7,
 				'score_breakdown' => [
 					'getAVSResult' => 5,
@@ -356,10 +356,10 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'validation_action' => 'process',
 				'user_ip' => '127.0.0.1',
 				'gateway' => 'adyen',
+				'gateway_txn_id' => $pspReferenceAuth,
 				'contribution_tracking_id' => $init['contribution_tracking_id'],
 				'order_id' => $init['order_id'],
 				'payment_method' => 'cc',
-				// FIXME we should set gateway_txn_id here but don't yet
 				'risk_score' => 17,
 				'score_breakdown' => [
 					'getAVSResult' => 5,
