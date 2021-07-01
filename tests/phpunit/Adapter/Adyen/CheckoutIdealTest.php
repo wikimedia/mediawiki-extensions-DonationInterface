@@ -161,26 +161,9 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		);
 		// No pending message, we just came back from redirect
 		$this->assertCount( 0, $messages['pending'] );
-		$this->assertCount( 1, $messages['payments-antifraud'] );
-		$expectedAntiFraudProcess = [
-			'validation_action' => 'process',
-			'user_ip' => '127.0.0.1',
-			'gateway' => 'adyen',
-			'contribution_tracking_id' => $init['contribution_tracking_id'],
-			'order_id' => $init['order_id'],
-			'payment_method' => 'rtbt',
-			// FIXME we should set gateway_txn_id here but don't yet
-			// 'gateway_txn_id' => $pspReferenceAuth
-			'risk_score' => 10,
-			'score_breakdown' => [
-				'getScoreUtmMedium' => 10,
-				'initial' => 0
-			]
-		];
-		$this->assertArraySubmapSame(
-			$expectedAntiFraudProcess,
-			$messages['payments-antifraud'][0]
-		);
+		// No antifraud message for iDEAL - after they come back
+		// from redirect we have no chance to veto the payment.
+		$this->assertCount( 0, $messages['payments-antifraud'] );
 		$this->assertCount( 1, $messages['payments-init'] );
 		$this->assertArraySubmapSame(
 			[
@@ -242,9 +225,9 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		$this->assertCount( 0, $messages['donations'] );
 		// No pending message - we just came back from redirect
 		$this->assertCount( 0, $messages['pending'] );
-		// FIXME: we should NOT be running antifraud checks when
-		// payment fails, but we currently are.
-		// $this->assertCount( 0, $messages['payments-antifraud'] );
+		// No antifraud message for iDEAL - after they come back
+		// from redirect we have no chance to veto the payment.
+		$this->assertCount( 0, $messages['payments-antifraud'] );
 		$this->assertArraySubmapSame(
 			[
 				'validation_action' => 'process',

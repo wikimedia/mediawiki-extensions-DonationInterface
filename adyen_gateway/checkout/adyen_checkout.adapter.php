@@ -66,12 +66,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	protected function handleCreatedPayment(
 		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
 	): PaymentResult {
-		$riskScores = $authorizeResult->getRiskScores();
-		$this->addResponseData( [
-			'avs_result' => $riskScores['avs'] ?? 0,
-			'cvv_result' => $riskScores['cvv'] ?? 0
-		] );
-		$this->runAntifraudFilters();
 		$transactionStatus = $authorizeResult->getStatus();
 		// When authorization is successful but capture fails (or is not
 		// attempted because our ValidationAction is 'review', we still
@@ -84,46 +78,46 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			ResultPages::getThankYouPage( $this )
 		);
 		$gatewayTransactionId = $authorizeResult->getGatewayTxnId();
-		if (
-			!$authorizeResult->isSuccessful() ||
-			$this->getValidationAction() === ValidationAction::REJECT
-		) {
-			// TODO: map any errors from $authorizationResult
-			$failPage = ResultPages::getFailPage( $this );
-			if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
-				// It's a rapidfail form, but we need an actual URL:
-				$failPage = GatewayFormChooser::buildPaymentsFormURL(
-					$failPage,
-					[ 'gateway' => 'adyen' ]
-				);
-			}
-			$paymentResult = PaymentResult::newFailureAndRedirect( $failPage );
-
-			# log the error details on failure
-			if ( !$authorizeResult->isSuccessful() ) {
-				$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
-			} else {
-				$errorLogMessage = 'Created payment rejected by our fraud filters: ';
-			}
+		if ( !$authorizeResult->isSuccessful() ) {
+			$paymentResult = PaymentResult::newFailure();
+			// TODO: map any errors from $authorizeResult
+			// log the error details on failure
+			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
 			$errorLogMessage .= $authorizeResult->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
-		} elseif (
-			$authorizeResult->requiresApproval() &&
-			$this->getValidationAction() === ValidationAction::PROCESS
-		) {
-			$captureResult = $provider->approvePayment( [
-				// Note that approvePayment takes the unstaged amount
-				'amount' => $this->getData_Unstaged_Escaped( 'amount' ),
-				'currency' => $this->getData_Staged( 'currency' ),
-				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
+		} elseif ( $authorizeResult->requiresApproval() ) {
+			$riskScores = $authorizeResult->getRiskScores();
+			$this->addResponseData( [
+				'avs_result' => $riskScores['avs'] ?? 0,
+				'cvv_result' => $riskScores['cvv'] ?? 0
 			] );
-			$transactionStatus = $captureResult->getStatus();
-			if ( $captureResult->isSuccessful() ) {
-				// Note: this transaction ID is different from the authorizeResult's
-				// transaction ID. For credit cards, this is the one we want to store
-				// in CiviCRM.
-				$gatewayTransactionId = $captureResult->getGatewayTxnId();
+			$this->runAntifraudFilters();
+			switch ( $this->getValidationAction() ) {
+				case ValidationAction::PROCESS:
+					$captureResult = $provider->approvePayment( [
+						// Note that approvePayment takes the unstaged amount
+						'amount' => $this->getData_Unstaged_Escaped( 'amount' ),
+						'currency' => $this->getData_Staged( 'currency' ),
+						'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
+					] );
+					$transactionStatus = $captureResult->getStatus();
+					if ( $captureResult->isSuccessful() ) {
+						// Note: this transaction ID is different from the authorizeResult's
+						// transaction ID. For credit cards, this is the one we want to store
+						// in CiviCRM.
+						$gatewayTransactionId = $captureResult->getGatewayTxnId();
+					}
+					break;
+				case ValidationAction::REJECT:
+					$paymentResult = PaymentResult::newFailure();
+					$this->logger->info( 'Created payment rejected by our fraud filters' );
+					break;
+				default:
+					$this->logger->info(
+						'Not capturing authorized payment - validation action is ' .
+						$this->getValidationAction()
+					);
 			}
 		}
 		$this->addResponseData( [ 'gateway_txn_id' => $gatewayTransactionId ] );

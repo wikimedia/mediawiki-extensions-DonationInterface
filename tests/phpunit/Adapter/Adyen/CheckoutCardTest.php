@@ -238,9 +238,9 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$this->assertCount( 0, $messages['donations'] );
 		// No pending message is sent in doPayment - that happens in the API
 		$this->assertCount( 0, $messages['pending'] );
-		// FIXME: we should NOT be running more antifraud checks when
-		// the auth fails, but we currently are.
-		// $this->assertCount( 1, $messages['payments-antifraud'] );
+		// When the auth fails, we should only have the antifraud message from
+		// the 'initial' run - the 'process' run should be skipped
+		$this->assertCount( 1, $messages['payments-antifraud'] );
 		$expectedAntifraudInitial = [
 			'validation_action' => 'process',
 			'risk_score' => 0,
@@ -449,9 +449,8 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$this->assertCount( 0, $messages['donations'] );
 		// No pending message - we just came back from redirect
 		$this->assertCount( 0, $messages['pending'] );
-		// FIXME: we should NOT be running antifraud checks when
-		// 3DSecure fails, but we currently are.
-		// $this->assertCount( 0, $messages['payments-antifraud'] );
+		// We should not run extra antifraud checks when 3DSecure fails
+		$this->assertCount( 0, $messages['payments-antifraud'] );
 		$this->assertArraySubmapSame(
 			[
 				'validation_action' => 'process',
