@@ -6,7 +6,5 @@
 - ReturnUrl
 # Adyen-specific
 - Adyen3DSecure
-- AdyenMethodCodec
-- AdyenSubmethodCodec
 - DonorLocale
 - BlankAddressFields

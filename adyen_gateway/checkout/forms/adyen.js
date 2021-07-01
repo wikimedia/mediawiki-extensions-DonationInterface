@@ -98,7 +98,8 @@
 			if ( payment_method === 'rtbt' && state.data.paymentMethod.type === 'ideal' ) {
 				extraData = {
 					// issuer is bank chosen from dropdown
-					issuer_id: state.data.paymentMethod.issuer
+					issuer_id: state.data.paymentMethod.issuer,
+					payment_submethod: 'rtbt_ideal'
 				};
 			} else {
 				extraData = {

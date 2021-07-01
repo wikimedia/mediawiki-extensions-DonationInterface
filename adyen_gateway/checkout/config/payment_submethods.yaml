@@ -1,12 +1,7 @@
-# FIXME: This is copied verbatim from Adyen hosted - trim this down to
-# just what we need for Checkout
 cb:
     countries:
         FR: true
     group: cc
-    logo: card-cb-lg.png
-    # For all the rest, our key matches the brandCode
-    brandCode: cartebancaire
 visa:
     countries:
         AU: true
@@ -22,13 +17,7 @@ visa:
         UA: true
         US: true
     group: cc
-    logo: card-visa-lg.png
-# FIXME: we don't actually want a separate button for visa-debit
-# but we DO need it in this array to avoid an exception on return
-# to the ResultSwitcher.
 visa-debit:
-    countries:
-        XX: true
     group: cc
 mc:
     countries:
@@ -45,10 +34,6 @@ mc:
         UA: true
         US: true
     group: cc
-    logo: card-mastercard.png
-    logo_hd:
-        2x: card-mastercard_2x.png
-        3x: card-mastercard_3x.png
 amex:
     countries:
         AU: true
@@ -64,7 +49,6 @@ amex:
         UA: true
         US: true
     group: cc
-    logo: card-amex-lg.png
 jcb:
     countries:
         AU: true
@@ -72,20 +56,14 @@ jcb:
         JP: true
         NL: true
     group: cc
-    logo: card-jcb-lg.png
 discover:
     countries:
         IL: true
         US: true
     group: cc
-    logo: card-discover-lg.png
 rtbt_ideal:
-    label: iDEAL
     group: rtbt
     countries:
         NL: true
-    logo: iDEAL-klein.gif
-    show_single_logo: true
-    brandCode: ideal
 
 
