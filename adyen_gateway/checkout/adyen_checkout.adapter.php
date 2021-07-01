@@ -124,6 +124,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					);
 			}
 		}
+		// recurring will return a token on the auth
+		if ( $authorizeResult->getRecurringPaymentToken() ) {
+			$this->addResponseData( [
+				'recurring_payment_token' => $authorizeResult->getRecurringPaymentToken(),
+				'processor_contact_id' => $authorizeResult->getProcessorContactID()
+			] );
+		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
 		// Run some post-donation filters and send donation queue message
@@ -156,7 +163,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					'return_url',
 					'state_province',
 					'street_address',
-					'user_ip'
+					'user_ip',
+					'recurring'
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )

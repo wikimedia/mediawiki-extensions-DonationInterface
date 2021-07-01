@@ -988,6 +988,7 @@ class DonationData implements LogPrefixProvider {
 			'date',
 			'gateway_session_id',
 			'recurring_payment_token',
+			'processor_contact_id',
 			'opt_in',
 			'employer',
 			'employer_id',
