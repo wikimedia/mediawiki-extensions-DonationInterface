@@ -90,11 +90,24 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 		self::setUpSmashPigContext();
+
+		// TODO use TestConfiguration.php instead?
+		$this->setMwGlobals( [
+			// Setting this to its default value
+			// FIXME is this right?
+			'wgDonationInterface3DSRules' => [ 'INR' => [] ],
+
+			// Just putting this here since there's no other shared superclass for
+			// GlobalCollect tests.
+			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => []
+		] );
+
 		TestingGenericAdapter::$donationRules = [
 			'currency' => 'USD',
 			'min' => 1.00,
 			'max' => 10000.00
 		];
+
 		parent::setUp();
 	}
 
@@ -151,6 +164,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	protected function setInitialFiltersToFail() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceCustomFiltersInitialFunctions' => [
+				'getScoreUtmSourceMap' => 100
+			],
+			// We have to set this explicitly, since setMwGlobals doesn't provide
+			// a way to unset a global setting.
+			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => [
 				'getScoreUtmSourceMap' => 100
 			],
 			'wgDonationInterfaceUtmSourceMap' => [

@@ -12,8 +12,10 @@ use SmashPig\Core\DataStores\QueueWrapper;
 class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 	public function setUp(): void {
+		// TODO Use TestConfiguration.php instead?
 		$this->setMwGlobals( [
-			'wgGlobalCollectGatewayEnabled' => true
+			'wgGlobalCollectGatewayEnabled' => true,
+			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => []
 		] );
 		parent::setUp();
 	}
@@ -149,5 +151,17 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'Donor' => [ 'contribution_tracking_id' => mt_rand( 0, 10000000 ) ],
 			'globalcollectEditToken' => 'blahblah',
 		];
+	}
+
+	protected function setInitialFiltersToFail() {
+		$this->setMwGlobals( [
+			// We have to set this explicitly, since setMwGlobals doesn't provide
+			// a way to unset a global setting.
+			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => [
+				'getScoreUtmSourceMap' => 100
+			]
+		] );
+
+		parent::setInitialFiltersToFail();
 	}
 }

@@ -24,7 +24,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 			'amount' => '1.55',
 			'currency' => 'USD',
 			'recurring' => '0',
-			'wmf_token' => 'e601502632e5e51dc2a17a0045162272+\\',
+			'wmf_token' => $this->saltedToken,
 			'orderReferenceId' => mt_rand( 0, 10000000 ),
 			'action' => 'di_amazon_bill',
 		];
@@ -36,7 +36,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 				'contribution_tracking_id' => mt_rand( 0, 10000000 ),
 				'country' => 'US',
 			],
-			'amazonEditToken' => 'kjaskdjahsdkjsad',
+			'amazonEditToken' => $this->clearToken,
 		];
 		$apiResult = $this->doApiRequest( $params, $session );
 		$redirect = $apiResult[0]['redirect'];
@@ -62,7 +62,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 			'amount' => '1.55',
 			'currency' => 'USD',
 			'recurring' => '0',
-			'wmf_token' => 'e601502632e5e51dc2a17a0045162272+\\',
+			'wmf_token' => $this->saltedToken,
 			'orderReferenceId' => mt_rand( 0, 10000000 ),
 			'action' => 'di_amazon_bill',
 		];
@@ -74,7 +74,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 				'contribution_tracking_id' => mt_rand( 0, 10000000 ),
 				'country' => 'US',
 			],
-			'amazonEditToken' => 'kjaskdjahsdkjsad',
+			'amazonEditToken' => $this->clearToken,
 		];
 		$mockClient = $this->providerConfig->object( 'payments-client' );
 		$mockClient->returns['authorize'][] = 'InvalidPaymentMethod';

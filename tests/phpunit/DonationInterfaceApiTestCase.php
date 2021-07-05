@@ -9,7 +9,15 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	public function setUp(): void {
 		DonationInterfaceTestCase::setUpSmashPigContext();
 		parent::setUp();
-		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
+
+		// TODO Use TestConfiguration.php instead?
+		$this->setMwGlobals( [
+			'wgDonationInterface3DSRules' => [ 'INR' => [] ],
+			'wgDonationInterfaceSalt' => 'test_salt'
+		] );
+
+		$this->saltedToken = md5( $this->clearToken . 'test_salt' ) . Token::SUFFIX;
+
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 	}
 
