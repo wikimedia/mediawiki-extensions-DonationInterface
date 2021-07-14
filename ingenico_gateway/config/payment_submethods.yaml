@@ -72,7 +72,8 @@ amex:
 #        IN: true
         IT: true
         JO: true
-        JP: true
+# Disabled on 2021-07-14 per https://phabricator.wikimedia.org/T286657
+#        JP: true
         KE: true
         KR: true
         KW: true
