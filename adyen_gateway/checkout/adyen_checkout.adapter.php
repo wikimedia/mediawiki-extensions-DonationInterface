@@ -108,7 +108,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 						// Note: this transaction ID is different from the authorizeResult's
 						// transaction ID. For credit cards, this is the one we want to store
 						// in CiviCRM.
-						$gatewayTransactionId = $captureResult->getGatewayTxnId();
+						$this->addResponseData(
+							[ 'gateway_txn_id' => $captureResult->getGatewayTxnId() ]
+						);
 					}
 					break;
 				case ValidationAction::REJECT:
@@ -122,7 +124,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					);
 			}
 		}
-		$this->addResponseData( [ 'gateway_txn_id' => $gatewayTransactionId ] );
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
 		// Run some post-donation filters and send donation queue message
