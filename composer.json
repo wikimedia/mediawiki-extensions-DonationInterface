@@ -3,7 +3,7 @@
 	"description": "Wikimedia Foundation payment processing library",
 	"license": "GPL-2.0-or-later",
 	"support": {
-		"irc": "irc://irc.freenode.net/wikimedia-fundraising"
+		"irc": "irc://irc.libera.chat/wikimedia-fundraising"
 	},
 	"autoload": {
 		"classmap": [
