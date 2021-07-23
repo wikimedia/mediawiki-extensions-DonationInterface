@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajeje Brazorf",
 			"Aushulz",
 			"Sarvaturi"
 		]
@@ -10,6 +11,7 @@
 	"donate_interface-donor-email": "Nnirizzu e-mail",
 	"donate_interface-donor-name": "Nomu",
 	"donate_interface-donor-street_address": "Strata",
+	"donate_interface-donor-island": "Ìsula",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
