@@ -109,7 +109,7 @@ abstract class ResultSwitcher extends GatewayPage {
 			$request->getValues()
 		);
 		$key = 'processed_request-' . $requestProcessId;
-		$cachedResult = wfGetMainCache()->get( $key );
+		$cachedResult = ObjectCache::getLocalClusterInstance()->get( $key );
 		return boolval( $cachedResult );
 	}
 
@@ -125,7 +125,7 @@ abstract class ResultSwitcher extends GatewayPage {
 
 		// TODO: we could store the results of the last process here, but for now
 		// we just indicate we did SOMETHING with it
-		wfGetMainCache()->add( $key, true, 7200 );
+		ObjectCache::getLocalClusterInstance()->add( $key, true, 7200 );
 	}
 
 	/**
