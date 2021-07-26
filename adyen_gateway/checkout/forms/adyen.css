@@ -1,20 +1,178 @@
+/* Hide submethod buttons */
+/* TODO Stop adding submethod elements to the form */
 dl.submethods {
 	display: none;
 }
-/* Hide the "Credit cards" header */
-#dropin-container div.adyen-checkout__payment-method__header {
+/* Style form elements to look the same (those added by Adyen and our own).
+
+   Note: Coordinate with gateway_forms/mustache/forms.css, skinOverride.css and
+   base styles from Vector skin.
+
+   Note: These fixes are highly dependent on Adyen's implementation details, which
+   seem likely to be updated over time, so we might verify this regularly, or add
+   automated tests. */
+
+/* Base border shape and color */
+
+span.adyen-checkout__input,
+div.adyen-checkout__dropdown__button {
+	border: 1px solid #a2a9b1;
+	border-radius: 2px;
+}
+
+/* Slight darkening of border (when not active/focused or on error) */
+
+span.adyen-checkout__input:hover,
+div.adyen-checkout__dropdown__button:hover {
+	border-color: #72777d;
+}
+
+/* Active/focus styles */
+
+/* Note: When an input element within a mini-iframe receives focus, the
+   wrapper outside the iframe can get an additional class added to it.
+   Also, override the hover styles set above. */
+span.adyen-checkout__input--focus,
+span.adyen-checkout__input--focus:hover,
+div.adyen-checkout__dropdown__button--active,
+div.adyen-checkout__dropdown__button--active:hover,
+div.adyen-checkout__dropdown__button:active,
+div.adyen-checkout__dropdown__button:active:hover,
+div.adyen-checkout__dropdown__button:focus,
+div.adyen-checkout__dropdown__button:focus:hover {
+	outline: 0;
+	border-color: #36c;
+	box-shadow: inset 0 0 0 1px #36c;
+}
+
+/* Field labels*/
+
+/* Harmonize label text size and spacing */
+span.adyen-checkout__label__text {
+	padding-bottom: 0px;
+
+	/* inherit cancels the rules set by Adyen; these text properties are 
+	   then inherited from the enclosing element, set in the vector skin. */
+	font-size: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+/* By default Adyen changes the color of field labels when focused or invalid.
+   Since we don't, harmonize by removing that behaviour from Adyen fields. */
+label.adyen-checkout__label--focused span.adyen-checkout__label__text,
+label.adyen-checkout__label span.adyen-checkout__label__text--error {
+	color: inherit;
+}
+
+/* Text inside form inputs */
+
+/* Here we set styles on our own input elements to adapt them to styles of elements
+   Adyen shows inside iframes, since we can't change the inline CSS inside the iframes.
+   This also overrides styles set from vector that impact Adyen-provided elements
+   outside iframes.*/
+form#payment-form input[type='email'],
+form#payment-form input[type='text'],
+form#payment-form input[type='text'],
+
+/* Also apply to these explicitly to some Adyen elements. (Adyen's own
+   styles aren't consistent.) */
+div.adyen-checkout__dropdown__button,
+.adyen-checkout__dropdown__element {
+	/* These text styles are set for Adyen-provided inputs in an inline <style>
+	   element inside the iframe. Since I don't see any way to change those,
+	   styling our inputs to match seems to be the way to go. */
+	font-family: -apple-system, BlinkMacSystemFont,
+		"Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans",
+		"Droid Sans", "Helvetica Neue", sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: normal;
+}
+
+/* These styles copy the styles Adyen applies to Adyen-provided containers around
+   iframes. While we could override those, the Adyen box sizing is the result of
+   a more complicated layout (span container, iframe, input) than our input
+   fields, so it seems better to adapt our own, instead of fiddling with that.
+   Note: fullwidth and halfwidth classes prevent selection of Adyen-provided input
+   elements outside iframes (such as inner rtbt bank selector input). */
+form#payment-form input.fullwidth[type='email'],
+form#payment-form input.fullwidth[type='text'],
+form#payment-form div.halfwidth input[type='text'],
+
+/* Do apply explicitly to Adyen's dropdown wrapper, though. */
+div.adyen-checkout__dropdown__button {
+	padding: 5px 8px 5px 8px;
+	margin: 0px;
+	height: 40px;
+}
+
+/* Error/invalid styling */
+
+/* Override default style set by Firefox */
+form#payment-form input[type='email']:required:invalid,
+form#payment-form input[type='text']:required:invalid {
+	box-shadow: inherit;
+}
+
+/* The above also overrides the focus styling (from forms.css) so restore it */
+form#payment-form input[type='email']:required:invalid:focus,
+form#payment-form input[type='text']:required:invalid:focus {
+	box-shadow: inset 0 0 0 1px #36c;
+}
+
+/* However, we don't want the focus styling when we've specifically set
+   errorHighlight */
+form#payment-form input.errorHighlight[type='email']:required:invalid:focus,
+form#payment-form input.errorHighlight[type='text']:required:invalid:focus {
+	box-shadow: none;
+}
+
+/* Harmonize border styles for error states, removing normal hover styles.
+   iframe-wrappers get classes added when the field has an error */
+span.adyen-checkout__input--error,
+span.adyen-checkout__input--error:hover,
+div.adyen-checkout__dropdown__button--invalid,
+div.adyen-checkout__dropdown__button--invalid:hover {
+	/* Override focus stylinging (above) */
+	box-shadow: inherit;
+
+	/* Note: coordinate with errorHighlight in skinOverride.css */
+	border: 2px solid #f00;
+}
+
+/* Error message text */
+span.adyen-checkout__error-text {
+	/* For error messages, cancel the text sizes set by Adyen; these properties are
+	   then inherited from the enclosing element, set in the vector skin. */
+	font-size: inherit;
+	font-size: inherit;
+	line-height: inherit;
+
+	/* Harmonize error text color. Note: coordinate with Vector skin */
+	color: #f00;
+}
+
+/* Dropdown-specific details (used for bank selection in rtbt/ideal */
+
+/* Remove border for inner input field inside drop-down */
+div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input,
+div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
+	border: none !important;
+	box-shadow: none !important;
+	height: 36px;
+	margin: 2px;
+	outline: 0;
+}
+
+/* Tweak the border radius for dropdown options list */
+.adyen-checkout__dropdown__list {
+	border-radius: 0px 0px 2px 2px;
+}
+
+/* Remove extra "continue" button on rtbt
+   TODO: Something to do with the "force" class? */
+#paymentContinue.force {
 	display: none;
-}
-/* Get rid of background + border from card inputs group */
-#dropin-container li.adyen-checkout__payment-method--selected {
-	background: #fff;
-	border: none;
-}
-/* Let card inputs stretch as wide as other inputs */
-#dropin-container div.adyen-checkout__payment-method__details {
-	padding: 0;
-}
-#dropin-container span.adyen-checkout__label__text {
-	font-size: calc(1em * 0.875);
-	color: #202122;
 }
