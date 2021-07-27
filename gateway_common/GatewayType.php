@@ -4,7 +4,7 @@
  * GatewayType Interface
  *
  */
-interface GatewayType {
+interface GatewayType extends LogPrefixProvider {
 	// all the public particulars of the child classes. Aaaaall.
 
 	/**

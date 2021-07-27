@@ -16,6 +16,9 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$this->setMwGlobals( [
 			'wgAdyenGatewayEnabled' => true,
 			'wgAdyenGatewayTestingURL' => 'https://example.org',
+			'wgDonationInterfaceGatewayAdapters' => [
+				'adyen' => 'TestingAdyenAdapter'
+			]
 		] );
 	}
 

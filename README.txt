@@ -19,6 +19,7 @@ Set these to true to enable each payment processor integration:
 $wgGlobalCollectGatewayEnabled = false
 $wgAmazonGatewayEnabled = false
 $wgAdyenGatewayEnabled = false
+$wgAdyenCheckoutGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
 $wgPaypalGatewayEnabled = false
@@ -328,6 +329,20 @@ $wgAdyenGatewayMaxRiskScore = 95
 #		'SharedSecret' => '' // entered in the skin editor
 #		'SkinCode' => ''
 #	]
+
+$wgAdyenCheckoutGatewayAccountInfo['example'] = [
+	// Latest values for Script & Css at https://docs.adyen.com/online-payments/release-notes
+	'Script' => [
+		'src' => 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.3.0/adyen.js',
+		'integrity' => 'sha384-cNkiBPQRGouJfbstYuSccx2XkGe3RB28iYrjge6rLIDtex7fk5+3/E9f4EZ34fxE'
+	],
+	'Css' => [
+		'src' => 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.3.0/adyen.css',
+		'integrity' => 'sha384-5CDvDZiVPuf+3ZID0lh0aaUHAeky3/ACF1YAKzPbn3GEmzWgO53gP6stiYHWIdpB',
+	],
+	'ClientKey' => '', // find under web service user 'Authentication' block within adyen API credentials area
+	'Environment' => 'test',
+]
 
 // Set base URLs here.  Individual transactions have their own paths
 $wgAstroPayGatewayURL = 'https://api.dlocal.com/'

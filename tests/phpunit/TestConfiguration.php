@@ -59,6 +59,7 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceGatewayAdapters,
 	$wgDonationInterfaceAllowedHtmlForms,
 	$wgDonationInterfaceThankYouPage,
+	$wgDonationInterface3DSRules,
 	$wgGlobalCollectGatewayAccountInfo,
 	$wgPaypalGatewayAccountInfo,
 	$wgPaypalGatewayReturnURL,
@@ -72,6 +73,8 @@ global $wgDonationInterfaceTest,
 	$wgAmazonGatewayNotifyOnConvert,
 	$wgAdyenGatewayURL,
 	$wgAdyenGatewayAccountInfo,
+	$wgAdyenCheckoutGatewayURL,
+	$wgAdyenCheckoutGatewayAccountInfo,
 	$wgAstroPayGatewayURL,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
@@ -104,7 +107,7 @@ $wgDonationInterfaceGatewayAdapters = [
 	'globalcollect' => TestingGlobalCollectAdapter::class,
 	'ingenico' => IngenicoAdapter::class,
 	'amazon' => AmazonAdapter::class,
-	'adyen' => TestingAdyenAdapter::class,
+	'adyen' => TestingAdyenCheckoutAdapter::class,
 	'astropay' => TestingAstroPayAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
 	'paypal' => TestingPaypalLegacyAdapter::class,
@@ -170,6 +173,22 @@ $wgAdyenGatewayAccountInfo['test'] = [
 			'Name' => 'redirect',
 		]
 	],
+];
+
+/** Adyen Checkout **/
+$wgAdyenCheckoutGatewayURL = 'https://testorwhatevercheckout.adyen.com';
+$wgAdyenCheckoutGatewayAccountInfo = [];
+$wgAdyenCheckoutGatewayAccountInfo['test'] = [
+	'Script' => [
+		'src' => 'test-pear.js',
+		'integrity' => 'test-hash'
+	],
+	'Css' => [
+		'src' => 'test-apple.css',
+		'integrity' => 'test-hash',
+	],
+	'ClientKey' => 'test',
+	'Environment' => 'test',
 ];
 
 /** AstroPay **/
@@ -263,3 +282,5 @@ $wgDonationInterfaceEmailDomainMap = [
 ];
 
 $wgAstroPayGatewayPriceFloor = 1;
+
+$wgDonationInterface3DSRules = [ 'INR' => 'IN' ];

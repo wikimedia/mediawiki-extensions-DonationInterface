@@ -66,9 +66,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options = $this->getDonorTestData();
 		$class = $this->testAdapterClass;
 
-		$_SERVER['REQUEST_URI'] = GatewayFormChooser::buildPaymentsFormURL(
-			'testytest', [ 'gateway' => $class::getIdentifier() ]
-		);
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );

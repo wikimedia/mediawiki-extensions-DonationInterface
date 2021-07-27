@@ -443,7 +443,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'processor_form',
 			'referrer',
 			'contact_id',
-			'contact_hash'
+			'contact_hash',
+			'processor_contact_id'
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}

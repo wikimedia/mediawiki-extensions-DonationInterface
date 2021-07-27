@@ -87,8 +87,10 @@
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
+	 * @param {array} extraData will be merged into the data collected from the form
+	 * @param {string} action action param to pass to MW API, defaults to 'donate'
 	 */
-	function callDonateApi( successCallback ) {
+	function callDonateApi( successCallback, extraData, action ) {
 		di.forms.disable();
 		di.forms.clean();
 		$( '#topError' ).html( '' );
@@ -107,7 +109,7 @@
 		}
 
 		sendData = {
-			action: 'donate',
+			action: action || 'donate',
 			gateway: $( '#gateway' ).val(),
 			contact_id: $( '#contact_id' ).val(),
 			contact_hash: $( '#contact_hash' ).val(),
@@ -138,6 +140,10 @@
 			employer_id: $( '#employer_id' ).val(),
 			format: 'json'
 		};
+
+		if ( extraData ) {
+			$.extend( sendData, extraData );
+		}
 
 		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),

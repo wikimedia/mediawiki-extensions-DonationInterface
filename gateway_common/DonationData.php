@@ -46,15 +46,24 @@ class DonationData implements LogPrefixProvider {
 		'amountGiven',
 		'amountOther',
 		'appeal',
+		'color_depth', // device fingerprinting
 		'contact_id',
 		'contact_hash',
 		'email',
 		// @deprecated
 		'emailAdd',
+		'encrypted_card_number',
+		'encrypted_expiry_month',
+		'encrypted_expiry_year',
+		'encrypted_security_code',
 		'first_name',
+		'java_enabled', // device fingerprinting
 		'last_name',
+		'screen_height', // device fingerprinting
+		'screen_width', // device fingerprinting
 		'street_address',
 		'supplemental_address_1',
+		'time_zone_offset', // device fingerprinting
 		'city',
 		'state_province',
 		'postal_code',
@@ -979,6 +988,7 @@ class DonationData implements LogPrefixProvider {
 			'date',
 			'gateway_session_id',
 			'recurring_payment_token',
+			'processor_contact_id',
 			'opt_in',
 			'employer',
 			'employer_id',

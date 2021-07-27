@@ -43,6 +43,17 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'wgIngenicoGatewayEnabled' => true,
 			'wgPaypalGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => false,
+			'wgDonationInterfaceGatewayAdapters' => [
+				'globalcollect' => 'GlobalCollectAdapter',
+				'globalcollect_orphan' => 'GlobalCollectOrphanAdapter',
+				'ingenico' => 'IngenicoAdapter',
+				'ingenico_orphan' => 'IngenicoOrphanAdapter',
+				'amazon' => 'AmazonAdapter',
+				'adyen' => 'AdyenCheckoutAdapter',
+				'astropay' => 'AstroPayAdapter',
+				'paypal_ec' => 'PaypalExpressAdapter',
+				'paypal' => 'PaypalLegacyAdapter',
+			]
 		] );
 	}
 
