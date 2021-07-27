@@ -33,8 +33,9 @@
 	function getCheckout( config ) {
 		config.onSubmit = onSubmit;
 		config.onAdditionalDetails = onAdditionalDetails;
-		config.onError = onError;
 		config.showPayButton = false;
+		// Note: onError not set because error highlighting is handled in css.
+
 		return new AdyenCheckout( config );
 	}
 
@@ -151,18 +152,6 @@
 
 	function onAdditionalDetails( state, dropin ) {
 		// Handle 3D secure
-	}
-
-	function onError( error ) {
-		var fieldId = error.fieldType,
-			isValid = error.error === '',
-			$fieldDiv = $( 'span[data-cse="' + fieldId + '"]' )
-				.closest( '.adyen-checkout__input-wrapper' );
-		if ( isValid ) {
-			$fieldDiv.removeClass( 'errorHighlight' );
-		} else {
-			$fieldDiv.addClass( 'errorHighlight' );
-		}
 	}
 
 	$( function () {
