@@ -17,11 +17,17 @@ class DonationApi extends DonationApiBase {
 		$outputResult = [
 			'iframe' => $paymentResult->getIframe(),
 			'redirect' => $paymentResult->getRedirect(),
-			'formData' => $paymentResult->getFormData()
+			'formData' => $paymentResult->getFormData(),
+			'isFailed' => $paymentResult->isFailed(),
+			// META_BC_BOOLS is a metadata key to tell ApiResult which keys
+			// should be preserved in the output even if their value is false
+			ApiResult::META_BC_BOOLS => [ 'isFailed' ]
 		];
 
 		$errors = $paymentResult->getErrors();
 
+		// FIXME: don't need this if we've gotten a payment all the way
+		// done at this point. Stop double logging for adyen checkout
 		$sendingDonorToProcessor = empty( $errors ) &&
 			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
 
@@ -76,7 +82,7 @@ class DonationApi extends DonationApiBase {
 		];
 	}
 
-	private function defineParam( $required = false, $type = 'string' ) {
+	protected function defineParam( $required = false, $type = 'string' ) {
 		if ( $required ) {
 			$param = [ ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true ];
 		} else {

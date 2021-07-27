@@ -419,7 +419,8 @@
 	"donate_interface-monthly-convert-enter-amount": "来月から開始する、毎月の定期寄付の金額をご入力ください。",
 	"donate_interface-monthly-convert-action-button": "を今寄付します。",
 	"donate_interface-monthly-convert-no-button-variant-006": "いいえ、結構です",
-	"donate_interface-monthly-convert-yes-button-variant-011": "はい、<span class=\"mc-convert-ask\"></span>月額寄付に参加します",
+	"donate_interface-monthly-convert-yes-button-variant-011": "はい、毎月<span class=\"mc-convert-ask\"></span>を寄付します。",
+	"donate_interface-monthly-convert-no-button-variant-011": "いいえ、今回はやめておきます。",
 	"donate_interface-monthly-convert-no-button-variant-014": "いいえ、いまは結構です",
 	"donate_interface-fundraiser-maintenance-header": "メンテナンスのため一時的に停止中",
 	"donate_interface-fundraiser-maintenance-notice": "現在、定期的なメンテナンス作業を行っているため寄付を受け付けることができません。ご質問があれば、$1 にメールをください。"

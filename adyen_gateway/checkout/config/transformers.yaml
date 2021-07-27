@@ -1,0 +1,10 @@
+# Core
+- Amount
+- CountryValidation
+- DonorEmail
+- StreetAddress
+- ReturnUrl
+# Adyen-specific
+- Adyen3DSecure
+- DonorLocale
+- BlankAddressFields
