@@ -49,6 +49,7 @@
 	"apihelp-logPaymentsFormError-param-col": "Spalte, in der der Fehler auftrat.",
 	"apihelp-logPaymentsFormError-param-userAgent": "Zeichenfolge des Browser-User-Agenten",
 	"apihelp-logPaymentsFormError-param-stack": "Stacktrace des Fehlers, falls vorhanden",
+	"apihelp-di_donate_adyen-summary": "Diese API ist für Adyen",
 	"apihelp-di_recurring_convert-summary": "Diese API wird verwendet, wenn sich ein Spender bereit erklärt, nach einer erfolgreichen Einmalspende eine monatliche Spende hinzuzufügen.",
 	"apihelp-di_recurring_convert-param-amount": "Die Höhe der monatlichen Spende.",
 	"apihelp-di_recurring_convert-param-gateway": "Welches Zahlungsgateway soll verwendet werden - adyen, globalcollect, etc.",
