@@ -414,7 +414,8 @@
 	},
 	"Hooks": {
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests",
+		"MediaWikiPHPUnitTest::startTest": "DonationInterface::onMediaWikiPHPUnitTeststartTest"
 	},
 	"config": {
 		"DonationInterfaceTest": {
