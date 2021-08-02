@@ -270,4 +270,5 @@
 		}
 
 	} );
+	mw.monthlyConvert = mc;
 } )( jQuery, mediaWiki );
