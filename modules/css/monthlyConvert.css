@@ -106,8 +106,9 @@ body.rtl .mc-close {
 
 /* Buttons */
 .mc-buttons {
+	display: flex;
+	justify-content: center;
 	margin: 1em auto;
-	text-align: center;
 }
 
 @media ( min-width: 800px ) {
@@ -117,8 +118,9 @@ body.rtl .mc-close {
 }
 
 .mc-button {
-	display: inline-block;
-	vertical-align: middle;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
 	width: 100px;
 	height: 54px;
 	padding: 13px;
