@@ -860,6 +860,9 @@
 		"DonationInterfaceMonthlyConvertCountries": {
 			"value": []
 		},
+		"DonationInterfaceMonthlyConvertDefaultModule": {
+			"value": "ext.donationInterface.monthlyConvert"
+		},
 		"DonationInterfaceEmailPrefCtrLanguages": {
 			"value": [
 				"ca",

@@ -711,3 +711,10 @@ $wgDonationInterfaceEmployersListDataFileLocation = '/vagrant/employerData.csv'
  */
 $wgDonationInterfaceMonthlyConvertCountries = []
 
+/**
+ * Should be set to one of the monthly convert modules defined in the
+ * ResourceModules section of extension.json. When monthly convert is
+ * activated because a country is in the list set in the above variable,
+ * this variable controls which variant donors will see.
+ */
+$wgDonationInterfaceMonthlyConvertDefaultModule = 'ext.donationInterface.monthlyConvert'
