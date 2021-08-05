@@ -487,7 +487,16 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$resources[] = 'ext.donationInterface.errorLog';
 		}
 		if ( $this->gateway->showMonthlyConvert() ) {
-			$resources[] = 'ext.donationInterface.monthlyConvert';
+			// Search for any monthlyConvert modules that may have already
+			// been added by the variant=XXX mechanism.
+			$mcModules = preg_grep( '/monthlyConvert/', $resources );
+			if ( empty( $mcModules ) ) {
+				// Only add the default module if no variant-specified
+				// module is already in the list.
+				$resources[] = $this->gateway->getGlobal(
+					'MonthlyConvertDefaultModule'
+				);
+			}
 		}
 		return $resources;
 	}

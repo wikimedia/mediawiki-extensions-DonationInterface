@@ -390,7 +390,12 @@
 		},
 		"ext.donationInterface.monthlyConvert_011": {
 			"styles": "modules/css/monthlyConvert_011.css",
-			"dependencies": "ext.donationInterface.monthlyConvert"
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert_011.js",
+			"dependencies": "ext.donationInterface.monthlyConvert",
+			"messages": [
+				"donate_interface-monthly-convert-no-button-variant-011",
+				"donate_interface-monthly-convert-yes-button-variant-011"
+			]
 		},
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
@@ -414,7 +419,8 @@
 	},
 	"Hooks": {
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests",
+		"MediaWikiPHPUnitTest::startTest": "DonationInterface::onMediaWikiPHPUnitTeststartTest"
 	},
 	"config": {
 		"DonationInterfaceTest": {
@@ -858,6 +864,9 @@
 		},
 		"DonationInterfaceMonthlyConvertCountries": {
 			"value": []
+		},
+		"DonationInterfaceMonthlyConvertDefaultModule": {
+			"value": "ext.donationInterface.monthlyConvert"
 		},
 		"DonationInterfaceEmailPrefCtrLanguages": {
 			"value": [

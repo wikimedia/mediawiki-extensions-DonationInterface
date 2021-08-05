@@ -3,6 +3,7 @@
 use SmashPig\Core\GlobalConfiguration;
 use SmashPig\Core\Context;
 use SmashPig\Core\ProviderConfiguration;
+use PHPUnit\Framework\TestCase;
 
 class DonationInterface {
 	/**
@@ -85,6 +86,20 @@ class DonationInterface {
 		$wgAutoloadClasses['TTestingAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 
 		return true;
+	}
+
+	/**
+	 * Implements MediaWikiPHPUnitTest::startTest hook.
+	 *
+	 * @param TestCase $test
+	 */
+	public static function onMediaWikiPHPUnitTeststartTest( TestCase $test ) {
+		// In some cases, running a non-DonationInterface test may invoke DonationInterface
+		// code. For those cases, ensure a testing SmashPig config is used. This previously
+		// caused errors in SpecialPageFatalTest::testSpecialPageDoesNotFatal. See T287599.
+		if ( !in_array( "DonationInterface", $test->getGroups() ) ) {
+			DonationInterfaceTestCase::setUpSmashPigContext();
+		}
 	}
 
 	public static function getAdapterClassForGateway( $gateway ) {

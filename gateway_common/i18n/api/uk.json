@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Base",
+			"DDPAT",
 			"Piramidion",
 			"Ата",
 			"Максим Підліснюк"
@@ -46,11 +47,12 @@
 	"apihelp-logPaymentsFormError-description": "Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
 	"apihelp-logPaymentsFormError-summary": "Цей Цей API зберігає у журнал помилки, що виникають у формі пожертування з боку клієнта.",
 	"apihelp-logPaymentsFormError-param-message": "Повідомлення про помилку",
-	"apihelp-logPaymentsFormError-param-file": "Файл, у якому виникла помилка",
-	"apihelp-logPaymentsFormError-param-line": "Рядок, у якому виникла помилка",
-	"apihelp-logPaymentsFormError-param-col": "Стовпець, у якому виникла помилка",
+	"apihelp-logPaymentsFormError-param-file": "Файл, у якому сталася помилка",
+	"apihelp-logPaymentsFormError-param-line": "Рядок, у якому сталася помилка",
+	"apihelp-logPaymentsFormError-param-col": "Стовпець, у якому сталася помилка",
 	"apihelp-logPaymentsFormError-param-userAgent": "Рядок агента користувача браузера",
 	"apihelp-logPaymentsFormError-param-stack": "Траса стеку помилки, якщо доступно",
+	"apihelp-di_donate_adyen-summary": "Цей API для Adyen",
 	"apihelp-di_recurring_convert-summary": "Цей API використовується, коли жертводавець погоджується на щомісячну пожертву після завершення успішної одноразової пожертви.",
 	"apihelp-di_recurring_convert-param-amount": "Сума щомісячної пожертви.",
 	"apihelp-di_recurring_convert-param-gateway": "Якої платіжний шлюз використовувати — adyen, globalcollect тощо.",
