@@ -22,6 +22,9 @@ use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
+use Wikimedia\RemexHtml\DOM;
+use Wikimedia\RemexHtml\Tokenizer;
+use Wikimedia\RemexHtml\TreeBuilder;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -545,28 +548,15 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		if ( $form_html ) {
 			// use RemexHtml to get a DomDocument so we don't get errors on
 			// unknown HTML5 elements.
-			// FIXME: this is transitional code to work with two different
-			// versions of RemexHtml that exist in different namespaces.
-			// When we are no longer running 1.35 please replace with normal
-			// 'use' statements for the Wikimedia\RemexHtml namespaces.
-			if ( class_exists( 'Wikimedia\RemexHtml\DOM\DOMBuilder' ) ) {
-				$remexPrefix = 'Wikimedia\\RemexHtml\\';
-			} else {
-				$remexPrefix = 'RemexHtml\\';
-			}
-			$domBuilderClass = $remexPrefix . 'DOM\\DOMBuilder';
-			$treeBuilderClass = $remexPrefix . 'TreeBuilder\\TreeBuilder';
-			$dispatcherClass = $remexPrefix . 'TreeBuilder\\Dispatcher';
-			$tokenizerClass = $remexPrefix . 'Tokenizer\\Tokenizer';
-			$domBuilder = new $domBuilderClass( [
+			$domBuilder = new DOM\DOMBuilder( [
 				'suppressHtmlNamespace' => true
 			] );
-			$treeBuilder = new $treeBuilderClass(
+			$treeBuilder = new TreeBuilder\TreeBuilder(
 				$domBuilder,
 				[ 'ignoreErrors' => true ]
 			);
-			$dispatcher = new $dispatcherClass( $treeBuilder );
-			$tokenizer = new $tokenizerClass(
+			$dispatcher = new TreeBuilder\Dispatcher( $treeBuilder );
+			$tokenizer = new Tokenizer\Tokenizer(
 				$dispatcher,
 				'<?xml encoding="UTF-8">' . $form_html,
 				[ 'ignoreErrors' => true ]
