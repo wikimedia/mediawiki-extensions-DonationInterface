@@ -22,7 +22,7 @@
 	"donate_interface-comment-label": "Kommentaar:",
 	"donate_interface-email-agreement": "Olen nõus, et mulle saadetakse Wikimedia Foundationist perioodiliselt e-uudiskirju.",
 	"donate_interface-comment-title": "Avalik kommentaar",
-	"donate_interface-donation-description": "Annetus Wikimedia Foundationile",
+	"donate_interface-donation-description": "donate@wikimedia.org",
 	"donate_interface-monthly-donation-description": "Igakuine annetus Wikimedia Foundationile",
 	"donate_interface-amount-error": "Palun vali annetatav summa",
 	"donate_interface-smallamount-error": "Palun vali summa (miinimum $1)",
