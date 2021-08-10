@@ -10,6 +10,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	protected $saltedToken;
 
 	public function setUp(): void {
+		DonationInterfaceTestCase::setUpSmashPigContext();
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
 		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
