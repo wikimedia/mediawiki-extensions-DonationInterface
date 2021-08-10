@@ -1,11 +1,8 @@
 <?php
 
 use MediaWiki\Session\Token;
-use SmashPig\Tests\TestingContext;
-use SmashPig\Tests\TestingGlobalConfiguration;
 
 class DonationInterfaceApiTestCase extends ApiTestCase {
-	public $smashPigGlobalConfig;
 	protected $clearToken = 'blahblah';
 	protected $saltedToken;
 
@@ -13,11 +10,6 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		DonationInterfaceTestCase::setUpSmashPigContext();
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
-		$this->smashPigGlobalConfig = TestingGlobalConfiguration::create();
-		TestingContext::init( $this->smashPigGlobalConfig );
-		$ctx = TestingContext::get();
-		$ctx->setSourceType( 'payments' );
-		$ctx->setSourceName( 'DonationInterface' );
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 	}
 
