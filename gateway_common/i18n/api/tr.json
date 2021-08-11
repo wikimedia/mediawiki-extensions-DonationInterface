@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
+			"Jelican9",
 			"MuratTheTurkish"
 		]
 	},
@@ -49,6 +50,7 @@
 	"apihelp-logPaymentsFormError-param-col": "Hatanın oluştuğu sütun",
 	"apihelp-logPaymentsFormError-param-userAgent": "Tarayıcının kullanıcı aracısı dizesi",
 	"apihelp-logPaymentsFormError-param-stack": "Kullanılabilir olduğunda hatanın yığın izlemesi",
+	"apihelp-di_donate_adyen-summary": "Bu API Adyen içindir",
 	"apihelp-di_recurring_convert-summary": "Bu API, bir bağışçı başarılı bir defalık bağış tamamlandıktan sonra aylık bağış eklemeyi kabul ettiğinde kullanılır.",
 	"apihelp-di_recurring_convert-param-amount": "Aylık bağış miktarı.",
 	"apihelp-di_recurring_convert-param-gateway": "Hangi ödeme ağ geçidinin kullanılacağı - adyen, globalcollect, vb.",
