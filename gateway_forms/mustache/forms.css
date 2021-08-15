@@ -2,6 +2,14 @@ img.submethod-logo {
 	max-width: 100%;
 }
 
+#payment-footer {
+	font-size: 12px;
+	width: 100%;
+	text-align: center;
+	line-height: 1.4;
+	padding: 24px 15% 8px;
+}
+
 div#payment_gateway-donate-submessage {
 	line-height: 120%;
 }

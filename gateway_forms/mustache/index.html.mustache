@@ -58,3 +58,8 @@
 	<img id="loading" src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/loading-black.gif" />
 </div>
 {{> monthly_convert }}
+{{# is_tax_ded }}
+	<div id="payment-footer">
+	    <p id="taxded">{{{ l10n "donate_interface-taxded-msg-x" country_full tax_url problems_email }}}</p>
+	</div>
+{{/ is_tax_ded }}
