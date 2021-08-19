@@ -454,6 +454,7 @@
 	"donate_interface-taxded-link-us": "Link to information about tax deductibility, to be used inside of the U.S.",
 	"donate_interface-taxded-msg-int": "Legal information shown to international donors.",
 	"donate_interface-taxded-msg-us": "Tax deductibility shown to U.S. donors.",
+	"donate_interface-taxded-msg-x": "Tax deductibility shown to donors in Tax exempt countries.\n* $1 - Tax exempt country\n* $2 - Tax deductibility information URL\n* $3 - Donation problem email",
 	"donate_interface-legal-original": "Message notifying users that the English version of legal pages is the prevalent one.",
 	"donate_interface-monthlybox-title": "Header for box prompting users to change from one-time donation to a recurring monthly donation.",
 	"donate_interface-monthlybox-content": "Information about when and how monthly donations are processed.",

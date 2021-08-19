@@ -100,6 +100,9 @@ $wgDonationInterfaceTaxURL = 'https://donate.wikimedia.org/wiki/Special:LandingC
 URL of a page detailing donor privacy policy
 $wgDonationInterfacePolicyURL = 'https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country'
 
+Countries that are Tax Deductible would be listed in this array
+$wgDonationInterfaceTaxDedCountries = ['FR']
+
 Email address donors should contact with any donation-related problems
 $wgDonationInterfaceProblemsEmail = 'donate@wikimedia.org'
 

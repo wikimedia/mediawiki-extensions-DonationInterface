@@ -856,6 +856,9 @@
 		"DonationInterfaceAllowedHtmlForms": {
 			"value": []
 		},
+		"DonationInterfaceTaxDedCountries": {
+			"value": [ "FR" ]
+		},
 		"DonationInterfaceFundraiserMaintenance": {
 			"value": false
 		},

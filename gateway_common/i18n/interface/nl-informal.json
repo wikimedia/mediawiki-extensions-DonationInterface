@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"McDutchie",
 			"Siebrand"
 		]
 	},
-	"donate_interface-smallamount-error": "Je moet tenminste $1 bijdragen.",
-	"donate_interface-processing-error": "Er is een fout opgetreden bij het verwerken van je verzoek. Er is geen verwerkingsdienst beschikbaar.",
+	"donate_interface-smallamount-error": "Selecteer een bedrag (minimaal $1)",
+	"donate_interface-processing-error": "Er is een fout opgetreden bij het verwerken van je verzoek.\nNeem contact op met Donor Services via <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-error-msg-general": "Er is een fout opgetreden tijdens de verwerking van je verzoek.",
 	"donate_interface-error-msg-nopaypal": "Door een technische fout is het niet mogelijk je verzoek naar PayPal te sturen. Je kunt ook direct met je creditcard doneren.",
-	"donate_interface-error-msg-cvv": "CVV - beveiligingscode - van de achterkant van je creditcard",
+	"donate_interface-error-msg-cvv": "Voer de CVV-code (beveiligingscode) in. Meestal staat die op de achterkant van je creditcard.",
 	"donate_interface-error-msg-captcha-please": "Geef een antwoord op de vraag om aan te tonen dat je geen geautomatiseerd proces bent.",
 	"donate_interface-error-msg-cookies": "Activeer cookies in je browser.",
 	"donate_interface-error-msg-country-calc": "Fout. We kunnen je gift op het moment niet accepteren.",
@@ -33,12 +34,12 @@
 	"donate_interface-email-unsub-delay": "Het duurt maximaal vier (4) dagen om deze wijzigingen door te voeren. In het geval je in de tussentijd nog e-mailberichten van ons ontvangt, bieden wij daar bij voorbaat onze excuses voor aan. Neem contact op met <$1> als je nog vragen hebt",
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden tijdens de verwerking. Neem contact op met <$1>.",
 	"donate_interface-email-unsub-confirm": "Weet je zeker dat je het e-mailadres <b>$1</b> wilt uitschrijven?",
-	"donate_interface-email-unsub-warning": "Hierdoor ontvang je niet langer e-mails die Wikimedia aan jou als donateur verzendt. Mogelijk ontvang je nog steeds e-mails op dit e-mailadres als je een gebruiker op een van onze projecten hebt. Als je vragen hebt, neem dan contact op met <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-informationsharing": "Door te doneren, deelt je je gegevens met de Wikimedia Foundation, de non-profitorganisatie die Wikipedia en andere Wikimediaprojecten host, en haar dienstverleners in de Verenigde Staten en elders, in overeenstemming met ons privacybeleid voor donateurs. Wij verkopen of verhandelen je gegevens niet. Meer informatie is na te lezen in ons <a href=\"$1\">donateursbeleid</a>.",
+	"donate_interface-email-unsub-warning": "Hierdoor ontvang je niet langer e-mails die Wikimedia Foundation aan jou stuurt als donateur. Als dit e-mailadres gekoppeld is aan een account van een van onze projecten, kan je toch nog e-mails op dit adres krijgen. Als je vragen hebt, neem dan contact op met <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-informationsharing": "Door te doneren ga je akkoord met het delen van jouw persoonlijke gegevens met de Wikimedia Foundation, de non-profitorganisatie die verantwoordelijk is voor het hosten van Wikipedia en andere Wikimediaprojecten, en haar dienstverleners op grond van ons <a href=\"$1\">donorbeleid</a>. De Wikimedia Foundation en haar dienstverleners zijn in de Verenigde Staten en andere landen gevestigd en daar is de privacywetgeving mogelijk niet gelijkwaardig aan die van jouw land. Je gegevens worden aan niemand verkocht of verhandeld. Ga voor meer informatie naar ons <a href=\"$1\">donorbeleid</a>.",
 	"donate_interface-bank_transfer_message": "Bij je overschrijvingsgegevens wordt \"Global Collect\" opgegeven als ontvanger van je overschrijving. Global Collect mag namens de Wikimedia Foundation betalingen autoriseren en verwerken. Neem het referentienummer dat hier wordt genoemd op in je overschrijving. Als je vragen of zorgen hebt, neem dan per e-mail contact met ons op via $1.",
 	"donate_interface-monthlybox-content": "Maandelijkse donaties worden verwerkt op de tweede dag van iedere maand. Je kunt deze machtiging op ieder moment intrekken.",
 	"donate_interface-monthlybox-bottom": "Je donatie wordt veilig verwerkt.",
-	"donate_interface-monthly-cancel": "Maandelijkse betalingen worden gedebiteerd door de Wikimedia Foundation, totdat je ons verwittigd om ze te staken.",
+	"donate_interface-monthly-cancel": "Elke maand op dezelfde dag waarop de eerste schenking werd verricht, schrijft de Stichting Wikimedia in het geval van herhaaldelijke schenkers een maandelijks bedrag af, tot jij aangeeft dat je de schenking wilt onderbreken. Schenkingen die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in het geval van kortere maanden op de laatste dag van de maand afgeschreven. Dit gebeurt in ieder geval zo dicht mogelijk op de originele datum. Voor vragen kun je terecht bij $1.",
 	"donate_interface-error-http-403": "Je hebt geen rechten om deze pagina te bekijken.",
 	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als je vragen hebt."
 }
