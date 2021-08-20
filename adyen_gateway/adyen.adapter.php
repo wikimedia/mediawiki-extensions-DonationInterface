@@ -380,11 +380,10 @@ class AdyenAdapter extends GatewayAdapter {
 	 * Overriding @see GatewayAdapter::getTransactionSpecificValue to strip
 	 * newlines.
 	 * @param string $gateway_field_name
-	 * @param bool $token
 	 * @return mixed
 	 */
-	public function getTransactionSpecificValue( $gateway_field_name, $token = false ) {
-		$value = parent::getTransactionSpecificValue( $gateway_field_name, $token );
+	public function getTransactionSpecificValue( $gateway_field_name ) {
+		$value = parent::getTransactionSpecificValue( $gateway_field_name );
 		return str_replace( '\n', '', $value );
 	}
 
