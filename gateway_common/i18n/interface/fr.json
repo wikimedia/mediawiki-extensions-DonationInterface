@@ -274,7 +274,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Veuillez corriger les erreurs dans votre DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Veuillez corriger les erreurs dans votre CI",
 	"donate_interface-error-msg-issuer_id": "banque",
-	"donate_interface-error-msg-opt_in": "Veuillez choisir une option de email",
+	"donate_interface-error-msg-opt_in": "Veuillez choisir une option d’email",
 	"donate_interface-donate-error-try-a-different-card": "Veuillez [$1 essayer une autre carte] ou l’une de nos [$2 autres façons de donner] ou bien nous contacter par email adressé à $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Veuillez réessayer avec une autre carte ou en utilisant un des <a href=\"$1\">autres moyens de faire un don</a>, ou bien contactez-nous à l’adresse <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "Veuillez <a href=\"$1\">réessayer</a> avec l’un de nos <a href=\"$2\">autres moyens proposés</a>, ou contactez-nous à <a href=\"mailto:$3\">$3</a>",
@@ -451,7 +451,7 @@
 	"donate_interface-tax-info": "Informations sur les conditions de déductibilité fiscale",
 	"donate_interface-informationsharing": "Nous ne vendons, ni ne commercialisons vos informations à quiconque. En faisant ce don, vous acceptez de partager vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui gère Wikipédia, les autres projets de Wikimedia, ainsi que les prestataires de services conformément à notre <a href=\"$1\">politique de confidentialité en matière de donation</a>. La Fondation Wikimedia et ses prestataires sont situés aux États-Unis et dans d’autres pays dont les lois sur la confidentialité des données peuvent différer des vôtres. Pour plus d’informations, nous vous demandons de bien vouloir lire notre <a href=\"$1\">politique de confidentialité en matière de donation</a>.",
 	"donate_interface-currency-change": "Changer ?",
-	"donate_interface-bank_transfer_message": "Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est autorisé à accepter et traiter les paiements au nom de la Fondation Wikimedia. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à $1 si vous avez des questions ou préoccupations.",
+	"donate_interface-bank_transfer_message": "Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est autorisé à accepter et traiter les paiements au nom de la Fondation Wikimedia. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un email à $1 si vous avez des questions ou préoccupations.",
 	"donate_interface-globalcollect-proxy": "Veuillez noter que votre relevé indiquera « <i>Global Collect</i> » comme bénéficiaire de ce don. <i>Global Collect</i> est autorisé à accepter et prendre en charge les paiements pour le compte de la Wikimedia Foundation.",
 	"donate_interface-taxded-link-int": "Informations fiscales et juridiques",
 	"donate_interface-taxded-link-us": "Informations sur les conditions de déductibilité fiscale",
@@ -494,5 +494,5 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Non merci !",
 	"donate_interface-monthly-convert-no-button-variant-014": "Non, aucun droit maintenant",
 	"donate_interface-fundraiser-maintenance-header": "Arrêté momentanément pour maintenance",
-	"donate_interface-fundraiser-maintenance-notice": "Nous effectuons actuellement une maintenance programmée et ne pouvons pas accepter les dons. Veuillez réessayer prochainement. Si vous avez des question, veuillez envoyer un courriel à $1."
+	"donate_interface-fundraiser-maintenance-notice": "Nous effectuons actuellement une maintenance programmée et ne pouvons pas accepter de dons. Veuillez réessayer prochainement. Si vous avez des questions, veuillez envoyer un email à $1."
 }
