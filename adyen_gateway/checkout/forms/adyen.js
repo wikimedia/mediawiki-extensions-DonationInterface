@@ -1,6 +1,7 @@
-/* global AdyenCheckout */
+/* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
-	var checkout;
+	// promise objects are for Apple Pay - see comments below
+	var checkout, onSubmit, authPromise, submitPromise;
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -21,11 +22,40 @@
 					currency = $( '#currency' ).val(),
 					amount_value = $( '#amount' ).val(),
 					country = $( '#country' ).val();
-
 				amount.currency = currency;
 				amount.value = amountInMinorUnits( amount_value, currency );
 				config.amount = amount;
 				config.countryCode = country;
+				config.requiredBillingContactFields = [
+					'name',
+					'postalAddress'
+				];
+				config.requiredShippingContactFields = [
+					'email'
+				];
+				// eslint-disable-next-line compat/compat
+				authPromise = new Promise( function ( authResolve, authReject ) {
+					config.onAuthorized = function ( resolve, reject, event ) {
+						var bContact = event.payment.billingContact,
+							sContact = event.payment.shippingContact,
+							extraData = {};
+						extraData.first_name = bContact.givenName;
+						extraData.last_name = bContact.familyName;
+						extraData.postal_code = bContact.postalCode;
+						extraData.state_province = bContact.administrativeArea;
+						extraData.city = bContact.locality;
+						if ( bContact.addressLines.length > 0 ) {
+							extraData.street_address = bContact.addressLines[ 0 ];
+						}
+						extraData.email = sContact.emailAddress;
+						// We will combine this contact data with a token from the
+						// onSubmit event after both events have fired.
+						authResolve( extraData );
+
+						resolve();
+					};
+				} );
+
 				return config;
 			default:
 				throw Error( 'Component type not found' );
@@ -121,50 +151,54 @@
 		}
 	}
 
-	function onSubmit( state, component ) {
-		var extraData = {},
-			payment_method;
-		// Submit to our server
-		if ( mw.donationInterface.validation.validate() && state.isValid ) {
-			payment_method = $( '#payment_method' ).val();
-			switch ( payment_method ) {
-				case 'rtbt':
-					if ( state.data.paymentMethod.type === 'ideal' ) {
+	// eslint-disable-next-line compat/compat
+	submitPromise = new Promise( function ( submitResolve, submitReject ) {
+		onSubmit = function ( state, component ) {
+			var extraData = {},
+				payment_method;
+			// Submit to our server, unless it's Apple Pay, which submits in
+			// the onAuthorized handler.
+			if ( mw.donationInterface.validation.validate() && state.isValid ) {
+				payment_method = $( '#payment_method' ).val();
+				switch ( payment_method ) {
+					case 'rtbt':
+						if ( state.data.paymentMethod.type === 'ideal' ) {
+							extraData = {
+								// issuer is bank chosen from dropdown
+								issuer_id: state.data.paymentMethod.issuer,
+								payment_submethod: 'rtbt_ideal'
+							};
+						}
+						break;
+					case 'cc':
 						extraData = {
-							// issuer is bank chosen from dropdown
-							issuer_id: state.data.paymentMethod.issuer,
-							payment_submethod: 'rtbt_ideal'
+							encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
+							encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
+							encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
+							encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
+							payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
 						};
-					}
-					break;
-				case 'cc':
-					extraData = {
-						encrypted_card_number: state.data.paymentMethod.encryptedCardNumber,
-						encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
-						encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
-						encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
-						payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
-					};
-					if ( state.data.browserInfo ) {
-						extraData.color_depth = state.data.browserInfo.colorDepth;
-						extraData.java_enabled = state.data.browserInfo.javaEnabled;
-						extraData.screen_height = state.data.browserInfo.screenHeight;
-						extraData.screen_width = state.data.browserInfo.screenWidth;
-						extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
-					}
-					break;
-				case 'apple':
-					extraData = {
-						payment_token: state.data.paymentMethod.applePayToken
-					};
-					break;
-			}
+						if ( state.data.browserInfo ) {
+							extraData.color_depth = state.data.browserInfo.colorDepth;
+							extraData.java_enabled = state.data.browserInfo.javaEnabled;
+							extraData.screen_height = state.data.browserInfo.screenHeight;
+							extraData.screen_width = state.data.browserInfo.screenWidth;
+							extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+						}
+						break;
+					case 'apple':
+						// Resolve the submit promise with the Apple Pay token and bail out - we
+						// also need to wait for the onAuthorized event with contact data.
+						submitResolve( state.data.paymentMethod.applePayToken );
+						return;
+				}
 
-			mw.donationInterface.forms.callDonateApi(
-				handleApiResult, extraData, 'di_donate_adyen'
-			);
-		}
-	}
+				mw.donationInterface.forms.callDonateApi(
+					handleApiResult, extraData, 'di_donate_adyen'
+				);
+			}
+		};
+	} );
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
@@ -225,6 +259,22 @@
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
 				throw Error( 'Apple Pay is not available!' );
+			} );
+			// For Apple Pay, we need contact data from the onAuthorized event and token
+			// data from the onSubmit event before we can make our MediaWiki API call.
+			Promise.all( [ submitPromise, authPromise ] ).then( function ( values ) {
+				var extraData = values[ 1 ];
+				extraData.payment_token = values[ 0 ];
+				mw.donationInterface.forms.callDonateApi(
+					handleApiResult, extraData, 'di_donate_adyen'
+				);
+			} ).catch( function ( err ) {
+				mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+				} );
+				// Let error bubble up to window.onerror handler so the errorLog
+				// module sends it to our client-side logging endpoint.
+				throw err;
 			} );
 		} else {
 			component.mount( '#' + ui_container_name );
