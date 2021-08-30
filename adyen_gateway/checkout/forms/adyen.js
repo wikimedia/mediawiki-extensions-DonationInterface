@@ -55,6 +55,10 @@
 						resolve();
 					};
 				} );
+				// For Apple Pay show the branded button with 'Donate with 🍎Pay'
+				// text as opposed to our standard blue Donate button
+				config.showPayButton = true;
+				config.buttonType = 'donate';
 
 				return config;
 			default:
@@ -278,12 +282,11 @@
 			} );
 		} else {
 			component.mount( '#' + ui_container_name );
+			// For everything except Apple Pay, show our standard 'Donate' button
+			$( '#paymentSubmit' ).show();
+			$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
+				component.submit( evt );
+			} );
 		}
-
-		$( '#paymentSubmit' ).show();
-		$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
-			mw.donationInterface.validation.validate();
-			component.submit( evt );
-		} );
 	} );
 } )( jQuery, mediaWiki );
