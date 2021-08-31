@@ -35,7 +35,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$this->logPaymentDetails();
 		$this->tuneForPaymentMethod();
 		$authorizeParams = $this->buildRequestArray();
+		$this->logger->info( "Calling createPayment for {$authorizeParams['email']}" );
 		$authorizeResult = $provider->createPayment( $authorizeParams );
+		$this->logger->info( "Returned PSP Reference {$authorizeResult->getGatewayTxnId()}" );
 		if ( $authorizeResult->requiresRedirect() ) {
 			// Looks like we're not going to finish the payment in this
 			// request - our dear donor needs to take more actions on
@@ -44,8 +46,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$this->addResponseData( [
 				'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
 			] );
+			$redirectUrl = $authorizeResult->getRedirectUrl();
+			$this->logger->info( "Redirecting to $redirectUrl" );
 			return PaymentResult::newRedirect(
-				$authorizeResult->getRedirectUrl(),
+				$redirectUrl,
 				$authorizeResult->getRedirectData()
 			);
 		}
@@ -97,6 +101,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$this->runAntifraudFilters();
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
+					$this->logger->info( "Calling approvePayment on PSP reference {$authorizeResult->getGatewayTxnId()}" );
 					$captureResult = $provider->approvePayment( [
 						// Note that approvePayment takes the unstaged amount
 						'amount' => $this->getData_Unstaged_Escaped( 'amount' ),
@@ -108,9 +113,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 						// Note: this transaction ID is different from the authorizeResult's
 						// transaction ID. For credit cards, this is the one we want to store
 						// in CiviCRM.
+						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
 						$this->addResponseData(
 							[ 'gateway_txn_id' => $captureResult->getGatewayTxnId() ]
 						);
+					} else {
+						$this->logger->info( 'Capture call unsuccessful' );
 					}
 					break;
 				case ValidationAction::REJECT:
@@ -279,6 +287,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			// 3D Secure flow after verifying the transaction with their bank.
 			// https://docs.adyen.com/online-payments/3d-secure/redirect-3ds2-3ds1/web-drop-in#handle-the-redirect-result
 			$redirectResult = urldecode( $requestValues['redirectResult'] );
+			$this->logger->info( "Handling redirectResult {$requestValues['redirectResult']}" );
 			$provider = PaymentProviderFactory::getProviderForMethod(
 				$this->getPaymentMethod()
 			);
