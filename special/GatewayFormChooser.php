@@ -660,7 +660,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		if ( !count( $error_forms ) ) {
 			// TODO: Throw an RuntimeException, once we've updated payments mw-core.
-			throw new MWException( __FUNCTION__ . "No error form found for gateway '$gateway', method '$payment_method', submethod '$payment_submethod'" );
+			throw new MWException( __FUNCTION__ . "No error form found for gateway '$gateway', method '$payment_method'" );
 		}
 
 		// sort the error_forms by $group; get the most specific form defined
