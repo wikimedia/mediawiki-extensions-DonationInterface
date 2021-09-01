@@ -111,12 +111,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					$transactionStatus = $captureResult->getStatus();
 					if ( $captureResult->isSuccessful() ) {
 						// Note: this transaction ID is different from the authorizeResult's
-						// transaction ID. For credit cards, this is the one we want to store
-						// in CiviCRM.
+						// transaction ID. We log this, but leave the gateway_txn_id set to
+						// the ID from authorizeResult as that is what we get in the IPN.
 						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
-						$this->addResponseData(
-							[ 'gateway_txn_id' => $captureResult->getGatewayTxnId() ]
-						);
 					} else {
 						$this->logger->info( 'Capture call unsuccessful' );
 					}
