@@ -1750,28 +1750,35 @@ abstract class GatewayAdapter implements GatewayType {
 		$result = ''; // holds formatted version as it is built
 		$pad = 0; // initial indent
 		$matches = []; // returns from preg_matches()
+		// FIXME The line below was added to keep existing functionality while preventing
+		// issues with uninitialized variables, but probably it should be moved to
+		// the first elseif in the while block, below. However, likely this code will
+		// be removed soon.
+		$nextLineIndentChange = 0;
 		// scan each line and adjust indent based on opening/closing tags
 		while ( $token !== false ) {
 			// test for the various tag states
 			// 1. open and closing tags on same line - no change
 			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) {
-				$indent = 0;
+				$nextLineIndentChange = 0;
 			} elseif ( preg_match( '/^<\/\w/', $token, $matches ) ) {
 				// 2. closing tag - outdent now
+				// FIXME set $nextLineIndentChange=0 here instead of initailizing
+				// outside the while loop. (See related comment, above.)
 				$pad--;
 			} elseif ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $token, $matches ) ) {
 				// 3. opening tag - don't pad this one, only subsequent tags
-				$indent = 1;
+				$nextLineIndentChange = 1;
 			} else {
 				// 4. no indentation needed
-				$indent = 0;
+				$nextLineIndentChange = 0;
 			}
 
 			// pad the line with the required number of leading spaces
 			$line = str_pad( $token, strlen( $token ) + $pad, ' ', STR_PAD_LEFT );
 			$result .= $line . "\n"; // add to the cumulative result, with linefeed
 			$token = strtok( "\n" ); // get the next token
-			$pad += $indent; // update the pad size for subsequent lines
+			$pad += $nextLineIndentChange; // update the pad size for subsequent lines
 		}
 
 		return $result;
