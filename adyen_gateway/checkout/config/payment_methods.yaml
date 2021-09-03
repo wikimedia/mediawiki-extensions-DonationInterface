@@ -10,3 +10,7 @@ rtbt:
         country: true
         name: true
         email: true
+apple:
+    label: Apple Pay
+    validation:
+        country: true

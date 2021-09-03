@@ -196,6 +196,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			case 'rtbt':
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
+			case 'apple':
+				// TODO: better normalized name for this token
+				$this->transactions['authorize']['request'][] = 'gateway_session_id';
 		}
 	}
 
