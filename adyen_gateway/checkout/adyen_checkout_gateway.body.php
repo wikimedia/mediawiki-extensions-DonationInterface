@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\Helpers\CurrencyRoundingHelper;
+
 /**
  * AdyenCheckoutGateway
  *
@@ -41,5 +43,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 			);
 		}
 		$vars['DonationInterfaceFailUrl'] = $failPage;
+		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
+		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 	}
 }

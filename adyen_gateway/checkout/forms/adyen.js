@@ -23,13 +23,35 @@
 					country = $( '#country' ).val();
 
 				amount.currency = currency;
-				amount.value = amount_value * 100; // FIXME needs AmountInMinorUnits staging
+				amount.value = amountInMinorUnits( amount_value, currency );
 				config.amount = amount;
 				config.countryCode = country;
 				return config;
 			default:
 				throw Error( 'Component type not found' );
 		}
+	}
+
+	/**
+	 * Given an amount in major currency units, e.g. dollars, returns the
+	 * amount in minor units for the currency, e.g. cents. For non-fractional
+	 * currencies just rounds the amount to the nearest whole number.
+	 *
+	 * @param {number} amount
+	 * @param {string} currency
+	 * @returns {number} amount in minor units for specified currency
+	 */
+	function amountInMinorUnits( amount, currency ) {
+		var threeDecimals = mw.config.get( 'DonationInterfaceThreeDecimalCurrencies' ),
+			noDecimals = mw.config.get( 'DonationInterfaceNoDecimalCurrencies' );
+
+		if ( noDecimals.indexOf( currency ) !== -1 ) {
+			return Math.round( amount );
+		}
+		if ( threeDecimals.indexOf( currency ) !== -1 ) {
+			return Math.round( amount * 1000 );
+		}
+		return Math.round( amount * 100 );
 	}
 
 	/**
