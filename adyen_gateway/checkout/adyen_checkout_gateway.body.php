@@ -46,4 +46,15 @@ class AdyenCheckoutGateway extends GatewayPage {
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 	}
+
+	/**
+	 * Overrides parent function to return false.
+	 *
+	 * @return bool
+	 *
+	 * @see GatewayPage::showSubmethodButtons()
+	 */
+	public function showSubmethodButtons() {
+		return false;
+	}
 }

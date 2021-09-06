@@ -511,4 +511,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 		return $variant;
 	}
+
+	/**
+	 * Integrations that do not show submethod buttons should override to return false.
+	 *
+	 * @return bool
+	 */
+	public function showSubmethodButtons() {
+		return true;
+	}
 }
