@@ -2,7 +2,6 @@ bt:
     label: Bank transfer
     validation:
         country: true
-        creditCard: false
     short_circuit_at: first_iop
 cc:
     label: Credit Cards
@@ -14,14 +13,12 @@ dd:
     label: Direct Debit
     validation:
         country: true
-        creditCard: false
     short_circuit_at: first_iop
 ew:
     label: eWallets
     validation:
         country: true
         address: false
-        creditCard: false
     short_circuit_at: first_iop
     additional_success_status:
         - 20
@@ -31,7 +28,6 @@ obt:
         country: true
         name: true
         email: true
-        creditCard: false
     short_circuit_at: first_iop
 rtbt:
     label: Real time bank transfer

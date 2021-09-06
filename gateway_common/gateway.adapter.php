@@ -2619,14 +2619,6 @@ abstract class GatewayAdapter implements GatewayType {
 						}
 					}
 					break;
-				case 'creditCard' :
-					$field = [
-						'card_num' => $requirementFlag,
-						'cvv' => $requirementFlag,
-						'expiration' => $requirementFlag,
-						'card_type' => $requirementFlag
-					];
-					break;
 				case 'name' :
 					$field = [
 						'first_name' => $requirementFlag,
