@@ -192,7 +192,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Por favor, corrixe os erros no seguinte campo: código postal",
 	"donate_interface-error-msg-invalid-postal_code": "Por favor, corrixe os erros no seguinte campo: código postal",
 	"donate_interface-error-msg-country": "Por favor, indique o seu país",
-	"donate_interface-error-msg-card_type": "tipo de tarxeta de crédito",
 	"donate_interface-error-msg-card_num": "número da tarxeta de crédito",
 	"donate_interface-error-msg-expiration": "Por favor, insire a data de caducidade da tarxeta",
 	"donate_interface-error-msg-cvv": "Por favor, insire o número CVV (código de seguridade), que normalmente se atopa na parte traseira da tarxeta",

@@ -132,7 +132,6 @@
 	"donate_interface-error-msg-postal_code-us": "कृपया तपाईंको  जीप कोड हाल्नुहोस्",
 	"donate_interface-error-msg-postal_code": "कृपया तपाईंको  डाक कोड हाल्नुहोस्",
 	"donate_interface-error-msg-country": "देश",
-	"donate_interface-error-msg-card_type": "क्रेडिट कार्डको प्रकार",
 	"donate_interface-error-msg-card_num": "क्रेडिट कार्ड नम्बर",
 	"donate_interface-error-msg-expiration": "कार्डको एक्पायरी डेट(अन्तिम तिथि)",
 	"donate_interface-error-msg-cvv": "कार्डको पछाडि पटिबाट CVV",

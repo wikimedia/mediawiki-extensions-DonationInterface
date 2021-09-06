@@ -202,7 +202,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Korjaa lomakkeen virheet: postinumero",
 	"donate_interface-error-msg-invalid-postal_code": "Korjaa lomakkeen virheet: postinumero",
 	"donate_interface-error-msg-country": "Syötä maasi",
-	"donate_interface-error-msg-card_type": "luottokortin tyyppi",
 	"donate_interface-error-msg-card_num": "luottokortin numero",
 	"donate_interface-error-msg-expiration": "Ole hyvä ja syötä kortin viimeinen voimassaolopäivä",
 	"donate_interface-error-msg-cvv": "Ole hyvä ja syötä CVV-koodi, joka yleensä näkyy kortin takapuolella",

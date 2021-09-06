@@ -192,7 +192,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Do wohr en Fähler dren, dröm bes esu jood_un jivv Ding Poßleizahl enn.",
 	"donate_interface-error-msg-invalid-postal_code": "Do wohr en Fähler dren, dröm bes esu jood_un jivv de Poßleizahl enn.",
 	"donate_interface-error-msg-country": "dä Schtaaad enn, woh De wonns.",
-	"donate_interface-error-msg-card_type": "de Zoot vun Dinge Kredditkaat enn.",
 	"donate_interface-error-msg-card_num": "Dinge Kredditkaat ier Nommer enn.",
 	"donate_interface-error-msg-expiration": "Jif enn, wann di Kaad ußleuf.",
 	"donate_interface-error-msg-cvv": "Bes usu jood un jif de <i lang=\"en\" lang=\"xml:en\" dir0\"ltr2>CVV</i>, di Prööfnommer en. Se es jewöhnlesch op hengere Sigg vun de Kaate.",

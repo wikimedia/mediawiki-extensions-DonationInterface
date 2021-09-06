@@ -179,7 +179,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Lūdzu, izlabojiet kļūdas savā pasta indeksā",
 	"donate_interface-error-msg-invalid-postal_code": "Lūdzu, izlabojiet kļūdas savā pasta indeksā",
 	"donate_interface-error-msg-country": "Lūdzu, ievadiet savu valsti",
-	"donate_interface-error-msg-card_type": "kredītkartes veids",
 	"donate_interface-error-msg-card_num": "kredītkartes numurs",
 	"donate_interface-error-msg-expiration": "Lūdzu, ievadiet kartes derīguma termiņu",
 	"donate_interface-error-msg-cvv": "Lūdzu, ievadiet CVV kodu, kurš parasti atrodams kartes aizmugurē",

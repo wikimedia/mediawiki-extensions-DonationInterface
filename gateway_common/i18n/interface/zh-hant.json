@@ -215,7 +215,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "請更正您在郵政編碼中的錯誤",
 	"donate_interface-error-msg-invalid-postal_code": "請更正您在郵政編碼中的錯誤",
 	"donate_interface-error-msg-country": "請輸入您的國家",
-	"donate_interface-error-msg-card_type": "信用卡類型",
 	"donate_interface-error-msg-card_num": "信用卡號碼",
 	"donate_interface-error-msg-expiration": "請輸入卡片的到期日期",
 	"donate_interface-error-msg-cvv": "請輸入 CVV 代碼，通常顯示在卡片的背面",

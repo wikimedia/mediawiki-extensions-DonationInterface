@@ -185,7 +185,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Prosimo, popravite napake v polju poštna številka",
 	"donate_interface-error-msg-invalid-postal_code": "Prosimo, popravite napake v polju poštna številka",
 	"donate_interface-error-msg-country": "Prosimo, vnesite svojo državo",
-	"donate_interface-error-msg-card_type": "vrsta kreditne kartice",
 	"donate_interface-error-msg-card_num": "številka kreditne kartice",
 	"donate_interface-error-msg-expiration": "Prosimo, vnesite datum veljavnosti kartice",
 	"donate_interface-error-msg-cvv": "Prosimo, vnesite kodo CVV, ki je običajno na hrbtni strani kartice",

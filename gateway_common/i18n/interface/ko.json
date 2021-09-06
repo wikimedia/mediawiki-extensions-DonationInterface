@@ -199,7 +199,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "우편 번호의 오류를 수정하세요",
 	"donate_interface-error-msg-invalid-postal_code": "우편 번호의 오류를 수정하세요",
 	"donate_interface-error-msg-country": "당신의 국가를 입력하세요",
-	"donate_interface-error-msg-card_type": "신용카드 종류",
 	"donate_interface-error-msg-card_num": "신용 카드 번호",
 	"donate_interface-error-msg-expiration": "카드 유효 기한을 입력해 주세요",
 	"donate_interface-error-msg-cvv": "보통 카드 뒷면에 표시된 CVV 번호를 입력해 주세요",

@@ -162,7 +162,6 @@
 	"donate_interface-error-msg-postal_code-us": "Vul joew postkode in",
 	"donate_interface-error-msg-postal_code": "Vul joew postkode in",
 	"donate_interface-error-msg-country": "laand",
-	"donate_interface-error-msg-card_type": "type kredietkaorte",
 	"donate_interface-error-msg-card_num": "kredietkaortnummer",
 	"donate_interface-error-msg-expiration": "vervaldaotum van de kredietkaorte",
 	"donate_interface-error-msg-cvv": "CVV - beveiligingskode - van de achterkaante van joew kredietkaorte",

@@ -157,7 +157,6 @@
 	"donate_interface-error-msg-postal_code-us": "Калі ласка, увядзіце Індэкс",
 	"donate_interface-error-msg-postal_code": "Калі ласка, увядзіце Паштовы індэкс",
 	"donate_interface-error-msg-country": "Краіна",
-	"donate_interface-error-msg-card_type": "Тып крэдытнай карткі",
 	"donate_interface-error-msg-card_num": "Нумар крэдытнай карткі",
 	"donate_interface-error-msg-expiration": "дата заканчэння дзеяння карты",
 	"donate_interface-error-msg-cvv": "CVV са зваротнага боку вашай карты",

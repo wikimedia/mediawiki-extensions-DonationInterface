@@ -239,7 +239,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Veuillez corriger les erreurs dans votre code postal",
 	"donate_interface-error-msg-invalid-postal_code": "Veuillez corriger les erreurs dans votre code postal",
 	"donate_interface-error-msg-country": "Veuillez entrer votre pays",
-	"donate_interface-error-msg-card_type": "type de carte bancaire ou de crédit",
 	"donate_interface-error-msg-card_num": "numéro de carte bancaire ou de crédit",
 	"donate_interface-error-msg-expiration": "Veuillez saisir la date d’expiration de la carte",
 	"donate_interface-error-msg-cvv": "Veuillez saisir le code CVV, habituellement inscrit au dos de la carte",

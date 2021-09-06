@@ -109,7 +109,6 @@
 	"donate_interface-error-msg-invalid-street_address": "Zuzendu zure helbideko (kalea) akatsak, mesedez",
 	"donate_interface-error-msg-invalid-postal_code": "Zuzendu zure posta-kodeko akatsak, mesedez",
 	"donate_interface-error-msg-country": "Mesedez zure herrialdea sartu",
-	"donate_interface-error-msg-card_type": "kreditu-txartel mota",
 	"donate_interface-error-msg-card_num": "kreditu txartel zenbakia",
 	"donate_interface-error-msg-expiration": "Txartelaren iraungitze-data idatzi",
 	"donate_interface-error-msg-fiscal_number": "Mesedez zure zenbaki fiskala sartu",

@@ -165,7 +165,6 @@
 	"donate_interface-error-msg-postal_code-us": "அஞ்சல் எண் -ஐ உள்ளிடுக",
 	"donate_interface-error-msg-postal_code": "அஞ்சல் எண் -ஐ உள்ளிடுக",
 	"donate_interface-error-msg-country": "நாடு",
-	"donate_interface-error-msg-card_type": "கடனட்டை வகை",
 	"donate_interface-error-msg-card_num": "கடனட்டை எண்",
 	"donate_interface-error-msg-expiration": "கடனட்டை காலாவதியாகும் தேதி",
 	"donate_interface-error-msg-cvv": "உங்கள் அட்டையின் பின்பகுதியிலிருந்து CVV",

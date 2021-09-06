@@ -201,7 +201,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Harap perbaiki kesalahan pada kode ZIP Anda",
 	"donate_interface-error-msg-invalid-postal_code": "Harap perbaiki kesalahan pada kode pos Anda",
 	"donate_interface-error-msg-country": "Harap masukkan negara Anda",
-	"donate_interface-error-msg-card_type": "jenis kartu kredit",
 	"donate_interface-error-msg-card_num": "nomor kartu kredit",
 	"donate_interface-error-msg-expiration": "Harap masukkan tanggal kedaluwarsa kartu",
 	"donate_interface-error-msg-cvv": "Harap masukkan kode CVV, biasanya ditampilkan pada bagian belakang kartu kredit",

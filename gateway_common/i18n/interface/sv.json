@@ -206,7 +206,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Var god rätta felen i ditt postnummer",
 	"donate_interface-error-msg-invalid-postal_code": "Var god rätta felen i ditt postnummer",
 	"donate_interface-error-msg-country": "Ange ditt land",
-	"donate_interface-error-msg-card_type": "kreditkortstyp",
 	"donate_interface-error-msg-card_num": "kreditkortsnummer",
 	"donate_interface-error-msg-expiration": "Vänligen ange kortets sista giltighetsdatum",
 	"donate_interface-error-msg-cvv": "Ange CVV-koden, visas vanligtvis på baksidan av kortet",

@@ -178,7 +178,6 @@
 	"donate_interface-error-msg-postal_code-us": "გთხოვთ, შეიყვანოთ თქვენი საფოსტო ინდექსი",
 	"donate_interface-error-msg-postal_code": "გთხოვთ, შეიყვანოთ თქვენი საფოსტო ინდექსი",
 	"donate_interface-error-msg-country": "გთხოვთ, შეიყვანოთ თქვენი ქვეყანა",
-	"donate_interface-error-msg-card_type": "საკრედიტო ბარათის ტიპი",
 	"donate_interface-error-msg-card_num": "საკრედიტო ბარათის ნომერი",
 	"donate_interface-error-msg-expiration": "გთხოვთ, მიუთითოთ ბარათის მოქმედების ვადა",
 	"donate_interface-error-msg-cvv": "გთხოვთ, მიუთითოთ CVV კოდი, რომელიც დატანილია თქვენი ბარათის უკანა მხარეს",

@@ -191,7 +191,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Javítsd ki a hibát ebben a mezőben: irányítószám",
 	"donate_interface-error-msg-invalid-postal_code": "Javítsd ki a hibát ebben a mezőben: irányítószám",
 	"donate_interface-error-msg-country": "Adja meg az országát",
-	"donate_interface-error-msg-card_type": "hitelkártya típusa",
 	"donate_interface-error-msg-card_num": "hitelkártyaszám",
 	"donate_interface-error-msg-expiration": "Add meg a kártya lejárati dátumát",
 	"donate_interface-error-msg-cvv": "Add meg a kártya hátulján található CVV kódot",

@@ -174,7 +174,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Ama hina kaspa, chaski tuyru-pi pantasqakunata allinchay.",
 	"donate_interface-error-msg-invalid-postal_code": "Ama hina kaspa, chaski tuyru-pi pantasqakunata allinchay.",
 	"donate_interface-error-msg-country": "mama llaqta",
-	"donate_interface-error-msg-card_type": "ima laya rantiy p'anqacha (credit card)",
 	"donate_interface-error-msg-card_num": "rantiy p'anqacha (credit card) nisqap huchhan",
 	"donate_interface-error-msg-expiration": "Ama hina kaspa, p'anqachap puchukay p'unchawninta yaykuchiy",
 	"donate_interface-error-msg-cvv": "Ama hina kaspa, CVV tuyruta yaykuchiy, p'anqachaykip wasa larunpi rikunkichá",

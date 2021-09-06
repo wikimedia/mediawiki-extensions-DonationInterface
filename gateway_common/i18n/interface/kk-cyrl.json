@@ -161,7 +161,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "zip  коды дегендегі қателерді түзетіңіз",
 	"donate_interface-error-msg-invalid-postal_code": "postal коды дегендегі қателерді түзетіңіз",
 	"donate_interface-error-msg-country": "мемлекет",
-	"donate_interface-error-msg-card_type": "несие карта түрі",
 	"donate_interface-error-msg-card_num": "несие карта номері",
 	"donate_interface-error-msg-expiration": "Уақыты бітетін мерзімін енгізіңіз",
 	"donate_interface-error-msg-cvv": "CVV кодын енгізіңіз, көбінде картасының артында болады",

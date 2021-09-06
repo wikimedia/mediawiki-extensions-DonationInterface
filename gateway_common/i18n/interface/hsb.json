@@ -176,7 +176,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Prošu skorigujće zmylki w polu póstowe wodźenske čisło",
 	"donate_interface-error-msg-invalid-postal_code": "Prošu skorigujće zmylki w polu póstowe wodźenske čisło",
 	"donate_interface-error-msg-country": "kraj",
-	"donate_interface-error-msg-card_type": "typ kreditneje karty",
 	"donate_interface-error-msg-card_num": "čisło kreditneje karty",
 	"donate_interface-error-msg-expiration": "datum spadnjenja karty",
 	"donate_interface-error-msg-cvv": "CVV wot zadnjeho boka twojeje karty",

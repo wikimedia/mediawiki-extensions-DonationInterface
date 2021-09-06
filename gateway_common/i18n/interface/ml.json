@@ -180,7 +180,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "താങ്കളുടെ സിപ് അല്ലെങ്കിൽ പിൻകോഡ് തന്നിലുള്ള പിഴവ് ദയവായി ശരിയാക്കുക",
 	"donate_interface-error-msg-invalid-postal_code": "താങ്കളുടെ തപാൽ കോഡ് തന്നിലുള്ള പിഴവ് ദയവായി ശരിയാക്കുക",
 	"donate_interface-error-msg-country": "രാജ്യം",
-	"donate_interface-error-msg-card_type": "ക്രെഡിറ്റ് കാർഡ് തരം",
 	"donate_interface-error-msg-card_num": "ക്രെഡിറ്റ് കാർഡ് നമ്പർ",
 	"donate_interface-error-msg-expiration": "കാർഡിന്റെ കാലാവധി തീരുന്ന തീയതി",
 	"donate_interface-error-msg-cvv": "കാർഡിന്റെ പിന്നിൽ നിന്നും CVV",

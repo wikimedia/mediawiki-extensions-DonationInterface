@@ -187,7 +187,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Моля, коригирайте грешките в полето пощенски код",
 	"donate_interface-error-msg-invalid-postal_code": "Моля, коригирайте грешките в полето пощенски код",
 	"donate_interface-error-msg-country": "Моля, въведете Вашата държава",
-	"donate_interface-error-msg-card_type": "тип кредитна карта",
 	"donate_interface-error-msg-card_num": "номер на кредитна карта",
 	"donate_interface-error-msg-expiration": "Въведете дата на изтичане на картата",
 	"donate_interface-error-msg-cvv": "Въведете CCV кодът, който е обикновено изписан на гърба на картата",

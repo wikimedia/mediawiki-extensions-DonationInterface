@@ -156,7 +156,6 @@
 	"donate_interface-error-msg-postal_code-us": "Monggo diisi kode pos",
 	"donate_interface-error-msg-postal_code": "Monggo diisi kode pos",
 	"donate_interface-error-msg-country": "negara",
-	"donate_interface-error-msg-card_type": "jenis kartu kredit",
 	"donate_interface-error-msg-card_num": "nomer kartu kredit",
 	"donate_interface-error-msg-expiration": "tanggal kedaluwarsa kartu",
 	"donate_interface-error-msg-cvv": "CVV nang mburi kartu kredit",

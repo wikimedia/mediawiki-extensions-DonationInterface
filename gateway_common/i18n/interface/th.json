@@ -196,7 +196,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "กรุณาแก้ไขข้อผิดพลาดในช่อง Zip ของคุณ",
 	"donate_interface-error-msg-invalid-postal_code": "กรุณาแก้ไขข้อผิดพลาดในช่องรหัสไปรษณีย์ของคุณ",
 	"donate_interface-error-msg-country": "กรุณาใส่ประเทศของคุณ",
-	"donate_interface-error-msg-card_type": "ประเภทบัตรเครดิต",
 	"donate_interface-error-msg-card_num": "หมายเลขบัตรเครดิต",
 	"donate_interface-error-msg-expiration": "กรุณาใส่วันหมดอายุของบัตร",
 	"donate_interface-error-msg-cvv": "กรุณาใส่รหัส CVV มักแสดงอยู่ที่ด้านหลังบัตร",

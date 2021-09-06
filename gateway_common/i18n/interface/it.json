@@ -203,7 +203,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Per favore correggi gli errori nel campo 'CAP'",
 	"donate_interface-error-msg-invalid-postal_code": "Per favore correggi gli errori nel campo 'codice postale'",
 	"donate_interface-error-msg-country": "Per favore, inserisci la tua nazione",
-	"donate_interface-error-msg-card_type": "tipo di carta di credito",
 	"donate_interface-error-msg-card_num": "numero della carta di credito",
 	"donate_interface-error-msg-expiration": "Inserisci la data di scadenza della carta",
 	"donate_interface-error-msg-cvv": "CVV sul retro della carta",

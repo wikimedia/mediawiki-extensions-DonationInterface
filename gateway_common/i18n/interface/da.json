@@ -194,7 +194,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Ret venligst fejlene i feltet postnummer",
 	"donate_interface-error-msg-invalid-postal_code": "Ret venligst fejlene i feltet postnummer",
 	"donate_interface-error-msg-country": "Indtast venligst dit land",
-	"donate_interface-error-msg-card_type": "kreditkorttype",
 	"donate_interface-error-msg-card_num": "kreditkortnummer",
 	"donate_interface-error-msg-expiration": "Indtast venligst udløbsdatoen for kortet",
 	"donate_interface-error-msg-cvv": "CVV fra bagsiden af dit kort",

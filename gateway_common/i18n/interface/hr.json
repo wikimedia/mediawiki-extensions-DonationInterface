@@ -200,7 +200,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Molimo ispravite pogrješke u vašem poštanskom broju",
 	"donate_interface-error-msg-invalid-postal_code": "Molimo ispravite pogrješke u vašem poštanskom broju",
 	"donate_interface-error-msg-country": "Molimo unesite vašu državu",
-	"donate_interface-error-msg-card_type": "vrsta kreditne kartice",
 	"donate_interface-error-msg-card_num": "broj kreditne kartice",
 	"donate_interface-error-msg-expiration": "Molimo unesite datum isteka kartice",
 	"donate_interface-error-msg-cvv": "Molimo unesite verifikacijski kôd, obično naveden na poleđini kartice",

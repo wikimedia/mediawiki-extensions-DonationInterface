@@ -205,7 +205,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Lütfen posta kodunuzdaki hataları düzeltin",
 	"donate_interface-error-msg-invalid-postal_code": "Lütfen posta kodunuzdaki hataları düzeltin",
 	"donate_interface-error-msg-country": "Lütfen ülkenizi girin",
-	"donate_interface-error-msg-card_type": "kredi kartı türü",
 	"donate_interface-error-msg-card_num": "kredi kartı numarası",
 	"donate_interface-error-msg-expiration": "Lütfen kartın son kullanma tarihini girin",
 	"donate_interface-error-msg-cvv": "Lütfen genellikle kartın arkasında gösterilen CVV kodunu girin",

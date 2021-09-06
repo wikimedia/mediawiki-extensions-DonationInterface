@@ -163,7 +163,6 @@
 	"donate_interface-error-msg-postal_code-us": "Picatz vòstre còdi postal",
 	"donate_interface-error-msg-postal_code": "Picatz vòstre còdi postal",
 	"donate_interface-error-msg-country": "Picatz vòstre país",
-	"donate_interface-error-msg-card_type": "tipe de carta bancària o de crèdit",
 	"donate_interface-error-msg-card_num": "Numèro de carta de credit",
 	"donate_interface-error-msg-expiration": "Picatz la data d'expiracion de la carta",
 	"donate_interface-error-msg-cvv": "Picatz lo còdi CVV, abitualament inscrit a l'esquina de la carta",

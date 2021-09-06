@@ -182,7 +182,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Reizhit ar fazioù en ho kod-post, mar plij",
 	"donate_interface-error-msg-invalid-postal_code": "Reizhit ar fazioù en ho kod post, mar plij",
 	"donate_interface-error-msg-country": "Lakait anv ho pro mar plij",
-	"donate_interface-error-msg-card_type": "Seurt kartenn-gred",
 	"donate_interface-error-msg-card_num": "niverenn kartenn-gred",
 	"donate_interface-error-msg-expiration": "Skrivit deiziad termen ar gartenn, mar plij",
 	"donate_interface-error-msg-cvv": "ar CVV zo ouzh kein ho kartenn",

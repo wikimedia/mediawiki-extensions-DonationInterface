@@ -104,7 +104,6 @@
 	"donate_interface-error-msg-postal_code-us": "Prosím, zadajte vaše poštové smerovacie číslo",
 	"donate_interface-error-msg-postal_code": "Prosím, zadajte vaše poštové smerovacie číslo",
 	"donate_interface-error-msg-country": "Prosím, zadajte vašu krajinu",
-	"donate_interface-error-msg-card_type": "typ kreditnej karty",
 	"donate_interface-error-msg-card_num": "číslo kreditnej karty",
 	"donate_interface-error-msg-expiration": "Prosím, zadajte dátum exspirácie karty",
 	"donate_interface-error-msg-cvv": "Zadajte, prosím, CVV kód, spravidla umiestnený na zadnej strane karty",

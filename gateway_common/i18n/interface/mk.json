@@ -200,7 +200,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Исправете ги грешките во: поштенски број",
 	"donate_interface-error-msg-invalid-postal_code": "Исправете ги грешките во: поштенски број",
 	"donate_interface-error-msg-country": "Внесете земја",
-	"donate_interface-error-msg-card_type": "тип на кредитна картичка",
 	"donate_interface-error-msg-card_num": "број на кредитната картичка",
 	"donate_interface-error-msg-expiration": "Внесете кога истекува картичката",
 	"donate_interface-error-msg-cvv": "Внесете го CVV-бројот, кој се наоѓа на опачината на картичката",

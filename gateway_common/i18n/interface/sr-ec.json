@@ -185,7 +185,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Исправите грешке у свом зип коду",
 	"donate_interface-error-msg-invalid-postal_code": "Исправите грешке у свом поштанском коду",
 	"donate_interface-error-msg-country": "Унесите своју земљу",
-	"donate_interface-error-msg-card_type": "врста кредитне картице",
 	"donate_interface-error-msg-card_num": "број кредитне карте",
 	"donate_interface-error-msg-expiration": "Унесите датум истека картице",
 	"donate_interface-error-msg-cvv": "Унесите CVV број, углавном се налази на задњој страни картице.",

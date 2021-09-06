@@ -196,7 +196,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Per favor corrige le errores in tu codice postal.",
 	"donate_interface-error-msg-invalid-postal_code": "Per favor corrige le errores in tu codice postal.",
 	"donate_interface-error-msg-country": "Per favor entra tu pais",
-	"donate_interface-error-msg-card_type": "typo de carta de credito",
 	"donate_interface-error-msg-card_num": "le numero de tu carta de credito",
 	"donate_interface-error-msg-expiration": "Per favor entra le data de expiration del carta",
 	"donate_interface-error-msg-cvv": "Per favor entra le codice CVV, que generalmente appare sur le reverso del carta",

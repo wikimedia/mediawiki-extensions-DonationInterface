@@ -185,7 +185,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Калі ласка, выпраўце памылкі ў полі «паштовы індэкс»",
 	"donate_interface-error-msg-invalid-postal_code": "Калі ласка, выпраўце памылкі ў полі «паштовы індэкс»",
 	"donate_interface-error-msg-country": "Калі ласка, увядзіце вашую краіну",
-	"donate_interface-error-msg-card_type": "тып крэдытнай карткі",
 	"donate_interface-error-msg-card_num": "нумар крэдытнай карткі",
 	"donate_interface-error-msg-expiration": "Калі ласка, увядзіце дату сканчэньня дзеяньня карткі",
 	"donate_interface-error-msg-cvv": "Калі ласка, увядзіце CVV-код, які звычайна пазначаецца на адваротным боку карткі",

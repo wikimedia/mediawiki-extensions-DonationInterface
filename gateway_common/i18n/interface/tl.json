@@ -183,7 +183,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Pakitama ang mga kamalian sa inyong kodigong postal",
 	"donate_interface-error-msg-invalid-postal_code": "Pakitama ang mga kamalian sa inyong kodigong postal",
 	"donate_interface-error-msg-country": "Pakilagay ang iyong bansa",
-	"donate_interface-error-msg-card_type": "uri ng tarhetang pang-utang",
 	"donate_interface-error-msg-card_num": "bilang ng tarhetang pang-utang",
 	"donate_interface-error-msg-expiration": "petsa ng pagkawalang-bisa ng tarheta",
 	"donate_interface-error-msg-cvv": "CVV mula sa likod ng tarheta mo",

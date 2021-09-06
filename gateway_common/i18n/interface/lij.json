@@ -179,7 +179,6 @@
 	"donate_interface-error-msg-invalid-street_address": "Pe piaxei corezi i ari into campo 'via'",
 	"donate_interface-error-msg-invalid-city": "Pe piaxei corezi i ari into campo 'çitæ'",
 	"donate_interface-error-msg-country": "Pe piâxéi scrîvi a têu naçión",
-	"donate_interface-error-msg-card_type": "tipo de carta de crença",
 	"donate_interface-error-msg-card_num": "nummero da carta de creddito",
 	"donate_interface-error-msg-expiration": "Inseisci a dæta de scadença da carta",
 	"donate_interface-error-msg-cvv": "inseisci o coddiçe CVV in sciô derê da carta",

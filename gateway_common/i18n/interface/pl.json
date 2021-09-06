@@ -192,7 +192,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Popraw błędy w polu kod pocztowy",
 	"donate_interface-error-msg-invalid-postal_code": "Popraw błędy w polu kod pocztowy",
 	"donate_interface-error-msg-country": "Wpisz państwo",
-	"donate_interface-error-msg-card_type": "typ karty kredytowej",
 	"donate_interface-error-msg-card_num": "numer karty kredytowej",
 	"donate_interface-error-msg-expiration": "Wprowadź proszę datę ważności karty",
 	"donate_interface-error-msg-cvv": "Wprowadź proszę kod CVV, wyświetlany zazwyczaj na tylnej części karty",
