@@ -11,13 +11,13 @@
     {{/ street_address_visible }}
     <div>{{# city_visible }}<div class="{{ address_css_class }}">
                 <label for="city">{{ l10n "donate_interface-donor-city" }}</label>
-                <input class="fullwidth" id="city" name="city" value="{{ city }}" type="text" title="{{ l10n "donate_interface-donor-city" }}" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">
+                <input id="city" name="city" value="{{ city }}" type="text" title="{{ l10n "donate_interface-donor-city" }}" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">
                 {{{ fieldError "city" }}}
             </div>{{/ city_visible }}{{! don't render space
 }}{{> state_dropdown }}{{! only renders if required }}{{! don't render space
 }}{{# postal_code_visible }}<div class="{{ address_css_class }}">
         <label for="postal_code">{{ l10n "donate_interface-donor-postal_code" }}</label>
-        <input class="fullwidth" id="postal_code" name="postal_code" value="{{ postal_code }}" type="text" title="{{ l10n "donate_interface-donor-postal_code" }}" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">
+        <input id="postal_code" name="postal_code" value="{{ postal_code }}" type="text" title="{{ l10n "donate_interface-donor-postal_code" }}" {{# postal_code_required }}required {{/ postal_code_required }} autocomplete="billing postal-code" maxlength="64">
         {{{ fieldError "postal_code" }}}
     </div>{{/ postal_code_visible }}{{! don't render space
     }}</div>
