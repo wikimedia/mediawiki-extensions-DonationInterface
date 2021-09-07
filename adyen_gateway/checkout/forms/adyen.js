@@ -155,7 +155,7 @@
 					break;
 				case 'apple':
 					extraData = {
-						gateway_session_id: state.data.paymentMethod.applePayToken
+						payment_token: state.data.paymentMethod.applePayToken
 					};
 					break;
 			}

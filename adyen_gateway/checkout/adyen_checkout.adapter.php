@@ -197,8 +197,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
 			case 'apple':
-				// TODO: better normalized name for this token
-				$this->transactions['authorize']['request'][] = 'gateway_session_id';
+				$this->transactions['authorize']['request'][] = 'payment_token';
 		}
 	}
 

@@ -118,6 +118,7 @@ class DonationData implements LogPrefixProvider {
 		'opt_in',
 		'employer',
 		'employer_id',
+		'payment_token',
 	];
 
 	/**
