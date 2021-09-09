@@ -59,7 +59,8 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				'postal_code' => '0',
 				'return_url' => $expectedReturnUrl,
 				'street_address' => 'N0NE PROVIDED',
-				'user_ip' => '127.0.0.1'
+				'user_ip' => '127.0.0.1',
+				'payment_method' => 'rtbt'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
