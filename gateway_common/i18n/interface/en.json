@@ -262,7 +262,7 @@
 	"donate_interface-otherways": "There are <a href=\"$1\">other ways to give, including PayPal, check, or mail</a>.",
 	"donate_interface-otherways-alt": "There are <a href=\"$1\">other ways to give</a>, including by check.",
 	"donate_interface-otherways-short": "Other ways to give",
-	"donate_interface-token-mismatch": "Your session has expired. Please try filling out and submitting the form again.",
+	"donate_interface-token-mismatch": "Your session has expired. Please try reloading the page and submitting the form again.",
 	"donate_interface-cc-token-expired": "Your token has expired, click OK to refresh.",
 	"donate_interface-try-again": "We are temporarily unable to process your donation. Please try again shortly.",
 	"donate_interface-cc-form-header-personal": "Billing information",

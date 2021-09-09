@@ -56,7 +56,9 @@ abstract class DonationApiBase extends ApiBase {
 	protected function setAdapterAndValidate() {
 		$this->donationData = $this->extractRequestParams();
 
-		$this->gateway = $this->donationData['gateway'];
+		if ( !$this->gateway ) {
+			$this->gateway = $this->donationData['gateway'];
+		}
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
 		if ( isset( $this->donationData['language'] ) ) {

@@ -59,6 +59,27 @@
 				// text as opposed to our standard blue Donate button
 				config.showPayButton = true;
 				config.buttonType = 'donate';
+				// When the donor clicks the donate button, this event is fired with
+				// a validationUrl provided by Apple. We have to make a server-side
+				// request to get a big blob of Apple Pay session data, then send it
+				// via the resolve function back to the component, which apparently
+				// sends it back to the native widget via completeMerchantValidation.
+				// https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/providing_merchant_validation
+				config.onValidateMerchant = function ( resolve, reject, validationUrl ) {
+					var api = new mw.Api();
+					api.post( {
+						action: 'di_applesession_adyen',
+						validation_url: validationUrl,
+						wmf_token: $( '#wmf_token' ).val()
+					} ).then( function ( data ) {
+						if ( data.result && data.result.errors ) {
+							mw.donationInterface.validation.showErrors( data.result.errors );
+							reject();
+						} else {
+							resolve( data.session );
+						}
+					} );
+				};
 
 				return config;
 			default:
