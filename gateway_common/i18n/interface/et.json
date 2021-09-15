@@ -174,7 +174,6 @@
 	"donate_interface-error-msg-postal_code-us": "Palun sisesta sihtnumber",
 	"donate_interface-error-msg-postal_code": "Palun sisesta sihtnumber",
 	"donate_interface-error-msg-country": "Palun sisesta maa",
-	"donate_interface-error-msg-card_type": "krediitkaardi tüüp",
 	"donate_interface-error-msg-card_num": "krediitkaardinumber",
 	"donate_interface-error-msg-expiration": "Palun sisesta kaardi aegumistähtaeg.",
 	"donate_interface-error-msg-cvv": "Palun sisesta turvakood, mis on näidatud tavaliselt kaardi taga.",

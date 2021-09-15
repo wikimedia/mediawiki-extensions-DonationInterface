@@ -196,7 +196,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Bonvolu korekti la erarojn en via poŝtkodo",
 	"donate_interface-error-msg-invalid-postal_code": "Bonvolu korekti la erarojn en via poŝtkodo",
 	"donate_interface-error-msg-country": "Bonvolu enigi vian landon",
-	"donate_interface-error-msg-card_type": "tipo de kreditkarto",
 	"donate_interface-error-msg-card_num": "kreditkartnumero",
 	"donate_interface-error-msg-expiration": "Bonvolu enigi la kartvalidlimdaton",
 	"donate_interface-error-msg-cvv": "Bonvolu enigi la sekurkodon, kutime ĉe la dorsflanko de via karto",

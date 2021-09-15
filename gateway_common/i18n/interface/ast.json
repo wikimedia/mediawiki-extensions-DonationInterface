@@ -190,7 +190,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Por favor, corrixa los errores na caxella códigu postal",
 	"donate_interface-error-msg-invalid-postal_code": "Por favor, corrixa los errores na caxella códigu postal",
 	"donate_interface-error-msg-country": "Indica'l pais",
-	"donate_interface-error-msg-card_type": "tipu de tarxeta de créditu",
 	"donate_interface-error-msg-card_num": "númberu de la tarxeta de créditu",
 	"donate_interface-error-msg-expiration": "Por favor, escribi la data de caducidá de la tarxeta",
 	"donate_interface-error-msg-cvv": "Por favor, escribi'l códigu CVV, que de vezu apaez na parte d'atrás de la tarxeta",

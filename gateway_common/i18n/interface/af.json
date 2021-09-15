@@ -107,7 +107,6 @@
 	"donate_interface-error-msg-postal_code-us": "Voer asseblief u poskode in",
 	"donate_interface-error-msg-postal_code": "Voer asseblief u poskode in",
 	"donate_interface-error-msg-country": "land",
-	"donate_interface-error-msg-card_type": "Tipe kredietkaart",
 	"donate_interface-error-msg-card_num": "kredietkaartnommer",
 	"donate_interface-error-msg-expiration": "Gee die kaart se vervaldatum",
 	"donate_interface-error-msg-cvv": "Gee die CVV-kode, gewoonlik op die agterkant van kaart",

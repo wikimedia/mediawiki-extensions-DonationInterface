@@ -207,7 +207,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Pe piacere corregge le errore jndr'à 'u tue codece d'avviamende postale",
 	"donate_interface-error-msg-invalid-postal_code": "Pe piacere corregge le errore jndr'à 'u tue codece d'avviamende postale",
 	"donate_interface-error-msg-country": "Pe piacere mitte 'u paise tune",
-	"donate_interface-error-msg-card_type": "tipe d'a carte de credite",
 	"donate_interface-error-msg-card_num": "numere d'a carte de credite",
 	"donate_interface-error-msg-expiration": "Pe piacere mitte 'a date de scadenze d'a carte",
 	"donate_interface-error-msg-cvv": "Pe piacere mitte 'u CVV da 'u rete d'a carta toje",

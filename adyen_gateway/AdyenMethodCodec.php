@@ -23,6 +23,9 @@ class AdyenMethodCodec implements StagingHelper, UnstagingHelper {
 				// TODO: will we ever support non-iDEAL rtbt via Adyen?
 				$allowedMethods = 'ideal';
 				break;
+			case 'apple':
+				$allowedMethods = 'applepay';
+				break;
 			default:
 				throw new UnexpectedValueException( "Invalid Payment Method '${normalized['payment_method']}' supplied" );
 		}

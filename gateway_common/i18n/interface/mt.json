@@ -167,7 +167,6 @@
 	"donate_interface-error-msg-postal_code-us": "L-informazzjoni segwenti hija rikjesta: kodiċi postali",
 	"donate_interface-error-msg-postal_code": "L-informazzjoni segwenti hija rikjesta: kodiċi postali",
 	"donate_interface-error-msg-country": "pajjiż",
-	"donate_interface-error-msg-card_type": "tip ta' karta tal-kreditu",
 	"donate_interface-error-msg-card_num": "numru tal-karta tal-kreditu",
 	"donate_interface-error-msg-expiration": "data ta' skadenza tal-karta tal-kreditu",
 	"donate_interface-error-msg-cvv": "CVV min-naħa ta' wara tal-karta",

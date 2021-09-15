@@ -94,7 +94,6 @@
 	"donate_interface-error-msg-postal_code-us": "Pšosym wupołni pólo: postowa licba",
 	"donate_interface-error-msg-postal_code": "Pšosym wupołni pólo: Postowa licba",
 	"donate_interface-error-msg-country": "kraj",
-	"donate_interface-error-msg-card_type": "typ kreditoweje kórty",
 	"donate_interface-error-msg-card_num": "numer kreditneje kórty",
 	"donate_interface-error-msg-expiration": "datum spadnjenja kórty",
 	"donate_interface-error-msg-cvv": "CVV ze slěznego boka twójeje kórty",

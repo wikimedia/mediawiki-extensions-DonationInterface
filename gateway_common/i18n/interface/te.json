@@ -169,7 +169,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "మీ తపాలా కోడు లోని దోషాలను సవరించండి",
 	"donate_interface-error-msg-invalid-postal_code": "మీ తపాలా సంకేతం లోని దోషాలను సవరించండి",
 	"donate_interface-error-msg-country": "దయచేసి మీ దేశాన్ని పేర్కొనండి",
-	"donate_interface-error-msg-card_type": "క్రెడిట్ కార్డు రకం",
 	"donate_interface-error-msg-card_num": "క్రెడిట్ కార్డు నెంబరు",
 	"donate_interface-error-msg-expiration": "దయచేసి కార్డు కాలపరిమితి తేదీని పేర్కొనండి",
 	"donate_interface-error-msg-cvv": "దయచేసి మీ కార్డు వెనక వైపు ఉండే CVV కోడును పేర్కొనండి",

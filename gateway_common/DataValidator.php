@@ -25,13 +25,12 @@ class DataValidator {
 	 */
 	public static function getErrorToken( $field ) {
 		switch ( $field ) {
-			case 'email' :
-			case 'amount' :
-			case 'currency' :
-			case 'fiscal_number' :
-			case 'issuer_id' :
+			case 'email':
+			case 'amount':
+			case 'currency':
+			case 'fiscal_number':
+			case 'issuer_id':
 			case 'card_num':
-			case 'card_type':
 			case 'cvv':
 			case 'first_name':
 			case 'last_name':
@@ -40,7 +39,7 @@ class DataValidator {
 			case 'state_province':
 			case 'postal_code':
 			case 'expiration':
-				$error_token = $field;
+		$error_token = $field;
 				break;
 			default:
 				$error_token = 'general';
@@ -63,7 +62,6 @@ class DataValidator {
 			'retryMsg' => '',
 			'amount' => '',
 			'card_num' => '',
-			'card_type' => '',
 			'cvv' => '',
 			'fiscal_number' => '',
 			'first_name' => '',
@@ -291,29 +289,6 @@ class DataValidator {
 	}
 
 	/**
-	 * validate_card_type
-	 * Determines if the $value passed in is (possibly) a valid credit card type.
-	 * @param string $value The piece of data that is supposed to be a credit card type.
-	 * @param string $card_number The card number associated with this card type. Optional.
-	 * @return bool True if $value is a reasonable credit card type, otherwise false.
-	 */
-	protected static function validate_card_type( $value, $card_number = '' ) {
-		// @TODO: Find a better way to stop making assumptions about what payment
-		// type we're trying to be, in the data validadtor.
-		if ( $card_number != '' ) {
-			if ( !array_key_exists( $value, self::$card_types ) ) {
-				return false;
-			}
-			$calculated_card_type = self::getCardType( $card_number );
-			if ( $calculated_card_type != $value ) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
 	 * validate_credit_card
 	 * Determines if the $value passed in is (possibly) a valid credit card number.
 	 * @param string $value The piece of data that is supposed to be a credit card number.
@@ -324,7 +299,6 @@ class DataValidator {
 		if ( !$calculated_card_type ) {
 			return false;
 		}
-
 		return true;
 	}
 

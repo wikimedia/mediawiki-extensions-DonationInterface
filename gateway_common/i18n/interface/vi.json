@@ -193,7 +193,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Xin vui lòng sửa các lỗi trong mã ZIP của bạn",
 	"donate_interface-error-msg-invalid-postal_code": "Xin vui lòng sửa các lỗi trong mã bưu chính của bạn",
 	"donate_interface-error-msg-country": "Xin nhập quốc gia của bạn",
-	"donate_interface-error-msg-card_type": "loại thẻ tín dụng",
 	"donate_interface-error-msg-card_num": "mã số thẻ tín dụng",
 	"donate_interface-error-msg-expiration": "Xin hãy nhập ngày hết hạn của thẻ",
 	"donate_interface-error-msg-cvv": "Xin hãy nhập mã CVV thường xuất hiện trên mặt trái của thẻ",

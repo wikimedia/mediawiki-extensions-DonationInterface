@@ -170,7 +170,6 @@
 	"donate_interface-error-msg-postal_code-us": "පහත තොරතුරු අවශ්‍ය වේ: සිප් කේතය",
 	"donate_interface-error-msg-postal_code": "පහත තොරතුරු අවශ්‍ය වේ: තැපැල් කේතය",
 	"donate_interface-error-msg-country": "රට",
-	"donate_interface-error-msg-card_type": "ණයපත් වර්ගය",
 	"donate_interface-error-msg-card_num": "ක්‍රෙඩිට් කාඩ් අංකය",
 	"donate_interface-error-msg-expiration": "කාඩ් පතෙහි කල් ඉකුත්වන දිනය",
 	"donate_interface-error-msg-cvv": "ඔබ කාඩ් පත පිටුපසින් කාඩ්පත්-සුරැකුම්-කේතය",

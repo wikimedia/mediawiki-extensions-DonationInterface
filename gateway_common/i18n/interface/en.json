@@ -207,7 +207,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Please correct the errors in your zip code",
 	"donate_interface-error-msg-invalid-postal_code": "Please correct the errors in your postal code",
 	"donate_interface-error-msg-country": "Please enter your country",
-	"donate_interface-error-msg-card_type": "credit card type",
 	"donate_interface-error-msg-card_num": "credit card number",
 	"donate_interface-error-msg-expiration": "Please enter the card's expiration date",
 	"donate_interface-error-msg-cvv": "Please enter the CVV code, usually shown on the back of the card",

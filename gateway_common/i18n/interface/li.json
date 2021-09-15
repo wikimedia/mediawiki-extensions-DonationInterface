@@ -151,7 +151,6 @@
 	"donate_interface-error-msg-postal_code-us": "Veur e.t.b. dien poscode in",
 	"donate_interface-error-msg-postal_code": "Veur e.t.b. dien Póskode: in",
 	"donate_interface-error-msg-country": "Landj",
-	"donate_interface-error-msg-card_type": "creditcardtype",
 	"donate_interface-error-msg-card_num": "creditcardnummer",
 	"donate_interface-error-msg-expiration": "vervaldatum creditcard",
 	"donate_interface-error-msg-cvv": "CVV - beveiligingscode - van de achterkant van dien creditcard",

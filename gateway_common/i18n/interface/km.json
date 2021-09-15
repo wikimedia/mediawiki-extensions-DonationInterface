@@ -155,7 +155,6 @@
 	"donate_interface-error-msg-postal_code-us": "សូមបំពេញ កូដប្រៃសនីយ៍ របស់អ្នក",
 	"donate_interface-error-msg-postal_code": "សូមបំពេញ កូដប្រៃសនីយ៍ របស់អ្នក",
 	"donate_interface-error-msg-country": "ប្រទេស",
-	"donate_interface-error-msg-card_type": "ប្រភេទក្រេឌីតកាត",
 	"donate_interface-error-msg-card_num": "លេខក្រេឌីតកាត",
 	"donate_interface-error-msg-expiration": "កាលបរិច្ឆេទផុតកំណត់របស់កាត",
 	"donate_interface-error-msg-cvv": "CVV ដែលនៅខាងក្រោយកាតរប​ស់អ្នក",

@@ -169,7 +169,6 @@
 	"donate_interface-error-msg-postal_code-us": "Bitte gib Dyy Poschtleitzahl yy",
 	"donate_interface-error-msg-postal_code": "Bitte gib Dyy Poschtleitzahl yy",
 	"donate_interface-error-msg-country": "Land",
-	"donate_interface-error-msg-card_type": "Kreditchartetyp",
 	"donate_interface-error-msg-card_num": "Kreditchartenummere",
 	"donate_interface-error-msg-expiration": "Ablaufdatum vu dr Charte",
 	"donate_interface-error-msg-cvv": "D Chartepriefnummere (CVV) uf dr Rucksyte vu Dyyre Charte",

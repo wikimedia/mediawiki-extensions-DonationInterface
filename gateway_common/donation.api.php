@@ -61,7 +61,6 @@ class DonationApi extends DonationApiBase {
 			'email' => $this->defineParam( false ),
 			'country' => $this->defineParam( false ),
 			'card_num' => $this->defineParam( false ),
-			'card_type' => $this->defineParam( false ),
 			'expiration' => $this->defineParam( false ),
 			'cvv' => $this->defineParam( false ),
 			'payment_method' => $this->defineParam( false ),

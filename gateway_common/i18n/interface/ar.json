@@ -215,7 +215,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "يُرجَى تصحيح الأخطاء في رمزك البريدي",
 	"donate_interface-error-msg-invalid-postal_code": "يُرجَى تصحيح الأخطاء في رمزك البريدي",
 	"donate_interface-error-msg-country": "الرجاء إدخال بلدك",
-	"donate_interface-error-msg-card_type": "نوع بطاقة الائتمان",
 	"donate_interface-error-msg-card_num": "رقم بطاقة الائتمان",
 	"donate_interface-error-msg-expiration": "الرجاء إدخال تاريخ انتهاء صلاحية البطاقة",
 	"donate_interface-error-msg-cvv": "الرجاء إدخال رمز CVV، كما هو موضح عادة على ظهر البطاقة",

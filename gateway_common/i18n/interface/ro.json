@@ -192,7 +192,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Vă rugăm să corectați codul poștal",
 	"donate_interface-error-msg-invalid-postal_code": "Vă rugăm să corectați codul poștal",
 	"donate_interface-error-msg-country": "Introduceți țara",
-	"donate_interface-error-msg-card_type": "tipul cardului de credit",
 	"donate_interface-error-msg-card_num": "numărul cardului de credit",
 	"donate_interface-error-msg-expiration": "Introduceți data expirării cardului",
 	"donate_interface-error-msg-cvv": "Introduceți codul CVV, aflat de obicei pe spatele cardului",

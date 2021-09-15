@@ -206,7 +206,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Corrigeer de fouten in het veld \"postcode\"",
 	"donate_interface-error-msg-invalid-postal_code": "Corrigeer de fouten in het veld \"postcode\"",
 	"donate_interface-error-msg-country": "Voer uw land in",
-	"donate_interface-error-msg-card_type": "creditcardtype",
 	"donate_interface-error-msg-card_num": "creditcardnummer",
 	"donate_interface-error-msg-expiration": "Vul de vervaldatum van de creditcard in",
 	"donate_interface-error-msg-cvv": "Voer alstublieft de CVV-code (beveiligingscode) in. Meestal staat die op de achterkant van uw creditcard",

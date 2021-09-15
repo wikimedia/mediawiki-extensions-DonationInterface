@@ -213,7 +213,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Пожалуйста, исправьте ошибки в вашем индекс",
 	"donate_interface-error-msg-invalid-postal_code": "Пожалуйста, исправьте ошибки в вашем почтовый индекс",
 	"donate_interface-error-msg-country": "Пожалуйста, введите вашу страну",
-	"donate_interface-error-msg-card_type": "тип кредитной карты",
 	"donate_interface-error-msg-card_num": "номер кредитной карты",
 	"donate_interface-error-msg-expiration": "Введите дату истечения срока действия карты",
 	"donate_interface-error-msg-cvv": "Введите код CVV, обычно указываемый на обратной стороне карты",

@@ -205,7 +205,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Vennligst fiks feilene i feltet «postnummer»",
 	"donate_interface-error-msg-invalid-postal_code": "Vennligst fiks feilene i feltet «Postnummer»",
 	"donate_interface-error-msg-country": "Skriv inn landet ditt",
-	"donate_interface-error-msg-card_type": "kredittkorttype",
 	"donate_interface-error-msg-card_num": "kredittkortnummer",
 	"donate_interface-error-msg-expiration": "Vennligst fyll inn kortets utløpsdato",
 	"donate_interface-error-msg-cvv": "Vennligst fyll inn CVV-koden, som vanligvis finnes på baksiden av kortet",

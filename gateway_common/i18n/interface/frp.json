@@ -167,7 +167,6 @@
 	"donate_interface-error-msg-postal_code-us": "Volyéd buchiér voutron code postâl (code ZIP)",
 	"donate_interface-error-msg-postal_code": "Volyéd buchiér voutron code postâl",
 	"donate_interface-error-msg-country": "payis",
-	"donate_interface-error-msg-card_type": "tipo de cârta de crèdit",
 	"donate_interface-error-msg-card_num": "numerô de cârta de crèdit",
 	"donate_interface-error-msg-expiration": "dâta d’èxpiracion de la cârta",
 	"donate_interface-error-msg-cvv": "lo CVV placiê dèrriér voutra cârta",

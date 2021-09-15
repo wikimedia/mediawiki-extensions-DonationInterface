@@ -191,7 +191,6 @@
 	"donate_interface-error-msg-postal_code-us": "Παρακαλούμε εισαγάγετε τον ταχυδρομικό κώδικα σας",
 	"donate_interface-error-msg-postal_code": "Παρακαλούμε εισαγάγετε το ταχυδρομικό κώδικα σας",
 	"donate_interface-error-msg-country": "Παρακαλώ εισαγάγετε την χώρα σας",
-	"donate_interface-error-msg-card_type": "τύπος πιστωτικής κάρτας",
 	"donate_interface-error-msg-card_num": "αριθμός πιστωτικής κάρτας",
 	"donate_interface-error-msg-expiration": "Παρακαλούμε εισαγάγετε την ημερομηνία λήξης της κάρτας",
 	"donate_interface-error-msg-cvv": "Παρακαλούμε εισαγάγετε τον κωδικό CVV, που συνήθως αναγράφεται στο πίσω μέρος της κάρτας",

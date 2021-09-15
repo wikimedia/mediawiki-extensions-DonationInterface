@@ -182,7 +182,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Cywirwch y camgymeriadau yn y blwch hwn: cod post",
 	"donate_interface-error-msg-invalid-postal_code": "Cywirwch y camgymeriadau yn y blwch hwn: côd post",
 	"donate_interface-error-msg-country": "gwlad",
-	"donate_interface-error-msg-card_type": "math y cerdyn credyd",
 	"donate_interface-error-msg-card_num": "rhif y cerdyn credyd",
 	"donate_interface-error-msg-expiration": "Pa bryd y daw'r cerdyn credyd i ben?",
 	"donate_interface-error-msg-cvv": "Teipiwch y cod diogelwch, sydd fel arfer ar gefn eich cerdyn.",

@@ -160,7 +160,6 @@
 	"donate_interface-error-msg-postal_code-us": "Olõq hää, täüdäq seo rida:  tsihtnummõr",
 	"donate_interface-error-msg-postal_code": "Olõq hää, täüdäq seo rida:  tsihtnummõr",
 	"donate_interface-error-msg-country": "maa",
-	"donate_interface-error-msg-card_type": "kreeditkaardi tüüp",
 	"donate_interface-error-msg-card_num": "kreediitkaardi nummõr",
 	"donate_interface-error-msg-expiration": "kaardi vanasminemise aig",
 	"donate_interface-error-msg-cvv": "kaitsõkuud kaardi tagomadsõ poolõ päält",

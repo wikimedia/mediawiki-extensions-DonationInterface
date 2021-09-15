@@ -100,7 +100,6 @@
 	"donate_interface-error-msg-postal_code-us": "Tafadhali ingiza simbo yako",
 	"donate_interface-error-msg-postal_code": "Tafadhali ingiza simbo yako",
 	"donate_interface-error-msg-country": "nchi",
-	"donate_interface-error-msg-card_type": "aina ya kadi ya mkopo",
 	"donate_interface-error-msg-card_num": "namba ya kadi ya malipo",
 	"donate_interface-error-msg-expiration": "tarehe ya kadi kwisha",
 	"donate_interface-error-msg-cvv": "CVV (msimbo wa usalama) uliyopo nyuma ya kadi yako",

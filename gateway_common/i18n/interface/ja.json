@@ -211,7 +211,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "ZIP コードに誤りがあります。修正してください",
 	"donate_interface-error-msg-invalid-postal_code": "郵便番号に誤りがあります。修正してください",
 	"donate_interface-error-msg-country": "国を入力してください",
-	"donate_interface-error-msg-card_type": "クレジットカードの種類",
 	"donate_interface-error-msg-card_num": "クレジットカード番号",
 	"donate_interface-error-msg-expiration": "カードの有効期限を入力してください",
 	"donate_interface-error-msg-cvv": "カード照合番号を入力してください (通常はカード裏面に記載されています)",

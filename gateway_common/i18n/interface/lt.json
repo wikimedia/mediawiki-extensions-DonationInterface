@@ -185,7 +185,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Prašome ištaisyti klaidas savo pašto kodas",
 	"donate_interface-error-msg-invalid-postal_code": "Prašome ištaisyti klaidas savo pašto kodas",
 	"donate_interface-error-msg-country": "Prašome įvesti savo valstybę",
-	"donate_interface-error-msg-card_type": "Kreditinės kortelės tipas",
 	"donate_interface-error-msg-card_num": "kreditinės kortelės numeris",
 	"donate_interface-error-msg-expiration": "Prašome įvesti kortelės galiojimo pabaigos datą",
 	"donate_interface-error-msg-cvv": "Prašome įvesti CVV kodą, kuris dažniausiai yra kitoje kortelės pusėje",

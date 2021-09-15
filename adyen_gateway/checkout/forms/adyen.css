@@ -51,7 +51,7 @@ div.adyen-checkout__dropdown__button:focus:hover {
 span.adyen-checkout__label__text {
 	padding-bottom: 0px;
 
-	/* inherit cancels the rules set by Adyen; these text properties are 
+	/* inherit cancels the rules set by Adyen; these text properties are
 	   then inherited from the enclosing element, set in the vector skin. */
 	font-size: inherit;
 	font-size: inherit;
@@ -105,6 +105,11 @@ form#payment-form div.halfwidth input[type='text'],
 div.adyen-checkout__dropdown__button {
 	padding: 5px 8px 5px 8px;
 	margin: 0px;
+	height: 40px;
+}
+
+form#payment-form input.inputDefault[type='text']{
+	padding: 5px 8px 5px 8px;
 	height: 40px;
 }
 

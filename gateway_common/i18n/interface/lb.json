@@ -183,7 +183,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Verbessert wgl. d'Feeler an Ärem Post-Code",
 	"donate_interface-error-msg-invalid-postal_code": "Verbessert wgl. d'Feeler an Ärem Postcode",
 	"donate_interface-error-msg-country": "Gitt wgl. Äert Land an",
-	"donate_interface-error-msg-card_type": "Kreditkaarten-Typ",
 	"donate_interface-error-msg-card_num": "Nummer vun der Kreditkaart",
 	"donate_interface-error-msg-expiration": "Gitt wgl. den Datum op deem d'Kaart ofleeft an",
 	"donate_interface-error-msg-cvv": "Gitt wgl. den CVV-Code an, gewéinlech steet deen hannen op Ärer Kaart",

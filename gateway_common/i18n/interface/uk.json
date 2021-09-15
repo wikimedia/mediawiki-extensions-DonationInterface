@@ -224,7 +224,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Будь ласка, виправте помилки у полі «індекс»",
 	"donate_interface-error-msg-invalid-postal_code": "Будь ласка, виправте помилки у полі «поштовий індекс»",
 	"donate_interface-error-msg-country": "Будь ласка, введіть свою країну",
-	"donate_interface-error-msg-card_type": "тип кредитної картки",
 	"donate_interface-error-msg-card_num": "номер кредитної картки",
 	"donate_interface-error-msg-expiration": "Будь ласка, введіть дату закінчення терміну дії картки",
 	"donate_interface-error-msg-cvv": "Будь ласка, введіть CVV-код, зазвичай поданий на звороті картки",

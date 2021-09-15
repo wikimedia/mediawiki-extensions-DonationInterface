@@ -49,6 +49,7 @@
 	"apihelp-logPaymentsFormError-param-col": "Coluna na qual o erro ocorreu",
 	"apihelp-logPaymentsFormError-param-userAgent": "Texto user-agent do browser",
 	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível",
+	"apihelp-di_donate_adyen-summary": "Esta API é para Adyen",
 	"apihelp-di_recurring_convert-summary": "Esta API é usada quando um benfeitor concorda em adicionar um donativo mensal após ter concluído um donativo pontual.",
 	"apihelp-di_recurring_convert-param-amount": "O montante do donativo mensal.",
 	"apihelp-di_recurring_convert-param-gateway": "O portal de pagamento a utilizar - adyen, globalcollect, etc.",

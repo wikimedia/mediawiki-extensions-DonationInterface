@@ -233,7 +233,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "请纠正您在邮政编码中的错误",
 	"donate_interface-error-msg-invalid-postal_code": "请纠正您在邮政编码中的错误",
 	"donate_interface-error-msg-country": "请输入您的国家",
-	"donate_interface-error-msg-card_type": "信用卡类型",
 	"donate_interface-error-msg-card_num": "信用卡号码",
 	"donate_interface-error-msg-expiration": "请输入卡失效日期",
 	"donate_interface-error-msg-cvv": "请输入CVV代码，经常您会在卡的背面看到",

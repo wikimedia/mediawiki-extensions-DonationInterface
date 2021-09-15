@@ -182,7 +182,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "Sila betulkan kesilapan pada poskod anda",
 	"donate_interface-error-msg-invalid-postal_code": "Sila betulkan kesilapan pada poskod anda",
 	"donate_interface-error-msg-country": "negara",
-	"donate_interface-error-msg-card_type": "jenis kad kredit",
 	"donate_interface-error-msg-card_num": "nombor kad kredit",
 	"donate_interface-error-msg-expiration": "Sila isikan tarikh tamat tempoh kad anda",
 	"donate_interface-error-msg-cvv": "Sila isikan kod CVV yang biasanya tertera pada belakang kad anda",

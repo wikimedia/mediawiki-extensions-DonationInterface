@@ -202,7 +202,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "لطفاً خطاها را در نشانی پستی تصحیح کنید.",
 	"donate_interface-error-msg-invalid-postal_code": "لطفاً خطاها را در کد پستی تصحیح کنید.",
 	"donate_interface-error-msg-country": "لطفا کشورتان را وارد کنید",
-	"donate_interface-error-msg-card_type": "نوع کارت اعتباری",
 	"donate_interface-error-msg-card_num": "شمارهٔ کارت اعتباری",
 	"donate_interface-error-msg-expiration": "لطفا تاریخ انقضای کارت خود را وارد کنید",
 	"donate_interface-error-msg-cvv": "سی‌وی‌وی (رمز سوم) را وارد کنید معمولا پشت کارت نوشته شده است",

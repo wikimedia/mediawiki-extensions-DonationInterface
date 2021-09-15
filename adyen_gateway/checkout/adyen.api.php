@@ -12,6 +12,7 @@ class AdyenDonationApi extends DonationApi {
 			'screen_height' => $this->defineParam(),
 			'screen_width' => $this->defineParam(),
 			'time_zone_offset' => $this->defineParam(),
+			'payment_token' => $this->defineParam(),
 		];
 	}
 }

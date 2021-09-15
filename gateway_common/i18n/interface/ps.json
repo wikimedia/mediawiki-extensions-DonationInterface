@@ -152,7 +152,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "لطفاً خپل پوست کوډ کې تېروتنې سمې کړئ",
 	"donate_interface-error-msg-invalid-postal_code": "لطفاً خپل پوست کوډ کې تېروتنې سمې کړئ",
 	"donate_interface-error-msg-country": "هېواد",
-	"donate_interface-error-msg-card_type": "د کرېډټ کارډ ډول",
 	"donate_interface-error-msg-card_num": "د کرېډټ کارډ شمېره",
 	"donate_interface-error-msg-expiration": "لطفاً د کرېډټ کارډ پای نېټه مو ورکړئ",
 	"donate_interface-error-msg-cvv": "لطفاً د کرېډټ کارډ CVV کوډ، چې اکثراً د کارت په شا باندې وي ورکړئ",

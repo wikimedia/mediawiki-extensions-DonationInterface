@@ -175,7 +175,6 @@
 	"donate_interface-error-msg-invalid-postal_code-us": "अपने ज़िप कोड में त्रुटि को सही करें।",
 	"donate_interface-error-msg-invalid-postal_code": "अपने पोस्टल कोड में त्रुटि को सही करें।",
 	"donate_interface-error-msg-country": "कृपया अपने देश का नाम लिखें",
-	"donate_interface-error-msg-card_type": "क्रेडिट कार्ड प्रकार",
 	"donate_interface-error-msg-card_num": "क्रेडिट कार्ड नंबर",
 	"donate_interface-error-msg-expiration": "अपने कार्ड के समाप्ति का तारीख लिखें",
 	"donate_interface-error-msg-cvv": "CVV आपके कार्ड के पीछे से ज्यादातर रहता है, उसे यहाँ लिखें।",
