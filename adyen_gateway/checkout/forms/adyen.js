@@ -176,7 +176,11 @@
 							encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
 							encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
 							encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
-							payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
+							// The code should be available in state.data.paymentMethod.brand, but
+							// sometimes it's not there. We can usually still find it via component.
+							payment_submethod: mapAdyenSubmethod(
+								state.data.paymentMethod.brand || component.state.brand
+							)
 						};
 						if ( state.data.browserInfo ) {
 							extraData.color_depth = state.data.browserInfo.colorDepth;
