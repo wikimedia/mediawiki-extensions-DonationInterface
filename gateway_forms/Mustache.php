@@ -261,7 +261,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		];
 		// These are shown outside of the 'Billing information' block
 		$outside_personal_block = [
-			'opt_in'
+			'opt_in',
+			'country'
 		];
 		$show_personal_block = false;
 		$address_field_count = 0;

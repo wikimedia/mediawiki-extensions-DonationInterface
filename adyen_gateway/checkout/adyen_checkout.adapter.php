@@ -238,6 +238,27 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		];
 	}
 
+	public function getRequiredFields( $knownData = null ) {
+		$fields = parent::getRequiredFields( $knownData );
+		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
+		if ( $method === 'apple' ) {
+			// For Apple Pay, do not require any of the following fields in forms,
+			// regardless of what may be specified in config/country_fields.yaml
+			// We can gather them instead from the Apple Pay UI.
+			$fieldsFromPaySheet = [
+				'first_name',
+				'last_name',
+				'email',
+				'street_address',
+				'postal_code',
+				'city',
+				'state_province'
+			];
+			$fields = array_diff( $fields, $fieldsFromPaySheet );
+		}
+		return $fields;
+	}
+
 	public function getCheckoutConfiguration() {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
