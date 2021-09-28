@@ -3,6 +3,7 @@
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
+use SmashPig\PaymentProviders\PaymentDetailResponse;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
@@ -10,9 +11,9 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 	protected $hostedCheckoutCreateResponse;
 
-	protected $hostedPaymentStatusResponse;
+	protected $hostedPaymentStatusRawResponse;
 
-	protected $hostedPaymentStatusResponseBadCvv;
+	protected $hostedPaymentStatusRawResponseBadCvv;
 
 	protected $approvePaymentResponse;
 
@@ -99,7 +100,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
 		];
 
-		$this->hostedPaymentStatusResponse = [
+		$this->hostedPaymentStatusRawResponse = [
 			"createdPaymentOutput" => [
 				"payment" => [
 					"id" => "000000891566072501680000200001",
@@ -143,10 +144,16 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			"status" => "PAYMENT_CREATED"
 		];
 
-		$this->hostedPaymentStatusResponseBadCvv = $this->hostedPaymentStatusResponse;
-		$this->hostedPaymentStatusResponseBadCvv['createdPaymentOutput']['payment']
+		$this->hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$this->hostedPaymentStatusResponse->setRawResponse( $this->hostedPaymentStatusRawResponse );
+
+		$this->hostedPaymentStatusRawResponseBadCvv = $this->hostedPaymentStatusRawResponse;
+		$this->hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
 			['paymentOutput'] ['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
+
+		$this->hostedPaymentStatusResponseBadCvv = new PaymentDetailResponse();
+		$this->hostedPaymentStatusResponseBadCvv->setRawResponse( $this->hostedPaymentStatusRawResponseBadCvv );
 
 		$this->approvePaymentResponse = ( new ApprovePaymentResponse() )
 			->setRawResponse(

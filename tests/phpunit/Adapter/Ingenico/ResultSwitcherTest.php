@@ -2,6 +2,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\PaymentProviders\PaymentDetailResponse;
 
 /**
  * @group Fundraising
@@ -19,13 +20,20 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$donorTestData['payment_submethod'] = 'visa';
 		$donorTestData['email'] = 'innocent@localhost.net';
 		$donorTestData['order_id'] = (string)mt_rand();
-		$this->hostedPaymentStatusResponse['createdPaymentOutput']
+
+		// FIXME: Maybe add amount and currencyCode to the normalizing too?
+		$rawResponse = $this->hostedPaymentStatusResponse->getRawResponse();
+		$rawResponse ['createdPaymentOutput']
 			['payment']
 			['paymentOutput']
 			['amountOfMoney'] = [
 				'amount' => $donorTestData['amount'] * 100,
 				'currencyCode' => $donorTestData['currency']
 			];
+
+		$hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$hostedPaymentStatusResponse->setRawResponse( $rawResponse );
+
 		$session['Donor'] = $donorTestData;
 		// Mark the order as already popped out of the iframe
 		$session['order_status'][$donorTestData['order_id']] = 'liberated';
@@ -46,7 +54,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		];
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
-			->willReturn( $this->hostedPaymentStatusResponse );
+			->willReturn( $hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
