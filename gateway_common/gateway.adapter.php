@@ -4005,6 +4005,9 @@ abstract class GatewayAdapter implements GatewayType {
 			return false;
 		}
 		$variant = $this->getData_Unstaged_Escaped( 'variant' );
+		if ( $variant === 'noMonthlyConvert' ) {
+			return false;
+		}
 		$isMonthlyConvert = strstr( $variant, 'monthlyConvert' ) !== false;
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
 		if ( !$isMonthlyConvert && $this->isMonthlyConvertCountry() ) {
