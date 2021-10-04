@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
+			"McDutchie",
 			"Thibaut120094",
 			"Verdy p",
 			"Windes",
@@ -41,7 +42,7 @@
 	"apihelp-donate-param-recurring": "Indique que la transaction est destinée à être récurrente.",
 	"apihelp-donate-param-variant": "Indique quelle variante du formulaire le donateur a remplie.",
 	"apihelp-donate-param-opt_in": "Indique que le donateur a opté pour les courriels de collecte de fonds.",
-	"apihelp-donate-param-employer": "Nom de l’employé",
+	"apihelp-donate-param-employer": "Nom de l'employeur",
 	"apihelp-donate-param-employer_id": "ID de l’employeur",
 	"apihelp-donate-example-1": "Faire un don",
 	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de donation côté client.",

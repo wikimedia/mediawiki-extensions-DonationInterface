@@ -474,7 +474,7 @@
 	"donate_interface-emailprefs-thank-you-title": "Merci",
 	"donate_interface-emailprefs-thank-you-text": "Nous attendons impatiemment une relation durable ensemble.",
 	"donate_interface-monthly-convert-title": "Ajouter un don mensuel de <span class=\"mc-convert-ask\"></span> à partir du mois prochain ?",
-	"donate_interface-monthly-convert-title-variant-003": "Merci pour votre <span class=\"mc-convert-donated-amount\"></span> don. Voulez-vous augmenter votre impact avec un <span class=\"mc-convert-ask\"></span> don mensuel, en commençant le mois prochain ?",
+	"donate_interface-monthly-convert-title-variant-003": "Merci pour votre don de <span class=\"mc-convert-donated-amount\"></span>. Voulez-vous augmenter votre impact avec un don mensuel de <span class=\"mc-convert-ask\"></span>, en commençant le mois prochain ?",
 	"donate_interface-monthly-convert-title-variant-004": "Vous venez de donner <span class=\"mc-convert-donated-amount\"></span>. Merci. Voulez-vous envisager d’ajouter un <span class=\"mc-convert-ask\"></span> don mensuel, en commençant le mois prochain ?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, merci pour votre don. Voulez-vous augmenter votre impact avec un <span class=\"mc-convert-ask\"></span> don mensuel, en commençant le mois prochain ?",
 	"donate_interface-monthly-convert-text": "Un soutien mensuel est la meilleure façon de garantir que Wikimédia reste prospère.",
