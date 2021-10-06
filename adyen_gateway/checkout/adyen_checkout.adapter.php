@@ -182,7 +182,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 	 * Add payment-method-specific parameters to the 'authorize' transaction
 	 */
 	protected function tuneForPaymentMethod() {
-		$this->transactions['authorize']['request'][] = 'payment_method';
 		switch ( $this->getPaymentMethod() ) {
 			case 'cc':
 				$this->transactions['authorize']['request']['encrypted_payment_data'] = [
