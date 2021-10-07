@@ -55,6 +55,10 @@
 						resolve();
 					};
 				} );
+				// For Apple Pay show the branded button with 'Donate with 🍎Pay'
+				// text as opposed to our standard blue Donate button
+				config.showPayButton = true;
+				config.buttonType = 'donate';
 
 				return config;
 			default:
@@ -176,7 +180,11 @@
 							encrypted_expiry_month: state.data.paymentMethod.encryptedExpiryMonth,
 							encrypted_expiry_year: state.data.paymentMethod.encryptedExpiryYear,
 							encrypted_security_code: state.data.paymentMethod.encryptedSecurityCode,
-							payment_submethod: mapAdyenSubmethod( state.data.paymentMethod.brand )
+							// The code should be available in state.data.paymentMethod.brand, but
+							// sometimes it's not there. We can usually still find it via component.
+							payment_submethod: mapAdyenSubmethod(
+								state.data.paymentMethod.brand || component.state.brand
+							)
 						};
 						if ( state.data.browserInfo ) {
 							extraData.color_depth = state.data.browserInfo.colorDepth;
@@ -278,12 +286,11 @@
 			} );
 		} else {
 			component.mount( '#' + ui_container_name );
+			// For everything except Apple Pay, show our standard 'Donate' button
+			$( '#paymentSubmit' ).show();
+			$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
+				component.submit( evt );
+			} );
 		}
-
-		$( '#paymentSubmit' ).show();
-		$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
-			mw.donationInterface.validation.validate();
-			component.submit( evt );
-		} );
 	} );
 } )( jQuery, mediaWiki );
