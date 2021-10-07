@@ -18,7 +18,6 @@ state_province: state_province
 street_address: street_address
 user_ip: user_ip
 recurring: recurring
-payment_method: payment_method
 # all of the below are for browser fingerprinting, used in 3DSecure
 userAgent: user_agent
 acceptHeader: accept_header

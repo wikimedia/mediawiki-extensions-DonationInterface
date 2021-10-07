@@ -415,6 +415,7 @@
 	"donate_interface-error-http-403": "Извините, у вас недостаточно прав для доступа к этой странице.",
 	"donate_interface-statement": "Викимедиа $1",
 	"donate_interface-emailprefs-thank-you-text": "Мы рассчитываем на длительные отношения вместе.",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Да, я хочу помочь",
 	"donate_interface-fundraiser-maintenance-header": "Временно отключён для технического обслуживания",
 	"donate_interface-fundraiser-maintenance-notice": "В настоящее время происходит техническое обслуживание и мы не способны принимать пожертвования. Пожалуйста, попробуйте позже. Если у вас есть какие-либо вопросы, напишите по адресу $1."
 }
