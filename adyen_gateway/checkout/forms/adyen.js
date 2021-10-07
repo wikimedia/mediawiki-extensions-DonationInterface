@@ -243,7 +243,8 @@
 			component,
 			component_config,
 			config,
-			ui_container_name;
+			ui_container_name,
+			oldShowErrors;
 
 		payment_method = $( '#payment_method' ).val();
 		component_type = mapPaymentMethodToComponentType( payment_method );
@@ -255,6 +256,34 @@
 		).before(
 			'<div id="action-container" />'
 		);
+
+		// Completely remove the 'continue' button so it doesn't show up
+		// when handling validation errors
+		// TODO: just don't render it in the HTML for Adyen
+		$( '#paymentContinue' ).remove();
+
+		// Override validation's showErrors function to add error
+		// highlights to the outer div around the secure field iframe.
+		// FIXME: cleaner object-oriented JS with inheritance would
+		// make this prettier. See https://phabricator.wikimedia.org/T293287
+		oldShowErrors = mw.donationInterface.validation.showErrors;
+		mw.donationInterface.validation.showErrors = function ( errors ) {
+			var adyenFieldName;
+			$.each( errors, function ( field ) {
+				adyenFieldName = false;
+				if ( field === 'card_num' ) {
+					adyenFieldName = 'encryptedCardNumber';
+				} else if ( field === 'cvv' ) {
+					adyenFieldName = 'encryptedSecurityCode';
+				}
+				if ( adyenFieldName ) {
+					$( 'span[data-cse=' + adyenFieldName + ']' )
+						.closest( '.adyen-checkout__input-wrapper' )
+						.addClass( 'errorHighlight' );
+				}
+			} );
+			oldShowErrors( errors );
+		};
 
 		// TODO: useful comments
 		config = mw.config.get( 'adyenConfiguration' );

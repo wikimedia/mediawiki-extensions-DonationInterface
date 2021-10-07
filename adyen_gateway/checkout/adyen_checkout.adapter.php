@@ -38,6 +38,21 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$this->logger->info( "Calling createPayment for {$authorizeParams['email']}" );
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		$this->logger->info( "Returned PSP Reference {$authorizeResult->getGatewayTxnId()}" );
+		$validationErrors = $authorizeResult->getValidationErrors();
+		// If there are validation errors, present them for correction with a
+		// 'refresh' type PaymentResult
+		if ( count( $validationErrors ) > 0 ) {
+			foreach ( $validationErrors as $error ) {
+				// Add i18n keys to the validation errors
+				$error->setMessageKey(
+					'donate_interface-error-msg-' . $error->getField()
+				);
+				$this->logger->info(
+					'createPayment call came back with validation error in ' . $error->getField()
+				);
+			}
+			return PaymentResult::newRefresh( $validationErrors );
+		}
 		if ( $authorizeResult->requiresRedirect() ) {
 			// Looks like we're not going to finish the payment in this
 			// request - our dear donor needs to take more actions on
