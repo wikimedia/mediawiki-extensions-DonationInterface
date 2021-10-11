@@ -35,7 +35,7 @@ use Wikimedia\TestingAccessWrapper;
  * @category	UnitTesting
  * @package		Fundraising_QueueHandling
  */
-abstract class DonationInterfaceTestCase extends MediaWikiTestCase {
+abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * An array of the vars we expect to be set before people hit payments.
