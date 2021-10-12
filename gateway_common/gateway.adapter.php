@@ -102,7 +102,8 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $payment_methods = [];
 
 	/**
-	 * $payment_submethods will be defined by the adapter.
+	 * $payment_submethods will be defined by the adapter (or will default to an empty
+	 * array if none are defined).
 	 *
 	 * @var array $payment_submethods
 	 */

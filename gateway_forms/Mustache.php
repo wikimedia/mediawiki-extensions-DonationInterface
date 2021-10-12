@@ -180,6 +180,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	}
 
 	protected function addSubmethods( &$data ) {
+		if ( !$this->gatewayPage->showSubmethodButtons() ) {
+			$data['show_submethods'] = false;
+			return;
+		}
+
 		$availableSubmethods = $this->gateway->getAvailableSubmethods();
 		$showPresetSubmethod = !empty( $data['payment_submethod'] ) &&
 			array_key_exists( $data['payment_submethod'], $availableSubmethods );
