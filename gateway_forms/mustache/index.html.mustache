@@ -15,7 +15,7 @@
                     {{ l10n "donate_interface-error-reference" contribution_tracking_id }}
                 {{/order_id}}</p>
 
-			<form name="payment" id="payment-form" method="post" action="{{ action }}">
+			<form name="payment" id="payment-form" method="post" action="{{ action }}" autocomplete="on">
 				<div id="payment_gateway-personal-info">
 						{{{ fieldError "amount" }}}
 						{{{ fieldError "currency" }}}
