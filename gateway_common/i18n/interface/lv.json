@@ -190,6 +190,7 @@
 	"donate_interface-error-msg-branch_code": "Filiāles kods",
 	"donate_interface-error-msg-issuer_id": "banka",
 	"donate_interface-donate-error-try-a-different-card": "Lūdzu, [$1 mēģiniet citu karti] vai kādu no [$2 citiem ziedošanas veidiem] vai sazinieties ar mums, nosūtot e-pastu $3",
+	"donate_interface-donation-cancelled-header": "Tava transakcija tika sekmīgi atcelta",
 	"donate_interface-donate-error-thank-you-for-your-support": "Paldies par jūsu atbalstu!",
 	"donate_interface-error-reference": "Kļūdas reference: $1",
 	"donate_interface-thankyou": "Paldies par jūsu ziedojumu!",
@@ -295,5 +296,6 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "Jā, es vēlos palīdzēt",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nē, paldies",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nē, paldies!",
-	"donate_interface-monthly-convert-no-button-variant-014": "Nē, ne tagad"
+	"donate_interface-monthly-convert-no-button-variant-014": "Nē, ne tagad",
+	"donate_interface-fundraiser-maintenance-header": "Īslaicīgi nepieejams uzturēšanas darbu dēļ"
 }

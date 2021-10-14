@@ -392,6 +392,9 @@
 	"donate_interface-onetime-short": "یک بار",
 	"donate_interface-error-http-403": "شما اجازهٔ دسترسی به این صفحه را ندارید.",
 	"donate_interface-statement": "$1 ویکی‌مدیا",
+	"donate_interface-emailprefs-thank-you-title": "سپاس از شما",
+	"donate_interface-monthly-convert-no-button-variant-011": "خیر، ممنونم!",
+	"donate_interface-monthly-convert-no-button-variant-014": "خیر، الآن نه",
 	"donate_interface-fundraiser-maintenance-header": "به صورت موقف خاموش برای تعمیر و نگهداری",
 	"donate_interface-fundraiser-maintenance-notice": "در حال حاضر برای تعمیر و نگهداری امکان قبول کمک‌های مالی مقدور نیست و لطفاً بعد از مدتی تلاش کنید. در صورتی که سوال دارید به $1 ایمیل بزنید."
 }

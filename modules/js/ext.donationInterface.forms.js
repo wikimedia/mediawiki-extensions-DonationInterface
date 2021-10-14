@@ -154,11 +154,13 @@
 				if ( typeof data.error !== 'undefined' ) {
 					// FIXME alert sux
 					alert( mw.msg( 'donate_interface-error-msg-general' ) );
-					$( '#paymentContinue' ).show(); // Show continue button in 2nd section
+					// Show continue button in 2nd section if it exists
+					$( '#paymentContinue' ).show();
 				} else if ( typeof data.result !== 'undefined' ) {
 					if ( data.result.errors ) {
 						mw.donationInterface.validation.showErrors( data.result.errors );
-						$( '#paymentContinue' ).show(); // Show continue button in 2nd section
+						// Show continue button in 2nd section if it exists
+						$( '#paymentContinue' ).show();
 					} else {
 						successCallback( data.result );
 					}
@@ -225,6 +227,9 @@
 			}
 		} );
 
+		// Some forms show a 'continue' button when validation errors are found
+		// server-side on the initial submit. When shown, it should validate
+		// and submit the form.
 		$( '#paymentContinueBtn' ).on( 'click', function () {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
