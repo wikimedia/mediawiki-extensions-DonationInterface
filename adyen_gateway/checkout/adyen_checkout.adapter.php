@@ -153,7 +153,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
+
 		// Run some post-donation filters and send donation queue message
+		// NOTE: recurring iDEAL will not be added to the donations queue
+		// as the recurring_token is still needed from the ipn message.
+		// We are still sending it through the postProcessDonation flow
+		// to get the additional filters and logging
 		$this->postProcessDonation();
 		return $paymentResult;
 	}
@@ -343,4 +348,28 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// Default behavior is to finalize and return success
 		return parent::processDonorReturn( $requestValues );
 	}
+
+	/**
+	 * Adds a catch to stop recurring iDEALs from being sent to the donations queue
+	 * but otherwise sends to the queues as normal
+	 *
+	 * @param string $queue What queue to send the message to
+	 * @param bool $contactOnly If we only have the donor's contact information
+	 *
+	 */
+	protected function pushMessage( $queue, $contactOnly = false ) {
+		// Don't send recurring iDEALs to the donations queue
+		// recurring iDEAL's recurring_payment_token comes in on a RECURRING_CONTRACT
+		// ipn message, SmashPig's ipn listener is what will push them to the donations queue
+		if (
+			$this->getPaymentSubmethod() == 'rtbt_ideal' &&
+			$this->getData_Unstaged_Escaped( 'recurring' ) &&
+			$queue == 'donations'
+		) {
+			return;
+		}
+		// Send all other adyen messages to the queues as normal
+		parent::pushMessage( $queue, $contactOnly );
+	}
+
 }

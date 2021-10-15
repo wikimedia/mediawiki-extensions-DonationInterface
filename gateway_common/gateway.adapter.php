@@ -2452,6 +2452,14 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * NOTE: Adyen Checkout has it's own pushMessage that does not push recurring
+	 * iDEALs to the donations queue
+	 *
+	 * @param string $queue What queue to send the message to
+	 * @param bool $contactOnly If we only have the donor's contact information
+	 *
+	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
 		if ( $contactOnly ) {
