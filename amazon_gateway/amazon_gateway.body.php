@@ -51,4 +51,15 @@ class AmazonGateway extends GatewayPage {
 	public function showSubmethodButtons() {
 		return false;
 	}
+
+	/**
+	 * Overrides parent function to return false.
+	 *
+	 * @return bool
+	 *
+	 * @see GatewayPage::showContinueButton()
+	 */
+	public function showContinueButton() {
+		return false;
+	}
 }

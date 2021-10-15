@@ -520,4 +520,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function showSubmethodButtons() {
 		return true;
 	}
+
+	/**
+	 * Integrations that never need a continue button should override to return false.
+	 *
+	 * @return bool
+	 */
+	public function showContinueButton() {
+		return true;
+	}
 }

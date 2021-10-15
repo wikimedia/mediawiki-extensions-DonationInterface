@@ -278,11 +278,6 @@
 			'<div id="action-container" />'
 		);
 
-		// Completely remove the 'continue' button so it doesn't show up
-		// when handling validation errors
-		// TODO: just don't render it in the HTML for Adyen
-		$( '#paymentContinue' ).remove();
-
 		// Override validation's showErrors function to add error
 		// highlights to the outer div around the secure field iframe.
 		// FIXME: cleaner object-oriented JS with inheritance would
