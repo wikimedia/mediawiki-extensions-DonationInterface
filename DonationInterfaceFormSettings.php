@@ -703,6 +703,7 @@ $forms['adyen-au'] = [
 	'countries' => [ '+' => [ 'AU' ], ],
 	'currencies' => [ '+' => [ 'AUD', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -725,6 +726,7 @@ $forms['adyen-ca'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'CA' ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -735,6 +737,7 @@ $forms['adyen-fr'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'FR' ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'cb', 'visa', 'mc', 'amex', ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -745,6 +748,7 @@ $forms['adyen-gb'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'GB' ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -755,6 +759,7 @@ $forms['adyen-ie'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'IE' ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb', ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -766,6 +771,7 @@ $forms['adyen-il'] = [
 	'countries' => [ '+' => [ 'IL', ], ],
 	'currencies' => [ '+' => [ 'ILS', 'USD' ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'discover' ],
 	],
 	'selection_weight' => 110,
@@ -775,6 +781,7 @@ $forms['adyen-jp'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'JP', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -786,6 +793,7 @@ $forms['adyen-nl'] = [
 	'countries' => [ '+' => [ 'NL', ], ],
 	'currencies' => [ '+' => [ 'EUR', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 		'rtbt' => [ 'rtbt_ideal' ],
 	],
@@ -809,6 +817,7 @@ $forms['adyen-nz'] = [
 	'countries' => [ '+' => [ 'NZ' ], ],
 	'currencies' => [ '+' => [ 'NZD', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -832,6 +841,7 @@ $forms['adyen-se'] = [
 	'countries' => [ '+' => [ 'SE' ], ],
 	'currencies' => [ '+' => [ 'EUR', 'SEK', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex' ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -855,6 +865,7 @@ $forms['adyen-ua'] = [
 	'countries' => [ '+' => [ 'UA', ], ],
 	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex' ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -866,6 +877,7 @@ $forms['adyen-us'] = [
 	'countries' => [ '+' => [ 'US' ], ],
 	'currencies' => [ '+' => [ 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'discover' ],
 	],
 	// Setting form chooser weight very low so this form is not chosen as default
@@ -877,6 +889,7 @@ $forms['adyen-test'] = [
 	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IE', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
 	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY', 'ILS', 'UAH', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
 		'rtbt' => [ 'rtbt_ideal' ],
 	],
