@@ -245,7 +245,7 @@
 	"donate_interface-otherways": "Sono possibili <a href=\"$1\">altri modi per donare, tra cui PayPal, assegno o posta</a>.",
 	"donate_interface-otherways-alt": "Sono possibili <a href=\"$1\">altri modi per donare</a>, anche con assegno.",
 	"donate_interface-otherways-short": "Altri modi per donare",
-	"donate_interface-token-mismatch": "La sessione è scaduta. Prova compilando e inviando nuovamente il modulo.",
+	"donate_interface-token-mismatch": "La sessione è scaduta. Prova a ricaricare la pagina e inviare nuovamente il modulo.",
 	"donate_interface-cc-token-expired": "Il tuo token è scaduto, clicca su OK per aggiornare.",
 	"donate_interface-try-again": "Non siamo temporaneamente in grado di elaborare la vostra donazione. Si prega di provare di nuovo a breve.",
 	"donate_interface-cc-form-header-personal": "Dati di fatturazione",
