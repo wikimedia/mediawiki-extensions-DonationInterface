@@ -715,6 +715,7 @@ $forms['adyen-au-recurring'] = [
 	'countries' => [ '+' => [ 'AU' ], ],
 	'currencies' => [ '+' => [ 'AUD', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 	],
 	'recurring',
@@ -805,6 +806,7 @@ $forms['adyen-nl-recurring'] = [
 	'countries' => [ '+' => [ 'NL', ], ],
 	'currencies' => [ '+' => [ 'EUR', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'jcb' ],
 		'rtbt' => [ 'rtbt_ideal' ],
 	],
@@ -829,6 +831,7 @@ $forms['adyen-nz-recurring'] = [
 	'countries' => [ '+' => [ 'NZ' ], ],
 	'currencies' => [ '+' => [ 'NZD', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', ],
 	],
 	'recurring',
@@ -853,6 +856,7 @@ $forms['adyen-se-recurring'] = [
 	'countries' => [ '+' => [ 'SE' ], ],
 	'currencies' => [ '+' => [ 'EUR', 'SEK', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex' ],
 	],
 	'recurring',
@@ -902,6 +906,7 @@ $forms['adyen-test-recurring'] = [
 	'countries' => [ '+' => [ 'CA', 'FR', 'GB', 'IE', 'IL', 'JP', 'NL', 'UA', 'US', ], ],
 	'currencies' => [ '+' => [ 'CAD', 'EUR', 'GBP', 'JPY', 'ILS', 'UAH', 'USD', ], ],
 	'payment_methods' => [
+		'apple' => [ 'ALL' ],
 		'cc' => [ 'visa', 'mc', 'amex', 'discover', 'cb' ],
 		'rtbt' => [ 'rtbt_ideal' ],
 	],
