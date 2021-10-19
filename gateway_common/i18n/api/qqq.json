@@ -79,5 +79,6 @@
 	"apihelp-employerSearch-description": "{{doc-apihelp-description|employerSearch}}",
 	"apihelp-employerSearch-summary": "{{doc-apihelp-summary|employerSearch}}",
 	"apihelp-employerSearch-param-employer": "{{doc-apihelp-param|employerSearch|employer}}",
-	"apihelp-employerSearch-example-1": "{{doc-apihelp-example|employerSearch}}"
+	"apihelp-employerSearch-example-1": "{{doc-apihelp-example|employerSearch}}",
+	"apihelp-di_applesession_adyen-summary": "{{doc-apihelp-summary|di_applesession_adyen}}"
 }

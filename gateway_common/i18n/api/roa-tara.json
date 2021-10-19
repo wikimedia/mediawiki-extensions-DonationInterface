@@ -55,5 +55,6 @@
 	"apihelp-employerSearch-description": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
 	"apihelp-employerSearch-summary": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
 	"apihelp-employerSearch-param-employer": "Cè dature de fatìe stonne da cercà pe esembie Red Cross, WWF, Salvation Army, etc.",
-	"apihelp-employerSearch-example-1": "Cirche 'nu datore de fatìe"
+	"apihelp-employerSearch-example-1": "Cirche 'nu datore de fatìe",
+	"apihelp-di_applesession_adyen-summary": "Permette 'a richeiste de 'na sessione Apple Pay derettamende da Apple"
 }

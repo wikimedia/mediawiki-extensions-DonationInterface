@@ -170,9 +170,3 @@ div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
 .adyen-checkout__dropdown__list {
 	border-radius: 0px 0px 2px 2px;
 }
-
-/* Remove extra "continue" button on rtbt
-   TODO: Something to do with the "force" class? */
-#paymentContinue.force {
-	display: none;
-}

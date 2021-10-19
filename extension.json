@@ -47,6 +47,7 @@
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
 		"di_donate_adyen": "AdyenDonationApi",
+		"di_applesession_adyen": "AdyenAppleApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"logPaymentsFormError": "ClientErrorApi",
@@ -163,6 +164,7 @@
 		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
 		"Adyen3DSecure": "adyen_gateway/checkout/Adyen3DSecure.php",
 		"AdyenDonationApi": "adyen_gateway/checkout/adyen.api.php",
+		"AdyenAppleApi": "adyen_gateway/checkout/adyen_apple.api.php",
 		"AdyenCheckoutAdapter": "adyen_gateway/checkout/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/checkout/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/checkout/adyen_checkout_resultswitcher.body.php",

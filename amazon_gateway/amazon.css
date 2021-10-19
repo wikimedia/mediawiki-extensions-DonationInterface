@@ -8,11 +8,3 @@
 	height: 140px;
 	display: none;
 }
-
-dl.submethods {
-	display: none;
-}
-
-#paymentContinue {
-	display: none !important;
-}

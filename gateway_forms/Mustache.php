@@ -137,6 +137,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$this->addFormFields( $data );
 		$this->handleOptIn( $data );
 		$this->addCurrencyData( $data );
+		$data['show_continue'] = $this->gatewayPage->showContinueButton();
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
 	}
