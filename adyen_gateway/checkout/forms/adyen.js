@@ -330,7 +330,12 @@
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
-				throw Error( 'Apple Pay is not available!' );
+				mw.donationInterface.validation.showErrors( {
+					general: mw.message(
+						'donate_interface-error-msg-apple_pay_unsupported',
+						mw.config.get( 'DonationInterfaceOtherWaysURL' )
+					).plain()
+				} );
 			} );
 			// For Apple Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.
