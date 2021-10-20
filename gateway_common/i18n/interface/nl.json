@@ -238,7 +238,7 @@
 	"donate_interface-otherways": "Er zijn <a href=\"$1\">andere manieren om te doneren, inclusief PayPal, cheque of per post</a>.",
 	"donate_interface-otherways-alt": "Er zijn <a href=\"$1\">andere manieren om te doneren</a>, inclusief per cheque.",
 	"donate_interface-otherways-short": "Andere manieren om te geven",
-	"donate_interface-token-mismatch": "Uw sessie is verlopen. Vul het formulier opnieuw in en sla het daarna op.",
+	"donate_interface-token-mismatch": "Uw sessie is verlopen. Herlaad de pagina en stuur het formulier opnieuw in.",
 	"donate_interface-cc-form-header-personal": "Betalingsinformatie",
 	"donate_interface-cc-form-header-payment": "Betalingsinformatie",
 	"donate_interface-make-your-donation": "Doneer nu",

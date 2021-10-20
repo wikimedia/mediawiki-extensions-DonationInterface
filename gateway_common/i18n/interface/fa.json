@@ -235,7 +235,7 @@
 	"donate_interface-otherways": "<a href=\"$1\">راه‌های دیگری برای کمک مالی نظیر پی پال، چک و پست وجود دارد</a>.",
 	"donate_interface-otherways-alt": "<a href=\"$1\">راه‌های دیگری</a> هم برای پرداخت وجود دارد، ازجمله چک.",
 	"donate_interface-otherways-short": "ارسال\">روش‌های دیگر",
-	"donate_interface-token-mismatch": "نشست شما منقضی شده‌است. لطفاً با پرکردن و ارسال فرم، دوباره سعی کنید.",
+	"donate_interface-token-mismatch": "نشست شما منقضی شده‌است. لطفاً با تازه‌سای صفحه و ارسال مجدد فرم، دوباره تلاش کنید.",
 	"donate_interface-cc-token-expired": "بلیط شما منقضی شده‌است، با کلیک بر اوکی صفحه را رفرش کنید.",
 	"donate_interface-cc-form-header-personal": "اطلاعات صورتحساب",
 	"donate_interface-cc-form-header-payment": "اطلاعات پرداخت",

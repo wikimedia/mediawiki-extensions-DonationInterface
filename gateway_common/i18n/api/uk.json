@@ -59,5 +59,6 @@
 	"apihelp-employerSearch-description": "Цей API дозволяє вам шукати працедавців, які беруть участь у програмі підтримки благодійності від ФВМ.",
 	"apihelp-employerSearch-summary": "Цей API дозволяє вам шукати працедавців, які беруть участь у програмі підтримки благодійності від ФВМ.",
 	"apihelp-employerSearch-param-employer": "Якого працедавця шукати, наприклад, Red Cross, WWF, Salvation Army, etc.",
-	"apihelp-employerSearch-example-1": "Шукати працедавця"
+	"apihelp-employerSearch-example-1": "Шукати працедавця",
+	"apihelp-di_applesession_adyen-summary": "Дозволяє запитувати сеанс Apple Pay безпосередньо від Apple"
 }
