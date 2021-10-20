@@ -49,7 +49,6 @@ span.adyen-checkout__label__text {
 	/* inherit cancels the rules set by Adyen; these text properties are
 	   then inherited from the enclosing element, set in the vector skin. */
 	font-size: inherit;
-	font-size: inherit;
 	line-height: inherit;
 }
 
@@ -146,7 +145,6 @@ div.adyen-checkout__dropdown__button--invalid:hover {
 span.adyen-checkout__error-text {
 	/* For error messages, cancel the text sizes set by Adyen; these properties are
 	   then inherited from the enclosing element, set in the vector skin. */
-	font-size: inherit;
 	font-size: inherit;
 	line-height: inherit;
 
