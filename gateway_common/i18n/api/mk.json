@@ -55,5 +55,6 @@
 	"apihelp-employerSearch-description": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
 	"apihelp-employerSearch-summary": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
 	"apihelp-employerSearch-param-employer": "Кој работодавач да се побара. На пр. Црвен крст, Светски фонд за природа, Војска на спасот итн.",
-	"apihelp-employerSearch-example-1": "Пребарајте работодавач"
+	"apihelp-employerSearch-example-1": "Пребарајте работодавач",
+	"apihelp-di_applesession_adyen-summary": "Овозможува барање на седница за Apple Pay непосредно од Apple"
 }

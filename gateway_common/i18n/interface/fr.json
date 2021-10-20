@@ -294,7 +294,7 @@
 	"donate_interface-otherways": "Il y a <a href=\"$1\">d’autres moyens de donner, y compris par PayPal, par chèque ou par courrier postal</a>.",
 	"donate_interface-otherways-alt": "Il y a <a href=\"$1\">d’autres moyens de donner</a>, y compris par chèque.",
 	"donate_interface-otherways-short": "Autres moyens de donner",
-	"donate_interface-token-mismatch": "Votre session a expiré. Veuillez essayer à nouveau de remplir et d’envoyer le formulaire.",
+	"donate_interface-token-mismatch": "Votre session a expiré. Veuillez essayer de recharger la page et d’envoyer le formulaire.",
 	"donate_interface-cc-token-expired": "Votre session a expiré, cliquez sur OK pour la rafraîchir.",
 	"donate_interface-try-again": "Nous sommes temporairement incapables de traiter votre don. S’il vous plaît, essayez à nouveau dans un peu de temps.",
 	"donate_interface-cc-form-header-personal": "Informations de facturation",

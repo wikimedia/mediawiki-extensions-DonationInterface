@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DreZhsh",
 			"Gomoko",
 			"McDutchie",
 			"Thibaut120094",
@@ -60,5 +61,6 @@
 	"apihelp-employerSearch-description": "Cet API vous permet de rechercher des employeurs participant au programme de dons correspondant à WMF.",
 	"apihelp-employerSearch-summary": "Cet API vous permet de rechercher des employeurs participant au programme de dons correspondant à WMF.",
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
-	"apihelp-employerSearch-example-1": "Rechercher un employeur"
+	"apihelp-employerSearch-example-1": "Rechercher un employeur",
+	"apihelp-di_applesession_adyen-summary": "Permet de demander une session Apple Pay directement auprès d'Apple"
 }
