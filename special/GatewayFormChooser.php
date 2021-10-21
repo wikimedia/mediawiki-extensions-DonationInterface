@@ -320,7 +320,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	public static function getOneValidForm( $country = null, $currency = null, $payment_method = null, $payment_submethod = null, $recurring = false, $gateway = null
 	) {
 		$forms = self::getAllValidForms( $country, $currency, $payment_method, $payment_submethod, $recurring, $gateway );
-		$form = self::pickOneForm( $forms, $currency, $country );
+		$form = self::pickOneForm( $forms, $currency, $country, $payment_method );
 
 		// TODO:
 		// This here, would be an excellent place to default to
@@ -493,9 +493,10 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	 * we've used.
 	 * @param string $currency
 	 * @param string $country
+	 * @param string $payment_method
 	 * @return mixed
 	 */
-	protected static function pickOneForm( $valid_forms, $currency, $country ) {
+	protected static function pickOneForm( $valid_forms, $currency, $country, $payment_method ) {
 		if ( count( $valid_forms ) === 1 ) {
 			reset( $valid_forms );
 			return key( $valid_forms );
@@ -557,13 +558,15 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// now, go for the one with the most explicitly defined payment submethods.
 		$submethod_counter = [];
 		foreach ( $valid_forms as $form_name => $meta ) {
-			$submethod_counter[$form_name] = 0;
-			foreach ( $meta['payment_methods'] as $method ) {
-				if ( is_array( $method ) ) {
-					$submethod_counter[$form_name] += count( $method );
-				} elseif ( !empty( $method ) ) {
-					$submethod_counter[$form_name] += 1;
+			if ( array_key_exists( $payment_method, $meta['payment_methods'] ) ) {
+				$submethods = $meta['payment_methods'][$payment_method];
+				if ( is_array( $submethods ) ) {
+					$submethod_counter[$form_name] = count( $submethods );
+				} elseif ( !empty( $submethods ) ) {
+					$submethod_counter[$form_name] = 1;
 				}
+			} else {
+				$submethod_counter[$form_name] = 0;
 			}
 		}
 		arsort( $submethod_counter, SORT_NUMERIC );
