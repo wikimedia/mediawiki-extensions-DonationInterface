@@ -282,7 +282,7 @@
 	"donate_interface-otherways": "Há <a href=\"$1\">outras formas de contribuir, incluindo por PayPal, cheque ou correio</a>.",
 	"donate_interface-otherways-alt": "Há <a href=\"$1\">outras formas de contribuir</a>, incluindo por cheque.",
 	"donate_interface-otherways-short": "Outras formas de contribuir",
-	"donate_interface-token-mismatch": "A sua sessão expirou. Tente preencher e submeter o formulário outra vez, por favor.",
+	"donate_interface-token-mismatch": "A sua sessão expirou. Tente recarregar a página e enviar o formulário novamente.",
 	"donate_interface-cc-token-expired": "Seu token expirou, clique em OK para atualizar.",
 	"donate_interface-try-again": "Estamos temporariamente incapazes de processar sua doação. Por favor, tente novamente em breve.",
 	"donate_interface-cc-form-header-personal": "Informações da fatura",

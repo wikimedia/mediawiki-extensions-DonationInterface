@@ -215,7 +215,7 @@
 	"donate_interface-otherways": "Obstajajo tudi <a href=\"$1\">drugi načini darovanja, vključno s PayPalom, čekom ali poštno nakaznico</a>.",
 	"donate_interface-otherways-alt": "Obstajajo tudi <a href=\"$1\">drugi načini darovanja</a>, vključno s čekom.",
 	"donate_interface-otherways-short": "Drugi načini darovanja",
-	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite znova izpolniti in poslati obrazec.",
+	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite osvežiti stran in ponovno poslati obrazec.",
 	"donate_interface-cc-form-header-personal": "Podatki plačnika",
 	"donate_interface-cc-form-header-payment": "Podatki o plačilu",
 	"donate_interface-make-your-donation": "Oddajte svoj prispevek zdaj",
