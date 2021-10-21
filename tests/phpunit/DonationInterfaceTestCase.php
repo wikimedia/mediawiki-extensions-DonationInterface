@@ -581,7 +581,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		Context::set( null );
 		self::setUpSmashPigContext();
 		// Clear out our HashBagOStuff, used for testing
-		wfGetMainCache()->clear();
+		ObjectCache::getLocalClusterInstance()->clear();
 		DonationLoggerFactory::$overrideLogger = null;
 	}
 

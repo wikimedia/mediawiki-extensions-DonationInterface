@@ -485,7 +485,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 		$key = 'processed_request-' . $request['token'];
-		$processed = wfGetMainCache()->get( $key );
+		$processed = ObjectCache::getLocalClusterInstance()->get( $key );
 		$this->assertTrue( $processed );
 
 		// Make sure we logged the expected cURL attempts
@@ -509,7 +509,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		];
 
 		$key = 'processed_request-' . $init['gateway_session_id'];
-		wfGetMainCache()->add( $key, true, 100 );
+		ObjectCache::getLocalClusterInstance()->add( $key, true, 100 );
 
 		$request = [
 			'token' => $init['gateway_session_id'],
