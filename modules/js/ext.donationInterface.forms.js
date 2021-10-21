@@ -145,6 +145,10 @@
 			$.extend( sendData, extraData );
 		}
 
+		if ( di.forms.debugMessages.length > 0 ) {
+			sendData.debug_messages = di.forms.debugMessages.join( '\n' );
+		}
+
 		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
 			data: sendData,
@@ -200,7 +204,11 @@
 		callDonateApi: callDonateApi,
 		isIframe: isIframe,
 		resetSubmethod: resetSubmethod,
-		getOptIn: getOptIn
+		getOptIn: getOptIn,
+		debugMessages: [],
+		addDebugMessage: function ( message ) {
+			di.forms.debugMessages.push( message );
+		}
 	};
 
 	$( function () {
