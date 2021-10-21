@@ -20,7 +20,7 @@
  */
 class PaymentMethod {
 	/**
-	 * @var GatewayType $gateway
+	 * @var GatewayType
 	 */
 	protected $gateway;
 

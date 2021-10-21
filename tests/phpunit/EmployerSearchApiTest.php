@@ -44,7 +44,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ 'id' => '2', 'name' => 'ACME Inc' ]
 		];
 
-		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
+		$this->assertCount( 1, $apiResult[0]['result'] );
 		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
@@ -69,7 +69,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ 'id' => '2', 'name' => 'ACME Inc' ]
 		];
 
-		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
+		$this->assertCount( 1, $apiResult[0]['result'] );
 		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
@@ -95,7 +95,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ 'id' => '3', 'name' => 'Bills Skateboards' ]
 		];
 
-		$this->assertEquals( 2, count( $apiResult[0]['result'] ) );
+		$this->assertCount( 2, $apiResult[0]['result'] );
 		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
@@ -119,7 +119,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ 'id' => '1', 'name' => 'ACME Subsidiary Company' ]
 		];
 
-		$this->assertEquals( 1, count( $apiResult[0]['result'] ) );
+		$this->assertCount( 1, $apiResult[0]['result'] );
 		$this->assertArrayEquals( $expected, $apiResult[0]['result'], true );
 	}
 
@@ -141,7 +141,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 
-		$this->assertEquals( 0, count( $apiResult[0]['result'] ) );
+		$this->assertCount( 0, $apiResult[0]['result'] );
 	}
 
 	public function testAPIInvalidData() {

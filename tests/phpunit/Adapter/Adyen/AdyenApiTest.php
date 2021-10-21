@@ -99,7 +99,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
 		);
-		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
+		$this->assertCount( 1, $logged, 'Should have logged details once' );
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
@@ -221,7 +221,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
 		);
-		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
+		$this->assertCount( 1, $logged, 'Should have logged details once' );
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );
@@ -316,7 +316,7 @@ class AdyenApiTest extends DonationInterfaceApiTestCase {
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
 		);
-		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
+		$this->assertCount( 1, $logged, 'Should have logged details once' );
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$actual = json_decode( $detailString, true );

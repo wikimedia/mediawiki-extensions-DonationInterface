@@ -104,7 +104,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		$this->doApiRequest( $init, $session );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
-		$this->assertEquals( '1', $message['opt_in'] );
+		$this->assertSame( '1', $message['opt_in'] );
 	}
 
 	public function testSubmitOptInFalse() {
@@ -124,7 +124,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		$this->doApiRequest( $init, $session );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
-		$this->assertEquals( '0', $message['opt_in'] );
+		$this->assertSame( '0', $message['opt_in'] );
 	}
 
 	public function testSubmitFailInitialFilters() {

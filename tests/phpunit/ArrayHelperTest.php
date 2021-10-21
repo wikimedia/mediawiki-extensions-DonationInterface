@@ -128,7 +128,7 @@ class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 	}
 
 	protected function getCallback() {
-		return function ( $key ) {
+		return static function ( $key ) {
 			if ( $key === 'wool_of_bat' ) {
 				return '';
 			}

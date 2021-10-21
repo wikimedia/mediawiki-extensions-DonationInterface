@@ -149,7 +149,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 		$this->hostedPaymentStatusRawResponseBadCvv = $this->hostedPaymentStatusRawResponse;
 		$this->hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
-			['paymentOutput'] ['cardPaymentMethodSpecificOutput']['fraudResults']
+			['paymentOutput']['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
 
 		$this->hostedPaymentStatusResponseBadCvv = new PaymentDetailResponse();

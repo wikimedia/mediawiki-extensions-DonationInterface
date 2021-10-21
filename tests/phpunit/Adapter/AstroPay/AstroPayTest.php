@@ -16,7 +16,7 @@
  *
  */
 
-use \Psr\Log\LogLevel;
+use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\FinalStatus;
@@ -34,7 +34,7 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -159,7 +159,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$gateway->do_transaction( 'NewInvoice' );
 
-		$this->assertEquals( true, $gateway->getTransactionStatus(),
+		$this->assertTrue( $gateway->getTransactionStatus(),
 			'Transaction status should be true for code "0"' );
 
 		$this->assertFalse( $gateway->getErrorState()->hasErrors(),
@@ -177,7 +177,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$gateway->do_transaction( 'NewInvoice' );
 
-		$this->assertEquals( false, $gateway->getTransactionStatus(),
+		$this->assertFalse( $gateway->getTransactionStatus(),
 			'Transaction status should be false for bad format' );
 	}
 
@@ -436,7 +436,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$gateway = new TestingAstroPayAdapter();
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$this->assertEquals( '22.55', $amount );
+		$this->assertSame( '22.55', $amount );
 
 		$requestValues = [
 			'result' => '9',
@@ -452,7 +452,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$result = $gateway->processDonorReturn( $requestValues );
 		$this->assertFalse( $result->isFailed() );
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
-		$this->assertEquals( '100.00', $amount, 'Not recording correct amount' );
+		$this->assertSame( '100.00', $amount, 'Not recording correct amount' );
 	}
 
 	/**
@@ -571,7 +571,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$staged = $exposed->getData_Staged( 'fiscal_number' );
-		$this->assertEquals( '00003456789', $staged, 'Not stripping fiscal_number punctuation in doPayment' );
+		$this->assertSame( '00003456789', $staged, 'Not stripping fiscal_number punctuation in doPayment' );
 	}
 
 	/**

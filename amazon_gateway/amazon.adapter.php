@@ -4,8 +4,8 @@ use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\PaymentError;
-use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ErrorCode;
+use SmashPig\PaymentData\FinalStatus;
 
 /**
  * Wikimedia Foundation

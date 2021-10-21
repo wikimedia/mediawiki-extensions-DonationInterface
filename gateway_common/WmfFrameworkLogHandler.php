@@ -18,7 +18,7 @@ class WmfFrameworkLogHandler extends AbstractProcessingHandler {
 	/**
 	 * @param string $identifier String to write to wfDebugLog/watchdog
 	 * @param int $level The minimum logging level at which this handler will be triggered, as defined in \Monolog\Logger
-	 * @param Boolean $bubble Whether the messages that are handled can bubble up the stack or not
+	 * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
 	 */
 	public function __construct( $identifier, $level = Logger::DEBUG, $bubble = true ) {
 		$this->identifier = $identifier;

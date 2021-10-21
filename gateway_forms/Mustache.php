@@ -1,9 +1,9 @@
 <?php
 
-use SmashPig\Core\PaymentError;
-use SmashPig\Core\ValidationError;
 use LightnCandy\LightnCandy;
 use MediaWiki\MediaWikiServices;
+use SmashPig\Core\PaymentError;
+use SmashPig\Core\ValidationError;
 
 /**
  * Gateway form rendering using Mustache
@@ -367,7 +367,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
-		if ( doubleval( $data['amount'] ) === 0.0 ) {
+		if ( floatval( $data['amount'] ) === 0.0 ) {
 			$data['amount'] = '';
 		}
 	}

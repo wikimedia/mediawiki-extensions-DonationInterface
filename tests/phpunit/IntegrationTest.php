@@ -25,7 +25,7 @@ use Psr\Log\LogLevel;
 class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -71,7 +71,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$paymentForms = $paypalRequest->getSessionData( 'PaymentForms' );
 		// check to see that we have a numAttempt and form set in the session
 		$this->assertEquals( 'paypal', $paymentForms[0], "Paypal didn't load its form." );
-		$this->assertEquals( '1', $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
+		$this->assertSame( 1, $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
 		// now, get GC.
 		$options['payment_method'] = 'cc';
 		unset( $options['ffname'] );

@@ -633,7 +633,7 @@ EOT;
 			return true;
 		}
 
-		$haystack = array_filter( $haystack, function ( $value ) {
+		$haystack = array_filter( $haystack, static function ( $value ) {
 			return !is_array( $value );
 		} );
 		$result = array_intersect( $haystack, $needle );

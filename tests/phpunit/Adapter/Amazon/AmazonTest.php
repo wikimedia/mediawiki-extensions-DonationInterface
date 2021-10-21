@@ -15,10 +15,10 @@
  * GNU General Public License for more details.
  */
 
-use SmashPig\PaymentData\ErrorCode;
-use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
 use SmashPig\Tests\TestingContext;
 

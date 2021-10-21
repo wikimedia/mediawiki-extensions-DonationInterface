@@ -27,7 +27,7 @@ use SmashPig\PaymentData\FinalStatus;
 class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -88,7 +88,7 @@ class DonationInterface_Adapter_GlobalCollect_RecurringTest extends DonationInte
 
 		$this->assertRegExp( '/GET_ORDERSTATUS/', $result->getRawResponse(),
 			'Stopped after GET_ORDERSTATUS.' );
-		$this->assertEquals( 2, count( $gateway->curled ),
+		$this->assertCount( 2, $gateway->curled,
 			'Expected 2 API calls' );
 		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
 	}

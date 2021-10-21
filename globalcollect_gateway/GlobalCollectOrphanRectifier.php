@@ -200,7 +200,7 @@ class GlobalCollectOrphanRectifier {
 
 			// handles the transactions we've cancelled ourselves... though if they got this far, that's a problem too.
 			$errors = $results->getErrors();
-			$finder = function ( $error ) {
+			$finder = static function ( $error ) {
 				return $error->getErrorCode() == '1000001';
 			};
 			if ( !empty( $errors ) && !empty( array_filter( $errors, $finder ) ) ) {

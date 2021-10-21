@@ -1,7 +1,7 @@
 <?php
 
-use SmashPig\Core\ValidationError;
 use GeoIp2\Database\Reader;
+use SmashPig\Core\ValidationError;
 
 class CountryValidation implements ValidationHelper {
 

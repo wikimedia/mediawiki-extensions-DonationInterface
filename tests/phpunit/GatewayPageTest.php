@@ -167,7 +167,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, [], false, $session );
 
 		$logged = self::getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );
-		$this->assertEquals( 1, count( $logged ), 'Should have logged details once' );
+		$this->assertCount( 1, $logged, 'Should have logged details once' );
 		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
 		$detailString = $matches[1];
 		$expected = [

@@ -94,7 +94,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	protected function addNowToCachedValue( $oldvalue = null, $fail = false, $toxic = false ) {
 		// need to be connected first.
-		if ( is_null( $oldvalue ) ) {
+		if ( $oldvalue === null ) {
 			$oldvalue = $this->getCachedValue();
 		}
 
@@ -102,10 +102,10 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		if ( $toxic ) {
 			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityToxicDuration' );
 		}
-		if ( is_null( $timeout ) && $fail ) {
+		if ( $timeout === null && $fail ) {
 			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityFailDuration' );
 		}
-		if ( is_null( $timeout ) ) {
+		if ( $timeout === null ) {
 			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityTimeout' );
 		}
 

@@ -102,8 +102,8 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 	 */
 	public function testGetZeroPaddedValue() {
 		// make sure that it works in the two main categories of ways it should work
-		$this->assertEquals( '00123', DataValidator::getZeroPaddedValue( '123', 5 ), "getZeroPaddedValue does not properly pad out a value in the simplest case" );
-		$this->assertEquals( '00123', DataValidator::getZeroPaddedValue( '0000123', 5 ), "getZeroPaddedValue does not properly unpad and re-pad a value when leading zeroes exist in the initial value" );
+		$this->assertSame( '00123', DataValidator::getZeroPaddedValue( '123', 5 ), "getZeroPaddedValue does not properly pad out a value in the simplest case" );
+		$this->assertSame( '00123', DataValidator::getZeroPaddedValue( '0000123', 5 ), "getZeroPaddedValue does not properly unpad and re-pad a value when leading zeroes exist in the initial value" );
 
 		// make sure it fails gracefully when asked to do something silly.
 		$this->assertFalse( DataValidator::getZeroPaddedValue( '123456', 5 ), "getZeroPaddedValue does not return false when the exact desired value is impossible" );

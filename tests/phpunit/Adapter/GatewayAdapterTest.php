@@ -130,7 +130,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		// check the ConfigurationReader loaded in the optional fields and they're left over
 		// when requiredFields are filtered out
-		$optionals = array_filter( array_keys( $allFields ), function ( $field ) use ( $requiredFields ) {
+		$optionals = array_filter( array_keys( $allFields ), static function ( $field ) use ( $requiredFields ) {
 			// we only want values NOT in requiredFields
 			return !in_array( $field, $requiredFields );
 		} );
@@ -214,14 +214,14 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'en', "'US' donor's language was inproperly set. Should be 'en'" );
+		$this->assertEquals( 'en', $exposed->getData_Staged( 'language' ), "'US' donor's language was inproperly set. Should be 'en'" );
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		// so we know it tried to screw with the session and such.
 
 		$options = $this->getDonorTestData( 'NO' );
 		$gateway = $this->getFreshGatewayObject( $options );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->assertEquals( 'no', $exposed->getData_Staged( 'language' ), "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
 	/**
@@ -266,7 +266,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
 		$donorData = $firstRequest->getSessionData( 'Donor' );
-		$this->assertEquals( '', $donorData['recurring'], 'Test setup failed.' );
+		$this->assertSame( '', $donorData['recurring'], 'Test setup failed.' );
 
 		// Then they go back and decide they want to make a recurring donation
 
@@ -277,7 +277,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$recurOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 		$donorData = $secondRequest->getSessionData( 'Donor' );
-		$this->assertEquals( '1', $donorData['recurring'], 'Test setup failed.' );
+		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
 
 		$this->assertNotEquals( $oneTimeOrderId, $recurOrderId,
 			'Order ID was not regenerated on recurring switch!' );
@@ -308,7 +308,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$newSubmethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
 
 		$this->assertEquals( 'cc', $newMethod, 'Test setup failed' );
-		$this->assertEquals( '', $newSubmethod, 'Submethod was not blanked on method switch' );
+		$this->assertSame( '', $newSubmethod, 'Submethod was not blanked on method switch' );
 	}
 
 	public function testStreetStaging() {
@@ -365,7 +365,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		);
 		$exposed->unstageData();
 
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			$exposed->getData_Unstaged_Escaped( 'street_address' ),
 			'The street address placeholder is only for AVS, not for us.'
@@ -390,7 +390,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		);
 		$exposed->unstageData();
 
-		$this->assertEquals(
+		$this->assertSame(
 			'',
 			$exposed->getData_Unstaged_Escaped( 'postal_code' ),
 			'The postal code placeholder is only for AVS, not for our records.'
@@ -493,7 +493,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->getScoreName();
-		$this->assertEquals( 0, $result, 'Short name not skipped' );
+		$this->assertSame( 0, $result, 'Short name not skipped' );
 	}
 
 	public function TestSetValidationAction() {

@@ -16,14 +16,14 @@
  *
  */
 use Psr\Log\LogLevel;
+use RemexHtml\DOM;
+use RemexHtml\Tokenizer;
+use RemexHtml\TreeBuilder;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
-use RemexHtml\DOM;
-use RemexHtml\Tokenizer;
-use RemexHtml\TreeBuilder;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -50,7 +50,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	/**
 	 * This will be set by a test method with the adapter object.
 	 *
-	 * @var GatewayAdapter	$gatewayAdapter
+	 * @var GatewayAdapter
 	 */
 	protected $gatewayAdapter;
 
@@ -525,14 +525,14 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 */
 	public function getFreshGatewayObject( $external_data = null, $setup_hacks = [] ) {
 		$data = null;
-		if ( !is_null( $external_data ) ) {
+		if ( $external_data !== null ) {
 			$data = [
 				'external_data' => $external_data,
 			];
 		}
 
 		if ( $setup_hacks ) {
-			if ( !is_null( $data ) ) {
+			if ( $data !== null ) {
 				$data = array_merge( $data, $setup_hacks );
 			} else {
 				$data = $setup_hacks;
@@ -706,7 +706,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 						break;
 					case 'nodehtmlmatches':
 						$html = $dom_thingy->saveXML( $input_node );
-						$this->assertEquals( 1, preg_match( $expected, $html ), "HTML of the node with id '$id' does not match pattern '$expected'. It has value " . $html );
+						$this->assertSame( 1, preg_match( $expected, $html ), "HTML of the node with id '$id' does not match pattern '$expected'. It has value " . $html );
 						break;
 					case 'innerhtml':
 						$actual_html = self::getInnerHTML( $input_node );
@@ -715,7 +715,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'" );
 						break;
 					case 'innerhtmlmatches':
-						$this->assertEquals( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
+						$this->assertSame( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
 						break;
 					case 'value':
 						$this->performCheck( $input_node->getAttribute( 'value' ), $expected, "value of node with id '$id'" );

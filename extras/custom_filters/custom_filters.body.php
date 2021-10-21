@@ -99,7 +99,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 * @return float total risk score
 	 */
 	public function getRiskScore( $scoreArray = null ) {
-		if ( is_null( $scoreArray ) ) {
+		if ( $scoreArray === null ) {
 			$scoreArray = $this->risk_score;
 		}
 

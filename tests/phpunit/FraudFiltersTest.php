@@ -32,12 +32,12 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @var MockObject $requestFactory
+	 * @var MockObject
 	 */
 	protected $requestFactory;
 
 	/**
-	 * @var MockObject $request
+	 * @var MockObject
 	 */
 	protected $request;
 

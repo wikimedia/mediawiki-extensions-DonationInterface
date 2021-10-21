@@ -318,7 +318,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		// we can flatten in a custom way per transaction type. Or we should
 		// expand var_map to work with nested stuff.
 		$flattened = [];
-		$squashMe = function ( $sourceData, $squashMe ) use ( &$flattened ) {
+		$squashMe = static function ( $sourceData, $squashMe ) use ( &$flattened ) {
 			foreach ( $sourceData as $key => $value ) {
 				if ( is_array( $value ) ) {
 					call_user_func( $squashMe, $value, $squashMe );

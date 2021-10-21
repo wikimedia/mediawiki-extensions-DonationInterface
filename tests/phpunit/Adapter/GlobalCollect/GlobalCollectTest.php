@@ -45,7 +45,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	}
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -81,19 +81,19 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$session['Donor']['order_id'] = '44444';
 		$this->setUpRequest( $request, $session );
 		$gateway = new TestingGlobalCollectAdapter();
-		$this->assertEquals( '55555', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is preferring session data over the request. Session should be secondary.' );
+		$this->assertSame( '55555', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is preferring session data over the request. Session should be secondary.' );
 
 		// conflicting order_id in request and session, garbage data in request, default GC generation
 		$request['order_id'] = 'nonsense!';
 		$this->setUpRequest( $request, $session );
 		$gateway = new TestingGlobalCollectAdapter();
-		$this->assertEquals( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not ignoring nonsensical order_id candidates' );
+		$this->assertSame( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not ignoring nonsensical order_id candidates' );
 
 		// order_id in session, default GC generation
 		unset( $request['order_id'] );
 		$this->setUpRequest( $request, $session );
 		$gateway = new TestingGlobalCollectAdapter();
-		$this->assertEquals( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not recognizing the session order_id' );
+		$this->assertSame( '44444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'GlobalCollect gateway is not recognizing the session order_id' );
 
 		// conflicting order_id in external data, request and session, explicit GC generation, batch mode
 		$request['order_id'] = '33333';
@@ -266,14 +266,14 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
-		$this->assertEquals( '12.50', $amount );
+		$this->assertSame( '12.50', $amount );
 		$this->assertEquals( 'USD', $currency );
 
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 
 		$amount = $gateway->getData_Unstaged_Escaped( 'amount' );
 		$currency = $gateway->getData_Unstaged_Escaped( 'currency' );
-		$this->assertEquals( '23.45', $amount, 'Not recording correct amount' );
+		$this->assertSame( 23.45, $amount, 'Not recording correct amount' );
 		$this->assertEquals( 'EUR', $currency, 'Not recording correct currency' );
 	}
 
@@ -364,7 +364,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no', "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->assertEquals( 'no', $exposed->getData_Staged( 'language' ), "'NO' donor's language was inproperly set. Should be 'no'" );
 	}
 
 	public function testLanguageFallbackStaging() {
@@ -460,7 +460,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( $code );
 		$gateway->do_transaction( 'Confirm_CreditCard' );
-		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
+		$this->assertCount( 1, $gateway->curled, "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
 	}
 
 	/**
@@ -583,7 +583,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$orig_id = $gateway->getData_Unstaged_Escaped( 'order_id' );
-		$gateway::setDummyGatewayResponseCode( function ( $gateway ) use ( $orig_id ) {
+		$gateway::setDummyGatewayResponseCode( static function ( $gateway ) use ( $orig_id ) {
 			if ( $gateway->getData_Unstaged_Escaped( 'order_id' ) === $orig_id ) {
 				return 'duplicate';
 			} else {

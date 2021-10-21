@@ -115,7 +115,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		// (should be the languages we can send e-mails to)
 		$displayLanguages = array_filter(
 			$languages,
-			function ( $code ) use ( $wgDonationInterfaceEmailPrefCtrLanguages ) {
+			static function ( $code ) use ( $wgDonationInterfaceEmailPrefCtrLanguages ) {
 				return in_array( $code, $wgDonationInterfaceEmailPrefCtrLanguages );
 			},
 			ARRAY_FILTER_USE_KEY

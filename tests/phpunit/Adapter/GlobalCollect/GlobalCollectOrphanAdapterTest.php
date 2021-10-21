@@ -56,7 +56,7 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 	}
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -93,11 +93,11 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 		// now, add data and check that we didn't kill the oid. Still generating.
 		$gateway->loadDataAndReInit( $data );
-		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '55555', 'loadDataAndReInit failed to stick OrderID' );
+		$this->assertSame( '55555', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'loadDataAndReInit failed to stick OrderID' );
 
 		$data['order_id'] = '444444';
 		$gateway->loadDataAndReInit( $data );
-		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '444444', 'loadDataAndReInit failed to stick OrderID' );
+		$this->assertSame( '444444', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'loadDataAndReInit failed to stick OrderID' );
 
 		$this->verifyNoLogErrors();
 	}
@@ -113,11 +113,11 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 		// now, add data and check that we didn't kill the oid. Still not generating
 		$gateway->loadDataAndReInit( $data );
-		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '66666', 'loadDataAndReInit failed to stick OrderID' );
+		$this->assertSame( '66666', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'loadDataAndReInit failed to stick OrderID' );
 
 		$data['order_id'] = '777777';
 		$gateway->loadDataAndReInit( $data );
-		$this->assertEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), '777777', 'loadDataAndReInit failed to stick OrderID on second batch item' );
+		$this->assertSame( '777777', $gateway->getData_Unstaged_Escaped( 'order_id' ), 'loadDataAndReInit failed to stick OrderID on second batch item' );
 
 		$this->verifyNoLogErrors();
 	}
@@ -140,11 +140,11 @@ class DonationInterface_Adapter_GlobalCollect_Orphans_GlobalCollectTest extends 
 
 		$gateway::setDummyGatewayResponseCode( $code );
 		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
-		$this->assertEquals( 1, count( $gateway->curled ), "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
-		$this->assertEquals( false, $result->getCommunicationStatus(), "Error code $code should mean status of do_transaction is false" );
+		$this->assertCount( 1, $gateway->curled, "Gateway kept trying even with response code $code!  Mastercard could fine us a thousand bucks for that!" );
+		$this->assertFalse( $result->getCommunicationStatus(), "Error code $code should mean status of do_transaction is false" );
 		$errors = $result->getErrors();
 		$this->assertFalse( empty( $errors ), 'Orphan adapter needs to see the errors to consider it rectified' );
-		$finder = function ( $error ) {
+		$finder = static function ( $error ) {
 			return $error->getErrorCode() == '1000001';
 		};
 		$this->assertNotEmpty( array_filter( $errors, $finder ), 'Orphan adapter needs error 1000001 to consider it rectified' );

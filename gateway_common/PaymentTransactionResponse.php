@@ -26,7 +26,7 @@ class PaymentTransactionResponse {
 	protected $message;
 
 	/**
-	 * @var boolean denoting if there were internal errors on our end,
+	 * @var bool denoting if there were internal errors on our end,
 	 * or at the gateway.
 	 */
 	protected $communicationStatus;
@@ -38,7 +38,7 @@ class PaymentTransactionResponse {
 
 	/**
 	 * FIXME: get rid of this, maybe make it a new action?
-	 * @var boolean whether to force cancellation of this transaction (flags
+	 * @var bool whether to force cancellation of this transaction (flags
 	 * things we could get fined for retrying)
 	 */
 	protected $forceCancel;

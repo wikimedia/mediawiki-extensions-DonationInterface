@@ -115,26 +115,26 @@ $wgDonationInterfaceGatewayAdapters = [
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
  */
-/** DonationInterface General Settings **/
+/** DonationInterface General Settings */
 $wgDonationInterfaceTest = true;
 $wgDonationInterfaceMerchantID = 'test';
 
 $wgDonationInterfaceThankYouPage = 'https://donate.wikimedia.org/wiki/Thank_You';
 
-/** GlobalCollect **/
+/** GlobalCollect */
 $wgGlobalCollectGatewayAccountInfo = [];
 $wgGlobalCollectGatewayAccountInfo['test'] = [
 	'MerchantID' => 'test',
 ];
 
-/** Paypal **/
+/** Paypal */
 $wgPaypalGatewayAccountInfo = [];
 $wgPaypalGatewayAccountInfo['testing'] = [
 	'AccountEmail' => 'phpunittesting@wikimedia.org',
 ];
 $wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
 
-/** Paypal Express Checkout **/
+/** Paypal Express Checkout */
 $wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewayTestingURL = 'https://api-3t.sandbox.paypal.com/nvp';
 $wgPaypalExpressGatewaySignatureURL = $wgPaypalExpressGatewayURL;
@@ -145,7 +145,7 @@ $wgPaypalExpressGatewayAccountInfo['test'] = [
 	'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=',
 ];
 
-/** Amazon **/
+/** Amazon */
 $wgAmazonGatewayReturnURL = 'https://payments.wikimedia.org/index.php/Special:AmazonGateway';
 $wgAmazonGatewayAccountInfo = [];
 $wgAmazonGatewayAccountInfo['test'] = [
@@ -158,7 +158,7 @@ $wgAmazonGatewayAccountInfo['test'] = [
 $wgAmazonGatewayFallbackCurrency = false;
 $wgAmazonGatewayNotifyOnConvert = false;
 
-/** Adyen **/
+/** Adyen */
 $wgAdyenGatewayURL = 'https://testorwhatever.adyen.com';
 $wgAdyenGatewayAccountInfo = [];
 $wgAdyenGatewayAccountInfo['test'] = [
@@ -175,7 +175,7 @@ $wgAdyenGatewayAccountInfo['test'] = [
 	],
 ];
 
-/** Adyen Checkout **/
+/** Adyen Checkout */
 $wgAdyenCheckoutGatewayURL = 'https://testorwhatevercheckout.adyen.com';
 $wgAdyenCheckoutGatewayAccountInfo = [];
 $wgAdyenCheckoutGatewayAccountInfo['test'] = [
@@ -191,7 +191,7 @@ $wgAdyenCheckoutGatewayAccountInfo['test'] = [
 	'Environment' => 'test',
 ];
 
-/** AstroPay **/
+/** AstroPay */
 $wgAstroPayGatewayURL = 'https://astropay.example.com/';
 $wgAstroPayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
 $wgAstroPayGatewayAccountInfo = [];

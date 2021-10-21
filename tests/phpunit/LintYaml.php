@@ -6,7 +6,7 @@ use Symfony\Component\Yaml\Parser;
 
 function runForYamlFiles( $callback ) {
 	$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/../' );
-	$filter = new RecursiveCallbackFilterIterator( $directoryIterator, function ( $current, $key, $iterator ) {
+	$filter = new RecursiveCallbackFilterIterator( $directoryIterator, static function ( $current, $key, $iterator ) {
 		// Skip tests and vendor directories.
 		if ( $current->getFilename() === 'tests'
 			|| $current->getFilename() === 'vendor'

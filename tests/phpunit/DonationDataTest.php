@@ -17,8 +17,8 @@
  */
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\Core\SequenceGenerators;
+use SmashPig\CrmLink\Messages\SourceFields;
 
 /**
  * @group Fundraising
@@ -29,7 +29,7 @@ use SmashPig\Core\SequenceGenerators;
 class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -261,8 +261,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		unset( $data['postal_code'] );
 
 		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data ); // change to test mode with explicit test data
-		$this->assertEquals( $ddObj->isSomething( 'postal_code' ), false, "Zip should currently be nothing." );
-		$this->assertEquals( $ddObj->isSomething( 'last_name' ), true, "last_name should currently be something." );
+		$this->assertFalse( $ddObj->isSomething( 'postal_code' ), "Zip should currently be nothing." );
+		$this->assertTrue( $ddObj->isSomething( 'last_name' ), "last_name should currently be something." );
 	}
 
 	/**
@@ -367,7 +367,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 	/**
 	 *
-	*/
+	 */
 	public function testSendToContributionTrackingQueue() {
 		$queueName = 'contribution-tracking';
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( $queueName );
@@ -449,22 +449,22 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	/**
 	 * TODO: Make sure ALL these functions in DonationData are tested, either directly or through a calling function.
 	 * I know that's more regression-ish, but I stand by it. :p
-	public function setNormalizedOrderIDs(){
-	public function generateOrderId() {
-	public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
-	public function setGateway(){
-	public function doCacheStuff(){
-	public function getEditToken( $salt = '' ) {
-	public static function generateToken( $salt = '' ) {
-	public function matchEditToken( $val, $salt = '' ) {
-	public function unsetEditToken() {
-	public function checkTokens() {
-	public function wasPosted(){
-	public function setUtmSource() {
-	public function getCleanTrackingData( $unset = false ) {
-	public function saveContributionTracking() {
-	public static function insertContributionTracking( $tracking_data ) {
-	public function updateContributionTracking( $force = false ) {
-
-	*/
+	 * public function setNormalizedOrderIDs(){
+	 * public function generateOrderId() {
+	 * public function sanitizeInput( &$value, $key, $flags=ENT_COMPAT, $double_encode=false ) {
+	 * public function setGateway(){
+	 * public function doCacheStuff(){
+	 * public function getEditToken( $salt = '' ) {
+	 * public static function generateToken( $salt = '' ) {
+	 * public function matchEditToken( $val, $salt = '' ) {
+	 * public function unsetEditToken() {
+	 * public function checkTokens() {
+	 * public function wasPosted(){
+	 * public function setUtmSource() {
+	 * public function getCleanTrackingData( $unset = false ) {
+	 * public function saveContributionTracking() {
+	 * public static function insertContributionTracking( $tracking_data ) {
+	 * public function updateContributionTracking( $force = false ) {
+	 *
+	 */
 }

@@ -94,7 +94,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$this->assertEmpty( $result->getErrors() );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message );
-		$this->assertEquals( 1, $message['recurring'] );
+		$this->assertSame( '1', $message['recurring'] );
 		$this->assertEquals(
 			$token,
 			$message['recurring_payment_token']
@@ -150,9 +150,9 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 			$result->getRawResponse(),
 			'Stopped after GET_ORDERSTATUS.'
 		);
-		$this->assertEquals(
+		$this->assertCount(
 			2,
-			count( $gateway->curled ),
+			$gateway->curled,
 			'Expected 2 API calls'
 		);
 		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );

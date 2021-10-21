@@ -63,7 +63,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$this->assertEquals( 1, count( $gateway->curled ), 'Should have made 1 API call' );
+		$this->assertCount( 1, $gateway->curled, 'Should have made 1 API call' );
 		$apiCall = $gateway->curled[0];
 		$parsed = [];
 		parse_str( $apiCall, $parsed );
@@ -157,7 +157,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$this->assertEquals( 1, count( $gateway->curled ), 'Should have made 1 API call' );
+		$this->assertCount( 1, $gateway->curled, 'Should have made 1 API call' );
 		$apiCall = $gateway->curled[0];
 		$parsed = [];
 		parse_str( $apiCall, $parsed );
@@ -428,7 +428,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		] );
 
 		$this->assertEquals( FinalStatus::COMPLETE, $gateway->getFinalStatus(), 'Should have Final Status Complete' );
-		$this->assertEquals( 1, count( $gateway->curled ), 'Should only call curl once' );
+		$this->assertCount( 1, $gateway->curled, 'Should only call curl once' );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
 	}
@@ -450,7 +450,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		] );
 
 		$this->assertEquals( FinalStatus::TIMEOUT, $gateway->getFinalStatus(), 'Should have Final Status Timeout' );
-		$this->assertEquals( 1, count( $gateway->curled ), 'Should only call curl once' );
+		$this->assertCount( 1, $gateway->curled, 'Should only call curl once' );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
 	}
@@ -538,7 +538,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$message = $this->createOrphan( [ 'gateway' => 'paypal', 'payment_method' => 'paypal' ] );
 		$this->gatewayAdapter = $this->getFreshGatewayObject( $message );
 		$result = $this->gatewayAdapter->shouldRectifyOrphan();
-		$this->assertEquals( $result, true, 'shouldRectifyOrphan returning false.' );
+		$this->assertTrue( $result, 'shouldRectifyOrphan returning false.' );
 	}
 
 	/**
