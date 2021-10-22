@@ -58,5 +58,6 @@
 	"apihelp-employerSearch-description": "Essa API permite procurar empregadores que participam do programa de presentes correspondentes do WMF.",
 	"apihelp-employerSearch-summary": "Essa API permite procurar empregadores que participam do programa de presentes correspondentes do WMF.",
 	"apihelp-employerSearch-param-employer": "Qual empregador procurar, por exemplo Cruz Vermelha, WWF, Exército de Salvação, etc.",
-	"apihelp-employerSearch-example-1": "Pesquisar um empregador"
+	"apihelp-employerSearch-example-1": "Pesquisar um empregador",
+	"apihelp-di_applesession_adyen-summary": "Permite solicitar uma sessão Apple Pay diretamente da Apple"
 }

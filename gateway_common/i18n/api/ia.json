@@ -55,5 +55,6 @@
 	"apihelp-employerSearch-description": "Iste API permitte cercar empleatores que participa in le programma de donationes de contrapartita de WMF.",
 	"apihelp-employerSearch-summary": "Iste API permitte cercar empleatores que participa in le programma de donationes de contrapartita de WMF.",
 	"apihelp-employerSearch-param-employer": "Qual empleator cercar, p.ex. Cruce Rubie, WWF, Armea del Salvation, etc.",
-	"apihelp-employerSearch-example-1": "Cercar un empleator"
+	"apihelp-employerSearch-example-1": "Cercar un empleator",
+	"apihelp-di_applesession_adyen-summary": "Permitte requestar un session de Apple Pay directemente presso Apple"
 }
