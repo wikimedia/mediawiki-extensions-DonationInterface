@@ -28,6 +28,7 @@
 	"apihelp-donate-param-country": "Country code.",
 	"apihelp-donate-param-card_num": "Credit card number.",
 	"apihelp-donate-param-card_type": "Credit card type.",
+	"apihelp-donate-param-debug_messages": "Any debug messages to add to the log.",
 	"apihelp-donate-param-expiration": "Expiration date.",
 	"apihelp-donate-param-cvv": "CVV security code.",
 	"apihelp-donate-param-payment_method": "Payment method to use.",

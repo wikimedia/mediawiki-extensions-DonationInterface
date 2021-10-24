@@ -8,6 +8,7 @@
 class DonationApi extends DonationApiBase {
 	public function execute() {
 		$isValid = $this->setAdapterAndValidate();
+		$this->logDebugMessages();
 		if ( !$isValid ) {
 			return;
 		}
@@ -78,6 +79,7 @@ class DonationApi extends DonationApiBase {
 			'opt_in' => $this->defineParam( false ),
 			'employer' => $this->defineParam( false ),
 			'employer_id' => $this->defineParam( false ),
+			'debug_messages' => $this->defineParam( false ),
 		];
 	}
 
@@ -118,5 +120,19 @@ class DonationApi extends DonationApiBase {
 		$sessionOrderStatus = $this->adapter->session_getData( 'order_status' );
 		$sessionOrderStatus[$oid] = 'liberated';
 		WmfFramework::setSessionValue( 'order_status', $sessionOrderStatus );
+	}
+
+	protected function logDebugMessages() {
+		$messages = $this->getParameter( 'debug_messages' );
+		if ( $messages ) {
+			$logger = $this->adapter
+				? DonationLoggerFactory::getLogger( $this->adapter )
+				: DonationLoggerFactory::getLoggerForType(
+					DonationInterface::getAdapterClassForGateway(
+						$this->getParameter( 'gateway' )
+					)
+				);
+			$logger->debug( 'Client-side debug messages: ' . $messages );
+		}
 	}
 }
