@@ -145,7 +145,9 @@
 			$.extend( sendData, extraData );
 		}
 
-		if ( di.forms.debugMessages.length > 0 ) {
+		// If debug logging is enabled and there are debug messages, send them.
+		if ( mw.config.get( 'wgDonationInterfaceLogDebug' ) &&
+			di.forms.debugMessages.length > 0 ) {
 			sendData.debug_messages = di.forms.debugMessages.join( '\n' );
 		}
 
