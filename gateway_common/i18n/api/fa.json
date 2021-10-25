@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jeeputer",
 			"Ladsgroup",
 			"Mjbmr",
 			"Reza1615"
@@ -19,6 +20,7 @@
 	"apihelp-donate-param-country": "کد کشور.",
 	"apihelp-donate-param-card_num": "شماره کارت اعتباری.",
 	"apihelp-donate-param-card_type": "نوع کارت اعتباری.",
+	"apihelp-donate-param-debug_messages": "هرگونه پیام اشکال‌زدایی جهت افزودن به سیاهه.",
 	"apihelp-donate-param-expiration": "تاریخ انقضا.",
 	"apihelp-donate-param-cvv": "رمز CVV",
 	"apihelp-donate-param-payment_method": "نوع پرداخت برای استفاده.",

@@ -23,6 +23,7 @@
 	"apihelp-donate-param-country": "קוד מדינה.",
 	"apihelp-donate-param-card_num": "מספר כרטיס האשראי.",
 	"apihelp-donate-param-card_type": "סוג כרטיס האשראי.",
+	"apihelp-donate-param-debug_messages": "הודעות ניפוי שגיאות להוספה ליומן.",
 	"apihelp-donate-param-expiration": "תאריך התפוגה.",
 	"apihelp-donate-param-cvv": "ספרות אחרונות בגב הכרטיס (CVV).",
 	"apihelp-donate-param-payment_method": "באיזו שיטת תשלום להשתמש.",
