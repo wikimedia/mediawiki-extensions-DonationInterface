@@ -3,6 +3,7 @@
 		"authors": [
 			"2axterix2",
 			"Armando-Martin",
+			"Avengium",
 			"Bea.miau",
 			"Crazymadlover",
 			"Dferg",
@@ -276,7 +277,7 @@
 	"donate_interface-otherways": "Hay <a href=\"$1\">otras maneras de donar, como PayPal, cheques o por correo</a>.",
 	"donate_interface-otherways-alt": "Hay <a href=\"$1\">otras maneras de donar</a>, incluido el cheque.",
 	"donate_interface-otherways-short": "Otras maneras de donar",
-	"donate_interface-token-mismatch": "Tu sesión ha expirado. Intenta llenar y enviar el formulario otra vez.",
+	"donate_interface-token-mismatch": "Tu sesión ha expirado. Intenta volver a cargar la página y enviar el formulario de nuevo.",
 	"donate_interface-cc-token-expired": "El autenticador ha caducado; pulsa en Aceptar para actualizar.",
 	"donate_interface-try-again": "Temporalmente no podemos procesar tu donación. Intenta de nuevo en breve.",
 	"donate_interface-cc-form-header-personal": "Datos de facturación",
@@ -445,6 +446,7 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sí, quiero ayudar",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, gracias",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Sí, agregare una donación mensual de <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-no-button-variant-011": "No, gracias",
 	"donate_interface-fundraiser-maintenance-header": "Parado temporalmente por mantenimiento",
 	"donate_interface-fundraiser-maintenance-notice": "Actualmente estamos realizando mantenimiento programado y somos incapaces de aceptar donaciones. Inténtalo de nuevo en otro momento.  Si tienes alguna pregunta, por favor, envíanos un correo electrónico a $1."
 }

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Avengium",
 			"Fitoschido",
 			"Macofe",
 			"Ryo567",
@@ -23,6 +24,7 @@
 	"apihelp-donate-param-country": "Código del país.",
 	"apihelp-donate-param-card_num": "Número de la tarjeta de crédito.",
 	"apihelp-donate-param-card_type": "Tipo de tarjeta de crédito.",
+	"apihelp-donate-param-debug_messages": "Cualquier mensaje de depuración para agregar al registro.",
 	"apihelp-donate-param-expiration": "Fecha de vencimiento.",
 	"apihelp-donate-param-cvv": "Código de seguridad CVV.",
 	"apihelp-donate-param-payment_method": "Método de pago que usar.",
@@ -46,5 +48,6 @@
 	"apihelp-logPaymentsFormError-param-stack": "Seguimiento de pila del error, si está disponible",
 	"apihelp-employerSearch-description": "Este API se puede permitir a buscar los empresarios que participan en el WMF emparejando programa de regalos.",
 	"apihelp-employerSearch-param-employer": "Qué empresario para buscar para e.g. Red Cross, WWF, Salvation Army, etc.",
-	"apihelp-employerSearch-example-1": "Buscar un empresario"
+	"apihelp-employerSearch-example-1": "Buscar un empresario",
+	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple"
 }

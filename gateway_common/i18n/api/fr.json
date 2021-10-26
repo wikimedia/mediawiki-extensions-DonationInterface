@@ -28,6 +28,7 @@
 	"apihelp-donate-param-country": "Code du pays",
 	"apihelp-donate-param-card_num": "Numéro de carte bancaire.",
 	"apihelp-donate-param-card_type": "Type de carte bancaire ou de crédit",
+	"apihelp-donate-param-debug_messages": "Tous messages de déboguage à ajouter au journal.",
 	"apihelp-donate-param-expiration": "Date d’expiration",
 	"apihelp-donate-param-cvv": "Cryptogramme CVV.",
 	"apihelp-donate-param-payment_method": "Méthode de paiement à utiliser.",
