@@ -245,7 +245,7 @@
 	"donate_interface-otherways": " <a href=\"$1\">페이팔, 수표 그리고 우편</a>을 통해서도 기부하실 수 있습니다.",
 	"donate_interface-otherways-alt": "수표를 통해 기부하는 것을 포함하여 <a href=\"$1\">기부하실 수 있는 다른 방법</a>이 더 있습니다.",
 	"donate_interface-otherways-short": "다른 기부 방법",
-	"donate_interface-token-mismatch": "세션이 만료되었습니다. 양식의 내용을 다시 채워 제출해 주시기 바랍니다.",
+	"donate_interface-token-mismatch": "세션이 만료되었습니다. 페이지를 다시 로드한 다음 폼을 다시 채워주십시오.",
 	"donate_interface-cc-token-expired": "토큰이 만료되었습니다. 새로 고치려면 확인을 누르십시오.",
 	"donate_interface-try-again": "일시적으로 기부를 처리할 수 없습니다. 이따가 다시 시도해 주십시오.",
 	"donate_interface-cc-form-header-personal": "영수증 관련 정보",
