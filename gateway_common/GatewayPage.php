@@ -468,8 +468,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function setClientVariables( &$vars ) {
 		$language = $this->adapter->getData_Unstaged_Escaped( 'language' );
 		$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
+
 		$vars['wgDonationInterfacePriceFloor'] = $this->adapter->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->adapter->getGlobal( 'PriceCeiling' );
+		$vars['wgDonationInterfaceLogDebug'] = $this->adapter->getGlobal( 'LogDebug' );
+
 		try {
 			$clientRules = $this->adapter->getClientSideValidationRules();
 			if ( !empty( $clientRules ) ) {

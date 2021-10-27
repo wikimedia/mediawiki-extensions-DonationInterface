@@ -277,7 +277,10 @@
 		"ext.donationInterface.adyenCheckout": {
 			"scripts": "adyen_gateway/checkout/forms/adyen.js",
 			"styles": "adyen_gateway/checkout/forms/adyen.css",
-			"dependencies": "ext.donationInterface.forms"
+			"dependencies": "ext.donationInterface.forms",
+			"messages": [
+				"donate_interface-error-msg-apple_pay_unsupported"
+			]
 		},
 		"ext.donationInterface.ingenico.scripts": {
 			"scripts": "globalcollect_gateway/forms/js/ingenico.js",

@@ -22,6 +22,7 @@
 	"apihelp-donate-param-country": "Код на земјата.",
 	"apihelp-donate-param-card_num": "Број на кредитната картичка.",
 	"apihelp-donate-param-card_type": "Тип на кредитната картичка.",
+	"apihelp-donate-param-debug_messages": "Пораки за исправка на грешки за додавање во дневникот, ако ги има.",
 	"apihelp-donate-param-expiration": "Датум на истекување.",
 	"apihelp-donate-param-cvv": "Безбедносен CVV-код.",
 	"apihelp-donate-param-payment_method": "Користен начин на плаќање.",

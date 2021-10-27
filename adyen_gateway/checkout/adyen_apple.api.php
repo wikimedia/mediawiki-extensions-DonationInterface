@@ -17,6 +17,10 @@ class AdyenAppleApi extends DonationApiBase {
 	 * @throws ApiUsageException
 	 */
 	public function execute() {
+		if ( RequestContext::getMain()->getUser()->pingLimiter( 'applesession' ) ) {
+			// Allow rate limiting by setting e.g. $wgRateLimits['applesession']['ip']
+			return;
+		}
 		$this->gateway = 'adyen';
 		if ( !$this->setAdapterAndValidate() ) {
 			return;

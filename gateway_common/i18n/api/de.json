@@ -23,6 +23,7 @@
 	"apihelp-donate-param-country": "Ländercode.",
 	"apihelp-donate-param-card_num": "Kreditkartennummer.",
 	"apihelp-donate-param-card_type": "Kreditkartentyp.",
+	"apihelp-donate-param-debug_messages": "Alle Debug-Meldungen, die dem Log hinzugefügt werden sollen.",
 	"apihelp-donate-param-expiration": "Ablaufdatum.",
 	"apihelp-donate-param-cvv": "CVV-Sicherheitscode.",
 	"apihelp-donate-param-payment_method": "Zu verwendende Zahlungsmethode.",
@@ -56,5 +57,6 @@
 	"apihelp-employerSearch-description": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
 	"apihelp-employerSearch-summary": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
 	"apihelp-employerSearch-param-employer": "Welcher Arbeitgeber soll gesucht werden, z.B. Rotes Kreuz, WWF, Heilsarmee, etc.",
-	"apihelp-employerSearch-example-1": "Einen Arbeitgeber suchen"
+	"apihelp-employerSearch-example-1": "Einen Arbeitgeber suchen",
+	"apihelp-di_applesession_adyen-summary": "Ermöglicht das Anfordern einer Apple Pay-Session direkt bei Apple"
 }

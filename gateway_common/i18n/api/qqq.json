@@ -46,6 +46,7 @@
 	"apihelp-donate-param-country": "{{doc-apihelp-param|donate|country}}",
 	"apihelp-donate-param-card_num": "{{doc-apihelp-param|donate|card_num}}",
 	"apihelp-donate-param-card_type": "{{doc-apihelp-param|donate|card_type}}",
+	"apihelp-donate-param-debug_messages": "{{doc-apihelp-param|donate|debug_messages}}",
 	"apihelp-donate-param-expiration": "{{doc-apihelp-param|donate|expiration}}",
 	"apihelp-donate-param-cvv": "{{doc-apihelp-param|donate|cvv}}",
 	"apihelp-donate-param-payment_method": "{{doc-apihelp-param|donate|payment_method}}",

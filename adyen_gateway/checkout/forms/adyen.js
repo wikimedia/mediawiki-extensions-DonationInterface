@@ -13,6 +13,25 @@
 		var config = {};
 		switch ( type ) {
 			case 'card':
+				// Note: Debug messages are only sent and logged server-side if
+				// $wgDonationInterfaceLogDebug (or $wgAdyenCheckoutGatewayLogDebug) is true
+
+				config.onBrand = function ( brandInfo ) {
+					var message = brandInfo.brand ?
+						'onBrand returned brand: ' + brandInfo.brand :
+						'onBrand returned: ' + JSON.stringify( brandInfo );
+					mw.donationInterface.forms.addDebugMessage( message );
+				};
+
+				config.onBinLookup = function ( binLookupInfo ) {
+					var message = binLookupInfo.detectedBrands && binLookupInfo.detectedBrands.length > 0 ?
+						'onBinLookup returned detected brands: ' + JSON.stringify( binLookupInfo.detectedBrands ) :
+						'onBinLookup returned: ' + JSON.stringify( binLookupInfo );
+					mw.donationInterface.forms.addDebugMessage( message );
+				};
+
+				return config;
+
 			case 'ideal':
 				// for cc and ideal, additional config is optional
 				return config;
@@ -311,7 +330,12 @@
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
-				throw Error( 'Apple Pay is not available!' );
+				mw.donationInterface.validation.showErrors( {
+					general: mw.message(
+						'donate_interface-error-msg-apple_pay_unsupported',
+						mw.config.get( 'DonationInterfaceOtherWaysURL' )
+					).plain()
+				} );
 			} );
 			// For Apple Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.

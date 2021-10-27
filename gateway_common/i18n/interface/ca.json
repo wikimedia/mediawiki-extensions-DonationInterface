@@ -189,7 +189,7 @@
 	"donate_interface-otherways": "Hi ha <a href=\"$1\">altres maneres de fer donatius, incloent PayPal, xecs, o per correu</a>.",
 	"donate_interface-otherways-alt": "Hi ha <a href=\"$1\">altres maneres de donar</a>, incloent-hi per xec.",
 	"donate_interface-otherways-short": "Altres maneres de donar",
-	"donate_interface-token-mismatch": "La vostra sessió ha caducat. Proveu d'omplir i enviar de nou el formulari.",
+	"donate_interface-token-mismatch": "La vostra sessió ha caducat. Proveu de recarregar la pàgina i enviar de nou el formulari.",
 	"donate_interface-cc-form-header-personal": "Informació de facturació",
 	"donate_interface-cc-form-header-payment": "Informació del pagament",
 	"donate_interface-make-your-donation": "Feu ara un donatiu",

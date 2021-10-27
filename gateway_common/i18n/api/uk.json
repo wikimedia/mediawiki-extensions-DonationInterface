@@ -26,6 +26,7 @@
 	"apihelp-donate-param-country": "Код країни.",
 	"apihelp-donate-param-card_num": "Номер кредитної картки.",
 	"apihelp-donate-param-card_type": "Тип кредитної картки.",
+	"apihelp-donate-param-debug_messages": "Будь-які повідомлення про налагодження, які потрібно додати до журналу.",
 	"apihelp-donate-param-expiration": "Дата закінчення строку дії.",
 	"apihelp-donate-param-cvv": "Код безпеки CVV.",
 	"apihelp-donate-param-payment_method": "Тип оплати, що використовується.",

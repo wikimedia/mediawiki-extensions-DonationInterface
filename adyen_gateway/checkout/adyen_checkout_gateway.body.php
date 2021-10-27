@@ -45,6 +45,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
+		$vars['DonationInterfaceOtherWaysURL'] = $this->adapter->localizeGlobal( 'OtherWaysURL' );
 	}
 
 	/**
