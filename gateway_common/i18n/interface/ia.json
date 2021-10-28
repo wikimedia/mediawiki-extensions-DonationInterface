@@ -222,6 +222,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Per favor corrige le errores in tu DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Per favor corrige le errores in tu CI",
 	"donate_interface-error-msg-issuer_id": "banca",
+	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay non es supportate in iste navigator. Per favor usa le navigator Safari e assecura te que Apple Pay es configurate sur tu dispositivo, o essaya un de nostre <a href=\"$1\">altere manieras de donar</a>.",
 	"donate_interface-error-msg-opt_in": "Per favor selige un option de e-mail",
 	"donate_interface-donate-error-try-a-different-card": "Per favor [$1 tenta lo con un altere carta], o usa un de nostre [$2 altere modos de donation], o contacta nos a $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Per favor essaya un altere carta o un de nostre <a href=\"$1\">altere manieras de donar</a>, o contacta nos a <a href=\"mailto:$2\">$2</a>",

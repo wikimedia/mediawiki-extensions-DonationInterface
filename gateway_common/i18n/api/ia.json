@@ -22,6 +22,7 @@
 	"apihelp-donate-param-country": "Codice del pais.",
 	"apihelp-donate-param-card_num": "Numero del carta de credito.",
 	"apihelp-donate-param-card_type": "Typo de carta de credito.",
+	"apihelp-donate-param-debug_messages": "Qualcunque messages de debugging pro adder al registro.",
 	"apihelp-donate-param-expiration": "Data de expiration.",
 	"apihelp-donate-param-cvv": "Codice de securitate CVV.",
 	"apihelp-donate-param-payment_method": "Methodo de pagamento a usar.",
