@@ -108,12 +108,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
 		} elseif ( $authorizeResult->requiresApproval() ) {
-			$riskScores = $authorizeResult->getRiskScores();
-			$this->addResponseData( [
-				'avs_result' => $riskScores['avs'] ?? 0,
-				'cvv_result' => $riskScores['cvv'] ?? 0
-			] );
-			$this->runAntifraudFilters();
+			$this->runFraudFiltersIfNeeded( $authorizeResult );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
 					$this->logger->info( "Calling approvePayment on PSP reference {$authorizeResult->getGatewayTxnId()}" );
@@ -370,6 +365,27 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		}
 		// Send all other adyen messages to the queues as normal
 		parent::pushMessage( $queue, $contactOnly );
+	}
+
+	/**
+	 * Runs antifraud filters if the appropriate for the current payment method.
+	 * Sets $this->action to one of the ValidationAction constants.
+	 *
+	 * @param PaymentDetailResponse $authorizeResult
+	 */
+	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
+		if ( $this->getPaymentMethod() === 'apple' ) {
+			// Adyen guidance is that Apple Pay fraud rates are minuscule enough
+			// to skip fraud filters.
+			$this->setValidationAction( ValidationAction::PROCESS );
+		} else {
+			$riskScores = $authorizeResult->getRiskScores();
+			$this->addResponseData( [
+				'avs_result' => $riskScores['avs'] ?? 0,
+				'cvv_result' => $riskScores['cvv'] ?? 0
+			] );
+			$this->runAntifraudFilters();
+		}
 	}
 
 }
