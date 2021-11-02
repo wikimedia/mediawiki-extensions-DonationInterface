@@ -258,6 +258,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Будь ласка, виправте помилки у своєму DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Будь ласка, виправте помилки у своєму CI",
 	"donate_interface-error-msg-issuer_id": "банк",
+	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay не підтримується в цьому браузері. Скористайтеся веб-переглядачем Safari та переконайтеся, що на вашому пристрої налаштовано Apple Pay, або скористайтеся одним із <a href=\"$1\">інших способів оплати</a>.",
 	"donate_interface-error-msg-opt_in": "Будь ласка, оберіть опцію щодо дій з електронними листами",
 	"donate_interface-donate-error-try-a-different-card": "Будь ласка, [$1 спробуйте скористатися іншою карткою], одним із інших [$2 способів пожертви] чи зв'яжіться з нами через $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Будь ласка, спробуйте скористатися іншою карткою, одним із <a href=\"$1\">інших способів пожертви</a> чи зв'яжіться з нами через <a href=\"mailto:$2\">$2</a>",

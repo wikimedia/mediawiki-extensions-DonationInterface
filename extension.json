@@ -145,6 +145,7 @@
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",
 		"IngenicoLocale": "ingenico_gateway/IngenicoLocale.php",
 		"IngenicoPaymentSubmethod": "ingenico_gateway/IngenicoPaymentSubmethod.php",
+		"IngenicoRecurringBooleanValue": "ingenico_gateway/IngenicoRecurringBooleanValue.php",
 		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
 		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
 		"IngenicoOrphanAdapter": "ingenico_gateway/orphan.adapter.php",
