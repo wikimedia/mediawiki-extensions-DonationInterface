@@ -224,7 +224,7 @@
 	"donate_interface-otherways": "Et gëtt <a href=\"$1\">Manéiere fir en Don ze maachen, wéi PayPal, check, oder Mail</a>.",
 	"donate_interface-otherways-alt": "Et gëtt <a href=\"$1\">aner Manéiere fir en Don ze maachen</a>, inklusiv per Scheck.",
 	"donate_interface-otherways-short": "Aner Méiglechkeete fir en Don ze maachen",
-	"donate_interface-token-mismatch": "Är Seance ass ofgelaf. Versich wgl. nach eng Kéier auszefëllen an de Formulaire nach emol ze schécken.",
+	"donate_interface-token-mismatch": "Är Seance ass ofgelaf. Versicht wgl. d'Säit nei ze lueden an de Formulaire nach emol ze schécken.",
 	"donate_interface-try-again": "Mir kënne fir den Ament Ären Don net verschaffen. Probéiert et wgl. nach eng Kéier e bësse méi spéit.",
 	"donate_interface-cc-form-header-personal": "Informatiounen fir bezuelen",
 	"donate_interface-cc-form-header-payment": "Informatiounen iwwer d'Bezuelen",

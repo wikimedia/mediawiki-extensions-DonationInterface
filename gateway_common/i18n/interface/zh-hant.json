@@ -241,6 +241,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "請更正您在DNI中的錯誤",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "請更正您在CI中的錯誤",
 	"donate_interface-error-msg-issuer_id": "銀行",
+	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay 不支援此瀏覽器。請改用 Safari 瀏覽器並確定 Apple Pay 有在您的裝置上設好，或是嘗試我們的<a href=\"$1\">別種捐款方式</a>。",
 	"donate_interface-error-msg-opt_in": "請挑選電子郵件選項",
 	"donate_interface-donate-error-try-a-different-card": "請試用[$1 另外一個信用卡]或[$2 其他捐贈方法]，或者傳送至 $3 聯絡我們",
 	"donate_interface-donate-error-try-a-different-card-html": "請嘗試其它的卡片，或是使用我們的<a href=\"$1\">其他捐款方式</a>之一，或著是在 <a href=\"mailto:$2\">$2</a> 聯絡我們",
