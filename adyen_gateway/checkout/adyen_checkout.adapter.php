@@ -134,7 +134,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 					}
 					break;
 				case ValidationAction::REJECT:
-					$paymentResult = PaymentResult::newFailure();
+					$paymentResult = PaymentResult::newFailure( [ new PaymentError(
+						'internal-0000',
+						"Failed pre-process checks for payment.",
+						LogLevel::INFO
+					) ] );
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					break;
 				default:
