@@ -221,9 +221,12 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				$result = $approvePaymentResponse->getRawResponse();
 				break;
 			case 'cancelPayment':
+				// NOTE: this is currently not hit - there are two conditions that
+				// lead to this code path but neither of them happen in practice.
 				$id = $data['id'];
 				unset( $data['id'] );
-				$result = $provider->cancelPayment( $id );
+				$cancelPaymentResponse = $provider->cancelPayment( $id );
+				$result = $cancelPaymentResponse->getRawResponse();
 				break;
 			default:
 				return false;

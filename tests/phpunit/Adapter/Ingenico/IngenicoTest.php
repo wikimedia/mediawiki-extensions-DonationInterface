@@ -21,6 +21,8 @@ use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\ApprovePaymentResponse;
+use SmashPig\PaymentProviders\CancelPaymentResponse;
+use SmashPig\PaymentProviders\Ingenico\PaymentStatus;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
 use Wikimedia\TestingAccessWrapper;
 
@@ -395,49 +397,11 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['email'] = 'innocent@safedomain.org';
 		$init['gateway_txn_id'] = 'ingenico' . $init['gateway_session_id'];
 		$gateway = $this->getFreshGatewayObject( $init );
+		$response = $this->getCancelPaymentResponse();
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'cancelPayment' )
 			->with( $init['gateway_txn_id'] )
-			->willReturn(
-				[
-					"payment" => [
-						"id" => "000000850010000188180000200001",
-						"paymentOutput" => [
-							"amountOfMoney" => [
-								"amount" => 2890,
-								"currencyCode" => "EUR"
-							],
-							"references" => [
-								"merchantReference" => "merchantReference",
-								"paymentReference" => "0"
-							],
-							"paymentMethod" => "card",
-							"cardPaymentMethodSpecificOutput" => [
-								"paymentProductId" => 1,
-								"authorisationCode" => "726747",
-								"card" => [
-									"cardNumber" => "************7977",
-									"expiryDate" => "1220"
-								],
-								"fraudResults" => [
-									"avsResult" => "0",
-									"cvvResult" => "0",
-									"fraudServiceResult" => "no-advice"
-								]
-							]
-						],
-						"status" => "CANCELLED",
-						"statusOutput" => [
-							"isCancellable" => false,
-							"statusCode" => 99999,
-							"statusCodeChangeDateTime" => "20150223153431"
-						]
-					],
-					"cardPaymentMethodSpecificOutput" => [
-						"voidResponseId" => "0"
-					]
-				]
-			);
+			->willReturn( $response );
 		$gateway->do_transaction( 'cancelPayment' );
 		$data = $gateway->getTransactionData();
 		$this->assertEquals( "CANCELLED", $data['status'], "Should return status CANCELLED" );
@@ -781,5 +745,52 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$result = $gateway->doPayment();
 
 		$this->assertNotEmpty( $result->getErrors(), 'Should have returned an error' );
+	}
+
+	protected function getCancelPaymentResponse(): CancelPaymentResponse {
+		$response = new CancelPaymentResponse();
+		$rawResponse = [
+			"payment" => [
+				"id" => "000000850010000188180000200001",
+				"paymentOutput" => [
+					"amountOfMoney" => [
+						"amount" => 2890,
+						"currencyCode" => "EUR"
+					],
+					"references" => [
+						"merchantReference" => "merchantReference",
+						"paymentReference" => "0"
+					],
+					"paymentMethod" => "card",
+					"cardPaymentMethodSpecificOutput" => [
+						"paymentProductId" => 1,
+						"authorisationCode" => "726747",
+						"card" => [
+							"cardNumber" => "************7977",
+							"expiryDate" => "1220"
+						],
+						"fraudResults" => [
+							"avsResult" => "0",
+							"cvvResult" => "0",
+							"fraudServiceResult" => "no-advice"
+						]
+					]
+				],
+				"status" => "CANCELLED",
+				"statusOutput" => [
+					"isCancellable" => false,
+					"statusCode" => 99999,
+					"statusCodeChangeDateTime" => "20150223153431"
+				]
+			],
+			"cardPaymentMethodSpecificOutput" => [
+				"voidResponseId" => "0"
+			]
+		];
+		$response->setRawResponse( $rawResponse );
+		$response->setGatewayTxnId( $rawResponse['payment']['id'] );
+		$status = ( new PaymentStatus() )->normalizeStatus( $rawResponse['payment']['status'] );
+		$response->setStatus( $status );
+		return $response;
 	}
 }
