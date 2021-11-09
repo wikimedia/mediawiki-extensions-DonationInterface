@@ -2,6 +2,7 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
+use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
@@ -42,16 +43,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// If there are validation errors, present them for correction with a
 		// 'refresh' type PaymentResult
 		if ( count( $validationErrors ) > 0 ) {
-			foreach ( $validationErrors as $error ) {
-				// Add i18n keys to the validation errors
-				$error->setMessageKey(
-					'donate_interface-error-msg-' . $error->getField()
-				);
-				$this->logger->info(
-					'createPayment call came back with validation error in ' . $error->getField()
-				);
-			}
-			return PaymentResult::newRefresh( $validationErrors );
+			return $this->getLocalizedValidationErrorResult( $validationErrors );
 		}
 		if ( $authorizeResult->requiresRedirect() ) {
 			// Looks like we're not going to finish the payment in this
@@ -386,6 +378,39 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 			] );
 			$this->runAntifraudFilters();
 		}
+	}
+
+	/**
+	 * @param array $validationErrors
+	 * @return PaymentResult
+	 */
+	protected function getLocalizedValidationErrorResult( array $validationErrors ): PaymentResult {
+		// Errors from SmashPig don't have message* parameters set,
+		// so we create a new array of localized errors
+		// FIXME: those should probably be different classes
+		// see https://phabricator.wikimedia.org/T294957
+		$localizedErrors = [];
+		foreach ( $validationErrors as $error ) {
+			$field = $error->getField();
+			if ( $field === 'payment_submethod' ) {
+				// This means the donor tried an unsupported card type.
+				$messageKey = 'donate_interface-donate-error-try-a-different-card-html';
+				$messageParams = [
+					$this->localizeGlobal( 'OtherWaysURL' ),
+					$this->getGlobal( 'ProblemsEmail' )
+				];
+			} else {
+				$messageKey = 'donate_interface-error-msg-' . $field;
+				$messageParams = [];
+			}
+			$localizedErrors[] = new ValidationError(
+				$field, $messageKey, $messageParams
+			);
+			$this->logger->info(
+				'createPayment call came back with validation error in ' . $field
+			);
+		}
+		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
 }

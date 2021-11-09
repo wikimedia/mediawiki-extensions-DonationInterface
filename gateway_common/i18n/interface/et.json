@@ -197,7 +197,7 @@
 	"donate_interface-otherways": "Samuti on võimalik <a href=\"$1\">annetada läbi PayPali, tšekiga või e-kirja teel</a>.",
 	"donate_interface-otherways-alt": "<a href=\"$1\">Annetada saab ka teisiti</a>, muu hulgas tšekiga.",
 	"donate_interface-otherways-short": "Teised annetamisviisid",
-	"donate_interface-token-mismatch": "Sinu seanss on aegunud. Palun proovi vormi uuesti täita ja saata.",
+	"donate_interface-token-mismatch": "Sinu seanss on aegunud. Palun proovi lehekülg uuesti laadida ja vorm uuesti saata.",
 	"donate_interface-cc-form-header-personal": "Arveldusandmed",
 	"donate_interface-cc-form-header-payment": "Makseandmed",
 	"donate_interface-make-your-donation": "Anneta kohe",

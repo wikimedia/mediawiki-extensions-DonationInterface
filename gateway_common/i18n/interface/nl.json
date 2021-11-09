@@ -401,6 +401,8 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, maar met een ander hoeveelheid",
 	"donate_interface-monthly-convert-action-button": "Maandelijks doneren",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nee, bedankt",
+	"donate_interface-monthly-convert-no-button-variant-011": "Nee, bedankt!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Nee, nu niet",
 	"donate_interface-fundraiser-maintenance-header": "Tijdelijk niet beschikbaar wegens onderhoudswerkzaamheden",
 	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als u vragen hebt."
 }
