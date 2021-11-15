@@ -7,6 +7,7 @@
 		]
 	},
 	"donate_interface-desc": "Chefpagino por facar donacaji, qua permisas altra formi di pago ''(payment gateways)''",
+	"donate_interface-comment-label": "Komento:",
 	"donate_interface-email-agreement": "Me aceptas recevar okazional e-posti pri novaji de Wikimedia Foundation.",
 	"donate_interface-AUD": "Australiana Dolaro",
 	"donate_interface-CAD": "Kanadana Dolaro",
@@ -33,6 +34,7 @@
 	"donate_interface-problemsdonating": "Problemi pri donacar?",
 	"donate_interface-otherways-short": "Altra formi por donacar",
 	"donate_interface-make-your-donation": "Facez vua donaco nun",
+	"donate_interface-comment": "Komento",
 	"donate_interface-other": "Altra",
 	"donate_interface-street-address-line-2": "Strado/Avenuo (lineo 2)",
 	"donate_interface-next": "Sequanta",
