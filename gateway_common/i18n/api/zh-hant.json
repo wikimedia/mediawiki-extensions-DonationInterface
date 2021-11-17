@@ -23,6 +23,7 @@
 	"apihelp-donate-param-country": "國家代碼。",
 	"apihelp-donate-param-card_num": "信用卡號碼。",
 	"apihelp-donate-param-card_type": "信用卡類型。",
+	"apihelp-donate-param-debug_messages": "任何添加到日誌的除錯訊息。",
 	"apihelp-donate-param-expiration": "到期日。",
 	"apihelp-donate-param-cvv": "CVV 安全碼。",
 	"apihelp-donate-param-payment_method": "使用的付款方式。",
@@ -56,5 +57,6 @@
 	"apihelp-employerSearch-description": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-summary": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-param-employer": "要搜尋哪個雇主，例如：紅十字會、世界自然基金會、救世軍等等。",
-	"apihelp-employerSearch-example-1": "選擇雇主"
+	"apihelp-employerSearch-example-1": "選擇雇主",
+	"apihelp-di_applesession_adyen-summary": "允許直接從 Apple 請求 Apple Pay session"
 }
