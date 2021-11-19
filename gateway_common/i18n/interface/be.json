@@ -3,6 +3,7 @@
 		"authors": [
 			"Artsiom91",
 			"Mechanizatar",
+			"ZlyiLev",
 			"Дзяніс Тутэйшы",
 			"Тест",
 			"Хомелка"
@@ -47,7 +48,6 @@
 	"donate_interface-DKK": "Дацкая крона",
 	"donate_interface-DOP": "Дамініканскае песа",
 	"donate_interface-DZD": "Алжырскі долар",
-	"donate_interface-EEK": "Эстонская крона",
 	"donate_interface-EGP": "Егіпецкі фунт",
 	"donate_interface-EUR": "Еўра",
 	"donate_interface-GBP": "Фунт сцерлінгаў",
@@ -309,5 +309,6 @@
 	"donate_interface-monthlybox-amount": "Сума ахвяравання",
 	"donate_interface-monthlybox-yes": "Канешне, рабіць гэта штомесячна",
 	"donate_interface-monthlybox-no": "Не, зрабіць аднаразовае ахвяраванне",
-	"donate_interface-monthlybox-bottom": "Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме."
+	"donate_interface-monthlybox-bottom": "Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме.",
+	"donate_interface-statement": "Вікімедыя $1"
 }
