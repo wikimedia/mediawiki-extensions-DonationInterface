@@ -1,6 +1,14 @@
 ( function ( $ ) {
     $( function () {
-        var autocompleteCache = {};
+        var autocompleteCache = {},
+            // This triggers both on 'select' and 'focus' events to set the displayed
+            // value to the employer/subsidiary name and the hidden field value to the
+            // employer ID. The focus event is triggered on arrow key navigation.
+            selectFocusFunction = function ( event, ui ) {
+                event.preventDefault();
+                $( '#employer' ).val( ui.item.label );
+                $( '#employer_id' ).val( ui.item.value );
+            };
 
         $( '#employer' ).autocomplete( {
             delay: 300, //throttle in milliseconds
@@ -43,11 +51,8 @@
                     } );
                 }
             },
-            select: function ( event, ui ) {
-                event.preventDefault();
-                $( '#employer' ).val( ui.item.label );
-                $( '#employer_id' ).val( ui.item.value );
-            }
+            select: selectFocusFunction,
+            focus: selectFocusFunction
         } );
     } );
 } )( jQuery );
