@@ -16,7 +16,7 @@
                 //reset employer_id each time a new search starts
                 $( '#employer_id' ).val( '' );
 
-                var data = {
+                var apiParameters = {
                     action: 'employerSearch',
                     employer: request.term,
                     format: 'json'
@@ -25,7 +25,7 @@
                 if ( cached ) {
                     response( cached );
                 } else {
-                    $.get( mw.util.wikiScript( 'api' ), data ).done( function ( data ) {
+                    $.get( mw.util.wikiScript( 'api' ), apiParameters ).done( function ( data ) {
                         //check if the api sent back any errors and if so jump out here
                         if ( data.error ) {
                             response(); // this has to be called in all scenarios for preserve the widget state
