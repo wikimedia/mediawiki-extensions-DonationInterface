@@ -6,7 +6,7 @@ amount:
 # city: AN40
 city:
     type: alphanumeric
-    length: 40
+    length: 35
 # countryCode: AN2
 country:
     type: alphanumeric
