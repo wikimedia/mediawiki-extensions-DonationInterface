@@ -1,6 +1,14 @@
 ( function ( $ ) {
     $( function () {
-        var autocompleteCache = {};
+        var autocompleteCache = {},
+            // This triggers both on 'select' and 'focus' events to set the displayed
+            // value to the employer/subsidiary name and the hidden field value to the
+            // employer ID. The focus event is triggered on arrow key navigation.
+            selectFocusFunction = function ( event, ui ) {
+                event.preventDefault();
+                $( '#employer' ).val( ui.item.label );
+                $( '#employer_id' ).val( ui.item.value );
+            };
 
         $( '#employer' ).autocomplete( {
             delay: 300, //throttle in milliseconds
@@ -8,7 +16,7 @@
                 //reset employer_id each time a new search starts
                 $( '#employer_id' ).val( '' );
 
-                var data = {
+                var apiParameters = {
                     action: 'employerSearch',
                     employer: request.term,
                     format: 'json'
@@ -17,7 +25,7 @@
                 if ( cached ) {
                     response( cached );
                 } else {
-                    $.get( mw.util.wikiScript( 'api' ), data ).done( function ( data ) {
+                    $.get( mw.util.wikiScript( 'api' ), apiParameters ).done( function ( data ) {
                         //check if the api sent back any errors and if so jump out here
                         if ( data.error ) {
                             response(); // this has to be called in all scenarios for preserve the widget state
@@ -43,11 +51,8 @@
                     } );
                 }
             },
-            select: function ( event, ui ) {
-                event.preventDefault();
-                $( '#employer' ).val( ui.item.label );
-                $( '#employer_id' ).val( ui.item.value );
-            }
+            select: selectFocusFunction,
+            focus: selectFocusFunction
         } );
     } );
 } )( jQuery );

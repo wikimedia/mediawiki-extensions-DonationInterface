@@ -637,17 +637,17 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	public function do_transaction( $transaction ) {
 		$this->session_addDonorData();
 		switch ( $transaction ) {
-			case 'Confirm_CreditCard' :
+			case 'Confirm_CreditCard':
 				$this->profiler->getStopwatch( 'Confirm_CreditCard', true );
 				$result = $this->transactionConfirm_CreditCard();
 				$this->profiler->saveCommunicationStats( 'Confirm_CreditCard', $transaction );
 				return $result;
-			case 'Direct_Debit' :
+			case 'Direct_Debit':
 				$this->profiler->getStopwatch( 'Direct_Debit', true );
 				$result = $this->transactionDirect_Debit();
 				$this->profiler->saveCommunicationStats( 'Direct_Debit', $transaction );
 				return $result;
-			case 'Recurring_Charge' :
+			case 'Recurring_Charge':
 				return $this->transactionRecurring_Charge();
 			default:
 				return parent::do_transaction( $transaction );
@@ -722,23 +722,23 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				$problem['flag'] = true;
 				$problem['message'] = "We don't have an order status after doing a GET_ORDERSTATUS.";
 				break;
-			case FinalStatus::FAILED :
-			case FinalStatus::REVISED :
+			case FinalStatus::FAILED:
+			case FinalStatus::REVISED:
 			case FinalStatus::CANCELLED:
 				$problem = $this->cancelCreditCardPayment( $order_status_results );
 				break;
-			case FinalStatus::COMPLETE :
+			case FinalStatus::COMPLETE:
 				$problem['flag'] = true; // nothing to be done.
 				$problem['message'] = "GET_ORDERSTATUS reports that the payment is already complete.";
 				$problem['severity'] = LogLevel::INFO;
 				break;
-			case FinalStatus::PENDING :
+			case FinalStatus::PENDING:
 				// If it's really pending at this point, we need to
 				// leave it alone.
 				// FIXME: If we're orphan slaying, this should stay in
 				// the queue, but we currently delete it. <--I'm not sure that's true now
 				break;
-			case FinalStatus::PENDING_POKE :
+			case FinalStatus::PENDING_POKE:
 				if ( $is_orphan && !$gotCVV ) {
 					$problem['flag'] = true;
 					$problem['message'] = "Unable to retrieve orphan cvv/avs results (Communication problem?).";
@@ -747,7 +747,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				// FIXME: should we flag anything here?
 				// removed 'DO_FINISHPAYMENT' for status '200' because it was no longer working or applicable
 			// else fall through
-			default :
+			default:
 				$result = $this->finalizeCreditCardPayment( $statusCode );
 				if ( !$result ) {
 					$problem['flag'] = true;
@@ -1009,7 +1009,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response to get the status. Not sure if this should return a bool, or something more... telling.
 	 *
-	 * @param DOMDocument	$response	The response XML loaded into a DOMDocument
+	 * @param DOMDocument $response The response XML loaded into a DOMDocument
 	 * @return bool
 	 */
 	public function parseResponseCommunicationStatus( $response ) {
@@ -1032,7 +1032,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * messages will be sent to the client. Messages will not be translated or
 	 * obfuscated.
 	 *
-	 * @param DOMDocument	$response	The response XML as a DOMDocument
+	 * @param DOMDocument $response The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseErrors( $response ) {
@@ -1071,7 +1071,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * When we set lookup error code ranges, we use GET_ORDERSTATUS as the key for search
 	 * because they are only defined for that transaction type.
 	 *
-	 * @param DOMDocument	$response	The response XML as a DOMDocument
+	 * @param DOMDocument $response The response XML as a DOMDocument
 	 * @return array
 	 */
 	public function parseResponseData( $response ) {
@@ -1148,7 +1148,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	/**
 	 * Parse the response object for the checked validations
 	 *
-	 * @param DOMDocument	$response	The response object
+	 * @param DOMDocument $response The response object
 	 * @return array
 	 */
 	protected function xmlGetChecks( $response ) {
@@ -1404,13 +1404,13 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				case 430692: // cvv2 declined
 					break; // don't need to hear about these at all.
 
-				case 11000400 :  // Ingenico internal timeout, just try again as-is.
+				case 11000400:  // Ingenico internal timeout, just try again as-is.
 					$retryVars[] = 'timeout';
 					$this->logger->error( 'Server Timeout, retrying.' );
 					$retErrCode = $errCode;
 					break;
 
-				case 20001000 : // REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
+				case 20001000: // REQUEST {0} NULL VALUE NOT ALLOWED FOR {1} : Validation pain. Need more.
 					// look in the message for more clues.
 					// Yes: That's an 8-digit error code that buckets a silly number of validation issues, some of which are legitimately ours.
 					// The only way to tell is to search the English message.
@@ -1430,7 +1430,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 						}
 					}
 
-				case 21000050 : // REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
+				case 21000050: // REQUEST {0} VALUE {2} OF FIELD {1} IS NOT A NUMBER WITH MINLENGTH {3}, MAXLENGTH {4} AND PRECISION {5}  : More validation pain.
 					// say something painful here.
 					$messageFromProcessor = 'Blocking validation problems with this payment. Investigation required! '
 								. "Original error: '$messageFromProcessor'.  Our data: " . $this->getLogDebugJSON();
@@ -1526,7 +1526,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		switch ( $this->unstaged_data['payment_method'] ) {
 		/* Bank transfer */
 		case 'bt':
-
 			// Brazil
 			if ( $this->unstaged_data['country'] == 'BR' ) {
 				$this->dataConstraints['direct_debit_text']['city'] = 50;
@@ -1625,7 +1624,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	protected function tuneForCountry() {
 		switch ( $this->getData_Unstaged_Escaped( 'country' ) ) {
-		case 'AR' :
+		case 'AR':
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'USAGETYPE';
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['request']['REQUEST']['PARAMS']['ORDER'][] = 'PURCHASETYPE';
 			$this->transactions['INSERT_ORDERWITHPAYMENT']['values']['USAGETYPE'] = '0';
@@ -1680,7 +1679,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 */
 	public function getCVVResult() {
 		$from_processor = $this->getData_Unstaged_Escaped( 'cvv_result' );
-		if ( is_null( $from_processor ) ) {
+		if ( $from_processor === null ) {
 			return null;
 		}
 
@@ -1701,7 +1700,7 @@ class GlobalCollectAdapter extends GatewayAdapter {
 	 * @return null|array
 	 */
 	public function getAVSResult() {
-		if ( is_null( $this->getData_Unstaged_Escaped( 'avs_result' ) ) ) {
+		if ( $this->getData_Unstaged_Escaped( 'avs_result' ) === null ) {
 			return null;
 		}
 		// Best guess here:

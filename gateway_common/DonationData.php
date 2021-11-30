@@ -1,8 +1,8 @@
 <?php
+use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\SequenceGenerators;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
-use SmashPig\Core\SequenceGenerators;
-use SmashPig\Core\DataStores\QueueWrapper;
 
 /**
  * DonationData
@@ -222,9 +222,9 @@ class DonationData implements LogPrefixProvider {
 		 * if it is: assume that the session data was meant to be replaced
 		 * with better data.
 		 * ...unless it's an explicit $overwrite
-		 **/
+		 */
 		$donorData = WmfFramework::getSessionValue( 'Donor' );
-		if ( is_null( $donorData ) ) {
+		if ( $donorData === null ) {
 			return;
 		}
 		// fields that should always overwrite with their original values
@@ -268,7 +268,7 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function isSomething( $key ) {
 		if ( array_key_exists( $key, $this->normalized ) ) {
-			if ( is_null( $this->normalized[$key] ) || $this->normalized[$key] === '' ) {
+			if ( $this->normalized[$key] === null || $this->normalized[$key] === '' ) {
 				return false;
 			}
 			return true;
@@ -361,7 +361,7 @@ class DonationData implements LogPrefixProvider {
 		// This condition should actually be "did data come from anywhere?"
 		if ( !empty( $this->normalized ) ) {
 			// Cast all values to string.
-			$toStringOrNull = function ( $value ) {
+			$toStringOrNull = static function ( $value ) {
 				if ( $value === null || $value === '' ) {
 					return null;
 				}
@@ -695,7 +695,7 @@ class DonationData implements LogPrefixProvider {
 	protected function setEmail() {
 		// Look at the old style value (because that's canonical if populated first)
 		$email = $this->getVal( 'emailAdd' );
-		if ( is_null( $email ) ) {
+		if ( $email === null ) {
 			$email = $this->getVal( 'email' );
 		}
 
@@ -1061,7 +1061,7 @@ class DonationData implements LogPrefixProvider {
 
 	/**
 	 * @param array $tracking_data
-	 * @return boolean
+	 * @return bool
 	 */
 	private function trackingDataUpdated( $current_hash ) {
 		// Let's check that there's something new in $tracking_data to send to the queue
@@ -1072,7 +1072,7 @@ class DonationData implements LogPrefixProvider {
 
 	private function expungeNulls() {
 		foreach ( $this->normalized as $key => $val ) {
-			if ( is_null( $val ) ) {
+			if ( $val === null ) {
 				$this->expunge( $key );
 			}
 		}

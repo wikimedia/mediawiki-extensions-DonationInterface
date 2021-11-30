@@ -9,12 +9,12 @@ use Symfony\Component\Yaml\Parser;
 class ConfigurationReader {
 
 	/**
-	 * @var string $baseDirectory
+	 * @var string
 	 */
 	protected $baseDirectory;
 
 	/**
-	 * @var string $localSettingDirectory
+	 * @var string
 	 */
 	protected $localSettingDirectory;
 

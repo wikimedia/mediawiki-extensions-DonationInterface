@@ -39,7 +39,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 	/**
 	 * The gateway adapter object
-	 * @var GatewayAdapter $adapter
+	 * @var GatewayAdapter
 	 */
 	public $adapter;
 
@@ -244,7 +244,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ) {
 			return;
-  }
+		}
 
 		$output = $this->getOutput();
 
