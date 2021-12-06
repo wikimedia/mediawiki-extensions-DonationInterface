@@ -26,9 +26,9 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
+use SmashPig\PaymentData\ValidationAction;
 
 /**
  * GatewayAdapter
@@ -53,7 +53,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * 		'account_holder'		=> [ 'type' => 'alphanumeric',		'length' => 50, ]
 	 * 	 </code>
 	 *
-	 * @var array $dataConstraints
+	 * @var array
 	 */
 	protected $dataConstraints = [];
 
@@ -71,21 +71,21 @@ abstract class GatewayAdapter implements GatewayType {
 	 * as a first parameter. Error messages that use other parameters should
 	 * use the callable.
 	 *
-	 * @var array $error_map
+	 * @var array
 	 */
 	protected $error_map = [];
 
 	/**
 	 * @see GlobalCollectAdapter::defineGoToThankYouOn()
 	 *
-	 * @var array $goToThankYouOn
+	 * @var array
 	 */
 	protected $goToThankYouOn = [];
 
 	/**
 	 * $var_map maps gateway variables to client variables
 	 *
-	 * @var array $var_map
+	 * @var array
 	 */
 	protected $var_map = [];
 
@@ -97,7 +97,7 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * $payment_methods will be defined by the adapter.
 	 *
-	 * @var array $payment_methods
+	 * @var array
 	 */
 	protected $payment_methods = [];
 
@@ -105,7 +105,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * $payment_submethods will be defined by the adapter (or will default to an empty
 	 * array if none are defined).
 	 *
-	 * @var array $payment_submethods
+	 * @var array
 	 */
 	protected $payment_submethods = [];
 
@@ -178,7 +178,7 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * A boolean that will tell us if we've posted to ourselves. A little more telling than
 	 * WebRequest->wasPosted(), as something else could have posted to us.
-	 * @var boolean
+	 * @var bool
 	 */
 	public $posted = false;
 	protected $batch = false;
@@ -255,7 +255,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->staged_data = $this->unstaged_data;
 
 		// checking to see if we have an edit token in the request...
-		$this->posted = ( $this->dataObj->wasPosted() && ( !is_null( WmfFramework::getRequestValue( 'wmf_token', null ) ) ) );
+		$this->posted = ( $this->dataObj->wasPosted() && ( WmfFramework::getRequestValue( 'wmf_token', null ) !== null ) );
 
 		$this->findAccount();
 		$this->defineAccountInfo();
@@ -783,7 +783,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// If there's a value in the post data (name-translated by the var_map), use that.
 		if ( array_key_exists( $gateway_field_name, $this->var_map ) ) {
 			$staged = $this->getData_Staged( $this->var_map[$gateway_field_name] );
-			if ( !is_null( $staged ) ) {
+			if ( $staged !== null ) {
 				// if it was sent, use that.
 				return $staged;
 			} else {
@@ -1011,12 +1011,12 @@ abstract class GatewayAdapter implements GatewayType {
 				// for the next attempt.  Decide if we really need an array and redo this switch
 				// statement accordingly.
 				switch ( $retryVars[0] ) {
-					case 'timeout' :
+					case 'timeout':
 						// Just retry without changing anything.
 						$this->logger->info( "Repeating transaction for timeout" );
 						break;
 
-					default :
+					default:
 						$this->logger->info( "Repeating transaction on request for vars: " . implode( ',', $retryVars ) );
 
 							// Force regen of the order_id
@@ -1094,7 +1094,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$commType = $this->getCommunicationType();
 			switch ( $commType ) {
 				case 'redirect':
-
 					// in the event that we have a redirect transaction that never displays the form,
 					// save this most recent one before we leave.
 					$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
@@ -1307,7 +1306,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getCurrentTransaction() {
-		if ( is_null( $this->current_transaction ) ) {
+		if ( $this->current_transaction === null ) {
 			return false;
 		} else {
 			return $this->current_transaction;
@@ -1956,7 +1955,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected function getQueueDonationMessage() {
 		$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
-		if ( is_null( $gatewayTxnId ) ) {
+		if ( $gatewayTxnId === null ) {
 			$gatewayTxnId = false;
 		}
 		$queueMessage = [
@@ -2514,7 +2513,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected function refreshGatewayValueFromSource( $val ) {
 		$refreshed = $this->dataObj->getVal( $val );
-		if ( !is_null( $refreshed ) ) {
+		if ( $refreshed !== null ) {
 			$this->staged_data[$val] = $refreshed;
 			$this->unstaged_data[$val] = $refreshed;
 		} else {
@@ -2611,7 +2610,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 
 			switch ( $fieldName ) {
-				case 'address' :
+				case 'address':
 					$field = [
 						'street_address' => $requirementFlag,
 						'city' => $requirementFlag,
@@ -2628,7 +2627,7 @@ abstract class GatewayAdapter implements GatewayType {
 						}
 					}
 					break;
-				case 'name' :
+				case 'name':
 					$field = [
 						'first_name' => $requirementFlag,
 						'last_name'  => $requirementFlag
@@ -2650,7 +2649,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getRequiredFields( $knownData = null ) {
 		$all_fields = $this->getFormFields( $knownData );
-		$required_fields = array_filter( $all_fields, function ( $val ) {
+		$required_fields = array_filter( $all_fields, static function ( $val ) {
 			return $val === true;
 		} );
 
@@ -3049,8 +3048,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function session_getData( $key, $subkey = null ) {
 		$data = WmfFramework::getSessionValue( $key );
-		if ( !is_null( $data ) ) {
-			if ( is_null( $subkey ) ) {
+		if ( $data !== null ) {
+			if ( $subkey === null ) {
 				return $data;
 			} elseif ( is_array( $data ) && array_key_exists( $subkey, $data ) ) {
 				return $data[$subkey];
@@ -3069,7 +3068,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return bool true if the session contains donor data
 	 */
 	public function session_hasDonorData() {
-		return !is_null( $this->session_getData( 'Donor' ) );
+		return $this->session_getData( 'Donor' ) !== null;
 	}
 
 	/**
@@ -3167,7 +3166,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$msg = '';
 			foreach ( $preserveKeys as $keep ) {
 				$value = WmfFramework::getSessionValue( $keep );
-				if ( !is_null( $value ) ) {
+				if ( $value !== null ) {
 					$preservedData[$keep] = $value;
 					$msg .= "$keep, "; // always one extra comma; Don't care.
 				}
@@ -3354,7 +3353,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$tokenKey = self::getIdentifier() . 'EditToken';
 
 		$token = WmfFramework::getSessionValue( $tokenKey );
-		if ( is_null( $token ) ) {
+		if ( $token === null ) {
 			// generate unsalted token to place in the session
 			$token = self::token_generateToken();
 			WmfFramework::setSessionValue( $tokenKey, $token );
@@ -3484,13 +3483,13 @@ abstract class GatewayAdapter implements GatewayType {
 
 		foreach ( $locations as $var => $key ) {
 			switch ( $var ) {
-				case "request" :
+				case "request":
 					$value = WmfFramework::getRequestValue( $key, '' );
 					if ( $value !== '' ) {
 						$oid_candidates[$var] = $value;
 					}
 					break;
-				case "session" :
+				case "session":
 					if ( is_array( $key ) ) {
 						foreach ( $key as $subkey => $subvalue ) {
 							$parentVal = WmfFramework::getSessionValue( $subkey );
@@ -3500,12 +3499,12 @@ abstract class GatewayAdapter implements GatewayType {
 						}
 					} else {
 						$val = WmfFramework::getSessionValue( $key );
-						if ( !is_null( $val ) ) {
+						if ( $val !== null ) {
 							$oid_candidates[$var] = $val;
 						}
 					}
 					break;
-				default :
+				default:
 					if ( !is_array( $key ) && array_key_exists( $key, $$var ) ) {
 						// simple case first. This is a direct key in $var.
 						$oid_candidates[$var] = $$var[$key];
@@ -3553,7 +3552,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$type = $this->dataConstraints[$field]['type'];
 			$length = $this->dataConstraints[$field]['length'];
 			switch ( $type ) {
-				case 'numeric' :
+				case 'numeric':
 					// @TODO: Determine why the DataValidator's type validation functions are protected.
 					// There is no good answer, use those.
 					// In fact, we should probably just port the whole thing over there. Derp.
@@ -3567,7 +3566,7 @@ abstract class GatewayAdapter implements GatewayType {
 						}
 					}
 					break;
-				case 'alphanumeric' :
+				case 'alphanumeric':
 					// TODO: Something better here.
 					break;
 				default:
@@ -3607,7 +3606,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$selected = false;
 		$source = null;
 		$value = null;
-		if ( !is_null( $override ) && $this->validateDataConstraintsMet( 'order_id', $override ) ) {
+		if ( $override !== null && $this->validateDataConstraintsMet( 'order_id', $override ) ) {
 			// just do it.
 			$selected = true;
 			$source = 'override';
@@ -3762,7 +3761,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
-		if ( is_null( $payment_submethod ) ) {
+		if ( $payment_submethod === null ) {
 			$payment_submethod = $this->getPaymentSubmethod();
 		}
 
@@ -3885,7 +3884,7 @@ abstract class GatewayAdapter implements GatewayType {
 					'messageKey' => $key,
 				]
 			];
-		};
+		}
 
 		$transformerRules = [];
 		foreach ( $this->data_transformers as $transformer ) {

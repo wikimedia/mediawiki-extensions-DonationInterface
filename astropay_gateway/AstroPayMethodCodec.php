@@ -11,7 +11,7 @@ class AstroPayMethodCodec implements UnstagingHelper {
 		if ( !$method || !$bank ) {
 			return;
 		}
-		$filter = function ( $submethod ) use ( $method, $bank ) {
+		$filter = static function ( $submethod ) use ( $method, $bank ) {
 			$group = $submethod['group'];
 			return $method === $group && $submethod['bank_code'] === $bank;
 		};

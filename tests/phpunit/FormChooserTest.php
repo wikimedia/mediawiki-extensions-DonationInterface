@@ -24,7 +24,7 @@
 class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */

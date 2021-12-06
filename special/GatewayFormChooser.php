@@ -36,7 +36,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		$request = $this->getRequest();
 		// Get a query string parameter or null if blank
-		$getValOrNull = function ( $paramName ) use ( $request ) {
+		$getValOrNull = static function ( $paramName ) use ( $request ) {
 			$val = $request->getVal( $paramName, null );
 			if ( $val === '' ) {
 				$val = null;
@@ -261,19 +261,19 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			}
 
 			// filter on country
-			if ( !is_null( $country ) && !DataValidator::value_appears_in( $country, $meta['countries'] ) ) {
+			if ( $country !== null && !DataValidator::value_appears_in( $country, $meta['countries'] ) ) {
 				unset( $forms[$name] );
 				continue;
 			}
 
-			if ( !is_null( $currency ) && !DataValidator::value_appears_in( $currency, $meta['currencies'] )
+			if ( $currency !== null && !DataValidator::value_appears_in( $currency, $meta['currencies'] )
 			) {
 				unset( $forms[$name] );
 				continue;
 			}
 
 			// filter on payment method
-			if ( !is_null( $payment_method ) ) {
+			if ( $payment_method !== null ) {
 				if ( !DataValidator::value_appears_in( $payment_method, array_keys( $meta['payment_methods'] ) ) ) {
 					// Well, the root payment method is invalid, so... die!
 					unset( $forms[$name] );
@@ -283,7 +283,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 				// filter on payment submethod
 				// CURSES! I didn't want this to be buried down in here, but I guess it's sort of reasonable. Ish.
 				if (
-					!is_null( $payment_submethod ) &&
+					$payment_submethod !== null &&
 					!DataValidator::value_appears_in( $payment_submethod, $meta['payment_methods'][$payment_method] )
 				) {
 					unset( $forms[$name] );
@@ -538,8 +538,8 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		// got to loop on keys first, as valid_forms loop will hopefully shrink as we're going.
 			$failforms = [];
 			foreach ( $valid_forms as $form_name => $meta ) {
-				if ( ( !is_null( $look ) && !array_key_exists( $key, $meta ) )
-					|| is_null( $look ) && array_key_exists( $key, $meta ) ) {
+				if ( ( $look !== null && !array_key_exists( $key, $meta ) )
+					|| $look === null && array_key_exists( $key, $meta ) ) {
 					$failforms[] = $form_name;
 				}
 			}
@@ -647,7 +647,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 					// And also filter for payment-status specific forms
 					if ( array_key_exists( 'payment_status', $data ) ) {
 						// When form definition includes a status, only match if we specify the matching status
-						if ( !is_null( $payment_status ) && in_array( $payment_status, $data['payment_status'] ) ) {
+						if ( $payment_status !== null && in_array( $payment_status, $data['payment_status'] ) ) {
 							$group = 0;
 						} else {
 							$is_match = false;

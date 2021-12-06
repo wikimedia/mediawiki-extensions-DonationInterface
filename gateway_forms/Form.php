@@ -34,7 +34,7 @@ abstract class Gateway_Form {
 	 * Get these objects using "new" with no parameters.
 	 */
 	public function __construct() {
- }
+	}
 
 	public function setGateway( GatewayType $gateway ) {
 		$this->gateway = $gateway;

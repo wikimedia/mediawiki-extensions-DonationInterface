@@ -1,7 +1,7 @@
 <?php
-use Monolog\Logger;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\SyslogHandler;
+use Monolog\Logger;
 
 /**
  * Creates loggers and profilers for DonationInterface

@@ -32,7 +32,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * @param string $name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -151,7 +151,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'gateway_txn_id',
 			'order_id',
 		];
-		array_map( function ( $key ) use ( &$data ) {
+		array_map( static function ( $key ) use ( &$data ) {
 			unset( $data[$key] );
 		}, $toUnset );
 		return $data;

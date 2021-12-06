@@ -3,6 +3,7 @@
 		"authors": [
 			"Artsiom91",
 			"Mechanizatar",
+			"ZlyiLev",
 			"Дзяніс Тутэйшы",
 			"Тест",
 			"Хомелка"
@@ -47,7 +48,6 @@
 	"donate_interface-DKK": "Дацкая крона",
 	"donate_interface-DOP": "Дамініканскае песа",
 	"donate_interface-DZD": "Алжырскі долар",
-	"donate_interface-EEK": "Эстонская крона",
 	"donate_interface-EGP": "Егіпецкі фунт",
 	"donate_interface-EUR": "Еўра",
 	"donate_interface-GBP": "Фунт сцерлінгаў",
@@ -182,7 +182,7 @@
 	"donate_interface-middle": "Імя па бацьку",
 	"donate_interface-last": "Прозвішча",
 	"donate_interface-other": "Іншыя",
-	"donate_interface-noscript-msg": "Падобна на тое, што ў вас не ўключаны JavaScript, ці ваш браўзэр яго не падтрымлівае.\nУ мэтах забеспячэння бяспечнага, надзейнага і зручнага функцыянавання, нашай форме ахвяраванняў патрабуецца JavaScript.",
+	"donate_interface-noscript-msg": "Падобна на тое, што ў вас не ўключаны JavaScript, ці ваш браўзер яго не падтрымлівае.\nУ мэтах забеспячэння бяспечнага, надзейнага і зручнага функцыянавання, нашай форме ахвяраванняў патрабуецца JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Калі вы не можаце ці не хочаце ўключаць JavaScript, вы ўсё роўна можаце ўнесці свой ​​уклад, наведаўшы:",
 	"donate_interface-anon-message": "Калі ласка, пазначце маё імя ў агульнадаступным спісе ахвярадаўцаў.",
 	"donate_interface-donate-wikipedia": "Зрабіць ахвяраванне для Вікіпедыі",
@@ -309,5 +309,6 @@
 	"donate_interface-monthlybox-amount": "Сума ахвяравання",
 	"donate_interface-monthlybox-yes": "Канешне, рабіць гэта штомесячна",
 	"donate_interface-monthlybox-no": "Не, зрабіць аднаразовае ахвяраванне",
-	"donate_interface-monthlybox-bottom": "Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме."
+	"donate_interface-monthlybox-bottom": "Інфармацыя аб вашым ахвяраванні будзе апрацавана ў абароненым рэжыме.",
+	"donate_interface-statement": "Вікімедыя $1"
 }

@@ -18,9 +18,9 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
+use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
-use SmashPig\PaymentData\ErrorCode;
 
 /**
  * AdyenAdapter

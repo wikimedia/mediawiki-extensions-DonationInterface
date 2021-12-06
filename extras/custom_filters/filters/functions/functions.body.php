@@ -46,7 +46,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 			} else {
 				throw new RuntimeException( "$function listed in $filterListGlobal is not runnable" );
 			}
-			if ( is_null( $score ) ) {
+			if ( $score === null ) {
 				$score = 0; // TODO: Is this the correct behavior?
 			} elseif ( is_bool( $score ) ) {
 				$score = ( $score ? 0 : $risk_score_modifier );

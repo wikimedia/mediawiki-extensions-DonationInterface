@@ -1,9 +1,9 @@
 <?php
 
-use SmashPig\Core\GlobalConfiguration;
-use SmashPig\Core\Context;
-use SmashPig\Core\ProviderConfiguration;
 use PHPUnit\Framework\TestCase;
+use SmashPig\Core\Context;
+use SmashPig\Core\GlobalConfiguration;
+use SmashPig\Core\ProviderConfiguration;
 
 class DonationInterface {
 	/**

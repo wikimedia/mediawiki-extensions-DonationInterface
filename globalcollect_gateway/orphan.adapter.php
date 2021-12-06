@@ -161,9 +161,9 @@ class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
 		$transaction = parent::getQueueDonationMessage();
 
 		// Overwrite the time field, if historical date is available.
-		if ( !is_null( $this->getData_Unstaged_Escaped( 'date' ) ) ) {
+		if ( $this->getData_Unstaged_Escaped( 'date' ) !== null ) {
 			$transaction['date'] = $this->getData_Unstaged_Escaped( 'date' );
-		} elseif ( !is_null( $this->getData_Unstaged_Escaped( 'ts' ) ) ) {
+		} elseif ( $this->getData_Unstaged_Escaped( 'ts' ) !== null ) {
 			$transaction['date'] = strtotime( $this->getData_Unstaged_Escaped( 'ts' ) ); // I hate that this works. FIXME: wat.
 		}
 

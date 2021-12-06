@@ -12,8 +12,8 @@ class ArrayHelper {
 	public static function buildLookupTable( $sourceArray, $lookupBy ) {
 		# PHP 5.4: $keys = array_column( $sourceArray, $lookupBy );
 		$keys = array_map(
-			function ( $e ) use ( $lookupBy ) { return $e[$lookupBy];
-   },
+			static function ( $e ) use ( $lookupBy ) { return $e[$lookupBy];
+			},
 			$sourceArray
 		);
 		$values = array_keys( $sourceArray );

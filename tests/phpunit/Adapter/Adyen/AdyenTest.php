@@ -26,7 +26,7 @@ use Wikimedia\TestingAccessWrapper;
 class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 
 	/**
-	 * @param string$name The name of the test case
+	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
 	 * @param string|int $dataName The name or index of the data set
 	 */
@@ -436,7 +436,7 @@ class DonationInterface_Adapter_Adyen_Test extends DonationInterfaceTestCase {
 		unset( $init['processor_form'] );
 		$gateway = $this->getFreshGatewayObject( $init );
 		$skinCodes = $gateway->getSkinCodes();
-		$this->assertEquals( $skinCodes['base'], 'testskin' );
+		$this->assertEquals( 'testskin', $skinCodes['base'] );
 	}
 
 	public function testDoPaymentFailInitialFilters() {

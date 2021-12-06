@@ -45,37 +45,37 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	/**
 	 * MaxMind\MinFraud client
 	 *
-	 * @var MinFraud $minFraud
+	 * @var MinFraud
 	 */
 	protected $minFraud;
 
 	/**
 	 * Instance of Custom filter object
-	 * @var Gateway_Extras_CustomFilters $cfo
+	 * @var Gateway_Extras_CustomFilters
 	 */
 	protected $cfo;
 	/**
 	 * User ID for minFraud Score web service
-	 * @var string $minFraudAccountId
+	 * @var string
 	 */
 	protected $minFraudAccountId = '';
 
 	/**
 	 * An array of options to pass to the MinFraud client
 	 * @see MaxMind\MinFraud
-	 * @var array $minFraudClientOptions
+	 * @var array
 	 */
 	protected $minFraudClientOptions = [];
 
 	/**
 	 * License key for minFraud
-	 * @var string $minFraudLicenseKey
+	 * @var string
 	 */
 	protected $minFraudLicenseKey = '';
 
 	/**
 	 * Instance of Gateway_Extras_CustomFilters_MinFraud
-	 * @var Gateway_Extras_CustomFilters_MinFraud $instance
+	 * @var Gateway_Extras_CustomFilters_MinFraud
 	 */
 	protected static $instance;
 
@@ -92,14 +92,14 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	 * address instead of the md5 hash.
 	 *
 	 * See http://dev.maxmind.com/minfraud/#Input
-	 * @var string[] $enabledExtraFields
+	 * @var string[]
 	 */
 	protected $enabledExtraFields = [];
 
 	/**
 	 * Top level keys indicate the grouping under the minFraud scheme.
 	 * Second level keys are our field names, values are minFraud field names.
-	 * @var array $extraFieldsMap
+	 * @var array
 	 */
 	protected static $extraFieldsMap = [
 		'email' => [ 'email' => 'address' ],

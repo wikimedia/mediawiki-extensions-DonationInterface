@@ -193,7 +193,7 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 	 */
 	protected function assertGatewayCallsExactly( $expected ) {
 		$expected_num_calls = count( $expected );
-		$this->assertEquals( $expected_num_calls, count( $this->gateway->curled ),
+		$this->assertCount( $expected_num_calls, $this->gateway->curled,
 			"Ran exactly {$expected_num_calls} API calls" );
 		foreach ( $expected as $index => $action ) {
 			$this->assertRegExp( '/\b' . $action . '\b/', $this->gateway->curled[$index],

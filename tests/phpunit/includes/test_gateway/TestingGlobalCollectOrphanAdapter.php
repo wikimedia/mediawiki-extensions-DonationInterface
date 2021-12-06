@@ -12,7 +12,7 @@ class TestingGlobalCollectOrphanAdapter extends GlobalCollectOrphanAdapter {
 	 * @param array|null $options
 	 */
 	public function __construct( $options = [] ) {
-		if ( is_null( $options ) ) {
+		if ( $options === null ) {
 			$options = [];
 		}
 

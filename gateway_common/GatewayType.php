@@ -300,7 +300,7 @@ interface GatewayType extends LogPrefixProvider {
 	 * certain processors, and may depend on a variant parameter passed
 	 * in on the query string.
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function showMonthlyConvert();
 }

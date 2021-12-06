@@ -17,12 +17,12 @@
  */
 
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\PaymentData\FinalStatus;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
-use Wikimedia\TestingAccessWrapper;
 use SmashPig\PaymentProviders\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
+use Wikimedia\TestingAccessWrapper;
 
 /**
  *
@@ -93,7 +93,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'createHostedPayment' )
-			->with( $this->callback( function ( $arg ) use ( $gateway ) {
+			->with( $this->callback( static function ( $arg ) use ( $gateway ) {
 				return $gateway->getData_Unstaged_Escaped( 'user_ip' ) ===
 					$arg['fraudFields']['customerIpAddress'];
 			} ) )
@@ -452,7 +452,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$this->assertEquals( $exposed->getData_Staged( 'language' ), 'no_NO', "'NO' donor's language was improperly set. Should be 'no_NO'" );
+		$this->assertEquals( 'no_NO', $exposed->getData_Staged( 'language' ), "'NO' donor's language was improperly set. Should be 'no_NO'" );
 	}
 
 	/**
@@ -554,7 +554,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			]
 		] );
 		$orderId = $gateway->generateOrderID();
-		$this->assertEquals( '4012301230.1', $orderId );
+		$this->assertSame( '4012301230.1', $orderId );
 
 		$this->setUpRequest( [
 			'contribution_tracking_id' => '7012301230',
@@ -565,7 +565,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			]
 		] );
 		$orderId = $gateway->generateOrderID();
-		$this->assertEquals( '7012301230.1', $orderId );
+		$this->assertSame( '7012301230.1', $orderId );
 	}
 
 	public function testDonorReturnSuccess() {

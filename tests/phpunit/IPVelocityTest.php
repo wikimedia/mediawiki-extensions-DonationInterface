@@ -73,7 +73,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 			$this->gatewayAdapter
 		);
 		$cached = $this->cache->get( '127.0.0.1' );
-		$this->assertEquals( 1, count( $cached ) );
+		$this->assertCount( 1, $cached );
 		// Time should be close to now
 		$diff = time() - $cached[0];
 		$this->assertTrue( $diff < 2 );
@@ -84,7 +84,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 			$this->gatewayAdapter
 		);
 		$cached = $this->cache->get( '127.0.0.1' );
-		$this->assertEquals( 1, count( $cached ) );
+		$this->assertCount( 1, $cached );
 		// Time should be close to now
 		$diff = time() - $cached[0];
 		$this->assertTrue( $diff < 2 );

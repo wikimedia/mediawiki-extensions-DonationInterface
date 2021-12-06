@@ -14,7 +14,7 @@
 class EmployerSearchAPI extends ApiBase {
 
 	/**
-	 * @var string $apiError
+	 * @var string
 	 */
 	protected $apiError;
 
@@ -66,7 +66,7 @@ class EmployerSearchAPI extends ApiBase {
 			$resultCount = 0;
 			$filteredEmployersList = array_filter(
 				$employersList,
-				function ( $value ) use ( $query, &$resultCount ) {
+				static function ( $value ) use ( $query, &$resultCount ) {
 					return ( stripos( $value[ 'name' ], $query ) !== false &&
 						( $resultCount++ < self::MAX_RESULTS ) );
 				}
