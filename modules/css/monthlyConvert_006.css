@@ -1,5 +1,5 @@
 .mc-button {
 	width: 200px;
-	height: 48px;
+	height: inherit;
 	font-size: 18px;
 }
