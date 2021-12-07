@@ -38,8 +38,8 @@
 	"donate_interface-comment-label": "Opmerking:",
 	"donate_interface-email-agreement": "Ik ga akkoord met het af en toe ontvangen van e-mails van de Wikimedia Foundation.",
 	"donate_interface-comment-title": "Openbare reactie",
-	"donate_interface-donation-description": "Gift aan de Wikimedia Foundation",
-	"donate_interface-monthly-donation-description": "Maandelijkse donatie aan de Wikimedia Foundation",
+	"donate_interface-donation-description": "Wikimedia 877 600 9454",
+	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-amount-error": "Selecteer alstublieft een te doneren bedrag",
 	"donate_interface-smallamount-error": "Selecteer alstublieft een bedrag (minimaal $1)",
 	"donate_interface-bigamount-error": "We kunnen geen giften van USD $4 of groter ($1 $2) accepteren via onze website. Neem contact op met onze medewerkers voor grote giften via $3.",
@@ -376,7 +376,7 @@
 	"donate_interface-email-optin-fail": "Er trad een fout op bij het verwerken van uw aanvraag. Neem contact op met <a href=\"mailto:$1\">$1</a> of  <a href=\"$2\">klik hier om het opnieuw te proberen</a>.",
 	"donate_interface-faqs": "Veelgestelde vragen",
 	"donate_interface-tax-info": "Fiscale aftrekbaarheid",
-	"donate_interface-informationsharing": "Door te doneren, gaat u akkoord met het delen van uw persoonlijke gegevens met de Wikimedia Foundation, de non-profit organisatie die verantwoordelijk is voor het hosten van Wikipedia en andere Wikimediaprojecten, en haar dienstverleners op grond van ons <a href=\"$1\">donorbeleid</a>. De Wikimedia Foundation en haar dienstverleners zijn in de Verenigde Staten en andere landen gevestigd wiens privacywetgeving mogelijk niet gelijkwaardig is aan die van uw land. Uw gegevens worden aan niemand verkocht of verhandeld. Ga voor meer informatie naar ons <a href=\"$1\">donorbeleid</a>.",
+	"donate_interface-informationsharing": "Door te doneren gaat u akkoord met het delen van uw persoonlijke gegevens met de Wikimedia Foundation, de non-profitorganisatie die verantwoordelijk is voor het hosten van Wikipedia en andere Wikimediaprojecten, en haar dienstverleners op grond van ons <a href=\"$1\">donorbeleid</a>. De Wikimedia Foundation en haar dienstverleners zijn in de Verenigde Staten en andere landen gevestigd alwaar de privacywetgeving mogelijk niet gelijkwaardig is aan die van uw land. Uw gegevens worden aan niemand verkocht of verhandeld. Ga voor meer informatie naar ons <a href=\"$1\">donorbeleid</a>.",
 	"donate_interface-currency-change": "Wijzigen?",
 	"donate_interface-bank_transfer_message": "Merk op dat op uw formulier \"Global Collect\" wordt vermeld als ontvanger van uw gift. Global Collect mag namens de Wikimedia Foundation betalingen aanvaarden en verwerken. Vergeet niet om het hier vermelde referentienummer op uw overschrijving te vermelden. Mocht u verder nog vragen of bedenkingen hebben, neem dan gerust via de mail $1 contact op.",
 	"donate_interface-globalcollect-proxy": "Op uw afschrift komt te staan dat \"Global Collect\" de ontvanger is van deze gift. Global Collect is gemachtigd om namens de Wikimedia Foundation betalingen te ontvangen en te verwerken.",
@@ -402,6 +402,8 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, maar met een ander hoeveelheid",
 	"donate_interface-monthly-convert-action-button": "Maandelijks doneren",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nee, bedankt",
+	"donate_interface-monthly-convert-no-button-variant-011": "Nee, bedankt!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Nee, nu niet",
 	"donate_interface-fundraiser-maintenance-header": "Tijdelijk niet beschikbaar wegens onderhoudswerkzaamheden",
 	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als u vragen hebt."
 }

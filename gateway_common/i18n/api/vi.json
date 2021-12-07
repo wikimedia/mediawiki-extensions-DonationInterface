@@ -14,7 +14,7 @@
 	"apihelp-donate-param-street_address": "Dòng đầu tiên của địa chỉ đường phố.",
 	"apihelp-donate-param-supplemental_address_1": "Dòng thứ hai của địa chỉ đường phố.",
 	"apihelp-donate-param-city": "Thành phố.",
-	"apihelp-donate-param-state_province": "Viết tắt tỉnh bang.",
+	"apihelp-donate-param-state_province": "Viết tắt tỉnh hoặc tiểu bang.",
 	"apihelp-donate-param-postal_code": "Mã bưu chính.",
 	"apihelp-donate-param-email": "Địa chỉ thư điện tử.",
 	"apihelp-donate-param-country": "Mã quốc gia.",

@@ -32,7 +32,8 @@
 			"Stjn",
 			"Александр Сигачёв",
 			"Марио",
-			"Хомелка"
+			"Хомелка",
+			"Pacha Tchernof"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -48,7 +49,7 @@
 	"donate_interface-comment-label": "Комментарий:",
 	"donate_interface-email-agreement": "Я согласен периодически получать по эл. почте новости от Фонда Викимедиа.",
 	"donate_interface-comment-title": "Общедоступный комментарий",
-	"donate_interface-donation-description": "Викимедиа 877 600 9454",
+	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Викимедиа 877 600 9454 — ежемесячное пожертвование",
 	"donate_interface-amount-error": "Пожалуйста, выберите сумму пожертвования",
 	"donate_interface-smallamount-error": "Пожалуйста, выберите сумму (минимум $1)",
@@ -416,6 +417,7 @@
 	"donate_interface-error-http-403": "Извините, у вас недостаточно прав для доступа к этой странице.",
 	"donate_interface-statement": "Викимедиа $1",
 	"donate_interface-emailprefs-thank-you-text": "Мы рассчитываем на длительные отношения вместе.",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Да, я хочу помочь",
 	"donate_interface-fundraiser-maintenance-header": "Временно отключён для технического обслуживания",
 	"donate_interface-fundraiser-maintenance-notice": "В настоящее время происходит техническое обслуживание и мы не способны принимать пожертвования. Пожалуйста, попробуйте позже. Если у вас есть какие-либо вопросы, напишите по адресу $1."
 }

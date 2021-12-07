@@ -23,7 +23,8 @@
 			"Selven",
 			"TheRukk",
 			"Toadino2",
-			"Ximo17"
+			"Ximo17",
+			"Ajeje Brazorf"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -39,8 +40,8 @@
 	"donate_interface-comment-label": "Commento:",
 	"donate_interface-email-agreement": "Accetto di ricevere aggiornamenti occasionali tramite e-mail dalla Wikimedia Foundation.",
 	"donate_interface-comment-title": "Commento pubblico",
-	"donate_interface-donation-description": "Donazione alla Wikimedia Foundation",
-	"donate_interface-monthly-donation-description": "Donazione mensile alla Wikimedia Foundation",
+	"donate_interface-donation-description": "Wikimedia 877 600 9454",
+	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-amount-error": "Si prega di selezionare un importo da donare",
 	"donate_interface-smallamount-error": "Si prega di selezionare un importo (minimo $1)",
 	"donate_interface-bigamount-error": "Non possiamo accettare donazioni superiori a $4 USD ($1 $2) attraverso il nostro sito web. Si prega di contattare il nostro ufficio per le grandi donazioni all'indirizzo $3.",
@@ -405,6 +406,8 @@
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-no-button-variant-006": "No, grazie",
+	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
 	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1."
 }

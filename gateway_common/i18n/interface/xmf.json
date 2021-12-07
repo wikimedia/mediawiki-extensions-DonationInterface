@@ -1,9 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Silovan"
+			"Silovan",
+			"Narazeni"
 		]
 	},
 	"donate_interface-error-msg-invalid-amount": "ქორთხინთ ქიმიოწურუათ თინი ფარაშ მუდანობა",
-	"donate_interface-state_province-dropdown-YY": "გეგშაგორით ქიანა ვარდა შტატი"
+	"donate_interface-state_province-dropdown-YY": "გეგშაგორით ქიანა ვარ-და შტატი"
 }

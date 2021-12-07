@@ -25,7 +25,8 @@
 			"Ppena",
 			"SandroHc",
 			"Vitorvicentevalente",
-			555
+			555,
+			"McDutchie"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
@@ -41,8 +42,8 @@
 	"donate_interface-comment-label": "Comentário:",
 	"donate_interface-email-agreement": "Concordo em receber atualizações ocasionais da Wikimedia Foundation por correio eletrónico.",
 	"donate_interface-comment-title": "Comentário público",
-	"donate_interface-donation-description": "Donativo à Wikimedia Foundation",
-	"donate_interface-monthly-donation-description": "Donativo mensal à Wikimedia Foundation",
+	"donate_interface-donation-description": "Wikimedia +1 877 600 9454",
+	"donate_interface-monthly-donation-description": "Wikimedia +1 877 600 9454 - Donativo mensal",
 	"donate_interface-amount-error": "Insira um montante para o donativo, por favor",
 	"donate_interface-smallamount-error": "Por favor, insira um montante (mínimo de $1)",
 	"donate_interface-bigamount-error": "Não podemos aceitar donativos superiores a $4 dólares americanos (USD) ($1 $2) através do nosso sítio. Entre em contacto com a nossa equipa para grandes donativos no endereço $3.",
@@ -433,7 +434,7 @@
 	"donate_interface-emailprefs-thank-you-title": "Obrigado",
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
 	"donate_interface-monthly-convert-title": "Adicionar um donativo mensal de <span class=\"mc-convert-ask\"></span> a partir do próximo mês?",
-	"donate_interface-monthly-convert-title-variant-003": "Agradecemos o seu <span class=\"mc-convert-donated-amount\"></span> donativo. Deseja aumentar o impacto da sua participação com um <span class=\"mc-convert-ask\"></span> donativo mensal, a começar no mês que vem?",
+	"donate_interface-monthly-convert-title-variant-003": "Agradecemos o seu donativo de <span class=\"mc-convert-donated-amount\"></span>. Deseja aumentar o impacto da sua participação com um donativo mensal de <span class=\"mc-convert-ask\"></span>, a começar no mês que vem?",
 	"donate_interface-monthly-convert-title-variant-004": "Acaba de fazer um donativo de <span class=\"mc-convert-donated-amount\"></span>. Obrigado. Pode considerar a possibilidade de adicionar um <span class=\"mc-convert-ask\"></span> donativo mensal, a começar no mês que vem?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, obrigado pelo seu donativo. Deseja aumentar o impacto da sua contribuição com um <span class=\"mc-convert-ask\"></span> donativo mensal, a começar no mês que vem?",
 	"donate_interface-monthly-convert-text": "Um apoio mensal é a melhor maneira de garantir que a Wikipédia continua a prosperar.",

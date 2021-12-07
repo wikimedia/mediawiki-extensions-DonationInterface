@@ -11,7 +11,8 @@
 			"Suelnur",
 			"Suvarioglu",
 			"Tarkovsky",
-			"Vito Genovese"
+			"Vito Genovese",
+			"Cobija"
 		]
 	},
 	"donate_interface": "Wikimedia'yı destekleyin",
@@ -360,7 +361,7 @@
 	"donate_interface-bt-special_id": "Ülkeye özgü bilgiler",
 	"donate_interface-bt-information": "Banka transfer bilgileri",
 	"donate_interface-bt-finished": "Tamamlandı",
-	"donate_interface-obt-generic-name": "Çevrim içi banka havalesi",
+	"donate_interface-obt-generic-name": "Çevrimiçi banka havalesi",
 	"donate_interface-obt-biller_id": "Biller kodu",
 	"donate_interface-obt-customer_payment_reference": "Kaynak #",
 	"donate_interface-obt-customer_payment_reference_note": "Her Kaynak # numarası yalnızca bir kez geçerlidir. Lütfen bu kaynak numarasını gelecekteki bağışlarınız için tekrar kullanmayın.",

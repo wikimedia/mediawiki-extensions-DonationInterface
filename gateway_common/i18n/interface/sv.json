@@ -22,7 +22,8 @@
 			"Technic2",
 			"Tobulos1",
 			"Warrakkk",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Sabelöga"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -38,8 +39,8 @@
 	"donate_interface-comment-label": "Kommentar:",
 	"donate_interface-email-agreement": "Jag accepterar att ta emot enstaka uppdateringar från Wikimedia Foundation via e-post.",
 	"donate_interface-comment-title": "Offentlig kommentar",
-	"donate_interface-donation-description": "Donation till Wikimedia Foundation",
-	"donate_interface-monthly-donation-description": "Månatlig donation till Wikimedia Foundation",
+	"donate_interface-donation-description": "Wikimedia 877 600 9454",
+	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - månatlig gåva",
 	"donate_interface-amount-error": "Ange ett giltigt donationsbelopp",
 	"donate_interface-smallamount-error": "Välj ett belopp (minst $1)",
 	"donate_interface-bigamount-error": "Vi kan inte acceptera donationer över USD $4 ($1  $2) via vår webbplats. Kontakta gärna vår personal för stora gåvor på $3.",
