@@ -50,6 +50,7 @@
 					'postalAddress'
 				];
 				config.requiredShippingContactFields = [
+					'name',
 					'email'
 				];
 				// eslint-disable-next-line compat/compat
@@ -58,8 +59,7 @@
 						var bContact = event.payment.billingContact,
 							sContact = event.payment.shippingContact,
 							extraData = {};
-						extraData.first_name = bContact.givenName;
-						extraData.last_name = bContact.familyName;
+						extraData = getBestApplePayContactName( extraData, bContact, sContact );
 						extraData.postal_code = bContact.postalCode;
 						extraData.state_province = bContact.administrativeArea;
 						extraData.city = bContact.locality;
@@ -113,7 +113,7 @@
 	 *
 	 * @param {number} amount
 	 * @param {string} currency
-	 * @returns {number} amount in minor units for specified currency
+	 * @return {number} amount in minor units for specified currency
 	 */
 	function amountInMinorUnits( amount, currency ) {
 		var threeDecimals = mw.config.get( 'DonationInterfaceThreeDecimalCurrencies' ),
@@ -142,6 +142,41 @@
 		// Note: onError not set because error highlighting is handled in css.
 
 		return new AdyenCheckout( config );
+	}
+
+	/**
+	 * Try to obtain the "best" name from the available contact info sent back by Apple pay
+	 *
+	 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/2216120-requiredbillingcontactfields
+	 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentcontact
+	 * @param extraData
+	 * @param billingContact
+	 * @param shippingContact
+	 * @return {*}
+	 */
+	function getBestApplePayContactName( extraData, billingContact, shippingContact ) {
+		var first_name, last_name;
+
+		if ( billingContact && billingContact.givenName && billingContact.givenName.length > 1 ) {
+			first_name = billingContact.givenName;
+			if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
+				last_name = billingContact.familyName;
+			}
+		}
+
+		if ( first_name && !last_name ) {
+			// suspected 'dad' scenario so use shipping contact
+			if ( shippingContact && shippingContact.givenName && shippingContact.givenName.length > 1 ) {
+				first_name = shippingContact.givenName;
+				if ( shippingContact.familyName && shippingContact.familyName.length > 1 ) {
+					last_name = shippingContact.familyName;
+				}
+			}
+		}
+
+		extraData.first_name = first_name;
+		extraData.last_name = last_name;
+		return extraData;
 	}
 
 	/**
