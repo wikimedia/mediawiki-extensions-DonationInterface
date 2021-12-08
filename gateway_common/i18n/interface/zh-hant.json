@@ -21,7 +21,8 @@
 			"Wwycheuk",
 			"Xiaomingyan",
 			"Yfdyh000",
-			"Zhxy 519"
+			"Zhxy 519",
+			"列维劳德"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -61,7 +62,7 @@
 	"donate_interface-CAD": "加拿大元",
 	"donate_interface-CHF": "瑞士法郎",
 	"donate_interface-CLP": "智利比索",
-	"donate_interface-CNY": "中國人民幣",
+	"donate_interface-CNY": "中華人民共和國人民幣",
 	"donate_interface-COP": "哥倫比亞披索",
 	"donate_interface-CRC": "哥斯大黎加科朗",
 	"donate_interface-CZK": "捷克克朗",
@@ -410,6 +411,7 @@
 	"donate_interface-taxded-link-us": "減稅資訊",
 	"donate_interface-taxded-msg-int": "維基媒體基金會是依美國國內稅收法第 501 條 (c)(3) 款於美國成立的非營利慈善組織，\n因此，位於美國境內的個人或機關捐款者可享有稅金減免的福利。在美國境外的個人或機關捐款，可能無法享有美國與其他地方的稅金減免的福利。這樣的情況下，捐款者應尋求當地相關稅務諮詢。請注意，如果個人或機關位於禁止或限制國際慈善組織（如維基媒體\n基金會）募款活動的地區，或來自會對捐給國際慈善組織捐款課徵贈與稅的地區，維基媒體基金會將不會尋求這些個人或機關的捐款。",
 	"donate_interface-taxded-msg-us": "維基媒體基金會是依美國國內稅收法第 501 條 (c)(3) 款於美國成立的非營利慈善組織，因此，位於美國境內的個人或機關捐款者可享有稅金減免的福利。",
+	"donate_interface-taxded-msg-x": "維基媒體基金會是為世界各處的當地與獨立協會提供支援的國際非營利組織。我們的<a href=\"$2\">免稅狀況</a>會根據各國的法律而有所不同。捐款給維基媒體基金會不可在下述國家免稅：$1。若您對免稅或減稅有任何疑問，我們建議您聯絡 <a href=\"mailto:$3\">$3</a>。",
 	"donate_interface-legal-original": "此為翻譯內容。若譯文與英語版有文意不合的地方，請以英語版內容為準。",
 	"donate_interface-monthlybox-title": "您是否願意每月捐款？",
 	"donate_interface-monthlybox-content": "每月捐款將會在每月的 2 號進行。您可以隨時取消它。",
