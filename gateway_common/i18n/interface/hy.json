@@ -61,5 +61,7 @@
 	"donate_interface-token-mismatch": "Ձեր սեսիայի ժամկետն անցել է։ Խնդրում ենք, փորձեք նորից լրացնել և ուղարկել ֆորման։",
 	"donate_interface-first": "Առաջին",
 	"donate_interface-or": "կամ",
+	"donate_interface-address-1": "Հասցե 1",
+	"donate_interface-address-2": "Հասցե 2",
 	"donate_interface-statement": "Վիքիմեդիա $1"
 }
