@@ -173,7 +173,7 @@
 	"donate_interface-otherways": "Ёсць <a href=\"$1\">іншыя спосабы зрабіць ахвяраванне</a>, у тым ліку праз PayPal, чэк, пошту.",
 	"donate_interface-otherways-alt": "Існуюць <a href=\"$1\">іншыя спосабы зрабіць ахвяраванне</a>, у тым ліку чэкам.",
 	"donate_interface-otherways-short": "Іншыя спосабы зрабіць ахвяраванне",
-	"donate_interface-token-mismatch": "Ваш сеанс скончыўся. Калі ласка, запоўніце форму яшчэ раз.",
+	"donate_interface-token-mismatch": "Ваш сеанс скончыўся. Калі ласка, паспрабуйце абнавіць старонку і запоўніць форму яшчэ раз.",
 	"donate_interface-cc-form-header-personal": "Звесткі аб плацяжы",
 	"donate_interface-cc-form-header-payment": "Звесткі аб аплаце",
 	"donate_interface-make-your-donation": "Зрабіць ахвяраванне зараз",
