@@ -24,7 +24,9 @@
 			"Ppena",
 			"SandroHc",
 			"Vitorvicentevalente",
-			555
+			555,
+			"McDutchie",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
@@ -430,7 +432,13 @@
 	"donate_interface-emailprefs-thank-you-title": "Obrigado",
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
 	"donate_interface-monthly-convert-title": "Adicionar um donativo mensal de <span class=\"mc-convert-ask\"></span> a partir do próximo mês?",
+	"donate_interface-monthly-convert-title-variant-003": "Agradecemos o seu donativo de <span class=\"mc-convert-donated-amount\"></span>. Deseja aumentar o impacto da sua participação com um donativo mensal de <span class=\"mc-convert-ask\"></span>, a começar no mês que vem?",
+	"donate_interface-monthly-convert-title-variant-004": "Acaba de fazer um donativo de <span class=\"mc-convert-donated-amount\"></span>. Obrigado. Pode considerar a possibilidade de adicionar um <span class=\"mc-convert-ask\"></span> donativo mensal, a começar no mês que vem?",
+	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, obrigado pelo seu donativo. Deseja aumentar o impacto da sua contribuição com um <span class=\"mc-convert-ask\"></span> donativo mensal, a começar no mês que vem?",
 	"donate_interface-monthly-convert-text": "Um apoio mensal é a melhor maneira de garantir que a Wikipédia continua a prosperar.",
+	"donate_interface-monthly-convert-text-variant-002": "Só um pequeno número dos nossos benfeitores faz donativos mensais, mas esta é a melhor forma de garantir que a Wikipédia continue a prosperar.",
+	"donate_interface-monthly-convert-text-variant-005": "Sejamos honestos: o conhecimento não é um remédio pontual, é um compromisso de longo prazo. Pode tornar o seu apoio num donativo mensal?",
+	"donate_interface-monthly-convert-text-variant-008": "Obrigado pela sua contribuição. Temos de perguntar se pode dar um pouquinho mais? Só uma pequena fração dos nossos leitores chega a este ponto, porque a maioria não faz donativos. E, de entre os nossos benfeitores, só uma pequena parte considera fazer uma contribuição mensal automática. Mas o apoio mensal é a melhor forma de garantir que a Wikipédia continue a prosperar. Pode ajudar a assegurar a nossa estabilidade financeira com um donativo prolongado?",
 	"donate_interface-monthly-convert-change-amount": "Sim, farei um donativo mensal, mas de valor diferente",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Claro, quero escolher quanto",
 	"donate_interface-monthly-convert-enter-amount": "Introduzir o valor do seu donativo mensal a partir do próximo mês.",

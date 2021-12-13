@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Patsagorn Y."
+		]
+	},
+	"adyen_gateway-desc": "กำลังประมวลผลธุรกรรมที่ผ่าน Adyen",
+	"adyen_gateway-response-default": "เกิดข้อผิดพลาดในการประมวลผลธุรกรรมของคุณ กรุณาลองใหม่อีกครั้งในภายหลัง"
+}

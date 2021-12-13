@@ -1,0 +1,33 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joanmp17"
+		]
+	},
+	"donate_interface": "ንዊኪሜድያ ደግፍ",
+	"donate_interface-amount": "መጠን ገንዘብ",
+	"donate_interface-other-amount": "ካልእ መጠን ገንዘብ",
+	"donate_interface-currency": "ባጤራ፦",
+	"donate_interface-comment-label": "ርእይቶ፦",
+	"donate_interface-amount-error": "ንምውፋይ መጠን ገንዘብ ምረጽ",
+	"donate_interface-smallamount-error": "መጠን ገንዘብ ምረጽ (እንተ ወሓደ $1)",
+	"donate_interface-EUR": "ዩሮ",
+	"donate_interface-donor-amount": "መጠን ገንዘብ",
+	"donate_interface-donor-currency-label": "ባጤራ",
+	"donate_interface-donor-email": "ኣድራሻ ኢመይል",
+	"donate_interface-donor-name": "ስም",
+	"donate_interface-donor-first_name": "ቀዳማይ ስም",
+	"donate_interface-error-msg-issuer_id": "ባንክ",
+	"donate_interface-make-your-donation": "ሕጂ ወፈያኻ ግበር",
+	"donate_interface-country": "ሃገር",
+	"donate_interface-select-amount": "መጠን ገንዘብ ምረጽ",
+	"donate_interface-make-a-donation": "ወፈያ ግበር",
+	"donate_interface-rtbt-issuer_id-longlist": "ካልኦት ባንክታት",
+	"donate_interface-dd-bank_name": "ስም ባንክ",
+	"donate_interface-monthlybox-title": "ወርሓዊ ክትገብሮ?",
+	"donate_interface-monthlybox-yes": "ብርግጽ፣ ወርሓዊ ግበሮ",
+	"donate_interface-monthly-short": "ወርሓዊ",
+	"donate_interface-onetime-short": "ሓደ ግዜ ጥራይ",
+	"donate_interface-emailprefs-thank-you-title": "የቐንየልና",
+	"donate_interface-monthly-convert-yes-button-variant-006": "እወ፣ ክሕግዝ እደልይ እየ"
+}

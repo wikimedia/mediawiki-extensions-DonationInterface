@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Erdemaslancan",
-			"Patriot Kur"
+			"Patriot Kur",
+			"Amire80",
+			"Гусейн"
 		]
 	},
-	"donate_interface-donor-county": "Кезе",
+	"donate_interface-donor-county": "Вилојәт",
 	"donate_interface-cancel": "Ləğv karde"
 }

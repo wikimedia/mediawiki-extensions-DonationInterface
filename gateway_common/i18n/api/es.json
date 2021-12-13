@@ -4,7 +4,9 @@
 			"Fitoschido",
 			"Macofe",
 			"Ryo567",
-			"Whytheonlyone"
+			"Whytheonlyone",
+			"Avengium",
+			"Minh Nguyen"
 		]
 	},
 	"apihelp-donate-description": "Esta API te permite enviar una donación a la Fundación Wikimedia, usando una variedad de métodos de pago.",
@@ -17,7 +19,7 @@
 	"apihelp-donate-param-street_address": "Dirección, 1.ª línea.",
 	"apihelp-donate-param-supplemental_address_1": "Dirección, 2.ª línea.",
 	"apihelp-donate-param-city": "Ciudad.",
-	"apihelp-donate-param-state_province": "Abreviatura del estado.",
+	"apihelp-donate-param-state_province": "Abreviatura del estado o provincia.",
 	"apihelp-donate-param-postal_code": "Código postal.",
 	"apihelp-donate-param-email": "Dirección de correo electrónico.",
 	"apihelp-donate-param-country": "Código del país.",

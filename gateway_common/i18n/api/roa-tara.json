@@ -38,6 +38,7 @@
 	"apihelp-donate-param-variant": "Dice quale variande d'u module ha state anghiute da 'u donatore.",
 	"apihelp-donate-param-opt_in": "Dice ca 'u donatore ave scacchiate le email de raccolte funne.",
 	"apihelp-donate-param-employer": "Nome d'u 'mbiegate",
+	"apihelp-donate-param-employer_id": "ID d'u datore de fatìe",
 	"apihelp-donate-example-1": "Fà 'na donazzione",
 	"apihelp-logPaymentsFormError-description": "Sta API reggìstre le errore d'u module de le donazziune late client.",
 	"apihelp-logPaymentsFormError-summary": "Sta API reggìstre le errore d'u module de le donazziune late client.",
@@ -49,5 +50,8 @@
 	"apihelp-logPaymentsFormError-param-stack": "Tracce d'a pile de l'errore, addò jè disponibbile",
 	"apihelp-di_recurring_convert-summary": "Sta API jè ausate da le donature ca volene aggiungere 'na donazione mensile apprisse ca onne combletate 'a prima donazione.",
 	"apihelp-di_recurring_convert-param-amount": "'U 'mborte d'a donazione mensile.",
-	"apihelp-di_recurring_convert-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, globalcollect, etc."
+	"apihelp-di_recurring_convert-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, globalcollect, etc.",
+	"apihelp-employerSearch-description": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
+	"apihelp-employerSearch-summary": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
+	"apihelp-employerSearch-example-1": "Cirche 'nu datore de fatìe"
 }

@@ -10,7 +10,9 @@
 			"Matrafox",
 			"Minisarm",
 			"Stelistcristi",
-			"Strainu"
+			"Strainu",
+			"Andreyyshore",
+			"NGC 54"
 		]
 	},
 	"donate_interface": "Sprijiniți Wikimedia",
@@ -218,7 +220,7 @@
 	"donate_interface-donate-error-try-a-different-card": "Încercați [$1 alt card] sau o [$2 altă modalitate de a dona], ori contactați-ne la $3",
 	"donate_interface-donate-error-try-again-html": "Vă rugăm să <a href=\"$1\">reîncercați</a>, să utilizați o altă <a href=\"$2\">modalitate de a dona</a> sau să ne contactați la <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Vă mulțumim pentru sprijin!",
-	"donate_interface-error-no-form": "Nu am putut găsi un formular de donaţie care să corespundă parametrilor dumnevoastră. Contactați [mailto:$1 echipa noastră de ajutor] pentru informații suplimentare.",
+	"donate_interface-error-no-form": "Nu am putut găsi un formular de donație care să corespundă parametrilor dumnevoastră. Contactați [mailto:$1 echipa noastră de ajutor] pentru informații suplimentare.",
 	"php-response-declined": "Tranzacția dumneavoastră nu a putut fi acceptată.",
 	"donate_interface-thankyou": "Vă mulțumim pentru donație!",
 	"donate_interface-post-transaction": "Detaliile tranzacției",
@@ -373,11 +375,11 @@
 	"donate_interface-monthlybox-yes": "Da, vreau să fie lunară",
 	"donate_interface-monthlybox-no": "NU, vreau să donez o singură dată",
 	"donate_interface-monthlybox-bottom": "Donația dumneavoastră va fi prelucrată în siguranță.",
-	"donate_interface-monthly-cancel": "Dacă optați pentru donații recurente, Fundația Wikimedia va încasa plata fixă lunară în ziua aniversării lunare a primei donaţii, până în momentul în care ne solicitați să întrerupem plățile. Donațiile iniţiate în zilele de 29, 30 sau 31 ale lunii se vor repeta în ultima zi a lunii în cazul lunilor scurte, cât mai aproape de data originală. Dacă aveți întrebări, vă rugăm să ne contactați la $1.",
+	"donate_interface-monthly-cancel": "Dacă optați pentru donații recurente, Fundația Wikimedia va încasa plata fixă lunară în ziua aniversării lunare a primei donații, până în momentul în care ne solicitați să întrerupem plățile. Donațiile inițiate în zilele de 29, 30 sau 31 ale lunii se vor repeta în ultima zi a lunii în cazul lunilor scurte, cât mai aproape de data originală. Dacă aveți întrebări, vă rugăm să ne contactați la $1.",
 	"donate_interface-onetime": "Faceți doar o singură donație",
 	"donate_interface-monthly-short": "Lunar",
 	"donate_interface-onetime-short": "O dată",
 	"donate_interface-error-http-403": "Nu aveți permisiunea să accesați această pagină.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-fundraiser-maintenance-header": "Închis temporar pentru mentenanță"
+	"donate_interface-fundraiser-maintenance-header": "Nefuncțional temporar pentru mentenanță"
 }

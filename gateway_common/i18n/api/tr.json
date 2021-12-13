@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"BaRaN6161 TURK"
+			"BaRaN6161 TURK",
+			"Jelican9",
+			"MuratTheTurkish"
 		]
 	},
 	"apihelp-donate-description": "Bu API, çeşitli ödeme işlemcilerini kullanarak Wikimedia Vakfı'ya bağış göndermenize olanak tanır.",
@@ -12,7 +14,7 @@
 	"apihelp-donate-param-contact_hash": "Doğrulama için kullanılan CiviCRM'deki donörün karması. Contact_id verildiğinde zorunludur.",
 	"apihelp-donate-param-currency": "Para birimi kodu.",
 	"apihelp-donate-param-first_name": "Ad.",
-	"apihelp-donate-param-last_name": "Soyadı.",
+	"apihelp-donate-param-last_name": "Soyad.",
 	"apihelp-donate-param-street_address": "Sokak adresinin ilk satırı.",
 	"apihelp-donate-param-supplemental_address_1": "Sokak adresinin ikinci satırı.",
 	"apihelp-donate-param-city": "Şehir.",
@@ -21,10 +23,10 @@
 	"apihelp-donate-param-email": "E-posta adresi.",
 	"apihelp-donate-param-country": "Ülke kodu.",
 	"apihelp-donate-param-card_num": "Kredi kartı numarası.",
-	"apihelp-donate-param-card_type": "Kredi kart tipi.",
+	"apihelp-donate-param-card_type": "Kredi kartı türü.",
 	"apihelp-donate-param-expiration": "Son kullanma tarihi.",
 	"apihelp-donate-param-cvv": "CVV güvenlik kodu.",
-	"apihelp-donate-param-payment_method": "Ödeme yöntemini kullanma.",
+	"apihelp-donate-param-payment_method": "Kullanılacak ödeme yöntemi.",
 	"apihelp-donate-param-payment_submethod": "Kullanılacak ödeme alt yöntemi.",
 	"apihelp-donate-param-processor_form": "İşlemcinin hangisini kullanacağını seçin.",
 	"apihelp-donate-param-language": "Dil kodu.",
@@ -39,7 +41,7 @@
 	"apihelp-donate-param-opt_in": "Bağışçının bağış toplama e-postalarını tercih ettiğini belirtir.",
 	"apihelp-donate-param-employer": "İşveren adı",
 	"apihelp-donate-param-employer_id": "İşveren kimliği",
-	"apihelp-donate-example-1": "Bağış yap",
+	"apihelp-donate-example-1": "Bir bağışta bulunun",
 	"apihelp-logPaymentsFormError-description": "Bu API, istemci tarafı bağış formu hatalarını günlüğe kaydeder.",
 	"apihelp-logPaymentsFormError-summary": "Bu API, istemci tarafı bağış formu hatalarını günlüğe kaydeder.",
 	"apihelp-logPaymentsFormError-param-message": "Hata mesajı",

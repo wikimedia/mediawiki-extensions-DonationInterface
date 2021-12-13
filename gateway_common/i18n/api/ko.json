@@ -21,11 +21,15 @@
 	"apihelp-donate-param-order_id": "주문 ID (기부가 이미 시작된 경우)",
 	"apihelp-donate-param-wmf_token": "편집 토큰.",
 	"apihelp-donate-param-employer": "고용주 이름",
+	"apihelp-donate-param-employer_id": "고용주 ID",
 	"apihelp-donate-example-1": "기부하기",
+	"apihelp-logPaymentsFormError-description": "이 API는 클라이언트 사이드 기부 폼 오류를 기록합니다.",
+	"apihelp-logPaymentsFormError-summary": "이 API는 클라이언트 사이드 기부 폼 오류를 기록합니다.",
 	"apihelp-logPaymentsFormError-param-message": "오류 메시지",
 	"apihelp-logPaymentsFormError-param-file": "오류가 발생한 파일",
 	"apihelp-logPaymentsFormError-param-line": "오류가 발생한 줄",
 	"apihelp-logPaymentsFormError-param-col": "오류가 발생한 컬럼",
 	"apihelp-logPaymentsFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열",
-	"apihelp-logPaymentsFormError-param-stack": "오류의 스택 트레이스 (사용 가능한 경우)"
+	"apihelp-logPaymentsFormError-param-stack": "오류의 스택 트레이스 (사용 가능한 경우)",
+	"apihelp-employerSearch-example-1": "고용주 검색"
 }

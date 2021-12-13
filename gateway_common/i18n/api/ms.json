@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tofeiku"
+			"Tofeiku",
+			"Anakmalaysia"
 		]
 	},
+	"apihelp-donate-param-language": "Kod bahasa.",
 	"apihelp-employerSearch-example-1": "Gelintar seorang majikan"
 }

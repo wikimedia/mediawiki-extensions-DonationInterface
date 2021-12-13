@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Vinhtantran"
 		]
 	},
 	"apihelp-donate-description": "API này cho phép quyên góp cho Quỹ Wikimedia qua nhiều nhà xử lý thanh toán khác nhau.",
@@ -13,7 +14,7 @@
 	"apihelp-donate-param-street_address": "Dòng đầu tiên của địa chỉ đường phố.",
 	"apihelp-donate-param-supplemental_address_1": "Dòng thứ hai của địa chỉ đường phố.",
 	"apihelp-donate-param-city": "Thành phố.",
-	"apihelp-donate-param-state_province": "Viết tắt tỉnh bang.",
+	"apihelp-donate-param-state_province": "Viết tắt tỉnh hoặc tiểu bang.",
 	"apihelp-donate-param-postal_code": "Mã bưu chính.",
 	"apihelp-donate-param-email": "Địa chỉ thư điện tử.",
 	"apihelp-donate-param-country": "Mã quốc gia.",
@@ -25,7 +26,7 @@
 	"apihelp-donate-param-payment_submethod": "Phương pháp thanh toán dứt khoát.",
 	"apihelp-donate-param-language": "Mã ngôn ngữ.",
 	"apihelp-donate-param-order_id": "ID đặt hàng (nếu đã bắt đầu khoản quyên góp).",
-	"apihelp-donate-param-wmf_token": "Dấu hiệu sửa đổi.",
+	"apihelp-donate-param-wmf_token": "Chìa khóa sửa đổi.",
 	"apihelp-donate-param-utm_source": "Biến theo dõi.",
 	"apihelp-donate-param-utm_campaign": "Biến theo dõi.",
 	"apihelp-donate-param-utm_medium": "Biến theo dõi.",

@@ -2,15 +2,17 @@
 	"@metadata": {
 		"authors": [
 			"Bishnu Saikia",
-			"Gitartha.bordoloi"
+			"Gitartha.bordoloi",
+			"Simbu123"
 		]
 	},
 	"donate_interface-submit-button": "দান-বৰঙণি",
 	"donate_interface-comment-label": "মন্তব্য",
 	"donate_interface-donor-city": "চহৰ",
-	"donate_interface-error-msg-city": "চহৰ",
+	"donate_interface-error-msg-city": "অনুগ্ৰহ কৰি আপোনাৰ চহৰ প্ৰবিষ্ট কৰক",
 	"donate_interface-error-msg-state_province": "ৰাজ্য",
-	"donate_interface-error-msg-country": "দেশ",
+	"donate_interface-error-msg-country": "অনুগ্ৰহ কৰি আপোনাৰ দেশ প্ৰবিষ্ট কৰক",
+	"donate_interface-please-donate-today": "অনুগ্ৰহ কৰি আজি দান কৰক",
 	"donate_interface-next": "পৰৱৰ্তী",
 	"donate_interface-continue": "অব্যাহত",
 	"donate_interface-cancel": "বাতিল",

@@ -13,7 +13,9 @@
 			"Pcoombe",
 			"Protnet",
 			"Shirayuki",
-			"ZaDiak"
+			"ZaDiak",
+			"Ngkountas",
+			"NikosLikomitros"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -24,7 +26,7 @@
 	"donate_interface-other-amount": "Άλλο ποσό",
 	"donate_interface-currency": "Νόμισμα:",
 	"donate_interface-gateway": "Μέθοδος πληρωμής:",
-	"donate_interface-submit-button": "Δωρήστε",
+	"donate_interface-submit-button": "Δωρίστε",
 	"donate_interface-comment-message": "Έχετε μια σκέψη να μοιραστείτε με τον κόσμο; Αναπτύξτε την με έως 200 ​​χαρακτήρες εδώ:",
 	"donate_interface-comment-label": "Σχόλιο:",
 	"donate_interface-email-agreement": "Συμφωνώ να λαμβάνω περιστασιακά ενημερώσεις μέσω e-mail από το Ίδρυμα Wikimedia.",

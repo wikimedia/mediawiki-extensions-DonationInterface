@@ -12,7 +12,7 @@
 	"apihelp-donate-param-email": "Имејл адреса.",
 	"apihelp-donate-param-country": "Код државе.",
 	"apihelp-donate-param-card_num": "Број кредитне картице.",
-	"apihelp-donate-param-card_type": "Тип кредитне картице.",
+	"apihelp-donate-param-card_type": "Врста кредитне картице.",
 	"apihelp-donate-param-expiration": "Датум истека.",
 	"apihelp-donate-param-cvv": "CVV сигурносни код."
 }

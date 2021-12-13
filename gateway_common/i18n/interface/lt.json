@@ -6,7 +6,8 @@
 			"Mantak111",
 			"Manvydasz",
 			"Matasg",
-			"Zygimantus"
+			"Zygimantus",
+			"Tomasdd"
 		]
 	},
 	"donate_interface": "Parama Wikimedia fondui",
@@ -213,7 +214,7 @@
 	"donate_interface-thankyou": "Dėkojame už Jūsų aukojimą!",
 	"donate_interface-post-transaction": "Operacijos duomenys",
 	"donate_interface-cvv-explain": "<h4>Kas yra CVV?</h4>\n<p>Cardholder Verification Value (CVV): Šie trys ar keturi skaitmenys padeda užtikrinti, jog kortelė yra naudojama jos savininko. Tai padeda apsisaugoti nuo neteisėto naudojimo ar apgaulės.</p>\n<h4>Visa, Mastercard</h4>\n<p>3-jų skaitmenų kodas yra antroje kortelės pusėje, parašo zonos viduje. \nPaprastai šalia parašo yra nurodyta serija numerių, tačiau tik paskutiniai trys yra CVV kodas.</p>\n<h4>American Express</h4>\n<p>Kodas <i>visada</i> yra <i>virš</i> iškiliojo sąskaitos numerio kortelės pagrindinėje pusėje.\nKai kada kodas gali būti kairėje kortelės pusėje, bet jis visuomet nurodytas virš sąskaitos numerio.</p><br />",
-	"donate_interface-question-comment": "Klausimai arba komentarai? Susisiekite: <a href=\"mailto:$1\">$1</a>",
+	"donate_interface-question-comment": "Turite klausimų arba komentarų? Susisiekite: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Bandome padaryti taip, kad žmonėms, esantiems bet kurioje šalyje, būtų lengva paaukoti. Prašome pranešti, kaip mes galėtumėme Jums palengvinti aukojimo procesą. Savo pasiūlymus siųskite: $1.",
 	"donate_interface-problemsdonating": "Kyla problemų atliekant aukojimo procesą?",
 	"donate_interface-donate-click": "Jūsų kredito / debeto kortelė bus saugiai apdorojama.",

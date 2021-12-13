@@ -2,12 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Arnaugir",
-			"Pitort"
+			"Pitort",
+			"Mguix"
 		]
 	},
 	"globalcollect_gateway-response-9130": "País incorrecte.",
 	"globalcollect_gateway-response-9140": "Moneda invàlida.",
-	"globalcollect_gateway-response-9150": "Idioma invàlid.",
-	"globalcollect_gateway-response-400530": "Mètode de pagament invàlid.",
-	"globalcollect_gateway-response-430330": "Número de targeta invàlid."
+	"globalcollect_gateway-response-9150": "Idioma no vàlid.",
+	"globalcollect_gateway-response-400530": "Mètode de pagament no vàlid.",
+	"globalcollect_gateway-response-430330": "Número de targeta no vàlid."
 }

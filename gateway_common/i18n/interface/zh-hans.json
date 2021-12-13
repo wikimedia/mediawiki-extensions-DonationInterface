@@ -37,7 +37,11 @@
 			"予弦",
 			"佛壁灯",
 			"神樂坂秀吉",
-			"阿pp"
+			"阿pp",
+			"Dianliang233",
+			"GuoPC",
+			"Lakejason0",
+			"Shizhao"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -167,6 +171,9 @@
 	"donate_interface-donor-mname": "中间名",
 	"donate_interface-donor-last_name": "姓",
 	"donate_interface-donor-last_name-alt": "姓",
+	"donate_interface-donor-employer": "雇主名称（可选）",
+	"donate_interface-donor-employer-variant4": "雇主（可选）",
+	"donate_interface-donor-employer-variant5": "雇主",
 	"donate_interface-donor-street_address": "街道",
 	"donate_interface-donor-street-number": "门牌号",
 	"donate_interface-donor-city": "城市",
@@ -196,6 +203,7 @@
 	"donate_interface-card-name-visa": "Visa卡",
 	"donate_interface-card-name-mc": "万事达卡",
 	"donate_interface-card-name-discover": "发现卡",
+	"donate_interface-bank-name-netbanking": "网上银行",
 	"donate_interface-error-msg-general": "处理您的请求时发生了错误。",
 	"donate_interface-error-msg-nopaypal": "因一个技术故障我们无法将您的请求提交至Paypal。请尝试使用常规信用卡捐助表格。",
 	"donate_interface-error-msg-validation": "请更正表单中的错误。",
@@ -244,6 +252,7 @@
 	"donate_interface-error-msg-fiscal_number-br": "请输入您的CPF/CNPJ",
 	"donate_interface-error-msg-fiscal_number-cl": "请输入您的RUT",
 	"donate_interface-error-msg-fiscal_number-co": "请输入您的Cédula de Ciudadanía",
+	"donate_interface-error-msg-fiscal_number-in": "请输入您的PAN",
 	"donate_interface-error-msg-fiscal_number-mx": "请输入您的CURP/RFC/IFE",
 	"donate_interface-error-msg-fiscal_number-pe": "请输入您的DNI",
 	"donate_interface-error-msg-fiscal_number-uy": "请输入您的CI",
@@ -253,6 +262,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-br": "请纠正您在CPF/CNPJ的错误",
 	"donate_interface-error-msg-invalid-fiscal_number-cl": "请纠正您在RUT的错误",
 	"donate_interface-error-msg-invalid-fiscal_number-co": "请纠正您在Cédula de Ciudadanía的错误",
+	"donate_interface-error-msg-invalid-fiscal_number-in": "请纠正您在PAN的错误",
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "请纠正您在CURP/RFC/IFE的错误",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "请纠正您在DNI的错误",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "请纠正您在CI的错误",
@@ -261,6 +271,8 @@
 	"donate_interface-donate-error-try-a-different-card": "请试用[$1 另外一个信用卡]或[$2 其他捐赠方法]，或者发送至$3来联络我们",
 	"donate_interface-donate-error-try-a-different-card-html": "请尝试不同的信用卡，或使用我们的<a href=\"$1\">其他支付方式</a>，或与我们联系：<a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "请<a href=\"$1\">重试</a>，尝试我们的<a href=\"$2\">其他支付方式</a>，或与我们联系：<a href=\"mailto:$3\">$3</a>",
+	"donate_interface-donation-cancelled-header": "您的转账已成功取消。",
+	"donate_interface-donation-cancelled": "是不小心取消的？您可以<a href=\"$1\">重试</a>，尝试我们的<a href=\"$2\">其他支付方式</a>，或与我们联系：<a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "感谢您的支持！",
 	"donate_interface-error-no-form": "我们无法找到与您的参数相匹配的捐款方式。请联系[mailto:$1 我们的帮助团队]获得更多信息。",
 	"donate_interface-error-no-form-html": "我们无法找到匹配您的参数的捐赠形式。请尝试我们的<a href=\"$1\">其他方式</a>，或在<a href=\"mailto:$2\">$2</a>联系我们。",
@@ -440,6 +452,7 @@
 	"donate_interface-statement": "维基媒体 $1",
 	"donate_interface-photo-license": "所有图片以<a href=\"$1\">在知识共享 署名-相同方式共享 4.0 国际</a>协议下提供。",
 	"donate_interface-emailprefs-thank-you-title": "感谢您",
+	"donate_interface-emailprefs-thank-you-text": "我们期望能构建一份长期的关系。",
 	"donate_interface-fundraiser-maintenance-header": "暂时停机维护",
 	"donate_interface-fundraiser-maintenance-notice": "我们目前正在进行计划性的维护，因此目前不能接受捐赠。请稍后再试。如果您有任何疑问，请发邮件到$1。"
 }

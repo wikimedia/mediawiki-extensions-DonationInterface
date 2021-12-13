@@ -23,7 +23,9 @@
 			"Rodrigo codignoli",
 			"Smmvinicius",
 			"Walesson",
-			555
+			555,
+			"Eduardoaddad",
+			"McDutchie"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -135,7 +137,7 @@
 	"donate_interface-paypal-redirect": "Redirecionando para PayPal…",
 	"donate_interface-amazon-button": "Doar via Amazon",
 	"donate_interface-cc-button": "Donativos por cartão de crédito",
-	"donate_interface-ccdc-button": "Donativos por cartão de crédito/débito",
+	"donate_interface-ccdc-button": "Doar via cartão de crédito/débito",
 	"donate_interface-dd-button": "Donativos por débito direto",
 	"donate_interface-bt-button": "Doar via transferência bancária",
 	"donate_interface-rt-button": "Doar via $1",
@@ -289,7 +291,7 @@
 	"donate_interface-first": "Primeiro",
 	"donate_interface-middle": "Meio",
 	"donate_interface-last": "Último",
-	"donate_interface-other": "Outros",
+	"donate_interface-other": "Outra",
 	"donate_interface-noscript-msg": "Aparentemente o JavaScript não está ativo, ou o seu navegador não suporta JavaScript.\nO nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.",
 	"donate_interface-noscript-redirect-msg": "Se não pode ou não deseja ativar o JavaScript, mesmo assim pode contribuir acessando:",
 	"donate_interface-anon-message": "Por favor, listem o meu nome na lista pública de contribuidores.",
@@ -458,7 +460,7 @@
 	"donate_interface-emailprefs-thank-you-title": "Obrigado",
 	"donate_interface-emailprefs-thank-you-text": "Esperamos vir a ter um longo relacionamento consigo.",
 	"donate_interface-monthly-convert-title": "Adicione uma <span class=\"mc-convert-ask\"></span> doação mensal a partir do próximo mês?",
-	"donate_interface-monthly-convert-title-variant-003": "Obrigado pelo seu <span class=\"mc-convert-donated-amount\"></span> doação. Deseja aumentar seu impacto com uma <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
+	"donate_interface-monthly-convert-title-variant-003": "Obrigado pelo seu doação de <span class=\"mc-convert-donated-amount\"></span>. Deseja aumentar seu impacto com uma doação mensal de <span class=\"mc-convert-ask\"></span>, a partir do próximo mês?",
 	"donate_interface-monthly-convert-title-variant-004": "Você acabou de doar <span class=\"mc-convert-donated-amount\"></span>. Obrigado. Você consideraria adicionar um <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, Obrigado por seu presente. Deseja aumentar seu impacto com uma <span class=\"mc-convert-ask\"></span> doação mensal, a partir do próximo mês?",
 	"donate_interface-monthly-convert-text": "O suporte mensal é a melhor maneira de garantir que a Wikipédia continue prosperando.",
