@@ -162,6 +162,9 @@ class DonationInterface_Adapter_Ingenico_Orphan_Rectifier_Test
 	 * Create an orphaned tranaction and store it to the pending database.
 	 *
 	 * TODO: Reuse SmashPigBaseTest#createMessage
+	 *
+	 * @param array $overrides
+	 * @return array
 	 */
 	public function createOrphan( $overrides = [] ) {
 		$uniq = mt_rand();

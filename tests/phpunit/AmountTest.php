@@ -199,8 +199,10 @@ class AmountTest extends DonationInterfaceTestCase {
 		);
 	}
 
-	// Conversion tests depend on Barbadian monetary policy
-	// BBD is convenient as it's pegged to $0.50
+	/**
+	 * Conversion tests depend on Barbadian monetary policy
+	 * BBD is convenient as it's pegged to $0.50
+	 */
 	public function testTooMuchBbd() {
 		$this->normalized['currency'] = 'BBD';
 		$this->normalized['amount'] = '201.00';

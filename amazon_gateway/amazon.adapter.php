@@ -42,15 +42,21 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	protected $client;
 
-	// FIXME: return_value_map should handle non-numeric return values
+	/**
+	 * FIXME: return_value_map should handle non-numeric return values
+	 * @var string[]
+	 */
 	protected $capture_status_map = [
 		'Completed' => FinalStatus::COMPLETE,
 		'Pending' => FinalStatus::PENDING,
 		'Declined' => FinalStatus::FAILED,
 	];
 
-	// When an authorization or capture is declined, some reason codes indicate
-	// a situation where the donor can retry later or try a different card
+	/**
+	 * When an authorization or capture is declined, some reason codes indicate
+	 * a situation where the donor can retry later or try a different card
+	 * @var string[]
+	 */
 	protected $retry_reasons = [
 		'InternalServerError',
 		'RequestThrottled',

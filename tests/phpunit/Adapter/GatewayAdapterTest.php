@@ -420,7 +420,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( $expectedURL, $page );
 	}
 
-	// TODO: Move to ResultsPagesTest.php
+	/**
+	 * TODO: Move to ResultsPagesTest.php
+	 */
 	public function testGetFailPageForType() {
 		$url = ResultPages::getFailPageForType( 'GlobalCollectAdapter' );
 		$expectedTitle = Title::newFromText( 'Donate-error' );

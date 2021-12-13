@@ -58,7 +58,9 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		] );
 	}
 
-	// this is meant to simulate a user choosing paypal, then going back and choosing GC.
+	/**
+	 * This is meant to simulate a user choosing paypal, then going back and choosing GC.
+	 */
 	public function testBackClickPayPalToGC() {
 		$options = $this->getDonorTestData( 'US' );
 		$options['payment_method'] = 'paypal';

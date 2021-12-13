@@ -34,8 +34,8 @@ class WmfFramework_Mediawiki {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}
 
-	public static function formatMessage( $message_identifier /*, ... */ ) {
-		return call_user_func_array( 'wfMessage', func_get_args() )->text();
+	public static function formatMessage( $key, ...$params ) {
+		return wfMessage( $key, ...$params )->text();
 	}
 
 	public static function getLanguageCode() {

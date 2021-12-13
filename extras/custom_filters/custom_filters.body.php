@@ -30,6 +30,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	/**
 	 * A container for an instance of self
+	 * @var self
 	 */
 	protected static $instance;
 

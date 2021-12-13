@@ -156,6 +156,9 @@ class DonationInterface_Adapter_GlobalCollect_Orphan_Rectifier_Test
 
 	/**
 	 * Create an orphaned tranaction and store it to the pending database.
+	 *
+	 * @param array $overrides
+	 * @return array
 	 */
 	public function createOrphan( $overrides = [] ) {
 		$message = parent::createOrphan( $overrides );

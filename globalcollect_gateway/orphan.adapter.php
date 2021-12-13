@@ -3,8 +3,11 @@
 use SmashPig\PaymentData\FinalStatus;
 
 class GlobalCollectOrphanAdapter extends GlobalCollectAdapter {
-	// Data we know to be good, that we always want to re-assert after a load or an addData.
-	// so far: order_id and the data we pull from contribution tracking.
+	/**
+	 * Data we know to be good, that we always want to re-assert after a load or an addData.
+	 * so far: order_id and the data we pull from contribution tracking.
+	 * @var array
+	 */
 	protected $hard_data = [];
 
 	public static function getLogIdentifier() {
