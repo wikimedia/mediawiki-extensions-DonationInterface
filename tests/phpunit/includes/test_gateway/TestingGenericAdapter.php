@@ -22,29 +22,10 @@
 class TestingGenericAdapter extends GatewayAdapter {
 	use TTestingAdapter;
 
-	/**
-	 * A list of fake errors that is returned each time revalidate() is called.
-	 */
-	public $errorsForRevalidate = [];
-
-	public $revalidateCount = 0;
-
 	public static $acceptedCurrencies = [];
 
 	public function getCommunicationType() {
 		return 'xml';
-	}
-
-	public function revalidate( $check_not_empty = [] ) {
-		if ( !empty( $this->errorsForRevalidate ) ) {
-			$fakeErrors = $this->errorsForRevalidate[$this->revalidateCount];
-			if ( $fakeErrors !== null ) {
-				$this->revalidateCount++;
-				$this->setValidationErrors( $fakeErrors );
-				return empty( $fakeErrors );
-			}
-		}
-		return parent::revalidate( $check_not_empty );
 	}
 
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
