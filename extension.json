@@ -146,10 +146,6 @@
 		"IngenicoLocale": "ingenico_gateway/IngenicoLocale.php",
 		"IngenicoPaymentSubmethod": "ingenico_gateway/IngenicoPaymentSubmethod.php",
 		"IngenicoRecurringBooleanValue": "ingenico_gateway/IngenicoRecurringBooleanValue.php",
-		"GlobalCollectOrphanAdapter": "globalcollect_gateway/orphan.adapter.php",
-		"GlobalCollectOrphanRectifier": "globalcollect_gateway/GlobalCollectOrphanRectifier.php",
-		"IngenicoOrphanAdapter": "ingenico_gateway/orphan.adapter.php",
-		"IngenicoOrphanRectifier": "ingenico_gateway/IngenicoOrphanRectifier.php",
 		"IngenicoFinancialNumber": "globalcollect_gateway/IngenicoFinancialNumber.php",
 		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
 		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
@@ -536,14 +532,6 @@
 		"DonationInterfaceRetryLoopCount": {
 			"value": 3
 		},
-		"DonationInterfaceOrphanCron": {
-			"value": {
-				"enable": true,
-				"target_execute_time": 300,
-				"time_buffer": 1200
-			},
-			"merge_strategy": "array_plus"
-		},
 		"DonationInterfaceForbiddenCountries": {
 			"value": []
 		},
@@ -848,9 +836,7 @@
 		"DonationInterfaceGatewayAdapters": {
 			"value": {
 				"globalcollect": "GlobalCollectAdapter",
-				"globalcollect_orphan": "GlobalCollectOrphanAdapter",
 				"ingenico": "IngenicoAdapter",
-				"ingenico_orphan": "IngenicoOrphanAdapter",
 				"amazon": "AmazonAdapter",
 				"adyen": "AdyenCheckoutAdapter",
 				"astropay": "AstroPayAdapter",

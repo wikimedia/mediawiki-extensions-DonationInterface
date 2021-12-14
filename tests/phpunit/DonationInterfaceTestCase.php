@@ -76,7 +76,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			TestingAstroPayAdapter::class,
 			TestingGenericAdapter::class,
 			TestingGlobalCollectAdapter::class,
-			TestingGlobalCollectOrphanAdapter::class,
 			TestingPaypalExpressAdapter::class,
 			TestingPaypalLegacyAdapter::class,
 		];
@@ -403,7 +402,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * Transaction codes for GC and GC orphan adapters not to be retried
+	 * Transaction codes for GC adapter not to be retried
 	 * on pain of $1000+ fines by Mastercard
 	 * @return array
 	 */
