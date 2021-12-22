@@ -137,10 +137,15 @@ class GlobalCollectGateway extends GatewayPage {
 		$return .= Xml::openElement( 'tr' );
 		$return .= Xml::openElement( 'td' );
 		$scriptPath = $this->getConfig()->get( 'ScriptPath' );
-		$return .= Xml::element( 'img', [ 'src' => $scriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif", 'style' => 'vertical-align:center; width:100px; margin-right: 1em;' ] );
+		$return .= Xml::element( 'img', [
+			'src' => $scriptPath . "/extensions/DonationInterface/gateway_forms/includes/BPAY_Landscape_MONO.gif",
+			'style' => 'vertical-align:center; width:100px; margin-right: 1em;'
+		] );
 		$return .= Xml::closeElement( 'td' );
 		$return .= Xml::openElement( 'td' );
-		$return .= Xml::tags( 'p',  [], 'Contact your bank or financial institution <br /> to make this payment from your cheque, <br /> debit, or transaction account. <br /> More info: www.bpay.com.au ' );
+		$return .= Xml::tags( 'p', [], 'Contact your bank or financial institution <br /> ' .
+			'to make this payment from your cheque, <br /> debit, or transaction account. <br /> ' .
+			'More info: www.bpay.com.au ' );
 		$return .= Xml::closeElement( 'td' );
 		$return .= Xml::closeElement( 'tr' );
 		$return .= Xml::openElement( 'tr' );

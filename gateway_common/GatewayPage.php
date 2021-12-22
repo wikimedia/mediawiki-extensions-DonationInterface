@@ -63,8 +63,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @param string|null $par parameter passed to the page or null
 	 */
 	public function execute( $par ) {
-		global $wgDonationInterfaceFundraiserMaintenance;
-
 		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
 		if ( !$language ) {
@@ -82,7 +80,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->getContext()->setLanguage( $language );
 		}
 
-		if ( $wgDonationInterfaceFundraiserMaintenance ) {
+		if ( $this->getConfig()->get( 'DonationInterfaceFundraiserMaintenance' ) ) {
 			$this->getOutput()->redirect( Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL(), '302'
 			);
 			return;
@@ -458,7 +456,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		// TODO: Switch title according to failiness.
 		// Maybe ask $form_obj for a title so different errors can show different titles
-		$this->getOutput()->setPageTitle( wfMessage( 'donate_interface-make-your-donation' ) );
+		$this->getOutput()->setPageTitle( $this->msg( 'donate_interface-make-your-donation' ) );
 	}
 
 	/**

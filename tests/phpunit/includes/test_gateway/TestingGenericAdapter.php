@@ -22,6 +22,7 @@
 class TestingGenericAdapter extends GatewayAdapter {
 	use TTestingAdapter;
 
+	/** @var string[] */
 	public static $acceptedCurrencies = [];
 
 	public function getCommunicationType() {

@@ -173,8 +173,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var string
 	 */
 	protected $current_transaction;
+	/** @var string */
 	protected $action;
+	/** @var int */
 	protected $risk_score = 0;
+	/** @var string[] */
 	public $debugarray;
 
 	/**

@@ -17,12 +17,17 @@
  */
 
 trait TTestingAdapter {
+
+	/** @var array */
 	public static $fakeGlobals = [];
 
+	/** @var string|false|null */
 	public static $fakeIdentifier;
 
+	/** @var string|string[]|callable|null */
 	public static $dummyGatewayResponseCode = null;
 
+	/** @var string[] */
 	public $curled = [];
 
 	public static function getIdentifier() {

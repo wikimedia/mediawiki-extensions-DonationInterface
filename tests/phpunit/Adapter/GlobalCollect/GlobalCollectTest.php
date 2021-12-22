@@ -109,7 +109,11 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$this->setUpRequest( $request, $session );
 		// conflicting order_id in external data, request and session, explicit GC generation, batch mode
 		$gateway = $this->getFreshGatewayObject( $externalData, [ 'order_id_meta' => [ 'generate' => true, 'disallow_decimals' => true ], 'batch_mode' => true ] );
-		$this->assertNotEquals( $externalData['order_id'], $gateway->getData_Unstaged_Escaped( 'order_id' ), 'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true' );
+		$this->assertNotEquals(
+			$externalData['order_id'],
+			$gateway->getData_Unstaged_Escaped( 'order_id' ),
+			'Failed assering that a decimal order_id was regenerated, when disallow_decimals is true'
+		);
 	}
 
 	/**

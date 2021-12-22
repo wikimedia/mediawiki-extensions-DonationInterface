@@ -54,7 +54,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 */
 	protected $gatewayAdapter;
 
+	/** @var string */
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
+
+	/** @var SmashPig\Core\GlobalConfiguration */
 	public static $smashPigGlobalConfig;
 
 	/**
@@ -179,7 +182,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$this->setUpRequest( $options );
 		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
 
-		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' . $optionsForTestData['payment_method'] . '] and payment_submethod [' . $optionsForTestData['payment_submethod'] . '] does not match our expected request.' );
+		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' .
+			$optionsForTestData['payment_method'] . '] and payment_submethod [' .
+			$optionsForTestData['payment_submethod'] . '] does not match our expected request.' );
 	}
 
 	/**
@@ -705,7 +710,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 						break;
 					case 'nodehtmlmatches':
 						$html = $dom_thingy->saveXML( $input_node );
-						$this->assertSame( 1, preg_match( $expected, $html ), "HTML of the node with id '$id' does not match pattern '$expected'. It has value " . $html );
+						$this->assertSame( 1, preg_match( $expected, $html ),
+							"HTML of the node with id '$id' does not match pattern '$expected'. It has value " .
+							$html );
 						break;
 					case 'innerhtml':
 						$actual_html = self::getInnerHTML( $input_node );
@@ -714,7 +721,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 						$this->performCheck( $actual_html, $expected, "innerHTML of node '$id'" );
 						break;
 					case 'innerhtmlmatches':
-						$this->assertSame( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ), "Value of the node with id '$id' does not match pattern '$expected'. It has value " . self::getInnerHTML( $input_node ) );
+						$this->assertSame( 1, preg_match( $expected, self::getInnerHTML( $input_node ) ),
+							"Value of the node with id '$id' does not match pattern '$expected'. It has value " .
+							self::getInnerHTML( $input_node ) );
 						break;
 					case 'value':
 						$this->performCheck( $input_node->getAttribute( 'value' ), $expected, "value of node with id '$id'" );

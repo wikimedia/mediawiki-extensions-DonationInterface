@@ -2,6 +2,7 @@
 
 class PayPalCountry implements UnstagingHelper {
 
+	/** @var string[] */
 	private static $nonStandardCodes = [
 		'C2' => 'CN', // mutant China code for merchants outside of Chine
 		'AN' => 'NL', // Netherlands Antilles is part of Netherlands since 2010
