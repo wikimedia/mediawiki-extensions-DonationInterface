@@ -45,7 +45,7 @@ amex:
         AR: true
 #       CL: true  #waiting on AstroPay
         CO: true
-#       IN: true  Investigating errors: https://phabricator.wikimedia.org/T258509
+        IN: true
         PE: true
     logo: card-amex-lg.png
 visa-debit:
