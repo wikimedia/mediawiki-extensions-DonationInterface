@@ -101,6 +101,16 @@ mercadolivre:
     countries:
         BR: true
     logo: card-mercadolivre.png
+pix:
+    bank_code: PQ
+    label: Pix
+    group: bt
+    countries:
+        BR: true
+    logo: bank-pix.png
+    logo_hd:
+        2x: bank-pix_2x.png
+        3x: bank-pix_3x.png
 cabal:
     bank_code: CL
     label: Cabal
