@@ -157,21 +157,19 @@
 	function getBestApplePayContactName( extraData, billingContact, shippingContact ) {
 		var first_name, last_name;
 
-		// use shipping contact first
-		if ( shippingContact && shippingContact.givenName && shippingContact.givenName.length > 1 ) {
-			first_name = shippingContact.givenName;
-			if ( shippingContact.familyName && shippingContact.familyName.length > 1 ) {
-				last_name = shippingContact.familyName;
+		if ( billingContact && billingContact.givenName && billingContact.givenName.length > 1 ) {
+			first_name = billingContact.givenName;
+			if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
+				last_name = billingContact.familyName;
 			}
 		}
 
-		// fall back to billing if shipping last name not set to avoid 'dad' scenario.
-		// first_name/shippingContact.givenName should always be set as it's a required field in our applepay config
 		if ( first_name && !last_name ) {
-			if ( billingContact && billingContact.givenName && billingContact.givenName.length > 1 ) {
-				first_name = billingContact.givenName;
-				if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
-					last_name = billingContact.familyName;
+			// suspected 'dad' scenario so use shipping contact
+			if ( shippingContact && shippingContact.givenName && shippingContact.givenName.length > 1 ) {
+				first_name = shippingContact.givenName;
+				if ( shippingContact.familyName && shippingContact.familyName.length > 1 ) {
+					last_name = shippingContact.familyName;
 				}
 			}
 		}
