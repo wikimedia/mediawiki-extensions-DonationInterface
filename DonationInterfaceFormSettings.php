@@ -524,6 +524,7 @@ $forms['astropay'] = [
 			'itau',
 			'bradesco',
 			'santander',
+			'pix'
 		],
 	],
 	'selection_weight' => 110,
