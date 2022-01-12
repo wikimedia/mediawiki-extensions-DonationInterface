@@ -2,116 +2,22 @@
 	var mc = {},
 		currency,
 		originalAmount,
+		// These config vars are set in GatewayPage::setClientVariables
 		tyUrl = mw.config.get( 'wgDonationInterfaceThankYouUrl' ),
-		// If one-time amount <= left amount, suggest right amount for monthly
-		convertAmounts = {
-			USD: [ // also CAD, AUD, NZD
-				[ 2.74, 0 ],
-				[ 9, 1.75 ],
-				[ 12, 2 ],
-				[ 15, 2.5 ],
-				[ 18, 3 ],
-				[ 21, 3.5 ],
-				[ 24, 4 ],
-				[ 27, 4.5 ],
-				[ 30, 5 ],
-				[ 33, 5.5 ],
-				[ 36, 6 ],
-				[ 39, 6.5 ],
-				[ 42, 7 ],
-				[ 45, 7.5 ],
-				[ 48, 8 ],
-				[ 51, 8.5 ],
-				[ 54, 9 ],
-				[ 57, 9.5 ],
-				[ 60, 10 ],
-				[ 63, 10.5 ],
-				[ 66, 11 ],
-				[ 69, 11.5 ],
-				[ 72, 12 ],
-				[ 75, 12.5 ],
-				[ 102, 17 ],
-				[ 250, 25 ],
-				[ 499, 50 ],
-				[ Infinity, 0 ]
-			],
-			GBP: [ // also EUR
-				[ 1.99, 0 ],
-				[ 9, 1.75 ],
-				[ 12, 2 ],
-				[ 15, 2.5 ],
-				[ 18, 3 ],
-				[ 21, 3.5 ],
-				[ 24, 4 ],
-				[ 27, 4.5 ],
-				[ 30, 5 ],
-				[ 33, 5.5 ],
-				[ 36, 6 ],
-				[ 39, 6.5 ],
-				[ 42, 7 ],
-				[ 45, 7.5 ],
-				[ 48, 8 ],
-				[ 51, 8.5 ],
-				[ 54, 9 ],
-				[ 57, 9.5 ],
-				[ 60, 10 ],
-				[ 63, 10.5 ],
-				[ 66, 11 ],
-				[ 69, 11.5 ],
-				[ 72, 12 ],
-				[ 75, 12.5 ],
-				[ 102, 17 ],
-				[ 250, 25 ],
-				[ 499, 50 ],
-				[ Infinity, 0 ]
-			],
-			JPY: [
-				[ 299, 0 ],
-				[ 900, 150 ],
-				[ 1200, 200 ],
-				[ 1500, 250 ],
-				[ 1800, 300 ],
-				[ 2100, 350 ],
-				[ 2400, 400 ],
-				[ 2700, 450 ],
-				[ 3000, 500 ],
-				[ 3300, 550 ],
-				[ 3600, 600 ],
-				[ 3900, 650 ],
-				[ 4200, 700 ],
-				[ 4500, 750 ],
-				[ 4800, 800 ],
-				[ 5100, 850 ],
-				[ 5400, 900 ],
-				[ 5700, 950 ],
-				[ 6000, 1000 ],
-				[ 6300, 1050 ],
-				[ 6600, 1100 ],
-				[ 6900, 1150 ],
-				[ 7200, 1200 ],
-				[ 7500, 1250 ],
-				[ 10800, 1800 ],
-				[ 18000, 3000 ],
-				[ 50000, 6000 ],
-				[ Infinity, 0 ]
-			]
-		};
-	convertAmounts.EUR = convertAmounts.GBP;
-	convertAmounts.CAD = convertAmounts.USD;
-	convertAmounts.AUD = convertAmounts.USD;
-	convertAmounts.NZD = convertAmounts.USD;
+		// This is set to the ask amounts for the selected currency, or null
+		// if there are no amounts set for it.
+		convertAmounts = mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' );
 
-	mc.getConvertAsk = function ( amount, currency ) {
+	mc.getConvertAsk = function ( amount ) {
 		var i,
-			amountsForCurrency = convertAmounts[ currency ],
 			numAmounts;
-		if ( !amountsForCurrency ) {
+		if ( !convertAmounts ) {
 			return 0;
 		}
-		numAmounts = amountsForCurrency.length;
+		numAmounts = convertAmounts.length;
 		for ( i = 0; i < numAmounts; i++ ) {
-			if ( amount <= amountsForCurrency[ i ][ 0 ] ) {
-				return amountsForCurrency[ i ][ 1 ];
+			if ( amount <= convertAmounts[ i ][ 0 ] ) {
+				return convertAmounts[ i ][ 1 ];
 			}
 		}
 		return 0;
@@ -189,7 +95,7 @@
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
-		presetAmount = mc.getConvertAsk( originalAmount, currency );
+		presetAmount = mc.getConvertAsk( originalAmount );
 		if ( presetAmount === 0 && tyUrl !== null ) {
 			// They're donating in an unsupported currency, or are
 			// outside of the range where it makes sense to ask for
