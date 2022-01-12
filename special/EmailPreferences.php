@@ -17,9 +17,6 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	public function execute( $subpage ) {
-		// FIXME switch this to a DonationInterface setting
-		global $wgFundraisingEmailUnsubscribeCancelUri;
-
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->getOutput()->addModules( 'ext.donationInterface.emailPreferences' );
@@ -28,7 +25,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$posted = $this->getRequest()->wasPosted();
 		if ( $posted && $this->wasCanceled( $params ) ) {
 			$this->getOutput()->redirect(
-				$wgFundraisingEmailUnsubscribeCancelUri
+				// FIXME switch this to a DonationInterface setting
+				$this->getConfig()->get( 'FundraisingEmailUnsubscribeCancelUri' )
 			);
 			return;
 		}
@@ -64,8 +62,6 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function paramsForPreferencesForm( $contact_hash, $contact_id ) {
-		global $wgDonationInterfaceEmailPrefCtrLanguages;
-
 		$prefs = CiviproxyConnect::getEmailPreferences( $contact_hash, $contact_id );
 
 		if ( $prefs[ 'is_error' ] ) {
@@ -113,10 +109,11 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		// Only show languages configured in $wgDonationInterfaceEmailPrefCtrLanguages
 		// (should be the languages we can send e-mails to)
+		$emailPrefCtrLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPrefCtrLanguages' );
 		$displayLanguages = array_filter(
 			$languages,
-			static function ( $code ) use ( $wgDonationInterfaceEmailPrefCtrLanguages ) {
-				return in_array( $code, $wgDonationInterfaceEmailPrefCtrLanguages );
+			static function ( $code ) use ( $emailPrefCtrLanguages ) {
+				return in_array( $code, $emailPrefCtrLanguages );
 			},
 			ARRAY_FILTER_USE_KEY
 		);
@@ -140,7 +137,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		// but it's not in the list from MW, but fr is in that list)?
 		// In that case, use their Civi lang code as the form value but associate that
 		// value with the general language name.
-		} elseif ( in_array( $prefs[ 'fullLang' ], $wgDonationInterfaceEmailPrefCtrLanguages ) &&
+		} elseif ( in_array( $prefs[ 'fullLang' ], $emailPrefCtrLanguages ) &&
 				!isset( $languages[ $prefs[ 'fullLang' ] ] ) &&
 				isset( $languages[ $prefsShortLang ] ) ) {
 			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
@@ -328,16 +325,16 @@ class EmailPreferences extends UnlistedSpecialPage {
 			# FIXME The messages for optin and unsubscribe only exist in the
 			# FundraisingEmailUnsubscribe extension.
 			case 'optin':
-				$title = wfMessage( 'fundraisersubscribe' );
+				$title = $this->msg( 'fundraisersubscribe' );
 				break;
 			case 'unsubscribe':
-				$title = wfMessage( 'fundraiserunsubscribe' );
+				$title = $this->msg( 'fundraiserunsubscribe' );
 				break;
 			case 'emailPreferences':
-				$title = wfMessage( 'emailpreferences-title' );
+				$title = $this->msg( 'emailpreferences-title' );
 				break;
 			default:
-				$title = wfMessage( 'donate_interface-error-msg-general' );
+				$title = $this->msg( 'donate_interface-error-msg-general' );
 		}
 		$this->getOutput()->setPageTitle( $title );
 	}

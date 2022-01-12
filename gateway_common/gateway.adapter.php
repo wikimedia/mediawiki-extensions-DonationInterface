@@ -43,6 +43,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * config tree
+	 * @var array
 	 */
 	protected $config = [];
 
@@ -116,6 +117,7 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Data transformation helpers.  These implement the StagingHelper interface for now,
 	 * and are responsible for staging and unstaging data.
+	 * @var (StagingHelper|ValidationHelper)[]
 	 */
 	protected $data_transformers = [];
 
@@ -171,8 +173,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var string
 	 */
 	protected $current_transaction;
+	/** @var string */
 	protected $action;
+	/** @var int */
 	protected $risk_score = 0;
+	/** @var string[] */
 	public $debugarray;
 
 	/**
@@ -188,7 +193,10 @@ abstract class GatewayAdapter implements GatewayType {
 	const IDENTIFIER = 'donation';
 	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
 
-	// This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	/**
+	 * This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
+	 * @var bool
+	 */
 	public $log_outbound = false;
 
 	protected $order_id_candidates;

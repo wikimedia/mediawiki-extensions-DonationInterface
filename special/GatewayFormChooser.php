@@ -22,14 +22,11 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	}
 
 	public function execute( $par ) {
-		global $wgDonationInterfaceFundraiserMaintenance,
-			$wgDonationInterfaceEnableFormChooser;
-
-		if ( !$wgDonationInterfaceEnableFormChooser ) {
+		if ( !$this->getConfig()->get( 'DonationInterfaceEnableFormChooser' ) ) {
 			throw new BadTitleError();
 		}
 
-		if ( $wgDonationInterfaceFundraiserMaintenance ) {
+		if ( $this->getConfig()->get( 'DonationInterfaceFundraiserMaintenance' ) ) {
 			$this->getOutput()->redirect( Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL(), '302' );
 			return;
 		}
@@ -79,7 +76,9 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			$utmSource = $this->getRequest()->getVal( 'utm_source', '' );
 
 			$this->logger->error(
-				"Not able to find a valid form for country '$country', currency '$currency', method '$paymentMethod', submethod '$paymentSubMethod', recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'"
+				"Not able to find a valid form for country '$country', currency '$currency', " .
+				"method '$paymentMethod', submethod '$paymentSubMethod', " .
+				"recurring: '$recurring', gateway '$gateway' for utm source '$utmSource'"
 			);
 			$this->getOutput()->showErrorPage(
 				'donate_interface-error-msg-general',

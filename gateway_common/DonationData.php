@@ -40,6 +40,7 @@ class DonationData implements LogPrefixProvider {
 	 * @TODO also: Think about putting log alarms on the
 	 * keys we want to see disappear forever, complete with
 	 * ffname and referrer for easy total destruction.
+	 * @var string[]
 	 */
 	protected static $fieldNames = [
 		'amount',
@@ -1060,7 +1061,7 @@ class DonationData implements LogPrefixProvider {
 	}
 
 	/**
-	 * @param array $tracking_data
+	 * @param string $current_hash
 	 * @return bool
 	 */
 	private function trackingDataUpdated( $current_hash ) {

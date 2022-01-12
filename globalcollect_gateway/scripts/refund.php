@@ -34,7 +34,8 @@ class GlobalCollectRefundMaintenance extends Maintenance {
 		$isUnsubscribing = $this->getOption( 'unsubscribe' );
 
 		$filename = $this->getOption( 'file' );
-		if ( !( $file = fopen( $filename, 'r' ) ) ) {
+		$file = fopen( $filename, 'r' );
+		if ( !$file ) {
 			$this->error( 'Could not find refund file: ' . $filename, true );
 		}
 		while ( $refund = fgetcsv( $file ) ) {

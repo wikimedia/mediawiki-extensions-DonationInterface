@@ -16,14 +16,17 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 * We set the following public static variables for use in mustache helper
 	 * functions l10n and fieldError, which need to be static and are accessed
 	 * via eval()'ed code from MustacheHelper.
+	 * @var string
 	 */
-	// phpcs:disable Squiz.Classes.SelfMemberReference.NotUsed
 	public static $country;
 
+	/** @var array[] */
 	public static $fieldErrors;
 
+	/** @var string */
 	public static $baseDir;
 
+	/** @var string[] */
 	protected static $partials = [
 		'first_name',
 		'issuers',
@@ -39,7 +42,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	];
 
 	/**
-	 * @var array Keys are message keys used in templates, values are
+	 * @var string[] Keys are message keys used in templates, values are
 	 *  message keys to replace them with.
 	 */
 	public static $messageReplacements = [];
@@ -447,6 +450,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	// static variables since rendering happens in another class, so we use
 	// Gateway_Form_Mustache::
 
+	// phpcs:disable Squiz.Classes.SelfMemberReference.NotUsed
+
 	/**
 	 * Get a message value specific to the donor's country and language.
 	 *
@@ -492,7 +497,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return MustacheHelper::render( $path, $context );
 	}
 
-	// phpcs:enable Squiz.Classes.SelfMemberReference.NotUsed
+	// phpcs:enable
 
 	public function getResources() {
 		$resources = parent::getResources();

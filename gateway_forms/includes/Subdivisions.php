@@ -20,11 +20,13 @@ class Subdivisions {
 		return false;
 	}
 
+	/** @var string[] */
 	private static $keyBase = [
 		'CA' => 'donate_interface-province-dropdown-',
 		'US' => 'donate_interface-state_province-dropdown-',
 	];
 
+	/** @var string[][] */
 	private static $list = [
 		'AU' => [
 			'ACI' => 'Ashmore and Cartier Islands',

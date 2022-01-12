@@ -28,8 +28,6 @@ class FundraiserMaintenance extends UnlistedSpecialPage {
 	}
 
 	public function execute( $sub ) {
-		global $wgDonationInterfaceProblemsEmail;
-
 		$output = $this->getOutput();
 		$this->setHeaders();
 
@@ -37,16 +35,17 @@ class FundraiserMaintenance extends UnlistedSpecialPage {
 
 		$this->outputHeader();
 
-		$output->setPageTitle( wfMessage( 'donate_interface-fundraiser-maintenance-header' ) );
+		$output->setPageTitle( $this->msg( 'donate_interface-fundraiser-maintenance-header' ) );
 
 		// Now do whatever we have to do to output the content in $outContent
 		// Hide unneeded interface elements
 		$output->addModules( 'donationInterface.skinOverride' );
 
+		$email = $this->getConfig()->get( 'DonationInterfaceProblemsEmail' );
 		$output->addHTML(
-			"<p>" . wfMessage( 'donate_interface-fundraiser-maintenance-notice' )
+			"<p>" . $this->msg( 'donate_interface-fundraiser-maintenance-notice' )
 				->rawparams(
-					"<a href='mailto:$wgDonationInterfaceProblemsEmail'>$wgDonationInterfaceProblemsEmail</a>"
+					"<a href='mailto:$email'>$email</a>"
 				) . "<p>"
 		);
 	}

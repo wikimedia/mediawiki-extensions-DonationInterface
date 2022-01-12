@@ -45,7 +45,7 @@ amex:
         AR: true
 #       CL: true  #waiting on AstroPay
         CO: true
-#       IN: true  Investigating errors: https://phabricator.wikimedia.org/T258509
+        IN: true
         PE: true
     logo: card-amex-lg.png
 visa-debit:
@@ -101,6 +101,16 @@ mercadolivre:
     countries:
         BR: true
     logo: card-mercadolivre.png
+pix:
+    bank_code: PQ
+    label: Pix
+    group: bt
+    countries:
+        BR: true
+    logo: bank-pix.png
+    logo_hd:
+        2x: bank-pix_2x.png
+        3x: bank-pix_3x.png
 cabal:
     bank_code: CL
     label: Cabal
@@ -164,6 +174,26 @@ webpay:
     countries:
         CL: true
     logo: bank-webpay.png
+lider:
+    bank_code: LI
+    label: Lider
+    group: cc
+    countries:
+        UY: true
+    logo: card-lider.png
+    logo_hd:
+        1.5x: card-lider_1.5x.png
+        2x: card-lider_2x.png
+oca:
+    bank_code: LI
+    label: OCA
+    group: cc
+    countries:
+        UY: true
+    logo: card-oca.png
+    logo_hd:
+        1.5x: card-oca_1.5x.png
+        2x: card-oca_2x.png
 webpay_bt:
     bank_code: WP
     label: Webpay

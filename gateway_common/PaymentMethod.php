@@ -24,12 +24,19 @@ class PaymentMethod {
 	 */
 	protected $gateway;
 
+	/**
+	 * @var string
+	 */
 	protected $name;
 
+	/**
+	 * @var bool
+	 */
 	protected $is_recurring;
 
 	/**
 	 * Gateway definition for this payment method
+	 * @var array
 	 */
 	protected $spec;
 

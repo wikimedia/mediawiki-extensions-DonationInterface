@@ -103,20 +103,17 @@ class EmployerSearchAPI extends ApiBase {
 	 * @return array|bool
 	 */
 	protected function getEmployersList() {
-		global $wgDonationInterfaceEmployersListDataFileLocation;
-
+		$employersListDataFile = $this->getConfig()->get( 'DonationInterfaceEmployersListDataFileLocation' );
 		// Check the employer data file exists
-		if ( !file_exists( $wgDonationInterfaceEmployersListDataFileLocation ) ) {
-			$this->setError( 'Employer data file doesn\'t exist: '
-				. $wgDonationInterfaceEmployersListDataFileLocation );
+		if ( !file_exists( $employersListDataFile ) ) {
+			$this->setError( 'Employer data file doesn\'t exist: ' . $employersListDataFile );
 			return false;
 		}
 
 		// Try to open the file
-		$fileHandle = fopen( $wgDonationInterfaceEmployersListDataFileLocation, "r" );
+		$fileHandle = fopen( $employersListDataFile, "r" );
 		if ( !$fileHandle ) {
-			$this->setError( 'Couldn\'t open employer data file: '
-				. $wgDonationInterfaceEmployersListDataFileLocation );
+			$this->setError( 'Couldn\'t open employer data file: ' . $employersListDataFile );
 			return false;
 		}
 

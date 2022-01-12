@@ -29,7 +29,8 @@ class IngenicoGetOrderStatusMaintenance extends Maintenance {
 		$wgGlobalCollectGatewayEnableCustomFilters = false;
 
 		$filename = $this->getOption( 'file' );
-		if ( !( $file = fopen( $filename, 'r' ) ) ) {
+		$file = fopen( $filename, 'r' );
+		if ( !$file ) {
 			$this->error( 'Could not find order id file: ' . $filename, true );
 		}
 		while ( $order = fgetcsv( $file ) ) {

@@ -12,9 +12,7 @@ class SystemStatus extends UnlistedSpecialPage {
 	}
 
 	public function execute( $par ) {
-		global $wgDonationInterfaceEnableSystemStatus;
-
-		if ( !$wgDonationInterfaceEnableSystemStatus ) {
+		if ( !$this->getConfig()->get( 'DonationInterfaceEnableSystemStatus' ) ) {
 			throw new BadTitleError();
 		}
 

@@ -12,9 +12,7 @@ global $wgDonationInterfaceAllowedHtmlForms;
  */
 $forms = [];
 
-/*
- * Amazon
- */
+// Amazon
 $forms['amazon'] = [
 	'gateway' => 'amazon',
 	'payment_methods' => [ 'amazon' => 'ALL' ],
@@ -26,10 +24,7 @@ $forms['amazon-recurring'] = [
 	'recurring',
 ];
 
-/*******************************
- * RealTime Banking - Two Step *
- *******************************/
-
+// RealTime Banking - Two Step
 $forms['rtbt-ideal'] = [
 	'gateway' => 'globalcollect',
 	'payment_methods' => [ 'rtbt' => 'rtbt_ideal' ],
@@ -37,10 +32,7 @@ $forms['rtbt-ideal'] = [
 	'currencies' => [ '+' => 'EUR' ],
 ];
 
-/********
- * BPAY *
- ********/
-
+// BPAY
 $forms['obt-bpay'] = [
 	'gateway' => 'globalcollect',
 	'countries' => [ '+' => 'AU' ],
@@ -48,10 +40,7 @@ $forms['obt-bpay'] = [
 	'payment_methods' => [ 'obt' => 'bpay' ]
 ];
 
-/**********************
- * Credit Card - Misc *
- **********************/
-
+// Credit Card - Misc
 $forms['cc-vmad'] = [
 	'gateway' => 'ingenico',
 	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
@@ -326,18 +315,12 @@ $forms['cc-ingenico'] = [
 	'selection_weight' => 10,
 ];
 
-/****************************
- * Name and Email-Only Test *
- ****************************/
-
+// Name and Email-Only Test
 $forms['email-cc-vmaj'] = $forms['cc-vmaj'];
 $forms['email-cc-vma'] = $forms['cc-vma'];
 $forms['email-cc-vm'] = $forms['cc-vm'];
 
-/*************************
- * Recurring Credit Card *
- *************************/
-
+// Recurring Credit Card
 $forms['rcc-vmad'] = [
 	'gateway' => 'ingenico',
 	'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
@@ -491,10 +474,7 @@ $forms['rcc-ingenico'] = [
 	'selection_weight' => 10,
 ];
 
-/*************************
- * Paypal
- *************************/
-
+// Paypal
 $forms['paypal'] = [
 	'gateway' => 'paypal',
 	'payment_methods' => [ 'paypal' => 'ALL' ],
@@ -521,9 +501,7 @@ $forms['paypal_ec-recurring'] = [
 	'selection_weight' => 100,
 ];
 
-/************
- * AstroPay *
- ************/
+// AstroPay
 $forms['astropay'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'BR' ],
@@ -546,6 +524,7 @@ $forms['astropay'] = [
 			'itau',
 			'bradesco',
 			'santander',
+			'pix'
 		],
 	],
 	'selection_weight' => 110,
@@ -687,6 +666,8 @@ $forms['astropay-uy'] = [
 			'visa',
 			'mc',
 			'diners',
+			'lider',
+			'oca',
 		],*/
 		'cash' => [
 			'cash_red_pagos',
@@ -695,9 +676,7 @@ $forms['astropay-uy'] = [
 	'selection_weight' => 1,
 ];
 
-/**********
- * Adyen *
- **********/
+// Adyen
 $forms['adyen-au'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'AU' ], ],
@@ -915,10 +894,7 @@ $forms['adyen-test-recurring'] = [
 	'selection_weight' => 0,
 ];
 
-/* * ***********
- * Error Pages *
- * *********** */
-
+// Error Pages
 $forms['error-default'] = [
 	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
 	'special_type' => 'error',

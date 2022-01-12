@@ -505,6 +505,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					break;
 				}
 
+				// PaymentActionNotInitiated means the donor hasn't done the payment at the PayPal side.
+				// If we're running under the orphan slayer (batch mode), this is the end of the line.
+				// Setting the status to TIMEOUT here will trigger the early return in processDonorReturn
+				// so we don't barrel ahead with the SetExpressCheckout call without having a payerID.
+				if ( $this->isBatchProcessor() && $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionNotInitiated' ) {
+					$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
+					break;
+				}
+
 				$this->runAntifraudFilters();
 				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
