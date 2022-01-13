@@ -117,7 +117,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data['appeal_text'] = $output->parseAsContent( '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 
-		// 'is_tax_ded' is a boolean variable to check if a country falls tax-exempt countries
+		// 'is_tax_ded' is a boolean variable to check if a country falls under tax-exempt countries
 		$tax_ded_countries = $this->gateway->getGlobal( 'TaxDedCountries' );
 		$data['is_tax_ded'] = in_array( $data['country'], $tax_ded_countries );
 		if ( $data['is_tax_ded'] ) {

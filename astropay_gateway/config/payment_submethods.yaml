@@ -11,6 +11,7 @@ visa:
         MX: true
         PE: true
         UY: true
+        ZA: true
     logo: card-visa-lg.png
 mc:
     bank_code: MC
@@ -25,6 +26,7 @@ mc:
         MX: true
         PE: true
         UY: true
+        ZA: true
     logo: card-mastercard.png
     logo_hd:
         2x: card-mastercard_2x.png
@@ -55,6 +57,7 @@ visa-debit:
     countries:
         MX: true
         PE: true
+        ZA: true
     logo: card-visa-lg.png
     sub_text_key: donate_interface-debit
 mc-debit:
@@ -63,6 +66,7 @@ mc-debit:
     group: cc
     countries:
         MX: true
+        ZA: true
     logo: card-mastercard.png
     logo_hd:
         2x: card-mastercard_2x.png
@@ -111,6 +115,16 @@ pix:
     logo_hd:
         2x: bank-pix_2x.png
         3x: bank-pix_3x.png
+ach:
+    bank_code: IO
+    label: ACH
+    group: bt
+    countries:
+        ZA: true
+    logo: bank-ach.png
+    logo_hd:
+        2x: bank-ach_2x.png
+        3x: bank-ach_3x.png
 cabal:
     bank_code: CL
     label: Cabal
