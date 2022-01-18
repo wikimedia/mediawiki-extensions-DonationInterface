@@ -41,7 +41,8 @@
 			"阿pp",
 			"Dianliang233",
 			"GuoPC",
-			"Shizhao"
+			"Shizhao",
+			"Tranve"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -238,8 +239,8 @@
 	"donate_interface-error-msg-card_num": "信用卡号码",
 	"donate_interface-error-msg-expiration": "请输入卡失效日期",
 	"donate_interface-error-msg-cvv": "请输入CVV代码，经常您会在卡的背面看到",
-	"donate_interface-error-msg-account_name": "账户名",
-	"donate_interface-error-msg-account_number": "账户编号",
+	"donate_interface-error-msg-account_name": "账号名",
+	"donate_interface-error-msg-account_number": "账号编号",
 	"donate_interface-error-msg-authorization_id": "授权ID",
 	"donate_interface-error-msg-bank_check_digit": "银行校验码",
 	"donate_interface-error-msg-bank_code": "分类代码",
@@ -293,7 +294,7 @@
 	"donate_interface-token-mismatch": "会话已经过期。请您重新填写并提交表单。",
 	"donate_interface-cc-token-expired": "您的令牌已过期，点击确定刷新。",
 	"donate_interface-try-again": "我们目前无法处理您的捐款。请稍后重试。",
-	"donate_interface-cc-form-header-personal": "账户信息",
+	"donate_interface-cc-form-header-personal": "账号信息",
 	"donate_interface-cc-form-header-payment": "付款信息",
 	"donate_interface-make-your-donation": "马上捐款",
 	"donate_interface-comment": "评论",
@@ -407,7 +408,7 @@
 	"donate_interface-rtbt-issuer_id": "选择银行",
 	"donate_interface-rtbt-issuer_id-longlist": "其他银行",
 	"donate_interface-sofortbanking": "Sofortbanking是仿真的，模拟现实时间允许您与您的网上银行之间触发银行转账而不会泄露信息（因为我们全日启用EV级HTTPS）的网站，位于DIRECTebanking.com。如果您的账户尚不支持我们的在线仿真转账服务，您可能需要使用“通过手动银行转账”以使用我们的其他服务。",
-	"donate_interface-dd-account_name": "账户名",
+	"donate_interface-dd-account_name": "账号名",
 	"donate_interface-dd-account_number": "账号",
 	"donate_interface-dd-authorization_id": "授权ID",
 	"donate_interface-dd-bank_check_digit": "银行校验码",
