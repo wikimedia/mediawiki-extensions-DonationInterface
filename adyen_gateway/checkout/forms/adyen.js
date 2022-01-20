@@ -357,6 +357,42 @@
 
 		// TODO: useful comments
 		config = mw.config.get( 'adyenConfiguration' );
+		// adyen support below locale: https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
+		var adyenSupportedLocale = [
+			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
+			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
+			'fr-FR', 'de-DE', 'el-GR', 'hu-HU',
+			'it-IT', 'ja-JP', 'ko-KR', 'no-NO',
+			'pl-PL', 'pt-BR', 'ro-RO', 'ru-RU',
+			'sk-SK', 'sl-SL', 'es-ES', 'sv-SE'
+		];
+		// check if adyen not support incoming lang should have our own customized translation
+		// Adyen supports ar as Arabic - International and doesn't check for country
+		if ( config.locale.substr( 0, 2 ) !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
+			var customLanguage = {};
+			customLanguage[ config.locale ] = {
+				//title
+				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
+				'creditCard.expiryDateField.title': mw.msg( 'donate_interface-credit-card-expiration' ),
+				'creditCard.cvcField.title': mw.msg( 'donate_interface-cvv' ),
+				//placeholder
+				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+				'creditCard.cvcField.placeholder.3digits': mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+				'creditCard.cvcField.placeholder.4digits': mw.msg( 'donate_interface-cvv-placeholder-4-digits' ),
+				//error
+				'creditCard.numberField.invalid': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'creditCard.expiryDateField.invalid': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
+				'error.va.gen.01': mw.msg( 'donate_interface-error-msg-incomplete-field' ),
+				'error.va.gen.02': mw.msg( 'donate_interface-error-msg-field-not-valid' ),
+				'error.va.sf-cc-num.01': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'error.va.sf-cc-num.02': mw.msg( 'donate_interface-error-msg-card-number-do-not-match-card-brand' ),
+				'error.va.sf-cc-num.03': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
+				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
+				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
+			};
+			config.translations = customLanguage;
+		}
+
 		checkout = getCheckout( config );
 		component_config = getComponentConfig( component_type );
 		component = checkout.create( component_type, component_config );
