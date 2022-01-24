@@ -646,8 +646,12 @@ $forms['astropay-mx'] = [
 			'visa',
 			'mc',
 			'amex',
-			'diners',
 			'visa-debit',
+		],
+		'bt' => [
+			'bcp',
+			'interbank',
+			'bbva',
 		],
 		'cash' => [
 			'cash_pago_efectivo',

@@ -314,6 +314,36 @@ cash_red_pagos:
     countries:
         UY: true
     logo: cash-red-pagos.png
+bcp:
+    bank_code: BC
+    label: BCP
+    group: bt
+    countries:
+        PE: true
+    logo: bank-bcp.png
+    logo_hd:
+        2x: bank-bcp_2x.png
+        3x: bank-bcp_3x.png
+interbank:
+    bank_code: IB
+    label: Interbank
+    group: bt
+    countries:
+        PE: true
+    logo: bank-interbank.png
+    logo_hd:
+        2x: bank-interbank_2x.png
+        3x: bank-interbank_3x.png
+bbva:
+    bank_code: BP
+    label: BBVA
+    group: bt
+    countries:
+        PE: true
+    logo: bank-bbva.png
+    logo_hd:
+        2x: bank-bbva_2x.png
+        3x: bank-bbva_3x.png
 #india
 netbanking:
     bank_code: NB
