@@ -191,7 +191,8 @@
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
 		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
-		"FundraiserMaintenance": "special/FundraiserMaintenance.php"
+		"FundraiserMaintenance": "special/FundraiserMaintenance.php",
+		"RecurringConversionTrait": "gateway_common/RecurringConversionTrait.php"
 	},
 	"ResourceModules": {
 		"iframe.liberator": {

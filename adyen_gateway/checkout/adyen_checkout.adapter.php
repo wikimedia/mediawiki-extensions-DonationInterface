@@ -8,7 +8,9 @@ use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
-class AdyenCheckoutAdapter extends GatewayAdapter {
+class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion {
+	use RecurringConversionTrait;
+
 	const GATEWAY_NAME = 'AdyenCheckout';
 	const IDENTIFIER = 'adyen';
 	const GLOBAL_PREFIX = 'wgAdyenCheckoutGateway';
@@ -95,8 +97,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		// FIXME: this should be a newSuccess so we don't trigger extra
 		// pending logging.
 		$paymentResult = PaymentResult::newRedirect(
-			ResultPages::getThankYouPage( $this )
-		);
+			ResultPages::getThankYouPage( $this ) );
 		if ( !$authorizeResult->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			// TODO: map any errors from $authorizeResult
@@ -143,6 +144,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 				'recurring_payment_token' => $authorizeResult->getRecurringPaymentToken(),
 				'processor_contact_id' => $authorizeResult->getProcessorContactID()
 			] );
+			if ( $this->showMonthlyConvert() ) {
+				$this->session_addDonorData();
+			}
 		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
