@@ -6,8 +6,8 @@ To install the DonationInterface extension, put the following line in LocalSetti
 All of this extension's globals can be overridden on a per-gateway basis by
 adding a setting with the same name, but with 'DonationInterface' replaced
 with the gateway's name. To override $wgDonationInterfaceUseSyslog just for
-Adyen, add
-  $wgAdyenGatewayUseSyslog = true;
+Ingenico, add
+  $wgIngenicoGatewayUseSyslog = true;
 to LocalSettings.php.
 
 
@@ -18,7 +18,6 @@ Set these to true to enable each payment processor integration:
 
 $wgGlobalCollectGatewayEnabled = false
 $wgAmazonGatewayEnabled = false
-$wgAdyenGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
@@ -318,20 +317,6 @@ $wgPaypalExpressGatewayCertificateURL = 'https://api.paypal.com/nvp'
 $wgPaypalExpressGatewaySignatureURL = 'https://api-3t.paypal.com/nvp'
 $wgPaypalExpressGatewayTestingCertificateURL = 'https://api.sandbox.paypal.com/nvp'
 $wgPaypalExpressGatewayTestingSignatureURL = 'https://api-3t.sandbox.paypal.com/nvp'
-
-$wgAdyenGatewayURL = 'https://live.adyen.com'
-$wgAdyenGatewayTestingURL = 'https://test.adyen.com'
-
-// Adyen automatically declines any payment with a fraud score over 100.
-// This variable caps the score we send them so donations we've flagged in
-// error can be reviewed and manually captured.
-$wgAdyenGatewayMaxRiskScore = 95
-
-#	$wgAdyenGatewayAccountInfo['example'] = [
-#		'AccountName' => '' // account identifier, not login name
-#		'SharedSecret' => '' // entered in the skin editor
-#		'SkinCode' => ''
-#	]
 
 $wgAdyenCheckoutGatewayAccountInfo['example'] = [
 	// Latest values for Script & Css at https://docs.adyen.com/online-payments/release-notes

@@ -244,8 +244,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $init['order_id'] );
 
 		$secondRequest = $this->setUpRequest( $init, $session );
-		$adyen_gateway = new TestingAdyenAdapter();
-		$adyen_gateway->batch_mode = true;
+		$adyen_gateway = new AdyenCheckoutAdapter( [ 'batch_mode' => true ] );
 
 		$session = $secondRequest->getSessionArray();
 		$ctId = $adyen_gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );

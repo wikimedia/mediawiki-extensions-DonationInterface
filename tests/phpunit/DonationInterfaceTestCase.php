@@ -75,7 +75,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 
 	public static function resetTestingAdapters() {
 		$testing_adapters = [
-			TestingAdyenAdapter::class,
 			TestingAstroPayAdapter::class,
 			TestingGenericAdapter::class,
 			TestingGlobalCollectAdapter::class,

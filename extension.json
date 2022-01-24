@@ -34,8 +34,6 @@
 		"IngenicoGateway": "IngenicoGateway",
 		"IngenicoGatewayResult": "IngenicoGatewayResult",
 		"AmazonGateway": "AmazonGateway",
-		"AdyenGateway": "AdyenGateway",
-		"AdyenGatewayResult": "AdyenGatewayResult",
 		"AdyenCheckoutGateway": "AdyenCheckoutGateway",
 		"AdyenCheckoutGatewayResult": "AdyenCheckoutGatewayResult",
 		"AstroPayGateway": "AstroPayGateway",
@@ -153,21 +151,12 @@
 		"AmazonGateway": "amazon_gateway/amazon_gateway.body.php",
 		"AmazonAdapter": "amazon_gateway/amazon.adapter.php",
 		"AmazonBillingApi": "amazon_gateway/amazon.api.php",
-		"AdyenGateway": "adyen_gateway/adyen_gateway.body.php",
-		"AdyenGatewayResult": "adyen_gateway/adyen_resultswitcher.body.php",
-		"AdyenHostedSignature": "adyen_gateway/AdyenHostedSignature.php",
-		"AdyenMethodCodec": "adyen_gateway/AdyenMethodCodec.php",
-		"AdyenSubmethodCodec": "adyen_gateway/AdyenSubmethodCodec.php",
-		"AdyenAdapter": "adyen_gateway/adyen.adapter.php",
 		"Adyen3DSecure": "adyen_gateway/checkout/Adyen3DSecure.php",
 		"AdyenDonationApi": "adyen_gateway/checkout/adyen.api.php",
 		"AdyenAppleApi": "adyen_gateway/checkout/adyen_apple.api.php",
 		"AdyenCheckoutAdapter": "adyen_gateway/checkout/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/checkout/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/checkout/adyen_checkout_resultswitcher.body.php",
-		"FullNameWithExceptions": "adyen_gateway/FullNameWithExceptions.php",
-		"RiskScore": "adyen_gateway/RiskScore.php",
-		"AmountInMinorUnits": "adyen_gateway/AmountInMinorUnits.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
 		"AstroPayGateway": "astropay_gateway/astropay_gateway.body.php",
 		"AstroPayGatewayResult": "astropay_gateway/astropay_resultswitcher.body.php",
@@ -269,10 +258,6 @@
 		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
-		},
-		"ext.donationInterface.adyen.scripts": {
-			"scripts": "adyen_gateway/forms/js/adyen.js",
-			"dependencies": "ext.donationInterface.forms"
 		},
 		"ext.donationInterface.adyenCheckout": {
 			"scripts": "adyen_gateway/checkout/forms/adyen.js",
@@ -426,10 +411,6 @@
 			"messages": [
 				"donate_interface-donor-fiscal_number-explain-in"
 			]
-		},
-		"ext.donationInterface.adyenIframe": {
-			"scripts": "adyen_gateway/forms/js/adyen-iframe.js",
-			"dependencies": "ext.donationInterface.forms"
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -677,15 +658,6 @@
 		"PaypalExpressGatewayTestingSignatureURL": {
 			"value": "https://api-3t.sandbox.paypal.com/nvp"
 		},
-		"AdyenGatewayURL": {
-			"value": "https://live.adyen.com"
-		},
-		"AdyenGatewayTestingURL": {
-			"value": "https://test.adyen.com"
-		},
-		"AdyenGatewayMaxRiskScore": {
-			"value": 95
-		},
 		"AstroPayGatewayURL": {
 			"value": "https://api.dlocal.com/"
 		},
@@ -804,9 +776,6 @@
 			"value": false
 		},
 		"AmazonGatewayEnabled": {
-			"value": false
-		},
-		"AdyenGatewayEnabled": {
 			"value": false
 		},
 		"AdyenCheckoutGatewayEnabled": {
