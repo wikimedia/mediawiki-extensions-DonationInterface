@@ -185,7 +185,7 @@ lider:
         1.5x: card-lider_1.5x.png
         2x: card-lider_2x.png
 oca:
-    bank_code: LI
+    bank_code: OA
     label: OCA
     group: cc
     countries:
@@ -297,6 +297,16 @@ cash_pago_efectivo:
     countries:
         PE: true
     logo: cash-pago-efectivo.png
+cash_abitab:
+    bank_code: AI
+    label: Abitab
+    group: cash
+    countries:
+        UY: true
+    logo: cash-abitab.png
+    logo_hd:
+        2x: cash-abitab_2x.png
+        3x: cash-abitab_3x.png
 cash_red_pagos:
     bank_code: RE
     label: Red Pagos

@@ -670,6 +670,7 @@ $forms['astropay-uy'] = [
 			'oca',
 		],*/
 		'cash' => [
+			'cash_abitab',
 			'cash_red_pagos',
 		],
 	],
