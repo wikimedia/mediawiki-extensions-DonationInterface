@@ -450,6 +450,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'frequency_unit' => 'month',
 				'frequency_interval' => 1,
 				'subscr_id' => $sessionData['gateway_txn_id'],
+				'recurring_payment_token' => $this->getData_Unstaged_Escaped( 'recurring_payment_token' )
 			]
 		);
 		$this->logger->info(

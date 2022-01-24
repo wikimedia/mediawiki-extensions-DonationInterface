@@ -36,6 +36,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter {
 		$this->logPaymentDetails();
 		$this->tuneForPaymentMethod();
 		$authorizeParams = $this->buildRequestArray();
+		$paymentMethod = $this->getData_Unstaged_Escaped( 'payment_method' );
+
+		// only if showMonthlyConvert true and payment method is not bank transfer, then we set the recurring param to 1 to tokenize the payment.
+		if ( $this->showMonthlyConvert() && $paymentMethod != 'rtbt' ) {
+			$authorizeParams['recurring'] = 1;
+		}
 		$this->logger->info( "Calling createPayment for {$authorizeParams['email']}" );
 		$authorizeResult = $provider->createPayment( $authorizeParams );
 		$this->logger->info( "Returned PSP Reference {$authorizeResult->getGatewayTxnId()}" );
