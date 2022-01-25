@@ -221,7 +221,7 @@
 	"donate_interface-otherways": "Постоје и <a href=\"$1\">други начини за даривање као што су Пејпал, чек или пошта</a>.",
 	"donate_interface-otherways-alt": "Постоје и <a href=\"$1\">други начини за даривање</a>, укључујући и чекове.",
 	"donate_interface-otherways-short": "Други начини за даривање",
-	"donate_interface-token-mismatch": "Сесија је истекла. Попуните образац и поново га пошаљите.",
+	"donate_interface-token-mismatch": "Сесија је истекла. Покушајте да освежите страницу и попуните образац поново.",
 	"donate_interface-cc-form-header-personal": "Подаци о плаћању",
 	"donate_interface-cc-form-header-payment": "Подаци о плаћању",
 	"donate_interface-make-your-donation": "Донација",
