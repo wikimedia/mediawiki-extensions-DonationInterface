@@ -234,9 +234,12 @@
 		"donationInterface.styles": {
 			"styles": "modules/css/gateway.css"
 		},
+		"donationInterface.skinOverrideStyles": {
+			"styles": "modules/css/skinOverride.css"
+		},
 		"donationInterface.skinOverride": {
 			"scripts": "modules/js/skinOverride.js",
-			"styles": "modules/css/skinOverride.css"
+			"dependencies": "donationInterface.skinOverrideStyles"
 		},
 		"ext.donationInterface.errorLog": {
 			"scripts": "modules/js/ext.donationInterface.errorLog.js"

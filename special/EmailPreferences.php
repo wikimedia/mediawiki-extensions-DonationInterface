@@ -19,12 +19,17 @@ class EmailPreferences extends UnlistedSpecialPage {
 	public function execute( $subpage ) {
 		$this->setHeaders();
 		$this->outputHeader();
-		$this->getOutput()->addModules( 'ext.donationInterface.emailPreferences' );
+		$out = $this->getOutput();
+
+		// Adding styles-only modules this way causes them to arrive ahead of page rendering
+		$out->addModuleStyles( 'donationInterface.skinOverrideStyles' );
+
+		$out->addModules( 'ext.donationInterface.emailPreferences' );
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
 		if ( $posted && $this->wasCanceled( $params ) ) {
-			$this->getOutput()->redirect(
+			$out->redirect(
 				// FIXME switch this to a DonationInterface setting
 				$this->getConfig()->get( 'FundraisingEmailUnsubscribeCancelUri' )
 			);
