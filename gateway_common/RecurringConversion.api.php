@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\ParamValidator\ParamValidator;
+
 class RecurringConversionApi extends DonationApiBase {
 
 	public function execute() {
@@ -32,8 +34,8 @@ class RecurringConversionApi extends DonationApiBase {
 
 	public function getAllowedParams() {
 		return [
-			'amount' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ],
-			'gateway' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ],
+			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'gateway' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
 		];
 	}
 }

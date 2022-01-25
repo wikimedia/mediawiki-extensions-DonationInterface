@@ -1,13 +1,14 @@
 <?php
 
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use Wikimedia\ParamValidator\ParamValidator;
 
 class AdyenAppleApi extends DonationApiBase {
 	public function getAllowedParams() {
 		return [
-			'validation_url' => [ ApiBase::PARAM_TYPE => 'string' ],
-			'wmf_token' => [ ApiBase::PARAM_TYPE => 'string' ],
-			'gateway' => [ ApiBase::PARAM_TYPE => 'string' ]
+			'validation_url' => [ ParamValidator::PARAM_TYPE => 'string' ],
+			'wmf_token' => [ ParamValidator::PARAM_TYPE => 'string' ],
+			'gateway' => [ ParamValidator::PARAM_TYPE => 'string' ]
 		];
 	}
 

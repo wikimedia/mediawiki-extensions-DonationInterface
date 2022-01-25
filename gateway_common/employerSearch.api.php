@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\ParamValidator\ParamValidator;
+
 /**
  * MatchingGifts Employer Search API
  *
@@ -84,7 +86,7 @@ class EmployerSearchAPI extends ApiBase {
 	 * @return array
 	 */
 	public function getAllowedParams() {
-		return [ 'employer' => [ ApiBase::PARAM_TYPE => 'string', ApiBase::PARAM_REQUIRED => true ] ];
+		return [ 'employer' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ] ];
 	}
 
 	/**
