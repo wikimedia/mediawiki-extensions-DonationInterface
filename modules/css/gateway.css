@@ -1,20 +1,3 @@
-/* Hide various interface elements */
-#left-navigation {
-	display: none !important;
-}
-
-#right-navigation {
-	display: none !important;
-}
-
-#p-search {
-	display: none !important;
-}
-
-body.ltr #footer #footer-places {
-	display: none !important;
-}
-
 /* Form styling */
 .creditcard-error-msg {
 	color: #c10;

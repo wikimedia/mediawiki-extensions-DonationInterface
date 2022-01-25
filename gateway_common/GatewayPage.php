@@ -100,7 +100,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 			$out = $this->getOutput();
 			$out->preventClickjacking();
+			// Use addModuleStyles to load these CSS rules in early and avoid
+			// a flash of MediaWiki elements.
 			$out->addModuleStyles( 'donationInterface.styles' );
+			$out->addModuleStyles( 'donationInterface.skinOverrideStyles' );
+
 			$out->addModules( 'donationInterface.skinOverride' );
 			// Stolen from Minerva skin
 			$out->addHeadItem( 'viewport',
