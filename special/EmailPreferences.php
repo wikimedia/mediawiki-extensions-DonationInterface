@@ -22,7 +22,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$out = $this->getOutput();
 
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering
-		$out->addModuleStyles( 'donationInterface.skinOverrideStyles' );
+		$out->addModuleStyles( [
+			'donationInterface.skinOverrideStyles',
+			'ext.donationInterface.emailPreferencesStyles'
+		] );
 
 		$out->addModules( 'ext.donationInterface.emailPreferences' );
 		$this->setPageTitle( $subpage );

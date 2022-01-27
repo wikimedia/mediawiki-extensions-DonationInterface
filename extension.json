@@ -211,10 +211,15 @@
 			"styles": "modules/css/noCardSelect.css",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationInterface.emailPreferencesStyles": {
+			"styles": "modules/css/emailPreferences.css"
+		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
-			"styles": "modules/css/emailPreferences.css",
-			"dependencies": "donationInterface.skinOverride"
+			"dependencies": [
+				"donationInterface.skinOverride",
+				"ext.donationInterface.emailPreferencesStyles"
+			]
 		},
 		"ext.donationInterface.alwaysRedirect": {
 			"scripts": "modules/js/ext.donationInterface.alwaysRedirect.js",
