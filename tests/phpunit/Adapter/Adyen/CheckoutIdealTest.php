@@ -65,6 +65,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				( new CreatePaymentResponse() )
 					->setRawStatus( 'RedirectShopper' )
 					->setStatus( FinalStatus::PENDING )
+					->setSuccessful( true )
 					->setRedirectUrl( $redirect )
 			);
 		$this->idealPaymentProvider->expects( $this->never() )
@@ -125,6 +126,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				( new PaymentDetailResponse() )
 					->setRawStatus( 'Authorized' )
 					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
 					->setGatewayTxnId( $pspReferenceAuth )
 			);
 		// approvePayment is not needed for iDEAL
@@ -210,6 +212,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				( new PaymentDetailResponse() )
 					->setRawStatus( 'Refused' )
 					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
 					->setGatewayTxnId( $pspReferenceAuth )
 			);
 		$this->idealPaymentProvider->expects( $this->never() )

@@ -89,6 +89,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				( new CreatePaymentResponse() )
 					->setRawStatus( 'Authorized' )
 					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
 					->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
 					->setGatewayTxnId( $pspReferenceAuth )
 			);
@@ -103,6 +104,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				( new ApprovePaymentResponse() )
 					->setRawStatus( '[capture-received]' )
 					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
 					->setGatewayTxnId( $pspReferenceCapture )
 			);
 
@@ -225,6 +227,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				( new CreatePaymentResponse() )
 					->setRawStatus( 'Refused' )
 					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
 					->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
 					->setGatewayTxnId( $pspReferenceAuth )
 			);
@@ -305,6 +308,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				( new PaymentDetailResponse() )
 					->setRawStatus( 'Authorized' )
 					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
 					->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
 					->setGatewayTxnId( $pspReferenceAuth )
 			);
@@ -319,6 +323,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				( new ApprovePaymentResponse() )
 					->setRawStatus( '[capture-received]' )
 					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
 					->setGatewayTxnId( $pspReferenceCapture )
 			);
 
@@ -438,6 +443,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 					] )
 					->setGatewayTxnId( $pspReferenceAuth )
 					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
 					->setRawStatus( 'Refused' )
 		);
 

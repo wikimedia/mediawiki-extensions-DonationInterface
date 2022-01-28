@@ -32,7 +32,8 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 			];
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse( $rawResponse );
+		$hostedPaymentStatusResponse->setRawResponse( $rawResponse )
+			->setSuccessful( true );
 
 		$session['Donor'] = $donorTestData;
 		// Mark the order as already popped out of the iframe

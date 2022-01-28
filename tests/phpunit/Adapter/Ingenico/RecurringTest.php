@@ -78,7 +78,8 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$statusResponse['createdPaymentOutput']['tokens'] = $token;
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse( $statusResponse );
+		$hostedPaymentStatusResponse->setRawResponse( $statusResponse )
+			->setSuccessful( true );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )

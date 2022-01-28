@@ -146,6 +146,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 		$this->hostedPaymentStatusResponse = new PaymentDetailResponse();
 		$this->hostedPaymentStatusResponse->setRawResponse( $this->hostedPaymentStatusRawResponse );
+		$this->hostedPaymentStatusResponse->setSuccessful( true );
 
 		$this->hostedPaymentStatusRawResponseBadCvv = $this->hostedPaymentStatusRawResponse;
 		$this->hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
@@ -154,6 +155,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 		$this->hostedPaymentStatusResponseBadCvv = new PaymentDetailResponse();
 		$this->hostedPaymentStatusResponseBadCvv->setRawResponse( $this->hostedPaymentStatusRawResponseBadCvv );
+		$this->hostedPaymentStatusResponse->setSuccessful( true );
 
 		$this->approvePaymentResponse = ( new ApprovePaymentResponse() )
 			->setRawResponse(
@@ -194,6 +196,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 				]
 			)
 			->setStatus( FinalStatus::COMPLETE )
+			->setSuccessful( true )
 			->setGatewayTxnId( '000000850010000188180000200001' );
 	}
 

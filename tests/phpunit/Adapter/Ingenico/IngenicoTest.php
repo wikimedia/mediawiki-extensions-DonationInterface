@@ -185,7 +185,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 				],
 				"status" => "PAYMENT_APPROVED"
 			]
-		);
+		)->setSuccessful( true );
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$this->hostedCheckoutProvider->expects( $this->once() )
@@ -215,7 +215,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			[
 				"status" => "IN_PROGRESS",
 			]
-		);
+		)->setSuccessful( false );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
@@ -240,7 +240,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			[
 				"status" => "CANCELLED_BY_CONSUMER",
 			]
-		);
+		)->setSuccessful( false );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
@@ -322,7 +322,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 				],
 				"status" => "PAYMENT_CREATED"
 			]
-		);
+		)->setSuccessful( true );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
@@ -383,7 +383,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 							"isAuthorized" => true
 						]
 					]
-				] )
+				] )->setSuccessful( true )
 			);
 		$gateway->do_transaction( 'approvePayment' );
 		$data = $gateway->getTransactionData();
@@ -791,6 +791,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$response->setGatewayTxnId( $rawResponse['payment']['id'] );
 		$status = ( new PaymentStatus() )->normalizeStatus( $rawResponse['payment']['status'] );
 		$response->setStatus( $status );
+		$response->setSuccessful( true );
 		return $response;
 	}
 }
