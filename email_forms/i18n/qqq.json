@@ -7,7 +7,11 @@
 	"emailpreferences-language": "Label for language drop-down control.",
 	"emailpreferences-send-email": "Label for e-mail opt-in radio button.",
 	"emailpreferences-dont-send-email": "Label for e-mail opt-out radio button.",
-	"emailpreferences-save": "Label for button to save e-mail preferences",
 	"emailpreferences-change-email": "button text to change email",
-	"emailpreferences-success": "Message following successful submission of preferences update."
+	"emailpreferences-save": "Label for button to save e-mail preferences",
+	"emailpreferences-success": "Message following successful submission of preferences update.",
+	"emailpreferences-footer-learn_more": "First paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
+	"emailpreferences-footer-questions_email": "Second paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
+	"emailpreferences-footer-text_license": "Third paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)"
+
 }

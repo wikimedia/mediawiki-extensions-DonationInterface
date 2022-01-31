@@ -341,7 +341,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 				$title = $this->msg( 'fundraiserunsubscribe' );
 				break;
 			case 'emailPreferences':
-				$title = $this->msg( 'emailpreferences-title' );
+				// The title text to show is included in the mustache template, and the
+				// title of the tab/window will be taken from global config variable,
+				// $wgSitename.
 				break;
 			default:
 				$title = $this->msg( 'donate_interface-error-msg-general' );
