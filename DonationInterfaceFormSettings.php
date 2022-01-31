@@ -758,6 +758,17 @@ $forms['adyen-il'] = [
 	'selection_weight' => 110,
 ];
 
+$forms['adyen-it'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'IT' ], ],
+	'payment_methods' => [
+		'apple' => [ 'ALL' ],
+		'cc' => [ 'ALL', ],
+	],
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
+];
+
 $forms['adyen-jp'] = [
 	'gateway' => 'adyen',
 	'countries' => [ '+' => [ 'JP', ], ],
