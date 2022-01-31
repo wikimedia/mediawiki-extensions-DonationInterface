@@ -22,7 +22,8 @@
 			"Siebrand",
 			"Sjoerddebruin",
 			"Tjcool007",
-			"User555"
+			"User555",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -225,7 +226,7 @@
 	"donate_interface-error-msg-issuer_id": "bank",
 	"donate_interface-donate-error-try-a-different-card": "Gebruik [$1 een andere kaart], een van onze [$2 andere manieren om te geven] of neem contact met ons op via $3",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Probeer het opnieuw</a>, probeer een van onze <a href=\"$2\">andere manieren om te geven</a> of neem contact met ons op via <a href=\"mailto:$3\">$3</a>",
-	"donate_interface-donate-error-thank-you-for-your-support": "Dank u wel voor uw steun!",
+	"donate_interface-donate-error-thank-you-for-your-support": "Dank u voor uw steun!",
 	"donate_interface-error-no-form": "Wij konden geen donatieformulier terugvinden overeenkomend met uw parameters. Gelieve contact op te nemen met [to:$1 ons hulpteam] voor meer informatie.",
 	"donate_interface-error-no-form-html": "We hebben geen donatieformulier voor uw parameters aangetroffen. Probeer een van onze <a href=\"$1\">andere manieren om te geven</a>, of neem contact met ons op via <a href=\"mailto:$2\">$2</a>.",
 	"php-response-declined": "Uw transactie kon niet geaccepteerd worden.",
@@ -372,7 +373,7 @@
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden tijdens bij het verwerken van uw verzoek. Gelieve contact op te nemen met <$1>.",
 	"donate_interface-email-unsub-confirm": "Weet u zeker dat u het e-mailadres <b>$1</b> wilt uitschrijven?",
 	"donate_interface-email-unsub-warning": "Hierdoor ontvangt u niet langer e-mails die Wikimedia Foundation aan u als donateur verzendt. Als dit e-mailadres gekoppeld is aan een account van een van onze projecten, kan u echter wel nog e-mails op dit adres ontvangen. Als u vragen hebt, neem dan contact op met <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-email-explain": "We zullen u een ontvangstbewijs mailen om uw donatie te bevestigen.",
+	"donate_interface-email-explain": "Wij zullen u een ontvangstbewijs e-mailen om uw gift te bevestigen.",
 	"donate_interface-email-optin-fail": "Er trad een fout op bij het verwerken van uw aanvraag. Neem contact op met <a href=\"mailto:$1\">$1</a> of  <a href=\"$2\">klik hier om het opnieuw te proberen</a>.",
 	"donate_interface-faqs": "Veelgestelde vragen",
 	"donate_interface-tax-info": "Fiscale aftrekbaarheid",
@@ -399,8 +400,11 @@
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "Alle afbeeldingen zijn beschikbaar onder de <a href=\"$1\">Creative Commons Naamsvermelding-GelijkDelen 4.0 Internationaal</a> licentie.",
 	"donate_interface-emailprefs-thank-you-title": "Bedankt",
-	"donate_interface-monthly-convert-change-amount": "Ja, maar met een ander hoeveelheid",
-	"donate_interface-monthly-convert-action-button": "Maandelijks doneren",
+	"donate_interface-monthly-convert-title": "Wilt u vanaf volgende maand een maandelijkse donatie van <span class=\"mc-convert-ask\"></span> starten?",
+	"donate_interface-monthly-convert-text": "Een maandelijkse gift is de beste manier om Wikipedia te helpen voortbestaan",
+	"donate_interface-monthly-convert-change-amount": "Ja, ik doneer maandelijks, maar voor een ander bedrag",
+	"donate_interface-monthly-convert-enter-amount": "Vul het maandelijkse bedrag in waarmee u volgende maand wilt starten.",
+	"donate_interface-monthly-convert-action-button": "Doneer maandelijks",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nee, bedankt",
 	"donate_interface-fundraiser-maintenance-header": "Tijdelijk niet beschikbaar wegens onderhoudswerkzaamheden",
 	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als u vragen hebt."

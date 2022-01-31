@@ -6,6 +6,7 @@
 			"Ajeje Brazorf"
 		]
 	},
+	"donate_interface-amount": "Mportu",
 	"donate_interface-currency": "Munita",
 	"donate_interface-comment-label": "Cummentu:",
 	"donate_interface-AED": "Dirham dî Emirati Àrabbi Uniti",
@@ -14,6 +15,7 @@
 	"donate_interface-BBD": "Dòllaru dî Barbados",
 	"donate_interface-BDT": "Taka bingalisi",
 	"donate_interface-cvv-link": "Unni l'attrovu?",
+	"donate_interface-donor-amount": "Summa",
 	"donate_interface-donor-email": "Nnirizzu e-mail",
 	"donate_interface-donor-name": "Nomu",
 	"donate_interface-donor-last_name": "Cognomu",
