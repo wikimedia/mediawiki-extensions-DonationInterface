@@ -303,6 +303,8 @@
 				type: 'redirect'
 			} ).mount( '#action-container' );
 
+		} else if ( mw.monthlyConvert ) {
+			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		}

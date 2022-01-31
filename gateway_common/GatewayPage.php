@@ -29,6 +29,11 @@ use SmashPig\PaymentData\FinalStatus;
  *
  */
 abstract class GatewayPage extends UnlistedSpecialPage {
+	/**
+	 * flag for setting Monthly Convert modal on template
+	 * @var bool
+	 */
+	public $supportsMonthlyConvert = false;
 
 	/**
 	 * Derived classes must override this with the identifier of the gateway
@@ -100,7 +105,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 			$out = $this->getOutput();
 			$out->preventClickjacking();
+			// Use addModuleStyles to load these CSS rules in early and avoid
+			// a flash of MediaWiki elements.
 			$out->addModuleStyles( 'donationInterface.styles' );
+			$out->addModuleStyles( 'donationInterface.skinOverrideStyles' );
+
 			$out->addModules( 'donationInterface.skinOverride' );
 			// Stolen from Minerva skin
 			$out->addHeadItem( 'viewport',
@@ -470,6 +479,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$vars['wgDonationInterfacePriceFloor'] = $this->adapter->getGlobal( 'PriceFloor' );
 		$vars['wgDonationInterfacePriceCeiling'] = $this->adapter->getGlobal( 'PriceCeiling' );
 		$vars['wgDonationInterfaceLogDebug'] = $this->adapter->getGlobal( 'LogDebug' );
+		if ( $this->adapter->showMonthlyConvert() ) {
+			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
+			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
+			$vars['showMConStartup'] = false;
+		}
 
 		try {
 			$clientRules = $this->adapter->getClientSideValidationRules();

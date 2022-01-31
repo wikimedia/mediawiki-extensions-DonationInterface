@@ -184,7 +184,7 @@
 		} );
 	};
 
-	$( function () {
+	mc.init = function () {
 		var presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
@@ -269,6 +269,11 @@
 			/* eslint-enable no-jquery/no-fade */
 		}
 
+	};
+	$( function () {
+		if ( mw.config.get( 'showMConStartup' ) ) {
+			mc.init();
+		}
 	} );
 	mw.monthlyConvert = mc;
 } )( jQuery, mediaWiki );

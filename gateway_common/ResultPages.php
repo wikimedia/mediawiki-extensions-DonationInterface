@@ -41,7 +41,7 @@ class ResultPages {
 	 * Get the URL for a page to show donors after a failed donation without
 	 * requiring an adapter instance.
 	 * @param string $adapterType adapter class to use for settings and logger
-	 *                            e.g. AdyenGateway
+	 *                            e.g. IngenicoGateway
 	 * @param string $logPrefix identifier used to associate log lines with
 	 *                          related requests
 	 * @return string full URL of the fail page

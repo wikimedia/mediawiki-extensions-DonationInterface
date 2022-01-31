@@ -9,6 +9,12 @@ use SmashPig\Core\Helpers\CurrencyRoundingHelper;
  */
 class AdyenCheckoutGateway extends GatewayPage {
 
+	/**
+	 * flag for setting Monthly Convert modal on template
+	 * @var bool
+	 */
+	public $supportsMonthlyConvert = true;
+
 	protected $gatewayIdentifier = AdyenCheckoutAdapter::IDENTIFIER;
 
 	public function execute( $par ) {

@@ -2,6 +2,12 @@
 
 abstract class ResultSwitcher extends GatewayPage {
 
+	/**
+	 * flag for setting Monthly Convert modal on template
+	 * @var bool
+	 */
+	public $supportsMonthlyConvert = true;
+
 	protected function handleRequest() {
 		$this->handleResultRequest();
 	}
@@ -140,8 +146,7 @@ abstract class ResultSwitcher extends GatewayPage {
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		if ( $this->adapter->showMonthlyConvert() ) {
-			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
-			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
+			$vars['showMConStartup'] = true;
 		}
 	}
 }

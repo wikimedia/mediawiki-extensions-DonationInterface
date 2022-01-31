@@ -1975,6 +1975,12 @@ abstract class GatewayAdapter implements GatewayType {
 
 		$messageKeys = DonationData::getMessageFields();
 
+		// only includes these keys if recurring = 1
+		$recurringKeys = [
+			'recurring_payment_token',
+			'processor_contact_id'
+		];
+
 		$requiredKeys = [
 			'amount',
 			'contribution_tracking_id',
@@ -1996,7 +2002,14 @@ abstract class GatewayAdapter implements GatewayType {
 		// FIXME: This is "normalized" data.  We should refer to it as such,
 		// and rename the getData_Unstaged_Escaped function.
 		$data = $this->getData_Unstaged_Escaped();
+		$isRecurring = $data['recurring'];
+
 		foreach ( $messageKeys as $key ) {
+			// skip the keys in the queueMessage in recurring keys when we are not doing recurring
+			if ( !$isRecurring && in_array( $key, $recurringKeys ) ) {
+				continue;
+			}
+
 			if ( isset( $queueMessage[$key] ) ) {
 				// don't clobber the pre-sets
 				continue;
@@ -4026,6 +4039,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		$isMonthlyConvert = strstr( $variant, 'monthlyConvert' ) !== false;
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+
 		if ( !$isMonthlyConvert && $this->isMonthlyConvertCountry() ) {
 			$isMonthlyConvert = true;
 		}
