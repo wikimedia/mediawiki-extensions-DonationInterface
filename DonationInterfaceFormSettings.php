@@ -577,6 +577,23 @@ $forms['astropay-cl'] = [
 	],
 	'selection_weight' => 110,
 ];
+$forms['astropay-za'] = [
+	'gateway' => 'astropay',
+	'countries' => [ '+' => 'ZA' ],
+	'currencies' => [ '+' => 'ZAR' ],
+	'payment_methods' => [
+		'cc' => [
+			'visa',
+			'mc',
+			'visa-debit',
+			'mc-debit',
+		],
+		'bt' => [
+			'ach',
+		],
+	],
+	'selection_weight' => 1,
+];
 $forms['astropay-co'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'CO' ],
@@ -646,8 +663,12 @@ $forms['astropay-mx'] = [
 			'visa',
 			'mc',
 			'amex',
-			'diners',
 			'visa-debit',
+		],
+		'bt' => [
+			'bcp',
+			'interbank',
+			'bbva',
 		],
 		'cash' => [
 			'cash_pago_efectivo',
@@ -756,6 +777,17 @@ $forms['adyen-il'] = [
 		'cc' => [ 'visa', 'mc', 'amex', 'discover' ],
 	],
 	'selection_weight' => 110,
+];
+
+$forms['adyen-it'] = [
+	'gateway' => 'adyen',
+	'countries' => [ '+' => [ 'IT' ], ],
+	'payment_methods' => [
+		'apple' => [ 'ALL' ],
+		'cc' => [ 'ALL', ],
+	],
+	// Setting form chooser weight very low so this form is not chosen as default
+	'selection_weight' => 1,
 ];
 
 $forms['adyen-jp'] = [
