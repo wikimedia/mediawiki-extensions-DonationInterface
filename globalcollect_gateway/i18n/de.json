@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kghbln",
-			"Metalhead64"
+			"Metalhead64",
+			"Brettchenweber"
 		]
 	},
 	"globalcollect_gateway-desc": "Ermöglicht die Zahlungsabwicklung durch GlobalCollect",
@@ -14,7 +15,7 @@
 	"globalcollect_gateway-response-400530": "Ungültige Zahlungsmethode.",
 	"globalcollect_gateway-response-430306": "Ihre Kreditkarte ist nicht mehr gültig. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
 	"globalcollect_gateway-response-430330": "Die Kreditkartennummer ist ungültig.",
-	"globalcollect_gateway-response-430421": "Ihre Kreditkarte konnte nicht geprüft werden. Bitte stellen Sie sicher, dass alle Informationen denen Ihrer Kreditkarte entsprechend oder verwenden Sie eine andere Karte.",
+	"globalcollect_gateway-response-430421": "Ihre Kreditkarte konnte nicht geprüft werden. Bitte stellen Sie sicher, dass alle Informationen denen Ihrer Kreditkarte entsprechen, oder verwenden Sie eine andere Karte.",
 	"globalcollect_gateway-response-430360": "Die Transaktion wurde nicht bestätigt. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
 	"globalcollect_gateway-response-430285": "Die Transaktion wurde nicht bestätigt. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
 	"globalcollect_gateway-response-21000150": "Die Kontonummer ist ungültig.",

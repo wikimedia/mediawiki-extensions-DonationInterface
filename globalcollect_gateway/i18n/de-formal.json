@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kghbln"
+			"Kghbln",
+			"Brettchenweber"
 		]
 	},
 	"globalcollect_gateway-response-430306": "Ihre Kreditkarte ist nicht mehr gültig. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
-	"globalcollect_gateway-response-430421": "Ihre Kreditkarte konnte nicht geprüft werden. Bitte stellen Sie sicher, dass alle Informationen denen Ihrer Kreditkarte entsprechend oder verwenden Sie eine andere Karte.",
+	"globalcollect_gateway-response-430421": "Ihre Kreditkarte konnte nicht geprüft werden. Bitte stellen Sie sicher, dass alle Informationen denen Ihrer Kreditkarte entsprechen, oder verwenden Sie eine andere Karte.",
 	"globalcollect_gateway-response-430360": "Die Transaktion wurde nicht bestätigt. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
 	"globalcollect_gateway-response-430285": "Die Transaktion wurde nicht bestätigt. Bitte verwenden Sie eine andere Karte oder nutzen Sie eine andere Zahlungsmethode.",
 	"globalcollect_gateway-response-default": "Während des Ausführens der Transaktion ist ein Verarbeitungsfehler aufgetreten.\nBitte versuchen Sie es später noch einmal."
