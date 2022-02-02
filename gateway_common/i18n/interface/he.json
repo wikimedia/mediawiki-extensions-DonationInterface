@@ -227,6 +227,7 @@
 	"donate_interface-error-msg-country-calc": "שגיאה – איננו יכולים לקבל את תרומתך כעת.",
 	"donate_interface-error-msg-fiscal_number": "נא להזין את המספר הפיסקלי",
 	"donate_interface-error-msg-fiscal_number-in": "נא להזין את ה־PAN שלך",
+	"donate_interface-error-msg-fiscal_number-za": "להזין את מספר הזהות הלאומי שלך",
 	"donate_interface-error-msg-invalid-fiscal_number": "לתקן את השגיאות במספר הפיסקלי שלך",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "נא לתקן את השגיאות ב־DNI שלך",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "נא לתקן את השגיאות ב־NIT שלך",

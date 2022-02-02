@@ -232,6 +232,7 @@
 	"donate_interface-error-msg-country-calc": "Fehler. Wir können derzeit Ihre Spende leider nicht akzeptieren.",
 	"donate_interface-error-msg-fiscal_number": "Bitte geben Sie Ihre Steuernummer ein",
 	"donate_interface-error-msg-fiscal_number-in": "Bitte gib deine PAN an",
+	"donate_interface-error-msg-fiscal_number-za": "Bitte gib deine National ID ein",
 	"donate_interface-error-msg-invalid-fiscal_number": "Bitte korrigieren Sie die Fehler in Ihrer Steuernummer",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "Bitte korrigieren Sie die Fehler in Ihrem DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "Bitte korrigieren Sie die Fehler in Ihrem NIT",

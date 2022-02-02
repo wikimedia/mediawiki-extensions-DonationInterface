@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bhatakati aatma",
+			"CptViraj",
 			"KartikMistry",
 			"Rangilo Gujarati"
 		]
@@ -21,5 +22,7 @@
 	"donate_interface-donor-state_province": "રાજ્ય",
 	"donate_interface-error-msg-city": "તમારું શહેર પસંદ કરો",
 	"donate_interface-error-msg-state_province": "રાજ્ય",
-	"donate_interface-thankyou": "તમારા દાન માટે આભાર!"
+	"donate_interface-thankyou": "તમારા દાન માટે આભાર!",
+	"donate_interface-cvv-placeholder-4-digits": "૪ આંકડા",
+	"donate_interface-cvv-placeholder-3-digits": "૩ આંકડા"
 }

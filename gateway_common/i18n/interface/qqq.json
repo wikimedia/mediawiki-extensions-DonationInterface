@@ -268,7 +268,7 @@
 	"donate_interface-error-msg-fiscal_number-mx": "{{optional}}\nMexico-specific error message for missing {{Identical|CURP/RFC/IFE}}",
 	"donate_interface-error-msg-fiscal_number-pe": "{{optional}}\nPeru-specific error message for missing.",
 	"donate_interface-error-msg-fiscal_number-uy": "{{optional}}\nUruguay-specific error message for missing {{Identical|CI}}",
-	"donate_interface-error-msg-fiscal_number-za": "{{optional}}\nSouth Africa-specific error message for missing {{Identical|ID}}",
+	"donate_interface-error-msg-fiscal_number-za": "South Africa-specific error message for missing {{Identical|ID}}",
 	"donate_interface-error-msg-invalid-fiscal_number": "Error message for invalid fiscal number. Country-specific variants should be given a new message key with a hyphen and the country code appended.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "Argentina-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "Bolivia-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
