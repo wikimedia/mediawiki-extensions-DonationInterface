@@ -409,11 +409,11 @@
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-monthly-convert-title": "Vuoi aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span> a partire dal prossimo mese?",
 	"donate_interface-monthly-convert-text": "Il sostegno mensile è il modo migliore per permettere a Wikipedia di continuare a crescere.",
-	"donate_interface-monthly-convert-change-amount": "Sì, farò una donazione mensile ma con un importo diverso",
+	"donate_interface-monthly-convert-change-amount": "Sì, voglio fare una donazione mensile ma con un importo diverso",
 	"donate_interface-monthly-convert-enter-amount": "Inserisci l'importo della tua donazione mensile che partirà dal prossimo mese.",
 	"donate_interface-monthly-convert-action-button": "Dona mensilmente",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, grazie",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Sì, voglio aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span>.",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Sì, voglio aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
 	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1."

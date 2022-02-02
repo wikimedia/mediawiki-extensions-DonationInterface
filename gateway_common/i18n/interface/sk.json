@@ -11,7 +11,8 @@
 			"Pcoombe",
 			"Sudo77(new)",
 			"Teslaton",
-			"TomášPolonec"
+			"TomášPolonec",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -115,6 +116,7 @@
 	"donate_interface-error-msg-branch_code": "Kód pobočky",
 	"donate_interface-error-msg-captcha": "Hodnota captcha, ktorú ste zadali nie je správna. Prosím, skúste to znova.",
 	"donate_interface-error-msg-captcha-please": "Z dôvodu bezpečnosti vašej kreditnej karty, prosím, napíšte znaky, ktoré vidíte vyššie.",
+	"donate_interface-donate-error-thank-you-for-your-support": "Ďakujeme za vašu podporu!",
 	"php-response-declined": "Nebolo možné prijať vašu transakciu.",
 	"donate_interface-thankyou": "Ďakujeme za váš dar!",
 	"donate_interface-post-transaction": "Podrobnosti transakcie",
@@ -218,11 +220,19 @@
 	"donate_interface-state_province-dropdown-XX": "Mimo USA",
 	"donate_interface-rtbt-issuer_id": "Vybrať banku",
 	"donate_interface-translate-redlink2": "Alebo pošlite váš preklad na translations@wikimedia.org",
+	"donate_interface-email-explain": "Pošleme vám e-mail s potvrdením vášho daru.",
 	"donate_interface-faqs": "Často kladené otázky",
 	"donate_interface-tax-info": "Informácie o možnosti odpočítania dane",
 	"donate_interface-informationsharing": "Vaše informácie nikomu nepredávame, ani s nimi neobchodujeme. Svojim príspevkom súhlasíte so sprístupnením osobných informácií nadácii Wikimedia Foundation, neziskovej organizácii, ktorá spravuje Wikipédiu a iné projekty Wikimedia, a jej poskytovateľom služieb v súlade s našimi <a href=\"$1\">pravidlami darcovstva</a>. Nadácia Wikimedia Foundation a jej poskytovatelia služieb majú sídlo v USA a v iných krajinách, ktorých právne predpisy týkajúce sa ochrany súkromia nemusia byť rovnaké ako právne predpisy vo Vašej krajine. Ďalšie informácie nájdete v našich <a href=\"$1\">pravidlách darcovstva</a>.",
 	"donate_interface-taxded-link-us": "Informácie o možnosti odpočítania dane",
 	"donate_interface-monthly-cancel": "Pevné mesačné platby pravidelných darcov budú pripisované na účet nadácie Wikimedia Foundation jedenkrát mesačne v deň prvého príspevku, až kým nás nepožiadate o ich zastavenie. Dary, ktoré boli prvýkrát poskytnuté 29., 30. alebo 31. deň v mesiaci, sa budú v prípade kratších mesiacov opakovať posledný deň v mesiaci čo najbližšie k pôvodnému dátumu. V prípade otázok nás, prosím, kontaktujte na $1.",
 	"donate_interface-monthly-short": "Mesačne",
-	"donate_interface-onetime-short": "Jednorazovo"
+	"donate_interface-onetime-short": "Jednorazovo",
+	"donate_interface-monthly-convert-title": "Zadať mesačný príspevok <span class=\"mc-convert-ask\"></span> od budúceho mesiaca?",
+	"donate_interface-monthly-convert-text": "Mesačná podpora je najlepší spôsob, ako zabezpečiť, aby Wikipédia naďalej prosperovala.",
+	"donate_interface-monthly-convert-change-amount": "Áno, budem prispievať mesačne, ale inou sumou",
+	"donate_interface-monthly-convert-enter-amount": "Zadajte sumu svojho mesačného príspevku, ktorým začnete prispievať od budúceho mesiaca.",
+	"donate_interface-monthly-convert-action-button": "Prispievať mesačne",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Áno, zadám mesačný príspevok <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-no-button-variant-011": "Nie, ďakujem."
 }
