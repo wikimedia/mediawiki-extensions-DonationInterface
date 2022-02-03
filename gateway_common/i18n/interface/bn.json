@@ -10,7 +10,8 @@
 			"Jsoby",
 			"Mohammed Galib Hasan",
 			"Wikitanvir",
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"খাত্তাব হাসান"
 		]
 	},
 	"donate_interface": "উইকিমিডিয়াকে সাহায্য করুন",
@@ -178,6 +179,7 @@
 	"donate_interface-error-msg-captcha-please": "আপনার কেডিট কার্ডের নিরাপত্তার জন্য, অনুগ্রহপূর্বক নিচে প্রদর্শিত অক্ষরগুলো টাইপ করুন।",
 	"donate_interface-error-msg-cookies": "আপনার ব্রাউজারে কুকি সক্রিয় করুন।",
 	"donate_interface-error-msg-country-calc": "ত্রুটি - আমরা এই মুহুর্তে আপনার দান গ্রহণ করতে পারছি না।",
+	"donate_interface-error-msg-fiscal_number-za": "আপনার জাতীয় পরিচয়পত্র নম্বর প্রবেশ করান।",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "দয়া করে আপনার DNI-এর ত্রুটি সংশোধন করুন",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "দয়া করে আপনার NIT-এর ত্রুটি সংশোধন করুন",
 	"donate_interface-error-msg-invalid-fiscal_number-br": "দয়া করে আপনার CPF/CNPJ-এর ত্রুটি সংশোধন করুন",
