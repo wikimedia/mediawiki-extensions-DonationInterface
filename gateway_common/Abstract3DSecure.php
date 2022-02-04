@@ -2,7 +2,15 @@
 
 abstract class Abstract3DSecure implements StagingHelper {
 
-	protected static $supportedSubMethods = [ 'mc', 'visa' ];
+	protected static $supportedSubMethods = [
+		'amex',
+		'cb',
+		'diners',
+		'discover',
+		'elo',
+		'mc',
+		'visa'
+	];
 
 	/**
 	 * To set 3DSecure flags, we need a supported payment submethod,
