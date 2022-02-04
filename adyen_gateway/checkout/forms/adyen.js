@@ -208,8 +208,6 @@
 	 */
 	function mapAdyenSubmethod( adyenBrandCode ) {
 		switch ( adyenBrandCode ) {
-			case 'diners':
-				return 'dc';
 			case 'bijcard':
 				return 'bij';
 			case 'cartebancaire':
