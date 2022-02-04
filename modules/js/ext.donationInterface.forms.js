@@ -249,6 +249,11 @@
 			}
 		} );
 
+		// Only load employer autocomplete js when the employer field is visible
+		if ( $( '#employer' ).length ) {
+			mw.loader.load( 'ext.donationInterface.employerAutoComplete' );
+		}
+
 		// Magic to hopefully disable the spinner in case we are returned to this
 		// page via the Back button.
 		$( window ).on(

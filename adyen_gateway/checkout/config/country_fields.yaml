@@ -10,3 +10,4 @@ IE:
 US:
     street_address: true
     postal_code: true
+    employer: optional
