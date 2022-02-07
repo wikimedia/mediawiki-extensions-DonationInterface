@@ -14,7 +14,8 @@
 			"Samat",
 			"Tacsipacsi",
 			"Tgr",
-			"Urbalazs"
+			"Urbalazs",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Támogasd a Wikimédiát!",
@@ -209,7 +210,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number": "Javítsd ki a hibát ebben a mezőben: adózási szám",
 	"donate_interface-donate-error-try-a-different-card": "Kérjük [$1 próbáljon másik kártyát megadni], vagy [$2 válassza az adományozás egyéb módjait], vagy lépjen kapcsolatba velünk: $3",
 	"donate_interface-donate-error-try-again-html": "Kérlek <a href=\"$1\">próbáld újra</a>, próbáld ki az <a href=\"$2\">egyéb támogatási lehetőségeket</a>, vagy vedd fel velünk a kapcsolatot ezen a címen: <a href=\"mailto:$3\">$3</a>",
-	"donate_interface-donate-error-thank-you-for-your-support": "Köszönjük a támogatást!",
+	"donate_interface-donate-error-thank-you-for-your-support": "Köszönöm a támogatásod!",
 	"donate_interface-error-no-form": "Nem találtunk a paramétereidnek megfelelő adományozási űrlapot. További információért kérlek fordulj a [mailto:$1 segítőinkhez],",
 	"php-response-declined": "Tranzakció elutasítva.",
 	"donate_interface-thankyou": "Köszönjük az adományodat!",
@@ -353,6 +354,7 @@
 	"donate_interface-email-unsub-fail": "Hiba történt a kérés feldolgozása közben, kérlek, írj a <$1> címre.",
 	"donate_interface-email-unsub-confirm": "Biztosan le akarsz iratkozni a <b>$1</b> címmel?",
 	"donate_interface-email-unsub-warning": "Ezzel leiratkozol a Wikimédia Alapítványtól kapott levelekről, mint adományozó. Ha más projektekben is ezt az email címet adtad meg, azoktól még érkezhetnek levelek. Kérdés esetén írj erre a címre:  <a ref=\"mailto:$1\">$1</a>.",
+	"donate_interface-email-explain": "E-mailben küldünk neked egy nyugtát, hogy megerősítsük az adományozás tényét.",
 	"donate_interface-faqs": "Gyakran ismételt kérdések",
 	"donate_interface-tax-info": "Adózással kapcsolatos információk",
 	"donate_interface-informationsharing": "Adományozásával beleegyezik abba, hogy személyes adatait megosszuk a Wikimedia Alapítvánnyal, a Wikipédiát és egyéb Wikimedia projekteket kezelő nonprofit szervezettel, illetve az <a href=\"$1\">adományozásra vonatkozó irányelveinkkel </a> összhangban annak szolgáltatóival is. A Wikimedia Alapítvány és annak szolgáltatói az Egyesült Államokban, illetve más olyan országokban működnek, amelyek adatvédelmi rendelkezései eltérhetnek az Ön országának érvényben lévő adatvédelmi jogszabályaitól. Adatait senki számára nem értékesítjük, és nem kereskedünk azokkal. Kérjük, további információért olvassa el az <a href=\"$1\">adományozásra vonatkozó irányelveinket </a>.",
@@ -375,5 +377,10 @@
 	"donate_interface-monthly-short": "Havi",
 	"donate_interface-onetime-short": "Egyszeri",
 	"donate_interface-error-http-403": "Nincs jogosultsága ennek a lapnak az eléréséhez.",
+	"donate_interface-monthly-convert-title": "Adnál <span class=\"mc-convert-ask\"></span> összegű havi adományt a következő hónaptól kezdve?",
+	"donate_interface-monthly-convert-text": "A havi támogatás a legjobb módja annak biztosítására, hogy a Wikipédia továbbra is fejlődhessen",
+	"donate_interface-monthly-convert-change-amount": "Igen, havonta adományozok, de más összegben",
+	"donate_interface-monthly-convert-enter-amount": "Írd be a következő hónaptól fizetendő havi adomány összegét!",
+	"donate_interface-monthly-convert-action-button": "Havonta adományozok",
 	"donate_interface-fundraiser-maintenance-header": "Karbantartás miatt időlegesen leállítva"
 }
