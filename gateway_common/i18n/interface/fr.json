@@ -225,7 +225,7 @@
 	"donate_interface-error-msg-discover": "Veuillez entrer un numéro de carte Discover correct.",
 	"donate_interface-error-msg-invalid-card-number": "Numéro de carte non valide",
 	"donate_interface-error-msg-card-number-do-not-match-card-brand": "Le numéro de carte tapé ne correspond pas à la marque de la carte",
-	"donate_interface-error-msg-unsupported-card-entered": "Carte entrée non supportée",
+	"donate_interface-error-msg-unsupported-card-entered": "Carte entrée non prise en charge",
 	"donate_interface-error-msg-amount": "Veuillez entrer le montant de votre don",
 	"donate_interface-error-msg-limit": "Votre don n’a pas pu être traité. Veuillez essayer une de nos <a href = \"$1\">autres façons de donner</a>, essayez une plus petite quantité ou essayez de nouveau demain.",
 	"donate_interface-error-msg-email": "Veuillez entrer votre adresse email",
