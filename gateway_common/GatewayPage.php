@@ -529,6 +529,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} elseif ( $currency === 'EUR' ) {
 			// If EUR not specifically configured, fall back to GBP rules
 			return $convertAmounts['GBP'];
+		} elseif ( $currency === 'NOK' ) {
+			// If NOK not specifically configured, fall back to DKK rules
+			return $convertAmounts['DKK'];
+		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
+			// If these currencies aren't configured, fall back to MYR rules
+			return $convertAmounts['MYR'];
 		} elseif ( in_array( $currency, [ 'AUD', 'CAD', 'NZD' ], true ) ) {
 			// If these currencies aren't configured, fall back to USD rules
 			return $convertAmounts['USD'];
