@@ -3,6 +3,9 @@
  * Client-side validation logic for DonationInterface
  * For starters, we just redirect to the existing global functions.
  * They should be rewritten here when we modernize the remaining forms.
+ *
+ * @param $
+ * @param mw
  */
 ( function ( $, mw ) {
 	var di = mw.donationInterface = {},
