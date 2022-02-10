@@ -577,23 +577,23 @@ $forms['astropay-cl'] = [
 	],
 	'selection_weight' => 110,
 ];
-$forms['astropay-za'] = [
-	'gateway' => 'astropay',
-	'countries' => [ '+' => 'ZA' ],
-	'currencies' => [ '+' => 'ZAR' ],
-	'payment_methods' => [
-		'cc' => [
-			'visa',
-			'mc',
-			'visa-debit',
-			'mc-debit',
-		],
-		'bt' => [
-			'ach',
-		],
-	],
-	'selection_weight' => 1,
-];
+// $forms['astropay-za'] = [
+//	'gateway' => 'astropay',
+//	'countries' => [ '+' => 'ZA' ],
+//	'currencies' => [ '+' => 'ZAR' ],
+//	'payment_methods' => [
+//		'cc' => [
+//			'visa',
+//			'mc',
+//			'visa-debit',
+//			'mc-debit',
+//		],
+//		'bt' => [
+//			'ach',
+//		],
+//	],
+//	'selection_weight' => 1,
+// ];
 $forms['astropay-co'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'CO' ],

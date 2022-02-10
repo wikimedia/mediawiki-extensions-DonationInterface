@@ -102,7 +102,7 @@
 
 				return config;
 			default:
-				throw Error( 'Component type not found' );
+				throw new Error( 'Component type not found' );
 		}
 	}
 
@@ -195,7 +195,7 @@
 			case 'apple':
 				return 'applepay';
 			default:
-				throw Error( 'paymentMethod not found' );
+				throw new Error( 'paymentMethod not found' );
 		}
 	}
 
@@ -208,8 +208,6 @@
 	 */
 	function mapAdyenSubmethod( adyenBrandCode ) {
 		switch ( adyenBrandCode ) {
-			case 'diners':
-				return 'dc';
 			case 'bijcard':
 				return 'bij';
 			case 'cartebancaire':
@@ -370,7 +368,7 @@
 		];
 		// check if adyen not support incoming lang should have our own customized translation
 		// Adyen supports ar as Arabic - International and doesn't check for country
-		if ( config.locale.substr( 0, 2 ) !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
+		if ( config.locale.slice( 0, 2 ) !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
 			var customLanguage = {};
 			customLanguage[ config.locale ] = {
 				//title

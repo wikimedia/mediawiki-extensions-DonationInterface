@@ -182,7 +182,7 @@ window.validate_personal = function () {
 			invalid = true;
 		}
 
-		domain = emailAdd.value.substring( apos + 1 );
+		domain = emailAdd.value.slice( Math.max( 0, apos + 1 ) );
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
 			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {

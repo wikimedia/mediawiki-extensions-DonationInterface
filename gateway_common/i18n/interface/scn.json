@@ -37,6 +37,7 @@
 	"donate_interface-error-msg-country": "Pi favuri nzirisci lu tò Paisi",
 	"donate_interface-error-msg-account_name": "Nomu dû cuntu",
 	"donate_interface-error-msg-account_number": "Nùmmiru dû cuntu",
+	"donate_interface-error-msg-fiscal_number-za": "Pi favuri nzirisci lu tò ID nazziunali",
 	"donate_interface-comment": "Cummentu",
 	"donate_interface-last": "Cugnomu",
 	"donate_interface-other": "Àutru",

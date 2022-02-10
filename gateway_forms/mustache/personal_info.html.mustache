@@ -45,9 +45,10 @@
     <div>
         <label for="employer">{{ l10n "donate_interface-donor-employer" }}</label>
         <input class="fullwidth" id="employer" name="employer" value="{{ employer }}" type="text" title="{{ l10n "donate_interface-donor-employer" }}" maxlength="64">
+        <div>{{ l10n "donate_interface-donor-employer-explain" }}</div>
     </div>
     <div>
-        <input id="employer_id" name="employer_id" value="{{ employer_id }}" type="hidden">
+       <input id="employer_id" name="employer_id" value="{{ employer_id }}" type="hidden">
     </div>
 {{/ employer_visible }}
 

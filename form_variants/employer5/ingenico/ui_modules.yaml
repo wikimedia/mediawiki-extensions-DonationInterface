@@ -1,4 +1,0 @@
-scripts:
-    - ext.donationInterface.ingenico-hosted
-    - ext.donationInterface.employerAutoComplete
-    - ext.donationInterface.employerExplain

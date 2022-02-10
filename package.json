@@ -1,4 +1,5 @@
 {
+	"name": "DonationInterface",
 	"private": true,
 	"scripts": {
 		"doc": "jsduck",
@@ -9,8 +10,8 @@
 		"url": "https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DonationInterface.git"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.20.0",
-		"grunt": "1.4.0",
+		"eslint-config-wikimedia": "0.21.0",
+		"grunt": "1.4.1",
 		"grunt-banana-checker": "0.9.0",
 		"grunt-contrib-watch": "1.1.0",
 		"grunt-eslint": "23.0.0",

@@ -1,5 +1,8 @@
 /**
  * Core functionality for DonationInterface forms
+ *
+ * @param $
+ * @param mw
  */
 ( function ( $, mw ) {
 	var di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
@@ -87,7 +90,7 @@
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
-	 * @param {array} extraData will be merged into the data collected from the form
+	 * @param {Array} extraData will be merged into the data collected from the form
 	 * @param {string} action action param to pass to MW API, defaults to 'donate'
 	 */
 	function callDonateApi( successCallback, extraData, action ) {
@@ -245,6 +248,11 @@
 				di.forms.submit();
 			}
 		} );
+
+		// Only load employer autocomplete js when the employer field is visible
+		if ( $( '#employer' ).length ) {
+			mw.loader.load( 'ext.donationInterface.employerAutoComplete' );
+		}
 
 		// Magic to hopefully disable the spinner in case we are returned to this
 		// page via the Back button.

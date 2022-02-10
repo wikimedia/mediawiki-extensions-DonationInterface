@@ -4,7 +4,7 @@
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
-		presetAmount = mc.getConvertAsk( originalAmount, currency );
+		presetAmount = mc.getConvertAsk( originalAmount );
 		formattedAsk = mc.formatAmount(
 			presetAmount, currency, locale
 		);

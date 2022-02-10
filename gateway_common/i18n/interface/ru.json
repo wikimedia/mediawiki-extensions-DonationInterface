@@ -32,6 +32,7 @@
 			"Putnik",
 			"Rubin16",
 			"Stjn",
+			"Tanzun",
 			"Александр Сигачёв",
 			"Марио",
 			"Хомелка"
@@ -228,6 +229,7 @@
 	"donate_interface-error-msg-cookies": "Пожалуйста, включите «куки» (cookies) в своём браузере.",
 	"donate_interface-error-msg-country-calc": "Ошибка - мы не можем принять ваше пожертвование сейчас.",
 	"donate_interface-error-msg-fiscal_number": "Пожалуйста, введите налоговый номер",
+	"donate_interface-error-msg-fiscal_number-za": "Пожалуйста, введите свой персональный идентификационный код",
 	"donate_interface-error-msg-invalid-fiscal_number": "Пожалуйста, исправьте ошибки в вашем налоговый номер",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "Пожалуйста, исправьте ошибки в вашем DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "пожалуйста, исправьте ошибки в вашем NIT",
