@@ -38,7 +38,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			);
 			return;
 		}
-		if ( !$this->validate( $params, $posted, $subpage ) ) {
+		if ( !$this->validate( $params, $posted ) ) {
 			$this->renderError( $subpage );
 			return;
 		}
@@ -194,7 +194,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		$addedParams[ 'sendEmail' ] = $prefs[ 'sendEmail' ];
 		$addedParams[ 'dontSendEmail' ] = !$prefs[ 'sendEmail' ];
-
+		$addedParams[ 'first_name' ] = $prefs[ 'first_name' ];
+		$addedParams[ 'email' ] = $prefs[ 'email' ];
 		return $addedParams;
 	}
 
@@ -251,6 +252,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$message = [
 			'contact_hash' => $params[ 'contact_hash'],
 			'contact_id' => $params[ 'contact_id'],
+			'first_name' => $params[ 'first_name'],
+			'email' => $params[ 'email'],
 			'country' => $params[ 'country'],
 			'language' => $params[ 'language'],
 			'send_email' => $params[ 'send_email']
@@ -279,9 +282,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
-	protected function validate( array $params, $posted, $subpage ) {
-		if ( $subpage !== 'emailPreferences' &&
-			!$this->validateEmail( $params, $posted ) ) {
+	protected function validate( array $params, $posted ) {
+		if ( !$this->validateEmail( $params, $posted ) ) {
 			return false;
 		}
 		if ( !$this->validateToken( $params, $posted ) ) {

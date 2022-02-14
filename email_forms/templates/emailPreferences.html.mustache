@@ -1,13 +1,21 @@
+
 <form method="POST" class="emailPrefForm" action="{{ action }}">
 
     <input type="hidden" name="token" value="{{ token }}" />
     <input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
     <input type="hidden" name="contact_hash" value="{{contact_hash}}" />
     <input type="hidden" name="contact_id" value="{{contact_id}}" />
-
+	<h3 class="epc-form-col-content-heading-2">Hi, {{ first_name }}</h3>
+	<div>
+		<input id="email" name="email" value="{{email}}" class="emailPrefChangeEmailInput hide"/>
+		<span id="notEditable">
+		 {{email}}
+		<input type="button" value="[{{ l10n "emailpreferences-change-email" }}]" class="emailPrefChangeEmailTextButton">
+		</span>
+	</div>
+	<h3 class="epc-form-col-content-heading">{{ l10n "emailpreferences-title" }}</h3>
     <div>
         <label for="country">{{ l10n "emailpreferences-country" }}</label>
-
         <select id="country" name="country" title="{{ l10n "emailpreferences-country" }}"
             autocomplete="off" >
             {{# countries }}

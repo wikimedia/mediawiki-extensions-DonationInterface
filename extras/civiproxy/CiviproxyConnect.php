@@ -50,6 +50,8 @@ class CiviproxyConnect {
 				'sendEmail' => $resp[ 'is_opt_in' ] ?? null,
 				'fullLang' => $fullLang,
 				'shortLang' => $shortLang,
+				'email' => $resp[ 'email' ],
+				'first_name' => $resp[ 'first_name' ],
 				'is_error' => ( $resp[ 'is_error' ] === 1 ),
 				'error_message' => $resp[ 'error_message' ] ?? null
 			];

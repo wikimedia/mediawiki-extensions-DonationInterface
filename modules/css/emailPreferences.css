@@ -6,9 +6,34 @@ body.rtl input {
 	direction: rtl;
 }
 
+.epc-form-col-content-heading-2 {
+	line-height: 1.25;
+	margin-bottom: 0;
+	font-weight: bold;
+}
+
 input#email {
 	/* @noflip */
 	direction: ltr;
+}
+
+.emailPrefChangeEmailInput {
+	position: relative;
+	vertical-align: middle;
+	-moz-box-sizing: border-box;
+}
+
+.emailPrefChangeEmailTextButton {
+	background: transparent;
+	color: #3a25ff;
+	border: 1px solid rgba( 0, 0, 0, 0 );
+	font-weight: 500;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.emailPrefChangeEmailTextButton:hover {
+	text-decoration: underline;
 }
 
 .emailPrefForm {
@@ -23,6 +48,10 @@ input#email {
 .emailPrefForm button,
 .emailPrefForm .errorMsg {
 	margin: 6px;
+}
+
+.hide {
+	display: none !important;
 }
 
 .errorMsg {
