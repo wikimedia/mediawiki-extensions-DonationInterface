@@ -141,7 +141,6 @@ span#selected-amount {
 }
 
 .cc_header {
-	text-transform: capitalize;
 	font-size: 0.85em;
 	color: #222;
 	text-align: center;
