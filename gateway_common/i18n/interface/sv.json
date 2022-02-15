@@ -385,7 +385,7 @@
 	"donate_interface-email-unsub-fail": "Det uppstod ett fel vid bearbetningen av din förfrågan, kontakta <$1>.",
 	"donate_interface-email-unsub-confirm": "Är du säker på att du vill avbeställa <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Detta kommer att avaktivera e-postmeddelanden från Wikimedia Foundation som skickas till dig som givare. Du kan fortfarande få e-post till denna e-postadress om den är associerad med ett konto på ett av våra projekt. Om du har några frågor, vänligen kontakta <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-email-explain": "Vi kommer att mejla dig ett kvitto för att bekräfta att vi tagit emot ditt bidrag.",
+	"donate_interface-email-explain": "Vi kommer att mejla dig ett kvitto för att bekräfta din gåva.",
 	"donate_interface-faqs": "Svar på ofta förekommande frågor",
 	"donate_interface-tax-info": "Information om avdragsmöjligheter",
 	"donate_interface-informationsharing": "Vi varken säljer eller byter din information med någon. Genom att lämna en gåva går du med på att dela din personliga information med Wikimedia Foundation, den ideella organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i enlighet med vår <a href=\"$1\">sekretesspolicy för donatorer</a>. Wikimedia Foundation och dess leverantörer befinner sig i Förenta staterna och i andra länder vars integritetslagar kan skilja sig från dem där du bor. För mer information läs vår <a href=\"$1\">sekretesspolicy för donatorer</a>.",
@@ -409,6 +409,14 @@
 	"donate_interface-onetime-short": "Engångs",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-title": "Vill du stödja oss med <span class=\"mc-convert-ask\"></span> varje månad, med början nästa månad?",
+	"donate_interface-monthly-convert-text": "Månatliga bidrag är det bästa sättet att se till att Wikipedias utveckling fortsätter.",
+	"donate_interface-monthly-convert-change-amount": "Ja, jag lämnar gärna ett bidrag varje månad, men ett annat belopp.",
+	"donate_interface-monthly-convert-enter-amount": "Ange hur stort bidrag du vill ge varje månad, med början nästa månad.",
+	"donate_interface-monthly-convert-action-button": "Bidra varje månad",
+	"donate_interface-monthly-convert-no-button-variant-006": "Nej tack.",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, jag kommer att bidra med <span class=\"mc-convert-ask\"></span> varje månad.",
+	"donate_interface-monthly-convert-no-button-variant-011": "Nej tack.",
 	"donate_interface-fundraiser-maintenance-header": "Tillfälligt nere för underhåll",
 	"donate_interface-fundraiser-maintenance-notice": "Vi utför planerat underhåll och inte kan ta emot donationer.  Försök igen snart.  Om du har några frågor, vänligen maila $1."
 }
