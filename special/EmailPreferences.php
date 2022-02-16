@@ -33,7 +33,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$posted = $this->getRequest()->wasPosted();
 		if ( $posted && $this->wasCanceled( $params ) ) {
 			$out->redirect(
-				// FIXME switch this to a DonationInterface setting
+			// FIXME switch this to a DonationInterface setting
 				$this->getConfig()->get( 'FundraisingEmailUnsubscribeCancelUri' )
 			);
 			return;
@@ -97,11 +97,20 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$uiLang = $this->getLanguage()->getCode();
 
 		// FIXME Correct country and language sorting by locale/proper diacritics ordering
-
+		// Only show languages configured in $wgDonationInterfaceEmailPrefCtrLanguages
+		// (should be the languages we can send e-mails to)
 		$addedParams[ 'countries' ] = [];
 		$countries = CountryNames::getNames( $uiLang );
-		asort( $countries );
-		foreach ( $countries as $code => $name ) {
+		$emailPrefCtrCountries = $this->getConfig()->get( 'DonationInterfaceEmailPrefCtrCountries' );
+		$displayCountries = array_filter(
+			$countries,
+			static function ( $code ) use ( $emailPrefCtrCountries ) {
+				return in_array( $code, $emailPrefCtrCountries );
+			},
+			ARRAY_FILTER_USE_KEY
+		);
+		asort( $displayCountries );
+		foreach ( $displayCountries as $code => $name ) {
 			$addedParams[ 'countries' ][] = [
 				'code' => $code,
 				'name' => $name,
@@ -140,14 +149,14 @@ class EmailPreferences extends UnlistedSpecialPage {
 		if ( isset( $displayLanguages[ $prefs[ 'fullLang' ] ] ) ) {
 			$selectedLang = $prefs[ 'fullLang' ];
 
-		// Exact language from Civi not in MW but still sendable to, and the general language
-		// is in MW (for example, in Civi it's fr-ca, and that language is sendable to,
-		// but it's not in the list from MW, but fr is in that list)?
-		// In that case, use their Civi lang code as the form value but associate that
-		// value with the general language name.
+			// Exact language from Civi not in MW but still sendable to, and the general language
+			// is in MW (for example, in Civi it's fr-ca, and that language is sendable to,
+			// but it's not in the list from MW, but fr is in that list)?
+			// In that case, use their Civi lang code as the form value but associate that
+			// value with the general language name.
 		} elseif ( in_array( $prefs[ 'fullLang' ], $emailPrefCtrLanguages ) &&
-				!isset( $languages[ $prefs[ 'fullLang' ] ] ) &&
-				isset( $languages[ $prefsShortLang ] ) ) {
+			!isset( $languages[ $prefs[ 'fullLang' ] ] ) &&
+			isset( $languages[ $prefsShortLang ] ) ) {
 			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
 			$selectedLang = $prefs[ 'fullLang' ];
 
@@ -155,24 +164,24 @@ class EmailPreferences extends UnlistedSpecialPage {
 			// to prevent possible multiple options with the same name in the UI.
 			unset( $displayLanguages[ $prefsShortLang ] );
 
-		// General language from Civi in MW and sendable to (for example, in Civi it's
-		// fr-ca, but only fr is sendable to, and fr is in the list from MW)?
+			// General language from Civi in MW and sendable to (for example, in Civi it's
+			// fr-ca, but only fr is sendable to, and fr is in the list from MW)?
 		} elseif ( isset( $displayLanguages[ $prefsShortLang ] ) ) {
 			$selectedLang = $prefsShortLang;
 
-		// General language from Civi not sendable to but is in MW (for example, in Civi it's
-		// fr-ca, and fr is not sendable to, but is in the list from MW)?
-		// In that case their Civi lang code in the form but show the general language name.
+			// General language from Civi not sendable to but is in MW (for example, in Civi it's
+			// fr-ca, and fr is not sendable to, but is in the list from MW)?
+			// In that case their Civi lang code in the form but show the general language name.
 		} elseif ( isset( $languages[ $prefsShortLang ] ) ) {
 			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
 			$selectedLang = $prefs[ 'fullLang' ];
 
-		// FIXME This case occurs if neither language variant nor the general language
-		// in Civi (for example, neither fr-ca nor fr) are sendable to or in the list
-		// from MW. Here the form will just have the first option in the list selected. Maybe
-		// instead we should have a fallback option based on country? Though this
-		// seems unlikely to occur, since only users who did actually get an e-mail
-		// should get here.
+			// FIXME This case occurs if neither language variant nor the general language
+			// in Civi (for example, neither fr-ca nor fr) are sendable to or in the list
+			// from MW. Here the form will just have the first option in the list selected. Maybe
+			// instead we should have a fallback option based on country? Though this
+			// seems unlikely to occur, since only users who did actually get an e-mail
+			// should get here.
 		} else {
 			$selectedLang = $prefsShortLang;
 			$logger = DonationLoggerFactory::getLoggerFromParams(
