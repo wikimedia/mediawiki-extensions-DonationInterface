@@ -60,7 +60,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		} else {
 			if ( $subpage === 'emailPreferences' ) {
 				$params += $this->paramsForPreferencesForm(
-					$params[ 'contact_hash' ],
+					$params[ 'checksum' ],
 					$params[ 'contact_id' ]
 				);
 			}
@@ -69,8 +69,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function paramsForPreferencesForm( $contact_hash, $contact_id ) {
-		$prefs = CiviproxyConnect::getEmailPreferences( $contact_hash, $contact_id );
+	protected function paramsForPreferencesForm( $checksum, $contact_id ) {
+		$prefs = CiviproxyConnect::getEmailPreferences( $checksum, $contact_id );
 
 		if ( $prefs[ 'is_error' ] ) {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
@@ -81,7 +81,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			// placed on the queue.
 			if ( $prefs[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
-					"No results for contact_id $contact_id with hash $contact_hash" );
+					"No results for contact_id $contact_id with checksum $checksum" );
 
 				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
 
@@ -206,9 +206,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		if ( !empty( $params['variant'] ) ) {
 			$message['variant'] = $params['variant'];
 		}
-		if ( !empty( $params['contact_id'] ) && !empty( $params['contact_hash'] ) ) {
+		if ( !empty( $params['contact_id'] ) && !empty( $params['checksum'] ) ) {
 			$message['contact_id'] = $params['contact_id'];
-			$message['contact_hash'] = $params['contact_hash'];
+			$message['checksum'] = $params['checksum'];
 		}
 
 		if ( !empty( $params['utm_source'] ) ) {
@@ -250,13 +250,13 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 
 		$message = [
-			'contact_hash' => $params[ 'contact_hash'],
-			'contact_id' => $params[ 'contact_id'],
-			'first_name' => $params[ 'first_name'],
-			'email' => $params[ 'email'],
-			'country' => $params[ 'country'],
-			'language' => $params[ 'language'],
-			'send_email' => $params[ 'send_email']
+			'checksum' => $params['checksum'],
+			'contact_id' => $params['contact_id'],
+			'first_name' => $params['first_name'],
+			'email' => $params['email'],
+			'country' => $params['country'],
+			'language' => $params['language'],
+			'send_email' => $params['send_email']
 		];
 
 		try {
