@@ -15,7 +15,8 @@
 			"The Polish",
 			"WTM",
 			"Woytecr",
-			"HNordeen (WMF)"
+			"HNordeen (WMF)",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -359,7 +360,7 @@
 	"donate_interface-email-unsub-fail": "Wystąpił błąd podczas przetwarzania Twojego żądania, prosimy o kontakt z <$1>.",
 	"donate_interface-email-unsub-confirm": "Czy chcesz anulować subskrypcję <b> $1 </b>?",
 	"donate_interface-email-unsub-warning": "Spowoduje to usunięcie Ciebie z listy mailingowej Wikimedia Foundation jako darczyńcy. Możesz jednakże nadal otrzymywać wiadomości e‐mail na ten adres, jeżeli jesteś zarejestrowany jako uczestnik jednego z naszych projektów. Jeśli masz pytania, skontaktuj się z <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-email-explain": "Wyślemy Ci e-mail z potwierdzeniem darowizny.",
+	"donate_interface-email-explain": "Otrzymasz wiadomość e-mail z potwierdzeniem swojej darowizny.",
 	"donate_interface-faqs": "Często zadawane pytania",
 	"donate_interface-tax-info": "Informacje o możliwości odliczenia od podatku",
 	"donate_interface-informationsharing": "Nie sprzedajemy nikomu ani nie handlujemy Twoimi informacjami. Dokonując darowizny, zgadzasz się na udostępnienie swoich danych osobowych Wikimedia Foundation – organizacji non–profit, która obsługuje Wikipedię i inne projekty Wikimedia oraz jej dostawcom usług zgodnie z naszą <a href=\"$1\">polityką prywatności darczyńców</a>. Wikimedia Foundation i jej dostawcy usług są zlokalizowani w Stanach Zjednoczonych i w innych krajach, których prawa dotyczące prywatności mogą nie być podobne do twoich. Aby uzyskać więcej informacji, przeczytaj naszą <a href=\"$1\">politykę prywatności darczyńców</a>.",
@@ -377,7 +378,7 @@
 	"donate_interface-monthlybox-yes": "Tak, chcę złożyć zlecenie stałe",
 	"donate_interface-monthlybox-no": "Nie, chcę dokonać jednorazowej wpłaty",
 	"donate_interface-monthlybox-bottom": "Wpłata darowizny jest transakcją bezpieczną.",
-	"donate_interface-monthly-cancel": "Darowizna comiesięczna będzie pobierana przez Wikimedia Foundation dopóki nie powiadomisz nas o jej odwołaniu. Będzie ona pobierana w tym samym numerze dnia miesiąca co pierwsza wpłata. W przypadku pierwszych wpłat w dniach 29, 30 lub 31 miesiąca, pobrana będzie ona ostatniego dnia miesiąca, bliżej oryginalnej daty. Jeżeli masz pytania - skontaktuj się pod adresem $1.",
+	"donate_interface-monthly-cancel": "Darowizna comiesięczna będzie pobierana przez Wikimedia Foundation dopóki nie powiadomisz nas o jej odwołaniu. Będzie ona pobierana w tym samym dniu miesiąca co pierwsza wpłata. W przypadku pierwszych wpłat w dniach 29, 30 lub 31 miesiąca, pobrana będzie ona ostatniego dnia miesiąca, bliżej oryginalnej daty. Jeżeli masz pytania - skontaktuj się pod adresem $1.",
 	"donate_interface-onetime": "Dokonaj jednorazowej wpłaty",
 	"donate_interface-monthly-short": "Co miesiąc",
 	"donate_interface-onetime-short": "Jeden raz",
