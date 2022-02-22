@@ -32,7 +32,7 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 		$expected = [
 			'email' => 'test@test.com',
 			'contact_id' => '1',
-			'contact_hash' => 'df3rf',
+			'checksum' => 'df3rf',
 			'utm_source' => 'source',
 			'utm_medium' => 'medium',
 			'utm_campaign' => 'campaign',
@@ -42,7 +42,7 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 			'title' => 'Special:EmailPreferences/optin',
 			'email' => 'test@test.com',
 			'contact_id' => '1',
-			'contact_hash' => 'df3rf',
+			'checksum' => 'df3rf',
 			'utm_source' => 'source',
 			'utm_medium' => 'medium',
 			'utm_campaign' => 'campaign'
