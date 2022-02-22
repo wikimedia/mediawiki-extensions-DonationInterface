@@ -124,7 +124,7 @@
 	"donate_interface-post-transaction": "Transaksiebesonderhede",
 	"donate_interface-cvv-explain": "<h4> Wat is CVV? </h4>\n<p>CVV staan vir \"Cardholder Verification Value\". Hierdie drie of vier getalle help om te verseker dat die fisiese kaart in die kaarthouer se besit is. Dit help dus om ongemagtigde gebruik of bedrog te voorkom.</p>\n<h4>Visa, Mastercard</h4>\n<p>Die 3-syfer-kode is op die agterkant van u kaart geleë, binne die ondertekende gebied.\nU sal tipies 'n reeks nommers sien, maar net die laaste drie syfers is die CVV-kode.</p>\n<h4>American Express</h4>\n<p>Die kode is <i>altyd bokant</i> die uitgekeepte rekeningnommer op die voorkant van die kaart. \nIn sommige gevalle is die kode aan die linkerkant van die kaart, maar steeds bo die rekeningnommer.</p><br />",
 	"donate_interface-question-comment": "Vrae of kommentaar? Kontak: <a href=\"mailto:$1\">$1</a>",
-	"donate_interface-problemsdonating": "Probleme met u skenking?",
+	"donate_interface-problemsdonating": "Probleme met jou skenking?",
 	"donate_interface-donate-click": "U kreditkaartinligting sal verwerk word sodra u op \"{{int:payflowpro_gateway-donor-submit}}\" kliek.",
 	"donate_interface-otherways": "Daar is <a href=\"$1\">ander maniere om te gee, insluitend PayPal, tjek, of per pos</a>.",
 	"donate_interface-otherways-short": "Andere maniere om te gee",
