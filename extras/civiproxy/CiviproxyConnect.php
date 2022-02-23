@@ -37,21 +37,12 @@ class CiviproxyConnect {
 				throw new RuntimeException( "Invalid JSON from CiviProxy for id $contact_id" );
 			}
 
-			$fullLang = strtolower( $resp[ 'preferred_language' ] ?? null );
-			if ( $fullLang ) {
-				$fullLang = str_replace( '_', '-', $fullLang );
-				$shortLang = substr( $fullLang, 0, 2 );
-			} else {
-				$shortLang = null;
-			}
-
 			return [
 				'country' => $resp[ 'country' ] ?? null,
 				'sendEmail' => $resp[ 'is_opt_in' ] ?? null,
-				'fullLang' => $fullLang,
-				'shortLang' => $shortLang,
 				'email' => $resp[ 'email' ],
 				'first_name' => $resp[ 'first_name' ],
+				'preferred_language' => $resp[ 'preferred_language' ] ?? null,
 				'is_error' => ( $resp[ 'is_error' ] === 1 ),
 				'error_message' => $resp[ 'error_message' ] ?? null
 			];
