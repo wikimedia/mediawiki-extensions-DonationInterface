@@ -178,6 +178,8 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Ontdekken",
 	"donate_interface-error-msg-general": "Er is een fout opgetreden tijdens de verwerking van uw verzoek.",
+	"donate_interface-error-msg-incomplete-field": "Incompleet veld",
+	"donate_interface-error-msg-field-not-valid": "Veld niet geldig",
 	"donate_interface-error-msg-nopaypal": "Wegens een technisch probleem is het niet mogelijk uw verzoek naar PayPal te sturen. U kunt ook direct met uw creditcard doneren.",
 	"donate_interface-error-msg-validation": "Corrigeer de fouten in het formulier.",
 	"donate_interface-error-msg-invalid-amount": "Geef een geldig bedrag op",
