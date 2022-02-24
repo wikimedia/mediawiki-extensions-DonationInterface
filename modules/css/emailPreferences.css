@@ -1,3 +1,77 @@
+.epc-form-col-content-heading {
+	font-size: 1.125em;
+	line-height: 1.25;
+	margin: 0.5em 0 !important;
+	font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
+	font-weight: normal !important;
+}
+
+.nav-logo__image {
+	max-height: 32px;
+	width: auto;
+}
+
+.site-header {
+	background: #fff;
+	min-height: 3.875em;
+	/* position: fixed; */
+	top: 0;
+	transition: top 0.25s ease;
+	width: 100%;
+	z-index: 2000;
+}
+
+.site-header__inner,
+.primary-nav__drawer {
+	padding: 0 2.5em;
+	max-width: 66.25em;
+	margin: 0 auto;
+}
+
+.primary-nav__drawer {
+	border-top: 1px solid #eaecf0;
+	margin-top: 2em;
+	align-items: center;
+	flex-flow: row wrap;
+	padding: 0.375em 0;
+}
+
+.primary-nav__drawer ul {
+	align-items: center;
+	flex-flow: row wrap;
+	margin: 0;
+	padding: 0.375em 0;
+}
+
+.primary-nav__drawer li {
+	display: inline-block;
+	margin-right: 1.5em;
+	padding: 0.375em 0;
+}
+
+.primary-nav__drawer li a {
+	align-items: flex-start;
+	color: #000;
+	display: flex;
+	flex-direction: column;
+	font-size: 0.875em;
+	font-weight: 500;
+	justify-content: center;
+}
+
+.primary-nav__drawer li a span {
+	padding: 10px 8px;
+	margin: -10px 0;
+}
+
+.primary-nav__drawer li a:hover {
+	text-decoration: none;
+}
+
+.primary-nav__drawer li a:hover span {
+	background-color: #eeeaff;
+	color: #3a25ff;
+}
 
 /* Override the sitedir-ltr input direction */
 /* FIXME Do we want these? Copied from gateway.css. */
@@ -7,7 +81,8 @@ body.rtl input {
 }
 
 .epc-form-col-content-heading-2 {
-	line-height: 1.25;
+	line-height: 1 !important;
+	font-size: 24px !important;
 	margin-bottom: 0;
 	font-weight: bold;
 }
@@ -28,7 +103,7 @@ input#email {
 	color: #3a25ff;
 	border: 1px solid rgba( 0, 0, 0, 0 );
 	font-weight: 500;
-	font-size: 18px;
+	font-size: 16px;
 	cursor: pointer;
 }
 
@@ -39,15 +114,118 @@ input#email {
 .emailPrefForm {
 	display: inline-block;
 	vertical-align: top;
-	width: 50em;
-	padding: 8px;
 }
 
 .emailPrefForm input,
-.emailPrefForm select,
 .emailPrefForm button,
 .emailPrefForm .errorMsg {
 	margin: 6px;
+}
+
+main > div {
+	width: 66.25em;
+}
+
+.mw-body-content {
+	font-size: 100% !important;
+}
+
+main {
+	max-width: 66.25em;
+	padding: 0 2.5em;
+	margin: 3.785em auto;
+	display: flex !important;
+	justify-content: center;
+	font-family: 'Helvetica Neue', 'Helvetica', 'Liberation Sans', 'Arial', sans-serif;
+}
+
+.emailPrefColumns {
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+	align-content: stretch;
+}
+
+.emailPrefleftColumn {
+	padding: 0 3em 0 0;
+	width: 38.5%;
+	height: auto;
+}
+
+.emailPrefleftColumn div:first-of-type {
+	margin-bottom: 1em;
+}
+
+.emailPrefRightColumn {
+	width: 61.5%;
+	border: 1px solid #eaecf0;
+	padding: 1.75em 2em;
+	height: auto;
+}
+
+#notEditable {
+	font-size: 16px;
+}
+
+#notEditable input {
+	margin: 0;
+}
+
+.emailPrefForm select {
+	position: relative;
+	vertical-align: middle;
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 50em;
+	height: 3em;
+	border: 1px solid #a2a9b1;
+	border-radius: 2px;
+	padding-left: 12px;
+	padding-right: 2.14285714em;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: bold;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* Background image added via template, so we can get the right path via Mustache */
+	background-repeat: no-repeat;
+	background-color: #f8f9fa;
+	background-position: right 12px center;
+	transition: background-color 100ms;
+}
+
+.emailPrefForm select option {
+	background-color: transparent;
+	font-size: inherit;
+	font-family: inherit;
+	height: 1.5em;
+	padding: 5px 12px;
+}
+
+.emailPrefForm select:hover {
+	color: #404244;
+	background-color: #fff;
+}
+
+.emailPrefButton {
+	text-align: center;
+	margin: 2em 0 0;
+}
+
+.emailPrefForm button {
+	border-radius: 2px;
+	cursor: pointer;
+	display: inline-block;
+	font-weight: bold;
+	padding: 0.375em 0.75em;
+	font-size: 1em;
+	font-family: inherit;
+	line-height: 1.375em;
+	background-color: #3a25ff;
+	border: 1px solid rgba( 0, 0, 0, 0 );
+	color: #fff;
+	transition: 0.1s background;
 }
 
 .hide {
@@ -62,4 +240,91 @@ input#email {
 
 .errorMsgHide {
 	display: none;
+}
+
+/* Completely emove most MediaWiki stuff */
+
+#mw-head-base {
+	display: none;
+}
+
+#mw-page-base {
+	display: none;
+}
+
+#mw-panel {
+	display: none;
+}
+
+#firstHeading {
+	display: none;
+}
+
+.mw-body {
+	border: 0 !important;
+}
+
+#footer-icons {
+	display: none;
+}
+
+body {
+	background-color: #fff !important;
+}
+
+@media ( min-width: 768px ) {
+	footer {
+		padding: 3em 0 4em;
+	}
+}
+
+footer {
+	padding: 3em 1.5em;
+	background: #54595d;
+	color: #fff !important;
+	max-width: 66.25em;
+	margin: 0 auto;
+}
+
+footer .footer-legal {
+	text-align: center;
+}
+
+footer a,
+footer a:visited {
+	color: inherit !important;
+	text-decoration: underline;
+	transition: 0.3s all;
+}
+
+@media ( min-width: 768px ) {
+	.mw-620 {
+		max-width: 38.75em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media ( min-width: 768px ) and ( max-width: 1280px ) {
+	footer .footer-legal p,
+	footer .footer-legal .p {
+		font-size: 0.85em;
+	}
+}
+
+footer .footer-legal p,
+footer .footer-legal .p {
+	padding-bottom: 0.75em;
+	line-height: 1.3;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	margin: 0;
+}
+
+.mw-footer {
+	display: none;
+}
+
+.mw-body {
+	margin: 0 !important;
+	padding: 0 !important;
 }
