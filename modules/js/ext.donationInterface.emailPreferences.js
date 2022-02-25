@@ -1,6 +1,11 @@
 ( function ( $ ) {
 	$( function () {
-		var $submitButton = $( '#continue' ),
+		var $editButton = $( '.emailPrefChangeEmailTextButton' );
+		$editButton.click( function () {
+				$editButton.addClass( 'hide' );
+				$emailField.removeClass( 'hide' );
+		} );
+		var $submitButton = $( '#save' ),
 			$emailField = $( '#email' ),
 			isEmailValid = function () {
 				var email = $emailField.val().trim(),
@@ -37,5 +42,6 @@
 				}
 			} );
 		}
+
 	} );
 } )( jQuery );

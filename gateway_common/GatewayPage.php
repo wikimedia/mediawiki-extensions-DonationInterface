@@ -482,7 +482,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $this->adapter->showMonthlyConvert() ) {
 			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
 			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
-			$vars['showMConStartup'] = false;
+			$vars['showMConStartup'] = $this->getRequest()->getBool( 'debugMonthlyConvert' );
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->getMonthlyConvertAmounts();
 		}
 

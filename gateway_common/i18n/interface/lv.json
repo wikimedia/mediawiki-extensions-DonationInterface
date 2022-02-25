@@ -5,6 +5,7 @@
 			"GreenZeb",
 			"Jrobell",
 			"Papuass",
+			"Pcoombe",
 			"Silraks"
 		]
 	},
@@ -277,9 +278,10 @@
 	"donate_interface-translate-bluelink": "Uzlabot šo tulkojumu",
 	"donate_interface-translate-redlink1": "Palīdzi iztulkot šo lapu.",
 	"donate_interface-translate-redlink2": "Vai nosūti savu tulkojumu uz translations@wikimedia.org",
+	"donate_interface-email-explain": "Mēs jums e-pastā nosūtīsim kvīti kā apstiprinājumu par jūsu ziedojumu.",
 	"donate_interface-faqs": "Bieži uzdotie jautājumi",
 	"donate_interface-tax-info": "Informācija par nodokļu atvieglojumiem",
-	"donate_interface-informationsharing": "Ziedojot jūs piekrītat savas personīgās informācijas kopīgošanai ar Wikimedia Foundation (bezpeļņas organizāciju, kas nodrošina Wikipedia un citu Wikimedia projektu mitināšanu) un tā pakalpojumu sniedzējiem saskaņā ar <a href=\"$1\">mūsu ziedotāju politiku</a>. Wikimedia Foundation un tā pakalpojumu sniedzēji atrodas Amerikas Savienotajās Valstīs un citās valstīs, kuru privātuma tiesību akti var neatbilst tiesību aktiem jūsu valstī. Mēs jūsu informāciju nevienam nepārdosim un netirgosim. Lai saņemtu plašāku informāciju, lūdzu, izlasiet <a href=\"$1\">mūsu ziedotāju politiku</a>.",
+	"donate_interface-informationsharing": "Mēs jūsu informāciju nevienam nepārdosim un netirgosim. Ziedojot jūs piekrītat savas personīgās informācijas kopīgošanai ar Wikimedia Foundation (bezpeļņas organizāciju, kas nodrošina Wikipedia un citu Wikimedia projektu mitināšanu) un tā pakalpojumu sniedzējiem saskaņā ar <a href=\"$1\">mūsu ziedotāju politiku</a>. Wikimedia Foundation un tā pakalpojumu sniedzēji atrodas Amerikas Savienotajās Valstīs un citās valstīs, kuru privātuma tiesību akti var neatbilst tiesību aktiem jūsu valstī. Lai saņemtu plašāku informāciju, lūdzu, izlasiet <a href=\"$1\">mūsu ziedotāju politiku</a>.",
 	"donate_interface-currency-change": "Mainīt?",
 	"donate_interface-taxded-link-int": "Nodokļu un cita juridiskā informācija",
 	"donate_interface-taxded-link-us": "Informācija par nodokļu atvieglojumiem",

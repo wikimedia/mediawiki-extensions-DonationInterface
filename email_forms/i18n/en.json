@@ -2,11 +2,25 @@
 	"@metadata": {
 		"authors": []
 	},
-	"emailpreferences-title": "Set your preferences for Wikimedia Fundraising e-mails",
-	"emailpreferences-country": "Country",
+	"emailpreferences-title": "Email preferences",
+	"emailpreferences-country": "Country or Region",
 	"emailpreferences-language": "Language",
 	"emailpreferences-send-email": "I love hearing about Wikimedia, keep your regular schedule!",
 	"emailpreferences-dont-send-email": "Unsubscribe me from all emails.",
+	"emailpreferences-change-email": "change email",
 	"emailpreferences-save": "Save preferences",
-	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted."
+	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted.",
+	"emailpreferences-footer-learn_more": "Learn more about <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">local chapters and their projects</a>.",
+	"emailpreferences-footer-questions_email": "If you have any questions, please email <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Text is available under the <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/3.0/\">Creative Commons Attribution-ShareAlike License</a>; additional terms may apply. See <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Terms_of_Use\">Terms of Use</a> or <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Privacy_policy\">Privacy Policy</a> for details.",
+	"emailpreferences-hi": "Hi",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Our Work",
+	"emailpreferences-header-link-support-wikipedia": "Support Wikipedia",
+	"emailpreferences-header-link-research": "Research",
+	"emailpreferences-header-link-advocacy": "Advocacy",
+	"emailpreferences-header-link-technology": "Technology",
+	"emailpreferences-header-link-news": "News",
+	"emailpreferences-header-link-participate": "Participate",
+	"emailpreferences-header-link-about": "About"
 }

@@ -8,7 +8,7 @@ class CiviproxyConnect {
 	const SITE_KEY_KEY = 'SITE_KEY';
 	const API_KEY_KEY = 'API_KEY';
 
-	public static function getEmailPreferences( $contact_hash, $contact_id ) {
+	public static function getEmailPreferences( $checksum, $contact_id ) {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
 		$client = new GuzzleHttp\Client();
@@ -23,7 +23,7 @@ class CiviproxyConnect {
 						'api_key' => self::API_KEY_KEY,
 						'version' => '3',
 						'json' => '1',
-						'hash' => $contact_hash,
+						'checksum' => $checksum,
 						'contact_id' => $contact_id
 					],
 					'verify' => false
@@ -50,6 +50,8 @@ class CiviproxyConnect {
 				'sendEmail' => $resp[ 'is_opt_in' ] ?? null,
 				'fullLang' => $fullLang,
 				'shortLang' => $shortLang,
+				'email' => $resp[ 'email' ],
+				'first_name' => $resp[ 'first_name' ],
 				'is_error' => ( $resp[ 'is_error' ] === 1 ),
 				'error_message' => $resp[ 'error_message' ] ?? null
 			];

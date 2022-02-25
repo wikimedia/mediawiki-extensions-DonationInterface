@@ -62,7 +62,7 @@ class EmailForm {
 		global $wgFundraisingEmailUnsubscribeHelpEmail;
 
 		$paramList = [
-			'contact_hash', 'contact_id', 'email', 'token', 'variant', 'countries',
+			'checksum', 'contact_id', 'email', 'token', 'variant', 'first_name', 'countries',
 				'languages', 'sendEmail', 'dontSendEmail'
 		];
 		$templateParams = [];
