@@ -43,7 +43,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		// TODO: this deny list business should happen elsewhere, and on every hit.
 		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPDenyList' ) ) ) {
 			$this->gateway_logger->info( "IP $user_ip present in deny list." );
-			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPDenyList' );
+			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPDenyFailScore' ), 'IPDenyList' );
 			return true;
 		}
 

@@ -724,6 +724,9 @@
 		"DonationInterfaceNameFilterRules": {
 			"value": []
 		},
+		"DonationInterfaceIPDenyFailScore": {
+			"value": 100
+		},
 		"DonationInterfaceIPVelocityFailScore": {
 			"value": 100
 		},
