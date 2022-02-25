@@ -1,9 +1,20 @@
+header {
+	margin-bottom: 106px;
+}
+
 .epc-form-col-content-heading {
 	font-size: 1.125em;
 	line-height: 1.25;
 	margin: 0.5em 0 !important;
 	font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
 	font-weight: normal !important;
+}
+
+.nav-logo {
+	align-items: center;
+	display: flex;
+	height: 62px;
+	order: 20;
 }
 
 .nav-logo__image {
@@ -14,11 +25,19 @@
 .site-header {
 	background: #fff;
 	min-height: 3.875em;
-	/* position: fixed; */
+	position: fixed;
 	top: 0;
 	transition: top 0.25s ease;
 	width: 100%;
 	z-index: 2000;
+}
+
+.site-header__inner {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin: 0 auto;
+	position: relative;
 }
 
 .site-header__inner,
@@ -30,16 +49,33 @@
 
 .primary-nav__drawer {
 	border-top: 1px solid #eaecf0;
-	margin-top: 2em;
+	margin-top: 4.825em;
 	align-items: center;
 	flex-flow: row wrap;
 	padding: 0.375em 0;
 }
 
+@media ( min-width: 1024px ) {
+	.primary-nav__items {
+		align-items: center;
+		flex-flow: row wrap;
+		margin-top: 0;
+		padding: 0.375em 0;
+	}
+
+	.primary-nav__drawer ul {
+		margin: 0;
+	}
+}
+
+.primary-nav__items {
+	align-items: center;
+	flex-flow: column nowrap;
+}
+
 .primary-nav__drawer ul {
 	align-items: center;
 	flex-flow: row wrap;
-	margin: 0;
 	padding: 0.375em 0;
 }
 
@@ -60,8 +96,8 @@
 }
 
 .primary-nav__drawer li a span {
-	padding: 10px 8px;
-	margin: -10px 0;
+	margin: 0 -0.625em;
+	padding: 0.4375em 0.625em;
 }
 
 .primary-nav__drawer li a:hover {
@@ -80,35 +116,163 @@ body.rtl input {
 	direction: rtl;
 }
 
-.epc-form-col-content-heading-2 {
-	line-height: 1 !important;
-	font-size: 24px !important;
-	margin-bottom: 0;
-	font-weight: bold;
-}
-
 input#email {
 	/* @noflip */
 	direction: ltr;
 }
 
-.emailPrefChangeEmailInput {
-	position: relative;
-	vertical-align: middle;
-	-moz-box-sizing: border-box;
+.oo-ui-inputWidget-input {
+	background-color: #fff;
+	color: #000;
+	margin: 0 !important;
+	border: 1px solid #a2a9b1;
+	border-radius: 2px;
+	padding: 5px 8px;
+	font-size: inherit;
+	font-family: inherit;
+	line-height: 1.42857143em;
+	-webkit-appearance: none;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	height: 2.28571429em;
 }
 
-.emailPrefChangeEmailTextButton {
-	background: transparent;
-	color: #3a25ff;
-	border: 1px solid rgba( 0, 0, 0, 0 );
-	font-weight: 500;
-	font-size: 16px;
+.epc-form-col-content {
+	padding-bottom: 2em;
+}
+
+.epc-form-col-content-salutation {
+	margin-bottom: 2em;
+}
+
+.oo-ui-radioInputWidget.oo-ui-widget-enabled [ type='radio' ] {
 	cursor: pointer;
 }
 
-.emailPrefChangeEmailTextButton:hover {
+.oo-ui-radioInputWidget [ type='radio' ]:checked + span,
+.oo-ui-radioInputWidget [ type='radio' ]:checked:hover + span,
+.oo-ui-radioInputWidget [ type='radio' ]:checked:focus:hover + span {
+	border-width: 6px;
+}
+
+.oo-ui-radioInputWidget [ type='radio' ] {
+	position: relative;
+	max-width: none;
+	width: 1.42857143em;
+	height: 1.42857143em;
+	margin: 0;
+	opacity: 0;
+	z-index: 1;
+}
+
+.oo-ui-radioInputWidget {
+	display: inline-block;
+	z-index: 0;
+	position: relative;
+	line-height: 1.42857143em;
+	white-space: nowrap;
+}
+
+.oo-ui-inputWidget:last-child {
+	margin-right: 0;
+}
+
+.oo-ui-radioInputWidget.oo-ui-widget-enabled [ type='radio' ]:checked + span {
+	border-color: #36c;
+}
+
+.epc-form-col-frequency .oo-ui-radioInputWidget [ type='radio' ] + span,
+.epc-form-col-frequency .oo-ui-iconWidget {
+	top: 3px;
+}
+
+.oo-ui-radioInputWidget.oo-ui-widget-enabled [ type='radio' ] + span {
+	cursor: pointer;
+	transition: background-color 100ms, border-color 100ms, border-width 100ms;
+}
+
+.oo-ui-fieldLayout {
+	margin-top: 0;
+	padding: 4px 0;
+}
+
+.oo-ui-radioInputWidget [ type='radio' ] + span {
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+	margin-top: -16px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	width: 1.42857143em;
+	height: 1.42857143em;
+	border-color: #72777d;
+	border-style: solid;
+	border-radius: 50%;
+	border-width: 0;
+	border-width: 1px;
+}
+
+.oo-ui-radioInputWidget [ type='radio' ] + span:before {
+	content: ' ';
+	position: absolute;
+	top: -4px;
+	left: -4px;
+	right: -4px;
+	bottom: -4px;
+	border: 1px solid transparent;
+	border-radius: 50%;
+}
+
+.emailPrefForm .oo-ui-fieldLayout-body {
+	margin-bottom: 1em;
+}
+
+.epc-form-col-content-salutation-name {
+	font-size: 1.375em;
+	font-weight: bold;
+	display: block;
+}
+
+.epc-form-col-content-salutation-email {
+	font-size: 1.125em;
+}
+
+.epc-form-col-content-salutation-email-edit {
+	font-weight: normal;
+}
+
+.epc-form-col-content-salutation-email-edit-link {
+	font-weight: bold;
+	color: #3a25ff;
+}
+
+.epc-form-col-content-salutation-email-edit-link:hover {
 	text-decoration: underline;
+}
+
+.epc-form-col-content-salutation-email-edit-input {
+	display: none;
+	font-weight: bold;
+}
+
+.epc-form-col-content-heading {
+	font-size: 1.125em;
+	margin-bottom: 1em;
+}
+
+.epc-form-col-content .oo-ui-fieldLayout-body {
+	margin-bottom: 1em;
+}
+
+.epc-form-col-content .oo-ui-fieldLayout-header {
+	margin-bottom: 0.25em;
+	display: block;
+}
+
+.epc-form-col-content .oo-ui-dropdownInputWidget select {
+	font-weight: bold;
+	height: auto;
 }
 
 .emailPrefForm {
@@ -164,11 +328,11 @@ main {
 	height: auto;
 }
 
-#notEditable {
-	font-size: 16px;
+.epc-form-col-content-salutation-email-edit {
+	font-size: 1.125em;
 }
 
-#notEditable input {
+. input {
 	margin: 0;
 }
 
@@ -178,7 +342,7 @@ main {
 	box-sizing: border-box;
 	width: 100%;
 	max-width: 50em;
-	height: 3em;
+	height: 2.28571429em;
 	border: 1px solid #a2a9b1;
 	border-radius: 2px;
 	padding-left: 12px;

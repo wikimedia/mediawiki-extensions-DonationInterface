@@ -1,9 +1,10 @@
 ( function ( $ ) {
 	$( function () {
-		var $editButton = $( '.emailPrefChangeEmailTextButton' );
-		$editButton.click( function () {
-				$editButton.addClass( 'hide' );
-				$emailField.removeClass( 'hide' );
+		$( '.epc-form-col-content-salutation-email-edit-link' ).click( function ( e ) {
+				e.preventDefault();
+			$( '.epc-form-col-content-salutation-email-edit-input' ).show();
+			$( '.epc-form-col-content-salutation-email' ).hide();
+			$( '.epc-form-col-content-salutation-email-edit' ).hide();
 		} );
 		var $submitButton = $( '#save' ),
 			$emailField = $( '#email' ),
