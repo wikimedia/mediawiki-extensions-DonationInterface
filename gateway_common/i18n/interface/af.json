@@ -8,7 +8,8 @@
 			"Naudefj",
 			"Pcoombe",
 			"පසිඳු කාවින්ද",
-			"Winstonza"
+			"Winstonza",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Ondersteun Wikipedia",
@@ -240,6 +241,7 @@
 	"donate_interface-email-unsub-title": "Wikimedia Foundation bedank",
 	"donate_interface-email-unsub-button": "Kanselleer subskripsie",
 	"donate_interface-email-unsub-success": "Jy het suksesvol is verwyder uit ons poslys",
+	"donate_interface-email-explain": "Ons sal vir jou ’n kwitansie per e-pos aanstuur om jou skenking te bevestig.",
 	"donate_interface-faqs": "Gereelde vrae",
 	"donate_interface-tax-info": "Belasting aftrekbaarheid",
 	"donate_interface-currency-change": "Wysig?",
@@ -256,5 +258,10 @@
 	"donate_interface-monthly-short": "Maandeliks",
 	"donate_interface-onetime-short": "Eenmalig",
 	"donate_interface-error-http-403": "Jy hoef nie toestemming om hierdie bladsy te bekom.",
-	"donate_interface-statement": "Wikimedia $1"
+	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-title": "Voeg ’n <span class=\"mc-convert-ask\"></span> maandelikse skenking by wat volgende maand in werking tree?",
+	"donate_interface-monthly-convert-text": "Maandelikse ondersteuning is die beste manier om te verseker dat Wikipedia aanhou floreer",
+	"donate_interface-monthly-convert-change-amount": "Ja, ek sal maandeliks bydra, maar vir ’n ander bedrag",
+	"donate_interface-monthly-convert-enter-amount": "Voer jou maandelikse skenkingsbedrag in wat volgende maand in werking sal tree.",
+	"donate_interface-monthly-convert-action-button": "Skenk maandeliks"
 }
