@@ -13,7 +13,8 @@
 			"NGC 54",
 			"Stelistcristi",
 			"Strainu",
-			"Pcoombe"
+			"Pcoombe",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Sprijiniți Wikimedia",
@@ -220,7 +221,7 @@
 	"donate_interface-error-msg-issuer_id": "bancă",
 	"donate_interface-donate-error-try-a-different-card": "Încercați [$1 alt card] sau o [$2 altă modalitate de a dona], ori contactați-ne la $3",
 	"donate_interface-donate-error-try-again-html": "Vă rugăm să <a href=\"$1\">reîncercați</a>, să utilizați o altă <a href=\"$2\">modalitate de a dona</a> sau să ne contactați la <a href=\"mailto:$3\">$3</a>",
-	"donate_interface-donate-error-thank-you-for-your-support": "Vă mulțumim pentru sprijin!",
+	"donate_interface-donate-error-thank-you-for-your-support": "Îți mulțumim pentru sprijinul acordat!",
 	"donate_interface-error-no-form": "Nu am putut găsi un formular de donație care să corespundă parametrilor dumnevoastră. Contactați [mailto:$1 echipa noastră de ajutor] pentru informații suplimentare.",
 	"php-response-declined": "Tranzacția dumneavoastră nu a putut fi acceptată.",
 	"donate_interface-thankyou": "Vă mulțumim pentru donație!",
@@ -362,6 +363,7 @@
 	"donate_interface-email-unsub-success": "Ați fost înlăturat cu succes din lista noastră de discuții",
 	"donate_interface-email-unsub-fail": "A apărut o eroare la procesarea solicitării dumneavoastră. Vă rugăm, contactați <$1>.",
 	"donate_interface-email-unsub-confirm": "Sunteți sigur că doriți să dezabonați adresa <b>$1</b>?",
+	"donate_interface-email-explain": "Îți vom trimite prin e-mail o chitanță pentru a confirma donația.",
 	"donate_interface-faqs": "Întrebări frecvente",
 	"donate_interface-tax-info": "Informații despre deductibilitatea fiscală",
 	"donate_interface-informationsharing": "Nu vindem și nu înstrăinăm datele dumneavoastră nimănui. Donând, sunteți de acord să vă furnizați informațiile personale atât Wikimedia Foundation, organizația nonprofit care găzduiește Wikipedia și alte proiecte conexe, cât și prestatorilor săi de servicii în conformitate cu <a href=\"$1\">politica noastră referitoare la donații</a>. Wikimedia Foundation și prestatorii săi de servicii se află în Statele Unite precum și în alte țări ale căror legi privind confidențialitatea pot fi diferite de cele ale noastre. Pentru mai multe informații, citiți <a href=\"$1\">politica noastră referitoare la donații</a>.",
@@ -382,5 +384,12 @@
 	"donate_interface-onetime-short": "O dată",
 	"donate_interface-error-http-403": "Nu aveți permisiunea să accesați această pagină.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-title": "Ești de acord să faci o donație lunară de <span class=\"mc-convert-ask\"></span> începând de luna viitoare?",
+	"donate_interface-monthly-convert-text": "Sprijinul lunar este cel mai bun mod de a ne asigura că Wikipedia continuă să se dezvolte.",
+	"donate_interface-monthly-convert-change-amount": "Da, voi dona lunar, dar o sumă diferită",
+	"donate_interface-monthly-convert-enter-amount": "Introdu valoarea donației lunare pentru a începe de luna viitoare.",
+	"donate_interface-monthly-convert-action-button": "Donează lunar",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Da, voi face o donație lunară de <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-no-button-variant-011": "Nu, mulțumesc.",
 	"donate_interface-fundraiser-maintenance-header": "Nefuncțional temporar pentru mentenanță"
 }
