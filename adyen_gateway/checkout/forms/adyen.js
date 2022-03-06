@@ -35,6 +35,7 @@
 			case 'ideal':
 				// for cc and ideal, additional config is optional
 				return config;
+
 			case 'applepay':
 				// for applepay, additional config is required
 				var amount = {},
@@ -101,6 +102,44 @@
 				};
 
 				return config;
+
+			case 'googlepay':
+				// for googlepay, additional config is required
+				var g_amount = {},
+					g_currency = $( '#currency' ).val(),
+					g_amount_value = $( '#amount' ).val(),
+					g_country = $( '#country' ).val();
+				g_amount.currency = g_currency;
+				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
+				config.amount = g_amount;
+				config.countryCode = g_country;
+				config.environment = mw.config.get( 'adyenConfiguration' ).environment.toUpperCase();
+				config.showPayButton = true;
+				config.buttonType = 'donate';
+				config.emailRequired = true;
+				config.billingAddressRequired = true;
+				config.billingAddressParameters = {
+					format: 'FULL'
+				};
+
+				// eslint-disable-next-line compat/compat
+				authPromise = new Promise( function ( authResolve ) {
+					config.onAuthorized = function ( response ) {
+						var bContact = response.paymentMethodData.info.billingAddress,
+							extraData = {};
+						extraData.postal_code = bContact.postalCode;
+						extraData.state_province = bContact.administrativeArea;
+						extraData.city = bContact.locality;
+						extraData.street_address = bContact.address1;
+						extraData.email = response.email;
+						extraData.full_name = bContact.name;
+						// We will combine this contact data with a token from the
+						// onSubmit event after both events have fired.
+						authResolve( extraData );
+					};
+				} );
+				return config;
+
 			default:
 				throw new Error( 'Component type not found' );
 		}
@@ -194,6 +233,8 @@
 				return 'ideal';
 			case 'apple':
 				return 'applepay';
+			case 'google':
+				return 'googlepay';
 			default:
 				throw new Error( 'paymentMethod not found' );
 		}
@@ -267,6 +308,9 @@
 							extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
 						}
 						break;
+					case 'google':
+						submitResolve( state.data.paymentMethod.googlePayToken );
+						return;
 					case 'apple':
 						// Resolve the submit promise with the Apple Pay token and bail out - we
 						// also need to wait for the onAuthorized event with contact data.
@@ -396,8 +440,34 @@
 		checkout = getCheckout( config );
 		component_config = getComponentConfig( component_type );
 		component = checkout.create( component_type, component_config );
-
-		if ( component_type === 'applepay' ) {
+		if ( component_type === 'googlepay' ) {
+			component.isAvailable().then( function () {
+				component.mount( '#' + ui_container_name );
+			} ).catch( function () {
+				mw.donationInterface.validation.showErrors( {
+					general: mw.message(
+						'donate_interface-error-msg-google_pay_unsupported',
+						mw.config.get( 'DonationInterfaceOtherWaysURL' )
+					).plain()
+				} );
+			} );
+			// For Google Pay, we need contact data from the onAuthorized event and token
+			// data from the onSubmit event before we can make our MediaWiki API call.
+			Promise.all( [ submitPromise, authPromise ] ).then( function ( values ) {
+				var extraData = values[ 1 ];
+				extraData.payment_token = values[ 0 ];
+				mw.donationInterface.forms.callDonateApi(
+					handleApiResult, extraData, 'di_donate_adyen'
+				);
+			} ).catch( function ( err ) {
+				mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+				} );
+				// Let error bubble up to window.onerror handler so the errorLog
+				// module sends it to our client-side logging endpoint.
+				throw err;
+			} );
+		} else if ( component_type === 'applepay' ) {
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
@@ -426,7 +496,8 @@
 			} );
 		} else {
 			component.mount( '#' + ui_container_name );
-			// For everything except Apple Pay, show our standard 'Donate' button
+			// For everything except Apple and google
+			// Pay, show our standard 'Donate' button
 			$( '#paymentSubmit' ).show();
 			$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
 				component.submit( evt );

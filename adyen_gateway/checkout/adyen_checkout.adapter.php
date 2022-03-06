@@ -217,6 +217,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			case 'rtbt':
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
+			case 'google':
 			case 'apple':
 				$this->transactions['authorize']['request'][] = 'payment_token';
 		}
@@ -286,6 +287,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'postal_code',
 				'city',
 				'state_province'
+			];
+		} elseif ( $method === 'google' ) {
+			return [
+				'street_address',
+				'postal_code',
 			];
 		}
 		return [];

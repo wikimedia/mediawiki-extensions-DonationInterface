@@ -22,6 +22,9 @@ class AdyenCheckoutGateway extends GatewayPage {
 		$out = $this->getOutput();
 		$script = $this->adapter->getAccountConfig( 'Script' );
 		$css = $this->adapter->getAccountConfig( 'Css' );
+		if ( $this->adapter->getPaymentMethod() == 'google' ) {
+			$out->addScript( '<script src="https://pay.google.com/gp/p/js/pay.js"></script>' );
+		}
 		$out->addScript(
 			"<script src=\"{$script['src']}\" " .
 			"integrity=\"{$script['integrity']}\" " .
