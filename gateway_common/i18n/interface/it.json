@@ -243,7 +243,7 @@
 	"donate_interface-cvv-explain": "<h4>Che cosa è il CVV?</h4>\n<p>Il CVV (Cardholder Verification Value) è un codice di tre o quattro cifre che aiuta ad assicurare che la carta di credito sia realmente nelle mani del titolare, al fine di prevenire l'uso non autorizzato o fraudolento.</p>\n<h4>Visa, Mastercard</h4>\n<p>Il codice, composto da tre numeri, si trova sul retro della carta, dentro lo spazio per la firma.\nIn genere in questo riquadro ci saranno una serie di numeri, ma solo gli ultimi tre costituiscono il codice CVV.</p>\n<h4>American Express</h4>\n<p>Il codice si trova <i>sempre sopra</i> il numero di conto in rilievo sul fronte della carta.\nIn alcuni casi, il codice si trova sulla parte sinistra della casa, ma comunque sopra il numero di conto.</p><br />",
 	"donate_interface-question-comment": "Domande o commenti? Contatta <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Stiamo cercando di rendere più facile la donazione alle persone in ogni paese. Facci sapere come potremmo renderla più facile per te. Invia i tuoi suggerimenti a: $1.",
-	"donate_interface-problemsdonating": "Qualche problema?",
+	"donate_interface-problemsdonating": "Problemi con la donazione?",
 	"donate_interface-donate-click": "La tua carta di credito/debito verrà elaborata in modo sicuro.",
 	"donate_interface-otherways": "Sono possibili <a href=\"$1\">altri modi per donare, tra cui PayPal, assegno o posta</a>.",
 	"donate_interface-otherways-alt": "Sono possibili <a href=\"$1\">altri modi per donare</a>, anche con assegno.",

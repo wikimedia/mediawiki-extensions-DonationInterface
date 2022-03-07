@@ -26,7 +26,8 @@
 			"Vitorvicentevalente",
 			555,
 			"McDutchie",
-			"Pcoombe"
+			"Pcoombe",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
@@ -403,7 +404,7 @@
 	"donate_interface-email-unsub-fail": "Ocorreu um erro no processamento do seu pedido, por favor contacte <$1>.",
 	"donate_interface-email-unsub-confirm": "Tem a certeza de que deseja cancelar a subscrição de <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Esta opção exclui-o dos correios eletrónicos que a Wikimedia Foundation envia a benfeitores. Pode continuar a receber mensagens neste endereço de correio eletrónico se o endereço estiver associado a uma conta num dos nossos projetos. Se tiver alguma pergunta, entre em contacto connosco no endereço <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-email-explain": "Enviaremos um recibo por correio eletrónico para confirmar o seu donativo.",
+	"donate_interface-email-explain": "Enviaremos um recibo por e-mail para confirmar o seu donativo.",
 	"donate_interface-email-optin-fail": "Ocorreu um erro no processamento do seu pedido. Contacte <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">clique aqui para tentar novamente</a>, por favor.",
 	"donate_interface-faqs": "Perguntas mais frequentes",
 	"donate_interface-tax-info": "Informação sobre dedução fiscal",
@@ -439,11 +440,11 @@
 	"donate_interface-monthly-convert-text-variant-002": "Só um pequeno número dos nossos benfeitores faz donativos mensais, mas esta é a melhor forma de garantir que a Wikipédia continue a prosperar.",
 	"donate_interface-monthly-convert-text-variant-005": "Sejamos honestos: o conhecimento não é um remédio pontual, é um compromisso de longo prazo. Pode tornar o seu apoio num donativo mensal?",
 	"donate_interface-monthly-convert-text-variant-008": "Obrigado pela sua contribuição. Temos de perguntar se pode dar um pouquinho mais? Só uma pequena fração dos nossos leitores chega a este ponto, porque a maioria não faz donativos. E, de entre os nossos benfeitores, só uma pequena parte considera fazer uma contribuição mensal automática. Mas o apoio mensal é a melhor forma de garantir que a Wikipédia continue a prosperar. Pode ajudar a assegurar a nossa estabilidade financeira com um donativo prolongado?",
-	"donate_interface-monthly-convert-change-amount": "Sim, farei um donativo mensal, mas de valor diferente",
+	"donate_interface-monthly-convert-change-amount": "Sim, vou doar mensalmente, mas um montante diferente",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Claro, quero escolher quanto",
-	"donate_interface-monthly-convert-enter-amount": "Introduzir o valor do seu donativo mensal a partir do próximo mês.",
+	"donate_interface-monthly-convert-enter-amount": "Introduza o montante do seu donativo mensal para começar no próximo mês.",
 	"donate_interface-monthly-convert-max-amount": "Não nos é possível cobrar um donativo recorrente de valor superior ao do seu donativo pontual original.",
-	"donate_interface-monthly-convert-action-button": "Donativo mensal",
+	"donate_interface-monthly-convert-action-button": "Doar mensalmente",
 	"donate_interface-monthly-convert-error": "O seu donativo pontual foi feito, mas não nos foi possível iniciar um donativo regular.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sim, quero ajudar",
 	"donate_interface-monthly-convert-no-button-variant-006": "Não, obrigado",
