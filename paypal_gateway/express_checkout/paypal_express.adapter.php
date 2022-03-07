@@ -529,6 +529,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->finalizeInternalStatus( $status );
 				$this->postProcessDonation();
 				break;
+			case 'ManageRecurringPaymentsProfileStatusCancel':
+				$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
 			}
 
 			if ( !$this->transaction_response->getCommunicationStatus() ) {
@@ -689,7 +691,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 
 	public function cancelSubscription() {
 		$response = $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
-		if ( !$response->getCommunicationStatus() ) {
+		if ( !$response->getCommunicationStatus() || count( $response->getErrors() ) > 0 ) {
 			return PaymentResult::newFailure( $response->getErrors() );
 		}
 		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
