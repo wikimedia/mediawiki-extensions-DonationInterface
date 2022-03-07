@@ -5,7 +5,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
 class EmailPreferences extends UnlistedSpecialPage {
 
 	const FALLBACK_COUNTRY = 'US';
-	const FALLBACK_LANGUAGE = 'en';
+	const FALLBACK_LANGUAGE = 'en_US';
 
 	// Note: Coordinate with Getpreferences.php in Civiproxy API, in wmf-civicrm extension.
 	const CIVI_NO_RESULTS_ERROR = 'No result found';
@@ -99,9 +99,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		// FIXME Correct country and language sorting by locale/proper diacritics ordering
 
 		$addedParams[ 'countries' ] = [];
-		$countries = CountryNames::getNames( $uiLang );
-		asort( $countries );
-		foreach ( $countries as $code => $name ) {
+		$mediaWikCountries = CountryNames::getNames( $uiLang );
+		asort( $mediaWikCountries );
+		foreach ( $mediaWikCountries as $code => $name ) {
 			$addedParams[ 'countries' ][] = [
 				'code' => $code,
 				'name' => $name,
@@ -110,7 +110,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 
 		$addedParams[ 'languages' ] = [];
-		$languages = LanguageNames::getNames(
+		$mediaWikiLanguages = LanguageNames::getNames(
 			$uiLang, LanguageNames::FALLBACK_NATIVE,
 			LanguageNames::LIST_MW_AND_CLDR
 		);
@@ -118,69 +118,18 @@ class EmailPreferences extends UnlistedSpecialPage {
 		// Only show languages configured in $wgDonationInterfaceEmailPrefCtrLanguages
 		// (should be the languages we can send e-mails to)
 		$emailPrefCtrLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPrefCtrLanguages' );
-		$displayLanguages = array_filter(
-			$languages,
-			static function ( $code ) use ( $emailPrefCtrLanguages ) {
-				return in_array( $code, $emailPrefCtrLanguages );
-			},
-			ARRAY_FILTER_USE_KEY
-		);
-
-		// If the user's exact requested language is available, use that, otherwise
-		// try the more general code. If the general language is not available, add
-		// the user's language to the form as the selected language.
-
-		// FIXME Coordinate this logic with actual e-mail sends? Warn the user if we
-		// actually never send e-mails in the language we want?
-
-		$prefsShortLang = ( $prefs[ 'shortLang' ] ?? self::FALLBACK_LANGUAGE );
-
-		// Exact language from Civi in MW and sendable to (for example, in Civi it's fr-ca,
-		// and that language is sendable to, and is in the list from MW)?
-		if ( isset( $displayLanguages[ $prefs[ 'fullLang' ] ] ) ) {
-			$selectedLang = $prefs[ 'fullLang' ];
-
-		// Exact language from Civi not in MW but still sendable to, and the general language
-		// is in MW (for example, in Civi it's fr-ca, and that language is sendable to,
-		// but it's not in the list from MW, but fr is in that list)?
-		// In that case, use their Civi lang code as the form value but associate that
-		// value with the general language name.
-		} elseif ( in_array( $prefs[ 'fullLang' ], $emailPrefCtrLanguages ) &&
-				!isset( $languages[ $prefs[ 'fullLang' ] ] ) &&
-				isset( $languages[ $prefsShortLang ] ) ) {
-			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
-			$selectedLang = $prefs[ 'fullLang' ];
-
-			// Also unset any entry there may be in $displayLanguages with the general language
-			// to prevent possible multiple options with the same name in the UI.
-			unset( $displayLanguages[ $prefsShortLang ] );
-
-		// General language from Civi in MW and sendable to (for example, in Civi it's
-		// fr-ca, but only fr is sendable to, and fr is in the list from MW)?
-		} elseif ( isset( $displayLanguages[ $prefsShortLang ] ) ) {
-			$selectedLang = $prefsShortLang;
-
-		// General language from Civi not sendable to but is in MW (for example, in Civi it's
-		// fr-ca, and fr is not sendable to, but is in the list from MW)?
-		// In that case their Civi lang code in the form but show the general language name.
-		} elseif ( isset( $languages[ $prefsShortLang ] ) ) {
-			$displayLanguages[ $prefs[ 'fullLang' ] ] = $languages[ $prefsShortLang ];
-			$selectedLang = $prefs[ 'fullLang' ];
-
-		// FIXME This case occurs if neither language variant nor the general language
-		// in Civi (for example, neither fr-ca nor fr) are sendable to or in the list
-		// from MW. Here the form will just have the first option in the list selected. Maybe
-		// instead we should have a fallback option based on country? Though this
-		// seems unlikely to occur, since only users who did actually get an e-mail
-		// should get here.
-		} else {
-			$selectedLang = $prefsShortLang;
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'EmailPreferences', true, false, '', null );
-
-			$logger->warning(
-				'No display options available for language ' . $prefs[ 'fullLang' ] );
+		$labels = [];
+		foreach ( $emailPrefCtrLanguages as $code ) {
+			[ $language, $country ] = explode( '_', $code );
+			$wikiStyle = $language . '-' . strtolower( $country );
+			if ( in_array( $wikiStyle, $mediaWikiLanguages ) ) {
+				$label = $mediaWikiLanguages[ $wikiStyle ];
+			} else {
+				$label = $mediaWikiLanguages[ $language ] . ' (' . $mediaWikCountries[ $country ] . ')';
+			}
+			$labels[] = $label;
 		}
+		$displayLanguages = array_combine( $emailPrefCtrLanguages, $labels );
 
 		asort( $displayLanguages );
 
@@ -188,7 +137,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$addedParams[ 'languages' ][] = [
 				'code' => $code,
 				'name' => $name,
-				'selected' => $code === $selectedLang
+				'selected' => $code === ( $prefs[ 'preferred_language' ] ?? self::FALLBACK_LANGUAGE )
 			];
 		}
 
@@ -341,9 +290,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 				$title = $this->msg( 'fundraiserunsubscribe' );
 				break;
 			case 'emailPreferences':
-				// The title text to show is included in the mustache template, and the
-				// title of the tab/window will be taken from global config variable,
-				// $wgSitename.
+				$title = $this->msg( 'emailpreferences-title' );
 				break;
 			default:
 				$title = $this->msg( 'donate_interface-error-msg-general' );

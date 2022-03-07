@@ -654,7 +654,7 @@ $forms['astropay-mx'] = [
 	],
 	'selection_weight' => 110,
 ];
-/*$forms_whitelist['astropay-pe'] = [
+$forms_whitelist['astropay-pe'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'PE' ],
 	'currencies' => [ '+' => 'PEN' ],
@@ -676,20 +676,19 @@ $forms['astropay-mx'] = [
 	],
 	'selection_weight' => 1,
 ];
-*/
 
 $forms['astropay-uy'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'UY' ],
 	'currencies' => [ '+' => 'UYU' ],
 	'payment_methods' => [
-/*		'cc' => [
+		'cc' => [
 			'visa',
 			'mc',
 			'diners',
 			'lider',
 			'oca',
-		],*/
+		],
 		'cash' => [
 			'cash_abitab',
 			'cash_red_pagos',

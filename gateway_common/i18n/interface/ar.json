@@ -5,6 +5,7 @@
 			"Amire80",
 			"AwamerT",
 			"Ciphers",
+			"FiberAhmed",
 			"Jsoby",
 			"Maroen1990",
 			"Meno25",
@@ -332,6 +333,8 @@
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
 	"donate_interface-cvv-number": "رقم CVV",
+	"donate_interface-cvv-placeholder-4-digits": "4 أرقام",
+	"donate_interface-cvv-placeholder-3-digits": "3 أرقام",
 	"donate_interface-verification-number": "رمز التحقق",
 	"donate_interface-what-is-this": "ما هذا؟",
 	"donate_interface-did-you-mean": "هل تقصد <a href=\"#\" class=\"correction\">$1</a>؟",
@@ -461,6 +464,7 @@
 	"donate_interface-monthly-convert-error": "كان تبرعك لمرة واحدة ناجحا، لكننا لم نتمكن من بدء تبرع متكرر.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "نعم، أريد المساعدة",
 	"donate_interface-monthly-convert-no-button-variant-006": "لا، شكرا",
+	"donate_interface-monthly-convert-no-button-variant-011": "لا، شكرًا",
 	"donate_interface-fundraiser-maintenance-header": "مؤقتًا للصيانة",
 	"donate_interface-fundraiser-maintenance-notice": "نجري حاليًا عمليات صيانة مجدولة ولا يمكننا قبول التبرعات; تُرجَى المحاولة مرة أخرى قريبا، إذا كانت لديك أية أسئلة، فالرجاء إرسال رسالة بريد إلكتروني إلى $1."
 }

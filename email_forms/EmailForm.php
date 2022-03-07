@@ -1,5 +1,7 @@
 <?php
 
+use LightnCandy\LightnCandy;
+
 class EmailForm {
 
 	/**
@@ -30,22 +32,32 @@ class EmailForm {
 			'helpers' => [
 				'l10n' => 'EmailForm::l10n',
 			],
-			'basedir' => [ __DIR__ . '/templates' ],
+			'basedir' => __DIR__ . '/templates/',
 			'fileext' => self::EXTENSION,
+			'options' => LightnCandy::FLAG_RUNTIMEPARTIAL,
 		];
+
+		$options['partials'] = [
+			'emailPreferencesHeader' => rtrim( file_get_contents( $options['basedir'] . 'emailPreferencesHeader' .
+				$options['fileext'] ), "\r\n" ),
+			'emailPreferencesFooter' => rtrim( file_get_contents( $options['basedir'] . 'emailPreferencesFooter' .
+				$options['fileext'] ), "\r\n" ),
+		];
+
 		if ( empty( $this->params['variant'] ) ) {
 			$variant = '';
 		} else {
 			$variant = '_' . $this->params['variant'];
 		}
 		$fileName = $this->process . $variant . self::EXTENSION;
-		$templatePath = __DIR__ . '/templates/' . $fileName;
+		$templatePath = $options['basedir'] . $fileName;
 		if ( !file_exists( $templatePath ) && $variant !== '' ) {
 			// Fall back to non-variant version if the variant doesn't exist
 			$fileName = $this->process . self::EXTENSION;
-			$templatePath = __DIR__ . '/templates/' . $fileName;
+			$templatePath = $options['basedir'] . $fileName;
 		}
 		$templateParams = $this->getTemplateParams();
+
 		return MustacheHelper::render( $templatePath, $templateParams, $options );
 	}
 
