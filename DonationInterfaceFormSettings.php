@@ -674,7 +674,7 @@ $forms_whitelist['astropay-pe'] = [
 			'cash_pago_efectivo',
 		],
 	],
-	'selection_weight' => 1,
+	'selection_weight' => 0,
 ];
 
 $forms['astropay-uy'] = [
@@ -694,7 +694,7 @@ $forms['astropay-uy'] = [
 			'cash_red_pagos',
 		],
 	],
-	'selection_weight' => 1,
+	'selection_weight' => 0,
 ];
 
 // Adyen
