@@ -42,7 +42,8 @@
 			"Dianliang233",
 			"GuoPC",
 			"Shizhao",
-			"Tranve"
+			"Tranve",
+			"Winston Sung"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -385,7 +386,7 @@
 	"donate_interface-select": "选择",
 	"donate_interface-donation-must-equal": "捐赠必须等于或大于$1。",
 	"donate_interface-thank-you": "谢谢！我们已经收到您的捐赠。",
-	"donate_interface-change": "修改",
+	"donate_interface-change": "更改",
 	"donate_interface-select-credit-card": "选择信用卡类别",
 	"donate_interface-optional": "可选",
 	"donate_interface-state_province-dropdown-YY": "选择州别",

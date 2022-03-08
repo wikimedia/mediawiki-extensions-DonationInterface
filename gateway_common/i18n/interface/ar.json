@@ -16,7 +16,8 @@
 			"ديفيد",
 			"روخو",
 			"زكريا",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"FiberAhmed"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -465,6 +466,7 @@
 	"donate_interface-monthly-convert-error": "كان تبرعك لمرة واحدة ناجحا، لكننا لم نتمكن من بدء تبرع متكرر.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "نعم، أريد المساعدة",
 	"donate_interface-monthly-convert-no-button-variant-006": "لا، شكرا",
+	"donate_interface-monthly-convert-no-button-variant-011": "لا، شكرًا",
 	"donate_interface-fundraiser-maintenance-header": "مؤقتًا للصيانة",
 	"donate_interface-fundraiser-maintenance-notice": "نجري حاليًا عمليات صيانة مجدولة ولا يمكننا قبول التبرعات; تُرجَى المحاولة مرة أخرى قريبا، إذا كانت لديك أية أسئلة، فالرجاء إرسال رسالة بريد إلكتروني إلى $1."
 }
