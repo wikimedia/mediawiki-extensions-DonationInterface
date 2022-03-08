@@ -55,7 +55,7 @@ $forms['cc-vmad'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -76,7 +76,7 @@ $forms['cc-vjma'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -98,7 +98,7 @@ $forms['cc-jvma'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -124,7 +124,7 @@ $forms['cc-vmaj'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -149,7 +149,7 @@ $forms['cc-vmd'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -174,7 +174,7 @@ $forms['cc-vmj'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -206,7 +206,7 @@ $forms['cc-vma'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -243,7 +243,7 @@ $forms['cc-vm'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -267,7 +267,7 @@ $forms['cc-a'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -286,7 +286,7 @@ $forms['cc'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -307,7 +307,7 @@ $forms['cc-ingenico'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -336,7 +336,7 @@ $forms['rcc-vmad'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -358,7 +358,7 @@ $forms['rcc-vmaj'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -380,7 +380,7 @@ $forms['rcc-vmd'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -402,7 +402,7 @@ $forms['rcc-vma'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -424,7 +424,7 @@ $forms['rcc-vm'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -443,7 +443,7 @@ $forms['rcc'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -466,7 +466,7 @@ $forms['rcc-ingenico'] = [
 			'HKD', 'HNL', 'HRK', 'HUF', 'IDR', 'ILS', 'INR', 'JMD', 'JOD',
 			'JPY', 'KES', 'KRW', 'KWD', 'KZT', 'LBP', 'LKR', 'MAD', 'MKD',
 			'MVR', 'MXN', 'MYR', 'NIO', 'NOK', 'NZD', 'OMR', 'PAB', 'PEN',
-			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RUB', 'SAR', 'SCR',
+			'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'SAR', 'SCR',
 			'SEK', 'SGD', 'THB', 'TND', 'TRY', 'TTD', 'TWD', 'UAH', 'USD',
 			'UYU', 'VEF', 'VND', 'VUV', 'XCD', 'ZAR',
 		]
@@ -674,7 +674,7 @@ $forms_whitelist['astropay-pe'] = [
 			'cash_pago_efectivo',
 		],
 	],
-	'selection_weight' => 1,
+	'selection_weight' => 0,
 ];
 
 $forms['astropay-uy'] = [
@@ -694,7 +694,7 @@ $forms['astropay-uy'] = [
 			'cash_red_pagos',
 		],
 	],
-	'selection_weight' => 1,
+	'selection_weight' => 0,
 ];
 
 // Adyen
