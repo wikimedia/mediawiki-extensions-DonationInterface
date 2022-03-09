@@ -123,6 +123,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						// transaction ID. We log this, but leave the gateway_txn_id set to
 						// the ID from authorizeResult as that is what we get in the IPN.
 						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
+						if ( $this->showMonthlyConvert() ) {
+							$this->logger->info( "Displaying monthly convert modal" );
+							$paymentResult = PaymentResult::newSuccess();
+						}
 					} else {
 						$this->logger->info( 'Capture call unsuccessful' );
 					}
