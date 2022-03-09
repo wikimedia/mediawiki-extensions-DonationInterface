@@ -10,6 +10,7 @@ class EndowmentHooks {
 		if ( isset( $data['utm_medium'] ) && $data['utm_medium'] === 'endowment' ) {
 			$data['faq_url'] = 'https://donate.wikimedia.org/wiki/FAQ#What_is_the_Wikimedia_Endowment?';
 			$data['otherways_url'] = 'https://wikimediaendowment.org/ways-to-give/';
+			$data['employer_visible'] = false;
 		}
 	}
 
