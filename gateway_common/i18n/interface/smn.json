@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Seipinne",
 			"Yupik"
 		]
 	},
@@ -8,6 +9,7 @@
 	"donate_interface-donor-name": "Nommâ",
 	"donate_interface-donor-first_name": "Ovdânommâ",
 	"donate_interface-donor-last_name": "Suhânommâ",
+	"donate_interface-last": "Suhânommâ",
 	"donate_interface-next": "Čuávuvâš",
 	"donate_interface-faqs": "Maŋgii koijâdum koččâmušah"
 }
