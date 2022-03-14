@@ -240,6 +240,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "נא לתקן את השגיאות ב־CI שלך",
 	"donate_interface-error-msg-issuer_id": "בנק",
 	"donate_interface-error-msg-apple_pay_unsupported": "אין תמיכה ב־Apple Pay בדפדפן הזה. נא להשתמש בדפדפן ספארי ולוודא ש־Apple Pay מוגדר במכשיר שלך או לנסות אחת מ<a href=\"$1\">הדרכים האחרות שלנו לתת</a>.",
+	"donate_interface-error-msg-google_pay_unsupported": "Google Pay אינו זמין. נא לוודא ש־Google Pay מוגדר או לנסות <a href=\"$1\">אחת מהדרכים האחרות שלנו לתת</a>.",
 	"donate_interface-error-msg-opt_in": "נא לבחור את אפשרות הדואר האלקטרוני",
 	"donate_interface-donate-error-try-a-different-card": "נא [$1 לנסות כרטיס אחר] או [$2 אחת מהדרכים האחרות שלנו לתת] או צרו קשר אתנו דרך $3",
 	"donate_interface-donate-error-try-a-different-card-html": "נא לנסות כרטיס אחר או אחת מ<a href=\"$1\">מהדרכים האחרות לתת</a> שאנחנו מציעים, או ליצור איתנו קשר בכתובת <a href=\"mailto:$2\">$2</a>",

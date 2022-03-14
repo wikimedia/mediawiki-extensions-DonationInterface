@@ -243,6 +243,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Исправете ги грешките во вашиот CI",
 	"donate_interface-error-msg-issuer_id": "банка",
 	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay не е поддржан на овој прелистувач. Користете Safari и видете дали Apple Pay е наместен на вашиот уред, или пак послужете се со некој од <a href=\"$1\">другите начини на дарување</a>.",
+	"donate_interface-error-msg-google_pay_unsupported": "Google Pay не е достапен. Проверете дали е поставен или пробајте еден од другите <a href=\"$1\">начини на дарување</a>.",
 	"donate_interface-error-msg-opt_in": "Изберете можност за е-пошта",
 	"donate_interface-donate-error-try-a-different-card": "Ве молиме [$1 обидете се со друга картичка] или еден од [$2 другите начини на дарување], или пак контактирајте нè на $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Пробајте со друга картичка или еден од <a href=\"$1\">другите начини на дарување</a>. Можете и да ни се обратите на <a href=\"mailto:$2\">$2</a>",
