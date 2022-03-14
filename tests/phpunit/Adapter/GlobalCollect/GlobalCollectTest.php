@@ -486,6 +486,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'currency' => 'USD',
 			'email' => 'FaketyFake@gmail.com',
 			'first_name' => 'Fakety',
+			'full_name' => '',
 			'format' => 'json',
 			'gateway' => 'globalcollect',
 			'language' => 'en',

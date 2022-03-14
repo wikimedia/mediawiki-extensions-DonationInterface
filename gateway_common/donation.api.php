@@ -55,6 +55,7 @@ class DonationApi extends DonationApiBase {
 			'amount' => $this->defineParam( false ),
 			'currency' => $this->defineParam( false ),
 			'first_name' => $this->defineParam( false ),
+			'full_name' => $this->defineParam( false ),
 			'last_name' => $this->defineParam( false ),
 			'street_address' => $this->defineParam( false ),
 			'supplemental_address_1' => $this->defineParam( false ),

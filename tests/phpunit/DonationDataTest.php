@@ -409,6 +409,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'language',
 			'email',
 			'first_name',
+			'full_name',
 			'last_name',
 			'street_address',
 			'supplemental_address_1',

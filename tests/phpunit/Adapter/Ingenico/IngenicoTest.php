@@ -465,6 +465,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'currency' => 'USD',
 			'email' => 'FaketyFake@gmail.com',
 			'first_name' => 'Fakety',
+			'full_name' => '',
 			'format' => 'json',
 			'gateway' => 'ingenico',
 			'language' => 'en',
@@ -586,6 +587,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@localhost.net';
 		$init['opt_in'] = '1';
+		$init['full_name'] = null;
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );

@@ -2022,11 +2022,12 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 			$value = Encoding::toUTF8( $data[$key] );
 			if ( isset( $remapKeys[$key] ) ) {
-				$queueMessage[$remapKeys[$key]] = $value;
+				$queueMessage[$remapKeys[$key]] = Amount::round( $value, $data['currency'] );
 			} else {
 				$queueMessage[$key] = $value;
 			}
 		}
+
 		// FIXME: Note that we're not using any existing date or ts fields.  Why is that?
 		$queueMessage['date'] = time();
 

@@ -33,6 +33,7 @@ class AdyenRecurringTest extends BaseAdyenCheckoutTestCase {
 				'email' => 'jwales@example.com',
 				'fee' => 0,
 				'first_name' => 'Jimmy',
+				'full_name' => '',
 				'gateway' => 'adyen',
 				'gateway_txn_id' => $gateway_txn_id,
 				'gross' => "2.00",

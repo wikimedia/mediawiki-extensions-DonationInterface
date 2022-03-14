@@ -312,6 +312,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'city' => 'Chennai',
 				'first_name' => 'Test',
 				'last_name' => 'India',
+				'full_name' => '',
 				'amount' => '100',
 				'language' => 'en',
 				'email' => 'testindia@test.com'
@@ -333,6 +334,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'payment_submethod' => 'test_bank',
 				'first_name' => 'Nome',
 				'last_name' => 'Apelido',
+				'full_name' => '',
 				'amount' => '100',
 				'language' => 'pt',
 				'email' => 'nobody@example.org'
@@ -849,6 +851,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'country' => 'US',
 				'first_name' => 'Flighty',
 				'last_name' => 'Dono',
+				'full_name' => '',
 				'email' => 'test+wmf@eff.org',
 				'gateway' => 'globalcollect',
 				'gateway_txn_id' => "txn-{$uniq}",

@@ -253,7 +253,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$expected = [
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
-			'fee' => '0',
+			'fee' => 0,
 			'gateway' => 'paypal_ec',
 			'gateway_txn_id' => '5EJ123456T987654S',
 			'gateway_session_id' => 'EC-4V987654XA123456V',
@@ -351,7 +351,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$expected = [
 			'contribution_tracking_id' => $init['contribution_tracking_id'],
 			'country' => 'US',
-			'fee' => '0',
+			'fee' => 0,
 			'gateway' => 'paypal_ec',
 			'gateway_txn_id' => '33N12345BB123456D',
 			'gateway_session_id' => 'EC-4V987654XA123456V',
