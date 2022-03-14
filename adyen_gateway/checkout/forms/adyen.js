@@ -118,10 +118,10 @@
 				config.buttonType = 'donate';
 				config.emailRequired = true;
 				config.billingAddressRequired = true;
+				config.allowedCardNetworks = mw.config.get( 'googleAllowedNetworks' );
 				config.billingAddressParameters = {
 					format: 'FULL'
 				};
-
 				// eslint-disable-next-line compat/compat
 				authPromise = new Promise( function ( authResolve ) {
 					config.onAuthorized = function ( response ) {
@@ -133,6 +133,9 @@
 						extraData.street_address = bContact.address1;
 						extraData.email = response.email;
 						extraData.full_name = bContact.name;
+						extraData.payment_submethod = mapAdyenSubmethod(
+							response.paymentMethodData.info.cardNetwork.toLowerCase()
+						);
 						// We will combine this contact data with a token from the
 						// onSubmit event after both events have fired.
 						authResolve( extraData );
@@ -264,6 +267,8 @@
 				return 'visa-beneficial';
 			case 'visaelectron':
 				return 'visa-electron';
+			case 'mastercard':
+				return 'mc';
 			default:
 				return adyenBrandCode;
 		}

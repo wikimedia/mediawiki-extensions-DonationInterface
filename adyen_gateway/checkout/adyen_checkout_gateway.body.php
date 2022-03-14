@@ -43,6 +43,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		$vars['adyenConfiguration'] = $this->adapter->getCheckoutConfiguration();
+		$vars['googleAllowedNetworks'] = $this->adapter->getGoogleAllowedNetwork();
 		$failPage = ResultPages::getFailPage( $this->adapter );
 		if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
 			// It's a rapidfail form, but we need an actual URL:

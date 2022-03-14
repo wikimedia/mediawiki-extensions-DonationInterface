@@ -273,6 +273,19 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		);
 	}
 
+	public function getGoogleAllowedNetwork() {
+		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
+		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
+			if ( isset( $this->config[ 'payment_submethods' ][ 'mir' ] ) ) {
+				$general[] = 'MIR';
+			}
+			if ( isset( $this->config[ 'payment_submethods' ][ 'interac' ] ) ) {
+				$general[] = 'INTERAC';
+			}
+		}
+		return $general;
+	}
+
 	protected function getFieldsToRemove() {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
 		if ( $method === 'apple' ) {
