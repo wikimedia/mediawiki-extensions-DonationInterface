@@ -23,6 +23,7 @@
 	"apihelp-donate-param-country": "Código do país.",
 	"apihelp-donate-param-card_num": "Número de cartão de crédito.",
 	"apihelp-donate-param-card_type": "Tipo de cartão de crédito.",
+	"apihelp-donate-param-debug_messages": "Quaisquer mensagens de diagnóstico de erros para acrescentar ao registo.",
 	"apihelp-donate-param-expiration": "Data de validade.",
 	"apihelp-donate-param-cvv": "Código de segurança CVV.",
 	"apihelp-donate-param-payment_method": "Método de pagamento a utilizar.",
@@ -56,5 +57,6 @@
 	"apihelp-employerSearch-description": "Esta API permite-lhe procurar entidades empregadoras que participam no programa de presentes correspondidos da WMF.",
 	"apihelp-employerSearch-summary": "Esta API permite-lhe procurar entidades empregadoras que participam no programa de presentes correspondidos da WMF.",
 	"apihelp-employerSearch-param-employer": "A entidade empregadora a procurar, p. ex. Cruz Vermelha, WWF, Exército de Salvação, etc.",
-	"apihelp-employerSearch-example-1": "Procurar uma entidade empregadora"
+	"apihelp-employerSearch-example-1": "Procurar uma entidade empregadora",
+	"apihelp-di_applesession_adyen-summary": "Permite pedir uma sessão Apple Pay diretamente à Apple"
 }
