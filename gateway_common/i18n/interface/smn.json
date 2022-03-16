@@ -1,13 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Seipinne"
 		]
 	},
 	"donate_interface-donor-email": "Šleđgâpostâčujottâs",
 	"donate_interface-donor-name": "Nommâ",
 	"donate_interface-donor-first_name": "Ovdânommâ",
 	"donate_interface-donor-last_name": "Suhânommâ",
+	"donate_interface-donor-street-number": "Nummeer",
+	"donate_interface-last": "Suhânommâ",
 	"donate_interface-next": "Čuávuvâš",
 	"donate_interface-faqs": "Maŋgii koijâdum koččâmušah"
 }
