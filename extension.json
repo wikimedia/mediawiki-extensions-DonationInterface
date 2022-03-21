@@ -530,8 +530,7 @@
 	},
 	"Hooks": {
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests",
-		"MediaWikiPHPUnitTest::startTest": "DonationInterface::onMediaWikiPHPUnitTeststartTest"
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
 	},
 	"config": {
 		"DonationInterfaceTest": {
