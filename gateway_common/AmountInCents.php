@@ -23,7 +23,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 
 		$amount = Amount::round( $normalized['amount'], $normalized['currency'] );
 
-		$stagedData['amount'] = $amount * 100;
+		$stagedData['amount'] = round( $amount * 100 );
 	}
 
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
