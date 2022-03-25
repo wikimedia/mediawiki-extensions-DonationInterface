@@ -178,11 +178,16 @@ $wgDonationInterfaceLogCompleted = false
 
 ==== Currency and amounts ====
 
-Configure price ceiling and floor for valid contribution amount.  Values
-should be in USD.
+Configure price ceiling and floor for valid contribution amount. Values
+should be in USD. These are set in the donation_rules.yaml file on a
+per-country basis.
 
-$wgDonationInterfacePriceFloor = 1.00
-$wgDonationInterfacePriceCeiling = 10000.00
+US:
+    min: 1.00
+    max: 10000.00
+IN:
+    min: 0.95
+    max: 3000.00
 
 If set to a currency code, gateway forms will try to convert amounts
 in unsupported currencies to the fallback instead of just showing

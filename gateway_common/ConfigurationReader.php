@@ -3,76 +3,61 @@
 use Symfony\Component\Yaml\Parser;
 
 /**
- * This lets us read variant configurations, but it's a step away from being
- * able to move all the gateway config files into SmashPig. TODO: reconcile
+ * Read in yaml-based config files.
  */
 class ConfigurationReader {
 
 	/**
-	 * @var string
+	 * @var array
 	 */
-	protected $baseDirectory;
+	protected $configDirectories = [];
 
 	/**
-	 * @var string
+	 * @param string $gateway
+	 * @param string $variant
 	 */
-	protected $localSettingDirectory;
-
-	/**
-	 * @var string
-	 */
-	protected $variantBaseDirectory;
-
-	/**
-	 * @var string
-	 */
-	protected $gatewayIdentifier;
-
-	public function __construct( $baseDirectory, $gatewayIdentifier, $localSettingDirectory = null, $variantBaseDirectory = null ) {
-		$this->baseDirectory = $baseDirectory;
-		$this->variantBaseDirectory = $variantBaseDirectory;
-		$this->localSettingDirectory = $localSettingDirectory;
-		$this->gatewayIdentifier = $gatewayIdentifier;
+	public static function createForGateway( $gateway, $variant ) {
+		// move gateway and variant wiring into here at the end.
 	}
 
-	public function readConfiguration( $variant = null ) {
-		$config = $this->setConfigurationFromDirectory(
-			$this->baseDirectory . DIRECTORY_SEPARATOR . 'config'
-		);
-		if ( $this->localSettingDirectory ) {
-			$localSettings = implode(
-				DIRECTORY_SEPARATOR,
-				[
-					$this->localSettingDirectory,
-					$this->gatewayIdentifier
-				]
-			);
-			if ( is_dir( $localSettings ) ) {
-				$config = $this->setConfigurationFromDirectory(
-					$localSettings, $config
-				);
-			}
+	/**
+	 * @param string $path
+	 *
+	 * @return bool
+	 */
+	public function registerConfigDirectory( string $path ): bool {
+		if ( !array_search( $path, $this->configDirectories ) ) {
+			array_push( $this->configDirectories, $path );
+			return true;
+		} else {
+			return false;
 		}
-		$config = $this->addVariant( $config, $variant );
-		return $config;
 	}
 
-	protected function addVariant( $config, $variant ) {
-		if (
-			$variant &&
-			$this->variantBaseDirectory &&
-			preg_match( '/^[a-zA-Z0-9_]+$/', $variant )
-		) {
-			$variantDirectory = implode( DIRECTORY_SEPARATOR, [
-					$this->variantBaseDirectory,
-					$variant,
-					$this->gatewayIdentifier
-				] );
-			if ( is_dir( $variantDirectory ) ) {
-				 return $this->setConfigurationFromDirectory( $variantDirectory, $config );
-			}
+	/**
+	 * @param string $path
+	 *
+	 * @return bool
+	 */
+	public function unregisterConfigDirectory( string $path ): bool {
+		if ( ( $key = array_search( $path, $this->configDirectories ) ) !== false ) {
+			unset( $this->configDirectories[$key] );
+			return true;
+		} else {
+			return false;
 		}
-		return $config;
+	}
+
+	public function readConfiguration(): array {
+		if ( count( $this->configDirectories ) > 0 ) {
+			$config = [];
+			foreach ( $this->configDirectories as $configDirectory ) {
+				$config = $this->setConfigurationFromDirectory( $configDirectory, $config );
+			}
+			return $config;
+		} else {
+			throw new UnexpectedValueException( 'Trying to read config directories but no directories registered!' );
+		}
 	}
 
 	protected function setConfigurationFromDirectory( $directory, $config = [] ) {

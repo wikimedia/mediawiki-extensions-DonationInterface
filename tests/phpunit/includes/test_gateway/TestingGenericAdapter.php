@@ -25,6 +25,9 @@ class TestingGenericAdapter extends GatewayAdapter {
 	/** @var string[] */
 	public static $acceptedCurrencies = [];
 
+	/** @var array */
+	public static $donationRules;
+
 	public function getCommunicationType() {
 		return 'xml';
 	}
@@ -75,6 +78,13 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public function doPayment() {
+	}
+
+	public function getDonationRules(): array {
+		if ( isset( self::$donationRules ) ) {
+			return self::$donationRules;
+		}
+		return parent::getDonationRules();
 	}
 
 	protected function getBasedir() {

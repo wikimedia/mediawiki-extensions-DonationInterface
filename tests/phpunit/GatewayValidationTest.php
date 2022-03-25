@@ -35,12 +35,14 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 			// FIXME: base class sketchiness.
 			'wgDonationInterfaceGatewayAdapters' => [
 				'donation' => TestingGatewayAdapter::class,
-			],
-			'wgDonationInterfacePriceFloor' => 2.00,
-			'wgDonationInterfacePriceCeiling' => 100.00,
+			]
 		] );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
+		TestingGenericAdapter::$donationRules = [
+			'min' => 2.00,
+			'max' => 100.00
+		];
 
 		$this->page = new TestingGatewayPage();
 	}

@@ -511,12 +511,6 @@
 		"DonationInterfaceNoScriptRedirect": {
 			"value": null
 		},
-		"DonationInterfacePriceFloor": {
-			"value": 1
-		},
-		"DonationInterfacePriceCeiling": {
-			"value": 10000
-		},
 		"DonationInterfaceRapidFail": {
 			"value": false
 		},

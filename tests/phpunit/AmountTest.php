@@ -44,8 +44,6 @@ class AmountTest extends DonationInterfaceTestCase {
 	public function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
-			'wgDonationInterfacePriceFloor' => 1.50,
-			'wgDonationInterfacePriceCeiling' => 100,
 			'wgLanguageCode' => 'en',
 		] );
 
@@ -62,6 +60,10 @@ class AmountTest extends DonationInterfaceTestCase {
 
 		$this->errors = new ErrorState();
 		$this->adapter = new TestingGenericAdapter();
+		TestingGenericAdapter::$donationRules = [
+			'min' => 1.50,
+			'max' => 100
+		];
 		$this->validator = new Amount();
 	}
 

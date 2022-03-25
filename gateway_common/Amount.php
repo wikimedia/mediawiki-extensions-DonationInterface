@@ -26,8 +26,8 @@ class Amount implements ValidationHelper {
 			return;
 		}
 		$currency = $normalized['currency'];
-		$min = self::convert( $adapter->getGlobal( 'PriceFloor' ), $currency );
-		$maxUsd = $adapter->getGlobal( 'PriceCeiling' );
+		$min = self::convert( $adapter->getDonationRules()['min'], $currency );
+		$maxUsd = $adapter->getDonationRules()['max'];
 		$max = self::convert( $maxUsd, $currency );
 		if (
 			!is_numeric( $value ) ||

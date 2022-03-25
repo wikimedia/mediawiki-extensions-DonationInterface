@@ -91,6 +91,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 		self::setUpSmashPigContext();
+		TestingGenericAdapter::$donationRules = [
+			'min' => 1.00,
+			'max' => 10000.00
+		];
 		parent::setUp();
 	}
 

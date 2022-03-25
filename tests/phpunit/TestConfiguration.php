@@ -77,7 +77,6 @@ global $wgDonationInterfaceTest,
 	$wgAstroPayGatewayTestingURL,
 	$wgAstroPayGatewayAccountInfo,
 	$wgAstroPayGatewayFallbackCurrency,
-	$wgAstroPayGatewayPriceFloor,
 	$wgDonationInterfaceMinFraudAccountId,
 	$wgDonationInterfaceMinFraudLicenseKey,
 	$wgDonationInterfaceMinFraudClientOptions,
@@ -262,7 +261,5 @@ $wgDonationInterfaceEmailDomainMap = [
 	'wikimedia.org' => 42,
 	'wikipedia.org' => 50,
 ];
-
-$wgAstroPayGatewayPriceFloor = 1;
 
 $wgDonationInterface3DSRules = [ 'INR' => 'IN' ];
