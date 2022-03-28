@@ -204,15 +204,9 @@ class AmazonAdapter extends GatewayAdapter {
 	}
 
 	protected function addDonorDetails( $donorDetails ) {
-		$email = $donorDetails['Email'];
-		$name = $donorDetails['Name'];
-		$nameParts = preg_split( '/\s+/', $name, 2 ); // janky_split_name
-		$fname = $nameParts[0];
-		$lname = $nameParts[1] ?? '';
 		$this->addRequestData( [
-			'email' => $email,
-			'first_name' => $fname,
-			'last_name' => $lname,
+			'email' => $donorDetails['Email'],
+			'full_name' => $donorDetails['Name'],
 		] );
 		// Stash their info in pending queue and logs to fill in data for
 		// audit and IPN messages
