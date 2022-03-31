@@ -4,7 +4,8 @@
 			"Araceletorres",
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"YuriNikolai"
 		]
 	},
 	"apihelp-donate-description": "Essa API permite que você envie uma doação para a Fundação Wikimedia usando uma variedade de métodos de pagamento.",
@@ -25,6 +26,7 @@
 	"apihelp-donate-param-country": "Código do país.",
 	"apihelp-donate-param-card_num": "Número do cartão de crédito.",
 	"apihelp-donate-param-card_type": "Tipo de cartão de crédito.",
+	"apihelp-donate-param-debug_messages": "Quaisquer mensagens de diagnóstico de erros para acrescentar ao registo.",
 	"apihelp-donate-param-expiration": "Data de vencimento.",
 	"apihelp-donate-param-cvv": "Código de segurança CVV.",
 	"apihelp-donate-param-payment_method": "Método de pagamento a ser usado.",
