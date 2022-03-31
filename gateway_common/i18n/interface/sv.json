@@ -23,7 +23,8 @@
 			"Technic2",
 			"Tobulos1",
 			"Warrakkk",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"HNordeen (WMF)"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -412,6 +413,7 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, jag lämnar gärna ett bidrag varje månad, men ett annat belopp.",
 	"donate_interface-monthly-convert-enter-amount": "Ange hur stort bidrag du vill ge varje månad, med början nästa månad.",
 	"donate_interface-monthly-convert-action-button": "Bidra varje månad",
+	"donate_interface-monthly-convert-error": "Engångsbeloppet från dig har gått igenom, men det gick inte att starta de månatliga överföringarna.",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nej tack.",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, jag kommer att bidra med <span class=\"mc-convert-ask\"></span> varje månad.",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nej tack.",
