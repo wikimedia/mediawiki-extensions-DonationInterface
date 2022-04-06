@@ -250,6 +250,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Vennligst rett CI-feilene",
 	"donate_interface-error-msg-issuer_id": "bank",
 	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay støttes ikke av denne nettleseren. Bruk Safari-nettleseren og sjekk at Apple Pay er satt opp på enheten din, eller prøv en av de <a href=\"$1\">andre måtene å gi</a>.",
+	"donate_interface-error-msg-google_pay_unsupported": "Google Pay er ikke tilgjengelig. Sjekk at Google Pay er satt opp, eller prøv en av de <a href=\"$1\">andre måtene å gi</a>.",
 	"donate_interface-error-msg-opt_in": "Vennligst gjør et valg ang. eposter",
 	"donate_interface-donate-error-try-a-different-card": "Vennligst [$1 prøv et annet kort] eller en av de [$2 andre måtene å gi], eller kontakt oss på $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Prøv et annet kort eller en av våre <a href=\"$1\">andre måter å gi</a>, eller kontakt oss på <a href=\"mailto:$2\">$2</a>",

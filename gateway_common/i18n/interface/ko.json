@@ -225,6 +225,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "당신의 CURP/RFC/IFE의 오류를 수정하세요",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "당신의 DNI의 오류를 수정하세요",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "당신의 CI의 오류를 수정하세요",
+	"donate_interface-error-msg-google_pay_unsupported": "구글 플레이를 사용할 수 없습니다. 구글 플레이를 구성하셨는지 확인하고 <a href=\"$1\">다른 방법들</a> 중 하나를 시도해 주십시오.",
 	"donate_interface-error-msg-opt_in": "이메일 옵션을 선택해 주십시오",
 	"donate_interface-donate-error-try-a-different-card": "[$1 다른 카드로 시도] 하시거나 [$2 다른 기부 방법을 이용] 하시거나, $3으로 문의해 주시기 바랍니다.",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">다시 시도하세요</a>, <a href=\"$2\">다른 기부 방법을 시도해 보거나</a>,<a href=\"mailto:$3\">$3</a>로 연락하세요.",

@@ -271,6 +271,7 @@
 			"dependencies": "ext.donationInterface.forms",
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-google_pay_unsupported",
 				"donate_interface-credit-card-number",
 				"donate_interface-credit-card-expiration",
 				"donate_interface-cvv",

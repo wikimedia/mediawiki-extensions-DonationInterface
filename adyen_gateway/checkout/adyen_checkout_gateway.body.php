@@ -22,6 +22,9 @@ class AdyenCheckoutGateway extends GatewayPage {
 		$out = $this->getOutput();
 		$script = $this->adapter->getAccountConfig( 'Script' );
 		$css = $this->adapter->getAccountConfig( 'Css' );
+		if ( $this->adapter->getPaymentMethod() == 'google' ) {
+			$out->addScript( '<script src="https://pay.google.com/gp/p/js/pay.js"></script>' );
+		}
 		$out->addScript(
 			"<script src=\"{$script['src']}\" " .
 			"integrity=\"{$script['integrity']}\" " .
@@ -40,6 +43,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		$vars['adyenConfiguration'] = $this->adapter->getCheckoutConfiguration();
+		$vars['googleAllowedNetworks'] = $this->adapter->getGoogleAllowedNetwork();
 		$failPage = ResultPages::getFailPage( $this->adapter );
 		if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
 			// It's a rapidfail form, but we need an actual URL:

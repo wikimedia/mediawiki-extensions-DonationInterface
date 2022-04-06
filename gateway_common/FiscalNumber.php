@@ -38,6 +38,9 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			'min' => 6,
 			'max' => 8,
 		],
+		'ZA' => [
+			'pattern' => '^[0-9]{2}[01][0-9][0-3][0-9]{5}[01][89][0-9]$'
+		]
 	];
 
 	/**

@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Minh Nguyen",
+			"NguoiDungKhongDinhDanh",
 			"Vinhtantran"
 		]
 	},
@@ -26,7 +27,7 @@
 	"apihelp-donate-param-payment_submethod": "Phương pháp thanh toán dứt khoát.",
 	"apihelp-donate-param-language": "Mã ngôn ngữ.",
 	"apihelp-donate-param-order_id": "ID đặt hàng (nếu đã bắt đầu khoản quyên góp).",
-	"apihelp-donate-param-wmf_token": "Chìa khóa sửa đổi.",
+	"apihelp-donate-param-wmf_token": "Token sửa đổi.",
 	"apihelp-donate-param-utm_source": "Biến theo dõi.",
 	"apihelp-donate-param-utm_campaign": "Biến theo dõi.",
 	"apihelp-donate-param-utm_medium": "Biến theo dõi.",

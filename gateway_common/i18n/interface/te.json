@@ -175,6 +175,7 @@
 	"donate_interface-error-msg-account_number": "ఖాతా సంఖ్య",
 	"donate_interface-error-msg-captcha": "మీరు ఇచ్చిన ఆమకవేప విలువ సరైనదికాదు. దయచేసి మళ్ళీ ప్రయత్నించండి.",
 	"donate_interface-error-msg-captcha-please": "మీ క్రెడిట్ కార్డు భద్రత కోసం, పైన మీకు కనిపించే అక్షరాలను టైపుచెయ్యండి.",
+	"donate_interface-error-msg-google_pay_unsupported": "Google Pay అందుబాటులో లేదు. Google Pay కాన్ఫిగరు చేసి ఉందని నిర్థారించుకోండి, లేదా మాకు విరాళమిచ్చే <a href=\"$1\">ఇతర పద్ధతులను చూడండి</a>.",
 	"donate_interface-donate-error-thank-you-for-your-support": "మీ తోడ్పాటుకి కృతజ్ఞతలు!",
 	"php-response-declined": "మీ లావాదేవీని అంగీకరించలేక పోయారు.",
 	"donate_interface-thankyou": "మీ విరాళానికి కృతజ్ఞతలు!",

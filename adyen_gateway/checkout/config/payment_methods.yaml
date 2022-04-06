@@ -14,3 +14,7 @@ apple:
     label: Apple Pay
     validation:
         country: true
+google:
+    label: Google Pay
+    validation:
+        country: true

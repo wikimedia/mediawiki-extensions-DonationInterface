@@ -169,7 +169,7 @@ div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
 	border-radius: 0px 0px 2px 2px;
 }
 
-/* Center the Apple Pay button */
-div#applepay-container {
+/* Center the Apple/google Pay button */
+div#applepay-container, div#googlepay-container {
 	text-align: center;
 }
