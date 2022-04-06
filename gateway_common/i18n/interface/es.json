@@ -40,7 +40,8 @@
 			"Tusca",
 			"Vivaelcelta",
 			"Avengium",
-			"HNordeen (WMF)"
+			"HNordeen (WMF)",
+			"DiegoAmbrocio"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -416,7 +417,7 @@
 	"donate_interface-email-explain": "Te enviaremos un recibo por correo electrónico para confirmar tu donación.",
 	"donate_interface-faqs": "Preguntas frecuentes",
 	"donate_interface-tax-info": "Información de desgravación de impuestos",
-	"donate_interface-informationsharing": "No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con la Wikimedia Foundation, una organización sin ánimo de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">Política de privacidad de donantes</a>. La Wikimedia Foundation y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las tuyas. Para más información, lee nuestra <a href=\"$1\">Política de privacidad de donantes</a>.",
+	"donate_interface-informationsharing": "No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con Wikimedia Foundation, una organización sin ánimo de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">Política de privacidad de donantes</a>. Wikimedia Foundation y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las tuyas. Para más información, lee nuestra <a href=\"$1\">Política de privacidad de donantes</a>.",
 	"donate_interface-currency-change": "¿Cambiar?",
 	"donate_interface-bank_transfer_message": "Ten en cuenta que tu declaración mostrará \"Global Collect\" como el destinatario de este regalo. Global Collect está autorizado para aceptar y procesar los pagos en nombre de la Fundación Wikimedia. Recuerda incluir el número de referencia que se muestra aquí en tu transferencia bancaria y siéntete libre de enviarnos un correo electrónico a $1 si tienes alguna pregunta o inquietud.",
 	"donate_interface-globalcollect-proxy": "Ten en cuenta que el extracto bancario mostrará a \"Global Collect\" como destinatario de este regalo. Global Collect está autorizado para aceptar y procesar pagos en nombre de la Fundación Wikimedia.",

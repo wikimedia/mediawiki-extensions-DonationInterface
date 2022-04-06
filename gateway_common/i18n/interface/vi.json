@@ -8,7 +8,8 @@
 			"Quenhitran",
 			"Thienhau2003",
 			"Trần Nguyễn Minh Huy",
-			"Vinhtantran"
+			"Vinhtantran",
+			"NguoiDungKhongDinhDanh"
 		]
 	},
 	"donate_interface": "Hỗ trợ Wikimedia",
@@ -237,7 +238,7 @@
 	"donate_interface-otherways-alt": "Cũng có <a href=\"$1\">những cách khác để đóng góp tài chính</a>, chẳng hạn như gửi séc.",
 	"donate_interface-otherways-short": "Thêm cách để quyên góp",
 	"donate_interface-token-mismatch": "Phiên của bạn đã hết hạn. Xin hãy thử điền và nộp đơn một lần nữa.",
-	"donate_interface-cc-token-expired": "Chìa khóa bí mật của bạn đã hết hạn, bấm OK để làm mới.",
+	"donate_interface-cc-token-expired": "Token của bạn đã hết hạn, nhấp OK để làm mới.",
 	"donate_interface-try-again": "Chúng tôi tạm không thể xử lý khoản đóng góp của bạn. Xin vui lòng thử lại chốc nữa.",
 	"donate_interface-cc-form-header-personal": "Thông tin thanh toán",
 	"donate_interface-cc-form-header-payment": "Thông tin thanh toán",
