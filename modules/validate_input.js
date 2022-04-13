@@ -194,6 +194,13 @@ window.validate_personal = function () {
 				break;
 			}
 		}
+
+		if ( /[0-9]$/.test( domain ) ) {
+			setError(
+				'email',
+				mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
+			);
+		}
 	}
 
 	// Make sure cookies are enabled
