@@ -1,4 +1,5 @@
 {
+	"name": "DonationInterface",
 	"private": true,
 	"scripts": {
 		"doc": "jsduck",
