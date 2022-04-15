@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Avengium",
+			"DiegoAmbrocio",
 			"Fitoschido",
 			"Macofe",
 			"Minh Nguyen",
@@ -38,6 +39,7 @@
 	"apihelp-donate-param-utm_medium": "Variable de seguimiento.",
 	"apihelp-donate-param-referrer": "Referente original.",
 	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
+	"apihelp-donate-param-employer": "Nombre del empleador",
 	"apihelp-donate-param-employer_id": "ID del empresario",
 	"apihelp-donate-example-1": "Hacer una donación",
 	"apihelp-logPaymentsFormError-description": "Esta API registra los errores del formulario de donación que se produzcan en el lado cliente.",
