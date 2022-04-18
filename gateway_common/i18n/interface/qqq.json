@@ -293,7 +293,7 @@
 	"donate_interface-token-mismatch": "Error message shown when the session has expired.",
 	"donate_interface-cc-token-expired": "Error message shown when the credit card token has expired.",
 	"donate_interface-try-again": "Error message shown when a transient problem occurs, such as the payment processor being overloaded.  Asks the donor to attempt their donation again in a short time.",
-	"donate_interface-cc-form-header-personal": "{{Identical|Billing information}}",
+	"donate_interface-cc-form-header-personal": "Heading for form section where donor provides their billing information.",
 	"donate_interface-cc-form-header-payment": "Header for part of form with information about payment (credit card).",
 	"donate_interface-make-your-donation": "The title of the donation page (the one shown in tabs and window titles).\n{{Identical|Make your donation now}}",
 	"donate_interface-comment": "{{Identical|Comment}}",

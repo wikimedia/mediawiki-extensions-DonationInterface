@@ -229,7 +229,7 @@
 	"donate_interface-token-mismatch": "Sesja wygasła. Spróbuj jeszcze raz wypełnić i przesłać formularz.",
 	"donate_interface-cc-token-expired": "Okres ważności Twojego tokenu się skończył. Naciśnij OK, aby odświeżyć.",
 	"donate_interface-try-again": "Twoja darowizna nie może być chwilowo przetworzona. Prosimy spróbować ponownie wkrótce.",
-	"donate_interface-cc-form-header-personal": "Informacje o wpłatach",
+	"donate_interface-cc-form-header-personal": "Dane płatności",
 	"donate_interface-cc-form-header-payment": "Informacja o wpłacie",
 	"donate_interface-make-your-donation": "Przekaż darowiznę",
 	"donate_interface-comment": "Komentarz",
