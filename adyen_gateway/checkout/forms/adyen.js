@@ -1,7 +1,8 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
 	// promise objects are for Apple Pay - see comments below
-	var checkout, onSubmit, authPromise, submitPromise;
+	var checkout, onSubmit, authPromise, submitPromise,
+		configFromServer = mw.config.get( 'adyenConfiguration' );
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -113,7 +114,7 @@
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
 				config.countryCode = g_country;
-				config.environment = mw.config.get( 'adyenConfiguration' ).environment.toUpperCase();
+				config.environment = configFromServer.environment.toUpperCase();
 				config.showPayButton = true;
 				config.buttonType = 'donate';
 				config.emailRequired = true;
@@ -123,8 +124,8 @@
 					format: 'FULL'
 				};
 				// called gatewayMerchantId but actually our account name with Adyen
-				config.gatewayMerchantId = mw.config.get( 'adyenConfiguration' ).merchantAccountName;
-				config.merchantId = mw.config.get( 'adyenConfiguration' ).googleMerchantId;
+				config.gatewayMerchantId = configFromServer.merchantAccountName;
+				config.merchantId = configFromServer.googleMerchantId;
 				// eslint-disable-next-line compat/compat
 				authPromise = new Promise( function ( authResolve ) {
 					config.onAuthorized = function ( response ) {
@@ -407,8 +408,14 @@
 			oldShowErrors( errors );
 		};
 
-		// TODO: useful comments
-		config = mw.config.get( 'adyenConfiguration' );
+		// Copy values to leave the mw.config setting untouched
+		config = {
+			clientKey: configFromServer.clientKey,
+			environment: configFromServer.environment,
+			local: configFromServer.locale,
+			paymentMethodsResponse: configFromServer.paymentMethodsResponse
+		};
+
 		// adyen support below locale: https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
 		var adyenSupportedLocale = [
 			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
