@@ -122,6 +122,9 @@
 				config.billingAddressParameters = {
 					format: 'FULL'
 				};
+				// called gatewayMerchantId but actually our account name with Adyen
+				config.gatewayMerchantId = mw.config.get( 'adyenConfiguration' ).merchantAccountName;
+				config.merchantId = mw.config.get( 'adyenConfiguration' ).googleMerchantId;
 				// eslint-disable-next-line compat/compat
 				authPromise = new Promise( function ( authResolve ) {
 					config.onAuthorized = function ( response ) {

@@ -159,7 +159,7 @@ $wgAmazonGatewayNotifyOnConvert = false;
 /** Adyen Checkout */
 $wgAdyenCheckoutGatewayURL = 'https://testorwhatevercheckout.adyen.com';
 $wgAdyenCheckoutGatewayAccountInfo = [];
-$wgAdyenCheckoutGatewayAccountInfo['test'] = [
+$wgAdyenCheckoutGatewayAccountInfo['testMerchantAccountName'] = [
 	'Script' => [
 		'src' => 'test-pear.js',
 		'integrity' => 'test-hash'
@@ -170,6 +170,7 @@ $wgAdyenCheckoutGatewayAccountInfo['test'] = [
 	],
 	'ClientKey' => 'test',
 	'Environment' => 'test',
+	'GoogleMerchantId' => '1234'
 ];
 
 /** AstroPay */
