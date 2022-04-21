@@ -6,7 +6,8 @@
 			"Macofe",
 			"Minh Nguyen",
 			"Ryo567",
-			"Whytheonlyone"
+			"Whytheonlyone",
+			"DiegoAmbrocio"
 		]
 	},
 	"apihelp-donate-description": "Esta API te permite enviar una donación a la Fundación Wikimedia, usando una variedad de métodos de pago.",
@@ -30,6 +31,7 @@
 	"apihelp-donate-param-cvv": "Código de seguridad CVV.",
 	"apihelp-donate-param-payment_method": "Método de pago que usar.",
 	"apihelp-donate-param-payment_submethod": "Submétodo de pago que usar.",
+	"apihelp-donate-param-processor_form": "Cuál de las opciones de formulario del procesador se va a utilizar.",
 	"apihelp-donate-param-language": "Código del idioma.",
 	"apihelp-donate-param-order_id": "Identificador de la orden (si una donación ya se ha iniciado).",
 	"apihelp-donate-param-wmf_token": "Editar token.",
@@ -38,6 +40,7 @@
 	"apihelp-donate-param-utm_medium": "Variable de seguimiento.",
 	"apihelp-donate-param-referrer": "Referente original.",
 	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
+	"apihelp-donate-param-employer": "Nombre del empleador",
 	"apihelp-donate-param-employer_id": "ID del empresario",
 	"apihelp-donate-example-1": "Hacer una donación",
 	"apihelp-logPaymentsFormError-description": "Esta API registra los errores del formulario de donación que se produzcan en el lado cliente.",
