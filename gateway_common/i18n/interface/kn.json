@@ -4,7 +4,8 @@
 			"Dimension10",
 			"Nayvik",
 			"VASANTH S.N.",
-			"ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ"
+			"ಮಲ್ನಾಡಾಚ್ ಕೊಂಕ್ಣೊ",
+			"~aanzx"
 		]
 	},
 	"donate_interface": "ವಿಕಿಮೀಡಿಯ ಬೆಂಬಲಿಸಿ",
@@ -37,6 +38,7 @@
 	"donate_interface-donor-zone": "ವಲಯ",
 	"donate_interface-donor-address": "ವಿಳಾಸ:",
 	"donate_interface-donor-card-num": "ಕಾರ್ಡ್ ಸಂಖ್ಯೆ",
+	"donate_interface-donor-submit": "ದೇಣಿಗೆ",
 	"donate_interface-error-msg-city": "ನಗರ",
 	"donate_interface-error-msg-state_province": "ರಾಜ್ಯ",
 	"donate_interface-error-msg-account_name": "ಖಾತೆಯ ಹೆಸರು",
