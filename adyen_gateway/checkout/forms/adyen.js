@@ -1,7 +1,8 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
 	// promise objects are for Apple Pay - see comments below
-	var checkout, onSubmit, authPromise, submitPromise;
+	var checkout, onSubmit, authPromise, submitPromise,
+		configFromServer = mw.config.get( 'adyenConfiguration' );
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -113,15 +114,18 @@
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
 				config.countryCode = g_country;
-				config.environment = mw.config.get( 'adyenConfiguration' ).environment.toUpperCase();
+				config.environment = configFromServer.environment.toUpperCase();
 				config.showPayButton = true;
 				config.buttonType = 'donate';
 				config.emailRequired = true;
 				config.billingAddressRequired = true;
-				config.allowedCardNetworks = mw.config.get( 'googleAllowedNetworks' );
+				config.allowedCardNetworks = configFromServer.googleAllowedNetworks;
 				config.billingAddressParameters = {
 					format: 'FULL'
 				};
+				// called gatewayMerchantId but actually our account name with Adyen
+				config.gatewayMerchantId = configFromServer.merchantAccountName;
+				config.merchantId = configFromServer.googleMerchantId;
 				// eslint-disable-next-line compat/compat
 				authPromise = new Promise( function ( authResolve ) {
 					config.onAuthorized = function ( response ) {
@@ -404,9 +408,16 @@
 			oldShowErrors( errors );
 		};
 
-		// TODO: useful comments
-		config = mw.config.get( 'adyenConfiguration' );
-		// adyen support below locale: https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
+		// Copy values to leave the mw.config setting untouched
+		config = {
+			clientKey: configFromServer.clientKey,
+			environment: configFromServer.environment,
+			locale: configFromServer.locale,
+			paymentMethodsResponse: configFromServer.paymentMethodsResponse
+		};
+
+		// Adyen supports the locales listed below, according to
+		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
 		var adyenSupportedLocale = [
 			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
 			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
@@ -415,8 +426,8 @@
 			'pl-PL', 'pt-BR', 'ro-RO', 'ru-RU',
 			'sk-SK', 'sl-SL', 'es-ES', 'sv-SE'
 		];
-		// check if adyen not support incoming lang should have our own customized translation
-		// Adyen supports ar as Arabic - International and doesn't check for country
+		// Check if donor's language is unsupported by Adyen and we need to provide our own customized translation
+		// Adyen supports ar as Arabic - International and doesn't check the country part
 		if ( config.locale.slice( 0, 2 ) !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
 			var customLanguage = {};
 			customLanguage[ config.locale ] = {

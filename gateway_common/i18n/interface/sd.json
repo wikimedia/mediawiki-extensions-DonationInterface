@@ -4,11 +4,14 @@
 			"Mehtab ahmed"
 		]
 	},
+	"donate_interface-title": "عنوان",
 	"donate_interface-next": "اڳيون",
 	"donate_interface-cancel": "رد",
+	"donate_interface-description": "تشريح",
 	"donate_interface-select": "چونڊيو",
 	"donate_interface-change": "بدلايو",
 	"donate_interface-bt-payment_reference": "ادائگي حوالو",
 	"donate_interface-obt-customer_payment_reference": "حوالو #",
-	"donate_interface-currency-change": "بدلائجي؟"
+	"donate_interface-currency-change": "بدلائجي؟",
+	"donate_interface-statement": "وڪيميڊيا $1"
 }

@@ -318,7 +318,7 @@ $wgPaypalExpressGatewaySignatureURL = 'https://api-3t.paypal.com/nvp'
 $wgPaypalExpressGatewayTestingCertificateURL = 'https://api.sandbox.paypal.com/nvp'
 $wgPaypalExpressGatewayTestingSignatureURL = 'https://api-3t.sandbox.paypal.com/nvp'
 
-$wgAdyenCheckoutGatewayAccountInfo['example'] = [
+$wgAdyenCheckoutGatewayAccountInfo['exampleMerchantAccountName'] = [
 	// Latest values for Script & Css at https://docs.adyen.com/online-payments/release-notes
 	'Script' => [
 		'src' => 'https://checkoutshopper-test.adyen.com/checkoutshopper/sdk/4.3.0/adyen.js',
@@ -330,6 +330,7 @@ $wgAdyenCheckoutGatewayAccountInfo['example'] = [
 	],
 	'ClientKey' => '', // find under web service user 'Authentication' block within adyen API credentials area
 	'Environment' => 'test',
+	'GoogleMerchantId' => '1234' // merchant ID from Google for Google Pay
 ]
 
 // Set base URLs here.  Individual transactions have their own paths

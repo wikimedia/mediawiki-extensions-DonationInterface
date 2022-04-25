@@ -273,7 +273,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		);
 	}
 
-	public function getGoogleAllowedNetwork() {
+	public function getGoogleAllowedNetworks() {
 		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
 		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
 			if ( isset( $this->config[ 'payment_submethods' ][ 'mir' ] ) ) {
@@ -328,6 +328,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			'paymentMethodsResponse' => $paymentMethodResult,
 			// TODO: maybe make this dynamic based on donor location
 			'environment' => $this->getAccountConfig( 'Environment' ),
+			'merchantAccountName' => $this->account_name,
+			'googleMerchantId' => $this->getAccountConfig( 'GoogleMerchantId' ),
+			'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(),
 		];
 	}
 
