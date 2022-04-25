@@ -412,7 +412,7 @@
 		config = {
 			clientKey: configFromServer.clientKey,
 			environment: configFromServer.environment,
-			local: configFromServer.locale,
+			locale: configFromServer.locale,
 			paymentMethodsResponse: configFromServer.paymentMethodsResponse
 		};
 
