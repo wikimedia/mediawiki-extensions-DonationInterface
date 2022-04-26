@@ -21,7 +21,6 @@ $wgAmazonGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
-$wgPaypalGatewayEnabled = false
 
 You must also configure account information for each processor as
 described in 'Processors and accounts' below.
@@ -290,12 +289,6 @@ $wgAmazonGatewayAccountInfo['example'] = [
 // This URL appears to be global and usable for both sandbox and non-sandbox
 $wgAmazonGatewayLoginScript = 'https://api-cdn.amazon.com/sdk/login1.js'
 
-$wgPaypalGatewayURL = 'https://www.paypal.com/cgi-bin/webscr'
-$wgPaypalGatewayTestingURL = 'https://www.sandbox.paypal.com/cgi-bin/webscr'
-$wgPaypalGatewayRecurringLength = '0' // 0 should mean forever
-
-$wgPaypalGatewayXclickCountries = []
-
 # Example PayPal Express Checkout account:
 #
 # $wgPaypalExpressGatewayAccountInfo['test'] = [
@@ -309,11 +302,6 @@ $wgPaypalGatewayXclickCountries = []
 #     // TODO: Use parameter substitution.
 #     'RedirectURL' => 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&useraction=commit&token=',
 # ]
-
-# Example legacy PayPal
-#	$wgPaypalGatewayAccountInfo['example'] = [
-#		'AccountEmail' => "",
-#	]
 
 # https://developer.paypal.com/docs/classic/api/endpoints/
 # TODO: Move to configuration.
@@ -678,7 +666,7 @@ $wgDonationInterfaceEnableMinFraud = false //this is definitely an Extra
 
 /**
  * @global boolean Set to false to disable all filters, or set a gateway-
- * specific value such as $wgPaypalGatewayEnableCustomFilters = false.
+ * specific value such as $wgPaypalExpressGatewayEnableCustomFilters = false.
  */
 $wgDonationInterfaceEnableCustomFilters = true
 $wgDonationInterfaceEnableReferrerFilter = false //extra

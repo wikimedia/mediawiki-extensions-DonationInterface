@@ -15,7 +15,6 @@
  * GNU General Public License for more details.
  *
  */
-use Psr\Log\LogLevel;
 
 /**
  * @group Fundraising
@@ -40,10 +39,10 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 		TestingGenericAdapter::$fakeIdentifier = 'globalcollect';
 		$this->setMwGlobals( [
-			'wgPaypalGatewayEnabled' => true,
+			'wgPaypalExpressGatewayEnabled' => true,
 			'wgDonationInterfaceAllowedHtmlForms' => [
 				'paypal' => [
-					'gateway' => 'paypal',
+					'gateway' => 'paypal_ec',
 					'payment_methods' => [ 'paypal' => 'ALL' ],
 				],
 			],
@@ -154,51 +153,5 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 
 		$this->assertEquals( 100, $this->adapter->getData_Unstaged_Escaped( 'amount' ) );
 		$this->assertEquals( 'USD', $this->adapter->getData_Unstaged_Escaped( 'currency' ) );
-	}
-
-	/**
-	 * Before redirecting a user to the processor, we should log all of their
-	 * details at info level
-	 */
-	public function testLogDetailsOnRedirect() {
-		$init = $this->getDonorTestData();
-		$session = [ 'Donor' => $init ];
-
-		$this->verifyFormOutput( 'PaypalLegacyGateway', $init, [], false, $session );
-
-		$logged = self::getLogMatches( LogLevel::INFO, '/^Redirecting for transaction: /' );
-		$this->assertCount( 1, $logged, 'Should have logged details once' );
-		preg_match( '/Redirecting for transaction: (.*)$/', $logged[0], $matches );
-		$detailString = $matches[1];
-		$expected = [
-			'currency' => 'USD',
-			'payment_submethod' => '',
-			'first_name' => 'Firstname',
-			'last_name' => 'Surname',
-			'gross' => '1.55',
-			'fee' => 0,
-			'language' => 'en',
-			'email' => 'nobody@wikimedia.org',
-			'country' => 'US',
-			'payment_method' => 'paypal',
-			'user_ip' => '127.0.0.1',
-			'recurring' => '',
-			'utm_source' => '..paypal',
-			'gateway' => 'paypal',
-			'gateway_account' => 'testing',
-			'gateway_txn_id' => false,
-			'response' => false,
-			'street_address' => '123 Fake Street',
-			'city' => 'San Francisco',
-			'state_province' => 'CA',
-			'postal_code' => '94105',
-		];
-		$actual = json_decode( $detailString, true );
-		// TODO: when tests use PHPUnit 4.4
-		// $this->assertArraySubset( $expected, $actual, false, 'Logged the wrong stuff' );
-		$expected['order_id'] = $actual['contribution_tracking_id'];
-		unset( $actual['contribution_tracking_id'] );
-		unset( $actual['date'] );
-		$this->assertEquals( $expected, $actual, 'Logged the wrong stuff!' );
 	}
 }

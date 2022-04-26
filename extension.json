@@ -39,8 +39,7 @@
 		"AstroPayGateway": "AstroPayGateway",
 		"AstroPayGatewayResult": "AstroPayGatewayResult",
 		"PaypalExpressGateway": "PaypalExpressGateway",
-		"PaypalExpressGatewayResult": "PaypalExpressGatewayResult",
-		"PaypalLegacyGateway": "PaypalLegacyGateway"
+		"PaypalExpressGatewayResult": "PaypalExpressGatewayResult"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
@@ -165,15 +164,11 @@
 		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
 		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
 		"PlaceholderFiscalNumber": "astropay_gateway/PlaceholderFiscalNumber.php",
-		"CleanupRecurringLength": "paypal_gateway/CleanupRecurringLength.php",
 		"PayPalCountry": "paypal_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_gateway/express_checkout/paypal_express.adapter.php",
 		"PaypalExpressGateway": "paypal_gateway/express_checkout/paypal_express_gateway.body.php",
 		"PaypalExpressGatewayResult": "paypal_gateway/express_checkout/paypal_express_resultswitcher.body.php",
 		"PaypalExpressReturnUrl": "paypal_gateway/express_checkout/PaypalExpressReturnUrl.php",
-		"PaypalLegacyAdapter": "paypal_gateway/legacy/paypal_legacy.adapter.php",
-		"PaypalLegacyGateway": "paypal_gateway/legacy/paypal_legacy_gateway.body.php",
-		"PaypalLegacyLocale": "paypal_gateway/legacy/PaypalLegacyLocale.php",
 		"Gateway_Extras": "extras/extras.body.php",
 		"FraudFilter": "extras/FraudFilter.php",
 		"Gateway_Extras_CustomFilters": "extras/custom_filters/custom_filters.body.php",
@@ -635,18 +630,6 @@
 		"AmazonGatewayLoginScript": {
 			"value": "https://api-cdn.amazon.com/sdk/login1.js"
 		},
-		"PaypalGatewayURL": {
-			"value": "https://www.paypal.com/cgi-bin/webscr"
-		},
-		"PaypalGatewayTestingURL": {
-			"value": "https://www.sandbox.paypal.com/cgi-bin/webscr"
-		},
-		"PaypalGatewayRecurringLength": {
-			"value": "0"
-		},
-		"PaypalGatewayXclickCountries": {
-			"value": []
-		},
 		"PaypalExpressGatewayCertificateURL": {
 			"value": "https://api.paypal.com/nvp"
 		},
@@ -788,9 +771,6 @@
 		"AstroPayGatewayEnabled": {
 			"value": false
 		},
-		"PaypalGatewayEnabled": {
-			"value": false
-		},
 		"PaypalExpressGatewayEnabled": {
 			"value": false
 		},
@@ -831,8 +811,7 @@
 				"amazon": "AmazonAdapter",
 				"adyen": "AdyenCheckoutAdapter",
 				"astropay": "AstroPayAdapter",
-				"paypal_ec": "PaypalExpressAdapter",
-				"paypal": "PaypalLegacyAdapter"
+				"paypal_ec": "PaypalExpressAdapter"
 			}
 		},
 		"DonationInterfaceAllowedHtmlForms": {
