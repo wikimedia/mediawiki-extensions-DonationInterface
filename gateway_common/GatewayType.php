@@ -274,6 +274,11 @@ interface GatewayType extends LogPrefixProvider {
 	public function getConfig( $key = null );
 
 	/**
+	 * @return array with keys 'min' and 'max' representing the min / max donation in USD
+	 */
+	public function getDonationRules();
+
+	/**
 	 * Get globals-based configuration setting
 	 *
 	 * @param string $key setting to retrieve

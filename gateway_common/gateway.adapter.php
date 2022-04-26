@@ -358,13 +358,35 @@ abstract class GatewayAdapter implements GatewayType {
 	abstract protected function defineOrderIDMeta();
 
 	public function loadConfig( $variant = null ) {
-		$configurationReader = new ConfigurationReader(
-			$this->getBasedir(),
-			static::getIdentifier(),
-			$this->getGlobal( 'LocalConfigurationDirectory' ),
-			$this->getGlobal( 'VariantConfigurationDirectory' )
-		);
-		$this->config = $configurationReader->readConfiguration( $variant );
+		$configurationReader = new ConfigurationReader();
+
+		// register general config dir
+		// TODO: get this path using $wg ext var
+		$configDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
+		$configurationReader->registerConfigDirectory( $configDir );
+
+		// register processor base config dir
+		$baseConfigDirSuffix = DIRECTORY_SEPARATOR . 'config';
+		$configurationReader->registerConfigDirectory( $this->getBasedir() . $baseConfigDirSuffix );
+
+		// register local config dir if set
+		if ( $this->getGlobal( 'LocalConfigurationDirectory' ) ) {
+			$localConfigDirSuffix = DIRECTORY_SEPARATOR . static::getIdentifier();
+			$localConfigDir = $this->getGlobal( 'LocalConfigurationDirectory' ) . $localConfigDirSuffix;
+			$configurationReader->registerConfigDirectory( $localConfigDir );
+		}
+
+		// register variant config dir if set
+		if ( $variant !== null
+			&& $this->getGlobal( 'VariantConfigurationDirectory' )
+			&& preg_match( '/^[a-zA-Z0-9_]+$/', $variant )
+		) {
+			$variantConfigDirSuffix = DIRECTORY_SEPARATOR . $variant . DIRECTORY_SEPARATOR . static::getIdentifier();
+			$variantConfigDir = $this->getGlobal( 'VariantConfigurationDirectory' ) . $variantConfigDirSuffix;
+			$configurationReader->registerConfigDirectory( $variantConfigDir );
+		}
+
+		$this->config = $configurationReader->readConfiguration();
 	}
 
 	public function getConfig( $key = null ) {
@@ -1362,6 +1384,22 @@ abstract class GatewayAdapter implements GatewayType {
 	 *  GateWayType constructor.
 	 */
 	protected function setGatewayDefaults( $options = [] ) {
+	}
+
+	/**
+	 * Add donation rules for the users country & currency combo.
+	 *
+	 * @return array
+	 */
+	public function getDonationRules(): array {
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		// Check for country-specific rules
+		if ( isset( $this->config['donation_rules'][$country] ) ) {
+			$rules = $this->config['donation_rules'][$country];
+		} else {
+			$rules = $this->config['donation_rules']['default'];
+		}
+		return $rules;
 	}
 
 	public function getCurrencies( $options = [] ) {

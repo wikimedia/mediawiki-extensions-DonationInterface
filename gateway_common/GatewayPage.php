@@ -475,9 +475,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function setClientVariables( &$vars ) {
 		$language = $this->adapter->getData_Unstaged_Escaped( 'language' );
 		$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
+		$donation_rules = $this->adapter->getDonationRules();
 
-		$vars['wgDonationInterfacePriceFloor'] = $this->adapter->getGlobal( 'PriceFloor' );
-		$vars['wgDonationInterfacePriceCeiling'] = $this->adapter->getGlobal( 'PriceCeiling' );
+		$vars['wgDonationInterfacePriceFloor'] = $donation_rules['min'];
+		$vars['wgDonationInterfacePriceCeiling'] = $donation_rules['max'];
 		$vars['wgDonationInterfaceLogDebug'] = $this->adapter->getGlobal( 'LogDebug' );
 		if ( $this->adapter->showMonthlyConvert() ) {
 			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
