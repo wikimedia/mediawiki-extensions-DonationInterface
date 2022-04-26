@@ -369,11 +369,12 @@ abstract class GatewayAdapter implements GatewayType {
 		$baseConfigDirSuffix = DIRECTORY_SEPARATOR . 'config';
 		$configurationReader->registerConfigDirectory( $this->getBasedir() . $baseConfigDirSuffix );
 
-		// register local config dir if set
+		// register local config dir if set as well as gateway-specific subdirectory
 		if ( $this->getGlobal( 'LocalConfigurationDirectory' ) ) {
-			$localConfigDirSuffix = DIRECTORY_SEPARATOR . static::getIdentifier();
-			$localConfigDir = $this->getGlobal( 'LocalConfigurationDirectory' ) . $localConfigDirSuffix;
+			$localConfigDir = $this->getGlobal( 'LocalConfigurationDirectory' );
 			$configurationReader->registerConfigDirectory( $localConfigDir );
+			$gatewaySpecificSuffix = DIRECTORY_SEPARATOR . static::getIdentifier();
+			$configurationReader->registerConfigDirectory( $localConfigDir . $gatewaySpecificSuffix );
 		}
 
 		// register variant config dir if set
