@@ -25,10 +25,22 @@ class Amount implements ValidationHelper {
 			);
 			return;
 		}
-		$currency = $normalized['currency'];
-		$min = self::convert( $adapter->getDonationRules()['min'], $currency );
-		$maxUsd = $adapter->getDonationRules()['max'];
-		$max = self::convert( $maxUsd, $currency );
+		$donationCurrency = $normalized['currency'];
+		$rules = $adapter->getDonationRules();
+		$rates = CurrencyRates::getCurrencyRates();
+		$ruleCurrency = $rules['currency'];
+		if ( $ruleCurrency === $donationCurrency ) {
+			// Avoid converting if we're already looking at the right currency
+			$min = $rules['min'];
+			$max = $rules['max'];
+			$maxUsd = self::convert( $max, 'USD', $ruleCurrency );
+		} else {
+			// Get the min and max in USD, then convert to donation currency
+			$minUsd = self::convert( $rules['min'], 'USD', $ruleCurrency );
+			$maxUsd = self::convert( $rules['max'], 'USD', $ruleCurrency );
+			$min = self::convert( $minUsd, $donationCurrency );
+			$max = self::convert( $maxUsd, $donationCurrency );
+		}
 		if (
 			!is_numeric( $value ) ||
 			$value < 0
@@ -44,14 +56,14 @@ class Amount implements ValidationHelper {
 				'donate_interface-bigamount-error',
 				[
 					$max,
-					$currency,
+					$donationCurrency,
 					$adapter->getGlobal( 'MajorGiftsEmail' ),
 					$maxUsd
 				]
 			) );
 		} elseif ( $value < $min ) {
 			$locale = $normalized['language'] . '_' . $normalized['country'];
-			$formattedMin = self::format( $min, $currency, $locale );
+			$formattedMin = self::format( $min, $donationCurrency, $locale );
 			$errors->addError( new ValidationError(
 				'amount',
 				'donate_interface-smallamount-error',
@@ -92,15 +104,16 @@ class Amount implements ValidationHelper {
 	 * conversion rates.
 	 *
 	 * @param float $amount
-	 * @param string $currency
+	 * @param string $toCurrency
+	 * @param string $fromCurrency
 	 * @return float
 	 * @throws UnexpectedValueException
 	 */
-	public static function convert( $amount, $currency ) {
+	public static function convert( $amount, $toCurrency, $fromCurrency = 'USD' ) {
 		$rates = CurrencyRates::getCurrencyRates();
-		$code = strtoupper( $currency );
+		$code = strtoupper( $toCurrency );
 		if ( array_key_exists( $code, $rates ) ) {
-			return $amount * $rates[$code];
+			return $amount / $rates[$fromCurrency] * $rates[$code];
 		}
 		throw new UnexpectedValueException(
 			'Bad programmer!  Bad currency made it too far through the portcullis'

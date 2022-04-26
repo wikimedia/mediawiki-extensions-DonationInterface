@@ -40,6 +40,7 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 		TestingGenericAdapter::$donationRules = [
+			'currency' => 'USD',
 			'min' => 2.00,
 			'max' => 100.00
 		];

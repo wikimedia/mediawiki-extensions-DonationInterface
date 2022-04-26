@@ -61,6 +61,7 @@ class AmountTest extends DonationInterfaceTestCase {
 		$this->errors = new ErrorState();
 		$this->adapter = new TestingGenericAdapter();
 		TestingGenericAdapter::$donationRules = [
+			'currency' => 'USD',
 			'min' => 1.50,
 			'max' => 100
 		];
@@ -283,5 +284,123 @@ class AmountTest extends DonationInterfaceTestCase {
 
 		$amount = $validator->format( 100.59, 'USD', 'en_CA' );
 		$this->assertEquals( 'US$100.59', $amount );
+	}
+
+	/**
+	 * The following four tests confirm that all works as expected
+	 * when the configuration is given in a non-USD currency.
+	 */
+	public function testTooLittleUSDConfiguredInBbd() {
+		TestingGenericAdapter::$donationRules = [
+			'currency' => 'BBD',
+			'min' => 3.00,
+			'max' => 200
+		];
+		$this->normalized['amount'] = '1.49';
+		$this->validate();
+
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for diminutive amount (USD)'
+		);
+
+		$formattedMin = Amount::format( 1.50, 'USD', 'en_US' );
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-smallamount-error',
+			[ $formattedMin ]
+		);
+		$this->assertEquals(
+			$expected,
+			$this->getFirstError(),
+			'Wrong error message for diminutive amount (USD)'
+		);
+	}
+
+	public function testTooMuchUsdConfiguredInBbd() {
+		TestingGenericAdapter::$donationRules = [
+			'currency' => 'BBD',
+			'min' => 3.00,
+			'max' => 200
+		];
+		$this->normalized['amount'] = '101.00';
+		$this->validate();
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for excessive amount (USD)'
+		);
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-bigamount-error',
+			[
+				100,
+				'USD',
+				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
+				100,
+			]
+		);
+		$this->assertEquals(
+			$expected,
+			$this->getFirstError(),
+			'Wrong error message for excessive amount (USD)'
+		);
+	}
+
+	public function testTooMuchBbdConfiguredInBbd() {
+		TestingGenericAdapter::$donationRules = [
+			'currency' => 'BBD',
+			'min' => 3.00,
+			'max' => 200
+		];
+		$this->normalized['currency'] = 'BBD';
+		$this->normalized['amount'] = '201.00';
+		$this->validate();
+
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for excessive amount (BBD)'
+		);
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-bigamount-error',
+			[
+				200,
+				'BBD',
+				$this->adapter->getGlobal( 'MajorGiftsEmail' ),
+				100,
+			]
+		);
+		$this->assertEquals(
+			$expected,
+			$this->getFirstError(),
+			'Wrong error message for excessive amount (BBD)'
+		);
+	}
+
+	public function testTooLittleBbdConfiguredInBbd() {
+		TestingGenericAdapter::$donationRules = [
+			'currency' => 'BBD',
+			'min' => 3.00,
+			'max' => 200
+		];
+		$this->normalized['currency'] = 'BBD';
+		$this->normalized['amount'] = '2.95';
+		$this->validate();
+
+		$this->assertTrue(
+			$this->errors->hasValidationError( 'amount' ),
+			'No error for diminutive amount (BBD)'
+		);
+		$formattedMin = Amount::format( 3.00, 'BBD', 'en_US' );
+		$expected = new ValidationError(
+			'amount',
+			'donate_interface-smallamount-error',
+			[ $formattedMin ]
+		);
+		$this->assertEquals(
+			$expected,
+			$this->getFirstError(),
+			'Wrong error message for diminutive amount (BBD)'
+		);
 	}
 }

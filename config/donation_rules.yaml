@@ -1,6 +1,4 @@
 default:
+    currency: USD
     min: 1
     max: 10000
-IN:
-    min: 0.95
-    max: 3000
