@@ -39,6 +39,7 @@
 	"donate_interface-street-address-line-2": "Strado/Avenuo (lineo 2)",
 	"donate_interface-next": "Sequanta",
 	"donate_interface-continue": "Durigar",
+	"donate_interface-cancel": "Nuligar",
 	"donate_interface-description": "Deskripto",
 	"donate_interface-change": "Modifiko",
 	"donate_interface-obt-customer_payment_reference": "Refero #",

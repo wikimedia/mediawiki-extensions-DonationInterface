@@ -12,5 +12,6 @@
 	"donate_interface-change": "بدلايو",
 	"donate_interface-bt-payment_reference": "ادائگي حوالو",
 	"donate_interface-obt-customer_payment_reference": "حوالو #",
-	"donate_interface-currency-change": "بدلائجي؟"
+	"donate_interface-currency-change": "بدلائجي؟",
+	"donate_interface-statement": "وڪيميڊيا $1"
 }
