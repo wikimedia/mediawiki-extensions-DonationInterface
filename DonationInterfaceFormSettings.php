@@ -641,7 +641,7 @@ $forms['astropay-mx'] = [
 	],
 	'selection_weight' => 110,
 ];
-$forms_whitelist['astropay-pe'] = [
+$forms['astropay-pe'] = [
 	'gateway' => 'astropay',
 	'countries' => [ '+' => 'PE' ],
 	'currencies' => [ '+' => 'PEN' ],
