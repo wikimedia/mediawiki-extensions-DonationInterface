@@ -40,47 +40,33 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( [
-			'wgGlobalCollectGatewayEnabled' => true,
-			'wgPaypalGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'cc-vmad' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
-					'countries' => [
-						'+' => [ 'US', ],
-					],
-				],
-				'paypal' => [
-					'gateway' => 'paypal',
-					'payment_methods' => [ 'paypal' => 'ALL' ],
-				],
-			],
+			'wgAstroPayGatewayEnabled' => true,
+			'wgPaypalExpressGatewayEnabled' => true
 		] );
 	}
 
 	/**
-	 * This is meant to simulate a user choosing paypal, then going back and choosing GC.
+	 * This is meant to simulate a user choosing PayPal, then going back and choosing DLocal.
 	 */
-	public function testBackClickPayPalToGC() {
-		$options = $this->getDonorTestData( 'US' );
+	public function testBackClickPayPalToAstroPay() {
+		$options = $this->getDonorTestData( 'MX' );
 		$options['payment_method'] = 'paypal';
-		$options['ffname'] = 'paypal';
 		$paypalRequest = $this->setUpRequest( $options );
 
-		$gateway = new TestingPaypalLegacyAdapter();
-		$gateway->do_transaction( 'Donate' );
+		$gateway = new TestingPaypalExpressAdapter();
+		$gateway::setDummyGatewayResponseCode( 'OK' );
+		$gateway->do_transaction( 'SetExpressCheckout' );
+		$paypalCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
-		$paymentForms = $paypalRequest->getSessionData( 'PaymentForms' );
-		// check to see that we have a numAttempt and form set in the session
-		$this->assertEquals( 'paypal', $paymentForms[0], "Paypal didn't load its form." );
-		$this->assertSame( 1, $paypalRequest->getSessionData( 'numAttempt' ), "We failed to record the initial paypal attempt in the session" );
-		// now, get GC.
+		// now, get AstroPay.
 		$options['payment_method'] = 'cc';
-		unset( $options['ffname'] );
+		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
-		$gateway = new TestingGlobalCollectAdapter();
-		$response = $gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
 
+		$gateway = new TestingAstroPayAdapter();
+		$response = $gateway->do_transaction( 'NewInvoice' );
+		$astroPayCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->assertNotEquals( $astroPayCtId, $paypalCtId, 'Did not regenerate contribution tracking ID on gateway switch' );
 		$this->assertEmpty( $response->getErrors() );
 
 		$errors = '';

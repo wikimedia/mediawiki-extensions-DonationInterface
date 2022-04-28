@@ -79,7 +79,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			TestingGenericAdapter::class,
 			TestingGlobalCollectAdapter::class,
 			TestingPaypalExpressAdapter::class,
-			TestingPaypalLegacyAdapter::class,
 		];
 		foreach ( $testing_adapters as $testing_adapter ) {
 			$testing_adapter::setDummyGatewayResponseCode( null );

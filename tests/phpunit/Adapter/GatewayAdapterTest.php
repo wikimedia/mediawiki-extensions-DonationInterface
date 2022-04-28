@@ -48,7 +48,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 				],
 				'rapidFailError' => [
 					'file' => 'error-cc.html',
-					'gateway' => [ 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal' ],
+					'gateway' => [ 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal_ec' ],
 					'special_type' => 'error',
 				]
 			],

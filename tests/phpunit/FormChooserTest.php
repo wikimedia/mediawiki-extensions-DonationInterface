@@ -41,8 +41,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableFormChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
-			'wgPaypalGatewayEnabled' => true,
-			'wgPaypalExpressGatewayEnabled' => false,
+			'wgPaypalExpressGatewayEnabled' => true,
 			'wgDonationInterfaceGatewayAdapters' => [
 				'globalcollect' => 'GlobalCollectAdapter',
 				'ingenico' => 'IngenicoAdapter',
@@ -50,7 +49,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 				'adyen' => 'AdyenCheckoutAdapter',
 				'astropay' => 'AstroPayAdapter',
 				'paypal_ec' => 'PaypalExpressAdapter',
-				'paypal' => 'PaypalLegacyAdapter',
 			]
 		] );
 	}
@@ -104,7 +102,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 				'Location' => function ( $val ) {
 					$qs = [];
 					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
-					$this->assertEquals( 'paypal', $qs['ffname'], 'Wrong form' );
+					$this->assertEquals( 'paypal_ec', $qs['ffname'], 'Wrong form' );
 				}
 			],
 		];

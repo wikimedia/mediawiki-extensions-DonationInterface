@@ -475,19 +475,6 @@ $forms['rcc-ingenico'] = [
 ];
 
 // Paypal
-$forms['paypal'] = [
-	'gateway' => 'paypal',
-	'payment_methods' => [ 'paypal' => 'ALL' ],
-	'selection_weight' => 10,
-];
-
-$forms['paypal-recurring'] = [
-	'gateway' => 'paypal',
-	'payment_methods' => [ 'paypal' => 'ALL' ],
-	'recurring',
-	'selection_weight' => 10,
-];
-
 $forms['paypal_ec'] = [
 	'gateway' => 'paypal_ec',
 	'payment_methods' => [ 'paypal' => 'ALL' ],
@@ -928,12 +915,12 @@ $forms['adyen-test-recurring'] = [
 
 // Error Pages
 $forms['error-default'] = [
-	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal_ec' ],
 	'special_type' => 'error',
 ];
 
 $forms['error-noform'] = [
-	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal_ec' ],
 	'special_type' => 'error',
 ];
 
@@ -944,7 +931,7 @@ $forms['error-cc'] = [
 ];
 
 $forms['error-cancel'] = [
-	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal', 'paypal_ec' ],
+	'gateway' => [ 'globalcollect', 'ingenico', 'adyen', 'amazon', 'astropay', 'paypal_ec' ],
 	'payment_status' => [ FinalStatus::CANCELLED ],
 	'special_type' => 'error',
 ];

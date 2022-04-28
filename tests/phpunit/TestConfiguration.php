@@ -61,8 +61,6 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceThankYouPage,
 	$wgDonationInterface3DSRules,
 	$wgGlobalCollectGatewayAccountInfo,
-	$wgPaypalGatewayAccountInfo,
-	$wgPaypalGatewayReturnURL,
 	$wgPaypalExpressGatewayURL,
 	$wgPaypalExpressGatewayTestingURL,
 	$wgPaypalExpressGatewaySignatureURL,
@@ -107,7 +105,6 @@ $wgDonationInterfaceGatewayAdapters = [
 	'adyen' => AdyenCheckoutAdapter::class,
 	'astropay' => TestingAstroPayAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
-	'paypal' => TestingPaypalLegacyAdapter::class,
 ];
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
@@ -123,13 +120,6 @@ $wgGlobalCollectGatewayAccountInfo = [];
 $wgGlobalCollectGatewayAccountInfo['test'] = [
 	'MerchantID' => 'test',
 ];
-
-/** Paypal */
-$wgPaypalGatewayAccountInfo = [];
-$wgPaypalGatewayAccountInfo['testing'] = [
-	'AccountEmail' => 'phpunittesting@wikimedia.org',
-];
-$wgPaypalGatewayReturnURL = 'http://donate.wikimedia.org'; // whatever, doesn't matter.
 
 /** Paypal Express Checkout */
 $wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
