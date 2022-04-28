@@ -8,8 +8,4 @@ $specialPageAliases = [];
 $specialPageAliases['en'] = [
 	'PaypalExpressGateway' => [ 'PaypalExpressGateway' ],
 	'PaypalExpressGatewayResult' => [ 'PaypalExpressGatewayResult' ],
-	'PaypalLegacyGateway' => [
-		'PaypalLegacyGateway',
-		'PaypalGateway', // deprecated
-	],
 ];

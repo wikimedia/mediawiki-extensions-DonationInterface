@@ -15,7 +15,7 @@
 			"gateway_forms",
 			"globalcollect_gateway",
 			"ingenico_gateway",
-			"paypal_gateway",
+			"paypal_ec_gateway",
 			"DonationInterface.class.php"
 		],
 		"files": [
