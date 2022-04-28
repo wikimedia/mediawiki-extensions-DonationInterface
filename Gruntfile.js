@@ -19,7 +19,7 @@ module.exports = function ( grunt ) {
 			all: [
 				'{.,modules/**}/*.js{,on}',
 				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
-				'{adyen,amazon,globalcollect,ingenico,paypal}_gateway/**/*.js'
+				'{adyen,amazon,globalcollect,ingenico,paypal_ec}_gateway/**/*.js'
 			]
 		},
 		stylelint: {
@@ -36,7 +36,7 @@ module.exports = function ( grunt ) {
 				requireLowerCase: false
 			},
 			shared: 'gateway_common/i18n/*/',
-			gateways: '{adyen,amazon,astropay,globalcollect,paypal}_gateway/i18n/'
+			gateways: '{adyen,amazon,astropay,globalcollect,paypal_ec}_gateway/i18n/'
 		}
 	} );
 
