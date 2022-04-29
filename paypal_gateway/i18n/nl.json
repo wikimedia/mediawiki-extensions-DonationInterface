@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"paypal_gateway-desc": "Betalingsverwerking via PayPal"
+}

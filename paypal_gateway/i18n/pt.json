@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"paypal_gateway-desc": "Processamento de pagamentos PayPal"
+}

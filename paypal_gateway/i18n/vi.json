@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen"
+		]
+	},
+	"paypal_gateway-desc": "Xử lý thanh toán qua PayPal"
+}
