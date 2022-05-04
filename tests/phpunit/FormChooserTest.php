@@ -1,4 +1,8 @@
 <?php
+use MediaWiki\MediaWikiServices;
+use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
+
 /**
  * Wikimedia Foundation
  *
@@ -22,6 +26,15 @@
  * @group FormChooser
  */
 class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
+
+	/**
+	 * @var string
+	 */
+	protected $dir;
+	/**
+	 * @var string
+	 */
+	protected $gatewayConfigGlobPattern;
 
 	/**
 	 * @param string|null $name The name of the test case
@@ -55,6 +68,10 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 				'paypal_ec' => 'PaypalExpressAdapter',
 			]
 		] );
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$this->dir = $config->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface' . DIRECTORY_SEPARATOR;
+		$this->gatewayConfigGlobPattern = $this->dir . '*' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
+		$this->populateExtensionConfig();
 	}
 
 	public function testGetOneValidForm_CC_SpecificCountry() {
@@ -308,6 +325,84 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			if ( empty( $config['special_type'] ) || $config['special_type'] != 'error' ) {
 				$url = GatewayFormChooser::buildPaymentsFormURL( $ffname );
 				$this->assertNotNull( $url );
+			}
+		}
+	}
+
+	private function getExtensionConfig( $gateway ) {
+		$yaml = new Parser();
+		$configDir = $this->dir . $gateway . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "countries.yaml";
+		$config = glob( $configDir );
+		if ( $config ) {
+			$content = $yaml->parse( file_get_contents( $config[0] ) );
+			return $content;
+		}
+		return null;
+	}
+
+	private function populateExtensionConfig() {
+		global $wgDonationInterfaceAllowedHtmlForms;
+		$countryConfigArray = [];
+		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
+			if ( !empty( $config['countries'] ) ) {
+				$gateway = $config['gateway'] . "_gateway";
+				if ( array_key_exists( $gateway, $countryConfigArray ) ) {
+					$countries = $countryConfigArray[ $gateway ];
+				} else {
+					$countries = $this->getExtensionConfig( $gateway );
+				}
+				if ( array_key_exists( '+', $config['countries'] ) ) {
+					$configCountries = is_string( $config['countries']['+'] )
+							? [ $config['countries']['+'] ] : $config['countries']['+'];
+					$countryConfigArray[ $gateway ] = array_unique( array_merge( $countries, $configCountries ) );
+				}
+			}
+		}
+		foreach ( $countryConfigArray as $gateway => $countryList ) {
+			$yaml = Yaml::dump( $countryList );
+			$configDir = $this->dir . $gateway . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "countries.yaml";
+			file_put_contents( $configDir, $yaml );
+		}
+	}
+
+	public function testConfirmCountriesInCountryFieldsGatewayConfig() {
+		$yaml = new Parser();
+		$globPattern = $this->gatewayConfigGlobPattern . 'country_fields.yaml';
+
+		foreach ( glob( $globPattern ) as $path ) {
+			$gatewayDirArray = explode( DIRECTORY_SEPARATOR, $path );
+			$gateway = $gatewayDirArray[count( $gatewayDirArray ) - 3];
+			$gatewayDirConfig = $yaml->parse( file_get_contents( $path ) );
+			$extensionConfig = $this->getExtensionConfig( $gateway );
+			if ( $extensionConfig !== null ) {
+				foreach ( $gatewayDirConfig as $key => $value ) {
+					$this->assertContains( $key, $extensionConfig );
+				}
+			}
+		}
+	}
+
+	public function testConfirmCountriesInPaymentSubmethodsGatewayConfig() {
+		$yaml = new Parser();
+		$globPattern = $this->gatewayConfigGlobPattern . 'payment_submethods.yaml';
+
+		foreach ( glob( $globPattern ) as $path ) {
+			$gatewayDirArray = explode( DIRECTORY_SEPARATOR, $path );
+			$gateway = $gatewayDirArray[count( $gatewayDirArray ) - 3];
+			$gatewayDirConfig = $yaml->parse( file_get_contents( $path ) );
+			$extensionConfig = $this->getExtensionConfig( $gateway );
+			$configCountries = [];
+			if ( $extensionConfig !== null ) {
+				foreach ( $gatewayDirConfig as $payment_submethod => $config ) {
+					if ( array_key_exists( 'countries', $config ) ) {
+						$configCountries = array_merge( $configCountries, $config['countries'] );
+					}
+				}
+
+				foreach ( $configCountries as $key => $value ) {
+					$this->assertContains( $key, $extensionConfig, "$key in $gateway config" );
+				}
+
 			}
 		}
 	}
