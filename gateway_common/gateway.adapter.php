@@ -284,12 +284,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Get the directory for processor-specific classes and configuration
-	 * @return string
-	 */
-	abstract protected function getBasedir();
-
-	/**
 	 * defineTransactions will define the $transactions array.
 	 * The array will contain everything we need to know about the request structure for all the transactions we care about,
 	 * for the current gateway.

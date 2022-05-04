@@ -236,10 +236,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		return true;
 	}
 
-	public function getBasedir() {
-		return __DIR__;
-	}
-
 	public function do_transaction( $transaction ) {
 		$this->tuneForRecurring();
 		if ( $transaction === 'createHostedCheckout' ) {

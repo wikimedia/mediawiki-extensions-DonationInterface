@@ -86,8 +86,4 @@ class TestingGenericAdapter extends GatewayAdapter {
 		}
 		return parent::getDonationRules();
 	}
-
-	protected function getBasedir() {
-		return __DIR__;
-	}
 }

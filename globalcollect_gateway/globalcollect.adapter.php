@@ -558,10 +558,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		];
 	}
 
-	protected function getBasedir() {
-		return __DIR__;
-	}
-
 	public function doPayment() {
 		$payment_method = $this->getPaymentMethod();
 

@@ -168,10 +168,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return 'array';
 	}
 
-	protected function getBasedir() {
-		return __DIR__;
-	}
-
 	protected function defineTransactions() {
 		$this->transactions = [
 			'authorize' => [
