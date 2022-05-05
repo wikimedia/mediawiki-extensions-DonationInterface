@@ -1,16 +1,19 @@
 cc:
+    recurring: false
     validation:
         country: true
         name: true
         email: true
         payment_submethod: true
 bt:
+    recurring: false
     validation:
         country: true
         name: true
         email: true
         payment_submethod: true
 cash:
+    recurring: false
     validation:
         country: true
         name: true

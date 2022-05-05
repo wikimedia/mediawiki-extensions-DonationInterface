@@ -1,20 +1,24 @@
 bt:
+    recurring: false
     label: Bank transfer
     validation:
         country: true
     short_circuit_at: first_iop
 cc:
+    recurring: true
     label: Credit Cards
     validation:
         country: true
         name: true
         email: true
 dd:
+    recurring: false
     label: Direct Debit
     validation:
         country: true
     short_circuit_at: first_iop
 ew:
+    recurring: false
     label: eWallets
     validation:
         country: true
@@ -23,6 +27,7 @@ ew:
     additional_success_status:
         - 20
 obt:
+    recurring: false
     label: Online bank transfer
     validation:
         country: true
@@ -30,6 +35,7 @@ obt:
         email: true
     short_circuit_at: first_iop
 rtbt:
+    recurring: false
     label: Real time bank transfer
     validation:
         country: true
@@ -39,6 +45,7 @@ rtbt:
     additional_success_status:
         - 20
 cash:
+    recurring: false
     label: Cash payments
     short_circuit_at: first_iop
     additional_success_status:
