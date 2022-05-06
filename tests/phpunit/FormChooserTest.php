@@ -44,7 +44,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		$adapterclass = TESTS_ADAPTER_DEFAULT;
 		$this->testAdapterClass = $adapterclass;
-
 		parent::__construct( $name, $data, $dataName );
 	}
 
@@ -406,4 +405,133 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			}
 		}
 	}
+
+	public function testChooseGatewayByPrioritySingleRuleMatch() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceGatewayPriorityRules' => [
+				[
+					'conditions' => [ 'payment_method' => 'cc' ],
+					'gateways' => [ 'ingenico' ]
+				],
+				[
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'astropay' ]
+				]
+			]
+		] );
+
+		$testQueryParams = [
+			'uselang' => "en",
+			'language' => "en",
+			'currency' => "GBP",
+			'amount' => "10",
+			'country' => "GB",
+			'payment_method' => "cc",
+		];
+
+		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+		$expectedGateway = 'ingenico';
+
+		$gatewayFormChooser = new GatewayFormChooser();
+		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+
+		$this->assertEquals( $expectedGateway, $processor );
+	}
+
+	public function testChooseGatewayByPriorityMultiRuleMatch() {
+			$this->setMwGlobals( [
+				'wgDonationInterfaceGatewayPriorityRules' => [
+					[
+						'conditions' => [ 'payment_method' => 'cc', 'utm_medium' => 'endowment' ],
+						'gateways' => [ 'adyen' ]
+					],
+					[
+						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+					]
+				]
+			] );
+
+			$testQueryParams = [
+				'uselang' => "en",
+				'language' => "en",
+				'currency' => "USD",
+				'amount' => "20",
+				'country' => "US",
+				'payment_method' => "cc",
+				'utm_medium' => "endowment",
+			];
+
+			$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+			$expectedGateway = 'adyen';
+
+			$gatewayFormChooser = new GatewayFormChooser();
+			$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+
+			$this->assertEquals( $expectedGateway, $processor );
+	}
+
+	public function testChooseGatewayByPriorityConditionValueArrayRuleMatch() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceGatewayPriorityRules' => [
+				[
+					'conditions' => [ 'country' => [ 'US','GB','FR' ] ], // array as value
+					'gateways' => [ 'ingenico' ]
+				],
+				[
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'astropay' ]
+				]
+			]
+		] );
+
+		$testQueryParams = [
+			'currency' => "USD",
+			'amount' => "20",
+			'country' => "US",
+			'payment_method' => "cc",
+		];
+
+		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+		$expectedGateway = 'ingenico';
+
+		$gatewayFormChooser = new GatewayFormChooser();
+		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+
+		$this->assertEquals( $expectedGateway, $processor );
+	}
+
+	public function testChooseGatewayByPriorityStopsAtFirstRuleMatch() {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceGatewayPriorityRules' => [
+				[
+					'conditions' => [ 'payment_method' => 'cc', 'utm_medium' => 'endowment' ],
+					'gateways' => [ 'adyen' ]
+				],
+				[
+					'conditions' => [ 'payment_method' => 'cc' ], // we shouldn't get to this one
+					'gateways' => [ 'ingenico' ]
+				],
+				[
+					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+				]
+			]
+		] );
+
+		$testQueryParams = [
+			'uselang' => "en",
+			'language' => "en",
+			'currency' => "USD",
+			'amount' => "20",
+			'country' => "US",
+			'payment_method' => "cc",
+			'utm_medium' => "endowment",
+		];
+
+		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+		$expectedGateway = 'adyen';
+
+		$gatewayFormChooser = new GatewayFormChooser();
+		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+
+		$this->assertEquals( $expectedGateway, $processor );
+	}
+
 }
