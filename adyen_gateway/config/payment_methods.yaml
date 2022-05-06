@@ -1,20 +1,24 @@
 cc:
+    recurring: true
     label: Credit Cards
     validation:
         country: true
         name: true
         email: true
 rtbt:
+    recurring: true
     label: Real time bank transfer
     validation:
         country: true
         name: true
         email: true
 apple:
+    recurring: true
     label: Apple Pay
     validation:
         country: true
 google:
+    recurring: true
     label: Google Pay
     validation:
         country: true
