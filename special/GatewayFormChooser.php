@@ -158,10 +158,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		} else {
 			$form_info = self::getFormDefinition( $form_key );
 
-			if ( DataValidator::value_appears_in( 'redirect', $form_info ) ) {
-				$params['redirect'] = '1';
-			}
-
 			// support for multi-gateway forms, and error forms
 			$gateway = $form_info['gateway'];
 
@@ -347,31 +343,6 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Is the given country supported by the given form
-	 * @param string $country_iso All-caps ISO 3166-1 alpha-2
-	 * @param string $form_key Name of form
-	 * @return bool true if the country is supported
-	 */
-	protected static function isSupportedCountry( $country_iso, $form_key ) {
-		static $countries = [];
-		if ( !array_key_exists( $form_key, $countries ) ) {
-			$def = self::getFormDefinition( $form_key );
-			if ( !$def ) {
-				$countries[$form_key] = 'INVALID';
-			} elseif ( array_key_exists( 'countries', $def ) ) {
-				$countries[$form_key] = $def['countries'];
-			} else {
-				$countries[$form_key] = 'ALL';
-			}
-		}
-
-		if ( DataValidator::value_appears_in( $country_iso, $countries[$form_key] ) ) {
-			return true;
-		}
-		return false;
 	}
 
 	/**

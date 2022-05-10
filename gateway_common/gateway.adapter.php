@@ -18,6 +18,7 @@
  */
 
 use ForceUTF8\Encoding;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
 use Psr\Log\LogLevel;
@@ -283,12 +284,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Get the directory for processor-specific classes and configuration
-	 * @return string
-	 */
-	abstract protected function getBasedir();
-
-	/**
 	 * defineTransactions will define the $transactions array.
 	 * The array will contain everything we need to know about the request structure for all the transactions we care about,
 	 * for the current gateway.
@@ -358,35 +353,9 @@ abstract class GatewayAdapter implements GatewayType {
 	abstract protected function defineOrderIDMeta();
 
 	public function loadConfig( $variant = null ) {
-		$configurationReader = new ConfigurationReader();
-
-		// register general config dir
-		// TODO: get this path using $wg ext var
-		$configDir = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
-		$configurationReader->registerConfigDirectory( $configDir );
-
-		// register processor base config dir
-		$baseConfigDirSuffix = DIRECTORY_SEPARATOR . 'config';
-		$configurationReader->registerConfigDirectory( $this->getBasedir() . $baseConfigDirSuffix );
-
-		// register local config dir if set as well as gateway-specific subdirectory
-		if ( $this->getGlobal( 'LocalConfigurationDirectory' ) ) {
-			$localConfigDir = $this->getGlobal( 'LocalConfigurationDirectory' );
-			$configurationReader->registerConfigDirectory( $localConfigDir );
-			$gatewaySpecificSuffix = DIRECTORY_SEPARATOR . static::getIdentifier();
-			$configurationReader->registerConfigDirectory( $localConfigDir . $gatewaySpecificSuffix );
-		}
-
-		// register variant config dir if set
-		if ( $variant !== null
-			&& $this->getGlobal( 'VariantConfigurationDirectory' )
-			&& preg_match( '/^[a-zA-Z0-9_]+$/', $variant )
-		) {
-			$variantConfigDirSuffix = DIRECTORY_SEPARATOR . $variant . DIRECTORY_SEPARATOR . static::getIdentifier();
-			$variantConfigDir = $this->getGlobal( 'VariantConfigurationDirectory' ) . $variantConfigDirSuffix;
-			$configurationReader->registerConfigDirectory( $variantConfigDir );
-		}
-
+		$configurationReader = ConfigurationReader::createForGateway(
+			static::getIdentifier(), $variant, MediaWikiServices::getInstance()->getMainConfig()
+		);
 		$this->config = $configurationReader->readConfiguration();
 	}
 

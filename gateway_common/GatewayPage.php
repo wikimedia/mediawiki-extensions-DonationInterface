@@ -72,7 +72,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$language = $this->getRequest()->getVal( 'language' );
 		if ( !$language ) {
 			// For some result pages, language does not come in on a standard URL param
-			// (langauge or uselang). For those cases, it's pretty safe to assume the
+			// (language or uselang). For those cases, it's pretty safe to assume the
 			// correct language is in session.
 			// FIXME Restrict the places where we access session data
 			$donorData = WmfFramework::getSessionValue( 'Donor' );

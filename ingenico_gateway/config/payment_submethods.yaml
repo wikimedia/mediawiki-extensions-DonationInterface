@@ -16,11 +16,6 @@ visa-electron:
     group: cc
     keys: { }
     logo: card-visa-lg.png
-# We need the visa-electron entry in our decoder ring, but we don't want it to
-# appear on any forms. Hence we say it should only appear for invalid country
-# code XX. Bit of a hack, but it works!
-    countries:
-        XX: true
 mc:
     paymentproductid: 3
     label_key: donate_interface-card-name-mc

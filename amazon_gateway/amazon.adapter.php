@@ -127,10 +127,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->transactions = [];
 	}
 
-	protected function getBasedir() {
-		return __DIR__;
-	}
-
 	/**
 	 * Note that the Amazon adapter is somewhat unique in that it uses a third
 	 * party SDK to make all processor API calls.  Since we're never calling
