@@ -163,6 +163,7 @@
 	"donate_interface-error-msg-nopaypal": "Dėl techninės klaidos mes negalime išsiųsti jūsų užklausimo į PayPal. Pabandykite naudoti aukojimo kredito kortele formą.",
 	"donate_interface-error-msg-validation": "Prašome ištaisyti klaidas formoje.",
 	"donate_interface-error-msg-invalid-amount": "Prašome įvesti tinkamą sumą",
+	"donate_interface-error-msg-invalid-currency": "Prašome pasirinkti galiojančią valiutą",
 	"donate_interface-error-msg-invalid-email": "Prašome įvesti galiojantį el. pašto adresą",
 	"donate_interface-error-msg-card-num": "Prašome įvesti galiojantį kreditinės kortelės numerį vienam iš tinkamų kreditinių kortelių tipų",
 	"donate_interface-error-msg-amex": "Prašome įvesti teisingą American Express kortelės numerį",
