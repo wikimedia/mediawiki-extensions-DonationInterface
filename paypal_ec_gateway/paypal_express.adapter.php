@@ -417,10 +417,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function getBasedir() {
-		return __DIR__;
-	}
-
 	public function doPayment() {
 		$this->config['transformers'][] = 'PaypalExpressReturnUrl';
 		$this->data_transformers[] = new PaypalExpressReturnUrl();

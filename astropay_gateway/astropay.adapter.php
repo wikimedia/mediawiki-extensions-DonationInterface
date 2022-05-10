@@ -185,10 +185,6 @@ class AstroPayAdapter extends GatewayAdapter {
 		];
 	}
 
-	protected function getBasedir() {
-		return __DIR__;
-	}
-
 	public function definePaymentMethods() {
 		parent::definePaymentMethods();
 
