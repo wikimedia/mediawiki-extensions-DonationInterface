@@ -80,6 +80,7 @@
 		"AmountInCents": "gateway_common/AmountInCents.php",
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
+		"EmployerFieldValidation": "gateway_common/EmployerFieldValidation.php",
 		"ClientErrorApi": "gateway_common/clientError.api.php",
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",

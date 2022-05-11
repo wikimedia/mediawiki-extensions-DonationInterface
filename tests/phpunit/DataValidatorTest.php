@@ -156,4 +156,31 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 			"$value $expectation be a valid fiscal number for $country"
 		);
 	}
+
+	public function employerProvider() {
+		return [
+			[ '4444 3333 2222 1111', true ],
+			[ '3 mobile', false ],
+			[ '4444 3333 2222 1111 mobile', true ],
+		];
+	}
+
+	/**
+	 * @dataProvider employerProvider
+	 * TODO: Test modular validator integration with DonationData
+	 */
+	public function testValidateEmployerField( $value, $hasError ) {
+		$validator = new EmployerFieldValidation();
+		$errors = new ErrorState();
+		$validator->validate(
+			new TestingGenericAdapter(),
+			[ 'employer' => $value ],
+			$errors
+		);
+		$this->assertEquals(
+			$hasError,
+			$errors->hasValidationError( 'employer' ),
+			"employer input should be invalid"
+		);
+	}
 }

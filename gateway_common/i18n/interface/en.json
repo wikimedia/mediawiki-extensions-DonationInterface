@@ -210,6 +210,7 @@
 	"donate_interface-error-msg-invalid-city": "Please correct the errors in your city",
 	"donate_interface-error-msg-invalid-postal_code-us": "Please correct the errors in your zip code",
 	"donate_interface-error-msg-invalid-postal_code": "Please correct the errors in your postal code",
+	"donate_interface-error-msg-invalid-employer": "Invalid employer name.",
 	"donate_interface-error-msg-country": "Please enter your country",
 	"donate_interface-error-msg-card_num": "credit card number",
 	"donate_interface-error-msg-expiration": "Please enter the card's expiration date",

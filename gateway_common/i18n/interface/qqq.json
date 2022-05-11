@@ -258,6 +258,7 @@
 	"donate_interface-error-msg-captcha-please": "Message given the user if he/she has to fill out a [[w:en:CAPTCHA|CAPTCHA]] before the donation is fulfilled.",
 	"donate_interface-error-msg-cookies": "Error message if the user's browser has cookies disabled",
 	"donate_interface-error-msg-country-calc": "This error message should only specify that we are unable to accept the donation at this time.",
+	"donate_interface-error-msg-invalid-employer": "This error message specifies that the employer name is invalid.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-fiscal_number": "Error message for missing fiscal number. Country-specific variants should be given a new message key with a hyphen and the country code appended.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-fiscal_number-ar": "{{optional}}\nArgentina-specific error message for missing.",
 	"donate_interface-error-msg-fiscal_number-bo": "{{optional}}\nBolivia-specific error message for missing {{Identical|NIT}}",
