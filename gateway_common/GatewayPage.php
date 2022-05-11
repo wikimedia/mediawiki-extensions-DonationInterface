@@ -150,7 +150,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		Hooks::register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
+		$this->getHookContainer()->register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
 
 		try {
 			$this->handleRequest();
