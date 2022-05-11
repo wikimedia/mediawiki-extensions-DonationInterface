@@ -1,7 +1,6 @@
 <?php
 use MediaWiki\MediaWikiServices;
 use Symfony\Component\Yaml\Parser;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Wikimedia Foundation
@@ -71,7 +70,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$this->dir = $config->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface' . DIRECTORY_SEPARATOR;
 		$this->gatewayConfigGlobPattern = $this->dir . '*' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
-		$this->populateExtensionConfig();
 	}
 
 	public function testGetOneValidForm_CC_SpecificCountry() {
@@ -338,31 +336,6 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			return $content;
 		}
 		return null;
-	}
-
-	private function populateExtensionConfig() {
-		global $wgDonationInterfaceAllowedHtmlForms;
-		$countryConfigArray = [];
-		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
-			if ( !empty( $config['countries'] ) ) {
-				$gateway = $config['gateway'] . "_gateway";
-				if ( array_key_exists( $gateway, $countryConfigArray ) ) {
-					$countries = $countryConfigArray[ $gateway ];
-				} else {
-					$countries = $this->getExtensionConfig( $gateway );
-				}
-				if ( array_key_exists( '+', $config['countries'] ) ) {
-					$configCountries = is_string( $config['countries']['+'] )
-							? [ $config['countries']['+'] ] : $config['countries']['+'];
-					$countryConfigArray[ $gateway ] = array_unique( array_merge( $countries, $configCountries ) );
-				}
-			}
-		}
-		foreach ( $countryConfigArray as $gateway => $countryList ) {
-			$yaml = Yaml::dump( $countryList );
-			$configDir = $this->dir . $gateway . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "countries.yaml";
-			file_put_contents( $configDir, $yaml );
-		}
 	}
 
 	public function testConfirmCountriesInCountryFieldsGatewayConfig() {
