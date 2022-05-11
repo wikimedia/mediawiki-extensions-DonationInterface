@@ -177,16 +177,18 @@ $wgDonationInterfaceLogCompleted = false
 
 ==== Currency and amounts ====
 
-Configure price ceiling and floor for valid contribution amount. Values
-should be in USD. These are set in the donation_rules.yaml file on a
-per-country basis.
+Configure price ceiling and floor for valid contribution amount. The top
+level key should be 'default' for all countries, or a two letter country
+code to set the min and max for a specific country. A currency should be
+specified for each country and the default. These are set in the
+donation_rules.yaml file in the top-level config directory and can also
+be set for specific gateways in a file of the same name in the gateway's
+own config directory.
 
-US:
+default:
+    currency: USD
     min: 1.00
     max: 10000.00
-IN:
-    min: 0.95
-    max: 3000.00
 
 If set to a currency code, gateway forms will try to convert amounts
 in unsupported currencies to the fallback instead of just showing

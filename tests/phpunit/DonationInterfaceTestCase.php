@@ -91,6 +91,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 		self::setUpSmashPigContext();
 		TestingGenericAdapter::$donationRules = [
+			'currency' => 'USD',
 			'min' => 1.00,
 			'max' => 10000.00
 		];
