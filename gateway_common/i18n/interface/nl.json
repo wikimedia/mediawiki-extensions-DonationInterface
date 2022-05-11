@@ -405,7 +405,7 @@
 	"donate_interface-monthly-convert-enter-amount": "Vul het maandelijkse bedrag in waarmee u volgende maand wilt starten.",
 	"donate_interface-monthly-convert-action-button": "Doneer maandelijks",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nee, bedankt",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ik voeg een maandelijkse gift van %amount% toe",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ik voeg een maandelijkse gift van <span class=\"mc-convert-ask\"></span> toe",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nee, bedankt!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nee, nu niet",
 	"donate_interface-fundraiser-maintenance-header": "Tijdelijk niet beschikbaar wegens onderhoudswerkzaamheden",
