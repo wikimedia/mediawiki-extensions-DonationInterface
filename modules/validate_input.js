@@ -7,8 +7,8 @@ window.validateAmount = function () {
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
 		currency = '',
 		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
-		rate,
-		minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
+		amountRules = mw.config.get( 'wgDonationInterfaceAmountRules' ),
+		minimumInDonationCurrency,
 		minDisplay,
 		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
 		$amountMsg = $( '#amountMsg' ),
@@ -39,16 +39,19 @@ window.validateAmount = function () {
 	// Check amount is a real number, sets error as true (good) if no issues
 	error = ( amount === null || isNaN( amount ) || amount.value <= 0 );
 
-	if ( ( typeof rates[ currency ] ) === 'undefined' ) {
-		rate = 1;
+	if ( currency === amountRules.currency || ( typeof rates[ currency ] ) === 'undefined' ) {
+		minimumInDonationCurrency = amountRules.min;
 	} else {
-		rate = rates[ currency ];
+		// Rates are all relative to USD, so we divide the configured minimum by its corresponding
+		// rate to get the minimum in USD, then multiply by the rate of the donation currency to get
+		// the minimum in the donation currency.
+		minimumInDonationCurrency = amountRules.min / rates[ amountRules.currency ] * rates[ currency ];
 	}
 	// if we're on a new form, clear existing amount error
 	$amountMsg.removeClass( 'errorMsg' ).addClass( 'errorMsgHide' ).text( '' );
-	if ( ( amount < minUsd * rate ) || error ) {
+	if ( ( amount < minimumInDonationCurrency ) || error ) {
 		// Round to two decimal places (TODO: no decimals for some currencies)
-		minDisplay = Math.round( minUsd * rate * 100 ) / 100;
+		minDisplay = Math.round( minimumInDonationCurrency * 100 ) / 100;
 		message = message.replace( '$1', minDisplay + ' ' + currency );
 		$amountMsg.removeClass( 'errorMsgHide' ).addClass( 'errorMsg' ).text( message );
 
