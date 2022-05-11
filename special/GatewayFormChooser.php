@@ -110,13 +110,43 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			unset( $params['currency_code'] );
 		}
 
-		$redirectURL = self::buildPaymentsFormURL( $form, $params );
+		$formDef = self::getFormDefinition( $form );
+		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params );
 
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
 	}
 
 	/**
+	 * Build a URL to a payments form with the data that we have.
+	 *
+	 * @param string $gateway The short name of the payment gateway.
+	 * @param array $params An array of params to send to the gateway page.
+	 *
+	 * @return string URL of special page for $gateway with $params on the querystring.
+	 */
+	public function buildGatewayPageUrl( string $gateway, array $params ) {
+		$mwConfig = $this->getConfig();
+		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
+
+		$params = array_merge( [
+			'appeal' => $mwConfig->get( 'DonationInterfaceDefaultAppeal' ),
+		], $params );
+
+		// The special page name is the gateway adapter class name with 'Adapter'
+		// replaced with 'Gateway'.
+		$specialPage = str_replace(
+			'Adapter',
+			'Gateway',
+			$gatewayClasses[$gateway]
+		);
+		return self::getTitleFor( $specialPage )->getLocalURL( $params );
+	}
+
+	/**
+	 * @deprecated Use buildRedirectUrl instead
+	 * TODO: delete once we refactor error forms.
+	 *
 	 * Build a URL to a payments form, with the data that we have.
 	 * If we have supplied no form_key, it will build a URL to the form
 	 * chooser itself, so we can get a new one that satisfies the
