@@ -780,6 +780,9 @@
 		"DonationInterfaceEnableFormChooser": {
 			"value": false
 		},
+		"DonationInterfaceGatewayPriorityRules": {
+			"value": []
+		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false
 		},
