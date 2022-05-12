@@ -64,6 +64,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 				'adyen' => 'AdyenCheckoutAdapter',
 				'astropay' => 'AstroPayAdapter',
 				'paypal_ec' => 'PaypalExpressAdapter',
+				'braintree' => 'BraintreeAdapter'
 			]
 		] );
 		$config = MediaWikiServices::getInstance()->getMainConfig();
