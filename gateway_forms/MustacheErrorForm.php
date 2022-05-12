@@ -1,5 +1,7 @@
 <?php
 
+use Smashpig\PaymentData\FinalStatus;
+
 /**
  * Renders error forms from Mustache templates
  */
@@ -48,17 +50,21 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 	protected function addMessageParameters( &$data ) {
 		// Add otherways_url
 		$data += $this->getUrlsAndEmails();
+		global $wgDonationInterfaceFundraiserMaintenance;
 		// set the appropriate header
-		$headers = [
-			'error-cc' => 'php-response-declined',
-			'error-cancel' => 'donate_interface-donation-cancelled-header',
-			'error-default' => 'donate_interface-error-msg-general',
-			'error-noform' => 'donate_interface-error-msg-general',
-			'maintenance' => 'donate_interface-maintenance-notice',
-		];
-		$form = $data['ffname'];
-		$data['header_key'] = $headers[$form];
-		$data[$form] = true;
+		if ( $this->gateway->getFinalStatus() === FinalStatus::CANCELLED ) {
+			$data['header_key'] = 'donate_interface-donation-cancelled-header';
+			$data['error-cancel'] = true;
+		} elseif ( $data['payment_method'] === 'cc' ) {
+			$data['header_key'] = 'php-response-declined';
+			$data['error-cc'] = true;
+		} elseif ( $wgDonationInterfaceFundraiserMaintenance === true ) {
+			$data['header_key'] = 'donate_interface-maintenance-notice';
+			$data['maintenance'] = true;
+		} else {
+			$data['header_key'] = 'donate_interface-error-msg-general';
+			$data['error-default'] = true;
+		}
 	}
 
 	protected function getTopLevelTemplate() {
