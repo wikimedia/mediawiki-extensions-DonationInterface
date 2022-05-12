@@ -28,7 +28,8 @@
 			"Xabier Armendaritz",
 			"Yekrats",
 			"Zoranzoki21",
-			"Тест"
+			"Тест",
+			"Klein Muçi"
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
@@ -282,7 +283,7 @@
 	"donate_interface-error-msg-apple_pay_unsupported": "Message shown to donors loading an Apple Pay form in an unsupported browser, instructing them to open the link in Safari. Parameters:\n* $1 - link to other payment methods",
 	"donate_interface-error-msg-google_pay_unsupported": "Message shown to donors loading an Google Pay form in an unsupported browser, instructing them to open the link in Chrome. Parameters:\n* $1 - link to other payment methods",
 	"donate_interface-error-msg-opt_in": "Error message shown when the when the donor has been shown email opt-in buttons but has not selected one.",
-	"donate_interface-donate-error-try-a-different-card": "This message will be displayed in the the article /index.php/Donate-error. Parameters:\n* $1 - link back to the form to try another credit card\n* $2 - link to other payment methods\n* $3 - an e-mail address link such as: mailto:someone@example.com",
+	"donate_interface-donate-error-try-a-different-card": "This message will be displayed in the article /index.php/Donate-error. Parameters:\n* $1 - link back to the form to try another credit card\n* $2 - link to other payment methods\n* $3 - an e-mail address link such as: mailto:someone@example.com",
 	"donate_interface-donate-error-try-a-different-card-html": "{{Related|donate_interface-donate-error-try-a-different-card}}This message will be displayed in the payments form where the donor can select a different card type. Parameters:\n* $1 - link to other payment methods\n* $2 - an e-mail address link such as: mailto:someone@example.com",
 	"donate_interface-donate-error-try-again-html": "This html-formatted message will be used on dynamic error pages for all payment types.\n\nParameters:\n* $1 - link back to the payments form most recently used by the donor, to try again\n* $2 - link to other payment methods\n* $3 - an email address, where the donor can report problems. Example: donate@wikimedia.org",
 	"donate_interface-donation-cancelled-header": "Header text indicating that a transaction was successfully cancelled, shown on an page styled like the error pages.",
