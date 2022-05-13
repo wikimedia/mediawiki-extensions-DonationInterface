@@ -2375,9 +2375,8 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getFormClass() {
-		$ffname = $this->dataObj->getVal( 'ffname' );
-		if ( strpos( $ffname, 'error' ) === 0
-			|| strpos( $ffname, 'maintenance' ) === 0 ) {
+		if ( $this->dataObj->getVal( 'showError' )
+		) {
 			return 'MustacheErrorForm';
 		}
 		return 'Gateway_Form_Mustache';

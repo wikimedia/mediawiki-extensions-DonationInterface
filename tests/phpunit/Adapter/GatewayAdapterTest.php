@@ -45,11 +45,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'wgDonationInterfaceAllowedHtmlForms' => [
 				'testytest' => [
 					'gateway' => 'globalcollect', // RAR.
-				],
-				'rapidFailError' => [
-					'file' => 'error-cc.html',
-					'gateway' => [ 'globalcollect', 'adyen', 'amazon', 'astropay', 'paypal_ec' ],
-					'special_type' => 'error',
 				]
 			],
 		] );
@@ -394,39 +389,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			$exposed->getData_Unstaged_Escaped( 'postal_code' ),
 			'The postal code placeholder is only for AVS, not for our records.'
 		);
-	}
-
-	public function testGetRapidFailPage() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceRapidFail' => true,
-		] );
-		$options = $this->getDonorTestData( 'US' );
-		$options['payment_method'] = 'cc';
-		$gateway = $this->getFreshGatewayObject( $options );
-		$this->assertEquals( 'rapidFailError', ResultPages::getFailPage( $gateway ) );
-	}
-
-	public function testGetFallbackFailPage() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceRapidFail' => false,
-			'wgDonationInterfaceFailPage' => 'Main_Page', // coz we know it exists
-		] );
-		$options = $this->getDonorTestData( 'US' );
-		$gateway = $this->getFreshGatewayObject( $options );
-		$page = ResultPages::getFailPage( $gateway );
-		$expectedTitle = Title::newFromText( 'Main_Page' );
-		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
-		$this->assertEquals( $expectedURL, $page );
-	}
-
-	/**
-	 * TODO: Move to ResultsPagesTest.php
-	 */
-	public function testGetFailPageForType() {
-		$url = ResultPages::getFailPageForType( 'GlobalCollectAdapter' );
-		$expectedTitle = Title::newFromText( 'Donate-error' );
-		$expectedURL = wfAppendQuery( $expectedTitle->getFullURL(), 'uselang=en' );
-		$this->assertEquals( $expectedURL, $url );
 	}
 
 	public function testCancelPage() {

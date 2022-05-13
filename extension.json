@@ -525,9 +525,6 @@
 		"DonationInterfaceNoScriptRedirect": {
 			"value": null
 		},
-		"DonationInterfaceRapidFail": {
-			"value": false
-		},
 		"DonationInterfaceThankYouPage": {
 			"value": "Donate-thanks"
 		},

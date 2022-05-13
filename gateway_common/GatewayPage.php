@@ -190,41 +190,25 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( $form );
 		} else {
 			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
-			$this->displayFailPage( false );
+			$this->displayFailPage();
 		}
 	}
 
 	/**
 	 * Display a failure page
-	 *
-	 * @param bool $allowRapid Whether to allow rendering a RapidFail form
-	 *  renderForm sets this to false on failure to avoid an infinite loop
 	 */
-	public function displayFailPage( $allowRapid = true ) {
-		$output = $this->getOutput();
-
-		if ( $this->adapter && $allowRapid ) {
-			$page = ResultPages::getFailPage( $this->adapter );
-			// FIXME: Structured data $page rather than a union.  displayForm
-			// will add the ffname if needed.
-			if ( !filter_var( $page, FILTER_VALIDATE_URL ) ) {
-				// If it's not a URL, we're rendering a RapidFail form
-				$this->logger->info( "Displaying fail form $page" );
-				$this->adapter->addRequestData( [ 'ffname' => $page ] );
-				$this->displayForm();
-				return;
-			}
+	public function displayFailPage() {
+		if ( $this->adapter ) {
+			$this->adapter->addRequestData( [ 'showError' => true ] );
+			$this->displayForm();
 		} else {
-			$gatewayName = $this->getGatewayIdentifier();
-			$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
-			$page = ResultPages::getFailPageForType(
-				$className,
-				$this->getLogPrefix()
-			);
+			$output = $this->getOutput();
+			$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
+			$output->addHTML( $this->msg(
+				'donate_interface-otherways',
+				[ $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ]
+			)->plain() );
 		}
-		$log_message = "Redirecting to [{$page}]";
-		$this->logger->info( $log_message );
-		$output->redirect( $page );
 	}
 
 	/**
@@ -397,10 +381,15 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->renderIframe( $url );
 		} elseif ( $form = $result->getForm() ) {
 			// Show another form.
-
-			$this->adapter->addRequestData( [
-				'ffname' => $form,
-			] );
+			if ( str_starts_with( $form, 'error' ) || str_starts_with( $form, 'maintenance' ) ) {
+				$this->adapter->addRequestData( [
+					'showError' => true,
+				] );
+			} else {
+				$this->adapter->addRequestData( [
+					'ffname' => $form,
+				] );
+			}
 			$this->displayForm();
 		} elseif (
 			count( $result->getErrors() )

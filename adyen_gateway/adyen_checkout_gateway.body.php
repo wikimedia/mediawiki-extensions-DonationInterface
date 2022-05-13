@@ -43,15 +43,11 @@ class AdyenCheckoutGateway extends GatewayPage {
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		$vars['adyenConfiguration'] = $this->adapter->getCheckoutConfiguration();
-
-		$failPage = ResultPages::getFailPage( $this->adapter );
-		if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
-			// It's a rapidfail form, but we need an actual URL:
-			$failPage = GatewayChooser::buildPaymentsFormURL(
-				$failPage,
-				[ 'gateway' => 'adyen' ]
-			);
-		}
+		$failPage = GatewayChooser::buildGatewayPageUrl(
+			'adyen',
+			[ 'showError' => true ],
+			$this->getConfig()
+		);
 		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
