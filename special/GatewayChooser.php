@@ -111,7 +111,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		}
 
 		$formDef = self::getFormDefinition( $form );
-		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params );
+		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params, $this->getConfig() );
 
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
@@ -122,11 +122,11 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 *
 	 * @param string $gateway The short name of the payment gateway.
 	 * @param array $params An array of params to send to the gateway page.
+	 * @param MultiConfig $mwConfig MediaWiki Config
 	 *
 	 * @return string URL of special page for $gateway with $params on the querystring.
 	 */
-	public function buildGatewayPageUrl( string $gateway, array $params ) {
-		$mwConfig = $this->getConfig();
+	public static function buildGatewayPageUrl( string $gateway, array $params, MultiConfig $mwConfig ) {
 		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
 
 		$params = array_merge( [
