@@ -110,13 +110,43 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 			unset( $params['currency_code'] );
 		}
 
-		$redirectURL = self::buildPaymentsFormURL( $form, $params );
+		$formDef = self::getFormDefinition( $form );
+		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params );
 
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
 	}
 
 	/**
+	 * Build a URL to a payments form with the data that we have.
+	 *
+	 * @param string $gateway The short name of the payment gateway.
+	 * @param array $params An array of params to send to the gateway page.
+	 *
+	 * @return string URL of special page for $gateway with $params on the querystring.
+	 */
+	public function buildGatewayPageUrl( string $gateway, array $params ) {
+		$mwConfig = $this->getConfig();
+		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
+
+		$params = array_merge( [
+			'appeal' => $mwConfig->get( 'DonationInterfaceDefaultAppeal' ),
+		], $params );
+
+		// The special page name is the gateway adapter class name with 'Adapter'
+		// replaced with 'Gateway'.
+		$specialPage = str_replace(
+			'Adapter',
+			'Gateway',
+			$gatewayClasses[$gateway]
+		);
+		return self::getTitleFor( $specialPage )->getLocalURL( $params );
+	}
+
+	/**
+	 * @deprecated Use buildRedirectUrl instead
+	 * TODO: delete once we refactor error forms.
+	 *
 	 * Build a URL to a payments form, with the data that we have.
 	 * If we have supplied no form_key, it will build a URL to the form
 	 * chooser itself, so we can get a new one that satisfies the
@@ -648,4 +678,107 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 		return key( $error_forms );
 	}
 
+	/**
+	 * In here we're gonna check a predefined list of
+	 * priority rules to see which of the available gateways
+	 * best fits the user parameters.
+	 *
+	 * Example rules would look like:
+	 * $rules = [
+	 *    [
+	 * 	    'conditions' => [ 'utm_medium' => 'endowment' ],
+	 * 	    'gateways' => [ 'ingenico', 'paypal_ec' ]
+	 * 	  ],
+	 *    [
+	 *      'conditions' => [
+	 *        'payment_method' => 'cc',
+	 *        'country' => [ 'NL', 'IL', 'FR' ]
+	 *      ],
+	 *      'gateways' => [ 'adyen', 'ingenico' ]
+	 *    ],
+	 *    [
+	 * 	    # No conditions, this is treated as default.
+	 * 		# Should be last in the list as it will always match.
+	 * 	    'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+	 * 	  ]
+	 * ];
+	 *
+	 * @param array $supportedGateways List of gateway codes assumed to
+	 *  support the requested country / currency / payment_method
+	 * @param array $params Query-string parameters
+	 * @return string|null Selected gateway code
+	 */
+	public function chooseGatewayByPriority( $supportedGateways, $params ) {
+		$rules = $this->getConfig()->get( 'DonationInterfaceGatewayPriorityRules' );
+
+		foreach ( $rules as $rule ) {
+			// Do our $params match all the conditions for this rule?
+			// A rule with no conditions will always be matched.
+			$ruleMatches = true;
+			if ( isset( $rule['conditions'] ) ) {
+				// Loop over all the conditions looking for any that don't match
+				foreach ( $rule['conditions'] as $conditionName => $conditionValue ) {
+					// If the key of a condition is not in the params, the rule does not match
+					if ( !isset( $params[$conditionName] ) ) {
+						$ruleMatches = false;
+						break;
+					}
+					// Condition value is a list, e.g. of countries
+					if ( is_array( $conditionValue ) ) {
+						if ( in_array( $params[$conditionName], $conditionValue ) ) {
+							continue;
+						} else {
+							$ruleMatches = false;
+							break;
+						}
+					}
+					// Condition value is a scalar, just check it against the param value
+					if ( $params[$conditionName] == $conditionValue ) {
+						continue;
+					} else {
+						$ruleMatches = false;
+						break;
+					}
+				}
+			}
+			if ( $ruleMatches ) {
+				// Find the first in the rule's gateways list which is in $supportedGateways
+				foreach ( $rule['gateways'] as $ruleGateway ) {
+					if ( in_array( $ruleGateway, $supportedGateways ) ) {
+						return $ruleGateway;
+					}
+				}
+				// Complain, this is fishy. If for example a rule states that all endowment donations
+				// should go to gateways X and Y, and we get to this point, it means an endowment
+				// donation has come in for a method or country not supported by gateways X or Y.
+				$conditionMessage = isset( $rule['conditions'] ) ?
+					'rule with conditions ' . print_r( $rule['conditions'], true ) :
+					'default rule';
+				$this->logger->warning(
+					'Matched ' . $conditionMessage . ' ' .
+					'and parameters ' . print_r( $params, true ) . ', but rule gateway list includes ' .
+					'none of supported gateways (' . implode( ',', $supportedGateways ) . ').'
+				);
+			}
+		}
+
+		// We only had one supported gateway, but no rules matched or the matching rule didn't include
+		// the supported gateway. Dealing with this here rather than at top of method, so that we hit
+		// the code to log a warning if a matched rule points to an unsupported gateway.
+		if ( count( $supportedGateways ) === 1 ) {
+			return $supportedGateways[0];
+		}
+		// Multiple gateways supported, but no rule matched. Warn and return the first supported gateway.
+		if ( count( $supportedGateways ) > 1 ) {
+			$this->logger->warning(
+				'No rules matched parameters ' . print_r( $params, true ) . '; arbitrarily ' .
+				'choosing from supported gateways (' . implode( ',', $supportedGateways ) . '). ' .
+				'Consider adding a default rule (one with no conditions) to the end of ' .
+				'$wgDonationInterfaceGatewayPriorityRules'
+			);
+			return $supportedGateways[0];
+		}
+		// No gateways were supported in the first place - return null and trigger an error page
+		return null;
+	}
 }
