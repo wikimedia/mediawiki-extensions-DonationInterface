@@ -319,6 +319,13 @@
 			"styles": "braintree_gateway/forms/braintree.css",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationInterface.astropay": {
+			"scripts": "astropay_gateway/forms/astropay.js",
+			"dependencies": "ext.donationInterface.forms",
+			"messages": [
+				"donate_interface-redirect-explanation"
+			]
+		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"
 		},

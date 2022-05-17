@@ -506,5 +506,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Alternate no button text for monthly convert modal with more emphasis",
 	"donate_interface-monthly-convert-no-button-variant-014": "Alternate no button text for monthly convert modal",
 	"donate_interface-fundraiser-maintenance-header": "Header for maintenance notification page",
-	"donate_interface-fundraiser-maintenance-notice": "Message indicating that we are currently performing scheduled maintenance and are not currently able to process donations.\n\nParameters:\n* $1 - an email address where questions about the maintenance downtime should be sent"
+	"donate_interface-fundraiser-maintenance-notice": "Message indicating that we are currently performing scheduled maintenance and are not currently able to process donations.\n\nParameters:\n* $1 - an email address where questions about the maintenance downtime should be sent",
+	"donate_interface-redirect-explanation": "Message explaining they will be redirected to a payment processor partner"
 }
