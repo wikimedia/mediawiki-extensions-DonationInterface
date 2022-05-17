@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-invalid-city": "Bitte korrigieren Sie die Fehler in Ihrem Ort",
 	"donate_interface-error-msg-invalid-postal_code-us": "Bitte korrigieren Sie die Fehler in Ihrer Postleitzahl",
 	"donate_interface-error-msg-invalid-postal_code": "Bitte korrigieren Sie die Fehler in Ihrer Postleitzahl",
+	"donate_interface-error-msg-invalid-employer": "Ungültiger Name des Arbeitgebers.",
 	"donate_interface-error-msg-country": "Bitte geben Sie Ihren Staat ein",
 	"donate_interface-error-msg-card_num": "Kreditkartennummer",
 	"donate_interface-error-msg-expiration": "Bitte geben Sie das Kartenablaufdatum ein.",
