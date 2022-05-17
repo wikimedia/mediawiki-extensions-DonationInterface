@@ -240,6 +240,7 @@
 	"donate_interface-error-msg-invalid-city": "Error message for invalid city.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-postal_code-us": "Error message for invalid zip code, the zip code is US-specific postal code.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-postal_code": "Error message for invalid postal code.\n{{Related|Donate interface-error-msg}}",
+	"donate_interface-error-msg-invalid-employer": "This error message specifies that the employer name is invalid.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-country": "Used in error message regarding the country.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-card_num": "Used in error message regarding the credit card number field.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-expiration": "Used in error message regarding the card expiration date field.\n{{Related|Donate interface-error-msg}}",

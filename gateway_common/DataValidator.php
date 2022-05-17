@@ -25,6 +25,7 @@ class DataValidator {
 	 */
 	public static function getErrorToken( $field ) {
 		switch ( $field ) {
+			case 'employer':
 			case 'email':
 			case 'amount':
 			case 'currency':

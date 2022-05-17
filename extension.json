@@ -36,6 +36,8 @@
 		"AmazonGateway": "AmazonGateway",
 		"AdyenCheckoutGateway": "AdyenCheckoutGateway",
 		"AdyenCheckoutGatewayResult": "AdyenCheckoutGatewayResult",
+		"BraintreeGateway": "BraintreeGateway",
+		"BraintreeGatewayResult": "BraintreeGatewayResult",
 		"AstroPayGateway": "AstroPayGateway",
 		"AstroPayGatewayResult": "AstroPayGatewayResult",
 		"PaypalExpressGateway": "PaypalExpressGateway",
@@ -73,13 +75,15 @@
 		"IngenicoGatewayAlias": "ingenico_gateway/ingenico_gateway.alias.php",
 		"AdyenGatewayAlias": "adyen_gateway/adyen_gateway.alias.php",
 		"AstroPayGatewayAlias": "astropay_gateway/astropay_gateway.alias.php",
-		"PaypalGatewayAlias": "paypal_ec_gateway/paypal_gateway.alias.php"
+		"PaypalGatewayAlias": "paypal_ec_gateway/paypal_gateway.alias.php",
+		"BraintreeGatewayAlias": "braintree_gateway/braintree_gateway.alias.php"
 	},
 	"AutoloadClasses": {
 		"Amount": "gateway_common/Amount.php",
 		"AmountInCents": "gateway_common/AmountInCents.php",
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
+		"EmployerFieldValidation": "gateway_common/EmployerFieldValidation.php",
 		"ClientErrorApi": "gateway_common/clientError.api.php",
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",
@@ -156,6 +160,9 @@
 		"AdyenCheckoutAdapter": "adyen_gateway/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/adyen_checkout_resultswitcher.body.php",
+		"BraintreeAdapter": "braintree_gateway/braintree.adapter.php",
+		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
+		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
 		"AstroPayGateway": "astropay_gateway/astropay_gateway.body.php",
 		"AstroPayGatewayResult": "astropay_gateway/astropay_resultswitcher.body.php",
@@ -306,6 +313,11 @@
 			"messages": [
 				"donate_interface-otherways-short"
 			]
+		},
+		"ext.donationInterface.braintree": {
+			"scripts": "braintree_gateway/forms/braintree.js",
+			"styles": "braintree_gateway/forms/braintree.css",
+			"dependencies": "ext.donationInterface.forms"
 		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"
@@ -774,6 +786,9 @@
 		"PaypalExpressGatewayEnabled": {
 			"value": false
 		},
+		"BraintreeGatewayEnabled": {
+			"value": false
+		},
 		"DonationInterfaceEnableCustomFilters": {
 			"value": true
 		},
@@ -814,7 +829,8 @@
 				"amazon": "AmazonAdapter",
 				"adyen": "AdyenCheckoutAdapter",
 				"astropay": "AstroPayAdapter",
-				"paypal_ec": "PaypalExpressAdapter"
+				"paypal_ec": "PaypalExpressAdapter",
+				"braintree": "BraintreeAdapter"
 			}
 		},
 		"DonationInterfaceAllowedHtmlForms": {

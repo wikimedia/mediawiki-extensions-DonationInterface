@@ -17,3 +17,4 @@
 - Ingenico3DSecure
 - IngenicoFormVariant # needs to come after 3DSecure
 - IngenicoRecurringBooleanValue
+- EmployerFieldValidation
