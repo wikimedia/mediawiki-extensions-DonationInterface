@@ -42,8 +42,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * @var array
 	 */
 	public static $initial_vars = [
-		'ffname' => 'testytest',
-		'referrer' => 'www.yourmom.com', // please don't go there.
+		'referrer' => 'www.blandfakedomainname.com',
 		'currency' => 'USD',
 	];
 

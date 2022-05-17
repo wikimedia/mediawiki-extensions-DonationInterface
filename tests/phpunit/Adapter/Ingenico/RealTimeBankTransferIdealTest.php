@@ -79,7 +79,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 		$init = $this->getDonorTestData( 'NL' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'rtbt';
-		$init['ffname'] = 'rtbt-ideal';
 
 		$assertNodes = [
 			'amount' => [

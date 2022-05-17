@@ -270,7 +270,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		] );
 
 		$init = $this->getDonorTestData();
-		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@manichean.com';
 		$init['contribution_tracking_id'] = mt_rand();

@@ -89,7 +89,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'amazon';
-		$init['ffname'] = 'amazon';
 		$init['language'] = $language;
 		$rates = CurrencyRates::getCurrencyRates();
 		$cadRate = $rates['CAD'];
@@ -128,7 +127,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData();
 		$init['OTT'] = 'SALT123456789';
 		$init['amount'] = '-100.00';
-		$init['ffname'] = 'amazon';
 		$session = [ 'Donor' => $init ];
 		$errorMessage = wfMessage( 'donate_interface-error-msg-invalid-amount' )->text();
 		$assertNodes = [

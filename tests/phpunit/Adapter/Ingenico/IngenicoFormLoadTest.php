@@ -28,7 +28,6 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmad';
 		$init['gateway'] = 'ingenico';
 
 		$assertNodes = [
@@ -56,7 +55,6 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 		$init['gateway'] = 'ingenico';
 
 		$assertNodes = [
@@ -90,7 +88,6 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init = $this->getDonorTestData( 'IT' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 		$init['gateway'] = 'ingenico';
 
 		$assertNodes = [
@@ -129,7 +126,6 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init = $this->getDonorTestData( 'BE' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 		$init['language'] = $language;
 		$init['gateway'] = 'ingenico';
 
@@ -169,7 +165,6 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
 		$init['gateway'] = 'ingenico';
 

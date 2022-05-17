@@ -85,7 +85,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = [
 			'submethod-mc' => [
@@ -112,7 +111,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -145,7 +143,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'IT' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -183,7 +180,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'BE' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmaj';
 		$init['language'] = $language;
 
 		$assertNodes = [
@@ -222,7 +218,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vma';
 		$init['language'] = $language;
 
 		$assertNodes = [
@@ -270,7 +265,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmad';
 
 		$assertNodes = [
 			'opt_in_yes' => [
@@ -292,7 +286,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '1';
 
 		$assertNodes = [
@@ -311,7 +304,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'GB' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vmad';
 		$init['opt_in'] = '0';
 
 		$assertNodes = [

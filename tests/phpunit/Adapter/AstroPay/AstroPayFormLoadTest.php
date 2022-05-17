@@ -55,7 +55,6 @@ class AstroPayFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'CO' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['ffname'] = 'cc-vma';
 
 		$assertNodes = [
 			'submethod-visa' => [
@@ -82,7 +81,6 @@ class AstroPayFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'IN' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'bt';
-		$init['ffname'] = 'rtbt-netbanking';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -104,7 +102,6 @@ class AstroPayFormLoadTest extends DonationInterfaceTestCase {
 		$init = $this->getDonorTestData( 'IN' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'bt';
-		$init['ffname'] = 'rtbt-netbanking';
 		$init['payment_submethod'] = 'netbanking';
 
 		$assertNodes = [

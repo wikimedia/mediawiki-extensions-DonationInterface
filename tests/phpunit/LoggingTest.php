@@ -49,7 +49,6 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@manichean.com';
-		$init['ffname'] = 'cc-vmad';
 		unset( $init['order_id'] );
 
 		$expectedObject = [
@@ -102,7 +101,6 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['first_name'] = 'Алексан' . chr( 239 );
 		$init['last_name'] = 'Гончар';
 		$init['email'] = 'innocent@manichean.com';
-		$init['ffname'] = 'cc-vmad';
 		$init['unusual_key'] = mt_rand();
 		unset( $init['order_id'] );
 

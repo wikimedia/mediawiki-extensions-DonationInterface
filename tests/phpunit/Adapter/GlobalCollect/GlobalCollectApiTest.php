@@ -98,9 +98,6 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['action'] = 'donate';
 		$init['opt_in'] = '1';
 
-		// ffname causes a validation trip up
-		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
-		unset( $init['ffname'] );
 		$init['wmf_token'] = $this->saltedToken;
 		$session = $this->getDonorSession();
 
@@ -118,9 +115,6 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['action'] = 'donate';
 		$init['opt_in'] = '0';
 
-		// ffname causes a validation trip up
-		// set here: DonationInterface/tests/phpunit/DonationInterfaceTestCase.php:41
-		unset( $init['ffname'] );
 		$init['wmf_token'] = $this->saltedToken;
 		$session = $this->getDonorSession();
 
@@ -137,7 +131,6 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 		$init['payment_method'] = 'cc';
 		$init['gateway'] = 'globalcollect';
 		$init['action'] = 'donate';
-		unset( $init['ffname'] );
 		$init['wmf_token'] = $this->saltedToken;
 		$session = $this->getDonorSession();
 

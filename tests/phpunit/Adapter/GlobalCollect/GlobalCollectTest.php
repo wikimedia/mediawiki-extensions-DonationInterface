@@ -214,7 +214,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		] );
 
 		$init = $this->getDonorTestData();
-		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = '55555';
 		$init['email'] = 'innocent@manichean.com';
 		$init['contribution_tracking_id'] = mt_rand();
@@ -418,7 +417,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testCCLogsOnGatewayError() {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
 
 		// this should not throw any payments errors: Just an invalid card.
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -453,7 +451,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testNoMastercardFinesForRepeatOnBadCodes( $code ) {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
 		// Make it not look like an orphan
 		$this->setUpRequest( [
 			'CVVRESULT' => 'M',
@@ -526,7 +523,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 	public function testNoClaimRetryOnBoringCodes( $code ) {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
-		$init['ffname'] = 'cc-vmad';
 		// Make it not look like an orphan
 		$this->setUpRequest( [
 			'CVVRESULT' => 'M',
@@ -552,7 +548,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@clean.com';
-		$init['ffname'] = 'cc-vmad';
 		unset( $init['order_id'] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -583,7 +578,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@localhost.net';
-		$init['ffname'] = 'cc-vmad';
 		unset( $init['order_id'] );
 
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -612,7 +606,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@localhost.net';
-		$init['ffname'] = 'cc-vmad';
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gateway::setDummyGatewayResponseCode( '11000400' );
@@ -667,7 +660,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@localhost.net';
-		$init['ffname'] = 'cc-vmad';
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );

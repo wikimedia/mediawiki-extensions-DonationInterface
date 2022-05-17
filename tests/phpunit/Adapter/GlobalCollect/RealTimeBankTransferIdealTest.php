@@ -74,7 +74,6 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$init = $this->getDonorTestData( 'NL' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'rtbt';
-		$init['ffname'] = 'rtbt-ideal';
 
 		$assertNodes = [
 			'amount' => [

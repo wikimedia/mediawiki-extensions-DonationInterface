@@ -460,7 +460,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		] );
 		unset( $expected['amount'] );
 		unset( $expected['referrer'] );
-		unset( $expected['ffname'] );
 		unset( $expected['processor_form'] );
 		unset( $expected['variant'] );
 		$expected['gross'] = '1.22';
