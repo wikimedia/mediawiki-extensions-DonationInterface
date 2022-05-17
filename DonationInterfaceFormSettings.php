@@ -661,7 +661,7 @@ $forms['astropay-pe'] = [
 			'cash_pago_efectivo',
 		],
 	],
-	'selection_weight' => 0,
+	'selection_weight' => 110,
 ];
 
 $forms['astropay-uy'] = [
@@ -681,7 +681,7 @@ $forms['astropay-uy'] = [
 			'cash_red_pagos',
 		],
 	],
-	'selection_weight' => 0,
+	'selection_weight' => 110,
 ];
 
 // Adyen
