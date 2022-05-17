@@ -25,7 +25,7 @@
 	},
 	"callback": "DonationInterface::registerExtension",
 	"SpecialPages": {
-		"GatewayFormChooser": "GatewayFormChooser",
+		"GatewayChooser": "GatewayChooser",
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
 		"FundraiserMaintenance": "FundraiserMaintenance",
@@ -187,7 +187,7 @@
 		"Gateway_Extras_CustomFilters_IP_Velocity": "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php",
 		"BannerHistoryLogIdProcessor": "extras/banner_history/BannerHistoryLogIdProcessor.php",
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
-		"GatewayFormChooser": "special/GatewayFormChooser.php",
+		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
 		"EmailPreferences": "special/EmailPreferences.php",
 		"DonationApi": "gateway_common/donation.api.php",
@@ -799,7 +799,7 @@
 		"DonationInterfaceEnableCustomFilters": {
 			"value": true
 		},
-		"DonationInterfaceEnableFormChooser": {
+		"DonationInterfaceEnableGatewayChooser": {
 			"value": false
 		},
 		"DonationInterfaceGatewayPriorityRules": {

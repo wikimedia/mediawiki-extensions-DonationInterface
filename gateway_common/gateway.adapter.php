@@ -3339,7 +3339,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		$data = $this->getData_Unstaged_Escaped();
 		// have to check to see if the last loaded form is *still* valid.
-		if ( GatewayFormChooser::isValidForm( $ffname, $data ) ) {
+		if ( GatewayChooser::isValidForm( $ffname, $data ) ) {
 			return $ffname;
 		} else {
 			return false;
@@ -3847,7 +3847,7 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Returns some useful debugging JSON we can append to loglines for
 	 * increased debugging happiness.
-	 * This is working pretty well for debugging FormChooser problems, so
+	 * This is working pretty well for debugging GatewayChooser problems, so
 	 * let's use it other places. Still, this should probably still be used
 	 * sparingly...
 	 * @return string JSON-encoded donation data

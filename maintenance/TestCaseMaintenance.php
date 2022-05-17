@@ -63,7 +63,7 @@ class TestCaseMaintenance extends Maintenance {
 		$context->setRequest( new FauxRequest( $params, false ) );
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
-		$fc = new GatewayFormChooser();
+		$fc = new GatewayChooser();
 		$fc->execute( $params );
 		$fc->getOutput()->output();
 		$url = $fc->getRequest()->response()->getheader( 'Location' );

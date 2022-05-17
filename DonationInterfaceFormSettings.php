@@ -1,6 +1,6 @@
 <?php
 /**
- * FIXME: These determine which gateways FormChooser picks for different
+ * FIXME: These determine which gateways GatewayChooser picks for different
  * parameters. The chooser should instead query enabled gateway capabilities
  * and simply pass along any ffname from the banner to allow A/B testing.
  */

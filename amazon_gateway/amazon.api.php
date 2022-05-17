@@ -52,7 +52,7 @@ class AmazonBillingApi extends DonationApiBase {
 				$failPage = ResultPages::getFailPage( $this->adapter );
 				if ( !filter_var( $failPage, FILTER_VALIDATE_URL ) ) {
 					// It's a rapidfail form, but we need an actual URL:
-					$failPage = GatewayFormChooser::buildPaymentsFormURL( $failPage, [ 'gateway' => 'amazon' ] );
+					$failPage = GatewayChooser::buildPaymentsFormURL( $failPage, [ 'gateway' => 'amazon' ] );
 				}
 				$output->addvalue(
 					null,

@@ -80,7 +80,7 @@ class ResultPages {
 		if ( $rapidFail ) {
 			// choose which fail page to go for.
 			try {
-				$fail_ffname = GatewayFormChooser::getBestErrorForm(
+				$fail_ffname = GatewayChooser::getBestErrorForm(
 					$data['gateway'],
 					$data['payment_method'],
 					$paymentStatus

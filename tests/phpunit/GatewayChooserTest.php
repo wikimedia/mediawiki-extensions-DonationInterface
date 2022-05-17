@@ -22,9 +22,9 @@ use Symfony\Component\Yaml\Parser;
 /**
  * @group Fundraising
  * @group DonationInterface
- * @group FormChooser
+ * @group GatewayChooser
  */
-class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
+class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @var string
@@ -50,7 +50,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( [
-			'wgDonationInterfaceEnableFormChooser' => true,
+			'wgDonationInterfaceEnableGatewayChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
 			'wgAstroPayGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => true,
@@ -89,7 +89,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		];
 
 		foreach ( $tests as $testno => $data ) {
-			$form = GatewayFormChooser::getOneValidForm( $data['country'], $data['currency'], $data['payment_method'] );
+			$form = GatewayChooser::getOneValidForm( $data['country'], $data['currency'], $data['payment_method'] );
 			$this->assertEquals( $data['expected'], $form, "$form is not the preferred option for " . $data['payment_method'] . ' in ' . $data['country'] );
 		}
 	}
@@ -108,7 +108,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$initial = [
 			'language' => 'en'
 		];
-		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
+		$this->verifyFormOutput( 'GatewayChooser', $initial, $assertNodes, false );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$context->setRequest( new FauxRequest( $params, false ) );
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
-		$fc = new GatewayFormChooser();
+		$fc = new GatewayChooser();
 		$fc->execute( $params );
 		$fc->getOutput()->output();
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
@@ -312,7 +312,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			'paymentmethod' => 'amazon',
 			'country' => 'US',
 		];
-		$this->verifyFormOutput( 'GatewayFormChooser', $initial, $assertNodes, false );
+		$this->verifyFormOutput( 'GatewayChooser', $initial, $assertNodes, false );
 	}
 
 	/**
@@ -322,7 +322,7 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		global $wgDonationInterfaceAllowedHtmlForms;
 		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
 			if ( empty( $config['special_type'] ) || $config['special_type'] != 'error' ) {
-				$url = GatewayFormChooser::buildPaymentsFormURL( $ffname );
+				$url = GatewayChooser::buildPaymentsFormURL( $ffname );
 				$this->assertNotNull( $url );
 			}
 		}
@@ -406,8 +406,8 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
 		$expectedGateway = 'ingenico';
 
-		$gatewayFormChooser = new GatewayFormChooser();
-		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$GatewayChooser = new GatewayChooser();
+		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -438,8 +438,8 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 			$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
 			$expectedGateway = 'adyen';
 
-			$gatewayFormChooser = new GatewayFormChooser();
-			$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+			$GatewayChooser = new GatewayChooser();
+			$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
 
 			$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -467,8 +467,8 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
 		$expectedGateway = 'ingenico';
 
-		$gatewayFormChooser = new GatewayFormChooser();
-		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$GatewayChooser = new GatewayChooser();
+		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -503,8 +503,8 @@ class DonationInterface_FormChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
 		$expectedGateway = 'adyen';
 
-		$gatewayFormChooser = new GatewayFormChooser();
-		$processor = $gatewayFormChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$GatewayChooser = new GatewayChooser();
+		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
