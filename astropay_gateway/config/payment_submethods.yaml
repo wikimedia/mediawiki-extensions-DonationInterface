@@ -47,7 +47,6 @@ amex:
         AR: true
 #       CL: true  #waiting on AstroPay
         CO: true
-        IN: true
         PE: true
     logo: card-amex-lg.png
 visa-debit:
@@ -87,7 +86,6 @@ diners:
         BR: true
 #       CL: true  #waiting on AstroPay
         CO: true
-        IN: true
         PE: true
         UY: true
     logo: card-dinersclub-lg.png
