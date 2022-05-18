@@ -36,7 +36,7 @@ $wgDonationInterfaceTimeout = 5
 Test mode flag, alters various behavior
 $wgDonationInterfaceTest = false
 
-$wgDonationInterfaceEnableFormChooser = false
+$wgDonationInterfaceEnableGatewayChooser = false
 /**
  * A string or array of strings for making tokens more secure
  *

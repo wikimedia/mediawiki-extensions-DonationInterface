@@ -4,7 +4,7 @@ $specialPageAliases = [];
 
 /** English */
 $specialPageAliases['en'] = [
-	'GatewayFormChooser' => [ 'GatewayFormChooser' ],
+	'GatewayChooser' => [ 'GatewayChooser', 'GatewayFormChooser' ],
 	'SystemStatus' => [ 'SystemStatus' ],
 	'EmailPreferences' => [ 'EmailPreferences' ],
 	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],

@@ -1,6 +1,6 @@
 <?php
 /**
- * FIXME: These determine which gateways FormChooser picks for different
+ * FIXME: These determine which gateways GatewayChooser picks for different
  * parameters. The chooser should instead query enabled gateway capabilities
  * and simply pass along any ffname from the banner to allow A/B testing.
  */
@@ -661,7 +661,7 @@ $forms['astropay-pe'] = [
 			'cash_pago_efectivo',
 		],
 	],
-	'selection_weight' => 0,
+	'selection_weight' => 110,
 ];
 
 $forms['astropay-uy'] = [
@@ -681,7 +681,7 @@ $forms['astropay-uy'] = [
 			'cash_red_pagos',
 		],
 	],
-	'selection_weight' => 0,
+	'selection_weight' => 110,
 ];
 
 // Adyen

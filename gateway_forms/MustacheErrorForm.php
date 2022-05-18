@@ -44,7 +44,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 				}
 			}
 		}
-		$data['ffname_retry'] = GatewayFormChooser::buildPaymentsFormURL( $back_form, $params );
+		$data['ffname_retry'] = GatewayChooser::buildPaymentsFormURL( $back_form, $params );
 	}
 
 	protected function addMessageParameters( &$data ) {

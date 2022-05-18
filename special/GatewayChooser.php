@@ -1,6 +1,6 @@
 <?php
 /**
- * GatewayFormChooser acts as a gateway-agnostic landing page for second-step forms.
+ * GatewayChooser acts as a gateway-agnostic landing page for second-step forms.
  * When passed a country, currency, and payment method combination, it determines the
  * appropriate form based on the forms defined for that combination taking into account
  * the currently available payment processors.
@@ -9,7 +9,7 @@
  * @author Matt Walker <mwalker@wikimedia.org>
  * @author Katie Horn <khorn@wikimedia.org>
  */
-class GatewayFormChooser extends UnlistedSpecialPage {
+class GatewayChooser extends UnlistedSpecialPage {
 
 	/**
 	 * @var \Psr\Log\LoggerInterface
@@ -17,12 +17,12 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 	protected $logger;
 
 	public function __construct() {
-		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'FormChooser' );
-		parent::__construct( 'GatewayFormChooser' );
+		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'GatewayChooser' );
+		parent::__construct( 'GatewayChooser' );
 	}
 
 	public function execute( $par ) {
-		if ( !$this->getConfig()->get( 'DonationInterfaceEnableFormChooser' ) ) {
+		if ( !$this->getConfig()->get( 'DonationInterfaceEnableGatewayChooser' ) ) {
 			throw new BadTitleError();
 		}
 
@@ -184,7 +184,7 @@ class GatewayFormChooser extends UnlistedSpecialPage {
 
 		$specialpage = '';
 		if ( $rechoose ) {
-			$specialpage = 'GatewayFormChooser';
+			$specialpage = 'GatewayChooser';
 		} else {
 			$form_info = self::getFormDefinition( $form_key );
 
