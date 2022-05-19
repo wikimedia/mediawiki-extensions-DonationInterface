@@ -442,5 +442,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "No, gratias!",
 	"donate_interface-monthly-convert-no-button-variant-014": "No, non justo ora",
 	"donate_interface-fundraiser-maintenance-header": "Temporarimente foras de servicio pro mantenentia",
-	"donate_interface-fundraiser-maintenance-notice": "In iste momento, nos exeque un mantenentia programmate e non pote acceptar donationes. Per favor reproba bentosto. Si tu ha questiones, per favor invia e-mail a $1."
+	"donate_interface-fundraiser-maintenance-notice": "In iste momento, nos exeque un mantenentia programmate e non pote acceptar donationes. Per favor reproba bentosto. Si tu ha questiones, per favor invia e-mail a $1.",
+	"donate_interface-redirect-explanation": "Tu essera redirigite verso le partner de Wikimedia pro le tractamento del pagamento."
 }
