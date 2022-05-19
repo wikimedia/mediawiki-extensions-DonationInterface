@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ameisenigel",
+			"Brettchenweber",
 			"ChrisiPK",
 			"Danielbeerbonn",
 			"Filzstift",
@@ -456,5 +457,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Nein, danke!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
-	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1."
+	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1.",
+	"donate_interface-redirect-explanation": "Sie werden zu Wikimedias Partner für die Zahlungsabwicklung weitergeleitet."
 }

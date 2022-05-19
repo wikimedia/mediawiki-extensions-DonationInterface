@@ -207,6 +207,7 @@
 	"donate_interface-error-msg-invalid-city": "לתקן את השגיאות בעיר שלך",
 	"donate_interface-error-msg-invalid-postal_code-us": "לתקן את השגיאות במיקוד שלך",
 	"donate_interface-error-msg-invalid-postal_code": "לתקן את השגיאות במיקוד שלך",
+	"donate_interface-error-msg-invalid-employer": "שם מעסיק בלתי־תקין.",
 	"donate_interface-error-msg-country": "נא להזין את הארץ",
 	"donate_interface-error-msg-card_num": "מספר כרטיס האשראי",
 	"donate_interface-error-msg-expiration": "נא לכתוב את תאריך תפוגת הכרטיס",
@@ -450,5 +451,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "לא, תודה!",
 	"donate_interface-monthly-convert-no-button-variant-014": "לא, לא עכשיו",
 	"donate_interface-fundraiser-maintenance-header": "השירות אינו פעיל באופן זמני לצורך תחזוקה",
-	"donate_interface-fundraiser-maintenance-notice": "כרגע אנחנו עושים פעולות תחזוקה מתוכננות ואיננו יכולים לקבל עכשיו תרומות. נא לנסות שוב בקרוב. אם יש לך שאלות כלשהן, אפשר לשלוח אותן לכתובת $1."
+	"donate_interface-fundraiser-maintenance-notice": "כרגע אנחנו עושים פעולות תחזוקה מתוכננות ואיננו יכולים לקבל עכשיו תרומות. נא לנסות שוב בקרוב. אם יש לך שאלות כלשהן, אפשר לשלוח אותן לכתובת $1.",
+	"donate_interface-redirect-explanation": "תתבצע הפניה לשותף עיבוד תשלומים של ויקימדיה"
 }

@@ -6,8 +6,6 @@ CL:
     fiscal_number: true
 CO:
     fiscal_number: true
-ZA:
-    fiscal_number: true
 IN:
     fiscal_number: optional
     street_address: true
