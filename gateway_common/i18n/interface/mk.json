@@ -135,7 +135,7 @@
 	"donate_interface-donor-mname": "Средно име:",
 	"donate_interface-donor-last_name": "Презиме:",
 	"donate_interface-donor-last_name-alt": "Презиме",
-	"donate_interface-donor-employer": "Работодавач (по избор)",
+	"donate_interface-donor-employer": "Работодавач (незадолжително)",
 	"donate_interface-donor-employer-explain": "Ќе ви соопштиме дали вашиот работодавач дал истомерен прилог",
 	"donate_interface-donor-street_address": "Улица:",
 	"donate_interface-donor-street-number": "Број",
