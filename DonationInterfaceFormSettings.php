@@ -579,7 +579,7 @@ $forms['astropay-za'] = [
 			'ach',
 		],
 	],
-	'selection_weight' => 0,
+	'selection_weight' => 110,
 ];
 $forms['astropay-co'] = [
 	'gateway' => 'astropay',
