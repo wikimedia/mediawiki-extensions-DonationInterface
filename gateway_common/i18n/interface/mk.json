@@ -455,5 +455,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Не, благодарам!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Не, не сега",
 	"donate_interface-fundraiser-maintenance-header": "Привремено недостапно поради одржување",
-	"donate_interface-fundraiser-maintenance-notice": "Во моментов вршиме планирано одржување и не можеме да прифаќаме уплати. Вратете се малку подоцна. Ако имате некакви прашања, обратете се на $1."
+	"donate_interface-fundraiser-maintenance-notice": "Во моментов вршиме планирано одржување и не можеме да прифаќаме уплати. Вратете се малку подоцна. Ако имате некакви прашања, обратете се на $1.",
+	"donate_interface-redirect-explanation": "Ќе бидете префрлени на обработувачот на уплати за Викимедија."
 }
