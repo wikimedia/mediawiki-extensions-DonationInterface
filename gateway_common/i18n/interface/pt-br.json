@@ -25,7 +25,8 @@
 			"Walesson",
 			555,
 			"Eduardoaddad",
-			"McDutchie"
+			"McDutchie",
+			"YuriNikolai"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -143,7 +144,7 @@
 	"donate_interface-rt-button": "Doar via $1",
 	"donate_interface-ewallet-button": "Doar via$1",
 	"donate_interface-card-legend": "Informação do cartão de crédito",
-	"donate_interface-amount-legend": "Quantia da doação",
+	"donate_interface-amount-legend": "Valor da doação",
 	"donate_interface-cvv-link": "Aonde está isto?",
 	"donate_interface-donor-legend": "Dados do doador",
 	"donate_interface-donor-amount": "Quantia",
