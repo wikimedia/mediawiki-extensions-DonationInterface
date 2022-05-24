@@ -36,7 +36,7 @@
 	"apihelp-donate-param-utm_medium": "משנתה מעקב.",
 	"apihelp-donate-param-referrer": "המַפנה המקורי.",
 	"apihelp-donate-param-recurring": "מציין שהעִסקה אמורה להיות חוזרת.",
-	"apihelp-donate-param-variant": "מציים איזה טופס התורם מילא.",
+	"apihelp-donate-param-variant": "מציין איזה סוג טופס התורם מילא.",
 	"apihelp-donate-param-opt_in": "מציין שהתורם בחר לקבל דואר אלקטרוני על התרמה.",
 	"apihelp-donate-param-employer": "שם המעסיק",
 	"apihelp-donate-param-employer_id": "מזהה מעסיק",
