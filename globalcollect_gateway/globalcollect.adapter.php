@@ -589,15 +589,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 				}
 				break;
 
-			case 'bt':
-			case 'obt':
-				$this->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
-
-				if ( in_array( $this->getFinalStatus(), $this->getGoToThankYouOn() ) ) {
-					return PaymentResult::newForm( 'end-' . $payment_method );
-				}
-				break;
-
 			case 'dd':
 				$this->do_transaction( 'Direct_Debit' );
 				break;

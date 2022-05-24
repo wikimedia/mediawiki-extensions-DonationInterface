@@ -379,18 +379,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 
 			$this->renderIframe( $url );
-		} elseif ( $form = $result->getForm() ) {
-			// Show another form.
-			if ( str_starts_with( $form, 'error' ) || str_starts_with( $form, 'maintenance' ) ) {
-				$this->adapter->addRequestData( [
-					'showError' => true,
-				] );
-			} else {
-				$this->adapter->addRequestData( [
-					'ffname' => $form,
-				] );
-			}
-			$this->displayForm();
 		} elseif (
 			count( $result->getErrors() )
 		) {

@@ -24,18 +24,6 @@ class GlobalCollectGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
 
-	protected function renderResponse( PaymentResult $result ) {
-		// FIXME: This workaround can be deleted once we convert
-		// these two result pages to render using normal templates.
-		if ( $result->getForm() === 'end-bt' ) {
-			$this->displayBankTransferInformation();
-		} elseif ( $result->getForm() === 'end-obt' ) {
-			$this->displayOnlineBankTransferInformation();
-		} else {
-			parent::renderResponse( $result );
-		}
-	}
-
 	/**
 	 * Display information for bank transfer
 	 *
