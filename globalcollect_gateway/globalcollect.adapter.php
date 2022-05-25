@@ -112,8 +112,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		// FIXME: not sure what this comment is about:
 		// 102020 - ACTION 130 IS NOT ALLOWED FOR MERCHANT NNN, IPADDRESS NNN.NNN.NNN.NNN
 		$this->addCodeRange( 'GET_ORDERSTATUS', 'STATUSID', FinalStatus::CANCELLED, 99999 );
-
-		$this->defineGoToThankYouOn();
 	}
 
 	/**
@@ -128,32 +126,6 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			'alt_locations' => [ 'request' => 'order_id' ],
 			'generate' => true, // freaking FINALLY.
 			'disallow_decimals' => true, // hacky hack hack...
-		];
-	}
-
-	/**
-	 * Define goToThankYouOn
-	 *
-	 * The statuses defined in @see GatewayAdapter::$goToThankYouOn will
-	 * allow a completed form to go to the Thank you page.
-	 *
-	 * Allowed:
-	 * - complete
-	 * - pending
-	 * - pending-poke
-	 * - revised
-	 *
-	 * Denied:
-	 * - failed
-	 * - Any thing else not defined @see FinalStatus
-	 *
-	 */
-	public function defineGoToThankYouOn() {
-		$this->goToThankYouOn = [
-			FinalStatus::COMPLETE,
-			FinalStatus::PENDING,
-			FinalStatus::PENDING_POKE,
-			FinalStatus::REVISED,
 		];
 	}
 
@@ -1233,7 +1205,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 			}
 		}
 
-		// The return text needs to match something in @see $this->defineGoToThankYouOn()
+		// The return text needs to match something in complete, pending, pending-poke and revisit
+
 		if ( $isPass ) {
 			$return = FinalStatus::COMPLETE;
 		}

@@ -78,13 +78,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $error_map = [];
 
 	/**
-	 * @see GlobalCollectAdapter::defineGoToThankYouOn()
-	 *
-	 * @var array
-	 */
-	protected $goToThankYouOn = [];
-
-	/**
 	 * $var_map maps gateway variables to client variables
 	 *
 	 * @var array
@@ -209,14 +202,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getResponseType() {
 		return $this->getCommunicationType();
-	}
-
-	/**
-	 * Get @see GatewayAdapter::$goToThankYouOn
-	 * @return array
-	 */
-	public function getGoToThankYouOn() {
-		return $this->goToThankYouOn;
 	}
 
 	/**
