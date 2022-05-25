@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use Smashpig\PaymentData\FinalStatus;
 
 /**
@@ -31,12 +32,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 	}
 
 	protected function addRetryLink( &$data ) {
-		// add data we're going to need for the error page!
-		$back_form = $this->gateway->session_getLastFormName();
-
-		$params = [
-			'gateway' => $this->gateway->getIdentifier()
-		];
+		$params = [];
 		if ( !$this->gateway->session_hasDonorData() ) {
 			foreach ( DonationData::getRetryFields() as $field ) {
 				if ( isset( $data[$field] ) ) {
@@ -44,7 +40,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 				}
 			}
 		}
-		$data['ffname_retry'] = GatewayChooser::buildPaymentsFormURL( $back_form, $params );
+		$data['retry_link'] = GatewayChooser::buildGatewayPageUrl( $this->gateway->getIdentifier(), $params, MediaWikiServices::getInstance()->getMainConfig() );
 	}
 
 	protected function addMessageParameters( &$data ) {

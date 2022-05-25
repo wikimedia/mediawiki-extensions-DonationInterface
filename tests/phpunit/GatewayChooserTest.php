@@ -302,19 +302,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$this->verifyFormOutput( 'GatewayChooser', $initial, $assertNodes, false );
 	}
 
-	/**
-	 * Make sure none of the payment form settings are horribly broken.
-	 */
-	public function testBuildAllFormUrls() {
-		global $wgDonationInterfaceAllowedHtmlForms;
-		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $config ) {
-			if ( empty( $config['special_type'] ) || $config['special_type'] != 'error' ) {
-				$url = GatewayChooser::buildPaymentsFormURL( $ffname );
-				$this->assertNotNull( $url );
-			}
-		}
-	}
-
 	private function getExtensionConfig( $gateway ) {
 		$yaml = new Parser();
 		$configDir = $this->dir . $gateway . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "countries.yaml";

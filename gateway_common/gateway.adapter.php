@@ -1078,25 +1078,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 			$commType = $this->getCommunicationType();
 			switch ( $commType ) {
-				case 'redirect':
-					// in the event that we have a redirect transaction that never displays the form,
-					// save this most recent one before we leave.
-					$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
-
-					$this->transaction_response->setCommunicationStatus( true );
-
-					// Build the redirect URL.
-					$redirectUrl = $this->getProcessorUrl();
-					$redirectParams = $this->buildRequestParams();
-					if ( $redirectParams ) {
-						// Add GET parameters, if provided.
-						$redirectUrl .= '?' . http_build_query( $redirectParams );
-					}
-
-					$this->transaction_response->setRedirect( $redirectUrl );
-
-					return $this->transaction_response;
-
 				case 'xml':
 					$this->profiler->getStopwatch( "buildRequestXML", true ); // begin profiling
 					$curlme = $this->buildRequestXML(); // build the XML
@@ -1547,10 +1528,6 @@ abstract class GatewayAdapter implements GatewayType {
 		// Feed the message into the pending queue, so the CRM queue consumer
 		// can read it to fill in donor details when it gets a partial message
 		$this->sendPendingMessage();
-
-		// Avoid 'bad ffname' logspam on return and try again links.
-		// TODO: deprecate
-		$this->session_pushFormName( $this->getData_Unstaged_Escaped( 'ffname' ) );
 	}
 
 	/**
@@ -3290,58 +3267,6 @@ abstract class GatewayAdapter implements GatewayType {
 				unset( $oldData['order_id'] );
 				WmfFramework::setSessionValue( 'Donor', $oldData );
 			}
-		}
-	}
-
-	/**
-	 * Add a form name (ffname) to this abridged history of where we've
-	 * been in this session. This lets us do things like construct useful
-	 * "back" links that won't crush all session everything.
-	 * @param string $form_key The 'ffname' that the form layer uses to load a
-	 * payments form. Additional: ffname maps to a first-level key in
-	 * $wgDonationInterfaceAllowedHtmlForms
-	 */
-	public function session_pushFormName( $form_key ) {
-		if ( !$form_key ) {
-			return;
-		}
-
-		$this->session_ensure();
-
-		$paymentForms = $this->session_getData( 'PaymentForms' );
-		if ( !is_array( $paymentForms ) ) {
-			$paymentForms = [];
-		}
-
-		// don't want duplicates
-		if ( $this->session_getLastFormName() != $form_key ) {
-			$paymentForms[] = $form_key;
-			WmfFramework::setSessionValue( 'PaymentForms', $paymentForms );
-		}
-	}
-
-	/**
-	 * Get the 'ffname' of the last payment form that successfully loaded
-	 * for this session.
-	 * @return mixed ffname of the last valid payments form if there is one,
-	 * otherwise false.
-	 */
-	public function session_getLastFormName() {
-		$this->session_ensure();
-		$paymentForms = $this->session_getData( 'PaymentForms' );
-		if ( !is_array( $paymentForms ) ) {
-			return false;
-		}
-		$ffname = end( $paymentForms );
-		if ( !$ffname ) {
-			return false;
-		}
-		$data = $this->getData_Unstaged_Escaped();
-		// have to check to see if the last loaded form is *still* valid.
-		if ( GatewayChooser::isValidForm( $ffname, $data ) ) {
-			return $ffname;
-		} else {
-			return false;
 		}
 	}
 

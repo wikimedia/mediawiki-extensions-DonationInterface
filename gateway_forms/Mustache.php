@@ -73,11 +73,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		self::$fieldErrors = $data['errors']['field'];
 
-		// FIXME: is this really necessary for rendering retry links?
-		if ( isset( $data['ffname'] ) ) {
-			$this->gateway->session_pushFormName( $data['ffname'] );
-		}
-
 		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
 		$hookContainer->run(
 			'AlterPaymentFormData',
