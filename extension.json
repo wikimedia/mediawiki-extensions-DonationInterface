@@ -323,7 +323,8 @@
 			"scripts": "astropay_gateway/forms/astropay.js",
 			"dependencies": "ext.donationInterface.forms",
 			"messages": [
-				"donate_interface-redirect-explanation"
+				"donate_interface-redirect-explanation",
+				"donate_interface-donor-fiscal_number-explain-in"
 			]
 		},
 		"gc.iframe": {
