@@ -115,11 +115,6 @@ $wgDonationInterfaceNoScriptRedirect = null
 
 Dummy email address associated with donation if donor does not provide one
 $wgDonationInterfaceDefaultEmail = 'nobody@wikimedia.org'
-/**
- * When true, error forms will be preferred over FailPage specified below
- * @var bool
- */
-$wgDonationInterfaceRapidFail = false
 
 /**
  * Default Thank You and Fail pages for all of donationinterface - language will be calc'd and appended at runtime.

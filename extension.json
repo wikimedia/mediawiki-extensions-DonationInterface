@@ -323,7 +323,8 @@
 			"scripts": "astropay_gateway/forms/astropay.js",
 			"dependencies": "ext.donationInterface.forms",
 			"messages": [
-				"donate_interface-redirect-explanation"
+				"donate_interface-redirect-explanation",
+				"donate_interface-donor-fiscal_number-explain-in"
 			]
 		},
 		"gc.iframe": {
@@ -425,13 +426,6 @@
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
-		},
-		"ext.donationInterface.panExplain": {
-			"scripts": "modules/js/ext.donationInterface.panExplain.js",
-			"dependencies": "ext.donationInterface.forms",
-			"messages": [
-				"donate_interface-donor-fiscal_number-explain-in"
-			]
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -524,9 +518,6 @@
 		},
 		"DonationInterfaceNoScriptRedirect": {
 			"value": null
-		},
-		"DonationInterfaceRapidFail": {
-			"value": false
 		},
 		"DonationInterfaceThankYouPage": {
 			"value": "Donate-thanks"

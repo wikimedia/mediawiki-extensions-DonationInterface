@@ -29,7 +29,6 @@ use SmashPig\PaymentData\FinalStatus;
  */
 class PaymentResult {
 	protected $iframe;
-	protected $form;
 	protected $redirect;
 	protected $refresh = false;
 	protected $errors = [];
@@ -43,12 +42,6 @@ class PaymentResult {
 		$response = new PaymentResult();
 		$response->iframe = $url;
 		$response->formData = $formData;
-		return $response;
-	}
-
-	public static function newForm( $name ) {
-		$response = new PaymentResult();
-		$response->form = $name;
 		return $response;
 	}
 
@@ -98,10 +91,6 @@ class PaymentResult {
 
 	public function getIframe() {
 		return $this->iframe;
-	}
-
-	public function getForm() {
-		return $this->form;
 	}
 
 	public function getFormData() {

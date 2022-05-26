@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\PaymentProviders\PaymentProviderFactory;
+
 class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
 
@@ -29,6 +31,14 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 
 	protected function defineAccountInfo() {
 		$this->accountInfo = [];
+	}
+
+	public function getClientToken(): string {
+		$provider = PaymentProviderFactory::getProviderForMethod(
+			$this->getPaymentMethod()
+		);
+		$createPaymentSessionResponse = $provider->createPaymentSession();
+		return $createPaymentSessionResponse->getPaymentSession();
 	}
 
 }

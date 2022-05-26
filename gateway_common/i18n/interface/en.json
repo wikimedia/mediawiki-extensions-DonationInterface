@@ -163,7 +163,7 @@
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
 	"donate_interface-donor-fiscal_number-in": "PAN",
-	"donate_interface-donor-fiscal_number-explain-in" : "Our payment processor is required by the Reserve Bank of India to collect your PAN, but we do not keep or store this information.",
+	"donate_interface-donor-fiscal_number-explain-in" : "Our payment processor is <b>requested</b> by the Reserve Bank of India to collect your PAN, but we do not keep or store this information. <b>Please optionally provide your PAN here.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",

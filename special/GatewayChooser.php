@@ -111,7 +111,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		}
 
 		$formDef = self::getFormDefinition( $form );
-		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params );
+		$redirectURL = $this->buildGatewayPageUrl( $formDef['gateway'], $params, $this->getConfig() );
 
 		// Perform the redirection
 		$this->getOutput()->redirect( $redirectURL );
@@ -122,11 +122,11 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 *
 	 * @param string $gateway The short name of the payment gateway.
 	 * @param array $params An array of params to send to the gateway page.
+	 * @param Config $mwConfig MediaWiki Config
 	 *
 	 * @return string URL of special page for $gateway with $params on the querystring.
 	 */
-	public function buildGatewayPageUrl( string $gateway, array $params ) {
-		$mwConfig = $this->getConfig();
+	public static function buildGatewayPageUrl( string $gateway, array $params, Config $mwConfig ) {
 		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
 
 		$params = array_merge( [
@@ -602,80 +602,6 @@ class GatewayChooser extends UnlistedSpecialPage {
 		}
 
 		return $heaviest_form;
-	}
-
-	/**
-	 * Get the best defined error form for all your error form needs!
-	 * ...based on gateway, method, and optional submethod.
-	 * $wgDonationInterfaceAllowedHtmlForms Contains all enabled forms and meta data
-	 * @param string $gateway The gateway used for the payment that failed
-	 * @param string $payment_method The code for the payment method that failed
-	 * @param string|null $payment_status Specific status code for donation, from @see FinalStatus
-	 * @throws RuntimeException if no form found
-	 * @return string The name of the best error form
-	 */
-	public static function getBestErrorForm( $gateway, $payment_method, $payment_status = null ) {
-		global $wgDonationInterfaceAllowedHtmlForms;
-		$error_forms = [];
-		foreach ( $wgDonationInterfaceAllowedHtmlForms as $ffname => $data ) {
-			if ( array_key_exists( 'special_type', $data ) && $data['special_type'] === 'error' ) {
-				$is_match = true;
-				# XXX what is this magick?  Do something less evil.
-				$group = 2; // default group
-				// check to make sure it fits our needs.
-				if ( is_array( $data['gateway'] ) ) {
-					if ( !in_array( $gateway, $data['gateway'] ) ) {
-						$is_match = false;
-					}
-				} else { // not an array
-					if ( $data['gateway'] !== $gateway ) {
-						$is_match = false;
-					}
-				}
-
-				if ( $is_match ) {
-					// Filter for payment-method specific forms. 'group' will be used to break ties, with
-					// group 0 being the highest priority.
-					if ( array_key_exists( 'payment_methods', $data ) ) {
-						if ( array_key_exists( $payment_method, $data['payment_methods'] ) ) {
-							$group = 1;
-						} else {
-							// key exists in form definition, but specified method is not in there.
-							$is_match = false;
-						}
-					}
-					// And also filter for payment-status specific forms
-					if ( array_key_exists( 'payment_status', $data ) ) {
-						// When form definition includes a status, only match if we specify the matching status
-						if ( $payment_status !== null && in_array( $payment_status, $data['payment_status'] ) ) {
-							$group = 0;
-						} else {
-							$is_match = false;
-						}
-					}
-				}
-
-				if ( $is_match ) {
-					$error_forms[$group][$ffname] = $data;
-				}
-			}
-		}
-
-		if ( !count( $error_forms ) ) {
-			// TODO: Throw an RuntimeException, once we've updated payments mw-core.
-			throw new MWException( __FUNCTION__ . "No error form found for gateway '$gateway', method '$payment_method'" );
-		}
-
-		// sort the error_forms by $group; get the most specific form defined
-		ksort( $error_forms );
-
-		// Currently, $error_forms[$group][$ffname] = $data,
-		// with the most specific error forms in the top $group.
-		// So, get rid of all but the top group and collapse.
-		$error_forms = reset( $error_forms ); // top group
-		// now, $error_forms[$ffname] = $data. So, return the top key.
-		reset( $error_forms ); // top form from that group (there must be at least one for the key to exist)
-		return key( $error_forms );
 	}
 
 	/**
