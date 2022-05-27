@@ -6,7 +6,9 @@
 
 		if ( $('#country').val() === 'IN' ) {
 			$( '#fiscal_number' ).after(
-				$( '<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) + '</p>' )
+				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
+					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
+					'</p>' )
 			);
 		}
 	});
