@@ -170,7 +170,7 @@
 	"donate_interface-donor-currency-msg": "Die Spende wird in $1 vorgenommen",
 	"donate_interface-donor-fiscal_number": "Steuernummer",
 	"donate_interface-donor-fiscal_number-in": "PAN",
-	"donate_interface-donor-fiscal_number-explain-in": "Unser Zahlungsdienstleister wird von der indischen Zentralbank (Reserve Bank of India) aufgefordert, Ihre PAN zu erfassen, jedoch behalten oder speichern wir diese Informationen nicht.",
+	"donate_interface-donor-fiscal_number-explain-in": "Unser Zahlungsabwickler wird von der Reserve Bank of India <b>aufgefordert</b>, Ihre PAN zu erheben, aber wir speichern diese Informationen nicht. <b>Bitte geben Sie hier Ihre PAN optional an.</b>",
 	"donate_interface-donor-opt_in_yes": "Ja! Bitte senden Sie mir unregelmäßige Aktualisierungen und Informationen per E-Mail, wie ich in Zukunft Wikipedia unterstützen kann.*",
 	"donate_interface-donor-opt_in_no": "Nein, ich möchte keine Aktualisierungen erhalten, auch wenn es nur wenige E-Mails pro Jahr sind.",
 	"donate_interface-donor-opt_in_explain": "*Ihre Informationen werden in Übereinstimmung mit unserer <a href=\"$1\">Datenschutzrichtlinie für Spender</a> gehandhabt. Jede E-Mail, die Sie erhalten, enthält einfache Optionen zur Abmeldung.",
