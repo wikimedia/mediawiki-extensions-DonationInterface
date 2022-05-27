@@ -55,6 +55,12 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected $logger;
 
 	/**
+	 * When true, display an error form rather than the standard payment form
+	 * @var bool
+	 */
+	protected $showError = false;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -70,6 +76,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	public function execute( $par ) {
 		// FIXME: Deprecate "language" param.
 		$language = $this->getRequest()->getVal( 'language' );
+		$this->showError = $this->getRequest()->getBool( 'showError' );
+
 		if ( !$language ) {
 			// For some result pages, language does not come in on a standard URL param
 			// (language or uselang). For those cases, it's pretty safe to assume the
@@ -150,8 +158,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			return;
 		}
 
-		$this->getHookContainer()->register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
-
 		try {
 			$this->handleRequest();
 		} catch ( Exception $ex ) {
@@ -176,22 +182,23 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Build and display form to user
 	 */
 	public function displayForm() {
-		$output = $this->getOutput();
-
-		$form_class = $this->adapter->getFormClass();
-		// TODO: use interface.  static ctor.
-		if ( $form_class && class_exists( $form_class ) ) {
-			$form_obj = new $form_class();
-			$form_obj->setGateway( $this->adapter );
-			$form_obj->setGatewayPage( $this );
-			$form = $form_obj->getForm();
-			$output->addModules( $form_obj->getResources() );
-			$output->addModuleStyles( $form_obj->getStyleModules() );
-			$output->addHTML( $form );
+		if ( $this->showError ) {
+			$form = new MustacheErrorForm();
 		} else {
-			$this->logger->error( "Displaying fail page for bad form class '$form_class'" );
-			$this->displayFailPage();
+			$form = new Gateway_Form_Mustache();
+			// Only register the setClientVariables callback if we're loading a real form.
+			// Error forms don't load any gateway-specific scripts so don't need these variables.
+			$this->getHookContainer()->register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
 		}
+		$form->setGateway( $this->adapter );
+		$form->setGatewayPage( $this );
+
+		$output = $this->getOutput();
+		$output->addModules( $form->getResources() );
+		$output->addModuleStyles( $form->getStyleModules() );
+
+		$formHtml = $form->getForm();
+		$output->addHTML( $formHtml );
 	}
 
 	/**
@@ -199,7 +206,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	public function displayFailPage() {
 		if ( $this->adapter ) {
-			$this->adapter->addRequestData( [ 'showError' => true ] );
+			$this->showError = true;
 			$this->displayForm();
 		} else {
 			$output = $this->getOutput();
