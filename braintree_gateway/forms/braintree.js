@@ -1,8 +1,15 @@
 (function ($, mw) {
-	var myDeviceData;
+	var di = mw.donationInterface,
+		myDeviceData;
 
 	$('.submethods').before('<div id="paypal-button"></div>');
+	function handleApiResult( result ) {
+		if ( result.isFailed ) {
+			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+		}
 
+		document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+	}
 	// Create a client.
 	braintree.client.create({
 		authorization: mw.config.get('clientToken')
@@ -30,16 +37,13 @@
 
 			onApprove: function (data, actions) {
 				return paypalCheckoutInstance.tokenizePayment(data).then(function (payload) {
-					// Submit `payload.nonce` to your server
-					console.log("Approved. Now submit `payload.nonce` to your server")
-					console.log(payload)
+					sendData = {
+						payment_token: payload.nonce
+					};
 
-					// REFACTOR ME: Temp delayed redirect for simulation of complete process
-					tyUrl = mw.config.get( 'wgDonationInterfaceThankYouPage' )
-					setTimeout(function(){
-						document.location.replace( tyUrl );
-					}, 2000);
-
+					di.forms.callDonateApi(
+						handleApiResult, sendData, 'di_donate_braintree'
+					);
 				});
 			},
 
@@ -57,7 +61,7 @@
 		// is set up and ready to be used
 	}).catch(function (err) {
 		// Handle component creation error
-		console.log(err)
+		console.log(err);
 	});
 
 })(jQuery, mediaWiki);
