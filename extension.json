@@ -794,7 +794,23 @@
 			"value": false
 		},
 		"DonationInterfaceGatewayPriorityRules": {
-			"value": []
+			"value": [
+				{
+					"conditions": {
+						"country": [ "BR", "AR", "CL", "CO", "MX", "PE", "UY", "ZA" ]
+					},
+					"gateways": [ "astropay", "ingenico", "adyen", "paypal_ec", "amazon" ]
+				},
+				{
+					"conditions": {
+						"country": [ "FR", "NL" , "IL" ]
+					},
+					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "astropay" ]
+				},
+				{
+					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay" ]
+				}
+			]
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false

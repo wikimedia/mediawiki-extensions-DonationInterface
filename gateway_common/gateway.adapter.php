@@ -1804,6 +1804,29 @@ abstract class GatewayAdapter implements GatewayType {
 		return self::getIdentifier() . '_gateway';
 	}
 
+	/**
+	 * Return an array of all the currently enabled gateways.
+	 *
+	 * @param Config|null $mwConfig MediaWiki Config
+	 *
+	 * @return array of gateway identifiers.
+	 */
+	public static function getEnabledGateways( ?Config $mwConfig = null ): array {
+		if ( !$mwConfig ) {
+			$mwConfig = MediaWikiServices::getInstance()->getMainConfig();
+		}
+
+		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
+
+		$enabledGateways = [];
+		foreach ( $gatewayClasses as $identifier => $gatewayClass ) {
+			if ( $gatewayClass::getGlobal( 'Enabled' ) ) {
+				$enabledGateways[] = $identifier;
+			}
+		}
+		return $enabledGateways;
+	}
+
 	protected function xmlChildrenToArray( $xml, $nodename ) {
 		$data = [];
 		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {

@@ -4,6 +4,8 @@ use Symfony\Component\Yaml\Parser;
 
 /**
  * Read in yaml-based config files.
+ * TODO Knowledge about configuration layout should be encapsulated.
+ * See https://phabricator.wikimedia.org/T291699
  */
 class ConfigurationReader {
 
