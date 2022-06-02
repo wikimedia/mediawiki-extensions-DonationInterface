@@ -39,7 +39,7 @@ class DonationData implements LogPrefixProvider {
 	 * Then we could really clean up.
 	 * @TODO also: Think about putting log alarms on the
 	 * keys we want to see disappear forever, complete with
-	 * ffname and referrer for easy total destruction.
+	 * referrer for easy total destruction.
 	 * @var string[]
 	 */
 	protected static $fieldNames = [
@@ -108,7 +108,6 @@ class DonationData implements LogPrefixProvider {
 		'fiscal_number',
 		'transaction_type',
 		'form_name',
-		'ffname',
 		'processor_form',
 		'recurring',
 		'recurring_paypal',

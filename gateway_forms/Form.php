@@ -66,11 +66,9 @@ abstract class Gateway_Form {
 		unset( $query_array['_cache_'] );
 
 		// make sure no other data that might overwrite posted data makes it into the URL
-
 		$all_form_data = $this->gateway->getData_Unstaged_Escaped();
 		$keys_we_need_for_form_loading = [
 			'form_name',
-			'ffname',
 			'country',
 			'currency',
 			'language'
