@@ -1,7 +1,5 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
-
 /**
  * GatewayChooser acts as a gateway-agnostic landing page.
  * When passed a country, currency, and payment method combination, it determines the
@@ -94,17 +92,11 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 *
 	 * @param string $gateway The short name of the payment gateway.
 	 * @param array $params An array of params to send to the gateway page.
-	 * @param ?Config $mwConfig MediaWiki Config
+	 * @param Config $mwConfig MediaWiki Config
 	 *
 	 * @return string URL of special page for $gateway with $params on the querystring.
 	 */
-	public static function buildGatewayPageURL( string $gateway, array $params,
-		?Config $mwConfig = null ) {
-		// Get an instance of Mediawiki Config if one was not provided
-		if ( !$mwConfig ) {
-			$mwConfig = MediaWikiServices::getInstance()->getMainConfig();
-		}
-
+	public static function buildGatewayPageURL( string $gateway, array $params, Config $mwConfig ) {
 		// Remove empty values
 		$params = array_filter( $params );
 
@@ -113,7 +105,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 			'appeal' => $mwConfig->get( 'DonationInterfaceDefaultAppeal' ),
 		], $params );
 
-		$specialPage = GatewayPage::getGatewayPageName( $gateway );
+		$specialPage = GatewayPage::getGatewayPageName( $gateway, $mwConfig );
 		return self::getTitleFor( $specialPage )->getLocalURL( $params );
 	}
 

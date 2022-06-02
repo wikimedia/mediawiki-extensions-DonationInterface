@@ -1784,15 +1784,11 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Return an array of all the currently enabled gateways.
 	 *
-	 * @param Config|null $mwConfig MediaWiki Config
+	 * @param Config $mwConfig MediaWiki Config
 	 *
 	 * @return array of gateway identifiers.
 	 */
-	public static function getEnabledGateways( ?Config $mwConfig = null ): array {
-		if ( !$mwConfig ) {
-			$mwConfig = MediaWikiServices::getInstance()->getMainConfig();
-		}
-
+	public static function getEnabledGateways( Config $mwConfig ): array {
 		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
 
 		$enabledGateways = [];

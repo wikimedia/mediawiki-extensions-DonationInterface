@@ -16,7 +16,6 @@
  *
  */
 
-use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
 use SmashPig\Core\PaymentError;
@@ -565,16 +564,10 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * Get the name of the special page for a gateway.
 	 *
 	 * @param string $gatewayId
-	 * @param Config|null $mwConfig MediaWiki Config
+	 * @param Config $mwConfig MediaWiki Config
 	 * @return string
 	 */
-	public static function getGatewayPageName( string $gatewayId,
-		?Config $mwConfig = null ): string {
-		// Get an instance of Mediawiki Config if one was not provided
-		if ( !$mwConfig ) {
-			$mwConfig = MediaWikiServices::getInstance()->getMainConfig();
-		}
-
+	public static function getGatewayPageName( string $gatewayId, Config $mwConfig ): string {
 		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
 
 		// T302939: in order to pass the SpecialPageFatalTest::testSpecialPageDoesNotFatal unit test
