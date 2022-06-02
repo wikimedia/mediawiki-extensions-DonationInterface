@@ -44,7 +44,6 @@ class DonationInterface_Adapter_GlobalCollect_BankTransferTest extends DonationI
 	 */
 	public function testBuildRequestXml() {
 		$optionsForTestData = [
-			'form_name' => 'TwoStepAmount',
 			'payment_method' => 'bt',
 			'payment_submethod' => 'bt',
 			'payment_product_id' => 11,

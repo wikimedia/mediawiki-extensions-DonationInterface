@@ -176,7 +176,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * @covers DonationData::__construct
 	 */
 	public function testConstructorHasDonationData() {
-		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway?form_name=TwoStepAmount';
+		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway';
 
 		$options = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $options );
