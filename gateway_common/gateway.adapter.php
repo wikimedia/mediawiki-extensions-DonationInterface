@@ -3779,7 +3779,6 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getLogDebugJSON() {
 		$logObj = [
 			'amount',
-			'ffname',
 			'country',
 			'currency',
 			'payment_method',
