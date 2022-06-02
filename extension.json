@@ -797,15 +797,23 @@
 			"value": [
 				{
 					"conditions": {
-						"country": [ "BR", "AR", "CL", "CO", "MX", "PE", "UY", "ZA" ]
+						"country": [ "AR", "BR", "CL", "CO", "MX", "PE", "UY", "ZA" ],
+						"payment_method": "cc"
 					},
-					"gateways": [ "astropay", "ingenico", "adyen", "paypal_ec", "amazon" ]
+					"gateways": [ "astropay", "ingenico", "adyen" ]
 				},
 				{
 					"conditions": {
-						"country": [ "FR", "NL" , "IL" ]
+						"country": [ "FR", "NL" , "IL" ],
+						"payment_method": "cc"
 					},
-					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "astropay" ]
+					"gateways": [ "adyen", "ingenico" ]
+				},
+				{
+					"conditions": {
+						"payment_method": "rtbt"
+					},
+					"gateways": [ "adyen", "ingenico" ]
 				},
 				{
 					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay" ]
