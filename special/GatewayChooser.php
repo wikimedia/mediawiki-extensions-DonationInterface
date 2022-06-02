@@ -110,7 +110,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Get all the gateways supported for the provided imputs.
+	 * Get all the gateways supported for the provided inputs.
 	 *
 	 * @param string $country
 	 * @param string|null $currency
@@ -128,7 +128,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		bool $recurring,
 		?string $variant
 	): array {
-		$possbleGateways = [];
+		$possibleGateways = [];
 		$mwConfig = $this->getConfig(); // Main MediaWiki config object, via superclass
 		$enabledGateways = GatewayAdapter::getEnabledGateways( $mwConfig );
 
@@ -182,10 +182,10 @@ class GatewayChooser extends UnlistedSpecialPage {
 				continue;
 			}
 
-			$possbleGateways[] = $enabledGateway;
+			$possibleGateways[] = $enabledGateway;
 		}
 
-		return $possbleGateways;
+		return $possibleGateways;
 	}
 
 	/**
@@ -389,7 +389,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 
 		if ( $sanitizedVal !== $val ) {
 			$this->logger->warning(
-				"Unexpected characters in $paramName; sanitizd value is $sanitizedVal, " .
+				"Unexpected characters in $paramName; sanitized value is $sanitizedVal, " .
 				'from referrer ' . $this->getRequest()->getHeader( 'referer' )
 			);
 		}
