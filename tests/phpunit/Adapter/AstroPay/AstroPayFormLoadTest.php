@@ -26,28 +26,8 @@ class AstroPayFormLoadTest extends DonationInterfaceTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$cc_countries = [ 'CO' ];
-		$bt_countries = [ 'IN' ];
-
 		$this->setMwGlobals( [
 			'wgAstroPayGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'cc-vma' => [
-					'gateway' => 'astropay',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
-					'countries' => [
-						'+' => $cc_countries
-					],
-				],
-				'rtbt-netbanking' => [
-					'gateway' => 'astropay',
-					'countries' => [
-						'+' => $bt_countries
-					],
-					'currencies' => [ '+' => 'INR' ],
-					'payment_methods' => [ 'bt' => 'netbanking' ],
-				],
-			],
 		] );
 	}
 

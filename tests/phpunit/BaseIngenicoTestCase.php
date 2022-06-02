@@ -51,44 +51,6 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		];
 		$this->setMwGlobals( [
 			'wgIngenicoGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'cc-vmad' => [
-					'gateway' => 'ingenico',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
-					'countries' => [
-						'+' => $vmad_countries,
-					],
-				],
-				'cc-vmaj' => [
-					'gateway' => 'ingenico',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'jcb' ] ],
-					'countries' => [
-						'+' => $vmaj_countries,
-					],
-				],
-				'cc-vma' => [
-					'gateway' => 'ingenico',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
-					'countries' => [
-						// Array merge with cc-vmaj as fallback in case 'j' goes down
-						// Array merge with cc-vmad as fallback in case 'd' goes down
-						'+' => array_merge(
-							$vmaj_countries,
-							$vmad_countries,
-							$vma_countries
-						),
-					],
-				],
-				'rtbt-sofo' => [
-					'gateway' => 'ingenico',
-					'countries' => [
-						'+' => [ 'AT', 'BE', 'CH', 'DE' ],
-						'-' => 'GB'
-					],
-					'currencies' => [ '+' => 'EUR' ],
-					'payment_methods' => [ 'rtbt' => 'rtbt_sofortuberweisung' ],
-				],
-			],
 		] );
 
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .

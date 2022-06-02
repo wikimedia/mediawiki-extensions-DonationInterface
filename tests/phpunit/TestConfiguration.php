@@ -57,7 +57,6 @@ define( 'TESTS_ADAPTER_DEFAULT', TestingGlobalCollectAdapter::class );
 global $wgDonationInterfaceTest,
 	$wgDonationInterfaceMerchantID,
 	$wgDonationInterfaceGatewayAdapters,
-	$wgDonationInterfaceAllowedHtmlForms,
 	$wgDonationInterfaceThankYouPage,
 	$wgDonationInterface3DSRules,
 	$wgGlobalCollectGatewayAccountInfo,

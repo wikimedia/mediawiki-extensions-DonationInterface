@@ -56,14 +56,6 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 
 		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'rtbt-ideal' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'rtbt' => 'rtbt_ideal' ],
-					'countries' => [ '+' => 'NL' ],
-					'currencies' => [ '+' => 'EUR' ],
-				],
-			],
 		] );
 	}
 

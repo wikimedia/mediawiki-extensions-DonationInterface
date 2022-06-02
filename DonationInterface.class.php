@@ -32,9 +32,6 @@ class DonationInterface {
 		 */
 		$wgDonationInterfaceErrorTemplate = __DIR__ . '/gateway_forms/mustache/error_form.html.mustache';
 
-		// Load the default form settings.
-		require_once __DIR__ . '/DonationInterfaceFormSettings.php';
-
 		// Include composer's autoload if the vendor directory exists.  If we have been
 		// included via Composer, our dependencies should already be autoloaded at the
 		// top level.

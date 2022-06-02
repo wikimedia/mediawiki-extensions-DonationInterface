@@ -40,12 +40,6 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeIdentifier = 'globalcollect';
 		$this->setMwGlobals( [
 			'wgPaypalExpressGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'paypal' => [
-					'gateway' => 'paypal_ec',
-					'payment_methods' => [ 'paypal' => 'ALL' ],
-				],
-			],
 		] );
 		parent::setUp();
 	}

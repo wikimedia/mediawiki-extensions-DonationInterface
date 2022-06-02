@@ -32,15 +32,6 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'cc-vmad' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
-					'countries' => [
-						'+' => [ 'US', ],
-					],
-				],
-			],
 		] );
 	}
 
