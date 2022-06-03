@@ -40,44 +40,6 @@ class GlobalCollectFormLoadTest extends DonationInterfaceTestCase {
 		];
 		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'cc-vmad' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'discover' ] ],
-					'countries' => [
-						'+' => $vmad_countries,
-					],
-				],
-				'cc-vmaj' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex', 'jcb' ] ],
-					'countries' => [
-						'+' => $vmaj_countries,
-					],
-				],
-				'cc-vma' => [
-					'gateway' => 'globalcollect',
-					'payment_methods' => [ 'cc' => [ 'visa', 'mc', 'amex' ] ],
-					'countries' => [
-						// Array merge with cc-vmaj as fallback in case 'j' goes down
-						// Array merge with cc-vmad as fallback in case 'd' goes down
-						'+' => array_merge(
-							$vmaj_countries,
-							$vmad_countries,
-							$vma_countries
-						),
-					],
-				],
-				'rtbt-sofo' => [
-					'gateway' => 'globalcollect',
-					'countries' => [
-						'+' => [ 'AT', 'BE', 'CH', 'DE' ],
-						'-' => 'GB'
-					],
-					'currencies' => [ '+' => 'EUR' ],
-					'payment_methods' => [ 'rtbt' => 'rtbt_sofortuberweisung' ],
-				],
-			],
 		] );
 	}
 

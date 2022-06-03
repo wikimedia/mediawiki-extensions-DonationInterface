@@ -60,19 +60,6 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
 		$this->setMwGlobals( [
 			'wgAmazonGatewayEnabled' => true,
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'amazon' => [
-					'gateway' => 'amazon',
-					'payment_methods' => [ 'amazon' => 'ALL' ],
-					'redirect',
-				],
-				'amazon-recurring' => [
-					'gateway' => 'amazon',
-					'payment_methods' => [ 'amazon' => 'ALL' ],
-					'redirect',
-					'recurring',
-				],
-			],
 		] );
 	}
 

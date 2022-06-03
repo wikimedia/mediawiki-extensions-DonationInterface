@@ -60,14 +60,6 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 		$this->setMwGlobals(
 			[
 				'wgIngenicoGatewayEnabled' => true,
-				'wgDonationInterfaceAllowedHtmlForms' => [
-					'rtbt-ideal' => [
-						'gateway' => 'ingenico',
-						'payment_methods' => [ 'rtbt' => 'rtbt_ideal' ],
-						'countries' => [ '+' => 'NL' ],
-						'currencies' => [ '+' => 'EUR' ],
-					],
-				],
 			]
 		);
 	}

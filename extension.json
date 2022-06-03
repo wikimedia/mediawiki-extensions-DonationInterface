@@ -855,9 +855,6 @@
 				"braintree": "BraintreeAdapter"
 			}
 		},
-		"DonationInterfaceAllowedHtmlForms": {
-			"value": []
-		},
 		"DonationInterfaceTaxDedCountries": {
 			"value": [ "FR" ]
 		},

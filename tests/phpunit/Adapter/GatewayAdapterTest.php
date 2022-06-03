@@ -38,18 +38,6 @@ use Wikimedia\TestingAccessWrapper;
  */
 class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-
-		$this->setMwGlobals( [
-			'wgDonationInterfaceAllowedHtmlForms' => [
-				'testytest' => [
-					'gateway' => 'globalcollect', // RAR.
-				]
-			],
-		] );
-	}
-
 	/**
 	 *
 	 * @covers GatewayAdapter::__construct
