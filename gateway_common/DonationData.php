@@ -107,7 +107,6 @@ class DonationData implements LogPrefixProvider {
 		'iban',
 		'fiscal_number',
 		'transaction_type',
-		'form_name',
 		'processor_form',
 		'recurring',
 		'recurring_paypal',
