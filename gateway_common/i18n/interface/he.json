@@ -367,7 +367,7 @@
 	"donate_interface-online_bank_transfer_message": "בנקאות בטלפון ובאינטרנט – BPAY®",
 	"donate_interface-rtbt-issuer_id": "בחירת בנק",
 	"donate_interface-rtbt-issuer_id-longlist": "בנקים אחרים",
-	"donate_interface-sofortbanking": "Sofortbanking היא העברה בנקאית ישירה בזמן אמת דרך DIRECTebanking.com, המאפשרת לך להפעיל העברה בנקאית באופן ישיר בזמן נתינת תרומה מקוונת בעזרת המידע הבנקאי שלך. אם לחשבון הבנק שלך אין יכולות לבצע פעולות מקוונת, אולי עדיף לך להשתמש באפשרות \"תרומה בהעברה בנקאית ישירה\" בדף התרמה הראשי.",
+	"donate_interface-sofortbanking": "Sofortbanking היא העברה בנקאית ישירה בזמן־אמת דרך DIRECTebanking.com, המאפשרת לך להפעיל העברה בנקאית באופן ישיר בזמן נתינת תרומה מקוונת בעזרת המידע הבנקאי שלך. אם לחשבון הבנק שלך אין יכולות לבצע פעולות מקוונת, אולי עדיף לך להשתמש באפשרות \"תרומה בהעברה בנקאית ישירה\" בדף התרמה הראשי.",
 	"donate_interface-dd-account_name": "שם החשבון",
 	"donate_interface-dd-account_number": "מספר החשבון",
 	"donate_interface-dd-authorization_id": "קוד אימות לחיוב ישיר (Direct Debit Authorization ID)",
