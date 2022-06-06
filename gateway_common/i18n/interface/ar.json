@@ -3,6 +3,7 @@
 		"authors": [
 			"20عبد العزيز",
 			"Amire80",
+			"Asma",
 			"AwamerT",
 			"Ciphers",
 			"FiberAhmed",
@@ -213,6 +214,7 @@
 	"donate_interface-error-msg-invalid-city": "يُرجَى تصحيح الأخطاء في مدينتك",
 	"donate_interface-error-msg-invalid-postal_code-us": "يُرجَى تصحيح الأخطاء في رمزك البريدي",
 	"donate_interface-error-msg-invalid-postal_code": "يُرجَى تصحيح الأخطاء في رمزك البريدي",
+	"donate_interface-error-msg-invalid-employer": "اسم صاحب العمل غير صالح.",
 	"donate_interface-error-msg-country": "الرجاء إدخال بلدك",
 	"donate_interface-error-msg-card_num": "رقم بطاقة الائتمان",
 	"donate_interface-error-msg-expiration": "الرجاء إدخال تاريخ انتهاء صلاحية البطاقة",
