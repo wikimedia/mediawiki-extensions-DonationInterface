@@ -166,7 +166,7 @@
 	"donate_interface-donor-currency-msg": "Denne gaven blir gitt i $1",
 	"donate_interface-donor-fiscal_number": "Fiscal number",
 	"donate_interface-donor-fiscal_number-in": "PAN",
-	"donate_interface-donor-fiscal_number-explain-in": "Betalingsprosesseringen vår er påkrevd av Reserve Bank of India for å samle inn din PAN, men vi beholder eller lagrer ikke denne informasjonen.",
+	"donate_interface-donor-fiscal_number-explain-in": "Reserve Bank of India <b>ber om</b> at vi samler inn din PAN, men vi lagrer ikke denne informasjonen. <b>Angi ditt PAN her (valgfritt).</b>",
 	"donate_interface-donor-opt_in_yes": "Ja! Send meg epostoppdateringer og informasjon av og til om hvordan jeg kan støtte Wikipedia i fremtiden.*",
 	"donate_interface-donor-opt_in_no": "Nei takk, jeg ønsker ikke å motta epostoppdateringer selv om det bare er snakk om noen få eposter årlig.",
 	"donate_interface-donor-opt_in_explain": "*Informasjonen din behandles i samsvar med <a href=\"$1\">personvernspolicyen vår for donorer</a>. Hver epost du mottar vil inkludere måter å avslutte abonnementet på.",
@@ -209,6 +209,7 @@
 	"donate_interface-error-msg-invalid-city": "Vennligst fiks feilene i feltet «sted»",
 	"donate_interface-error-msg-invalid-postal_code-us": "Vennligst fiks feilene i feltet «postnummer»",
 	"donate_interface-error-msg-invalid-postal_code": "Vennligst fiks feilene i feltet «Postnummer»",
+	"donate_interface-error-msg-invalid-employer": "Ugyldig arbeidsgivernavn.",
 	"donate_interface-error-msg-country": "Skriv inn landet ditt",
 	"donate_interface-error-msg-card_num": "kredittkortnummer",
 	"donate_interface-error-msg-expiration": "Vennligst fyll inn kortets utløpsdato",
@@ -460,5 +461,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Nei, takk",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nei, ikke nå",
 	"donate_interface-fundraiser-maintenance-header": "Midlertidig nede for vedlikehold",
-	"donate_interface-fundraiser-maintenance-notice": "Vi utfører for øyeblikket planlagt vedlikehold, og kan ikke ta imot donasjoner nå. Prøv igjen snart. Om du har noen spørsmål, send oss en epost på $1."
+	"donate_interface-fundraiser-maintenance-notice": "Vi utfører for øyeblikket planlagt vedlikehold, og kan ikke ta imot donasjoner nå. Prøv igjen snart. Om du har noen spørsmål, send oss en epost på $1.",
+	"donate_interface-redirect-explanation": "Du blir omdirigert til Wikimedias betalingspartner."
 }
