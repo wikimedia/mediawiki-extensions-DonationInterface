@@ -71,8 +71,6 @@ $wgDonationInterfaceGeoIpDbPath = '/usr/share/GeoIP/GeoLite2-Country.mmdb'
 
 ==== Form appearance and content ====
 
-Besides these settings, please see DonationInterfaceFormSettings.php
-
 Title to transclude in form template as {{{ appeal_text }}}.
 $appeal and $language will be substituted before transclusion
 

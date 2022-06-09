@@ -794,7 +794,31 @@
 			"value": false
 		},
 		"DonationInterfaceGatewayPriorityRules": {
-			"value": []
+			"value": [
+				{
+					"conditions": {
+						"country": [ "AR", "BR", "CL", "CO", "MX", "PE", "UY", "ZA" ],
+						"payment_method": "cc"
+					},
+					"gateways": [ "astropay", "ingenico", "adyen" ]
+				},
+				{
+					"conditions": {
+						"country": [ "FR", "NL" , "IL" ],
+						"payment_method": "cc"
+					},
+					"gateways": [ "adyen", "ingenico" ]
+				},
+				{
+					"conditions": {
+						"payment_method": "rtbt"
+					},
+					"gateways": [ "adyen", "ingenico" ]
+				},
+				{
+					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay" ]
+				}
+			]
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false
@@ -830,9 +854,6 @@
 				"paypal_ec": "PaypalExpressAdapter",
 				"braintree": "BraintreeAdapter"
 			}
-		},
-		"DonationInterfaceAllowedHtmlForms": {
-			"value": []
 		},
 		"DonationInterfaceTaxDedCountries": {
 			"value": [ "FR" ]

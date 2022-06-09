@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+
 use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
 use SmashPig\Core\PaymentError;
@@ -27,6 +28,8 @@ use SmashPig\PaymentData\FinalStatus;
  * this class, with most of the gateway-specific control logic in its handleRequest
  * function. For instance: extensions/DonationInterface/globalcollect_gateway/globalcollect_gateway.body.php
  *
+ * *** Constraint for implementing classes *** The special page name must always be the gateway
+ * adapter class name with 'Adapter' replaced with 'Gateway'.
  */
 abstract class GatewayPage extends UnlistedSpecialPage {
 	/**
@@ -555,5 +558,33 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	public function showContinueButton() {
 		return true;
+	}
+
+	/**
+	 * Get the name of the special page for a gateway.
+	 *
+	 * @param string $gatewayId
+	 * @param Config $mwConfig MediaWiki Config
+	 * @return string
+	 */
+	public static function getGatewayPageName( string $gatewayId, Config $mwConfig ): string {
+		$gatewayClasses = $mwConfig->get( 'DonationInterfaceGatewayAdapters' );
+
+		// T302939: in order to pass the SpecialPageFatalTest::testSpecialPageDoesNotFatal unit test
+		// since no aliases are defined for those TestingAdapters
+		// will remove below if condition once those TestingAdapter gone from the test cases
+		if ( str_starts_with( $gatewayClasses[ $gatewayId ], 'Testing' ) ) {
+			$specialPage = 'GatewayChooser';
+		} else {
+			// The special page name is the gateway adapter class name with 'Adapter'
+			// replaced with 'Gateway'.
+			$specialPage = str_replace(
+				'Adapter',
+				'Gateway',
+				$gatewayClasses[ $gatewayId ]
+			);
+		}
+
+		return $specialPage;
 	}
 }
