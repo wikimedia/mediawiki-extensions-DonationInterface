@@ -183,6 +183,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'EC', 'currency' => 'USD' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'EE', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'EG', 'currency' => 'EGP' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'ES', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'FI', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'FJ', 'currency' => 'FJD' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'FO', 'currency' => 'DKK' ], 'IngenicoGateway' ],
