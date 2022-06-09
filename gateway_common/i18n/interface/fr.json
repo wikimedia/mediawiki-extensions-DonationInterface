@@ -281,7 +281,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Veuillez corriger les erreurs dans votre DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Veuillez corriger les erreurs dans votre CI",
 	"donate_interface-error-msg-issuer_id": "banque",
-	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay n’est pas supporté dans ce navigateur. Veuillez utiliser Safari et vous assurer que Apple Pay est configuré sur votre appareil, ou essayez l'une de nos autres <a href=\"$1\">façons de donner</a>.",
+	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay n’est pas pris en charge par ce navigateur. Veuillez utiliser Safari et vous assurer qu’Apple Pay est configuré sur votre appareil, ou essayez l’une de nos autres <a href=\"$1\">façons de donner</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay n’est pas disponible. Veuillez vous assurer que Google Pay est configuré, ou bien essayez un de nos <a href=\"$1\">autres moyens pour donner</a>.",
 	"donate_interface-error-msg-opt_in": "Veuillez choisir une option d’email",
 	"donate_interface-donate-error-try-a-different-card": "Veuillez [$1 essayer une autre carte] ou l’une de nos [$2 autres façons de donner] ou bien nous contacter par email adressé à $3",
