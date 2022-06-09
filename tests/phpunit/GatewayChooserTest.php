@@ -125,7 +125,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		// PaypalExpressGateway
 		// IngenicoGateway
 
-		// TODO Add test cases for Google Pay and cash payment methods
+		// TODO Add test cases for Google Pay
 
 		return [
 			// paypal payement method is only provided by PaypalExpressGateway
@@ -133,9 +133,24 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			// amazon payement method is only provided by AmazonGateway
 			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'USD' ], 'AmazonGateway' ], // amazon
 
-			// bank transfer methods
-			// TODO expand this
-			[ [ 'payment_method' => 'bt', 'country' => 'BR', 'currency' => 'BRL' ], 'AstroPayGateway' ], // bt astropay
+			// bank transfer methods, all currently processed via DLocal (AstroPay)
+			[ [ 'payment_method' => 'bt', 'country' => 'AR', 'currency' => 'ARS' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'BR', 'currency' => 'BRL' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'CO', 'currency' => 'COP' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'CL', 'currency' => 'CLP' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'IN', 'currency' => 'INR' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'PE', 'currency' => 'PEN' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'bt', 'country' => 'ZA', 'currency' => 'ZAR' ], 'AstroPayGateway' ],
+
+			// cash methods, all currently processed via DLocal (AstroPay)
+			[ [ 'payment_method' => 'cash', 'country' => 'AR', 'currency' => 'ARS' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'cash', 'country' => 'BR', 'currency' => 'BRL' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'cash', 'country' => 'CO', 'currency' => 'COP' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'cash', 'country' => 'MX', 'currency' => 'INR' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'cash', 'country' => 'PE', 'currency' => 'PEN' ], 'AstroPayGateway' ],
+			[ [ 'payment_method' => 'cash', 'country' => 'UY', 'currency' => 'ZAR' ], 'AstroPayGateway' ],
+
+			// iDEAL (NL-only realtime bank transfer)
 			[ [ 'payment_method' => 'rtbt', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			// obt (BPay) removed, see T309475
 			// [ [ 'payment_method' => 'obt', 'country' => 'AU', 'currency' => 'AUD' ], 'GlobalCollectGateway' ],
