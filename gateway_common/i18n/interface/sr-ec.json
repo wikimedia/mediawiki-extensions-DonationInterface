@@ -150,7 +150,7 @@
 	"donate_interface-donor-card": "Кредитна картица",
 	"donate_interface-donor-card-num": "Број картице",
 	"donate_interface-donor-expiration": "Датум истека",
-	"donate_interface-donor-security": "Безбедносни кôд",
+	"donate_interface-donor-security": "Безбедносни код",
 	"donate_interface-donor-submit": "Донирај",
 	"donate_interface-donor-currency-msg": "Ова донација је направљена у валути $1",
 	"donate_interface-donor-fiscal_number": "Фискални број",
