@@ -147,9 +147,14 @@ class GatewayChooser extends UnlistedSpecialPage {
 				continue;
 			}
 
-			// Check availability for currency; config is a flat array
-			// currencies config is always expected.
-			if ( $currency && !in_array( $currency, $gatewayConfig[ 'currencies' ] ) ) {
+			// Check if we should include the gateway even if the currency is unsupported,
+			// and, if not, check availability for this currency.
+			// Currencies config is a flat array and is always expected.
+			if (
+				!$gatewayConfig[ 'general' ][ 'gateway_chooser' ][ 'still_include_if_currency_is_not_supported' ] &&
+				$currency &&
+				!in_array( $currency, $gatewayConfig[ 'currencies' ] )
+			) {
 				continue;
 			}
 
