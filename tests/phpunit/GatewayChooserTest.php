@@ -128,10 +128,17 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		// TODO Add test cases for Google Pay
 
 		return [
-			// paypal payement method is only provided by PaypalExpressGateway
+			// paypal payment method is only provided by PaypalExpressGateway
 			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD' ], 'PaypalExpressGateway' ],
-			// amazon payement method is only provided by AmazonGateway
-			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'USD' ], 'AmazonGateway' ], // amazon
+			// amazon payment method is only provided by AmazonGateway
+			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'USD' ], 'AmazonGateway' ],
+
+			// Ensure paypal and amazon gateways are selected even if the currency is unsupported.
+			// For both, for these test cases to work, CLP currency must not be included in
+			// currencies.yaml, and in general.yaml, gateway_chooser/still_include_if_currency_is_not_supported
+			// must be true.
+			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'CLP' ], 'PaypalExpressGateway' ],
+			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'CLP' ], 'AmazonGateway' ],
 
 			// bank transfer methods, all currently processed via DLocal (AstroPay)
 			[ [ 'payment_method' => 'bt', 'country' => 'AR', 'currency' => 'ARS' ], 'AstroPayGateway' ],
