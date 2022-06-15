@@ -301,6 +301,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			return [
 				'street_address',
 				'postal_code',
+				'city'
 			];
 		}
 		return [];
