@@ -215,7 +215,7 @@
 	"donate_interface-otherways": "Има и <a href=\"$1\">други начини за дарение, например PayPal, с чек или по пощата</a>.",
 	"donate_interface-otherways-alt": "Има и <a href=\"$1\">други начини за дарение</a>, включително с чек.",
 	"donate_interface-otherways-short": "Други начини за дарение",
-	"donate_interface-token-mismatch": "Вашата сесия е изтекла. Опитайте отново да попълните и изпратите формуляра.",
+	"donate_interface-token-mismatch": "Вашата сесия е изтекла. Моля, опитайте да презаредите страницата и да изпратите формуляра отново.",
 	"donate_interface-cc-form-header-personal": "Информация за фактуриране",
 	"donate_interface-cc-form-header-payment": "Информация за плащане",
 	"donate_interface-make-your-donation": "Направете дарение сега",
