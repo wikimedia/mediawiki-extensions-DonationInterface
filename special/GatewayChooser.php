@@ -368,7 +368,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// passed through on the redirect URL without sanitization or validation
 		$passThruParams = [];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
-			if ( !in_array( $key, $params ) && $key !== 'title' && $key !== 'currency_code' ) {
+			if ( !array_key_exists( $key, $params ) && $key !== 'title' && $key !== 'currency_code' ) {
 				$passThruParams[ $key ] = $value;
 			}
 		}
