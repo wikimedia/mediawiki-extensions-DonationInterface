@@ -307,7 +307,7 @@
 	"donate_interface-credit-card-number": "מספר כרטיס האשראי",
 	"donate_interface-credit-card-number-abbreviated": "מספר כרטיס האשראי",
 	"donate_interface-credit-card-expiration": "תאריך תפוגה של כרטיס האשראי",
-	"donate_interface-card-expiration": "פקיעת התוקף של הכרטיס",
+	"donate_interface-card-expiration": "תפוגת התוקף של הכרטיס",
 	"donate_interface-select-month-of-expiration": "נא לבחור את חודש התפוגה",
 	"donate_interface-select-year-of-expiration": "נא לבחור את שנת התפוגה",
 	"donate_interface-expires-question": "פג?",
