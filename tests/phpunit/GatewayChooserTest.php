@@ -302,29 +302,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		];
 	}
 
-	/**
-	 * currency should take precedence over currency_code, payment_method
-	 * over paymentmethod, etc.
-	 */
-	public function testPreferCanonicalParams() {
-		$assertNodes = [
-			'headers' => [
-				'Location' => function ( $val ) {
-					$qs = [];
-					parse_str( parse_url( $val, PHP_URL_QUERY ), $qs );
-					$this->assertEquals( 'Special:PaypalExpressGateway', $qs['title'], 'Wrong form' );
-				}
-			],
-		];
-		$initial = [
-			'language' => 'en',
-			'payment_method' => 'paypal',
-			'paymentmethod' => 'amazon',
-			'country' => 'US',
-		];
-		$this->verifyFormOutput( 'GatewayChooser', $initial, $assertNodes, false );
-	}
-
 	private function getExtensionConfig( $gateway ) {
 		$yaml = new Parser();
 		$configDir = $this->dir . $gateway . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "countries.yaml";
@@ -504,5 +481,37 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
 
 		$this->assertEquals( $expectedGateway, $processor );
+	}
+
+	public function testAdditionalParamatersPassThrough() {
+		$context = RequestContext::getMain();
+		$newOutput = new OutputPage( $context );
+		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
+		$params = [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'utm_source' => 'banner12345',
+			'utm_campaign' => 'FR-campaign_12345',
+			'amount' => '100'
+		];
+
+		$context->setRequest( new FauxRequest( $params, false ) );
+
+		$context->setOutput( $newOutput );
+		$context->setTitle( $newTitle );
+
+		$fc = new GatewayChooser();
+		$fc->execute( null );
+		$fc->getOutput()->output();
+		$url = $fc->getRequest()->response()->getheader( 'Location' );
+
+		if ( !$url ) {
+			$this->fail( 'No gateway returned for this configuration.' );
+		}
+
+		$parts = parse_url( $url );
+		parse_str( $parts['query'], $query );
+		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
 	}
 }
