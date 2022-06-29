@@ -56,6 +56,7 @@
 	"apihelp-logPaymentsFormError-param-userAgent": "Browser's user-agent string",
 	"apihelp-logPaymentsFormError-param-stack": "Error's stack trace, when available",
 	"apihelp-di_donate_adyen-summary": "This API is for Adyen",
+	"apihelp-di_donate_braintree-summary": "This API is for Braintree",
 	"apihelp-di_recurring_convert-summary": "This API is used when a donor agrees to add a monthly donation after completing a successful one-time donation.",
 	"apihelp-di_recurring_convert-param-amount": "The amount of the monthly donation.",
 	"apihelp-di_recurring_convert-param-gateway": "Which payment gateway to use - adyen, globalcollect, etc.",

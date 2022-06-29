@@ -24,8 +24,7 @@ class AstroPaySignature implements StagingHelper {
 			// Set city to null when not needed
 			$city = $stagedData['city'] ?? '';
 
-			return str_replace( '+', ' ',
-				$stagedData['order_id'] . 'V'
+			return $stagedData['order_id'] . 'V'
 				. $stagedData['amount'] . 'I'
 				. $stagedData['donor_id'] . '2'
 				. $stagedData['bank_code'] . '1'
@@ -35,8 +34,7 @@ class AstroPaySignature implements StagingHelper {
 				. /* postal_code omitted */ 'A'
 				. $stagedData['street_address'] . 'P'
 				. $city . 'S'
-				. /* state_province omitted */ 'P'
-			);
+				. /* state_province omitted */ 'P';
 		}
 	}
 

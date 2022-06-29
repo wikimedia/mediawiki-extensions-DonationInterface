@@ -22,8 +22,26 @@ class BraintreeGateway extends GatewayPage {
 
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
+		$failPage = GatewayChooser::buildGatewayPageUrl(
+			'braintree',
+			[ 'showError' => true ],
+			$this->getConfig()
+		);
+
+		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['clientToken'] = $this->adapter->getClientToken();
-		$vars['wgDonationInterfaceThankYouPage'] = $this->adapter->getGlobal( 'ThankYouPage' );
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
+
+	/**
+	 * Overrides parent function to return false.
+	 *
+	 * @return bool
+	 *
+	 * @see GatewayPage::showContinueButton()
+	 */
+	public function showContinueButton() {
+		return false;
 	}
 
 }
