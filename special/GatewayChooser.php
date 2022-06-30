@@ -97,8 +97,10 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 * @return string URL of special page for $gateway with $params on the querystring.
 	 */
 	public static function buildGatewayPageURL( string $gateway, array $params, Config $mwConfig ) {
-		// Remove empty values
-		$params = array_filter( $params );
+		// Remove empty strings (normally not expected)
+		$params = array_filter( $params, static function ( $v ) {
+			return $v !== '';
+		} );
 
 		// Add an appeal parameter if none was present
 		$params = array_merge( [
