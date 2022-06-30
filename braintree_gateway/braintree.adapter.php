@@ -38,13 +38,16 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
 		$donorDetails = $createPaymentResult->getDonorDetails();
-		$this->addResponseData(
-			[ 'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(),
-				'first_name' => $donorDetails->getFirstName(),
-				'last_name' => $donorDetails->getLastName(),
-				'email' => $donorDetails->getEmail(),
-				'phone' => $donorDetails->getPhone() ]
-		);
+
+		// Pull in new data from result if available.
+		$this->addResponseData( [
+			'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(), // this is always new
+			'first_name' => $donorDetails->getFirstName() ?? $this->dataObj->getVal( 'first_name' ),
+			'last_name' => $donorDetails->getLastName() ?? $this->dataObj->getVal( 'last_name' ),
+			'email' => $donorDetails->getEmail() ?? $this->dataObj->getVal( 'email' ),
+			'phone' => $donorDetails->getPhone() // we don't usually collect this
+		] );
+
 		$paymentResult = PaymentResult::newRedirect(
 			ResultPages::getThankYouPage( $this ) );
 		if ( !$createPaymentResult->isSuccessful() ) {
