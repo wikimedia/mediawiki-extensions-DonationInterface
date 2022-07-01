@@ -60,6 +60,13 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->logger->info( $errorLogMessage );
 		}
 
+		// if its recurring, the response will have a token
+		if ( $createPaymentResult->getRecurringPaymentToken() ) {
+			$this->addResponseData( [
+				'recurring_payment_token' => $createPaymentResult->getRecurringPaymentToken(),
+			] );
+		}
+
 		switch ( $transactionStatus ) {
 			case FinalStatus::PENDING:
 			case FinalStatus::PENDING_POKE:
