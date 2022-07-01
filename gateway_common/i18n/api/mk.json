@@ -50,6 +50,7 @@
 	"apihelp-logPaymentsFormError-param-userAgent": "Низата корисник-извршител на прелистувачот",
 	"apihelp-logPaymentsFormError-param-stack": "Пластната трага на грешката, ако ја има",
 	"apihelp-di_donate_adyen-summary": "Овој приложник е за Adyen",
+	"apihelp-di_donate_braintree-summary": "Овој приложник е за Braintree",
 	"apihelp-di_recurring_convert-summary": "Извршникот се користи кога дарителот ќе се согласи да дава месечни прилози при успешно давање на еднократен прилог.",
 	"apihelp-di_recurring_convert-param-amount": "Износ на паричниот прилог.",
 	"apihelp-di_recurring_convert-param-gateway": "Кој наплатен портал да се користи — adyen, globalcollect итн.",
