@@ -4,8 +4,8 @@ class AdyenDonationApi extends DonationApi {
 		return parent::getAllowedParams() + [
 			'color_depth' => $this->defineParam(),
 			'encrypted_card_number' => $this->defineParam(),
-			'encrypted_expiration_month' => $this->defineParam(),
-			'encrypted_expiration_year' => $this->defineParam(),
+			'encrypted_expiry_month' => $this->defineParam(),
+			'encrypted_expiry_year' => $this->defineParam(),
 			'encrypted_security_code' => $this->defineParam(),
 			'issuer_id' => $this->defineParam(),
 			'java_enabled' => $this->defineParam(),
