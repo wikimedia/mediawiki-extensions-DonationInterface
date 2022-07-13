@@ -354,7 +354,9 @@
 				type: 'redirect'
 			} ).mount( '#action-container' );
 
-		} else if ( mw.monthlyConvert ) {
+		// canShowModal() is just a sanity check to see if the required DOM elements
+		// are there.
+		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
 			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
