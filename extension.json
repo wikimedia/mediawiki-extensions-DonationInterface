@@ -818,7 +818,7 @@
 					"gateways": [ "adyen", "ingenico" ]
 				},
 				{
-					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay" ]
+					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay", "braintree" ]
 				}
 			]
 		},
