@@ -13,3 +13,4 @@ state_province: state_province
 street_address: street_address
 user_ip: user_ip
 recurring: recurring
+gateway_txn_id: gateway_txn_id

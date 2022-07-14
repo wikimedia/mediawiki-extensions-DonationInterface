@@ -4,7 +4,10 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
+use SmashPig\PaymentProviders\Braintree\TransactionType;
 use SmashPig\PaymentProviders\CreatePaymentResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
@@ -31,14 +34,14 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult
+	 * @param PaypalPaymentProvider $provider
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		CreatePaymentResponse $createPaymentResult
+		CreatePaymentResponse $createPaymentResult, PaypalPaymentProvider $provider
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
 		$donorDetails = $createPaymentResult->getDonorDetails();
-
 		// Pull in new data from result if available.
 		$this->addResponseData( [
 			'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(), // this is always new
@@ -48,8 +51,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			'phone' => $donorDetails->getPhone() // we don't usually collect this
 		] );
 
-		$paymentResult = PaymentResult::newRedirect(
-			ResultPages::getThankYouPage( $this ) );
+		$paymentResult = PaymentResult::newSuccess();
 		if ( !$createPaymentResult->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
@@ -57,8 +59,26 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			$errorLogMessage .= json_encode( $createPaymentResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
 		}
-		// Log and send the payments-init message, and clean out the session
-		$this->finalizeInternalStatus( $transactionStatus );
+
+		switch ( $transactionStatus ) {
+			case FinalStatus::PENDING:
+			case FinalStatus::PENDING_POKE:
+				$this->runAntifraudFilters();
+				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
+					$paymentResult = PaymentResult::newFailure();
+				} else {
+					$this->setCurrentTransaction( TransactionType::CAPTURE );
+					$capturePaymentParams = $this->buildRequestArray();
+					$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
+					$this->finalizeInternalStatus( $capturePaymentResponse->getStatus() );
+				}
+
+				break;
+			default:
+				// Log and send the payments-init message, and clean out the session
+				$this->finalizeInternalStatus( $transactionStatus );
+		}
 
 		// Run some post-donation filters and send donation queue message
 		$this->postProcessDonation();
@@ -68,7 +88,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
-		$this->setCurrentTransaction( 'create_payment' );
+		$this->setCurrentTransaction( TransactionType::AUTHORIZE );
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
@@ -94,7 +114,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 
 		// If we DON'T need to redirect, handle the fraud checks and any
 		// necessary payment capture step here and now.
-		return $this->handleCreatedPayment( $createPaymentResult );
+		return $this->handleCreatedPayment( $createPaymentResult, $provider );
 	}
 
 	public function getCommunicationType() {
@@ -103,7 +123,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 
 	protected function defineTransactions() {
 		$this->transactions = [
-			'create_payment' => [
+			TransactionType::AUTHORIZE => [
 				'request' => [
 					'amount',
 					'city',
@@ -119,10 +139,15 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'street_address',
 					'user_ip',
 					'recurring',
-					'payment_token'
+					'payment_token',
 				],
 				'values' => [
-					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
+					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				]
+			],
+			TransactionType::CAPTURE => [
+				'request' => [
+					'gateway_txn_id'
 				]
 			]
 		];

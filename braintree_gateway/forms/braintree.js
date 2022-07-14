@@ -6,9 +6,9 @@
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+		} else {
+			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 		}
-
-		document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 	}
 	// Create a client.
 	braintree.client.create({

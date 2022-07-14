@@ -806,7 +806,7 @@
 				},
 				{
 					"conditions": {
-						"country": [ "AT", "BE", "ES", "FR", "IL", "LU","NL" ],
+						"country": [ "AT", "BE", "DK", "ES", "FR", "IL", "LU", "MY", "NL", "NO", "PT" ],
 						"payment_method": "cc"
 					},
 					"gateways": [ "adyen", "ingenico" ]
@@ -818,7 +818,7 @@
 					"gateways": [ "adyen", "ingenico" ]
 				},
 				{
-					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay" ]
+					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay", "braintree" ]
 				}
 			]
 		},

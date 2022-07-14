@@ -90,6 +90,12 @@
 		} );
 	};
 
+	// TODO Unify logic for determining whether or not to show monthly convert. This
+	// is just a sanity check to see if the required DOM elements are there.
+	mc.canShowModal = function () {
+		return $( '.mc-modal-screen' ).length > 0;
+	};
+
 	mc.init = function () {
 		var presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
