@@ -53,6 +53,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			'wgDonationInterfaceEnableGatewayChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
 			'wgAstroPayGatewayEnabled' => true,
+			'wgBraintreeGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => true,
 			'wgAdyenCheckoutGatewayEnabled' => true,
 			'wgGlobalCollectGatewayEnabled' => true,
