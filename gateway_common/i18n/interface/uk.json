@@ -182,7 +182,7 @@
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Картка громадянства",
 	"donate_interface-donor-fiscal_number-in": "PAN",
-	"donate_interface-donor-fiscal_number-explain-in": "Резервний банк Індії вимагає від нашого процесора платежів збирати вашу PAN, але ми не зберігаємо цю інформацію.",
+	"donate_interface-donor-fiscal_number-explain-in": "Резервний банк Індії <b>просить</b> у нашого обробника платежів збирати ваш PAN, але ми не зберігаємо цю інформацію. <b>Будь ласка, за бажанням, введіть свій PAN тут.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
