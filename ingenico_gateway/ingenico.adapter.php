@@ -417,4 +417,8 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	public function getRequestProcessId( $requestValues ) {
 		return $requestValues['hostedCheckoutId'];
 	}
+
+	public function getPaymentMethodsSupportingRecurringConversion(): array {
+		return [ 'cc' ];
+	}
 }

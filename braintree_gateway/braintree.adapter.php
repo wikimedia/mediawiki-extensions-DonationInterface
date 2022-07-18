@@ -212,4 +212,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentResult::newFailure( $localizedErrors );
 	}
 
+	public function getPaymentMethodsSupportingRecurringConversion(): array {
+		return [ 'paypal' ];
+	}
 }
