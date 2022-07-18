@@ -9,9 +9,11 @@
 	"donate_interface-donor-first_name": "Risttnõmm",
 	"donate_interface-donor-last_name": "Sokknõmm",
 	"donate_interface-donor-address": "Addrõs",
+	"donate_interface-first": "Risttnõmm",
 	"donate_interface-select": "Vaʹlljed",
 	"donate_interface-change": "Muuʹtt",
 	"donate_interface-optional": "vaʹlljeemnallšem",
 	"donate_interface-faqs": "Täujja kõččum kõõččmõõžž",
+	"donate_interface-photo-license": "Puk snimldõõǥǥ lie lisenssiõsttum <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> -liseeʹnsin.",
 	"donate_interface-emailprefs-thank-you-title": "Späʹsseb"
 }
