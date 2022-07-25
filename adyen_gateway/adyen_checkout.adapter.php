@@ -224,6 +224,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * but before getting the transaction structure (gross).
 	 */
 	protected function tuneFor3DSecure() {
+		// The Adyen3DSecure staging helper will set this user_agent key
+		// in the staged data when the country and currency are configured
+		// to need 3DSecure. If that key is set, we want to send the whole
+		// browser_info blob as a part of the authorize API call.
 		if ( $this->getData_Staged( 'user_agent' ) !== null ) {
 			$this->transactions['authorize']['request']['browser_info'] = [
 				'userAgent',
