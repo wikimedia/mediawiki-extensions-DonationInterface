@@ -13,7 +13,7 @@ trait RecurringConversionTrait {
 	 *
 	 * @return PaymentResult
 	 */
-	public function doRecurringConversion() {
+	public function doRecurringConversion(): PaymentResult {
 		$sessionData = $this->session_getData( 'Donor' );
 		if (
 			empty( $sessionData['recurring_payment_token'] ) ||

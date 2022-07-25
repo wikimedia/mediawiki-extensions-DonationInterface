@@ -36,6 +36,7 @@ module.exports = function ( grunt ) {
 				requireLowerCase: false
 			},
 			shared: 'gateway_common/i18n/*/',
+			email: 'email_forms/i18n/',
 			gateways: '{adyen,amazon,astropay,globalcollect,paypal_ec}_gateway/i18n/'
 		}
 	} );
