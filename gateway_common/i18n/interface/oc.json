@@ -165,7 +165,7 @@
 	"donate_interface-error-msg-card_num": "Numèro de carta de credit",
 	"donate_interface-error-msg-expiration": "Picatz la data d'expiracion de la carta",
 	"donate_interface-error-msg-cvv": "Picatz lo còdi CVV, abitualament inscrit a l'esquina de la carta",
-	"donate_interface-error-msg-account_name": "nom de compte",
+	"donate_interface-error-msg-account_name": "Nom du compte",
 	"donate_interface-error-msg-account_number": "numèro de compte",
 	"donate_interface-error-msg-authorization_id": "ID d’autorizacion",
 	"donate_interface-error-msg-bank_check_digit": "clau de contraròtle bancari",

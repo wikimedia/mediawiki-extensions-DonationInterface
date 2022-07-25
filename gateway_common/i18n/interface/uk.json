@@ -228,6 +228,7 @@
 	"donate_interface-error-msg-invalid-city": "Будь ласка, виправте помилки у полі «місто»",
 	"donate_interface-error-msg-invalid-postal_code-us": "Будь ласка, виправте помилки у полі «індекс»",
 	"donate_interface-error-msg-invalid-postal_code": "Будь ласка, виправте помилки у полі «поштовий індекс»",
+	"donate_interface-error-msg-invalid-employer": "Недійсне ім'я роботодавця.",
 	"donate_interface-error-msg-country": "Будь ласка, введіть свою країну",
 	"donate_interface-error-msg-card_num": "номер кредитної картки",
 	"donate_interface-error-msg-expiration": "Будь ласка, введіть дату закінчення терміну дії картки",
@@ -493,5 +494,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Ні, дякую!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Ні, не зараз",
 	"donate_interface-fundraiser-maintenance-header": "Тимчасово відключений для технічного обслуговування",
-	"donate_interface-fundraiser-maintenance-notice": "Ми зараз виконуємо заплановане обслуговування і не в змозі прийняти пожертвувань. Будь ласка, спробуйте ще раз трохи згодом. Якщо у Вас є якісь запитання, будь ласка, напишіть на $1 ."
+	"donate_interface-fundraiser-maintenance-notice": "Ми зараз виконуємо заплановане обслуговування і не в змозі прийняти пожертвувань. Будь ласка, спробуйте ще раз трохи згодом. Якщо у Вас є якісь запитання, будь ласка, напишіть на $1 .",
+	"donate_interface-redirect-explanation": "Ви будете перенаправлені до партнера Вікімедіа з обробки платежів."
 }

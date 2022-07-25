@@ -252,7 +252,7 @@
 	"donate_interface-error-msg-date-too-far-in-the-future": "Date trop loin dans le futur",
 	"donate_interface-error-msg-cvv": "Veuillez saisir le code CVV, habituellement inscrit au dos de la carte",
 	"donate_interface-error-msg-invalid-cvv-format": "Format de CVC / CVV non valide",
-	"donate_interface-error-msg-account_name": "nom de compte",
+	"donate_interface-error-msg-account_name": "Nom du compte",
 	"donate_interface-error-msg-account_number": "numéro de compte",
 	"donate_interface-error-msg-authorization_id": "ID d’autorisation",
 	"donate_interface-error-msg-bank_check_digit": "clé de contrôle bancaire",
