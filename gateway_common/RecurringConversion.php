@@ -13,5 +13,12 @@ interface RecurringConversion {
 	 *
 	 * @return PaymentResult
 	 */
-	public function doRecurringConversion();
+	public function doRecurringConversion(): PaymentResult;
+
+	/**
+	 * Should return an array of payment methods that support setting up a recurring
+	 * donation after a one-time donation via this gateway.
+	 * @return array
+	 */
+	public function getPaymentMethodsSupportingRecurringConversion(): array;
 }

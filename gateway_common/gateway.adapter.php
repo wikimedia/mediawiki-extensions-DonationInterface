@@ -3955,6 +3955,12 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}
+		if ( !in_array(
+			$this->getPaymentMethod(),
+			$this->getPaymentMethodsSupportingRecurringConversion()
+		) ) {
+			return false;
+		}
 		// FIXME:: make a hook, move this check to EndowmentHooks
 		$medium = $this->getData_Unstaged_Escaped( 'utm_medium' );
 		// never show for endowment
