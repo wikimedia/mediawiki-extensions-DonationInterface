@@ -27,7 +27,8 @@
 			"Eduardoaddad",
 			"McDutchie",
 			"YuriNikolai",
-			"Albertoleoncio"
+			"Albertoleoncio",
+			"Duke of Wikipädia"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -41,7 +42,7 @@
 	"donate_interface-submit-button": "Doar",
 	"donate_interface-comment-message": "Quer compartilhar algo com o mundo? Escreva até 200 caracteres aqui:",
 	"donate_interface-comment-label": "Comentário:",
-	"donate_interface-email-agreement": "Concordo em receber atualizações esporádicas da Fundação Wikimedia  por e-mail.",
+	"donate_interface-email-agreement": "Concordo em receber atualizações esporádicas da Fundação Wikimedia por e-mail.",
 	"donate_interface-comment-title": "Comentário público",
 	"donate_interface-donation-description": "Doação à Wikimedia Foundation",
 	"donate_interface-monthly-donation-description": "Doação mensal à Wikimedia Foundation",
