@@ -102,4 +102,8 @@ class WmfFramework_Mediawiki {
 	public static function sanitize( $text ) {
 		return wfEscapeWikiText( $text );
 	}
+
+	public static function getConfig() {
+		return \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
+	}
 }

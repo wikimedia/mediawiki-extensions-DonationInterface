@@ -114,4 +114,8 @@ class WmfFramework_Drupal {
 	public static function sanitize( $text ) {
 		return filter_xss( $text );
 	}
+
+	public static function getConfig() {
+		return new DrupalFakeMwConfig();
+	}
 }
