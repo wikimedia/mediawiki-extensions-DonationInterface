@@ -24,6 +24,10 @@ class ConfigurationReader {
 	public static function createForGateway( $gateway, $variant, Config $mwConfig ) {
 		$extensionBaseDir = $mwConfig->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR
 			. 'DonationInterface';
+		/** The following conditional can be deleted when we get rid of WmfFramework */
+		if ( !is_dir( $extensionBaseDir ) ) {
+			$extensionBaseDir = __DIR__ . DIRECTORY_SEPARATOR . '..';
+		}
 		$configurationReader = new ConfigurationReader();
 
 		// Register general config dir (shipped defaults)

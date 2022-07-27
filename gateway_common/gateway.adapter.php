@@ -18,7 +18,6 @@
  */
 
 use ForceUTF8\Encoding;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
 use Psr\Log\LogLevel;
@@ -339,7 +338,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	public function loadConfig( $variant = null ) {
 		$configurationReader = ConfigurationReader::createForGateway(
-			static::getIdentifier(), $variant, MediaWikiServices::getInstance()->getMainConfig()
+			static::getIdentifier(), $variant, WmfFramework::getConfig()
 		);
 		$this->config = $configurationReader->readConfiguration();
 	}

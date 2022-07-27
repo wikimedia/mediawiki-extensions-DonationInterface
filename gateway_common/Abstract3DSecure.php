@@ -2,33 +2,15 @@
 
 abstract class Abstract3DSecure implements StagingHelper {
 
-	protected static $supportedSubMethods = [
-		'amex',
-		'cb',
-		'diners',
-		'discover',
-		'elo',
-		'mc',
-		'visa'
-	];
-
 	/**
-	 * To set 3DSecure flags, we need a supported payment submethod,
-	 * and we also need to know the country and currency.
+	 * Returns true if we should proceed to call isRecommend3dSecure.
+	 * Always check that at least country and currency are present.
+	 * May be overridden to add additional checks.
 	 *
 	 * @param array $normalized
 	 * @return bool
 	 */
 	protected function canSet3dSecure( array $normalized ): bool {
-		if ( empty( $normalized['payment_submethod'] ) ) {
-			return false;
-		}
-		if ( !in_array(
-			$normalized['payment_submethod'],
-			self::$supportedSubMethods
-		) ) {
-			return false;
-		}
 		// We SHOULD always have these, but we check here to make
 		// sure we don't get errors in isRecommend3dSecure.
 		return !empty( $normalized['currency'] ) &&
