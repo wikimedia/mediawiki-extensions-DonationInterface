@@ -8,7 +8,8 @@
 			"पर्वत सुबेदी",
 			"राम प्रसाद जोशी",
 			"सरोज कुमार ढकाल",
-			"हिमाल सुबेदी"
+			"हिमाल सुबेदी",
+			"Bada Kaji"
 		]
 	},
 	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
@@ -176,7 +177,7 @@
 	"donate_interface-cvv-number": "CVV संख्या",
 	"donate_interface-next": "अघि जाने",
 	"donate_interface-continue": "जारी राख्ने",
-	"donate_interface-cancel": "रद्द गर्ने",
+	"donate_interface-cancel": "रद्द गर्नुहोस्",
 	"donate_interface-payment-type": "भुक्तानी मिति",
 	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "विवरण",
