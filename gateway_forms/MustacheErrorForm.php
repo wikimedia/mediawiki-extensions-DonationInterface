@@ -1,7 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
-use Smashpig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\FinalStatus;
 
 /**
  * Renders error forms from Mustache templates
