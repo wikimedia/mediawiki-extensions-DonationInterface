@@ -348,11 +348,18 @@ class GatewayChooser extends UnlistedSpecialPage {
 
 		// sanitizedValOrNull() will return null if the param is absent, '' or '0'
 		$recurringRawVal = $this->sanitizedValOrNull( 'recurring' );
+
+		// We map this to 0 or 1 rather than boolean true or false because the
+		// getLocalURL function we eventually feed this to will discard any param
+		// whose value is false.
 		if ( $recurringRawVal === 'false' ) {
-			$recurring = false;
+			$recurring = 0;
+		} elseif ( $recurringRawVal === 'true' ) {
+			$recurring = 1;
 		} else {
-			// map null to explicitly false
-			$recurring = (bool)$recurringRawVal;
+			// map null to 0, as we want to affirmatively overwrite any recurring=1
+			// from a previous attempt if there is no recurring value on this URL.
+			$recurring = (int)$recurringRawVal;
 		}
 
 		// These are the parameters that are actually used to find possible gateways

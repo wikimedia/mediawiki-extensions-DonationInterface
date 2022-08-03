@@ -515,4 +515,57 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		parse_str( $parts['query'], $query );
 		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
 	}
+
+	/**
+	 * Ensure we pass through the right recurring values
+	 *
+	 * @throws BadTitleError
+	 * @throws FatalError
+	 * @throws MWException
+	 *
+	 * @dataProvider recurringValueProvider
+	 */
+	public function testPassRecurringFalse( $qsVal, $expected ) {
+		$context = RequestContext::getMain();
+		$newOutput = new OutputPage( $context );
+		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
+		$params = [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+		];
+
+		if ( $qsVal !== null ) {
+			$params['recurring'] = $qsVal;
+		}
+
+		$context->setRequest( new FauxRequest( $params, false ) );
+
+		$context->setOutput( $newOutput );
+		$context->setTitle( $newTitle );
+
+		$fc = new GatewayChooser();
+		$fc->execute( null );
+		$fc->getOutput()->output();
+		$url = $fc->getRequest()->response()->getheader( 'Location' );
+
+		if ( !$url ) {
+			$this->fail( 'No gateway returned for this configuration.' );
+		}
+
+		$parts = parse_url( $url );
+		parse_str( $parts['query'], $query );
+		$this->assertEquals( $expected, $query['recurring'] );
+	}
+
+	public function recurringValueProvider() {
+		return [
+			[ 'false', 0 ],
+			[ '', 0 ],
+			[ null, 0 ],
+			[ '0', 0 ],
+			[ 'true', 1 ],
+			[ '1', 1 ]
+		];
+	}
 }
