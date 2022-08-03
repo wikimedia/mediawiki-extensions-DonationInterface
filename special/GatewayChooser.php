@@ -171,6 +171,14 @@ class GatewayChooser extends UnlistedSpecialPage {
 					continue;
 				}
 
+				// Check whether the payment method is restricted by country, and if so
+				// skip when the donor's country is not on the list
+				if ( isset( $supportedPaymentMethods[ $paymentMethod ][ 'countries' ] ) ) {
+					if ( empty( $supportedPaymentMethods[ $paymentMethod ][ 'countries' ][ $country ] ) ) {
+						continue;
+					}
+				}
+
 				// Recurring availability for the payment method is indicated by a key
 				// on the associative array that is the value for the payment method
 				if ( $recurring &&
