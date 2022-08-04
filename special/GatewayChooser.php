@@ -346,7 +346,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// For recurring, we'll interpret no URL param, 'false', '0' and '' as false.
 		// This follows legacy behavior, to ensure existing links work as expected.
 
-		// sanitizedValOrNull() will return null if the param is absent, '' or '0'
+		// sanitizedValOrNull() will return null if the param is absent or ''
 		$recurringRawVal = $this->sanitizedValOrNull( 'recurring' );
 
 		// We map this to 0 or 1 rather than boolean true or false because the
@@ -387,7 +387,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 
 	/**
 	 * Get the sanitized string value of a URL parameter. If the parameter was not present
-	 * or is an empty string (or, more precisely, is empty()), return null.
+	 * or is an empty string, return null.
 	 *
 	 * @param string $paramName
 	 * @return ?string
@@ -395,7 +395,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	private function sanitizedValOrNull( string $paramName ): ?string {
 		$val = $this->getRequest()->getVal( $paramName, null );
 
-		if ( empty( $val ) ) {
+		if ( $val === '' ) {
 			return null;
 		}
 
