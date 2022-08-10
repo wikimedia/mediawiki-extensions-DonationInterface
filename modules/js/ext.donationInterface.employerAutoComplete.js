@@ -25,8 +25,8 @@
                 if ( cached ) {
                     response( cached );
                 } else {
-                    $.get( mw.util.wikiScript( 'api' ), apiParameters ).done( function ( data ) {
-                        //check if the api sent back any errors and if so jump out here
+                    $.post( mw.util.wikiScript( 'api' ), apiParameters ).done( function ( data ) {
+                        // check if the api sent back any errors and if so jump out here
                         if ( data.error ) {
                             response(); // this has to be called in all scenarios for preserve the widget state
                         } else {
