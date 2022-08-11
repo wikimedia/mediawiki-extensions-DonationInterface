@@ -806,7 +806,10 @@
 				},
 				{
 					"conditions": {
-						"country": [ "AT", "BE", "DK", "ES", "FR", "IL", "LU", "MY", "NL", "NO", "PT" ],
+						"country": [
+							"AT", "AU", "BE", "CA", "DK", "ES", "FR", "GB", "IE", "IL", "LU", "MY", "NL", "NO", "NZ",
+							"PT", "US"
+						],
 						"payment_method": "cc"
 					},
 					"gateways": [ "adyen", "ingenico" ]
