@@ -1,4 +1,11 @@
 (function ($, mw) {
+	/* Paypal iFrame comes with a zIndex of 100. Inorder to stack the autocomplete
+	menu above the Paypal button, we need to set the zIndex to be at least a step higher.
+	The mediawiki library for the menu item sets the autocomplete menu zIndex to 1 step higher
+	than the parents zIndex here: resources/lib/jquery.ui/jquery.ui.autocomplete.js::484
+	 */
+	$('#employer').css({'position': 'relative', 'zIndex': 100});
+
 	var di = mw.donationInterface,
 		myDeviceData;
 
