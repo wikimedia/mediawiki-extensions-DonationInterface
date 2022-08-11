@@ -4,7 +4,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
 class AdyenRecurringTest extends BaseAdyenCheckoutTestCase {
 
 	/**
-	 * Can make a recurring payment
+	 * Can send a recurring donation message to the queue
 	 *
 	 * @covers AdyenCheckoutAdapter::doRecurringConversion
 	 */

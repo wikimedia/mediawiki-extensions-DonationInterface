@@ -1,6 +1,7 @@
 <?php
 
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentProviders\Adyen\CardPaymentProvider;
 use SmashPig\PaymentProviders\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\CreatePaymentResponse;
@@ -183,6 +184,89 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			],
 			$messages['payments-init'][0]
 		);
+	}
+
+	/**
+	 * Integration test to verify that the authorize and capture transactions
+	 * send the expected parameters to the SmashPig library objects and that
+	 * they return the expected result when the API calls are successful.
+	 */
+	public function testDoPaymentCardMonthlyConvert() {
+		$init = $this->getTestDonorCardData();
+		$this->setMwGlobals( [
+			'wgDonationInterfaceMonthlyConvertCountries' => [ 'US' ]
+		] );
+		$init += $this->encryptedCardData;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedEncryptedParams = [
+			'encryptedCardNumber' => $this->encryptedCardData['encrypted_card_number'],
+			'encryptedExpiryMonth' => $this->encryptedCardData['encrypted_expiry_month'],
+			'encryptedExpiryYear' => $this->encryptedCardData['encrypted_expiry_year'],
+			'encryptedSecurityCode' => $this->encryptedCardData['encrypted_security_code'],
+		];
+		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
+		$pspReferenceCapture = 'BLA' . mt_rand( 100000000, 1000000000 );
+		$pspToken = 'FOO' . mt_rand( 100000000, 1000000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:AdyenCheckoutGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+		] );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->with( [
+				'amount' => '1.55',
+				'city' => 'NA',
+				'country' => 'US',
+				'currency' => 'USD',
+				'description' => 'Wikimedia 877 600 9454',
+				'email' => 'nobody@wikimedia.org',
+				'first_name' => 'Firstname',
+				'encrypted_payment_data' => $expectedEncryptedParams,
+				'last_name' => 'Surname',
+				'order_id' => $expectedMerchantRef,
+				'postal_code' => '94105',
+				'recurring' => 1,
+				'recurring_model' => RecurringModel::CARD_ON_FILE,
+				'return_url' => $expectedReturnUrl,
+				'state_province' => 'NA',
+				'street_address' => '123 Fake Street',
+				'user_ip' => '127.0.0.1'
+			] )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'Authorized' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
+					->setGatewayTxnId( $pspReferenceAuth )
+					->setRecurringPaymentToken( $pspToken )
+			);
+		$this->cardPaymentProvider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->with( [
+				'amount' => $init['amount'],
+				'currency' => $init['currency'],
+				'gateway_txn_id' => $pspReferenceAuth
+			] )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( '[capture-received]' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $pspReferenceCapture )
+			);
+
+		$result = $gateway->doPayment();
+
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		// There should be a token in the stored data
+		$actual = $gateway->getData_Unstaged_Escaped( 'recurring_payment_token' );
+		$this->assertEquals( $pspToken, $actual );
 	}
 
 	public function testDoPaymentCardAuthorizationDeclined() {
