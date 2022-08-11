@@ -132,7 +132,7 @@ class Amount implements ValidationHelper {
 	 */
 	public static function round( $amount, $currencyCode ) {
 		$amount = floatval( $amount );
-		if ( self::is_fractional_currency( $currencyCode ) ) {
+		if ( static::is_fractional_currency( $currencyCode ) ) {
 			$precision = 2;
 			if ( self::is_exponent3_currency( $currencyCode ) ) {
 				$precision = 3;

@@ -1,136 +1,30 @@
-# Taken from https://developer.paypal.com/braintree/docs/reference/general/currencies
-- AED # United Arab Emirates Dirham
-- AMD # Armenian Dram
-- AOA # Angolan Kwanza
-- ARS # Argentine Peso
+# Taken from https://developer.paypal.com/reference/currency-codes/#paypal-account-payments for braintree paypal
 - AUD # Australian Dollar
-- AWG # Aruban Florin
-- AZN # Azerbaijani Manat
-- BAM # Bosnia and Herzegovina Convertible Mark
-- BBD # Barbadian Dollar
-- BDT # Bangladeshi Taka
-- BGN # Bulgarian Lev
-- BIF # Burundian Franc*
-- BMD # Bermudian Dollar
-- BND # Brunei Dollar
-- BOB # Bolivian Boliviano
-- BRL # Brazilian Real
-- BSD # Bahamian Dollar
-- BWP # Botswana Pula
-- BYN # Belarusian Ruble
-- BZD # Belize Dollar
-- CAD # Canadian Dollar1
-- CHF # Swiss Franc1
-- CLP # Chilean Peso*
-- CNY # Chinese Renminbi Yuan
-- COP # Colombian Peso
-- CRC # Costa Rican Colón
-- CVE # Cape Verdean Escudo
-- CZK # Czech Koruna1
-- DJF # Djiboutian Franc*
-- DKK # Danish Krone1
-- DOP # Dominican Peso
-- DZD # Algerian Dinar
-- EGP # Egyptian Pound
-- ETB # Ethiopian Birr
-- EUR # Euro1
-- FJD # Fijian Dollar
-- FKP # Falkland Pound
-- GBP # British Pound1
-- GEL # Georgian Lari
-- GHS # Ghanaian Cedi
-- GIP # Gibraltar Pound
-- GMD # Gambian Dalasi
-- GNF # Guinean Franc*
-- GTQ # Guatemalan Quetzal
-- GYD # Guyanese Dollar
-- HKD # Hong Kong Dollar1
-- HNL # Honduran Lempira
-- HRK # Croatian Kuna2
-- HTG # Haitian Gourde
-- HUF # Hungarian Forint2
-- IDR # Indonesian Rupiah
-- ILS # Israeli New Sheqel
-- INR # Indian Rupee
-- ISK # Icelandic Króna
-- JMD # Jamaican Dollar
-- JPY # Japanese Yen*1
-- KES # Kenyan Shilling
-- KGS # Kyrgyzstani Som
-- KHR # Cambodian Riel
-- KMF # Comorian Franc*
-- KRW # South Korean Won*
-- KYD # Cayman Islands Dollar
-- KZT # Kazakhstani Tenge
-- LAK # Lao Kip*
-- LBP # Lebanese Lira
-- LKR # Sri Lankan Rupee
-- LRD # Liberian Dollar
-- LSL # Lesotho Loti
-- LTL # Lithuanian Litas
-- MAD # Moroccan Dirham
-- MDL # Moldovan Leu
-- MKD # Macedonian Denar
-- MNT # Mongolian Tögrög
-- MOP # Macanese Pataca
-- MUR # Mauritian Rupee
-- MVR # Maldivian Rufiyaa
-- MWK # Malawian Kwacha
+#- BRL # Brazilian real 2
+- CAD # Canadian Dollar
+- CHF # Swiss Franc
+#- CNY # Chinese Renmenbi Yuan 3 (Not supported from braintree paypal account )
+- CZK # Czech Koruna
+- DKK # Danish Krone
+- EUR # Euro
+- GBP # British Pound
+- HKD # Hong Kong dollar
+- HUF # Hungarian forint 1
+- ILS # Israeli new shekel
+- JPY # Japanese yen 1
 - MXN # Mexican Peso
-- MYR # Malaysian Ringgit
-- MZN # Mozambican Metical
-- NAD # Namibian Dollar
-- NGN # Nigerian Naira
-- NIO # Nicaraguan Córdoba
-- NOK # Norwegian Krone1
-- NPR # Nepalese Rupee
-- NZD # New Zealand Dollar1
-- PAB # Panamanian Balboa
-- PEN # Peruvian Nuevo Sol
-- PGK # Papua New Guinean Kina
+#- MYR # Malaysian Ringgit 3
+- NOK # Norwegian Krone
+- NZD # New Zealand Dollar
 - PHP # Philippine Peso
-- PKR # Pakistani Rupee
 - PLN # Polish Złoty
-- PYG # Paraguayan Guaraní*
-- QAR # Qatari Riyal
-- RON # Romanian Leu2
-- RSD # Serbian Dinar
-- RUB # Russian Ruble
-- RWF # Rwandan Franc*
-- SAR # Saudi Riyal
-- SBD # Solomon Islands Dollar
-- SCR # Seychellois Rupee
-- SEK # Swedish Krona1
-- SGD # Singapore Dollar2
-- SHP # Saint Helenian Pound
-- SLL # Sierra Leonean Leone
-- SOS # Somali Shilling
-- SRD # Surinamese Dollar
-- STD # São Tomé and Príncipe Dobra
-- SVC # Salvadoran Colón
-- SYP # Syrian Pound
-- SZL # Swazi Lilangeni
+- RUB # Russian ruble
+- SEK # Swedish Krona
+- SGD # Singapore Dollar
 - THB # Thai Baht
-- TJS # Tajikistani Somoni
-- TOP # Tongan Paʻanga
-- TRY # Turkish Lira
-- TTD # Trinidad and Tobago Dollar
-- TWD # New Taiwan Dollar
-- TZS # Tanzanian Shilling
-- UAH # Ukrainian Hryvnia
-- UGX # Ugandan Shilling*
-- USD # United States Dollar1
-- UYU # Uruguayan Peso
-- UZS # Uzbekistani Som
-- VES # Bolívar Soberano
-- VND # Vietnamese Đồng*
-- VUV # Vanuatu Vatu*
-- WST # Samoan Tala
-- XAF # Central African Cfa Franc*
-- XCD # East Caribbean Dollar
-- XOF # West African Cfa Franc*
-- XPF # Cfp Franc*
-- YER # Yemeni Rial
-- ZAR # South African Rand1
-- ZMK # Zambian Kwacha
-- ZWD # Zimbabwean Dollar
+- TWD # New Taiwan Dollar 1
+- USD # United States Dollar
+
+# 1 This currency does not support decimals. If you pass a decimal amount, an error occurs.
+# 2 This currency is supported as a payment currency and a currency balance for in-country PayPal accounts only. If the receiver of funds is not from Brazil, then PayPal converts funds into the primary holding currency of the account with the applicable currency conversion rate. The currency conversion rate includes PayPal's applicable spread or fee.
+# 3 This currency is supported as a payment currency and a currency balance for in-country PayPal accounts only.

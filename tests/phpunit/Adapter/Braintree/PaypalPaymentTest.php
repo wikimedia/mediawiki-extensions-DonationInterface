@@ -39,6 +39,44 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 		);
 	}
 
+	public function testPaypalRoundCertainCurrencyPayment() {
+		$init = $this->getTestDonor();
+		$init['currency'] = "TWD";
+		$init['amount'] = 130.8;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedPaymentToken = $init['payment_token'];
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
+
+		$donorDetailsResponse = new DonorDetails();
+		$donorDetailsResponse->setFirstName( "John" );
+		$donorDetailsResponse->setLastName( "Doe" );
+
+		$createPaymentResponse = ( new CreatePaymentResponse() )
+			->setRawStatus( 'SETTLING' )
+			->setStatus( FinalStatus::COMPLETE )
+			->setSuccessful( true )
+			->setGatewayTxnId( $expectedGatewayId );
+
+		$createPaymentResponse->setDonorDetails( $donorDetailsResponse );
+
+		$this->paypalPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->with( [
+				'email' => 'nobody@wikimedia.org',
+				'amount' => '130',
+				'country' => 'US',
+				'currency' => 'TWD',
+				'description' => 'Wikimedia 877 600 9454',
+				'order_id' => $expectedMerchantRef,
+				'user_ip' => '127.0.0.1',
+				'payment_token' => $expectedPaymentToken
+			] )
+			->willReturn( $createPaymentResponse );
+
+		$gateway->doPayment();
+	}
+
 	public function testPaypalDoPayment() {
 		$init = $this->getTestDonor();
 		$gateway = $this->getFreshGatewayObject( $init );

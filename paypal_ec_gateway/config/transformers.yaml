@@ -1,5 +1,6 @@
-- Amount
 - IsoDate
 - CountryValidation
 - DonorLocale
 - PayPalCountry
+#paypal
+- PayPalAmount

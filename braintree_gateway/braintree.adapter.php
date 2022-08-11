@@ -181,7 +181,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		foreach ( $validationErrors as $error ) {
 			$field = $error->getField();
 			$debugMessage = $error->getDebugMessage();
-			if ( $field === 'payment_method' ) {
+			if ( in_array( $field, [ 'payment_method', 'order_id', 'payment_token' ] ) ) {
 				// This means the generated token was invalid.
 				$urlParameterKeys = [ 'payment_method',
 					'recurring',
@@ -206,7 +206,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					$this->getGlobal( 'ProblemsEmail' )
 				];
 			} else {
-				$messageKey = 'donate_interface-error-msg-' . $field;
+				if ( $field === 'currency' ) {
+					$messageKey = 'donate_interface-error-msg-invalid-currency';
+				} else {
+					$messageKey = 'donate_interface-error-msg-' . $field;
+				}
 				$messageParams = [];
 			}
 			$localizedErrors[] = new ValidationError(
