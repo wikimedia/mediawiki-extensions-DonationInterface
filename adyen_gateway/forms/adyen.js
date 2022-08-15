@@ -367,6 +367,53 @@
 		// Handle 3D secure
 	}
 
+	function setLocaleAndTranslations( config, localeFromServer ) {
+		// Adyen supports the locales listed below, according to
+		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
+		var adyenSupportedLocale = [
+			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
+			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
+			'fr-FR', 'de-DE', 'el-GR', 'hu-HU',
+			'it-IT', 'ja-JP', 'ko-KR', 'no-NO',
+			'pl-PL', 'pt-BR', 'ro-RO', 'ru-RU',
+			'sk-SK', 'sl-SL', 'es-ES', 'sv-SE'
+		], baseLocaleFromServer = localeFromServer.slice( 0, 2 );
+
+		// We support Norwegian Bokmal (nb) but Adyen's components just support the generic 'no' Norwegian code
+		if ( baseLocaleFromServer === 'nb' ) {
+			config.locale = 'no-NO';
+		} else {
+			config.locale = localeFromServer;
+		}
+
+		// Check if donor's language is unsupported by Adyen and we need to provide our own customized translation
+		// Adyen supports ar as Arabic - International and doesn't check the country part
+		if ( baseLocaleFromServer !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
+			var customLanguage = {};
+			customLanguage[ config.locale ] = {
+				//title
+				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
+				'creditCard.expiryDateField.title': mw.msg( 'donate_interface-credit-card-expiration' ),
+				'creditCard.cvcField.title': mw.msg( 'donate_interface-cvv' ),
+				//placeholder
+				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+				'creditCard.cvcField.placeholder.3digits': mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+				'creditCard.cvcField.placeholder.4digits': mw.msg( 'donate_interface-cvv-placeholder-4-digits' ),
+				//error
+				'creditCard.numberField.invalid': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'creditCard.expiryDateField.invalid': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
+				'error.va.gen.01': mw.msg( 'donate_interface-error-msg-incomplete-field' ),
+				'error.va.gen.02': mw.msg( 'donate_interface-error-msg-field-not-valid' ),
+				'error.va.sf-cc-num.01': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'error.va.sf-cc-num.02': mw.msg( 'donate_interface-error-msg-card-number-do-not-match-card-brand' ),
+				'error.va.sf-cc-num.03': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
+				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
+				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
+			};
+			config.translations = customLanguage;
+		}
+	}
+
 	$( function () {
 		var payment_method,
 			component_type,
@@ -424,46 +471,10 @@
 		config = {
 			clientKey: configFromServer.clientKey,
 			environment: configFromServer.environment,
-			locale: configFromServer.locale,
 			paymentMethodsResponse: configFromServer.paymentMethodsResponse
 		};
 
-		// Adyen supports the locales listed below, according to
-		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
-		var adyenSupportedLocale = [
-			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
-			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
-			'fr-FR', 'de-DE', 'el-GR', 'hu-HU',
-			'it-IT', 'ja-JP', 'ko-KR', 'no-NO',
-			'pl-PL', 'pt-BR', 'ro-RO', 'ru-RU',
-			'sk-SK', 'sl-SL', 'es-ES', 'sv-SE'
-		];
-		// Check if donor's language is unsupported by Adyen and we need to provide our own customized translation
-		// Adyen supports ar as Arabic - International and doesn't check the country part
-		if ( config.locale.slice( 0, 2 ) !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
-			var customLanguage = {};
-			customLanguage[ config.locale ] = {
-				//title
-				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
-				'creditCard.expiryDateField.title': mw.msg( 'donate_interface-credit-card-expiration' ),
-				'creditCard.cvcField.title': mw.msg( 'donate_interface-cvv' ),
-				//placeholder
-				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
-				'creditCard.cvcField.placeholder.3digits': mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
-				'creditCard.cvcField.placeholder.4digits': mw.msg( 'donate_interface-cvv-placeholder-4-digits' ),
-				//error
-				'creditCard.numberField.invalid': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
-				'creditCard.expiryDateField.invalid': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
-				'error.va.gen.01': mw.msg( 'donate_interface-error-msg-incomplete-field' ),
-				'error.va.gen.02': mw.msg( 'donate_interface-error-msg-field-not-valid' ),
-				'error.va.sf-cc-num.01': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
-				'error.va.sf-cc-num.02': mw.msg( 'donate_interface-error-msg-card-number-do-not-match-card-brand' ),
-				'error.va.sf-cc-num.03': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
-				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
-				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
-			};
-			config.translations = customLanguage;
-		}
+		setLocaleAndTranslations( config, configFromServer.locale );
 
 		checkout = getCheckout( config );
 		component_config = getComponentConfig( component_type );
