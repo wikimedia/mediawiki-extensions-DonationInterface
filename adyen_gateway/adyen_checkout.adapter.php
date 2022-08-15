@@ -318,14 +318,24 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$methodparams['currency'] = $this->staged_data['currency'];
 		$methodparams['amount'] = $this->staged_data['amount'];
 		$methodparams['language'] = $this->staged_data['language'];
-		// this has all the payment methods available
-		// Todo: what happens if it doesnt return anything
-		$paymentMethodResult = $provider->getPaymentMethods( $methodparams )->getRawResponse();
+		// This should have all the payment methods available
+		$paymentMethodResult = $provider->getPaymentMethods( $methodparams );
+		if ( $paymentMethodResult->hasErrors() ) {
+			foreach ( $paymentMethodResult->getErrors() as $error ) {
+				$this->logger->warning( "paymentMethod lookup error: {$error->getMessage()}" );
+			}
+			foreach ( $paymentMethodResult->getValidationErrors() as $validationError ) {
+				$this->logger->warning( "paymentMethod lookup validation error with parameter: {$validationError->getField()}" );
+			}
+			$paymentMethodString = 'Error looking up payment methods';
+		} else {
+			$paymentMethodString = $paymentMethodResult->getRawResponse();
+		}
 
 		return [
 			'clientKey' => $this->getAccountConfig( 'ClientKey' ),
 			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
-			'paymentMethodsResponse' => $paymentMethodResult,
+			'paymentMethodsResponse' => $paymentMethodString,
 			// TODO: maybe make this dynamic based on donor location
 			'environment' => $this->getAccountConfig( 'Environment' ),
 			'merchantAccountName' => $this->account_name,

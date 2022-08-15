@@ -392,6 +392,8 @@
 	"donate_interface-error-http-403": "شما اجازهٔ دسترسی به این صفحه را ندارید.",
 	"donate_interface-statement": "$1 ویکی‌مدیا",
 	"donate_interface-emailprefs-thank-you-title": "سپاس از شما",
+	"donate_interface-monthly-convert-yes-button-variant-006": "بله، می‌خواهم کمک کنم",
+	"donate_interface-monthly-convert-no-button-variant-006": "نه، ممنون",
 	"donate_interface-monthly-convert-no-button-variant-011": "خیر، ممنونم!",
 	"donate_interface-monthly-convert-no-button-variant-014": "خیر، الآن نه",
 	"donate_interface-fundraiser-maintenance-header": "به صورت موقف خاموش برای تعمیر و نگهداری",
