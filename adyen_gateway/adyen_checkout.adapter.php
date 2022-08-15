@@ -3,6 +3,7 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentDetailResponse;
@@ -39,9 +40,14 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$this->tuneForPaymentMethod();
 		$authorizeParams = $this->buildRequestArray();
 
-		// only if showMonthlyConvert true and payment method is not bank transfer, then we set the recurring param to 1 to tokenize the payment.
+		// If we are going to ask for a monthly donation after a one-time donation completes, set the
+		// recurring param to 1 to tokenize the payment.
 		if ( $this->showMonthlyConvert() ) {
 			$authorizeParams['recurring'] = 1;
+			// Since we're not sure if we're going to ever use the token, flag the transaction as
+			// 'card on file' rather than 'subscription' (the default for recurring). This may avoid
+			// donor complaints of one-time donations appearing as recurring on their card statement.
+			$authorizeParams['recurring_model'] = RecurringModel::CARD_ON_FILE;
 		}
 		$this->logger->info( "Calling createPayment for {$authorizeParams['email']}" );
 		$authorizeResult = $provider->createPayment( $authorizeParams );
