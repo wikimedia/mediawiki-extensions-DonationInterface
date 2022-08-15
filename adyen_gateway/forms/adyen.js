@@ -8,9 +8,10 @@
 	 * Get extra configuration values for specific payment types
 	 *
 	 * @param {string} type Adyen-side name of component type
+	 * @param {Object} checkoutConfig The config object used to instantiate the Adyen Checkout object
 	 * @return Object
 	 */
-	function getComponentConfig( type ) {
+	function getComponentConfig( type, checkoutConfig ) {
 		var config = {};
 		switch ( type ) {
 			case 'card':
@@ -109,14 +110,25 @@
 				var g_amount = {},
 					g_currency = $( '#currency' ).val(),
 					g_amount_value = $( '#amount' ).val(),
-					g_country = $( '#country' ).val();
+					g_country = $( '#country' ).val(),
+					languagesSupportedByGPayButton = [
+						'ar', 'bg', 'ca', 'cs', 'da', 'de', 'en', 'el', 'es', 'et', 'fi', 'fr', 'hr', 'id', 'it', 'ja',
+						'ko', 'ms', 'nl', 'no', 'pl', 'pt', 'ru', 'sk', 'sl', 'sr', 'sv', 'th', 'tr', 'uk', 'zh'
+					], baseLanguageCode = checkoutConfig.locale.slice( 0, 2 );
 				g_amount.currency = g_currency;
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
 				config.countryCode = g_country;
 				config.environment = configFromServer.environment.toUpperCase();
 				config.showPayButton = true;
-				config.buttonType = 'donate';
+				// When we are showing the form in a language for which Google Pay has no
+				// translations of their button text, use the plain 'GPay' button rather
+				// than the 'Donate with GPay' button.
+				if ( languagesSupportedByGPayButton.indexOf( baseLanguageCode ) === -1 ) {
+					config.buttonType = 'plain';
+				} else {
+					config.buttonType = 'donate';
+				}
 				config.emailRequired = true;
 				config.billingAddressRequired = true;
 				config.allowedCardNetworks = configFromServer.googleAllowedNetworks;
@@ -477,7 +489,7 @@
 		setLocaleAndTranslations( config, configFromServer.locale );
 
 		checkout = getCheckout( config );
-		component_config = getComponentConfig( component_type );
+		component_config = getComponentConfig( component_type, config );
 		component = checkout.create( component_type, component_config );
 		if ( component_type === 'googlepay' ) {
 			component.isAvailable().then( function () {
