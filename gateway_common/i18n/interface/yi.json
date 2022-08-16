@@ -4,7 +4,8 @@
 			"Har-wradim",
 			"Imre",
 			"Sol lemon",
-			"פוילישער"
+			"פוילישער",
+			"Pacha Tchernof"
 		]
 	},
 	"donate_interface": "שטיצט וויקימעדיע",
@@ -218,7 +219,7 @@
 	"donate_interface-will-make-tax-deductible-gift": "כ'וועל געבן א שטייער־פריי נדבֿה פון:",
 	"donate_interface-next": "נעקסט",
 	"donate_interface-continue": "פֿארזעצן",
-	"donate_interface-cancel": "מבטל זײַן",
+	"donate_interface-cancel": "מבֿטל זײַן",
 	"donate_interface-payment": "באצאל",
 	"donate_interface-payment-type": "באצאל טיפ",
 	"donate_interface-month": "$1 ($2)",
