@@ -162,6 +162,8 @@
 	"donate_interface-error-msg-nopaypal": "Zaradi tehnične napake ne moremo poslati zahteve PayPalu. Prosimo, poskusite z uporabo našega običajnega obrazca za prispevanje s kreditno kartico.",
 	"donate_interface-error-msg-validation": "Prosimo, popravite napake v obrazcu.",
 	"donate_interface-error-msg-invalid-amount": "Prosimo, vnesite veljaven znesek",
+	"donate_interface-error-msg-invalid-country": "Žal nismo mogli zaznati vaše države. Prosimo, izberite eno od držav na naši strani <a href=\"$1\">Načini za darovanje</a>.",
+	"donate_interface-error-msg-invalid-currency": "Prosimo, izberite veljavno valuto",
 	"donate_interface-error-msg-invalid-email": "Prosimo, vnesite veljaven e-poštni naslov, npr. ime@domena.com",
 	"donate_interface-error-msg-card-num": "Prosimo, vnesite veljavno število kreditne kartice za eno od sprejetih vrst kreditnih kartic",
 	"donate_interface-error-msg-amex": "Prosimo, vnesite pravilno številko kartice American Express.",
