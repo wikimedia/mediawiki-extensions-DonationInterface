@@ -174,6 +174,8 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 			// iDEAL (NL-only realtime bank transfer)
 			[ [ 'payment_method' => 'rtbt', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
+			// Should work with or without submethod specified
+			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			// Test country restriction on submethod
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'FR', 'currency' => 'EUR' ], null ],
 

@@ -198,15 +198,20 @@ class GatewayChooser extends UnlistedSpecialPage {
 			// the gateway when the donor's country is not on the list.
 			if ( $paymentSubmethod && !empty( $gatewayConfig[ 'payment_submethods' ] ) ) {
 				$supportedSubmethods = $gatewayConfig[ 'payment_submethods' ];
-				if ( !in_array( $paymentSubmethod, $supportedSubmethods ) ) {
+				if ( !isset( $supportedSubmethods[ $paymentSubmethod ] ) ) {
 					// Specified submethod not supported by gateway
 					continue;
 				}
+				// FIXME: submethod-level country restrictions are not a flat array of country
+				// codes like the lists for gateway and method-level restrictions, but an associative
+				// array of country code => bool. None are set to false in the shipped defaults.
+				// Switch that over to a flat array so we can use !in_array() rather than empty()
 				if (
 					isset( $supportedSubmethods[ $paymentSubmethod ][ 'countries' ] ) &&
-					!in_array( $country, $supportedSubmethods[ $paymentSubmethod ][ 'countries' ] )
+					empty( $supportedSubmethods[ $paymentSubmethod ][ 'countries' ][ $country ] )
 				) {
-					// Specified country not supported by specified submethod for this gateway
+					// Specified country not in submethod's country list for this gateway, or
+					// is present with a value of false.
 					continue;
 				}
 			}
