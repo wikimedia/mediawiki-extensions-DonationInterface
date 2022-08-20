@@ -185,6 +185,8 @@ abstract class GatewayAdapter implements GatewayType {
 	const GATEWAY_NAME = 'Donation Gateway';
 	const IDENTIFIER = 'donation';
 	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
+	const DONOR = 'Donor';
+	const DONOR_BKUP = 'Donor_BKUP';
 
 	/**
 	 * This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
@@ -2251,7 +2253,9 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		// If we're asking the donor to convert their donation to recurring,
 		// don't delete everything from session just yet.
-		if ( !$this->showMonthlyConvert() ) {
+		if ( $this->showMonthlyConvert() ) {
+			$this->session_MoveDonorDataToBackupForRecurringConversion();
+		} else {
 			$this->session_resetForNewAttempt( $force );
 		}
 
@@ -3073,6 +3077,15 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Saves a backup of the Donor Data in session
+	 *
+	 * @param array $donorData
+	 */
+	public function session_setDonorBackupData( array $donorData ) {
+		WmfFramework::setSessionValue( self::DONOR_BKUP, $donorData );
+	}
+
+	/**
 	 * Unsets the session data, in the case that we've saved it for gateways
 	 * like GlobalCollect that require it to persist over here through their
 	 * iframe experience.
@@ -3161,6 +3174,8 @@ abstract class GatewayAdapter implements GatewayType {
 				'numAttempt',
 				'order_status', // for post-payment activities
 				'sequence',
+				self::DONOR_BKUP,
+				self::getIdentifier() . 'EditToken',
 				'variant', // FIXME: this is actually a sub-key of Donor :(
 			];
 			$preservedData = [];
