@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"apihelp-donate-description": "Ovaj izvršnik omogućuje vam da podnesete donaciju Zakladi Wikimedia koristeći različite procesore plaćanja.",
+	"apihelp-donate-summary": "Ovaj izvršnik omogućuje vam da podnesete donaciju Zakladi Wikimedia koristeći različite procesore plaćanja.",
+	"apihelp-donate-param-gateway": "Koji pristupnik plaćanja koristiti — adyen, globalcollect itd.",
+	"apihelp-donate-param-amount": "Donirani iznos."
+}
