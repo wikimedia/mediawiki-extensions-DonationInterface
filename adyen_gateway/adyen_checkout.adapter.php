@@ -382,6 +382,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				$this->getPaymentMethod()
 			);
 			$detailsResult = $provider->getHostedPaymentDetails( $redirectResult );
+			$this->logger->debug(
+				'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
+			);
 			return $this->handleCreatedPayment( $provider, $detailsResult );
 		}
 		// Default behavior is to finalize and return success
