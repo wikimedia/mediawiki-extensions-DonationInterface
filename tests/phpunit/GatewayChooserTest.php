@@ -143,6 +143,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		return [
 			// paypal payment method should be routed to PaypalExpressGateway
 			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD' ], 'PaypalExpressGateway' ],
+			[ [ 'payment_method' => 'paypal', 'country' => 'CN', 'currency' => 'USD' ], 'PaypalExpressGateway' ],
 			// When country is supported at the gateway level but not at the method level, don't redirect
 			[ [ 'payment_method' => 'paypal', 'country' => 'GH', 'currency' => 'GHS' ], null ],
 			// amazon payment method is only provided by AmazonGateway
