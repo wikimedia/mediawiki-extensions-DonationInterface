@@ -7,5 +7,8 @@
 	"apihelp-donate-description": "Ovaj izvršnik omogućuje vam da podnesete donaciju Zakladi Wikimedia koristeći različite procesore plaćanja.",
 	"apihelp-donate-summary": "Ovaj izvršnik omogućuje vam da podnesete donaciju Zakladi Wikimedia koristeći različite procesore plaćanja.",
 	"apihelp-donate-param-gateway": "Koji pristupnik plaćanja koristiti — adyen, globalcollect itd.",
-	"apihelp-donate-param-amount": "Donirani iznos."
+	"apihelp-donate-param-amount": "Donirani iznos.",
+	"apihelp-donate-example-1": "Donirajte",
+	"apihelp-logPaymentsFormError-description": "Ovaj izvršnik bilježi pogreške obrazaca za donacije na strani klijenta.",
+	"apihelp-logPaymentsFormError-summary": "Ovaj izvršnik bilježi pogreške obrazaca za donacije na strani klijenta."
 }
