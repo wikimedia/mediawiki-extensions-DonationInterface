@@ -54,4 +54,20 @@ trait RecurringConversionTrait {
 		$this->session_resetForNewAttempt( true );
 		return PaymentResult::newSuccess();
 	}
+
+	/**
+	 * This method is called when donor completes a payment with a gateway that supports
+	 * RecurringConversion (Monthly convert) in the specified country. Doing this would foster
+	 * the regeneration of the Order-ID for any additional donations. Some gateways accept the
+	 * use of same Order-ID for multiple payments, some require unique Order-IDs for every donation.
+	 * This would be useful for gateways that require unique Order-IDs (ex. Braintree)
+	 */
+	public function session_MoveDonorDataToBackupForRecurringConversion() {
+		$donor = $this->session_getData( GatewayAdapter::DONOR );
+		$this->logger->info(
+			'Backing up donor session for possibility of Monthly Convert.'
+		);
+		$this->session_setDonorBackupData( $donor );
+		$this->session_unsetDonorData();
+	}
 }

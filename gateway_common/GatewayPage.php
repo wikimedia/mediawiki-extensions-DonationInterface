@@ -394,7 +394,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		) {
 			$this->displayForm();
 		} elseif ( $this->adapter->showMonthlyConvert() ) {
-			$this->logger->info( "PaymentResult successful, now asking for a recurring donation." );
+			$this->logger->info( "Displaying monthly convert modal after successful one-time donation PaymentResult" );
 			$this->displayForm();
 		} else {
 			// Success.
