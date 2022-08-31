@@ -65,7 +65,7 @@ trait RecurringConversionTrait {
 	public function session_MoveDonorDataToBackupForRecurringConversion() {
 		$donor = $this->session_getData( GatewayAdapter::DONOR );
 		$this->logger->info(
-		"Backing up {$donor['gateway']} Donor session for possibility of Monthly Convert."
+			'Backing up donor session for possibility of Monthly Convert.'
 		);
 		$this->session_setDonorBackupData( $donor );
 		$this->session_unsetDonorData();
