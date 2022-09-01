@@ -807,8 +807,8 @@
 				{
 					"conditions": {
 						"country": [
-							"AT", "AU", "BE", "CA", "DK", "ES", "FR", "GB", "IE", "IL", "LU", "MY", "NL", "NO", "NZ",
-							"PT", "US"
+							"AT", "AU", "BE", "BG", "CA", "DK", "ES", "FR", "HK", "HU", "GB", "IE", "IL", "IT", "JP", "KW", "LU", "LV", "MY", "NL", "NO", "NZ",
+							"PL", "PT", "RO", "SK", "US"
 						],
 						"payment_method": "cc"
 					},
