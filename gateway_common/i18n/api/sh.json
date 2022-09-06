@@ -10,5 +10,11 @@
 	"apihelp-donate-param-amount": "Donirani iznos.",
 	"apihelp-donate-example-1": "Donirajte",
 	"apihelp-logPaymentsFormError-description": "Ovaj izvršnik bilježi pogreške obrazaca za donacije na strani klijenta.",
-	"apihelp-logPaymentsFormError-summary": "Ovaj izvršnik bilježi pogreške obrazaca za donacije na strani klijenta."
+	"apihelp-logPaymentsFormError-summary": "Ovaj izvršnik bilježi pogreške obrazaca za donacije na strani klijenta.",
+	"apihelp-di_donate_adyen-summary": "Ovaj priložnik je za Adyen",
+	"apihelp-di_recurring_convert-summary": "Izvršnik se koristi kada donator pristane dodati mjesečnu donaciju nakon dovršetka uspješne jednokratne donacije.",
+	"apihelp-di_recurring_convert-param-gateway": "Koji pristupnik plaćanja koristiti — adyen, globalcollect itd.",
+	"apihelp-employerSearch-description": "Ovaj prilog omogućuje vam pretragu poslodavaca koji sudjeluju u WMF programu odgovarajućih darova.",
+	"apihelp-employerSearch-summary": "Ovaj prilog omogućuje vam pretragu poslodavaca koji sudjeluju u WMF programu odgovarajućih darova.",
+	"apihelp-employerSearch-example-1": "Pretraži poslodavce"
 }
