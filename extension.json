@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.5.7.5",
+	"version": "2.5.7.8",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -173,6 +173,7 @@
 		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
 		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
 		"PlaceholderFiscalNumber": "astropay_gateway/PlaceholderFiscalNumber.php",
+		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_ec_gateway/paypal_express.adapter.php",
 		"PaypalExpressGateway": "paypal_ec_gateway/paypal_express_gateway.body.php",
@@ -807,8 +808,8 @@
 				{
 					"conditions": {
 						"country": [
-							"AT", "AU", "BE", "CA", "DK", "ES", "FR", "GB", "IE", "IL", "LU", "MY", "NL", "NO", "NZ",
-							"PT", "US"
+							"AT", "AU", "BE", "BG", "CA", "DK", "ES", "FR", "HK", "HU", "GB", "IE", "IL", "IT", "JP", "KW", "LU", "LV", "MY", "NL", "NO", "NZ",
+							"PL", "PT", "RO", "SK", "US"
 						],
 						"payment_method": "cc"
 					},
