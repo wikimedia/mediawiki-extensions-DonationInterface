@@ -6,8 +6,8 @@ use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
-use SmashPig\PaymentProviders\PaymentDetailResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
