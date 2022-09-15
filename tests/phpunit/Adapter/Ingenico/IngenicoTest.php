@@ -690,7 +690,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 				$order = [
 					'amountOfMoney' => [
 						'currencyCode' => 'USD',
-						'amount' => 155.0
+						'amount' => 455.0
 					],
 					'customer' => [
 						'billingAddress' => [

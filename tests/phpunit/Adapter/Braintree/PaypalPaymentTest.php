@@ -79,6 +79,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 
 	public function testPaypalDoPayment() {
 		$init = $this->getTestDonor();
+		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$expectedPaymentToken = $init['payment_token'];
@@ -165,6 +166,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 
 	public function testPaypalDoPaymentInvalidPaymentToken() {
 		$init = $this->getTestDonor();
+		$init['amount'] = '1.55';
 		$init['payment_token'] = "NOT_THE_RIGHT_PAYMENT_ID_TOKEN";
 		$gateway = $this->getFreshGatewayObject( $init );
 

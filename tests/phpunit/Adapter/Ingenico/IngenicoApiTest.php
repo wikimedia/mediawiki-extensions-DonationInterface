@@ -79,7 +79,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 155.0
+							'amount' => 455.0
 						],
 						'customer' => [
 							'billingAddress' => [
@@ -144,7 +144,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'currency' => 'USD',
-			'gross' => '1.55',
+			'gross' => '4.55',
 			'user_ip' => '127.0.0.1',
 			'street_address' => '123 Fake Street',
 			'city' => 'San Francisco',
@@ -221,7 +221,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 155.0
+							'amount' => 455.0
 						],
 						'customer' => [
 							'billingAddress' => [

@@ -57,7 +57,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 			'payment_method' => 'cc',
 			'payment_submethod' => '',
 			'currency' => 'USD',
-			'gross' => '1.55',
+			'gross' => '4.55',
 			'user_ip' => '127.0.0.1',
 			'street_address' => '123 Fake Street',
 			'city' => 'San Francisco',

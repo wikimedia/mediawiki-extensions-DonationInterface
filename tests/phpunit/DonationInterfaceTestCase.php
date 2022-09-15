@@ -223,7 +223,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'Firstname',
 				'last_name' => 'Surname',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'en',
 				'email' => 'nobody@wikimedia.org',
 			],
@@ -244,7 +244,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Calle Fake',
 				'first_name' => 'Nombre',
 				'last_name' => 'Apellido',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'es',
 			],
 			'Catalonia' => [
@@ -255,7 +255,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Calle Fake',
 				'first_name' => 'Nombre',
 				'last_name' => 'Apellido',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'ca',
 			],
 			'NO' => [
@@ -266,7 +266,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Fake Gate',
 				'first_name' => 'Fornavn',
 				'last_name' => 'Etternavn',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'no',
 			],
 			'FR' => [
@@ -277,7 +277,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Rue Faux',
 				'first_name' => 'Prénom',
 				'last_name' => 'Nom',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'fr',
 			],
 			// Fiji is configured as a snowflake to test special treatment for certain store IDs
@@ -289,7 +289,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'FirstName',
 				'last_name' => 'LastName',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'en',
 			],
 			'NL' => [
@@ -300,7 +300,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 nep straat',
 				'first_name' => 'Voornaam',
 				'last_name' => 'Achternaam',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'nl',
 			],
 			'BE' => [
@@ -311,7 +311,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 nep straat',
 				'first_name' => 'Voornaam',
 				'last_name' => 'Achternaam',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'nl',
 			],
 			'IT' => [
@@ -322,7 +322,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => 'Via Falso 123',
 				'first_name' => 'Nome',
 				'last_name' => 'Cognome',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'it',
 			],
 			'IN' => [
@@ -346,7 +346,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'street_address' => '123 Fake Street',
 				'first_name' => 'Firstname',
 				'last_name' => 'Surname',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'language' => 'en',
 			],
 			'BR' => [

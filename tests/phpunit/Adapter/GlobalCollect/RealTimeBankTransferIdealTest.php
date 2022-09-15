@@ -70,7 +70,7 @@ class DonationInterface_Adapter_GlobalCollect_RealTimeBankTransferIdealTest exte
 		$assertNodes = [
 			'amount' => [
 				'nodename' => 'input',
-				'value' => '1.55',
+				'value' => '4.55',
 			],
 			'currency' => [
 				'nodename' => 'select',

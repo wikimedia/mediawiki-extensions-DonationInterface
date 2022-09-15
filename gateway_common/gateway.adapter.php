@@ -3960,12 +3960,50 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Add the suggested monthly donation amounts for each donation level
+	 * according to the currency saved in session for this donation attempt.
+	 * For currencies that are neither in the config nor these fallback rules,
+	 * we leave the variable unset here and the JavaScript just redirects the
+	 * donor to the Thank You page. Defaults include rules for USD, GBP, and JPY
+	 * @return array|null
+	 */
+	public function getMonthlyConvertAmounts(): ?array {
+		$convertAmounts = $this->getGlobal( 'MonthlyConvertAmounts' );
+		$currency = $this->getData_Unstaged_Escaped( 'currency' );
+		if ( isset( $convertAmounts[$currency] ) ) {
+		return $convertAmounts[$currency];
+		} elseif ( $currency === 'EUR' ) {
+		// If EUR not specifically configured, fall back to GBP rules
+		return $convertAmounts['GBP'];
+		} elseif ( $currency === 'NOK' ) {
+		// If NOK not specifically configured, fall back to DKK rules
+		return $convertAmounts['DKK'];
+		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
+		// If these currencies aren't configured, fall back to MYR rules
+		return $convertAmounts['MYR'];
+		} elseif ( in_array( $currency, [ 'AUD', 'CAD', 'NZD' ], true ) ) {
+		// If these currencies aren't configured, fall back to USD rules
+		return $convertAmounts['USD'];
+		}
+		return null;
+	}
+
+	/**
 	 * @return bool true when we want to ask a one-time donor for a recurring
 	 *  donation after their one-time donation is complete.
 	 *
 	 * @see $wgDonationInterfaceMonthlyConvertCountries
 	 */
 	public function showMonthlyConvert() {
+		$monthlyConvertAmounts = $this->getMonthlyConvertAmounts();
+		if ( $monthlyConvertAmounts !== null ) {
+			$mcMinimumAmount = $monthlyConvertAmounts[0][0];
+			// check if amount is up to monthly convert minimum amount for specified currency
+			if ( floatval( $this->getData_Unstaged_Escaped( 'amount' ) ) < $mcMinimumAmount ) {
+				return false;
+			}
+		}
+
 		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}

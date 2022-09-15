@@ -38,7 +38,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
-						Amount::format( 1.55, 'USD', $init['language'] . '_' . $init['country'] )
+						Amount::format( 4.55, 'USD', $init['language'] . '_' . $init['country'] )
 					) .
 					'\s*$/',
 			],
@@ -61,7 +61,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
-					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
 			'first_name' => [
@@ -94,7 +94,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
-					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
 			'first_name' => [
@@ -133,7 +133,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
-					Amount::format( 1.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
+					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
 			'first_name' => [
@@ -173,7 +173,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
 					str_replace( '$', '\$',
-						Amount::format( 1.55, 'CAD', $init['language'] . '_' . $init['country'] )
+						Amount::format( 4.55, 'CAD', $init['language'] . '_' . $init['country'] )
 					) .
 					'\s*$/',
 			],

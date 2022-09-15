@@ -50,6 +50,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 	public function testDoPaymentCard() {
 		$init = $this->getTestDonorCardData();
 		$init += $this->encryptedCardData;
+		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$expectedEncryptedParams = [
 			'encryptedCardNumber' => $this->encryptedCardData['encrypted_card_number'],
@@ -218,7 +219,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( [
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'city' => 'NA',
 				'country' => 'US',
 				'currency' => 'USD',
@@ -269,9 +270,91 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$this->assertEquals( $pspToken, $actual );
 	}
 
+	/**
+	 * Test to verify that donations are not tokenized when value is less than
+	 * Monthly Convert minimum amount for the specified currency
+	 */
+	public function testDoPaymentCardMonthlyConvertMinimumAmount() {
+		$init = $this->getTestDonorCardData();
+		$this->setMwGlobals( [
+		'wgDonationInterfaceMonthlyConvertCountries' => [ 'US' ]
+		] );
+		$init += $this->encryptedCardData;
+		$init['amount'] = '1.55';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedEncryptedParams = [
+		'encryptedCardNumber' => $this->encryptedCardData['encrypted_card_number'],
+		'encryptedExpiryMonth' => $this->encryptedCardData['encrypted_expiry_month'],
+		'encryptedExpiryYear' => $this->encryptedCardData['encrypted_expiry_year'],
+		'encryptedSecurityCode' => $this->encryptedCardData['encrypted_security_code'],
+		];
+		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
+		$pspReferenceCapture = 'BLA' . mt_rand( 100000000, 1000000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+		'Special:AdyenCheckoutGatewayResult'
+		)->getFullURL( [
+		'order_id' => $expectedMerchantRef,
+		'wmf_token' => $gateway->token_getSaltedSessionToken(),
+		] );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+		->method( 'createPayment' )
+		->with( [
+			'amount' => '1.55',
+			'city' => 'NA',
+			'country' => 'US',
+			'currency' => 'USD',
+			'description' => 'Wikimedia 877 600 9454',
+			'email' => 'nobody@wikimedia.org',
+			'first_name' => 'Firstname',
+			'encrypted_payment_data' => $expectedEncryptedParams,
+			'last_name' => 'Surname',
+			'order_id' => $expectedMerchantRef,
+			'postal_code' => '94105',
+			'return_url' => $expectedReturnUrl,
+			'state_province' => 'NA',
+			'street_address' => '123 Fake Street',
+			'user_ip' => '127.0.0.1'
+		] )
+		->willReturn(
+			( new CreatePaymentResponse() )
+			->setRawStatus( 'Authorized' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
+			->setGatewayTxnId( $pspReferenceAuth )
+		);
+		$this->cardPaymentProvider->expects( $this->once() )
+		->method( 'approvePayment' )
+		->with( [
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'gateway_txn_id' => $pspReferenceAuth
+		] )
+		->willReturn(
+			( new ApprovePaymentResponse() )
+			->setRawStatus( '[capture-received]' )
+			->setStatus( FinalStatus::COMPLETE )
+			->setSuccessful( true )
+			->setGatewayTxnId( $pspReferenceCapture )
+		);
+
+		$result = $gateway->doPayment();
+
+		$this->assertFalse( $result->isFailed() );
+		$this->assertEmpty( $result->getErrors() );
+		// There should be a token in the stored data
+		$actual_recurring = $gateway->getData_Unstaged_Escaped( 'recurring' );
+		$this->assertEmpty( $actual_recurring );
+		$actual_recurring_model = $gateway->getData_Unstaged_Escaped( 'recurring_model' );
+		$this->assertEmpty( $actual_recurring_model );
+	}
+
 	public function testDoPaymentCardAuthorizationDeclined() {
 		$init = $this->getTestDonorCardData();
 		$init += $this->encryptedCardData;
+		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$expectedEncryptedParams = [
 			'encryptedCardNumber' => $this->encryptedCardData['encrypted_card_number'],
@@ -427,7 +510,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'first_name' => 'Firstname',
 			'gateway' => 'adyen',
 			'gateway_txn_id' => $pspReferenceAuth,
-			'gross' => '1.55',
+			'gross' => '4.55',
 			'language' => 'en',
 			'last_name' => 'Surname',
 			'order_id' => $init['order_id'],
@@ -469,7 +552,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'payments_final_status' => 'complete',
 				'payment_submethod' => 'visa',
 				'country' => 'US',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'currency' => 'USD',
 				'gateway' => 'adyen',
 				'gateway_txn_id' => $pspReferenceAuth,
@@ -549,7 +632,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'payments_final_status' => 'failed',
 				'payment_submethod' => 'visa',
 				'country' => 'US',
-				'amount' => '1.55',
+				'amount' => '4.55',
 				'currency' => 'USD',
 				'gateway' => 'adyen',
 				'gateway_txn_id' => $pspReferenceAuth,

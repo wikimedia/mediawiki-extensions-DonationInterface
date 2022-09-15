@@ -196,7 +196,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'"email":{"address":"somebody@wikipedia.org","domain":"wikipedia.org"},' .
 				'"event":{"transaction_id":"' .
 				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .
-				'"},"order":{"amount":"1.55","currency":"USD"}}'
+				'"},"order":{"amount":"4.55","currency":"USD"}}'
 			)->willReturn( [
 				200, 'application/json', file_get_contents(
 					__DIR__ . '/includes/Responses/minFraud/15points.json'
