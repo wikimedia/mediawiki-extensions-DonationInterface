@@ -1117,10 +1117,20 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->profiler->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { // We have something to slice and dice.
-			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
+			$rawResponse = $this->transaction_response->getRawResponse();
+			$decodeResponse = json_decode( $rawResponse, true );
+			// do not send card to rawResponse for log, below two was for ingenico getHostedPaymentStatus, approvePayment and cancelPayment
+			if ( isset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
+				unset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] );
+			}
+			if ( isset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
+				unset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] );
+			}
+			$rawResponse = $decodeResponse ? json_encode( $decodeResponse ) : $rawResponse;
+			$this->logger->info( "RETURNED FROM CURL:" . print_r( $rawResponse, true ) );
 
 			// Decode the response according to $this->getResponseType
-			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
+			$formatted = $this->getFormattedResponse( $rawResponse );
 
 			// Process the formatted response. This will then drive the result action
 			try {

@@ -25,13 +25,20 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 			return false;
 		}
 
+		$responseData = $response->getData();
+		if ( isset( $responseData['cardNumber'] ) ) {
+			unset( $responseData['cardNumber'] );
+		}
+		if ( isset( $responseData['expiryDate'] ) ) {
+			unset( $responseData['expiryDate'] );
+		}
 		$this->log(
 			$this->gateway_adapter->getData_Unstaged_Escaped(
 				'contribution_tracking_id'
 			),
 			"Gateway response: " . addslashes(
 				$response->getTxnMessage()
-			), '"' . addslashes( json_encode( $response->getData() ) ) . '"'
+			), '"' . addslashes( json_encode( $responseData ) ) . '"'
 		);
 		return true;
 	}
