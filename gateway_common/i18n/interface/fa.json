@@ -20,7 +20,8 @@
 			"ZxxZxxZ",
 			"Amire80",
 			"Berrely",
-			"Jeeputer"
+			"Jeeputer",
+			"Mskf1383"
 		]
 	},
 	"donate_interface": "حمایت از ویکی‌مدیا",
@@ -146,7 +147,7 @@
 	"donate_interface-donor-email": "آدرس ایمیل",
 	"donate_interface-donor-name": "نام",
 	"donate_interface-donor-first_name": "نام:",
-	"donate_interface-donor-first_name-alt": "نام فايل",
+	"donate_interface-donor-first_name-alt": "نام کوچک",
 	"donate_interface-donor-mname": "نام میانی:",
 	"donate_interface-donor-last_name": "نام خانوادگی:",
 	"donate_interface-donor-last_name-alt": "نام خانوادگی",
