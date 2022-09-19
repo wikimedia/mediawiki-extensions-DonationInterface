@@ -99,10 +99,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		// send the donor to the Thank You page. This is because the
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
-		// FIXME: this should be a newSuccess so we don't trigger extra
-		// pending logging.
-		$paymentResult = PaymentResult::newRedirect(
-			ResultPages::getThankYouPage( $this ) );
+		$paymentResult = PaymentResult::newSuccess();
 		if ( !$authorizeResult->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			// TODO: map any errors from $authorizeResult

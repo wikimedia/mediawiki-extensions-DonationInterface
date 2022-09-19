@@ -372,6 +372,8 @@
 			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
+		} else {
+			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 		}
 	}
 

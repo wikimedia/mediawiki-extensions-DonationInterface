@@ -21,18 +21,6 @@ abstract class DonationApiBase extends ApiBase {
 	 */
 	protected $adapter;
 
-	/**
-	 * @return GatewayAdapter|null
-	 */
-	protected function getGatewayObject() {
-		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
-		if ( $className::getGlobal( 'Enabled' ) !== true ) {
-			return null;
-		}
-		$variant = $this->getRequest()->getVal( 'variant' );
-		return new $className( [ 'variant' => $variant ] );
-	}
-
 	protected function serializeErrors( $errors ) {
 		$serializedErrors = [];
 		foreach ( $errors as $error ) {
@@ -54,23 +42,20 @@ abstract class DonationApiBase extends ApiBase {
 	}
 
 	protected function setAdapterAndValidate() {
-		$this->donationData = $this->extractRequestParams();
-
-		if ( !$this->gateway ) {
-			$this->gateway = $this->donationData['gateway'];
-		}
+		$this->ensureState();
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
+
 		if ( isset( $this->donationData['language'] ) ) {
 			// setLanguage will sanitize the code, replacing it with the base wiki
 			// language in case it's invalid.
 			RequestContext::getMain()->setLanguage( $this->donationData['language'] );
 		}
 
-		$this->adapter = $this->getGatewayObject();
-
+		// This should have been set above in ensureState().
 		if ( !$this->adapter ) {
-			return false; // already failed with a dieUsage call
+			// Legacy comment, maybe outdated: already failed with a dieUsage call
+			return false;
 		}
 
 		// FIXME: SmashPig should just use Monolog.
@@ -103,5 +88,48 @@ abstract class DonationApiBase extends ApiBase {
 
 	public function mustBePosted() {
 		return true;
+	}
+
+	/**
+	 * Ensures the following are set, if possible:
+	 *  - $this->donationData
+	 *  - $this->gateway
+	 *  - $this->adapter
+	 */
+	protected function ensureState() {
+		if ( !$this->donationData ) {
+			$this->donationData = $this->extractRequestParams();
+		}
+
+		if ( !$this->gateway && $this->donationData ) {
+			$this->gateway = $this->donationData[ 'gateway' ];
+		}
+
+		if ( !$this->adapter && $this->gateway ) {
+			$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
+
+			if ( $className::getGlobal( 'Enabled' ) === true ) {
+
+				// FIXME: Some subclasses don't get variant the noraml way
+				$variant = $this->donationData[ 'variant' ] ??
+					$this->getRequest()->getVal( 'variant' );
+
+				$this->adapter = new $className( [ 'variant' => $variant ] );
+			}
+		}
+	}
+
+	/**
+	 * Provides an appropriate logger object.
+	 *
+	 * @return \Psr\Log\LoggerInterface
+	 */
+	protected function getLogger(): \Psr\Log\LoggerInterface {
+		$this->ensureState();
+		return $this->adapter
+			? DonationLoggerFactory::getLogger( $this->adapter )
+			: DonationLoggerFactory::getLoggerForType(
+				DonationInterface::getAdapterClassForGateway( $this->gateway )
+			);
 	}
 }

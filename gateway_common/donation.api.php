@@ -128,14 +128,7 @@ class DonationApi extends DonationApiBase {
 	protected function logDebugMessages() {
 		$messages = $this->getParameter( 'debug_messages' );
 		if ( $messages ) {
-			$logger = $this->adapter
-				? DonationLoggerFactory::getLogger( $this->adapter )
-				: DonationLoggerFactory::getLoggerForType(
-					DonationInterface::getAdapterClassForGateway(
-						$this->getParameter( 'gateway' )
-					)
-				);
-			$logger->debug( 'Client-side debug messages: ' . $messages );
+			$this->getLogger()->debug( 'Client-side debug messages: ' . $messages );
 		}
 	}
 }
