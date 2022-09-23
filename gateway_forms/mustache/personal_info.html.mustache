@@ -41,6 +41,7 @@
         {{{ fieldError "email" }}}
     </div>
 {{/ email_visible }}
+{{^is_cc }}
 {{# employer_visible }}
     <div>
         <label for="employer">{{ l10n "donate_interface-donor-employer" }}</label>
@@ -52,4 +53,5 @@
        <input id="employer_id" name="employer_id" value="{{ employer_id }}" type="hidden">
     </div>
 {{/ employer_visible }}
+{{/ is_cc }}
 
