@@ -27,6 +27,20 @@
 {{# show_continue }}
 								<div id="paymentContinue" {{^ show_submethods }}class="force"{{/ show_submethods }}> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
 {{/ show_continue }}
+								{{# is_cc }}
+									{{# employer_visible }}
+										<div>
+											<label for="employer">{{ l10n "donate_interface-donor-employer" }}</label>
+											<input class="fullwidth" id="employer" name="employer" value="{{ employer }}" type="text"
+												   title="{{ l10n "donate_interface-donor-employer" }}" maxlength="64">
+											<div>{{ l10n "donate_interface-donor-employer-explain" }}</div>
+											{{{ fieldError "employer" }}}
+										</div>
+										<div>
+											<input id="employer_id" name="employer_id" value="{{ employer_id }}" type="hidden">
+										</div>
+									{{/ employer_visible }}
+								{{/ is_cc }}
 								<div id="paymentSubmit" > <input class="btn enabled" id="paymentSubmitBtn" type="button" value="{{ l10n "donate_interface-submit-button" }}" /></div>
 {{# is_cc }}
 								<div class="mw-donate-submessage" id="payment_gateway-donate-submessage">

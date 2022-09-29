@@ -349,6 +349,7 @@
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+			return;
 		}
 
 		if ( result.formData && Object.keys( result.formData ).length > 0 ) {

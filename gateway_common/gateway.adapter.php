@@ -1117,10 +1117,20 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->profiler->getStopwatch( __FUNCTION__, true );
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { // We have something to slice and dice.
-			$this->logger->info( "RETURNED FROM CURL:" . print_r( $this->transaction_response->getRawResponse(), true ) );
+			$rawResponse = $this->transaction_response->getRawResponse();
+			$decodeResponse = json_decode( $rawResponse, true );
+			// do not send card to rawResponse for log, below two was for ingenico getHostedPaymentStatus, approvePayment and cancelPayment
+			if ( isset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
+				unset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] );
+			}
+			if ( isset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
+				unset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] );
+			}
+			$rawResponse = $decodeResponse ? json_encode( $decodeResponse ) : $rawResponse;
+			$this->logger->info( "RETURNED FROM CURL:" . print_r( $rawResponse, true ) );
 
 			// Decode the response according to $this->getResponseType
-			$formatted = $this->getFormattedResponse( $this->transaction_response->getRawResponse() );
+			$formatted = $this->getFormattedResponse( $rawResponse );
 
 			// Process the formatted response. This will then drive the result action
 			try {
@@ -3960,12 +3970,50 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
+	 * Add the suggested monthly donation amounts for each donation level
+	 * according to the currency saved in session for this donation attempt.
+	 * For currencies that are neither in the config nor these fallback rules,
+	 * we leave the variable unset here and the JavaScript just redirects the
+	 * donor to the Thank You page. Defaults include rules for USD, GBP, and JPY
+	 * @return array|null
+	 */
+	public function getMonthlyConvertAmounts(): ?array {
+		$convertAmounts = $this->getGlobal( 'MonthlyConvertAmounts' );
+		$currency = $this->getData_Unstaged_Escaped( 'currency' );
+		if ( isset( $convertAmounts[$currency] ) ) {
+		return $convertAmounts[$currency];
+		} elseif ( $currency === 'EUR' ) {
+		// If EUR not specifically configured, fall back to GBP rules
+		return $convertAmounts['GBP'];
+		} elseif ( $currency === 'NOK' ) {
+		// If NOK not specifically configured, fall back to DKK rules
+		return $convertAmounts['DKK'];
+		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
+		// If these currencies aren't configured, fall back to MYR rules
+		return $convertAmounts['MYR'];
+		} elseif ( in_array( $currency, [ 'AUD', 'CAD', 'NZD' ], true ) ) {
+		// If these currencies aren't configured, fall back to USD rules
+		return $convertAmounts['USD'];
+		}
+		return null;
+	}
+
+	/**
 	 * @return bool true when we want to ask a one-time donor for a recurring
 	 *  donation after their one-time donation is complete.
 	 *
 	 * @see $wgDonationInterfaceMonthlyConvertCountries
 	 */
 	public function showMonthlyConvert() {
+		$monthlyConvertAmounts = $this->getMonthlyConvertAmounts();
+		if ( $monthlyConvertAmounts !== null ) {
+			$mcMinimumAmount = $monthlyConvertAmounts[0][0];
+			// check if amount is up to monthly convert minimum amount for specified currency
+			if ( floatval( $this->getData_Unstaged_Escaped( 'amount' ) ) < $mcMinimumAmount ) {
+				return false;
+			}
+		}
+
 		if ( !$this instanceof RecurringConversion ) {
 			return false;
 		}

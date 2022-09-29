@@ -468,7 +468,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$thankYouUrl = ResultPages::getThankYouPage( $this->adapter );
 			$vars['wgDonationInterfaceThankYouUrl'] = $thankYouUrl;
 			$vars['showMConStartup'] = $this->getRequest()->getBool( 'debugMonthlyConvert' );
-			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->getMonthlyConvertAmounts();
+			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
 		}
 
 		try {
@@ -496,35 +496,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$ex->getMessage()
 			);
 		}
-	}
-
-	/**
-	 * Add the suggested monthly donation amounts for each donation level
-	 * according to the currency saved in session for this donation attempt.
-	 * For currencies that are neither in the config nor these fallback rules,
-	 * we leave the variable unset here and the JavaScript just redirects the
-	 * donor to the Thank You page. Defaults include rules for USD, GBP, and JPY
-	 * @return array|null
-	 */
-	protected function getMonthlyConvertAmounts(): ?array {
-		$convertAmounts = $this->adapter->getGlobal( 'MonthlyConvertAmounts' );
-		$currency = $this->adapter->getData_Unstaged_Escaped( 'currency' );
-		if ( isset( $convertAmounts[$currency] ) ) {
-			return $convertAmounts[$currency];
-		} elseif ( $currency === 'EUR' ) {
-			// If EUR not specifically configured, fall back to GBP rules
-			return $convertAmounts['GBP'];
-		} elseif ( $currency === 'NOK' ) {
-			// If NOK not specifically configured, fall back to DKK rules
-			return $convertAmounts['DKK'];
-		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
-			// If these currencies aren't configured, fall back to MYR rules
-			return $convertAmounts['MYR'];
-		} elseif ( in_array( $currency, [ 'AUD', 'CAD', 'NZD' ], true ) ) {
-			// If these currencies aren't configured, fall back to USD rules
-			return $convertAmounts['USD'];
-		}
-		return null;
 	}
 
 	protected function getVariant() {
