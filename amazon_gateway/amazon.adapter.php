@@ -420,7 +420,7 @@ class AmazonAdapter extends GatewayAdapter {
 	 */
 	public function handleErrors( $exception, $resultData ) {
 		$errorCode = $exception->getErrorCode();
-		if ( array_search( $errorCode, $this->pending_reasons ) !== false ) {
+		if ( in_array( $errorCode, $this->pending_reasons ) ) {
 			// These reason codes mean the donation is in limbo. We can't
 			// do anything more about it right now, but donor services might
 			// push it through manually later.
@@ -435,7 +435,7 @@ class AmazonAdapter extends GatewayAdapter {
 			$exception->getMessage(),
 			LogLevel::ERROR
 		) );
-		if ( array_search( $errorCode, $this->retry_reasons ) === false ) {
+		if ( !in_array( $errorCode, $this->retry_reasons ) ) {
 			// Fail on anything we don't recognize as retry-able.  For example:
 			// These two may show up if we start doing asynchronous authorization
 			// 'AmazonClosed',

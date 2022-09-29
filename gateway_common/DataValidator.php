@@ -200,11 +200,7 @@ class DataValidator {
 					$validation_function = $custom;
 				}
 
-				if ( isset( $data[$field] ) ) {
-					$value = $data[$field];
-				} else {
-					$value = null;
-				}
+				$value = $data[$field] ?? null;
 				if ( empty( $value ) && $phase !== 'not_empty' ) {
 					// Skip if not required and nothing to validate.
 					continue;

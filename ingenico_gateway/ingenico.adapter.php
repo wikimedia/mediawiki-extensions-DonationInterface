@@ -25,11 +25,8 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 * @param array $options These get extracted in the parent.
 	 */
 	protected function setGatewayDefaults( $options = [] ) {
-		if ( isset( $options['returnTo'] ) ) {
-			$returnTo = $options['returnTo'];
-		} else {
-			$returnTo = Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
-		}
+		$returnTo = $options['returnTo'] ??
+			Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
 
 		$defaults = [
 			'returnto' => $returnTo,
@@ -261,11 +258,11 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		$cardSpecificInput = $this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'];
 		$getStatusResponse = $this->transactions['getHostedPaymentStatus']['response'];
 		if ( $this->showMonthlyConvert() ) {
-			if ( array_search( 'tokenize', $cardSpecificInput ) === false ) {
+			if ( !in_array( 'tokenize', $cardSpecificInput ) ) {
 				$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'][] = 'tokenize';
 			}
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
-			if ( array_search( 'tokens', $getStatusResponse ) === false ) {
+			if ( !in_array( 'tokens', $getStatusResponse ) ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
 		} elseif ( $isRecurring ) {
@@ -280,7 +277,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
 			$this->transactions['createHostedCheckout']['values']['recurringPaymentSequenceIndicator'] = 'first';
-			if ( array_search( 'tokens', $getStatusResponse ) === false ) {
+			if ( !in_array( 'tokens', $getStatusResponse ) ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
 			$desc = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );

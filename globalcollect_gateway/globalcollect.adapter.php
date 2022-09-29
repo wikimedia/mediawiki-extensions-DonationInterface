@@ -66,11 +66,8 @@ class GlobalCollectAdapter extends GatewayAdapter {
 		if ( isset( $options['returnTo'] ) ) {
 			$returnTo = $options['returnTo'];
 		} else {
-			if ( isset( $options['returnTitle'] ) ) {
-				$returnTitle = $options['returnTitle'];
-			} else {
-				$returnTitle = Title::newFromText( 'Special:GlobalCollectGatewayResult' );
-			}
+			$returnTitle = $options['returnTitle'] ??
+				Title::newFromText( 'Special:GlobalCollectGatewayResult' );
 			$returnTo = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
 		}
 
