@@ -1,9 +1,9 @@
 <?php
 
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\Adyen\DirectDebitPaymentProvider;
-use SmashPig\PaymentProviders\CreatePaymentResponse;
-use SmashPig\PaymentProviders\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Adyen\IdealBankTransferPaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
  * @group Fundraising
@@ -14,7 +14,7 @@ use SmashPig\PaymentProviders\PaymentDetailResponse;
  */
 class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 	/**
-	 * @var \PHPUnit\Framework\MockObject\MockObject|DirectDebitPaymentProvider
+	 * @var \PHPUnit\Framework\MockObject\MockObject|IdealBankTransferPaymentProvider
 	 */
 	protected $idealPaymentProvider;
 
@@ -23,7 +23,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		$this->setLanguage( 'nl' );
 
 		$this->idealPaymentProvider = $this->getMockBuilder(
-			DirectDebitPaymentProvider::class
+			IdealBankTransferPaymentProvider::class
 		)->disableOriginalConstructor()->getMock();
 
 		$this->providerConfig->overrideObjectInstance(

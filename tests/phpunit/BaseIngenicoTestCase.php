@@ -1,9 +1,9 @@
 <?php
 
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
-use SmashPig\PaymentProviders\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 

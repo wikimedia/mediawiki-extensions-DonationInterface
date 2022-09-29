@@ -8,8 +8,8 @@ use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
 use SmashPig\PaymentProviders\Braintree\TransactionType;
-use SmashPig\PaymentProviders\CreatePaymentResponse;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 
 class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;

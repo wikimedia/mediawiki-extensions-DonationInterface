@@ -1,10 +1,10 @@
 <?php
 
 use SmashPig\Core\ValidationError;
+use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
-use SmashPig\PaymentProviders\CreatePaymentResponse;
-use SmashPig\PaymentProviders\DonorDetails;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 
 /**
  * @group Fundraising

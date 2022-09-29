@@ -18,7 +18,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
  *

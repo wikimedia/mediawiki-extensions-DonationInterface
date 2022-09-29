@@ -2,7 +2,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
-use SmashPig\PaymentProviders\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
  * @group Fundraising
