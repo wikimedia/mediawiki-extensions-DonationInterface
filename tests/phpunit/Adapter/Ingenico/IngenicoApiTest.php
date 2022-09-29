@@ -38,9 +38,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		);
 		$ctx->providerConfigurationOverride = $providerConfig;
 
-		$this->hostedCheckoutProvider = $this->getMockBuilder(
-			HostedCheckoutProvider::class
-		)->disableOriginalConstructor()->getMock();
+		$this->hostedCheckoutProvider = $this->createMock( HostedCheckoutProvider::class );
 
 		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $this->hostedCheckoutProvider );
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .

@@ -28,9 +28,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		parent::setUp();
 		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
 
-		$this->hostedCheckoutProvider = $this->getMockBuilder(
-			HostedCheckoutProvider::class
-		)->disableOriginalConstructor()->getMock();
+		$this->hostedCheckoutProvider = $this->createMock( HostedCheckoutProvider::class );
 
 		$providerConfig->overrideObjectInstance(
 			'payment-provider/cc',

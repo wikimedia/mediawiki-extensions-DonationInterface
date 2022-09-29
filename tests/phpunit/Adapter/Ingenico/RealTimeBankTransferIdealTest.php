@@ -43,9 +43,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 		);
 		TestingContext::get()->providerConfigurationOverride = $config;
 
-		$this->bankPaymentProvider = $this->getMockBuilder(
-			BankPaymentProvider::class
-		)->disableOriginalConstructor()->getMock();
+		$this->bankPaymentProvider = $this->createMock( BankPaymentProvider::class );
 
 		$config->overrideObjectInstance( 'payment-provider/rtbt', $this->bankPaymentProvider );
 
