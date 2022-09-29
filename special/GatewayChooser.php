@@ -422,7 +422,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	private function sanitizedValOrNull( string $paramName ): ?string {
 		$val = $this->getRequest()->getVal( $paramName, null );
 
-		if ( $val === '' ) {
+		if ( $val === '' || $val === null ) {
 			return null;
 		}
 
