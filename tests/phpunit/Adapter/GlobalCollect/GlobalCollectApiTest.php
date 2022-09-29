@@ -11,7 +11,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
  */
 class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		// TODO Use TestConfiguration.php instead?
 		$this->setMwGlobals( [
 			'wgGlobalCollectGatewayEnabled' => true,

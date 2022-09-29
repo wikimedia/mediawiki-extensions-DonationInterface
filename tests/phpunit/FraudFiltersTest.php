@@ -41,7 +41,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 */
 	protected $request;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->requestFactory = $this->getMockBuilder(
 			RequestFactory::class

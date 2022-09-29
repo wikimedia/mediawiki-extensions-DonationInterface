@@ -17,7 +17,7 @@ class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 
 	protected $redirectResult = 'sdhjiasdf89uy3q2rujhrasdfn789a3h24c89qad783h9a8cnyq9873245yhcq987yrhncawo87ryhcaok7wrya8o745ybso47egho47';
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
 		$this->providerConfig = $this->setSmashPigProvider( 'adyen' );

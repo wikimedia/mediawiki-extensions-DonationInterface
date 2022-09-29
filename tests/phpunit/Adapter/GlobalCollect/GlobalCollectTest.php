@@ -27,7 +27,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group GlobalCollect
  */
 class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends DonationInterfaceTestCase {
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

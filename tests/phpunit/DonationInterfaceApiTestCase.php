@@ -6,7 +6,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	protected $clearToken = 'blahblah';
 	protected $saltedToken;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		DonationInterfaceTestCase::setUpSmashPigContext();
 		parent::setUp();
 
@@ -21,7 +21,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
 	}
 
-	public function tearDown(): void {
+	protected function tearDown(): void {
 		DonationInterfaceTestCase::resetAllEnv();
 		parent::tearDown();
 	}

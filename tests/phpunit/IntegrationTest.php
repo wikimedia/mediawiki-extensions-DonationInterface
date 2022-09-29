@@ -36,7 +36,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		parent::__construct( $name, $data, $dataName );
 	}
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

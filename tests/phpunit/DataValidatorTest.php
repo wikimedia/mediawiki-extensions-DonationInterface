@@ -22,7 +22,7 @@
  * @category	UnitTesting
  */
 class DataValidatorTest extends PHPUnit\Framework\TestCase {
-	public function setUp(): void {
+	protected function setUp(): void {
 		DonationInterfaceTestCase::setUpSmashPigContext();
 	}
 

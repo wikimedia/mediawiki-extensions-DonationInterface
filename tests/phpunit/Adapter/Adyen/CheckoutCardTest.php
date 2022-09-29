@@ -29,7 +29,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		// phpcs:enable
 	];
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->cardPaymentProvider = $this->getMockBuilder(

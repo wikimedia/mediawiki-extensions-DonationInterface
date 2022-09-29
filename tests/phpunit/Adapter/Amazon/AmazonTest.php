@@ -54,7 +54,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		return $config;
 	}
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->providerConfig = self::setUpAmazonTestingContext();
 

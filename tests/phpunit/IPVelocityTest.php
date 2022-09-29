@@ -25,7 +25,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 	protected $ipFilter;
 	protected $oldCache;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		global $wgDonationInterfaceIPVelocityToxicDuration,
@@ -60,7 +60,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		);
 	}
 
-	public function tearDown(): void {
+	protected function tearDown(): void {
 		parent::tearDown();
 
 		global $wgDonationInterfaceIPVelocityToxicDuration,

@@ -18,7 +18,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 	 */
 	protected $idealPaymentProvider;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->setLanguage( 'nl' );
 

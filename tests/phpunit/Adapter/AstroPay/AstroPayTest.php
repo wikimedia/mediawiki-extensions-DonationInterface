@@ -43,7 +43,7 @@ class DonationInterface_Adapter_AstroPay_AstroPayTest extends DonationInterfaceT
 		$this->testAdapterClass = TestingAstroPayAdapter::class;
 	}
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
 			'wgAstroPayGatewayEnabled' => true,

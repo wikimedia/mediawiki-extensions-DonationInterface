@@ -23,7 +23,7 @@
  * @group AstroPay
  */
 class AstroPayFormLoadTest extends DonationInterfaceTestCase {
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->setMwGlobals( [

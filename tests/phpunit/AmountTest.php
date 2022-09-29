@@ -41,7 +41,7 @@ class AmountTest extends DonationInterfaceTestCase {
 	 */
 	protected $normalized;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->setMwGlobals( [
 			'wgLanguageCode' => 'en',

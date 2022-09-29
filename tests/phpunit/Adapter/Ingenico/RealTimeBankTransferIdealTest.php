@@ -34,7 +34,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 	 */
 	protected $bankPaymentProvider;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->markTestSkipped( 'RTBT not implemented' );
 		$config = TestingProviderConfiguration::createForProvider(

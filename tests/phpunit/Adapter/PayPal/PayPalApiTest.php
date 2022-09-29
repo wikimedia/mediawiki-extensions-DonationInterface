@@ -13,7 +13,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class PayPalApiTest extends DonationInterfaceApiTestCase {
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$ctx = TestingContext::get();
 		$ctx->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
