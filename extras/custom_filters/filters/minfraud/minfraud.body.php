@@ -234,7 +234,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected function withExtraFields( $data, $query ) {
 		foreach ( self::$extraFieldsMap as $section => $fields ) {
 			foreach ( $fields as $ourName => $theirName ) {
-				if ( array_search( $ourName, $this->enabledExtraFields ) !== false ) {
+				if ( in_array( $ourName, $this->enabledExtraFields ) ) {
 					if ( !empty( $data[$ourName] ) ) {
 						$query[$section][$theirName] = $data[$ourName];
 					}

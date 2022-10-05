@@ -70,6 +70,7 @@
 							extraData.street_address = bContact.addressLines[ 0 ];
 						}
 						extraData.email = sContact.emailAddress;
+						extraData.payment_submethod = mapAppleNetworkToSubmethod( event.payment.token.paymentMethod.network );
 						// We will combine this contact data with a token from the
 						// onSubmit event after both events have fired.
 						authResolve( extraData );
@@ -235,6 +236,25 @@
 		extraData.first_name = first_name;
 		extraData.last_name = last_name;
 		return extraData;
+	}
+
+	function mapAppleNetworkToSubmethod( network ) {
+		network = network.toLowerCase();
+		switch ( network ) {
+			case 'amex':
+			case 'discover':
+			case 'jcb':
+			case 'visa':
+				return network;
+			case 'cartesbancaires':
+				return 'cb';
+			case 'electron':
+				return 'visa-electron';
+			case 'mastercard':
+				return 'mc';
+			default:
+				return '';
+		}
 	}
 
 	/**
