@@ -12,7 +12,7 @@
 			"Yerpo"
 		]
 	},
-	"donate_interface": "Podprite Wikimedijo",
+	"donate_interface": "Podprite Wikimedio",
 	"donate_interface-desc": "Ciljna donatorska stran, ki združuje prehodne razširitve",
 	"donate_interface-langonly-desc": "Izpostavi samo sistemska sporočila VmesnikaZaPrispevke",
 	"donate_interface-intro": "Prosimo, izberite način, znesek in valuto nakazila.",
@@ -23,7 +23,7 @@
 	"donate_interface-submit-button": "Prispevajte",
 	"donate_interface-comment-message": "Imate idejo, ki jo želite deliti s svetom? Opišite jo z največ 200 znaki:",
 	"donate_interface-comment-label": "Pripomba:",
-	"donate_interface-email-agreement": "Strinjam se s prejemanjem občasnih e-poštnih sporočil fundacije Wikimedija.",
+	"donate_interface-email-agreement": "Strinjam se s prejemanjem občasnih e-poštnih sporočil fundacije Wikimedia.",
 	"donate_interface-comment-title": "Javna pripomba",
 	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - mesečna donacija",
