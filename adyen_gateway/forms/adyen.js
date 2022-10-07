@@ -368,7 +368,9 @@
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
-			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+			mw.donationInterface.validation.showErrors( {
+				general: mw.msg( 'donate_interface-error-msg-general' )
+			} );
 			return;
 		}
 
