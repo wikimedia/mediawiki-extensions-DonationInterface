@@ -197,8 +197,8 @@
 	function getCheckout( config ) {
 		config.onSubmit = onSubmit;
 		config.onAdditionalDetails = onAdditionalDetails;
+		config.onError = onError;
 		config.showPayButton = false;
-		// Note: onError not set because error highlighting is handled in css.
 
 		return new AdyenCheckout( config );
 	}
@@ -402,6 +402,15 @@
 		// Handle 3D secure
 	}
 
+	// T292571 try catch the adyen error, see if any connection been blocked, e.g. iframe
+	function onError( error ) {
+		// handle component error
+		mw.donationInterface.validation.showErrors( {
+			general: mw.msg( 'donate_interface-error-msg-general' )
+		} );
+		throw error;
+	}
+
 	function setLocaleAndTranslations( config, localeFromServer ) {
 		// Adyen supports the locales listed below, according to
 		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
@@ -514,6 +523,7 @@
 		checkout = getCheckout( config );
 		component_config = getComponentConfig( component_type, config );
 		component = checkout.create( component_type, component_config );
+
 		if ( component_type === 'googlepay' ) {
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
@@ -569,7 +579,14 @@
 				throw err;
 			} );
 		} else {
-			component.mount( '#' + ui_container_name );
+			try {
+				component.mount( '#' + ui_container_name );
+			} catch ( err ) {
+				mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+				} );
+				throw err;
+			}
 			// For everything except Apple and google
 			// Pay, show our standard 'Donate' button
 			$( '#paymentSubmit' ).show();
