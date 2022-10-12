@@ -3284,6 +3284,9 @@ abstract class GatewayAdapter implements GatewayType {
 				$this->logger->info(
 					"Recurring changed from '{$oldData['recurring']}' to '$newRecurring'.  Unsetting order ID."
 				);
+				// Order ID is derived from contribution tracking ID, so wipe them both
+				// out to ensure we get fresh values.
+				unset( $oldData['contribution_tracking_id'] );
 				unset( $oldData['order_id'] );
 				WmfFramework::setSessionValue( 'Donor', $oldData );
 			}
