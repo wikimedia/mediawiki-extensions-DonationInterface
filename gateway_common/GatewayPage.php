@@ -189,18 +189,27 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$form = new MustacheErrorForm();
 		} else {
 			$form = new Gateway_Form_Mustache();
-			// Only register the setClientVariables callback if we're loading a real form.
-			// Error forms don't load any gateway-specific scripts so don't need these variables.
-			$this->getHookContainer()->register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
 		}
 		$form->setGateway( $this->adapter );
 		$form->setGatewayPage( $this );
 
+		$formHtml = $form->getForm();
+
+		if ( !$this->showError ) {
+			// Only register the setClientVariables callback if we're loading a real form.
+			// Error forms don't load any gateway-specific scripts so don't need these variables.
+			// And if we're already in an error condition (like an invalid payment method),
+			// calling setClientVariables could throw an exception. We set this hook after
+			// $form->getForm has succeeded so we avoid registering it when that function
+			// throws an error
+			$this->getHookContainer()->register(
+				'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ]
+			);
+		}
+
 		$output = $this->getOutput();
 		$output->addModules( $form->getResources() );
 		$output->addModuleStyles( $form->getStyleModules() );
-
-		$formHtml = $form->getForm();
 		$output->addHTML( $formHtml );
 	}
 
