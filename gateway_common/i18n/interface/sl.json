@@ -278,7 +278,7 @@
 	"donate_interface-otherways": "Na voljo so tudi <a href=\"$1\">drugi načini prispevanja, vključno s PayPalom, čekom ali poštno nakaznico</a>.",
 	"donate_interface-otherways-alt": "Na voljo so tudi <a href=\"$1\">drugi načini prispevanja</a>, vključno s čekom.",
 	"donate_interface-otherways-short": "Drugi načini prispevanja",
-	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite osvežiti stran in ponovno poslati obrazec.",
+	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite osvežiti stran in znova poslati obrazec.",
 	"donate_interface-cc-token-expired": "Vaš žeton je potekel. Kliknite V redu za osvežitev.",
 	"donate_interface-try-again": "Vašega prispevka trenutno ne moremo obdelati. Poskusite kmalu znova.",
 	"donate_interface-cc-form-header-personal": "Podatki plačnika",
