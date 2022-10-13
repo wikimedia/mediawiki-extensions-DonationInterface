@@ -618,7 +618,14 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$this->addRequestData( $requestData );
 		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
 		// FixMe: What to do outside of batch processing?
-		if ( $this->isBatchProcessor() && $this->getFinalStatus() == FinalStatus::TIMEOUT ) {
+		if ( $this->isBatchProcessor() &&
+			(
+				$this->getFinalStatus() == FinalStatus::TIMEOUT ||
+				!$resultData->getCommunicationStatus()
+			)
+		) {
+			// These are not actually successful payments, but this is the way
+			// to tell the orphan rectifier to discard the message and continue.
 			return PaymentResult::newSuccess();
 		}
 		if ( !$resultData->getCommunicationStatus() ) {
