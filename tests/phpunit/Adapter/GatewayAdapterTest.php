@@ -236,8 +236,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'Order ID was not regenerated on gateway switch!' );
 	}
 
-	public function testResetOnRecurringSwitch() {
-		// Donor initiates a non-recurring donation
+	public function testResetOnOneTimeToRecurringSwitch() {
+		// Donor initiates a one-time donation
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 
@@ -263,6 +263,42 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$this->assertNotEquals( $oneTimeOrderId, $recurOrderId,
 			'Order ID was not regenerated on recurring switch!' );
+	}
+
+	/**
+	 * This test confirms the fix for the bug described on
+	 * https://phabricator.wikimedia.org/T320686
+	 */
+	public function testResetOnRecurringToOneTimeSwitch() {
+		// Donor initiates a recurring donation
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['recurring'] = '1';
+
+		$firstRequest = $this->setUpRequest( $init );
+		$gateway = new TestingGlobalCollectAdapter();
+		$recurringOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$recurringCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$donorData = $firstRequest->getSessionData( 'Donor' );
+		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
+
+		// Then they go back and decide they want to make a one-time donation
+		$init['recurring'] = '';
+		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
+
+		$gateway = new TestingGlobalCollectAdapter();
+		$oneTimeOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
+		$oneTimeCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$donorData = $secondRequest->getSessionData( 'Donor' );
+		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
+
+		$this->assertNotEquals( $recurringOrderId, $oneTimeOrderId,
+			'Order ID was not regenerated on recurring switch!' );
+
+		$this->assertNotEquals( $recurringCtId, $oneTimeCtId,
+			'Contribution Tracking ID was not regenerated on recurring switch!' );
 	}
 
 	public function testResetSubmethodOnMethodSwitch() {
