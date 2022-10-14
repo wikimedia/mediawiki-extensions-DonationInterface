@@ -317,12 +317,14 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
-		$methodparams['country'] = $this->staged_data['country'];
-		$methodparams['currency'] = $this->staged_data['currency'];
-		$methodparams['amount'] = $this->staged_data['amount'];
-		$methodparams['language'] = $this->staged_data['language'];
+		$methodParams = [
+			'country' => $this->staged_data['country'],
+			'currency' => $this->staged_data['currency'],
+			'amount' => $this->staged_data['amount'],
+			'language' => $this->staged_data['language']
+		];
 		// This should have all the payment methods available
-		$paymentMethodResult = $provider->getPaymentMethods( $methodparams );
+		$paymentMethodResult = $provider->getPaymentMethods( $methodParams );
 		if ( $paymentMethodResult->hasErrors() ) {
 			foreach ( $paymentMethodResult->getErrors() as $error ) {
 				$this->logger->warning( "paymentMethod lookup error: {$error->getMessage()}" );
@@ -330,10 +332,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			foreach ( $paymentMethodResult->getValidationErrors() as $validationError ) {
 				$this->logger->warning( "paymentMethod lookup validation error with parameter: {$validationError->getField()}" );
 			}
-			$paymentMethodString = 'Error looking up payment methods';
-		} else {
-			$paymentMethodString = $paymentMethodResult->getRawResponse();
+			throw new RuntimeException( "Errors returned from getPaymentMethods" );
 		}
+		$paymentMethodString = $paymentMethodResult->getRawResponse();
 
 		return [
 			'clientKey' => $this->getAccountConfig( 'ClientKey' ),
