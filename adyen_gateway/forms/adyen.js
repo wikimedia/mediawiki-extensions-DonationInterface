@@ -404,6 +404,14 @@
 
 	// T292571 try catch the adyen error, see if any connection been blocked, e.g. iframe
 	function onError( error ) {
+		// ignore validation error codes (start with error.va) - we catch those elsewhere
+		// Also ignore blank string - that means a previous error was cleared up
+		if (
+			error.error.slice( 0, 8 ) === 'error.va' ||
+			error.error === ''
+		) {
+			return;
+		}
 		// handle component error
 		mw.donationInterface.validation.showErrors( {
 			general: mw.msg( 'donate_interface-error-msg-general' )
