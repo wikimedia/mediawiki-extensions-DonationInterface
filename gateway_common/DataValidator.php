@@ -274,7 +274,8 @@ class DataValidator {
 	 */
 	protected static function validate_email( $value ) {
 		return WmfFramework::validateEmail( $value )
-			&& !self::cc_number_exists_in_str( $value );
+			&& !self::cc_number_exists_in_str( $value )
+			&& !self::special_characters_in_wrong_locations( $value );
 	}
 
 	protected static function validate_currency_code( $value, $acceptedCurrencies ) {
@@ -416,13 +417,37 @@ class DataValidator {
 	}
 
 	/**
+	 * Analyzes a string to see if there are special characters
+	 * at the beginning/end of a string or right before the @symbol
+	 * @param string $str
+	 *
+	 * @return bool True if special character is found at the beginning/end
+	 * of a string or right before the @symbol
+	 */
+	public static function special_characters_in_wrong_locations( $str ) {
+		$specialCharacterRegex = <<<EOT
+/
+(^[\-])|
+([`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]+$)
+/
+EOT;
+		// Transform the regex to get rid of the new lines
+		$specialCharacterRegex = preg_replace( '/\s/', '', $specialCharacterRegex );
+		$matches = [];
+		if ( preg_match_all( $specialCharacterRegex, $str, $matches ) > 0 ) {
+			return true;
+		}
+			return false;
+	}
+
+	/**
 	 * Analyzes a string to see if any credit card numbers are hiding out in it
 	 *
 	 * @param string $str
 	 *
 	 * @return bool True if a CC number was found sneaking about in the shadows
 	 */
-	public static function cc_number_exists_in_str( $str ) {
+	public static function cc_number_exists_in_str( string $str ): bool {
 		$luhnRegex = <<<EOT
 /
 (?#amex)(3[47][0-9]{13})|
