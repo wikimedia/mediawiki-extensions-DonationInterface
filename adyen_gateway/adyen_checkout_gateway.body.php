@@ -17,9 +17,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = AdyenCheckoutAdapter::IDENTIFIER;
 
-	public function execute( $par ) {
-		parent::execute( $par );
-		$out = $this->getOutput();
+	protected function addGatewaySpecificResources( $out ): void {
 		$script = $this->adapter->getAccountConfig( 'Script' );
 		$css = $this->adapter->getAccountConfig( 'Css' );
 		if ( $this->adapter->getPaymentMethod() == 'google' ) {
