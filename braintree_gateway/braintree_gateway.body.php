@@ -9,9 +9,7 @@ class BraintreeGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = BraintreeAdapter::IDENTIFIER;
 
-	public function execute( $par ) {
-		parent::execute( $par );
-		$out = $this->getOutput();
+	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		$clientScript = $this->adapter->getAccountConfig( 'clientScript' );
 		$paypalScript = $this->adapter->getAccountConfig( 'paypalScript' );
 		$deviceScript = $this->adapter->getAccountConfig( 'deviceScript' );
@@ -43,5 +41,4 @@ class BraintreeGateway extends GatewayPage {
 	public function showContinueButton() {
 		return false;
 	}
-
 }

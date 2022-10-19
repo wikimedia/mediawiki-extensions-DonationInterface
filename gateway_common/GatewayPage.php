@@ -189,18 +189,29 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$form = new MustacheErrorForm();
 		} else {
 			$form = new Gateway_Form_Mustache();
-			// Only register the setClientVariables callback if we're loading a real form.
-			// Error forms don't load any gateway-specific scripts so don't need these variables.
-			$this->getHookContainer()->register( 'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ] );
 		}
 		$form->setGateway( $this->adapter );
 		$form->setGatewayPage( $this );
 
+		$formHtml = $form->getForm();
 		$output = $this->getOutput();
+
+		if ( !$this->showError ) {
+			// Only register the setClientVariables callback if we're loading a payments form.
+			// Error forms don't load any gateway-specific scripts so don't need these variables.
+			// And if we're already in an error condition (like an invalid payment method),
+			// calling setClientVariables could throw an exception. We set this hook after
+			// $form->getForm has succeeded so we avoid registering it when that function
+			// throws an error
+			$this->getHookContainer()->register(
+				'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ]
+			);
+			// Also only load any external gateway scripts for payments forms.
+			$this->addGatewaySpecificResources( $output );
+		}
+
 		$output->addModules( $form->getResources() );
 		$output->addModuleStyles( $form->getStyleModules() );
-
-		$formHtml = $form->getForm();
 		$output->addHTML( $formHtml );
 	}
 
@@ -557,5 +568,15 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 
 		return $specialPage;
+	}
+
+	/**
+	 * Override this to add any gateway-specific scripts or stylesheets that can't
+	 * be loaded via ResourceLoader (gateway-specific ResourceLoader modules are
+	 * listed in ui_modules.yaml and loaded in Gateway_Form_Mustache::getResources).
+	 * For example, scripts hosted by the payment provider could be added here.
+	 * @param OutputPage $out
+	 */
+	protected function addGatewaySpecificResources( OutputPage $out ): void {
 	}
 }
