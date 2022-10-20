@@ -204,7 +204,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			// $form->getForm has succeeded so we avoid registering it when that function
 			// throws an error
 			$this->getHookContainer()->register(
-				'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ]
+				'MakeGlobalVariablesScript', [ $this, 'setClientVariablesWithErrorHandling' ]
 			);
 			// Also only load any external gateway scripts for payments forms.
 			$this->addGatewaySpecificResources( $output );
@@ -464,6 +464,26 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// TODO: Switch title according to failiness.
 		// Maybe ask $form_obj for a title so different errors can show different titles
 		$this->getOutput()->setPageTitle( $this->msg( 'donate_interface-make-your-donation' ) );
+	}
+
+	public function setClientVariablesWithErrorHandling( &$vars ) {
+		try{
+			$this->setClientVariables( $vars );
+		} catch ( Exception $ex ) {
+			$this->logger->error(
+				"Redirecting to fail page for exception in setClientVariables: " . $ex->getMessage()
+			);
+			// At this point in the special page lifecycle the payments form has already been
+			// sent to the outputPage so we can't use displayFailPage. It seems like we can't
+			// even redirect at this point ($this->getOutput()->redirect fails here, I guess
+			// because the headers have been finalized). So we just manipulate the $vars to
+			// tell the javascript to show the error.
+			$vars['DonationInterfaceSetClientVariablesError'] = true;
+			$request = $this->getRequest();
+			$hasParams = count( $request->getQueryValuesOnly() ) > 0;
+			$vars['DonationInterfaceFailUrl'] = $request->getFullRequestURL() .
+				( $hasParams ? '&' : '?' ) . 'showError=true';
+		}
 	}
 
 	/**
