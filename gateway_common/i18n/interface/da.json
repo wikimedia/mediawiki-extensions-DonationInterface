@@ -390,6 +390,7 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "Nej, tak",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, jeg vil tilføje en månedlig donation på <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nej tak!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Nej, ikke lige nu",
 	"donate_interface-fundraiser-maintenance-header": "Midlertidigt nede pga. vedligeholdelse",
 	"donate_interface-fundraiser-maintenance-notice": "Vi udfører i øjeblikket planlagt vedligeholdelse og er ude af stand til at acceptere donationer. Prøv venligst igen snart. Hvis du har spørgsmål, bedes du e-maile $1."
 }
