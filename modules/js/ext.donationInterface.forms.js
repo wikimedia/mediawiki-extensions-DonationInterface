@@ -220,7 +220,13 @@
 
 		var $emailDiv = $( '#email' ).closest( 'div' ),
 			emailExplainMessage = mw.msg( 'donate_interface-email-explain' ),
-			optInValue = mw.donationInterface.forms.getOptIn();
+			optInValue = mw.donationInterface.forms.getOptIn(),
+			hasSetClientVariablesError = mw.config.get( 'DonationInterfaceSetClientVariablesError' );
+
+		if ( hasSetClientVariablesError ) {
+			location.assign( mw.config.get( 'DonationInterfaceFailUrl' ) );
+			return;
+		}
 
 		$( '#first_name' ).focus();
 

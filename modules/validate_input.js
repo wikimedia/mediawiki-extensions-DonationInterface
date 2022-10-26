@@ -174,6 +174,16 @@ window.validate_personal = function () {
 	) {
 		invalid = false;
 
+        var specialCharacterRegex = [ '(^[\\-])|',
+        '([`!@#$%^&*()_+\\-=\\[\\]{};\':"\\\\|,.<>\\/?~]+$)' ];
+
+        if ( new RegExp( specialCharacterRegex.join( '' ) ).test( emailAdd.value ) ) {
+            setError(
+                'email',
+                mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
+            );
+            invalid = true;
+        }
 		apos = emailAdd.value.indexOf( '@' );
 		dotpos = emailAdd.value.lastIndexOf( '.' );
 
