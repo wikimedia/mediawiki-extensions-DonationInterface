@@ -375,7 +375,7 @@
 	"donate_interface-thank-you": "Hvala! Prejeli smo vaš prispevek.",
 	"donate_interface-change": "Spremeni",
 	"donate_interface-select-credit-card": "Izberite kreditno kartico",
-	"donate_interface-optional": "izbirno",
+	"donate_interface-optional": "neobvezno",
 	"donate_interface-state_province-dropdown-YY": "Izberite državo",
 	"donate_interface-state_province-dropdown-XX": "Izven ZDA",
 	"donate_interface-cc-MX-instructions": "Nekatere mehiške banke iz varnostnih razlogov preprečijo spletne prenose. Če vaša donacija ne bo uspešna, predlagamo, da pokličete svojo banko, da avtorizira spletno donacijo, in poskusite znova.",
