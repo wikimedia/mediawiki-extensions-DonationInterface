@@ -219,7 +219,7 @@
 	"donate_interface-error-msg-captcha": "Zapis captcha, ki ste ga vnesli, je napačen.  Prosimo, poskusite znova.",
 	"donate_interface-error-msg-captcha-please": "Zaradi varnosti vaše kreditne kartice vpišite znake, ki jih vidite zgoraj.",
 	"donate_interface-error-msg-cookies": "Prosimo, da omogočite piškotke v vašem brskalniku.",
-	"donate_interface-error-msg-country-calc": "Napaka - Trenutno ne moremo sprejeti vašega prispevka.",
+	"donate_interface-error-msg-country-calc": "Napaka – Trenutno ne moremo sprejeti vašega prispevka.",
 	"donate_interface-error-msg-fiscal_number": "Izpolniti morate naslednje polje: davčna številka",
 	"donate_interface-error-msg-fiscal_number-ar": "Vnesite svoj DNI",
 	"donate_interface-error-msg-fiscal_number-bo": "Vnesite svoj NIT",
