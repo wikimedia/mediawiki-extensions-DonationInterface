@@ -40,6 +40,7 @@
 	"apihelp-donate-param-variant": "يشير إلى أي نوذج مختلف تم ملء المتبرع به.",
 	"apihelp-donate-param-opt_in": "يشير إلى أن المانح اختار جمع التبرعات عبر البريد الإلكتروني.",
 	"apihelp-donate-param-employer": "اسم صاحب العمل",
+	"apihelp-donate-param-employer_id": "معرف صاحب العمل",
 	"apihelp-donate-example-1": "تقديم تبرع",
 	"apihelp-logPaymentsFormError-description": "تسجل API هذه أخطاء نموذج التبرع من جانب العميل.",
 	"apihelp-logPaymentsFormError-summary": "تسجل API هذه أخطاء نموذج التبرع من جانب العميل.",
@@ -49,7 +50,12 @@
 	"apihelp-logPaymentsFormError-param-col": "العمود الذي حدث فيه الخطأ",
 	"apihelp-logPaymentsFormError-param-userAgent": "سلسلة وكيل مستخدم المتصفح",
 	"apihelp-logPaymentsFormError-param-stack": "خطأ تتبع مكدس، عندما يكون متاحا",
+	"apihelp-di_donate_adyen-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Adyen",
 	"apihelp-di_recurring_convert-summary": "يتم استخدام API هذه عندما يوافق المتبرع على إضافة تبرع شهري بعد إكمال تبرع ناجح لمرة واحدة.",
 	"apihelp-di_recurring_convert-param-amount": "مبلغ التبرع الشهري.",
-	"apihelp-di_recurring_convert-param-gateway": "أية بوابة دفع يجب استخدامها - adyen، globalcollect، إلخ."
+	"apihelp-di_recurring_convert-param-gateway": "أية بوابة دفع يجب استخدامها - adyen، globalcollect، إلخ.",
+	"apihelp-employerSearch-description": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
+	"apihelp-employerSearch-summary": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
+	"apihelp-employerSearch-param-employer": "أي صاحب عمل يبحث عنه ، على سبيل المثال ، الصليب الأحمر ، الصندوق العالمي للطبيعة ، جيش الخلاص ، إلخ.",
+	"apihelp-employerSearch-example-1": "ابحث عن صاحب عمل"
 }
