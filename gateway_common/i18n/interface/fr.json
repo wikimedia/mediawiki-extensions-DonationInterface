@@ -496,7 +496,7 @@
 	"donate_interface-monthly-convert-text-variant-002": "Seul un très petit nombre de nos donateurs donne mensuellement, mais c’est la meilleure manière de s’assurer que Wikipédia continue à prospérer.",
 	"donate_interface-monthly-convert-text-variant-005": "Soyons honnête : la connaissance n’est pas un remède ponctuel, c’est un engagement à long terme. Pouvez-vous transformer votre soutien en un don mensuel ?",
 	"donate_interface-monthly-convert-text-variant-008": "Merci pour votre don. Nous aimerions vous demander : pourriez-vous en faire un petit peu plus ? Seule une fraction parmi tous nos lecteurs parviennent jusqu’ici, parce que la plupart ne donnent pas. Et parmi tous nos donateurs, seule une petite partie envisage un don mensuel automatique. Le soutien mensuel est pourtant la meilleure manière de garantir que Wikipédia continue à prospérer. Aiderez-vous à garantir notre stabilité financière par un don régulier ?",
-	"donate_interface-monthly-convert-change-amount": "Oui, je veux donner chaque mois, mais un montant différent",
+	"donate_interface-monthly-convert-change-amount": "Oui, je veux faire un don chaque mois, mais un montant différent",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Bien sûr, laissez-moi choisir combien",
 	"donate_interface-monthly-convert-enter-amount": "Saisissez le montant de votre don mensuel pour le mois prochain.",
 	"donate_interface-monthly-convert-max-amount": "Nous ne pouvons pas facturer un don récurrent d’un montant plus élevé que votre don ponctuel initial.",
