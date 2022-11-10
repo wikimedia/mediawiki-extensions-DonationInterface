@@ -419,9 +419,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @param PaymentDetailResponse $authorizeResult
 	 */
 	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
-		if ( $this->getPaymentMethod() === 'apple' ) {
+		if ( in_array( $this->getPaymentMethod(), [ 'apple', 'google' ], true ) ) {
 			// Adyen guidance is that Apple Pay fraud rates are minuscule enough
-			// to skip fraud filters.
+			// to skip fraud filters. Google Pay seems to get a lot of spurious
+			// AVS failures.
 			$this->setValidationAction( ValidationAction::PROCESS );
 		} else {
 			$riskScores = $authorizeResult->getRiskScores();
