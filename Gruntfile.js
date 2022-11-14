@@ -23,9 +23,6 @@ module.exports = function ( grunt ) {
 			]
 		},
 		stylelint: {
-			options: {
-				syntax: 'less'
-			},
 			all: [
 				'{modules,gateway_forms}/{**/,}*.{css,less}',
 				'{amazon,ingenico}_gateway/{**/,}*.{css,less}'
