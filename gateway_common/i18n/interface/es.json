@@ -170,6 +170,7 @@
 	"donate_interface-donor-last_name": "Apellidos",
 	"donate_interface-donor-last_name-alt": "Apellido(s)",
 	"donate_interface-donor-employer": "Empleador (opcional)",
+	"donate_interface-donor-employer-explain": "Haremos de tu conocimiento si tu empleador igualará tu donación.",
 	"donate_interface-donor-street_address": "Calle",
 	"donate_interface-donor-street-number": "Número",
 	"donate_interface-donor-city": "Ciudad",
