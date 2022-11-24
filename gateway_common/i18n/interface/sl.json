@@ -446,7 +446,7 @@
 	"donate_interface-taxded-msg-x": "Fundacija Wikimedia je mednarodna neprofitna organizacija, ki podpira lokalna in neodvisna združenja po vsem svetu. Naš <a href=\"$2 \">status davčne oprostitve</a> se razlikuje glede na zakone posamezne države. Prispevki fundaciji Wikimedia v $1 ne štejejo v davčno olajšavo. Če imate o davčni oprostitvi ali olajšavi kakršno koli vprašanje, vas vabimo, da kontaktirate <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-legal-original": "Ta prevod je delo prostovoljcev in ni zavezujoč. Ob navzkrižju med tem prevodom in angleško različico upoštevajte angleško različico.",
 	"donate_interface-monthlybox-title": "Želite, da so vaši prispevki mesečni?",
-	"donate_interface-monthlybox-content": "Mesečni prispevki so obdelani drugi dan v vsakem mesecu. Prekinete jih lahko kadarkoli.",
+	"donate_interface-monthlybox-content": "Mesečni prispevki se obdelajo drugi dan vsakega meseca. Prekinete jih lahko kadar koli.",
 	"donate_interface-monthlybox-amount": "Znesek mesečnega prispevka",
 	"donate_interface-monthlybox-yes": "Seveda, naj bo mesečno",
 	"donate_interface-monthlybox-no": "NE, naj bo enkratni prispevek",
