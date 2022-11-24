@@ -531,7 +531,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 
 		// We should not have logged any cURL attempts
 		$messages = self::getLogMatches( 'info', '/Preparing to send .*/' );
-		$this->assertEmpty( $messages );
+		$this->assertSame( [], $messages );
 	}
 
 	public function testShouldRectifyOrphan() {

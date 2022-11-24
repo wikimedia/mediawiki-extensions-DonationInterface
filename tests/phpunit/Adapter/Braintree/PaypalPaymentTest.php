@@ -115,7 +115,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 
 		$result = $gateway->doPayment();
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 
 		$messages = self::getAllQueueMessages();
 

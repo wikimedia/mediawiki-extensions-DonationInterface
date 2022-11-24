@@ -552,7 +552,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'avsResult' => '0'
 		] );
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		// TODO inspect the queue message
 	}
 
@@ -728,7 +728,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->assertEquals(
 			'https://wmf-pay.' . $this->partialUrl, $result->getIframe()
 		);
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 	}
 
 	public function testDoPaymentFailInitialFilters() {

@@ -67,7 +67,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$response = $gateway->do_transaction( 'NewInvoice' );
 		$astroPayCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->assertNotEquals( $astroPayCtId, $paypalCtId, 'Did not regenerate contribution tracking ID on gateway switch' );
-		$this->assertEmpty( $response->getErrors() );
+		$this->assertSame( [], $response->getErrors() );
 
 		$errors = '';
 		$messages = DonationLoggerFactory::$overrideLogger->messages;
@@ -76,7 +76,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 				$errors .= "$msg\n";
 			}
 		}
-		$this->assertEmpty( $errors, "The gateway error log had the following message(s):\n" . $errors );
+		$this->assertSame( '', $errors, "The gateway error log had the following message(s):\n" . $errors );
 	}
 
 }

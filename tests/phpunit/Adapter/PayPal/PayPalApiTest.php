@@ -111,7 +111,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$logged = DonationInterfaceTestCase::getLogMatches(
 			LogLevel::INFO, '/^Redirecting for transaction: /'
 		);
-		$this->assertEmpty( $logged, 'Logs are a lie, we did not redirect' );
+		$this->assertSame( [], $logged, 'Logs are a lie, we did not redirect' );
 	}
 
 	public function testGoodRecurringSubmit() {

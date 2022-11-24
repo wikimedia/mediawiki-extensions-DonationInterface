@@ -111,7 +111,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->doPayment();
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 
 		$messages = self::getAllQueueMessages();
 		$this->assertCount( 1, $messages['donations'] );
@@ -262,7 +262,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->doPayment();
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		// There should be a token in the stored data
 		$actual = $gateway->getData_Unstaged_Escaped( 'recurring_payment_token' );
 		$this->assertEquals( $pspToken, $actual );
@@ -341,12 +341,12 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->doPayment();
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		// There should be a token in the stored data
 		$actual_recurring = $gateway->getData_Unstaged_Escaped( 'recurring' );
-		$this->assertEmpty( $actual_recurring );
+		$this->assertSame( '', $actual_recurring );
 		$actual_recurring_model = $gateway->getData_Unstaged_Escaped( 'recurring_model' );
-		$this->assertEmpty( $actual_recurring_model );
+		$this->assertSame( null, $actual_recurring_model );
 	}
 
 	public function testDoPaymentCardAuthorizationDeclined() {
@@ -496,7 +496,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->processDonorReturn( $queryString );
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 
 		$messages = $this::getAllQueueMessages();
 		$this->assertCount( 1, $messages['donations'] );

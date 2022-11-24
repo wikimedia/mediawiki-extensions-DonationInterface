@@ -72,7 +72,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->doPayment();
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		$this->assertEquals( $redirect, $result->getRedirect() );
 
 		$messages = $this->getAllQueueMessages();
@@ -135,7 +135,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		$result = $gateway->processDonorReturn( $queryString );
 
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 
 		$messages = $this->getAllQueueMessages();
 		$this->assertCount( 1, $messages['donations'] );

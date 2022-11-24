@@ -527,7 +527,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 		$gateway->do_transaction( 'Confirm_CreditCard' );
 		$finish_id = $exposed->getData_Staged( 'order_id' );
 		$loglines = self::getLogMatches( LogLevel::INFO, '/Repeating transaction on request for vars:/' );
-		$this->assertEmpty( $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
+		$this->assertSame( [], $loglines, "Log says we are going to repeat the transaction for code $code, but that is not true" );
 		$this->assertEquals( $start_id, $finish_id, "Needlessly regenerated order id for code $code " );
 	}
 
@@ -543,8 +543,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 
 		$gateway = $this->getFreshGatewayObject( $init );
 		$result = $gateway->doPayment();
-		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
-		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+		$this->assertFalse( $result->isFailed(), 'PaymentResult should not be failed' );
+		$this->assertSame( [], $result->getErrors(), 'PaymentResult should have no errors' );
 		$this->assertEquals( 'url_placeholder', $result->getIframe(), 'PaymentResult should have iframe set' );
 	}
 
@@ -581,8 +581,8 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			}
 		} );
 		$result = $gateway->doPayment();
-		$this->assertEmpty( $result->isFailed(), 'PaymentResult should not be failed' );
-		$this->assertEmpty( $result->getErrors(), 'PaymentResult should have no errors' );
+		$this->assertFalse( $result->isFailed(), 'PaymentResult should not be failed' );
+		$this->assertSame( [], $result->getErrors(), 'PaymentResult should have no errors' );
 		$this->assertNotEquals( $gateway->getData_Unstaged_Escaped( 'order_id' ), $orig_id,
 			'Order ID regenerated in DonationData.' );
 		$this->assertNotEquals( $gateway->session_getData( 'order_id' ), $orig_id,
@@ -620,7 +620,7 @@ class DonationInterface_Adapter_GlobalCollect_GlobalCollectTest extends Donation
 			'AVSRESULT' => '0'
 		] );
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		// TODO inspect the queue message
 	}
 

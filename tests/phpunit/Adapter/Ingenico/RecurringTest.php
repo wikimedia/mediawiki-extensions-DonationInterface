@@ -92,7 +92,7 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 			'avsResult' => '0'
 		] );
 		$this->assertFalse( $result->isFailed() );
-		$this->assertEmpty( $result->getErrors() );
+		$this->assertSame( [], $result->getErrors() );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $message );
 		$this->assertSame( '1', $message['recurring'] );
