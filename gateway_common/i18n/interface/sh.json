@@ -374,6 +374,7 @@
 	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-emailprefs-thank-you-title": "Hvala vam",
+	"donate_interface-monthly-convert-text": "Mjesečna podrška je najbolji način da osigurate da Wikipedia nastavi napredovati.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Da, želim da pomognem!",
 	"donate_interface-monthly-convert-no-button-variant-006": "Ne, hvala",
 	"donate_interface-fundraiser-maintenance-header": "Privremeno nedostupno zbog održavanja",
