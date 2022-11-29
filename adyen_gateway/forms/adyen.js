@@ -409,8 +409,10 @@
 		// ignore validation error codes (start with error.va) - we catch those elsewhere
 		// Also ignore blank string - that means a previous error was cleared up
 		if (
-			error.error.slice( 0, 8 ) === 'error.va' ||
-			error.error === ''
+			'error' in error && (
+				error.error.slice( 0, 8 ) === 'error.va' ||
+				error.error === ''
+			)
 		) {
 			return;
 		}
