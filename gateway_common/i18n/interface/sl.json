@@ -29,7 +29,7 @@
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - mesečna donacija",
 	"donate_interface-amount-error": "Prosimo, izberite znesek za darovanje.",
 	"donate_interface-smallamount-error": "Prosimo, izberite znesek (najmanj $1)",
-	"donate_interface-bigamount-error": "Donacij večjih od $4 dolarjev ($1 $2) ne moremo sprejemati na naši spletni strani. Prosimo, da se obrnete na naše osebje na $3.",
+	"donate_interface-bigamount-error": "Prispevkov, večjih od $4 USD ($1 $2), ne moremo sprejeti. Prosimo, obrnite se na naše osebje na $3.",
 	"donate_interface-processing-error": "Prišlo je do napake pri obdelavi vašega zahtevka. \nProsimo, stopite v stik s Storitvami za donatorje na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vaša valuta ni podprta. Če nadaljujete, bo obdelava potekala z uporabo $1.",
 	"donate_interface-maintenance-notice": "Se opravičujemo, vendar je ta vrsta plačila začasno onemogočena.",
@@ -279,8 +279,8 @@
 	"donate_interface-otherways-alt": "Na voljo so tudi <a href=\"$1\">drugi načini prispevanja</a>, vključno s čekom.",
 	"donate_interface-otherways-short": "Drugi načini prispevanja",
 	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite osvežiti stran in znova poslati obrazec.",
-	"donate_interface-cc-token-expired": "Vaš žeton je potekel. Kliknite V redu za osvežitev.",
-	"donate_interface-try-again": "Vašega prispevka trenutno ne moremo obdelati. Poskusite kmalu znova.",
+	"donate_interface-cc-token-expired": "Vaš žeton je pretekel. Kliknite »V redu« za osvežitev.",
+	"donate_interface-try-again": "Vašega prispevka trenutno ne moremo obdelati. Prosimo, kmalu poskusite znova.",
 	"donate_interface-cc-form-header-personal": "Podatki plačnika",
 	"donate_interface-cc-form-header-payment": "Podatki o plačilu",
 	"donate_interface-make-your-donation": "Oddajte svoj prispevek zdaj",
@@ -480,6 +480,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Ne, hvala!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Ne, v tem trenutku ne",
 	"donate_interface-fundraiser-maintenance-header": "Trenutno ne deluje zaradi vzdrževalnih del",
-	"donate_interface-fundraiser-maintenance-notice": "Trenutno izvajamo načrtovana vzdrževalna dela in ne moremo sprejemati donacij.  Prosimo, kmalu poskusite znova.  Če imate kakršna koli vprašanja, nam pišite na $1.",
+	"donate_interface-fundraiser-maintenance-notice": "Trenutno izvajamo načrtovana vzdrževalna dela in ne moremo sprejemati donacij. Prosimo, kmalu poskusite znova. Če imate kakršna koli vprašanja, nam pišite na $1.",
 	"donate_interface-redirect-explanation": "Preusmerjeni boste na partnerja Wikimedie za obdelavo plačil."
 }
