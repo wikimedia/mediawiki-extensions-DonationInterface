@@ -4,7 +4,7 @@
 			"Eleassar"
 		]
 	},
-	"apihelp-donate-description": "Ta API vam omogoča doniranje fundaciji Wikimedia prek različnih obdelovalcev plačila.",
-	"apihelp-donate-summary": "Ta API vam omogoča doniranje fundaciji Wikimedia prek različnih obdelovalcev plačila.",
+	"apihelp-donate-description": "Ta API vam omogoča doniranje Fundaciji Wikimedia prek različnih obdelovalcev plačila.",
+	"apihelp-donate-summary": "Ta API vam omogoča doniranje Fundaciji Wikimedia prek različnih obdelovalcev plačila.",
 	"apihelp-donate-param-language": "Oznaka jezika."
 }
