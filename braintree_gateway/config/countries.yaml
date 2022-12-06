@@ -1,3 +1,4 @@
+# Taken from https://developer.paypal.com/braintree/docs/reference/general/countries
 - AD
 - AE
 - AF
@@ -211,7 +212,6 @@
 - SX
 - SY
 - SZ
-# Taken from https://developer.paypal.com/braintree/docs/reference/general/countries
 - TC
 - TD
 - TF
