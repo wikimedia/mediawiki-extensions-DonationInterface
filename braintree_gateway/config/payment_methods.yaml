@@ -10,6 +10,7 @@ paypal:
         - AN
         - AO
         - AR
+        - AS
         - AT
         - AU
         - AW
@@ -25,6 +26,7 @@ paypal:
         - BM
         - BN
         - BO
+        - BQ
         - BR
         - BS
         - BT
@@ -39,9 +41,11 @@ paypal:
         - CL
         - CN
         - CM
+        - CN
         - CO
         - CR
         - CV
+        - CW
         - CY
         - CZ
         - DE
@@ -68,12 +72,14 @@ paypal:
         - GE
         - GF
         - GI
+        - GG
         - GL
         - GM
         - GN
         - GP
         - GR
         - GT
+        - GU
         - GW
         - GY
         - HK
@@ -83,9 +89,11 @@ paypal:
         - ID
         - IE
         - IL
+        - IM
         - IN
         - IS
         - IT
+        - JE
         - JM
         - JO
         - JP
@@ -111,6 +119,7 @@ paypal:
         - MC
         - MD
         - ME
+        - MF
         - MG
         - MH
         - MK
@@ -147,6 +156,7 @@ paypal:
         - PL
         - PM
         - PN
+        - PR
         - PT
         - PW
         - PY
@@ -171,6 +181,7 @@ paypal:
         - SR
         - ST
         - SV
+        - SX
         - SZ
         - TC
         - TD
@@ -188,12 +199,12 @@ paypal:
         - UG
         - UK
         - US
-        - US
         - UY
         - VA
         - VC
         - VE
         - VG
+        - VI
         - VN
         - VU
         - WF
