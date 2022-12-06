@@ -35,7 +35,7 @@
 	"apihelp-donate-param-payment_submethod": "Sous-méthode de paiement utilisée.",
 	"apihelp-donate-param-processor_form": "Laquelle des options du formulaire du processeur utiliser.",
 	"apihelp-donate-param-language": "Code de langue",
-	"apihelp-donate-param-order_id": "ID de la commande  (si une donation a déjà été commencée).",
+	"apihelp-donate-param-order_id": "Identifiant de la commande (si un don a déjà démarré).",
 	"apihelp-donate-param-wmf_token": "Modification de jeton.",
 	"apihelp-donate-param-utm_source": "Variable de suivi.",
 	"apihelp-donate-param-utm_campaign": "Variable de suivi.",
