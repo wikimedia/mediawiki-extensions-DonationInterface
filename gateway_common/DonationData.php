@@ -1040,7 +1040,8 @@ class DonationData implements LogPrefixProvider {
 			'processor_form',
 			'referrer',
 			'contact_id',
-			'contact_hash'
+			'contact_hash',
+			'utm_key'
 		] );
 		return $fields;
 	}
