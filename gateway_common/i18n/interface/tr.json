@@ -14,7 +14,8 @@
 			"Suelnur",
 			"Suvarioglu",
 			"Tarkovsky",
-			"Vito Genovese"
+			"Vito Genovese",
+			"ToprakM"
 		]
 	},
 	"donate_interface": "Wikimedia'yı destekleyin",
@@ -213,6 +214,7 @@
 	"donate_interface-error-msg-expiration": "Lütfen kartın son kullanma tarihini girin",
 	"donate_interface-error-msg-expiry-date-field-invalid": "Geçersiz sona erme tarihi",
 	"donate_interface-error-msg-card-too-old": "Kart çok eski",
+	"donate_interface-error-msg-date-too-far-in-the-future": "Tarih çok ileride",
 	"donate_interface-error-msg-cvv": "Lütfen genellikle kartın arkasında gösterilen CVV kodunu girin",
 	"donate_interface-error-msg-invalid-cvv-format": "Geçersiz CVC / CVV biçimi",
 	"donate_interface-error-msg-account_name": "Hesap adı",
@@ -227,6 +229,7 @@
 	"donate_interface-error-msg-country-calc": "Hata - Şu anda bağışınızı kabul edemiyoruz.",
 	"donate_interface-error-msg-fiscal_number": "Lütfen mali numaranızı girin",
 	"donate_interface-error-msg-fiscal_number-in": "Lütfen PAN'inizi girin",
+	"donate_interface-error-msg-fiscal_number-za": "Lütfen ulusal kimlik numaranızı girin",
 	"donate_interface-error-msg-invalid-fiscal_number": "Lütfen mali numaranızdaki hataları düzeltin",
 	"donate_interface-error-msg-invalid-fiscal_number-ar": "Lütfen DNI'nizdeki hataları düzeltin",
 	"donate_interface-error-msg-invalid-fiscal_number-bo": "Lütfen NIT'nizdeki hataları düzeltin",
