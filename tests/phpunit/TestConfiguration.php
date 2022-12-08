@@ -104,7 +104,8 @@ $wgDonationInterfaceGatewayAdapters = [
 	'adyen' => AdyenCheckoutAdapter::class,
 	'astropay' => TestingAstroPayAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
-	'braintree' => BraintreeAdapter::class
+	'braintree' => BraintreeAdapter::class,
+	'dlocal' => DlocalAdapter::class
 ];
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
