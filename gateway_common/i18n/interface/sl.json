@@ -29,7 +29,7 @@
 	"donate_interface-monthly-donation-description": "Mesečne donacije Fundaciji Wikimedia",
 	"donate_interface-amount-error": "Prosimo, izberite znesek za darovanje.",
 	"donate_interface-smallamount-error": "Prosimo, izberite znesek (najmanj $1)",
-	"donate_interface-bigamount-error": "Donacij večjih od $4 dolarjev ($1 $2) ne moremo sprejemati na naši spletni strani. Prosimo, da se obrnete na naše osebje na $3.",
+	"donate_interface-bigamount-error": "Prispevkov, večjih od $4 USD ($1 $2), ne moremo sprejeti. Prosimo, obrnite se na naše osebje na $3.",
 	"donate_interface-processing-error": "Prišlo je do napake pri obdelavi vašega zahtevka. \nProsimo, stopite v stik s Storitvami za donatorje na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Vaša valuta ni podprta. Če nadaljujete, bo obdelava potekala z uporabo $1.",
 	"donate_interface-maintenance-notice": "Se opravičujemo, vendar je ta vrsta plačila začasno onemogočena.",
@@ -263,8 +263,8 @@
 	"donate_interface-otherways-alt": "Na voljo so tudi <a href=\"$1\">drugi načini prispevanja</a>, vključno s čekom.",
 	"donate_interface-otherways-short": "Drugi načini prispevanja",
 	"donate_interface-token-mismatch": "Vaša seja je potekla. Prosimo, poskusite znova izpolniti in poslati obrazec.",
-	"donate_interface-cc-token-expired": "Vaš žeton je potekel. Kliknite V redu za osvežitev.",
-	"donate_interface-try-again": "Vašega prispevka trenutno ne moremo obdelati. Poskusite kmalu znova.",
+	"donate_interface-cc-token-expired": "Vaš žeton je pretekel. Kliknite »V redu« za osvežitev.",
+	"donate_interface-try-again": "Vašega prispevka trenutno ne moremo obdelati. Prosimo, kmalu poskusite znova.",
 	"donate_interface-cc-form-header-personal": "Podatki plačnika",
 	"donate_interface-cc-form-header-payment": "Podatki o plačilu",
 	"donate_interface-make-your-donation": "Oddajte svoj prispevek zdaj",
@@ -448,7 +448,7 @@
 	"donate_interface-monthly-convert-text-variant-002": "Le malo naših donatorjev prispeva mesečno, vendar je to najboljši način za zagotovitev, da bo Wikipedija še naprej uspevala.",
 	"donate_interface-monthly-convert-text-variant-005": "Iskreni bomo: Znanje ni enkratno zdravilo, je dolgoročna zaveza. Ali lahko svojo podporo spremenite v mesečno prispevanje?",
 	"donate_interface-monthly-convert-text-variant-008": "Hvala za vaše darilo. Vprašati vas źelimo: Ali ste pripravljeni narediti nekaj več? Do tu pride le del vseh naših bralcev, saj večina ne daruje. Od vseh naših donatorjev pa jih le malo razmišlja o rednem mesečnem prispevku. Toda mesečna podpora je najboljši način za zagotovitev, da bo Wikipedija še naprej uspevala. Ali bi s trajnim prispevanjem pomagali zagotoviti našo finančno stabilnost?",
-	"donate_interface-monthly-convert-change-amount": "Da, prispeval(-a) bom mesečno, vendar drugačen znesek",
+	"donate_interface-monthly-convert-change-amount": "Da, prispeval_a bom mesečno, vendar drugačen znesek",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Seveda, naj izberem, koliko",
 	"donate_interface-monthly-convert-enter-amount": "Vnesite svoj mesečni znesek prispevka za začetek naslednji mesec.",
 	"donate_interface-monthly-convert-max-amount": "Ne moremo zaračunati ponavljajočega se prispevka v znesku, višjem od vašega prvotnega enkratnega prispevka.",
@@ -457,5 +457,5 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "Da, želim pomagati",
 	"donate_interface-monthly-convert-no-button-variant-006": "Ne, hvala",
 	"donate_interface-fundraiser-maintenance-header": "Trenutno ne deluje zaradi vzdrževalnih del",
-	"donate_interface-fundraiser-maintenance-notice": "Trenutno izvajamo načrtovana vzdrževalna dela in ne moremo sprejemati donacij.  Prosimo, kmalu poskusite znova.  Če imate kakršna koli vprašanja, nam pišite na $1."
+	"donate_interface-fundraiser-maintenance-notice": "Trenutno izvajamo načrtovana vzdrževalna dela in ne moremo sprejemati donacij. Prosimo, kmalu poskusite znova. Če imate kakršna koli vprašanja, nam pišite na $1."
 }
