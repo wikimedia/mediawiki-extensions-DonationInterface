@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"捍粵者"
 		]
 	},
 	"apihelp-donate-description": "此 API 允許您使用多種付款處理程序來提交捐款至維基媒體基金會。",
@@ -30,7 +31,7 @@
 	"apihelp-donate-param-payment_submethod": "使用的付款替代方式。",
 	"apihelp-donate-param-processor_form": "要使用的處理程序表單選項。",
 	"apihelp-donate-param-language": "語言代碼。",
-	"apihelp-donate-param-order_id": "訂單 ID（若捐款已開始進行）。",
+	"apihelp-donate-param-order_id": "訂單編號（若捐款已開始）。",
 	"apihelp-donate-param-wmf_token": "編輯令牌。",
 	"apihelp-donate-param-utm_source": "追蹤變數。",
 	"apihelp-donate-param-utm_campaign": "追蹤變數。",

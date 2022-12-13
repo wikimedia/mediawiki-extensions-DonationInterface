@@ -23,7 +23,8 @@
 			"Xiaomingyan",
 			"Yfdyh000",
 			"Zhxy 519",
-			"列维劳德"
+			"列维劳德",
+			"捍粵者"
 		]
 	},
 	"donate_interface": "支持維基媒體",
@@ -280,7 +281,7 @@
 	"donate_interface-try-again": "我們目前暫時無法處理您的捐款，請稍後再試。",
 	"donate_interface-cc-form-header-personal": "帳號資料",
 	"donate_interface-cc-form-header-payment": "付款資訊",
-	"donate_interface-make-your-donation": "立刻進行捐款",
+	"donate_interface-make-your-donation": "立刻捐款",
 	"donate_interface-comment": "註釋",
 	"donate_interface-first": "首名",
 	"donate_interface-middle": "中間名",
@@ -432,10 +433,10 @@
 	"donate_interface-monthlybox-content": "每月捐款將會在每月的 2 號進行。您可以隨時取消它。",
 	"donate_interface-monthlybox-amount": "每月捐贈金額",
 	"donate_interface-monthlybox-yes": "是的，我要每月捐款",
-	"donate_interface-monthlybox-no": "不，進行單筆捐款即可",
+	"donate_interface-monthlybox-no": "不，單筆捐款即可",
 	"donate_interface-monthlybox-bottom": "您的捐贈內容將會安全隱密地處理",
 	"donate_interface-monthly-cancel": "對於定期捐款者，維基媒體基金會將在每隔月於首次捐款日的同一天裡做出扣除固定的每月付款，直至您通知我們做出停止為止。如果是在月份上 29 號、30 號，或是 31 號發起的捐款，會在該月份最後一天進行，對於較短的月份則會盡可能以同一天進行。若有問題請聯絡：$1。",
-	"donate_interface-onetime": "進行單筆捐款",
+	"donate_interface-onetime": "單筆捐款",
 	"donate_interface-monthly-short": "每月",
 	"donate_interface-onetime-short": "單筆",
 	"donate_interface-error-http-403": "你沒有存取這個頁面的權限。",
