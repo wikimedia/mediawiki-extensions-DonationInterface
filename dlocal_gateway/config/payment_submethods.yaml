@@ -1,7 +1,5 @@
-# copied from astropay, needs to recheck
 visa:
     bank_code: VI
-    label_key: donate_interface-card-name-visa
     group: cc
     countries:
         AR: true
@@ -13,4 +11,129 @@ visa:
         PE: true
         UY: true
         ZA: true
-    logo: card-visa-lg.png
+mc:
+    bank_code: MC
+    group: cc
+    countries:
+        AR: true
+        BR: true
+        #       CL: true  #waiting on AstroPay
+        CO: true
+        IN: true
+        MX: true
+        PE: true
+        UY: true
+        ZA: true
+#magna:  #waiting on AstroPay
+#    bank_code: MG
+#    group: cc
+#    countries:
+#       CL: true
+amex:
+    bank_code: AE
+    group: cc
+    countries:
+        BR: true
+        AR: true
+        #       CL: true  #waiting on AstroPay
+        CO: true
+        PE: true
+visa-debit:
+    bank_code: VD
+    group: cc
+    countries:
+        MX: true
+        PE: true
+        ZA: true
+    sub_text_key: donate_interface-debit
+mc-debit:
+    bank_code: MD
+    group: cc
+    countries:
+        MX: true
+        ZA: true
+    sub_text_key: donate_interface-debit
+elo:
+    bank_code: EL
+    group: cc
+    countries:
+        BR: true
+diners:
+    bank_code: DC
+    group: cc
+    countries:
+        BR: true
+        #       CL: true  #waiting on AstroPay
+        CO: true
+        PE: true
+        UY: true
+hiper:
+    bank_code: HI
+    group: cc
+    countries:
+        BR: true
+mercadolivre:
+    bank_code: ML
+    group: cc
+    countries:
+        BR: true
+cabal:
+    bank_code: CL
+    group: cc
+    countries:
+        AR: true
+naranja:
+    bank_code: NJ
+    group: cc
+    countries:
+        AR: true
+shopping:
+    bank_code: TS
+    group: cc
+    countries:
+        AR: true
+nativa:
+    bank_code: NT
+    group: cc
+    countries:
+        AR: true
+cencosud:
+    bank_code: CS
+    group: cc
+    countries:
+        AR: true
+argen:
+    bank_code: AG
+    group: cc
+    countries:
+        AR: true
+#cmr:  #waiting on AstroPay
+#    bank_code: CM
+#    group: cc
+#    countries:
+#       CL: true
+#presto:  #waiting on AstroPay
+#    bank_code: PR
+#    group: cc
+#    countries:
+#       CL: true  #waiting on AstroPay
+webpay:
+    bank_code: WP
+    group: cc
+    countries:
+        CL: true
+lider:
+    bank_code: LI
+    group: cc
+    countries:
+        UY: true
+oca:
+    bank_code: OA
+    group: cc
+    countries:
+        UY: true
+rupay:
+    bank_code: RU
+    group: cc
+    countries:
+        IN: true

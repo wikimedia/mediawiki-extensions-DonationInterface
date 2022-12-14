@@ -20,6 +20,7 @@ $wgGlobalCollectGatewayEnabled = false
 $wgAmazonGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
+$wgDlocalGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
 
 You must also configure account information for each processor as
@@ -322,6 +323,8 @@ $wgAdyenCheckoutGatewayAccountInfo['exampleMerchantAccountName'] = [
 ]
 
 // Set base URLs here.  Individual transactions have their own paths
+$wgDlocalGatewayURL = 'https://api.dlocal.com/'
+$wgDlocalGatewayTestingURL = 'https://sandbox.dlocal.com/'
 $wgAstroPayGatewayURL = 'https://api.dlocal.com/'
 $wgAstroPayGatewayTestingURL = 'https://sandbox.dlocal.com/'
 #	$wgAstroPayGatewayAccountInfo['example'] = [
