@@ -91,7 +91,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function getUserAgent() {
-		return Http::userAgent();
+		return \MediaWiki\MediaWikiServices::getInstance()->getHttpRequestFactory()->getUserAgent();
 	}
 
 	public static function isPosted() {
