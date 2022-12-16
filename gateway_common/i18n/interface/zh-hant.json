@@ -404,7 +404,7 @@
 	"donate_interface-dd-bank_name": "銀行名稱",
 	"donate_interface-dd-branch_code": "分行代碼",
 	"donate_interface-dd-direct_debit_text": "直接借記內容",
-	"donate_interface-dd-iban": "國際銀行帳號號碼 (IBAN)",
+	"donate_interface-dd-iban": "國際銀行帳號號碼（IBAN）",
 	"donate_interface-translate-bluelink": "修改此翻譯",
 	"donate_interface-translate-redlink1": "協助翻譯此頁面",
 	"donate_interface-translate-redlink2": "或將您翻譯的內容寄到 translations@wikimedia.org",
@@ -464,6 +464,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "不用了，謝謝！",
 	"donate_interface-monthly-convert-no-button-variant-014": "不，現在不要",
 	"donate_interface-fundraiser-maintenance-header": "保養中，已暫停",
-	"donate_interface-fundraiser-maintenance-notice": "我們目前正在進行例行性維護作業，目前無法接受捐贈，請稍後再試。如您有任何疑問，請透過電子郵件聯絡 $1。",
+	"donate_interface-fundraiser-maintenance-notice": "我們目前有例行保養，無法接受捐贈，請稍後再試。如有任何疑問，請以電郵聯絡$1。",
 	"donate_interface-redirect-explanation": "您將會被重新導向到維基媒體的付款處理合作夥伴。"
 }
