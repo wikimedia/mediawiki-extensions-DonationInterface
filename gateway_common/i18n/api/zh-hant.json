@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"捍粵者"
 		]
 	},
 	"apihelp-donate-description": "此 API 允許您使用多種付款處理程序來提交捐款至維基媒體基金會。",
@@ -14,8 +15,8 @@
 	"apihelp-donate-param-currency": "貨幣代碼。",
 	"apihelp-donate-param-first_name": "名。",
 	"apihelp-donate-param-last_name": "姓。",
-	"apihelp-donate-param-street_address": "街道地址的第一行。",
-	"apihelp-donate-param-supplemental_address_1": "街道地址的第二行。",
+	"apihelp-donate-param-street_address": "街道地址第一行",
+	"apihelp-donate-param-supplemental_address_1": "街道地址第二行",
 	"apihelp-donate-param-city": "城市。",
 	"apihelp-donate-param-state_province": "州縮寫。",
 	"apihelp-donate-param-postal_code": "郵政編碼。",
@@ -29,7 +30,7 @@
 	"apihelp-donate-param-payment_submethod": "使用的付款替代方式。",
 	"apihelp-donate-param-processor_form": "要使用的處理程序表單選項。",
 	"apihelp-donate-param-language": "語言代碼。",
-	"apihelp-donate-param-order_id": "訂單 ID（若捐款已開始進行）。",
+	"apihelp-donate-param-order_id": "訂單編號（若捐款已開始）。",
 	"apihelp-donate-param-wmf_token": "編輯令牌。",
 	"apihelp-donate-param-utm_source": "追蹤變數。",
 	"apihelp-donate-param-utm_campaign": "追蹤變數。",
@@ -45,7 +46,7 @@
 	"apihelp-logPaymentsFormError-summary": "此 API 記錄客戶端捐款表單方面的錯誤。",
 	"apihelp-logPaymentsFormError-param-message": "錯誤訊息",
 	"apihelp-logPaymentsFormError-param-file": "發生錯誤的檔案",
-	"apihelp-logPaymentsFormError-param-line": "發生錯誤的行",
+	"apihelp-logPaymentsFormError-param-line": "出錯的行",
 	"apihelp-logPaymentsFormError-param-col": "發生錯誤的欄",
 	"apihelp-logPaymentsFormError-param-userAgent": "瀏覽器的使用者代理字串",
 	"apihelp-logPaymentsFormError-param-stack": "錯誤的堆疊追蹤（當為可用的時候）",

@@ -411,7 +411,7 @@
 	"donate_interface-email-unsub-delay": "Prosimo, počakajte do štiri (4) dni za uveljavitev sprememb. Opravičujemo se vam za vsa e-poštna sporočila, ki jih boste morebiti prejeli v tem času. Če imate kakršno koli vprašanje, pišite na naslov <$1>.",
 	"donate_interface-email-unsub-fail": "Pri obdelavi vaše zahteve je prišlo do napake; prosimo, kontaktirajte <$1>.",
 	"donate_interface-email-unsub-confirm": "Ali na e-poštni naslov <b>$1</b> res ne želite več prejemati obvestil?",
-	"donate_interface-email-unsub-warning": "Izberite to možnost, če od Fundacije Wikimedia ne želite več prejemati e-pošte kot donator. Še vedno pa boste na vaš e-poštni naslov prejemali e-pošto, če je ta povezan z računom v enem od naših projektov. Če imate katero koli vprašanje, nam lahko pišete na e-poštni naslov <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-email-unsub-warning": "Izberite to možnost, če od Fundacije Wikimedia ne želite več prejemati e-pošte kot donator. Še vedno pa boste morda na svoj e-poštni naslov prejemali e-pošto, če je ta povezan z računom v enem od naših projektov. Če imate katero koli vprašanje, nam pišite na e-poštni naslov <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-explain": "Po e-pošti vam bomo poslali potrdilo za potrditev vašega prispevka.",
 	"donate_interface-email-optin-fail": "Pri obdelavi vašega zahtevka je prišlo do napake. Obrnite se na <a href=\"mailto:$1\">$1</a> ali <a href=\"$2\">kliknite tukaj za ponovni poskus</a>.",
 	"donate_interface-faqs": "Pogosto postavljena vprašanja",
