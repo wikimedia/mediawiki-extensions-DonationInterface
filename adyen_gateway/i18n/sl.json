@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"adyen_gateway-desc": "Obdelava plačil z Adyenom",
+	"adyen_gateway-response-default": "Pri obdelavi vaše transakcije je prišlo do napake.\nProsimo, poskusite pozneje znova."
+}
