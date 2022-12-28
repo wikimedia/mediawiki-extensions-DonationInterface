@@ -87,7 +87,7 @@ class WmfFramework_Mediawiki {
 		if ( $language === null ) {
 			$language = self::getLanguageCode();
 		}
-		return Language::getMessageFor( $msg_key, $language ) !== null;
+		return wfMessage( $msg_key )->inLanguage( $language )->exists();
 	}
 
 	public static function getUserAgent() {
