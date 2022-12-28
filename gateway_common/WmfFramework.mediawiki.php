@@ -44,7 +44,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function getLanguageFallbacks( $language ) {
-		return Language::getFallbacksFor( $language );
+		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageFallback()->getAll( $language );
 	}
 
 	public static function setupSession( $sessionId = false ) {
