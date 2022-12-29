@@ -83,7 +83,7 @@ class WmfFramework_Drupal {
 
 	public static function isValidBuiltInLanguageCode( $code ) {
 		return true;
-		// Language::isValidBuiltInCode
+		// LanguageNameUtils::isValidBuiltInCode
 	}
 
 	public static function validateEmail( $email ) {

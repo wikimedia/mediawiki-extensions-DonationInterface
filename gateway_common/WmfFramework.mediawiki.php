@@ -68,7 +68,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function isValidBuiltInLanguageCode( $code ) {
-		return Language::isValidBuiltInCode( $code );
+		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $code );
 	}
 
 	public static function validateEmail( $email ) {
