@@ -91,6 +91,36 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * @dataProvider expectedInvalidGatewayDataProvider
+	 * @param array $params
+	 * @param bool $redirectToDonateWiki
+	 *
+	 * @return void
+	 * @throws \BadTitleError
+	 * @throws \FatalError
+	 * @throws \MWException
+	 */
+	public function testNoNeedParamGateWayChooser( array $params, bool $redirectToDonateWiki ) {
+		$context = RequestContext::getMain();
+		$newOutput = new OutputPage( $context );
+		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
+		$context->setRequest( new FauxRequest( $params, false ) );
+		$context->setOutput( $newOutput );
+		$context->setTitle( $newTitle );
+
+		$fc = new GatewayChooser();
+		$fc->execute( null );
+		$fc->getOutput()->output( true );
+		$url = $fc->getRequest()->response()->getheader( 'Location' );
+		$redirectMediaWikiUrl = 'https://donate.wikimedia.org';
+		if ( $redirectToDonateWiki ) {
+			$this->assertEquals( $url, $redirectMediaWikiUrl, 'invalid params redirect to donate wiki' );
+		} else {
+			$this->assertNotEquals( $url, $redirectMediaWikiUrl, 'valid params also redirect to donate wiki' );
+		}
+	}
+
+	/**
 	 * @dataProvider expectedGatewayDataProvider
 	 * @param array $params Query-string parameters provided to GatewayChooser
 	 * @param string|null $expectedSpecialGateway When a string, expect a redirect to the indicated special page.
@@ -127,6 +157,16 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 		$this->assertEquals( $expectedSpecialGateway, $gateway, 'Gateway not match' );
 		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
+	}
+
+	public function expectedInvalidGatewayDataProvider() {
+		// redirect to donate wiki if no payment_method or currency provided
+		return [
+			[ [ 'country' => 'US', 'currency' => 'USD' ], true ],
+			[ [ 'payment_method' => 'cc','currency' => 'USD' ], true ],
+			[ [ 'currency' => 'USD' ], true ],
+			[ [ 'payment_method' => 'cc', 'country' => 'US', 'currency' => 'USD' ], false ],
+		];
 	}
 
 	public function expectedGatewayDataProvider() {
