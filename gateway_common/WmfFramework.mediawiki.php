@@ -44,7 +44,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function getLanguageFallbacks( $language ) {
-		return Language::getFallbacksFor( $language );
+		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageFallback()->getAll( $language );
 	}
 
 	public static function setupSession( $sessionId = false ) {
@@ -68,7 +68,7 @@ class WmfFramework_Mediawiki {
 	}
 
 	public static function isValidBuiltInLanguageCode( $code ) {
-		return Language::isValidBuiltInCode( $code );
+		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $code );
 	}
 
 	public static function validateEmail( $email ) {
@@ -87,11 +87,11 @@ class WmfFramework_Mediawiki {
 		if ( $language === null ) {
 			$language = self::getLanguageCode();
 		}
-		return Language::getMessageFor( $msg_key, $language ) !== null;
+		return wfMessage( $msg_key )->inLanguage( $language )->exists();
 	}
 
 	public static function getUserAgent() {
-		return Http::userAgent();
+		return \MediaWiki\MediaWikiServices::getInstance()->getHttpRequestFactory()->getUserAgent();
 	}
 
 	public static function isPosted() {

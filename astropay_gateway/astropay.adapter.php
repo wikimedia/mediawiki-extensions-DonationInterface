@@ -258,6 +258,9 @@ class AstroPayAdapter extends GatewayAdapter {
 	}
 
 	public function processDonorReturn( $requestValues ) {
+		if ( $this->transaction_response == null ) {
+			$this->transaction_response = new PaymentTransactionResponse();
+		}
 		// Need to flag that this is a donor return so we use the correct
 		// keys to check the signature.
 		$this->setCurrentTransaction( 'ProcessReturn' );
@@ -276,8 +279,6 @@ class AstroPayAdapter extends GatewayAdapter {
 			'amount' => $requestValues['x_amount'],
 			'gateway_txn_id' => $requestValues['x_document']
 		] );
-		// FIXME: There is no real API response, so we just create a blank one
-		$this->transaction_response = new PaymentTransactionResponse();
 		$status = $this->findCodeAction( 'PaymentStatus', 'result', $requestValues['result'] );
 		$this->logger->info( "Payment status $status coming back to ResultSwitcher" );
 		$this->finalizeInternalStatus( $status );
