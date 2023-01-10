@@ -10,6 +10,8 @@
 	"apihelp-donate-param-last_name": "Priimek.",
 	"apihelp-donate-param-city": "Mesto.",
 	"apihelp-donate-param-language": "Oznaka jezika.",
+	"apihelp-logPaymentsFormError-description": "Ta API beleži napake obrazca za donacije na strani odjemalca.",
+	"apihelp-logPaymentsFormError-summary": "Ta api beleži napake obrazca za donacije na strani obrazca.",
 	"apihelp-logPaymentsFormError-param-message": "Sporočilo napake",
 	"apihelp-employerSearch-param-employer": "Katerega delodajalca iskati, npr. Rdeči križ, WWF, Rešilno vojsko idr.",
 	"apihelp-employerSearch-example-1": "Poišči delodajalca"
