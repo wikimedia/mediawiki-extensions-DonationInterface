@@ -441,11 +441,11 @@
 			config.locale = localeFromServer;
 		}
 
+		config.translations = {};
 		// Check if donor's language is unsupported by Adyen and we need to provide our own customized translation
 		// Adyen supports ar as Arabic - International and doesn't check the country part
 		if ( baseLocaleFromServer !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
-			var customLanguage = {};
-			customLanguage[ config.locale ] = {
+			config.translations[ config.locale ] = {
 				//title
 				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
 				'creditCard.expiryDateField.title': mw.msg( 'donate_interface-credit-card-expiration' ),
@@ -465,7 +465,13 @@
 				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
 				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
 			};
-			config.translations = customLanguage;
+		} else {
+			config.translations[ config.locale ] = {};
+		}
+
+		// Allow other scripts (e.g. variants) to provide more translations to the Adyen components
+		if ( mw.donationInterface.extraTranslations ) {
+			$.extend( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
 		}
 	}
 

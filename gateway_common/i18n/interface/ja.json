@@ -308,6 +308,7 @@
 	"donate_interface-credit-card-number-abbreviated": "クレジットカード番号",
 	"donate_interface-credit-card-expiration": "クレジットカードの有効期限",
 	"donate_interface-card-expiration": "カードの有効期間",
+	"donate_interface-expiry-date-field-placeholder": "月月/年年",
 	"donate_interface-select-month-of-expiration": "有効期限の月を選択",
 	"donate_interface-select-year-of-expiration": "有効期限の年を選択",
 	"donate_interface-expires-question": "期限切れ?",
@@ -425,5 +426,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "いいえ、いまは結構です",
 	"donate_interface-fundraiser-maintenance-header": "メンテナンスのため一時的に停止中",
 	"donate_interface-fundraiser-maintenance-notice": "現在、定期的なメンテナンス作業を行っているため寄付を受け付けることができません。ご質問があれば、$1 にメールをください。",
-	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのサイトにリダイレクトされます。"
+	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのサイトにリダイレクトされます。",
+	"donate_interface-amount-legend-variant-01A": "寄付する金額",
+	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報"
 }

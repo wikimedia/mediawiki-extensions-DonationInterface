@@ -8,7 +8,7 @@
  * @param mw
  */
 ( function ( $, mw ) {
-	var di = mw.donationInterface = {},
+	var di = mw.donationInterface = mw.donationInterface || {},
 		checkMail = true,
 		mcDomains = Mailcheck.defaultDomains.concat( [
 			'aim.com', 'alice.it', 'aon.at', 'bellsouth.net', 'bigpond.com',
