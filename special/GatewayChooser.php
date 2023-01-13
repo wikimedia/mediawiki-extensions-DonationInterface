@@ -43,15 +43,21 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// gateway options will be sanitized/vaidated, and the rest will be fetched verbatim.
 		$params = $this->getParamsFromURL();
 
-		// Find possible gateways
-		$supportedGateways = $this->getSupportedGateways(
-			$params[ 'country' ],
-			$params[ 'currency' ],
-			$params[ 'payment_method' ],
-			$params[ 'payment_submethod' ],
-			$params[ 'recurring' ],
-			$params[ 'variant' ]
-		);
+		if ( $params[ 'country' ] && $params[ 'payment_method' ] ) {
+			// Find possible gateways
+			$supportedGateways = $this->getSupportedGateways(
+				$params[ 'country' ],
+				$params[ 'currency' ],
+				$params[ 'payment_method' ],
+				$params[ 'payment_submethod' ],
+				$params[ 'recurring' ],
+				$params[ 'variant' ]
+			);
+		} else {
+			// redirect to ways to give
+			$this->getOutput()->redirect( 'https://donate.wikimedia.org' );
+			return;
+		}
 
 		// If there are no supported gateways for these inputs, log an error and show an
 		// error page.
