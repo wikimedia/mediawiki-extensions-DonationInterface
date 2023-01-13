@@ -1,0 +1,3 @@
+{{# first_name_visible }}{{! if we don't need the first_name, hide the whole name cell }}
+<div>{{# show_surname_first }}{{> last_name }}{{/show_surname_first}}{{> first_name }}{{^ show_surname_first }}{{> last_name }}{{/show_surname_first}}</div>
+{{/ first_name_visible }}

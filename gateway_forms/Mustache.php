@@ -32,6 +32,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'issuers',
 		'last_name',
 		'more_info_links',
+		'name_fields',
 		'no_script',
 		'opt_in',
 		'payment_amount',
