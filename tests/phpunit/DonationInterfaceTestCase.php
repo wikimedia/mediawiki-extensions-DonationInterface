@@ -16,9 +16,6 @@
  *
  */
 use Psr\Log\LogLevel;
-use RemexHtml\DOM;
-use RemexHtml\Tokenizer;
-use RemexHtml\TreeBuilder;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Tests\TestingContext;
@@ -677,15 +674,28 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		if ( $form_html ) {
 			// use RemexHtml to get a DomDocument so we don't get errors on
 			// unknown HTML5 elements.
-			$domBuilder = new DOM\DOMBuilder( [
+			// FIXME: this is transitional code to work with two different
+			// versions of RemexHtml that exist in different namespaces.
+			// When we are no longer running 1.35 please replace with normal
+			// 'use' statements for the Wikimedia\RemexHtml namespaces.
+			if ( class_exists( 'Wikimedia\RemexHtml\DOM\DOMBuilder' ) ) {
+				$remexPrefix = 'Wikimedia\\RemexHtml\\';
+			} else {
+				$remexPrefix = 'RemexHtml\\';
+			}
+			$domBuilderClass = $remexPrefix . 'DOM\\DOMBuilder';
+			$treeBuilderClass = $remexPrefix . 'TreeBuilder\\TreeBuilder';
+			$dispatcherClass = $remexPrefix . 'TreeBuilder\\Dispatcher';
+			$tokenizerClass = $remexPrefix . 'Tokenizer\\Tokenizer';
+			$domBuilder = new $domBuilderClass( [
 				'suppressHtmlNamespace' => true
 			] );
-			$treeBuilder = new TreeBuilder\TreeBuilder(
+			$treeBuilder = new $treeBuilderClass(
 				$domBuilder,
 				[ 'ignoreErrors' => true ]
 			);
-			$dispatcher = new TreeBuilder\Dispatcher( $treeBuilder );
-			$tokenizer = new Tokenizer\Tokenizer(
+			$dispatcher = new $dispatcherClass( $treeBuilder );
+			$tokenizer = new $tokenizerClass(
 				$dispatcher,
 				'<?xml encoding="UTF-8">' . $form_html,
 				[ 'ignoreErrors' => true ]
