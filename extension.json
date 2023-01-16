@@ -414,7 +414,10 @@
 				"donate_interface-donor-expiration",
 				"donate_interface-cvv",
 				"donate_interface-donor-fiscal_number-explain-in",
-				"donate_interface-expiry-date-field-placeholder"
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-invalid-cvv-format",
+				"donate_interface-error-msg-card-too-old"
 			]
 		},
 		"ext.donationInterface.dlocal.styles": {

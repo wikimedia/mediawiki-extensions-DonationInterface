@@ -50,7 +50,23 @@
 			},
 			autofilled: {
 				color: "#000000"
+			},
+			invalid: {
+				color: "#f00"
 			}
+		};
+
+		oldShowErrors = mw.donationInterface.validation.showErrors;
+		mw.donationInterface.validation.showErrors = function ( errors ) {
+			var dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
+			$.each( errors, function ( field ) {
+					if ( dLocalFields.includes( field ) ) {
+						$( '#' + field ).find('.DlocalField').addClass('DlocalField--invalid');
+						$( '#' + field + 'ErrorMsg' ).text( errors[field] );
+						delete errors[field];
+					}
+			});
+			oldShowErrors( errors );
 		};
 
 		// create card field
@@ -59,15 +75,98 @@
 			placeholder: "4111 1111 1111 1111"
 		});
 
+		var cardFieldError = false;
+		var cardFieldEmpty = true;
+
+		card.addEventListener('change', function(event) {
+			cardFieldError = !!event.error;
+			if (event.error) {
+				$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-card-number' ) );
+			} else {
+				$( '#cardNumberErrorMsg' ).text( '' );
+			}
+		});
+
+		card.on('blur', function (event) {
+			cardFieldEmpty = event.empty;
+		});
+
 		var expiration = fields.create('expiration', {
 			style: commonStyle,
 			placeholder: mw.msg( 'donate_interface-expiry-date-field-placeholder' )
+		});
+
+		var expirationFieldError = false;
+		var expirationFieldEmpty = true;
+
+		expiration.addEventListener('change', function(event) {
+			expirationFieldError = !!event.error;
+			if (event.error) {
+				var message = mw.msg( 'donate_interface-error-msg-card-too-old' );
+				$( '#expirationErrorMsg' ).text( message );
+			} else {
+				$( '#expirationErrorMsg' ).text( '' );
+			}
+		});
+
+		expiration.on('blur', function (event) {
+			expirationFieldEmpty = event.empty;
 		});
 
 		var cvv = fields.create('cvv', {
 			style: commonStyle,
 			placeholder: "123"
 		});
+
+		var cvvFieldError = false;
+		var cvvFieldEmpty = true;
+
+		cvv.addEventListener('change', function(event) {
+			cvvFieldError = !!event.error;
+			if (event.error) {
+				$( '#cvvErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ) );
+			} else {
+				$( '#cvvErrorMsg' ).text( '' );
+			}
+		});
+
+		cvv.on('blur', function (event) {
+			cvvFieldEmpty = event.empty;
+		});
+
+		function validateInputs() {
+			var formValid =  mw.donationInterface.validation.validate();
+			var cvvFieldHasErrors = cvvFieldError || cvvFieldEmpty;
+   			var cardFieldHasErrors = cardFieldError || cardFieldEmpty;
+			var expFieldHasErrors = expirationFieldError || expirationFieldEmpty;
+			if ( !formValid || cvvFieldHasErrors || cardFieldHasErrors || expFieldHasErrors ) {
+				var errors = {};
+				if ( cardFieldHasErrors ) {
+					if ( cardFieldEmpty ) {
+						errors.cardNumber =  mw.msg( 'donate_interface-error-msg-card-num' );
+					} else {
+						errors.cardNumber =  mw.msg( 'donate_interface-error-msg-invalid-card-number' );
+					}
+				}
+				if ( cvvFieldHasErrors ) {
+					if ( cvvFieldEmpty ) {
+						errors.cvv = mw.msg( 'donate_interface-error-msg-cvv' );
+					} else {
+						errors.cvv = mw.msg( 'donate_interface-error-msg-invalid-cvv-format' );
+					}
+				}
+				if ( expFieldHasErrors ) {
+					if ( expirationFieldEmpty ) {
+						errors.expiration = mw.msg( 'donate_interface-error-msg-expiration' );
+					} else {
+						errors.expiration = mw.msg( 'donate_interface-error-msg-card-too-old' );
+					}
+				}
+				mw.donationInterface.validation.showErrors( errors );
+				return false;
+			}
+			return true;
+		}
 
 		// todo: onchange display error if card/cvv/expiration date info error
 		// Show our standard 'Donate' button
@@ -76,20 +175,24 @@
 		$( '#paymentSubmitBtn' ).click(
 			function(event) {
 				event.preventDefault();
-				// todo: another task to handle address for other countries like IN
-				dlocalInstance.createToken(card, {
-					name: $('#first_name').val() + ' ' + $('#last_name').val()
-				}).then(function(result) {
-					// Send the token to your server.
-					mw.donationInterface.forms.callDonateApi(
-						handleApiResult, {payment_token: result.token}, 'di_donate_dlocal'
-					);
-				}).catch(function (result) {
-					if (result.error) {
-						// todo: Inform the customer that there was an error.
-						console.log(result.error);
-					}
-				});
+				var inputFieldsAreValid = validateInputs();
+
+				if ( inputFieldsAreValid ) {
+					dlocalInstance.createToken(card, {
+						name: $('#first_name').val() + ' ' + $('#last_name').val()
+					}).then(function(result) {
+						// Send the token to your server.
+						mw.donationInterface.forms.callDonateApi(
+							handleApiResult, {payment_token: result.token}, 'di_donate_dlocal'
+						);
+					}).catch(function (result) {
+						if (result.error) {
+							mw.donationInterface.validation.showErrors( {
+								general: mw.msg( 'donate_interface-error-msg-general' )
+							} );
+						}
+					});
+				}
 			}
 		);
 
@@ -109,15 +212,18 @@
 			'<div>' +
 			'<label for="cardNumber">' +mw.message( 'donate_interface-donor-card-num' ) +'</label>' +
 			'<div id="cardNumber" ></div>' +
+			'<span class="DlocalField--invalid-text" id="cardNumberErrorMsg" />'+
 			'</div>' +
 			'<div>' +
 			'<div class="halfwidth">' +
 			'<label for="expiration">' + mw.message( 'donate_interface-donor-expiration' ) + '</label>' +
 			'<div id="expiration" ></div>' +
+			'<span class="DlocalField--invalid-text" id="expirationErrorMsg"></span>' +
 			'</div>' +
 			'<div class="halfwidth">' +
 			'<label for="cvv">' + mw.message( 'donate_interface-cvv' ) + '</label>' +
 			'<div id="cvv"></div>' +
+			'<span class="DlocalField--invalid-text" id="cvvErrorMsg"></span>' +
 			'</div>' +
 			'</div>'
 		);
