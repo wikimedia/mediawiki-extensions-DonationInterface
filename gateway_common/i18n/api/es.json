@@ -41,7 +41,6 @@
 	"apihelp-donate-param-referrer": "Referente original.",
 	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
 	"apihelp-donate-param-employer": "Nombre del empleador",
-	"apihelp-donate-param-employer_id": "ID del empresario",
 	"apihelp-donate-example-1": "Hacer una donación",
 	"apihelp-logPaymentsFormError-description": "Esta API registra los errores del formulario de donación que se produzcan en el lado cliente.",
 	"apihelp-logPaymentsFormError-param-message": "El mensaje de error",
@@ -50,8 +49,5 @@
 	"apihelp-logPaymentsFormError-param-col": "Columna en la que se produjo el error",
 	"apihelp-logPaymentsFormError-param-userAgent": "Cadena de agente de usuario del navegador",
 	"apihelp-logPaymentsFormError-param-stack": "Seguimiento de pila del error, si está disponible",
-	"apihelp-employerSearch-description": "Este API se puede permitir a buscar los empresarios que participan en el WMF emparejando programa de regalos.",
-	"apihelp-employerSearch-param-employer": "Qué empresario para buscar para e.g. Red Cross, WWF, Salvation Army, etc.",
-	"apihelp-employerSearch-example-1": "Buscar un empresario",
 	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple"
 }
