@@ -4,9 +4,14 @@
 			"Erdemaslancan",
 			"Patriot Kur",
 			"Amire80",
-			"Гусейн"
+			"Гусейн",
+			"Patriot Kor"
 		]
 	},
+	"donate_interface-donor-mname": "Pıə nom",
+	"donate_interface-donor-street-number": "Aşmard",
 	"donate_interface-donor-county": "Вилојәт",
+	"donate_interface-donor-card-num": "Karti numrə",
+	"donate_interface-middle": "Miyonə",
 	"donate_interface-cancel": "Ləğv karde"
 }
