@@ -48,6 +48,7 @@
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
 		"di_donate_adyen": "AdyenDonationApi",
+		"di_donate_dlocal": "DlocalDonationApi",
 		"di_applesession_adyen": "AdyenAppleApi",
 		"di_donate_braintree": "BraintreeDonationApi",
 		"donate": "DonationApi",
@@ -160,6 +161,7 @@
 		"AmazonBillingApi": "amazon_gateway/amazon.api.php",
 		"Adyen3DSecure": "adyen_gateway/Adyen3DSecure.php",
 		"AdyenDonationApi": "adyen_gateway/adyen.api.php",
+		"DlocalDonationApi": "dlocal_gateway/dlocal.api.php",
 		"BraintreeDonationApi": "braintree_gateway/braintree.api.php",
 		"AdyenAppleApi": "adyen_gateway/adyen_apple.api.php",
 		"AdyenCheckoutAdapter": "adyen_gateway/adyen_checkout.adapter.php",
@@ -336,10 +338,19 @@
 				"donate_interface-donor-fiscal_number-explain-in"
 			]
 		},
-		"ext.donationInterface.dlocal.styles": {
+		"ext.donationInterface.dlocal.scripts": {
 			"scripts": "dlocal_gateway/forms/dlocal.js",
-			"styles": "dlocal_gateway/forms/dlocal.css",
-			"dependencies": "ext.donationInterface.forms"
+			"dependencies": "ext.donationInterface.forms",
+			"messages": [
+				"donate_interface-donor-card-num",
+				"donate_interface-donor-expiration",
+				"donate_interface-cvv",
+				"donate_interface-donor-fiscal_number-explain-in",
+				"donate_interface-expiry-date-field-placeholder"
+			]
+		},
+		"ext.donationInterface.dlocal.styles": {
+			"styles": "dlocal_gateway/forms/dlocal.css"
 		},
 		"gc.iframe": {
 			"styles": "globalcollect_gateway/forms/css/iframe.css"

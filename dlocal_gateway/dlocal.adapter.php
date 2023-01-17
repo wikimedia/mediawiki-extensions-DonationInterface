@@ -9,6 +9,7 @@ class DlocalAdapter extends GatewayAdapter {
 
 	public function doPayment() {
 		// TODO: Implement doPayment() method.
+		return PaymentResult::newSuccess();
 	}
 
 	public function getCommunicationType() {
