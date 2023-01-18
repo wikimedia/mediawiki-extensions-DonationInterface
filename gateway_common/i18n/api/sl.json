@@ -26,6 +26,7 @@
 	"apihelp-logPaymentsFormError-description": "Ta API beleži napake obrazca za donacije na strani odjemalca.",
 	"apihelp-logPaymentsFormError-summary": "Ta api beleži napake obrazca za donacije na strani obrazca.",
 	"apihelp-logPaymentsFormError-param-message": "Sporočilo napake",
+	"apihelp-di_donate_dlocal-summary": "Ta API je za Dlocal",
 	"apihelp-employerSearch-param-employer": "Katerega delodajalca iskati, npr. Rdeči križ, WWF, Rešilno vojsko idr.",
 	"apihelp-employerSearch-example-1": "Poišči delodajalca"
 }
