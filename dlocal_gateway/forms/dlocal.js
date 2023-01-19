@@ -106,11 +106,20 @@
 
 		// Drop in the dlocal card components placeholder
 		$( '.submethods' ).before(
-			'<div><label for="cardNumber">' +mw.message( 'donate_interface-donor-card-num' ) +
-			'</label><div id="cardNumber" /></div>' +
-			'<div><div class="halfwidth"><label for="expiration">' + mw.message( 'donate_interface-donor-expiration' ) +
-			'</label><div id="expiration"/></div><div class="halfwidth"><label for="cvv">' + mw.message( 'donate_interface-cvv' ) +
-			'</label><div id="cvv"/></div></div>'
+			'<div>' +
+			'<label for="cardNumber">' +mw.message( 'donate_interface-donor-card-num' ) +'</label>' +
+			'<div id="cardNumber" ></div>' +
+			'</div>' +
+			'<div>' +
+			'<div class="halfwidth">' +
+			'<label for="expiration">' + mw.message( 'donate_interface-donor-expiration' ) + '</label>' +
+			'<div id="expiration" ></div>' +
+			'</div>' +
+			'<div class="halfwidth">' +
+			'<label for="cvv">' + mw.message( 'donate_interface-cvv' ) + '</label>' +
+			'<div id="cvv"></div>' +
+			'</div>' +
+			'</div>'
 		);
 
 		card.mount(document.getElementById('cardNumber'));
