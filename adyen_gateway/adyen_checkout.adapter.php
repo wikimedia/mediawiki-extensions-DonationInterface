@@ -345,6 +345,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			'merchantAccountName' => $this->account_name,
 			'googleMerchantId' => $this->getAccountConfig( 'GoogleMerchantId' ),
 			'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(),
+			'script' => $this->getAccountConfig( 'Script' )
 		];
 	}
 

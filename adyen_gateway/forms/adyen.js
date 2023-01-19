@@ -470,7 +470,10 @@
 		}
 	}
 
-	$( function () {
+	/**
+	 * Runs as soon as the external Adyen checkout script is loaded
+	 */
+	function setup() {
 		var payment_method,
 			component_type,
 			component,
@@ -606,5 +609,25 @@
 				component.submit( evt );
 			} );
 		}
+	}
+
+	/**
+	 * On documentready we create a script tag and wire it up to run setup as soon as it
+	 * is loaded, or to show an error message if the external script can't be loaded.
+	 * The script should already be mostly or completely preloaded at this point, thanks
+	 * to a <link rel=preload> we add in AdyenCheckoutGateway::addGatewaySpecificResources
+	 */
+	$( function () {
+		var scriptNode = document.createElement( 'script' );
+		scriptNode.onload = setup;
+		scriptNode.onerror = function () {
+			mw.donationInterface.validation.showErrors(
+				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
+			);
+		};
+		scriptNode.crossOrigin = 'anonymous';
+		scriptNode.integrity = configFromServer.script.integrity;
+		scriptNode.src = configFromServer.script.src;
+		document.body.append( scriptNode );
 	} );
 } )( jQuery, mediaWiki );
