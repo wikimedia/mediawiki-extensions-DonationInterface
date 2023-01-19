@@ -1,1 +1,17 @@
 payment_token: payment_token
+amount: amount
+city: city
+country: country
+currency: currency
+email: email
+first_name: first_name
+last_name: last_name
+order_id: order_id
+postal_code: postal_code
+state_province: state_province
+user_ip: user_ip
+recurring: recurring
+street_address: street_address
+street_number: street_number
+fiscal_number: fiscal_number
+gateway_txn_id: gateway_txn_id

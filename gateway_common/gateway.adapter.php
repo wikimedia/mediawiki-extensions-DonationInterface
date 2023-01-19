@@ -311,7 +311,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * information about the origin and state of the order_id data.
 	 *
 	 * Should contain the following keys/values:
-	 * 'alt_locations' => [ $dataset_name, $dataset_key ]
+	 * 'alt_locations' (optional) => [ $dataset_name, $dataset_key ]
 	 * 	** alt_locations is intended to contain a list of arrays that
 	 * 	are always available (or should be), from which we can pull the
 	 * 	order_id.

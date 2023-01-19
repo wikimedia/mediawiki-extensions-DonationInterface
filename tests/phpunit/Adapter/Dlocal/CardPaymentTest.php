@@ -1,0 +1,318 @@
+<?php
+
+use Psr\Log\LogLevel;
+use SmashPig\Core\PaymentError;
+use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentProviders\dlocal\CardPaymentProvider;
+use SmashPig\PaymentProviders\dlocal\ErrorMapper;
+use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
+
+/**
+ * @group Fundraising
+ * @group DonationInterface
+ * @group Dlocal
+ */
+class CardPaymentTest extends BaseDlocalTestCase {
+
+	protected $cardPaymentProvider;
+
+	protected function setUp(): void {
+		parent::setUp();
+		$this->cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+
+		$this->providerConfig->overrideObjectInstance(
+				'payment-provider/cc',
+				$this->cardPaymentProvider
+		);
+	}
+
+	public function testDoCardPayment(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
+		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+				->method( 'createPayment' )
+				->with( $expectedCapturePaymentParams )
+				->willReturn(
+						( new CreatePaymentResponse() )
+								->setRawStatus( 'AUTHORIZED' )
+								->setStatus( FinalStatus::PENDING_POKE )
+								->setSuccessful( true )
+								->setGatewayTxnId( $authID )
+				);
+
+		$this->cardPaymentProvider->expects( $this->once() )
+				->method( 'approvePayment' )
+				->with( $expectedApprovePaymentParams )
+				->willReturn(
+						( new ApprovePaymentResponse() )
+								->setRawStatus( 'PAID' )
+								->setStatus( FinalStatus::COMPLETE )
+								->setSuccessful( true )
+								->setGatewayTxnId( $captureID )
+				);
+
+		$result = $DlocalAdapter->doPayment();
+		$this->assertFalse( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 1, $messages['donations'] );
+	}
+
+	public function testDoCardPaymentCreatePaymentFail(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'createPayment' )
+						->with( $expectedCapturePaymentParams )
+						->willReturn(
+										( new CreatePaymentResponse() )
+														->setRawStatus( 'REJECTED ' )
+														->setStatus( FinalStatus::FAILED )
+														->setSuccessful( false )
+														->addErrors( new PaymentError(
+																		ErrorMapper::$errorCodes['300'],
+																		"The payment was rejected.",
+																		LogLevel::ERROR
+														) )
+						);
+
+		$this->cardPaymentProvider->expects( $this->never() )
+						->method( 'approvePayment' );
+		$result = $DlocalAdapter->doPayment();
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 0, $messages['donations'] );
+	}
+
+	public function testDoPaymentsInitQueueCountSuccessfulPayment(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
+		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'createPayment' )
+						->with( $expectedCapturePaymentParams )
+						->willReturn(
+										( new CreatePaymentResponse() )
+														->setRawStatus( 'AUTHORIZED' )
+														->setStatus( FinalStatus::PENDING_POKE )
+														->setSuccessful( true )
+														->setGatewayTxnId( $authID )
+						);
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'approvePayment' )
+						->with( $expectedApprovePaymentParams )
+						->willReturn(
+										( new ApprovePaymentResponse() )
+														->setRawStatus( 'PAID' )
+														->setStatus( FinalStatus::COMPLETE )
+														->setSuccessful( true )
+														->setGatewayTxnId( $captureID )
+						);
+
+		$result = $DlocalAdapter->doPayment();
+		$this->assertFalse( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 1, $messages['donations'] );
+		$this->assertCount( 1, $messages['payments-init'] );
+	}
+
+	public function testDoPaymentsInitQueueCountFailedPayment(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'createPayment' )
+						->with( $expectedCapturePaymentParams )
+						->willReturn(
+										( new CreatePaymentResponse() )
+														->setRawStatus( 'REJECTED ' )
+														->setStatus( FinalStatus::FAILED )
+														->setSuccessful( false )
+														->addErrors( new PaymentError(
+																		ErrorMapper::$errorCodes['300'],
+																		"The payment was rejected.",
+																		LogLevel::ERROR
+														) )
+						);
+
+		$this->cardPaymentProvider->expects( $this->never() )
+						->method( 'approvePayment' );
+
+		$result = $DlocalAdapter->doPayment();
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 0, $messages['payments-init'] );
+		$this->assertCount( 0, $messages['donations'] );
+	}
+
+	public function testDoPaymentsAntiFraudQueueCountSuccessfulPayment(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
+		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
+		$contributionTrackingID = $testDonorData['contribution_tracking_id'];
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'createPayment' )
+						->with( $expectedCapturePaymentParams )
+						->willReturn(
+										( new CreatePaymentResponse() )
+														->setRawStatus( 'AUTHORIZED' )
+														->setStatus( FinalStatus::PENDING_POKE )
+														->setSuccessful( true )
+														->setGatewayTxnId( $authID )
+						);
+
+		$this->cardPaymentProvider->expects( $this->once() )
+						->method( 'approvePayment' )
+						->with( $expectedApprovePaymentParams )
+						->willReturn(
+										( new ApprovePaymentResponse() )
+														->setRawStatus( 'PAID' )
+														->setStatus( FinalStatus::COMPLETE )
+														->setSuccessful( true )
+														->setGatewayTxnId( $captureID )
+						);
+
+		$result = $DlocalAdapter->doPayment();
+		$this->assertFalse( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 1, $messages['donations'] );
+		$this->assertCount( 1, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+						'validation_action' => 'process',
+						'risk_score' => 0,
+						'score_breakdown' => [ 'initial' => 0 ],
+						'user_ip' => '127.0.0.1',
+						'gateway' => 'dlocal',
+						'contribution_tracking_id' => $contributionTrackingID,
+						'order_id' => $testDonorData['order_id'],
+						'payment_method' => 'cc',
+		];
+		$this->assertArraySubmapSame(
+						$expectedAntifraudInitial,
+						$messages['payments-antifraud'][0]
+		);
+	}
+
+	public function testDoPaymentsAntiFraudQueueCountFailedPayment(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+		$contributionTrackingID = $testDonorData['contribution_tracking_id'];
+
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+				->method( 'createPayment' )
+				->with( $expectedCapturePaymentParams )
+				->willReturn(
+						( new CreatePaymentResponse() )
+								->setRawStatus( 'REJECTED ' )
+								->setStatus( FinalStatus::FAILED )
+								->setSuccessful( false )
+								->addErrors( new PaymentError(
+										ErrorMapper::$errorCodes['300'],
+										"The payment was rejected.",
+										LogLevel::ERROR
+								) )
+				);
+
+				$this->cardPaymentProvider->expects( $this->never() )
+						->method( 'approvePayment' );
+				$result = $DlocalAdapter->doPayment();
+				$this->assertTrue( $result->isFailed() );
+
+				$messages = self::getAllQueueMessages();
+				$this->assertCount( 0, $messages['donations'] );
+				$this->assertCount( 1, $messages['payments-antifraud'] );
+				$expectedAntifraudInitial = [
+						'validation_action' => 'process',
+						'risk_score' => 0,
+						'score_breakdown' => [ 'initial' => 0 ],
+						'user_ip' => '127.0.0.1',
+						'gateway' => 'dlocal',
+						'contribution_tracking_id' => $contributionTrackingID,
+						'order_id' => $testDonorData['order_id'],
+						'payment_method' => 'cc',
+				];
+				$this->assertArraySubmapSame(
+						$expectedAntifraudInitial,
+						$messages['payments-antifraud'][0]
+				);
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getTestDonorCardData(): array {
+		$testDonorData = $this->getDonorTestData( 'IN' );
+		$testDonorData['payment_method'] = 'cc';
+		$testDonorData['payment_token'] = 'D' . '-' . (string)mt_rand( 1000000, 10000000 );
+		$testDonorData['user_ip'] = '127.0.0.1';
+		$testDonorData['contribution_tracking_id'] = (string)mt_rand( 1000000, 10000000 );
+		$testDonorData['amount'] = '1.55';
+		$testDonorData['postal_code'] = '23111';
+		$testDonorData['city'] = 'Mumbai';
+		$testDonorData['order_id'] = $testDonorData['contribution_tracking_id'] . '.1';
+		return $testDonorData;
+	}
+
+	/**
+	 * @param array $testDonorData
+	 * @return array
+	 */
+	protected function getCreatePaymentParams( array $testDonorData ): array {
+		$params = [];
+
+		$params['payment_token'] = $testDonorData['payment_token'];
+		$params['amount'] = $testDonorData['amount'];
+		$params['city'] = $testDonorData['city'];
+		$params['country'] = $testDonorData['country'];
+		$params['currency'] = $testDonorData['currency'];
+		$params['email'] = $testDonorData['email'];
+		$params['first_name'] = $testDonorData['first_name'];
+		$params['last_name'] = $testDonorData['last_name'];
+		$params['order_id'] = $testDonorData['order_id'];
+		$params['postal_code'] = $testDonorData['postal_code'];
+		$params['user_ip'] = $testDonorData['user_ip'];
+		$params['street_address'] = $testDonorData['street_address'];
+		$params['fiscal_number'] = $testDonorData['fiscal_number'];
+
+		return $params;
+	}
+
+	/**
+	 * @param array $testDonorData
+	 * @param string $authID
+	 * @return array
+	 */
+	protected function getApprovePaymentParams( $testDonorData, $authID ): array {
+		return [
+			'amount' => $testDonorData[ 'amount' ],
+			'currency' => $testDonorData[ 'currency' ],
+			'gateway_txn_id' => $authID,
+			'order_id' => $testDonorData[ 'order_id' ]
+		];
+	}
+}
