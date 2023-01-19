@@ -836,8 +836,8 @@
 				{
 					"conditions": {
 						"country": [
-							"AT", "AU", "BE", "BG", "CA", "DK", "ES", "FR", "HK", "HU", "GB", "IE", "IL", "IT", "JP", "KW", "LU", "LV", "MY", "NL", "NO", "NZ",
-							"PL", "PT", "RO", "SK", "US"
+							"AT", "AU", "BE", "BG", "CA", "DK", "ES", "FR", "GB", "HK", "HR", "HU", "IE", "IL", "IT",
+							"JP", "KW", "LU", "LV", "MY", "NL", "NO", "NZ", "PL", "PT", "RO", "SK", "US"
 						],
 						"payment_method": "cc"
 					},
