@@ -1,0 +1,4 @@
+scripts:
+    ext.donationInterface.dlocal.scripts
+styles:
+    ext.donationInterface.dlocal.styles

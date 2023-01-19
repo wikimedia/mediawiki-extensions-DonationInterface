@@ -1,0 +1,6 @@
+/* card input space with the card icon */
+.DlocalField {
+	padding: 0 0.8em;
+	border: 1px solid #a2a9b1;
+	border-radius: 2px
+}

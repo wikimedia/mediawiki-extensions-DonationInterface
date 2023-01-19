@@ -1,0 +1,6 @@
+cc:
+    recurring: false
+    validation:
+        country: true
+        name: true
+        email: true

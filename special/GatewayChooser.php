@@ -43,15 +43,27 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// gateway options will be sanitized/vaidated, and the rest will be fetched verbatim.
 		$params = $this->getParamsFromURL();
 
-		// Find possible gateways
-		$supportedGateways = $this->getSupportedGateways(
-			$params[ 'country' ],
-			$params[ 'currency' ],
-			$params[ 'payment_method' ],
-			$params[ 'payment_submethod' ],
-			$params[ 'recurring' ],
-			$params[ 'variant' ]
-		);
+		if ( $params[ 'country' ] && $params[ 'payment_method' ] ) {
+			// Find possible gateways
+			$supportedGateways = $this->getSupportedGateways(
+				$params[ 'country' ],
+				$params[ 'currency' ],
+				$params[ 'payment_method' ],
+				$params[ 'payment_submethod' ],
+				$params[ 'recurring' ],
+				$params[ 'variant' ]
+			);
+		} else {
+			// redirect to ways to give
+			$this->logger->warning(
+				'Missing country or payment_method at GatewayChooser for query string ' .
+				$this->getRequest()->getRawQueryString() .
+				' and referer ' .
+				$this->getRequest()->getHeader( 'referer' )
+			);
+			$this->getOutput()->redirect( $this->getProblemRedirectUrl() );
+			return;
+		}
 
 		// If there are no supported gateways for these inputs, log an error and show an
 		// error page.
@@ -436,5 +448,16 @@ class GatewayChooser extends UnlistedSpecialPage {
 		}
 
 		return $sanitizedVal;
+	}
+
+	protected function getProblemRedirectUrl(): string {
+		$problemsUrl = $this->getConfig()->get( 'DonationInterfaceChooserProblemURL' );
+		$queryValues = $this->getRequest()->getQueryValues() ?? [];
+		unset( $queryValues['title'] );
+		if ( count( $queryValues ) > 0 ) {
+			$glue = strpos( $problemsUrl, '?' ) === false ? '?' : '&';
+			$problemsUrl .= $glue . http_build_query( $queryValues );
+		}
+		return $problemsUrl;
 	}
 }
