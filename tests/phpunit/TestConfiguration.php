@@ -160,7 +160,8 @@ $wgAdyenCheckoutGatewayAccountInfo['testMerchantAccountName'] = [
 	],
 	'ClientKey' => 'test',
 	'Environment' => 'test',
-	'GoogleMerchantId' => '1234'
+	'GoogleMerchantId' => '1234',
+	'GoogleScript' => 'test-google.js',
 ];
 
 /** AstroPay */

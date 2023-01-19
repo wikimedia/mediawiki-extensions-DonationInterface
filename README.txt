@@ -320,6 +320,7 @@ $wgAdyenCheckoutGatewayAccountInfo['exampleMerchantAccountName'] = [
 	'ClientKey' => '', // find under web service user 'Authentication' block within adyen API credentials area
 	'Environment' => 'test',
 	'GoogleMerchantId' => '1234' // merchant ID from Google for Google Pay
+	'GoogleScript'=> 'https://pay.google.com/gp/p/js/pay.js',
 ]
 
 // Set base URLs here.  Individual transactions have their own paths

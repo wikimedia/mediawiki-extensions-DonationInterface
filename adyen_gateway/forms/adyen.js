@@ -2,7 +2,8 @@
 ( function ( $, mw ) {
 	// promise objects are for Apple Pay - see comments below
 	var checkout, onSubmit, authPromise, submitPromise,
-		configFromServer = mw.config.get( 'adyenConfiguration' );
+		configFromServer = mw.config.get( 'adyenConfiguration' ),
+		payment_method = $( '#payment_method' ).val();
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -313,12 +314,10 @@
 	// eslint-disable-next-line compat/compat
 	submitPromise = new Promise( function ( submitResolve, submitReject ) {
 		onSubmit = function ( state, component ) {
-			var extraData = {},
-				payment_method;
+			var extraData = {};
 			// Submit to our server, unless it's Apple Pay, which submits in
 			// the onAuthorized handler.
 			if ( mw.donationInterface.validation.validate() && state.isValid ) {
-				payment_method = $( '#payment_method' ).val();
 				switch ( payment_method ) {
 					case 'rtbt':
 						if ( state.data.paymentMethod.type === 'ideal' ) {
@@ -474,8 +473,7 @@
 	 * Runs as soon as the external Adyen checkout script is loaded
 	 */
 	function setup() {
-		var payment_method,
-			component_type,
+		var component_type,
 			component,
 			component_config,
 			config,
@@ -492,7 +490,6 @@
 			return;
 		}
 
-		payment_method = $( '#payment_method' ).val();
 		component_type = mapPaymentMethodToComponentType( payment_method );
 		ui_container_name = component_type + '-container';
 
@@ -617,17 +614,30 @@
 	 * The script should already be mostly or completely preloaded at this point, thanks
 	 * to a <link rel=preload> we add in AdyenCheckoutGateway::addGatewaySpecificResources
 	 */
-	$( function () {
+
+	function loadScript( type ) {
 		var scriptNode = document.createElement( 'script' );
-		scriptNode.onload = setup;
 		scriptNode.onerror = function () {
 			mw.donationInterface.validation.showErrors(
 				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
 			);
 		};
-		scriptNode.crossOrigin = 'anonymous';
-		scriptNode.integrity = configFromServer.script.integrity;
-		scriptNode.src = configFromServer.script.src;
+		if ( type === 'adyen' ) {
+			scriptNode.onload = setup;
+			scriptNode.crossOrigin = 'anonymous';
+			scriptNode.integrity = configFromServer.script.integrity;
+			scriptNode.src = configFromServer.script.src;
+		} else {
+			scriptNode.src = configFromServer.googleScript;
+		}
+
 		document.body.append( scriptNode );
+	}
+
+	$( function () {
+		if ( payment_method === 'google' ) {
+			loadScript( 'google' );
+		}
+		loadScript( 'adyen' );
 	} );
 } )( jQuery, mediaWiki );
