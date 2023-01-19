@@ -102,6 +102,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	 * @throws \MWException
 	 */
 	public function testNoNeedParamGateWayChooser( array $params, bool $redirectToDonateWiki ) {
+		$this->setMwGlobals( [ 'wgDonationInterfaceChooserProblemURL' => 'https://test.example' ] );
 		$context = RequestContext::getMain();
 		$newOutput = new OutputPage( $context );
 		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
@@ -113,11 +114,14 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$fc->execute( null );
 		$fc->getOutput()->output( true );
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
-		$redirectMediaWikiUrl = 'https://donate.wikimedia.org';
+		$redirectMediaWikiUrl = 'https://test.example';
+		if ( count( $params ) > 0 ) {
+			$redirectMediaWikiUrl .= '?' . http_build_query( $params );
+		}
 		if ( $redirectToDonateWiki ) {
-			$this->assertEquals( $url, $redirectMediaWikiUrl, 'invalid params redirect to donate wiki' );
+			$this->assertEquals( $redirectMediaWikiUrl, $url, 'invalid params redirect to donate wiki' );
 		} else {
-			$this->assertNotEquals( $url, $redirectMediaWikiUrl, 'valid params also redirect to donate wiki' );
+			$this->assertNotEquals( $redirectMediaWikiUrl, $url, 'valid params also redirect to donate wiki' );
 		}
 	}
 

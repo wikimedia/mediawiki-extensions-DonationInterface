@@ -487,6 +487,9 @@
 		"DonationInterfacePolicyURL": {
 			"value": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country"
 		},
+		"DonationInterfaceChooserProblemURL": {
+			"value": "https://donate.wikimedia.org"
+		},
 		"DonationInterfaceProblemsEmail": {
 			"value": "donate@wikimedia.org"
 		},

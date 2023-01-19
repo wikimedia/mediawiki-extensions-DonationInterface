@@ -55,7 +55,13 @@ class GatewayChooser extends UnlistedSpecialPage {
 			);
 		} else {
 			// redirect to ways to give
-			$this->getOutput()->redirect( 'https://donate.wikimedia.org' );
+			$this->logger->warning(
+				'Missing country or payment_method at GatewayChooser for query string ' .
+				$this->getRequest()->getRawQueryString() .
+				' and referer ' .
+				$this->getRequest()->getHeader( 'referer' )
+			);
+			$this->getOutput()->redirect( $this->getProblemRedirectUrl() );
 			return;
 		}
 
@@ -442,5 +448,16 @@ class GatewayChooser extends UnlistedSpecialPage {
 		}
 
 		return $sanitizedVal;
+	}
+
+	protected function getProblemRedirectUrl(): string {
+		$problemsUrl = $this->getConfig()->get( 'DonationInterfaceChooserProblemURL' );
+		$queryValues = $this->getRequest()->getQueryValues() ?? [];
+		unset( $queryValues['title'] );
+		if ( count( $queryValues ) > 0 ) {
+			$glue = strpos( $problemsUrl, '?' ) === false ? '?' : '&';
+			$problemsUrl .= $glue . http_build_query( $queryValues );
+		}
+		return $problemsUrl;
 	}
 }
