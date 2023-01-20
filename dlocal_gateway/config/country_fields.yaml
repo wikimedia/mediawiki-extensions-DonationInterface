@@ -1,2 +1,12 @@
-US:
-    employer: optional
+AR:
+  fiscal_number: true
+BR:
+  fiscal_number: true
+CL:
+  fiscal_number: true
+CO:
+  fiscal_number: true
+IN:
+  fiscal_number: optional
+UY:
+  fiscal_number: true
