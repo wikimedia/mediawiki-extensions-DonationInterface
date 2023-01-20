@@ -14,6 +14,12 @@ visa-electron:
 # appear on any forms. Hence we give it an empty country list here. TODO:
 # use ReferenceData from SmashPig instead.
     countries: []
+visa-debit:
+  paymentproductid: 114
+  group: cc
+  # Same lame trick as visa-electron. ReferenceData still needs a reverse lookup
+  # for getPaymentSubmethodMeta
+  countries: []
 mc:
     paymentproductid: 3
     label_key: donate_interface-card-name-mc
