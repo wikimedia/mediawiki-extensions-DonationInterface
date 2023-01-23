@@ -129,6 +129,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				'cvvResult',
 				'statusCode',
 				'paymentProductId',
+				'cardholderName',
 			]
 		];
 

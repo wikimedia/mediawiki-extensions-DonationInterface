@@ -276,6 +276,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'last_name' => 'Nom',
 				'amount' => '4.55',
 				'language' => 'fr',
+				'email' => 'nobody@wikimedia.org',
 			],
 			// Fiji is configured as a snowflake to test special treatment for certain store IDs
 			'FJ' => [

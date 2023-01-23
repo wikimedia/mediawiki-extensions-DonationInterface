@@ -64,13 +64,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
-			'first_name' => [
+			'email' => [
 				'nodename' => 'input',
-				'value' => 'Prénom',
-			],
-			'last_name' => [
-				'nodename' => 'input',
-				'value' => 'Nom',
+				'value' => 'nobody@wikimedia.org',
 			],
 			'country' => [
 				'nodename' => 'input',
@@ -97,13 +93,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
-			'first_name' => [
+			'email' => [
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( 'it' )->text(),
-			],
-			'last_name' => [
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( 'it' )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-email' )->inLanguage( 'it' )->text(),
 			],
 			'informationsharing' => [
 				'nodename' => 'p',
@@ -136,13 +128,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					Amount::format( 4.55, 'EUR', $init['language'] . '_' . $init['country'] ) .
 					'\s*$/',
 			],
-			'first_name' => [
+			'email' => [
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
-			],
-			'last_name' => [
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-email' )->inLanguage( $language )->text(),
 			],
 			'informationsharing' => [
 				'nodename' => 'p',
@@ -177,13 +165,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 					) .
 					'\s*$/',
 			],
-			'first_name' => [
+			'email' => [
 				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-first_name' )->inLanguage( $language )->text(),
-			],
-			'last_name' => [
-				'nodename' => 'input',
-				'placeholder' => wfMessage( 'donate_interface-donor-last_name' )->inLanguage( $language )->text(),
+				'placeholder' => wfMessage( 'donate_interface-donor-email' )->inLanguage( $language )->text(),
 			],
 			'informationsharing' => [
 				'nodename' => 'p',

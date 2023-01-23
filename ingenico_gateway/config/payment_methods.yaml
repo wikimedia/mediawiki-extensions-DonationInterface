@@ -3,7 +3,6 @@ cc:
     label: Credit Cards
     validation:
         country: true
-        name: true
         email: true
 rtbt:
     recurring: false
