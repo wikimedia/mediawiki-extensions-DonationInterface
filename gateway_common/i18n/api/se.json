@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kimberli Mäkäräinen (WMNO)",
 			"Yupik"
 		]
 	},
 	"apihelp-donate-param-first_name": "Ovdanamma.",
 	"apihelp-donate-param-last_name": "Goargu.",
 	"apihelp-donate-param-email": "E-poastačujuhus.",
-	"apihelp-donate-param-language": "Giellakoda."
+	"apihelp-donate-param-language": "Giellakoda.",
+	"apihelp-logPaymentsFormError-param-message": "Meattáhusdiehtu"
 }

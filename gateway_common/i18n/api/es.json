@@ -4,6 +4,7 @@
 			"Avengium",
 			"DiegoAmbrocio",
 			"Fitoschido",
+			"JDíaz32",
 			"Macofe",
 			"Minh Nguyen",
 			"Ryo567",
@@ -49,5 +50,6 @@
 	"apihelp-logPaymentsFormError-param-col": "Columna en la que se produjo el error",
 	"apihelp-logPaymentsFormError-param-userAgent": "Cadena de agente de usuario del navegador",
 	"apihelp-logPaymentsFormError-param-stack": "Seguimiento de pila del error, si está disponible",
+	"apihelp-di_donate_dlocal-summary": "Esta API es para Dlocal",
 	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple"
 }
