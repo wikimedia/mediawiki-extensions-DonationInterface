@@ -4,6 +4,7 @@
 			"Jsoby",
 			"Pcoombe",
 			"Ерней",
+			"Ильгиз",
 			"Ильнар",
 			"Исмаил Садуев",
 			"Умар"
@@ -95,5 +96,6 @@
 	"donate_interface-mailing-address": "Почта юллмасы",
 	"donate_interface-continue": "Дәвам итү",
 	"donate_interface-change": "Үзгәртү",
-	"donate_interface-currency-change": "Үзгәртергәме?"
+	"donate_interface-currency-change": "Үзгәртергәме?",
+	"donate_interface-amount-legend-variant-01A": "Донат зурлыгы"
 }

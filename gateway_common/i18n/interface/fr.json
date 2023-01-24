@@ -510,5 +510,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Non, pas immédiatement",
 	"donate_interface-fundraiser-maintenance-header": "Arrêté momentanément pour maintenance",
 	"donate_interface-fundraiser-maintenance-notice": "Nous effectuons actuellement une maintenance programmée et ne pouvons pas accepter de dons. Veuillez réessayer ultérieurement. Si vous avez des questions, veuillez envoyer un courriel à $1.",
-	"donate_interface-redirect-explanation": "Vous allez être redirigé vers le partenaire de Wikimedia pour le traitement du paiement."
+	"donate_interface-redirect-explanation": "Vous allez être redirigé vers le partenaire de Wikimedia pour le traitement du paiement.",
+	"donate_interface-amount-legend-variant-01A": "Montant à donner",
+	"donate_interface-cc-form-header-personal-variant-01A": "Informations sur le paiement"
 }
