@@ -9,9 +9,7 @@ class DlocalGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = DlocalAdapter::IDENTIFIER;
 
-	public function execute( $par ) {
-		parent::execute( $par );
-		$out = $this->getOutput();
+	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		$dlocalScript = $this->adapter->getAccountConfig( 'dlocalScript' );
 		$smartFieldApiKey = $this->adapter->getAccountConfig( 'smartFieldApiKey' );
 		$out->addJsConfigVars( 'wgDlocalSmartFieldApiKey', $smartFieldApiKey );
