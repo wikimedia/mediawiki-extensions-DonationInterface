@@ -21,7 +21,7 @@
 			"Umherirrender"
 		]
 	},
-	"donate_interface": "Unterstützen Sie Wikimedia",
+	"donate_interface": "Wikimedia unterstützen",
 	"donate_interface-desc": "Ermöglicht eine Spendenseite, die Gateway-Erweiterungen einbezieht",
 	"donate_interface-langonly-desc": "Ermöglicht lediglich die Anzeige der Systemnachrichten für die Spendenseite",
 	"donate_interface-intro": "Bitte wählen Sie eine Zahlungsmethode, einen Betrag und die Währung.",
