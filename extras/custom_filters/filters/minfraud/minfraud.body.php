@@ -311,9 +311,8 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$weight = $this->gateway_adapter->getGlobal( 'MinFraudWeight' );
 		$multiplier = $weight / 100;
 		try {
-			$query = $this->buildQuery(
-				$this->gateway_adapter->getData_Unstaged_Escaped()
-			);
+			$data = $this->getTransactionDataWithSplitNames();
+			$query = $this->buildQuery( $data );
 			$response = $this->queryMinFraud( $query );
 			// Write the query/response to the log before we go mad.
 			$this->logQuery( $query, $response );
@@ -339,6 +338,31 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get a copy of the transaction data, with any full_name field
+	 * split up to send to minfraud. For now we do a simple split on
+	 * the first space since we are likely to get any full_name from
+	 * the cardholder name field, which is unlikely to have prefixes.
+	 * If we end up with a lot of bad data we can look into using
+	 * a name parser library as in the Civi message import functions.
+	 * @return array
+	 */
+	protected function getTransactionDataWithSplitNames(): array {
+		$data = $this->gateway_adapter->getData_Unstaged_Escaped();
+		if (
+			empty( $data['first_name'] ) &&
+			empty( $data['last_name'] ) &&
+			!empty( $data['full_name'] )
+		) {
+			$nameParts = explode( ' ', $data['full_name'], 2 );
+			$data['first_name'] = $nameParts[0];
+			if ( count( $nameParts ) > 1 ) {
+				$data['last_name'] = $nameParts[1];
+			}
+		}
+		return $data;
 	}
 
 	/**
