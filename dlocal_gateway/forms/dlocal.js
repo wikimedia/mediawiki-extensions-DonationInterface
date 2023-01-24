@@ -1,5 +1,5 @@
 (function ($, mw) {
-	$(function (){
+	function setup() {
 		if ( $('#country').val() === 'IN' ) {
 			$( '#fiscal_number' ).after(
 				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
@@ -24,7 +24,7 @@
 			} else if(['es', 'en', 'pt', 'zh', 'cv', 'tr'].includes(wikiLang)){
 				return wikiLang;
 			} else {
-				 // todo: maybe display an error, or just default en?
+				// todo: maybe display an error, or just default en?
 				return 'en';
 			}
 		}
@@ -125,5 +125,23 @@
 		card.mount(document.getElementById('cardNumber'));
 		expiration.mount(document.getElementById('expiration'));
 		cvv.mount(document.getElementById('cvv'));
+	}
+
+	/**
+	 *  On document ready we create a script tag and wire it up to run setup as soon as it
+	 *  is loaded, or to show an error message if the external script can't be loaded.
+	 *  The script should already be mostly or completely preloaded at this point, thanks
+	 *  to a <link rel=preload> we add in DlocalGateway::execute
+	 */
+	$(function (){
+		var scriptNode = document.createElement( 'script' );
+		scriptNode.onload = setup;
+		scriptNode.onerror = function () {
+			mw.donationInterface.validation.showErrors(
+				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
+			);
+		};
+		scriptNode.src = mw.config.get( 'dlocalScript' );
+		document.body.append( scriptNode );
 	});
 } )( jQuery, mediaWiki );

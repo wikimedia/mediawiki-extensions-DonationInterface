@@ -302,6 +302,74 @@
 				"donate_interface-error-msg-date-too-far-in-the-future"
 			]
 		},
+		"ext.donationInterface.jaVariant01A": {
+			"scripts": "modules/js/ext.donationInterface.jaVariant01A.js",
+			"styles": "modules/css/jaVariants.css",
+			"messages": [
+				"donate_interface-expiry-date-field-placeholder"
+			]
+		},
+		"ext.donationInterface.adyenCheckoutWithJaVariant01A": {
+			"scripts": "adyen_gateway/forms/adyen.js",
+			"styles": "adyen_gateway/forms/adyen.css",
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.jaVariant01A"
+			],
+			"messages": [
+				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-google_pay_unsupported",
+				"donate_interface-credit-card-number",
+				"donate_interface-credit-card-expiration",
+				"donate_interface-cvv",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-cvv-placeholder-3-digits",
+				"donate_interface-cvv-placeholder-4-digits",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-expiry-date-field-invalid",
+				"donate_interface-error-msg-incomplete-field",
+				"donate_interface-error-msg-field-not-valid",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-card-number-do-not-match-card-brand",
+				"donate_interface-error-msg-unsupported-card-entered",
+				"donate_interface-error-msg-card-too-old",
+				"donate_interface-error-msg-date-too-far-in-the-future"
+			]
+		},
+		"ext.donationInterface.jaVariant02": {
+			"scripts": "modules/js/ext.donationInterface.jaVariant02.js",
+			"styles": "modules/css/jaVariants.css",
+			"messages": [
+				"donate_interface-expiry-date-field-placeholder"
+			]
+		},
+		"ext.donationInterface.adyenCheckoutWithJaVariant02": {
+			"scripts": "adyen_gateway/forms/adyen.js",
+			"styles": "adyen_gateway/forms/adyen.css",
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.jaVariant02"
+			],
+			"messages": [
+				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-google_pay_unsupported",
+				"donate_interface-credit-card-number",
+				"donate_interface-credit-card-expiration",
+				"donate_interface-cvv",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-cvv-placeholder-3-digits",
+				"donate_interface-cvv-placeholder-4-digits",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-expiry-date-field-invalid",
+				"donate_interface-error-msg-incomplete-field",
+				"donate_interface-error-msg-field-not-valid",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-card-number-do-not-match-card-brand",
+				"donate_interface-error-msg-unsupported-card-entered",
+				"donate_interface-error-msg-card-too-old",
+				"donate_interface-error-msg-date-too-far-in-the-future"
+			]
+		},
 		"ext.donationInterface.ingenico.scripts": {
 			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
 			"dependencies": "ext.donationInterface.forms"

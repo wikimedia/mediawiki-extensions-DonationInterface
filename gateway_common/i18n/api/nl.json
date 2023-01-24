@@ -3,6 +3,7 @@
 		"authors": [
 			"Edoderoo",
 			"Mainframe98",
+			"McDutchie",
 			"Siebrand"
 		]
 	},
@@ -33,5 +34,6 @@
 	"apihelp-donate-param-referrer": "Oorspronkelijke verwijzer.",
 	"apihelp-donate-param-recurring": "Geeft aan dat de transactie is herhaald moet worden.",
 	"apihelp-donate-example-1": "Maak een donatie",
-	"apihelp-logPaymentsFormError-param-message": "De foutmelding"
+	"apihelp-logPaymentsFormError-param-message": "De foutmelding",
+	"apihelp-di_donate_dlocal-summary": "Deze API is voor Dlocal"
 }

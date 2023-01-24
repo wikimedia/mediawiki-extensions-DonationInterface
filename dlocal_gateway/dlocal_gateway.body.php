@@ -15,11 +15,18 @@ class DlocalGateway extends GatewayPage {
 		$dlocalScript = $this->adapter->getAccountConfig( 'dlocalScript' );
 		$smartFieldApiKey = $this->adapter->getAccountConfig( 'smartFieldApiKey' );
 		$out->addJsConfigVars( 'wgDlocalSmartFieldApiKey', $smartFieldApiKey );
-		$out->addScript( "<script src=\"{$dlocalScript}\"></script>" );
+		$out->addLink(
+			[
+				'src' => $dlocalScript,
+				'rel' => 'preload',
+				'as' => 'script',
+			]
+		);
 	}
 
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
+		$vars['dlocalScript'] = $this->adapter->getAccountConfig( 'dlocalScript' );
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
