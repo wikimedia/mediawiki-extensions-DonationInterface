@@ -12,7 +12,8 @@
 			"Pcoombe",
 			"Spiffyk",
 			"Utar",
-			"Vks"
+			"Vks",
+			"EHughes"
 		]
 	},
 	"donate_interface": "Podpora nadace Wikimedia",
@@ -376,6 +377,7 @@
 	"donate_interface-onetime-short": "Jednorázový",
 	"donate_interface-error-http-403": "Nemáte oprávnění k přístupu na tuto stránku.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-title": "Přidat částku <span class=\"mc-convert-ask\"></span> měsíčního příspěvku počínaje příštím měsícem?",
 	"donate_interface-fundraiser-maintenance-header": "Kvůli údržbě dočasně mimo provoz",
 	"donate_interface-fundraiser-maintenance-notice": "V současné chvíli provádíme plánovanou údržbu a nejsme schopni přijímat dary. Zkuste to prosím znovu později. Pokud máte jakékoli dotazy, napište na $1."
 }
