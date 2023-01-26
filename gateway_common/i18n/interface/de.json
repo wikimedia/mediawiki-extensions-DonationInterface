@@ -11,6 +11,7 @@
 			"Hwboehm",
 			"Jrobell",
 			"Jsoby",
+			"Justman10000",
 			"Kghbln",
 			"Lyzzy",
 			"Metalhead64",
@@ -347,7 +348,7 @@
 	"donate_interface-please-select-gift-amount": "Bitte den Spendenbetrag auswählen",
 	"donate_interface-select-gift-amount": "Spendenbetrag auswählen",
 	"donate_interface-select-amount": "Betrag auswählen",
-	"donate_interface-make-a-donation": "Soenden Sie",
+	"donate_interface-make-a-donation": "Spende leisten",
 	"donate_interface-enter-your-amount": "Oder geben Sie den Betrag im obigen Feld ein",
 	"donate_interface-will-support-with-gift": "Ich werde mit einer Spende in folgender Höhe unterstützen:",
 	"donate_interface-will-make-tax-deductible-gift": "Ich werde eine steuerlich absetzbare Spende in folgender Höhe machen:",
@@ -458,5 +459,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
 	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1.",
-	"donate_interface-redirect-explanation": "Sie werden zu Wikimedias Partner für die Zahlungsabwicklung weitergeleitet."
+	"donate_interface-redirect-explanation": "Sie werden zu Wikimedias Partner für die Zahlungsabwicklung weitergeleitet.",
+	"donate_interface-amount-legend-variant-01A": "Zu spendender Betrag",
+	"donate_interface-cc-form-header-personal-variant-01A": "Zahlungsinformationen"
 }

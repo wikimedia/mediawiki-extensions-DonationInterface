@@ -452,5 +452,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "לא, לא עכשיו",
 	"donate_interface-fundraiser-maintenance-header": "השירות אינו פעיל באופן זמני לצורך תחזוקה",
 	"donate_interface-fundraiser-maintenance-notice": "כרגע אנחנו עושים פעולות תחזוקה מתוכננות ואיננו יכולים לקבל עכשיו תרומות. נא לנסות שוב בקרוב. אם יש לך שאלות כלשהן, אפשר לשלוח אותן לכתובת $1.",
-	"donate_interface-redirect-explanation": "תתבצע הפניה לשותף עיבוד תשלומים של ויקימדיה"
+	"donate_interface-redirect-explanation": "תתבצע הפניה לשותף עיבוד תשלומים של ויקימדיה",
+	"donate_interface-amount-legend-variant-01A": "סכום לתרומה",
+	"donate_interface-cc-form-header-personal-variant-01A": "פרטי התשלום"
 }
