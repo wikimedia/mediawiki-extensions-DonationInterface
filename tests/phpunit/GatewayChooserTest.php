@@ -262,7 +262,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'CO', 'currency' => 'COP' ], 'AstroPayGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CR', 'currency' => 'CRC' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CY', 'currency' => 'EUR' ], 'IngenicoGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'CZ', 'currency' => 'CZK' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'CZ', 'currency' => 'CZK' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DE', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DK', 'currency' => 'DKK' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DM', 'currency' => 'XCD' ], 'IngenicoGateway' ],
