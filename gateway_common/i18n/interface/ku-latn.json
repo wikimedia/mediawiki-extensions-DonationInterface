@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
@@ -10,7 +11,7 @@
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
 	"donate_interface-currency": "Dirav:",
-	"donate_interface-comment-label": "Şîrove:",
+	"donate_interface-comment-label": "Şirove:",
 	"donate_interface-CAD": "Dolarên Kanadayê",
 	"donate_interface-CZK": "Korunayên Çekî",
 	"donate_interface-EUR": "Ewro",

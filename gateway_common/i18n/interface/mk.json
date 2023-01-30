@@ -159,7 +159,7 @@
 	"donate_interface-donor-currency-msg": "Ова дарување се врши во $1",
 	"donate_interface-donor-fiscal_number": "Фискален број",
 	"donate_interface-donor-fiscal_number-in": "PAN",
-	"donate_interface-donor-fiscal_number-explain-in": "Банката на резерви на Индија бара нашиот наплатен услужник да го има вашиот PAN, но ние не ја чуваме или складираме таа информација.",
+	"donate_interface-donor-fiscal_number-explain-in": "Банката на резерви на Индија <b>бара</b> нашиот наплатен услужник да го има вашиот PAN, но ние не ја складираме таа информација.<b>Ако сакате, тука внесете го вашиот PAN.</b>",
 	"donate_interface-donor-opt_in_yes": "Да! Повремено (ретко) испраќајте ми сознанија за тоа како во иднина можам да ја поддржам Википедија.*",
 	"donate_interface-donor-opt_in_no": "Не, не сакам да добивам новости, дури и ако се само неколку годишно.",
 	"donate_interface-donor-opt_in_explain": "*Со вашите податоци се постапува во склад со <a href=\"$1\">Правилата за дарители</a>. Во секое известување по е-пошта е вклучена и можност за отпис.",
@@ -456,5 +456,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Не, не сега",
 	"donate_interface-fundraiser-maintenance-header": "Привремено недостапно поради одржување",
 	"donate_interface-fundraiser-maintenance-notice": "Во моментов вршиме планирано одржување и не можеме да прифаќаме уплати. Вратете се малку подоцна. Ако имате некакви прашања, обратете се на $1.",
-	"donate_interface-redirect-explanation": "Ќе бидете префрлени на обработувачот на уплати за Викимедија."
+	"donate_interface-redirect-explanation": "Ќе бидете префрлени на обработувачот на уплати за Викимедија.",
+	"donate_interface-amount-legend-variant-01A": "Износ на доброволниот прилог",
+	"donate_interface-cc-form-header-personal-variant-01A": "Информации за уплатата"
 }

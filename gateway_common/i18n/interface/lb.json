@@ -399,5 +399,6 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Nee, merci",
 	"donate_interface-monthly-convert-no-button-variant-014": "Neen, net an dësem Ament",
 	"donate_interface-fundraiser-maintenance-header": "Temporär net disponibel wéinst Maintenance",
-	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1."
+	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1.",
+	"donate_interface-amount-legend-variant-01A": "Betrag fir den Don"
 }

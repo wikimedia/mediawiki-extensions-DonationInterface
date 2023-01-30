@@ -469,5 +469,6 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "لا، شكرا",
 	"donate_interface-monthly-convert-no-button-variant-011": "لا، شكرًا",
 	"donate_interface-fundraiser-maintenance-header": "مؤقتًا للصيانة",
-	"donate_interface-fundraiser-maintenance-notice": "نجري حاليًا عمليات صيانة مجدولة ولا يمكننا قبول التبرعات; تُرجَى المحاولة مرة أخرى قريبا، إذا كانت لديك أية أسئلة، فالرجاء إرسال رسالة بريد إلكتروني إلى $1."
+	"donate_interface-fundraiser-maintenance-notice": "نجري حاليًا عمليات صيانة مجدولة ولا يمكننا قبول التبرعات; تُرجَى المحاولة مرة أخرى قريبا، إذا كانت لديك أية أسئلة، فالرجاء إرسال رسالة بريد إلكتروني إلى $1.",
+	"donate_interface-amount-legend-variant-01A": "قيمة التبرع"
 }
