@@ -138,15 +138,89 @@ rupay:
     countries:
         IN: true
 pix:
-  bank_code: PQ
-  label: Pix
-  group: bt
-  countries:
-    BR: true
-  logo: bank-pix.png
-  logo_hd:
-    2x: bank-pix_2x.png
-    3x: bank-pix_3x.png
+    bank_code: PQ
+    label: PIX
+    group: cash
+    countries:
+        BR: true
+cash_boleto:
+    bank_code: BL
+    label: Boletos
+    group: cash
+    countries:
+        BR: true
+cash_oxxo:
+    bank_code: OX
+    label: OXXO
+    group: cash
+    countries:
+        MX: true
+    logo: cash-oxxo.png
+cash_santander:
+    bank_code: SM
+    label: Santander
+    group: cash
+    countries:
+        MX: true
+    logo: bank-santander.png
+cash_bancomer:
+    bank_code: BV
+    label: Bancomer
+    group: cash
+    countries:
+        MX: true
+    logo: cash-bancomer.png
+cash_rapipago:
+    bank_code: RP
+    label: Rapi Pago
+    group: cash
+    countries:
+        AR: true
+    logo: cash-rapipago.png
+cash_pago_facil:
+    bank_code: PF
+    label: Pago Facil
+    group: cash
+    countries:
+        AR: true
+    logo: cash-pago-facil.png
+cash_efecty:
+    bank_code: EY
+    label: Efecty
+    group: cash
+    countries:
+        CO: true
+    logo: cash-efecty.png
+pse:
+    bank_code: PC
+    label: PSE
+    group: bt
+    countries:
+        CO: true
+cash_pago_efectivo:
+    bank_code: EF
+    label: Pago Efectivo
+    group: cash
+    countries:
+        PE: true
+    logo: cash-pago-efectivo.png
+cash_abitab:
+    bank_code: AI
+    label: Abitab
+    group: cash
+    countries:
+        UY: true
+    logo: cash-abitab.png
+    logo_hd:
+        2x: cash-abitab_2x.png
+        3x: cash-abitab_3x.png
+cash_red_pagos:
+    bank_code: RE
+    label: Red Pagos
+    group: cash
+    countries:
+        UY: true
+    logo: cash-red-pagos.png
 ach:
   bank_code: IO
   label: ACH
@@ -199,12 +273,6 @@ santander_rio:
   countries:
     AR: true
   logo: bank-santander.png
-pse:
-  bank_code: PC
-  label: PSE
-  group: bt
-  countries:
-    CO: true
 bcp:
   bank_code: BC
   label: BCP

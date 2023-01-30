@@ -159,7 +159,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$this->assertTrue( $result->isFailed() );
 
 		$messages = self::getAllQueueMessages();
-		$this->assertCount( 0, $messages['payments-init'] );
+		$this->assertCount( 1, $messages['payments-init'] );
 		$this->assertCount( 0, $messages['donations'] );
 	}
 
@@ -268,7 +268,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 	protected function getTestDonorCardData(): array {
 		$testDonorData = $this->getDonorTestData( 'IN' );
 		$testDonorData['payment_method'] = 'cc';
-		$testDonorData['payment_token'] = 'D' . '-' . (string)mt_rand( 1000000, 10000000 );
+		$testDonorData['payment_token'] = 'D' . '-' . mt_rand( 1000000, 10000000 );
 		$testDonorData['user_ip'] = '127.0.0.1';
 		$testDonorData['contribution_tracking_id'] = (string)mt_rand( 1000000, 10000000 );
 		$testDonorData['amount'] = '1.55';

@@ -24,7 +24,7 @@ class DlocalGateway extends GatewayPage {
 		}
 	}
 
-	public function setClientVariables( &$vars ) {
+	public function setClientVariables( &$vars ): void {
 		parent::setClientVariables( $vars );
 		$vars['dlocalScript'] = $this->adapter->getAccountConfig( 'dlocalScript' );
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
