@@ -411,5 +411,7 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "아니오, 괜찮습니다!",
 	"donate_interface-monthly-convert-no-button-variant-014": "아니오, 지금 당장은 아닙니다",
 	"donate_interface-fundraiser-maintenance-header": "유시 보수를 위해 일시적으로 멈춤",
-	"donate_interface-fundraiser-maintenance-notice": "현재 예정된 유지 보수를 수행하고 있어 기부를 받을 수 없습니다. 잠시 후에 다시 시도하세요. 질문이 있다면 $1(으)로 이메일을 보내세요."
+	"donate_interface-fundraiser-maintenance-notice": "현재 예정된 유지 보수를 수행하고 있어 기부를 받을 수 없습니다. 잠시 후에 다시 시도하세요. 질문이 있다면 $1(으)로 이메일을 보내세요.",
+	"donate_interface-amount-legend-variant-01A": "기부 금액",
+	"donate_interface-cc-form-header-personal-variant-01A": "결제 정보"
 }
