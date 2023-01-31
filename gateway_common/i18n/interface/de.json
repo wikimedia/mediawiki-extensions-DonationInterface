@@ -18,7 +18,8 @@
 			"Purodha",
 			"Tbleher",
 			"ToBeFree",
-			"Umherirrender"
+			"Umherirrender",
+			"Justman10000"
 		]
 	},
 	"donate_interface": "Wikimedia unterstützen",
@@ -347,7 +348,7 @@
 	"donate_interface-please-select-gift-amount": "Bitte den Spendenbetrag auswählen",
 	"donate_interface-select-gift-amount": "Spendenbetrag auswählen",
 	"donate_interface-select-amount": "Betrag auswählen",
-	"donate_interface-make-a-donation": "Soenden Sie",
+	"donate_interface-make-a-donation": "Spende leisten",
 	"donate_interface-enter-your-amount": "Oder geben Sie den Betrag im obigen Feld ein",
 	"donate_interface-will-support-with-gift": "Ich werde mit einer Spende in folgender Höhe unterstützen:",
 	"donate_interface-will-make-tax-deductible-gift": "Ich werde eine steuerlich absetzbare Spende in folgender Höhe machen:",

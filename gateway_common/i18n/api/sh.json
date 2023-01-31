@@ -17,6 +17,7 @@
 	"apihelp-di_recurring_convert-param-gateway": "Koji pristupnik plaćanja koristiti — adyen, globalcollect itd.",
 	"apihelp-employerSearch-description": "Ovaj prilog omogućuje vam pretragu poslodavaca koji sudjeluju u WMF programu odgovarajućih darova.",
 	"apihelp-employerSearch-summary": "Ovaj prilog omogućuje vam pretragu poslodavaca koji sudjeluju u WMF programu odgovarajućih darova.",
+	"apihelp-employerSearch-param-employer": "Kojeg poslodavca tražiti. Npr. Crveni križ, WWF, Vojska spasa itd.",
 	"apihelp-employerSearch-example-1": "Pretraži poslodavce",
 	"apihelp-di_applesession_adyen-summary": "Omogućuje traženje Apple Pay sesije izravno od Applea"
 }
