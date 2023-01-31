@@ -6,7 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
-use SmashPig\PaymentProviders\dlocal\CardPaymentProvider;
+use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 
@@ -27,13 +27,13 @@ class DlocalAdapter extends GatewayAdapter {
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
 			return PaymentResult::newFailure( [ new PaymentError(
-					'internal-0000',
-					"Failed pre-process checks for payment.",
-					LogLevel::INFO
+				'internal-0000',
+				"Failed pre-process checks for payment.",
+				LogLevel::INFO
 			) ] );
 		}
 		$provider = PaymentProviderFactory::getProviderForMethod(
-				$this->getPaymentMethod()
+			$this->getPaymentMethod()
 		);
 		$createPaymentParams = $this->buildRequestArray();
 		$this->logger->info( "Calling createPayment for Dlocal payment" );
@@ -64,51 +64,52 @@ class DlocalAdapter extends GatewayAdapter {
 
 	protected function defineTransactions() {
 		$this->transactions = [
-				'authorize' => [
-						'request' => [
-								'amount',
-								'city',
-								'country',
-								'currency',
-								'email',
-								'first_name',
-								'last_name',
-								'order_id',
-								'postal_code',
-								'state_province',
-								'street_address',
-								'user_ip',
-								'recurring',
-								'payment_token',
-								'street_address',
-								'street_number',
-								'fiscal_number'
-						],
+			'authorize' => [
+				'request' => [
+					'amount',
+					'city',
+					'country',
+					'currency',
+					'email',
+					'first_name',
+					'last_name',
+					'order_id',
+					'postal_code',
+					'state_province',
+					'street_address',
+					'user_ip',
+					'recurring',
+					'payment_token',
+					'street_address',
+					'street_number',
+					'fiscal_number'
 				],
-				'capture' => [
-						'request' => [
-								'amount',
-								'gateway_txn_id',
-								'currency',
-								'order_id'
-						]
+			],
+			'capture' => [
+				'request' => [
+					'amount',
+					'gateway_txn_id',
+					'currency',
+					'order_id'
 				]
+			]
 		];
 	}
 
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult
-	 * @param CardPaymentProvider $provider
+	 * @param IPaymentProvider $provider
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-			CreatePaymentResponse $createPaymentResult, CardPaymentProvider $provider
+		CreatePaymentResponse $createPaymentResult,
+		IPaymentProvider $provider
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
 
 		$this->addResponseData( [
-				'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(),
+			'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(),
 		] );
 
 		$paymentResult = PaymentResult::newSuccess();
@@ -121,21 +122,23 @@ class DlocalAdapter extends GatewayAdapter {
 			$errorLogMessage .= json_encode( $rawResponse );
 			$this->logger->info( $errorLogMessage );
 		} else {
-				if ( $createPaymentResult->requiresApproval() ) {
-					$this->runAntifraudFilters();
-					if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
-						$this->finalizeInternalStatus( FinalStatus::FAILED );
-						$paymentResult = PaymentResult::newFailure();
-					} else {
-						$this->setCurrentTransaction( 'capture' );
-						$capturePaymentParams = $this->buildRequestArray();
-						$this->logger->info( "Calling approvePayment with gateway_txn_id: " . $createPaymentResult->getGatewayTxnId() );
-						$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
-						$this->finalizeInternalStatus( $capturePaymentResponse->getStatus() );
-					}
+			if ( $createPaymentResult->requiresApproval() ) {
+				$this->runAntifraudFilters();
+				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+					$this->finalizeInternalStatus( FinalStatus::FAILED );
+					$paymentResult = PaymentResult::newFailure();
 				} else {
-					$this->finalizeInternalStatus( $transactionStatus );
+					$this->setCurrentTransaction( 'capture' );
+					$capturePaymentParams = $this->buildRequestArray();
+					$this->logger->info(
+						"Calling approvePayment with gateway_txn_id: " . $createPaymentResult->getGatewayTxnId()
+					);
+					$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
+					$this->finalizeInternalStatus( $capturePaymentResponse->getStatus() );
 				}
+			} else {
+				$this->finalizeInternalStatus( $transactionStatus );
+			}
 		}
 
 		// Run some post-donation filters and send donation queue message
@@ -154,16 +157,18 @@ class DlocalAdapter extends GatewayAdapter {
 			$debugMessage = $error->getDebugMessage();
 			if ( $field === 'payment_token' ) {
 				// This means the generated token was invalid.
-				$urlParameterKeys = [ 'payment_method',
-						'recurring',
-						'uselang',
-						'language',
-						'currency',
-						'amount',
-						'country',
-						'utm_source',
-						'utm_medium',
-						'utm_campaign' ];
+				$urlParameterKeys = [
+					'payment_method',
+					'recurring',
+					'uselang',
+					'language',
+					'currency',
+					'amount',
+					'country',
+					'utm_source',
+					'utm_medium',
+					'utm_campaign'
+				];
 				$urlParameters = [];
 				foreach ( $urlParameterKeys as $key ) {
 					if ( isset( $this->unstaged_data[$key] ) ) {
@@ -172,9 +177,13 @@ class DlocalAdapter extends GatewayAdapter {
 				}
 				$messageKey = 'donate_interface-donate-error-try-again-html';
 				$messageParams = [
-						GatewayChooser::buildGatewayPageUrl( 'dlocal', $urlParameters, MediaWikiServices::getInstance()->getMainConfig() ),
-						$this->localizeGlobal( 'OtherWaysURL' ),
-						$this->getGlobal( 'ProblemsEmail' )
+					GatewayChooser::buildGatewayPageUrl(
+						'dlocal',
+						$urlParameters,
+						MediaWikiServices::getInstance()->getMainConfig()
+					),
+					$this->localizeGlobal( 'OtherWaysURL' ),
+					$this->getGlobal( 'ProblemsEmail' )
 				];
 			} else {
 				if ( $field === 'currency' ) {
@@ -185,10 +194,11 @@ class DlocalAdapter extends GatewayAdapter {
 				$messageParams = [];
 			}
 			$localizedErrors[] = new ValidationError(
-					$field, $messageKey, $messageParams
+				$field, $messageKey, $messageParams
 			);
 			$this->logger->info(
-					'createPayment call came back with validation error in ' . $field . ( $debugMessage ? ' with message: ' . $debugMessage : '' )
+				'createPayment call came back with validation error in ' . $field . ( $debugMessage
+					? ' with message: ' . $debugMessage : '' )
 			);
 		}
 		return PaymentResult::newRefresh( $localizedErrors );
@@ -196,8 +206,8 @@ class DlocalAdapter extends GatewayAdapter {
 
 	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
-				'ct_id' => true,
-				'generate' => true,
+			'ct_id' => true,
+			'generate' => true,
 		];
 	}
 
