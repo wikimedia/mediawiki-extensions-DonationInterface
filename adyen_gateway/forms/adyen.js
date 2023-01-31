@@ -358,6 +358,11 @@
 						return;
 				}
 
+				// Allow other scripts (e.g. variants) to provide more data to submit
+				if ( typeof mw.donationInterface.getExtraData === 'function' ) {
+					$.extend( extraData, mw.donationInterface.getExtraData() );
+				}
+
 				mw.donationInterface.forms.callDonateApi(
 					handleApiResult, extraData, 'di_donate_adyen'
 				);

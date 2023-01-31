@@ -19,6 +19,8 @@
 	"apihelp-donate-param-currency": "Currency code.",
 	"apihelp-donate-param-first_name": "First name.",
 	"apihelp-donate-param-last_name": "Last name.",
+	"apihelp-donate-param-first_name_phonetic": "Phonetic version of first name,",
+	"apihelp-donate-param-last_name_phonetic": "Phonetic version of last name.",
 	"apihelp-donate-param-street_address": "First line of street address.",
 	"apihelp-donate-param-supplemental_address_1": "Second line of street address.",
 	"apihelp-donate-param-city": "City.",

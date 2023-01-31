@@ -58,9 +58,11 @@ class DonationData implements LogPrefixProvider {
 		'encrypted_expiry_year',
 		'encrypted_security_code',
 		'first_name',
+		'first_name_phonetic',
 		'gateway_session_id',
 		'java_enabled', // device fingerprinting
 		'last_name',
+		'last_name_phonetic',
 		'screen_height', // device fingerprinting
 		'screen_width', // device fingerprinting
 		'street_address',
@@ -955,7 +957,9 @@ class DonationData implements LogPrefixProvider {
 			'language',
 			'email',
 			'first_name',
+			'first_name_phonetic',
 			'last_name',
+			'last_name_phonetic',
 			'street_address',
 			'supplemental_address_1',
 			'city',
