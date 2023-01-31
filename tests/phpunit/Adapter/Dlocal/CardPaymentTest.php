@@ -290,6 +290,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$params['city'] = $testDonorData['city'];
 		$params['country'] = $testDonorData['country'];
 		$params['currency'] = $testDonorData['currency'];
+		$params['description'] = WmfFramework::formatMessage( 'donate_interface-donation-description' );
 		$params['email'] = $testDonorData['email'];
 		$params['first_name'] = $testDonorData['first_name'];
 		$params['last_name'] = $testDonorData['last_name'];

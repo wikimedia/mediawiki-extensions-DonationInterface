@@ -70,6 +70,7 @@ class DlocalAdapter extends GatewayAdapter {
 					'city',
 					'country',
 					'currency',
+					'description',
 					'email',
 					'first_name',
 					'last_name',
@@ -84,6 +85,9 @@ class DlocalAdapter extends GatewayAdapter {
 					'street_number',
 					'fiscal_number'
 				],
+				'values' => [
+					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
+				]
 			],
 			'capture' => [
 				'request' => [
