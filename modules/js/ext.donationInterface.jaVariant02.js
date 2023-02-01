@@ -5,9 +5,15 @@
  * the extension.json module configuration for ext.donationInterface.jaVariant02
  * and ext.donationInterface.adyenCheckoutWithJaVariant02.
  */
-( function ( mw ) {
+( function ( mw, $ ) {
 	mw.donationInterface = mw.donationInterface || {};
 	mw.donationInterface.extraTranslations = {
 		'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' )
 	};
-} )( mediaWiki );
+	mw.donationInterface.getExtraData = function () {
+		return {
+			first_name_phonetic: $( '#first_name_phonetic' ).val(),
+			last_name_phonetic: $( '#last_name_phonetic' ).val()
+		};
+	};
+} )( mediaWiki, jQuery );

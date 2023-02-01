@@ -183,7 +183,12 @@
 					}).then(function(result) {
 						// Send the token to your server.
 						mw.donationInterface.forms.callDonateApi(
-							handleApiResult, {payment_token: result.token}, 'di_donate_dlocal'
+							handleApiResult,
+							{ 
+								payment_token: result.token,
+								fiscal_number: $( '#fiscal_number' ).val()
+							},
+							'di_donate_dlocal'
 						);
 					}).catch(function (result) {
 						if (result.error) {

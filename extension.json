@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.5.8.13",
+	"version": "2.5.8.14",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -530,8 +530,7 @@
 	},
 	"Hooks": {
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests",
-		"MediaWikiPHPUnitTest::startTest": "DonationInterface::onMediaWikiPHPUnitTeststartTest"
+		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
 	},
 	"config": {
 		"DonationInterfaceTest": {

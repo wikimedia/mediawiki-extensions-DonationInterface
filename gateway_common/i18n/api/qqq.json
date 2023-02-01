@@ -37,6 +37,8 @@
 	"apihelp-donate-param-currency": "{{doc-apihelp-param|donate|currency}}",
 	"apihelp-donate-param-first_name": "{{doc-apihelp-param|donate|first_name}}\n{{Identical|First name}}",
 	"apihelp-donate-param-last_name": "{{doc-apihelp-param|donate|last_name}}\n{{Identical|Last name}}",
+	"apihelp-donate-param-first_name_phonetic": "{{doc-apihelp-param|donate|first_name_phonetic}}",
+	"apihelp-donate-param-last_name_phonetic": "{{doc-apihelp-param|donate|last_name_phonetic}}",
 	"apihelp-donate-param-street_address": "{{doc-apihelp-param|donate|street_address}}",
 	"apihelp-donate-param-supplemental_address_1": "{{doc-apihelp-param|donate|supplemental_address_1}}",
 	"apihelp-donate-param-city": "{{doc-apihelp-param|donate|city}}\n{{Identical|City}}",

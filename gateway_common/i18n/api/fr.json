@@ -10,8 +10,8 @@
 			"Wladek92"
 		]
 	},
-	"apihelp-donate-description": "Cette API vous permettent de faire un don à la Wikimedia Foundation en utilisant une variété de modes de paiement.",
-	"apihelp-donate-summary": "Cette API vous permet de soumettre un don à la Fondation Wikimedia en utilisant une variété de moyens de paiement.",
+	"apihelp-donate-description": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de modes de paiement.",
+	"apihelp-donate-summary": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de moyens de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser – adyen, globalcollect, etc.",
 	"apihelp-donate-param-amount": "Le montant du don.",
 	"apihelp-donate-param-contact_id": "Identifiant du donateur dans CiviCRM.",
@@ -19,6 +19,8 @@
 	"apihelp-donate-param-currency": "Code de devise.",
 	"apihelp-donate-param-first_name": "Prénom.",
 	"apihelp-donate-param-last_name": "Nom.",
+	"apihelp-donate-param-first_name_phonetic": "Version phonétique du prénom,",
+	"apihelp-donate-param-last_name_phonetic": "Version phonétique du nom de famille.",
 	"apihelp-donate-param-street_address": "Première ligne d’adresse.",
 	"apihelp-donate-param-supplemental_address_1": "Deuxième ligne d’adresse.",
 	"apihelp-donate-param-city": "Ville.",

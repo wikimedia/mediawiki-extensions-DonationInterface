@@ -14,6 +14,8 @@
 	"apihelp-donate-param-currency": "קוד מטבע.",
 	"apihelp-donate-param-first_name": "שם פרטי.",
 	"apihelp-donate-param-last_name": "שם משפחה.",
+	"apihelp-donate-param-first_name_phonetic": "גרסה פונטית של השם הפרטי.",
+	"apihelp-donate-param-last_name_phonetic": "גרסה פונטית של שם המשפחה.",
 	"apihelp-donate-param-street_address": "השורה הראשונה של הכתובת.",
 	"apihelp-donate-param-supplemental_address_1": "השורה השנייה של הכתובת.",
 	"apihelp-donate-param-city": "עיר.",

@@ -409,5 +409,7 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Nee, bedankt!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nee, nu niet",
 	"donate_interface-fundraiser-maintenance-header": "Tijdelijk niet beschikbaar wegens onderhoudswerkzaamheden",
-	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als u vragen hebt."
+	"donate_interface-fundraiser-maintenance-notice": "Op het moment wordt onderhoud uitgevoerd en kunnen we helaas geen donaties verwerken. Probeer het snel opnieuw. Stuur een e-mail naar $1 als u vragen hebt.",
+	"donate_interface-amount-legend-variant-01A": "Bedrag om te doneren",
+	"donate_interface-cc-form-header-personal-variant-01A": "Betalingsinformatie"
 }
