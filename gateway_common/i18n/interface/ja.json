@@ -428,5 +428,6 @@
 	"donate_interface-fundraiser-maintenance-notice": "現在、定期的なメンテナンス作業を行っているため寄付を受け付けることができません。ご質問があれば、$1 にメールをください。",
 	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのサイトにリダイレクトされます。",
 	"donate_interface-amount-legend-variant-01A": "寄付する金額",
-	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報"
+	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報",
+	"donate_interface-submit-button-variant-01A": "この内容で寄付する"
 }
