@@ -13,6 +13,8 @@
 	"apihelp-donate-param-currency": "Codice de moneta.",
 	"apihelp-donate-param-first_name": "Prenomine.",
 	"apihelp-donate-param-last_name": "Nomine de familia.",
+	"apihelp-donate-param-first_name_phonetic": "Version phonetic del prenomine.",
+	"apihelp-donate-param-last_name_phonetic": "Version phonetic del nomine de familia.",
 	"apihelp-donate-param-street_address": "Prime linea del adresse stratal.",
 	"apihelp-donate-param-supplemental_address_1": "Secunde linea del adresse stratal.",
 	"apihelp-donate-param-city": "Citate.",

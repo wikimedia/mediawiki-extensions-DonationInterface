@@ -479,5 +479,6 @@
 	"donate_interface-fundraiser-maintenance-notice": "We are currently performing scheduled maintenance and are unable to accept donations. Please try again soon. If you have any questions, please email $1.",
 	"donate_interface-redirect-explanation": "You will be redirected to Wikimedia's payment processor partner.",
 	"donate_interface-amount-legend-variant-01A": "Amount to donate",
-	"donate_interface-cc-form-header-personal-variant-01A": "Payment information"
+	"donate_interface-cc-form-header-personal-variant-01A": "Payment information",
+	"donate_interface-submit-button-variant-01A": "Donate this amount"
 }

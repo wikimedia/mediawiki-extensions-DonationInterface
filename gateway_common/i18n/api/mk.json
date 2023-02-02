@@ -13,6 +13,8 @@
 	"apihelp-donate-param-currency": "Код на валутата.",
 	"apihelp-donate-param-first_name": "Име.",
 	"apihelp-donate-param-last_name": "Презиме.",
+	"apihelp-donate-param-first_name_phonetic": "Фонетска верзија на името,",
+	"apihelp-donate-param-last_name_phonetic": "Фонетска верзија на презимето,",
 	"apihelp-donate-param-street_address": "Прв ред на уличната адреса.",
 	"apihelp-donate-param-supplemental_address_1": "Втор ред на уличната адреса.",
 	"apihelp-donate-param-city": "Град.",

@@ -15,6 +15,8 @@
 	"apihelp-donate-param-currency": "Codice valuta.",
 	"apihelp-donate-param-first_name": "Nome.",
 	"apihelp-donate-param-last_name": "Cognome.",
+	"apihelp-donate-param-first_name_phonetic": "Versione fonetica del nome,",
+	"apihelp-donate-param-last_name_phonetic": "Versione fonetica del cognome.",
 	"apihelp-donate-param-street_address": "Prima riga dell'indirizzo stradale.",
 	"apihelp-donate-param-supplemental_address_1": "Seconda riga dell'indirizzo stradale.",
 	"apihelp-donate-param-city": "Città.",
