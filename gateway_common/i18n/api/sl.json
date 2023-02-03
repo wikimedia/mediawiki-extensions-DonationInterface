@@ -8,7 +8,7 @@
 	"apihelp-donate-summary": "Ta API vam omogoča doniranje Fundaciji Wikimedia prek različnih obdelovalcev plačila.",
 	"apihelp-donate-param-first_name": "Ime.",
 	"apihelp-donate-param-last_name": "Priimek.",
-	"apihelp-donate-param-first_name_phonetic": "Fonetična različica imena,",
+	"apihelp-donate-param-first_name_phonetic": "Fonetična različica imena.",
 	"apihelp-donate-param-last_name_phonetic": "Fonetična različica priimka.",
 	"apihelp-donate-param-city": "Mesto.",
 	"apihelp-donate-param-postal_code": "Poštna številka.",

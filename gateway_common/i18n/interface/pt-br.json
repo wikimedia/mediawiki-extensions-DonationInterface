@@ -18,6 +18,7 @@
 			"Luckas Blade",
 			"Luigipiccoli",
 			"McDutchie",
+			"Mello25",
 			"MetalBrasil",
 			"OTAVIO1981",
 			"Pcoombe",
@@ -500,5 +501,6 @@
 	"donate_interface-fundraiser-maintenance-header": "Temporariamente indisponível para manutenção",
 	"donate_interface-fundraiser-maintenance-notice": "Estamos no momento executando tarefas agendadas de manutenção e impedidos de receber donativos. Tente novamente em breve, por favor. Se tiver qualquer dúvida, contacte-nos pelo endereço $1.",
 	"donate_interface-redirect-explanation": "Você será redirecionado para um parceiro de processamento de pagamento da Wikimedia.",
-	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento"
+	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento",
+	"donate_interface-submit-button-variant-01A": "Contribua este valor"
 }

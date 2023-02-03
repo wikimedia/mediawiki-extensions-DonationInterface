@@ -478,5 +478,6 @@
 	"donate_interface-fundraiser-maintenance-notice": "Estamos a executar tarefas programadas de manutenção e impedidos de receber donativos. Tente novamente em breve, por favor. Se tiver qualquer dúvida, contacte-nos no endereço $1.",
 	"donate_interface-redirect-explanation": "Será redirecionado para o parceiro da Wikimedia para o processamento de pagamentos.",
 	"donate_interface-amount-legend-variant-01A": "Montante do donativo",
-	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento"
+	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento",
+	"donate_interface-submit-button-variant-01A": "Fazer donativo deste valor"
 }

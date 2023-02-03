@@ -14,6 +14,8 @@
 	"apihelp-donate-param-currency": "Código da divisa.",
 	"apihelp-donate-param-first_name": "Primeiro nome.",
 	"apihelp-donate-param-last_name": "Último nome.",
+	"apihelp-donate-param-first_name_phonetic": "Versão fonética do primeiro nome.",
+	"apihelp-donate-param-last_name_phonetic": "Versão fonética do último nome.",
 	"apihelp-donate-param-street_address": "Primeira linha da morada.",
 	"apihelp-donate-param-supplemental_address_1": "Segunda linha da morada.",
 	"apihelp-donate-param-city": "Cidade.",

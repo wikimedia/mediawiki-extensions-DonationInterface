@@ -445,5 +445,6 @@
 	"donate_interface-fundraiser-maintenance-notice": "In iste momento, nos exeque un mantenentia programmate e non pote acceptar donationes. Per favor reproba bentosto. Si tu ha questiones, per favor invia e-mail a $1.",
 	"donate_interface-redirect-explanation": "Tu essera redirigite verso le partner de Wikimedia pro le tractamento del pagamento.",
 	"donate_interface-amount-legend-variant-01A": "Amonta a donar",
-	"donate_interface-cc-form-header-personal-variant-01A": "Informationes de pagamento"
+	"donate_interface-cc-form-header-personal-variant-01A": "Informationes de pagamento",
+	"donate_interface-submit-button-variant-01A": "Donar iste amonta"
 }
