@@ -25,6 +25,7 @@
 			"Pedroca cerebral",
 			"Ppena",
 			"Raylton P. Sousa",
+			"Robertpontes",
 			"Rodrigo codignoli",
 			"Smmvinicius",
 			"Walesson",
@@ -45,7 +46,6 @@
 	"donate_interface-comment-label": "Comentário:",
 	"donate_interface-email-agreement": "Concordo em receber atualizações esporádicas da Fundação Wikimedia por e-mail.",
 	"donate_interface-comment-title": "Comentário público",
-	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - doação mensal",
 	"donate_interface-amount-error": "Por favor selecione um valor para doar",
 	"donate_interface-smallamount-error": "Por favor, insira um valor acima de $1",
@@ -501,6 +501,7 @@
 	"donate_interface-fundraiser-maintenance-header": "Temporariamente indisponível para manutenção",
 	"donate_interface-fundraiser-maintenance-notice": "Estamos no momento executando tarefas agendadas de manutenção e impedidos de receber donativos. Tente novamente em breve, por favor. Se tiver qualquer dúvida, contacte-nos pelo endereço $1.",
 	"donate_interface-redirect-explanation": "Você será redirecionado para um parceiro de processamento de pagamento da Wikimedia.",
+	"donate_interface-amount-legend-variant-01A": "Valor para doar",
 	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento",
 	"donate_interface-submit-button-variant-01A": "Contribua este valor"
 }

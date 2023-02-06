@@ -22,7 +22,6 @@
 	"donate_interface-comment-label": "Bemierkung:",
 	"donate_interface-email-agreement": "Ech sinn domat d'accord fir vun Zäit zu Zäit Zukunft Aktualisatioune per Mail vun der Wikimedia Foundation ze kréien.",
 	"donate_interface-comment-title": "Ëffentlech Bemierkung",
-	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Wikimedia +1 877 600 9454 - monatlechen Don",
 	"donate_interface-amount-error": "Sicht wgl. de Betrag eraus deen Dir spende wëllt",
 	"donate_interface-smallamount-error": "Sicht wgl. e Betrag eraus (Minimum $1)",
@@ -400,5 +399,6 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Neen, net an dësem Ament",
 	"donate_interface-fundraiser-maintenance-header": "Temporär net disponibel wéinst Maintenance",
 	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1.",
-	"donate_interface-amount-legend-variant-01A": "Betrag fir den Don"
+	"donate_interface-amount-legend-variant-01A": "Betrag fir den Don",
+	"donate_interface-submit-button-variant-01A": "En Don iwwer dëse Betrag maachen"
 }
