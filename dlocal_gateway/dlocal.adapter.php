@@ -42,6 +42,15 @@ class DlocalAdapter extends GatewayAdapter {
 		if ( !empty( $authorizationID ) ) {
 			$this->logger->info( "Returned Authorization ID {$authorizationID}" );
 		}
+		// for redirect payment method
+		if ( $createPaymentResult->requiresRedirect() ) {
+			$this->addResponseData( [
+				'gateway_txn_id' => $authorizationID,
+			] );
+			$redirectUrl = $createPaymentResult->getRedirectUrl();
+			$this->logger->info( "Dlocal redirect payment flow url $redirectUrl" );
+			return PaymentResult::newRedirect( $redirectUrl );
+		}
 		$validationErrors = $createPaymentResult->getValidationErrors();
 
 		// If there are validation errors, present them for correction with a
