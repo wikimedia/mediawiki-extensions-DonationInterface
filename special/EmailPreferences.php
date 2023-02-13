@@ -6,6 +6,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
+	const FALLBACK_SUBPAGE = 'emailPreferences';
 
 	// Note: Coordinate with Getpreferences.php in Civiproxy API, in wmf-civicrm extension.
 	const CIVI_NO_RESULTS_ERROR = 'No result found';
@@ -64,8 +65,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$params[ 'contact_id' ]
 				);
 			}
-
-			$this->renderQuery( $subpage, $params );
+			// if subpage null, we must have no checksum and contact id, so just render a default page
+			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $params );
 		}
 	}
 
@@ -87,7 +88,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 			} else {
 				$logger->error( 'Error from civiproxy: ' . $prefs[ 'error_message' ] );
-				throw new RuntimeException( 'Error retrieving curent e-mail preferences.' );
+				throw new RuntimeException( 'Error retrieving current e-mail preferences.' );
 			}
 		} else {
 			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
