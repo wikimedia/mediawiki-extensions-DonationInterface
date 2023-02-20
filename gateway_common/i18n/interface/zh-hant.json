@@ -464,5 +464,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "不，現在不要",
 	"donate_interface-fundraiser-maintenance-header": "保養中，已暫停",
 	"donate_interface-fundraiser-maintenance-notice": "我們目前有例行保養，無法接受捐贈，請稍後再試。如有任何疑問，請以電郵聯絡$1。",
-	"donate_interface-redirect-explanation": "您將會被重新導向到維基媒體的付款處理合作夥伴。"
+	"donate_interface-redirect-explanation": "您將會被重新導向到維基媒體的付款處理合作夥伴。",
+	"donate_interface-amount-legend-variant-01A": "捐款金額",
+	"donate_interface-cc-form-header-personal-variant-01A": "付款資訊"
 }
