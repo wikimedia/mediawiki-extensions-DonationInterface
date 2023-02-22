@@ -36,7 +36,7 @@ class DlocalBankCode implements StagingHelper {
 	 * @return bool
 	 */
 	protected function isCashOrBankPaymentMethod( string $payment_method ): bool {
-		return $payment_method === 'cash' || $payment_method === 'rtbt';
+		return $payment_method === 'cash' || $payment_method === 'bt';
 	}
 
 }

@@ -1,16 +1,16 @@
 (function ($, mw) {
+	var country = $( '#country' ).val(),
+		isRecurring = !!$( '#recurring' ).val();
+	if ( country === 'IN' ) {
+		$( '#fiscal_number' ).after(
+			$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
+				'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
+				'</p>' )
+		);
+	}
 	function setup() {
-		var country = $( '#country' ).val(),
-			isRecurring = !!$( '#recurring' ).val(),
-			paymentMethod = $( '#payment_method' ).val();
-
-		if ( country === 'IN' ) {
-			$( '#fiscal_number' ).after(
-				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
-					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
-					'</p>' )
-			);
-		} else if ( country === 'BR' && paymentMethod === 'cc' && isRecurring ) {
+		// only cc use setup
+		if ( country === 'BR' && isRecurring ) {
 			$( '.submethods' ).before( $( '<p>' +
 				mw.msg( 'donate_interface-monthly-only-credit' ) +
 				'</p>' ) );
