@@ -79,7 +79,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 														->setStatus( FinalStatus::FAILED )
 														->setSuccessful( false )
 														->addErrors( new PaymentError(
-																		ErrorMapper::$errorCodes['300'],
+																		ErrorMapper::$paymentStatusErrorCodes['300'],
 																		"The payment was rejected.",
 																		LogLevel::ERROR
 														) )
@@ -146,7 +146,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 														->setStatus( FinalStatus::FAILED )
 														->setSuccessful( false )
 														->addErrors( new PaymentError(
-																		ErrorMapper::$errorCodes['300'],
+																		ErrorMapper::$paymentStatusErrorCodes['300'],
 																		"The payment was rejected.",
 																		LogLevel::ERROR
 														) )
@@ -232,7 +232,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 								->setStatus( FinalStatus::FAILED )
 								->setSuccessful( false )
 								->addErrors( new PaymentError(
-										ErrorMapper::$errorCodes['300'],
+										ErrorMapper::$paymentStatusErrorCodes['300'],
 										"The payment was rejected.",
 										LogLevel::ERROR
 								) )
