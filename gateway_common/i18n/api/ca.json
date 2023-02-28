@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robertgarrigos"
+		]
+	},
+	"apihelp-donate-param-first_name_phonetic": "Versió fonètica del nom.",
+	"apihelp-donate-param-last_name_phonetic": "Versió fonètica del cognom."
+}

@@ -4,3 +4,17 @@ cc:
         country: true
         name: true
         email: true
+cash:
+    recurring: false
+    validation:
+        country: true
+        name: true
+        email: true
+        payment_submethod: false
+bt:
+    recurring: false
+    validation:
+      country: true
+      name: true
+      email: true
+      payment_submethod: true

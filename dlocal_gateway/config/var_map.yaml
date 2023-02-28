@@ -15,3 +15,4 @@ street_address: street_address
 street_number: street_number
 fiscal_number: fiscal_number
 gateway_txn_id: gateway_txn_id
+payment_method_id: bank_code
