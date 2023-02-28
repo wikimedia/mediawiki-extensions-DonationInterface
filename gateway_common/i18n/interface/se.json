@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Kimberli Mäkäräinen (WMNO)"
 		]
 	},
 	"donate_interface-donor-email": "E-poastačujuhus",
 	"donate_interface-donor-first_name": "Ovdanamma",
 	"donate_interface-donor-last_name": "Goargu",
 	"donate_interface-next": "Čuovvovaš",
+	"donate_interface-cancel": "Šluhtte",
 	"donate_interface-select": "Vállje",
 	"donate_interface-faqs": "Dávjá jerrojuvvon gažaldagat"
 }
