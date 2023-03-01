@@ -6,7 +6,8 @@
 			"Robby",
 			"Soued031",
 			"Thibaut120094",
-			"Zinneke"
+			"Zinneke",
+			"Volvox"
 		]
 	},
 	"donate_interface": "Ënnerstëtzt Wikimedia",
@@ -24,7 +25,7 @@
 	"donate_interface-comment-title": "Ëffentlech Bemierkung",
 	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Wikimedia +1 877 600 9454 - monatlechen Don",
-	"donate_interface-amount-error": "Sicht wgl. de Betrag eraus deen Dir spende wëllt",
+	"donate_interface-amount-error": "Sicht wgl. de Betrag eraus, deen Dir spende wëllt",
 	"donate_interface-smallamount-error": "Sicht wgl. e Betrag eraus (Minimum $1)",
 	"donate_interface-bigamount-error": "Mir kënnen iwwer eisen Internetsite keng Done vu méi wéi $4.- USD ($1 $2) unhuelen. Kontaktéiert wgl. eis Ekipp fir grouss Donen iwwer $3.",
 	"donate_interface-processing-error": "Et gouf e Feeler beim Behandele vun Ärer Ufro.\nKontaktéiert wgl. de Service vun den Donateuren <a href=\"mailto:$1\">$1</a>.",
