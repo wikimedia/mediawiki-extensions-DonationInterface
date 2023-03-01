@@ -1,3 +1,6 @@
+# Note: For some countries, while we don't show a fiscal number on the form, we generate
+# a fake "placeholder" number and send that, instead. See the PlaceholderFiscalNumber
+# staging helper.
 AR:
   fiscal_number: true
 BR:

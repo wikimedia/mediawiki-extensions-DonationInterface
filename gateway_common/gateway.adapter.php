@@ -1980,7 +1980,8 @@ abstract class GatewayAdapter implements GatewayType {
 		// only includes these keys if recurring = 1
 		$recurringKeys = [
 			'recurring_payment_token',
-			'processor_contact_id'
+			'processor_contact_id',
+			'fiscal_number'
 		];
 
 		$requiredKeys = [

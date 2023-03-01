@@ -445,7 +445,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'contact_id',
 			'contact_hash',
 			'processor_contact_id',
-			'utm_key'
+			'utm_key',
+			'fiscal_number'
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}

@@ -64,6 +64,55 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$this->assertCount( 1, $messages['donations'] );
 	}
 
+	public function testDoCardPaymentWithRecurring(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$testDonorData['recurring'] = 1;
+
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
+
+		$authID = 'D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515';
+		$captureID = 'D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200';
+		$cardID = 'CID-d69850ea-37fe-4392-abdd-402cca966e51';
+
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams['recurring'] = 1;
+
+		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
+
+		$this->cardPaymentProvider->expects( $this->once() )
+				->method( 'createPayment' )
+				->with( $expectedCapturePaymentParams )
+				->willReturn(
+					( new CreatePaymentResponse() )
+						->setRawStatus( 'AUTHORIZED' )
+						->setStatus( FinalStatus::PENDING_POKE )
+						->setSuccessful( true )
+						->setGatewayTxnId( $authID )
+						->setRecurringPaymentToken( $cardID )
+				);
+
+		$this->cardPaymentProvider->expects( $this->once() )
+				->method( 'approvePayment' )
+				->with( $expectedApprovePaymentParams )
+				->willReturn(
+					( new ApprovePaymentResponse() )
+						->setRawStatus( 'PAID' )
+						->setStatus( FinalStatus::COMPLETE )
+						->setSuccessful( true )
+						->setGatewayTxnId( $captureID )
+				);
+
+		$result = $DlocalAdapter->doPayment();
+		$this->assertFalse( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 1, $messages['donations'] );
+
+		$donationsMsg = $messages['donations'][0];
+		$this->assertEquals( $cardID, $donationsMsg['recurring_payment_token'] );
+		$this->assertEquals( $testDonorData['fiscal_number'], $donationsMsg['fiscal_number'] );
+	}
+
 	public function testDoCardPaymentCreatePaymentFail(): void {
 		$testDonorData = $this->getTestDonorCardData();
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
@@ -275,6 +324,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$testDonorData['postal_code'] = '23111';
 		$testDonorData['city'] = 'Mumbai';
 		$testDonorData['order_id'] = $testDonorData['contribution_tracking_id'] . '.1';
+		$testDonorData['fiscal_number'] = '123456789';
 		return $testDonorData;
 	}
 
