@@ -1,18 +1,26 @@
 (function ($, mw) {
 	function setup() {
-		if ( $('#country').val() === 'IN' ) {
+		var country = $( '#country' ).val(),
+			isRecurring = !!$( '#recurring' ).val(),
+			paymentMethod = $( '#payment_method' ).val();
+
+		if ( country === 'IN' ) {
 			$( '#fiscal_number' ).after(
 				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
 					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
 					'</p>' )
 			);
+		} else if ( country === 'BR' && paymentMethod === 'cc' && isRecurring ) {
+			$( '.submethods' ).before( $( '<p>' +
+				mw.msg( 'donate_interface-monthly-only-credit' ) +
+				'</p>' ) );
 		}
 
 		var dlocalInstance = dlocal(mw.config.get('wgDlocalSmartFieldApiKey'));
 
 		var fields = dlocalInstance.fields({
 			locale: mapLang($('#language').val()),
-			country: $('#country').val()
+			country: country
 		});
 
 		// https://docs.dlocal.com/reference/the-dlocal-object#dlocalfieldsoptions
