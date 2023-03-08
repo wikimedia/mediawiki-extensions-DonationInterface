@@ -355,6 +355,7 @@
 	"donate_interface-donation": "תרומה",
 	"donate_interface-email-receipt": "שליחת הקבלה בדוא״ל אל",
 	"donate_interface-monthly-donation": "תרומה חודשית",
+	"donate_interface-monthly-only-credit": "אנחנו מקבלים רק כרטיסי אשראי (ולא כרטיסי חיוב מיידי, debit) לתרומות חודשיות.",
 	"donate_interface-via-paypal": "(דרך PayPal)",
 	"donate_interface-select": "בחירה",
 	"donate_interface-donation-must-equal": "התרומה צריכה להיות $1 או יותר.",

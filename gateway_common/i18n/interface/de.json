@@ -362,6 +362,7 @@
 	"donate_interface-donation": "Spende",
 	"donate_interface-email-receipt": "E-Mail-Benachrichtigung an",
 	"donate_interface-monthly-donation": "Monatlich spenden",
+	"donate_interface-monthly-only-credit": "Wir akzeptieren nur Kreditkarten (keine Debitkarten) für monatliche Spenden.",
 	"donate_interface-via-paypal": "(per PayPal)",
 	"donate_interface-select": "Größe:",
 	"donate_interface-donation-must-equal": "Die Spende muss $1 oder mehr betragen.",
