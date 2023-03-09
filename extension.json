@@ -414,6 +414,7 @@
 				"donate_interface-donor-card-num",
 				"donate_interface-donor-expiration",
 				"donate_interface-cvv",
+				"donate_interface-charge-monthly-only",
 				"donate_interface-redirect-explanation",
 				"donate_interface-monthly-only-credit",
 				"donate_interface-donor-fiscal_number-explain-in",
