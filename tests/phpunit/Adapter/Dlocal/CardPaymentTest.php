@@ -32,7 +32,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
 		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
 		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -74,8 +74,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$captureID = 'D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200';
 		$cardID = 'CID-d69850ea-37fe-4392-abdd-402cca966e51';
 
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
-		$expectedCapturePaymentParams['recurring'] = 1;
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
@@ -117,7 +116,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$testDonorData = $this->getTestDonorCardData();
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
 
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 						->method( 'createPayment' )
@@ -148,7 +147,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
 		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
 		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -184,7 +183,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 	public function testDoPaymentsInitQueueCountFailedPayment(): void {
 		$testDonorData = $this->getTestDonorCardData();
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 						->method( 'createPayment' )
@@ -218,7 +217,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$authID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c6515";
 		$captureID = "D-2486-91e73695-3e0a-4a77-8594-f2220f8c7200";
 		$contributionTrackingID = $testDonorData['contribution_tracking_id'];
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -270,7 +269,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
 		$contributionTrackingID = $testDonorData['contribution_tracking_id'];
 
-		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $testDonorData );
+		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 				->method( 'createPayment' )
@@ -316,25 +315,28 @@ class CardPaymentTest extends BaseDlocalTestCase {
 	 */
 	protected function getTestDonorCardData(): array {
 		$testDonorData = $this->getDonorTestData( 'IN' );
+		$contributionTrackingId = (string)mt_rand( 1000000, 10000000 );
+		$orderId = $contributionTrackingId . '.1';
 		$testDonorData['payment_method'] = 'cc';
 		$testDonorData['payment_token'] = 'D' . '-' . mt_rand( 1000000, 10000000 );
 		$testDonorData['user_ip'] = '127.0.0.1';
-		$testDonorData['contribution_tracking_id'] = (string)mt_rand( 1000000, 10000000 );
+		$testDonorData['contribution_tracking_id'] = $contributionTrackingId;
 		$testDonorData['amount'] = '1.55';
 		$testDonorData['postal_code'] = '23111';
 		$testDonorData['city'] = 'Mumbai';
-		$testDonorData['order_id'] = $testDonorData['contribution_tracking_id'] . '.1';
+		$testDonorData['order_id'] = $orderId;
 		$testDonorData['fiscal_number'] = '123456789';
+
 		return $testDonorData;
 	}
 
 	/**
-	 * @param array $testDonorData
+	 * @param GatewayAdapter $gateway
 	 * @return array
 	 */
-	protected function getCreatePaymentParams( array $testDonorData ): array {
+	protected function getCreatePaymentParams( GatewayAdapter $gateway ): array {
+		$testDonorData = $gateway->getData_Unstaged_Escaped();
 		$params = [];
-
 		$params['payment_token'] = $testDonorData['payment_token'];
 		$params['amount'] = $testDonorData['amount'];
 		$params['city'] = $testDonorData['city'];
@@ -350,6 +352,22 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$params['street_address'] = $testDonorData['street_address'];
 		$params['fiscal_number'] = $testDonorData['fiscal_number'];
 
+		$returnUrlQueryParams = [
+			'order_id' => $params['order_id'],
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+		];
+
+		$recurring = $testDonorData['recurring'] ?? null;
+		if ( $recurring ) {
+			$params['recurring'] = $recurring;
+			$returnUrlQueryParams['recurring'] = $recurring;
+		}
+
+		$expectedReturnUrl = Title::newFromText(
+			'Special:DlocalGatewayResult'
+		)->getFullURL( $returnUrlQueryParams );
+
+		$params['return_url'] = $expectedReturnUrl;
 		return $params;
 	}
 
