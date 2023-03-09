@@ -346,6 +346,7 @@
 	"donate_interface-donation": "Donazione",
 	"donate_interface-email-receipt": "E-mail per la ricevuta",
 	"donate_interface-monthly-donation": "Fai una donazione mensile",
+	"donate_interface-monthly-only-credit": "Accettiamo solo carte di credito (non carte di debito) per donazioni mensili.",
 	"donate_interface-via-paypal": "(tramite PayPal)",
 	"donate_interface-select": "Seleziona",
 	"donate_interface-donation-must-equal": "La donazione deve essere pari o superiore a $1.",

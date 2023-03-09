@@ -346,6 +346,7 @@
 	"donate_interface-donation": "Donation",
 	"donate_interface-email-receipt": "Inviar quitantia in e-mail a",
 	"donate_interface-monthly-donation": "Facer un donation mensual",
+	"donate_interface-monthly-only-credit": "Nos accepta solmente cartas de creditor (non de debito) pro le donationes mensual.",
 	"donate_interface-via-paypal": "(via PayPal)",
 	"donate_interface-select": "Talia:",
 	"donate_interface-donation-must-equal": "Le donation debe amontar a $1 o plus.",
