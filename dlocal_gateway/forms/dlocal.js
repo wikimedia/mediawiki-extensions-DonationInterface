@@ -7,6 +7,11 @@
 				'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
 				'</p>' )
 		);
+		if ( isRecurring ) {
+			$( '.submethods' ).after( $( '<p>' +
+				mw.msg( 'donate_interface-charge-monthly-only' ) +
+				'</p>' ) );
+		}
 	}
 	function setup() {
 		// only cc use setup
