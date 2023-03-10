@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.5.8.14",
+	"version": "2.5.9",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -415,6 +415,7 @@
 				"donate_interface-donor-expiration",
 				"donate_interface-cvv",
 				"donate_interface-redirect-explanation",
+				"donate_interface-monthly-only-credit",
 				"donate_interface-donor-fiscal_number-explain-in",
 				"donate_interface-expiry-date-field-placeholder",
 				"donate_interface-error-msg-invalid-card-number",

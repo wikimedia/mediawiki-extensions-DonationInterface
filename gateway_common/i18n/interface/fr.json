@@ -400,6 +400,7 @@
 	"donate_interface-donation": "Don",
 	"donate_interface-email-receipt": "Envoyer le reçu sous forme de courriel à",
 	"donate_interface-monthly-donation": "Faire un don mensuel",
+	"donate_interface-monthly-only-credit": "Nous n’acceptons que les cartes de crédit et de paiement (pas les cartes de retrait) pour les dons mensuels.",
 	"donate_interface-via-paypal": "(via PayPal)",
 	"donate_interface-select": "Sélectionner",
 	"donate_interface-donation-must-equal": "Le don doit être de $1 ou plus.",

@@ -12,7 +12,7 @@ cash:
         email: true
         payment_submethod: false
 bt:
-    recurring: false
+    recurring: true
     validation:
       country: true
       name: true

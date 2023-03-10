@@ -397,6 +397,7 @@
 	"donate_interface-donation": "{{Identical|Donation}}",
 	"donate_interface-email-receipt": "Label for field which contains the e-mail address the donor's receipt will be mailed to.",
 	"donate_interface-monthly-donation": "Button label, 25 characters maximum",
+	"donate_interface-monthly-only-credit": "Explanation that we can only accept credit cards (not debit cards) for monthly donations - this will be shown to donors in Brazil.",
 	"donate_interface-via-paypal": "This appears after the monthly donation button",
 	"donate_interface-select": "Action asking the user to choose from a set of options.\n{{Identical|Select}}",
 	"donate_interface-donation-must-equal": "Error message if donation is too low.",

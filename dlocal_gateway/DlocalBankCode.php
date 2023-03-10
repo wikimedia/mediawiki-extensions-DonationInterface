@@ -23,7 +23,7 @@ class DlocalBankCode implements StagingHelper {
 		$payment_method = $adapter->getPaymentMethod();
 		$submethod = $adapter->getPaymentSubmethod();
 
-		if ( $this->isCashOrBankPaymentMethod( $payment_method ) && $submethod !== null ) {
+		if ( $this->isCashOrBankPaymentMethod( $payment_method ) && $submethod ) {
 			$meta = $adapter->getPaymentSubmethodMeta( $submethod );
 			if ( isset( $meta['bank_code'] ) ) {
 				$stagedData['bank_code'] = $meta['bank_code'];
@@ -36,7 +36,7 @@ class DlocalBankCode implements StagingHelper {
 	 * @return bool
 	 */
 	protected function isCashOrBankPaymentMethod( string $payment_method ): bool {
-		return $payment_method === 'cash' || $payment_method === 'rtbt';
+		return $payment_method === 'cash' || $payment_method === 'bt';
 	}
 
 }

@@ -25,6 +25,7 @@
 			"Takot",
 			"Whym",
 			"Yusuke1109",
+			"もなー(偽物)",
 			"藤田健士朗",
 			"青子守歌",
 			"아라"
@@ -341,6 +342,7 @@
 	"donate_interface-donation": "寄付",
 	"donate_interface-email-receipt": "メール領収書の宛先:",
 	"donate_interface-monthly-donation": "毎月寄付をする",
+	"donate_interface-monthly-only-credit": "毎月の寄付にはクレジットカードのみ受け付けています（デビットカードは利用できません）。",
 	"donate_interface-via-paypal": "(PayPal で)",
 	"donate_interface-select": "選択してください",
 	"donate_interface-donation-must-equal": "寄付は$1から受け付けています。",

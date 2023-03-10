@@ -168,6 +168,17 @@ class DlocalAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( $transactionStatus );
 		}
 
+		// recurring will return a token on the authorization call
+		if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
+			$this->addResponseData( [
+				'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
+
+				// Get staged rather than unstaged data to use transformed/generated output
+				// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
+				'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
+			] );
+		}
+
 		// Run some post-donation filters and send donation queue message
 		$this->postProcessDonation();
 		return $paymentResult;

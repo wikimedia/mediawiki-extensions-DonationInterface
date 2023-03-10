@@ -326,6 +326,7 @@
 	"donate_interface-donation": "Donatie",
 	"donate_interface-email-receipt": "Ontvangstbevestiging e-mailen naar",
 	"donate_interface-monthly-donation": "Maandelijkse donatie maken",
+	"donate_interface-monthly-only-credit": "We accepteren alleen creditcards (geen pinpassen) voor maandelijkse donaties.",
 	"donate_interface-via-paypal": "(via PayPal)",
 	"donate_interface-select": "Maat:",
 	"donate_interface-donation-must-equal": "Donatie moet groter of gelijk zijn aan $1.",

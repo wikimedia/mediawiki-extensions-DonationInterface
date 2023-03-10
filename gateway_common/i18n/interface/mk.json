@@ -359,6 +359,7 @@
 	"donate_interface-donation": "Дарување",
 	"donate_interface-email-receipt": "Испрати сметкопотврда на е-пошта:",
 	"donate_interface-monthly-donation": "Месечен прилог",
+	"donate_interface-monthly-only-credit": "Прифаќаме само кредитни картички (не дебитни) за месечни прилози.",
 	"donate_interface-via-paypal": "(преку PayPal)",
 	"donate_interface-select": "Големина:",
 	"donate_interface-donation-must-equal": "Прилогот мора да изнесува барем $1.",
