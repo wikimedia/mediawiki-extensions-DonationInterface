@@ -370,6 +370,7 @@
 	"donate_interface-donation": "Donacija",
 	"donate_interface-email-receipt": "Pošljite račun na e-naslov",
 	"donate_interface-monthly-donation": "Donirajte mesečno",
+	"donate_interface-monthly-only-credit": "Za mesečne donacije sprejemamo samo kreditne kartice (ne debetnih kartic).",
 	"donate_interface-via-paypal": "(prek PayPala)",
 	"donate_interface-select": "Velikost:",
 	"donate_interface-donation-must-equal": "Donacija mora biti enaka $1 ali več.",
