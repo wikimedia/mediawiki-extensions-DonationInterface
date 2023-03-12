@@ -1,6 +1,6 @@
 .mc-modal *,
-.mc-modal *:before,
-.mc-modal *:after {
+.mc-modal *::before,
+.mc-modal *::after {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
