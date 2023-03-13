@@ -16,7 +16,8 @@
 			"WTM",
 			"Woytecr",
 			"HNordeen (WMF)",
-			"Pcoombe"
+			"Pcoombe",
+			"Rail"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -151,6 +152,8 @@
 	"donate_interface-donor-county": "Powiat",
 	"donate_interface-donor-island": "Wyspa",
 	"donate_interface-donor-state_province": "Województwo",
+	"donate_interface-donor-state_province-au": "Stan/terytorium",
+	"donate_interface-donor-state_province-ca": "Prowincja",
 	"donate_interface-donor-postal_code": "Kod pocztowy",
 	"donate_interface-donor-postal_code-us": "Kod pocztowy",
 	"donate_interface-donor-country": "Kraj lub region",
@@ -164,6 +167,8 @@
 	"donate_interface-donor-submit": "Wpłacam",
 	"donate_interface-donor-currency-msg": "Darowizna składana jest w $1",
 	"donate_interface-donor-fiscal_number": "Numer CPF/CPNJ",
+	"donate_interface-donor-opt_in_yes": "Tak! Poproszę o sporadyczne przesyłanie mi e-maili z informacjami jak mogę wesprzeć Wikipedię w przyszłości.*",
+	"donate_interface-donor-opt_in_no": "Nie, nie chcę wiadomości, nawet jeśli to tylko kilka w ciągu roku.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
