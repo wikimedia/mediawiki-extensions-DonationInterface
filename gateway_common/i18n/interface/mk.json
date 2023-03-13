@@ -22,6 +22,7 @@
 	"donate_interface-comment-label": "Коментар:",
 	"donate_interface-email-agreement": "Се согласувам да добивам повремени новини од Фондацијата Викимедија по е-пошта.",
 	"donate_interface-comment-title": "Јавен коментар",
+	"donate_interface-charge-monthly-only": "Ќе одбиваме <b>само</b> <b>месечна</b> редовна уплата",
 	"donate_interface-donation-description": "Викимедија 877 600 9454",
 	"donate_interface-monthly-donation-description": "Викимедија 877 600 9454 — месечен прилог",
 	"donate_interface-amount-error": "Внесете износ за уплата",

@@ -44,6 +44,7 @@
 	"donate_interface-comment-label": "コメント:",
 	"donate_interface-email-agreement": "ウィキメディア財団が今後不定期に送信するメールを受け取ることに同意します。",
 	"donate_interface-comment-title": "公開コメント",
+	"donate_interface-charge-monthly-only": "毎月の定期的な請求<b>のみ</b>を行います",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-amount-error": "寄付する金額を選択してください",
 	"donate_interface-smallamount-error": "金額を選択してください (少なくとも$1のご寄付が必要です)",

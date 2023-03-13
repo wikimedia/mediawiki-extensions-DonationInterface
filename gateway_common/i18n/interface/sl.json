@@ -25,6 +25,7 @@
 	"donate_interface-comment-label": "Komentar:",
 	"donate_interface-email-agreement": "Strinjam se s prejemanjem občasnih e-poštnih sporočil Fundacije Wikimedia.",
 	"donate_interface-comment-title": "Javni komentar",
+	"donate_interface-charge-monthly-only": "Izvedli <b>bomo</b> samo mesečno ponavljajočo se <b>bremenitev</b>",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - mesečna donacija",
 	"donate_interface-amount-error": "Prosimo, izberite znesek za doniranje.",
 	"donate_interface-smallamount-error": "Prosimo, izberite znesek (najmanj $1)",

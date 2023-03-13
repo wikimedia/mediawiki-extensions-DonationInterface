@@ -35,6 +35,7 @@
 	"donate_interface-comment-label": "Kommentar:",
 	"donate_interface-email-agreement": "Ich bin damit einverstanden, gelegentlich per E-Mail aktuelle Informationen von der ''Wikimedia Foundation'' zu erhalten.",
 	"donate_interface-comment-title": "Öffentlicher Kommentar:",
+	"donate_interface-charge-monthly-only": "Wir <b>werden</b> nur <b>eine</b> monatlich wiederkehrende Gebühr erheben",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-amount-error": "Bitte einen Spendenbetrag auswählen",
 	"donate_interface-smallamount-error": "Bitte einen Betrag auswählen (mindestens $1)",
