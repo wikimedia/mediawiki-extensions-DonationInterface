@@ -99,8 +99,8 @@ abstract class ResultSwitcher extends GatewayPage {
 		if ( $this->adapter->checkTokens() ) {
 			// feed processDonorReturn all the GET and POST vars
 			$requestValues = $this->getRequest()->getValues();
-			$result = $this->adapter->processDonorReturn( $requestValues );
 			$this->logger->info( "Processing donor return with query string values: " . json_encode( $requestValues ) );
+			$result = $this->adapter->processDonorReturn( $requestValues );
 			$this->markReturnProcessed();
 			$this->renderResponse( $result );
 			return;
