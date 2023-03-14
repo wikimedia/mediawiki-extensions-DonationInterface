@@ -14,6 +14,7 @@
 		}
 	}
 	function setup() {
+		var extraData = {};
 		// only cc use setup
 		if ( country === 'BR' && isRecurring ) {
 			$( '.submethods' ).before( $( '<p>' +
@@ -103,6 +104,29 @@
 			cardFieldEmpty = event.empty;
 		});
 
+		card.on('brand', function (event) {
+			if (event.brand) {
+				switch ( event.brand ) {
+					case 'american-express':
+						extraData.payment_submethod = 'amex';
+						break;
+					case 'mastercard':
+						extraData.payment_submethod = 'mc';
+						break;
+					case 'diners-club':
+						extraData.payment_submethod = 'diner';
+						break;
+					case 'hipercard':
+						extraData.payment_submethod = 'hiper';
+						break;
+					case 'default': // dlocal can not find the corespondent card brand, so return error
+						break;
+					default:
+						// like visa, elo, jcb, maestro, unionpay and discover
+						extraData.payment_submethod = event.brand;
+				}
+			}
+		});
 		var expiration = fields.create('expiration', {
 			style: commonStyle,
 			placeholder: mw.msg( 'donate_interface-expiry-date-field-placeholder' )
@@ -194,12 +218,11 @@
 						name: $('#first_name').val() + ' ' + $('#last_name').val()
 					}).then(function(result) {
 						// Send the token to your server.
+						extraData.fiscal_number = $( '#fiscal_number' ).val();
+						extraData.payment_token = result.token;
 						mw.donationInterface.forms.callDonateApi(
 							handleApiResult,
-							{
-								payment_token: result.token,
-								fiscal_number: $( '#fiscal_number' ).val()
-							},
+							extraData,
 							'di_donate_dlocal'
 						);
 					}).catch(function (result) {
