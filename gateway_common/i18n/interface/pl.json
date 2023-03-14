@@ -16,7 +16,8 @@
 			"Sp5uhe",
 			"The Polish",
 			"WTM",
-			"Woytecr"
+			"Woytecr",
+			"Rail"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -144,12 +145,15 @@
 	"donate_interface-donor-mname": "Drugie imię",
 	"donate_interface-donor-last_name": "Nazwisko",
 	"donate_interface-donor-last_name-alt": "Nazwisko",
+	"donate_interface-donor-employer": "Pracodawca (opcjonalnie)",
 	"donate_interface-donor-street_address": "Ulica",
 	"donate_interface-donor-street-number": "Liczba",
 	"donate_interface-donor-city": "Miasto",
 	"donate_interface-donor-county": "Powiat",
 	"donate_interface-donor-island": "Wyspa",
 	"donate_interface-donor-state_province": "Województwo",
+	"donate_interface-donor-state_province-au": "Stan/terytorium",
+	"donate_interface-donor-state_province-ca": "Prowincja",
 	"donate_interface-donor-postal_code": "Kod pocztowy",
 	"donate_interface-donor-postal_code-us": "Kod pocztowy",
 	"donate_interface-donor-country": "Kraj lub region",
@@ -163,11 +167,15 @@
 	"donate_interface-donor-submit": "Wpłacam",
 	"donate_interface-donor-currency-msg": "Darowizna składana jest w $1",
 	"donate_interface-donor-fiscal_number": "Numer CPF/CPNJ",
+	"donate_interface-donor-opt_in_yes": "Tak! Poproszę o sporadyczne przesyłanie mi e-maili z informacjami jak mogę wesprzeć Wikipedię w przyszłości.*",
+	"donate_interface-donor-opt_in_no": "Nie, nie chcę wiadomości, nawet jeśli to tylko kilka w ciągu roku.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-general": "Wystąpił błąd podczas przetwarzania Twojego polecenia.",
+	"donate_interface-error-msg-incomplete-field": "Niekompletne pole",
+	"donate_interface-error-msg-field-not-valid": "Pole jest nieprawidłowe",
 	"donate_interface-error-msg-nopaypal": "Ze względu na błąd techniczny, nie możemy wysłać zlecenia do systemu PayPal. Skorzystaj z formularza wpłaty kartą kredytową.",
 	"donate_interface-error-msg-validation": "Popraw błędy w formularzu.",
 	"donate_interface-error-msg-invalid-amount": "Podaj poprawną kwotę",
@@ -392,6 +400,8 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "Nie, dziękuję",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Tak, dodam miesięczną darowiznę w wysokości <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nie, dziękuję!",
+	"donate_interface-monthly-convert-no-button-variant-014": "Nie, nie teraz",
 	"donate_interface-fundraiser-maintenance-header": "Tymczasowo wyłączone z powodu konserwacji",
-	"donate_interface-fundraiser-maintenance-notice": "Jesteśmy w trakcie wykonywania zaplanowanych konserwacji i nie jesteśmy w stanie przyjmować darowizn. Proszę spróbować ponownie później.  Jeżeli masz pytania napisz na e-mail $1"
+	"donate_interface-fundraiser-maintenance-notice": "Jesteśmy w trakcie wykonywania zaplanowanych konserwacji i nie jesteśmy w stanie przyjmować darowizn. Proszę spróbować ponownie później.  Jeżeli masz pytania napisz na e-mail $1",
+	"donate_interface-redirect-explanation": "Zostaniesz przekierowany do partnera przetwarzającego płatności Wikimedii."
 }
