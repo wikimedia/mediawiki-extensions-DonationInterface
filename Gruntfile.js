@@ -19,7 +19,7 @@ module.exports = function ( grunt ) {
 			all: [
 				'{.,modules/**}/*.js{,on}',
 				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
-				'{adyen,amazon,globalcollect,ingenico,paypal_ec}_gateway/**/*.js'
+				'{adyen,amazon,dlocal,globalcollect,ingenico,paypal_ec}_gateway/**/*.js'
 			]
 		},
 		stylelint: {
