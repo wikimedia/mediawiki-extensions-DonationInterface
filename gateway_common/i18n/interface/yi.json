@@ -263,10 +263,11 @@
 	"donate_interface-email-unsub-delay": "ביטע לאזן ביז פיר (4) טעג כדי די ענדערונגען זאלן ווערן גילטיק. מיר בעטן מחילה טאמער איר באקומט בליצבריוון אינצווישן. אז איר האט עפעס א שאלה, זייט אזוי גוט פארבינדט זיך מיט  <$1>",
 	"donate_interface-email-unsub-fail": "ס'איז פארגעקומען א פעלער ביים פראצעסירן אייער בקשה, זייט אזוי גוט פארבינדט זיך מיט  <$1>.",
 	"donate_interface-email-unsub-confirm": "צי ווילט איר טאקע אומאבאנירן <b>$1</b>?",
-	"donate_interface-faqs": "אפט געפרעגטע שאלות",
+	"donate_interface-faqs": "מערסטע געפֿרעגטע פֿראַגעס",
 	"donate_interface-currency-change": "טוישן?",
 	"donate_interface-taxded-link-int": "שטייער און אנדער לעגאלע אינפארמאציע",
 	"donate_interface-taxded-link-us": "שטייער אפרעכענען אינפארמאציע",
 	"donate_interface-monthly-short": "מאנאטלעך",
-	"donate_interface-onetime-short": "איינמאליק"
+	"donate_interface-onetime-short": "איינמאליק",
+	"donate_interface-emailprefs-thank-you-title": "אַ דאַנק"
 }
