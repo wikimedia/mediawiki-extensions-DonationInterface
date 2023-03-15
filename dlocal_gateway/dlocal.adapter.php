@@ -43,6 +43,9 @@ class DlocalAdapter extends GatewayAdapter {
 
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
 		$createPaymentResponse = $this->callCreatePayment( $paymentProvider );
+		// We increment the sequence number here, so the next time doPayment is called
+		// in the same session we will get a new order ID in ensureUniqueOrderID.
+		$this->incrementSequenceNumber();
 
 		if ( count( $createPaymentResponse->getValidationErrors() ) > 0 ) {
 			return $this->getLocalizedValidationErrorResult( $createPaymentResponse->getValidationErrors() );
