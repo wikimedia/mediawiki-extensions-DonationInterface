@@ -15,6 +15,7 @@
 	"donate_interface-comment-label": "Comment:",
 	"donate_interface-email-agreement": "I agree to receive occasional email updates from the Wikimedia Foundation.",
 	"donate_interface-comment-title": "Public comment",
+	"donate_interface-charge-monthly-only": "We <b>will</b> only do <b>a</b> monthly recurring charge",
 	"donate_interface-donation-description": "Wikimedia 877 600 9454",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - monthly gift",
 	"donate_interface-big-amount-display": "$100",

@@ -1,6 +1,6 @@
 {
 	"name": "Donation Interface",
-	"version": "2.5.9",
+	"version": "2.5.9.1",
 	"author": [
 		"Elliott Eggleston",
 		"Katie Horn",
@@ -414,6 +414,7 @@
 				"donate_interface-donor-card-num",
 				"donate_interface-donor-expiration",
 				"donate_interface-cvv",
+				"donate_interface-charge-monthly-only",
 				"donate_interface-redirect-explanation",
 				"donate_interface-monthly-only-credit",
 				"donate_interface-donor-fiscal_number-explain-in",
@@ -1155,6 +1156,22 @@
 					[ 1500, 250 ],
 					[ 1800, 300 ],
 					[ 2100, 350 ]
+				],
+				"CZK": [
+					[ 49, 0 ],
+					[ 180, 30 ],
+					[ 300, 50 ],
+					[ 600, 100 ],
+					[ 900, 150 ],
+					[ 1200, 200 ],
+					[ 1500, 250 ],
+					[ 1800, 300 ],
+					[ 2100, 350 ],
+					[ 2400, 400 ],
+					[ 3000, 500 ],
+					[ 3600, 600 ],
+					[ 4200, 700 ],
+					[ 4800, 800 ]
 				]
 			},
 			"merge_strategy": "array_plus"

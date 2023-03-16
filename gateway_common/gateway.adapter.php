@@ -1338,17 +1338,37 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Add donation rules for the users country & currency combo.
 	 *
-	 * @return array
+	 * @return ?array
 	 */
-	public function getDonationRules(): array {
-		$country = $this->getData_Unstaged_Escaped( 'country' );
-		// Check for country-specific rules
-		if ( isset( $this->config['donation_rules'][$country] ) ) {
-			$rules = $this->config['donation_rules'][$country];
-		} else {
-			$rules = $this->config['donation_rules']['default'];
+	public function getDonationRules(): ?array {
+		$rules = $this->config['donation_rules'];
+		foreach ( $rules as $rule ) {
+			// Do our $params match all the conditions for this rule?
+			$ruleMatches = true;
+			if ( isset( $rule['conditions'] ) ) {
+				// Loop over all the conditions looking for any that don't match
+				foreach ( $rule['conditions'] as $conditionName => $conditionValue ) {
+					$realValue = $this->getData_Unstaged_Escaped( $conditionName );
+					// If the key of a condition is not in the params, the rule does not match like recurring
+					if ( $realValue === null ) {
+						$ruleMatches = false;
+						break;
+					}
+					// Condition value is a scalar, just check it against the param value like country or payment_method
+					if ( $realValue == $conditionValue ) {
+						continue;
+					} else {
+						$ruleMatches = false;
+						break;
+					}
+				}
+			}
+			if ( $ruleMatches ) {
+				return $rule;
+			}
 		}
-		return $rules;
+		$this->logger->warning( "Please set a default rule in donation_rules.yaml" );
+		return null;
 	}
 
 	public function getCurrencies( $options = [] ) {

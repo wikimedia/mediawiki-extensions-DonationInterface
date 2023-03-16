@@ -43,6 +43,9 @@ class DlocalAdapter extends GatewayAdapter {
 
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
 		$createPaymentResponse = $this->callCreatePayment( $paymentProvider );
+		// We increment the sequence number here, so the next time doPayment is called
+		// in the same session we will get a new order ID in ensureUniqueOrderID.
+		$this->incrementSequenceNumber();
 
 		if ( count( $createPaymentResponse->getValidationErrors() ) > 0 ) {
 			return $this->getLocalizedValidationErrorResult( $createPaymentResponse->getValidationErrors() );
@@ -73,6 +76,21 @@ class DlocalAdapter extends GatewayAdapter {
 	 * @return PaymentResult
 	 */
 	public function processDonorReturn( $requestValues ): PaymentResult {
+		// DLocal currently does not send us the correct return parameters
+		// on coming back from recurring UPI (at least in sandbox).
+		// In any case, we don't want to send a message to the donations
+		// queue from the front-end for recurring UPI because we need to
+		// wait for a wallet token that comes in on the IPN listener.
+		if (
+			$this->getPaymentSubmethod() === 'upi' &&
+			$this->getData_Unstaged_Escaped( 'recurring' )
+		) {
+			// Just finalize the donation attempt and send them to the
+			// donations queue. Use 'pending' here so the payments-init
+			// consumer doesn't delete the message from the pending table.
+			$this->finalizeInternalStatus( FinalStatus::PENDING );
+			return PaymentResult::newSuccess();
+		}
 		if ( !isset( $requestValues['payment_id'] ) ) {
 			$this->logger->error( "Missing required parameters in request" );
 			return $this->newFailureWithError( ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );

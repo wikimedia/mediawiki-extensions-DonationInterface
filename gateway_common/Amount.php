@@ -27,48 +27,49 @@ class Amount implements ValidationHelper {
 		}
 		$donationCurrency = $normalized['currency'];
 		$rules = $adapter->getDonationRules();
-		$rates = CurrencyRates::getCurrencyRates();
-		$ruleCurrency = $rules['currency'];
-		if ( $ruleCurrency === $donationCurrency ) {
-			// Avoid converting if we're already looking at the right currency
-			$min = $rules['min'];
-			$max = $rules['max'];
-			$maxUsd = self::convert( $max, 'USD', $ruleCurrency );
-		} else {
-			// Get the min and max in USD, then convert to donation currency
-			$minUsd = self::convert( $rules['min'], 'USD', $ruleCurrency );
-			$maxUsd = self::convert( $rules['max'], 'USD', $ruleCurrency );
-			$min = self::convert( $minUsd, $donationCurrency );
-			$max = self::convert( $maxUsd, $donationCurrency );
-		}
-		if (
-			!is_numeric( $value ) ||
-			$value < 0
-		) {
-			$errors->addError( new ValidationError(
-				'amount',
-				'donate_interface-error-msg-invalid-amount'
-			) );
-		} elseif ( $value > $max ) {
-			// FIXME: should format the currency values in this message
-			$errors->addError( new ValidationError(
-				'amount',
-				'donate_interface-bigamount-error',
-				[
-					$max,
-					$donationCurrency,
-					$adapter->getGlobal( 'MajorGiftsEmail' ),
-					$maxUsd
-				]
-			) );
-		} elseif ( $value < $min ) {
-			$locale = $normalized['language'] . '_' . $normalized['country'];
-			$formattedMin = self::format( $min, $donationCurrency, $locale );
-			$errors->addError( new ValidationError(
-				'amount',
-				'donate_interface-smallamount-error',
-				[ $formattedMin ]
-			) );
+		if ( $rules ) {
+			$ruleCurrency = $rules['currency'];
+			if ( $ruleCurrency === $donationCurrency ) {
+				// Avoid converting if we're already looking at the right currency
+				$min = $rules['min'];
+				$max = $rules['max'];
+				$maxUsd = self::convert( $max, 'USD', $ruleCurrency );
+			} else {
+				// Get the min and max in USD, then convert to donation currency
+				$minUsd = self::convert( $rules['min'], 'USD', $ruleCurrency );
+				$maxUsd = self::convert( $rules['max'], 'USD', $ruleCurrency );
+				$min = self::convert( $minUsd, $donationCurrency );
+				$max = self::convert( $maxUsd, $donationCurrency );
+			}
+			if (
+				!is_numeric( $value ) ||
+				$value < 0
+			) {
+				$errors->addError( new ValidationError(
+					'amount',
+					'donate_interface-error-msg-invalid-amount'
+				) );
+			} elseif ( $value > $max ) {
+				// FIXME: should format the currency values in this message
+				$errors->addError( new ValidationError(
+					'amount',
+					'donate_interface-bigamount-error',
+					[
+						$max,
+						$donationCurrency,
+						$adapter->getGlobal( 'MajorGiftsEmail' ),
+						$maxUsd
+					]
+				) );
+			} elseif ( $value < $min ) {
+				$locale = $normalized['language'] . '_' . $normalized['country'];
+				$formattedMin = self::format( $min, $donationCurrency, $locale );
+				$errors->addError( new ValidationError(
+					'amount',
+					'donate_interface-smallamount-error',
+					[ $formattedMin ]
+				) );
+			}
 		}
 	}
 
