@@ -58,7 +58,7 @@ class Amount implements ValidationHelper {
 						$max,
 						$donationCurrency,
 						$adapter->getGlobal( 'MajorGiftsEmail' ),
-						$maxUsd
+						self::round( $maxUsd, 'USD' )
 					]
 				) );
 			} elseif ( $value < $min ) {
