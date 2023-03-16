@@ -318,6 +318,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$contributionTrackingId = (string)mt_rand( 1000000, 10000000 );
 		$orderId = $contributionTrackingId . '.1';
 		$testDonorData['payment_method'] = 'cc';
+		$testDonorData['payment_submethod'] = 'visa';
 		$testDonorData['payment_token'] = 'D' . '-' . mt_rand( 1000000, 10000000 );
 		$testDonorData['user_ip'] = '127.0.0.1';
 		$testDonorData['contribution_tracking_id'] = $contributionTrackingId;
@@ -338,6 +339,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$testDonorData = $gateway->getData_Unstaged_Escaped();
 		$params = [];
 		$params['payment_token'] = $testDonorData['payment_token'];
+		$params['payment_submethod'] = $testDonorData['payment_submethod'];
 		$params['amount'] = $testDonorData['amount'];
 		$params['city'] = $testDonorData['city'];
 		$params['country'] = $testDonorData['country'];

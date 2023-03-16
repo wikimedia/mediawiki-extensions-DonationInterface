@@ -130,7 +130,7 @@ class DlocalAdapter extends GatewayAdapter {
 					'user_ip',
 					'recurring',
 					'payment_token',
-					'payment_method_id',
+					'payment_submethod',
 					'street_address',
 					'street_number',
 					'fiscal_number',

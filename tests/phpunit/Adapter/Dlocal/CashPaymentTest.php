@@ -53,7 +53,7 @@ class CashPaymentTest extends BaseDlocalTestCase {
 				$this->assertEquals( $params['last_name'], $testDonorData['last_name'] );
 				$this->assertEquals( $params['email'], $testDonorData['email'] );
 				$this->assertEquals( $params['fiscal_number'], $testDonorData['fiscal_number'] );
-				$this->assertEquals( $params['payment_method_id'], $testDonorData['bank_code'] );
+				$this->assertEquals( $params['payment_submethod'], $testDonorData['payment_submethod'] );
 				return true;
 			} ) )
 			->willReturn( $mockCreateHostedPaymentResponse );
@@ -215,7 +215,6 @@ class CashPaymentTest extends BaseDlocalTestCase {
 		$testDonorData['payment_method'] = 'cash';
 		$testDonorData['payment_submethod'] = 'test_cash_payment_method';
 		$testDonorData['fiscal_number'] = '42243309114';
-		$testDonorData['bank_code'] = 'XX'; // this is mapped to payment_method_id
 		$testDonorData['payment_token'] = 'D' . '-' . random_int( 1000000, 10000000 );
 		$testDonorData['user_ip'] = '127.0.0.1';
 		$testDonorData['contribution_tracking_id'] = random_int( 1000000, 10000000 );
