@@ -43,7 +43,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 
 		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
-		$this->assertTrue( empty( $result['errors'] ) );
+		$this->assertArrayNotHasKey( 'errors', $result );
 
 		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
 		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
@@ -133,7 +133,7 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 
 		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
-		$this->assertTrue( empty( $result['errors'] ) );
+		$this->assertArrayNotHasKey( 'errors', $result );
 
 		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
 		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
