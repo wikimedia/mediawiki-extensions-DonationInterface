@@ -31,7 +31,7 @@ class GlobalCollectApiTest extends DonationInterfaceApiTestCase {
 
 		$apiResult = $this->doApiRequest( $init, $session );
 		$result = $apiResult[0]['result'];
-		$this->assertTrue( empty( $result['errors'] ) );
+		$this->assertArrayNotHasKey( 'errors', $result );
 		$actualUrl = $result['iframe'];
 		$this->assertEquals( 'url_placeholder', $actualUrl, 'GC API not setting iframe' );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();

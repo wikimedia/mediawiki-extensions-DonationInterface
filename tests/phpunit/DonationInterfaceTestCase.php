@@ -810,7 +810,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	public function verifyNoLogErrors() {
 		$log = DonationLoggerFactory::$overrideLogger->messages;
 
-		$this->assertTrue( is_array( $log ), "Missing the test log" );
+		$this->assertIsArray( $log, "Missing the test log" );
 
 		// for our purposes, an "error" is LOG_ERR or less.
 		$checklogs = [

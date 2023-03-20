@@ -447,7 +447,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$apiResult = $this->doApiRequest( $apiParams, $session );
 		$result = $apiResult[0]['result'];
-		$this->assertTrue( empty( $result['errors'] ) );
+		$this->assertArrayNotHasKey( 'errors', $result );
 
 		$message = QueueWrapper::getQueue( 'recurring' )->pop();
 		SourceFields::removeFromMessage( $message );
