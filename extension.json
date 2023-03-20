@@ -177,7 +177,7 @@
 		"AstroPayFinancialNumbers": "astropay_gateway/AstroPayFinancialNumbers.php",
 		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
 		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
-		"PlaceholderFiscalNumber": "gateway_common/PlaceholderFiscalNumber.php",
+		"PlaceholderFiscalNumber": "dlocal_gateway/PlaceholderFiscalNumber.php",
 		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_ec_gateway/paypal_express.adapter.php",
