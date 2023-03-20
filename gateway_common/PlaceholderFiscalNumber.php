@@ -1,9 +1,8 @@
 <?php
 
 /**
- * Not validated, but currently required by the AstroPay API. Needs to
- * be 13 digits for MX and 8-9 digits for PE, and random so they don't
- * block a repeated one.
+ * Not validated, but currently required by AstroPay/dLocal APIs. Format varies
+ * by country. Needs to be random so they don't block a repeated one.
  * TODO: Remove this when they fix it
  */
 class PlaceholderFiscalNumber implements StagingHelper {
