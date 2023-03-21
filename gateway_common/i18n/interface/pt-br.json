@@ -28,7 +28,10 @@
 			"Smmvinicius",
 			"Walesson",
 			"YuriNikolai",
-			555
+			555,
+			"Mello25",
+			"Re demz",
+			"Robertpontes"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -306,7 +309,7 @@
 	"donate_interface-first": "Primeiro",
 	"donate_interface-middle": "Meio",
 	"donate_interface-last": "Último",
-	"donate_interface-other": "Outra",
+	"donate_interface-other": "Outro",
 	"donate_interface-noscript-msg": "Aparentemente o JavaScript não está ativo, ou o seu navegador não suporta JavaScript.\nO nosso formulário de donativos necessita do JavaScript para lhe proporcionar uma experiência segura e agradável.",
 	"donate_interface-noscript-redirect-msg": "Se não pode ou não deseja ativar o JavaScript, mesmo assim pode contribuir acessando:",
 	"donate_interface-anon-message": "Por favor, listem o meu nome na lista pública de contribuidores.",
