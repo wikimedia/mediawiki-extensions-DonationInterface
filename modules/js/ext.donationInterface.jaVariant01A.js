@@ -5,6 +5,7 @@
  * configuration for ext.donationInterface.jaVariant01A and
  * ext.donationInterface.adyenCheckoutWithJaVariant01A.
  */
+
 ( function ( mw, $ ) {
 	mw.donationInterface = mw.donationInterface || {};
 	mw.donationInterface.extraTranslations = {

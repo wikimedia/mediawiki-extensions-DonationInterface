@@ -5,6 +5,7 @@
  * the extension.json module configuration for ext.donationInterface.jaVariant02
  * and ext.donationInterface.adyenCheckoutWithJaVariant02.
  */
+
 ( function ( mw, $ ) {
 	mw.donationInterface = mw.donationInterface || {};
 	mw.donationInterface.extraTranslations = {
