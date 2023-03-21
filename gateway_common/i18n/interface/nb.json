@@ -30,6 +30,7 @@
 	"donate_interface-comment-label": "Kommentar:",
 	"donate_interface-email-agreement": "Jeg samtykker i å motta sporadiske e-postoppdateringer fra Wikimedia Foundation.",
 	"donate_interface-comment-title": "Offentlig kommentar",
+	"donate_interface-charge-monthly-only": "Vi vil kun gjøre <b>ett</b> månedlig gjentakende trekk",
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 – månedlig gave",
 	"donate_interface-amount-error": "Velg et beløp å gi",
 	"donate_interface-smallamount-error": "Velg et beløp (minimum $1)",
@@ -365,6 +366,7 @@
 	"donate_interface-donation": "Donasjon",
 	"donate_interface-email-receipt": "E-postkvittering til",
 	"donate_interface-monthly-donation": "Gi en månedlig gave",
+	"donate_interface-monthly-only-credit": "Vi godtar kun kredittkort (ikke debetkort) for månedlige donasjoner.",
 	"donate_interface-via-paypal": "(via PayPal)",
 	"donate_interface-select": "Størrelse:",
 	"donate_interface-donation-must-equal": "Donasjonen må være på minst $1.",
@@ -461,5 +463,7 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Nei, ikke nå",
 	"donate_interface-fundraiser-maintenance-header": "Midlertidig nede for vedlikehold",
 	"donate_interface-fundraiser-maintenance-notice": "Vi utfører for øyeblikket planlagt vedlikehold, og kan ikke ta imot donasjoner nå. Prøv igjen snart. Om du har noen spørsmål, send oss en epost på $1.",
-	"donate_interface-redirect-explanation": "Du blir omdirigert til Wikimedias betalingspartner."
+	"donate_interface-redirect-explanation": "Du blir omdirigert til Wikimedias betalingspartner.",
+	"donate_interface-amount-legend-variant-01A": "Beløpet som skal doneres",
+	"donate_interface-cc-form-header-personal-variant-01A": "Betalingsinformasjon"
 }

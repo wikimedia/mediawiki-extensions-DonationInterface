@@ -130,10 +130,11 @@ class DlocalAdapter extends GatewayAdapter {
 					'user_ip',
 					'recurring',
 					'payment_token',
-					'payment_method_id',
+					'payment_submethod',
 					'street_address',
 					'street_number',
-					'fiscal_number'
+					'fiscal_number',
+					'return_url'
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )

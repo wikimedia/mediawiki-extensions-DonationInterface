@@ -213,7 +213,7 @@ input#email {
 	border-width: 1px;
 }
 
-.oo-ui-radioInputWidget [ type='radio' ] + span:before {
+.oo-ui-radioInputWidget [ type='radio' ] + span::before {
 	content: ' ';
 	position: absolute;
 	top: -4px;

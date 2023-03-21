@@ -239,13 +239,13 @@ p#monthlycancel,
 	margin: 0 auto;
 }
 
-#cards:before,
-#cards:after {
+#cards::before,
+#cards::after {
 	content: '';
 	display: table;
 }
 
-#cards:after {
+#cards::after {
 	clear: both;
 }
 
