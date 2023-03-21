@@ -31,24 +31,13 @@ class DonationInterface {
 		 */
 		$wgDonationInterfaceErrorTemplate = __DIR__ . '/gateway_forms/mustache/error_form.html.mustache';
 
-		// Include composer's autoload if the vendor directory exists.  If we have been
-		// included via Composer, our dependencies should already be autoloaded at the
-		// top level.
-		$vendorAutoload = __DIR__ . '/vendor/autoload.php';
-		if ( file_exists( $vendorAutoload ) ) {
-			require_once $vendorAutoload;
-		} else {
-			require_once __DIR__ . '/gateway_common/WmfFramework.php';
-		}
-		if ( defined( 'MEDIAWIKI' ) ) {
-			// If we're the top-level application, initialize the SmashPig context
-			$spConfig = GlobalConfiguration::create();
-			Context::init( $spConfig );
-			$context = Context::get();
-			$context->setSourceName( 'DonationInterface' );
-			$context->setSourceType( $wgDonationInterfaceMessageSourceType );
-			$context->setVersionFromFile( "$IP/.version-stamp" );
-		}
+		// Initialize the SmashPig context
+		$spConfig = GlobalConfiguration::create();
+		Context::init( $spConfig );
+		$context = Context::get();
+		$context->setSourceName( 'DonationInterface' );
+		$context->setSourceType( $wgDonationInterfaceMessageSourceType );
+		$context->setVersionFromFile( "$IP/.version-stamp" );
 	}
 
 	public static function onDonationInterfaceUnitTests( &$files ) {
