@@ -134,7 +134,8 @@ class DlocalAdapter extends GatewayAdapter {
 					'street_address',
 					'street_number',
 					'fiscal_number',
-					'return_url'
+					'return_url',
+					'use_3d_secure',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
