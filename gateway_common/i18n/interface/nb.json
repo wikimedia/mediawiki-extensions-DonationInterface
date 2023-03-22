@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Danmichaelo",
+			"EdoAug",
 			"Finnrind",
 			"HNordeen (WMF)",
 			"Jon Harald Søby",
@@ -121,7 +122,7 @@
 	"donate_interface-XOF": "Vestafrikanske CFA-franc",
 	"donate_interface-ZAR": "Sørafrikanske rand",
 	"donate_interface-paypal-button": "Doner via PayPal",
-	"donate_interface-paypal-redirect": "Omdirigerer til PayPal…",
+	"donate_interface-paypal-redirect": "Omdirigerer til PayPal ...",
 	"donate_interface-amazon-button": "Doner via Amazon",
 	"donate_interface-cc-button": "Doner med kredittkort",
 	"donate_interface-ccdc-button": "Doner med kreditt- eller debetkort",
@@ -361,7 +362,7 @@
 	"donate_interface-payment": "Betaling",
 	"donate_interface-payment-type": "Betalingsmåte",
 	"donate_interface-month": "$1 ($2)",
-	"donate_interface-please-complete": "Fullfør donasjonen din nedenfor...",
+	"donate_interface-please-complete": "Fullfør donasjonen din nedenfor ...",
 	"donate_interface-description": "Beskrivelse",
 	"donate_interface-donation": "Donasjon",
 	"donate_interface-email-receipt": "E-postkvittering til",
