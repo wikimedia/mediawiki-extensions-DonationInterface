@@ -35,6 +35,7 @@
 		"no-redeclare": "warn",
 		"no-shadow": "warn",
 		"prefer-regex-literals": "warn",
-		"mediawiki/msg-doc": "warn"
+		"mediawiki/msg-doc": "warn",
+		"es-x/no-promise": "warn"
 	}
 }
