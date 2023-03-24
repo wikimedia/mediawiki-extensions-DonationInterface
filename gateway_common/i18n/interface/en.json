@@ -381,6 +381,7 @@
 	"donate_interface-cc-MX-instructions": "For security, some Mexican banks block online transactions. If your donation is not successful, we suggest you call your bank to authorize the online donation and try again.",
 	"donate_interface-bt-account_holder": "Account holder",
 	"donate_interface-bt-bank_account_number": "Bank account number",
+	"donate_interface-bt-upi_id": "UPI ID",
 	"donate_interface-bt-country_description": "Country description",
 	"donate_interface-bt-payment_reference": "Payment reference",
 	"donate_interface-bt-swift_code": "Swift code",

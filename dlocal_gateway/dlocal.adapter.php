@@ -136,6 +136,7 @@ class DlocalAdapter extends GatewayAdapter {
 					'fiscal_number',
 					'return_url',
 					'use_3d_secure',
+					'upi_id',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
@@ -146,7 +147,8 @@ class DlocalAdapter extends GatewayAdapter {
 					'amount',
 					'gateway_txn_id',
 					'currency',
-					'order_id'
+					'order_id',
+					'upi_id'
 				]
 			]
 		];

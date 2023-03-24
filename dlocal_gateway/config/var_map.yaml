@@ -18,3 +18,4 @@ gateway_txn_id: gateway_txn_id
 payment_submethod: payment_submethod
 return_url: return_url
 use_3d_secure: use_3d_secure
+upi_id: upi_id
