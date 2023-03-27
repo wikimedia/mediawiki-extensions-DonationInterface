@@ -20,7 +20,8 @@
 			"Valtlait",
 			"Veikk0.ma",
 			"VezonThunder",
-			"ZeiP"
+			"ZeiP",
+			"Valtlai"
 		]
 	},
 	"donate_interface": "Tue Wikimediaa",
@@ -406,6 +407,8 @@
 	"donate_interface-photo-license": "Kaikki kuvat on lisensoitu <a href=\"$1\">Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssillä.",
 	"donate_interface-emailprefs-thank-you-title": "Kiitos",
 	"donate_interface-monthly-convert-action-button": "Lahjoita kuukausittain",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Kyllä, haluan auttaa",
+	"donate_interface-monthly-convert-no-button-variant-006": "Ei kiitos",
 	"donate_interface-fundraiser-maintenance-header": "Väliaikaisesti ei käytettävissä huoltotöiden vuoksi",
 	"donate_interface-fundraiser-maintenance-notice": "Suoritamme parhaillaan aikataulun mukaisia huoltotöitä emmekä voi ottaa lahjoituksia vastaan. Yritä pian uudelleen. Jos sinulla on kysyttävää, lähetä sähköpostia osoitteeseen $1."
 }
