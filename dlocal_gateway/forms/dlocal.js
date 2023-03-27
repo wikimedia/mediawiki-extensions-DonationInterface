@@ -243,7 +243,8 @@
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
 				} );
-				return;
+			} else if ( result.redirect ) {
+				document.location.replace( result.redirect );
 			} else {
 				document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 			}
