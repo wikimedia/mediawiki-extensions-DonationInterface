@@ -18,7 +18,7 @@ class DlocalGateway extends GatewayPage {
 				$out->addJsConfigVars( 'wgDlocalSmartFieldApiKey', $smartFieldApiKey );
 				$out->addLink(
 					[
-						'src' => $dlocalScript,
+						'href' => $dlocalScript,
 						'rel' => 'preload',
 						'as' => 'script',
 					]
