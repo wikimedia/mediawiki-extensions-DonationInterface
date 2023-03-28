@@ -11,16 +11,19 @@ class DlocalGateway extends GatewayPage {
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		if ( $this->isDirectPaymentFlow() ) {
-			$dlocalScript = $this->adapter->getAccountConfig( 'dlocalScript' );
-			$smartFieldApiKey = $this->adapter->getAccountConfig( 'smartFieldApiKey' );
-			$out->addJsConfigVars( 'wgDlocalSmartFieldApiKey', $smartFieldApiKey );
-			$out->addLink(
-				[
-					'src' => $dlocalScript,
-					'rel' => 'preload',
-					'as' => 'script',
-				]
-			);
+			$out->addJsConfigVars( 'isDirectPaymentFlow', true );
+			if ( $this->isCreditCard() ) {
+				$dlocalScript = $this->adapter->getAccountConfig( 'dlocalScript' );
+				$smartFieldApiKey = $this->adapter->getAccountConfig( 'smartFieldApiKey' );
+				$out->addJsConfigVars( 'wgDlocalSmartFieldApiKey', $smartFieldApiKey );
+				$out->addLink(
+					[
+						'src' => $dlocalScript,
+						'rel' => 'preload',
+						'as' => 'script',
+					]
+				);
+			}
 		}
 	}
 
@@ -31,12 +34,24 @@ class DlocalGateway extends GatewayPage {
 	}
 
 	/**
-	 * we only accept cc as direct payment flow for now
+	 * we only accept cc and non-recurring upi as direct payment flow for now
+	 *
+	 * @return bool
+	 */
+	private function isCreditCard() {
+		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'cc';
+	}
+
+	/**
+	 * we only accept cc and non-recurring upi as direct payment flow for now
 	 *
 	 * @return bool
 	 */
 	public function isDirectPaymentFlow() {
-		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'cc';
+		return ( $this->isCreditCard() ||
+			( $this->adapter->getData_Unstaged_Escaped( 'payment_submethod' ) === 'upi' &&
+				!$this->adapter->getData_Unstaged_Escaped( 'recurring' ) )
+		);
 	}
 
 	/**
@@ -47,7 +62,7 @@ class DlocalGateway extends GatewayPage {
 	 * @see GatewayPage::showSubmethodButtons()
 	 */
 	public function showSubmethodButtons() {
-		return !$this->isDirectPaymentFlow();
+		return !$this->isCreditCard();
 	}
 
 	/**

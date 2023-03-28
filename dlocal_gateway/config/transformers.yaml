@@ -1,6 +1,7 @@
 # Core.
 - Amount
 - CountryValidation
+- Dlocal3DSecure
 - FiscalNumber
 - PlaceholderFiscalNumber
 - ReturnUrl

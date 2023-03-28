@@ -121,6 +121,7 @@ class DonationData implements LogPrefixProvider {
 		'employer_id',
 		'payment_token',
 		'full_name',
+		'upi_id',
 	];
 
 	/**
@@ -987,6 +988,7 @@ class DonationData implements LogPrefixProvider {
 			'employer_id',
 			'full_name',
 			'fiscal_number',
+			'upi_id'
 		];
 	}
 

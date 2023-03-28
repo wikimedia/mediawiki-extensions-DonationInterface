@@ -52,11 +52,16 @@ class DlocalAdapter extends GatewayAdapter {
 		}
 
 		if ( $createPaymentResponse->requiresRedirect() ) {
+			// Add the dLocal-generated transaction ID to the DonationData object
+			// to be sent to the queues
 			$this->addResponseData( [
 				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 			] );
+			// ... and ensure it is persisted in the php session
+			$this->session_addDonorData();
+
 			$redirectUrl = $createPaymentResponse->getRedirectUrl();
-			$this->logger->info( "Redirecting to {$redirectUrl}" );
+			$this->logger->info( "Redirecting to $redirectUrl" );
 			return PaymentResult::newRedirect( $redirectUrl );
 		}
 
@@ -91,14 +96,27 @@ class DlocalAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( FinalStatus::PENDING );
 			return PaymentResult::newSuccess();
 		}
-		if ( !isset( $requestValues['payment_id'] ) ) {
-			$this->logger->error( "Missing required parameters in request" );
-			return $this->newFailureWithError( ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );
+
+		$paymentMethod = $this->getPaymentMethod();
+		if ( $paymentMethod === 'cc' ) {
+			// Donor is coming back from a 3dSecure authentication redirect.
+			// Sadly, dLocal does not POST back the standard callback_url
+			// parameters in this case. Rely on session for transaction ID.
+			$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+		} else {
+			// Donor is coming back from one of dLocal's many REDIRECT payment
+			// flows. We expect a set of parameters on the callback URL.
+			// TODO: check signature.
+			if ( !isset( $requestValues['payment_id'] ) ) {
+				$this->logger->error( "Missing required parameters in request" );
+				return $this->newFailureWithError( ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );
+			}
+			$gatewayTxnId = $requestValues['payment_id'];
 		}
 
 		// check the status of the payment the donor just made and processed the result
-		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
-		$paymentStatusParams = [ 'gateway_txn_id' => $requestValues['payment_id'] ];
+		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $paymentMethod );
+		$paymentStatusParams = [ 'gateway_txn_id' => $gatewayTxnId ];
 		$paymentStatusResult = $paymentProvider->getLatestPaymentStatus( $paymentStatusParams );
 		return $this->handleCreatedPayment( $paymentStatusResult, $paymentProvider );
 	}
@@ -134,7 +152,9 @@ class DlocalAdapter extends GatewayAdapter {
 					'street_address',
 					'street_number',
 					'fiscal_number',
-					'return_url'
+					'return_url',
+					'use_3d_secure',
+					'upi_id',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
@@ -145,7 +165,8 @@ class DlocalAdapter extends GatewayAdapter {
 					'amount',
 					'gateway_txn_id',
 					'currency',
-					'order_id'
+					'order_id',
+					'upi_id'
 				]
 			]
 		];
