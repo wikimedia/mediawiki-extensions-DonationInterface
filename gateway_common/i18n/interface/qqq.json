@@ -411,6 +411,7 @@
 	"donate_interface-cc-MX-instructions": "Instructions for donors in MX to contact their banks if their donation is declined.",
 	"donate_interface-bt-account_holder": "Bank transfer: Account holder",
 	"donate_interface-bt-bank_account_number": "Bank transfer: Bank account number",
+	"donate_interface-bt-upi_id": "UPI ID: VPA",
 	"donate_interface-bt-country_description": "Bank transfer: Country description",
 	"donate_interface-bt-payment_reference": "Bank transfer: Payment reference",
 	"donate_interface-bt-swift_code": "Bank transfer: Swift code",

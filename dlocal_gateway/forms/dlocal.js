@@ -1,7 +1,8 @@
 /*global dlocal:true*/
 ( function ( $, mw ) {
-	var country = $( '#country' ).val(),
+	var country = $( '#country' ).val(), extraData = {},
 		isRecurring = !!$( '#recurring' ).val();
+
 	if ( country === 'IN' ) {
 		$( '#fiscal_number' ).after(
 			$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
@@ -15,8 +16,51 @@
 		}
 	}
 
+	function handleApiResult( result ) {
+		if ( result.isFailed ) {
+			mw.donationInterface.validation.showErrors( {
+				general: mw.msg( 'donate_interface-error-msg-general' )
+			} );
+		} else if ( result.redirect ) {
+			document.location.replace( result.redirect );
+		} else {
+			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+		}
+	}
+
+	if ( !mw.config.get( 'isDirectPaymentFlow' ) ) {
+		$( '.submethods' ).after(
+			$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
+		);
+	} else {
+		// Show our standard 'Donate' button
+		$( '#paymentSubmit' ).show();
+		// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
+		if ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' && !isRecurring ) {
+			$( '.submethods' ).before(
+				$( '<label for="upi_id">' +
+					mw.msg( 'donate_interface-bt-upi_id' ) +
+					'</label>' +
+					'<input value="" name="upi_id" id="upi_id" />' ) );
+
+			// Set the click handler
+			$( '#paymentSubmitBtn' ).click(
+				function ( event ) {
+					event.preventDefault();
+					// get verify
+					extraData.fiscal_number = $( '#fiscal_number' ).val();
+					extraData.upi_id = $( '#upi_id' ).val();
+					mw.donationInterface.forms.callDonateApi(
+						handleApiResult,
+						extraData,
+						'di_donate_dlocal'
+					);
+				}
+			);
+		}
+	}
+
 	function setup() {
-		var extraData = {};
 		// only cc use setup
 		if ( country === 'BR' && isRecurring ) {
 			$( '.submethods' ).before( $( '<p>' +
@@ -206,9 +250,6 @@
 			return true;
 		}
 
-		// todo: onchange display error if card/cvv/expiration date info error
-		// Show our standard 'Donate' button
-		$( '#paymentSubmit' ).show();
 		// Set the click handler
 		$( '#paymentSubmitBtn' ).click(
 			function ( event ) {
@@ -237,18 +278,6 @@
 				}
 			}
 		);
-
-		function handleApiResult( result ) {
-			if ( result.isFailed ) {
-				mw.donationInterface.validation.showErrors( {
-					general: mw.msg( 'donate_interface-error-msg-general' )
-				} );
-			} else if ( result.redirect ) {
-				document.location.replace( result.redirect );
-			} else {
-				document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
-			}
-		}
 
 		// Drop in the dlocal card components placeholder
 		$( '.submethods' ).before(
@@ -294,10 +323,6 @@
 			};
 			scriptNode.src = mw.config.get( 'dlocalScript' );
 			document.body.append( scriptNode );
-		} else {
-			$( '.submethods' ).after(
-				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
-			);
 		}
 	} );
 } )( jQuery, mediaWiki );
