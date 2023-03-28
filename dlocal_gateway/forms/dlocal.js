@@ -197,7 +197,8 @@
 
 		var cvv = fields.create( 'cvv', {
 			style: commonStyle,
-			placeholder: '123'
+			placeholder: '123',
+			maskInput: true
 		} );
 
 		var cvvFieldError = false;

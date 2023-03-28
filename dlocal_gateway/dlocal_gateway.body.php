@@ -50,7 +50,9 @@ class DlocalGateway extends GatewayPage {
 	public function isDirectPaymentFlow() {
 		return ( $this->isCreditCard() ||
 			( $this->adapter->getData_Unstaged_Escaped( 'payment_submethod' ) === 'upi' &&
-				!$this->adapter->getData_Unstaged_Escaped( 'recurring' ) )
+				!$this->adapter->getData_Unstaged_Escaped( 'recurring' ) &&
+				$this->adapter->getAccountConfig( 'enableINDirectBT' )
+			)
 		);
 	}
 
