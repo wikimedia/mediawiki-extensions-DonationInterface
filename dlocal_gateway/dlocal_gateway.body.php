@@ -5,6 +5,9 @@
  *
  * Special page that uses the Dlocal implementation to accept donations
  */
+use SmashPig\PaymentProviders\dlocal\BankTransferPaymentProvider;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
+
 class DlocalGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = DlocalAdapter::IDENTIFIER;
@@ -23,6 +26,15 @@ class DlocalGateway extends GatewayPage {
 						'as' => 'script',
 					]
 				);
+			}
+		} elseif ( $this->adapter->getData_Unstaged_Escaped( 'recurring' ) && $this->adapter->getData_Unstaged_Escaped( 'payment_submethod' ) === 'upi' ) {
+			$paymentMethod = $this->adapter->getData_Unstaged_Escaped( 'payment_method' );
+			$paymentProvider = PaymentProviderFactory::getProviderForMethod( $paymentMethod );
+			if ( $paymentProvider instanceof BankTransferPaymentProvider ) {
+				$isUpiSubscriptionFrequencyMonthly = $paymentProvider->isUpiSubscriptionFrequencyMonthly();
+				if ( !$isUpiSubscriptionFrequencyMonthly ) {
+					$out->addJsConfigVars( 'isOnDemand', true );
+				}
 			}
 		}
 	}

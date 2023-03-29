@@ -9,7 +9,7 @@
 				'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
 				'</p>' )
 		);
-		if ( isRecurring ) {
+		if ( isRecurring  && mw.config.get( 'isOnDemand' ) ) {
 			$( '.submethods' ).after( $( '<p>' +
 				mw.msg( 'donate_interface-charge-monthly-only' ) +
 				'</p>' ) );
