@@ -131,7 +131,7 @@
 		"StreetAddress": "gateway_common/StreetAddress.php",
 		"Abstract3DSecure": "gateway_common/Abstract3DSecure.php",
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
-		"WmfFramework_Mediawiki": "gateway_common/WmfFramework.mediawiki.php",
+		"WmfFramework": "gateway_common/WmfFramework.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
 		"EmailForm": "email_forms/EmailForm.php",
