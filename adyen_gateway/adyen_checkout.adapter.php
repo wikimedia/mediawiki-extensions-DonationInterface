@@ -213,6 +213,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				$this->tuneFor3DSecure();
 				break;
 			case 'rtbt':
+			case 'bt':
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
 			case 'google':

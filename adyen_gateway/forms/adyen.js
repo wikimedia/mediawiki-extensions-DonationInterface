@@ -3,7 +3,8 @@
 	// promise objects are for Apple Pay - see comments below
 	var checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
-		payment_method = $( '#payment_method' ).val();
+		payment_method = $( '#payment_method' ).val(),
+		country = $( '#country' ).val();
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -37,15 +38,15 @@
 				return config;
 
 			case 'ideal':
-				// for cc and ideal, additional config is optional
+			case 'onlineBanking_CZ':
+				// for cc, CZ bank transfers, and ideal, additional config is optional
 				return config;
 
 			case 'applepay':
 				// for applepay, additional config is required
 				var amount = {},
 					currency = $( '#currency' ).val(),
-					amount_value = $( '#amount' ).val(),
-					country = $( '#country' ).val();
+					amount_value = $( '#amount' ).val();
 				amount.currency = currency;
 				amount.value = amountInMinorUnits( amount_value, currency );
 				config.amount = amount;
@@ -113,7 +114,6 @@
 				var g_amount = {},
 					g_currency = $( '#currency' ).val(),
 					g_amount_value = $( '#amount' ).val(),
-					g_country = $( '#country' ).val(),
 					languagesSupportedByGPayButton = [
 						'ar', 'bg', 'ca', 'cs', 'da', 'de', 'en', 'el', 'es', 'et', 'fi', 'fr', 'hr', 'id', 'it', 'ja',
 						'ko', 'ms', 'nl', 'no', 'pl', 'pt', 'ru', 'sk', 'sl', 'sr', 'sv', 'th', 'tr', 'uk', 'zh'
@@ -121,7 +121,7 @@
 				g_amount.currency = g_currency;
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
-				config.countryCode = g_country;
+				config.countryCode = country;
 				config.environment = configFromServer.environment.toUpperCase();
 				config.showPayButton = true;
 				// When we are showing the form in a language for which Google Pay has no
@@ -277,6 +277,9 @@
 				return 'card';
 			case 'rtbt':
 			case 'bt':
+				if ( country === 'CZ' ) {
+					return 'onlineBanking_CZ';
+				}
 				return 'ideal';
 			case 'apple':
 				return 'applepay';
@@ -334,6 +337,12 @@
 								payment_submethod: 'rtbt_ideal'
 							};
 						}
+						break;
+					case 'bt':
+						extraData = {
+							// issuer is bank chosen from dropdown
+							issuer_id: state.data.paymentMethod.issuer
+						};
 						break;
 					case 'cc':
 						extraData = {
