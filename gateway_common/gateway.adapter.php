@@ -2607,7 +2607,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *  depend on country or payment method. Falls back to unstaged data.
 	 * @return array of field names (empty if no payment method set)
 	 */
-	public function getFormFields( $knownData = null ) {
+	public function getFormFields( ?array $knownData = null ): array {
 		if ( $knownData === null ) {
 			$knownData = $this->getData_Unstaged_Escaped();
 		}

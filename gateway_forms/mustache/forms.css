@@ -428,7 +428,8 @@ ul#moreinfolinks {
 	margin-left: 0;
 }
 
-.opt_in_explain {
+.opt_in_explain,
+.explanation {
 	font-size: 0.8em;
 }
 

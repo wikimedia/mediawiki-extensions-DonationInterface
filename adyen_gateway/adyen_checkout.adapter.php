@@ -267,7 +267,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return array_diff( $fields, $this->getFieldsToRemove() );
 	}
 
-	public function getFormFields( $knownData = null ) {
+	public function getFormFields( ?array $knownData = null ): array {
 		$fields = parent::getFormFields( $knownData );
 		return array_diff_key(
 			$fields,

@@ -143,6 +143,7 @@ class DlocalAdapter extends GatewayAdapter {
 					'last_name',
 					'order_id',
 					'postal_code',
+					'phone',
 					'state_province',
 					'street_address',
 					'user_ip',
@@ -170,6 +171,24 @@ class DlocalAdapter extends GatewayAdapter {
 				]
 			]
 		];
+	}
+
+	/**
+	 * Override parent function to add optional phone field for non-recurring UPI
+	 * @param array|null $knownData
+	 * @return array
+	 */
+	public function getFormFields( ?array $knownData = null ): array {
+		$fields = parent::getFormFields( $knownData );
+		if ( $knownData === null ) {
+			$knownData = $this->getData_Unstaged_Escaped();
+		}
+		$isRecurring = !empty( $knownData['recurring'] );
+		$isUpi = isset( $knownData['payment_submethod'] ) && $knownData['payment_submethod'] === 'upi';
+		if ( $isUpi && !$isRecurring ) {
+			$fields['phone'] = 'optional';
+		}
+		return $fields;
 	}
 
 	/**

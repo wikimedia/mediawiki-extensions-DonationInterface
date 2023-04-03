@@ -320,6 +320,12 @@
 			$( '.submethods' ).after(
 				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
 			);
+			if ( isUpi && !isRecurring ) {
+				// Redirected one-time UPI payments have an optional phone number field. Add an explanation.
+				$( '#phone' ).after(
+					$( '<p class="explanation">' + mw.message( 'donate_interface-donor-phone-explain-in' ) + '</p>' )
+				);
+			}
 		}
 	}
 
