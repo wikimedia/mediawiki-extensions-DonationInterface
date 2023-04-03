@@ -3,19 +3,6 @@
 	var country = $( '#country' ).val(), extraData = {},
 		isRecurring = !!$( '#recurring' ).val();
 
-	if ( country === 'IN' ) {
-		$( '#fiscal_number' ).after(
-			$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
-				'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
-				'</p>' )
-		);
-		if ( isRecurring  && mw.config.get( 'isOnDemand' ) ) {
-			$( '.submethods' ).after( $( '<p>' +
-				mw.msg( 'donate_interface-charge-monthly-only' ) +
-				'</p>' ) );
-		}
-	}
-
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			mw.donationInterface.validation.showErrors( {
@@ -28,40 +15,7 @@
 		}
 	}
 
-	if ( !mw.config.get( 'isDirectPaymentFlow' ) ) {
-		$( '.submethods' ).after(
-			$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
-		);
-	} else {
-		// Show our standard 'Donate' button
-		$( '#paymentSubmit' ).show();
-		// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
-		if ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' && !isRecurring ) {
-			$( '.submethods' ).before(
-				$( '<label for="upi_id">' +
-					mw.msg( 'donate_interface-bt-upi_id' ) +
-					'</label>' +
-					'<input value="" name="upi_id" id="upi_id" />' ) );
-
-			// Set the click handler
-			$( '#paymentSubmitBtn' ).click(
-				function ( event ) {
-					event.preventDefault();
-					// get verify
-					extraData.fiscal_number = $( '#fiscal_number' ).val();
-					extraData.upi_id = $( '#upi_id' ).val();
-					mw.donationInterface.forms.callDonateApi(
-						handleApiResult,
-						extraData,
-						'di_donate_dlocal'
-					);
-				}
-			);
-		}
-	}
-
-	function setup() {
-		// only cc use setup
+	function setupCardForm() {
 		if ( country === 'BR' && isRecurring ) {
 			$( '.submethods' ).before( $( '<p>' +
 				mw.msg( 'donate_interface-monthly-only-credit' ) +
@@ -251,6 +205,8 @@
 			return true;
 		}
 
+		// Show our standard 'Donate' button
+		showPaymentSubmit();
 		// Set the click handler
 		$( '#paymentSubmitBtn' ).click(
 			function ( event ) {
@@ -306,6 +262,51 @@
 		cvv.mount( document.getElementById( 'cvv' ) );
 	}
 
+	function setupNonCardForm() {
+		if ( country === 'IN' ) {
+			if ( isRecurring && mw.config.get( 'isOnDemand' ) ) {
+				$( '.submethods' ).after( $( '<p>' +
+					mw.msg( 'donate_interface-charge-monthly-only' ) +
+					'</p>' ) );
+			}
+		}
+		if ( mw.config.get( 'isDirectPaymentFlow' ) ) {
+			// Show our standard 'Donate' button
+			showPaymentSubmit();
+			// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
+			if ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' && !isRecurring ) {
+				$( '.submethods' ).before(
+					$( '<label for="upi_id">' +
+						mw.msg( 'donate_interface-bt-upi_id' ) +
+						'</label>' +
+						'<input value="" name="upi_id" id="upi_id" />' ) );
+
+				// Set the click handler
+				$( '#paymentSubmitBtn' ).click(
+					function ( event ) {
+						event.preventDefault();
+						// get verify
+						extraData.fiscal_number = $( '#fiscal_number' ).val();
+						extraData.upi_id = $( '#upi_id' ).val();
+						mw.donationInterface.forms.callDonateApi(
+							handleApiResult,
+							extraData,
+							'di_donate_dlocal'
+						);
+					}
+				);
+			}
+		} else {
+			// Redirect flow
+			$( '.submethods' ).after(
+				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
+			);
+		}
+	}
+
+	function showPaymentSubmit() {
+		$( '#paymentSubmit' ).show();
+	}
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -313,10 +314,17 @@
 	 *  to a <link rel=preload> we add in DlocalGateway::execute
 	 */
 	$( function () {
+		if ( country === 'IN' ) {
+			$( '#fiscal_number' ).after(
+				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
+					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
+					'</p>' )
+			);
+		}
 		// only cc load smart field script and submit button, others show redirect with continue button
 		if ( $( '#payment_method' ).val() === 'cc' ) {
 			var scriptNode = document.createElement( 'script' );
-			scriptNode.onload = setup;
+			scriptNode.onload = setupCardForm;
 			scriptNode.onerror = function () {
 				mw.donationInterface.validation.showErrors(
 					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
@@ -324,6 +332,8 @@
 			};
 			scriptNode.src = mw.config.get( 'dlocalScript' );
 			document.body.append( scriptNode );
+		} else {
+			setupNonCardForm();
 		}
 	} );
 } )( jQuery, mediaWiki );
