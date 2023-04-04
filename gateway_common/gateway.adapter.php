@@ -2607,7 +2607,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *  depend on country or payment method. Falls back to unstaged data.
 	 * @return array of field names (empty if no payment method set)
 	 */
-	public function getFormFields( $knownData = null ) {
+	public function getFormFields( ?array $knownData = null ): array {
 		if ( $knownData === null ) {
 			$knownData = $this->getData_Unstaged_Escaped();
 		}
@@ -3845,6 +3845,10 @@ abstract class GatewayAdapter implements GatewayType {
 
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
+		// hide upi_id from log
+		if ( isset( $details['upi_id'] ) ) {
+			unset( $details['upi_id'] );
+		}
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
 	}

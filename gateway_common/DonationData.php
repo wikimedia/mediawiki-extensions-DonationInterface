@@ -71,6 +71,7 @@ class DonationData implements LogPrefixProvider {
 		'city',
 		'state_province',
 		'postal_code',
+		'phone',
 		'country',
 		'card_num',
 		'expiration',

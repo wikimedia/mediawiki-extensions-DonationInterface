@@ -24,7 +24,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 			$googleScript = $this->adapter->getAccountConfig( 'GoogleScript' );
 			$out->addLink(
 				[
-					'src' => $googleScript,
+					'href' => $googleScript,
 					'rel' => 'preload',
 					'as' => 'script',
 				]
@@ -34,7 +34,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 		// so we can follow its loading using onload and onerror attributes.
 		$out->addLink(
 			[
-				'src' => $script['src'],
+				'href' => $script['src'],
 				'integrity' => $script['integrity'],
 				'rel' => 'preload',
 				'as' => 'script',

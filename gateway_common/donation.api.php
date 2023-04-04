@@ -61,6 +61,7 @@ class DonationApi extends DonationApiBase {
 			'supplemental_address_1' => $this->defineParam( false ),
 			'city' => $this->defineParam( false ),
 			'state_province' => $this->defineParam( false ),
+			'phone' => $this->defineParam( false ),
 			'postal_code' => $this->defineParam( false ),
 			'email' => $this->defineParam( false ),
 			'country' => $this->defineParam( false ),

@@ -1,21 +1,11 @@
 /*global dlocal:true*/
 ( function ( $, mw ) {
-	var country = $( '#country' ).val(), extraData = {},
-		isRecurring = !!$( '#recurring' ).val();
+	var country = $( '#country' ).val(),
+		extraData = {},
+		isRecurring = !!$( '#recurring' ).val(),
+		isIndia = ( country === 'IN' );
 
-	if ( country === 'IN' ) {
-		$( '#fiscal_number' ).after(
-			$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
-				'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
-				'</p>' )
-		);
-		if ( isRecurring ) {
-			$( '.submethods' ).after( $( '<p>' +
-				mw.msg( 'donate_interface-charge-monthly-only' ) +
-				'</p>' ) );
-		}
-	}
-
+	// Common helper functions
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			mw.donationInterface.validation.showErrors( {
@@ -28,202 +18,141 @@
 		}
 	}
 
-	if ( !mw.config.get( 'isDirectPaymentFlow' ) ) {
-		$( '.submethods' ).after(
-			$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
-		);
-	} else {
-		// Show our standard 'Donate' button
+	function showPaymentSubmit() {
 		$( '#paymentSubmit' ).show();
-		// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
-		if ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' && !isRecurring ) {
-			$( '.submethods' ).before(
-				$( '<label for="upi_id">' +
-					mw.msg( 'donate_interface-bt-upi_id' ) +
-					'</label>' +
-					'<input value="" name="upi_id" id="upi_id" />' ) );
-
-			// Set the click handler
-			$( '#paymentSubmitBtn' ).click(
-				function ( event ) {
-					event.preventDefault();
-					// get verify
-					extraData.fiscal_number = $( '#fiscal_number' ).val();
-					extraData.upi_id = $( '#upi_id' ).val();
-					mw.donationInterface.forms.callDonateApi(
-						handleApiResult,
-						extraData,
-						'di_donate_dlocal'
-					);
-				}
-			);
-		}
 	}
 
-	function setup() {
-		// only cc use setup
-		if ( country === 'BR' && isRecurring ) {
-			$( '.submethods' ).before( $( '<p>' +
-				mw.msg( 'donate_interface-monthly-only-credit' ) +
-				'</p>' ) );
-		}
+	function setupCardForm() {
+		var dlocalInstance = dlocal( mw.config.get( 'wgDlocalSmartFieldApiKey' ) ),
+			fields = dlocalInstance.fields( {
+				locale: mapLang( $( '#language' ).val() ),
+				country: country
+			} ),
+			// Custom styling can be passed to options when creating a Smart Field.
+			commonStyle = getCardCommonStyle(),
+			cardField,
+			cardFieldError = false,
+			cardFieldEmpty = true,
+			expirationField,
+			expirationFieldError = false,
+			expirationFieldEmpty = true,
+			cvvField,
+			cvvFieldError = false,
+			cvvFieldEmpty = true;
 
-		var dlocalInstance = dlocal( mw.config.get( 'wgDlocalSmartFieldApiKey' ) );
+		insertBrazilRecurringAdvice();
+		addCardFieldsToErrorDisplay();
 
-		var fields = dlocalInstance.fields( {
-			locale: mapLang( $( '#language' ).val() ),
-			country: country
-		} );
-
-		// https://docs.dlocal.com/reference/the-dlocal-object#dlocalfieldsoptions
-		// Supported values are: es, en, pt, zh, cv, tr.
-		function mapLang( wikiLang ) {
-			if ( wikiLang === 'es-419' ) {
-				return 'es';
-			} else if ( [ 'es', 'en', 'pt', 'zh', 'cv', 'tr' ].indexOf( wikiLang ) !== -1 ) {
-				return wikiLang;
-			} else {
-				// todo: maybe display an error, or just default en?
-				return 'en';
-			}
-		}
-
-		// Custom styling can be passed to options when creating a Smart Field.
-		var commonStyle = {
-			base: {
-				fontSize: '14px',
-				fontFamily: 'sans-serif',
-				lineHeight: '40px',
-				fontSmoothing: 'antialiased',
-				fontWeight: '500',
-				color: 'rgb(0, 17, 44)',
-				'::placeholder': {
-					color: 'rgb(185, 196, 201)'
-				}
-			},
-			focus: {
-				iconColor: '#adbfd3',
-				'::placeholder': {
-					color: '#adbfd3'
-				}
-			},
-			autofilled: {
-				color: '#000000'
-			},
-			invalid: {
-				color: '#f00'
-			}
-		};
-
-		var oldShowErrors = mw.donationInterface.validation.showErrors;
-		mw.donationInterface.validation.showErrors = function ( errors ) {
-			var dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
-			$.each( errors, function ( field ) {
-				if ( dLocalFields.indexOf( field ) !== -1 ) {
-					$( '#' + field ).find( '.DlocalField' ).addClass( 'DlocalField--invalid' );
-					$( '#' + field + 'ErrorMsg' ).text( errors[ field ] );
-					delete errors[ field ];
-				}
-			} );
-			oldShowErrors( errors );
-		};
-
-		// create card field
-		var card = fields.create( 'pan', {
+		// create card fields and add events
+		cardField = fields.create( 'pan', {
 			style: commonStyle,
 			placeholder: '4111 1111 1111 1111'
 		} );
+		addCardFieldEvents();
 
-		var cardFieldError = false;
-		var cardFieldEmpty = true;
-
-		card.addEventListener( 'change', function ( event ) {
-			cardFieldError = !!event.error;
-			if ( event.error ) {
-				$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-card-number' ) );
-			} else {
-				$( '#cardNumberErrorMsg' ).text( '' );
-			}
-		} );
-
-		card.on( 'blur', function ( event ) {
-			cardFieldEmpty = event.empty;
-		} );
-
-		card.on( 'brand', function ( event ) {
-			if ( event.brand ) {
-				switch ( event.brand ) {
-					case 'american-express':
-						extraData.payment_submethod = 'amex';
-						break;
-					case 'mastercard':
-						extraData.payment_submethod = 'mc';
-						break;
-					case 'diners-club':
-						extraData.payment_submethod = 'diner';
-						break;
-					case 'hipercard':
-						extraData.payment_submethod = 'hiper';
-						break;
-					case 'default': // dlocal can not find the corespondent card brand, so return error
-						break;
-					default:
-						// like visa, elo, jcb, maestro, unionpay and discover
-						extraData.payment_submethod = event.brand;
-				}
-			}
-		} );
-		var expiration = fields.create( 'expiration', {
+		expirationField = fields.create( 'expiration', {
 			style: commonStyle,
 			placeholder: mw.msg( 'donate_interface-expiry-date-field-placeholder' )
 		} );
+		addExpirationFieldEvents();
 
-		var expirationFieldError = false;
-		var expirationFieldEmpty = true;
-
-		expiration.addEventListener( 'change', function ( event ) {
-			expirationFieldError = !!event.error;
-			if ( event.error ) {
-				var message = mw.msg( 'donate_interface-error-msg-card-too-old' );
-				$( '#expirationErrorMsg' ).text( message );
-			} else {
-				$( '#expirationErrorMsg' ).text( '' );
-			}
-		} );
-
-		expiration.on( 'blur', function ( event ) {
-			expirationFieldEmpty = event.empty;
-		} );
-
-		var cvv = fields.create( 'cvv', {
+		cvvField = fields.create( 'cvv', {
 			style: commonStyle,
 			placeholder: '123',
 			maskInput: true
 		} );
+		addCvvFieldEvents();
 
-		var cvvFieldError = false;
-		var cvvFieldEmpty = true;
+		// Show our standard 'Donate' button
+		showPaymentSubmit();
+		// Set the click handler
+		$( '#paymentSubmitBtn' ).click( handleCardSubmitClick );
 
-		cvv.addEventListener( 'change', function ( event ) {
-			cvvFieldError = !!event.error;
-			if ( event.error ) {
-				$( '#cvvErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ) );
-			} else {
-				$( '#cvvErrorMsg' ).text( '' );
-			}
-		} );
+		// Drop in the dlocal card components placeholder
+		insertCardComponentContainers();
 
-		cvv.on( 'blur', function ( event ) {
-			cvvFieldEmpty = event.empty;
-		} );
+		cardField.mount( document.getElementById( 'cardNumber' ) );
+		expirationField.mount( document.getElementById( 'expiration' ) );
+		cvvField.mount( document.getElementById( 'cvv' ) );
+
+		function addCardFieldEvents() {
+			cardField.addEventListener( 'change', function ( event ) {
+				cardFieldError = !!event.error;
+				if ( event.error ) {
+					$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-card-number' ) );
+				} else {
+					$( '#cardNumberErrorMsg' ).text( '' );
+				}
+			} );
+
+			cardField.on( 'blur', function ( event ) {
+				cardFieldEmpty = event.empty;
+			} );
+
+			cardField.on( 'brand', function ( event ) {
+				if ( event.brand ) {
+					switch ( event.brand ) {
+						case 'american-express':
+							extraData.payment_submethod = 'amex';
+							break;
+						case 'mastercard':
+							extraData.payment_submethod = 'mc';
+							break;
+						case 'diners-club':
+							extraData.payment_submethod = 'diner';
+							break;
+						case 'hipercard':
+							extraData.payment_submethod = 'hiper';
+							break;
+						case 'default': // dlocal can not find the corespondent card brand, so return error
+							break;
+						default:
+							// like visa, elo, jcb, maestro, unionpay and discover
+							extraData.payment_submethod = event.brand;
+					}
+				}
+			} );
+		}
+
+		function addExpirationFieldEvents() {
+			expirationField.addEventListener( 'change', function ( event ) {
+				expirationFieldError = !!event.error;
+				if ( event.error ) {
+					var message = mw.msg( 'donate_interface-error-msg-card-too-old' );
+					$( '#expirationErrorMsg' ).text( message );
+				} else {
+					$( '#expirationErrorMsg' ).text( '' );
+				}
+			} );
+
+			expirationField.on( 'blur', function ( event ) {
+				expirationFieldEmpty = event.empty;
+			} );
+		}
+
+		function addCvvFieldEvents() {
+			cvvField.addEventListener( 'change', function ( event ) {
+				cvvFieldError = !!event.error;
+				if ( event.error ) {
+					$( '#cvvErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ) );
+				} else {
+					$( '#cvvErrorMsg' ).text( '' );
+				}
+			} );
+
+			cvvField.on( 'blur', function ( event ) {
+				cvvFieldEmpty = event.empty;
+			} );
+		}
 
 		function validateInputs() {
-			var formValid = mw.donationInterface.validation.validate();
-			var cvvFieldHasErrors = cvvFieldError || cvvFieldEmpty;
-			var cardFieldHasErrors = cardFieldError || cardFieldEmpty;
-			var expFieldHasErrors = expirationFieldError || expirationFieldEmpty;
+			var formValid = mw.donationInterface.validation.validate(),
+				cvvFieldHasErrors = cvvFieldError || cvvFieldEmpty,
+				cardFieldHasErrors = cardFieldError || cardFieldEmpty,
+				expFieldHasErrors = expirationFieldError || expirationFieldEmpty,
+				errors = {};
+
 			if ( !formValid || cvvFieldHasErrors || cardFieldHasErrors || expFieldHasErrors ) {
-				var errors = {};
 				if ( cardFieldHasErrors ) {
 					if ( cardFieldEmpty ) {
 						errors.cardNumber = mw.msg( 'donate_interface-error-msg-card-num' );
@@ -251,36 +180,70 @@
 			return true;
 		}
 
-		// Set the click handler
-		$( '#paymentSubmitBtn' ).click(
-			function ( event ) {
-				event.preventDefault();
-				var inputFieldsAreValid = validateInputs();
+		function handleCardSubmitClick( event ) {
+			event.preventDefault();
 
-				if ( inputFieldsAreValid ) {
-					dlocalInstance.createToken( card, {
-						name: $( '#first_name' ).val() + ' ' + $( '#last_name' ).val()
-					} ).then( function ( result ) {
-						// Send the token to your server.
-						extraData.fiscal_number = $( '#fiscal_number' ).val();
-						extraData.payment_token = result.token;
-						mw.donationInterface.forms.callDonateApi(
-							handleApiResult,
-							extraData,
-							'di_donate_dlocal'
-						);
-					} ).catch( function ( result ) {
-						if ( result.error ) {
-							mw.donationInterface.validation.showErrors( {
-								general: mw.msg( 'donate_interface-error-msg-general' )
-							} );
-						}
-					} );
-				}
+			if ( validateInputs() ) {
+				dlocalInstance.createToken( cardField, {
+					name: $( '#first_name' ).val() + ' ' + $( '#last_name' ).val()
+				} ).then( function ( result ) {
+					// Send the token to your server.
+					extraData.fiscal_number = $( '#fiscal_number' ).val();
+					extraData.payment_token = result.token;
+					mw.donationInterface.forms.callDonateApi(
+						handleApiResult,
+						extraData,
+						'di_donate_dlocal'
+					);
+				} ).catch( function ( result ) {
+					if ( result.error ) {
+						mw.donationInterface.validation.showErrors( {
+							general: mw.msg( 'donate_interface-error-msg-general' )
+						} );
+					}
+				} );
 			}
-		);
+		}
+	}
 
-		// Drop in the dlocal card components placeholder
+	// Helper functions for card form setup that do not need to be inside the setup function's scope
+	function insertBrazilRecurringAdvice() {
+		if ( country === 'BR' && isRecurring ) {
+			$( '.submethods' ).before( $( '<p>' +
+				mw.msg( 'donate_interface-monthly-only-credit' ) +
+				'</p>' ) );
+		}
+	}
+
+	// https://docs.dlocal.com/reference/the-dlocal-object#dlocalfieldsoptions
+	// Supported values are: es, en, pt, zh, cv, tr.
+	function mapLang( wikiLang ) {
+		if ( wikiLang === 'es-419' ) {
+			return 'es';
+		} else if ( [ 'es', 'en', 'pt', 'zh', 'cv', 'tr' ].indexOf( wikiLang ) !== -1 ) {
+			return wikiLang;
+		} else {
+			// todo: maybe display an error, or just default en?
+			return 'en';
+		}
+	}
+
+	function addCardFieldsToErrorDisplay() {
+		var oldShowErrors = mw.donationInterface.validation.showErrors;
+		mw.donationInterface.validation.showErrors = function ( errors ) {
+			var dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
+			$.each( errors, function ( field ) {
+				if ( dLocalFields.indexOf( field ) !== -1 ) {
+					$( '#' + field ).find( '.DlocalField' ).addClass( 'DlocalField--invalid' );
+					$( '#' + field + 'ErrorMsg' ).text( errors[ field ] );
+					delete errors[ field ];
+				}
+			} );
+			oldShowErrors( errors );
+		};
+	}
+
+	function insertCardComponentContainers() {
 		$( '.submethods' ).before(
 			'<div>' +
 			'<label for="cardNumber">' + mw.message( 'donate_interface-donor-card-num' ) + '</label>' +
@@ -300,10 +263,91 @@
 			'</div>' +
 			'</div>'
 		);
+	}
 
-		card.mount( document.getElementById( 'cardNumber' ) );
-		expiration.mount( document.getElementById( 'expiration' ) );
-		cvv.mount( document.getElementById( 'cvv' ) );
+	function getCardCommonStyle() {
+		return {
+			base: {
+				fontSize: '14px',
+					fontFamily: 'sans-serif',
+					lineHeight: '40px',
+					fontSmoothing: 'antialiased',
+					fontWeight: '500',
+					color: 'rgb(0, 17, 44)',
+					'::placeholder': {
+					color: 'rgb(185, 196, 201)'
+				}
+			},
+			focus: {
+				iconColor: '#adbfd3',
+					'::placeholder': {
+					color: '#adbfd3'
+				}
+			},
+			autofilled: {
+				color: '#000000'
+			},
+			invalid: {
+				color: '#f00'
+			}
+		};
+	}
+
+	function setupNonCardForm() {
+		var upiRecurringIsOnDemand = mw.config.get( 'isOnDemand' ),
+			isDirectPaymentFlow = mw.config.get( 'isDirectPaymentFlow' ),
+			isUpi = ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' );
+
+		if ( isUpi && isRecurring && upiRecurringIsOnDemand ) {
+			// If we are using the ONDEMAND charge frequency, add a note to reassure donors
+			// that we will only charge them once a month
+			$( '.submethods' ).after( $( '<p>' +
+				mw.msg( 'donate_interface-charge-monthly-only' ) +
+				'</p>' ) );
+		}
+
+		if ( isDirectPaymentFlow ) {
+			// Show our standard 'Donate' button
+			showPaymentSubmit();
+			// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
+			if ( isUpi && !isRecurring ) {
+				addUpiDirectFlowInputField();
+				// Set the click handler
+				$( '#paymentSubmitBtn' ).click( handleUpiDirectSubmitClick );
+			}
+		} else {
+			// Redirect flow
+			$( '.submethods' ).after(
+				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
+			);
+			if ( isUpi && !isRecurring ) {
+				// Redirected one-time UPI payments have an optional phone number field. Add an explanation.
+				$( '#phone' ).after(
+					$( '<p class="explanation">' + mw.message( 'donate_interface-donor-phone-explain-in' ) + '</p>' )
+				);
+			}
+		}
+	}
+
+	// Support functions for non-card form setup
+	function addUpiDirectFlowInputField() {
+		$( '.submethods' ).before(
+			$( '<label for="upi_id">' +
+				mw.msg( 'donate_interface-bt-upi_id' ) +
+				'</label>' +
+				'<input value="" name="upi_id" id="upi_id" />' ) );
+	}
+
+	function handleUpiDirectSubmitClick( event ) {
+		event.preventDefault();
+		// get verify
+		extraData.fiscal_number = $( '#fiscal_number' ).val();
+		extraData.upi_id = $( '#upi_id' ).val();
+		mw.donationInterface.forms.callDonateApi(
+			handleApiResult,
+			extraData,
+			'di_donate_dlocal'
+		);
 	}
 
 	/**
@@ -313,10 +357,17 @@
 	 *  to a <link rel=preload> we add in DlocalGateway::execute
 	 */
 	$( function () {
+		if ( isIndia ) {
+			$( '#fiscal_number' ).after(
+				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
+					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
+					'</p>' )
+			);
+		}
 		// only cc load smart field script and submit button, others show redirect with continue button
 		if ( $( '#payment_method' ).val() === 'cc' ) {
 			var scriptNode = document.createElement( 'script' );
-			scriptNode.onload = setup;
+			scriptNode.onload = setupCardForm;
 			scriptNode.onerror = function () {
 				mw.donationInterface.validation.showErrors(
 					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
@@ -324,6 +375,8 @@
 			};
 			scriptNode.src = mw.config.get( 'dlocalScript' );
 			document.body.append( scriptNode );
+		} else {
+			setupNonCardForm();
 		}
 	} );
 } )( jQuery, mediaWiki );
