@@ -1,8 +1,11 @@
 /*global dlocal:true*/
 ( function ( $, mw ) {
-	var country = $( '#country' ).val(), extraData = {},
-		isRecurring = !!$( '#recurring' ).val();
+	var country = $( '#country' ).val(),
+		extraData = {},
+		isRecurring = !!$( '#recurring' ).val(),
+		isIndia = ( country === 'IN' );
 
+	// Common helper functions
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			mw.donationInterface.validation.showErrors( {
@@ -291,38 +294,26 @@
 	}
 
 	function setupNonCardForm() {
-		if ( country === 'IN' ) {
-			if ( isRecurring && mw.config.get( 'isOnDemand' ) ) {
-				$( '.submethods' ).after( $( '<p>' +
-					mw.msg( 'donate_interface-charge-monthly-only' ) +
-					'</p>' ) );
-			}
+		var upiRecurringIsOnDemand = mw.config.get( 'isOnDemand' ),
+			isDirectPaymentFlow = mw.config.get( 'isDirectPaymentFlow' ),
+			isUpi = ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' );
+
+		if ( isUpi && isRecurring && upiRecurringIsOnDemand ) {
+			// If we are using the ONDEMAND charge frequency, add a note to reassure donors
+			// that we will only charge them once a month
+			$( '.submethods' ).after( $( '<p>' +
+				mw.msg( 'donate_interface-charge-monthly-only' ) +
+				'</p>' ) );
 		}
-		if ( mw.config.get( 'isDirectPaymentFlow' ) ) {
+
+		if ( isDirectPaymentFlow ) {
 			// Show our standard 'Donate' button
 			showPaymentSubmit();
 			// only non-recurring upi is direct, and it must IN and bt, so no needs to check those two val
-			if ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' && !isRecurring ) {
-				$( '.submethods' ).before(
-					$( '<label for="upi_id">' +
-						mw.msg( 'donate_interface-bt-upi_id' ) +
-						'</label>' +
-						'<input value="" name="upi_id" id="upi_id" />' ) );
-
+			if ( isUpi && !isRecurring ) {
+				addUpiDirectFlowInputField();
 				// Set the click handler
-				$( '#paymentSubmitBtn' ).click(
-					function ( event ) {
-						event.preventDefault();
-						// get verify
-						extraData.fiscal_number = $( '#fiscal_number' ).val();
-						extraData.upi_id = $( '#upi_id' ).val();
-						mw.donationInterface.forms.callDonateApi(
-							handleApiResult,
-							extraData,
-							'di_donate_dlocal'
-						);
-					}
-				);
+				$( '#paymentSubmitBtn' ).click( handleUpiDirectSubmitClick );
 			}
 		} else {
 			// Redirect flow
@@ -332,6 +323,27 @@
 		}
 	}
 
+	// Support functions for non-card form setup
+	function addUpiDirectFlowInputField() {
+		$( '.submethods' ).before(
+			$( '<label for="upi_id">' +
+				mw.msg( 'donate_interface-bt-upi_id' ) +
+				'</label>' +
+				'<input value="" name="upi_id" id="upi_id" />' ) );
+	}
+
+	function handleUpiDirectSubmitClick( event ) {
+		event.preventDefault();
+		// get verify
+		extraData.fiscal_number = $( '#fiscal_number' ).val();
+		extraData.upi_id = $( '#upi_id' ).val();
+		mw.donationInterface.forms.callDonateApi(
+			handleApiResult,
+			extraData,
+			'di_donate_dlocal'
+		);
+	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -339,7 +351,7 @@
 	 *  to a <link rel=preload> we add in DlocalGateway::execute
 	 */
 	$( function () {
-		if ( country === 'IN' ) {
+		if ( isIndia ) {
 			$( '#fiscal_number' ).after(
 				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
 					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
