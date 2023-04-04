@@ -3845,6 +3845,10 @@ abstract class GatewayAdapter implements GatewayType {
 
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
+		// hide upi_id from log
+		if ( isset( $details['upi_id'] ) ) {
+			unset( $details['upi_id'] );
+		}
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
 	}
