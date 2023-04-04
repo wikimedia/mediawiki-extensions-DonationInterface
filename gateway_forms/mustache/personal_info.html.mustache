@@ -20,6 +20,13 @@
     </div>{{/ postal_code_visible }}{{! don't render space
     }}</div>
 {{/ address_visible }}
+{{# phone_visible }}
+	<div>
+		<label for="phone">{{ l10n "donate_interface-donor-phone" }}</label>
+		<input class="fullwidth" id="phone" name="phone" value="{{ phone }}" type="text" title="{{ l10n "donate_interface-donor-phone" }}" {{# phone_required }}required {{/ phone_required }} autocomplete="tel" maxlength="20">
+		{{{ fieldError "phone" }}}
+	</div>
+{{/phone_visible}}
 {{# fiscal_number_visible }}
     <div>
         {{! TODO: Explore the new pattern attribute for browser validation while allowing the donor to enter whatever punctuated format they're used to }}

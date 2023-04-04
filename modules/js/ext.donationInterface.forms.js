@@ -124,6 +124,7 @@
 			city: $( '#city' ).val(),
 			state_province: $( '#state_province' ).val(),
 			postal_code: $( '#postal_code' ).val(),
+			phone: $( '#phone' ).val(),
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),
 			payment_method: $( '#payment_method' ).val(),
