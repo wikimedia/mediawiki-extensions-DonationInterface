@@ -305,6 +305,7 @@
 	"donate_interface-problemsdonating": "Link text, link pointing to page with troubleshooting.",
 	"donate_interface-donate-click": "Message assuring people WMF will not misuse information.",
 	"donate_interface-otherways": "Message informing people about other ways to give. Shown below donate form. $1: URL of page with more information.",
+	"donate_interface-otherways-in": "Message informing people about other ways to give in India. $1: URL of page with more information.",
 	"donate_interface-otherways-alt": "Message informing people about other ways to donate. Shown below donation form. $1: URL of page with more information.",
 	"donate_interface-otherways-short": "Link to page informing about other ways to give. Shown below donate form.",
 	"donate_interface-token-mismatch": "Error message shown when the session has expired.",

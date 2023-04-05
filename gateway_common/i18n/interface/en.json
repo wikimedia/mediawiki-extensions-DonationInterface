@@ -275,6 +275,7 @@
 	"donate_interface-problemsdonating": "Problems donating?",
 	"donate_interface-donate-click": "Your credit / debit card will be securely processed.",
 	"donate_interface-otherways": "There are <a href=\"$1\">other ways to give, including PayPal, check, or mail</a>.",
+	"donate_interface-otherways-in": "Please try one of our <a href=\"$1\">other ways to give</a>.",
 	"donate_interface-otherways-alt": "There are <a href=\"$1\">other ways to give</a>, including by check.",
 	"donate_interface-otherways-short": "Other ways to give",
 	"donate_interface-token-mismatch": "Your session has expired. Please try reloading the page and submitting the form again.",
