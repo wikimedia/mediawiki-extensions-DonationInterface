@@ -988,8 +988,7 @@ class DonationData implements LogPrefixProvider {
 			'employer',
 			'employer_id',
 			'full_name',
-			'fiscal_number',
-			'upi_id'
+			'fiscal_number'
 		];
 	}
 
