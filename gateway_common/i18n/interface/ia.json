@@ -156,6 +156,7 @@
 	"donate_interface-donor-currency-msg": "Iste donation es facite in $1",
 	"donate_interface-donor-fiscal_number": "Numero fiscal",
 	"donate_interface-donor-fiscal_number-explain-in": "Le Banca de Reserva de India <b>requesta</b> que nostre processator de pagamentos collige tu PAN. Nos non immagazina iste information. <b>Per favor specifica tu PAN hic; isto es optional.</b>",
+	"donate_interface-donor-phone": "Numero de telephono",
 	"donate_interface-donor-opt_in_yes": "Si! Per favor invia me actualitates e information infrequente in e-mail sur como io pote sustener Wikipedia in le futuro.*",
 	"donate_interface-donor-opt_in_no": "No, io non vole actualitates, mesmo si se tracta solmente de alcun poc messages per anno.",
 	"donate_interface-donor-opt_in_explain": "*Tu information es gerite in accordo con nostre <a href=\"$1\">politica de confidentialitate pro donatores</a>. Cata message que tu recipe includera optiones facile pro cancellar le inscription.",

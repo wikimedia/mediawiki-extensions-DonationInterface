@@ -165,6 +165,7 @@
 	"donate_interface-donor-fiscal_number": "מספר פיסקלי",
 	"donate_interface-donor-fiscal_number-in": "מספר חשבון קבוע (PAN)",
 	"donate_interface-donor-fiscal_number-explain-in": "חברת התשלומים שלנו <b>מתבקשת</b> על־ידי בנק העתודות של של הודו (Reserve Bank of India) לאסוף את ה־PAN שלך, אבל אנחנו לא מאחסנים את המידע הזה. <b>נא לרשום את ה־PAN שלך כאן (לא חובה).</b>",
+	"donate_interface-donor-phone": "מספר טלפון",
 	"donate_interface-donor-opt_in_yes": "כן! אנא שלחו לי עדכונים לא תכופים ומידע על איך אני יכול לתמוך בוויקיפדיה בעתיד.*",
 	"donate_interface-donor-opt_in_no": "לא, אינני רוצה לקבל עדכונים, גם אם מדובר רק בכמה מכתבים בודדים בשנה.",
 	"donate_interface-donor-opt_in_explain": "*המידע שלך מטופל בהתאם ל<a href=\"$1\">מדיניות הפרטיות של התורמים</a>. כל הודעת דואר אלקטרוני שתגיע אליך תכלול אפשרויות פשוטות לביטול מינוי.",

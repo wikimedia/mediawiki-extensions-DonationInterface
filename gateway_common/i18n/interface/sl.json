@@ -172,6 +172,7 @@
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
 	"donate_interface-donor-fiscal_number-za": "Identifikator",
+	"donate_interface-donor-phone": "Telefonska šteevilka",
 	"donate_interface-donor-opt_in_yes": "Da! Prosim, po e-pošti mi občasno pošljite obvestilo z novostmi in informacijami o tem, kako lahko v prihodnosti podpiram Wikipedijo.*",
 	"donate_interface-donor-opt_in_no": "Ne, ne želim novosti, tudi če gre le za nekaj e-poštnih sporočil na leto.",
 	"donate_interface-donor-opt_in_explain": "* Vaše podatke obravnavamo v skladu z našim <a href=\"$1\">Pravilnikom o zasebnosti</a>. Vsako e-poštno sporočilo, ki ga boste prejeli, bo vključevalo možnost preprostega odnaročila.",
