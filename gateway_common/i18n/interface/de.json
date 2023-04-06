@@ -270,6 +270,7 @@
 	"donate_interface-problemsdonating": "Haben Sie Probleme beim Spenden?",
 	"donate_interface-donate-click": "Ihre Kredit- bzw. Debitkarteninformationen werden gesichert verarbeitet.",
 	"donate_interface-otherways": "Es gibt auch <a href=\"$1\">andere Möglichkeiten zu spenden, einschließlich PayPal oder Scheck</a>.",
+	"donate_interface-otherways-in": "Bitte versuche eine unserer <a href=\"$1\">anderen Möglichkeiten zu spenden</a>.",
 	"donate_interface-otherways-alt": "Es gibt auch <a href=\"$1\">andere Möglichkeiten zu spenden, auch per Scheck</a>.",
 	"donate_interface-otherways-short": "Andere Möglichkeiten zu spenden",
 	"donate_interface-token-mismatch": "Deine Sitzung ist abgelaufen. Bitte lade die Seite erneut und sende sie nochmals ab.",
