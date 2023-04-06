@@ -11,6 +11,8 @@
 			mw.donationInterface.validation.showErrors( {
 				general: mw.msg( 'donate_interface-error-msg-general' )
 			} );
+		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
+			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		} else {

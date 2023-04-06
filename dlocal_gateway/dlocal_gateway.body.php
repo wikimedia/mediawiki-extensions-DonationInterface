@@ -10,6 +10,12 @@ use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class DlocalGateway extends GatewayPage {
 
+	/**
+	 * flag for setting Monthly Convert modal on template
+	 * @var bool
+	 */
+	public $supportsMonthlyConvert = true;
+
 	protected $gatewayIdentifier = DlocalAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {

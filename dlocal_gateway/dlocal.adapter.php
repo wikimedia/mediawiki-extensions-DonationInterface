@@ -12,7 +12,7 @@ use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
-class DlocalAdapter extends GatewayAdapter {
+class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
 
 	/**
@@ -221,21 +221,23 @@ class DlocalAdapter extends GatewayAdapter {
 					"Calling approvePayment with gateway_txn_id: " . $paymentDetailResponse->getGatewayTxnId()
 				);
 				$approvePaymentResponse = $paymentProvider->approvePayment( $capturePaymentParams );
+				// recurring will return a token on the authorization call
+				if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
+					$this->addResponseData( [
+						'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
+
+						// Get staged rather than unstaged data to use transformed/generated output
+						// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
+						'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
+					] );
+					if ( $this->showMonthlyConvert() ) {
+						$this->session_addDonorData();
+					}
+				}
 				$this->finalizeInternalStatus( $approvePaymentResponse->getStatus() );
 			}
 		} else {
 			$this->finalizeInternalStatus( $transactionStatus );
-		}
-
-		// recurring will return a token on the authorization call
-		if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
-			$this->addResponseData( [
-				'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
-
-				// Get staged rather than unstaged data to use transformed/generated output
-				// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
-				'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
-			] );
 		}
 
 		// Run some post-donation filters and send donation queue message
@@ -323,6 +325,11 @@ class DlocalAdapter extends GatewayAdapter {
 	protected function callCreatePayment( IPaymentProvider $paymentProvider ): CreatePaymentResponse {
 		$createPaymentParams = $this->buildRequestArray();
 		$this->logger->info( "Calling createPayment for Dlocal payment" );
+		// If we are going to ask for a monthly donation after a one-time donation completes, set the
+		// recurring param to 1 to tokenize the payment.
+		if ( $this->showMonthlyConvert() ) {
+			$createPaymentParams['recurring'] = 1;
+		}
 		$createPaymentResponse = $paymentProvider->createPayment( $createPaymentParams );
 		if ( !empty( $createPaymentResponse->getGatewayTxnId() ) ) {
 			$this->logger->info( "Returned Authorization ID {$createPaymentResponse->getGatewayTxnId()}" );
@@ -373,5 +380,9 @@ class DlocalAdapter extends GatewayAdapter {
 		}
 		$errorLogMessage .= json_encode( $rawResponse );
 		$this->logger->info( $errorLogMessage );
+	}
+
+	public function getPaymentMethodsSupportingRecurringConversion(): array {
+		return [ 'cc' ];
 	}
 }
