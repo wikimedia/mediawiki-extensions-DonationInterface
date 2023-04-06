@@ -156,6 +156,7 @@
 	"donate_interface-donor-submit": "Донирај",
 	"donate_interface-donor-currency-msg": "Ова донација је направљена у валути $1",
 	"donate_interface-donor-fiscal_number": "Фискални број",
+	"donate_interface-donor-phone": "Број телефона",
 	"donate_interface-card-name-amex": "Американ експрес",
 	"donate_interface-card-name-visa": "Виза",
 	"donate_interface-card-name-mc": "Мастеркард",

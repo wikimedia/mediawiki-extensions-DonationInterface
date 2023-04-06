@@ -3794,6 +3794,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getAvailableSubmethods() {
 		$method = $this->getPaymentMethod();
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+		$country = $this->getData_Unstaged_Escaped( 'country' );
+		$methodSupportsRecurring = $method ? $this->getPaymentMethodMeta( $method )['recurring'] : false;
 
 		$submethods = [];
 		foreach ( $this->payment_submethods as $key => $available_submethod ) {
@@ -3801,12 +3804,17 @@ abstract class GatewayAdapter implements GatewayType {
 			if ( $method !== $group ) {
 				continue; // skip anything not part of the selected method
 			}
-			if (
-				$this->unstaged_data // need data for country filter
-				&& isset( $available_submethod['countries'] )
-				// if the list exists, the current country key needs to exist and have a true value
-				&& empty( $available_submethod['countries'][$this->getData_Unstaged_Escaped( 'country' )] )
-			) {
+
+			$submethodHasCountryFilter = isset( $available_submethod['countries'] );
+			$removeForUnsupportedCountry =
+				$submethodHasCountryFilter && empty( $available_submethod['countries'][$country] );
+
+			// If the submethod does not specify whether it supports recurring, fall back to
+			// the setting for its parent method.
+			$submethodSupportsRecurring = $available_submethod['recurring'] ?? $methodSupportsRecurring;
+			$removeForUnsupportedRecurring = $isRecurring && !$submethodSupportsRecurring;
+
+			if ( $removeForUnsupportedCountry || $removeForUnsupportedRecurring ) {
 				continue; // skip 'em if they're not allowed round here
 			}
 			$submethods[$key] = $available_submethod;
@@ -3845,10 +3853,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
-		// hide upi_id from log
-		if ( isset( $details['upi_id'] ) ) {
-			unset( $details['upi_id'] );
-		}
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
 	}

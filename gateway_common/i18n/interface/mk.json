@@ -161,6 +161,7 @@
 	"donate_interface-donor-fiscal_number": "Фискален број",
 	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Банката на резерви на Индија <b>бара</b> нашиот наплатен услужник да го има вашиот PAN, но ние не ја складираме таа информација.<b>Ако сакате, тука внесете го вашиот PAN.</b>",
+	"donate_interface-donor-phone": "Телеф. бр.",
 	"donate_interface-donor-opt_in_yes": "Да! Повремено (ретко) испраќајте ми сознанија за тоа како во иднина можам да ја поддржам Википедија.*",
 	"donate_interface-donor-opt_in_no": "Не, не сакам да добивам новости, дури и ако се само неколку годишно.",
 	"donate_interface-donor-opt_in_explain": "*Со вашите податоци се постапува во склад со <a href=\"$1\">Правилата за дарители</a>. Во секое известување по е-пошта е вклучена и можност за отпис.",
