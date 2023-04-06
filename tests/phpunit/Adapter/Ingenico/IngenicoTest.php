@@ -553,7 +553,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		] );
 		$this->assertFalse( $result->isFailed() );
 		$this->assertSame( [], $result->getErrors() );
-		// TODO inspect the queue message
+		$message = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNotNull( $message );
+		$this->assertSame( '112233445566', $message['initial_scheme_transaction_id'] );
 	}
 
 	public function testDonorReturnFailure() {

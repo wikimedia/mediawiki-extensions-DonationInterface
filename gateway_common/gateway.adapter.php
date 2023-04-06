@@ -1118,6 +1118,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { // We have something to slice and dice.
 			$rawResponse = $this->transaction_response->getRawResponse();
+			// FIXME these should be in a gateway-specific sanitizeRawResponse() function.
 			$decodeResponse = json_decode( $rawResponse, true );
 			// do not send card to rawResponse for log, below two was for ingenico getHostedPaymentStatus, approvePayment and cancelPayment
 			if ( isset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {

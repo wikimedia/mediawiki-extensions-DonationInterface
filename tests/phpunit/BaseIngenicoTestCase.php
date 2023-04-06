@@ -80,6 +80,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 								"cardNumber" => "************7977",
 								"expiryDate" => "1220"
 							],
+							"schemeTransactionId" => "112233445566",
 							"fraudResults" => [
 								"avsResult" => "0",
 								"cvvResult" => "M",
@@ -107,6 +108,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		$this->hostedPaymentStatusResponse = new PaymentDetailResponse();
 		$this->hostedPaymentStatusResponse->setRawResponse( $this->hostedPaymentStatusRawResponse );
 		$this->hostedPaymentStatusResponse->setSuccessful( true );
+		$this->hostedPaymentStatusResponse->setInitialSchemeTransactionId( "112233445566" );
 
 		$this->hostedPaymentStatusRawResponseBadCvv = $this->hostedPaymentStatusRawResponse;
 		$this->hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
