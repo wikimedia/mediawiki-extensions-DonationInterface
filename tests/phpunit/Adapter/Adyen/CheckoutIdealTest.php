@@ -1,7 +1,7 @@
 <?php
 
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\Adyen\IdealBankTransferPaymentProvider;
+use SmashPig\PaymentProviders\Adyen\BankTransferPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
@@ -14,7 +14,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  */
 class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 	/**
-	 * @var \PHPUnit\Framework\MockObject\MockObject|IdealBankTransferPaymentProvider
+	 * @var \PHPUnit\Framework\MockObject\MockObject|BankTransferPaymentProvider
 	 */
 	protected $idealPaymentProvider;
 
@@ -22,7 +22,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		parent::setUp();
 		$this->setLanguage( 'nl' );
 
-		$this->idealPaymentProvider = $this->createMock( IdealBankTransferPaymentProvider::class );
+		$this->idealPaymentProvider = $this->createMock( BankTransferPaymentProvider::class );
 
 		$this->providerConfig->overrideObjectInstance(
 			'payment-provider/rtbt',
