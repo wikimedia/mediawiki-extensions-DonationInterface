@@ -263,6 +263,7 @@
 	"donate_interface-problemsdonating": "בעיות בתרומה?",
 	"donate_interface-donate-click": "כרטיס האשראי שלך יעובד באופן מאובטח.",
 	"donate_interface-otherways": "ישנן <a href=\"$1\">דרכים נוספות לתת, לרבות PayPal, המחאה (צ׳ק) או בדואר</a>.",
+	"donate_interface-otherways-in": "נא לנסות אחת <a href=\"$1\">מהדרכים האחרות שלנו לתת</a>.",
 	"donate_interface-otherways-alt": "ישנן <a href=\"$1\">דרכים נוספות לתרום</a>, לרבות המחאה.",
 	"donate_interface-otherways-short": "דרכים אחרות לתרום",
 	"donate_interface-token-mismatch": "ההתחברות שלך פגה. נא לנסות לרענן את הדף ולשלוח את הטופס מחדש.",

@@ -155,6 +155,7 @@
 	"donate_interface-donor-submit": "Maacht en Don",
 	"donate_interface-donor-currency-msg": "Dësen don gëtt an $1 gemaach",
 	"donate_interface-donor-fiscal_number": "Steiernummer",
+	"donate_interface-donor-phone": "Telefonsnummer",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
