@@ -283,6 +283,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Mexico-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Peru-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Uruguay-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
+	"donate_interface-error-msg-invalid-fiscal_number-za": "South Africa-specific error message for invalid fiscal number.\n{{related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-issuer_id": "{{Identical|Bank}}\n\nLabel for bank or card issuer, used in an error message when the bank selection is missing.",
 	"donate_interface-error-msg-apple_pay_unsupported": "Message shown to donors loading an Apple Pay form in an unsupported browser, instructing them to open the link in Safari. Parameters:\n* $1 - link to other payment methods",
 	"donate_interface-error-msg-google_pay_unsupported": "Message shown to donors loading an Google Pay form in an unsupported browser, instructing them to open the link in Chrome. Parameters:\n* $1 - link to other payment methods",
