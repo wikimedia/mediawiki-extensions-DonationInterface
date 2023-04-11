@@ -11,6 +11,8 @@
 			mw.donationInterface.validation.showErrors( {
 				general: mw.msg( 'donate_interface-error-msg-general' )
 			} );
+		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
+			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		} else {
@@ -360,7 +362,7 @@
 		if ( isIndia ) {
 			$( '#fiscal_number' ).after(
 				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
-					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-in' ) +
+					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-option-in' ) +
 					'</p>' )
 			);
 		}

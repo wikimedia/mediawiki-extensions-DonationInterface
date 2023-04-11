@@ -171,6 +171,7 @@
 	"donate_interface-donor-submit": "اهدا کن",
 	"donate_interface-donor-currency-msg": "این کمک مالی در $1 تهیه شده است",
 	"donate_interface-donor-fiscal_number": "کد اقتصادی",
+	"donate_interface-donor-phone": "شمارهٔ تلفن",
 	"donate_interface-card-name-amex": "آمریکن اکسپرس",
 	"donate_interface-card-name-visa": "روادید",
 	"donate_interface-card-name-mc": "مسترکارد",

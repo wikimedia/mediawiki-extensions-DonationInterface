@@ -17,6 +17,7 @@
 			"Sp5uhe",
 			"The Polish",
 			"WTM",
+			"WaldiSt",
 			"Woytecr"
 		]
 	},
@@ -166,6 +167,7 @@
 	"donate_interface-donor-submit": "Wpłacam",
 	"donate_interface-donor-currency-msg": "Darowizna składana jest w $1",
 	"donate_interface-donor-fiscal_number": "Numer CPF/CPNJ",
+	"donate_interface-donor-phone": "Numer telefonu",
 	"donate_interface-donor-opt_in_yes": "Tak! Poproszę o sporadyczne przesyłanie mi e-maili z informacjami jak mogę wesprzeć Wikipedię w przyszłości.*",
 	"donate_interface-donor-opt_in_no": "Nie, nie chcę wiadomości, nawet jeśli to tylko kilka w ciągu roku.",
 	"donate_interface-card-name-amex": "American Express",
