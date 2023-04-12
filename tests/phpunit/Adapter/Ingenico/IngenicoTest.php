@@ -23,6 +23,7 @@ use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\PaymentStatus;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CancelPaymentResponse;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 use Wikimedia\TestingAccessWrapper;
 
@@ -69,14 +70,13 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )
-			->willReturn(
-				$this->hostedCheckoutCreateResponse
-			);
+		$this->setUpIntegrationMocks();
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 		// no order_id from anywhere, explicit generate
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway->do_transaction( 'createHostedCheckout' );
+		$gateway->doPayment();
 
 		$this->assertNotNull(
 			$gateway->getData_Unstaged_Escaped( 'gateway_session_id' ),
@@ -88,21 +88,26 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * Test we're sending an IP address in the right place
 	 */
 	public function testSendCustomerIP() {
+		$this->setUpIntegrationMocks();
 		$init = $this->getDonorTestData();
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )
-			->with( $this->callback( static function ( $arg ) use ( $gateway ) {
-				return $gateway->getData_Unstaged_Escaped( 'user_ip' ) ===
-					$arg['fraudFields']['customerIpAddress'];
-			} ) )
-			->willReturn(
-				$this->hostedCheckoutCreateResponse
-			);
-		$gateway->do_transaction( 'createHostedCheckout' );
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )
+			->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( static function ( $encoded ) use ( $gateway ) {
+					$arg = json_decode( $encoded, true );
+					return $gateway->getData_Unstaged_Escaped( 'user_ip' ) ===
+						$arg['fraudFields']['customerIpAddress'];
+				} )
+			)
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
+		$gateway->doPayment();
 	}
 
 	/**
@@ -431,15 +436,13 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
 
-		$ctid = mt_rand();
-
 		$gateway->addResponseData( [
-			'contribution_tracking_id' => $ctid . '.1',
+			'amount' => '2.55',
 		] );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		// Desired vars were written into normalized data.
-		$this->assertEquals( $ctid, $exposed->dataObj->getVal( 'contribution_tracking_id' ) );
+		$this->assertEquals( 2.55, $exposed->dataObj->getVal( 'amount' ) );
 
 		// Language was not overwritten.
 		$this->assertEquals( 'ca', $exposed->dataObj->getVal( 'language' ) );
@@ -482,7 +485,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$gateway = new IngenicoAdapter();
 		$calls = [];
 		$this->hostedCheckoutProvider->expects( $this->exactly( 2 ) )
-			->method( 'createHostedPayment' )
+			->method( 'createPaymentSession' )
 			->with( $this->callback( function ( $arg ) use ( &$calls ) {
 				$calls[] = $arg;
 				if ( count( $calls ) === 2 ) {
@@ -492,17 +495,20 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			} ) )
 			->will( $this->onConsecutiveCalls(
 				$this->throwException( new Exception( 'test' ) ),
-				$this->returnValue( $this->hostedCheckoutCreateResponse )
+				$this->returnValue( ( new CreatePaymentSessionResponse() )
+					->setSuccessful( true )
+					->setPaymentSession( 'asdasda' )
+				)
 			) );
 		try {
-			$gateway->do_transaction( 'createHostedCheckout' );
+			$gateway->doPayment();
 		} catch ( Exception $e ) {
 			// totally expected this
 		}
 
 		// simulate another request coming in before we get anything back from GC
 		$anotherGateway = new IngenicoAdapter();
-		$anotherGateway->do_transaction( 'createHostedCheckout' );
+		$anotherGateway->doPayment();
 	}
 
 	/**
@@ -617,6 +623,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['order_id'] = mt_rand();
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
+
 		$gateway = $this->getFreshGatewayObject( [] );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'getHostedPaymentStatus' )
@@ -670,62 +677,56 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )
-			->with( $this->callback( function ( $actual ) {
-				$hcsi = [
-					'locale' => 'en_US',
-					'paymentProductFilters' => [
-						'restrictTo' => [
-							'groups' => [
-								'cards'
-							]
-						]
-					],
-					'showResultPage' => 'false'
-				];
-				$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
-				$this->assertRegExp(
-					'/Special:IngenicoGatewayResult/',
-					$actual['hostedCheckoutSpecificInput']['returnUrl']
-				);
-				$order = [
-					'amountOfMoney' => [
-						'currencyCode' => 'USD',
-						'amount' => 455.0
-					],
-					'customer' => [
-						'billingAddress' => [
-							'countryCode' => 'US',
-							'city' => 'San Francisco',
-							'state' => 'CA',
-							'zip' => '94105',
-							'street' => '123 Fake Street'
-						],
-						'contactDetails' => [
-							'emailAddress' => 'nobody@wikimedia.org'
-						],
+		$this->setUpIntegrationMocks();
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) {
+					$actual = json_decode( $encoded, true );
+					$hcsi = [
 						'locale' => 'en_US',
-						'personalInformation' => [
-							'name' => [
-								'firstName' => 'Firstname',
-								'surname' => 'Surname'
+						'paymentProductFilters' => [
+							'restrictTo' => [
+								'groups' => [
+									'cards'
+								]
 							]
+						],
+						'showResultPage' => false
+					];
+					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertRegExp(
+						'/Special:IngenicoGatewayResult/',
+						$actual['hostedCheckoutSpecificInput']['returnUrl']
+					);
+					$order = [
+						'amountOfMoney' => [
+							'currencyCode' => 'USD',
+							'amount' => '455'
+						],
+						'customer' => [
+							'billingAddress' => [
+								'countryCode' => 'US',
+								'city' => 'San Francisco',
+								'state' => 'CA',
+								'zip' => '94105',
+								'street' => '123 Fake Street'
+							],
+							'contactDetails' => [
+								'emailAddress' => 'nobody@wikimedia.org'
+							],
+							'locale' => 'en_US',
 						]
-					]
-				];
-				$this->assertArraySubmapSame( $order, $actual['order'] );
-				$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
-				return true;
-			} )
+					];
+					$this->assertArraySubmapSame( $order, $actual['order'] );
+					$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
+					return true;
+				} )
 			)
-			->willReturn(
-				$this->hostedCheckoutCreateResponse
-			);
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )->with(
-				$this->equalTo( $this->partialUrl )
-			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
+
 		$result = $gateway->doPayment();
 		$this->assertEquals(
 			'https://wmf-pay.' . $this->partialUrl, $result->getIframe()
@@ -797,4 +798,5 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$response->setSuccessful( true );
 		return $response;
 	}
+
 }

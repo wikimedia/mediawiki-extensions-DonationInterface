@@ -1,0 +1,28 @@
+# TODO: move this all into SmashPig
+isRecurring: recurring
+locale: language
+amount: amount
+currencyCode: currency
+city: city
+countryCode: country
+state: state_province
+street: street_address
+zip: postal_code
+emailAddress: email
+firstName: first_name
+surname: last_name
+merchantReference: order_id
+hostedCheckoutId: gateway_session_id
+id: gateway_txn_id
+statusCode: gateway_status
+avsResult: avs_result
+cvvResult: cvv_result
+returnUrl: returnto
+tokens: recurring_payment_token
+# FIXME: normalized variable name should be something positive, but our staging
+# is only about formatting values, so flipping the sense of it is out of scope.
+skipAuthentication: skip_authentication
+customerIpAddress: user_ip
+variant: processor_form
+paymentProductId: payment_submethod
+cardholderName: full_name

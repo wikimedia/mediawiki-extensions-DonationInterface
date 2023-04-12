@@ -1,0 +1,20 @@
+# Core
+- Amount
+- CountryValidation
+- DonorEmail
+- DonorFullName
+- AmountInCents
+- StreetAddress
+
+# Ingenico
+- FiscalNumber
+- ContributionTrackingPlusUnique
+- IngenicoFinancialNumber
+- IngenicoLocale
+- IngenicoMethodCodec
+- IngenicoReturntoHelper
+- IngenicoPaymentSubmethod
+- Ingenico3DSecure
+- IngenicoFormVariant # needs to come after 3DSecure
+- IngenicoRecurringBooleanValue
+- EmployerFieldValidation

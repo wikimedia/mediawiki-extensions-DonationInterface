@@ -1,9 +1,11 @@
 <?php
 
+use SmashPig\Core\Http\CurlWrapper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\Tests\TestingContext;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
@@ -22,6 +24,11 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	 */
 	protected $hostedCheckoutProvider;
 
+	/**
+	 * @var PHPUnit_Framework_MockObject_MockObject|CurlWrapper
+	 */
+	protected $curlWrapper;
+
 	protected $testAdapterClass = IngenicoAdapter::class;
 
 	protected function setUp(): void {
@@ -35,30 +42,12 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			$this->hostedCheckoutProvider
 		);
 
-		$vmad_countries = [ 'US', ];
-		$vmaj_countries = [
-			'AD', 'AT', 'AU', 'BE', 'BH', 'DE', 'EC', 'ES', 'FI', 'FR', 'GB',
-			'GF', 'GR', 'HK', 'IE', 'IT', 'JP', 'KR', 'LU', 'MY', 'NL', 'PR',
-			'PT', 'SG', 'SI', 'SK', 'TH', 'TW',
-		];
-		$vma_countries = [
-			'AE', 'AL', 'AN', 'AR', 'BG', 'CA', 'CH', 'CN', 'CR', 'CY', 'CZ', 'DK',
-			'DZ', 'EE', 'EG', 'JO', 'KE', 'HR', 'HU', 'IL', 'KW', 'KZ', 'LB', 'LI',
-			'LK', 'LT', 'LV', 'MA', 'MT', 'NO', 'NZ', 'OM', 'PK', 'PL', 'QA', 'RO',
-			'RU', 'SA', 'SE', 'TN', 'TR', 'UA',
-		];
 		$this->setMwGlobals( [
 			'wgIngenicoGatewayEnabled' => true,
 		] );
 
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
 			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';
-
-		$this->hostedCheckoutCreateResponse = [
-			'partialRedirectUrl' => $this->partialUrl,
-			'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-			'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-		];
 
 		$this->hostedPaymentStatusRawResponse = [
 			"createdPaymentOutput" => [
@@ -162,9 +151,43 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			->setGatewayTxnId( '000000850010000188180000200001' );
 	}
 
+	public function setUpIntegrationMocks() {
+		$providerConfig = TestingContext::get()->getProviderConfiguration();
+		$this->hostedCheckoutProvider = $this->getMockBuilder( HostedCheckoutProvider::class )
+			->enableProxyingToOriginalMethods()
+			->disableOriginalClone()
+			->disableArgumentCloning()
+			->disallowMockingUnknownTypes()
+			->setConstructorArgs( [ [ 'subdomain' => 'wmf-pay' ] ] )
+			->getMock();
+
+		$providerConfig->overrideObjectInstance(
+			'payment-provider/cc',
+			$this->hostedCheckoutProvider
+		);
+
+		$this->curlWrapper = $this->createMock( CurlWrapper::class );
+		$providerConfig->overrideObjectInstance( 'curl/wrapper', $this->curlWrapper );
+	}
+
 	public static function getDonorTestData( $country = '' ) {
 		$data = parent::getDonorTestData( $country );
 		$data['gateway_session_id'] = (string)mt_rand();
 		return $data;
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getGoodHostedCheckoutCurlResponse(): array {
+		return [
+			'body' => json_encode( [
+				'partialRedirectUrl' => $this->partialUrl,
+				'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+				'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+			] ),
+			'headers' => [],
+			'status' => 200
+		];
 	}
 }
