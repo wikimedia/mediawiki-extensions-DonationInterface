@@ -33,6 +33,7 @@
 					mw.donationInterface.forms.addDebugMessage( message );
 				};
 
+				config.showBrandsUnderCardNumber = false;
 				return config;
 
 			case 'ideal':
@@ -200,8 +201,14 @@
 		config.onAdditionalDetails = onAdditionalDetails;
 		config.onError = onError;
 		config.showPayButton = false;
-
-		return new AdyenCheckout( config );
+		var checkoutObject = new AdyenCheckout( config );
+		if ( checkoutObject instanceof Promise ) {
+			return checkoutObject;
+		}
+		// eslint-disable-next-line compat/compat
+		return new Promise( function ( resolve, reject ) {
+			resolve( checkoutObject );
+		} );
 	}
 
 	/**
@@ -485,11 +492,10 @@
 	 */
 	function setup() {
 		var component_type,
-			component,
-			component_config,
 			config,
 			ui_container_name,
-			oldShowErrors;
+			oldShowErrors,
+			checkoutPromise;
 
 		if ( !configFromServer ) {
 			// If the configuration has not been passed from the server, we are likely on the
@@ -543,9 +549,15 @@
 
 		setLocaleAndTranslations( config, configFromServer.locale );
 
-		checkout = getCheckout( config );
-		component_config = getComponentConfig( component_type, config );
-		component = checkout.create( component_type, component_config );
+		checkoutPromise = getCheckout( config );
+		checkoutPromise.then( function ( checkout ) {
+			createAndMountComponent( checkout, config, component_type, ui_container_name );
+		} );
+	}
+
+	function createAndMountComponent( checkout, config, component_type, ui_container_name ) {
+		var component_config = getComponentConfig( component_type, config ),
+			component = checkout.create( component_type, component_config );
 
 		if ( component_type === 'googlepay' ) {
 			component.isAvailable().then( function () {
