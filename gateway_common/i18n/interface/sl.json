@@ -168,6 +168,7 @@
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
 	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Indijska centralna banka <b>zahteva</b> od našega obdelovalca plačil, da pridobi vašo številko PAN, vendar teh podatkov ne shranjujemo. <b>Če želite, tu vnesite svojo številko PAN.</b>",
+	"donate_interface-donor-fiscal_number-explain-option-in": "Rezervna banka Indije <b>zahteva</b> od našega obdelovalca plačil, da pridobi vašo številko PAN.<b>Navedite svojo številko PAN tukaj.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
