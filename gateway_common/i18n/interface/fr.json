@@ -198,6 +198,7 @@
 	"donate_interface-donor-fiscal_number-co": "Carte d’identité",
 	"donate_interface-donor-fiscal_number-in": "PAN (Inde)",
 	"donate_interface-donor-fiscal_number-explain-in": "Notre processeur de paiement est <b>tenu</b> par la Banque centrale de l’Inde de récupérer votre PAN, mais nous ne conservons pas cette information et ne la stockons pas. <b>Veuillez fournir facultativement votre PAN ici.</b>",
+	"donate_interface-donor-fiscal_number-explain-option-in": "La Banque Centrale Indienne <b>demande</b> à notre processeur de paiement de récupérer votre PAN. <b>Veuillez fournir, de façon facultative, votre PAN ici.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
 	"donate_interface-donor-fiscal_number-uy": "CI",
