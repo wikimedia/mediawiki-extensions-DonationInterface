@@ -199,6 +199,10 @@ body.rtl .mc-close {
 }
 
 /* Error messages */
+.mc-other-amount .errorHighlight {
+	border: 2px solid #f00 !important;
+}
+
 .mc-error {
 	display: none;
 	width: calc( 100% + 10px );
