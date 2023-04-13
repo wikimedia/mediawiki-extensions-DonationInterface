@@ -904,10 +904,10 @@
 			"value": [
 				{
 					"conditions": {
-						"country": [ "AR", "BR", "CL", "CO", "MX", "PE", "UY", "ZA" ],
+						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "astropay", "ingenico", "adyen" ]
+					"gateways": [ "dlocal", "ingenico", "adyen" ]
 				},
 				{
 					"conditions": {
@@ -926,7 +926,7 @@
 					"gateways": [ "adyen", "ingenico" ]
 				},
 				{
-					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "astropay", "braintree" ]
+					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "dlocal", "braintree" ]
 				}
 			]
 		},
