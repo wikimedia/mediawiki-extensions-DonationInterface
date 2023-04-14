@@ -257,6 +257,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Prosimo, popravite napake v svojem CURP/RFC/IFE",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Prosimo, popravite napake v svojem DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Prosimo, popravite napake v svojem CI",
+	"donate_interface-error-msg-invalid-fiscal_number-za": "Prosimo, ppravite napake v svojem nacionalnem ID-ju",
 	"donate_interface-error-msg-issuer_id": "banka",
 	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay v tem brskalniku ni podprt. Prosimo, uporabite brskalnik Safari in zagotovite, da je Apple Pay v vaši napravi konfiguriran, ali poskusite z enim od naših <a href=\"$1\">drugih načinov za darovanje</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay ni na voljo. Prepričajte se, da je Google Pay konfiguriran, ali poskusite z enim od naših <a href=\"$1\">drugih načinov za doniranje</a>.",
