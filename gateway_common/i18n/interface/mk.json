@@ -246,6 +246,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Исправете ги грешките во вашиот CURP/RFC/IFE",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Исправете ги грешките во вашиот DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Исправете ги грешките во вашиот CI",
+	"donate_interface-error-msg-invalid-fiscal_number-za": "Исправете ги грешките во вашата лична карта",
 	"donate_interface-error-msg-issuer_id": "банка",
 	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay не е поддржан на овој прелистувач. Користете Safari и видете дали Apple Pay е наместен на вашиот уред, или пак послужете се со некој од <a href=\"$1\">другите начини на дарување</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay не е достапен. Проверете дали е поставен или пробајте еден од другите <a href=\"$1\">начини на дарување</a>.",
