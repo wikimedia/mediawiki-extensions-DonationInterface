@@ -221,17 +221,22 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 					"Calling approvePayment with gateway_txn_id: " . $paymentDetailResponse->getGatewayTxnId()
 				);
 				$approvePaymentResponse = $paymentProvider->approvePayment( $capturePaymentParams );
-				// recurring will return a token on the authorization call
-				if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
+				if ( $approvePaymentResponse->isSuccessful() ) {
 					$this->addResponseData( [
-						'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
-
-						// Get staged rather than unstaged data to use transformed/generated output
-						// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
-						'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
+						'gateway_txn_id' => $approvePaymentResponse->getGatewayTxnId(),
 					] );
-					if ( $this->showMonthlyConvert() ) {
-						$this->session_addDonorData();
+					// recurring will return a token on the authorization call
+					if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
+						$this->addResponseData( [
+							'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
+
+							// Get staged rather than unstaged data to use transformed/generated output
+							// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
+							'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
+						] );
+						if ( $this->showMonthlyConvert() ) {
+							$this->session_addDonorData();
+						}
 					}
 				}
 				$this->finalizeInternalStatus( $approvePaymentResponse->getStatus() );
