@@ -242,6 +242,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "נא לתקן את השגיאות ב־CURP/RFC/IFE שלך",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "נא לתקן את השגיאות ב־DNI שלך",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "נא לתקן את השגיאות ב־CI שלך",
+	"donate_interface-error-msg-invalid-fiscal_number-za": "נא לתקן את השגיאות במספר הזיהוי הלאומי שלך",
 	"donate_interface-error-msg-issuer_id": "בנק",
 	"donate_interface-error-msg-apple_pay_unsupported": "אין תמיכה ב־Apple Pay בדפדפן הזה. נא להשתמש בדפדפן ספארי ולוודא ש־Apple Pay מוגדר במכשיר שלך או לנסות אחת מ<a href=\"$1\">הדרכים האחרות שלנו לתת</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay אינו זמין. נא לוודא ש־Google Pay מוגדר או לנסות <a href=\"$1\">אחת מהדרכים האחרות שלנו לתת</a>.",

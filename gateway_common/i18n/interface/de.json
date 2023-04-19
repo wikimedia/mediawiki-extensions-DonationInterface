@@ -249,6 +249,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-mx": "Bitte korrigieren Sie die Fehler in Ihrem CURP/RFC/IFE",
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "Bitte korrigieren Sie die Fehler in Ihrem DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "Bitte korrigieren Sie die Fehler in Ihrem CI",
+	"donate_interface-error-msg-invalid-fiscal_number-za": "Bitte korrigieren Sie die Fehler in Ihrer Nationalen ID",
 	"donate_interface-error-msg-issuer_id": "Kreditinstitut",
 	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay wird in diesem Browser nicht unterstützt. Bitte verwende den Safari-Browser und stelle sicher, dass Apple Pay auf deinem Gerät konfiguriert ist, oder versuche eine unserer <a href=\"$1\">anderen Möglichkeiten zu spenden</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay ist nicht verfügbar. Bitte stelle sicher, dass Google Pay konfiguriert ist, oder probiere eine unserer <a href=\"$1\">anderen Spendenmöglichkeiten</a>.",
