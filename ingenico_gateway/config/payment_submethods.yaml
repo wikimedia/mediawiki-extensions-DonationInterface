@@ -20,6 +20,10 @@ visa-debit:
   # Same lame trick as visa-electron. ReferenceData still needs a reverse lookup
   # for getPaymentSubmethodMeta
   countries: []
+mc-debit:
+  paymentproductid: 119
+  group: cc
+  countries: []
 mc:
     paymentproductid: 3
     label_key: donate_interface-card-name-mc

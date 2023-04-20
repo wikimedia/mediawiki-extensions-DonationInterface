@@ -120,11 +120,13 @@ pix:
     group: cash
     countries:
         BR: true
+    logo: bank-pix.png
 cash_boleto:
     label: Boletos
     group: cash
     countries:
         BR: true
+    logo: bank-boleto.png
 cash_oxxo:
     label: OXXO
     group: cash

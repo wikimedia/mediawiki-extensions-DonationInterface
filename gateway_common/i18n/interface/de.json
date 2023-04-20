@@ -174,7 +174,7 @@
 	"donate_interface-donor-fiscal_number-explain-in": "Unser Zahlungsabwickler wird von der Reserve Bank of India <b>aufgefordert</b>, Ihre PAN zu erheben, aber wir speichern diese Informationen nicht. <b>Bitte geben Sie hier Ihre PAN optional an.</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Unser Zahlungsabwickler wird von der Reserve Bank of India <b>aufgefordert</b>, Ihre PAN zu erheben. <b>Bitte geben Sie hier Ihre PAN optional an.</b>",
 	"donate_interface-donor-phone": "Telefonnummer",
-	"donate_interface-donor-phone-explain-in": "Dies ist optional und wir speichern sie nicht. Wenn du dieses Feld leer lässt, generiert unser Zahlungsabwickler auf dem nächsten Bildschirm einen zufälligen Platzhalter.",
+	"donate_interface-donor-phone-explain-in": "Dies ist optional und wir speichern sie nicht. Wenn du dieses Feld leer lässt, kann unser Zahlungsabwickler auf dem nächsten Bildschirm einen zufälligen Platzhalter erzeugen.",
 	"donate_interface-donor-opt_in_yes": "Ja! Bitte senden Sie mir unregelmäßige Aktualisierungen und Informationen per E-Mail, wie ich in Zukunft Wikipedia unterstützen kann.*",
 	"donate_interface-donor-opt_in_no": "Nein, ich möchte keine Aktualisierungen erhalten, auch wenn es nur wenige E-Mails pro Jahr sind.",
 	"donate_interface-donor-opt_in_explain": "*Ihre Informationen werden in Übereinstimmung mit unserer <a href=\"$1\">Datenschutzrichtlinie für Spender</a> gehandhabt. Jede E-Mail, die Sie erhalten, enthält einfache Optionen zur Abmeldung.",

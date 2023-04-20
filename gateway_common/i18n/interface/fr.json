@@ -204,7 +204,7 @@
 	"donate_interface-donor-fiscal_number-uy": "CI",
 	"donate_interface-donor-fiscal_number-za": "Identifiant",
 	"donate_interface-donor-phone": "Numéro de téléphone",
-	"donate_interface-donor-phone-explain-in": "Ceci est facultatif et nous ne le conservons pas. S’il est laissé vide, notre traitement du paiement générera un substitut aléatoire sur l’écran suivant.",
+	"donate_interface-donor-phone-explain-in": "Ceci est facultatif et nous ne le conservons pas. Si laissé vide, notre traitement du paiement peut générer un substitut aléatoire sur l’écran suivant.",
 	"donate_interface-donor-opt_in_yes": "Oui ! envoyez-moi à l’occasion des courriels de mises à jour et d’informations sur la manière de soutenir Wikipédia à l’avenir.*",
 	"donate_interface-donor-opt_in_no": "Non, je ne veux aucune mise à jour, même ce ne sont que quelques courriels par an.",
 	"donate_interface-donor-opt_in_explain": "* Vos informations sont gérées en accord avec notre <a href=\"$1\">Politique de confidentialité du donateur</a>. Chaque courriel que vous recevrez inclura des options de désinscription facile.",
