@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmedadeljaff"
+			"Ahmedadeljaff",
+			"MRidhaAJ"
 		]
 	},
-	"donate_interface-donor-phone-explain-in": "هذا اختياري وما نقوم بتخزينه. إذا تُركته فارغ، راح يُنشئ معالج الدفع عدنا عنصر نائب عشوائي على الشاشة الجاية."
+	"donate_interface-donor-phone-explain-in": "هاذ اختياري واحنه ما نخزنه. إذا عفته فارغ، راح يسوي معالج الدفع عدنا عنصر نائب عشوائي على الشاشة الجاية."
 }
