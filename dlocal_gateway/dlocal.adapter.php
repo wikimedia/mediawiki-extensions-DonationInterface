@@ -86,10 +86,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		// In any case, we don't want to send a message to the donations
 		// queue from the front-end for recurring UPI because we need to
 		// wait for a wallet token that comes in on the IPN listener.
-		if (
-			$this->getPaymentSubmethod() === 'upi' &&
-			$this->getData_Unstaged_Escaped( 'recurring' )
-		) {
+		if ( $this->isIndiaRecurring() ) {
 			// Just finalize the donation attempt and send them to the
 			// donations queue. Use 'pending' here so the payments-init
 			// consumer doesn't delete the message from the pending table.
@@ -389,5 +386,12 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'cc' ];
+	}
+
+	protected function isIndiaRecurring(): bool {
+		return ( in_array(
+				$this->getPaymentSubmethod(), [ 'upi', 'paytmwallet' ], true
+			) ) &&
+			$this->getData_Unstaged_Escaped( 'recurring' );
 	}
 }
