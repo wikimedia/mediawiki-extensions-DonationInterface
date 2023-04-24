@@ -27,13 +27,13 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	}
 
 	protected function setInitialFiltersToFail() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceCustomFiltersInitialFunctions' => [
+		$this->setMwGlobals( DonationInterfaceTestCase::getAllGlobalVariants( [
+			'CustomFiltersInitialFunctions' => [
 				'getScoreUtmSourceMap' => 100
 			],
-			'wgDonationInterfaceUtmSourceMap' => [
+			'UtmSourceMap' => [
 				'/.*/' => 100,
 			],
-		] );
+		] ) );
 	}
 }

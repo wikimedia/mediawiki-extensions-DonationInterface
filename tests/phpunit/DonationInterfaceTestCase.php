@@ -158,19 +158,14 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	}
 
 	protected function setInitialFiltersToFail() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceCustomFiltersInitialFunctions' => [
+		$this->setMwGlobals( self::getAllGlobalVariants( [
+			'CustomFiltersInitialFunctions' => [
 				'getScoreUtmSourceMap' => 100
 			],
-			// We have to set this explicitly, since setMwGlobals doesn't provide
-			// a way to unset a global setting.
-			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => [
-				'getScoreUtmSourceMap' => 100
-			],
-			'wgDonationInterfaceUtmSourceMap' => [
+			'UtmSourceMap' => [
 				'/.*/' => 100,
 			],
-		] );
+		] ) );
 	}
 
 	/**
@@ -924,5 +919,33 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			}
 		}
 		return $messages;
+	}
+
+	/**
+	 * When you absolutely, positively have to override every possible
+	 * place a global could be looked up, use this function. Since the
+	 * wgDonationInterfaceFoo value is overridden by the wgIngenicoAdapterFoo
+	 * value when looked up in the Ingenico adapter, this generates
+	 * versions of the input globals with all possible prefixes.
+	 *
+	 * @param array $globalsWithNoPrefix
+	 * @return array of the same globals, with one copy prefixed with wgDonationInterface
+	 *  and one copy for each of the enabled gateway prefixes
+	 */
+	public static function getAllGlobalVariants( array $globalsWithNoPrefix ): array {
+		$globals = [];
+		foreach ( $globalsWithNoPrefix as $unprefixedName => $value ) {
+			$globals[ 'wgDonationInterface' . $unprefixedName ] = $value;
+		}
+		$mwConfig = RequestContext::getMain()->getConfig();
+		$enabledGateways = GatewayAdapter::getEnabledGateways( $mwConfig );
+		// Override all the gateway-specific variations in case someone has these set locally
+		foreach ( $enabledGateways as $gatewayCode ) {
+			$gatewayClass = DonationInterface::getAdapterClassForGateway( $gatewayCode );
+			foreach ( $globalsWithNoPrefix as $unprefixedName => $value ) {
+				$globals[ $gatewayClass::getGlobalPrefix() . $unprefixedName ] = $value;
+			}
+		}
+		return $globals;
 	}
 }

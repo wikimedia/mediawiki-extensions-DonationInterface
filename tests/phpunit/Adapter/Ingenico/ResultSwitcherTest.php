@@ -15,6 +15,9 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 	 * Assuming we've popped out of the frame, does processing succeed?
 	 */
 	public function testResultSwitcherLiberatedSuccess() {
+		$this->setMwGlobals( self::getAllGlobalVariants(
+			[ 'MonthlyConvertCountries' => [] ]
+		) );
 		$donorTestData = $this->getDonorTestData( 'FR' );
 		$donorTestData['payment_method'] = 'cc';
 		$donorTestData['payment_submethod'] = 'visa';
