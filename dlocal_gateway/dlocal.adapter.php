@@ -6,6 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -168,6 +169,23 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				]
 			]
 		];
+	}
+
+	/**
+	 * Override parent function to add return supported currencies for current country
+	 * @param array $options
+	 * @return array
+	 */
+	public function getCurrencies( $options = [] ): array {
+		$country = $options['country'] ?? $this->getData_Unstaged_Escaped( 'country' );
+
+		if ( !$country ) {
+			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
+		}
+		if ( !isset( NationalCurrencies::getNationalCurrencies()[$country] ) ) {
+			return [];
+		}
+		return (array)NationalCurrencies::getNationalCurrencies()[$country];
 	}
 
 	/**
