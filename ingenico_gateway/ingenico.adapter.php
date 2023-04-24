@@ -207,9 +207,13 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 				$result = $provider->createHostedPayment( $data );
 				break;
 			case 'getHostedPaymentStatus':
-				$result = $provider->getHostedPaymentStatus(
+				$paymentDetailResponse = $provider->getHostedPaymentStatus(
 					$data['hostedCheckoutId']
-				)->getRawResponse();
+				);
+				$this->addResponseData( [
+					'initial_scheme_transaction_id' => $paymentDetailResponse->getInitialSchemeTransactionId()
+				] );
+				$result = $paymentDetailResponse->getRawResponse();
 				break;
 			case 'approvePayment':
 				$data['gateway_txn_id'] = $data['id'];
