@@ -550,12 +550,13 @@
 		setLocaleAndTranslations( config, configFromServer.locale );
 
 		checkoutPromise = getCheckout( config );
-		checkoutPromise.then( function ( checkout ) {
-			createAndMountComponent( checkout, config, component_type, ui_container_name );
+		checkoutPromise.then( function ( checkoutObject ) {
+			checkout = checkoutObject;
+			createAndMountComponent( config, component_type, ui_container_name );
 		} );
 	}
 
-	function createAndMountComponent( checkout, config, component_type, ui_container_name ) {
+	function createAndMountComponent( config, component_type, ui_container_name ) {
 		var component_config = getComponentConfig( component_type, config ),
 			component = checkout.create( component_type, component_config );
 
