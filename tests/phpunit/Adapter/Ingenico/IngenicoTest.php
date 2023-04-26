@@ -21,7 +21,6 @@ use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\PaymentStatus;
-use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CancelPaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
@@ -111,161 +110,106 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	/**
-	 * Just run the getHostedCheckoutStatus transaction and make sure we load the data
+	 * Ensure we load the fraud score from the status lookup
 	 */
-	public function testGetHostedPaymentStatus() {
+	public function testDonorReturnLoadsFraudScore() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
+		$this->setUpRequest( [ 'cvvResult' => 'N' ], [
+			'Donor' => $init + [ 'gateway_session_id' => 'blahdedaa' ]
+		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn(
-				$this->hostedPaymentStatusResponse
+				$this->hostedPaymentStatusResponseBadCvv
 			);
 
-		$gateway->do_transaction( 'getHostedPaymentStatus' );
+		$gateway->processDonorReturn( [] );
 
-		$data = $gateway->getTransactionData();
-
-		$this->assertEquals( 'M', $data['cvvResult'], 'CVV Result not loaded from JSON response' );
+		$this->assertEquals(
+			100, $gateway->getCVVResult(), 'CVV Result not loaded from status lookup'
+		);
 	}
 
 	/**
-	 * Don't fraud-fail someone for bad CVV if GET_ORDERSTATUS
-	 * comes back with STATUSID 25 and no CVVRESULT
-	 * @group CvvResult
+	 * If the status is pending, we should just show the donor a TY page
+	 * and not send a donations queue message. Hopefully it will not be
+	 * pending by the time the pending resolver picks it up
 	 */
-	public function testGetHostedPaymentStatus25() {
+	public function testDonorReturnPending() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
-
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse(
-			[
-				"createdPaymentOutput" => [
-					"payment" => [
-						"id" => "000000891566072501680000200001",
-						"paymentOutput" => [
-							"amountOfMoney" => [
-								"amount" => 2345,
-								"currencyCode" => "USD"
-							],
-							"references" => [
-								"paymentReference" => "0"
-							],
-							"paymentMethod" => "card",
-							"cardPaymentMethodSpecificOutput" => [
-								"paymentProductId" => 1,
-								"authorisationCode" => "123456",
-								"card" => [
-									"cardNumber" => "************7977",
-									"expiryDate" => "1220"
-								],
-								"fraudResults" => [
-									"fraudServiceResult" => "no-advice"
-								]
-							]
-						],
-						"status" => "APPROVED",
-						"statusOutput" => [
-							"isCancellable" => true,
-							"statusCode" => 25,
-							"statusCodeChangeDateTime" => "20140717145840",
-							"isAuthorized" => true
-						]
-					],
-					"paymentCreationReferences" => [
-						"additionalReference" => "00000089156607250168",
-						"externalReference" => "000000891566072501680000200001"
-					],
-					"tokens" => ""
-				],
-				"status" => "PAYMENT_APPROVED"
-			]
-		)->setSuccessful( true );
-
-		$gateway = $this->getFreshGatewayObject( $init );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
-			->willReturn( $hostedPaymentStatusResponse );
-
-		$gateway->do_transaction( 'getHostedPaymentStatus' );
-		$action = $gateway->getValidationAction();
-		$this->assertEquals( ValidationAction::PROCESS, $action, 'Gateway should not fraud fail on statusCode 25' );
-	}
-
-	/**
-	 * Return status and re-do if in progress
-	 */
-	public function testGetHostedPaymentStatusInProgress() {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-
-		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
-
+		$this->setUpRequest( [ 'cvvResult' => 'M' ], [
+			'Donor' => $init + [ 'gateway_session_id' => 'blahdedaa' ]
+		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse(
-			[
+		$hostedPaymentStatusResponse->setRawResponse( [
 				"status" => "IN_PROGRESS",
-			]
-		)->setSuccessful( false );
+			] )
+			->setSuccessful( false )
+			->setStatus( FinalStatus::PENDING )
+			->setRawStatus( 'IN_PROGRESS' );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $hostedPaymentStatusResponse );
 
-		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+		$result = $gateway->processDonorReturn( [] );
 		$this->assertArrayEquals( [], $result->getErrors(),
 			'In Progress status should return no errors' );
+
+		$this->assertFalse( $result->isFailed() );
+		$messages = $this->getAllQueueMessages();
+		$this->assertSame( [], $messages['donations'] );
 	}
 
-	public function testGetHostedPaymentStatusCancelledByConsumer() {
+	public function testProcessDonorReturnStatusCancelledByConsumer() {
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['email'] = 'innocent@safedomain.org';
 
-		$this->setUpRequest( [ 'cvvResult' => 'M' ] );
+		$this->setUpRequest( [ 'cvvResult' => 'M' ], [
+			'Donor' => $init + [ 'gateway_session_id' => 'blahdedaa' ]
+		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse(
-			[
+		$hostedPaymentStatusResponse->setRawResponse( [
 				"status" => "CANCELLED_BY_CONSUMER",
-			]
-		)->setSuccessful( false );
+			] )
+			->setSuccessful( false )
+			->setStatus( FinalStatus::CANCELLED )
+			->setRawStatus( 'CANCELLED_BY_CONSUMER' );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $hostedPaymentStatusResponse );
 
-		$result = $gateway->do_transaction( 'Confirm_CreditCard' );
+		$result = $gateway->processDonorReturn( [] );
 
 		$this->assertEquals( FinalStatus::CANCELLED, $gateway->getFinalStatus() );
-		$this->assertEquals( "Cancelling payment", $result->getMessage(),
-			'Cancelled by consumer status should return the message Cancelling payment' );
 
-		$this->assertEquals( 1000001, $result->getErrors()[0]->getErrorCode(),
-			'Cancelled by consumer status should return error code 1000001' );
+		$this->assertTrue( $result->isFailed() );
+		$messages = $this->getAllQueueMessages();
+		$this->assertSame( [], $messages['donations'] );
 	}
 
 	/**
-	 * Make sure we're incorporating getHostedPaymentStatus AVS and CVV responses into
+	 * Make sure we're incorporating getLatestPaymentStatus AVS and CVV responses into
 	 * fraud scores.
 	 */
-	public function testGetHostedPaymentStatusPostProcessFraud() {
+	public function testGetLatestPaymentStatusPostProcessFraud() {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableCustomFilters' => true,
 			'wgIngenicoGatewayCustomFiltersFunctions' => [
@@ -279,6 +223,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['email'] = 'innocent@manichean.com';
 		$init['contribution_tracking_id'] = mt_rand();
 		$init['payment_method'] = 'cc';
+		$this->setUpRequest( [ 'cvvResult' => 'N' ], [
+			'Donor' => $init + [ 'gateway_session_id' => 'blahdedaa' ]
+		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
@@ -325,73 +272,25 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 					"tokens" => ""
 				],
 				"status" => "PAYMENT_CREATED"
-			]
-		)->setSuccessful( true );
+			] )
+			->setSuccessful( true )
+			->setRiskScores( [
+				'cvv' => 100,
+				'avs' => 100
+			] )
+			->setStatus( FinalStatus::PENDING_POKE );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $hostedPaymentStatusResponse );
 
-		$gateway->do_transaction( 'getHostedPaymentStatus' );
+		$gateway->processDonorReturn( [] );
 		$action = $gateway->getValidationAction();
-		$this->assertEquals( ValidationAction::REVIEW, $action,
-			'Orphan gateway should fraud fail on bad CVV and AVS' );
+		$this->assertEquals( ValidationAction::REVIEW, $action );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$this->assertEquals( 40, $exposed->risk_score,
 			'Risk score was incremented correctly.' );
-	}
-
-	public function testApprovePayment() {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-		$init['gateway_txn_id'] = 'ingenico' . $init['gateway_session_id'];
-		$gateway = $this->getFreshGatewayObject( $init );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'approvePayment' )
-			->with( [ 'gateway_txn_id' => $init['gateway_txn_id'] ] )
-			->willReturn( ( new ApprovePaymentResponse() )->setRawResponse(
-				[
-					"payment" => [
-						"id" => "000000850010000188180000200001",
-						"paymentOutput" => [
-							"amountOfMoney" => [
-								"amount" => 2890,
-								"currencyCode" => "EUR"
-							],
-							"references" => [
-								"paymentReference" => "0"
-							],
-							"paymentMethod" => "card",
-							"cardPaymentMethodSpecificOutput" => [
-								"paymentProductId" => 1,
-								"authorisationCode" => "123456",
-								"card" => [
-									"cardNumber" => "************7977",
-									"expiryDate" => "1220"
-								],
-								"fraudResults" => [
-									"avsResult" => "0",
-									"cvvResult" => "M",
-									"fraudServiceResult" => "no-advice"
-								]
-							]
-						],
-						"status" => "CAPTURE_REQUESTED",
-						"statusOutput" => [
-							"isCancellable" => false,
-							"statusCode" => 800,
-							"statusCodeChangeDateTime" => "20140627140735",
-							"isAuthorized" => true
-						]
-					]
-				] )->setSuccessful( true )
-			);
-		$gateway->do_transaction( 'approvePayment' );
-		$data = $gateway->getTransactionData();
-		$this->assertEquals( "CAPTURE_REQUESTED", $data['status'], "Should return status CAPTURE_REQUESTED" );
 	}
 
 	public function testCancelPayment() {
@@ -548,9 +447,10 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
+			->with( [ 'gateway_txn_id' => $this->hostedPaymentStatusResponse->getGatewayTxnId() ] )
 			->willReturn( $this->approvePaymentResponse );
 		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
@@ -573,8 +473,11 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
+		$this->hostedPaymentStatusResponseBadCvv
+			->setStatus( FinalStatus::FAILED )
+			->setSuccessful( false );
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )->willReturn(
+			->method( 'getLatestPaymentStatus' )->willReturn(
 				$this->hostedPaymentStatusResponseBadCvv
 			);
 		$result = $gateway->processDonorReturn( [
@@ -599,8 +502,11 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
+		$this->hostedPaymentStatusResponseBadCvv
+			->setStatus( FinalStatus::FAILED )
+			->setSuccessful( false );
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )->willReturn(
+			->method( 'getLatestPaymentStatus' )->willReturn(
 				$this->hostedPaymentStatusResponseBadCvv
 			);
 		$result = $gateway->processDonorReturn( [
@@ -626,7 +532,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway = $this->getFreshGatewayObject( [] );
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
@@ -651,7 +557,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 
 		$gateway = $this->getFreshGatewayObject( [] );
 		$firstCt_id = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		$this->hostedCheckoutProvider->method( 'getHostedPaymentStatus' )
+		$this->hostedCheckoutProvider->method( 'getLatestPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );

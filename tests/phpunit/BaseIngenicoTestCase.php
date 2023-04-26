@@ -13,9 +13,15 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
 	protected $hostedCheckoutCreateResponse;
 
-	protected $hostedPaymentStatusRawResponse;
+	/**
+	 * @var PaymentDetailResponse
+	 */
+	protected $hostedPaymentStatusResponse;
 
-	protected $hostedPaymentStatusRawResponseBadCvv;
+	/**
+	 * @var PaymentDetailResponse
+	 */
+	protected $hostedPaymentStatusResponseBadCvv;
 
 	protected $approvePaymentResponse;
 
@@ -49,7 +55,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
 			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';
 
-		$this->hostedPaymentStatusRawResponse = [
+		$hostedPaymentStatusRawResponse = [
 			"createdPaymentOutput" => [
 				"payment" => [
 					"id" => "000000891566072501680000200001",
@@ -94,19 +100,40 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			"status" => "PAYMENT_CREATED"
 		];
 
-		$this->hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$this->hostedPaymentStatusResponse->setRawResponse( $this->hostedPaymentStatusRawResponse );
-		$this->hostedPaymentStatusResponse->setSuccessful( true );
-		$this->hostedPaymentStatusResponse->setInitialSchemeTransactionId( "112233445566" );
+		$this->hostedPaymentStatusResponse = ( new PaymentDetailResponse() )
+			->setPaymentSubmethod( 'visa' )
+			->setRiskScores( [
+				'avs' => 0,
+				'cvv' => 0,
+			] )
+			->setRawResponse( $hostedPaymentStatusRawResponse )
+			->setRawStatus( '600' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setInitialSchemeTransactionId( "112233445566" )
+			->setGatewayTxnId( '000000891566072501680000200001' )
+			->setAmount( '23.45' )
+			->setCurrency( 'USD' );
 
-		$this->hostedPaymentStatusRawResponseBadCvv = $this->hostedPaymentStatusRawResponse;
-		$this->hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
+		$hostedPaymentStatusRawResponseBadCvv = $hostedPaymentStatusRawResponse;
+		$hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
 			['paymentOutput']['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
 
-		$this->hostedPaymentStatusResponseBadCvv = new PaymentDetailResponse();
-		$this->hostedPaymentStatusResponseBadCvv->setRawResponse( $this->hostedPaymentStatusRawResponseBadCvv );
-		$this->hostedPaymentStatusResponse->setSuccessful( true );
+		$this->hostedPaymentStatusResponseBadCvv = ( new PaymentDetailResponse() )
+			->setPaymentSubmethod( 'visa' )
+			->setRiskScores( [
+				'avs' => 0,
+				'cvv' => 100,
+			] )
+			->setRawResponse( $hostedPaymentStatusRawResponseBadCvv )
+			->setRawStatus( '600' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setInitialSchemeTransactionId( "112233445566" )
+			->setGatewayTxnId( '000000891566072501680000200001' )
+			->setAmount( '23.45' )
+			->setCurrency( 'USD' );
 
 		$this->approvePaymentResponse = ( new ApprovePaymentResponse() )
 			->setRawResponse(
@@ -146,6 +173,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 					]
 				]
 			)
+			->setRawStatus( '800' )
 			->setStatus( FinalStatus::COMPLETE )
 			->setSuccessful( true )
 			->setGatewayTxnId( '000000850010000188180000200001' );

@@ -18,7 +18,6 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
  *
@@ -85,20 +84,21 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$this->setUpRequest( $init, $session );
 		$gateway = new IngenicoAdapter();
 
-		// FIXME: Fix this when the token is added to the normalization
 		$statusResponse = $this->hostedPaymentStatusResponse->getRawResponse();
 		// Sandbox testing shows this potential array flattened to a string
 		$statusResponse['createdPaymentOutput']['tokens'] = $token;
 
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
-		$hostedPaymentStatusResponse->setRawResponse( $statusResponse )
-			->setSuccessful( true );
+		$this->hostedPaymentStatusResponse->setRawResponse( $statusResponse )
+			->setSuccessful( true )
+			->setRecurringPaymentToken( $token );
 
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
-			->willReturn( $hostedPaymentStatusResponse );
+			->method( 'getLatestPaymentStatus' )
+			->willReturn( $this->hostedPaymentStatusResponse );
+
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->willReturn( $this->approvePaymentResponse );
+
 		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'M',

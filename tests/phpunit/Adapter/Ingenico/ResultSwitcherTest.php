@@ -2,6 +2,7 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
@@ -36,7 +37,19 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 
 		$hostedPaymentStatusResponse = new PaymentDetailResponse();
 		$hostedPaymentStatusResponse->setRawResponse( $rawResponse )
-			->setSuccessful( true );
+			->setPaymentSubmethod( 'visa' )
+			->setSuccessful( true )
+			->setRiskScores( [
+				'avs' => 0,
+				'cvv' => 0,
+			] )
+			->setRawStatus( '600' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setInitialSchemeTransactionId( "112233445566" )
+			->setGatewayTxnId( '000000891566072501680000200001' )
+			->setAmount( $donorTestData['amount'] )
+			->setCurrency( $donorTestData['currency'] );
 
 		$session['Donor'] = $donorTestData;
 		// Mark the order as already popped out of the iframe
@@ -57,7 +70,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 			]
 		];
 		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentStatus' )
+			->method( 'getLatestPaymentStatus' )
 			->willReturn( $hostedPaymentStatusResponse );
 		$this->hostedCheckoutProvider->expects( $this->once() )
 			->method( 'approvePayment' )

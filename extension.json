@@ -699,44 +699,6 @@
 			},
 			"merge_strategy": "array_plus"
 		},
-		"IngenicoGatewayCvvMap": {
-			"value": {
-				"M": true,
-				"N": false,
-				"P": true,
-				"S": false,
-				"U": true,
-				"Y": false,
-				"0": true,
-				"": false
-			},
-			"merge_strategy": "array_plus"
-		},
-		"IngenicoGatewayAvsMap": {
-			"value": {
-				"A": 50,
-				"B": 50,
-				"C": 50,
-				"D": 0,
-				"E": 100,
-				"F": 0,
-				"G": 50,
-				"I": 50,
-				"M": 0,
-				"N": 100,
-				"P": 50,
-				"R": 100,
-				"S": 50,
-				"U": 50,
-				"W": 50,
-				"X": 0,
-				"Y": 0,
-				"Z": 50,
-				"0": 25,
-				"": 100
-			},
-			"merge_strategy": "array_plus"
-		},
 		"IngenicoGatewayHostedFormVariants": {
 			"value": {
 				"redirect": 100,
