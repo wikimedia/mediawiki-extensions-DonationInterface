@@ -15,7 +15,8 @@
 			"Pcoombe",
 			"Protnet",
 			"Shirayuki",
-			"ZaDiak"
+			"ZaDiak",
+			"EHughes"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -344,6 +345,7 @@
 	"donate_interface-email-unsub-delay": "Επιτρέψτε έως τέσσερα (4) ημέρες για να ισχύσουν οι αλλαγές. Λυπούμαστε για οποιαδήποτε μηνύματα ηλεκτρονικού ταχυδρομείου που λαμβάνετε κατά την περίοδο αυτή. Εάν έχετε ερωτήσεις, επικοινωνήστε με<$1></$1>",
 	"donate_interface-email-unsub-fail": "Παρουσιάστηκε σφάλμα κατά την επεξεργασία του αιτήματός σας, επικοινωνήστε παρακαλώ με το <$1>.</$1>",
 	"donate_interface-email-unsub-confirm": "Είστε βέβαιοι ότι θέλετε να καταργήσετε την εγγραφή σας <b>$1</b>;",
+	"donate_interface-email-explain": "Θα σας στείλουμε μια απόδειξη μέσω email για να επιβεβαιώσουμε τη δωρεά σας.",
 	"donate_interface-faqs": "Συχνά απαντημένες ερωτήσεις",
 	"donate_interface-tax-info": "Πληροφορίες για φορολογικές απαλλαγές",
 	"donate_interface-informationsharing": "Με τη δωρεά σας, μοιράζεστε τις πληροφορίες σας με το Ίδρυμα Wikimedia, την μη κερδοσκοπικό οργανισμό που φιλοξενεί την Wikipedia και άλλα εγχειρήματα του  Wikimedia, καθώς και των παρόχων των  υπηρεσιών της  στις ΗΠΑ και αλλού, σύμφωνα με την πολιτική απορρήτου μας για τους δωτηρές. Εμείς δεν πωλούμε ούτε ανταλλάσουμε τα στοιχεία σας με κανέναν. Για περισσότερες πληροφορίες, παρακαλούμε διαβάστε την <a href=\"$1\">πολιτική μας σχετικά με τους δωρητές</a>.",
@@ -364,5 +366,14 @@
 	"donate_interface-onetime-short": "Εφάπαξ",
 	"donate_interface-error-http-403": "Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-monthly-convert-title": "Θέλετε να προσθέσετε μια μηνιαία δωρεά <span class=\"mc-convert-ask\"></span> από τον επόμενο μήνα;",
+	"donate_interface-monthly-convert-text": "Η μηνιαία υποστήριξη είναι ο καλύτερος τρόπος για να διασφαλιστεί ότι η Βικιπαίδεια θα συνεχίσει να επεκτείνεται.",
+	"donate_interface-monthly-convert-change-amount": "Ναι, θα δωρίζω κάθε μήνα, αλλά διαφορετικό ποσό",
+	"donate_interface-monthly-convert-enter-amount": "Εισαγάγετε το μηνιαίο ποσό της δωρεάς σας που θα ξεκινήσει τον επόμενο μήνα.",
+	"donate_interface-monthly-convert-max-amount": "Δεν μπορούμε να χρεώσουμε μια επαναλαμβανόμενη δωρεά για ποσό μεγαλύτερο από την αρχική εφάπαξ δωρεά σας.",
+	"donate_interface-monthly-convert-action-button": "Μηνιαία δωρεά",
+	"donate_interface-monthly-convert-error": "Η εφάπαξ δωρεά σας ήταν επιτυχής, αλλά δεν μπορέσαμε να ξεκινήσουμε επαναλαμβανόμενη δωρεά.",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Ναι, θα προσθέσω μια μηνιαία δωρεά <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-no-button-variant-011": "Όχι, ευχαριστώ!",
 	"donate_interface-fundraiser-maintenance-header": "Προσωρινά εκτός λειτουργίας για συντήρηση"
 }
