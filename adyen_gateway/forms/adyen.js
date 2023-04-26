@@ -4,7 +4,15 @@
 	var checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
 		payment_method = $( '#payment_method' ).val(),
-		country = $( '#country' ).val();
+		country = $( '#country' ).val(),
+		// This is the old-style Google Pay integration type currently active on
+		// our account. Older versions of the Adyen JS SDK treated the 'googlepay'
+		// component type as the old GPay integration, but for newer versions of
+		// the GPay SDK we need to explicitly specify 'paywithgoogle' to get tokens
+		// that work with the old-style integration. At some point we should upgrade
+		// to the new interaction, but that will require coordinating an update to
+		// this constant with an update to our account.
+		GOOGLEPAY_COMPONENT_TYPE = 'paywithgoogle';
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -109,7 +117,7 @@
 
 				return config;
 
-			case 'googlepay':
+			case GOOGLEPAY_COMPONENT_TYPE:
 				// for googlepay, additional config is required
 				var g_amount = {},
 					g_currency = $( '#currency' ).val(),
@@ -284,7 +292,7 @@
 			case 'apple':
 				return 'applepay';
 			case 'google':
-				return 'googlepay';
+				return GOOGLEPAY_COMPONENT_TYPE;
 			default:
 				throw new Error( 'paymentMethod not found' );
 		}
@@ -569,7 +577,7 @@
 		var component_config = getComponentConfig( component_type, config ),
 			component = checkout.create( component_type, component_config );
 
-		if ( component_type === 'googlepay' ) {
+		if ( component_type === GOOGLEPAY_COMPONENT_TYPE ) {
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
