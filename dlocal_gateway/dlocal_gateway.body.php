@@ -6,6 +6,7 @@
  * Special page that uses the Dlocal implementation to accept donations
  */
 use SmashPig\PaymentProviders\dlocal\BankTransferPaymentProvider;
+use SmashPig\PaymentProviders\dlocal\ReferenceData;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 class DlocalGateway extends GatewayPage {
@@ -49,6 +50,12 @@ class DlocalGateway extends GatewayPage {
 		parent::setClientVariables( $vars );
 		$vars['dlocalScript'] = $this->adapter->getAccountConfig( 'dlocalScript' );
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+		$supportedSubmethods = array_keys( $this->adapter->getAvailableSubmethods() );
+		$simpleSubmethods = ReferenceData::getSimpleSubmethods();
+		$codeMap = array_filter( $simpleSubmethods, static function ( $key ) use ( $supportedSubmethods ) {
+			return in_array( $key, $supportedSubmethods );
+		} );
+		$vars['codeMap'] = $codeMap;
 	}
 
 	/**
