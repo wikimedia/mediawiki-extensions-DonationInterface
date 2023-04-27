@@ -22,3 +22,10 @@ google:
     label: Google Pay
     validation:
         country: true
+bt:
+    recurring: false
+    label: Bank Transfer
+    validation:
+      country: true
+      name: true
+      email: true

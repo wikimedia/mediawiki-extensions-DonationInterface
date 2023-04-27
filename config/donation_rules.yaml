@@ -1,3 +1,24 @@
+---
+# Rules are evaluated from top to bottom. Rules that only
+# apply to a specific case should come first, and should have
+# a 'conditions:' block specifying all the necessary
+# conditions. Outside the conditions block each rule should
+# have a base currency and a min and max amount. Those amounts
+# will be converted from the base currency to the currency
+# chosen on the form.
+# For example, the following creates a rule that only applies
+# to recurring donations in Colombia, and whose minimum and
+# maximum are calculated in Colombian Pesos:
+# -
+#   conditions:
+#     country: CO
+#     recurring: true
+#   currency: COP
+#   min: 3000
+#   max: 100000
+#
+# Please leave a rule at the end with no 'conditions:' block
+# to apply when no other rules match.
 -
   currency: USD
   min: 1

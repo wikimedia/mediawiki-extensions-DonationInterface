@@ -3,7 +3,16 @@
 	// promise objects are for Apple Pay - see comments below
 	var checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
-		payment_method = $( '#payment_method' ).val();
+		payment_method = $( '#payment_method' ).val(),
+		country = $( '#country' ).val(),
+		// This is the old-style Google Pay integration type currently active on
+		// our account. Older versions of the Adyen JS SDK treated the 'googlepay'
+		// component type as the old GPay integration, but for newer versions of
+		// the GPay SDK we need to explicitly specify 'paywithgoogle' to get tokens
+		// that work with the old-style integration. At some point we should upgrade
+		// to the new interaction, but that will require coordinating an update to
+		// this constant with an update to our account.
+		GOOGLEPAY_COMPONENT_TYPE = 'paywithgoogle';
 
 	/**
 	 * Get extra configuration values for specific payment types
@@ -37,15 +46,15 @@
 				return config;
 
 			case 'ideal':
-				// for cc and ideal, additional config is optional
+			case 'onlineBanking_CZ':
+				// for cc, CZ bank transfers, and ideal, additional config is optional
 				return config;
 
 			case 'applepay':
 				// for applepay, additional config is required
 				var amount = {},
 					currency = $( '#currency' ).val(),
-					amount_value = $( '#amount' ).val(),
-					country = $( '#country' ).val();
+					amount_value = $( '#amount' ).val();
 				amount.currency = currency;
 				amount.value = amountInMinorUnits( amount_value, currency );
 				config.amount = amount;
@@ -108,12 +117,11 @@
 
 				return config;
 
-			case 'googlepay':
+			case GOOGLEPAY_COMPONENT_TYPE:
 				// for googlepay, additional config is required
 				var g_amount = {},
 					g_currency = $( '#currency' ).val(),
 					g_amount_value = $( '#amount' ).val(),
-					g_country = $( '#country' ).val(),
 					languagesSupportedByGPayButton = [
 						'ar', 'bg', 'ca', 'cs', 'da', 'de', 'en', 'el', 'es', 'et', 'fi', 'fr', 'hr', 'id', 'it', 'ja',
 						'ko', 'ms', 'nl', 'no', 'pl', 'pt', 'ru', 'sk', 'sl', 'sr', 'sv', 'th', 'tr', 'uk', 'zh'
@@ -121,7 +129,7 @@
 				g_amount.currency = g_currency;
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
-				config.countryCode = g_country;
+				config.countryCode = country;
 				config.environment = configFromServer.environment.toUpperCase();
 				config.showPayButton = true;
 				// When we are showing the form in a language for which Google Pay has no
@@ -277,11 +285,14 @@
 				return 'card';
 			case 'rtbt':
 			case 'bt':
+				if ( country === 'CZ' ) {
+					return 'onlineBanking_CZ';
+				}
 				return 'ideal';
 			case 'apple':
 				return 'applepay';
 			case 'google':
-				return 'googlepay';
+				return GOOGLEPAY_COMPONENT_TYPE;
 			default:
 				throw new Error( 'paymentMethod not found' );
 		}
@@ -334,6 +345,12 @@
 								payment_submethod: 'rtbt_ideal'
 							};
 						}
+						break;
+					case 'bt':
+						extraData = {
+							// issuer is bank chosen from dropdown
+							issuer_id: state.data.paymentMethod.issuer
+						};
 						break;
 					case 'cc':
 						extraData = {
@@ -560,7 +577,7 @@
 		var component_config = getComponentConfig( component_type, config ),
 			component = checkout.create( component_type, component_config );
 
-		if ( component_type === 'googlepay' ) {
+		if ( component_type === GOOGLEPAY_COMPONENT_TYPE ) {
 			component.isAvailable().then( function () {
 				component.mount( '#' + ui_container_name );
 			} ).catch( function () {
