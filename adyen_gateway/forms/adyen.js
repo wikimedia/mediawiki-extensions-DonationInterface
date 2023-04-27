@@ -510,7 +510,7 @@
 	function setup() {
 		var component_type,
 			config,
-			ui_container_name,
+			containerName = 'component-container',
 			oldShowErrors,
 			checkoutPromise;
 
@@ -525,11 +525,10 @@
 		}
 
 		component_type = mapPaymentMethodToComponentType( payment_method );
-		ui_container_name = component_type + '-container';
 
 		// Drop in the adyen components placeholder container
 		$( '.submethods' ).before(
-			'<div id="' + ui_container_name + '" />'
+			'<div id="' + containerName + '" />'
 		).before(
 			'<div id="action-container" />'
 		);
@@ -569,17 +568,17 @@
 		checkoutPromise = getCheckout( config );
 		checkoutPromise.then( function ( checkoutObject ) {
 			checkout = checkoutObject;
-			createAndMountComponent( config, component_type, ui_container_name );
+			createAndMountComponent( config, component_type, containerName );
 		} );
 	}
 
-	function createAndMountComponent( config, component_type, ui_container_name ) {
+	function createAndMountComponent( config, component_type, containerName ) {
 		var component_config = getComponentConfig( component_type, config ),
 			component = checkout.create( component_type, component_config );
 
 		if ( component_type === GOOGLEPAY_COMPONENT_TYPE ) {
 			component.isAvailable().then( function () {
-				component.mount( '#' + ui_container_name );
+				component.mount( '#' + containerName );
 			} ).catch( function () {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.message(
@@ -606,7 +605,7 @@
 			} );
 		} else if ( component_type === 'applepay' ) {
 			component.isAvailable().then( function () {
-				component.mount( '#' + ui_container_name );
+				component.mount( '#' + containerName );
 			} ).catch( function () {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.message(
@@ -633,7 +632,7 @@
 			} );
 		} else {
 			try {
-				component.mount( '#' + ui_container_name );
+				component.mount( '#' + containerName );
 			} catch ( err ) {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
