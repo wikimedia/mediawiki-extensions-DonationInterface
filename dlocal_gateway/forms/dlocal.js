@@ -34,6 +34,7 @@
 			commonStyle = getCardCommonStyle(),
 			cardField,
 			cardFieldError = false,
+			cardFieldSupportError = false,
 			cardFieldEmpty = true,
 			expirationField,
 			expirationFieldError = false,
@@ -81,7 +82,7 @@
 			cardField.addEventListener( 'change', function ( event ) {
 				cardFieldError = !!event.error;
 				if ( event.error ) {
-					$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-card-number' ) );
+					$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ) );
 				} else {
 					$( '#cardNumberErrorMsg' ).text( '' );
 				}
@@ -92,26 +93,23 @@
 			} );
 
 			cardField.on( 'brand', function ( event ) {
+				// after input 6 number, ready to check bin
 				if ( event.brand ) {
-					switch ( event.brand ) {
-						case 'american-express':
-							extraData.payment_submethod = 'amex';
-							break;
-						case 'mastercard':
-							extraData.payment_submethod = 'mc';
-							break;
-						case 'diners-club':
-							extraData.payment_submethod = 'diner';
-							break;
-						case 'hipercard':
-							extraData.payment_submethod = 'hiper';
-							break;
-						case 'default': // dlocal can not find the corespondent card brand, so return error
-							break;
-						default:
-							// like visa, elo, jcb, maestro, unionpay and discover
-							extraData.payment_submethod = event.brand;
-					}
+					dlocalInstance.getBinInformation( cardField ).then( function ( res ) {
+						var binInfoCardBrand = res.brand;
+						var cardBrand = mw.config.get( 'codeMap' )[ binInfoCardBrand ];
+						if ( cardBrand !== undefined ) {
+							cardFieldSupportError = false;
+							extraData.payment_submethod = cardBrand;
+							$( '#cardNumberErrorMsg' ).text( '' );
+						} else {
+							cardFieldSupportError = true;
+							$( '#credit-card-wrapper' ).addClass( 'DlocalField--invalid' );
+							$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ) );
+						}
+					} ).catch( function ( error ) {
+						// Suppress bin lookup error.
+					} );
 				}
 			} );
 		}
@@ -120,8 +118,7 @@
 			expirationField.addEventListener( 'change', function ( event ) {
 				expirationFieldError = !!event.error;
 				if ( event.error ) {
-					var message = mw.msg( 'donate_interface-error-msg-card-too-old' );
-					$( '#expirationErrorMsg' ).text( message );
+					$( '#expirationErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-card-too-old' ) );
 				} else {
 					$( '#expirationErrorMsg' ).text( '' );
 				}
@@ -150,7 +147,7 @@
 		function validateInputs() {
 			var formValid = mw.donationInterface.validation.validate(),
 				cvvFieldHasErrors = cvvFieldError || cvvFieldEmpty,
-				cardFieldHasErrors = cardFieldError || cardFieldEmpty,
+				cardFieldHasErrors = cardFieldError || cardFieldEmpty || cardFieldSupportError,
 				expFieldHasErrors = expirationFieldError || expirationFieldEmpty,
 				errors = {};
 
@@ -158,6 +155,8 @@
 				if ( cardFieldHasErrors ) {
 					if ( cardFieldEmpty ) {
 						errors.cardNumber = mw.msg( 'donate_interface-error-msg-card-num' );
+					} else if ( cardFieldSupportError ) {
+						errors.cardNumber = mw.msg( 'donate_interface-error-msg-unsupported-card-entered' );
 					} else {
 						errors.cardNumber = mw.msg( 'donate_interface-error-msg-invalid-card-number' );
 					}
