@@ -498,6 +498,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
 		$this->addModules( 'scripts', $resources, $gatewayModules );
 		if ( $this->gateway->getGlobal( 'LogClientErrors' ) ) {
+			// We add a var used by this script in GatewayPage::setClientVariables
 			$resources[] = 'ext.donationInterface.errorLog';
 		}
 		if ( $this->gateway->showMonthlyConvert() ) {

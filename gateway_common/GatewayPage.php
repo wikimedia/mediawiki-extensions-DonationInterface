@@ -501,7 +501,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$vars['showMConStartup'] = $this->getRequest()->getBool( 'debugMonthlyConvert' );
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
 		}
-
+		if ( $this->adapter->getGlobal( 'LogClientErrors' ) ) {
+			// This variable is used by ext.donationInterface.errorLog, added to the page in
+			// Gateway_Form_Mustache::getResources
+			$vars['wgDonationInterfaceClientErrorLogIgnorePatterns'] = $this->adapter->getGlobal(
+				'ClientErrorLogIgnorePatterns'
+			);
+		}
 		try {
 			$clientRules = $this->adapter->getClientSideValidationRules();
 			if ( !empty( $clientRules ) ) {
