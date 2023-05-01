@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dj",
+			"Misibacsi"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico fizetés feldolozása",
+	"ingenico_gateway-response-9130": "Érvénytelen ország.",
+	"ingenico_gateway-response-9140": "Érvénytelen pénznem.",
+	"ingenico_gateway-response-9150": "Érvénytelen nyelv.",
+	"ingenico_gateway-response-400530": "Érvénytelen fizetési mód.",
+	"ingenico_gateway-response-430306": "A hitelkártyád lejárt. Próbálkozz másik kártyával, vagy más fizetési móddal!",
+	"ingenico_gateway-response-430330": "Érvénytelen kártyaszám.",
+	"ingenico_gateway-response-430421": "A hitelkártyádat nem lehet ellenőrizni. Nézd meg, hogy a megadott adatok egyeznek-e a kártyán lévő adatokkal vagy próbálkozz másik kártyával!",
+	"ingenico_gateway-response-430360": "A tranzakciót nem lehet érvényesíteni. Próbálkozz másik kártyával, vagy másik fizetési móddal!",
+	"ingenico_gateway-response-430285": "A tranzakciót nem lehet érvényesíteni. Próbálkozz másik kártyával, vagy másik fizetési móddal!",
+	"ingenico_gateway-response-21000150": "Érvénytelen bankszámlaszám.",
+	"ingenico_gateway-response-21000155": "Érvénytelen bank kód.",
+	"ingenico_gateway-response-21000160": "Érvénytelen giro számlaszám.",
+	"ingenico_gateway-response-default": "Hiba történt a tranzakció feldolgozása során.\nPróbáld meg később újra!"
+}

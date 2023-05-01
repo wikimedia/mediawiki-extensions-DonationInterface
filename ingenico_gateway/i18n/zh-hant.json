@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"LNDDYL",
+			"Liuxinyu970226",
+			"Shirayuki",
+			"Simon Shek"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico付款處理",
+	"ingenico_gateway-response-9130": "無效的國家。",
+	"ingenico_gateway-response-9140": "無效的貨幣。",
+	"ingenico_gateway-response-9150": "無效的語言。",
+	"ingenico_gateway-response-400530": "付款方法有誤。",
+	"ingenico_gateway-response-430306": "您的信用卡已過期。請嘗試使用其他卡或我們的其他付款方式。",
+	"ingenico_gateway-response-430330": "卡號不正確。",
+	"ingenico_gateway-response-430421": "無法確認您的信用卡。請檢察所有資訊與信用卡上的資料匹配，或嘗試使用其他卡。",
+	"ingenico_gateway-response-430360": "本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。",
+	"ingenico_gateway-response-430285": "本次交易無法獲得授權。請嘗試使用其他卡或我們的其他付款方式。",
+	"ingenico_gateway-response-21000150": "銀行帳戶號碼不正確。",
+	"ingenico_gateway-response-21000155": "銀行代碼不正確。",
+	"ingenico_gateway-response-21000160": "轉帳帳戶編號不正確。",
+	"ingenico_gateway-response-default": "處理交易的過程中出錯。\n請稍後再試。"
+}

@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kenrick95",
+			"William Surya Permana"
+		]
+	},
+	"ingenico_gateway-desc": "Pemrosesan pembayaran Ingenico",
+	"ingenico_gateway-response-9130": "Negara tidak valid.",
+	"ingenico_gateway-response-9140": "Mata uang tidak valid.",
+	"ingenico_gateway-response-9150": "Bahasa tidak valid.",
+	"ingenico_gateway-response-400530": "Metode pembayaran tidak valid.",
+	"ingenico_gateway-response-430306": "Kartu kredit Anda telah kedaluwarsa. Silakan coba dengan kartu kredit yang lain atau salah satu dari metode pembayaran lainnya kami.",
+	"ingenico_gateway-response-430330": "Nomor kartu tidak valid.",
+	"ingenico_gateway-response-430421": "Kartu kredit Anda tidak dapat divalidasi. Mohon verifikasi bahwa semua informasi cocok dengan profil kartu kredit Anda, atau coba dengan kartu yang lain.",
+	"ingenico_gateway-response-430360": "Transaksi tidak dapat diotorisasi. Silakan coba dengan kartu yang lain atau metode pembayaran lainnya.",
+	"ingenico_gateway-response-430285": "Transaksi tidak dapat diotorisasi. Silakan coba dengan kartu yang lain atau metode pembayaran lainnya.",
+	"ingenico_gateway-response-21000150": "Nomor rekening bank tidak valid.",
+	"ingenico_gateway-response-21000155": "Kode bank tidak valid.",
+	"ingenico_gateway-response-21000160": "Nomor rekening giro tidak valid.",
+	"ingenico_gateway-response-default": "Terjadi kesalahan dalam pemrosesan transaksi Anda.\nSilakan coba lagi nanti."
+}

@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Pikne"
+		]
+	},
+	"ingenico_gateway-desc": "Makse käitlemine Ingenicoi kaudu",
+	"ingenico_gateway-response-9130": "Vigane maa.",
+	"ingenico_gateway-response-9140": "Vigane vääring.",
+	"ingenico_gateway-response-9150": "Vigane keel.",
+	"ingenico_gateway-response-400530": "Vigane makseviis.",
+	"ingenico_gateway-response-430306": "Sinu krediitkaart on aegunud. Palun proovi teise kaardiga või muud makseviisi.",
+	"ingenico_gateway-response-430330": "Vigane kaardi number.",
+	"ingenico_gateway-response-430421": "Sinu krediitkaarti ei saanud valideerida. Palun kontrolli, et kõik andmed vastaksid sinu kaardi profiilile või proovi teist kaarti.",
+	"ingenico_gateway-response-430360": "Ülekannet ei kinnitatud. Palun proovi teist kaarti või muud makseviisi.",
+	"ingenico_gateway-response-430285": "Ülekannet ei kinnitatud. Palun proovi teist kaarti või muud makseviisi.",
+	"ingenico_gateway-response-21000150": "Vigane pangakonto number.",
+	"ingenico_gateway-response-21000155": "Vigane pangakood.",
+	"ingenico_gateway-response-21000160": "Vigane žiirokonto number.",
+	"ingenico_gateway-response-default": "Ülekande käitlemisel ilmnes tõrge.\nPalun proovi hiljem uuesti."
+}

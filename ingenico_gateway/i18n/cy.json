@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"ingenico_gateway-desc": "Prosesu taliadau trwy Ingenico",
+	"ingenico_gateway-response-9130": "Gwlad annilys.",
+	"ingenico_gateway-response-9140": "Arian breiniol annilys.",
+	"ingenico_gateway-response-9150": "Iaith annilys.",
+	"ingenico_gateway-response-400530": "Modd talu annilys.",
+	"ingenico_gateway-response-430306": "Mae eich cerdyn credyd wedi dod i ben. Defnyddiwch gerdyn arall neu fodd gwahanol o dalu.",
+	"ingenico_gateway-response-430330": "Rhif annilys i gerdyn.",
+	"ingenico_gateway-response-430421": "Ni ddilyswyd eich cerdyn credyd. Sicrhewch bod yr holl fanylion yn gywir fel ag y maent ar eich cyfrif cerdyn credyd, neu rhowch gynnig ar gerdyn arall.",
+	"ingenico_gateway-response-430360": "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
+	"ingenico_gateway-response-430285": "Ni ellid awdurdodi'r gweithrediad hwn. Rhowch gynnig ar gerdyn arall neu defnyddiwch modd arall o dalu.",
+	"ingenico_gateway-response-21000150": "Rhif annilys i gyfrif banc.",
+	"ingenico_gateway-response-21000155": "Côd banc annilys.",
+	"ingenico_gateway-response-21000160": "Rhif annilys i gyfrif giro.",
+	"ingenico_gateway-response-default": "Cafwyd gwall wrth drin eich gweithrediad.\nCeisiwch eto ymhen tipyn."
+}

@@ -45,21 +45,20 @@ define( 'TESTS_EMAIL', 'nobody@wikimedia.org' );
  *
  * This is the default gateway that will be used to implement unit tests.
  */
-define( 'TESTS_GATEWAY_DEFAULT', 'GlobalCollectGateway' );
+define( 'TESTS_GATEWAY_DEFAULT', 'IngenicoGateway' );
 
 /**
  * TESTS_ADAPTER_DEFAULT
  *
  * This is the default adapter that will be used to implement unit tests.
  */
-define( 'TESTS_ADAPTER_DEFAULT', TestingGlobalCollectAdapter::class );
+define( 'TESTS_ADAPTER_DEFAULT', IngenicoAdapter::class );
 
 global $wgDonationInterfaceTest,
 	$wgDonationInterfaceMerchantID,
 	$wgDonationInterfaceGatewayAdapters,
 	$wgDonationInterfaceThankYouPage,
 	$wgDonationInterface3DSRules,
-	$wgGlobalCollectGatewayAccountInfo,
 	$wgPaypalExpressGatewayURL,
 	$wgPaypalExpressGatewayTestingURL,
 	$wgPaypalExpressGatewaySignatureURL,
@@ -86,7 +85,6 @@ global $wgDonationInterfaceTest,
 	$wgDonationInterfaceCustomFiltersSrcRules,
 	$wgDonationInterfaceCustomFiltersFunctions,
 	$wgDonationInterfaceCustomFiltersInitialFunctions,
-	$wgGlobalCollectGatewayCustomFiltersFunctions,
 	$wgIngenicoGatewayCustomFiltersFunctions,
 	$wgDonationInterfaceCountryMap,
 	$wgDonationInterfaceUtmCampaignMap,
@@ -98,7 +96,6 @@ global $wgDonationInterfaceTest,
 $wgMainCacheType = 'hash';
 
 $wgDonationInterfaceGatewayAdapters = [
-	'globalcollect' => TestingGlobalCollectAdapter::class,
 	'ingenico' => IngenicoAdapter::class,
 	'amazon' => AmazonAdapter::class,
 	'adyen' => AdyenCheckoutAdapter::class,
@@ -115,12 +112,6 @@ $wgDonationInterfaceTest = true;
 $wgDonationInterfaceMerchantID = 'test';
 
 $wgDonationInterfaceThankYouPage = 'https://donate.wikimedia.org/wiki/Thank_You';
-
-/** GlobalCollect */
-$wgGlobalCollectGatewayAccountInfo = [];
-$wgGlobalCollectGatewayAccountInfo['test'] = [
-	'MerchantID' => 'test',
-];
 
 /** Paypal Express Checkout */
 $wgPaypalExpressGatewayURL = 'https://api-3t.sandbox.paypal.com/nvp';
@@ -221,12 +212,10 @@ $wgDonationInterfaceCustomFiltersSrcRules = [ '/wikimedia\.org/i' => 80 ];
 
 $wgDonationInterfaceCustomFiltersFunctions = $customFilters;
 
-$wgGlobalCollectGatewayCustomFiltersFunctions = [
+$wgIngenicoGatewayCustomFiltersFunctions = [
 	'getCVVResult' => 20,
 	'getAVSResult' => 25,
 ] + $customFilters;
-
-$wgIngenicoGatewayCustomFiltersFunctions = $wgGlobalCollectGatewayCustomFiltersFunctions;
 
 $wgDonationInterfaceCustomFiltersInitialFunctions = [];
 

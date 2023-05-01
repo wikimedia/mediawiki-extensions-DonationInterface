@@ -440,9 +440,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 * @return bool false, but we're kinda lying.
 	 * We do need to DoExpressCheckoutPayment when donors return, but it's
 	 * better to lose a few donations and show the thank you page than to
-	 * risk duplicate donations and problems for donor services. We will
-	 * eventually handle donors who return with no cookies by running an
-	 * orphan rectifier like we do with GlobalCollect.
+	 * risk duplicate donations and problems for donor services. We handle
+	 * donors who return with no cookies by running a pending transaction
+	 * resolver like we do with Ingenico.
 	 */
 	public function isReturnProcessingRequired() {
 		return false;

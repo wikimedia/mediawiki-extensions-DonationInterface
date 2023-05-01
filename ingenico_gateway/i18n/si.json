@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"පසිඳු කාවින්ද"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico ගෙවීම ක්‍රියානනය වෙමින්",
+	"ingenico_gateway-response-9130": "වලංගු නොවන රටකි.",
+	"ingenico_gateway-response-9140": "වලංගු නොවන ව්‍යවහාරයකි.",
+	"ingenico_gateway-response-9150": "වලංගු නොවන භාෂාවකි.",
+	"ingenico_gateway-response-400530": "වලංගු නොවන ගෙවීම් ක්‍රමය.",
+	"ingenico_gateway-response-430306": "ඔබේ ණයපත ඉකුත් වී ඇත. කරුණාකර වෙනත් කාඩ් පතක් භාවිතා කිරීම හෝ වෙනත් ගෙවීම් ක්‍රමයක් අනුගමනය කිරීම සිදු කරන්න.",
+	"ingenico_gateway-response-430330": "වලංගු නොවන කාඩ්පත් අංකය.",
+	"ingenico_gateway-response-21000150": "වලංගු නොවන බැංකු ගිණුම් අංකය.",
+	"ingenico_gateway-response-21000155": "වලංගු නොවන බැංකු කේතය.",
+	"ingenico_gateway-response-21000160": "වලංගු නොවන ගයිරෝ ගිණුම් අංකය."
+}

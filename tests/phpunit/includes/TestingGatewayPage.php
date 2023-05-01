@@ -2,7 +2,7 @@
 
 class TestingGatewayPage extends GatewayPage {
 
-	protected $gatewayIdentifier = GlobalCollectAdapter::IDENTIFIER;
+	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
 	public function __construct() {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'TestingGenericAdapter' );

@@ -17,6 +17,8 @@
  */
 
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -47,7 +49,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 */
 	public function testConstructor() {
 		$options = $this->getDonorTestData();
-		$class = $this->testAdapterClass;
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
@@ -77,15 +78,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	public function getRequiredFields() {
 		return [
 			[ 'AU', [
-				'country', 'first_name', 'last_name',
+				'country',
 				'email', 'state_province'
 			] ],
 			[ 'ES', [
-				'country', 'first_name', 'last_name',
+				'country',
 				'email'
 			] ],
 			[ 'US', [
-				'country', 'first_name', 'last_name',
+				'country',
 				'email', 'street_address', 'city',
 				'postal_code', 'state_province'
 			] ],
@@ -118,7 +119,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			return !in_array( $field, $requiredFields );
 		} );
 
-		// optionals are set in tests/phpunit/includes/variants/optional/globalcollect/country_fields.yaml
+		// optionals are set in tests/phpunit/includes/variants/optional/ingenico/country_fields.yaml
 		$this->assertEquals( [ 'last_name', 'state_province' ], array_values( $optionals ) );
 	}
 
@@ -141,7 +142,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		// The 'nostate' variant requires fewer fields in the US
 		$requiredFields = $gateway->getRequiredFields();
 		$this->assertEquals( [
-			'country', 'first_name', 'last_name',
+			'country',
 			'email', 'street_address', 'postal_code'
 		], $requiredFields );
 	}
@@ -164,7 +165,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		);
 		$requiredFields = $gateway->getRequiredFields();
 		$this->assertArrayEquals( [
-			'country', 'first_name', 'last_name',
+			'country',
 			'email', 'street_address', 'city',
 			'postal_code', 'state_province'
 		], $requiredFields );
@@ -176,12 +177,12 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * @covers DonationData::__construct
 	 */
 	public function testConstructorHasDonationData() {
-		$_SERVER['REQUEST_URI'] = '/index.php/Special:GlobalCollectGateway';
+		$_SERVER['REQUEST_URI'] = '/index.php/Special:IngenicoGateway';
 
 		$options = $this->getDonorTestData();
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->assertInstanceOf( TestingGlobalCollectAdapter::class, $gateway );
+		$this->assertInstanceOf( IngenicoAdapter::class, $gateway );
 
 		// please define this function only inside the TESTS_ADAPTER_DEFAULT,
 		// which should be a test adapter object that descende from one of the
@@ -197,14 +198,15 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( 'en', $exposed->getData_Staged( 'language' ), "'US' donor's language was inproperly set. Should be 'en'" );
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$this->assertEquals( 'en_US', $exposed->getData_Staged( 'language' ), "'US' donor's language was inproperly set. Should be 'en_US'" );
+		$this->mockIngenicoHostedSetup();
+		$gateway->doPayment();
 		// so we know it tried to screw with the session and such.
 
 		$options = $this->getDonorTestData( 'NO' );
 		$gateway = $this->getFreshGatewayObject( $options );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
-		$this->assertEquals( 'no', $exposed->getData_Staged( 'language' ), "'NO' donor's language was inproperly set. Should be 'no'" );
+		$this->assertEquals( 'no_NO', $exposed->getData_Staged( 'language' ), "'NO' donor's language was inproperly set. Should be 'no_NO'" );
 	}
 
 	/**
@@ -212,15 +214,16 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * In particular, ensure order IDs aren't leaking.
 	 */
 	public function testResetOnGatewaySwitch() {
-		// Fill the session with some GlobalCollect stuff
+		// Fill the session with some Ingenico stuff
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
 		$firstRequest = $this->setUpRequest( $init );
-		$globalcollect_gateway = new TestingGlobalCollectAdapter();
-		$globalcollect_gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$ingenicoGateway = new IngenicoAdapter();
+		$this->mockIngenicoHostedSetup();
+		$ingenicoGateway->doPayment();
 
 		$session = $firstRequest->getSessionArray();
-		$this->assertEquals( 'globalcollect', $session['Donor']['gateway'], 'Test setup failed.' );
+		$this->assertEquals( 'ingenico', $session['Donor']['gateway'], 'Test setup failed.' );
 
 		// Then simulate switching to Adyen
 		$session['sequence'] = 2;
@@ -243,9 +246,10 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$firstRequest = $this->setUpRequest( $init );
 
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 		$oneTimeOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$this->mockIngenicoHostedSetup();
+		$gateway->doPayment();
 
 		$donorData = $firstRequest->getSessionData( 'Donor' );
 		$this->assertSame( '', $donorData['recurring'], 'Test setup failed.' );
@@ -255,9 +259,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['recurring'] = '1';
 		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 		$recurOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$gateway->doPayment();
 		$donorData = $secondRequest->getSessionData( 'Donor' );
 		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
 
@@ -276,10 +280,11 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['recurring'] = '1';
 
 		$firstRequest = $this->setUpRequest( $init );
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 		$recurringOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$recurringCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$this->mockIngenicoHostedSetup();
+		$gateway->doPayment();
 		$donorData = $firstRequest->getSessionData( 'Donor' );
 		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
 
@@ -287,10 +292,10 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['recurring'] = '';
 		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 		$oneTimeOrderId = $gateway->getData_Unstaged_Escaped( 'order_id' );
 		$oneTimeCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		$gateway->do_transaction( 'INSERT_ORDERWITHPAYMENT' );
+		$gateway->doPayment();
 		$donorData = $secondRequest->getSessionData( 'Donor' );
 		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
 
@@ -335,7 +340,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
@@ -353,7 +358,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
@@ -371,7 +376,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
@@ -396,7 +401,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options );
-		$gateway = new TestingGlobalCollectAdapter();
+		$gateway = new IngenicoAdapter();
 
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$exposed->stageData();
@@ -419,7 +424,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'Ways to give'
 		] );
-		$gateway = $this->getFreshGatewayObject();
+		$gateway = $this->getFreshGatewayObject( [] );
 		$url = ResultPages::getCancelPage( $gateway );
 		$expectedTitle = Title::newFromText( 'Ways to give/en' );
 		$this->assertEquals( $expectedTitle->getFullURL( '', false, PROTO_CURRENT ), $url );
@@ -494,14 +499,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertEquals( ValidationAction::REJECT, $gateway->getValidationAction(), 'De-escalating action without reset!' );
 	}
 
-	public function testRectifyOrphan() {
-		$orphan = $this->createOrphan( [ 'gateway' => 'donation' ] );
-		$gateway = $this->getFreshGatewayObject( $orphan );
-		// FIXME: dummy communication status, currently returns false because orpphan can't be rectifiied!
-		$is_rectified = $gateway->rectifyOrphan();
-		$this->assertEquals( PaymentResult::newEmpty(), $is_rectified, 'rectifyOrphan did not return empty PaymentResult' );
-	}
-
 	public function testGetDonationQueueMessage() {
 		$data = $this->getDonorTestData( 'FR' );
 		$gateway = $this->getFreshGatewayObject( $data );
@@ -511,7 +508,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$expected += [
 			'gateway_txn_id' => false,
 			'response' => false,
-			'gateway_account' => 'test',
+			'gateway_account' => null,
 			'fee' => 0,
 			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'utm_source' => '..',
@@ -545,7 +542,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'contact_hash' => $data['contact_hash'],
 			'gateway_txn_id' => false,
 			'response' => false,
-			'gateway_account' => 'test',
+			'gateway_account' => null,
 			'fee' => 0,
 			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'utm_source' => '..',
@@ -576,7 +573,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$expected += [
 			'gateway_txn_id' => false,
 			'response' => false,
-			'gateway_account' => 'test',
+			'gateway_account' => null,
 			'fee' => 0,
 			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'utm_source' => '..',
@@ -592,5 +589,38 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $message['date'] );
 		unset( $expected['amount'] );
 		$this->assertEquals( $expected, $message );
+	}
+
+	/**
+	 * Some 'generic' tests use the Ingenico adapter, so we add a convenience method here to mock the
+	 * SmashPig-level calls needed to run doPayment
+	 */
+	protected function mockIngenicoHostedSetup() {
+		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
+
+		$hostedCheckoutProvider = $this->createMock( HostedCheckoutProvider::class );
+
+		$providerConfig->overrideObjectInstance(
+			'payment-provider/cc',
+			$hostedCheckoutProvider
+		);
+		$hostedPaymentCreateRawResponse = [
+			'partialRedirectUrl' => 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
+				'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0',
+			'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+			'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+		];
+
+		$hostedPaymentCreateResponse = ( new CreatePaymentSessionResponse() )
+			->setPaymentSession( $hostedPaymentCreateRawResponse['hostedCheckoutId'] )
+			->setRedirectUrl( 'https://wmf-pay.' . $hostedPaymentCreateRawResponse['partialRedirectUrl'] )
+			->setSuccessful( true )
+			->setRawResponse( $hostedPaymentCreateRawResponse );
+
+		$hostedCheckoutProvider
+			->method( 'createPaymentSession' )
+			->willReturn(
+				$hostedPaymentCreateResponse
+			);
 	}
 }

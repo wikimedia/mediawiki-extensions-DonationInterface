@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Anakmalaysia",
+			"Diagramma Della Verita"
+		]
+	},
+	"ingenico_gateway-desc": "Pemprosesan pembayaran Ingenico",
+	"ingenico_gateway-response-9130": "Negara tidak sah.",
+	"ingenico_gateway-response-9140": "Mata wang tidak sah.",
+	"ingenico_gateway-response-9150": "Bahasa tidak sah.",
+	"ingenico_gateway-response-400530": "Jenis pembayaran yang dipilih tidak sah.",
+	"ingenico_gateway-response-430306": "Kad kredit anda telah luput. Sila cuba dengan kad yang lain atau pilih satu daripada empat cara pembayaran yang lain.",
+	"ingenico_gateway-response-430330": "Kad kredit tidak sah.",
+	"ingenico_gateway-response-430421": "Kad kredit anda tidak dapat disahkan. Sila pastikan kesemua maklumat yang diisi sama dengan profil kad kredit anda atau sila cuba semula dengan kad yang lain.",
+	"ingenico_gateway-response-430360": "Transaksi tidak dapat disahkan. Sila cuba dengan kad yang lain atau pilih satu daripada empat cara pembayaran yang lain.",
+	"ingenico_gateway-response-430285": "Transaksi tidak dapat disahkan. Sila cuba dengan kad yang lain atau pilih satu daripada empat cara pembayaran yang lain.",
+	"ingenico_gateway-response-21000150": "Nombor akaun bank tidah sah.",
+	"ingenico_gateway-response-21000155": "Kod bank tidak sah.",
+	"ingenico_gateway-response-21000160": "Nombor akaun giro tidak sah.",
+	"ingenico_gateway-response-default": "Terdapat masalah dalam memproses transaksi anda. \nSila cuba sebentar lagi."
+}

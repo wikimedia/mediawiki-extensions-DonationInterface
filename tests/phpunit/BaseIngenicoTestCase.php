@@ -14,6 +14,54 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	protected $hostedCheckoutCreateResponse;
 
 	/**
+	 * @var array good response from Ingenico for setup call
+	 */
+	public static $hostedPaymentStatusRawResponse = [
+		"createdPaymentOutput" => [
+			"payment" => [
+				"id" => "000000891566072501680000200001",
+				"paymentOutput" => [
+					"amountOfMoney" => [
+						"amount" => 2345,
+						"currencyCode" => "USD"
+					],
+					"references" => [
+						"paymentReference" => "0"
+					],
+					"paymentMethod" => "card",
+					"cardPaymentMethodSpecificOutput" => [
+						"paymentProductId" => 1,
+						"authorisationCode" => "123456",
+						"card" => [
+							"cardNumber" => "************7977",
+							"expiryDate" => "1220"
+						],
+						"schemeTransactionId" => "112233445566",
+						"fraudResults" => [
+							"avsResult" => "0",
+							"cvvResult" => "M",
+							"fraudServiceResult" => "no-advice"
+						]
+					]
+				],
+				"status" => "PENDING_APPROVAL",
+				"statusOutput" => [
+					"isCancellable" => true,
+					"statusCode" => 600,
+					"statusCodeChangeDateTime" => "20140717145840",
+					"isAuthorized" => true
+				]
+			],
+			"paymentCreationReferences" => [
+				"additionalReference" => "00000089156607250168",
+				"externalReference" => "000000891566072501680000200001"
+			],
+			"tokens" => ""
+		],
+		"status" => "PAYMENT_CREATED"
+	];
+
+	/**
 	 * @var PaymentDetailResponse
 	 */
 	protected $hostedPaymentStatusResponse;
@@ -55,67 +103,9 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
 			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';
 
-		$hostedPaymentStatusRawResponse = [
-			"createdPaymentOutput" => [
-				"payment" => [
-					"id" => "000000891566072501680000200001",
-					"paymentOutput" => [
-						"amountOfMoney" => [
-							"amount" => 2345,
-							"currencyCode" => "USD"
-						],
-						"references" => [
-							"paymentReference" => "0"
-						],
-						"paymentMethod" => "card",
-						"cardPaymentMethodSpecificOutput" => [
-							"paymentProductId" => 1,
-							"authorisationCode" => "123456",
-							"card" => [
-								"cardNumber" => "************7977",
-								"expiryDate" => "1220"
-							],
-							"schemeTransactionId" => "112233445566",
-							"fraudResults" => [
-								"avsResult" => "0",
-								"cvvResult" => "M",
-								"fraudServiceResult" => "no-advice"
-							]
-						]
-					],
-					"status" => "PENDING_APPROVAL",
-					"statusOutput" => [
-						"isCancellable" => true,
-						"statusCode" => 600,
-						"statusCodeChangeDateTime" => "20140717145840",
-						"isAuthorized" => true
-					]
-				],
-				"paymentCreationReferences" => [
-					"additionalReference" => "00000089156607250168",
-					"externalReference" => "000000891566072501680000200001"
-				],
-				"tokens" => ""
-			],
-			"status" => "PAYMENT_CREATED"
-		];
+		$this->hostedPaymentStatusResponse = self::getHostedPaymentStatusResponse();
 
-		$this->hostedPaymentStatusResponse = ( new PaymentDetailResponse() )
-			->setPaymentSubmethod( 'visa' )
-			->setRiskScores( [
-				'avs' => 0,
-				'cvv' => 0,
-			] )
-			->setRawResponse( $hostedPaymentStatusRawResponse )
-			->setRawStatus( '600' )
-			->setStatus( FinalStatus::PENDING_POKE )
-			->setSuccessful( true )
-			->setInitialSchemeTransactionId( "112233445566" )
-			->setGatewayTxnId( '000000891566072501680000200001' )
-			->setAmount( '23.45' )
-			->setCurrency( 'USD' );
-
-		$hostedPaymentStatusRawResponseBadCvv = $hostedPaymentStatusRawResponse;
+		$hostedPaymentStatusRawResponseBadCvv = self::$hostedPaymentStatusRawResponse;
 		$hostedPaymentStatusRawResponseBadCvv['createdPaymentOutput']['payment']
 			['paymentOutput']['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
@@ -135,7 +125,28 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			->setAmount( '23.45' )
 			->setCurrency( 'USD' );
 
-		$this->approvePaymentResponse = ( new ApprovePaymentResponse() )
+		$this->approvePaymentResponse = self::getApprovePaymentResponse();
+	}
+
+	public static function getHostedPaymentStatusResponse(): PaymentDetailResponse {
+		return ( new PaymentDetailResponse() )
+			->setPaymentSubmethod( 'visa' )
+			->setRiskScores( [
+				'avs' => 0,
+				'cvv' => 0,
+			] )
+			->setRawResponse( self::$hostedPaymentStatusRawResponse )
+			->setRawStatus( '600' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setInitialSchemeTransactionId( "112233445566" )
+			->setGatewayTxnId( '000000891566072501680000200001' )
+			->setAmount( '23.45' )
+			->setCurrency( 'USD' );
+	}
+
+	public static function getApprovePaymentResponse(): ApprovePaymentResponse {
+		return ( new ApprovePaymentResponse() )
 			->setRawResponse(
 				[
 					"payment" => [

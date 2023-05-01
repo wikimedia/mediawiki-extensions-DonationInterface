@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mikołka",
+			"Sp5uhe",
+			"WTM"
+		]
+	},
+	"ingenico_gateway-desc": "Przetwarzanie płatności Ingenico",
+	"ingenico_gateway-response-9130": "Nieprawidłowy kraj.",
+	"ingenico_gateway-response-9140": "Nieprawidłowa waluta.",
+	"ingenico_gateway-response-9150": "Nieprawidłowy język.",
+	"ingenico_gateway-response-400530": "Nieprawidłowa metoda płatności.",
+	"ingenico_gateway-response-430306": "Twoja karta kredytowa jest przeterminowana. Spróbuj użyć innej karty lub zmień sposób dokonania wpłaty.",
+	"ingenico_gateway-response-430330": "Nieprawidłowy numer karty.",
+	"ingenico_gateway-response-430421": "Wystąpił problem z weryfikacją Twojej karty kredytowej. Sprawdź wprowadzone dane lub spróbuj użyć innej karty.",
+	"ingenico_gateway-response-430360": "Wpłata nie może zostać zrealizowana. Spróbuj użyć innej karty lub zmień sposób dokonania wpłaty.",
+	"ingenico_gateway-response-430285": "Wpłata nie może zostać zrealizowana. Spróbuj użyć innej karty lub zmień sposób dokonania wpłaty.",
+	"ingenico_gateway-response-21000150": "Nieprawidłowy numer konta bankowego.",
+	"ingenico_gateway-response-21000155": "Nieprawidłowy kod banku.",
+	"ingenico_gateway-response-21000160": "Nieprawidłowy numer konta.",
+	"ingenico_gateway-response-default": "Wystąpił błąd podczas przeprowadzania transakcji.\nSpróbuj ponownie później."
+}

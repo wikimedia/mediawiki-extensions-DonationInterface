@@ -8,7 +8,7 @@
 		]
 	},
 	"apihelp-donate-description": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van een verscheidenheid van payment processors.",
-	"apihelp-donate-param-gateway": "Welke payment gateway te gebruiken - adyen, globalcollect, enz.",
+	"apihelp-donate-param-gateway": "Welke payment gateway te gebruiken - adyen, ingenico, enz.",
 	"apihelp-donate-param-amount": "Het gedoneerde bedrag.",
 	"apihelp-donate-param-currency": "Valutacode.",
 	"apihelp-donate-param-first_name": "Voornaam.",

@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"ZaDiak"
+		]
+	},
+	"ingenico_gateway-response-9130": "Μη έγκυρη χώρα.",
+	"ingenico_gateway-response-9140": "Μη έγκυρο νόμισμα.",
+	"ingenico_gateway-response-9150": "Μη έγκυρη γλώσσα.",
+	"ingenico_gateway-response-400530": "Μη έγκυρη μέθοδος πληρωμής.",
+	"ingenico_gateway-response-430330": "Μη έγκυρος αριθμός κάρτας.",
+	"ingenico_gateway-response-21000150": "Μη έγκυρος αριθμός λογαριασμού τράπεζας.",
+	"ingenico_gateway-response-21000155": "Μη έγκυρος κωδικός τράπεζας."
+}

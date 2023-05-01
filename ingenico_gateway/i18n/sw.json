@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lloffiwr"
+		]
+	},
+	"ingenico_gateway-response-9130": "Jina batili la nchi.",
+	"ingenico_gateway-response-9140": "Aina batili ya fedha",
+	"ingenico_gateway-response-9150": "Lugha batili.",
+	"ingenico_gateway-response-400530": "Njia batili ya kulipa",
+	"ingenico_gateway-response-430306": "Kadi yako ya mkopo imeisha. Tafadhali jaribu kadi nyingine ama njia nyingine ya kulipa inayowezekana.",
+	"ingenico_gateway-response-430330": "Namba batili ya kadi.",
+	"ingenico_gateway-response-21000150": "Namba batili ya akaunti ya benki",
+	"ingenico_gateway-response-21000155": "Msimbo batili wa benki.",
+	"ingenico_gateway-response-default": "Ilitokea hitilafu wakati wa kufanya malipo yako.\nTafadhali jaribu tena baadaye."
+}

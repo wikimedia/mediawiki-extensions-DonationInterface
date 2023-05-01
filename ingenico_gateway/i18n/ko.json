@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kwj2772",
+			"아라"
+		]
+	},
+	"ingenico_gateway-desc": "글로벌컬렉트 결제 처리",
+	"ingenico_gateway-response-9130": "잘못된 국가입니다.",
+	"ingenico_gateway-response-9140": "잘못된 통화입니다.",
+	"ingenico_gateway-response-9150": "잘못된 언어입니다.",
+	"ingenico_gateway-response-400530": "잘못된 지불 방법입니다.",
+	"ingenico_gateway-response-430306": "신용 카드가 만료되었습니다. 다른 카드나 다른 지불 방법 중 하나를 시도하세요.",
+	"ingenico_gateway-response-430330": "잘못된 카드 번호입니다.",
+	"ingenico_gateway-response-430421": "신용 카드의 유효성을 검사할 수 없습니다. 모든 정보가 신용 카드 프로필과 일치하는지 확인하거나 다른 카드로 시도하세요.",
+	"ingenico_gateway-response-430360": "거래를 허가할 수 없습니다. 다른 카드나 다른 지불 방법 중 하나를 시도하세요.",
+	"ingenico_gateway-response-430285": "거래를 허가할 수 없습니다. 다른 카드나 다른 지불 방법 중 하나를 시도하세요.",
+	"ingenico_gateway-response-21000150": "잘못된 은행 계좌 번호입니다.",
+	"ingenico_gateway-response-21000155": "잘못된 은행 코드입니다.",
+	"ingenico_gateway-response-21000160": "잘못된 지도 계좌 번호입니다.",
+	"ingenico_gateway-response-default": "거래를 처리하는 동안 오류가 발생했습니다.\n나중에 다시 시도하세요."
+}

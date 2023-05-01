@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"BaRaN6161 TURK",
+			"Emperyan",
+			"MuratTheTurkish",
+			"Sayginer"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico ödeme işlemleri",
+	"ingenico_gateway-response-9130": "Geçersiz ülke.",
+	"ingenico_gateway-response-9140": "Geçersiz para birimi.",
+	"ingenico_gateway-response-9150": "Geçersiz dil.",
+	"ingenico_gateway-response-400530": "Geçersiz ödeme yöntemi.",
+	"ingenico_gateway-response-430306": "Kredi kartınızın süresi doldu. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
+	"ingenico_gateway-response-430330": "Geçersiz kart numarası.",
+	"ingenico_gateway-response-430421": "Kredi kartınız doğrulanamadı. Lütfen tüm bilgilerin kredi kartı profilinizle eşleştiğini doğrulayın veya farklı bir kart deneyin.",
+	"ingenico_gateway-response-430360": "İşlem yetkilendirilemedi. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
+	"ingenico_gateway-response-430285": "İşlem yetkilendirilemedi. Lütfen farklı bir kart veya diğer ödeme yöntemlerimizden birini deneyin.",
+	"ingenico_gateway-response-21000150": "Geçersiz banka hesap numarası.",
+	"ingenico_gateway-response-21000155": "Geçersiz banka kodu.",
+	"ingenico_gateway-response-21000160": "Geçersiz ciro hesap numarası.",
+	"ingenico_gateway-response-default": "İşleminiz işlenirken bir hata oluştu.\nLütfen daha sonra tekrar deneyiniz."
+}

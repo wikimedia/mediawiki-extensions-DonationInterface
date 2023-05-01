@@ -13,7 +13,6 @@
 			"extras",
 			"gateway_common",
 			"gateway_forms",
-			"globalcollect_gateway",
 			"ingenico_gateway",
 			"paypal_ec_gateway",
 			"DonationInterface.class.php"

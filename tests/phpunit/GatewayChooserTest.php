@@ -57,10 +57,8 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			'wgBraintreeGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => true,
 			'wgAdyenCheckoutGatewayEnabled' => true,
-			'wgGlobalCollectGatewayEnabled' => true,
 			'wgAmazonGatewayEnabled' => true,
 			'wgDonationInterfaceGatewayAdapters' => [
-				'globalcollect' => 'GlobalCollectAdapter',
 				'ingenico' => 'IngenicoAdapter',
 				'amazon' => 'AmazonAdapter',
 				'adyen' => 'AdyenCheckoutAdapter',
@@ -225,9 +223,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			// Test country restriction on submethod
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'FR', 'currency' => 'EUR' ], null ],
-
-			// obt (BPay) removed, see T309475
-			// [ [ 'payment_method' => 'obt', 'country' => 'AU', 'currency' => 'AUD' ], 'GlobalCollectGateway' ],
 
 			// Recurring: only paypal, ingenico and adyen got recurring
 			[ [ 'payment_method' => 'cc', 'country' => 'FR', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ], // adyen recurring

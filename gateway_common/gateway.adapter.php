@@ -1256,7 +1256,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * will throw an exception if you try to set it to something that has no
 	 * transaction definition.
 	 * @param string $transaction_name This is a specific transaction type like
-	 * 'INSERT_ORDERWITHPAYMENT' (if you're GlobalCollect) that maps to a
+	 * 'createPaymentSession' (if you're Ingenico) that maps to a
 	 * first-level key in the $transactions array.
 	 * @throws UnexpectedValueException
 	 */
@@ -3109,7 +3109,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * Unsets the session data, in the case that we've saved it for gateways
-	 * like GlobalCollect that require it to persist over here through their
+	 * like Ingenico that require it to persist over here through their
 	 * iframe experience.
 	 */
 	public function session_unsetDonorData() {

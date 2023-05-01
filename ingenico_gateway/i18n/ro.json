@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Minisarm"
+		]
+	},
+	"ingenico_gateway-desc": "Procesarea plății prin Ingenico",
+	"ingenico_gateway-response-9130": "Țară incorectă.",
+	"ingenico_gateway-response-9140": "Monedă incorectă.",
+	"ingenico_gateway-response-9150": "Limbă incorectă.",
+	"ingenico_gateway-response-400530": "Metodă de plată incorectă.",
+	"ingenico_gateway-response-430306": "Cardul dumneavoastră de credit a expirat. Vă rugăm să încercați cu un alt card sau să alegeți o altă metodă de plată pusă la dispoziție de noi.",
+	"ingenico_gateway-response-430330": "Număr de card incorect.",
+	"ingenico_gateway-response-430421": "Cardul dumneavoastră de credit nu a putut fi validat. Vă rugăm fie să verificați dacă toate informațiile corespund cardului dumneavoastră de credit, fie să încercați cu un alt card.",
+	"ingenico_gateway-response-430360": "Tranzacția nu a putut fi autorizată. Vă rugăm să încercați cu un alt card sau să alegeți o altă metodă de plată pusă la dispoziție de noi.",
+	"ingenico_gateway-response-430285": "Tranzacția nu a putut fi autorizată. Vă rugăm să încercați cu un alt card sau să alegeți o altă metodă de plată pusă la dispoziție de noi.",
+	"ingenico_gateway-response-21000150": "Număr de cont incorect.",
+	"ingenico_gateway-response-21000155": "Cod de bancă incorect.",
+	"ingenico_gateway-response-21000160": "Număr de cont giro incorect.",
+	"ingenico_gateway-response-default": "S-a produs o eroare în timpul procesării tranzacției dumneavoastră.\nVă rugăm să reîncercați mai târziu."
+}

@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"AnakngAraw",
+			"Sky Harbor"
+		]
+	},
+	"ingenico_gateway-desc": "Pagsasagawa ng pagbabayad gamit ang Ingenico",
+	"ingenico_gateway-response-9130": "Hindi katanggap-tanggap na bansa.",
+	"ingenico_gateway-response-9140": "Hindi katanggap-tanggap na salaping umiiral.",
+	"ingenico_gateway-response-9150": "Hindi katanggap-tanggap na wika.",
+	"ingenico_gateway-response-400530": "Hindi katanggap-tanggap na paraan ng pagbabayad.",
+	"ingenico_gateway-response-430306": "Wala nang saysay ang iyong tarhetang pang-utang. Sumubok po ng ibang tarheta o isa sa ibang mga paraan ng pagbabayad sa amin.",
+	"ingenico_gateway-response-430330": "Hindi katanggap-tanggap na bilang ng tarheta",
+	"ingenico_gateway-response-430421": "Hindi mapatunayan ang iyong tarhetang pang-utang. Paki tiyak na ang lahat ng mga impormasyon ay tumutugma sa iyong balangkas ng katangian sa kard na pang-utang, o sumubok ng ibang tarheta.",
+	"ingenico_gateway-response-430360": "Hindi mapapahintulutan ang transaksiyon. Paki subukin ang isang ibang kard o isa sa aming iba pang mga paraan ng pagbabayad.",
+	"ingenico_gateway-response-430285": "Hindi mapapahintulutan ang transaksiyon. Paki subukin ang isang ibang tarheta o isa sa aming iba pang mga paraan ng pagbabayad.",
+	"ingenico_gateway-response-21000150": "Hindi katanggap-tanggap na bilang sa kuwentang bangko.",
+	"ingenico_gateway-response-21000155": "Hindi katanggap-tanggap na kodigo ng bangko.",
+	"ingenico_gateway-response-21000160": "Hindi katanggap-tanggap na bilang sa kuwentang Giro.",
+	"ingenico_gateway-response-default": "Nagkaroon ng kamalian sa pagsasagawa ng transaksiyon mo.\nMangyaring subukan muli mamaya."
+}

@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chaduvari",
+			"Veeven"
+		]
+	},
+	"ingenico_gateway-response-9130": "చెల్లని దేశం.",
+	"ingenico_gateway-response-9140": "చెల్లని ద్రవ్యం.",
+	"ingenico_gateway-response-9150": "చెల్లని భాష.",
+	"ingenico_gateway-response-400530": "చెల్లింపు పద్ధతి చెల్లదు.",
+	"ingenico_gateway-response-430306": "మీ క్రెడిట్ కార్డుకు కాలం చెల్లింది. మరో కార్డుతో ప్రత్నించండి. లేదా ఇతర చెల్లింపు మార్గాలను ఎంచుకోండి.",
+	"ingenico_gateway-response-430330": "చెల్లని కార్డు నంబరు.",
+	"ingenico_gateway-response-21000150": "బ్యాంకు ఖాతా నెంబరు చెల్లదు.",
+	"ingenico_gateway-response-21000155": "బ్యాంకు సంకేతం చెల్లదు."
+}
