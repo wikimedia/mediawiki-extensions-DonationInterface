@@ -11,7 +11,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 use SmashPig\PaymentProviders\Responses\PaymentProviderResponse;
 
-class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversion {
+class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
 
 	const GATEWAY_NAME = 'Ingenico';
@@ -45,7 +45,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	}
 
 	public function defineTransactions() {
-		parent::defineTransactions();
 		$this->transactions['createPaymentSession'] = [
 			'request' => [
 				'use_3d_secure',
@@ -155,121 +154,9 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		return $provider->createPaymentSession( $data );
 	}
 
-	/**
-	 * Make an API call to Ingenico Connect.
-	 *
-	 * @param array $data parameters for the transaction
-	 * @return bool whether the API call succeeded
-	 */
-	public function curl_transaction( $data ) {
-		$email = $this->getData_Unstaged_Escaped( 'email' );
-		$this->logger->info( "Making API call for donor $email" );
-
-		$filterResult = $this->runSessionVelocityFilter();
-		if ( $filterResult === false ) {
-			return false;
-		}
-
-		/** @var HostedCheckoutProvider $provider */
-		$provider = $this->getPaymentProvider();
-		switch ( $this->getCurrentTransaction() ) {
-			case 'cancelPayment':
-				// NOTE: this is currently not hit - there are two conditions that
-				// lead to this code path but neither of them happen in practice.
-				$id = $data['id'];
-				unset( $data['id'] );
-				$cancelPaymentResponse = $provider->cancelPayment( $id );
-				$result = $cancelPaymentResponse->getRawResponse();
-				break;
-			default:
-				return false;
-		}
-
-		$this->transaction_response->setRawResponse( json_encode( $result ) );
-		return true;
-	}
-
-	public function do_transaction( $transaction ) {
-		// Reset var_map and transformers to old-style
-		$this->var_map = $this->config['legacy_var_map'];
-		$this->config['transformers'] = $this->config['legacy_transformers'];
-		$this->defineDataTransformers();
-		$this->tuneForRecurring();
-		$result = parent::do_transaction( $transaction );
-		// Add things to session which may have been retrieved from API
-		if ( !$this->getFinalStatus() ) {
-			$this->session_addDonorData();
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Stage: recurring
-	 * Adds the recurring payment pieces to the structure of createHostedCheckout
-	 * and getHostedPaymentStatus if the recurring field is populated.
-	 */
-	protected function tuneForRecurring() {
-		// Do nothing here. Delete this function in the next step
-		// when we remove the inheritance from the GlobalCollect adapter
-	}
-
 	protected function getPaymentProvider() {
 		$method = $this->getData_Unstaged_Escaped( 'payment_method' );
 		return PaymentProviderFactory::getProviderForMethod( $method );
-	}
-
-	public function parseResponseCommunicationStatus( $response ) {
-		return true;
-	}
-
-	public function parseResponseErrors( $response ) {
-		$errors = [];
-		if ( !empty( $response['errors'] ) ) {
-			foreach ( $response['errors'] as $error ) {
-				$errors[] = new PaymentError(
-					$error['code'],
-					$error['message'],
-					LogLevel::ERROR
-				);
-			}
-		}
-		return $errors;
-	}
-
-	public function parseResponseData( $response ) {
-		// Flatten the whole darn nested thing.
-		// FIXME: This should probably happen in the SmashPig library where
-		// we can flatten in a custom way per transaction type. Or we should
-		// expand var_map to work with nested stuff.
-		$flattened = [];
-		$squashMe = static function ( $sourceData, $squashMe ) use ( &$flattened ) {
-			foreach ( $sourceData as $key => $value ) {
-				if ( is_array( $value ) ) {
-					call_user_func( $squashMe, $value, $squashMe );
-				} else {
-					// Hmm, we might be clobbering something
-					$flattened[$key] = $value;
-				}
-			}
-		};
-		$squashMe( $response, $squashMe );
-		if ( isset( $flattened['partialRedirectUrl'] ) ) {
-			$provider = $this->getPaymentProvider();
-			$flattened['FORMACTION'] = $provider->getHostedPaymentUrl(
-				$flattened['partialRedirectUrl']
-			);
-			// Ingenico tells us we're sometimes sending users to the bare
-			// checkout URL (55-ish chars) instead of the one with the checkout
-			// ID on it (165 chars)
-			if ( strlen( $flattened['FORMACTION'] ) < 100 ) {
-				$message = 'FORMACTION suspiciously short! response was: ' .
-					print_r( $response, true );
-				$this->logger->error( $message );
-			}
-
-		}
-		return $flattened;
 	}
 
 	public function processDonorReturn( $requestValues ) {
@@ -404,55 +291,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		$this->runAntifraudFilters();
 	}
 
-	protected function getOrderStatusFromProcessor() {
-		// FIXME: sometimes we should use getPayment
-		return $this->do_transaction( 'getHostedPaymentStatus' );
-	}
-
-	protected function post_process_getHostedPaymentStatus() {
-		return parent::post_process_get_orderstatus();
-	}
-
-	protected function getGatewayTransactionId() {
-		return $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
-	}
-
-	protected function approvePayment() {
-		return $this->do_transaction( 'approvePayment' );
-	}
-
-	/**
-	 * Get gateway status code from unstaged data.
-	 *
-	 * Note: We currently add in substitute status codes for
-	 * IN_PROGRESS and CANCELLED_BY_CONSUMER so that we can map these
-	 * to a valid \SmashPig\PaymentData\FinalStatus. Ingenico does not return a
-	 * status code for these two states, only the text description.
-	 * This behaviour should updated when globalcollect is retired.
-	 *
-	 * @param array $txnData
-	 *
-	 * @return int|null
-	 * @see \SmashPig\PaymentData\FinalStatus
-	 */
-	protected function getStatusCode( $txnData ) {
-		$statusCode = $this->getData_Unstaged_Escaped( 'gateway_status' );
-		if ( $statusCode == null &&
-			in_array( $txnData['status'], [ 'IN_PROGRESS', 'CANCELLED_BY_CONSUMER' ] ) ) {
-			switch ( $txnData['status'] ) {
-				case 'CANCELLED_BY_CONSUMER':
-					// maps to CANCELLED
-					$statusCode = 99999;
-					break;
-				case 'IN_PROGRESS':
-					// maps to the PENDING range
-					$statusCode = 25;
-					break;
-			}
-		}
-		return $statusCode;
-	}
-
 	/**
 	 * getAVSResult is intended to be used by the functions filter, to
 	 * determine if we want to fail the transaction ourselves or not.
@@ -471,19 +309,22 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		return $this->getData_Unstaged_Escaped( 'cvv_result' );
 	}
 
-	public function cancel() {
-		return $this->do_transaction( 'cancelPayment' );
-	}
-
-	public function shouldRectifyOrphan() {
-		return true;
-	}
-
 	public function getRequestProcessId( $requestValues ) {
 		return $requestValues['hostedCheckoutId'];
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'cc' ];
+	}
+
+	/**
+	 * FIXME drop these last two functions from GatewayAdapter abstract class
+	 */
+	protected function defineAccountInfo() {
+		// We use account_config instead
+		$this->accountInfo = [];
+	}
+
+	protected function defineReturnValueMap() {
 	}
 }

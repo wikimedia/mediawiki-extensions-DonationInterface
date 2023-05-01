@@ -293,23 +293,6 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 			'Risk score was incremented correctly.' );
 	}
 
-	public function testCancelPayment() {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'cc';
-		$init['payment_submethod'] = 'visa';
-		$init['email'] = 'innocent@safedomain.org';
-		$init['gateway_txn_id'] = 'ingenico' . $init['gateway_session_id'];
-		$gateway = $this->getFreshGatewayObject( $init );
-		$response = $this->getCancelPaymentResponse();
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'cancelPayment' )
-			->with( $init['gateway_txn_id'] )
-			->willReturn( $response );
-		$gateway->do_transaction( 'cancelPayment' );
-		$data = $gateway->getTransactionData();
-		$this->assertEquals( "CANCELLED", $data['status'], "Should return status CANCELLED" );
-	}
-
 	public function testLanguageStaging() {
 		$options = $this->getDonorTestData( 'NO' );
 		$options['payment_method'] = 'cc';
