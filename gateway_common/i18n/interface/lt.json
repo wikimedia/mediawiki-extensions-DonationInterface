@@ -7,7 +7,8 @@
 			"Manvydasz",
 			"Matasg",
 			"Zygimantus",
-			"Tomasdd"
+			"Tomasdd",
+			"Nokeoo"
 		]
 	},
 	"donate_interface": "Parama Wikimedia fondui",
@@ -132,8 +133,10 @@
 	"donate_interface-donor-email": "Elektroninio pašto adresas",
 	"donate_interface-donor-name": "Vardas",
 	"donate_interface-donor-first_name": "Vardas",
+	"donate_interface-donor-first_name-alt": "Vardas",
 	"donate_interface-donor-mname": "Antrasis vardas",
 	"donate_interface-donor-last_name": "Pavardė",
+	"donate_interface-donor-last_name-alt": "Pavardė",
 	"donate_interface-donor-street_address": "Adresas (gatvė)",
 	"donate_interface-donor-street-number": "Numeris",
 	"donate_interface-donor-city": "Miestas",
@@ -155,6 +158,9 @@
 	"donate_interface-donor-submit": "Aukoti",
 	"donate_interface-donor-currency-msg": "Aukojimas yra atliekamas šia valiuta: $1",
 	"donate_interface-donor-fiscal_number": "Mokesčių numeris",
+	"donate_interface-donor-opt_in_yes": "Taip! Prašome siųsti man nedažnas naujienas el. paštu ir informaciją apie tai, kaip ateityje galiu palaikyti Vikipediją.*",
+	"donate_interface-donor-opt_in_no": "Ne, aš nenoriu gauti atnaujinimų, net jei tai tik keli el. laiškai per metus.",
+	"donate_interface-donor-opt_in_explain": "*Jūsų informacija tvarkoma pagal mūsų <a href=\"$1\">Donorų privatumo politiką</a>. Kiekviename el. laiške, kurį gausite, bus pateiktos paprastos prenumeratos atsisakymo parinktys.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
