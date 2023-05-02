@@ -156,7 +156,7 @@
 	"donate_interface-donor-submit": "Даряване",
 	"donate_interface-donor-currency-msg": "Това дарение е в $1",
 	"donate_interface-donor-fiscal_number": "Данъчен номер",
-	"donate_interface-donor-phone-explain-in": "Това е по избор и ние не го съхраняваме. Ако го оставите празно, нашият процесор за обработка на плащания ще генерира произволен попълнител за мястото на следващият екран.",
+	"donate_interface-donor-phone-explain-in": "Това поле е незадължително и не го съхраняваме. Ако го оставите празно, нашата система за плащане може да генерира случайна стойност за него на следващия екран.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
