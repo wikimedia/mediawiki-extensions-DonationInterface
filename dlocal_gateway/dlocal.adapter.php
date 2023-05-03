@@ -217,7 +217,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		IPaymentProvider $paymentProvider
 	): PaymentResult {
 		$transactionStatus = $paymentDetailResponse->getStatus();
-		$this->addResponseData( [ 'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId(), ] );
+		$this->addCreatePaymentResponseData( $paymentDetailResponse );
 		$paymentResult = PaymentResult::newSuccess();
 
 		if ( !$paymentDetailResponse->isSuccessful() ) {
@@ -411,5 +411,15 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				$this->getPaymentSubmethod(), [ 'upi', 'paytmwallet' ], true
 			) ) &&
 			$this->getData_Unstaged_Escaped( 'recurring' );
+	}
+
+	protected function addCreatePaymentResponseData( PaymentDetailResponse $paymentDetailResponse ): void {
+		$data = [
+			'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId()
+		];
+		if ( $paymentDetailResponse->getPaymentSubmethod() ) {
+			$data['payment_submethod'] = $paymentDetailResponse->getPaymentSubmethod();
+		}
+		$this->addResponseData( $data );
 	}
 }
