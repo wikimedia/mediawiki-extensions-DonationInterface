@@ -1,6 +1,6 @@
 <?php
 
-class Dlocal3DSecure extends Abstract3DSecure implements StagingHelper {
+class Simple3DSecure extends Abstract3DSecure implements StagingHelper {
 
 	/**
 	 * @param GatewayType $adapter

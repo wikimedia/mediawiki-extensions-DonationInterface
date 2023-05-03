@@ -34,6 +34,9 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 	 * of the tokenize and recurringPaymentSequenceIndicator flags.
 	 */
 	public function testSetupTokenizedCheckout() {
+		$this->setMwGlobals( self::getAllGlobalVariants( [
+			'3DSRules' => []
+		] ) );
 		$init = $this->getDonorTestData( 'FR' );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
@@ -41,23 +44,33 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 		$init['recurring'] = 1;
 		$this->setUpRequest( $init );
 		$gateway = new IngenicoAdapter();
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )
-			->with( $this->callback( function ( $arg ) {
-				$this->assertArraySubmapSame( [
-					'cardPaymentMethodSpecificInput' => [
-						'tokenize' => true,
-						'recurringPaymentSequenceIndicator' => 'first',
-						'skipAuthentication' => true,
-					],
-					'hostedCheckoutSpecificInput' => [
-						'returnCancelState' => 'true',
-					]
-				], $arg );
-				return true;
-			} ) )
-			->willReturn( $this->hostedCheckoutCreateResponse );
-		$gateway->do_transaction( 'createHostedCheckout' );
+		$this->setUpIntegrationMocks();
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )
+			->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) {
+					$arg = json_decode( $encoded, true );
+					$this->assertArraySubmapSame( [
+						'cardPaymentMethodSpecificInput' => [
+							'tokenize' => 'true',
+							'recurring' => [
+								'recurringPaymentSequenceIndicator' => 'first',
+							],
+							'threeDSecure' => [
+								'skipAuthentication' => 'true',
+							]
+						],
+						'hostedCheckoutSpecificInput' => [
+							'returnCancelState' => true,
+						]
+					], $arg );
+					return true;
+				} ) )
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
+		$gateway->doPayment();
 	}
 
 	public function testProcessTokenizedPayment() {

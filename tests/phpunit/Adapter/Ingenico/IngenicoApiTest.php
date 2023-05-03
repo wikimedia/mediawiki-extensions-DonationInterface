@@ -1,6 +1,7 @@
 <?php
 
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\Http\CurlWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\Tests\TestingContext;
@@ -17,6 +18,15 @@ use SmashPig\Tests\TestingProviderConfiguration;
 class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 	protected $hostedCheckoutProvider;
+
+	/**
+	 * We mock the lower-level CurlWrapper instead of the SmashPig entrypoint class
+	 * for integration tests where we want to ensure that the whole SmashPig-
+	 * DonationInterface system is sending the correct value to Ingenico.
+	 *
+	 * @var PHPUnit_Framework_MockObject_MockObject|CurlWrapper
+	 */
+	protected $curlWrapper;
 
 	protected $partialUrl;
 
@@ -38,14 +48,23 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		);
 		$ctx->providerConfigurationOverride = $providerConfig;
 
-		$this->hostedCheckoutProvider = $this->createMock( HostedCheckoutProvider::class );
-
+		$this->hostedCheckoutProvider = $this->getMockBuilder( HostedCheckoutProvider::class )
+			->enableProxyingToOriginalMethods()
+			->disableOriginalClone()
+			->disableArgumentCloning()
+			->disallowMockingUnknownTypes()
+			->setConstructorArgs( [ [ 'subdomain' => 'wmf-pay' ] ] )
+			->getMock();
 		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $this->hostedCheckoutProvider );
+
+		$this->curlWrapper = $this->createMock( CurlWrapper::class );
+		$providerConfig->overrideObjectInstance( 'curl/wrapper', $this->curlWrapper );
+
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
 			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';
 	}
 
-	public function testGoodSubmit() {
+	public function testGoodSubmit(): void {
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';
 		$init['payment_method'] = 'cc';
@@ -54,9 +73,15 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['action'] = 'donate';
 		$init['wmf_token'] = $this->saltedToken;
 
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )->with(
-				$this->callback( function ( $actual ) {
+		// First three params are pretty well tested in SmashPig tests, just
+		// worry about the data parameters here.
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) {
+					$actual = json_decode( $encoded, true );
 					$hcsi = [
 						'locale' => 'en_US',
 						'paymentProductFilters' => [
@@ -66,8 +91,8 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 								]
 							]
 						],
-						'showResultPage' => 'false',
-						'variant' => 105
+						'showResultPage' => false,
+						'variant' => '105'
 					];
 					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExp(
@@ -77,7 +102,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 455.0
+							'amount' => '455'
 						],
 						'customer' => [
 							'billingAddress' => [
@@ -91,12 +116,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 								'emailAddress' => 'good@innocent.com'
 							],
 							'locale' => 'en_US',
-							'personalInformation' => [
-								'name' => [
-									'firstName' => 'Firstname',
-									'surname' => 'Surname'
-								]
-							]
 						]
 					];
 					$this->assertArraySubmapSame( $order, $actual['order'] );
@@ -104,18 +123,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					return true;
 				} )
 			)
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )->with(
-				$this->equalTo( $this->partialUrl )
-			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		$apiResult = $this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
@@ -154,7 +162,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$this->assertArraySubmapSame( $expected, $message );
 	}
 
-	public function testStageLocale() {
+	public function testStageLocale(): void {
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';
 		$init['payment_method'] = 'cc';
@@ -164,9 +172,13 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['language'] = 'zh-ha';
 		$init['wmf_token'] = $this->saltedToken;
 
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )->with(
-				$this->callback( function ( $actual ) {
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) {
+					$actual = json_decode( $encoded, true );
 					$hcsi = [
 						'locale' => 'zh_US',
 						'paymentProductFilters' => [
@@ -176,25 +188,14 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 								]
 							]
 						],
-						'showResultPage' => 'false',
-						'variant' => 105
+						'showResultPage' => false,
+						'variant' => '105'
 					];
 					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
 				} )
 			)
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )->with(
-				$this->equalTo( $this->partialUrl )
-			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
@@ -202,60 +203,48 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	/**
 	 * Don't mangle UTF-8 names when truncating data
 	 */
-	public function testNoMangleDataOnTruncate() {
+	public function testNoMangleDataOnTruncate(): void {
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['gateway'] = 'ingenico';
 		$init['action'] = 'donate';
-		$init['first_name'] = 'ФёдорÐÐÐ';
-		$init['last_name'] = 'Достоевский';
+		$init['city'] = 'ФёдорÐÐÐ';
+		$init['street_address'] = 'Достоевский';
 		$init['wmf_token'] = $this->saltedToken;
 
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )->with(
-				$this->callback( function ( $actual ) use ( $init ) {
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) use ( $init ) {
+					$actual = json_decode( $encoded, true );
 					$order = [
 						'amountOfMoney' => [
 							'currencyCode' => 'USD',
-							'amount' => 455.0
+							'amount' => '455'
 						],
 						'customer' => [
 							'billingAddress' => [
 								'countryCode' => 'US',
-								'city' => 'San Francisco',
+								'city' => $init['city'],
 								'state' => 'CA',
 								'zip' => '94105',
-								'street' => '123 Fake Street'
+								'street' => $init['street_address']
 							],
 							'contactDetails' => [
 								'emailAddress' => 'good@innocent.com'
 							],
 							'locale' => 'en_US',
-							'personalInformation' => [
-								'name' => [
-									'firstName' => $init['first_name'],
-									'surname' => $init['last_name']
-								]
-							]
 						]
 					];
 					$this->assertArraySubmapSame( $order, $actual['order'] );
 					return true;
 				} )
 			)
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )->with(
-				$this->equalTo( $this->partialUrl )
-			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
@@ -265,7 +254,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * Note that the variant behavior under test here is handled in
 	 * code and not in a variant config directory.
 	 */
-	public function testUpsellVariant() {
+	public function testUpsellVariant(): void {
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';
 		$init['payment_method'] = 'cc';
@@ -275,35 +264,29 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['variant'] = 'monthlyConvert123';
 		$init['wmf_token'] = $this->saltedToken;
 
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )->with(
-				$this->callback( function ( $actual ) use ( $init ) {
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) use ( $init ) {
+					$actual = json_decode( $encoded, true );
 					$this->assertArrayNotHasKey(
 						'isRecurring', $actual['hostedCheckoutSpecificInput']
 					);
 					$cpmsi = [
-						'tokenize' => true,
+						'tokenize' => 'true',
 					];
 					$this->assertArraySubmapSame( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
 					return true;
 				} )
 			)
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )->with(
-				$this->equalTo( $this->partialUrl )
-			)->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 	}
 
-	public function testSubmitFailInitialFilters() {
+	public function testSubmitFailInitialFilters(): void {
 		$this->setInitialFiltersToFail();
 		$init = DonationInterfaceTestCase::getDonorTestData();
 		$init['email'] = 'good@innocent.com';
@@ -314,6 +297,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['wmf_token'] = $this->saltedToken;
 		// Should not make any API calls
 		$this->hostedCheckoutProvider->expects( $this->never() )
+			->method( $this->anything() );
+
+		$this->curlWrapper->expects( $this->never() )
 			->method( $this->anything() );
 
 		$apiResult = $this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
@@ -330,7 +316,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * @group DonationInterfaceOptionalFields
 	 *
 	 */
-	public function testOptionalFieldBehaviour() {
+	public function testOptionalFieldBehaviour(): void {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
@@ -349,19 +335,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		$init['first_name'] = 'Opty';
 		$init['last_name'] = 'McPresent';
 
-		$this->hostedCheckoutProvider->expects( $this->any() )
-			->method( 'createHostedPayment' )
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-
-		$this->hostedCheckoutProvider->expects( $this->any() )
-			->method( 'getHostedPaymentUrl' )
-			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+		$this->curlWrapper->expects( $this->any() )
+			->method( 'execute' )
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		// make request WITH optional field 'last_name' present
 		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
@@ -383,7 +359,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	/**
 	 * @group DonationInterfaceOptionalFields
 	 */
-	public function testSubmitEmployerField() {
+	public function testSubmitEmployerField(): void {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
@@ -401,19 +377,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		// optional field 'last_name' present
 		$init['employer'] = 'wikimedia foundation';
 
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'createHostedPayment' )
-			->willReturn(
-				[
-					'partialRedirectUrl' => $this->partialUrl,
-					'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
-					'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
-				]
-			);
-
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getHostedPaymentUrl' )
-			->willReturn( 'https://wmf-pay.' . $this->partialUrl );
+		$this->curlWrapper->expects( $this->once() )
+			->method( 'execute' )
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
 
 		$this->doApiRequest( $init, [ 'ingenicoEditToken' => $this->clearToken ] );
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
@@ -424,7 +390,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * On a successful recurring conversion API call, we should
 	 * send a subscr_signup message to the recurring queue.
 	 */
-	public function testRecurringConversionApiSuccess() {
+	public function testRecurringConversionApiSuccess(): void {
 		$donorTestData = DonationInterfaceTestCase::getDonorTestData();
 		$donorTestData['email'] = 'good@innocent.com';
 		$donorTestData['payment_method'] = 'cc';
@@ -468,7 +434,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * If there's no token in session, the recurring conversion should return
 	 * an error and we shouldn't send anything to the recurring queue.
 	 */
-	public function testRecurringConversionApiError() {
+	public function testRecurringConversionApiError(): void {
 		$donorTestData = DonationInterfaceTestCase::getDonorTestData();
 		$donorTestData['email'] = 'good@innocent.com';
 		$donorTestData['payment_method'] = 'cc';
@@ -493,5 +459,20 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 		$message = QueueWrapper::getQueue( 'recurring' )->pop();
 		$this->assertNull( $message );
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getGoodHostedCheckoutCurlResponse(): array {
+		return [
+			'body' => json_encode( [
+				'partialRedirectUrl' => $this->partialUrl,
+				'hostedCheckoutId' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
+				'RETURNMAC' => 'f5b66cf9-c64c-4c8d-8171-b47205c89a56'
+			] ),
+			'headers' => [],
+			'status' => 200
+		];
 	}
 }

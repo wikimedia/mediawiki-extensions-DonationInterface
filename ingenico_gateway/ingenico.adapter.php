@@ -2,8 +2,11 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
+use SmashPig\PaymentData\RecurringModel;
+use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 
 class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
@@ -29,7 +32,7 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 			Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
 
 		$defaults = [
-			'returnto' => $returnTo,
+			'return_url' => $returnTo,
 			'attempt_id' => '1',
 			'effort_id' => '1',
 			'processor_form' => 'default',
@@ -40,83 +43,29 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 
 	public function defineTransactions() {
 		parent::defineTransactions();
-		$this->transactions['createHostedCheckout'] = [
+		$this->transactions['createPaymentSession'] = [
 			'request' => [
-				'cardPaymentMethodSpecificInput' => [
-					'skipAuthentication'
-				],
-				'hostedCheckoutSpecificInput' => [
-					'isRecurring',
-					'locale',
-					'returnCancelState',
-					'paymentProductFilters' => [
-						'restrictTo' => [
-							'groups',
-						]
-					],
-					'returnUrl',
-					'showResultPage',
-					// 'tokens', // we don't store user accounts or tokens here
-					'variant', // For a/b testing of iframe
-				],
-				'fraudFields' => [
-					'customerIpAddress',
-				],
-				'order' => [
-					'amountOfMoney' => [
-						'amount',
-						'currencyCode',
-					],
-					'customer' => [
-						'billingAddress' => [
-							'city',
-							'countryCode',
-							// 'houseNumber' // hmm, hope this isn't used for fraud detection!
-							'state',
-							// 'stateCode', // should we use this instead?
-							'street',
-							'zip',
-						],
-						'contactDetails' => [
-							'emailAddress'
-						],
-						// 'fiscalNumber' // only required for boletos & Brazil paypal
-						'locale', // used for redirection to 3rd parties
-						'personalInformation' => [
-							'name' => [
-								'firstName',
-								'surname',
-							]
-						]
-					],
-					/*'items' => [
-						[
-							'amountOfMoney' => [
-								'amount',
-								'currencyCode',
-							],
-							'invoiceData' => [
-								'description'
-							]
-						]
-					],*/
-					'references' => [
-						'descriptor', // First 22+ chars appear on card statement
-						'merchantReference', // unique, string(30)
-					]
-				]
+				'use_3d_secure',
+				'amount',
+				'currency',
+				'recurring',
+				'return_url',
+				'processor_form',
+				'city',
+				'street_address',
+				'state_province',
+				'postal_code',
+				'email',
+				'order_id',
+				'description',
+				'user_ip',
+				'country',
+				'language',
+				'payment_submethod',
 			],
 			'values' => [
-				'showResultPage' => 'false',
-				'returnCancelState' => 'true',
-				'descriptor' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'groups' => [
-					'cards',
-				]
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			],
-			'response' => [
-				'hostedCheckoutId'
-			]
 		];
 
 		$this->transactions['getHostedPaymentStatus'] = [
@@ -172,17 +121,54 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	}
 
 	public function doPayment() {
-		$apiResult = $this->do_transaction( 'createHostedCheckout' );
-		$data = $apiResult->getData();
-		// FIXME: stop using this legacy key here and in parseResponseData
-		if ( !empty( $data['FORMACTION'] ) ) {
-			if ( $this->getData_Staged( 'use_authentication' ) ) {
-				// We're using 3D Secure, so we should redirect
-				return PaymentResult::newRedirect( $data['FORMACTION'] );
-			}
-			return PaymentResult::newIframe( $data['FORMACTION'] );
+		$this->ensureUniqueOrderID();
+		$this->incrementSequenceNumber();
+		$this->session_addDonorData();
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+		$this->runSessionVelocityFilter();
+		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+			return PaymentResult::newFailure( [ new PaymentError(
+				'internal-0000',
+				"Failed pre-process checks for payment.",
+				LogLevel::INFO
+			) ] );
 		}
-		return PaymentResult::newFailure( $apiResult->getErrors() );
+		/** @var HostedCheckoutProvider $provider */
+		$provider = $this->getPaymentProvider();
+		$email = $this->getData_Unstaged_Escaped( 'email' );
+		$this->logger->info( "Calling createPaymentSession for donor $email" );
+		$createSessionResponse = $this->createPaymentSession( $provider );
+		if ( $createSessionResponse->getRedirectUrl() ) {
+			$this->addResponseData( [
+				'gateway_session_id' => $createSessionResponse->getPaymentSession()
+			] );
+			$this->session_addDonorData();
+			$this->logPaymentDetails();
+			return PaymentResult::newIframe( $createSessionResponse->getRedirectUrl() );
+		}
+		return PaymentResult::newFailure( $createSessionResponse->getErrors() );
+	}
+
+	protected function createPaymentSession( HostedCheckoutProvider $provider ): CreatePaymentSessionResponse {
+		$this->setCurrentTransaction( 'createPaymentSession' );
+		$data = $this->buildRequestArray();
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$data['description'] = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );
+		}
+		// FIXME: need special handling to pass through 'false' because it's erased by buildRequestArray
+		if ( $this->getData_Staged( 'use_3d_secure' ) === false ) {
+			$data['use_3d_secure'] = false;
+		}
+		// If we are going to ask for a monthly donation after a one-time donation completes, set the
+		// recurring param to 1 to tokenize the payment.
+		if ( $this->showMonthlyConvert() ) {
+			$data['recurring'] = 1;
+			// Since we're not sure if we're going to ever use the token, flag the transaction as
+			// 'card on file' rather than 'subscription' (the default for recurring). This may avoid
+			// donor complaints of one-time donations appearing as recurring on their card statement.
+			$data['recurring_model'] = RecurringModel::CARD_ON_FILE;
+		}
+		return $provider->createPaymentSession( $data );
 	}
 
 	/**
@@ -203,9 +189,6 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 		/** @var HostedCheckoutProvider $provider */
 		$provider = $this->getPaymentProvider();
 		switch ( $this->getCurrentTransaction() ) {
-			case 'createHostedCheckout':
-				$result = $provider->createHostedPayment( $data );
-				break;
 			case 'getHostedPaymentStatus':
 				$paymentDetailResponse = $provider->getHostedPaymentStatus(
 					$data['hostedCheckoutId']
@@ -239,11 +222,11 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	}
 
 	public function do_transaction( $transaction ) {
+		// Reset var_map and transformers to old-style
+		$this->var_map = $this->config['legacy_var_map'];
+		$this->config['transformers'] = $this->config['legacy_transformers'];
+		$this->defineDataTransformers();
 		$this->tuneForRecurring();
-		if ( $transaction === 'createHostedCheckout' ) {
-			$this->ensureUniqueOrderID();
-			$this->incrementSequenceNumber();
-		}
 		$result = parent::do_transaction( $transaction );
 		// Add things to session which may have been retrieved from API
 		if ( !$this->getFinalStatus() ) {
@@ -260,33 +243,18 @@ class IngenicoAdapter extends GlobalCollectAdapter implements RecurringConversio
 	 */
 	protected function tuneForRecurring() {
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
-		$cardSpecificInput = $this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'];
 		$getStatusResponse = $this->transactions['getHostedPaymentStatus']['response'];
 		if ( $this->showMonthlyConvert() ) {
-			if ( !in_array( 'tokenize', $cardSpecificInput ) ) {
-				$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'][] = 'tokenize';
-			}
 			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
 			if ( !in_array( 'tokens', $getStatusResponse ) ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
 		} elseif ( $isRecurring ) {
-			$this->transactions['createHostedCheckout']['request']['cardPaymentMethodSpecificInput'] =
-				array_merge(
-					$cardSpecificInput,
-					[
-						'tokenize',
-						'recurringPaymentSequenceIndicator'
-					]
-				);
-			$this->transactions['createHostedCheckout']['values']['tokenize'] = true;
-			$this->transactions['createHostedCheckout']['values']['isRecurring'] = true;
-			$this->transactions['createHostedCheckout']['values']['recurringPaymentSequenceIndicator'] = 'first';
 			if ( !in_array( 'tokens', $getStatusResponse ) ) {
 				$this->transactions['getHostedPaymentStatus']['response'][] = 'tokens';
 			}
 			$desc = WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' );
-			$this->transactions['createHostedCheckout']['values']['descriptor'] = $desc;
+			$this->transactions['createPaymentSession']['values']['description'] = $desc;
 		}
 	}
 
