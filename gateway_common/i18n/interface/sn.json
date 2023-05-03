@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Masiziva"
+		]
+	},
+	"donate_interface-monthly-convert-change-amount": "Hongu, ndichapa pamwedzi, asi nehuwandu hwakasiyana",
+	"donate_interface-monthly-convert-yes-button-variant-006": "Honga, ndinodaka kubetsera",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Hongu, ndichawedzera a<span class=\"mc-convert-ask\"></span> mupiro wepamwedzi"
+}
