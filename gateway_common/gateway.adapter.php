@@ -523,18 +523,6 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getCoreDataTransformers() {
-		return [
-			// Always stage email address first, to set default if missing
-			new DonorEmail(),
-			new DonorFullName(),
-			new CountryValidation(),
-			new Amount(),
-			new AmountInCents(),
-			new StreetAddress(),
-		];
-	}
-
 	/**
 	 * A helper function to let us stash extra data after the form has been submitted.
 	 *
