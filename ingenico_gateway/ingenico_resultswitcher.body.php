@@ -1,7 +1,10 @@
 <?php
 
-class IngenicoGatewayResult extends GlobalCollectGatewayResult {
+class IngenicoGatewayResult extends ResultSwitcher {
 
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
+	protected function isReturnFramed() {
+		return true;
+	}
 }

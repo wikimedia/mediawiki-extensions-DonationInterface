@@ -17,7 +17,6 @@
  */
 
 use SmashPig\Core\DataStores\QueueWrapper;
-use SmashPig\PaymentData\FinalStatus;
 
 /**
  *
@@ -113,112 +112,5 @@ class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestC
 			$token,
 			$message['recurring_payment_token']
 		);
-	}
-
-	/**
-	 * Can make a recurring payment
-	 *
-	 * @covers IngenicoAdapter::transactionRecurring_Charge
-	 */
-	public function testRecurringCharge() {
-		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = [
-			'amount' => '2345',
-			'effort_id' => 2,
-			'order_id' => '9998890004',
-			'currency' => 'EUR',
-			'payment_product' => '',
-		];
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway::setDummyGatewayResponseCode( 'recurring-OK' );
-
-		$result = $gateway->do_transaction( 'Recurring_Charge' );
-
-		$this->assertTrue( $result->getCommunicationStatus() );
-		$this->assertRegExp( '/SET_PAYMENT/', $result->getRawResponse() );
-	}
-
-	/**
-	 * Can make a recurring payment
-	 *
-	 * @covers IngenicoAdapter::transactionRecurring_Charge
-	 */
-	public function testDeclinedRecurringCharge() {
-		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = [
-			'amount' => '2345',
-			'effort_id' => 2,
-			'order_id' => '9998890004',
-			'currency' => 'EUR',
-			'payment_product' => '',
-		];
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway::setDummyGatewayResponseCode( 'recurring-declined' );
-
-		$result = $gateway->do_transaction( 'Recurring_Charge' );
-
-		$this->assertRegExp(
-			'/GET_ORDERSTATUS/',
-			$result->getRawResponse(),
-			'Stopped after GET_ORDERSTATUS.'
-		);
-		$this->assertCount(
-			2,
-			$gateway->curled,
-			'Expected 2 API calls'
-		);
-		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
-	}
-
-	/**
-	 * Throw errors if the payment is incomplete
-	 *
-	 * @covers IngenicoAdapter::transactionRecurring_Charge
-	 */
-	public function testRecurringTimeout() {
-		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = [
-			'amount' => '2345',
-			'effort_id' => 2,
-			'order_id' => '9998890004',
-			'currency' => 'EUR',
-			'payment_product' => '',
-		];
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway::setDummyGatewayResponseCode( 'recurring-timeout' );
-
-		$result = $gateway->do_transaction( 'Recurring_Charge' );
-
-		$this->assertFalse( $result->getCommunicationStatus() );
-		$this->assertRegExp( '/GET_ORDERSTATUS/', $result->getRawResponse() );
-		// FIXME: This is a little funky--the transaction is actually pending-poke.
-		$this->assertEquals( FinalStatus::FAILED, $gateway->getFinalStatus() );
-	}
-
-	/**
-	 * Can resume a recurring payment
-	 *
-	 * @covers IngenicoAdapter::transactionRecurring_Charge
-	 */
-	public function testRecurringResume() {
-		$this->markTestSkipped( 'Recurring not implemented' );
-		$init = [
-			'amount' => '2345',
-			'effort_id' => 2,
-			'order_id' => '9998890004',
-			'currency' => 'EUR',
-			'payment_product' => '',
-		];
-		$gateway = $this->getFreshGatewayObject( $init );
-
-		$gateway::setDummyGatewayResponseCode( 'recurring-resume' );
-
-		$result = $gateway->do_transaction( 'Recurring_Charge' );
-
-		$this->assertTrue( $result->getCommunicationStatus() );
-		$this->assertRegExp( '/SET_PAYMENT/', $result->getRawResponse() );
 	}
 }
