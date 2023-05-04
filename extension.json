@@ -915,6 +915,9 @@
 		"DonationInterfaceLogClientErrors": {
 			"value": true
 		},
+		"DonationInterfaceClientErrorLogIgnorePatterns": {
+			"value": [ ".*ResizeObserver.*" ]
+		},
 		"DonationInterfaceGeoIpDbPath": {
 			"value": "/usr/share/GeoIP/GeoLite2-Country.mmdb"
 		},
