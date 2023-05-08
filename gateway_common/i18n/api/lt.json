@@ -1,10 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Nokeoo"
 		]
 	},
+	"apihelp-donate-description": "Šis API leidžia paaukoti Vikimedijos fondui naudojant įvairius mokėjimo apdorotojus.",
+	"apihelp-donate-summary": "Šis API leidžia paaukoti Vikimedijos fondui naudojant įvairius mokėjimo apdorotojus.",
 	"apihelp-donate-param-amount": "Paaukota suma.",
+	"apihelp-donate-param-contact_id": "CiviCRM donoro ID",
 	"apihelp-donate-param-currency": "Valiutos kodas.",
 	"apihelp-donate-param-first_name": "Vardas.",
 	"apihelp-donate-param-last_name": "Pavardė.",
@@ -22,13 +26,23 @@
 	"apihelp-donate-param-payment_method": "Kokį mokėjimo metodą naudoti.",
 	"apihelp-donate-param-language": "Kalbos kodas.",
 	"apihelp-donate-param-order_id": "Užsakymo ID (jei auka jau pradėta).",
+	"apihelp-donate-param-wmf_token": "Redaguoti prieigos raktą.",
 	"apihelp-donate-param-utm_source": "Sekimo kintamasis.",
 	"apihelp-donate-param-utm_campaign": "Sekimo kintamasis.",
 	"apihelp-donate-param-utm_medium": "Sekimo kintamasis.",
 	"apihelp-donate-param-recurring": "Nurodo, kad pavedimas skirtas būti pasikartojančiu.",
+	"apihelp-donate-param-variant": "Nurodo kurį formos variantą donoras užpildė.",
+	"apihelp-donate-param-opt_in": "Nurodo, kad donoras pasirinko lėšų rinkimo el. laiškus.",
+	"apihelp-donate-param-employer": "Darbdavio pavadinimas",
+	"apihelp-donate-param-employer_id": "Darbdavio ID",
 	"apihelp-donate-example-1": "Aukoti",
 	"apihelp-logPaymentsFormError-param-message": "Klaidos pranešimas",
 	"apihelp-logPaymentsFormError-param-file": "Failas, kuriame įvyko klaida",
 	"apihelp-logPaymentsFormError-param-line": "Eilutė, kurioje įvyko klaida",
-	"apihelp-logPaymentsFormError-param-col": "Stulpelis, kuriame įvyko klaida"
+	"apihelp-logPaymentsFormError-param-col": "Stulpelis, kuriame įvyko klaida",
+	"apihelp-di_recurring_convert-summary": "Šis API naudojamas, kai donoras sutinka pridėti mėnesinę auką po sėkmingos vienkartinės donorystės.",
+	"apihelp-di_recurring_convert-param-amount": "Mėnesinės aukos suma.",
+	"apihelp-employerSearch-description": "Šis API leidžia ieškoti darbdavių, dalyvaujančių WMF aukų dvigubinimo programoje.",
+	"apihelp-employerSearch-summary": "Šis API leidžia ieškoti darbdavių, dalyvaujančių WMF aukų dvigubinimo programoje.",
+	"apihelp-employerSearch-example-1": "Ieškoti darbdavio"
 }
