@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Aswanas",
-			"Eitvys200"
+			"Eitvys200",
+			"Nokeoo"
 		]
 	},
+	"globalcollect_gateway-desc": "GlobalCollect mokėjimų apdorojimas",
 	"globalcollect_gateway-fakesucceed": "Suklastoti sėkmingą mokėjimą",
 	"globalcollect_gateway-fakefail": "Suklastoti nesėkmingą mokėjimą",
 	"globalcollect_gateway-response-9130": "Neleistina šalis.",
