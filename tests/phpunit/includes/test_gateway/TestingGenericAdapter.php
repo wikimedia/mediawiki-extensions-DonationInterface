@@ -61,7 +61,15 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	public function defineDataTransformers() {
-		$this->data_transformers = parent::getCoreDataTransformers();
+		$this->data_transformers = [
+			// Always stage email address first, to set default if missing
+			new DonorEmail(),
+			new DonorFullName(),
+			new CountryValidation(),
+			new Amount(),
+			new AmountInCents(),
+			new StreetAddress(),
+		];
 	}
 
 	protected function defineVarMap() {
