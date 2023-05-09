@@ -612,12 +612,16 @@ class DonationData implements LogPrefixProvider {
 	 *
 	 * @return null
 	 */
-	protected function setNormalizedOrderIDs() {
+	protected function setNormalizedOrderIDs(): void {
 		$override = null;
 		if ( $this->gateway->isBatchProcessor() ) {
 			$override = $this->getVal( 'order_id' );
 		}
 		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override, $this ) );
+
+		// log the rare case where order_id is present but doesn't match the ct_id in session.
+		// this is an ongoing issue T334905 as of 17/05/23
+		$this->logOrderIdMismatchCheck();
 	}
 
 	/**
@@ -1087,6 +1091,27 @@ class DonationData implements LogPrefixProvider {
 			if ( $val === null ) {
 				$this->expunge( $key );
 			}
+		}
+	}
+
+	/**
+	 * Log the rare case where order_id is present but doesn't match the ct_id in session.
+	 *
+	 * It's generally expected that the order_id will contain the ct_id as a prefix.
+	 * The usual format is: "{contribution_tracking_id}.{sequence}". sequence is an incremented count of
+	 * donation attempts by the same contribution_tracking_id.
+	 *
+	 * see: https://phabricator.wikimedia.org/T334905
+	 * @return void
+	 */
+	protected function logOrderIdMismatchCheck(): void {
+		$orderId = $this->getVal( 'order_id' );
+		$contributionTrackingId = $this->getVal( 'contribution_tracking_id' );
+
+		// Check that the order_id has the current ct_id as its prefix.
+		if ( $orderId && $contributionTrackingId && strpos( $orderId, $contributionTrackingId ) !== 0 ) {
+			$this->logger->debug( "order_id / ct_id mismatch detected" );
+			$this->logger->debug( print_r( $this->getDataSources(), true ) );
 		}
 	}
 }
