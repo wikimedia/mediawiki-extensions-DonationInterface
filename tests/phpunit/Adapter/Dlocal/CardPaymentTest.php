@@ -22,8 +22,8 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$this->cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 
 		$this->providerConfig->overrideObjectInstance(
-				'payment-provider/cc',
-				$this->cardPaymentProvider
+			'payment-provider/cc',
+			$this->cardPaymentProvider
 		);
 	}
 
@@ -36,26 +36,26 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-				->method( 'createPayment' )
-				->with( $expectedCapturePaymentParams )
-				->willReturn(
-						( new CreatePaymentResponse() )
-								->setRawStatus( 'AUTHORIZED' )
-								->setStatus( FinalStatus::PENDING_POKE )
-								->setSuccessful( true )
-								->setGatewayTxnId( $authID )
-				);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'AUTHORIZED' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $authID )
+			);
 
 		$this->cardPaymentProvider->expects( $this->once() )
-				->method( 'approvePayment' )
-				->with( $expectedApprovePaymentParams )
-				->willReturn(
-						( new ApprovePaymentResponse() )
-								->setRawStatus( 'PAID' )
-								->setStatus( FinalStatus::COMPLETE )
-								->setSuccessful( true )
-								->setGatewayTxnId( $captureID )
-				);
+			->method( 'approvePayment' )
+			->with( $expectedApprovePaymentParams )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( 'PAID' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $captureID )
+			);
 
 		$result = $DlocalAdapter->doPayment();
 		$this->assertFalse( $result->isFailed() );
@@ -79,27 +79,27 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-				->method( 'createPayment' )
-				->with( $expectedCapturePaymentParams )
-				->willReturn(
-					( new CreatePaymentResponse() )
-						->setRawStatus( 'AUTHORIZED' )
-						->setStatus( FinalStatus::PENDING_POKE )
-						->setSuccessful( true )
-						->setGatewayTxnId( $authID )
-						->setRecurringPaymentToken( $cardID )
-				);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'AUTHORIZED' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $authID )
+					->setRecurringPaymentToken( $cardID )
+			);
 
 		$this->cardPaymentProvider->expects( $this->once() )
-				->method( 'approvePayment' )
-				->with( $expectedApprovePaymentParams )
-				->willReturn(
-					( new ApprovePaymentResponse() )
-						->setRawStatus( 'PAID' )
-						->setStatus( FinalStatus::COMPLETE )
-						->setSuccessful( true )
-						->setGatewayTxnId( $captureID )
-				);
+			->method( 'approvePayment' )
+			->with( $expectedApprovePaymentParams )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( 'PAID' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $captureID )
+			);
 
 		$result = $DlocalAdapter->doPayment();
 		$this->assertFalse( $result->isFailed() );
@@ -119,22 +119,24 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'createPayment' )
-						->with( $expectedCapturePaymentParams )
-						->willReturn(
-										( new CreatePaymentResponse() )
-														->setRawStatus( 'REJECTED ' )
-														->setStatus( FinalStatus::FAILED )
-														->setSuccessful( false )
-														->addErrors( new PaymentError(
-																		ErrorMapper::$paymentStatusErrorCodes['300'],
-																		"The payment was rejected.",
-																		LogLevel::ERROR
-														) )
-						);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'REJECTED ' )
+					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
+					->addErrors(
+						new PaymentError(
+							ErrorMapper::$paymentStatusErrorCodes['300'],
+							"The payment was rejected.",
+							LogLevel::ERROR
+						)
+					)
+			);
 
 		$this->cardPaymentProvider->expects( $this->never() )
-						->method( 'approvePayment' );
+			->method( 'approvePayment' );
 		$result = $DlocalAdapter->doPayment();
 		$this->assertTrue( $result->isFailed() );
 
@@ -151,26 +153,26 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'createPayment' )
-						->with( $expectedCapturePaymentParams )
-						->willReturn(
-										( new CreatePaymentResponse() )
-														->setRawStatus( 'AUTHORIZED' )
-														->setStatus( FinalStatus::PENDING_POKE )
-														->setSuccessful( true )
-														->setGatewayTxnId( $authID )
-						);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'AUTHORIZED' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $authID )
+			);
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'approvePayment' )
-						->with( $expectedApprovePaymentParams )
-						->willReturn(
-										( new ApprovePaymentResponse() )
-														->setRawStatus( 'PAID' )
-														->setStatus( FinalStatus::COMPLETE )
-														->setSuccessful( true )
-														->setGatewayTxnId( $captureID )
-						);
+			->method( 'approvePayment' )
+			->with( $expectedApprovePaymentParams )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( 'PAID' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $captureID )
+			);
 
 		$result = $DlocalAdapter->doPayment();
 		$this->assertFalse( $result->isFailed() );
@@ -186,22 +188,24 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'createPayment' )
-						->with( $expectedCapturePaymentParams )
-						->willReturn(
-										( new CreatePaymentResponse() )
-														->setRawStatus( 'REJECTED ' )
-														->setStatus( FinalStatus::FAILED )
-														->setSuccessful( false )
-														->addErrors( new PaymentError(
-																		ErrorMapper::$paymentStatusErrorCodes['300'],
-																		"The payment was rejected.",
-																		LogLevel::ERROR
-														) )
-						);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'REJECTED ' )
+					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
+					->addErrors(
+						new PaymentError(
+							ErrorMapper::$paymentStatusErrorCodes['300'],
+							"The payment was rejected.",
+							LogLevel::ERROR
+						)
+					)
+			);
 
 		$this->cardPaymentProvider->expects( $this->never() )
-						->method( 'approvePayment' );
+			->method( 'approvePayment' );
 
 		$result = $DlocalAdapter->doPayment();
 		$this->assertTrue( $result->isFailed() );
@@ -221,26 +225,26 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedApprovePaymentParams = $this->getApprovePaymentParams( $testDonorData, $authID );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'createPayment' )
-						->with( $expectedCapturePaymentParams )
-						->willReturn(
-										( new CreatePaymentResponse() )
-														->setRawStatus( 'AUTHORIZED' )
-														->setStatus( FinalStatus::PENDING_POKE )
-														->setSuccessful( true )
-														->setGatewayTxnId( $authID )
-						);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'AUTHORIZED' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $authID )
+			);
 
 		$this->cardPaymentProvider->expects( $this->once() )
-						->method( 'approvePayment' )
-						->with( $expectedApprovePaymentParams )
-						->willReturn(
-										( new ApprovePaymentResponse() )
-														->setRawStatus( 'PAID' )
-														->setStatus( FinalStatus::COMPLETE )
-														->setSuccessful( true )
-														->setGatewayTxnId( $captureID )
-						);
+			->method( 'approvePayment' )
+			->with( $expectedApprovePaymentParams )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( 'PAID' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $captureID )
+			);
 
 		$result = $DlocalAdapter->doPayment();
 		$this->assertFalse( $result->isFailed() );
@@ -249,18 +253,18 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$this->assertCount( 1, $messages['donations'] );
 		$this->assertCount( 1, $messages['payments-antifraud'] );
 		$expectedAntifraudInitial = [
-						'validation_action' => 'process',
-						'risk_score' => 0,
-						'score_breakdown' => [ 'initial' => 0 ],
-						'user_ip' => '127.0.0.1',
-						'gateway' => 'dlocal',
-						'contribution_tracking_id' => $contributionTrackingID,
-						'order_id' => $testDonorData['order_id'],
-						'payment_method' => 'cc',
+			'validation_action' => 'process',
+			'risk_score' => 0,
+			'score_breakdown' => [ 'initial' => 0 ],
+			'user_ip' => '127.0.0.1',
+			'gateway' => 'dlocal',
+			'contribution_tracking_id' => $contributionTrackingID,
+			'order_id' => $testDonorData['order_id'],
+			'payment_method' => 'cc',
 		];
 		$this->assertArraySubmapSame(
-						$expectedAntifraudInitial,
-						$messages['payments-antifraud'][0]
+			$expectedAntifraudInitial,
+			$messages['payments-antifraud'][0]
 		);
 	}
 
@@ -272,42 +276,44 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$expectedCapturePaymentParams = $this->getCreatePaymentParams( $DlocalAdapter );
 
 		$this->cardPaymentProvider->expects( $this->once() )
-				->method( 'createPayment' )
-				->with( $expectedCapturePaymentParams )
-				->willReturn(
-						( new CreatePaymentResponse() )
-								->setRawStatus( 'REJECTED ' )
-								->setStatus( FinalStatus::FAILED )
-								->setSuccessful( false )
-								->addErrors( new PaymentError(
-										ErrorMapper::$paymentStatusErrorCodes['300'],
-										"The payment was rejected.",
-										LogLevel::ERROR
-								) )
-				);
+			->method( 'createPayment' )
+			->with( $expectedCapturePaymentParams )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'REJECTED ' )
+					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
+					->addErrors(
+						new PaymentError(
+							ErrorMapper::$paymentStatusErrorCodes['300'],
+							"The payment was rejected.",
+							LogLevel::ERROR
+						)
+					)
+			);
 
-				$this->cardPaymentProvider->expects( $this->never() )
-						->method( 'approvePayment' );
-				$result = $DlocalAdapter->doPayment();
-				$this->assertTrue( $result->isFailed() );
+		$this->cardPaymentProvider->expects( $this->never() )
+			->method( 'approvePayment' );
+		$result = $DlocalAdapter->doPayment();
+		$this->assertTrue( $result->isFailed() );
 
-				$messages = self::getAllQueueMessages();
-				$this->assertCount( 0, $messages['donations'] );
-				$this->assertCount( 1, $messages['payments-antifraud'] );
-				$expectedAntifraudInitial = [
-						'validation_action' => 'process',
-						'risk_score' => 0,
-						'score_breakdown' => [ 'initial' => 0 ],
-						'user_ip' => '127.0.0.1',
-						'gateway' => 'dlocal',
-						'contribution_tracking_id' => $contributionTrackingID,
-						'order_id' => $testDonorData['order_id'],
-						'payment_method' => 'cc',
-				];
-				$this->assertArraySubmapSame(
-						$expectedAntifraudInitial,
-						$messages['payments-antifraud'][0]
-				);
+		$messages = self::getAllQueueMessages();
+		$this->assertCount( 0, $messages['donations'] );
+		$this->assertCount( 1, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+			'validation_action' => 'process',
+			'risk_score' => 0,
+			'score_breakdown' => [ 'initial' => 0 ],
+			'user_ip' => '127.0.0.1',
+			'gateway' => 'dlocal',
+			'contribution_tracking_id' => $contributionTrackingID,
+			'order_id' => $testDonorData['order_id'],
+			'payment_method' => 'cc',
+		];
+		$this->assertArraySubmapSame(
+			$expectedAntifraudInitial,
+			$messages['payments-antifraud'][0]
+		);
 	}
 
 	/**
@@ -380,10 +386,10 @@ class CardPaymentTest extends BaseDlocalTestCase {
 	 */
 	protected function getApprovePaymentParams( $testDonorData, $authID ): array {
 		return [
-			'amount' => $testDonorData[ 'amount' ],
-			'currency' => $testDonorData[ 'currency' ],
+			'amount' => $testDonorData['amount'],
+			'currency' => $testDonorData['currency'],
 			'gateway_txn_id' => $authID,
-			'order_id' => $testDonorData[ 'order_id' ]
+			'order_id' => $testDonorData['order_id']
 		];
 	}
 }
