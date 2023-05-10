@@ -25,10 +25,21 @@ abstract class DonationApiBase extends ApiBase {
 		$serializedErrors = [];
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
-				$message = WmfFramework::formatMessage(
-					$error->getMessageKey(),
-					$error->getMessageParams()
-				);
+				$country = $this->adapter->getData_Unstaged_Escaped( 'country' );
+				$language = $this->adapter->getData_Unstaged_Escaped( 'language' );
+				if ( $country && $language ) {
+					$message = MessageUtils::getCountrySpecificMessage(
+						$error->getMessageKey(),
+						$country,
+						$language,
+						$error->getMessageParams()
+					);
+				} else {
+					WmfFramework::formatMessage(
+						$error->getMessageKey(),
+						$error->getMessageParams()
+					);
+				}
 				$serializedErrors[$error->getField()] = $message;
 			} elseif ( $error instanceof PaymentError ) {
 				$message = $this->adapter->getErrorMapByCodeAndTranslate( $error->getErrorCode() );
