@@ -523,18 +523,6 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getCoreDataTransformers() {
-		return [
-			// Always stage email address first, to set default if missing
-			new DonorEmail(),
-			new DonorFullName(),
-			new CountryValidation(),
-			new Amount(),
-			new AmountInCents(),
-			new StreetAddress(),
-		];
-	}
-
 	/**
 	 * A helper function to let us stash extra data after the form has been submitted.
 	 *
@@ -1118,18 +1106,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$txn_ok = $this->curl_transaction( $curlme );
 		if ( $txn_ok === true ) { // We have something to slice and dice.
 			$rawResponse = $this->transaction_response->getRawResponse();
-			// FIXME these should be in a gateway-specific sanitizeRawResponse() function.
-			$decodeResponse = json_decode( $rawResponse, true );
-			// do not send card to rawResponse for log, below two was for ingenico getHostedPaymentStatus, approvePayment and cancelPayment
-			if ( isset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
-				unset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card']['cardNumber'] );
-				unset( $decodeResponse['createdPaymentOutput']['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card']['expiryDate'] );
-			}
-			if ( isset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card'] ) ) {
-				unset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card']['cardNumber'] );
-				unset( $decodeResponse['payment']['paymentOutput']['cardPaymentMethodSpecificOutput']['card']['expiryDate'] );
-			}
-			$rawResponse = $decodeResponse ? json_encode( $decodeResponse ) : $rawResponse;
 			$this->logger->info( "RETURNED FROM CURL:" . print_r( $rawResponse, true ) );
 
 			// Decode the response according to $this->getResponseType

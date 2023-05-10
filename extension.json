@@ -107,7 +107,6 @@
 		"DonorFullName": "gateway_common/DonorFullName.php",
 		"DonorLanguage": "gateway_common/DonorLanguage.php",
 		"DonorLocale": "gateway_common/DonorLocale.php",
-		"EncodingMangler": "gateway_common/EncodingMangler.php",
 		"EndowmentHooks": "gateway_common/EndowmentHooks.php",
 		"ErrorState": "gateway_common/ErrorState.php",
 		"FallbackLogPrefixer": "gateway_common/FallbackLogPrefixer.php",
@@ -130,6 +129,7 @@
 		"StagingHelper": "gateway_common/StagingHelper.php",
 		"StreetAddress": "gateway_common/StreetAddress.php",
 		"Abstract3DSecure": "gateway_common/Abstract3DSecure.php",
+		"Simple3DSecure": "gateway_common/Simple3DSecure.php",
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
 		"WmfFramework": "gateway_common/WmfFramework.php",
 		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
@@ -156,6 +156,7 @@
 		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
 		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
 		"IngenicoReturntoHelper": "globalcollect_gateway/IngenicoReturntoHelper.php",
+		"IngenicoReturnUrlHelper": "ingenico_gateway/IngenicoReturnUrlHelper.php",
 		"AmazonGateway": "amazon_gateway/amazon_gateway.body.php",
 		"AmazonAdapter": "amazon_gateway/amazon.adapter.php",
 		"AmazonBillingApi": "amazon_gateway/amazon.api.php",
@@ -187,7 +188,6 @@
 		"DlocalAdapter": "dlocal_gateway/dlocal.adapter.php",
 		"DlocalGateway": "dlocal_gateway/dlocal_gateway.body.php",
 		"DlocalGatewayResult": "dlocal_gateway/dlocal_resultswitcher.body.php",
-		"Dlocal3DSecure": "dlocal_gateway/Dlocal3DSecure.php",
 		"Gateway_Extras": "extras/extras.body.php",
 		"FraudFilter": "extras/FraudFilter.php",
 		"Gateway_Extras_CustomFilters": "extras/custom_filters/custom_filters.body.php",
@@ -698,44 +698,6 @@
 			},
 			"merge_strategy": "array_plus"
 		},
-		"IngenicoGatewayCvvMap": {
-			"value": {
-				"M": true,
-				"N": false,
-				"P": true,
-				"S": false,
-				"U": true,
-				"Y": false,
-				"0": true,
-				"": false
-			},
-			"merge_strategy": "array_plus"
-		},
-		"IngenicoGatewayAvsMap": {
-			"value": {
-				"A": 50,
-				"B": 50,
-				"C": 50,
-				"D": 0,
-				"E": 100,
-				"F": 0,
-				"G": 50,
-				"I": 50,
-				"M": 0,
-				"N": 100,
-				"P": 50,
-				"R": 100,
-				"S": 50,
-				"U": 50,
-				"W": 50,
-				"X": 0,
-				"Y": 0,
-				"Z": 50,
-				"0": 25,
-				"": 100
-			},
-			"merge_strategy": "array_plus"
-		},
 		"IngenicoGatewayHostedFormVariants": {
 			"value": {
 				"redirect": 100,
@@ -951,6 +913,9 @@
 		},
 		"DonationInterfaceLogClientErrors": {
 			"value": true
+		},
+		"DonationInterfaceClientErrorLogIgnorePatterns": {
+			"value": [ ".*ResizeObserver.*" ]
 		},
 		"DonationInterfaceGeoIpDbPath": {
 			"value": "/usr/share/GeoIP/GeoLite2-Country.mmdb"

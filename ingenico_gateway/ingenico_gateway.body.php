@@ -18,9 +18,8 @@
 
 /**
  * IngenicoGateway
- *
  */
-class IngenicoGateway extends GlobalCollectGateway {
+class IngenicoGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 }

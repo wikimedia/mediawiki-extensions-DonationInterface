@@ -6,6 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -171,6 +172,23 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/**
+	 * Override parent function to add return supported currencies for current country
+	 * @param array $options
+	 * @return array
+	 */
+	public function getCurrencies( $options = [] ): array {
+		$country = $options['country'] ?? $this->getData_Unstaged_Escaped( 'country' );
+
+		if ( !$country ) {
+			throw new InvalidArgumentException( 'Need to specify country if not yet set in unstaged data' );
+		}
+		if ( !isset( NationalCurrencies::getNationalCurrencies()[$country] ) ) {
+			return [];
+		}
+		return (array)NationalCurrencies::getNationalCurrencies()[$country];
+	}
+
+	/**
 	 * Override parent function to add optional phone field for non-recurring UPI
 	 * @param array|null $knownData
 	 * @return array
@@ -199,7 +217,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		IPaymentProvider $paymentProvider
 	): PaymentResult {
 		$transactionStatus = $paymentDetailResponse->getStatus();
-		$this->addResponseData( [ 'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId(), ] );
+		$this->addCreatePaymentResponseData( $paymentDetailResponse );
 		$paymentResult = PaymentResult::newSuccess();
 
 		if ( !$paymentDetailResponse->isSuccessful() ) {
@@ -393,5 +411,15 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				$this->getPaymentSubmethod(), [ 'upi', 'paytmwallet' ], true
 			) ) &&
 			$this->getData_Unstaged_Escaped( 'recurring' );
+	}
+
+	protected function addCreatePaymentResponseData( PaymentDetailResponse $paymentDetailResponse ): void {
+		$data = [
+			'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId()
+		];
+		if ( $paymentDetailResponse->getPaymentSubmethod() ) {
+			$data['payment_submethod'] = $paymentDetailResponse->getPaymentSubmethod();
+		}
+		$this->addResponseData( $data );
 	}
 }

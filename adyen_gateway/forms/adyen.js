@@ -67,7 +67,7 @@
 					'name',
 					'email'
 				];
-				// eslint-disable-next-line compat/compat
+
 				authPromise = new Promise( function ( authResolve, authReject ) {
 					config.onAuthorized = function ( resolve, reject, event ) {
 						var bContact = event.payment.billingContact,
@@ -149,7 +149,7 @@
 				// called gatewayMerchantId but actually our account name with Adyen
 				config.gatewayMerchantId = configFromServer.merchantAccountName;
 				config.merchantId = configFromServer.googleMerchantId;
-				// eslint-disable-next-line compat/compat
+
 				authPromise = new Promise( function ( authResolve ) {
 					config.onAuthorized = function ( response ) {
 						var bContact = response.paymentMethodData.info.billingAddress,
@@ -213,7 +213,7 @@
 		if ( checkoutObject instanceof Promise ) {
 			return checkoutObject;
 		}
-		// eslint-disable-next-line compat/compat
+
 		return new Promise( function ( resolve, reject ) {
 			resolve( checkoutObject );
 		} );
@@ -329,7 +329,6 @@
 		}
 	}
 
-	// eslint-disable-next-line compat/compat
 	submitPromise = new Promise( function ( submitResolve, submitReject ) {
 		onSubmit = function ( state, component ) {
 			var extraData = {};
