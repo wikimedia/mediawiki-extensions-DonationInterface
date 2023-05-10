@@ -126,7 +126,6 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 				'gateway_session_id' => $createSessionResponse->getPaymentSession()
 			] );
 			$this->session_addDonorData();
-			$this->logPaymentDetails();
 			return PaymentResult::newIframe( $createSessionResponse->getRedirectUrl() );
 		}
 		return PaymentResult::newFailure( $createSessionResponse->getErrors() );
