@@ -305,8 +305,8 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 					self::getGlobal( 'ProblemsEmail' )
 				];
 			} else {
-				if ( $field === 'currency' ) {
-					$messageKey = 'donate_interface-error-msg-invalid-currency';
+				if ( in_array( $field, [ 'currency', 'fiscal_number' ] ) ) {
+					$messageKey = "donate_interface-error-msg-invalid-$field";
 				} else {
 					$messageKey = 'donate_interface-error-msg-' . $field;
 				}
