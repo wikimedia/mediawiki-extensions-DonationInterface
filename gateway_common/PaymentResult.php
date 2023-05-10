@@ -38,40 +38,40 @@ class PaymentResult {
 	protected function __construct() {
 	}
 
-	public static function newIframe( $url, $formData = [] ) {
+	public static function newIframe( ?string $url, array $formData = [] ): PaymentResult {
 		$response = new PaymentResult();
 		$response->iframe = $url;
 		$response->formData = $formData;
 		return $response;
 	}
 
-	public static function newRedirect( $url, $formData = [] ) {
+	public static function newRedirect( ?string $url, array $formData = [] ): PaymentResult {
 		$response = new PaymentResult();
 		$response->redirect = $url;
 		$response->formData = $formData;
 		return $response;
 	}
 
-	public static function newRefresh( $errors = [] ) {
+	public static function newRefresh( array $errors = [] ): PaymentResult {
 		$response = new PaymentResult();
 		$response->refresh = true;
 		$response->errors = $errors;
 		return $response;
 	}
 
-	public static function newSuccess() {
+	public static function newSuccess(): PaymentResult {
 		$response = new PaymentResult();
 		return $response;
 	}
 
-	public static function newFailure( $errors = [] ) {
+	public static function newFailure( array $errors = [] ): PaymentResult {
 		$response = new PaymentResult();
 		$response->failed = true;
 		$response->errors = $errors;
 		return $response;
 	}
 
-	public static function newFailureAndRedirect( $url, $errors = [] ) {
+	public static function newFailureAndRedirect( string $url, array $errors = [] ): PaymentResult {
 		$response = new PaymentResult();
 		$response->failed = true;
 		$response->errors = $errors;
@@ -80,7 +80,7 @@ class PaymentResult {
 		return $response;
 	}
 
-	public static function newEmpty() {
+	public static function newEmpty(): PaymentResult {
 		$response = new PaymentResult();
 		$response->errors = [ new PaymentError(
 			'internal-0000', 'Internal error: no results yet.', LogLevel::ERROR
@@ -89,27 +89,27 @@ class PaymentResult {
 		return $response;
 	}
 
-	public function getIframe() {
+	public function getIframe(): ?string {
 		return $this->iframe;
 	}
 
-	public function getFormData() {
+	public function getFormData(): array {
 		return $this->formData;
 	}
 
-	public function getRedirect() {
+	public function getRedirect(): ?string {
 		return $this->redirect;
 	}
 
-	public function getRefresh() {
+	public function getRefresh(): bool {
 		return $this->refresh;
 	}
 
-	public function getErrors() {
+	public function getErrors(): array {
 		return $this->errors;
 	}
 
-	public function isFailed() {
+	public function isFailed(): bool {
 		return $this->failed;
 	}
 
@@ -122,7 +122,7 @@ class PaymentResult {
 	 * @return PaymentResult
 	 * TODO: rename to fromResponse
 	 */
-	public static function fromResults( PaymentTransactionResponse $response, $finalStatus ) {
+	public static function fromResults( PaymentTransactionResponse $response, string $finalStatus ): PaymentResult {
 		if ( $finalStatus === FinalStatus::FAILED
 			|| $finalStatus === FinalStatus::CANCELLED ) {
 			return self::newFailure( $response->getErrors() );
