@@ -2,6 +2,7 @@
 
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
+use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\dlocal\CardPaymentProvider;
 use SmashPig\PaymentProviders\dlocal\ErrorMapper;
@@ -142,6 +143,30 @@ class CardPaymentTest extends BaseDlocalTestCase {
 
 		$messages = self::getAllQueueMessages();
 		$this->assertCount( 0, $messages['donations'] );
+	}
+
+	public function testDoCardPaymentValidationError(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$adapter = $this->getFreshGatewayObject( $testDonorData );
+		$this->cardPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setStatus( FinalStatus::FAILED )
+					->setSuccessful( false )
+					->addValidationError(
+						new ValidationError(
+							'fiscal_number',
+							null,
+							[],
+							'Invalid parameter: payer.document'
+						)
+					)
+			);
+		$result = $adapter->doPayment();
+		$this->assertTrue( $result->getRefresh() );
+		$this->assertCount( 1, $result->getErrors() );
+		$this->assertSame( 'fiscal_number', $result->getErrors()[0]->getField() );
 	}
 
 	public function testDoPaymentsInitQueueCountSuccessfulPayment(): void {
