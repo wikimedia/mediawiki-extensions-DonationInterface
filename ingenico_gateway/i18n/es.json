@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Armando-Martin",
+			"Bea.miau",
+			"Fitoschido",
+			"Larjona",
+			"Macofe",
+			"Ncontinanza",
+			"Ryo567"
+		]
+	},
+	"ingenico_gateway-desc": "Procesamiento de pagos de Ingenico",
+	"ingenico_gateway-response-9130": "El país es incorrecto.",
+	"ingenico_gateway-response-9140": "Moneda inválida.",
+	"ingenico_gateway-response-9150": "Idioma no válido.",
+	"ingenico_gateway-response-400530": "Método de pago inválido.",
+	"ingenico_gateway-response-430306": "Tu tarjeta de crédito ha caducado. Intenta con otra tarjeta u otro de nuestros métodos de pago.",
+	"ingenico_gateway-response-430330": "Número de tarjeta inválido.",
+	"ingenico_gateway-response-430421": "Tu tarjeta de crédito no pudo validarse. Verifica que toda la información concuerda con el perfil de tu tarjeta de crédito, o prueba con otra tarjeta.",
+	"ingenico_gateway-response-430360": "La transacción no pudo autorizarse. Prueba con otra tarjeta u otro de nuestros métodos de pago.",
+	"ingenico_gateway-response-430285": "La transacción no pudo autorizarse. Prueba con otra tarjeta u otro de nuestros métodos de pago.",
+	"ingenico_gateway-response-21000150": "Número de cuenta bancaria inválida.",
+	"ingenico_gateway-response-21000155": "Código bancario inválido.",
+	"ingenico_gateway-response-21000160": "Número de cuenta de giro inválida.",
+	"ingenico_gateway-response-default": "Hubo un error al procesar tu transacción.\nInténtalo de nuevo más tarde."
+}

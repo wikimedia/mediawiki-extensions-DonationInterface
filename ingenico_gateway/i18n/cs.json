@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mormegil"
+		]
+	},
+	"ingenico_gateway-desc": "Zpracování plateb přes Ingenico",
+	"ingenico_gateway-response-9130": "Neplatná země.",
+	"ingenico_gateway-response-9140": "Neplatná měna.",
+	"ingenico_gateway-response-9150": "Neplatný jazyk.",
+	"ingenico_gateway-response-400530": "Neplatná platební metoda.",
+	"ingenico_gateway-response-430306": "Vaší platební kartě vypršela platnost. Zkuste jinou kartu nebo některý jiný způsob platby.",
+	"ingenico_gateway-response-430330": "Neplatné číslo karty.",
+	"ingenico_gateway-response-430421": "Vaši kreditní kartu se nepodařilo ověřit. Zkontrolujte, zda všechny informace odpovídají, nebo zkuste jinou kartu.",
+	"ingenico_gateway-response-430360": "Transakci se nepodařilo autorizovat. Zkuste jinou kartu nebo některý jiný způsob platby.",
+	"ingenico_gateway-response-430285": "Transakci se nepodařilo autorizovat. Zkuste jinou kartu nebo některý jiný způsob platby.",
+	"ingenico_gateway-response-21000150": "Neplatné číslo bankovního účtu.",
+	"ingenico_gateway-response-21000155": "Neplatný kód banky.",
+	"ingenico_gateway-response-21000160": "Neplatné číslo žirového účtu.",
+	"ingenico_gateway-response-default": "Při zpracovávání vaší transakce došlo k chybě.\nZkuste to znovu o něco později."
+}

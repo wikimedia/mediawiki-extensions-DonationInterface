@@ -1,10 +1,10 @@
-0: globalcollect_gateway-response-default
+0: ingenico_gateway-response-default
 # Order ID already used in a previous transaction
 300620: donate_interface-processing-error
 # Not authorised :: This message was generated when trying to attempt a direct debit transaction from Belgium.
-430452: globalcollect_gateway-response-default
+430452: ingenico_gateway-response-default
 # NO VALID PROVIDERS FOUND FOR COMBINATION MERCHANTID: NNNN, PAYMENTPRODUCT: NNN, COUNTRYCODE: XX, CURRENCYCODE: XXX
-430900: globalcollect_gateway-response-default
+430900: ingenico_gateway-response-default
 
 # Errors where the suggested action is to try again
 # COULD NOT START TRANSACTION
@@ -68,14 +68,3 @@ internal-0001: donate_interface-processing-error
 internal-0002: donate_interface-processing-error
 # Toxic card, don't retry on pain of $1000+ fine
 internal-0003: donate_interface-processing-error
-
-# Do bank validation messages
-# FIXME: Why are these commented out?  Complete.
-# Account number format incorrect
-#'dbv-50'	=> 'globalcollect_gateway-response-dbv-50'
-# Account details missing
-#'dbv-80'	=> 'globalcollect_gateway-response-dbv-80'
-# Check digit format is incorrect
-#'dbv-330'	=> 'globalcollect_gateway-response-dbv-330'
-# Branch code not submitted
-#'dbv-340'	=> 'globalcollect_gateway-response-dbv-340'

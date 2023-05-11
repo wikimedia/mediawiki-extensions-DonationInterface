@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kaldari",
+			"Shirayuki"
+		]
+	},
+	"ingenico_gateway-desc": "{{desc}}",
+	"ingenico_gateway-response-9130": "Error message for invalid country.",
+	"ingenico_gateway-response-9140": "Error message for invalid currency.",
+	"ingenico_gateway-response-9150": "Error message for invalid language.",
+	"ingenico_gateway-response-400530": "Error message for invalid payment method, for example, not a valid credit card type.",
+	"ingenico_gateway-response-430306": "Error message for expired credit card.",
+	"ingenico_gateway-response-430330": "Error message for invalid card number.",
+	"ingenico_gateway-response-430421": "Error message for declined credit card transaction. This error may be due to incorrect information being entered into the form.",
+	"ingenico_gateway-response-430360": "Error message for declined credit card transaction due to insuffient funds.",
+	"ingenico_gateway-response-430285": "Error message for declined credit card transaction due to \"do not honor\" message from payment provider.",
+	"ingenico_gateway-response-21000150": "Error message for invalid bank account number.",
+	"ingenico_gateway-response-21000155": "Error message for invalid bank code.",
+	"ingenico_gateway-response-21000160": "Error message for invalid giro account number.",
+	"ingenico_gateway-response-default": "Error message if something went wrong on our side."
+}

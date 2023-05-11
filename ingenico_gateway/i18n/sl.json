@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Artelind",
+			"Dbc334",
+			"Eleassar"
+		]
+	},
+	"ingenico_gateway-desc": "Plačilo Ingenico je v obdelavi",
+	"ingenico_gateway-response-9130": "Neveljavna država.",
+	"ingenico_gateway-response-9140": "Neveljavna valuta.",
+	"ingenico_gateway-response-9150": "Neveljaven jezik.",
+	"ingenico_gateway-response-400530": "Neveljaven način plačila.",
+	"ingenico_gateway-response-430306": "Vaša kreditna kartica je potekla. Prosimo, poskusite z drugo kartico ali uporabite katerega od drugih naših načinov plačila.",
+	"ingenico_gateway-response-430330": "Številka kartice ni veljavna.",
+	"ingenico_gateway-response-430421": "Vaše kreditne kartice ni bilo mogoče potrditi. Prosimo, preverite, da so podatki o vaši kreditni kartici pravilni, ali pa poskusite z drugo kartico.",
+	"ingenico_gateway-response-430360": "Pri potrjevanju transakcije je prišlo do napake. Prosimo, poskusite z drugo kartico ali pa uporabite katerega od naših drugih načinov plačila.",
+	"ingenico_gateway-response-430285": "Pri potrjevanju transakcije je prišlo do napake. Prosimo, poskusite z drugo kartico ali pa uporabite katerega od naših drugih načinov plačila.",
+	"ingenico_gateway-response-21000150": "Številka bančnega računa je napačna.",
+	"ingenico_gateway-response-21000155": "Številka banke je napačna.",
+	"ingenico_gateway-response-21000160": "Številka žiroračuna je napačna.",
+	"ingenico_gateway-response-default": "Pri obdelavi vaše transakcije je prišlo do napake. Prosimo, poskusite pozneje."
+}

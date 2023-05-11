@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"ingenico_gateway-desc": "Zmóžnja pśewjeźenje płaśenjow pśez Ingenico",
+	"ingenico_gateway-response-9130": "Njepłaśiwy kraj.",
+	"ingenico_gateway-response-9140": "Njepłaśiwe pjenjeze.",
+	"ingenico_gateway-response-9150": "Njepłaśiwa rěc.",
+	"ingenico_gateway-response-400530": "Njepłaśiwa metoda płaśenja.",
+	"ingenico_gateway-response-430306": "Waša kreditowa kórta wěcej njejo płaśiwa. Pšosym wužyjśo drugu kórtu abo jadnu z našych drugich płaśeńskich metodow.",
+	"ingenico_gateway-response-430330": "Njepłaśiwy kórtowy numer.",
+	"ingenico_gateway-response-430421": "Waša kreditowa kórta njedajo se pśespytowaś. Pšosym zawěsććo, až wšykne informacije wótpowěduju wašomu profiloju kreditoweje kórty abo wužyjśo drugu kórtu.",
+	"ingenico_gateway-response-430360": "Transakcija njedajo se awtorizěrowaś. Pšosym wužyjśo drugu kórtu abo drugu płaśeńsku metodu.",
+	"ingenico_gateway-response-430285": "Transakcija njedajo se awtorizěrowaś. Pšosym wužyjśo drugu kórtu abo drugu płaśeńsku metodu.",
+	"ingenico_gateway-response-21000150": "Njepłaśiwy kontowy numer.",
+	"ingenico_gateway-response-21000155": "Njepłaśiwy numer banki.",
+	"ingenico_gateway-response-21000160": "Njepłaśiwy girokontowy numer.",
+	"ingenico_gateway-response-default": "Pśi pśeźěłowanju twójeje transakcije jo zmólka nastała.\nPšosym wopytaj pózdźej hyšći raz."
+}

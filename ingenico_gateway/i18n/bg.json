@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"StanProg",
+			"Ted Masters"
+		]
+	},
+	"ingenico_gateway-response-9150": "Невалиден език.",
+	"ingenico_gateway-response-default": "Възникна грешка при обработката на Вашата транзакция.\nМоля, опитайте отново."
+}

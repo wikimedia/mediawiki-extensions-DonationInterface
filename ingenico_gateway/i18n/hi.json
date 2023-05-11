@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ansumang",
+			"Siddhartha Ghai"
+		]
+	},
+	"ingenico_gateway-response-9130": "अमान्य देश।",
+	"ingenico_gateway-response-9140": "अमान्य राशि।",
+	"ingenico_gateway-response-9150": "अमान्य भाषा।",
+	"ingenico_gateway-response-430330": "अमान्य कार्ड नंबर।"
+}

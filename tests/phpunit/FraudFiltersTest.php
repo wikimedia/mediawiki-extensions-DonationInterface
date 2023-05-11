@@ -51,14 +51,39 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			$this->request
 		);
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceEnableMinFraud' => true,
-			'wgDonationInterfaceMinFraudErrorScore' => 50,
-			'wgDonationInterfaceMinFraudClientOptions' => [
+		$this->setMwGlobals( $this->getAllGlobalVariants( [
+			'EnableMinFraud' => true,
+			'MinFraudErrorScore' => 50,
+			'MinFraudWeight' => 100,
+			'MinFraudClientOptions' => [
 				'host' => '0.0.0.0',
 				'httpRequestFactory' => $this->requestFactory
 			],
-		] );
+			'CustomFiltersActionRanges' => [
+				ValidationAction::PROCESS => [ 0, 25 ],
+				ValidationAction::REVIEW => [ 25, 50 ],
+				ValidationAction::CHALLENGE => [ 50, 75 ],
+				ValidationAction::REJECT => [ 75, 100 ],
+			],
+			'CustomFiltersFunctions' => [
+				'getScoreCountryMap' => 50,
+				'getScoreUtmCampaignMap' => 50,
+				'getScoreUtmSourceMap' => 15,
+				'getScoreUtmMediumMap' => 15,
+				'getScoreEmailDomainMap' => 75,
+				'getCVVResult' => 50,
+				'getAVSResult' => 50,
+			],
+			'CountryMap' => [
+				'US' => 40,
+				'CA' => 15,
+				'RU' => -4,
+			],
+			'UtmCampaignMap' => [
+				'/^(C14_)/' => 14,
+				'/^(spontaneous)/' => 5
+			]
+		] ) );
 	}
 
 	/**
@@ -70,6 +95,11 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
+		$request = RequestContext::getMain()->getRequest();
+		$request->setHeaders( [
+			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+			'accept-language' => 'tlh-QR q=0.9'
+		] );
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
@@ -98,7 +128,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
 			'server' => gethostname(),
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
@@ -113,17 +143,44 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
+		$request = RequestContext::getMain()->getRequest();
+		$request->setHeaders( [
+			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+			'accept-language' => 'tlh-QR q=0.9'
+		] );
+		$this->setMwGlobals( [
+			'wgDonationInterfaceMinFraudExtraFields' => []
+		] );
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
 		$this->request->expects( $this->once() )
 			->method( 'post' )
-			->with(
-				'{"billing":{"city":"San Francisco","region":"CA","postal":"94105","country":"US"},' .
-				'"device":{"ip_address":"127.0.0.1"},' .
-				'"email":{"address":"daf162af7e894faf3d55a18ec7bfa795","domain":"wikipedia.org"},' .
-				'"event":{"transaction_id":"' .
-				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) . '"}}'
+			->with( $this->callback( function ( $postData ) use ( $gateway ) {
+				$decoded = json_decode( $postData, true );
+				$expected = [
+					'billing' => [
+						'city' => 'San Francisco',
+						'region' => 'CA',
+						'postal' => '94105',
+						'country' => 'US',
+					],
+					'device' => [
+						'ip_address' => '127.0.0.1',
+						'user_agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+						'accept_language' => 'tlh-QR q=0.9',
+					],
+					'email' => [
+						'address' => 'daf162af7e894faf3d55a18ec7bfa795',
+						'domain' => 'wikipedia.org',
+					],
+					'event' => [
+						'transaction_id' => (string)$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+					],
+				];
+				$this->assertArraySubmapSame( $expected, $decoded );
+				return true;
+			} )
 			)->willReturn( [
 				200, 'application/json', file_get_contents(
 					__DIR__ . '/includes/Responses/minFraud/15points.json'
@@ -155,7 +212,7 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'gateway_txn_id' => false,
 			'date' => $message['date'],
 			'server' => gethostname(),
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
@@ -167,12 +224,6 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 * Make sure we send the right stuff when extra fields are enabled
 	 */
 	public function testMinFraudExtras() {
-		$options = $this->getDonorTestData();
-		$options['email'] = 'somebody@wikipedia.org';
-		$options['payment_method'] = 'cc';
-
-		$gateway = $this->getFreshGatewayObject( $options );
-
 		$this->setMwGlobals( [
 			'wgDonationInterfaceMinFraudExtraFields' => [
 				'email',
@@ -183,16 +234,53 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'currency'
 			]
 		] );
+		$options = $this->getDonorTestData();
+		$options['email'] = 'somebody@wikipedia.org';
+		$options['payment_method'] = 'cc';
+		$request = RequestContext::getMain()->getRequest();
+		$request->setHeaders( [
+			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+			'accept-language' => 'tlh-QR q=0.9'
+		] );
+
+		$gateway = $this->getFreshGatewayObject( $options );
+
 		$this->request->expects( $this->once() )
 			->method( 'post' )
-			->with(
-				'{"billing":{"city":"San Francisco","region":"CA","postal":"94105","country":"US",' .
-				'"first_name":"Firstname","last_name":"Surname","address":"123 Fake Street"},' .
-				'"device":{"ip_address":"127.0.0.1"},' .
-				'"email":{"address":"somebody@wikipedia.org","domain":"wikipedia.org"},' .
-				'"event":{"transaction_id":"' .
-				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .
-				'"},"order":{"amount":"4.55","currency":"USD"}}'
+			->with( $this->callback( function ( $postData ) use ( $gateway ) {
+				$decoded = json_decode( $postData, true );
+				$expected = [
+					'billing' => [
+						'city' => 'San Francisco',
+						'region' => 'CA',
+						'postal' => '94105',
+						'country' => 'US',
+						'first_name' => 'Firstname',
+						'last_name' => 'Surname',
+						'address' => '123 Fake Street',
+					],
+					'device' => [
+						'ip_address' => '127.0.0.1',
+						'user_agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+						'accept_language' => 'tlh-QR q=0.9',
+					],
+					'email' => [
+						'address' => 'somebody@wikipedia.org',
+						'domain' => 'wikipedia.org',
+					],
+					'event' => [
+						'transaction_id' => (string)$gateway->getData_Unstaged_Escaped(
+							'contribution_tracking_id'
+						),
+					],
+					'order' => [
+						'amount' => '4.55',
+						'currency' => 'USD',
+					],
+				];
+				$this->assertArraySubmapSame( $expected, $decoded );
+				return true;
+			} )
 			)->willReturn( [
 				200, 'application/json', file_get_contents(
 					__DIR__ . '/includes/Responses/minFraud/15points.json'
@@ -221,10 +309,10 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 				'minfraud_filter' => 15.25,
 			],
 			'user_ip' => '127.0.0.1',
-			'gateway_txn_id' => false,
+			'gateway_txn_id' => null,
 			'date' => $message['date'],
 			'server' => gethostname(),
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',
@@ -240,6 +328,11 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$options = $this->getDonorTestData( 'BR' );
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
+		$request = RequestContext::getMain()->getRequest();
+		$request->setHeaders( [
+			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+			'accept-language' => 'tlh-QR q=0.9'
+		] );
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
@@ -256,8 +349,9 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->request->expects( $this->once() )
 			->method( 'post' )
 			->with(
-				'{"billing":{"country":"BR","first_name":"Nome",' .
-				'"last_name":"Apelido"},"device":{"ip_address":"127.0.0.1"},' .
+				'{"billing":{"country":"BR","first_name":"Nome","last_name":"Apelido"},' .
+				'"device":{"ip_address":"127.0.0.1","user_agent":' .
+				'"NCSA_Mosaic\/2.0 (Solaris 2.4)","accept_language":"tlh-QR q=0.9"},' .
 				'"email":{"address":"somebody@wikipedia.org","domain":' .
 				'"wikipedia.org"},"event":{"transaction_id":"' .
 				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .

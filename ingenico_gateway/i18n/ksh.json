@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Purodha"
+		]
+	},
+	"ingenico_gateway-desc": "Et Bezahle övver <i lang=\"en\">Ingenico</i> möjjelesch maache un afhandelle.",
+	"ingenico_gateway-response-9130": "Dat Land es onjöltesch.",
+	"ingenico_gateway-response-9140": "Di Zoot Jäld es onbikannnt.",
+	"ingenico_gateway-response-9150": "Di Schprohch känne mer nit.",
+	"ingenico_gateway-response-400530": "De aat zem Bezahle es onjöltesch.",
+	"ingenico_gateway-response-430306": "Di Kredittkaad es afjeloufe. Bes esu jood un versöhg et med ene andere Kaat, udder versöhg, ob enem andere Wääsch ze bezahle.",
+	"ingenico_gateway-response-430330": "Dä Kaat ier Nommer es onjöltesch.",
+	"ingenico_gateway-response-430421": "Ding Kreditkaat udder Aanjahbe sin beim Pröhve dorschjevalle.\nBes esu johd un looer, dat all Ding Aanjahbe op Ding Profihl för di Kreditkaat paße donn, udder versöhg et med ene andere Kaat.",
+	"ingenico_gateway-response-430360": "Di Övverdraarong kunnt nit beschtäätesch wääde. Zohwinnesch Jäld em Pott.\nBes esu jood un versöhg et med ene andere Kaat udder med enem ander Wääsch ze bezahle.",
+	"ingenico_gateway-response-430285": "Di Övverdraarong kunnt nit beschtäätesch wääde. Afjlehnong vum Provaider.\nBes esu jood un versöhg et med ene andere Kaat udder med enem andere Wääsch ze bezahle",
+	"ingenico_gateway-response-21000150": "De Konto-Nommer es onjöltesch.",
+	"ingenico_gateway-response-21000155": "De Bank ier Nommer es onjöltesch.",
+	"ingenico_gateway-response-21000160": "De Konto-Nommer es onjöltesch.",
+	"ingenico_gateway-response-default": "Ene Fähler es opjetrodde beim Beärbeide vun dä Övverdraarong.\nBes esu jood un versöhg et schpääder norr_ens."
+}

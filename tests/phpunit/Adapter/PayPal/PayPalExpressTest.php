@@ -534,13 +534,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$this->assertSame( [], $messages );
 	}
 
-	public function testShouldRectifyOrphan() {
-		$message = $this->createOrphan( [ 'gateway' => 'paypal', 'payment_method' => 'paypal' ] );
-		$this->gatewayAdapter = $this->getFreshGatewayObject( $message );
-		$result = $this->gatewayAdapter->shouldRectifyOrphan();
-		$this->assertTrue( $result, 'shouldRectifyOrphan returning false.' );
-	}
-
 	/**
 	 * We should take the country from the donor info response, and transform
 	 * it into a real code if it's a PayPal bogon.

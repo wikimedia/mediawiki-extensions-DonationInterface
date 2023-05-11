@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robin van der Vliet",
+			"Yekrats"
+		]
+	},
+	"ingenico_gateway-response-9130": "Nevalida lando.",
+	"ingenico_gateway-response-9140": "Nevalida valuto.",
+	"ingenico_gateway-response-9150": "Nevalida lingvo."
+}

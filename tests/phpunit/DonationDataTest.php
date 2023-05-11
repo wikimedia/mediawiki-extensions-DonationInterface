@@ -91,7 +91,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'referrer' => '',
 			'utm_source' => '..',
 			'language' => $context->getLanguage()->getCode(),
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'payment_submethod' => '',
 			'recurring' => '',
 			'user_ip' => $request->getIP(),
@@ -130,7 +130,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'supplemental_address_1' => '3rd floor',
 			'payment_submethod' => 'amex',
 			'user_ip' => '12.12.12.12',
@@ -177,7 +177,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_medium' => 'test_medium',
 			'utm_campaign' => 'test_campaign',
 			'language' => 'en',
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'supplemental_address_1' => '3rd floor',
 			'payment_submethod' => 'amex',
 			'user_ip' => $request->getIP(),
@@ -214,7 +214,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 
 		$this->setUpRequest( $expected );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject() );
+		$ddObj = new DonationData( $this->getFreshGatewayObject( [] ) );
 		$matches = self::getLogMatches( LogLevel::DEBUG, '/setUtmSource: Payment method is cc, recurring = NULL, utm_source = cc$/' );
 		$this->assertNotEmpty( $matches );
 		$matches = self::getLogMatches( LogLevel::DEBUG, "/Got currency from 'currency', now: USD$/" );
@@ -230,7 +230,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		// Some changes from the default
 		$expected['recurring'] = '';
 		$expected['language'] = RequestContext::getMain()->getLanguage()->getCode();
-		$expected['gateway'] = 'globalcollect';
+		$expected['gateway'] = 'ingenico';
 
 		// Just unset a handful... doesn't matter what, really.
 		unset( $expected['comment-option'] );
@@ -380,7 +380,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'language' => 'en',
 			'country' => 'US',
 			'form_amount' => 'USD 128.00',
-			'payments_form' => 'globalcollect.JimmyQuote',
+			'payments_form' => 'ingenico.JimmyQuote',
 			'id' => '1',
 			];
 

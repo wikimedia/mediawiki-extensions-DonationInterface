@@ -29,8 +29,6 @@
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
 		"FundraiserMaintenance": "FundraiserMaintenance",
-		"GlobalCollectGateway": "GlobalCollectGateway",
-		"GlobalCollectGatewayResult": "GlobalCollectGatewayResult",
 		"IngenicoGateway": "IngenicoGateway",
 		"IngenicoGatewayResult": "IngenicoGatewayResult",
 		"AmazonGateway": "AmazonGateway",
@@ -65,9 +63,9 @@
 			"gateway_common/i18n/canada-provinces",
 			"gateway_common/i18n/api",
 			"amazon_gateway/i18n",
-			"globalcollect_gateway/i18n",
 			"adyen_gateway/i18n",
 			"astropay_gateway/i18n",
+			"ingenico_gateway/i18n",
 			"paypal_ec_gateway/i18n",
 			"email_forms/i18n"
 		]
@@ -75,7 +73,6 @@
 	"ExtensionMessagesFiles": {
 		"GatewayAliases": "DonationInterface.alias.php",
 		"AmazonGatewayAlias": "amazon_gateway/amazon_gateway.alias.php",
-		"GlobalCollectGatewayAlias": "globalcollect_gateway/globalcollect_gateway.alias.php",
 		"IngenicoGatewayAlias": "ingenico_gateway/ingenico_gateway.alias.php",
 		"AdyenGatewayAlias": "adyen_gateway/adyen_gateway.alias.php",
 		"AstroPayGatewayAlias": "astropay_gateway/astropay_gateway.alias.php",
@@ -140,22 +137,12 @@
 		"Gateway_Form_Mustache": "gateway_forms/Mustache.php",
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
-		"GlobalCollectGateway": "globalcollect_gateway/globalcollect_gateway.body.php",
-		"GlobalCollectGatewayResult": "globalcollect_gateway/globalcollect_resultswitcher.body.php",
-		"GlobalCollectAdapter": "globalcollect_gateway/globalcollect.adapter.php",
-		"GlobalCollect3DSecure": "globalcollect_gateway/GlobalCollect3DSecure.php",
 		"Ingenico3DSecure": "ingenico_gateway/Ingenico3DSecure.php",
 		"IngenicoFormVariant": "ingenico_gateway/IngenicoFormVariant.php",
 		"IngenicoGateway": "ingenico_gateway/ingenico_gateway.body.php",
 		"IngenicoGatewayResult": "ingenico_gateway/ingenico_resultswitcher.body.php",
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",
 		"IngenicoLocale": "ingenico_gateway/IngenicoLocale.php",
-		"IngenicoPaymentSubmethod": "ingenico_gateway/IngenicoPaymentSubmethod.php",
-		"IngenicoRecurringBooleanValue": "ingenico_gateway/IngenicoRecurringBooleanValue.php",
-		"IngenicoFinancialNumber": "globalcollect_gateway/IngenicoFinancialNumber.php",
-		"IngenicoLanguage": "globalcollect_gateway/IngenicoLanguage.php",
-		"IngenicoMethodCodec": "globalcollect_gateway/IngenicoMethodCodec.php",
-		"IngenicoReturntoHelper": "globalcollect_gateway/IngenicoReturntoHelper.php",
 		"IngenicoReturnUrlHelper": "ingenico_gateway/IngenicoReturnUrlHelper.php",
 		"AmazonGateway": "amazon_gateway/amazon_gateway.body.php",
 		"AmazonAdapter": "amazon_gateway/amazon.adapter.php",
@@ -371,10 +358,6 @@
 				"donate_interface-error-msg-date-too-far-in-the-future"
 			]
 		},
-		"ext.donationInterface.ingenico.scripts": {
-			"scripts": "globalcollect_gateway/forms/js/ingenico.js",
-			"dependencies": "ext.donationInterface.forms"
-		},
 		"ext.donationInterface.ingenico-hosted": {
 			"scripts": "ingenico_gateway/forms/js/ingenico.js",
 			"styles": "ingenico_gateway/forms/css/ingenico.css",
@@ -429,9 +412,6 @@
 		},
 		"ext.donationInterface.dlocal.styles": {
 			"styles": "dlocal_gateway/forms/dlocal.css"
-		},
-		"gc.iframe": {
-			"styles": "globalcollect_gateway/forms/css/iframe.css"
 		},
 		"ext.donationInterface.errorMessages": {
 			"messages": [
@@ -654,50 +634,6 @@
 		"DonationInterfaceMessageSourceType": {
 			"value": "payments"
 		},
-		"GlobalCollectGatewayTestingURL": {
-			"value": "https://ps.gcsip.nl/wdl/wdl"
-		},
-		"GlobalCollectGatewayURL": {
-			"value": "https://ps.gcsip.nl/wdl/wdl"
-		},
-		"GlobalCollectGatewayCvvMap": {
-			"value": {
-				"M": true,
-				"N": false,
-				"P": true,
-				"S": false,
-				"U": true,
-				"Y": false,
-				"0": true,
-				"": false
-			},
-			"merge_strategy": "array_plus"
-		},
-		"GlobalCollectGatewayAvsMap": {
-			"value": {
-				"A": 50,
-				"B": 50,
-				"C": 50,
-				"D": 0,
-				"E": 100,
-				"F": 0,
-				"G": 50,
-				"I": 50,
-				"M": 0,
-				"N": 100,
-				"P": 50,
-				"R": 100,
-				"S": 50,
-				"U": 50,
-				"W": 50,
-				"X": 0,
-				"Y": 0,
-				"Z": 50,
-				"0": 25,
-				"": 100
-			},
-			"merge_strategy": "array_plus"
-		},
 		"IngenicoGatewayHostedFormVariants": {
 			"value": {
 				"redirect": 100,
@@ -833,9 +769,6 @@
 		"DonationInterfaceEnableBannerHistoryLog": {
 			"value": false
 		},
-		"GlobalCollectGatewayEnabled": {
-			"value": false
-		},
 		"IngenicoGatewayEnabled": {
 			"value": false
 		},
@@ -922,7 +855,6 @@
 		},
 		"DonationInterfaceGatewayAdapters": {
 			"value": {
-				"globalcollect": "GlobalCollectAdapter",
 				"ingenico": "IngenicoAdapter",
 				"amazon": "AmazonAdapter",
 				"adyen": "AdyenCheckoutAdapter",

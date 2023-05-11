@@ -16,6 +16,7 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\PaymentData\DonorDetails;
 
 /**
  *
@@ -26,9 +27,10 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceLogCompleted' => true,
-		] );
+		$this->setMwGlobals( self::getAllGlobalVariants( [
+			'LogCompleted' => true,
+			'MonthlyConvertCountries' => []
+		] ) );
 	}
 
 	/**
@@ -38,7 +40,7 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 	 */
 	public function __construct( $name = null, array $data = [], $dataName = '' ) {
 		parent::__construct( $name, $data, $dataName );
-		$this->testAdapterClass = TestingGlobalCollectAdapter::class;
+		$this->testAdapterClass = IngenicoAdapter::class;
 	}
 
 	/**
@@ -52,15 +54,14 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		unset( $init['order_id'] );
 
 		$expectedObject = [
-			'gross' => 23.45,
+			'gross' => '23.45',
 			'city' => 'San Francisco',
-			// 'contribution_tracking_id' => '1',
 			'fee' => 0,
 			'country' => 'US',
-			'currency' => 'EUR',
+			'currency' => 'USD',
 			'email' => 'innocent@manichean.com',
 			'first_name' => 'Firstname',
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'language' => 'en',
 			'last_name' => 'Surname',
 			'payment_method' => 'cc',
@@ -71,13 +72,14 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'user_ip' => '127.0.0.1',
 			'utm_source' => '..cc',
 			'postal_code' => '94105',
-			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
-			'gateway_account' => 'test',
+			'response' => false,
+			'gateway_account' => null,
+			'initial_scheme_transaction_id' => '112233445566'
 		];
 
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '200' );
-		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$this->mockIngenicoDonorReturn();
+		$gateway->processDonorReturn( [] );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
 		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );
 		$this->assertTrue( $matches !== false,
@@ -97,24 +99,28 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
 		$init['amount'] = '23';
-		// Fake name with a bad character encoding.
-		$init['first_name'] = 'Алексан' . chr( 239 );
-		$init['last_name'] = 'Гончар';
 		$init['email'] = 'innocent@manichean.com';
 		$init['unusual_key'] = mt_rand();
 		unset( $init['order_id'] );
+		unset( $init['first_name'] );
+		unset( $init['last_name'] );
 
+		$statusResponse = BaseIngenicoTestCase::getHostedPaymentStatusResponse();
+		// Fake name with a bad character encoding.
+		$donorDetails = new DonorDetails();
+		$donorDetails->setFullName( 'Алексан' . chr( 239 ) . ' Гончар' );
+		$statusResponse->setDonorDetails( $donorDetails );
+		$this->mockIngenicoDonorReturn( $statusResponse );
 		$expectedObject = [
 			'gross' => 23.45,
 			'fee' => 0,
 			'city' => 'San Francisco',
 			'country' => 'US',
-			'currency' => 'EUR',
+			'currency' => 'USD',
 			'email' => 'innocent@manichean.com',
-			'first_name' => 'Алексанï',
-			'gateway' => 'globalcollect',
+			'full_name' => 'Алексанï Гончар',
+			'gateway' => 'ingenico',
 			'language' => 'en',
-			'last_name' => 'Гончар',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'recurring' => '',
@@ -123,13 +129,12 @@ class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
 			'user_ip' => '127.0.0.1',
 			'utm_source' => '..cc',
 			'postal_code' => '94105',
-			'response' => 'Original Response Status (pre-SET_PAYMENT): 200',
-			'gateway_account' => 'test',
+			'response' => false,
+			'gateway_account' => null,
+			'initial_scheme_transaction_id' => '112233445566'
 		];
-
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( '200' );
-		$gateway->do_transaction( 'Confirm_CreditCard' );
+		$gateway->processDonorReturn( [] );
 		$preface_pattern = '/' . preg_quote( GatewayAdapter::COMPLETED_PREFACE ) . '/';
 		$matches = self::getLogMatches( LogLevel::INFO, $preface_pattern );
 		$this->assertTrue( $matches !== false,

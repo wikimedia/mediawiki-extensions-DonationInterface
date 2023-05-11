@@ -18,6 +18,7 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -73,7 +74,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$testing_adapters = [
 			TestingAstroPayAdapter::class,
 			TestingGenericAdapter::class,
-			TestingGlobalCollectAdapter::class,
 			TestingPaypalExpressAdapter::class,
 		];
 		foreach ( $testing_adapters as $testing_adapter ) {
@@ -92,10 +92,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			// Setting this to its default value
 			// FIXME is this right?
 			'wgDonationInterface3DSRules' => [ 'INR' => [] ],
-
-			// Just putting this here since there's no other shared superclass for
-			// GlobalCollect tests.
-			'wgGlobalCollectGatewayCustomFiltersInitialFunctions' => []
 		] );
 
 		TestingGenericAdapter::$donationRules = [
@@ -166,37 +162,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'/.*/' => 100,
 			],
 		] ) );
-	}
-
-	/**
-	 * buildRequestXmlForGlobalCollect
-	 *
-	 * @todo
-	 * - there are many cases to this that need to be developed.
-	 * - Do not consider this a complete test!
-	 *
-	 * @param array $optionsForTestData
-	 * @param array $options
-	 */
-	public function buildRequestXmlForGlobalCollect( $optionsForTestData, $options ) {
-		global $wgDonationInterfaceTest;
-
-		$wgDonationInterfaceTest = true;
-
-		$this->setUpRequest( $options );
-		$this->gatewayAdapter = new TestingGlobalCollectAdapter();
-
-		$this->gatewayAdapter->setCurrentTransaction( 'INSERT_ORDERWITHPAYMENT' );
-
-		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
-		$request = trim( $exposed->buildRequestXML() );
-
-		$this->setUpRequest( $options );
-		$expected = $this->getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options );
-
-		$this->assertEquals( $expected, $request, 'The constructed XML for payment_method [' .
-			$optionsForTestData['payment_method'] . '] and payment_submethod [' .
-			$optionsForTestData['payment_submethod'] . '] does not match our expected request.' );
 	}
 
 	/**
@@ -440,95 +405,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		return [
 			[ '430285' ],
 		];
-	}
-
-	/**
-	 * Get the expected XML request from GlobalCollect
-	 *
-	 * @param array $optionsForTestData
-	 * @param array $options
-	 * @return string The expected XML request
-	 */
-	public function getExpectedXmlRequestForGlobalCollect( $optionsForTestData, $options = [] ) {
-		global $wgDonationInterfaceThankYouPage;
-		$request = RequestContext::getMain()->getRequest();
-
-		$orderId = $this->gatewayAdapter->getData_Unstaged_Escaped( 'order_id' );
-		$exposed = TestingAccessWrapper::newFromObject( $this->gatewayAdapter );
-		$merchantref = $exposed->getData_Staged( 'contribution_tracking_id' );
-		// @TODO: WHY IN THE NAME OF ZARQUON are we building XML in a STRING format here?!?!?!!!1one1!?. Great galloping galumphing giraffes.
-		$expected  = '<?xml version="1.0" encoding="UTF-8"?' . ">\n";
-		$expected .= '<XML>';
-		$expected .= '<REQUEST>';
-		$expected .= '<ACTION>INSERT_ORDERWITHPAYMENT</ACTION>';
-		$expected .= '<META><MERCHANTID>' . $exposed->account_config[ 'MerchantID' ] . '</MERCHANTID>';
-
-		if ( isset( $request ) ) {
-			$expected .= '<IPADDRESS>' . $request->getIP() . '</IPADDRESS>';
-		}
-
-		$expected .= '<VERSION>1.0</VERSION>';
-		$expected .= '</META>';
-		$expected .= '<PARAMS>';
-		$expected .= '<ORDER>';
-		$expected .= '<ORDERID>' . $orderId . '</ORDERID>';
-		$expected .= '<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
-		$expected .= '<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
-		$expected .= '<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
-		$expected .= '<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
-		$expected .= '<MERCHANTREFERENCE>' . $merchantref . '</MERCHANTREFERENCE>';
-
-		if ( isset( $request ) ) {
-			$expected .= '<IPADDRESSCUSTOMER>' . $request->getIP() . '</IPADDRESSCUSTOMER>';
-		}
-
-		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
-		$expected .= '</ORDER>';
-		$expected .= '<PAYMENT>';
-		$expected .= '<PAYMENTPRODUCTID>' . $optionsForTestData['payment_product_id'] . '</PAYMENTPRODUCTID>';
-		$expected .= '<AMOUNT>' . $options['amount'] * 100 . '</AMOUNT>';
-		$expected .= '<CURRENCYCODE>' . $options['currency'] . '</CURRENCYCODE>';
-		$expected .= '<LANGUAGECODE>' . $options['language'] . '</LANGUAGECODE>';
-		$expected .= '<COUNTRYCODE>' . $options['country'] . '</COUNTRYCODE>';
-		$expected .= '<HOSTEDINDICATOR>1</HOSTEDINDICATOR>';
-		$expected .= "<RETURNURL>{$wgDonationInterfaceThankYouPage}/{$options['language']}?country={$options['country']}</RETURNURL>";
-		$expected .= '<AUTHENTICATIONINDICATOR>0</AUTHENTICATIONINDICATOR>';
-		$expected .= '<FIRSTNAME>' . $options['first_name'] . '</FIRSTNAME>';
-		$expected .= '<SURNAME>' . $options['last_name'] . '</SURNAME>';
-		$expected .= '<STREET>' . $options['street_address'] . '</STREET>';
-		$expected .= '<CITY>' . $options['city'] . '</CITY>';
-		$expected .= '<STATE>' . $options['state_province'] . '</STATE>';
-		$expected .= '<ZIP>' . $options['postal_code'] . '</ZIP>';
-		$expected .= '<EMAIL>' . TESTS_EMAIL . '</EMAIL>';
-
-		// Set the issuer id if it is passed.
-		if ( isset( $optionsForTestData['descriptor'] ) ) {
-			$expected .= '<DESCRIPTOR>' . $optionsForTestData['descriptor'] . '</DESCRIPTOR>';
-		}
-
-		// Set the issuer id if it is passed.
-		if ( isset( $optionsForTestData['issuer_id'] ) ) {
-			$expected .= '<ISSUERID>' . $optionsForTestData['issuer_id'] . '</ISSUERID>';
-		}
-
-		// If we're doing Direct Debit...
-		// @TODO: go ahead and split this out into a "Get the direct debit I_OWP XML block function" the second this gets even slightly annoying.
-		if ( $optionsForTestData['payment_method'] === 'dd' ) {
-			$expected .= '<ACCOUNTNAME>' . $optionsForTestData['account_name'] . '</ACCOUNTNAME>';
-			$expected .= '<ACCOUNTNUMBER>' . $optionsForTestData['account_number'] . '</ACCOUNTNUMBER>';
-			$expected .= '<BANKCODE>' . $optionsForTestData['bank_code'] . '</BANKCODE>';
-			$expected .= '<BRANCHCODE>' . $optionsForTestData['branch_code'] . '</BRANCHCODE>';
-			$expected .= '<BANKCHECKDIGIT>' . $optionsForTestData['bank_check_digit'] . '</BANKCHECKDIGIT>';
-			$expected .= '<DATECOLLECT>' . gmdate( 'Ymd' ) . '</DATECOLLECT>'; // is this cheating? Probably.
-			$expected .= '<DIRECTDEBITTEXT>' . $optionsForTestData['direct_debit_text'] . '</DIRECTDEBITTEXT>';
-		}
-
-		$expected .= '</PAYMENT>';
-		$expected .= '</PARAMS>';
-		$expected .= '</REQUEST>';
-		$expected .= '</XML>';
-
-		return $expected;
 	}
 
 	/**
@@ -864,36 +740,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		}
 	}
 
-	/**
-	 * Create an orphaned tranaction.
-	 *
-	 * TODO: Reuse SmashPigBaseTest#createMessage
-	 * @param array $overrides
-	 * @return array
-	 */
-	public function createOrphan( $overrides = [] ) {
-		$uniq = mt_rand();
-		$message = $overrides + [
-				'contribution_tracking_id' => $uniq,
-				'country' => 'US',
-				'first_name' => 'Flighty',
-				'last_name' => 'Dono',
-				'full_name' => '',
-				'email' => 'test+wmf@eff.org',
-				'gateway' => 'globalcollect',
-				'gateway_txn_id' => "txn-{$uniq}",
-				'order_id' => "order-{$uniq}",
-				'gateway_account' => 'default',
-				'payment_method' => 'cc',
-				'payment_submethod' => 'mc',
-				// Defaults to a magic 25 minutes ago, within the process window.
-				'date' => time() - 25 * 60,
-				'gross' => 123,
-				'currency' => 'EUR',
-			];
-		return $message;
-	}
-
 	public static function getAllQueueMessages() {
 		$messages = [];
 		$queues = [
@@ -947,5 +793,32 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			}
 		}
 		return $globals;
+	}
+
+	protected function mockIngenicoDonorReturn( $statusResponse = null ) {
+		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
+
+		$hostedCheckoutProvider = $this->createMock( HostedCheckoutProvider::class );
+
+		$providerConfig->overrideObjectInstance(
+			'payment-provider/cc',
+			$hostedCheckoutProvider
+		);
+
+		if ( $statusResponse === null ) {
+			$statusResponse = BaseIngenicoTestCase::getHostedPaymentStatusResponse();
+		}
+
+		$hostedCheckoutProvider->expects( $this->once() )
+			->method( 'getLatestPaymentStatus' )
+			->willReturn(
+				$statusResponse
+			);
+
+		$hostedCheckoutProvider
+			->method( 'approvePayment' )
+			->willReturn(
+				BaseIngenicoTestCase::getApprovePaymentResponse()
+			);
 	}
 }

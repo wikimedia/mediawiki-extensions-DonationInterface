@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Shirayuki",
+			"Whym"
+		]
+	},
+	"ingenico_gateway-desc": "グローバルコレクト決済処理",
+	"ingenico_gateway-response-9130": "国名が無効です。",
+	"ingenico_gateway-response-9140": "通貨が無効です。",
+	"ingenico_gateway-response-9150": "言語名が無効です。",
+	"ingenico_gateway-response-400530": "支払い方法が無効です。",
+	"ingenico_gateway-response-430306": "あなたのクレジットカードは有効期限が切れています。他のカードか他の支払い方法をお試しください。",
+	"ingenico_gateway-response-430330": "カード番号が無効です。",
+	"ingenico_gateway-response-430421": "あなたのクレジットカードの妥当性が確かめられませんでした。すべての情報がクレジットカードの個人情報と一致しているかどうかお確かめください。もしくは他のカードをお試しください。",
+	"ingenico_gateway-response-430360": "取引は許可されませんでした。他のカードか他の支払い方法をお試しください。",
+	"ingenico_gateway-response-430285": "取引は許可されませんでした。他のカードか他の支払い方法をお試しください。",
+	"ingenico_gateway-response-21000150": "銀行口座番号が無効です。",
+	"ingenico_gateway-response-21000155": "銀行コードが無効です。",
+	"ingenico_gateway-response-21000160": "振替口座番号が無効です。",
+	"ingenico_gateway-response-default": "お取引の処理中にエラーが発生しました。\n後でもう一度お試しください。"
+}

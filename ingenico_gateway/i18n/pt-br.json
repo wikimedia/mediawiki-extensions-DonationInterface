@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"!Silent",
+			"Ppena"
+		]
+	},
+	"ingenico_gateway-desc": "Processamento de pagamentos Ingenico",
+	"ingenico_gateway-response-9130": "País inválido",
+	"ingenico_gateway-response-9140": "Moeda inválida",
+	"ingenico_gateway-response-9150": "Língua inválida",
+	"ingenico_gateway-response-400530": "Método de pagamento inválido",
+	"ingenico_gateway-response-430306": "O seu cartão de crédito esta vencido. Por favor use um cartão diferente ou um outro método de pagamento.",
+	"ingenico_gateway-response-430330": "Número de cartão é inválido.",
+	"ingenico_gateway-response-430421": "Não foi possível validar o seu cartão de crédito. Por favor verifique se toda a informação corresponde ao seu perfil de cartão de crédito, ou tente usar outro cartão.",
+	"ingenico_gateway-response-430360": "Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.",
+	"ingenico_gateway-response-430285": "Não foi possível autorizar a transação. Por favor tente com outro cartão ou outro método de pagamento.",
+	"ingenico_gateway-response-21000150": "Número de conta bancária inválido.",
+	"ingenico_gateway-response-21000155": "Código bancário inválido.",
+	"ingenico_gateway-response-21000160": "Número de conta bancária inválido.",
+	"ingenico_gateway-response-default": "Ocorreu um erro no processamento desta transação.\nPor favor tente novamente mais tarde."
+}

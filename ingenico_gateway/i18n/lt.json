@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aswanas",
+			"Eitvys200",
+			"Nokeoo"
+		]
+	},
+	"ingenico_gateway-response-9130": "Neleistina šalis.",
+	"ingenico_gateway-response-9140": "Negaliojanti valiuta.",
+	"ingenico_gateway-response-9150": "Neleistina kalba.",
+	"ingenico_gateway-response-400530": "Neleistinas mokėjimo būdas.",
+	"ingenico_gateway-response-430306": "Jūsų kreditinės kortelės galiojimas pasibaigė. Prašome pabandyti kitą kortelę arba vieną iš kitų mokėjimo metodų.",
+	"ingenico_gateway-response-430330": "Negaliojantis kortelės numeris.",
+	"ingenico_gateway-response-430421": "Jūsų kreditinė kortelė negali būti patvirtinta. Prašome patikrinti ar visa informacija atitinka jūsų kreditinės kortelės profilį arba pabandykite kitą kortelę.",
+	"ingenico_gateway-response-430360": "Pavedimas negali būti autorizuotas. Prašome pabandyti kitą kortelę arba vieną iš kitų mokėjimo metodų.",
+	"ingenico_gateway-response-430285": "Pavedimas negali būti autorizuotas. Prašome pabandyti kitą kortelę arba vieną iš kitų mokėjimo metodų.",
+	"ingenico_gateway-response-21000150": "Negaliojantis banko sąskaitos numeris.",
+	"ingenico_gateway-response-21000155": "Neteisingas banko kodas.",
+	"ingenico_gateway-response-default": "Įvyko klaida apdorojant jūsų pavedimą.\nPrašome pabandyti vėliau."
+}

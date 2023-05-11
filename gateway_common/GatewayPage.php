@@ -26,7 +26,7 @@ use SmashPig\PaymentData\FinalStatus;
  * This class is the generic unlisted special page in charge of actually
  * displaying the form. Each gateway will have one or more direct descendants of
  * this class, with most of the gateway-specific control logic in its handleRequest
- * function. For instance: extensions/DonationInterface/globalcollect_gateway/globalcollect_gateway.body.php
+ * function. For instance: extensions/DonationInterface/ingenico_gateway/ingenico_gateway.body.php
  *
  * *** Constraint for implementing classes *** The special page name must always be the gateway
  * adapter class name with 'Adapter' replaced with 'Gateway'.

@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aftabuzzaman",
+			"আফতাবুজ্জামান"
+		]
+	},
+	"ingenico_gateway-desc": "গ্লোবালকালেক্ট পেমেন্ট প্রক্রিয়াকরণ হচ্ছে",
+	"ingenico_gateway-response-9130": "অকার্যকর দেশ।",
+	"ingenico_gateway-response-9140": "অকার্যকর মুদ্রা।",
+	"ingenico_gateway-response-9150": "অকার্যকর ভাষা।",
+	"ingenico_gateway-response-400530": "অকার্যকর পেমেন্ট পদ্ধতি।"
+}

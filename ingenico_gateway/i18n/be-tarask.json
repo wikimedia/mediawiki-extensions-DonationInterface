@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"EugeneZelenko",
+			"Red Winged Duck",
+			"Wizardist"
+		]
+	},
+	"ingenico_gateway-desc": "Шлюз апрацоўкі плацяжоў Ingenico",
+	"ingenico_gateway-response-9130": "Няслушная краіна.",
+	"ingenico_gateway-response-9140": "Няслушная валюта.",
+	"ingenico_gateway-response-9150": "Няслушная мова.",
+	"ingenico_gateway-response-400530": "Няслушны мэтад плацяжу.",
+	"ingenico_gateway-response-430306": "Вашая крэдытная картка пратэрмінаваная. Калі ласка, выкарыстайце іншую картку ці выберыце іншыя мэтады плацяжу.",
+	"ingenico_gateway-response-430330": "Няслушны нумар карткі.",
+	"ingenico_gateway-response-430421": "Вашая картка не прайшла праверку. Калі ласка, упэўніцеся, што ўсе зьвесткі па картцы слушныя, ці скарыстайцеся іншай карткай.",
+	"ingenico_gateway-response-430360": "Немагчыма аўтарызаваць транзакцыю. Калі ласка, скарыстайцеся іншай карткай ці выберыце іншы мэтад плацяжу.",
+	"ingenico_gateway-response-430285": "Немагчыма аўтарызаваць транзакцыю. Калі ласка, скарыстайцеся іншай карткай ці выберыце іншы мэтад плацяжу.",
+	"ingenico_gateway-response-21000150": "Няслушны нумар банкаўскага рахунку.",
+	"ingenico_gateway-response-21000155": "Няслушны код банку.",
+	"ingenico_gateway-response-21000160": "Няслушны нумар рахунку giro.",
+	"ingenico_gateway-response-default": "У час апрацоўкі Вашай транзакцыі ўзьнікла памылка.\nКалі ласка, паспрабуйце зноў пазьней."
+}

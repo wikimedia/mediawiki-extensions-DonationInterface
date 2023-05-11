@@ -55,9 +55,6 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		$this->gatewayAdapter = new TestingGenericAdapter( [
 			'batch_mode' => false
 		] );
-		$this->cfo = Gateway_Extras_CustomFilters::singleton(
-			$this->gatewayAdapter
-		);
 	}
 
 	protected function tearDown(): void {
@@ -144,7 +141,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 			'gateway_txn_id' => null,
 			'date' => $message['date'],
 			'server' => gethostname(),
-			'gateway' => 'globalcollect',
+			'gateway' => 'ingenico',
 			'contribution_tracking_id' => $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 			'order_id' => $gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'payment_method' => 'cc',

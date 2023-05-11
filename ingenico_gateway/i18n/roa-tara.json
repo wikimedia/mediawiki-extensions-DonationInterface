@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"ingenico_gateway-desc": "Processe de pajamende Ingenico",
+	"ingenico_gateway-response-9130": "Nazione invalide.",
+	"ingenico_gateway-response-9140": "monete invalide.",
+	"ingenico_gateway-response-9150": "Lénghe invalide.",
+	"ingenico_gateway-response-400530": "Meotde de pajamende invalide.",
+	"ingenico_gateway-response-430306": "'A carta de credite toje ha scadute. Pe piacere pruève cu 'na carte diverse o 'n'otre metode de pajaminde nuèstre.",
+	"ingenico_gateway-response-430330": "Numere d'a carte invalide.",
+	"ingenico_gateway-response-430421": "'A carta de credite toje non g'è validate. Pe piacere verifiche ca tutte le 'mbormaziune soddisfane 'u profile d'a carta toje, o pruève cu 'n'otra carte.",
+	"ingenico_gateway-response-430360": "'A transazione non ge pò essere autorizzate. Pe piacere pruève 'na carta diverse o une de le otre metode de pajaminde nuèstre.",
+	"ingenico_gateway-response-430285": "'A transazione non ge pò essere autorizzate. Pe piacere pruève 'na carta diverse o une de le otre metode de pajaminde nuèstre.",
+	"ingenico_gateway-response-21000150": "Numere d'u conde corrende bangarie invalide.",
+	"ingenico_gateway-response-21000155": "Codece d'a banghe invalide.",
+	"ingenico_gateway-response-21000160": "Numere d'u giro conde invalide.",
+	"ingenico_gateway-response-default": "S'a verificate 'n'errore processanne 'a transaziona toje.\nPe piacere pruève arrete."
+}

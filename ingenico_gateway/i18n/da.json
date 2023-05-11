@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Christian List",
+			"Peter Alberti"
+		]
+	},
+	"ingenico_gateway-desc": "Håndtering af betaling via Ingenico",
+	"ingenico_gateway-response-9130": "Ugyldigt land.",
+	"ingenico_gateway-response-9140": "Ugyldig valuta.",
+	"ingenico_gateway-response-9150": "Ugyldigt sprog.",
+	"ingenico_gateway-response-400530": "Ugyldig betalingsmetode.",
+	"ingenico_gateway-response-430306": "Dit kreditkort er udløbet. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.",
+	"ingenico_gateway-response-430330": "Ugyldigt kortnummer.",
+	"ingenico_gateway-response-430421": "Dit kreditkort kunne ikke valideres. Vær så venlig at kontrollere, at al information stemmer overens med dit kort, eller prøv med et andet kort.",
+	"ingenico_gateway-response-430360": "Transaktionen kunne ikke godkendes. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.",
+	"ingenico_gateway-response-430285": "Transaktionen kunne ikke godkendes. Vær så venlig at prøve et andet kort eller en af vores andre betalingsmetoder.",
+	"ingenico_gateway-response-21000150": "Ugyldigt kontonummer.",
+	"ingenico_gateway-response-21000155": "Ugyldig bankkode.",
+	"ingenico_gateway-response-21000160": "Ugyldigt girokontonummer.",
+	"ingenico_gateway-response-default": "Der opstod en fejl under behandlingen af din transaktion.\nPrøv venligst igen senere."
+}

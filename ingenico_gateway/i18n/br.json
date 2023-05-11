@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fohanno",
+			"Fulup"
+		]
+	},
+	"ingenico_gateway-response-9130": "Bro direizh.",
+	"ingenico_gateway-response-9140": "Moneiz direizh.",
+	"ingenico_gateway-response-9150": "Yezh direizh.",
+	"ingenico_gateway-response-400530": "Doare paeañ direizh.",
+	"ingenico_gateway-response-430306": "Diamzeret eo ho kartenn-vank. Klaskit ober gant ur gartenn all pe gant unan eus hon doareoù all da baeañ.",
+	"ingenico_gateway-response-430330": "Niverenn gartenn direizh.",
+	"ingenico_gateway-response-430421": "N'eus ket bet gallet gwiriekaat ho kartenn-vank. Gwiriit an titouroù war ho kartenn, mar plij, pe esaeit gant ur gartenn all.",
+	"ingenico_gateway-response-21000150": "Niverenn gont-vank direizh.",
+	"ingenico_gateway-response-21000155": "Kod-bank direizh.",
+	"ingenico_gateway-response-21000160": "Niverenn gont an dreuzvankadenn direizh.",
+	"ingenico_gateway-response-default": "Ur fazi zo bet e-ser plediñ gant ho treuzgread.\nKlaskit en-dro a-benn ur pennadig."
+}

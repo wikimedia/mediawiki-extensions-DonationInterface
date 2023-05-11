@@ -471,8 +471,6 @@
 	"donate_interface-tax-info": "Link to information about the tax deducability of donations",
 	"donate_interface-informationsharing": "Information sharing disclaimer.\n\nPlease leave \"Wikimedia Foundation\" in English unless this really would not be appropriate in your language e.g. it uses a different script.\n\n\"and its service providers\" can be read as \"and '''with''' its service providers\". \n\nParameters:\n* $1: URL of page with detailed policy.",
 	"donate_interface-currency-change": "Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.\n{{Identical|Change}}",
-	"donate_interface-bank_transfer_message": "Message notifying donors that the recipient of the donation will show as Global Collect.\n\nSee also:\n* {{msg-mw|Donate interface-globalcollect-proxy}} Parameters:\n* $1 - the email address for donor services.",
-	"donate_interface-globalcollect-proxy": "Message notifying donors that the recipient of the donation will show as Global Collect.\n\nSee also:\n* {{msg-mw|Donate interface-bank transfer message}}",
 	"donate_interface-taxded-link-int": "Link to information about tax deductibility and other legal information, to be used outside of the U.S.",
 	"donate_interface-taxded-link-us": "Link to information about tax deductibility, to be used inside of the U.S.",
 	"donate_interface-taxded-msg-int": "Legal information shown to international donors.\n\nPlease leave \"Wikimedia Foundation\" in English unless this really would not be appropriate in your language e.g. it uses a different script.",

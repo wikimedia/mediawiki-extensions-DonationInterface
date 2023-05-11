@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"ingenico_gateway-desc": "Processamento de pagamentos Ingenico",
+	"ingenico_gateway-response-9130": "Pais invalide.",
+	"ingenico_gateway-response-9140": "Moneta invalide.",
+	"ingenico_gateway-response-9150": "Lingua invalide.",
+	"ingenico_gateway-response-400530": "Methodo de pagamento invalide.",
+	"ingenico_gateway-response-430306": "Vostre carta de credito ha expirate. Per favor essaya un altere carta o un de nostre altere methodos de pagamento.",
+	"ingenico_gateway-response-430330": "Numero de carta invalide.",
+	"ingenico_gateway-response-430421": "Vostre carta de credito non poteva esser validate. Per favor verifica que tote le informationes corresponde al profilo de vostre carta, o usa un altere carta.",
+	"ingenico_gateway-response-430360": "Le transaction non poteva esser autorisate. Per favor usa un altere carta o un de nostre altere methodos de pagamento.",
+	"ingenico_gateway-response-430285": "Le transaction non poteva esser autorisate. Per favor usa un altere carta o un de nostre altere methodos de pagamento.",
+	"ingenico_gateway-response-21000150": "Numero de conto bancari invalide.",
+	"ingenico_gateway-response-21000155": "Codice bancari invalide.",
+	"ingenico_gateway-response-21000160": "Numero de conto de giro invalide.",
+	"ingenico_gateway-response-default": "Un error occurreva durante le tractamento de tu transaction.\nPer favor reproba plus tarde."
+}
