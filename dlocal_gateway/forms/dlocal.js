@@ -5,7 +5,6 @@
 		isRecurring = !!$( '#recurring' ).val(),
 		isIndia = ( country === 'IN' );
 
-	// Common helper functions
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			mw.donationInterface.validation.showErrors( {
@@ -69,7 +68,8 @@
 		// Show our standard 'Donate' button
 		showPaymentSubmit();
 		// Set the click handler
-		$( '#paymentSubmitBtn' ).click( handleCardSubmitClick );
+		// Using debounce to prevent the programmatic trigger of multiple instances of the submit function
+		$( '#paymentSubmitBtn' ).click( mw.util.debounce( 100, handleCardSubmitClick ) );
 
 		// Drop in the dlocal card components placeholder
 		insertCardComponentContainers();
@@ -182,7 +182,11 @@
 		}
 
 		function handleCardSubmitClick( event ) {
+			if ( $( this ).is( ':disabled' ) ) {
+				return;
+			}
 			event.preventDefault();
+			mw.donationInterface.forms.disable();
 
 			if ( validateInputs() ) {
 				dlocalInstance.createToken( cardField, {
@@ -232,6 +236,7 @@
 	function addCardFieldsToErrorDisplay() {
 		var oldShowErrors = mw.donationInterface.validation.showErrors;
 		mw.donationInterface.validation.showErrors = function ( errors ) {
+			mw.donationInterface.forms.enable();
 			var dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
 			$.each( errors, function ( field ) {
 				if ( dLocalFields.indexOf( field ) !== -1 ) {
@@ -314,7 +319,7 @@
 			if ( isUpi && !isRecurring ) {
 				addUpiDirectFlowInputField();
 				// Set the click handler
-				$( '#paymentSubmitBtn' ).click( handleUpiDirectSubmitClick );
+				$( '#paymentSubmitBtn' ).click( mw.util.debounce( 100, handleUpiDirectSubmitClick ) );
 			}
 		} else {
 			// Redirect flow
@@ -340,7 +345,12 @@
 	}
 
 	function handleUpiDirectSubmitClick( event ) {
+		if ( $( this ).is( ':disabled' ) ) {
+			return;
+		}
 		event.preventDefault();
+		// Disable submit btn when submitting
+		mw.donationInterface.forms.disable();
 		// get verify
 		extraData.fiscal_number = $( '#fiscal_number' ).val();
 		extraData.upi_id = $( '#upi_id' ).val();
