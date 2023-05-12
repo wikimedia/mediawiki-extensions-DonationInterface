@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Michawiki"
+		]
+	},
+	"ingenico_gateway-desc": "Zmóžnja přewjedźenje płaćenjow přez Ingenico",
+	"ingenico_gateway-response-9130": "Njepłaćiwy kraj.",
+	"ingenico_gateway-response-9140": "Njepłaćiwa měna.",
+	"ingenico_gateway-response-9150": "Njepłaćiwa rěč.",
+	"ingenico_gateway-response-400530": "Njepłaćiwa płaćenska metoda.",
+	"ingenico_gateway-response-430306": "Waša kreditna karta hižo płaćiwy njeje. Prošu spytajće druhu kartu abo druhu płaćensku metodu.",
+	"ingenico_gateway-response-430330": "Njepłaćiwe kartowe čisło.",
+	"ingenico_gateway-response-430421": "Waša kreditna karta njeda so přepruwować. Prošu zawěsćće, zo wšě informacije wašemu profilej kreditneje karty wotpowěduja abo wužijće druhu kartu.",
+	"ingenico_gateway-response-430360": "Transakcija njeda so awtorizować. Prošu wužijće druhu kartu abo druhu płaćensku metodu.",
+	"ingenico_gateway-response-430285": "Transakcija njeda so awtorizować. Prošu wužijće druhu kartu abo druhu płaćensku metodu.",
+	"ingenico_gateway-response-21000150": "Njepłaćiwe kontowe čisło.",
+	"ingenico_gateway-response-21000155": "Njepłaćiwe bankowe wodźenske čisło.",
+	"ingenico_gateway-response-21000160": "Njepłaćiwe girokontowe čisło.",
+	"ingenico_gateway-response-default": "Při předźěłowanju wašeje transakcije je zmylk wustupił.\nProšu spytajće pozdźišo hišće raz."
+}

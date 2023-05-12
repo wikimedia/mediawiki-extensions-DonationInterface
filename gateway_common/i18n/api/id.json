@@ -6,7 +6,7 @@
 	},
 	"apihelp-donate-description": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
 	"apihelp-donate-summary": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
-	"apihelp-donate-param-gateway": "Gerbang pembayaran mana yang ingin dipakai - adyen, globalcollect, dsb.",
+	"apihelp-donate-param-gateway": "Gerbang pembayaran mana yang ingin dipakai - adyen, ingenico, dsb.",
 	"apihelp-donate-param-amount": "Nilai yang akan didonasikan.",
 	"apihelp-donate-param-contact_id": "ID donatur di CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Hash donatur di CiviCRM, digunakan untuk verifikasi. Wajib diisi jika contact_id diberikan.",

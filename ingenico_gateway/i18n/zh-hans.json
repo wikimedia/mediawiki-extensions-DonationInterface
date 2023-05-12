@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lakejason0",
+			"Liuxinyu970226",
+			"Yfdyh000"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico支付处理",
+	"ingenico_gateway-response-9130": "无效的国家。",
+	"ingenico_gateway-response-9140": "无效的货币。",
+	"ingenico_gateway-response-9150": "无效的语言。",
+	"ingenico_gateway-response-400530": "无效的支付方法。",
+	"ingenico_gateway-response-430306": "您的信用卡已过期。请尝试使用其他卡或我们的其他支付方式。",
+	"ingenico_gateway-response-430330": "卡号无效。",
+	"ingenico_gateway-response-430421": "无法验证您的信用卡。请验证所有信息都匹配您的信用卡资料，或尝试使用其他卡。",
+	"ingenico_gateway-response-430360": "业务无法授权。请尝试使用其他卡或我们的其他支付方式。",
+	"ingenico_gateway-response-430285": "业务无法授权。请尝试使用其他卡或我们的其他支付方式。",
+	"ingenico_gateway-response-21000150": "无效的银行账号。",
+	"ingenico_gateway-response-21000155": "无效的银行代码。",
+	"ingenico_gateway-response-21000160": "无效的转账账户号码。",
+	"ingenico_gateway-response-default": "处理您的交易过程中出错。\n请稍后重试。"
+}

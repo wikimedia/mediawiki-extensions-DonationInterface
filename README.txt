@@ -16,7 +16,7 @@ add a line to LocalSettings.php with the new value.
 
 Set these to true to enable each payment processor integration:
 
-$wgGlobalCollectGatewayEnabled = false
+$wgIngenicoGatewayEnabled = false
 $wgAmazonGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
 $wgAstroPayGatewayEnabled = false
@@ -130,8 +130,8 @@ $wgDonationInterfaceCancelPage = 'Donate-error'
 /**
  * If this is set to a valid directory path, yaml files under this path will
  * replace built-in config files. For example, if this is set to /etc/di/,
- * then /etc/di/globalcollect/country_fields.yaml will be used instead of
- * the built-in globalcollect_gateway/config/country_fields.yaml.
+ * then /etc/di/ingenico/country_fields.yaml will be used instead of
+ * the built-in ingenico_gateway/config/country_fields.yaml.
  * Superseded files will be completely ignored, so copy and modify originals.
  */
 $wgDonationInterfaceLocalConfigurationDirectory = false
@@ -140,8 +140,8 @@ $wgDonationInterfaceLocalConfigurationDirectory = false
  * If this is set to a valid directory path, yaml files under this path can
  * potentially replace built-in config files. For example, if this is set to
  * /etc/di_alt/, and query string variable 'variant' has value 'nostate',
- * then /etc/di_alt/nostate/globalcollect/country_fields.yaml will be used
- * instead of the built-in globalcollect_gateway/config/country_fields.yaml.
+ * then /etc/di_alt/nostate/ingenico/country_fields.yaml will be used
+ * instead of the built-in ingenico_gateway/config/country_fields.yaml.
  * Superseded files will be completely ignored, so copy and modify originals.
  * Only latin letters, numbers, and underscores are allowed in variant.
  * Variant configurations override both local and built-in configurations.
@@ -206,49 +206,6 @@ $wgDonationInterfaceSendOptInOnFailure = false
 
 ==== Processors and accounts ====
 
-//GlobalCollect gateway globals
-
-$wgGlobalCollectGatewayTestingURL = 'https://ps.gcsip.nl/wdl/wdl'
-// Actually it's ps.gcsip.com, but trust me it's better this way.
-$wgGlobalCollectGatewayURL = 'https://ps.gcsip.nl/wdl/wdl'
-
-#	$wgGlobalCollectGatewayAccountInfo['example'] = [
-#		'MerchantID' => '', // GlobalCollect ID
-#	]
-
-$wgGlobalCollectGatewayCvvMap = [
-	'M' => true, //CVV check performed and valid value.
-	'N' => false, //CVV checked and no match.
-	'P' => true, //CVV check not performed, not requested
-	'S' => false, //Card holder claims no CVV-code on card, issuer states CVV-code should be on card.
-	'U' => true, //? //Issuer not certified for CVV2.
-	'Y' => false, //Server provider did not respond.
-	'0' => true, //No service available.
-	'' => false, //No code returned. All the points.
-]
-
-$wgGlobalCollectGatewayAvsMap = [
-	'A' => 50, //Address (Street) matches, Zip does not.
-	'B' => 50, //Street address match for international transactions. Postal code not verified due to incompatible formats.
-	'C' => 50, //Street address and postal code not verified for international transaction due to incompatible formats.
-	'D' => 0, //Street address and postal codes match for international transaction.
-	'E' => 100, //AVS Error.
-	'F' => 0, //Address does match and five digit ZIP code does match (UK only).
-	'G' => 50, //Address information is unavailable international transaction non-AVS participant.
-	'I' => 50, //Address information not verified for international transaction.
-	'M' => 0, //Street address and postal codes match for international transaction.
-	'N' => 100, //No Match on Address (Street) or Zip.
-	'P' => 50, //Postal codes match for international transaction. Street address not verified due to incompatible formats.
-	'R' => 100, //Retry, System unavailable or Timed out.
-	'S' => 50, //Service not supported by issuer.
-	'U' => 50, //Address information is unavailable.
-	'W' => 50, //9 digit Zip matches, Address (Street) does not.
-	'X' => 0, //Exact AVS Match.
-	'Y' => 0, //Address (Street) and 5 digit Zip match.
-	'Z' => 50, //5 digit Zip matches, Address (Street) does not.
-	'0' => 25, //No service available.
-	'' => 100, //No code returned. All the points.
-]
 Ingenico Connect account info is read from SmashPig configuration, but you can
 set a map of hosted checkout variant names to IDs here. The logic in this
 extension chooses between 'redirect' and 'iframe' variants. The 'iframe'

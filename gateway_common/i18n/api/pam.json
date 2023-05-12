@@ -4,5 +4,5 @@
 			"Leeheonjin"
 		]
 	},
-	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, globalcollect, etc."
+	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, ingenico, etc."
 }

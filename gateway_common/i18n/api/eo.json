@@ -6,7 +6,7 @@
 	},
 	"apihelp-donate-description": "Ĉi tiu API ebligas vin donaci al Fondaĵo Vikimedio per diversaj pagotraktantoj.",
 	"apihelp-donate-summary": "Ĉi tiu API ebligas vin donaci al Fondaĵo Vikimedio per diversaj pagotraktantoj.",
-	"apihelp-donate-param-gateway": "Uzota pagokluzo — adyen, globalcollect, ktp.",
+	"apihelp-donate-param-gateway": "Uzota pagokluzo — adyen, ingenico, ktp.",
 	"apihelp-donate-param-amount": "La donaca kvanto.",
 	"apihelp-donate-param-contact_id": "Identigilo de la donacanto ĉe CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Haketaĵo de la donacanto ĉe CiviCRM, uzata por konfirmado. Deviga se contact_id estas provizita.",
@@ -49,5 +49,5 @@
 	"apihelp-logPaymentsFormError-param-stack": "Stakspuro de la eraro, se havebla",
 	"apihelp-di_recurring_convert-summary": "Ĉi tiu API estas uzata kiam donacanto konsentas ĉiumonatan donacon post kompletigo de sukcesa unufoja donaco.",
 	"apihelp-di_recurring_convert-param-amount": "La kvanto de la ĉiumonata donaco.",
-	"apihelp-di_recurring_convert-param-gateway": "Uzota pagokluzo — adyen, globalcollect, ktp."
+	"apihelp-di_recurring_convert-param-gateway": "Uzota pagokluzo — adyen, ingenico, ktp."
 }

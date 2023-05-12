@@ -102,7 +102,7 @@ class DonationApi extends DonationApiBase {
 	 */
 	protected function getExamplesMessages() {
 		return [
-			'action=donate&gateway=globalcollect&amount=2.00&currency=USD'
+			'action=donate&gateway=ingenico&amount=2.00&currency=USD'
 				=> 'apihelp-donate-example-1',
 		];
 	}

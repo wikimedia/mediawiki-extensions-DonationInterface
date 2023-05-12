@@ -1,9 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Shirayuki"
-		]
-	},
-	"globalcollect_gateway-response-430360": "The transaction could not be authorised. Please try a different card or one of our other payment methods.",
-	"globalcollect_gateway-response-430285": "The transaction could not be authorised. Please try a different card or one of our other payment methods."
-}

@@ -7,7 +7,7 @@
 	},
 	"apihelp-donate-description": "Esta API permite enviar unha doazón á Fundación Wikimedia usando distintos modos de pagamento.",
 	"apihelp-donate-summary": "Esta API permítelle enviar unha doazón á Fundación Wikimedia usando diferentes modos de pago.",
-	"apihelp-donate-param-gateway": "A pasarela de pagamento a usar: adyen, globalcollect etc.",
+	"apihelp-donate-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc.",
 	"apihelp-donate-param-amount": "A cantidade doada.",
 	"apihelp-donate-param-contact_id": "ID do doante en CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Resumo criptográfico do doante en CiviCRM, usado para verificación. Obrigatorio cando se indica o contact_id.",

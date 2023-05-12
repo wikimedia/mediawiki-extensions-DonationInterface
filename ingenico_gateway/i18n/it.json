@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"ingenico_gateway-desc": "Elaborazione dei pagamenti Ingenico",
+	"ingenico_gateway-response-9130": "Nazione non valida.",
+	"ingenico_gateway-response-9140": "Valuta non valida.",
+	"ingenico_gateway-response-9150": "Lingua non valida.",
+	"ingenico_gateway-response-400530": "Metodo di pagamento non valido.",
+	"ingenico_gateway-response-430306": "La tua carta di credito è scaduta. Prova con un'altra carta o un altro dei nostri metodi di pagamento.",
+	"ingenico_gateway-response-430330": "Numero di carta non valido.",
+	"ingenico_gateway-response-430421": "La tua carta di credito non può essere convalidata. Verifica che tutte le informazioni corrispondano al tuo profilo, o prova con un'altra carta.",
+	"ingenico_gateway-response-430360": "La transazione non può essere autorizzata. Prova con un'altra carta o un altro dei nostri metodi di pagamento.",
+	"ingenico_gateway-response-430285": "La transazione non può essere autorizzata. Prova con un'altra carta o un altro dei nostri metodi di pagamento.",
+	"ingenico_gateway-response-21000150": "Numero del conto bancario non valido.",
+	"ingenico_gateway-response-21000155": "Codice bancario non valido.",
+	"ingenico_gateway-response-21000160": "Numero del conto corrente non valido.",
+	"ingenico_gateway-response-default": "Si è verificato un errore durante l'elaborazione della transazione.\nSi prega di riprovare più tardi."
+}

@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Borichèt",
+			"Dragonòt"
+		]
+	},
+	"ingenico_gateway-desc": "Elaborassion dij pagament Ingenico",
+	"ingenico_gateway-response-9130": "Pais nen bon.",
+	"ingenico_gateway-response-9140": "Moneda pa bon-a.",
+	"ingenico_gateway-response-9150": "Lenga nen bon-a",
+	"ingenico_gateway-response-400530": "Métod ëd pagament pa bon.",
+	"ingenico_gateway-response-430306": "Soa carta ëd crédit a l'é scadùa. Për piasì, ch'a preuva na carta diferenta o un dij nòstri àutri métod ëd pagament.",
+	"ingenico_gateway-response-430330": "Nùmer ëd carta pa bon.",
+	"ingenico_gateway-response-430421": "Toa carta ëd crédit a peul pa esse validà. Për piasì verìfica che tute j'anformassion a corispondo al profil ëd toa carta ëd crédit, o preuva na carta diferenta.",
+	"ingenico_gateway-response-430360": "La transassion a peul pa esse autorisà. Për piasì, ch'a preuva na carta diferenta o un dij nòstri àutri métod ëd pagament.",
+	"ingenico_gateway-response-430285": "La transassion a l'é nen ëstàita autorisà. Për piasì, ch'a preuva na carta diferenta o un dij nòstri àutri métod ëd pagament.",
+	"ingenico_gateway-response-21000150": "Nùmer dël cont bancari pa bon.",
+	"ingenico_gateway-response-21000155": "Còdes bancari pa bon.",
+	"ingenico_gateway-response-21000160": "Nùmer dël cont ëd gir pa bon.",
+	"ingenico_gateway-response-default": "A l'é staje n'eror an tratand soa transassion.\nPër piasì, ch'a preuva torna pì tard."
+}

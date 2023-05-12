@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Als-Chlämens"
+		]
+	},
+	"ingenico_gateway-desc": "Ermöglicht d Zaaligsabwicklig dur Ingenico",
+	"ingenico_gateway-response-9130": "Nit giltige Staat.",
+	"ingenico_gateway-response-9140": "Wäärig nit gültig.",
+	"ingenico_gateway-response-9150": "Sprooch nit gültig.",
+	"ingenico_gateway-response-400530": "Zaaligsmethod isch nit gültig.",
+	"ingenico_gateway-response-430306": "Dyni Kreditcharte isch abgloffe. Bitte probier e andri Charte oder e andri Zaaligsmethod uss.",
+	"ingenico_gateway-response-430330": "D Kreditchartenummer isch nit gültig.",
+	"ingenico_gateway-response-430421": "Dyni Kreditcharte het nit chönne validiert werde. Due bitte überpriefe, ob alli Informatione mit dyner Charte überyystimme, oder probier's mit ere andre Charte.",
+	"ingenico_gateway-response-430360": "D Transaktion het nit chönne bstätigt werde. Nimm bitte e andri Charte oder probier e andri Zaaligsmethod uss.",
+	"ingenico_gateway-response-430285": "D Transaktion het nit chönne bstätigt werde. Nimm bitte e andri Charte oder probier e andri Zaaligsmethod uss.",
+	"ingenico_gateway-response-21000150": "D Kontonummer isch nit gültig.",
+	"ingenico_gateway-response-21000155": "D Bankleitzaal isch nit gültig.",
+	"ingenico_gateway-response-21000160": "D Girokontonummer isch nit gültig.",
+	"ingenico_gateway-response-default": "S het e Verarbeitigsfähler gee bi dr Uusfierig vu Dyyre Transaktion.\nBitte versuech s speter nonemol."
+}

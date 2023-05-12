@@ -60,7 +60,7 @@ window.validateAmount = function () {
 		if ( $( '#step1wrapper' ).length ) {
 			$( '#step1wrapper' ).slideDown();
 			$( '#paymentContinue' ).show();
-			// If we're on a GlobalCollect iframe form, slide up the 3rd step to force the user to
+			// If we're on an Ingenico iframe form, slide up the 3rd step to force the user to
 			// generate a new iframe after they change the form.
 			if ( $( '#payment iframe' ).length ) {
 				$( '#step3wrapper' ).slideUp();

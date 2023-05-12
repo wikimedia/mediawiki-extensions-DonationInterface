@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"SPQRobin",
+			"Siebrand"
+		]
+	},
+	"ingenico_gateway-desc": "Betalingsverwerking via Ingenico",
+	"ingenico_gateway-response-9130": "Ongeldig land.",
+	"ingenico_gateway-response-9140": "Ongeldige valuta.",
+	"ingenico_gateway-response-9150": "Ongeldige taal.",
+	"ingenico_gateway-response-400530": "Ongeldige betalingsmethode.",
+	"ingenico_gateway-response-430306": "Uw creditcard is verlopen. Probeer een andere kaart of een van onze andere betalingsmethoden.",
+	"ingenico_gateway-response-430330": "Ongeldig kaartnummer.",
+	"ingenico_gateway-response-430421": "Uw creditcard kan niet worden gevalideerd. Controleer of alle informatie overeenkomt met uw creditcardgegevens, of gebruik een andere kaart.",
+	"ingenico_gateway-response-430360": "De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.",
+	"ingenico_gateway-response-430285": "De transactie kan niet worden geautoriseerd. Gebruik een andere kaart of een van onze andere betalingsmethoden.",
+	"ingenico_gateway-response-21000150": "Ongeldig rekeningnummer.",
+	"ingenico_gateway-response-21000155": "Ongeldige bankcode.",
+	"ingenico_gateway-response-21000160": "Ongeldig girorekeningnummer.",
+	"ingenico_gateway-response-default": "Er is een fout opgetreden tijdens het verwerken van uw transactie.\nProbeer het later nog een keer."
+}

@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Shirayuki"
+		]
+	},
+	"ingenico_gateway-response-430360": "The transaction could not be authorised. Please try a different card or one of our other payment methods.",
+	"ingenico_gateway-response-430285": "The transaction could not be authorised. Please try a different card or one of our other payment methods."
+}

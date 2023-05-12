@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Alluk.",
+			"Nedergard",
+			"VezonThunder"
+		]
+	},
+	"ingenico_gateway-desc": "Ingenico-maksujen käsittely",
+	"ingenico_gateway-response-9130": "Virheellinen maa.",
+	"ingenico_gateway-response-9140": "Virheellinen valuutta.",
+	"ingenico_gateway-response-9150": "Virheellinen kieli.",
+	"ingenico_gateway-response-400530": "Virheellinen maksutapa.",
+	"ingenico_gateway-response-430306": "Luottokorttisi on erääntynyt. Kokeile toista korttia tai jotakin muista maksutavoista.",
+	"ingenico_gateway-response-430330": "Virheellinen kortin numero.",
+	"ingenico_gateway-response-430421": "Luottokorttiasi ei voitu todentaa. Varmenna, että kaikki tiedot täsmäävät luottokorttisi tietoihin tai yritä toista korttia.",
+	"ingenico_gateway-response-430360": "Maksua ei voitu valtuuttaa. Kokeile toista korttia tai jotakin muista maksutavoista.",
+	"ingenico_gateway-response-430285": "Maksua ei voitu valtuuttaa. Kokeile toista korttia tai jotakin muista maksutavoista.",
+	"ingenico_gateway-response-21000150": "Virheellinen pankkitilinumero.",
+	"ingenico_gateway-response-21000155": "Virheellinen pankin koodi.",
+	"ingenico_gateway-response-default": "Maksusi käsittelyssä tapahtui virhe.\nYritä myöhemmin uudelleen."
+}

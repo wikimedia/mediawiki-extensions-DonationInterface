@@ -6,7 +6,7 @@
 		]
 	},
 	"apihelp-donate-description": "Был API һеҙгә  төрлө түләү системаларын ҡулланып, Викимедиа фондына хәйриә ярҙамы ебәреү мөмкинлеге бирә.",
-	"apihelp-donate-param-gateway": "Ниндәй түләү шлюзын ҡулланырға: adyen, globalcollect һ.б.",
+	"apihelp-donate-param-gateway": "Ниндәй түләү шлюзын ҡулланырға: adyen, ingenico һ.б.",
 	"apihelp-donate-param-amount": "Хәйриә ярҙамы суммаһы.",
 	"apihelp-donate-param-currency": "Валюта коды.",
 	"apihelp-donate-param-first_name": "Исем.",

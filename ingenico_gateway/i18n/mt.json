@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrisportelli"
+		]
+	},
+	"ingenico_gateway-response-9130": "Pajjiż invalidu.",
+	"ingenico_gateway-response-9140": "Valuta invalida.",
+	"ingenico_gateway-response-9150": "Lingwa invalida.",
+	"ingenico_gateway-response-400530": "Metodu ta' ħlas invalidu.",
+	"ingenico_gateway-response-430330": "Numru tal-karta invalidu."
+}

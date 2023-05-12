@@ -6,7 +6,7 @@
 	},
 	"apihelp-donate-description": "Esta API te permite unviar una donación a la Fundación Wikimedia, usando dellos procesadores de pagu.",
 	"apihelp-donate-summary": "Esta API te permite unviar una donación a la Fundación Wikimedia, usando dellos procesadores de pagu.",
-	"apihelp-donate-param-gateway": "Qué pasera de pagu utilizar: adyen, globalcollect, etc.",
+	"apihelp-donate-param-gateway": "Qué pasera de pagu utilizar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "La cantidá donada.",
 	"apihelp-donate-param-contact_id": "ID del donante'n CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Hash del donante'n CiviCRM, usao pa comprobación. Obligatorio cuando se da contact_id.",
@@ -49,5 +49,5 @@
 	"apihelp-logPaymentsFormError-param-stack": "Traza de la pila del error, si ta disponible",
 	"apihelp-di_recurring_convert-summary": "Esta API úsase cuando un donante aceuta amestar una donación mensual después de completar correutamente una donación única.",
 	"apihelp-di_recurring_convert-param-amount": "L'importe de la donación mensual.",
-	"apihelp-di_recurring_convert-param-gateway": "Qué pasera de pagu utilizar: adyen, globalcollect, etc."
+	"apihelp-di_recurring_convert-param-gateway": "Qué pasera de pagu utilizar: adyen, ingenico, etc."
 }

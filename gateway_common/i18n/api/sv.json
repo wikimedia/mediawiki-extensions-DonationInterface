@@ -6,7 +6,7 @@
 	},
 	"apihelp-donate-description": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",
 	"apihelp-donate-summary": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",
-	"apihelp-donate-param-gateway": "Vilken betalningsport att använda - adyen, globalcollect, etc.",
+	"apihelp-donate-param-gateway": "Vilken betalningsport att använda - adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "Det donerade beloppet.",
 	"apihelp-donate-param-contact_id": "Givarens ID i CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Hash för givaren i CiviCRM, används för verifiering. Nödvändigt när contact_id är angivet.",

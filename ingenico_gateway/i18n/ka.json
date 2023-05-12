@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"David1010"
+		]
+	},
+	"ingenico_gateway-response-9130": "არასწორი ქვეყანა.",
+	"ingenico_gateway-response-9140": "არასწორი ვალუტა.",
+	"ingenico_gateway-response-9150": "არასწორი ენა.",
+	"ingenico_gateway-response-400530": "არასწორი გადახდის მეთოდი.",
+	"ingenico_gateway-response-430330": "არასწორი ბარათის ნომერი.",
+	"ingenico_gateway-response-21000150": "არასწორი საბანკო ანგარიშის ნომერი.",
+	"ingenico_gateway-response-21000155": "არასწორი საბანკო კოდი."
+}
