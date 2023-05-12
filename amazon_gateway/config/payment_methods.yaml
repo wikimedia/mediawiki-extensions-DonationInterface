@@ -1,2 +1,3 @@
 amazon:
+    is_default: true
     recurring: false # But not much work left to finish implementation, see T107391

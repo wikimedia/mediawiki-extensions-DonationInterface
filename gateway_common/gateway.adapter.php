@@ -1290,6 +1290,20 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->payment_methods;
 	}
 
+	/**
+	 * Get the default payment method from payment_methods.yaml
+	 *
+	 * @return string
+	 */
+	public function getDefaultPaymentMethod() {
+		foreach ( $this->payment_methods as $payment_method => $object ) {
+			if ( isset( $object['is_default'] ) ) {
+				return $payment_method;
+			}
+		}
+		return '';
+	}
+
 	public function getPaymentSubmethod() {
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
@@ -2711,6 +2725,14 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->fallbackToDefaultCurrency();
 			// FIXME: This is part of the same wart.
 			$this->unstaged_data = $this->dataObj->getData();
+		}
+
+		// during validate, if payment method not defined, set to the default one
+		if ( $this->getData_Unstaged_Escaped( 'payment_method' ) == null ) {
+			$this->unstaged_data['payment_method'] = $this->getDefaultPaymentMethod();
+			if ( $this->unstaged_data['utm_source'] == '..' ) {
+				$this->unstaged_data['utm_source'] .= $this->unstaged_data['payment_method'];
+			}
 		}
 
 		return $this->validatedOK();
