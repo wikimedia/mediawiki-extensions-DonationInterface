@@ -1,4 +1,5 @@
 paypal:
+    is_default: true
     recurring: true
     countries:
         - AD

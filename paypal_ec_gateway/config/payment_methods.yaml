@@ -1,2 +1,3 @@
 paypal:
+    is_default: true
     recurring: true
