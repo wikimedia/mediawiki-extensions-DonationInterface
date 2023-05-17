@@ -493,6 +493,10 @@
 				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
 				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
 			};
+		} else if ( config.locale === 'nl-NL' ) {
+			config.translations[ config.locale ] = {
+				'idealIssuer.selectField.placeholder': mw.msg( 'donate_interface-rtbt-issuer_id' )
+			};
 		} else {
 			config.translations[ config.locale ] = {};
 		}
