@@ -7,12 +7,24 @@
 ( function ( $, mw ) {
 	var di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
 
+	// Common helper functions
+	function disablePaymentSubmitButton() {
+		$( '#paymentSubmitBtn' ).prop( 'disabled', true );
+		$( '#paymentSubmitBtn' ).removeClass( 'enabled' ).addClass( 'disabled' );
+	}
+
+	function enablePaymentSubmitButton() {
+		$( '#paymentSubmitBtn' ).prop( 'disabled', false );
+		$( '#paymentSubmitBtn' ).removeClass( 'disabled' ).addClass( 'enabled' );
+	}
+
 	/**
 	 * Disable all interaction with the form, including buttons.
 	 * Usually done by drawing a semi-opaque overlay.
 	 */
 	function disableForm() {
 		$( '#overlay' ).show();
+		disablePaymentSubmitButton();
 	}
 
 	/**
@@ -30,6 +42,7 @@
 	 */
 	function enableForm() {
 		$( '#overlay' ).hide();
+		enablePaymentSubmitButton();
 	}
 
 	/**

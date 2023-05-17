@@ -1,5 +1,6 @@
 cc:
-    recurring: true
+    is_default: true
+    recurring: false
     validation:
         country: true
         name: true

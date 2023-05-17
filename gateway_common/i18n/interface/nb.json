@@ -170,7 +170,7 @@
 	"donate_interface-donor-fiscal_number-explain-in": "Reserve Bank of India <b>ber om</b> at vi samler inn din PAN, men vi lagrer ikke denne informasjonen. <b>Angi ditt PAN her (valgfritt).</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Betalingsbehandleren vår <b>bes</b> om å samle inn PAN av Reserve Bank of India. <b>Oppgi valgfritt din PAN her.</b>",
 	"donate_interface-donor-phone": "Telefonnummer",
-	"donate_interface-donor-phone-explain-in": "Dette er valgfritt, og vi lagrer det ikke. Hvis feltet er tomt vil betalingsleverandøren vår generere et midlertidig, tilfeldig generert tall i neste skjermbilde.",
+	"donate_interface-donor-phone-explain-in": "Dette er valgfritt, og vi lagrer det ikke. Hvis feltet er tomt kan betalingsleverandøren vår generere et midlertidig, tilfeldig generert tall i neste skjermbilde.",
 	"donate_interface-donor-opt_in_yes": "Ja! Send meg epostoppdateringer og informasjon av og til om hvordan jeg kan støtte Wikipedia i fremtiden.*",
 	"donate_interface-donor-opt_in_no": "Nei takk, jeg ønsker ikke å motta epostoppdateringer selv om det bare er snakk om noen få eposter årlig.",
 	"donate_interface-donor-opt_in_explain": "*Informasjonen din behandles i samsvar med <a href=\"$1\">personvernspolitikken vår for donorer</a>. Hver e-post du mottar vil inkludere avmeldingslenker.",

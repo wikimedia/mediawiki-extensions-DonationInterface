@@ -434,7 +434,7 @@ ul#moreinfolinks {
 }
 
 @media screen and ( max-device-width: 981px ) {
-	#card-container {
+	#component-container {
 		margin-top: 40px;
 	}
 

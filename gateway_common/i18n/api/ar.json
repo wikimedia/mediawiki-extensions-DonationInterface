@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"20عبد العزيز",
+			"Alshamiri1",
 			"Meno25",
 			"ديفيد"
 		]
@@ -15,6 +16,8 @@
 	"apihelp-donate-param-currency": "رمز العملة",
 	"apihelp-donate-param-first_name": "الاسم الأول",
 	"apihelp-donate-param-last_name": "الاسم الأخير",
+	"apihelp-donate-param-first_name_phonetic": "نسخة صوتية من الاسم الأول.",
+	"apihelp-donate-param-last_name_phonetic": "نسخة صوتية من الاسم الأخير.",
 	"apihelp-donate-param-street_address": "السطر الأول من عنوان الشارع.",
 	"apihelp-donate-param-supplemental_address_1": "السطر الثاني من عنوان الشارع.",
 	"apihelp-donate-param-city": "المدينة.",
@@ -52,10 +55,11 @@
 	"apihelp-logPaymentsFormError-param-userAgent": "سلسلة وكيل مستخدم المتصفح",
 	"apihelp-logPaymentsFormError-param-stack": "خطأ تتبع مكدس، عندما يكون متاحا",
 	"apihelp-di_donate_adyen-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Adyen",
+	"apihelp-di_donate_dlocal-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Dlocal",
 	"apihelp-di_donate_braintree-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Braintree",
 	"apihelp-di_recurring_convert-summary": "يتم استخدام API هذه عندما يوافق المتبرع على إضافة تبرع شهري بعد إكمال تبرع ناجح لمرة واحدة.",
 	"apihelp-di_recurring_convert-param-amount": "مبلغ التبرع الشهري.",
-	"apihelp-di_recurring_convert-param-gateway": "أية بوابة دفع يجب استخدامها - adyen، ingenico، إلخ.",
+	"apihelp-di_recurring_convert-param-gateway": "بوابة الدفع التي يجب استخدامها - Adyen ، ingenico ، إلخ.",
 	"apihelp-employerSearch-description": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-summary": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-param-employer": "أي صاحب عمل يبحث عنه ، على سبيل المثال ، الصليب الأحمر ، الصندوق العالمي للطبيعة ، جيش الخلاص ، إلخ.",

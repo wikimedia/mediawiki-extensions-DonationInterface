@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajiniyaz Nurniyazov"
+		]
+	},
+	"donate_interface-other-amount": "Basqa muǵdar",
+	"donate_interface-amount-legend": "Járdem muǵdarı",
+	"donate_interface-error-msg-amount": "Márhámat, járdem muǵdarın kórsetińiz",
+	"donate_interface-other": "Basqa",
+	"donate_interface-monthly-short": "Ay sayın",
+	"donate_interface-onetime-short": "Bir márte"
+}
