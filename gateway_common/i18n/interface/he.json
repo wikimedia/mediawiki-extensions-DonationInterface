@@ -386,7 +386,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "כל מספר Reference תקף רק פעם אחת. אין לעשות שימוש חוזר במספר reference בתרומות עתידיות.",
 	"donate_interface-obt-information": "מידע על העברה בנקאית מקוונת",
 	"donate_interface-online_bank_transfer_message": "בנקאות בטלפון ובאינטרנט – BPAY®",
-	"donate_interface-rtbt-issuer_id": "בחירת בנק",
+	"donate_interface-rtbt-issuer_id": "נא לבחור את הבנק שלך",
 	"donate_interface-rtbt-issuer_id-longlist": "בנקים אחרים",
 	"donate_interface-sofortbanking": "Sofortbanking היא העברה בנקאית ישירה בזמן־אמת דרך DIRECTebanking.com, המאפשרת לך להפעיל העברה בנקאית באופן ישיר בזמן נתינת תרומה מקוונת בעזרת המידע הבנקאי שלך. אם לחשבון הבנק שלך אין יכולות לבצע פעולות מקוונת, אולי עדיף לך להשתמש באפשרות \"תרומה בהעברה בנקאית ישירה\" בדף התרמה הראשי.",
 	"donate_interface-dd-account_name": "שם החשבון",
