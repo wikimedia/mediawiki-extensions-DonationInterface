@@ -53,7 +53,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		] );
 	}
 
-	public function formCases() {
+	public static function formCases() {
 		return [
 			[ 'empty', '/^$/' ],
 			[ 'foo', '/FOO/' ],

@@ -35,7 +35,7 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals( $expresult, $result, "$number failed expected luhn check ($helpful_message)" );
 	}
 
-	public function luhnDataProvider() {
+	public static function luhnDataProvider() {
 		return [
 			// Mastercard
 			[ '5333331605740535', true, 'Mastercard' ],
@@ -109,7 +109,7 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 		$this->assertFalse( DataValidator::getZeroPaddedValue( '123456', 5 ), "getZeroPaddedValue does not return false when the exact desired value is impossible" );
 	}
 
-	public function fiscalNumberProvider() {
+	public static function fiscalNumberProvider() {
 		return [
 			[ 'BR', '', false ], // empty not OK for BR
 			[ 'US', '', true ], // empty OK for US
@@ -157,7 +157,7 @@ class DataValidatorTest extends PHPUnit\Framework\TestCase {
 		);
 	}
 
-	public function employerProvider() {
+	public static function employerProvider() {
 		return [
 			[ '4444 3333 2222 1111', true ],
 			[ '3 mobile', false ],

@@ -31,7 +31,7 @@ class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals( $expected, $actual, $message );
 	}
 
-	public function getTestData() {
+	public static function getTestData() {
 		return [
 			// 1st test case
 			[

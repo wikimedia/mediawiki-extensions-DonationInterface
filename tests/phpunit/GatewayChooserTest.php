@@ -163,7 +163,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
 	}
 
-	public function expectedInvalidGatewayDataProvider() {
+	public static function expectedInvalidGatewayDataProvider() {
 		// redirect to donate wiki if no payment_method or currency provided
 		return [
 			[ [ 'country' => 'US', 'currency' => 'USD' ], true ],
@@ -173,7 +173,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		];
 	}
 
-	public function expectedGatewayDataProvider() {
+	public static function expectedGatewayDataProvider() {
 		// Gateways:
 		// AstroPayGateway
 		// AmazonGateway
@@ -621,7 +621,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$this->assertEquals( $expected, $query['recurring'] );
 	}
 
-	public function recurringValueProvider() {
+	public static function recurringValueProvider() {
 		return [
 			[ 'false', 0 ],
 			[ '', 0 ],

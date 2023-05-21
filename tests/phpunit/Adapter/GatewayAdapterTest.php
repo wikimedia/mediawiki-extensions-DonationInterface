@@ -75,7 +75,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertArrayEquals( $fields, $requiredFields );
 	}
 
-	public function getRequiredFields() {
+	public static function getRequiredFields() {
 		return [
 			[ 'AU', [
 				'country',

@@ -367,7 +367,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * Supported languages for Belgium
 	 * @return array
 	 */
-	public function belgiumLanguageProvider() {
+	public static function belgiumLanguageProvider() {
 		return [
 			[ 'nl' ],
 			[ 'de' ],
@@ -379,7 +379,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * Supported languages for Canada
 	 * @return array
 	 */
-	public function canadaLanguageProvider() {
+	public static function canadaLanguageProvider() {
 		return [
 			[ 'en' ],
 			[ 'fr' ],
@@ -391,7 +391,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * on pain of $1000+ fines by Mastercard
 	 * @return array
 	 */
-	public function mcNoRetryCodeProvider() {
+	public static function mcNoRetryCodeProvider() {
 		return [
 			[ '430260' ],
 			[ '430306' ],
@@ -401,7 +401,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		];
 	}
 
-	public function benignNoRetryCodeProvider() {
+	public static function benignNoRetryCodeProvider() {
 		return [
 			[ '430285' ],
 		];
