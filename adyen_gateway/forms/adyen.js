@@ -645,9 +645,9 @@
 			// For everything except Apple and google
 			// Pay, show our standard 'Donate' button
 			$( '#paymentSubmit' ).show();
-			$( '#paymentSubmitBtn' ).on( 'click', function ( evt ) {
+			$( '#paymentSubmitBtn' ).click( mw.util.debounce( function ( evt ) {
 				component.submit( evt );
-			} );
+			}, 100 ) );
 		}
 	}
 

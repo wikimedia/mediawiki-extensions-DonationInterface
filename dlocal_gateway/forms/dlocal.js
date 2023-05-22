@@ -69,7 +69,7 @@
 		showPaymentSubmit();
 		// Set the click handler
 		// Using debounce to prevent the programmatic trigger of multiple instances of the submit function
-		$( '#paymentSubmitBtn' ).click( mw.util.debounce( 100, handleCardSubmitClick ) );
+		$( '#paymentSubmitBtn' ).click( mw.util.debounce( handleCardSubmitClick, 100 ) );
 
 		// Drop in the dlocal card components placeholder
 		insertCardComponentContainers();
@@ -319,7 +319,7 @@
 			if ( isUpi && !isRecurring ) {
 				addUpiDirectFlowInputField();
 				// Set the click handler
-				$( '#paymentSubmitBtn' ).click( mw.util.debounce( 100, handleUpiDirectSubmitClick ) );
+				$( '#paymentSubmitBtn' ).click( mw.util.debounce( handleUpiDirectSubmitClick, 100 ) );
 			}
 		} else {
 			// Redirect flow
