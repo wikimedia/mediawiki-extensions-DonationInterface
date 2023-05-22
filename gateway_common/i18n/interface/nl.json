@@ -24,7 +24,8 @@
 			"Tjcool007",
 			"User555",
 			"HNordeen (WMF)",
-			"Encycloon"
+			"Encycloon",
+			"HanV"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -43,7 +44,7 @@
 	"donate_interface-donation-description": "Gift aan de Wikimedia Foundation",
 	"donate_interface-monthly-donation-description": "Maandelijkse donatie aan de Wikimedia Foundation",
 	"donate_interface-amount-error": "Selecteer alstublieft een te doneren bedrag",
-	"donate_interface-smallamount-error": "Selecteer alstublieft een bedrag (minimaal $1)",
+	"donate_interface-smallamount-error": "Selecteer alsjeblieft een bedrag (minimaal $1)",
 	"donate_interface-bigamount-error": "We kunnen geen giften van USD $4 of groter ($1 $2) accepteren via onze website. Neem contact op met onze medewerkers voor grote giften via $3.",
 	"donate_interface-processing-error": "Er is een fout opgetreden bij het verwerken van uw verzoek.\nNeem contact op met Donor Services via <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-fallback-currency-notice": "Uw valuta wordt niet ondersteund. Als u besluit om door te gaan, vindt de verwerking plaats met behulp van $1.",
@@ -378,7 +379,7 @@
 	"donate_interface-email-optin-fail": "Er trad een fout op bij het verwerken van uw aanvraag. Neem contact op met <a href=\"mailto:$1\">$1</a> of  <a href=\"$2\">klik hier om het opnieuw te proberen</a>.",
 	"donate_interface-faqs": "Veelgestelde vragen",
 	"donate_interface-tax-info": "Fiscale aftrekbaarheid",
-	"donate_interface-informationsharing": "Je gegevens worden aan niemand verkocht of verhandeld. Door te doneren ga je akkoord met het delen van je persoonlijke gegevens met de Wikimedia Foundation, de non-profitorganisatie die verantwoordelijk is voor het hosten van Wikipedia en andere Wikimediaprojecten en haar dienstverleners op grond van ons <a href=\"$1\">donateursbeleid</a>. De Wikimedia Foundation en haar dienstverleners zijn in de Verenigde Staten en andere landen gevestigd alwaar de privacywetgeving mogelijk anders is dan die in jouw land. Ga voor meer informatie naar ons <a href=\"$1\">donateursbeleid</a>.",
+	"donate_interface-informationsharing": "Je gegevens worden aan niemand verkocht of verhandeld. Door te doneren ga je akkoord met het delen van je persoonlijke gegevens met de Wikimedia Foundation, de non-profitorganisatie die verantwoordelijk is voor het hosten van Wikipedia en andere Wikimediaprojecten, en haar dienstverleners op grond van ons <a href=\"$1\">privacybeleid voor donateurs</a>. De Wikimedia Foundation en haar dienstverleners zijn in de Verenigde Staten en in andere landen gevestigd alwaar de privacywetgeving mogelijk anders is dan die in jouw land. Ga voor meer informatie naar ons <a href=\"$1\">privacybeleid voor donateurs</a>.",
 	"donate_interface-currency-change": "Wijzigen?",
 	"donate_interface-bank_transfer_message": "Merk op dat op uw formulier \"Global Collect\" wordt vermeld als ontvanger van uw gift. Global Collect mag namens de Wikimedia Foundation betalingen aanvaarden en verwerken. Vergeet niet om het hier vermelde referentienummer op uw overschrijving te vermelden. Mocht u verder nog vragen of bedenkingen hebben, neem dan gerust via de mail $1 contact op.",
 	"donate_interface-globalcollect-proxy": "Op uw afschrift komt te staan dat \"Global Collect\" de ontvanger is van deze gift. Global Collect is gemachtigd om namens de Wikimedia Foundation betalingen te ontvangen en te verwerken.",
@@ -393,7 +394,7 @@
 	"donate_interface-monthlybox-yes": "Ja, ik wil deze overschrijving maandelijks uitvoeren.",
 	"donate_interface-monthlybox-no": "Nee, ik wil een eenmalige donatie maken",
 	"donate_interface-monthlybox-bottom": "Uw donatie wordt veilig verwerkt.",
-	"donate_interface-monthly-cancel": "Als je een periodieke donateur bent, schrijft de Wikimedia Foundation elke maand op dezelfde dag waarop de eerste donatie werd verricht, een bedrag af, totdat je aangeeft dat je de donatie wilt stopzetten. Donaties die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in de korte maanden op de laatste dag van de maand afgeschreven, of in ieder geval zo dicht mogelijk bij de originele datum. Voor vragen kun je terecht bij $1.",
+	"donate_interface-monthly-cancel": "Als je een periodieke donateur bent, schrijft de Wikimedia Foundation elke maand op dezelfde dag waarop de eerste donatie werd verricht, een bedrag af totdat je aangeeft dat je de donatie wilt stopzetten. Donaties die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in de korte maanden op de laatste dag van de maand afgeschreven, of in ieder geval zo dicht mogelijk bij de originele datum. Voor vragen kun je terecht bij $1.",
 	"donate_interface-onetime": "Maak een eenmalige donatie",
 	"donate_interface-monthly-short": "Maandelijks",
 	"donate_interface-onetime-short": "Eenmalig",
