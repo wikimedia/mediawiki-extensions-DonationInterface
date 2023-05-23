@@ -347,7 +347,7 @@
 	"donate_interface-obt-customer_payment_reference": "شمارهٔ مرجع",
 	"donate_interface-obt-information": "اطلاعات انتقال برخط بانکی",
 	"donate_interface-online_bank_transfer_message": "تلفن و بانکداری اینترنتی--BPAY ®",
-	"donate_interface-rtbt-issuer_id": "بانک را انتخاب کنید",
+	"donate_interface-rtbt-issuer_id": "بانک خود را انتخاب کنید",
 	"donate_interface-rtbt-issuer_id-longlist": "سایر بانک‌ها",
 	"donate_interface-sofortbanking": "Sofortbanking یک بانک برخط است که از طریق DIRECTebanking.com به شما اجازهٔ انتقال پول کمک به ویکی‌پدیا، با مشخصات بانکی‌تان را می دهد.\nاگر بانک شما امکان پرداخت اینترنتی را نمی‌دهد می‌توانید از امکان انتقال دستی پول که در صفحهٔ کمک هزینه قرار دارد استفاده کنید.",
 	"donate_interface-dd-account_name": "نام حساب",
