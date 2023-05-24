@@ -399,7 +399,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "Each Reference # is only valid once. Please do not reuse this reference number for future donations.",
 	"donate_interface-obt-information": "Online bank transfer information",
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Choose a Bank",
+	"donate_interface-rtbt-issuer_id": "Select your Bank",
 	"donate_interface-rtbt-issuer_id-longlist": "Other banks",
 	"donate_interface-sofortbanking": "Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the \"Donate by manual bank transfer\" option on the main donation page.",
 	"donate_interface-dd-account_name": "Account name",

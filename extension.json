@@ -287,7 +287,8 @@
 				"donate_interface-error-msg-card-number-do-not-match-card-brand",
 				"donate_interface-error-msg-unsupported-card-entered",
 				"donate_interface-error-msg-card-too-old",
-				"donate_interface-error-msg-date-too-far-in-the-future"
+				"donate_interface-error-msg-date-too-far-in-the-future",
+				"donate_interface-rtbt-issuer_id"
 			]
 		},
 		"ext.donationInterface.jaVariant01A": {

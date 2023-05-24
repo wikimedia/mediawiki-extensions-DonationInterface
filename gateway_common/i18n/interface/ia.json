@@ -377,7 +377,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "Cata numero de referentia es valide solmente un vice. Per favor, non re-usa iste numero de referentia pro futur donationes.",
 	"donate_interface-obt-information": "Information de transferimento bancari in linea",
 	"donate_interface-online_bank_transfer_message": "Servicios bancari per telephono e internet - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Banca",
+	"donate_interface-rtbt-issuer_id": "Selige tu banca",
 	"donate_interface-rtbt-issuer_id-longlist": "Altere bancas",
 	"donate_interface-sofortbanking": "Sofortbanking es un transferentia bancari directe e in tempore real via DIRECTebanking.com que permitte initiar directemente un pagamento bancari durante vostre donation in linea con vostre information bancari. Si vostre conto bancari non ha le possibilitate de uso in linea, vos pote usar le option \"Donar per transferentia bancari manual\" in le pagina principal de donationes.",
 	"donate_interface-dd-account_name": "Nomine de conto",

@@ -393,7 +393,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "Jede Referenznummer ist nur einmal gültig. Bitte verwenden Sie diese Referenznummer nicht für zukünftige Spenden.",
 	"donate_interface-obt-information": "Onlineüberweisungsinformationen",
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Bank",
+	"donate_interface-rtbt-issuer_id": "Wählen Sie Ihre Bank aus",
 	"donate_interface-rtbt-issuer_id-longlist": "Andere Kreditinstitute",
 	"donate_interface-sofortbanking": "Bei Sofortbanking handelt es sich um direkte Echtzeitüberweisungen via DIRECTBanking.com. Es erlaubt Ihnen, direkt während des Online-Spendevorgangs eine Überweisung mit den Informationen Ihres Online-Bankings zu veranlassen. Sofern Sie für Ihr Bankkonto das Online-Banking nicht haben freischalten lassen, können Sie alternativ auch die Option „Spenden per manueller Überweisung“ auf der Startseite zum Spenden auswählen.",
 	"donate_interface-dd-account_name": "Kontoinhaber",

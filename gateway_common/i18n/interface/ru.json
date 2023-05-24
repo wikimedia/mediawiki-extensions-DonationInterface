@@ -373,7 +373,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "Каждый номер ссылки действителен только единожды. Пожалуйста, не используйте этот номер для дальнейших пожертвований.",
 	"donate_interface-obt-information": "Отметки банка (Online bank transfer information)",
 	"donate_interface-online_bank_transfer_message": "Telephone & Internet Banking - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Выберите банк",
+	"donate_interface-rtbt-issuer_id": "Выберите ваш банк",
 	"donate_interface-rtbt-issuer_id-longlist": "Другие банки",
 	"donate_interface-sofortbanking": "Sofortbanking — прямой банковский перевод в реальном времени через DIRECTebanking.com. Это позволяет вам напрямую инициировать банковский перевод онлайн, используя данные о банковском счёте. Если на для вашего счёта в банке не включена возможность управления через интернет, вы можете использовать опцию “Банковский перевод” на главной странице пожертвований.",
 	"donate_interface-dd-account_name": "Владелец счёта (Account Name)",

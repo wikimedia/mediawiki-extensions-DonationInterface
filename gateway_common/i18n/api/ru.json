@@ -7,7 +7,7 @@
 	},
 	"apihelp-donate-description": "Этот API позволяет Вам отправить пожертвование в фонд Викимедиа, используя различные платёжные системы.",
 	"apihelp-donate-summary": "Этот API позволяет Вам отправить пожертвование в фонд Викимедиа, используя различные платёжные системы.",
-	"apihelp-donate-param-gateway": "Какой платёжный шлюз использовать: adyen, ingenico и т. д.",
+	"apihelp-donate-param-gateway": "Какой платёжный шлюз использовать: adyen, ingenico и т. д.",
 	"apihelp-donate-param-amount": "Сумма пожертвования.",
 	"apihelp-donate-param-currency": "Код валюты.",
 	"apihelp-donate-param-first_name": "Имя.",

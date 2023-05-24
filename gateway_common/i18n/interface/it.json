@@ -371,7 +371,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "Ogni Riferimento # è valido solo una volta. Si prega di non utilizzare questo numero di riferimento per future donazioni.",
 	"donate_interface-obt-information": "Informazioni sulla transazione online",
 	"donate_interface-online_bank_transfer_message": "Telefono & Internet Banking - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Seleziona una banca",
+	"donate_interface-rtbt-issuer_id": "Seleziona la tua banca",
 	"donate_interface-rtbt-issuer_id-longlist": "Altre banche",
 	"donate_interface-sofortbanking": "Sofortbanking è un trasferimento bancario diretto ed in tempo reale tramite DIRECTebanking.com che ti permette di attivare direttamente un bonifico bancario durante la tua donazione online con i tuoi dati bancari. Se il tuo conto in banca non è abilitato con funzionalità online si consiglia di utilizzare l'opzione \"Donazioni tramite bonifico bancario manuale\" nella pagina principale delle donazioni.",
 	"donate_interface-dd-account_name": "Nome del titolare del conto",
