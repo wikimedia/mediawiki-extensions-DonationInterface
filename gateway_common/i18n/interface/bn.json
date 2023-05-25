@@ -307,7 +307,7 @@
 	"donate_interface-obt-customer_payment_reference": "সূত্র #",
 	"donate_interface-obt-information": "অনলাইন ব্যাংক স্থানান্তরের তথ্য",
 	"donate_interface-online_bank_transfer_message": "টেলিফোন ও ইন্টারনেট ব্যাংকিং - BPAY®",
-	"donate_interface-rtbt-issuer_id": "কোন ব্যাংক নির্বাচন করুন",
+	"donate_interface-rtbt-issuer_id": "আপনার ব্যাংক নির্বাচন করুন",
 	"donate_interface-rtbt-issuer_id-longlist": "অন্যান্য ব্যাংক",
 	"donate_interface-dd-account_name": "অ্যাকাউন্ট নাম",
 	"donate_interface-dd-account_number": "অ্যাকাউন্ট নম্বর",
