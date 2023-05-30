@@ -263,7 +263,7 @@
 	"donate_interface-error-msg-invalid-fiscal_number-pe": "يُرجَى تصحيح الأخطاء في DNI",
 	"donate_interface-error-msg-invalid-fiscal_number-uy": "يُرجَى تصحيح الأخطاء في CI",
 	"donate_interface-error-msg-issuer_id": "البنك",
-	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay غير مدعوم في هذا المتصفح. يرجى استخدام متصفح Safari والتأكد من تهيئة Apple Pay على جهازك ، أو جرب إحدى <a href=\"$1\">other ways to give</a> .",
+	"donate_interface-error-msg-apple_pay_unsupported": "Apple Pay غير مدعوم في هذا المتصفح. يرجى استخدام متصفح Safari والتأكد من تهيئة Apple Pay على جهازك ، أو جرب إحدى <a href=\"$1\">طرق أخرى للعطاء</a>.",
 	"donate_interface-error-msg-google_pay_unsupported": "Google Pay غير متوفر. يُرجى التأكد من تهيئة Google Pay ، أو تجربة إحدى <a href=\"$1\">other ways to give</a> .",
 	"donate_interface-error-msg-opt_in": "يُرجَى اختيار خيار بريد إلكتروني",
 	"donate_interface-donate-error-try-a-different-card": "رجاء [$1 قم بتجربة بطاقة أخرى] أو أحد [$2 طرقنا الخرى للعطاء] أو تواصل معنا عبر $3",
