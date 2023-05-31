@@ -6,7 +6,8 @@
 			"Jsoby",
 			"Moon0319",
 			"Pcoombe",
-			"Roy17"
+			"Roy17",
+			"捍粵者"
 		]
 	},
 	"donate_interface": "支持Wikimedia",
@@ -64,7 +65,7 @@
 	"donate_interface-donor-expiration": "到期日：",
 	"donate_interface-donor-security": "安全碼：",
 	"donate_interface-donor-submit": "捐錢",
-	"donate_interface-donor-currency-msg": "呢次嘅捐錢將會以$1進行",
+	"donate_interface-donor-currency-msg": "呢次將會以$1捐錢",
 	"donate_interface-card-name-amex": "美國運通",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "萬事達咭",
