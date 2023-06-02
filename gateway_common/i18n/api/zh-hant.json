@@ -44,7 +44,7 @@
 	"apihelp-donate-param-opt_in": "指示捐款者選用的募款電子郵件。",
 	"apihelp-donate-param-employer": "雇主名稱",
 	"apihelp-donate-param-employer_id": "雇主 ID",
-	"apihelp-donate-example-1": "做出捐款",
+	"apihelp-donate-example-1": "捐款",
 	"apihelp-logPaymentsFormError-description": "此 API 記錄客戶端捐款表單方面的錯誤。",
 	"apihelp-logPaymentsFormError-summary": "此 API 記錄客戶端捐款表單方面的錯誤。",
 	"apihelp-logPaymentsFormError-param-message": "錯誤訊息",
