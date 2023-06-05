@@ -7,6 +7,7 @@ $specialPageAliases['en'] = [
 	'GatewayChooser' => [ 'GatewayChooser', 'GatewayFormChooser' ],
 	'SystemStatus' => [ 'SystemStatus' ],
 	'EmailPreferences' => [ 'EmailPreferences' ],
+	'RecurUpgrade' => [ 'RecurUpgrade' ],
 	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],
 ];
 

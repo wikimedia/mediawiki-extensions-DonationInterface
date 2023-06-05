@@ -28,6 +28,7 @@
 		"GatewayChooser": "GatewayChooser",
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
+                "RecurUpgrade": "RecurUpgrade",
 		"FundraiserMaintenance": "FundraiserMaintenance",
 		"IngenicoGateway": "IngenicoGateway",
 		"IngenicoGatewayResult": "IngenicoGatewayResult",
@@ -189,6 +190,7 @@
 		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
 		"EmailPreferences": "special/EmailPreferences.php",
+                "RecurUpgrade": "special/RecurUpgrade.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
 		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
@@ -1390,6 +1392,14 @@
 		},
 		"DonationInterfaceCiviproxyURLBase": {
 			"value": "https://localhost"
+		},
+		"DonationInterfaceRecurringUpgradeOptions": {
+			"value": {
+				"USD": [ 1, 3, 5 ]
+			}
+		},
+		"DonationInterfaceEmailFormHelpEmail": {
+			"value": "donate@wikimedia.org"
 		}
 	},
 	"manifest_version": 2
