@@ -9,7 +9,7 @@
 			"NMW03"
 		]
 	},
-	"donate_interface": "Vikimedyayı dəstəkləyin",
+	"donate_interface": "Vikimedianı dəstəkləyin",
 	"donate_interface-desc": "Şəbəkə keçidi uzadılmalarını inteqrasiya edən hədiyyə səhifəsi",
 	"donate_interface-intro": "Xahiş edirik bir ödəmə şəkli, miqdarı və pul vahidi seçin.",
 	"donate_interface-amount": "Məbləğ",
@@ -135,6 +135,8 @@
 	"donate_interface-error-msg-postal_code": "Zəhmət olmasa poçt kodunuzu daxil edin",
 	"donate_interface-error-msg-country": "Zəhmət olmasa ölkənizi daxil edin",
 	"donate_interface-error-msg-card_num": "kredit kartının nömrəsi",
+	"donate_interface-problemsdonating": "İanə zamanı problem yaranır?",
+	"donate_interface-otherways-short": "İanə etməyin digər yolları",
 	"donate_interface-comment": "Şərh",
 	"donate_interface-first": "Birinci",
 	"donate_interface-middle": "Orta",
@@ -178,5 +180,9 @@
 	"donate_interface-description": "Təsvir",
 	"donate_interface-donation": "Bağışlama",
 	"donate_interface-select": "Həcm:",
-	"donate_interface-dd-iban": "IBAN"
+	"donate_interface-dd-iban": "IBAN",
+	"donate_interface-faqs": "Tez-tez soruşulan suallar",
+	"donate_interface-tax-info": "Vergi endirimi haqqında məlumat",
+	"donate_interface-informationsharing": "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə <a href=\"$1\">ianə siyasətinə</a> uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün <a href=\"$1\">ianə siyasətini</a> oxuyun.",
+	"donate_interface-monthly-cancel": "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianənin aylıq ildönümündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün $1 ünvanı ilə əlaqə saxlayın."
 }
