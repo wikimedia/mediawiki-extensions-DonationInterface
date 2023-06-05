@@ -355,7 +355,7 @@
 	"donate_interface-obt-customer_payment_reference_note": "각 참조 #은(는) 한 번만 유효합니다. 다음 기부에 이 참조 번호를 다시 사용하지 마세요.",
 	"donate_interface-obt-information": "온라인 은행 송금 정보",
 	"donate_interface-online_bank_transfer_message": "전화 및 인터넷 뱅킹 - BPAY®",
-	"donate_interface-rtbt-issuer_id": "은행 선택",
+	"donate_interface-rtbt-issuer_id": "내 은행 선택",
 	"donate_interface-rtbt-issuer_id-longlist": "다른 은행",
 	"donate_interface-sofortbanking": "Sofortbanking은 직접 온라인 뱅킹 정보로 온라인으로 기부하는 동안 DIRECTebanking.com을 통해 직접 은행 송금을 할 수 있는 실시간 은행 송금입니다. 은행 계좌가 온라인 기능을 활성화하지 않았다면 주 기부 문서에서 “수동 은행 송금으로 기부”를 사용할 수 있습니다.",
 	"donate_interface-dd-account_name": "계정 이름",

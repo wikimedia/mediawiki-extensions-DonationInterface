@@ -301,7 +301,7 @@
 	"donate_interface-obt-biller_id": "Maksja kood",
 	"donate_interface-obt-customer_payment_reference": "Viide #",
 	"donate_interface-obt-information": "Internetipanga ülekandeandmed",
-	"donate_interface-rtbt-issuer_id": "Vali pank",
+	"donate_interface-rtbt-issuer_id": "Vali oma pank",
 	"donate_interface-rtbt-issuer_id-longlist": "Teised pangad",
 	"donate_interface-dd-account_name": "Konto omaniku nimi",
 	"donate_interface-dd-account_number": "Pangakonto number",
