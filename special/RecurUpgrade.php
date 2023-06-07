@@ -1,4 +1,5 @@
 <?php
+use SmashPig\Core\DataStores\QueueWrapper;
 
 class RecurUpgrade extends UnlistedSpecialPage {
 
@@ -115,7 +116,28 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function executeRecurUpgrade( $params ) {
-		// TO-DO
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'RecurUpgrade', true, false, '', null );
+		$DonorData = WmfFramework::getSessionValue( self::DONOR_DATA );
+		if ( !isset( $DonorData['contribution_recur_id'] ) ) {
+			$this->renderError();
+			return;
+		}
+		$amount = $DonorData['amount'] + (int)$params['upgrade_amount'];
+		$message = [
+			'txn_type' => 'recurring_upgrade',
+			'contribution_recur_id' => $DonorData['contribution_recur_id'],
+			'amount' => $amount,
+			'currency' => $DonorData['currency']
+		];
+
+		try {
+			$logger->info( "Pushing upgraded amount to recurring queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring', $message );
+			$this->renderSuccess();
+		} catch ( Exception $e ) {
+			$this->renderError();
+		}
 	}
 
 	protected function renderError( $subpage = 'recurUpgrade' ) {
