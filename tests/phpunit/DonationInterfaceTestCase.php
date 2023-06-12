@@ -500,7 +500,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * @param array|null $session pre-existing session data.
 	 * @param bool $posted true to simulate a form post, false to simulate
 	 *  loading values from the querystring.
-	 * @throws MWException
 	 */
 	public function verifyFormOutput(
 		$special_page_class, $initial_vars, $perform_these_checks,

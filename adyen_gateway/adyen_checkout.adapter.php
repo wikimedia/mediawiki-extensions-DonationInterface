@@ -85,7 +85,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @param IPaymentProvider $provider
 	 * @param PaymentDetailResponse $authorizeResult
 	 * @return PaymentResult
-	 * @throws MWException
 	 */
 	protected function handleCreatedPayment(
 		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
