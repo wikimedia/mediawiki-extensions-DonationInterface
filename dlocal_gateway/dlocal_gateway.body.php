@@ -34,7 +34,8 @@ class DlocalGateway extends GatewayPage {
 					]
 				);
 			}
-		} elseif ( $this->adapter->getData_Unstaged_Escaped( 'recurring' ) && $this->adapter->getData_Unstaged_Escaped( 'payment_submethod' ) === 'upi' ) {
+		} elseif ( $this->adapter->getData_Unstaged_Escaped( 'recurring' ) &&
+			in_array( $this->adapter->getData_Unstaged_Escaped( 'payment_submethod' ), [ 'upi', 'paytmwallet' ], true ) ) {
 			$paymentMethod = $this->adapter->getData_Unstaged_Escaped( 'payment_method' );
 			$paymentProvider = PaymentProviderFactory::getProviderForMethod( $paymentMethod );
 			if ( $paymentProvider instanceof BankTransferPaymentProvider ) {

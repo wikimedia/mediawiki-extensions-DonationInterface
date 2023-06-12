@@ -302,7 +302,8 @@
 	function setupNonCardForm() {
 		var upiRecurringIsOnDemand = mw.config.get( 'isOnDemand' ),
 			isDirectPaymentFlow = mw.config.get( 'isDirectPaymentFlow' ),
-			isUpi = ( $( 'input[name=payment_submethod]:checked' ).val() === 'upi' );
+			// 'paytmwallet' submethod should be treated as the same for upi
+			isUpi = new RegExp( '\\b' + $( 'input[name=payment_submethod]:checked' ).val() + '\\b', 'i' ).test( 'upi paytmwallet' ); // i is case insensitive
 
 		if ( isUpi && isRecurring && upiRecurringIsOnDemand ) {
 			// If we are using the ONDEMAND charge frequency, add a note to reassure donors
