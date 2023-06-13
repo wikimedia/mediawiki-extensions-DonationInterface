@@ -96,9 +96,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	 * @param bool $redirectToDonateWiki
 	 *
 	 * @return void
-	 * @throws \BadTitleError
-	 * @throws \FatalError
-	 * @throws \MWException
 	 */
 	public function testNoNeedParamGateWayChooser( array $params, bool $redirectToDonateWiki ) {
 		$this->setMwGlobals( [ 'wgDonationInterfaceChooserProblemURL' => 'https://test.example' ] );
@@ -129,9 +126,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	 * @param array $params Query-string parameters provided to GatewayChooser
 	 * @param string|null $expectedSpecialGateway When a string, expect a redirect to the indicated special page.
 	 *  When null, expect no redirect.
-	 * @throws BadTitleError
-	 * @throws FatalError
-	 * @throws MWException
 	 */
 	public function testAssertExpectedGateway( array $params, ?string $expectedSpecialGateway ) {
 		$context = RequestContext::getMain();
@@ -581,10 +575,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 	/**
 	 * Ensure we pass through the right recurring values
-	 *
-	 * @throws BadTitleError
-	 * @throws FatalError
-	 * @throws MWException
 	 *
 	 * @dataProvider recurringValueProvider
 	 */
