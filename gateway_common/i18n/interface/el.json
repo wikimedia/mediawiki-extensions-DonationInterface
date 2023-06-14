@@ -121,7 +121,6 @@
 	"donate_interface-XCD": "Δολάριο Ανατολικής Καραϊβικής",
 	"donate_interface-XOF": "Φράγκο CFA Δυτικής Αφρικής",
 	"donate_interface-ZAR": "Ραντ Νοτίου Αφρικής",
-	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "Δωρίστε μέσω PayPal",
 	"donate_interface-paypal-redirect": "Ανακατεύθυνση προς PayPal…",
 	"donate_interface-amazon-button": "Δωρεά μέσω Amazon",

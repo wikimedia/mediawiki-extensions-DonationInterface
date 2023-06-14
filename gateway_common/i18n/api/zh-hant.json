@@ -58,7 +58,7 @@
 	"apihelp-di_donate_braintree-summary": "此 API 適用於 Braintree",
 	"apihelp-di_recurring_convert-summary": "此 API 使用來當捐款者完成一筆單筆捐款後，同意增加每月定期捐款。",
 	"apihelp-di_recurring_convert-param-amount": "每月捐款的金額。",
-	"apihelp-di_recurring_convert-param-gateway": "要使用的付款匣道 - adyen、ingenico、等等。",
+	"apihelp-di_recurring_convert-param-gateway": "要使用的付款匣道 - adyen、ingenico 等等。",
 	"apihelp-employerSearch-description": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-summary": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-param-employer": "要搜尋哪個雇主，例如：紅十字會、世界自然基金會、救世軍等等。",

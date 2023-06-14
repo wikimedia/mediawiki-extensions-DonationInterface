@@ -203,7 +203,6 @@
 	"donate_interface-cancel": "Kanselleer",
 	"donate_interface-payment": "Betaling",
 	"donate_interface-payment-type": "Betaalwyse",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Beskrywing",
 	"donate_interface-donation": "Donasie",
 	"donate_interface-email-receipt": "E-pos ontvangs na",

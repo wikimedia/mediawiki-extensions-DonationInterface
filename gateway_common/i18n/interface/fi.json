@@ -327,7 +327,6 @@
 	"donate_interface-cancel": "Peruuta",
 	"donate_interface-payment": "Maksu",
 	"donate_interface-payment-type": "Maksun tyyppi",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Täytä lahjoituksesi alla...",
 	"donate_interface-description": "Kuvaus",
 	"donate_interface-donation": "Lahjoitus",

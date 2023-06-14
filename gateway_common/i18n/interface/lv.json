@@ -247,7 +247,6 @@
 	"donate_interface-cancel": "Atcelt",
 	"donate_interface-payment": "Maksājums",
 	"donate_interface-payment-type": "Maksājuma veids",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Apraksts",
 	"donate_interface-donation": "Ziedojums",
 	"donate_interface-monthly-donation": "Veikt ikmēneša ziedojumus",

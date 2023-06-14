@@ -325,7 +325,6 @@
 	"donate_interface-cancel": "취소",
 	"donate_interface-payment": "지불",
 	"donate_interface-payment-type": "지불 방식",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "아래에 기부를 완료해주세요 ...",
 	"donate_interface-description": "설명",
 	"donate_interface-donation": "기부",

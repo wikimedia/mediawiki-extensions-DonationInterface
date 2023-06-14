@@ -363,7 +363,6 @@
 	"donate_interface-cancel": "取消",
 	"donate_interface-payment": "付款",
 	"donate_interface-payment-type": "付款類型",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "請在下面填寫您捐贈...",
 	"donate_interface-description": "說明",
 	"donate_interface-donation": "捐款",

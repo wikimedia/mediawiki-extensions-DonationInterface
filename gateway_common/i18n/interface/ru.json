@@ -343,7 +343,6 @@
 	"donate_interface-cancel": "Отказаться",
 	"donate_interface-payment": "Платёж",
 	"donate_interface-payment-type": "Вид платежа",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Пожалуйста, укажите информацию о пожертвовании…",
 	"donate_interface-description": "Описание",
 	"donate_interface-donation": "Пожертвование",
