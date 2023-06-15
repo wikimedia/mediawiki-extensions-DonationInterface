@@ -2,12 +2,17 @@ header {
 	margin-bottom: 106px;
 }
 
-.epc-form-col-content-heading {
+.epc-form-col-content-heading,
+.ru-form-col-content-heading {
 	font-size: 1.125em;
 	line-height: 1.25;
 	margin: 0.5em 0 !important;
 	font-family: 'Linux Libertine', 'Georgia', 'Times', serif;
 	font-weight: normal !important;
+}
+
+.ru-form-col-content-heading {
+	font-family: 'Helvetica Neue', 'Helvetica', 'Liberation Sans', 'Arial', sans-serif;
 }
 
 .nav-logo {
@@ -224,7 +229,12 @@ input#email {
 	border-radius: 50%;
 }
 
-.emailPrefForm .oo-ui-fieldLayout-body {
+.recurUpgradeForm {
+	width: 100%;
+}
+
+.emailPrefForm .oo-ui-fieldLayout-body,
+.recurUpgradeForm .oo-ui-fieldLayout-body {
 	margin-bottom: 1em;
 }
 
@@ -275,11 +285,15 @@ input#email {
 	height: auto;
 }
 
-.emailPrefForm {
+.emailPrefForm,
+.recurUpgradeForm {
 	display: inline-block;
 	vertical-align: top;
 }
 
+.recurUpgradeForm input,
+.recurUpgradeForm button,
+.recurUpgradeForm .errorMsg,
 .emailPrefForm input,
 .emailPrefForm button,
 .emailPrefForm .errorMsg {
@@ -336,7 +350,8 @@ main {
 	margin: 0;
 }
 
-.emailPrefForm select {
+.emailPrefForm select,
+.recurUpgradeForm select {
 	position: relative;
 	vertical-align: middle;
 	box-sizing: border-box;
@@ -359,7 +374,8 @@ main {
 	transition: background-color 100ms;
 }
 
-.emailPrefForm select option {
+.emailPrefForm select option,
+.recurUpgradeForm select option {
 	background-color: transparent;
 	font-size: inherit;
 	font-family: inherit;
@@ -367,7 +383,8 @@ main {
 	padding: 5px 12px;
 }
 
-.emailPrefForm select:hover {
+.emailPrefForm select:hover,
+.recurUpgradeForm select:hover {
 	color: #404244;
 	background-color: #fff;
 }
@@ -377,7 +394,8 @@ main {
 	margin: 2em 0 0;
 }
 
-.emailPrefForm button {
+.emailPrefForm button,
+.recurUpgradeForm button {
 	border-radius: 2px;
 	cursor: pointer;
 	display: inline-block;
