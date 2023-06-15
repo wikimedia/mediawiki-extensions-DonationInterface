@@ -49,9 +49,6 @@ class CiviproxyConnect {
 			];
 
 		} catch ( Exception $e ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'CiviproxyConnector', true, false, '', null );
-
 			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
 			return [
 				'is_error' => true,
@@ -69,6 +66,8 @@ class CiviproxyConnect {
 			'contact_id' => $contact_id
 		];
 		$serializedParams = json_encode( $params );
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'CiviproxyConnector', true, false, '', null );
 		try {
 			$resp = $client->get(
 				"$wgDonationInterfaceCiviproxyURLBase/rest4.php",
@@ -113,9 +112,6 @@ class CiviproxyConnect {
 			];
 
 		} catch ( Exception $e ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'CiviproxyConnector', true, false, '', null );
-
 			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
 			return [
 				'is_error' => true,

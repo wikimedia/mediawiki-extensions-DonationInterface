@@ -27,7 +27,7 @@
 				<div class="emailPrefRightColumn">
 					<h3 class="ru-form-col-content-heading">{{ l10n "recurupgrade-title" }}</h3>
 					{{#recurringOptions}}
-						<div class="oo-ui-fieldLayout">
+					<div class="oo-ui-fieldLayout">
 						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 							<input type="radio" id="upgradeAmount_{{ value }}" name="upgrade_amount" value={{ value }} autocomplete="off" class="oo-ui-inputWidget-input">
 							 <span></span>
@@ -41,6 +41,9 @@
 
 			<div class="emailPrefButton">
 				<button type="submit" name="submit" id="save" value="save">{{ l10n "recurupgrade-upgrade" }}</button>
+			</div>
+			<div class="emailPrefButton">
+				<button type="submit" name="submit" id="cancel" value="cancel">{{ l10n "recurupgrade-upgrade-decline" }}</button>
 			</div>
 		</form>
 	</div>

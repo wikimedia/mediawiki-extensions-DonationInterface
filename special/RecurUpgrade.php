@@ -33,10 +33,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
-		if ( $posted && $this->wasCanceled( $params ) ) {
-			// TO DO
-			return;
-		}
 		if ( !$this->validate( $params, $posted ) ) {
 			$this->renderError( $subpage );
 			return;
@@ -59,9 +55,29 @@ class RecurUpgrade extends UnlistedSpecialPage {
 					return;
 				}
 				$params += $formParams;
+				if ( $this->wasCanceled( $params ) ) {
+					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
+				}
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
 			$this->renderForm( $subpage ?? self::FALLBACK_SUBPAGE, $params );
+		}
+	}
+
+	protected function sendCancelRecurringUpgradeQueue( $contributionId, $contactId ) {
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'RecurUpgrade', true, false, '', null );
+		$message = [
+			'txn_type' => 'recurring_upgrade_decline',
+			'contribution_recur_id' => $contributionId,
+			'contact_id' => $contactId,
+		];
+		try {
+			$logger->info( "Pushing cancel upgrade to recurring queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring', $message );
+			$this->renderCancel();
+		} catch ( Exception $e ) {
+			$this->renderError();
 		}
 	}
 
@@ -102,17 +118,17 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$recurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 
 		$currency = $recurData['currency'];
-		$addedParams = [
+
+		return [
 			'full_name' => $recurData['donor_name'],
 			'recur_amount' => $recurData['amount'],
+			'contribution_recur_id' => $recurData['id'],
 			'next_sched_date' => $recurData['next_sched_contribution_date'],
 			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
 			'recurringOptions' => $recurringOptions[$currency]
 		];
-
-		return $addedParams;
 	}
 
 	protected function executeRecurUpgrade( $params ) {
@@ -121,6 +137,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$DonorData = WmfFramework::getSessionValue( self::DONOR_DATA );
 		if ( !isset( $DonorData['contribution_recur_id'] ) ) {
 			$this->renderError();
+			return;
+		}
+		if ( $this->wasCanceled( $params ) ) {
+			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
 			return;
 		}
 		$amount = $DonorData['amount'] + (int)$params['upgrade_amount'];
@@ -138,6 +158,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		} catch ( Exception $e ) {
 			$this->renderError();
 		}
+	}
+
+	protected function renderCancel( $subpage = 'recurUpgrade' ) {
+		$subpage .= 'Cancel';
+		$this->renderForm( $subpage, [] );
 	}
 
 	protected function renderError( $subpage = 'recurUpgrade' ) {
@@ -201,6 +226,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function wasCanceled( $params ) {
-		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
+		return ( isset( $params['submit'] ) && ( $params['submit'] === 'cancel' ) );
 	}
 }
