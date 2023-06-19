@@ -7,7 +7,9 @@
 			"Reedy",
 			"Shirayuki",
 			"Thehelpfulone",
-			"Bjh21"
+			"Bjh21",
+			"Mako001",
+			"MxYamato"
 		]
 	},
 	"donate_interface-maintenance-notice": "We apologise, but this type of payment has been temporarily disabled.",
@@ -23,5 +25,5 @@
 	"donate_interface-bank_transfer_message": "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation. Remember to include the reference number provided here on your bank transfer and feel free to email $1 if you have any questions or concerns.",
 	"donate_interface-globalcollect-proxy": "Please notice that your statement will show 'Global Collect' as the recipient of this gift. Global Collect is authorised to accept and process payments on behalf of Wikimedia Foundation.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-photo-license": "All images are licensed under the <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> licence."
+	"donate_interface-photo-license": "All images are licenced under the <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> licence."
 }
