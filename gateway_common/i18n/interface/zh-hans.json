@@ -422,7 +422,7 @@
 	"donate_interface-email-unsub-button": "取消订阅",
 	"donate_interface-email-unsub-success": "您已经成功从我们的邮件列表中移除",
 	"donate_interface-email-unsub-delay": "请静候此更改生效，可能需要四（4）天时间。我们对于在此期间您收到的任何电邮表示歉意。如果您还有任何问题，请联系 <$1>",
-	"donate_interface-email-unsub-fail": "在处理您的请求时发生错误，请联系 <$1> 。",
+	"donate_interface-email-unsub-fail": "在处理您的请求时发生错误，请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-unsub-confirm": "您确认要退订<b>$1</b>吗？",
 	"donate_interface-email-unsub-warning": "您将从维基媒体基金会作为捐助者发送给您的电子邮件群中退出。您可能仍然通过这个电子邮件地址接收到邮件，如果它与我们的某个项目相关联。如果您有任何疑问，请联系<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-explain": "我们会发送您一份电子收据以确认您的捐赠。",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Asma",
 			"BaRaN6161 TURK",
 			"Can",
 			"Cobija",
@@ -167,6 +168,7 @@
 	"donate_interface-donor-fiscal_number": "Vergi numarası",
 	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Hindistan Merkez Bankası, ödeme işlemcimizin PAN'ınızı almasını zorunlu kılar, ancak bu bilgileri saklamıyoruz.",
+	"donate_interface-donor-fiscal_number-explain-option-in": "Bu isteğe bağlıdır.",
 	"donate_interface-donor-opt_in_yes": "Evet! Lütfen sık olmayan e-posta güncellemelerini ve gelecekte Vikipedi'yi nasıl destekleyebileceğim hakkında bilgi gönderin.*",
 	"donate_interface-donor-opt_in_no": "Hayır, yılda yalnızca birkaç e-posta olsa bile güncelleme istemiyorum.",
 	"donate_interface-donor-opt_in_explain": "* Bilgileriniz <a href=\"$1\">Bağışçı Gizlilik Politikamıza</a> göre işlenir. Aldığınız her e-posta, abonelikten çıkma için kolay seçenekler içerir.",
