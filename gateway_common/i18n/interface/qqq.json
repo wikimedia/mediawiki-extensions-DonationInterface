@@ -391,7 +391,7 @@
 	"donate_interface-cancel": "{{Identical|Cancel}}",
 	"donate_interface-payment": "{{Identical|Payment}}",
 	"donate_interface-payment-type": "{{Identical|Payment type}}",
-	"donate_interface-month": "Expiration month for credit card. Appears in a drop-down list.\n\nParameters:\n* $1 - the month number\n* $2 - the month name",
+	"donate_interface-month": "{{Optional}}\nExpiration month for credit card. Appears in a drop-down list.\n\nParameters:\n* $1 - the month number\n* $2 - the month name",
 	"donate_interface-please-complete": "Label for request to complete donation steps",
 	"donate_interface-description": "{{Identical|Description}}",
 	"donate_interface-donation": "{{Identical|Donation}}",
