@@ -3,11 +3,10 @@
 		"authors": []
 	},
 	"emailpreferences-title": "Email preferences",
-	"recurupgrade-recur-details": "Current recurring payment:",
 	"recurupgrade-title": "Upgrade amount by:",
 	"recurupgrade-upgrade-decline": "No, I'll leave it as is",
 	"emailpreferences-country": "Country or Region",
-	"recurupgrade-amount": "Amount",
+	"recurupgrade-amount": "Current recur amount",
 	"recurupgrade-next-scheduled-date": "Next donation date",
 	"emailpreferences-language": "Language",
 	"emailpreferences-send-email": "I love hearing from the Wikimedia Foundation, send me everything!",

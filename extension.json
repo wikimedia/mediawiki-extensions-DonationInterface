@@ -28,7 +28,7 @@
 		"GatewayChooser": "GatewayChooser",
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
-                "RecurUpgrade": "RecurUpgrade",
+		"RecurUpgrade": "RecurUpgrade",
 		"FundraiserMaintenance": "FundraiserMaintenance",
 		"IngenicoGateway": "IngenicoGateway",
 		"IngenicoGatewayResult": "IngenicoGatewayResult",
@@ -190,7 +190,7 @@
 		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
 		"EmailPreferences": "special/EmailPreferences.php",
-                "RecurUpgrade": "special/RecurUpgrade.php",
+		"RecurUpgrade": "special/RecurUpgrade.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
 		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
@@ -220,6 +220,13 @@
 		},
 		"ext.donationInterface.emailPreferences": {
 			"scripts": "modules/js/ext.donationInterface.emailPreferences.js",
+			"dependencies": [
+				"donationInterface.skinOverride",
+				"ext.donationInterface.emailPreferencesStyles"
+			]
+		},
+		"ext.donationInterface.recurUpgrade": {
+			"scripts": "modules/js/ext.donationInterface.recurUpgrade.js",
 			"dependencies": [
 				"donationInterface.skinOverride",
 				"ext.donationInterface.emailPreferencesStyles"

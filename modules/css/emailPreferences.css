@@ -516,3 +516,20 @@ footer .footer-legal .p {
 	margin: 0 !important;
 	padding: 0 !important;
 }
+
+.recurUpgradeActionButtons {
+	display: flex;
+	justify-content: center;
+}
+
+.recurUpgradeHeaderText {
+	font-size: 1.375em !important;
+}
+
+.recurUpgradeBodyText {
+	font-size: 1.25em;
+}
+
+.btn.disabled {
+	background-color: #c8ccd1;
+}
