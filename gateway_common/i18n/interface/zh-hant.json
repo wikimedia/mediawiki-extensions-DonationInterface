@@ -28,7 +28,7 @@
 		]
 	},
 	"donate_interface": "支持維基媒體",
-	"donate_interface-desc": "整合閘道擴充套件的捐款登陸頁",
+	"donate_interface-desc": "整合閘道擴充套件的捐款著陸頁",
 	"donate_interface-langonly-desc": "僅顯示捐款介面系統訊息",
 	"donate_interface-intro": "請選擇付款方式、金額及貨幣。",
 	"donate_interface-amount": "金額",

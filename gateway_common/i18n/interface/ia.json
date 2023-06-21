@@ -418,7 +418,7 @@
 	"donate_interface-onetime-short": "Unic",
 	"donate_interface-error-http-403": "Tu non ha le permission de acceder a iste pagina.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-photo-license": "Tote le imagines es sub licentia <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a>.",
+	"donate_interface-photo-license": "Tote le imagines es sub licentia <a href=\"$1\">Creative Commons Attribution-CompartiSimile 4.0 International</a>.",
 	"donate_interface-emailprefs-thank-you-title": "Gratias",
 	"donate_interface-emailprefs-thank-you-text": "Nos anticipa con gaudio un contacto durabile con te.",
 	"donate_interface-monthly-convert-title": "Adder un donation mensual de <span class=\"mc-convert-ask\"></span> a partir del proxime mense?",
