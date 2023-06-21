@@ -410,6 +410,12 @@ main {
 	transition: 0.1s background;
 }
 
+button#cancel {
+	color: #3a25ff;
+	border: 1px solid #3a25ff;
+	background: #fff;
+}
+
 .hide {
 	display: none !important;
 }
