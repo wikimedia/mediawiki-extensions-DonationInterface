@@ -3,7 +3,6 @@
 		"authors": []
 	},
 	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
-	"recurupgrade-recur-details": "Title for the section for recurring payment details",
 	"recurupgrade-title": "Title for page where the user can upgrade their recurring amount",
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
 	"recurupgrade-amount": "Label for the current recurring amount field",

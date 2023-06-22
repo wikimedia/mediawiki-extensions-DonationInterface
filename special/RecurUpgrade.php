@@ -29,7 +29,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferencesStyles'
 		] );
 
-		$out->addModules( 'ext.donationInterface.emailPreferences' );
+		$out->addModules( [
+			'ext.donationInterface.emailPreferences',
+			'ext.donationInterface.recurUpgrade'
+		] );
 		$this->setPageTitle( $subpage );
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
