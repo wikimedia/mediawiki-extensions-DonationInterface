@@ -28,7 +28,7 @@
 		]
 	},
 	"donate_interface": "支持維基媒體",
-	"donate_interface-desc": "整合閘道擴充套件的捐款登陸頁",
+	"donate_interface-desc": "整合閘道擴充套件的捐款著陸頁",
 	"donate_interface-langonly-desc": "僅顯示捐款介面系統訊息",
 	"donate_interface-intro": "請選擇付款方式、金額及貨幣。",
 	"donate_interface-amount": "金額",
@@ -368,6 +368,7 @@
 	"donate_interface-donation": "捐款",
 	"donate_interface-email-receipt": "電子郵件寄送收據至",
 	"donate_interface-monthly-donation": "每月捐款",
+	"donate_interface-monthly-only-credit": "我們的每月捐款目前只接受信用卡（不能是簽帳金融卡）。",
 	"donate_interface-via-paypal": " (透過 PayPal)",
 	"donate_interface-select": "尺寸",
 	"donate_interface-donation-must-equal": "捐款必須等於 $1 或更多。",
