@@ -3,7 +3,6 @@
 		"authors": []
 	},
 	"amazon_gateway-desc": "Amazon payment processing",
-	"apihelp-di_amazon_bill-description": "",
 	"apihelp-di_amazon_bill-summary": "",
 	"apihelp-di_amazon_bill-param-amount": "",
 	"apihelp-di_amazon_bill-param-billingAgreementId": "",
