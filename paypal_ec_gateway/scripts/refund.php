@@ -58,7 +58,7 @@ class PaypalRefundMaintenance extends Maintenance {
 			$this->output( "Refunding transaction $oid from gateway transaction $oid\n" );
 			$adapter->addRequestData( [ 'order_id' => $oid, 'gateway_txn_id' => $gateway_txn_id, 'subscr_id' => $subscription_id ] );
 			$result = $adapter->doRefund();
-			if ( $result->isFailed() ) {
+			if ( $result->isFailed() || count( $result->getErrors() ) > 0 ) {
 				$this->error( "Failed refunding transaction $oid " . print_r( $result->getErrors(), true ) );
 			} else {
 				$this->output( "Successfully refunded transaction $oid\n" );
