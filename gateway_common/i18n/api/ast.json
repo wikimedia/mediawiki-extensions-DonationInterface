@@ -4,7 +4,6 @@
 			"Xuacu"
 		]
 	},
-	"apihelp-donate-description": "Esta API te permite unviar una donación a la Fundación Wikimedia, usando dellos procesadores de pagu.",
 	"apihelp-donate-summary": "Esta API te permite unviar una donación a la Fundación Wikimedia, usando dellos procesadores de pagu.",
 	"apihelp-donate-param-gateway": "Qué pasera de pagu utilizar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "La cantidá donada.",
@@ -39,7 +38,6 @@
 	"apihelp-donate-param-opt_in": "Indica que'l donante  aceutó los correos de collecha de fondos.",
 	"apihelp-donate-param-employer": "Nome del emplegador",
 	"apihelp-donate-example-1": "Facer una donación",
-	"apihelp-logPaymentsFormError-description": "Esta API rexistra los errores nel formulariu de donación nel llau del cliente.",
 	"apihelp-logPaymentsFormError-summary": "Esta API rexistra los errores del formulariu de donaciones nel llau del cliente.",
 	"apihelp-logPaymentsFormError-param-message": "El mensaxe d'error",
 	"apihelp-logPaymentsFormError-param-file": "Ficheru nel qu'asocedió l'error",

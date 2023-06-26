@@ -5,7 +5,6 @@
 			"Jon Harald Søby"
 		]
 	},
-	"apihelp-donate-description": "Dette API-et lar deg gi en gave til Wikimedia Foundation med mange forskjellige betalingsprosessorer.",
 	"apihelp-donate-summary": "Dette API-et lar deg sende en gave til Wikimedia Foundation med en rekke betalingsprosessorer.",
 	"apihelp-donate-param-gateway": "Hvilken betalingsport som skal brukes – adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "Summen som doneres.",
@@ -41,7 +40,6 @@
 	"apihelp-donate-param-employer": "Arbeidsgivers navn",
 	"apihelp-donate-param-employer_id": "Arbeidsgiver-ID",
 	"apihelp-donate-example-1": "Doner",
-	"apihelp-logPaymentsFormError-description": "Dette API-et logger donasjonsskjemafeil på klientsiden.",
 	"apihelp-logPaymentsFormError-summary": "Dette API-et logger donasjonsskjemafiel på klientsiden.",
 	"apihelp-logPaymentsFormError-param-message": "Feilbeskjeden",
 	"apihelp-logPaymentsFormError-param-file": "Filen feilen oppsto i",
@@ -52,7 +50,6 @@
 	"apihelp-di_recurring_convert-summary": "Dette API-er brukes når en donor ønsker å gi et månedlig beløp etter å ha fullført en engangsgave.",
 	"apihelp-di_recurring_convert-param-amount": "Beløpet i den månedlige donasjonen.",
 	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, ingenico, osv.",
-	"apihelp-employerSearch-description": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
 	"apihelp-employerSearch-summary": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
 	"apihelp-employerSearch-param-employer": "Hvilken arbeidsgiver det skal søkes etter, f.eks. Røde Kors, WWF, Frelsesarmeen osv.",
 	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver"

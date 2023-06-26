@@ -139,6 +139,7 @@
 	"donate_interface-donor-submit": "দান করুন",
 	"donate_interface-donor-currency-msg": "আপনার অনুদানটি $1 থেকে প্রদান করা হচ্ছে",
 	"donate_interface-donor-fiscal_number": "ফিস্ক্যাল নম্বর",
+	"donate_interface-donor-fiscal_number-explain-option-in": "এটি ঐচ্ছিক।",
 	"donate_interface-card-name-amex": "আমেরিকান এক্সপ্রেস",
 	"donate_interface-card-name-visa": "ভিসা",
 	"donate_interface-card-name-mc": "মাস্টারকার্ড",

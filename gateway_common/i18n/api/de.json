@@ -7,7 +7,6 @@
 			"ToBeFree"
 		]
 	},
-	"apihelp-donate-description": "Diese API ermöglicht dir eine Spende an die Wikimedia Foundation mithilfe einer Vielzahl an Zahlungsprozessoren.",
 	"apihelp-donate-summary": "Diese API ermöglicht es, eine Spende an die Wikimedia Foundation über verschiedene Zahlungsdienstleister einzureichen.",
 	"apihelp-donate-param-gateway": "Welches Zahlungsgateway soll ich verwenden - adyen, ingenico, etc..",
 	"apihelp-donate-param-amount": "Der gespendete Betrag.",
@@ -46,7 +45,6 @@
 	"apihelp-donate-param-employer": "Name des Arbeitgebers",
 	"apihelp-donate-param-employer_id": "Arbeitgeber-ID",
 	"apihelp-donate-example-1": "Spenden",
-	"apihelp-logPaymentsFormError-description": "Diese API protokolliert clientseitige Fehler des Spendenformulars.",
 	"apihelp-logPaymentsFormError-summary": "Diese API protokolliert clientseitige Fehler des Spendenformulars.",
 	"apihelp-logPaymentsFormError-param-message": "Die Fehlernachricht",
 	"apihelp-logPaymentsFormError-param-file": "Datei, in der der Fehler auftrat.",
@@ -60,7 +58,6 @@
 	"apihelp-di_recurring_convert-summary": "Diese API wird verwendet, wenn sich ein Spender bereit erklärt, nach einer erfolgreichen Einmalspende eine monatliche Spende hinzuzufügen.",
 	"apihelp-di_recurring_convert-param-amount": "Die Höhe der monatlichen Spende.",
 	"apihelp-di_recurring_convert-param-gateway": "Welches Zahlungsgateway soll ich verwenden - adyen, ingenico etc.",
-	"apihelp-employerSearch-description": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
 	"apihelp-employerSearch-summary": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
 	"apihelp-employerSearch-param-employer": "Welcher Arbeitgeber soll gesucht werden, z. B. Rotes Kreuz, WWF, Heilsarmee etc.",
 	"apihelp-employerSearch-example-1": "Einen Arbeitgeber suchen",

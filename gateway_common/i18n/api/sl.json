@@ -4,7 +4,6 @@
 			"Eleassar"
 		]
 	},
-	"apihelp-donate-description": "Ta API vam omogoča doniranje Fundaciji Wikimedia prek različnih obdelovalcev plačila.",
 	"apihelp-donate-summary": "Ta API vam omogoča doniranje Fundaciji Wikimedia prek različnih obdelovalcev plačila.",
 	"apihelp-donate-param-gateway": "Kateri plačilni prehod naj se uporabi – Adyen, Ingenico idr.",
 	"apihelp-donate-param-amount": "Donirani znesek.",
@@ -43,7 +42,6 @@
 	"apihelp-donate-param-employer": "Naziv delodajalca",
 	"apihelp-donate-param-employer_id": "ID delodajalca",
 	"apihelp-donate-example-1": "Doniranje",
-	"apihelp-logPaymentsFormError-description": "Ta API beleži napake obrazca za donacije na strani odjemalca.",
 	"apihelp-logPaymentsFormError-summary": "Ta api beleži napake obrazca za donacije na strani obrazca.",
 	"apihelp-logPaymentsFormError-param-message": "Sporočilo napake",
 	"apihelp-logPaymentsFormError-param-file": "Datoteka, v kateri je prišlo do napake",
@@ -57,7 +55,6 @@
 	"apihelp-di_recurring_convert-summary": "Ta API se uporablja, ko se donator po zaključku uspešne enkratne donacije strinja z mesečnim doniranjem.",
 	"apihelp-di_recurring_convert-param-amount": "Znesek mesečne donacije.",
 	"apihelp-di_recurring_convert-param-gateway": "Kateri plačilni prehod naj se uporabi – Adyen, Ingenico idr.",
-	"apihelp-employerSearch-description": "Ta API vam omogoča iskanje delodajalcev, ki sodelujejo v programu usklajevanja daril WMF.",
 	"apihelp-employerSearch-summary": "Ta API vam omogoča iskanje delodajalcev, ki sodelujejo v programu usklajevanja daril WMF.",
 	"apihelp-employerSearch-param-employer": "Katerega delodajalca iskati, npr. Rdeči križ, WWF, Rešilno vojsko idr.",
 	"apihelp-employerSearch-example-1": "Poišči delodajalca",

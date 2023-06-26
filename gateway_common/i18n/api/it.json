@@ -7,7 +7,6 @@
 			"Ricordisamoa"
 		]
 	},
-	"apihelp-donate-description": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",
 	"apihelp-donate-summary": "Questa API consente d'inviare una donazione alla Wikimedia Foundation, permettendo di scegliere tra diverse modalità di pagamento.",
 	"apihelp-donate-param-gateway": "Quale strumento di pagamento utilizzare - adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "L'importo donato.",

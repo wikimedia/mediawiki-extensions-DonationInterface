@@ -23,7 +23,6 @@
 	"apihelp-donate-param-employer": "고용주 이름",
 	"apihelp-donate-param-employer_id": "고용주 ID",
 	"apihelp-donate-example-1": "기부하기",
-	"apihelp-logPaymentsFormError-description": "이 API는 클라이언트 사이드 기부 폼 오류를 기록합니다.",
 	"apihelp-logPaymentsFormError-summary": "이 API는 클라이언트 사이드 기부 폼 오류를 기록합니다.",
 	"apihelp-logPaymentsFormError-param-message": "오류 메시지",
 	"apihelp-logPaymentsFormError-param-file": "오류가 발생한 파일",

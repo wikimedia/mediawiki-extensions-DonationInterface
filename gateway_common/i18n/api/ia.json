@@ -4,7 +4,6 @@
 			"McDutchie"
 		]
 	},
-	"apihelp-donate-description": "Iste API permitte submitter un donation al Fundation Wikimedia per varie methodos de pagamento.",
 	"apihelp-donate-summary": "Iste API permitte submitter un donation al Fundation Wikimedia per varie methodos de pagamento.",
 	"apihelp-donate-param-gateway": "Le passarella de pagamento a usar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "Le amonta donate.",
@@ -43,7 +42,6 @@
 	"apihelp-donate-param-employer": "Nomine del empleator",
 	"apihelp-donate-param-employer_id": "ID del empleator",
 	"apihelp-donate-example-1": "Facer un donation",
-	"apihelp-logPaymentsFormError-description": "Iste API registra le errores del formulario de donation al latere del cliente.",
 	"apihelp-logPaymentsFormError-summary": "Iste API registra le errores del formulario de donation al latere del cliente.",
 	"apihelp-logPaymentsFormError-param-message": "Le message de error",
 	"apihelp-logPaymentsFormError-param-file": "File in le qual le error ha occurrite",
@@ -57,7 +55,6 @@
 	"apihelp-di_recurring_convert-summary": "Iste API es usate quando un donator accepta de adder un donation mensual post haber correctemente concludite un donation singule.",
 	"apihelp-di_recurring_convert-param-amount": "Le amonta del donation mensual.",
 	"apihelp-di_recurring_convert-param-gateway": "Le passarella de pagamento a usar: adyen, ingenico, etc.",
-	"apihelp-employerSearch-description": "Iste API permitte cercar empleatores que participa in le programma de donationes de contrapartita de WMF.",
 	"apihelp-employerSearch-summary": "Iste API permitte cercar empleatores que participa in le programma de donationes de contrapartita de WMF.",
 	"apihelp-employerSearch-param-employer": "Qual empleator cercar, p.ex. Cruce Rubie, WWF, Armea del Salvation, etc.",
 	"apihelp-employerSearch-example-1": "Cercar un empleator",

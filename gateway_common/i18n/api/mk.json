@@ -5,7 +5,6 @@
 			"McDutchie"
 		]
 	},
-	"apihelp-donate-description": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-summary": "Овој извршник ви овозможува да поднесувате даровни уплати за Фондацијата Викимедија користејќи низа уплатни обработувачи.",
 	"apihelp-donate-param-gateway": "Кој наплатен портал да се користи — adyen, ingenico итн.",
 	"apihelp-donate-param-amount": "Износ за уплата.",
@@ -44,7 +43,6 @@
 	"apihelp-donate-param-employer": "Назив на работодавачот",
 	"apihelp-donate-param-employer_id": "Назнака на работодавачот",
 	"apihelp-donate-example-1": "Дарувајте",
-	"apihelp-logPaymentsFormError-description": "Овој извршник заведува грешките во обрасците за дарување од клиентска страна.",
 	"apihelp-logPaymentsFormError-summary": "Овој извршник заведува грешки во обрасците за дарување од клиентска страна.",
 	"apihelp-logPaymentsFormError-param-message": "Известувањето за грешка",
 	"apihelp-logPaymentsFormError-param-file": "Во која податотека се јавила грешката",
@@ -58,7 +56,6 @@
 	"apihelp-di_recurring_convert-summary": "Извршникот се користи кога дарителот ќе се согласи да дава месечни прилози при успешно давање на еднократен прилог.",
 	"apihelp-di_recurring_convert-param-amount": "Износ на паричниот прилог.",
 	"apihelp-di_recurring_convert-param-gateway": "Кој наплатен портал да се користи — adyen, ingenico итн.",
-	"apihelp-employerSearch-description": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
 	"apihelp-employerSearch-summary": "Овој прилог ви овозможува да побарате кои работодавци учествуваат во програмот за истомерно дарување на Фондацијата Викимедија.",
 	"apihelp-employerSearch-param-employer": "Кој работодавач да се побара. На пр. Црвен крст, Светски фонд за природа, Војска на спасот итн.",
 	"apihelp-employerSearch-example-1": "Пребарајте работодавач",

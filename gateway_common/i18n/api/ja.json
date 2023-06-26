@@ -8,7 +8,6 @@
 			"Takot"
 		]
 	},
-	"apihelp-donate-description": "このAPIの利用により、さまざまな支払い処理方法からウィキメディア財団宛てにご寄付いただくことができます。",
 	"apihelp-donate-summary": "このAPIの利用により、さまざまな支払い処理方法からウィキメディア財団宛てにご寄付いただくことができます。",
 	"apihelp-donate-param-currency": "通貨のコードです。",
 	"apihelp-donate-param-first_name": "名",

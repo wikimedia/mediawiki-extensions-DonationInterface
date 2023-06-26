@@ -7,7 +7,6 @@
 			"ديفيد"
 		]
 	},
-	"apihelp-donate-description": "تسمح لك API هذه بتقديم تبرع لمؤسسة ويكيميديا ​​باستخدام مجموعة متنوعة من معالجات الدفع.",
 	"apihelp-donate-summary": "تسمح لك API هذه بتقديم تبرع لمؤسسة ويكيميديا ​​باستخدام مجموعة متنوعة من معالجات الدفع.",
 	"apihelp-donate-param-gateway": "أي بوابة دفع لاستخدامها، adyen، ingenico، إلخ.",
 	"apihelp-donate-param-amount": "المبلغ الممنوح.",
@@ -46,7 +45,6 @@
 	"apihelp-donate-param-employer": "اسم صاحب العمل",
 	"apihelp-donate-param-employer_id": "معرف صاحب العمل",
 	"apihelp-donate-example-1": "تقديم تبرع",
-	"apihelp-logPaymentsFormError-description": "تسجل API هذه أخطاء نموذج التبرع من جانب العميل.",
 	"apihelp-logPaymentsFormError-summary": "تسجل API هذه أخطاء نموذج التبرع من جانب العميل.",
 	"apihelp-logPaymentsFormError-param-message": "رسالة الخطأ",
 	"apihelp-logPaymentsFormError-param-file": "الملف الذي حدث الخطأ فيه",
@@ -60,7 +58,6 @@
 	"apihelp-di_recurring_convert-summary": "يتم استخدام API هذه عندما يوافق المتبرع على إضافة تبرع شهري بعد إكمال تبرع ناجح لمرة واحدة.",
 	"apihelp-di_recurring_convert-param-amount": "مبلغ التبرع الشهري.",
 	"apihelp-di_recurring_convert-param-gateway": "بوابة الدفع التي يجب استخدامها - Adyen ، ingenico ، إلخ.",
-	"apihelp-employerSearch-description": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-summary": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-param-employer": "أي صاحب عمل يبحث عنه ، على سبيل المثال ، الصليب الأحمر ، الصندوق العالمي للطبيعة ، جيش الخلاص ، إلخ.",
 	"apihelp-employerSearch-example-1": "ابحث عن صاحب عمل",
