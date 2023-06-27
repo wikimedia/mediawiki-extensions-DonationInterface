@@ -151,6 +151,7 @@
 	"donate_interface-donor-submit": "Rhoi",
 	"donate_interface-donor-currency-msg": "Telir y rhodd hon mewn $1",
 	"donate_interface-donor-fiscal_number": "Rhif (arian)",
+	"donate_interface-donor-fiscal_number-explain-option-in": "Mae hyn yn ddewisol.",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
