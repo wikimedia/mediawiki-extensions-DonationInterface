@@ -317,7 +317,7 @@
 	"donate_interface-email-unsub-button": "Lõpeta tellimus",
 	"donate_interface-email-unsub-success": "Su katse meie postiloendist lahkuda läks igati korda",
 	"donate_interface-email-unsub-delay": "Muudatuse jõustumine võib võtta kuni neli (4) päeva. Palume väga vabandust kirjade pärast, mille selle aja jooksul saate. Kahetseme haledasti. Kui sul on küsimusi, kirjuta palun aadressil <$1>",
-	"donate_interface-email-unsub-fail": "Sinu soovi töötlemise juures esines tõrge, palun kirjuta aadressil <$1>.",
+	"donate_interface-email-unsub-fail": "Sinu soovi töötlemise juures esines tõrge, palun kirjuta aadressil <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Kas oled kindel, et soovid aaderssi <b>$1</b> tellimuse tühistada?",
 	"donate_interface-email-unsub-warning": "Sellega loobud Wikimedia Foundationist annetajatele saadetavatest kirjadest. Sellele aadressile võidakse endiselt kirju saata, kui see on seotud sinu kontoga mõnes meie projektis. Kui sul on küsimusi, võta palun ühendust aadressil <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-faqs": "Korduma kippuvad küsimused",
