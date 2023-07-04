@@ -3170,7 +3170,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function session_unsetAllData() {
 		$this->session_killAllEverything();
-		$this->debugarray[] = 'Killed all the session everything.';
+		$this->logger->debug( 'Killed all the session everything.' );
 	}
 
 	/**
