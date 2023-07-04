@@ -13,6 +13,8 @@
 	"apihelp-donate-param-currency": "Valutakode.",
 	"apihelp-donate-param-first_name": "Fornavn.",
 	"apihelp-donate-param-last_name": "Etternavn.",
+	"apihelp-donate-param-first_name_phonetic": "Fonetisk versjon av fornavnet.",
+	"apihelp-donate-param-last_name_phonetic": "Fonetisk versjon av etternavnet.",
 	"apihelp-donate-param-street_address": "Første linje i gateadresse.",
 	"apihelp-donate-param-supplemental_address_1": "Andre linje i gateadresse.",
 	"apihelp-donate-param-city": "By.",
@@ -22,6 +24,7 @@
 	"apihelp-donate-param-country": "Landskode.",
 	"apihelp-donate-param-card_num": "Kredittkortnummer.",
 	"apihelp-donate-param-card_type": "Kredittkorttype.",
+	"apihelp-donate-param-debug_messages": "Feilsøkingsmeldinger som skal legges til i loggen.",
 	"apihelp-donate-param-expiration": "Utløpsdato.",
 	"apihelp-donate-param-cvv": "CVV-sikkerhetskode.",
 	"apihelp-donate-param-payment_method": "Betalingsmetode å bruke.",
@@ -47,10 +50,14 @@
 	"apihelp-logPaymentsFormError-param-col": "Kolonnen feilen oppsto i",
 	"apihelp-logPaymentsFormError-param-userAgent": "Netteleserens brukeragentstreng",
 	"apihelp-logPaymentsFormError-param-stack": "Feilens stack trace, om tilgjengelig",
+	"apihelp-di_donate_adyen-summary": "Dette API-et er for Adyen",
+	"apihelp-di_donate_dlocal-summary": "Dette API-et er for Dlocal",
+	"apihelp-di_donate_braintree-summary": "Dette API-et er for Braintree",
 	"apihelp-di_recurring_convert-summary": "Dette API-er brukes når en donor ønsker å gi et månedlig beløp etter å ha fullført en engangsgave.",
 	"apihelp-di_recurring_convert-param-amount": "Beløpet i den månedlige donasjonen.",
 	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, ingenico, osv.",
 	"apihelp-employerSearch-summary": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
 	"apihelp-employerSearch-param-employer": "Hvilken arbeidsgiver det skal søkes etter, f.eks. Røde Kors, WWF, Frelsesarmeen osv.",
-	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver"
+	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver",
+	"apihelp-di_applesession_adyen-summary": "Gjør det mulig å be om en Apple Pay-økt direkte fra Apple"
 }
