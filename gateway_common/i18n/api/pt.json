@@ -6,7 +6,7 @@
 		]
 	},
 	"apihelp-donate-summary": "Esta API permite o envio de um donativo para a Wikimedia Foundation usando vários processadores de pagamentos.",
-	"apihelp-donate-param-gateway": "Que processador de pagamentos usar, adyen, ingenico, etc.",
+	"apihelp-donate-param-gateway": "Que processador de pagamentos usar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "O montante do donativo.",
 	"apihelp-donate-param-contact_id": "Identificador do benfeitor em CiviCRM.",
 	"apihelp-donate-param-contact_hash": "O resumo criptográfico do benfeitor em CiviCRM, usado para verificação. Obrigatório quando é fornecido o contact_id.",
@@ -55,7 +55,7 @@
 	"apihelp-di_donate_braintree-summary": "Esta API é para Braintree",
 	"apihelp-di_recurring_convert-summary": "Esta API é usada quando um benfeitor concorda em adicionar um donativo mensal após ter concluído um donativo pontual.",
 	"apihelp-di_recurring_convert-param-amount": "O montante do donativo mensal.",
-	"apihelp-di_recurring_convert-param-gateway": "O portal de pagamento a utilizar - adyen, ingenico, etc.",
+	"apihelp-di_recurring_convert-param-gateway": "O processador de pagamentos a usar: adyen, ingenico, etc.",
 	"apihelp-employerSearch-summary": "Esta API permite-lhe procurar entidades empregadoras que participam no programa de presentes correspondidos da WMF.",
 	"apihelp-employerSearch-param-employer": "A entidade empregadora a procurar, p. ex. Cruz Vermelha, WWF, Exército de Salvação, etc.",
 	"apihelp-employerSearch-example-1": "Procurar uma entidade empregadora",
