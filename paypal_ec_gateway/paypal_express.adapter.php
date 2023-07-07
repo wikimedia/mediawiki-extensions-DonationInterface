@@ -526,6 +526,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				$this->postProcessDonation();
 				break;
 			case 'ManageRecurringPaymentsProfileStatusCancel':
+			case 'RefundTransaction':
 				$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
 			}
 
