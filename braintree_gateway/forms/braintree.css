@@ -1,0 +1,12 @@
+.error-msg {
+	color: red
+}
+#venmo-button {
+	display: none;
+	height: 45px;
+	cursor: pointer;
+	background-image: url(../../gateway_forms/includes/venmo.png);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
