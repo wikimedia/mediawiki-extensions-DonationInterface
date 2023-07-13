@@ -3,7 +3,7 @@ visa:
     countries:
         AR: true
         BR: true
-        #       CL: true  #waiting on AstroPay
+        CL: true
         CO: true
         IN: true
         MX: true
@@ -15,38 +15,51 @@ mc:
     countries:
         AR: true
         BR: true
-        #       CL: true  #waiting on AstroPay
+        CL: true
         CO: true
         IN: true
         MX: true
         PE: true
         UY: true
         ZA: true
-#magna:  #waiting on AstroPay
-#    group: cc
-#    countries:
-#       CL: true
+magna:
+    group: cc
+    countries:
+        CL: true
 amex:
     group: cc
     countries:
-        BR: true
         AR: true
-        #       CL: true  #waiting on AstroPay
+        BR: true
+        CL: true
         CO: true
+#       IN: true // Dlocal reported that AMEX is not supported in India T334945
+        MX: true
         PE: true
 visa-debit:
     group: cc
     countries:
+        AR: true
+        BR: true
+        CL: true
+        CO: true
+        IN: true
         MX: true
         PE: true
+        UY: true
         ZA: true
-    sub_text_key: donate_interface-debit
 mc-debit:
     group: cc
     countries:
+        AR: true
+        BR: true
+        CL: true
+        CO: true
+        IN: true
         MX: true
+        PE: true
+        UY: true
         ZA: true
-    sub_text_key: donate_interface-debit
 elo:
     group: cc
     countries:
@@ -54,9 +67,9 @@ elo:
 diners:
     group: cc
     countries:
-        BR: true
-        #       CL: true  #waiting on AstroPay
+        CL: true
         CO: true
+        IN: true
         PE: true
         UY: true
 hiper:
@@ -91,18 +104,20 @@ argen:
     group: cc
     countries:
         AR: true
-#cmr:  #waiting on AstroPay
-#    group: cc
-#    countries:
-#       CL: true
-#presto:  #waiting on AstroPay
-#    group: cc
-#    countries:
-#       CL: true  #waiting on AstroPay
-webpay:
+cmr:
+    group: cc
+    countries:
+        AR: true
+        CL: true
+presto:
     group: cc
     countries:
         CL: true
+webpay:
+    group: bt
+    countries:
+        CL: true
+    logo: bank-webpay.png
 lider:
     group: cc
     countries:
@@ -133,18 +148,6 @@ cash_oxxo:
     countries:
         MX: true
     logo: cash-oxxo.png
-cash_santander:
-    label: Santander
-    group: cash
-    countries:
-        MX: true
-    logo: bank-santander.png
-cash_bancomer:
-    label: Bancomer
-    group: cash
-    countries:
-        MX: true
-    logo: cash-bancomer.png
 cash_rapipago:
     label: Rapi Pago
     group: cash
@@ -168,6 +171,7 @@ pse:
     group: bt
     countries:
         CO: true
+    logo: bank-pse.png
 cash_pago_efectivo:
     label: Pago Efectivo
     group: cash
@@ -190,51 +194,17 @@ cash_red_pagos:
         UY: true
     logo: cash-red-pagos.png
 ach:
-    bank_code: IO
     label: ACH
     group: bt
     countries:
-        ZA: true
+        AR: true
+#       BR: true // not enabled but can be done at our request
+        CL: true
+        MX: true
     logo: bank-ach.png
     logo_hd:
         2x: bank-ach_2x.png
         3x: bank-ach_3x.png
-webpay_bt:
-    label: Webpay
-    group: bt
-    countries:
-        CL: true
-    logo: bank-webpay.png
-banco_do_brasil:
-    label: Banco do Brasil
-    group: bt
-    countries:
-        BR: true
-    logo: bank-banco_do_brasil.png
-itau:
-    label: Itau
-    group: bt
-    countries:
-        BR: true
-    logo: bank-itau.png
-bradesco:
-    label: Bradesco
-    group: bt
-    countries:
-        BR: true
-    logo: bank-bradesco.png
-santander:
-    label: Santander
-    group: bt
-    countries:
-        BR: true
-    logo: bank-santander.png
-santander_rio:
-    label: Santander
-    group: bt
-    countries:
-        AR: true
-    logo: bank-santander.png
 bcp:
     label: BCP
     group: bt
@@ -262,7 +232,6 @@ bbva:
     logo_hd:
         2x: bank-bbva_2x.png
         3x: bank-bbva_3x.png
-# India
 netbanking:
     label_key: donate_interface-bank-name-netbanking
     group: bt
@@ -271,7 +240,6 @@ netbanking:
     logo: bank-netbanking.png
     logo_hd:
         2x: bank-netbanking_2x.png
-    sub_text_key: donate_interface-bank-name-netbanking
     recurring: false
 upi:
     label: UPI
@@ -293,3 +261,101 @@ paytmwallet:
         2x: bank-paytm_2x.png
     recurring: true
     show_single_logo: true
+maestro:
+    group: cc
+    countries:
+        AR: true
+        BR: true
+#       IN: true // not enabled but can be done at our request
+cabal-debit:
+    group: cc
+    countries:
+        AR: true
+mercadopago:
+    label: Mercado Pago
+    group: bt
+    countries:
+        AR: true
+        BR: true
+        CL: true
+        CO: true
+        MX: true
+    logo: bank-mercadopago.png
+jcb:
+    group: cc
+    countries:
+        BR: true
+discover:
+    group: cc
+    countries:
+        BR: true
+mach:
+    group: cc
+    countries:
+        CL: true
+servipag:
+    label: Servipag
+    group: cash
+    countries:
+        CL: true
+    logo: cash-servipag.png
+codenza:
+    group: cc
+    countries:
+        CO: true
+carulla:
+    label: Carulla
+    group: cash
+    countries:
+        CO: true
+    logo: cash-carulla.png
+carnet_debit:
+    group: cc
+    countries:
+        MX: true
+spei:
+    label: SPEI
+    group: bt
+    countries:
+        MX: true
+    logo: bank-spei.png
+stitch:
+    lable: Stitch
+    group: bt
+    countries:
+        ZA: true
+    logo: bank-ach.png
+bancolombia:
+    lable: Bancolombia
+    group: cash
+    countries:
+        CO: true
+    logo: bank-bancolombia.png
+#codi: // not enabled but can be done at our request
+#    label: Codi Bank Transfer Online
+#    group: bt
+#    countries:
+#        MX: true
+#    logo: bank-codi.png
+#puntored: // not enabled but can be done at our request
+#    lable: Puntored
+#    group: cash
+#    countries:
+#        CO: true
+#    logo: bank-puntored.png
+#carnet: // not enabled but can be done at our request
+#    group: cc
+#    countries:
+#        MX: true
+#picpay: // not enabled but can be done at our request
+#    label: PicPay
+#    group: bt
+#    countries:
+#        BR: true
+#    logo: bank-picpay.png
+#debin: // not enabled but can be done at our request
+#    label: DEBIN
+#    group: bt
+#    countries:
+#        AR: true
+#    logo: bank-debin.png
