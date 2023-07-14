@@ -147,6 +147,9 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'user_ip',
 					'recurring',
 					'payment_token',
+					'device_data',
+					'user_name',
+					'customer_id',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
@@ -208,6 +211,8 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			} else {
 				if ( $field === 'currency' ) {
 					$messageKey = 'donate_interface-error-msg-invalid-currency';
+				} elseif ( $field === 'device_data' ) {
+					$messageKey = 'donate_interface-error-msg-invalid-device-data';
 				} else {
 					$messageKey = 'donate_interface-error-msg-' . $field;
 				}
