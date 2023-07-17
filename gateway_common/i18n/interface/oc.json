@@ -254,7 +254,6 @@
 	"donate_interface-cancel": "Anullar",
 	"donate_interface-payment": "Pagament",
 	"donate_interface-payment-type": "Tipe de pagament",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Descripcion",
 	"donate_interface-donation": "Don",
 	"donate_interface-via-paypal": "(via PayPal)",

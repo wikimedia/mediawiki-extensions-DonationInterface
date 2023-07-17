@@ -11,7 +11,6 @@
 			"Whytheonlyone"
 		]
 	},
-	"apihelp-donate-description": "Esta API te permite enviar una donación a la Fundación Wikimedia, usando una variedad de métodos de pago.",
 	"apihelp-donate-param-gateway": "Qué sistema de pago utilizar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "El monto donado.",
 	"apihelp-donate-param-contact_id": "Identificador de donante en CiviCRM.",
@@ -43,7 +42,6 @@
 	"apihelp-donate-param-recurring": "Indica que la transacción debe repetirse periódicamente.",
 	"apihelp-donate-param-employer": "Nombre del empleador",
 	"apihelp-donate-example-1": "Hacer una donación",
-	"apihelp-logPaymentsFormError-description": "Esta API registra los errores del formulario de donación que se produzcan en el lado cliente.",
 	"apihelp-logPaymentsFormError-param-message": "El mensaje de error",
 	"apihelp-logPaymentsFormError-param-file": "Archivo en el que se produjo el error",
 	"apihelp-logPaymentsFormError-param-line": "Renglón en el que se produjo el error",

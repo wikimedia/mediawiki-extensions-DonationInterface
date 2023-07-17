@@ -14,6 +14,5 @@
 	"donate_interface-cvv-number-abbreviated": "CVV #",
 	"donate_interface-cvv2": "CVV2",
 	"donate_interface-next": "Ar aghaidh",
-	"donate_interface-cancel": "Cealaigh",
-	"donate_interface-month": "$1 ($2)"
+	"donate_interface-cancel": "Cealaigh"
 }

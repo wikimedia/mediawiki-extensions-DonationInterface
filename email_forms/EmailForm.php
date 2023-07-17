@@ -31,6 +31,8 @@ class EmailForm {
 		$options = [
 			'helpers' => [
 				'l10n' => 'EmailForm::l10n',
+				'dateFormatter' => 'EmailForm::dateFormatter',
+				'amountFormatter' => 'EmailForm::amountFormatter',
 			],
 			'basedir' => __DIR__ . '/templates/',
 			'fileext' => self::EXTENSION,
@@ -69,18 +71,41 @@ class EmailForm {
 		)->text();
 	}
 
+	public static function dateFormatter( $dateString ) {
+		$date = ( new DateTime( $dateString ) )->format( 'F jS, Y' );
+		return $date;
+	}
+
+	public static function amountFormatter( $amount, $locale, $currency ) {
+		return Amount::format(
+			$amount,
+			$currency,
+			$locale
+		);
+	}
+
 	protected function getTemplateParams() {
-		# FIXME Switch to a DonationInterface setting
-		global $wgFundraisingEmailUnsubscribeHelpEmail;
+		global $wgDonationInterfaceEmailFormHelpEmail;
 
 		$paramList = [
 			'checksum', 'contact_id', 'email', 'token', 'variant', 'first_name', 'countries',
-				'languages', 'sendEmail', 'dontSendEmail'
+				'languages', 'sendEmail', 'dontSendEmail', 'full_name', 'next_sched_date', 'locale', 'recur_amount', 'language', 'currency'
 		];
 		$templateParams = [];
+
 		foreach ( $paramList as $paramName ) {
 			if ( isset( $this->params[$paramName] ) ) {
 				$templateParams[$paramName] = $this->params[$paramName];
+			}
+		}
+		if ( isset( $this->params['recurringOptions'] ) ) {
+			$templateParams['recurringOptions'] = [];
+			foreach ( $this->params['recurringOptions'] as $option ) {
+				$templateParams['recurringOptions'][] = [
+					'value' => $option,
+					'locale' => $this->params['locale'],
+					'currency' => $this->params['currency']
+				];
 			}
 		}
 
@@ -99,7 +124,7 @@ class EmailForm {
 		$templateParams += [
 			'uselang' => $languageCode,
 			'template_path' => $templatePath,
-			'help_email' => $wgFundraisingEmailUnsubscribeHelpEmail,
+			'help_email' => $wgDonationInterfaceEmailFormHelpEmail,
 			'action' => $context->getRequest()->getFullRequestURL(),
 			'policy_url' => $this->getPolicyUrl( $languageCode ),
 		];

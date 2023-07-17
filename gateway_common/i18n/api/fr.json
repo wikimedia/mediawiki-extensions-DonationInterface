@@ -10,7 +10,6 @@
 			"Wladek92"
 		]
 	},
-	"apihelp-donate-description": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de modes de paiement.",
 	"apihelp-donate-summary": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de modes de paiement.",
 	"apihelp-donate-param-gateway": "Quelle passerelle de paiement utiliser — Adyen, Ingenico, etc.",
 	"apihelp-donate-param-amount": "Le montant du don.",
@@ -49,7 +48,6 @@
 	"apihelp-donate-param-employer": "Nom de l’employeur",
 	"apihelp-donate-param-employer_id": "Identifiant de l’employeur",
 	"apihelp-donate-example-1": "Faire un don",
-	"apihelp-logPaymentsFormError-description": "Cette API trace les erreurs du formulaire de don côté client.",
 	"apihelp-logPaymentsFormError-summary": "Cet API journalise les erreurs des formulaires de don côté client.",
 	"apihelp-logPaymentsFormError-param-message": "Le message d’erreur",
 	"apihelp-logPaymentsFormError-param-file": "Fichier dans lequel l’erreur s’est produite",
@@ -63,7 +61,6 @@
 	"apihelp-di_recurring_convert-summary": "Cette API est utilisée quand un donateur accepte d’ajouter un don mensuel après avoir réussi un don ponctuel.",
 	"apihelp-di_recurring_convert-param-amount": "Le montant du don mensuel.",
 	"apihelp-di_recurring_convert-param-gateway": "Quelle passerelle de paiement utiliser — Adyen, Ingenico, etc.",
-	"apihelp-employerSearch-description": "Cette API vous permet de rechercher des employeurs participant au programme pour la correspondance des dons à la WMF.",
 	"apihelp-employerSearch-summary": "Cette API vous permet de rechercher des employeurs participant au programme pour la correspondance des dons à la WMF.",
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
 	"apihelp-employerSearch-example-1": "Rechercher un employeur",

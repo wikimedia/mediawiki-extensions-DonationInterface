@@ -4,7 +4,6 @@
 			"Mirin"
 		]
 	},
-	"apihelp-donate-description": "Ĉi tiu API ebligas vin donaci al Fondaĵo Vikimedio per diversaj pagotraktantoj.",
 	"apihelp-donate-summary": "Ĉi tiu API ebligas vin donaci al Fondaĵo Vikimedio per diversaj pagotraktantoj.",
 	"apihelp-donate-param-gateway": "Uzota pagokluzo — adyen, ingenico, ktp.",
 	"apihelp-donate-param-amount": "La donaca kvanto.",
@@ -39,7 +38,6 @@
 	"apihelp-donate-param-opt_in": "Indikas ke la donacanto konsentas ricevon de kvestantaj retmesaĝoj.",
 	"apihelp-donate-param-employer": "Nomo de dunginto",
 	"apihelp-donate-example-1": "Donaci",
-	"apihelp-logPaymentsFormError-description": "Ĉi tiu API protokolas klientflankajn erarojn pri donaca formularo.",
 	"apihelp-logPaymentsFormError-summary": "Ĉi tiu API protokolas klientflankajn erarojn pri donaca formularo.",
 	"apihelp-logPaymentsFormError-param-message": "La erarmesaĝo",
 	"apihelp-logPaymentsFormError-param-file": "Dosiero, en kiu la eraro okazis",

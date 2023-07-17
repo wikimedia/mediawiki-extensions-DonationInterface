@@ -155,7 +155,6 @@
 	"donate_interface-cancel": "Utzi",
 	"donate_interface-payment": "Ordainketa",
 	"donate_interface-payment-type": "Ordainketa mota",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Deskribapena",
 	"donate_interface-donation": "Dohaintza",
 	"donate_interface-via-paypal": "(PayPal bidez)",

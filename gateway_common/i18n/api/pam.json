@@ -1,8 +1,0 @@
-{
-	"@metadata": {
-		"authors": [
-			"Leeheonjin"
-		]
-	},
-	"apihelp-donate-param-gateway": "Sanung \"payment gateway\" ing gamitan - adyen, ingenico, etc."
-}

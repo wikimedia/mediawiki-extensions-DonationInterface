@@ -12,7 +12,8 @@ class CiviproxyConnect {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
 		$client = new GuzzleHttp\Client();
-
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'CiviproxyConnector', true, false, '', null );
 		try {
 			$resp = $client->get(
 				"$wgDonationInterfaceCiviproxyURLBase/rest.php",
@@ -48,9 +49,69 @@ class CiviproxyConnect {
 			];
 
 		} catch ( Exception $e ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'CiviproxyConnector', true, false, '', null );
+			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
+			return [
+				'is_error' => true,
+				'error_message' => $e->getMessage()
+			];
+		}
+	}
 
+	public static function getRecurDetails( $checksum, $contact_id ) {
+		global $wgDonationInterfaceCiviproxyURLBase;
+
+		$client = new GuzzleHttp\Client();
+		$params = [
+			'checksum' => $checksum,
+			'contact_id' => $contact_id
+		];
+		$serializedParams = json_encode( $params );
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'CiviproxyConnector', true, false, '', null );
+		try {
+			$resp = $client->get(
+				"$wgDonationInterfaceCiviproxyURLBase/rest4.php",
+				[ 'query' => [
+						'entity' => 'ContributionRecur',
+						'action' => 'getUpgradableRecur',
+						'key' => self::SITE_KEY_KEY,
+						'api_key' => self::API_KEY_KEY,
+						'version' => '4',
+						'json' => '1',
+						'params' => $serializedParams,
+				],
+					'verify' => false
+				]
+			);
+			$response = $resp->getBody()->getContents();
+
+			$decodedResponse = json_decode( $response, true );
+
+			if ( $decodedResponse === null ) {
+				return [
+					'is_error' => true,
+					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+				];
+			}
+
+			if ( count( $decodedResponse['values'][0] ) === 0 ) {
+				return [
+					'is_error' => true,
+					'error_message' => "No result found"
+				];
+			}
+
+			$contributionRecurDetails = $decodedResponse['values'][0][0];
+			return [
+				'id' => $contributionRecurDetails['id'] ?? null,
+				'country' => $contributionRecurDetails[ 'country' ] ?? null,
+				'donor_name' => $contributionRecurDetails[ 'donor_name' ],
+				'currency' => $contributionRecurDetails[ 'currency' ],
+				'next_sched_contribution_date' => $contributionRecurDetails[ 'next_sched_contribution_date' ],
+				'amount' => $contributionRecurDetails[ 'amount' ] ?? null
+			];
+
+		} catch ( Exception $e ) {
 			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
 			return [
 				'is_error' => true,

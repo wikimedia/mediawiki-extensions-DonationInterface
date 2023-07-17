@@ -1,0 +1,51 @@
+{{> emailPreferencesHeader}}
+<main class="site-content">
+	<div>
+		<form method="POST" class="recurUpgradeForm" action="{{ action }}">
+			<input type="hidden" name="token" value="{{ token }}"/>
+			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
+			<input type="hidden" name="checksum" value="{{checksum}}"/>
+			<input type="hidden" name="contact_id" value="{{contact_id}}"/>
+
+			<div class="epc-form-col-content-salutation">
+				<span class="epc-form-col-content-salutation-name">{{ l10n "emailpreferences-hi" }}, {{ full_name }}</span>
+				</span>
+			</div>
+			<div class="emailPrefColumns">
+				<div class="emailPrefleftColumn">
+					<div class="oo-ui-fieldLayout-body">
+						<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-amount" }}</h5>
+						<p class="recurUpgradeBodyText">{{ amountFormatter recur_amount locale currency }}</p>
+					</div>
+
+					<div class="oo-ui-fieldLayout-body">
+						<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-next-scheduled-date" }}</h5>
+						<p class="recurUpgradeBodyText">{{ dateFormatter next_sched_date }}</p>
+					</div>
+				</div>
+				<div class="emailPrefRightColumn">
+					<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-title" }}</h5>
+					{{#recurringOptions}}
+					<div class="oo-ui-fieldLayout">
+						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
+							<input type="radio" id="upgradeAmount_{{ value }}" name="upgrade_amount" value={{ value }} autocomplete="off" class="oo-ui-inputWidget-input">
+							<span></span>
+						</span>
+
+						<label class="recurUpgradeBodyText" for="upgradeAmount_{{ value }}">{{ amountFormatter value locale currency }}</label>
+					</div>
+  					{{/recurringOptions}}
+				</div>
+			</div>
+			<div class="recurUpgradeActionButtons">
+				<div class="emailPrefButton">
+					<button class="btn disabled" type="submit" name="submit" id="save" value="save" disabled>{{ l10n "recurupgrade-upgrade" }}</button>
+				</div>
+				<div class="emailPrefButton">
+					<button type="submit" name="submit" id="cancel" value="cancel">{{ l10n "recurupgrade-upgrade-decline" }}</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</main>
+{{> emailPreferencesFooter}}

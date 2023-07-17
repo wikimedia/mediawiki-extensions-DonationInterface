@@ -4,7 +4,6 @@
 			"WikiPhoenix"
 		]
 	},
-	"apihelp-donate-description": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",
 	"apihelp-donate-summary": "Detta API låter dig skicka en donation till Wikimedia Foundation med en mängd olika betalningsmetoder.",
 	"apihelp-donate-param-gateway": "Vilken betalningsport att använda - adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "Det donerade beloppet.",
@@ -36,7 +35,6 @@
 	"apihelp-donate-param-referrer": "Ursprunglig referens.",
 	"apihelp-donate-param-recurring": "Indikerar att överföringen är tänkt att vara återkommande.",
 	"apihelp-donate-example-1": "Gör en donation",
-	"apihelp-logPaymentsFormError-description": "Detta API loggar fel i donationsformuläret på klientsidan.",
 	"apihelp-logPaymentsFormError-summary": "Detta API loggar fel i donationsformuläret på klientsidan.",
 	"apihelp-logPaymentsFormError-param-message": "Felmeddelandet",
 	"apihelp-logPaymentsFormError-param-file": "Filen där felet uppstod",

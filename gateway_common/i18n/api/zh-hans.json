@@ -5,7 +5,6 @@
 			"Liuxinyu970226"
 		]
 	},
-	"apihelp-donate-description": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
 	"apihelp-donate-summary": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
 	"apihelp-donate-param-gateway": "要使用的支付网关——adyen、ingenico等。",
 	"apihelp-donate-param-amount": "所捐赠的金额。",
@@ -39,7 +38,6 @@
 	"apihelp-donate-param-variant": "表明捐款人填写的表单变体。",
 	"apihelp-donate-param-opt_in": "表明捐款人已启用筹款电子邮件。",
 	"apihelp-donate-example-1": "捐款",
-	"apihelp-logPaymentsFormError-description": "此API记录客户端捐赠表单的错误。",
 	"apihelp-logPaymentsFormError-summary": "此API记录客户端捐款表单错误。",
 	"apihelp-logPaymentsFormError-param-message": "错误消息",
 	"apihelp-logPaymentsFormError-param-file": "错误发生的文件",

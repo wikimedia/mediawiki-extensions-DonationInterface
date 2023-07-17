@@ -4,7 +4,6 @@
 			"Joetaras"
 		]
 	},
-	"apihelp-donate-description": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
 	"apihelp-donate-summary": "Sta API permette de confermà 'na donazzione a Wikimedia Foundation ausanne 'nu sbuènne de processe de pajamende.",
 	"apihelp-donate-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "'U 'mborte ddunate.",
@@ -40,7 +39,6 @@
 	"apihelp-donate-param-employer": "Nome d'u 'mbiegate",
 	"apihelp-donate-param-employer_id": "ID d'u datore de fatìe",
 	"apihelp-donate-example-1": "Fà 'na donazzione",
-	"apihelp-logPaymentsFormError-description": "Sta API reggìstre le errore d'u module de le donazziune late client.",
 	"apihelp-logPaymentsFormError-summary": "Sta API reggìstre le errore d'u module de le donazziune late client.",
 	"apihelp-logPaymentsFormError-param-message": "'U messàgge de errore",
 	"apihelp-logPaymentsFormError-param-file": "File addò ave assute l'errore",
@@ -52,7 +50,6 @@
 	"apihelp-di_recurring_convert-summary": "Sta API jè ausate da le donature ca volene aggiungere 'na donazione mensile apprisse ca onne combletate 'a prima donazione.",
 	"apihelp-di_recurring_convert-param-amount": "'U 'mborte d'a donazione mensile.",
 	"apihelp-di_recurring_convert-param-gateway": "Quale cangille de pajamende vuè ccu ause - adyen, ingenico, etc.",
-	"apihelp-employerSearch-description": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
 	"apihelp-employerSearch-summary": "Sta API te permette de cercà pe le dature de fatìe ca pigghiane parte a 'u programme de le riale WMF.",
 	"apihelp-employerSearch-param-employer": "Cè dature de fatìe stonne da cercà pe esembie Red Cross, WWF, Salvation Army, etc.",
 	"apihelp-employerSearch-example-1": "Cirche 'nu datore de fatìe",

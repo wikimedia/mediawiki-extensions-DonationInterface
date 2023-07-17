@@ -4,7 +4,6 @@
 			"William Surya Permana"
 		]
 	},
-	"apihelp-donate-description": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
 	"apihelp-donate-summary": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
 	"apihelp-donate-param-gateway": "Gerbang pembayaran mana yang ingin dipakai - adyen, ingenico, dsb.",
 	"apihelp-donate-param-amount": "Nilai yang akan didonasikan.",
@@ -38,7 +37,6 @@
 	"apihelp-donate-param-variant": "Menandakan variasi formulir mana yang telah diisi oleh donatur.",
 	"apihelp-donate-param-opt_in": "Menandakan donatur telah diikutsertakan dalam milis penggalangan dana.",
 	"apihelp-donate-example-1": "Buat donasi",
-	"apihelp-logPaymentsFormError-description": "API ini mencatat galat formulir donasi di sisi klien.",
 	"apihelp-logPaymentsFormError-summary": "API ini mencatat galat formulir donasi di sisi klien.",
 	"apihelp-logPaymentsFormError-param-message": "Pesan galat",
 	"apihelp-logPaymentsFormError-param-file": "Berkas tempat terjadi galat",

@@ -339,7 +339,6 @@
 	"donate_interface-cancel": "中止",
 	"donate_interface-payment": "支払い",
 	"donate_interface-payment-type": "支払いの種類",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "以下の寄付を完了してください...",
 	"donate_interface-description": "概要",
 	"donate_interface-donation": "寄付",

@@ -6,7 +6,6 @@
 			"捍粵者"
 		]
 	},
-	"apihelp-donate-description": "此 API 允許您使用多種付款處理程序來提交捐款至維基媒體基金會。",
 	"apihelp-donate-summary": "此 API 允許您使用多種付款處理程序來提交捐款至維基媒體基金會。",
 	"apihelp-donate-param-gateway": "要使用的付款匣道 - adyen、ingenico、等等。",
 	"apihelp-donate-param-amount": "捐款金額。",
@@ -45,7 +44,6 @@
 	"apihelp-donate-param-employer": "雇主名稱",
 	"apihelp-donate-param-employer_id": "雇主 ID",
 	"apihelp-donate-example-1": "捐款",
-	"apihelp-logPaymentsFormError-description": "此 API 記錄客戶端捐款表單方面的錯誤。",
 	"apihelp-logPaymentsFormError-summary": "此 API 記錄客戶端捐款表單方面的錯誤。",
 	"apihelp-logPaymentsFormError-param-message": "錯誤訊息",
 	"apihelp-logPaymentsFormError-param-file": "發生錯誤的檔案",
@@ -58,8 +56,7 @@
 	"apihelp-di_donate_braintree-summary": "此 API 適用於 Braintree",
 	"apihelp-di_recurring_convert-summary": "此 API 使用來當捐款者完成一筆單筆捐款後，同意增加每月定期捐款。",
 	"apihelp-di_recurring_convert-param-amount": "每月捐款的金額。",
-	"apihelp-di_recurring_convert-param-gateway": "要使用的付款匣道 - adyen、ingenico、等等。",
-	"apihelp-employerSearch-description": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
+	"apihelp-di_recurring_convert-param-gateway": "要使用的付款匣道 - adyen、ingenico 等等。",
 	"apihelp-employerSearch-summary": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-param-employer": "要搜尋哪個雇主，例如：紅十字會、世界自然基金會、救世軍等等。",
 	"apihelp-employerSearch-example-1": "選擇雇主",

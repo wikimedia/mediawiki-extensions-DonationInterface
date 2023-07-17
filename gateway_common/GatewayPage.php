@@ -104,6 +104,14 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$gatewayName = $this->getGatewayIdentifier();
 		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
+		$this->logger = DonationLoggerFactory::getLoggerForType(
+			$className,
+			$this->getLogPrefix()
+		);
+		$this->logger->debug(
+			'Loading page ' . get_called_class() .
+			' with request parameters ' . json_encode( $this->getRequest()->getQueryValues() )
+		);
 		DonationInterface::setSmashPigProvider( $gatewayName );
 
 		try {
@@ -133,12 +141,6 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			);
 
 		} catch ( Exception $ex ) {
-			if ( !$this->logger ) {
-				$this->logger = DonationLoggerFactory::getLoggerForType(
-					$className,
-					$this->getLogPrefix()
-				);
-			}
 			$this->logger->error(
 				"Exception setting up GatewayPage with adapter class $className: " .
 					"{$ex->getMessage()}\n{$ex->getTraceAsString()}"
