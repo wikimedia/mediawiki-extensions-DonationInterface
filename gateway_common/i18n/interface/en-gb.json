@@ -9,7 +9,8 @@
 			"Thehelpfulone",
 			"Bjh21",
 			"Mako001",
-			"MxYamato"
+			"MxYamato",
+			"Piano1forte2"
 		]
 	},
 	"donate_interface-maintenance-notice": "We apologise, but this type of payment has been temporarily disabled.",
@@ -18,7 +19,7 @@
 	"donate_interface-company-name": "Company or organisation name",
 	"donate_interface-cardholders-name": "Cardholder's name",
 	"donate_interface-cc-MX-instructions": "For security, some Mexican banks block online transactions. If your donation is not successful, we suggest you call your bank to authorise the online donation and try again.",
-	"donate_interface-sofortbanking": "Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities you may want to use the \"Donate by manual bank transfer\" option on the main donation page.",
+	"donate_interface-sofortbanking": "Sofortbanking is a direct, real time Bank Transfer via DIRECTebanking.com that allows you to directly trigger a bank transfer during your online donation with your online banking information. If your bank account is not enabled with online capabilities, you may want to use the 'Donate by manual bank transfer' option on the main donation page.",
 	"donate_interface-dd-authorization_id": "Authorisation ID",
 	"donate_interface-email-unsub-delay": "Please allow up to four (4) days for the changes to take effect. We apologise for any emails you receive during this time. If you have any questions, please contact <$1>",
 	"donate_interface-informationsharing": "We do not sell or trade your information to anyone. By donating, you agree to share your personal information with the Wikimedia Foundation, the nonprofit organisation that hosts Wikipedia and other Wikimedia projects, and its service providers pursuant to our <a href=\"$1\">donor policy</a>. Wikimedia Foundation and its service providers are located in the United States and in other countries whose privacy laws may not be equivalent to your own. For more information please read our <a href=\"$1\">donor policy</a>.",
