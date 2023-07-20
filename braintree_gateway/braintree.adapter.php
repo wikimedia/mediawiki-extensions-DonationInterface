@@ -6,7 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
-use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
+use SmashPig\PaymentProviders\Braintree\PaymentProvider;
 use SmashPig\PaymentProviders\Braintree\TransactionType;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
@@ -34,11 +34,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult
-	 * @param PaypalPaymentProvider $provider
+	 * @param PaymentProvider $provider
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		CreatePaymentResponse $createPaymentResult, PaypalPaymentProvider $provider
+		CreatePaymentResponse $createPaymentResult, PaymentProvider $provider
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
 		$donorDetails = $createPaymentResult->getDonorDetails();
