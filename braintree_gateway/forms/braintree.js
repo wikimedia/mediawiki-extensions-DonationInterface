@@ -21,16 +21,11 @@
 		}
 	}
 
-	function clearAllErrorMessages() {
-		$( '.error-msg' ).remove();
-		$( '#topError' ).html( '' );
-		$( '#errorReference' ).html( '' );
-	}
-
 	// render error Message to client
 	function showClientSideErrorMessage( msg ) {
-		clearAllErrorMessages();
-		$( '.submethods' ).before( '<p class="error-msg">' + msg + '</p>' );
+		$( '.errorMsg' ).remove();
+		$( '#errorReference' ).html( '' );
+		$( '#topError' ).html( msg );
 	}
 
 	// myDeviceData will supply device data for non-recurring vault trxns
@@ -105,8 +100,7 @@
 			// Handle component creation error
 			showClientSideErrorMessage( 'component creation error: ' + err );
 		} );
-	}
-	if ( payment_method === 'venmo' ) {
+	} else if ( payment_method === 'venmo' ) {
 		var venmoButton = document.getElementById( 'venmo-button' );
 		braintree.client.create( {
 			authorization: mw.config.get( 'clientToken' )
@@ -133,7 +127,7 @@
 				} else if ( err.code === 'VENMO_APP_CANCELED' ) {
 					showClientSideErrorMessage( 'User canceled payment flow' );
 				} else {
-					showClientSideErrorMessage( 'An error occurred:' + err.message );
+					showClientSideErrorMessage( err.message );
 				}
 			}
 			function handleVenmoSuccess( payload ) {
