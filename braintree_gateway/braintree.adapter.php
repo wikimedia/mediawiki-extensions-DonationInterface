@@ -231,4 +231,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'paypal' ];
 	}
+
+	public function getCurrencies( $options = [] ) {
+		if ( $this->dataObj->getVal( 'payment_method' ) === 'venmo' ) {
+			return [ 'USD' ];
+		}
+		return parent::getCurrencies( $options );
+	}
 }
