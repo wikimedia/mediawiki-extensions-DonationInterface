@@ -33,14 +33,27 @@
 		$( '.submethods' ).before( '<p class="error-msg">' + msg + '</p>' );
 	}
 
+	// myDeviceData will supply device data for non-recurring vault trxns
+	// see https://developer.paypal.com/braintree/docs/guides/paypal/vault#collecting-device-data
+	// https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3/#collecting-device-data
+	function getDeviceData( clientInstance ) {
+		braintree.dataCollector.create( {
+			client: clientInstance
+		} ).then( function  ( dataCollectorInstance ) {
+			// At this point, you should access the dataCollectorInstance.deviceData value and provide it
+			// to your server, e.g. by injecting it into your form as a hidden input
+			myDeviceData = dataCollectorInstance.deviceData;
+		} ).catch( function ( err ) {
+			showClientSideErrorMessage( 'Device data error' + err );
+		} );
+	}
+
 	// Create a client.
 	if ( payment_method === 'paypal' ) {
 		braintree.client.create( {
 			authorization: mw.config.get( 'clientToken' )
 		} ).then( function ( clientInstance ) {
-			// TODO: myDeviceData will supply device data for non-recurring vault trxns
-			// see https://developer.paypal.com/braintree/docs/guides/paypal/vault#collecting-device-data
-			// myDeviceData = clientInstance.deviceData;
+			getDeviceData( clientInstance );
 			// Create a PayPal Checkout component.
 			return braintree.paypalCheckout.create( {
 				client: clientInstance
@@ -63,7 +76,11 @@
 					return paypalCheckoutInstance.tokenizePayment( data ).then( function ( payload ) {
 						var sendData = {
 							payment_token: payload.nonce,
-							device_data: myDeviceData
+							device_data: myDeviceData,
+							first_name: payload.details.firstName,
+							last_name: payload.details.lastName,
+							email: payload.details.email,
+							street_address: payload.details.shippingAddress
 						};
 
 						di.forms.callDonateApi(
@@ -94,6 +111,7 @@
 		braintree.client.create( {
 			authorization: mw.config.get( 'clientToken' )
 		} ).then( function ( clientInstance ) {
+			getDeviceData( clientInstance );
 			// Create a Venmo component.
 			return braintree.venmo.create( {
 				client: clientInstance,
@@ -119,17 +137,22 @@
 				}
 			}
 			function handleVenmoSuccess( payload ) {
-				// todo: pass more data like payload.details T340799
 				var sendData = {
 					payment_token: payload.nonce,
-					user_name: payload.details.username
+					device_data: myDeviceData,
+					first_name: payload.details.payerInfo.firstName,
+					last_name: payload.details.payerInfo.lastName,
+					phone: payload.details.payerInfo.phoneNumber,
+					email: payload.details.payerInfo.email,
+					street_address: payload.details.payerInfo.shippingAddress,
+					user_name: payload.details.username,
+					customer_id: payload.details.payerInfo.externalId // for vault
 				};
-
 				di.forms.callDonateApi(
 					handleApiResult, sendData, 'di_donate_braintree'
 				);
 			}
-			function displayVenmoButton( venmoInstance ) {
+			function displayVenmoButton() {
 				venmoButton.style.display = 'block';
 				venmoButton.addEventListener( 'click', function () {
 					venmoButton.disabled = true;
@@ -138,7 +161,7 @@
 					} );
 				} );
 			}
-			displayVenmoButton( venmoInstance );
+			displayVenmoButton();
 		} ).catch( function ( err ) {
 			showClientSideErrorMessage( 'Error creating Venmo:' + err );
 		} );
