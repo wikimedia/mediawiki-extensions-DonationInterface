@@ -176,6 +176,7 @@
 	"donate_interface-error-msg-invalid-amount": "Per favor entra un amonta valide",
 	"donate_interface-error-msg-invalid-country": "Nos non pote deteger tu pais. Per favor, selige un pais sur nostre pagina <a href=\"$1\">Manieras de donar</a>.",
 	"donate_interface-error-msg-invalid-currency": "Per favor selige un devisa monetari valide",
+	"donate_interface-error-msg-invalid-device-data": "Un error ha occurrite con le datos del apparato.",
 	"donate_interface-error-msg-invalid-email": "Per favor entra un adresse de e-mail valide, p.ex. nomine@dominio.com",
 	"donate_interface-error-msg-card-num": "Per favor entra un numero de carta de credito valide pro un del typos de carta de credito acceptate",
 	"donate_interface-error-msg-amex": "Per favor entra un numero correcte de carta American Express.",

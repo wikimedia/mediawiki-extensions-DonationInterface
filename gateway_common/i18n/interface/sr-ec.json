@@ -166,6 +166,7 @@
 	"donate_interface-error-msg-validation": "Исправите грешке у обрасцу.",
 	"donate_interface-error-msg-invalid-amount": "Унесите важећи износ",
 	"donate_interface-error-msg-invalid-currency": "Изаберите важећу валуту",
+	"donate_interface-error-msg-invalid-device-data": "Нешто није уреду са подацима уређаја.",
 	"donate_interface-error-msg-invalid-email": "Унесите важећу имејл-адресу, нпр. ime@domen.com",
 	"donate_interface-error-msg-card-num": "Унесите важећи број кредитне картице једне од прихваћених типова кредитних картица које су прихваћене",
 	"donate_interface-error-msg-amex": "Унесите исправан број Американ експрес картице.",

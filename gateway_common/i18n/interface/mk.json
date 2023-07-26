@@ -180,6 +180,7 @@
 	"donate_interface-error-msg-invalid-amount": "Внесете правилен износ",
 	"donate_interface-error-msg-invalid-country": "За жал, не можев да ја утврдам вашата земја. Изберете една од страницата <a href=\"$1\">Начини на дарување</a>.",
 	"donate_interface-error-msg-invalid-currency": "Изберете важечка валута",
+	"donate_interface-error-msg-invalid-device-data": "Нешто не е во ред со податоците на уредот.",
 	"donate_interface-error-msg-invalid-email": "Внесете важечка е-пошта (на пр. ime@domen.com)",
 	"donate_interface-error-msg-card-num": "Внесете полноважен број на кредитна картичка од прифатените видови",
 	"donate_interface-error-msg-amex": "Внесете правилен број на American Express картичка.",
