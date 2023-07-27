@@ -134,7 +134,8 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$localAction = $this->determineAction();
 		$this->gateway_adapter->setValidationAction( $localAction );
 
-		$log_message = '"' . $localAction . "\"\t\"" . $score . "\"";
+		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
+		$log_message = '"' . $localAction . '" "' . $score . '" ' . $user_ip;
 
 		$this->fraud_logger->info( '"Filtered" ' . $log_message );
 
