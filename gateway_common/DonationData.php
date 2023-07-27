@@ -124,6 +124,9 @@ class DonationData implements LogPrefixProvider {
 		'full_name',
 		'upi_id',
 		'initial_scheme_transaction_id',
+		'device_data', // needed for braintree venom
+		'user_name', // optional venmo name
+		'customer_id', // venmo customer_id for recurring vault
 	];
 
 	/**

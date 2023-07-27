@@ -239,7 +239,7 @@
 	"donate_interface-donate-error-try-a-different-card": "Per favore [$1  provare con una carta diversa] oppure con [$2 un'altra modalità di donazione] oppure contattateci all'indirizzo $3",
 	"donate_interface-donate-error-try-a-different-card-html": "Si prega di provare con un'altra carta o uno dei nostri <a href=\"$1\">altri metodi di donazione</a>, o contattaci su <a href=\"mailto:$2\">$2</a>",
 	"donate_interface-donate-error-try-again-html": "<a href=\"$1\">Riprova</a>, <a href=\"$2\">scegli un altro metodo</a>, o contattaci a <a href=\"mailto:$3\">$3</a>",
-	"donate_interface-donate-error-thank-you-for-your-support": "Grazie per il tuo supporto!",
+	"donate_interface-donate-error-thank-you-for-your-support": "Grazie per il tuo sostegno!",
 	"donate_interface-error-no-form": "Non è stata trovata una donazione che corrisponda ai tuoi parametri. Contatta il [mailto:$1 nostro team di aiuto] per ulteriori informazioni.",
 	"donate_interface-error-no-form-html": "Non riusciamo a trovare una donazione che corrisponde ai tuoi parametri. Prova un <a href=\"$1\">altro modo</a>, o contattaci a <a href=\"mailto:$2\">$2</a>.",
 	"donate_interface-error-reference": "Errore di riferimento: $1",
@@ -419,10 +419,12 @@
 	"donate_interface-monthly-convert-text": "Il sostegno mensile è il modo migliore per permettere a Wikipedia di continuare a crescere.",
 	"donate_interface-monthly-convert-change-amount": "Sì, voglio fare una donazione mensile ma con un importo diverso",
 	"donate_interface-monthly-convert-enter-amount": "Inserisci l'importo della tua donazione mensile che partirà dal prossimo mese.",
+	"donate_interface-monthly-convert-max-amount": "Non è possibile addebitare una donazione ricorrente per un importo superiore a quello della tua donazione singola.",
 	"donate_interface-monthly-convert-action-button": "Dona mensilmente",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, grazie",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Sì, voglio aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
-	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1."
+	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1.",
+	"donate_interface-redirect-explanation": "Sarai reindirizzato a un partner di Wikimedia che elabora i pagamenti."
 }

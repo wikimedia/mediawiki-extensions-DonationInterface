@@ -1,5 +1,9 @@
-paypal:
+venmo:
     is_default: true
+    recurring: true
+    countries:
+        - US
+paypal:
     recurring: true
     countries:
         - AD

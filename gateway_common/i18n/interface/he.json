@@ -185,6 +185,7 @@
 	"donate_interface-error-msg-invalid-amount": "יש להזין סכום תקין",
 	"donate_interface-error-msg-invalid-country": "מצטערים, לא הצלחנו לזהות את המדינה שלך. נא לבחור מדינה בדף <a href=\"$1\">דרכים לתת</a> שלנו.",
 	"donate_interface-error-msg-invalid-currency": "נא לבחור מטבע תקין",
+	"donate_interface-error-msg-invalid-device-data": "משהו לא בסדר בנתוני המכשיר.",
 	"donate_interface-error-msg-invalid-email": "יש להזין כתובת דוא״ל תקינה, למשל name@domain.com",
 	"donate_interface-error-msg-card-num": "נא להזין מספר כרטיס אשראי תקף עבור אחד מסוגי כרטיסי האשראי הקבילים",
 	"donate_interface-error-msg-amex": "נא להזין מספר כרטיס נכון עבור אמריקן אקספרס.",

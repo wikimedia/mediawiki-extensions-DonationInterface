@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Artsiom91",
+			"Earnur97",
 			"Mechanizatar",
 			"No Sleep till Krupki",
 			"ZlyiLev",
@@ -142,6 +143,7 @@
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-nopaypal": "У сувязі з тэхнічнай памылкай, мы не можам адправіць ваш запыт на PayPal. Калі ласка, паспрабуйце скарыстацца нашай стандартнай формай ахвяраванні па крэдытнай карце.",
 	"donate_interface-error-msg-invalid-amount": "Калі ласка, увядзіце карэктную суму",
+	"donate_interface-error-msg-invalid-device-data": "Нешта не так з дадзенымі прылады.",
 	"donate_interface-error-msg-invalid-email": "Калі ласка, увядзіце карэктны адрас электроннай пошты",
 	"donate_interface-error-msg-card-num": "Калі ласка, увядзіце нумар крэдытнай карты аднаго з дапушчальных тыпаў",
 	"donate_interface-error-msg-amex": "Калі ласка, увядзіце правільны нумар карты American Express.",

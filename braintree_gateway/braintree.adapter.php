@@ -6,7 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
-use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
+use SmashPig\PaymentProviders\Braintree\PaymentProvider;
 use SmashPig\PaymentProviders\Braintree\TransactionType;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
@@ -34,11 +34,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult
-	 * @param PaypalPaymentProvider $provider
+	 * @param PaymentProvider $provider
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		CreatePaymentResponse $createPaymentResult, PaypalPaymentProvider $provider
+		CreatePaymentResponse $createPaymentResult, PaymentProvider $provider
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
 		$donorDetails = $createPaymentResult->getDonorDetails();
@@ -147,6 +147,9 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'user_ip',
 					'recurring',
 					'payment_token',
+					'device_data',
+					'user_name',
+					'customer_id',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
@@ -208,6 +211,8 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			} else {
 				if ( $field === 'currency' ) {
 					$messageKey = 'donate_interface-error-msg-invalid-currency';
+				} elseif ( $field === 'device_data' ) {
+					$messageKey = 'donate_interface-error-msg-invalid-device-data';
 				} else {
 					$messageKey = 'donate_interface-error-msg-' . $field;
 				}
@@ -225,5 +230,12 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'paypal' ];
+	}
+
+	public function getCurrencies( $options = [] ) {
+		if ( $this->dataObj->getVal( 'payment_method' ) === 'venmo' ) {
+			return [ 'USD' ];
+		}
+		return parent::getCurrencies( $options );
 	}
 }

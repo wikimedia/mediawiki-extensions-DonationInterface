@@ -417,7 +417,7 @@
 	"donate_interface-email-unsub-button": "取消訂閱",
 	"donate_interface-email-unsub-success": "您的電子郵件帳號已成功從我們的電子郵件清單中移除",
 	"donate_interface-email-unsub-delay": "請靜候此更改內容生效，可能需等待四 (4) 天時間。我們對於在此期間未收到您的電子郵件改到相當抱歉，若有其它問題請聯繫<$1>",
-	"donate_interface-email-unsub-fail": "在處理您的請求時發生錯誤，請聯絡<$1> 。",
+	"donate_interface-email-unsub-fail": "在處理您的請求時發生錯誤，請聯絡<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-unsub-confirm": "您確認要退訂<b>$1</b>嗎？",
 	"donate_interface-email-unsub-warning": "您將從維基媒體基金會作為捐助者傳送給您的電子郵件群中退出。您可能仍會在這個 Email 位址收到電子郵件，如果它與我們的某個項目相關聯。如果您有任何疑問，請聯繫：<a href=\"mailto:$1\">$1</a>。",
 	"donate_interface-email-explain": "我們會電郵給您一份收據來確認您的捐款。",

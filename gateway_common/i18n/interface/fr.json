@@ -221,6 +221,7 @@
 	"donate_interface-error-msg-invalid-amount": "Veuillez saisir un montant valide",
 	"donate_interface-error-msg-invalid-country": "Désolé, il est impossible de détecter votre pays. Merci de le sélectionner sur la page <a href=\"$1\">Moyens de donner</a>.",
 	"donate_interface-error-msg-invalid-currency": "Veuillez sélectionner une devise monétaire valide",
+	"donate_interface-error-msg-invalid-device-data": "Quelque chose s’est mal passé avec les données de l’appareil.",
 	"donate_interface-error-msg-invalid-email": "Veuillez entrer une adresse de courriel valide, par exemple nom@domaine.example.com",
 	"donate_interface-error-msg-card-num": "Veuillez entrer un numéro de carte bancaire ou de crédit valide pour l’un des types de cartes acceptées",
 	"donate_interface-error-msg-amex": "Veuillez entrer un numéro de carte American Express correct.",

@@ -14,3 +14,6 @@ street_address: street_address
 user_ip: user_ip
 recurring: recurring
 gateway_txn_id: gateway_txn_id
+user_name: user_name
+device_data: device_data
+customer_id: customer_id

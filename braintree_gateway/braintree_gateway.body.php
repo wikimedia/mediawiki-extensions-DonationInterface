@@ -12,9 +12,11 @@ class BraintreeGateway extends GatewayPage {
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		$clientScript = $this->adapter->getAccountConfig( 'clientScript' );
 		$paypalScript = $this->adapter->getAccountConfig( 'paypalScript' );
+		$venmoScript = $this->adapter->getAccountConfig( 'venmoScript' );
 		$deviceScript = $this->adapter->getAccountConfig( 'deviceScript' );
 		$out->addScript( "<script src=\"{$clientScript}\"></script>" );
 		$out->addScript( "<script src=\"{$paypalScript}\"></script>" );
+		$out->addScript( "<script src=\"{$venmoScript}\"></script>" );
 		$out->addScript( "<script src=\"{$deviceScript}\"></script>" );
 	}
 
