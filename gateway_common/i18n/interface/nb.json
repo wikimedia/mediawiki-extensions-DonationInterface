@@ -188,6 +188,7 @@
 	"donate_interface-error-msg-invalid-amount": "Vennligst oppgi et gyldig beløp",
 	"donate_interface-error-msg-invalid-country": "Beklager, vi fant ikke ut hvilket land du er i. Velg et land på siden <a href=\"$1\">Måter å gi</a>.",
 	"donate_interface-error-msg-invalid-currency": "Velg en gyldig valuta",
+	"donate_interface-error-msg-invalid-device-data": "Noe gikk galt med enhetsdataene.",
 	"donate_interface-error-msg-invalid-email": "Vennligst oppgi en gyldig e-postadresse",
 	"donate_interface-error-msg-card-num": "Skriv inn et gyldig kredittkortnummer for en av de aksepterte kredittkorttypene",
 	"donate_interface-error-msg-amex": "Vennligst oppgi et gyldig kortnummer for American Express.",
