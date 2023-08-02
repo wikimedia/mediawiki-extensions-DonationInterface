@@ -404,7 +404,6 @@
 	"donate_interface-dd-bank_name": "Name der Bank",
 	"donate_interface-dd-branch_code": "Filialleitzahl",
 	"donate_interface-dd-direct_debit_text": "Text der Lastschrift (Verwendungszweck)",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Diese Übersetzung verbessern",
 	"donate_interface-translate-redlink1": "Bei der Übersetzung dieser Seite mithelfen.",
 	"donate_interface-translate-redlink2": "Oder senden Sie Ihre Übersetzung per E-Mail an translations@wikimedia.org",

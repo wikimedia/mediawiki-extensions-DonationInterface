@@ -334,7 +334,6 @@
 	"donate_interface-dd-bank_name": "Име на банка",
 	"donate_interface-dd-branch_code": "Код на банков клон",
 	"donate_interface-dd-direct_debit_text": "Текст за директен дебит",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Подобрете този превод",
 	"donate_interface-translate-redlink1": "Помогнете за превода на тази страница.",
 	"donate_interface-translate-redlink2": "Или изпратете по електронна поща вашия превод на адрес translations@wikimedia.org",

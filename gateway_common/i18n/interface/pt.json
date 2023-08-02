@@ -414,7 +414,6 @@
 	"donate_interface-dd-bank_name": "Nome do banco",
 	"donate_interface-dd-branch_code": "Código da agência",
 	"donate_interface-dd-direct_debit_text": "Texto de débito direto",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Melhorar esta tradução",
 	"donate_interface-translate-redlink1": "Ajude a traduzir esta página.",
 	"donate_interface-translate-redlink2": "Ou envie a sua tradução para translations@wikimedia.org",

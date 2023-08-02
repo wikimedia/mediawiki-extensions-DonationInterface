@@ -314,7 +314,6 @@
 	"donate_interface-dd-account_number": "অ্যাকাউন্ট নম্বর",
 	"donate_interface-dd-bank_name": "ব্যাংকের নাম",
 	"donate_interface-dd-branch_code": "শাখা কোড",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "এই অনুবাদ উন্নয়ন করুন",
 	"donate_interface-translate-redlink1": "এই পাতাটি অনুবাদ করতে সাহায্য করুন।",
 	"donate_interface-translate-redlink2": "বা আপনার অনুবাদ translations@wikimedia.org ঠিকানায় ইমেইল করুন",

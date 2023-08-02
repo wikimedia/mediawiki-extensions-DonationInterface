@@ -338,7 +338,6 @@
 	"donate_interface-dd-bank_name": "Bank neve",
 	"donate_interface-dd-branch_code": "A fiók kódja",
 	"donate_interface-dd-direct_debit_text": "Megjegyzés",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Javaslat jobb fordításra",
 	"donate_interface-translate-redlink1": "Segíts lefordítani ezt az oldalt",
 	"donate_interface-translate-redlink2": "Vagy küldd el a fordításodat a translations@wikimedia.org címre",

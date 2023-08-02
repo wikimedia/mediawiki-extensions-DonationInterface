@@ -273,7 +273,6 @@
 	"donate_interface-dd-authorization_id": "Autorizācijas ID",
 	"donate_interface-dd-bank_name": "Bankas nosaukums",
 	"donate_interface-dd-branch_code": "Filiāles kods",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Uzlabot šo tulkojumu",
 	"donate_interface-translate-redlink1": "Palīdzi iztulkot šo lapu.",
 	"donate_interface-translate-redlink2": "Vai nosūti savu tulkojumu uz translations@wikimedia.org",

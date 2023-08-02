@@ -365,7 +365,6 @@
 	"donate_interface-dd-bank_name": "은행 이름",
 	"donate_interface-dd-branch_code": "지점 코드",
 	"donate_interface-dd-direct_debit_text": "직불 텍스트",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "이 번역을 개선하세요",
 	"donate_interface-translate-redlink1": "이 문서를 번역해 주세요.",
 	"donate_interface-translate-redlink2": "혹은 번역하신 내용을 translations@wikimedia.org 로 보내주십시오",

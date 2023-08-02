@@ -362,7 +362,6 @@
 	"donate_interface-dd-bank_name": "Banknaam",
 	"donate_interface-dd-branch_code": "Filiaalcode",
 	"donate_interface-dd-direct_debit_text": "Incassotekst",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Vertaling verbeteren",
 	"donate_interface-translate-redlink1": "Help deze pagina vertalen.",
 	"donate_interface-translate-redlink2": "Of e-mail uw vertaling naar translations@wikimedia.org",

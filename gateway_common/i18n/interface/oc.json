@@ -286,7 +286,6 @@
 	"donate_interface-dd-bank_name": "Nom de la banca",
 	"donate_interface-dd-branch_code": "Còdi de l’agéncia",
 	"donate_interface-dd-direct_debit_text": "Libellat del prelevament bancari",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Melhorar aquesta traduccion",
 	"donate_interface-translate-redlink1": "Ajudatz a traduire aquesta pagina.",
 	"donate_interface-translate-redlink2": "O mandatz vòstra traduccion a translations@wikimedia.org",

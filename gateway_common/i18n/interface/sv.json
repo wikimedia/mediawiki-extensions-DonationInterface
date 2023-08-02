@@ -370,7 +370,6 @@
 	"donate_interface-dd-bank_name": "Bankens namn",
 	"donate_interface-dd-branch_code": "Bankfilialens kod",
 	"donate_interface-dd-direct_debit_text": "Autogirotext",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Förbättra denna översättning",
 	"donate_interface-translate-redlink1": "Hjälp till att översätta denna sida.",
 	"donate_interface-translate-redlink2": "Eller e-maila din översättning till translations@wikimedia.org",

@@ -313,7 +313,6 @@
 	"donate_interface-dd-bank_name": "ბანკის სახელი",
 	"donate_interface-dd-branch_code": "ფილიალის კოდი",
 	"donate_interface-dd-direct_debit_text": "პირდაპირი დებეტური ტექსტი",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "გააუმჯობესეთ ეს თარგმანი",
 	"donate_interface-translate-redlink1": "დაგვეხმარეთ ამ გვერდის თარგმნაში.",
 	"donate_interface-translate-redlink2": "ან გამოგზავნეთ თქვენი ნათარგმნი ელ. ფოსტით მისამართზე translations@wikimedia.org",

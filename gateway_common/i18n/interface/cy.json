@@ -328,7 +328,6 @@
 	"donate_interface-dd-bank_name": "Enw'r banc",
 	"donate_interface-dd-branch_code": "Côd y gangen",
 	"donate_interface-dd-direct_debit_text": "Testun debyd uniongyrchol",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Gwellwch ar y cyfieithiad hwn",
 	"donate_interface-translate-redlink1": "Ymunwch yn y gwaith o gyfieithu'r dudalen hon.",
 	"donate_interface-translate-redlink2": "Neu e-bostiwch eich cyfieithiad i translations@wikimedia.org",

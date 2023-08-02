@@ -47,6 +47,5 @@
 	"donate_interface-or": "oder",
 	"donate_interface-country": "Land",
 	"donate_interface-cancel": "Afbreken",
-	"donate_interface-change": "Ännern",
-	"donate_interface-dd-iban": "IBAN"
+	"donate_interface-change": "Ännern"
 }
