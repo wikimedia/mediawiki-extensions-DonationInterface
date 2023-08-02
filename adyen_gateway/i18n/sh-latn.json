@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Winston Sung"
+		]
+	},
+	"adyen_gateway-desc": "Procesiranje plaćanja s Adyenom",
+	"adyen_gateway-response-default": "Desila se greška pri obradi plaćanja.\nMolimo pokušajte ponovno."
+}
