@@ -16,6 +16,8 @@
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
 			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
+		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
+			mw.monthlyConvert.init();
 		} else {
 			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 		}
