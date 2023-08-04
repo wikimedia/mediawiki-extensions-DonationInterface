@@ -18,8 +18,8 @@
 }
 
 body.rtl .mc-close {
-	right: auto;
-	left: 0;
+	left: auto;
+	right: 15px;
 }
 
 .mc-close:hover .mc-icon g {
