@@ -23,7 +23,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 		$donorTestData['payment_method'] = 'cc';
 		$donorTestData['payment_submethod'] = 'visa';
 		$donorTestData['email'] = 'innocent@localhost.net';
-		$donorTestData['order_id'] = (string)mt_rand();
+		$donorTestData['order_id'] = "2.1";
 
 		// FIXME: Maybe add amount and currencyCode to the normalizing too?
 		$rawResponse = $this->hostedPaymentStatusResponse->getRawResponse();
