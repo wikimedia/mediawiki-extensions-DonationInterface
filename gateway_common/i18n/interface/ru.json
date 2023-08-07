@@ -383,7 +383,6 @@
 	"donate_interface-dd-bank_name": "Название банка",
 	"donate_interface-dd-branch_code": "Код отделения банка",
 	"donate_interface-dd-direct_debit_text": "Текст для прямого списания",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Исправить этот перевод",
 	"donate_interface-translate-redlink1": "Помочь перевести эту страницу.",
 	"donate_interface-translate-redlink2": "Или пришлите ваш перевод по электронной почте на адрес translations@wikimedia.org",

@@ -134,14 +134,17 @@
 				var sendData = {
 					payment_token: payload.nonce,
 					device_data: myDeviceData,
-					first_name: payload.details.payerInfo.firstName,
-					last_name: payload.details.payerInfo.lastName,
-					phone: payload.details.payerInfo.phoneNumber,
-					email: payload.details.payerInfo.email,
-					street_address: payload.details.payerInfo.shippingAddress,
-					user_name: payload.details.username,
-					customer_id: payload.details.payerInfo.externalId // for vault
+					user_name: payload.details.username
 				};
+				// payload.details.payerInfo is undefined for non-us sandbox account
+				if ( payload.details.payerInfo ) {
+					sendData.first_name = payload.details.payerInfo.firstName;
+					sendData.last_name = payload.details.payerInfo.lastName;
+					sendData.phone = payload.details.payerInfo.phoneNumber;
+					sendData.email = payload.details.payerInfo.email;
+					sendData.street_address = payload.details.payerInfo.shippingAddress;
+					sendData.customer_id = payload.details.payerInfo.externalId;
+				}
 				di.forms.callDonateApi(
 					handleApiResult, sendData, 'di_donate_braintree'
 				);

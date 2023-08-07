@@ -84,6 +84,10 @@ class DonationApi extends DonationApiBase {
 			'employer' => $this->defineParam( false ),
 			'employer_id' => $this->defineParam( false ),
 			'debug_messages' => $this->defineParam( false ),
+			// MediaWiki uses the "uselang" parameter to set the language for localization
+			// setting this would be useful for gateways that require server-side localization
+			// Checkout /payments/includes/api/ApiMain.php
+			'uselang' => $this->defineParam( false ),
 		];
 	}
 

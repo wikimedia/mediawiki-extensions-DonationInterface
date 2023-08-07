@@ -343,7 +343,6 @@
 	"donate_interface-dd-bank_name": "Jméno banky",
 	"donate_interface-dd-branch_code": "Kód pobočky",
 	"donate_interface-dd-direct_debit_text": "Popis inkasa",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Vylepšete tento překlad",
 	"donate_interface-translate-redlink1": "Pomozte přeložit tuto stránku.",
 	"donate_interface-translate-redlink2": "Nebo svůj překlad pošlete e-mailem na translations@wikimedia.org",

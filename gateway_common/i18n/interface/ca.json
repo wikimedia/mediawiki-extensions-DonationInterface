@@ -291,7 +291,6 @@
 	"donate_interface-bt-information": "Informació de transferència bancària",
 	"donate_interface-bt-finished": "Acabat",
 	"donate_interface-obt-customer_payment_reference": "Referència #",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-email-explain": "T’enviarem un rebut per correu electrònic per confirmar la teva donació.",
 	"donate_interface-faqs": "Preguntes freqüents",
 	"donate_interface-tax-info": "Informació de deducció fiscal",

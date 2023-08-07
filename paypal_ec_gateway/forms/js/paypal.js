@@ -11,7 +11,9 @@
 	}
 
 	di.forms.submit = function () {
-		di.forms.callDonateApi( redirect );
+		// MediaWiki uses the "uselang" parameter to set the language for localization
+		// Checkout /payments/includes/api/ApiMain.php
+		di.forms.callDonateApi( redirect, { uselang: $( '#language' ).val() } );
 	};
 	if ( rules.length === 0 ) {
 		rulesSatisfied = true;

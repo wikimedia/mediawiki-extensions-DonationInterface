@@ -397,7 +397,6 @@
 	"donate_interface-dd-bank_name": "שם הבנק",
 	"donate_interface-dd-branch_code": "קוד הסניף",
 	"donate_interface-dd-direct_debit_text": "טקסט החיוב הישיר",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "לשפר את התרגום הזה",
 	"donate_interface-translate-redlink1": "עזרו לתרגם את הדף הזה.",
 	"donate_interface-translate-redlink2": "או שלחו את התרגום שלכם לכתובת translations@wikimedia.org",

@@ -349,7 +349,6 @@
 	"donate_interface-dd-bank_name": "Назив банке",
 	"donate_interface-dd-branch_code": "Код филијале",
 	"donate_interface-dd-direct_debit_text": "Текст за даривање директно са рачуна",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Побољшајте овај превод",
 	"donate_interface-translate-redlink1": "Помозите нам да преведемо ову страницу.",
 	"donate_interface-translate-redlink2": "Или пак пошаљите свој превод на translations@wikimedia.org",
