@@ -6,11 +6,14 @@
 	},
 	"donate_interface-donor-city": "Шаар",
 	"donate_interface-error-msg-city": "Сураныч, шаарыңызды териңиз",
+	"donate_interface-error-msg-account_name": "Аккаунттун аталышы",
 	"donate_interface-other": "Башка",
 	"donate_interface-title": "Аталыш",
 	"donate_interface-country": "Өлкө",
+	"donate_interface-next": "Кийинки",
 	"donate_interface-cancel": "Жокко чыгаруу",
 	"donate_interface-description": "Сыпаттама",
+	"donate_interface-dd-account_name": "Аккаунттун аталышы",
 	"donate_interface-faqs": "Көп берилүүчү суроолор",
 	"donate_interface-statement": "Викимедиа $1"
 }
