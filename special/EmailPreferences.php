@@ -213,7 +213,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'emailPreferences', $params );
 		} catch ( Exception $e ) {
-			$this->renderError( 'optin' );
+			$this->renderError( 'emailPreferences' );
 		}
 	}
 
