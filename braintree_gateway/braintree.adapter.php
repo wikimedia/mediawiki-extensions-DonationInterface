@@ -65,6 +65,9 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->addResponseData( [
 				'recurring_payment_token' => $createPaymentResult->getRecurringPaymentToken(),
 			] );
+			if ( $this->showMonthlyConvert() ) {
+				$this->session_addDonorData();
+			}
 		}
 
 		switch ( $transactionStatus ) {
@@ -110,6 +113,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		);
 		$createPaymentParams = $this->buildRequestArray();
 		$this->logger->info( "Calling createPayment for Braintree payment" );
+		// If we are going to ask for a monthly donation after a one-time donation completes, set the
+		// recurring param to 1 to tokenize the payment.
+		if ( $this->showMonthlyConvert() ) {
+			$createPaymentParams['recurring'] = 1;
+		}
 		$createPaymentResult = $provider->createPayment( $createPaymentParams );
 		$validationErrors = $createPaymentResult->getValidationErrors();
 		// If there are validation errors, present them for correction with a
@@ -229,7 +237,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'paypal' ];
+		return [ 'paypal', 'venmo' ];
 	}
 
 	public function getCurrencies( $options = [] ) {
