@@ -17,6 +17,15 @@ class ResultPages {
 			);
 		}
 		$extraParams['country'] = $adapter->getData_Unstaged_Escaped( 'country' );
+		$extraParams['amount'] = $adapter->getData_Unstaged_Escaped( 'amount' );
+		$extraParams['currency'] = $adapter->getData_Unstaged_Escaped( 'currency' );
+		$extraParams['payment_method'] = $adapter->getData_Unstaged_Escaped( 'payment_method' );
+		$extraParams['order_id'] = $adapter->getData_Unstaged_Escaped( 'order_id' );
+		$extraParams['recurring'] = $adapter->getData_Unstaged_Escaped( 'recurring' );
+		$extraParams['utm_medium'] = $adapter->getData_Unstaged_Escaped( 'utm_medium' );
+		$extraParams['utm_source'] = $adapter->getData_Unstaged_Escaped( 'utm_source' );
+		$extraParams['utm_campaign'] = $adapter->getData_Unstaged_Escaped( 'utm_campaign' );
+
 		return wfAppendQuery( $page, $extraParams );
 	}
 
