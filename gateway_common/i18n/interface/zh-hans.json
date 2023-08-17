@@ -44,7 +44,8 @@
 			"予弦",
 			"佛壁灯",
 			"神樂坂秀吉",
-			"阿pp"
+			"阿pp",
+			"CrownedWharf566"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -194,7 +195,7 @@
 	"donate_interface-donor-submit": "捐赠",
 	"donate_interface-donor-currency-msg": "这笔捐赠使用的货币是$1",
 	"donate_interface-donor-fiscal_number": "税号",
-	"donate_interface-donor-fiscal_number-explain-in": "印度储备银行要求我们的支付处理器收集您的PAN，但我们不会保留或存储此信息。",
+	"donate_interface-donor-fiscal_number-explain-in": "我们的支付处理器应印度储备银行的<b>请求</b>收集您的PAN,但我们不存储此信息。<b>请在此处选择性地提供您的PAN。</b>",
 	"donate_interface-donor-opt_in_yes": "好的! 请向我发送不频繁的电子邮件更新以及有关我将来如何支持维基百科的信息。*",
 	"donate_interface-donor-opt_in_no": "不，我不想获得更新，即便每年只有几分电子邮件。",
 	"donate_interface-donor-opt_in_explain": "*您的信息将根据我们的<a href=\"$1\">捐赠者隐私政策</a>进行处理。 您收到的每封电子邮件都包含取消订阅的简单选项。",
