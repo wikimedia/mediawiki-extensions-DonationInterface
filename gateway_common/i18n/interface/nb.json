@@ -166,7 +166,6 @@
 	"donate_interface-donor-submit": "Doner",
 	"donate_interface-donor-currency-msg": "Denne gaven blir gitt i $1",
 	"donate_interface-donor-fiscal_number": "Fiscal number",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Reserve Bank of India <b>ber om</b> at vi samler inn din PAN, men vi lagrer ikke denne informasjonen. <b>Angi ditt PAN her (valgfritt).</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Dette er valgfritt.",
 	"donate_interface-donor-phone": "Telefonnummer",

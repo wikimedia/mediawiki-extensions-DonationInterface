@@ -166,7 +166,6 @@
 	"donate_interface-donor-submit": "Bağış yap",
 	"donate_interface-donor-currency-msg": "Bu bağış $1 para biriminde yapılıyor",
 	"donate_interface-donor-fiscal_number": "Vergi numarası",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Hindistan Merkez Bankası, ödeme işlemcimizin PAN'ınızı almasını zorunlu kılar, ancak bu bilgileri saklamıyoruz.",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Bu isteğe bağlıdır.",
 	"donate_interface-donor-opt_in_yes": "Evet! Lütfen sık olmayan e-posta güncellemelerini ve gelecekte Vikipedi'yi nasıl destekleyebileceğim hakkında bilgi gönderin.*",

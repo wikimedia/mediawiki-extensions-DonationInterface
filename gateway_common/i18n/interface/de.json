@@ -170,7 +170,6 @@
 	"donate_interface-donor-submit": "Spenden",
 	"donate_interface-donor-currency-msg": "Die Spende wird in $1 vorgenommen",
 	"donate_interface-donor-fiscal_number": "Steuernummer",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Unser Zahlungsabwickler wird von der Reserve Bank of India <b>aufgefordert</b>, Ihre PAN zu erheben, aber wir speichern diese Informationen nicht. <b>Bitte geben Sie hier Ihre PAN optional an.</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Diese Angabe ist optional.",
 	"donate_interface-donor-phone": "Telefonnummer",
