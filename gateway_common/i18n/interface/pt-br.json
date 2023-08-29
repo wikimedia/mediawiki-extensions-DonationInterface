@@ -188,7 +188,6 @@
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Nosso processador de pagamentos é exigido pelo Reserve Bank of India para coletar seu PAN, mas não mantemos ou armazenamos essas informações.",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
