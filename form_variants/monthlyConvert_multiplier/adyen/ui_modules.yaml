@@ -1,3 +1,0 @@
-scripts:
-    - ext.donationInterface.adyenCheckout
-    - ext.donationInterface.monthlyConvertMultiplier

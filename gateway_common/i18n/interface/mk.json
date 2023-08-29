@@ -158,6 +158,7 @@
 	"donate_interface-donor-submit": "Дарувај",
 	"donate_interface-donor-currency-msg": "Ова дарување се врши во $1",
 	"donate_interface-donor-fiscal_number": "Фискален број",
+	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Банката на резерви на Индија <b>бара</b> нашиот наплатен услужник да го има вашиот PAN, но ние не ја складираме таа информација.<b>Ако сакате, тука внесете го вашиот PAN.</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Ова е незадолжително.",
 	"donate_interface-donor-phone": "Телеф. бр.",

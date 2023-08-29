@@ -165,6 +165,7 @@
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
+	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Indijska centralna banka <b>zahteva</b> od našega obdelovalca plačil, da pridobi vašo številko PAN, vendar teh podatkov ne shranjujemo. <b>Če želite, tu vnesite svojo številko PAN.</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "To je izbirno.",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",

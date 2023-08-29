@@ -176,6 +176,7 @@
 	"donate_interface-donor-submit": "捐助",
 	"donate_interface-donor-currency-msg": "這筆捐款使用的幣種是 $1",
 	"donate_interface-donor-fiscal_number": "財政號",
+	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "印度儲備銀行<b>要求</b>我們的付款處理來收集您的 PAN 碼，但我們不會去儲存此方面資訊。<b>請選擇在此提供您的 PAN。</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "此為可選。",
 	"donate_interface-donor-phone": "電話號碼",
