@@ -95,13 +95,12 @@
 	mc.canShowModal = function () {
 		return $( '.mc-modal-screen' ).length > 0;
 	};
-
 	mc.init = function () {
 		var presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
-		presetAmount = mc.getConvertAsk( originalAmount );
+		presetAmount = mc.presetAmount || mc.getConvertAsk( originalAmount );
 		if ( presetAmount === 0 && tyUrl !== null ) {
 			// They're donating in an unsupported currency, or are
 			// outside of the range where it makes sense to ask for

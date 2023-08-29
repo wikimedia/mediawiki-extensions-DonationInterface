@@ -159,7 +159,6 @@
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "'U processe nuèstre de pajamende jè <b>cercate</b> da 'a Reserve Bank of India pe collezzionà 'u PAN tune, ma nuje non ge tenìme o stipame sta 'mbormazione. <b>Pe piacere mitte a scelta toje 'u PAN aqquà.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",

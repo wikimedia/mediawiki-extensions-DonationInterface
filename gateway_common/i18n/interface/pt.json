@@ -179,7 +179,6 @@
 	"donate_interface-donor-currency-msg": "Este donativo está a ser feito na divisa $1",
 	"donate_interface-donor-fiscal_number": "Número fiscal",
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "O Banco de Reserva da Índia pede ao nosso processador de pagamentos que obtenha o seu PAN, mas não conservamos nem armazenamos esta informação. <b>Opcionalmente, forneça o seu PAN aqui, por favor.</b>",
 	"donate_interface-donor-opt_in_yes": "Sim! Enviem-me esporadicamente, por correio eletrónico, atualizações e informação sobre formas como posso ajudar a Wikipédia, por favor.*",
 	"donate_interface-donor-opt_in_no": "Não, não quero atualizações, mesmo que sejam só algumas mensagens por ano.",
