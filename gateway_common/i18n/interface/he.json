@@ -174,7 +174,7 @@
 	"donate_interface-card-name-mc": "מסטרקארד",
 	"donate_interface-card-name-discover": "דיסקאוור",
 	"donate_interface-bank-name-netbanking": "Netbanking",
-	"donate_interface-error-msg-general": "אירעה שגיאה בעת עיבוד בקשתך.",
+	"donate_interface-error-msg-general": "אירעה שגיאה בעת עיבוד הבקשה שלך.",
 	"donate_interface-error-msg-incomplete-field": "שדה לא מלא",
 	"donate_interface-error-msg-field-not-valid": "השדה אינו תקין",
 	"donate_interface-error-msg-nopaypal": "עקב תקלה טכנית, לא נוכל לשלוח את הבקשה שלך ל־PayPal. נא לנסות להשתמש בטופס הרגיל שלנו לתרומה באמצעות כרטיסי אשראי.",
