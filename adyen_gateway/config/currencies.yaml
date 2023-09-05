@@ -1,4 +1,5 @@
 # See http://www.adyen.com/platform/all-countries-all-currencies/
+# https://docs.adyen.com/point-of-sale/what-we-support/supported-languages/
 # This should be the list of all global "acceptance currencies".  Not
 # finding that list, I've used everything for which we keep
 # conversion rates.

@@ -817,26 +817,10 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "ingenico", "adyen" ]
+					"gateways": [ "dlocal", "adyen", "ingenico" ]
 				},
 				{
-					"conditions": {
-						"country": [
-							"AT", "AU", "BE", "BG", "CA", "CZ", "DK", "ES", "FR", "GB", "HK", "HR", "HU", "IE", "IL", "IT",
-							"JP", "KW", "LU", "LV", "MY", "NL", "NO", "NZ", "PL", "PT", "RO", "SE", "SK", "US"
-						],
-						"payment_method": "cc"
-					},
-					"gateways": [ "adyen", "ingenico" ]
-				},
-				{
-					"conditions": {
-						"payment_method": "rtbt"
-					},
-					"gateways": [ "adyen", "ingenico" ]
-				},
-				{
-					"gateways": [ "ingenico", "adyen", "paypal_ec", "amazon", "dlocal", "braintree" ]
+					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "dlocal", "braintree" ]
 				}
 			]
 		},
