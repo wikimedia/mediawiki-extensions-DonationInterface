@@ -10,7 +10,7 @@ class PlaceholderFiscalNumber implements StagingHelper {
 		'MX' => [ 1.0e+12, 1.0e+13 ],
 		'PE' => [ 1.0e+8, 1.0e+10 ],
 		'IN' => 'AABBC1122C', // DLOCAL-specific PAN. See T258086
-		'ZA' => 'AABBC1122C'  // DLOCAL-specific default for empty cpf. See T307743
+		'ZA' => '9123456783'  // DLOCAL-specific default for empty cpf. See T307743
 	];
 
 	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
