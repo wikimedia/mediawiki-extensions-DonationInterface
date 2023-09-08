@@ -366,7 +366,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 *
+	 * Check that we build good values for the contribution_tracking queue
 	 */
 	public function testSendToContributionTrackingQueue() {
 		$queueName = 'contribution-tracking';
@@ -379,12 +379,62 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_campaign' => 'yes',
 			'language' => 'en',
 			'country' => 'US',
+			'amount' => '128.00',
+			'currency' => 'USD',
 			'form_amount' => 'USD 128.00',
 			'payments_form' => 'ingenico.JimmyQuote',
+			'gateway' => 'ingenico',
+			'appeal' => 'JimmyQuote',
 			'id' => '1',
-			];
+			'payment_method' => 'cc',
+			'payment_submethod' => 'visa',
+		];
 
 		$gateway = $this->getFreshGatewayObject( $this->testData );
+		$ctId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+
+		$actual = QueueWrapper::getQueue( $queueName )->pop();
+		SourceFields::removeFromMessage( $actual );
+		unset( $actual['ts'] );
+
+		$this->assertEquals( $expected, $actual, 'Message on the queue does not match' );
+		$this->assertEquals( $expected[ 'id' ], $ctId, 'Wrong contribution tracking ID set' );
+
+		$empty = QueueWrapper::getQueue( $queueName )->pop();
+		$this->assertNull( $empty, 'Too many messages on the queue' );
+	}
+
+	/**
+	 * Check that contribution_tracking values are good for recurring donations
+	 */
+	public function testSendRecurringToContributionTrackingQueue() {
+		$queueName = 'contribution-tracking';
+		$generator = SequenceGenerators\Factory::getSequenceGenerator( $queueName );
+		$generator->initializeSequence();
+		$expected = [
+			'referrer' => 'http://www.testing.com/',
+			'utm_source' => '..rcc',
+			'utm_medium' => 'fox_sisters',
+			'utm_campaign' => 'FR12345',
+			'language' => 'en',
+			'country' => 'US',
+			'amount' => '6.00',
+			'currency' => 'USD',
+			'form_amount' => 'USD 6.00',
+			'payments_form' => 'ingenico.JimmyQuote',
+			'gateway' => 'ingenico',
+			'appeal' => 'JimmyQuote',
+			'id' => '1',
+			'payment_method' => 'cc',
+			'payment_submethod' => 'visa',
+			'is_recurring' => 1,
+		];
+		$testData = $this->testData;
+		$testData['recurring'] = 1;
+		$testData['utm_campaign'] = 'FR12345';
+		$testData['amount'] = 6;
+		$testData['utm_medium'] = 'fox_sisters';
+		$gateway = $this->getFreshGatewayObject( $testData );
 		$ctId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
 		$actual = QueueWrapper::getQueue( $queueName )->pop();
