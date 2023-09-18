@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Arystanbek"
 		]
 	},
@@ -14,6 +15,6 @@
 	"apihelp-donate-param-card_num": "Несие карта номері.",
 	"apihelp-donate-param-card_type": "Несие карта түрі.",
 	"apihelp-donate-param-expiration": "Уақыты бітетін мерзім.",
-	"apihelp-donate-param-cvv": "CVV  құпия коды.",
+	"apihelp-donate-param-cvv": "CVV құпия коды.",
 	"apihelp-donate-param-language": "Тіл коды."
 }

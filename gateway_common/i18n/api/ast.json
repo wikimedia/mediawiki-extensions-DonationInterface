@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Xuacu"
 		]
 	},
@@ -35,7 +36,7 @@
 	"apihelp-donate-param-referrer": "Referente orixinal.",
 	"apihelp-donate-param-recurring": "Indica que la operación tien l'envís de repetise .",
 	"apihelp-donate-param-variant": "Indica qué variante del formulariu rellenó l'usuariu.",
-	"apihelp-donate-param-opt_in": "Indica que'l donante  aceutó los correos de collecha de fondos.",
+	"apihelp-donate-param-opt_in": "Indica que'l donante aceutó los correos de collecha de fondos.",
 	"apihelp-donate-param-employer": "Nome del emplegador",
 	"apihelp-donate-example-1": "Facer una donación",
 	"apihelp-logPaymentsFormError-summary": "Esta API rexistra los errores del formulariu de donaciones nel llau del cliente.",
