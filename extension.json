@@ -52,6 +52,7 @@
 		"di_donate_braintree": "BraintreeDonationApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
+		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
 		"logPaymentsFormError": "ClientErrorApi",
 		"employerSearch": "EmployerSearchAPI"
 	},
@@ -156,6 +157,7 @@
 		"AdyenCheckoutAdapter": "adyen_gateway/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/adyen_checkout_resultswitcher.body.php",
+		"AdyenGetPaymentMethodsApi": "adyen_gateway/adyen_get_payment_methods.api.php",
 		"BraintreeAdapter": "braintree_gateway/braintree.adapter.php",
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
