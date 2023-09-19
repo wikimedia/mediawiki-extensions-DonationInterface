@@ -271,16 +271,6 @@ cabal-debit:
     group: cc
     countries:
         AR: true
-mercadopago:
-    label: Mercado Pago
-    group: bt
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-        MX: true
-    logo: bank-mercadopago.png
 jcb:
     group: cc
     countries:
