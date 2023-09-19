@@ -65,6 +65,6 @@
 	"apihelp-employerSearch-param-employer": "Which employer to search for e.g. Red Cross, WWF, Salvation Army, etc.",
 	"apihelp-employerSearch-example-1": "Search an employer",
 	"apihelp-di_applesession_adyen-summary": "Allows requesting an Apple Pay session directly from Apple",
-	"apihelp-getPaymentMethods-summary": "Returns available payment methods based on country"
-
+	"apihelp-getPaymentMethods-summary": "Returns available payment methods based on country",
+	"apihelp-submitPayment-summary": "Submits a payment based on parameters sent"
 }
