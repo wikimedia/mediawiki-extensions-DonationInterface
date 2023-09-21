@@ -838,16 +838,20 @@ class DonationData implements LogPrefixProvider {
 	public function getCleanTrackingData( $unset = false ) {
 		// define valid tracking fields
 		$tracking_fields = [
-			'note',
+			'amount',
+			'appeal',
+			'country',
+			'currency',
+			'gateway',
+			'language',
+			'payment_method',
+			'payment_submethod',
 			'referrer',
-			'anonymous',
-			'utm_source',
-			'utm_medium',
+			'ts',
 			'utm_campaign',
 			'utm_key',
-			'language',
-			'country',
-			'ts'
+			'utm_medium',
+			'utm_source',
 		];
 
 		$tracking_data = [];
@@ -862,14 +866,21 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
-		if ( $this->isSomething( 'currency' ) && $this->isSomething( 'amount' ) ) {
-			$tracking_data['form_amount'] = $this->getVal( 'currency' ) . " " . $this->getVal( 'amount' );
-		}
-
-		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
-
 		// Variant is the new way to a/b test forms. Appeal is still used to
 		// render wikitext at the side, but it's almost always JimmyQuote
+		if ( $this->isSomething( 'variant' ) ) {
+			$tracking_data['payments_form_variant'] = $this->getVal( 'variant' );
+		}
+		if ( $this->getVal( 'recurring' ) === '1' ) {
+			$tracking_data['is_recurring'] = 1;
+		}
+
+		// TODO: remove form_amount and payments_form once we are sure we can stop
+		// populating the legacy drupal.contribution_tracking table
+		if ( $this->isSomething( 'currency' ) && $this->isSomething( 'amount' ) ) {
+			$tracking_data['form_amount'] = $this->getVal( 'currency' ) . ' ' . $this->getVal( 'amount' );
+		}
+		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
 		if ( $this->isSomething( 'variant' ) ) {
 			$tracking_data['payments_form'] .= '.v=' . $this->getVal( 'variant' );
 		} elseif ( $this->isSomething( 'appeal' ) ) {
