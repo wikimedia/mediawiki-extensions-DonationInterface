@@ -226,7 +226,16 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 		} else {
 			$output = $this->getOutput();
-			$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
+
+			if ( !is_callable( 'OutputPage::setPageTitleMsg' ) ) {
+				// Backward compatibility with MW < 1.41
+				$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
+			} else {
+				// MW >= 1.41
+				$output->prepareErrorPage();
+				$output->setPageTitleMsg( $this->msg( 'donate_interface-error-msg-general' ) );
+			}
+
 			$output->addHTML( $this->msg(
 				'donate_interface-otherways',
 				[ $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ]
