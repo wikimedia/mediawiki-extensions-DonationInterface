@@ -342,6 +342,39 @@ class CardPaymentTest extends BaseDlocalTestCase {
 	}
 
 	/**
+	 * We've had instances of dlocal redirecting donors back to us with old order_id in the query string, even though the
+	 * donor has no associated browser session. This results in a new ct_id being generated alongside the old order_id
+	 * and when used downstream, it's triggering failmail in payment attempts as the old order_id is sent to
+	 * dlocal and treated as a duplicate, which dlocal can't handle.
+	 *
+	 * This test confirms that when this scenario occurs, we will reset the order_id using the standard pattern
+	 * of $contribution_tracking_id.$sequence, e.g. 12345.1, to avoid the mismatch errors.
+	 *
+	 * See https://phabricator.wikimedia.org/T334905 for more info
+	 */
+	public function testMismatchOrderIdIsReset(): void {
+		$testDonorData = $this->getTestDonorCardData();
+		$testDonorData['contribution_tracking_id'] = 54321;
+
+		// deliberately set the order_id to not match the contribution_tracking_id
+		$badOrderId = 12345;
+		$testDonorData['order_id'] = $badOrderId;
+
+		// enable batch mode so order_id can be overridden during adapter class setup - this is a setup hack.
+		$setup_hacks['batch_mode'] = true;
+
+		// instantiate the dLocal adapter and send in our setup hack flag and bad order_id
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData, $setup_hacks );
+
+		// fetch the order id generated during the adapter setup (bad order id should have been detected and reset)
+		$orderId = $DlocalAdapter->getData_Unstaged_Escaped( 'order_id' );
+
+		// confirm that the adapter order_id has been reset and is NOT the one sent in to the adapter constructor above.
+		$goodOrderId = '54321.1';
+		$this->assertEquals( $goodOrderId, $orderId );
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function getTestDonorCardData(): array {
