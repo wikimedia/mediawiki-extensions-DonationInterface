@@ -422,4 +422,20 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 		$this->addResponseData( $data );
 	}
+
+	public function normalizeOrderID( $override = null, $dataObj = null ) {
+		$orderId = parent::normalizeOrderID( $override, $dataObj );
+		if ( !$dataObj ) {
+			$dataObj = $this->dataObj;
+		}
+		$contributionTrackingId = $dataObj->getVal( 'contribution_tracking_id' );
+		if ( strpos( $orderId, $contributionTrackingId ) !== 0 ) {
+			$mismatchedId = $orderId;
+			$orderId = $this->generateOrderID( $dataObj );
+			$this->setOrderIDMeta( 'final', $orderId );
+			$this->setOrderIDMeta( 'final_source', 'generated' );
+			$this->logger->warning( "Found mismatched old order ID $mismatchedId, regenerated new ID $orderId." );
+		}
+		return $orderId;
+	}
 }
