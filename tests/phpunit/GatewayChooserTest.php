@@ -52,7 +52,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceEnableGatewayChooser' => true,
 			'wgIngenicoGatewayEnabled' => true,
-			'wgAstroPayGatewayEnabled' => true,
 			'wgDlocalGatewayEnabled' => true,
 			'wgBraintreeGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => true,
@@ -62,7 +61,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 				'ingenico' => 'IngenicoAdapter',
 				'amazon' => 'AmazonAdapter',
 				'adyen' => 'AdyenCheckoutAdapter',
-				'astropay' => 'AstroPayAdapter',
 				'paypal_ec' => 'PaypalExpressAdapter',
 				'braintree' => 'BraintreeAdapter',
 				'dlocal' => 'DlocalAdapter',
@@ -169,7 +167,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 	public static function expectedGatewayDataProvider() {
 		// Gateways:
-		// AstroPayGateway
+		// DlocalGateway
 		// AmazonGateway
 		// AdyenCheckoutGateway
 		// PaypalExpressGateway
@@ -422,7 +420,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 					'gateways' => [ 'ingenico' ]
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'astropay' ]
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ]
 				]
 			]
 		] );
@@ -453,7 +451,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 						'gateways' => [ 'adyen' ]
 					],
 					[
-						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ]
 					]
 				]
 			] );
@@ -485,7 +483,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 					'gateways' => [ 'ingenico' ]
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'astropay' ]
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ]
 				]
 			]
 		] );
@@ -518,7 +516,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 					'gateways' => [ 'ingenico' ]
 				],
 				[
-					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ]
 				]
 			]
 		] );

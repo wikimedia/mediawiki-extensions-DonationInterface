@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Not validated, but currently required by AstroPay/dLocal APIs. Format varies
+ * Not validated, but currently required by dLocal APIs. Format varies
  * by country. Needs to be random so they don't block a repeated one.
  * TODO: Remove this when they fix it
  */

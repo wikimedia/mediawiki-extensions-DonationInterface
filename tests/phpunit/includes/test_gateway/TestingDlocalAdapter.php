@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TestingAstroPayAdapter
+ * TestingDlocalAdapter
  */
 class TestingDlocalAdapter extends DlocalAdapter {
 	use TTestingAdapter;

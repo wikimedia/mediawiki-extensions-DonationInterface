@@ -314,8 +314,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$firstRequest = $this->setUpRequest( $init );
 
-		$gateway = new TestingAstroPayAdapter();
-		$gateway->do_transaction( 'NewInvoice' );
+		$gateway = new TestingDlocalAdapter();
+		$gateway->do_transaction( 'authorize' );
 
 		$donorData = $firstRequest->getSessionData( 'Donor' );
 		$this->assertEquals( 'itau', $donorData['payment_submethod'], 'Test setup failed.' );
@@ -326,7 +326,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
 
-		$gateway = new TestingAstroPayAdapter();
+		$gateway = new TestingDlocalAdapter();
 		$newMethod = $gateway->getData_Unstaged_Escaped( 'payment_method' );
 		$newSubmethod = $gateway->getData_Unstaged_Escaped( 'payment_submethod' );
 

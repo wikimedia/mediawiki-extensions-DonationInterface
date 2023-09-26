@@ -34,7 +34,7 @@ module.exports = function ( grunt ) {
 			},
 			shared: 'gateway_common/i18n/*/',
 			email: 'email_forms/i18n/',
-			gateways: '{adyen,amazon,astropay,ingenico,paypal_ec}_gateway/i18n/'
+			gateways: '{adyen,amazon,ingenico,paypal_ec}_gateway/i18n/'
 		}
 	} );
 

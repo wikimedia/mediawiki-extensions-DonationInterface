@@ -69,10 +69,8 @@ global $wgDonationInterfaceTest,
 	$wgAmazonGatewayNotifyOnConvert,
 	$wgAdyenCheckoutGatewayURL,
 	$wgAdyenCheckoutGatewayAccountInfo,
-	$wgAstroPayGatewayURL,
-	$wgAstroPayGatewayTestingURL,
-	$wgAstroPayGatewayAccountInfo,
-	$wgAstroPayGatewayFallbackCurrency,
+	$wgDlocalGatewayAccountInfo,
+	$wgDlocalGatewayFallbackCurrency,
 	$wgDonationInterfaceMinFraudAccountId,
 	$wgDonationInterfaceMinFraudLicenseKey,
 	$wgDonationInterfaceMinFraudClientOptions,
@@ -99,10 +97,9 @@ $wgDonationInterfaceGatewayAdapters = [
 	'ingenico' => IngenicoAdapter::class,
 	'amazon' => AmazonAdapter::class,
 	'adyen' => AdyenCheckoutAdapter::class,
-	'astropay' => TestingAstroPayAdapter::class,
+	'dlocal' => TestingDlocalAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
 	'braintree' => BraintreeAdapter::class,
-	'dlocal' => DlocalAdapter::class
 ];
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.
@@ -155,22 +152,14 @@ $wgAdyenCheckoutGatewayAccountInfo['testMerchantAccountName'] = [
 	'GoogleScript' => 'test-google.js',
 ];
 
-/** AstroPay */
-$wgAstroPayGatewayURL = 'https://astropay.example.com/';
-$wgAstroPayGatewayTestingURL = 'https://sandbox.astropay.example.com/';
-$wgAstroPayGatewayAccountInfo = [];
-$wgAstroPayGatewayAccountInfo['test'] = [
-	'Create' => [
-		'Login' => 'creator',
-		'Password' => 'createpass',
-	],
-	'Status' => [
-		'Login' => 'statusor',
-		'Password' => 'statuspass',
-	],
-	'SecretKey' => 'NanananananananananananananananaBatman',
+/** Dlocal */
+$wgDlocalGatewayAccountInfo = [];
+$wgDlocalGatewayAccountInfo['test'] = [
+	'enableINDirectBT' => false, // if we want to use india direct bank transfer, true
+	'dlocalScript' => 'https://js-sandbox.dlocal.com/', // For production, use "https://js.dlocal.com/"
+	'smartFieldApiKey' => 'xxx-yyy-zzz-aaa-bbb'
 ];
-$wgAstroPayGatewayFallbackCurrency = false;
+$wgDlocalGatewayFallbackCurrency = false;
 
 $wgDonationInterfaceMinFraudAccountId = 1;
 $wgDonationInterfaceMinFraudLicenseKey = 'testkey';

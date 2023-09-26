@@ -9,7 +9,7 @@
 		"classmap": [
 			"adyen_gateway",
 			"amazon_gateway",
-			"astropay_gateway",
+			"dlocal_gateway",
 			"extras",
 			"gateway_common",
 			"gateway_forms",

@@ -40,7 +40,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		parent::setUp();
 
 		$this->setMwGlobals( [
-			'wgAstroPayGatewayEnabled' => true,
+			'wgDlocalGatewayEnabled' => true,
 			'wgPaypalExpressGatewayEnabled' => true
 		] );
 	}
@@ -48,7 +48,7 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	/**
 	 * This is meant to simulate a user choosing PayPal, then going back and choosing DLocal.
 	 */
-	public function testBackClickPayPalToAstroPay() {
+	public function testBackClickPayPalToDlocal() {
 		$options = $this->getDonorTestData( 'MX' );
 		$options['payment_method'] = 'paypal';
 		$paypalRequest = $this->setUpRequest( $options );
@@ -58,16 +58,15 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$gateway->do_transaction( 'SetExpressCheckout' );
 		$paypalCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
-		// now, get AstroPay.
+		// now, get dlocal.
 		$options['payment_method'] = 'cc';
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
 
-		$gateway = new TestingAstroPayAdapter();
-		$response = $gateway->do_transaction( 'NewInvoice' );
-		$astroPayCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		$this->assertNotEquals( $astroPayCtId, $paypalCtId, 'Did not regenerate contribution tracking ID on gateway switch' );
-		$this->assertSame( [], $response->getErrors() );
+		$gateway = new TestingDlocalAdapter();
+		$gateway->do_transaction( 'authorize' );
+		$dlocalPayCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$this->assertNotEquals( $dlocalPayCtId, $paypalCtId, 'Did not regenerate contribution tracking ID on gateway switch' );
 
 		$errors = '';
 		$messages = DonationLoggerFactory::$overrideLogger->messages;

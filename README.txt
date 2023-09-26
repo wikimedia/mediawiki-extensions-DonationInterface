@@ -19,7 +19,6 @@ Set these to true to enable each payment processor integration:
 $wgIngenicoGatewayEnabled = false
 $wgAmazonGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
-$wgAstroPayGatewayEnabled = false
 $wgDlocalGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
 
@@ -283,20 +282,6 @@ $wgAdyenCheckoutGatewayAccountInfo['exampleMerchantAccountName'] = [
 // Set base URLs here.  Individual transactions have their own paths
 $wgDlocalGatewayURL = 'https://api.dlocal.com/'
 $wgDlocalGatewayTestingURL = 'https://sandbox.dlocal.com/'
-$wgAstroPayGatewayURL = 'https://api.dlocal.com/'
-$wgAstroPayGatewayTestingURL = 'https://sandbox.dlocal.com/'
-#	$wgAstroPayGatewayAccountInfo['example'] = [
-#		'Create' => [ // For creating invoices
-#			'Login' => '',
-#			'Password' => '',
-#		],
-#		'Status' => [ // For checking payment status
-#			'Login' => '',
-#			'Password' => '',
-#		],
-#		'SecretKey' => '', // For signing requests and verifying responses
-#	]
-
 
 ==== Queues ====
 
