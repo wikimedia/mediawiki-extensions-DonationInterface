@@ -16,9 +16,6 @@
 			"ingenico_gateway",
 			"paypal_ec_gateway",
 			"DonationInterface.class.php"
-		],
-		"files": [
-			"gateway_common/WmfFramework.php"
 		]
 	},
 	"require": {
