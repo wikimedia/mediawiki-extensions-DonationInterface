@@ -1,14 +1,16 @@
 <?php
+
+use MediaWiki\Logger\LoggerFactory;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
 
 /**
- * Fallback log handler that dumps messages to WmfFramework's log backend when
+ * Fallback log handler that dumps messages to MediaWiki's log backend when
  * not using syslog
  *
  * @author Elliott Eggleston <eeggleston@wikimedia.org>
  */
-class WmfFrameworkLogHandler extends AbstractProcessingHandler {
+class MediaWikiLogHandler extends AbstractProcessingHandler {
 
 	/**
 	 * @var string
@@ -26,6 +28,10 @@ class WmfFrameworkLogHandler extends AbstractProcessingHandler {
 	}
 
 	protected function write( array $record ): void {
-		WmfFramework::debugLog( $this->identifier, $record['message'], $record['level_name'] );
+		$logger = LoggerFactory::getInstance( $this->identifier );
+		// Contains chars of all log levels and avoids using strtolower() which may have
+		// strange results depending on locale (for example, "I" will become "ı" in Turkish locale)
+		$lower = strtr( $record['level_name'], 'ABCDEFGILMNORTUWY', 'abcdefgilmnortuwy' );
+		$logger->log( $lower, $record['message'] );
 	}
 }
