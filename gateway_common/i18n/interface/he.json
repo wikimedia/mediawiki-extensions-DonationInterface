@@ -12,7 +12,8 @@
 			"Jsoby",
 			"Ofrahod",
 			"YaronSh",
-			"חיים"
+			"חיים",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "תמיכה בוויקימדיה",
@@ -436,7 +437,7 @@
 	"donate_interface-monthly-convert-title-variant-003": "תודה על תרומתך בסך <span class=\"mc-convert-donated-amount\"></span>. רוצה להגדיל את ההשפעה שלך עם תרומה חודשים בסך <span class=\"mc-convert-ask\"></span> מהחודש הבא?",
 	"donate_interface-monthly-convert-title-variant-004": "זה עתה תרמת <span class=\"mc-convert-donated-amount\"></span>. תודה. האם תרצה להוסיף תרומה חודשים בסך <span class=\"mc-convert-ask\"></span> מהחודש הבא?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, תודה על תרומתך. האם תרצה להגדיל את ההשפעה שלך עם תרומה חודשית בסך <span class=\"mc-convert-ask\"></span> מהחודש הבא?",
-	"donate_interface-monthly-convert-text": "תמיכה חודשית היא הדרך הטובה ביותר להבטיח שוויקיפדיה תמשיך לשגשג.",
+	"donate_interface-monthly-convert-text": "תמיכה חודשית היא הדרך הטובה ביותר להבטיח את התרחבותה של ויקיפדיה.",
 	"donate_interface-monthly-convert-text-variant-002": "מספר זעיר של התורמים שלנו נותנים מדי חודש, אבל זאת הדרך הטובה ביותר להבטיח את זה שוויקיפדיה תוכל לשגשג.",
 	"donate_interface-monthly-convert-text-variant-005": "אנחנו נהיה כנים: יֶדַע זאת לא תרופה חד־פעמית, אלא התחייבות לטווח ארוך. אולי תוכל להפוך את התמיכה שלך לתרומה חודשית?",
 	"donate_interface-monthly-convert-text-variant-008": "תודה על המתנה שלך. אנחנו כאן בשביל לשאול: האם אתה יכול לתת קצת יותר? רק מספר קטן מכל הקוראים שלנו מגיעים לנקודה הזאת, כי הרוב אינם תורמים. ומכל התורמים שלנו, רק מעטים שוקלים תרומה חודשים אוטומטית. אבל תרומה חודשית היא הדרך הטובה ביותר להבטיח שוויקיפדיה תמשיך לשגשג. האם תעזור להבטיח את היציבות הפיננסית שלנו עם תרומה תומכת?",
