@@ -146,6 +146,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'currency',
 					'description',
 					'email',
+					'phone',
 					'first_name',
 					'last_name',
 					'order_id',

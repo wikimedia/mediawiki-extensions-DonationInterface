@@ -4,6 +4,7 @@ city: city
 country: country
 currency: currency
 email: email
+phone: phone
 first_name: first_name
 full_name: full_name
 last_name: last_name

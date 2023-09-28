@@ -146,6 +146,8 @@
 					sendData.email = payload.details.payerInfo.email;
 					sendData.street_address = payload.details.payerInfo.shippingAddress;
 					sendData.customer_id = payload.details.payerInfo.externalId;
+				} else {
+					// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
 				}
 				di.forms.callDonateApi(
 					handleApiResult, sendData, 'di_donate_braintree'
