@@ -112,12 +112,12 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->getPaymentMethod()
 		);
 		$createPaymentParams = $this->buildRequestArray();
-		$this->logger->info( "Calling createPayment for Braintree payment" );
 		// If we are going to ask for a monthly donation after a one-time donation completes, set the
 		// recurring param to 1 to tokenize the payment.
 		if ( $this->showMonthlyConvert() ) {
 			$createPaymentParams['recurring'] = 1;
 		}
+		$this->logger->info( "Calling createPayment for Braintree payment with: " . json_encode( $createPaymentParams ) );
 		$createPaymentResult = $provider->createPayment( $createPaymentParams );
 		$validationErrors = $createPaymentResult->getValidationErrors();
 		// If there are validation errors, present them for correction with a
