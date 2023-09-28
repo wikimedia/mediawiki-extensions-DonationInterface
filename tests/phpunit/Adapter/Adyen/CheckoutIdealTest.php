@@ -48,7 +48,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				'amount' => '4.55',
 				'country' => 'NL',
 				'currency' => 'EUR',
-				'description' => 'Wikimedia 877 600 9454',
+				'description' => 'Wikimedia Foundation',
 				'email' => 'nobody@wikimedia.org',
 				'first_name' => 'Voornaam',
 				'issuer_id' => '12345',

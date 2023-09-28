@@ -67,7 +67,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 				'amount' => '130',
 				'country' => 'US',
 				'currency' => 'TWD',
-				'description' => 'Wikimedia 877 600 9454',
+				'description' => 'Wikimedia Foundation',
 				'order_id' => $expectedMerchantRef,
 				'user_ip' => '127.0.0.1',
 				'payment_token' => $expectedPaymentToken
@@ -106,7 +106,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 				'amount' => '1.55',
 				'country' => 'US',
 				'currency' => 'USD',
-				'description' => 'Wikimedia 877 600 9454',
+				'description' => 'Wikimedia Foundation',
 				'order_id' => $expectedMerchantRef,
 				'user_ip' => '127.0.0.1',
 				'payment_token' => $expectedPaymentToken
@@ -187,7 +187,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 				'amount' => '1.55',
 				'country' => 'US',
 				'currency' => 'USD',
-				'description' => 'Wikimedia 877 600 9454',
+				'description' => 'Wikimedia Foundation',
 				'order_id' => $expectedMerchantRef,
 				'user_ip' => '127.0.0.1',
 				'payment_token' => $unexpectedPaymentToken
