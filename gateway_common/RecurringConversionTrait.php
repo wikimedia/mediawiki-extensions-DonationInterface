@@ -41,10 +41,10 @@ trait RecurringConversionTrait {
 				'recurring_payment_token' => $sessionData['recurring_payment_token'],
 			]
 		);
-		if ( array_key_exists( 'processor_contact_id', $sessionData ) && $sessionData['processor_contact_id'] ) {
-			$message = array_merge( $message, [
-				'processor_contact_id' => $sessionData['processor_contact_id']
-			] );
+		foreach ( [ 'processor_contact_id', 'fiscal_number' ] as $optionalKey ) {
+			if ( !empty( $sessionData[$optionalKey] ) ) {
+				$message[$optionalKey] = $sessionData[$optionalKey];
+			}
 		}
 		$this->logger->info(
 			'Pushing transaction to queue [recurring] with amount ' .

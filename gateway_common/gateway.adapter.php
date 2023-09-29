@@ -1974,7 +1974,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @return array
 	 */
-	protected function getQueueDonationMessage() {
+	protected function getQueueDonationMessage(): array {
 		$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 		if ( $gatewayTxnId === null ) {
 			$gatewayTxnId = false;
