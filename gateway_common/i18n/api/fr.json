@@ -64,5 +64,6 @@
 	"apihelp-employerSearch-summary": "Cette API vous permet de rechercher des employeurs participant au programme pour la correspondance des dons à la WMF.",
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
 	"apihelp-employerSearch-example-1": "Rechercher un employeur",
-	"apihelp-di_applesession_adyen-summary": "Permet de demander une session Apple Pay directement auprès d’Apple"
+	"apihelp-di_applesession_adyen-summary": "Permet de demander une session Apple Pay directement auprès d’Apple",
+	"apihelp-getPaymentMethods-summary": "Renvoie les méthodes de paiement disponibles selon le pays"
 }
