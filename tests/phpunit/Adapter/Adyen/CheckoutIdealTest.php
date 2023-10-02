@@ -105,6 +105,207 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		);
 	}
 
+	/**
+	 * Integration test to verify that payment is blocked
+	 * when the cached attempt count hits the IP Velocity Threshold.
+	 */
+	public function testDoPaymentIdealMultipleAttempt() {
+		$threshold = 2;
+		$this->setMwGlobalsForIPVelocityFilterTest( $threshold );
+		$init = $this->getTestDonorIdealData();
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:AdyenCheckoutGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => 4.55,
+			'currency' => 'EUR',
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_ideal',
+			'utm_source' => '..rtbt',
+		] );
+
+		$redirect = 'https://checkoutshopper-test.adyen.com/checkoutshopper/checkoutPaymentRedirect?redirectData=' . $this->redirectResult;
+		$this->idealPaymentProvider->expects( $this->exactly( 2 ) )
+				->method( 'createPayment' )
+				->with( [
+						'amount' => '4.55',
+						'country' => 'NL',
+						'currency' => 'EUR',
+						'description' => 'Wikimedia Foundation',
+						'email' => 'nobody@wikimedia.org',
+						'first_name' => 'Voornaam',
+						'issuer_id' => '12345',
+						'last_name' => 'Achternaam',
+						'order_id' => $expectedMerchantRef,
+						'postal_code' => '0',
+						'return_url' => $expectedReturnUrl,
+						'street_address' => 'N0NE PROVIDED',
+						'user_ip' => '127.0.0.1'
+				] )
+				->willReturn(
+						( new CreatePaymentResponse() )
+								->setRawStatus( 'RedirectShopper' )
+								->setStatus( FinalStatus::PENDING )
+								->setSuccessful( true )
+								->setRedirectUrl( $redirect )
+				);
+		$this->idealPaymentProvider->expects( $this->never() )
+				->method( 'approvePayment' );
+		$session = [
+				'Donor' => $init,
+				'risk_scores' => [
+						'getScoreUtmMedium' => 10,
+				],
+			'initial_ip_velocity_has_run' => true
+		];
+		$queryString = [
+				'order_id' => $expectedMerchantRef,
+				'wmf_token' => $this->saltedToken,
+				'redirectResult' => $this->redirectResult
+		];
+		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
+		$this->setUpRequest( $queryString, $session );
+
+		$this->idealPaymentProvider->expects( $this->exactly( 2 ) )
+				->method( 'getHostedPaymentDetails' )
+				->with( $this->redirectResult )
+				->willReturn(
+						( new PaymentDetailResponse() )
+								->setRawStatus( 'Authorized' )
+								->setStatus( FinalStatus::COMPLETE )
+								->setSuccessful( true )
+								->setGatewayTxnId( $pspReferenceAuth )
+				);
+		// approvePayment is not needed for iDEAL
+		$this->idealPaymentProvider->expects( $this->never() )
+				->method( 'approvePayment' );
+		for ( $i = 0; $i <= 3; $i++ ) {
+			$result = $gateway->doPayment();
+			if ( !$result->isFailed() ) {
+				$gateway->processDonorReturn( $queryString );
+			}
+		}
+
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+
+		$this->assertCount( 4, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+				'validation_action' => 'process',
+				'score_breakdown' => [ 'initial' => 0 ],
+				'user_ip' => '127.0.0.1',
+				'gateway' => 'adyen',
+				'contribution_tracking_id' => $init['contribution_tracking_id'],
+				'order_id' => $expectedMerchantRef,
+				'payment_method' => 'rtbt',
+		];
+		$this->assertArraySubmapSame(
+				$expectedAntifraudInitial,
+				$messages['payments-antifraud'][0]
+		);
+		$expectedAntiFraudProcess = [
+						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
+				] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+				$expectedAntiFraudProcess,
+				$messages['payments-antifraud'][3]
+		);
+		$this->assertCount( 2, $messages['payments-init'] );
+	}
+
+	/**
+	 * Integration test to verify that the createPayment method isn't called
+	 * when user_ip is added to the deny list
+	 *
+	 */
+	public function testDoPaymentIdealAttemptBlockedDueToIPInDenyList() {
+		$this->setMwGlobalsForIPVelocityFilterTest( 2 );
+		$init = $this->getTestDonorIdealData();
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:AdyenCheckoutGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => 4.55,
+			'currency' => 'EUR',
+			'payment_method' => 'rtbt',
+			'payment_submethod' => 'rtbt_ideal',
+			'utm_source' => '..rtbt',
+		] );
+
+		$redirect = 'https://checkoutshopper-test.adyen.com/checkoutshopper/checkoutPaymentRedirect?redirectData=' . $this->redirectResult;
+		$this->idealPaymentProvider->expects( $this->exactly( 2 ) )
+				->method( 'createPayment' )
+				->with( [
+						'amount' => '4.55',
+						'country' => 'NL',
+						'currency' => 'EUR',
+						'description' => 'Wikimedia Foundation',
+						'email' => 'nobody@wikimedia.org',
+						'first_name' => 'Voornaam',
+						'issuer_id' => '12345',
+						'last_name' => 'Achternaam',
+						'order_id' => $expectedMerchantRef,
+						'postal_code' => '0',
+						'return_url' => $expectedReturnUrl,
+						'street_address' => 'N0NE PROVIDED',
+						'user_ip' => '127.0.0.1'
+				] )
+				->willReturn(
+						( new CreatePaymentResponse() )
+								->setRawStatus( 'RedirectShopper' )
+								->setStatus( FinalStatus::PENDING )
+								->setSuccessful( true )
+								->setRedirectUrl( $redirect )
+				);
+		$this->idealPaymentProvider->expects( $this->never() )
+				->method( 'approvePayment' );
+
+		for ( $i = 1; $i <= 3; $i++ ) {
+			if ( $i === 3 ) {
+				$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+			}
+			$result = $gateway->doPayment();
+		}
+
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+
+		$this->assertCount( 3, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+				'validation_action' => 'process',
+				'score_breakdown' => [ 'initial' => 0 ],
+				'user_ip' => '127.0.0.1',
+				'gateway' => 'adyen',
+				'contribution_tracking_id' => $init['contribution_tracking_id'],
+				'order_id' => $expectedMerchantRef,
+				'payment_method' => 'rtbt',
+		];
+		$this->assertArraySubmapSame(
+				$expectedAntifraudInitial,
+				$messages['payments-antifraud'][0]
+		);
+		$expectedAntiFraudProcess = [
+						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+						'score_breakdown' => [
+								'IPDenyList' => 100
+						]
+				] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+				$expectedAntiFraudProcess,
+				$messages['payments-antifraud'][2]
+		);
+		$this->assertCount( 0, $messages['payments-init'] );
+	}
+
 	public function testDonorReturnIdealSuccess() {
 		$init = $this->getTestDonorIdealData();
 		$init['order_id'] = $init['contribution_tracking_id'] . '.1';
@@ -268,5 +469,4 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		unset( $init['street_address'] );
 		return $init;
 	}
-
 }

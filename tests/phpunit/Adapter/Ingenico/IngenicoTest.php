@@ -429,9 +429,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$session['Donor'] = $init;
 		$this->setUpRequest( $init, $session );
 		$gateway = $this->getFreshGatewayObject( [] );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getLatestPaymentStatus' )
-			->willReturn( $this->hostedPaymentStatusResponse );
+		$this->setUpProviderMockGetLatestPaymentStatusCall();
 		$this->hostedCheckoutProvider->method( 'approvePayment' )
 			->with( [ 'gateway_txn_id' => $this->hostedPaymentStatusResponse->getGatewayTxnId() ] )
 			->willReturn( $this->approvePaymentResponse );
@@ -514,11 +512,8 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$this->setUpRequest( $init, $session );
 
 		$gateway = $this->getFreshGatewayObject( [] );
-		$this->hostedCheckoutProvider->expects( $this->once() )
-			->method( 'getLatestPaymentStatus' )
-			->willReturn( $this->hostedPaymentStatusResponse );
-		$this->hostedCheckoutProvider->method( 'approvePayment' )
-			->willReturn( $this->approvePaymentResponse );
+		$this->setUpProviderMockGetLatestPaymentStatusCall();
+		$this->setUpProviderMockApprovePaymentCall();
 		$result = $gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
 			'cvvResult' => 'M',
@@ -542,8 +537,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$firstCt_id = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->hostedCheckoutProvider->method( 'getLatestPaymentStatus' )
 			->willReturn( $this->hostedPaymentStatusResponse );
-		$this->hostedCheckoutProvider->method( 'approvePayment' )
-			->willReturn( $this->approvePaymentResponse );
+		$this->setUpProviderMockApprovePaymentCall();
 
 		$gateway->processDonorReturn( [
 			'merchantReference' => $init['order_id'],
@@ -565,62 +559,102 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['payment_submethod'] = 'visa';
+		$init['amount'] = 23.45;
 		$gateway = $this->getFreshGatewayObject( $init );
-		$this->setUpIntegrationMocks();
-		$this->curlWrapper->expects( $this->once() )
-			->method( 'execute' )->with(
-				$this->anything(),
-				$this->anything(),
-				$this->anything(),
-				$this->callback( function ( $encoded ) {
-					$actual = json_decode( $encoded, true );
-					$hcsi = [
-						'locale' => 'en_US',
-						'paymentProductFilters' => [
-							'restrictTo' => [
-								'groups' => [
-									'cards'
-								]
-							]
-						],
-						'showResultPage' => false
-					];
-					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
-					$this->assertRegExpTemp(
-						'/Special:IngenicoGatewayResult/',
-						$actual['hostedCheckoutSpecificInput']['returnUrl']
-					);
-					$order = [
-						'amountOfMoney' => [
-							'currencyCode' => 'USD',
-							'amount' => '455'
-						],
-						'customer' => [
-							'billingAddress' => [
-								'countryCode' => 'US',
-								'city' => 'San Francisco',
-								'state' => 'CA',
-								'zip' => '94105',
-								'street' => '123 Fake Street'
-							],
-							'contactDetails' => [
-								'emailAddress' => 'nobody@wikimedia.org'
-							],
-							'locale' => 'en_US',
-						]
-					];
-					$this->assertArraySubmapSame( $order, $actual['order'] );
-					$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
-					return true;
-				} )
-			)
-			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
-
+		$this->setupCreateHostedPaymentCurlRequestMock( "2345" );
 		$result = $gateway->doPayment();
 		$this->assertEquals(
 			'https://wmf-pay.' . $this->partialUrl, $result->getIframe()
 		);
 		$this->assertSame( [], $result->getErrors() );
+	}
+
+	public function testDoMultiplePayment() {
+		$threshold = 2;
+		$this->setMwGlobalsForIPVelocityFilterTest( $threshold );
+		$init = $this->getDonorTestData();
+		$merchantReference = mt_rand();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['amount'] = 23.450;
+		$init['order_id'] = $merchantReference;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->setupCreatePaymentSessionMethodMock( $threshold );
+		$this->setUpProviderMockGetLatestPaymentStatusCall( $threshold );
+		$this->setUpProviderMockApprovePaymentCall( $threshold );
+		for ( $i = 0; $i <= $threshold; $i++ ) {
+			$paymentResponse = $gateway->doPayment();
+			// $threshold attempt is blocked and so doesn't get to reach processDonorReturn
+			if ( count( $paymentResponse->getErrors() ) === 0 ) {
+				$gateway->processDonorReturn( [
+					'merchantReference' => $merchantReference,
+					'cvvResult' => 'M',
+					'avsResult' => '0'
+				] );
+			}
+		}
+
+		$messages = self::getAllQueueMessages();
+
+		$antifraudArraySize = count( $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+			'validation_action' => 'process',
+			'score_breakdown' => [ 'initial' => 0 ],
+			'user_ip' => '127.0.0.1',
+			'gateway' => 'ingenico',
+			'payment_method' => 'cc',
+		];
+		$expectedAntiFraudProcess = [
+				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+				'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
+			] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+			$expectedAntifraudInitial,
+			$messages['payments-antifraud'][0]
+		);
+		$this->assertArraySubmapSame(
+			$expectedAntiFraudProcess,
+			$messages['payments-antifraud'][$antifraudArraySize - 1]
+		);
+		$this->assertCount( $threshold, $messages['payments-init'] );
+	}
+
+	public function testDoPaymentAttemptBlockedDueToIPInDenyList(): void {
+		$threshold = 2;
+		$this->setMwGlobalsForIPVelocityFilterTest( $threshold );
+		$init = $this->getDonorTestData();
+		$merchantReference = mt_rand();
+		$init['payment_method'] = 'cc';
+		$init['payment_submethod'] = 'visa';
+		$init['amount'] = 23.450;
+		$init['order_id'] = $merchantReference;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+		// Should not make any API calls
+		$this->hostedCheckoutProvider->expects( $this->never() )
+			->method( $this->anything() );
+
+		$gateway->doPayment();
+
+		$messages = self::getAllQueueMessages();
+
+		$this->assertCount( 1, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+			'validation_action' => 'process',
+			'score_breakdown' => [ 'initial' => 0 ],
+			'user_ip' => '127.0.0.1',
+			'gateway' => 'ingenico',
+			'payment_method' => 'cc',
+		];
+		$expectedAntiFraudProcess = [
+				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+				'score_breakdown' => [ 'IPDenyList' => 100 ],
+			] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+			$expectedAntiFraudProcess,
+			$messages['payments-antifraud'][0]
+		);
+		$this->assertCount( 0, $messages['payments-init'] );
 	}
 
 	public function testDoPaymentFailInitialFilters() {
@@ -686,6 +720,68 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$response->setStatus( $status );
 		$response->setSuccessful( true );
 		return $response;
+	}
+
+	private function setupCreatePaymentSessionMethodMock( int $count = 1 ) {
+		$this->hostedCheckoutProvider->expects( $this->exactly( $count ) )->method( 'createPaymentSession' )->willReturn(
+			( new CreatePaymentSessionResponse() )->setSuccessful( true )
+				->setPaymentSession( 'asdasda' )
+		);
+	}
+
+	private function setupCreateHostedPaymentCurlRequestMock( string $amount = "455", int $count = 1 ): void {
+		$this->setUpIntegrationMocks();
+		$this->curlWrapper->expects( $this->exactly( $count ) )
+			->method( 'execute' )->with(
+				$this->anything(),
+				$this->anything(),
+				$this->anything(),
+				$this->callback( function ( $encoded ) use ( $amount ) {
+					$actual = json_decode( $encoded, true );
+					$hcsi = [
+						'locale' => 'en_US',
+						'paymentProductFilters' => [
+							'restrictTo' => [
+								'groups' => [
+									'cards'
+								]
+							]
+						],
+						'showResultPage' => false
+					];
+					$order = [
+						'amountOfMoney' => [
+							'currencyCode' => 'USD',
+							'amount' => $amount
+						],
+						'customer' => [
+							'billingAddress' => [
+								'countryCode' => 'US',
+								'city' => 'San Francisco',
+								'state' => 'CA',
+								'zip' => '94105',
+								'street' => '123 Fake Street'
+							],
+							'contactDetails' => [
+								'emailAddress' => 'nobody@wikimedia.org'
+							],
+							'locale' => 'en_US',
+						]
+					];
+					$this->assertArraySubmapSame( $order, $actual['order'] );
+					return true;
+				} )
+			)
+			->willReturn( $this->getGoodHostedCheckoutCurlResponse() );
+	}
+
+	private function setUpProviderMockApprovePaymentCall( int $count = 1 ): void {
+		$this->hostedCheckoutProvider->expects( $this->exactly( $count ) )->method( 'approvePayment' )->willReturn( $this->approvePaymentResponse );
+	}
+
+	private function setUpProviderMockGetLatestPaymentStatusCall( int $count = 1 ): void {
+		$this->hostedCheckoutProvider->expects( $this->exactly( $count ) )->method( 'getLatestPaymentStatus' )
+			->willReturn( $this->hostedPaymentStatusResponse );
 	}
 
 	/**

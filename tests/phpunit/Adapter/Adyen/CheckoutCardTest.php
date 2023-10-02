@@ -191,6 +191,175 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 	}
 
 	/**
+	 * Integration test to verify that payment is blocked
+	 * when the cached attempt count hits the IP Velocity Threshold.
+	 */
+	public function testDoPaymentMultipleAttempt() {
+		$threshold = 2;
+		$this->setMwGlobalsForIPVelocityFilterTest( $threshold );
+
+		$init = $this->getTestDonorCardData();
+		$init += $this->encryptedCardData;
+		$init['amount'] = '1.55';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$expectedEncryptedParams = [
+				'encryptedCardNumber' => $this->encryptedCardData['encrypted_card_number'],
+				'encryptedExpiryMonth' => $this->encryptedCardData['encrypted_expiry_month'],
+				'encryptedExpiryYear' => $this->encryptedCardData['encrypted_expiry_year'],
+				'encryptedSecurityCode' => $this->encryptedCardData['encrypted_security_code'],
+		];
+		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
+		$pspReferenceCapture = 'BLA' . mt_rand( 100000000, 1000000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+				'Special:AdyenCheckoutGatewayResult'
+		)->getFullURL( [
+				'order_id' => $expectedMerchantRef,
+				'wmf_token' => $gateway->token_getSaltedSessionToken(),
+				'amount' => 1.55,
+				'currency' => 'USD',
+				'payment_method' => 'cc',
+				'payment_submethod' => 'visa',
+				'utm_source' => '..cc',
+		] );
+
+		$this->cardPaymentProvider->expects( $this->exactly( 2 ) )
+				->method( 'createPayment' )
+				->with( [
+						'amount' => '1.55',
+						'city' => 'NA',
+						'country' => 'US',
+						'currency' => 'USD',
+						'description' => 'Wikimedia Foundation',
+						'email' => 'nobody@wikimedia.org',
+						'first_name' => 'Firstname',
+						'encrypted_payment_data' => $expectedEncryptedParams,
+						'last_name' => 'Surname',
+						'order_id' => $expectedMerchantRef,
+						'postal_code' => '94105',
+						'return_url' => $expectedReturnUrl,
+						'state_province' => 'NA',
+						'street_address' => '123 Fake Street',
+						'user_ip' => '127.0.0.1'
+				] )
+				->willReturn(
+						( new CreatePaymentResponse() )
+								->setRawStatus( 'Authorized' )
+								->setStatus( FinalStatus::PENDING_POKE )
+								->setSuccessful( true )
+								->setRiskScores( [ 'avs' => 10, 'cvv' => 20 ] )
+								->setGatewayTxnId( $pspReferenceAuth )
+				);
+		$this->cardPaymentProvider->expects( $this->exactly( 2 ) )
+				->method( 'approvePayment' )
+				->with( [
+						'amount' => $init[ 'amount' ],
+						'currency' => $init[ 'currency' ],
+						'gateway_txn_id' => $pspReferenceAuth
+				] )
+				->willReturn(
+						( new ApprovePaymentResponse() )
+								->setRawStatus( '[capture-received]' )
+								->setStatus( FinalStatus::COMPLETE )
+								->setSuccessful( true )
+								->setGatewayTxnId( $pspReferenceCapture )
+				);
+
+		for ( $i = 0; $i <= $threshold; $i++ ) {
+			$result = $gateway->doPayment();
+		}
+
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+
+		$this->assertCount( 5, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+				'validation_action' => 'process',
+				'score_breakdown' => [ 'initial' => 0 ],
+				'user_ip' => '127.0.0.1',
+				'gateway' => 'adyen',
+				'contribution_tracking_id' => $init['contribution_tracking_id'],
+				'order_id' => $expectedMerchantRef,
+				'payment_method' => 'cc',
+		];
+		$this->assertArraySubmapSame(
+				$expectedAntifraudInitial,
+				$messages['payments-antifraud'][0]
+		);
+		$expectedAntiFraudProcess = [
+						'gateway_txn_id' => $pspReferenceAuth,
+						'score_breakdown' => [
+								'getAVSResult' => 5,
+								'getCVVResult' => 2,
+								'initial' => 0
+						]
+				] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+				$expectedAntiFraudProcess,
+				$messages['payments-antifraud'][1]
+		);
+		$expectedAntiFraudProcess = [
+						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+						'gateway_txn_id' => $pspReferenceAuth,
+						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
+				] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+				$expectedAntiFraudProcess,
+				$messages['payments-antifraud'][4]
+		);
+		$this->assertCount( 2, $messages['payments-init'] );
+	}
+
+	/**
+	 * Integration test to verify that the createPayment method isn't called
+	 * when user_ip is added to the deny list
+	 *
+	 */
+	public function testDoPaymentAttemptBlockedDueToIPInDenyList() {
+		$threshold = 2;
+		$this->setMwGlobalsForIPVelocityFilterTest( $threshold );
+
+		$init = $this->getTestDonorCardData();
+		$init += $this->encryptedCardData;
+		$init['amount'] = '1.55';
+		$gateway = $this->getFreshGatewayObject( $init );
+
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+
+		$this->cardPaymentProvider->expects( $this->never() )
+				->method( 'createPayment' );
+		$this->cardPaymentProvider->expects( $this->never() )
+				->method( 'approvePayment' );
+		$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+		$result = $gateway->doPayment();
+
+		$this->assertTrue( $result->isFailed() );
+
+		$messages = self::getAllQueueMessages();
+
+		$this->assertCount( 1, $messages['payments-antifraud'] );
+		$expectedAntifraudInitial = [
+				'validation_action' => 'process',
+				'score_breakdown' => [ 'initial' => 0 ],
+				'user_ip' => '127.0.0.1',
+				'gateway' => 'adyen',
+				'contribution_tracking_id' => $init['contribution_tracking_id'],
+				'order_id' => $expectedMerchantRef,
+				'payment_method' => 'cc',
+		];
+		$expectedAntiFraudProcess = [
+						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
+						'score_breakdown' => [ 'IPDenyList' => 100 ],
+				] + $expectedAntifraudInitial;
+		$this->assertArraySubmapSame(
+				$expectedAntiFraudProcess,
+				$messages['payments-antifraud'][0]
+		);
+		$this->assertCount( 0, $messages['payments-init'] );
+	}
+
+	/**
 	 * Integration test to verify that the authorize and capture transactions
 	 * send the expected parameters to the SmashPig library objects and that
 	 * they return the expected result when the API calls are successful.

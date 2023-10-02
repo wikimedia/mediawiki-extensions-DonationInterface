@@ -786,6 +786,23 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		return $globals;
 	}
 
+	/**
+	 * @param int $threshold
+	 */
+	protected function setMwGlobalsForIPVelocityFilterTest( int $threshold ): void {
+		$this->setMwGlobals( [
+			'wgDonationInterfaceIPVelocityThreshhold'      => $threshold,
+			'wgDonationInterfaceCustomFiltersActionRanges' => [
+				\SmashPig\PaymentData\ValidationAction::PROCESS => [ 0, 58 ],
+				\SmashPig\PaymentData\ValidationAction::REVIEW => [ 58, 60 ],
+				\SmashPig\PaymentData\ValidationAction::CHALLENGE => [ 60, 75 ],
+				\SmashPig\PaymentData\ValidationAction::REJECT => [ 75, 100 ],
+			],
+			'wgDonationInterfaceEnableIPVelocityFilter'    => true,
+			'wgDonationInterfaceIPVelocityFailScore'       => 80,
+		] );
+	}
+
 	protected function mockIngenicoDonorReturn( $statusResponse = null ) {
 		$providerConfig = $this->setSmashPigProvider( 'ingenico' );
 
