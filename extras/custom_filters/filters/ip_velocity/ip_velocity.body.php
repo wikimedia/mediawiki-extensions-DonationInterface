@@ -2,8 +2,13 @@
 
 class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
-	const RAN_INITIAL = 'initial_ip_velocity_has_run';
+	public const RAN_INITIAL = 'initial_ip_velocity_has_run';
 
+	public const IP_VELOCITY_FILTER = 'IPVelocityFilter';
+
+	public const IP_ALLOW_LIST = 'IPAllowList';
+
+	public const IP_DENY_LIST = 'IPDenyList';
 	/**
 	 * Container for an instance of self
 	 * @var Gateway_Extras_CustomFilters_IP_Velocity
@@ -22,6 +27,8 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	protected $cache_obj;
 
+	protected $user_ip;
+
 	protected function __construct(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object = null
@@ -29,74 +36,87 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
 		$this->cache_obj = ObjectCache::getLocalClusterInstance();
-	}
-
-	protected function filter() {
-		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
-
-		// first, handle the allow / deny list before you do anything else.
-		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPAllowList' ) ) ) {
-			$this->gateway_logger->debug( "IP present in allow list." );
-			$this->cfo->addRiskScore( 0, 'IPAllowList' );
-			return true;
-		}
-		// TODO: this deny list business should happen elsewhere, and on every hit.
-		if ( DataValidator::ip_is_listed( $user_ip, $this->gateway_adapter->getGlobal( 'IPDenyList' ) ) ) {
-			$this->gateway_logger->info( "IP $user_ip present in deny list." );
-			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPDenyFailScore' ), 'IPDenyList' );
-			return true;
-		}
-
-		$stored = $this->getCachedValue();
-
-		if ( !$stored ) { // we don't have anything in memcache for this dude yet.
-			$this->gateway_logger->debug( "IPVelocityFilter: Found no memcached data for $user_ip" );
-			$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); // want to see the explicit zero
-			return true;
-		} else {
-			$count = count( $stored );
-			$this->gateway_adapter->debugarray[] = "Found a memcached bit of data for $user_ip: " . print_r( $stored, true );
-			$this->gateway_logger->info( "IPVelocityFilter: $user_ip has $count hits" );
-			if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ) {
-				$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), 'IPVelocityFilter' );
-				// cool off, sucker. Muahahaha.
-				$this->addNowToCachedValue( $stored, true );
-			} else {
-				$this->cfo->addRiskScore( 0, 'IPVelocityFilter' ); // want to see the explicit zero here, too.
-			}
-		}
-
-		// fail open, in case memcached doesn't work.
-		return true;
-	}
-
-	protected function postProcess() {
-		$this->addNowToCachedValue();
-		return true;
-	}
-
-	protected function getCachedValue() {
-		// check to see if the user ip is in memcache
-		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
-		$stored = $this->cache_obj->get( $user_ip );
-		return $stored;
+		$this->user_ip = $gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 	}
 
 	/**
-	 * Adds the ip to the local memcache, recording another attempt.
+	 * Checks the global IPDenyList array for the user ip. If the user ip is listed,
+	 * add the risk score for IPDenyList and return true;
+	 * @return bool
+	 */
+	protected function isIPInDenyList(): bool {
+		return DataValidator::ip_is_listed( $this->user_ip, $this->gateway_adapter->getGlobal( 'IPDenyList' ) );
+	}
+
+	protected function setIPDenyListScores(): void {
+		$this->gateway_logger->info( "IP $this->user_ip present in deny list." );
+		$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPDenyFailScore' ), self::IP_DENY_LIST );
+	}
+
+	/**
+	 * Checks the IP attempt count in the cache. If the attempt count is greater
+	 * than the global IPVelocityThreshhold return true (i.e. someone may be trying too hard).
+	 * @return bool|null
+	 */
+	protected function isIPHitCountGreaterThanThreshold(): bool {
+		$stored = $this->getCachedValue();
+
+		if ( $stored ) {
+			$count = count( $stored );
+			$this->gateway_adapter->debugarray[] = "Found IPVelocityFilter data for $this->user_ip: " . print_r( $stored, true );
+			$this->gateway_logger->info( "IPVelocityFilter: $this->user_ip has $count hits" );
+			if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ) {
+				return true;
+			}
+		} else {
+			$this->gateway_logger->debug( "IPVelocityFilter: Found no data for $this->user_ip" );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Set RiskScore based on if the IP attempt surpasses the set threshold. If the Hit exceeds threshold set the
+	 * IPVelocityFilter risk score to the global IPVelocityFailScore and return true.
+	 * @param bool $ipHitExceedsThreshold
+	 * @return bool
+	 */
+	protected function setRiskScoreBasedOnIPHitCount( ?bool $ipHitExceedsThreshold ): bool {
+		if ( $ipHitExceedsThreshold ) {
+			$this->cfo->addRiskScore( $this->gateway_adapter->getGlobal( 'IPVelocityFailScore' ), self::IP_VELOCITY_FILTER );
+			// cool off, sucker. Muahahaha.
+			return true;
+		}
+
+		$this->cfo->addRiskScore( 0, self::IP_VELOCITY_FILTER ); // want to see the explicit zero here, too.
+		return false;
+	}
+
+	protected function isIPInAllowList(): bool {
+		return DataValidator::ip_is_listed( $this->user_ip, $this->gateway_adapter->getGlobal( 'IPAllowList' ) );
+	}
+
+	protected function setIPAllowListScores(): void {
+		$this->gateway_logger->debug( "IP present in allow list." );
+		$this->cfo->addRiskScore( 0, self::IP_ALLOW_LIST );
+	}
+
+	protected function getCachedValue() {
+		// return cache value for user ip
+		return $this->cache_obj->get( $this->user_ip );
+	}
+
+	/**
+	 * Adds the ip to the local cache, recording another attempt.
 	 * If the $fail var is set and true, this denotes that the sensor has been
 	 * tripped and will cause the data to live for the (potentially longer)
 	 * duration defined in the IPVelocityFailDuration global
-	 * @param array|null $oldvalue The value we've just pulled from memcache for this
-	 * ip address
 	 * @param bool $fail If this entry was added on the filter being tripped
 	 * @param bool $toxic If we're adding this entry to penalize a toxic card
 	 */
-	protected function addNowToCachedValue( $oldvalue = null, $fail = false, $toxic = false ) {
+	protected function addIPToCache( bool $fail = false, bool $toxic = false ) {
 		// need to be connected first.
-		if ( $oldvalue === null ) {
-			$oldvalue = $this->getCachedValue();
-		}
+		$oldvalue = $this->getCachedValue();
 
 		$timeout = null;
 		if ( $toxic ) {
@@ -109,14 +129,13 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$timeout = $this->gateway_adapter->getGlobal( 'IPVelocityTimeout' );
 		}
 
-		$user_ip = $this->gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
-		$ret = $this->cache_obj->set( $user_ip, self::addNowToVelocityData( $oldvalue, $timeout ), $timeout );
-		if ( !$ret ) {
-			$this->gateway_logger->alert( "IPVelocityFilter unable to set new memcache data." );
+		$result = $this->cache_obj->set( $this->user_ip, self::addHitToVelocityData( $oldvalue, $timeout ), $timeout );
+		if ( !$result ) {
+			$this->gateway_logger->alert( "IPVelocityFilter unable to set new cache data." );
 		}
 	}
 
-	protected static function addNowToVelocityData( $stored = false, $timeout = false ) {
+	protected static function addHitToVelocityData( $stored = false, $timeout = false ): array {
 		$new_velocity_records = [];
 		$nowstamp = time();
 		if ( is_array( $stored ) ) {
@@ -136,51 +155,68 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 * onInitialFilter already struck once.
 	 * @param GatewayType $gateway_adapter
 	 * @param Gateway_Extras_CustomFilters $custom_filter_object
-	 * @return bool
+	 * @return void
 	 */
 	public static function onFilter( $gateway_adapter, $custom_filter_object ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ) {
-			return true;
-		}
-		if ( WmfFramework::getSessionValue( self::RAN_INITIAL )
-			&& !WmfFramework::getSessionValue( 'numAttempt' )
-		) {
-			// We're on the first attempt, already counted in onInitialFilter
-			return true;
+			return;
 		}
 
 		$instance = self::singleton( $gateway_adapter, $custom_filter_object );
 		$instance->gateway_logger->debug( 'IP Velocity onFilter!' );
-		return $instance->filter();
+		$userIPisInAllowList = $instance->isIPInAllowList();
+
+		// Check if IP has been added to Allow list before proceeding to processor on behalf of donor
+		if ( $userIPisInAllowList ) {
+			$instance->setIPAllowListScores();
+			return;
+		}
+
+		if ( $instance->isIPInDenyList() ) {
+			$instance->setIPDenyListScores();
+		}
 	}
 
 	/**
 	 * Run the filter if we haven't for this session, and set a flag
 	 * @param GatewayType $gateway_adapter
 	 * @param Gateway_Extras_CustomFilters $custom_filter_object
-	 * @return bool
+	 * @return void
 	 */
 	public static function onInitialFilter( $gateway_adapter, $custom_filter_object ) {
 		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ) {
-			return true;
+			return;
 		}
-		if ( WmfFramework::getSessionValue( self::RAN_INITIAL ) ) {
-			return true;
+
+		$instance = self::singleton( $gateway_adapter, $custom_filter_object );
+
+		// Check if IP has been added to Allow list before proceeding to processor on behalf of donor
+		if ( $instance->isIPInAllowList() ) {
+			$instance->setIPAllowListScores();
+			return;
 		}
+
+		$userIPisInDenyList = $instance->isIPInDenyList();
+		if ( $userIPisInDenyList ) {
+			$instance->setIPDenyListScores();
+		}
+
+		$isMultipleStageOfSameTransaction = WmfFramework::getSessionValue( self::RAN_INITIAL );
+
+		// Do not proceed with other checks if IP is listed in DenyList or if this pass is for another stage
+		// in the same transaction.
+		if ( $userIPisInDenyList || $isMultipleStageOfSameTransaction ) {
+			return;
+		}
+		// If IP exceeds set threshold, set risk scores and return.
+		$ipHitCountExceedsThreshold = $instance->isIPHitCountGreaterThanThreshold();
+
+		$instance->setRiskScoreBasedOnIPHitCount( $ipHitCountExceedsThreshold );
+
+		$instance->addIPToCache( $ipHitCountExceedsThreshold );
 
 		WmfFramework::setSessionValue( self::RAN_INITIAL, true );
-		$instance = self::singleton( $gateway_adapter, $custom_filter_object );
 		$instance->gateway_logger->debug( 'IP Velocity onInitialFilter!' );
-		return $instance->filter();
-	}
-
-	public static function onPostProcess( GatewayType $gateway_adapter ) {
-		if ( !$gateway_adapter->getGlobal( 'EnableIPVelocityFilter' ) ) {
-			return true;
-		}
-		$instance = self::singleton( $gateway_adapter );
-		$instance->gateway_logger->debug( 'IP Velocity onPostProcess!' );
-		return $instance->postProcess();
 	}
 
 	protected static function singleton(
@@ -210,7 +246,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$gateway,
 			Gateway_Extras_CustomFilters::singleton( $gateway )
 		);
-		$velocity->addNowToCachedValue( null, false, true );
+		$velocity->addIPToCache( false, true );
 	}
 
 }

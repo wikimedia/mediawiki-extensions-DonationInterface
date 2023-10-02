@@ -72,20 +72,10 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		ObjectCache::$instances[CACHE_DB] = $this->oldCache;
 	}
 
-	public function testStoresTimestampOnPostProcess() {
-		Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess(
-			$this->gatewayAdapter
-		);
-		$cached = $this->cache->get( '127.0.0.1' );
-		$this->assertCount( 1, $cached );
-		// Time should be close to now
-		$diff = time() - $cached[0];
-		$this->assertTrue( $diff < 2 );
-	}
-
 	public function testInitialFilter() {
-		Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess(
-			$this->gatewayAdapter
+		Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter(
+			$this->gatewayAdapter,
+			Gateway_Extras_CustomFilters::singleton( $this->gatewayAdapter )
 		);
 		$cached = $this->cache->get( '127.0.0.1' );
 		$this->assertCount( 1, $cached );

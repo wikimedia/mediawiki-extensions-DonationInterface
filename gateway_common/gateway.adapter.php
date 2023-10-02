@@ -2469,7 +2469,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * executeFunctionIfExists, later on in do_transaction.
 	 */
 	protected function postProcessDonation() {
-		Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess( $this );
 		Gateway_Extras_ConversionLog::onPostProcess( $this );
 
 		try {
