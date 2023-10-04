@@ -21,7 +21,7 @@
 	"donate_interface-comment-label": "Komentar:",
 	"donate_interface-email-agreement": "Slažem se da povremeno dobijam imejl obaveštenja od Zadužbine Vikimedija.",
 	"donate_interface-comment-title": "Javni komentar",
-	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454 - mesečna donacija",
+	"donate_interface-monthly-donation-description": "Zadužbina Vikimedija - mesečna donacija",
 	"donate_interface-amount-error": "Izaberite iznos da biste donirali",
 	"donate_interface-smallamount-error": "Izaberite iznos (najmanje $1)",
 	"donate_interface-processing-error": "Došlo je do greške pri obrađivanju zahteva.\nKontanktirajte donatorski servis na <a href=\"mailto:$1\">$1</a>.",
