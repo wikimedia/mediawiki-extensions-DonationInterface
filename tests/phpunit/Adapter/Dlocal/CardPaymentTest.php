@@ -421,6 +421,11 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$returnUrlQueryParams = [
 			'order_id' => $params['order_id'],
 			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $testDonorData['amount'],
+			'currency' => $testDonorData['currency'],
+			'payment_method' => $testDonorData['payment_method'],
+			'payment_submethod' => $testDonorData['payment_submethod'],
+			'utm_source' => $testDonorData['utm_source'] ?? '..cc'
 		];
 
 		$recurring = $testDonorData['recurring'] ?? null;

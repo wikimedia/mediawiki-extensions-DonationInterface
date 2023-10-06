@@ -64,6 +64,11 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		)->getFullURL( [
 			'order_id' => $expectedMerchantRef,
 			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'utm_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -212,6 +217,11 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		)->getFullURL( [
 			'order_id' => $expectedMerchantRef,
 			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'utm_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -292,8 +302,13 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$expectedReturnUrl = Title::newFromText(
 		'Special:AdyenCheckoutGatewayResult'
 		)->getFullURL( [
-		'order_id' => $expectedMerchantRef,
-		'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'utm_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -367,6 +382,11 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		)->getFullURL( [
 			'order_id' => $expectedMerchantRef,
 			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'utm_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
