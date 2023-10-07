@@ -11,7 +11,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  * @group DonationInterface
  * @group Braintree
  */
-class PaypalPaymentTest extends DonationInterfaceTestCase {
+class PaypalPaymentTest extends BaseBraintreeTestCase {
 
 	protected $testAdapterClass = BraintreeAdapter::class;
 
@@ -27,7 +27,6 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
-		$this->providerConfig = $this->setSmashPigProvider( 'braintree' );
 
 		$this->paypalPaymentProvider = $this->getMockBuilder(
 			PaypalPaymentProvider::class
@@ -40,7 +39,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPaypalRoundCertainCurrencyPayment() {
-		$init = $this->getTestDonor();
+		$init = $this->getTestDonor( 'paypal' );
 		$init['currency'] = "TWD";
 		$init['amount'] = 130.8;
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -78,7 +77,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPaypalDoPayment() {
-		$init = $this->getTestDonor();
+		$init = $this->getTestDonor( "paypal" );
 		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
 
@@ -165,7 +164,7 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPaypalDoPaymentInvalidPaymentToken() {
-		$init = $this->getTestDonor();
+		$init = $this->getTestDonor( "paypal" );
 		$init['amount'] = '1.55';
 		$init['payment_token'] = "NOT_THE_RIGHT_PAYMENT_ID_TOKEN";
 		$gateway = $this->getFreshGatewayObject( $init );
@@ -204,19 +203,5 @@ class PaypalPaymentTest extends DonationInterfaceTestCase {
 		$this->assertCount( 0, $messages['payments-init'] );
 		$this->assertCount( 0, $messages['donations'] );
 		$this->assertCount( 0, $messages['pending'] );
-	}
-
-	protected function getTestDonor(): array {
-		$init = $this->getDonorTestData();
-		$init['payment_method'] = 'paypal';
-		$init['payment_token'] = '65a502e5-2d09-02bd-545f-1cf6e15867c9';
-		$init['contribution_tracking_id'] = (string)mt_rand( 1000000, 10000000 );
-		unset( $init['city'] );
-		unset( $init['state_province'] );
-		unset( $init['street_address'] );
-		unset( $init['postal_code'] );
-		unset( $init['first_name'] );
-		unset( $init['last_name'] );
-		return $init;
 	}
 }
