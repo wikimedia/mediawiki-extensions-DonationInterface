@@ -136,7 +136,8 @@
 				var sendData = {
 					payment_token: payload.nonce,
 					device_data: myDeviceData,
-					user_name: payload.details.username
+					user_name: payload.details.username,
+					gateway_session_id: payload.details.paymentContextId
 				};
 				// payload.details.payerInfo is undefined for non-us sandbox account
 				if ( payload.details.payerInfo ) {

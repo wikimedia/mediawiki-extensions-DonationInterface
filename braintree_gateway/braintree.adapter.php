@@ -159,6 +159,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'device_data',
 					'user_name',
 					'customer_id',
+					'gateway_session_id',
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
