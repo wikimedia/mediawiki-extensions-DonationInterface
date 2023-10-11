@@ -41,10 +41,10 @@ trait RecurringConversionTrait {
 				'recurring_payment_token' => $sessionData['recurring_payment_token'],
 			]
 		);
-		if ( array_key_exists( 'processor_contact_id', $sessionData ) && $sessionData['processor_contact_id'] ) {
-			$message = array_merge( $message, [
-				'processor_contact_id' => $sessionData['processor_contact_id']
-			] );
+		foreach ( [ 'processor_contact_id', 'fiscal_number' ] as $optionalKey ) {
+			if ( !empty( $sessionData[$optionalKey] ) ) {
+				$message[$optionalKey] = $sessionData[$optionalKey];
+			}
 		}
 		$this->logger->info(
 			'Pushing transaction to queue [recurring] with amount ' .
@@ -61,13 +61,20 @@ trait RecurringConversionTrait {
 	 * the regeneration of the Order-ID for any additional donations. Some gateways accept the
 	 * use of same Order-ID for multiple payments, some require unique Order-IDs for every donation.
 	 * This would be useful for gateways that require unique Order-IDs (ex. Braintree)
+	 *
+	 * @param bool $force Behavior Description:
+	 * $force = true: Reset for potential totally new payment, but keep
+	 * numAttempt and other antifraud things (velocity data) around.
+	 * $force = false: Keep all donor data around unless numAttempt has hit
+	 * its max, but kill the ctid (in the likely case that it was an honest
+	 * mistake)
 	 */
-	public function session_MoveDonorDataToBackupForRecurringConversion() {
+	public function session_MoveDonorDataToBackupForRecurringConversion( $force ) {
 		$donor = $this->session_getData( GatewayAdapter::DONOR );
 		$this->logger->info(
 			'Backing up donor session for possibility of Monthly Convert.'
 		);
 		$this->session_setDonorBackupData( $donor );
-		$this->session_unsetDonorData();
+		$this->session_resetForNewAttempt( $force );
 	}
 }

@@ -1974,7 +1974,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @return array
 	 */
-	protected function getQueueDonationMessage() {
+	protected function getQueueDonationMessage(): array {
 		$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 		if ( $gatewayTxnId === null ) {
 			$gatewayTxnId = false;
@@ -2278,7 +2278,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// If we're asking the donor to convert their donation to recurring,
 		// don't delete everything from session just yet.
 		if ( $this->showMonthlyConvert() ) {
-			$this->session_MoveDonorDataToBackupForRecurringConversion();
+			$this->session_MoveDonorDataToBackupForRecurringConversion( $force );
 		} else {
 			$this->session_resetForNewAttempt( $force );
 		}

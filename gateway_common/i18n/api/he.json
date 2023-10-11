@@ -59,5 +59,6 @@
 	"apihelp-employerSearch-summary": "ה־API הזה מאפשר לך לחפש מעסיקים שמשתתפים בתוכנית התאמת בתרומות של קרן ויקימדיה.",
 	"apihelp-employerSearch-param-employer": "איזה מעסיק לחפש, למשל הצלב האדום (Red Cross), הקרן העולמית לשימור חיות הבר (WWF), צבא הישע (Salvation Army), וכו'.",
 	"apihelp-employerSearch-example-1": "חיפוש מעסיק",
-	"apihelp-di_applesession_adyen-summary": "מאפשר בקשת התחברות לאפל פיי ישירות מאפל"
+	"apihelp-di_applesession_adyen-summary": "מאפשר בקשת התחברות לאפל פיי ישירות מאפל",
+	"apihelp-getPaymentMethods-summary": "החזרת שיטות תשלום זמינות לפי מדינה"
 }

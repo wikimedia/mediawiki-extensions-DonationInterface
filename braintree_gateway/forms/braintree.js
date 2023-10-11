@@ -136,7 +136,8 @@
 				var sendData = {
 					payment_token: payload.nonce,
 					device_data: myDeviceData,
-					user_name: payload.details.username
+					user_name: payload.details.username,
+					gateway_session_id: payload.details.paymentContextId
 				};
 				// payload.details.payerInfo is undefined for non-us sandbox account
 				if ( payload.details.payerInfo ) {
@@ -146,6 +147,8 @@
 					sendData.email = payload.details.payerInfo.email;
 					sendData.street_address = payload.details.payerInfo.shippingAddress;
 					sendData.customer_id = payload.details.payerInfo.externalId;
+				} else {
+					// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
 				}
 				di.forms.callDonateApi(
 					handleApiResult, sendData, 'di_donate_braintree'

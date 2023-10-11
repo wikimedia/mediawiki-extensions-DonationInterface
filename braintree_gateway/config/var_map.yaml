@@ -4,6 +4,7 @@ city: city
 country: country
 currency: currency
 email: email
+phone: phone
 first_name: first_name
 full_name: full_name
 last_name: last_name
@@ -17,3 +18,4 @@ gateway_txn_id: gateway_txn_id
 user_name: user_name
 device_data: device_data
 customer_id: customer_id
+gateway_session_id: gateway_session_id

@@ -4,10 +4,6 @@ use MediaWiki\Session\SessionManager;
 use Wikimedia\IPUtils;
 
 class WmfFramework {
-	public static function debugLog( $identifier, $msg, $level = 'DEBUG' ) {
-		// TODO: call different wf*Log functions depending on $level
-		wfDebugLog( $identifier, $msg );
-	}
 
 	public static function getIP() {
 		$request = RequestContext::getMain()->getRequest();

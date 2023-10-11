@@ -58,5 +58,6 @@
 	"apihelp-employerSearch-summary": "Ta API vam omogoča iskanje delodajalcev, ki sodelujejo v programu usklajevanja daril WMF.",
 	"apihelp-employerSearch-param-employer": "Katerega delodajalca iskati, npr. Rdeči križ, WWF, Rešilno vojsko idr.",
 	"apihelp-employerSearch-example-1": "Poišči delodajalca",
-	"apihelp-di_applesession_adyen-summary": "Omogoča zahtevanje seje Apple Pay neposredno iz Appla"
+	"apihelp-di_applesession_adyen-summary": "Omogoča zahtevanje seje Apple Pay neposredno iz Appla",
+	"apihelp-getPaymentMethods-summary": "Vrnitev razpoložljivih načinov plačila glede na državo"
 }

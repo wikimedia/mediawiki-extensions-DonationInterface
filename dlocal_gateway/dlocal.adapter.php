@@ -220,6 +220,12 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->addCreatePaymentResponseData( $paymentDetailResponse );
 		$paymentResult = PaymentResult::newSuccess();
 
+		// Get staged rather than unstaged data to use transformed/generated output
+		// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
+		$this->addResponseData( [
+			'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
+		] );
+
 		if ( !$paymentDetailResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			$this->logPaymentDetailFailure( $paymentDetailResponse );
@@ -244,10 +250,6 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 					if ( $paymentDetailResponse->getRecurringPaymentToken() ) {
 						$this->addResponseData( [
 							'recurring_payment_token' => $paymentDetailResponse->getRecurringPaymentToken(),
-
-							// Get staged rather than unstaged data to use transformed/generated output
-							// from staging helpers (FiscalNumber and PlaceholderFiscalNumber)
-							'fiscal_number' => $this->getData_Staged( 'fiscal_number' )
 						] );
 						if ( $this->showMonthlyConvert() ) {
 							$this->session_addDonorData();
@@ -437,5 +439,10 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->logger->warning( "Found mismatched old order ID $mismatchedId, regenerated new ID $orderId." );
 		}
 		return $orderId;
+	}
+
+	protected function getQueueDonationMessage(): array {
+		$message = parent::getQueueDonationMessage();
+		return $message;
 	}
 }

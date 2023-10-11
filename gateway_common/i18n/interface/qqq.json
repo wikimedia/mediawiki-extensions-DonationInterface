@@ -47,7 +47,7 @@
 	"donate_interface-comment-title": "Next to check box; to choose whether the donor's comment shall be publically viewable or not.",
 	"donate_interface-charge-monthly-only": "Explanation that for India Recurring we only charge monthly",
 	"donate_interface-donation-description": "{{optional}}\nDonation line item description that may appear on the donor's financial statement and on PayPal's confirmation page. The first 25 characters should include our phone number (877 600 9454), as it is often severely truncated on statements.",
-	"donate_interface-monthly-donation-description": "Donation line item description that may appear on the donor's financial statement and on PayPal's confirmation page, for a monthly subscription. The first 25 characters should include our phone number (877 600 9454), as it is often severely truncated on statements.",
+	"donate_interface-monthly-donation-description": "Donation line item description that may appear on the donor's financial statement and on PayPal's confirmation page, for a monthly subscription.",
 	"donate_interface-big-amount-display": "{{notranslate}}",
 	"donate_interface-medium-amount-display": "{{notranslate}}",
 	"donate_interface-small-amount-display": "{{notranslate}}",

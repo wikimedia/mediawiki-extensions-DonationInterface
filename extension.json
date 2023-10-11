@@ -54,7 +54,8 @@
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
 		"logPaymentsFormError": "ClientErrorApi",
-		"employerSearch": "EmployerSearchAPI"
+		"employerSearch": "EmployerSearchAPI",
+		"submitPayment": "AdyenSubmitPaymentApi"
 	},
 	"MessagesDirs": {
 		"DonationInterface": [
@@ -131,7 +132,7 @@
 		"Simple3DSecure": "gateway_common/Simple3DSecure.php",
 		"UnstagingHelper": "gateway_common/UnstagingHelper.php",
 		"WmfFramework": "gateway_common/WmfFramework.php",
-		"WmfFrameworkLogHandler": "gateway_common/WmfFrameworkLogHandler.php",
+		"MediaWikiLogHandler": "gateway_common/MediaWikiLogHandler.php",
 		"ValidationHelper": "gateway_common/ValidationHelper.php",
 		"EmailForm": "email_forms/EmailForm.php",
 		"Gateway_Form": "gateway_forms/Form.php",
@@ -158,6 +159,7 @@
 		"AdyenCheckoutGateway": "adyen_gateway/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/adyen_checkout_resultswitcher.body.php",
 		"AdyenGetPaymentMethodsApi": "adyen_gateway/adyen_get_payment_methods.api.php",
+		"AdyenSubmitPaymentApi": "adyen_gateway/adyen_submit_payment.api.php",
 		"BraintreeAdapter": "braintree_gateway/braintree.adapter.php",
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",

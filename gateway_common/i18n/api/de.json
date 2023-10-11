@@ -61,5 +61,6 @@
 	"apihelp-employerSearch-summary": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
 	"apihelp-employerSearch-param-employer": "Welcher Arbeitgeber soll gesucht werden, z. B. Rotes Kreuz, WWF, Heilsarmee etc.",
 	"apihelp-employerSearch-example-1": "Einen Arbeitgeber suchen",
-	"apihelp-di_applesession_adyen-summary": "Ermöglicht das Anfordern einer Apple-Pay-Session direkt bei Apple"
+	"apihelp-di_applesession_adyen-summary": "Ermöglicht das Anfordern einer Apple-Pay-Session direkt bei Apple",
+	"apihelp-getPaymentMethods-summary": "Gibt verfügbare Zahlungsmethoden basierend auf dem Land zurück"
 }

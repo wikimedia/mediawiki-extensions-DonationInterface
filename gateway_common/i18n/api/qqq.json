@@ -83,5 +83,6 @@
 	"apihelp-employerSearch-param-employer": "{{doc-apihelp-param|employerSearch|employer}}",
 	"apihelp-employerSearch-example-1": "{{doc-apihelp-example|employerSearch}}",
 	"apihelp-di_applesession_adyen-summary": "{{doc-apihelp-summary|di_applesession_adyen}}",
-	"apihelp-getPaymentMethods-summary": "{{doc-apihelp-summary|getPaymentMethods}}"
+	"apihelp-getPaymentMethods-summary": "{{doc-apihelp-summary|getPaymentMethods}}",
+	"apihelp-submitPayment-summary": "{{doc-apihelp-summary|submitPayment}}"
 }

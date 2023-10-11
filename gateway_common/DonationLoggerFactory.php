@@ -68,7 +68,7 @@ class DonationLoggerFactory {
 		if ( $useSyslog ) {
 			$handler = new SyslogHandler( $identifier, LOG_USER, $logThreshold, true, 0 );
 		} else {
-			$handler = new WmfFrameworkLogHandler( $identifier, $logThreshold );
+			$handler = new MediaWikiLogHandler( $identifier, $logThreshold );
 		}
 
 		$formatter = new LineFormatter( '%message%' );
