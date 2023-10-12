@@ -31,6 +31,11 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	/**
 	 * @var string
 	 */
+	public string $gatewayAccount;
+
+	/**
+	 * @var string
+	 */
 	public string $gatewayTransactionId;
 
 	/**
@@ -86,12 +91,20 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		// Set up gateway
 		DonationInterface::setSmashPigProvider( $this->gateway );
 
+		// Get the account
+		$this->gatewayAccount = array_shift( ( array_keys( $this->getConfig()->get( 'AdyenCheckoutGatewayAccountInfo' ) ) ) );
+
 		$this->sendToContributionTracking();
 
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->donationData['payment_method'] );
 
 		try {
 			$createPaymentResponse = $paymentProvider->createPayment( $this->donationData );
+
+			if ( !$createPaymentResponse->isSuccessful() ) {
+				$this->returnError( $createPaymentResponse->getRawResponse() );
+				return;
+			}
 			$response['status'] = self::STATUS_SUCCESS;
 		} catch ( Exception $e ) {
 			$this->returnError( $e );
@@ -99,6 +112,12 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		}
 
 		$this->gatewayTransactionId = $createPaymentResponse->getGatewayTxnId();
+
+		// Need to grab the token if it's recurring
+		if ( $this->donationData['recurring'] ) {
+			$this->donationData['recurring_payment_token'] = $createPaymentResponse->getRecurringPaymentToken();
+			$this->donationData['processor_contact_id'] = $createPaymentResponse->getProcessorContactID();
+		}
 
 		// Approve (capture) if needed
 		if ( $createPaymentResponse->getStatus() === FinalStatus::PENDING_POKE ) {
@@ -108,6 +127,12 @@ class AdyenSubmitPaymentApi extends ApiBase {
 					'currency' => $this->donationData['currency'],
 					'gateway_txn_id' => $this->gatewayTransactionId,
 				] );
+
+				if ( !$approvePaymentResponse->isSuccessful() ) {
+					$this->returnError( $approvePaymentResponse->getRawResponse() );
+					return;
+				}
+
 				$response['status'] = self::STATUS_SUCCESS;
 				$this->sendToPaymentsInit( 'complete' );
 			} catch ( Exception $e ) {
@@ -200,6 +225,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$this->donationData['utm_key'] = 'ptf_1';
 		}
 		$message = [
+			'amount' => $this->donationData['amount'],
 			'banner' => $this->donationData['banner'],
 			'country' => $this->donationData['country'],
 			'currency' => $this->donationData['currency'],
@@ -225,6 +251,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'contribution_tracking_id' => $this->contributionTrackingId,
 			'date' => UtcDate::getUtcTimestamp(),
 			'gateway' => $this->gateway,
+			// Pulling from the config
+			'gateway_account' => $this->gatewayAccount,
 			'gateway_txn_id' => $this->gatewayTransactionId,
 			'order_id' => $this->orderId,
 			'user_ip' => WmfFramework::getIP(),
@@ -244,11 +272,16 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'last_name',
 			'payment_method',
 			'payment_submethod',
+			'processor_contact_id',
 			'postal_code',
 			'opt_in',
 			'recurring',
+			'recurring_payment_token',
 			'street_address',
-			'state_province'
+			'state_province',
+			'utm_key',
+			'utm_medium',
+			'utm_source'
 		];
 
 		foreach ( $keysToCopy as $key ) {
