@@ -59,5 +59,6 @@
 	"apihelp-employerSearch-param-employer": "Qual empleator cercar, p.ex. Cruce Rubie, WWF, Armea del Salvation, etc.",
 	"apihelp-employerSearch-example-1": "Cercar un empleator",
 	"apihelp-di_applesession_adyen-summary": "Permitte requestar un session de Apple Pay directemente presso Apple",
-	"apihelp-getPaymentMethods-summary": "Retorna methodos de pagamento disponibile a base del pais"
+	"apihelp-getPaymentMethods-summary": "Retorna methodos de pagamento disponibile a base del pais",
+	"apihelp-submitPayment-summary": "Submitte un pagamento a base del parametros inviate"
 }
