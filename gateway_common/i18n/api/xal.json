@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ukhant Erdemt"
+			"Ukhant Erdemt",
+			"Алия"
 		]
 	},
+	"apihelp-getPaymentMethods-summary": "Улсас хамарн, төлвр төлх болмҗта арһиг сергәҗ өгх",
 	"apihelp-submitPayment-summary": "Йовулсн параметрмудиг үндсләд, төлвриг илгәнә."
 }
