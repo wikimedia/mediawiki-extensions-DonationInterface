@@ -60,5 +60,6 @@
 	"apihelp-employerSearch-param-employer": "איזה מעסיק לחפש, למשל הצלב האדום (Red Cross), הקרן העולמית לשימור חיות הבר (WWF), צבא הישע (Salvation Army), וכו'.",
 	"apihelp-employerSearch-example-1": "חיפוש מעסיק",
 	"apihelp-di_applesession_adyen-summary": "מאפשר בקשת התחברות לאפל פיי ישירות מאפל",
-	"apihelp-getPaymentMethods-summary": "החזרת שיטות תשלום זמינות לפי מדינה"
+	"apihelp-getPaymentMethods-summary": "החזרת שיטות תשלום זמינות לפי מדינה",
+	"apihelp-submitPayment-summary": "שליחת תשלום על סמך הפרמטרים שנשלחו"
 }

@@ -9,7 +9,20 @@ class ReturnUrl implements StagingHelper {
 		$querySringParams = [
 			'order_id' => $normalized['order_id'],
 			'wmf_token' => $adapter->token_getSaltedSessionToken(),
+			'amount' => $normalized['amount'],
+			'currency' => $normalized['currency'],
+			'payment_method' => $normalized['payment_method'] ?? '',
+			'payment_submethod' => $normalized['payment_submethod'] ?? '',
 		];
+		if ( !empty( $normalized['utm_source'] ) ) {
+			$querySringParams['utm_source'] = $normalized['utm_source'];
+		}
+		if ( !empty( $normalized['utm_campaign'] ) ) {
+			$querySringParams['utm_campaign'] = $normalized['utm_campaign'];
+		}
+		if ( !empty( $normalized['utm_medium'] ) ) {
+			$querySringParams['utm_medium'] = $normalized['utm_medium'];
+		}
 		if ( $normalized['recurring'] ) {
 			$querySringParams['recurring'] = 1;
 		}

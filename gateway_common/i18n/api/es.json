@@ -7,6 +7,7 @@
 			"JDíaz32",
 			"Macofe",
 			"Minh Nguyen",
+			"No se",
 			"Ryo567",
 			"Whytheonlyone"
 		]
@@ -49,5 +50,6 @@
 	"apihelp-logPaymentsFormError-param-userAgent": "Cadena de agente de usuario del navegador",
 	"apihelp-logPaymentsFormError-param-stack": "Seguimiento de pila del error, si está disponible",
 	"apihelp-di_donate_dlocal-summary": "Esta API es para Dlocal",
-	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple"
+	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple",
+	"apihelp-submitPayment-summary": "Envía un pago basado en los parámetros enviados"
 }

@@ -59,5 +59,6 @@
 	"apihelp-employerSearch-param-employer": "Katerega delodajalca iskati, npr. Rdeči križ, WWF, Rešilno vojsko idr.",
 	"apihelp-employerSearch-example-1": "Poišči delodajalca",
 	"apihelp-di_applesession_adyen-summary": "Omogoča zahtevanje seje Apple Pay neposredno iz Appla",
-	"apihelp-getPaymentMethods-summary": "Vrnitev razpoložljivih načinov plačila glede na državo"
+	"apihelp-getPaymentMethods-summary": "Vrnitev razpoložljivih načinov plačila glede na državo",
+	"apihelp-submitPayment-summary": "Predložitev plačila na podlagi poslanih parametrov"
 }
