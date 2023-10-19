@@ -372,6 +372,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$queueName = 'contribution-tracking';
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( $queueName );
 		$generator->initializeSequence();
+		RequestContext::getMain()->getRequest()->setHeader(
+			'USER-AGENT', 'Mozilla/5.0 (Android 12; Mobile; rv:109.0) Gecko/118.0 Firefox/118.0'
+		);
 		$expected = [
 			'referrer' => 'http://www.testing.com/',
 			'utm_source' => '..cc',
@@ -388,6 +391,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'id' => '1',
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
+			'os' => 'Android',
+			'os_version' => '12',
+			'browser' => 'Firefox Mobile',
+			'browser_version' => '118',
 		];
 
 		$gateway = $this->getFreshGatewayObject( $this->testData );
@@ -410,6 +417,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	public function testSendRecurringToContributionTrackingQueue() {
 		$queueName = 'contribution-tracking';
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( $queueName );
+		RequestContext::getMain()->getRequest()->setHeader(
+			'USER-AGENT', 'Mozilla/5.0 (Android 12; Mobile; rv:109.0) Gecko/118.0 Firefox/118.0'
+		);
 		$generator->initializeSequence();
 		$expected = [
 			'referrer' => 'http://www.testing.com/',
@@ -428,6 +438,10 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'payment_method' => 'cc',
 			'payment_submethod' => 'visa',
 			'is_recurring' => 1,
+			'os' => 'Android',
+			'os_version' => '12',
+			'browser' => 'Firefox Mobile',
+			'browser_version' => '118',
 		];
 		$testData = $this->testData;
 		$testData['recurring'] = 1;
