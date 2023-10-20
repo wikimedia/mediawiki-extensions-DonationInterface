@@ -867,6 +867,17 @@ class DonationData implements LogPrefixProvider {
 			}
 		}
 
+		// Add OS and browser, plus major version numbers of each if available
+		$headers = RequestContext::getMain()->getRequest()->getAllHeaders();
+		$parser = new WhichBrowser\Parser( $headers );
+		$tracking_data = array_merge( $tracking_data, [
+			'os' => $parser->os->getName(),
+			// For versions, discard everything after the first non-digit
+			'os_version' => preg_replace( '/[^0-9].*/', '', $parser->os->getVersion() ),
+			'browser' => $parser->browser->getName(),
+			'browser_version' => preg_replace( '/[^0-9].*/', '', $parser->browser->getVersion() ),
+		] );
+
 		// Variant is the new way to a/b test forms. Appeal is still used to
 		// render wikitext at the side, but it's almost always JimmyQuote
 		if ( $this->isSomething( 'variant' ) ) {
