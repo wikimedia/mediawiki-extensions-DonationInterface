@@ -270,7 +270,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'GD', 'currency' => 'XCD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'GF', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'GL', 'currency' => 'DKK' ], 'IngenicoGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'GR', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'GR', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'GT', 'currency' => 'GTQ' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'GU', 'currency' => 'USD' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'HK', 'currency' => 'HKD' ], 'AdyenCheckoutGateway' ],
