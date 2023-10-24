@@ -329,7 +329,7 @@
 	"donate_interface-email-receipt": "Ontvangstbevestiging e-mailen naar",
 	"donate_interface-monthly-donation": "Maandelijkse donatie maken",
 	"donate_interface-via-paypal": "(via PayPal)",
-	"donate_interface-select": "Maat:",
+	"donate_interface-select": "Kies",
 	"donate_interface-donation-must-equal": "Donatie moet groter of gelijk zijn aan $1.",
 	"donate_interface-thank-you": "Bedankt! Uw donatie is ontvangen.",
 	"donate_interface-change": "Wijzigen",
