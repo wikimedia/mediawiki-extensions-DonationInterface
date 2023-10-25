@@ -86,7 +86,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 
 		$debugparams = $this->donationData;
 		unset( $debugparams['payment_token'] );
-		$this->logger->debug( ' Starting submitPayment request with: ' . json_encode( $debugparams ) );
+		$this->logger->info( ' Starting submitPayment request with: ' . json_encode( $debugparams ) );
 
 		// Set up gateway
 		DonationInterface::setSmashPigProvider( $this->gateway );
