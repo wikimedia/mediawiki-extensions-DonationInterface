@@ -238,7 +238,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'payment_submethod' => $this->donationData['payment_submethod'],
 			'ts' => wfTimestamp( TS_MW ),
 			'utm_key' => $this->donationData['utm_key'],
-			'utm_source' => $this->donationData['app_version'] . '.' . $this->donationData['banner'] . '.' . $this->donationData['payment_method'],
+			// the utm_source from the form has banner.landingpage.payment_method
+			'utm_source' => $this->donationData['banner'] . '.' . 'app' . '.' . $this->donationData['payment_method'],
 			'utm_medium' => 'WikipediaApp',
 			'utm_campaign' => $this->donationData['utm_campaign']
 		];
