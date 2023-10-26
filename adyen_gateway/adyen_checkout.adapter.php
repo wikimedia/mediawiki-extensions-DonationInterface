@@ -187,7 +187,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					'state_province',
 					'street_address',
 					'user_ip',
-					'recurring',
+					'recurring'
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
@@ -208,16 +208,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					'encryptedExpiryYear',
 					'encryptedSecurityCode'
 				];
-				$this->transactions['authorize']['request']['browser_info'] = [
-					'userAgent',
-					'acceptHeader',
-					'language',
-					'colorDepth',
-					'screenHeight',
-					'screenWidth',
-					'timeZoneOffset',
-					'javaEnabled'
-				];
+				// 3D Secure is only used for cards
+				$this->tuneFor3DSecure();
 				break;
 			case 'rtbt':
 			case 'bt':
@@ -226,6 +218,30 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			case 'google':
 			case 'apple':
 				$this->transactions['authorize']['request'][] = 'payment_token';
+		}
+	}
+
+	/**
+	 * If the device fingerprinting data needed for 3D Secure is staged up,
+	 * add it to the transaction structure. Has to be called after staging
+	 * but before getting the transaction structure (gross).
+	 */
+	protected function tuneFor3DSecure() {
+		// The Adyen3DSecure staging helper will set this user_agent key
+		// in the staged data when the country and currency are configured
+		// to need 3DSecure. If that key is set, we want to send the whole
+		// browser_info blob as a part of the authorize API call.
+		if ( $this->getData_Staged( 'user_agent' ) !== null ) {
+			$this->transactions['authorize']['request']['browser_info'] = [
+				'userAgent',
+				'acceptHeader',
+				'language',
+				'colorDepth',
+				'screenHeight',
+				'screenWidth',
+				'timeZoneOffset',
+				'javaEnabled'
+			];
 		}
 	}
 

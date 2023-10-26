@@ -88,10 +88,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'return_url' => $expectedReturnUrl,
 				'state_province' => 'NA',
 				'street_address' => '123 Fake Street',
-				'user_ip' => '127.0.0.1',
-				'browser_info' => [
-					'language' => 'en-US',
-				],
+				'user_ip' => '127.0.0.1'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
@@ -246,10 +243,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'return_url' => $expectedReturnUrl,
 				'state_province' => 'NA',
 				'street_address' => '123 Fake Street',
-				'user_ip' => '127.0.0.1',
-				'browser_info' => [
-					'language' => 'en-US',
-				],
+				'user_ip' => '127.0.0.1'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
@@ -334,10 +328,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'return_url' => $expectedReturnUrl,
 			'state_province' => 'NA',
 			'street_address' => '123 Fake Street',
-			'user_ip' => '127.0.0.1',
-			'browser_info' => [
-				'language' => 'en-US',
-			],
+			'user_ip' => '127.0.0.1'
 		] )
 		->willReturn(
 			( new CreatePaymentResponse() )
@@ -415,10 +406,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'return_url' => $expectedReturnUrl,
 				'state_province' => 'NA',
 				'street_address' => '123 Fake Street',
-				'user_ip' => '127.0.0.1',
-				'browser_info' => [
-					'language' => 'en-US',
-				],
+				'user_ip' => '127.0.0.1'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )

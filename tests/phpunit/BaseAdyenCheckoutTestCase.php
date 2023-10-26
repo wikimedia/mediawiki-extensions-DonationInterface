@@ -23,6 +23,7 @@ class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 		$this->providerConfig = $this->setSmashPigProvider( 'adyen' );
 		$this->setMwGlobals( [
 			'wgAdyenCheckoutGatewayEnabled' => true,
+			'wgAdyenCheckoutGateway3DSRules' => [ 'INR' => 'IN' ],
 			'wgAdyenCheckoutGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 50,
