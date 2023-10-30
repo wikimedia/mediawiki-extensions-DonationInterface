@@ -19,7 +19,8 @@
 			"Umherirrender",
 			"HNordeen (WMF)",
 			"Brettchenweber",
-			"Justman10000"
+			"Justman10000",
+			"McDutchie"
 		]
 	},
 	"donate_interface": "Wikimedia unterstützen",
@@ -349,7 +350,7 @@
 	"donate_interface-email-receipt": "E-Mail-Benachrichtigung an",
 	"donate_interface-monthly-donation": "Monatlich spenden",
 	"donate_interface-via-paypal": "(per PayPal)",
-	"donate_interface-select": "Größe:",
+	"donate_interface-select": "Auswahl",
 	"donate_interface-donation-must-equal": "Die Spende muss $1 oder mehr betragen.",
 	"donate_interface-thank-you": "Vielen Dank! Ihre Spende ist eingegangen.",
 	"donate_interface-change": "Ändern",
@@ -433,9 +434,9 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, ich spende monatlich, aber einen anderen Betrag",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Sicher, lassen Sie mich wählen, wie viel",
 	"donate_interface-monthly-convert-enter-amount": "Geben Sie Ihren monatlichen Spendenbetrag ein, um nächsten Monat zu beginnen.",
-	"donate_interface-monthly-convert-max-amount": "Wir sind nicht in der Lage, eine wiederkehrende Spende in einer Höhe zu berechnen, die höher ist als Ihre ursprüngliche einmalige Spende.",
+	"donate_interface-monthly-convert-max-amount": "Wir können keine wiederkehrende Spende über einen Betrag einrichten, der höher als jener der einmaligen Spende ist.",
 	"donate_interface-monthly-convert-action-button": "Monatlich spenden",
-	"donate_interface-monthly-convert-error": "Ihre einmalige Spende war erfolgreich, aber wir waren nicht in der Lage, mit einer wiederkehrenden Spende zu beginnen.",
+	"donate_interface-monthly-convert-error": "Ihre einmalige Spende war erfolgreich, aber wir konnten keine wiederkehrende Spende einrichten.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
