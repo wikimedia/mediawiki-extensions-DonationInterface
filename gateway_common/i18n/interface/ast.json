@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"donate_interface": "Sofite a Wikimedia",
@@ -311,7 +312,7 @@
 	"donate_interface-will-make-tax-deductible-gift": "Voi faer una donación deducible d'impuestos de:",
 	"donate_interface-next": "Siguiente",
 	"donate_interface-continue": "Siguir",
-	"donate_interface-cancel": "Encaboxar",
+	"donate_interface-cancel": "Zarrar",
 	"donate_interface-payment": "Pagu",
 	"donate_interface-payment-type": "Tipu de pagu",
 	"donate_interface-month": "$1 ($2)",
@@ -359,7 +360,7 @@
 	"donate_interface-translate-bluelink": "Ameyorar esta traducción",
 	"donate_interface-translate-redlink1": "Ayudar a traducir esta páxina.",
 	"donate_interface-translate-redlink2": "O unvia la to traducción a translations@wikimedia.org",
-	"donate_interface-email-unsub-title": "Encaboxar la suscripción a la Fundación Wikimedia",
+	"donate_interface-email-unsub-title": "Anular la suscripción a la Fundación Wikimedia",
 	"donate_interface-email-unsub-button": "Date de baxa",
 	"donate_interface-email-unsub-success": "Desaniciósete correchamente de la llista de corréu",
 	"donate_interface-email-unsub-delay": "Da un marxe de cuatro (4) díes pa que los cambeos surtan efectu. Pidimos disculpes polos correos electrónicos que puedas recibir demientres esti tiempu. Si tienes dalguna dulda, comunícate con <$1>",
@@ -368,7 +369,7 @@
 	"donate_interface-email-unsub-warning": "Esto va dar de baxa la to suscripción a los correos electrónicos que la Fundación Wikimedia t'unvia como donante. Inda puedes recibir correos nesta dirección de corréu electrónicu si ta asociada con una cuenta d'unu de los nuesos proyectos. Si tienes dalguna entruga, comunícate con <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-faqs": "Entrugues más frecuentes",
 	"donate_interface-tax-info": "Información de desgravación d'impuestos",
-	"donate_interface-informationsharing": "Nun vamos vender nin comerciar cola to información con naide. Al donar, aceptes compartir la to información personal cola Fundación Wikimedia, la organización ensin fines d'arriquecimientu qu'agospia Wikipedia y otros proyectos de Wikimedia, y colos sos fornidores de servicios conforme a la nuesa <a href=\"$1\">política de donantes</a>. La Fundación Wikimedia y los sos fornidores de servicios tán allugaos nos Estaos Xuníos y n'otros paises nos que les lleis d'intimidá pueden nun ser equivalentes a les tuyes. Pa más información, llei la nuesa <a href=\"$1\">política de donantes</a>.",
+	"donate_interface-informationsharing": "Nun vamos vender nin comerciar cola to información con naide. Al donar, aceptes compartir la to información personal cola Fundación Wikimedia, la organización ensin fines d'arriquecimientu qu'agospia Wikipedia y otros proyectos de Wikimedia, y colos sos fornidores de servicios conforme a la nuesa <a href=\"$1\">política de donantes</a>. La Fundación Wikimedia y los sos fornidores de servicios tán allugaos nos Estaos Xuníos y n'otros países nos que les lleis d'intimidá pueden nun ser equivalentes a les tuyes. Pa más información, llei la nuesa <a href=\"$1\">política de donantes</a>.",
 	"donate_interface-currency-change": "¿Camudar?",
 	"donate_interface-bank_transfer_message": "Ten en cuenta que la to declaración va amosar \"Global Collect\" como'l destinatariu d'esti regalu. Global Collect ta autorizáu p'aceptar y procesar los pagos en nome de la Fundación Wikimedia. Recuerda incluyir el númberu de referencia que s'amuesa equí na to tresferencia bancaria y nun dudes en mandanos un corréu a $1 si tienes dalguna entruga o esmolición.",
 	"donate_interface-globalcollect-proxy": "Ten en cuenta que l'estractu bancariu va amosar a «Global Collect» como destinatariu d'esti regalu. Global Collect ta autorizáu p'aceptar y procesar pagos en nome de la Fundación Wikimedia.",
