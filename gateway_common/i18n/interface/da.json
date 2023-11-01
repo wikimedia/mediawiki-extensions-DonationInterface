@@ -377,7 +377,7 @@
 	"donate_interface-error-http-403": "Du har ikke tilladelse til at få adgang til denne side.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-monthly-convert-title": "Vil du tilføje en månedlig donation på <span class=\"mc-convert-ask\"></span>, der starter næste måned?",
-	"donate_interface-monthly-convert-text": "Månedlig støtte er den bedste måde at sikre, at Wikipedia bliver ved med at trives",
+	"donate_interface-monthly-convert-text": "Månedlig støtte er den bedste måde at sikre, at Wikipedia fortsat udvides",
 	"donate_interface-monthly-convert-change-amount": "Ja, jeg vil donere månedligt, men med et andet beløb",
 	"donate_interface-monthly-convert-enter-amount": "Indtast dit månedlige donationsbeløb, der vil begynde næste måned.",
 	"donate_interface-monthly-convert-max-amount": "Vi kan ikke opkræve en tilbagevendende donation på et beløb, der er større end din oprindelige engangsdonation.",
