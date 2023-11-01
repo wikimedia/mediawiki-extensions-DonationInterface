@@ -248,4 +248,14 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 		return parent::getCurrencies( $options );
 	}
+
+	protected function getQueueDonationMessage(): array {
+		$message = parent::getQueueDonationMessage();
+		// save external_identifier as venmo user_name
+		if ( isset( $this->unstaged_data['user_name'] ) ) {
+			$message['external_identifier'] = $this->unstaged_data['user_name'];
+		}
+
+		return $message;
+	}
 }
