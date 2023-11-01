@@ -1,8 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Metalhead64"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "AstroPay-Zahlungsverarbeitung"
 }

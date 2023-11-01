@@ -1,8 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Xuacu"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Procesamientu de pagos d'AstroPay"
 }

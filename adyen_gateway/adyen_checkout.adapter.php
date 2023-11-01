@@ -470,6 +470,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc' ];
+		return [ 'cc', 'google', 'apple' ];
 	}
 }

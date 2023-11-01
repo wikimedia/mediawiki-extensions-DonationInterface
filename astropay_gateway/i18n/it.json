@@ -1,8 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Beta16"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Esecuzione del pagamento con AstroPay"
 }

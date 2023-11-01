@@ -1,9 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Macofe",
-			"Tusca"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Procesamiento de pagos AstroPay"
 }

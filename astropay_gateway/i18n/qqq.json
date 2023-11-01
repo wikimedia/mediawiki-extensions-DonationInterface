@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Macofe",
-			"Tusca"
+			"Macofe"
 		]
 	},
 	"astropay_gateway-desc": "{{desc}}"

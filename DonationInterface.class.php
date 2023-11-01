@@ -56,14 +56,12 @@ class DonationInterface {
 		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
 		$wgAutoloadClasses['BaseAdyenCheckoutTestCase'] = $testDir . 'BaseAdyenCheckoutTestCase.php';
 		$wgAutoloadClasses['BaseIngenicoTestCase'] = $testDir . 'BaseIngenicoTestCase.php';
-		$wgAutoloadClasses['TestingAstroPayAdapter'] = $testDir . 'includes/test_gateway/TestingAstroPayAdapter.php';
+		$wgAutoloadClasses['TestingDlocalAdapter'] = $testDir . 'includes/test_gateway/TestingDlocalAdapter.php';
 		$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
 		$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
 		$wgAutoloadClasses['BaseDlocalTestCase'] = $testDir . 'BaseDlocalTestCase.php';
 		$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
 		$wgAutoloadClasses['TestingPaypalExpressAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalExpressAdapter.php';
-		$wgAutoloadClasses['TestingDlocalAdapter'] = $testDir . 'includes/test_gateway/TestingDlocalAdapter.php';
-
 		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
 		$wgAutoloadClasses['TTestingAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 

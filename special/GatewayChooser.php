@@ -255,7 +255,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 *    [
 	 * 	    # No conditions, this is treated as default.
 	 * 		# Should be last in the list as it will always match.
-	 * 	    'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'astropay' ]
+	 * 	    'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ]
 	 * 	  ]
 	 * ];
 	 *

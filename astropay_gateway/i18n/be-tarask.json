@@ -1,8 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Red Winged Duck"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Апрацоўка плацяжоў AstroPay"
 }

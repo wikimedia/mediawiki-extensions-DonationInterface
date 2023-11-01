@@ -1,9 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Fúlvio",
-			"Vitorvicentevalente"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Processamento de pagamentos AstroPay"
 }

@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly",
-			"Liuxinyu970226"
+			"Kly"
 		]
 	},
 	"astropay_gateway-desc": "AstroPay 支付程序"

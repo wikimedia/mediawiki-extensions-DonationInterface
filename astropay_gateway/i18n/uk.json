@@ -1,8 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Ата"
-		]
+		"authors": []
 	},
 	"astropay_gateway-desc": "Обробка платежу AstroPay"
 }

@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"NikosLikomitros",
-			"Nikosgranturismogt"
+			"NikosLikomitros"
 		]
 	},
 	"astropay_gateway-desc": "Επεξεργασία πληρωμών AstroPay"

@@ -37,8 +37,6 @@
 		"AdyenCheckoutGatewayResult": "AdyenCheckoutGatewayResult",
 		"BraintreeGateway": "BraintreeGateway",
 		"BraintreeGatewayResult": "BraintreeGatewayResult",
-		"AstroPayGateway": "AstroPayGateway",
-		"AstroPayGatewayResult": "AstroPayGatewayResult",
 		"PaypalExpressGateway": "PaypalExpressGateway",
 		"PaypalExpressGatewayResult": "PaypalExpressGatewayResult",
 		"DlocalGateway": "DlocalGateway",
@@ -67,7 +65,6 @@
 			"gateway_common/i18n/api",
 			"amazon_gateway/i18n",
 			"adyen_gateway/i18n",
-			"astropay_gateway/i18n",
 			"ingenico_gateway/i18n",
 			"paypal_ec_gateway/i18n",
 			"email_forms/i18n"
@@ -78,7 +75,6 @@
 		"AmazonGatewayAlias": "amazon_gateway/amazon_gateway.alias.php",
 		"IngenicoGatewayAlias": "ingenico_gateway/ingenico_gateway.alias.php",
 		"AdyenGatewayAlias": "adyen_gateway/adyen_gateway.alias.php",
-		"AstroPayGatewayAlias": "astropay_gateway/astropay_gateway.alias.php",
 		"PaypalGatewayAlias": "paypal_ec_gateway/paypal_gateway.alias.php",
 		"BraintreeGatewayAlias": "braintree_gateway/braintree_gateway.alias.php",
 		"DlocalGatewayAlias": "dlocal_gateway/dlocal_gateway.alias.php"
@@ -164,12 +160,6 @@
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
-		"AstroPayGateway": "astropay_gateway/astropay_gateway.body.php",
-		"AstroPayGatewayResult": "astropay_gateway/astropay_resultswitcher.body.php",
-		"AstroPayAdapter": "astropay_gateway/astropay.adapter.php",
-		"AstroPayFinancialNumbers": "astropay_gateway/AstroPayFinancialNumbers.php",
-		"AstroPayMethodCodec": "astropay_gateway/AstroPayMethodCodec.php",
-		"AstroPaySignature": "astropay_gateway/AstroPaySignature.php",
 		"PlaceholderFiscalNumber": "dlocal_gateway/PlaceholderFiscalNumber.php",
 		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
@@ -399,14 +389,6 @@
 			"scripts": "braintree_gateway/forms/braintree.js",
 			"styles": "braintree_gateway/forms/braintree.css",
 			"dependencies": "ext.donationInterface.forms"
-		},
-		"ext.donationInterface.astropay": {
-			"scripts": "astropay_gateway/forms/astropay.js",
-			"dependencies": "ext.donationInterface.forms",
-			"messages": [
-				"donate_interface-redirect-explanation",
-				"donate_interface-donor-fiscal_number-explain-in"
-			]
 		},
 		"ext.donationInterface.dlocal.scripts": {
 			"scripts": "dlocal_gateway/forms/dlocal.js",
@@ -673,12 +655,6 @@
 		"PaypalExpressGatewayTestingSignatureURL": {
 			"value": "https://api-3t.sandbox.paypal.com/nvp"
 		},
-		"AstroPayGatewayURL": {
-			"value": "https://api.dlocal.com/"
-		},
-		"AstroPayGatewayTestingURL": {
-			"value": "https://sandbox.dlocal.com/"
-		},
 		"DonationInterfaceCustomFiltersActionRanges": {
 			"value": {
 				"process": [
@@ -796,9 +772,6 @@
 		"AdyenCheckoutGatewayEnabled": {
 			"value": false
 		},
-		"AstroPayGatewayEnabled": {
-			"value": false
-		},
 		"PaypalExpressGatewayEnabled": {
 			"value": false
 		},
@@ -860,7 +833,6 @@
 				"ingenico": "IngenicoAdapter",
 				"amazon": "AmazonAdapter",
 				"adyen": "AdyenCheckoutAdapter",
-				"astropay": "AstroPayAdapter",
 				"paypal_ec": "PaypalExpressAdapter",
 				"braintree": "BraintreeAdapter",
 				"dlocal": "DlocalAdapter"
