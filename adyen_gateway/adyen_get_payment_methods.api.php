@@ -13,6 +13,13 @@ class AdyenGetPaymentMethodsApi extends ApiBase {
 		// Set up adyen
 		DonationInterface::setSmashPigProvider( 'adyen' );
 
+		// Set up logging
+		$className = DonationInterface::getAdapterClassForGateway( 'adyen' );
+		$logger = DonationLoggerFactory::getLoggerForType(
+			$className
+		);
+		$logger->info( 'Calling getPaymentMethods ' . WmfFramework::getIP() );
+
 		// They need to make this call before they even display a form so we won't know amount
 		$params['country'] = $this->getParameter( 'country' );
 		$params['channel'] = 'iOS';
