@@ -511,6 +511,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
 		$newRequest = new TestingRequest( $initial_vars, $posted, $session );
+		$unwrapped = TestingAccessWrapper::newFromObject( $newRequest );
+		$unwrapped->queryParams = $initial_vars;
 		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
 		$mainContext->setRequest( $newRequest );
 		$mainContext->setOutput( $newOutput );
