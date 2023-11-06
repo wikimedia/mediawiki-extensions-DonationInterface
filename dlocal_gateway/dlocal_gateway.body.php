@@ -56,6 +56,22 @@ class DlocalGateway extends GatewayPage {
 		$codeMap = array_filter( $simpleSubmethods, static function ( $key ) use ( $supportedSubmethods ) {
 			return in_array( $key, $supportedSubmethods );
 		} );
+		// india do not support recurring for any cc card type,
+		// Uruguay do not support recurring for diners and mc-debit
+		// since 3d secure is mandatory for India, South Africa, and debit cards in Brazil
+		if ( $this->adapter->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$countryCode = $this->adapter->getData_Unstaged_Escaped( 'country' );
+			if ( $countryCode === 'IN' ) {
+				// todo: maybe some general error for cc recurring since no submethod supported?
+				$codeMap = [];
+			} elseif ( $countryCode === 'BR' || $countryCode === 'ZA' ) {
+				unset( $codeMap['MD'] );
+				unset( $codeMap['VD'] );
+			} elseif ( $countryCode === 'UY' ) {
+				unset( $codeMap['MD'] );
+				unset( $codeMap['DC'] );
+			}
+		}
 		$vars['codeMap'] = $codeMap;
 	}
 
