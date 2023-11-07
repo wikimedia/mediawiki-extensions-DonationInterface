@@ -54,6 +54,7 @@ class RecurringConversionApi extends DonationApiBase {
 	public function getAllowedParams() {
 		return [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'declineMonthlyConvert' => [ ParamValidator::PARAM_TYPE => 'boolean', ParamValidator::PARAM_REQUIRED => false ],
 			'gateway' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
 		];
 	}

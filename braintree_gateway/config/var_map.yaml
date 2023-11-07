@@ -19,3 +19,4 @@ user_name: user_name
 device_data: device_data
 customer_id: customer_id
 gateway_session_id: gateway_session_id
+processor_contact_id: processor_contact_id

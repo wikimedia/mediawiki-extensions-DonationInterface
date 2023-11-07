@@ -49,7 +49,7 @@
 		return formattedAmount;
 	};
 
-	mc.postUpdonate = function ( amount ) {
+	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
 		var sendData = {
 			action: 'di_recurring_convert',
 			format: 'json',
@@ -57,6 +57,9 @@
 			wmf_token: $( '#wmf_token' ).val(),
 			amount: amount
 		};
+		if ( declineMonthlyConvert ) {
+			sendData.declineMonthlyConvert = declineMonthlyConvert;
+		}
 		$.ajax( {
 			url: mw.util.wikiScript( 'api' ),
 			data: sendData,
@@ -71,20 +74,24 @@
 				) {
 					url = new mw.Uri( tyUrl );
 					document.location.assign(
-						url.extend( { recurringConversion: 1 } ).toString()
+						url.extend( { recurringConversion: declineMonthlyConvert ? 0 : 1 } ).toString()
 					);
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
 					// We should let 'em know the recurring conversion failed
 					// but the initial donation worked, then show them the thank
 					// you page.
-					alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
+					if ( !declineMonthlyConvert ) {
+						alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
+					}
 					document.location.assign( tyUrl );
 				}
 			},
 			error: function () {
 				// FIXME too
-				alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
+				if ( !declineMonthlyConvert ) {
+					alert( mw.msg( 'donate_interface-monthly-convert-error' ) );
+				}
 				document.location.assign( tyUrl );
 			}
 		} );
@@ -114,12 +121,12 @@
 			);
 			$( '.mc-no-button, .mc-close' ).on( 'click keypress', function ( e ) {
 				if ( e.which === 13 || e.type === 'click' ) {
-					document.location.assign( tyUrl );
+					mc.postMonthlyConvertDonate( presetAmount, true );
 				}
 			} );
 			$( '.mc-yes-button' ).on( 'click keypress', function ( e ) {
 				if ( e.which === 13 || e.type === 'click' ) {
-					mc.postUpdonate( presetAmount );
+					mc.postMonthlyConvertDonate( presetAmount );
 				}
 			} );
 			$( '.mc-donate-monthly-button' ).on( 'click keypress', function ( e ) {
@@ -157,7 +164,7 @@
 					} else {
 						$( '.mc-error' ).hide();
 						$otherAmountField.removeClass( 'errorHighlight' );
-						mc.postUpdonate( otherAmount );
+						mc.postMonthlyConvertDonate( otherAmount );
 					}
 				}
 			} );
