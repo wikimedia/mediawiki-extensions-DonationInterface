@@ -41,15 +41,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		CreatePaymentResponse $createPaymentResult, PaymentProvider $provider
 	): PaymentResult {
 		$transactionStatus = $createPaymentResult->getStatus();
-		$donorDetails = $createPaymentResult->getDonorDetails();
-		// Pull in new data from result if available.
-		$this->addResponseData( [
-			'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(), // this is always new
-			'first_name' => $donorDetails->getFirstName() ?? $this->dataObj->getVal( 'first_name' ),
-			'last_name' => $donorDetails->getLastName() ?? $this->dataObj->getVal( 'last_name' ),
-			'email' => $donorDetails->getEmail() ?? $this->dataObj->getVal( 'email' ),
-			'phone' => $donorDetails->getPhone() // we don't usually collect this
-		] );
 
 		$paymentResult = PaymentResult::newSuccess();
 		if ( !$createPaymentResult->isSuccessful() ) {
@@ -58,12 +49,25 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 			$errorLogMessage .= $createPaymentResult->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $createPaymentResult->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
+		} else {
+			$donorDetails = $createPaymentResult->getDonorDetails();
+			// Pull in new data from result if available.
+			$this->addResponseData( [
+				'gateway_txn_id' => $createPaymentResult->getGatewayTxnId(), // this is always new
+				'first_name' => $donorDetails->getFirstName() ?? $this->dataObj->getVal( 'first_name' ),
+				'last_name' => $donorDetails->getLastName() ?? $this->dataObj->getVal( 'last_name' ),
+				'user_name' => $donorDetails->getUserName(),
+				'email' => $donorDetails->getEmail() ?? $this->dataObj->getVal( 'email' ),
+				'phone' => $donorDetails->getPhone(), // we don't usually collect this
+				'processor_contact_id' => $donorDetails->getCustomerId() // we need this for delete customer if one-time donor
+			] );
 		}
 
-		// if its recurring, the response will have a token
+		// if its recurring, the response will have a token and processor contact id
 		if ( $createPaymentResult->getRecurringPaymentToken() ) {
 			$this->addResponseData( [
 				'recurring_payment_token' => $createPaymentResult->getRecurringPaymentToken(),
+				'processor_contact_id' => $createPaymentResult->getProcessorContactID(),
 			] );
 			if ( $this->showMonthlyConvert() ) {
 				$this->session_addDonorData();
@@ -160,6 +164,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					'user_name',
 					'customer_id',
 					'gateway_session_id',
+					'processor_contact_id'
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),

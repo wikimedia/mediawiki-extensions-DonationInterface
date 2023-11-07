@@ -27,30 +27,49 @@ trait RecurringConversionTrait {
 				)
 			] );
 		}
-		$message = array_merge(
-			$this->getQueueDonationMessage(),
-			[
-				'recurring' => 1,
-				'txn_type' => 'subscr_signup',
-				'create_date' => UtcDate::getUtcTimestamp(),
-				// FIXME: Use same 'next donation date' logic as Civi extension
-				'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
-				'frequency_unit' => 'month',
-				'frequency_interval' => 1,
-				'subscr_id' => $sessionData['gateway_txn_id'],
-				'recurring_payment_token' => $sessionData['recurring_payment_token'],
-			]
-		);
-		foreach ( [ 'processor_contact_id', 'fiscal_number' ] as $optionalKey ) {
-			if ( !empty( $sessionData[$optionalKey] ) ) {
-				$message[$optionalKey] = $sessionData[$optionalKey];
+		// decline post Monthly convert recurring, should start remove recurring token from gateway
+		if ( isset( $_REQUEST['declineMonthlyConvert'] ) && $_REQUEST['declineMonthlyConvert'] ) {
+			$message = array_merge(
+				[
+					'recurring' => 0,
+					'monthly_convert_decline' => true,
+					'order_id' => $sessionData['order_id'],
+					'recurring_payment_token' => $sessionData['recurring_payment_token'],
+					'processor_contact_id' => $sessionData['processor_contact_id'],
+					'gateway' => $sessionData['gateway'],
+					'payment_method' => $sessionData['payment_method'],
+				]
+			);
+			QueueWrapper::push( 'donations', $message );
+			$this->logger->info( "decline recurring from post monthly convert" );
+		} else {
+			$message = array_merge(
+				$this->getQueueDonationMessage(),
+				[
+					'recurring' => 1,
+					'txn_type' => 'subscr_signup',
+					'create_date' => UtcDate::getUtcTimestamp(),
+					// FIXME: Use same 'next donation date' logic as Civi extension
+					'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
+					'frequency_unit' => 'month',
+					'frequency_interval' => 1,
+					'subscr_id' => $sessionData['gateway_txn_id'],
+					'recurring_payment_token' => $sessionData['recurring_payment_token'],
+				]
+			);
+			foreach ( [ 'processor_contact_id', 'fiscal_number' ] as $optionalKey ) {
+				if ( !empty( $sessionData[$optionalKey] ) ) {
+					$message[$optionalKey] = $sessionData[$optionalKey];
+				}
 			}
+			$this->logger->info(
+				'Pushing transaction to queue [recurring] with amount ' .
+				"{$message['currency']} {$message['gross']}"
+			);
+
+			QueueWrapper::push( 'recurring', $message );
 		}
-		$this->logger->info(
-			'Pushing transaction to queue [recurring] with amount ' .
-			"{$message['currency']} {$message['gross']}"
-		);
-		QueueWrapper::push( 'recurring', $message );
+
 		$this->session_resetForNewAttempt( true );
 		return PaymentResult::newSuccess();
 	}
