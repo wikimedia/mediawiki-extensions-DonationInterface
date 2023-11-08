@@ -74,7 +74,7 @@
 				) {
 					url = new mw.Uri( tyUrl );
 					document.location.assign(
-						url.extend( { recurringConversion: declineMonthlyConvert ? 0 : 1 } ).toString()
+						url.extend( { recurringConversion: declineMonthlyConvert ? '' : 1 } ).toString()
 					);
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
