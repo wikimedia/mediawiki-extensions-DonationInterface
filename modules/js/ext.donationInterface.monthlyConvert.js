@@ -73,9 +73,11 @@
 					!data.result.errors
 				) {
 					url = new mw.Uri( tyUrl );
-					document.location.assign(
-						url.extend( { recurringConversion: declineMonthlyConvert ? '' : 1 } ).toString()
-					);
+					if ( !declineMonthlyConvert ) {
+						document.location.assign(
+							url.extend( { recurringConversion: 1 } ).toString()
+						);
+					}
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
 					// We should let 'em know the recurring conversion failed
