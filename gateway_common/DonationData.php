@@ -568,10 +568,12 @@ class DonationData implements LogPrefixProvider {
 		$this->expunge( 'amountGiven' );
 		$this->expunge( 'amountOther' );
 
-		if ( !is_numeric( $this->getVal( 'amount' ) ) ) {
+		// Database can't handle more than 10^18 units of any currency - drop bigger numbers
+		// right away before they cause problems in e.g. contribution_tracking table.
+		if ( !is_numeric( $this->getVal( 'amount' ) ) || $this->getVal( 'amount' ) > 1E18 ) {
 			// fail validation later, log some things.
 			// FIXME: Generalize this, be more careful with user_ip.
-			$mess = 'Non-numeric Amount.';
+			$mess = 'Non-numeric or nonsense Amount.';
 			$keys = [
 				'amount',
 				'utm_source',
