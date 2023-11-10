@@ -22,4 +22,26 @@
 class IngenicoGateway extends GatewayPage {
 
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
+
+	public function execute( $par ) {
+		$this->logger = DonationLoggerFactory::getLoggerForType(
+			IngenicoAdapter::class,
+			$this->getLogPrefix()
+		);
+		$referrer = $this->getRequest()->getHeader( 'referer' );
+		$params = $this->getRequest()->getQueryValues();
+		$paramJson = json_encode( $params );
+		$this->logger->warning(
+			"Donors sent to the Ingenico form from referrer $referrer with params $paramJson.  " .
+			'Redirecting to Adyen.'
+		);
+		unset( $params['title'] );
+		if ( !empty( $params['gateway'] ) ) {
+			$params['gateway'] = 'adyen';
+		}
+		$adyenTitle = Title::newFromText( 'Special:AdyenCheckoutGateway' );
+		$this->getOutput()->redirect(
+			$adyenTitle->getFullURL( $params, false, PROTO_CURRENT )
+		);
+	}
 }

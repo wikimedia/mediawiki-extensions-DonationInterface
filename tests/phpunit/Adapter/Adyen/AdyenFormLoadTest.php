@@ -16,46 +16,64 @@
  *
  */
 
+use SmashPig\PaymentProviders\Adyen\CardPaymentProvider;
+use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
+
 /**
  *
  * @group Fundraising
  * @group DonationInterface
- * @group Ingenico
+ * @group Adyen
  */
-class IngenicoFormLoadTest extends BaseIngenicoTestCase {
+class AdyenFormLoadTest extends BaseAdyenCheckoutTestCase {
 
-	public function testIngenicoFormLoad() {
+	public function setUp(): void {
+		parent::setUp();
+		$this->cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+
+		$this->providerConfig->overrideObjectInstance(
+			'payment-provider/cc',
+			$this->cardPaymentProvider
+		);
+		$this->cardPaymentProvider->expects( $this->any() )
+			->method( 'getPaymentMethods' )
+			->willReturn(
+				( new PaymentMethodResponse() )
+					->setSuccessful( true )
+					->setRawResponse( 'blahblahblah' )
+			);
+	}
+
+	public function testAdyenFormLoad() {
 		$init = $this->getDonorTestData( 'US' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['gateway'] = 'ingenico';
+		$init['gateway'] = 'adyen';
 
 		$assertNodes = [
-			'submethod-mc' => [
-				'nodename' => 'input'
-			],
 			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
-					str_replace( '$', '\$',
+					str_replace(
+						'$',
+						'\$',
 						Amount::format( 4.55, 'USD', $init['language'] . '_' . $init['country'] )
 					) .
 					'\s*$/',
 			],
-			'state_province' => [
-				'nodename' => 'select',
-				'selected' => 'CA',
+			'postal_code' => [
+				'nodename' => 'input',
 			],
 		];
 
-		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 
-	public function testIngenicoFormLoad_FR() {
+	public function testAdyenFormLoad_FR() {
 		$init = $this->getDonorTestData( 'FR' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['gateway'] = 'ingenico';
+		$init['gateway'] = 'adyen';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -74,17 +92,17 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 		];
 
-		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 
 	/**
 	 * Ensure that form loads for Italy
 	 */
-	public function testIngenicoFormLoad_IT() {
+	public function testAdyenFormLoad_IT() {
 		$init = $this->getDonorTestData( 'IT' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
-		$init['gateway'] = 'ingenico';
+		$init['gateway'] = 'adyen';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -99,7 +117,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 			'informationsharing' => [
 				'nodename' => 'p',
-				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( 'it' )->text() . '~',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )
+						->inLanguage( 'it' )
+						->text() . '~',
 			],
 			'country' => [
 				'nodename' => 'input',
@@ -107,19 +127,19 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 		];
 
-		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 
 	/**
 	 * Make sure Belgian form loads in all of that country's supported languages
 	 * @dataProvider belgiumLanguageProvider
 	 */
-	public function testIngenicoFormLoad_BE( $language ) {
+	public function testAdyenFormLoad_BE( $language ) {
 		$init = $this->getDonorTestData( 'BE' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['language'] = $language;
-		$init['gateway'] = 'ingenico';
+		$init['gateway'] = 'adyen';
 
 		$assertNodes = [
 			'selected-amount' => [
@@ -134,7 +154,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 			'informationsharing' => [
 				'nodename' => 'p',
-				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage(
+						$language
+					)->text() . '~',
 			],
 			'country' => [
 				'nodename' => 'input',
@@ -142,25 +164,27 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 		];
 
-		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 
 	/**
 	 * Make sure Canadian CC form loads in English and French
 	 * @dataProvider canadaLanguageProvider
 	 */
-	public function testIngenicoFormLoad_CA( $language ) {
+	public function testAdyenFormLoad_CA( $language ) {
 		$init = $this->getDonorTestData( 'CA' );
 		unset( $init['order_id'] );
 		$init['payment_method'] = 'cc';
 		$init['language'] = $language;
-		$init['gateway'] = 'ingenico';
+		$init['gateway'] = 'adyen';
 
 		$assertNodes = [
 			'selected-amount' => [
 				'nodename' => 'span',
 				'innerhtmlmatches' => '/^\s*' .
-					str_replace( '$', '\$',
+					str_replace(
+						'$',
+						'\$',
 						Amount::format( 4.55, 'CAD', $init['language'] . '_' . $init['country'] )
 					) .
 					'\s*$/',
@@ -171,7 +195,9 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 			'informationsharing' => [
 				'nodename' => 'p',
-				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage( $language )->text() . '~',
+				'innerhtmlmatches' => '~' . wfMessage( 'donate_interface-informationsharing', '.*' )->inLanguage(
+						$language
+					)->text() . '~',
 			],
 			'state_province' => [
 				'nodename' => 'select',
@@ -187,6 +213,7 @@ class IngenicoFormLoadTest extends BaseIngenicoTestCase {
 			],
 		];
 
-		$this->verifyFormOutput( 'IngenicoGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
+		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 }
