@@ -379,7 +379,7 @@
 	"donate_interface-translate-redlink1": "Aiutaci a tradurre questa pagina.",
 	"donate_interface-translate-redlink2": "O mandare per e-mail la tua traduzione a translations@wikimedia.org",
 	"donate_interface-email-unsub-title": "Cancellazione dalla Wikimedia Foundation",
-	"donate_interface-email-unsub-button": "Annulla l'iscrizione",
+	"donate_interface-email-unsub-button": "Annulla iscrizione",
 	"donate_interface-email-unsub-success": "Sei stato rimosso con successo dalla nostra mailing list",
 	"donate_interface-email-unsub-delay": "Attendi fino a 4 quattro giorni perché le modifiche abbiano effetto. Ci scusiamo per qualsiasi e-mail che riceverete durante questo periodo. Se hai delle domande contatta <$1>",
 	"donate_interface-email-unsub-fail": "Si è verificato un errore di elaborazione della tua richiesta, contatta <$1>.",
