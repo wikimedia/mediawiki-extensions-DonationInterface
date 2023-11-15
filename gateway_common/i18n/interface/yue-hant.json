@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"H78c67c"
 		]
 	},
 	"donate_interface": "支持Wikimedia",
 	"donate_interface-desc": "捐綫登陸版整合嘅閘道擴展",
 	"donate_interface-intro": "請揀一種俾錢方法、金額同貨幣。",
 	"donate_interface-amount": "金額",
-	"donate_interface-other-amount": "第啲金額",
+	"donate_interface-other-amount": "第個金額",
 	"donate_interface-currency": "貨幣：",
 	"donate_interface-gateway": "俾錢方法：",
 	"donate_interface-submit-button": "捐錢",
@@ -17,7 +18,7 @@
 	"donate_interface-email-agreement": "我同意收未來嘅Wikimedia Foundation嘅新聞紙或者電郵。\n我哋唔會賣或交易你嘅資料。\n我哋嘅捐錢者嘅私隱政策可以響<a title='Donate/Donor Privacy' href='/wiki/Donate/Donor_Privacy'>呢度</a>搵到",
 	"donate_interface-comment-title": "公共註解",
 	"donate_interface-amount-error": "請輸入一個有效嘅金額",
-	"donate_interface-smallamount-error": "唔該揀一個金額（最低$1）",
+	"donate_interface-smallamount-error": "請揀個金額（最少$1）",
 	"donate_interface-processing-error": "處理你嘅請求嗰陣出錯。\n冇可以用嘅處理器。",
 	"donate_interface-AUD": "澳大利亞元",
 	"donate_interface-CAD": "加拿大元",
@@ -36,7 +37,7 @@
 	"donate_interface-SEK": "瑞典克朗",
 	"donate_interface-SGD": "新加坡元",
 	"donate_interface-USD": "美元",
-	"donate_interface-ccdc-button": "用信用咭／扣賬咭過數",
+	"donate_interface-ccdc-button": "用信用卡／扣賬卡捐款",
 	"donate_interface-card-legend": "信用咭資料",
 	"donate_interface-amount-legend": "捐款金額",
 	"donate_interface-cvv-link": "例",
@@ -85,17 +86,17 @@
 	"donate_interface-post-transaction": "交易細節",
 	"donate_interface-cvv-explain": "<h4>乜嘢係CVV？</h4>\n<p>Cardholder Verification Value (CVV) 呢三位或四位數字係用來幫手肯定實際嘅咭係響咭持有者嘅情況之下響線上捐綫，幫手防止未認證或者濫用。</p>\n<h4>Visa、萬事達咭</h4>\n<p>嗰三位編碼響你張咭嘅背面，響個簽名位入面。\n通常響個簽名位度會有一串嘅數字，係但只係最後三位數字會整成CVV碼。</p>\n<h4>美國運通</h4>\n<p>個碼會響前面印出嘅戶口冧吧嘅上面。\n響一啲嘅情況，個碼會響張咭嘅左手邊，但係都一定會響戶口冧吧嘅上面。</p><br />",
 	"donate_interface-question-comment": "維基百科係Wikimedia Foundation嘅其中一個計劃。問或解？聯絡Wikimedia Foundation：<a href=\"mailto:$1\">$1</a>",
-	"donate_interface-problemsdonating": "捐錢嗰陣遇到阻滯？",
+	"donate_interface-problemsdonating": "捐錢遇到阻滯？",
 	"donate_interface-donate-click": "當撳咗 \"{{int:payflowpro_gateway-donor-submit}}\" 之後，你嘅信用咭資料將會被處理。",
 	"donate_interface-otherways-short": "第啲捐錢方法",
-	"donate_interface-cc-form-header-personal": "賬單訊息",
-	"donate_interface-other": "其它金額",
+	"donate_interface-cc-form-header-personal": "賬號資訊",
+	"donate_interface-other": "其他金額",
 	"donate_interface-anon-message": "請列示我個名（響我嘅註解隔離）響個公共捐錢者度。",
 	"donate_interface-rtbt-issuer_id-longlist": "第啲銀行",
-	"donate_interface-faqs": "成日遇到嘅問題",
-	"donate_interface-tax-info": "有關減稅嘅資訊",
-	"donate_interface-informationsharing": "我哋唔會將您嘅信息賣畀或者洩漏畀任何人。透過捐款，您同意根據我哋嘅<a href=\"$1\">捐錢政策</a>同維基媒體基金會，營運維基百科同埋第啲維基媒體計劃嘅非牟利組織，以及佢嘅服務提供商分享您嘅個人資料。維基媒體基金會同佢嘅服務提供商位置喺美國同第啲國家/地區，呢啲國家嘅隱私權法律可能同您而家國家嘅隱私權法律並唔一樣。有關更多嘅訊息，請睇睇我哋嘅<a href=\"$1\">捐錢政策</a>。",
+	"donate_interface-faqs": "常見問題",
+	"donate_interface-tax-info": "税項扣除資訊",
+	"donate_interface-informationsharing": "我哋唔會將你嘅信息賣出或者交易畀任何人。透過捐款，你同意根據我哋嘅<a href=\"$1\">捐款人政策</a>同維基媒體基金會——營運維基百科同埋第啲維基媒體計劃嘅非牟利組織，以及佢嘅服務供應商分享你嘅個人資料。維基媒體基金會同佢嘅服務供應商位處美國同第啲國家/地區，呢啲地方嘅私隱法律可能同你國家嘅私隱法律並唔一樣。想知更多訊息，請睇睇我哋嘅<a href=\"$1\">捐款人政策</a>。",
 	"donate_interface-monthly-cancel": "對於一啲定期嘅捐助者，維基媒體基金會會每個月喺您第一次捐錢嘅嗰一日度扣返每個月要畀嘅錢，直到您通知我哋停咗佢為止。如果係喺每個月嘅29、30或者31號發起嘅捐贈，就會喺呢個月嘅最尾嗰日度扣，對於短啲嘅月份就會儘量喺同一日搞掂。如果重有啲咩問題，唔該搵$1。",
-	"donate_interface-monthly-short": "每個月",
+	"donate_interface-monthly-short": "每月",
 	"donate_interface-onetime-short": "一次"
 }
