@@ -377,6 +377,25 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Check that utm_* values are set from wmf_* values
+	 */
+	public function testSetUtmValuesFromWmfValues() {
+		$data = $this->testData;
+		unset( $data['utm_source'] );
+		unset( $data['utm_medium'] );
+		unset( $data['utm_campaign'] );
+		$data['wmf_source'] = 'maine';
+		$data['wmf_medium'] = 'houdini';
+		$data['wmf_campaign'] = 'ilikeike';
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
+		$returned = $ddObj->getData();
+		$this->assertEquals( 'maine..cc', $returned['utm_source'] );
+		$this->assertEquals( 'houdini', $returned['utm_medium'] );
+		$this->assertEquals( 'ilikeike', $returned['utm_campaign'] );
+	}
+
+	/**
 	 * Check that utm_source from app donations is what we are expecting
 	 */
 	public function testSetUtmSourceFromAppWithBanner() {
