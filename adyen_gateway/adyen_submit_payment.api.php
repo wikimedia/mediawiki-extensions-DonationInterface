@@ -224,6 +224,13 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		if ( $this->donationData['pay_the_fee'] === 1 ) {
 			$this->donationData['utm_key'] = 'ptf_1';
 		}
+
+		// Temporary until this is fixed on the app side, but if there is no banner set, set it to appmenu
+		// TODO: Remove when the work in T350919 is done
+		if ( !isset( $this->donationData['banner'] ) ) {
+			$this->donationData['banner'] = 'appmenu';
+		}
+
 		$message = [
 			'amount' => $this->donationData['amount'],
 			'banner' => $this->donationData['banner'],
