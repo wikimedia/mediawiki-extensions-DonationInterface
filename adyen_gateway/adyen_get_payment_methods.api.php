@@ -1,5 +1,6 @@
 <?php
 
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class AdyenGetPaymentMethodsApi extends ApiBase {
@@ -23,7 +24,9 @@ class AdyenGetPaymentMethodsApi extends ApiBase {
 		// They need to make this call before they even display a form so we won't know amount
 		$params['country'] = $this->getParameter( 'country' );
 		$params['channel'] = 'iOS';
-		$rawResponse = ( new SmashPig\PaymentProviders\Adyen\Api )->getPaymentMethods( $params );
+
+		$provider = PaymentProviderFactory::getProviderForMethod( 'apple' );
+		$rawResponse = $provider->getPaymentMethods( $params )->getRawResponse();
 
 		$this->getResult()->addValue( null, 'response', $rawResponse );
 	}
