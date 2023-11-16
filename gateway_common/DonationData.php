@@ -788,6 +788,18 @@ class DonationData implements LogPrefixProvider {
 		$recurring_str = var_export( $this->getVal( 'recurring' ), true );
 		$this->logger->debug( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring_str}, utm_source = {$utm_payment_method_family}" );
 
+		// App donations have the version coming on the utm_source eg 7.4.3.2822 and utm_campaign=iOS or Android
+		// when there is no banner
+		// TODO: Remove this once the apps teams have fixed it on their end T350919
+		$utm_campaign = strtolower( $this->getVal( 'utm_campaign' ) );
+		if ( $utm_campaign == 'ios' || $utm_campaign == 'android' ) {
+			// set utm_source to appmenu if it starts with a number
+			if ( preg_match( '/^\d/', $utm_source ) === 1 ) {
+				$this->setVal( 'utm_source', 'appmenu.app.' . $utm_payment_method_family );
+				return;
+			}
+		}
+
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
 
