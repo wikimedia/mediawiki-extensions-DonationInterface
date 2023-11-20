@@ -27,7 +27,9 @@
 			"HNordeen (WMF)",
 			"LaMagiaaa",
 			"RYOUMA1117",
-			"TKsdik8900"
+			"TKsdik8900",
+			"MathXplore",
+			"もなー(偽物)"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -415,10 +417,10 @@
 	"donate_interface-monthly-convert-title": "来月から、毎月<span class=\"mc-convert-ask\"></span>を寄付していただけますか？",
 	"donate_interface-monthly-convert-title-variant-003": " <span class=\"mc-convert-donated-amount\"></span>のご寄付をいただきありがとうございました。より大きなインパクトをもたらすために、来月から毎月<span class=\"mc-convert-ask\"></span> の定額寄付をご検討いただけませんか？",
 	"donate_interface-monthly-convert-title-variant-004": "<span class=\"mc-convert-donated-amount\"></span>をご寄付いただきありがとうございました。よろしければ、来月から毎月<span class=\"mc-convert-ask\"></span>の定額寄付をご検討いただけませんか？",
-	"donate_interface-monthly-convert-text": "ウィキペディアの繁栄を支えるための最適な方法は、毎月の定期寄付です。",
-	"donate_interface-monthly-convert-change-amount": "はい、でも違う金額を毎月寄付します。",
+	"donate_interface-monthly-convert-text": "ウィキペディアの発展を支えるための最適な方法は、毎月の定期寄付です。",
+	"donate_interface-monthly-convert-change-amount": "はい、でも毎月の金額を変更します。",
 	"donate_interface-monthly-convert-enter-amount": "来月から開始する、毎月の定期寄付の金額をご入力ください。",
-	"donate_interface-monthly-convert-max-amount": "一回限りのご寄付としていただいた金額を超える定期寄付は受け付けられません。",
+	"donate_interface-monthly-convert-max-amount": "定期寄付は、1回限りのご寄付としていただいた金額の範囲内でご指定ください。",
 	"donate_interface-monthly-convert-action-button": "を今寄付します。",
 	"donate_interface-monthly-convert-error": "今回のご寄付は受領いたしましたが、定期寄付は開始できませんでした。",
 	"donate_interface-monthly-convert-no-button-variant-006": "いいえ、結構です",

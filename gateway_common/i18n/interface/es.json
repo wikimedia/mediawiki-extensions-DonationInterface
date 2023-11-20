@@ -437,7 +437,7 @@
 	"donate_interface-monthlybox-yes": "Sin duda, hacerla mensual",
 	"donate_interface-monthlybox-no": "NO, hacer una donación única",
 	"donate_interface-monthlybox-bottom": "Tu donación se procesará de forma segura.",
-	"donate_interface-monthly-cancel": "En el caso de las donaciones periódicas, la Wikimedia Foundation realizará todos los meses el cargo correspondiente el mismo día del mes de la primera donación, hasta el momento en que nos notifiques que quieras cancelar tu pago. Las donaciones iniciadas en los días 29, 30 o 31 se cargarán el último día del mes en los meses que sean más cortos, lo más cerca posible en el tiempo a la fecha original. Para cualquier pregunta o duda, ponte en contacto con $1.",
+	"donate_interface-monthly-cancel": "En el caso de las donaciones periódicas, Wikimedia Foundation realizará todos los meses el cobro correspondiente el mismo día del mes de la primera donación, hasta el momento en que nos notifiques que quieras cancelar tu pago. Las donaciones iniciadas en los días 29, 30 o 31 se cobrarán el último día del mes en los meses que sean más cortos, lo más cerca posible en el tiempo a la fecha original. Para cualquier pregunta o duda, ponte en contacto con $1.",
 	"donate_interface-onetime": "Hacer una donación única",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Una sola vez",
