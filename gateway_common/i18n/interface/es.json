@@ -432,7 +432,7 @@
 	"donate_interface-email-explain": "Te enviaremos un recibo por correo electrónico para confirmar tu donación.",
 	"donate_interface-faqs": "Preguntas frecuentes",
 	"donate_interface-tax-info": "Información de desgravación de impuestos",
-	"donate_interface-informationsharing": "No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con Wikimedia Foundation, una organización sin ánimo de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">Política de privacidad de donantes</a>. Wikimedia Foundation y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las tuyas. Para más información, lee nuestra <a href=\"$1\">Política de privacidad de donantes</a>.",
+	"donate_interface-informationsharing": "No vendemos ni intercambiamos tus datos con nadie. Al donar, aceptas compartir tu información personal con Wikimedia Foundation, una organización sin fines de lucro que alberga Wikipedia y otros proyectos de Wikimedia, y con sus proveedores de servicios, de conformidad con nuestra <a href=\"$1\">Política de privacidad de donantes</a>. Wikimedia Foundation y sus proveedores de servicios están ubicados en los Estados Unidos y en otros países cuyas leyes de privacidad pueden no ser equivalentes a las tuyas. Para más información, lee nuestra <a href=\"$1\">Política de privacidad de donantes</a>.",
 	"donate_interface-currency-change": "¿Cambiar?",
 	"donate_interface-taxded-link-int": "Impuestos e información legal",
 	"donate_interface-taxded-link-us": "Información de desgravación de impuestos",
