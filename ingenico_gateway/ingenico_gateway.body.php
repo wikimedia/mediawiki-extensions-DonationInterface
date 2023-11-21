@@ -24,6 +24,11 @@ class IngenicoGateway extends GatewayPage {
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
 	public function execute( $par ) {
+		global $wgAdyenCheckoutGatewayEnabled;
+		if ( !$wgAdyenCheckoutGatewayEnabled ) {
+			parent::execute( $par );
+			return;
+		}
 		$this->logger = DonationLoggerFactory::getLoggerForType(
 			IngenicoAdapter::class,
 			$this->getLogPrefix()
