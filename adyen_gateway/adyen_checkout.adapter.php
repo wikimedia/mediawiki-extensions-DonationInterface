@@ -144,14 +144,18 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			}
 		}
 		// recurring will return a token on the auth
-		if ( $authorizeResult->getRecurringPaymentToken() ) {
+		$recurringToken = $authorizeResult->getRecurringPaymentToken();
+		if ( $recurringToken ) {
+			$this->logger->info( "Found recurring payment token '$recurringToken'." );
 			$this->addResponseData( [
-				'recurring_payment_token' => $authorizeResult->getRecurringPaymentToken(),
+				'recurring_payment_token' => $recurringToken,
 				'processor_contact_id' => $authorizeResult->getProcessorContactID()
 			] );
 			if ( $this->showMonthlyConvert() ) {
 				$this->session_addDonorData();
 			}
+		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
+			$this->logger->warning( 'No token found on recurring payment authorization response.' );
 		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
