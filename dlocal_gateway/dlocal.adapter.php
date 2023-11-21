@@ -103,13 +103,19 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 		} else {
 			// Donor is coming back from one of dLocal's many REDIRECT payment
-			// flows. We expect a set of parameters on the callback URL.
+			// flows. We expect a payment_id on the callback URL.
 			// TODO: check signature.
-			if ( !isset( $requestValues['payment_id'] ) ) {
+			if ( isset( $requestValues['payment_id'] ) ) {
+				$gatewayTxnId = $requestValues['payment_id'];
+			} elseif ( $this->getData_Unstaged_Escaped( 'gateway_txn_id' ) ) {
+				$this->logger->warning(
+					'Expected payment_id parameter in resultSwitcher request, falling back to session'
+				);
+				$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
+			} else {
 				$this->logger->error( "Missing required parameters in request" );
 				return $this->newFailureWithError( ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );
 			}
-			$gatewayTxnId = $requestValues['payment_id'];
 		}
 
 		// check the status of the payment the donor just made and processed the result
