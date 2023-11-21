@@ -433,20 +433,25 @@
 
 	// T292571 try catch the adyen error, see if any connection been blocked, e.g. iframe
 	function onError( error ) {
-		// ignore validation error codes (start with error.va) - we catch those elsewhere
-		// Also ignore blank string - that means a previous error was cleared up
-		if (
-			typeof error.error === 'string' && (
-				error.error.slice( 0, 8 ) === 'error.va' ||
-				error.error === ''
-			)
-		) {
+		// Ignore blank string - that means a previous error was cleared up
+		if ( typeof error.error === 'string' && error.error === '' ) {
 			return;
 		}
-		// handle component error
-		mw.donationInterface.validation.showErrors( {
-			general: mw.msg( 'donate_interface-error-msg-general' )
-		} );
+
+		if ( typeof error.error === 'string' && error.error.slice( 0, 8 ) === 'error.va' ) {
+			// T349600 Log validation error codes only if sf-cc-num.02 donate_interface-error-msg-card-number-do-not-match-card-brand)
+			// with date time and time zone for adyen to investigate their card validation js issue
+			if ( error.error === 'error.va.sf-cc-num.02' ) {
+				error.error = 'Adyen error: ' + error.error + ' on ' + new Date().toString();
+			} else {
+				return;
+			}
+		} else {
+			// handle component error
+			mw.donationInterface.validation.showErrors( {
+				general: mw.msg( 'donate_interface-error-msg-general' )
+			} );
+		}
 		throw error;
 	}
 
@@ -681,6 +686,7 @@
 		if ( payment_method === 'google' ) {
 			loadScript( 'google' );
 		}
+
 		loadScript( 'adyen' );
 	} );
 } )( jQuery, mediaWiki );
