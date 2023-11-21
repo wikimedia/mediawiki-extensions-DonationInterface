@@ -146,7 +146,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		// recurring will return a token on the auth
 		$recurringToken = $authorizeResult->getRecurringPaymentToken();
 		if ( $recurringToken ) {
-			$this->logger->info( "Found recurring payment token '$recurringToken'." );
 			$this->addResponseData( [
 				'recurring_payment_token' => $recurringToken,
 				'processor_contact_id' => $authorizeResult->getProcessorContactID()
