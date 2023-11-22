@@ -383,7 +383,7 @@
 	"donate_interface-email-explain": "Vi kommer att mejla dig ett kvitto för att bekräfta din gåva.",
 	"donate_interface-faqs": "Svar på ofta förekommande frågor",
 	"donate_interface-tax-info": "Information om avdragsmöjligheter",
-	"donate_interface-informationsharing": "Vi varken säljer eller byter din information med någon. Genom att lämna en gåva går du med på att dela din personliga information med Wikimedia Foundation, den ideella organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i enlighet med vår <a href=\"$1\">sekretesspolicy för donatorer</a>. Wikimedia Foundation och dess leverantörer befinner sig i Förenta staterna och i andra länder vars integritetslagar kan skilja sig från dem där du bor. För mer information läs vår <a href=\"$1\">sekretesspolicy för donatorer</a>.",
+	"donate_interface-informationsharing": "Vi varken säljer eller utbyter dina uppgifter med någon. Genom att lämna en gåva går du med på att dela dina personuppgifter med Wikimedia Foundation, den ideella organisation som är värd för Wikipedia och andra Wikimedia-projekt och dess leverantörer i enlighet med vår <a href=\"$1\">sekretesspolicy för donatorer</a>. Wikimedia Foundation och dess leverantörer befinner sig i Förenta staterna och i andra länder vars integritetslagar kan skilja sig från dem där du bor. För mer information läs vår <a href=\"$1\">sekretesspolicy för donatorer</a>.",
 	"donate_interface-currency-change": "Ändra?",
 	"donate_interface-taxded-link-int": "Skatt och annan juridisk information",
 	"donate_interface-taxded-link-us": "Information om avdragsgiltighet",
