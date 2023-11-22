@@ -66,18 +66,9 @@
 			dataType: 'json',
 			type: 'POST',
 			success: function ( data ) {
-				var url;
-				if (
-					typeof data.error === 'undefined' &&
-					typeof data.result !== 'undefined' &&
-					!data.result.errors
-				) {
-					url = new mw.Uri( tyUrl );
-					if ( !declineMonthlyConvert ) {
-						document.location.assign(
-							url.extend( { recurringConversion: 1 } ).toString()
-						);
-					}
+				if ( data && !data.error && data.result && !data.result.errors ) {
+					var url = new mw.Uri( declineMonthlyConvert ? tyUrl : tyUrl.extend( { recurringConversion: 1 } ) );
+					document.location.assign( url.toString() );
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
 					// We should let 'em know the recurring conversion failed
