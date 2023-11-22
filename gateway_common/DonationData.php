@@ -90,6 +90,10 @@ class DonationData implements LogPrefixProvider {
 		'utm_medium',
 		'utm_campaign',
 		'utm_key',
+		'wmf_source',
+		'wmf_medium',
+		'wmf_campaign',
+		'wmf_key',
 		'language',
 		'uselang',
 		'wmf_token',
@@ -384,6 +388,7 @@ class DonationData implements LogPrefixProvider {
 			$this->setIPAddresses();
 			$this->setNormalizedRecurring();
 			$this->setNormalizedPaymentMethod(); // need to do this before utm_source.
+			$this->moveWmfFieldsToUtmFields();
 			$this->setUtmSource();
 			$this->setNormalizedAmount();
 			$this->setGateway();
@@ -762,6 +767,23 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public function getLogMessagePrefix() {
 		return $this->getVal( 'contribution_tracking_id' ) . ':' . $this->getVal( 'order_id' ) . ' ';
+	}
+
+	/**
+	 * Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
+	 * one that we care about. Internally we still refer to them all with the utm_ prefix.
+	 * Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
+	 * @return void
+	 */
+	protected function moveWmfFieldsToUtmFields() {
+		foreach ( [ 'source', 'medium', 'campaign', 'key' ] as $suffix ) {
+			$wmfFieldName = "wmf_$suffix";
+			$utmFieldName = "utm_$suffix";
+			if ( $this->isSomething( $wmfFieldName ) && !$this->isSomething( $utmFieldName ) ) {
+				$this->setVal( $utmFieldName, $this->getVal( $wmfFieldName ) );
+				$this->expunge( $wmfFieldName );
+			}
+		}
 	}
 
 	/**
