@@ -586,7 +586,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 						'showResultPage' => false
 					];
 					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
-					$this->assertRegExp(
+					$this->assertRegExpTemp(
 						'/Special:IngenicoGatewayResult/',
 						$actual['hostedCheckoutSpecificInput']['returnUrl']
 					);
@@ -686,6 +686,17 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$response->setStatus( $status );
 		$response->setSuccessful( true );
 		return $response;
+	}
+
+	/**
+	 * B/C: assertRegExp() is renamed in PHPUnit 9.x+
+	 * @param string $pattern
+	 * @param string $string
+	 */
+	protected function assertRegExpTemp( $pattern, $string ) {
+		$method = method_exists( $this, 'assertMatchesRegularExpression' ) ?
+		'assertMatchesRegularExpression' : 'assertRegExp';
+		$this->$method( $pattern, $string );
 	}
 
 }

@@ -154,7 +154,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 		// populate API data source with bogus data
 		fwrite( $this->csvDataSource, '!"£$%^&*(' );
 
-		$this->assertRegExp( '/^Employer data file is empty or can\'t be parsed.*/',
+		$this->assertRegExpTemp( '/^Employer data file is empty or can\'t be parsed.*/',
 			$apiResult[0]['error'] );
 	}
 
@@ -181,7 +181,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 
-		$this->assertRegExp( '/^Employer data file doesn\'t exist.*/',
+		$this->assertRegExpTemp( '/^Employer data file doesn\'t exist.*/',
 			$apiResult[0]['error'] );
 	}
 
@@ -210,7 +210,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$apiResult = $this->doApiRequest( $params );
 
-		$this->assertRegExp( '/^Wrong number of columns in a row of employer data file.*/',
+		$this->assertRegExpTemp( '/^Wrong number of columns in a row of employer data file.*/',
 			$apiResult[0]['error'] );
 	}
 
@@ -224,5 +224,16 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		$retVal = $api->getEmployersList();
 		$this->assertFalse( $retVal );
+	}
+
+	/**
+	 * B/C: assertRegExp() is renamed in PHPUnit 9.x+
+	 * @param string $pattern
+	 * @param string $string
+	 */
+	protected function assertRegExpTemp( $pattern, $string ) {
+		$method = method_exists( $this, 'assertMatchesRegularExpression' ) ?
+		'assertMatchesRegularExpression' : 'assertRegExp';
+		$this->$method( $pattern, $string );
 	}
 }

@@ -95,7 +95,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'variant' => '105'
 					];
 					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
-					$this->assertRegExp(
+					$this->assertRegExpTemp(
 						'/Special:IngenicoGatewayResult/',
 						$actual['hostedCheckoutSpecificInput']['returnUrl']
 					);
@@ -474,5 +474,16 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'headers' => [],
 			'status' => 200
 		];
+	}
+
+	/**
+	 * B/C: assertRegExp() is renamed in PHPUnit 9.x+
+	 * @param string $pattern
+	 * @param string $string
+	 */
+	protected function assertRegExpTemp( $pattern, $string ) {
+		$method = method_exists( $this, 'assertMatchesRegularExpression' ) ?
+			'assertMatchesRegularExpression' : 'assertRegExp';
+		$this->$method( $pattern, $string );
 	}
 }

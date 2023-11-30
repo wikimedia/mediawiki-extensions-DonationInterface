@@ -75,7 +75,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		$this->form->setGatewayPage( $this->gatewayPage );
 		$html = $this->form->getForm();
 
-		$this->assertRegExp( $regexp, $html );
+		$this->assertRegExpTemp( $regexp, $html );
 	}
 
 	public function testNoTemplateFile() {
@@ -178,5 +178,16 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			wfMessage( 'donate_interface-bigamount-error', '12.00', 'EUR', 'donor-support@worthyfoundation.org', 10000 )->text()
 		);
 		$this->assertEquals( $expected, trim( $html ) );
+	}
+
+	/**
+	 * B/C: assertRegExp() is renamed in PHPUnit 9.x+
+	 * @param string $pattern
+	 * @param string $string
+	 */
+	protected function assertRegExpTemp( $pattern, $string ) {
+		$method = method_exists( $this, 'assertMatchesRegularExpression' ) ?
+		'assertMatchesRegularExpression' : 'assertRegExp';
+		$this->$method( $pattern, $string );
 	}
 }
