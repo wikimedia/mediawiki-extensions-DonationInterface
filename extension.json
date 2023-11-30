@@ -209,6 +209,9 @@
 			"styles": "modules/css/noCardSelect.css",
 			"dependencies": "ext.donationInterface.forms"
 		},
+		"ext.donationInterface.secureCardInput": {
+			"styles": "modules/css/secureCardInput.css"
+		},
 		"ext.donationInterface.monthlyConvertMultiplier": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertMultiplier.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"

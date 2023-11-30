@@ -1,0 +1,3 @@
+scripts:
+    - ext.donationInterface.adyenCheckout # required to load Adyen forms
+    - ext.donationInterface.secureCardInput

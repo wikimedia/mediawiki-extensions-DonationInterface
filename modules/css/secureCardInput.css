@@ -1,0 +1,5 @@
+/* https://phabricator.wikimedia.org/T348339 */
+[ data-id='encryptedCardNumber' ] {
+	padding-left: 16px;
+	background: url( https://payments.wikimedia.org/extensions/DonationInterface/gateway_forms/includes/padlock.gif ) no-repeat left center;
+}
