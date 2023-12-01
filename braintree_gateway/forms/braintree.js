@@ -115,7 +115,7 @@
 				mobileWebFallBack: true,
 				allowNewBrowserTab: false,
 				allowDesktopWebLogin: true, // force web login, QR code depreciate
-				paymentMethodUsage: 'multi_use'
+				paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
 			} );
 		} ).then( function ( venmoInstance ) {
 			// Verify browser support before proceeding.
