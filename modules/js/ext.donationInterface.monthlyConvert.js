@@ -56,7 +56,8 @@
 			gateway: $( '#gateway' ).val(),
 			wmf_token: $( '#wmf_token' ).val(),
 			amount: amount
-		};
+		},
+			url;
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
 		}
@@ -67,7 +68,10 @@
 			type: 'POST',
 			success: function ( data ) {
 				if ( data && !data.error && data.result && !data.result.errors ) {
-					var url = new mw.Uri( declineMonthlyConvert ? tyUrl : tyUrl.extend( { recurringConversion: 1 } ) );
+					url = new mw.Uri( tyUrl );
+					if ( !declineMonthlyConvert ) {
+						url = url.extend( { recurringConversion: 1 } );
+					}
 					document.location.assign( url.toString() );
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
