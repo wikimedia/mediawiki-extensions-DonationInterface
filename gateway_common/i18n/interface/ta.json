@@ -8,7 +8,8 @@
 			"Shanmugamp7",
 			"Surya Prakash.S.A.",
 			"TRYPPN",
-			"மதனாஹரன்"
+			"மதனாஹரன்",
+			"Fahimrazick"
 		]
 	},
 	"donate_interface": "விக்கிமீடியாவை ஆதரிக்கவும்",
@@ -258,7 +259,7 @@
 	"donate_interface-will-support-with-gift": "நான் பின்வரும் அளவு பரிசுத் தொகை மூலம் ஆதரிக்கிறேன்:",
 	"donate_interface-next": "அடுத்து",
 	"donate_interface-continue": "தொடரவும்",
-	"donate_interface-cancel": "ரத்து செய்",
+	"donate_interface-cancel": "கைவிடு",
 	"donate_interface-payment": "பணம் செலுத்துதல்",
 	"donate_interface-payment-type": "செலுத்துதல் வகை",
 	"donate_interface-month": "$1($2)",
