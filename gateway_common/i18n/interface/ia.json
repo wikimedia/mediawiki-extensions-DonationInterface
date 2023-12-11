@@ -186,7 +186,7 @@
 	"donate_interface-error-msg-invalid-card-number": "Numero de carta invalide",
 	"donate_interface-error-msg-card-number-do-not-match-card-brand": "Le numero de carta scribite non corresponde al marca del carta",
 	"donate_interface-error-msg-unsupported-card-entered": "Le carta entrate non es supportate",
-	"donate_interface-error-msg-amount": "le amonta de tu donation",
+	"donate_interface-error-msg-amount": "Per favor insere le amonta de tu donation",
 	"donate_interface-error-msg-limit": "Tu donation non poteva esser processate. Per favor, essaya un de nostre <a href=\"$1\">altere manieras de donar</a>, essaya un amonta minor o essaya lo de novo deman.",
 	"donate_interface-error-msg-email": "Per favor entra tu adresse de e-mail",
 	"donate_interface-error-msg-first_name": "Per favor entra tu prenomine",
