@@ -31,7 +31,8 @@
 			"Duke of Wikipädia",
 			"Mello25",
 			"Re demz",
-			"Robertpontes"
+			"Robertpontes",
+			"Stephanyb76"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -201,7 +202,7 @@
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
-	"donate_interface-card-name-discover": "Descubra",
+	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-bank-name-netbanking": "Banco digital",
 	"donate_interface-error-msg-general": "Ocorreu um erro ao processar o seu pedido.",
 	"donate_interface-error-msg-nopaypal": "Devido a um erro técnico, não podemos enviar o seu pedido para o PayPal. Tente utilizar o nosso formulário normal para doações por cartão de crédito, por favor.",

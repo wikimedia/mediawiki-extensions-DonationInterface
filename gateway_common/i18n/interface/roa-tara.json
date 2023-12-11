@@ -5,7 +5,8 @@
 			"Joetaras",
 			"Pcoombe",
 			"Reder",
-			"Amire80"
+			"Amire80",
+			"McDutchie"
 		]
 	},
 	"donate_interface": "Supporte UicchiMedia",
@@ -175,7 +176,7 @@
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
-	"donate_interface-card-name-discover": "Scuperte",
+	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-bank-name-netbanking": "Banghe d'a rezze",
 	"donate_interface-error-msg-general": "C'ète state 'nu errore elaboranne 'a rechieste tuve.",
 	"donate_interface-error-msg-nopaypal": "Pe' 'nu errore tecnech, non ge putìme mannà 'a rechieste tove a PayPal. Pe' piacere prove ad ausà 'u nuèstre regolare formate pe' pajamènde cu carte de credite.",
