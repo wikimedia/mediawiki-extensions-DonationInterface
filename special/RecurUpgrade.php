@@ -76,8 +76,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contact_id' => $contactId,
 		];
 		try {
-			$logger->info( "Pushing cancel upgrade to recurring queue with contribution_recur_id: {$message['contribution_recur_id']}" );
-			QueueWrapper::push( 'recurring', $message );
+			$logger->info( "Pushing cancel upgrade to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring-upgrade', $message );
 			$this->renderCancel();
 		} catch ( Exception $e ) {
 			$this->renderError();
@@ -155,8 +155,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		];
 
 		try {
-			$logger->info( "Pushing upgraded amount to recurring queue with contribution_recur_id: {$message['contribution_recur_id']}" );
-			QueueWrapper::push( 'recurring', $message );
+			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring-upgrade', $message );
 			$this->renderSuccess();
 		} catch ( Exception $e ) {
 			$this->renderError();
