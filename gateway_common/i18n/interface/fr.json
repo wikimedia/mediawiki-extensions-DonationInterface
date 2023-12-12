@@ -456,7 +456,7 @@
 	"donate_interface-email-unsub-title": "Se désabonner de la Fondation Wikimedia",
 	"donate_interface-email-unsub-button": "Se désabonner",
 	"donate_interface-email-unsub-success": "Votre nom a bien été retiré de notre liste de diffusion",
-	"donate_interface-email-unsub-delay": "Veuillez nous accorder quatre (4) jours pour que les modifications deviennent effectives. Nous nous excusons pour tout courriel que vous pourriez encore recevoir durant ce temps. Si vous avez des questions, veuillez contacter <$1>.",
+	"donate_interface-email-unsub-delay": "Veuillez compter jusqu’à quatre (4) jours pour que les changements prennent effet. Nous vous prions de bien vouloir nous excuser pour les courriels que vous recevez pendant cette période. Si vous avez des questions, veuillez nous contacter en envoyant un courriel à <$1>.",
 	"donate_interface-email-unsub-fail": "Une erreur est survenue lors du traitement de votre demande, merci de contacter <$1>.",
 	"donate_interface-email-unsub-confirm": "Êtes-vous certain que vous souhaitez désabonner <b>$1</b> ?",
 	"donate_interface-email-unsub-warning": "Cela vous désabonnera des courriels que la Wikimedia Foundation vous envoie en tant que donateur. Vous pourriez néanmoins continuer à recevoir d’autres types de courriels si votre adresse demeure associée à un compte de contributeur sur un de nos projets. Si vous avez des questions, veuillez contacter <a href=\"mailto:$1\">$1</a>.",

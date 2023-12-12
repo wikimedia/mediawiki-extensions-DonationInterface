@@ -29,7 +29,8 @@
 			"Xabier Armendaritz",
 			"Yekrats",
 			"Zoranzoki21",
-			"Тест"
+			"Тест",
+			"Nike"
 		]
 	},
 	"donate_interface": "{{Identical|Support Wikimedia}}",
@@ -205,7 +206,7 @@
 	"donate_interface-card-name-amex": "{{optional}}\nUsed as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
 	"donate_interface-card-name-visa": "{{optional}}\nUsed as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
 	"donate_interface-card-name-mc": "{{optional}}\nUsed as item in the \"Credit card type\" select box.\n{{Related|Donate interface-card}}",
-	"donate_interface-card-name-discover": "{{optional}}\nUsed as item in the \"Credit card type\" select box.\n\nTrademark name of credit card Discover®, '''not''' the verb \"to discover\".\n{{Related|Donate interface-card}}\n{{Identical|Discover}}",
+	"donate_interface-card-name-discover": "{{optional}}\nUsed as item in the \"Credit card type\" select box.\n\nTrademark name of credit card Discover®, '''not''' the verb \"to discover\".\n{{Related|Donate interface-card}}",
 	"donate_interface-bank-name-netbanking": "Label for the icon of the 'Netbanking' payment method used in India. Probably only needed for languages used in India",
 	"donate_interface-error-msg-general": "A generic error message.",
 	"donate_interface-error-msg-incomplete-field": "Error message shown incomplete field",
