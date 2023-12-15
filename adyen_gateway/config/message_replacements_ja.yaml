@@ -1,3 +1,5 @@
+# Special messages replacements for ja language
+# Loaded via getConfig override in adyen_checkout.adapter.php
 donate_interface-amount-legend: donate_interface-amount-legend-variant-01A
 donate_interface-cc-form-header-personal: donate_interface-cc-form-header-personal-variant-01A
 donate_interface-submit-button: donate_interface-submit-button-variant-01A

@@ -475,4 +475,17 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'cc', 'google', 'apple' ];
 	}
+
+	/**
+	 * Override parent function to set specific message replacements for Japanese
+	 *
+	 * @param string|null $key
+	 * @return array|mixed|null
+	 */
+	public function getConfig( $key = null ) {
+		if ( $key === 'message_replacements' && $this->getData_Unstaged_Escaped( 'language' ) === 'ja' ) {
+			return $this->config['message_replacements_ja'];
+		}
+		return parent::getConfig( $key );
+	}
 }
