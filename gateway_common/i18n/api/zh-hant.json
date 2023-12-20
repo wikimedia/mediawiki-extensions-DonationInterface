@@ -60,5 +60,6 @@
 	"apihelp-employerSearch-summary": "此 API 能讓您搜尋參與維基媒體基金會增倍捐款方案的雇主。",
 	"apihelp-employerSearch-param-employer": "要搜尋哪個雇主，例如：紅十字會、世界自然基金會、救世軍等等。",
 	"apihelp-employerSearch-example-1": "選擇雇主",
-	"apihelp-di_applesession_adyen-summary": "允許直接從 Apple 請求 Apple Pay session"
+	"apihelp-di_applesession_adyen-summary": "允許直接從 Apple 請求 Apple Pay session",
+	"apihelp-getPaymentMethods-summary": "回傳依據國家可用的付款方式"
 }
