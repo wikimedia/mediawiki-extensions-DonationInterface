@@ -175,3 +175,8 @@ div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
 div#applepay-container, div#googlepay-container {
 	text-align: center;
 }
+
+/* for ja-JP first name last name placeholder */
+input[ type='text' ]::placeholder {
+	opacity: 0.3;
+}
