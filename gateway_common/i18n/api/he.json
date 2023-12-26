@@ -49,7 +49,7 @@
 	"apihelp-logPaymentsFormError-param-line": "השורה שבה אירעה השגיאה",
 	"apihelp-logPaymentsFormError-param-col": "העמודה שבה אירעה השגיאה",
 	"apihelp-logPaymentsFormError-param-userAgent": "מחרוזת של סוכן הלקוח בדפדפן",
-	"apihelp-logPaymentsFormError-param-stack": "מעקב אחרי ערימת השגיאות, כאשר זמין",
+	"apihelp-logPaymentsFormError-param-stack": "עקבת שגיאות, כאשר היא זמינה",
 	"apihelp-di_donate_adyen-summary": "ה־API הזה מיועד ל־Adyen",
 	"apihelp-di_donate_braintree-summary": "ה־API הזה הוא עבור Braintree",
 	"apihelp-di_recurring_convert-summary": "ה־API משמש כשתורם מסכים להוסיף תרומה חודשית אחרי השלמת תרומה חד־פעמית.",
