@@ -59,5 +59,6 @@
 	"apihelp-employerSearch-summary": "Dette API-et lar deg søke etter arbeidsgivere som deltar i WMFs program for matchede gaver.",
 	"apihelp-employerSearch-param-employer": "Hvilken arbeidsgiver det skal søkes etter, f.eks. Røde Kors, WWF, Frelsesarmeen osv.",
 	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver",
-	"apihelp-di_applesession_adyen-summary": "Gjør det mulig å be om en Apple Pay-økt direkte fra Apple"
+	"apihelp-di_applesession_adyen-summary": "Gjør det mulig å be om en Apple Pay-økt direkte fra Apple",
+	"apihelp-getPaymentMethods-summary": "Returnerer tilgjengelige betalingsmetoder basert på land"
 }
