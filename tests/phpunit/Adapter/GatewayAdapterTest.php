@@ -75,6 +75,30 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$this->assertArrayEquals( $fields, $requiredFields );
 	}
 
+	public static function expectedPaymentMethodSubmethod() {
+		return [
+			[ 'visa', 'cc' ],
+			[ 'unionpay', 'google' ],
+			[ 'unionpay', 'apple' ],
+			[ 'unionpay', 'paypal' ],
+			[ 'unionpay', 'amazon' ],
+			[ 'unionpay', 'venmo' ]
+		];
+	}
+
+	/**
+	 * @dataProvider expectedPaymentMethodSubmethod
+	 * @return void
+	 */
+	public function testSubmethodVadliationPass( $submethod, $method ) {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = $method;
+		$init['payment_submethod'] = $submethod;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$response = $gateway->getPaymentSubmethodMeta( $init['payment_submethod'], $init['payment_method'] );
+		$this->assertEquals( $response['validation'], [] );
+	}
+
 	public static function getRequiredFields() {
 		return [
 			[ 'AU', [
