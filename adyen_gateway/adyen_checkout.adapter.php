@@ -153,8 +153,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			if ( $this->showMonthlyConvert() ) {
 				$this->session_addDonorData();
 			}
-		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			$this->logger->warning( 'No token found on recurring payment authorization response.' );
+		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
+			$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
 		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
