@@ -318,7 +318,7 @@
 	"donate_interface-obt-customer_payment_reference": "Cyfeirnod",
 	"donate_interface-obt-information": "Manylion trosglwyddo trwy fanc ar-lein",
 	"donate_interface-online_bank_transfer_message": "Bancio ar y ffôn a'r rhyngrwyd - BPAY®",
-	"donate_interface-rtbt-issuer_id": "Dewis banc",
+	"donate_interface-rtbt-issuer_id": "Dewiswch eich Banc",
 	"donate_interface-rtbt-issuer_id-longlist": "Banciau eraill",
 	"donate_interface-dd-account_name": "Enw'r cyfrif",
 	"donate_interface-dd-account_number": "Rhif y cyfrif",
