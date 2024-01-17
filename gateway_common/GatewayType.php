@@ -133,10 +133,11 @@ interface GatewayType extends LogPrefixProvider {
 	 * Get metadata for the specified payment submethod
 	 *
 	 * @param string|null $payment_submethod Defaults to the current submethod
+	 * @param string|null $payment_method Defaults to the current method
 	 * @return array
 	 * @throws OutOfBoundsException
 	 */
-	public function getPaymentSubmethodMeta( $payment_submethod = null );
+	public function getPaymentSubmethodMeta( $payment_submethod = null, $payment_method = null );
 
 	/**
 	 * Get the entire list of payment submethod definitions

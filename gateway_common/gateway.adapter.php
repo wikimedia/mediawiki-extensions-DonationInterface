@@ -2469,7 +2469,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * executeFunctionIfExists, later on in do_transaction.
 	 */
 	protected function postProcessDonation() {
-		Gateway_Extras_CustomFilters_IP_Velocity::onPostProcess( $this );
 		Gateway_Extras_ConversionLog::onPostProcess( $this );
 
 		try {
@@ -2624,7 +2623,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		if ( !empty( $knownData['payment_submethod'] ) ) {
-			$submethodMeta = $this->getPaymentSubmethodMeta( $knownData['payment_submethod'] );
+			$submethodMeta = $this->getPaymentSubmethodMeta( $knownData['payment_submethod'], $knownData['payment_method'] );
 			if ( isset( $submethodMeta['validation'] ) ) {
 				// submethod validation can override method validation
 				// TODO: child method anything should supersede parent method
@@ -3759,9 +3758,28 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getPaymentSubmethodMeta( $payment_submethod = null ) {
+	/**
+	 * @param string $payment_method
+	 * @return bool
+	 */
+	public function isThirdPartyFormPaymentMethod( $payment_method ) {
+		// we might have more thrid party payment methods here in the array, probably manage them in other place
+		return in_array( $payment_method, [ 'google', 'apple', 'venmo', 'paypal', 'amazon' ] );
+	}
+
+	public function getPaymentSubmethodMeta( $payment_submethod = null, $payment_method = null ) {
 		if ( $payment_submethod === null ) {
 			$payment_submethod = $this->getPaymentSubmethod();
+		}
+
+		if ( $payment_method === null ) {
+			$payment_method = $this->getPaymentMethod();
+		}
+
+		// no need to validate submethod for payment methods that use their own form
+		if ( $this->isThirdPartyFormPaymentMethod( $payment_method ) ) {
+			$this->logger->debug( 'Add validation metadata for payment ' . $payment_method . '[' . $payment_submethod . ']' );
+			return [ 'validation' => [] ];
 		}
 
 		if ( isset( $this->payment_submethods[ $payment_submethod ] ) ) {
@@ -3773,11 +3791,11 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 
 			return $this->payment_submethods[ $payment_submethod ];
-		} else {
-			$msg = "The payment submethod [{$payment_submethod}] was not found.";
-			$this->logger->error( $msg );
-			throw new OutOfBoundsException( $msg );
 		}
+
+		$msg = "The payment submethod [{$payment_submethod}] was not found.";
+		$this->logger->error( $msg );
+		throw new OutOfBoundsException( $msg );
 	}
 
 	/**

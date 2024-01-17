@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\PaymentData\ValidationAction;
+
 class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	// filter list to run on adapter construction
@@ -151,7 +153,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$this->fraud_logger->info( '"utm" ' . $log_message );
 
 		$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
-
+		if ( $localAction !== ValidationAction::PROCESS ) {
+			// Resets the ip velocity filter to ensure multiple suspicious attempts don't get a free pass.
+			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
+		}
 		if ( !$this->gateway_adapter->isBatchProcessor() ) {
 			// Always keep the stored scores up to date
 			WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );

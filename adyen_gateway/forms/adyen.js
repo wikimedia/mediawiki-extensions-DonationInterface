@@ -5,6 +5,7 @@
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
 		payment_method = $( '#payment_method' ).val(),
 		country = $( '#country' ).val(),
+		language = $( '#language' ).val(),
 		// This is the old-style Google Pay integration type currently active on
 		// our account. Older versions of the Adyen JS SDK treated the 'googlepay'
 		// component type as the old GPay integration, but for newer versions of
@@ -502,6 +503,10 @@
 			config.translations[ config.locale ] = {
 				'idealIssuer.selectField.placeholder': mw.msg( 'donate_interface-rtbt-issuer_id' )
 			};
+		} else if ( language === 'ja' ) {
+			config.translations[ config.locale ] = {
+				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' )
+			};
 		} else {
 			config.translations[ config.locale ] = {};
 		}
@@ -540,6 +545,12 @@
 		).before(
 			'<div id="action-container" />'
 		);
+
+		// add name placeholder for ja JP
+		if ( language === 'ja' ) {
+			$( '#last_name' ).attr( 'placeholder', '鈴木' );
+			$( '#first_name' ).attr( 'placeholder', '太郎' );
+		}
 
 		// Override validation's showErrors function to add error
 		// highlights to the outer div around the secure field iframe.

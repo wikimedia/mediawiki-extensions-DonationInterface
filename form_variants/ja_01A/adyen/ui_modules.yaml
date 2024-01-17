@@ -1,3 +1,0 @@
-scripts:
-    - ext.donationInterface.adyenCheckoutWithJaVariant01A
-    # Delete this variant and module configuration in extension.json once experiment is over

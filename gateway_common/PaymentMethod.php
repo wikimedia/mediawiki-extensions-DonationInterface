@@ -69,7 +69,7 @@ class PaymentMethod {
 			if ( $submethod_name ) {
 				$spec = array_replace_recursive(
 					$spec,
-					$gateway->getPaymentSubmethodMeta( $submethod_name )
+					$gateway->getPaymentSubmethodMeta( $submethod_name, $method_name )
 				);
 			}
 			$method->spec = $spec;

@@ -8,9 +8,6 @@
 
 ( function ( mw, $ ) {
 	mw.donationInterface = mw.donationInterface || {};
-	mw.donationInterface.extraTranslations = {
-		'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' )
-	};
 	mw.donationInterface.getExtraData = function () {
 		return {
 			first_name_phonetic: $( '#first_name_phonetic' ).val(),
