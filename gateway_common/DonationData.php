@@ -825,6 +825,13 @@ class DonationData implements LogPrefixProvider {
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source );
 
+		// To distinguish between native (inapp) donations and web (app) donations
+		// we are modifying the landing page middle parameter of the utm_source
+		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) );
+		if ( $utm_medium == 'wikipediaapp' ) {
+			$source_parts[1] = 'app';
+		}
+
 		// If we don't have the banner or any utm_source, set it to the empty string.
 		if ( empty( $source_parts[0] ) ) {
 			$source_parts[0] = '';
