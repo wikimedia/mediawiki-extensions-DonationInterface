@@ -229,7 +229,7 @@
 	"donate_interface-error-msg-bank_check_digit": "Kontrolna številka banke",
 	"donate_interface-error-msg-bank_code": "Koda razvrščanja",
 	"donate_interface-error-msg-branch_code": "Šifra podružnice",
-	"donate_interface-error-msg-captcha": "Zapis captcha, ki ste ga vnesli, je napačen.  Prosimo, poskusite znova.",
+	"donate_interface-error-msg-captcha": "Vrednost CAPTCHA, ki ste jo vnesli, je napačna. Prosimo, poskusite znova.",
 	"donate_interface-error-msg-captcha-please": "Zaradi varnosti vaše kreditne kartice vpišite znake, ki jih vidite zgoraj.",
 	"donate_interface-error-msg-cookies": "Prosimo, da omogočite piškotke v vašem brskalniku.",
 	"donate_interface-error-msg-country-calc": "Napaka – Trenutno ne moremo sprejeti vaše donacije.",
