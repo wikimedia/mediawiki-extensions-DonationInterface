@@ -4037,8 +4037,8 @@ abstract class GatewayAdapter implements GatewayType {
 		// If EUR not specifically configured, fall back to GBP rules
 		return $convertAmounts['GBP'];
 		} elseif ( $currency === 'NOK' ) {
-		// If NOK not specifically configured, fall back to DKK rules
-		return $convertAmounts['DKK'];
+		// If NOK not specifically configured, fall back to SEK rules
+		return $convertAmounts['SEK'];
 		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
 		// If these currencies aren't configured, fall back to MYR rules
 		return $convertAmounts['MYR'];
