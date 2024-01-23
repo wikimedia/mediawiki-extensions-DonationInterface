@@ -3,7 +3,7 @@ ach:
     group: bt
     countries:
         AR: true
-#       BR: true // not enabled but can be done at our request
+        BR: true
         CL: true
         MX: true
     logo: bank-ach.png
