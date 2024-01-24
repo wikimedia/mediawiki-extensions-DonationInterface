@@ -377,6 +377,22 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Check that utm_source is what we are expecting from an app donation to the form
+	 */
+	public function testSetUtmSourceFromApp() {
+		$data = $this->testData;
+		// app donations from the form will have WikipediaApp as utm_medium
+		unset( $data['utm_medium'] );
+		unset( $data['utm_source'] );
+		$data['utm_medium'] = 'WikipediaApp';
+		$data['utm_source'] = 'bannertest123.somethingthatwasntactuallysettoapp.cc';
+
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
+		$returned = $ddObj->getData();
+		$this->assertEquals( 'bannertest123.app.cc', $returned['utm_source'] );
+	}
+
+	/**
 	 * Check that utm_* values are set from wmf_* values
 	 */
 	public function testSetUtmValuesFromWmfValues() {
