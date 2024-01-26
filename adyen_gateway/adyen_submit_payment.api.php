@@ -251,6 +251,14 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'utm_campaign' => $this->donationData['utm_campaign']
 		];
 
+		if ( $this->donationData['payment_method'] == 'apple' ) {
+			$message = array_merge( $message, [
+				'os' => 'iOS',
+				'browser' => 'app',
+				'browser_version' => $this->donationData['app_version'],
+			] );
+		}
+
 		QueueWrapper::push( 'contribution-tracking', $message );
 	}
 
