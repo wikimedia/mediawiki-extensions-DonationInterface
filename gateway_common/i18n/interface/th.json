@@ -5,7 +5,8 @@
 			"Ans",
 			"Patsagorn Y.",
 			"Pcoombe",
-			"Woraponboonkerd"
+			"Woraponboonkerd",
+			"Ekminarin"
 		]
 	},
 	"donate_interface": "สนับสนุนวิกิมีเดีย",
@@ -340,7 +341,7 @@
 	"donate_interface-email-unsub-confirm": "คุณแน่ใจหรือไม่ว่าคุณต้องการเลิกสมัครรับข้อมูลจาก <b>$1</b>?",
 	"donate_interface-faqs": "คำถามที่พบบ่อย",
 	"donate_interface-tax-info": "ข้อมูลเกี่ยวกับการหักลดหย่อนภาษี",
-	"donate_interface-informationsharing": "ในการบริจาค คุณจะยอมรับตาม<a class=\"localize\" target=\"_blank\" href=\"$1\">นโยบายรักษาความเป็นส่วนตัวของผู้บริจาค</a> และยอมรับที่จะแบ่งปันข้อมูลของท่านให้กับ<a class=\"localize\" target=\"_blank\" href=\"https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_Deductibility\">มูลนิธิวิกิมีเดีย</a>และผู้ให้บริการของมูลนิธิฯ ในสหรัฐอเมริกาและที่อื่นๆ",
+	"donate_interface-informationsharing": "เราไม่ขายหรือทำการค้าสารสนเทศใด ๆ ของคุณ ในการบริจาค ถือว่าคุณเห็นด้วยที่จะแบ่งปันสารสนเทศส่วนบุคคลของคุณแก่มูลนิธิวิกิมีเดีย องค์กรไม่แสวงหาผลกำไรที่ให้บริการวิกิพีเดียและโครงการวิกิมีเดียอื่น ๆ และผู้ให้บริการอื่น ๆ ที่เกี่ยวข้องกัน ซึ่งเป็นไปตาม<a href=\"$1\">นโยบายผู้บริจาค</a>ของเรา มูลนิธิวิกิมีเดียและผู้ให้บริการตั้งอยู่ในเขตของสหรัฐและประเทศอื่น ๆ ที่กฎหมายความเป็นส่วนตัวอาจไม่ตรงกับในประเทศของคุณ สำหรับสารสนเทศเพิ่มเติม โปรดอ่านที่<a href=\"$1\">นโยบายผู้บริจาค</a>",
 	"donate_interface-currency-change": "เปลี่ยนหรือไม่?",
 	"donate_interface-taxded-link-int": "ข้อมูลเกี่ยวกับภาษีและกฎหมายอื่น ๆ",
 	"donate_interface-taxded-link-us": "ข้อมูลเกี่ยวกับการหักลดหย่อนภาษี",

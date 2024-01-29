@@ -20,7 +20,9 @@
 			"روخو",
 			"زكريا",
 			"محمد أحمد عبد الفتاح",
-			"Alshamiri1"
+			"Alshamiri1",
+			"Lolekek",
+			"أيوب"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -122,10 +124,10 @@
 	"donate_interface-UYU": "بيسو اورغواني",
 	"donate_interface-UZS": "سوم أوزبكي",
 	"donate_interface-VND": "دونغ فيتنامي",
-	"donate_interface-XAF": "فرنك س ف ا وسط أفريقيا",
+	"donate_interface-XAF": "فرنك س ف ا وسط إفريقيا",
 	"donate_interface-XCD": "دولار شرق الكاريبي",
-	"donate_interface-XOF": "دولار غرب أفريقيا",
-	"donate_interface-ZAR": "راند جنوب أفريقيا",
+	"donate_interface-XOF": "دولار غرب إفريقيا",
+	"donate_interface-ZAR": "راند جنوب إفريقيا",
 	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "تبرع عبر بي​بال",
 	"donate_interface-paypal-redirect": "يُحوِّل إلى بي​بال…",
