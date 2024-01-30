@@ -39,5 +39,10 @@
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
 	"recurupgrade-upgrade-now": "Alternate text for the recurring upgrade submit button",
 	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased",
-	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The <strong> tag will be filled with the new amount on the client side."
+	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The <strong> tag will be filled with the new amount on the client side.",
+	"fundraiserunsubscribe": "Unsubscribe page title",
+	"fundraiserunsubscribe-confirm": "To confirm that the user wants to unsubscribe from getting e-mail notifications.",
+	"fundraisersubscribe": "Title shown on page letting users opt in to emails.",
+	"fundraisersubscribe-appeal-headline-001": "Appeal headline for opt-in page variant 001",
+	"fundraisersubscribe-appeal-text-001": "Appeal text for opt-in page variant 001"
 }

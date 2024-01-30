@@ -26,32 +26,33 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 
 	/**
 	 * Check that the opt-in queue message is what is expected
+	 * @dataProvider expectedQueueNameDataProvider
+	 * @param string $queueName
+	 * @param string $url
+	 * @param array $expected
+	 * @return void
+	 * @throws \PHPQueue\Exception\JobNotFoundException
+	 * @throws \SmashPig\Core\ConfigurationKeyException
+	 * @throws \SmashPig\Core\DataStores\DataStoreException
 	 */
-	public function testSendToOptInQueue() {
-		$queueName = 'opt-in';
-		$expected = [
+	public function testEmailPrefCenterQueue( string $queueName, string $url, array $expected ) {
+		$params = [
+			'title' => 'Special:EmailPreferences/' . $url,
 			'email' => 'test@test.com',
 			'contact_id' => '1',
 			'checksum' => 'df3rf',
 			'utm_source' => 'source',
 			'utm_medium' => 'medium',
 			'utm_campaign' => 'campaign',
-		];
-
-		$params = [
-			'title' => 'Special:EmailPreferences/optin',
-			'email' => 'test@test.com',
-			'contact_id' => '1',
-			'checksum' => 'df3rf',
-			'utm_source' => 'source',
-			'utm_medium' => 'medium',
-			'utm_campaign' => 'campaign'
+			'country' => 'US',
+			'language' => 'en',
+			'send_email' => true,
 		];
 
 		$test = new EmailPreferences;
-		$message = $test->setUpOptIn( $params );
+		$message = $test->setupQueueParams( $params, $queueName );
 
-		QueueWrapper::push( 'opt-in', $message );
+		QueueWrapper::push( $queueName, $message );
 
 		$actual = QueueWrapper::getQueue( $queueName )->pop();
 		SourceFields::removeFromMessage( $actual );
@@ -60,5 +61,29 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 
 		$empty = QueueWrapper::getQueue( $queueName )->pop();
 		$this->assertNull( $empty, 'Too many messages on the queue' );
+	}
+
+	public static function expectedQueueNameDataProvider() {
+		return [
+			[ 'email-preferences', 'emailPreferences', [
+				'email' => 'test@test.com',
+				'contact_id' => '1',
+				'checksum' => 'df3rf',
+				'country' => 'US',
+				'language' => 'en',
+				'send_email' => true,
+			] ],
+			[ 'opt-in', 'optin', [
+				'email' => 'test@test.com',
+				'contact_id' => '1',
+				'checksum' => 'df3rf',
+				'utm_source' => 'source',
+				'utm_medium' => 'medium',
+				'utm_campaign' => 'campaign',
+			] ],
+			[ 'unsubscribe', 'unsubscribe', [
+				'email' => 'test@test.com',
+			] ]
+		];
 	}
 }
