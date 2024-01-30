@@ -121,12 +121,7 @@ body.rtl input {
 	direction: rtl;
 }
 
-input#email {
-	/* @noflip */
-	direction: ltr;
-}
-
-.oo-ui-inputWidget-input {
+input {
 	background-color: #fff;
 	color: #000;
 	margin: 0 !important;
@@ -137,10 +132,18 @@ input#email {
 	font-family: inherit;
 	line-height: 1.42857143em;
 	-webkit-appearance: none;
-	display: block;
-	width: 100%;
 	box-sizing: border-box;
 	height: 2.28571429em;
+}
+
+input#email {
+	/* @noflip */
+	direction: ltr;
+}
+
+.oo-ui-inputWidget-input {
+	display: block;
+	width: 100%;
 }
 
 .emailpreferences-form-col-content {
@@ -394,8 +397,7 @@ main {
 	margin: 2em 0 0;
 }
 
-.emailPreferencesForm button,
-.recurUpgradeForm button {
+button {
 	border-radius: 2px;
 	cursor: pointer;
 	display: inline-block;
@@ -404,16 +406,21 @@ main {
 	font-size: 1em;
 	font-family: inherit;
 	line-height: 1.375em;
-	background-color: #3a25ff;
-	border: 1px solid rgba( 0, 0, 0, 0 );
-	color: #fff;
 	transition: 0.1s background;
 }
 
+button#unsubscribe,
+button#continue,
+button#save {
+	background-color: #3a25ff;
+	border: 1px solid rgba( 0, 0, 0, 0 );
+	color: #fff;
+}
+
 button#cancel {
-	color: #3a25ff;
 	border: 1px solid #3a25ff;
-	background: #fff;
+	color: #3a25ff;
+	transition: 0.1s background;
 }
 
 .hide {
