@@ -380,6 +380,7 @@
 	"donate_interface-donation": "Donativo",
 	"donate_interface-email-receipt": "Enviar o recibo para o correio eletrónico",
 	"donate_interface-monthly-donation": "Fazer um donativo mensal",
+	"donate_interface-monthly-only-credit": "Só aceitamos cartões de crédito (não cartões de débito) para donativos mensais.",
 	"donate_interface-via-paypal": "(através do PayPal)",
 	"donate_interface-select": "Tamanho:",
 	"donate_interface-donation-must-equal": "O donativo tem de ser igual ou superior a $1.",
