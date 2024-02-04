@@ -10,7 +10,7 @@
 		"url": "https://gerrit.wikimedia.org/r/p/mediawiki/extensions/DonationInterface.git"
 	},
 	"devDependencies": {
-		"eslint-config-wikimedia": "0.25.0",
+		"eslint-config-wikimedia": "0.25.1",
 		"grunt": "1.6.1",
 		"grunt-banana-checker": "0.11.0",
 		"grunt-contrib-watch": "1.1.0",
