@@ -7,12 +7,11 @@
 			<input type="hidden" name="checksum" value="{{checksum}}"/>
 			<input type="hidden" name="contact_id" value="{{contact_id}}"/>
 
-			<div class="epc-form-col-content-salutation">
-				<span class="epc-form-col-content-salutation-name">{{ l10n "emailpreferences-hi" }}, {{ full_name }}</span>
-				</span>
-			</div>
 			<div class="emailPrefColumns">
 				<div class="emailPrefleftColumn">
+					<div class="epc-form-col-content-salutation">
+						<span class="epc-form-col-content-salutation-name">{{ l10n "emailpreferences-hi" }}, {{ full_name }}</span>
+					</div>
 					<div class="oo-ui-fieldLayout-body">
 						<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-amount" }}</h5>
 						<p class="recurUpgradeBodyText">{{ amountFormatter recur_amount locale currency }}</p>
@@ -35,6 +34,14 @@
 						<label class="recurUpgradeBodyText" for="upgradeAmount_{{ value }}">{{ amountFormatter value locale currency }}</label>
 					</div>
   					{{/recurringOptions}}
+					<div class="oo-ui-fieldLayout">
+						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
+							<input type="radio" id="upgradeAmount_other" name="upgrade_amount" value="other" autocomplete="off" class="oo-ui-inputWidget-input">
+							<span></span>
+						</span>
+						<label class="recurUpgradeBodyText" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="number" min="0" id="upgradeAmount_other_input" name="upgrade_amount_other">
+						</label>
+					</div>
 				</div>
 			</div>
 			<div class="recurUpgradeActionButtons">
