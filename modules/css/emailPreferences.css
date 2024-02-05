@@ -530,6 +530,7 @@ footer .footer-legal .p {
 	font-size: 1.25em;
 }
 
-.btn.disabled {
+/* extra parent ID in selector to increase specificity and override button-specific colors */
+#content .btn.disabled {
 	background-color: #c8ccd1;
 }
