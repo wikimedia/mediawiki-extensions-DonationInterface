@@ -135,6 +135,7 @@
 	"donate_interface-donor-last_name": "Urteme nome",
 	"donate_interface-donor-last_name-alt": "Cognome",
 	"donate_interface-donor-employer": "'Mbiegate (Facoltative)",
+	"donate_interface-donor-employer-explain": "Te facime sapè ce 'u datore de lavore tune s'aggiunge a 'u riale tune",
 	"donate_interface-donor-street_address": "Indirizze",
 	"donate_interface-donor-street-number": "Numere",
 	"donate_interface-donor-city": "Cetate:",
@@ -464,5 +465,7 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "None, grazie!",
 	"donate_interface-monthly-convert-no-button-variant-014": "No, none mò",
 	"donate_interface-fundraiser-maintenance-header": "Temboraneamende abbasce pe manutenzione",
-	"donate_interface-fundraiser-maintenance-notice": "Nuje ste facime mo 'na manutenzione schedulate e non ge putime accettà dunazziune. Pe piacere pruève cchiù tarde. Ce tìne domande da fà, manne 'n'email a $1."
+	"donate_interface-fundraiser-maintenance-notice": "Nuje ste facime mo 'na manutenzione schedulate e non ge putime accettà dunazziune. Pe piacere pruève cchiù tarde. Ce tìne domande da fà, manne 'n'email a $1.",
+	"donate_interface-amount-legend-variant-01A": "'Mborte da dunà",
+	"donate_interface-cc-form-header-personal-variant-01A": "'Mbormaziune d'u paiamende"
 }
