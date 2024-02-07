@@ -561,8 +561,10 @@
 			var adyenFieldName;
 			$.each( errors, function ( field ) {
 				adyenFieldName = false;
-				if ( field === 'card_num' ) {
+				if ( field === 'card_num' || field === 'encrypted_card_number' ) {
 					adyenFieldName = 'encryptedCardNumber';
+				} else if ( field === 'encrypted_expiry_month' || field === 'encrypted_expiry_year' ) {
+					adyenFieldName = 'encryptedExpiryDate';
 				} else if ( field === 'cvv' ) {
 					adyenFieldName = 'encryptedSecurityCode';
 				}

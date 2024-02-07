@@ -160,6 +160,7 @@
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
+		"EncryptedCardParameters": "adyen_gateway/EncryptedCardParameters.php",
 		"PlaceholderFiscalNumber": "dlocal_gateway/PlaceholderFiscalNumber.php",
 		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
