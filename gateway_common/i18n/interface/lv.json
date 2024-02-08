@@ -291,7 +291,7 @@
 	"donate_interface-monthly-short": "Ikmēneša",
 	"donate_interface-onetime-short": "Vienu reizi",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-emailprefs-thank-you-title": "Paldies",
+	"donate_interface-emailpreferences-thank-you-title": "Paldies",
 	"donate_interface-monthly-convert-title": "Vai pievienot ikmēneša ziedojumu <span class=\"mc-convert-ask\"></span> apmērā, sākot ar nākamo mēnesi?",
 	"donate_interface-monthly-convert-text": "Ikmēneša atbalsts ir labākais veids, kā nodrošināt Vikipēdijas attīstību",
 	"donate_interface-monthly-convert-change-amount": "Jā, es ziedošu katru mēnesi, bet citu summu",

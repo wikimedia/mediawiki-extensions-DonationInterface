@@ -400,7 +400,7 @@
 	"donate_interface-error-http-403": "Käyttöoikeutesi eivät riitä tämän sivun näyttämiseen.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "Kaikki kuvat on lisensoitu <a href=\"$1\">Creative Commons Nimeä-JaaSamoin 4.0 Kansainvälinen</a> -lisenssillä.",
-	"donate_interface-emailprefs-thank-you-title": "Kiitos",
+	"donate_interface-emailpreferences-thank-you-title": "Kiitos",
 	"donate_interface-monthly-convert-action-button": "Lahjoita kuukausittain",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Kyllä, haluan auttaa",
 	"donate_interface-monthly-convert-no-button-variant-006": "Ei kiitos",
