@@ -118,7 +118,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		// Only show languages configured in $wgDonationInterfaceEmailPreferencesLanguages
 		// (should be the languages we can send e-mails to)
-		$emailPreferencesLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPreferncesLanguages' );
+		$emailPreferencesLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesLanguages' );
 		$labels = [];
 		foreach ( $emailPreferencesLanguages as $code ) {
 			[ $language, $country ] = explode( '_', $code );
