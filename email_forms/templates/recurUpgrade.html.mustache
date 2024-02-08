@@ -7,10 +7,10 @@
 			<input type="hidden" name="checksum" value="{{checksum}}"/>
 			<input type="hidden" name="contact_id" value="{{contact_id}}"/>
 
-			<div class="emailPrefColumns">
-				<div class="emailPrefleftColumn">
-					<div class="epc-form-col-content-salutation">
-						<span class="epc-form-col-content-salutation-name">{{ l10n "emailpreferences-hi" }}, {{ full_name }}</span>
+			<div class="emailPreferencesColumns">
+				<div class="emailPreferencesLeftColumn">
+					<div class="emailpreferences-form-col-content-salutation">
+						<span class="emailpreferences-form-col-content-salutation-name">{{ l10n "emailpreferences-hi" }}, {{ full_name }}</span>
 					</div>
 					<div class="oo-ui-fieldLayout-body">
 						<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-amount" }}</h5>
@@ -22,7 +22,7 @@
 						<p class="recurUpgradeBodyText">{{ dateFormatter next_sched_date }}</p>
 					</div>
 				</div>
-				<div class="emailPrefRightColumn">
+				<div class="emailPreferencesRightColumn">
 					<h5 class="recurUpgradeHeaderText">{{ l10n "recurupgrade-title" }}</h5>
 					{{#recurringOptions}}
 					<div class="oo-ui-fieldLayout">
@@ -45,10 +45,10 @@
 				</div>
 			</div>
 			<div class="recurUpgradeActionButtons">
-				<div class="emailPrefButton">
+				<div class="emailPreferencesButton">
 					<button class="btn disabled" type="submit" name="submit" id="save" value="save" disabled>{{ l10n "recurupgrade-upgrade" }}</button>
 				</div>
-				<div class="emailPrefButton">
+				<div class="emailPreferencesButton">
 					<button type="submit" name="submit" id="cancel" value="cancel">{{ l10n "recurupgrade-upgrade-decline" }}</button>
 				</div>
 			</div>
