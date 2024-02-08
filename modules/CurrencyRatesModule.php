@@ -4,19 +4,19 @@ use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 /**
  * Dynamically generate the javascript currency rates
  */
-class CurrencyRatesModule extends ResourceLoaderModule {
+class CurrencyRatesModule extends MediaWiki\ResourceLoader\Module {
 
 	/**
-	 * @see ResourceLoaderModule::getScript()
+	 * @see MediaWiki\ResourceLoader\Module::getScript()
 	 * @inheritDoc
 	 */
-	public function getScript( ResourceLoaderContext $context ) {
+	public function getScript( MediaWiki\ResourceLoader\Context $context ) {
 		return 'mw.config.set( "wgDonationInterfaceCurrencyRates", ' .
 			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ' );';
 	}
 
 	/**
-	 * @see ResourceLoaderModule::enableModuleContentVersion()
+	 * @see MediaWiki\ResourceLoader\Module::enableModuleContentVersion()
 	 * @return bool
 	 */
 	public function enableModuleContentVersion() {
