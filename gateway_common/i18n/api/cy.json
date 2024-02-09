@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Afalau",
 			"Robin Owain"
 		]
 	},
@@ -10,6 +11,6 @@
 	"apihelp-donate-param-street_address": "Llinell gyntaf eich cyfeiriad.",
 	"apihelp-donate-param-supplemental_address_1": "Ail linell eich cyfeiriad.",
 	"apihelp-donate-param-city": "Tref.",
-	"apihelp-donate-param-email": "Cyfeiriad ebost.",
+	"apihelp-donate-param-email": "Cyfeiriad e-bost.",
 	"apihelp-donate-example-1": "Cyfranwch."
 }
