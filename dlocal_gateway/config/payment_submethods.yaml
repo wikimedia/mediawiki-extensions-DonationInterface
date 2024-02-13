@@ -3,9 +3,6 @@ ach:
     group: bt
     countries:
         AR: true
-        BR: true
-        CL: true
-        MX: true
     logo: bank-ach.png
     logo_hd:
         2x: bank-ach_2x.png
@@ -144,6 +141,12 @@ codenza:
     recurring: true
 #codi: // not enabled but can be done at our request
 #    label: Codi Bank Transfer Online
+#    group: bt
+#    countries:
+#        MX: true
+#    logo: bank-codi.png
+#codi_qr: // not enabled but can be done at our request
+#    label: Codi Bank Transfer QR
 #    group: bt
 #    countries:
 #        MX: true
@@ -297,6 +300,12 @@ paytmwallet:
 #    countries:
 #        BR: true
 #    logo: bank-picpay.png
+santander:
+  label: Santander
+  group: bt
+  countries:
+    BR: true
+  logo: bank-santander.png
 pix:
     label: Pix
     group: cash
@@ -340,12 +349,12 @@ shopping:
     group: cc
     countries:
         AR: true
-spei:
-    label: SPEI
-    group: bt
-    countries:
-        MX: true
-    logo: bank-spei.png
+#spei: // not enabled but can be done at our request
+#    label: SPEI
+#    group: bt
+#    countries:
+#        MX: true
+#    logo: bank-spei.png
 stitch:
     lable: Stitch
     group: bt
