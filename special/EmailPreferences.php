@@ -116,11 +116,11 @@ class EmailPreferences extends UnlistedSpecialPage {
 			LanguageNames::LIST_MW_AND_CLDR
 		);
 
-		// Only show languages configured in $wgDonationInterfaceEmailPrefCtrLanguages
+		// Only show languages configured in $wgDonationInterfaceEmailPreferencesLanguages
 		// (should be the languages we can send e-mails to)
-		$emailPrefCtrLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPrefCtrLanguages' );
+		$emailPreferencesLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesLanguages' );
 		$labels = [];
-		foreach ( $emailPrefCtrLanguages as $code ) {
+		foreach ( $emailPreferencesLanguages as $code ) {
 			[ $language, $country ] = explode( '_', $code );
 			$wikiStyle = $language . '-' . strtolower( $country );
 			if ( in_array( $wikiStyle, $mediaWikiLanguages ) ) {
@@ -130,7 +130,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			}
 			$labels[] = $label;
 		}
-		$displayLanguages = array_combine( $emailPrefCtrLanguages, $labels );
+		$displayLanguages = array_combine( $emailPreferencesLanguages, $labels );
 
 		asort( $displayLanguages );
 

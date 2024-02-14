@@ -2,10 +2,7 @@ ach:
     label: ACH
     group: bt
     countries:
-        AR: true
-        BR: true
-        CL: true
-        MX: true
+        ZA: true
     logo: bank-ach.png
     logo_hd:
         2x: bank-ach_2x.png
@@ -31,6 +28,16 @@ bancolombia:
     countries:
         CO: true
     logo: bank-bancolombia.png
+banco_do_brasil:
+    group: bt
+    countries:
+        BR: true
+    logo: bank-banco_do_brasil.png
+bradesco:
+    group: bt
+    countries:
+        BR: true
+    logo: bank-bradesco.png
 bbva:
     label: BBVA
     group: bt
@@ -148,6 +155,12 @@ codenza:
 #    countries:
 #        MX: true
 #    logo: bank-codi.png
+#codi_qr: // not enabled but can be done at our request
+#    label: Codi Bank Transfer QR
+#    group: bt
+#    countries:
+#        MX: true
+#    logo: bank-codi.png
 #debin: // not enabled but can be done at our request
 #    label: DEBIN
 #    group: bt
@@ -191,6 +204,12 @@ interbank:
     logo_hd:
         2x: bank-interbank_2x.png
         3x: bank-interbank_3x.png
+itau:
+   label: Itau
+   group: bt
+   countries:
+       BR: true
+   logo: bank-itau.png
 jcb:
     group: cc
     countries:
@@ -324,6 +343,12 @@ rupay:
     group: cc
     countries:
         IN: true
+santander:
+  label: Santander
+  group: bt
+  countries:
+    BR: true
+  logo: bank-santander.png
 servipag:
     label: Servipag
     group: cash
@@ -340,18 +365,18 @@ shopping:
     group: cc
     countries:
         AR: true
-spei:
-    label: SPEI
-    group: bt
-    countries:
-        MX: true
-    logo: bank-spei.png
-stitch:
-    lable: Stitch
-    group: bt
-    countries:
-        ZA: true
-    logo: bank-ach.png
+#spei: // not enabled but can be done at our request
+#    label: SPEI
+#    group: bt
+#    countries:
+#        MX: true
+#    logo: bank-spei.png
+#stitch:
+#    lable: Stitch
+#    group: bt
+#    countries:
+#        ZA: true
+#    logo: bank-ach.png
 upi:
     label: UPI
     group: bt

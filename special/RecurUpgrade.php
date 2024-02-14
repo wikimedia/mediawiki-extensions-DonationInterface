@@ -146,7 +146,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
 			return;
 		}
-		$amount = $DonorData['amount'] + (int)$params['upgrade_amount'];
+		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
+			? $params['upgrade_amount_other']
+			: $params['upgrade_amount'];
+
+		$amount = $DonorData['amount'] + round( (double)$upgradeAmount, 2 );
 		$message = [
 			'txn_type' => 'recurring_upgrade',
 			'contribution_recur_id' => $DonorData['contribution_recur_id'],

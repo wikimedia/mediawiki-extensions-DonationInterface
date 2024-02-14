@@ -124,6 +124,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 			$out = $this->getOutput();
 			$out->preventClickjacking();
+			$this->addThankYouPrefetch( $out );
 			// Use addModuleStyles to load these CSS rules in early and avoid
 			// a flash of MediaWiki elements.
 			$out->addModuleStyles( 'donationInterface.styles' );
@@ -170,6 +171,23 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayFailPage();
 			return;
 		}
+	}
+
+	/**
+	 * Tell the browser to look up the Thank You page DNS entry, to load
+	 * it faster when the donor completes the donation.
+	 *
+	 * @param OutputPage $out
+	 * @return void
+	 */
+	private function addThankYouPrefetch( OutputPage $out ): void {
+		$thankYouPage = $this->adapter::getGlobal( 'ThankYouPage' );
+		$urlParts = parse_url( $thankYouPage );
+
+		$out->addLink( [
+			'rel' => 'prefetch',
+			'href' => $urlParts['scheme'] . '://' . $urlParts['host']
+		] );
 	}
 
 	/**
