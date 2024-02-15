@@ -14,20 +14,27 @@ amex:
         BR: true
         CL: true
         CO: true
-#       IN: true // Dlocal reported that AMEX is not supported in India T334945
+#       IN: true // Dlocal reported that AMEX is not supported in India T334945, and all other commentted out methods can be enabled by ask
         MX: true
         PE: true
+        ZA: true
     recurring: true
 argen:
     group: cc
     countries:
         AR: true
-bancolombia:
-    lable: Bancolombia
-    group: cash
+#bancolombia:
+#    lable: Bancolombia
+#    group: cash
+#    countries:
+#        CO: true
+#    logo: bank-bancolombia.png
+cash_bancomer:
+    lable: Bancomer
+    group: bt
     countries:
-        CO: true
-    logo: bank-bancolombia.png
+        MX: true
+    logo: cash-bancomer.png
 banco_do_brasil:
     group: bt
     countries:
@@ -56,6 +63,11 @@ bcp:
     logo_hd:
         2x: bank-bcp_2x.png
         3x: bank-bcp_3x.png
+boleto_hibrido:
+    group: cash
+    countries:
+        BR: true
+    logo: cash-boleto_hibrido.png
 cabal:
     group: cc
     countries:
@@ -66,17 +78,17 @@ cabal-debit:
     countries:
         AR: true
     recurring: true
-#carnet: // not enabled but can be done at our request
+#carnet:
 #    group: cc
 #    countries:
 #        MX: true
 #    recurring: true
-carnet_debit:
-    group: cc
-    countries:
-        MX: true
-    recurring: true
-#carulla: // not enabled but can be done at our request
+#carnet_debit:
+#    group: cc
+#    countries:
+#        MX: true
+#    recurring: true
+#carulla:
 #    label: Carulla
 #    group: cash
 #    countries:
@@ -115,12 +127,12 @@ cash_pago_efectivo:
     countries:
         PE: true
     logo: cash-pago-efectivo.png
-cash_pago_facil:
-    label: Pago Facil
-    group: cash
-    countries:
-        AR: true
-    logo: cash-pago-facil.png
+#cash_pago_facil:
+#    label: Pago Facil
+#    group: cash
+#    countries:
+#        AR: true
+#    logo: cash-pago-facil.png
 cash_rapipago:
     label: Rapi Pago
     group: cash
@@ -133,6 +145,12 @@ cash_red_pagos:
     countries:
         UY: true
     logo: cash-red-pagos.png
+cash_santander:
+    label: Santander
+    group: bt
+    countries:
+        MX: true
+    logo: bank-santander.png
 cencosud:
     group: cc
     countries:
@@ -141,27 +159,31 @@ cencosud:
 cmr:
     group: cc
     countries:
-        AR: true
         CL: true
     recurring: true
-codenza:
-    group: cc
-    countries:
-        CO: true
-    recurring: true
-#codi: // not enabled but can be done at our request
+#codenza:
+#    group: cc
+#    countries:
+#        CO: true
+#    recurring: true
+#codi:
 #    label: Codi Bank Transfer Online
 #    group: bt
 #    countries:
 #        MX: true
 #    logo: bank-codi.png
-#codi_qr: // not enabled but can be done at our request
+#codi_qr:
 #    label: Codi Bank Transfer QR
 #    group: bt
 #    countries:
 #        MX: true
 #    logo: bank-codi.png
-#debin: // not enabled but can be done at our request
+cordobesa:
+    group: cc
+    countries:
+        AR: true
+    recurring: true
+#debin:
 #    label: DEBIN
 #    group: bt
 #    countries:
@@ -175,9 +197,10 @@ discover:
 diners:
     group: cc
     countries:
+        AR: true
         CL: true
         CO: true
-        IN: true
+#        IN: true
         PE: true
         UY: true
     recurring: true
@@ -205,11 +228,11 @@ interbank:
         2x: bank-interbank_2x.png
         3x: bank-interbank_3x.png
 itau:
-   label: Itau
-   group: bt
-   countries:
-       BR: true
-   logo: bank-itau.png
+    label: Itau
+    group: bt
+    countries:
+        BR: true
+    logo: bank-itau.png
 jcb:
     group: cc
     countries:
@@ -223,8 +246,8 @@ maestro:
     group: cc
     countries:
         AR: true
-        BR: true
-#       IN: true // not enabled but can be done at our request
+#        BR: true
+#        IN: true
     recurring: true
 mach:
     group: cc
@@ -262,19 +285,19 @@ mc-debit:
         UY: true
         ZA: true
     recurring: true
-mercadolivre:
-    group: cc
-    countries:
-        BR: true
-#mercadopago:// not enabled but can be done at our request
+#mercadolivre:
+#    group: cc
+#    countries:
+#        BR: true
+#mercadopago:
 #    label: Mercado Pago
 #    group: bt
 #    countries:
-#      AR: true
-#      BR: true
-#      CL: true
-#      CO: true
-#      MX: true
+#        AR: true
+#        BR: true
+#        CL: true
+#        CO: true
+#        MX: true
 #    logo: bank-mercadopago.png
 naranja:
     group: cc
@@ -310,7 +333,7 @@ paytmwallet:
         2x: bank-paytm_2x.png
     recurring: true
     show_single_logo: true
-#picpay: // not enabled but can be done at our request
+#picpay:
 #    label: PicPay
 #    group: bt
 #    countries:
@@ -333,7 +356,7 @@ pse:
     countries:
         CO: true
     logo: bank-pse.png
-#puntored: // not enabled but can be done at our request
+#puntored:
 #    lable: Puntored
 #    group: cash
 #    countries:
@@ -344,18 +367,24 @@ rupay:
     countries:
         IN: true
 santander:
-  label: Santander
-  group: bt
-  countries:
-    BR: true
-  logo: bank-santander.png
+    label: Santander
+    group: bt
+    countries:
+        BR: true
+    logo: bank-santander.png
+santander_rio:
+    label: Santander
+    group: bt
+    countries:
+        AR: true
+    logo: bank-santander.png
 servipag:
     label: Servipag
     group: cash
     countries:
         CL: true
     logo: cash-servipag.png
-#sencillito: // not enabled but can be done at our request
+#sencillito:
 #    label: Sencillito
 #    group: cash
 #    countries:
@@ -365,7 +394,7 @@ shopping:
     group: cc
     countries:
         AR: true
-#spei: // not enabled but can be done at our request
+#spei:
 #    label: SPEI
 #    group: bt
 #    countries:
