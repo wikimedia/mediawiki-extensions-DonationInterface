@@ -12,6 +12,6 @@ class PaypalExpressReturnUrl implements StagingHelper {
 			$querySringParams['recurring'] = 1;
 		}
 
-		$staged['returnto'] = $returnTitle->getFullURL( $querySringParams, false, PROTO_CURRENT );
+		$staged['return_url'] = $returnTitle->getFullURL( $querySringParams, false, PROTO_CURRENT );
 	}
 }

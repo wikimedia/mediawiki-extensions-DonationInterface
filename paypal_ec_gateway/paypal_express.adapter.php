@@ -5,6 +5,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\PaymentProviderFactory;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -113,121 +114,17 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		// https://developer.paypal.com/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/
 		$this->transactions['SetExpressCheckout'] = [
 			'request' => [
-				'USER',
-				'PWD',
-				// 'SIGNATURE', // See below.
-				'VERSION',
-				'METHOD',
-				'RETURNURL',
-				'CANCELURL',
-				'REQCONFIRMSHIPPING',
-				'NOSHIPPING',
-				'LOCALECODE',
-				// TODO: PAGESTYLE, HDRIMG, LOGOIMG
-				'EMAIL',
-				'L_PAYMENTREQUEST_0_AMT0',
-				'L_PAYMENTREQUEST_0_DESC0',
-				// TODO: Using item category = 'Digital' might save you on
-				// rates, this should be configurable.
-				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
-				'PAYMENTREQUEST_0_AMT',
-				'PAYMENTREQUEST_0_CURRENCYCODE',
-				// FIXME: This should be deprecated, and is only for back-compat.
-				'PAYMENTREQUEST_0_CUSTOM',
-				'PAYMENTREQUEST_0_DESC',
-				'PAYMENTREQUEST_0_INVNUM',
-				'PAYMENTREQUEST_0_ITEMAMT', // FIXME: Not clear why this is required.
-				'PAYMENTREQUEST_0_PAYMENTACTION',
-				'PAYMENTREQUEST_0_PAYMENTREASON',
-				'SOLUTIONTYPE',
-				// TODO: Investigate why can we give this as an input:
-				// PAYMENTREQUEST_n_TRANSACTIONID
-				// TODO: BUYEREMAILOPTINENABLE=1
+				'return_url',
+				'cancel_url',
+				'language',
+				'amount',
+				'currency',
+				'description',
+				'order_id',
+				'recurring',
 			],
 			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'SetExpressCheckout',
-				'CANCELURL' => ResultPages::getCancelPage( $this ),
-				'REQCONFIRMSHIPPING' => 0,
-				'NOSHIPPING' => 1,
-				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
-				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
-				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
-				// SOLUTIONTYPE Mark means PayPal account is required
-				'SOLUTIONTYPE' => 'Mark',
-			],
-			'response' => [
-				'TOKEN',
-			],
-		];
-
-		// https://developer.paypal.com/docs/classic/api/merchant/SetExpressCheckout_API_Operation_NVP/
-		$this->transactions['SetExpressCheckout_recurring'] = [
-			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'RETURNURL',
-				'CANCELURL',
-				'REQCONFIRMSHIPPING',
-				'NOSHIPPING',
-				'LOCALECODE',
-				// TODO: PAGESTYLE, HDRIMG, LOGOIMG
-				'EMAIL',
-				'L_BILLINGTYPE0',
-				'L_BILLINGAGREEMENTDESCRIPTION0',
-				'L_BILLINGAGREEMENTCUSTOM0',
-				'L_PAYMENTREQUEST_0_AMT0',
-				// // Note that the DESC fields can be tweaked to get different
-				// // effects in the PayPal layout.
-				// 'L_PAYMENTREQUEST_0_DESC0',
-				'L_PAYMENTREQUEST_0_NAME0',
-				'L_PAYMENTREQUEST_0_QTY0',
-				'MAXAMT',
-				'PAYMENTREQUEST_0_AMT',
-				'PAYMENTREQUEST_0_CURRENCYCODE',
-				// // FIXME: This should be deprecated, and is only for back-compat.
-				// 'PAYMENTREQUEST_0_CUSTOM',
-				// 'PAYMENTREQUEST_0_DESC',
-				// 'PAYMENTREQUEST_0_INVNUM',
-				'PAYMENTREQUEST_0_ITEMAMT',
-				// 'PAYMENTREQUEST_0_PAYMENTACTION',
-				// 'PAYMENTREQUEST_0_PAYMENTREASON',
-				// // TODO: Investigate why would give this as an input:
-				// // PAYMENTREQUEST_n_TRANSACTIONID,
-				'SOLUTIONTYPE'
-			],
-			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'SetExpressCheckout',
-				'CANCELURL' => ResultPages::getCancelPage( $this ),
-				'REQCONFIRMSHIPPING' => 0,
-				'NOSHIPPING' => 1,
-				'L_BILLINGTYPE0' => 'RecurringPayments',
-				// FIXME: Sad!  The thank-you message would be perfect here,
-				// but it seems the exclamation mark is not supported, even when
-				// urlencoded properly.
-				// 'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-donate-error-thank-you-for-your-support' ),
-				'L_BILLINGAGREEMENTDESCRIPTION0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
-				'L_PAYMENTREQUEST_0_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				'L_PAYMENTREQUEST_0_QTY0' => 1,
-				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
-				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
-				// SOLUTIONTYPE Mark means PayPal account is required
-				'SOLUTIONTYPE' => 'Mark',
-			],
-			'response' => [
-				'TOKEN',
+				'cancel_url' => ResultPages::getCancelPage( $this ),
 			],
 		];
 
@@ -409,7 +306,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		// The signature is static, not a checksum of the request.
 		if ( !$this->isCertificateAuthentication() ) {
 			foreach ( $this->transactions as $_name => &$info ) {
-				if ( isset( $info['request'] ) ) {
+				if ( isset( $info['request'] ) && $_name !== 'SetExpressCheckout' ) {
 					$info['request'][] = 'SIGNATURE';
 					$info['values']['SIGNATURE'] = $this->account_config['Signature'];
 				}
@@ -417,23 +314,52 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
+	/**
+	 * Just needed till we switch all the calls over to using SmashPig
+	 *
+	 * @return void
+	 */
+	protected function overrideVarMap() {
+		// Transitional code, override var_map
+		$this->var_map = [
+			'amount' => 'amount',
+			'cancel_url' => 'cancel_url',
+			'currency' => 'currency',
+			'description' => 'description',
+			'language' => 'language',
+			'order_id' => 'order_id',
+			'recurring' => 'recurring',
+			'return_url' => 'return_url',
+		];
+	}
+
 	public function doPayment() {
 		$this->config['transformers'][] = 'PaypalExpressReturnUrl';
 		$this->data_transformers[] = new PaypalExpressReturnUrl();
 		$this->stageData();
-		if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-			// Build the billing agreement and get a token to redirect.
-			$resultData = $this->do_transaction( 'SetExpressCheckout_recurring' );
-		} else {
-			// Returns a token which we use to build a redirect URL into the
-			// PayPal flow.
-			$resultData = $this->do_transaction( 'SetExpressCheckout' );
+		$provider = PaymentProviderFactory::getProviderForMethod(
+			$this->getPaymentMethod()
+		);
+		// Transitional code, override var_map
+		$this->overrideVarMap();
+		$this->setCurrentTransaction( 'SetExpressCheckout' );
+
+		$descriptionKey = $this->getData_Unstaged_Escaped( 'recurring' ) ?
+			'donate_interface-monthly-donation-description' :
+			'donate_interface-donation-description';
+
+		$this->transactions['SetExpressCheckout']['values']['description'] =
+			WmfFramework::formatMessage( $descriptionKey );
+
+		// Returns a token which and a redirect URL to send the donor to PayPal
+		$paymentSessionResult = $provider->createPaymentSession( $this->buildRequestArray() );
+		if ( $paymentSessionResult->isSuccessful() ) {
+			$this->addResponseData( [ 'gateway_session_id' => $paymentSessionResult->getPaymentSession() ] );
+			$this->session_addDonorData();
+			return PaymentResult::newRedirect( $paymentSessionResult->getRedirectUrl() );
 		}
 
-		return PaymentResult::fromResults(
-			$resultData,
-			$this->getFinalStatus()
-		);
+		return PaymentResult::newFailure( $paymentSessionResult->getErrors() );
 	}
 
 	/**
@@ -480,13 +406,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( FinalStatus::PENDING );
 					$this->postProcessDonation();
 					break;
-				case 'SetExpressCheckout':
-				case 'SetExpressCheckout_recurring':
-					$this->checkResponseAck( $response );
-					$this->addResponseData( $this->unstageKeys( $response ) );
-					$redirectUrl = $this->createRedirectUrl( $response['TOKEN'] );
-					$this->transaction_response->setRedirect( $redirectUrl );
-					break;
 				case 'GetExpressCheckoutDetails':
 					$this->checkResponseAck( $response );
 					// Merge response into our transaction data.
@@ -520,7 +439,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 
 					$this->addResponseData( $this->unstageKeys( $response ) );
 					$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
-					'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
+						'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
 
 					$this->finalizeInternalStatus( $status );
 					$this->postProcessDonation();

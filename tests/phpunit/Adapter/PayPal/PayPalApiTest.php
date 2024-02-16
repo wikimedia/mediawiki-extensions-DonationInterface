@@ -1,6 +1,8 @@
 <?php
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\PaymentProviders\PayPal\PaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
@@ -13,12 +15,21 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class PayPalApiTest extends DonationInterfaceApiTestCase {
 
+	/**
+	 * Mocked SmashPig-layer PaymentProvider object
+	 * @var \PHPUnit\Framework\MockObject\MockObject|PaymentProvider
+	 */
+	private $provider;
+
 	protected function setUp(): void {
 		parent::setUp();
 		$ctx = TestingContext::get();
-		$ctx->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
-			'paypal', $ctx->getGlobalConfiguration()
-		);
+		$globalConfig = $ctx->getGlobalConfiguration();
+		$providerConfig = TestingProviderConfiguration::createForProvider( 'paypal', $globalConfig );
+		$ctx->providerConfigurationOverride = $providerConfig;
+		$this->provider = $this->createMock( PaymentProvider::class );
+		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $this->provider );
+
 		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,
@@ -27,7 +38,6 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testGoodSubmit() {
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
@@ -40,13 +50,40 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) {
+				$this->assertStringContainsString(
+					'title=Special:PaypalExpressGatewayResult&order_id=1.1' .
+					'&wmf_token=' . urlencode( $this->saltedToken ),
+					$params['return_url']
+				);
+				unset( $params['return_url'] );
+				$this->assertEquals( [
+					'cancel_url' => 'https://example.com/tryAgain.php/fr',
+					'language' => 'fr_US',
+					'description' => wfMessage( 'donate_interface-donation-description' )
+						->inLanguage( 'fr' )
+						->text(),
+					'order_id' => '1.1',
+					'amount' => '1.55',
+					'currency' => 'USD',
+				], $params );
+				return true;
+			} ) )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( $redirect )
+			);
 
 		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertArrayNotHasKey( 'errors', $result );
 
-		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
-		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
+		$this->assertEquals( $redirect, $result['redirect'], 'PayPal Express API not setting redirect' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
@@ -115,7 +152,6 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	public function testGoodRecurringSubmit() {
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init = [
 			'amount' => 1.55,
 			'currency' => 'USD',
@@ -130,13 +166,41 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		];
 		$init['gateway'] = 'paypal_ec';
 		$init['action'] = 'donate';
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) {
+				$this->assertStringContainsString(
+					'title=Special:PaypalExpressGatewayResult&order_id=1.1' .
+					'&wmf_token=' . urlencode( $this->saltedToken ),
+					$params['return_url']
+				);
+				unset( $params['return_url'] );
+				$this->assertEquals( [
+					'cancel_url' => 'https://example.com/tryAgain.php/fr',
+					'language' => 'fr_US',
+					'description' => wfMessage( 'donate_interface-monthly-donation-description' )
+						->inLanguage( 'fr' )
+						->text(),
+					'order_id' => '1.1',
+					'amount' => '1.55',
+					'currency' => 'USD',
+					'recurring' => 1
+				], $params );
+				return true;
+			} ) )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( $redirect )
+			);
 
 		$apiResult = $this->doApiRequest( $init, [ 'paypal_ecEditToken' => $this->clearToken ] );
 		$result = $apiResult[0]['result'];
 		$this->assertArrayNotHasKey( 'errors', $result );
 
-		$expectedUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
-		$this->assertEquals( $expectedUrl, $result['redirect'], 'PayPal Express API not setting redirect' );
+		$this->assertEquals( $redirect, $result['redirect'], 'PayPal Express API not setting redirect' );
 
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );

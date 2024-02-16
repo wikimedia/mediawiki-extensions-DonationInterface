@@ -18,6 +18,8 @@
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentProviders\PayPal\PaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
@@ -29,13 +31,26 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTestCase {
 
+	/**
+	 * @var string
+	 */
 	protected $testAdapterClass = TestingPaypalExpressAdapter::class;
+
+	/**
+	 * Mocked SmashPig-layer PaymentProvider object
+	 * @var \PHPUnit\Framework\MockObject\MockObject|PaymentProvider
+	 */
+	private $provider;
 
 	protected function setUp(): void {
 		parent::setUp();
-		TestingContext::get()->providerConfigurationOverride = TestingProviderConfiguration::createForProvider(
+		$providerConfig = TestingProviderConfiguration::createForProvider(
 			'paypal', self::$smashPigGlobalConfig
 		);
+		$this->provider = $this->createMock( PaymentProvider::class );
+		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $this->provider );
+		TestingContext::get()->providerConfigurationOverride = $providerConfig;
+
 		$this->setMwGlobals( [
 			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
 			'wgPaypalExpressGatewayEnabled' => true,
@@ -54,56 +69,51 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'contribution_tracking_id' => strval( mt_rand() ),
 			'language' => 'fr',
 		];
+
 		$gateway = $this->getFreshGatewayObject( $init );
-		$gateway::setDummyGatewayResponseCode( 'OK' );
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) use ( $gateway, $init ) {
+				$parsedReturn = [];
+				parse_str( parse_url( $params['return_url'], PHP_URL_QUERY ), $parsedReturn );
+				$this->assertEquals(
+					[
+						'title' => 'Special:PaypalExpressGatewayResult',
+						'order_id' => $init['contribution_tracking_id'] . '.1',
+						'wmf_token' => $gateway->token_getSaltedSessionToken()
+					],
+					$parsedReturn
+				);
+				unset( $params['return_url'] );
+				$this->assertEquals( [
+					'cancel_url' => 'https://example.com/tryAgain.php/fr',
+					'language' => 'fr_US',
+					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+					'order_id' => $init['contribution_tracking_id'] . '.1',
+					'amount' => '1.55',
+					'currency' => 'USD',
+				], $params );
+				return true;
+			} ) )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setRawResponse(
+						'TOKEN=EC%2d8US12345X1234567U&TIMESTAMP=2017%2d05%2d18T14%3a53%3a29Z&CORRELATIONID=' .
+						'6d987654a7aed&ACK=Success&VERSION=204&BUILD=33490839'
+					)
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( $redirect )
+			);
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit',
+			$redirect,
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$this->assertCount( 1, $gateway->curled, 'Should have made 1 API call' );
-		$apiCall = $gateway->curled[0];
-		$parsed = [];
-		parse_str( $apiCall, $parsed );
-		$actualReturn = $parsed['RETURNURL'];
-		$parsedReturn = [];
-		parse_str( parse_url( $actualReturn, PHP_URL_QUERY ), $parsedReturn );
-		$this->assertEquals(
-			[
-				'title' => 'Special:PaypalExpressGatewayResult',
-				'order_id' => $init['contribution_tracking_id'] . '.1',
-				'wmf_token' => $gateway->token_getSaltedSessionToken()
-			],
-			$parsedReturn
-		);
-		unset( $parsed['RETURNURL'] );
-		$expected = [
-			'USER' => 'phpunittesting@wikimedia.org',
-			'PWD' => '9876543210',
-			'VERSION' => '204',
-			'METHOD' => 'SetExpressCheckout',
-			'CANCELURL' => 'https://example.com/tryAgain.php/fr',
-			'REQCONFIRMSHIPPING' => '0',
-			'NOSHIPPING' => '1',
-			'LOCALECODE' => 'fr_US',
-			'L_PAYMENTREQUEST_0_AMT0' => '1.55',
-			'L_PAYMENTREQUEST_0_DESC0' => 'Wikimedia Foundation',
-			'PAYMENTREQUEST_0_AMT' => '1.55',
-			'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD',
-			'PAYMENTREQUEST_0_CUSTOM' => $init['contribution_tracking_id'] . '.1',
-			'PAYMENTREQUEST_0_DESC' => 'Wikimedia Foundation',
-			'PAYMENTREQUEST_0_INVNUM' => $init['contribution_tracking_id'] . '.1',
-			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
-			'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
-			'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
-			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
-			'SOLUTIONTYPE' => 'Mark',
-		];
-		$this->assertEquals(
-			$expected, $parsed
-		);
+
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
@@ -149,56 +159,51 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'language' => 'fr',
 		];
 		$gateway = $this->getFreshGatewayObject( $init );
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) use ( $gateway, $init ) {
+				$parsedReturn = [];
+				parse_str( parse_url( $params['return_url'], PHP_URL_QUERY ), $parsedReturn );
+				$this->assertEquals(
+					[
+						'title' => 'Special:PaypalExpressGatewayResult',
+						'order_id' => $init['contribution_tracking_id'] . '.1',
+						'wmf_token' => $gateway->token_getSaltedSessionToken(),
+						'recurring' => 1
+					],
+					$parsedReturn
+				);
+				unset( $params['return_url'] );
+				$this->assertEquals( [
+					'cancel_url' => 'https://example.com/tryAgain.php/fr',
+					'language' => 'fr_US',
+					'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+					'order_id' => $init['contribution_tracking_id'] . '.1',
+					'amount' => '1.55',
+					'currency' => 'USD',
+					'recurring' => 1,
+				], $params );
+				return true;
+			} ) )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setRawResponse(
+						'TOKEN=EC%2d8US12345X1234567U&TIMESTAMP=2017%2d05%2d18T14%3a53%3a29Z&CORRELATIONID=' .
+						'6d987654a7aed&ACK=Success&VERSION=204&BUILD=33490839'
+					)
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( $redirect )
+			);
 		$result = $gateway->doPayment();
 		$gateway->logPending(); // GatewayPage or the API calls this for redirects
 		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit',
+			$redirect,
 			$result->getRedirect(),
 			'Wrong redirect for PayPal EC payment setup'
 		);
-		$this->assertCount( 1, $gateway->curled, 'Should have made 1 API call' );
-		$apiCall = $gateway->curled[0];
-		$parsed = [];
-		parse_str( $apiCall, $parsed );
-		$actualReturn = $parsed['RETURNURL'];
-		$parsedReturn = [];
-		parse_str( parse_url( $actualReturn, PHP_URL_QUERY ), $parsedReturn );
-		$this->assertEquals(
-			[
-				'title' => 'Special:PaypalExpressGatewayResult',
-				'order_id' => $init['contribution_tracking_id'] . '.1',
-				'recurring' => '1',
-				'wmf_token' => $gateway->token_getSaltedSessionToken()
-			],
-			$parsedReturn
-		);
-		unset( $parsed['RETURNURL'] );
-		$expected = [
-			'USER' => 'phpunittesting@wikimedia.org',
-			'PWD' => '9876543210',
-			'VERSION' => '204',
-			'METHOD' => 'SetExpressCheckout',
-			'CANCELURL' => 'https://example.com/tryAgain.php/fr',
-			'REQCONFIRMSHIPPING' => '0',
-			'NOSHIPPING' => '1',
-			'LOCALECODE' => 'fr_US',
-			'L_PAYMENTREQUEST_0_AMT0' => '1.55',
-			'PAYMENTREQUEST_0_AMT' => '1.55',
-			'PAYMENTREQUEST_0_CURRENCYCODE' => 'USD',
-			'L_BILLINGTYPE0' => 'RecurringPayments',
-			'L_BILLINGAGREEMENTDESCRIPTION0' => 'Wikimedia Foundation - monthly gift',
-			'L_BILLINGAGREEMENTCUSTOM0' => $init['contribution_tracking_id'] . '.1',
-			'L_PAYMENTREQUEST_0_NAME0' => 'Wikimedia Foundation - monthly gift',
-			'L_PAYMENTREQUEST_0_QTY0' => '1',
-			'MAXAMT' => '1.55',
-			'PAYMENTREQUEST_0_ITEMAMT' => '1.55',
-			'SIGNATURE' => 'ABCDEFGHIJKLMNOPQRSTUV-ZXCVBNMLKJHGFDSAPOIUYTREWQ',
-			'SOLUTIONTYPE' => 'Mark',
-		];
-		$this->assertEquals(
-			$expected, $parsed
-		);
+
 		$message = QueueWrapper::getQueue( 'pending' )->pop();
 		$this->assertNotEmpty( $message, 'Missing pending message' );
 		self::unsetVariableFields( $message );
