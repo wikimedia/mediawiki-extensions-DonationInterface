@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Snævar",
+			"Stefán Örvar Sigmundsson",
 			"Sveinn í Felli",
 			"WiseWoman",
 			"පසිඳු කාවින්ද"
@@ -127,7 +128,7 @@
 	"donate_interface-donor-pobox": "Pósthólf",
 	"donate_interface-donor-card": "Kreditkort",
 	"donate_interface-donor-card-num": "Kortanúmer",
-	"donate_interface-donor-expiration": "Gildistími",
+	"donate_interface-donor-expiration": "Fyrningardagsetning",
 	"donate_interface-donor-security": "Öryggiskóði",
 	"donate_interface-donor-submit": "Gefa",
 	"donate_interface-donor-currency-msg": "Framlagið verður gefið í $1",
@@ -159,7 +160,7 @@
 	"donate_interface-error-msg-invalid-postal_code": "Leiðréttu villur í póstnúmerinu þínu",
 	"donate_interface-error-msg-country": "Settu inn landið þitt",
 	"donate_interface-error-msg-card_num": "kortanúmerið þitt",
-	"donate_interface-error-msg-expiration": "Vinsamlegast sláðu inn gildistíma kortsins.",
+	"donate_interface-error-msg-expiration": "Vinsamlegast ritaðu fyrningardagsetningu kortsins",
 	"donate_interface-error-msg-cvv": "Vinsamlegst sláðu inn CVV kóða kortsins, sem er venjulega sýnt aftan á kortinu.",
 	"donate_interface-error-msg-account_name": "nafn aðgangs",
 	"donate_interface-error-msg-account_number": "aðgangs númer",
