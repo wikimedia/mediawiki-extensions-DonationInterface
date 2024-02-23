@@ -9,7 +9,7 @@ L_PAYMENTREQUEST_0_AMT0: amount
 LASTNAME: last_name
 LOCALECODE: language
 MAXAMT: amount
-PAYERID: donor_id
+PAYERID: processor_contact_id
 # Example: 2016%2d05%2d03T21%3a25%3a22Z&
 PAYMENTINFO_0_ORDERTIME: date
 PAYMENTINFO_0_PAYMENTSTATUS: gateway_status

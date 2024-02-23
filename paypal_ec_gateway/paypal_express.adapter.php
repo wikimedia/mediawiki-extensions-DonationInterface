@@ -4,8 +4,8 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -125,57 +125,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			],
 			'values' => [
 				'cancel_url' => ResultPages::getCancelPage( $this ),
-			],
-		];
-
-		// Incoming parameters after returning from the PayPal workflow
-		$this->transactions['ProcessReturn'] = [
-			'request' => [
-				'token',
-				'PayerID',
-			],
-		];
-
-		// https://developer.paypal.com/docs/classic/api/merchant/GetExpressCheckoutDetails_API_Operation_NVP/
-		$this->transactions['GetExpressCheckoutDetails'] = [
-			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'TOKEN',
-			],
-			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'GetExpressCheckoutDetails',
-			],
-			'response' => [
-				'ACK',
-				'TOKEN',
-				'CORRELATIONID',
-				'TIMESTAMP',
-				'CUSTOM',
-				'INVNUM',
-				'BILLINGAGREEMENTACCEPTEDSTATUS',
-				'REDIRECTREQUIRED',
-				'CHECKOUTSTATUS',
-				'EMAIL',
-				'PAYERID',
-				'COUNTRYCODE',
-				'FIRSTNAME',
-				'MIDDLENAME',
-				'LASTNAME',
-				'SUFFIX',
-				// TODO: Don't know if this is the one? 'PAYMENTINFO_0_CURRENCYCODE',
-				'PAYMENTREQUEST_0_AMT',
-				'PAYMENTREQUEST_0_CURRENCYCODE',
-				// Or this one? 'PAYMENTREQUEST_n_ITEMAMT'
-				// FIXME: Are we able to override contribution_tracking_id like this?
-				'PAYMENTREQUEST_0_INVNUM',
-				'PAYMENTREQUEST_0_TRANSACTIONID',
-				// Or, the L_ item?
 			],
 		];
 
@@ -406,34 +355,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					$this->finalizeInternalStatus( FinalStatus::PENDING );
 					$this->postProcessDonation();
 					break;
-				case 'GetExpressCheckoutDetails':
-					$this->checkResponseAck( $response );
-					// Merge response into our transaction data.
-					// TODO: Use getFormattedData instead.
-					// FIXME: We don't want to allow overwriting of ctid, need a
-					// list of protected fields.
-					$this->addResponseData( $this->unstageKeys( $response ) );
 
-					// Complete if payment already finalized
-					if ( $this->isBatchProcessor() && $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionCompleted' ) {
-						$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-						break;
-					}
-
-					// Empty PAYERID means the donor hasn't done the payment at the PayPal side.
-					// If we're running under the orphan slayer (batch mode), this is the end of the line.
-					// Setting the status to TIMEOUT here will trigger the early return in processDonorReturn
-					// so we don't barrel ahead with the SetExpressCheckout call without having a payerID.
-					if ( $this->isBatchProcessor() && empty( $response['PAYERID'] ) ) {
-						$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
-						break;
-					}
-
-					$this->runAntifraudFilters();
-					if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
-						$this->finalizeInternalStatus( FinalStatus::FAILED );
-					}
-					break;
 				case 'DoExpressCheckoutPayment':
 					$this->checkResponseAck( $response );
 
@@ -526,8 +448,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				ErrorCode::MISSING_REQUIRED_DATA
 			);
 		}
-		$requestData = [];
-		$requestData['gateway_session_id'] = $requestValues['token'];
+		$requestData = [
+			'gateway_session_id' => urldecode( $requestValues['token'] )
+		];
 		if (
 			empty( $requestValues['PayerID'] )
 		) {
@@ -536,24 +459,22 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$requestData['payer_id'] = $requestValues['PayerID'];
 		}
 		$this->addRequestData( $requestData );
-		$resultData = $this->do_transaction( 'GetExpressCheckoutDetails' );
-		// FixMe: What to do outside of batch processing?
-		if ( $this->isBatchProcessor() &&
-			(
-				$this->getFinalStatus() == FinalStatus::TIMEOUT ||
-				!$resultData->getCommunicationStatus()
-			)
-		) {
-			// These are not actually successful payments, but this is the way
-			// to tell the orphan rectifier to discard the message and continue.
-			return PaymentResult::newSuccess();
-		}
-		if ( !$resultData->getCommunicationStatus() ) {
-			throw new ResponseProcessingException( 'Failed to get customer details',
-				ErrorCode::UNKNOWN );
-		}
+		$provider = PaymentProviderFactory::getProviderForMethod(
+			$this->getPaymentMethod()
+		);
+		$detailsResult = $provider->getLatestPaymentStatus( [
+			'gateway_session_id' => $requestData['gateway_session_id']
+		] );
 
-		if ( $this->getFinalStatus() !== FinalStatus::COMPLETE ) {
+		if ( !$detailsResult->isSuccessful() ) {
+			if ( $detailsResult->requiresRedirect() ) {
+				return PaymentResult::newRedirect( $detailsResult->getRedirectUrl() );
+			}
+			$this->finalizeInternalStatus( $detailsResult->getStatus() );
+			return PaymentResult::newFailure();
+		}
+		$this->addDonorDetailsToSession( $detailsResult );
+		if ( $detailsResult->getStatus() === FinalStatus::PENDING_POKE ) {
 			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
 				// Set up recurring billing agreement.
 				$this->addRequestData( [
@@ -572,11 +493,37 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					return PaymentResult::newFailure();
 				}
 			}
+		} else {
+			$this->finalizeInternalStatus( $detailsResult->getStatus() );
 		}
 		return PaymentResult::fromResults(
-			$this->getTransactionResponse(),
+			$this->getTransactionResponse() ?? new PaymentTransactionResponse(),
 			$this->getFinalStatus()
 		);
+	}
+
+	protected function addDonorDetailsToSession( PaymentDetailResponse $detailResponse ): void {
+		$donorDetails = $detailResponse->getDonorDetails();
+		if ( $donorDetails !== null ) {
+			$responseData = [
+				'first_name' => $donorDetails->getFirstName(),
+				'last_name' => $donorDetails->getLastName(),
+				'email' => $donorDetails->getEmail(),
+				'processor_contact_id' => $detailResponse->getProcessorContactID(),
+			];
+			$address = $donorDetails->getBillingAddress();
+			if ( $address !== null ) {
+				$responseData += [
+					'city' => $address->getCity(),
+					'country' => $address->getCountryCode(),
+					'street_address' => $address->getStreetAddress(),
+					'postal_code' => $address->getPostalCode(),
+					'state_province' => $address->getPostalCode()
+				];
+			}
+			$this->addResponseData( $responseData );
+			$this->session_addDonorData();
+		}
 	}
 
 	/**
