@@ -591,6 +591,9 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'utm_key',
 			'fiscal_number',
 			'initial_scheme_transaction_id',
+			'encrypted_bank_location_id',
+			'encrypted_bank_account_number',
+			'bank_account_type',
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}

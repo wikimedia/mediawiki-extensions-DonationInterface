@@ -39,7 +39,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'payment_method',
 		'personal_info',
 		'monthly_convert',
-		'state_dropdown'
+		'state_dropdown',
+		'bank_account_type_dropdown'
 	];
 
 	/**

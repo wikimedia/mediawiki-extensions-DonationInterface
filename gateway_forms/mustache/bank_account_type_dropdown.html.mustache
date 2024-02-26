@@ -1,0 +1,9 @@
+{{# bank_account_type_visible }}
+<div class="{{ address_css_class }}">
+        <label for="bank_account_type">{{ l10n "donate_interface-donor-bank_account_type" }}</label>
+        <select id="bank_account_type" required name="bank_account_type" title="{{ l10n "donate_interface-donor-bank_account_type" }}">
+            <option value="checking" {{# selected }}selected{{/ selected }}>{{ l10n "donate_interface-donor-bank_account_checking" }}</option>
+            <option value="savings">{{ l10n "donate_interface-donor-bank_account_savings" }}</option>
+        </select>
+    </div>
+{{/ bank_account_type_visible }}

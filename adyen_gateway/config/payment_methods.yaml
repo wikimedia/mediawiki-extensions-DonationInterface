@@ -6,6 +6,14 @@ cc:
         country: true
         name: true
         email: true
+ach:
+    recurring: false
+    label: ACH direct debit
+    validation:
+        country: true
+        name: true
+        email: true
+        bank_account_type: true
 rtbt:
     recurring: true
     label: Real time bank transfer

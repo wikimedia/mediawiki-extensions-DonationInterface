@@ -46,6 +46,7 @@
 				config.showBrandsUnderCardNumber = false;
 				return config;
 
+			case 'ach':
 			case 'ideal':
 			case 'onlineBanking_CZ':
 				// for cc, CZ bank transfers, and ideal, additional config is optional
@@ -282,9 +283,11 @@
 	 */
 	function mapPaymentMethodToComponentType( paymentMethod ) {
 		switch ( paymentMethod ) {
+			case 'ach':
+				return 'ach';
 			case 'cc':
 				return 'card';
-			case 'rtbt':
+			case 'rtbt': //sepa
 			case 'bt':
 				if ( country === 'CZ' ) {
 					return 'onlineBanking_CZ';
@@ -337,6 +340,21 @@
 			// the onAuthorized handler.
 			if ( mw.donationInterface.validation.validate() && state.isValid ) {
 				switch ( payment_method ) {
+					case 'ach':
+						extraData = {
+							encrypted_bank_account_number: state.data.paymentMethod.encryptedBankAccountNumber,
+							encrypted_bank_location_id: state.data.paymentMethod.encryptedBankLocationId,
+							full_name: state.data.paymentMethod.ownerName,
+							bank_account_type: $( '#bank_account_type' ).val(),
+							// below are billing address, optional but good to have for civi
+							supplemental_address_1: state.data.billingAddress.houseNumberOrName,
+							country: state.data.billingAddress.country,
+							street_address: state.data.billingAddress.street,
+							postal_code: state.data.billingAddress.postalCode,
+							city: state.data.billingAddress.city,
+							state_province: state.data.billingAddress.stateOrProvince
+						};
+						break;
 					case 'rtbt':
 						if ( state.data.paymentMethod.type === 'ideal' ) {
 							extraData = {
@@ -699,7 +717,6 @@
 		if ( payment_method === 'google' ) {
 			loadScript( 'google' );
 		}
-
 		loadScript( 'adyen' );
 	} );
 } )( jQuery, mediaWiki );
