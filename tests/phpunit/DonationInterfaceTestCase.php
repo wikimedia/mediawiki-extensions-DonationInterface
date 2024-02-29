@@ -20,6 +20,7 @@ use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingDatabase;
 use SmashPig\Tests\TestingGlobalConfiguration;
 use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\RemexHtml\DOM;
@@ -107,6 +108,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	}
 
 	public static function setUpSmashPigContext() {
+		TestingDatabase::clearStatics();
 		// Replace real SmashPig context with test version that lets us
 		// override provider configurations that may be set in code
 		self::$smashPigGlobalConfig = TestingGlobalConfiguration::create();
@@ -476,7 +478,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			$unwrapped->instance = null;
 		}
 		// Reset SmashPig context
-		Context::set( null );
+		Context::set();
 		self::setUpSmashPigContext();
 		// Clear out our HashBagOStuff, used for testing
 		ObjectCache::getLocalClusterInstance()->clear();
