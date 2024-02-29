@@ -450,8 +450,8 @@
 	"donate_interface-error-http-403": "您没有权限访问该页面。",
 	"donate_interface-statement": "维基媒体 $1",
 	"donate_interface-photo-license": "所有图片以<a href=\"$1\">在知识共享 署名-相同方式共享 4.0 国际</a>协议下提供。",
-	"donate_interface-emailprefs-thank-you-title": "感谢您",
-	"donate_interface-emailprefs-thank-you-text": "我们期望能构建一份长期的关系。",
+	"donate_interface-emailpreferences-thank-you-title": "感谢您",
+	"donate_interface-emailpreferences-thank-you-text": "我们期望能构建一份长期的关系。",
 	"donate_interface-fundraiser-maintenance-header": "暂时停机维护",
 	"donate_interface-fundraiser-maintenance-notice": "我们目前正在进行计划性的维护，因此目前不能接受捐赠。请稍后再试。如果您有任何疑问，请发邮件到$1。"
 }

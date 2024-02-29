@@ -451,7 +451,7 @@
 	"donate_interface-onetime-short": "Una sola vez",
 	"donate_interface-error-http-403": "No tienes permiso para acceder a esta página.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-emailprefs-thank-you-title": "Gracias",
+	"donate_interface-emailpreferences-thank-you-title": "Gracias",
 	"donate_interface-monthly-convert-title": "¿Deseas programar una donación mensual de <span class=\"mc-convert-ask\"></span> a partir del próximo mes?",
 	"donate_interface-monthly-convert-text": "El aporte mensual es la mejor manera de garantizar que Wikipedia siga desarrollándose.",
 	"donate_interface-monthly-convert-change-amount": "Sí, donaré mensualmente, pero un monto diferente.",
