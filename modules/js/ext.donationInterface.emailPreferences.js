@@ -1,10 +1,10 @@
 ( function ( $ ) {
 	$( function () {
-		$( '.epc-form-col-content-salutation-email-edit-link' ).click( function ( e ) {
+		$( '.emailpreferences-form-col-content-salutation-email-edit-link' ).click( function ( e ) {
 				e.preventDefault();
-			$( '.epc-form-col-content-salutation-email-edit-input' ).show();
-			$( '.epc-form-col-content-salutation-email' ).hide();
-			$( '.epc-form-col-content-salutation-email-edit' ).hide();
+			$( '.emailpreferences-form-col-content-salutation-email-edit-input' ).show();
+			$( '.emailpreferences-form-col-content-salutation-email' ).hide();
+			$( '.emailpreferences-form-col-content-salutation-email-edit' ).hide();
 		} );
 		var $submitButton = $( '#save' ),
 			$emailField = $( '#email' ),
