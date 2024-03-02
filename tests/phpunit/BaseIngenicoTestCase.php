@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use SmashPig\Core\Http\CurlWrapper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
@@ -79,7 +80,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	protected $hostedCheckoutProvider;
 
 	/**
-	 * @var PHPUnit_Framework_MockObject_MockObject|CurlWrapper
+	 * @var MockObject|CurlWrapper
 	 */
 	protected $curlWrapper;
 
