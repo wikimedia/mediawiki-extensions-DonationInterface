@@ -331,7 +331,7 @@ paytmwallet:
     logo: bank-paytm.png
     logo_hd:
         2x: bank-paytm_2x.png
-    recurring: true
+    recurring: false
     show_single_logo: true
 #picpay:
 #    label: PicPay
