@@ -323,16 +323,6 @@ oca:
     countries:
         UY: true
     recurring: true
-paytmwallet:
-    label: PayTM Wallet
-    group: bt
-    countries:
-        IN: true
-    logo: bank-paytm.png
-    logo_hd:
-        2x: bank-paytm_2x.png
-    recurring: false
-    show_single_logo: true
 #picpay:
 #    label: PicPay
 #    group: bt
