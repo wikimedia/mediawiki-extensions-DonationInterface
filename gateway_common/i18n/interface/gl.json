@@ -426,7 +426,7 @@
 	"donate_interface-onetime-short": "Única",
 	"donate_interface-error-http-403": "Non ten permiso para acceder a esta páxina.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-emailprefs-thank-you-title": "Grazas",
+	"donate_interface-emailpreferences-thank-you-title": "Grazas",
 	"donate_interface-monthly-convert-change-amount": "Si, vou doar mensualmente, pero unha cantidade diferente",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Por suposto, deixádeme elixir canto",
 	"donate_interface-monthly-convert-action-button": "Doar mensualmente",

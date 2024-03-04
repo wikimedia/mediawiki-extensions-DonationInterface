@@ -132,6 +132,9 @@ class DonationData implements LogPrefixProvider {
 		'user_name', // optional venmo name for their console
 		'customer_id', // venmo customer_id if post MC declined then remove from vault
 		'gateway_session_id', // venmo paymentContextId for retrieve customer info
+		'encrypted_bank_account_number',
+		'encrypted_bank_location_id',
+		'bank_account_type', // adyen ach bank account type: saving or checking
 	];
 
 	/**
@@ -1064,6 +1067,9 @@ class DonationData implements LogPrefixProvider {
 			'full_name',
 			'fiscal_number',
 			'initial_scheme_transaction_id',
+			'encrypted_bank_account_number',
+			'encrypted_bank_location_id',
+			'bank_account_type',
 		];
 	}
 

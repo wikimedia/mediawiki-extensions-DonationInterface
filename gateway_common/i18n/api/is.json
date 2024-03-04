@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Stefán Örvar Sigmundsson",
 			"Sveinn í Felli"
 		]
 	},
@@ -11,7 +12,7 @@
 	"apihelp-donate-param-email": "Tölvupóstfang.",
 	"apihelp-donate-param-country": "Landskóði.",
 	"apihelp-donate-param-card_num": "Greiðslukortanúmer.",
-	"apihelp-donate-param-expiration": "Gildistími.",
+	"apihelp-donate-param-expiration": "Fyrningardagsetning.",
 	"apihelp-donate-param-language": "Tungumálakóði.",
 	"apihelp-donate-example-1": "Styrkja verkefnið"
 }

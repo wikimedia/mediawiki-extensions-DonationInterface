@@ -2,7 +2,7 @@ header {
 	margin-bottom: 106px;
 }
 
-.epc-form-col-content-heading,
+.emailpreferences-form-col-content-heading,
 .ru-form-col-content-heading {
 	font-size: 1.125em;
 	line-height: 1.25;
@@ -143,11 +143,11 @@ input#email {
 	height: 2.28571429em;
 }
 
-.epc-form-col-content {
+.emailpreferences-form-col-content {
 	padding-bottom: 2em;
 }
 
-.epc-form-col-content-salutation {
+.emailpreferences-form-col-content-salutation {
 	margin-bottom: 2em;
 }
 
@@ -187,8 +187,8 @@ input#email {
 	border-color: #36c;
 }
 
-.epc-form-col-frequency .oo-ui-radioInputWidget [ type='radio' ] + span,
-.epc-form-col-frequency .oo-ui-iconWidget {
+.emailpreferences-form-col-frequency .oo-ui-radioInputWidget [ type='radio' ] + span,
+.emailpreferences-form-col-frequency .oo-ui-iconWidget {
 	top: 3px;
 }
 
@@ -233,59 +233,59 @@ input#email {
 	width: 100%;
 }
 
-.emailPrefForm .oo-ui-fieldLayout-body,
+.emailPreferencesForm .oo-ui-fieldLayout-body,
 .recurUpgradeForm .oo-ui-fieldLayout-body {
 	margin-bottom: 1em;
 }
 
-.epc-form-col-content-salutation-name {
+.emailpreferences-form-col-content-salutation-name {
 	font-size: 1.375em;
 	font-weight: bold;
 	display: block;
 }
 
-.epc-form-col-content-salutation-email {
+.emailpreferences-form-col-content-salutation-email {
 	font-size: 1.125em;
 }
 
-.epc-form-col-content-salutation-email-edit {
+.emailpreferences-form-col-content-salutation-email-edit {
 	font-weight: normal;
 }
 
-.epc-form-col-content-salutation-email-edit-link {
+.emailpreferences-form-col-content-salutation-email-edit-link {
 	font-weight: bold;
 	color: #3a25ff;
 }
 
-.epc-form-col-content-salutation-email-edit-link:hover {
+.emailpreferences-form-col-content-salutation-email-edit-link:hover {
 	text-decoration: underline;
 }
 
-.epc-form-col-content-salutation-email-edit-input {
+.emailpreferences-form-col-content-salutation-email-edit-input {
 	display: none;
 	font-weight: bold;
 }
 
-.epc-form-col-content-heading {
+.emailpreferences-form-col-content-heading {
 	font-size: 1.125em;
 	margin-bottom: 1em;
 }
 
-.epc-form-col-content .oo-ui-fieldLayout-body {
+.emailpreferences-form-col-content .oo-ui-fieldLayout-body {
 	margin-bottom: 1em;
 }
 
-.epc-form-col-content .oo-ui-fieldLayout-header {
+.emailpreferences-form-col-content .oo-ui-fieldLayout-header {
 	margin-bottom: 0.25em;
 	display: block;
 }
 
-.epc-form-col-content .oo-ui-dropdownInputWidget select {
+.emailpreferences-form-col-content .oo-ui-dropdownInputWidget select {
 	font-weight: bold;
 	height: auto;
 }
 
-.emailPrefForm,
+.emailPreferencesForm,
 .recurUpgradeForm {
 	display: inline-block;
 	vertical-align: top;
@@ -294,9 +294,9 @@ input#email {
 .recurUpgradeForm input,
 .recurUpgradeForm button,
 .recurUpgradeForm .errorMsg,
-.emailPrefForm input,
-.emailPrefForm button,
-.emailPrefForm .errorMsg {
+.emailPreferencesForm input,
+.emailPreferencesForm button,
+.emailPreferencesForm .errorMsg {
 	margin: 6px;
 }
 
@@ -317,31 +317,31 @@ main {
 	font-family: 'Helvetica Neue', 'Helvetica', 'Liberation Sans', 'Arial', sans-serif;
 }
 
-.emailPrefColumns {
+.emailPreferencesColumns {
 	width: 100%;
 	display: flex;
 	flex-flow: row nowrap;
 	place-content: stretch flex-start;
 }
 
-.emailPrefleftColumn {
+.emailPreferencesLeftColumn {
 	padding: 0 3em 0 0;
 	width: 38.5%;
 	height: auto;
 }
 
-.emailPrefleftColumn div:first-of-type {
+.emailPreferencesLeftColumn div:first-of-type {
 	margin-bottom: 1em;
 }
 
-.emailPrefRightColumn {
+.emailPreferencesRightColumn {
 	width: 61.5%;
 	border: 1px solid #eaecf0;
 	padding: 1.75em 2em;
 	height: auto;
 }
 
-.epc-form-col-content-salutation-email-edit {
+.emailpreferences-form-col-content-salutation-email-edit {
 	font-size: 1.125em;
 }
 
@@ -349,7 +349,7 @@ main {
 	margin: 0;
 }
 
-.emailPrefForm select,
+.emailPreferencesForm select,
 .recurUpgradeForm select {
 	position: relative;
 	vertical-align: middle;
@@ -373,7 +373,7 @@ main {
 	transition: background-color 100ms;
 }
 
-.emailPrefForm select option,
+.emailPreferencesForm select option,
 .recurUpgradeForm select option {
 	background-color: transparent;
 	font-size: inherit;
@@ -382,18 +382,18 @@ main {
 	padding: 5px 12px;
 }
 
-.emailPrefForm select:hover,
+.emailPreferencesForm select:hover,
 .recurUpgradeForm select:hover {
 	color: #404244;
 	background-color: #fff;
 }
 
-.emailPrefButton {
+.emailPreferencesButton {
 	text-align: center;
 	margin: 2em 0 0;
 }
 
-.emailPrefForm button,
+.emailPreferencesForm button,
 .recurUpgradeForm button {
 	border-radius: 2px;
 	cursor: pointer;

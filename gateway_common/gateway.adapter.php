@@ -4011,7 +4011,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Check if currency is in the list for $wgDonationInterfaceMonthlyConvertCountries
+	 * Check if country is in the list for $wgDonationInterfaceMonthlyConvertCountries
 	 * @return bool
 	 */
 	protected function isMonthlyConvertCountry() {

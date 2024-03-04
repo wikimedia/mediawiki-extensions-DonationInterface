@@ -29,12 +29,12 @@ argen:
 #    countries:
 #        CO: true
 #    logo: bank-bancolombia.png
-cash_bancomer:
+bancomer:
     lable: Bancomer
     group: bt
     countries:
         MX: true
-    logo: cash-bancomer.png
+    logo: bancomer.png
 banco_do_brasil:
     group: bt
     countries:
@@ -331,7 +331,7 @@ paytmwallet:
     logo: bank-paytm.png
     logo_hd:
         2x: bank-paytm_2x.png
-    recurring: true
+    recurring: false
     show_single_logo: true
 #picpay:
 #    label: PicPay

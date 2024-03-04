@@ -337,6 +337,6 @@
 	"donate_interface-monthly-short": "মাসিক",
 	"donate_interface-onetime-short": "এক-কালীন",
 	"donate_interface-statement": "উইকিমিডিয়া $1",
-	"donate_interface-emailprefs-thank-you-title": "আপনাকে ধন্যবাদ",
+	"donate_interface-emailpreferences-thank-you-title": "আপনাকে ধন্যবাদ",
 	"donate_interface-amount-legend-variant-01A": "দান করার পরিমাণ"
 }
