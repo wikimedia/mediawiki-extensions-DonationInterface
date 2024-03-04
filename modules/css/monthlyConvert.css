@@ -208,7 +208,7 @@ body.rtl .mc-close {
 	width: calc( 100% + 10px );
 	margin: 5px 0 5px 5px;
 	font-size: 14px;
-	color: #d33;
+	color: #d73333;
 }
 
 /* This prevents the WMF logo from showing through the modal */
