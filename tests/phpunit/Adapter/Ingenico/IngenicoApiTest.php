@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\Http\CurlWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
@@ -24,7 +25,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * for integration tests where we want to ensure that the whole SmashPig-
 	 * DonationInterface system is sending the correct value to Ingenico.
 	 *
-	 * @var PHPUnit_Framework_MockObject_MockObject|CurlWrapper
+	 * @var MockObject|CurlWrapper
 	 */
 	protected $curlWrapper;
 
