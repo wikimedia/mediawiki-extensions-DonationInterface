@@ -103,6 +103,7 @@ class EmailForm {
 			'sendEmail',
 			'token',
 			'recur_amount',
+			'recurringOptions',
 			'variant',
 		];
 		$templateParams = [];
@@ -110,16 +111,6 @@ class EmailForm {
 		foreach ( $paramList as $paramName ) {
 			if ( isset( $this->params[$paramName] ) ) {
 				$templateParams[$paramName] = $this->params[$paramName];
-			}
-		}
-		if ( isset( $this->params['recurringOptions'] ) ) {
-			$templateParams['recurringOptions'] = [];
-			foreach ( $this->params['recurringOptions'] as $option ) {
-				$templateParams['recurringOptions'][] = [
-					'value' => $option,
-					'locale' => $this->params['locale'],
-					'currency' => $this->params['currency']
-				];
 			}
 		}
 

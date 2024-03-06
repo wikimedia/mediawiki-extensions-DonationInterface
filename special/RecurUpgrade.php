@@ -6,6 +6,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
 	const FALLBACK_SUBPAGE = 'recurUpgradeError';
+	const FALLBACK_CURRENCY = 'USD';
 
 	const DONOR_DATA = 'Donor';
 
@@ -118,9 +119,17 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
-		$recurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 
+		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 		$currency = $recurData['currency'];
+		$optionsForSelectedCurrency = $allRecurringOptions[$currency] ?? $allRecurringOptions[self::FALLBACK_CURRENCY];
+		$optionsForTemplate = [];
+		foreach ( $optionsForSelectedCurrency as $option ) {
+			$optionsForTemplate[] = [
+				'value' => $option,
+				'value_formatted' => EmailForm::amountFormatter( $option, $locale, $currency )
+			];
+		}
 
 		return [
 			'full_name' => $recurData['donor_name'],
@@ -130,7 +139,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
-			'recurringOptions' => $recurringOptions[$currency]
+			'recurringOptions' => $optionsForTemplate
 		];
 	}
 
