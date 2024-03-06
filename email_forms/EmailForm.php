@@ -88,8 +88,22 @@ class EmailForm {
 		global $wgDonationInterfaceEmailFormHelpEmail;
 
 		$paramList = [
-			'checksum', 'contact_id', 'email', 'token', 'variant', 'first_name', 'countries',
-				'languages', 'sendEmail', 'dontSendEmail', 'full_name', 'next_sched_date', 'locale', 'recur_amount', 'language', 'currency'
+			'checksum',
+			'contact_id',
+			'countries',
+			'currency',
+			'dontSendEmail',
+			'email',
+			'first_name',
+			'full_name',
+			'language',
+			'languages',
+			'locale',
+			'next_sched_date',
+			'sendEmail',
+			'token',
+			'recur_amount',
+			'variant',
 		];
 		$templateParams = [];
 
