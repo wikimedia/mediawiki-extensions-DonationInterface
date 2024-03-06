@@ -413,7 +413,7 @@
 	"donate_interface-email-unsub-title": "Avmelding fra Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Avslutt abonnement",
 	"donate_interface-email-unsub-success": "Du har blitt fjernet fra vår epostliste",
-	"donate_interface-email-unsub-delay": "Det kan gå opptil fire dager før endringen finner sted. Vi beklager om du får noen e-poster i løpet av denne tiden. Om du har spørsmål, kontakt <$1>",
+	"donate_interface-email-unsub-delay": "Det kan gå opptil fire dager før endringen finner sted. Vi beklager om du får noen e-poster i løpet av denne tiden. Om du har spørsmål, kontakt $1",
 	"donate_interface-email-unsub-fail": "Det oppsto en feil under behandling av forespørselen, vennligst kontakt <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Er du sikker på at du vil stoppe abonnementet for <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Dette vil reservere deg mot eposter fra Wikimedia Foundation sendt til deg som donor. Du kan fortsatt motta eposter på denne adressen om den er knyttet til en konto på en av våre prosjekter. Om du har spørsmål, kontakt <a href=\"mailto:$1\">$1</a>.",

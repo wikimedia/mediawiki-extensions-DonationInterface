@@ -57,7 +57,7 @@
 	"donate_interface-sofortbanking": "Sofortbanking is een directe bankoverschrijving via DIRECTebanking.com die overschrijving voor een online donatie met je online bankgegevens mogelijk maakt. Als je bankrekening nog geen onlinemogelijkheden heeft, dan kan je gebruik maken van de optie \"Via handmatige overschrijving doneren\" op de hoofdpagina voor donaties.",
 	"donate_interface-translate-redlink2": "Of e-mail je vertaling naar translations@wikimedia.org",
 	"donate_interface-email-unsub-success": "Je bent niet langer ingeschreven op onze mailinglijst",
-	"donate_interface-email-unsub-delay": "Het kan tot vier (4) dagen duren voordat deze wijzigingen worden doorgevoerd. Sorry als je intussen nog e-mails van ons krijgt. Heb je nog vragen, neem dan contact op met <$1>",
+	"donate_interface-email-unsub-delay": "Het kan tot vier (4) dagen duren voordat deze wijzigingen worden doorgevoerd. Sorry als je intussen nog e-mails van ons krijgt. Heb je nog vragen, neem dan contact op met $1",
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden bij het verwerken van je verzoek. Neem contact op met <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Weet je zeker dat je het e-mailadres <b>$1</b> wilt uitschrijven?",
 	"donate_interface-email-unsub-warning": "Hierdoor ontvang je niet langer e-mails die Wikimedia Foundation aan jou stuurt als donateur. Als dit e-mailadres gekoppeld is aan een account van een van onze projecten, kan je toch nog e-mails op dit adres krijgen. Als je vragen hebt, neem dan contact op met <a href=\"mailto:$1\">$1</a>.",

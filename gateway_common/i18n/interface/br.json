@@ -331,7 +331,7 @@
 	"donate_interface-email-unsub-title": "Digoumanantiñ diouzh Diazezadur Wikimedia",
 	"donate_interface-email-unsub-button": "Digoumanantiñ",
 	"donate_interface-email-unsub-success": "Lamet eo bet hoc'h anv a-ziwar hor roll-skignañ ervat",
-	"donate_interface-email-unsub-delay": "Ho pedin a reomp da reiñ deomp pevar (4) devezh evit ma teufe da wir ar c'hemmoù degaset. Hon digarezit evit an holl bosteloù a c'hallfec'h resev e-pad an amzer-se. Mar fell deoc'h goulenn tra pe dra, kit e darempred gant <$1>",
+	"donate_interface-email-unsub-delay": "Ho pedin a reomp da reiñ deomp pevar (4) devezh evit ma teufe da wir ar c'hemmoù degaset. Hon digarezit evit an holl bosteloù a c'hallfec'h resev e-pad an amzer-se. Mar fell deoc'h goulenn tra pe dra, kit e darempred gant $1",
 	"donate_interface-email-unsub-fail": "C'hoarvezet ez eus ur fazi e-ser plediñ gant ho koulenn. Kit e darempred gant <$1>.",
 	"donate_interface-email-unsub-confirm": "Ha sur oc'h e fell deoc'h digoumanantiñ <b> $1 </b> ?",
 	"donate_interface-email-unsub-warning": "Digoumanantet e viot eus posteloù Diazezadur Wikimedia kaset deoc'h evel Profour. Gallout a rit c'hoazh resev posteloù d'hochomlec'h-mañ mard eo kevreet ouzh unan bennak all eus hor raktresoù. Mar fell deoc'h goulenn tra pe dra, kit e darempred gant <a href=\"mailto:$1\">$1</a>.",

@@ -410,7 +410,7 @@
 	"donate_interface-email-unsub-title": "Lasse perde l'iscrizione p'a Funnazione Uicchimèdie",
 	"donate_interface-email-unsub-button": "Lasse perde l'iscrizione",
 	"donate_interface-email-unsub-success": "Tu sì state luate cu successe d'a mailing list nuèstre",
-	"donate_interface-email-unsub-delay": "Pe piacere aspitte quattre (4) sciurne pe fà devendà effettive le cangiaminde. Nuje ne scusame pe ogne email ca t'ha arrevate durande stu tiembe. Ce tu tìne domande da fà, pe piacere condattane sus a <$1>",
+	"donate_interface-email-unsub-delay": "Pe piacere aspitte quattre (4) sciurne pe fà devendà effettive le cangiaminde. Nuje ne scusame pe ogne email ca t'ha arrevate durande stu tiembe. Ce tu tìne domande da fà, pe piacere condattane sus a $1",
 	"donate_interface-email-unsub-fail": "Avìme avùte 'nu prubbleme elaboranne 'a rechieste tove, pe' piacere condatte <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Sì secure ca tu vuè scangellà <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Quiste te lève da avè le email da 'a Wikimedia Foundation mannate a te cumme donatore. Puè ricevere angore email a st'indirizze ce jè associate a quaccheotre cunde sus a une de le pruggette nuèstre. Ce tìne domande da fà, pe piacere condattane a <a href=\"mailto:$1\">$1</a>.",

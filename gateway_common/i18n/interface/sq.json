@@ -302,7 +302,7 @@
 	"donate_interface-email-unsub-title": "Çregjistrim Fondacioni Wikimedia",
 	"donate_interface-email-unsub-button": "Çregjistrohuni",
 	"donate_interface-email-unsub-success": "Adresa juaj është hequr nga lista jonë e dërgesave.",
-	"donate_interface-email-unsub-delay": "Ju lutemi, prisni deri në katër (4) ditë para se ndryshimet të kenë efekt. Ne ju kërkojmë ndjesë për e-mail-et që keni marrë gjata kësaj kohe. Nëse keni ndonjë pyetje, ju lutemi, kontaktoni në <$1>",
+	"donate_interface-email-unsub-delay": "Ju lutemi, prisni deri në katër (4) ditë para se ndryshimet të kenë efekt. Ne ju kërkojmë ndjesë për e-mail-et që keni marrë gjata kësaj kohe. Nëse keni ndonjë pyetje, ju lutemi, kontaktoni në $1",
 	"donate_interface-email-unsub-fail": "Gjatë përpunimit të kërkesës suaj pati një gabim, ju lutemi, kontaktoni <$1>.",
 	"donate_interface-faqs": "Pyetje që bëhen shpesh",
 	"donate_interface-tax-info": "Të dhënat mbi zbritjen nga tatimi mbi fitimin.",

@@ -349,7 +349,7 @@
 	"donate_interface-email-unsub-title": "Odhlášení Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Odhlásit",
 	"donate_interface-email-unsub-success": "Byli jste úspěšně odebráni z našeho seznamu adresátů",
-	"donate_interface-email-unsub-delay": "Změny se mohou projevit až za čtyři (4) dny. Omlouváme se za veškeré e-maily, které do té doby obdržíte. Jestliže máte nějaké dotazy, kontaktujte nás prosím na adrese  <$1>.",
+	"donate_interface-email-unsub-delay": "Změny se mohou projevit až za čtyři (4) dny. Omlouváme se za veškeré e-maily, které do té doby obdržíte. Jestliže máte nějaké dotazy, kontaktujte nás prosím na adrese  $1.",
 	"donate_interface-email-unsub-fail": "Při zpracování vašeho požadavku došlo k chybě, kontaktujte prosím <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Opravdu chcete odhlásit odběr na e-mailovou adresu <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Tímto se odhlásíte z příjmu e-mailů, které vám jako dárci posílala Wikimedia Foundation. I nadále můžete dostávat další e-maily na tuto e-mailovou adresu, pokud je přiřazena k účtu na některém z našich projektů. Pokud máte jakékoli otázky, napište na <a href=\"mailto:$1\">$1</a>.",

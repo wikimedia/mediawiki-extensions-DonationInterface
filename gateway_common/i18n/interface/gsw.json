@@ -308,7 +308,7 @@
 	"donate_interface-email-unsub-title": "Wikimedia Foundation abbstelle",
 	"donate_interface-email-unsub-button": "Abbstelle",
 	"donate_interface-email-unsub-success": "Du bisch vo üsrer Mailinglischt ussegno worde",
-	"donate_interface-email-unsub-delay": "Bitte gib üs für die Änderige bis zue vier (4) Dääg Zit. Mir bitte um dyn Verständnis für d E-Mails, wo du derwyylscht dere Zit überchunnsch. Wenn no Froogge hesch, no kontaktier <$1>",
+	"donate_interface-email-unsub-delay": "Bitte gib üs für die Änderige bis zue vier (4) Dääg Zit. Mir bitte um dyn Verständnis für d E-Mails, wo du derwyylscht dere Zit überchunnsch. Wenn no Froogge hesch, no kontaktier $1",
 	"donate_interface-email-unsub-fail": "Es het en Fääler bi de Verarbeitig vo dynrer Aafroog gee, bitte due <$1> kontaktiere.",
 	"donate_interface-email-unsub-confirm": "Sin Si sicher, dass Si kei E-Mail-Benochrichtigunge me an <b>$1</b> wän iberchuu?",
 	"donate_interface-email-unsub-warning": "Dodermit entscheide Si sich, kei E-Mail me vu dr Wikimedia Foundation z iberchuu, wu Spänder zuegschickt wäre. Si chennte aber allno E-Mail iberchuu, wänn die E-Mail-Adräss mit eme Benutzerkonto vun eme Wikimedia-Projäkt verchnipft isch. Wänn Si Froge jhän, chenne Si gärn e E-Mail an <a href=\"mailto:$1\">$1</a> schicke.",

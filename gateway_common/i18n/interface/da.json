@@ -350,7 +350,7 @@
 	"donate_interface-email-unsub-title": "Framelding fra Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Afmeld",
 	"donate_interface-email-unsub-success": "Du er ikke længere på mailinglisten",
-	"donate_interface-email-unsub-delay": "Der kan gå op til fire (4) dage før ændringerne slår igennem. Vi undskylder eventuelle e-mails, du måtte modtage i mellemtiden. Hvis du har spørgsmål, kan du kontakte <$1>",
+	"donate_interface-email-unsub-delay": "Der kan gå op til fire (4) dage før ændringerne slår igennem. Vi undskylder eventuelle e-mails, du måtte modtage i mellemtiden. Hvis du har spørgsmål, kan du kontakte $1",
 	"donate_interface-email-unsub-fail": "Der skete en fejl under behandling af forespørgslen. Kontakt venligst <$1>.",
 	"donate_interface-email-unsub-confirm": "Er du sikker på, at du ønsker at stoppe abbonnementet for <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Hermed vil du ikke modtage e-mail fra Wikimedia Foundation, sendt til dig som donor. Du vil fortsat kunne modtage e-mail på denne e-mailadresse, hvis den er tilknyttet en konti i et af vores projekter. Hvis du har nogen spørgsmål, så kontakt <a href=\"mailto:$1\">$1</a> på engelsk.",

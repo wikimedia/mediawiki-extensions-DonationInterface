@@ -386,7 +386,7 @@
 	"donate_interface-email-unsub-title": "ウィキメディア財団メーリングリストの購読解除",
 	"donate_interface-email-unsub-button": "購読解除します。",
 	"donate_interface-email-unsub-success": "メーリングリストを購読解除しました",
-	"donate_interface-email-unsub-delay": "変更が反映されるまでには最大4日お待ちください。その間にメールをお届けしてしまったらお許しください。ご質問はなんでも<$1>にご連絡ください。",
+	"donate_interface-email-unsub-delay": "変更が反映されるまでには最大4日お待ちください。その間にメールをお届けしてしまったらお許しください。ご質問はなんでも$1にご連絡ください。",
 	"donate_interface-email-unsub-fail": "要求の処理エラーが発生しました、 <$1>にお問い合わせください。",
 	"donate_interface-email-unsub-confirm": "<b>$1</b>を本当に購読解除しますか?",
 	"donate_interface-email-unsub-warning": "これにより、ウィキメディア財団がご寄付者に送信するメールのお届け先から外されました。もしこのメールアドレスがウィキメディア財団のいずれかのプロジェクト上のアカウントと関連付けられている場合は、今後もメールをお届けする場合があります。ご質問はなんでも<a href=\"mailto:$1\">$1</a> にご連絡ください。",

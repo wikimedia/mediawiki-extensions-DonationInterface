@@ -393,7 +393,7 @@
 	"donate_interface-email-unsub-title": "Atsisakyti Wikimedia Foundation pranešimų",
 	"donate_interface-email-unsub-button": "Nutraukti prenumeratą",
 	"donate_interface-email-unsub-success": "Jūs buvote sėkmingai pašalintas(-a) iš mūsų turimų el. pašto adresų sąrašo",
-	"donate_interface-email-unsub-delay": "Pakeitimai įsigalios per keturias (4) dienas. Atsiprašome, jei gausite el. pašto pranešimų per šį laikotarpį. Jei turite bet kokių klausimų, maloniai prašome susisiekti su <$1>",
+	"donate_interface-email-unsub-delay": "Pakeitimai įsigalios per keturias (4) dienas. Atsiprašome, jei gausite el. pašto pranešimų per šį laikotarpį. Jei turite bet kokių klausimų, maloniai prašome susisiekti su $1",
 	"donate_interface-email-unsub-fail": "Vykdant Jūsų užklausą įvyko klaida, prašome susisiekti su <$1>.",
 	"donate_interface-email-unsub-confirm": "Ar tikrai norite atsisakyti prenumeratos <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Taip jūs atsisakysite el. laiškų, kuriuos gaunate iš Vikimedijos Fondo kaip donoras. Vis dar gausite laiškus į šį el. paštą, jei jis yra susijęs su paskyra viename iš mūsų projektų. Jei turite klausimų, prašome susisiekti <a href=\"mailto:$1\">$1</a>.",

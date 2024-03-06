@@ -373,7 +373,7 @@
 	"donate_interface-email-unsub-title": "Afbeschtälle — Donn de Wikimeedija-Schtefftong ier Nohreeschte nit wigger abbonneere",
 	"donate_interface-email-unsub-button": "Afbeschtälle un nimmih Abonehre",
 	"donate_interface-email-unsub-success": "Do bes jäz nit mih op onsem <i lang=\"en\">e-mail</i>-Verdeiler.",
-	"donate_interface-email-unsub-delay": "Bess_esu_jood_un lohß ons vier Dähsch Zigg, bes Ding Änderonge fähdesch verärbeidt sin. Mer äntscholdijje ons för <i lang=\"en\">e-mails</i>, di De en dä Zigg kreß. Wann De Frohre häs, donn ons schrihve, aan: <code lang=\"en\" xml:lang=\"en\" dir=\"ltr\"><$1></code>",
+	"donate_interface-email-unsub-delay": "Bess_esu_jood_un lohß ons vier Dähsch Zigg, bes Ding Änderonge fähdesch verärbeidt sin. Mer äntscholdijje ons för <i lang=\"en\">e-mails</i>, di De en dä Zigg kreß. Wann De Frohre häs, donn ons schrihve, aan: <code lang=\"en\" xml:lang=\"en\" dir=\"ltr\">$1</code>",
 	"donate_interface-email-unsub-fail": "Ene Fähler es opjetrodde, bess_esu_jood_un donn ons schriive, aan: <code lang=\"en\"><$1></code>",
 	"donate_interface-email-unsub-confirm": "Wells De verhaftesch de Adräß <b>$1</b> ußdraare?",
 	"donate_interface-faqs": "Öff jeschtallte Froore un dänne ier Antwoote",

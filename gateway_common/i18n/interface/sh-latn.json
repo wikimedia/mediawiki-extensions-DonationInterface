@@ -347,7 +347,7 @@
 	"donate_interface-email-unsub-title": "Otkazivanje pretplate poruka od Fondacije Wikimedia",
 	"donate_interface-email-unsub-button": "Otkaži pretplatu",
 	"donate_interface-email-unsub-success": "Uspješno ste uklonjeni s naše dopisne liste",
-	"donate_interface-email-unsub-delay": "Molimo pričekajte do četiri dana da izmjene budu aktivirane. Ispričavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, molimo javite nam se na <$1>",
+	"donate_interface-email-unsub-delay": "Molimo pričekajte do četiri dana da izmjene budu aktivirane. Ispričavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, molimo javite nam se na $1",
 	"donate_interface-email-unsub-fail": "Došlo je do pogreške pri obradi vašeg zahtjeva, molimo javite nam se na <$1>.",
 	"donate_interface-email-unsub-confirm": "Jeste li sigurni da želite otkazati pretplatu na <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Sa ovim odabirate da ne dobivati e-mailove što šalje Fondacija Wikimedia donatorima. Adresu i dalje ćete moći koristiti za primanje e-poruka od drugih korisnika ako je povezana s jednim od naših projekata. Ako imate pitanja, javite se na adresu <a href=\"mailto:$1\">$1</a>.",

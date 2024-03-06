@@ -399,7 +399,7 @@
 	"donate_interface-email-unsub-title": "Cancelar a subscrición á Fundación Wikimedia",
 	"donate_interface-email-unsub-button": "Cancelar a subscrición",
 	"donate_interface-email-unsub-success": "Eliminamos correctamente o teu nome da lista de correo",
-	"donate_interface-email-unsub-delay": "Pode levar ata catro (4) días que os cambios se fagan efectivos. Pedimos desculpas polos correos electrónicos que poidas recibir estes días. Se tes algunha pregunta, ponte en contacto con nós no enderezo <$1>",
+	"donate_interface-email-unsub-delay": "Pode levar ata catro (4) días que os cambios se fagan efectivos. Pedimos desculpas polos correos electrónicos que poidas recibir estes días. Se tes algunha pregunta, ponte en contacto con nós no enderezo $1",
 	"donate_interface-email-unsub-fail": "Houbo un erro ao procesar a túa solicitude; ponte en contacto con nós no enderezo <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Estás seguro de querer cancelar a subscrición a <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Isto cancelará os correos electrónicos que a Fundación Wikimedia che envía como doante. Poida que sigas recibindo correos se este enderezo está asociado a unha conta nun dos nosos proxectos. Se tes dúbidas ou preguntas, ponte en contacto con nós no enderezo <a href=\"mailto:$1\">$1</a>.",

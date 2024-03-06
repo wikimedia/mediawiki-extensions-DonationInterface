@@ -307,7 +307,7 @@
 	"donate_interface-email-unsub-title": "Anular l’abonement de la Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Anular l’abonement",
 	"donate_interface-email-unsub-success": "Vos éd étâ enlevâ avouéc reusséta de noutra lista de difusion",
-	"donate_interface-email-unsub-delay": "Nos volyéd balyér quatro (4) jorns por que los changements devegnont èfèctifs. Nos nos èxcusens por totes les adrèces èlèctroniques que vos porriâd adés recêvre pendent cél temps. Se vos avéd des quèstions, vos volyéd veriér vers <$1>",
+	"donate_interface-email-unsub-delay": "Nos volyéd balyér quatro (4) jorns por que los changements devegnont èfèctifs. Nos nos èxcusens por totes les adrèces èlèctroniques que vos porriâd adés recêvre pendent cél temps. Se vos avéd des quèstions, vos volyéd veriér vers $1",
 	"donate_interface-email-unsub-fail": "Una èrror est arrevâ pendent lo trètament de voutra requéta, vos volyéd veriér vers <$1>.",
 	"donate_interface-email-unsub-confirm": "Éte-vos de sûr de volêr anular l’abonement <b>$1</b> ?",
 	"donate_interface-email-unsub-warning": "Cen anulerat voutron abonement des mèssâjos de la Wikimedia Foundation que vos sont mandâs coment donator. Vos pouede adés recêvre des mèssâjos a cela adrèce èlèctronica s’el est associyê a un compto de yon de noutros projèts. Se vos avéd des quèstions, vos volyéd veriér vers <a href=\"mailto:$1\">$1</a>.",

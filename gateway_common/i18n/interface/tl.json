@@ -352,7 +352,7 @@
 	"donate_interface-email-unsub-title": "Huwag nang magpasipi sa Pundasyong Wikimedia",
 	"donate_interface-email-unsub-button": "Pahintuin na ang pagtanggap ng sipi",
 	"donate_interface-email-unsub-success": "Matagumpay kang itinanggal mula sa aming pangkoreong tala",
-	"donate_interface-email-unsub-delay": "Paki magpahintulot ng magpahanggang sa apat (4) na mga araw upang maganap ang mga pagbabago. Nagpapaumanhin kami sa anumang mga elektronikong liham na matatanggap mo habang nasa loob ng panahong ito. Kung mayroon kang mga katanungan, paki makipag-ugnayan sa <$1>",
+	"donate_interface-email-unsub-delay": "Paki magpahintulot ng magpahanggang sa apat (4) na mga araw upang maganap ang mga pagbabago. Nagpapaumanhin kami sa anumang mga elektronikong liham na matatanggap mo habang nasa loob ng panahong ito. Kung mayroon kang mga katanungan, paki makipag-ugnayan sa $1",
 	"donate_interface-email-unsub-fail": "Nagkaroon ng isang kamalian sa pagsasagawa ng kahilingan mo, paki makipag-ugnayan sa <$1>.",
 	"donate_interface-email-unsub-confirm": "Nakakatiyak ka bang nais mong huwag nang magpasipi <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Hindi ka na isasali nito sa mga elektronikong liham magmula sa Pundasyon ng Wikimedia na ipinadadala sa iyo bilang isang tagapagkaloob. Maaaring makatanggap ka pa rin ng mga e-liham na papunta sa tirahang ito ng e-liham kung nakaugnay ito sa isang akawnt na nasa isa sa aming mga proyekto. Kung mayroong mga katanungan, paki makipag-ugnayan sa <a href=\"mailto:$1\">$1</a>.",

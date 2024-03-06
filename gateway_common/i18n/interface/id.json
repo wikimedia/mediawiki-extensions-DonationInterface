@@ -382,7 +382,7 @@
 	"donate_interface-email-unsub-title": "Berhenti berlangganan Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Berhenti berlangganan",
 	"donate_interface-email-unsub-success": "Anda telah berhasil menghapus diri Anda dari milis kami.",
-	"donate_interface-email-unsub-delay": "Harap tunggu hingga empat (4) hari sebelum perubahan diterapkan. Kami memohon maaf atas surel apa pun yang pernah Anda terima selama ini. Jika Anda memiliki pertanyaan, silakan hubungi <$1>",
+	"donate_interface-email-unsub-delay": "Harap tunggu hingga empat (4) hari sebelum perubahan diterapkan. Kami memohon maaf atas surel apa pun yang pernah Anda terima selama ini. Jika Anda memiliki pertanyaan, silakan hubungi $1",
 	"donate_interface-email-unsub-fail": "Terjadi galat saat memproses permintaan Anda, silakan hubungi <$1>.",
 	"donate_interface-email-unsub-confirm": "Apakah Anda yakin ingin berhenti berlangganan <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Ini akan mengecualikan Anda dari surel yang dikirimkan dari Wikimedia Foundation kepada Anda selaku donatur. Anda mungkin masih akan menerima surel di alamat surel ini jika ada hal yang berkaitan dengan akun Anda pada salah satu proyek kami. Jika Anda memiliki pertanyaan, silakan hubungi <a href=\"mailto:$1\">$1</a>.",

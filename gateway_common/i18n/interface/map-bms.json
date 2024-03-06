@@ -293,7 +293,7 @@
 	"donate_interface-email-unsub-title": "Mandeg sekang langganan berita Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Mandeg langganane",
 	"donate_interface-email-unsub-success": "Rika uwis berhasil mbusek jenenge Rika sekang milis Wikimedia Foundation.",
-	"donate_interface-email-unsub-delay": "Tulung dienteni gutul patang dina ben owahan mau bisa dadi. Inyong nyuwun ngapura nggo imel sing bakal ditampa Rika nang wektu kuwe. Anggere Rika nduwe pitakonan, monggo hubungi <$1>",
+	"donate_interface-email-unsub-delay": "Tulung dienteni gutul patang dina ben owahan mau bisa dadi. Inyong nyuwun ngapura nggo imel sing bakal ditampa Rika nang wektu kuwe. Anggere Rika nduwe pitakonan, monggo hubungi $1",
 	"donate_interface-email-unsub-fail": "Ana sing salah dong lagi mroses penjaluke Rika, monggo hubungi <$1>.",
 	"donate_interface-faqs": "Pitakonan sing sering ditakokna",
 	"donate_interface-tax-info": "Informasi pengurangan pajak",

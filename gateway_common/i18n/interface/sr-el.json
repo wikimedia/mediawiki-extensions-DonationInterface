@@ -351,7 +351,7 @@
 	"donate_interface-email-unsub-title": "Otkazivanje pretplate — Zadužbina Vikimedija",
 	"donate_interface-email-unsub-button": "Otkaži pretplatu",
 	"donate_interface-email-unsub-success": "Uklonjeni ste s naše dopisne liste",
-	"donate_interface-email-unsub-delay": "Treba da sačekate do četiri dana da se sprovedu izmene. Izvinjavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, obratite nam se na <$1>",
+	"donate_interface-email-unsub-delay": "Treba da sačekate do četiri dana da se sprovedu izmene. Izvinjavamo se ako u međuvremenu dobijete neke poruke. Ako imate pitanja, obratite nam se na $1",
 	"donate_interface-email-unsub-fail": "Došlo je do greške pri obrađivanju vašeg zahteva. Obratite nam se na <$1>.",
 	"donate_interface-email-unsub-confirm": "Zaista želite da otkažete pretplatu na <b>$1</b>?",
 	"donate_interface-faqs": "Često postavljana pitanja",

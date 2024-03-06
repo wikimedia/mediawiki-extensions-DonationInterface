@@ -334,7 +334,7 @@
 	"donate_interface-email-unsub-title": "Dad-danysgrifio i Sefydliad Wikimedia",
 	"donate_interface-email-unsub-button": "Dad-tanysgrifio",
 	"donate_interface-email-unsub-success": "Cawsoch eich symud o'n rhestr bostio yn llwyddiannus.",
-	"donate_interface-email-unsub-delay": "Gall newidiadau gymryd pedwar (4) diwrnod i ddod i rym. Ymddiheurwn os derbyniwch e-byst yn ystod y cyfnod hwn. Os oes cwestiynau gennych, cysylltwch â <$1>.",
+	"donate_interface-email-unsub-delay": "Gall newidiadau gymryd pedwar (4) diwrnod i ddod i rym. Ymddiheurwn os derbyniwch e-byst yn ystod y cyfnod hwn. Os oes cwestiynau gennych, cysylltwch â $1.",
 	"donate_interface-email-unsub-fail": "Cafwyd gwall tra'n prosesu'ch cais. Cysylltwch â <$1> os gwelwch yn dda.",
 	"donate_interface-email-unsub-confirm": "Ydych chi'n siwr nad ydych am i <b>$1</b> dderbyn e-byst gennym rhagor?",
 	"donate_interface-email-unsub-warning": "Ni fyddwch yn derbyn e-byst oddi wrth Sefydliad Wikimedia yn rhinwedd eich cyfraniad. Fe fyddwch yn parhau i dderbyn e-byst i'r cyfeiriad hwn yn ôl eich dewisiadau ar unrhyw un o'n prosiectau. Os ydych am holi cwestiwn, cysylltwch â <a href=\"mailto:$1\">$1</a>.",

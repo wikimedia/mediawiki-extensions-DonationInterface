@@ -345,7 +345,7 @@
 	"donate_interface-email-unsub-title": "Wikimédia Alapítvány leiratkozás",
 	"donate_interface-email-unsub-button": "Leiratkozás",
 	"donate_interface-email-unsub-success": "Sikeresen leiratkoztál a levelezési listánkról",
-	"donate_interface-email-unsub-delay": "Kérlek, várj négy (4) napot, a változtatások ennyi idő alatt lépnek életbe. Elnézésedet kérjük, ha a köztes időben küldött levelek kellemetlenséget okoznak. Ha kérdésed van, írj a <$1> címre.",
+	"donate_interface-email-unsub-delay": "Kérlek, várj négy (4) napot, a változtatások ennyi idő alatt lépnek életbe. Elnézésedet kérjük, ha a köztes időben küldött levelek kellemetlenséget okoznak. Ha kérdésed van, írj a $1 címre.",
 	"donate_interface-email-unsub-fail": "Hiba történt a kérés feldolgozása közben, kérlek, írj a <$1> címre.",
 	"donate_interface-email-unsub-confirm": "Biztosan le akarsz iratkozni a <b>$1</b> címmel?",
 	"donate_interface-email-unsub-warning": "Ezzel leiratkozol a Wikimédia Alapítványtól kapott levelekről, mint adományozó. Ha más projektekben is ezt az email címet adtad meg, azoktól még érkezhetnek levelek. Kérdés esetén írj erre a címre:  <a ref=\"mailto:$1\">$1</a>.",

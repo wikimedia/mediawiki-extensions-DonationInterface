@@ -323,7 +323,7 @@
 	"donate_interface-email-unsub-title": "Wikimedia Foundation nisqamanta amaña imatapas kachamuwaychu",
 	"donate_interface-email-unsub-button": "Amaña imatapas kachamuwaychu",
 	"donate_interface-email-unsub-success": "Imamaytaykiqa e-chaski kachana sutisuyuykumanta qichusqañam",
-	"donate_interface-email-unsub-delay": "Ama hina kaspa, suyallay, tawa (4) p'unchawkamachá unanqa hukchasqakuna aypanankama. Ama hina kaspa, pampachawayku chaskinayki e-chaskiykumanta kay pachapi. Tapuwayta munaspaykiqa, e-chaskiykita kayman kachamuway: <$1>",
+	"donate_interface-email-unsub-delay": "Ama hina kaspa, suyallay, tawa (4) p'unchawkamachá unanqa hukchasqakuna aypanankama. Ama hina kaspa, pampachawayku chaskinayki e-chaskiykumanta kay pachapi. Tapuwayta munaspaykiqa, e-chaskiykita kayman kachamuway: $1",
 	"donate_interface-email-unsub-fail": "Mañasqayki llamk'apusqa kaptin pantasqam tukurqan. Ama hina kaspa, tapuyta munaspaykiqa <$1> nisqaman e-chaskita kachay.",
 	"donate_interface-email-unsub-confirm": "Chiqapta yachankichu, manañachu <b>$1</b> nisqamanta e-chaskikunata chaskiyta munankichu?",
 	"donate_interface-email-unsub-warning": "Kayta akllaptiykiqa, Wikimedia Foundation nisqaqa qaraqpaq e-chaskikunata manañam kachamusunkichu. Wikimediap huk ruraykamayninkunapi llamk'aptiykiqa kay e-chaski imamaytaman e-chaskikunata kachamusunkiraqchá. Imatapas tapuwayta munaspaykiqa, e-chaskiykita kayman kachamuwayku: <a href=\"mailto:$1\">$1</a>.",

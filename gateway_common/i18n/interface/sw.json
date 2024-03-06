@@ -243,7 +243,7 @@
 	"donate_interface-email-unsub-title": "Kutopokea habari za Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Nisipokee habari",
 	"donate_interface-email-unsub-success": "Jina lako limetolewa kutoka katika orodha ya watu wanaopokea habari zetu",
-	"donate_interface-email-unsub-delay": "Badiliko hili linaweza kuchukua hadi siku nne kukamilishwa. Ukipokea barua pepe toka kwetu wakati huo, kumradhi. Ukiwa na maswali, uliza kwa anwani ya <$1>.",
+	"donate_interface-email-unsub-delay": "Badiliko hili linaweza kuchukua hadi siku nne kukamilishwa. Ukipokea barua pepe toka kwetu wakati huo, kumradhi. Ukiwa na maswali, uliza kwa anwani ya $1.",
 	"donate_interface-email-unsub-fail": "Kulitokea hitilafu wakati wa kutekeleza ombi lako. Tafadhali andika kwa <$1>.",
 	"donate_interface-email-unsub-confirm": "Una uhakika kwamba unataka kutolea  <b>$1</b> kutoka katika orodha ya watu wanaopokea habari zetu?",
 	"donate_interface-faqs": "Maswali yanayoulizwa mara kwa mara",

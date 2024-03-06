@@ -447,7 +447,7 @@
 	"donate_interface-email-unsub-title": "Cancelar cadastro da Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Cancelar inscrição",
 	"donate_interface-email-unsub-success": "Você foi removido da nossa lista de correio com sucesso",
-	"donate_interface-email-unsub-delay": "Aguarde até quatro (4) dias para que as alterações entrem em vigor. Pedimos desculpas por qualquer e-mail recebido durante este período. Se tiver alguma dúvida, entre em contato no endereço <$1>",
+	"donate_interface-email-unsub-delay": "Aguarde até quatro (4) dias para que as alterações entrem em vigor. Pedimos desculpas por qualquer e-mail recebido durante este período. Se tiver alguma dúvida, entre em contato no endereço $1",
 	"donate_interface-email-unsub-fail": "Ocorreu um erro no processamento do seu pedido, por favor contate <$1>.",
 	"donate_interface-email-unsub-confirm": "Tem certeza de que deseja descadastrar o e-mail <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Isso cancelará os e-mails que a Wikimedia Foundation te envia como doador. Você pode continuar recebendo e-mails se o endereço estiver associado a uma conta em um de nossos projetos. Se você tiver perguntas, entre em contato conosco no endereço <a href=\"mailto:$1\">$1</a>.",

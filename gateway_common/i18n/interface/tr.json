@@ -407,7 +407,7 @@
 	"donate_interface-email-unsub-title": "Wikimedia Vakfı aboneliğinden çık",
 	"donate_interface-email-unsub-button": "Abonelikten çık",
 	"donate_interface-email-unsub-success": "Posta listemizden başarıyla çıkarıldınız",
-	"donate_interface-email-unsub-delay": "Değişikliklerin geçerli olması için lütfen dört (4) güne kadar bekleyin. Bu süre zarfında aldığınız e-postalar için özür dileriz. Herhangi bir sorunuz varsa lütfen <$1> adresine iletişime geçin",
+	"donate_interface-email-unsub-delay": "Değişikliklerin geçerli olması için lütfen dört (4) güne kadar bekleyin. Bu süre zarfında aldığınız e-postalar için özür dileriz. Herhangi bir sorunuz varsa lütfen $1 adresine iletişime geçin",
 	"donate_interface-email-unsub-fail": "İsteğiniz işlenirken bir hata oluştu, lütfen <a href=\"mailto:$1\">$1</a> adresine iletişime geçin.",
 	"donate_interface-email-unsub-confirm": "<b>$1</b> üyeliğini abonelikten çıkmak istediğinizden emin misiniz?",
 	"donate_interface-email-unsub-warning": "Bu, sizi Wikimedia Vakfı'ndan bağışçı olarak size gönderilen e-postalardan alıkoyacaktır. Projelerimizden birindeki bir hesapla ilişkilendirilmişse, bu e-posta adresine yine de e-posta alabilirsiniz. Herhangi bir sorunuz varsa, lütfen <a href=\"mailto:$1\">$1</a> adresimize iletişime geçin.",

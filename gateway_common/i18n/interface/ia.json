@@ -394,7 +394,7 @@
 	"donate_interface-email-unsub-title": "Cancellar le subscription al Fundation Wikimedia",
 	"donate_interface-email-unsub-button": "Cancellar subscription",
 	"donate_interface-email-unsub-success": "Tu ha essite removite de nostre lista de diffusion",
-	"donate_interface-email-unsub-delay": "Per favor permitte usque a quatro (4) dies pro effectuar le cambios. Nos nos excusa pro omne e-mail que tu pote reciper durante iste tempore. Si tu ha questiones, per favor contacta <$1>",
+	"donate_interface-email-unsub-delay": "Per favor permitte usque a quatro (4) dies pro effectuar le cambios. Nos nos excusa pro omne e-mail que tu pote reciper durante iste tempore. Si tu ha questiones, per favor contacta $1",
 	"donate_interface-email-unsub-fail": "Occurreva un error durante le processamento de tu requesta, per favor contacta <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Es tu secur de voler disabonar <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Isto te disabonara de messages de e-mail ab le Fundation Wikimedia que es inviate a te qua donator. Tu pote continuar a reciper e-mail a iste adresse si illo es associate con un conto sur un de nostre projectos. Si tu ha questiones, per favor contacta <a href=\"mailto:$1\">$1</a>.",
