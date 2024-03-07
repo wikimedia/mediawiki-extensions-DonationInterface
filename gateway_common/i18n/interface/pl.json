@@ -376,7 +376,7 @@
 	"donate_interface-email-unsub-title": "Anuluj korespondencję z Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Zrezygnuj z subskrypcji",
 	"donate_interface-email-unsub-success": "Twój adres został usunięty z naszej listy mailingowej",
-	"donate_interface-email-unsub-delay": "Proszę poczekać do czterech (4) dni, zanim zmiany zaczną obowiązywać. Przepraszamy za wszystkie wiadomości e‐mail, które otrzymasz w tym czasie. Jeśli masz jakieś pytania, prosimy o kontakt <$1>",
+	"donate_interface-email-unsub-delay": "Proszę poczekać do czterech (4) dni, zanim zmiany zaczną obowiązywać. Przepraszamy za wszystkie wiadomości e‐mail, które otrzymasz w tym czasie. Jeśli masz jakieś pytania, prosimy o kontakt $1",
 	"donate_interface-email-unsub-fail": "Wystąpił błąd podczas przetwarzania Twojego żądania, prosimy o kontakt pod adresem <$1>.",
 	"donate_interface-email-unsub-confirm": "Czy chcesz anulować subskrypcję <b> $1 </b>?",
 	"donate_interface-email-unsub-warning": "Spowoduje to usunięcie Ciebie z listy mailingowej Wikimedia Foundation jako darczyńcy. Możesz jednakże nadal otrzymywać wiadomości e‐mail na ten adres, jeżeli jesteś zarejestrowany jako uczestnik jednego z naszych projektów. Jeśli masz pytania, skontaktuj się z <a href=\"mailto:$1\">$1</a>.",

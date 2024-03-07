@@ -305,7 +305,7 @@
 	"donate_interface-email-unsub-title": "Ħassar mill-Fondazzjoni Wikimedia",
 	"donate_interface-email-unsub-button": "Ħassar l-abbonament",
 	"donate_interface-email-unsub-success": "Ġejt imneħħi mil-lista postali tagħna",
-	"donate_interface-email-unsub-delay": "Ħalli erbat (4) ijiem għall-bidliet biex isiru. Niskużaw rwieħna għal kwalunkwe posta elettronika li tirċievi matul dan il-perjodu. Jekk għandek xi mistoqsija, ikkuntatjana lil <$1>",
+	"donate_interface-email-unsub-delay": "Ħalli erbat (4) ijiem għall-bidliet biex isiru. Niskużaw rwieħna għal kwalunkwe posta elettronika li tirċievi matul dan il-perjodu. Jekk għandek xi mistoqsija, ikkuntatjana lil $1",
 	"donate_interface-email-unsub-fail": "Kien hemm żball fl-ipproċessar tar-rikjeta tiegħek, ikkuntatja lil <$1>.",
 	"donate_interface-email-unsub-confirm": "Inti ċerti li tixtieq tħassar l-abbonament <b>$1</b>?",
 	"donate_interface-faqs": "Mistoqsijiet rikorrenti",

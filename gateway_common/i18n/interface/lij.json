@@ -341,7 +341,7 @@
 	"donate_interface-email-unsub-title": "Cançelaçion da-a Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Annulla l'inscriçion",
 	"donate_interface-email-unsub-success": "T'ê stæto rimosso con successo da-a nostra mailing list",
-	"donate_interface-email-unsub-delay": "Attendi scin a 4 quattro giorni perchè e modiffiche aggian effetto. Se scusemmo pe quasesegge e-mail che ti riçeviæ durante questo periodo. Se ti g'hæ de domande contatta <$1>",
+	"donate_interface-email-unsub-delay": "Attendi scin a 4 quattro giorni perchè e modiffiche aggian effetto. Se scusemmo pe quasesegge e-mail che ti riçeviæ durante questo periodo. Se ti g'hæ de domande contatta $1",
 	"donate_interface-email-unsub-fail": "Gh'è stætto un errô d'elaboaçion da to domanda, contatta <$1>.",
 	"donate_interface-email-unsub-confirm": "T'ê seguo de voei annulâ l'inscriçion <b> $1 </b>?",
 	"donate_interface-email-unsub-warning": "Coscì no ti riçeviæ ciù e e-mail che Wikimedia Foundation a spedisce a-i donatoî. Ti poriesci ancon riçeive di messaggi a questo adresso e-mail qualoa o foise associou a un'utenza inte-un di nostri progetti. Se ti g'hæ quarche domanda, contatta <a href=\"mailto:$1\">$1</a>. Graççie.",

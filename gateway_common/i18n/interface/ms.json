@@ -335,7 +335,7 @@
 	"donate_interface-email-unsub-title": "Nyahlanggan Yayasan Wikimedia",
 	"donate_interface-email-unsub-button": "Berhenti melanggan",
 	"donate_interface-email-unsub-success": "Anda telah digugurkan daripada senarai mel kami",
-	"donate_interface-email-unsub-delay": "Sila berikan empat (4) hari untuk perubahan dilaksanakan. Kami memohon maaf atas sebarang e-mel yang anda terima ketika ini. Jika anda ada persoalan, sila hubungi <$1>",
+	"donate_interface-email-unsub-delay": "Sila berikan empat (4) hari untuk perubahan dilaksanakan. Kami memohon maaf atas sebarang e-mel yang anda terima ketika ini. Jika anda ada persoalan, sila hubungi $1",
 	"donate_interface-email-unsub-fail": "Terdapat ralat ketika memproseskan permintaan anda, sila hubungi <$1>.",
 	"donate_interface-email-unsub-confirm": "Adakah anda benar-benar ingin berhenti melanggan <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Ini akan membuat anda tidak menerima pesanan-pesanan e-mel yang dihantar oleh Yayasan Wikimedia kepada anda selaku penderma. Anda masih boleh menerima e-mel kepada alamat e-mel ini jika ia dikaitkan dengan suatu akaun di mana-mana projek kami. Jika anda ada sebarang soalan, sila hubungi <a href=\"mailto:$1\">$1</a>.",

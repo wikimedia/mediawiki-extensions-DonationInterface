@@ -88,24 +88,29 @@ class EmailForm {
 		global $wgDonationInterfaceEmailFormHelpEmail;
 
 		$paramList = [
-			'checksum', 'contact_id', 'email', 'token', 'variant', 'first_name', 'countries',
-				'languages', 'sendEmail', 'dontSendEmail', 'full_name', 'next_sched_date', 'locale', 'recur_amount', 'language', 'currency'
+			'checksum',
+			'contact_id',
+			'countries',
+			'currency',
+			'dontSendEmail',
+			'email',
+			'first_name',
+			'full_name',
+			'language',
+			'languages',
+			'locale',
+			'next_sched_date',
+			'sendEmail',
+			'token',
+			'recur_amount',
+			'recurringOptions',
+			'variant',
 		];
 		$templateParams = [];
 
 		foreach ( $paramList as $paramName ) {
 			if ( isset( $this->params[$paramName] ) ) {
 				$templateParams[$paramName] = $this->params[$paramName];
-			}
-		}
-		if ( isset( $this->params['recurringOptions'] ) ) {
-			$templateParams['recurringOptions'] = [];
-			foreach ( $this->params['recurringOptions'] as $option ) {
-				$templateParams['recurringOptions'][] = [
-					'value' => $option,
-					'locale' => $this->params['locale'],
-					'currency' => $this->params['currency']
-				];
 			}
 		}
 

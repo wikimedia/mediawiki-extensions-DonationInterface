@@ -369,7 +369,7 @@
 	"donate_interface-email-unsub-title": "Malaliĝo de Vikimedia Fondaĵo",
 	"donate_interface-email-unsub-button": "Malaliĝi",
 	"donate_interface-email-unsub-success": "Vi sukcese malaliĝis de nia dissendolisto",
-	"donate_interface-email-unsub-delay": "Bonvolu permesi almenaŭ kvar (4) tagojn por ke la ŝanĝoj efektiviĝu. Ni pardonpetas pro ajnaj retmesaĝoj kiujn vi ricevos intertempe. Se vi havas demandojn, bonvolu kontakti <$1>",
+	"donate_interface-email-unsub-delay": "Bonvolu permesi almenaŭ kvar (4) tagojn por ke la ŝanĝoj efektiviĝu. Ni pardonpetas pro ajnaj retmesaĝoj kiujn vi ricevos intertempe. Se vi havas demandojn, bonvolu kontakti $1",
 	"donate_interface-email-unsub-fail": "Okazis eraro dum pritrakto de via peto, bonvolu kontakti <$1>.",
 	"donate_interface-email-unsub-confirm": "Ĉu vi certas ke vi volas malaligi la adreson <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Tio ĉi eligos vin el la listo de ricevantoj de retmesaĝoj kiujn Vikimedia Fondaĵo sendas al donacintoj. Vi tamen povas plu ricevadi retmesaĝojn al tiu ĉi retadreso se ĝi estas ligita kun konto en unu el niaj projektoj. Se vi havas demandojn, bonvolu kontakti <a href=\"mailto:$1\">$1</a>.",

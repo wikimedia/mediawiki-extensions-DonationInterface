@@ -360,7 +360,7 @@
 	"donate_interface-email-unsub-title": "Anular la suscripción a la Fundación Wikimedia",
 	"donate_interface-email-unsub-button": "Date de baxa",
 	"donate_interface-email-unsub-success": "Desaniciósete correchamente de la llista de corréu",
-	"donate_interface-email-unsub-delay": "Da un marxe de cuatro (4) díes pa que los cambeos surtan efectu. Pidimos disculpes polos correos electrónicos que puedas recibir demientres esti tiempu. Si tienes dalguna dulda, comunícate con <$1>",
+	"donate_interface-email-unsub-delay": "Da un marxe de cuatro (4) díes pa que los cambeos surtan efectu. Pidimos disculpes polos correos electrónicos que puedas recibir demientres esti tiempu. Si tienes dalguna dulda, comunícate con $1",
 	"donate_interface-email-unsub-fail": "Hebo un error al procesar la to solicitú, comunícate con <$1>.",
 	"donate_interface-email-unsub-confirm": "¿Tas seguru de que quies date de baxa de <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Esto va dar de baxa la to suscripción a los correos electrónicos que la Fundación Wikimedia t'unvia como donante. Inda puedes recibir correos nesta dirección de corréu electrónicu si ta asociada con una cuenta d'unu de los nuesos proyectos. Si tienes dalguna entruga, comunícate con <a href=\"mailto:$1\">$1</a>.",

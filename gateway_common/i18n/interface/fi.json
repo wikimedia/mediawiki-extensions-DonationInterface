@@ -372,7 +372,7 @@
 	"donate_interface-email-unsub-title": "Lopeta Wikimedia-säätiön sähköpostien tilaus",
 	"donate_interface-email-unsub-button": "Peruuta tilaus",
 	"donate_interface-email-unsub-success": "Sinut on onnistuneesti poistettu postituslistaltamme",
-	"donate_interface-email-unsub-delay": "Anna ainakin neljä (4) päivää aikaa muutosten voimaantulolle. Pahoittelemme, jos saat sähköpostia tänä aikana. Jos sinulla on kysymyksiä, voit käyttää seuraavaa sähköpostiosoitetta <$1>",
+	"donate_interface-email-unsub-delay": "Anna ainakin neljä (4) päivää aikaa muutosten voimaantulolle. Pahoittelemme, jos saat sähköpostia tänä aikana. Jos sinulla on kysymyksiä, voit käyttää seuraavaa sähköpostiosoitetta $1",
 	"donate_interface-email-unsub-fail": "Pyyntöäsi käsiteltäessä tapahtui virhe. Otathan yhteyttä <$1>.",
 	"donate_interface-email-unsub-confirm": "Poistetaanko sähköposti <b>$1</b> listalta?",
 	"donate_interface-email-unsub-warning": "Tämä poistaa sinut listalta, jonka jäsenille Wikimedia-säätiö lähettää lahjoituksiin liittyviä tietoja. Saatat edelleen saada sähköpostia, jos se on liitetty tiliin, joka sijaitsee jossakin toisessa projektissamme. Jos sinulla on kysyttävää, voit lähettää meille sähköpostia osoitteeseen <a href=\"mailto:$1\">$1</a>.",

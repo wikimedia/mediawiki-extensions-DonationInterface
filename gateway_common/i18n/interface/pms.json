@@ -312,7 +312,7 @@
 	"donate_interface-email-unsub-title": "Anulé l'anscrission a la Fondassion Wikimedia",
 	"donate_interface-email-unsub-button": "Anulé l'anscrission",
 	"donate_interface-email-unsub-success": "It ses stàit gavà da bin da nòsta lista ëd pòsta",
-	"donate_interface-email-unsub-delay": "Për piasì, ch'a speta fin-a a quatr (4) di për che le modìfiche a l'abio efet. I së scusoma për qualsëssìa mëssagi ch'a arseivèissa an cost temp. S'a l'èissa qualsëssìa chestion, për piasì ch'a contata <$1>",
+	"donate_interface-email-unsub-delay": "Për piasì, ch'a speta fin-a a quatr (4) di për che le modìfiche a l'abio efet. I së scusoma për qualsëssìa mëssagi ch'a arseivèissa an cost temp. S'a l'èissa qualsëssìa chestion, për piasì ch'a contata $1",
 	"donate_interface-email-unsub-fail": "A-i era n'eror an tratand toa arcesta, për piasì contata <$1>.",
 	"donate_interface-email-unsub-confirm": "É-lo sigur ëd vorèj disabonesse <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Sòn a lo disabonrà dai mëssagi mandà da la Fondassion Wikimedia a chiel com donator. A podrà ancor arsèive dij mëssagi a costa adrëssa ëd pòsta eletrònica s'a l'é associà a un cont d'un dij nòstri proget. S'a l'èissa dle chestion, për piasì ch'a contata <a href=\"mailto:$1\">$1</a>.",

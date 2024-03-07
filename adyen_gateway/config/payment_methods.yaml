@@ -7,7 +7,7 @@ cc:
         name: true
         email: true
 ach:
-    recurring: false
+    recurring: true
     label: ACH direct debit
     validation:
         country: true
