@@ -1,0 +1,62 @@
+{{> emailPreferencesHeader}}
+<link rel="stylesheet" href="{{ template_path }}/recurUpgrade_v01.css">
+<main class="recurUpgradeForm">
+		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}">
+			<input type="hidden" name="token" value="{{ token }}"/>
+			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
+			<input type="hidden" name="checksum" value="{{checksum}}"/>
+			<input type="hidden" name="contact_id" value="{{contact_id}}"/>
+
+			<section class="bg-ltgreen">
+				<div class="recurUpgradeContent site-content">
+					<div class="recurUpgradeGreeting">
+						<div class="emailpreferences-form-col-content-salutation">
+							<h1 class="emailpreferences-form-col-content-salutation-name">{{ l10n "recurupgrade-salutation" full_name }}</h1>
+						</div>
+						<div class="oo-ui-fieldLayout-body">
+							<p>{{ l10n "recurupgrade-thanks-increasing" }}</p>
+							<p>{{{ l10n "recurupgrade-current-amount-and-date" recur_amount_formatted next_sched_date_formatted }}}</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section class="bg-white">
+				<div class="recurUpgradeContent site-content">
+					<div class="oo-ui-fieldLayout-body">
+						<h2>{{ l10n "recurupgrade-amount-ask" }}</h2>
+					</div>
+				</div>
+				<div class="recurUpgradeActions site-content">
+					{{#recurringOptions}}
+					<div class="recurUpgradeRadio">
+						<input type="radio" id="upgradeAmount_{{ value }}" name="upgrade_amount" value={{ value }} autocomplete="off" class="sr-only">
+						<label class="recurUpgradeSelection" for="upgradeAmount_{{ value }}">{{ l10n "recurupgrade-add" value_formatted }}</label>
+					</div>
+	  				{{/recurringOptions}}
+					<div class="recurUpgradeRadio">
+						<input type="radio" id="upgradeAmount_other" name="upgrade_amount" value="other" autocomplete="off" class="sr-only">
+						<label class="recurUpgradeSelection" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="text" inputmode="numeric" pattern="[\.0-9]+" id="upgradeAmount_other_input" name="upgrade_amount_other">
+						</label>
+					</div>
+				</div>
+			</section>
+			<section class="bg-ltyellow">
+				<div class="recurUpgradeContent site-content">
+					<div class="oo-ui-fieldLayout-body">
+						<h2>{{ l10n "recurupgrade-thanks-monthly" }}</h2>
+						<p class="recurUpgradeMessage">{{ l10n "recurupgrade-select-option" }}</p>
+						<p class="recurUpgradeMessageToggle" style="display: none;">{{{ l10n "recurupgrade-upgrading-new-amount" }}}</p>
+					</div>
+				</div>
+				<div class="recurUpgradeActionButtons site-content">
+					<div class="emailPreferencesButton">
+						<button class="button disabled" type="submit" name="submit" id="save" value="save" disabled><img src="{{ template_path }}/Icon-donate-white.png"> {{ l10n "recurupgrade-upgrade-now" }}</button>
+					</div>
+					<div class="emailPreferencesButton">
+						<button class="button button-cancel" type="submit" name="submit" id="cancel" value="cancel">{{ l10n "recurupgrade-upgrade-decline" }}</button>
+					</div>
+				</div>
+			</section>
+		</form>
+</main>
+{{> emailPreferencesFooter}}

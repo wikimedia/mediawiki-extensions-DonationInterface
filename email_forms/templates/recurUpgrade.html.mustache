@@ -1,7 +1,7 @@
 {{> emailPreferencesHeader}}
 <main class="site-content">
 	<div>
-		<form method="POST" class="recurUpgradeForm" action="{{ action }}">
+		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}">
 			<input type="hidden" name="token" value="{{ token }}"/>
 			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
 			<input type="hidden" name="checksum" value="{{checksum}}"/>
@@ -39,9 +39,14 @@
 							<input type="radio" id="upgradeAmount_other" name="upgrade_amount" value="other" autocomplete="off" class="oo-ui-inputWidget-input">
 							<span></span>
 						</span>
-						<label class="recurUpgradeBodyText" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="number" min="0" id="upgradeAmount_other_input" name="upgrade_amount_other">
+						<label class="recurUpgradeBodyText" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="number" min="0" step="0.01" id="upgradeAmount_other_input" name="upgrade_amount_other">
 						</label>
 					</div>
+				</div>
+			</div>
+			<div class="recurUpgradeContent site-content">
+				<div class="oo-ui-fieldLayout-body">
+					<p class="recurUpgradeMessageToggle" style="display: none;">{{{ l10n "recurupgrade-upgrading-new-amount" }}}</p>
 				</div>
 			</div>
 			<div class="recurUpgradeActionButtons">

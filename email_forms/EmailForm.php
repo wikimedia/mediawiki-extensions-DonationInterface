@@ -99,11 +99,14 @@ class EmailForm {
 			'language',
 			'languages',
 			'locale',
+			'new_amount_formatted',
 			'next_sched_date',
+			'next_sched_date_formatted',
 			'sendEmail',
 			'token',
 			'recur_amount',
 			'recurringOptions',
+			'recur_amount_formatted',
 			'variant',
 		];
 		$templateParams = [];

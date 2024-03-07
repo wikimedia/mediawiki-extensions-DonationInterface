@@ -156,7 +156,7 @@
 	"donate_interface-donor-county": "Kreis",
 	"donate_interface-donor-island": "Insel",
 	"donate_interface-donor-bank_account_type": "Bankkontotyp",
-	"donate_interface-donor-bank_account_checking": "Prüfvorgang läuft",
+	"donate_interface-donor-bank_account_checking": "Scheckkonto",
 	"donate_interface-donor-bank_account_savings": "Ersparnisse",
 	"donate_interface-donor-state_province": "Bundesstaat:",
 	"donate_interface-donor-state_province-au": "Staat/Territorium",

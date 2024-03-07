@@ -23,11 +23,20 @@
 	"emailpreferences-success": "Message following successful submission of preferences update.",
 	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
 	"emailpreferences-wikimedia-image-alt": "Image alt for wikimedia logo",
+	"recurupgrade-add": "Text for buttons to add an amount. $1 is the formatted amount with currency symbol",
 	"recurupgrade-amount": "Label for the current recurring amount field",
+	"recurupgrade-amount-ask": "Header for the group of buttons asking how much to add",
 	"recurupgrade-cancel": "Message following cancel recurring upgrade request.",
+	"recurupgrade-current-amount-and-date": "Statement of current recurring amount and next charge date. $1 is the formatted amount with currency symbol and $2 is the formatted date",
 	"recurupgrade-next-scheduled-date": "Label for the next recurring donation date",
-	"recurupgrade-success": "Message following successful submission of recurring upgrade request.",
+	"recurupgrade-salutation": "Heading for the recurring upgrade. $1 is the donor's full name",
+	"recurupgrade-select-option": "Text under the amount options instruction the donor to select one",
+	"recurupgrade-success": "Message following successful submission of recurring upgrade request. $1 is the formatted new amount and $2 is the formatted next donation date.",
+	"recurupgrade-thanks-increasing": "Text following the current amount and date thanking the donor for upgrading",
+	"recurupgrade-thanks-monthly": "Header for the section below the options, thanking the donor for giving monthly",
 	"recurupgrade-title": "Title for page where the user can upgrade their recurring amount",
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
-	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased"
+	"recurupgrade-upgrade-now": "Alternate text for the recurring upgrade submit button",
+	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased",
+	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The <strong> tag will be filled with the new amount on the client side."
 }

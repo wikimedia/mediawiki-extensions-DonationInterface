@@ -364,7 +364,7 @@
 	"donate_interface-email-unsub-title": "Sech ofmelle bei der Wikimedia Fondatioun",
 	"donate_interface-email-unsub-button": "Ofbestellen",
 	"donate_interface-email-unsub-success": "Dir gouft vun eiser Mailinglëscht erofgeholl",
-	"donate_interface-email-unsub-delay": "Gitt eis véier (4) Deeg, bis datt d'Ännerunge gemaach sinn. Mir entschëllegen eis, wann Der bis dohin nach E-maile sollt kréien. Wann Der iergend eng Fro hutt, kontaktéiert w.e.gl. $1",
+	"donate_interface-email-unsub-delay": "Gitt eis véier (4) Deeg, bis datt d'Ännerunge gemaach sinn. Mir entschëllegen eis, wann Dir bis dohin nach E-Maile sollt kréien. Wann Dir iergendeng Fro hutt, kontaktéiert wgl. $1",
 	"donate_interface-email-unsub-fail": "Et ass e Feeler geschitt, wéi mir Är Ufro behandelt hunn. Kontaktéiert wgl. <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Sidd dir sécher datt Dir keng Informatioune per Mail op <b>$1</b> méi kréie wëllt?",
 	"donate_interface-email-unsub-warning": "Domat kritt Dir keng E-Maile méi als Donateur vun der Wikimedia Foundation. Wann dës E-Mail-Adress mat engem Benotzerkont vun engem vun eise Projete associéiert ass kënnt Dir och weiderhi Maile vun eis op déi E-Mail-Adress kréien. Wann Dir nach méi Froen hutt da kontaktéiert eis wgl. <a href=\"mailto:$1\">$1</a>.",
