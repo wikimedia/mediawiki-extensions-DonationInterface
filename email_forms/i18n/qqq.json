@@ -37,5 +37,6 @@
 	"recurupgrade-title": "Title for page where the user can upgrade their recurring amount",
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
 	"recurupgrade-upgrade-now": "Alternate text for the recurring upgrade submit button",
-	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased"
+	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased",
+	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The <strong> tag will be filled with the new amount on the client side."
 }

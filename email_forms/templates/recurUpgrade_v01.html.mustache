@@ -1,7 +1,7 @@
 {{> emailPreferencesHeader}}
 <link rel="stylesheet" href="{{ template_path }}/recurUpgrade_v01.css">
 <main class="recurUpgradeForm">
-		<form method="POST" class="recurUpgradeForm" action="{{ action }}">
+		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}">
 			<input type="hidden" name="token" value="{{ token }}"/>
 			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
 			<input type="hidden" name="checksum" value="{{checksum}}"/>
@@ -35,7 +35,7 @@
 	  				{{/recurringOptions}}
 					<div class="recurUpgradeRadio">
 						<input type="radio" id="upgradeAmount_other" name="upgrade_amount" value="other" autocomplete="off" class="sr-only">
-						<label class="recurUpgradeSelection" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="text" inputmode="numeric" pattern="[0-9]+" id="upgradeAmount_other_input" name="upgrade_amount_other">
+						<label class="recurUpgradeSelection" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="text" inputmode="numeric" pattern="[\.0-9]+" id="upgradeAmount_other_input" name="upgrade_amount_other">
 						</label>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 					<div class="oo-ui-fieldLayout-body">
 						<h2>{{ l10n "recurupgrade-thanks-monthly" }}</h2>
 						<p class="recurUpgradeMessage">{{ l10n "recurupgrade-select-option" }}</p>
-						<p class="recurUpgradeMessageToggle" style="display: none;">Your new monthly donation amount of <strong>$2.75</strong> will apply on your next donation date of <strong>{{ dateFormatter next_sched_date }}.</strong></p>
+						<p class="recurUpgradeMessageToggle" style="display: none;">{{{ l10n "recurupgrade-upgrading-new-amount" }}}</p>
 					</div>
 				</div>
 				<div class="recurUpgradeActionButtons site-content">
