@@ -107,18 +107,21 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		} else {
 			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
 		}
-
-		WmfFramework::setSessionValue( self::DONOR_DATA, [
-			'contribution_recur_id' => $recurData['id'],
-			'amount' => $recurData['amount'],
-			'currency' => $recurData['currency'],
-		] );
+		$nextDateFormatted = EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] );
 
 		$uiLang = $this->getLanguage()->getCode();
 		$locale = self::FALLBACK_LANGUAGE;
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
+
+		WmfFramework::setSessionValue( self::DONOR_DATA, [
+			'contribution_recur_id' => $recurData['id'],
+			'amount' => $recurData['amount'],
+			'currency' => $recurData['currency'],
+			'locale' => $locale,
+			'next_sched_date_formatted' => $nextDateFormatted
+		] );
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 		$currency = $recurData['currency'];
@@ -137,7 +140,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
 			'contribution_recur_id' => $recurData['id'],
 			'next_sched_date' => $recurData['next_sched_contribution_date'],
-			'next_sched_date_formatted' => EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] ),
+			'next_sched_date_formatted' => $nextDateFormatted,
 			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
@@ -172,7 +175,13 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$this->renderSuccess();
+			$renderParams = [
+				'next_sched_date_formatted' => $DonorData['next_sched_date_formatted'],
+				'new_amount_formatted' => EmailForm::amountFormatter(
+					$amount, $DonorData['locale'], $DonorData['currency']
+				)
+			];
+			$this->renderSuccess( 'recurUpgrade', $renderParams );
 		} catch ( Exception $e ) {
 			$this->renderError();
 		}
