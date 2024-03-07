@@ -21,7 +21,11 @@
 		}
 
 		$amountField.change( setSubmitState );
-		$otherAmountField.change( setSubmitState );
+		// We need to use setInterval because the new value of the other amount
+		// field is not immediately available in the keyup handler
+		$otherAmountField.on( 'change keyup', function () {
+			setInterval( setSubmitState, 0 );
+		} );
 		$otherAmountField.focus( function () {
 			$amountField.filter( '[value=other]' ).prop( 'checked', true );
 			setSubmitState();

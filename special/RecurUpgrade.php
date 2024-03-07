@@ -134,12 +134,14 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		return [
 			'full_name' => $recurData['donor_name'],
 			'recur_amount' => $recurData['amount'],
+			'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
 			'contribution_recur_id' => $recurData['id'],
 			'next_sched_date' => $recurData['next_sched_contribution_date'],
+			'next_sched_date_formatted' => EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] ),
 			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
-			'recurringOptions' => $optionsForTemplate
+			'recurringOptions' => $optionsForTemplate,
 		];
 	}
 
