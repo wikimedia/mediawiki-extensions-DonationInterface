@@ -37,5 +37,6 @@
 	"recurupgrade-title": "Upgrade amount by:",
 	"recurupgrade-upgrade-decline": "No, I'll leave it as is",
 	"recurupgrade-upgrade-now": "Upgrade my monthly gift now",
-	"recurupgrade-upgrade": "Upgrade recurring amount"
+	"recurupgrade-upgrade": "Upgrade recurring amount",
+	"recurupgrade-upgrading-new-amount": "You are increasing your monthly donation amount to <strong></strong>."
 }
