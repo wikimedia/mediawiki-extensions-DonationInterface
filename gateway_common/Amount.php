@@ -158,7 +158,7 @@ class Amount implements ValidationHelper {
 			'CLP', 'DJF', 'IDR', 'JPY', 'KMF', 'KRW', 'MGA', 'PYG', 'VND', 'XAF', 'XOF', 'XPF'
 		];
 
-		if ( in_array( strtoupper( $currency_code ), $non_fractional_currencies ) ) {
+		if ( in_array( strtoupper( $currency_code ?? '' ), $non_fractional_currencies ) ) {
 			return false;
 		}
 		return true;
@@ -173,7 +173,7 @@ class Amount implements ValidationHelper {
 	public static function is_exponent3_currency( $currency_code ) {
 		$exponent3_currencies = [ 'BHD', 'CLF', 'IQD', 'KWD', 'LYD', 'MGA', 'MRO', 'OMR', 'TND' ];
 
-		if ( in_array( strtoupper( $currency_code ), $exponent3_currencies ) ) {
+		if ( in_array( strtoupper( $currency_code ?? '' ), $exponent3_currencies ) ) {
 			return true;
 		}
 		return false;

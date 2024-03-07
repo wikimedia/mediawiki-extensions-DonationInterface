@@ -816,7 +816,7 @@ class DonationData implements LogPrefixProvider {
 		// App donations have the version coming on the utm_source eg 7.4.3.2822 and utm_campaign=iOS or Android
 		// when there is no banner
 		// TODO: Remove this once the apps teams have fixed it on their end T350919
-		$utm_campaign = strtolower( $this->getVal( 'utm_campaign' ) );
+		$utm_campaign = strtolower( $this->getVal( 'utm_campaign' ) ?? '' );
 		if ( $utm_campaign == 'ios' || $utm_campaign == 'android' ) {
 			// set utm_source to appmenu if it starts with a number
 			if ( preg_match( '/^\d/', $utm_source ) === 1 ) {
@@ -826,11 +826,11 @@ class DonationData implements LogPrefixProvider {
 		}
 
 		// split the utm_source into its parts for easier manipulation
-		$source_parts = explode( ".", $utm_source );
+		$source_parts = explode( ".", $utm_source ?? '' );
 
 		// To distinguish between native (inapp) donations and web (app) donations
 		// we are modifying the landing page middle parameter of the utm_source
-		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) );
+		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) ?? '' );
 		if ( $utm_medium == 'wikipediaapp' ) {
 			$source_parts[1] = 'app';
 		}
