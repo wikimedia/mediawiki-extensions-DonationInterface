@@ -54,7 +54,7 @@ class ResultPages {
 	 * @param string $language
 	 * @return string localized full URL
 	 */
-	protected static function appendLanguageAndMakeURL( $url, $language ) {
+	public static function appendLanguageAndMakeURL( $url, $language ) {
 		// make sure we don't already have the language in there...
 		$dirs = explode( '/', $url );
 		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {

@@ -120,8 +120,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contribution_recur_id' => $recurData['id'],
 			'amount' => $recurData['amount'],
 			'currency' => $recurData['currency'],
-			'locale' => $locale,
-			'next_sched_date_formatted' => $nextDateFormatted
+			'country' => $country,
+			'next_sched_contribution_date' => $recurData['next_sched_contribution_date']
 		] );
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
@@ -177,14 +177,9 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$renderParams = [
-				'next_sched_date_formatted' => $DonorData['next_sched_date_formatted'],
-				'new_amount_formatted' => EmailForm::amountFormatter(
-					$amount, $DonorData['locale'], $DonorData['currency']
-				)
-			];
-			$this->renderSuccess( 'recurUpgrade', $renderParams );
+			$this->redirectToSuccess( $DonorData, $amount );
 		} catch ( Exception $e ) {
+			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
 			$this->renderError();
 		}
 	}
@@ -199,9 +194,25 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->renderForm( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'recurUpgrade', $params = [] ) {
-		$subpage .= 'Success';
-		$this->renderForm( $subpage, $params );
+	protected function redirectToSuccess( array $donorData, float $amount ): void {
+		$redirectParams = [
+			'country' => $donorData['country'],
+			'recurAmount' => $amount,
+			'recurCurrency' => $donorData['currency'],
+			'recurDate' => $donorData['next_sched_contribution_date'],
+			'recurUpgrade' => 1,
+		];
+		$this->redirectToThankYouPage( $redirectParams );
+	}
+
+	protected function redirectToThankYouPage( array $params ): void {
+		$page = $this->getConfig()->get( 'DonationInterfaceThankYouPage' );
+		$page = ResultPages::appendLanguageAndMakeURL(
+			$page,
+			$this->getLanguage()->getCode()
+		);
+
+		$this->getOutput()->redirect( wfAppendQuery( $page, $params ) );
 	}
 
 	protected function renderForm( $subpage, array $params ) {
