@@ -61,6 +61,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				$params += $formParams;
 				if ( $this->wasCanceled( $params ) ) {
 					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
+					$this->renderCancel();
+					return;
 				}
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
@@ -77,11 +79,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contact_id' => $contactId,
 		];
 		try {
-			$logger->info( "Pushing cancel upgrade to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$this->renderCancel();
 		} catch ( Exception $e ) {
-			$this->renderError();
+			$logger->error( "Error pushing recurring_upgrade_decline message: {$e->getMessage()}" );
 		}
 	}
 
@@ -158,6 +159,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 		if ( $this->wasCanceled( $params ) ) {
 			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
+			$this->renderCancel();
 			return;
 		}
 		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
