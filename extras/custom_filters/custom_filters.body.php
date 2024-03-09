@@ -20,7 +20,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 * will now be represented as an array of scores, with the name of the
 	 * score's source in the keys, to promote our ability to tell what the heck
 	 * is going on.
-	 * @var array()
+	 * @var array
 	 */
 	private $risk_score;
 
@@ -85,6 +85,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		}
 		if ( !is_array( $this->risk_score ) ) {
 			if ( is_numeric( $this->risk_score ) ) {
+				// @phan-suppress-next-line PhanTypeMismatchDimAssignment
 				$this->risk_score['unknown'] = (int)$this->risk_score;
 			} else {
 				$this->risk_score = [];

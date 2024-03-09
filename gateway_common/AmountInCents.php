@@ -21,7 +21,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 			return;
 		}
 
-		$amount = Amount::round( $normalized['amount'], $normalized['currency'] );
+		$amount = (float)Amount::round( $normalized['amount'], $normalized['currency'] );
 
 		$stagedData['amount'] = round( $amount * 100 );
 	}

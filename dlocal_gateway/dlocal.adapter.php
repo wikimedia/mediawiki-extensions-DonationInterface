@@ -8,6 +8,7 @@ use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\dlocal\HostedPaymentProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
@@ -114,19 +115,22 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 				$gatewayTxnId = $this->getData_Unstaged_Escaped( 'gateway_txn_id' );
 			} else {
 				$this->logger->error( "Missing required parameters in request" );
-				return $this->newFailureWithError( ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );
+				return $this->newFailureWithError( (string)ErrorCode::MISSING_REQUIRED_DATA, 'Missing required parameters in request' );
 			}
 		}
 
 		// check the status of the payment the donor just made and processed the result
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $paymentMethod );
+		'@phan-var HostedPaymentProvider $paymentProvider';
 		$paymentStatusParams = [ 'gateway_txn_id' => $gatewayTxnId ];
 		$paymentStatusResult = $paymentProvider->getLatestPaymentStatus( $paymentStatusParams );
 		return $this->handleCreatedPayment( $paymentStatusResult, $paymentProvider );
 	}
 
 	public function getCommunicationType() {
+		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		// TODO: Implement getCommunicationType() method.
+		throw new LogicException( 'Not implemented' );
 	}
 
 	protected function getBasedir() {

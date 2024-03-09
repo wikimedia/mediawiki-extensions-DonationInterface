@@ -115,6 +115,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$createPaymentParams = $this->buildRequestArray();
 		// If we are going to ask for a monthly donation after a one-time donation completes, set the
 		// recurring param to 1 to tokenize the payment.
@@ -186,6 +187,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$createPaymentSessionResponse = $provider->createPaymentSession();
 		return $createPaymentSessionResponse->getPaymentSession();
 	}

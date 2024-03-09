@@ -15,9 +15,14 @@ class ResponseProcessingException extends Exception {
 	 */
 	protected $errorCode;
 
+	/**
+	 * @param string $message
+	 * @param string|int $errorCode
+	 * @param array $retryVars
+	 */
 	public function __construct( $message, $errorCode, $retryVars = [] ) {
 		parent::__construct( $message );
-		$this->errorCode = $errorCode;
+		$this->errorCode = (string)$errorCode;
 		$this->retryVars = $retryVars;
 	}
 

@@ -13,7 +13,7 @@ class WmfFramework {
 	public static function getRequestValue( $key, $default ) {
 		$request = RequestContext::getMain()->getRequest();
 		// all strings is just fine.
-		$ret = $request->getText( $key, $default );
+		$ret = $request->getText( $key, $default ?? '' );
 		// getText never returns null: It just casts do an empty string. Soooo...
 		// check with getVal, which does return null for a missing key
 		if ( $ret === '' && $request->getVal( $key ) === null ) {

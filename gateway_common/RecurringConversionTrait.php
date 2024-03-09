@@ -6,6 +6,16 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 
 trait RecurringConversionTrait {
+	protected $logger;
+
+	abstract public function session_getData( $key, $subkey = null );
+
+	abstract protected function getQueueDonationMessage(): array;
+
+	abstract public function session_resetForNewAttempt( $force = false );
+
+	abstract public function session_setDonorBackupData( array $donorData );
+
 	/**
 	 * If we have just made a one-time donation that is possible to convert to
 	 * recurring, do the conversion. The PaymentResult will be in error if there

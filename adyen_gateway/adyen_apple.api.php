@@ -1,6 +1,7 @@
 <?php
 
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class AdyenAppleApi extends DonationApiBase {
@@ -27,6 +28,7 @@ class AdyenAppleApi extends DonationApiBase {
 			return;
 		}
 		$provider = PaymentProviderFactory::getProviderForMethod( 'apple' );
+		'@phan-var PaymentProvider $provider';
 		// Apple wants a bare domain name in their session start request, so
 		// we strip off the detected protocol and slashes from the server.
 		$domainName = str_replace(

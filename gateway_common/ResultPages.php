@@ -28,7 +28,7 @@ class ResultPages {
 		$extraParams['wmf_source'] = $adapter->getData_Unstaged_Escaped( 'utm_source' );
 		$extraParams['wmf_campaign'] = $adapter->getData_Unstaged_Escaped( 'utm_campaign' );
 
-		return wfAppendQuery( $page, $extraParams );
+		return wfAppendQuery( $page ?? '', $extraParams );
 	}
 
 	/**
@@ -59,7 +59,7 @@ class ResultPages {
 	public static function appendLanguageAndMakeURL( $url, $language ) {
 		// make sure we don't already have the language in there...
 		$dirs = explode( '/', $url );
-		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {
+		if ( !in_array( $language, $dirs ) ) {
 			$url .= "/$language";
 		}
 

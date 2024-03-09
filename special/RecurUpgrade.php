@@ -91,7 +91,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$uiLang = $this->getLanguage()->getCode();
 		$locale = self::FALLBACK_LANGUAGE;
 		// If no country param on query string, use the country from the donor address.
-		$country = $country ?? $recurData['country'];
+		$country ??= $recurData['country'];
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}

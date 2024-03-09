@@ -176,12 +176,11 @@ class PaymentTransactionResponse {
 	}
 
 	public function __toString() {
-		$stringVal = "Communication Status: '{$this->communicationStatus}', " .
-			"Communication Status: '{$this->communicationStatus}', " .
+		$stringVal = "Communication Status: '" . ( $this->communicationStatus ? 'true' : 'false' ) . "', " .
 			"Message: '{$this->message}', " .
 			"Txn Message: '{$this->txnMessage}', " .
 			'Data: ' . print_r( $this->data, true ) . ', ' .
-			"Force cancel: '{$this->forceCancel}', " .
+			"Force cancel: '" . ( $this->forceCancel ? 'true' : 'false' ) . "', " .
 			"Redirect: '{$this->redirect}', " .
 			"Raw response: '{$this->rawResponse}', Errors: ";
 		$errorStrings = [];

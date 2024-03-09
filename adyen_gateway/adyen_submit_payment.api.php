@@ -43,6 +43,11 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	 */
 	public string $orderId;
 
+	/**
+	 * @var \Psr\Log\LoggerInterface
+	 */
+	public $logger;
+
 	public function execute() {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'submitpayment' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['submitpayment']['ip']
@@ -54,7 +59,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 
 		// Create a contribution tracking id
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( 'contribution-tracking' );
-		$this->contributionTrackingId = $generator->getNext();
+		$this->contributionTrackingId = (string)$generator->getNext();
 
 		// Create orderId
 		$this->orderId = $this->contributionTrackingId . '.1';
@@ -95,7 +100,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		DonationInterface::setSmashPigProvider( $this->gateway );
 
 		// Get the account
-		$this->gatewayAccount = array_shift( ( array_keys( $this->getConfig()->get( 'AdyenCheckoutGatewayAccountInfo' ) ) ) );
+		$accountInfo = array_keys( $this->getConfig()->get( 'AdyenCheckoutGatewayAccountInfo' ) );
+		$this->gatewayAccount = array_shift( $accountInfo );
 
 		$this->sendToContributionTracking();
 
@@ -322,6 +328,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'currency' => $this->donationData['currency'],
 			'date' => UtcDate::getUtcTimestamp(),
 			'gateway' => $this->gateway,
+			// @phan-suppress-next-line PhanCoalescingNeverNull Property maybe unset
 			'gateway_txn_id' => $this->gatewayTransactionId ?? '',
 			'order_id' => $this->orderId,
 			'payment_method' => $this->donationData['payment_method'],
@@ -335,7 +342,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	}
 
 	protected function returnError( $error ) {
-		$this->logger->error( $error );
+		$this->logger->error( (string)$error );
+		$response = [];
 		$response['status'] = self::STATUS_ERROR;
 		$response['error_message'] = $this->generateErrorMessage();
 		$response['order_id'] = $this->orderId;

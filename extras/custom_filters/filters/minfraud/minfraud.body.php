@@ -56,9 +56,9 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected $cfo;
 	/**
 	 * User ID for minFraud Score web service
-	 * @var string
+	 * @var int
 	 */
-	protected $minFraudAccountId = '';
+	protected $minFraudAccountId = 0;
 
 	/**
 	 * An array of options to pass to the MinFraud client
@@ -484,6 +484,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 					);
 					if ( !$result->isGood() ) {
 						$this->gateway_logger->error(
+							// @phan-suppress-next-line PhanTypeExpectedObjectPropAccess
 							"Could not send minFraud query limit email: " . $result->getErrors()[0]->message
 						);
 					}

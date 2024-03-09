@@ -24,8 +24,8 @@ class PlaceholderFiscalNumber implements StagingHelper {
 
 			// if placeholder is an array we use the values as upper and lower range bounds
 			if ( is_array( $fiscalNumber ) ) {
-				$lower = $fiscalNumber[0];
-				$upper = $fiscalNumber[1];
+				$lower = (int)$fiscalNumber[0];
+				$upper = (int)$fiscalNumber[1];
 				$fiscalNumber = mt_rand( $lower, $upper );
 			}
 

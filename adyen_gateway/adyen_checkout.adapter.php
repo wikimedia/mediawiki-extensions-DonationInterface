@@ -5,6 +5,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\Adyen\PaymentProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
@@ -337,6 +338,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$methodParams = [
 			'country' => $this->staged_data['country'],
 			'currency' => $this->staged_data['currency'],
@@ -401,6 +403,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			$provider = PaymentProviderFactory::getProviderForMethod(
 				$this->getPaymentMethod()
 			);
+			'@phan-var PaymentProvider $provider';
 			$detailsResult = $provider->getHostedPaymentDetails( $redirectResult );
 			$this->logger->debug(
 				'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )

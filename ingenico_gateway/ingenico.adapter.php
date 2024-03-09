@@ -118,6 +118,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 		/** @var HostedCheckoutProvider $provider */
 		$provider = $this->getPaymentProvider();
+		'@phan-var HostedCheckoutProvider $provider';
 		$email = $this->getData_Unstaged_Escaped( 'email' );
 		$this->logger->info( "Calling createPaymentSession for donor $email" );
 		$createSessionResponse = $this->createPaymentSession( $provider );
@@ -162,6 +163,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		// FIXME: make sure we're processing the order ID we expect!
 		/** @var HostedCheckoutProvider $provider */
 		$provider = $this->getPaymentProvider();
+		'@phan-var HostedCheckoutProvider $provider';
 		$statusResponse = $provider->getLatestPaymentStatus( [
 			'gateway_session_id' => $this->getData_Unstaged_Escaped( 'gateway_session_id' )
 		] );

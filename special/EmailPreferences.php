@@ -186,6 +186,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function executeUnsubscribe( $params ) {
+		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		throw new BadMethodCallException( 'Not implemented' );
 	}
 

@@ -6,6 +6,7 @@ use SmashPig\Core\Helpers\CurrencyRoundingHelper;
  * AdyenCheckoutGateway
  *
  * Special page that uses the Adyen Checkout web implementation to accept donations
+ * @property AdyenCheckoutAdapter $adapter
  */
 class AdyenCheckoutGateway extends GatewayPage {
 
@@ -59,7 +60,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 			[ 'showError' => true ],
 			$this->getConfig()
 		);
-		if ( !empty( $this->adapter->getPaymentSubmethod() ) ) {
+		if ( $this->adapter->getPaymentSubmethod() ) {
 			$vars['payment_submethod'] = $this->adapter->getPaymentSubmethod();
 		}
 		$vars['DonationInterfaceFailUrl'] = $failPage;

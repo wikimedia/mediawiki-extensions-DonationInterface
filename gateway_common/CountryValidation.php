@@ -33,7 +33,9 @@ class CountryValidation implements ValidationHelper {
 					'donate_interface-error-msg-country-calc'
 				) );
 			}
-		} elseif ( in_array( 'country', $adapter->getRequiredFields( $normalized ) ) ) {
+		} elseif ( $adapter instanceof GatewayAdapter &&
+			in_array( 'country', $adapter->getRequiredFields( $normalized ) )
+		) {
 			$otherWays = $adapter->getGlobal( 'OtherWaysURL' );
 			$otherWays = str_replace( '$language', $normalized['language'], $otherWays );
 			$otherWays = str_replace( '$country', '', $otherWays );
@@ -49,8 +51,9 @@ class CountryValidation implements ValidationHelper {
 	/**
 	 * Checks to see if $country is a valid iso 3166-1 country code.
 	 * DOES NOT VERIFY THAT WE FUNDRAISE THERE. Only that the code makes sense.
-	 * @param string $country the code we want to check
+	 * @param string|null $country the code we want to check
 	 * @return bool
+	 * @phan-assert string $country
 	 */
 	public static function isValidIsoCode( $country ) {
 		/**

@@ -45,7 +45,7 @@ class PaymentMethod {
 	 *
 	 * @param GatewayType $gateway
 	 * @param string $method_name
-	 * @param string $submethod_name
+	 * @param string|null $submethod_name
 	 * @param bool $is_recurring
 	 *
 	 * @return PaymentMethod
@@ -117,7 +117,7 @@ class PaymentMethod {
 
 	/**
 	 * TODO: implement this function
-	 * @return true if this payment method is complete enough to begin a transaction
+	 * @return bool if this payment method is complete enough to begin a transaction
 	 */
 	public function isCompletelySpecified() {
 		if ( $this->name === 'cc' ) {

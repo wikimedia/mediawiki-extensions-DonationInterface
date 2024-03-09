@@ -123,6 +123,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
 
 			$out = $this->getOutput();
+			// @phan-suppress-next-line PhanUndeclaredMethod Removed in 1.41
 			$out->preventClickjacking();
 			$this->addThankYouPrefetch( $out );
 			// Use addModuleStyles to load these CSS rules in early and avoid
@@ -184,10 +185,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$thankYouPage = $this->adapter::getGlobal( 'ThankYouPage' );
 		$urlParts = parse_url( $thankYouPage );
 
-		$out->addLink( [
-			'rel' => 'prefetch',
-			'href' => $urlParts['scheme'] . '://' . $urlParts['host']
-		] );
+		if ( $urlParts ) {
+			$out->addLink( [
+				'rel' => 'prefetch',
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
+				'href' => $urlParts['scheme'] . '://' . $urlParts['host']
+			] );
+		}
 	}
 
 	/**
@@ -245,7 +249,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		} else {
 			$output = $this->getOutput();
 
-			if ( !is_callable( 'OutputPage::setPageTitleMsg' ) ) {
+			if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
 				// Backward compatibility with MW < 1.41
 				$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
 			} else {
@@ -254,6 +258,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 				$output->setPageTitleMsg( $this->msg( 'donate_interface-error-msg-general' ) );
 			}
 
+			// @phan-suppress-next-line SecurityCheck-XSS Message is in RawHtmlMessages config
 			$output->addHTML( $this->msg(
 				'donate_interface-otherways',
 				[ $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ]
@@ -332,6 +337,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( is_array( $this->adapter->debugarray ) ) {
 			$output->addHTML( "Debug Array:" . Html::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
+				// @phan-suppress-next-line SecurityCheck-DoubleEscaped Unclear what stored in debugarray
 				$output->addHTML( Html::element( 'li', [], $val ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
