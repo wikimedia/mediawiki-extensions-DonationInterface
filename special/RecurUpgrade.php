@@ -261,7 +261,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function validateAmount( array $params, bool $posted ): bool {
-		if ( !$posted ) {
+		if ( !$posted || $params['submit'] ??= 'cancel' ) {
 			// Not doing anything with the parameters unless we're posted, so don't worry about them
 			return true;
 		}
