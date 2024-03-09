@@ -61,7 +61,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				$params += $formParams;
 				if ( $this->wasCanceled( $params ) ) {
 					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
-					$this->renderCancel();
+					$this->redirectToCancel( $formParams['country'] );
 					return;
 				}
 			}
@@ -159,7 +159,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 		if ( $this->wasCanceled( $params ) ) {
 			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
-			$this->renderCancel();
+			$this->redirectToCancel( $DonorData['country'] );
 			return;
 		}
 		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
@@ -184,9 +184,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function renderCancel( $subpage = 'recurUpgrade' ) {
-		$subpage .= 'Cancel';
-		$this->renderForm( $subpage, [] );
+	protected function redirectToCancel( ?string $country ): void {
+		$this->redirectToThankYouPage( [
+			'country' => $country,
+			'recurUpgrade' => 0,
+		] );
 	}
 
 	protected function renderError( $subpage = 'recurUpgrade' ) {
