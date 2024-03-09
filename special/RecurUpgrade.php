@@ -112,6 +112,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 		$uiLang = $this->getLanguage()->getCode();
 		$locale = self::FALLBACK_LANGUAGE;
+		// If no country param on query string, use the country from the donor address.
+		$country = $country ?? $recurData['country'];
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
@@ -142,7 +144,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contribution_recur_id' => $recurData['id'],
 			'next_sched_date' => $recurData['next_sched_contribution_date'],
 			'next_sched_date_formatted' => $nextDateFormatted,
-			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
+			'country' => $country ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
 			'recurringOptions' => $optionsForTemplate,
