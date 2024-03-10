@@ -58,17 +58,17 @@ class StreetAddress implements StagingHelper, UnstagingHelper {
 		// country-based postal_code grooming to make AVS (marginally) happy
 		if ( !empty( $normalized['country'] ) ) {
 			switch ( $normalized['country'] ) {
-			case 'CA':
-				// Canada goes "A0A 0A0"... walk like an Egyptian
-				$postalCode = strtoupper( $postalCode );
-				// In the event that they only forgot the space, help 'em out.
-				$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
-				if ( strlen( $postalCode ) === 6
-					&& preg_match( $regex, $postalCode )
-				) {
-					$postalCode = substr( $postalCode, 0, 3 ) . ' ' . substr( $postalCode, 3, 3 );
-				}
-				break;
+				case 'CA':
+					// Canada goes "A0A 0A0"... walk like an Egyptian
+					$postalCode = strtoupper( $postalCode );
+					// In the event that they only forgot the space, help 'em out.
+					$regex = '/[A-Z]\d[A-Z]\d[A-Z]\d/';
+					if ( strlen( $postalCode ) === 6
+						&& preg_match( $regex, $postalCode )
+					) {
+						$postalCode = substr( $postalCode, 0, 3 ) . ' ' . substr( $postalCode, 3, 3 );
+					}
+					break;
 			}
 		}
 

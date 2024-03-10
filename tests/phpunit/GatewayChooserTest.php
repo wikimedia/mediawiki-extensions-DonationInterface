@@ -159,7 +159,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		// redirect to donate wiki if no payment_method or currency provided
 		return [
 			[ [ 'country' => 'US', 'currency' => 'USD' ], true ],
-			[ [ 'payment_method' => 'cc','currency' => 'USD' ], true ],
+			[ [ 'payment_method' => 'cc', 'currency' => 'USD' ], true ],
 			[ [ 'currency' => 'USD' ], true ],
 			[ [ 'payment_method' => 'cc', 'country' => 'US', 'currency' => 'USD' ], false ],
 		];
@@ -488,7 +488,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 		$this->setMwGlobals( [
 			'wgDonationInterfaceGatewayPriorityRules' => [
 				[
-					'conditions' => [ 'country' => [ 'US','GB','FR' ] ], // array as value
+					'conditions' => [ 'country' => [ 'US', 'GB', 'FR' ] ], // array as value
 					'gateways' => [ 'ingenico' ]
 				],
 				[

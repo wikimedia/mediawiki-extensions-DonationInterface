@@ -96,7 +96,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		$init['payment_submethod'] = $submethod;
 		$gateway = $this->getFreshGatewayObject( $init );
 		$response = $gateway->getPaymentSubmethodMeta( $init['payment_submethod'], $init['payment_method'] );
-		$this->assertEquals( $response['validation'], [] );
+		$this->assertEquals( [], $response['validation'] );
 	}
 
 	public static function getRequiredFields() {
@@ -474,7 +474,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 	public function testGetScoreName() {
 		$rule = [
-			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
+			'KeyMapA' => [ 'a', 's', 'd', 'f', 'q', 'w', 'e', 'r', 't' ],
 			'KeyMapB' => [],
 			'GibberishWeight' => 0.9,
 			'Score' => 10,
@@ -494,7 +494,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 	public function testGetScoreNameMinimumLength() {
 		$rule = [
-			'KeyMapA' => [ 'a','s','d','f','q','w','e','r','t' ],
+			'KeyMapA' => [ 'a', 's', 'd', 'f', 'q', 'w', 'e', 'r', 't' ],
 			'KeyMapB' => [],
 			'GibberishWeight' => 0.9,
 			'Score' => 10,

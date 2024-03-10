@@ -496,7 +496,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	}
 
 	public function setClientVariablesWithErrorHandling( &$vars ) {
-		try{
+		try {
 			$this->setClientVariables( $vars );
 		} catch ( Exception $ex ) {
 			$this->logger->error(

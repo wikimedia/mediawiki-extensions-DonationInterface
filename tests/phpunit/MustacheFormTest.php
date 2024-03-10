@@ -103,7 +103,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parseAsContent' )
-			->with( $this->equalTo( '{{JimmySezPleeeeeze/JimmyQuote/en}}' ) )
+			->with( '{{JimmySezPleeeeeze/JimmyQuote/en}}' )
 			->willReturn( '<p>This is the template text</p>' );
 
 		$this->form = new Gateway_Form_Mustache();
@@ -128,7 +128,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parseAsContent' )
-			->with( $this->equalTo( '{{JimmySezPleeeeeze/differentAppeal/en}}' ) );
+			->with( '{{JimmySezPleeeeeze/differentAppeal/en}}' );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
@@ -152,7 +152,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 		$this->outputPage->expects( $this->once() )
 			->method( 'parseAsContent' )
-			->with( $this->equalTo( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' ) );
+			->with( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );

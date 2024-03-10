@@ -40,7 +40,7 @@ class DataValidator {
 			case 'state_province':
 			case 'postal_code':
 			case 'expiration':
-		$error_token = $field;
+				$error_token = $field;
 				break;
 			default:
 				$error_token = 'general';

@@ -143,7 +143,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$returned = $ddObj->getData();
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
-		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
+		$this->assertNotEquals( '', $returned['contribution_tracking_id'], 'There is not a valid contribution tracking ID' );
 
 		unset( $returned['order_id'] );
 
@@ -191,7 +191,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 		$returned = $ddObj->getData();
 
 		$this->assertNotNull( $returned['contribution_tracking_id'], 'There is no contribution tracking ID' );
-		$this->assertNotEquals( $returned['contribution_tracking_id'], '', 'There is not a valid contribution tracking ID' );
+		$this->assertNotEquals( '', $returned['contribution_tracking_id'], 'There is not a valid contribution tracking ID' );
 
 		unset( $returned['order_id'] );
 		unset( $returned['contribution_tracking_id'] );

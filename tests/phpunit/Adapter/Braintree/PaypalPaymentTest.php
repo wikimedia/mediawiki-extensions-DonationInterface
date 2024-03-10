@@ -296,7 +296,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 			$result = $gateway->doPayment();
 		}
 
-		$this->assertNotEquals( count( $result->getErrors() ), 0 );
+		$this->assertNotEquals( 0, count( $result->getErrors() ) );
 
 		$messages = self::getAllQueueMessages();
 

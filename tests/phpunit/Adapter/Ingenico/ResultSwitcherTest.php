@@ -27,10 +27,7 @@ class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenico
 
 		// FIXME: Maybe add amount and currencyCode to the normalizing too?
 		$rawResponse = $this->hostedPaymentStatusResponse->getRawResponse();
-		$rawResponse['createdPaymentOutput']
-			['payment']
-			['paymentOutput']
-			['amountOfMoney'] = [
+		$rawResponse['createdPaymentOutput']['payment']['paymentOutput']['amountOfMoney'] = [
 				'amount' => $donorTestData['amount'] * 100,
 				'currencyCode' => $donorTestData['currency']
 			];

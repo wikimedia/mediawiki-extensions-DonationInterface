@@ -170,7 +170,7 @@ class DonationData implements LogPrefixProvider {
 			$this->dataSources = array_fill_keys( array_keys( $external_data ), 'external' );
 		} else {
 			foreach ( self::$fieldNames as $var ) {
-				list( $val, $source ) = $this->sourceHarvest( $var );
+				[ $val, $source ] = $this->sourceHarvest( $var );
 				$this->normalized[$var] = $val;
 				$this->dataSources[$var] = $source;
 			}

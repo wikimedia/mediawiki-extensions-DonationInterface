@@ -3,11 +3,11 @@
 use Wikimedia\ParamValidator\ParamValidator;
 
 class RecurringConversionApi extends DonationApiBase {
-  /**
-   * Checks to see if the Donor backup key (Donor_BKUP) is set for the gateway in the current Session.
-   * If it's set, the function restores the Donor backup and clears the Donor_BKUP key.
-   * If there's a backup but for a separate gateway, no restore happens and the backup is cleared.
-   */
+	/**
+	 * Checks to see if the Donor backup key (Donor_BKUP) is set for the gateway in the current Session.
+	 * If it's set, the function restores the Donor backup and clears the Donor_BKUP key.
+	 * If there's a backup but for a separate gateway, no restore happens and the backup is cleared.
+	 */
 	private function restoreDonorSessionFromBackup() {
 		$donor = WmfFramework::getSessionValue( GatewayAdapter::DONOR_BKUP );
 		try {

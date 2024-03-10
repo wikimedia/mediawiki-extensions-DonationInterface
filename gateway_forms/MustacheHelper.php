@@ -41,6 +41,7 @@ class MustacheHelper {
 		if ( substr( $code, 0, 5 ) === '<?php' ) {
 			$code = substr( $code, 5 );
 		}
+		// @phpcs:ignore MediaWiki.Usage.ForbiddenFunctions.eval
 		$renderer = eval( $code );
 		if ( !is_callable( $renderer ) ) {
 			throw new RuntimeException(

@@ -375,13 +375,13 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 				}
 				return true;
 			} ) )
-			->will( $this->onConsecutiveCalls(
+			->willReturnOnConsecutiveCalls(
 				$this->throwException( new Exception( 'test' ) ),
 				$this->returnValue( ( new CreatePaymentSessionResponse() )
 					->setSuccessful( true )
 					->setPaymentSession( 'asdasda' )
 				)
-			) );
+			);
 		try {
 			$gateway->doPayment();
 		} catch ( Exception $e ) {
