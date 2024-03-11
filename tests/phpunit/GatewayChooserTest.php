@@ -211,10 +211,12 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 
 			// iDEAL (NL-only realtime bank transfer)
 			[ [ 'payment_method' => 'rtbt', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
-			// Should work with or without submethod specified
+			// Should work with submethod specified
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'sepadirectdebit', 'country' => 'DE', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			// Test country restriction on submethod
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'FR', 'currency' => 'EUR' ], null ],
+			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'sepadirectdebit', 'country' => 'FR', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 
 			// Recurring: only paypal, ingenico and adyen got recurring
 			[ [ 'payment_method' => 'cc', 'country' => 'FR', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ], // adyen recurring
@@ -260,7 +262,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'CR', 'currency' => 'CRC' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CY', 'currency' => 'EUR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CZ', 'currency' => 'CZK' ], 'AdyenCheckoutGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'DE', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'DE', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DK', 'currency' => 'DKK' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DM', 'currency' => 'XCD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DO', 'currency' => 'DOP' ], 'AdyenCheckoutGateway' ],
@@ -416,7 +418,6 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 				foreach ( $configCountries as $key => $value ) {
 					$this->assertContains( $key, $extensionConfig, "$key in $gateway config" );
 				}
-
 			}
 		}
 	}

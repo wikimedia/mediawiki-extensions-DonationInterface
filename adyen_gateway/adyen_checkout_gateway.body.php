@@ -59,6 +59,9 @@ class AdyenCheckoutGateway extends GatewayPage {
 			[ 'showError' => true ],
 			$this->getConfig()
 		);
+		if ( !empty( $this->adapter->getPaymentSubmethod() ) ) {
+			$vars['payment_submethod'] = $this->adapter->getPaymentSubmethod();
+		}
 		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;

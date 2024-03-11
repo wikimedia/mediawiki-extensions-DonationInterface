@@ -49,7 +49,8 @@
 			case 'ach':
 			case 'ideal':
 			case 'onlineBanking_CZ':
-				// for cc, CZ bank transfers, and ideal, additional config is optional
+			case 'sepadirectdebit':
+				// for ach, ideal, CZ bank transfers, and sepa additional config is optional
 				return config;
 
 			case 'applepay':
@@ -287,12 +288,14 @@
 				return 'ach';
 			case 'cc':
 				return 'card';
-			case 'rtbt': //sepa
-			case 'bt':
-				if ( country === 'CZ' ) {
-					return 'onlineBanking_CZ';
+			case 'rtbt':
+				if ( mw.config.get( 'payment_submethod' ) === 'sepadirectdebit' ) {
+					return 'sepadirectdebit';
+				} else {
+					return 'ideal';
 				}
-				return 'ideal';
+			case 'bt':
+				return 'onlineBanking_CZ';
 			case 'apple':
 				return 'applepay';
 			case 'google':
@@ -356,12 +359,22 @@
 						};
 						break;
 					case 'rtbt':
-						if ( state.data.paymentMethod.type === 'ideal' ) {
-							extraData = {
-								// issuer is bank chosen from dropdown
-								issuer_id: state.data.paymentMethod.issuer,
-								payment_submethod: 'rtbt_ideal'
-							};
+						switch ( state.data.paymentMethod.type ) {
+							case 'ideal':
+								extraData = {
+									// issuer is bank chosen from dropdown
+									issuer_id: state.data.paymentMethod.issuer,
+									payment_submethod: 'rtbt_ideal'
+								};
+								break;
+							case 'sepadirectdebit':
+								extraData = {
+									full_name: state.data.paymentMethod.ownerName,
+									// iban_number is the IBAN of the bank account
+									iban_number: state.data.paymentMethod.iban,
+									payment_submethod: 'sepadirectdebit'
+								};
+								break;
 						}
 						break;
 					case 'bt':
