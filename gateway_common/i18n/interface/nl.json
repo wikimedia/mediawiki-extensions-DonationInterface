@@ -415,7 +415,7 @@
 	"donate_interface-email-unsub-title": "Uitschrijven van Wikimedia Foundation",
 	"donate_interface-email-unsub-button": "Uitschrijven",
 	"donate_interface-email-unsub-success": "U bent niet langer ingeschreven op onze mailinglijst",
-	"donate_interface-email-unsub-delay": "Het kan tot vier (4) dagen duren alvorens deze wijzigingen worden doorgevoerd. Onze excuses indien u intussen nog e-mails van ons zou ontvangen. Mocht u nog vragen hebben, gelieve contact op te nemen met $1",
+	"donate_interface-email-unsub-delay": "Het kan tot vier (4) dagen duren alvorens deze wijzigingen worden doorgevoerd. Onze excuses indien u intussen nog e-mails van ons zou ontvangen. Mocht u nog vragen hebben, neem dan contact op met $1",
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden bij het verwerken van uw verzoek. Gelieve contact op te nemen met <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Weet u zeker dat u het e-mailadres <b>$1</b> wilt uitschrijven?",
 	"donate_interface-email-unsub-warning": "Hierdoor ontvangt u niet langer e-mails die Wikimedia Foundation aan u als donateur verzendt. Als dit e-mailadres gekoppeld is aan een account van een van onze projecten, kan u echter wel nog e-mails op dit adres ontvangen. Als u vragen hebt, neem dan contact op met <a href=\"mailto:$1\">$1</a>.",

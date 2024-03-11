@@ -465,69 +465,69 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			}
 
 			switch ( $this->getCurrentTransaction() ) {
-			case 'CreateRecurringPaymentsProfile':
-				$this->checkResponseAck( $response );
+				case 'CreateRecurringPaymentsProfile':
+					$this->checkResponseAck( $response );
 
-				// Grab the subscription ID
-				$this->addResponseData( $this->unstageKeys( $response ) );
+					// Grab the subscription ID
+					$this->addResponseData( $this->unstageKeys( $response ) );
 
-				// We've created a subscription, but we haven't got an initial
-				// payment yet, so we leave the details in the pending queue.
-				// The IPN listener will push the donation through to Civi when
-				// it gets notifications from PayPal.
-				// TODO: it would be nice to send the subscr_start message to
-				// the recurring queue here.
-				$this->finalizeInternalStatus( FinalStatus::PENDING );
-				$this->postProcessDonation();
-				break;
-			case 'SetExpressCheckout':
-			case 'SetExpressCheckout_recurring':
-				$this->checkResponseAck( $response );
-				$this->addResponseData( $this->unstageKeys( $response ) );
-				$redirectUrl = $this->createRedirectUrl( $response['TOKEN'] );
-				$this->transaction_response->setRedirect( $redirectUrl );
-				break;
-			case 'GetExpressCheckoutDetails':
-				$this->checkResponseAck( $response );
-				// Merge response into our transaction data.
-				// TODO: Use getFormattedData instead.
-				// FIXME: We don't want to allow overwriting of ctid, need a
-				// list of protected fields.
-				$this->addResponseData( $this->unstageKeys( $response ) );
-
-				// Complete if payment already finalized
-				if ( $this->isBatchProcessor() && $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionCompleted' ) {
-					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+					// We've created a subscription, but we haven't got an initial
+					// payment yet, so we leave the details in the pending queue.
+					// The IPN listener will push the donation through to Civi when
+					// it gets notifications from PayPal.
+					// TODO: it would be nice to send the subscr_start message to
+					// the recurring queue here.
+					$this->finalizeInternalStatus( FinalStatus::PENDING );
+					$this->postProcessDonation();
 					break;
-				}
-
-				// Empty PAYERID means the donor hasn't done the payment at the PayPal side.
-				// If we're running under the orphan slayer (batch mode), this is the end of the line.
-				// Setting the status to TIMEOUT here will trigger the early return in processDonorReturn
-				// so we don't barrel ahead with the SetExpressCheckout call without having a payerID.
-				if ( $this->isBatchProcessor() && empty( $response['PAYERID'] ) ) {
-					$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
+				case 'SetExpressCheckout':
+				case 'SetExpressCheckout_recurring':
+					$this->checkResponseAck( $response );
+					$this->addResponseData( $this->unstageKeys( $response ) );
+					$redirectUrl = $this->createRedirectUrl( $response['TOKEN'] );
+					$this->transaction_response->setRedirect( $redirectUrl );
 					break;
-				}
+				case 'GetExpressCheckoutDetails':
+					$this->checkResponseAck( $response );
+					// Merge response into our transaction data.
+					// TODO: Use getFormattedData instead.
+					// FIXME: We don't want to allow overwriting of ctid, need a
+					// list of protected fields.
+					$this->addResponseData( $this->unstageKeys( $response ) );
 
-				$this->runAntifraudFilters();
-				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-				}
-				break;
-			case 'DoExpressCheckoutPayment':
-				$this->checkResponseAck( $response );
+					// Complete if payment already finalized
+					if ( $this->isBatchProcessor() && $response['CHECKOUTSTATUS'] && $response['CHECKOUTSTATUS'] === 'PaymentActionCompleted' ) {
+						$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+						break;
+					}
 
-				$this->addResponseData( $this->unstageKeys( $response ) );
-				$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
+					// Empty PAYERID means the donor hasn't done the payment at the PayPal side.
+					// If we're running under the orphan slayer (batch mode), this is the end of the line.
+					// Setting the status to TIMEOUT here will trigger the early return in processDonorReturn
+					// so we don't barrel ahead with the SetExpressCheckout call without having a payerID.
+					if ( $this->isBatchProcessor() && empty( $response['PAYERID'] ) ) {
+						$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
+						break;
+					}
+
+					$this->runAntifraudFilters();
+					if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+						$this->finalizeInternalStatus( FinalStatus::FAILED );
+					}
+					break;
+				case 'DoExpressCheckoutPayment':
+					$this->checkResponseAck( $response );
+
+					$this->addResponseData( $this->unstageKeys( $response ) );
+					$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
 					'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
 
-				$this->finalizeInternalStatus( $status );
-				$this->postProcessDonation();
-				break;
-			case 'ManageRecurringPaymentsProfileStatusCancel':
-			case 'RefundTransaction':
-				$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
+					$this->finalizeInternalStatus( $status );
+					$this->postProcessDonation();
+					break;
+				case 'ManageRecurringPaymentsProfileStatusCancel':
+				case 'RefundTransaction':
+					$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
 			}
 
 			if ( !$this->transaction_response->getCommunicationStatus() ) {

@@ -120,7 +120,8 @@ class PaymentMethod {
 	 * @return true if this payment method is complete enough to begin a transaction
 	 */
 	public function isCompletelySpecified() {
-		if ( $this->name === 'cc' ) { return false;
+		if ( $this->name === 'cc' ) {
+			return false;
 		}
 		return true;
 	}

@@ -16,8 +16,7 @@ class DonationLogProcessor {
 	public function __invoke( $record ) {
 		try {
 			$record['message'] = $this->prefixer->getLogMessagePrefix() . $record['message'];
-		}
-		catch ( Exception $ex ) {
+		} catch ( Exception $ex ) {
 			// logging shouldn't throw any exceptions
 		}
 		return $record;

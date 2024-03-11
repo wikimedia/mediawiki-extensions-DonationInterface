@@ -61,6 +61,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				$params += $formParams;
 				if ( $this->wasCanceled( $params ) ) {
 					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
+					$this->redirectToCancel( $formParams['country'] );
+					return;
 				}
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
@@ -77,11 +79,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contact_id' => $contactId,
 		];
 		try {
-			$logger->info( "Pushing cancel upgrade to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$this->renderCancel();
 		} catch ( Exception $e ) {
-			$this->renderError();
+			$logger->error( "Error pushing recurring_upgrade_decline message: {$e->getMessage()}" );
 		}
 	}
 
@@ -111,6 +112,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 		$uiLang = $this->getLanguage()->getCode();
 		$locale = self::FALLBACK_LANGUAGE;
+		// If no country param on query string, use the country from the donor address.
+		$country = $country ?? $recurData['country'];
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
@@ -119,8 +122,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contribution_recur_id' => $recurData['id'],
 			'amount' => $recurData['amount'],
 			'currency' => $recurData['currency'],
-			'locale' => $locale,
-			'next_sched_date_formatted' => $nextDateFormatted
+			'country' => $country,
+			'next_sched_contribution_date' => $recurData['next_sched_contribution_date']
 		] );
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
@@ -141,7 +144,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contribution_recur_id' => $recurData['id'],
 			'next_sched_date' => $recurData['next_sched_contribution_date'],
 			'next_sched_date_formatted' => $nextDateFormatted,
-			'country' => $recurData['country'] ?? self::FALLBACK_COUNTRY,
+			'country' => $country ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'locale' => $locale,
 			'recurringOptions' => $optionsForTemplate,
@@ -158,6 +161,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 		if ( $this->wasCanceled( $params ) ) {
 			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
+			$this->redirectToCancel( $DonorData['country'] );
 			return;
 		}
 		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
@@ -175,21 +179,18 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$renderParams = [
-				'next_sched_date_formatted' => $DonorData['next_sched_date_formatted'],
-				'new_amount_formatted' => EmailForm::amountFormatter(
-					$amount, $DonorData['locale'], $DonorData['currency']
-				)
-			];
-			$this->renderSuccess( 'recurUpgrade', $renderParams );
+			$this->redirectToSuccess( $DonorData, $amount );
 		} catch ( Exception $e ) {
+			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
 			$this->renderError();
 		}
 	}
 
-	protected function renderCancel( $subpage = 'recurUpgrade' ) {
-		$subpage .= 'Cancel';
-		$this->renderForm( $subpage, [] );
+	protected function redirectToCancel( ?string $country ): void {
+		$this->redirectToThankYouPage( [
+			'country' => $country,
+			'recurUpgrade' => 0,
+		] );
 	}
 
 	protected function renderError( $subpage = 'recurUpgrade' ) {
@@ -197,9 +198,25 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->renderForm( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'recurUpgrade', $params = [] ) {
-		$subpage .= 'Success';
-		$this->renderForm( $subpage, $params );
+	protected function redirectToSuccess( array $donorData, float $amount ): void {
+		$redirectParams = [
+			'country' => $donorData['country'],
+			'recurAmount' => $amount,
+			'recurCurrency' => $donorData['currency'],
+			'recurDate' => $donorData['next_sched_contribution_date'],
+			'recurUpgrade' => 1,
+		];
+		$this->redirectToThankYouPage( $redirectParams );
+	}
+
+	protected function redirectToThankYouPage( array $params ): void {
+		$page = $this->getConfig()->get( 'DonationInterfaceThankYouPage' );
+		$page = ResultPages::appendLanguageAndMakeURL(
+			$page,
+			$this->getLanguage()->getCode()
+		);
+
+		$this->getOutput()->redirect( wfAppendQuery( $page, $params ) );
 	}
 
 	protected function renderForm( $subpage, array $params ) {
@@ -246,7 +263,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function validateAmount( array $params, bool $posted ): bool {
-		if ( !$posted ) {
+		if ( !$posted || $params['submit'] ??= 'cancel' ) {
 			// Not doing anything with the parameters unless we're posted, so don't worry about them
 			return true;
 		}

@@ -1699,26 +1699,26 @@ abstract class GatewayAdapter implements GatewayType {
 		$noHeaders = preg_replace( '/^.*?(\r\n\r\n|\n\n)(?!HTTP\/)/ms', '', $rawResponse, 1 );
 		$this->logger->info( "Raw Response:" . $noHeaders );
 		switch ( $type ) {
-		case 'json':
-			return json_decode( $noHeaders, true );
+			case 'json':
+				return json_decode( $noHeaders, true );
 
-		case 'delimited':
-			$delimiter = $this->transaction_option( 'response_delimiter' );
-			$keys = $this->transaction_option( 'response_keys' );
-			if ( !$delimiter || !$keys ) {
-				throw new LogicException( 'Delimited transactions must define both response_delimiter and response_keys options' );
-			}
-			$values = explode( $delimiter, trim( $noHeaders ) );
-			$combined = array_combine( $keys, $values );
-			if ( $combined === false ) {
-				throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
-			}
-			return $combined;
+			case 'delimited':
+				$delimiter = $this->transaction_option( 'response_delimiter' );
+				$keys = $this->transaction_option( 'response_keys' );
+				if ( !$delimiter || !$keys ) {
+					throw new LogicException( 'Delimited transactions must define both response_delimiter and response_keys options' );
+				}
+				$values = explode( $delimiter, trim( $noHeaders ) );
+				$combined = array_combine( $keys, $values );
+				if ( $combined === false ) {
+					throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
+				}
+				return $combined;
 
-		case 'query_string':
-			$parsed = [];
-			parse_str( $noHeaders, $parsed );
-			return $parsed;
+			case 'query_string':
+				$parsed = [];
+				parse_str( $noHeaders, $parsed );
+				return $parsed;
 		}
 		return $noHeaders;
 	}
@@ -2473,8 +2473,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		try {
 			$this->doQueueTransaction();
-		}
-		catch ( Exception $ex ) {
+		} catch ( Exception $ex ) {
 			$this->logger->alert( "Failure queueing final status message: {$ex->getMessage()}" );
 		}
 	}
@@ -4032,19 +4031,19 @@ abstract class GatewayAdapter implements GatewayType {
 		$convertAmounts = $this->getGlobal( 'MonthlyConvertAmounts' );
 		$currency = $this->getData_Unstaged_Escaped( 'currency' );
 		if ( isset( $convertAmounts[$currency] ) ) {
-		return $convertAmounts[$currency];
+			return $convertAmounts[$currency];
 		} elseif ( $currency === 'EUR' ) {
-		// If EUR not specifically configured, fall back to GBP rules
-		return $convertAmounts['GBP'];
+			// If EUR not specifically configured, fall back to GBP rules
+			return $convertAmounts['GBP'];
 		} elseif ( $currency === 'NOK' ) {
-		// If NOK not specifically configured, fall back to SEK rules
-		return $convertAmounts['SEK'];
+			// If NOK not specifically configured, fall back to SEK rules
+			return $convertAmounts['SEK'];
 		} elseif ( in_array( $currency, [ 'PLN', 'RON' ], true ) ) {
-		// If these currencies aren't configured, fall back to MYR rules
-		return $convertAmounts['MYR'];
+			// If these currencies aren't configured, fall back to MYR rules
+			return $convertAmounts['MYR'];
 		} elseif ( in_array( $currency, [ 'AUD', 'CAD', 'NZD' ], true ) ) {
-		// If these currencies aren't configured, fall back to USD rules
-		return $convertAmounts['USD'];
+			// If these currencies aren't configured, fall back to USD rules
+			return $convertAmounts['USD'];
 		}
 		return null;
 	}

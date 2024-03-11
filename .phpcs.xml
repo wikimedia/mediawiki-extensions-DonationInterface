@@ -12,6 +12,7 @@
 		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
 		<exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment" />
 		<exclude name="Squiz.Classes.ValidClassName.NotCamelCaps" />
+		<exclude name="Generic.CodeAnalysis.AssignmentInCondition" />
 	</rule>
 
 	<rule ref="Generic.Files.LineLength">
