@@ -205,7 +205,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'country' => $donorData['country'],
 			'recurAmount' => $amount,
 			'recurCurrency' => $donorData['currency'],
-			'recurDate' => $donorData['next_sched_contribution_date'],
+			'recurDate' => substr( $donorData['next_sched_contribution_date'], 0, 10 ),
 			'recurUpgrade' => 1,
 		];
 		$this->redirectToThankYouPage( $redirectParams );
