@@ -1,5 +1,6 @@
 <?php
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 
 class RecurUpgrade extends UnlistedSpecialPage {
 
@@ -146,6 +147,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'next_sched_date_formatted' => $nextDateFormatted,
 			'country' => $country ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
+			'maximum' => $this->getMaxInSelectedCurrency( $recurData ),
 			'locale' => $locale,
 			'recurringOptions' => $optionsForTemplate,
 		];
@@ -203,7 +205,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'country' => $donorData['country'],
 			'recurAmount' => $amount,
 			'recurCurrency' => $donorData['currency'],
-			'recurDate' => $donorData['next_sched_contribution_date'],
+			'recurDate' => substr( $donorData['next_sched_contribution_date'], 0, 10 ),
 			'recurUpgrade' => 1,
 		];
 		$this->redirectToThankYouPage( $redirectParams );
@@ -263,7 +265,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function validateAmount( array $params, bool $posted ): bool {
-		if ( !$posted || $params['submit'] ??= 'cancel' ) {
+		if ( !$posted || ( isset( $params['submit'] ) && $params['submit'] === 'cancel' ) ) {
 			// Not doing anything with the parameters unless we're posted, so don't worry about them
 			return true;
 		}
@@ -274,13 +276,34 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			return false;
 		}
 		if ( $params['upgrade_amount'] === 'other' ) {
-			if ( !is_numeric( $params['upgrade_amount_other'] ) ) {
-				return false;
-			}
-		} elseif ( !is_numeric( $params['upgrade_amount'] ) ) {
+			return $this->isNumberInBounds( $params['upgrade_amount_other'] );
+		}
+		return $this->isNumberInBounds( $params['upgrade_amount'] );
+	}
+
+	protected function isNumberInBounds( string $amount ): bool {
+		if ( !is_numeric( $amount ) ) {
 			return false;
 		}
-		return true;
+		$amount = floatval( $amount );
+		// If the currency is in the session, use that to determine max upgrade amount
+		$donorData = RequestContext::getMain()->getRequest()->getSessionData( self::DONOR_DATA );
+		$max = $this->getMaxInSelectedCurrency( $donorData );
+		return ( $amount > 0 && $amount <= $max );
+	}
+
+	protected function getMaxInSelectedCurrency( ?array $donorData ): float {
+		$rates = CurrencyRates::getCurrencyRates();
+		if (
+			$donorData !== null &&
+			!empty( $donorData['currency'] ) &&
+			array_key_exists( $donorData['currency'], $rates )
+		) {
+			$rate = $rates[$donorData['currency']];
+		} else {
+			$rate = 1;
+		}
+		return $rate * $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 	}
 
 	protected function setPageTitle( $subpage ) {

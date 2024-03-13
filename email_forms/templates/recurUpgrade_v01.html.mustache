@@ -1,7 +1,7 @@
 {{> emailPreferencesHeader}}
 <link rel="stylesheet" href="{{ template_path }}/recurUpgrade_v01.css">
 <main class="recurUpgradeForm">
-		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}">
+		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}" data-maximum="{{ maximum }}">
 			<input type="hidden" name="token" value="{{ token }}"/>
 			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
 			<input type="hidden" name="checksum" value="{{checksum}}"/>
