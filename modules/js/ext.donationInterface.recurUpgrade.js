@@ -6,8 +6,9 @@
 			$totalMessage = $( '.recurUpgradeMessageToggle' ),
 			$newTotalAmount = $( '.recurUpgradeMessageToggle strong' ),
 			$form = $( 'form' ),
-			originalAmount = $form.attr( 'data-original-amount' ),
+			originalAmount = +( $form.attr( 'data-original-amount' ) ),
 			currency = $form.attr( 'data-currency' ),
+			maximum = +( $form.attr( 'data-maximum' ) ),
 			formatter;
 
 		// Avoid console errors in case currency is not supplied
@@ -21,23 +22,23 @@
 		}
 
 		function setTotalAndSubmitState() {
-			var valueIsValid = false,
+			var valueIsValid,
 				value = $amountField.filter( ':checked' ).val();
 
 			if ( value === 'other' ) {
 				value = $otherAmountField.val();
-				valueIsValid = ( value > 0 );
-			} else if ( value > 0 ) {
-				valueIsValid = true;
+			} else {
 				$otherAmountField.val( '' );
 			}
+			// Use unary + operator to tell JS to treat it as a number, not a string
+			value = +value;
+			valueIsValid = ( value > 0 && value <= maximum );
 
 			if ( valueIsValid ) {
 				$submitButton.removeClass( 'disabled' );
 				$submitButton.prop( 'disabled', false );
 				$newTotalAmount.text(
-					// Use unary + operator to tell JS to treat both as numbers, not strings
-					formatter.format( ( +originalAmount ) + ( +value ) )
+					formatter.format( originalAmount + value )
 				);
 				$totalMessage.show();
 			} else {

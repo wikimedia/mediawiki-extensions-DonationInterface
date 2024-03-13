@@ -99,6 +99,7 @@ class EmailForm {
 			'language',
 			'languages',
 			'locale',
+			'maximum',
 			'new_amount_formatted',
 			'next_sched_date',
 			'next_sched_date_formatted',
