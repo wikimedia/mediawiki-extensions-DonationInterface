@@ -38,7 +38,8 @@
 			"Windes",
 			"Wladek92",
 			"Wyz",
-			"Y-M D"
+			"Y-M D",
+			"MacOS Weed"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -56,7 +57,7 @@
 	"donate_interface-comment-title": "Commentaire public",
 	"donate_interface-charge-monthly-only": "Nous n’effectuerons un prélèvement récurrent que de façon mensuelle.",
 	"donate_interface-donation-description": "Wikimedia +1 877 600 9454",
-	"donate_interface-monthly-donation-description": "Wikimédia +1 877 600 9454 - Don mensuel",
+	"donate_interface-monthly-donation-description": "Fondation Wikimédia - Don mensuel",
 	"donate_interface-amount-error": "Veuillez sélectionner le montant du don",
 	"donate_interface-smallamount-error": "Veuillez sélectionner une somme (minimum de $1)",
 	"donate_interface-bigamount-error": "Nous ne pouvons pas accepter les dons supérieurs à $4 USD ($1 $2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.",
