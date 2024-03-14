@@ -70,13 +70,13 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function sendCancelRecurringUpgradeQueue( $contributionId, $contactId ) {
+	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'RecurUpgrade', true, false, '', null );
 		$message = [
 			'txn_type' => 'recurring_upgrade_decline',
-			'contribution_recur_id' => $contributionId,
-			'contact_id' => $contactId,
+			'contribution_recur_id' => $contributionID,
+			'contact_id' => $contactID,
 		];
 		try {
 			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
@@ -86,15 +86,15 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function paramsForRecurUpgradeForm( $checksum, $contact_id, $country ): ?array {
-		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contact_id );
+	protected function paramsForRecurUpgradeForm( $checksum, $contactID, $country ): ?array {
+		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
 		if ( $recurData[ 'is_error' ] ) {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
 				'RecurUpgrade', true, false, '', null );
 
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
-					"No results for contact_id $contact_id with checksum $checksum" );
+					"No results for contact_id $contactID with checksum $checksum" );
 			} else {
 				$logger->error( 'Error from civiproxy: ' . $recurData[ 'error_message' ] );
 			}
@@ -139,36 +139,36 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	protected function executeRecurUpgrade( $params ) {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'RecurUpgrade', true, false, '', null );
-		$DonorData = WmfFramework::getSessionValue( self::DONOR_DATA );
-		if ( !isset( $DonorData['contribution_recur_id'] ) ) {
+		$donorData = WmfFramework::getSessionValue( self::DONOR_DATA );
+		if ( !isset( $donorData['contribution_recur_id'] ) ) {
 			$this->renderError();
 			return;
 		}
 		if ( $this->wasCanceled( $params ) ) {
-			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
-			$this->redirectToCancel( $DonorData['country'] );
+			$this->sendCancelRecurringUpgradeQueue( $donorData['contribution_recur_id'], $params['contact_id'] );
+			$this->redirectToCancel( $donorData['country'] );
 			return;
 		}
 		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
 			? $params['upgrade_amount_other']
 			: $params['upgrade_amount'];
 
-		$amount = $DonorData['amount'] + round( (double)$upgradeAmount, 2 );
+		$amount = $donorData['amount'] + round( (double)$upgradeAmount, 2 );
 		$message = [
 			'txn_type' => 'recurring_upgrade',
-			'contribution_recur_id' => $DonorData['contribution_recur_id'],
+			'contribution_recur_id' => $donorData['contribution_recur_id'],
 			'amount' => $amount,
-			'currency' => $DonorData['currency'],
+			'currency' => $donorData['currency'],
 			// Tracking fields formerly known as utm_*
-			'campaign' => $DonorData['campaign'],
-			'medium' => $DonorData['medium'],
-			'source' => $DonorData['source'],
+			'campaign' => $donorData['campaign'],
+			'medium' => $donorData['medium'],
+			'source' => $donorData['source'],
 		];
 
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$this->redirectToSuccess( $DonorData, $amount );
+			$this->redirectToSuccess( $donorData, $amount );
 		} catch ( Exception $e ) {
 			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
 			$this->renderError();
