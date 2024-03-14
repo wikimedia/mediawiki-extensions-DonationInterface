@@ -29,11 +29,11 @@ class PaypalCancelMaintenance extends Maintenance {
 		$filename = $this->getOption( 'file' );
 		$file = fopen( $filename, 'r' );
 		if ( !$file ) {
-			$this->error( 'Could not find cancellation file: ' . $filename, true );
+			$this->fatalError( 'Could not find cancellation file: ' . $filename );
 		}
 		while ( $refund = fgetcsv( $file ) ) {
 			if ( count( $refund ) !== 1 ) {
-				$this->error( 'Cancellation lines must have exactly 1 field: subscription_id', true );
+				$this->fatalError( 'Cancellation lines must have exactly 1 field: subscription_id' );
 			}
 			$subscription_id = $refund[0];
 			$gateway_opts = [
