@@ -59,6 +59,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 					$this->renderError();
 					return;
 				}
+				$this->addDataToSession( $formParams, $params );
 				$params += $formParams;
 				if ( $this->wasCanceled( $params ) ) {
 					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
@@ -87,7 +88,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function paramsForRecurUpgradeForm( $checksum, $contact_id, $country ) {
+	protected function paramsForRecurUpgradeForm( $checksum, $contact_id, $country ): ?array {
 		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contact_id );
 		if ( $recurData[ 'is_error' ] ) {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
@@ -118,14 +119,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
-
-		WmfFramework::setSessionValue( self::DONOR_DATA, [
-			'contribution_recur_id' => $recurData['id'],
-			'amount' => $recurData['amount'],
-			'currency' => $recurData['currency'],
-			'country' => $country,
-			'next_sched_contribution_date' => $recurData['next_sched_contribution_date']
-		] );
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 		$currency = $recurData['currency'];
@@ -175,7 +168,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'txn_type' => 'recurring_upgrade',
 			'contribution_recur_id' => $DonorData['contribution_recur_id'],
 			'amount' => $amount,
-			'currency' => $DonorData['currency']
+			'currency' => $DonorData['currency'],
+			// Tracking fields formerly known as utm_*
+			'campaign' => $DonorData['campaign'],
+			'medium' => $DonorData['medium'],
+			'source' => $DonorData['source'],
 		];
 
 		try {
@@ -318,5 +315,18 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	protected function wasCanceled( $params ) {
 		return ( isset( $params['submit'] ) && ( $params['submit'] === 'cancel' ) );
+	}
+
+	protected function addDataToSession( array $formParams, array $querystringParams ) {
+		WmfFramework::setSessionValue( self::DONOR_DATA, [
+			'contribution_recur_id' => $formParams['contribution_recur_id'],
+			'amount' => $formParams['recur_amount'],
+			'currency' => $formParams['currency'],
+			'country' => $formParams['country'],
+			'next_sched_contribution_date' => $formParams['next_sched_date'],
+			'source' => $querystringParams['wmf_source'] ?? null,
+			'medium' => $querystringParams['wmf_medium'] ?? null,
+			'campaign' => $querystringParams['wmf_campaign'] ?? null,
+		] );
 	}
 }
