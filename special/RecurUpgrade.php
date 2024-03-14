@@ -218,6 +218,13 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function validate( array $params, $posted ) {
+		if (
+			empty( $params['checksum'] ) ||
+			empty( $params['contact_id'] ) ||
+			!is_numeric( $params['contact_id'] )
+		) {
+			return false;
+		}
 		if ( !$this->validateToken( $params, $posted ) ) {
 			return false;
 		}
