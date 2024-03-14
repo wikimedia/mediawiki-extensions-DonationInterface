@@ -1,11 +1,20 @@
+/* page overrides */
+
+body { padding-top: 60px; }
+header { margin-bottom: 0;}
+.primary-nav__drawer { display: none; }
+#contentSub, #contentSub2 { margin: 0; }
+footer { max-width: 100%; }
+
+
 /* Independent Recurring Upgrade styles */
 
 .recurUpgradeForm {
 	width: 100%;
-    font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
-    color: #202122;
-    font-style: normal;
-    font-weight: 400;
+	font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+	color: #202122;
+	font-style: normal;
+	font-weight: 400;
 }
 
 main.recurUpgradeForm {
@@ -16,41 +25,49 @@ main.recurUpgradeForm {
 
 .recurUpgradeForm h1 {
 	font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 48px;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 40px;
+	line-height: 48px;
+	margin-top: 0;
+	border: 0;
 }
+
 .recurUpgradeForm h2 {
 	font-size: 26px;
-    line-height: 30px;
-    font-weight: 600;
+	line-height: 30px;
+	font-weight: 600;
+	margin-top: 0;
+	border: 0;
 }
+
 .recurUpgradeForm h3 {
 	font-size: 24px;
-    line-height: 30px;
-    font-weight: 400;
+	line-height: 30px;
+	font-weight: 400;
+	margin-top: 0;
+	border: 0;
 }
 
 .recurUpgradeForm p {
 	font-size: 20px;
-    line-height: 28px;
+	line-height: 28px;
 }
 
 .recurUpgradeForm .emailpreferences-form-col-content-salutation-name {
 	font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
-    font-style: normal;
-    font-weight: 600;
+	font-style: normal;
+	font-weight: 600;
 	font-size: 30px;
-    line-height: 40px;
+	line-height: 40px;
 }
 
 .recurUpgradeForm section {
-    padding: 40px 0;
-    width: 100%;
+	padding: 40px 0;
+	width: 100%;
 }
 .bg-ltgreen {
-    background: #DBF3EC;
+	background: #DBF3EC;
 }
 .bg-ltyellow {
 	background: #FFFDF8;
@@ -72,28 +89,29 @@ main.recurUpgradeForm {
 }
 
 .recurUpgradeRadio {
-    flex: 0 0 50%;
-    max-width: 50%;
-    padding: 0 10px 20px;
-    box-sizing: border-box;
-    margin-left: -10px;
+	flex: 0 0 50%;
+	max-width: 50%;
+	padding: 0 10px 20px;
+	box-sizing: border-box;
+	margin-left: -10px;
 }
 
 .recurUpgradeActions label {
 	position: relative;
-    display: flex;
-    height: 69px;
-    padding: 0 20px;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    border-radius: 16px;
-    border: 2px solid #FBEEBF;
-    cursor: pointer;
-    font-size: 20px;
-    font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
-    font-style: normal;
-    font-weight: 600;
+	display: flex;
+	height: 69px;
+	padding: 0 20px;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	border-radius: 16px;
+	border: 2px solid #FBEEBF;
+	cursor: pointer;
+	font-size: 20px;
+	font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 1;
 }
 
 .recurUpgradeActions input:focus + label {
@@ -102,35 +120,35 @@ main.recurUpgradeForm {
 
 .recurUpgradeRadio input[name="upgrade_amount_other"] {
 	position: relative;
-    top: 2px;
+	top: 2px;
 	margin: 0 0 0 15px;
 	border: 0 none;
 	padding: 0 0 2px;
 	border-bottom: 2px solid #ccc;
 	font-size: 20px;
-    font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
-    font-style: normal;
-    font-weight: 600;
-    max-width: calc(100% - 80px);
-    background: transparent;
+	font-family: "Source Serif Pro", Georgia, "Times New Roman", Times, serif;
+	font-style: normal;
+	font-weight: 600;
+	max-width: calc(100% - 80px);
+	background: transparent;
 }
 
 .recurUpgradeRadio input:checked + label {
 	border-color: #308557;
-    background: #DBF3EC;
+	background: #DBF3EC;
 }
 
 .recurUpgradeRadio input:checked + label::after {
-    content: '';
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    width: 40px;
-    height: 40px;
-    background-image: url('https://upload.wikimedia.org/wikipedia/donate/1/1b/Done-fr.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    transform: translateY(-50%);
+	content: '';
+	position: absolute;
+	right: 15px;
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	background-image: url('Done-fr.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	transform: translateY(-50%);
 }
 
 .recurUpgradeRadio input:checked + label input {
@@ -144,28 +162,28 @@ main.recurUpgradeForm {
 
 .recurUpgradeActionButtons .button {
 	height: 62px;
-    display: flex;
-    padding: 5px 20px;
-    margin: 0 10px 0 0;
-    align-items: center;
-    gap: 4px;
-    border-radius: 4px;
-    color: #FFFFFF;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 20px;
-    border: none !important;
-    text-decoration: none;
-    background-color: #308557;
+	display: flex;
+	padding: 5px 20px;
+	margin: 0 10px 0 0;
+	align-items: center;
+	gap: 4px;
+	border-radius: 4px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 20px;
+	border: none !important;
+	text-decoration: none;
+	background-color: #308557;
 }
 
 .recurUpgradeActionButtons .button img {
-    width: 30px;
-    margin-right: 5px;
+	width: 30px;
+	margin-right: 5px;
 }
 
 .recurUpgradeActionButtons .button:hover:not(.disabled) {
-    filter: brightness(1.2);
+	filter: brightness(1.2);
 }
 
 .recurUpgradeActionButtons .button.button-cancel {
@@ -174,54 +192,54 @@ main.recurUpgradeForm {
 }
 
 .recurUpgradeActionButtons .button.disabled {
-	background-color: #888!important;
+	background-color: #888 !important;
 }
 
 /* screen reader visibility */
 .sr-only {
-    border: 0 !important;
-    clip: rect(1px, 1px, 1px, 1px) !important;
-    -webkit-clip-path: inset(50%) !important;
-        clip-path: inset(50%) !important;
-    height: 1px !important;
-    margin: -1px !important;
-    overflow: hidden !important;
-    padding: 0 !important;
-    position: absolute !important;
-    width: 1px !important;
-    white-space: nowrap !important;
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+	-webkit-clip-path: inset(50%) !important;
+	clip-path: inset(50%) !important;
+	height: 1px !important;
+	margin: -1px !important;
+	overflow: hidden !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;
 }
 
 @media (max-width: 599px) {
 	.recur-section {
-	    padding: 25px 0;
+		padding: 25px 0;
 	}
 	.recurUpgradeForm section > div.site-content {
 		padding: 0 1.5em;
 	}
 	.recurUpgradeForm .emailpreferences-form-col-content-salutation-name {
-	    font-size: 26px;
-	    line-height: 34px;
+		font-size: 26px;
+		line-height: 34px;
 	}
 	.recurUpgradeForm h1 {
-	    font-size: 32px;
-	    line-height: 40px;
+		font-size: 32px;
+		line-height: 40px;
 	}
 	.recurUpgradeForm h2 {
 		font-size: 26px;
-	    line-height: 30px;
+		line-height: 30px;
 	}
 	.recurUpgradeForm h3 {
 		font-size: 20px;
-	    line-height: 28px;
+		line-height: 28px;
 	}
 	.recurUpgradeForm p {
 		font-size: 16px;
-	    line-height: 24px;
+		line-height: 24px;
 	}
 	.recurUpgradeRadio {
-	    flex: 0 0 100%;
-	    max-width: 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
 	}
 	.recurUpgradeActionButtons {
 		display: block;

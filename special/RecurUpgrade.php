@@ -6,15 +6,12 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
-	const FALLBACK_SUBPAGE = 'recurUpgradeError';
 	const FALLBACK_CURRENCY = 'USD';
 
 	const DONOR_DATA = 'Donor';
 
 	// Note: Coordinate with Getpreferences.php in Civiproxy API, in wmf-civicrm extension.
 	const CIVI_NO_RESULTS_ERROR = 'No result found';
-
-	const BAD_DATA_SESSION_KEY = 'recur-upgrade-bad_data';
 
 	public function __construct() {
 		parent::__construct( 'RecurUpgrade' );
@@ -35,49 +32,42 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferences',
 			'ext.donationInterface.recurUpgrade'
 		] );
-		$this->setPageTitle( $subpage );
+		$this->setPageTitle();
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
 		if ( !$this->validate( $params, $posted ) ) {
-			$this->renderError( $subpage );
+			$this->renderError();
 			return;
 		}
 		if ( $posted ) {
-			if ( $subpage !== 'recurUpgrade' ) {
+			$this->executeRecurUpgrade( $params );
+		} else {
+			$formParams = $this->paramsForRecurUpgradeForm(
+				$params[ 'checksum' ],
+				$params[ 'contact_id' ],
+				$params[ 'country' ] ?? null
+			);
+			if ( $formParams === null ) {
 				$this->renderError();
 				return;
 			}
-			$this->executeRecurUpgrade( $params );
-		} else {
-			if ( $subpage === 'recurUpgrade' ) {
-				$formParams = $this->paramsForRecurUpgradeForm(
-					$params[ 'checksum' ],
-					$params[ 'contact_id' ],
-					$params[ 'country' ] ?? null
-				);
-				if ( $formParams === null ) {
-					$this->renderError();
-					return;
-				}
-				$params += $formParams;
-				if ( $this->wasCanceled( $params ) ) {
-					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
-					$this->redirectToCancel( $formParams['country'] );
-					return;
-				}
+			$this->addDataToSession( $formParams, $params );
+			$params += $formParams;
+			if ( $this->wasCanceled( $params ) ) {
+				$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
+				$this->redirectToCancel( $formParams['country'] );
 			}
-			// if subpage null, we must have no checksum and contact id, so just render a default page
-			$this->renderForm( $subpage ?? self::FALLBACK_SUBPAGE, $params );
+			$this->renderForm( 'recurUpgrade', $params );
 		}
 	}
 
-	protected function sendCancelRecurringUpgradeQueue( $contributionId, $contactId ) {
+	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'RecurUpgrade', true, false, '', null );
 		$message = [
 			'txn_type' => 'recurring_upgrade_decline',
-			'contribution_recur_id' => $contributionId,
-			'contact_id' => $contactId,
+			'contribution_recur_id' => $contributionID,
+			'contact_id' => $contactID,
 		];
 		try {
 			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
@@ -87,27 +77,19 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function paramsForRecurUpgradeForm( $checksum, $contact_id, $country ) {
-		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contact_id );
+	protected function paramsForRecurUpgradeForm( $checksum, $contactID, $country ): ?array {
+		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
 		if ( $recurData[ 'is_error' ] ) {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
 				'RecurUpgrade', true, false, '', null );
 
-			// If Civi returned no match for hash and contact_id, we still show the form,
-			// but log a message and set a session flag to prevent a message being
-			// placed on the queue.
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
-					"No results for contact_id $contact_id with checksum $checksum" );
-
-				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
-
+					"No results for contact_id $contactID with checksum $checksum" );
 			} else {
 				$logger->error( 'Error from civiproxy: ' . $recurData[ 'error_message' ] );
 			}
 			return null;
-		} else {
-			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
 		}
 		$nextDateFormatted = EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] );
 
@@ -118,14 +100,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
-
-		WmfFramework::setSessionValue( self::DONOR_DATA, [
-			'contribution_recur_id' => $recurData['id'],
-			'amount' => $recurData['amount'],
-			'currency' => $recurData['currency'],
-			'country' => $country,
-			'next_sched_contribution_date' => $recurData['next_sched_contribution_date']
-		] );
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 		$currency = $recurData['currency'];
@@ -156,32 +130,36 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	protected function executeRecurUpgrade( $params ) {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'RecurUpgrade', true, false, '', null );
-		$DonorData = WmfFramework::getSessionValue( self::DONOR_DATA );
-		if ( !isset( $DonorData['contribution_recur_id'] ) ) {
+		$donorData = WmfFramework::getSessionValue( self::DONOR_DATA );
+		if ( !isset( $donorData['contribution_recur_id'] ) ) {
 			$this->renderError();
 			return;
 		}
 		if ( $this->wasCanceled( $params ) ) {
-			$this->sendCancelRecurringUpgradeQueue( $DonorData['contribution_recur_id'], $params['contact_id'] );
-			$this->redirectToCancel( $DonorData['country'] );
+			$this->sendCancelRecurringUpgradeQueue( $donorData['contribution_recur_id'], $params['contact_id'] );
+			$this->redirectToCancel( $donorData['country'] );
 			return;
 		}
 		$upgradeAmount = ( $params['upgrade_amount'] === 'other' )
 			? $params['upgrade_amount_other']
 			: $params['upgrade_amount'];
 
-		$amount = $DonorData['amount'] + round( (double)$upgradeAmount, 2 );
+		$amount = $donorData['amount'] + round( (double)$upgradeAmount, 2 );
 		$message = [
 			'txn_type' => 'recurring_upgrade',
-			'contribution_recur_id' => $DonorData['contribution_recur_id'],
+			'contribution_recur_id' => $donorData['contribution_recur_id'],
 			'amount' => $amount,
-			'currency' => $DonorData['currency']
+			'currency' => $donorData['currency'],
+			// Tracking fields formerly known as utm_*
+			'campaign' => $donorData['campaign'],
+			'medium' => $donorData['medium'],
+			'source' => $donorData['source'],
 		];
 
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
-			$this->redirectToSuccess( $DonorData, $amount );
+			$this->redirectToSuccess( $donorData, $amount );
 		} catch ( Exception $e ) {
 			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
 			$this->renderError();
@@ -195,9 +173,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		] );
 	}
 
-	protected function renderError( $subpage = 'recurUpgrade' ) {
-		$subpage .= 'Error';
-		$this->renderForm( $subpage, [] );
+	protected function renderError() {
+		$this->renderForm( 'recurUpgradeError', [] );
 	}
 
 	protected function redirectToSuccess( array $donorData, float $amount ): void {
@@ -221,16 +198,19 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->getOutput()->redirect( wfAppendQuery( $page, $params ) );
 	}
 
-	protected function renderForm( $subpage, array $params ) {
-		if ( !$subpage ) {
-			$this->renderError();
-			return;
-		}
-		$formObj = new EmailForm( $subpage, $params );
+	protected function renderForm( string $templateName, array $params ) {
+		$formObj = new EmailForm( $templateName, $params );
 		$this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
 	protected function validate( array $params, $posted ) {
+		if (
+			empty( $params['checksum'] ) ||
+			empty( $params['contact_id'] ) ||
+			!is_numeric( $params['contact_id'] )
+		) {
+			return false;
+		}
 		if ( !$this->validateToken( $params, $posted ) ) {
 			return false;
 		}
@@ -306,17 +286,24 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		return $rate * $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 	}
 
-	protected function setPageTitle( $subpage ) {
-		$title = $this->msg( 'donate_interface-error-msg-general' );
-
-		if ( $subpage === 'recurUpgrade' ) {
-			$title = $this->msg( 'recurupgrade-title' );
-		}
-
-		$this->getOutput()->setPageTitle( $title );
+	protected function setPageTitle() {
+		$this->getOutput()->setPageTitle( $this->msg( 'recurupgrade-title' ) );
 	}
 
 	protected function wasCanceled( $params ) {
 		return ( isset( $params['submit'] ) && ( $params['submit'] === 'cancel' ) );
+	}
+
+	protected function addDataToSession( array $formParams, array $querystringParams ) {
+		WmfFramework::setSessionValue( self::DONOR_DATA, [
+			'contribution_recur_id' => $formParams['contribution_recur_id'],
+			'amount' => $formParams['recur_amount'],
+			'currency' => $formParams['currency'],
+			'country' => $formParams['country'],
+			'next_sched_contribution_date' => $formParams['next_sched_date'],
+			'source' => $querystringParams['wmf_source'] ?? null,
+			'medium' => $querystringParams['wmf_medium'] ?? null,
+			'campaign' => $querystringParams['wmf_campaign'] ?? null,
+		] );
 	}
 }
