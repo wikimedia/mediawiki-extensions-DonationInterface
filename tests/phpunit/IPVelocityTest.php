@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\MainConfigNames;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\ValidationAction;
@@ -35,7 +34,6 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		$wgDonationInterfaceIPAllowList = [ '1.2.3.4' ];
 		$wgDonationInterfaceIPDenyList = [ '5.6.7.8' ];
 		$this->overrideConfigValues( [
-			MainConfigNames::MainCacheType => CACHE_HASH,
 			'DonationInterfaceEnableIPVelocityFilter' => true,
 			'DonationInterfaceIPVelocityFailDuration' => 150,
 			'DonationInterfaceIPVelocityTimeout' => 200,
