@@ -14,8 +14,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	// Note: Coordinate with Getpreferences.php in Civiproxy API, in wmf-civicrm extension.
 	const CIVI_NO_RESULTS_ERROR = 'No result found';
 
-	const BAD_DATA_SESSION_KEY = 'recur-upgrade-bad_data';
-
 	public function __construct() {
 		parent::__construct( 'RecurUpgrade' );
 	}
@@ -94,21 +92,13 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
 				'RecurUpgrade', true, false, '', null );
 
-			// If Civi returned no match for hash and contact_id, we still show the form,
-			// but log a message and set a session flag to prevent a message being
-			// placed on the queue.
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
 					"No results for contact_id $contact_id with checksum $checksum" );
-
-				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
-
 			} else {
 				$logger->error( 'Error from civiproxy: ' . $recurData[ 'error_message' ] );
 			}
 			return null;
-		} else {
-			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
 		}
 		$nextDateFormatted = EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] );
 
