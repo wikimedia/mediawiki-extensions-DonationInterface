@@ -6,7 +6,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
-	const FALLBACK_SUBPAGE = 'recurUpgradeError';
 	const FALLBACK_CURRENCY = 'USD';
 
 	const DONOR_DATA = 'Donor';
@@ -33,40 +32,32 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferences',
 			'ext.donationInterface.recurUpgrade'
 		] );
-		$this->setPageTitle( $subpage );
+		$this->setPageTitle();
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
 		if ( !$this->validate( $params, $posted ) ) {
-			$this->renderError( $subpage );
+			$this->renderError();
 			return;
 		}
 		if ( $posted ) {
-			if ( $subpage !== 'recurUpgrade' ) {
+			$this->executeRecurUpgrade( $params );
+		} else {
+			$formParams = $this->paramsForRecurUpgradeForm(
+				$params[ 'checksum' ],
+				$params[ 'contact_id' ],
+				$params[ 'country' ] ?? null
+			);
+			if ( $formParams === null ) {
 				$this->renderError();
 				return;
 			}
-			$this->executeRecurUpgrade( $params );
-		} else {
-			if ( $subpage === 'recurUpgrade' ) {
-				$formParams = $this->paramsForRecurUpgradeForm(
-					$params[ 'checksum' ],
-					$params[ 'contact_id' ],
-					$params[ 'country' ] ?? null
-				);
-				if ( $formParams === null ) {
-					$this->renderError();
-					return;
-				}
-				$this->addDataToSession( $formParams, $params );
-				$params += $formParams;
-				if ( $this->wasCanceled( $params ) ) {
-					$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
-					$this->redirectToCancel( $formParams['country'] );
-					return;
-				}
+			$this->addDataToSession( $formParams, $params );
+			$params += $formParams;
+			if ( $this->wasCanceled( $params ) ) {
+				$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
+				$this->redirectToCancel( $formParams['country'] );
 			}
-			// if subpage null, we must have no checksum and contact id, so just render a default page
-			$this->renderForm( $subpage ?? self::FALLBACK_SUBPAGE, $params );
+			$this->renderForm( 'recurUpgrade', $params );
 		}
 	}
 
@@ -182,9 +173,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		] );
 	}
 
-	protected function renderError( $subpage = 'recurUpgrade' ) {
-		$subpage .= 'Error';
-		$this->renderForm( $subpage, [] );
+	protected function renderError() {
+		$this->renderForm( 'recurUpgradeError', [] );
 	}
 
 	protected function redirectToSuccess( array $donorData, float $amount ): void {
@@ -208,12 +198,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->getOutput()->redirect( wfAppendQuery( $page, $params ) );
 	}
 
-	protected function renderForm( $subpage, array $params ) {
-		if ( !$subpage ) {
-			$this->renderError();
-			return;
-		}
-		$formObj = new EmailForm( $subpage, $params );
+	protected function renderForm( string $templateName, array $params ) {
+		$formObj = new EmailForm( $templateName, $params );
 		$this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
@@ -300,14 +286,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		return $rate * $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 	}
 
-	protected function setPageTitle( $subpage ) {
-		$title = $this->msg( 'donate_interface-error-msg-general' );
-
-		if ( $subpage === 'recurUpgrade' ) {
-			$title = $this->msg( 'recurupgrade-title' );
-		}
-
-		$this->getOutput()->setPageTitle( $title );
+	protected function setPageTitle() {
+		$this->getOutput()->setPageTitle( $this->msg( 'recurupgrade-title' ) );
 	}
 
 	protected function wasCanceled( $params ) {
