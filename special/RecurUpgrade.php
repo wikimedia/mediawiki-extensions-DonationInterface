@@ -105,8 +105,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'recur_amount' => $recurData['amount'],
 			'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
 			'contribution_recur_id' => $recurData['id'],
-			'next_sched_date' => $recurData['next_sched_contribution_date'],
-			'next_sched_date_formatted' => $nextDateFormatted,
+			'next_sched_contribution_date' => $recurData['next_sched_contribution_date'],
+			'next_sched_contribution_date_formatted' => $nextDateFormatted,
 			'country' => $country ?? self::FALLBACK_COUNTRY,
 			'currency' => $currency,
 			'maximum' => $this->getMaxInSelectedCurrency( $recurData ),
@@ -282,7 +282,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'amount' => $formParams['recur_amount'],
 			'currency' => $formParams['currency'],
 			'country' => $formParams['country'],
-			'next_sched_contribution_date' => $formParams['next_sched_date'],
+			'next_sched_contribution_date' => $formParams['next_sched_contribution_date'],
 		] );
 	}
 
