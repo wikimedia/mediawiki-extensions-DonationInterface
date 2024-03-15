@@ -7,6 +7,8 @@ $cfg['directory_list'] = array_merge(
 	[
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
+		'./special',
+		'./vendor/wikimedia/smash-pig',
 	]
 );
 $cfg['exclude_analysis_directory_list'] = array_merge(
@@ -15,6 +17,8 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 		'./maintenance',
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
+		'./special',
+		'./vendor/wikimedia/smash-pig',
 	]
 );
 return $cfg;
