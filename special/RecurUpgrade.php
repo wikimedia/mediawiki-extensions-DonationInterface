@@ -51,7 +51,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				$this->renderError();
 				return;
 			}
-			$this->addDataToSession( $formParams, $params );
+			$this->addDataToSession( $formParams );
 			$params += $formParams;
 			if ( $this->wasCanceled( $params ) ) {
 				$this->sendCancelRecurringUpgradeQueue( $formParams['contribution_recur_id'], $params[ 'contact_id' ] );
@@ -68,7 +68,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'txn_type' => 'recurring_upgrade_decline',
 			'contribution_recur_id' => $contributionID,
 			'contact_id' => $contactID,
-		];
+		] + $this->getTrackingParametersWithoutPrefix();
 		try {
 			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-upgrade', $message );
@@ -124,7 +124,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'maximum' => $this->getMaxInSelectedCurrency( $recurData ),
 			'locale' => $locale,
 			'recurringOptions' => $optionsForTemplate,
-		];
+		] + $this->getTrackingParametersForForm();
 	}
 
 	protected function executeRecurUpgrade( $params ) {
@@ -150,11 +150,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contribution_recur_id' => $donorData['contribution_recur_id'],
 			'amount' => $amount,
 			'currency' => $donorData['currency'],
-			// Tracking fields formerly known as utm_*
-			'campaign' => $donorData['campaign'],
-			'medium' => $donorData['medium'],
-			'source' => $donorData['source'],
-		];
+		] + $this->getTrackingParametersWithoutPrefix();
 
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
@@ -195,7 +191,9 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			$this->getLanguage()->getCode()
 		);
 
-		$this->getOutput()->redirect( wfAppendQuery( $page, $params ) );
+		$this->getOutput()->redirect(
+			wfAppendQuery( $page, $params + $this->getTrackingParametersWithPrefix() )
+		);
 	}
 
 	protected function renderForm( string $templateName, array $params ) {
@@ -294,16 +292,34 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		return ( isset( $params['submit'] ) && ( $params['submit'] === 'cancel' ) );
 	}
 
-	protected function addDataToSession( array $formParams, array $querystringParams ) {
+	protected function addDataToSession( array $formParams ) {
 		WmfFramework::setSessionValue( self::DONOR_DATA, [
 			'contribution_recur_id' => $formParams['contribution_recur_id'],
 			'amount' => $formParams['recur_amount'],
 			'currency' => $formParams['currency'],
 			'country' => $formParams['country'],
 			'next_sched_contribution_date' => $formParams['next_sched_date'],
-			'source' => $querystringParams['wmf_source'] ?? null,
-			'medium' => $querystringParams['wmf_medium'] ?? null,
-			'campaign' => $querystringParams['wmf_campaign'] ?? null,
 		] );
+	}
+
+	protected function getTrackingParametersWithPrefix() {
+		return $this->getRequest()->getValues( 'wmf_campaign', 'wmf_medium', 'wmf_source' );
+	}
+
+	protected function getTrackingParametersWithoutPrefix() {
+		$paramsWithPrefix = $this->getTrackingParametersWithPrefix();
+		$paramsWithoutPrefix = [];
+		foreach ( $paramsWithPrefix as $name => $value ) {
+			$paramsWithoutPrefix[ substr( $name, 4 ) ] = $value;
+		}
+		return $paramsWithoutPrefix;
+	}
+
+	protected function getTrackingParametersForForm() {
+		return $this->getTrackingParametersWithoutPrefix() + [
+			'campaign' => '',
+			'medium' => '',
+			'source' => '',
+		];
 	}
 }
