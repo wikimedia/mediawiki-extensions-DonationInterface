@@ -20,7 +20,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	public function execute( $subpage ) {
 		$this->setHeaders();
 		$this->addStylesScriptsAndViewport();
-		$this->setPageTitle();
 
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
@@ -271,10 +270,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			$rate = 1;
 		}
 		return $rate * $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
-	}
-
-	protected function setPageTitle() {
-		$this->getOutput()->setPageTitle( $this->msg( 'recurupgrade-title' ) );
 	}
 
 	protected function wasCanceled( $params ) {
