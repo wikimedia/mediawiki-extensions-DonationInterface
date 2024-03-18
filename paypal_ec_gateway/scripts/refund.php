@@ -35,11 +35,11 @@ class PaypalRefundMaintenance extends Maintenance {
 		$filename = $this->getOption( 'file' );
 		$file = fopen( $filename, 'r' );
 		if ( !$file ) {
-			$this->error( 'Could not find refund file: ' . $filename, true );
+			$this->fatalError( 'Could not find refund file: ' . $filename );
 		}
 		while ( $refund = fgetcsv( $file ) ) {
 			if ( count( $refund ) !== 5 ) {
-				$this->error( 'Refund lines must have exactly 5 fields: order_id, gateway_txn_id, subscription_id, currency, amount', true );
+				$this->fatalError( 'Refund lines must have exactly 5 fields: order_id, gateway_txn_id, subscription_id, currency, amount' );
 			}
 			$oid = $refund[0];
 			$gateway_txn_id = $refund[1];

@@ -4,8 +4,11 @@
 		<form method="POST" class="recurUpgradeForm" action="{{ action }}" data-original-amount="{{ recur_amount }}" data-currency="{{ currency }}" data-maximum="{{ maximum }}">
 			<input type="hidden" name="token" value="{{ token }}"/>
 			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}"/>
-			<input type="hidden" name="checksum" value="{{checksum}}"/>
-			<input type="hidden" name="contact_id" value="{{contact_id}}"/>
+			<input type="hidden" name="checksum" value="{{ checksum }}"/>
+			<input type="hidden" name="contact_id" value="{{ contact_id }}"/>
+			<input type="hidden" name="wmf_campaign" value="{{ campaign }}"/>
+			<input type="hidden" name="wmf_medium" value="{{ medium }}"/>
+			<input type="hidden" name="wmf_source" value="{{ source }}"/>
 
 			<section class="bg-ltgreen">
 				<div class="recurUpgradeContent site-content">

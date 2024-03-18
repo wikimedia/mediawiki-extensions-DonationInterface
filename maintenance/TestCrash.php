@@ -23,7 +23,7 @@ class TestCrash extends Maintenance {
 
 	public function execute() {
 		if ( $this->getOption( 'error' ) ) {
-			$this->error( 'CRASHTEST: error', true );
+			$this->fatalError( 'CRASHTEST: error' );
 		}
 		if ( $this->getOption( 'exception' ) ) {
 			throw new Exception( 'CRASHTEST: uncaught exception' );
