@@ -65,7 +65,7 @@ class ResultPages {
 			return $url;
 		} else { // this isn't a url yet.
 			$returnTitle = Title::newFromText( $url );
-			$url = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+			$url = $returnTitle->getFullURL( [], false, PROTO_CURRENT );
 			return $url;
 		}
 	}

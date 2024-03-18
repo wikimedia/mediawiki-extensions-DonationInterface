@@ -32,7 +32,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 	 */
 	protected function setGatewayDefaults( $options = [] ) {
 		$returnTo = $options['returnTo'] ??
-			Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( false, false, PROTO_CURRENT );
+			Title::newFromText( 'Special:IngenicoGatewayResult' )->getFullURL( [], false, PROTO_CURRENT );
 
 		$defaults = [
 			'return_url' => $returnTo,
