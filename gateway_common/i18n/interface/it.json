@@ -353,7 +353,7 @@
 	"donate_interface-thank-you": "Grazie! La tua donazione è stata ricevuta.",
 	"donate_interface-change": "Cambia",
 	"donate_interface-select-credit-card": "Seleziona la carta di credito",
-	"donate_interface-optional": "opzionale",
+	"donate_interface-optional": "facoltativo",
 	"donate_interface-state_province-dropdown-YY": "Seleziona uno Stato",
 	"donate_interface-state_province-dropdown-XX": "Fuori degli USA",
 	"donate_interface-cc-MX-instructions": "Per ragioni di sicurezza, alcune banche messicani bloccano le transazioni online. Se la tua donazione non è andata a buon fine, consigliamo di chiamare la vostra banca per autorizzare la donazione online e riprovare.",
