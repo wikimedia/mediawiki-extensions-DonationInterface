@@ -19,20 +19,9 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	public function execute( $subpage ) {
 		$this->setHeaders();
-		$this->outputHeader();
-		$out = $this->getOutput();
-
-		// Adding styles-only modules this way causes them to arrive ahead of page rendering
-		$out->addModuleStyles( [
-			'donationInterface.skinOverrideStyles',
-			'ext.donationInterface.emailPreferencesStyles'
-		] );
-
-		$out->addModules( [
-			'ext.donationInterface.emailPreferences',
-			'ext.donationInterface.recurUpgrade'
-		] );
+		$this->addStylesScriptsAndViewport();
 		$this->setPageTitle();
+
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
 		if ( !$this->validate( $params, $posted ) ) {
@@ -321,5 +310,32 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'medium' => '',
 			'source' => '',
 		];
+	}
+
+	/**
+	 * @return void
+	 */
+	public function addStylesScriptsAndViewport(): void {
+		$out = $this->getOutput();
+
+		// Adding styles-only modules this way causes them to arrive ahead of page rendering
+		$out->addModuleStyles( [
+			'donationInterface.skinOverrideStyles',
+			'ext.donationInterface.emailPreferencesStyles'
+		] );
+
+		$out->addModules( [
+			'ext.donationInterface.emailPreferences',
+			'ext.donationInterface.recurUpgrade'
+		] );
+		$out->addHeadItem(
+			'viewport',
+			Html::element(
+				'meta', [
+					'name' => 'viewport',
+					'content' => 'width=device-width, initial-scale=1',
+				]
+			)
+		);
 	}
 }
