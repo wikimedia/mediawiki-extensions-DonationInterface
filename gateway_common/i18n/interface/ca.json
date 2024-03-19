@@ -19,7 +19,8 @@
 			"Solde",
 			"Toniher",
 			"Vriullop",
-			"පසිඳු කාවින්ද"
+			"පසිඳු කාවින්ද",
+			"EHughes"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -180,7 +181,7 @@
 	"donate_interface-error-msg-cvv": "Si us plau, introduïu el CVV de la part posterior de la targeta",
 	"donate_interface-error-msg-captcha": "El text de Captcha que heu introduït és incorrecte. Si us plau, intenteu-ho novament.",
 	"donate_interface-error-msg-captcha-please": "Per la seguretat de la vostra targeta de crèdit, escriviu els caràcters que apareixen aquí dalt.",
-	"donate_interface-donate-error-thank-you-for-your-support": "Gràcies pel vostre suport!",
+	"donate_interface-donate-error-thank-you-for-your-support": "Gràcies pel teu suport!",
 	"php-response-declined": "No s'ha pogut acceptar la vostra transacció.",
 	"donate_interface-thankyou": "Gràcies pel donatiu!",
 	"donate_interface-post-transaction": "Detalls de la transacció",
@@ -293,7 +294,7 @@
 	"donate_interface-bt-finished": "Acabat",
 	"donate_interface-obt-customer_payment_reference": "Referència #",
 	"donate_interface-dd-iban": "IBAN",
-	"donate_interface-email-explain": "T’enviarem un rebut per correu electrònic per confirmar la teva donació.",
+	"donate_interface-email-explain": ".Us enviarem un rebut per correu electrònic per confirmar la vostra donació.",
 	"donate_interface-faqs": "Preguntes freqüents",
 	"donate_interface-tax-info": "Informació de deducció fiscal",
 	"donate_interface-informationsharing": "No venem les vostres dades ni en fem negoci amb ningú. En fer una donació, accepteu compartir la vostra informació personal amb la Wikimedia Foundation, l'organització sense ànim de lucre amfitriona de Viquipèdia i d'altres projectes de Wikimedia, i amb els seus proveïdors de serveis segons <a href=\"$1\">la nostra política de donant</a>. Wikimedia Foundation i els seus proveïdors de serveis estan situats als Estats Units i a altres països on les lleis de privacitat dels quals podrien no ser equivalents a les vostres. Per a més informació, llegiu <a href=\"$1\">la nostra política de donant</a>.",
@@ -306,11 +307,14 @@
 	"donate_interface-onetime-short": "Un sol cop",
 	"donate_interface-error-http-403": "No teniu els permisos necessaris per a accedir a aquesta pàgina.",
 	"donate_interface-statement": "Wikimedia $1",
-	"donate_interface-monthly-convert-title": "Voleu afegir una donació mensual de <span class=\"mc-convert-ask\"></span> a partir del mes que ve?",
-	"donate_interface-monthly-convert-text": "Fer una donació mensual és la millor manera de garantir que la Viquipèdia segueixi prosperant.",
+	"donate_interface-monthly-convert-title": ".Afegir una donació mensual de <span class=\"mc-convert-ask\"></span> a partir del mes vinent?",
+	"donate_interface-monthly-convert-text": "Donar mensualment és la millor manera de garantir que la Viquipèdia segueixi prosperant.",
 	"donate_interface-monthly-convert-change-amount": "Sí, faré donacions mensuals, però d’un import diferent.",
-	"donate_interface-monthly-convert-enter-amount": "Introduïu l’import de la vostra donació mensual i s’efectuarà a partir del mes vinent.",
-	"donate_interface-monthly-convert-action-button": "Donació mensual",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Sí, iniciaré una donació mensual de <span class=\"mc-convert-ask\"></span>.",
-	"donate_interface-monthly-convert-no-button-variant-011": "No, gràcies!"
+	"donate_interface-monthly-convert-enter-amount": "Introdueix una donació mensual que comenci a partir del mes vinent.",
+	"donate_interface-monthly-convert-max-amount": ".No podem cobrar una donació recurrent per una quantitat superior a la teva donació única original.",
+	"donate_interface-monthly-convert-action-button": "Donar cada mes",
+	"donate_interface-monthly-convert-error": "La teva donació per a l’any actual ha tingut èxit, però no hem pogut iniciar una donació recurrent.",
+	"donate_interface-monthly-convert-yes-button-variant-011": ".Sí, afegiré una donació mensual de <span class=\"mc-convert-ask\"></span>.",
+	"donate_interface-monthly-convert-no-button-variant-011": "No, gràcies!",
+	"donate_interface-redirect-explanation": ".Se us redirigirà al soci processador de pagaments de Wikimedia."
 }
