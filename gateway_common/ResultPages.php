@@ -58,7 +58,7 @@ class ResultPages {
 		// make sure we don't already have the language in there...
 		$dirs = explode( '/', $url );
 		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {
-			$url = $url . "/$language";
+			$url .= "/$language";
 		}
 
 		if ( strpos( $url, 'http' ) === 0 ) {

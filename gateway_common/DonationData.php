@@ -970,7 +970,7 @@ class DonationData implements LogPrefixProvider {
 			'ts' => $tracking_data['ts'],
 			];
 
-		$queueMessage = $queueMessage + $tracking_data;
+		$queueMessage += $tracking_data;
 
 		QueueWrapper::push( $queueName, $queueMessage );
 

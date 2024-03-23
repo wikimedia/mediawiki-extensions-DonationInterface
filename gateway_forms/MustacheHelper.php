@@ -17,9 +17,9 @@ class MustacheHelper {
 			'flags' => LightnCandy::FLAG_ERROR_EXCEPTION | LightnCandy::FLAG_ADVARNAME,
 		];
 		if ( isset( $options['flags'] ) ) {
-			$options['flags'] = $options['flags'] | $defaultOptions['flags'];
+			$options['flags'] |= $defaultOptions['flags'];
 		} else {
-			$options = $options + $defaultOptions;
+			$options += $defaultOptions;
 		}
 
 		if ( !file_exists( $fileName ) ) {
