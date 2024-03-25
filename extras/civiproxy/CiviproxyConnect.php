@@ -94,14 +94,24 @@ class CiviproxyConnect {
 				];
 			}
 
-			if ( count( $decodedResponse['values'][0] ) === 0 ) {
+			$firstValue = $decodedResponse['values'][0];
+
+			if ( count( $firstValue ) === 0 ) {
 				return [
 					'is_error' => true,
 					'error_message' => "No result found"
 				];
 			}
 
-			$contributionRecurDetails = $decodedResponse['values'][0][0];
+			// Transitional code, handles old and new API response
+			if ( isset( $firstValue['id'] ) ) {
+				// new style, fields are directly under ['values'][0]
+				$contributionRecurDetails = $firstValue;
+			} else {
+				// old style, fields are one level deeper under ['values'][0][0]
+				$contributionRecurDetails = $firstValue[0];
+			}
+
 			return [
 				'id' => $contributionRecurDetails['id'] ?? null,
 				'country' => $contributionRecurDetails[ 'country' ] ?? null,
