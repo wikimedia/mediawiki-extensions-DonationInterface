@@ -61,7 +61,7 @@ class ResultPages {
 			$url .= "/$language";
 		}
 
-		if ( strpos( $url, 'http' ) === 0 ) {
+		if ( str_starts_with( $url, 'http' ) ) {
 			return $url;
 		} else { // this isn't a url yet.
 			$returnTitle = Title::newFromText( $url );
