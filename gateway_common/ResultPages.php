@@ -58,14 +58,14 @@ class ResultPages {
 		// make sure we don't already have the language in there...
 		$dirs = explode( '/', $url );
 		if ( !is_array( $dirs ) || !in_array( $language, $dirs ) ) {
-			$url = $url . "/$language";
+			$url .= "/$language";
 		}
 
 		if ( strpos( $url, 'http' ) === 0 ) {
 			return $url;
 		} else { // this isn't a url yet.
 			$returnTitle = Title::newFromText( $url );
-			$url = $returnTitle->getFullURL( false, false, PROTO_CURRENT );
+			$url = $returnTitle->getFullURL( [], false, PROTO_CURRENT );
 			return $url;
 		}
 	}

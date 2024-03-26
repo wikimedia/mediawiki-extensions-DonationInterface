@@ -1436,5 +1436,8 @@
 			"value": "donate@wikimedia.org"
 		}
 	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\DonationInterface\\": "includes/"
+	},
 	"manifest_version": 2
 }

@@ -70,8 +70,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$data = $this->getData();
 		self::$country = $data['country'];
 
-		$data = $data + $this->getErrors();
-		$data = $data + $this->getUrlsAndEmails();
+		$data += $this->getErrors();
+		$data += $this->getUrlsAndEmails();
 
 		self::$fieldErrors = $data['errors']['field'];
 

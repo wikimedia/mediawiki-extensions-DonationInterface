@@ -60,7 +60,7 @@ class DonationLoggerFactory {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
 		}
-		$identifier = $identifier . $suffix;
+		$identifier .= $suffix;
 
 		$logger = new Logger( $identifier );
 		$logThreshold = $debug ? Logger::DEBUG : Logger::INFO;

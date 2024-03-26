@@ -289,13 +289,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		$output = $this->getOutput();
 
-		$output->addHTML( Html::element( 'span', null, $results->getMessage() ) );
+		$output->addHTML( Html::element( 'span', [], $results->getMessage() ) );
 
 		$errors = $results->getErrors();
 		if ( !empty( $errors ) ) {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $errors as $code => $value ) {
-				$output->addHTML( Html::element( 'li', null, "Error $code: " . print_r( $value, true ) ) );
+				$output->addHTML( Html::element( 'li', [], "Error $code: " . print_r( $value, true ) ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		}
@@ -305,13 +305,13 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
-					$output->addHTML( Html::openElement( 'li', null ) . Html::openElement( 'ul' ) );
+					$output->addHTML( Html::openElement( 'li', [] ) . Html::openElement( 'ul' ) );
 					foreach ( $value as $key2 => $val2 ) {
-						$output->addHTML( Html::element( 'li', null, "$key2: $val2" ) );
+						$output->addHTML( Html::element( 'li', [], "$key2: $val2" ) );
 					}
 					$output->addHTML( Html::closeElement( 'ul' ) . Html::closeElement( 'li' ) );
 				} else {
-					$output->addHTML( Html::element( 'li', null, "$key: $value" ) );
+					$output->addHTML( Html::element( 'li', [], "$key: $value" ) );
 				}
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
@@ -322,7 +322,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( is_array( $donorData ) ) {
 			$output->addHTML( "Session Donor Vars:" . Html::openElement( 'ul' ) );
 			foreach ( $donorData as $key => $val ) {
-				$output->addHTML( Html::element( 'li', null, "$key: $val" ) );
+				$output->addHTML( Html::element( 'li', [], "$key: $val" ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
@@ -332,7 +332,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( is_array( $this->adapter->debugarray ) ) {
 			$output->addHTML( "Debug Array:" . Html::openElement( 'ul' ) );
 			foreach ( $this->adapter->debugarray as $val ) {
-				$output->addHTML( Html::element( 'li', null, $val ) );
+				$output->addHTML( Html::element( 'li', [], $val ) );
 			}
 			$output->addHTML( Html::closeElement( 'ul' ) );
 		} else {
