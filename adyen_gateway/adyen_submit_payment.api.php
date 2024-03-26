@@ -74,9 +74,11 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$this->donationData['utm_campaign'] = 'iOS';
 		} else {
 			$this->logger->error( 'Payment method of ' . $this->donationData['payment_method'] . ' not available' );
-			$response['status'] = self::STATUS_ERROR;
-			$response['error_message'] = $this->generateErrorMessage();
-			$response['order_id'] = $this->orderId;
+			$response = [
+				'status' => self::STATUS_ERROR,
+				'error_message' => $this->generateErrorMessage(),
+				'order_id' => $this->orderId,
+			];
 			$this->getResult()->addValue( null, 'response', $response );
 			return;
 		}
@@ -105,7 +107,9 @@ class AdyenSubmitPaymentApi extends ApiBase {
 				$this->returnError( $createPaymentResponse->getRawResponse() );
 				return;
 			}
-			$response['status'] = self::STATUS_SUCCESS;
+			$response = [
+				'status' => self::STATUS_SUCCESS,
+			];
 		} catch ( Exception $e ) {
 			$this->returnError( $e );
 			return;

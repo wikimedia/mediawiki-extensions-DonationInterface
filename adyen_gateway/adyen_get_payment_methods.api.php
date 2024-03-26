@@ -22,8 +22,10 @@ class AdyenGetPaymentMethodsApi extends ApiBase {
 		$logger->info( 'Calling getPaymentMethods ' . WmfFramework::getIP() );
 
 		// They need to make this call before they even display a form so we won't know amount
-		$params['country'] = $this->getParameter( 'country' );
-		$params['channel'] = 'iOS';
+		$params = [
+			'country' => $this->getParameter( 'country' ),
+			'channel' => 'iOS',
+		];
 
 		$provider = PaymentProviderFactory::getProviderForMethod( 'apple' );
 		$rawResponse = $provider->getPaymentMethods( $params )->getRawResponse();
