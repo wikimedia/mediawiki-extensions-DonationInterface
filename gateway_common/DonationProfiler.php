@@ -41,10 +41,10 @@ class DonationProfiler {
 	public function getStopwatch( $string, $reset = false ) {
 		$now = microtime( true );
 
-		if ( empty( $start ) || !array_key_exists( $string, $start ) || $reset === true ) {
-			$start[$string] = $now;
+		if ( !array_key_exists( $string, self::$start ) || $reset === true ) {
+			self::$start[$string] = $now;
 		}
-		$clock = round( $now - $start[$string], 4 );
+		$clock = round( $now - self::$start[$string], 4 );
 		$this->logger->info( "Clock at $string: $clock ($now)" );
 		return $clock;
 	}
