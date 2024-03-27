@@ -51,7 +51,7 @@
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
-		"logPaymentsFormError": "ClientErrorApi",
+		"logPaymentsFormError": "DonationClientErrorApi",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
@@ -85,7 +85,8 @@
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"EmployerFieldValidation": "gateway_common/EmployerFieldValidation.php",
-		"ClientErrorApi": "gateway_common/clientError.api.php",
+		"ClientErrorBaseApi": "gateway_common/clientErrorBase.api.php",
+		"DonationClientErrorApi": "gateway_common/donationClientError.api.php",
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
