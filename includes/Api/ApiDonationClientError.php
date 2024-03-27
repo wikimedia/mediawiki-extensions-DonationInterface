@@ -1,14 +1,21 @@
 <?php
 
-class DonationClientErrorApi extends ClientErrorBaseApi {
+namespace MediaWiki\Extension\DonationInterface\Api;
+
+use DonationInterface;
+use DonationLoggerFactory;
+use GatewayAdapter;
+use Psr\Log\LoggerInterface;
+
+class ApiDonationClientError extends ApiClientErrorBase {
 
 	private ?GatewayAdapter $adapter = null;
 
 	protected function validateSessionData( ?array $sessionData ): bool {
-		return !empty( $sessionData ) && !empty( $sessionData['gateway'] );
+		return parent::validateSessionData( $sessionData ) && !empty( $sessionData['gateway'] );
 	}
 
-	protected function getLogger( array $sessionData ): \Monolog\Logger {
+	protected function getLogger( array $sessionData ): LoggerInterface {
 		return DonationLoggerFactory::getLogger( $this->getAdapterFromSessionData( $sessionData ) );
 	}
 

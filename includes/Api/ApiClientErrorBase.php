@@ -1,11 +1,17 @@
 <?php
 
+namespace MediaWiki\Extension\DonationInterface\Api;
+
+use ApiBase;
+use Psr\Log\LoggerInterface;
+use RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
+use WmfFramework;
 
 /**
  * Client-side error logging API
  */
-abstract class ClientErrorBaseApi extends ApiBase {
+abstract class ApiClientErrorBase extends ApiBase {
 
 	public function execute() {
 		$sessionData = WmfFramework::getSessionValue( 'Donor' );
@@ -25,10 +31,10 @@ abstract class ClientErrorBaseApi extends ApiBase {
 	}
 
 	protected function validateSessionData( ?array $sessionData ): bool {
-		return !empty( $sessionData );
+		return $sessionData !== null && count( $sessionData ) > 0;
 	}
 
-	abstract protected function getLogger( array $sessionData ): \Monolog\Logger;
+	abstract protected function getLogger( array $sessionData ): LoggerInterface;
 
 	protected function addExtraData( array $sessionData, array &$errorData ): void {
 	}
