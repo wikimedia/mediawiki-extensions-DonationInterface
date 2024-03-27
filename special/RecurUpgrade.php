@@ -236,13 +236,20 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering
 		$out->addModuleStyles( [
 			'donationInterface.skinOverrideStyles',
-			'ext.donationInterface.emailPreferencesStyles'
+			'ext.donationInterface.emailPreferencesStyles',
 		] );
 
 		$out->addModules( [
 			'ext.donationInterface.emailPreferences',
-			'ext.donationInterface.recurUpgrade'
+			'ext.donationInterface.recurUpgrade',
+			'ext.donationInterface.errorLog',
 		] );
+
+		// Tell the errorLog module which action to call
+		$out->addJsConfigVars( [
+			'ClientErrorLogAction' => 'logRecurUpgradeFormError',
+		] );
+
 		$out->addHeadItem(
 			'viewport',
 			Html::element(

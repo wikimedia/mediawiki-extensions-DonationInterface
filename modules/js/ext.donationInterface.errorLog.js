@@ -1,5 +1,6 @@
 ( function ( $, mw ) {
-	var ignorePatterns = mw.config.get( 'wgDonationInterfaceClientErrorLogIgnorePatterns' ),
+	var apiAction = mw.config.get( 'ClientErrorLogAction', 'logPaymentsFormError' ),
+		ignorePatterns = mw.config.get( 'wgDonationInterfaceClientErrorLogIgnorePatterns' ),
 		ignoreRegexes = [];
 	window.onerror = function ( message, file, line, col, error ) {
 		var i, postdata;
@@ -13,7 +14,7 @@
 			}
 		}
 		postdata = {
-			action: 'logPaymentsFormError',
+			action: apiAction,
 			message: message,
 			file: file,
 			line: line,
