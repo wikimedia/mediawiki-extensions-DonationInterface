@@ -57,6 +57,7 @@
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
 		"logPaymentsFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiDonationClientError",
 		"logRecurUpgradeFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRecurUpgradeClientError",
+		"requestNewChecksumLink": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestNewChecksumLink",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
