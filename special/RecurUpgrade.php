@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
+use Psr\Log\LoggerInterface;
 use SmashPig\Core\DataStores\QueueWrapper;
 
 class RecurUpgrade extends UnlistedSpecialPage {
@@ -54,8 +55,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'RecurUpgrade', true, false, '', null );
+		$logger = self::getLogger();
 		$message = [
 			'txn_type' => 'recurring_upgrade_decline',
 			'contribution_recur_id' => $contributionID,
@@ -72,8 +72,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	protected function paramsForRecurUpgradeForm( $checksum, $contactID, $country ): ?array {
 		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
 		if ( $recurData[ 'is_error' ] ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'RecurUpgrade', true, false, '', null );
+			$logger = self::getLogger();
 
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
@@ -120,8 +119,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function executeRecurUpgrade( $params ) {
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'RecurUpgrade', true, false, '', null );
+		$logger = self::getLogger();
 		$donorData = WmfFramework::getSessionValue( self::DONOR_DATA );
 		if ( !isset( $donorData['contribution_recur_id'] ) ) {
 			$this->renderError();
@@ -254,5 +252,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				]
 			)
 		);
+	}
+
+	public static function getLogger(): LoggerInterface {
+		return DonationLoggerFactory::getLoggerFromParams(
+			'RecurUpgrade', true, false, '', null );
 	}
 }
