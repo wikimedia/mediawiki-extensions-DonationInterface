@@ -70,10 +70,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	protected function defineReturnValueMap() {
 		$this->return_value_map = [];
-		// 0: No errors
-		$this->addCodeRange( 'DoExpressCheckoutPayment', 'PAYMENTINFO_0_ERRORCODE', FinalStatus::COMPLETE, 0 );
-		// 10412: Payment has already been made for this InvoiceID.
-		$this->addCodeRange( 'DoExpressCheckoutPayment', 'PAYMENTINFO_0_ERRORCODE', FinalStatus::FAILED, 10412 );
 	}
 
 	/**
@@ -131,32 +127,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		// https://developer.paypal.com/docs/classic/api/merchant/DoExpressCheckoutPayment_API_Operation_NVP/
 		$this->transactions['DoExpressCheckoutPayment'] = [
 			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'TOKEN',
-				'PAYERID',
-				// TODO: MSGSUBID
-				'PAYMENTREQUEST_0_PAYMENTACTION',
-				'PAYMENTREQUEST_0_AMT',
-				'PAYMENTREQUEST_0_CURRENCYCODE',
-				// FIXME: This should be deprecated, and is only for back-compat.
-				'PAYMENTREQUEST_0_CUSTOM',
-				'PAYMENTREQUEST_0_DESC',
-				'PAYMENTREQUEST_0_INVNUM',
-				'PAYMENTREQUEST_0_ITEMAMT', // FIXME: Not clear why this is required.
-				'PAYMENTREQUEST_0_PAYMENTACTION',
-				'PAYMENTREQUEST_0_PAYMENTREASON',
+				'amount',
+				'currency',
+				'gateway_session_id',
+				'description',
+				'order_id',
+				'processor_contact_id',
 			],
 			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'DoExpressCheckoutPayment',
-				'PAYMENTREQUEST_0_DESC' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
-				'PAYMENTREQUEST_0_PAYMENTACTION' => 'Sale',
-				'PAYMENTREQUEST_0_PAYMENTREASON' => 'None',
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
 			],
 		];
 
@@ -255,7 +234,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		// The signature is static, not a checksum of the request.
 		if ( !$this->isCertificateAuthentication() ) {
 			foreach ( $this->transactions as $_name => &$info ) {
-				if ( isset( $info['request'] ) && $_name !== 'SetExpressCheckout' ) {
+				// This whole method will go away at the end of the refactor, but for now, just exclude the API
+				// calls we have migrated to SmashPig
+				if ( isset( $info['request'] ) && $_name !== 'SetExpressCheckout' && $_name !== 'DoExpressCheckoutPayment' ) {
 					$info['request'][] = 'SIGNATURE';
 					$info['values']['SIGNATURE'] = $this->account_config['Signature'];
 				}
@@ -275,8 +256,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			'cancel_url' => 'cancel_url',
 			'currency' => 'currency',
 			'description' => 'description',
+			'gateway_session_id' => 'gateway_session_id',
 			'language' => 'language',
 			'order_id' => 'order_id',
+			'processor_contact_id' => 'processor_contact_id',
 			'recurring' => 'recurring',
 			'return_url' => 'return_url',
 		];
@@ -356,16 +339,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					$this->postProcessDonation();
 					break;
 
-				case 'DoExpressCheckoutPayment':
-					$this->checkResponseAck( $response );
-
-					$this->addResponseData( $this->unstageKeys( $response ) );
-					$status = $this->findCodeAction( 'DoExpressCheckoutPayment',
-						'PAYMENTINFO_0_ERRORCODE', $response['PAYMENTINFO_0_ERRORCODE'] );
-
-					$this->finalizeInternalStatus( $status );
-					$this->postProcessDonation();
-					break;
 				case 'ManageRecurringPaymentsProfileStatusCancel':
 				case 'RefundTransaction':
 					$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
@@ -486,11 +459,21 @@ class PaypalExpressAdapter extends GatewayAdapter {
 						'Failed to create a recurring profile', ErrorCode::UNKNOWN );
 				}
 			} else {
+				// Transitional code, override var_map
+				$this->overrideVarMap();
 				// One-time payment, or initial payment in a subscription.
-				$resultData = $this->do_transaction( 'DoExpressCheckoutPayment' );
-				if ( !$resultData->getCommunicationStatus() ) {
+				$this->setCurrentTransaction( 'DoExpressCheckoutPayment' );
+				$approvePaymentParams = $this->buildRequestArray();
+				$approveResult = $provider->approvePayment( $approvePaymentParams );
+				if ( $approveResult->isSuccessful() ) {
+					$this->addResponseData(
+						[ 'gateway_txn_id' => $approveResult->getGatewayTxnId() ]
+					);
+					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+					$this->postProcessDonation();
+				} else {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					return PaymentResult::newFailure();
+					return PaymentResult::newFailure( $approveResult->getErrors() );
 				}
 			}
 		} else {

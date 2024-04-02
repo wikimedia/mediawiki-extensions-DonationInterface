@@ -23,6 +23,7 @@ use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\PayPal\PaymentProvider;
+use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 use SmashPig\Tests\TestingContext;
@@ -277,6 +278,26 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			);
 	}
 
+	protected function getGoodApprovePaymentResponse() {
+		return ( new ApprovePaymentResponse() )
+			->setRawResponse(
+				'TOKEN=EC%2d4V987654XA123456V&SUCCESSPAGEREDIRECTREQUESTED=false&TIMESTAMP=' .
+				'2017%2d01%2d30T22%3a33%3a43Z&CORRELATIONID=434c98b240b6&ACK=Success&VERSION=204&BUILD=' .
+				'28806785&INSURANCEOPTIONSELECTED=false&SHIPPINGOPTIONISDEFAULT=false&' .
+				'PAYMENTINFO_0_TRANSACTIONID=5EJ123456T987654S&PAYMENTINFO_0_TRANSACTIONTYPE=expresscheckout&' .
+				'PAYMENTINFO_0_PAYMENTTYPE=instant&PAYMENTINFO_0_ORDERTIME=2017%2d01%2d30T22%3a33%3a42Z&' .
+				'PAYMENTINFO_0_AMT=1%2e55&PAYMENTINFO_0_FEEAMT=43&PAYMENTINFO_0_TAXAMT=0&' .
+				'PAYMENTINFO_0_CURRENCYCODE=USD&PAYMENTINFO_0_PAYMENTSTATUS=Completed&' .
+				'PAYMENTINFO_0_PENDINGREASON=None&PAYMENTINFO_0_REASONCODE=None&' .
+				'PAYMENTINFO_0_PROTECTIONELIGIBILITY=Ineligible&PAYMENTINFO_0_PROTECTIONELIGIBILITYTYPE=None&' .
+				'PAYMENTINFO_0_SECUREMERCHANTACCOUNTID=EZ123ABCDEFG1&PAYMENTINFO_0_ERRORCODE=0&' .
+				'PAYMENTINFO_0_ACK=Success'
+			)
+			->setSuccessful( true )
+			->setStatus( FinalStatus::COMPLETE )
+			->setGatewayTxnId( '5EJ123456T987654S' );
+	}
+
 	/**
 	 * Check that the adapter makes the correct calls for successful donations
 	 * and sends a good queue message.
@@ -293,7 +314,20 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 				'gateway_session_id' => 'EC-4V987654XA123456V'
 			] )
 			->willReturn( $this->getGoodPaymentDetailResponse() );
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
+		$this->provider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->with( [
+				'amount' => '4.55',
+				'currency' => 'USD',
+				'gateway_session_id' => 'EC-4V987654XA123456V',
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				'order_id' => '45931210.1',
+				'processor_contact_id' => '8R297FE87CD8S',
+			] )
+			->willReturn(
+				$this->getGoodApprovePaymentResponse()
+			);
+
 		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
@@ -453,9 +487,46 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			] )
 			->willReturn( $this->getGoodPaymentDetailResponse() );
 
-		$gateway::setDummyGatewayResponseCode( [
-			'11607' // For DoExpressCheckoutPayment
-		] );
+		$this->provider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->with( [
+				'amount' => '4.55',
+				'currency' => 'USD',
+				'gateway_session_id' => 'EC-4V987654XA123456V',
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				'order_id' => '45931210.1',
+				'processor_contact_id' => '8R297FE87CD8S',
+			] )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawResponse(
+						'TOKEN=EC%2d4V987654XA123456V&SUCCESSPAGEREDIRECTREQUESTED=false&TIMESTAMP=' .
+						'2017%2d01%2d30T22%3a33%3a43Z&CORRELATIONID=434c98b240b6&ACK=SuccessWithWarning&VERSION=204&' .
+						'BUILD=38544305&L_ERRORCODE0=11607&L_SHORTMESSAGE0=Duplicate%20Request&L_LONGMESSAGE0=' .
+						'A%20successful%20transaction%20has%20already%20been%20completed%20for%20this%20token%2e&' .
+						'L_SEVERITYCODE0=Warning&INSURANCEOPTIONSELECTED=false&SHIPPINGOPTIONISDEFAULT=false&' .
+						'PAYMENTINFO_0_TRANSACTIONID=33N12345BB123456D&PAYMENTINFO_0_TRANSACTIONTYPE=expresscheckout&' .
+						'PAYMENTINFO_0_PAYMENTTYPE=instant&PAYMENTINFO_0_ORDERTIME=2017%2d09%2d05T21%3a25%3a48Z&' .
+						'PAYMENTINFO_0_AMT=1500&PAYMENTINFO_0_FEEAMT=81&PAYMENTINFO_0_TAXAMT=0&' .
+						'PAYMENTINFO_0_CURRENCYCODE=JPY&PAYMENTINFO_0_PAYMENTSTATUS=Completed&' .
+						'PAYMENTINFO_0_PENDINGREASON=None&PAYMENTINFO_0_REASONCODE=None&' .
+						'PAYMENTINFO_0_PROTECTIONELIGIBILITY=Ineligible&PAYMENTINFO_0_PROTECTIONELIGIBILITYTYPE=None&' .
+						'PAYMENTINFO_0_SELLERPAYPALACCOUNTID=abc%40example%2eorg&' .
+						'PAYMENTINFO_0_SECUREMERCHANTACCOUNTID=EZ123ABCDEFG1&PAYMENTINFO_0_ERRORCODE=0&' .
+						'PAYMENTINFO_0_ACK=Success'
+					)
+					->setSuccessful( true )
+					->setStatus( FinalStatus::COMPLETE )
+					->addErrors(
+						new PaymentError(
+							ErrorCode::DUPLICATE_ORDER_ID,
+							'11607: A successful transaction has already been completed for this token',
+							LogLevel::ERROR
+						)
+					)
+					->setGatewayTxnId( '33N12345BB123456D' )
+			);
+
 		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD'
@@ -498,10 +569,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			QueueWrapper::getQueue( 'donations' )->pop(),
 			'Sending extra messages to donations queue!'
 		);
-		$matches = self::getLogMatches(
-			LogLevel::WARNING, '/Transaction succeeded with warning.*/'
-		);
-		$this->assertNotEmpty( $matches );
 	}
 
 	/**
@@ -686,7 +753,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	 */
 	public function testResultSwitcher() {
 		$init = $this->getDonorTestData( 'US' );
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';
@@ -714,14 +780,24 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			] )
 			->willReturn( $this->getGoodPaymentDetailResponse() );
 
+		$this->provider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->with( [
+				'amount' => '4.55',
+				'currency' => 'USD',
+				'gateway_session_id' => $init['gateway_session_id'],
+				'description' => wfMessage( 'donate_interface-donation-description' )->inLanguage( 'pt' )->text(),
+				'order_id' => $init['contribution_tracking_id'] . '.1',
+				'processor_contact_id' => '8R297FE87CD8S',
+			] )
+			->willReturn(
+				$this->getGoodApprovePaymentResponse()
+			);
+
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 		$key = 'processed_request-' . $request['token'];
 		$processed = ObjectCache::getLocalClusterInstance()->get( $key );
 		$this->assertTrue( $processed );
-
-		// Make sure we logged the expected cURL attempt
-		$messages = self::getLogMatches( 'info', '/Preparing to send DoExpressCheckoutPayment transaction to Paypal Express Checkout/' );
-		$this->assertNotEmpty( $messages );
 	}
 
 	/**
