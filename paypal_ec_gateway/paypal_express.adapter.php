@@ -155,49 +155,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			],
 		];
-
-		$this->transactions['RefundTransaction'] = [
-			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'TRANSACTIONID'
-			],
-			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'RefundTransaction'
-
-			],
-			'response' => [
-				'REFUNDSTATUS',
-				'NETREFUNDAMT',
-				'GROSSREFUNDAMT'
-			]
-		];
-
-		$this->transactions['ManageRecurringPaymentsProfileStatusCancel'] = [
-			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'ACTION',
-				'PROFILEID'
-			],
-			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'ManageRecurringPaymentsProfileStatus',
-				'ACTION' => 'Cancel'
-			],
-			'response' => [
-				'PROFILEID'
-			]
-		];
 	}
 
 	public function doPayment() {
@@ -464,37 +421,12 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	public function doRefund() {
-		$response = $this->do_transaction( 'RefundTransaction' );
-		if ( !$response->getCommunicationStatus() ) {
-			return PaymentResult::newFailure( $response->getErrors() );
-		}
-		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
-	}
-
-	public function cancelSubscription() {
-		$response = $this->do_transaction( 'ManageRecurringPaymentsProfileStatusCancel' );
-		if ( !$response->getCommunicationStatus() || count( $response->getErrors() ) > 0 ) {
-			return PaymentResult::newFailure( $response->getErrors() );
-		}
-		return PaymentResult::fromResults( $response, FinalStatus::COMPLETE );
-	}
-
 	/**
 	 * TODO: add test
 	 * @return array
 	 */
 	public function createDonorReturnParams() {
 		return [ 'token' => $this->getData_Staged( 'gateway_session_id' ) ];
-	}
-
-	/**
-	 * Returns true becaues all payment methods can be rectified
-	 * FIXME: Add handling for session expiration limits?
-	 * @return bool
-	 */
-	public function shouldRectifyOrphan() {
-		return true;
 	}
 
 	protected function createRedirectUrl( $token ) {
