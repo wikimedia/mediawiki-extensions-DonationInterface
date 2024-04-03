@@ -1,7 +1,5 @@
 <?php
 
-use Psr\Log\LogLevel;
-use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -24,37 +22,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'paypal_ec';
 	const GLOBAL_PREFIX = 'wgPaypalExpressGateway';
 
-	// https://developer.paypal.com/docs/classic/release-notes/#ec
-	const API_VERSION = 204;
-
 	public function getCommunicationType() {
 		return 'namevalue';
-	}
-
-	/**
-	 * @return true if the adapter is configured for SSL client certificate
-	 * authentication.
-	 */
-	protected function isCertificateAuthentication() {
-		// TODO: generalize certificate path into a class.
-		return isset( $this->account_config['CertificatePath'] );
-	}
-
-	protected function getProcessorUrl() {
-		if ( !self::getGlobal( 'Test' ) ) {
-			if ( $this->isCertificateAuthentication() ) {
-				$url = self::getGlobal( 'CertificateURL' );
-			} else {
-				$url = self::getGlobal( 'SignatureURL' );
-			}
-		} else {
-			if ( $this->isCertificateAuthentication() ) {
-				$url = self::getGlobal( 'TestingCertificateURL' );
-			} else {
-				$url = self::getGlobal( 'TestingSignatureURL' );
-			}
-		}
-		return $url;
 	}
 
 	public function getResponseType() {
@@ -65,9 +34,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$this->accountInfo = [];
 	}
 
-	/**
-	 * TODO: Get L_SHORTMESSAGE0 and L_LONGMESSAGE0
-	 */
 	protected function defineReturnValueMap() {
 		$this->return_value_map = [];
 	}
@@ -90,20 +56,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function getCurlBaseOpts() {
-		$opts = parent::getCurlBaseOpts();
-
-		if ( $this->isCertificateAuthentication() ) {
-			$opts[CURLOPT_SSLCERTTYPE] = 'PEM';
-			$opts[CURLOPT_SSLCERT] = $this->account_config['CertificatePath'];
-		}
-
-		return $opts;
-	}
-
-	/**
-	 * TODO: Support "response" specification.
-	 */
 	protected function defineTransactions() {
 		$this->transactions = [];
 
@@ -200,92 +152,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return $requestValues['token'];
 	}
 
-	protected function processResponse( $response ) {
-		$this->transaction_response->setData( $response );
-		// FIXME: I'm not sure why we're responsible for failing the
-		// transaction.  If not, we can omit the try/catch here.
-		try {
-			if ( !$response ) {
-				throw new ResponseProcessingException(
-					'Missing or badly formatted response',
-					ErrorCode::NO_RESPONSE
-				);
-			}
-
-			switch ( $this->getCurrentTransaction() ) {
-				case 'ManageRecurringPaymentsProfileStatusCancel':
-				case 'RefundTransaction':
-					$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
-			}
-
-			if ( !$this->transaction_response->getCommunicationStatus() ) {
-				// TODO: so much boilerplate...  Just throw an exception subclass.
-				$logme = 'Failed response for Order ID ' . $this->getData_Unstaged_Escaped( 'order_id' );
-				$this->logger->error( $logme );
-				$this->transaction_response->addError( new PaymentError(
-					'internal-0000',
-					$logme,
-					LogLevel::ERROR
-				) );
-			}
-		} catch ( Exception $ex ) {
-			$errors = $this->parseResponseErrors( $response );
-			$fatal = true;
-			// TODO: Handle more error codes
-			foreach ( $errors as $error ) {
-				// There are errors, so it wasn't a total comms failure
-				$this->transaction_response->setCommunicationStatus( true );
-				$code = $error->getErrorCode();
-				$debugInfo = $error->getDebugMessage();
-				$this->logger->warning(
-					"Error code $code returned: '$debugInfo'"
-				);
-				switch ( $code ) {
-					case '10486':
-						// Donor's first funding method failed, but they might have another
-						$this->transaction_response->setRedirect(
-							$this->createRedirectUrl( $this->getData_Unstaged_Escaped( 'gateway_session_id' ) )
-						);
-						$fatal = false;
-						break;
-					case '10411':
-						if ( $this->isBatchProcessor() ) {
-							$this->finalizeInternalStatus( FinalStatus::TIMEOUT );
-							$fatal = false;
-							break;
-						}
-					default:
-						$this->transaction_response->addError( $error );
-				}
-			}
-			if ( $fatal ) {
-				if ( empty( $errors ) ) {
-					// Unrecognizable problems, log the whole thing
-					$this->logger->error( "Failure detected in " . json_encode( $response ) );
-				}
-				$this->finalizeInternalStatus( FinalStatus::FAILED );
-				throw $ex;
-			}
-		}
-	}
-
-	/**
-	 * @param array $response
-	 * @return PaymentError[]
-	 */
-	protected function parseResponseErrors( $response ) {
-		$errors = [];
-		// TODO: can they put errors in other places too?
-		if ( isset( $response['L_ERRORCODE0'] ) ) {
-			$errors[] = new PaymentError(
-				$response['L_ERRORCODE0'],
-				$response['L_LONGMESSAGE0'] ?? '',
-				LogLevel::ERROR
-			);
-		}
-		return $errors;
-	}
-
 	public function processDonorReturn( $requestValues ) {
 		if (
 			empty( $requestValues['token'] )
@@ -367,7 +233,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			$this->finalizeInternalStatus( $detailsResult->getStatus() );
 		}
 		return PaymentResult::fromResults(
-			$this->getTransactionResponse() ?? new PaymentTransactionResponse(),
+			new PaymentTransactionResponse(),
 			$this->getFinalStatus()
 		);
 	}
@@ -397,39 +263,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	/**
-	 * Shared snippet to parse the ACK response field and store it as
-	 * communication status.
-	 *
-	 * @param array $response The response from the PayPal API call
-	 * @throws ResponseProcessingException
-	 */
-	protected function checkResponseAck( $response ) {
-		if (
-			isset( $response['ACK'] ) &&
-			// SuccessWithWarning is OK too
-			substr( $response['ACK'], 0, 7 ) === 'Success'
-		) {
-			$this->transaction_response->setCommunicationStatus( true );
-			if ( $response['ACK'] === 'SuccessWithWarning' ) {
-				$this->logger->warning(
-					'Transaction succeeded with warning. Response: ' .
-					print_r( $response, true )
-				);
-			}
-		} else {
-			throw new ResponseProcessingException( "Failure response", $response['ACK'] );
-		}
-	}
-
-	/**
 	 * TODO: add test
 	 * @return array
 	 */
 	public function createDonorReturnParams() {
 		return [ 'token' => $this->getData_Staged( 'gateway_session_id' ) ];
-	}
-
-	protected function createRedirectUrl( $token ) {
-		return $this->account_config['RedirectURL'] . $token . '&useraction=commit';
 	}
 }
