@@ -25,6 +25,7 @@ use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
+use SmashPig\PaymentProviders\Responses\CreateRecurringPaymentsProfileResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
@@ -414,12 +415,33 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 							->setLastName( 'Fowl' )
 					)
 			);
-		$gateway::setDummyGatewayResponseCode( 'Recurring-OK' );
-		$gateway->processDonorReturn( [
+		$this->provider->expects( $this->once() )
+			->method( 'createRecurringPaymentsProfile' )
+			->with( [
+				'amount' => '4.55',
+				'currency' => 'USD',
+				'date' => time(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+				'email' => 'donor@generous.net',
+				'gateway_session_id' => 'EC-4V987654XA123456V',
+				'order_id' => '45931210.1',
+			] )
+			->willReturn(
+				( new CreateRecurringPaymentsProfileResponse() )
+					->setRawResponse(
+						'PROFILEID=I%2d88J1M3DLSF0&PROFILESTATUS=ActiveProfile&TIMESTAMP=2017%2d04%2d18T16%3a45%3a29Z' .
+						'&CORRELATIONID=4312c123aa0f2&ACK=Success&VERSION=204&BUILD=25237094'
+					)
+					->setSuccessful( true )
+					->setProfileId( 'I-88J1M3DLSF0' )
+			);
+
+		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD'
 		] );
 
+		$this->assertFalse( $result->isFailed() );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Recurring should not send a message to the donations queue' );
 	}
@@ -620,7 +642,39 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 						->setLastName( 'Fowl' )
 				)
 			);
-		$gateway::setDummyGatewayResponseCode( '10486' );
+
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U&useraction=commit';
+
+		$this->provider->expects( $this->once() )
+			->method( 'createRecurringPaymentsProfile' )
+			->with( [
+				'amount' => '4.55',
+				'currency' => 'USD',
+				'date' => time(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+				'email' => 'donor@generous.net',
+				'gateway_session_id' => 'EC-2D123456D9876543U',
+				'order_id' => '45931210.1',
+			] )
+			->willReturn(
+				( new CreateRecurringPaymentsProfileResponse() )
+					->setRawResponse(
+						'TIMESTAMP=2017%2d04%2d20T16%3a59%3a06Z&CORRELATIONID=537ffff0fefa&ACK=Failure&VERSION=204&' .
+						'BUILD=32574509&L_ERRORCODE0=10486&L_SHORTMESSAGE0=This%20transaction%20couldn%27t%20be%20' .
+						'completed%2e&L_LONGMESSAGE0=This%20transaction%20couldn%27t%20be%20completed%2e%20Please%20' .
+						'redirect%20your%20customer%20to%20PayPal%2e&L_SEVERITYCODE0=Error'
+					)
+					->setSuccessful( false )
+					->setRedirectUrl( $redirect )
+					->setErrors( [
+						new PaymentError(
+							ErrorCode::DECLINED,
+							'This transaction couldn\'t be completed. Please redirect your customer to PayPal',
+							LogLevel::ERROR
+						)
+					] )
+			);
+
 		$result = $gateway->processDonorReturn( [
 			'token' => 'EC%2d2D123456D9876543U',
 			'PayerID' => 'ASDASD'
@@ -631,11 +685,7 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 			'Sending a spurious message to the donations queue!'
 		);
 		$this->assertFalse( $result->isFailed() );
-		$redirect = $result->getRedirect();
-		$this->assertEquals(
-			'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-2D123456D9876543U&useraction=commit',
-			$redirect
-		);
+		$this->assertEquals( $redirect, $result->getRedirect() );
 	}
 
 	/**

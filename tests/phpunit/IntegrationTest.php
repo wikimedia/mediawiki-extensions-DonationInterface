@@ -16,6 +16,10 @@
  *
  */
 use Psr\Log\LogLevel;
+use SmashPig\PaymentProviders\PayPal\PaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
+use SmashPig\Tests\TestingContext;
+use SmashPig\Tests\TestingProviderConfiguration;
 
 /**
  * @group Fundraising
@@ -53,9 +57,27 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$options['payment_method'] = 'paypal';
 		$paypalRequest = $this->setUpRequest( $options );
 
-		$gateway = new TestingPaypalExpressAdapter();
-		$gateway::setDummyGatewayResponseCode( 'OK' );
-		$gateway->do_transaction( 'SetExpressCheckout' );
+		$providerConfig = TestingProviderConfiguration::createForProvider(
+			'paypal', self::$smashPigGlobalConfig
+		);
+		$provider = $this->createMock( PaymentProvider::class );
+		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $provider );
+		TestingContext::get()->providerConfigurationOverride = $providerConfig;
+		$provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setRawResponse(
+						'TOKEN=EC%2d8US12345X1234567U&TIMESTAMP=2017%2d05%2d18T14%3a53%3a29Z&CORRELATIONID=' .
+						'6d987654a7aed&ACK=Success&VERSION=204&BUILD=33490839'
+					)
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( 'https://example.com/foo' )
+			);
+
+		$gateway = new PaypalExpressAdapter();
+		$gateway->doPayment();
 		$paypalCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 
 		// now, get dlocal.

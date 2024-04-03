@@ -142,47 +142,17 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		// https://developer.paypal.com/docs/classic/api/merchant/CreateRecurringPaymentsProfile_API_Operation_NVP/
 		$this->transactions['CreateRecurringPaymentsProfile'] = [
 			'request' => [
-				'USER',
-				'PWD',
-				'VERSION',
-				'METHOD',
-				'TOKEN',
-				'DESC',
-				// 'L_PAYMENTREQUEST_0_AMT0',
-				// 'L_PAYMENTREQUEST_0_DESC0',
-				// 'L_PAYMENTREQUEST_n_NAME0',
-				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0',
-				'PROFILESTARTDATE',
-				'PROFILEREFERENCE',
-				'AUTOBILLOUTAMT',
-				'BILLINGPERIOD',
-				'BILLINGFREQUENCY',
-				'TOTALBILLINGCYCLES',
-				'MAXFAILEDPAYMENTS',
-				'AMT',
-				'CURRENCYCODE',
-				'EMAIL',
+				'amount',
+				'currency',
+				'date',
+				'description',
+				'email',
+				'gateway_session_id',
+				'order_id',
 			],
 			'values' => [
-				'USER' => $this->account_config['User'],
-				'PWD' => $this->account_config['Password'],
-				'VERSION' => self::API_VERSION,
-				'METHOD' => 'CreateRecurringPaymentsProfile',
-				'DESC' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				// 'L_PAYMENTREQUEST_0_DESC0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				// 'L_PAYMENTREQUEST_0_ITEMCATEGORY0' => 'Digital',
-				// 'L_PAYMENTREQUEST_n_NAME0' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
-				// Do not charge for the balance if payments fail.
-				'AUTOBILLOUTAMT' => 'NoAutoBill',
-				'BILLINGPERIOD' => 'Month',
-				'BILLINGFREQUENCY' => 1,
-				'TOTALBILLINGCYCLES' => 0, // Forever.
-				'MAXFAILEDPAYMENTS' => 0, // Just keep trying
-			],
-			'response' => [
-				# FIXME: Make sure this gets passed as subscription_id in the message
-				'PROFILEID',
-				'PROFILESTATUS'
+				'date' => time(),
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			],
 		];
 
@@ -228,41 +198,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'PROFILEID'
 			]
 		];
-
-		// Add the Signature field to all API calls, if necessary.
-		// Note that this gives crappy security, vulnerable to replay attacks.
-		// The signature is static, not a checksum of the request.
-		if ( !$this->isCertificateAuthentication() ) {
-			foreach ( $this->transactions as $_name => &$info ) {
-				// This whole method will go away at the end of the refactor, but for now, just exclude the API
-				// calls we have migrated to SmashPig
-				if ( isset( $info['request'] ) && $_name !== 'SetExpressCheckout' && $_name !== 'DoExpressCheckoutPayment' ) {
-					$info['request'][] = 'SIGNATURE';
-					$info['values']['SIGNATURE'] = $this->account_config['Signature'];
-				}
-			}
-		}
-	}
-
-	/**
-	 * Just needed till we switch all the calls over to using SmashPig
-	 *
-	 * @return void
-	 */
-	protected function overrideVarMap() {
-		// Transitional code, override var_map
-		$this->var_map = [
-			'amount' => 'amount',
-			'cancel_url' => 'cancel_url',
-			'currency' => 'currency',
-			'description' => 'description',
-			'gateway_session_id' => 'gateway_session_id',
-			'language' => 'language',
-			'order_id' => 'order_id',
-			'processor_contact_id' => 'processor_contact_id',
-			'recurring' => 'recurring',
-			'return_url' => 'return_url',
-		];
 	}
 
 	public function doPayment() {
@@ -272,8 +207,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
-		// Transitional code, override var_map
-		$this->overrideVarMap();
 		$this->setCurrentTransaction( 'SetExpressCheckout' );
 
 		$descriptionKey = $this->getData_Unstaged_Escaped( 'recurring' ) ?
@@ -323,22 +256,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			}
 
 			switch ( $this->getCurrentTransaction() ) {
-				case 'CreateRecurringPaymentsProfile':
-					$this->checkResponseAck( $response );
-
-					// Grab the subscription ID
-					$this->addResponseData( $this->unstageKeys( $response ) );
-
-					// We've created a subscription, but we haven't got an initial
-					// payment yet, so we leave the details in the pending queue.
-					// The IPN listener will push the donation through to Civi when
-					// it gets notifications from PayPal.
-					// TODO: it would be nice to send the subscr_start message to
-					// the recurring queue here.
-					$this->finalizeInternalStatus( FinalStatus::PENDING );
-					$this->postProcessDonation();
-					break;
-
 				case 'ManageRecurringPaymentsProfileStatusCancel':
 				case 'RefundTransaction':
 					$this->checkResponseAck( $response ); // Sets the comms status so we don't hit the error block below
@@ -449,18 +366,31 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$this->addDonorDetailsToSession( $detailsResult );
 		if ( $detailsResult->getStatus() === FinalStatus::PENDING_POKE ) {
 			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-				// Set up recurring billing agreement.
-				$this->addRequestData( [
-					'date' => time()
-				] );
-				$resultData = $this->do_transaction( 'CreateRecurringPaymentsProfile' );
-				if ( !$resultData->getCommunicationStatus() ) {
+				$this->setCurrentTransaction( 'CreateRecurringPaymentsProfile' );
+				$profileParams = $this->buildRequestArray();
+				$createProfileResponse = $provider->createRecurringPaymentsProfile( $profileParams );
+				if ( $createProfileResponse->isSuccessful() ) {
+					$this->addResponseData( [
+						'subscr_id' => $createProfileResponse->getProfileId()
+					] );
+
+					// We've created a subscription, but we haven't got an initial
+					// payment yet, so we leave the details in the pending queue.
+					// The IPN listener will push the donation through to Civi when
+					// it gets notifications from PayPal.
+					// TODO: it would be nice to send the subscr_start message to
+					// the recurring queue here.
+					$this->finalizeInternalStatus( FinalStatus::PENDING );
+					$this->postProcessDonation();
+				} else {
+					if ( $createProfileResponse->requiresRedirect() ) {
+						return PaymentResult::newRedirect( $createProfileResponse->getRedirectUrl() );
+					}
 					throw new ResponseProcessingException(
-						'Failed to create a recurring profile', ErrorCode::UNKNOWN );
+						'Failed to create a recurring profile', ErrorCode::UNKNOWN
+					);
 				}
 			} else {
-				// Transitional code, override var_map
-				$this->overrideVarMap();
 				// One-time payment, or initial payment in a subscription.
 				$this->setCurrentTransaction( 'DoExpressCheckoutPayment' );
 				$approvePaymentParams = $this->buildRequestArray();
