@@ -332,7 +332,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$paymentMethodResult = $provider->getPaymentMethods( $methodParams );
 		if ( $paymentMethodResult->hasErrors() ) {
 			foreach ( $paymentMethodResult->getErrors() as $error ) {
-				$this->logger->warning( "paymentMethod lookup error: {$error->getMessage()}" );
+				$this->logger->warning( "paymentMethod lookup error: {$error->getDebugMessage()}" );
 			}
 			foreach ( $paymentMethodResult->getValidationErrors() as $validationError ) {
 				$this->logger->warning( "paymentMethod lookup validation error with parameter: {$validationError->getField()}" );
