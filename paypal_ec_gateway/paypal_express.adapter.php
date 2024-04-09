@@ -3,6 +3,8 @@
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\IPaymentProvider;
+use SmashPig\PaymentProviders\IRecurringPaymentProfileProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
@@ -203,50 +205,22 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				return PaymentResult::newRedirect( $detailsResult->getRedirectUrl() );
 			}
 			$this->finalizeInternalStatus( $detailsResult->getStatus() );
-			return PaymentResult::newFailure();
+			return PaymentResult::newFailure( $detailsResult->getErrors() );
 		}
 		$this->addDonorDetailsToSession( $detailsResult );
 		if ( $detailsResult->getStatus() === FinalStatus::PENDING_POKE ) {
+			$this->runAntifraudFilters();
+			if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+				$this->finalizeInternalStatus( FinalStatus::FAILED );
+				return PaymentResult::fromResults(
+					$this->setFailedValidationTransactionResponse( 'SetExpressCheckout' ),
+					FinalStatus::FAILED
+				);
+			}
 			if ( $this->getData_Unstaged_Escaped( 'recurring' ) ) {
-				$this->setCurrentTransaction( 'CreateRecurringPaymentsProfile' );
-				$profileParams = $this->buildRequestArray();
-				$createProfileResponse = $provider->createRecurringPaymentsProfile( $profileParams );
-				if ( $createProfileResponse->isSuccessful() ) {
-					$this->addResponseData( [
-						'subscr_id' => $createProfileResponse->getProfileId()
-					] );
-
-					// We've created a subscription, but we haven't got an initial
-					// payment yet, so we leave the details in the pending queue.
-					// The IPN listener will push the donation through to Civi when
-					// it gets notifications from PayPal.
-					// TODO: it would be nice to send the subscr_start message to
-					// the recurring queue here.
-					$this->finalizeInternalStatus( FinalStatus::PENDING );
-					$this->postProcessDonation();
-				} else {
-					if ( $createProfileResponse->requiresRedirect() ) {
-						return PaymentResult::newRedirect( $createProfileResponse->getRedirectUrl() );
-					}
-					throw new ResponseProcessingException(
-						'Failed to create a recurring profile', ErrorCode::UNKNOWN
-					);
-				}
+				return $this->createRecurringProfile( $provider );
 			} else {
-				// One-time payment, or initial payment in a subscription.
-				$this->setCurrentTransaction( 'DoExpressCheckoutPayment' );
-				$approvePaymentParams = $this->buildRequestArray();
-				$approveResult = $provider->approvePayment( $approvePaymentParams );
-				if ( $approveResult->isSuccessful() ) {
-					$this->addResponseData(
-						[ 'gateway_txn_id' => $approveResult->getGatewayTxnId() ]
-					);
-					$this->finalizeInternalStatus( FinalStatus::COMPLETE );
-					$this->postProcessDonation();
-				} else {
-					$this->finalizeInternalStatus( FinalStatus::FAILED );
-					return PaymentResult::newFailure( $approveResult->getErrors() );
-				}
+				return $this->captureOneTimePayment( $provider );
 			}
 		} else {
 			$this->finalizeInternalStatus( $detailsResult->getStatus() );
@@ -278,6 +252,59 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			}
 			$this->addResponseData( $responseData );
 			$this->session_addDonorData();
+		}
+	}
+
+	/**
+	 * @param IRecurringPaymentProfileProvider $provider
+	 * @return PaymentResult
+	 */
+	protected function createRecurringProfile( IRecurringPaymentProfileProvider $provider ): PaymentResult {
+		$this->setCurrentTransaction( 'CreateRecurringPaymentsProfile' );
+		$profileParams = $this->buildRequestArray();
+		$createProfileResponse = $provider->createRecurringPaymentsProfile( $profileParams );
+		if ( $createProfileResponse->isSuccessful() ) {
+			$this->addResponseData( [
+				'subscr_id' => $createProfileResponse->getProfileId()
+			] );
+
+			// We've created a subscription, but we haven't got an initial
+			// payment yet, so we leave the details in the pending queue.
+			// The IPN listener will push the donation through to Civi when
+			// it gets notifications from PayPal.
+			// TODO: it would be nice to send the subscr_start message to
+			// the recurring queue here.
+			$this->finalizeInternalStatus( FinalStatus::PENDING );
+			$this->postProcessDonation();
+			return PaymentResult::newSuccess();
+		} else {
+			if ( $createProfileResponse->requiresRedirect() ) {
+				return PaymentResult::newRedirect( $createProfileResponse->getRedirectUrl() );
+			}
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return PaymentResult::newFailure( $createProfileResponse->getErrors() );
+		}
+	}
+
+	/**
+	 * @param IPaymentProvider $provider
+	 * @return PaymentResult
+	 */
+	protected function captureOneTimePayment( IPaymentProvider $provider ): PaymentResult {
+		// One-time payment, or initial payment in a subscription.
+		$this->setCurrentTransaction( 'DoExpressCheckoutPayment' );
+		$approvePaymentParams = $this->buildRequestArray();
+		$approveResult = $provider->approvePayment( $approvePaymentParams );
+		if ( $approveResult->isSuccessful() ) {
+			$this->addResponseData(
+				[ 'gateway_txn_id' => $approveResult->getGatewayTxnId() ]
+			);
+			$this->finalizeInternalStatus( FinalStatus::COMPLETE );
+			$this->postProcessDonation();
+			return PaymentResult::newSuccess();
+		} else {
+			$this->finalizeInternalStatus( FinalStatus::FAILED );
+			return PaymentResult::newFailure( $approveResult->getErrors() );
 		}
 	}
 
