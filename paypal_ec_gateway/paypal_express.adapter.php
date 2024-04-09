@@ -2,6 +2,7 @@
 
 use SmashPig\PaymentData\ErrorCode;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
@@ -110,6 +111,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	}
 
 	public function doPayment() {
+		$this->setValidationAction( ValidationAction::PROCESS, true );
+		$this->logger->debug( 'Running onGatewayReady filters' );
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+		if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
+			return PaymentResult::fromResults(
+				$this->setFailedValidationTransactionResponse( 'SetExpressCheckout' ),
+				FinalStatus::FAILED
+			);
+		}
 		$this->config['transformers'][] = 'PaypalExpressReturnUrl';
 		$this->data_transformers[] = new PaypalExpressReturnUrl();
 		$this->stageData();
@@ -159,6 +169,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			throw new ResponseProcessingException(
 				'Missing required parameters in request',
 				ErrorCode::MISSING_REQUIRED_DATA
+			);
+		}
+		$this->setValidationAction( ValidationAction::PROCESS, true );
+		$this->logger->debug( 'Running onGatewayReady filters' );
+		Gateway_Extras_CustomFilters::onGatewayReady( $this );
+		if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
+			return PaymentResult::fromResults(
+				$this->setFailedValidationTransactionResponse( 'ProcessDonorReturn' ),
+				FinalStatus::FAILED
 			);
 		}
 		$requestData = [
