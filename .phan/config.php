@@ -8,7 +8,14 @@ $cfg['directory_list'] = array_merge(
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
 		'./special',
+		'./gateway_common',
 		'./vendor/wikimedia/smash-pig',
+	]
+);
+$cfg['file_list'] = array_merge(
+	$cfg['file_list'],
+	[
+		'./DonationInterface.class.php',
 	]
 );
 $cfg['exclude_analysis_directory_list'] = array_merge(
@@ -18,6 +25,7 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
 		'./special',
+		'./gateway_common',
 		'./vendor/wikimedia/smash-pig',
 	]
 );
