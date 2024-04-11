@@ -19,6 +19,11 @@ visa:
     group: cc
 visa-debit:
     group: cc
+maestro:
+    countries:
+        BE: true
+        RO: true
+    group: cc
 mc:
     countries:
         AU: true
