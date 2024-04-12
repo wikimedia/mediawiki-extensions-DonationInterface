@@ -1184,7 +1184,7 @@ class DonationData implements LogPrefixProvider {
 		$contributionTrackingId = $this->getVal( 'contribution_tracking_id' );
 
 		// Check that the order_id has the current ct_id as its prefix.
-		if ( $orderId && $contributionTrackingId && strpos( $orderId, $contributionTrackingId ) !== 0 ) {
+		if ( $orderId && $contributionTrackingId && !str_starts_with( $orderId, $contributionTrackingId ) ) {
 			$this->logger->debug( "order_id / ct_id mismatch detected" );
 			$this->logger->debug( print_r( $this->getDataSources(), true ) );
 		}

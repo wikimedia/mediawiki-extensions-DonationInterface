@@ -437,7 +437,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$dataObj = $this->dataObj;
 		}
 		$contributionTrackingId = $dataObj->getVal( 'contribution_tracking_id' );
-		if ( strpos( $orderId, $contributionTrackingId ) !== 0 ) {
+		if ( !str_starts_with( $orderId, $contributionTrackingId ) ) {
 			$mismatchedId = $orderId;
 			$orderId = $this->generateOrderID( $dataObj );
 			$this->setOrderIDMeta( 'final', $orderId );
