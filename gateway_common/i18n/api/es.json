@@ -3,6 +3,7 @@
 		"authors": [
 			"Avengium",
 			"DiegoAmbrocio",
+			"Eulalio",
 			"Fitoschido",
 			"JDíaz32",
 			"Macofe",
@@ -49,6 +50,13 @@
 	"apihelp-logPaymentsFormError-param-col": "Columna en la que se produjo el error",
 	"apihelp-logPaymentsFormError-param-userAgent": "Cadena de agente de usuario del navegador",
 	"apihelp-logPaymentsFormError-param-stack": "Seguimiento de pila del error, si está disponible",
+	"apihelp-logRecurUpgradeFormError-summary": "Esta API registra errores de formulario de actualización recurrentes del lado del cliente.",
+	"apihelp-logRecurUpgradeFormError-param-message": "El mensaje de error",
+	"apihelp-logRecurUpgradeFormError-param-file": "Archivo en el que se produjo el error",
+	"apihelp-logRecurUpgradeFormError-param-line": "Línea en la que ocurrió el error",
+	"apihelp-logRecurUpgradeFormError-param-col": "Columna en la que ocurrió el error",
+	"apihelp-logRecurUpgradeFormError-param-userAgent": "Cadena de agente de usuario del navegador",
+	"apihelp-logRecurUpgradeFormError-param-stack": "Traza de la pila de errores, cuando esté disponible",
 	"apihelp-di_donate_dlocal-summary": "Esta API es para Dlocal",
 	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple",
 	"apihelp-submitPayment-summary": "Envía un pago basado en los parámetros enviados"

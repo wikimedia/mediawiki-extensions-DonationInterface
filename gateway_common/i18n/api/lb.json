@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Soued031"
+			"Soued031",
+			"Volvox"
 		]
 	},
 	"apihelp-donate-param-amount": "De Betrag vum Don",
@@ -22,5 +23,9 @@
 	"apihelp-donate-param-language": "Sproochcode.",
 	"apihelp-donate-example-1": "En Don maachen",
 	"apihelp-logPaymentsFormError-param-message": "De Feelermessage",
-	"apihelp-logPaymentsFormError-param-file": "Fichier bei deem de Feeler geschitt"
+	"apihelp-logPaymentsFormError-param-file": "Fichier bei deem de Feeler geschitt",
+	"apihelp-logRecurUpgradeFormError-param-message": "De Feelermessage",
+	"apihelp-logRecurUpgradeFormError-param-file": "Fichier, an deem de Feeler opgetrueden ass",
+	"apihelp-logRecurUpgradeFormError-param-line": "Zeil, an där de Feeler opgetrueden ass",
+	"apihelp-logRecurUpgradeFormError-param-col": "Kolonn, an där de Feeler opgetrueden ass"
 }
