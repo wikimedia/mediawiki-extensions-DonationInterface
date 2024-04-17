@@ -350,7 +350,7 @@
 	"donate_interface-online_bank_transfer_message": "تلفن و بانکداری اینترنتی--BPAY ®",
 	"donate_interface-rtbt-issuer_id": "بانک خود را انتخاب کنید",
 	"donate_interface-rtbt-issuer_id-longlist": "سایر بانک‌ها",
-	"donate_interface-sofortbanking": "Sofortbanking یک بانک برخط است که از طریق DIRECTebanking.com به شما اجازهٔ انتقال پول کمک به ویکی‌پدیا، با مشخصات بانکی‌تان را می دهد.\nاگر بانک شما امکان پرداخت اینترنتی را نمی‌دهد می‌توانید از امکان انتقال دستی پول که در صفحهٔ کمک هزینه قرار دارد استفاده کنید.",
+	"donate_interface-sofortbanking": "Sofortbanking یک بانک برخط است که از طریق DIRECTebanking.com به شما اجازهٔ انتقال پول کمک به ویکی‌پدیا، با مشخصات بانکی‌تان را می‌دهد.\nاگر بانک شما امکان پرداخت اینترنتی را نمی‌دهد می‌توانید از امکان انتقال دستی پول که در صفحهٔ کمک هزینه قرار دارد استفاده کنید.",
 	"donate_interface-dd-account_name": "نام حساب",
 	"donate_interface-dd-account_number": "شماره حساب",
 	"donate_interface-dd-authorization_id": "شناسه مجوز",
@@ -395,7 +395,7 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "بله، می‌خواهم کمک کنم",
 	"donate_interface-monthly-convert-no-button-variant-006": "نه، ممنون",
 	"donate_interface-monthly-convert-no-button-variant-011": "خیر، ممنونم!",
-	"donate_interface-monthly-convert-no-button-variant-014": "خیر، الآن نه",
+	"donate_interface-monthly-convert-no-button-variant-014": "خیر، الان نه",
 	"donate_interface-fundraiser-maintenance-header": "به صورت موقف خاموش برای تعمیر و نگهداری",
 	"donate_interface-fundraiser-maintenance-notice": "در حال حاضر برای تعمیر و نگهداری امکان قبول کمک‌های مالی مقدور نیست و لطفاً بعد از مدتی تلاش کنید. در صورتی که سوال دارید به $1 ایمیل بزنید."
 }

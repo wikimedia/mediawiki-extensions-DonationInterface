@@ -1048,17 +1048,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->logger->debug( 'Running onGatewayReady filters' );
 			Gateway_Extras_CustomFilters::onGatewayReady( $this );
 			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
-				$this->logger->info( "Failed pre-process checks for transaction type $transaction." );
-				$this->transaction_response->setCommunicationStatus( false );
-				$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
-				$this->transaction_response->addError(
-					new PaymentError(
-						'internal-0000',
-						"Failed pre-process checks for transaction type $transaction.",
-						LogLevel::INFO
-					)
-				);
-				return $this->transaction_response;
+				return $this->setFailedValidationTransactionResponse( $transaction );
 			}
 
 			if ( !$this->isBatchProcessor() ) {
@@ -1197,6 +1187,20 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->debugarray[] = 'numAttempt = ' . $this->session_getData( 'numAttempt' );
 		}
 
+		return $this->transaction_response;
+	}
+
+	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
+		$this->logger->info( "Failed $phase checks for transaction type $transaction." );
+		$this->transaction_response->setCommunicationStatus( false );
+		$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
+		$this->transaction_response->addError(
+			new PaymentError(
+				'internal-0000',
+				"Failed $phase checks for transaction type $transaction.",
+				LogLevel::INFO
+			)
+		);
 		return $this->transaction_response;
 	}
 

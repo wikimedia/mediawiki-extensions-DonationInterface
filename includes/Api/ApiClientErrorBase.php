@@ -1,15 +1,22 @@
 <?php
 
+namespace MediaWiki\Extension\DonationInterface\Api;
+
+use ApiBase;
+use Psr\Log\LoggerInterface;
+use RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
+use WmfFramework;
 
 /**
  * Client-side error logging API
  */
-class ClientErrorApi extends ApiBase {
+abstract class ApiClientErrorBase extends ApiBase {
+
 	public function execute() {
 		$sessionData = WmfFramework::getSessionValue( 'Donor' );
 
-		if ( empty( $sessionData ) || empty( $sessionData['gateway'] ) ) {
+		if ( !$this->validateSessionData( $sessionData ) ) {
 			// Only log errors from ppl with a legitimate donation attempt
 			return;
 		}
@@ -17,14 +24,19 @@ class ClientErrorApi extends ApiBase {
 			// Allow rate limiting by setting e.g. $wgRateLimits['clienterror']['ip']
 			return;
 		}
-		$gatewayName = $sessionData['gateway'];
-		$gatewayClass = DonationInterface::getAdapterClassForGateway( $gatewayName );
-		$gateway = new $gatewayClass();
-
 		$errorData = $this->extractRequestParams();
-		$errorData['donationData'] = $gateway->getData_Unstaged_Escaped();
-		$logger = DonationLoggerFactory::getLogger( $gateway );
+		$this->addExtraData( $sessionData, $errorData );
+		$logger = $this->getLogger( $sessionData );
 		$logger->error( 'Client side error: ' . print_r( $errorData, true ) );
+	}
+
+	protected function validateSessionData( ?array $sessionData ): bool {
+		return $sessionData !== null && count( $sessionData ) > 0;
+	}
+
+	abstract protected function getLogger( array $sessionData ): LoggerInterface;
+
+	protected function addExtraData( array $sessionData, array &$errorData ): void {
 	}
 
 	public function getAllowedParams() {

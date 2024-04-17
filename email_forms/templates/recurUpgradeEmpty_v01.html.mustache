@@ -1,0 +1,19 @@
+{{> emailPreferencesHeader}}
+<link rel="stylesheet" href="{{ template_path }}/recurUpgrade_v01.css">
+<main class="recurUpgradeForm">
+    <div class="recurUpgradeForm">
+        <section class="bg-ltyellow">
+            <div class="recurUpgradeContent site-content">
+            	<div class="recurUpgradeGreeting">
+            		<div class="emailpreferences-form-col-content-salutation">
+            			<h1 class="emailpreferences-form-col-content-salutation-name">{{ l10n "recurupgrade-salutation-no-recur-records" }}</h1>
+            		</div>
+            		<div class="oo-ui-fieldLayout-body">
+                        <p>{{{ l10n "recurupgrade-no-recur-records" recurring_donation_url help_email }}}</p>
+                    </div>
+            	</div>
+            </div>
+        </section>
+    </div>
+</main>
+{{> emailPreferencesFooter}}

@@ -44,6 +44,10 @@
 	"apihelp-logPaymentsFormError-param-line": "Linea in cui si è verificato l'errore",
 	"apihelp-logPaymentsFormError-param-col": "Colonna in cui si è verificato l'errore",
 	"apihelp-logPaymentsFormError-param-userAgent": "Stringa user-agent del browser",
+	"apihelp-logRecurUpgradeFormError-param-message": "Il messaggio di errore",
+	"apihelp-logRecurUpgradeFormError-param-file": "File in cui si è verificato l'errore",
+	"apihelp-logRecurUpgradeFormError-param-line": "Linea in cui si è verificato l'errore",
+	"apihelp-logRecurUpgradeFormError-param-col": "Colonna in cui si è verificato l'errore",
 	"apihelp-di_recurring_convert-param-gateway": "Quale strumento di pagamento utilizzare - adyen, ingenico, etc.",
 	"apihelp-employerSearch-example-1": "Cerca un datore di lavoro"
 }

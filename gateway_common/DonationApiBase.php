@@ -35,7 +35,7 @@ abstract class DonationApiBase extends ApiBase {
 						$error->getMessageParams()
 					);
 				} else {
-					WmfFramework::formatMessage(
+					$message = WmfFramework::formatMessage(
 						$error->getMessageKey(),
 						$error->getMessageParams()
 					);

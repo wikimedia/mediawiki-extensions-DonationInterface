@@ -261,14 +261,14 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 
 	public function getRequiredFields( $knownData = null ) {
 		$fields = parent::getRequiredFields( $knownData );
-		return array_diff( $fields, $this->getFieldsToRemove() );
+		return array_diff( $fields, $this->getFieldsToRemove( $knownData ) );
 	}
 
 	public function getFormFields( ?array $knownData = null ): array {
 		$fields = parent::getFormFields( $knownData );
 		return array_diff_key(
 			$fields,
-			array_fill_keys( $this->getFieldsToRemove(), true )
+			array_fill_keys( $this->getFieldsToRemove( $knownData ), true )
 		);
 	}
 
@@ -285,7 +285,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return $general;
 	}
 
-	protected function getFieldsToRemove() {
+	protected function getFieldsToRemove( ?array $knownData = null ) {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
 		if ( $method === 'apple' ) {
 			// For Apple Pay, do not require any of the following fields in forms,
@@ -332,7 +332,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$paymentMethodResult = $provider->getPaymentMethods( $methodParams );
 		if ( $paymentMethodResult->hasErrors() ) {
 			foreach ( $paymentMethodResult->getErrors() as $error ) {
-				$this->logger->warning( "paymentMethod lookup error: {$error->getMessage()}" );
+				$this->logger->warning( "paymentMethod lookup error: {$error->getDebugMessage()}" );
 			}
 			foreach ( $paymentMethodResult->getValidationErrors() as $validationError ) {
 				$this->logger->warning( "paymentMethod lookup validation error with parameter: {$validationError->getField()}" );
@@ -475,7 +475,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc', 'google', 'apple' ];
+		return [ 'cc', 'google', 'apple', 'ach', 'rtbt' ];
 	}
 
 	/**

@@ -4,6 +4,9 @@
  * text is decided, please make the optimal text standard and delete this and
  * the extension.json module configuration for ext.donationInterface.jaVariant02
  * and ext.donationInterface.adyenCheckoutWithJaVariant02.
+ *
+ * @param mw
+ * @param $
  */
 
 ( function ( mw, $ ) {

@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
+use Psr\Log\LoggerInterface;
 use SmashPig\Core\DataStores\QueueWrapper;
 
 class RecurUpgrade extends UnlistedSpecialPage {
@@ -28,7 +29,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$params = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
 		if ( !$this->validator->validate( $params, $posted ) ) {
-			$this->renderError();
+			$this->renderError( $params );
 			return;
 		}
 		if ( $posted ) {
@@ -40,7 +41,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				$params[ 'country' ] ?? null
 			);
 			if ( $formParams === null ) {
-				$this->renderError();
+				$this->renderError( $params );
+				return;
+			} elseif ( $formParams['is_error'] && $formParams[ 'error_message' ] === self::CIVI_NO_RESULTS_ERROR ) {
+				$this->renderEmpty( $params );
 				return;
 			}
 			$this->addDataToSession( $formParams );
@@ -54,8 +58,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'RecurUpgrade', true, false, '', null );
+		$logger = self::getLogger();
 		$message = [
 			'txn_type' => 'recurring_upgrade_decline',
 			'contribution_recur_id' => $contributionID,
@@ -72,12 +75,12 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	protected function paramsForRecurUpgradeForm( $checksum, $contactID, $country ): ?array {
 		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
 		if ( $recurData[ 'is_error' ] ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'RecurUpgrade', true, false, '', null );
+			$logger = self::getLogger();
 
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
 					"No results for contact_id $contactID with checksum $checksum" );
+				return $recurData;
 			} else {
 				$logger->error( 'Error from civiproxy: ' . $recurData[ 'error_message' ] );
 			}
@@ -120,11 +123,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	}
 
 	protected function executeRecurUpgrade( $params ) {
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'RecurUpgrade', true, false, '', null );
+		$logger = self::getLogger();
 		$donorData = WmfFramework::getSessionValue( self::DONOR_DATA );
 		if ( !isset( $donorData['contribution_recur_id'] ) ) {
-			$this->renderError();
+			$this->renderError( $params );
 			return;
 		}
 		if ( $this->wasCanceled( $params ) ) {
@@ -150,7 +152,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			$this->redirectToSuccess( $donorData, $amount );
 		} catch ( Exception $e ) {
 			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
-			$this->renderError();
+			$this->renderError( $params );
 		}
 	}
 
@@ -161,8 +163,12 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		] );
 	}
 
-	protected function renderError() {
-		$this->renderForm( 'recurUpgradeError', [] );
+	protected function renderError( array $params ) {
+		$this->renderForm( 'recurUpgradeError', $params );
+	}
+
+	protected function renderEmpty( array $params ) {
+		$this->renderForm( 'recurUpgradeEmpty', $params );
 	}
 
 	protected function redirectToSuccess( array $donorData, float $amount ): void {
@@ -238,13 +244,20 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering
 		$out->addModuleStyles( [
 			'donationInterface.skinOverrideStyles',
-			'ext.donationInterface.emailPreferencesStyles'
+			'ext.donationInterface.emailPreferencesStyles',
 		] );
 
 		$out->addModules( [
 			'ext.donationInterface.emailPreferences',
-			'ext.donationInterface.recurUpgrade'
+			'ext.donationInterface.recurUpgrade',
+			'ext.donationInterface.errorLog',
 		] );
+
+		// Tell the errorLog module which action to call
+		$out->addJsConfigVars( [
+			'ClientErrorLogAction' => 'logRecurUpgradeFormError',
+		] );
+
 		$out->addHeadItem(
 			'viewport',
 			Html::element(
@@ -254,5 +267,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 				]
 			)
 		);
+	}
+
+	public static function getLogger(): LoggerInterface {
+		return DonationLoggerFactory::getLoggerFromParams(
+			'RecurUpgrade', true, false, '', null );
 	}
 }

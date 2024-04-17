@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Dirruw'o",
 			"Facenapalm",
 			"Okras"
 		]
@@ -32,5 +33,9 @@
 	"apihelp-donate-param-utm_medium": "Отслеживающая переменная.",
 	"apihelp-donate-param-referrer": "Оригинальный реферер.",
 	"apihelp-donate-param-recurring": "Означает, что транзакция будет повторяющейся.",
-	"apihelp-donate-example-1": "Сделать пожертвование"
+	"apihelp-donate-example-1": "Сделать пожертвование",
+	"apihelp-logRecurUpgradeFormError-summary": "Данный API регистрирует частые ошибки обновлений форм ошибок.",
+	"apihelp-logRecurUpgradeFormError-param-message": "Ошибка сообщения",
+	"apihelp-logRecurUpgradeFormError-param-file": "Файл, в котором произошла ошибка",
+	"apihelp-logRecurUpgradeFormError-param-userAgent": "Строка пользовательского агента браузера"
 }

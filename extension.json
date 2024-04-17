@@ -51,7 +51,8 @@
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
-		"logPaymentsFormError": "ClientErrorApi",
+		"logPaymentsFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiDonationClientError",
+		"logRecurUpgradeFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRecurUpgradeClientError",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
@@ -85,7 +86,6 @@
 		"ArrayHelper": "gateway_common/ArrayHelper.php",
 		"FiscalNumber": "gateway_common/FiscalNumber.php",
 		"EmployerFieldValidation": "gateway_common/EmployerFieldValidation.php",
-		"ClientErrorApi": "gateway_common/clientError.api.php",
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
@@ -510,6 +510,9 @@
 		},
 		"DonationInterfacePolicyURL": {
 			"value": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country"
+		},
+		"DonationInterfaceRecurringDonateURL": {
+			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&monthly=true"
 		},
 		"DonationInterfaceChooserProblemURL": {
 			"value": "https://donate.wikimedia.org"

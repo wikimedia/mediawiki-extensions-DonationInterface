@@ -22,9 +22,11 @@ class ResultPages {
 		$extraParams['payment_method'] = $adapter->getData_Unstaged_Escaped( 'payment_method' );
 		$extraParams['order_id'] = $adapter->getData_Unstaged_Escaped( 'order_id' );
 		$extraParams['recurring'] = $adapter->getData_Unstaged_Escaped( 'recurring' );
-		$extraParams['utm_medium'] = $adapter->getData_Unstaged_Escaped( 'utm_medium' );
-		$extraParams['utm_source'] = $adapter->getData_Unstaged_Escaped( 'utm_source' );
-		$extraParams['utm_campaign'] = $adapter->getData_Unstaged_Escaped( 'utm_campaign' );
+		// Map from internal-facing old utm_ prefixes to wmf_ prefixes that hopefully
+		// are less likely to be stripped by privacy-preserving browsers.
+		$extraParams['wmf_medium'] = $adapter->getData_Unstaged_Escaped( 'utm_medium' );
+		$extraParams['wmf_source'] = $adapter->getData_Unstaged_Escaped( 'utm_source' );
+		$extraParams['wmf_campaign'] = $adapter->getData_Unstaged_Escaped( 'utm_campaign' );
 
 		return wfAppendQuery( $page, $extraParams );
 	}
@@ -61,7 +63,7 @@ class ResultPages {
 			$url .= "/$language";
 		}
 
-		if ( strpos( $url, 'http' ) === 0 ) {
+		if ( str_starts_with( $url, 'http' ) ) {
 			return $url;
 		} else { // this isn't a url yet.
 			$returnTitle = Title::newFromText( $url );
