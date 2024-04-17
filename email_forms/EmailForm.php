@@ -85,7 +85,7 @@ class EmailForm {
 	}
 
 	protected function getTemplateParams() {
-		global $wgDonationInterfaceEmailFormHelpEmail;
+		global $wgDonationInterfaceEmailFormHelpEmail, $wgDonationInterfaceRecurringDonateURL;
 
 		$paramList = [
 			'campaign',
@@ -137,6 +137,7 @@ class EmailForm {
 			'uselang' => $languageCode,
 			'template_path' => $templatePath,
 			'help_email' => $wgDonationInterfaceEmailFormHelpEmail,
+			'recurring_donation_url' => $wgDonationInterfaceRecurringDonateURL,
 			'action' => $context->getRequest()->getFullRequestURL(),
 			'policy_url' => $this->getPolicyUrl( $languageCode ),
 		];

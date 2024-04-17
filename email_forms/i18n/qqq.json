@@ -30,6 +30,8 @@
 	"recurupgrade-current-amount-and-date": "Statement of current recurring amount and next charge date. $1 is the formatted amount with currency symbol and $2 is the formatted date",
 	"recurupgrade-next-scheduled-date": "Label for the next recurring donation date",
 	"recurupgrade-salutation": "Heading for the recurring upgrade. $1 is the donor's full name",
+	"recurupgrade-salutation-no-recur-records": "Heading for the recurring upgrade error page",
+	"recurupgrade-no-recur-records": "Text under the recurring upgrade error heading. $1 is the link to the recurring donation page and $2 is the Donor relations email address.",
 	"recurupgrade-select-option": "Text under the amount options instruction the donor to select one",
 	"recurupgrade-thanks-increasing": "Text following the current amount and date thanking the donor for upgrading",
 	"recurupgrade-thanks-monthly": "Header for the section below the options, thanking the donor for giving monthly",
