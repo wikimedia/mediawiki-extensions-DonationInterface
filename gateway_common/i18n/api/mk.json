@@ -67,6 +67,6 @@
 	"apihelp-employerSearch-param-employer": "Кој работодавач да се побара. На пр. Црвен крст, Светски фонд за природа, Војска на спасот итн.",
 	"apihelp-employerSearch-example-1": "Пребарајте работодавач",
 	"apihelp-di_applesession_adyen-summary": "Овозможува барање на седница за Apple Pay непосредно од Apple",
-	"apihelp-getPaymentMethods-summary": "Дава расположиви начини на плаќање според земјата",
+	"apihelp-getPaymentMethods-summary": "Дава расположливи начини на плаќање според земјата",
 	"apihelp-submitPayment-summary": "Поднесува плаќање врз основа на зададени параметри"
 }
