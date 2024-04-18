@@ -65,8 +65,8 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'contact_id' => $contactID,
 		] + $this->getTrackingParametersWithoutPrefix();
 		try {
-			$logger->info( "Pushing recurring_upgrade_decline to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
-			QueueWrapper::push( 'recurring-upgrade', $message );
+			$logger->info( "Pushing recurring_upgrade_decline to recurring-modify queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring-modify', $message );
 		} catch ( Exception $e ) {
 			$logger->error( "Error pushing recurring_upgrade_decline message: {$e->getMessage()}" );
 		}
@@ -147,11 +147,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		] + $this->getTrackingParametersWithoutPrefix();
 
 		try {
-			$logger->info( "Pushing upgraded amount to recurring-upgrade queue with contribution_recur_id: {$message['contribution_recur_id']}" );
-			QueueWrapper::push( 'recurring-upgrade', $message );
+			$logger->info( "Pushing upgraded amount to recurring-modify queue with contribution_recur_id: {$message['contribution_recur_id']}" );
+			QueueWrapper::push( 'recurring-modify', $message );
 			$this->redirectToSuccess( $donorData, $amount );
 		} catch ( Exception $e ) {
-			$logger->error( "Error pushing upgraded amount to recurring-upgrade queue: {$e->getMessage()}" );
+			$logger->error( "Error pushing upgraded amount to recurring-modify queue: {$e->getMessage()}" );
 			$this->renderError( $params );
 		}
 	}
