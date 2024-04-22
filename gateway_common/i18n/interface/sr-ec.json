@@ -116,7 +116,7 @@
 	"donate_interface-paypal-redirect": "Преусмеравање на PayPal…",
 	"donate_interface-amazon-button": "Донирај путем Amazon-а",
 	"donate_interface-cc-button": "Донирај путем кредитне картице",
-	"donate_interface-ccdc-button": "Донирај путем кредитне/дебитне картице",
+	"donate_interface-ccdc-button": "Кредитна/дебитна картица",
 	"donate_interface-dd-button": "Донирај директно са рачуна",
 	"donate_interface-bt-button": "Донирај преносом из банкарског рачуна",
 	"donate_interface-rt-button": "Донирај преко банке $1",
