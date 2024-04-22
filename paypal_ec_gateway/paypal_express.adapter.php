@@ -244,11 +244,13 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			if ( $address !== null ) {
 				$responseData += [
 					'city' => $address->getCity(),
-					'country' => $address->getCountryCode(),
 					'street_address' => $address->getStreetAddress(),
 					'postal_code' => $address->getPostalCode(),
 					'state_province' => $address->getPostalCode()
 				];
+				if ( !empty( $address->getCountryCode() ) ) {
+					$responseData[ 'country' ] = $address->getCountryCode();
+				}
 			}
 			$this->addResponseData( $responseData );
 			$this->session_addDonorData();
