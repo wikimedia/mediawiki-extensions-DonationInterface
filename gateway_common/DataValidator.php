@@ -201,7 +201,7 @@ class DataValidator {
 				}
 
 				$value = $data[$field] ?? null;
-				if ( empty( $value ) && $phase !== 'not_empty' ) {
+				if ( !$value && $phase !== 'not_empty' ) {
 					// Skip if not required and nothing to validate.
 					continue;
 				}
@@ -605,7 +605,7 @@ EOT;
 	 */
 	public static function ip_is_listed( $ip, $ip_list ) {
 		$expanded = [];
-		if ( empty( $ip_list ) ) {
+		if ( !$ip_list ) {
 			return false;
 		}
 		foreach ( $ip_list as $address ) {
@@ -659,11 +659,7 @@ EOT;
 			return !is_array( $value );
 		} );
 		$result = array_intersect( $haystack, $needle );
-		if ( !empty( $result ) ) {
-			return true;
-		} else {
-			return false;
-		}
+		return (bool)$result;
 	}
 
 	/**

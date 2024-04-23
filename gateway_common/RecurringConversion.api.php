@@ -43,7 +43,7 @@ class RecurringConversionApi extends DonationApiBase {
 		];
 		$errors = $paymentResult->getErrors();
 
-		if ( !empty( $errors ) ) {
+		if ( $errors ) {
 			$outputResult['errors'] = $this->serializeErrors( $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}

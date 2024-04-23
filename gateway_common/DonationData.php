@@ -375,7 +375,7 @@ class DonationData implements LogPrefixProvider {
 	protected function normalize() {
 		// FIXME: there's a ghost invocation during DonationData construction.
 		// This condition should actually be "did data come from anywhere?"
-		if ( !empty( $this->normalized ) ) {
+		if ( $this->normalized ) {
 			// Cast all values to string.
 			$toStringOrNull = static function ( $value ) {
 				if ( $value === null || $value === '' ) {
@@ -1010,7 +1010,7 @@ class DonationData implements LogPrefixProvider {
 	 * @param string $source
 	 */
 	public function addData( $newdata, $source = 'internal' ) {
-		if ( is_array( $newdata ) && !empty( $newdata ) ) {
+		if ( is_array( $newdata ) ) {
 			foreach ( $newdata as $key => $val ) {
 				if ( !is_array( $val ) ) {
 					$this->setVal( $key, $val );

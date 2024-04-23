@@ -20,7 +20,7 @@ class IngenicoReturnUrlHelper implements StagingHelper {
 			// qstring keys, resetting the values, and putting it all back)
 			// but for now it'll keep us alive.
 			if ( $adapter->getOrderIDMeta( 'generate' )
-				&& !empty( $returnto )
+				&& $returnto !== ''
 				&& !strpos( $returnto, 'order_id' )
 			) {
 				$queryArray = [ 'order_id' => $normalized['order_id'] ];

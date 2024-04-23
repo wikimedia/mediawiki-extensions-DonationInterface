@@ -83,7 +83,7 @@ abstract class DonationApiBase extends ApiBase {
 				);
 			}
 		}
-		if ( !empty( $errors ) ) {
+		if ( $errors ) {
 			$outputResult = [ 'errors' => $errors ];
 			// FIXME: What is this junk?  Smaller API, like getResult()->addErrors
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
