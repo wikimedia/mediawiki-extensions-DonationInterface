@@ -67,11 +67,12 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$this->orderId . ':' . $this->orderId
 		);
 
-		// App is sending payment_method=applepay, eventual android will send googlepay
-		// TODO what if it's not there
 		if ( $this->donationData['payment_method'] == 'applepay' ) {
 			$this->donationData['payment_method'] = 'apple';
 			$this->donationData['utm_campaign'] = 'iOS';
+		} elseif ( $this->donationData['payment_method'] == 'paywithgoogle' ) {
+			$this->donationData['payment_method'] = 'google';
+			$this->donationData['utm_campaign'] = 'android';
 		} else {
 			$this->logger->error( 'Payment method of ' . $this->donationData['payment_method'] . ' not available' );
 			$response = [
