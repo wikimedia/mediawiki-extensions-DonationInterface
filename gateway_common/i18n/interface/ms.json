@@ -4,7 +4,8 @@
 			"Anakmalaysia",
 			"Diagramma Della Verita",
 			"Pizza1016",
-			"Tofeiku"
+			"Tofeiku",
+			"Hakimi97"
 		]
 	},
 	"donate_interface": "Sokonglah Wikimedia",
@@ -191,7 +192,7 @@
 	"donate_interface-error-msg-branch_code": "Kod cawangan",
 	"donate_interface-error-msg-captcha": "Aksara Captcha yang anda masukkan salah. Sila taipkan semula.",
 	"donate_interface-error-msg-captcha-please": "Untuk keselamatan kad kredit anda, sila taipkan aksara yang terpapar di atas.",
-	"donate_interface-error-msg-cookies": "Sila bolehkan 'cookies' dalam pelayar anda.",
+	"donate_interface-error-msg-cookies": "Sila dayakan kuki pada pelayar anda.",
 	"donate_interface-error-msg-country-calc": "Ralat - Kami tidak dapat menerima dermaan anda ketika ini.",
 	"donate_interface-error-msg-fiscal_number": "Sila isikan maklumat berikut nombor fiskal",
 	"donate_interface-error-msg-invalid-fiscal_number": "Sila betulkan kesilapan pada nombor fiskal anda",
