@@ -248,7 +248,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 					'postal_code' => $address->getPostalCode(),
 					'state_province' => $address->getPostalCode()
 				];
-				if ( !empty( $address->getCountryCode() ) ) {
+				if ( $address->getCountryCode() !== null ) {
 					$responseData[ 'country' ] = $address->getCountryCode();
 				}
 			}

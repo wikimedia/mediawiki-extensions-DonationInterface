@@ -38,7 +38,7 @@ class ResultPages {
 	 */
 	public static function getCancelPage( GatewayType $adapter ) {
 		$cancelPage = $adapter->getGlobal( 'CancelPage' );
-		if ( empty( $cancelPage ) ) {
+		if ( !$cancelPage ) {
 			return '';
 		}
 		return self::appendLanguageAndMakeURL(

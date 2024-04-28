@@ -134,7 +134,7 @@ class EmployerSearchAPI extends ApiBase {
 			];
 		}
 
-		if ( empty( $employerList ) ) {
+		if ( !$employerList ) {
 			$this->setError( 'Employer data file is empty or can\'t be parsed.' );
 			fclose( $fileHandle );
 			return false;
@@ -164,7 +164,7 @@ class EmployerSearchAPI extends ApiBase {
 	 */
 	private function initLogger() {
 		$sessionData = WmfFramework::getSessionValue( 'Donor' );
-		if ( empty( $sessionData ) || empty( $sessionData['gateway'] ) ) {
+		if ( !$sessionData || empty( $sessionData['gateway'] ) ) {
 			// Only log errors from ppl with a legitimate donation attempt
 			return;
 		}

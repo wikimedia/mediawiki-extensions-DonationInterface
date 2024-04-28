@@ -31,7 +31,7 @@ class DonationApi extends DonationApiBase {
 
 		// FIXME: don't need this if we've gotten a payment all the way
 		// done at this point. Stop double logging for adyen checkout
-		$sendingDonorToProcessor = empty( $errors ) &&
+		$sendingDonorToProcessor = !$errors &&
 			( !empty( $outputResult['iframe'] ) || !empty( $outputResult['redirect'] ) );
 
 		if ( $sendingDonorToProcessor ) {
@@ -39,7 +39,7 @@ class DonationApi extends DonationApiBase {
 			$this->markLiberatedOnRedirect( $paymentResult );
 		}
 
-		if ( !empty( $errors ) ) {
+		if ( $errors ) {
 			$outputResult['errors'] = $this->serializeErrors( $errors );
 			$this->getResult()->setIndexedTagName( $outputResult['errors'], 'error' );
 		}

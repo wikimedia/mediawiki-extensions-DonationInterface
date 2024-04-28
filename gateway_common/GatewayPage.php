@@ -281,7 +281,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return null
 	 */
 	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
-		$results = empty( $results ) ? $this->adapter->getTransactionResponse() : $results;
+		$results = !$results ? $this->adapter->getTransactionResponse() : $results;
 
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ) {
 			return;
@@ -292,7 +292,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$output->addHTML( Html::element( 'span', [], $results->getMessage() ) );
 
 		$errors = $results->getErrors();
-		if ( !empty( $errors ) ) {
+		if ( $errors ) {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $errors as $code => $value ) {
 				$output->addHTML( Html::element( 'li', [], "Error $code: " . print_r( $value, true ) ) );
@@ -301,7 +301,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 
 		$data = $results->getData();
-		if ( !empty( $data ) ) {
+		if ( $data ) {
 			$output->addHTML( Html::openElement( 'ul' ) );
 			foreach ( $data as $key => $value ) {
 				if ( is_array( $value ) ) {
@@ -539,7 +539,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 		try {
 			$clientRules = $this->adapter->getClientSideValidationRules();
-			if ( !empty( $clientRules ) ) {
+			if ( $clientRules ) {
 				// Translate all the messages
 				// FIXME: figure out country fallback add the i18n strings
 				// for use with client-side mw.msg()
