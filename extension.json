@@ -1427,6 +1427,9 @@
 				"vi_VN"
 			]
 		},
+		"DonationInterfaceEmailPreferencesSnoozeDays": {
+			"value": 90
+		},
 		"DonationInterfaceCiviproxyURLBase": {
 			"value": "https://localhost"
 		},
