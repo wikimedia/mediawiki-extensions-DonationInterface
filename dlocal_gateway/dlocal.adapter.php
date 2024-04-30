@@ -359,7 +359,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$createPaymentParams['recurring'] = 1;
 		}
 		$createPaymentResponse = $paymentProvider->createPayment( $createPaymentParams );
-		if ( !empty( $createPaymentResponse->getGatewayTxnId() ) ) {
+		if ( $createPaymentResponse->getGatewayTxnId() !== null ) {
 			$this->logger->info( "Returned Authorization ID {$createPaymentResponse->getGatewayTxnId()}" );
 		}
 

@@ -233,6 +233,20 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				];
 				break;
 			case 'rtbt':
+				switch ( $this->getPaymentSubmethod() ) {
+					case 'onlineBanking_CZ':
+					case 'rtbt_ideal':
+						$this->transactions['authorize']['request'][] = 'issuer_id';
+						break;
+					case 'sepadirectdebit':
+						$this->transactions['authorize']['request'] =
+							array_merge( $this->transactions['authorize']['request'], [
+								'iban_number',
+								'full_name'
+							] );
+						break;
+				}
+				break;
 			case 'bt':
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
@@ -287,6 +301,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 
 	protected function getFieldsToRemove( ?array $knownData = null ) {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
+		$submethod = $knownData['payment_submethod'] ?? $this->getData_Unstaged_Escaped( 'payment_submethod' );
 		if ( $method === 'apple' ) {
 			// For Apple Pay, do not require any of the following fields in forms,
 			// regardless of what may be specified in config/country_fields.yaml
@@ -306,7 +321,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'postal_code',
 				'city'
 			];
-		} elseif ( $method === 'ach' ) {
+		} elseif ( $method === 'ach' || ( $method === 'rtbt' && $submethod === 'sepadirectdebit' ) ) {
 			return [
 				'first_name',
 				'last_name',
@@ -475,7 +490,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc', 'google', 'apple', 'ach', 'rtbt' ];
+		return [ 'cc', 'google', 'apple', 'ach' ];
 	}
 
 	/**

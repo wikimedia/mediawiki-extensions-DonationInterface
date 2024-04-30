@@ -53,7 +53,7 @@ class ErrorState {
 	}
 
 	public function hasErrors() {
-		return !empty( $this->errors );
+		return $this->errors !== [];
 	}
 
 	/**

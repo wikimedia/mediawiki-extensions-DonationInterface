@@ -506,7 +506,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			// Search for any monthlyConvert modules that may have already
 			// been added by the variant=XXX mechanism.
 			$mcModules = preg_grep( '/monthlyConvert/', $resources );
-			if ( empty( $mcModules ) ) {
+			if ( !$mcModules ) {
 				// Only add the default module if no variant-specified
 				// module is already in the list.
 				$resources[] = $this->gateway->getGlobal(

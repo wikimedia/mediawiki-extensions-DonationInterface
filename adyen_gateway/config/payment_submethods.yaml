@@ -70,5 +70,23 @@ rtbt_ideal:
     group: rtbt
     countries:
         NL: true
+onlineBanking_CZ:
+    group: bt
+    countries:
+        CZ: true
+sepadirectdebit:
+    group: rtbt
+    countries:
+        AT: true
+        CH: true
+        DE: true
+        DK: true
+        ES: true
+        FR: true
+        IT: true
+        NL: true
+        NO: true
+        PL: true
+        SE: true
 interac:
     group: cc

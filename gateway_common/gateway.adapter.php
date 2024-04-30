@@ -690,7 +690,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$messageKey = 'donate_interface-processing-error';
 		}
 
-		$translatedMessage = ( $options['translate'] && empty( $translatedMessage ) )
+		$translatedMessage = ( $options['translate'] && $translatedMessage === '' )
 			? WmfFramework::formatMessage( $messageKey, $this->getGlobal( 'ProblemsEmail' ) )
 			: $translatedMessage;
 
@@ -728,7 +728,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @return mixed The value we want to send directly to the gateway, for the specified gateway field name.
 	 */
 	public function getTransactionSpecificValue( $gateway_field_name ) {
-		if ( empty( $this->transactions ) ) {
+		if ( !$this->transactions ) {
 			$msg = self::getGatewayName() . ': Transactions structure is empty! No transaction can be constructed.';
 			$this->logger->critical( $msg );
 			throw new LogicException( $msg );
@@ -787,7 +787,7 @@ abstract class GatewayAdapter implements GatewayType {
 			return false;
 		}
 
-		if ( empty( $this->transactions ) ||
+		if ( !$this->transactions ||
 			!array_key_exists( $transaction, $this->transactions ) ||
 			!array_key_exists( 'request', $this->transactions[$transaction] )
 		) {
@@ -977,7 +977,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$retryVars = null;
 			$retval = $this->do_transaction_internal( $transaction, $retryVars );
 
-			if ( !empty( $retryVars ) ) {
+			if ( $retryVars ) {
 				// TODO: Add more intelligence here. Right now timeout is the only one specifically
 				// handled, all other cases we just assume it's the order_id
 				// and that it is totally OK to just reset it and reroll.
@@ -1004,7 +1004,7 @@ abstract class GatewayAdapter implements GatewayType {
 				}
 			}
 
-		} while ( ( !empty( $retryVars ) ) && ( ++$retryCount < $loopCount ) );
+		} while ( $retryVars && ( ++$retryCount < $loopCount ) );
 
 		if ( $retryCount >= $loopCount ) {
 			$this->logger->error( "Transaction canceled after $retryCount retries." );
@@ -1135,7 +1135,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// Log out how much time it took for the cURL request
 		$this->profiler->saveCommunicationStats( __FUNCTION__, $transaction );
 
-		if ( !empty( $retryVars ) ) {
+		if ( $retryVars ) {
 			$this->logger->critical( "$transaction Communication failed (errcode $errCode), will reattempt!" );
 
 			// Set this by key so that the result object still has all the cURL data
@@ -1152,7 +1152,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// if we have set errors by this point, the transaction is not okay
 		$errors = $this->transaction_response->getErrors();
-		if ( !empty( $errors ) ) {
+		if ( $errors ) {
 			$txn_ok = false;
 			$this->errorState->addErrors( $errors );
 		}
@@ -1163,7 +1163,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// called
 		// 'post_process' . strtolower($transaction)
 		// in the appropriate gateway object.
-		if ( $txn_ok && empty( $retryVars ) ) {
+		if ( $txn_ok && !$retryVars ) {
 			$this->executeIfFunctionExists( 'post_process_' . $transaction );
 			if ( $this->getValidationAction() != ValidationAction::PROCESS ) {
 				$this->logger->info( "Failed post-process checks for transaction type $transaction." );
@@ -1253,7 +1253,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @throws UnexpectedValueException
 	 */
 	public function setCurrentTransaction( $transaction_name ) {
-		if ( empty( $this->transactions ) ||
+		if ( !$this->transactions ||
 			!is_array( $this->transactions ) ||
 			!array_key_exists( $transaction_name, $this->transactions )
 		) {
@@ -1628,7 +1628,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			$points = 0;
 
-			if ( is_array( $letters ) && !empty( $letters ) && count( $letters ) > $minimumLength ) {
+			if ( is_array( $letters ) && count( $letters ) > $minimumLength ) {
 				foreach ( $letters as $letter ) {
 					// For each char in zone A add a point, zone B subtract.
 					if ( in_array( $letter, $keyMapA ) ) {
@@ -2173,7 +2173,7 @@ abstract class GatewayAdapter implements GatewayType {
 				$length = false;
 			}
 
-			if ( !empty( $length ) && !empty( $value ) ) {
+			if ( $length && $value !== '' ) {
 				$value = mb_substr( $value, 0, $length, 'UTF-8' );
 			}
 
@@ -2269,7 +2269,7 @@ abstract class GatewayAdapter implements GatewayType {
 			case FinalStatus::REVISED:
 				if (
 					$this->getData_Unstaged_Escaped( 'opt_in' ) == '1' &&
-					!empty( $this->getData_Unstaged_Escaped( 'email' ) ) &&
+					$this->getData_Unstaged_Escaped( 'email' ) &&
 					$this->getGlobal( 'SendOptInOnFailure' )
 				) {
 					// When a donation fails but the donor has opted in to emails,
@@ -2962,7 +2962,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $campaignMap ) && !empty( $campaignMap ) ) {
+		if ( is_array( $campaignMap ) ) {
 			foreach ( $campaignMap as $regex => $points ) {
 				if ( preg_match( $regex, $campaign ) ) {
 					$score = (int)$points;
@@ -3005,7 +3005,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $mediumMap ) && !empty( $mediumMap ) ) {
+		if ( is_array( $mediumMap ) ) {
 			foreach ( $mediumMap as $regex => $points ) {
 				if ( preg_match( $regex, $medium ) ) {
 					$score = (int)$points;
@@ -3047,7 +3047,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $sourceMap ) && !empty( $sourceMap ) ) {
+		if ( is_array( $sourceMap ) ) {
 			foreach ( $sourceMap as $regex => $points ) {
 				if ( preg_match( $regex, $source ) ) {
 					$score = (int)$points;
@@ -3523,7 +3523,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// unset every invalid candidate
 		foreach ( $oid_candidates as $source => $value ) {
-			if ( empty( $value ) || !$this->validateDataConstraintsMet( 'order_id', $value ) ) {
+			if ( !$value || !$this->validateDataConstraintsMet( 'order_id', $value ) ) {
 				unset( $oid_candidates[$source] );
 			}
 		}
@@ -3622,7 +3622,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->buildOrderIDSources(); // make sure all possible preexisting data is ready to go
 
 		// If there's anything in the candidate array, take it. It's already in default order of preference.
-		if ( !$selected && is_array( $this->order_id_candidates ) && !empty( $this->order_id_candidates ) ) {
+		if ( !$selected && is_array( $this->order_id_candidates ) && $this->order_id_candidates ) {
 			$selected = true;
 			reset( $this->order_id_candidates );
 			$source = key( $this->order_id_candidates );
