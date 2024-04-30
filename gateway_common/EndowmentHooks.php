@@ -50,7 +50,8 @@ EOT;
 		$request = RequestContext::getMain()->getRequest();
 		$sessionIsEndowment = $request->getSessionData( self::ENDOW_SESSION_KEY );
 		if ( !isset( $sessionIsEndowment ) ) {
-			$sessionIsEndowment = ( $request->getVal( 'utm_medium' ) === 'endowment' );
+			$sessionIsEndowment = ( $request->getVal( 'utm_medium' ) === 'endowment' ) ||
+				( $request->getVal( 'wmf_medium' ) === 'endowment' );
 			$request->setSessionData( self::ENDOW_SESSION_KEY, $sessionIsEndowment );
 		}
 		return $sessionIsEndowment;
