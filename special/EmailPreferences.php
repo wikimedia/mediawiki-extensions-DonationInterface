@@ -148,6 +148,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'first_name' ] = $prefs[ 'first_name' ];
 		$addedParams[ 'email' ] = $prefs[ 'email' ];
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
+		$addedParams[ 'isSnoozed' ] = (bool)$prefs[ 'snooze_date' ];
 		return $addedParams;
 	}
 

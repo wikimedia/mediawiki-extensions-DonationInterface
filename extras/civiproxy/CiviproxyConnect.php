@@ -45,7 +45,8 @@ class CiviproxyConnect {
 				'first_name' => $resp[ 'first_name' ],
 				'preferred_language' => $resp[ 'preferred_language' ] ?? null,
 				'is_error' => ( $resp[ 'is_error' ] === 1 ),
-				'error_message' => $resp[ 'error_message' ] ?? null
+				'error_message' => $resp[ 'error_message' ] ?? null,
+				'snooze_date' => $resp['snooze_date'] ?? null
 			];
 
 		} catch ( Exception $e ) {
