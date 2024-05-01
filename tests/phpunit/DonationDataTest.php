@@ -594,7 +594,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'encrypted_bank_location_id',
 			'encrypted_bank_account_number',
 			'bank_account_type',
-			'iban_number',
+			'iban',
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}

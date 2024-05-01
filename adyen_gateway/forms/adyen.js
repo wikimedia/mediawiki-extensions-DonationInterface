@@ -370,8 +370,8 @@
 							case 'sepadirectdebit':
 								extraData = {
 									full_name: state.data.paymentMethod.ownerName,
-									// iban_number is the IBAN of the bank account
-									iban_number: state.data.paymentMethod.iban,
+									// The International Bank Account Number
+									iban: state.data.paymentMethod.iban,
 									payment_submethod: 'sepadirectdebit'
 								};
 								break;

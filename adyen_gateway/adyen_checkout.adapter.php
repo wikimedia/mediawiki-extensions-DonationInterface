@@ -242,7 +242,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					case 'sepadirectdebit':
 						$this->transactions['authorize']['request'] =
 							array_merge( $this->transactions['authorize']['request'], [
-								'iban_number',
+								'iban',
 								'full_name'
 							] );
 						break;

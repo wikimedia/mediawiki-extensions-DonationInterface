@@ -135,7 +135,6 @@ class DonationData implements LogPrefixProvider {
 		'encrypted_bank_account_number',
 		'encrypted_bank_location_id',
 		'bank_account_type', // adyen ach bank account type: saving or checking
-		'iban_number', // adyen IBAN of the bank account
 	];
 
 	/**
@@ -1071,7 +1070,6 @@ class DonationData implements LogPrefixProvider {
 			'encrypted_bank_account_number',
 			'encrypted_bank_location_id',
 			'bank_account_type',
-			'iban_number'
 		];
 	}
 
@@ -1131,7 +1129,8 @@ class DonationData implements LogPrefixProvider {
 			'referrer',
 			'contact_id',
 			'contact_hash',
-			'utm_key'
+			'utm_key',
+			'iban',
 		] );
 		return $fields;
 	}
