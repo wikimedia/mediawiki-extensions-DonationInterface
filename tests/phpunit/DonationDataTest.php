@@ -568,6 +568,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'order_id',
 			'subscr_id',
 			'recurring',
+			'frequency_interval',
+			'frequency_unit',
 			'payment_method',
 			'payment_submethod',
 			'response',

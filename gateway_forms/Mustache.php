@@ -135,6 +135,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$this->addFormFields( $data );
 		$this->handleOptIn( $data );
 		$this->addCurrencyData( $data );
+		$this->setAmountLabelKey( $data );
 		$data['show_continue'] = $this->gatewayPage->showContinueButton();
 		$data['recurring'] = (bool)$data['recurring'];
 		return $data;
@@ -370,6 +371,20 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		if ( floatval( $data['amount'] ) === 0.0 ) {
 			$data['amount'] = '';
 		}
+	}
+
+	protected function setAmountLabelKey( &$data ): void {
+		if ( $data['recurring'] ) {
+			$isAnnual = ( isset( $data['frequency_unit'] ) && $data['frequency_unit'] == 'year' );
+			if ( $isAnnual ) {
+				$key = 'donate_interface-annual-amount';
+			} else {
+				$key = 'donate_interface-monthlybox-amount';
+			}
+		} else {
+			$key = 'donate_interface-amount-legend';
+		}
+		$data['amount_label_key'] = $key;
 	}
 
 	/**

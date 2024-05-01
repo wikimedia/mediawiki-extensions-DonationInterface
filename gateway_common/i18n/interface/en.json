@@ -447,6 +447,7 @@
 	"donate_interface-legal-original": "This is a courtesy translation. In the event of a conflict between this translation and the English version, the English version shall govern.",
 	"donate_interface-monthlybox-title": "Make it monthly?",
 	"donate_interface-monthlybox-content": "Monthly donations are processed on the 2<sup>nd</sup> of every month. You may cancel at any time.",
+	"donate_interface-annual-amount": "Annual donation amount",
 	"donate_interface-monthlybox-amount": "Monthly donation amount",
 	"donate_interface-monthlybox-yes": "Sure, make it monthly",
 	"donate_interface-monthlybox-no": "NO, make a one-time donation",

@@ -476,6 +476,7 @@
 	"donate_interface-taxded-msg-us": "Tax deductibility shown to U.S. donors.",
 	"donate_interface-taxded-msg-x": "Tax deductibility message shown to donors in Tax exempt countries.\n\nPlease leave \"Wikimedia Foundation\" in English unless this really would not be appropriate in your language e.g. it uses a different script.\n\nParameters:\n* $1 - Tax exempt country\n* $2 - Tax deductibility information URL\n* $3 - Donation problem email",
 	"donate_interface-legal-original": "Message notifying users that the English version of legal pages is the prevalent one.",
+	"donate_interface-annual-amount": "Label for the amount field when an annual recurring frequency is selected.",
 	"donate_interface-monthlybox-title": "Header for box prompting users to change from one-time donation to a recurring monthly donation.",
 	"donate_interface-monthlybox-content": "Information about when and how monthly donations are processed.",
 	"donate_interface-monthlybox-amount": "Label for the field for the donation amount.",

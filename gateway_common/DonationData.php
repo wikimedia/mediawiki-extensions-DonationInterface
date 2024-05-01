@@ -59,6 +59,8 @@ class DonationData implements LogPrefixProvider {
 		'encrypted_security_code',
 		'first_name',
 		'first_name_phonetic',
+		'frequency_interval',
+		'frequency_unit',
 		'gateway_session_id',
 		'java_enabled', // device fingerprinting
 		'last_name',
@@ -1037,6 +1039,8 @@ class DonationData implements LogPrefixProvider {
 			'email',
 			'first_name',
 			'first_name_phonetic',
+			'frequency_interval',
+			'frequency_unit',
 			'last_name',
 			'last_name_phonetic',
 			'street_address',
