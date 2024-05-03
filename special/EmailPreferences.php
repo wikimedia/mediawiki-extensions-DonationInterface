@@ -148,7 +148,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'first_name' ] = $prefs[ 'first_name' ];
 		$addedParams[ 'email' ] = $prefs[ 'email' ];
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
-		$addedParams[ 'isSnoozed' ] = (bool)$prefs[ 'snooze_date' ];
+		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $prefs[ 'snooze_date' ] );
 		return $addedParams;
 	}
 
@@ -312,5 +312,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	protected function wasCanceled( $params ) {
 		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
+	}
+
+	protected function isSnoozed( ?string $snoozeDate ) {
+		return $snoozeDate && new DateTime( $snoozeDate ) > new DateTime();
 	}
 }

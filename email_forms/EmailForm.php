@@ -97,6 +97,7 @@ class EmailForm {
 			'email',
 			'first_name',
 			'full_name',
+			'isSnoozed',
 			'language',
 			'languages',
 			'locale',

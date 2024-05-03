@@ -53,7 +53,7 @@
 					<div class="oo-ui-fieldLayout">
 						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 							<input type="radio" id="sendEmail" name="send_email" value="true" autocomplete="off" class="oo-ui-inputWidget-input"
-								{{# sendEmail }}checked {{/ sendEmail }}>
+								{{^ isSnoozed }}{{# sendEmail }}checked {{/ sendEmail }}{{/ isSnoozed }}>
 							 <span></span>
 						</span>
 
@@ -73,7 +73,7 @@
 					<div class="oo-ui-fieldLayout">
 							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 						<input type="radio" id="dontSendEmail" name="send_email" value="false" autocomplete="off" class="oo-ui-inputWidget-input"
-							{{# dontSendEmail }}checked {{/ dontSendEmail }}>
+							{{^ isSnoozed }}{{# dontSendEmail }}checked {{/ dontSendEmail }}{{/ isSnoozed }}>
 								<span></span>
 						</span>
 						<label for="dontSendEmail">{{ l10n "emailpreferences-dont-send-email" }}</label>
