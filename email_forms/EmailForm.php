@@ -109,6 +109,7 @@ class EmailForm {
 			'recur_amount_formatted',
 			'recurringOptions',
 			'sendEmail',
+			'snoozeDays',
 			'source',
 			'token',
 			'variant',
