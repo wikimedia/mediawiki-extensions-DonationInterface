@@ -77,7 +77,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$this->donationData['utm_campaign'] = 'iOS';
 		} elseif ( $this->donationData['payment_method'] == 'paywithgoogle' ) {
 			$this->donationData['payment_method'] = 'google';
-			$this->donationData['utm_campaign'] = 'android';
+			$this->donationData['utm_campaign'] = 'Android';
 		} else {
 			$this->logger->error( 'Payment method of ' . $this->donationData['payment_method'] . ' not available' );
 			$response = [
