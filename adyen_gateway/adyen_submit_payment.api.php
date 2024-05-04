@@ -245,6 +245,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$message = [
 			'amount' => $this->donationData['amount'],
 			'banner' => $this->donationData['banner'],
+			'browser' => 'app',
+			'browser_version' => $this->donationData['app_version'],
 			'country' => $this->donationData['country'],
 			'currency' => $this->donationData['currency'],
 			'form_amount' => $this->donationData['currency'] . ' ' . $this->donationData['amount'],
@@ -252,6 +254,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'id' => $this->contributionTrackingId,
 			'is_recurring' => $this->donationData['recurring'],
 			'language' => $this->donationData['language'],
+			'os' => $this->donationData['utm_campaign'],
 			'payment_method' => $this->donationData['payment_method'],
 			'payment_submethod' => $this->donationData['payment_submethod'],
 			'ts' => wfTimestamp( TS_MW ),
@@ -261,14 +264,6 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'utm_medium' => 'WikipediaApp',
 			'utm_campaign' => $this->donationData['utm_campaign']
 		];
-
-		if ( $this->donationData['payment_method'] == 'apple' ) {
-			$message = array_merge( $message, [
-				'os' => 'iOS',
-				'browser' => 'app',
-				'browser_version' => $this->donationData['app_version'],
-			] );
-		}
 
 		QueueWrapper::push( 'contribution-tracking', $message );
 	}
