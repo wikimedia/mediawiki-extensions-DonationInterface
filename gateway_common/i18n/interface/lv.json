@@ -193,7 +193,6 @@
 	"donate_interface-error-reference": "Kļūdas reference: $1",
 	"donate_interface-thankyou": "Paldies par jūsu ziedojumu!",
 	"donate_interface-post-transaction": "Darījuma detaļas",
-	"donate_interface-question-comment": "Jautājumi vai komentāri? Saziņai: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "Problēmas ziedojot?",
 	"donate_interface-donate-click": "Tiks veikta droša kredītkartes/debetkartes apstrāde",
 	"donate_interface-otherways-short": "Citi veidi, kā ziedot",

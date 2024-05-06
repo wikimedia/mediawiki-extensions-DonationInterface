@@ -174,7 +174,6 @@
 	"donate_interface-thankyou": "Bedankt veur de schenking!",
 	"donate_interface-post-transaction": "Gegevens van de storting",
 	"donate_interface-cvv-explain": "<h4>Wat is CVV?</h4>\n<p>CVV steet veur Cardholder Verification Value (kaorthouwer bevestigingsweerde). Dit getal van dree of vier siefers zörgt derveur da'w nao kunnen kieken of de kaorte echt in haanden is van de persoon die t geld gif en hölp fraude te veurkoemen.</p>\n<h4>Visa, Mastercard</h4>\n<p>De kode mit dree siefers steet op de achterkaante van de kaorte, in t zelfde gebied as de haandtekening.\nMeestentieds staon der meer siefers in dat gebied, mer allinnig de leste dree siefers bin de CVV-kode.</p>\n<h4>American Express</h4>\n<p>De kode steet <i>altied</i> drekt <i>boven</i> t nummer an de veurkaante van de kaorte.\nIn sommige gevallen steet de kode an de linkerkaante van de kaorte, mer dit steet altied boven t nummer van de kaorte.</p><br />",
-	"donate_interface-question-comment": "Vragen of opmarkingen? Neem dan kontakt op mit <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "Problemen bie t doon van n schenking?",
 	"donate_interface-donate-click": "Joew kaortgegevens wörden beveiligd verwarkt.",
 	"donate_interface-otherways": "Der bin <a href=\"$1\">aandere manieren um geld te geven, waoronder PayPal, cheque of per pos</a>.",

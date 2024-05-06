@@ -200,7 +200,6 @@
 	"donate_interface-error-msg-card-number-do-not-match-card-brand": "Kartın nömrəsi kartın markası ilə uyğun deyil.",
 	"donate_interface-error-msg-unsupported-card-entered": "Dəstəklənməyən kart daxil edildi",
 	"donate_interface-error-msg-amount": "Zəhmət olmasa ianə məbləğinizi daxil edin",
-	"donate_interface-error-msg-limit": "İanənizi emal etmək mümkün olmadı. Lütfən <a href=\"$1\">digər üsullardan</a> birini və ya daha az məbləğ daxil etməyi yoxlayın və ya sabah yenidən cəhd edin.",
 	"donate_interface-error-msg-email": "E-poçt ünvanınızı daxil edin.",
 	"donate_interface-error-msg-first_name": "ad",
 	"donate_interface-error-msg-last_name": "soyadı",

@@ -168,7 +168,6 @@
 	"donate_interface-thankyou": "Seba beğşê xo weş u war be!",
 	"donate_interface-post-transaction": "Detayê Transaksiyoni",
 	"donate_interface-cvv-explain": "<h4> CVV çîyo?</h4>\n<p>Cardholder Verification Value (CVV) hîrê ya zi çehar amaran yeno pero û ma ra yardim kenê ke ma hin zanê ena kard ke şima pe bexş ken kardê şima yo; bê enê amaran ma sehte kardan ra sistemê xo pawenê.</p>\n<h4>Visa, Mastercard</h4>\n<p>Hîrê amar kodî ho paştê kard ê tu de ca geno, zerrê ca yê imzayî de. Normal de cayê imzayî seriyanê amaran est ê, feqat teyna hirê amaran ke tewr penî de înan CVV yo.</p>\n<h4>American Express</h4>\n<p>Ena kod rîyê kard de ser amarê hesab tu de ca geno. Feqat tay kardan de hê hêt cewt de ca geno, labela enê kardan zaf niyo.</p><br />",
-	"donate_interface-question-comment": "Vatışa yana persa? İrtibat: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "Problemê bêcdayış?",
 	"donate_interface-donate-click": "Kerta şıma Kredi / banka usul dê emelina do bıkariyo.",
 	"donate_interface-otherways-short": "Qan dê bêcer zewbi ray",
