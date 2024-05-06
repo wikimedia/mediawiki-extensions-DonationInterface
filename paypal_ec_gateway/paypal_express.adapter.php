@@ -103,6 +103,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 				'date',
 				'description',
 				'email',
+				'frequency_unit',
 				'gateway_session_id',
 				'order_id',
 			],

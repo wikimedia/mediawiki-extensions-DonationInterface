@@ -4,6 +4,7 @@ currency: currency
 date: date
 description: description
 email: email
+frequency_unit: frequency_unit
 gateway_session_id: gateway_session_id
 language: language
 order_id: order_id
