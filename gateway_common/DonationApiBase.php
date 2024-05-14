@@ -29,14 +29,14 @@ abstract class DonationApiBase extends ApiBase {
 				$language = $this->adapter->getData_Unstaged_Escaped( 'language' );
 				if ( $country && $language ) {
 					$message = MessageUtils::getCountrySpecificMessage(
-						$error->getMessageKey(),
+						$error->getMessageKey() ?? '',
 						$country,
 						$language,
 						$error->getMessageParams()
 					);
 				} else {
 					$message = WmfFramework::formatMessage(
-						$error->getMessageKey(),
+						$error->getMessageKey() ?? '',
 						$error->getMessageParams()
 					);
 				}

@@ -6,6 +6,7 @@ use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\IRecurringPaymentProfileProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
+use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
 /**
@@ -128,6 +129,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$this->setCurrentTransaction( 'SetExpressCheckout' );
 
 		$descriptionKey = $this->getData_Unstaged_Escaped( 'recurring' ) ?
@@ -196,6 +198,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$detailsResult = $provider->getLatestPaymentStatus( [
 			'gateway_session_id' => $requestData['gateway_session_id']
 		] );

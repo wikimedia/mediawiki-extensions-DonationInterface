@@ -17,7 +17,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	/**
 	 * Custom filter object holder
-	 * @var Gateway_Extras_CustomFilters
+	 * @var Gateway_Extras_CustomFilters|null
 	 */
 	protected $cfo;
 
@@ -56,7 +56,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	/**
 	 * Checks the IP attempt count in the cache. If the attempt count is greater
 	 * than the global IPVelocityThreshhold return true (i.e. someone may be trying too hard).
-	 * @return bool|null
+	 * @return bool
 	 */
 	protected function isIPHitCountGreaterThanThreshold(): bool {
 		$stored = $this->getCachedValue();
@@ -78,7 +78,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	/**
 	 * Set RiskScore based on if the IP attempt surpasses the set threshold. If the Hit exceeds threshold set the
 	 * IPVelocityFilter risk score to the global IPVelocityFailScore and return true.
-	 * @param bool $ipHitExceedsThreshold
+	 * @param bool|null $ipHitExceedsThreshold
 	 * @return bool
 	 */
 	protected function setRiskScoreBasedOnIPHitCount( ?bool $ipHitExceedsThreshold ): bool {

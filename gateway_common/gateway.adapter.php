@@ -152,7 +152,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $transaction_response;
 	/**
-	 * @var string When the smoke clears, this should be set to one of the
+	 * @var string|false When the smoke clears, this should be set to one of the
 	 * constants defined in @see FinalStatus
 	 */
 	protected $final_status;
@@ -168,7 +168,7 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $current_transaction;
 	/** @var string */
 	protected $action;
-	/** @var int */
+	/** @var float */
 	protected $risk_score = 0;
 	/** @var string[] */
 	public $debugarray;
@@ -1110,7 +1110,7 @@ abstract class GatewayAdapter implements GatewayType {
 				$retryVars = $ex->getRetryVars();
 				$this->transaction_response->addError(
 					new PaymentError(
-						$errCode,
+						(string)$errCode,
 						$ex->getMessage(),
 						LogLevel::ERROR
 					)
@@ -1333,9 +1333,9 @@ abstract class GatewayAdapter implements GatewayType {
 	/**
 	 * Add donation rules for the users country & currency combo.
 	 *
-	 * @return ?array
+	 * @return array
 	 */
-	public function getDonationRules(): ?array {
+	public function getDonationRules(): array {
 		$rules = $this->config['donation_rules'];
 		foreach ( $rules as $rule ) {
 			// Do our $params match all the conditions for this rule?
@@ -1363,7 +1363,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		$this->logger->warning( "Please set a default rule in donation_rules.yaml" );
-		return null;
+		return [];
 	}
 
 	public function getCurrencies( $options = [] ) {
@@ -1575,7 +1575,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * identify repeated attempts to process the same payment.
 	 *
 	 * @param array $requestValues
-	 * @return int|string Order id
+	 * @return int|string|null Order id
 	 */
 	public function getRequestProcessId( $requestValues ) {
 		return null;
@@ -1714,6 +1714,7 @@ abstract class GatewayAdapter implements GatewayType {
 				}
 				$values = explode( $delimiter, trim( $noHeaders ) );
 				$combined = array_combine( $keys, $values );
+				// @phan-suppress-next-line PhanTypeComparisonFromArray Signature changed in php8, remove when upgrade
 				if ( $combined === false ) {
 					throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
 				}
@@ -2040,7 +2041,7 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 			$value = Encoding::toUTF8( $data[$key] );
 			if ( isset( $remapKeys[$key] ) ) {
-				$queueMessage[$remapKeys[$key]] = Amount::round( $value, $data['currency'] );
+				$queueMessage[$remapKeys[$key]] = Amount::round( (float)$value, $data['currency'] );
 			} else {
 				$queueMessage[$key] = $value;
 			}
@@ -2190,7 +2191,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
-			return '';
+			return [];
 		}
 
 		$queryparams = [];
@@ -2276,12 +2277,12 @@ abstract class GatewayAdapter implements GatewayType {
 					// just send the donor contact data to the opt-in queue.
 					$this->pushMessage( 'opt-in', true );
 				}
-				$force = false;
 				break;
 		}
 		// If we're asking the donor to convert their donation to recurring,
 		// don't delete everything from session just yet.
 		if ( $this->showMonthlyConvert() ) {
+			// @phan-suppress-next-line PhanUndeclaredMethod RecurringConversion is checked in the if condition
 			$this->session_MoveDonorDataToBackupForRecurringConversion( $force );
 		} else {
 			$this->session_resetForNewAttempt( $force );
@@ -2626,7 +2627,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		if ( !empty( $knownData['payment_submethod'] ) ) {
-			$submethodMeta = $this->getPaymentSubmethodMeta( $knownData['payment_submethod'], $knownData['payment_method'] );
+			$submethodMeta = $this->getPaymentSubmethodMeta( $knownData['payment_submethod'], $knownData['payment_method'] ?? null );
 			if ( isset( $submethodMeta['validation'] ) ) {
 				// submethod validation can override method validation
 				// TODO: child method anything should supersede parent method
@@ -2675,7 +2676,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * @param null $knownData
+	 * @param array|null $knownData
 	 * @return array
 	 */
 	public function getRequiredFields( $knownData = null ) {
@@ -3601,7 +3602,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param DonationData|null $dataObj Reference to the donation data object when
 	 * we're creating the order ID in the constructor of the object (and thus
 	 * do not yet have a reference to it.)
-	 * @return string The normalized value of order_id
+	 * @return string|null The normalized value of order_id
 	 */
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		$selected = false;
@@ -3657,7 +3658,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * when we are forced to create the order ID during construction of it
 	 * and thus do not already have a reference. THIS IS A HACK! /me vomits
 	 *
-	 * @return int A freshly generated order ID
+	 * @return string A freshly generated order ID
 	 */
 	public function generateOrderID( $dataObj = null ) {
 		if ( $this->getOrderIDMeta( 'ct_id' ) ) {

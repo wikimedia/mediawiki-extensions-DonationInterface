@@ -31,6 +31,7 @@ class MessageUtils {
 		}
 
 		# we found nothing in the requested language, return the first fallback message that exists
+		// @phan-suppress-next-line PhanPluginDuplicateAdjacentStatement
 		foreach ( $msg_keys as $m ) {
 			if ( WmfFramework::messageExists( $m, $language ) ) {
 				return WmfFramework::formatMessage( $m, $params );
@@ -68,6 +69,7 @@ class MessageUtils {
 		$stripped = preg_replace( '/[^-_\w]/', '', $string );
 
 		// theoretically this is overkill, but better safe than sorry
+		// @phan-suppress-next-line SecurityCheck-DoubleEscaped
 		return WmfFramework::sanitize( htmlspecialchars( $stripped ) );
 	}
 }

@@ -80,6 +80,9 @@
 		"BraintreeGatewayAlias": "braintree_gateway/braintree_gateway.alias.php",
 		"DlocalGatewayAlias": "dlocal_gateway/dlocal_gateway.alias.php"
 	},
+	"RawHtmlMessages": [
+		"donate_interface-otherways"
+	],
 	"AutoloadClasses": {
 		"Amount": "gateway_common/Amount.php",
 		"AmountInCents": "gateway_common/AmountInCents.php",
@@ -1423,6 +1426,9 @@
 				"uk_UA",
 				"vi_VN"
 			]
+		},
+		"DonationInterfaceEmailPreferencesSnoozeDays": {
+			"value": 90
 		},
 		"DonationInterfaceCiviproxyURLBase": {
 			"value": "https://localhost"

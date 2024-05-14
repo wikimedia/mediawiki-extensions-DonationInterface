@@ -26,10 +26,11 @@ class TestCrash extends Maintenance {
 			$this->fatalError( 'CRASHTEST: error' );
 		}
 		if ( $this->getOption( 'exception' ) ) {
-			throw new Exception( 'CRASHTEST: uncaught exception' );
+			throw new RuntimeException( 'CRASHTEST: uncaught exception' );
 		}
 		if ( $this->getOption( 'fatal' ) ) {
 			$this->error( 'CRASHTEST: fatal' );
+			// @phan-suppress-next-line PhanUndeclaredClassMethod
 			$everything_and_nothing = FOO::BAR();
 		}
 

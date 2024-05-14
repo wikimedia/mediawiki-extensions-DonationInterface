@@ -3,6 +3,7 @@
 /**
  * GatewayType Interface
  *
+ * @property array $debugarray
  */
 interface GatewayType extends LogPrefixProvider {
 	// all the public particulars of the child classes. Aaaaall.

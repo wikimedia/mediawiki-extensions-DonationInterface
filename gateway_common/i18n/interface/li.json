@@ -158,7 +158,6 @@
 	"php-response-declined": "Dien transactie kós neet waere geaccepteerd.",
 	"donate_interface-thankyou": "Danke veur dien donatie!",
 	"donate_interface-post-transaction": "Transactiedetails",
-	"donate_interface-question-comment": "Vraoge of opmirkinge? Nöm den kóntak óp mit <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-problemsdonating": "Perbleme bie 't donere?",
 	"donate_interface-donate-click": "Dien creditkaartinformatie weurt verwirk naodesse óp \"{{int:payflowpro_gateway-donor-submit}}\" kliks.",
 	"donate_interface-cc-form-header-personal": "Betalingsinfermasie",

@@ -11,7 +11,7 @@ class AdyenDonationApi extends DonationApi {
 			'encrypted_expiry_year' => $this->defineParam(),
 			'encrypted_security_code' => $this->defineParam(),
 			'issuer_id' => $this->defineParam(),
-			'iban_number' => $this->defineParam(),
+			'iban' => $this->defineParam(),
 			'java_enabled' => $this->defineParam(),
 			'payment_token' => $this->defineParam(),
 			'screen_height' => $this->defineParam(),

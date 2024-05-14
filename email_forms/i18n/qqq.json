@@ -20,6 +20,7 @@
 	"emailpreferences-language": "Label for language drop-down control.",
 	"emailpreferences-save": "Label for button to save e-mail preferences",
 	"emailpreferences-send-email": "Label for e-mail opt-in radio button.",
+	"emailpreferences-snooze-email": "Label for e-mail radio button to pause emails for a number of days. $1 is the number of days, set in config.",
 	"emailpreferences-success": "Message following successful submission of preferences update.",
 	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
 	"emailpreferences-wikimedia-image-alt": "Image alt for wikimedia logo",

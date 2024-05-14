@@ -356,12 +356,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		foreach ( $supportedCurrencies as $currency ) {
 			$data['currencies'][] = [
 				'code' => $currency,
+				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				'selected' => ( $currency === $data['currency'] ),
 			];
 		}
 
 		$data['display_amount'] = Amount::format(
 			$data['amount'],
+			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$data['currency'],
 			$data['language'] . '_' . $data['country']
 		);
@@ -388,7 +390,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 				$key = $error->getField();
 
 				$message = MessageUtils::getCountrySpecificMessage(
-					$error->getMessageKey(),
+					$error->getMessageKey() ?? '',
 					self::$country,
 					RequestContext::getMain()->getLanguage()->getCode(),
 					$error->getMessageParams()
@@ -433,9 +435,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		];
 		$urlsAndEmails = [];
 		foreach ( $map as $contextName => $globalName ) {
-			$urlsAndEmails[$contextName . '_url'] = htmlspecialchars(
-				$this->gateway->localizeGlobal( $globalName . 'URL' )
-			);
+			$urlsAndEmails[$contextName . '_url'] = $this->gateway->localizeGlobal( $globalName . 'URL' );
 		}
 		$urlsAndEmails['problems_email'] = $this->gateway->getGlobal( 'ProblemsEmail' );
 		return $urlsAndEmails;

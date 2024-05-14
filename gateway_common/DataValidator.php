@@ -519,10 +519,10 @@ EOT;
 			if ( $odd ) {
 				$sum += $str[$i];
 			} else {
-				if ( ( $str[$i] * 2 ) > 9 ) {
-					$sum += $str[$i] * 2 - 9;
+				if ( ( (int)$str[$i] * 2 ) > 9 ) {
+					$sum += (int)$str[$i] * 2 - 9;
 				} else {
-					$sum += $str[$i] * 2;
+					$sum += (int)$str[$i] * 2;
 				}
 			}
 
@@ -533,8 +533,8 @@ EOT;
 
 	/**
 	 * Calculates and returns the card type for a given credit card number.
-	 * @param int $card_num A credit card number.
-	 * @return string|bool 'amex', 'mc', 'visa', 'discover', or false.
+	 * @param string $card_num A credit card number.
+	 * @return string|false 'amex', 'mc', 'visa', 'discover', or false.
 	 */
 	public static function getCardType( $card_num ) {
 		// validate that credit card number entered is correct and set the card type
@@ -583,9 +583,9 @@ EOT;
 		} else {
 			// expand that mess.
 			// this next bit was stolen from php.net and smacked around some
-			$corr = ( pow( 2, 32 ) - 1 ) - ( pow( 2, 32 - $parts[1] ) - 1 );
+			$corr = ( pow( 2, 32 ) - 1 ) - ( pow( 2, 32 - (int)$parts[1] ) - 1 );
 			$first = ip2long( $parts[0] ) & ( $corr );
-			$length = pow( 2, 32 - $parts[1] ) - 1;
+			$length = pow( 2, 32 - (int)$parts[1] ) - 1;
 			$ips = [];
 			for ( $i = 0; $i <= $length; $i++ ) {
 				$ips[] = long2ip( $first + $i );
@@ -638,9 +638,11 @@ EOT;
 			// but if '+' is not defined we just let everything that wasn't denied by '-' through
 			// Otherwise we assume both were defined and deny everything :)
 
+			// @phan-suppress-next-line PhanTypeMismatchDimFetch
 			if ( $minusCheck && self::value_appears_in( $needle, $haystack['-'] ) ) {
 				return false;
 			}
+			// @phan-suppress-next-line PhanTypeMismatchDimFetch
 			if ( $plusCheck && self::value_appears_in( $needle, $haystack['+'] ) ) {
 				return true;
 			} elseif ( !$plusCheck ) {
@@ -667,7 +669,7 @@ EOT;
 	 * component in there so I'm calling it close enough.
 	 * @param string $value the value that should be zero-padded out to $total_length
 	 * @param int $total_length The fixed number of characters that $value should be padded out to
-	 * @return string The zero-padded value, or false if it was too long to work with.
+	 * @return string|false The zero-padded value, or false if it was too long to work with.
 	 */
 	public static function getZeroPaddedValue( $value, $total_length ) {
 		// first, trim all leading zeroes off the value.

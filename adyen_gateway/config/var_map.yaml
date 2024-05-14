@@ -34,4 +34,4 @@ encrypted_bank_location_id: encrypted_bank_location_id
 supplemental_address_1: supplemental_address_1
 bank_account_type: bank_account_type
 # for SEPA
-iban_number: iban_number
+iban: iban

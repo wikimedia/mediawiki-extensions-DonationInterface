@@ -53,17 +53,27 @@
 					<div class="oo-ui-fieldLayout">
 						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 							<input type="radio" id="sendEmail" name="send_email" value="true" autocomplete="off" class="oo-ui-inputWidget-input"
-								{{# sendEmail }}checked {{/ sendEmail }}>
+								{{^ isSnoozed }}{{# sendEmail }}checked {{/ sendEmail }}{{/ isSnoozed }}>
 							 <span></span>
 						</span>
 
 						<label for="sendEmail">{{ l10n "emailpreferences-send-email" }}</label>
-					</div>
+					</div>{{# sendEmail }}
+
+					<div class="oo-ui-fieldLayout">
+							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
+						<input type="radio" id="snoozeEmail" name="send_email" value="snooze" autocomplete="off" class="oo-ui-inputWidget-input"
+							{{# isSnoozed }}checked {{/ isSnoozed }}>
+								<span></span>
+						</span>
+
+						<label for="snoozeEmail">{{ l10n "emailpreferences-snooze-email" snoozeDays }}</label>
+					</div>{{/ sendEmail }}
 
 					<div class="oo-ui-fieldLayout">
 							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 						<input type="radio" id="dontSendEmail" name="send_email" value="false" autocomplete="off" class="oo-ui-inputWidget-input"
-							{{# dontSendEmail }}checked {{/ dontSendEmail }}>
+							{{^ isSnoozed }}{{# dontSendEmail }}checked {{/ dontSendEmail }}{{/ isSnoozed }}>
 								<span></span>
 						</span>
 						<label for="dontSendEmail">{{ l10n "emailpreferences-dont-send-email" }}</label>

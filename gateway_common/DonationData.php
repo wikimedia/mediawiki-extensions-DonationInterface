@@ -135,18 +135,17 @@ class DonationData implements LogPrefixProvider {
 		'encrypted_bank_account_number',
 		'encrypted_bank_location_id',
 		'bank_account_type', // adyen ach bank account type: saving or checking
-		'iban_number', // adyen IBAN of the bank account
 	];
 
 	/**
 	 * DonationData constructor
-	 * @param GatewayType $gateway
+	 * @param GatewayAdapter $gateway
 	 * @param mixed $data An optional array of donation data that will, if
 	 * present, circumvent the usual process of gathering the data from various
 	 * places in the request, or 'false' to gather the data the usual way.
 	 * Default is false.
 	 */
-	public function __construct( GatewayType $gateway, $data = false ) {
+	public function __construct( GatewayAdapter $gateway, $data = false ) {
 		$this->gateway = $gateway;
 		$this->gatewayID = $this->gateway->getIdentifier();
 		$this->logger = DonationLoggerFactory::getLogger( $gateway, '', $this );
@@ -318,7 +317,7 @@ class DonationData implements LogPrefixProvider {
 	 * DonationData::addData() instead. Or be a jerk about it and throw an
 	 * exception. (Personally I like the second one)
 	 * @param string $key The key you want to set.
-	 * @param string $val The value you'd like to assign to the key.
+	 * @param mixed $val The value you'd like to assign to the key.
 	 */
 	public function setVal( $key, $val ) {
 		// Convert empty to null for consistency.
@@ -952,7 +951,7 @@ class DonationData implements LogPrefixProvider {
 	public function getIdFromSequenceGenerator( $generatorName = 'contribution-tracking' ) {
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( $generatorName );
 
-		$id = $generator->getNext();
+		$id = (string)$generator->getNext();
 
 		return $id;
 	}
@@ -1071,7 +1070,6 @@ class DonationData implements LogPrefixProvider {
 			'encrypted_bank_account_number',
 			'encrypted_bank_location_id',
 			'bank_account_type',
-			'iban_number'
 		];
 	}
 
@@ -1131,7 +1129,8 @@ class DonationData implements LogPrefixProvider {
 			'referrer',
 			'contact_id',
 			'contact_hash',
-			'utm_key'
+			'utm_key',
+			'iban',
 		] );
 		return $fields;
 	}

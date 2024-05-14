@@ -145,7 +145,6 @@
 	"donate_interface-error-msg-visa": "Vinsamlegast veldu rétt kreditkortanúmer fyrir Visa.",
 	"donate_interface-error-msg-discover": "Vinsamlegast veldu rétt kreditkortanúmer fyrir Discover.",
 	"donate_interface-error-msg-amount": "gjafa upphæð",
-	"donate_interface-error-msg-limit": "Ekki var hægt að vinna framlagið þitt. Vinsamlegast reyndu <a href=\"$1\">aðra leið til að gefa</a>, reyndu smærri upphæð eða reyndu aftur á morgun.",
 	"donate_interface-error-msg-email": "Vinsamlegast ritaðu tölvupóstfangið þitt",
 	"donate_interface-error-msg-first_name": "Vinsamlegast sláðu inn eiginnafnið þitt",
 	"donate_interface-error-msg-last_name": "Vinsamlegast sláðu inn eftirnafnið þitt",

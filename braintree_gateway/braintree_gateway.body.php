@@ -4,6 +4,7 @@
  * BraintreeGateway
  *
  * Special page that uses the Braintree implementation to accept donations
+ * @property BraintreeAdapter $adapter
  */
 class BraintreeGateway extends GatewayPage {
 

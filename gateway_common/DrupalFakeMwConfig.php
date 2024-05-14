@@ -10,6 +10,7 @@ class DrupalFakeMwConfig implements Config {
 	}
 
 	public function has( $name ) {
+		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		throw new BadMethodCallException( 'Not implemented' );
 	}
 }

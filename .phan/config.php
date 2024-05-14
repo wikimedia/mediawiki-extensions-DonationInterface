@@ -1,32 +1,57 @@
 <?php
+
 $cfg = require __DIR__ . '/../vendor/mediawiki/mediawiki-phan-config/src/config.php';
-// T191668 and T191666
-$cfg['suppress_issue_types'][] = 'PhanParamTooMany';
+
+$cfg['target_php_version'] = '7.4';
+
+$cfg['file_list'] = array_merge(
+	$cfg['file_list'],
+	[
+		'DonationInterface.class.php',
+	]
+);
+
 $cfg['directory_list'] = array_merge(
 	$cfg['directory_list'],
 	[
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
-		'./special',
-		'./gateway_common',
-		'./vendor/wikimedia/smash-pig',
+		'adyen_gateway/',
+		'amazon_gateway/',
+		'astropay_gateway/',
+		'braintree_gateway/',
+		'dlocal_gateway/',
+		'email_forms/',
+		'extras/',
+		'form_variants/',
+		'gateway_common/',
+		'gateway_forms/',
+		'globalcollect_gateway/',
+		'ingenico_gateway/',
+		'modules/',
+		'paypal_ec_gateway/',
+		'special/',
+		'vendor/addshore/psr-6-mediawiki-bagostuff-adapter/',
+		'vendor/amzn/login-and-pay-with-amazon-sdk-php/',
+		'vendor/maxmind/minfraud/',
+		'vendor/neitanod/forceutf8/',
+		'vendor/whichbrowser/parser/',
+		'vendor/wikimedia/smash-pig/',
 	]
 );
-$cfg['file_list'] = array_merge(
-	$cfg['file_list'],
-	[
-		'./DonationInterface.class.php',
-	]
-);
+
 $cfg['exclude_analysis_directory_list'] = array_merge(
 	$cfg['exclude_analysis_directory_list'],
 	[
-		'./maintenance',
 		'../../extensions/cldr',
 		'../../extensions/FundraisingEmailUnsubscribe',
-		'./special',
-		'./gateway_common',
-		'./vendor/wikimedia/smash-pig',
+		'vendor/addshore/psr-6-mediawiki-bagostuff-adapter/',
+		'vendor/amzn/login-and-pay-with-amazon-sdk-php/',
+		'vendor/maxmind/minfraud/',
+		'vendor/neitanod/forceutf8/',
+		'vendor/whichbrowser/parser/',
+		'vendor/wikimedia/smash-pig/',
 	]
 );
+
 return $cfg;

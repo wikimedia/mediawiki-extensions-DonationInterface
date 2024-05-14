@@ -145,7 +145,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 
 		$this->fraud_logger->debug(
 			"SessionVelocity: ($gateway, $transaction) Score: $score, " .
-				"AllowAction: $retval, DecayRate: $decayRate, " .
+				"AllowAction: " . ( $retval ? 'true' : 'false' ) . ", DecayRate: $decayRate, " .
 				"Threshold: $threshold, Multiplier: $lastMultiplier"
 		);
 

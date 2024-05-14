@@ -127,9 +127,6 @@ class PaymentResult {
 			|| $finalStatus === FinalStatus::CANCELLED ) {
 			return self::newFailure( $response->getErrors() );
 		}
-		if ( !$response ) {
-			return self::newEmpty();
-		}
 		if ( $response->getErrors() ) {
 			// TODO: We will probably want the ability to refresh to a new form
 			// and display errors at the same time.

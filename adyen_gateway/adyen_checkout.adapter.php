@@ -5,6 +5,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\Adyen\PaymentProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
@@ -241,7 +242,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					case 'sepadirectdebit':
 						$this->transactions['authorize']['request'] =
 							array_merge( $this->transactions['authorize']['request'], [
-								'iban_number',
+								'iban',
 								'full_name'
 							] );
 						break;
@@ -337,6 +338,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
+		'@phan-var PaymentProvider $provider';
 		$methodParams = [
 			'country' => $this->staged_data['country'],
 			'currency' => $this->staged_data['currency'],
@@ -401,6 +403,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			$provider = PaymentProviderFactory::getProviderForMethod(
 				$this->getPaymentMethod()
 			);
+			'@phan-var PaymentProvider $provider';
 			$detailsResult = $provider->getHostedPaymentDetails( $redirectResult );
 			$this->logger->debug(
 				'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
@@ -420,18 +423,31 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 *
 	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
-		// Don't send recurring iDEALs to the donations queue
-		// recurring iDEAL's recurring_payment_token comes in on a RECURRING_CONTRACT
-		// ipn message, SmashPig's ipn listener is what will push them to the donations queue
-		if (
-			$this->getPaymentSubmethod() == 'rtbt_ideal' &&
-			$this->getData_Unstaged_Escaped( 'recurring' ) &&
-			$queue == 'donations'
-		) {
+		// Don't send recurring bank payments to the donations queue.
+		// These are pushed later via the IPN listener.
+		if ( $queue === 'donations' && $this->isRecurringBankPayment() ) {
 			return;
 		}
+
 		// Send all other adyen messages to the queues as normal
 		parent::pushMessage( $queue, $contactOnly );
+	}
+
+	/**
+	 * We don't send recurring iDEAL or SEPA payments to the donations queue after a successful payment.
+	 * For these recurring payments, the recurring_payment_token comes in on a RECURRING_CONTRACT Webhook/IPN message
+	 * , and we require this value to push a *complete* recurring donation message to the queue.
+	 * Instead, the SmashPig listener pushes them to the donations queue once it receives recurring_payment_token
+	 * within the IPN message.
+	 *
+	 * @return bool
+	 */
+	private function isRecurringBankPayment(): bool {
+		$bankPaymentSubMethods = [ 'rtbt_ideal', 'sepadirectdebit' ];
+		$isBankPaymentSubMethods = in_array( $this->getPaymentSubmethod(), $bankPaymentSubMethods );
+		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
+
+		return $isBankPaymentSubMethods && $isRecurring;
 	}
 
 	/**

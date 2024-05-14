@@ -12,6 +12,7 @@ class SystemStatus extends UnlistedSpecialPage {
 	}
 
 	public function execute( $par ) {
+		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		if ( !$this->getConfig()->get( 'DonationInterfaceEnableSystemStatus' ) ) {
 			throw new BadTitleError();
 		}

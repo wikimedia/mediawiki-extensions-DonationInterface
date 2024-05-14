@@ -47,6 +47,7 @@ abstract class ResultSwitcher extends GatewayPage {
 			$sessionOrderStatus[$oid] = 'liberated';
 			$request->setSessionData( 'order_status', $sessionOrderStatus );
 			$this->logger->info( "Resultswitcher: Popping out of iframe for Order ID " . $oid );
+			// @phan-suppress-next-line PhanUndeclaredMethod Removed in 1.41
 			$this->getOutput()->allowClickjacking();
 			$this->getOutput()->addModules( 'iframe.liberator' );
 			return;

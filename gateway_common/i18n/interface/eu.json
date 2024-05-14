@@ -114,7 +114,6 @@
 	"donate_interface-error-msg-fiscal_number": "Mesedez zure zenbaki fiskala sartu",
 	"donate_interface-error-msg-issuer_id": "bankua",
 	"donate_interface-thankyou": "Mileser zure dohaintzagatik!",
-	"donate_interface-question-comment": "Galdera edo iruzkinik? Jarri harremanetan: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-comment": "Iruzkina",
 	"donate_interface-first": "Lehena",
 	"donate_interface-last": "Azkena",

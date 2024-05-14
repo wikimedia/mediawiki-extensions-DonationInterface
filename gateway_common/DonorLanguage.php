@@ -6,6 +6,7 @@ class DonorLanguage implements StagingHelper {
 			return;
 		}
 		$language = $normalized['language'];
+		// @phan-suppress-next-line PhanUndeclaredMethod Unknown declaration
 		$adapterLanguages = $adapter->getAvailableLanguages();
 		if ( !in_array( $language, $adapterLanguages ) ) {
 			$fallbacks = WmfFramework::getLanguageFallbacks( $language );

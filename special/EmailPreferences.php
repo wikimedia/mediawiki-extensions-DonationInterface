@@ -118,7 +118,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		// Only show languages configured in $wgDonationInterfaceEmailPreferencesLanguages
 		// (should be the languages we can send e-mails to)
-		$emailPreferencesLanguages = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesLanguages' );
+		$mwConfig = $this->getConfig();
+		$emailPreferencesLanguages = $mwConfig->get( 'DonationInterfaceEmailPreferencesLanguages' );
 		$labels = [];
 		foreach ( $emailPreferencesLanguages as $code ) {
 			[ $language, $country ] = explode( '_', $code );
@@ -146,6 +147,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'dontSendEmail' ] = !$prefs[ 'sendEmail' ];
 		$addedParams[ 'first_name' ] = $prefs[ 'first_name' ];
 		$addedParams[ 'email' ] = $prefs[ 'email' ];
+		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
+		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $prefs[ 'snooze_date' ] );
 		return $addedParams;
 	}
 
@@ -186,6 +189,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function executeUnsubscribe( $params ) {
+		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		throw new BadMethodCallException( 'Not implemented' );
 	}
 
@@ -206,8 +210,15 @@ class EmailPreferences extends UnlistedSpecialPage {
 			'email' => $params['email'],
 			'country' => $params['country'],
 			'language' => $params['language'],
-			'send_email' => $params['send_email']
 		];
+		if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
+			$message['send_email'] = $params['send_email'];
+		} else {
+			// selected snooze
+			$snoozeDays = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
+			$snoozeDate = new DateTime( "+$snoozeDays days" );
+			$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
+		}
 
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
@@ -301,5 +312,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	protected function wasCanceled( $params ) {
 		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
+	}
+
+	protected function isSnoozed( ?string $snoozeDate ) {
+		return $snoozeDate && new DateTime( $snoozeDate ) > new DateTime();
 	}
 }
