@@ -498,7 +498,15 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		// TODO: Switch title according to failiness.
 		// Maybe ask $form_obj for a title so different errors can show different titles
-		$this->getOutput()->setPageTitle( $this->msg( 'donate_interface-make-your-donation' ) );
+		$output = $this->getOutput();
+		$titleMsg = $this->msg( 'donate_interface-make-your-donation' );
+		if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
+			// Backward compatibility with MW < 1.41
+			$output->setPageTitle( $titleMsg );
+		} else {
+			// MW >= 1.41
+			$output->setPageTitleMsg( $titleMsg );
+		}
 	}
 
 	public function setClientVariablesWithErrorHandling( &$vars ) {
