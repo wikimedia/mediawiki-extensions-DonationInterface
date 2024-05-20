@@ -149,6 +149,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			'utm_campaign' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_campaign' ),
 			'utm_medium' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_medium' ),
 			'utm_source' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' ),
+			'utm_key' => $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_key' ),
 		];
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );

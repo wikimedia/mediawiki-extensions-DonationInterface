@@ -40,8 +40,10 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		foreach ( $functions as $function => $risk_score_modifier ) {
 			// run the function specified, if it exists.
 			if ( method_exists( $this->gateway_adapter, $function ) ) {
+				// Function defined on the gateway or base class
 				$score = $this->gateway_adapter->{$function}();
 			} elseif ( function_exists( $function ) ) {
+				// Ad-hoc functions defined in localsettings
 				$score = call_user_func( $function, $this->gateway_adapter );
 			} else {
 				throw new RuntimeException( "$function listed in $filterListGlobal is not runnable" );

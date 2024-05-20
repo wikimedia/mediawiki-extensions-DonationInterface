@@ -399,6 +399,7 @@
 	"donate_interface-legal-original": "Questa è una traduzione di cortesia. In caso di conflitto tra questa traduzione e la versione inglese, la versione inglese ha sempre la meglio.",
 	"donate_interface-monthlybox-title": "La vuoi fare ogni mese?",
 	"donate_interface-monthlybox-content": "Le donazioni mensili vengono elaborate il 2 di ogni mese. Puoi annullare ciò in qualsiasi momento.",
+	"donate_interface-annual-amount": "Importo della donazione annuale",
 	"donate_interface-monthlybox-amount": "Importo della donazione mensile",
 	"donate_interface-monthlybox-yes": "Certo, la voglio fare ogni mese",
 	"donate_interface-monthlybox-no": "NO, faccio una donazione una volta all'anno",

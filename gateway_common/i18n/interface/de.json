@@ -425,6 +425,7 @@
 	"donate_interface-legal-original": "Dies ist eine Übersetzung durch Freiwillige. Falls es einen Konflikt zwischen dieser Übersetzung und der englischen Version gibt, gilt die englische Version.",
 	"donate_interface-monthlybox-title": "Monatlich spenden?",
 	"donate_interface-monthlybox-content": "Monatliche Spenden werden am 2. eines jeden Monats durchgeführt. Sie können dies jederzeit widerrufen.",
+	"donate_interface-annual-amount": "Jährliche Spendensumme",
 	"donate_interface-monthlybox-amount": "Monatliche Spendensumme",
 	"donate_interface-monthlybox-yes": "Gerne monatlich",
 	"donate_interface-monthlybox-no": "NEIN, einmalig spenden",

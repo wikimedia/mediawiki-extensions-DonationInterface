@@ -1,4 +1,4 @@
-<h3 class="amount_header">{{# recurring }}{{ l10n "donate_interface-monthlybox-amount" }}{{/ recurring }}{{^ recurring }}{{ l10n "donate_interface-amount-legend" }}{{/ recurring }}
+<h3 class="amount_header">{{ l10n amount_label_key }}
 	<span id="amount_input" {{^ show_amount_input }}class="hidden"{{/ show_amount_input }} >
 		<input type="number" step="any" name="amount" id="amount" title="{{ donate_interface-amount }}" value="{{ amount }}" />
 		<select name="currency" id="currency" title="{{ donate_interface-currency }}" {{^ show_currency_selector }}class="hidden"{{/ show_currency_selector }} >

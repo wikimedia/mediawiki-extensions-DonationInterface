@@ -478,6 +478,7 @@
 	"donate_interface-legal-original": "Message notifying users that the English version of legal pages is the prevalent one.",
 	"donate_interface-monthlybox-title": "Header for box prompting users to change from one-time donation to a recurring monthly donation.",
 	"donate_interface-monthlybox-content": "Information about when and how monthly donations are processed.",
+	"donate_interface-annual-amount": "Label for the amount field when an annual recurring frequency is selected.",
 	"donate_interface-monthlybox-amount": "Label for the field for the donation amount.",
 	"donate_interface-monthlybox-yes": "Button to click to accept giving a monthly donation.",
 	"donate_interface-monthlybox-no": "Button to click to decline giving a monthly donation.",
