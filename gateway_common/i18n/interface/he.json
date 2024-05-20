@@ -418,6 +418,7 @@
 	"donate_interface-legal-original": "זה תרגום שנוצר לנוחותכם על ידי מתנדבים. במקרה של סתירה בין התרגום הזה לבין הגרסה האנגלית, הגרסה האנגלית היא הקובעת.",
 	"donate_interface-monthlybox-title": "האם תרצה לחזור ולתרום מדי חודש?",
 	"donate_interface-monthlybox-content": "התרומות החודשיות נגבות ביום השני בכל חודש. ניתן לבטל את התרומה החודשית בכל רגע.",
+	"donate_interface-annual-amount": "גובה התרומה החודשית",
 	"donate_interface-monthlybox-amount": "סכום התרומה החודשי",
 	"donate_interface-monthlybox-yes": "כן, אני רוצה לתרום מדי חודש",
 	"donate_interface-monthlybox-no": "לא, התרומה שלי היא חד־פעמית",

@@ -369,6 +369,7 @@
 	"donate_interface-legal-original": "Ово је помоћни превод. У случају његовог неслагања с енглеским оригиналом, тада енглески оригинал има предност.",
 	"donate_interface-monthlybox-title": "Да буде месечни прилог?",
 	"donate_interface-monthlybox-content": "Месечни прилози се обрађују сваког другог у месецу. Можете одустати сваког тренутка.",
+	"donate_interface-annual-amount": "Износ годишње донације",
 	"donate_interface-monthlybox-amount": "Износ месечног прилога",
 	"donate_interface-monthlybox-yes": "Да, нека буде месечни",
 	"donate_interface-monthlybox-no": "Не, нека буде једнократан",

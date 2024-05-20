@@ -421,6 +421,7 @@
 	"donate_interface-legal-original": "Ова е помошен превод. Во случај на разидување на преводов со англискиот оригинал, тогаш англискиот оригинал ја има предноста на полноважност.",
 	"donate_interface-monthlybox-title": "Да биде месечен прилог?",
 	"donate_interface-monthlybox-content": "Месечните прилози се книжат (обработуваат) секој 2<sup>ри</sup> во месецот. Можете да се откажете во секое време.",
+	"donate_interface-annual-amount": "Износ на годишниот прилог",
 	"donate_interface-monthlybox-amount": "Износ на месечниот прилог",
 	"donate_interface-monthlybox-yes": "Да, нека биде месечен",
 	"donate_interface-monthlybox-no": "НЕ, нека биде еднократен",
