@@ -91,9 +91,17 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
 	): PaymentResult {
 		$transactionStatus = $authorizeResult->getStatus();
-		$this->addResponseData(
-			[ 'gateway_txn_id' => $authorizeResult->getGatewayTxnId() ]
-		);
+		$responseData = [
+			'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
+		];
+		if ( !$this->getPaymentSubmethod() ) {
+			$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod();
+		}
+
+		if ( !$this->getPaymentMethod() ) {
+			$responseData['payment_method'] = $authorizeResult->getPaymentMethod();
+		}
+		$this->addResponseData( $responseData );
 		// When authorization is successful but capture fails (or is not
 		// attempted because our ValidationAction is 'review', we still
 		// send the donor to the Thank You page. This is because the
