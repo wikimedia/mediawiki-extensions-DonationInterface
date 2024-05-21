@@ -24,12 +24,6 @@ trait TTestingAdapter {
 	/** @var string|false|null */
 	public static $fakeIdentifier;
 
-	/** @var string|string[]|callable|null */
-	public static $dummyGatewayResponseCode = null;
-
-	/** @var string[] */
-	public $curled = [];
-
 	public static function getIdentifier() {
 		if ( static::$fakeIdentifier ) {
 			return static::$fakeIdentifier;
@@ -66,73 +60,6 @@ trait TTestingAdapter {
 		parent::runAntifraudFilters();
 
 		$this->batch = $is_batch;
-	}
-
-	/**
-	 * Set the error code you want the dummy response to return
-	 * @param string|null $code
-	 */
-	public static function setDummyGatewayResponseCode( $code ) {
-		static::$dummyGatewayResponseCode = $code;
-	}
-
-	protected function curl_transaction( $data ) {
-		$this->curled[] = $data;
-		return parent::curl_transaction( $data );
-	}
-
-	/**
-	 * Load in some dummy response XML so we can test proper response processing
-	 * @param string $ch
-	 * @return string|false
-	 */
-	protected function curl_exec( $ch ) {
-		$code = '';
-		if ( static::$dummyGatewayResponseCode !== null ) {
-			if ( is_array( static::$dummyGatewayResponseCode ) ) {
-				$code = array_shift( static::$dummyGatewayResponseCode );
-			} elseif ( is_callable( static::$dummyGatewayResponseCode ) ) {
-				$code = call_user_func( static::$dummyGatewayResponseCode, $this );
-			} else {
-				$code = static::$dummyGatewayResponseCode;
-			}
-		}
-		if ( $code ) {
-			if ( $code === 'Exception' ) {
-				throw new RuntimeException( 'blah!' );
-			}
-			$code = '_' . $code;
-		}
-
-		// could start stashing these in a further-down subdir if payment type starts getting in the way,
-		// but frankly I don't want to write tests that test our dummy responses.
-		$file_path = __DIR__ . '/../';
-		$file_path .= 'Responses/' . static::getIdentifier() . '/';
-		$file_path .= $this->getCurrentTransaction() . $code . '.testresponse';
-
-		// these are all going to be short, so...
-		if ( file_exists( $file_path ) ) {
-			return file_get_contents( $file_path );
-		} else {
-			// FIXME: Throw an assertion instead.
-			echo "File $file_path does not exist.\n"; // <-That will deliberately break the test.
-			return false;
-		}
-	}
-
-	/**
-	 * Load in some dummy curl response info so we can test proper response processing
-	 * @param string $ch
-	 * @param array|null $opt
-	 * @return array
-	 */
-	protected function curl_getinfo( $ch, $opt = null ) {
-		$code = 200;
-
-		// put more here if it ever turns out that we care about it.
-		return [
-			'http_code' => $code,
-		];
 	}
 
 }

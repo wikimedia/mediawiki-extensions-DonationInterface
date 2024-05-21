@@ -731,13 +731,15 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 				->setSuccessful( true )
 			);
 
+		$this->provider->expects( $this->never() )
+			->method( 'approvePayment' );
+
 		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
 		] );
 
 		$this->assertEquals( FinalStatus::COMPLETE, $gateway->getFinalStatus(), 'Should have Final Status Complete' );
-		$this->assertCount( 0, $gateway->curled, 'Should not make a DoExpressCheckoutPayment call' );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
 	}
@@ -786,13 +788,15 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 					->setSuccessful( true )
 			);
 
+		$this->provider->expects( $this->never() )
+			->method( 'approvePayment' );
+
 		$gateway->processDonorReturn( [
 			'token' => 'EC%2d4V987654XA123456V',
 			'PayerID' => 'ASDASD',
 		] );
 
 		$this->assertEquals( FinalStatus::TIMEOUT, $gateway->getFinalStatus(), 'Should have Final Status Timeout' );
-		$this->assertCount( 0, $gateway->curled, 'Should not make a DoExpressCheckoutPayment call' );
 		$message = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNull( $message, 'Should not queue a message' );
 	}
@@ -897,7 +901,6 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	 */
 	public function testUnstageCountry() {
 		$init = $this->getDonorTestData( 'US' );
-		TestingPaypalExpressAdapter::setDummyGatewayResponseCode( 'OK' );
 		$init['contribution_tracking_id'] = '45931210';
 		$init['gateway_session_id'] = mt_rand();
 		$init['language'] = 'pt';

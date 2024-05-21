@@ -74,17 +74,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		parent::__construct( $name, $data, $dataName );
 	}
 
-	public static function resetTestingAdapters() {
-		$testing_adapters = [
-			TestingDlocalAdapter::class,
-			TestingGenericAdapter::class,
-			TestingPaypalExpressAdapter::class,
-		];
-		foreach ( $testing_adapters as $testing_adapter ) {
-			$testing_adapter::setDummyGatewayResponseCode( null );
-		}
-	}
-
 	protected function setUp(): void {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
@@ -460,7 +449,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	public static function resetAllEnv() {
 		RequestContext::resetMain();
 
-		self::resetTestingAdapters();
 		// Wipe out the $instance of these classes to make sure they're
 		// re-created with fresh gateway instances for the next test
 		$singleton_classes = [
