@@ -947,6 +947,10 @@ class DonationData implements LogPrefixProvider {
 			$tracking_data['payments_form'] .= '.' . $this->getVal( 'appeal' );
 		}
 
+		// Add banner history log id if sent and enabled
+		if ( $this->getVal( 'bannerhistlog' ) && $this->gateway->getGlobal( 'EnableBannerHistoryLog' ) ) {
+			$tracking_data['banner_history_log_id'] = $this->getVal( 'bannerhistlog' );
+		}
 		return $tracking_data;
 	}
 
