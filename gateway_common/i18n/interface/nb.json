@@ -428,6 +428,7 @@
 	"donate_interface-legal-original": "Denne oversettelsen er gjort av frivillige. Om det er uoverensstemmelser mellom denne oversettelsen og den engelskspråklige utgaven har den engelskspråklige utgaven presedens.",
 	"donate_interface-monthlybox-title": "Gjør det til en månedlig gave?",
 	"donate_interface-monthlybox-content": "Månedlige gaver trekkes den andre hver måned. Du kan avslutte avtalen når som helst.",
+	"donate_interface-annual-amount": "Årlig gavebeløp",
 	"donate_interface-monthlybox-amount": "Månedlig gavebeløp",
 	"donate_interface-monthlybox-yes": "Ja, gjør det til en månedlig gave",
 	"donate_interface-monthlybox-no": "NEI, gjør det til en engangsgave",
