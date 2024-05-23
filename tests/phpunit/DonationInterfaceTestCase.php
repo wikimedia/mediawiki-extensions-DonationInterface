@@ -19,6 +19,8 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
+use SmashPig\PaymentProviders\IPaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingDatabase;
 use SmashPig\Tests\TestingGlobalConfiguration;
@@ -817,6 +819,24 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			->method( 'approvePayment' )
 			->willReturn(
 				BaseIngenicoTestCase::getApprovePaymentResponse()
+			);
+	}
+
+	protected function mockGenericPaymentProviderForCreatePayment( string $gateway, string $paymentMethod ) {
+		$providerConfig = $this->setSmashPigProvider( $gateway );
+
+		$providerMock = $this->createMock( IPaymentProvider::class );
+
+		$providerConfig->overrideObjectInstance(
+			"payment-provider/$paymentMethod",
+			$providerMock
+		);
+
+		$providerMock->method( 'createPayment' )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setSuccessful( true )
+					->setGatewayTxnId( 'blahblah' )
 			);
 	}
 }

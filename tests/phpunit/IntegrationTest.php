@@ -85,8 +85,9 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 		$options['payment_submethod'] = 'visa';
 		$this->setUpRequest( $options, $paypalRequest->getSessionArray() );
 
+		$this->mockGenericPaymentProviderForCreatePayment( 'dlocal', 'cc' );
 		$gateway = new TestingDlocalAdapter();
-		$gateway->do_transaction( 'authorize' );
+		$gateway->doPayment();
 		$dlocalPayCtId = $gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
 		$this->assertNotEquals( $dlocalPayCtId, $paypalCtId, 'Did not regenerate contribution tracking ID on gateway switch' );
 

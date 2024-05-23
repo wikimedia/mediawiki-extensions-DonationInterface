@@ -338,8 +338,9 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$firstRequest = $this->setUpRequest( $init );
 
+		$this->mockGenericPaymentProviderForCreatePayment( 'dlocal', 'bt' );
 		$gateway = new TestingDlocalAdapter();
-		$gateway->do_transaction( 'authorize' );
+		$gateway->doPayment();
 
 		$donorData = $firstRequest->getSessionData( 'Donor' );
 		$this->assertEquals( 'itau', $donorData['payment_submethod'], 'Test setup failed.' );
