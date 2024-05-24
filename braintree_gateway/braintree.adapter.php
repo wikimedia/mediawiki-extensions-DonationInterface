@@ -137,10 +137,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->handleCreatedPayment( $createPaymentResult, $provider );
 	}
 
-	public function getCommunicationType() {
-		return 'array';
-	}
-
 	protected function defineTransactions() {
 		$this->transactions = [
 			TransactionType::AUTHORIZE => [

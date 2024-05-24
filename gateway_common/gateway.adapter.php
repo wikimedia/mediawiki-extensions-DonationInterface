@@ -183,14 +183,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $order_id_meta;
 
 	/**
-	 * Default response type to be the same as communication type.
-	 * @return string
-	 */
-	public function getResponseType() {
-		return $this->getCommunicationType();
-	}
-
-	/**
 	 * Constructor
 	 *
 	 * @param array	$options
@@ -999,22 +991,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Process the API response obtained from the payment processor and set
-	 * properties of transaction_response.
-	 * Default implementation just says we got a response.
-	 *
-	 * @param array|DomDocument $response Cleaned-up response returned from
-	 * @see getFormattedResponse.  Type depends on $this->getResponseType
-	 * @throws ResponseProcessingException with an actionable error code and any
-	 *         variables to retry
-	 *
-	 * TODO: Move response parsing to a separate class.
-	 */
-	protected function processResponse( $response ) {
-		$this->transaction_response->setCommunicationStatus( true );
-	}
-
-	/**
 	 * Default implementation sets status to complete.
 	 * @param array $requestValues all GET and POST values from the request
 	 * @return PaymentResult
@@ -1062,150 +1038,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		return $score;
-	}
-
-	/**
-	 * Check the response for general sanity - e.g. correct data format, keys exists
-	 * @param mixed $response Whatever came back from the API call
-	 * @return bool true if response looks sane
-	 */
-	protected function parseResponseCommunicationStatus( $response ) {
-		return true;
-	}
-
-	/**
-	 * Parse the response to get the errors in a format we can log and otherwise deal with.
-	 * @param mixed $response Whatever came back from the API call
-	 * @return array a key/value array of codes (if they exist) and messages.
-	 * TODO: Move to a parsing class, where these are part of an interface
-	 * rather than empty although non-abstract.
-	 */
-	protected function parseResponseErrors( $response ) {
-		return [];
-	}
-
-	/**
-	 * Harvest the data we need back from the gateway.
-	 * @param mixed $response Whatever came back from the API call
-	 * @return array a key/value array
-	 */
-	protected function parseResponseData( $response ) {
-		return [];
-	}
-
-	/**
-	 * Take the entire response string, and strip everything we don't care
-	 * about.  For instance: If it's XML, we only want correctly-formatted XML.
-	 * Headers must be killed off.
-	 * @param string $rawResponse hot off the curl
-	 * @return string|DomDocument|array depending on $this->getResponseType
-	 * @throws InvalidArgumentException
-	 * @throws LogicException
-	 */
-	protected function getFormattedResponse( $rawResponse ) {
-		$type = $this->getResponseType();
-		if ( $type === 'xml' ) {
-			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
-			$displayXML = $this->formatXmlString( $xmlString );
-			$realXML = new DomDocument( '1.0' );
-			// DO NOT alter the line below unless you are prepared to also alter the GC audit scripts.
-			// ...and everything that references "Raw XML Response"
-			// @TODO: All three of those things.
-			$this->logger->info( "Raw XML Response:\n" . $displayXML ); // I am apparently a huge fibber.
-			$realXML->loadXML( trim( $xmlString ) );
-			return $realXML;
-		}
-		// For anything else, delete all the headers and the blank line after
-		// Note: the negative lookahead is to ignore PayPal's HTTP continue header.
-		$noHeaders = preg_replace( '/^.*?(\r\n\r\n|\n\n)(?!HTTP\/)/ms', '', $rawResponse, 1 );
-		$this->logger->info( "Raw Response:" . $noHeaders );
-		switch ( $type ) {
-			case 'json':
-				return json_decode( $noHeaders, true );
-
-			case 'delimited':
-				$delimiter = $this->transaction_option( 'response_delimiter' );
-				$keys = $this->transaction_option( 'response_keys' );
-				if ( !$delimiter || !$keys ) {
-					throw new LogicException( 'Delimited transactions must define both response_delimiter and response_keys options' );
-				}
-				$values = explode( $delimiter, trim( $noHeaders ) );
-				$combined = array_combine( $keys, $values );
-				// @phan-suppress-next-line PhanTypeComparisonFromArray Signature changed in php8, remove when upgrade
-				if ( $combined === false ) {
-					throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
-				}
-				return $combined;
-
-			case 'query_string':
-				$parsed = [];
-				parse_str( $noHeaders, $parsed );
-				return $parsed;
-		}
-		return $noHeaders;
-	}
-
-	protected function stripXMLResponseHeaders( $rawResponse ) {
-		$xmlStart = strpos( $rawResponse, '<?xml' );
-		if ( $xmlStart === false ) {
-			// I totally saw this happen one time. No XML, just <RESPONSE>...
-			// ...Weaken to almost no error checking.  Buckle up!
-			$xmlStart = strpos( $rawResponse, '<' );
-		}
-		if ( $xmlStart === false ) { // Still false. Your Head Asplode.
-			$this->logger->error( "Completely Mangled Response:\n" . $rawResponse );
-			return false;
-		}
-		$justXML = substr( $rawResponse, $xmlStart );
-		return $justXML;
-	}
-
-	/**
-	 * To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
-	 * @param string $xml
-	 * @return string
-	 */
-	protected function formatXmlString( $xml ) {
-		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
-		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
-
-		// now indent the tags
-		$token = strtok( $xml, "\n" );
-		$result = ''; // holds formatted version as it is built
-		$pad = 0; // initial indent
-		$matches = []; // returns from preg_matches()
-		// FIXME The line below was added to keep existing functionality while preventing
-		// issues with uninitialized variables, but probably it should be moved to
-		// the first elseif in the while block, below. However, likely this code will
-		// be removed soon.
-		$nextLineIndentChange = 0;
-		// scan each line and adjust indent based on opening/closing tags
-		while ( $token !== false ) {
-			// test for the various tag states
-			// 1. open and closing tags on same line - no change
-			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) {
-				$nextLineIndentChange = 0;
-			} elseif ( preg_match( '/^<\/\w/', $token, $matches ) ) {
-				// 2. closing tag - outdent now
-				// FIXME set $nextLineIndentChange=0 here instead of initailizing
-				// outside the while loop. (See related comment, above.)
-				$pad--;
-			} elseif ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $token, $matches ) ) {
-				// 3. opening tag - don't pad this one, only subsequent tags
-				$nextLineIndentChange = 1;
-			} else {
-				// 4. no indentation needed
-				$nextLineIndentChange = 0;
-			}
-
-			// pad the line with the required number of leading spaces
-			$line = str_pad( $token, strlen( $token ) + $pad, ' ', STR_PAD_LEFT );
-			$result .= $line . "\n"; // add to the cumulative result, with linefeed
-			$token = strtok( "\n" ); // get the next token
-			$pad += $nextLineIndentChange; // update the pad size for subsequent lines
-		}
-
-		return $result;
 	}
 
 	public static function getGatewayName() {
@@ -1597,31 +1429,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 		}
 		return $value;
-	}
-
-	/**
-	 * Build the parameters sent with the next request.
-	 *
-	 * @return array Parameters as a map.
-	 */
-	public function buildRequestParams() {
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return [];
-		}
-
-		$queryparams = [];
-
-		// we are going to assume a flat array, because... namevalue.
-		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
-			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryparams[ $fieldname ] = $fieldvalue;
-			}
-		}
-
-		return $queryparams;
 	}
 
 	public function getTransactionResponse() {

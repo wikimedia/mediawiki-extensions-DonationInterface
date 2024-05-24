@@ -75,28 +75,6 @@ interface GatewayType extends LogPrefixProvider {
 	public function doPayment();
 
 	/**
-	 * Data format for outgoing requests to the processor.
-	 * Must be one of 'xml', 'namevalue' (for POST), or 'redirect'.
-	 * May depend on current transaction.
-	 *
-	 * @return string
-	 */
-	public function getCommunicationType();
-
-	/**
-	 * Data format for responses coming back from the processor, from
-	 * getFormattedResponse.  Should be one of:
-	 *   'xml': Parse XML to a DomDocument.
-	 *   'json': Parse JSON into an array tree.
-	 *   'delimited': Parse a character-delimited list into an array.
-	 *   'query_string': Otherwise known as application/x-www-form-urlencoded.
-	 *       Parse a query string and urldecode into a map array.
-	 *
-	 * @return string
-	 */
-	public function getResponseType();
-
-	/**
 	 * This is the ONLY getData type function anything should be using
 	 * outside the adapter.
 	 * Short explanation of the data population up to now:
@@ -280,13 +258,6 @@ interface GatewayType extends LogPrefixProvider {
 	 * @return mixed the setting requested
 	 */
 	public function getAccountConfig( $key );
-
-	/**
-	 * Build the parameters sent with the next request.
-	 *
-	 * @return array Parameters as a map.
-	 */
-	public function buildRequestParams();
 
 	/**
 	 * Dump info about a transaction in logs and pending queues before

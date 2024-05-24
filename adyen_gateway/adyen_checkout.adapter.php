@@ -177,10 +177,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return $paymentResult;
 	}
 
-	public function getCommunicationType() {
-		return 'array';
-	}
-
 	protected function defineTransactions() {
 		$this->transactions = [
 			'authorize' => [

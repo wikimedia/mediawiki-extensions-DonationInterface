@@ -89,10 +89,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->session_addDonorData();
 	}
 
-	public function getCommunicationType() {
-		return 'xml';
-	}
-
 	protected function defineAccountInfo() {
 		// We use account_config instead
 		$this->accountInfo = [];
