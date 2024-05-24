@@ -94,9 +94,6 @@ class AmazonAdapter extends GatewayAdapter {
 		$this->accountInfo = [];
 	}
 
-	protected function defineReturnValueMap() {
-	}
-
 	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
 			'generate' => true,

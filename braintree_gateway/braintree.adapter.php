@@ -27,10 +27,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		];
 	}
 
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
-	}
-
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult

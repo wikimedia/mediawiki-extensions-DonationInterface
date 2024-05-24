@@ -30,10 +30,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		$this->accountInfo = [];
 	}
 
-	protected function defineReturnValueMap() {
-		$this->return_value_map = [];
-	}
-
 	/**
 	 * Use our own Order ID sequence.
 	 */
