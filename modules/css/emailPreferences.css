@@ -249,6 +249,7 @@ input#email {
 }
 
 .emailpreferences-form-col-content-salutation-email-edit {
+	white-space: nowrap;
 	font-weight: normal;
 }
 
