@@ -115,14 +115,6 @@ abstract class GatewayAdapter implements GatewayType {
 	protected $data_transformers = [];
 
 	/**
-	 * For gateways that speak XML, we use this variable to hold the document
-	 * while we build the outgoing request.  TODO: move XML functions out of the
-	 * main gateway classes.
-	 * @var DomDocument
-	 */
-	protected $xmlDoc;
-
-	/**
 	 * @var DonationData
 	 */
 	protected $dataObj;
@@ -186,12 +178,6 @@ abstract class GatewayAdapter implements GatewayType {
 	const GLOBAL_PREFIX = 'wgDonationGateway'; // ...for example.
 	const DONOR = 'Donor';
 	const DONOR_BKUP = 'Donor_BKUP';
-
-	/**
-	 * This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
-	 * @var bool
-	 */
-	public $log_outbound = false;
 
 	protected $order_id_candidates;
 	protected $order_id_meta;
@@ -710,10 +696,9 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * This function is used exclusively by the two functions that build
-	 * requests to be sent directly to external payment gateway servers. Those
-	 * two functions are buildRequestNameValueString, and (perhaps less
-	 * obviously) buildRequestXML. As such, unless a valid current transaction
-	 * has already been set, this will error out rather hard.
+	 * requests to be sent directly to external payment gateway servers. As
+	 * such, unless a valid current transaction has already been set, this
+	 * will error out rather hard.
 	 * In other words: In all likelihood, this is not the function you're
 	 * looking for.
 	 * @param string $gateway_field_name The GATEWAY's field name that we are
@@ -820,83 +805,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Builds a set of transaction data in XML format
-	 *        *)The current transaction must be set before you call this function.
-	 *        *)(eventually) uses getTransactionSpecificValue to assign staged
-	 * values to the fields required by the gateway. Look there for more insight
-	 * into the heirarchy of all possible data sources.
-	 * @param string $rootElement Name of root element
-	 * @param string $encoding Character set to use for tag values
-	 * @return string The raw transaction in xml format, ready to be
-	 * curl'd off to the remote server.
-	 */
-	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
-		$this->xmlDoc = new DomDocument( '1.0', $encoding );
-		$node = $this->xmlDoc->createElement( $rootElement );
-
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return '';
-		}
-
-		$this->buildTransactionNodes( $structure, $node );
-		$this->xmlDoc->appendChild( $node );
-		$return = $this->xmlDoc->saveXML();
-
-		if ( $this->log_outbound ) {
-			$message = "Request XML: ";
-			$full_structure = $this->transactions[$this->getCurrentTransaction()]; // if we've gotten this far, this exists.
-			if ( array_key_exists( 'never_log', $full_structure ) ) { // Danger Zone!
-				$message = "Cleaned $message";
-				// keep these totally separate. Do not want to risk sensitive information (like cvv) making it anywhere near the log.
-				$this->xmlDoc = new DomDocument( '1.0' );
-				$log_node = $this->xmlDoc->createElement( $rootElement );
-				// remove all never_log nodes from the structure
-				$log_structure = $this->cleanTransactionStructureForLogs( $structure, $full_structure['never_log'] );
-				$this->buildTransactionNodes( $log_structure, $log_node );
-				$this->xmlDoc->appendChild( $log_node );
-				$logme = $this->xmlDoc->saveXML();
-			} else {
-				// ...safe zone.
-				$logme = $return;
-			}
-			$this->logger->info( $message . $logme );
-		}
-
-		return $return;
-	}
-
-	/**
-	 * buildRequestXML helper function.
-	 * Builds the XML transaction by recursively crawling the transaction
-	 * structure and adding populated nodes by reference.
-	 * @param array $structure Current transaction's more leafward structure,
-	 * from the point of view of the current XML node.
-	 * @param DOMElement &$node The current XML node.
-	 */
-	protected function buildTransactionNodes( $structure, &$node ) {
-		if ( !is_array( $structure ) ) {
-			// this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
-			$this->appendNodeIfValue( $structure, $node );
-		} else {
-			foreach ( $structure as $key => $value ) {
-				if ( !is_array( $value ) ) {
-					// do not use $key, it's the numeric index here and $value is the field name
-					// FIXME: make tree traversal more readable.
-					$this->appendNodeIfValue( $value, $node );
-				} else {
-					// Recurse for child
-					$keynode = $this->xmlDoc->createElement( $key );
-					$this->buildTransactionNodes( $value, $keynode );
-					$node->appendChild( $keynode );
-				}
-			}
-		}
-		// not actually returning anything. It's all side-effects. Because I suck like that.
-	}
-
-	/**
 	 * Recursively sink through a transaction structure array to remove all
 	 * nodes that we can't have showing up in the server logs.
 	 * Mostly for CVV: If we log those, we are all fired.
@@ -916,29 +824,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		return $structure;
-	}
-
-	/**
-	 * appendNodeIfValue is a helper function for buildTransactionNodes, which
-	 * is used by buildRequestXML to construct an XML transaction.
-	 * This function will append an XML node to the transaction being built via
-	 * the passed-in parent node, only if the current node would have a
-	 * non-empty value.
-	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param DOMElement &$node The parent node this node will be contained in, if it
-	 *  is determined to have a non-empty value.
-	 */
-	protected function appendNodeIfValue( $value, &$node ) {
-		$nodevalue = $this->getTransactionSpecificValue( $value );
-		if ( $nodevalue !== '' && $nodevalue !== false ) {
-			$temp = $this->xmlDoc->createElement( $value );
-
-			$data = null;
-			$data = $this->xmlDoc->createTextNode( $nodevalue );
-
-			$temp->appendChild( $data );
-			$node->appendChild( $temp );
-		}
 	}
 
 	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
