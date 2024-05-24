@@ -189,12 +189,10 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		$deviceParams = [
 			'ip_address' => $data['user_ip']
 		];
-		if ( !$this->gateway_adapter->isBatchProcessor() ) {
-			$deviceParams += [
-				'user_agent' => WmfFramework::getRequestHeader( 'user-agent' ),
-				'accept_language' => WmfFramework::getRequestHeader( 'accept-language' )
-			];
-		}
+		$deviceParams += [
+			'user_agent' => WmfFramework::getRequestHeader( 'user-agent' ),
+			'accept_language' => WmfFramework::getRequestHeader( 'accept-language' )
+		];
 		return $deviceParams;
 	}
 
@@ -448,7 +446,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
 	) {
-		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
+		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
 		return self::$instance;

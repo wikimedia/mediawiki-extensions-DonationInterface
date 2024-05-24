@@ -45,7 +45,7 @@ class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 	 * @return Gateway_Extras_SessionVelocityFilter
 	 */
 	private static function singleton( GatewayType $gateway_adapter ) {
-		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
+		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;
