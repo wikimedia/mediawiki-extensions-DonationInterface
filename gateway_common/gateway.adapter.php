@@ -771,21 +771,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->transactions[$transaction]['request'];
 	}
 
-	/**
-	 * Builds a set of transaction data in name/value format
-	 *  *)The current transaction must be set before you call this function.
-	 *  *)Uses getTransactionSpecificValue to assign staged values to the
-	 * fields required by the gateway. Look there for more insight into the
-	 * heirarchy of all possible data sources.
-	 * @return string The raw transaction in name/value format, ready to be
-	 * curl'd off to the remote server.
-	 */
-	protected function buildRequestNameValueString() {
-		$data = $this->buildRequestArray();
-		$ret = http_build_query( $data );
-		return $ret;
-	}
-
 	protected function buildRequestArray() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
@@ -794,28 +779,6 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		$callback = [ $this, 'getTransactionSpecificValue' ];
 		return ArrayHelper::buildRequestArray( $callback, $structure );
-	}
-
-	/**
-	 * Recursively sink through a transaction structure array to remove all
-	 * nodes that we can't have showing up in the server logs.
-	 * Mostly for CVV: If we log those, we are all fired.
-	 * @param array $structure The transaction structure that we want to clean.
-	 * @param array $never_log An array of values we should never log. These
-	 *  values should be the gateway's transaction nodes, rather than our normal values.
-	 * @return array $structure stripped of all references to the values in $never_log
-	 */
-	protected function cleanTransactionStructureForLogs( $structure, $never_log ) {
-		foreach ( $structure as $node => $value ) {
-			if ( is_array( $value ) ) {
-				$structure[$node] = $this->cleanTransactionStructureForLogs( $value, $never_log );
-			} else {
-				if ( in_array( $value, $never_log ) ) {
-					unset( $structure[$node] );
-				}
-			}
-		}
-		return $structure;
 	}
 
 	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
@@ -1078,102 +1041,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $enabledGateways;
 	}
 
-	protected function xmlChildrenToArray( $xml, $nodename ) {
-		$data = [];
-		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
-			foreach ( $node->childNodes as $childnode ) {
-				if ( trim( $childnode->nodeValue ) != '' ) {
-					$data[$childnode->nodeName] = $childnode->nodeValue;
-				}
-			}
-		}
-		return $data;
-	}
-
-	/**
-	 * addCodeRange is used to define ranges of response codes for major
-	 * gateway transactions, that let us know what status bucket to sort
-	 * them into.
-	 * DO NOT DEFINE OVERLAPPING RANGES!
-	 * TODO: Make sure it won't let you add overlapping ranges. That would
-	 * probably necessitate the sort moving to here, too.
-	 * @param string $transaction The transaction these codes map to.
-	 * @param string $key The (incoming) field name containing the numeric codes
-	 * we're defining here.
-	 * @param string $action One of the constants defined in @see FinalStatus.
-	 * @param int $lower The integer value of the lower-bound in this code range.
-	 * @param int|null $upper Optional: The integer value of the upper-bound in the
-	 * code range. If omitted, it will make a range of one value: The lower bound.
-	 * @throws UnexpectedValueException
-	 * @return void
-	 */
-	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
-		if ( $upper === null ) {
-			$this->return_value_map[$transaction][$key][$lower] = $action;
-		} else {
-			$this->return_value_map[$transaction][$key][$upper] = [ 'action' => $action, 'lower' => $lower ];
-		}
-	}
-
-	/**
-	 * findCodeAction
-	 *
-	 * @param string $transaction
-	 * @param string $key The key to lookup in the transaction such as STATUSID
-	 * @param int|string $code This gets converted to an integer if the values is numeric.
-	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
-	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
-	 * @return null|string Returns the code action if a valid code is supplied. Otherwise, the return is null.
-	 */
-	public function findCodeAction( $transaction, $key, $code ) {
-		$this->profiler->getStopwatch( __FUNCTION__, true );
-
-		// Do not allow anything that is not numeric
-		if ( !is_numeric( $code ) ) {
-			return null;
-		}
-
-		// Cast the code as an integer
-		settype( $code, 'integer' );
-
-		// Check to see if the transaction is defined
-		if ( !array_key_exists( $transaction, $this->return_value_map ) ) {
-			return null;
-		}
-
-		// Verify the key exists within the transaction
-		if ( !array_key_exists( $key, $this->return_value_map[ $transaction ] ) || !is_array( $this->return_value_map[ $transaction ][ $key ] ) ) {
-			return null;
-		}
-
-		// sort the array so we can do this quickly.
-		ksort( $this->return_value_map[ $transaction ][ $key ], SORT_NUMERIC );
-
-		$ranges = $this->return_value_map[ $transaction ][ $key ];
-		// so, you have a code, which is a number. You also have a numerically sorted array.
-		// loop through until you find an upper >= your code.
-		// make sure it's in the range, and return the action.
-		foreach ( $ranges as $upper => $val ) {
-			if ( $upper >= $code ) { // you've arrived. It's either here or it's nowhere.
-				if ( is_array( $val ) ) {
-					if ( $val['lower'] <= $code ) {
-						return $val['action'];
-					} else {
-						return null;
-					}
-				} else {
-					if ( $upper === $code ) {
-						return $val;
-					} else {
-						return null;
-					}
-				}
-			}
-		}
-		// if we walk straight off the end...
-		return null;
-	}
-
 	/**
 	 * Sends a queue message to the configured server and queue, based on the
 	 * outcome of our current transaction.
@@ -1338,25 +1205,6 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 
 		return $transaction;
-	}
-
-	/**
-	 * Executes the specified function in $this, if one exists.
-	 * NOTE: THIS WILL LCASE YOUR FUNCTION_NAME.
-	 * ...I like to keep the voodoo functions tidy.
-	 * @param string $function_name The name of the function you're hoping to
-	 * execute.
-	 * @param mixed|null $parameter That's right: For now you only get one.
-	 * @return bool True if a function was found and executed.
-	 */
-	protected function executeIfFunctionExists( $function_name, $parameter = null ) {
-		$function_name = strtolower( $function_name ); // Because, that's why.
-		if ( method_exists( $this, $function_name ) ) {
-			$this->{$function_name}( $parameter );
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -2284,14 +2132,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->account_config[$key];
 	}
 
-	/**
-	 * For places that might need the merchant ID outside of the adapter
-	 * @deprecated
-	 */
-	public function getMerchantID() {
-		return $this->account_config[ 'MerchantID' ];
-	}
-
 	public function session_ensure() {
 		WmfFramework::setupSession();
 	}
@@ -3038,35 +2878,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $submethods;
 	}
 
-	/**
-	 * Returns some useful debugging JSON we can append to loglines for
-	 * increased debugging happiness.
-	 * This is working pretty well for debugging GatewayChooser problems, so
-	 * let's use it other places. Still, this should probably still be used
-	 * sparingly...
-	 * @return string JSON-encoded donation data
-	 */
-	public function getLogDebugJSON() {
-		$logObj = [
-			'amount',
-			'country',
-			'currency',
-			'payment_method',
-			'payment_submethod',
-			'recurring',
-			'gateway',
-			'utm_source',
-			'referrer',
-		];
-
-		foreach ( $logObj as $key => $value ) {
-			$logObj[$value] = $this->getData_Unstaged_Escaped( $value );
-			unset( $logObj[$key] );
-		}
-
-		return json_encode( $logObj );
-	}
-
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
 		$json = json_encode( $details );
@@ -3143,70 +2954,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function cancel() {
 		return PaymentResult::newFailure();
-	}
-
-	/**
-	 * Looks at message to see if it should be rectified
-	 * Allows exit if the adapter should not rectify the orphan
-	 * Then tries to see if the orphan can be matched
-	 * @return PaymentResult
-	 */
-	public function rectifyOrphan() {
-		if ( !$this->shouldRectifyOrphan() ) {
-			// Skip other payment methods which shouldn't be in the pending
-			// queue anyway.  See https://phabricator.wikimedia.org/T161160
-			$this->logger->info( "Skipping  pending record." );
-			return PaymentResult::newEmpty();
-		}
-		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
-		$civiId = $this->getData_Unstaged_Escaped( 'contribution_id' );
-		$ctId = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		if ( $civiId ) {
-			$this->logger->error(
-				$ctId .
-				": Contribution tracking already has contribution_id $civiId.  " .
-				'Stop confusing donors!'
-			);
-			$paymentResult = $this->cancel();
-		} else {
-			$params = $this->createDonorReturnParams();
-			$paymentResult = $this->processDonorReturn( $params );
-			if ( !$paymentResult->isFailed() ) {
-				$this->logger->info( $ctId . ': FINAL: Rectified' );
-				return $paymentResult;
-			} else {
-				$this->errorState->addErrors( $paymentResult->getErrors() );
-				$this->logger->error( $ctId . ': ERRORS ' . print_r( $this->errorState, true ) );
-			}
-		}
-		return $paymentResult;
-	}
-
-	/**
-	 * @return PaymentTransactionResponse
-	 */
-	protected function getFailedValidationResponse() {
-		$return = new PaymentTransactionResponse();
-		$return->setCommunicationStatus( false );
-		$return->setMessage( 'Failed data validation' );
-		foreach ( $this->errorState->getErrors() as $error ) {
-			$return->addError( $error );
-		}
-		return $return;
-	}
-
-	/**
-	 * Allows adapters to specify curl response format requirements
-	 * (e.g. xml, json, other custom format)
-	 *
-	 * Defaults to true to allow any response format where check not needed.
-	 *
-	 * @param mixed $curl_response
-	 *
-	 * @return bool
-	 */
-	protected function curlResponseIsValidFormat( $curl_response ) {
-		return true;
 	}
 
 	/**
