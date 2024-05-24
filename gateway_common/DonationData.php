@@ -207,9 +207,6 @@ class DonationData implements LogPrefixProvider {
 	 *  Second element is the source of the value, null if nonexistant, get, or post
 	 */
 	protected function sourceHarvest( $var ) {
-		if ( $this->gateway->isBatchProcessor() ) {
-			return [ null, null ];
-		}
 		$ret = WmfFramework::getRequestValue( $var, null );
 		$queryValues = WmfFramework::getQueryValues();
 		// When a value is both on the QS and in POST, getRequestValue prefers POST
@@ -231,9 +228,6 @@ class DonationData implements LogPrefixProvider {
 	 * are populated, and merge that with the data set we already have.
 	 */
 	protected function integrateDataFromSession() {
-		if ( $this->gateway->isBatchProcessor() ) {
-			return;
-		}
 		/**
 		 * if the thing coming in from the session isn't already something,
 		 * replace it.
@@ -415,13 +409,10 @@ class DonationData implements LogPrefixProvider {
 	 * Sets user_ip and server_ip.
 	 */
 	protected function setIPAddresses() {
-		if ( !$this->gateway->isBatchProcessor() ) {
-			// Refresh the IP from something authoritative, unless we're running
-			// a batch process.
-			$userIp = WmfFramework::getIP();
-			if ( $userIp ) {
-				$this->setVal( 'user_ip', $userIp );
-			}
+		// Refresh the IP from something authoritative
+		$userIp = WmfFramework::getIP();
+		if ( $userIp ) {
+			$this->setVal( 'user_ip', $userIp );
 		}
 
 		if ( array_key_exists( 'SERVER_ADDR', $_SERVER ) ) {
@@ -461,12 +452,8 @@ class DonationData implements LogPrefixProvider {
 
 		// try to regenerate the country if we still don't have a valid one yet
 		if ( $regen ) {
-			if ( $this->gateway->isBatchProcessor() ) {
-				$sessionCountry = null;
-			} else {
-				// If no valid country was passed, first check session.
-				$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
-			}
+			// If no valid country was passed, first check session.
+			$sessionCountry = $this->gateway->session_getData( 'Donor', 'country' );
 			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
 				$this->logger->info( "Using country code $sessionCountry from session" );
 				$country = $sessionCountry;
@@ -629,11 +616,7 @@ class DonationData implements LogPrefixProvider {
 	 * @return null
 	 */
 	protected function setNormalizedOrderIDs(): void {
-		$override = null;
-		if ( $this->gateway->isBatchProcessor() ) {
-			$override = $this->getVal( 'order_id' );
-		}
-		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( $override, $this ) );
+		$this->setVal( 'order_id', $this->gateway->normalizeOrderID( null, $this ) );
 
 		// log the rare case where order_id is present but doesn't match the ct_id in session.
 		// this is an ongoing issue T334905 as of 17/05/23
@@ -746,9 +729,7 @@ class DonationData implements LogPrefixProvider {
 	 * Normalize referrer either by passing on the original, or grabbing it in the first place.
 	 */
 	protected function setReferrer() {
-		if ( !$this->isSomething( 'referrer' )
-			&& !$this->gateway->isBatchProcessor()
-		) {
+		if ( !$this->isSomething( 'referrer' ) ) {
 			// Remove protocol and query strings to avoid tripping modsecurity
 			// TODO it would be a lot more privacy respecting to omit path too.
 			$referrer = '';
@@ -989,10 +970,6 @@ class DonationData implements LogPrefixProvider {
 	 * @return mixed Contribution tracking ID or false on failure
 	 */
 	public function saveContributionTrackingData() {
-		if ( $this->gateway->isBatchProcessor() ) {
-			// We aren't learning anything new about the donation, so just return.
-			return false;
-		}
 		$ctid = $this->getVal( 'contribution_tracking_id' );
 		$tracking_data = $this->getCleanTrackingData( true );
 		$current_hash = sha1( serialize( $tracking_data ) );
