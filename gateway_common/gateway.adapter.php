@@ -232,6 +232,8 @@ abstract class GatewayAdapter implements GatewayType {
 		// checking to see if we have an edit token in the request...
 		$this->posted = ( $this->dataObj->wasPosted() && ( WmfFramework::getRequestValue( 'wmf_token', null ) !== null ) );
 
+		$this->logBasicInfoAboutDonorWebRequest();
+
 		$this->findAccount();
 		$this->defineAccountInfo();
 		$this->defineTransactions();
@@ -3039,4 +3041,24 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		return !$isRecurring && $isMonthlyConvert;
 	}
+
+	/**
+	 * Logs the referrer and the current request URL for the donor visit.
+	 *
+	 * @return void
+	 */
+	protected function logBasicInfoAboutDonorWebRequest(): void {
+		$context = RequestContext::getMain();
+		$request = $context->getRequest();
+
+		// we only need to log during production web requests.
+		if ( get_class( $request ) === WebRequest::class ) {
+			$referrer = $request->getHeader( 'referer' );
+			$requestURL = $request->getFullRequestURL();
+
+			$this->logger->debug( "Donor Referrer: {$referrer}" );
+			$this->logger->debug( "Donor Request URL: {$requestURL}" );
+		}
+	}
+
 }
