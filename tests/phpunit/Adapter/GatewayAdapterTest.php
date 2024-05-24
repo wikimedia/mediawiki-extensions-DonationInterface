@@ -254,7 +254,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 		unset( $init['order_id'] );
 
 		$secondRequest = $this->setUpRequest( $init, $session );
-		$adyen_gateway = new AdyenCheckoutAdapter( [ 'batch_mode' => true ] );
+		$adyen_gateway = new AdyenCheckoutAdapter();
 
 		$session = $secondRequest->getSessionArray();
 		$ctId = $adyen_gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
@@ -462,15 +462,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 
 		$gateway = $this->getFreshGatewayObject( $data );
 		$this->assertEquals( '127.0.0.1', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
-	}
-
-	public function testCanOverrideIpInBatchMode() {
-		$data = $this->getDonorTestData( 'FR' );
-		unset( $data['country'] );
-		$data['user_ip'] = '8.8.8.8';
-
-		$gateway = $this->getFreshGatewayObject( $data, [ 'batch_mode' => true ] );
-		$this->assertEquals( '8.8.8.8', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
 	}
 
 	public function testGetScoreName() {
