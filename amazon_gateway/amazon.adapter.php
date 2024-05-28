@@ -412,9 +412,6 @@ class AmazonAdapter extends GatewayAdapter {
 
 	/**
 	 * FIXME: this synthesized 'TransactionResponse' is increasingly silly
-	 * Maybe make this adapter more normal by adding an 'SDK' communication type
-	 * that just creates an array of $data, then overriding curl_transaction
-	 * to use the PwaClient.
 	 * @param ResponseProcessingException $exception
 	 * @param PaymentTransactionResponse $resultData
 	 */

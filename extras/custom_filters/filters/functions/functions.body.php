@@ -39,6 +39,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 
 		foreach ( $functions as $function => $risk_score_modifier ) {
 			// run the function specified, if it exists.
+			$score = null;
 			if ( method_exists( $this->gateway_adapter, $function ) ) {
 				// Function defined on the gateway or base class
 				$score = $this->gateway_adapter->{$function}();
@@ -46,7 +47,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 				// Ad-hoc functions defined in localsettings
 				$score = call_user_func( $function, $this->gateway_adapter );
 			} else {
-				throw new RuntimeException( "$function listed in $filterListGlobal is not runnable" );
+				$this->gateway_logger->alert( "$function listed in $filterListGlobal is not runnable" );
 			}
 			if ( $score === null ) {
 				$score = 0; // TODO: Is this the correct behavior?
@@ -55,8 +56,9 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 			} elseif ( is_numeric( $score ) && $score <= 100 ) {
 				$score = $score * $risk_score_modifier / 100;
 			} else {
-// error_log("Function Filter: $function returned $score");
-				throw new UnexpectedValueException( "Filter functions are returning somekinda nonsense." );
+				// error_log("Function Filter: $function returned $score");
+				$this->gateway_logger->alert( "Inconsistent value return by Function filter: $function" );
+				continue;
 			}
 
 			$this->cfo->addRiskScore( $score, $function );
