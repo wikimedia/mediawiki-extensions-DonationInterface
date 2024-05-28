@@ -45,7 +45,9 @@
 			"佛壁灯",
 			"神樂坂秀吉",
 			"阿pp",
-			"CrownedWharf566"
+			"CrownedWharf566",
+			"LittlePaw365",
+			"沈澄心"
 		]
 	},
 	"donate_interface": "支持维基媒体",
@@ -347,8 +349,8 @@
 	"donate_interface-card-expiration": "卡片过期",
 	"donate_interface-select-month-of-expiration": "选择有效期限月份",
 	"donate_interface-select-year-of-expiration": "选择有效期限年份",
-	"donate_interface-expires-question": "过期？",
-	"donate_interface-expires": "到期",
+	"donate_interface-expires-question": "到期？",
+	"donate_interface-expires": "到期时间",
 	"donate_interface-card-security-code": "安全码",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cvv-number-abbreviated": "CVV #",
