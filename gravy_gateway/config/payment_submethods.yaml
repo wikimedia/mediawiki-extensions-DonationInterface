@@ -1,0 +1,94 @@
+# TODO: this is a copy of our existing adyen submethods as we'll be using adyen first via gravy.
+# However, once we add additional gateways, we might need to update this list.
+cb:
+    countries:
+        FR: true
+    group: cc
+visa:
+    countries:
+        AU: true
+        CA: true
+        FR: true
+        GB: true
+        IE: true
+        IL: true
+        JP: true
+        NL: true
+        NZ: true
+        SE: true
+        UA: true
+        US: true
+    group: cc
+visa-debit:
+    group: cc
+maestro:
+    countries:
+        BE: true
+        RO: true
+    group: cc
+mc:
+    countries:
+        AU: true
+        CA: true
+        FR: true
+        GB: true
+        IE: true
+        IL: true
+        JP: true
+        NL: true
+        NZ: true
+        SE: true
+        UA: true
+        US: true
+    group: cc
+amex:
+    countries:
+        AU: true
+        CA: true
+        FR: true
+        GB: true
+        IE: true
+        IL: true
+        JP: true
+        NL: true
+        NZ: true
+        SE: true
+        UA: true
+        US: true
+    group: cc
+jcb:
+    countries:
+        AU: true
+        IE: true
+        JP: true
+        NL: true
+    group: cc
+discover:
+    countries:
+        IL: true
+        US: true
+    group: cc
+rtbt_ideal:
+    group: rtbt
+    countries:
+        NL: true
+onlineBanking_CZ:
+    group: bt
+    countries:
+        CZ: true
+sepadirectdebit:
+    group: rtbt
+    countries:
+        AT: true
+        CH: true
+        DE: true
+        DK: true
+        ES: true
+        FR: true
+        IT: true
+        NL: true
+        NO: true
+        PL: true
+        SE: true
+interac:
+    group: cc

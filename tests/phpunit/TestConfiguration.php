@@ -100,6 +100,7 @@ $wgDonationInterfaceGatewayAdapters = [
 	'dlocal' => TestingDlocalAdapter::class,
 	'paypal_ec' => TestingPaypalExpressAdapter::class,
 	'braintree' => BraintreeAdapter::class,
+	'gravy' => GravyAdapter::class,
 ];
 /**
  * Make sure the test setup is used, else we'll have the wrong classes.

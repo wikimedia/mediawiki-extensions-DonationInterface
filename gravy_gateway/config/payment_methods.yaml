@@ -1,0 +1,32 @@
+# TODO: this is a copy of our existing adyen methods as we'll be using adyen first via gravy.
+# However, once we add additional gateways, we might need to update this list.
+cc:
+    is_default: true
+    recurring: true
+    label: Credit Cards
+    validation:
+        country: true
+        name: true
+        email: true
+ach:
+    recurring: true
+    label: ACH direct debit
+    validation:
+        country: true
+        name: true
+        email: true
+        bank_account_type: true
+rtbt:
+    recurring: true
+    label: Real time bank transfer
+    validation:
+        country: true
+        name: true
+        email: true
+bt:
+    recurring: false
+    label: Bank Transfer
+    validation:
+      country: true
+      name: true
+      email: true
