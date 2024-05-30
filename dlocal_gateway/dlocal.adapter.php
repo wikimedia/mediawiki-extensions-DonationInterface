@@ -53,12 +53,13 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			return $this->getLocalizedValidationErrorResult( $createPaymentResponse->getValidationErrors() );
 		}
 
+		// Add the dLocal-generated transaction ID to the DonationData object
+		// to be sent to the queues
+		$this->addResponseData( [
+			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
+		] );
+
 		if ( $createPaymentResponse->requiresRedirect() ) {
-			// Add the dLocal-generated transaction ID to the DonationData object
-			// to be sent to the queues
-			$this->addResponseData( [
-				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
-			] );
 			// ... and ensure it is persisted in the php session
 			$this->session_addDonorData();
 
@@ -226,6 +227,10 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		PaymentDetailResponse $paymentDetailResponse,
 		IPaymentProvider $paymentProvider
 	): PaymentResult {
+		// Log details of the payment in case we need to reconstruct it for
+		// audit files. Note: this says 'redirecting' but we're not actually
+		// sending the donor off site.
+		$this->logPaymentDetails();
 		$transactionStatus = $paymentDetailResponse->getStatus();
 		$this->addCreatePaymentResponseData( $paymentDetailResponse );
 		$paymentResult = PaymentResult::newSuccess();
