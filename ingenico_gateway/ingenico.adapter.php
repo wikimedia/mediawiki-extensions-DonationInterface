@@ -317,7 +317,4 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		// We use account_config instead
 		$this->accountInfo = [];
 	}
-
-	protected function defineReturnValueMap() {
-	}
 }

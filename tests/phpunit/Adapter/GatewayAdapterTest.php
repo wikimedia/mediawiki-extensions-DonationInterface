@@ -44,7 +44,6 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::defineVarMap
-	 * @covers GatewayAdapter::defineReturnValueMap
 	 * @covers GatewayAdapter::defineTransactions
 	 */
 	public function testConstructor() {

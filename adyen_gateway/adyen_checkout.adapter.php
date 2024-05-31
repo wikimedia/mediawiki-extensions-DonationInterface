@@ -266,10 +266,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		$this->accountInfo = [];
 	}
 
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
-	}
-
 	protected function defineOrderIDMeta() {
 		$this->order_id_meta = [
 			'alt_locations' => [ 'request' => 'merchantReference' ],

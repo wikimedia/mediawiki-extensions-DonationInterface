@@ -50,9 +50,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 	public function definePaymentMethods() {
 	}
 
-	public function defineReturnValueMap() {
-	}
-
 	public function defineTransactions() {
 	}
 

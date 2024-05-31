@@ -103,7 +103,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $payment_submethods = [];
 
-	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
 
@@ -230,7 +229,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
-		$this->defineReturnValueMap();
 
 		$this->setGatewayDefaults( $options );
 
@@ -262,13 +260,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Values = The actual values for those keys. Probably have to access a global or two. (use getGlobal()!)
 	 */
 	abstract protected function defineAccountInfo();
-
-	/**
-	 * defineReturnValueMap sets up the $return_value_map array.
-	 * Keys = The different constants that may be contained as values in the gateway's response.
-	 * Values = what that string constant means to mediawiki.
-	 */
-	abstract protected function defineReturnValueMap();
 
 	/**
 	 * Sets up the $order_id_meta array.

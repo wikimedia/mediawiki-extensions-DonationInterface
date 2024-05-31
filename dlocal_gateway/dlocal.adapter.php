@@ -345,10 +345,6 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->accountInfo = $this->account_config;
 	}
 
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
-	}
-
 	/**
 	 * @param IPaymentProvider $paymentProvider
 	 * @return CreatePaymentResponse
