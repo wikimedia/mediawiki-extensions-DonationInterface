@@ -179,7 +179,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var bool
 	 */
 	public $posted = false;
-	protected $batch = false;
 
 	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -219,10 +218,6 @@ abstract class GatewayAdapter implements GatewayType {
 			'variant' => null,
 		];
 		$options = array_merge( $defaults, $options );
-		if ( array_key_exists( 'batch_mode', $options ) ) {
-			$this->batch = $options['batch_mode'];
-			unset( $options['batch_mode'] );
-		}
 		$this->errorState = new ErrorState();
 		$this->logger = DonationLoggerFactory::getLogger( $this );
 		$this->payment_init_logger = DonationLoggerFactory::getLogger( $this, '_payment_init' );
@@ -1943,9 +1938,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * be set to '0'.
 	 */
 	protected function incrementNumAttempt() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$this->session_ensure();
 		$attempts = $this->session_getData( 'numAttempt' ); // intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
@@ -2122,10 +2114,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->action = ValidationAction::PROCESS;
 		}
 		return $this->action;
-	}
-
-	public function isBatchProcessor() {
-		return $this->batch;
 	}
 
 	/**
@@ -2673,9 +2661,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This will be used internally every time we call do_transaction.
 	 */
 	public function session_addDonorData() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$this->session_ensure();
 		$sessionId = WmfFramework::getSessionId();
 		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId''" );
@@ -2694,9 +2679,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * reference will be gone.
 	 */
 	public function session_killAllEverything() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		SessionManager::getGlobalSession()->clear();
 	}
 
@@ -2725,9 +2707,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * mistake)
 	 */
 	public function session_resetForNewAttempt( $force = false ) {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$reset = $force;
 		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
@@ -2792,9 +2771,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$oldData = $this->session_getData( 'Donor' );
 		if ( !is_array( $oldData ) ) {
 			return;
@@ -3009,14 +2985,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		if ( $this->isBatchProcessor() ) {
-			// Can't use request or session from here.
-			$locations = array_diff_key( $locations, array_flip( [
-				'request',
-				'session',
-			] ) );
-		}
-
 		// Now pull all the locations and populate the candidate array.
 		$oid_candidates = [];
 
@@ -3129,9 +3097,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * should return NULL. I think.
 	 * @param string|null $override The pre-determined value of order_id.
 	 * When you want to normalize an order_id to something you have already
-	 * sorted out (anything running in batch mode is a good candidate - you
-	 * have probably grabbed a preexisting order_id from some external data
-	 * source in that case), short-circuit the hunting process and just take
+	 * sorted out, short-circuit the hunting process and just take
 	 * the override's word for order_id's final value.
 	 * Also used when receiving the order_id from external sources
 	 * (example: An API response)

@@ -201,13 +201,6 @@ interface GatewayType extends LogPrefixProvider {
 	public function setValidationAction( $action, $reset = false );
 
 	/**
-	 * Lets the outside world (particularly filters that accumulate points scores)
-	 * know if we are a batch processor.
-	 * @return bool
-	 */
-	public function isBatchProcessor();
-
-	/**
 	 * Set a value used to determine whether data has changed
 	 * @param string $hashval
 	 */
