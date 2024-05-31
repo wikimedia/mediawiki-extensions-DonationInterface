@@ -133,12 +133,12 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'gateway' => 'ingenico',
 			'supplemental_address_1' => '3rd floor',
 			'payment_submethod' => 'amex',
-			'user_ip' => '12.12.12.12',
+			'user_ip' => WmfFramework::getIP(),
 			'server_ip' => $request->getIP(),
 			'recurring' => '',
 		];
 
-		$adapter = $this->getFreshGatewayObject( self::$initial_vars, [ 'batch_mode' => true ] );
+		$adapter = $this->getFreshGatewayObject( self::$initial_vars );
 		$ddObj = new DonationData( $adapter, $expected ); // external data
 		$returned = $ddObj->getData();
 

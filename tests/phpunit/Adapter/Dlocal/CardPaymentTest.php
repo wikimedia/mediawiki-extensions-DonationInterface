@@ -360,11 +360,8 @@ class CardPaymentTest extends BaseDlocalTestCase {
 		$badOrderId = 12345;
 		$testDonorData['order_id'] = $badOrderId;
 
-		// enable batch mode so order_id can be overridden during adapter class setup - this is a setup hack.
-		$setup_hacks['batch_mode'] = true;
-
 		// instantiate the dLocal adapter and send in our setup hack flag and bad order_id
-		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData, $setup_hacks );
+		$DlocalAdapter = $this->getFreshGatewayObject( $testDonorData );
 
 		// fetch the order id generated during the adapter setup (bad order id should have been detected and reset)
 		$orderId = $DlocalAdapter->getData_Unstaged_Escaped( 'order_id' );

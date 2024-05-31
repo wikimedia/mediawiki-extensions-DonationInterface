@@ -43,9 +43,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		] );
 		$this->cache = new HashBagOStuff();
 		$this->setMainCache( $this->cache );
-		$this->gatewayAdapter = new TestingGenericAdapter( [
-			'batch_mode' => false
-		] );
+		$this->gatewayAdapter = new TestingGenericAdapter();
 	}
 
 	protected function tearDown(): void {

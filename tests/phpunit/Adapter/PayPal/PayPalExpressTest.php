@@ -694,10 +694,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	public function testProcessDonorReturnPaymentActionCompleted() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$options = [ 'batch_mode' => true ];
 		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
-		$gateway = $this->getFreshGatewayObject( $init, $options );
+		$gateway = $this->getFreshGatewayObject( $init );
 		$this->provider->expects( $this->once() )
 			->method( 'getLatestPaymentStatus' )
 			->with( [
@@ -750,10 +749,9 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 	public function testProcessDonorReturnTokenTimeout() {
 		$init = $this->getDonorTestData( 'US' );
 		$init['contribution_tracking_id'] = '45931210';
-		$options = [ 'batch_mode' => true ];
 		$this->setUpRequest( $init, [ 'Donor' => $init ] );
 
-		$gateway = $this->getFreshGatewayObject( $init, $options );
+		$gateway = $this->getFreshGatewayObject( $init );
 		$this->provider->expects( $this->once() )
 			->method( 'getLatestPaymentStatus' )
 			->with( [
