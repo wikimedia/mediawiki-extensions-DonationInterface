@@ -28,10 +28,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 	/** @var array */
 	public static $donationRules;
 
-	public function getCommunicationType() {
-		return 'xml';
-	}
-
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		return '12345';
 	}
@@ -73,9 +69,6 @@ class TestingGenericAdapter extends GatewayAdapter {
 	}
 
 	protected function defineVarMap() {
-	}
-
-	public function processResponse( $response ) {
 	}
 
 	protected function setGatewayDefaults( $options = [] ) {

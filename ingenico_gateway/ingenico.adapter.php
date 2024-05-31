@@ -18,14 +18,6 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 	const IDENTIFIER = 'ingenico';
 	const GLOBAL_PREFIX = 'wgIngenicoGateway';
 
-	public function getCommunicationType() {
-		return 'array';
-	}
-
-	public function getResponseType() {
-		return 'json';
-	}
-
 	/**
 	 * Setting some Ingenico-specific defaults.
 	 * @param array $options These get extracted in the parent.
