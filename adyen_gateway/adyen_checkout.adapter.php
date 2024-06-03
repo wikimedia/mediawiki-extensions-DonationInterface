@@ -209,10 +209,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 */
 	protected function tuneForPaymentMethod() {
 		switch ( $this->getPaymentMethod() ) {
-			case 'ach':
+			case 'dd':
 				$this->transactions['authorize']['request'] =
 					array_merge( $this->transactions['authorize']['request'], [
 						'supplemental_address_1',
+						'payment_submethod',
 						'encrypted_bank_account_number',
 						'encrypted_bank_location_id',
 						'bank_account_type',
@@ -322,7 +323,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'postal_code',
 				'city'
 			];
-		} elseif ( $method === 'ach' || ( $method === 'rtbt' && $submethod === 'sepadirectdebit' ) ) {
+		} elseif ( $method === 'dd' || ( $method === 'rtbt' && $submethod === 'sepadirectdebit' ) ) {
 			return [
 				'first_name',
 				'last_name',
@@ -506,7 +507,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc', 'google', 'apple', 'ach' ];
+		return [ 'cc', 'google', 'apple', 'dd' ];
 	}
 
 	/**

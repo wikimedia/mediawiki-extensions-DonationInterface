@@ -284,7 +284,7 @@
 	 */
 	function mapPaymentMethodToComponentType( paymentMethod ) {
 		switch ( paymentMethod ) {
-			case 'ach':
+			case 'dd':
 				return 'ach';
 			case 'cc':
 				return 'card';
@@ -343,7 +343,7 @@
 			// the onAuthorized handler.
 			if ( mw.donationInterface.validation.validate() && state.isValid ) {
 				switch ( payment_method ) {
-					case 'ach':
+					case 'dd':
 						extraData = {
 							encrypted_bank_account_number: state.data.paymentMethod.encryptedBankAccountNumber,
 							encrypted_bank_location_id: state.data.paymentMethod.encryptedBankLocationId,
