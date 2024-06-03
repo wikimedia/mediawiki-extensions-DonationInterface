@@ -64,6 +64,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 				'paypal_ec' => 'PaypalExpressAdapter',
 				'braintree' => 'BraintreeAdapter',
 				'dlocal' => 'DlocalAdapter',
+				'gravy' => 'GravyAdapter',
 			]
 		] );
 		$config = MediaWikiServices::getInstance()->getMainConfig();
