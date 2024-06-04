@@ -103,7 +103,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $payment_submethods = [];
 
-	protected $return_value_map;
 	protected $staged_data;
 	protected $unstaged_data;
 
@@ -113,14 +112,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var (StagingHelper|ValidationHelper)[]
 	 */
 	protected $data_transformers = [];
-
-	/**
-	 * For gateways that speak XML, we use this variable to hold the document
-	 * while we build the outgoing request.  TODO: move XML functions out of the
-	 * main gateway classes.
-	 * @var DomDocument
-	 */
-	protected $xmlDoc;
 
 	/**
 	 * @var DonationData
@@ -179,7 +170,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @var bool
 	 */
 	public $posted = false;
-	protected $batch = false;
 
 	// ALL OF THESE need to be redefined in the children. Much voodoo depends on the accuracy of these constants.
 	const GATEWAY_NAME = 'Donation Gateway';
@@ -188,22 +178,8 @@ abstract class GatewayAdapter implements GatewayType {
 	const DONOR = 'Donor';
 	const DONOR_BKUP = 'Donor_BKUP';
 
-	/**
-	 * This should be set to true for gateways that don't return the request in the response. @see buildLogXML()
-	 * @var bool
-	 */
-	public $log_outbound = false;
-
 	protected $order_id_candidates;
 	protected $order_id_meta;
-
-	/**
-	 * Default response type to be the same as communication type.
-	 * @return string
-	 */
-	public function getResponseType() {
-		return $this->getCommunicationType();
-	}
 
 	/**
 	 * Constructor
@@ -219,10 +195,6 @@ abstract class GatewayAdapter implements GatewayType {
 			'variant' => null,
 		];
 		$options = array_merge( $defaults, $options );
-		if ( array_key_exists( 'batch_mode', $options ) ) {
-			$this->batch = $options['batch_mode'];
-			unset( $options['batch_mode'] );
-		}
 		$this->errorState = new ErrorState();
 		$this->logger = DonationLoggerFactory::getLogger( $this );
 		$this->payment_init_logger = DonationLoggerFactory::getLogger( $this, '_payment_init' );
@@ -257,7 +229,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->defineTransactions();
 		$this->defineErrorMap();
 		$this->defineVarMap();
-		$this->defineReturnValueMap();
 
 		$this->setGatewayDefaults( $options );
 
@@ -289,13 +260,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Values = The actual values for those keys. Probably have to access a global or two. (use getGlobal()!)
 	 */
 	abstract protected function defineAccountInfo();
-
-	/**
-	 * defineReturnValueMap sets up the $return_value_map array.
-	 * Keys = The different constants that may be contained as values in the gateway's response.
-	 * Values = what that string constant means to mediawiki.
-	 */
-	abstract protected function defineReturnValueMap();
 
 	/**
 	 * Sets up the $order_id_meta array.
@@ -715,10 +679,9 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * This function is used exclusively by the two functions that build
-	 * requests to be sent directly to external payment gateway servers. Those
-	 * two functions are buildRequestNameValueString, and (perhaps less
-	 * obviously) buildRequestXML. As such, unless a valid current transaction
-	 * has already been set, this will error out rather hard.
+	 * requests to be sent directly to external payment gateway servers. As
+	 * such, unless a valid current transaction has already been set, this
+	 * will error out rather hard.
 	 * In other words: In all likelihood, this is not the function you're
 	 * looking for.
 	 * @param string $gateway_field_name The GATEWAY's field name that we are
@@ -799,21 +762,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->transactions[$transaction]['request'];
 	}
 
-	/**
-	 * Builds a set of transaction data in name/value format
-	 *  *)The current transaction must be set before you call this function.
-	 *  *)Uses getTransactionSpecificValue to assign staged values to the
-	 * fields required by the gateway. Look there for more insight into the
-	 * heirarchy of all possible data sources.
-	 * @return string The raw transaction in name/value format, ready to be
-	 * curl'd off to the remote server.
-	 */
-	protected function buildRequestNameValueString() {
-		$data = $this->buildRequestArray();
-		$ret = http_build_query( $data );
-		return $ret;
-	}
-
 	protected function buildRequestArray() {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
@@ -822,128 +770,6 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 		$callback = [ $this, 'getTransactionSpecificValue' ];
 		return ArrayHelper::buildRequestArray( $callback, $structure );
-	}
-
-	/**
-	 * Builds a set of transaction data in XML format
-	 *        *)The current transaction must be set before you call this function.
-	 *        *)(eventually) uses getTransactionSpecificValue to assign staged
-	 * values to the fields required by the gateway. Look there for more insight
-	 * into the heirarchy of all possible data sources.
-	 * @param string $rootElement Name of root element
-	 * @param string $encoding Character set to use for tag values
-	 * @return string The raw transaction in xml format, ready to be
-	 * curl'd off to the remote server.
-	 */
-	protected function buildRequestXML( $rootElement = 'XML', $encoding = 'UTF-8' ) {
-		$this->xmlDoc = new DomDocument( '1.0', $encoding );
-		$node = $this->xmlDoc->createElement( $rootElement );
-
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return '';
-		}
-
-		$this->buildTransactionNodes( $structure, $node );
-		$this->xmlDoc->appendChild( $node );
-		$return = $this->xmlDoc->saveXML();
-
-		if ( $this->log_outbound ) {
-			$message = "Request XML: ";
-			$full_structure = $this->transactions[$this->getCurrentTransaction()]; // if we've gotten this far, this exists.
-			if ( array_key_exists( 'never_log', $full_structure ) ) { // Danger Zone!
-				$message = "Cleaned $message";
-				// keep these totally separate. Do not want to risk sensitive information (like cvv) making it anywhere near the log.
-				$this->xmlDoc = new DomDocument( '1.0' );
-				$log_node = $this->xmlDoc->createElement( $rootElement );
-				// remove all never_log nodes from the structure
-				$log_structure = $this->cleanTransactionStructureForLogs( $structure, $full_structure['never_log'] );
-				$this->buildTransactionNodes( $log_structure, $log_node );
-				$this->xmlDoc->appendChild( $log_node );
-				$logme = $this->xmlDoc->saveXML();
-			} else {
-				// ...safe zone.
-				$logme = $return;
-			}
-			$this->logger->info( $message . $logme );
-		}
-
-		return $return;
-	}
-
-	/**
-	 * buildRequestXML helper function.
-	 * Builds the XML transaction by recursively crawling the transaction
-	 * structure and adding populated nodes by reference.
-	 * @param array $structure Current transaction's more leafward structure,
-	 * from the point of view of the current XML node.
-	 * @param DOMElement &$node The current XML node.
-	 */
-	protected function buildTransactionNodes( $structure, &$node ) {
-		if ( !is_array( $structure ) ) {
-			// this is a weird case that shouldn't ever happen. I'm just being... thorough. But, yeah: It's like... the base-1 case.
-			$this->appendNodeIfValue( $structure, $node );
-		} else {
-			foreach ( $structure as $key => $value ) {
-				if ( !is_array( $value ) ) {
-					// do not use $key, it's the numeric index here and $value is the field name
-					// FIXME: make tree traversal more readable.
-					$this->appendNodeIfValue( $value, $node );
-				} else {
-					// Recurse for child
-					$keynode = $this->xmlDoc->createElement( $key );
-					$this->buildTransactionNodes( $value, $keynode );
-					$node->appendChild( $keynode );
-				}
-			}
-		}
-		// not actually returning anything. It's all side-effects. Because I suck like that.
-	}
-
-	/**
-	 * Recursively sink through a transaction structure array to remove all
-	 * nodes that we can't have showing up in the server logs.
-	 * Mostly for CVV: If we log those, we are all fired.
-	 * @param array $structure The transaction structure that we want to clean.
-	 * @param array $never_log An array of values we should never log. These
-	 *  values should be the gateway's transaction nodes, rather than our normal values.
-	 * @return array $structure stripped of all references to the values in $never_log
-	 */
-	protected function cleanTransactionStructureForLogs( $structure, $never_log ) {
-		foreach ( $structure as $node => $value ) {
-			if ( is_array( $value ) ) {
-				$structure[$node] = $this->cleanTransactionStructureForLogs( $value, $never_log );
-			} else {
-				if ( in_array( $value, $never_log ) ) {
-					unset( $structure[$node] );
-				}
-			}
-		}
-		return $structure;
-	}
-
-	/**
-	 * appendNodeIfValue is a helper function for buildTransactionNodes, which
-	 * is used by buildRequestXML to construct an XML transaction.
-	 * This function will append an XML node to the transaction being built via
-	 * the passed-in parent node, only if the current node would have a
-	 * non-empty value.
-	 * @param string $value The GATEWAY's field name for the current node.
-	 * @param DOMElement &$node The parent node this node will be contained in, if it
-	 *  is determined to have a non-empty value.
-	 */
-	protected function appendNodeIfValue( $value, &$node ) {
-		$nodevalue = $this->getTransactionSpecificValue( $value );
-		if ( $nodevalue !== '' && $nodevalue !== false ) {
-			$temp = $this->xmlDoc->createElement( $value );
-
-			$data = null;
-			$data = $this->xmlDoc->createTextNode( $nodevalue );
-
-			$temp->appendChild( $data );
-			$node->appendChild( $temp );
-		}
 	}
 
 	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
@@ -1119,22 +945,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Process the API response obtained from the payment processor and set
-	 * properties of transaction_response.
-	 * Default implementation just says we got a response.
-	 *
-	 * @param array|DomDocument $response Cleaned-up response returned from
-	 * @see getFormattedResponse.  Type depends on $this->getResponseType
-	 * @throws ResponseProcessingException with an actionable error code and any
-	 *         variables to retry
-	 *
-	 * TODO: Move response parsing to a separate class.
-	 */
-	protected function processResponse( $response ) {
-		$this->transaction_response->setCommunicationStatus( true );
-	}
-
-	/**
 	 * Default implementation sets status to complete.
 	 * @param array $requestValues all GET and POST values from the request
 	 * @return PaymentResult
@@ -1184,150 +994,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $score;
 	}
 
-	/**
-	 * Check the response for general sanity - e.g. correct data format, keys exists
-	 * @param mixed $response Whatever came back from the API call
-	 * @return bool true if response looks sane
-	 */
-	protected function parseResponseCommunicationStatus( $response ) {
-		return true;
-	}
-
-	/**
-	 * Parse the response to get the errors in a format we can log and otherwise deal with.
-	 * @param mixed $response Whatever came back from the API call
-	 * @return array a key/value array of codes (if they exist) and messages.
-	 * TODO: Move to a parsing class, where these are part of an interface
-	 * rather than empty although non-abstract.
-	 */
-	protected function parseResponseErrors( $response ) {
-		return [];
-	}
-
-	/**
-	 * Harvest the data we need back from the gateway.
-	 * @param mixed $response Whatever came back from the API call
-	 * @return array a key/value array
-	 */
-	protected function parseResponseData( $response ) {
-		return [];
-	}
-
-	/**
-	 * Take the entire response string, and strip everything we don't care
-	 * about.  For instance: If it's XML, we only want correctly-formatted XML.
-	 * Headers must be killed off.
-	 * @param string $rawResponse hot off the curl
-	 * @return string|DomDocument|array depending on $this->getResponseType
-	 * @throws InvalidArgumentException
-	 * @throws LogicException
-	 */
-	protected function getFormattedResponse( $rawResponse ) {
-		$type = $this->getResponseType();
-		if ( $type === 'xml' ) {
-			$xmlString = $this->stripXMLResponseHeaders( $rawResponse );
-			$displayXML = $this->formatXmlString( $xmlString );
-			$realXML = new DomDocument( '1.0' );
-			// DO NOT alter the line below unless you are prepared to also alter the GC audit scripts.
-			// ...and everything that references "Raw XML Response"
-			// @TODO: All three of those things.
-			$this->logger->info( "Raw XML Response:\n" . $displayXML ); // I am apparently a huge fibber.
-			$realXML->loadXML( trim( $xmlString ) );
-			return $realXML;
-		}
-		// For anything else, delete all the headers and the blank line after
-		// Note: the negative lookahead is to ignore PayPal's HTTP continue header.
-		$noHeaders = preg_replace( '/^.*?(\r\n\r\n|\n\n)(?!HTTP\/)/ms', '', $rawResponse, 1 );
-		$this->logger->info( "Raw Response:" . $noHeaders );
-		switch ( $type ) {
-			case 'json':
-				return json_decode( $noHeaders, true );
-
-			case 'delimited':
-				$delimiter = $this->transaction_option( 'response_delimiter' );
-				$keys = $this->transaction_option( 'response_keys' );
-				if ( !$delimiter || !$keys ) {
-					throw new LogicException( 'Delimited transactions must define both response_delimiter and response_keys options' );
-				}
-				$values = explode( $delimiter, trim( $noHeaders ) );
-				$combined = array_combine( $keys, $values );
-				// @phan-suppress-next-line PhanTypeComparisonFromArray Signature changed in php8, remove when upgrade
-				if ( $combined === false ) {
-					throw new InvalidArgumentException( 'Wrong number of values found in delimited response.' );
-				}
-				return $combined;
-
-			case 'query_string':
-				$parsed = [];
-				parse_str( $noHeaders, $parsed );
-				return $parsed;
-		}
-		return $noHeaders;
-	}
-
-	protected function stripXMLResponseHeaders( $rawResponse ) {
-		$xmlStart = strpos( $rawResponse, '<?xml' );
-		if ( $xmlStart === false ) {
-			// I totally saw this happen one time. No XML, just <RESPONSE>...
-			// ...Weaken to almost no error checking.  Buckle up!
-			$xmlStart = strpos( $rawResponse, '<' );
-		}
-		if ( $xmlStart === false ) { // Still false. Your Head Asplode.
-			$this->logger->error( "Completely Mangled Response:\n" . $rawResponse );
-			return false;
-		}
-		$justXML = substr( $rawResponse, $xmlStart );
-		return $justXML;
-	}
-
-	/**
-	 * To avoid reinventing the wheel: taken from http://recursive-design.com/blog/2007/04/05/format-xml-with-php/
-	 * @param string $xml
-	 * @return string
-	 */
-	protected function formatXmlString( $xml ) {
-		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
-		$xml = preg_replace( '/(>)(<)(\/*)/', "$1\n$2$3", $xml );
-
-		// now indent the tags
-		$token = strtok( $xml, "\n" );
-		$result = ''; // holds formatted version as it is built
-		$pad = 0; // initial indent
-		$matches = []; // returns from preg_matches()
-		// FIXME The line below was added to keep existing functionality while preventing
-		// issues with uninitialized variables, but probably it should be moved to
-		// the first elseif in the while block, below. However, likely this code will
-		// be removed soon.
-		$nextLineIndentChange = 0;
-		// scan each line and adjust indent based on opening/closing tags
-		while ( $token !== false ) {
-			// test for the various tag states
-			// 1. open and closing tags on same line - no change
-			if ( preg_match( '/.+<\/\w[^>]*>$/', $token, $matches ) ) {
-				$nextLineIndentChange = 0;
-			} elseif ( preg_match( '/^<\/\w/', $token, $matches ) ) {
-				// 2. closing tag - outdent now
-				// FIXME set $nextLineIndentChange=0 here instead of initailizing
-				// outside the while loop. (See related comment, above.)
-				$pad--;
-			} elseif ( preg_match( '/^<\w[^>]*[^\/]>.*$/', $token, $matches ) ) {
-				// 3. opening tag - don't pad this one, only subsequent tags
-				$nextLineIndentChange = 1;
-			} else {
-				// 4. no indentation needed
-				$nextLineIndentChange = 0;
-			}
-
-			// pad the line with the required number of leading spaces
-			$line = str_pad( $token, strlen( $token ) + $pad, ' ', STR_PAD_LEFT );
-			$result .= $line . "\n"; // add to the cumulative result, with linefeed
-			$token = strtok( "\n" ); // get the next token
-			$pad += $nextLineIndentChange; // update the pad size for subsequent lines
-		}
-
-		return $result;
-	}
-
 	public static function getGatewayName() {
 		$c = get_called_class();
 		return $c::GATEWAY_NAME;
@@ -1364,102 +1030,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 		return $enabledGateways;
-	}
-
-	protected function xmlChildrenToArray( $xml, $nodename ) {
-		$data = [];
-		foreach ( $xml->getElementsByTagName( $nodename ) as $node ) {
-			foreach ( $node->childNodes as $childnode ) {
-				if ( trim( $childnode->nodeValue ) != '' ) {
-					$data[$childnode->nodeName] = $childnode->nodeValue;
-				}
-			}
-		}
-		return $data;
-	}
-
-	/**
-	 * addCodeRange is used to define ranges of response codes for major
-	 * gateway transactions, that let us know what status bucket to sort
-	 * them into.
-	 * DO NOT DEFINE OVERLAPPING RANGES!
-	 * TODO: Make sure it won't let you add overlapping ranges. That would
-	 * probably necessitate the sort moving to here, too.
-	 * @param string $transaction The transaction these codes map to.
-	 * @param string $key The (incoming) field name containing the numeric codes
-	 * we're defining here.
-	 * @param string $action One of the constants defined in @see FinalStatus.
-	 * @param int $lower The integer value of the lower-bound in this code range.
-	 * @param int|null $upper Optional: The integer value of the upper-bound in the
-	 * code range. If omitted, it will make a range of one value: The lower bound.
-	 * @throws UnexpectedValueException
-	 * @return void
-	 */
-	protected function addCodeRange( $transaction, $key, $action, $lower, $upper = null ) {
-		if ( $upper === null ) {
-			$this->return_value_map[$transaction][$key][$lower] = $action;
-		} else {
-			$this->return_value_map[$transaction][$key][$upper] = [ 'action' => $action, 'lower' => $lower ];
-		}
-	}
-
-	/**
-	 * findCodeAction
-	 *
-	 * @param string $transaction
-	 * @param string $key The key to lookup in the transaction such as STATUSID
-	 * @param int|string $code This gets converted to an integer if the values is numeric.
-	 * FIXME: We should be pulling $code out of the current transaction fields, internally.
-	 * FIXME: Rename to reflect that these are Final Status values, not validation actions
-	 * @return null|string Returns the code action if a valid code is supplied. Otherwise, the return is null.
-	 */
-	public function findCodeAction( $transaction, $key, $code ) {
-		$this->profiler->getStopwatch( __FUNCTION__, true );
-
-		// Do not allow anything that is not numeric
-		if ( !is_numeric( $code ) ) {
-			return null;
-		}
-
-		// Cast the code as an integer
-		settype( $code, 'integer' );
-
-		// Check to see if the transaction is defined
-		if ( !array_key_exists( $transaction, $this->return_value_map ) ) {
-			return null;
-		}
-
-		// Verify the key exists within the transaction
-		if ( !array_key_exists( $key, $this->return_value_map[ $transaction ] ) || !is_array( $this->return_value_map[ $transaction ][ $key ] ) ) {
-			return null;
-		}
-
-		// sort the array so we can do this quickly.
-		ksort( $this->return_value_map[ $transaction ][ $key ], SORT_NUMERIC );
-
-		$ranges = $this->return_value_map[ $transaction ][ $key ];
-		// so, you have a code, which is a number. You also have a numerically sorted array.
-		// loop through until you find an upper >= your code.
-		// make sure it's in the range, and return the action.
-		foreach ( $ranges as $upper => $val ) {
-			if ( $upper >= $code ) { // you've arrived. It's either here or it's nowhere.
-				if ( is_array( $val ) ) {
-					if ( $val['lower'] <= $code ) {
-						return $val['action'];
-					} else {
-						return null;
-					}
-				} else {
-					if ( $upper === $code ) {
-						return $val;
-					} else {
-						return null;
-					}
-				}
-			}
-		}
-		// if we walk straight off the end...
-		return null;
 	}
 
 	/**
@@ -1629,25 +1199,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Executes the specified function in $this, if one exists.
-	 * NOTE: THIS WILL LCASE YOUR FUNCTION_NAME.
-	 * ...I like to keep the voodoo functions tidy.
-	 * @param string $function_name The name of the function you're hoping to
-	 * execute.
-	 * @param mixed|null $parameter That's right: For now you only get one.
-	 * @return bool True if a function was found and executed.
-	 */
-	protected function executeIfFunctionExists( $function_name, $parameter = null ) {
-		$function_name = strtolower( $function_name ); // Because, that's why.
-		if ( method_exists( $this, $function_name ) ) {
-			$this->{$function_name}( $parameter );
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
 	 * Run any staging DataTransformers configured for the adapter
 	 */
 	protected function stageData() {
@@ -1717,31 +1268,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 		}
 		return $value;
-	}
-
-	/**
-	 * Build the parameters sent with the next request.
-	 *
-	 * @return array Parameters as a map.
-	 */
-	public function buildRequestParams() {
-		// Look up the request structure for our current transaction type in the transactions array
-		$structure = $this->getTransactionRequestStructure();
-		if ( !is_array( $structure ) ) {
-			return [];
-		}
-
-		$queryparams = [];
-
-		// we are going to assume a flat array, because... namevalue.
-		foreach ( $structure as $fieldname ) {
-			$fieldvalue = $this->getTransactionSpecificValue( $fieldname );
-			if ( $fieldvalue !== '' && $fieldvalue !== false ) {
-				$queryparams[ $fieldname ] = $fieldvalue;
-			}
-		}
-
-		return $queryparams;
 	}
 
 	public function getTransactionResponse() {
@@ -1943,9 +1469,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * be set to '0'.
 	 */
 	protected function incrementNumAttempt() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$this->session_ensure();
 		$attempts = $this->session_getData( 'numAttempt' ); // intentionally outside the 'Donor' key.
 		if ( is_numeric( $attempts ) ) {
@@ -2122,10 +1645,6 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->action = ValidationAction::PROCESS;
 		}
 		return $this->action;
-	}
-
-	public function isBatchProcessor() {
-		return $this->batch;
 	}
 
 	/**
@@ -2604,14 +2123,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->account_config[$key];
 	}
 
-	/**
-	 * For places that might need the merchant ID outside of the adapter
-	 * @deprecated
-	 */
-	public function getMerchantID() {
-		return $this->account_config[ 'MerchantID' ];
-	}
-
 	public function session_ensure() {
 		WmfFramework::setupSession();
 	}
@@ -2673,9 +2184,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * This will be used internally every time we call do_transaction.
 	 */
 	public function session_addDonorData() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$this->session_ensure();
 		$sessionId = WmfFramework::getSessionId();
 		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId''" );
@@ -2694,9 +2202,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * reference will be gone.
 	 */
 	public function session_killAllEverything() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		SessionManager::getGlobalSession()->clear();
 	}
 
@@ -2725,9 +2230,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * mistake)
 	 */
 	public function session_resetForNewAttempt( $force = false ) {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$reset = $force;
 		if ( $this->session_getData( 'numAttempt' ) > 3 ) {
 			$reset = true;
@@ -2792,9 +2294,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * want to do yet, like assigning order ID and saving contribution tracking.
 	 */
 	protected function session_resetOnSwitch() {
-		if ( $this->isBatchProcessor() ) {
-			return;
-		}
 		$oldData = $this->session_getData( 'Donor' );
 		if ( !is_array( $oldData ) ) {
 			return;
@@ -3009,14 +2508,6 @@ abstract class GatewayAdapter implements GatewayType {
 			}
 		}
 
-		if ( $this->isBatchProcessor() ) {
-			// Can't use request or session from here.
-			$locations = array_diff_key( $locations, array_flip( [
-				'request',
-				'session',
-			] ) );
-		}
-
 		// Now pull all the locations and populate the candidate array.
 		$oid_candidates = [];
 
@@ -3129,9 +2620,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 * should return NULL. I think.
 	 * @param string|null $override The pre-determined value of order_id.
 	 * When you want to normalize an order_id to something you have already
-	 * sorted out (anything running in batch mode is a good candidate - you
-	 * have probably grabbed a preexisting order_id from some external data
-	 * source in that case), short-circuit the hunting process and just take
+	 * sorted out, short-circuit the hunting process and just take
 	 * the override's word for order_id's final value.
 	 * Also used when receiving the order_id from external sources
 	 * (example: An API response)
@@ -3380,35 +2869,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return $submethods;
 	}
 
-	/**
-	 * Returns some useful debugging JSON we can append to loglines for
-	 * increased debugging happiness.
-	 * This is working pretty well for debugging GatewayChooser problems, so
-	 * let's use it other places. Still, this should probably still be used
-	 * sparingly...
-	 * @return string JSON-encoded donation data
-	 */
-	public function getLogDebugJSON() {
-		$logObj = [
-			'amount',
-			'country',
-			'currency',
-			'payment_method',
-			'payment_submethod',
-			'recurring',
-			'gateway',
-			'utm_source',
-			'referrer',
-		];
-
-		foreach ( $logObj as $key => $value ) {
-			$logObj[$value] = $this->getData_Unstaged_Escaped( $value );
-			unset( $logObj[$key] );
-		}
-
-		return json_encode( $logObj );
-	}
-
 	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
 		$json = json_encode( $details );
@@ -3485,70 +2945,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function cancel() {
 		return PaymentResult::newFailure();
-	}
-
-	/**
-	 * Looks at message to see if it should be rectified
-	 * Allows exit if the adapter should not rectify the orphan
-	 * Then tries to see if the orphan can be matched
-	 * @return PaymentResult
-	 */
-	public function rectifyOrphan() {
-		if ( !$this->shouldRectifyOrphan() ) {
-			// Skip other payment methods which shouldn't be in the pending
-			// queue anyway.  See https://phabricator.wikimedia.org/T161160
-			$this->logger->info( "Skipping  pending record." );
-			return PaymentResult::newEmpty();
-		}
-		$this->logger->info( "Rectifying orphan: {$this->getData_Staged( 'order_id' )}" );
-		$civiId = $this->getData_Unstaged_Escaped( 'contribution_id' );
-		$ctId = $this->getData_Unstaged_Escaped( 'contribution_tracking_id' );
-		if ( $civiId ) {
-			$this->logger->error(
-				$ctId .
-				": Contribution tracking already has contribution_id $civiId.  " .
-				'Stop confusing donors!'
-			);
-			$paymentResult = $this->cancel();
-		} else {
-			$params = $this->createDonorReturnParams();
-			$paymentResult = $this->processDonorReturn( $params );
-			if ( !$paymentResult->isFailed() ) {
-				$this->logger->info( $ctId . ': FINAL: Rectified' );
-				return $paymentResult;
-			} else {
-				$this->errorState->addErrors( $paymentResult->getErrors() );
-				$this->logger->error( $ctId . ': ERRORS ' . print_r( $this->errorState, true ) );
-			}
-		}
-		return $paymentResult;
-	}
-
-	/**
-	 * @return PaymentTransactionResponse
-	 */
-	protected function getFailedValidationResponse() {
-		$return = new PaymentTransactionResponse();
-		$return->setCommunicationStatus( false );
-		$return->setMessage( 'Failed data validation' );
-		foreach ( $this->errorState->getErrors() as $error ) {
-			$return->addError( $error );
-		}
-		return $return;
-	}
-
-	/**
-	 * Allows adapters to specify curl response format requirements
-	 * (e.g. xml, json, other custom format)
-	 *
-	 * Defaults to true to allow any response format where check not needed.
-	 *
-	 * @param mixed $curl_response
-	 *
-	 * @return bool
-	 */
-	protected function curlResponseIsValidFormat( $curl_response ) {
-		return true;
 	}
 
 	/**

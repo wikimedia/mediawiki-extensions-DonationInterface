@@ -27,10 +27,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		];
 	}
 
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
-	}
-
 	/**
 	 *
 	 * @param CreatePaymentResponse $createPaymentResult
@@ -135,10 +131,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		// If we DON'T need to redirect, handle the fraud checks and any
 		// necessary payment capture step here and now.
 		return $this->handleCreatedPayment( $createPaymentResult, $provider );
-	}
-
-	public function getCommunicationType() {
-		return 'array';
 	}
 
 	protected function defineTransactions() {

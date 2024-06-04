@@ -26,20 +26,8 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	const IDENTIFIER = 'paypal_ec';
 	const GLOBAL_PREFIX = 'wgPaypalExpressGateway';
 
-	public function getCommunicationType() {
-		return 'namevalue';
-	}
-
-	public function getResponseType() {
-		return 'query_string';
-	}
-
 	protected function defineAccountInfo() {
 		$this->accountInfo = [];
-	}
-
-	protected function defineReturnValueMap() {
-		$this->return_value_map = [];
 	}
 
 	/**

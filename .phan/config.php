@@ -26,7 +26,6 @@ $cfg['directory_list'] = array_merge(
 		'form_variants/',
 		'gateway_common/',
 		'gateway_forms/',
-		'globalcollect_gateway/',
 		'ingenico_gateway/',
 		'modules/',
 		'paypal_ec_gateway/',

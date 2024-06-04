@@ -91,7 +91,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 		GatewayType $gateway_adapter,
 		$custom_filter_object
 	) {
-		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
+		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}
 		return self::$instance;

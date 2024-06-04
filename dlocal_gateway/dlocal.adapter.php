@@ -128,12 +128,6 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->handleCreatedPayment( $paymentStatusResult, $paymentProvider );
 	}
 
-	public function getCommunicationType() {
-		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
-		// TODO: Implement getCommunicationType() method.
-		throw new LogicException( 'Not implemented' );
-	}
-
 	protected function getBasedir() {
 		return __DIR__;
 	}
@@ -349,10 +343,6 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 
 	protected function defineAccountInfo() {
 		$this->accountInfo = $this->account_config;
-	}
-
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
 	}
 
 	/**

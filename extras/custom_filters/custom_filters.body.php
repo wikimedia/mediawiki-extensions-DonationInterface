@@ -41,9 +41,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 		// load user action ranges and risk score
 		$this->action_ranges = $this->gateway_adapter->getGlobal( 'CustomFiltersActionRanges' );
-		if ( !$gateway_adapter->isBatchProcessor() ) {
-			$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
-		}
+		$this->risk_score = WmfFramework::getSessionValue( 'risk_scores' );
 		if ( !$this->risk_score ) {
 			$this->risk_score = [];
 		} else {
@@ -159,10 +157,8 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			// Resets the ip velocity filter to ensure multiple suspicious attempts don't get a free pass.
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
 		}
-		if ( !$this->gateway_adapter->isBatchProcessor() ) {
-			// Always keep the stored scores up to date
-			WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
-		}
+		// Always keep the stored scores up to date
+		WmfFramework::setSessionValue( 'risk_scores', $this->risk_score );
 
 		return true;
 	}
@@ -184,7 +180,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	}
 
 	public static function singleton( GatewayType $gateway_adapter ) {
-		if ( !self::$instance || $gateway_adapter->isBatchProcessor() ) {
+		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}
 		return self::$instance;

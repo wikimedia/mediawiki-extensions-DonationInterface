@@ -1,3 +1,5 @@
+# TODO: this is a copy of our existing adyen submethods as we'll be using adyen first via gravy.
+# However, once we add additional gateways, we might need to update this list.
 cb:
     countries:
         FR: true
@@ -90,7 +92,3 @@ sepadirectdebit:
         SE: true
 interac:
     group: cc
-ach:
-    group: dd
-    countries:
-        US: true

@@ -12,6 +12,7 @@ full_name: full_name
 issuer_id: issuer_id
 last_name: last_name
 order_id: order_id
+payment_submethod: payment_submethod
 payment_token: payment_token
 postal_code: postal_code
 return_url: return_url
