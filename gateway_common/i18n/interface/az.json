@@ -264,6 +264,7 @@
 	"donate_interface-zip": "Zip",
 	"donate_interface-zip-code": "Zip kodu",
 	"donate_interface-country": "Ölkə",
+	"donate_interface-confirm-email": "E-poçtu təsdiq et",
 	"donate_interface-name-on-card": "Kartın adı",
 	"donate_interface-type-of-card": "Kartın tipi",
 	"donate_interface-card-type": "Kart tipi",
