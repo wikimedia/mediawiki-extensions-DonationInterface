@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			555,
 			"Adamw",
 			"Alchimista",
 			"Athena in Wonderland",
@@ -26,8 +27,7 @@
 			"Pgehres (WMF)",
 			"Ppena",
 			"SandroHc",
-			"Vitorvicentevalente",
-			555
+			"Vitorvicentevalente"
 		]
 	},
 	"donate_interface": "Apoie a Wikimedia",
