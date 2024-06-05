@@ -95,7 +95,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
 		];
 		if ( !$this->getPaymentSubmethod() ) {
-			$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod();
+			$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
 		}
 
 		if ( !$this->getPaymentMethod() ) {

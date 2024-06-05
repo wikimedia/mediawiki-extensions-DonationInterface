@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			555,
 			"Adamw",
 			"Albertoleoncio",
 			"Araceletorres",
@@ -31,8 +32,7 @@
 			"Smmvinicius",
 			"Stephanyb76",
 			"Walesson",
-			"YuriNikolai",
-			555
+			"YuriNikolai"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
