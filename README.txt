@@ -154,18 +154,9 @@ $wgDonationInterfaceUseSyslog = false
 $wgDonationInterfaceSaveCommStats = false
 
 Set to true to allow debug level log messages.
-TODO: Deprecate and show how to accomplish the same thing using Monolog
-configuration.
-
-$wgDonationInterfaceDebugLog = false
-
-Use sparingly, preferably for a single gateway.  When true, log verbose
-cURL output (including IPs resolved) at info level.
-
-$wgDonationInterfaceCurlVerboseLog = false
+$wgDonationInterfaceLogDebug = false
 
 As donations are sent to the "donations" queue, also log the json blob.
-
 $wgDonationInterfaceLogCompleted = false
 
 ==== Currency and amounts ====
