@@ -69,6 +69,7 @@ global $wgDonationInterfaceTest,
 	$wgAmazonGatewayNotifyOnConvert,
 	$wgAdyenCheckoutGatewayURL,
 	$wgAdyenCheckoutGatewayAccountInfo,
+	$wgGravyGatewayAccountInfo,
 	$wgDlocalGatewayAccountInfo,
 	$wgDlocalGatewayFallbackCurrency,
 	$wgDonationInterfaceMinFraudAccountId,
@@ -167,6 +168,13 @@ $wgDonationInterfaceMinFraudLicenseKey = 'testkey';
 
 $wgDonationInterfaceMinFraudClientOptions = [
 	'host' => 'minfraud.wikimedia.org',
+];
+
+/** Gravy */
+$wgGravyGatewayID = 'TestID';
+$wgGravyGatewayAccountInfo['WikimediaDonations'] = [
+	'secureFieldsJS' => "https://cdn.$wgGravyGatewayID.gravy.app/secure-fields/latest/secure-fields.js",
+	'secureFieldsCSS' => "https://cdn.$wgGravyGatewayID.gravy.app/secure-fields/latest/secure-fields.css"
 ];
 
 // still can't quite handle minFraud by itself yet, so default like this.

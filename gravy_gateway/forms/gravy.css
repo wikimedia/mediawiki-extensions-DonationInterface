@@ -1,0 +1,28 @@
+   form#payment-form input[type='email'],
+   form#payment-form input[type='text'] {
+       font-size: 16px;
+       font-weight: 400;
+       line-height: normal;
+   }
+
+.secure-fields__input{
+    width: 100%;
+    height: 40px;
+    border: 1px solid #a2a9b1;
+}
+
+/* card input space with the card icon */
+.GravyField {
+	padding: 0 0.8em;
+	border: 1px solid #a2a9b1;
+	border-radius: 2px;
+}
+
+.GravyField--invalid, .GravyField--focus.GravyField--invalid {
+    /* Note: coordinate with errorHighlight in skinOverride.css */
+    border: 2px solid #f00;
+}
+
+.GravyField--invalid-text {
+    color: #f00;
+}

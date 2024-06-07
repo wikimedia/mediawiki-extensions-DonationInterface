@@ -10,6 +10,7 @@
 			"adyen_gateway",
 			"amazon_gateway",
 			"dlocal_gateway",
+			"gravy_gateway",
 			"extras",
 			"gateway_common",
 			"gateway_forms",
