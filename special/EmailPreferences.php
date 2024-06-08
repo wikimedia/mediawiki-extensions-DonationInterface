@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\Extension\CLDR\LanguageNames;
 use SmashPig\Core\DataStores\QueueWrapper;
 
 class EmailPreferences extends UnlistedSpecialPage {
