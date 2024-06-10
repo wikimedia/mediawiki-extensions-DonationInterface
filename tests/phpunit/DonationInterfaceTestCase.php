@@ -17,6 +17,7 @@
  */
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -470,6 +471,9 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		// Reset SmashPig context
 		Context::set();
 		self::setUpSmashPigContext();
+		// Clear out our HashBagOStuff, used for testing
+		MediaWikiServices::getInstance()->getObjectCacheFactory()
+			->getLocalClusterInstance()->clear();
 		DonationLoggerFactory::$overrideLogger = null;
 	}
 
