@@ -1052,9 +1052,6 @@ class DonationData implements LogPrefixProvider {
 			'full_name',
 			'fiscal_number',
 			'initial_scheme_transaction_id',
-			'encrypted_bank_account_number',
-			'encrypted_bank_location_id',
-			'bank_account_type',
 		];
 	}
 
