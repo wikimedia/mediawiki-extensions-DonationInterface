@@ -4,6 +4,7 @@
 	var checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
 		payment_method = $( '#payment_method' ).val(),
+		onBrandSubmethod = '',
 		country = $( '#country' ).val(),
 		language = $( '#language' ).val(),
 		// This is the old-style Google Pay integration type currently active on
@@ -33,6 +34,9 @@
 					var message = brandInfo.brand ?
 						'onBrand returned brand: ' + brandInfo.brand :
 						'onBrand returned: ' + JSON.stringify( brandInfo );
+					if ( brandInfo.brand ) {
+						onBrandSubmethod = brandInfo.brand;
+					}
 					mw.donationInterface.forms.addDebugMessage( message );
 				};
 
@@ -392,7 +396,7 @@
 							// The code should be available in state.data.paymentMethod.brand, but
 							// sometimes it's not there. We can usually still find it via component.
 							payment_submethod: mapAdyenSubmethod(
-								state.data.paymentMethod.brand || component.state.brand
+								state.data.paymentMethod.brand || component.state.brand || onBrandSubmethod
 							)
 						};
 						if ( state.data.browserInfo ) {
