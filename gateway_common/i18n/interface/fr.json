@@ -38,7 +38,8 @@
 			"Windes",
 			"Wladek92",
 			"Wyz",
-			"Y-M D"
+			"Y-M D",
+			"MacOS Weed"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -466,7 +467,7 @@
 	"donate_interface-email-optin-fail": "Une erreur s’est produite lors du traitement de votre requête. Veuillez contacter <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">cliquez ici pour réessayer</a>.",
 	"donate_interface-faqs": "Foire aux questions",
 	"donate_interface-tax-info": "Informations sur les conditions de déductibilité fiscale",
-	"donate_interface-informationsharing": "Nous ne vendons, ni ne commercialisons vos informations à quiconque. En faisant ce don, vous acceptez de partager vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui gère Wikipédia, les autres projets de Wikimedia, ainsi que les prestataires de services conformément à notre <a href=\"$1\">politique de confidentialité en matière de donation</a>. La Wikimedia Foundation et ses prestataires sont situés aux États-Unis et dans d’autres pays dont les lois sur la confidentialité des données peuvent différer des vôtres. Pour plus d’informations, nous vous demandons de bien vouloir lire notre <a href=\"$1\">politique de confidentialité en matière de donation</a>.",
+	"donate_interface-informationsharing": "Nous ne commercialisons pas vos données et ne les vendons à personne. En faisant ce don, vous acceptez de partager vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui gère Wikipédia, les autres projets Wikimedia, ainsi que les prestataires de services conformément à notre <a href=\"$1\">politique de confidentialité en matière de donation</a>. La Wikimedia Foundation et ses prestataires sont situés aux États-Unis et dans d’autres pays dont les lois sur la confidentialité des données peuvent différer des vôtres. Pour plus d’informations, nous vous demandons de bien vouloir lire notre <a href=\"$1\">politique de confidentialité en matière de donation</a>.",
 	"donate_interface-currency-change": "Changer ?",
 	"donate_interface-bank_transfer_message": "Veuillez noter que votre relevé de compte mentionnera « Global Collect » en tant que bénéficiaire de ce don. Global Collect est autorisé à accepter et traiter les paiements au nom de la Fondation Wikimedia. N’oubliez pas de mentionner le numéro de référence fourni ici dans votre ordre de virement bancaire et n’hésitez pas à adresser un courriel à $1 si vous avez des questions ou préoccupations.",
 	"donate_interface-globalcollect-proxy": "Veuillez noter que votre relevé indiquera « <i>Global Collect</i> » comme bénéficiaire de ce don. <i>Global Collect</i> est autorisé à accepter et prendre en charge les paiements pour le compte de la Wikimedia Foundation.",
@@ -482,7 +483,7 @@
 	"donate_interface-monthlybox-yes": "Bien sûr, le faire mensuellement",
 	"donate_interface-monthlybox-no": "NON, faire un don une seule fois",
 	"donate_interface-monthlybox-bottom": "Votre don sera effectué de manière sécurisée.",
-	"donate_interface-monthly-cancel": "Pour les donateurs mensualisés, un montant fixe vous sera prélevé par la Wikimedia Foundation le même jour chaque mois et ce jusqu’à ce que vous nous informiez que vous souhaitez y mettre fin. Pour les dons démarrés le 29, 30 ou 31 du mois, les prélèvements suivants seront effectués le dernier jour du mois pour les mois plus courts, à la date la plus proche possible de celle du premier don. Pour toutes questions, veuillez contacter $1.",
+	"donate_interface-monthly-cancel": "En cas de don mensuel, un montant fixe vous sera prélevé par la Wikimedia Foundation le même jour chaque mois et ce jusqu’à ce que vous nous informiez que vous souhaitez y mettre fin. Pour les dons démarrés le 29, 30 ou 31 du mois, les prélèvements suivants seront effectués le dernier jour du mois pour les mois plus courts, à la date la plus proche possible de celle du premier don. Pour toutes questions, veuillez contacter $1.",
 	"donate_interface-onetime": "Faire un don ponctuel",
 	"donate_interface-monthly-short": "Don mensuel",
 	"donate_interface-onetime-short": "Don ponctuel",
