@@ -85,15 +85,9 @@ class GravyAdapter extends GatewayAdapter {
 		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
 	): PaymentResult {
 		$transactionStatus = $authorizeResult->getStatus();
-		$responseData = [];
-		if ( !$this->getPaymentSubmethod() ) {
-			$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
-		}
 
-		if ( !$this->getPaymentMethod() ) {
-			$responseData['payment_method'] = $authorizeResult->getPaymentMethod();
-		}
-		$this->addResponseData( $responseData );
+		// Ensure required DonationData information are filled
+		$this->updateResponseData( $authorizeResult );
 
 		// When authorization is successful but capture fails (or is not
 		// attempted because our ValidationAction is 'review', we still
@@ -141,18 +135,9 @@ class GravyAdapter extends GatewayAdapter {
 		}
 
 		if ( $authorizeResult->isSuccessful() ) {
-			// recurring will return a token on the auth, save token only if result is successful
-			$recurringToken = $authorizeResult->getRecurringPaymentToken();
-			if ( $recurringToken ) {
-				$this->addResponseData( [
-					'recurring_payment_token' => $recurringToken,
-					'processor_contact_id' => $authorizeResult->getProcessorContactID()
-				] );
-				if ( $this->showMonthlyConvert() ) {
-					$this->session_addDonorData();
-				}
-			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
-				$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
+			// save donor data for recur conversion
+			if ( $authorizeResult->getRecurringPaymentToken() && $this->showMonthlyConvert() ) {
+				$this->session_addDonorData();
 			}
 		}
 
@@ -376,6 +361,36 @@ class GravyAdapter extends GatewayAdapter {
 			);
 		}
 		return PaymentResult::newRefresh( $localizedErrors );
+	}
+
+	protected function updateResponseData( PaymentDetailResponse $authorizeResult ) {
+		$responseData = [];
+
+		// Add the gravy-generated transaction ID to the DonationData object
+		// to be sent to the queues
+		if ( $authorizeResult->isSuccessful() ) {
+			$this->addResponseData( [
+				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
+			] );
+
+			if ( $authorizeResult->getRecurringPaymentToken() != null ) {
+				$responseData['recurring_payment_token'] = $authorizeResult->getRecurringPaymentToken();
+			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
+				$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
+			}
+
+			if ( $authorizeResult->getProcessorContactID() != null ) {
+				$responseData['processor_contact_id'] = $authorizeResult->getProcessorContactID();
+			}
+			if ( !$this->getPaymentSubmethod() ) {
+				$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
+			}
+			if ( !$this->getPaymentMethod() ) {
+				$responseData['payment_method'] = $authorizeResult->getPaymentMethod();
+			}
+		}
+
+		$this->addResponseData( $responseData );
 	}
 
 }
