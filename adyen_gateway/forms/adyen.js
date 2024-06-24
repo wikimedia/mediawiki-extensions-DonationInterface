@@ -493,7 +493,7 @@
 
 	function setLocaleAndTranslations( config, localeFromServer ) {
 		// Adyen supports the locales listed below, according to
-		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
+		// https://docs.adyen.com/online-payments/classic-integrations/checkout-sdks/web-sdk/customization/localization/
 		var adyenSupportedLocale = [
 			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
 			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
@@ -548,6 +548,10 @@
 			config.translations[ config.locale ] = {};
 		}
 
+		// if sepa, update holder name to account holder name
+		if ( mw.config.get( 'payment_submethod' ) === 'sepadirectdebit' ) {
+			config.translations[ config.locale ][ 'sepa.ownerName' ] = mw.msg( 'donate_interface-bt-account_holder' );
+		}
 		// Allow other scripts (e.g. variants) to provide more translations to the Adyen components
 		if ( mw.donationInterface.extraTranslations ) {
 			$.extend( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
