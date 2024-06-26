@@ -78,16 +78,33 @@ sepadirectdebit:
     group: rtbt
     countries:
         AT: true
+        BE: true
+        BG: true
         CH: true
+        CY: true
+        CZ: true
         DE: true
         DK: true
+        EE: true
         ES: true
         FR: true
+        GR: true
+        HR: true
+        HU: true
+        IE: true
         IT: true
+        LT: true
+        LU: true
+        LV: true
+        MT: true
         NL: true
         NO: true
         PL: true
+        PT: true
+        RO: true
         SE: true
+        SI: true
+        SK: true
 interac:
     group: cc
 ach:

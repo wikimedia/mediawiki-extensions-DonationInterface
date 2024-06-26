@@ -261,7 +261,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'CN', 'currency' => 'CNY' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CO', 'currency' => 'COP' ], 'DlocalGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CR', 'currency' => 'CRC' ], 'AdyenCheckoutGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'CY', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'CY', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'CZ', 'currency' => 'CZK' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DE', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DK', 'currency' => 'DKK' ], 'AdyenCheckoutGateway' ],
@@ -269,7 +269,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'DO', 'currency' => 'DOP' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'DZ', 'currency' => 'DZD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'EC', 'currency' => 'USD' ], 'IngenicoGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'EE', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'EE', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'EG', 'currency' => 'EGP' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'ES', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'FI', 'currency' => 'EUR' ], 'IngenicoGateway' ],
@@ -304,14 +304,14 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'LB', 'currency' => 'LBP' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'LI', 'currency' => 'CHF' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'LK', 'currency' => 'LKR' ], 'AdyenCheckoutGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'LT', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'LT', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'LU', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'LV', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MA', 'currency' => 'MAD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MH', 'currency' => 'USD' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MK', 'currency' => 'MKD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MP', 'currency' => 'USD' ], 'IngenicoGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'MT', 'currency' => 'EUR' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'MT', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MV', 'currency' => 'MVR' ], 'IngenicoGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MX', 'currency' => 'MXN' ], 'DlocalGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'MY', 'currency' => 'MYR' ], 'AdyenCheckoutGateway' ],
@@ -383,6 +383,8 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testConfirmCountriesInCountryFieldsGatewayConfig() {
+		// This test can fail if a country is present in the payment_submethods.yaml and
+		// not in the countries.yaml
 		$yaml = new Parser();
 		$globPattern = $this->gatewayConfigGlobPattern . 'country_fields.yaml';
 
