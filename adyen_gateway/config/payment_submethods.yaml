@@ -79,32 +79,35 @@ sepadirectdebit:
     countries:
         AT: true
         BE: true
-        BG: true
-        CH: true
-        CY: true
-        CZ: true
         DE: true
-        DK: true
-        EE: true
         ES: true
         FR: true
-        GR: true
-        HR: true
-        HU: true
         IE: true
         IT: true
-        LT: true
-        LU: true
-        LV: true
-        MT: true
         NL: true
-        NO: true
-        PL: true
         PT: true
-        RO: true
-        SE: true
-        SI: true
         SK: true
+
+#       Countries Adyen says they don't support
+#       https://adyen.com/payment-methods/sepa-direct-debit
+#        BG: true
+#        CH: true
+#        CY: true
+#        CZ: true
+#        DK: true
+#        EE: true
+#        GR: true
+#        HR: true
+#        HU: true
+#        LT: true
+#        LU: true
+#        LV: true
+#        MT: true
+#        NO: true
+#        PL: true
+#        RO: true
+#        SE: true
+#        SI: true
 interac:
     group: cc
 ach:
