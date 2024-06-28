@@ -431,6 +431,7 @@
 	"donate_interface-legal-original": "此為翻譯內容。若譯文與英語版有文意不合的地方，請以英語版內容為準。",
 	"donate_interface-monthlybox-title": "您是否願意每月捐款？",
 	"donate_interface-monthlybox-content": "每月捐款在每月2號處理，您可隨時取消它。",
+	"donate_interface-annual-amount": "每年捐款金額",
 	"donate_interface-monthlybox-amount": "每月捐贈金額",
 	"donate_interface-monthlybox-yes": "是的，我要每月捐款",
 	"donate_interface-monthlybox-no": "不，單筆捐款即可",
