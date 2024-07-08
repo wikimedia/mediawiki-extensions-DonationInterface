@@ -51,6 +51,8 @@
 				return config;
 
 			case 'ach':
+				config.billingAddressRequired = false;
+				return config;
 			case 'ideal':
 			case 'onlineBanking_CZ':
 			case 'sepadirectdebit':
@@ -352,14 +354,7 @@
 							encrypted_bank_account_number: state.data.paymentMethod.encryptedBankAccountNumber,
 							encrypted_bank_location_id: state.data.paymentMethod.encryptedBankLocationId,
 							full_name: state.data.paymentMethod.ownerName,
-							bank_account_type: $( '#bank_account_type' ).val(),
-							// below are billing address, optional but good to have for civi
-							supplemental_address_1: state.data.billingAddress.houseNumberOrName,
-							country: state.data.billingAddress.country,
-							street_address: state.data.billingAddress.street,
-							postal_code: state.data.billingAddress.postalCode,
-							city: state.data.billingAddress.city,
-							state_province: state.data.billingAddress.stateOrProvince
+							bank_account_type: $( '#bank_account_type' ).val()
 						};
 						break;
 					case 'rtbt':
@@ -546,6 +541,12 @@
 			};
 		} else {
 			config.translations[ config.locale ] = {};
+		}
+		if ( mw.config.get( 'payment_submethod' ) === 'ach' ) {
+			config.translations[ config.locale ] = {
+				'error.va.sf-ach-loc.02': mw.msg( 'donate_interface-ach-invalid-routing-number-count' ),
+				'error.va.sf-ach-num.02': mw.msg( 'donate_interface-ach-invalid-account-number-count' )
+			};
 		}
 
 		// if sepa, update holder name to account holder name
