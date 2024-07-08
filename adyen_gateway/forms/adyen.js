@@ -540,7 +540,9 @@
 			};
 		} else if ( language === 'ja' ) {
 			config.translations[ config.locale ] = {
-				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' )
+				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+				'creditCard.cvcField.placeholder.3digits': '',
+				'creditCard.cvcField.placeholder.4digits': ''
 			};
 		} else {
 			config.translations[ config.locale ] = {};
