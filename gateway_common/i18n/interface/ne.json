@@ -13,7 +13,7 @@
 			"हिमाल सुबेदी"
 		]
 	},
-	"donate_interface": "विकिमीडियालाई सहयोग गर्नुहोस्",
+	"donate_interface": "विकिमिडियालाई सहयोग गर्नुहोस्",
 	"donate_interface-desc": "दान अवतरण पृष्ठ जसले प्रवेशद्वार(gateway) एक्स्टेन्सनलाई एकिकृत गर्दछ।",
 	"donate_interface-langonly-desc": "चन्दा अन्तर्मोहोडा प्रणाली सन्देशहरू मात्र दर्शाउँछ",
 	"donate_interface-intro": "चुन्नुहोस् एउटा भुगतान पद्धति, राशि, अनि मुद्रा।",
@@ -144,6 +144,7 @@
 	"donate_interface-post-transaction": "ट्रान्ज्याक्सन विवरण",
 	"donate_interface-problemsdonating": "दान गर्दा समस्या ?",
 	"donate_interface-comment": "टिप्पणी",
+	"donate_interface-last": "पछिल्लो",
 	"donate_interface-other": "अन्य",
 	"donate_interface-anon-message": "मेरो नाम सार्वजनिक दाता सूचीमा सामेल गर्नुहोस्।",
 	"donate_interface-title": "शीर्षक",
