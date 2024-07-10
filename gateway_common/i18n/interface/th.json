@@ -179,6 +179,7 @@
 	"donate_interface-error-msg-visa": "กรุณาใส่หมายเลขบัตรวีซาให้ถูกต้อง",
 	"donate_interface-error-msg-discover": "กรุณาใส่หมายเลขบัตรดิสคัฟเวอร์ให้ถูกต้อง",
 	"donate_interface-error-msg-invalid-card-number": "หมายเลขบัตรไม่ถูกต้อง",
+	"donate_interface-error-msg-card-number-do-not-match-card-brand": "หมายเลขบัตรที่กรอกไม่ตรงกับยี่ห้อบัตร",
 	"donate_interface-error-msg-amount": "กรุณาใส่จำนวนเงินที่ต้องการบริจาค",
 	"donate_interface-error-msg-limit": "การบริจาคของคุณไม่สามารถประมวลผลได้ กรุณา<a href=\"$1\">เยี่ยมชมวิธีการสนับสนุนอื่น</a> หรือลองใส่ข้อมูลจำนวนเงินน้อย ๆ หรือลองอีกครั้งในวันพรุ่งนี้",
 	"donate_interface-error-msg-email": "กรุณาใส่ที่อยู่อีเมลของคุณ",
