@@ -59,6 +59,7 @@
 	"apihelp-logRecurUpgradeFormError-param-stack": "עקבת שגיאות, כאשר היא זמינה",
 	"apihelp-di_donate_adyen-summary": "ה־API הזה מיועד ל־Adyen",
 	"apihelp-di_donate_dlocal-summary": "ה־API הזה מיועד ל־Dlocal",
+	"apihelp-di_donate_gravy-summary": "ה־API הזה מיועד ל־Gravy",
 	"apihelp-di_donate_braintree-summary": "ה־API הזה הוא עבור Braintree",
 	"apihelp-di_recurring_convert-summary": "ה־API משמש כשתורם מסכים להוסיף תרומה חודשית אחרי השלמת תרומה חד־פעמית.",
 	"apihelp-di_recurring_convert-param-amount": "גובה התרומה החודשית.",
