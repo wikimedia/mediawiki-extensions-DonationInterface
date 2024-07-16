@@ -191,7 +191,6 @@
 		"Gateway_Extras_CustomFilters_Source": "extras/custom_filters/filters/source/source.body.php",
 		"Gateway_Extras_CustomFilters_Functions": "extras/custom_filters/filters/functions/functions.body.php",
 		"Gateway_Extras_CustomFilters_IP_Velocity": "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php",
-		"BannerHistoryLogIdProcessor": "extras/banner_history/BannerHistoryLogIdProcessor.php",
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
 		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
