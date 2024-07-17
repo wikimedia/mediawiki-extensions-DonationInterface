@@ -82,6 +82,7 @@
 	"apihelp-logRecurUpgradeFormError-param-stack": "{{doc-apihelp-param|logRecurUpgradeFormError|stack}}",
 	"apihelp-di_donate_adyen-summary": "{{doc-apihelp-summary|di_donate_adyen}}",
 	"apihelp-di_donate_dlocal-summary": "{{doc-apihelp-summary|di_donate_dlocal}}",
+	"apihelp-di_donate_gravy-summary": "{{doc-apihelp-summary|di_donate_gravy}}\n\n\"Gravy\" is a name of a payment processing service, and probably doesn't need translation.",
 	"apihelp-di_donate_braintree-summary": "{{doc-apihelp-summary|di_donate_braintree}}",
 	"apihelp-di_recurring_convert-summary": "{{doc-apihelp-summary|di_recurring_convert}}",
 	"apihelp-di_recurring_convert-param-amount": "{{doc-apihelp-param|di_recurring_convert|amount}}",

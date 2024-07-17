@@ -50,6 +50,7 @@
 		"di_donate_dlocal": "DlocalDonationApi",
 		"di_applesession_adyen": "AdyenAppleApi",
 		"di_donate_braintree": "BraintreeDonationApi",
+		"di_donate_gravy": "GravyDonationApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
@@ -162,6 +163,7 @@
 		"AdyenCheckoutGatewayResult": "adyen_gateway/adyen_checkout_resultswitcher.body.php",
 		"AdyenGetPaymentMethodsApi": "adyen_gateway/adyen_get_payment_methods.api.php",
 		"AdyenSubmitPaymentApi": "adyen_gateway/adyen_submit_payment.api.php",
+		"GravyDonationApi": "gravy_gateway/gravy.api.php",
 		"BraintreeAdapter": "braintree_gateway/braintree.adapter.php",
 		"BraintreeGateway": "braintree_gateway/braintree_gateway.body.php",
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
@@ -189,7 +191,6 @@
 		"Gateway_Extras_CustomFilters_Source": "extras/custom_filters/filters/source/source.body.php",
 		"Gateway_Extras_CustomFilters_Functions": "extras/custom_filters/filters/functions/functions.body.php",
 		"Gateway_Extras_CustomFilters_IP_Velocity": "extras/custom_filters/filters/ip_velocity/ip_velocity.body.php",
-		"BannerHistoryLogIdProcessor": "extras/banner_history/BannerHistoryLogIdProcessor.php",
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
 		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
@@ -391,7 +392,26 @@
 		},
 		"ext.donationInterface.gravy": {
 			"scripts": "gravy_gateway/forms/gravy.js",
-			"dependencies": "ext.donationInterface.forms"
+			"styles": "gravy_gateway/forms/gravy.css",
+			"dependencies": "ext.donationInterface.forms",
+			"messages": [
+				"donate_interface-donor-card-num",
+				"donate_interface-donor-expiration",
+				"donate_interface-cvv",
+				"donate_interface-charge-monthly-only",
+				"donate_interface-redirect-explanation",
+				"donate_interface-monthly-only-credit",
+				"donate_interface-donor-fiscal_number-explain-option-in",
+				"donate_interface-error-msg-unsupported-card-entered",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-error-msg-invalid-card-number",
+				"donate_interface-error-msg-invalid-cvv-format",
+				"donate_interface-error-msg-card-too-old",
+				"donate_interface-name-on-card",
+				"donate_interface-cardholders-name",
+				"donate_interface-cvv",
+				"donate_interface-expiry-date-field-placeholder"
+			]
 		},
 		"ext.donationInterface.errorMessages": {
 			"messages": [
@@ -780,10 +800,10 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "adyen", "ingenico" ]
+					"gateways": [ "dlocal", "adyen", "ingenico", "gravy" ]
 				},
 				{
-					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "dlocal", "braintree" ]
+					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
 				}
 			]
 		},

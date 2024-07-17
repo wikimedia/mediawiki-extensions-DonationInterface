@@ -21,6 +21,7 @@ $cfg['directory_list'] = array_merge(
 		'astropay_gateway/',
 		'braintree_gateway/',
 		'dlocal_gateway/',
+		'gravy_gateway/',
 		'email_forms/',
 		'extras/',
 		'form_variants/',

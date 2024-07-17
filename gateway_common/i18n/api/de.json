@@ -61,6 +61,7 @@
 	"apihelp-logRecurUpgradeFormError-param-stack": "Stacktrace des Fehlers, falls vorhanden",
 	"apihelp-di_donate_adyen-summary": "Diese API ist für Adyen",
 	"apihelp-di_donate_dlocal-summary": "Diese API ist für Dlocal",
+	"apihelp-di_donate_gravy-summary": "Diese API ist für Gravy",
 	"apihelp-di_donate_braintree-summary": "Diese API ist für Braintree",
 	"apihelp-di_recurring_convert-summary": "Diese API wird verwendet, wenn sich ein Spender bereit erklärt, nach einer erfolgreichen Einmalspende eine monatliche Spende hinzuzufügen.",
 	"apihelp-di_recurring_convert-param-amount": "Die Höhe der monatlichen Spende.",

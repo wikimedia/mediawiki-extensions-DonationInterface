@@ -236,8 +236,6 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->validate();
 
 		$this->stageData();
-
-		BannerHistoryLogIdProcessor::onGatewayReady( $this );
 	}
 
 	/**
