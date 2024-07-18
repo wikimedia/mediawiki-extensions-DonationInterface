@@ -12,7 +12,8 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 
-class GravyAdapter extends GatewayAdapter {
+class GravyAdapter extends GatewayAdapter implements RecurringConversion {
+	use RecurringConversionTrait;
 
 	/**
 	 * @var string
@@ -71,6 +72,10 @@ class GravyAdapter extends GatewayAdapter {
 		}
 
 		return $this->handleCreatedPayment( $paymentProvider, $createPaymentResponse );
+	}
+
+	public function getPaymentMethodsSupportingRecurringConversion(): array {
+		return [ 'cc' ];
 	}
 
 	/**
@@ -198,6 +203,9 @@ class GravyAdapter extends GatewayAdapter {
 	 */
 	protected function callCreatePayment( IPaymentProvider $paymentProvider ): CreatePaymentResponse {
 		$createPaymentParams = $this->buildRequestArray();
+		if ( $this->showMonthlyConvert() ) {
+			$createPaymentParams['recurring'] = 1;
+		}
 		$this->logger->info( "Calling createPayment for Gravy payment" );
 
 		$createPaymentResponse = $paymentProvider->createPayment( $createPaymentParams );
