@@ -377,7 +377,7 @@
 	"donate_interface-state_province-dropdown-YY": "Wählen Sie einen Staat",
 	"donate_interface-state_province-dropdown-XX": "Außerhalb der Vereinigten Staaten",
 	"donate_interface-cc-MX-instructions": "Aus Sicherheitsgründen blockieren einige mexikanische Banken Online-Transaktionen. Falls Ihre Spende erfolglos war, empfehlen wir Ihnen, Ihre Bank zu kontaktieren, um die Onlinespende zu autorisieren, und es erneut zu versuchen.",
-	"donate_interface-bt-account_holder": "Kontoinhaber",
+	"donate_interface-bt-account_holder": "Name des Kontoinhabers",
 	"donate_interface-bt-bank_account_number": "Kontonummer",
 	"donate_interface-bt-country_description": "Beschreibung des Staats",
 	"donate_interface-bt-payment_reference": "Zahlungsreferenz",
