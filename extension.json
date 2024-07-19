@@ -309,7 +309,9 @@
 				"donate_interface-error-msg-card-too-old",
 				"donate_interface-error-msg-date-too-far-in-the-future",
 				"donate_interface-rtbt-issuer_id",
-				"donate_interface-bt-account_holder"
+				"donate_interface-bt-account_holder",
+				"donate_interface-ach-invalid-account-number-count",
+				"donate_interface-ach-invalid-routing-number-count"
 			]
 		},
 		"ext.donationInterface.jaVariant02": {

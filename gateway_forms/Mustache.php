@@ -28,9 +28,13 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	/** @var string[] */
 	protected static $partials = [
+		'account_routing_hint',
+		'auth_ach',
+		'bank_account_type_dropdown',
 		'first_name',
 		'issuers',
 		'last_name',
+		'monthly_convert',
 		'more_info_links',
 		'name_fields',
 		'no_script',
@@ -38,9 +42,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'payment_amount',
 		'payment_method',
 		'personal_info',
-		'monthly_convert',
-		'state_dropdown',
-		'bank_account_type_dropdown'
+		'state_dropdown'
 	];
 
 	/**
