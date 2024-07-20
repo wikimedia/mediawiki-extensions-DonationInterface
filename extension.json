@@ -63,7 +63,6 @@
 		"DonationInterface": [
 			"gateway_common/i18n/interface",
 			"gateway_common/i18n/country-specific",
-			"gateway_common/i18n/countries",
 			"gateway_common/i18n/us-states",
 			"gateway_common/i18n/canada-provinces",
 			"gateway_common/i18n/api",
