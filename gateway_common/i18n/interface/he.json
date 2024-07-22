@@ -13,7 +13,8 @@
 			"Ofrahod",
 			"Pcoombe",
 			"YaronSh",
-			"חיים"
+			"חיים",
+			"ערן"
 		]
 	},
 	"donate_interface": "תמיכה בוויקימדיה",
@@ -35,6 +36,8 @@
 	"donate_interface-smallamount-error": "נא לבחור את הסכום (לפחות $1)",
 	"donate_interface-bigamount-error": "איננו יכולים לקבל תרומות של יותר מ־$4 דולרים אמריקאיים ($1 $2) דרך האתר שלנו. נא ליצור קשר עם סגל התרומות הגדולות שלנו דרך $3.",
 	"donate_interface-processing-error": "אירעה שגיאה בתהליך העיבוד של הבקשה. \nנא ליצור עם עם שירותי תורמים בכתובת <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-ach-invalid-account-number-count": "יש לציין 4–17 מספרים - ללא רווחים",
+	"donate_interface-ach-invalid-routing-number-count": "יש לציין 9 ספרות - ללא רווחים",
 	"donate_interface-fallback-currency-notice": "אין תמיכה במטבע שלך. העיבוד יימשך באמצעות $1, בכפוף להסכמתך.",
 	"donate_interface-maintenance-notice": "אנו מתנצלים, אך התשלום באופן זה בוטל זמנית.",
 	"donate_interface-AED": "דירהם איחוד האמירויות הערביות",
@@ -151,6 +154,7 @@
 	"donate_interface-donor-bank_account_type": "סוג חשבון בנק",
 	"donate_interface-donor-bank_account_checking": "עובר ושב (checking)",
 	"donate_interface-donor-bank_account_savings": "חיסכון (savings)",
+	"donate_interface-donor-auth_ach": "בזאת אישרתי לקרן ויקימידיה לחייב באופן אלקטרוני את החשבון שלי בסכום של $1 $2 לפי לוח הזמנים המוסכם. ברור לי כי יכולה להיות מחויבת אגרת פיצוי אם התשלום לא כובד או הוחזר מסיבה כלשהי, ושזאת האחריות שלי לשמור עותק של ההסמכה הזאת עבור הרשומות שלי.",
 	"donate_interface-donor-state_province": "מדינה",
 	"donate_interface-donor-state_province-au": "מדינה/טריטוריה",
 	"donate_interface-donor-state_province-ca": "פרובינציה",
@@ -370,7 +374,7 @@
 	"donate_interface-state_province-dropdown-YY": "בחרו מדינה",
 	"donate_interface-state_province-dropdown-XX": "מחוץ לארצות־הברית",
 	"donate_interface-cc-MX-instructions": "לשם אבטחה, בנקים אחדים במקסיקו חוסמים עסקאות מקוונות. אם התרומה שלך לא מצליחה, אנו ממליצים לך להתקשר לבנק שלך כדי לאשר את התרומה המקוונת ולנסות שוב.",
-	"donate_interface-bt-account_holder": "בעל החשבון",
+	"donate_interface-bt-account_holder": "שם בעל החשבון",
 	"donate_interface-bt-bank_account_number": "מספר חשבון הבנק",
 	"donate_interface-bt-country_description": "תיאור הארץ",
 	"donate_interface-bt-payment_reference": "אסמכתה לתשלום",
