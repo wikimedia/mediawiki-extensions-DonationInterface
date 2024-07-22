@@ -371,8 +371,7 @@
 	$( function () {
 		if ( isIndia ) {
 			$( '#fiscal_number' ).after(
-				$( '<input type="hidden" value="Mumbai" name="city" id="city">' +
-					'<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-option-in' ) +
+				$( '<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-option-in' ) +
 					'</p>' )
 			);
 		}

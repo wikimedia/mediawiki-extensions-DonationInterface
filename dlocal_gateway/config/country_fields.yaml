@@ -10,6 +10,9 @@ CL:
 CO:
   fiscal_number: true
 IN:
+  street_address: true
+  street_number: optional
+  city: true
   fiscal_number: optional
 UY:
   fiscal_number: true
