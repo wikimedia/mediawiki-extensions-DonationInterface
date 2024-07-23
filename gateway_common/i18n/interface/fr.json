@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Assorted-Interests",
 			"Boniface",
 			"Cigaryno",
 			"Crochet.david",
@@ -62,6 +63,8 @@
 	"donate_interface-smallamount-error": "Veuillez sélectionner une somme (minimum de $1)",
 	"donate_interface-bigamount-error": "Nous ne pouvons pas accepter les dons supérieurs à $4 USD ($1 $2) par le biais de notre site Web. Veuillez contacter notre équipe chargée des dons importants à l’adresse $3.",
 	"donate_interface-processing-error": "Une erreur est survenue lors du traitement de votre requête.\nVeuillez contacter le service des dons à <a href=\"mailto:$1\">$1</a>.",
+	"donate_interface-ach-invalid-account-number-count": "Il doit y avoir 4-17 numéros - pas d'espaces",
+	"donate_interface-ach-invalid-routing-number-count": "Il doit y avoir 9 chiffres - pas d' espaces",
 	"donate_interface-fallback-currency-notice": "Votre devise n’étant pas prise en charge, le traitement s’effectuera en $1, si vous décidez de continuer.",
 	"donate_interface-maintenance-notice": "Nous sommes désolés, mais ce type de paiement a été temporairement désactivé.",
 	"donate_interface-AED": "dirham des Émirats arabes unis",
@@ -178,6 +181,7 @@
 	"donate_interface-donor-bank_account_type": "Type de compte en banque",
 	"donate_interface-donor-bank_account_checking": "Courant",
 	"donate_interface-donor-bank_account_savings": "Compte d'épargne",
+	"donate_interface-donor-auth_ach": "Je donne l'autorisation à la Fondation Wikimedia de débattre mon compte électroniquement au montant de $1 $2. selon le calendrier convenu. Je comprends qu'un montant de récupération peut être facturé si le paiement est déshonoré ou retourné pour quelque raison que ce soit et que c'est ma responsabilité de conserver une copie de cette autorisation pour mes dossiers.",
 	"donate_interface-donor-state_province": "État",
 	"donate_interface-donor-state_province-au": "État / territoire",
 	"donate_interface-donor-state_province-ca": "Province",
