@@ -1,4 +1,5 @@
 <?php
+use MediaWiki\Html\Html;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 
 /**
@@ -12,7 +13,7 @@ class CurrencyRatesModule extends MediaWiki\ResourceLoader\Module {
 	 */
 	public function getScript( MediaWiki\ResourceLoader\Context $context ) {
 		return 'mw.config.set( "wgDonationInterfaceCurrencyRates", ' .
-			Xml::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ' );';
+			Html::encodeJsVar( CurrencyRates::getCurrencyRates() ) . ' );';
 	}
 
 	/**
