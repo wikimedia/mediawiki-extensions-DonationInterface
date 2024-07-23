@@ -414,7 +414,7 @@
 
 				// Allow other scripts (e.g. variants) to provide more data to submit
 				if ( typeof mw.donationInterface.getExtraData === 'function' ) {
-					$.extend( extraData, mw.donationInterface.getExtraData() );
+					Object.assign( extraData, mw.donationInterface.getExtraData() );
 				}
 
 				mw.donationInterface.forms.callDonateApi(
@@ -555,7 +555,7 @@
 		}
 		// Allow other scripts (e.g. variants) to provide more translations to the Adyen components
 		if ( mw.donationInterface.extraTranslations ) {
-			$.extend( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
+			Object.assign( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
 		}
 	}
 
