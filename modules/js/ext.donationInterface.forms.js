@@ -159,7 +159,7 @@
 		};
 
 		if ( extraData ) {
-			$.extend( sendData, extraData );
+			Object.assign( sendData, extraData );
 		}
 
 		// If debug logging is enabled and there are debug messages, send them.
