@@ -382,7 +382,7 @@
 	"donate_interface-state_province-dropdown-YY": "Selecteer een staat",
 	"donate_interface-state_province-dropdown-XX": "Buiten de VS",
 	"donate_interface-cc-MX-instructions": "Sommige Mexicaanse banken blokkeren online transacties om veiligheidsredenen. Als uw gift niet is uitgevoerd, raden we u aan contact op te nemen met uw bank om de online gift te autoriseren en het opnieuw te proberen.",
-	"donate_interface-bt-account_holder": "Rekeninghouder",
+	"donate_interface-bt-account_holder": "Naam rekeninghouder",
 	"donate_interface-bt-bank_account_number": "Bankrekeningnummer",
 	"donate_interface-bt-country_description": "Landbeschrijving",
 	"donate_interface-bt-payment_reference": "Betalingsreferentie",
