@@ -1,18 +1,16 @@
 {{> name_fields }}
 {{# address_visible }}
-    {{# street_address_visible }}
-        <div>
+	{{# street_number_visible }}<div>{{/ street_number_visible}}{{# street_address_visible }}
+		<div{{# street_number_visible }} class="halfwidth"{{/ street_number_visible}}>
             <label for="street_address">{{ l10n "donate_interface-donor-street_address" }}</label>
-            <input class="fullwidth" id="street_address" name="street_address" value="{{ street_address }}" type="text" title="{{ l10n "donate_interface-donor-street_address" }}" {{# street_address_required }}required {{/ street_address_required }} autocomplete="billing address-line1" maxlength="96">
+			<input class="{{# street_number_visible }}inputDefault{{/ street_number_visible }}{{^ street_number_visible }}fullWidth{{/ street_number_visible }}" id="street_address" name="street_address" value="{{ street_address }}" type="text" title="{{ l10n "donate_interface-donor-street_address" }}" {{# street_address_required }}required {{/ street_address_required }} autocomplete="billing address-line1" maxlength="96">
             {{{ fieldError "street_address" }}}
-        </div>
-    {{/ street_address_visible }}
-	{{# street_number_visible }}
-		<div>
+        </div>{{/ street_address_visible }}{{! don't render space
+	}}{{# street_number_visible }}<div class="halfwidth">
 			<label for="street_number">{{ l10n "donate_interface-donor-street-number" }}</label>
-			<input class="fullwidth" id="street_number" name="street_number" value="{{ street_number }}" type="text" title="{{ l10n "donate_interface-donor-street-number" }}" {{# street_number_required }}required {{/ street_number_required }} autocomplete="billing address-line1" maxlength="96">
+			<input class="inputDefault" id="street_number" name="street_number" value="{{ street_number }}" type="text" title="{{ l10n "donate_interface-donor-street-number" }}" {{# street_number_required }}required {{/ street_number_required }} autocomplete="billing address-line1" maxlength="96">
 			{{{ fieldError "street_number" }}}
-		</div>
+		</div></div>
 	{{/street_number_visible}}
     <div>{{# city_visible }}<div class="{{ address_css_class }}">
                 <label for="city">{{ l10n "donate_interface-donor-city" }}</label>
