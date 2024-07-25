@@ -14,6 +14,8 @@
 	"donate_interface-currency": "ચલણ:",
 	"donate_interface-gateway": "ચુકવણી પદ્ધતિ:",
 	"donate_interface-submit-button": "દાન",
+	"donate_interface-ach-invalid-account-number-count": "૪-૧૭ આંકડા હોવા જોઈએ - વચ્ચે કોઈ ખાલી જગ્યા નહીં",
+	"donate_interface-ach-invalid-routing-number-count": "૯ આંકડા હોવા જોઈએ - વચ્ચે કોઈ ખાલી જગ્યા નહીં",
 	"donate_interface-EUR": "યુરો",
 	"donate_interface-donor-name": "નામ",
 	"donate_interface-donor-city": "શહેર",
@@ -24,5 +26,6 @@
 	"donate_interface-error-msg-state_province": "રાજ્ય",
 	"donate_interface-thankyou": "તમારા દાન માટે આભાર!",
 	"donate_interface-cvv-placeholder-4-digits": "૪ આંકડા",
-	"donate_interface-cvv-placeholder-3-digits": "૩ આંકડા"
+	"donate_interface-cvv-placeholder-3-digits": "૩ આંકડા",
+	"donate_interface-bt-account_holder": "ખાતાધારકનું નામ"
 }

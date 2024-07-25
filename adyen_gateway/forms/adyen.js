@@ -51,6 +51,8 @@
 				return config;
 
 			case 'ach':
+				config.billingAddressRequired = false;
+				return config;
 			case 'ideal':
 			case 'onlineBanking_CZ':
 			case 'sepadirectdebit':
@@ -352,14 +354,7 @@
 							encrypted_bank_account_number: state.data.paymentMethod.encryptedBankAccountNumber,
 							encrypted_bank_location_id: state.data.paymentMethod.encryptedBankLocationId,
 							full_name: state.data.paymentMethod.ownerName,
-							bank_account_type: $( '#bank_account_type' ).val(),
-							// below are billing address, optional but good to have for civi
-							supplemental_address_1: state.data.billingAddress.houseNumberOrName,
-							country: state.data.billingAddress.country,
-							street_address: state.data.billingAddress.street,
-							postal_code: state.data.billingAddress.postalCode,
-							city: state.data.billingAddress.city,
-							state_province: state.data.billingAddress.stateOrProvince
+							bank_account_type: $( '#bank_account_type' ).val()
 						};
 						break;
 					case 'rtbt':
@@ -419,7 +414,7 @@
 
 				// Allow other scripts (e.g. variants) to provide more data to submit
 				if ( typeof mw.donationInterface.getExtraData === 'function' ) {
-					$.extend( extraData, mw.donationInterface.getExtraData() );
+					Object.assign( extraData, mw.donationInterface.getExtraData() );
 				}
 
 				mw.donationInterface.forms.callDonateApi(
@@ -493,7 +488,7 @@
 
 	function setLocaleAndTranslations( config, localeFromServer ) {
 		// Adyen supports the locales listed below, according to
-		// https://docs.adyen.com/online-payments/web-components/localization-components#supported-languages
+		// https://docs.adyen.com/online-payments/classic-integrations/checkout-sdks/web-sdk/customization/localization/
 		var adyenSupportedLocale = [
 			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
 			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
@@ -547,10 +542,20 @@
 		} else {
 			config.translations[ config.locale ] = {};
 		}
+		if ( mw.config.get( 'payment_submethod' ) === 'ach' ) {
+			config.translations[ config.locale ] = {
+				'error.va.sf-ach-loc.02': mw.msg( 'donate_interface-ach-invalid-routing-number-count' ),
+				'error.va.sf-ach-num.02': mw.msg( 'donate_interface-ach-invalid-account-number-count' )
+			};
+		}
 
+		// if sepa, update holder name to account holder name
+		if ( mw.config.get( 'payment_submethod' ) === 'sepadirectdebit' ) {
+			config.translations[ config.locale ][ 'sepa.ownerName' ] = mw.msg( 'donate_interface-bt-account_holder' );
+		}
 		// Allow other scripts (e.g. variants) to provide more translations to the Adyen components
 		if ( mw.donationInterface.extraTranslations ) {
-			$.extend( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
+			Object.assign( config.translations[ config.locale ], mw.donationInterface.extraTranslations );
 		}
 	}
 

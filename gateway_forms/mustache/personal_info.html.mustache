@@ -7,6 +7,13 @@
             {{{ fieldError "street_address" }}}
         </div>
     {{/ street_address_visible }}
+	{{# street_number_visible }}
+		<div>
+			<label for="street_number">{{ l10n "donate_interface-donor-street-number" }}</label>
+			<input class="fullwidth" id="street_number" name="street_number" value="{{ street_number }}" type="text" title="{{ l10n "donate_interface-donor-street-number" }}" {{# street_number_required }}required {{/ street_number_required }} autocomplete="billing address-line1" maxlength="96">
+			{{{ fieldError "street_number" }}}
+		</div>
+	{{/street_number_visible}}
     <div>{{# city_visible }}<div class="{{ address_css_class }}">
                 <label for="city">{{ l10n "donate_interface-donor-city" }}</label>
                 <input class="inputDefault" id="city" name="city" value="{{ city }}" type="text" title="{{ l10n "donate_interface-donor-city" }}" {{# city_required }}required {{/ city_required }} autocomplete="billing address-level2" maxlength="64">

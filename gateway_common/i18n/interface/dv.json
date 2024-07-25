@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"MAL MALDIVE"
+		]
+	},
+	"donate_interface-ach-invalid-account-number-count": "4 އިން 17އަށް ނަންބަރު ހުންނަން ކޮންމެހެންޖެހޭ، އަދި ހުސް ޖާގަ ހުންނާކަށް ނުޖެހޭ.",
+	"donate_interface-ach-invalid-routing-number-count": "9 ނަންބަރު ހުންނަންވާނެ، އަދި އެއްވެސް ޖާގައެއް ހުންނާކަށް ނުޖެހޭ",
+	"donate_interface-bt-account_holder": "އެކައުންޓު ގެންގުޅޭ ބޭފުޅާގެ ނަން"
+}

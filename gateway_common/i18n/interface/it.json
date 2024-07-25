@@ -353,7 +353,7 @@
 	"donate_interface-state_province-dropdown-YY": "Seleziona uno Stato",
 	"donate_interface-state_province-dropdown-XX": "Fuori degli USA",
 	"donate_interface-cc-MX-instructions": "Per ragioni di sicurezza, alcune banche messicani bloccano le transazioni online. Se la tua donazione non è andata a buon fine, consigliamo di chiamare la vostra banca per autorizzare la donazione online e riprovare.",
-	"donate_interface-bt-account_holder": "Titolare del conto",
+	"donate_interface-bt-account_holder": "Nome del titolare del conto",
 	"donate_interface-bt-bank_account_number": "Numero del conto bancario",
 	"donate_interface-bt-country_description": "Descrizione del paese",
 	"donate_interface-bt-payment_reference": "Riferimento del pagamento",

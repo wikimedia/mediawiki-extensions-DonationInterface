@@ -36,6 +36,7 @@
 		"no-shadow": "warn",
 		"prefer-regex-literals": "warn",
 		"mediawiki/msg-doc": "warn",
-		"es-x/no-promise": "warn"
+		"es-x/no-promise": "warn",
+		"es-x/no-object-assign": "warn"
 	}
 }

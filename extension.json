@@ -63,7 +63,6 @@
 		"DonationInterface": [
 			"gateway_common/i18n/interface",
 			"gateway_common/i18n/country-specific",
-			"gateway_common/i18n/countries",
 			"gateway_common/i18n/us-states",
 			"gateway_common/i18n/canada-provinces",
 			"gateway_common/i18n/api",
@@ -308,7 +307,10 @@
 				"donate_interface-error-msg-unsupported-card-entered",
 				"donate_interface-error-msg-card-too-old",
 				"donate_interface-error-msg-date-too-far-in-the-future",
-				"donate_interface-rtbt-issuer_id"
+				"donate_interface-rtbt-issuer_id",
+				"donate_interface-bt-account_holder",
+				"donate_interface-ach-invalid-account-number-count",
+				"donate_interface-ach-invalid-routing-number-count"
 			]
 		},
 		"ext.donationInterface.jaVariant02": {

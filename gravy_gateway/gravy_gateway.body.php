@@ -7,6 +7,12 @@
  */
 class GravyGateway extends GatewayPage {
 
+	/**
+	 * flag for setting Monthly Convert modal on template
+	 * @var bool
+	 */
+	public $supportsMonthlyConvert = true;
+
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {

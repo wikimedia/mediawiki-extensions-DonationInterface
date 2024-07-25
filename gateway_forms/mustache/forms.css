@@ -19,8 +19,30 @@ div#payment_gateway-donate-submessage img {
 	margin-right: 4px;
 }
 
+div.payment_gateway-ach-hint img {
+	width: 100%;
+}
+
+div.payment_gateway-ach-hint p {
+	font-size: 0.75em;
+	color: #72777d;
+	text-align: center;
+}
+
+/* tie adyen css */
+select#bank_account_type {
+	padding: 5px 0.8em !important;
+	font-size: 16px !important;
+	height: 40px;
+	background-color: #fff !important;
+}
+
 #payment_gateway-personal-info {
 	margin-right: 0;
+}
+
+.adyen-checkout__icon {
+	vertical-align: inherit;
 }
 
 #payment_gateway-personal-info > div {

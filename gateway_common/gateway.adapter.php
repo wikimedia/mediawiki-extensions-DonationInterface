@@ -2995,7 +2995,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $monthlyConvertAmounts !== null ) {
 			$mcMinimumAmount = $monthlyConvertAmounts[0][0];
 			// check if amount is up to monthly convert minimum amount for specified currency
-			if ( floatval( $this->getData_Unstaged_Escaped( 'amount' ) ) < $mcMinimumAmount ) {
+			if ( (float)$this->getData_Unstaged_Escaped( 'amount' ) < $mcMinimumAmount ) {
 				return false;
 			}
 		}
