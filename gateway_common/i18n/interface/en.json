@@ -140,7 +140,7 @@
 	"donate_interface-donor-employer": "Employer (Optional)",
 	"donate_interface-donor-employer-explain": "We'll let you know if your employer will match your gift",
 	"donate_interface-donor-street_address": "Street",
-	"donate_interface-donor-street-number": "Number",
+	"donate_interface-donor-street-number": "House Number",
 	"donate_interface-donor-city": "City",
 	"donate_interface-donor-county": "County",
 	"donate_interface-donor-island": "Island",
