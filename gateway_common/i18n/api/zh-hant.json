@@ -60,6 +60,7 @@
 	"apihelp-logRecurUpgradeFormError-param-stack": "錯誤的堆疊追蹤（在可用的時候）",
 	"apihelp-di_donate_adyen-summary": "此 API 用於 Adyen",
 	"apihelp-di_donate_dlocal-summary": "此 API 適用於 Dlocal",
+	"apihelp-di_donate_gravy-summary": "此 API 用於 Gravy",
 	"apihelp-di_donate_braintree-summary": "此 API 適用於 Braintree",
 	"apihelp-di_recurring_convert-summary": "此 API 使用來當捐款者完成一筆單筆捐款後，同意增加每月定期捐款。",
 	"apihelp-di_recurring_convert-param-amount": "每月捐款的金額。",
