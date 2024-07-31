@@ -152,12 +152,7 @@
 						$smallAmountMessage.text(
 							$smallAmountMessage.text().replace( '$1', formattedMin )
 						);
-						$( '#mc-error-largeamount' ).hide();
 						$smallAmountMessage.show();
-					} else if ( otherAmount > originalAmount ) {
-						$otherAmountField.addClass( 'errorHighlight' );
-						$( '#mc-error-smallamount' ).hide();
-						$( '#mc-error-largeamount' ).show();
 					} else {
 						$( '.mc-error' ).hide();
 						$otherAmountField.removeClass( 'errorHighlight' );
