@@ -42,7 +42,8 @@
 		"DlocalGateway": "DlocalGateway",
 		"DlocalGatewayResult": "DlocalGatewayResult",
 		"GravyGateway": "GravyGateway",
-		"GravyGatewayResult": "GravyGatewayResult"
+		"GravyGatewayResult": "GravyGatewayResult",
+		"PaymentSettings": "PaymentSettings"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
@@ -193,6 +194,7 @@
 		"Gateway_Extras_SessionVelocityFilter": "extras/session_velocity/session_velocity.body.php",
 		"GatewayChooser": "special/GatewayChooser.php",
 		"SystemStatus": "special/SystemStatus.php",
+		"PaymentSettings": "special/PaymentSettings.php",
 		"EmailPreferences": "special/EmailPreferences.php",
 		"RecurUpgrade": "special/RecurUpgrade.php",
 		"DonationApi": "gateway_common/donation.api.php",

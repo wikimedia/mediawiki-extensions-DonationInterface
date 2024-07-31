@@ -51,8 +51,6 @@
 				return config;
 
 			case 'ach':
-				config.billingAddressRequired = false;
-				return config;
 			case 'ideal':
 			case 'onlineBanking_CZ':
 			case 'sepadirectdebit':
@@ -354,7 +352,13 @@
 							encrypted_bank_account_number: state.data.paymentMethod.encryptedBankAccountNumber,
 							encrypted_bank_location_id: state.data.paymentMethod.encryptedBankLocationId,
 							full_name: state.data.paymentMethod.ownerName,
-							bank_account_type: $( '#bank_account_type' ).val()
+							bank_account_type: $( '#bank_account_type' ).val(),
+							supplemental_address_1: state.data.billingAddress.houseNumberOrName,
+							country: state.data.billingAddress.country,
+							street_address: state.data.billingAddress.street,
+							postal_code: state.data.billingAddress.postalCode,
+							city: state.data.billingAddress.city,
+							state_province: state.data.billingAddress.stateOrProvince
 						};
 						break;
 					case 'rtbt':
