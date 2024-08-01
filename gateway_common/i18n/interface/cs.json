@@ -374,7 +374,6 @@
 	"donate_interface-monthly-convert-text": "Měsíční podpora je nejlepším způsobem, jak zajistit neustálé rozšiřování Wikipedie.",
 	"donate_interface-monthly-convert-change-amount": "Ano, chci přispívat měsíčně, ale jinou částkou",
 	"donate_interface-monthly-convert-enter-amount": "Zadejte výši měsíčního příspěvku počínaje příštím měsícem.",
-	"donate_interface-monthly-convert-max-amount": "Nemůžeme účtovat vyšší opakovaný příspěvek, než byl váš původní jednorázový příspěvek.",
 	"donate_interface-monthly-convert-action-button": "Přispívat měsíčně",
 	"donate_interface-monthly-convert-error": "Váš jednorázový příspěvek proběhl úspěšně, ale nepodařilo se nám nastavit opakovaný příspěvek.",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ano, chci měsíčně darovat <span class=\"mc-convert-ask\"></span>",

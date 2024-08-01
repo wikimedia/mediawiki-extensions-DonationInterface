@@ -369,7 +369,6 @@
 	"donate_interface-monthly-convert-text": "Η μηνιαία υποστήριξη είναι ο καλύτερος τρόπος για να διασφαλιστεί ότι η Βικιπαίδεια θα συνεχίσει να επεκτείνεται.",
 	"donate_interface-monthly-convert-change-amount": "Ναι, θα δωρίζω κάθε μήνα, αλλά διαφορετικό ποσό",
 	"donate_interface-monthly-convert-enter-amount": "Εισαγάγετε το μηνιαίο ποσό της δωρεάς σας που θα ξεκινήσει τον επόμενο μήνα.",
-	"donate_interface-monthly-convert-max-amount": "Δεν μπορούμε να χρεώσουμε μια επαναλαμβανόμενη δωρεά για ποσό μεγαλύτερο από την αρχική εφάπαξ δωρεά σας.",
 	"donate_interface-monthly-convert-action-button": "Μηνιαία δωρεά",
 	"donate_interface-monthly-convert-error": "Η εφάπαξ δωρεά σας ήταν επιτυχής, αλλά δεν μπορέσαμε να ξεκινήσουμε επαναλαμβανόμενη δωρεά.",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ναι, θα προσθέσω μια μηνιαία δωρεά <span class=\"mc-convert-ask\"></span>",

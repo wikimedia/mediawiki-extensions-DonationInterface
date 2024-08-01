@@ -453,7 +453,6 @@
 	"donate_interface-monthly-convert-change-amount": "Ja, ich spende monatlich, aber einen anderen Betrag",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Sicher, lassen Sie mich wählen, wie viel",
 	"donate_interface-monthly-convert-enter-amount": "Geben Sie Ihren monatlichen Spendenbetrag ein, um nächsten Monat zu beginnen.",
-	"donate_interface-monthly-convert-max-amount": "Wir können keine wiederkehrende Spende über einen Betrag einrichten, der höher als jener der einmaligen Spende ist.",
 	"donate_interface-monthly-convert-action-button": "Monatlich spenden",
 	"donate_interface-monthly-convert-error": "Ihre einmalige Spende war erfolgreich, aber wir konnten keine wiederkehrende Spende einrichten.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
