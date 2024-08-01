@@ -145,6 +145,7 @@
 	"donate_interface-donor-city": "Cidade:",
 	"donate_interface-donor-county": "Condado",
 	"donate_interface-donor-island": "Illa",
+	"donate_interface-donor-bank_account_type": "Tipo de conta bancaria",
 	"donate_interface-donor-state_province": "Estado",
 	"donate_interface-donor-state_province-au": "Estado/Territorio",
 	"donate_interface-donor-state_province-ca": "Provincia",
