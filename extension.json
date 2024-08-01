@@ -513,6 +513,9 @@
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.singleColumnForm": {
+			"styles": "modules/css/singleColumnForm.css"
 		}
 	},
 	"ResourceFileModulePaths": {

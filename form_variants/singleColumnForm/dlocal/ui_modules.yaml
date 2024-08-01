@@ -1,0 +1,4 @@
+scripts:
+  - ext.donationInterface.dlocal.scripts
+  - ext.donationInterface.dlocal.styles
+  - ext.donationInterface.singleColumnForm
