@@ -1,0 +1,21 @@
+@media screen and ( min-width: 982px ) {
+	div#bodyContent div#mw-content-text {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	div#bodyContent div#appeal div {
+		margin: 0 !important;
+	}
+
+	div#bodyContent div#donate p#informationsharing {
+		max-width: none;
+		padding: 15px;
+		text-align: center;
+	}
+
+	div#bodyContent div#donate ul#moreinfolinks {
+		text-align: center;
+	}
+}
