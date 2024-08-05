@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  */
 
+use MediaWiki\MainConfigNames;
 use SmashPig\Core\ValidationError;
 
 /**
@@ -43,9 +44,7 @@ class AmountTest extends DonationInterfaceTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->setMwGlobals( [
-			'wgLanguageCode' => 'en',
-		] );
+		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
 
 		$this->setUpRequest( [
 			'country' => 'US',

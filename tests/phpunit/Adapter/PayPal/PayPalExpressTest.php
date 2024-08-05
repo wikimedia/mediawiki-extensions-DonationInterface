@@ -58,10 +58,10 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $this->provider );
 		TestingContext::get()->providerConfigurationOverride = $providerConfig;
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
-			'wgPaypalExpressGatewayEnabled' => true,
-			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
+		$this->overrideConfigValues( [
+			'DonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
+			'PaypalExpressGatewayEnabled' => true,
+			'DonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
 		] );
 	}
 

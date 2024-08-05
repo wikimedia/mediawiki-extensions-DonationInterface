@@ -43,9 +43,9 @@ class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgDlocalGatewayEnabled' => true,
-			'wgPaypalExpressGatewayEnabled' => true
+		$this->overrideConfigValues( [
+			'DlocalGatewayEnabled' => true,
+			'PaypalExpressGatewayEnabled' => true,
 		] );
 	}
 

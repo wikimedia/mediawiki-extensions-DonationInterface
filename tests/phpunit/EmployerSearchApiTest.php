@@ -16,8 +16,8 @@ class EmployerSearchApiTest extends ApiTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$this->csvDataSource = tmpfile();
-		$this->setMwGlobals(
-			'wgDonationInterfaceEmployersListDataFileLocation',
+		$this->overrideConfigValue(
+			'DonationInterfaceEmployersListDataFileLocation',
 			stream_get_meta_data( $this->csvDataSource )['uri']
 		);
 		ObjectCache::getLocalClusterInstance()->delete( EmployerSearchAPI::CACHE_KEY );
@@ -174,8 +174,8 @@ class EmployerSearchApiTest extends ApiTestCase {
 		// api employer search query
 		$params['employer'] = 'unknown';
 
-		$this->setMwGlobals(
-			'wgDonationInterfaceEmployersListDataFileLocation',
+		$this->overrideConfigValue(
+			'DonationInterfaceEmployersListDataFileLocation',
 			'/road/to/nowhere.csv'
 		);
 
@@ -186,8 +186,8 @@ class EmployerSearchApiTest extends ApiTestCase {
 	}
 
 	public function testGetEmployersListInvalidDataLocation() {
-		$this->setMwGlobals(
-			'wgDonationInterfaceEmployersListDataFileLocation',
+		$this->overrideConfigValue(
+			'DonationInterfaceEmployersListDataFileLocation',
 			'/road/to/nowhere.csv'
 		);
 

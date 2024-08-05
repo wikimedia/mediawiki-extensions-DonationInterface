@@ -9,13 +9,13 @@ class BaseDlocalTestCase extends DonationInterfaceTestCase {
 		parent::setUp();
 		$this->providerConfig = $this->setSmashPigProvider( 'dlocal' );
 
-		$this->setMwGlobals( [
-			'wgDlocalGatewayEnabled' => true,
-			'wgDonationInterfaceEnableIPVelocityFilter' => true,
-			'wgDonationInterfaceGatewayAdapters' => [
+		$this->overrideConfigValues( [
+			'DlocalGatewayEnabled' => true,
+			'DonationInterfaceEnableIPVelocityFilter' => true,
+			'DonationInterfaceGatewayAdapters' => [
 				'dlocal' => DlocalAdapter::class
 			],
-			'wgDlocalGatewayAccountInfo' => [
+			'DlocalGatewayAccountInfo' => [
 				'test' => [
 					'dlocalScript' => 'placeholder-mock-script',
 					'smartFieldApiKey' => 'placeholder-mock-key'
@@ -24,7 +24,7 @@ class BaseDlocalTestCase extends DonationInterfaceTestCase {
 			// Set a controlled, very specific setting for 3DSRules. Since the gateway-specific
 			// DlocalGateway3DSRules will override any DonationInterface3DSRules, make sure the
 			// tests override any local settings.
-			'wgDlocalGateway3DSRules' => [
+			'DlocalGateway3DSRules' => [
 				'BRL' => [ 'BR' ]
 			],
 		] );

@@ -117,8 +117,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testOptionalFieldsConfig() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceVariantConfigurationDirectory' =>
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
 		] );
 
@@ -150,8 +150,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * Load an alternate yaml file based on 'variant'
 	 */
 	public function testVariantConfig() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceVariantConfigurationDirectory' =>
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
 		] );
 		$init = $this->getDonorTestData( 'US' );
@@ -174,8 +174,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	 * Don't allow directory traversal via 'variant'
 	 */
 	public function testIllegalVariantConfig() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceVariantConfigurationDirectory' =>
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' =>
 				__DIR__ . '/../includes/variants'
 		] );
 		$init = $this->getDonorTestData( 'US' );
@@ -445,8 +445,8 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 	}
 
 	public function testCancelPage() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceCancelPage' => 'Ways to give'
+		$this->overrideConfigValues( [
+			'DonationInterfaceCancelPage' => 'Ways to give'
 		] );
 		$gateway = $this->getFreshGatewayObject( [] );
 		$url = ResultPages::getCancelPage( $gateway );
@@ -471,9 +471,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'Score' => 10,
 			'MinimumLength' => 2,
 		];
-		$this->setMwGlobals(
-			[ 'wgDonationInterfaceNameFilterRules' => [ $rule ] ]
-		);
+		$this->overrideConfigValue( 'DonationInterfaceNameFilterRules', [ $rule ] );
 		$init = $this->getDonorTestData();
 		$init['first_name'] = 'asdf';
 		$init['last_name'] = 'qwert';
@@ -491,9 +489,7 @@ class DonationInterface_Adapter_GatewayAdapterTest extends DonationInterfaceTest
 			'Score' => 10,
 			'MinimumLength' => 2,
 		];
-		$this->setMwGlobals(
-			[ 'wgDonationInterfaceNameFilterRules' => [ $rule ] ]
-		);
+		$this->overrideConfigValue( 'DonationInterfaceNameFilterRules', [ $rule ] );
 		$init = $this->getDonorTestData();
 		$init['first_name'] = 'a';
 		$init['last_name'] = 'q';

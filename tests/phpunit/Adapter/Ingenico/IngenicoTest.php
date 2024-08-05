@@ -210,9 +210,9 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	 * fraud scores.
 	 */
 	public function testGetLatestPaymentStatusPostProcessFraud() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceEnableCustomFilters' => true,
-			'wgIngenicoGatewayCustomFiltersFunctions' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceEnableCustomFilters' => true,
+			'IngenicoGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 30,
 			],
@@ -470,8 +470,8 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 	}
 
 	public function testDonorReturnFailureOptIn() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceSendOptInOnFailure' => true
+		$this->overrideConfigValues( [
+			'DonationInterfaceSendOptInOnFailure' => true,
 		] );
 		$init = $this->getDonorTestData();
 		$init['payment_method'] = 'cc';
@@ -629,7 +629,7 @@ class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCa
 		$init['amount'] = 23.450;
 		$init['order_id'] = $merchantReference;
 		$gateway = $this->getFreshGatewayObject( $init );
-		$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+		$this->overrideConfigValue( 'DonationInterfaceIPDenyList', [ '127.0.0.1' ] );
 		// Should not make any API calls
 		$this->hostedCheckoutProvider->expects( $this->never() )
 			->method( $this->anything() );

@@ -148,8 +148,8 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
 			'accept-language' => 'tlh-QR q=0.9'
 		] );
-		$this->setMwGlobals( [
-			'wgDonationInterfaceMinFraudExtraFields' => []
+		$this->overrideConfigValues( [
+			'DonationInterfaceMinFraudExtraFields' => [],
 		] );
 
 		$gateway = $this->getFreshGatewayObject( $options );
@@ -224,15 +224,15 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 	 * Make sure we send the right stuff when extra fields are enabled
 	 */
 	public function testMinFraudExtras() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceMinFraudExtraFields' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceMinFraudExtraFields' => [
 				'email',
 				'first_name',
 				'last_name',
 				'street_address',
 				'amount',
-				'currency'
-			]
+				'currency',
+			],
 		] );
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
@@ -336,15 +336,15 @@ class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceMinFraudExtraFields' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceMinFraudExtraFields' => [
 				'email',
 				'first_name',
 				'last_name',
 				'street_address',
 				'amount',
-				'currency'
-			]
+				'currency',
+			],
 		] );
 		$this->request->expects( $this->once() )
 			->method( 'post' )

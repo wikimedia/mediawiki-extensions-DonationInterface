@@ -33,12 +33,12 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->setMwGlobals( [
-			'wgIngenicoGatewayHostedFormVariants' => [
+		$this->overrideConfigValues( [
+			'IngenicoGatewayHostedFormVariants' => [
 				'iframe' => 105,
 				'redirect' => 102,
 			],
-			'wgIngenicoGatewayEnabled' => true
+			'IngenicoGatewayEnabled' => true,
 		] );
 
 		$ctx = TestingContext::get();
@@ -318,9 +318,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 *
 	 */
 	public function testOptionalFieldBehaviour(): void {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceVariantConfigurationDirectory' =>
-				__DIR__ . '/../includes/variants'
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants',
 		] );
 
 		$init = DonationInterfaceTestCase::getDonorTestData();
@@ -361,9 +361,9 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * @group DonationInterfaceOptionalFields
 	 */
 	public function testSubmitEmployerField(): void {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceVariantConfigurationDirectory' =>
-				__DIR__ . '/../includes/variants'
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' =>
+				__DIR__ . '/../includes/variants',
 		] );
 
 		$init = DonationInterfaceTestCase::getDonorTestData();

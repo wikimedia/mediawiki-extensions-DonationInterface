@@ -21,15 +21,15 @@ class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
 		$this->providerConfig = $this->setSmashPigProvider( 'adyen' );
-		$this->setMwGlobals( [
-			'wgAdyenCheckoutGatewayEnabled' => true,
-			'wgAdyenCheckoutGatewayCustomFiltersFunctions' => [
+		$this->overrideConfigValues( [
+			'AdyenCheckoutGatewayEnabled' => true,
+			'AdyenCheckoutGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 50,
 			],
-			'wgDonationInterfaceGatewayAdapters' => [
+			'DonationInterfaceGatewayAdapters' => [
 				'adyen' => AdyenCheckoutAdapter::class
-			]
+			],
 		] );
 	}
 }
