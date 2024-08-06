@@ -469,6 +469,7 @@
 	"donate_interface-monthly-convert-title-variant-003": "Thank you for your <span class=\"mc-convert-donated-amount\"></span> donation. Want to increase your impact with a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
 	"donate_interface-monthly-convert-title-variant-004": "You just donated <span class=\"mc-convert-donated-amount\"></span>. Thank you. Would you consider adding a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, thank you for your gift. Want to increase your impact with a <span class=\"mc-convert-ask\"></span> monthly donation, starting next month?",
+	"donate_interface-monthly-convert-title-variant-015": "If you can, please add a <span class=\"mc-convert-ask\"></span> monthly donation starting next month.",
 	"donate_interface-monthly-convert-text": "Monthly support is the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-monthly-convert-text-annual": "Regular support is the best way to ensure that Wikipedia keeps thriving.",
 	"donate_interface-monthly-convert-text-variant-002": "Only a tiny number of our donors give monthly, but it's the best way to ensure that Wikipedia keeps thriving.",

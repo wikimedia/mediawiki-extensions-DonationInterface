@@ -515,6 +515,11 @@
 				"donate_interface-monthly-convert-yes-button-variant-011"
 			]
 		},
+		"ext.donationInterface.monthlyConvert_015": {
+			"styles": "modules/css/monthlyConvert_015.css",
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert_015.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
