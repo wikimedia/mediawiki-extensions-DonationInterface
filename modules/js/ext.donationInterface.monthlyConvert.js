@@ -49,14 +49,18 @@
 		return formattedAmount;
 	};
 
-	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
-		var sendData = {
+	mc.getSendData = function ( amount ) {
+		return {
 			action: 'di_recurring_convert',
 			format: 'json',
 			gateway: $( '#gateway' ).val(),
 			wmf_token: $( '#wmf_token' ).val(),
 			amount: amount
-		},
+		};
+	};
+
+	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
+		var sendData = mc.getSendData( amount ),
 			url;
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
