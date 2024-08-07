@@ -434,7 +434,6 @@
 	"donate_interface-monthly-convert-change-amount": "Si, io donara mensualmente, ma con un amonta differente",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Certo, lassa me eliger quanto",
 	"donate_interface-monthly-convert-enter-amount": "Entra le amonta de tu donation mensual a comenciar le proxime mense.",
-	"donate_interface-monthly-convert-max-amount": "Nos non pote prender un donation recurrente de un amonta superior a illo del donation unic original.",
 	"donate_interface-monthly-convert-action-button": "Donar mensualmente",
 	"donate_interface-monthly-convert-error": "Tu donation singule ha ben succedite, ma nos non ha potite comenciar un donation recurrente.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Si, io vole adjutar",

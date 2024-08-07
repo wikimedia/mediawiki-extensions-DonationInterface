@@ -228,6 +228,10 @@
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertMultiplier.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
 		},
+		"ext.donationInterface.monthlyConvertAnnual": {
+			"scripts": "modules/js/ext.donationInterface.monthlyConvertAnnual.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
 		},
@@ -513,6 +517,9 @@
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
 			"dependencies": "ext.donationInterface.monthlyConvert"
+		},
+		"ext.donationInterface.singleColumnForm": {
+			"styles": "modules/css/singleColumnForm.css"
 		}
 	},
 	"ResourceFileModulePaths": {

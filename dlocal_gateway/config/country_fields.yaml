@@ -12,6 +12,8 @@ CO:
 IN:
   street_address: true
   street_number: optional
+  state_province: true
+  postal_code: true
   city: true
   fiscal_number: optional
 UY:

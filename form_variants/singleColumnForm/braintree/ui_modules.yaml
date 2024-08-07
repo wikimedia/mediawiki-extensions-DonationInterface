@@ -1,0 +1,3 @@
+scripts:
+  - ext.donationInterface.braintree
+  - ext.donationInterface.singleColumnForm

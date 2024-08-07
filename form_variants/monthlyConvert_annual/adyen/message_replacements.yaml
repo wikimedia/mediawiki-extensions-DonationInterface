@@ -1,0 +1,3 @@
+donate_interface-monthly-convert-change-amount: donate_interface-monthly-convert-change-to-annual
+donate_interface-monthly-convert-enter-amount: donate_interface-annual-amount
+donate_interface-monthly-convert-action-button: donate_interface-monthly-convert-action-button-annual

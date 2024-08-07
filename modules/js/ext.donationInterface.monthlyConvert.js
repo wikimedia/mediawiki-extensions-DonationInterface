@@ -49,14 +49,18 @@
 		return formattedAmount;
 	};
 
-	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
-		var sendData = {
+	mc.getSendData = function ( amount ) {
+		return {
 			action: 'di_recurring_convert',
 			format: 'json',
 			gateway: $( '#gateway' ).val(),
 			wmf_token: $( '#wmf_token' ).val(),
 			amount: amount
-		},
+		};
+	};
+
+	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
+		var sendData = mc.getSendData( amount ),
 			url;
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
@@ -152,12 +156,7 @@
 						$smallAmountMessage.text(
 							$smallAmountMessage.text().replace( '$1', formattedMin )
 						);
-						$( '#mc-error-largeamount' ).hide();
 						$smallAmountMessage.show();
-					} else if ( otherAmount > originalAmount ) {
-						$otherAmountField.addClass( 'errorHighlight' );
-						$( '#mc-error-smallamount' ).hide();
-						$( '#mc-error-largeamount' ).show();
 					} else {
 						$( '.mc-error' ).hide();
 						$otherAmountField.removeClass( 'errorHighlight' );

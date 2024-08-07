@@ -454,7 +454,6 @@
 	"donate_interface-monthly-convert-change-amount": "De acuerdo, pero prefiero donar otro importe",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Por supuesto, déjame elegir cuánto",
 	"donate_interface-monthly-convert-enter-amount": "Introduce el importe que quieres donar a partir del próximo mes.",
-	"donate_interface-monthly-convert-max-amount": "No podemos cobrar una donación periódica si el importe es superior al que donaste inicialmente.",
 	"donate_interface-monthly-convert-action-button": "Activar donación mensual",
 	"donate_interface-monthly-convert-error": "Hemos tramitado correctamente tu donación única, pero no hemos podido configurar una donación mensual.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Sí, quiero ayudar",
