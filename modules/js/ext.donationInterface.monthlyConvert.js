@@ -98,11 +98,34 @@
 		} );
 	};
 
+	mc.setSmallAmountMessageAndMinLocal = function ( currency, locale ) {
+		var rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+			amountRules = mw.config.get( 'wgDonationInterfaceAmountRules' ),
+			formattedMin,
+			$smallAmountMessage = $( '#mc-error-smallamount' );
+
+		if ( currency === amountRules.currency || ( typeof rates[ currency ] ) === 'undefined' ) {
+			mc.minLocal = amountRules.min;
+		} else {
+			// Rates are all relative to USD, so we divide the configured minimum by its corresponding
+			// rate to get the minimum in USD, then multiply by the rate of the donation currency to get
+			// the minimum in the donation currency.
+			mc.minLocal = amountRules.min / rates[ amountRules.currency ] * rates[ currency ];
+		}
+		formattedMin = mc.formatAmount(
+			mc.minLocal, currency, locale
+		);
+		$smallAmountMessage.text(
+			$smallAmountMessage.text().replace( '$1', formattedMin )
+		);
+	};
+
 	// TODO Unify logic for determining whether or not to show monthly convert. This
 	// is just a sanity check to see if the required DOM elements are there.
 	mc.canShowModal = function () {
 		return $( '.mc-modal-screen' ).length > 0;
 	};
+
 	mc.init = function () {
 		var presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
@@ -120,6 +143,7 @@
 				currency,
 				locale
 			);
+			mc.setSmallAmountMessageAndMinLocal( currency, locale );
 			$( '.mc-no-button, .mc-close' ).on( 'click keypress', function ( e ) {
 				if ( e.which === 13 || e.type === 'click' ) {
 					mc.postMonthlyConvertDonate( presetAmount, true );
@@ -134,31 +158,13 @@
 				if ( e.which === 13 || e.type === 'click' ) {
 					var $otherAmountField = $( '#mc-other-amount-input' ),
 						otherAmount = +$otherAmountField.val(),
-						rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
-						rate,
-						minUsd = mw.config.get( 'wgDonationInterfacePriceFloor' ),
-						minLocal,
-						formattedMin,
-						$smallAmountMessage;
-
-					if ( rates[ currency ] ) {
-						rate = rates[ currency ];
-					} else {
-						rate = 1;
-					}
-					minLocal = minUsd * rate;
-					if ( otherAmount < minLocal ) {
-						formattedMin = mc.formatAmount(
-							minLocal, currency, locale
-						);
-						$otherAmountField.addClass( 'errorHighlight' );
 						$smallAmountMessage = $( '#mc-error-smallamount' );
-						$smallAmountMessage.text(
-							$smallAmountMessage.text().replace( '$1', formattedMin )
-						);
+
+					if ( otherAmount < mc.minLocal ) {
+						$otherAmountField.addClass( 'errorHighlight' );
 						$smallAmountMessage.show();
 					} else {
-						$( '.mc-error' ).hide();
+						$smallAmountMessage.hide();
 						$otherAmountField.removeClass( 'errorHighlight' );
 						mc.postMonthlyConvertDonate( otherAmount );
 					}
