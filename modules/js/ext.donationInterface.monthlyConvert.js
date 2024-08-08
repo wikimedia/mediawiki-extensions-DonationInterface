@@ -138,6 +138,7 @@
 			// a monthly donation. Just send them to the TY page.
 			document.location.assign( tyUrl );
 		} else {
+			mc.presetAmount = presetAmount;
 			mc.setConvertAsk(
 				presetAmount,
 				currency,

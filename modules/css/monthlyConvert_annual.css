@@ -1,0 +1,30 @@
+/* Buttons */
+.mc-buttons-vertical {
+	display: block;
+	justify-content: center;
+	margin: 1em auto;
+}
+
+@media ( min-width: 800px ) {
+	.mc-buttons-vertical .mc-buttons {
+		margin: 1em auto 2em;
+	}
+}
+
+.mc-buttons-vertical .mc-button {
+	display: block;
+	align-items: center;
+	justify-content: center;
+	width: auto;
+	height: auto;
+	font-size: 1.25em;
+}
+
+@media ( min-width: 800px ) {
+	.mc-buttons-vertical .mc-button {
+		width: auto;
+		height: 60px;
+		padding: 14px;
+		font-size: 1.25em;
+	}
+}
