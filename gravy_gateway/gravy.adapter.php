@@ -401,4 +401,14 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->addResponseData( $responseData );
 	}
 
+	protected function getQueueDonationMessage(): array {
+		$message = parent::getQueueDonationMessage();
+		// save external_identifier as gravy buyer id
+		if ( isset( $this->unstaged_data['processor_contact_id'] ) ) {
+			$message['external_identifier'] = $this->unstaged_data['processor_contact_id'];
+		}
+
+		return $message;
+	}
+
 }
