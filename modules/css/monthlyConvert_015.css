@@ -1,0 +1,10 @@
+.mc-button {
+	width: 350px;
+	height: inherit;
+	font-size: 18px;
+}
+
+.mc-buttons {
+	flex-direction: column;
+	align-items: center;
+}

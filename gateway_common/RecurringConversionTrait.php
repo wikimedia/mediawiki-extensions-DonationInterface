@@ -59,8 +59,6 @@ trait RecurringConversionTrait {
 					'recurring' => 1,
 					'txn_type' => 'subscr_signup',
 					'create_date' => UtcDate::getUtcTimestamp(),
-					// FIXME: Use same 'next donation date' logic as Civi extension
-					'start_date' => UtcDate::getUtcTimestamp( '+1 month' ),
 					'frequency_interval' => 1,
 					'subscr_id' => $sessionData['gateway_txn_id'],
 					'recurring_payment_token' => $sessionData['recurring_payment_token'],
@@ -68,6 +66,9 @@ trait RecurringConversionTrait {
 			);
 			// Set frequency unit to month if not explicitly set
 			$message['frequency_unit'] ??= 'month';
+			// And set the start date based on the unit.
+			// FIXME: Use same 'next donation date' logic as Civi extension
+			$message['start_date'] = UtcDate::getUtcTimestamp( '+1 ' . $message['frequency_unit'] );
 			foreach ( [ 'processor_contact_id', 'fiscal_number' ] as $optionalKey ) {
 				if ( !empty( $sessionData[$optionalKey] ) ) {
 					$message[$optionalKey] = $sessionData[$optionalKey];

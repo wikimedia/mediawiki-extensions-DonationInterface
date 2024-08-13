@@ -230,7 +230,8 @@
 		},
 		"ext.donationInterface.monthlyConvertAnnual": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertAnnual.js",
-			"dependencies": "ext.donationInterface.monthlyConvert"
+			"dependencies": "ext.donationInterface.monthlyConvert",
+			"styles": "modules/css/monthlyConvert_annual.css"
 		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
@@ -513,6 +514,11 @@
 				"donate_interface-monthly-convert-no-button-variant-011",
 				"donate_interface-monthly-convert-yes-button-variant-011"
 			]
+		},
+		"ext.donationInterface.monthlyConvert_015": {
+			"styles": "modules/css/monthlyConvert_015.css",
+			"scripts": "modules/js/ext.donationInterface.monthlyConvert_015.js",
+			"dependencies": "ext.donationInterface.monthlyConvert"
 		},
 		"ext.donationInterface.monthlyConvertButtonFlip": {
 			"scripts": "modules/js/ext.donationInterface.monthlyConvertButtonFlip.js",
