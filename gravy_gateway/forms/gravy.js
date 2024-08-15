@@ -148,13 +148,15 @@
 
 		if ( validateInputs() ) {
 			secureFields.submit();
-			mw.donationInterface.forms.callDonateApi(
-				handleApiResult,
-				{
-					gateway_session_id: sessionId
-				},
-				'di_donate_gravy'
-			);
+			setTimeout( function () {
+				mw.donationInterface.forms.callDonateApi(
+					handleApiResult,
+					{
+						gateway_session_id: sessionId
+					},
+					'di_donate_gravy'
+				);
+			}, 1000 );
 		} else {
 			mw.donationInterface.forms.enable();
 		}
