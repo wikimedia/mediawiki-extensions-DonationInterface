@@ -56,9 +56,9 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				'description' => 'Wikimedia Foundation',
 				'email' => 'nobody@wikimedia.org',
 				'first_name' => 'Voornaam',
-				'issuer_id' => '12345',
 				'last_name' => 'Achternaam',
 				'order_id' => $expectedMerchantRef,
+				'payment_submethod' => 'rtbt_ideal',
 				'postal_code' => '0',
 				'return_url' => $expectedReturnUrl,
 				'street_address' => 'N0NE PROVIDED',
@@ -137,9 +137,9 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 						'description' => 'Wikimedia Foundation',
 						'email' => 'nobody@wikimedia.org',
 						'first_name' => 'Voornaam',
-						'issuer_id' => '12345',
 						'last_name' => 'Achternaam',
 						'order_id' => $expectedMerchantRef,
+						'payment_submethod' => 'rtbt_ideal',
 						'postal_code' => '0',
 						'return_url' => $expectedReturnUrl,
 						'street_address' => 'N0NE PROVIDED',
@@ -250,9 +250,9 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 						'description' => 'Wikimedia Foundation',
 						'email' => 'nobody@wikimedia.org',
 						'first_name' => 'Voornaam',
-						'issuer_id' => '12345',
 						'last_name' => 'Achternaam',
 						'order_id' => $expectedMerchantRef,
+						'payment_submethod' => 'rtbt_ideal',
 						'postal_code' => '0',
 						'return_url' => $expectedReturnUrl,
 						'street_address' => 'N0NE PROVIDED',
@@ -461,7 +461,6 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		$init['payment_method'] = 'rtbt';
 		$init['payment_submethod'] = 'rtbt_ideal';
 		$init['contribution_tracking_id'] = (string)mt_rand( 1000000, 10000000 );
-		$init['issuer_id'] = '12345';
 		$init['email'] = 'nobody@wikimedia.org';
 		unset( $init['city'] );
 		unset( $init['postal_code'] );
