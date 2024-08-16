@@ -51,6 +51,17 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
 		$pspReferenceCapture = mt_rand( 100000000, 1000000000 );
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:GravyGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'utm_source' => '..cc'
+		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
@@ -66,7 +77,8 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'first_name' => 'Firstname',
 				'last_name' => 'Surname',
 				'postal_code' => '94105',
-				'street_address' => '123 Fake Street'
+				'street_address' => '123 Fake Street',
+				'return_url' => $expectedReturnUrl
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )

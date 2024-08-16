@@ -78,6 +78,28 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return [ 'cc' ];
 	}
 
+	public function processDonorReturn( $requestValues ) {
+		$this->logger->info( "Handling redirectResult " . json_encode( $requestValues ) );
+		$provider = PaymentProviderFactory::getProviderForMethod(
+			$this->getPaymentMethod()
+		);
+		'@phan-var \SmashPig\PaymentProviders\IPaymentProvider $provider';
+
+		$mappedResult = [];
+		if ( isset( $requestValues['transaction_id'] ) ) {
+			$mappedResult['gateway_txn_id'] = $requestValues['transaction_id'];
+		}
+
+		// @phan-suppress-next-line PhanUndeclaredMethod get Payment details is only declared in the gravy provider
+		$detailsResult = $provider->getPaymentDetails( $mappedResult );
+
+		$this->logger->debug(
+			'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
+		);
+
+		return $this->handleCreatedPayment( $provider, $detailsResult );
+	}
+
 	/**
 	 * After a payment has been created and we have the processor-side fraud results
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.

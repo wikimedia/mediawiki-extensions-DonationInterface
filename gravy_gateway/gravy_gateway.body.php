@@ -63,7 +63,7 @@ class GravyGateway extends GatewayPage {
 	 * @see GatewayPage::showContinueButton()
 	 */
 	public function showContinueButton() {
-		return false;
+		return !$this->isCreditCard();
 	}
 
 	/**
