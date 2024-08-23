@@ -74,7 +74,7 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 
 	public function testIPDenyListRejection() {
 		// add test IP to deny list
-		$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+		$this->overrideConfigValue( 'DonationInterfaceIPDenyList', [ '127.0.0.1' ] );
 
 		// set up adapter and run antifraud filters
 		$options = $this->getDonorTestData();

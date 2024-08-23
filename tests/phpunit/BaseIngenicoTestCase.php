@@ -97,9 +97,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			$this->hostedCheckoutProvider
 		);
 
-		$this->setMwGlobals( [
-			'wgIngenicoGatewayEnabled' => true,
-		] );
+		$this->overrideConfigValue( 'IngenicoGatewayEnabled', true );
 
 		$this->partialUrl = 'poweredbyglobalcollect.com/pay8915-53ebca407e6b4a1dbd086aad4f10354d:' .
 			'8915-28e5b79c889641c8ba770f1ba576c1fe:9798f4c44ac6406e8288494332d1daa0';

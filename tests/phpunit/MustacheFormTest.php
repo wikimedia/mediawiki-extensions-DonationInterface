@@ -67,8 +67,8 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @dataProvider formCases
 	 */
 	public function testRendering( $name, $regexp ) {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/{$name}.mustache",
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/{$name}.mustache",
 		] );
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
@@ -79,8 +79,8 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	}
 
 	public function testNoTemplateFile() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/DONOTCREATE.mustache",
 		] );
 
 		$this->expectException( RuntimeException::class );
@@ -96,9 +96,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testAppealRendering() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
-			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
+			'DonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		] );
 
 		$this->outputPage->expects( $this->once() )
@@ -119,9 +119,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testOverrideAppeal() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
-			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
+			'DonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		] );
 
 		$this->adapter->addRequestData( [ 'appeal' => 'differentAppeal' ] );
@@ -141,9 +141,9 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @requires PHPUnit 4.0
 	 */
 	public function testSanitizeOverrideAppeal() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
-			'wgDonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/appeal.mustache",
+			'DonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		] );
 
 		$this->adapter->addRequestData( [
@@ -165,8 +165,8 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	 * @dataProvider belgiumLanguageProvider
 	 */
 	public function testL10nParams( $language ) {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceTemplate' => __DIR__ . "/data/mustache/l10n.mustache",
+		$this->overrideConfigValues( [
+			'DonationInterfaceTemplate' => __DIR__ . "/data/mustache/l10n.mustache",
 		] );
 		$this->setLanguage( $language );
 		$this->adapter->addRequestData( [ 'language' => $language ] );

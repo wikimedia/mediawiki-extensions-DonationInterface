@@ -83,10 +83,10 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		self::setUpSmashPigContext();
 
 		// TODO use TestConfiguration.php instead?
-		$this->setMwGlobals( [
+		$this->overrideConfigValues( [
 			// Setting this to its default value
 			// FIXME is this right?
-			'wgDonationInterface3DSRules' => [ 'INR' => [] ],
+			'DonationInterface3DSRules' => [ 'INR' => [] ],
 		] );
 
 		TestingGenericAdapter::$donationRules = [
@@ -782,16 +782,16 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * @param int $threshold
 	 */
 	protected function setMwGlobalsForIPVelocityFilterTest( int $threshold ): void {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceIPVelocityThreshhold'      => $threshold,
-			'wgDonationInterfaceCustomFiltersActionRanges' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceIPVelocityThreshhold'      => $threshold,
+			'DonationInterfaceCustomFiltersActionRanges' => [
 				\SmashPig\PaymentData\ValidationAction::PROCESS => [ 0, 58 ],
 				\SmashPig\PaymentData\ValidationAction::REVIEW => [ 58, 60 ],
 				\SmashPig\PaymentData\ValidationAction::CHALLENGE => [ 60, 75 ],
 				\SmashPig\PaymentData\ValidationAction::REJECT => [ 75, 100 ],
 			],
-			'wgDonationInterfaceEnableIPVelocityFilter'    => true,
-			'wgDonationInterfaceIPVelocityFailScore'       => 80,
+			'DonationInterfaceEnableIPVelocityFilter'    => true,
+			'DonationInterfaceIPVelocityFailScore'       => 80,
 		] );
 	}
 

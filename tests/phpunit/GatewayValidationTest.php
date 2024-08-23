@@ -31,11 +31,11 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
+		$this->overrideConfigValues( [
 			// FIXME: base class sketchiness.
-			'wgDonationInterfaceGatewayAdapters' => [
+			'DonationInterfaceGatewayAdapters' => [
 				'donation' => TestingGatewayAdapter::class,
-			]
+			],
 		] );
 
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
@@ -129,8 +129,8 @@ class GatewayValidationTest extends DonationInterfaceTestCase {
 	public function testCountryError() {
 		// TODO: also validate and test country=ZZ and XX
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceForbiddenCountries' => [ 'US' ]
+		$this->overrideConfigValues( [
+			'DonationInterfaceForbiddenCountries' => [ 'US' ],
 		] );
 
 		$this->setUpAdapter( [

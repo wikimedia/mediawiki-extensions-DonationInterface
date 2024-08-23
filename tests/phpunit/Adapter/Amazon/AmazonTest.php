@@ -58,9 +58,7 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		parent::setUp();
 		$this->providerConfig = self::setUpAmazonTestingContext();
 
-		$this->setMwGlobals( [
-			'wgAmazonGatewayEnabled' => true,
-		] );
+		$this->overrideConfigValue( 'AmazonGatewayEnabled', true );
 	}
 
 	/**
@@ -81,9 +79,9 @@ class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 		$cadRate = $rates['CAD'];
 
 		$expectedAmount = floor( $init['amount'] / $cadRate );
-		$this->setMwGlobals( [
-			'wgAmazonGatewayFallbackCurrency' => 'USD',
-			'wgAmazonGatewayNotifyOnConvert' => true,
+		$this->overrideConfigValues( [
+			'AmazonGatewayFallbackCurrency' => 'USD',
+			'AmazonGatewayNotifyOnConvert' => true,
 		] );
 
 		$expectedNotification = wfMessage(

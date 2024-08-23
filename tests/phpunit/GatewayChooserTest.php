@@ -49,15 +49,15 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceEnableGatewayChooser' => true,
-			'wgIngenicoGatewayEnabled' => true,
-			'wgDlocalGatewayEnabled' => true,
-			'wgBraintreeGatewayEnabled' => true,
-			'wgPaypalExpressGatewayEnabled' => true,
-			'wgAdyenCheckoutGatewayEnabled' => true,
-			'wgAmazonGatewayEnabled' => true,
-			'wgDonationInterfaceGatewayAdapters' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceEnableGatewayChooser' => true,
+			'IngenicoGatewayEnabled' => true,
+			'DlocalGatewayEnabled' => true,
+			'BraintreeGatewayEnabled' => true,
+			'PaypalExpressGatewayEnabled' => true,
+			'AdyenCheckoutGatewayEnabled' => true,
+			'AmazonGatewayEnabled' => true,
+			'DonationInterfaceGatewayAdapters' => [
 				'ingenico' => 'IngenicoAdapter',
 				'amazon' => 'AmazonAdapter',
 				'adyen' => 'AdyenCheckoutAdapter',
@@ -65,7 +65,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 				'braintree' => 'BraintreeAdapter',
 				'dlocal' => 'DlocalAdapter',
 				'gravy' => 'GravyAdapter',
-			]
+			],
 		] );
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$this->dir = $config->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface' . DIRECTORY_SEPARATOR;
@@ -73,8 +73,8 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testMaintenanceMode_Redirect() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceFundraiserMaintenance' => true,
+		$this->overrideConfigValues( [
+			'DonationInterfaceFundraiserMaintenance' => true,
 		] );
 
 		$expectedLocation = Title::newFromText( 'Special:FundraiserMaintenance' )->getFullURL( '', false, PROTO_CURRENT );
@@ -97,7 +97,7 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	 * @return void
 	 */
 	public function testNoNeedParamGateWayChooser( array $params, bool $redirectToDonateWiki ) {
-		$this->setMwGlobals( [ 'wgDonationInterfaceChooserProblemURL' => 'https://test.example' ] );
+		$this->overrideConfigValue( 'DonationInterfaceChooserProblemURL', 'https://test.example' );
 		$context = RequestContext::getMain();
 		$newOutput = new OutputPage( $context );
 		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
@@ -426,16 +426,16 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testChooseGatewayByPrioritySingleRuleMatch() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceGatewayPriorityRules' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'payment_method' => 'cc' ],
-					'gateways' => [ 'ingenico' ]
+					'gateways' => [ 'ingenico' ],
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ]
-				]
-			]
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ],
+				],
+			],
 		] );
 
 		$testQueryParams = [
@@ -457,16 +457,16 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testChooseGatewayByPriorityMultiRuleMatch() {
-			$this->setMwGlobals( [
-				'wgDonationInterfaceGatewayPriorityRules' => [
+			$this->overrideConfigValues( [
+				'DonationInterfaceGatewayPriorityRules' => [
 					[
 						'conditions' => [ 'payment_method' => 'cc', 'utm_medium' => 'endowment' ],
-						'gateways' => [ 'adyen' ]
+						'gateways' => [ 'adyen' ],
 					],
 					[
-						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ]
-					]
-				]
+						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ],
+					],
+				],
 			] );
 
 			$testQueryParams = [
@@ -489,16 +489,16 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testChooseGatewayByPriorityConditionValueArrayRuleMatch() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceGatewayPriorityRules' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'country' => [ 'US', 'GB', 'FR' ] ], // array as value
-					'gateways' => [ 'ingenico' ]
+					'gateways' => [ 'ingenico' ],
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ]
-				]
-			]
+					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ],
+				],
+			],
 		] );
 
 		$testQueryParams = [
@@ -518,20 +518,20 @@ class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	public function testChooseGatewayByPriorityStopsAtFirstRuleMatch() {
-		$this->setMwGlobals( [
-			'wgDonationInterfaceGatewayPriorityRules' => [
+		$this->overrideConfigValues( [
+			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'payment_method' => 'cc', 'utm_medium' => 'endowment' ],
-					'gateways' => [ 'adyen' ]
+					'gateways' => [ 'adyen' ],
 				],
 				[
 					'conditions' => [ 'payment_method' => 'cc' ], // we shouldn't get to this one
-					'gateways' => [ 'ingenico' ]
+					'gateways' => [ 'ingenico' ],
 				],
 				[
-					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ]
-				]
-			]
+					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ],
+				],
+			],
 		] );
 
 		$testQueryParams = [

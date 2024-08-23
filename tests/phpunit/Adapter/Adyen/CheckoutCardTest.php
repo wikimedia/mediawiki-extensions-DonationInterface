@@ -492,7 +492,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				->method( 'createPayment' );
 		$this->cardPaymentProvider->expects( $this->never() )
 				->method( 'approvePayment' );
-		$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+		$this->overrideConfigValue( 'DonationInterfaceIPDenyList', [ '127.0.0.1' ] );
 		$result = $gateway->doPayment();
 
 		$this->assertTrue( $result->isFailed() );
@@ -527,9 +527,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 	 */
 	public function testDoPaymentCardMonthlyConvert() {
 		$init = $this->getTestDonorCardData();
-		$this->setMwGlobals( [
-			'wgDonationInterfaceMonthlyConvertCountries' => [ 'US' ]
-		] );
+		$this->overrideConfigValue( 'DonationInterfaceMonthlyConvertCountries', [ 'US' ] );
 		$init += $this->encryptedCardData;
 		$gateway = $this->getFreshGatewayObject( $init );
 		$expectedEncryptedParams = [
@@ -617,9 +615,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 	 */
 	public function testDoPaymentCardMonthlyConvertMinimumAmount() {
 		$init = $this->getTestDonorCardData();
-		$this->setMwGlobals( [
-		'wgDonationInterfaceMonthlyConvertCountries' => [ 'US' ]
-		] );
+		$this->overrideConfigValue( 'DonationInterfaceMonthlyConvertCountries', [ 'US' ] );
 		$init += $this->encryptedCardData;
 		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );

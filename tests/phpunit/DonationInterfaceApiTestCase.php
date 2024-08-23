@@ -11,9 +11,9 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 		parent::setUp();
 
 		// TODO Use TestConfiguration.php instead?
-		$this->setMwGlobals( [
-			'wgDonationInterface3DSRules' => [ 'INR' => [] ],
-			'wgDonationInterfaceSalt' => 'test_salt'
+		$this->overrideConfigValues( [
+			'DonationInterface3DSRules' => [ 'INR' => [] ],
+			'DonationInterfaceSalt' => 'test_salt',
 		] );
 
 		$this->saltedToken = md5( $this->clearToken . 'test_salt' ) . Token::SUFFIX;

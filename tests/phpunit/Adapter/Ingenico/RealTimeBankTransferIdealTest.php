@@ -55,11 +55,7 @@ class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends B
 				]
 			);
 
-		$this->setMwGlobals(
-			[
-				'wgIngenicoGatewayEnabled' => true,
-			]
-		);
+		$this->overrideConfigValue( 'IngenicoGatewayEnabled', true );
 	}
 
 	/**

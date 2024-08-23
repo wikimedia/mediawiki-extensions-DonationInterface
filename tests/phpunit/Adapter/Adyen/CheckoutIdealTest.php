@@ -270,7 +270,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 
 		for ( $i = 1; $i <= 3; $i++ ) {
 			if ( $i === 3 ) {
-				$this->setMwGlobals( [ 'wgDonationInterfaceIPDenyList' => [ '127.0.0.1' ], ] );
+				$this->overrideConfigValue( 'DonationInterfaceIPDenyList', [ '127.0.0.1' ] );
 			}
 			$result = $gateway->doPayment();
 		}

@@ -12,11 +12,11 @@ class BaseBraintreeTestCase extends DonationInterfaceTestCase {
 
 		$this->providerConfig = $this->setSmashPigProvider( 'braintree' );
 
-		$this->setMwGlobals( [
-			'wgBraintreeGatewayEnabled' => true,
-			'wgDonationInterfaceGatewayAdapters' => [
+		$this->overrideConfigValues( [
+			'BraintreeGatewayEnabled' => true,
+			'DonationInterfaceGatewayAdapters' => [
 				'braintree' => BraintreeAdapter::class
-			]
+			],
 		] );
 	}
 

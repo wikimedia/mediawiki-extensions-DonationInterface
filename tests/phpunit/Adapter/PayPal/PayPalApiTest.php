@@ -30,10 +30,10 @@ class PayPalApiTest extends DonationInterfaceApiTestCase {
 		$this->provider = $this->createMock( PaymentProvider::class );
 		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $this->provider );
 
-		$this->setMwGlobals( [
-			'wgDonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
-			'wgPaypalExpressGatewayEnabled' => true,
-			'wgDonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
+		$this->overrideConfigValues( [
+			'DonationInterfaceCancelPage' => 'https://example.com/tryAgain.php',
+			'PaypalExpressGatewayEnabled' => true,
+			'DonationInterfaceThankYouPage' => 'https://example.org/wiki/Thank_You',
 		] );
 	}
 

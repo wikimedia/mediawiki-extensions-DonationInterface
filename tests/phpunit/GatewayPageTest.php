@@ -38,9 +38,7 @@ class GatewayPageTest extends DonationInterfaceTestCase {
 		TestingGenericAdapter::$fakeGlobals = [ 'FallbackCurrency' => 'USD' ];
 		TestingGenericAdapter::$acceptedCurrencies[] = 'USD';
 		TestingGenericAdapter::$fakeIdentifier = 'ingenico';
-		$this->setMwGlobals( [
-			'wgPaypalExpressGatewayEnabled' => true,
-		] );
+		$this->overrideConfigValue( 'PaypalExpressGatewayEnabled', true );
 		parent::setUp();
 	}
 
