@@ -7,7 +7,7 @@ use Psr\Log\LoggerInterface;
  */
 
 class DonationProfiler {
-	protected $logger;
+	protected LoggerInterface $logger;
 	protected $commLogger;
 	protected $gatewayName;
 
