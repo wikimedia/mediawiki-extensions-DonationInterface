@@ -3,7 +3,9 @@
 use MediaWiki\Session\Token;
 
 class DonationInterfaceApiTestCase extends ApiTestCase {
+	/** @var string */
 	protected $clearToken = 'blahblah';
+	/** @var string */
 	protected $saltedToken;
 
 	protected function setUp(): void {

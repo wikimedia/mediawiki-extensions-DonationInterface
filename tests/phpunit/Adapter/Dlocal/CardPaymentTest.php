@@ -16,6 +16,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  */
 class CardPaymentTest extends BaseDlocalTestCase {
 
+	/** @var CardPaymentProvider */
 	protected $cardPaymentProvider;
 
 	protected function setUp(): void {

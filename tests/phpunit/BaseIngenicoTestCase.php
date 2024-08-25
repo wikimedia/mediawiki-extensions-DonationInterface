@@ -10,8 +10,10 @@ use SmashPig\Tests\TestingContext;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 
+	/** @var string */
 	protected $partialUrl;
 
+	/** @var string */
 	protected $hostedCheckoutCreateResponse;
 
 	/**
@@ -72,6 +74,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	 */
 	protected $hostedPaymentStatusResponseBadCvv;
 
+	/** @var ApprovePaymentResponse */
 	protected $approvePaymentResponse;
 
 	/**
@@ -84,6 +87,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	 */
 	protected $curlWrapper;
 
+	/** @inheritDoc */
 	protected $testAdapterClass = IngenicoAdapter::class;
 
 	protected function setUp(): void {

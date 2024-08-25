@@ -25,7 +25,9 @@ use SmashPig\Core\ValidationError;
  */
 class GatewayValidationTest extends DonationInterfaceTestCase {
 
+	/** @var TestingGatewayPage */
 	protected $page;
+	/** @var TestingGenericAdapter */
 	protected $adapter;
 
 	protected function setUp(): void {

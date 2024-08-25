@@ -14,6 +14,7 @@ class BraintreeGateway extends GatewayPage {
 	 */
 	public $supportsMonthlyConvert = true;
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = BraintreeAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {

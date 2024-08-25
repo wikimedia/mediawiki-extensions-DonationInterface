@@ -18,6 +18,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  */
 class IngenicoApiTest extends DonationInterfaceApiTestCase {
 
+	/** @var HostedCheckoutProvider */
 	protected $hostedCheckoutProvider;
 
 	/**
@@ -29,6 +30,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 */
 	protected $curlWrapper;
 
+	/** @var string */
 	protected $partialUrl;
 
 	protected function setUp(): void {

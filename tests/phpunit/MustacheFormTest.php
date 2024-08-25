@@ -22,9 +22,13 @@
  * @group GatewayPage
  */
 class MustacheFormTest extends DonationInterfaceTestCase {
+	/** @var Gateway_Form_Mustache */
 	protected $form;
+	/** @var TestingGenericAdapter */
 	protected $adapter;
+	/** @var OutputPage */
 	protected $outputPage;
+	/** @var TestingGatewayPage */
 	protected $gatewayPage;
 
 	protected function setUp(): void {

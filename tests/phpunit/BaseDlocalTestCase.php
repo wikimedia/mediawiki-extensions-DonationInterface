@@ -2,7 +2,9 @@
 
 class BaseDlocalTestCase extends DonationInterfaceTestCase {
 
+	/** @inheritDoc */
 	protected $testAdapterClass = DlocalAdapter::class;
+	/** @var ProviderConfiguration */
 	protected $providerConfig;
 
 	protected function setUp(): void {

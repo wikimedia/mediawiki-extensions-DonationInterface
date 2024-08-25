@@ -5,6 +5,7 @@
  */
 class GravyGatewayResult extends ResultSwitcher {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 }

@@ -2,6 +2,7 @@
 
 class TestingGatewayPage extends GatewayPage {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
 	public function __construct() {

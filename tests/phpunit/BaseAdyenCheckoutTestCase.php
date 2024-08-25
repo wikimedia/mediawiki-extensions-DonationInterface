@@ -4,6 +4,7 @@ use MediaWiki\Session\Token;
 
 class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 
+	/** @inheritDoc */
 	protected $testAdapterClass = AdyenCheckoutAdapter::class;
 
 	/**
@@ -11,10 +12,13 @@ class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 	 */
 	protected $providerConfig;
 
+	/** @var string */
 	protected $clearToken = 'blahblah';
 
+	/** @var string */
 	protected $saltedToken;
 
+	/** @var string */
 	protected $redirectResult = 'sdhjiasdf89uy3q2rujhrasdfn789a3h24c89qad783h9a8cnyq9873245yhcq987yrhncawo87ryhcaok7wrya8o745ybso47egho47';
 
 	protected function setUp(): void {

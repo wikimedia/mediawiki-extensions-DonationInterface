@@ -65,6 +65,7 @@ class AmazonAdapter extends GatewayAdapter {
 		'InvalidPaymentMethod',
 	];
 
+	/** @var string[] */
 	protected $pending_reasons = [
 		'TransactionTimedOut',
 	];

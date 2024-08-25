@@ -26,8 +26,11 @@ use SmashPig\Core\DataStores\QueueWrapper;
  * @package		Fundraising_QueueHandling
  */
 class DonationQueueTest extends DonationInterfaceTestCase {
+	/** @var array */
 	protected $transaction;
+	/** @var string */
 	protected $queue_name;
+	/** @var array */
 	protected $expected_message;
 
 	protected function setUp(): void {

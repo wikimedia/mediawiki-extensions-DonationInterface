@@ -30,6 +30,7 @@ use SmashPig\Tests\TestingContext;
  */
 class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 
+	/** @inheritDoc */
 	protected $testAdapterClass = AmazonAdapter::class;
 	/**
 	 * @var \SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration

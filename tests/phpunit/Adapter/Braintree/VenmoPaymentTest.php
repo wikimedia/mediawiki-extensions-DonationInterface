@@ -11,6 +11,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  * @group Braintree
  */
 class VenmoPaymentTest extends BaseBraintreeTestCase {
+	/** @inheritDoc */
 	protected $testAdapterClass = BraintreeAdapter::class;
 
 	/**

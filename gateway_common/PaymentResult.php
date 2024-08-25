@@ -28,11 +28,17 @@ use SmashPig\PaymentData\FinalStatus;
  *     in the URL's GET params.
  */
 class PaymentResult {
+	/** @var ?string */
 	protected $iframe;
+	/** @var ?string */
 	protected $redirect;
+	/** @var bool */
 	protected $refresh = false;
+	/** @var array */
 	protected $errors = [];
+	/** @var array */
 	protected $formData = [];
+	/** @var bool */
 	protected $failed = false;
 
 	protected function __construct() {

@@ -1,6 +1,7 @@
 <?php
 class BaseBraintreeTestCase extends DonationInterfaceTestCase {
 
+	/** @inheritDoc */
 	protected $testAdapterClass = BraintreeAdapter::class;
 	/**
 	 * @var \SmashPig\Tests\TestingProviderConfiguration

@@ -13,6 +13,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  */
 class PaypalPaymentTest extends BaseBraintreeTestCase {
 
+	/** @inheritDoc */
 	protected $testAdapterClass = BraintreeAdapter::class;
 
 	/**

@@ -83,9 +83,13 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $var_map = [];
 
+	/** @var string */
 	protected $account_name;
+	/** @var array */
 	protected $account_config;
+	/** @var array */
 	protected $accountInfo;
+	/** @var array */
 	protected $transactions;
 
 	/**
@@ -103,7 +107,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected $payment_submethods = [];
 
+	/** @var array */
 	protected $staged_data;
+	/** @var array */
 	protected $unstaged_data;
 
 	/**
@@ -178,7 +184,9 @@ abstract class GatewayAdapter implements GatewayType {
 	const DONOR = 'Donor';
 	const DONOR_BKUP = 'Donor_BKUP';
 
+	/** @var array */
 	protected $order_id_candidates;
+	/** @var array */
 	protected $order_id_meta;
 
 	/**
@@ -705,6 +713,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( array_key_exists( $transaction, $this->transactions ) && is_array( $this->transactions[$transaction] ) &&
 			array_key_exists( 'values', $this->transactions[$transaction] ) &&
 			array_key_exists( $gateway_field_name, $this->transactions[$transaction]['values'] ) ) {
+			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			$value = $this->transactions[$transaction]['values'][$gateway_field_name];
 			return $this->trimFieldToConstraints( $value, $gateway_field_name );
 		}

@@ -4,6 +4,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 
 class ErrorState {
+	/** @var (PaymentError|ValidationError)[] */
 	protected $errors = [];
 
 	/**

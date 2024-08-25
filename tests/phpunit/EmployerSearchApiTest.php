@@ -11,6 +11,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class EmployerSearchApiTest extends ApiTestCase {
 
+	/** @var resource */
 	protected $csvDataSource;
 
 	protected function setUp(): void {
