@@ -1038,6 +1038,8 @@ class DonationData implements LogPrefixProvider {
 			'gateway',
 			'gateway_account',
 			'gateway_txn_id',
+			'backend_processor',
+			'backend_processor_txn_id',
 			'order_id',
 			'subscr_id',
 			'recurring',

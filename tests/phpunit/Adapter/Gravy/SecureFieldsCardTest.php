@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\Address;
 use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\FinalStatus;
@@ -48,8 +50,8 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 		$init = $this->getTestDonorCardData();
 		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
-		$pspReferenceAuth = 'ASD' . mt_rand( 100000, 1000000 );
-		$pspReferenceCapture = mt_rand( 100000000, 1000000000 );
+		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$adyenTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedReturnUrl = Title::newFromText(
 			'Special:GravyGatewayResult'
@@ -85,7 +87,9 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 					->setRawStatus( 'authorization_succeeded' )
 					->setStatus( FinalStatus::PENDING_POKE )
 					->setSuccessful( true )
-					->setGatewayTxnId( $pspReferenceAuth )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setBackendProcessor( 'adyen' )
+					->setBackendProcessorTransactionId( $adyenTransactionId )
 			);
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -93,20 +97,40 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			->with( [
 				'currency' => 'USD',
 				'amount' => '1.55',
-				'gateway_txn_id' => $pspReferenceAuth
+				'gateway_txn_id' => $gravyTransactionId
 			] )
 			->willReturn(
 				( new ApprovePaymentResponse() )
 					->setRawStatus( 'capture_succeeded' )
 					->setStatus( FinalStatus::COMPLETE )
 					->setSuccessful( true )
-					->setGatewayTxnId( $pspReferenceCapture )
+					->setGatewayTxnId( $gravyTransactionId )
 			);
 
 		$result = $gateway->doPayment();
 
 		$this->assertFalse( $result->isFailed() );
 		$this->assertSame( [], $result->getErrors() );
+		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNotNull( $queueMessage );
+		SourceFields::removeFromMessage( $queueMessage );
+		$this->assertArraySubmapSame( [
+			'gross' => '1.55',
+			'backend_processor' => 'adyen',
+			'backend_processor_txn_id' => $adyenTransactionId,
+			'currency' => 'USD',
+			'gateway' => 'gravy',
+			'gateway_txn_id' => $gravyTransactionId,
+			'user_ip' => '127.0.0.1',
+			'payment_submethod' => 'visa',
+			'order_id' => $expectedMerchantRef,
+			'email' => 'nobody@wikimedia.org',
+			'first_name' => 'Firstname',
+			'last_name' => 'Surname',
+			'postal_code' => '94105',
+			'street_address' => '123 Fake Street',
+			'utm_source' => '..cc'
+		], $queueMessage );
 	}
 
 	/**

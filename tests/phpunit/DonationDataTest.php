@@ -594,6 +594,8 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'fiscal_number',
 			'initial_scheme_transaction_id',
 			'iban',
+			'backend_processor',
+			'backend_processor_txn_id',
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}
