@@ -21,15 +21,15 @@ class BaseGravyTestCase extends DonationInterfaceTestCase {
 		parent::setUp();
 		$this->saltedToken = md5( $this->clearToken ) . Token::SUFFIX;
 		$this->providerConfig = $this->setSmashPigProvider( 'gravy' );
-		$this->setMwGlobals( [
-			'wgGravyGatewayEnabled' => true,
-			'wgGravyGatewayCustomFiltersFunctions' => [
+		$this->overrideConfigValues( [
+			'GravyGatewayEnabled' => true,
+			'GravyGatewayCustomFiltersFunctions' => [
 				'getCVVResult' => 10,
 				'getAVSResult' => 50,
 			],
-			'wgDonationInterfaceGatewayAdapters' => [
+			'DonationInterfaceGatewayAdapters' => [
 				'gravy' => GravyAdapter::class
-			]
+			],
 		] );
 	}
 }

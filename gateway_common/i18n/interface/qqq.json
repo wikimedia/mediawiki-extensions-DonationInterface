@@ -243,6 +243,7 @@
 	"donate_interface-error-msg-street_address": "Error message for missing street address.\n{{Related|Donate interface-err-msg}}",
 	"donate_interface-error-msg-city": "Error message for missing city.\n{{Related|Donate interface-error-msg}}",
 	"donate_interface-error-msg-state_province": "Error message for missing state.\n{{Related|Donate interface-err-msg}}",
+	"donate_interface-error-msg-phone": "Error message for missing phone number.\n{{Related|Donate interface-err-msg}}",
 	"donate_interface-error-msg-postal_code-us": "Error message for missing zip code, the zip code is US-specific postal code.\n{{Related|Donate interface-err-msg}}",
 	"donate_interface-error-msg-postal_code": "Error message for missing postal code.\n{{Related|Donate interface-err-msg}}",
 	"donate_interface-error-msg-invalid-first_name": "Error message for invalid first name.\n{{related|Donate interface-error-msg}}",

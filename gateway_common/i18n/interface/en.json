@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-street_address": "Please enter your street address",
 	"donate_interface-error-msg-city": "Please enter your city",
 	"donate_interface-error-msg-state_province": "Please enter your state",
+	"donate_interface-error-msg-phone": "Please enter your phone number",
 	"donate_interface-error-msg-postal_code-us": "Please enter your zip code",
 	"donate_interface-error-msg-postal_code": "Please enter your postal code",
 	"donate_interface-error-msg-invalid-first_name": "Please correct the errors in your first name",
