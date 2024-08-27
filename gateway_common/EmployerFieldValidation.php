@@ -2,6 +2,7 @@
 
 class EmployerFieldValidation implements ValidationHelper, ClientSideValidationHelper {
 
+	/** @var string */
 	protected static $key = 'employer';
 
 	/**

@@ -6,6 +6,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 
 trait RecurringConversionTrait {
+	/** @var \Psr\Log\LoggerInterface */
 	protected $logger;
 
 	abstract public function session_getData( $key, $subkey = null );

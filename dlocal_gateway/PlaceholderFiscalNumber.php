@@ -6,6 +6,7 @@
  * TODO: Remove this when they fix it
  */
 class PlaceholderFiscalNumber implements StagingHelper {
+	/** @var array */
 	protected $placeholders = [
 		'MX' => [ 1.0e+12, 1.0e+13 ],
 		'PE' => [ 1.0e+8, 1.0e+10 ],

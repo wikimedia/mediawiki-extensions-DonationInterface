@@ -18,6 +18,7 @@
 
 class AmazonGateway extends GatewayPage {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = AmazonAdapter::IDENTIFIER;
 
 	/**

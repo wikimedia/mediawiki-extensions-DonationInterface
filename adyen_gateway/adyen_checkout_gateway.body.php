@@ -16,6 +16,7 @@ class AdyenCheckoutGateway extends GatewayPage {
 	 */
 	public $supportsMonthlyConvert = true;
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = AdyenCheckoutAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( $out ): void {

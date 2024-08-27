@@ -18,9 +18,13 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * @author khorn
  */
 class DonationData implements LogPrefixProvider {
+	/** @var array */
 	protected $normalized = [];
+	/** @var array */
 	protected $dataSources = [];
+	/** @var GatewayAdapter */
 	protected $gateway;
+	/** @var string */
 	protected $gatewayID;
 
 	/**

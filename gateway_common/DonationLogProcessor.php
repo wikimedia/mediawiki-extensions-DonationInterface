@@ -7,7 +7,7 @@
  */
 class DonationLogProcessor {
 
-	protected $prefixer;
+	protected LogPrefixProvider $prefixer;
 
 	public function __construct( LogPrefixProvider $prefixer ) {
 		$this->prefixer = $prefixer;

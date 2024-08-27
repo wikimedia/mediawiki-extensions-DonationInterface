@@ -17,6 +17,7 @@ class DlocalGateway extends GatewayPage {
 	 */
 	public $supportsMonthlyConvert = true;
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = DlocalAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {

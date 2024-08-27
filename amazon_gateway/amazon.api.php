@@ -1,6 +1,7 @@
 <?php
 
 class AmazonBillingApi extends DonationApiBase {
+	/** @var string[] */
 	protected $allowedParams = [
 		'amount',
 		'billingAgreementId',

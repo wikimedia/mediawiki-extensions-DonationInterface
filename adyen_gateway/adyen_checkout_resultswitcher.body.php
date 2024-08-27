@@ -5,6 +5,7 @@
  */
 class AdyenCheckoutGatewayResult extends ResultSwitcher {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = AdyenCheckoutAdapter::IDENTIFIER;
 
 	/**

@@ -13,6 +13,7 @@ class GravyGateway extends GatewayPage {
 	 */
 	public $supportsMonthlyConvert = true;
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {

@@ -4,6 +4,7 @@ use SmashPig\PaymentData\ValidationAction;
 
 class Gateway_Extras_ConversionLog extends Gateway_Extras {
 
+	/** @var self */
 	protected static $instance;
 
 	/**

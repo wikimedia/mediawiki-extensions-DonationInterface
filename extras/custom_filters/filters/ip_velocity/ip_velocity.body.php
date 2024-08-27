@@ -27,6 +27,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	 */
 	protected $cache_obj;
 
+	/** @var string */
 	protected $user_ip;
 
 	protected function __construct(

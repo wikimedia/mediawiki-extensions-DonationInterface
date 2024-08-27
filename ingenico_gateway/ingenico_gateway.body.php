@@ -21,6 +21,7 @@
  */
 class IngenicoGateway extends GatewayPage {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
 	public function execute( $par ) {

@@ -5,6 +5,7 @@
  */
 class BraintreeGatewayResult extends ResultSwitcher {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = BraintreeAdapter::IDENTIFIER;
 
 }

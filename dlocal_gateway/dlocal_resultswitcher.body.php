@@ -5,6 +5,7 @@
  */
 class DlocalGatewayResult extends ResultSwitcher {
 
+	/** @inheritDoc */
 	protected $gatewayIdentifier = DlocalAdapter::IDENTIFIER;
 
 }

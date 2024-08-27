@@ -6,6 +6,7 @@
  */
 class FallbackLogPrefixer implements LogPrefixProvider {
 
+	/** @var string */
 	protected $prefix;
 
 	public function __construct( $prefix ) {

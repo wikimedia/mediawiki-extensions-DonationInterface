@@ -1,6 +1,7 @@
 <?php
 
 class PaypalExpressGateway extends GatewayPage {
+	/** @inheritDoc */
 	protected $gatewayIdentifier = PaypalExpressAdapter::IDENTIFIER;
 
 	/**

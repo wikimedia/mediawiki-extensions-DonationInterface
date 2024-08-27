@@ -2,6 +2,7 @@
 
 class Ingenico3DSecure extends Simple3DSecure {
 
+	/** @var string[] */
 	protected static $supportedSubMethods = [
 		'amex',
 		'cb',
