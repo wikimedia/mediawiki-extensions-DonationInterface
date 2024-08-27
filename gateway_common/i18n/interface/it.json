@@ -198,6 +198,7 @@
 	"donate_interface-error-msg-street_address": "Le seguenti informazioni sono richieste: via",
 	"donate_interface-error-msg-city": "Per favore, inserisci la tua città",
 	"donate_interface-error-msg-state_province": "Per favore, inserisci il tuo stato (USA)",
+	"donate_interface-error-msg-phone": "Inserisci il tuo numero di telefono",
 	"donate_interface-error-msg-postal_code-us": "Le seguenti informazioni sono richieste: CAP",
 	"donate_interface-error-msg-postal_code": "Per favore, inserisci il tuo codice postale",
 	"donate_interface-error-msg-invalid-first_name": "Per favore correggi gli errori nel campo 'nome'",
