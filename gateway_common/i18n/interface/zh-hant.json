@@ -220,6 +220,7 @@
 	"donate_interface-error-msg-street_address": "請輸入您的街道地址",
 	"donate_interface-error-msg-city": "請輸入您的城市",
 	"donate_interface-error-msg-state_province": "請輸入您的州",
+	"donate_interface-error-msg-phone": "請輸入您的電話號碼",
 	"donate_interface-error-msg-postal_code-us": "請輸入您的郵政編碼",
 	"donate_interface-error-msg-postal_code": "請輸入您的郵政編碼",
 	"donate_interface-error-msg-invalid-first_name": "請更正您在名中的錯誤",

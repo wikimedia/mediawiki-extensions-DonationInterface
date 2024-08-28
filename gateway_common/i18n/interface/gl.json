@@ -209,6 +209,7 @@
 	"donate_interface-error-msg-street_address": "Por favor, escribe o teu enderezo",
 	"donate_interface-error-msg-city": "Por favor, escribe a túa cidade",
 	"donate_interface-error-msg-state_province": "Por favor, escribe o teu estado",
+	"donate_interface-error-msg-phone": "Por favor, escribe o teu número de teléfono",
 	"donate_interface-error-msg-postal_code-us": "Por favor, escribe o teu código postal",
 	"donate_interface-error-msg-postal_code": "Por favor, escribe o teu código postal",
 	"donate_interface-error-msg-invalid-first_name": "Por favor, corrixe os erros no teu nome",
