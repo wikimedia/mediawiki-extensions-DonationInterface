@@ -289,5 +289,7 @@
 	"donate_interface-faqs": "Tez-tez soruşulan suallar",
 	"donate_interface-tax-info": "Vergi endirimi haqqında məlumat",
 	"donate_interface-informationsharing": "Biz məlumatlarınızı heç kimə satmırıq. İanə verməklə siz şəxsi məlumatlarınızı Vikipediya və digər Vikimedia layihələrini özündə birləşdirən qeyri-kommersiya təşkilatı olan Vikimedia Fondu və onun xidmət təminatçıları ilə <a href=\"$1\">ianə siyasətinə</a> uyğun olaraq paylaşmağa razılaşırsınız. Vikimedia Fondu və onun xidmət təminatçıları ABŞ-də və məxfilik qanunları sizinki ilə uyğun olmaya bilən digər dövlətlərdə yerləşirlər. Əlavə məlumat üçün <a href=\"$1\">ianə siyasətini</a> oxuyun.",
-	"donate_interface-monthly-cancel": "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianənin aylıq ildönümündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün $1 ünvanı ilə əlaqə saxlayın."
+	"donate_interface-monthly-cancel": "Təkrarlanan ianələr üçün sabit aylıq ödənişlər Vikimedia Fondu tərəfindən ilk ianənin aylıq ildönümündə, siz onları dayandırmaq barədə bizə bildirdiyiniz vaxta kimi debet ediləcək. Ayın 29, 30 və ya 31-də başlanan ianələr mümkün qədər orijinal tarixə yaxın ayın son günündə daha qısa aylarda təkrarlanacaq. Suallar üçün $1 ünvanı ilə əlaqə saxlayın.",
+	"donate_interface-monthly-short": "Aylıq",
+	"donate_interface-onetime-short": "Birdəfəlik"
 }
