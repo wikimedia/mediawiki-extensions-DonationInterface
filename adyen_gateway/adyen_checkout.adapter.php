@@ -241,8 +241,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			case 'rtbt':
 				switch ( $this->getPaymentSubmethod() ) {
 					case 'onlineBanking_CZ':
-					case 'rtbt_ideal':
 						$this->transactions['authorize']['request'][] = 'issuer_id';
+						break;
+					case 'rtbt_ideal':
+						$this->transactions['authorize']['request'][] = 'payment_submethod';
 						break;
 					case 'sepadirectdebit':
 						$this->transactions['authorize']['request'] =

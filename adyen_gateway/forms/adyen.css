@@ -180,3 +180,8 @@ div#applepay-container, div#googlepay-container {
 input[ type='text' ]::placeholder {
 	opacity: 0.3;
 }
+
+/* Hide the 'all fields are required' text in the new Checkout form */
+div.adyen-checkout__card-input p.adyen-checkout-form-instruction {
+	display:none;
+}
