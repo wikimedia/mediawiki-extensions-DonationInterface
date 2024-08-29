@@ -165,6 +165,7 @@
 	"donate_interface-error-msg-street_address": "অনুগ্রহ করে আপনার রাস্তার ঠিকানা লিখুন",
 	"donate_interface-error-msg-city": "অনুগ্রহ করে আপনার শহর লিখুন",
 	"donate_interface-error-msg-state_province": "অনুগ্রহ করে আপনার রাজ্য লিখুন",
+	"donate_interface-error-msg-phone": "দয়া করে আপনার ফোন নম্বর লিখুন",
 	"donate_interface-error-msg-postal_code-us": "অনুগ্রহ করে আপনার জিপ কোড লিখুন",
 	"donate_interface-error-msg-postal_code": "অনুগ্রহ করে আপনার পোস্টাল কোড দিন",
 	"donate_interface-error-msg-invalid-first_name": "দয়া করে আপনার নামের প্রথমাংশ-এর ত্রুটি সংশোধন করুন।",

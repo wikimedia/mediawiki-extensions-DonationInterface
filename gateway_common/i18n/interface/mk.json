@@ -202,6 +202,7 @@
 	"donate_interface-error-msg-street_address": "Внесете поштенска адреса",
 	"donate_interface-error-msg-city": "Внесете град",
 	"donate_interface-error-msg-state_province": "Внесете сојузна држава",
+	"donate_interface-error-msg-phone": "Внесете ваш телефонски број",
 	"donate_interface-error-msg-postal_code-us": "Внесете поштенски број",
 	"donate_interface-error-msg-postal_code": "Внесете поштенски број",
 	"donate_interface-error-msg-invalid-first_name": "Исправете ги грешките во: име",
