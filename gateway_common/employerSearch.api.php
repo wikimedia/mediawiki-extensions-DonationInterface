@@ -121,6 +121,7 @@ class EmployerSearchAPI extends ApiBase {
 
 		// Read in and parse the file
 		$employerList = [];
+		// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 		while ( ( $row = fgetcsv( $fileHandle ) ) !== false ) {
 			if ( count( $row ) !== 2 ) {
 				$this->setError( 'Wrong number of columns in a row of employer data file.' );
