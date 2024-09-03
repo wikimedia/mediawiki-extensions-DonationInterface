@@ -3,6 +3,7 @@
 		"authors": [
 			"Anoop rao",
 			"Ansumang",
+			"AnupamM",
 			"NehalDaveND",
 			"Rajatkatiyar10",
 			"Saurmandal",
@@ -193,6 +194,7 @@
 	"donate_interface-error-msg-street_address": "कृपया अपने गली का पता दर्ज करें",
 	"donate_interface-error-msg-city": "कृपया अपना शहर दर्ज करें",
 	"donate_interface-error-msg-state_province": "कृपया अपना राज्य दर्ज करें",
+	"donate_interface-error-msg-phone": "कृपया अपना फ़ोन नंबर दर्ज करें",
 	"donate_interface-error-msg-postal_code-us": "कृपया अपना ज़िप कोड दर्ज करें",
 	"donate_interface-error-msg-postal_code": "कृपया अपना डाक कोड दर्ज करें",
 	"donate_interface-error-msg-invalid-first_name": "कृपया अपने प्रथम नाम में गलतियाँ सुधारें",

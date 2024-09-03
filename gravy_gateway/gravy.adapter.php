@@ -399,9 +399,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// Add the gravy-generated transaction ID to the DonationData object
 		// to be sent to the queues
 		if ( $authorizeResult->isSuccessful() ) {
-			$this->addResponseData( [
-				'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
-			] );
+			$responseData['gateway_txn_id'] = $authorizeResult->getGatewayTxnId();
+			$responseData['backend_processor'] = $authorizeResult->getBackendProcessor();
+			$responseData['backend_processor_txn_id'] = $authorizeResult->getBackendProcessorTransactionId();
 
 			if ( $authorizeResult->getRecurringPaymentToken() != null ) {
 				$responseData['recurring_payment_token'] = $authorizeResult->getRecurringPaymentToken();

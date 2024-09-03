@@ -209,6 +209,7 @@
 	"donate_interface-error-msg-street_address": "נא להזין את הכתובת",
 	"donate_interface-error-msg-city": "יש להזין את השדה הבא: עיר",
 	"donate_interface-error-msg-state_province": "יש להזין את השדה הבא: מדינה",
+	"donate_interface-error-msg-phone": "נא להזין את מספר הטלפון שלך",
 	"donate_interface-error-msg-postal_code-us": "נא להזין את המיקוד",
 	"donate_interface-error-msg-postal_code": "נא להזין את המיקוד",
 	"donate_interface-error-msg-invalid-first_name": "לתקן את השגיאות בשם פרטי שלך",
