@@ -17,6 +17,8 @@
  *
  */
 
+use MediaWiki\Request\FauxRequest;
+
 /**
  * TestingRequest object extends the FauxRequest object (which is auto-used in
  * unit testing), with some essential normal request object functions added back

@@ -1,5 +1,6 @@
 <?php
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 use Symfony\Component\Yaml\Parser;
 
 /**

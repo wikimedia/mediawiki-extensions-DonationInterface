@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+use MediaWiki\Request\FauxRequest;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
