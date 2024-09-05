@@ -578,16 +578,6 @@
 			oldShowErrors,
 			checkoutPromise;
 
-		if ( !configFromServer ) {
-			// If the configuration has not been passed from the server, we are likely on the
-			// ResultSwitcher page and have just been loaded incidentally to make a form for
-			// a backdrop of the monthly convert popup. As the rest of this function is only
-			// needed to set up payment widgets which will not be needed here, just quit.
-			// It might be better to stop loading adyen.js in that situation, but that's a
-			// bigger refactor than we want to do right now.
-			return;
-		}
-
 		component_type = mapPaymentMethodToComponentType( payment_method );
 
 		// Drop in the adyen components placeholder container
@@ -747,6 +737,15 @@
 	}
 
 	$( function () {
+		if ( !configFromServer ) {
+			// If the configuration has not been passed from the server, we are likely on the
+			// ResultSwitcher page and have just been loaded incidentally to make a form for
+			// a backdrop of the monthly convert popup. As the rest of this function is only
+			// needed to set up payment widgets which will not be needed here, just quit.
+			// It might be better to stop loading adyen.js in that situation, but that's a
+			// bigger refactor than we want to do right now.
+			return;
+		}
 		if ( payment_method === 'google' ) {
 			loadScript( 'google' );
 		}
