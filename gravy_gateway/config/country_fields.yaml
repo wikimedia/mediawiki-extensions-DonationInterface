@@ -1,3 +1,12 @@
+AU:
+  state_province: true
+CA:
+  address: true
+GB:
+  address: true
+  opt_in: true
+IE:
+  opt_in: true
 US:
-    employer: optional
-    address: true
+  address: true
+  employer: optional
