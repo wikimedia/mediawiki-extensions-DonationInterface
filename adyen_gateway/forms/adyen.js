@@ -358,7 +358,7 @@
 							bank_account_type: $( '#bank_account_type' ).val()
 						};
 						if ( ACH_GET_DONOR_ADDRESS ) {
-							extraData.supplemental_address_1 = state.data.billingAddress.houseNumberOrName;
+							extraData.supplemental_address_1 = state.data.billingAddress.houseNumberOrName !== 'N/A' ? state.data.billingAddress.houseNumberOrName : '';
 							extraData.country = state.data.billingAddress.country;
 							extraData.street_address = state.data.billingAddress.street;
 							extraData.postal_code = state.data.billingAddress.postalCode;

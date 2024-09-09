@@ -423,10 +423,18 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $result->isFailed() ) {
 			$this->logger->info( 'Displaying fail page for failed PaymentResult' );
 			$this->displayFailPage();
-		} elseif ( $url = $result->getRedirect() ) {
+			return;
+		}
+
+		$url = $result->getRedirect();
+		if ( $url ) {
 			$this->adapter->logPending();
 			$this->getOutput()->redirect( $url );
-		} elseif ( $url = $result->getIframe() ) {
+			return;
+		}
+
+		$url = $result->getIframe();
+		if ( $url ) {
 			// Show a form containing an iframe.
 
 			// Well, that's sketchy.  See TODO in renderIframe: we should
@@ -435,19 +443,24 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 
 			$this->renderIframe( $url );
-		} elseif (
-			count( $result->getErrors() )
-		) {
+			return;
+		}
+
+		if ( count( $result->getErrors() ) ) {
 			$this->displayForm();
-		} elseif ( $this->adapter->showMonthlyConvert() ) {
+			return;
+		}
+
+		if ( $this->adapter->showMonthlyConvert() ) {
 			$this->logger->info( "Displaying monthly convert modal after successful one-time donation PaymentResult" );
 			$this->displayForm();
-		} else {
-			// Success.
-			$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
-			$this->logger->info( "Displaying thank you page $thankYouPage for successful PaymentResult." );
-			$this->getOutput()->redirect( $thankYouPage );
+			return;
 		}
+
+		// Success.
+		$thankYouPage = ResultPages::getThankYouPage( $this->adapter );
+		$this->logger->info( "Displaying thank you page $thankYouPage for successful PaymentResult." );
+		$this->getOutput()->redirect( $thankYouPage );
 	}
 
 	/**

@@ -167,32 +167,35 @@
 			mw.donationInterface.validation.showErrors( {
 				general: mw.msg( 'donate_interface-error-msg-general' )
 			} );
-		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
-			mw.monthlyConvert.init();
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
+		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
+			mw.monthlyConvert.init();
 		} else {
 			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
 		}
 	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
 	 *  The script should already be mostly or completely preloaded at this point, thanks
-	 *  to a <link rel=preload> we add in GravyGateway::execute
+	 *  to a <link rel=preload> we add in GravyGateway::execute.
+	 *  Don't try to load the script if the configured src is empty (as happens on the
+	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
 	$( function () {
-		if ( $( '#payment_method' ).val() === 'cc' ) {
-			var scriptNode = document.createElement( 'script' );
+		var scriptNode, scriptSrc = mw.config.get( 'secureFieldsScriptLink' );
+		if ( scriptSrc && $( '#payment_method' ).val() === 'cc' ) {
+			scriptNode = document.createElement( 'script' );
 			scriptNode.onload = setupCardForm;
 			scriptNode.onerror = function () {
 				mw.donationInterface.validation.showErrors(
 					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
 				);
 			};
-			scriptNode.src = mw.config.get( 'secureFieldsScriptLink' );
+			scriptNode.src = scriptSrc;
 			document.body.append( scriptNode );
-
 		}
 	} );
 } )( jQuery, mediaWiki );

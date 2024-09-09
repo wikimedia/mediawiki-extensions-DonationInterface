@@ -3,7 +3,7 @@
 class ResultPages {
 	/**
 	 * Get the URL for a page to show donors after a successful donation,
-	 * with the country code appended as a query string variable
+	 * with information about the donation appended as query string variables
 	 * @param GatewayType $adapter
 	 * @param array $extraParams any extra parameters to add to the URL
 	 * @return string full URL of the thank you page
@@ -16,17 +16,31 @@ class ResultPages {
 				$adapter->getData_Unstaged_Escaped( 'language' )
 			);
 		}
-		$extraParams['country'] = $adapter->getData_Unstaged_Escaped( 'country' );
-		$extraParams['amount'] = $adapter->getData_Unstaged_Escaped( 'amount' );
-		$extraParams['currency'] = $adapter->getData_Unstaged_Escaped( 'currency' );
-		$extraParams['payment_method'] = $adapter->getData_Unstaged_Escaped( 'payment_method' );
-		$extraParams['order_id'] = $adapter->getData_Unstaged_Escaped( 'order_id' );
-		$extraParams['recurring'] = $adapter->getData_Unstaged_Escaped( 'recurring' );
+		$keysToPassThrough = [
+			'amount',
+			'country',
+			'currency',
+			'frequency_unit',
+			'order_id',
+			'payment_method',
+			'recurring',
+		];
+
+		foreach ( $keysToPassThrough as $key ) {
+			$extraParams[$key] = $adapter->getData_Unstaged_Escaped( $key );
+		}
+
 		// Map from internal-facing old utm_ prefixes to wmf_ prefixes that hopefully
 		// are less likely to be stripped by privacy-preserving browsers.
-		$extraParams['wmf_medium'] = $adapter->getData_Unstaged_Escaped( 'utm_medium' );
-		$extraParams['wmf_source'] = $adapter->getData_Unstaged_Escaped( 'utm_source' );
-		$extraParams['wmf_campaign'] = $adapter->getData_Unstaged_Escaped( 'utm_campaign' );
+		$mappedKeys = [
+			'utm_medium' => 'wmf_medium',
+			'utm_source' => 'wmf_source',
+			'utm_campaign' => 'wmf_campaign',
+		];
+
+		foreach ( $mappedKeys as $key => $mappedKey ) {
+			$extraParams[$mappedKey] = $adapter->getData_Unstaged_Escaped( $key );
+		}
 
 		return wfAppendQuery( $page ?? '', $extraParams );
 	}

@@ -136,6 +136,7 @@ class PaymentMethod {
 			if ( $method->name === $ancestor ) {
 				return true;
 			}
+			// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 		} while ( $method = $method->getParent() );
 
 		return false;
@@ -148,6 +149,7 @@ class PaymentMethod {
 	 */
 	public function getFamily() {
 		$method = $this;
+		// phpcs:ignore Generic.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition
 		while ( $parent = $method->getParent() ) {
 			$method = $parent;
 		}

@@ -84,7 +84,8 @@ class ConfigurationReader {
 	 * @return bool
 	 */
 	public function unregisterConfigDirectory( string $path ): bool {
-		if ( ( $key = array_search( $path, $this->configDirectories ) ) !== false ) {
+		$key = array_search( $path, $this->configDirectories );
+		if ( $key !== false ) {
 			unset( $this->configDirectories[$key] );
 			return true;
 		} else {

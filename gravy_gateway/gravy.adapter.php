@@ -88,6 +88,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$mappedResult = [];
 		if ( isset( $requestValues['transaction_id'] ) ) {
 			$mappedResult['gateway_txn_id'] = $requestValues['transaction_id'];
+		} elseif ( isset( $requestValues['gr4vy_transaction_id'] ) ) {
+			$mappedResult['gateway_txn_id'] = $requestValues['gr4vy_transaction_id'];
 		}
 
 		// @phan-suppress-next-line PhanUndeclaredMethod get Payment details is only declared in the gravy provider
