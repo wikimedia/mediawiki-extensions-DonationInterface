@@ -178,6 +178,24 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/**
+	 * getAVSResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 * @return int
+	 */
+	public function getAVSResult() {
+		return $this->getData_Unstaged_Escaped( 'avs_result' );
+	}
+
+	/**
+	 * getCVVResult is intended to be used by the functions filter, to
+	 * determine if we want to fail the transaction ourselves or not.
+	 * @return int
+	 */
+	public function getCVVResult() {
+		return $this->getData_Unstaged_Escaped( 'cvv_result' );
+	}
+
+	/**
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
