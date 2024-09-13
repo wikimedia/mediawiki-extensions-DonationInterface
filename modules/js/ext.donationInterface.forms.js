@@ -155,6 +155,7 @@
 			opt_in: getOptIn(),
 			employer: $( '#employer' ).val(),
 			employer_id: $( '#employer_id' ).val(),
+			street_number: $( '#street_number' ).val(),
 			format: 'json'
 		};
 

@@ -11,7 +11,7 @@ CO:
   fiscal_number: true
 IN:
   street_address: true
-  street_number: optional
+  street_number: true
   state_province: true
   postal_code: true
   city: true
