@@ -215,6 +215,7 @@
 	"donate_interface-error-msg-phone": "Please enter your phone number",
 	"donate_interface-error-msg-postal_code-us": "Please enter your zip code",
 	"donate_interface-error-msg-postal_code": "Please enter your postal code",
+	"donate_interface-error-msg-street_number": "Please enter your house number",
 	"donate_interface-error-msg-invalid-first_name": "Please correct the errors in your first name",
 	"donate_interface-error-msg-invalid-last_name": "Please correct the errors in your last name",
 	"donate_interface-error-msg-invalid-street_address": "Please correct the errors in your street address",
