@@ -482,7 +482,7 @@
 			"scripts": "modules/js/ext.donationInterface.monthlyConvert.js",
 			"styles": "modules/css/monthlyConvert.css",
 			"dependencies": [
-				"mediawiki.Uri",
+				"web2017-polyfills",
 				"mediawiki.util"
 			],
 			"messages": [
