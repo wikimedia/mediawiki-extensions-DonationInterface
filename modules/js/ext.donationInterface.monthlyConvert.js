@@ -60,8 +60,7 @@
 	};
 
 	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
-		var sendData = mc.getSendData( amount ),
-			url;
+		var sendData = mc.getSendData( amount );
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
 		}
@@ -72,9 +71,9 @@
 			type: 'POST',
 			success: function ( data ) {
 				if ( data && !data.error && data.result && !data.result.errors ) {
-					url = new mw.Uri( tyUrl );
+					var url = new URL( tyUrl, location.href );
 					if ( !declineMonthlyConvert ) {
-						url = url.extend( { recurringConversion: 1 } );
+						url.searchParams.set( 'recurringConversion', 1 );
 					}
 					document.location.assign( url.toString() );
 				} else {
