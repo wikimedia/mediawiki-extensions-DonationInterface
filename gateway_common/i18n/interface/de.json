@@ -218,6 +218,7 @@
 	"donate_interface-error-msg-phone": "Bitte gib deine Telefonnummer ein",
 	"donate_interface-error-msg-postal_code-us": "Bitte geben Sie Ihre Postleitzahl ein",
 	"donate_interface-error-msg-postal_code": "Bitte geben Sie Ihre Postleitzahl ein",
+	"donate_interface-error-msg-street_number": "Bitte gib deine Hausnummer ein",
 	"donate_interface-error-msg-invalid-first_name": "Bitte korrigieren Sie die Fehler in Ihrem Vornamen",
 	"donate_interface-error-msg-invalid-last_name": "Bitte korrigieren Sie die Fehler in Ihrem Nachnamen",
 	"donate_interface-error-msg-invalid-street_address": "Bitte korrigieren Sie die Fehler in Ihrer Straße",
