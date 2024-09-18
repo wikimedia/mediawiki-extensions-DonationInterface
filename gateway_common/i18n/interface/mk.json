@@ -205,6 +205,7 @@
 	"donate_interface-error-msg-phone": "Внесете ваш телефонски број",
 	"donate_interface-error-msg-postal_code-us": "Внесете поштенски број",
 	"donate_interface-error-msg-postal_code": "Внесете поштенски број",
+	"donate_interface-error-msg-street_number": "Внесете број на домот",
 	"donate_interface-error-msg-invalid-first_name": "Исправете ги грешките во: име",
 	"donate_interface-error-msg-invalid-last_name": "Исправете ги грешките во: презиме",
 	"donate_interface-error-msg-invalid-street_address": "Исправете ги грешките во: поштенска адреса",
