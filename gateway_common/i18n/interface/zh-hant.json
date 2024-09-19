@@ -223,6 +223,7 @@
 	"donate_interface-error-msg-phone": "請輸入您的電話號碼",
 	"donate_interface-error-msg-postal_code-us": "請輸入您的郵政編碼",
 	"donate_interface-error-msg-postal_code": "請輸入您的郵政編碼",
+	"donate_interface-error-msg-street_number": "請輸入您的門牌號碼",
 	"donate_interface-error-msg-invalid-first_name": "請更正您在名中的錯誤",
 	"donate_interface-error-msg-invalid-last_name": "請更正您在姓中的錯誤",
 	"donate_interface-error-msg-invalid-street_address": "請更正您在街道地址中的錯誤",

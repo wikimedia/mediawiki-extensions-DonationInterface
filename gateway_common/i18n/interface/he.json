@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-phone": "נא להזין את מספר הטלפון שלך",
 	"donate_interface-error-msg-postal_code-us": "נא להזין את המיקוד",
 	"donate_interface-error-msg-postal_code": "נא להזין את המיקוד",
+	"donate_interface-error-msg-street_number": "נא להזין את מספר הבית שלך",
 	"donate_interface-error-msg-invalid-first_name": "לתקן את השגיאות בשם פרטי שלך",
 	"donate_interface-error-msg-invalid-last_name": "לתקן את השגיאות בשם משפחה שלך",
 	"donate_interface-error-msg-invalid-street_address": "לתקן את השגיאות בכתובת הרחוב שלך",
