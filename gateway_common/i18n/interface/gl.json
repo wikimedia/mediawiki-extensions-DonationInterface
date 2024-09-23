@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-phone": "Por favor, escribe o teu número de teléfono",
 	"donate_interface-error-msg-postal_code-us": "Por favor, escribe o teu código postal",
 	"donate_interface-error-msg-postal_code": "Por favor, escribe o teu código postal",
+	"donate_interface-error-msg-street_number": "Por favor, escribe o número do teu domicilio",
 	"donate_interface-error-msg-invalid-first_name": "Por favor, corrixe os erros no teu nome",
 	"donate_interface-error-msg-invalid-last_name": "Por favor, corrixe os erros nos teus apelidos",
 	"donate_interface-error-msg-invalid-street_address": "Por favor, corrixe os erros no teu enderezo",
