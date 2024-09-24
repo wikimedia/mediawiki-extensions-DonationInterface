@@ -471,7 +471,7 @@
 	"donate_interface-email-unsub-success": "Votre nom a bien été retiré de notre liste de diffusion",
 	"donate_interface-email-unsub-delay": "Veuillez compter jusqu’à quatre (4) jours pour que les changements prennent effet. Nous vous prions de bien vouloir nous excuser pour les courriels que vous recevez pendant cette période. Si vous avez des questions, veuillez nous contacter en envoyant un courriel à $1.",
 	"donate_interface-email-unsub-fail": "Une erreur est survenue lors du traitement de votre demande, merci de contacter <a href=\"mailto:$1\">$1</a>.",
-	"donate_interface-email-unsub-confirm": "Êtes-vous certain que vous souhaitez désabonner <b>$1</b> ?",
+	"donate_interface-email-unsub-confirm": "Êtes-vous sûr de vouloir vous désabonner <b>$1</b> ?",
 	"donate_interface-email-explain": "Nous vous enverrons un reçu par courriel pour confirmer votre don.",
 	"donate_interface-email-optin-fail": "Une erreur s’est produite lors du traitement de votre requête. Veuillez contacter <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">cliquez ici pour réessayer</a>.",
 	"donate_interface-faqs": "Foire aux questions",
