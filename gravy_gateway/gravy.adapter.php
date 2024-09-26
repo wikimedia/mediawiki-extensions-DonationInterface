@@ -4,6 +4,7 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -247,6 +248,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$createPaymentParams = $this->buildRequestArray();
 		if ( $this->showMonthlyConvert() ) {
 			$createPaymentParams['recurring'] = 1;
+			$createPaymentParams['recurring_model'] = RecurringModel::CARD_ON_FILE;
 		}
 		$this->logger->info( "Calling createPayment for Gravy payment" );
 
