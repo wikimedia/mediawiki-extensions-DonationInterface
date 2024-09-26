@@ -39,5 +39,10 @@
 	"recurupgrade-upgrade-decline": "No, I'll leave it as is",
 	"recurupgrade-upgrade-now": "Upgrade my monthly gift now",
 	"recurupgrade-upgrade": "Upgrade recurring amount",
-	"recurupgrade-upgrading-new-amount": "You are increasing your monthly donation amount to <strong></strong>."
+	"recurupgrade-upgrading-new-amount": "You are increasing your monthly donation amount to <strong></strong>.",
+	"fundraiserunsubscribe": "Unsubscribe from Wikimedia Foundation fundraising email",
+	"fundraiserunsubscribe-confirm": "Are you sure you want to unsubscribe",
+	"fundraisersubscribe": "Opt in",
+	"fundraisersubscribe-appeal-headline-001": "Like what you see?",
+	"fundraisersubscribe-appeal-text-001": "We want to send you occasional updates with photos like these, ways to provide support or advice in the future, and more of what you love from Wikipedia."
 }

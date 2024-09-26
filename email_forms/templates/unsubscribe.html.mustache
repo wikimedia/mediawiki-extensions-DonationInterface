@@ -1,10 +1,19 @@
-<form method="POST" action="{{ action }}">
-    <input type="hidden" name="token" value="{{ token }}" />
-    <input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
+{{> emailPreferencesHeader}}
+<main class="site-content">
+	<div>
+		<h1>{{ l10n "fundraiserunsubscribe" }}</h1>
+		<form method="POST" action="{{ action }}">
+			<input type="hidden" name="token" value="{{ token }}" />
+			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
+			<input type="hidden" name="contact_id" value="{{ contact_id }}" />
+			<input type="hidden" name="checksum" value="{{checksum}}" />
 
-    <p>{{{ l10n "donate_interface-email-unsub-confirm" email }}}</p>
-    <p>{{{ l10n "donate_interface-email-unsub-delay" help_email }}}"</p>
+			<h3>{{ l10n "fundraiserunsubscribe-confirm" }} <input type="email" name="email" id="email" required value="{{ email }}" placeholder="{{ l10n "email" }}" />?</h3>
+			<p>{{{ l10n "donate_interface-email-unsub-delay" help_email }}}</p>
 
-    <button type="submit" name="submit" id="unsubscribe" value="continue" >{{ l10n "donate_interface-email-unsub-button" }}</button>
-    <button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
-</form>
+			<button type="submit" name="submit" id="unsubscribe" value="continue" >{{ l10n "donate_interface-email-unsub-button" }}</button>
+			<button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
+		</form>
+	</div>
+</main>
+{{> emailPreferencesFooter}}

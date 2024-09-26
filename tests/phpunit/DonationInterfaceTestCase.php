@@ -728,6 +728,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$queues = [
 			'contribution-tracking',
 			'donations',
+			'unsubscribe',
 			'email-preferences',
 			'opt-in',
 			'payments-antifraud',

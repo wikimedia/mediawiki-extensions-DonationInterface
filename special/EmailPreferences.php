@@ -57,8 +57,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$this->executeEmailPreferences( $params );
 					break;
 				default:
-					// TODO: need another form for bad url
-					$this->renderError( 'optin' );
+					$this->renderError();
 			}
 		} else {
 			if ( $subpage === 'emailPreferences' ) {
@@ -154,33 +153,62 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return $addedParams;
 	}
 
-	public function setupOptIn( $params ) {
-		$message = [
-			'email' => $params['email'],
-		];
-		if ( !empty( $params['variant'] ) ) {
-			$message['variant'] = $params['variant'];
-		}
-		if ( !empty( $params['contact_id'] ) && !empty( $params['checksum'] ) ) {
-			$message['contact_id'] = $params['contact_id'];
-			$message['checksum'] = $params['checksum'];
-		}
+	public function setupQueueParams( $params, $queueName ) {
+		switch ( $queueName ) {
+			case 'email-preferences':
+				$message = [
+					'checksum' => $params['checksum'],
+					'contact_id' => $params['contact_id'],
+					'first_name' => $params['first_name'],
+					'email' => $params['email'],
+					'country' => $params['country'],
+					'language' => $params['language'],
+				];
+				if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
+					$message['send_email'] = $params['send_email'];
+				} else {
+					// selected snooze
+					$snoozeDays = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
+					$snoozeDate = new DateTime( "+$snoozeDays days" );
+					$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
+				}
+				break;
+			case 'opt-in':
+				$message = [
+					'email' => $params['email'],
+				];
+				if ( !empty( $params['variant'] ) ) {
+					$message['variant'] = $params['variant'];
+				}
+				if ( !empty( $params['contact_id'] ) && !empty( $params['checksum'] ) ) {
+					$message['contact_id'] = $params['contact_id'];
+					$message['checksum'] = $params['checksum'];
+				}
 
-		if ( !empty( $params['utm_source'] ) ) {
-			$message['utm_source'] = $params['utm_source'];
-		}
-		if ( !empty( $params['utm_medium'] ) ) {
-			$message['utm_medium'] = $params['utm_medium'];
-		}
-		if ( !empty( $params['utm_campaign'] ) ) {
-			$message['utm_campaign'] = $params['utm_campaign'];
+				if ( !empty( $params['utm_source'] ) ) {
+					$message['utm_source'] = $params['utm_source'];
+				}
+				if ( !empty( $params['utm_medium'] ) ) {
+					$message['utm_medium'] = $params['utm_medium'];
+				}
+				if ( !empty( $params['utm_campaign'] ) ) {
+					$message['utm_campaign'] = $params['utm_campaign'];
+				}
+				break;
+			case 'unsubscribe':
+				$message = [
+					'email' => $params['email'],
+				];
+				break;
+			default:
+				$message = [];
 		}
 
 		return $message;
 	}
 
 	protected function executeOptIn( $params ) {
-		$message = $this->setupOptIn( $params );
+		$message = $this->setupQueueParams( $params, 'opt-in' );
 
 		try {
 			QueueWrapper::push( 'opt-in', $message );
@@ -191,8 +219,22 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function executeUnsubscribe( $params ) {
-		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
-		throw new BadMethodCallException( 'Not implemented' );
+		// verify if same email address
+		$additionalParams = $this->paramsForPreferencesForm(
+			$params[ 'checksum' ],
+			$params[ 'contact_id' ]
+		);
+		if ( !empty( $additionalParams['email'] ) && $additionalParams['email'] === $params[ 'email' ] ) {
+			$message = $this->setupQueueParams( $params, 'unsubscribe' );
+			try {
+				QueueWrapper::push( 'unsubscribe', $message );
+				$this->renderSuccess( 'unsubscribe', $params );
+			} catch ( Exception $e ) {
+				$this->renderError( 'unsubscribe' );
+			}
+		} else {
+			$this->renderError( 'unsubscribe' );
+		}
 	}
 
 	protected function executeEmailPreferences( $params ) {
@@ -204,24 +246,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$this->renderSuccess( 'emailPreferences', $params );
 			return;
 		}
-
-		$message = [
-			'checksum' => $params['checksum'],
-			'contact_id' => $params['contact_id'],
-			'first_name' => $params['first_name'],
-			'email' => $params['email'],
-			'country' => $params['country'],
-			'language' => $params['language'],
-		];
-		if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
-			$message['send_email'] = $params['send_email'];
-		} else {
-			// selected snooze
-			$snoozeDays = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
-			$snoozeDate = new DateTime( "+$snoozeDays days" );
-			$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
-		}
-
+		$message = $this->setupQueueParams( $params, 'email-preferences' );
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'emailPreferences', $params );
@@ -230,12 +255,12 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function renderError( $subpage = 'optin' ) {
+	protected function renderError( $subpage = 'general' ) {
 		$subpage .= 'Error';
 		$this->renderQuery( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'optin', $params = [] ) {
+	protected function renderSuccess( $subpage = 'general', $params = [] ) {
 		$subpage .= 'Success';
 		$this->renderQuery( $subpage, $params );
 	}
