@@ -94,7 +94,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		// @phan-suppress-next-line PhanUndeclaredMethod get Payment details is only declared in the gravy provider
-		$detailsResult = $provider->getPaymentDetails( $mappedResult );
+		$detailsResult = $provider->getLatestPaymentStatus( $mappedResult );
 
 		$this->logger->debug(
 			'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
