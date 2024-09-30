@@ -39,7 +39,11 @@
 			"Wladek92",
 			"Wyz",
 			"Y-M D",
-			"MacOS Weed"
+			"MacOS Weed",
+			"Alien333",
+			"Assorted-Interests",
+			"Goombiis",
+			"Terio legale"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -459,7 +463,7 @@
 	"donate_interface-email-unsub-success": "Votre nom a bien été retiré de notre liste de diffusion",
 	"donate_interface-email-unsub-delay": "Veuillez compter jusqu’à quatre (4) jours pour que les changements prennent effet. Nous vous prions de bien vouloir nous excuser pour les courriels que vous recevez pendant cette période. Si vous avez des questions, veuillez nous contacter en envoyant un courriel à <$1>.",
 	"donate_interface-email-unsub-fail": "Une erreur est survenue lors du traitement de votre demande, merci de contacter <$1>.",
-	"donate_interface-email-unsub-confirm": "Êtes-vous certain que vous souhaitez désabonner <b>$1</b> ?",
+	"donate_interface-email-unsub-confirm": "Êtes-vous sûr de vouloir vous désabonner <b>$1</b> ?",
 	"donate_interface-email-unsub-warning": "Cela vous désabonnera des courriels que la Wikimedia Foundation vous envoie en tant que donateur. Vous pourriez néanmoins continuer à recevoir d’autres types de courriels si votre adresse demeure associée à un compte de contributeur sur un de nos projets. Si vous avez des questions, veuillez contacter <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-explain": "Nous vous enverrons un reçu par courriel pour confirmer votre don.",
 	"donate_interface-email-optin-fail": "Une erreur s’est produite lors du traitement de votre requête. Veuillez contacter <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">cliquez ici pour réessayer</a>.",
