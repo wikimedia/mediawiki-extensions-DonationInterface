@@ -1,12 +1,20 @@
-<form method="POST" action="{{ action }}">
-    <input type="hidden" name="token" value="{{ token }}" />
-    <input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
-    <input type="hidden" name="contact_id" value="{{ contact_id }}" />
-    <input type="hidden" name="checksum" value="{{checksum}}" />
-    <input type="email" name="email" id="email" required value="{{ email }}" />
-    <p>{{ l10n "donate_interface-donor-opt_in_yes" }}</p>
-    <p class="small">{{{ l10n "donate_interface-donor-opt_in_explain" policy_url }}}</p>
+{{> emailPreferencesHeader}}
+<main class="site-content">
+	<div>
+		<h1>{{ l10n "fundraisersubscribe" }}</h1>
+		<form method="POST" action="{{ action }}">
+			<input type="hidden" name="token" value="{{ token }}" />
+			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
+			<input type="hidden" name="contact_id" value="{{ contact_id }}" />
+			<input type="hidden" name="checksum" value="{{checksum}}" />
 
-    <button type="submit" name="submit" id="continue" value="continue" >{{ l10n "donate_interface-continue" }}</button>
-    <button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
-</form>
+			<input type="email" name="email" id="email" required value="{{ email }}" placeholder="{{ l10n "email" }}" />
+			<p>{{ l10n "donate_interface-donor-opt_in_yes" }}</p>
+			<p class="small">{{{ l10n "donate_interface-donor-opt_in_explain" policy_url }}}</p>
+
+			<button type="submit" name="submit" id="continue" value="continue" >{{ l10n "donate_interface-continue" }}</button>
+			<button type="submit" name="submit" id="cancel" value="cancel" >{{ l10n "donate_interface-cancel" }}</button>
+		</form>
+	</div>
+</main>
+{{> emailPreferencesFooter}}
