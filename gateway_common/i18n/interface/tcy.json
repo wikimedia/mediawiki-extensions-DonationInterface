@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"BHARATHESHA ALASANDEMAJALU",
-			"Mahaveer Indra"
+			"Mahaveer Indra",
+			"Pragathi. BH"
 		]
 	},
 	"donate_interface-donor-state_province-au": "ರಾಜ್ಯೋ/ಪ್ರದೆಸೋ",
 	"donate_interface-donor-postal_code": "ಪತ್ತೆ ಸಂಖ್ಯೆ",
+	"donate_interface-error-msg-street_number": "ದಯಮಲ್ತ್ ನಿಕ್ಲೆನ ಇಲ್ಲದ ನಂಬರ್ ದಾಖಲ್ ಮಲ್ಪುಲೆ",
 	"donate_interface-monthly-convert-title-annual": "ದುಂಬಗ್ ಒಂಜಿ ನಿಗಂಟ್‌ದ ದಿನೊಟ್ಟು ದಾನ ಕೊರ್ಪರಾ?",
 	"donate_interface-monthly-convert-title-variant-015": "ಇರೆಗ್ ಆಪುಂಡ <span class=\"mc-convert-ask\"></span> ಪ್ರತಿ ತಿಂಗೊಲು ದಾನ ಮಲ್ಪೊಲಿ",
 	"donate_interface-monthly-convert-set-up-annual": "ಪ್ರತಿ ವರ್ಸೊ ದಾನ ಮಲ್ಪರ",
