@@ -29,3 +29,11 @@ bt:
       country: true
       name: true
       email: true
+venmo:
+    recurring: true
+    validation:
+        country: true
+        name: true
+        email: true
+    countries:
+        - US

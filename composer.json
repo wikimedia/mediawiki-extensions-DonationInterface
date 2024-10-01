@@ -29,7 +29,7 @@
 		"psr/log": "^1.0",
 		"amzn/login-and-pay-with-amazon-sdk-php": "^2.5",
 		"symfony/yaml": "^4|^5",
-		"wikimedia/smash-pig": "0.8.13",
+		"wikimedia/smash-pig": "0.8.14",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1",
 		"ext-json": "*",
 		"whichbrowser/parser": "^2.1"

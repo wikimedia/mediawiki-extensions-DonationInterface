@@ -2,8 +2,6 @@
 
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
-use SmashPig\PaymentData\Address;
-use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
@@ -80,7 +78,8 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'last_name' => 'Surname',
 				'postal_code' => '94105',
 				'street_address' => '123 Fake Street',
-				'return_url' => $expectedReturnUrl
+				'return_url' => $expectedReturnUrl,
+				'payment_method' => $init['payment_method']
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
@@ -129,22 +128,9 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			'last_name' => 'Surname',
 			'postal_code' => '94105',
 			'street_address' => '123 Fake Street',
-			'utm_source' => '..cc'
+			'utm_source' => '..cc',
+			'payment_method' => $init['payment_method'],
 		], $queueMessage );
-	}
-
-	/**
-	 * @return DonorDetails
-	 */
-	protected function getTestDonorDetails(): DonorDetails {
-		$init = $this->getDonorTestData( 'US' );
-		$address = ( new Address() )->setCity( $init['city'] )->setPostalCode( $init['postal_code'] )->setCountryCode( 'US' )->setStreetAddress( $init['street_address'] );
-		return ( new DonorDetails() )
-			->setCustomerId( "gr4vy-donor" )
-			->setEmail( $init['email'] )
-			->setFirstName( $init['first_name'] )
-			->setLastName( $init['last_name'] )
-			->setBillingAddress( $address );
 	}
 
 	/**

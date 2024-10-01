@@ -16,7 +16,9 @@ street_address: street_address
 street_number: street_number
 fiscal_number: fiscal_number
 gateway_txn_id: gateway_txn_id
+payment_method: payment_method
 payment_submethod: payment_submethod
 return_url: return_url
 use_3d_secure: use_3d_secure
 gateway_donor_id: gateway_donor_id
+user_name: user_name
