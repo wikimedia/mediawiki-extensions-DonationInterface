@@ -58,6 +58,7 @@
 	"apihelp-logRecurUpgradeFormError-param-stack": "Tracia de pila del error, si disponibile",
 	"apihelp-di_donate_adyen-summary": "Iste API es pro Adyen",
 	"apihelp-di_donate_dlocal-summary": "Iste API es pro Dlocal",
+	"apihelp-di_donate_gravy-summary": "Iste API es pro Gravy",
 	"apihelp-di_donate_braintree-summary": "Iste API es pro Braintree",
 	"apihelp-di_recurring_convert-summary": "Iste API es usate quando un donator accepta de adder un donation mensual post haber correctemente concludite un donation singule.",
 	"apihelp-di_recurring_convert-param-amount": "Le amonta del donation mensual.",
