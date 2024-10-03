@@ -37,3 +37,9 @@ venmo:
         email: true
     countries:
         - US
+paypal:
+    recurring: true
+    validation:
+        country: true
+        name: true
+        email: true
