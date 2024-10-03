@@ -10,7 +10,8 @@
 			"Maria zaos",
 			"McDutchie",
 			"Pcoombe",
-			"Toliño"
+			"Toliño",
+			"Amire80"
 		]
 	},
 	"donate_interface": "Apoia a Wikimedia",
@@ -272,7 +273,7 @@
 	"php-response-declined": "A túa transacción foi rexeitada.",
 	"donate_interface-thankyou": "Grazas pola túa doazón!",
 	"donate_interface-post-transaction": "Detalles da transacción",
-	"donate_interface-cvv-explain": "<h4>Que é o CVV?</h4>\n<p>Código de seguridade (CVV): Estes tres ou catro díxitos forman un número que axuda a garantir que a tarxeta física está en posesión do titular da mesma. Isto axuda na prevención do uso non autorizado ou fraudulento.</p>\n<h4>Visa, Mastercard</h4>\n<p>O código de 3 díxitos localízase na parte traseira da túa tarxeta de crédito, dentro da área da sinatura.\nNormalmente, a zona da sinatura ten unha serie de números, pero só os tres últimos díxitos conforman o código de seguridade.</p>\n<h4>American Express</h4>\n<p>O código está <i>sempre</i> situado <i>por riba<i> do número de conta en relevo na cara frontal da tarxeta.\nNalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
+	"donate_interface-cvv-explain": "<h4>Que é o CVV?</h4>\n<p>Código de seguridade (CVV): Estes tres ou catro díxitos forman un número que axuda a garantir que a tarxeta física está en posesión do titular da mesma. Isto axuda na prevención do uso non autorizado ou fraudulento.</p>\n<h4>Visa, Mastercard</h4>\n<p>O código de 3 díxitos localízase na parte traseira da túa tarxeta de crédito, dentro da área da sinatura.\nNormalmente, a zona da sinatura ten unha serie de números, pero só os tres últimos díxitos conforman o código de seguridade.</p>\n<h4>American Express</h4>\n<p>O código está <i>sempre</i> situado <i>por riba</i> do número de conta en relevo na cara frontal da tarxeta.\nNalgunhas ocasións, o código está localizado no lado esquerdo da tarxeta, pero está sempre por riba do número de conta.</p><br />",
 	"donate_interface-question-comment": "Tes algunha pregunta ou comentario? Ponte en contacto: <a href=\"mailto:$1\">$1</a>",
 	"donate_interface-easydonate": "Intentamos que as doazóns sexan fáciles de realizar desde calquera país. Fainos saber como podemos mellorar. Envía as túas suxestións a este enderezo: $1.",
 	"donate_interface-problemsdonating": "Tes problemas co proceso de doazón?",
