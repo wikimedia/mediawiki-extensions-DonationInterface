@@ -97,7 +97,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$detailsResult = $provider->getLatestPaymentStatus( $mappedResult );
 
 		$this->logger->debug(
-			'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
+			'Gravy donor return response: ' . json_encode( $detailsResult->getRawResponse() )
 		);
 
 		return $this->handleCreatedPayment( $provider, $detailsResult );
@@ -312,7 +312,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					'order_id',
 					'user_ip',
 					'recurring',
+					'payment_method',
 					'payment_submethod',
+					'user_name',
 					'description',
 					'return_url',
 					'use_3d_secure',
@@ -434,6 +436,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			if ( $authorizeResult->getProcessorContactID() != null ) {
 				$responseData['processor_contact_id'] = $authorizeResult->getProcessorContactID();
 			}
+			if ( $authorizeResult->getDonorDetails() !== null && $authorizeResult->getDonorDetails()->getUserName() !== '' ) {
+				$responseData['user_name'] = $authorizeResult->getDonorDetails()->getUserName();
+			}
 			if ( !$this->getPaymentSubmethod() ) {
 				$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
 			}
@@ -450,6 +455,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// save external_identifier as gravy buyer id
 		if ( isset( $this->unstaged_data['processor_contact_id'] ) ) {
 			$message['external_identifier'] = $this->unstaged_data['processor_contact_id'];
+		}
+
+		if ( isset( $this->unstaged_data['user_name'] ) ) {
+			$message['external_identifier'] = $this->unstaged_data['user_name'];
 		}
 
 		return $message;
