@@ -83,6 +83,27 @@
 			}
 		} );
 
+		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, function () {
+			mw.donationInterface.forms.callDonateApi(
+				handleApiResult,
+				{
+					gateway_session_id: sessionId
+				},
+				'di_donate_gravy'
+			);
+		} );
+
+		secureFields.addEventListener(
+			SecureFields.Events.CARD_VAULT_FAILURE,
+			function () {
+				mw.donationInterface.forms.addDebugMessage( 'Card vault failure on gravy checkout session id: ' + sessionId );
+				mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+				} );
+				mw.donationInterface.forms.enable();
+			}
+		);
+
 		secureFields.addEventListener(
 			SecureFields.Events.FORM_CHANGE,
 			function ( data ) {
@@ -148,15 +169,6 @@
 
 		if ( validateInputs() ) {
 			secureFields.submit();
-			setTimeout( function () {
-				mw.donationInterface.forms.callDonateApi(
-					handleApiResult,
-					{
-						gateway_session_id: sessionId
-					},
-					'di_donate_gravy'
-				);
-			}, 1000 );
 		} else {
 			mw.donationInterface.forms.enable();
 		}
