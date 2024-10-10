@@ -6,6 +6,7 @@
 			"Malafaya"
 		]
 	},
+	"donate_interface": "Helpez Wikimedia",
 	"donate_interface-desc": "Chefpagino por facar donacaji, qua permisas altra formi di pago ''(payment gateways)''",
 	"donate_interface-comment-label": "Komento:",
 	"donate_interface-email-agreement": "Me aceptas recevar okazional e-posti pri novaji de Wikimedia Foundation.",
@@ -37,6 +38,7 @@
 	"donate_interface-error-msg-last_name": "surnomo",
 	"donate_interface-error-msg-city": "urbo",
 	"donate_interface-error-msg-state_province": "stato",
+	"donate_interface-donate-error-try-a-different-card": "Probez [$ diferanta kredito-karto] od un ek nia [$2 altra formi por facar donaci], o kontaktez ni che $3",
 	"donate_interface-problemsdonating": "Problemi pri donacar?",
 	"donate_interface-otherways-short": "Altra formi por donacar",
 	"donate_interface-make-your-donation": "Facez vua donaco nun",
