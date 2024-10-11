@@ -5,3 +5,6 @@
 - FiscalNumber
 - PlaceholderFiscalNumber
 - ReturnUrl
+- PostalCodeValidation
+- StreetAddressValidation
+- StreetNumberValidation
