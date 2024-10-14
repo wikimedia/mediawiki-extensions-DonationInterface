@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Băng Tỏa",
 			"Jsoby",
 			"Minh Nguyen",
 			"NguoiDungKhongDinhDanh",
@@ -190,6 +191,7 @@
 	"donate_interface-error-msg-invalid-city": "Xin vui lòng sửa các lỗi trong thành phố của bạn",
 	"donate_interface-error-msg-invalid-postal_code-us": "Xin vui lòng sửa các lỗi trong mã ZIP của bạn",
 	"donate_interface-error-msg-invalid-postal_code": "Xin vui lòng sửa các lỗi trong mã bưu chính của bạn",
+	"donate_interface-error-msg-invalid-length-postal_code-in": "Mã bưu chính phải có đúng 6 chữ số.",
 	"donate_interface-error-msg-country": "Xin nhập quốc gia của bạn",
 	"donate_interface-error-msg-card_num": "mã số thẻ tín dụng",
 	"donate_interface-error-msg-expiration": "Xin hãy nhập ngày hết hạn của thẻ",

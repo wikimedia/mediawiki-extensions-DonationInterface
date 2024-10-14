@@ -214,6 +214,8 @@
 	"donate_interface-error-msg-invalid-city": "Пожалуйста, исправьте ошибки в вашем город",
 	"donate_interface-error-msg-invalid-postal_code-us": "Пожалуйста, исправьте ошибки в вашем индекс",
 	"donate_interface-error-msg-invalid-postal_code": "Пожалуйста, исправьте ошибки в вашем почтовый индекс",
+	"donate_interface-error-msg-invalid-length-postal_code-in": "Почтовый индекс должен состоять ровно из 6 цифр.",
+	"donate_interface-error-msg-invalid-length-street_number-in": "Номер улицы должен содержать от 6 до 20 символов.",
 	"donate_interface-error-msg-country": "Пожалуйста, введите вашу страну",
 	"donate_interface-error-msg-card_num": "номер кредитной карты",
 	"donate_interface-error-msg-expiration": "Введите дату истечения срока действия карты",
