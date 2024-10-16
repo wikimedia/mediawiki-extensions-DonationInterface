@@ -381,6 +381,7 @@
 	"donate_interface-monthlybox-yes": "Да, нека буде месечни",
 	"donate_interface-monthlybox-no": "Не, нека буде једнократан",
 	"donate_interface-monthlybox-bottom": "Ваша донација ће бити безбедно обрађена.",
+	"donate_interface-monthly-cancel": "За редовне донаторе, Задужбина Викимедија ће аутоматски сваког месеца узимати фиксни износ на датум првог донирања, све док не откажете претплату. Донације извршене 29, 30 или 31 у месецу ће бити поновљене задњег дана у месецу, за краће месеце. За питања контактирајте $1.",
 	"donate_interface-onetime": "Донирај једнократно",
 	"donate_interface-monthly-short": "Месечно",
 	"donate_interface-onetime-short": "Једнократно",
