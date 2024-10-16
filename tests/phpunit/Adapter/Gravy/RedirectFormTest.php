@@ -33,7 +33,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 	}
 
 	/**
-	 * Integration test to verify that the authorize and capture transactions
+	 * Integration test to verify that the authorize transactions
 	 * send the expected parameters to the SmashPig library objects and that
 	 * they return the expected result when the API calls are successful.
 	 */
@@ -109,7 +109,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			"postal_code" => $init['postal_code'],
 			"gateway" => "gravy",
 			"order_id" => $expectedMerchantRef,
-			"recurring" => "",
+			"recurring" => '',
 			"payment_method" => "venmo",
 			"payment_submethod" => "",
 			"currency" => "USD",
@@ -118,6 +118,99 @@ class RedirectFormTest extends BaseGravyTestCase {
 		], $queueMessage );
 	}
 
+	/**
+	 * Integration test to verify that the venmo recurring url does not save the payment method
+	 * on Gravy as we don't currently support recurring on venmo through Gravy. Test can be removed/updated when
+	 * we do support recurring on venmo through Gravy.
+	 */
+	public function testDoPaymentVenmoRecurring() {
+		$init = $this->getTestDonorData();
+		$init['amount'] = '1.55';
+		$init['payment_method'] = 'venmo';
+		$init['payment_submethod'] = '';
+		$init['recurring'] = 1;
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:GravyGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'wmf_source' => '..rvenmo'
+		] );
+		$approval_url = 'https://test-approval-url.com';
+		$this->redirectPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->with( [
+				'country' => 'US',
+				'currency' => 'USD',
+				'user_ip' => '127.0.0.1',
+				'description' => 'Wikimedia Foundation',
+				'order_id' => $expectedMerchantRef,
+				'amount' => '1.55',
+				'email' => 'nobody@wikimedia.org',
+				'first_name' => 'Firstname',
+				'last_name' => 'Surname',
+				'postal_code' => '94105',
+				'street_address' => '123 Fake Street',
+				'return_url' => $expectedReturnUrl,
+				'payment_method' => 'venmo',
+			] )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'authorization_succeeded' )
+					->setStatus( FinalStatus::PENDING )
+					->setSuccessful( true )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setRedirectUrl( $approval_url )
+			);
+
+		$result = $gateway->doPayment();
+		$gateway->logPending();
+		$this->assertFalse( $result->isFailed() );
+		$this->assertSame( [], $result->getErrors() );
+		$this->assertSame( $approval_url, $result->getRedirect() );
+
+		$queueMessage = QueueWrapper::getQueue( 'pending' )->pop();
+
+		$this->assertNotNull( $queueMessage );
+		SourceFields::removeFromMessage( $queueMessage );
+		$this->assertArraySubmapSame( [
+			"gateway_txn_id" => $gravyTransactionId,
+			"response" => false,
+			"gateway_account" => "WikimediaDonations",
+			"fee" => 0,
+			"contribution_tracking_id" => $init['contribution_tracking_id'],
+			"utm_source" => "..rvenmo",
+			"language" => "en",
+			"email" => $init['email'],
+			"first_name" => $init['first_name'],
+			"last_name" => $init['last_name'],
+			"street_address" => $init['street_address'],
+			"country" => "US",
+			"postal_code" => $init['postal_code'],
+			"gateway" => "gravy",
+			"order_id" => $expectedMerchantRef,
+			"recurring" => '',
+			"payment_method" => "venmo",
+			"payment_submethod" => "",
+			"currency" => "USD",
+			"gross" => "1.55",
+			"user_ip" => "127.0.0.1",
+		], $queueMessage );
+	}
+
+	/**
+	 * Integration test to verify that the donor is returned to the payments url
+	 * on successful authorisation. The test also asserts that the getLatestPaymentStatus
+	 * and capture  transactions send the expected parameters to the SmashPig library objects
+	 * and that they return the expected result when the API calls are successful.
+	 */
 	public function testProcessDonorReturnVenmo() {
 		$init = $this->getTestDonorData();
 		$init['amount'] = '1.55';
@@ -154,7 +247,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 				'postal_code' => '94105',
 				'street_address' => '123 Fake Street',
 				'return_url' => $expectedReturnUrl,
-				'payment_method' => 'venmo',
+				'payment_method' => 'venmo'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
@@ -172,7 +265,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			"amount" => $init['amount'],
 			"currency" => "USD",
 			"payment_method" => "venmo",
-			"utm_source" => "..venmo",
+			"wmf_source" => "..venmo",
 			"transaction_id" => $gravyTransactionId,
 			"transaction_status" => "authorization_succeeded"
 		];

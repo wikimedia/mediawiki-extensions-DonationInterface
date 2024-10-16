@@ -9,14 +9,14 @@ cc:
         name: true
         email: true
 dd:
-    recurring: true
+    recurring: false
     label: Direct debit
     validation:
         country: true
         name: true
         email: true
 rtbt:
-    recurring: true
+    recurring: false
     label: Real time bank transfer
     validation:
         country: true
@@ -30,7 +30,7 @@ bt:
       name: true
       email: true
 venmo:
-    recurring: true
+    recurring: false
     validation:
         country: true
         name: true

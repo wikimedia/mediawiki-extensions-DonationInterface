@@ -33,7 +33,6 @@ class GravyGateway extends GatewayPage {
 					'as' => 'script',
 				]
 			);
-
 		}
 	}
 
