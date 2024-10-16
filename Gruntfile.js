@@ -6,6 +6,7 @@
 
 /* eslint-env node */
 module.exports = function ( grunt ) {
+	var conf = grunt.file.readJSON( 'extension.json' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-stylelint' );
@@ -28,14 +29,14 @@ module.exports = function ( grunt ) {
 				'{amazon,ingenico}_gateway/{**/,}*.{css,less}'
 			]
 		},
-		banana: {
-			options: {
-				requireLowerCase: false
+		banana: Object.assign(
+			{
+				options: {
+					requireLowerCase: false
+				}
 			},
-			shared: 'gateway_common/i18n/*/',
-			email: 'email_forms/i18n/',
-			gateways: '{adyen,amazon,ingenico,paypal_ec}_gateway/i18n/'
-		}
+			conf.MessagesDirs
+		)
 	} );
 
 	grunt.registerTask( 'test', [ 'eslint', 'stylelint', 'banana' ] );

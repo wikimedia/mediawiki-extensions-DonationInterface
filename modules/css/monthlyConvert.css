@@ -84,6 +84,14 @@ body.rtl .mc-close {
 	width: calc( 90% );
 }
 
+#mw-panel {
+	z-index: -1;
+}
+
+#mw-page-base {
+	background: transparent;
+}
+
 @media ( min-width: 800px ) {
 	.mc-modal {
 		left: 50%;

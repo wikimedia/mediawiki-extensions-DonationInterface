@@ -99,6 +99,9 @@
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CountryValidation": "gateway_common/CountryValidation.php",
+		"PostalCodeValidation": "gateway_common/PostalCodeValidation.php",
+		"StreetAddressValidation": "gateway_common/StreetAddressValidation.php",
+		"StreetNumberValidation": "gateway_common/StreetNumberValidation.php",
 		"CurrencyCountryRule": "gateway_common/CurrencyCountryRule.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
 		"DonationData": "gateway_common/DonationData.php",
@@ -643,6 +646,33 @@
 		},
 		"DonationInterfaceForbiddenCountries": {
 			"value": []
+		},
+		"DonationInterfaceDlocalPostalCodeLengthRequirements": {
+			"value": {
+				"IN": {
+					"min": 6,
+					"max": 6,
+					"message": "donate_interface-error-msg-invalid-length-postal_code-in"
+				}
+			}
+		},
+		"DonationInterfaceDlocalStreetNumberLengthRequirements": {
+			"value": {
+				"IN": {
+					"min": 1,
+					"max": 20,
+					"message": "donate_interface-error-msg-invalid-length-street_number-in"
+				}
+			}
+		},
+		"DonationInterfaceDlocalStreetLengthRequirements": {
+			"value": {
+				"IN": {
+					"min": 1,
+					"max": 100,
+					"message": "donate_interface-error-msg-invalid-length-street_address-in"
+				}
+			}
 		},
 		"DonationInterface3DSRules": {
 			"value": {
