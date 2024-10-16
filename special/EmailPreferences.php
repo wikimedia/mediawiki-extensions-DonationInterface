@@ -32,63 +32,70 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 		$out->addModules( 'ext.donationInterface.emailPreferences' );
 		$this->setPageTitle( $subpage );
-		$params = $this->getRequest()->getValues();
+		$requestParameters = $this->getRequest()->getValues();
 		$posted = $this->getRequest()->wasPosted();
-		if ( $posted && $this->wasCanceled( $params ) ) {
+		if ( $posted && $this->wasCanceled( $requestParameters ) ) {
 			$out->redirect(
 				// FIXME switch this to a DonationInterface setting
 				$this->getConfig()->get( 'FundraisingEmailUnsubscribeCancelUri' )
 			);
 			return;
 		}
-		if ( !$this->validate( $params, $posted ) ) {
+		if ( !$this->validate( $requestParameters, $posted ) ) {
 			$this->renderError( $subpage );
 			return;
 		}
 		if ( $posted ) {
 			switch ( $subpage ) {
 				case 'optin':
-					$this->executeOptIn( $params );
+					$this->executeOptIn( $requestParameters );
 					break;
 				case 'unsubscribe':
-					$this->executeUnsubscribe( $params );
+					$this->executeUnsubscribe( $requestParameters );
 					break;
 				case 'emailPreferences':
-					$this->executeEmailPreferences( $params );
+					$this->executeEmailPreferences( $requestParameters );
 					break;
 				default:
 					$this->renderError();
 			}
 		} else {
 			if ( $subpage === 'emailPreferences' ) {
-				$params += $this->paramsForPreferencesForm(
-					$params[ 'checksum' ],
-					$params[ 'contact_id' ]
+				$emailPreferenceParameters = $this->paramsForPreferencesForm(
+					$requestParameters[ 'checksum' ],
+					$requestParameters[ 'contact_id' ]
 				);
+
+				if ( $emailPreferenceParameters['is_error'] && $emailPreferenceParameters[ 'error_message' ] === self::CIVI_NO_RESULTS_ERROR ) {
+					$this->renderError( 'emailPreferences' );
+					return;
+				}
+
+				$requestParameters = array_merge( $requestParameters, $emailPreferenceParameters );
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
-			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $params );
+			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $requestParameters );
 		}
 	}
 
 	protected function paramsForPreferencesForm( $checksum, $contact_id ) {
-		$prefs = CiviproxyConnect::getEmailPreferences( $checksum, $contact_id );
+		$preferences = CiviproxyConnect::getEmailPreferences( $checksum, $contact_id );
 
-		if ( $prefs[ 'is_error' ] ) {
+		if ( $preferences[ 'is_error' ] ) {
 			$logger = DonationLoggerFactory::getLoggerFromParams(
 				'EmailPreferences', true, false, '', null );
 
 			// If Civi returned no match for hash and contact_id, we still show the form,
 			// but log a message and set a session flag to prevent a message being
 			// placed on the queue.
-			if ( $prefs[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
+			if ( $preferences[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
 				$logger->warning(
 					"No results for contact_id $contact_id with checksum $checksum" );
 
 				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
-
+				return $preferences;
 			} else {
-				$logger->error( 'Error from civiproxy: ' . $prefs[ 'error_message' ] );
+				$logger->error( 'Error from civiproxy: ' . $preferences[ 'error_message' ] );
 				throw new RuntimeException( 'Error retrieving current e-mail preferences.' );
 			}
 		} else {
@@ -107,7 +114,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$addedParams[ 'countries' ][] = [
 				'code' => $code,
 				'name' => $name,
-				'selected' => $code === ( $prefs[ 'country' ] ?? self::FALLBACK_COUNTRY )
+				'selected' => $code === ( $preferences[ 'country' ] ?? self::FALLBACK_COUNTRY )
 			];
 		}
 
@@ -140,16 +147,16 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$addedParams[ 'languages' ][] = [
 				'code' => $code,
 				'name' => $name,
-				'selected' => $code === ( $prefs[ 'preferred_language' ] ?? self::FALLBACK_LANGUAGE )
+				'selected' => $code === ( $preferences[ 'preferred_language' ] ?? self::FALLBACK_LANGUAGE )
 			];
 		}
 
-		$addedParams[ 'sendEmail' ] = $prefs[ 'sendEmail' ];
-		$addedParams[ 'dontSendEmail' ] = !$prefs[ 'sendEmail' ];
-		$addedParams[ 'first_name' ] = $prefs[ 'first_name' ];
-		$addedParams[ 'email' ] = $prefs[ 'email' ];
+		$addedParams[ 'sendEmail' ] = $preferences[ 'sendEmail' ];
+		$addedParams[ 'dontSendEmail' ] = !$preferences[ 'sendEmail' ];
+		$addedParams[ 'first_name' ] = $preferences[ 'first_name' ];
+		$addedParams[ 'email' ] = $preferences[ 'email' ];
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
-		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $prefs[ 'snooze_date' ] );
+		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $preferences[ 'snooze_date' ] );
 		return $addedParams;
 	}
 
