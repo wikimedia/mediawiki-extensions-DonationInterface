@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"StefanusRA"
+			"StefanusRA",
+			"Hakimi97"
 		]
 	},
 	"donate_interface": "Nyumbang Wikimedia",
@@ -253,7 +254,7 @@
 	"donate_interface-payment-type": "Jenis pembayaran",
 	"donate_interface-please-complete": "Monggo nglengkapi sumbangane Rika nang ngisor kiye...",
 	"donate_interface-description": "Deskripsi",
-	"donate_interface-donation": "Sumbangan",
+	"donate_interface-donation": "Derma",
 	"donate_interface-email-receipt": "Imel tanda trima maring",
 	"donate_interface-monthly-donation": "Gawe sumbangan rutin saben sasi",
 	"donate_interface-via-paypal": "(nganggo PayPal)",
