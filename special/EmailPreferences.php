@@ -33,6 +33,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$out->addModules( 'ext.donationInterface.emailPreferences' );
 		$this->setPageTitle( $subpage );
 		$requestParameters = $this->getRequest()->getValues();
+		$requestParameters = $this->mapWmfToUtm( $requestParameters );
 		$posted = $this->getRequest()->wasPosted();
 		if ( $posted && $this->wasCanceled( $requestParameters ) ) {
 			$out->redirect(
@@ -350,5 +351,19 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	protected function isSnoozed( ?string $snoozeDate ) {
 		return $snoozeDate && new DateTime( $snoozeDate ) > new DateTime();
+	}
+
+	/**
+	 * Replaces incoming wmf_* parameters with utm_* parameters for internal use
+	 *
+	 * @param array $parameters
+	 * @return array
+	 */
+	protected function mapWmfToUtm( array $parameters ) {
+		$mapped = [];
+		foreach ( $parameters as $key => $value ) {
+			$mapped[ str_replace( 'wmf_', 'utm_', $key ) ] = $value;
+		}
+		return $mapped;
 	}
 }
