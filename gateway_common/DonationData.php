@@ -818,7 +818,7 @@ class DonationData implements LogPrefixProvider {
 
 		// To distinguish between native (inapp) donations and web (app) donations
 		// we are modifying the landing page middle parameter of the utm_source
-		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) ?? '' );
+		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) ?? $this->getVal( 'wmf_medium' ) ?? '' );
 		if ( $utm_medium == 'wikipediaapp' ) {
 			$source_parts[1] = 'app';
 		}
