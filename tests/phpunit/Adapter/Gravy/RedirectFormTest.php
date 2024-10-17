@@ -54,7 +54,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..venmo'
+			'wmf_source' => '..venmo'
 		] );
 		$approval_url = 'https://test-approval-url.com';
 		$this->redirectPaymentProvider->expects( $this->once() )
@@ -136,7 +136,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..venmo'
+			'wmf_source' => '..venmo'
 		] );
 		$approval_url = 'https://test-approval-url.com';
 		$this->redirectPaymentProvider->expects( $this->once() )

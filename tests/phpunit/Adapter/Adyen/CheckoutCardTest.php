@@ -69,7 +69,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -223,7 +223,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => '',
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -379,7 +379,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'currency' => 'USD',
 				'payment_method' => 'cc',
 				'payment_submethod' => 'visa',
-				'utm_source' => '..cc',
+				'wmf_source' => '..cc',
 		] );
 
 		$this->cardPaymentProvider->expects( $this->exactly( 2 ) )
@@ -550,7 +550,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -638,7 +638,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )
@@ -719,7 +719,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )

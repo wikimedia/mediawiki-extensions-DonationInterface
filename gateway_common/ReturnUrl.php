@@ -15,13 +15,13 @@ class ReturnUrl implements StagingHelper {
 			'payment_submethod' => $normalized['payment_submethod'] ?? '',
 		];
 		if ( !empty( $normalized['utm_source'] ) ) {
-			$querySringParams['utm_source'] = $normalized['utm_source'];
+			$querySringParams['wmf_source'] = $normalized['utm_source'];
 		}
 		if ( !empty( $normalized['utm_campaign'] ) ) {
-			$querySringParams['utm_campaign'] = $normalized['utm_campaign'];
+			$querySringParams['wmf_campaign'] = $normalized['utm_campaign'];
 		}
 		if ( !empty( $normalized['utm_medium'] ) ) {
-			$querySringParams['utm_medium'] = $normalized['utm_medium'];
+			$querySringParams['wmf_medium'] = $normalized['utm_medium'];
 		}
 		if ( $normalized['recurring'] ) {
 			$querySringParams['recurring'] = 1;

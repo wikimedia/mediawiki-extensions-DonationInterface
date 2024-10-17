@@ -60,7 +60,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..cc'
+			'wmf_source' => '..cc'
 		] );
 
 		$this->cardPaymentProvider->expects( $this->once() )

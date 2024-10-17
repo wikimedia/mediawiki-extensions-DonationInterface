@@ -44,7 +44,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'utm_source' => '..rtbt'
+			'wmf_source' => '..rtbt'
 		] );
 		$redirect = 'https://checkoutshopper-test.adyen.com/checkoutshopper/checkoutPaymentRedirect?redirectData=' . $this->redirectResult;
 		$this->idealPaymentProvider->expects( $this->once() )
@@ -124,7 +124,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			'currency' => 'EUR',
 			'payment_method' => 'rtbt',
 			'payment_submethod' => 'rtbt_ideal',
-			'utm_source' => '..rtbt',
+			'wmf_source' => '..rtbt',
 		] );
 
 		$redirect = 'https://checkoutshopper-test.adyen.com/checkoutshopper/checkoutPaymentRedirect?redirectData=' . $this->redirectResult;
@@ -237,7 +237,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			'currency' => 'EUR',
 			'payment_method' => 'rtbt',
 			'payment_submethod' => 'rtbt_ideal',
-			'utm_source' => '..rtbt',
+			'wmf_source' => '..rtbt',
 		] );
 
 		$redirect = 'https://checkoutshopper-test.adyen.com/checkoutshopper/checkoutPaymentRedirect?redirectData=' . $this->redirectResult;
