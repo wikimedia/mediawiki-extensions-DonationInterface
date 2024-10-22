@@ -60,7 +60,7 @@
 		}
 	},
 	"scripts": {
-		"phpcs": "phpcs -p -s",
+		"phpcs": "phpcs -p -s --cache",
 		"phan": "phan -d . --long-progress-bar",
 		"fix": [
 			"minus-x fix .",

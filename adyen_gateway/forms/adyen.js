@@ -435,9 +435,7 @@
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
-			mw.donationInterface.validation.showErrors( {
-				general: mw.msg( 'donate_interface-error-msg-general' )
-			} );
+			location.assign( mw.config.get( 'DonationInterfaceFailUrl' ) );
 			return;
 		}
 

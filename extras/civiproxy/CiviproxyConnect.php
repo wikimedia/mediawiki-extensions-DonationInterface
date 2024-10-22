@@ -15,7 +15,7 @@ class CiviproxyConnect {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'CiviproxyConnector', true, false, '', null );
 		try {
-			$resp = $client->get(
+			$clientResponse = $client->get(
 				"$wgDonationInterfaceCiviproxyURLBase/rest.php",
 				[ 'query' => [
 						'entity' => 'civiproxy',
@@ -31,22 +31,22 @@ class CiviproxyConnect {
 				]
 			);
 
-			$rawResp = $resp->getBody()->getContents();
-			$resp = json_decode( $rawResp, true );
+			$rawResponse = $clientResponse->getBody()->getContents();
+			$decodedResponse = json_decode( $rawResponse, true );
 
-			if ( !$resp ) {
+			if ( !$decodedResponse ) {
 				throw new RuntimeException( "Invalid JSON from CiviProxy for id $contact_id" );
 			}
 
 			return [
-				'country' => $resp[ 'country' ] ?? null,
-				'sendEmail' => $resp[ 'is_opt_in' ] ?? null,
-				'email' => $resp[ 'email' ],
-				'first_name' => $resp[ 'first_name' ],
-				'preferred_language' => $resp[ 'preferred_language' ] ?? null,
-				'is_error' => ( $resp[ 'is_error' ] === 1 ),
-				'error_message' => $resp[ 'error_message' ] ?? null,
-				'snooze_date' => $resp['snooze_date'] ?? null
+				'country' => $decodedResponse[ 'country' ] ?? null,
+				'sendEmail' => $decodedResponse[ 'is_opt_in' ] ?? null,
+				'email' => $decodedResponse[ 'email' ] ?? null,
+				'first_name' => $decodedResponse[ 'first_name' ] ?? null,
+				'preferred_language' => $decodedResponse[ 'preferred_language' ] ?? null,
+				'is_error' => ( $decodedResponse[ 'is_error' ] === 1 ),
+				'error_message' => $decodedResponse[ 'error_message' ] ?? null,
+				'snooze_date' => $decodedResponse['snooze_date'] ?? null
 			];
 
 		} catch ( Exception $e ) {
