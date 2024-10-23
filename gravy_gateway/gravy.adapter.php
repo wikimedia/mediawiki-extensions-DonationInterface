@@ -48,6 +48,13 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 
 		$this->setCurrentTransaction( 'authorize' );
 
+		if ( !$this->paymentMethodSupportsRecurring() ) {
+			$this->addResponseData( [
+				'recurring' => '',
+			] );
+			// rerun staging helpers with new value (importantly, ReturnUrl helper)
+			$this->stageData();
+		}
 		$createPaymentResponse = $this->callCreatePayment( $paymentProvider );
 		// We increment the sequence number here, so the next time doPayment is called
 		// in the same session we will get a new order ID in ensureUniqueOrderID.
@@ -77,6 +84,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
 		return [ 'cc' ];
+	}
+
+	public function paymentMethodSupportsRecurring(): bool {
+		return $this->payment_methods[$this->getPaymentMethod()]['recurring'];
 	}
 
 	public function processDonorReturn( $requestValues ) {
