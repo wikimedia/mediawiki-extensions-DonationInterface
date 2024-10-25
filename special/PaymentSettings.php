@@ -35,5 +35,18 @@ class PaymentSettings extends UnlistedSpecialPage {
 				$this->getOutput()->addHTML( '</table>' );
 			}
 		}
+
+		// Monthly convert enabled countries
+		$monthlyConvert = $this->getConfig()->get( 'DonationInterfaceMonthlyConvertCountries' );
+		$this->getOutput()->addHTML( '<h1>Monthly Convert Countries</h1>' );
+		$this->getOutput()->addHTML( '<table>' );
+		foreach ( $monthlyConvert as $countryCode ) {
+			$this->getOutput()->addHTML( '<tr>' );
+			$this->getOutput()->addHTML( '<td>' . $countryCode . '</td>' );
+			$fullname = Locale::getDisplayRegion( '-' . $countryCode, 'en' );
+			$this->getOutput()->addHTML( '<td>' . $fullname . '</td>' );
+			$this->getOutput()->addHTML( '</tr>' );
+		}
+		$this->getOutput()->addHTML( '</table>' );
 	}
 }

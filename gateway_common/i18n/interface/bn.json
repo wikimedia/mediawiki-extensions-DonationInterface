@@ -179,7 +179,7 @@
 	"donate_interface-error-msg-invalid-city": "দয়া করে আপনার শহর-এর ত্রুটি সংশোধন করুন।",
 	"donate_interface-error-msg-invalid-postal_code-us": "দয়া করে আপনার পোস্টাল কোড-এর ত্রুটি সংশোধন করুন।",
 	"donate_interface-error-msg-invalid-postal_code": "দয়া করে আপনার পোস্টাল কোড-এর ত্রুটি সংশোধন করুন।",
-	"donate_interface-error-msg-invalid-length-postal_code-in": "পোস্টাল কোডটি ঠিক 6 সংখ্যার হতে হবে।",
+	"donate_interface-error-msg-invalid-length-postal_code-in": "পোস্টাল কোডটি ঠিক ৬ সংখ্যার হতে হবে।",
 	"donate_interface-error-msg-invalid-length-street_number-in": "রাস্তার নম্বর 6 থেকে 20 অক্ষরের মধ্যে হওয়া আবশ্যক৷",
 	"donate_interface-error-msg-country": "অনুগ্রহ করে আপনার দেশের নাম লিখুন",
 	"donate_interface-error-msg-card_num": "ক্রেডিট কার্ড নম্বর",
