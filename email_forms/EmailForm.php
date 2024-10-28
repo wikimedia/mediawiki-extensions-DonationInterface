@@ -44,6 +44,8 @@ class EmailForm {
 				$options['fileext'] ), "\r\n" ),
 			'emailPreferencesFooter' => rtrim( file_get_contents( $options['basedir'] . 'emailPreferencesFooter' .
 				$options['fileext'] ), "\r\n" ),
+			'requestNewChecksumLink' => rtrim( file_get_contents( $options['basedir'] . 'requestNewChecksumLink' .
+				$options['fileext'] ), "\r\n" ),
 		];
 
 		if ( empty( $this->params['variant'] ) ) {
