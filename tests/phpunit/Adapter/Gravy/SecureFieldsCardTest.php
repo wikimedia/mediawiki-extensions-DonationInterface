@@ -49,6 +49,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 		$init['amount'] = '1.55';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$gravyReconciliationId = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz0123456789' ), 0, 22 );
 		$adyenTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedReturnUrl = Title::newFromText(
@@ -62,6 +63,14 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			'payment_submethod' => $init['payment_submethod'],
 			'wmf_source' => '..cc'
 		] );
+
+		$stubCreatePaymentResponse = ( new CreatePaymentResponse() )
+			->setRawStatus( 'authorization_succeeded' )
+			->setStatus( FinalStatus::PENDING_POKE )
+			->setSuccessful( true )
+			->setGatewayTxnId( $gravyTransactionId )
+			->setBackendProcessor( 'adyen' )->setBackendProcessorTransactionId( $adyenTransactionId )
+			->setPaymentOrchestratorReconciliationId( $gravyReconciliationId );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
@@ -81,15 +90,13 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'return_url' => $expectedReturnUrl,
 				'payment_method' => $init['payment_method']
 			] )
-			->willReturn(
-				( new CreatePaymentResponse() )
-					->setRawStatus( 'authorization_succeeded' )
-					->setStatus( FinalStatus::PENDING_POKE )
-					->setSuccessful( true )
-					->setGatewayTxnId( $gravyTransactionId )
-					->setBackendProcessor( 'adyen' )
-					->setBackendProcessorTransactionId( $adyenTransactionId )
-			);
+			->willReturn( $stubCreatePaymentResponse );
+
+		$stubApprovePaymentResponse = ( new ApprovePaymentResponse() )
+			->setRawStatus( 'capture_succeeded' )
+			->setStatus( FinalStatus::COMPLETE )
+			->setSuccessful( true )
+			->setGatewayTxnId( $gravyTransactionId );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'approvePayment' )
@@ -98,13 +105,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'amount' => '1.55',
 				'gateway_txn_id' => $gravyTransactionId
 			] )
-			->willReturn(
-				( new ApprovePaymentResponse() )
-					->setRawStatus( 'capture_succeeded' )
-					->setStatus( FinalStatus::COMPLETE )
-					->setSuccessful( true )
-					->setGatewayTxnId( $gravyTransactionId )
-			);
+			->willReturn( $stubApprovePaymentResponse );
 
 		$result = $gateway->doPayment();
 
@@ -117,6 +118,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			'gross' => '1.55',
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $adyenTransactionId,
+			'payment_orchestrator_reconciliation_id' => $gravyReconciliationId,
 			'currency' => 'USD',
 			'gateway' => 'gravy',
 			'gateway_txn_id' => $gravyTransactionId,
