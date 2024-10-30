@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Facenapalm",
-			"Okras"
+			"Okras",
+			"Dirruw'o"
 		]
 	},
 	"apihelp-donate-summary": "Этот API позволяет Вам отправить пожертвование в фонд Викимедиа, используя различные платёжные системы.",
