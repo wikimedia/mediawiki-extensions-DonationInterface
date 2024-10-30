@@ -90,6 +90,35 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->payment_methods[$this->getPaymentMethod()]['recurring'];
 	}
 
+	public function getCheckoutConfiguration() {
+		return [
+			'gravyID' => $this->getAccountConfig( 'gravyID' ),
+			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
+			'environment' => $this->getAccountConfig( 'environment' ),
+			'googleEnvironment' => $this->getAccountConfig( 'googleEnvironment' ),
+			'merchantAccountID' => $this->getAccountConfig( 'merchantAccountID' ),
+			'gravyGooglePayMerchantId' => $this->getAccountConfig( 'gravyGooglePayMerchantId' ),
+			'googleMerchantId' => $this->getAccountConfig( 'GoogleMerchantId' ),
+			'googleAllowedNetworks' => $this->getGoogleAllowedNetworks(),
+			'secureFieldsJsScript' => $this->getAccountConfig( 'secureFieldsJS' ),
+			'secureFieldsCSS' => $this->getAccountConfig( 'secureFieldsCSS' ),
+			'googleScript' => $this->getAccountConfig( 'GoogleScript' ),
+		];
+	}
+
+	public function getGoogleAllowedNetworks() {
+		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
+		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
+			if ( isset( $this->config[ 'payment_submethods' ][ 'mir' ] ) ) {
+				$general[] = 'MIR';
+			}
+			if ( isset( $this->config[ 'payment_submethods' ][ 'interac' ] ) ) {
+				$general[] = 'INTERAC';
+			}
+		}
+		return $general;
+	}
+
 	public function processDonorReturn( $requestValues ) {
 		$this->logger->info( "Handling redirectResult " . json_encode( $requestValues ) );
 		$provider = PaymentProviderFactory::getProviderForMethod(
@@ -329,7 +358,11 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					'description',
 					'return_url',
 					'use_3d_secure',
-					'gateway_session_id'
+					'gateway_session_id',
+					'card_suffix',
+					'card_scheme',
+					'payment_token',
+					'full_name'
 				],
 				'values' => [
 					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )

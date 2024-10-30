@@ -172,9 +172,19 @@ $wgDonationInterfaceMinFraudClientOptions = [
 
 /** Gravy */
 $wgGravyGatewayID = 'TestID';
+$wgGravyId = 'Random-ID';
+$wgGravyEnvironment = 'test';
+$wgGravyMerchantAccountID = 'default';
 $wgGravyGatewayAccountInfo['WikimediaDonations'] = [
+	'gravyID' => $wgGravyGatewayID,
+	'environment' => $wgGravyEnvironment,
+	'merchantAccountID' => 'test',
 	'secureFieldsJS' => "https://cdn.$wgGravyGatewayID.gravy.app/secure-fields/latest/secure-fields.js",
-	'secureFieldsCSS' => "https://cdn.$wgGravyGatewayID.gravy.app/secure-fields/latest/secure-fields.css"
+	'secureFieldsCSS' => "https://cdn.$wgGravyGatewayID.gravy.app/secure-fields/latest/secure-fields.css",
+	'GoogleScript' => "https://pay.google.com/gp/p/js/pay.js",
+	'gravyGooglePayMerchantId' => "app.gr4vy.{$wgGravyEnvironment}.{$wgGravyGatewayID}.{$wgGravyMerchantAccountID}",
+	'GoogleMerchantId' => 'test-google-id',
+	'googleEnvironment' => 'test'
 ];
 
 // still can't quite handle minFraud by itself yet, so default like this.

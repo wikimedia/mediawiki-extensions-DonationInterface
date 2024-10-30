@@ -1,4 +1,4 @@
-/* global SecureFields */
+/* global SecureFields google */
 ( function ( $, mw ) {
 	var secureFieldValid = false,
 	cardNumberFieldValid = false,
@@ -8,9 +8,12 @@
 	securityCodeFieldEmpty = true,
 	expiryDateFieldEmpty = true,
 	secureFields = null,
+	configFromServer = mw.config.get( 'gravyConfiguration' ),
 	sessionId = mw.config.get( 'gravy_session_id' ),
 	environment = mw.config.get( 'wgGravyEnvironment' ),
-	gravyId = mw.config.get( 'wgGravyId' );
+	gravyId = mw.config.get( 'wgGravyId' ),
+	googleScriptNode = null,
+	googlePaymentClient = null;
 
 	function insertCardComponentContainers() {
 		$( '.submethods' ).before(
@@ -188,6 +191,138 @@
 		}
 	}
 
+	function insertGooglePayComponentContainer() {
+		$( '.submethods' ).before(
+			'<div id="container">' +
+			'</div>'
+		);
+	}
+
+	function handleGooglePayButtonClick() {
+		var paymentRequest = getGooglepayRequest();
+		var googlePayClient = getGooglePayClient();
+		googlePayClient.loadPaymentData( paymentRequest ).then( function ( paymentData ) {
+			var paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+			var donorInfo = paymentData.paymentMethodData.info.billingAddress,
+							extraData = {};
+			extraData.postal_code = donorInfo.postalCode;
+			extraData.state_province = donorInfo.administrativeArea;
+			extraData.city = donorInfo.locality;
+			extraData.street_address = donorInfo.address1;
+			extraData.email = paymentData.email;
+			extraData.full_name = donorInfo.name;
+			extraData.payment_token = paymentToken;
+			extraData.card_suffix = paymentData.paymentMethodData.info.cardDetails;
+			extraData.card_scheme = paymentData.paymentMethodData.info.cardNetwork;
+			mw.donationInterface.forms.callDonateApi(
+				handleApiResult,
+				extraData,
+				'di_donate_gravy'
+			);
+		} ).catch( function ( err ) {
+			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+			mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+			} );
+		} );
+	}
+
+	function getGoogleBaseRequest() {
+		return {
+			apiVersion: 2,
+			apiVersionMinor: 0
+		};
+	}
+
+	function getGoogleBaseCardPaymentMethod() {
+		var allowedCardNetworks = configFromServer.googleAllowedNetworks;
+		var allowedCardAuthMethods = [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ];
+		var baseCardPaymentMethod = {
+			type: 'CARD',
+			parameters: {
+				allowedCardNetworks: allowedCardNetworks,
+				allowedAuthMethods: allowedCardAuthMethods,
+				billingAddressRequired: true,
+				billingAddressParameters: {
+					format: 'FULL'
+				}
+			}
+		};
+		return baseCardPaymentMethod;
+	}
+
+	function getGoogleTransactionInfo() {
+		return {
+			totalPriceStatus: 'FINAL',
+			totalPrice: $( '#amount' ).val(),
+			currencyCode: $( '#currency' ).val(),
+			countryCode: $( '#country' ).val()
+		};
+	}
+
+	function getGoogleMerchantInfo() {
+		return {
+			merchantName: 'WikimediaFoundation',
+			merchantId: configFromServer.googleMerchantId
+		};
+	}
+
+	function getGooglepayRequest() {
+		var paymentRequest = getGoogleBaseRequest();
+		var cardPaymentMethod = getGoogleBaseCardPaymentMethod();
+		var gravyGooglePayMerchantId = configFromServer.gravyGooglePayMerchantId;
+		var tokenizationSpecification = {
+			type: 'PAYMENT_GATEWAY',
+			parameters: {
+				gateway: 'gr4vy',
+				gatewayMerchantId: gravyGooglePayMerchantId
+			}
+		};
+		cardPaymentMethod.tokenizationSpecification = tokenizationSpecification;
+		paymentRequest.allowedPaymentMethods = [ cardPaymentMethod ];
+		paymentRequest.transactionInfo = getGoogleTransactionInfo();
+		paymentRequest.merchantInfo = getGoogleMerchantInfo();
+
+		paymentRequest.emailRequired = true;
+
+		return paymentRequest;
+	}
+
+	function getGoogleIsReadyToPayRequest() {
+		var request = getGoogleBaseRequest();
+		var baseCardPaymentMethod = getGoogleBaseCardPaymentMethod();
+		request.allowedPaymentMethods = [ baseCardPaymentMethod ];
+		return request;
+	}
+
+	function getGooglePayClient() {
+		if ( googlePaymentClient === null ) {
+			return new google.payments.api.PaymentsClient( { environment: configFromServer.googleEnvironment } );
+		}
+		return googlePaymentClient;
+	}
+
+	function setupGooglePayForm() {
+		insertGooglePayComponentContainer();
+		var googlePayClient = getGooglePayClient();
+		var isReadyToPayRequest = getGoogleIsReadyToPayRequest();
+		googlePayClient
+			.isReadyToPay( isReadyToPayRequest )
+			.then( function ( response ) {
+				if ( response.result ) {
+					var button = googlePayClient.createButton( {
+						onClick: handleGooglePayButtonClick,
+						allowedPaymentMethods: [ 'CARD','TOKENIZED_CARD' ],
+						buttonType: 'donate'
+					} );
+					document.getElementById( 'container' ).appendChild( button );
+				}
+			} )
+			.catch( function ( err ) {
+				mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+			} );
+	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -197,8 +332,8 @@
 	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
 	$( function () {
-		var scriptNode, scriptSrc = mw.config.get( 'secureFieldsScriptLink' );
-		if ( scriptSrc && $( '#payment_method' ).val() === 'cc' ) {
+		var scriptNode, secureFieldsScript = mw.config.get( 'secureFieldsScriptLink' );
+		if ( secureFieldsScript && $( '#payment_method' ).val() === 'cc' ) {
 			scriptNode = document.createElement( 'script' );
 			scriptNode.onload = setupCardForm;
 			scriptNode.onerror = function () {
@@ -206,8 +341,13 @@
 					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
 				);
 			};
-			scriptNode.src = scriptSrc;
+			scriptNode.src = secureFieldsScript;
 			document.body.append( scriptNode );
+		} else if ( $( '#payment_method' ).val() === 'google' ) {
+			googleScriptNode = document.createElement( 'script' );
+			googleScriptNode.src = configFromServer.googleScript;
+			googleScriptNode.onload = setupGooglePayForm;
+			document.body.append( googleScriptNode );
 		}
 	} );
 } )( jQuery, mediaWiki );
