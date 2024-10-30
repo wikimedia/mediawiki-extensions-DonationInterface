@@ -32,7 +32,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	protected function __construct(
 		GatewayType $gateway_adapter,
-		Gateway_Extras_CustomFilters $custom_filter_object = null
+		?Gateway_Extras_CustomFilters $custom_filter_object = null
 	) {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
@@ -222,7 +222,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	protected static function singleton(
 		GatewayType $gateway_adapter,
-		Gateway_Extras_CustomFilters $custom_filter_object = null
+		?Gateway_Extras_CustomFilters $custom_filter_object = null
 	) {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );

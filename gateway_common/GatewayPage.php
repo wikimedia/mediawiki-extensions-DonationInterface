@@ -285,7 +285,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @param PaymentTransactionResponse|null $results
 	 * @return null
 	 */
-	protected function displayResultsForDebug( PaymentTransactionResponse $results = null ) {
+	protected function displayResultsForDebug( ?PaymentTransactionResponse $results = null ) {
 		$results = !$results ? $this->adapter->getTransactionResponse() : $results;
 
 		if ( $this->adapter->getGlobal( 'DisplayDebug' ) !== true ) {
