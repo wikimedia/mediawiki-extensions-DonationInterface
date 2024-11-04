@@ -8,7 +8,8 @@
 			"Saurmandal",
 			"Sfic",
 			"Siddhartha Ghai",
-			"Ziyaurr"
+			"Ziyaurr",
+			"AnupamM"
 		]
 	},
 	"donate_interface": "विकीमीडिया को समर्थन करें",
@@ -353,7 +354,6 @@
 	"donate_interface-cancel": "रद्द करें",
 	"donate_interface-payment": "भुगतान",
 	"donate_interface-payment-type": "भुगतान का प्रकार",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "कृपया नीचे अपना दान पूरा करें...",
 	"donate_interface-description": "वर्णन",
 	"donate_interface-donation": "दान",
@@ -394,7 +394,6 @@
 	"donate_interface-dd-bank_name": "बैंक का नाम",
 	"donate_interface-dd-branch_code": "शाखा कोड",
 	"donate_interface-dd-direct_debit_text": "डायरेक्ट डेबिट टेक्स्ट",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "इस अनुवाद को सुधारें",
 	"donate_interface-translate-redlink1": "इस पृष्ठ के अनुवाद में मदद करें।",
 	"donate_interface-translate-redlink2": "या अपना अनुवाद translations@wikimedia.org पर ईमेल से भेजें",

@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80",
 			"Beta16",
 			"Joetaras",
 			"Pcoombe",
@@ -112,7 +111,6 @@
 	"donate_interface-XCD": "Dollare de le Caraibe Oriendale",
 	"donate_interface-XOF": "Franghe de l'Afriche Occidendale",
 	"donate_interface-ZAR": "Rand d'u Sud Afriche",
-	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "Done ausanne PayPal",
 	"donate_interface-paypal-redirect": "Reindirizzamènde a PayPal…",
 	"donate_interface-amazon-button": "Done cu Amazon",
@@ -163,7 +161,6 @@
 	"donate_interface-donor-fiscal_number-br": "CPF/CNPJ",
 	"donate_interface-donor-fiscal_number-cl": "RUT",
 	"donate_interface-donor-fiscal_number-co": "Cédula de Ciudadanía",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "'U processe nuèstre de pajamende jè <b>cercate</b> da 'a Reserve Bank of India pe collezzionà 'u PAN tune, ma nuje non ge tenìme o stipame sta 'mbormazione. <b>Pe piacere mitte a scelta toje 'u PAN aqquà.</b>",
 	"donate_interface-donor-fiscal_number-mx": "CURP/RFC/IFE",
 	"donate_interface-donor-fiscal_number-pe": "DNI",
@@ -351,7 +348,6 @@
 	"donate_interface-cancel": "Annulle",
 	"donate_interface-payment": "Paiamende",
 	"donate_interface-payment-type": "Tipe de pajamènde",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Pe piacere comblete 'a donazziona toje aqquà sotte...",
 	"donate_interface-description": "Descrizione",
 	"donate_interface-donation": "Donazzione",
@@ -392,7 +388,6 @@
 	"donate_interface-dd-bank_name": "Nome d'a banghe",
 	"donate_interface-dd-branch_code": "Codece d'a filiale",
 	"donate_interface-dd-direct_debit_text": "Teste de addebite derette",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-pm-alipay": "Alipay",
 	"donate_interface-pm-bpay": "BPay",
 	"donate_interface-pm-boletus": "Boletos",

@@ -303,7 +303,6 @@
 	"donate_interface-cancel": "ยกเลิก",
 	"donate_interface-payment": "การทำธุกรรม",
 	"donate_interface-payment-type": "ประเภทการชำระเงิน",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "โปรดทำการบริจาคของคุณให้เสร็จสมบูรณ์ด้านล่าง...",
 	"donate_interface-description": "คำอธิบาย",
 	"donate_interface-donation": "การบริจาค",

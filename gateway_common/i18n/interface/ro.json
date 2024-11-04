@@ -14,7 +14,8 @@
 			"NGC 54",
 			"Pcoombe",
 			"Stelistcristi",
-			"Strainu"
+			"Strainu",
+			"Paloi Sciurala"
 		]
 	},
 	"donate_interface": "Sprijiniți Wikimedia",
@@ -313,7 +314,6 @@
 	"donate_interface-cancel": "Anulează",
 	"donate_interface-payment": "Plată",
 	"donate_interface-payment-type": "Tip de plată",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Vă rugăm să finalizați donația mai jos...",
 	"donate_interface-description": "Descriere",
 	"donate_interface-donation": "Donație",
@@ -352,7 +352,6 @@
 	"donate_interface-dd-bank_name": "Numele băncii",
 	"donate_interface-dd-branch_code": "Codul sucursalei",
 	"donate_interface-dd-direct_debit_text": "Textul pentru debit direct",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Îmbunătățiți această traducere",
 	"donate_interface-translate-redlink1": "Ajutați la traducerea acestei pagini.",
 	"donate_interface-translate-redlink2": "Sau trimiteți traducerea dumneavoastră la adresa translations@wikimedia.org",

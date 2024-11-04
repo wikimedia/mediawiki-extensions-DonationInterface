@@ -35,7 +35,8 @@
 			"Tanzun",
 			"Александр Сигачёв",
 			"Марио",
-			"Хомелка"
+			"Хомелка",
+			"Kareyac"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -342,7 +343,6 @@
 	"donate_interface-cancel": "Отказаться",
 	"donate_interface-payment": "Платёж",
 	"donate_interface-payment-type": "Вид платежа",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Пожалуйста, укажите информацию о пожертвовании…",
 	"donate_interface-description": "Описание",
 	"donate_interface-donation": "Пожертвование",
@@ -383,7 +383,6 @@
 	"donate_interface-dd-bank_name": "Название банка",
 	"donate_interface-dd-branch_code": "Код отделения банка",
 	"donate_interface-dd-direct_debit_text": "Текст для прямого списания",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Исправить этот перевод",
 	"donate_interface-translate-redlink1": "Помочь перевести эту страницу.",
 	"donate_interface-translate-redlink2": "Или пришлите ваш перевод по электронной почте на адрес translations@wikimedia.org",

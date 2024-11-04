@@ -1,8 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu",
-			"Amire80"
+			"Xuacu"
 		]
 	},
 	"apihelp-donate-description": "Esta API te permite unviar una donación a la Fundación Wikimedia, usando dellos procesadores de pagu.",

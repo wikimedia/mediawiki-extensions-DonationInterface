@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80",
 			"Ansumang",
 			"DareDevil",
 			"MKar",
@@ -265,7 +264,6 @@
 	"donate_interface-cancel": "ନାକଚ",
 	"donate_interface-payment": "ପଇଠ କରିବା",
 	"donate_interface-payment-type": "ପଇଠ ପ୍ରକାର",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "ଆପଣଙ୍କ ଅନୁଦାନ ତଳେ ଶେଷକରନ୍ତୁ ...",
 	"donate_interface-description": "ବିବରଣୀ",
 	"donate_interface-donation": "ଅନୁଦାନ",
@@ -302,7 +300,6 @@
 	"donate_interface-dd-bank_name": "ବ୍ୟାଙ୍କ ନାମ",
 	"donate_interface-dd-branch_code": "ଶାଖା କୋଡ଼",
 	"donate_interface-dd-direct_debit_text": "ସିଧା ଡେବିଟ ଲେଖା",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "ଏହି ଅନୁବାଦଟିକୁ ସୁଧାରିବେ",
 	"donate_interface-translate-redlink1": "ଏହି ପୃଷ୍ଠାଟିର ଅନୁବାଦରେ ସ‌ହଯୋଗ କରିବେ ।",
 	"donate_interface-translate-redlink2": "କିମ୍ବା ଆପଣଙ୍କ ଅନୁବାଦ translations@wikimedia.org ଙ୍କୁ ଇ-ମେଲ କରନ୍ତୁ",

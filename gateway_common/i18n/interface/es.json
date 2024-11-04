@@ -43,7 +43,8 @@
 			"Tusca",
 			"Vivaelcelta",
 			"EHughes",
-			"Eulalio"
+			"Eulalio",
+			"No se"
 		]
 	},
 	"donate_interface": "Apoya a Wikimedia",
@@ -382,7 +383,6 @@
 	"donate_interface-cancel": "Cancelar",
 	"donate_interface-payment": "Pago",
 	"donate_interface-payment-type": "Tipo de pago",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Completa tu donación a continuación...",
 	"donate_interface-description": "Descripción",
 	"donate_interface-donation": "Donación",
@@ -423,7 +423,6 @@
 	"donate_interface-dd-bank_name": "Nombre del banco",
 	"donate_interface-dd-branch_code": "Código de sucursal",
 	"donate_interface-dd-direct_debit_text": "Texto de domiciliación",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Mejorar esta traducción",
 	"donate_interface-translate-redlink1": "Ayudar a traducir esta página.",
 	"donate_interface-translate-redlink2": "O envía tu traducción a translations@wikimedia.org",

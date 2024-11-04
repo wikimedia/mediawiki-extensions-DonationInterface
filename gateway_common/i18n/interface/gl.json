@@ -10,8 +10,7 @@
 			"Maria zaos",
 			"McDutchie",
 			"Pcoombe",
-			"Toliño",
-			"Amire80"
+			"Toliño"
 		]
 	},
 	"donate_interface": "Apoia a Wikimedia",
@@ -360,7 +359,6 @@
 	"donate_interface-cancel": "Cancelar",
 	"donate_interface-payment": "Pagamento",
 	"donate_interface-payment-type": "Tipo de pagamento",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Fai a túa doazón a continuación...",
 	"donate_interface-description": "Descrición",
 	"donate_interface-donation": "Doazón",
@@ -401,7 +399,6 @@
 	"donate_interface-dd-bank_name": "Nome do banco",
 	"donate_interface-dd-branch_code": "Código da sucursal",
 	"donate_interface-dd-direct_debit_text": "Texto da domiciliación",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Mellorar esta tradución",
 	"donate_interface-translate-redlink1": "Axuda a traducir esta páxina.",
 	"donate_interface-translate-redlink2": "Ou envía a túa tradución a translations@wikimedia.org",

@@ -214,7 +214,6 @@
 	"donate_interface-cancel": "Bıtexelne",
 	"donate_interface-payment": "Bıdê",
 	"donate_interface-payment-type": "Babetê xercdayışi",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-description": "Şınasnayış",
 	"donate_interface-donation": "Yarmetiya perey",
 	"donate_interface-via-paypal": "(PayPal'î sera)",
@@ -227,7 +226,6 @@
 	"donate_interface-rtbt-issuer_id-longlist": "Bankey bini",
 	"donate_interface-dd-account_name": "Nameyê hesabi",
 	"donate_interface-dd-bank_name": "Namey banker",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-currency-change": "Wa Bıvuryo?",
 	"donate_interface-monthlybox-title": "Wa Aşmek bo?",
 	"donate_interface-monthly-short": "Aşmane"

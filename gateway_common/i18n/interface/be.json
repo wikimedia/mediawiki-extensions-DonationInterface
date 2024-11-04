@@ -7,7 +7,8 @@
 			"ZlyiLev",
 			"Дзяніс Тутэйшы",
 			"Тест",
-			"Хомелка"
+			"Хомелка",
+			"Earnur97"
 		]
 	},
 	"donate_interface": "Падтрымаем Вікіпедыю",
@@ -254,7 +255,6 @@
 	"donate_interface-cancel": "Адмовіцца",
 	"donate_interface-payment": "Аплата",
 	"donate_interface-payment-type": "Тып аплаты",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Калі ласка, пакажыце інфармацыю аб ахвяраванні...",
 	"donate_interface-description": "Апісанне",
 	"donate_interface-donation": "Ахвяраванне",
@@ -286,7 +286,6 @@
 	"donate_interface-dd-bank_name": "Назва банка",
 	"donate_interface-dd-branch_code": "Код аддзялення банка",
 	"donate_interface-dd-direct_debit_text": "Тэкст для прамога спісання",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Выправіць гэты пераклад",
 	"donate_interface-translate-redlink1": "Дапамагчы перакласці гэтую старонку",
 	"donate_interface-translate-redlink2": "Або дашліце ваш пераклад па электроннай пошце на адрас translations@wikimedia.org",

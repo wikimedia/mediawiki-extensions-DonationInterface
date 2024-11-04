@@ -15,7 +15,8 @@
 			"Samat",
 			"Tacsipacsi",
 			"Tgr",
-			"Urbalazs"
+			"Urbalazs",
+			"Hanna Tardos"
 		]
 	},
 	"donate_interface": "Támogasd a Wikimédiát!",
@@ -121,7 +122,6 @@
 	"donate_interface-XCD": "kelet-karibi dollár",
 	"donate_interface-XOF": "nyugat-afrikai CFA frank",
 	"donate_interface-ZAR": "dél-afrikai rand",
-	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "Adakozás PayPalon keresztül",
 	"donate_interface-paypal-redirect": "Átirányírás PayPal-ra…",
 	"donate_interface-amazon-button": "Adományozás Amazonon keresztül",
@@ -301,7 +301,6 @@
 	"donate_interface-cancel": "Mégsem",
 	"donate_interface-payment": "Fizetés",
 	"donate_interface-payment-type": "Fizetési mód",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Kérlek, fejezd be az adományozást alább...",
 	"donate_interface-description": "Leírás",
 	"donate_interface-donation": "Adomány",
@@ -341,7 +340,6 @@
 	"donate_interface-dd-bank_name": "Bank neve",
 	"donate_interface-dd-branch_code": "A fiók kódja",
 	"donate_interface-dd-direct_debit_text": "Megjegyzés",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Javaslat jobb fordításra",
 	"donate_interface-translate-redlink1": "Segíts lefordítani ezt az oldalt",
 	"donate_interface-translate-redlink2": "Vagy küldd el a fordításodat a translations@wikimedia.org címre",

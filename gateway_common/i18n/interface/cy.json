@@ -6,7 +6,8 @@
 			"Reedy",
 			"Robin Owain",
 			"Xxglennxx",
-			"Afalau"
+			"Afalau",
+			"Ceirios"
 		]
 	},
 	"donate_interface": "Cefnogwch Wikimedia",
@@ -291,7 +292,6 @@
 	"donate_interface-cancel": "Diddymer",
 	"donate_interface-payment": "Talu",
 	"donate_interface-payment-type": "Math y taliad",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Llanwch y ffurflen isod er mwyn rhoi...",
 	"donate_interface-description": "Disgrifiad",
 	"donate_interface-donation": "Eich rhodd",
@@ -329,7 +329,6 @@
 	"donate_interface-dd-bank_name": "Enw'r banc",
 	"donate_interface-dd-branch_code": "Côd y gangen",
 	"donate_interface-dd-direct_debit_text": "Testun debyd uniongyrchol",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Gwellwch ar y cyfieithiad hwn",
 	"donate_interface-translate-redlink1": "Ymunwch yn y gwaith o gyfieithu'r dudalen hon.",
 	"donate_interface-translate-redlink2": "Neu e-bostiwch eich cyfieithiad i translations@wikimedia.org",

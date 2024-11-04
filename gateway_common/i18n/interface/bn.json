@@ -12,7 +12,8 @@
 			"Wikitanvir",
 			"আফতাবুজ্জামান",
 			"খাত্তাব হাসান",
-			"Aishik Rehman"
+			"Aishik Rehman",
+			"San1joy23"
 		]
 	},
 	"donate_interface": "উইকিমিডিয়াকে সাহায্য করুন",
@@ -289,7 +290,6 @@
 	"donate_interface-cancel": "বাতিল",
 	"donate_interface-payment": "পরিশোধ",
 	"donate_interface-payment-type": "পরিশোধের ধরন",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "অনুগ্রহ করে নিচে আপানার অনুদান সম্পন্ন করুন...",
 	"donate_interface-description": "বিবরণ",
 	"donate_interface-donation": "অনুদান",
@@ -321,7 +321,6 @@
 	"donate_interface-dd-bank_code": "সর্ট কোড",
 	"donate_interface-dd-bank_name": "ব্যাংকের নাম",
 	"donate_interface-dd-branch_code": "শাখা কোড",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-pm-alipay": "আলিপে",
 	"donate_interface-pm-giropay": "জিরোপে",
 	"donate_interface-pm-skrill": "মানিবুকার্স",

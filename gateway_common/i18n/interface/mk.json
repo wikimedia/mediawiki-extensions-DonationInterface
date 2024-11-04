@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80",
 			"Bjankuloski06",
 			"Jsoby",
 			"Pcoombe",
@@ -112,7 +111,6 @@
 	"donate_interface-XCD": "источнокарипски долар",
 	"donate_interface-XOF": "западноафрикански франк",
 	"donate_interface-ZAR": "јужноафрикански ранд",
-	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "Дарувајте преку PayPal",
 	"donate_interface-paypal-redirect": "Ве префрлам на PayPal…",
 	"donate_interface-amazon-button": "Дарувајте преку Amazon",
@@ -158,7 +156,6 @@
 	"donate_interface-donor-submit": "Дарувај",
 	"donate_interface-donor-currency-msg": "Ова дарување се врши во $1",
 	"donate_interface-donor-fiscal_number": "Фискален број",
-	"donate_interface-donor-fiscal_number-in": "PAN",
 	"donate_interface-donor-fiscal_number-explain-in": "Банката на резерви на Индија <b>бара</b> нашиот наплатен услужник да го има вашиот PAN, но ние не ја складираме таа информација.<b>Ако сакате, тука внесете го вашиот PAN.</b>",
 	"donate_interface-donor-opt_in_yes": "Да! Повремено (ретко) испраќајте ми сознанија за тоа како во иднина можам да ја поддржам Википедија.*",
 	"donate_interface-donor-opt_in_no": "Не, не сакам да добивам новости, дури и ако се само неколку годишно.",
@@ -353,7 +350,6 @@
 	"donate_interface-cancel": "Откажи",
 	"donate_interface-payment": "Плаќање",
 	"donate_interface-payment-type": "Тип на плаќање",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Довршете го дарувањето подолу...",
 	"donate_interface-description": "Опис",
 	"donate_interface-donation": "Дарување",
@@ -394,7 +390,6 @@
 	"donate_interface-dd-bank_name": "Име на банката",
 	"donate_interface-dd-branch_code": "Код на филијалата",
 	"donate_interface-dd-direct_debit_text": "Текст за дарувањето непосредно од сметка",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-pm-yandex": "Яндекс",
 	"donate_interface-translate-bluelink": "Подобрете го преводов",
 	"donate_interface-translate-redlink1": "Помогнете со превод на страницава.",

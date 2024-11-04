@@ -7,7 +7,8 @@
 			"Huñvreüs",
 			"Jsoby",
 			"Pcoombe",
-			"Y-M D"
+			"Y-M D",
+			"Adriendelucca"
 		]
 	},
 	"donate_interface": "Skoazellañ Wikimedia",
@@ -289,7 +290,6 @@
 	"donate_interface-cancel": "Nullañ",
 	"donate_interface-payment": "Paeamant",
 	"donate_interface-payment-type": "Seurt paeamant",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Kasit da benn vat ho donezon a-is...",
 	"donate_interface-description": "Deskrivadur",
 	"donate_interface-donation": "Donezon",
@@ -327,7 +327,6 @@
 	"donate_interface-dd-bank_name": "Anv ar bank",
 	"donate_interface-dd-branch_code": "Kod an ajañs",
 	"donate_interface-dd-direct_debit_text": "Testenn dle eeun",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Gwellaat an droidigezh-mañ",
 	"donate_interface-translate-redlink1": "Hor skoazellit da dreiñ ar bajenn-mañ.",
 	"donate_interface-translate-redlink2": "Pe kasit ho troidigezh da translations@wikimedia.org",

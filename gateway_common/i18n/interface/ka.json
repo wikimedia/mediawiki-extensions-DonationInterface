@@ -1,7 +1,6 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80",
 			"BRUTE",
 			"David1010",
 			"Dawid Deutschland",
@@ -113,7 +112,6 @@
 	"donate_interface-XCD": "აღმოსავლეთ კარიბული დოლარი",
 	"donate_interface-XOF": "დასავლეთაფრიკული ცფა ფრანკი",
 	"donate_interface-ZAR": "სამხრეთ აფრიკული რანდი",
-	"donate_interface-currency-display": "$1 ($2)",
 	"donate_interface-paypal-button": "შემოწირულობა PayPal-ით",
 	"donate_interface-paypal-redirect": "PayPal-ზე გადამისამართება…",
 	"donate_interface-amazon-button": "შეწირვა Amazon-ის საშუალებით",
@@ -277,7 +275,6 @@
 	"donate_interface-cancel": "გაუქმება",
 	"donate_interface-payment": "გადახდა",
 	"donate_interface-payment-type": "გადახდის სახე",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "გთხოვთ, მიუთითეთ ინფორმაცია თქვენი შემოწირულობის შესახებ ...",
 	"donate_interface-description": "აღწერა",
 	"donate_interface-donation": "შემოგვწირეთ",
@@ -315,7 +312,6 @@
 	"donate_interface-dd-bank_name": "ბანკის სახელი",
 	"donate_interface-dd-branch_code": "ფილიალის კოდი",
 	"donate_interface-dd-direct_debit_text": "პირდაპირი დებეტური ტექსტი",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "გააუმჯობესეთ ეს თარგმანი",
 	"donate_interface-translate-redlink1": "დაგვეხმარეთ ამ გვერდის თარგმნაში.",
 	"donate_interface-translate-redlink2": "ან გამოგზავნეთ თქვენი ნათარგმნი ელ. ფოსტით მისამართზე translations@wikimedia.org",

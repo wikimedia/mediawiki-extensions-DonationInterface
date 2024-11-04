@@ -17,7 +17,8 @@
 			"Presidenvolksraad",
 			"RXerself",
 			"Seddon",
-			"William Surya Permana"
+			"William Surya Permana",
+			"David Wadie Fisher-Freberg"
 		]
 	},
 	"donate_interface": "Dukung Wikimedia",
@@ -336,7 +337,6 @@
 	"donate_interface-cancel": "Batal",
 	"donate_interface-payment": "Pembayaran",
 	"donate_interface-payment-type": "Jenis pembayaran",
-	"donate_interface-month": "$1 ($2)",
 	"donate_interface-please-complete": "Harap lengkapi donasi Anda di bawah ini...",
 	"donate_interface-description": "Deskripsi",
 	"donate_interface-donation": "Donasi",
@@ -377,7 +377,6 @@
 	"donate_interface-dd-bank_name": "Nama bank",
 	"donate_interface-dd-branch_code": "Kode cabang",
 	"donate_interface-dd-direct_debit_text": "Teks debit langsung",
-	"donate_interface-dd-iban": "IBAN",
 	"donate_interface-translate-bluelink": "Perbaiki terjemahan ini",
 	"donate_interface-translate-redlink1": "Bantu terjemahkan halaman ini.",
 	"donate_interface-translate-redlink2": "Atau surelkan terjemahan Anda ke translations@wikimedia.org",
