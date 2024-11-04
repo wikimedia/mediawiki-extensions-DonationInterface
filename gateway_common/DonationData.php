@@ -1040,6 +1040,7 @@ class DonationData implements LogPrefixProvider {
 			'gateway_txn_id',
 			'backend_processor',
 			'backend_processor_txn_id',
+			'payment_orchestrator_reconciliation_id',
 			'order_id',
 			'subscr_id',
 			'recurring',

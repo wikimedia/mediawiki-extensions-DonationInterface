@@ -9,7 +9,7 @@ cc:
         name: true
         email: true
 dd:
-    recurring: false
+    recurring: true
     label: Direct debit
     validation:
         country: true
