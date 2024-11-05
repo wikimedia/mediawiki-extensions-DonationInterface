@@ -7,7 +7,3 @@ composer.lock
 .version-stamp
 node_modules
 .eslintcache
-# merge diff files
-*.orig
-# vscode debug config file
-launch.json
