@@ -123,6 +123,15 @@ a[ href^='https://' ],
 	font-size: 95%;
 }
 
+.correction {
+	color: #f00;
+}
+
+.correction::before,
+.correction::after {
+	content: '🔥';
+}
+
 /* Respond to small viewport */
 @media screen and ( max-device-width: 981px ) {
 	/* Overall layout */
