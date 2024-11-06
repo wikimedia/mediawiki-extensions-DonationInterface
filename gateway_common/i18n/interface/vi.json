@@ -385,7 +385,7 @@
 	"donate_interface-monthlybox-yes": "Chắc rồi, hãy quyên góp hàng tháng",
 	"donate_interface-monthlybox-no": "KHÔNG, chỉ quyên góp một lần",
 	"donate_interface-monthlybox-bottom": "Khoản quyên góp của bạn sẽ được xử lý một cách an toàn.",
-	"donate_interface-monthly-cancel": "Các khoản thanh toán hàng tháng của người đóng góp định kỳ sẽ được Wikimedia Foundation ghi nợ mỗi tháng vào ngày ứng với lần đóng góp đầu tiên, cho đến lúc bạn thông báo cho chúng tôi rằng bạn muốn chấm dứt tiến trình này. Các khoản thanh toán được thực hiện vào ngày 29, 30, hoặc 31 trong tháng sẽ lặp lại vào ngày cuối cùng của những tháng ngắn hơn, chúng tôi sẽ cố gắng ghi nợ gần ngày đầu tiên. Có thắc mắc, xin vui lòng liên lạc với $1.",
+	"donate_interface-monthly-cancel": "Các khoản thanh toán hàng tháng của người đóng góp định kỳ sẽ được Wikimedia Foundation ghi nợ mỗi tháng vào ngày ứng với lần đóng góp đầu tiên, cho đến lúc bạn thông báo cho chúng tôi rằng bạn muốn chấm dứt tiến trình này. Các khoản thanh toán được thực hiện vào ngày 29, 30, hoặc 31 trong tháng sẽ lặp lại vào ngày cuối cùng của những tháng ngắn hơn, chúng tôi sẽ cố gắng ghi nợ gần ngày đầu tiên. Nếu bạn có thắc mắc, xin vui lòng liên lạc với $1.",
 	"donate_interface-onetime": "Quyên góp một lần",
 	"donate_interface-monthly-short": "Hàng tháng",
 	"donate_interface-onetime-short": "Một lần",
