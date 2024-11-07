@@ -89,6 +89,25 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			return;
 		}
 
+		// Validate amount
+		$amountValidator = new Amount();
+		$errorState = new ErrorState();
+		$donationData = [
+			'external_data' => $this->donationData
+		];
+		$amountValidator->validate( new $className( $donationData ), $this->donationData, $errorState );
+		if ( $errorState->hasErrors() ) {
+			$errorMessage = 'Payment amount validation failed';
+			$this->logger->info( $errorMessage );
+			$response = [
+				'status' => self::STATUS_ERROR,
+				'error_message' => $errorMessage,
+				'order_id' => $this->orderId,
+			];
+			$this->getResult()->addValue( null, 'response', $response );
+			return;
+		}
+
 		// App is sending payment_network which is our payment_submethod, match what we do in the adyen form
 		$this->donationData['payment_submethod'] = $this->mapNetworktoSubmethod( $this->donationData['payment_network'] );
 
