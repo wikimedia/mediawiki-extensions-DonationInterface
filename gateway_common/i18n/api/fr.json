@@ -8,7 +8,8 @@
 			"Thibaut120094",
 			"Verdy p",
 			"Windes",
-			"Wladek92"
+			"Wladek92",
+			"Mahabarata"
 		]
 	},
 	"apihelp-donate-summary": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de modes de paiement.",
@@ -56,9 +57,16 @@
 	"apihelp-logPaymentsFormError-param-col": "Colonne sur laquelle l’erreur s’est produite",
 	"apihelp-logPaymentsFormError-param-userAgent": "Chaîne « User-Agent » du navigateur",
 	"apihelp-logPaymentsFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
+	"apihelp-logRecurUpgradeFormError-summary": "Cette API enregistre les erreurs récurrentes du formulaire de mise à niveau côté client.",
 	"apihelp-logRecurUpgradeFormError-param-message": "Le message d’erreur",
+	"apihelp-logRecurUpgradeFormError-param-file": "Fichier dans lequel l'erreur s'est produite",
+	"apihelp-logRecurUpgradeFormError-param-line": "Ligne sur laquelle l'erreur s'est produite",
+	"apihelp-logRecurUpgradeFormError-param-col": "Colonne sur laquelle l'erreur s'est produite",
+	"apihelp-logRecurUpgradeFormError-param-userAgent": "Chaîne « User-Agent » du navigateur",
+	"apihelp-logRecurUpgradeFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
 	"apihelp-di_donate_adyen-summary": "Cette API est pour Adyen",
 	"apihelp-di_donate_dlocal-summary": "Cette API est pour Dlocal",
+	"apihelp-di_donate_gravy-summary": "Cette API est pour Gravy",
 	"apihelp-di_donate_braintree-summary": "Cette API est pour Braintree",
 	"apihelp-di_recurring_convert-summary": "Cette API est utilisée quand un donateur accepte d’ajouter un don mensuel après avoir réussi un don ponctuel.",
 	"apihelp-di_recurring_convert-param-amount": "Le montant du don mensuel.",
@@ -67,5 +75,6 @@
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
 	"apihelp-employerSearch-example-1": "Rechercher un employeur",
 	"apihelp-di_applesession_adyen-summary": "Permet de demander une session Apple Pay directement auprès d’Apple",
-	"apihelp-getPaymentMethods-summary": "Renvoie les méthodes de paiement disponibles selon le pays"
+	"apihelp-getPaymentMethods-summary": "Renvoie les méthodes de paiement disponibles selon le pays",
+	"apihelp-submitPayment-summary": "Soumet un paiement en fonction des paramètres envoyés"
 }
