@@ -20,7 +20,7 @@
 	"emailpreferences-language": "Language",
 	"emailpreferences-save": "Save Preferences",
 	"emailpreferences-send-email": "I love hearing from the Wikimedia Foundation, send me everything!",
-	"emailpreferences-snooze-email": "Pause emails for $1 days.",
+	"emailpreferences-snooze-email": "Pause emails for {{PLURAL:$1|one day|$1 days}}.",
 	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted.",
 	"emailpreferences-title": "Email preferences",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
