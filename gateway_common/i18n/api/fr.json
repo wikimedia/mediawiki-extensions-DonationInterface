@@ -8,7 +8,8 @@
 			"Verdy p",
 			"Windes",
 			"Wladek92",
-			"SleaY"
+			"SleaY",
+			"Mahabarata"
 		]
 	},
 	"apihelp-donate-summary": "Cette API vous permet de faire un don à la Fondation Wikimedia en utilisant une variété de modes de paiement.",
@@ -66,5 +67,6 @@
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
 	"apihelp-employerSearch-example-1": "Rechercher un employeur",
 	"apihelp-di_applesession_adyen-summary": "Permet de demander une session Apple Pay directement auprès d’Apple",
-	"apihelp-getPaymentMethods-summary": "Renvoie les méthodes de paiement disponibles selon le pays"
+	"apihelp-getPaymentMethods-summary": "Renvoie les méthodes de paiement disponibles selon le pays",
+	"apihelp-submitPayment-summary": "Soumet un paiement en fonction des paramètres envoyés"
 }
