@@ -303,6 +303,8 @@ class RedirectFormTest extends BaseGravyTestCase {
 					->setStatus( FinalStatus::COMPLETE )
 					->setSuccessful( true )
 					->setGatewayTxnId( $gravyTransactionId )
+					->setBackendProcessor( 'braintree' )
+					->setBackendProcessorTransactionId( $braintreeTransactionId )
 			);
 
 		$result = $gateway->processDonorReturn( $queryString );

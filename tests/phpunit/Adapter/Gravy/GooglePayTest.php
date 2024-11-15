@@ -100,6 +100,8 @@ class GooglePayTest extends BaseGravyTestCase {
 					->setStatus( FinalStatus::COMPLETE )
 					->setSuccessful( true )
 					->setGatewayTxnId( $gravyTransactionId )
+					->setBackendProcessor( 'adyen' )
+					->setBackendProcessorTransactionId( $adyenTransactionId )
 			);
 
 		$result = $gateway->doPayment();
