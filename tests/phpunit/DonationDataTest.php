@@ -583,6 +583,7 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'postal_code',
 			'processor_contact_id',
 			'processor_form',
+			'recipient_id',
 			'recurring',
 			'recurring_payment_token',
 			'referrer',
