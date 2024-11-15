@@ -102,4 +102,14 @@ class Validator {
 		}
 		return $rate * $this->config->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 	}
+
+	public static function isChecksumExpired( string $checksum ): bool {
+		$parts = explode( '_', $checksum );
+		if ( count( $parts ) !== 3 ) {
+			throw new \InvalidArgumentException( 'Invalid checksum' );
+		}
+		$timestamp = (int)$parts[1];
+		$hours = (int)$parts[2];
+		return ( $timestamp + $hours * 3600 < time() );
+	}
 }

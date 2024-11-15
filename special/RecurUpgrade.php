@@ -6,6 +6,8 @@ use SmashPig\Core\DataStores\QueueWrapper;
 
 class RecurUpgrade extends UnlistedSpecialPage {
 
+	use RequestNewChecksumLinkTrait;
+
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
 	const FALLBACK_CURRENCY = 'USD';
@@ -24,6 +26,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	public function execute( $subpage ) {
 		$this->setHeaders();
+		$this->setUpClientSideChecksumRequest( $subpage );
 		$this->addStylesScriptsAndViewport();
 
 		$params = $this->getRequest()->getValues();
@@ -35,6 +38,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		if ( $posted ) {
 			$this->executeRecurUpgrade( $params );
 		} else {
+			if ( $this->isChecksumExpired() ) {
+				$this->renderForm( 'recurUpgrade', $params );
+				return;
+			}
 			$formParams = $this->paramsForRecurUpgradeForm(
 				$params[ 'checksum' ],
 				$params[ 'contact_id' ],
@@ -60,10 +67,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
 		$logger = self::getLogger();
 		$message = [
-			'txn_type' => 'recurring_upgrade_decline',
-			'contribution_recur_id' => $contributionID,
-			'contact_id' => $contactID,
-		] + $this->getTrackingParametersWithoutPrefix();
+				'txn_type' => 'recurring_upgrade_decline',
+				'contribution_recur_id' => $contributionID,
+				'contact_id' => $contactID,
+			] + $this->getTrackingParametersWithoutPrefix();
 		try {
 			$logger->info( "Pushing recurring_upgrade_decline to recurring-modify queue with contribution_recur_id: {$message['contribution_recur_id']}" );
 			QueueWrapper::push( 'recurring-modify', $message );
@@ -108,18 +115,18 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 
 		return [
-			'full_name' => $recurData['donor_name'],
-			'recur_amount' => $recurData['amount'],
-			'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
-			'contribution_recur_id' => $recurData['id'],
-			'next_sched_contribution_date' => $recurData['next_sched_contribution_date'],
-			'next_sched_contribution_date_formatted' => $nextDateFormatted,
-			'country' => $country ?? self::FALLBACK_COUNTRY,
-			'currency' => $currency,
-			'maximum' => $this->validator->getMaxInSelectedCurrency( $recurData ),
-			'locale' => $locale,
-			'recurringOptions' => $optionsForTemplate,
-		] + $this->getTrackingParametersForForm();
+				'full_name' => $recurData['donor_name'],
+				'recur_amount' => $recurData['amount'],
+				'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
+				'contribution_recur_id' => $recurData['id'],
+				'next_sched_contribution_date' => $recurData['next_sched_contribution_date'],
+				'next_sched_contribution_date_formatted' => $nextDateFormatted,
+				'country' => $country ?? self::FALLBACK_COUNTRY,
+				'currency' => $currency,
+				'maximum' => $this->validator->getMaxInSelectedCurrency( $recurData ),
+				'locale' => $locale,
+				'recurringOptions' => $optionsForTemplate,
+			] + $this->getTrackingParametersForForm();
 	}
 
 	protected function executeRecurUpgrade( $params ) {
@@ -140,11 +147,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 		$amount = $donorData['amount'] + round( (double)$upgradeAmount, 2 );
 		$message = [
-			'txn_type' => 'recurring_upgrade',
-			'contribution_recur_id' => $donorData['contribution_recur_id'],
-			'amount' => $amount,
-			'currency' => $donorData['currency'],
-		] + $this->getTrackingParametersWithoutPrefix();
+				'txn_type' => 'recurring_upgrade',
+				'contribution_recur_id' => $donorData['contribution_recur_id'],
+				'amount' => $amount,
+				'currency' => $donorData['currency'],
+			] + $this->getTrackingParametersWithoutPrefix();
 
 		try {
 			$logger->info( "Pushing upgraded amount to recurring-modify queue with contribution_recur_id: {$message['contribution_recur_id']}" );
@@ -229,10 +236,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	protected function getTrackingParametersForForm() {
 		return $this->getTrackingParametersWithoutPrefix() + [
-			'campaign' => '',
-			'medium' => '',
-			'source' => '',
-		];
+				'campaign' => '',
+				'medium' => '',
+				'source' => '',
+			];
 	}
 
 	/**
@@ -251,6 +258,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferences',
 			'ext.donationInterface.recurUpgrade',
 			'ext.donationInterface.errorLog',
+			'ext.donationInterface.requestNewChecksumLink',
 		] );
 
 		// Tell the errorLog module which action to call
