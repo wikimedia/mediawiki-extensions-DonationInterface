@@ -76,7 +76,7 @@ class DonationData implements LogPrefixProvider {
 		'data_hash',
 		'date_collect',
 		'descriptor',
-		'device_data', // needed for braintree venom
+		'device_data', // needed for braintree venmo
 		'direct_debit_text',
 		'email',
 		'emailAdd', // @deprecated
@@ -96,8 +96,7 @@ class DonationData implements LogPrefixProvider {
 		'frequency_unit',
 		'full_name',
 		'gateway',
-		'gateway_session_id',
-		'gateway_session_id', // venmo paymentContextId for retrieve customer info
+		'gateway_session_id', // temporary ID for attempt used to retrieve customer info, e.g. venmo paymentContextId
 		'iban',
 		'initial_scheme_transaction_id',
 		'issuer_id',
@@ -115,7 +114,7 @@ class DonationData implements LogPrefixProvider {
 		'processor_form',
 		'recurring',
 		'recurring_payment_token',
-		'recurring_paypal',
+		'recurring_paypal', // deprecated
 		'redirect',
 		'referrer',
 		'screen_height', // device fingerprinting
@@ -1117,7 +1116,6 @@ class DonationData implements LogPrefixProvider {
 			'contact_hash',
 			'contact_id',
 			'iban',
-			'order_id',
 			'processor_form',
 			'referrer',
 			'utm_key',

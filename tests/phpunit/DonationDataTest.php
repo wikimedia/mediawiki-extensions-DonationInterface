@@ -576,7 +576,6 @@ class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
 			'last_name_phonetic',
 			'opt_in',
 			'order_id',
-			'order_id',
 			'payment_method',
 			'payment_orchestrator_reconciliation_id',
 			'payment_submethod',
