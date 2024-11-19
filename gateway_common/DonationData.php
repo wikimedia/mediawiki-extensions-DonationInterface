@@ -47,101 +47,102 @@ class DonationData implements LogPrefixProvider {
 	 * @var string[]
 	 */
 	protected static $fieldNames = [
+		'account_name',
+		'account_number',
+		'action',
 		'amount',
 		'amountGiven',
 		'amountOther',
 		'appeal',
+		'authorization_id',
+		'bank_account_type', // adyen ach bank account type: saving or checking
+		'bank_check_digit',
+		'bank_code',
+		'bank_name',
+		'branch_code',
+		'card_num',
+		'card_scheme', // Gr4vy google pay: example VISA
+		'card_suffix', // first 4 digits in card number
+		'city',
 		'color_depth', // device fingerprinting
-		'contact_id',
 		'contact_hash',
+		'contact_id',
+		'country',
+		'country_code_bank',
+		'currency',
+		'currency_code',
+		'customer_id', // venmo customer_id if post MC declined then remove from vault
+		'cvv',
+		'data_hash',
+		'date_collect',
+		'descriptor',
+		'device_data', // needed for braintree venmo
+		'direct_debit_text',
 		'email',
-		// @deprecated
-		'emailAdd',
+		'emailAdd', // @deprecated
+		'employer',
+		'employer_id',
+		'encrypted_bank_account_number',
+		'encrypted_bank_location_id',
 		'encrypted_card_number',
 		'encrypted_expiry_month',
 		'encrypted_expiry_year',
 		'encrypted_security_code',
+		'expiration',
 		'first_name',
 		'first_name_phonetic',
+		'fiscal_number',
 		'frequency_interval',
 		'frequency_unit',
-		'gateway_session_id',
+		'full_name',
+		'gateway',
+		'gateway_session_id', // temporary ID for attempt used to retrieve customer info, e.g. venmo paymentContextId
+		'iban',
+		'initial_scheme_transaction_id',
+		'issuer_id',
 		'java_enabled', // device fingerprinting
+		'language',
 		'last_name',
 		'last_name_phonetic',
-		'screen_height', // device fingerprinting
-		'screen_width', // device fingerprinting
-		'street_address',
-		'supplemental_address_1',
-		'time_zone_offset', // device fingerprinting
-		'city',
-		'state_province',
-		'postal_code',
-		'phone',
-		'country',
-		'card_num',
-		'expiration',
-		'cvv',
-		'currency',
-		'currency_code',
+		'opt_in',
+		'order_id',
 		'payment_method',
 		'payment_submethod',
+		'payment_token',
+		'phone',
+		'postal_code',
+		'processor_form',
+		'recipient_id',
+		'recurring',
 		'recurring_payment_token',
-		'issuer_id',
-		'order_id',
-		'subscr_id',
+		'recurring_paypal', // deprecated
+		'redirect',
 		'referrer',
-		'utm_source',
-		'utm_source_id',
-		'utm_medium',
+		'screen_height', // device fingerprinting
+		'screen_width', // device fingerprinting
+		'server_ip',
+		'state_province',
+		'street_address',
+		'street_number', // for addresses in India
+		'subscr_id',
+		'supplemental_address_1',
+		'time_zone_offset', // device fingerprinting
+		'transaction_type',
+		'upi_id',
+		'uselang',
+		'user_ip',
+		'user_name', // optional venmo name for their console
 		'utm_campaign',
 		'utm_key',
-		'wmf_source',
-		'wmf_medium',
+		'utm_medium',
+		'utm_source',
+		'utm_source_id',
+		'variant',
 		'wmf_campaign',
 		'wmf_key',
-		'language',
-		'uselang',
+		'wmf_medium',
+		'wmf_source',
 		'wmf_token',
-		'data_hash',
-		'action',
-		'gateway',
-		'descriptor',
-		'account_name',
-		'account_number',
-		'authorization_id',
-		'bank_check_digit',
-		'bank_name',
-		'bank_code',
-		'branch_code',
-		'country_code_bank',
-		'date_collect',
-		'direct_debit_text',
-		'iban',
-		'fiscal_number',
-		'transaction_type',
-		'processor_form',
-		'recurring',
-		'recurring_paypal',
-		'redirect',
-		'user_ip',
-		'server_ip',
-		'variant',
-		'opt_in',
-		'employer',
-		'employer_id',
-		'payment_token',
-		'full_name',
-		'upi_id',
-		'initial_scheme_transaction_id',
-		'device_data', // needed for braintree venom
-		'user_name', // optional venmo name for their console
-		'customer_id', // venmo customer_id if post MC declined then remove from vault
-		'gateway_session_id', // venmo paymentContextId for retrieve customer info
-		'encrypted_bank_account_number',
-		'encrypted_bank_location_id',
-		'bank_account_type', // adyen ach bank account type: saving or checking
-		'street_number', // for addresses in India
 	];
 
 	/**
@@ -578,10 +579,10 @@ class DonationData implements LogPrefixProvider {
 			$mess = 'Non-numeric or nonsense Amount.';
 			$keys = [
 				'amount',
-				'utm_source',
-				'utm_campaign',
 				'email',
 				'user_ip', // to help deal with fraudulent traffic.
+				'utm_campaign',
+				'utm_source',
 			];
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->getVal( $key );
@@ -905,11 +906,11 @@ class DonationData implements LogPrefixProvider {
 		$headers = RequestContext::getMain()->getRequest()->getAllHeaders();
 		$parser = new WhichBrowser\Parser( $headers );
 		$tracking_data = array_merge( $tracking_data, [
+			'browser' => $parser->browser->getName(),
+			'browser_version' => preg_replace( '/[^0-9].*/', '', $parser->browser->getVersion() ),
 			'os' => $parser->os->getName(),
 			// For versions, discard everything after the first non-digit
 			'os_version' => preg_replace( '/[^0-9].*/', '', $parser->os->getVersion() ),
-			'browser' => $parser->browser->getName(),
-			'browser_version' => preg_replace( '/[^0-9].*/', '', $parser->browser->getVersion() ),
 		] );
 
 		// Variant is the new way to a/b test forms. Appeal is still used to
@@ -1016,50 +1017,51 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getMessageFields() {
 		return [
-			'contribution_tracking_id',
+			'amount',
 			'anonymous',
-			'utm_source',
-			'utm_medium',
-			'utm_campaign',
-			'language',
-			'email',
-			'first_name',
-			'first_name_phonetic',
-			'frequency_interval',
-			'frequency_unit',
-			'last_name',
-			'last_name_phonetic',
-			'street_address',
-			'supplemental_address_1',
-			'city',
-			'state_province',
-			'country',
-			'postal_code',
-			'gateway',
-			'gateway_account',
-			'gateway_txn_id',
 			'backend_processor',
 			'backend_processor_txn_id',
-			'payment_orchestrator_reconciliation_id',
-			'order_id',
-			'subscr_id',
-			'recurring',
-			'payment_method',
-			'payment_submethod',
-			'response',
+			'city',
+			'contribution_tracking_id',
+			'country',
 			'currency',
-			'amount',
-			'user_ip',
 			'date',
-			'gateway_session_id',
-			'recurring_payment_token',
-			'processor_contact_id',
-			'opt_in',
+			'email',
 			'employer',
 			'employer_id',
-			'full_name',
+			'first_name',
+			'first_name_phonetic',
 			'fiscal_number',
+			'frequency_interval',
+			'frequency_unit',
+			'full_name',
+			'gateway',
+			'gateway_account',
+			'gateway_session_id',
+			'gateway_txn_id',
 			'initial_scheme_transaction_id',
+			'language',
+			'last_name',
+			'last_name_phonetic',
+			'opt_in',
+			'order_id',
+			'payment_method',
+			'payment_orchestrator_reconciliation_id',
+			'payment_submethod',
+			'postal_code',
+			'processor_contact_id',
+			'recipient_id',
+			'recurring',
+			'recurring_payment_token',
+			'response',
+			'state_province',
+			'street_address',
+			'subscr_id',
+			'supplemental_address_1',
+			'user_ip',
+			'utm_campaign',
+			'utm_medium',
+			'utm_source',
 		];
 	}
 
@@ -1070,16 +1072,16 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getContactFields() {
 		return [
-			'language',
+			'city',
+			'country',
 			'email',
 			'first_name',
 			'full_name',
+			'language',
 			'last_name',
-			'street_address',
-			'city',
-			'state_province',
-			'country',
 			'postal_code',
+			'state_province',
+			'street_address',
 		];
 	}
 
@@ -1090,18 +1092,18 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getRetryFields() {
 		$fields = [
-			'contact_id',
+			'amount',
 			'contact_hash',
-			'gateway',
+			'contact_id',
 			'country',
 			'currency',
-			'amount',
-			'variant',
+			'gateway',
 			'language',
-			'utm_source',
-			'utm_medium',
-			'utm_campaign',
 			'payment_method',
+			'utm_campaign',
+			'utm_medium',
+			'utm_source',
+			'variant',
 		];
 		return $fields;
 	}
@@ -1112,15 +1114,14 @@ class DonationData implements LogPrefixProvider {
 	 */
 	public static function getSessionFields() {
 		$fields = array_merge( self::getMessageFields(), [
-			'order_id',
 			'appeal',
-			'variant',
+			'contact_hash',
+			'contact_id',
+			'iban',
 			'processor_form',
 			'referrer',
-			'contact_id',
-			'contact_hash',
 			'utm_key',
-			'iban',
+			'variant',
 		] );
 		return $fields;
 	}

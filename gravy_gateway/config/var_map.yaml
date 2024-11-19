@@ -22,3 +22,7 @@ return_url: return_url
 use_3d_secure: use_3d_secure
 gateway_donor_id: gateway_donor_id
 user_name: user_name
+card_suffix: card_suffix
+card_scheme: card_scheme
+payment_token: payment_token
+full_name: full_name

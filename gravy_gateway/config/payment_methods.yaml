@@ -43,3 +43,9 @@ paypal:
         country: true
         name: true
         email: true
+google:
+    recurring: true
+    label: Google Pay
+    validation:
+        country: false
+        address: false

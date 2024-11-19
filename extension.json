@@ -57,6 +57,7 @@
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
 		"logPaymentsFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiDonationClientError",
 		"logRecurUpgradeFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRecurUpgradeClientError",
+		"requestNewChecksumLink": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestNewChecksumLink",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
@@ -128,6 +129,7 @@
 		"PaymentResult": "gateway_common/PaymentResult.php",
 		"PaymentTransactionResponse": "gateway_common/PaymentTransactionResponse.php",
 		"RecurringConversion": "gateway_common/RecurringConversion.php",
+		"RequestNewChecksumLinkTrait": "email_forms/RequestNewChecksumLinkTrait.php",
 		"ResponseProcessingException": "gateway_common/ResponseProcessingException.php",
 		"ResultPages": "gateway_common/ResultPages.php",
 		"ResultSwitcher": "gateway_common/ResultSwitcher.php",
@@ -269,6 +271,10 @@
 		},
 		"ext.donationInterface.errorLog": {
 			"scripts": "modules/js/ext.donationInterface.errorLog.js"
+		},
+		"ext.donationInterface.requestNewChecksumLink": {
+			"scripts": "modules/js/ext.donationInterface.requestNewChecksumLink.js",
+			"styles": "email_forms/templates/requestNewChecksumLink.css"
 		},
 		"ext.donationInterface.currencyRates": {
 			"class": "CurrencyRatesModule"

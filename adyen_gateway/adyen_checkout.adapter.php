@@ -163,7 +163,14 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				$this->session_addDonorData();
 			}
 		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
-			$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
+			// For recurring iDEAL or SEPA payments the recurring_payment_token comes in later on a RECURRING_CONTRACT Webhook/IPN
+			// message, and we require this value to push a *complete* recurring donation message
+			// to the queue.
+			if ( $this->isRecurringBankPayment() ) {
+				$this->logger->info( $responseData['gateway_txn_id'] . ': Recurring token will pass later from RECURRING_CONTRACT IPN Message' );
+			} else {
+				$this->logger->warning( $responseData['gateway_txn_id'] . ': No token found on successful recurring payment authorization response.' );
+			}
 		}
 		// Log and send the payments-init message, and clean out the session
 		$this->finalizeInternalStatus( $transactionStatus );
@@ -418,7 +425,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	/**
-	 * Adds a catch to stop recurring iDEALs from being sent to the donations queue
+	 * Adds a catch to stop recurring iDEALs and sepa from being sent to the donations queue
 	 * but otherwise sends to the queues as normal
 	 *
 	 * @param string $queue What queue to send the message to

@@ -17,11 +17,11 @@ class GravyGateway extends GatewayPage {
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
-		global $wgGravyGatewayID, $wgGravyGatewayEnvironment;
+		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyGooglePayMerchantID;
+		$out->addJsConfigVars( 'wgGravyEnvironment', $wgGravyGatewayEnvironment );
+		$out->addJsConfigVars( 'wgGravyId', $wgGravyGatewayID );
 		// Ensure script is only loaded for cc payments
 		if ( $this->isCreditCard() ) {
-			$out->addJsConfigVars( 'wgGravyEnvironment', $wgGravyGatewayEnvironment );
-			$out->addJsConfigVars( 'wgGravyId', $wgGravyGatewayID );
 			$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );
 			$secureFieldsCSS = $this->adapter->getAccountConfig( 'secureFieldsCSS' );
 			$out->addJsConfigVars( 'secureFieldsScriptLink', $secureFieldsJS );
@@ -33,11 +33,24 @@ class GravyGateway extends GatewayPage {
 					'as' => 'script',
 				]
 			);
+		} elseif ( $this->isGooglePay() ) {
+			$googlePayJS = $this->adapter->getAccountConfig( 'GooglePayJS' );
+			$out->addJsConfigVars( 'wgGravyGooglePayMerchantID', $wgGravyGooglePayMerchantID );
+			$out->addJsConfigVars( 'googleScriptLink', $googlePayJS );
+			$out->addLink(
+				[
+					'href' => $googlePayJS,
+					'rel' => 'preload',
+					'as' => 'script',
+				]
+			);
 		}
 	}
 
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
+		// @phan-suppress-next-line PhanUndeclaredMethod get getCheckoutConfiguration is only declared in the Gravy and Adyen adapter
+		$vars['gravyConfiguration'] = $this->adapter->getCheckoutConfiguration();
 		if ( $this->isCreditCard() ) {
 			$checkoutSessionId = $this->getCheckoutSessionId();
 			if ( $checkoutSessionId == null ) {
@@ -63,7 +76,7 @@ class GravyGateway extends GatewayPage {
 	 * @see GatewayPage::showContinueButton()
 	 */
 	public function showContinueButton() {
-		return !$this->isCreditCard();
+		return !( $this->isCreditCard() || $this->isGooglePay() );
 	}
 
 	/**
@@ -72,6 +85,14 @@ class GravyGateway extends GatewayPage {
 	 */
 	private function isCreditCard() {
 		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'cc';
+	}
+
+	/**
+	 *
+	 * @return bool
+	 */
+	private function isGooglePay() {
+		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'google';
 	}
 
 	/**

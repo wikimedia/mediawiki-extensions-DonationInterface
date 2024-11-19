@@ -6,6 +6,8 @@ use SmashPig\Core\DataStores\QueueWrapper;
 
 class EmailPreferences extends UnlistedSpecialPage {
 
+	use RequestNewChecksumLinkTrait;
+
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
 	const FALLBACK_SUBPAGE = 'emailPreferences';
@@ -22,6 +24,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 	public function execute( $subpage ) {
 		$this->setHeaders();
 		$this->outputHeader();
+		$this->setUpClientSideChecksumRequest( $subpage );
 		$out = $this->getOutput();
 
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering
@@ -30,7 +33,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferencesStyles'
 		] );
 
-		$out->addModules( 'ext.donationInterface.emailPreferences' );
+		$out->addModules( [
+			'ext.donationInterface.emailPreferences'
+		] );
 		$this->setPageTitle( $subpage );
 		$requestParameters = $this->getRequest()->getValues();
 		$requestParameters = $this->mapWmfToUtm( $requestParameters );
@@ -61,7 +66,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$this->renderError();
 			}
 		} else {
-			if ( $subpage === 'emailPreferences' ) {
+			if ( $subpage === 'emailPreferences' && !$this->isChecksumExpired() ) {
 				$emailPreferenceParameters = $this->paramsForPreferencesForm(
 					$requestParameters[ 'checksum' ],
 					$requestParameters[ 'contact_id' ]
