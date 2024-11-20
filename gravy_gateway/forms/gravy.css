@@ -25,7 +25,7 @@ form#payment-form select {
 	border-radius: 2px;
 }
 
-.GravyField--invalid, .GravyField--focus.GravyField--invalid {
+.GravyField--invalid, .GravyField--focus.GravyField--invalid, .secure-fields__input[data-secure-fields-invalid] {
 	/* Note: coordinate with errorHighlight in skinOverride.css */
 	border: 2px solid #f00;
 }
