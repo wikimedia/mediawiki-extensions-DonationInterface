@@ -391,6 +391,11 @@ ul#cards li.has_sub_text label img {
 	background-color: #2a4b8d;
 }
 
+.btn.enabled:focus {
+	outline: 1px solid #36c;
+	outline-offset: 2px;
+}
+
 .hidden {
 	display: none !important;
 }
