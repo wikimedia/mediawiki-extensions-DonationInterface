@@ -1,6 +1,5 @@
 <?php
 
-use SmashPig\PaymentProviders\Adyen\PaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -23,6 +22,7 @@ class AdyenGetPaymentMethodsApi extends ApiBase {
 
 		$provider = PaymentProviderFactory::getProviderForMethod( 'apple' );
 		'@phan-var PaymentProvider $provider';
+		// @phan-suppress-next-line PhanUndeclaredClassMethod
 		$rawResponse = $provider->getPaymentMethods( $params )->getRawResponse();
 
 		$this->getResult()->addValue( null, 'response', $rawResponse );

@@ -93,7 +93,12 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$amountValidator = new Amount();
 		$errorState = new ErrorState();
 		$donationData = [
-			'external_data' => $this->donationData
+			'external_data' => array_merge(
+				$this->donationData,
+				[
+					'contribution_tracking_id' => $this->contributionTrackingId
+				]
+			)
 		];
 		$amountValidator->validate( new $className( $donationData ), $this->donationData, $errorState );
 		if ( $errorState->hasErrors() ) {
@@ -277,7 +282,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'payment_method' => $this->donationData['payment_method'],
 			'payment_submethod' => $this->donationData['payment_submethod'],
 			'ts' => wfTimestamp( TS_MW ),
-			'utm_key' => $this->donationData['utm_key'],
+			'utm_key' => $this->donationData['utm_key'] ?? '',
 			// the utm_source from the form has banner.landingpage.payment_method
 			'utm_source' => $this->donationData['banner'] . '.' . 'inapp' . '.' . $this->donationData['payment_method'],
 			'utm_medium' => 'WikipediaApp',
