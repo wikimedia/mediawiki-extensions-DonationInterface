@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"emailpreferences-change-email": "이메일 주소 바꾸기",
+	"emailpreferences-country": "국가 또는 지역",
+	"emailpreferences-dont-send-email": "모든 구독을 취소합니다.",
+	"emailpreferences-send-new-link": "새로운 링크를 내 이메일로 보내기",
+	"emailpreferences-header-link-about": "정보",
+	"emailpreferences-header-link-advocacy": "홍보",
+	"emailpreferences-header-link-participate": "참여",
+	"emailpreferences-header-link-research": "연구",
+	"emailpreferences-header-link-support-wikipedia": "위키백과 지원",
+	"emailpreferences-header-link-technology": "기술",
+	"emailpreferences-hi": "안녕하세요",
+	"emailpreferences-language": "언어",
+	"emailpreferences-save": "환경 설정 저장",
+	"emailpreferences-title": "이메일 환경 설정",
+	"recurupgrade-add": "$1 추가",
+	"recurupgrade-next-scheduled-date": "다음 기부일",
+	"recurupgrade-salutation-no-recur-records": "안녕하세요! 위키백과를 지원해 주셔서 감사합니다.",
+	"recurupgrade-thanks-monthly": "월간 기부자가 되어주셔서 진심으로 감사드립니다.",
+	"fundraiserunsubscribe": "위키미디어 모금 이메일 구독 해지",
+	"fundraiserunsubscribe-confirm": "구독을 해지하시겠습니까"
+}
