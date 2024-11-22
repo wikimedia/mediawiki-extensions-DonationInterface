@@ -208,7 +208,7 @@ body.rtl .mc-close {
 
 /* Error messages */
 .mc-other-amount .errorHighlight {
-	border: 2px solid #f00 !important;
+	border: 2px solid #f54739 !important;
 }
 
 .mc-error {
@@ -216,7 +216,7 @@ body.rtl .mc-close {
 	width: calc( 100% + 10px );
 	margin: 5px 0 5px 5px;
 	font-size: 14px;
-	color: #d73333;
+	color: #bf3c2c;
 }
 
 /* This prevents the WMF logo from showing through the modal */
