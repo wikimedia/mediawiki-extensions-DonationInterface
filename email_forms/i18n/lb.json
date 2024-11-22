@@ -1,9 +1,29 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
+	"emailpreferences-change-email": "E-Mail-Adress änneren",
+	"emailpreferences-country": "Land oder Regioun",
+	"emailpreferences-dont-send-email": "Alles ofbestellen.",
+	"emailpreferences-expired-link-title": "Leider ass Äre Link ofgelaf",
+	"emailpreferences-send-new-link": "Schéckt mir eng E-Mail mat engem neie Link",
+	"emailpreferences-header-link-about": "Iwwer",
+	"emailpreferences-header-link-news": "Noriichten",
+	"emailpreferences-header-link-our-work": "Eis Aarbecht",
+	"emailpreferences-header-link-participate": "Matmaachen",
+	"emailpreferences-header-link-research": "Fuerschung",
+	"emailpreferences-header-link-support-wikipedia": "Wikipedia ënnerstëtzen",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-hi": "Moien",
+	"emailpreferences-language": "Sprooch",
+	"emailpreferences-save": "Astellunge späicheren",
+	"emailpreferences-snooze-email": "E-Maile fir {{PLURAL:$1|een Dag|$1 Deeg}} pauséieren.",
+	"emailpreferences-title": "E-Mail-Astellungen",
+	"recurupgrade-salutation-no-recur-records": "Moien! Merci fir Är Ënnerstëtzung fir Wikipedia.",
 	"fundraiserunsubscribe": "E-Mailen iwwer Wikimedia-Spendenaktiounen ofbestellen",
+	"fundraiserunsubscribe-confirm": "Sidd Dir sécher, datt Dir ofbestelle wëllt",
 	"fundraisersubscribe-appeal-headline-001": "Sidd Dir zefridde mat deem Wat Dir gesitt?"
 }

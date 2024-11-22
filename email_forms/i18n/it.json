@@ -4,5 +4,8 @@
 			"Beta16"
 		]
 	},
+	"emailpreferences-country": "Paese o regione",
+	"emailpreferences-header-link-technology": "Tecnologia",
+	"emailpreferences-language": "Lingua",
 	"fundraiserunsubscribe": "Annulla l'iscrizione all'e-mail di raccolta fondi della Wikimedia Foundation"
 }
