@@ -142,6 +142,11 @@
 				} else {
 					errors.cardNumber = mw.msg( 'donate_interface-error-msg-invalid-card-number' );
 				}
+				$( '#cc-number' ).addClass( 'GravyField--invalid' );
+				$( '#cardNumberErrorMsg' ).text( errors.cardNumber );
+			} else {
+				$( '#cc-number' ).removeClass( 'GravyField--invalid' );
+				$( '#cardNumberErrorMsg' ).text( '' );
 			}
 			if ( !securityCodeValid ) {
 				if ( securityCodeFieldEmpty ) {
@@ -149,6 +154,11 @@
 				} else {
 					errors.cvv = mw.msg( 'donate_interface-error-msg-invalid-cvv-format' );
 				}
+				$( '#cc-security-code' ).addClass( 'GravyField--invalid' );
+				$( '#cvvErrorMsg' ).text( errors.cvv );
+			} else {
+				$( '#cc-security-code' ).removeClass( 'GravyField--invalid' );
+				$( '#cvvErrorMsg' ).text( '' );
 			}
 			if ( !expiryDateValid ) {
 				if ( expiryDateFieldEmpty ) {
@@ -156,8 +166,12 @@
 				} else {
 					errors.expiration = mw.msg( 'donate_interface-error-msg-card-too-old' );
 				}
+				$( '#cc-expiry-date' ).addClass( 'GravyField--invalid' );
+				$( '#expirationErrorMsg' ).text( errors.expiration );
+			} else {
+				$( '#cc-expiry-date' ).removeClass( 'GravyField--invalid' );
+				$( '#expirationErrorMsg' ).text( '' );
 			}
-			mw.donationInterface.validation.showErrors( errors );
 			return false;
 		}
 		return true;
