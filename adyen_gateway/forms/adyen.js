@@ -408,7 +408,14 @@
 							extraData.java_enabled = state.data.browserInfo.javaEnabled;
 							extraData.screen_height = state.data.browserInfo.screenHeight;
 							extraData.screen_width = state.data.browserInfo.screenWidth;
-							extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+
+							// Ensure timeZoneOffset is always an integer, rounding down if it's a decimal or float.
+							// See T380741
+							if ( typeof state.data.browserInfo.timeZoneOffset !== 'undefined' ) {
+								extraData.time_zone_offset = Math.floor( state.data.browserInfo.timeZoneOffset );
+							} else {
+								extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
+							}
 						}
 						break;
 					case 'google':
