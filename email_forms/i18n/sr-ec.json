@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Milicevic01"
+		]
+	},
+	"emailpreferences-country": "Земља или регион",
+	"emailpreferences-language": "Језик",
+	"emailpreferences-change-email": "промени имејл",
+	"emailpreferences-footer-learn_more": "Сазнајте више о <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">локалним огранцима и њиховим пројектима</a>.",
+	"emailpreferences-hi": "Задраво",
+	"emailpreferences-header-link-support-wikipedia": "Подржи Википедију",
+	"emailpreferences-header-link-technology": "Технологија",
+	"emailpreferences-header-link-news": "Вести",
+	"emailpreferences-header-link-about": "О"
+}

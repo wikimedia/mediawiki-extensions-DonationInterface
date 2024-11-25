@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie",
+			"Pcoombe",
+			"Romaine"
+		]
+	},
+	"emailpreferences-title": "E-mailvoorkeuren",
+	"emailpreferences-country": "Land of regio",
+	"emailpreferences-language": "Taal",
+	"emailpreferences-send-email": "Ik hoor graag van de Wikimedia Foundation, stuur mij alles maar!",
+	"emailpreferences-dont-send-email": "Meld mij voor alles af.",
+	"emailpreferences-change-email": "e-mail wijzigen",
+	"emailpreferences-save": "Voorkeuren opslaan",
+	"emailpreferences-success": "Uw verzoek om uw e-mailvoorkeuren op te slaan is ingediend.",
+	"emailpreferences-footer-learn_more": "Meer lezen over <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters/nl\" class=\"extiw\" title=\"Wikimedia-verenigingen\">landelijke of regionale verenigingen en hun projecten</a>.",
+	"emailpreferences-footer-questions_email": "Hebt u nog vragen, stuur dan een e-mail naar <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Hoi",
+	"emailpreferences-header-link-our-work": "Ons werk",
+	"emailpreferences-header-link-support-wikipedia": "Wikipedia steunen",
+	"emailpreferences-header-link-research": "Onderzoek",
+	"emailpreferences-header-link-advocacy": "Belangenbehartiging",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-header-link-news": "Nieuws",
+	"emailpreferences-header-link-participate": "Deelnemen",
+	"emailpreferences-header-link-about": "Over"
+}

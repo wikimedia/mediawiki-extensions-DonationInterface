@@ -14,7 +14,7 @@
 	"emailpreferences-footer-questions_email": "Second paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-footer-text_license": "Third paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-hi": "Text to say hi",
-	"emailpreferences-wikimedia-image-alt": "Image alt for wikimedia logo",
+	"emailpreferences-wikimedia-image-alt": "{{optional}}\nImage alt for wikimedia logo",
 	"emailpreferences-header-link-our-work": "Link title to our work page",
 	"emailpreferences-header-link-support-wikipedia": "Link title to support wikipedia page",
 	"emailpreferences-header-link-research": "Link title to research page",

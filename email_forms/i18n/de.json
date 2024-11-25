@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Brettchenweber",
+			"Justman10000",
+			"Metalhead64"
+		]
+	},
+	"emailpreferences-title": "E-Mail-Einstellungen",
+	"emailpreferences-country": "Land oder Region",
+	"emailpreferences-language": "Sprache",
+	"emailpreferences-send-email": "Ich freue mich über Rückmeldungen von der Wikimedia Foundation. Schicke mir alles!",
+	"emailpreferences-dont-send-email": "Melden mich von allem ab.",
+	"emailpreferences-change-email": "E-Mail-Adresse ändern",
+	"emailpreferences-save": "Einstellungen speichern",
+	"emailpreferences-success": "Deine Anfrage zum Speichern deiner E-Mail-Einstellungen wurde übermittelt.",
+	"emailpreferences-footer-learn_more": "Erfahre mehr über <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia-Kapitel\">die Chapter und ihre Projekte</a> .",
+	"emailpreferences-footer-questions_email": "Wenn du Fragen hast, sende bitte eine E-Mail an <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> .",
+	"emailpreferences-hi": "Hallo",
+	"emailpreferences-header-link-our-work": "Unsere Arbeit",
+	"emailpreferences-header-link-support-wikipedia": "Wikipedia unterstützen",
+	"emailpreferences-header-link-research": "Forschung",
+	"emailpreferences-header-link-advocacy": "Advocacy",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-header-link-news": "Nachrichten",
+	"emailpreferences-header-link-participate": "Teilnehmen",
+	"emailpreferences-header-link-about": "Über"
+}
