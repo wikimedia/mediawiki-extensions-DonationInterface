@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"emailpreferences-country": "Paese o regione",
+	"emailpreferences-language": "Lingua",
+	"emailpreferences-header-link-technology": "Tecnologia"
+}

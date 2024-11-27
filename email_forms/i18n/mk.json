@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"emailpreferences-title": "Нагодувања за е-пошта",
+	"recurupgrade-upgrade-decline": "Не, нека остане вака",
+	"emailpreferences-country": "Земја или Регион",
+	"recurupgrade-amount": "Тековен повторлив износ",
+	"recurupgrade-next-scheduled-date": "Следен датум на уплата",
+	"emailpreferences-language": "Јазик",
+	"emailpreferences-send-email": "Многу сакам да добивам пораки од Фондацијата Викимедија. Испраќајте ми сè!",
+	"emailpreferences-dont-send-email": "Отпиши ме од сè",
+	"emailpreferences-change-email": "смени е-пошта",
+	"emailpreferences-save": "Зачувај нагодувања",
+	"recurupgrade-upgrade": "Надгради го повторливиот износ",
+	"emailpreferences-success": "Вашето барање за зачувување на нагодувањата за е-пошта е поднесено.",
+	"emailpreferences-footer-learn_more": "Дознате повеќе за <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">месните ограноци и нивните проекти</a>.",
+	"emailpreferences-footer-questions_email": "Ако имате било какви прашања, пишете ни на <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Текстот е достапен под лиценцата <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Криејтив комонс Наведи извор-Сподели под исти услови</a>; може да важат дополнителни услови. Погледајте ги <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Условите на употреба</a> или <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Правилата за лични податоци</a> за повеќе информации.",
+	"emailpreferences-hi": "Здраво",
+	"emailpreferences-header-link-our-work": "Нашата работа",
+	"emailpreferences-header-link-support-wikipedia": "Поддржете ја Википедија",
+	"emailpreferences-header-link-research": "Истражување",
+	"emailpreferences-header-link-advocacy": "Застапување",
+	"emailpreferences-header-link-technology": "Технологија",
+	"emailpreferences-header-link-news": "Новости",
+	"emailpreferences-header-link-participate": "Учествувајте",
+	"emailpreferences-header-link-about": "За ова"
+}

@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"emailpreferences-title": "이메일 환경 설정",
+	"recurupgrade-upgrade-decline": "아니요, 이대로 두겠습니다",
+	"emailpreferences-country": "국가 또는 지역",
+	"recurupgrade-next-scheduled-date": "다음 기부일",
+	"emailpreferences-language": "언어",
+	"emailpreferences-dont-send-email": "모든 구독을 취소합니다.",
+	"emailpreferences-change-email": "이메일 주소 바꾸기",
+	"emailpreferences-save": "환경 설정 저장",
+	"emailpreferences-hi": "안녕하세요",
+	"emailpreferences-header-link-support-wikipedia": "위키백과 지원",
+	"emailpreferences-header-link-research": "연구",
+	"emailpreferences-header-link-advocacy": "홍보",
+	"emailpreferences-header-link-technology": "기술",
+	"emailpreferences-header-link-participate": "참여",
+	"emailpreferences-header-link-about": "정보"
+}

@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Milicevic01"
+		]
+	},
+	"emailpreferences-country": "Земља или регион",
+	"emailpreferences-language": "Језик",
+	"emailpreferences-change-email": "промени имејл",
+	"emailpreferences-footer-learn_more": "Сазнајте више о <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">локалним огранцима и њиховим пројектима</a>.",
+	"emailpreferences-footer-text_license": "Текст је доступан под лиценцом <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Ауторство—Делити под истим условима</a>; могући су и додатни услови. Погледајте <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">услове коришћења</a> или <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">политику приватности</a> за детаље.",
+	"emailpreferences-hi": "Задраво",
+	"emailpreferences-header-link-support-wikipedia": "Подржи Википедију",
+	"emailpreferences-header-link-technology": "Технологија",
+	"emailpreferences-header-link-news": "Вести",
+	"emailpreferences-header-link-about": "О"
+}
