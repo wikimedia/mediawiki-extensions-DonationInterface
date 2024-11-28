@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby",
+			"Volvox"
+		]
+	},
+	"emailpreferences-change-email": "E-Mail-Adress änneren",
+	"emailpreferences-country": "Land oder Regioun",
+	"emailpreferences-dont-send-email": "Alles ofbestellen.",
+	"emailpreferences-header-link-about": "Iwwer",
+	"emailpreferences-header-link-news": "Noriichten",
+	"emailpreferences-header-link-our-work": "Eis Aarbecht",
+	"emailpreferences-header-link-participate": "Matmaachen",
+	"emailpreferences-header-link-research": "Fuerschung",
+	"emailpreferences-header-link-support-wikipedia": "Wikipedia ënnerstëtzen",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-hi": "Moien",
+	"emailpreferences-language": "Sprooch",
+	"emailpreferences-save": "Astellunge späicheren",
+	"emailpreferences-title": "E-Mail-Astellungen",
+	"recurupgrade-upgrade-decline": "Nee, ech loossen et esou wéi et ass"
+}
