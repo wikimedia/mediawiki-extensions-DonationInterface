@@ -8,5 +8,6 @@ GB:
 IE:
   opt_in: true
 US:
-  address: true
+  street_address: true
+  postal_code: true
   employer: optional
