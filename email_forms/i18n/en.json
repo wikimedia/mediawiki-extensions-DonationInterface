@@ -36,7 +36,7 @@
 	"recurupgrade-next-scheduled-date": "Next donation date",
 	"recurupgrade-salutation": "Hi, $1! Your impact reaches far and wide.",
 	"recurupgrade-salutation-no-recur-records": "Hi! Thank you for your support to Wikipedia.",
-	"recurupgrade-no-recur-records": "Unfortunately, we were unable to locate a recurring donation to upgrade. You can <a href=\"$1\">start a new monthly donation</a> or contact us for support on  <a href=\"mailto:$2\">$2</a>.",
+	"recurupgrade-no-recur-records": "Unfortunately, we were unable to locate a recurring donation to upgrade. You can <a href=\"$1\">start a new monthly donation</a> or contact us for support on <a href=\"mailto:$2\">$2</a>.",
 	"recurupgrade-select-option": "To upgrade your monthly gift, select one of the options above.",
 	"recurupgrade-thanks-increasing": "Thank you for increasing your contribution and helping to build a strong, stable future for Wikipedia and all Wikimedia knowledge projects. Together, let’s spread knowledge even further.",
 	"recurupgrade-thanks-monthly": "Thank you so much for being a monthly donor.",
