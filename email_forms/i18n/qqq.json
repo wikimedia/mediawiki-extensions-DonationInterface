@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Amire80"
+		]
 	},
 	"emailpreferences-change-email": "button text to change email",
 	"emailpreferences-country": "Label for country drop-down control.",
@@ -9,7 +11,7 @@
 	"emailpreferences-expired-link-text": "Text of modal shown when a link has an expired checksum",
 	"emailpreferences-send-new-link": "Text for button donor can click to request we send them a new link via email",
 	"emailpreferences-new-link-sent": "Text informing donor we have sent a new link",
-	"emailpreferences-footer-learn_more": "First paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
+	"emailpreferences-footer-learn_more": "First paragraph of the email preferences footer. Similar to the footer on the \"thank you\" page (https://thankyou.wikipedia.org/wiki/Main_Page). \"Chapters\" are local Wikimedia organizations; see [[:m:Wikimedia chapters]].",
 	"emailpreferences-footer-questions_email": "Second paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-footer-text_license": "Third paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-header-link-about": "Link title to about page",
@@ -30,8 +32,8 @@
 	"emailpreferences-wikimedia-image-alt": "{{optional}}\nImage alt for wikimedia logo",
 	"recurupgrade": "Title for page where the user can upgrade their recurring amount",
 	"recurupgrade-add": "Text for buttons to add an amount. $1 is the formatted amount with currency symbol",
-	"recurupgrade-amount": "Label for the current recurring amount field",
 	"recurupgrade-amount-ask": "Header for the group of buttons asking how much to add",
+	"recurupgrade-amount": "Label for the current recurring amount field",
 	"recurupgrade-current-amount-and-date": "Statement of current recurring amount and next charge date. $1 is the formatted amount with currency symbol and $2 is the formatted date",
 	"recurupgrade-next-scheduled-date": "Label for the next recurring donation date",
 	"recurupgrade-salutation": "Heading for the recurring upgrade. $1 is the donor's full name",
@@ -43,7 +45,7 @@
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
 	"recurupgrade-upgrade-now": "Alternate text for the recurring upgrade submit button",
 	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased",
-	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The empty <strong> tag will be filled with the new amount on the client side.",
+	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The empty <nowiki><strong></nowiki> tag will be filled with the new amount on the client side.",
 	"fundraiserunsubscribe": "Unsubscribe page title",
 	"fundraiserunsubscribe-confirm": "To confirm that the user wants to unsubscribe from getting e-mail notifications.",
 	"fundraisersubscribe": "Title shown on page letting users opt in to emails.",
