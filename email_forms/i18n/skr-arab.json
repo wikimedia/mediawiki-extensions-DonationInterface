@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"emailpreferences-language": "زبان",
+	"emailpreferences-change-email": "ای میل وٹاؤ",
+	"emailpreferences-header-link-research": "تحقیق",
+	"emailpreferences-header-link-technology": "ٹیکنالوجی",
+	"emailpreferences-header-link-news": "خبراں",
+	"emailpreferences-header-link-about": "تعارف"
+}

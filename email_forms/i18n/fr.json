@@ -2,7 +2,27 @@
 	"@metadata": {
 		"authors": [
 			"Terio legale",
-			"Verdy p"
+			"Verdy p",
+			"Mahabarata"
 		]
-	}
+	},
+	"emailpreferences-title": "Préférences de courriel",
+	"emailpreferences-country": "Pays ou région",
+	"emailpreferences-language": "Langue",
+	"emailpreferences-send-email": "J'adore avoir des nouvelles de la Fondation Wikimédia, envoyez-moi tout !",
+	"emailpreferences-dont-send-email": "Désabonnez-moi de tout.",
+	"emailpreferences-change-email": "changer l’adresse de courriel",
+	"emailpreferences-save": "Enregistrer les préférences",
+	"emailpreferences-success": "Votre demande d'enregistrement de vos préférences de courriel a été envoyée.",
+	"emailpreferences-footer-learn_more": "Apprenez-en davantage sur les <a href=\"https://meta.wikimedia.org/wiki/Special:MyLanguage/Wikimedia_chapters\" class=\"extiw\" title=\"Sections locales de Wikimédia\">Wikimédia locaux</a>.",
+	"emailpreferences-footer-questions_email": "Si vous avez des questions, veuillez envoyer un courriel à <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Salut",
+	"emailpreferences-header-link-our-work": "Notre travail",
+	"emailpreferences-header-link-support-wikipedia": "Soutenir Wikipédia",
+	"emailpreferences-header-link-research": "Rechercher",
+	"emailpreferences-header-link-advocacy": "Plaidoyer",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-header-link-news": "Actualités",
+	"emailpreferences-header-link-participate": "Participer",
+	"emailpreferences-header-link-about": "À propos"
 }

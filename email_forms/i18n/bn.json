@@ -1,7 +1,18 @@
 {
 	"@metadata": {
 		"authors": [
-			"Borhan"
+			"Borhan",
+			"আফতাবুজ্জামান"
 		]
-	}
+	},
+	"emailpreferences-country": "দেশ বা অঞ্চল",
+	"emailpreferences-language": "ভাষা",
+	"emailpreferences-change-email": "ইমেইল পরিবর্তন করুন",
+	"emailpreferences-header-link-our-work": "আমাদের কাজ",
+	"emailpreferences-header-link-research": "গবেষণা",
+	"emailpreferences-header-link-advocacy": "ওকালতি",
+	"emailpreferences-header-link-technology": "প্রযুক্তি",
+	"emailpreferences-header-link-news": "সংবাদ",
+	"emailpreferences-header-link-participate": "অংশগ্রহণ করুন",
+	"emailpreferences-header-link-about": "সম্পর্কে"
 }
