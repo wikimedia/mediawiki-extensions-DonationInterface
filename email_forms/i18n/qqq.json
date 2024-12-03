@@ -1,11 +1,13 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Amire80"
+		]
 	},
 	"emailpreferences-change-email": "button text to change email",
 	"emailpreferences-country": "Label for country drop-down control.",
 	"emailpreferences-dont-send-email": "Label for e-mail opt-out radio button.",
-	"emailpreferences-footer-learn_more": "First paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
+	"emailpreferences-footer-learn_more": "First paragraph of the email preferences footer. Similar to the footer on the \"thank you\" page (https://thankyou.wikipedia.org/wiki/Main_Page). \"Chapters\" are local Wikimedia organizations; see [[:m:Wikimedia chapters]].",
 	"emailpreferences-footer-questions_email": "Second paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-footer-text_license": "Third paragraph of the email preferences footer. Similar to the footer on the thank you page (https://thankyou.wikipedia.org/wiki/Main_Page)",
 	"emailpreferences-header-link-about": "Link title to about page",
@@ -39,7 +41,7 @@
 	"recurupgrade-upgrade-decline": "Choose keep the same amount for recurring upgrade request",
 	"recurupgrade-upgrade-now": "Alternate text for the recurring upgrade submit button",
 	"recurupgrade-upgrade": "Label for selecting the amount by which the recurring amount is increased",
-	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The empty <strong> tag will be filled with the new amount on the client side.",
+	"recurupgrade-upgrading-new-amount": "Text to show the donor how much their new monthly contribution will be. The empty <nowiki><strong></nowiki> tag will be filled with the new amount on the client side.",
 	"fundraiserunsubscribe": "Unsubscribe page title",
 	"fundraiserunsubscribe-confirm": "To confirm that the user wants to unsubscribe from getting e-mail notifications.",
 	"fundraisersubscribe": "Title shown on page letting users opt in to emails.",
