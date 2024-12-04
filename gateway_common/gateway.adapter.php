@@ -2193,7 +2193,7 @@ abstract class GatewayAdapter implements GatewayType {
 	public function session_addDonorData() {
 		$this->session_ensure();
 		$sessionId = WmfFramework::getSessionId();
-		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId''" );
+		$this->logger->info( __FUNCTION__ . ": Refreshing all donor data in session '$sessionId'" );
 		$sessionFields = DonationData::getSessionFields();
 
 		$data = [];
