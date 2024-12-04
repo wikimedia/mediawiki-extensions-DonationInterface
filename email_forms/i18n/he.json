@@ -3,5 +3,29 @@
 		"authors": [
 			"Amire80"
 		]
-	}
+	},
+	"emailpreferences-title": "הגדרות דוא\"ל",
+	"recurupgrade-upgrade-decline": "לא, אשאיר כמו שזה עכשיו",
+	"emailpreferences-country": "מדינה או אזור",
+	"recurupgrade-amount": "הסכום החוזר הנוכחי",
+	"recurupgrade-next-scheduled-date": "תאריך התרומה הבא",
+	"emailpreferences-language": "שפה",
+	"emailpreferences-send-email": "אהבתי לשמוע מקרן ויקימדיה, תשלחו לי הכול!",
+	"emailpreferences-dont-send-email": "בטלו את המינוי לי לכל הדוא\"ל.",
+	"emailpreferences-change-email": "שינוי כתובת הדוא\"ל",
+	"emailpreferences-save": "שמירת ההעדפות",
+	"recurupgrade-upgrade": "לשדרג סכום חוזר",
+	"emailpreferences-success": "הבקשה שלך לשמור את העדפות הדוא\"ל שלך נשלחה.",
+	"emailpreferences-footer-learn_more": "למידע נוסף על <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\n\">עמותות מקומיות והפרויקטים שלהם</a>.",
+	"emailpreferences-footer-questions_email": "אם יש לך שאלות כלשהן, נא לשלוח דוא\"ל אל <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "הטקסט זמין לפי תנאי <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">רישיון קריאייטיב קומונז ייחוס-שיתוף זהה</a>; עשויים לחול תנאים נוספים. ר' <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">תנאי שימוש</a> או <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">מדיניות פרטיות</a> לפרטים.",
+	"emailpreferences-hi": "שלום",
+	"emailpreferences-header-link-our-work": "העבודה שלנו",
+	"emailpreferences-header-link-support-wikipedia": "תמיכה בוויקיפדיה",
+	"emailpreferences-header-link-research": "מחקר",
+	"emailpreferences-header-link-advocacy": "הסברה",
+	"emailpreferences-header-link-technology": "טכנולוגיה",
+	"emailpreferences-header-link-news": "חדשות",
+	"emailpreferences-header-link-participate": "להשתתף",
+	"emailpreferences-header-link-about": "אודות"
 }

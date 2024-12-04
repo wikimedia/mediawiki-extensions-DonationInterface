@@ -44,7 +44,8 @@
 			"Assorted-Interests",
 			"Goombiis",
 			"Terio legale",
-			"Mahabarata"
+			"Mahabarata",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -515,12 +516,12 @@
 	"donate_interface-monthly-convert-error": "Votre don ponctuel a bien été traité, mais nous ne parvenons pas à programmer un don récurrent.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Oui, je veux aider",
 	"donate_interface-monthly-convert-no-button-variant-006": "Non merci",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Oui, j’ajouterai un don mensuel de <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Oui, j'ajouterai un don mensuel de <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Non merci !",
 	"donate_interface-monthly-convert-no-button-variant-014": "Non, pas immédiatement",
 	"donate_interface-fundraiser-maintenance-header": "Arrêté momentanément pour maintenance",
 	"donate_interface-fundraiser-maintenance-notice": "Nous effectuons actuellement une maintenance programmée et ne pouvons pas accepter de dons. Veuillez réessayer ultérieurement. Si vous avez des questions, veuillez envoyer un courriel à $1.",
-	"donate_interface-redirect-explanation": "Vous allez être redirigé vers le partenaire de Wikimedia pour le traitement du paiement.",
+	"donate_interface-redirect-explanation": "Vous serez redirigé vers un partenaire de traitement des paiements de Wikimedia",
 	"donate_interface-amount-legend-variant-01A": "Montant à donner",
 	"donate_interface-cc-form-header-personal-variant-01A": "Informations sur le paiement",
 	"donate_interface-submit-button-variant-01A": "Donner ce montant"
