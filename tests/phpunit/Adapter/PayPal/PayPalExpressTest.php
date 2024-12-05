@@ -243,6 +243,152 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		);
 	}
 
+	/**
+	 * Check that the paypal api call passes the right description based on the frequency unit
+	 * @dataProvider expectedFrequencyDataProvider
+	 * @param string $frequency
+	 * @param array $expected
+	 * @return void
+	 * @throws \PHPQueue\Exception\JobNotFoundException
+	 * @throws \SmashPig\Core\ConfigurationKeyException
+	 * @throws \SmashPig\Core\DataStores\DataStoreException
+	 */
+	public function testPaymentFrequencyDescription( string $frequency, array $expected ): void {
+		$tracking_id = strval( mt_rand() );
+		$init = [
+			'amount' => 1.55,
+			'currency' => 'USD',
+			'payment_method' => 'paypal',
+			'utm_source' => 'CD1234_FR',
+			'utm_medium' => 'sitenotice',
+			'country' => 'US',
+			'recurring' => $expected['recurring'],
+			'frequency_unit' => $frequency,
+			'contribution_tracking_id' => $tracking_id,
+			'language' => 'fr',
+		];
+		$gateway = $this->getFreshGatewayObject( $init );
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) use ( $gateway, $init, $expected ) {
+				$parsedReturn = [];
+				parse_str( parse_url( $params['return_url'], PHP_URL_QUERY ), $parsedReturn );
+				$returnParams = [
+					'title' => 'Special:PaypalExpressGatewayResult',
+					'order_id' => $init['contribution_tracking_id'] . '.1',
+					'wmf_token' => $gateway->token_getSaltedSessionToken(),
+					'recurring' => $init['recurring']
+				];
+				if ( $returnParams['recurring'] == '' ) {
+					unset( $returnParams['recurring'] );
+				}
+				$this->assertEquals(
+					$returnParams,
+					$parsedReturn
+				);
+				unset( $params['return_url'] );
+				$expected['order_id'] = $init['contribution_tracking_id'] . '.1';
+				if ( $expected['recurring'] == '' ) {
+					unset( $expected['recurring'] );
+				}
+				$this->assertEquals( $expected, $params );
+				return true;
+			} ) );
+		$gateway->doPayment();
+	}
+
+	public function testPaymentSetupAnnualRecurring() {
+		$init = [
+			'amount' => 1.55,
+			'currency' => 'USD',
+			'payment_method' => 'paypal',
+			'utm_source' => 'CD1234_FR',
+			'utm_medium' => 'sitenotice',
+			'country' => 'US',
+			'recurring' => '1',
+			'frequency_unit' => 'year',
+			'contribution_tracking_id' => strval( mt_rand() ),
+			'language' => 'fr',
+		];
+		$gateway = $this->getFreshGatewayObject( $init );
+		$redirect = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=EC-8US12345X1234567U&useraction=commit';
+		$this->provider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->with( $this->callback( function ( $params ) use ( $gateway, $init ) {
+				$parsedReturn = [];
+				parse_str( parse_url( $params['return_url'], PHP_URL_QUERY ), $parsedReturn );
+				$this->assertEquals(
+					[
+						'title' => 'Special:PaypalExpressGatewayResult',
+						'order_id' => $init['contribution_tracking_id'] . '.1',
+						'wmf_token' => $gateway->token_getSaltedSessionToken(),
+						'recurring' => 1
+					],
+					$parsedReturn
+				);
+				unset( $params['return_url'] );
+				$this->assertEquals( [
+					'cancel_url' => 'https://example.com/tryAgain.php/fr',
+					'language' => 'fr_US',
+					'description' => WmfFramework::formatMessage( 'donate_interface-annual-donation-description' ),
+					'order_id' => $init['contribution_tracking_id'] . '.1',
+					'amount' => '1.55',
+					'currency' => 'USD',
+					'recurring' => 1,
+				], $params );
+				return true;
+			} ) )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setRawResponse(
+						'TOKEN=EC%2d8US12345X1234567U&TIMESTAMP=2017%2d05%2d18T14%3a53%3a29Z&CORRELATIONID=' .
+						'6d987654a7aed&ACK=Success&VERSION=204&BUILD=33490839'
+					)
+					->setSuccessful( true )
+					->setPaymentSession( 'EC-8US12345X1234567U' )
+					->setRedirectUrl( $redirect )
+			);
+		$result = $gateway->doPayment();
+		$gateway->logPending(); // GatewayPage or the API calls this for redirects
+		$this->assertEquals(
+			$redirect,
+			$result->getRedirect(),
+			'Wrong redirect for PayPal EC payment setup'
+		);
+
+		$message = QueueWrapper::getQueue( 'pending' )->pop();
+		$this->assertNotEmpty( $message, 'Missing pending message' );
+		self::unsetVariableFields( $message );
+		$expected = [
+			'country' => 'US',
+			'fee' => 0,
+			'gateway' => 'paypal_ec',
+			'gateway_txn_id' => false,
+			'language' => 'fr',
+			'contribution_tracking_id' => $init['contribution_tracking_id'],
+			'order_id' => $init['contribution_tracking_id'] . '.1',
+			'utm_source' => 'CD1234_FR..rpaypal',
+			'currency' => 'USD',
+			'email' => '',
+			'gross' => '1.55',
+			'recurring' => '1',
+			'response' => false,
+			'utm_medium' => 'sitenotice',
+			'payment_method' => 'paypal',
+			'payment_submethod' => '',
+			'gateway_session_id' => 'EC-8US12345X1234567U',
+			'user_ip' => '127.0.0.1',
+			'source_name' => 'DonationInterface',
+			'source_type' => 'payments',
+			'frequency_unit' => 'year'
+		];
+		$this->assertEquals(
+			$expected,
+			$message,
+			'PayPal EC setup sending wrong pending message'
+		);
+	}
+
 	protected function getGoodPaymentDetailResponse(): PaymentDetailResponse {
 		return ( new PaymentDetailResponse() )
 			->setSuccessful( true )
@@ -959,5 +1105,37 @@ class DonationInterface_Adapter_PayPal_Express_Test extends DonationInterfaceTes
 		$gateway->processDonorReturn( $request );
 		$savedCountry = $gateway->getData_Unstaged_Escaped( 'country' );
 		$this->assertEquals( 'CN', $savedCountry );
+	}
+
+	public static function expectedFrequencyDataProvider() {
+		return [
+			[ 'one-time', [
+				'cancel_url' => 'https://example.com/tryAgain.php/fr',
+				'language' => 'fr_US',
+				'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' ),
+				'order_id' => '1.1',
+				'amount' => '1.55',
+				'currency' => 'USD',
+				'recurring' => '',
+			] ],
+			[ 'month', [
+				'cancel_url' => 'https://example.com/tryAgain.php/fr',
+				'language' => 'fr_US',
+				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
+				'order_id' => '1.1',
+				'amount' => '1.55',
+				'currency' => 'USD',
+				'recurring' => '1',
+			] ],
+			[ 'year', [
+				'cancel_url' => 'https://example.com/tryAgain.php/fr',
+				'language' => 'fr_US',
+				'description' => WmfFramework::formatMessage( 'donate_interface-annual-donation-description' ),
+				'order_id' => '1.1',
+				'amount' => '1.55',
+				'currency' => 'USD',
+				'recurring' => '1',
+			] ],
+		];
 	}
 }
