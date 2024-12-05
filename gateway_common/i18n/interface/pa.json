@@ -4,7 +4,19 @@
 			"Cabal"
 		]
 	},
+	"donate_interface": "ਵਿਕੀਪੀਡੀਆ ਨੂੰ ਸਹਿਯੋਗ ਦੇਵੋ",
+	"donate_interface-amount": "ਰਕਮ",
+	"donate_interface-other-amount": "ਹੋਰ ਰਕਮ",
+	"donate_interface-gateway": "ਭੁਗਤਾਨੇ ਦੇ ਢੰਗ:",
+	"donate_interface-submit-button": "ਦਾਨ ਕਰੋ",
+	"donate_interface-comment-label": "ਟਿੱਪਣੀ:",
+	"donate_interface-comment-title": "ਜਨਤਕ ਟਿੱਪਣੀ",
+	"donate_interface-donation-description": "ਵਿਕੀਮੀਡੀਆ ਸੰਸਥਾ",
+	"donate_interface-amount-error": "ਕਿਰਪਾ ਕਰਕੇ ਦਾਨ ਕਰਨ ਲਈ ਰਕਮ ਚੁਣੋ",
+	"donate_interface-smallamount-error": "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਰਕਮ ਚੁਣੋ (ਘੱਟੋ-ਘੱਟ $1)",
+	"donate_interface-paypal-button": "ਪੇਪਾਲ ਰਾਹੀਂ ਦਾਨ ਕਰੋ",
 	"donate_interface-change": "ਬਦਲੋ",
+	"donate_interface-translate-redlink1": "ਇਸ ਸਫ਼ੇ ਦਾ ਤਰਜਮਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰੋ।",
 	"donate_interface-currency-change": "ਬਦਲੋ",
 	"donate_interface-cc-form-header-personal-variant-01A": "ਅਦਾਇਗੀ ਜਾਣਕਾਰੀ"
 }
