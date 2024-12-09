@@ -52,6 +52,7 @@
 		"di_applesession_adyen": "AdyenAppleApi",
 		"di_donate_braintree": "BraintreeDonationApi",
 		"di_donate_gravy": "GravyDonationApi",
+		"di_applesession_gravy": "GravyAppleApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
@@ -187,6 +188,7 @@
 		"GravyAdapter": "gravy_gateway/gravy.adapter.php",
 		"GravyGateway": "gravy_gateway/gravy_gateway.body.php",
 		"GravyGatewayResult": "gravy_gateway/gravy_resultswitcher.body.php",
+		"GravyAppleApi": "gravy_gateway/gravy_apple.api.php",
 		"Gateway_Extras": "extras/extras.body.php",
 		"FraudFilter": "extras/FraudFilter.php",
 		"Gateway_Extras_CustomFilters": "extras/custom_filters/custom_filters.body.php",
@@ -299,13 +301,23 @@
 				"donate_interface-email-explain"
 			]
 		},
+		"ext.donationInterface.applePayHelper": {
+			"scripts": "modules/js/ext.donationInterface.applePayHelper.js",
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"mediawiki.util"
+			]
+		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
 		},
 		"ext.donationInterface.adyenCheckout": {
 			"scripts": "adyen_gateway/forms/adyen.js",
 			"styles": "adyen_gateway/forms/adyen.css",
-			"dependencies": "ext.donationInterface.forms",
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.applePayHelper"
+			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
 				"donate_interface-error-msg-google_pay_unsupported",
@@ -410,8 +422,13 @@
 		"ext.donationInterface.gravy": {
 			"scripts": "gravy_gateway/forms/gravy.js",
 			"styles": "gravy_gateway/forms/gravy.css",
-			"dependencies": "ext.donationInterface.forms",
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.applePayHelper"
+			],
 			"messages": [
+				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-google_pay_unsupported",
 				"donate_interface-donor-card-num",
 				"donate_interface-donor-expiration",
 				"donate_interface-cvv",

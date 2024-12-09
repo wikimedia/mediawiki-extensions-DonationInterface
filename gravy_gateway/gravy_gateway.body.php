@@ -24,7 +24,6 @@ class GravyGateway extends GatewayPage {
 		if ( $this->isCreditCard() ) {
 			$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );
 			$secureFieldsCSS = $this->adapter->getAccountConfig( 'secureFieldsCSS' );
-			$out->addJsConfigVars( 'secureFieldsScriptLink', $secureFieldsJS );
 			$out->addStyle( $secureFieldsCSS );
 			$out->addLink(
 				[
@@ -34,12 +33,20 @@ class GravyGateway extends GatewayPage {
 				]
 			);
 		} elseif ( $this->isGooglePay() ) {
-			$googlePayJS = $this->adapter->getAccountConfig( 'GooglePayJS' );
+			$googlePayJS = $this->adapter->getAccountConfig( 'GoogleScript' );
 			$out->addJsConfigVars( 'wgGravyGooglePayMerchantID', $wgGravyGooglePayMerchantID );
-			$out->addJsConfigVars( 'googleScriptLink', $googlePayJS );
 			$out->addLink(
 				[
 					'href' => $googlePayJS,
+					'rel' => 'preload',
+					'as' => 'script',
+				]
+			);
+		} elseif ( $this->isApplePay() ) {
+			$applePayJS = $this->adapter->getAccountConfig( 'AppleScript' );
+			$out->addLink(
+				[
+					'href' => $applePayJS,
 					'rel' => 'preload',
 					'as' => 'script',
 				]
@@ -50,7 +57,7 @@ class GravyGateway extends GatewayPage {
 	public function setClientVariables( &$vars ): void {
 		parent::setClientVariables( $vars );
 		// @phan-suppress-next-line PhanUndeclaredMethod get getCheckoutConfiguration is only declared in the Gravy and Adyen adapter
-		$vars['gravyConfiguration'] = $this->adapter->getCheckoutConfiguration();
+		$vars['gravyConfiguration'] = $this->adapter->getGravyConfiguration();
 		if ( $this->isCreditCard() ) {
 			$checkoutSessionId = $this->getCheckoutSessionId();
 			if ( $checkoutSessionId == null ) {
@@ -76,7 +83,7 @@ class GravyGateway extends GatewayPage {
 	 * @see GatewayPage::showContinueButton()
 	 */
 	public function showContinueButton(): bool {
-		return !( $this->isCreditCard() || $this->isGooglePay() );
+		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() );
 	}
 
 	/**
@@ -96,11 +103,19 @@ class GravyGateway extends GatewayPage {
 	}
 
 	/**
+	 *
+	 * @return bool
+	 */
+	private function isApplePay(): bool {
+		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'apple';
+	}
+
+	/**
 	 * Get the checkout session id for secure fields
 	 *
 	 * @return string | null
 	 */
-	private function getCheckoutSessionId() {
+	private function getCheckoutSessionId(): ?string {
 		// @phan-suppress-next-line PhanUndeclaredMethod the getCheckoutSession method is defined in the gravy adapter class
 		$session = $this->adapter->getCheckoutSession();
 		if ( $session->isSuccessful() ) {
