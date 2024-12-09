@@ -3,5 +3,25 @@
 		"authors": [
 			"Toliño"
 		]
-	}
+	},
+	"emailpreferences-title": "Preferencias de correo electrónico",
+	"emailpreferences-country": "País ou rexión",
+	"emailpreferences-language": "Lingua",
+	"emailpreferences-send-email": "Gustaríame recibir novas sobre a Fundación Wikimedia, enviádeme todo!",
+	"emailpreferences-dont-send-email": "Cancelar a miña subscrición a todo.",
+	"emailpreferences-change-email": "mudar o correo electrónico",
+	"emailpreferences-save": "Gardar as preferencias",
+	"emailpreferences-success": "Enviouse a túa solicitude para gardar as túas preferencias de correo electrónico.",
+	"emailpreferences-footer-learn_more": "Máis información sobre <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"Capítulos da Wikimedia\">os capítulos locais e os seus proxectos</a>.",
+	"emailpreferences-footer-questions_email": "Se tes algunha dúbida, envía un correo electrónico a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Ola",
+	"emailpreferences-wikimedia-image-alt": "Fundación Wikimedia",
+	"emailpreferences-header-link-our-work": "O noso traballo",
+	"emailpreferences-header-link-support-wikipedia": "Apoia a Wikipedia",
+	"emailpreferences-header-link-research": "Procura",
+	"emailpreferences-header-link-advocacy": "Apoio",
+	"emailpreferences-header-link-technology": "Tecnoloxía",
+	"emailpreferences-header-link-news": "Novas",
+	"emailpreferences-header-link-participate": "Participa",
+	"emailpreferences-header-link-about": "Acerca de"
 }
