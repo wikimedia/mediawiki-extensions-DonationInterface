@@ -49,3 +49,13 @@ google:
     validation:
         country: false
         address: false
+        street_address: false
+        postal_code: false
+apple:
+    recurring: true
+    label: Apple Pay
+    validation:
+      country: false
+      address: false
+      street_address: false
+      postal_code: false
