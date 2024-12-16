@@ -48,6 +48,19 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
+	protected function getDescriptionMessage() {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) == null ||
+			$this->getData_Unstaged_Escaped( 'recurring' ) == 0 ||
+			$this->getData_Unstaged_Escaped( 'recurring' ) == '' ) {
+			return 'donate_interface-donation-description';
+		}
+		$recurring_message = 'donate_interface-monthly-donation-description';
+		if ( $this->getRecurringFrequencyUnit() == 'year' ) {
+			$recurring_message = 'donate_interface-annual-donation-description';
+		}
+		return $recurring_message;
+	}
+
 	protected function defineTransactions() {
 		$this->transactions = [];
 
@@ -97,7 +110,6 @@ class PaypalExpressAdapter extends GatewayAdapter {
 			],
 			'values' => [
 				'date' => time(),
-				'description' => WmfFramework::formatMessage( 'donate_interface-monthly-donation-description' ),
 			],
 		];
 	}
@@ -120,14 +132,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		);
 		'@phan-var PaymentProvider $provider';
 		$this->setCurrentTransaction( 'SetExpressCheckout' );
+		$descriptionKey = $this->getDescriptionMessage();
 
-		$descriptionKey = $this->getData_Unstaged_Escaped( 'recurring' ) ?
-			'donate_interface-monthly-donation-description' :
-			'donate_interface-donation-description';
-
-		$this->transactions['SetExpressCheckout']['values']['description'] =
-			WmfFramework::formatMessage( $descriptionKey );
-
+		$this->transactions['SetExpressCheckout']['values']['description'] = WmfFramework::formatMessage( $descriptionKey );
 		// Returns a token which and a redirect URL to send the donor to PayPal
 		$paymentSessionResult = $provider->createPaymentSession( $this->buildRequestArray() );
 		if ( $paymentSessionResult->isSuccessful() ) {
@@ -255,6 +262,9 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	protected function createRecurringProfile( IRecurringPaymentProfileProvider $provider ): PaymentResult {
 		$this->setCurrentTransaction( 'CreateRecurringPaymentsProfile' );
+		$descriptionKey = $this->getDescriptionMessage();
+		$this->transactions['CreateRecurringPaymentsProfile']['values']['description'] = WmfFramework::formatMessage( $descriptionKey );
+
 		$profileParams = $this->buildRequestArray();
 		$createProfileResponse = $provider->createRecurringPaymentsProfile( $profileParams );
 		if ( $createProfileResponse->isSuccessful() ) {
@@ -308,5 +318,12 @@ class PaypalExpressAdapter extends GatewayAdapter {
 	 */
 	public function createDonorReturnParams() {
 		return [ 'token' => $this->getData_Staged( 'gateway_session_id' ) ];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRecurringFrequencyUnit() {
+		return $this->getData_Staged( 'frequency_unit' );
 	}
 }
