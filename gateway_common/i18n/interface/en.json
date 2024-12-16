@@ -17,6 +17,7 @@
 	"donate_interface-comment-title": "Public comment",
 	"donate_interface-charge-monthly-only": "We will only do a monthly recurring charge",
 	"donate_interface-donation-description": "Wikimedia Foundation",
+	"donate_interface-annual-donation-description": "Wikimedia Foundation - annual gift",	
 	"donate_interface-monthly-donation-description": "Wikimedia Foundation - monthly gift",
 	"donate_interface-big-amount-display": "$100",
 	"donate_interface-medium-amount-display": "$75",
