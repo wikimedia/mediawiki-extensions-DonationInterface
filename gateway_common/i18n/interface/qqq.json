@@ -523,7 +523,7 @@
 	"donate_interface-monthly-convert-yes-button-annual": "Text of a button to confirm an annual donation. The span tag will be replaced with the suggested amount.",
 	"donate_interface-monthly-convert-yes-button-monthly": "Text of a button to confirm a monthly donation. The span tag will be replaced with the suggested amount.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Alternate yes button text for monthly convert modal",
-	"donate_interface-monthly-convert-no-let-me-choose": "Text of a button to decline to make a recurring donation.",
+	"donate_interface-monthly-convert-no-let-me-choose": "Text of a button to add a recurring donation, but for a different amount.",
 	"donate_interface-monthly-convert-no-button-variant-006": "Alternate no button text for monthly convert modal",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Alternate yes button text for monthly convert modal with ask amount",
 	"donate_interface-monthly-convert-no-button-variant-011": "Alternate no button text for monthly convert modal with more emphasis",

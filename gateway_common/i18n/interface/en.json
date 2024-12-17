@@ -492,7 +492,7 @@
 	"donate_interface-monthly-convert-yes-button-annual": "Sure, I’ll make it <span class=\"mc-convert-ask-annual\"></span> annually",
 	"donate_interface-monthly-convert-yes-button-monthly": "Sure, I’ll add <span class=\"mc-convert-ask\"></span> monthly starting next month",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Yes, I want to help",
-	"donate_interface-monthly-convert-no-let-me-choose": "No, but let me choose how to renew",
+	"donate_interface-monthly-convert-no-let-me-choose": "Sure, but let me choose a different amount",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, thanks",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Yes, I'll add a <span class=\"mc-convert-ask\"></span> monthly donation",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, thanks!",
