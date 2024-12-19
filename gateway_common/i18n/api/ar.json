@@ -61,5 +61,7 @@
 	"apihelp-employerSearch-summary": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-param-employer": "أي صاحب عمل يبحث عنه ، على سبيل المثال ، الصليب الأحمر ، الصندوق العالمي للطبيعة ، جيش الخلاص ، إلخ.",
 	"apihelp-employerSearch-example-1": "ابحث عن صاحب عمل",
-	"apihelp-di_applesession_adyen-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple"
+	"apihelp-di_applesession_adyen-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple",
+	"apihelp-getPaymentMethods-summary": "إرجاع طرق الدفع المتاحة بناءً على البلد",
+	"apihelp-submitPayment-summary": "يرسل الدفع بناءً على المعلمات المرسلة"
 }
