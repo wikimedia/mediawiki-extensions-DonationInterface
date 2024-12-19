@@ -881,7 +881,7 @@
 			"value": true
 		},
 		"DonationInterfaceClientErrorLogIgnorePatterns": {
-			"value": [ ".*ResizeObserver.*" ]
+			"value": [ ".*ResizeObserver.*", "CANCEL: ApplePay UI dismissed" ]
 		},
 		"DonationInterfaceGeoIpDbPath": {
 			"value": "/usr/share/GeoIP/GeoLite2-Country.mmdb"
