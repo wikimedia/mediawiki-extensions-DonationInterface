@@ -43,7 +43,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'payment_amount',
 		'payment_method',
 		'personal_info',
-		'state_dropdown'
+		'state_dropdown',
+		'trustly_note'
 	];
 
 	/**

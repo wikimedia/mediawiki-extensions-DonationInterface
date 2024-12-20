@@ -24,9 +24,10 @@
 									</dd>
 								</dl>
 {{> account_routing_hint }}
+{{> trustly_note }}
 {{> issuers }}
 {{# show_continue }}
-								<div id="paymentContinue" {{^ show_submethods }}class="force"{{/ show_submethods }}> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{ l10n "donate_interface-continue" }}" /></div>
+								<div id="paymentContinue" {{^ show_submethods }}class="force"{{/ show_submethods }}> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{# trustly_explination_visible }}{{ l10n "donate_interface-sign-in-to-my-bank" }}{{/ trustly_explination_visible }}{{^ trustly_explination_visible }}{{ l10n "donate_interface-continue" }}{{/ trustly_explination_visible }}" /></div>
 {{/ show_continue }}
 								{{# is_cc }}
 									{{# employer_visible }}
