@@ -75,6 +75,9 @@
 					if ( !declineMonthlyConvert ) {
 						url.searchParams.set( 'recurringConversion', 1 );
 					}
+					if ( sendData.frequency_unit ) {
+						url.searchParams.set( 'frequency_unit', sendData.frequency_unit );
+					}
 					document.location.assign( url.toString() );
 				} else {
 					// FIXME - alert sux. Not much donor can do at this point.
