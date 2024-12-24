@@ -52,8 +52,16 @@
 	"apihelp-logPaymentsFormError-param-col": "العمود الذي حدث فيه الخطأ",
 	"apihelp-logPaymentsFormError-param-userAgent": "سلسلة وكيل مستخدم المتصفح",
 	"apihelp-logPaymentsFormError-param-stack": "خطأ تتبع مكدس، عندما يكون متاحا",
+	"apihelp-logRecurUpgradeFormError-summary": "تسجل واجهة برمجة التطبيقات هذه أخطاء نموذج الترقية المتكررة على جانب العميل.",
+	"apihelp-logRecurUpgradeFormError-param-message": "رسالة الخطأ",
+	"apihelp-logRecurUpgradeFormError-param-file": "الملف الذي حدث فيه الخطأ",
+	"apihelp-logRecurUpgradeFormError-param-line": "السطر الذي حدث فيه الخطأ",
+	"apihelp-logRecurUpgradeFormError-param-col": "العمود الذي حدث فيه الخطأ",
+	"apihelp-logRecurUpgradeFormError-param-userAgent": "سلسلة وكيل المستخدم للمتصفح",
+	"apihelp-logRecurUpgradeFormError-param-stack": "تتبع أخطاء المكدس، عندما يكون متاحا",
 	"apihelp-di_donate_adyen-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Adyen",
 	"apihelp-di_donate_dlocal-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Dlocal",
+	"apihelp-di_donate_gravy-summary": "هذه الواجهة البرمجية مخصصة لـ Gravy",
 	"apihelp-di_donate_braintree-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Braintree",
 	"apihelp-di_recurring_convert-summary": "يتم استخدام API هذه عندما يوافق المتبرع على إضافة تبرع شهري بعد إكمال تبرع ناجح لمرة واحدة.",
 	"apihelp-di_recurring_convert-param-amount": "مبلغ التبرع الشهري.",
@@ -61,5 +69,7 @@
 	"apihelp-employerSearch-summary": "تسمح لك واجهة برمجة التطبيقات هذه بالبحث عن أصحاب العمل المشاركين في برنامج هدايا مطابقة من WMF.",
 	"apihelp-employerSearch-param-employer": "أي صاحب عمل يبحث عنه ، على سبيل المثال ، الصليب الأحمر ، الصندوق العالمي للطبيعة ، جيش الخلاص ، إلخ.",
 	"apihelp-employerSearch-example-1": "ابحث عن صاحب عمل",
-	"apihelp-di_applesession_adyen-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple"
+	"apihelp-di_applesession_adyen-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple",
+	"apihelp-getPaymentMethods-summary": "إرجاع طرق الدفع المتاحة بناءً على البلد",
+	"apihelp-submitPayment-summary": "يرسل الدفع بناءً على المعلمات المرسلة"
 }
