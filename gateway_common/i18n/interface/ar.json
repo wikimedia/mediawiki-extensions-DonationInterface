@@ -202,6 +202,7 @@
 	"donate_interface-error-msg-invalid-amount": "من فضلك أدخل مقدارًا صحيحًا",
 	"donate_interface-error-msg-invalid-country": "عذرًا، لا يمكننا اكتشاف بلدك، يُرجَى تحديد بلد على صفحة our <a href=\"$1\">طرق المنح</a>.",
 	"donate_interface-error-msg-invalid-currency": "من فضلك اختر عملة صالحة",
+	"donate_interface-error-msg-invalid-device-data": "هناك خطأ في بيانات الجهاز.",
 	"donate_interface-error-msg-invalid-email": "من فضلك أدخل عنوان بريد إلكتروني صالح",
 	"donate_interface-error-msg-card-num": "اكتب رقم بطاقة ائتمان صالحا لإحدى أنواع البطائق المقبولة",
 	"donate_interface-error-msg-amex": "من فضلك أدخل رقم بطاقة American Express صحيح.",

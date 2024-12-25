@@ -4,5 +4,17 @@
 			"Meno25",
 			"ديفيد"
 		]
-	}
+	},
+	"emailpreferences-country": "البلد أو المنطقة",
+	"emailpreferences-language": "اللغة",
+	"emailpreferences-send-email": "أحب أن أسمع من مؤسسة ويكيميديا، أرسل لي كل شيء!",
+	"emailpreferences-dont-send-email": "إلغاء اشتراكي في كل شيء.",
+	"emailpreferences-change-email": "تغيير البريد الإلكتروني",
+	"emailpreferences-save": "حفظ التفضيلات",
+	"emailpreferences-hi": "أهلا",
+	"emailpreferences-header-link-our-work": "عملنا",
+	"emailpreferences-header-link-support-wikipedia": "ادعم ويكيبيديا",
+	"emailpreferences-header-link-research": "بحث",
+	"emailpreferences-header-link-news": "الأخبار",
+	"emailpreferences-header-link-about": "حول"
 }
