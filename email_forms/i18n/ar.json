@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Cigaryno",
 			"Meno25",
 			"ديفيد"
 		]
@@ -13,14 +14,21 @@
 	"emailpreferences-send-new-link": "أرسل لي رابطا جديدا",
 	"emailpreferences-new-link-sent": "سنرسل لك رابطا جديدا قريبا. يرجى التحقق من صندوق الوارد الخاص بك.",
 	"emailpreferences-header-link-about": "حول",
+	"emailpreferences-header-link-advocacy": "المناصرة",
 	"emailpreferences-header-link-news": "الأخبار",
 	"emailpreferences-header-link-our-work": "عملنا",
+	"emailpreferences-header-link-participate": "شارك",
 	"emailpreferences-header-link-research": "بحث",
 	"emailpreferences-header-link-support-wikipedia": "ادعم ويكيبيديا",
+	"emailpreferences-header-link-technology": "التقنية",
 	"emailpreferences-hi": "أهلا",
 	"emailpreferences-language": "اللغة",
 	"emailpreferences-save": "حفظ التفضيلات",
 	"emailpreferences-send-email": "أحب أن أسمع من مؤسسة ويكيميديا، أرسل لي كل شيء!",
+	"emailpreferences-title": "تفضيلات البريد الإلكتروني",
+	"recurupgrade-add": "أضف $1",
+	"recurupgrade-upgrade": "تحسين المبلغ المتكرر",
+	"recurupgrade-upgrading-new-amount": "أنت تزيد من مبلغ التبرع الشهري الخاص بك إلى<strong></strong>",
 	"fundraiserunsubscribe": "إرفع الاشتراك في رسالة إلكترونية جمع التبرعات لمؤسسة ويكيميديا",
 	"fundraisersubscribe": "اشتراك",
 	"fundraisersubscribe-appeal-headline-001": "مثل ماذا ترى؟",
