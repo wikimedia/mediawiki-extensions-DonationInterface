@@ -98,7 +98,10 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			->setRawStatus( 'capture_succeeded' )
 			->setStatus( FinalStatus::COMPLETE )
 			->setSuccessful( true )
-			->setGatewayTxnId( $gravyTransactionId );
+			->setGatewayTxnId( $gravyTransactionId )
+			->setBackendProcessor( 'adyen' )
+			->setBackendProcessorTransactionId( $adyenTransactionId )
+			->setPaymentOrchestratorReconciliationId( $gravyReconciliationId );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'approvePayment' )

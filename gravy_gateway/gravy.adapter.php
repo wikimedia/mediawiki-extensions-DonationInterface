@@ -182,6 +182,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$this->logger->info( "Calling approvePayment on PSP reference {$authorizeResult->getGatewayTxnId()}" );
 					$captureResult = $this->callApprovePayment( $provider );
 					$transactionStatus = $captureResult->getStatus();
+					$this->updateResponseData( $captureResult );
 					if ( $captureResult->isSuccessful() ) {
 						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
 						if ( $this->showMonthlyConvert() ) {
@@ -461,35 +462,35 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
-	protected function updateResponseData( PaymentDetailResponse $authorizeResult ) {
+	protected function updateResponseData( PaymentDetailResponse $paymentResult ) {
 		$responseData = [];
 
 		// Add the gravy-generated transaction ID to the DonationData object
 		// to be sent to the queues
-		if ( $authorizeResult->isSuccessful() ) {
-			$responseData['gateway_txn_id'] = $authorizeResult->getGatewayTxnId();
-			$responseData['backend_processor'] = $authorizeResult->getBackendProcessor();
-			$responseData['backend_processor_txn_id'] = $authorizeResult->getBackendProcessorTransactionId();
+		if ( $paymentResult->isSuccessful() ) {
+			$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
+			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
+			$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
 
-			$responseData['payment_orchestrator_reconciliation_id'] = $authorizeResult->getPaymentOrchestratorReconciliationId();
+			$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
 
-			if ( $authorizeResult->getRecurringPaymentToken() != null ) {
-				$responseData['recurring_payment_token'] = $authorizeResult->getRecurringPaymentToken();
-			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
+			if ( $paymentResult->getRecurringPaymentToken() != null ) {
+				$responseData['recurring_payment_token'] = $paymentResult->getRecurringPaymentToken();
+			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $paymentResult->isSuccessful() ) {
 				$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
 			}
 
-			if ( $authorizeResult->getProcessorContactID() != null ) {
-				$responseData['processor_contact_id'] = $authorizeResult->getProcessorContactID();
+			if ( $paymentResult->getProcessorContactID() != null ) {
+				$responseData['processor_contact_id'] = $paymentResult->getProcessorContactID();
 			}
-			if ( $authorizeResult->getDonorDetails() !== null && $authorizeResult->getDonorDetails()->getUserName() !== '' ) {
-				$responseData['user_name'] = $authorizeResult->getDonorDetails()->getUserName();
+			if ( $paymentResult->getDonorDetails() !== null && $paymentResult->getDonorDetails()->getUserName() !== '' ) {
+				$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
 			}
 			if ( !$this->getPaymentSubmethod() ) {
-				$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
+				$responseData['payment_submethod'] = $paymentResult->getPaymentSubmethod() ?? '';
 			}
 			if ( !$this->getPaymentMethod() ) {
-				$responseData['payment_method'] = $authorizeResult->getPaymentMethod();
+				$responseData['payment_method'] = $paymentResult->getPaymentMethod();
 			}
 		}
 
