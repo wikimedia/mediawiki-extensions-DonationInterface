@@ -781,6 +781,9 @@ abstract class GatewayAdapter implements GatewayType {
 
 	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
 		$this->logger->info( "Failed $phase checks for transaction type $transaction." );
+		if ( !$this->transaction_response ) {
+			$this->transaction_response = new PaymentTransactionResponse();
+		}
 		$this->transaction_response->setCommunicationStatus( false );
 		$this->transaction_response->setMessage( $this->getErrorMapByCodeAndTranslate( 'internal-0000' ) );
 		$this->transaction_response->addError(
