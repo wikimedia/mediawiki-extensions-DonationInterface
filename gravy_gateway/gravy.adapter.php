@@ -90,7 +90,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->payment_methods[$this->getPaymentMethod()]['recurring'];
 	}
 
-	public function getCheckoutConfiguration() {
+	public function getCheckoutConfiguration(): array {
 		return [
 			'gravyID' => $this->getAccountConfig( 'gravyID' ),
 			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
@@ -106,7 +106,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		];
 	}
 
-	public function getGoogleAllowedNetworks() {
+	public function getGoogleAllowedNetworks(): array {
 		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
 		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
 			if ( isset( $this->config[ 'payment_submethods' ][ 'mir' ] ) ) {
@@ -320,7 +320,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * @inheritDoc
 	 */
-	public function getCommunicationType() {
+	public function getCommunicationType(): void {
 		// TODO: Implement getCommunicationType() method.
 	}
 

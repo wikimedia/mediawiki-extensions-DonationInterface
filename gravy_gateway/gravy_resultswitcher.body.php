@@ -8,7 +8,7 @@ class GravyGatewayResult extends ResultSwitcher {
 	/** @inheritDoc */
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
-	public function showSubmethodButtons() {
+	public function showSubmethodButtons(): bool {
 		return false;
 	}
 }
