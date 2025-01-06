@@ -22,7 +22,8 @@
 			"Alshamiri1",
 			"Lolekek",
 			"أيوب",
-			"بهتين شوكت"
+			"بهتين شوكت",
+			"Cigaryno"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -181,6 +182,7 @@
 	"donate_interface-donor-fiscal_number-explain-in": "<b>يطلب</b> بنك الاحتياطي الهندي معالج الدفع الخاص بنا لجمع رقم الحساب المصرفي الشخصي الخاص بك ، لكننا لا نخزن هذه المعلومات. <b>يرجى تقديم رقم الحساب الشخصي (PAN) اختياريًا هنا.</b>",
 	"donate_interface-donor-fiscal_number-pe": "دي إن آي",
 	"donate_interface-donor-fiscal_number-uy": "سي آي",
+	"donate_interface-donor-fiscal_number-za": "المعرف",
 	"donate_interface-donor-opt_in_yes": "*نعم! الرجاء إرسال تحديثات غير متكررة عبر البريد الإلكتروني ومعلومات حول كيفية دعم ويكيبيديا في المستقبل.",
 	"donate_interface-donor-opt_in_no": "لا، لا أريد تحديثات، حتى لو كانت مجرد رسائل إلكترونية قليلة في السنة.",
 	"donate_interface-donor-opt_in_explain": "* يتم التعامل مع معلوماتك بما يتوافق مع <a href=\"$1\">سياسة خصوصية المانحين</a>، ستتضمن كل رسالة بريد إلكتروني تتلقاها خيارات إلغاء الاشتراك بسهولة.",
