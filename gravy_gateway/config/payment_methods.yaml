@@ -15,6 +15,7 @@ dd:
         country: true
         name: true
         email: true
+        trustly_explination: true
 rtbt:
     recurring: false
     label: Real time bank transfer
