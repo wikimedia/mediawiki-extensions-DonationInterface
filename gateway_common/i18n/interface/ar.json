@@ -22,7 +22,8 @@
 			"زكريا",
 			"محمد أحمد عبد الفتاح",
 			"Lolekek",
-			"بهتين شوكت"
+			"بهتين شوكت",
+			"Cigaryno"
 		]
 	},
 	"donate_interface": "ادعم ويكيميديا",
@@ -183,6 +184,7 @@
 	"donate_interface-donor-fiscal_number-explain-option-in": "هذا اختياري.",
 	"donate_interface-donor-fiscal_number-pe": "دي إن آي",
 	"donate_interface-donor-fiscal_number-uy": "سي آي",
+	"donate_interface-donor-fiscal_number-za": "المعرف",
 	"donate_interface-donor-phone": "رقم التليفون",
 	"donate_interface-donor-phone-explain-in": "هذا اختياري ولا نقوم بتخزينه. إذا تُركت فارغة ، فقد يُنشئ معالج الدفع لدينا عنصرًا نائبًا عشوائيًا على الشاشة التالية.",
 	"donate_interface-donor-opt_in_yes": "*نعم! الرجاء إرسال تحديثات غير متكررة عبر البريد الإلكتروني ومعلومات حول كيفية دعم ويكيبيديا في المستقبل.",
@@ -399,6 +401,7 @@
 	"donate_interface-cc-MX-instructions": "للأمن; تقوم بعض البنوك المكسيكية بمنع المعاملات عبر الإنترنت، إذا لم يكن تبرعك ناجحًا، نقترح عليك الاتصال بالمصرف الذي تتعامل معه لتفويض التبرع عبر الإنترنت والمحاولة مرة أخرى.",
 	"donate_interface-bt-account_holder": "صاحب الحساب",
 	"donate_interface-bt-bank_account_number": "رقم الحساب المصرفي",
+	"donate_interface-bt-upi_id": "معرف UPI",
 	"donate_interface-bt-country_description": "وصف الدولة",
 	"donate_interface-bt-payment_reference": "الرمز المرجعي للمدفوعات",
 	"donate_interface-bt-swift_code": "سويفت كود",
