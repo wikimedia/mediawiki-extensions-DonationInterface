@@ -23,6 +23,10 @@ div.payment_gateway-ach-hint img {
 	width: 100%;
 }
 
+.trustly-img {
+	height: 30px;
+}
+
 div.payment_gateway-ach-hint p {
 	font-size: 0.75em;
 	color: #72777d;

@@ -47,7 +47,7 @@ class GravyGateway extends GatewayPage {
 		}
 	}
 
-	public function setClientVariables( &$vars ) {
+	public function setClientVariables( &$vars ): void {
 		parent::setClientVariables( $vars );
 		// @phan-suppress-next-line PhanUndeclaredMethod get getCheckoutConfiguration is only declared in the Gravy and Adyen adapter
 		$vars['gravyConfiguration'] = $this->adapter->getCheckoutConfiguration();
@@ -75,7 +75,7 @@ class GravyGateway extends GatewayPage {
 	 *
 	 * @see GatewayPage::showContinueButton()
 	 */
-	public function showContinueButton() {
+	public function showContinueButton(): bool {
 		return !( $this->isCreditCard() || $this->isGooglePay() );
 	}
 
@@ -83,7 +83,7 @@ class GravyGateway extends GatewayPage {
 	 *
 	 * @return bool
 	 */
-	private function isCreditCard() {
+	private function isCreditCard(): bool {
 		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'cc';
 	}
 
@@ -91,7 +91,7 @@ class GravyGateway extends GatewayPage {
 	 *
 	 * @return bool
 	 */
-	private function isGooglePay() {
+	private function isGooglePay(): bool {
 		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'google';
 	}
 
@@ -116,7 +116,7 @@ class GravyGateway extends GatewayPage {
 	 *
 	 * @see GatewayPage::showSubmethodButtons()
 	 */
-	public function showSubmethodButtons() {
+	public function showSubmethodButtons(): bool {
 		return false;
 	}
 

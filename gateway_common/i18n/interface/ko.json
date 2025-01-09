@@ -399,6 +399,7 @@
 	"donate_interface-emailpreferences-thank-you-title": "감사합니다",
 	"donate_interface-monthly-convert-action-button": "매월 기부",
 	"donate_interface-monthly-convert-yes-button-variant-006": "예, 도움을 드리고 싶습니다",
+	"donate_interface-monthly-convert-no-let-me-choose": "물론입니다. 하지만 다른 금액을 선택하겠습니다",
 	"donate_interface-monthly-convert-no-button-variant-006": "아니요, 괜찮습니다",
 	"donate_interface-monthly-convert-yes-button-variant-011": "예, <span class=\"mc-convert-ask\"></span> 매월 기부를 제공하겠습니다",
 	"donate_interface-monthly-convert-no-button-variant-011": "아니요, 괜찮습니다!",
