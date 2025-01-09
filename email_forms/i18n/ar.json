@@ -2,19 +2,27 @@
 	"@metadata": {
 		"authors": [
 			"Meno25",
-			"ديفيد"
+			"ديفيد",
+			"Cigaryno"
 		]
 	},
 	"emailpreferences-change-email": "تغيير البريد الإلكتروني",
 	"emailpreferences-country": "البلد أو المنطقة",
 	"emailpreferences-dont-send-email": "إلغاء اشتراكي في كل شيء.",
 	"emailpreferences-header-link-about": "حول",
+	"emailpreferences-header-link-advocacy": "المناصرة",
 	"emailpreferences-header-link-news": "الأخبار",
 	"emailpreferences-header-link-our-work": "عملنا",
+	"emailpreferences-header-link-participate": "شارك",
 	"emailpreferences-header-link-research": "بحث",
 	"emailpreferences-header-link-support-wikipedia": "ادعم ويكيبيديا",
+	"emailpreferences-header-link-technology": "التقنية",
 	"emailpreferences-hi": "أهلا",
 	"emailpreferences-language": "اللغة",
 	"emailpreferences-save": "حفظ التفضيلات",
-	"emailpreferences-send-email": "أحب أن أسمع من مؤسسة ويكيميديا، أرسل لي كل شيء!"
+	"emailpreferences-send-email": "أحب أن أسمع من مؤسسة ويكيميديا، أرسل لي كل شيء!",
+	"emailpreferences-title": "تفضيلات البريد الإلكتروني",
+	"recurupgrade-add": "أضف $1",
+	"recurupgrade-upgrade": "تحسين المبلغ المتكرر",
+	"recurupgrade-upgrading-new-amount": "أنت تزيد من مبلغ التبرع الشهري الخاص بك إلى<strong></strong>"
 }
