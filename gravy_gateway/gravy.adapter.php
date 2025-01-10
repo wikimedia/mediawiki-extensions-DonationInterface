@@ -135,13 +135,13 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		// @phan-suppress-next-line PhanUndeclaredMethod get Payment details is only declared in the gravy provider
-		$detailsResult = $provider->getLatestPaymentStatus( $mappedResult );
+		$latestPaymentResponse = $provider->getLatestPaymentStatus( $mappedResult );
 
 		$this->logger->debug(
-			'Gravy donor return response: ' . json_encode( $detailsResult->getRawResponse() )
+			'Gravy donor return response: ' . json_encode( $latestPaymentResponse->getRawResponse() )
 		);
 
-		return $this->handleCreatedPayment( $provider, $detailsResult );
+		return $this->handleCreatedPayment( $provider, $latestPaymentResponse );
 	}
 
 	/**
@@ -149,16 +149,17 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
 	 *
 	 * @param IPaymentProvider $provider
-	 * @param PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $createPaymentResponse
+	 *
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
+		IPaymentProvider $provider, PaymentDetailResponse $createPaymentResponse
 	): PaymentResult {
-		$transactionStatus = $authorizeResult->getStatus();
+		$transactionStatus = $createPaymentResponse->getStatus();
 
 		// Ensure required DonationData information are filled
-		$this->updateResponseData( $authorizeResult );
+		$this->updateResponseData( $createPaymentResponse );
 
 		// When authorization is successful but capture fails (or is not
 		// attempted because our ValidationAction is 'review', we still
@@ -166,26 +167,26 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
-		if ( !$authorizeResult->isSuccessful() ) {
+		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			// TODO: map any errors from $authorizeResult
 			// log the error details on failure
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
-			$errorLogMessage .= $authorizeResult->getStatus() . " : ";
-			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
+			$errorLogMessage .= $createPaymentResponse->getStatus() . " : ";
+			$errorLogMessage .= json_encode( $createPaymentResponse->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
-		} elseif ( $authorizeResult->requiresApproval() ) {
-			$this->runFraudFilters( $authorizeResult );
+		} elseif ( $createPaymentResponse->requiresApproval() ) {
+			$this->runFraudFilters( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
 					// do approve payment request here.
 					$this->setCurrentTransaction( 'capture' );
-					$this->logger->info( "Calling approvePayment on PSP reference {$authorizeResult->getGatewayTxnId()}" );
-					$captureResult = $this->callApprovePayment( $provider );
-					$transactionStatus = $captureResult->getStatus();
-					$this->updateResponseData( $captureResult );
-					if ( $captureResult->isSuccessful() ) {
-						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
+					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
+					$approvePaymentResponse = $this->callApprovePayment( $provider );
+					$transactionStatus = $approvePaymentResponse->getStatus();
+					$this->updateResponseData( $approvePaymentResponse );
+					if ( $approvePaymentResponse->isSuccessful() ) {
+						$this->logger->info( "Returned PSP Reference {$approvePaymentResponse->getGatewayTxnId()}" );
 						if ( $this->showMonthlyConvert() ) {
 							$this->logger->info( "Displaying monthly convert modal" );
 							$paymentResult = PaymentResult::newSuccess();
@@ -206,9 +207,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			}
 		}
 
-		if ( $authorizeResult->isSuccessful() ) {
+		if ( $createPaymentResponse->isSuccessful() ) {
 			// save donor data for recur conversion
-			if ( $authorizeResult->getRecurringPaymentToken() && $this->showMonthlyConvert() ) {
+			if ( $createPaymentResponse->getRecurringPaymentToken() && $this->showMonthlyConvert() ) {
 				$this->session_addDonorData();
 			}
 		}
