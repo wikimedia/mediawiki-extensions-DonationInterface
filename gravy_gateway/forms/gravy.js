@@ -1,4 +1,4 @@
-/* global SecureFields google */
+/* global SecureFields google ApplePaySession */
 ( function ( $, mw ) {
 	var secureFieldValid = false,
 	cardNumberFieldValid = false,
@@ -12,8 +12,10 @@
 	sessionId = mw.config.get( 'gravy_session_id' ),
 	environment = mw.config.get( 'wgGravyEnvironment' ),
 	gravyId = mw.config.get( 'wgGravyId' ),
-	googleScriptNode = null,
-	googlePaymentClient = null;
+	googlePaymentClient = null,
+	appleSession = null,
+	language = $( '#language' ).val(),
+	applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
 
 	function insertCardComponentContainers() {
 		$( '.submethods' ).before(
@@ -337,6 +339,114 @@
 			} );
 	}
 
+	function setupApplePayForm() {
+		// Check apple pay availability before showing button
+		if ( window.ApplePaySession ) {
+			insertApplePayComponentContainer();
+			var button = document.getElementById( 'applepay-btn' );
+			button.addEventListener( 'click', handleApplePaySubmitClick );
+		} else {
+			mw.donationInterface.validation.showErrors( {
+				general: mw.message(
+					'donate_interface-error-msg-apple_pay_unsupported',
+					mw.config.get( 'DonationInterfaceOtherWaysURL' )
+				).plain()
+			} );
+			mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: Unable to find ApplePaySession in browser' );
+		}
+	}
+
+	function handleApplePayApiResult( result ) {
+		appleSession.completePayment( {
+			status: ApplePaySession.STATUS_SUCCESS
+		} );
+
+		handleApiResult( result );
+	}
+
+	function handleApplePaySubmitClick( e ) {
+		e.preventDefault();
+		setupApplePaySession();
+		appleSession.begin();
+	}
+
+	function validateApplePayPaymentSession( appleSession ) {
+		return function ( event ) {
+			var api = new mw.Api();
+			api.post( {
+				action: 'di_applesession_gravy',
+				validation_url: event.validationURL,
+				wmf_token: $( '#wmf_token' ).val()
+			} ).then( function ( data ) {
+				if ( data.result && data.result.errors ) {
+					mw.donationInterface.validation.showErrors( {
+						general: mw.msg( 'donate_interface-error-msg-general' )
+					} );
+					mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: ' + data.result.errors );
+				} else {
+					appleSession.completeMerchantValidation( data.session );
+				}
+			} ).catch( function ( e ) {
+				mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: ' + e );
+				mw.donationInterface.validation.showErrors( {
+					general: mw.msg( 'donate_interface-error-msg-general' )
+				} );
+			} );
+		};
+	}
+
+	function setupApplePaySession() {
+		var paymentRequestObject = {
+			countryCode: $( '#country' ).val(),
+			currencyCode: $( '#currency' ).val(),
+			merchantCapabilities: [ 'supportsCredit', 'supportsDebit', 'supports3DS' ],
+			supportedNetworks: [ 'visa', 'masterCard', 'amex', 'discover' ],
+			requiredBillingContactFields: [ 'email', 'name', 'phone', 'postalAddress' ],
+			requiredShippingContactFields: [ 'email', 'name' ],
+			total: {
+				label: 'Wikimedia Foundation',
+				type: 'final',
+				amount: $( '#amount' ).val()
+			}
+		};
+		appleSession = new ApplePaySession( applePayPaySessionVersionNumber, paymentRequestObject );
+
+		appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
+
+		appleSession.onpaymentauthorized = function ( event ) {
+			var bContact = event.payment.billingContact,
+				sContact = event.payment.shippingContact;
+			var extraData = {};
+			var paymentSubmethod = event.payment.token.paymentMethod.network;
+			if ( !paymentSubmethod ) {
+				paymentSubmethod = '';
+			}
+			extraData = mw.donationInterface.forms.apple.getBestApplePayContactName( extraData, bContact, sContact );
+			extraData.postal_code = bContact.postalCode;
+			extraData.state_province = bContact.administrativeArea;
+			extraData.city = bContact.locality;
+			if ( bContact.addressLines.length > 0 ) {
+				extraData.street_address = bContact.addressLines[ 0 ];
+			}
+			extraData.email = sContact.emailAddress;
+			extraData.payment_submethod = paymentSubmethod.toLowerCase();
+			extraData.payment_token = JSON.stringify( event.payment.token );
+			mw.donationInterface.forms.callDonateApi(
+				handleApplePayApiResult,
+				extraData,
+				'di_donate_gravy'
+			);
+		};
+	}
+
+	function insertApplePayComponentContainer() {
+		$( '.submethods' ).before(
+			'<div id="container">' +
+			'<apple-pay-button class="button" id="applepay-btn" buttonstyle="black" type="donate" locale="' + language + '"></apple-pay-button>' +
+			'</div>'
+		);
+	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -346,22 +456,12 @@
 	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
 	$( function () {
-		var scriptNode, secureFieldsScript = mw.config.get( 'secureFieldsScriptLink' );
-		if ( secureFieldsScript && $( '#payment_method' ).val() === 'cc' ) {
-			scriptNode = document.createElement( 'script' );
-			scriptNode.onload = setupCardForm;
-			scriptNode.onerror = function () {
-				mw.donationInterface.validation.showErrors(
-					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
-				);
-			};
-			scriptNode.src = secureFieldsScript;
-			document.body.append( scriptNode );
+		if ( $( '#payment_method' ).val() === 'cc' ) {
+			mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );
 		} else if ( $( '#payment_method' ).val() === 'google' ) {
-			googleScriptNode = document.createElement( 'script' );
-			googleScriptNode.src = configFromServer.googleScript;
-			googleScriptNode.onload = setupGooglePayForm;
-			document.body.append( googleScriptNode );
+			mw.donationInterface.forms.loadScript( configFromServer.googleScript, setupGooglePayForm );
+		} else if ( $( '#payment_method' ).val() === 'apple' ) {
+			mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
 		}
 	} );
 } )( jQuery, mediaWiki );

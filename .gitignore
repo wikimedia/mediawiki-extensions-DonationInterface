@@ -7,3 +7,4 @@ composer.lock
 .version-stamp
 node_modules
 .eslintcache
+/.stylelintcache

@@ -34,7 +34,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * @inheritDoc
 	 */
-	public function doPayment() {
+	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->runDoPaymentFilters();
@@ -90,7 +90,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->payment_methods[$this->getPaymentMethod()]['recurring'];
 	}
 
-	public function getCheckoutConfiguration(): array {
+	public function getGravyConfiguration(): array {
 		return [
 			'gravyID' => $this->getAccountConfig( 'gravyID' ),
 			'locale' => str_replace( '_', '-', $this->getData_Staged( 'language' ) ),
@@ -103,6 +103,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			'secureFieldsJsScript' => $this->getAccountConfig( 'secureFieldsJS' ),
 			'secureFieldsCSS' => $this->getAccountConfig( 'secureFieldsCSS' ),
 			'googleScript' => $this->getAccountConfig( 'GoogleScript' ),
+			'appleScript' => $this->getAccountConfig( 'AppleScript' ),
 		];
 	}
 
@@ -119,7 +120,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $general;
 	}
 
-	public function processDonorReturn( $requestValues ) {
+	public function processDonorReturn( $requestValues ): PaymentResult {
 		$this->logger->info( "Handling redirectResult " . json_encode( $requestValues ) );
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
@@ -462,7 +463,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
-	protected function updateResponseData( PaymentDetailResponse $paymentResult ) {
+	protected function updateResponseData( PaymentDetailResponse $paymentResult ): void {
 		$responseData = [];
 
 		// Add the gravy-generated transaction ID to the DonationData object

@@ -33,3 +33,8 @@ form#payment-form select {
 .GravyField--invalid-text {
 	color: #f00;
 }
+
+.button {
+	--apple-pay-button-height: 3rem;
+	--apple-pay-button-width: 15rem;
+}
