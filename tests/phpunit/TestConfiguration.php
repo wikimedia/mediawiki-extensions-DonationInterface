@@ -184,7 +184,8 @@ $wgGravyGatewayAccountInfo['WikimediaDonations'] = [
 	'GoogleScript' => "https://pay.google.com/gp/p/js/pay.js",
 	'gravyGooglePayMerchantId' => "app.gr4vy.{$wgGravyEnvironment}.{$wgGravyGatewayID}.{$wgGravyMerchantAccountID}",
 	'GoogleMerchantId' => 'test-google-id',
-	'googleEnvironment' => 'test'
+	'googleEnvironment' => 'test',
+	'AppleScript' => 'test-apple.js',
 ];
 
 // still can't quite handle minFraud by itself yet, so default like this.

@@ -211,6 +211,18 @@
 		}
 	}
 
+	function loadScript( script_link, setup_callback ) {
+		var scriptNode = document.createElement( 'script' );
+		scriptNode.src = script_link;
+		scriptNode.onload = setup_callback;
+		scriptNode.onerror = function () {
+			mw.donationInterface.validation.showErrors(
+				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
+			);
+		};
+		document.body.append( scriptNode );
+	}
+
 	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
@@ -225,6 +237,7 @@
 		isIframe: isIframe,
 		resetSubmethod: resetSubmethod,
 		getOptIn: getOptIn,
+		loadScript: loadScript,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {
 			di.forms.debugMessages.push( message );
