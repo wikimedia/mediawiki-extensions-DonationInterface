@@ -44,6 +44,8 @@ class ApplePayTest extends BaseGravyTestCase {
 		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
 		$adyenTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$gravyReconciliationId = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz0123456789' ), 0, 22 );
+
 		$expectedReturnUrl = Title::newFromText(
 			'Special:GravyGatewayResult'
 		)->getFullURL( [
@@ -83,6 +85,7 @@ class ApplePayTest extends BaseGravyTestCase {
 					->setGatewayTxnId( $gravyTransactionId )
 					->setBackendProcessor( 'adyen' )
 					->setBackendProcessorTransactionId( $adyenTransactionId )
+					->setPaymentOrchestratorReconciliationId( $gravyReconciliationId )
 			);
 
 		$this->applePayPaymentProvider->expects( $this->once() )
@@ -100,6 +103,7 @@ class ApplePayTest extends BaseGravyTestCase {
 					->setGatewayTxnId( $gravyTransactionId )
 					->setBackendProcessor( 'adyen' )
 					->setBackendProcessorTransactionId( $adyenTransactionId )
+					->setPaymentOrchestratorReconciliationId( $gravyReconciliationId )
 			);
 
 		$result = $gateway->doPayment();
@@ -113,6 +117,7 @@ class ApplePayTest extends BaseGravyTestCase {
 			'gross' => '1.55',
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $adyenTransactionId,
+			'payment_orchestrator_reconciliation_id' => $gravyReconciliationId,
 			'currency' => 'USD',
 			'gateway' => 'gravy',
 			'gateway_txn_id' => $gravyTransactionId,
