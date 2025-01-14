@@ -16,6 +16,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	const GATEWAY_NAME = 'AdyenCheckout';
 	const IDENTIFIER = 'adyen';
 	const GLOBAL_PREFIX = 'wgAdyenCheckoutGateway';
+	const PAYMENT_METHOD_GOOGLEPAY = 'google';
+	const PAYMENT_METHOD_APPLEPAY = 'apple';
 
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
@@ -265,8 +267,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			case 'bt':
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
-			case 'google':
-			case 'apple':
+			case self::PAYMENT_METHOD_GOOGLEPAY:
+			case self::PAYMENT_METHOD_APPLEPAY:
 				$this->transactions['authorize']['request'][] = 'payment_token';
 		}
 	}
@@ -313,7 +315,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	protected function getFieldsToRemove( ?array $knownData = null ) {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
 		$submethod = $knownData['payment_submethod'] ?? $this->getData_Unstaged_Escaped( 'payment_submethod' );
-		if ( $method === 'apple' ) {
+		if ( $method === self::PAYMENT_METHOD_APPLEPAY ) {
 			// For Apple Pay, do not require any of the following fields in forms,
 			// regardless of what may be specified in config/country_fields.yaml
 			// We can gather them instead from the Apple Pay UI.
@@ -326,7 +328,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'city',
 				'state_province'
 			];
-		} elseif ( $method === 'google' ) {
+		} elseif ( $method === self::PAYMENT_METHOD_GOOGLEPAY ) {
 			return [
 				'street_address',
 				'postal_code',
@@ -467,7 +469,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @param PaymentDetailResponse $authorizeResult
 	 */
 	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
-		if ( $this->getPaymentMethod() === 'google' ) {
+		if ( $this->getPaymentMethod() === self::PAYMENT_METHOD_GOOGLEPAY ) {
 			$this->setValidationAction( ValidationAction::PROCESS );
 		} else {
 			$riskScores = $authorizeResult->getRiskScores();
@@ -513,7 +515,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc', 'google', 'apple', 'dd' ];
+		return [ 'cc',
+			self::PAYMENT_METHOD_GOOGLEPAY,
+			self::PAYMENT_METHOD_APPLEPAY, 'dd' ];
 	}
 
 	/**
