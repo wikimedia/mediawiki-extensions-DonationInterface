@@ -13,11 +13,18 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
 class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
 
-	const GATEWAY_NAME = 'AdyenCheckout';
-	const IDENTIFIER = 'adyen';
-	const GLOBAL_PREFIX = 'wgAdyenCheckoutGateway';
-	const PAYMENT_METHOD_GOOGLEPAY = 'google';
-	const PAYMENT_METHOD_APPLEPAY = 'apple';
+	public const GATEWAY_NAME = 'AdyenCheckout';
+	public const IDENTIFIER = 'adyen';
+	public const GLOBAL_PREFIX = 'wgAdyenCheckoutGateway';
+	protected const PAYMENT_METHOD_GOOGLEPAY = 'google';
+	protected const PAYMENT_METHOD_APPLEPAY = 'apple';
+	protected const PAYMENT_METHOD_CREDIT_CARD = 'cc';
+	protected const PAYMENT_METHOD_DIRECT_DEBIT = 'dd';
+	protected const PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER = 'rtbt';
+	protected const PAYMENT_METHOD_BANK_TRANSFER = 'bt';
+	protected const PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER = 'rtbt_ideal';
+	protected const PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT = 'sepadirectdebit';
+	protected const PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ = 'onlineBanking_CZ';
 
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
@@ -218,7 +225,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 */
 	protected function tuneForPaymentMethod() {
 		switch ( $this->getPaymentMethod() ) {
-			case 'dd':
+			case self::PAYMENT_METHOD_DIRECT_DEBIT:
 				$this->transactions['authorize']['request'] =
 					array_merge( $this->transactions['authorize']['request'], [
 						'supplemental_address_1',
@@ -229,7 +236,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						'full_name'
 					] );
 				break;
-			case 'cc':
+			case self::PAYMENT_METHOD_CREDIT_CARD:
 				$this->transactions['authorize']['request']['encrypted_payment_data'] = [
 					'encryptedCardNumber',
 					'encryptedExpiryMonth',
@@ -247,15 +254,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					'javaEnabled'
 				];
 				break;
-			case 'rtbt':
+			case self::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER:
 				switch ( $this->getPaymentSubmethod() ) {
-					case 'onlineBanking_CZ':
+					case self::PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ:
 						$this->transactions['authorize']['request'][] = 'issuer_id';
 						break;
-					case 'rtbt_ideal':
+					case self::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER:
 						$this->transactions['authorize']['request'][] = 'payment_submethod';
 						break;
-					case 'sepadirectdebit':
+					case self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT:
 						$this->transactions['authorize']['request'] =
 							array_merge( $this->transactions['authorize']['request'], [
 								'iban',
@@ -264,7 +271,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						break;
 				}
 				break;
-			case 'bt':
+			case self::PAYMENT_METHOD_BANK_TRANSFER:
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
 			case self::PAYMENT_METHOD_GOOGLEPAY:
@@ -334,7 +341,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'postal_code',
 				'city'
 			];
-		} elseif ( $method === 'dd' || ( $method === 'rtbt' && $submethod === 'sepadirectdebit' ) ) {
+		} elseif ( $method === self::PAYMENT_METHOD_DIRECT_DEBIT || ( $method === self::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER && $submethod === self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ) ) {
 			return [
 				'first_name',
 				'last_name',
@@ -455,7 +462,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @return bool
 	 */
 	private function isRecurringBankPayment(): bool {
-		$bankPaymentSubMethods = [ 'rtbt_ideal', 'sepadirectdebit' ];
+		$bankPaymentSubMethods = [ self::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER,
+			self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ];
 		$isBankPaymentSubMethods = in_array( $this->getPaymentSubmethod(), $bankPaymentSubMethods );
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
 
@@ -515,9 +523,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc',
+		return [ self::PAYMENT_METHOD_CREDIT_CARD,
 			self::PAYMENT_METHOD_GOOGLEPAY,
-			self::PAYMENT_METHOD_APPLEPAY, 'dd' ];
+			self::PAYMENT_METHOD_APPLEPAY,
+			self::PAYMENT_METHOD_DIRECT_DEBIT ];
 	}
 
 	/**
