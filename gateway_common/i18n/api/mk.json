@@ -73,5 +73,6 @@
 	"apihelp-employerSearch-example-1": "Пребарајте работодавач",
 	"apihelp-di_applesession_adyen-summary": "Овозможува барање на седница за Apple Pay непосредно од Apple",
 	"apihelp-getPaymentMethods-summary": "Дава расположливи начини на плаќање според земјата",
-	"apihelp-submitPayment-summary": "Поднесува плаќање врз основа на зададени параметри"
+	"apihelp-submitPayment-summary": "Поднесува плаќање врз основа на зададени параметри",
+	"apihelp-di_applesession_gravy-summary": "Дозволува барање на седница за Apple Pay право од Apple во име на трансакција на Gravy"
 }
