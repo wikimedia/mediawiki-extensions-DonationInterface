@@ -467,7 +467,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @param PaymentDetailResponse $authorizeResult
 	 */
 	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
-		if ( in_array( $this->getPaymentMethod(), [ 'apple', 'google' ], true ) ) {
+		if ( $this->getPaymentMethod() === 'google' ) {
 			$this->setValidationAction( ValidationAction::PROCESS );
 		} else {
 			$riskScores = $authorizeResult->getRiskScores();
