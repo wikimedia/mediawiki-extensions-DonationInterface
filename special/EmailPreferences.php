@@ -109,10 +109,31 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 
 		$addedParams = [];
-		$uiLang = $this->getLanguage()->getCode();
-
-		// FIXME Correct country and language sorting by locale/proper diacritics ordering
-
+		// find the uselang for targeted prefer language
+		$context = RequestContext::getMain();
+		if ( $preferences[ 'preferred_language' ] ) {
+			switch ( $preferences[ 'preferred_language' ] ) {
+				case 'zh_TW':
+					$selectedLang = 'zh-hant';
+					break;
+				case 'zh_CN':
+					$selectedLang = 'zh-hans';
+					break;
+				case 'fr_CA':
+					$selectedLang = 'fr-ca';
+					break;
+				case 'pt_BR':
+					$selectedLang = 'pt-br';
+					break;
+				case 'es_PR':
+					$selectedLang = 'es-formal';
+					break;
+				default:
+					$selectedLang = explode( '_', $preferences[ 'preferred_language' ] )[0];
+			}
+			$context->setLanguage( $selectedLang );
+		}
+		$uiLang = $context->getLanguage()->getCode();
 		$addedParams[ 'countries' ] = [];
 		$mediaWikCountries = CountryNames::getNames( $uiLang );
 		asort( $mediaWikCountries );
