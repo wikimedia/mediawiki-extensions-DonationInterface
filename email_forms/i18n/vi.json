@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-header-link-our-work": "Công việc của chúng tôi",
+	"emailpreferences-header-link-support-wikipedia": "Hỗ trợ Wikipedia",
+	"emailpreferences-header-link-research": "Nghiên cứu",
+	"emailpreferences-header-link-advocacy": "Vận động",
+	"emailpreferences-header-link-technology": "Công nghệ",
+	"emailpreferences-header-link-news": "Tin tức",
+	"emailpreferences-header-link-participate": "Tham gia",
+	"emailpreferences-header-link-about": "Về chúng tôi",
+	"emailpreferences-hi": "Xin chào",
+	"emailpreferences-change-email": "Thay đổi email",
+	"emailpreferences-title": "Tùy chọn email",
+	"emailpreferences-country": "Quốc gia hay Khu vực",
+	"emailpreferences-language": "Ngôn ngữ",
+	"emailpreferences-send-email": "Tôi thích nhận thông tin từ Wikimedia Foundation, hãy gửi cho tôi mọi thứ!",
+	"emailpreferences-dont-send-email": "Hủy đăng ký nhận thông tin của tôi.",
+	"emailpreferences-snooze-email": "Tạm dừng email trong {{PLURAL:$1|một ngày|$1 ngày}}.",
+	"emailpreferences-save": "Lưu các tùy chọn",
+	"emailpreferences-success": "Yêu cầu lưu các tùy chọn email của bạn đã được gửi đi.",
+	"emailpreferences-footer-learn_more": "Tìm hiểu thêm về <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">các chi nhánh địa phương và dự án của họ</a>.",
+	"emailpreferences-footer-questions_email": "Nếu bạn có câu hỏi, vui lòng gửi email đến <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Văn bản có sẵn theo <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Giấy phép Creative Commons Attribution-ShareAlike</a>；có thể áp dụng các điều khoản bổ sung。Xem <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Điều khoản sử dụng</a> hoặc <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Chính sách quyền riêng tự</a> để biết chi tiết.",
+	"emailpreferences-expired-link-title": "Xin lỗi, đường link của bạn đã hết hạn",
+	"emailpreferences-expired-link-text": "Vui lòng nhấn vào nút bên dưới để yêu cầu một liên kết mới qua email.",
+	"emailpreferences-send-new-link": "Gửi cho tôi một liên kết mới",
+	"emailpreferences-new-link-sent": "Chúng tôi sẽ gửi cho bạn một liên kết mới ngay lập tức. Vui lòng kiểm tra hộp thư đến của bạn.",
+	"emailpreferences-wikimedia-image-alt": "Quỹ Wikimedia"
+}
