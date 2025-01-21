@@ -428,7 +428,7 @@
 	"donate_interface-email-unsub-success": "Has sido eliminado correctamente de nuestra lista de correo",
 	"donate_interface-email-unsub-delay": "Este cambio puede tardar hasta cuatro (4) días en hacerse efectivo. Te pedimos disculpas por cualquier correo electrónico que puedas recibir en este periodo. Si tienes alguna pregunta, ponte en contacto con $1",
 	"donate_interface-email-unsub-fail": "Hubo un error al procesar tu solicitud. Contacta con <$1>.",
-	"donate_interface-email-unsub-confirm": "¿Seguro que quieres dar de baja la dirección <b>$1</b>?",
+	"donate_interface-email-unsub-confirm": "¿Estás seguro/a de que deseas cancelar la suscripción de <b>$1</b>?",
 	"donate_interface-email-explain": "Te enviaremos un recibo por correo electrónico para confirmar tu donación.",
 	"donate_interface-faqs": "Preguntas frecuentes",
 	"donate_interface-tax-info": "Información de desgravación de impuestos",
@@ -452,7 +452,7 @@
 	"donate_interface-error-http-403": "No tienes permiso para acceder a esta página.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-emailpreferences-thank-you-title": "Gracias",
-	"donate_interface-monthly-convert-title": "¿Deseas agregar una donación mensual de %amount% a partir del próximo mes?",
+	"donate_interface-monthly-convert-title": "¿Deseas agregar una donación mensual de <span class=\"mc-convert-ask\"></span> a partir del próximo mes?",
 	"donate_interface-monthly-convert-text": "El apoyo mensual es la mejor manera de garantizar que Wikipedia siga expandiéndose.",
 	"donate_interface-monthly-convert-change-amount": "Sí, donaré mensualmente, pero por otro monto",
 	"donate_interface-monthly-convert-change-amount-variant-007": "Por supuesto, déjame elegir cuánto",
@@ -466,5 +466,5 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "No, ahora no.",
 	"donate_interface-fundraiser-maintenance-header": "Parado temporalmente por mantenimiento",
 	"donate_interface-fundraiser-maintenance-notice": "Actualmente estamos realizando mantenimiento programado y somos incapaces de aceptar donaciones. Inténtalo de nuevo en otro momento.  Si tienes alguna pregunta, por favor, envíanos un correo electrónico a $1.",
-	"donate_interface-redirect-explanation": "Te redireccionaremos a un proveedor de servicios de pago de Wikimedia."
+	"donate_interface-redirect-explanation": "Redirecionaremos você para um parceiro de processamento de pagamento da Wikimedia."
 }
