@@ -123,8 +123,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			Logger::getContext()->enterContext( $this->adapter->getLogMessagePrefix() );
 
 			$out = $this->getOutput();
-			// @phan-suppress-next-line PhanUndeclaredMethod Removed in 1.41
-			$out->preventClickjacking();
+			$out->setPreventClickjacking( true );
 			$this->addThankYouPrefetch( $out );
 			// Use addModuleStyles to load these CSS rules in early and avoid
 			// a flash of MediaWiki elements.

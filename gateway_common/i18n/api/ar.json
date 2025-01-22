@@ -75,5 +75,6 @@
 	"apihelp-employerSearch-example-1": "ابحث عن صاحب عمل",
 	"apihelp-di_applesession_adyen-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple",
 	"apihelp-getPaymentMethods-summary": "إرجاع طرق الدفع المتاحة بناءً على البلد",
-	"apihelp-submitPayment-summary": "يرسل الدفع بناءً على المعلمات المرسلة"
+	"apihelp-submitPayment-summary": "يرسل الدفع بناءً على المعلمات المرسلة",
+	"apihelp-di_applesession_gravy-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple نيابة عن معاملة Gravy"
 }

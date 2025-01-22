@@ -37,7 +37,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
-		$this->runDoPaymentFilters();
+		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
@@ -256,7 +256,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * @return void
 	 */
-	protected function runDoPaymentFilters(): void {
+	protected function runPaymentFilters(): void {
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 	}
@@ -472,8 +472,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
 			$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
-
-			$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
+			if ( $paymentResult->getPaymentOrchestratorReconciliationId() ) {
+				$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
+			}
 
 			if ( $paymentResult->getRecurringPaymentToken() != null ) {
 				$responseData['recurring_payment_token'] = $paymentResult->getRecurringPaymentToken();

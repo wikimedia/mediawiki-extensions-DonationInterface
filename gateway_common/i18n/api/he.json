@@ -73,5 +73,6 @@
 	"apihelp-employerSearch-example-1": "חיפוש מעסיק",
 	"apihelp-di_applesession_adyen-summary": "מאפשר בקשת התחברות לאפל פיי ישירות מאפל",
 	"apihelp-getPaymentMethods-summary": "החזרת שיטות תשלום זמינות לפי מדינה",
-	"apihelp-submitPayment-summary": "שליחת תשלום על סמך הפרמטרים שנשלחו"
+	"apihelp-submitPayment-summary": "שליחת תשלום על סמך הפרמטרים שנשלחו",
+	"apihelp-di_applesession_gravy-summary": "מאפשרת בקשה להפעיל Apple Pay ישירות מאפל מטעם תנועת Gravy"
 }

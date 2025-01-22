@@ -36,7 +36,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( 'authorize' );
-		$this->runDoPaymentFilters();
+		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
@@ -350,7 +350,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * @return void
 	 */
-	protected function runDoPaymentFilters(): void {
+	protected function runPaymentFilters(): void {
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 	}
