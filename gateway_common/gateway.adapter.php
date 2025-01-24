@@ -2033,7 +2033,7 @@ abstract class GatewayAdapter implements GatewayType {
 		// If any of the defined regex patterns match, add the points.
 		if ( is_array( $campaignMap ) ) {
 			foreach ( $campaignMap as $regex => $points ) {
-				if ( preg_match( $regex, $campaign ) ) {
+				if ( $campaign !== null && preg_match( $regex, $campaign ) ) {
 					$score = (int)$points;
 				}
 			}
