@@ -65,12 +65,8 @@ class EmailForm {
 		return MustacheHelper::render( $templatePath, $templateParams, $options );
 	}
 
-	public static function l10n( ...$params ) {
-		$key = array_shift( $params );
-		return call_user_func_array(
-			'wfMessage',
-			[ $key, MustacheHelper::filterMessageParams( $params ) ]
-		)->text();
+	public static function l10n( $key, ...$params ) {
+		return wfMessage( $key, ...MustacheHelper::filterMessageParams( $params ) )->text();
 	}
 
 	public static function dateFormatter( $dateString ) {
