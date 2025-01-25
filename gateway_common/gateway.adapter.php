@@ -2031,9 +2031,9 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $campaignMap ) ) {
+		if ( $campaign !== null && is_array( $campaignMap ) ) {
 			foreach ( $campaignMap as $regex => $points ) {
-				if ( $campaign !== null && preg_match( $regex, $campaign ) ) {
+				if ( preg_match( $regex, $campaign ) ) {
 					$score = (int)$points;
 				}
 			}
@@ -2074,7 +2074,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $mediumMap ) ) {
+		if ( $medium !== null && is_array( $mediumMap ) ) {
 			foreach ( $mediumMap as $regex => $points ) {
 				if ( preg_match( $regex, $medium ) ) {
 					$score = (int)$points;
@@ -2116,7 +2116,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->logger->debug( $msg );
 
 		// If any of the defined regex patterns match, add the points.
-		if ( is_array( $sourceMap ) ) {
+		if ( $source !== null && is_array( $sourceMap ) ) {
 			foreach ( $sourceMap as $regex => $points ) {
 				if ( preg_match( $regex, $source ) ) {
 					$score = (int)$points;
