@@ -808,7 +808,7 @@ class DonationData implements LogPrefixProvider {
 		$utm_campaign = strtolower( $this->getVal( 'utm_campaign' ) ?? '' );
 		if ( $utm_campaign == 'ios' || $utm_campaign == 'android' ) {
 			// set utm_source to appmenu if it starts with a number
-			if ( preg_match( '/^\d/', $utm_source ) === 1 ) {
+			if ( $utm_source !== null && preg_match( '/^\d/', $utm_source ) === 1 ) {
 				$this->setVal( 'utm_source', 'appmenu.app.' . $utm_payment_method_family );
 				return;
 			}
