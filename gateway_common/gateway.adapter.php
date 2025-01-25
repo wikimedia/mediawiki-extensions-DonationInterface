@@ -3033,7 +3033,7 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $variant === 'noMonthlyConvert' ) {
 			return false;
 		}
-		$isMonthlyConvert = strstr( $variant, 'monthlyConvert' ) !== false;
+		$isMonthlyConvert = is_string( $variant ) && strstr( $variant, 'monthlyConvert' ) !== false;
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
 
 		if ( !$isMonthlyConvert && $this->isMonthlyConvertCountry() ) {
