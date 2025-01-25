@@ -27,6 +27,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterface
  * @group Ingenico
  * @group RealTimeBankTransfer
+ * @group Database
  */
 class DonationInterface_Adapter_Ingenico_RealTimeBankTransferIdealTest extends BaseIngenicoTestCase {
 	/**
