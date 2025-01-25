@@ -26,6 +26,10 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
  * @group Gravy
  */
 class GravyFormLoadTest extends BaseGravyTestCase {
+	/**
+	 * @var \PHPUnit\Framework\MockObject\MockObject|CardPaymentProvider
+	 */
+	protected $cardPaymentProvider;
 
 	public function setUp(): void {
 		parent::setUp();

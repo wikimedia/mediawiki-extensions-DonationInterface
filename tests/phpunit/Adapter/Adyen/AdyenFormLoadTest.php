@@ -26,6 +26,10 @@ use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
  * @group Adyen
  */
 class AdyenFormLoadTest extends BaseAdyenCheckoutTestCase {
+	/**
+	 * @var \PHPUnit\Framework\MockObject\MockObject|CardPaymentProvider
+	 */
+	protected $cardPaymentProvider;
 
 	public function setUp(): void {
 		parent::setUp();
