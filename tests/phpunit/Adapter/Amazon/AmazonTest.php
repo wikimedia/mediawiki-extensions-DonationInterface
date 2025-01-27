@@ -27,6 +27,7 @@ use SmashPig\Tests\TestingContext;
  * @group Fundraising
  * @group DonationInterface
  * @group Amazon
+ * @group Database
  */
 class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
 

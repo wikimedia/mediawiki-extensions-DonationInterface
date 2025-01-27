@@ -23,6 +23,7 @@ use Symfony\Component\Yaml\Parser;
  * @group Fundraising
  * @group DonationInterface
  * @group GatewayChooser
+ * @group Database
  */
 class DonationInterface_GatewayChooserTest extends DonationInterfaceTestCase {
 

@@ -24,6 +24,7 @@ use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Adyen
+ * @group Database
  */
 class AdyenFormLoadTest extends BaseAdyenCheckoutTestCase {
 	/**
