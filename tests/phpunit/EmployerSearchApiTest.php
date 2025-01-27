@@ -162,8 +162,9 @@ class EmployerSearchApiTest extends ApiTestCase {
 	public function testGetEmployersListRetValInvalidData() {
 		fwrite( $this->csvDataSource, '!"£$%^&*(' );
 
+		$apiMain = new ApiMain();
 		$api = TestingAccessWrapper::newFromObject(
-			new EmployerSearchAPI( new ApiMain(), null ) );
+			$apiMain->getModuleManager()->getModule( 'employerSearch' ) );
 
 		$retVal = $api->getEmployersList();
 		$this->assertFalse( $retVal );
@@ -192,8 +193,9 @@ class EmployerSearchApiTest extends ApiTestCase {
 			'/road/to/nowhere.csv'
 		);
 
+		$apiMain = new ApiMain();
 		$api = TestingAccessWrapper::newFromObject(
-			new EmployerSearchAPI( new ApiMain(), null ) );
+			$apiMain->getModuleManager()->getModule( 'employerSearch' ) );
 
 		$retVal = $api->getEmployersList();
 		$this->assertFalse( $retVal );
@@ -216,8 +218,9 @@ class EmployerSearchApiTest extends ApiTestCase {
 	}
 
 	public function testGetEmployersListWrongNumberOfColumns() {
+		$apiMain = new ApiMain();
 		$api = TestingAccessWrapper::newFromObject(
-			new EmployerSearchAPI( new ApiMain(), null ) );
+			$apiMain->getModuleManager()->getModule( 'employerSearch' ) );
 
 		// populate API data source
 		$testCSVDataLine = [ '1', 'Bills Sandwiches', 'Yetch' ];
