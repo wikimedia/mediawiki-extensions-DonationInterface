@@ -5,7 +5,27 @@
 			"Okras"
 		]
 	},
-	"emailpreferences-header-link-technology": "Технология",
+	"emailpreferences-header-link-our-work": "Наша работа",
+	"emailpreferences-header-link-support-wikipedia": "Поддержать Википедию",
+	"emailpreferences-header-link-research": "Исследования",
+	"emailpreferences-header-link-advocacy": "Адвокация",
+	"emailpreferences-header-link-technology": "Технологии",
+	"emailpreferences-header-link-news": "Новости",
+	"emailpreferences-header-link-participate": "Участвовать",
+	"emailpreferences-header-link-about": "О нас",
+	"emailpreferences-hi": "Здравствуйте",
+	"emailpreferences-change-email": "Изменить адрес электронной почты",
+	"emailpreferences-title": "Настройки электронной почты",
+	"emailpreferences-country": "Страна или регион",
 	"emailpreferences-language": "Язык",
+	"emailpreferences-send-email": "Мне нравится получать новости от фонда Wikimedia Foundation, присылайте мне всё!",
+	"emailpreferences-dont-send-email": "Отменить все мои подписки.",
+	"emailpreferences-snooze-email": "Поставить электронные письма на паузу на {{PLURAL:$1|один день|$1 дней}}.",
+	"emailpreferences-save": "Сохранить настройки",
+	"emailpreferences-success": "Ваша заявка на сохранение настроек электронной почты зарегистрирована.",
+	"emailpreferences-footer-learn_more": "Узнайте больше о <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">локальных организациях и их проектах</a>.",
+	"emailpreferences-footer-questions_email": "Если у вас есть вопросы, пожалуйста, пишите по адресу <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Текст предоставляется по <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">лицензии Creative Commons «Атрибуция — На тех же условиях»</a>, возможны дополнительные условия. См. разделы <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Условия использования</a> и <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Политика конфиденциальности</a>, где содержится подробная информация.",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"fundraiserunsubscribe": "Отписаться от писем Фонда Викимедиа, связанных со сбором средств"
 }
