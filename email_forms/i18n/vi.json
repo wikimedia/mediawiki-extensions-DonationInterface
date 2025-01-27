@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "Tùy chọn email",
+	"emailpreferences-country": "Quốc gia hay Khu vực",
+	"emailpreferences-language": "Ngôn ngữ",
+	"emailpreferences-send-email": "Tôi thích nhận thông tin từ Wikimedia Foundation, hãy gửi cho tôi mọi thứ!",
+	"emailpreferences-dont-send-email": "Hủy đăng ký nhận thông tin của tôi.",
+	"emailpreferences-change-email": "Thay đổi email",
+	"emailpreferences-save": "Lưu các tùy chọn",
+	"emailpreferences-success": "Yêu cầu lưu các tùy chọn email của bạn đã được gửi đi.",
+	"emailpreferences-footer-learn_more": "Tìm hiểu thêm về <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">các chi nhánh địa phương và dự án của họ</a>.",
+	"emailpreferences-footer-questions_email": "Nếu bạn có câu hỏi, vui lòng gửi email đến <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Xin chào",
+	"emailpreferences-wikimedia-image-alt": "Quỹ Wikimedia",
+	"emailpreferences-header-link-our-work": "Công việc của chúng tôi",
+	"emailpreferences-header-link-support-wikipedia": "Hỗ trợ Wikipedia",
+	"emailpreferences-header-link-research": "Nghiên cứu",
+	"emailpreferences-header-link-advocacy": "Vận động",
+	"emailpreferences-header-link-technology": "Công nghệ",
+	"emailpreferences-header-link-news": "Tin tức",
+	"emailpreferences-header-link-participate": "Tham gia",
+	"emailpreferences-header-link-about": "Về chúng tôi"
+}

@@ -5,5 +5,25 @@
 			"Vlad5250",
 			"Ата"
 		]
-	}
+	},
+	"emailpreferences-title": "Налаштування електронної пошти",
+	"emailpreferences-country": "Країна або регіон",
+	"emailpreferences-language": "Мова",
+	"emailpreferences-send-email": "Мені подобається отримувати новини від Фонду “Вікімедіа”, надсилайте мені все!",
+	"emailpreferences-dont-send-email": "Відпишіть мене від усіх розсилок.",
+	"emailpreferences-change-email": "Змінити адресу електронної пошти",
+	"emailpreferences-save": "Зберегти налаштування",
+	"emailpreferences-success": "Ваш запит щодо збереження налаштувань електронної пошти було надіслано.",
+	"emailpreferences-footer-learn_more": "Дізнайтеся більше про <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">місцеві відділення та їхні проєкти</a>.",
+	"emailpreferences-footer-questions_email": "Якщо у вас виникли запитання, надішліть їх за адресою електронної пошти <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Привіт",
+	"emailpreferences-wikimedia-image-alt": "Фонд Вікімедіа",
+	"emailpreferences-header-link-our-work": "Наша діяльність",
+	"emailpreferences-header-link-support-wikipedia": "Підтримайте Вікіпедію",
+	"emailpreferences-header-link-research": "Дослідження",
+	"emailpreferences-header-link-advocacy": "Захист",
+	"emailpreferences-header-link-technology": "Технологія",
+	"emailpreferences-header-link-news": "Новини",
+	"emailpreferences-header-link-participate": "Візьміть участь",
+	"emailpreferences-header-link-about": "Про нас"
 }
