@@ -476,13 +476,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
-	 * @param PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $createPaymentResponse
 	 */
-	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
+	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $createPaymentResponse ): void {
 		if ( $this->getPaymentMethod() === self::PAYMENT_METHOD_GOOGLEPAY ) {
 			$this->setValidationAction( ValidationAction::PROCESS );
 		} else {
-			$riskScores = $authorizeResult->getRiskScores();
+			$riskScores = $createPaymentResponse->getRiskScores();
 			$this->addResponseData( [
 				'avs_result' => $riskScores['avs'] ?? 0,
 				'cvv_result' => $riskScores['cvv'] ?? 0
