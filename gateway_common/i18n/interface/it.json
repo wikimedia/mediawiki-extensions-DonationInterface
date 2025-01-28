@@ -27,7 +27,8 @@
 			"Selven",
 			"TheRukk",
 			"Toadino2",
-			"Ximo17"
+			"Ximo17",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -412,10 +413,12 @@
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-monthly-convert-title": "Vuoi aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span> a partire dal prossimo mese?",
-	"donate_interface-monthly-convert-text": "Il sostegno mensile è il modo migliore per permettere a Wikipedia di continuare a crescere.",
-	"donate_interface-monthly-convert-change-amount": "Sì, voglio fare una donazione mensile ma con un importo diverso",
-	"donate_interface-monthly-convert-enter-amount": "Inserisci l'importo della tua donazione mensile che partirà dal prossimo mese.",
-	"donate_interface-monthly-convert-action-button": "Dona mensilmente",
+	"donate_interface-monthly-convert-title-variant-015": "Se puoi, aggiungi una donazione mensile di <span class=\"mc-convert-ask\"></span> a partire dal prossimo mese.",
+	"donate_interface-monthly-convert-text": "Il sostegno mensile è il modo migliore per permettere a Wikipedia di continuare a espandersi.",
+	"donate_interface-monthly-convert-change-amount": "Sì, farò una donazione mensile ma con un importo diverso.",
+	"donate_interface-monthly-convert-enter-amount": "Inserisci l'importo della tua donazione mensile per iniziare dal prossimo mese.",
+	"donate_interface-monthly-convert-action-button": "Dona ogni mese",
+	"donate_interface-monthly-convert-error": "La tua donazione singola è andata a buon fine, ma non siamo riusciti ad attivare la donazione ricorrente.",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, grazie",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Sì, voglio aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",

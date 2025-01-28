@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-change-email": "Schimbă adresa de e-mail",
+	"emailpreferences-country": "Țară sau regiune",
+	"emailpreferences-dont-send-email": "Dezabonați-mă de la toate.",
+	"emailpreferences-footer-learn_more": "Află mai multe despre <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">organizatorii locali și proiectele lor</a>.",
+	"emailpreferences-footer-questions_email": "Dacă ai întrebări, te rugăm să trimiți un mesaj la <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Textul este disponibil sub <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Licența Creative Commons Attribution-ShareAlike</a>; se pot aplica termeni suplimentari. Pentru detalii vedeți <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Termenii de Utilizare</a> sau <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Politica de Confidențialitate</a>.",
+	"emailpreferences-header-link-about": "Despre",
+	"emailpreferences-header-link-advocacy": "Asistență juridică",
+	"emailpreferences-header-link-news": "Știri",
+	"emailpreferences-header-link-our-work": "Activitatea noastră",
+	"emailpreferences-header-link-participate": "Participare",
+	"emailpreferences-header-link-research": "Cercetare",
+	"emailpreferences-header-link-support-wikipedia": "Asistență Wikipedia",
+	"emailpreferences-header-link-technology": "Tehnologie",
+	"emailpreferences-hi": "Bună ziua",
+	"emailpreferences-language": "Limbă",
+	"emailpreferences-save": "Salvare preferințe",
+	"emailpreferences-send-email": "Îmi place să primesc de Ia Wikimedia Foundation, trimiteți-mi tot!",
+	"emailpreferences-success": "Solicitarea ta de salvare a preferințelor pentru e-mail a fost trimisă.",
+	"emailpreferences-title": "Preferințe la e-mail",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"
+}
