@@ -1,5 +1,4 @@
-# TODO: this is a copy of our existing adyen methods as we'll be using adyen first via gravy.
-# However, once we add additional gateways, we might need to update this list.
+# This is a combination Adyen, dLocal & PayPal supported payment methods
 cc:
     is_default: true
     recurring: true
@@ -8,6 +7,7 @@ cc:
         country: true
         name: true
         email: true
+
 dd:
     recurring: true
     label: Direct debit
@@ -16,6 +16,7 @@ dd:
         name: true
         email: true
         trustly_explination: true
+
 rtbt:
     recurring: false
     label: Real time bank transfer
@@ -23,13 +24,16 @@ rtbt:
         country: true
         name: true
         email: true
+
 bt:
-    recurring: false
+    recurring: true  # Changed from false to true based on dlocal config
     label: Bank Transfer
     validation:
-      country: true
-      name: true
-      email: true
+        country: true
+        name: true
+        email: true
+        payment_submethod: true  # Added from dlocal
+
 venmo:
     recurring: false
     validation:
@@ -38,12 +42,14 @@ venmo:
         email: true
     countries:
         - US
+
 paypal:
     recurring: true
     validation:
         country: true
         name: true
         email: true
+
 google:
     recurring: true
     label: Google Pay
@@ -52,11 +58,20 @@ google:
         address: false
         street_address: false
         postal_code: false
+
 apple:
     recurring: true
     label: Apple Pay
     validation:
-      country: false
-      address: false
-      street_address: false
-      postal_code: false
+        country: false
+        address: false
+        street_address: false
+        postal_code: false
+
+cash:
+    recurring: false  # Added from dlocal
+    validation:
+        country: true
+        name: true
+        email: true
+        payment_submethod: false  #Added from dlocal
