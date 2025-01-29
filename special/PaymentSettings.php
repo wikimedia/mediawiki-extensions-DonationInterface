@@ -23,6 +23,7 @@ class PaymentSettings extends UnlistedSpecialPage {
 		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
 			$this->displayPaymentProcessorSection( $processor );
 		}
+		$this->displayEnabledCountries();
 	}
 
 	/**
@@ -38,6 +39,7 @@ class PaymentSettings extends UnlistedSpecialPage {
 		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
 			$tocHTML .= '<li><a href="#' . $processor . '">' . ucfirst( $processor ) . '</a></li>';
 		}
+		$tocHTML .= '<li><a href="#enabled-countries-by-processor">Enabled countries by processor</a></li>';
 		$tocHTML .= '</ul>';
 		$tocHTML .= '</div>';
 
@@ -174,4 +176,65 @@ class PaymentSettings extends UnlistedSpecialPage {
 			$this->getOutput()->addHTML( '</tbody></table>' );
 		}
 	}
+
+	/**
+	 * Display enabled countries
+	 * well not just countries ISO 3166-1 2 letter codes
+	 *
+	 * @return void
+	 */
+	private function displayEnabledCountries(): void {
+		$this->getOutput()->addHTML( '<h2 id="enabled-countries-by-processor">Enabled countries by processor</h2>' );
+		$this->getOutput()->addHTML( '<table class="wikitable">' );
+		$this->getOutput()->addHTML( '
+            <thead>
+                <tr>
+                    <th style="text-align: left;padding-right: 50px;">Country Code</th>
+                    <th>Country Name</th>' );
+		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
+			$this->getOutput()->addHTML( "
+				<th>{$processor}</th>" );
+		}
+		$this->getOutput()->addHTML( '
+                </tr>
+            </thead>
+            <tbody>
+        ' );
+
+		// Setup config
+		$paymentProcessorConfig = [];
+		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
+			$configurationReader = ConfigurationReader::createForGateway(
+				$processor,
+				null,
+				WmfFramework::getConfig()
+			);
+			$paymentProcessorConfig[$processor] = $configurationReader->readConfiguration();
+		}
+
+		$mediaWikCountries = CountryNames::getNames( 'en' );
+		foreach ( $mediaWikCountries as $countryCode => $countryName ) {
+			$this->getOutput()->addHTML( "
+                <tr>
+                    <td>{$countryCode}</td>
+                    <td>{$countryName}</td>" );
+
+			foreach ( self::PAYMENT_PROCESSORS as $processor ) {
+				if ( in_array( $countryCode, $paymentProcessorConfig[$processor]['countries'] ) ) {
+					// enabled
+					$color = '#a1e89b';
+				} else {
+					$color = '#e08790';
+				}
+				$this->getOutput()->addHTML( "
+					<td bgcolor='{$color}'></td>" );
+			}
+			$this->getOutput()->addHTML( "
+                </tr>
+            " );
+		}
+
+		$this->getOutput()->addHTML( '</tbody></table>' );
+	}
+
 }
