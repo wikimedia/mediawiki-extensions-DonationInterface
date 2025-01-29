@@ -4,5 +4,26 @@
 			"Hamilton Abreu",
 			"Pcoombe"
 		]
-	}
+	},
+	"emailpreferences-title": "Preferências de e-mail",
+	"emailpreferences-country": "País ou Região",
+	"emailpreferences-language": "Idioma",
+	"emailpreferences-send-email": "Eu amo ouvir notícias da Wikimedia Foundation, mandem de tudo pra mim!",
+	"emailpreferences-dont-send-email": "Descadastrar-me de tudo.",
+	"emailpreferences-change-email": "Mudar e-mail",
+	"emailpreferences-save": "Salvar preferências",
+	"emailpreferences-success": "Seu pedido para salvar suas preferências de e-mail foi enviado.",
+	"emailpreferences-footer-learn_more": "Aprenda mais sobre <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capítulos locais e seus projetos</a>.",
+	"emailpreferences-footer-questions_email": "Se você tiver perguntas, por favor, envie um e-mail para <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Text is available under the <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike License</a>; additional terms may apply. See <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Terms of Use</a> or <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Privacy Policy</a> for details.",
+	"emailpreferences-hi": "Olá",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Nosso Trabalho",
+	"emailpreferences-header-link-support-wikipedia": "Apoie a Wikipédia",
+	"emailpreferences-header-link-research": "Pesquisa",
+	"emailpreferences-header-link-advocacy": "Defesa de Causa",
+	"emailpreferences-header-link-technology": "Tecnologia",
+	"emailpreferences-header-link-news": "Notícias",
+	"emailpreferences-header-link-participate": "Participe",
+	"emailpreferences-header-link-about": "Sobre"
 }

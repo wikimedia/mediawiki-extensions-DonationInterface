@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"emailpreferences-title": "Preferencie na zasielanie e-mailov",
+	"emailpreferences-country": "Krajina alebo región",
+	"emailpreferences-language": "Jazyk",
+	"emailpreferences-send-email": "Veľmi rád/a dostávam informácie od Wikimedia Foundation, posielajte mi všetko!",
+	"emailpreferences-dont-send-email": "Chcem zrušiť odber všetkého.",
+	"emailpreferences-change-email": "Zmeniť e-mail",
+	"emailpreferences-save": "Uložiť preferencie",
+	"emailpreferences-success": "Vaša požiadavka na uloženie preferencií na zasielanie e-mailov bola odoslaná.",
+	"emailpreferences-footer-learn_more": "Prečítajte si o <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">miestnych kapitolách a ich projektoch</a>.",
+	"emailpreferences-footer-questions_email": "Ak máte akékoľvek otázky, kontaktujte nás na adrese <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Text je k dispozícii na webovej stránke <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike License</a>；Môžu sa naň vzťahovať ďalšie podmienky. Podrobnosti si pozrite v <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">podmienkach používania</a> alebo v <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">zásadách ochrany osobných údajov</a>.",
+	"emailpreferences-hi": "Dobrý deň",
+	"emailpreferences-wikimedia-image-alt": "Nadácia Wikimedia",
+	"emailpreferences-header-link-our-work": "Naša činnosť",
+	"emailpreferences-header-link-support-wikipedia": "Podporte Wikipédiu",
+	"emailpreferences-header-link-research": "Výskum",
+	"emailpreferences-header-link-advocacy": "Aktivizmus",
+	"emailpreferences-header-link-technology": "Technológie",
+	"emailpreferences-header-link-news": "Novinky",
+	"emailpreferences-header-link-participate": "Zapojiť sa",
+	"emailpreferences-header-link-about": "Informácie"
+}

@@ -3,5 +3,27 @@
 		"authors": [
 			"McDutchie"
 		]
-	}
+	},
+	"emailpreferences-title": "Preferentias de e-mail",
+	"emailpreferences-country": "Pais o region",
+	"recurupgrade-amount": "Amonta actual de tu donation periodic",
+	"recurupgrade-next-scheduled-date": "Proxime data de donation",
+	"emailpreferences-language": "Lingua",
+	"emailpreferences-send-email": "Io adora audir del Fundation Wikimedia, invia me toto!",
+	"emailpreferences-dont-send-email": "Disabonar me de toto.",
+	"emailpreferences-change-email": "cambiar e-mail",
+	"emailpreferences-save": "Confirmar preferentias",
+	"emailpreferences-success": "Tu requesta de salveguardar tu preferentias de e-mail ha essite submittite.",
+	"emailpreferences-footer-learn_more": "Lege plus sur le <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capitulos local e lor projectos</a>.",
+	"emailpreferences-footer-questions_email": "Si tu ha questiones, invia e-mail a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Le texto es disponibile sub le <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">licentia Creative Commons Attribution-CompartiSimile</a>; conditiones additional pote esser in vigor. Vide le <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">conditiones de uso</a> o le <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">politica de confidentialitate</a> pro detalios.",
+	"emailpreferences-hi": "Salute",
+	"emailpreferences-header-link-our-work": "Nostre labor",
+	"emailpreferences-header-link-support-wikipedia": "Supportar Wikipedia",
+	"emailpreferences-header-link-research": "Recerca",
+	"emailpreferences-header-link-advocacy": "Pression sociopolitic",
+	"emailpreferences-header-link-technology": "Technologia",
+	"emailpreferences-header-link-news": "Novas",
+	"emailpreferences-header-link-participate": "Participar",
+	"emailpreferences-header-link-about": "A proposito"
 }
