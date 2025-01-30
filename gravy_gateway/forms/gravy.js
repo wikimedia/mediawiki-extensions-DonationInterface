@@ -8,6 +8,7 @@
 	securityCodeFieldEmpty = true,
 	expiryDateFieldEmpty = true,
 	secureFields = null,
+	extraData = {},
 	configFromServer = mw.config.get( 'gravyConfiguration' ),
 	sessionId = mw.config.get( 'gravy_session_id' ),
 	environment = mw.config.get( 'wgGravyEnvironment' ),
@@ -89,11 +90,11 @@
 		} );
 
 		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, function () {
+			extraData.fiscal_number = $( '#fiscal_number' ).val();
+			extraData.gateway_session_id = sessionId;
 			mw.donationInterface.forms.callDonateApi(
 				handleApiResult,
-				{
-					gateway_session_id: sessionId
-				},
+				extraData,
 				'di_donate_gravy'
 			);
 		} );
