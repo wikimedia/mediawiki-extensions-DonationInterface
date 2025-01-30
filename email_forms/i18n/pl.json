@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-header-link-our-work": "Nasze działania",
+	"emailpreferences-header-link-support-wikipedia": "Wsparcie dla Wikipedii",
+	"emailpreferences-header-link-research": "Badania naukowe",
+	"emailpreferences-header-link-advocacy": "Rzecznictwo",
+	"emailpreferences-header-link-technology": "Technologia",
+	"emailpreferences-header-link-news": "Najnowsze wiadomości",
+	"emailpreferences-header-link-participate": "Dołącz",
+	"emailpreferences-header-link-about": "O nas",
+	"emailpreferences-hi": "Cześć",
+	"emailpreferences-change-email": "Zmień adres e-mail",
+	"emailpreferences-title": "Preferencje dotyczące wiadomości e-mail",
+	"emailpreferences-country": "Kraj lub region",
+	"emailpreferences-language": "Język",
+	"emailpreferences-send-email": "Chętnie czytam wieści z Wikimedia Foundation, wysyłajcie wszystko!",
+	"emailpreferences-dont-send-email": "Wypiszcie mnie z subskrypcji e-mail.",
+	"emailpreferences-snooze-email": "Wstrzymajcie wysyłkę wiadomości e-mail na {{PLURAL:$1|pewnego dnia|$1 dni}}.",
+	"emailpreferences-save": "Salvar preferências",
+	"emailpreferences-success": "Sua solicitação para salvar suas preferências de e-mail foi enviada.",
+	"emailpreferences-footer-learn_more": "Saiba mais sobre os <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capítulos locais e seus projetos</a>.",
+	"emailpreferences-footer-questions_email": "Se tiver alguma dúvida, entre em contato com <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "O texto é disponibilizado sob a <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Licença Creative Commons Atribuição-ShareAlike</a>；termos adicionais podem ser aplicados. Consulte os <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Termos de Uso</a> ou a <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Política de Privacidade</a> para obter mais detalhes.",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-expired-link-title": "Przepraszamy, Twój link wygasł",
+	"emailpreferences-expired-link-text": "Kliknij proszę przycisk poniżej, aby zażądać nowego linku za pośrednictwem e-maila.",
+	"emailpreferences-send-new-link": "Wyślij mi nowy link",
+	"emailpreferences-new-link-sent": "Wkrótce wyślemy Ci nowy link. Sprawdź swoją skrzynkę odbiorczą."
+}
