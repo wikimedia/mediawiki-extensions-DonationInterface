@@ -169,7 +169,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$paymentResult = PaymentResult::newSuccess();
 		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
-			// TODO: map any errors from $authorizeResult
+			// TODO: map any errors from $createPaymentResponse
 			// log the error details on failure
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
 			$errorLogMessage .= $createPaymentResponse->getStatus() . " : ";
@@ -243,10 +243,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
-	 * @param PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $createPaymentResponse
 	 */
-	protected function runFraudFilters( PaymentDetailResponse $authorizeResult ): void {
-		$riskScores = $authorizeResult->getRiskScores();
+	protected function runFraudFilters( PaymentDetailResponse $createPaymentResponse ): void {
+		$riskScores = $createPaymentResponse->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
 			'cvv_result' => $riskScores['cvv'] ?? 0
