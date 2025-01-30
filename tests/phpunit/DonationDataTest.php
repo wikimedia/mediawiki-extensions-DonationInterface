@@ -27,6 +27,7 @@ use SmashPig\CrmLink\Messages\SourceFields;
  * @group DonationData
  */
 class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
+	protected array $testData;
 
 	/**
 	 * @param string|null $name The name of the test case
