@@ -24,12 +24,12 @@
 		"geoip2/geoip2": "^2.13",
 		"monolog/monolog": "^2.0",
 		"relisten/forceutf8": "^1.1",
-		"php": ">=7.3.19",
+		"php": ">=8.0",
 		"predis/predis": "^1.1",
 		"psr/log": "^1.0",
 		"amzn/login-and-pay-with-amazon-sdk-php": "^2.5",
 		"symfony/yaml": "^4|^5",
-		"wikimedia/smash-pig": "0.8.26.2",
+		"wikimedia/smash-pig": "0.9.0",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1",
 		"ext-json": "*",
 		"whichbrowser/parser": "^2.1"
@@ -53,7 +53,7 @@
 		"optimize-autoloader": true,
 		"prepend-autoloader": false,
 		"platform": {
-			"php": "7.4"
+			"php": "8.2.26"
 		},
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
