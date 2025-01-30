@@ -5,5 +5,26 @@
 			"Vlad5250",
 			"Ата"
 		]
-	}
+	},
+	"emailpreferences-change-email": "Змінити адресу електронної пошти",
+	"emailpreferences-country": "Країна або регіон",
+	"emailpreferences-dont-send-email": "Відпишіть мене від усіх розсилок.",
+	"emailpreferences-footer-learn_more": "Дізнайтеся більше про <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">місцеві відділення та їхні проєкти</a>.",
+	"emailpreferences-footer-questions_email": "Якщо у вас виникли запитання, надішліть їх за адресою електронної пошти <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Текст доступний на умовах <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">ліцензії Creative Commons Attribution-ShareAlike</a>; можуть застосовуватися додаткові умови. Докладніше дивіться в <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Умовах використання</a> та <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Політиці приватності</a>.",
+	"emailpreferences-header-link-about": "Про нас",
+	"emailpreferences-header-link-advocacy": "Захист",
+	"emailpreferences-header-link-news": "Новини",
+	"emailpreferences-header-link-our-work": "Наша діяльність",
+	"emailpreferences-header-link-participate": "Візьміть участь",
+	"emailpreferences-header-link-research": "Дослідження",
+	"emailpreferences-header-link-support-wikipedia": "Підтримайте Вікіпедію",
+	"emailpreferences-header-link-technology": "Технологія",
+	"emailpreferences-hi": "Привіт",
+	"emailpreferences-language": "Мова",
+	"emailpreferences-save": "Зберегти налаштування",
+	"emailpreferences-send-email": "Мені подобається отримувати новини від Фонду “Вікімедіа”, надсилайте мені все!",
+	"emailpreferences-success": "Ваш запит щодо збереження налаштувань електронної пошти було надіслано.",
+	"emailpreferences-title": "Налаштування електронної пошти",
+	"emailpreferences-wikimedia-image-alt": "Фонд Вікімедіа"
 }
