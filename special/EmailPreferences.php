@@ -120,7 +120,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$selectedLang = 'zh-hans';
 					break;
 				case 'fr_CA':
-					$selectedLang = 'fr-ca';
+					$selectedLang = 'frc';
 					break;
 				case 'pt_BR':
 					$selectedLang = 'pt-br';
