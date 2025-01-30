@@ -29,6 +29,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	public function doPayment() {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
+		// createPayment = Authorize, in the credit card world.
 		$this->setCurrentTransaction( 'authorize' );
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
@@ -48,44 +49,44 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		// the audit grepper to find that prefix.
 		$this->logPaymentDetails();
 		$this->tuneForPaymentMethod();
-		$authorizeParams = $this->buildRequestArray();
+		$createPaymentParams = $this->buildRequestArray();
 
 		// If we are going to ask for a monthly donation after a one-time donation completes, set the
 		// recurring param to 1 to tokenize the payment.
 		if ( $this->showMonthlyConvert() ) {
-			$authorizeParams['recurring'] = 1;
+			$createPaymentParams['recurring'] = 1;
 			// Since we're not sure if we're going to ever use the token, flag the transaction as
 			// 'card on file' rather than 'subscription' (the default for recurring). This may avoid
 			// donor complaints of one-time donations appearing as recurring on their card statement.
-			$authorizeParams['recurring_model'] = RecurringModel::CARD_ON_FILE;
+			$createPaymentParams['recurring_model'] = RecurringModel::CARD_ON_FILE;
 		}
-		$this->logger->info( "Calling createPayment for {$authorizeParams['email']}" );
-		$authorizeResult = $provider->createPayment( $authorizeParams );
-		$this->logger->info( "Returned PSP Reference {$authorizeResult->getGatewayTxnId()}" );
-		$validationErrors = $authorizeResult->getValidationErrors();
+		$this->logger->info( "Calling createPayment for {$createPaymentParams['email']}" );
+		$createPaymentResponse = $provider->createPayment( $createPaymentParams );
+		$this->logger->info( "Returned PSP Reference {$createPaymentResponse->getGatewayTxnId()}" );
+		$validationErrors = $createPaymentResponse->getValidationErrors();
 		// If there are validation errors, present them for correction with a
 		// 'refresh' type PaymentResult
 		if ( count( $validationErrors ) > 0 ) {
 			return $this->getLocalizedValidationErrorResult( $validationErrors );
 		}
-		if ( $authorizeResult->requiresRedirect() ) {
+		if ( $createPaymentResponse->requiresRedirect() ) {
 			// Looks like we're not going to finish the payment in this
 			// request - our dear donor needs to take more actions on
 			// another site. Short-circuit the finalization, just stash
 			// the gateway txn id and redirect them.
 			$this->addResponseData( [
-				'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
+				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId()
 			] );
-			$redirectUrl = $authorizeResult->getRedirectUrl();
+			$redirectUrl = $createPaymentResponse->getRedirectUrl();
 			$this->logger->info( "Redirecting to $redirectUrl" );
 			return PaymentResult::newRedirect(
 				$redirectUrl,
-				$authorizeResult->getRedirectData()
+				$createPaymentResponse->getRedirectData()
 			);
 		}
 		// If we DON'T need to redirect, handle the fraud checks and any
 		// necessary payment capture step here and now.
-		return $this->handleCreatedPayment( $provider, $authorizeResult );
+		return $this->handleCreatedPayment( $provider, $createPaymentResponse );
 	}
 
 	/**
@@ -93,22 +94,23 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
 	 *
 	 * @param IPaymentProvider $provider
-	 * @param PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $createPaymentResponse
+	 *
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		IPaymentProvider $provider, PaymentDetailResponse $authorizeResult
+		IPaymentProvider $provider, PaymentDetailResponse $createPaymentResponse
 	): PaymentResult {
-		$transactionStatus = $authorizeResult->getStatus();
+		$transactionStatus = $createPaymentResponse->getStatus();
 		$responseData = [
-			'gateway_txn_id' => $authorizeResult->getGatewayTxnId()
+			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId()
 		];
 		if ( !$this->getPaymentSubmethod() ) {
-			$responseData['payment_submethod'] = $authorizeResult->getPaymentSubmethod() ?? '';
+			$responseData['payment_submethod'] = $createPaymentResponse->getPaymentSubmethod() ?? '';
 		}
 
 		if ( !$this->getPaymentMethod() ) {
-			$responseData['payment_method'] = $authorizeResult->getPaymentMethod();
+			$responseData['payment_method'] = $createPaymentResponse->getPaymentMethod();
 		}
 		$this->addResponseData( $responseData );
 		// When authorization is successful but capture fails (or is not
@@ -117,31 +119,31 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
-		if ( !$authorizeResult->isSuccessful() ) {
+		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
-			// TODO: map any errors from $authorizeResult
+			// TODO: map any errors from $approvePaymentResponse
 			// log the error details on failure
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
-			$errorLogMessage .= $authorizeResult->getStatus() . " : ";
-			$errorLogMessage .= json_encode( $authorizeResult->getRawResponse() );
+			$errorLogMessage .= $createPaymentResponse->getStatus() . " : ";
+			$errorLogMessage .= json_encode( $createPaymentResponse->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
-		} elseif ( $authorizeResult->requiresApproval() ) {
-			$this->runFraudFiltersIfNeeded( $authorizeResult );
+		} elseif ( $createPaymentResponse->requiresApproval() ) {
+			$this->runFraudFiltersIfNeeded( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
-					$this->logger->info( "Calling approvePayment on PSP reference {$authorizeResult->getGatewayTxnId()}" );
-					$captureResult = $provider->approvePayment( [
+					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
+					$approvePaymentResponse = $provider->approvePayment( [
 						// Note that approvePayment takes the unstaged amount
 						'amount' => $this->getData_Unstaged_Escaped( 'amount' ),
 						'currency' => $this->getData_Staged( 'currency' ),
-						'gateway_txn_id' => $authorizeResult->getGatewayTxnId(),
+						'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 					] );
-					$transactionStatus = $captureResult->getStatus();
-					if ( $captureResult->isSuccessful() ) {
-						// Note: this transaction ID is different from the authorizeResult's
+					$transactionStatus = $approvePaymentResponse->getStatus();
+					if ( $approvePaymentResponse->isSuccessful() ) {
+						// Note: this transaction ID is different from the approvePaymentResponse's
 						// transaction ID. We log this, but leave the gateway_txn_id set to
-						// the ID from authorizeResult as that is what we get in the IPN.
-						$this->logger->info( "Returned PSP Reference {$captureResult->getGatewayTxnId()}" );
+						// the ID from approvePaymentResponse as that is what we get in the IPN.
+						$this->logger->info( "Returned PSP Reference {$approvePaymentResponse->getGatewayTxnId()}" );
 						if ( $this->showMonthlyConvert() ) {
 							$this->logger->info( "Displaying monthly convert modal" );
 							$paymentResult = PaymentResult::newSuccess();
@@ -162,16 +164,16 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			}
 		}
 		// recurring will return a token on the auth
-		$recurringToken = $authorizeResult->getRecurringPaymentToken();
+		$recurringToken = $createPaymentResponse->getRecurringPaymentToken();
 		if ( $recurringToken ) {
 			$this->addResponseData( [
 				'recurring_payment_token' => $recurringToken,
-				'processor_contact_id' => $authorizeResult->getProcessorContactID()
+				'processor_contact_id' => $createPaymentResponse->getProcessorContactID()
 			] );
 			if ( $this->showMonthlyConvert() ) {
 				$this->session_addDonorData();
 			}
-		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $authorizeResult->isSuccessful() ) {
+		} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $createPaymentResponse->isSuccessful() ) {
 			// For recurring iDEAL or SEPA payments the recurring_payment_token comes in later on a RECURRING_CONTRACT Webhook/IPN
 			// message, and we require this value to push a *complete* recurring donation message
 			// to the queue.
@@ -423,11 +425,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				$this->getPaymentMethod()
 			);
 			'@phan-var PaymentProvider $provider';
-			$detailsResult = $provider->getHostedPaymentDetails( $redirectResult );
+			$latestPaymentDetailsResponse = $provider->getHostedPaymentDetails( $redirectResult );
 			$this->logger->debug(
-				'Hosted payment detail response: ' . json_encode( $detailsResult->getRawResponse() )
+				'Hosted payment detail response: ' . json_encode( $latestPaymentDetailsResponse->getRawResponse() )
 			);
-			return $this->handleCreatedPayment( $provider, $detailsResult );
+			return $this->handleCreatedPayment( $provider, $latestPaymentDetailsResponse );
 		}
 		// Default behavior is to finalize and return success
 		return parent::processDonorReturn( $requestValues );
@@ -474,13 +476,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
-	 * @param PaymentDetailResponse $authorizeResult
+	 * @param PaymentDetailResponse $createPaymentResponse
 	 */
-	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $authorizeResult ): void {
+	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $createPaymentResponse ): void {
 		if ( $this->getPaymentMethod() === self::PAYMENT_METHOD_GOOGLEPAY ) {
 			$this->setValidationAction( ValidationAction::PROCESS );
 		} else {
-			$riskScores = $authorizeResult->getRiskScores();
+			$riskScores = $createPaymentResponse->getRiskScores();
 			$this->addResponseData( [
 				'avs_result' => $riskScores['avs'] ?? 0,
 				'cvv_result' => $riskScores['cvv'] ?? 0

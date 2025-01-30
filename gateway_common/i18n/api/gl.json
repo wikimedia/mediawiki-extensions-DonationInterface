@@ -73,5 +73,6 @@
 	"apihelp-employerSearch-example-1": "Buscar un empregador",
 	"apihelp-di_applesession_adyen-summary": "Permite solicitar unha sesión de Apple Pay directamente desde Apple",
 	"apihelp-getPaymentMethods-summary": "Devolve os métodos de pagamento dispoñibles segundo o país",
-	"apihelp-submitPayment-summary": "Envía un pagamento en función dos parámetros enviados"
+	"apihelp-submitPayment-summary": "Envía un pagamento en función dos parámetros enviados",
+	"apihelp-di_applesession_gravy-summary": "Permite solicitar unha sesión de Apple Pay directamente desde Apple en nome da transacción de Gravy"
 }
