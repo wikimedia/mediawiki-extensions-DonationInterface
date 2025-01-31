@@ -1,70 +1,93 @@
-# TODO: this is a copy of our existing adyen countries as we'll be using adyen first via gravy.
-# However, once we add additional gateways, we might need to update this list.
-- AU
-- AG
-- AT
-- BD
-- BE
-- BG
-- BH
-- BM
-- BO
-- BZ
-- CA
-- CH
-- CN
-- CR
-- CZ
-- DE
-- DK
-- DM
-- DO
-- DZ
-- EG
-- ES
-- FJ
-- FR
-- GB
-- GD
-- GR
-- GT
-- HN
-- HK
-- HR
-- HU
-- IE
-- IL
-- IT
-- JM
-- JO
-- JP
-- KE
-- KW
-- KZ
-- LI
-- LK
-- LU
-- LV
-- MA
-- MK
-- MY
-- NL
-- NO
-- NZ
-- OM
-- PA
-- PH
-- PK
-- PL
-- PS
-- PT
-- QA
-- SE
-- SG
-- SK
-- RO
-- TH
-- TT
-- TW
-- UA
-- US
+# This is a combination of all the countries that are supported by Adyen, dLocal and I think PayPal.
+- AG  # Antigua and Barbuda
+- AR  # Argentina
+- AT  # Austria
+- AU  # Australia
+- BD  # Bangladesh
+- BE  # Belgium
+- BG  # Bulgaria
+- BH  # Bahrain
+- BM  # Bermuda
+- BO  # Bolivia
+- BR  # Brazil
+- BZ  # Belize
+- CA  # Canada
+- CH  # Switzerland
+- CI  # Côte d'Ivoire
+- CL  # Chile
+- CM  # Cameroon
+- CN  # China
+- CO  # Colombia
+- CR  # Costa Rica
+- CZ  # Czech Republic
+- DE  # Germany
+- DK  # Denmark
+- DM  # Dominica
+- DO  # Dominican Republic
+- DZ  # Algeria
+- EC  # Ecuador
+- EG  # Egypt
+- ES  # Spain
+- FJ  # Fiji
+- FR  # France
+- GB  # United Kingdom
+- GD  # Grenada
+- GH  # Ghana
+- GR  # Greece
+- GT  # Guatemala
+- HN  # Honduras
+- HK  # Hong Kong
+- HR  # Croatia
+- HU  # Hungary
+- ID  # Indonesia
+- IE  # Ireland
+- IL  # Israel
+- IN  # India
+- IT  # Italy
+- JM  # Jamaica
+- JO  # Jordan
+- JP  # Japan
+- KE  # Kenya
+- KW  # Kuwait
+- KZ  # Kazakhstan
+- LI  # Liechtenstein
+- LK  # Sri Lanka
+- LU  # Luxembourg
+- LV  # Latvia
+- MA  # Morocco
+- MK  # North Macedonia
+- MX  # Mexico
+- MY  # Malaysia
+- NG  # Nigeria
+- NI  # Nicaragua
+- NL  # Netherlands
+- NO  # Norway
+- NZ  # New Zealand
+- OM  # Oman
+- PA  # Panama
+- PE  # Peru
+- PH  # Philippines
+- PK  # Pakistan
+- PL  # Poland
+- PS  # Palestine
+- PT  # Portugal
+- PY  # Paraguay
+- QA  # Qatar
+- RO  # Romania
+- RW  # Rwanda
+- SE  # Sweden
+- SG  # Singapore
+- SK  # Slovakia
+- SN  # Senegal
+- SV  # El Salvador
+- TH  # Thailand
+- TR  # Turkey
+- TT  # Trinidad and Tobago
+- TW  # Taiwan
+- TZ  # Tanzania
+- UA  # Ukraine
+- UG  # Uganda
+- US  # United States
+- UY  # Uruguay
+- VN  # Vietnam
+- ZA  # South Africa
