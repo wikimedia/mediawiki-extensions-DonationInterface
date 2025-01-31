@@ -45,7 +45,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 				$score = $this->gateway_adapter->{$function}();
 			} elseif ( function_exists( $function ) ) {
 				// Ad-hoc functions defined in localsettings
-				$score = call_user_func( $function, $this->gateway_adapter );
+				$score = $function( $this->gateway_adapter );
 			} else {
 				$this->gateway_logger->alert( "$function listed in $filterListGlobal is not runnable" );
 			}

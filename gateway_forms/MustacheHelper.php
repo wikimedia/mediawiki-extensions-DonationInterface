@@ -49,7 +49,7 @@ class MustacheHelper {
 			);
 		}
 
-		$html = call_user_func( $renderer, $data, [] );
+		$html = $renderer( $data, [] );
 
 		return $html;
 	}

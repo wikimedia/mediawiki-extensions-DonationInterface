@@ -172,10 +172,9 @@ class AmazonAdapter extends GatewayAdapter {
 	 * @return array Results of the SDK client call
 	 */
 	protected function callPwaClient( $functionName, $parameters ) {
-		$callMe = [ $this->client, $functionName ];
 		try {
 			$this->profiler->getStopwatch( $functionName, true );
-			$result = call_user_func( $callMe, $parameters )->toArray();
+			$result = $this->client->$functionName( $parameters )->toArray();
 			$this->profiler->saveCommunicationStats(
 				'callPwaClient',
 				$functionName,
