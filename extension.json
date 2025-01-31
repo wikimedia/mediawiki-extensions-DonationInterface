@@ -1533,6 +1533,9 @@
 		"DonationInterfaceEmailPreferencesSnoozeDays": {
 			"value": 90
 		},
+		"DonationInterfaceEmailUnsubscribeHashSecretKey": {
+			"value": ""
+		},
 		"DonationInterfaceCiviproxyURLBase": {
 			"value": "https://localhost"
 		},
