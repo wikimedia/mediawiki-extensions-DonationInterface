@@ -538,6 +538,40 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * @return void
+	 * @throws MWException
+	 * @covers GatewayAdapter::getQueueDonationMessage
+	 */
+	public function testGetDonationQueueMessageWithBadUnicode() {
+		$data = $this->getDonorTestData( 'FR' );
+		$data['full_name'] = 'Алексан' . chr( 239 ) . ' Гончар';
+		$gateway = $this->getFreshGatewayObject( $data );
+		$exposed = TestingAccessWrapper::newFromObject( $gateway );
+		$message = $exposed->getQueueDonationMessage();
+		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
+		$expected['full_name'] = 'Алексанï Гончар';
+		$expected += [
+			'gateway_txn_id' => false,
+			'response' => false,
+			'gateway_account' => null,
+			'fee' => 0,
+			'contribution_tracking_id' => $exposed->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
+			'utm_source' => '..cc',
+			'email' => '',
+			'gateway' => $gateway::getIdentifier(),
+			'order_id' => $exposed->getData_Unstaged_Escaped( 'order_id' ),
+			'recurring' => '',
+			'payment_method' => 'cc', // default cc if no specific assigned
+			'payment_submethod' => '',
+			'gross' => $data['amount'],
+			'user_ip' => RequestContext::getMain()->getRequest()->getIP()
+		];
+		unset( $message['date'] );
+		unset( $expected['amount'] );
+		$this->assertEquals( $expected, $message );
+	}
+
+	/**
 	 * Add contact_id and contact_hash to the message when both exist
 	 */
 	public function testGetDonationQueueMessageContactId() {

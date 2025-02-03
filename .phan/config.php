@@ -37,7 +37,7 @@ $cfg['directory_list'] = array_merge(
 		'vendor/addshore/psr-6-mediawiki-bagostuff-adapter/',
 		'vendor/amzn/login-and-pay-with-amazon-sdk-php/',
 		'vendor/maxmind/minfraud/',
-		'vendor/neitanod/forceutf8/',
+		'vendor/relisten/forceutf8/',
 		'vendor/whichbrowser/parser/',
 		'vendor/wikimedia/smash-pig/',
 	]
@@ -51,7 +51,7 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 		'vendor/addshore/psr-6-mediawiki-bagostuff-adapter/',
 		'vendor/amzn/login-and-pay-with-amazon-sdk-php/',
 		'vendor/maxmind/minfraud/',
-		'vendor/neitanod/forceutf8/',
+		'vendor/relisten/forceutf8/',
 		'vendor/whichbrowser/parser/',
 		'vendor/wikimedia/smash-pig/',
 	]
