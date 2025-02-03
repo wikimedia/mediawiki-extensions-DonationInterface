@@ -5,5 +5,25 @@
 			"Fitoschido",
 			"Pcoombe"
 		]
-	}
+	},
+	"emailpreferences-title": "Preferencias de correo electrónico",
+	"emailpreferences-country": "País o región",
+	"emailpreferences-language": "Idioma",
+	"emailpreferences-send-email": "Me encanta tener noticias de la Wikimedia Foundation; ¡escribid cuando queráis!",
+	"emailpreferences-dont-send-email": "Darme de baja de todas las comunicaciones.",
+	"emailpreferences-change-email": "Cambiar dirección",
+	"emailpreferences-save": "Guardar preferencias",
+	"emailpreferences-success": "Gracias por comunicarnos tus preferencias.",
+	"emailpreferences-footer-learn_more": "Más información sobre las <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">organizaciones locales y sus proyectos</a>.",
+	"emailpreferences-footer-questions_email": "Si tienes preguntas, escribe a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>。",
+	"emailpreferences-hi": "Hola",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "¿Qué hacemos?",
+	"emailpreferences-header-link-support-wikipedia": "Apoya a Wikipedia",
+	"emailpreferences-header-link-research": "Investigación",
+	"emailpreferences-header-link-advocacy": "Concienciación",
+	"emailpreferences-header-link-technology": "Tecnología",
+	"emailpreferences-header-link-news": "Noticias",
+	"emailpreferences-header-link-participate": "Participa",
+	"emailpreferences-header-link-about": "¿Quiénes somos?"
 }

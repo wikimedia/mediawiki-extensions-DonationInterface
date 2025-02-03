@@ -4,5 +4,25 @@
 			"Jon Harald Søby",
 			"Pcoombe"
 		]
-	}
+	},
+	"emailpreferences-title": "E-postinnstillinger",
+	"emailpreferences-country": "Land eller region",
+	"emailpreferences-language": "Språk",
+	"emailpreferences-send-email": "Jeg elsker å høre fra Wikimedia Foundation, send meg alt!",
+	"emailpreferences-dont-send-email": "Meld meg av alt.",
+	"emailpreferences-change-email": "Endre e-postadress",
+	"emailpreferences-save": "Lagre innstillingene",
+	"emailpreferences-success": "Forespørselen din om å endre e-postinnstillinger har blitt sendt inn.",
+	"emailpreferences-footer-learn_more": "Lær mer om <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokale avdelinger og prosjektene deres</a>.",
+	"emailpreferences-footer-questions_email": "Send en e-post til <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> hvis du har noen spørsmål.",
+	"emailpreferences-hi": "Hei",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Arbeidet vår",
+	"emailpreferences-header-link-support-wikipedia": "Støtt Wikipedia",
+	"emailpreferences-header-link-research": "Forskning",
+	"emailpreferences-header-link-advocacy": "Påvirkningsarbeid",
+	"emailpreferences-header-link-technology": "Teknologi",
+	"emailpreferences-header-link-news": "Nyheter",
+	"emailpreferences-header-link-participate": "Delta",
+	"emailpreferences-header-link-about": "Om"
 }

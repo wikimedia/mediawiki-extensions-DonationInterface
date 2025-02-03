@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "Preferencje dotyczące wiadomości e-mail",
+	"emailpreferences-country": "Kraj lub region",
+	"emailpreferences-language": "Język",
+	"emailpreferences-send-email": "Chętnie czytam wieści z Wikimedia Foundation, wysyłajcie wszystko!",
+	"emailpreferences-dont-send-email": "Wypiszcie mnie z subskrypcji e-mail.",
+	"emailpreferences-change-email": "Zmień adres e-mail",
+	"emailpreferences-save": "Salvar preferências",
+	"emailpreferences-success": "Sua solicitação para salvar suas preferências de e-mail foi enviada.",
+	"emailpreferences-footer-learn_more": "Saiba mais sobre os <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capítulos locais e seus projetos</a>.",
+	"emailpreferences-footer-questions_email": "Se tiver alguma dúvida, entre em contato com <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Cześć",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Nasze działania",
+	"emailpreferences-header-link-support-wikipedia": "Wsparcie dla Wikipedii",
+	"emailpreferences-header-link-research": "Badania naukowe",
+	"emailpreferences-header-link-advocacy": "Rzecznictwo",
+	"emailpreferences-header-link-technology": "Technologia",
+	"emailpreferences-header-link-news": "Najnowsze wiadomości",
+	"emailpreferences-header-link-participate": "Dołącz",
+	"emailpreferences-header-link-about": "O nas"
+}

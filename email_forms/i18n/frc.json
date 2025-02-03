@@ -1,10 +1,6 @@
 {
 	"@metadata": {
-		"authors": [
-			"Terio legale",
-			"Verdy p",
-			"Mahabarata"
-		]
+		"authors": []
 	},
 	"emailpreferences-title": "Préférences courriel",
 	"emailpreferences-country": "Pays ou région",
@@ -17,7 +13,7 @@
 	"emailpreferences-footer-learn_more": "En savoir plus sur <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">les sections locales et leurs projets</a>.",
 	"emailpreferences-footer-questions_email": "Pour toute question, veuillez contacter <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> par courriel.",
 	"emailpreferences-hi": "Bonjour",
-	"emailpreferences-wikimedia-image-alt": "Fondation Wikimédia",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"emailpreferences-header-link-our-work": "Notre travail",
 	"emailpreferences-header-link-support-wikipedia": "Soutenir Wikipédia",
 	"emailpreferences-header-link-research": "Recherche",

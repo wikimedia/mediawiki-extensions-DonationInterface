@@ -3,5 +3,25 @@
 		"authors": [
 			"Matěj Suchánek"
 		]
-	}
+	},
+	"emailpreferences-title": "Předvolby e-mailu",
+	"emailpreferences-country": "Země nebo oblast",
+	"emailpreferences-language": "Jazyk",
+	"emailpreferences-send-email": "Chci znát novinky z Nadace Wikimedia, posílejte mi všechno!",
+	"emailpreferences-dont-send-email": "Odhlaste z odběru všech e-malů.",
+	"emailpreferences-change-email": "Změnit e-mail",
+	"emailpreferences-save": "Uložit nastavení",
+	"emailpreferences-success": "Váš požadavek na uložení e-mailových předvoleb byl odeslán.",
+	"emailpreferences-footer-learn_more": "Zjistěte si více o <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">místních organizacích a o jejich projektech</a>.",
+	"emailpreferences-footer-questions_email": "Jestliže máte nějaké dotazy, napište nám prosím e-mail na adresu <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Dobrý den",
+	"emailpreferences-wikimedia-image-alt": "Nadace Wikimedia",
+	"emailpreferences-header-link-our-work": "Naše práce",
+	"emailpreferences-header-link-support-wikipedia": "Podpořte Wikipedii",
+	"emailpreferences-header-link-research": "Výzkum",
+	"emailpreferences-header-link-advocacy": "Advokacie",
+	"emailpreferences-header-link-technology": "Technologie",
+	"emailpreferences-header-link-news": "Novinky",
+	"emailpreferences-header-link-participate": "Zapojte se",
+	"emailpreferences-header-link-about": "O nás"
 }

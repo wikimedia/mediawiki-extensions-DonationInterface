@@ -44,7 +44,7 @@
 	"donate_interface-cc-token-expired": "Jouw token is verlopen. Klik op OK om te vernieuwen.",
 	"donate_interface-try-again": "Wij kunnen je donatie tijdelijk niet verwerken. Probeer het binnenkort opnieuw.",
 	"donate_interface-noscript-msg": "Het lijkt erop dat JavaScript niet is ingeschakeld of dat het niet wordt ondersteund door je browser.\nOm ons donatieformulier veilig en bruikbaar te maken, is JavaScript vereist.",
-	"donate_interface-noscript-redirect-msg": "Als u JavaScript niet kunt of wilt inschakelen, dan kunt je alsnog bijdragen via:",
+	"donate_interface-noscript-redirect-msg": "Als je JavaScript niet kunt of wilt inschakelen, dan kun je alsnog bijdragen via:",
 	"donate_interface-your-information": "Jouw gegevens",
 	"donate_interface-which-card": "Welke kaart wil je gebruiken",
 	"donate_interface-did-you-mean": "Bedoelde je <a href=\"#\" class=\"correction\">$1</a>?",

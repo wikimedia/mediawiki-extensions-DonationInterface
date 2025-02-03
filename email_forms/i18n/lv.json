@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "E-pasta preferences",
+	"emailpreferences-country": "Valsts vai reģions",
+	"emailpreferences-language": "Valoda",
+	"emailpreferences-send-email": "Man patīk saņemt informāciju no Wikimedia Foundation — informējiet mani par visu!",
+	"emailpreferences-dont-send-email": "Atteikties no jebkāda veida ziņojumu saņemšanas.",
+	"emailpreferences-change-email": "Mainīt e-pasta adresi",
+	"emailpreferences-save": "Saglabāt preferences",
+	"emailpreferences-success": "Jūsu pieprasījums saglabāt e-pasta preferences ir iesniegts.",
+	"emailpreferences-footer-learn_more": "Uzziniet vairāk par <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">vietējām nodaļām un to projektiem</a>.",
+	"emailpreferences-footer-questions_email": "Jautājumu gadījumā, lūdzu, rakstiet uz e-pasta adresi: <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Sveiki",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Mūsu darbs",
+	"emailpreferences-header-link-support-wikipedia": "Atbalsti Vikipēdiju",
+	"emailpreferences-header-link-research": "Izpēte",
+	"emailpreferences-header-link-advocacy": "Atbalsts",
+	"emailpreferences-header-link-technology": "Tehnoloģijas",
+	"emailpreferences-header-link-news": "Ziņas",
+	"emailpreferences-header-link-participate": "Līdzdalība",
+	"emailpreferences-header-link-about": "Par"
+}
