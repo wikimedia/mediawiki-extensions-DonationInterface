@@ -182,7 +182,7 @@
 	"donate_interface-error-msg-nopaypal": "به دلیل یک خطای فنی، نمی‌توانیم درخواست شما را به پی پال ارسال کنیم. لطفاً از فرم کمک مالی با کارت اعتباری استفاده کنید.",
 	"donate_interface-error-msg-validation": "لطفاً خطاهای فرم را تصحیح کنید.",
 	"donate_interface-error-msg-invalid-amount": "لطفاً یک مبلغ معتبر وارد کنید",
-	"donate_interface-error-msg-invalid-country": "متاسفانه ما امکان شناسایی کشور شما را نداریم. لطفاً یک کشور در صفحه <a href=\"$1\">راه‌های کمک</a> انتخاب کنید.",
+	"donate_interface-error-msg-invalid-country": "متأسفانه ما امکان شناسایی کشور شما را نداریم. لطفاً یک کشور در صفحه <a href=\"$1\">راه‌های کمک</a> انتخاب کنید.",
 	"donate_interface-error-msg-invalid-email": "لطفاً یک آدرس ایمیل معتبر وارد کنید",
 	"donate_interface-error-msg-card-num": "لطفاً شماره کارت اعتباری صحیح را برای یکی از انواع کارت‌های مورد قبول، وارد کنید",
 	"donate_interface-error-msg-amex": "لطفاً شمارهٔ کارت صحیح را برای American Express وارد کنید.",

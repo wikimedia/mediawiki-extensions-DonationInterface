@@ -4,5 +4,26 @@
 			"Fitoschido"
 		]
 	},
+	"emailpreferences-change-email": "Cambiar correo electrónico",
+	"emailpreferences-country": "País o región",
+	"emailpreferences-dont-send-email": "Denme de baja de todo.",
+	"emailpreferences-footer-learn_more": "Más información sobre los <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capítulos locales y sus proyectos</a>.",
+	"emailpreferences-footer-questions_email": "Si tienes alguna pregunta, envía un correo electrónico a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>。",
+	"emailpreferences-footer-text_license": "Este texto está disponible bajo la <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">licencia de Creative Commons reconocimiento-CompartirIgual</a>；pueden aplicarse términos adicionales. Más detalles en los <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Términos de uso</a> o la <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Política de privacidad</a>.",
+	"emailpreferences-header-link-about": "Conócenos",
+	"emailpreferences-header-link-advocacy": "Defensa",
+	"emailpreferences-header-link-news": "Noticias",
+	"emailpreferences-header-link-our-work": "Nuestro trabajo",
+	"emailpreferences-header-link-participate": "Participa",
+	"emailpreferences-header-link-research": "Investigación",
+	"emailpreferences-header-link-support-wikipedia": "Apoya a Wikipedia",
+	"emailpreferences-header-link-technology": "Tecnología",
+	"emailpreferences-hi": "Hola",
+	"emailpreferences-language": "Idioma",
+	"emailpreferences-save": "Guardar preferencias",
+	"emailpreferences-send-email": "Me encanta que Wikimedia Foundation me contacte, ¡envíenme todo!",
+	"emailpreferences-success": "Hemos guardado tus preferencias de correo electrónico.",
+	"emailpreferences-title": "Preferencias de correos electrónicos",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"fundraisersubscribe-appeal-headline-001": "¿Le agrada lo que ve?"
 }

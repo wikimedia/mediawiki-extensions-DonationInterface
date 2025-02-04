@@ -5,6 +5,27 @@
 			"Pcoombe"
 		]
 	},
+	"emailpreferences-change-email": "メールアドレスの変更",
+	"emailpreferences-country": "国・地域",
+	"emailpreferences-dont-send-email": "すべてのお知らせを停止する。",
+	"emailpreferences-footer-learn_more": "<a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">各国支部の活動</a>について学ぶ。",
+	"emailpreferences-footer-questions_email": "ご不明な点がございましたら、<a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> までご連絡ください。",
+	"emailpreferences-footer-text_license": "テキストは、<a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">クリエイティブ・コモンズ[CC BY-SA] ライセンス</a>の下で利用可能です。追加条件が適用される場合があります。詳しくは、<a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">利用規約</a>・<a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">プライバシーポリシー</a>をご覧ください。",
+	"emailpreferences-header-link-about": "概要",
+	"emailpreferences-header-link-advocacy": "提言活動",
+	"emailpreferences-header-link-news": "ニュース",
+	"emailpreferences-header-link-our-work": "私たちの活動",
+	"emailpreferences-header-link-participate": "参加する",
+	"emailpreferences-header-link-research": "研究",
+	"emailpreferences-header-link-support-wikipedia": "ウィキペディアを支援する",
+	"emailpreferences-header-link-technology": "技術",
+	"emailpreferences-hi": "こんにちは",
+	"emailpreferences-language": "言語",
+	"emailpreferences-save": "設定を保存する",
+	"emailpreferences-send-email": "ウィキメディア財団からのすべてのお知らせを受け取る!",
+	"emailpreferences-success": "メール受信の設定が更新されました。",
+	"emailpreferences-title": "メール設定",
+	"emailpreferences-wikimedia-image-alt": "ウィキメディア財団",
 	"fundraiserunsubscribe": "ウィキメディア財団の募金活動のメール配信を停止する",
 	"fundraisersubscribe": "購読する"
 }
