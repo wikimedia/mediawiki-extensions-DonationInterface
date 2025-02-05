@@ -29,7 +29,7 @@ use SmashPig\Tests\TestingContext;
  * @group Amazon
  * @group Database
  */
-class DonationInterface_Adapter_Amazon_Test extends DonationInterfaceTestCase {
+class AmazonTest extends DonationInterfaceTestCase {
 
 	/** @inheritDoc */
 	protected $testAdapterClass = AmazonAdapter::class;

@@ -25,7 +25,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
  * @group Ingenico
  * @group Recurring
  */
-class DonationInterface_Adapter_Ingenico_RecurringTest extends BaseIngenicoTestCase {
+class RecurringTest extends BaseIngenicoTestCase {
 
 	/**
 	 * This test could span both recurring and non-recurring with the omission

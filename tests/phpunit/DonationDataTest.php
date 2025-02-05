@@ -26,7 +26,7 @@ use SmashPig\CrmLink\Messages\SourceFields;
  * @group Splunge
  * @group DonationData
  */
-class DonationInterface_DonationDataTest extends DonationInterfaceTestCase {
+class DonationDataTest extends DonationInterfaceTestCase {
 	protected array $testData;
 
 	/**

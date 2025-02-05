@@ -29,7 +29,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group DonationInterface
  * @group FraudFilters
  */
-class DonationInterface_FraudFiltersTest extends DonationInterfaceTestCase {
+class FraudFiltersTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @var MockObject

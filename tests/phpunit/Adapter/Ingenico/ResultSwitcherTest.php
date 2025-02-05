@@ -11,7 +11,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group Ingenico
  * @group Database
  */
-class DonationInterface_Adapter_Ingenico_ResultSwitcherTest extends BaseIngenicoTestCase {
+class ResultSwitcherTest extends BaseIngenicoTestCase {
 
 	/**
 	 * Assuming we've popped out of the frame, does processing succeed?

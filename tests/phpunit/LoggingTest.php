@@ -23,7 +23,7 @@ use SmashPig\PaymentData\DonorDetails;
  * @group Fundraising
  * @group DonationInterface
  */
-class DonationInterface_LoggingTest extends DonationInterfaceTestCase {
+class LoggingTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 

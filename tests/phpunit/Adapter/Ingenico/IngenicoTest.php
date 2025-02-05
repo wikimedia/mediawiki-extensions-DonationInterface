@@ -32,7 +32,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group DonationInterface
  * @group Ingenico
  */
-class DonationInterface_Adapter_Ingenico_IngenicoTest extends BaseIngenicoTestCase {
+class IngenicoTest extends BaseIngenicoTestCase {
 
 	/**
 	 * Non-exhaustive integration tests to verify that order_id, when in

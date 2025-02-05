@@ -26,7 +26,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterface
  * @group DIIntegration
  */
-class DonationInterface_IntegrationTest extends DonationInterfaceTestCase {
+class IntegrationTest extends DonationInterfaceTestCase {
 
 	/**
 	 * @param string|null $name The name of the test case
