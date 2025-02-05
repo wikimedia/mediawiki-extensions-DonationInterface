@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"EHughes"
+		]
+	},
+	"emailpreferences-title": "Προτιμήσεις email",
+	"emailpreferences-country": "Χώρα ή περιοχή",
+	"emailpreferences-language": "Γλώσσα",
+	"emailpreferences-send-email": "Μου αρέσει να ενημερώνομαι από το Wikimedia Foundation, στείλτε μου τα πάντα!",
+	"emailpreferences-dont-send-email": "Καταργήστε την εγγραφή μου από τα πάντα.",
+	"emailpreferences-change-email": "Αλλαγή email",
+	"emailpreferences-save": "Αποθήκευση προτιμήσεων",
+	"emailpreferences-success": "Το αίτημά σας για αποθήκευση των προτιμήσεων email σας έχει υποβληθεί.",
+	"emailpreferences-footer-learn_more": "Μάθετε περισσότερα για τα <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">τοπικά παραρτήματα και τα έργα τους</a>.",
+	"emailpreferences-footer-questions_email": "Εάν έχετε ερωτήσεις, στείλτε email στη διεύθυνση <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Το κείμενο είναι διαθέσιμο με την άδεια <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike</a> ενδέχεται να ισχύουν πρόσθετοι όροι. Δείτε τους <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Όρους χρήσης</a> ή την <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Πολιτική Ιδιωτικότητας</a> για λεπτομέρειες.",
+	"emailpreferences-hi": "Γειά σας",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"emailpreferences-header-link-our-work": "Το έργο μας",
+	"emailpreferences-header-link-support-wikipedia": "Υποστηρίξτε τη Βικιπαίδεια",
+	"emailpreferences-header-link-research": "Έρευνα",
+	"emailpreferences-header-link-advocacy": "Υπεράσπιση",
+	"emailpreferences-header-link-technology": "Tεχνολογία",
+	"emailpreferences-header-link-news": "Νέα",
+	"emailpreferences-header-link-participate": "Συμμετοχή",
+	"emailpreferences-header-link-about": "Σχετικά"
+}

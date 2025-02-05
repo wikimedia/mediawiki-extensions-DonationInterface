@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-title": "E-mail preferenciák",
+	"emailpreferences-country": "Ország vagy régió",
+	"emailpreferences-language": "Nyelv",
+	"emailpreferences-send-email": "Szeretek híreket kapni a Wikimedia Alapítványtól, küldjön nekem mindent!",
+	"emailpreferences-dont-send-email": "Leiratkozom mindenről.",
+	"emailpreferences-change-email": "E-mail cím módosítása",
+	"emailpreferences-save": "Preferenciák mentése",
+	"emailpreferences-success": "Kérelmedet az e-mail preferenciák mentésére benyújtották.",
+	"emailpreferences-footer-learn_more": "Tudj meg többet a helyi <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">fejezetekről és projekteijkről</a>.",
+	"emailpreferences-footer-questions_email": "Ha bármilyen kérdésed van, kérünk, írj a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> までご連絡ください。",
+	"emailpreferences-footer-text_license": "A szöveg <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">a Creative Commons Nevezd meg! – Így add tovább!</a> Licenc alatt érhető el;további feltételek érvényesek lehetnek. Lásd <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">a Felhasználási feltételeket</a> vagy <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">az Adatvédelmi irányelveket</a> részletekért.",
+	"emailpreferences-hi": "Szia",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Alapítványtól",
+	"emailpreferences-header-link-our-work": "Munkánk",
+	"emailpreferences-header-link-support-wikipedia": "Wikipédia támogatása",
+	"emailpreferences-header-link-research": "Kutatás",
+	"emailpreferences-header-link-advocacy": "Érdekképviselet",
+	"emailpreferences-header-link-technology": "Technológia",
+	"emailpreferences-header-link-news": "Hírek",
+	"emailpreferences-header-link-participate": "Részvétel",
+	"emailpreferences-header-link-about": "Rólunk"
+}

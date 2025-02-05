@@ -5,6 +5,7 @@
 		]
 	},
 	"emailpreferences-title": "Preferentias de e-mail",
+	"recurupgrade-upgrade-decline": "No, io lo lassa como es",
 	"emailpreferences-country": "Pais o region",
 	"recurupgrade-amount": "Amonta actual de tu donation periodic",
 	"recurupgrade-next-scheduled-date": "Proxime data de donation",
@@ -13,6 +14,7 @@
 	"emailpreferences-dont-send-email": "Disabonar me de toto.",
 	"emailpreferences-change-email": "cambiar e-mail",
 	"emailpreferences-save": "Confirmar preferentias",
+	"recurupgrade-upgrade": "Actualisar le amonta periodic",
 	"emailpreferences-success": "Tu requesta de salveguardar tu preferentias de e-mail ha essite submittite.",
 	"emailpreferences-footer-learn_more": "Lege plus sur le <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capitulos local e lor projectos</a>.",
 	"emailpreferences-footer-questions_email": "Si tu ha questiones, invia e-mail a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",

@@ -1,28 +1,20 @@
 {
 	"@metadata": {
-		"authors": [
-			"Terio legale",
-			"Verdy p",
-			"Mahabarata"
-		]
+		"authors": []
 	},
 	"emailpreferences-title": "Préférences courriel",
-	"recurupgrade-upgrade-decline": "Non, je vais le laisser tel quel",
 	"emailpreferences-country": "Pays ou région",
-	"recurupgrade-amount": "Montant actuel de votre don périodique",
-	"recurupgrade-next-scheduled-date": "Prochaine échéance de don",
 	"emailpreferences-language": "Langue",
 	"emailpreferences-send-email": "J’adore avoir des nouvelles de la Wikimedia Foundation, envoyez-moi tout !",
 	"emailpreferences-dont-send-email": "Me désinscrire de tout",
 	"emailpreferences-change-email": "Modifier le courriel",
 	"emailpreferences-save": "Enregistrer les préférences",
-	"recurupgrade-upgrade": "Augmenter mon montant périodique de",
 	"emailpreferences-success": "Votre demande de modification de vos préférences en matière de courriel a été envoyée.",
 	"emailpreferences-footer-learn_more": "En savoir plus sur <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">les sections locales et leurs projets</a>.",
 	"emailpreferences-footer-questions_email": "Pour toute question, veuillez contacter <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> par courriel.",
-	"emailpreferences-footer-text_license": "Le texte est placé sous <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">licence Creative Commons Attribution — Partage dans les mêmes conditions</a> ; d’autres clauses sont susceptibles de s’appliquer. Voir les <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">conditions générales d’utilisations (CGU)</a> ou la <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">politique de confidentialité</a> pour plus d’informations.",
+	"emailpreferences-footer-text_license": "Le texte est placé sous <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">licence Creative Commons Attribution — Partage dans les mêmes conditions</a> ; d’autres clauses sont susceptibles de s’appliquer. Voir les <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">conditions générales d’utilisations (CGU)</a> ou la <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">politique de confidentialité politique de confidentialité</a>.",
 	"emailpreferences-hi": "Bonjour",
-	"emailpreferences-wikimedia-image-alt": "Fondation Wikimédia",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"emailpreferences-header-link-our-work": "Notre travail",
 	"emailpreferences-header-link-support-wikipedia": "Soutenir Wikipédia",
 	"emailpreferences-header-link-research": "Recherche",
