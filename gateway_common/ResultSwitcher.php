@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 abstract class ResultSwitcher extends GatewayPage {
 
 	/**
@@ -117,7 +119,8 @@ abstract class ResultSwitcher extends GatewayPage {
 			$request->getValues()
 		);
 		$key = 'processed_request-' . $requestProcessId;
-		$cachedResult = ObjectCache::getLocalClusterInstance()->get( $key );
+		$cachedResult = MediaWikiServices::getInstance()->getObjectCacheFactory()
+			->getLocalClusterInstance()->get( $key );
 		return boolval( $cachedResult );
 	}
 
