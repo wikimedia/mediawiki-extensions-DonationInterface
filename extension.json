@@ -175,7 +175,7 @@
 		"BraintreeGatewayResult": "braintree_gateway/braintree_resultswitcher.body.php",
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
 		"EncryptedCardParameters": "adyen_gateway/EncryptedCardParameters.php",
-		"PlaceholderFiscalNumber": "dlocal_gateway/PlaceholderFiscalNumber.php",
+		"PlaceholderFiscalNumber": "gateway_common/PlaceholderFiscalNumber.php",
 		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_ec_gateway/paypal_express.adapter.php",
@@ -1069,7 +1069,7 @@
 				],
 				"JPY": [
 					[ 299, 0 ],
-					[ 900, 150 ],
+					[ 900, 160 ],
 					[ 1200, 200 ],
 					[ 1500, 250 ],
 					[ 1800, 300 ],

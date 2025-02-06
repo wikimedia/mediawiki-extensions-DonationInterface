@@ -1,3 +1,10 @@
 # Core
 - Amount
+- CountryValidation
+- FiscalNumber
+- PlaceholderFiscalNumber
+- PostalCodeValidation
 - ReturnUrl
+- Simple3DSecure
+- StreetAddressValidation
+- StreetNumberValidation

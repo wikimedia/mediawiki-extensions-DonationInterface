@@ -57,6 +57,7 @@
 	"donate_interface-currency": "Devise :",
 	"donate_interface-gateway": "Moyen de paiement :",
 	"donate_interface-submit-button": "Faire un don",
+	"donate_interface-sign-in-to-my-bank": "Connectez-vous à ma banque",
 	"donate_interface-comment-message": "Vous souhaitez transmettre une pensée au monde ? Inscrivez jusqu’à 200 caractères :",
 	"donate_interface-comment-label": "Commentaire :",
 	"donate_interface-email-agreement": "J’accepte de recevoir des emails occasionnels de la part de la Fondation Wikimedia pour me tenir au courant.",
