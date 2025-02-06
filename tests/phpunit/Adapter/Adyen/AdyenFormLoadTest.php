@@ -219,6 +219,5 @@ class AdyenFormLoadTest extends BaseAdyenCheckoutTestCase {
 		];
 
 		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
-		$this->verifyFormOutput( 'AdyenCheckoutGateway', $init, $assertNodes, true );
 	}
 }
