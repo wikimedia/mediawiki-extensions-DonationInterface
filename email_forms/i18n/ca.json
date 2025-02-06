@@ -4,5 +4,26 @@
 			"EHughes",
 			"Fitoschido"
 		]
-	}
+	},
+	"emailpreferences-change-email": "Canviar correu electrònic",
+	"emailpreferences-country": "País o regió",
+	"emailpreferences-dont-send-email": "Dóna'm de baixa de tot.",
+	"emailpreferences-footer-learn_more": "Saber més sobre els <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">grups locals i els seus projectes</a>.",
+	"emailpreferences-footer-questions_email": "Si teniu cap pregunta, envieu un correu electrònic a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "El text està disponible sota la llicència <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike</a>; es poden aplicar termes addicionals. Veure <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Termes d’Us</a> i <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Política de privacitat</a> per més informació.",
+	"emailpreferences-header-link-about": "Quant a",
+	"emailpreferences-header-link-advocacy": "Advocacia",
+	"emailpreferences-header-link-news": "Notícies",
+	"emailpreferences-header-link-our-work": "La nostra feina",
+	"emailpreferences-header-link-participate": "Participeu",
+	"emailpreferences-header-link-research": "Investigació",
+	"emailpreferences-header-link-support-wikipedia": "Doneu suport a la Viquipèdia",
+	"emailpreferences-header-link-technology": "Tecnologia",
+	"emailpreferences-hi": "Hola",
+	"emailpreferences-language": "Llengua",
+	"emailpreferences-save": "Desar preferències",
+	"emailpreferences-send-email": "M'encanta rebre notícies de la Wikimedia Foundation, envieu-me tot!",
+	"emailpreferences-success": "S'ha enviat la vostra sol·licitud de desar les vostres preferències de correu electrònic.",
+	"emailpreferences-title": "Preferències de correu electrònic",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"
 }

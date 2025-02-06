@@ -3,5 +3,26 @@
 		"authors": [
 			"Saederup92"
 		]
-	}
+	},
+	"emailpreferences-change-email": "Skift e-mail",
+	"emailpreferences-country": "Land eller region",
+	"emailpreferences-dont-send-email": "Afmeld mig fra alt.",
+	"emailpreferences-footer-learn_more": "Få mere at vide om <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokalafdelingerne og deres projekter</a>.",
+	"emailpreferences-footer-questions_email": "Hvis du har spørgsmål, så send en e-mail til <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-footer-text_license": "Tekst er tilgængelig under <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike-licens</a>；der kan være yderligere gældende vilkår. Se <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">vilkår for brug</a> eller <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">privatlivspolitik</a> for detaljer.",
+	"emailpreferences-header-link-about": "Om",
+	"emailpreferences-header-link-advocacy": "Fortalerarbejde",
+	"emailpreferences-header-link-news": "Nyheder",
+	"emailpreferences-header-link-our-work": "Vores arbejde",
+	"emailpreferences-header-link-participate": "Deltagelse",
+	"emailpreferences-header-link-research": "Forskning",
+	"emailpreferences-header-link-support-wikipedia": "Støt Wikipedia",
+	"emailpreferences-header-link-technology": "Teknologi",
+	"emailpreferences-hi": "Hej",
+	"emailpreferences-language": "Sprog",
+	"emailpreferences-save": "Gem præferencer",
+	"emailpreferences-send-email": "Jeg vil gerne høre fra Wikimedia Foundation, send mig det hele!",
+	"emailpreferences-success": "Din anmodning om at gemme dine e-mailpræferencer er indsendt.",
+	"emailpreferences-title": "E-mailpræferencer",
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"
 }
