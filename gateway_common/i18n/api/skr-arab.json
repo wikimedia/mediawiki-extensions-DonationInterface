@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"apihelp-di_donate_adyen-param-postal_code": "پوسٹل کوڈ۔",
+	"apihelp-di_donate_braintree-param-first_name": "پہلا ناں۔",
+	"apihelp-di_donate_braintree-param-full_name": "پورا ناں",
+	"apihelp-submitPayment-param-email": "ای میل پتہ۔"
+}
