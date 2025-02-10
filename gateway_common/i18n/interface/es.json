@@ -196,6 +196,7 @@
 	"donate_interface-donor-submit": "Donar",
 	"donate_interface-donor-currency-msg": "Esta donación se está realizando en $1",
 	"donate_interface-donor-fiscal_number": "Número fiscal",
+	"donate_interface-donor-fiscal_number-co": "Cédula de ciudadanía",
 	"donate_interface-donor-opt_in_yes": "Sí. Por favor, envíenme por correo electrónico actualizaciones poco frecuentes e información sobre cómo puedo apoyar a Wikipedia en el futuro.*",
 	"donate_interface-donor-opt_in_no": "No, no quiero actualizaciones, aunque sólo sean unos pocos correos electrónicos al año.",
 	"donate_interface-card-name-amex": "American Express",

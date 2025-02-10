@@ -3,7 +3,8 @@
 		"authors": [
 			"DiegoAmbrocio",
 			"Fitoschido",
-			"Pcoombe"
+			"Pcoombe",
+			"MagamePolyglotte"
 		]
 	},
 	"emailpreferences-title": "Preferencias de correo electrónico",
@@ -13,7 +14,7 @@
 	"emailpreferences-dont-send-email": "Darme de baja de todas las comunicaciones.",
 	"emailpreferences-change-email": "Cambiar dirección",
 	"emailpreferences-save": "Guardar preferencias",
-	"emailpreferences-success": "Gracias por comunicarnos tus preferencias.",
+	"emailpreferences-success": "Tu solicitud para guardar sus preferencias de correo electrónico ha sido enviada.",
 	"emailpreferences-footer-learn_more": "Más información sobre las <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">organizaciones locales y sus proyectos</a>.",
 	"emailpreferences-footer-questions_email": "Si tienes preguntas, escribe a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>。",
 	"emailpreferences-hi": "Hola",
