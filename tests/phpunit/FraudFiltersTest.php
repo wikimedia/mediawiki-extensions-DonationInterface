@@ -364,4 +364,76 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway->runAntifraudFilters();
 	}
+
+	/**
+	 * Don't send 'region' parameter when it's not an ISO code
+	 * @covers Gateway_Extras_CustomFilters_MinFraud::getBillingParams
+	 */
+	public function testMinFraudExtrasNonIsoRegion() {
+		$options = $this->getDonorTestData();
+		$options['email'] = 'somebody@wikipedia.org';
+		$options['payment_method'] = 'cc';
+		$options['state_province'] = 'California';
+		$request = RequestContext::getMain()->getRequest();
+		$request->setHeaders( [
+			'user-agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+			'accept-language' => 'tlh-QR q=0.9'
+		] );
+
+		$gateway = $this->getFreshGatewayObject( $options );
+
+		$this->overrideConfigValues( [
+			'DonationInterfaceMinFraudExtraFields' => [
+				'email',
+				'first_name',
+				'last_name',
+				'street_address',
+				'amount',
+				'currency',
+			],
+		] );
+		$this->request->expects( $this->once() )
+			->method( 'post' )
+			->with( $this->callback( function ( $postData ) use ( $gateway ) {
+				$decoded = json_decode( $postData, true );
+				$expected = [
+					'billing' => [
+						'city' => 'San Francisco',
+						'postal' => '94105',
+						'country' => 'US',
+						'first_name' => 'Firstname',
+						'last_name' => 'Surname',
+						'address' => '123 Fake Street',
+					],
+					'device' => [
+						'ip_address' => '127.0.0.1',
+						'user_agent' => 'NCSA_Mosaic/2.0 (Solaris 2.4)',
+						'accept_language' => 'tlh-QR q=0.9',
+					],
+					'email' => [
+						'address' => 'somebody@wikipedia.org',
+						'domain' => 'wikipedia.org',
+					],
+					'event' => [
+						'transaction_id' => (string)$gateway->getData_Unstaged_Escaped(
+							'contribution_tracking_id'
+						),
+					],
+					'order' => [
+						'amount' => '4.55',
+						'currency' => 'USD',
+					],
+				];
+				$this->assertArraySubmapSame( $expected, $decoded );
+				$this->assertArrayNotHasKey( 'region', $expected['billing'] );
+				return true;
+			} )
+			)->willReturn( [
+				200, 'application/json', file_get_contents(
+					__DIR__ . '/includes/Responses/minFraud/15points.json'
+				)
+			] );
+
+		$gateway->runAntifraudFilters();
+	}
 }

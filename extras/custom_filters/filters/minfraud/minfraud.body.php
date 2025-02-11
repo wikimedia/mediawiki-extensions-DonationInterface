@@ -210,7 +210,6 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 	protected function getBillingParams( $data ) {
 		$map = [
 			'city' => 'city',
-			'state_province' => 'region',
 			'postal_code' => 'postal',
 			'country' => 'country'
 		];
@@ -218,6 +217,13 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		foreach ( $map as $ourName => $theirName ) {
 			if ( !empty( $data[$ourName] ) && $data[$ourName] !== '0' ) {
 				$billingParams[$theirName] = $data[$ourName];
+			}
+		}
+		// Only send any state / province data if we're sure it's a valid ISO code
+		if ( !empty( $data['state_province'] ) ) {
+			$countrySubdivisions = Subdivisions::getByCountry( $data['country'] );
+			if ( $countrySubdivisions && array_key_exists( $data['state_province'], $countrySubdivisions ) ) {
+				$billingParams['region'] = $data['state_province'];
 			}
 		}
 		return $billingParams;
