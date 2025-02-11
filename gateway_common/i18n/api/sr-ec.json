@@ -22,6 +22,9 @@
 	"apihelp-di_donate_gravy-param-full_name": "Пуно име",
 	"apihelp-di_donate_gravy-param-language": "Код језика.",
 	"apihelp-di_donate_braintree-param-first_name": "Име.",
+	"apihelp-di_donate_braintree-param-full_name": "Пуно име",
 	"apihelp-di_donate_braintree-param-last_name": "Презиме.",
-	"apihelp-submitPayment-param-full_name": "Пуно име"
+	"apihelp-submitPayment-param-email": "Имејл адреса.",
+	"apihelp-submitPayment-param-full_name": "Пуно име",
+	"apihelp-submitPayment-param-payment_method": "Начин плаћања."
 }
