@@ -57,7 +57,9 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Nettleserens brukeragentstreng",
 	"apihelp-di_donate_adyen-summary": "Dette API-et er for Adyen",
 	"apihelp-di_donate_dlocal-summary": "Dette API-et er for Dlocal",
+	"apihelp-di_donate_gravy-param-full_name": "Fullt navn",
 	"apihelp-di_donate_braintree-summary": "Dette API-et er for Braintree",
+	"apihelp-di_donate_braintree-param-full_name": "Fullt navn",
 	"apihelp-di_recurring_convert-summary": "Dette API-er brukes når en donor ønsker å gi et månedlig beløp etter å ha fullført en engangsgave.",
 	"apihelp-di_recurring_convert-param-amount": "Beløpet i den månedlige donasjonen.",
 	"apihelp-di_recurring_convert-param-gateway": "Hvilken betalingsport som skal brukes – adyen, ingenico, osv.",
@@ -66,5 +68,7 @@
 	"apihelp-employerSearch-example-1": "Søk etter en arbeidsgiver",
 	"apihelp-di_applesession_adyen-summary": "Gjør det mulig å be om en Apple Pay-økt direkte fra Apple",
 	"apihelp-getPaymentMethods-summary": "Returnerer tilgjengelige betalingsmetoder basert på land",
-	"apihelp-submitPayment-summary": "Sender inn en betaling basert på de sendte parameterne"
+	"apihelp-submitPayment-summary": "Sender inn en betaling basert på de sendte parameterne",
+	"apihelp-submitPayment-param-email": "E-postadresse.",
+	"apihelp-submitPayment-param-payment_method": "Betalingsmetode som skal brukes."
 }

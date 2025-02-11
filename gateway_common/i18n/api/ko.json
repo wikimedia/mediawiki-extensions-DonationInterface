@@ -35,5 +35,7 @@
 	"apihelp-logRecurUpgradeFormError-param-col": "오류가 발생한 컬럼",
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열",
 	"apihelp-di_donate_adyen-summary": "이 API는 Adyen용입니다",
-	"apihelp-employerSearch-example-1": "고용주 검색"
+	"apihelp-employerSearch-example-1": "고용주 검색",
+	"apihelp-di_applesession_adyen-param-wmf_token": "CSRF 토큰",
+	"apihelp-submitPayment-param-email": "이메일 주소입니다."
 }

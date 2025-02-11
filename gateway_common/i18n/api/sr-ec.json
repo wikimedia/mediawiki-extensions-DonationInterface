@@ -14,5 +14,17 @@
 	"apihelp-donate-param-card_num": "Број кредитне картице.",
 	"apihelp-donate-param-card_type": "Врста кредитне картице.",
 	"apihelp-donate-param-expiration": "Датум истека.",
-	"apihelp-donate-param-cvv": "CVV сигурносни код."
+	"apihelp-donate-param-cvv": "CVV сигурносни код.",
+	"apihelp-di_donate_adyen-param-email": "Имејл адреса.",
+	"apihelp-di_donate_adyen-param-postal_code": "Поштански број.",
+	"apihelp-di_donate_dlocal-param-country": "Код државе.",
+	"apihelp-di_donate_gravy-param-currency": "Код валуте.",
+	"apihelp-di_donate_gravy-param-full_name": "Пуно име",
+	"apihelp-di_donate_gravy-param-language": "Код језика.",
+	"apihelp-di_donate_braintree-param-first_name": "Име.",
+	"apihelp-di_donate_braintree-param-full_name": "Пуно име",
+	"apihelp-di_donate_braintree-param-last_name": "Презиме.",
+	"apihelp-submitPayment-param-email": "Имејл адреса.",
+	"apihelp-submitPayment-param-full_name": "Пуно име",
+	"apihelp-submitPayment-param-payment_method": "Начин плаћања."
 }
