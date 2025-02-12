@@ -3,7 +3,8 @@
 		"authors": [
 			"DiegoAmbrocio",
 			"Fitoschido",
-			"Pcoombe"
+			"Pcoombe",
+			"MagamePolyglotte"
 		]
 	},
 	"emailpreferences-title": "Preferencias de correo electrónico",
@@ -13,7 +14,7 @@
 	"emailpreferences-dont-send-email": "Darme de baja de todas las comunicaciones.",
 	"emailpreferences-change-email": "Cambiar dirección",
 	"emailpreferences-save": "Guardar preferencias",
-	"emailpreferences-success": "Gracias por comunicarnos tus preferencias.",
+	"emailpreferences-success": "Tu solicitud para guardar sus preferencias de correo electrónico ha sido enviada.",
 	"emailpreferences-footer-learn_more": "Más información sobre las <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">organizaciones locales y sus proyectos</a>.",
 	"emailpreferences-footer-questions_email": "Si tienes preguntas, escribe a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>。",
 	"emailpreferences-footer-text_license": "Texto sujeto a una licencia <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Attribution-ShareAlike</a>；podrían aplicarse otras condiciones. Para más información, consulta los <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">Términos de Uso</a> o nuestra <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">Política de Privacidad</a>.",
