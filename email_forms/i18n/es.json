@@ -3,7 +3,8 @@
 		"authors": [
 			"DiegoAmbrocio",
 			"Fitoschido",
-			"Pcoombe"
+			"Pcoombe",
+			"MagamePolyglotte"
 		]
 	},
 	"emailpreferences-change-email": "Cambiar dirección",
@@ -24,7 +25,7 @@
 	"emailpreferences-language": "Idioma",
 	"emailpreferences-save": "Guardar preferencias",
 	"emailpreferences-send-email": "Me encanta tener noticias de la Wikimedia Foundation; ¡escribid cuando queráis!",
-	"emailpreferences-success": "Gracias por comunicarnos tus preferencias.",
+	"emailpreferences-success": "Tu solicitud para guardar sus preferencias de correo electrónico ha sido enviada.",
 	"emailpreferences-title": "Preferencias de correo electrónico",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"
 }
