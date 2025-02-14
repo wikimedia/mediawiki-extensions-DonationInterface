@@ -4,6 +4,7 @@ use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
+use SmashPig\PaymentData\Address;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\IPaymentProvider;
@@ -473,6 +474,42 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
 			$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
+			// Add in donor details
+			if ( $paymentResult->getDonorDetails() !== null ) {
+				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getEmail() ) ) {
+					$responseData['email'] = $paymentResult->getDonorDetails()->getEmail();
+				}
+				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getFirstName() ) ) {
+					$responseData['first_name'] = $paymentResult->getDonorDetails()->getFirstName();
+				}
+				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getLastName() ) ) {
+					$responseData['last_name'] = $paymentResult->getDonorDetails()->getLastName();
+				}
+				// Add in billing details, if Paypal shipping details are needed there is a toggle in the gravy console
+				$billingAddress = $paymentResult->getDonorDetails()->getBillingAddress();
+				if ( $billingAddress instanceof Address ) {
+					if ( $this->isNotEmptyOrNull( $billingAddress->getStreetAddress() ) ) {
+						$responseData['street_address'] = $billingAddress->getStreetAddress();
+					}
+					if ( $this->isNotEmptyOrNull( $billingAddress->getCity() ) ) {
+						$responseData['city'] = $billingAddress->getCity();
+					}
+					if ( $this->isNotEmptyOrNull( $billingAddress->getStateOrProvinceCode() ) ) {
+						$responseData['state_province'] = $billingAddress->getStateOrProvinceCode();
+					}
+					if ( $this->isNotEmptyOrNull( $billingAddress->getPostalCode() ) ) {
+						$responseData['postal_code'] = $billingAddress->getPostalCode();
+					}
+					if ( $this->isNotEmptyOrNull( $billingAddress->getCountryCode() ) ) {
+						$responseData['country'] = $billingAddress->getCountryCode();
+					}
+				}
+				// Add in username if it's there
+				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getUserName() ) ) {
+					$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
+				}
+			}
+
 			if ( $paymentResult->getPaymentOrchestratorReconciliationId() ) {
 				$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
 			}
@@ -485,9 +522,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 
 			if ( $paymentResult->getProcessorContactID() != null ) {
 				$responseData['processor_contact_id'] = $paymentResult->getProcessorContactID();
-			}
-			if ( $paymentResult->getDonorDetails() !== null && $paymentResult->getDonorDetails()->getUserName() !== '' ) {
-				$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
 			}
 			if ( !$this->getPaymentSubmethod() ) {
 				$responseData['payment_submethod'] = $paymentResult->getPaymentSubmethod() ?? '';
@@ -512,6 +546,21 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		return $message;
+	}
+
+	/**
+	 * To handle !empty checks, we don't want to put empty params onto the queue
+	 * https://www.mediawiki.org/wiki/Manual:Coding_conventions/PHP#empty()
+	 *
+	 * @param ?string $value
+	 * @return bool
+	 */
+	protected function isNotEmptyOrNull( $value ) {
+		if ( $value !== null && $value !== '' ) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }
