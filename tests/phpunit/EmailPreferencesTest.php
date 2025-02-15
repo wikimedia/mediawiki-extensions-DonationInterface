@@ -78,9 +78,7 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 				'email' => 'test@test.com',
 				'contact_id' => '1',
 				'checksum' => 'df3rf',
-				'utm_source' => 'source',
-				'utm_medium' => 'medium',
-				'utm_campaign' => 'campaign',
+				'send_email' => 'true',
 			] ],
 			[ 'unsubscribe', 'unsubscribe', [
 				'email' => 'test@test.com',

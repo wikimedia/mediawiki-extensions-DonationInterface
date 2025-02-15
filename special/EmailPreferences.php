@@ -243,25 +243,11 @@ class EmailPreferences extends UnlistedSpecialPage {
 				break;
 			case 'opt-in':
 				$message = [
+					'checksum' => $params['checksum'],
+					'contact_id' => $params['contact_id'],
 					'email' => $params['email'],
+					'send_email' => 'true',
 				];
-				if ( !empty( $params['variant'] ) ) {
-					$message['variant'] = $params['variant'];
-				}
-				if ( !empty( $params['contact_id'] ) && !empty( $params['checksum'] ) ) {
-					$message['contact_id'] = $params['contact_id'];
-					$message['checksum'] = $params['checksum'];
-				}
-
-				if ( !empty( $params['utm_source'] ) ) {
-					$message['utm_source'] = $params['utm_source'];
-				}
-				if ( !empty( $params['utm_medium'] ) ) {
-					$message['utm_medium'] = $params['utm_medium'];
-				}
-				if ( !empty( $params['utm_campaign'] ) ) {
-					$message['utm_campaign'] = $params['utm_campaign'];
-				}
 				break;
 			case 'unsubscribe':
 				$message = [
@@ -282,7 +268,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$message = $this->setupQueueParams( $params, 'opt-in' );
 
 		try {
-			QueueWrapper::push( 'opt-in', $message );
+			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'optin', $params );
 		} catch ( Exception $e ) {
 			$this->renderError( 'optin' );
