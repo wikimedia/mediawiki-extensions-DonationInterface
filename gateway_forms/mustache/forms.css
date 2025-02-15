@@ -193,8 +193,6 @@ span#selected-amount {
 	line-height: 17px;
 	padding: 0.8em;
 	margin-bottom: 0.2em;
-	-webkit-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
-	-moz-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 	transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 	width: 100%;
 }
@@ -206,11 +204,6 @@ span#selected-amount {
 	background: url( ../includes/triangle.svg ) no-repeat center right 8px;
 	padding-right: 24px;
 	cursor: pointer;
-}
-
-#donate select::-ms-expand {
-	/* Hide arrow on IE 10-11 */
-	display: none;
 }
 
 #donate input[ type='text' ]:hover,
@@ -284,8 +277,6 @@ p#monthlycancel,
 	text-align: center;
 	border-radius: 2px;
 	cursor: pointer;
-	-webkit-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
-	-moz-transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 	transition: border-color 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 ), box-shadow 200ms cubic-bezier( 0.4, 0.55, 0.55, 1 );
 }
 
@@ -377,8 +368,6 @@ ul#cards li.has_sub_text label img {
 	padding: 0.6em;
 	border: 0;
 	font-family: inherit;
-	-webkit-transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
-	-moz-transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
 	transition: background-color 100ms, color 100ms, border-color 100ms, box-shadow 100ms;
 }
 
