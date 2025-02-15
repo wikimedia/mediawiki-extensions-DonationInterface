@@ -21,7 +21,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		parent::__construct( 'EmailPreferences' );
 	}
 
-	public function execute( $subpage ) {
+	public function execute( $subpage ): void {
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->setUpClientSideChecksumRequest( $subpage );
@@ -60,54 +60,89 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$this->executeUnsubscribe( $requestParameters );
 					break;
 				case 'emailPreferences':
-					$this->executeEmailPreferences( $requestParameters );
+					// if the fallback unsubscribe epc, can only trigger unsubscribe since no other data from civi proxy provided
+					if ( !empty( $requestParameters['type'] ) && $requestParameters['type'] === 'unsubscribe' ) {
+						$this->executeUnsubscribe( $requestParameters );
+					} else {
+						$this->executeEmailPreferences( $requestParameters );
+					}
 					break;
 				default:
 					$this->renderError();
 			}
 		} else {
 			if ( $subpage === 'emailPreferences' && !$this->isChecksumExpired() ) {
-				$emailPreferenceParameters = $this->paramsForPreferencesForm(
+				$preferences = CiviproxyConnect::getEmailPreferences(
 					$requestParameters[ 'checksum' ],
 					$requestParameters[ 'contact_id' ]
 				);
-
-				if ( $emailPreferenceParameters['is_error'] && $emailPreferenceParameters[ 'error_message' ] === self::CIVI_NO_RESULTS_ERROR ) {
-					$this->renderError( 'emailPreferences' );
-					return;
+				if ( $preferences['is_error'] ) {
+					$subpage = $this->errorHandling( $preferences['error_message'], $requestParameters );
+					if ( $subpage === 'emailPreferences' ) {
+						$this->renderError( $subpage );
+					}
+				} else {
+					WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
+					$emailPreferenceParameters = $this->paramsForPreferencesForm( $preferences );
+					$requestParameters = array_merge( $requestParameters, $emailPreferenceParameters );
 				}
-
-				$requestParameters = array_merge( $requestParameters, $emailPreferenceParameters );
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
 			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $requestParameters );
 		}
 	}
 
-	protected function paramsForPreferencesForm( $checksum, $contact_id ) {
-		$preferences = CiviproxyConnect::getEmailPreferences( $checksum, $contact_id );
-
-		if ( $preferences[ 'is_error' ] ) {
-			$logger = DonationLoggerFactory::getLoggerFromParams(
-				'EmailPreferences', true, false, '', null );
-
+	protected function errorHandling( $errorMessage, $requestParameters ): string {
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'EmailPreferences', true, false, '', null
+		);
+		// if Civi proxy not live, use hash to validate url
+		if ( $errorMessage === self::CIVI_NO_RESULTS_ERROR ) {
 			// If Civi returned no match for hash and contact_id, we still show the form,
 			// but log a message and set a session flag to prevent a message being
 			// placed on the queue.
-			if ( $preferences[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
-				$logger->warning(
-					"No results for contact_id $contact_id with checksum $checksum" );
-
-				WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
-				return $preferences;
-			} else {
-				$logger->error( 'Error from civiproxy: ' . $preferences[ 'error_message' ] );
-				throw new RuntimeException( 'Error retrieving current e-mail preferences.' );
-			}
+			$logger->warning(
+				"No results for contact_id" . $requestParameters[ 'contact_id' ]
+				. " with checksum " . $requestParameters[ 'checksum' ] );
+			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
 		} else {
-			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
+			$logger->error( 'Error from civiproxy: ' . $errorMessage );
+			// validate the hash then
+			$isHashValid = $this->validateHash( $requestParameters );
+			if ( $isHashValid ) {
+				// render unsubscribe page instead
+				return 'unsubscribe';
+			}
+		}
+		return 'emailPreferences';
+	}
+
+	protected function validateHash( $params ): bool {
+		if ( !isset( $params[ 'email' ] ) || !isset( $params[ 'contact_id' ] ) || !isset( $params[ 'hash' ] ) ) {
+			return false;
+		}
+		$hashSecretKey =
+			$this->getConfig()->get( 'DonationInterfaceEmailUnsubscribeHashSecretKey' );
+
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			'EmailPreferences', true, false, '', null );
+
+		$email = $params['email'];
+		$contact_id = $params['contact_id'];
+		$hash = strtolower( $params['hash'] );
+
+		$computedHash = hash( 'sha1', $contact_id . $email . $hashSecretKey );
+		if ( $computedHash != $hash ) {
+			$logger->info( "Hash verification failed! Expected '$computedHash' got '$hash'." );
+			return false;
+		} else {
+			$logger->info( "Hash verification success!" );
 		}
 
+		return true;
+	}
+
+	protected function paramsForPreferencesForm( $preferences ): array {
 		$addedParams = [];
 		// find the uselang for targeted prefer language
 		$context = RequestContext::getMain();
@@ -187,13 +222,12 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return $addedParams;
 	}
 
-	public function setupQueueParams( $params, $queueName ) {
+	public function setupQueueParams( $params, $queueName ): array {
 		switch ( $queueName ) {
 			case 'email-preferences':
 				$message = [
 					'checksum' => $params['checksum'],
 					'contact_id' => $params['contact_id'],
-					'first_name' => $params['first_name'],
 					'email' => $params['email'],
 					'country' => $params['country'],
 					'language' => $params['language'],
@@ -231,7 +265,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 				break;
 			case 'unsubscribe':
 				$message = [
+					'checksum' => $params['checksum'],
+					'contact_id' => $params['contact_id'],
 					'email' => $params['email'],
+					'send_email' => 'false',
 				];
 				break;
 			default:
@@ -241,7 +278,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return $message;
 	}
 
-	protected function executeOptIn( $params ) {
+	protected function executeOptIn( $params ): void {
 		$message = $this->setupQueueParams( $params, 'opt-in' );
 
 		try {
@@ -252,26 +289,18 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function executeUnsubscribe( $params ) {
-		// verify if same email address
-		$additionalParams = $this->paramsForPreferencesForm(
-			$params[ 'checksum' ],
-			$params[ 'contact_id' ]
-		);
-		if ( !empty( $additionalParams['email'] ) && $additionalParams['email'] === $params[ 'email' ] ) {
-			$message = $this->setupQueueParams( $params, 'unsubscribe' );
-			try {
-				QueueWrapper::push( 'unsubscribe', $message );
-				$this->renderSuccess( 'unsubscribe', $params );
-			} catch ( Exception $e ) {
-				$this->renderError( 'unsubscribe' );
-			}
-		} else {
+	protected function executeUnsubscribe( $params ): void {
+		$message = $this->setupQueueParams( $params, 'unsubscribe' );
+		try {
+			// treat unsubscribe as email-pref to double check checksum over there
+			QueueWrapper::push( 'email-preferences', $message );
+			$this->renderSuccess( 'unsubscribe', $params );
+		} catch ( Exception $e ) {
 			$this->renderError( 'unsubscribe' );
 		}
 	}
 
-	protected function executeEmailPreferences( $params ) {
+	protected function executeEmailPreferences( $params ): void {
 		// FIXME Also detect when the user made no changes, and send that info back
 		// to the queue consumer?
 
@@ -289,22 +318,22 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function renderError( $subpage = 'general' ) {
+	protected function renderError( $subpage = 'general' ): void {
 		$subpage .= 'Error';
 		$this->renderQuery( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'general', $params = [] ) {
+	protected function renderSuccess( $subpage = 'general', $params = [] ): void {
 		$subpage .= 'Success';
 		$this->renderQuery( $subpage, $params );
 	}
 
-	protected function renderQuery( $subpage, array $params ) {
+	protected function renderQuery( $subpage, array $params ): void {
 		$formObj = new EmailForm( $subpage, $params );
 		$this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
-	protected function validate( array $params, $posted ) {
+	protected function validate( array $params, $posted ): bool {
 		if ( !$this->validateEmail( $params, $posted ) ) {
 			return false;
 		}
@@ -323,7 +352,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function validateEmail( array $params, $posted ) {
+	protected function validateEmail( array $params, $posted ): bool {
 		if ( empty( $params['email'] ) ) {
 			// When we post back, we need an email
 			if ( $posted ) {
@@ -337,7 +366,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function validateToken( array $params, $posted ) {
+	protected function validateToken( array $params, $posted ): bool {
 		if ( empty( $params['token'] ) ) {
 			if ( $posted ) {
 				return false;
@@ -352,7 +381,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function setPageTitle( $subpage ) {
+	protected function setPageTitle( $subpage ): void {
 		switch ( $subpage ) {
 			# FIXME The messages for optin and unsubscribe only exist in the
 			# FundraisingEmailUnsubscribe extension.
@@ -371,11 +400,11 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->getOutput()->setPageTitle( $title );
 	}
 
-	protected function wasCanceled( $params ) {
+	protected function wasCanceled( $params ): bool {
 		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
 	}
 
-	protected function isSnoozed( ?string $snoozeDate ) {
+	protected function isSnoozed( ?string $snoozeDate ): bool {
 		return $snoozeDate && new DateTime( $snoozeDate ) > new DateTime();
 	}
 
@@ -385,7 +414,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 	 * @param array $parameters
 	 * @return array
 	 */
-	protected function mapWmfToUtm( array $parameters ) {
+	protected function mapWmfToUtm( array $parameters ): array {
 		$mapped = [];
 		foreach ( $parameters as $key => $value ) {
 			$mapped[ str_replace( 'wmf_', 'utm_', $key ) ] = $value;

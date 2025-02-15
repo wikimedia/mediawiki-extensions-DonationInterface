@@ -31,6 +31,14 @@ class CiviproxyConnect {
 				]
 			);
 
+			// check if proxy is down, then throw an exception
+			if ( $clientResponse->getStatusCode() !== 200 ) {
+				$logger->error( 'Status Code (' . $clientResponse->getStatusCode() . "): Unable to get the civi proxy connection" );
+				return [
+					'is_error' => true,
+					'error_message' => 'CiviProxy is down'
+				];
+			}
 			$rawResponse = $clientResponse->getBody()->getContents();
 			$decodedResponse = json_decode( $rawResponse, true );
 

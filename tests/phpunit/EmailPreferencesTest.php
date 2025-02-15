@@ -69,11 +69,10 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 			[ 'email-preferences', 'emailPreferences', [
 				'email' => 'test@test.com',
 				'contact_id' => '1',
-				'first_name' => 'test',
 				'checksum' => 'df3rf',
 				'country' => 'US',
 				'language' => 'en',
-				'send_email' => true,
+				'send_email' => 'true',
 			] ],
 			[ 'opt-in', 'optin', [
 				'email' => 'test@test.com',
@@ -85,6 +84,9 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 			] ],
 			[ 'unsubscribe', 'unsubscribe', [
 				'email' => 'test@test.com',
+				'contact_id' => '1',
+				'checksum' => 'df3rf',
+				'send_email' => 'false',
 			] ]
 		];
 	}

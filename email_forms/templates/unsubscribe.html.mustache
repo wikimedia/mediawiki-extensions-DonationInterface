@@ -7,8 +7,9 @@
 			<input type="hidden" name="uselang" id="uselang" value="{{ uselang }}" />
 			<input type="hidden" name="contact_id" value="{{ contact_id }}" />
 			<input type="hidden" name="checksum" value="{{checksum}}" />
+			<input type="hidden" name="type" value="unsubscribe" />
 
-			<h3>{{ l10n "fundraiserunsubscribe-confirm" }} <input type="email" name="email" id="email" required value="{{ email }}" placeholder="{{ l10n "email" }}" />?</h3>
+			<p>{{ l10n "fundraiserunsubscribe-confirm" }} <b>{{ email }}</b>?</p>
 			<p>{{{ l10n "donate_interface-email-unsub-delay" help_email }}}</p>
 
 			<button type="submit" name="submit" id="unsubscribe" value="continue" >{{ l10n "donate_interface-email-unsub-button" }}</button>
