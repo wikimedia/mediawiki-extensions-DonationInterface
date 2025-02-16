@@ -12,6 +12,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Gravy
+ * @coversNothing
  */
 class SecureFieldsCardTest extends BaseGravyTestCase {
 

@@ -12,6 +12,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group PayPal
  * @group DonationInterfaceApi
  * @group medium
+ * @coversNothing
  */
 class PayPalApiTest extends DonationInterfaceApiTestCase {
 

@@ -7,6 +7,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
  * @group DonationInterfaceApi
  * @group Fundraising
  * @group medium
+ * @coversNothing
  */
 class AmazonApiTest extends DonationInterfaceApiTestCase {
 	/**

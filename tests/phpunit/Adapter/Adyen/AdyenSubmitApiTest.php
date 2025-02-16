@@ -14,6 +14,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterface
  * @group Adyen
  * @group DonationInterfaceApi
+ * @coversNothing
  */
 class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 

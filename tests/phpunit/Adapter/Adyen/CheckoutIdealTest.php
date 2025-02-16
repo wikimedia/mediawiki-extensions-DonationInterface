@@ -11,6 +11,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group Adyen
  * @group AdyenCheckout
  * @group RealTimeBankTransfer
+ * @covers \AdyenCheckoutGatewayResult
  */
 class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 	/**

@@ -5,6 +5,9 @@ namespace MediaWiki\Extension\DonationInterface\Tests\RecurUpgrade;
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator
+ */
 class ValidatorTest extends TestCase {
 
 	protected const TOKEN = 'testSessionToken';

@@ -21,6 +21,7 @@ use Psr\Log\LogLevel;
  *
  * @group Fundraising
  * @group DonationInterface
+ * @coversNothing
  */
 class LoggingTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {

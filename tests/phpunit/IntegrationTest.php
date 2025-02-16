@@ -25,6 +25,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group Fundraising
  * @group DonationInterface
  * @group DIIntegration
+ * @coversNothing
  */
 class IntegrationTest extends DonationInterfaceTestCase {
 

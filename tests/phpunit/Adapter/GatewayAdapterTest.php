@@ -37,6 +37,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group Fundraising
  * @group DonationInterface
  * @group Splunge
+ * @covers \GatewayAdapter
  */
 class GatewayAdapterTest extends DonationInterfaceTestCase {
 

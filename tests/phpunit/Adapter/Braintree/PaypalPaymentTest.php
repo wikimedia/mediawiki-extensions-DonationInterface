@@ -10,6 +10,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Braintree
+ * @covers \BraintreeAdapter
  */
 class PaypalPaymentTest extends BaseBraintreeTestCase {
 

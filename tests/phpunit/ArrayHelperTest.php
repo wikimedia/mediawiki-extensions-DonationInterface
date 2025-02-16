@@ -19,6 +19,7 @@
  * @group	Fundraising
  * @group	DonationInterface
  * @group   ArrayHelper
+ * @covers \ArrayHelper
  */
 class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 

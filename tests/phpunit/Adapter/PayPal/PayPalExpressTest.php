@@ -37,6 +37,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterface
  * @group PayPal
  * @group Database
+ * @covers \PaypalExpressAdapter
  */
 class PayPalExpressTest extends DonationInterfaceTestCase {
 

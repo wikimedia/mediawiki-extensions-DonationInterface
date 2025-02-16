@@ -12,6 +12,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group DonationInterface
  * @group Adyen
  * @group AdyenCheckout
+ * @covers \AdyenCheckoutGateway
  */
 class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 

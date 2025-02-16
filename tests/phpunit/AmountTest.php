@@ -22,6 +22,7 @@ use SmashPig\Core\ValidationError;
  * @group	Fundraising
  * @group	DonationInterface
  * @group	Validation
+ * @covers \Amount
  */
 class AmountTest extends DonationInterfaceTestCase {
 

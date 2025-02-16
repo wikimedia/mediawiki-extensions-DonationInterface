@@ -11,6 +11,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Gravy
+ * @coversNothing
  */
 class GooglePayTest extends BaseGravyTestCase {
 

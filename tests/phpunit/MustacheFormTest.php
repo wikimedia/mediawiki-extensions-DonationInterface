@@ -20,6 +20,7 @@
  * @group Fundraising
  * @group DonationInterface
  * @group GatewayPage
+ * @coversNothing
  */
 class MustacheFormTest extends DonationInterfaceTestCase {
 	/** @var Gateway_Form_Mustache */

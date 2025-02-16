@@ -22,6 +22,7 @@ use SmashPig\Core\ValidationError;
  * @group Fundraising
  * @group DonationInterface
  * @group GatewayPage
+ * @coversNothing
  */
 class GatewayValidationTest extends DonationInterfaceTestCase {
 

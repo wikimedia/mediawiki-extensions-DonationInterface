@@ -19,6 +19,7 @@
  * @group Fundraising
  * @group DonationInterface
  * @group Localisation
+ * @covers \DonorLocale
  */
 class DonorLocaleTest extends DonationInterfaceTestCase {
 
