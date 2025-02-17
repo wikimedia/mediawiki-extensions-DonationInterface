@@ -165,7 +165,7 @@
 	"donate_interface-rt-button": "通过$1银行捐赠",
 	"donate_interface-ewallet-button": "通过$1捐赠",
 	"donate_interface-card-legend": "信用卡信息",
-	"donate_interface-amount-legend": "捐赠金额",
+	"donate_interface-amount-legend": "捐款金额",
 	"donate_interface-cvv-link": "它在哪里？",
 	"donate_interface-donor-legend": "捐赠人信息",
 	"donate_interface-donor-amount": "金额",
