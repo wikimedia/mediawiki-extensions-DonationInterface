@@ -3,6 +3,7 @@
 		"authors": [
 			"Brettchenweber",
 			"Justman10000",
+			"McDutchie",
 			"Metalhead64",
 			"ToBeFree"
 		]
@@ -254,7 +255,7 @@
 	"apihelp-di_donate_braintree-param-wmf_token": "Bearbeitungstoken.",
 	"apihelp-di_recurring_convert-summary": "Diese API wird verwendet, wenn sich ein Spender bereit erklärt, nach einer erfolgreichen Einmalspende eine monatliche Spende hinzuzufügen.",
 	"apihelp-di_recurring_convert-param-amount": "Die Höhe der monatlichen Spende.",
-	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "Auf „true“ setzen, wenn der Spender eine monatliche Spende ablehnt",
+	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "Auf „true“ gesetzt, wenn der Spender eine monatliche Spende ablehnt",
 	"apihelp-di_recurring_convert-param-frequency_unit": "Jahr oder Monat",
 	"apihelp-di_recurring_convert-param-gateway": "Welches Zahlungsgateway soll ich verwenden - adyen, ingenico etc.",
 	"apihelp-employerSearch-summary": "Mit dieser API kannst du nach Arbeitgebern suchen, die am WMF-Geschenkabgleichsprogramm teilnehmen.",
