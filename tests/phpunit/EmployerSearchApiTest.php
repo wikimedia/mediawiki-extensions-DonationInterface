@@ -38,7 +38,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ '3', 'Bills Skateboards' ]
 		];
 		foreach ( $testCSVData as $csvLine ) {
-			fputcsv( $this->csvDataSource, $csvLine );
+			fputcsv( $this->csvDataSource, $csvLine, ',', '"', "\\" );
 		}
 
 		$apiResult = $this->doApiRequest( $params );
@@ -63,7 +63,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ '3', 'Bills Skateboards' ]
 		];
 		foreach ( $testCSVData as $csvLine ) {
-			fputcsv( $this->csvDataSource, $csvLine );
+			fputcsv( $this->csvDataSource, $csvLine, ',', '"', "\\" );
 		}
 
 		$apiResult = $this->doApiRequest( $params );
@@ -88,7 +88,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ '3', 'Bills Skateboards' ]
 		];
 		foreach ( $testCSVData as $csvLine ) {
-			fputcsv( $this->csvDataSource, $csvLine );
+			fputcsv( $this->csvDataSource, $csvLine, ',', '"', "\\" );
 		}
 
 		$apiResult = $this->doApiRequest( $params );
@@ -113,7 +113,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ '1', 'ACME Subsidiary Company' ], // the id of the subsidiary is the same as parent
 		];
 		foreach ( $testCSVData as $csvLine ) {
-			fputcsv( $this->csvDataSource, $csvLine );
+			fputcsv( $this->csvDataSource, $csvLine, ',', '"', "\\" );
 		}
 
 		$apiResult = $this->doApiRequest( $params );
@@ -138,7 +138,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 			[ '3', 'Bills Skateboards' ]
 		];
 		foreach ( $testCSVData as $csvLine ) {
-			fputcsv( $this->csvDataSource, $csvLine );
+			fputcsv( $this->csvDataSource, $csvLine, ',', '"', "\\" );
 		}
 
 		$apiResult = $this->doApiRequest( $params );
@@ -210,7 +210,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		// populate API data source
 		$testCSVDataLine = [ '1', 'Bills Sandwiches', 'Yetch' ];
-		fputcsv( $this->csvDataSource, $testCSVDataLine );
+		fputcsv( $this->csvDataSource, $testCSVDataLine, ',', '"', "\\" );
 
 		$apiResult = $this->doApiRequest( $params );
 
@@ -225,7 +225,7 @@ class EmployerSearchApiTest extends ApiTestCase {
 
 		// populate API data source
 		$testCSVDataLine = [ '1', 'Bills Sandwiches', 'Yetch' ];
-		fputcsv( $this->csvDataSource, $testCSVDataLine );
+		fputcsv( $this->csvDataSource, $testCSVDataLine, ',', '"', "\\" );
 
 		$retVal = $api->getEmployersList();
 		$this->assertFalse( $retVal );
