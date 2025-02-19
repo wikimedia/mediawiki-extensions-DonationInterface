@@ -104,7 +104,7 @@ sepadirectdebit:
 #    CZ: true
 #    DK: true
 #    HU: true
-#    NO: true
+#    'NO': true
 #    PL: true
 #    RO: true
 #    SE: true

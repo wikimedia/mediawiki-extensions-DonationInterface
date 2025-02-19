@@ -154,7 +154,7 @@ sepadirectdebit:
     FR: true
     IT: true
     NL: true
-    NO: true
+    'NO': true
     PL: true
     SE: true
 

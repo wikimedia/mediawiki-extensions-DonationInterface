@@ -92,7 +92,7 @@ amex:
     MT: true
     MY: true
     NL: true
-    NO: true
+    'NO': true
     NP: true
     NZ: true
     OM: true
