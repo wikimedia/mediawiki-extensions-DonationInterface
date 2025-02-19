@@ -1,3 +1,3 @@
 scripts:
-    - ext.donationInterface.alwaysRedirect
-    - ext.donationInterface.ingenico-hosted
+  - ext.donationInterface.alwaysRedirect
+  - ext.donationInterface.ingenico-hosted

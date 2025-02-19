@@ -1,439 +1,439 @@
 ach:
-    label: ACH
-    group: bt
-    countries:
-        ZA: true
-    logo: bank-ach.png
-    logo_hd:
-        2x: bank-ach_2x.png
-        3x: bank-ach_3x.png
+  label: ACH
+  group: bt
+  countries:
+    ZA: true
+  logo: bank-ach.png
+  logo_hd:
+    2x: bank-ach_2x.png
+    3x: bank-ach_3x.png
 amex:
-    group: cc
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-#       IN: true // Dlocal reported that AMEX is not supported in India T334945, and all other commentted out methods can be enabled by ask
-        MX: true
-        PE: true
-        ZA: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    BR: true
+    CL: true
+    CO: true
+#     IN: true // Dlocal reported that AMEX is not supported in India T334945, and all other commentted out methods can be enabled by ask
+    MX: true
+    PE: true
+    ZA: true
+  recurring: true
 argen:
-    group: cc
-    countries:
-        AR: true
+  group: cc
+  countries:
+    AR: true
 #bancolombia:
-#    lable: Bancolombia
-#    group: cash
-#    countries:
-#        CO: true
-#    logo: bank-bancolombia.png
+#  lable: Bancolombia
+#  group: cash
+#  countries:
+#    CO: true
+#  logo: bank-bancolombia.png
 bancomer:
-    lable: Bancomer
-    group: bt
-    countries:
-        MX: true
-    logo: bancomer.png
+  lable: Bancomer
+  group: bt
+  countries:
+    MX: true
+  logo: bancomer.png
 banco_do_brasil:
-    group: bt
-    countries:
-        BR: true
-    logo: bank-banco_do_brasil.png
+  group: bt
+  countries:
+    BR: true
+  logo: bank-banco_do_brasil.png
 bradesco:
-    group: bt
-    countries:
-        BR: true
-    logo: bank-bradesco.png
+  group: bt
+  countries:
+    BR: true
+  logo: bank-bradesco.png
 bbva:
-    label: BBVA
-    group: bt
-    countries:
-        PE: true
-    logo: bank-bbva.png
-    logo_hd:
-        2x: bank-bbva_2x.png
-        3x: bank-bbva_3x.png
+  label: BBVA
+  group: bt
+  countries:
+    PE: true
+  logo: bank-bbva.png
+  logo_hd:
+    2x: bank-bbva_2x.png
+    3x: bank-bbva_3x.png
 bcp:
-    label: BCP
-    group: bt
-    countries:
-        PE: true
-    logo: bank-bcp.png
-    logo_hd:
-        2x: bank-bcp_2x.png
-        3x: bank-bcp_3x.png
+  label: BCP
+  group: bt
+  countries:
+    PE: true
+  logo: bank-bcp.png
+  logo_hd:
+    2x: bank-bcp_2x.png
+    3x: bank-bcp_3x.png
 boleto_hibrido:
-    group: cash
-    countries:
-        BR: true
-    logo: cash-boleto_hibrido.png
+  group: cash
+  countries:
+    BR: true
+  logo: cash-boleto_hibrido.png
 cabal:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 cabal-debit:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 #carnet:
-#    group: cc
-#    countries:
-#        MX: true
-#    recurring: true
+#  group: cc
+#  countries:
+#    MX: true
+#  recurring: true
 #carnet_debit:
-#    group: cc
-#    countries:
-#        MX: true
-#    recurring: true
+#  group: cc
+#  countries:
+#    MX: true
+#  recurring: true
 #carulla:
-#    label: Carulla
-#    group: cash
-#    countries:
-#        CO: true
-#    logo: cash-carulla.png
+#  label: Carulla
+#  group: cash
+#  countries:
+#    CO: true
+#  logo: cash-carulla.png
 cash_abitab:
-    label: Abitab
-    group: cash
-    countries:
-        UY: true
-    logo: cash-abitab.png
-    logo_hd:
-        2x: cash-abitab_2x.png
-        3x: cash-abitab_3x.png
+  label: Abitab
+  group: cash
+  countries:
+    UY: true
+  logo: cash-abitab.png
+  logo_hd:
+    2x: cash-abitab_2x.png
+    3x: cash-abitab_3x.png
 cash_boleto:
-    label: Boletos
-    group: cash
-    countries:
-        BR: true
-    logo: bank-boleto.png
+  label: Boletos
+  group: cash
+  countries:
+    BR: true
+  logo: bank-boleto.png
 cash_efecty:
-    label: Efecty
-    group: cash
-    countries:
-        CO: true
-    logo: cash-efecty.png
+  label: Efecty
+  group: cash
+  countries:
+    CO: true
+  logo: cash-efecty.png
 cash_oxxo:
-    label: OXXO
-    group: cash
-    countries:
-        MX: true
-    logo: cash-oxxo.png
+  label: OXXO
+  group: cash
+  countries:
+    MX: true
+  logo: cash-oxxo.png
 cash_pago_efectivo:
-    label: Pago Efectivo
-    group: cash
-    countries:
-        PE: true
-    logo: cash-pago-efectivo.png
+  label: Pago Efectivo
+  group: cash
+  countries:
+    PE: true
+  logo: cash-pago-efectivo.png
 #cash_pago_facil:
-#    label: Pago Facil
-#    group: cash
-#    countries:
-#        AR: true
-#    logo: cash-pago-facil.png
+#  label: Pago Facil
+#  group: cash
+#  countries:
+#    AR: true
+#  logo: cash-pago-facil.png
 cash_rapipago:
-    label: Rapi Pago
-    group: cash
-    countries:
-        AR: true
-    logo: cash-rapipago.png
+  label: Rapi Pago
+  group: cash
+  countries:
+    AR: true
+  logo: cash-rapipago.png
 cash_red_pagos:
-    label: Red Pagos
-    group: cash
-    countries:
-        UY: true
-    logo: cash-red-pagos.png
+  label: Red Pagos
+  group: cash
+  countries:
+    UY: true
+  logo: cash-red-pagos.png
 cash_santander:
-    label: Santander
-    group: bt
-    countries:
-        MX: true
-    logo: bank-santander.png
+  label: Santander
+  group: bt
+  countries:
+    MX: true
+  logo: bank-santander.png
 cencosud:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 cmr:
-    group: cc
-    countries:
-        CL: true
-    recurring: true
+  group: cc
+  countries:
+    CL: true
+  recurring: true
 #codenza:
-#    group: cc
-#    countries:
-#        CO: true
-#    recurring: true
+#  group: cc
+#  countries:
+#    CO: true
+#  recurring: true
 #codi:
-#    label: Codi Bank Transfer Online
-#    group: bt
-#    countries:
-#        MX: true
-#    logo: bank-codi.png
+#  label: Codi Bank Transfer Online
+#  group: bt
+#  countries:
+#    MX: true
+#  logo: bank-codi.png
 #codi_qr:
-#    label: Codi Bank Transfer QR
-#    group: bt
-#    countries:
-#        MX: true
-#    logo: bank-codi.png
+#  label: Codi Bank Transfer QR
+#  group: bt
+#  countries:
+#    MX: true
+#  logo: bank-codi.png
 cordobesa:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 #debin:
-#    label: DEBIN
-#    group: bt
-#    countries:
-#        AR: true
-#    logo: bank-debin.png
+#  label: DEBIN
+#  group: bt
+#  countries:
+#    AR: true
+#  logo: bank-debin.png
 discover:
-    group: cc
-    countries:
-        BR: true
-    recurring: true
+  group: cc
+  countries:
+    BR: true
+  recurring: true
 diners:
-    group: cc
-    countries:
-        AR: true
-        CL: true
-        CO: true
-#        IN: true
-        PE: true
-        UY: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    CL: true
+    CO: true
+#    IN: true
+    PE: true
+    UY: true
+  recurring: true
 elo:
-    group: cc
-    countries:
-        BR: true
-    recurring: true
+  group: cc
+  countries:
+    BR: true
+  recurring: true
 elo-debit:
-    group: cc
-    countries:
-        BR: true
+  group: cc
+  countries:
+    BR: true
 hiper:
-    group: cc
-    countries:
-        BR: true
-    recurring: true
+  group: cc
+  countries:
+    BR: true
+  recurring: true
 interbank:
-    label: Interbank
-    group: bt
-    countries:
-        PE: true
-    logo: bank-interbank.png
-    logo_hd:
-        2x: bank-interbank_2x.png
-        3x: bank-interbank_3x.png
+  label: Interbank
+  group: bt
+  countries:
+    PE: true
+  logo: bank-interbank.png
+  logo_hd:
+    2x: bank-interbank_2x.png
+    3x: bank-interbank_3x.png
 itau:
-    label: Itau
-    group: bt
-    countries:
-        BR: true
-    logo: bank-itau.png
+  label: Itau
+  group: bt
+  countries:
+    BR: true
+  logo: bank-itau.png
 jcb:
-    group: cc
-    countries:
-        BR: true
+  group: cc
+  countries:
+    BR: true
 lider:
-    group: cc
-    countries:
-        UY: true
-    recurring: true
+  group: cc
+  countries:
+    UY: true
+  recurring: true
 maestro:
-    group: cc
-    countries:
-        AR: true
-#        BR: true
-#        IN: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+#    BR: true
+#    IN: true
+  recurring: true
 mach:
-    group: cc
-    countries:
-        CL: true
-    recurring: true
+  group: cc
+  countries:
+    CL: true
+  recurring: true
 magna:
-    group: cc
-    countries:
-        CL: true
-    recurring: true
+  group: cc
+  countries:
+    CL: true
+  recurring: true
 mc:
-    group: cc
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-        IN: true
-        MX: true
-        PE: true
-        UY: true
-        ZA: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    BR: true
+    CL: true
+    CO: true
+    IN: true
+    MX: true
+    PE: true
+    UY: true
+    ZA: true
+  recurring: true
 mc-debit:
-    group: cc
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-        IN: true
-        MX: true
-        PE: true
-        UY: true
-        ZA: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    BR: true
+    CL: true
+    CO: true
+    IN: true
+    MX: true
+    PE: true
+    UY: true
+    ZA: true
+  recurring: true
 #mercadolivre:
-#    group: cc
-#    countries:
-#        BR: true
+#  group: cc
+#  countries:
+#    BR: true
 #mercadopago:
-#    label: Mercado Pago
-#    group: bt
-#    countries:
-#        AR: true
-#        BR: true
-#        CL: true
-#        CO: true
-#        MX: true
-#    logo: bank-mercadopago.png
+#  label: Mercado Pago
+#  group: bt
+#  countries:
+#    AR: true
+#    BR: true
+#    CL: true
+#    CO: true
+#    MX: true
+#  logo: bank-mercadopago.png
 naranja:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 nativa:
-    group: cc
-    countries:
-        AR: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+  recurring: true
 netbanking:
-    label_key: donate_interface-bank-name-netbanking
-    group: bt
-    countries:
-        IN: true
-    logo: bank-netbanking.png
-    logo_hd:
-        2x: bank-netbanking_2x.png
-    recurring: false
+  label_key: donate_interface-bank-name-netbanking
+  group: bt
+  countries:
+    IN: true
+  logo: bank-netbanking.png
+  logo_hd:
+    2x: bank-netbanking_2x.png
+  recurring: false
 oca:
-    group: cc
-    countries:
-        UY: true
-    recurring: true
+  group: cc
+  countries:
+    UY: true
+  recurring: true
 #picpay:
-#    label: PicPay
-#    group: bt
-#    countries:
-#        BR: true
-#    logo: bank-picpay.png
+#  label: PicPay
+#  group: bt
+#  countries:
+#    BR: true
+#  logo: bank-picpay.png
 pix:
-    label: Pix
-    group: cash
-    countries:
-        BR: true
-    logo: bank-pix.png
+  label: Pix
+  group: cash
+  countries:
+    BR: true
+  logo: bank-pix.png
 presto:
-    group: cc
-    countries:
-        CL: true
-    recurring: true
+  group: cc
+  countries:
+    CL: true
+  recurring: true
 pse:
-    label: PSE
-    group: bt
-    countries:
-        CO: true
-    logo: bank-pse.png
+  label: PSE
+  group: bt
+  countries:
+    CO: true
+  logo: bank-pse.png
 #puntored:
-#    lable: Puntored
-#    group: cash
-#    countries:
-#        CO: true
-#    logo: bank-puntored.png
+#  lable: Puntored
+#  group: cash
+#  countries:
+#    CO: true
+#  logo: bank-puntored.png
 rupay:
-    group: cc
-    countries:
-        IN: true
+  group: cc
+  countries:
+    IN: true
 santander:
-    label: Santander
-    group: bt
-    countries:
-        BR: true
-    logo: bank-santander.png
+  label: Santander
+  group: bt
+  countries:
+    BR: true
+  logo: bank-santander.png
 santander_rio:
-    label: Santander
-    group: bt
-    countries:
-        AR: true
-    logo: bank-santander.png
+  label: Santander
+  group: bt
+  countries:
+    AR: true
+  logo: bank-santander.png
 servipag:
-    label: Servipag
-    group: cash
-    countries:
-        CL: true
-    logo: cash-servipag.png
+  label: Servipag
+  group: cash
+  countries:
+    CL: true
+  logo: cash-servipag.png
 #sencillito:
-#    label: Sencillito
-#    group: cash
-#    countries:
-#        CL: true
-#    logo: cash-sencillito.png
+#  label: Sencillito
+#  group: cash
+#  countries:
+#    CL: true
+#  logo: cash-sencillito.png
 shopping:
-    group: cc
-    countries:
-        AR: true
+  group: cc
+  countries:
+    AR: true
 #spei:
-#    label: SPEI
-#    group: bt
-#    countries:
-#        MX: true
-#    logo: bank-spei.png
+#  label: SPEI
+#  group: bt
+#  countries:
+#    MX: true
+#  logo: bank-spei.png
 #stitch:
-#    lable: Stitch
-#    group: bt
-#    countries:
-#        ZA: true
-#    logo: bank-ach.png
+#  lable: Stitch
+#  group: bt
+#  countries:
+#    ZA: true
+#  logo: bank-ach.png
 upi:
-    label: UPI
-    group: bt
-    countries:
-        IN: true
-    logo: bank-upi.png
-    logo_hd:
-        2x: bank-upi_2x.png
-    recurring: true
-    show_single_logo: true
+  label: UPI
+  group: bt
+  countries:
+    IN: true
+  logo: bank-upi.png
+  logo_hd:
+    2x: bank-upi_2x.png
+  recurring: true
+  show_single_logo: true
 visa:
-    group: cc
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-        IN: true
-        MX: true
-        PE: true
-        UY: true
-        ZA: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    BR: true
+    CL: true
+    CO: true
+    IN: true
+    MX: true
+    PE: true
+    UY: true
+    ZA: true
+  recurring: true
 visa-debit:
-    group: cc
-    countries:
-        AR: true
-        BR: true
-        CL: true
-        CO: true
-        IN: true
-        MX: true
-        PE: true
-        UY: true
-        ZA: true
-    recurring: true
+  group: cc
+  countries:
+    AR: true
+    BR: true
+    CL: true
+    CO: true
+    IN: true
+    MX: true
+    PE: true
+    UY: true
+    ZA: true
+  recurring: true
 webpay:
-    group: bt
-    countries:
-        CL: true
-    logo: bank-webpay.png
+  group: bt
+  countries:
+    CL: true
+  logo: bank-webpay.png

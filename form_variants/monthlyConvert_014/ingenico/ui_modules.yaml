@@ -1,4 +1,4 @@
 scripts:
-    - ext.donationInterface.ingenico-hosted
-    - ext.donationInterface.monthlyConvert_011
-    - ext.donationInterface.monthlyConvertButtonFlip
+  - ext.donationInterface.ingenico-hosted
+  - ext.donationInterface.monthlyConvert_011
+  - ext.donationInterface.monthlyConvertButtonFlip

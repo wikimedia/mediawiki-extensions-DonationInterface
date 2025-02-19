@@ -1,4 +1,4 @@
 scripts:
-    ext.donationInterface.amazon.scripts
+  ext.donationInterface.amazon.scripts
 styles:
-    ext.donationInterface.amazon.styles
+  ext.donationInterface.amazon.styles

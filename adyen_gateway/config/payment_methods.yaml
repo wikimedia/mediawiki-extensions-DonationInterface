@@ -1,40 +1,40 @@
 cc:
-    is_default: true
-    recurring: true
-    label: Credit Cards
-    validation:
-        country: true
-        name: true
-        email: true
+  is_default: true
+  recurring: true
+  label: Credit Cards
+  validation:
+    country: true
+    name: true
+    email: true
 dd:
-    recurring: true
-    label: Direct debit
-    validation:
-        country: true
-        name: true
-        email: true
-        bank_account_type: true
+  recurring: true
+  label: Direct debit
+  validation:
+    country: true
+    name: true
+    email: true
+    bank_account_type: true
 rtbt:
-    recurring: true
-    label: Real time bank transfer
-    validation:
-        country: true
-        name: true
-        email: true
+  recurring: true
+  label: Real time bank transfer
+  validation:
+    country: true
+    name: true
+    email: true
 apple:
-    recurring: true
-    label: Apple Pay
-    validation:
-        country: true
+  recurring: true
+  label: Apple Pay
+  validation:
+    country: true
 google:
-    recurring: true
-    label: Google Pay
-    validation:
-        country: true
+  recurring: true
+  label: Google Pay
+  validation:
+    country: true
 bt:
-    recurring: false
-    label: Bank Transfer
-    validation:
-      country: true
-      name: true
-      email: true
+  recurring: false
+  label: Bank Transfer
+  validation:
+    country: true
+    name: true
+    email: true
