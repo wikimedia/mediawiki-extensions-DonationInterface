@@ -24,6 +24,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
  *
  * @category	UnitTesting
  * @package		Fundraising_QueueHandling
+ * @coversNothing
  */
 class DonationQueueTest extends DonationInterfaceTestCase {
 	/** @var array */

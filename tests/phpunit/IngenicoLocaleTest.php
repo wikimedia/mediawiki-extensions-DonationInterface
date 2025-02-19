@@ -19,6 +19,7 @@
  * @group Fundraising
  * @group DonationInterface
  * @group Localisation
+ * @covers \IngenicoLocale
  */
 class IngenicoLocaleTest extends DonationInterfaceTestCase {
 

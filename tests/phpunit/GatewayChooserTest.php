@@ -24,6 +24,7 @@ use Symfony\Component\Yaml\Parser;
  * @group DonationInterface
  * @group GatewayChooser
  * @group Database
+ * @covers \GatewayChooser
  */
 class GatewayChooserTest extends DonationInterfaceTestCase {
 

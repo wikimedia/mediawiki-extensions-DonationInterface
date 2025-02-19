@@ -8,6 +8,7 @@ use Wikimedia\TestingAccessWrapper;
 /**
  * @group DonationInterface
  * @group FraudFilters
+ * @covers \Gateway_Extras_CustomFilters_IP_Velocity
  */
 class IPVelocityTest extends DonationInterfaceTestCase {
 

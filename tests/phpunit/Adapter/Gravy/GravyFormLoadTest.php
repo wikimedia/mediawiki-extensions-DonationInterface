@@ -25,6 +25,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
  * @group DonationInterface
  * @group Gravy
  * @group Database
+ * @coversNothing
  */
 class GravyFormLoadTest extends BaseGravyTestCase {
 	/**

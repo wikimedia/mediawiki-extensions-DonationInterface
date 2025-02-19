@@ -31,6 +31,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group Fundraising
  * @group DonationInterface
  * @group Ingenico
+ * @covers \IngenicoGateway
  */
 class IngenicoTest extends BaseIngenicoTestCase {
 

@@ -8,6 +8,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group DonationInterfaceApi
  * @group EmployerSearchApi
  * @group medium
+ * @covers \EmployerSearchAPI
  */
 class EmployerSearchApiTest extends ApiTestCase {
 

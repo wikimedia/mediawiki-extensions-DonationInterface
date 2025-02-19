@@ -13,6 +13,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Gravy
+ * @coversNothing
  */
 class RedirectFormTest extends BaseGravyTestCase {
 

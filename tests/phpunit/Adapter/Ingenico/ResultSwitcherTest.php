@@ -10,6 +10,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group DonationInterface
  * @group Ingenico
  * @group Database
+ * @covers \ResultSwitcher
  */
 class ResultSwitcherTest extends BaseIngenicoTestCase {
 

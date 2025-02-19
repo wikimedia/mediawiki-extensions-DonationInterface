@@ -9,6 +9,7 @@ use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Dlocal
+ * @covers \DlocalAdapter
  */
 class CashPaymentTest extends BaseDlocalTestCase {
 

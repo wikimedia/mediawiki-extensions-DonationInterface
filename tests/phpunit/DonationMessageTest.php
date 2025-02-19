@@ -3,6 +3,7 @@
 /**
  * @group DonationInterface
  * @group Messages
+ * @covers \MessageUtils
  */
 class DonationMessageTest extends MediaWikiIntegrationTestCase {
 

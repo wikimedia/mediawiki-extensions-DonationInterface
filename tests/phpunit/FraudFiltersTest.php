@@ -28,6 +28,7 @@ use Wikimedia\TestingAccessWrapper;
  * @group Fundraising
  * @group DonationInterface
  * @group FraudFilters
+ * @covers \FraudFilter
  */
 class FraudFiltersTest extends DonationInterfaceTestCase {
 

@@ -10,6 +10,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group DonationInterface
  * @group Adyen
  * @group DonationInterfaceApi
+ * @coversNothing
  */
 class AdyenGetPaymentMethodsApiTest extends DonationInterfaceApiTestCase {
 

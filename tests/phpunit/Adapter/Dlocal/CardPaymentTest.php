@@ -13,6 +13,7 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
  * @group Fundraising
  * @group DonationInterface
  * @group Dlocal
+ * @coversNothing
  */
 class CardPaymentTest extends BaseDlocalTestCase {
 

@@ -21,6 +21,7 @@ use SmashPig\CrmLink\Messages\SourceFields;
 /**
  * @group DonationInterface
  * @group EmailPreferences
+ * @covers \EmailPreferences
  */
 class EmailPreferencesTest extends DonationInterfaceTestCase {
 

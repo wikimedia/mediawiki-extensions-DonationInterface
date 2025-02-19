@@ -20,6 +20,7 @@
  * @group	DonationInterface
  * @group	Validation
  * @category	UnitTesting
+ * @covers \DataValidator
  */
 class DataValidatorTest extends PHPUnit\Framework\TestCase {
 	protected function setUp(): void {

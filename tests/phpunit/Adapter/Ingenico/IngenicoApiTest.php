@@ -15,6 +15,7 @@ use SmashPig\Tests\TestingProviderConfiguration;
  * @group IngenicoApi
  * @group DonationInterfaceApi
  * @group medium
+ * @coversNothing
  */
 class IngenicoApiTest extends DonationInterfaceApiTestCase {
 

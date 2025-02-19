@@ -20,6 +20,7 @@
  * @group Fundraising
  * @group DonationInterface
  * @group GatewayPage
+ * @covers \GatewayPage
  */
 class GatewayPageTest extends DonationInterfaceTestCase {
 
