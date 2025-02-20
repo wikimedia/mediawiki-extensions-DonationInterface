@@ -1,9 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Wutsje"
 		]
 	},
 	"apihelp-donate-param-email": "E-mailadres.",
-	"apihelp-donate-param-language": "Taalkoade."
+	"apihelp-donate-param-language": "Taalkoade.",
+	"apihelp-donate-param-phone": "Tillefoannûmer",
+	"apihelp-di_donate_dlocal-param-country": "Lânkoade.",
+	"apihelp-di_donate_braintree-param-first_name": "Foarnamme",
+	"apihelp-di_donate_braintree-param-last_name": "Efternamme.",
+	"apihelp-submitPayment-param-country": "Lânkoade.",
+	"apihelp-submitPayment-param-language": "Taalkoade."
 }
