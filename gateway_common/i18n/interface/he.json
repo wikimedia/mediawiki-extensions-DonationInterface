@@ -291,7 +291,7 @@
 	"donate_interface-middle": "שם אמצעי",
 	"donate_interface-last": "שם משפחה",
 	"donate_interface-other": "אחר",
-	"donate_interface-noscript-msg": "נראה כי מנגנון ה־JavaScript אינו פעיל אצלך או שהדפדפן שלך אינו תומך בו.\nכדי לספק חוויה בטוחה, מאובטחת ונעימה, טופס התרומה שלנו דורש שימוש ב־JavaScript.",
+	"donate_interface-noscript-msg": "נראה כי מנגנון ה־JavaScript אינו פעיל אצלך או שהדפדפן שלך אינו תומך בו.\nכדי לספק חוויה בטוחה, מאובטחת ונעימה, טופס התרומה שלנו דורש הפעלת JavaScript.",
 	"donate_interface-noscript-redirect-msg": "אם אין באפשרותך או ברצונך להפעיל JavaScript, עדיין ניתן לתרום בכתובת:",
 	"donate_interface-anon-message": "נא להציג את שמי ברשימת התורמים הציבורית.",
 	"donate_interface-donate-wikipedia": "תרומה בוויקיפדיה",
