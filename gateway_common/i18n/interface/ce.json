@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
+			"Исмаил Садуев",
 			"Умар"
 		]
 	},
-	"donate_interface": "Викимедиа фондан гӀодар!",
+	"donate_interface": "Викимедиан Фондана гӀо дар!",
 	"donate_interface-amount": "Ахча",
 	"donate_interface-other-amount": "Кхин ахчан дукхалла",
 	"donate_interface-currency": "Ахча:",
 	"donate_interface-gateway": "Даларан кеп:",
-	"donate_interface-submit-button": "ГӀодар",
+	"donate_interface-submit-button": "ГӀо дар",
 	"donate_interface-comment-label": "Коммент:",
 	"donate_interface-comment-title": "МассотӀекхочу коммент",
 	"donate_interface-monthly-donation-description": "Фонд Викимедиан хӀора баттахь гӀодар",
@@ -125,7 +126,7 @@
 	"donate_interface-donor-pobox": "Абонементан йаьшка",
 	"donate_interface-donor-card": "Кредитан карта",
 	"donate_interface-donor-card-num": "Картан номер:",
-	"donate_interface-donor-submit": "ГӀодар",
+	"donate_interface-donor-submit": "ГӀо дар",
 	"donate_interface-error-msg-amount": "гӀоьна ахча",
 	"donate_interface-error-msg-email": "Дехар до, электронан поштан адрес йазде",
 	"donate_interface-error-msg-street_address": "Дехар до, поштан адрес йазде",
@@ -167,12 +168,12 @@
 	"donate_interface-expires": "Чекхйолу",
 	"donate_interface-card-security-code": "Ларяран код",
 	"donate_interface-please-donate-today": "Дехар до, гӀо дехьа дӀа а ца туьттуш",
-	"donate_interface-make-a-donation": "ГӀодар",
+	"donate_interface-make-a-donation": "ГӀо дар",
 	"donate_interface-next": "Кхин дӀа",
 	"donate_interface-continue": "Кхин дӀа",
 	"donate_interface-cancel": "ТӀецаоьцу",
 	"donate_interface-description": "Цуьнах лаьцна",
-	"donate_interface-donation": "ГӀодар",
+	"donate_interface-donation": "ГӀо дар",
 	"donate_interface-monthly-donation": "ХӀора баттахь гӀодар",
 	"donate_interface-select": "Барам:",
 	"donate_interface-change": "Хийцам бе",

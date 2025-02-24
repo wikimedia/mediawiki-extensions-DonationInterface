@@ -1,116 +1,116 @@
 cb:
-    countries:
-        FR: true
-    group: cc
+  countries:
+    FR: true
+  group: cc
 visa:
-    countries:
-        AU: true
-        CA: true
-        FR: true
-        GB: true
-        IE: true
-        IL: true
-        JP: true
-        NL: true
-        NZ: true
-        SE: true
-        UA: true
-        US: true
-    group: cc
+  countries:
+    AU: true
+    CA: true
+    FR: true
+    GB: true
+    IE: true
+    IL: true
+    JP: true
+    NL: true
+    NZ: true
+    SE: true
+    UA: true
+    US: true
+  group: cc
 visa-debit:
-    group: cc
+  group: cc
 maestro:
-    countries:
-        BE: true
-        RO: true
-    group: cc
+  countries:
+    BE: true
+    RO: true
+  group: cc
 mc:
-    countries:
-        AU: true
-        CA: true
-        FR: true
-        GB: true
-        IE: true
-        IL: true
-        JP: true
-        NL: true
-        NZ: true
-        SE: true
-        UA: true
-        US: true
-    group: cc
+  countries:
+    AU: true
+    CA: true
+    FR: true
+    GB: true
+    IE: true
+    IL: true
+    JP: true
+    NL: true
+    NZ: true
+    SE: true
+    UA: true
+    US: true
+  group: cc
 amex:
-    countries:
-        AU: true
-        CA: true
-        FR: true
-        GB: true
-        IE: true
-        IL: true
-        JP: true
-        NL: true
-        NZ: true
-        SE: true
-        UA: true
-        US: true
-    group: cc
+  countries:
+    AU: true
+    CA: true
+    FR: true
+    GB: true
+    IE: true
+    IL: true
+    JP: true
+    NL: true
+    NZ: true
+    SE: true
+    UA: true
+    US: true
+  group: cc
 jcb:
-    countries:
-        AU: true
-        IE: true
-        JP: true
-        NL: true
-    group: cc
+  countries:
+    AU: true
+    IE: true
+    JP: true
+    NL: true
+  group: cc
 discover:
-    countries:
-        IL: true
-        US: true
-    group: cc
+  countries:
+    IL: true
+    US: true
+  group: cc
 rtbt_ideal:
-    group: rtbt
-    countries:
-        NL: true
+  group: rtbt
+  countries:
+    NL: true
 onlineBanking_CZ:
-    group: bt
-    countries:
-        CZ: true
+  group: bt
+  countries:
+    CZ: true
 sepadirectdebit:
-    group: rtbt
-    countries:
-        AT: true
-        BE: true
-        CY: true
-        DE: true
-        EE: true
-        ES: true
-        FR: true
-        GR: true
-        HR: true
-        IE: true
-        IT: true
-        LT: true
-        LU: true
-        LV: true
-        MT: true
-        NL: true
-        PT: true
-        SI: true
-        SK: true
+  group: rtbt
+  countries:
+    AT: true
+    BE: true
+    CY: true
+    DE: true
+    EE: true
+    ES: true
+    FR: true
+    GR: true
+    HR: true
+    IE: true
+    IT: true
+    LT: true
+    LU: true
+    LV: true
+    MT: true
+    NL: true
+    PT: true
+    SI: true
+    SK: true
 
-#       Countries Adyen says they don't support
-#       https://adyen.com/payment-methods/sepa-direct-debit
-#        BG: true
-#        CH: true
-#        CZ: true
-#        DK: true
-#        HU: true
-#        NO: true
-#        PL: true
-#        RO: true
-#        SE: true
+#     Countries Adyen says they don't support
+#     https://adyen.com/payment-methods/sepa-direct-debit
+#    BG: true
+#    CH: true
+#    CZ: true
+#    DK: true
+#    HU: true
+#    'NO': true
+#    PL: true
+#    RO: true
+#    SE: true
 interac:
-    group: cc
+  group: cc
 ach:
-    group: dd
-    countries:
-        US: true
+  group: dd
+  countries:
+    US: true

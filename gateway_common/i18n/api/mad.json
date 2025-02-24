@@ -1,0 +1,39 @@
+{
+	"@metadata": {
+		"authors": [
+			"Boesenbergia"
+		]
+	},
+	"apihelp-donate-param-full_name": "Nyama ghenna'na",
+	"apihelp-donate-param-phone": "Nomer tèlpon",
+	"apihelp-di_donate_adyen-param-amount": "Bânnya'na sè èsombhâng.",
+	"apihelp-di_donate_adyen-param-city": "Kottha.",
+	"apihelp-di_donate_adyen-param-email": "Lamat sorèl.",
+	"apihelp-di_donate_adyen-param-first_name": "Nyama kapèsan.",
+	"apihelp-di_donate_adyen-param-full_name": "Nyama ghenna'na",
+	"apihelp-di_donate_adyen-param-last_name": "Nyama buḍi.",
+	"apihelp-di_donate_adyen-param-phone": "Nomer tèlpon",
+	"apihelp-di_donate_dlocal-param-city": "Kottha.",
+	"apihelp-di_donate_dlocal-param-country": "Koḍe naghârâ.",
+	"apihelp-di_donate_dlocal-param-email": "Lamat sorèl.",
+	"apihelp-di_donate_dlocal-param-first_name": "Nyama kapèsan.",
+	"apihelp-di_donate_dlocal-param-full_name": "Nyama ghenna'na",
+	"apihelp-di_donate_dlocal-param-language": "Koḍe bhâsa.",
+	"apihelp-di_donate_dlocal-param-last_name": "Nyama buḍi.",
+	"apihelp-di_donate_gravy-param-amount": "Bânnya'na sè èsombhâng.",
+	"apihelp-di_donate_gravy-param-email": "Lamat sorèl.",
+	"apihelp-di_donate_gravy-param-first_name": "Nyama kapèsan.",
+	"apihelp-di_donate_gravy-param-full_name": "Nyama ghenna'na",
+	"apihelp-di_donate_gravy-param-language": "Koḍe bhâsa.",
+	"apihelp-di_donate_braintree-param-amount": "Bânnya'na sè èsombhâng.",
+	"apihelp-di_donate_braintree-param-city": "Kottha.",
+	"apihelp-di_donate_braintree-param-email": "Lamat sorèl.",
+	"apihelp-di_donate_braintree-param-first_name": "Nyama kapèsan.",
+	"apihelp-di_donate_braintree-param-language": "Koḍe bhâsa.",
+	"apihelp-di_donate_braintree-param-last_name": "Nyama sè buḍi.",
+	"apihelp-submitPayment-param-city": "Kottha.",
+	"apihelp-submitPayment-param-email": "Lamat sorèl.",
+	"apihelp-submitPayment-param-full_name": "Nyama ghenna'na",
+	"apihelp-submitPayment-param-language": "Koḍe bhâsa.",
+	"apihelp-submitPayment-param-last_name": "Nyama buḍi."
+}

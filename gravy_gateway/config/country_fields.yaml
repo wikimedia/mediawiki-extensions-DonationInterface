@@ -3,46 +3,46 @@
 # staging helper.
 
 AR:
-    fiscal_number: true
+  fiscal_number: true
 
 AU:
-    state_province: true
+  state_province: true
 
 BR:
-    fiscal_number: true
+  fiscal_number: true
 
 CA:
-    address: true
+  address: true
 
 CL:
-    fiscal_number: true
+  fiscal_number: true
 
 CO:
-    fiscal_number: true
+  fiscal_number: true
 
 GB:
-    address: true
-    opt_in: true
+  address: true
+  opt_in: true
 
 IE:
-    opt_in: true
+  opt_in: true
 
 IN:
-    street_address: true
-    street_number: true
-    state_province: true
-    postal_code: true
-    city: true
-    phone: true
-    fiscal_number: optional
+  street_address: true
+  street_number: true
+  state_province: true
+  postal_code: true
+  city: true
+  phone: true
+  fiscal_number: optional
 
 US:
-    street_address: true
-    postal_code: true
-    employer: optional
+  street_address: true
+  postal_code: true
+  employer: optional
 
 UY:
-    fiscal_number: true
+  fiscal_number: true
 
 ZA:
-    address: true
+  address: true

@@ -1,14 +1,14 @@
 cc:
-    is_default: true
-    recurring: true
-    label: Credit Cards
-    validation:
-        country: true
-        email: true
+  is_default: true
+  recurring: true
+  label: Credit Cards
+  validation:
+    country: true
+    email: true
 rtbt:
-    recurring: false
-    label: Real time bank transfer
-    validation:
-        country: true
-        name: true
-        email: true
+  recurring: false
+  label: Real time bank transfer
+  validation:
+    country: true
+    name: true
+    email: true
