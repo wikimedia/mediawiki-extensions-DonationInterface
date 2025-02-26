@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Wutsje"
 		]
 	},
 	"apihelp-donate-param-email": "E-mailadres.",
