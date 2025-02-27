@@ -513,7 +513,7 @@
 	"donate_interface-monthly-convert-title-variant-003": "Merci pour votre don de <span class=\"mc-convert-donated-amount\"></span>. Voulez-vous augmenter votre impact avec un don mensuel de <span class=\"mc-convert-ask\"></span>, à partir du mois prochain ?",
 	"donate_interface-monthly-convert-title-variant-004": "Vous venez de donner <span class=\"mc-convert-donated-amount\"></span>. Merci. Voulez-vous envisager d’ajouter un <span class=\"mc-convert-ask\"></span> don mensuel, à partir du mois prochain ?",
 	"donate_interface-monthly-convert-title-variant-010": "<span class=\"mc-convert-first-name\"></span>, merci pour votre don. Voulez-vous augmenter votre impact avec un <span class=\"mc-convert-ask\"></span> don mensuel, à partir du mois prochain ?",
-	"donate_interface-monthly-convert-title-variant-015": "Ajouter un don mensuel de <span class=\"mc-convert-ask\"></span> à partir du mois prochain ?",
+	"donate_interface-monthly-convert-title-variant-015": "Si vous le pouvez, ajoutez un don mensuel de <span class=\"mc-convert-ask\"></span> à partir du mois prochain.",
 	"donate_interface-monthly-convert-text": "Le don mensuel est le meilleur moyen de permettre à Wikipédia de continuer à se développer",
 	"donate_interface-monthly-convert-text-annual": "Un soutien régulier est le meilleur moyen de garantir que Wikipédia poursuive son développement.",
 	"donate_interface-monthly-convert-text-variant-002": "Seul un très petit nombre de nos donateurs donne mensuellement, mais c’est la meilleure manière de s’assurer que Wikipédia continue à prospérer.",
