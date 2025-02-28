@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Cabal"
+		]
+	},
+	"apihelp-di_donate_adyen-param-iban": "ਅੰਤਰਰਾਸ਼ਟਰੀ ਬੈਂਕ ਖਾਤਾ ਨੰਬਰ",
+	"apihelp-di_donate_adyen-param-language": "ਭਾਸ਼ਾ ਕੋਡ।",
+	"apihelp-di_donate_adyen-param-street_address": "ਗਲੀ ਪਤੇ ਦੀ ਪਹਿਲੀ ਲਕੀਰ।",
+	"apihelp-di_donate_dlocal-param-amount": "ਦਾਨ ਕੀਤੀ ਰਕਮ।",
+	"apihelp-di_donate_dlocal-param-expiration": "ਮਿਆਦ ਪੁੱਗਣ ਦੀ ਮਿਤੀ।",
+	"apihelp-di_donate_dlocal-param-language": "ਭਾਸ਼ਾ ਕੋਡ।",
+	"apihelp-di_donate_dlocal-param-phone": "ਫੋਨ ਨੰਬਰ",
+	"apihelp-di_donate_dlocal-param-street_address": "ਗਲੀ ਪਤੇ ਦੀ ਪਹਿਲੀ ਲਕੀਰ।",
+	"apihelp-di_donate_gravy-param-city": "ਸ਼ਹਿਰ।",
+	"apihelp-di_donate_gravy-param-last_name": "ਪਿਛਲਾ ਨਾਂ",
+	"apihelp-di_donate_gravy-param-phone": "ਫੋਨ ਨੰਬਰ",
+	"apihelp-di_donate_gravy-param-street_address": "ਗਲੀ ਪਤੇ ਦੀ ਪਹਿਲੀ ਲਕੀਰ।",
+	"apihelp-di_donate_braintree-param-street_address": "ਗਲੀ ਪਤੇ ਦੀ ਪਹਿਲੀ ਲਕੀਰ।",
+	"apihelp-di_recurring_convert-param-frequency_unit": "ਸਾਲ ਜਾਂ ਮਹੀਨਾ",
+	"apihelp-submitPayment-param-first_name": "ਮੂਹਰਲਾ ਨਾਂ"
+}
