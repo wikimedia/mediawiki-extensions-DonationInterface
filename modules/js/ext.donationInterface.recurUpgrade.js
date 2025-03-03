@@ -9,6 +9,7 @@
 			originalAmount = +( $form.attr( 'data-original-amount' ) ),
 			currency = $form.attr( 'data-currency' ),
 			maximum = +( $form.attr( 'data-maximum' ) ),
+			nextDateFormatted = $form.attr( 'data-next-date-formatted' ),
 			formatter;
 
 		// Avoid console errors in case currency is not supplied
@@ -23,7 +24,8 @@
 
 		function setTotalAndSubmitState() {
 			var valueIsValid,
-				value = $amountField.filter( ':checked' ).val();
+				value = $amountField.filter( ':checked' ).val(),
+				formattedValue;
 
 			if ( value === 'other' ) {
 				value = $otherAmountField.val();
@@ -35,11 +37,17 @@
 			valueIsValid = ( value > 0 && value <= maximum );
 
 			if ( valueIsValid ) {
+				formattedValue = formatter.format( originalAmount + value );
 				$submitButton.removeClass( 'disabled' );
 				$submitButton.prop( 'disabled', false );
-				$newTotalAmount.text(
-					formatter.format( originalAmount + value )
-				);
+				if ( $newTotalAmount.length > 0 ) {
+					$newTotalAmount.text( formattedValue );
+				} else {
+					$totalMessage.text( mw.message( 'recurupgrade-upgrading-new-amount-and-date',
+						formattedValue,
+						nextDateFormatted
+					) );
+				}
 				$totalMessage.show();
 			} else {
 				$submitButton.addClass( 'disabled' );
