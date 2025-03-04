@@ -255,6 +255,9 @@
 			"dependencies": [
 				"donationInterface.skinOverride",
 				"ext.donationInterface.emailPreferencesStyles"
+			],
+			"messages": [
+				"recurupgrade-upgrading-new-amount-and-date"
 			]
 		},
 		"ext.donationInterface.alwaysRedirect": {
