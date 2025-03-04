@@ -46,9 +46,10 @@ venmo:
 paypal:
   recurring: true
   validation:
-    country: true
-    name: true
-    email: true
+    country: false
+    address: false
+    street_address: false
+    postal_code: false
 
 google:
   recurring: true
