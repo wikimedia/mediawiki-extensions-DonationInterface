@@ -10,7 +10,8 @@
 			currency = $form.attr( 'data-currency' ),
 			maximum = +( $form.attr( 'data-maximum' ) ),
 			nextDateFormatted = $form.attr( 'data-next-date-formatted' ),
-			formatter;
+			formatter,
+			preSelectAmount = ( new URLSearchParams( document.location.search ) ).get( 'preSelect' );
 
 		// Avoid console errors in case currency is not supplied
 		if ( currency && currency.length === 3 ) {
@@ -62,6 +63,10 @@
 		$otherAmountField.on( 'change keyup', function () {
 			setInterval( setTotalAndSubmitState, 0 );
 		} );
+		if ( preSelectAmount ) {
+			$amountField.filter( '[value=' + preSelectAmount + ']' ).prop( 'checked', true );
+			$amountField.filter( '[value!=' + preSelectAmount + ']' ).prop( 'checked', false );
+		}
 		$otherAmountField.focus( function () {
 			$amountField.filter( '[value=other]' ).prop( 'checked', true );
 			setTotalAndSubmitState();
