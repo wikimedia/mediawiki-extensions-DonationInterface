@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\PaymentData\FinalStatus;

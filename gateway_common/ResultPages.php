@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Title\Title;
+
 class ResultPages {
 	/**
 	 * Get the URL for a page to show donors after a successful donation,

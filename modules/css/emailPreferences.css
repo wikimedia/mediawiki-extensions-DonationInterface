@@ -518,6 +518,22 @@ footer .footer-legal .p {
 }
 
 /* Independent Recurring Upgrade styles */
+body.mw-special-RecurUpgrade header {
+	margin-bottom: 0;
+}
+
+body.mw-special-RecurUpgrade .primary-nav__drawer {
+	display: none;
+}
+
+body.mw-special-RecurUpgrade #contentSub,
+body.mw-special-RecurUpgrade #contentSub2 {
+	margin: 0;
+}
+
+body.mw-special-RecurUpgrade footer {
+	max-width: 100%;
+}
 
 .recurUpgradeForm {
 	width: 100%;

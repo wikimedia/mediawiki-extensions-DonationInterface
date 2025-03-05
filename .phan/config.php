@@ -2,7 +2,7 @@
 
 $cfg = require __DIR__ . '/../vendor/mediawiki/mediawiki-phan-config/src/config.php';
 
-$cfg['target_php_version'] = '7.4';
+$cfg['target_php_version'] = '8.2';
 
 // Ignored to allow upgrading Phan, to be fixed later.
 $cfg['suppress_issue_types'][] = 'MediaWikiNoIssetIfDefined';

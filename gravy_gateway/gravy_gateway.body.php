@@ -75,13 +75,10 @@ class GravyGateway extends GatewayPage {
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
-	/**
-	 * Overrides parent function to return false.
-	 *
-	 * @return bool
-	 *
-	 * @see GatewayPage::showContinueButton()
-	 */
+	public function showSubmethodButtons(): bool {
+		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() );
+	}
+
 	public function showContinueButton(): bool {
 		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() );
 	}
@@ -122,17 +119,6 @@ class GravyGateway extends GatewayPage {
 			return $session->getPaymentSession();
 		}
 		return null;
-	}
-
-	/**
-	 * Overrides parent function to return false if direct.
-	 *
-	 * @return bool
-	 *
-	 * @see GatewayPage::showSubmethodButtons()
-	 */
-	public function showSubmethodButtons(): bool {
-		return false;
 	}
 
 }
