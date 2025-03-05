@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Title\Title;
+
 class ReturnUrl implements StagingHelper {
 
 	public function stage( GatewayType $adapter, $normalized, &$staged ) {
