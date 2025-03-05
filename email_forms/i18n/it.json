@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Laos è una regione"
 		]
 	},
 	"emailpreferences-change-email": "cambia e-mail",
@@ -30,5 +31,10 @@
 	"emailpreferences-success": "La tua richiesta di salvataggio delle preferenze di posta elettronica è stata inoltrata.",
 	"emailpreferences-title": "Preferenze email",
 	"emailpreferences-wikimedia-image-alt": "Fondazione Wikimedia",
+	"recurupgrade-ask-bigger": "Facciamo un impatto ancora più grande insieme.",
+	"recurupgrade-ask-heading": "Wikipedia è l'internet che ci è stato promesso, e il vostro sostegno lo mantiene forte!",
+	"recurupgrade-small-increase": "Un piccolo aumento oggi aiuta a mantenere Wikipedia forte per voi e per milioni di altre persone.",
+	"recurupgrade-salutation": "Ciao, $1!",
+	"recurupgrade-thanks-monthly": "Grazie mille per essere uno dei nostri rari donatori mensili.",
 	"fundraiserunsubscribe": "Annulla l'iscrizione all'e-mail di raccolta fondi della Wikimedia Foundation"
 }
