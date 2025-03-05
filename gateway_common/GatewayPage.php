@@ -16,6 +16,8 @@
  *
  */
 
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Logging\Logger;
 use SmashPig\Core\PaymentError;

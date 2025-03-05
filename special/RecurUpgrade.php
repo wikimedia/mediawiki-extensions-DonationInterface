@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
+use MediaWiki\Html\Html;
 use Psr\Log\LoggerInterface;
 use SmashPig\Core\DataStores\QueueWrapper;
 

@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Title\Title;
+
 class PaypalExpressReturnUrl implements StagingHelper {
 	public function stage( GatewayType $adapter, $normalized, &$staged ) {
 		$returnTitle = Title::newFromText( 'Special:PaypalExpressGatewayResult' );

@@ -16,6 +16,8 @@
  *
  */
 
+use MediaWiki\Title\Title;
+
 /**
  * IngenicoGateway
  */

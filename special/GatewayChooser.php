@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Title\Title;
+
 /**
  * GatewayChooser acts as a gateway-agnostic landing page.
  * When passed a country, currency, and payment method combination, it determines the
