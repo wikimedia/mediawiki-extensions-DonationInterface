@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"JLTRY",
 			"Mahabarata",
 			"Terio legale",
 			"Verdy p"
@@ -34,11 +35,11 @@
 	"emailpreferences-wikimedia-image-alt": "Fondation Wikimédia",
 	"recurupgrade": "Votre don récurrent",
 	"recurupgrade-add": "Ajouter $1",
-	"recurupgrade-amount-ask": "Combien souhaitez-vous ajouter au montant de votre don mensuel ?",
+	"recurupgrade-amount-ask": "Veuillez sélectionner le montant par lequel vous souhaitez augmenter votre don:",
 	"recurupgrade-amount": "Montant actuel de votre don périodique",
-	"recurupgrade-current-amount-and-date": "Votre montant actuel de don mensuel est de <strong>$1</strong> et votre prochaine échéance est le <strong>$2</strong>.",
+	"recurupgrade-current-amount-and-date": "À l’heure actuelle, votre don mensuel est <strong>$1</strong> et votre prochaine contribution est prévue à <strong>$2</strong> .",
 	"recurupgrade-next-scheduled-date": "Prochaine échéance de don",
-	"recurupgrade-salutation": "Bonjour, $1 ! Votre impact sera net et vaste.",
+	"recurupgrade-salutation": "Salut, $1 !",
 	"recurupgrade-salutation-no-recur-records": "Bonjour ! Merci pour votre soutien à Wikipédia.",
 	"recurupgrade-no-recur-records": "Malheureusement, nous n'avons pas pu trouver de don périodique pour effectuer une mise à niveau. Vous pouvez <a href=\"$1\">commencer une nouvelle donation mensuelle</a> ou nous contacter pour obtenir de l'aide à l'adresse <a href=\"mailto:$2\">$2</a>.",
 	"recurupgrade-select-option": "Pour mettre à jour votre don mensuel, sélectionnez l’une des options ci-dessus.",

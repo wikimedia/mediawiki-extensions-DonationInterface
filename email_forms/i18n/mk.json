@@ -32,7 +32,7 @@
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "Вашата повторливо дарување",
 	"recurupgrade-add": "Додајте $1",
-	"recurupgrade-amount-ask": "Колку сакате да додадете кон месечната уплата?",
+	"recurupgrade-amount-ask": "Изберете за кој износ сакате да го зголемите прилогот:",
 	"recurupgrade-amount": "Тековен повторлив износ",
 	"recurupgrade-current-amount-and-date": "Вашата тековна месечна уплата изнесува <strong>$1</strong> и следниот датум е <strong>$2</strong>.",
 	"recurupgrade-next-scheduled-date": "Следен датум на уплата",
