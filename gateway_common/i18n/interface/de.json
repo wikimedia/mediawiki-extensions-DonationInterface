@@ -20,7 +20,8 @@
 			"ToBeFree",
 			"Umherirrender",
 			"Justman10000",
-			"McDutchie"
+			"McDutchie",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Wikimedia unterstützen",
@@ -452,7 +453,7 @@
 	"donate_interface-monthly-convert-error": "Ihre einmalige Spende war erfolgreich, aber wir konnten keine wiederkehrende Spende einrichten.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ich werde eine monatliche Spende in Höhe von <span class=\"mc-convert-ask\"></span> hinzufügen!",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ich werde eine monatliche Spende in Höhe von <span class=\"mc-convert-ask\"></span> hinzufügen",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nein, danke!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",

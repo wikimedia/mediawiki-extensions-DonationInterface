@@ -15,7 +15,8 @@
 			"Sjurhamre",
 			"Telaneo",
 			"Zilvador",
-			"EdoAug"
+			"EdoAug",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -408,7 +409,7 @@
 	"donate_interface-email-unsub-success": "Du har blitt fjernet fra vår epostliste",
 	"donate_interface-email-unsub-delay": "Det kan gå opptil fire dager før endringen finner sted. Vi beklager om du får noen e-poster i løpet av denne tiden. Om du har spørsmål, kontakt <$1>",
 	"donate_interface-email-unsub-fail": "Det oppsto en feil under behandling av forespørselen, vennligst kontakt <$1>.",
-	"donate_interface-email-unsub-confirm": "Er du sikker på at du vil stoppe abonnementet for <b>$1</b>?",
+	"donate_interface-email-unsub-confirm": "Er du sikker på at du ønsker å melde av <b>$1</b>?",
 	"donate_interface-email-unsub-warning": "Dette vil reservere deg mot eposter fra Wikimedia Foundation sendt til deg som donor. Du kan fortsatt motta eposter på denne adressen om den er knyttet til en konto på en av våre prosjekter. Om du har spørsmål, kontakt <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-explain": "Vi sender deg en kvittering på e-post for å bekrefte gaven din.",
 	"donate_interface-email-optin-fail": "En feil oppsto under behandlingen av forespørselen din. Vennligst kontakt <a href=\"mailto:$1\">$1</a>, eller <a href=\"$2\">trykk her for å prøve igjen</a>.",
@@ -443,7 +444,7 @@
 	"donate_interface-monthly-convert-title-variant-003": "Takk for donasjonen din på <span class=\"mc-convert-donated-amount\"></span>. Ønsker du å øke innvirkningen din med en månedlig donasjon på <span class=\"mc-convert-ask\"></span> fra og med neste måned?",
 	"donate_interface-monthly-convert-title-variant-004": "Du donerte nettopp <span class=\"mc-convert-donated-amount\"></span>. Tusen takk! Ønsker du å legge til en månedlig donasjon på <span class=\"mc-convert-ask\"></span> fra og med neste måned?",
 	"donate_interface-monthly-convert-title-variant-010": "Tusen takk for gaven din, <span class=\"mc-convert-first-name\"></span>! Ønsker du å øke innvirkningen din med en månedlig gave på <span class=\"mc-convert-ask\"></span> fra og med neste måned?",
-	"donate_interface-monthly-convert-text": "Månedlig støtte er den beste måten å sikre at Wikipedia fortsetter å vokse.",
+	"donate_interface-monthly-convert-text": "Månedlig støtte er den beste måten å sikre Wikipedias fremgang på.",
 	"donate_interface-monthly-convert-text-variant-002": "Bare en liten andel av donorene våre gir månedlig, men det er den beste måten å sikre at Wikipedia holder seg gående.",
 	"donate_interface-monthly-convert-text-variant-005": "Vi skal være ærlige: kunnskap er ikke en engangskur, det er en langvarig satsing. Kan du gjøre støtten din til en månedlig donasjon?",
 	"donate_interface-monthly-convert-text-variant-008": "Takk for gaven din. Vi må spørre: er du i stand til å ta i litt til? Bare en brøkdel av leserne våre kommer i det hele tatt til dette punktet, fordi de fleste ikke donerer. Og av alle donorene våre er det bare en liten andel som vurderer en automatisk månedlig gave. Men månedlig støtte er den beste måten å sikre at Wikipedia holder seg gående. Kan du hjelpe oss å oppnå økonomisk stabilitet med et fast trekk?",
@@ -460,5 +461,5 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Nei, ikke nå",
 	"donate_interface-fundraiser-maintenance-header": "Midlertidig nede for vedlikehold",
 	"donate_interface-fundraiser-maintenance-notice": "Vi utfører for øyeblikket planlagt vedlikehold, og kan ikke ta imot donasjoner nå. Prøv igjen snart. Om du har noen spørsmål, send oss gjerne en e-post på $1.",
-	"donate_interface-redirect-explanation": "Du blir omdirigert til Wikimedias betalingspartner."
+	"donate_interface-redirect-explanation": "Du blir sendt videre til Wikimedias betalingsbehandler."
 }

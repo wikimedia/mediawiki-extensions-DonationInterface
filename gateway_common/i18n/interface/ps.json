@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmed-Najib-Biabani-Ibrahimkhel"
+			"Ahmed-Najib-Biabani-Ibrahimkhel",
+			"شاه زمان پټان"
 		]
 	},
 	"donate_interface": "د ويکيمېډيا ملاتړ وکړی",
@@ -135,7 +136,7 @@
 	"donate_interface-card-name-mc": "ماسټر کارډ",
 	"donate_interface-card-name-discover": "ډېسکوور",
 	"donate_interface-error-msg-amount": "د بسپنې کچه",
-	"donate_interface-error-msg-email": "لطفاً برېښليک‌پته مو ورکړئ",
+	"donate_interface-error-msg-email": "مهرباني وکړئ برېښليک‌پته مو ورکړئ",
 	"donate_interface-error-msg-first_name": "لطفاً خپل لومړی نوم وليکۍ",
 	"donate_interface-error-msg-last_name": "لطفاً خپل وروستی نوم وليکۍ",
 	"donate_interface-error-msg-street_address": "لطفاً خپل د کوڅې پته وليکۍ",
