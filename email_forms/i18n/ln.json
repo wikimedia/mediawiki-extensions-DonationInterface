@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"BOKOBA VEROLY"
+		]
+	},
+	"recurupgrade-amount-ask": "Tosengi yo opona mbongo oyo olingi kobakisa likabo na yo:",
+	"recurupgrade-ask-bigger": "Tosalela bopusi monene koleka - elongo.",
+	"recurupgrade-ask-heading": "Wikipedia ezali internet oyo balakaki biso, mpe lisungi na yo ezali kobatela yango!",
+	"recurupgrade-ask-thankyou": "Matondo mpo ozali eteni ya ntina ya Wikipedia mpe misala ya Wikimedia. Likabo na yo ya sanza na sanza esalisaka na kondimisama ete Wikipedia etikala ya kotyela motema, ya kozanga piblisite, mpe ya ntango nyonso oyo ozali na mposa na yango.",
+	"recurupgrade-current-amount-and-date": "Sikawa, likabo na yo ya sanza na sanza ezali <strong>$1</strong> mpe likabo na yo ya nsima ebongisami mpo na <strong>$2</strong> .",
+	"recurupgrade-small-increase": "Bokóli moke lelo esalisaka Wikipedia ezala makasi mpo na yo mpe bamilio ya bato mosusu.",
+	"recurupgrade-salutation": "Mbote, $1 !",
+	"recurupgrade-thanks-monthly": "Matondo mingi mpo ozali moko ya bato oyo bapesaka makabo sanza na sanza.",
+	"recurupgrade-upgrade-decline-long": "Soki obongoli makanisi na yo, zala na bonsomi ya kokanga lokasa oyo. Matondo mingi mpo na lisungi na yo!",
+	"recurupgrade-upgrade": "Kobongisa likabo na ngai",
+	"recurupgrade-upgrading-new-amount-and-date": "Mosolo na yo ya sika ya likabo ya sanza na sanza ya $1 ekosalema na mokolo ya likabo na yo ya sima ya $2"
+}
