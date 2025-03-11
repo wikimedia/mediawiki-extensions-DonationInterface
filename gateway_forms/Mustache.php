@@ -366,11 +366,14 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			];
 		}
 
+		// For languages code with hyphens for example "es-419"
+		$locale = explode( '-', $data['language'] )[0] . '_' . $data['country'];
+
 		$data['display_amount'] = Amount::format(
 			$data['amount'],
 			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$data['currency'],
-			$data['language'] . '_' . $data['country']
+			$locale
 		);
 		if ( floatval( $data['amount'] ) === 0.0 ) {
 			$data['amount'] = '';

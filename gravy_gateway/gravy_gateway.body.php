@@ -17,9 +17,10 @@ class GravyGateway extends GatewayPage {
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
-		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyGooglePayMerchantID;
+		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyGooglePayMerchantID, $wgGravyRedirectPaypal;
 		$out->addJsConfigVars( 'wgGravyEnvironment', $wgGravyGatewayEnvironment );
 		$out->addJsConfigVars( 'wgGravyId', $wgGravyGatewayID );
+		$out->addJsConfigVars( 'wgGravyRedirectPaypal', $wgGravyRedirectPaypal );
 		// Ensure script is only loaded for cc payments
 		if ( $this->isCreditCard() ) {
 			$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );

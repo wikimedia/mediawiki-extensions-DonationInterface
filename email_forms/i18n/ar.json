@@ -37,7 +37,7 @@
 	"recurupgrade-amount": "المبلغ المتكرر الحالي",
 	"recurupgrade-current-amount-and-date": "مبلغ التبرع الشهري الحالي الخاص بك هو <strong>$1</strong> وتاريخ التبرع القادم الخاص بك هو <strong>$2</strong> .",
 	"recurupgrade-next-scheduled-date": "تاريخ التبرع القادم",
-	"recurupgrade-salutation": "مرحبًا، $1 ! تأثيرك يصل إلى كل مكان.",
+	"recurupgrade-salutation": "مرحبًا، $1 !",
 	"recurupgrade-salutation-no-recur-records": "مرحباً! شكراً لدعمك لويكيبيديا.",
 	"recurupgrade-no-recur-records": "لسوء الحظ، لم نتمكن من العثور على تبرع متكرر للترقية. يمكنك <a href=\"$1 \">start a new monthly donation</a> أو الاتصال بنا للحصول على الدعم مقابل <a href=\"mailto:$2\">$2</a>.",
 	"recurupgrade-select-option": "لترقية هديتك الشهرية، حدد أحد الخيارات المذكورة أعلاه.",

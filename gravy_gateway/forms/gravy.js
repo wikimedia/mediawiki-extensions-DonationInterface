@@ -13,6 +13,7 @@
 	sessionId = mw.config.get( 'gravy_session_id' ),
 	environment = mw.config.get( 'wgGravyEnvironment' ),
 	gravyId = mw.config.get( 'wgGravyId' ),
+	redirectPaypal = mw.config.get( 'wgGravyRedirectPaypal' ),
 	googlePaymentClient = null,
 	appleSession = null,
 	language = $( '#language' ).val(),
@@ -448,6 +449,25 @@
 		);
 	}
 
+	function submitPaypal() {
+		var di = mw.donationInterface;
+
+		function redirect( result ) {
+			// We don't actually want to enable the form on redirect or in the
+			// complete phase of callDonateApi, so we override enable here.
+			di.forms.enable = function () {};
+			location.assign( result.redirect );
+		}
+
+		di.forms.submit = function () {
+			// MediaWiki uses the "uselang" parameter to set the language for localization
+			// Checkout /payments/includes/api/ApiMain.php
+			di.forms.callDonateApi( redirect, { uselang: $( '#language' ).val() } );
+		};
+
+		di.forms.submit();
+	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -463,6 +483,10 @@
 			mw.donationInterface.forms.loadScript( configFromServer.googleScript, setupGooglePayForm );
 		} else if ( $( '#payment_method' ).val() === 'apple' ) {
 			mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
+		} else if ( $( '#payment_method' ).val() === 'paypal' ) {
+			if ( redirectPaypal ) {
+				submitPaypal();
+			}
 		}
 	} );
 } )( jQuery, mediaWiki );

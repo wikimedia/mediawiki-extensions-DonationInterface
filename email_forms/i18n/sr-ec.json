@@ -15,5 +15,6 @@
 	"emailpreferences-hi": "Задраво",
 	"emailpreferences-language": "Језик",
 	"recurupgrade-add": "Додај $1",
+	"recurupgrade-salutation": "Здраво, $1!",
 	"recurupgrade-salutation-no-recur-records": "Задраво! Хвала што подржавате Википедију."
 }
