@@ -195,6 +195,7 @@
 	"donate_interface-donor-card": "Label or header for credit card information.",
 	"donate_interface-donor-card-num": "Label for card number field.",
 	"donate_interface-donor-expiration": "Label for credit card expiration day field.\n\nThis will appear directly after the credit card number field, so there is no need to repeat that it is for a credit card.",
+	"donate_interface-donor-expiry-date": "Label for credit card expiry day field.\n\nThis will appear directly after the credit card number field, so there is no need to repeat that it is for a credit card.",
 	"donate_interface-donor-security": "Label for the field where you put in the security code for your card.\n{{Identical|Security code}}",
 	"donate_interface-donor-submit": "{{Identical|Donate}}",
 	"donate_interface-donor-currency-msg": "Parameters:\n* $1 - 3 letter currency code. e.g. USD",

@@ -406,6 +406,7 @@
 			"messages": [
 				"donate_interface-donor-card-num",
 				"donate_interface-donor-expiration",
+				"donate_interface-donor-expiry-date",
 				"donate_interface-cvv",
 				"donate_interface-charge-monthly-only",
 				"donate_interface-redirect-explanation",
@@ -443,11 +444,13 @@
 				"donate_interface-expiry-date-field-placeholder",
 				"donate_interface-error-msg-invalid-card-number",
 				"donate_interface-error-msg-invalid-cvv-format",
-				"donate_interface-error-msg-card-too-old",
+				"donate_interface-error-msg-expiry-date-field-invalid",
 				"donate_interface-name-on-card",
 				"donate_interface-cardholders-name",
-				"donate_interface-cvv",
-				"donate_interface-expiry-date-field-placeholder"
+				"donate_interface-donor-security",
+				"donate_interface-expiry-date-field-placeholder",
+				"donate_interface-cvv-placeholder-3-digits",
+				"donate_interface-cvv-placeholder-4-digits"
 			]
 		},
 		"ext.donationInterface.errorMessages": {

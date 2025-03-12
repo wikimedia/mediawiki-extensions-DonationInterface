@@ -1,8 +1,18 @@
 form#payment-form input[type='email'],
-form#payment-form input[type='text'] {
+form#payment-form input[type='text'],
+form#payment-form input.inputDefault[type='text'],
+form#payment-form input.fullwidth[type='email'],
+form#payment-form input.fullwidth[type='text'],
+form#payment-form div.halfwidth input[type='text'] {
+	font-family: -apple-system, BlinkMacSystemFont,
+	"Segoe UI", "Roboto", "Oxygen",
+	"Ubuntu", "Cantarell", "Fira Sans",
+	"Droid Sans", "Helvetica Neue", sans-serif;
 	font-size: 16px;
 	font-weight: 400;
 	line-height: normal;
+	padding: 5px 8px 5px 8px;
+	height: 40px;
 }
 
 form#payment-form select {
@@ -13,9 +23,11 @@ form#payment-form select {
 
 .secure-fields__input {
 	width: 100%;
-	height: 48px;
+	height: 40px;
 	border: 1px solid #a2a9b1;
 	border-radius: 2px;
+	background-size: 27px 18px !important;
+	padding-right: 3em; /* Adjust padding to make space for the icon */
 }
 
 /* card input space with the card icon */
@@ -25,15 +37,37 @@ form#payment-form select {
 	border-radius: 2px;
 }
 
+.secure-fields__input--number {
+	background: url(../../gateway_forms/includes/credit-card.svg) no-repeat 97% center;
+}
+
+.secure-fields__input--expiry-date {
+	background: url(../../gateway_forms/includes/expiry_date_hint.svg) no-repeat 94% center;
+}
+
+.secure-fields__input--security-code {
+	background: url(../../gateway_forms/includes/security-code.svg) no-repeat 94% center;
+}
+.valid-input {
+	background: url(../../gateway_forms/includes/checkmark.svg) no-repeat 94% center;
+}
+.invalid-input {
+	background: url(../../gateway_forms/includes/field_error.svg) no-repeat 94% center;
+}
 .GravyField--invalid, .GravyField--focus.GravyField--invalid, .secure-fields__input[data-secure-fields-invalid] {
 	/* Note: coordinate with errorHighlight in skinOverride.css */
 	border: 2px solid #f00;
 }
-
+/* to match the adyen styles. */
+button#gpay-button-online-api-id {
+	padding: 11px;
+}
 .GravyField--invalid-text {
 	color: #f00;
 }
-
+.secure-fields__input[data-secure-fields-focused] {
+	border: 2px solid #36c;
+}
 .button {
 	--apple-pay-button-height: 3rem;
 	--apple-pay-button-width: 15rem;
