@@ -223,7 +223,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	protected static function singleton(
 		GatewayType $gateway_adapter,
 		?Gateway_Extras_CustomFilters $custom_filter_object = null
-	) {
+	): self {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

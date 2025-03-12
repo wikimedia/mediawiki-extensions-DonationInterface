@@ -16,7 +16,7 @@ class EmailForm {
 	 */
 	protected $params;
 
-	public function __construct( $process, $params = [] ) {
+	public function __construct( string $process, array $params = [] ) {
 		$this->process = $process;
 		$this->params = $params;
 	}
@@ -65,16 +65,16 @@ class EmailForm {
 		return MustacheHelper::render( $templatePath, $templateParams, $options );
 	}
 
-	public static function l10n( $key, ...$params ) {
+	public static function l10n( $key, ...$params ): string {
 		return wfMessage( $key, ...MustacheHelper::filterMessageParams( $params ) )->text();
 	}
 
-	public static function dateFormatter( $dateString ) {
+	public static function dateFormatter( string $dateString ): string {
 		$date = ( new DateTime( $dateString ) )->format( 'F jS, Y' );
 		return $date;
 	}
 
-	public static function amountFormatter( $amount, $locale, $currency ) {
+	public static function amountFormatter( float $amount, string $locale, string $currency ): string {
 		return Amount::format(
 			$amount,
 			$currency,
@@ -82,7 +82,7 @@ class EmailForm {
 		);
 	}
 
-	protected function getTemplateParams() {
+	protected function getTemplateParams(): array {
 		global $wgDonationInterfaceEmailFormHelpEmail, $wgDonationInterfaceRecurringDonateURL;
 
 		$paramList = [
@@ -144,7 +144,7 @@ class EmailForm {
 		return $templateParams;
 	}
 
-	protected function getPolicyUrl( $languageCode ) {
+	protected function getPolicyUrl( string $languageCode ): string {
 		global $wgDonationInterfacePolicyURL;
 
 		// $wgDonationInterfacePolicyURL has $language and $country variables

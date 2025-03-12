@@ -65,7 +65,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function sendCancelRecurringUpgradeQueue( $contributionID, $contactID ) {
+	protected function sendCancelRecurringUpgradeQueue( string $contributionID, string $contactID ) {
 		$logger = self::getLogger();
 		$message = [
 				'txn_type' => 'recurring_upgrade_decline',
@@ -80,7 +80,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function paramsForRecurUpgradeForm( $checksum, $contactID, $country ): ?array {
+	protected function paramsForRecurUpgradeForm( string $checksum, string $contactID, ?string $country ): ?array {
 		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
 		if ( $recurData[ 'is_error' ] ) {
 			$logger = self::getLogger();
@@ -130,7 +130,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			] + $this->getTrackingParametersForForm();
 	}
 
-	protected function executeRecurUpgrade( $params ) {
+	protected function executeRecurUpgrade( array $params ) {
 		$logger = self::getLogger();
 		$donorData = WmfFramework::getSessionValue( self::DONOR_DATA );
 		if ( !isset( $donorData['contribution_recur_id'] ) ) {
@@ -208,7 +208,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->getConfig();
 	}
 
-	protected function wasCanceled( $params ) {
+	protected function wasCanceled( array $params ): bool {
 		return ( isset( $params['submit'] ) && ( $params['submit'] === 'cancel' ) );
 	}
 
@@ -222,11 +222,11 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		] );
 	}
 
-	protected function getTrackingParametersWithPrefix() {
+	protected function getTrackingParametersWithPrefix(): array {
 		return $this->getRequest()->getValues( 'wmf_campaign', 'wmf_medium', 'wmf_source' );
 	}
 
-	protected function getTrackingParametersWithoutPrefix() {
+	protected function getTrackingParametersWithoutPrefix(): array {
 		$paramsWithPrefix = $this->getTrackingParametersWithPrefix();
 		$paramsWithoutPrefix = [];
 		foreach ( $paramsWithPrefix as $name => $value ) {
@@ -235,7 +235,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		return $paramsWithoutPrefix;
 	}
 
-	protected function getTrackingParametersForForm() {
+	protected function getTrackingParametersForForm(): array {
 		return $this->getTrackingParametersWithoutPrefix() + [
 				'campaign' => '',
 				'medium' => '',

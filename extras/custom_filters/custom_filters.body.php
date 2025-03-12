@@ -163,7 +163,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return true;
 	}
 
-	public static function onValidate( GatewayType $gateway_adapter ) {
+	public static function onValidate( GatewayType $gateway_adapter ): bool {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ) {
 			return true;
 		}
@@ -171,7 +171,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->validate( self::PHASE_VALIDATE );
 	}
 
-	public static function onGatewayReady( GatewayType $gateway_adapter ) {
+	public static function onGatewayReady( GatewayType $gateway_adapter ): bool {
 		if ( !$gateway_adapter->getGlobal( 'EnableCustomFilters' ) ) {
 			return true;
 		}
@@ -179,7 +179,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->validate( self::PHASE_INITIAL );
 	}
 
-	public static function singleton( GatewayType $gateway_adapter ) {
+	public static function singleton( GatewayType $gateway_adapter ): self {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}
@@ -203,7 +203,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		return self::singleton( $gateway_adapter )->determineAction();
 	}
 
-	protected function runFilters( $phase ) {
+	protected function runFilters( string $phase ) {
 		switch ( $phase ) {
 			case self::PHASE_INITIAL:
 				Gateway_Extras_CustomFilters_Referrer::onInitialFilter( $this->gateway_adapter, $this );

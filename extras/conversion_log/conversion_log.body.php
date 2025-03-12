@@ -44,7 +44,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		return true;
 	}
 
-	public static function onPostProcess( GatewayType $gateway_adapter ) {
+	public static function onPostProcess( GatewayType $gateway_adapter ): bool {
 		if ( !$gateway_adapter->getGlobal( 'EnableConversionLog' ) ) {
 			return true;
 		}
@@ -52,7 +52,7 @@ class Gateway_Extras_ConversionLog extends Gateway_Extras {
 		return self::singleton( $gateway_adapter )->post_process();
 	}
 
-	protected static function singleton( GatewayType $gateway_adapter ) {
+	protected static function singleton( GatewayType $gateway_adapter ): self {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter );
 		}

@@ -32,7 +32,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	 */
 	const GLOBAL_PREFIX = 'wgDlocalGateway';
 
-	public function doPayment() {
+	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->setCurrentTransaction( 'authorize' );
@@ -128,7 +128,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->handleCreatedPayment( $paymentStatusResult, $paymentProvider );
 	}
 
-	protected function getBasedir() {
+	protected function getBasedir(): string {
 		return __DIR__;
 	}
 

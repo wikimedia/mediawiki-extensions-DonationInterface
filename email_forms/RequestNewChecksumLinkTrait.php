@@ -6,7 +6,7 @@ trait RequestNewChecksumLinkTrait {
 
 	protected ?string $subpage;
 
-	protected function setUpClientSideChecksumRequest( $subpage ) {
+	protected function setUpClientSideChecksumRequest( ?string $subpage ) {
 		// @phan-suppress-next-line PhanUndeclaredMethod
 		$this->getOutput()->addModules( 'ext.donationInterface.requestNewChecksumLink' );
 		// @phan-suppress-next-line PhanUndeclaredMethod
@@ -23,7 +23,7 @@ trait RequestNewChecksumLinkTrait {
 		$vars['requestNewChecksumSubpage'] = $this->subpage;
 	}
 
-	protected function isChecksumExpired() {
+	protected function isChecksumExpired(): bool {
 		return Validator::isChecksumExpired(
 			// @phan-suppress-next-line PhanUndeclaredMethod
 			$this->getRequest()->getVal( 'checksum' )
