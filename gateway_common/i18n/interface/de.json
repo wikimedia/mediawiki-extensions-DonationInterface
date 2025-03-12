@@ -20,7 +20,8 @@
 			"Tbleher",
 			"ToBeFree",
 			"Umherirrender",
-			"McDutchie"
+			"McDutchie",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Wikimedia unterstützen",
@@ -286,7 +287,7 @@
 	"donate_interface-first": "Erste",
 	"donate_interface-middle": "Mittlere",
 	"donate_interface-last": "Letzte",
-	"donate_interface-other": "Anderer",
+	"donate_interface-other": "Anderer Betrag",
 	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, benötigt unser Spendenformular JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Sofern Sie JavaScript nicht aktivieren können oder möchten, können Sie dennoch spenden, indem Sie die folgende Webseite aufrufen:",
 	"donate_interface-anon-message": "Bitte meinen Namen in der öffentlichen Spenderliste erwähnen.",
@@ -457,7 +458,7 @@
 	"donate_interface-monthly-convert-error": "Ihre einmalige Spende war erfolgreich, aber wir konnten keine wiederkehrende Spende einrichten.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ich möchte helfen",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nein, danke",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ich werde eine monatliche Spende in Höhe von <span class=\"mc-convert-ask\"></span> hinzufügen!",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ich werde eine monatliche Spende in Höhe von <span class=\"mc-convert-ask\"></span> hinzufügen",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nein, danke!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
