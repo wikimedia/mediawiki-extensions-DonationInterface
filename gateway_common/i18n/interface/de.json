@@ -281,7 +281,7 @@
 	"donate_interface-first": "Erste",
 	"donate_interface-middle": "Mittlere",
 	"donate_interface-last": "Letzte",
-	"donate_interface-other": "Anderer",
+	"donate_interface-other": "Anderer Betrag",
 	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, benötigt unser Spendenformular JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Sofern Sie JavaScript nicht aktivieren können oder möchten, können Sie dennoch spenden, indem Sie die folgende Webseite aufrufen:",
 	"donate_interface-anon-message": "Bitte meinen Namen in der öffentlichen Spenderliste erwähnen.",
