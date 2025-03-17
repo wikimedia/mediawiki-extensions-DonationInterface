@@ -38,7 +38,7 @@
 	  				{{/recurringOptions}}
 					<div class="recurUpgradeRadio">
 						<input type="radio" id="upgradeAmount_other" name="upgrade_amount" value="other" autocomplete="off" class="sr-only">
-						<label class="recurUpgradeSelection" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="text" inputmode="numeric" pattern="[\.0-9]+" id="upgradeAmount_other_input" name="upgrade_amount_other">
+						<label class="recurUpgradeSelection" for="upgradeAmount_other">{{ l10n "donate_interface-other-amount" }}<input type="number" min="0" step="0.01" max="{{ maximum }}" id="upgradeAmount_other_input" name="upgrade_amount_other">
 						</label>
 					</div>
 				</div>
