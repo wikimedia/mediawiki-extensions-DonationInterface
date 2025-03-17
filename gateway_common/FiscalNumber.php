@@ -1,5 +1,7 @@
 <?php
 
+use SmashPig\Core\ValidationError;
+
 /**
  * Formatting and validation for various countries' tax ID numbers.
  * Some rules can be deduced from the documentation of this Django app:
@@ -118,7 +120,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		}
 	}
 
-	protected static function getError( $type ) {
+	protected static function getError( string $type ): ValidationError {
 		return DataValidator::getError(
 			self::$key,
 			$type

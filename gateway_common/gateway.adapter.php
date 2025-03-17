@@ -310,7 +310,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	abstract protected function defineOrderIDMeta();
 
-	public function loadConfig( $variant = null ) {
+	public function loadConfig( ?string $variant = null ) {
 		$configurationReader = ConfigurationReader::createForGateway(
 			static::getIdentifier(), $variant, WmfFramework::getConfig()
 		);
@@ -587,7 +587,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getDataSources() {
+	public function getDataSources(): array {
 		return $this->dataObj->getDataSources();
 	}
 
@@ -771,7 +771,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->transactions[$transaction]['request'];
 	}
 
-	protected function buildRequestArray() {
+	protected function buildRequestArray(): array {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
@@ -781,7 +781,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return ArrayHelper::buildRequestArray( $callback, $structure );
 	}
 
-	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
+	protected function setFailedValidationTransactionResponse( string $transaction, string $phase = 'pre-process' ): PaymentTransactionResponse {
 		$this->logger->info( "Failed $phase checks for transaction type $transaction." );
 		if ( !$this->transaction_response ) {
 			$this->transaction_response = new PaymentTransactionResponse();
@@ -863,11 +863,11 @@ abstract class GatewayAdapter implements GatewayType {
 		return '';
 	}
 
-	public function getPaymentSubmethod() {
+	public function getPaymentSubmethod(): string {
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 
-	public function getPaymentSubmethods() {
+	public function getPaymentSubmethods(): array {
 		return $this->payment_submethods;
 	}
 
@@ -1011,7 +1011,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $c::GATEWAY_NAME;
 	}
 
-	public static function getGlobalPrefix() {
+	public static function getGlobalPrefix(): string {
 		$c = get_called_class();
 		return $c::GLOBAL_PREFIX;
 	}
@@ -1083,7 +1083,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	protected function getQueueContactMessage() {
+	protected function getQueueContactMessage(): array {
 		$queueMessage = [];
 		foreach ( DonationData::getContactFields() as $field ) {
 			$queueMessage[$field] = $this->getData_Unstaged_Escaped( $field );
@@ -1462,7 +1462,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return false;
 	}
 
-	public function getGatewayAdapterClass() {
+	public function getGatewayAdapterClass(): string {
 		return get_called_class();
 	}
 
@@ -1652,7 +1652,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getValidationAction() {
+	public function getValidationAction(): string {
 		if ( !isset( $this->action ) ) {
 			$this->action = ValidationAction::PROCESS;
 		}
@@ -2396,7 +2396,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return md5( $token . $padding );
 	}
 
-	public function token_getSaltedSessionToken() {
+	public function token_getSaltedSessionToken(): string {
 		// make sure we have a session open for tracking a CSRF-prevention token
 		$this->session_ensure();
 
@@ -2722,7 +2722,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $order_id;
 	}
 
-	public function regenerateOrderID() {
+	public function regenerateOrderID(): ?string {
 		$id = null;
 		if ( $this->getOrderIDMeta( 'generate' ) ) {
 			$id = $this->generateOrderID(); // should we pass $this->dataObj?
@@ -2881,7 +2881,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $submethods;
 	}
 
-	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
+	protected function logPaymentDetails( string $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
@@ -2893,7 +2893,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	protected function runSessionVelocityFilter() {
+	protected function runSessionVelocityFilter(): bool {
 		$result = Gateway_Extras_SessionVelocityFilter::onProcessorApiCall( $this );
 
 		if ( $result == false ) {

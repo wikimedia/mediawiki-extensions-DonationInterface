@@ -112,7 +112,7 @@ class ConfigurationReader {
 		}
 	}
 
-	protected function setConfigurationFromDirectory( $directory, $config = [] ) {
+	protected function setConfigurationFromDirectory( string $directory, array $config = [] ): array {
 		$yaml = new Parser();
 		$globPattern = $directory . DIRECTORY_SEPARATOR . '*.yaml';
 		foreach ( glob( $globPattern ) as $path ) {
