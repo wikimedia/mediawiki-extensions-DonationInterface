@@ -85,6 +85,8 @@ div.adyen-checkout__dropdown__button,
 	font-size: 16px;
 	font-weight: 400;
 	line-height: normal;
+	padding: 5px 8px 5px 8px;
+	height: 40px;
 }
 
 /* These styles copy the styles Adyen applies to Adyen-provided containers around
@@ -100,17 +102,21 @@ form#payment-form div.halfwidth input[type='text'],
 /* Do apply explicitly to Adyen's dropdown wrapper, though. */
 div.adyen-checkout__dropdown__button {
 	padding: 5px 8px 5px 8px;
-	margin: 0px;
+	margin-bottom: 0.2em;
 	height: 40px;
 }
-
+.adyen-checkout__field-wrapper>.adyen-checkout__field:first-child {
+	margin-right: 0
+}
 form#payment-form input.inputDefault[type='text']{
 	padding: 5px 8px 5px 8px;
 	height: 40px;
 }
 
 /* Error/invalid styling */
-
+.adyen-checkout__label__text--error,  .adyen-checkout__label--focused .adyen-checkout__label__text {
+	color: #00112c;
+}
 /* Override default style set by Firefox */
 form#payment-form input[type='email']:required:invalid,
 form#payment-form input[type='text']:required:invalid {

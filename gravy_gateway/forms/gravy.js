@@ -33,7 +33,7 @@
 			'<span class="GravyField--invalid-text" id="expirationErrorMsg"></span>' +
 			'</div>' +
 			'<div class="halfwidth">' +
-			'<label for="cc-security-code">' + mw.message( 'donate_interface-cvv' ) + '</label>' +
+			'<label for="cc-security-code">' + mw.message( 'donate_interface-donor-security' ) + '</label>' +
 			'<input id="cc-security-code" />' +
 			'<span class="GravyField--invalid-text" id="cvvErrorMsg"></span>' +
 			'</div>' +
@@ -41,30 +41,84 @@
 		);
 	}
 
+	function ccInputEmptyStyle( id, evt ) {
+		if ( !evt.empty ) {
+			setFieldError( id ,evt.valid, false );
+		} else {
+			$( id ).removeAttr( 'data-secure-fields-invalid' );
+		}
+	}
+
 	function setupCardFields() {
-			secureFields.addCardNumberField( '#cc-number', {
+		var inputStyle = {
+			fontSize: '16px',
+			padding: '5px 8px',
+			invalidColor: 'unset'
+		};
+		var cardNumberField = secureFields.addCardNumberField( '#cc-number', {
 				placeholder: '1234 5678 9012 3456',
-				styles: {
-					fontSize: '16px'
-				}
+				styles: inputStyle
 			} );
 
-			secureFields.addSecurityCodeField( '#cc-security-code', {
-				placeholder: mw.msg( 'donate_interface-cvv' ),
-				styles: {
-					fontSize: '16px'
-				}
-				}
-			);
+		var securityCodeField = secureFields.addSecurityCodeField( '#cc-security-code', {
+				placeholder: mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+				styles: inputStyle
+			} );
 
-			secureFields.addExpiryDateField( '#cc-expiry-date', {
+		var expiryDateField = secureFields.addExpiryDateField( '#cc-expiry-date', {
 				placeholder: mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
-				styles: {
-					fontSize: '16px'
+				styles: inputStyle
+			} );
+		// based on card type show logo and update cvv placeholder when amex
+		cardNumberField.addEventListener( 'input', function ( evt ) {
+			if ( evt.schema ) {
+				//change logo where appropriate
+				var iconUrl = 'https://api.' + gravyId + '.gr4vy.app/assets/icons/card-schemes/' + evt.schema + '.svg';
+				$( '#cc-number' ).css( 'background-image', 'url(' + iconUrl + ')' );
+				if ( evt.schema === 'amex' ) {
+					securityCodeField.setPlaceholder( mw.msg( 'donate_interface-cvv-placeholder-4-digits' ) );
+				} else {
+					securityCodeField.setPlaceholder( mw.msg( 'donate_interface-cvv-placeholder-3-digits' ) );
 				}
-				}
-			);
+			}
+			ccInputEmptyStyle( '#cc-number', evt );
+		} );
+		expiryDateField.addEventListener( 'input', function ( evt ) {
+			// for error icon
+			$( '#cc-expiry-date' ).toggleClass( 'valid-input', !evt.empty && evt.valid );
+			ccInputEmptyStyle( '#cc-expiry-date', evt );
+		} );
+		securityCodeField.addEventListener( 'input', function ( evt ) {
+			// for error icon
+			$( '#cc-security-code' ).toggleClass( 'valid-input', !evt.empty && evt.valid );
+			ccInputEmptyStyle( '#cc-security-code', evt );
+		} );
+	}
 
+	function setFieldError( fieldId, isValid, isEmpty ) {
+		var errorMsg = '', errorMsgId, errorMsgKey, emptyMsgKey;
+		switch ( fieldId ) {
+			case '#cc-number':
+				errorMsgId = '#cardNumberErrorMsg';
+				errorMsgKey = 'donate_interface-error-msg-invalid-card-number';
+				emptyMsgKey = 'donate_interface-error-msg-card-num';
+				break;
+			case '#cc-expiry-date':
+				errorMsgId = '#expirationErrorMsg';
+				errorMsgKey = 'donate_interface-error-msg-expiry-date-field-invalid';
+				emptyMsgKey = 'donate_interface-error-msg-expiration';
+				break;
+			case '#cc-security-code':
+				errorMsgId = '#cvvErrorMsg';
+				errorMsgKey = 'donate_interface-error-msg-invalid-cvv-format';
+				emptyMsgKey = 'donate_interface-error-msg-cvv';
+				break;
+		}
+		$( fieldId ).toggleClass( 'GravyField--invalid invalid-input', !isValid || isEmpty );
+		if ( !isValid || isEmpty ) {
+			errorMsg = isEmpty ? mw.msg( emptyMsgKey ) : mw.msg( errorMsgKey );
+		}
+		$( errorMsgId ).text( errorMsg );
 	}
 
 	function setupCardForm() {
@@ -118,11 +172,11 @@
 					secureFieldValid = data.complete;
 					if ( data.fields ) {
 						cardNumberFieldEmpty = data.fields.number.empty;
-						cardNumberFieldValid = !cardNumberFieldEmpty && data.fields.number.valid;
+						cardNumberFieldValid = data.fields.number.valid;
 						expiryDateFieldEmpty = data.fields.expiryDate.empty;
-						expiryDateValid = !expiryDateFieldEmpty && data.fields.expiryDate.valid;
+						expiryDateValid = data.fields.expiryDate.valid;
 						securityCodeFieldEmpty = data.fields.securityCode.empty;
-						securityCodeValid = !securityCodeFieldEmpty && data.fields.securityCode.valid;
+						securityCodeValid = data.fields.securityCode.valid;
 					}
 				}
 			}
@@ -136,46 +190,10 @@
 	}
 
 	function validateInputs() {
-		var formValid = mw.donationInterface.validation.validate(),
-			errors = {};
-
-		if ( !formValid || !secureFieldValid ) {
-			if ( !cardNumberFieldValid ) {
-				if ( cardNumberFieldEmpty ) {
-					errors.cardNumber = mw.msg( 'donate_interface-error-msg-card-num' );
-				} else {
-					errors.cardNumber = mw.msg( 'donate_interface-error-msg-invalid-card-number' );
-				}
-				$( '#cc-number' ).addClass( 'GravyField--invalid' );
-				$( '#cardNumberErrorMsg' ).text( errors.cardNumber );
-			} else {
-				$( '#cc-number' ).removeClass( 'GravyField--invalid' );
-				$( '#cardNumberErrorMsg' ).text( '' );
-			}
-			if ( !securityCodeValid ) {
-				if ( securityCodeFieldEmpty ) {
-					errors.cvv = mw.msg( 'donate_interface-error-msg-cvv' );
-				} else {
-					errors.cvv = mw.msg( 'donate_interface-error-msg-invalid-cvv-format' );
-				}
-				$( '#cc-security-code' ).addClass( 'GravyField--invalid' );
-				$( '#cvvErrorMsg' ).text( errors.cvv );
-			} else {
-				$( '#cc-security-code' ).removeClass( 'GravyField--invalid' );
-				$( '#cvvErrorMsg' ).text( '' );
-			}
-			if ( !expiryDateValid ) {
-				if ( expiryDateFieldEmpty ) {
-					errors.expiration = mw.msg( 'donate_interface-error-msg-expiration' );
-				} else {
-					errors.expiration = mw.msg( 'donate_interface-error-msg-card-too-old' );
-				}
-				$( '#cc-expiry-date' ).addClass( 'GravyField--invalid' );
-				$( '#expirationErrorMsg' ).text( errors.expiration );
-			} else {
-				$( '#cc-expiry-date' ).removeClass( 'GravyField--invalid' );
-				$( '#expirationErrorMsg' ).text( '' );
-			}
+		if ( !mw.donationInterface.validation.validate() || !secureFieldValid ) {
+			setFieldError( '#cc-number',  cardNumberFieldValid, cardNumberFieldEmpty );
+			setFieldError( '#cc-security-code',  securityCodeValid, securityCodeFieldEmpty );
+			setFieldError( '#cc-expiry-date',  expiryDateValid, expiryDateFieldEmpty );
 			return false;
 		}
 		return true;
@@ -477,16 +495,20 @@
 	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
 	$( function () {
-		if ( $( '#payment_method' ).val() === 'cc' ) {
-			mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );
-		} else if ( $( '#payment_method' ).val() === 'google' ) {
-			mw.donationInterface.forms.loadScript( configFromServer.googleScript, setupGooglePayForm );
-		} else if ( $( '#payment_method' ).val() === 'apple' ) {
-			mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
-		} else if ( $( '#payment_method' ).val() === 'paypal' ) {
-			if ( redirectPaypal ) {
-				submitPaypal();
-			}
+		switch ( $( '#payment_method' ).val() ) {
+			case 'cc':
+				mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );
+				break;
+			case 'google':
+				mw.donationInterface.forms.loadScript( configFromServer.googleScript, setupGooglePayForm );
+				break;
+			case 'apple':
+				mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
+				break;
+			case 'paypal':
+				if ( redirectPaypal ) {
+					submitPaypal();
+				}
 		}
 	} );
 } )( jQuery, mediaWiki );
