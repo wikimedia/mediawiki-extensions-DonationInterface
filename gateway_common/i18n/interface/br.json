@@ -147,7 +147,7 @@
 	"donate_interface-donor-pobox": "Boest PO",
 	"donate_interface-donor-card": "Kartenn-gred",
 	"donate_interface-donor-card-num": "Niverenn ar gartenn :",
-	"donate_interface-donor-expiration": "Deiziad termen :",
+	"donate_interface-donor-expiration": "Deiziad termen",
 	"donate_interface-donor-security": "Kod surentez :",
 	"donate_interface-donor-submit": "Ober un donezon",
 	"donate_interface-donor-currency-msg": "E $1 eo graet an donezon-mañ",
