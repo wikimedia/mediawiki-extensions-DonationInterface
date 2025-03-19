@@ -5,7 +5,7 @@
 			"Toliño"
 		]
 	},
-	"apihelp-donate-summary": "Esta API permíteche enviar unha doazón á Fundación Wikimedia usando diferentes modos de pago.",
+	"apihelp-donate-summary": "Esta API permíteche enviar unha doazón á Fundación Wikimedia usando diferentes modos de pagamento.",
 	"apihelp-donate-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc.",
 	"apihelp-donate-param-amount": "A cantidade doada.",
 	"apihelp-donate-param-contact_id": "Identificador do doante en CiviCRM.",
@@ -30,9 +30,9 @@
 	"apihelp-donate-param-payment_method": "Método de pagamento a utilizar.",
 	"apihelp-donate-param-payment_submethod": "Submétodo de pagamento a utilizar.",
 	"apihelp-donate-param-processor_form": "Cal das opcións do formulario do procesador usar.",
-	"apihelp-donate-param-language": "Código da lingua.",
+	"apihelp-donate-param-language": "Código de lingua.",
 	"apihelp-donate-param-order_id": "Identificador da orde (se xa comezou unha doazón).",
-	"apihelp-donate-param-wmf_token": "Pase de modificación.",
+	"apihelp-donate-param-wmf_token": "Token de modificación.",
 	"apihelp-donate-param-utm_source": "Variable de seguimento.",
 	"apihelp-donate-param-utm_campaign": "Variable de seguimento.",
 	"apihelp-donate-param-utm_medium": "Variable de seguimento.",
