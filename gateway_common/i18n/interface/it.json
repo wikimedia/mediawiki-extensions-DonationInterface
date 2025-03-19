@@ -170,7 +170,7 @@
 	"donate_interface-donor-pobox": "Casella postale",
 	"donate_interface-donor-card": "Carta di credito",
 	"donate_interface-donor-card-num": "Numero della carta",
-	"donate_interface-donor-expiration": "Scadenza",
+	"donate_interface-donor-expiration": "Data di scadenza",
 	"donate_interface-donor-security": "Codice di sicurezza",
 	"donate_interface-donor-submit": "Dona",
 	"donate_interface-donor-currency-msg": "Questa donazione viene effettuata in $1",
