@@ -130,7 +130,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			!isset( $normalized['country'] ) ||
 			empty( self::$countryRules[$normalized['country']] )
 		) {
-			return null;
+			return;
 		}
 
 		$rule = self::$countryRules[$normalized['country']];
