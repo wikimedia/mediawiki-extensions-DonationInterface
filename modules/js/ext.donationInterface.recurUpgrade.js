@@ -58,6 +58,15 @@
 		}
 
 		$amountField.change( setTotalAndSubmitState );
+		$otherAmountField.on( 'change keypress', function ( e ) {
+			// numbers only to get Firefox and Safari to behave
+			// this code is also used in donate wiki's other amount field
+			// T389066
+			var chr = String.fromCharCode( e.which );
+			if ( '0123456789., '.indexOf( chr ) === -1 ) {
+				return false;
+			}
+		} );
 		// We need to use setInterval because the new value of the other amount
 		// field is not immediately available in the keyup handler
 		$otherAmountField.on( 'change keyup', function () {

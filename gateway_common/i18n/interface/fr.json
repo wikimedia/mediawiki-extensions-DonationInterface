@@ -204,6 +204,7 @@
 	"donate_interface-donor-card": "Carte bancaire ou de crédit",
 	"donate_interface-donor-card-num": "Numéro de carte",
 	"donate_interface-donor-expiration": "Date d’expiration",
+	"donate_interface-donor-expiry-date": "Date d’expiration",
 	"donate_interface-donor-security": "Code de sécurité",
 	"donate_interface-donor-submit": "Faire un don",
 	"donate_interface-donor-currency-msg": "Ce don est effectué en $1",

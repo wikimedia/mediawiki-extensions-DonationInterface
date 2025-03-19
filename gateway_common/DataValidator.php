@@ -221,10 +221,10 @@ class DataValidator {
 				// Handle special cases.
 				switch ( $validation_function ) {
 					case 'validate_currency_code':
-						$result = call_user_func( $callable, $value, $gateway->getCurrencies( $data ) );
+						$result = $callable( $value, $gateway->getCurrencies( $data ) );
 						break;
 					default:
-						$result = call_user_func( $callable, $value );
+						$result = $callable( $value );
 						break;
 				}
 

@@ -171,6 +171,7 @@
 	"donate_interface-donor-card": "כרטיס אשראי",
 	"donate_interface-donor-card-num": "מספר הכרטיס",
 	"donate_interface-donor-expiration": "תאריך התפוגה",
+	"donate_interface-donor-expiry-date": "תאריך תפוגה",
 	"donate_interface-donor-security": "קוד האבטחה",
 	"donate_interface-donor-submit": "לתרום",
 	"donate_interface-donor-currency-msg": "תרומה זו נעשית ב$1",

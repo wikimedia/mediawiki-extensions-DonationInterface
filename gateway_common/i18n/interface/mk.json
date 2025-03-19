@@ -163,6 +163,7 @@
 	"donate_interface-donor-card": "Кредитна картичка",
 	"donate_interface-donor-card-num": "Број на картичката:",
 	"donate_interface-donor-expiration": "Датум на истекување",
+	"donate_interface-donor-expiry-date": "Датум на истекување",
 	"donate_interface-donor-security": "Сигурносен код:",
 	"donate_interface-donor-submit": "Дарувај",
 	"donate_interface-donor-currency-msg": "Ова дарување се врши во $1",
