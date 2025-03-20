@@ -463,7 +463,7 @@
 	"donate_interface-monthly-convert-enter-amount": "Vul je maandelijkse bedrag in en begin vanaf volgende maand met doneren.",
 	"donate_interface-monthly-convert-max-amount": "We kunnen geen maandelijkse donatie in rekening brengen die hoger is dan de oorspronkelijke, eenmalige donatie.",
 	"donate_interface-monthly-convert-action-button": "Maandelijks doneren",
-	"donate_interface-monthly-convert-error": "Je eenmalige donatie is gelukt, maar we konden geen maandelijkse donatie opstarten.",
+	"donate_interface-monthly-convert-error": "Je eenmalige donatie is gelukt, maar we konden geen maandelijks terugkerende donatie opstarten.",
 	"donate_interface-monthly-convert-yes-button-variant-006": "Ja, ik wil helpen",
 	"donate_interface-monthly-convert-no-button-variant-006": "Nee, bedankt",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ik wil maandelijks een bedrag van <span class=\"mc-convert-ask\"></span> doneren",
