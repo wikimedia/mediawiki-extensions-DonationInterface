@@ -183,6 +183,7 @@
 	"donate_interface-donor-card": "Creditcard",
 	"donate_interface-donor-card-num": "Kaartnummer",
 	"donate_interface-donor-expiration": "Vervaldatum",
+	"donate_interface-donor-expiry-date": "Vervaldatum",
 	"donate_interface-donor-security": "Beveiligingscode",
 	"donate_interface-donor-submit": "Doneren",
 	"donate_interface-donor-currency-msg": "Deze donatie wordt gedaan in $1",
