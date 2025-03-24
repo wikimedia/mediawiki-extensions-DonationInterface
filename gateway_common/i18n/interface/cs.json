@@ -372,7 +372,7 @@
 	"donate_interface-monthlybox-yes": "Jistě, chci přispívat měsíčně",
 	"donate_interface-monthlybox-no": "NE, chci přispět jednorázově",
 	"donate_interface-monthlybox-bottom": "Váš příspěvek bude zpracován zabezpečeně.",
-	"donate_interface-monthly-cancel": "Wikimedia Foundation si o měsíční příspěvek pravidelně požádá inkasem v den měsíčního výročí prvního příspěvku, dokud nám nesdělíte, že máme přestat. Příspěvky odeslané 29., 30. nebo 31. příslušného měsíce se v kratších měsících zopakují poslední den měsíce, co možná nejblíže původnímu datu. Případné dotazy pište na $1.",
+	"donate_interface-monthly-cancel": "Wikimedia Foundation si pravidelný měsíční příspěvek vyžádá inkasem, a to v den prvního měsíčního výročí příspěvku, dokud nám nesdělíte, že máme přestat. Příspěvky odeslané 29., 30. nebo 31. příslušného měsíce se v kratších měsících zopakují poslední den měsíce, co možná nejblíže původnímu datu. Případné dotazy pište na $1.",
 	"donate_interface-onetime": "Poskytnout jednorázový příspěvek",
 	"donate_interface-monthly-short": "Měsíčně",
 	"donate_interface-onetime-short": "Jednorázově",
