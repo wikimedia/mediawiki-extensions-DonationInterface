@@ -359,6 +359,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 
 			// apple pay
 			[ [ 'payment_method' => 'apple', 'country' => 'AU', 'currency' => 'AUD' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'apple', 'country' => 'BR', 'currency' => 'BRL' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'CA', 'currency' => 'CAD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'FR', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'GB', 'currency' => 'GBP' ], 'AdyenCheckoutGateway' ],
@@ -366,11 +367,16 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'apple', 'country' => 'IL', 'currency' => 'ILS' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'IT', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'JP', 'currency' => 'JPY' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'apple', 'country' => 'MX', 'currency' => 'MXN' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'NL', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'NZ', 'currency' => 'NZD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'SE', 'currency' => 'SEK' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'UA', 'currency' => 'UAH' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'apple', 'country' => 'US', 'currency' => 'USD' ], 'AdyenCheckoutGateway' ],
+
+			// google pay
+			[ [ 'payment_method' => 'google', 'country' => 'BR', 'currency' => 'BRL' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'google', 'country' => 'MX', 'currency' => 'MXN' ], 'AdyenCheckoutGateway' ],
 		];
 	}
 
