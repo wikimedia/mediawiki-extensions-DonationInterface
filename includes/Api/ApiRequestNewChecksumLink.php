@@ -13,14 +13,16 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestNewChecksumLink']['ip']
 			return;
 		}
-		$contactID = $this->getRequest()->getVal( 'contactID' );
+		$email = $this->getRequest()->getVal( 'email' );
 		$page = $this->getRequest()->getVal( 'page' );
 		$subpage = $this->getRequest()->getVal( 'subpage' );
+
+		$this->validateEmail( $email );
 		$this->validateAlphanumeric( $page );
 		$this->validateAlphanumeric( $subpage );
 
 		$queueMessage = [
-			'contactID' => $contactID,
+			'email' => $email,
 			'page' => $page,
 		];
 
@@ -33,7 +35,7 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
-			'contactID' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
+			'email' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
 			'page' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
 			'subpage' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 		];
@@ -42,6 +44,12 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 	protected function validateAlphanumeric( ?string $input ): void {
 		if ( $input && !preg_match( '/^[a-zA-Z0-9_-]*$/', $input ) ) {
 			throw new \InvalidArgumentException( "Bad parameter '$input' - should be alphanumeric." );
+		}
+	}
+
+	protected function validateEmail( string $email ): void {
+		if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
+			throw new \InvalidArgumentException( "Bad parameter '$email' - should be an email address." );
 		}
 	}
 
