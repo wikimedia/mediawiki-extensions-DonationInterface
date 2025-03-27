@@ -205,12 +205,6 @@ bcp:
     2x: bank-bcp_2x.png
     3x: bank-bcp_3x.png
 
-boleto_hibrido:
-  group: cash
-  countries:
-    BR: true
-  logo: cash-boleto_hibrido.png
-
 cabal:
   group: cc
   countries:

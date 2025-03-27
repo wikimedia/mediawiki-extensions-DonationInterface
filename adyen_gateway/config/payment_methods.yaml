@@ -38,3 +38,5 @@ bt:
     country: true
     name: true
     email: true
+  countries:
+    BR: false

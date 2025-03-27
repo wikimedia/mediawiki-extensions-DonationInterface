@@ -106,7 +106,9 @@ class Validator {
 	public static function isChecksumExpired( string $checksum ): bool {
 		$parts = explode( '_', $checksum );
 		if ( count( $parts ) !== 3 ) {
-			throw new \InvalidArgumentException( 'Invalid checksum' );
+			return true;
+			// T388912 instead of throw exception, enable user to get a new checksum via email
+			// throw new \InvalidArgumentException( 'Invalid checksum' );
 		}
 		$timestamp = (int)$parts[1];
 		$hours = (int)$parts[2];

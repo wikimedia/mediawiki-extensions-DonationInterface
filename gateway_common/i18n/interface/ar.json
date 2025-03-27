@@ -181,6 +181,7 @@
 	"donate_interface-donor-card": "بطاقة الائتمان:",
 	"donate_interface-donor-card-num": "رقم البطاقة",
 	"donate_interface-donor-expiration": "تاريخ الانتهاء",
+	"donate_interface-donor-expiry-date": "تاريخ الانتهاء",
 	"donate_interface-donor-security": "الرمز الأمني",
 	"donate_interface-donor-submit": "تبرّع",
 	"donate_interface-donor-currency-msg": "يتم إجراء هذا التبرع ب$1",
