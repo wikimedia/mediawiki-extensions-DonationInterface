@@ -249,7 +249,7 @@
 	"apihelp-di_donate_braintree-param-street_address": "First line of street address.",
 	"apihelp-di_donate_braintree-param-supplemental_address_1": "Second line of street address.",
 	"apihelp-di_donate_braintree-param-uselang": "Language code to use in the front end",
-	"apihelp-di_donate_braintree-param-user_name": "Donor's user name in the payment app",
+	"apihelp-di_donate_braintree-param-user_name": "Donor's username in the payment app",
 	"apihelp-di_donate_braintree-param-utm_campaign": "Tracking variable.",
 	"apihelp-di_donate_braintree-param-utm_medium": "Tracking variable.",
 	"apihelp-di_donate_braintree-param-utm_source": "Tracking variable.",
