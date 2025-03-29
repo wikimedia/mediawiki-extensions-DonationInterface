@@ -2,6 +2,8 @@
 
 use MediaWiki\Session\SessionManager;
 use Wikimedia\IPUtils;
+use Wikimedia\Message\MessageParam;
+use Wikimedia\Message\MessageSpecifier;
 
 class WmfFramework {
 
@@ -30,6 +32,10 @@ class WmfFramework {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}
 
+	/**
+	 * @param string|string[]|MessageSpecifier $key
+	 * @param MessageParam|MessageSpecifier|string|int|float|list<MessageParam|MessageSpecifier|string|int|float> ...$params
+	 */
 	public static function formatMessage( $key, ...$params ): string {
 		return wfMessage( $key, ...$params )->text();
 	}

@@ -823,6 +823,9 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * @return string|false
+	 */
 	public function getCurrentTransaction() {
 		if ( $this->current_transaction === null ) {
 			return false;
@@ -1010,6 +1013,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $score;
 	}
 
+	/** @inheritDoc */
 	public static function getGatewayName() {
 		$c = get_called_class();
 		return $c::GATEWAY_NAME;
@@ -1020,11 +1024,13 @@ abstract class GatewayAdapter implements GatewayType {
 		return $c::GLOBAL_PREFIX;
 	}
 
+	/** @inheritDoc */
 	public static function getIdentifier() {
 		$c = get_called_class();
 		return $c::IDENTIFIER;
 	}
 
+	/** @inheritDoc */
 	public static function getLogIdentifier() {
 		return self::getIdentifier() . '_gateway';
 	}
@@ -2771,6 +2777,10 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/**
+	 * @param string|false $key
+	 * @return mixed
+	 */
 	public function getOrderIDMeta( $key = false ) {
 		$data = $this->order_id_meta;
 		if ( !is_array( $data ) ) {

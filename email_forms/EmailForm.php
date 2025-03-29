@@ -1,6 +1,8 @@
 <?php
 
 use LightnCandy\LightnCandy;
+use Wikimedia\Message\MessageParam;
+use Wikimedia\Message\MessageSpecifier;
 
 class EmailForm {
 
@@ -65,6 +67,10 @@ class EmailForm {
 		return MustacheHelper::render( $templatePath, $templateParams, $options );
 	}
 
+	/**
+	 * @param string|string[]|MessageSpecifier $key
+	 * @param MessageParam|MessageSpecifier|string|int|float|list<MessageParam|MessageSpecifier|string|int|float> ...$params
+	 */
 	public static function l10n( $key, ...$params ): string {
 		return wfMessage( $key, ...MustacheHelper::filterMessageParams( $params ) )->text();
 	}

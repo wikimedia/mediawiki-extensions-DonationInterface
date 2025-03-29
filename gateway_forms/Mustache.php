@@ -548,6 +548,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $modules;
 	}
 
+	/**
+	 * @param string $key
+	 * @param array &$modules
+	 * @param array $newModules
+	 */
 	protected function addModules( $key, &$modules, $newModules ) {
 		if ( !empty( $newModules[$key] ) ) {
 			$modules = array_merge(
@@ -557,10 +562,17 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getTopLevelTemplate() {
 		return $this->gateway->getGlobal( 'Template' );
 	}
 
+	/**
+	 * @param string $name
+	 * @return string
+	 */
 	protected function getImagePath( $name ) {
 		return "{$this->scriptPath}/extensions/DonationInterface/gateway_forms/includes/{$name}";
 	}

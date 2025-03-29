@@ -56,6 +56,14 @@ class DonationLoggerFactory {
 		);
 	}
 
+	/**
+	 * @param string $identifier
+	 * @param bool $useSyslog
+	 * @param bool $debug
+	 * @param string $suffix
+	 * @param LogPrefixProvider|null $prefixer
+	 * @return \Psr\Log\LoggerInterface
+	 */
 	public static function getLoggerFromParams( $identifier, $useSyslog, $debug, $suffix, $prefixer ) {
 		if ( self::$overrideLogger !== null ) {
 			return self::$overrideLogger;
