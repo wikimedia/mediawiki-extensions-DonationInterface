@@ -77,7 +77,7 @@ class GravyGateway extends GatewayPage {
 	}
 
 	public function showSubmethodButtons(): bool {
-		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() );
+		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() || !$this->isACH() );
 	}
 
 	public function showContinueButton(): bool {
@@ -90,6 +90,14 @@ class GravyGateway extends GatewayPage {
 	 */
 	private function isCreditCard(): bool {
 		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'cc';
+	}
+
+	/**
+	 *
+	 * @return bool
+	 */
+	private function isACH(): bool {
+		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'ach';
 	}
 
 	/**
