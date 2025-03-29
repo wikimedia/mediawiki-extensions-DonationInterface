@@ -6,6 +6,7 @@ class StreetAddress implements StagingHelper, UnstagingHelper {
 	const STREET_ADDRESS_PLACEHOLDER = 'N0NE PROVIDED';
 	const POSTAL_CODE_PLACEHOLDER = '0';
 
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$stagedData['street_address'] = $this->stage_street( $normalized );
 		$stagedData['postal_code'] = $this->stage_postal_code( $normalized );
@@ -75,6 +76,7 @@ class StreetAddress implements StagingHelper, UnstagingHelper {
 		return $postalCode;
 	}
 
+	/** @inheritDoc */
 	public function unstage( GatewayType $adapter, $stagedData, &$normalized ) {
 		if (
 			isset( $stagedData['street_address'] ) &&

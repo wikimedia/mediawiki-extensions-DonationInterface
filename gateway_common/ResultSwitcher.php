@@ -148,6 +148,7 @@ abstract class ResultSwitcher extends GatewayPage {
 		$this->getOutput()->redirect( $thankYouPage );
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		if ( $this->adapter->showMonthlyConvert() ) {

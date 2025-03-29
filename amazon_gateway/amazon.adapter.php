@@ -70,6 +70,7 @@ class AmazonAdapter extends GatewayAdapter {
 		'TransactionTimedOut',
 	];
 
+	/** @inheritDoc */
 	public function __construct( $options = [] ) {
 		parent::__construct( $options );
 

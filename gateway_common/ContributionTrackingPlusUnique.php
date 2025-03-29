@@ -5,6 +5,7 @@
  * pseudorandom value to the contribution_tracking ID.
  */
 class ContributionTrackingPlusUnique implements StagingHelper, UnstagingHelper {
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !isset( $normalized['contribution_tracking_id'] ) ) {
 			// Note that we should only reach this condition during testing.
@@ -19,6 +20,7 @@ class ContributionTrackingPlusUnique implements StagingHelper, UnstagingHelper {
 		$stagedData['contribution_tracking_id'] = $ctid;
 	}
 
+	/** @inheritDoc */
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		$ctid = $stagedData['contribution_tracking_id'];
 		$ctid = explode( '.', $ctid );

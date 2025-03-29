@@ -51,6 +51,7 @@ class RecurringConversionApi extends DonationApiBase {
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],

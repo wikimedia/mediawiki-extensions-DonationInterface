@@ -26,6 +26,7 @@ class IngenicoGateway extends GatewayPage {
 	/** @inheritDoc */
 	protected $gatewayIdentifier = IngenicoAdapter::IDENTIFIER;
 
+	/** @inheritDoc */
 	public function execute( $par ) {
 		global $wgAdyenCheckoutGatewayEnabled;
 		if ( !$wgAdyenCheckoutGatewayEnabled ) {

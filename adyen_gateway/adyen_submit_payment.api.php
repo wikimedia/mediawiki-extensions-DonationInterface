@@ -185,6 +185,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$this->getResult()->addValue( null, 'response', $response );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string' ],
@@ -250,6 +251,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		}
 	}
 
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

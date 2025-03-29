@@ -39,6 +39,7 @@ abstract class ApiClientErrorBase extends ApiBase {
 	protected function addExtraData( array $sessionData, array &$errorData ): void {
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'message' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],

@@ -48,6 +48,7 @@ class DlocalGateway extends GatewayPage {
 		}
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ): void {
 		parent::setClientVariables( $vars );
 		$vars['dlocalScript'] = $this->adapter->getAccountConfig( 'dlocalScript' );

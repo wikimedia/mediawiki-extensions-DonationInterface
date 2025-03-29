@@ -412,6 +412,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->addResponseData( $data );
 	}
 
+	/** @inheritDoc */
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		$orderId = parent::normalizeOrderID( $override, $dataObj );
 		if ( !$dataObj ) {

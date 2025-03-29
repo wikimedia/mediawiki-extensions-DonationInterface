@@ -4,6 +4,7 @@ use MediaWiki\Title\Title;
 
 class ReturnUrl implements StagingHelper {
 
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$staged ) {
 		$specialName = str_replace( 'Adapter', 'GatewayResult', get_class( $adapter ) );
 		$returnTitle = Title::newFromText( "Special:$specialName" );

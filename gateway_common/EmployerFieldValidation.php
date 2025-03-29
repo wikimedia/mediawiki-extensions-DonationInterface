@@ -31,6 +31,7 @@ class EmployerFieldValidation implements ValidationHelper, ClientSideValidationH
 		}
 	}
 
+	/** @inheritDoc */
 	public function getClientSideValidation( $normalized, &$clientRules ) {
 		$fiscalRules = [ [
 			'pattern' => '[^-\s0-9]',

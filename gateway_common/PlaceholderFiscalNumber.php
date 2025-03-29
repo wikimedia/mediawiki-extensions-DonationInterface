@@ -14,6 +14,7 @@ class PlaceholderFiscalNumber implements StagingHelper {
 		'ZA' => '9123456783'  // DLOCAL-specific default for empty cpf. See T307743
 	];
 
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $unstagedData, &$stagedData ) {
 		if (
 			empty( $unstagedData['fiscal_number'] ) &&

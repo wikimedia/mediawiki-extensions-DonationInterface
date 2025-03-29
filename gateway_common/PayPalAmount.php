@@ -2,10 +2,12 @@
 
 class PayPalAmount extends Amount implements StagingHelper {
 
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		$stagedData[ 'amount' ] = static::round( $normalized[ 'amount' ], $normalized[ 'currency' ] );
 	}
 
+	/** @inheritDoc */
 	public static function is_fractional_currency( $currency_code ) {
 		// cause this function only used for paypal, no need to check more than paypal supported currencies
 		// https://developer.paypal.com/braintree/docs/reference/general/currencies

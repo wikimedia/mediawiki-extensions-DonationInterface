@@ -24,6 +24,7 @@ trait TTestingAdapter {
 	/** @var string|false|null */
 	public static $fakeIdentifier;
 
+	/** @inheritDoc */
 	public static function getIdentifier() {
 		if ( static::$fakeIdentifier ) {
 			return static::$fakeIdentifier;
@@ -31,6 +32,7 @@ trait TTestingAdapter {
 		return parent::getIdentifier();
 	}
 
+	/** @inheritDoc */
 	public static function getGlobal( $name ) {
 		if ( array_key_exists( $name, static::$fakeGlobals ) ) {
 			return static::$fakeGlobals[$name];

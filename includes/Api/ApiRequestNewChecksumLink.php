@@ -30,6 +30,7 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 		QueueWrapper::push( 'new-checksum-link', $queueMessage );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'contactID' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],

@@ -28,6 +28,7 @@ class BraintreeGateway extends GatewayPage {
 		$out->addScript( "<script src=\"{$deviceScript}\"></script>" );
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		$failPage = GatewayChooser::buildGatewayPageUrl(

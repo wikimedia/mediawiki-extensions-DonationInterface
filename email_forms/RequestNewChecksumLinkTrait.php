@@ -16,6 +16,7 @@ trait RequestNewChecksumLinkTrait {
 		$this->subpage = $subpage;
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ) {
 		$vars['showRequestNewChecksumModal'] = $this->isChecksumExpired();
 		// @phan-suppress-next-line PhanUndeclaredMethod

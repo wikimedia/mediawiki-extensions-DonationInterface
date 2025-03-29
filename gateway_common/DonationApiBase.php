@@ -93,10 +93,12 @@ abstract class DonationApiBase extends ApiBase {
 		return true;
 	}
 
+	/** @inheritDoc */
 	public function isReadMode() {
 		return false;
 	}
 
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

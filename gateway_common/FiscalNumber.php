@@ -125,6 +125,7 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 		);
 	}
 
+	/** @inheritDoc */
 	public function getClientSideValidation( $normalized, &$clientRules ) {
 		if (
 			!isset( $normalized['country'] ) ||

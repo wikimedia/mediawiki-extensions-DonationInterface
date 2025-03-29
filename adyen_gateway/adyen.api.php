@@ -1,5 +1,6 @@
 <?php
 class AdyenDonationApi extends DonationApi {
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return parent::getAllowedParams() + [
 			'bank_account_type' => $this->defineParam(),

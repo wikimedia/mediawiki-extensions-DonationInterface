@@ -47,6 +47,7 @@ class DonationApi extends DonationApiBase {
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'gateway' => $this->defineParam( true ),

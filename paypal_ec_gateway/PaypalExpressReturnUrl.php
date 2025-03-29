@@ -3,6 +3,7 @@
 use MediaWiki\Title\Title;
 
 class PaypalExpressReturnUrl implements StagingHelper {
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$staged ) {
 		$returnTitle = Title::newFromText( 'Special:PaypalExpressGatewayResult' );
 

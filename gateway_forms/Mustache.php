@@ -516,6 +516,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	// phpcs:enable
 
+	/** @inheritDoc */
 	public function getResources() {
 		$resources = parent::getResources();
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
@@ -539,6 +540,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $resources;
 	}
 
+	/** @inheritDoc */
 	public function getStyleModules() {
 		$modules = [ 'ext.donationInterface.mustache.styles' ];
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );

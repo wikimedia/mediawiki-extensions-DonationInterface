@@ -295,11 +295,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		];
 	}
 
+	/** @inheritDoc */
 	public function getRequiredFields( $knownData = null ) {
 		$fields = parent::getRequiredFields( $knownData );
 		return array_diff( $fields, $this->getFieldsToRemove( $knownData ) );
 	}
 
+	/** @inheritDoc */
 	public function getFormFields( ?array $knownData = null ): array {
 		$fields = parent::getFormFields( $knownData );
 		return array_diff_key(
@@ -411,6 +413,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return $this->getData_Unstaged_Escaped( 'cvv_result' );
 	}
 
+	/** @inheritDoc */
 	public function processDonorReturn( $requestValues ) {
 		if (
 			isset( $requestValues['redirectResult'] )

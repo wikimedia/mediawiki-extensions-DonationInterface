@@ -26,6 +26,7 @@ use MediaWiki\Request\FauxRequest;
  */
 class TestingRequest extends FauxRequest {
 
+	/** @inheritDoc */
 	public function getRequestURL() {
 		// /me shrugs
 		return "http://localhost";
