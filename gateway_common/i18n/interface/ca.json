@@ -21,7 +21,8 @@
 			"Vriullop",
 			"පසිඳු කාවින්ද",
 			"EHughes",
-			"Lluis Cat"
+			"Lluis Cat",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Ajudeu Wikimedia",
@@ -299,6 +300,7 @@
 	"donate_interface-informationsharing": "No venem les vostres dades ni en fem negoci amb ningú. En fer una donació, accepteu compartir la vostra informació personal amb la Wikimedia Foundation, l'organització sense ànim de lucre amfitriona de Viquipèdia i d'altres projectes de Wikimedia, i amb els seus proveïdors de serveis segons <a href=\"$1\">la nostra política de donant</a>. Wikimedia Foundation i els seus proveïdors de serveis estan situats als Estats Units i a altres països on les lleis de privacitat dels quals podrien no ser equivalents a les vostres. Per a més informació, llegiu <a href=\"$1\">la nostra política de donant</a>.",
 	"donate_interface-currency-change": "Ho voleu canviar?",
 	"donate_interface-taxded-link-us": "Informació de deducció fiscal",
+	"donate_interface-taxded-msg-x": "La Fundació Wikimedia és una organització internacional sense ànim de lucre que dóna suport a associacions locals i independents d'arreu del món. El <a href=\"$2\">nostre estat d'exempció d'impostos</a> les lleis de cada país. És probable que les donacions a la Fundació Wikimedia no siguin deduïbles d'impostos fora dels EUA.\nSi teniu cap pregunta sobre exempcions o reduccions d'impostos, us convidem a contactar amb <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-monthlybox-title": "Ho voleu fer mensualment?",
 	"donate_interface-monthlybox-amount": "Import de la donació mensual",
 	"donate_interface-monthly-cancel": "La Wikimedia Foundation debitarà els pagaments mensuals fixos dels donants habituals en l'aniversari mensual de la primera donació fins què se’ns notifiqui la seva suspensió. Les donacions iniciades els dies 29, 30 o 31 del mes es repetiran l'últim dia del mes per als mesos més curts, tan a prop de la data original com sigui possible. Per a qualsevol pregunta, pot posar-se en contacte amb $1.",
