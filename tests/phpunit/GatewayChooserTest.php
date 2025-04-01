@@ -205,6 +205,9 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'bt', 'country' => 'PE', 'currency' => 'PEN' ], 'DlocalGateway' ],
 			[ [ 'payment_method' => 'bt', 'country' => 'ZA', 'currency' => 'ZAR' ], 'DlocalGateway' ],
 
+			// except CZ
+			[ [ 'payment_method' => 'bt', 'country' => 'CZ', 'currency' => 'CZK' ], 'AdyenCheckoutGateway' ],
+
 			// cash methods, all currently processed via DLocal
 			[ [ 'payment_method' => 'cash', 'country' => 'AR', 'currency' => 'ARS' ], 'DlocalGateway' ],
 			[ [ 'payment_method' => 'cash', 'country' => 'BR', 'currency' => 'BRL' ], 'DlocalGateway' ],

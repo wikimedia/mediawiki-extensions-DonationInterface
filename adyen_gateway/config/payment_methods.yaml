@@ -39,4 +39,4 @@ bt:
     name: true
     email: true
   countries:
-    BR: false
+    - CZ
