@@ -538,12 +538,12 @@ shopping:
 #  MX: true
 #  logo: bank-spei.png
 
-#stitch:
-#  lable: Stitch
-#  group: bt
-#  countries:
-#  ZA: true
-#  logo: bank-ach.png
+stitch:
+  label: Stitch
+  group: bt
+  countries:
+    ZA: true
+  logo: bank-ach.png
 
 upi:
   label: UPI
