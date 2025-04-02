@@ -86,7 +86,6 @@ div.adyen-checkout__dropdown__button,
 	font-weight: 400;
 	line-height: normal;
 	padding: 5px 8px 5px 8px;
-	height: 40px;
 }
 
 /* These styles copy the styles Adyen applies to Adyen-provided containers around
