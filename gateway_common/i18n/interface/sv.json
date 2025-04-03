@@ -24,7 +24,8 @@
 			"Technic2",
 			"Tobulos1",
 			"Warrakkk",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"KMorrow-WMF"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -406,6 +407,7 @@
 	"donate_interface-taxded-link-us": "Information om avdragsgiltighet",
 	"donate_interface-taxded-msg-int": "Wikimedia Foundation är en ideell välgörenhetsorganisation etablerad i USA och under den Amerikanska skattelagstiftningen sektion 501(c)(3) kan donatorer i USA dra av gåvan från skattepliktig inkomst. Donationer från personer eller enheter som finns utanför Förenta staterna kanske inte kommer att vara berättigade till skatteavdrag i Förenta staterna och på andra håll. I sådana fall bör givare söka lokalt skatterådgivning. Wikimedia ber inte om donationer från personer eller enheter i någon jurisdiktion som förbjuder eller begränsar donationskampanjverksamhet genom internationella välgörenhetsorganisationer såsom Wikimedia, eller lägger på gåvoskatter på donationer till sådana internationella välgörenhetsorganisationer.",
 	"donate_interface-taxded-msg-us": "Wikimedia Foundation är en ideell välgörenhetsorganisation etablerade i USA under sektion 501(c)(3) av den Amerikanska skattelagstiftningen. Givare i USA kan således utnyttja skatteavdrag för gåvor.",
+	"donate_interface-taxded-msg-x": "Wikimedia Foundation är en internationell ideell organisation som stöder lokala och självständiga föreningar runt om i världen. Möjligheterna till <a href=\"$2\">skatteavdrag varierar</a> från land till land. Gåvor till Wikimedia Foundation är förmodligen inte avdragsgilla utanför USA. Om du har frågor om skattebefrielse eller skattelättnader ber vi dig kontakta <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-legal-original": "Detta är en översättninge för din bekvämlighet. I händelse av en konflikt mellan denna översättning och den engelska versionen, gäller den engelska.",
 	"donate_interface-monthlybox-title": "Gör det månatligt?",
 	"donate_interface-monthlybox-content": "Månatliga donationer bearbetas den andra av varje månad. Du kan avbryta när som helst.",
