@@ -40,7 +40,7 @@ class ErrorState {
 		$this->errors[] = $error;
 	}
 
-	public function addErrors( $errors ) {
+	public function addErrors( array $errors ) {
 		foreach ( $errors as $error ) {
 			$this->addError( $error );
 		}
@@ -53,7 +53,7 @@ class ErrorState {
 		return $this->errors;
 	}
 
-	public function hasErrors() {
+	public function hasErrors(): bool {
 		return $this->errors !== [];
 	}
 

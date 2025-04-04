@@ -51,7 +51,7 @@ class ArrayHelper {
 		}
 	}
 
-	protected static function includeElement( $value ) {
+	protected static function includeElement( $value ): bool {
 		// FIXME we should be able to pass 'false' as a parameter value
 		return ( $value !== '' && $value !== false );
 	}

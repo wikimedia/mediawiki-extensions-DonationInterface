@@ -46,7 +46,7 @@ EOT;
 		}
 	}
 
-	protected static function isEndowment() {
+	protected static function isEndowment(): bool {
 		$request = RequestContext::getMain()->getRequest();
 		$sessionIsEndowment = $request->getSessionData( self::ENDOW_SESSION_KEY );
 		if ( !isset( $sessionIsEndowment ) ) {

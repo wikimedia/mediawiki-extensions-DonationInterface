@@ -113,7 +113,7 @@ abstract class ResultSwitcher extends GatewayPage {
 		$this->displayFailPage();
 	}
 
-	protected function isRepeatReturnProcess() {
+	protected function isRepeatReturnProcess(): bool {
 		$request = $this->getRequest();
 		$requestProcessId = $this->adapter->getRequestProcessId(
 			$request->getValues()
