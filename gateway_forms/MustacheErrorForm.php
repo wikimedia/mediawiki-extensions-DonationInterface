@@ -63,6 +63,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		}
 	}
 
+	/** @inheritDoc */
 	protected function getTopLevelTemplate() {
 		return $this->gateway->getGlobal( 'ErrorTemplate' );
 	}

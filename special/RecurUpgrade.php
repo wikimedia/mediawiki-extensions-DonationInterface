@@ -25,6 +25,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		$this->validator = new Validator( $this->getRequest()->getSession(), $this->getConfig() );
 	}
 
+	/** @inheritDoc */
 	public function execute( $subpage ) {
 		$this->setHeaders();
 		$this->setUpClientSideChecksumRequest( $subpage );

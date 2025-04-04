@@ -11,6 +11,7 @@ class SystemStatus extends UnlistedSpecialPage {
 		parent::__construct( 'SystemStatus' );
 	}
 
+	/** @inheritDoc */
 	public function execute( $par ) {
 		// @phan-suppress-previous-line PhanPluginNeverReturnMethod
 		if ( !$this->getConfig()->get( 'DonationInterfaceEnableSystemStatus' ) ) {

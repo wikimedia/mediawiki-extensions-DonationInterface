@@ -8,6 +8,7 @@ class PayPalCountry implements UnstagingHelper {
 		'AN' => 'NL', // Netherlands Antilles is part of Netherlands since 2010
 	];
 
+	/** @inheritDoc */
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		if ( empty( $stagedData['country'] ) ) {
 			return;

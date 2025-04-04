@@ -1,6 +1,7 @@
 <?php
 
 class DonorLanguage implements StagingHelper {
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !isset( $normalized['language'] ) ) {
 			return;

@@ -27,6 +27,7 @@ class FundraiserMaintenance extends UnlistedSpecialPage {
 		parent::__construct( 'FundraiserMaintenance' );
 	}
 
+	/** @inheritDoc */
 	public function execute( $sub ) {
 		$output = $this->getOutput();
 		$this->setHeaders();

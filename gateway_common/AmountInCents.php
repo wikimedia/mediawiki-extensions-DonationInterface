@@ -10,6 +10,7 @@
  * For example: JPY 1000.05 would be changed to 100005, but should be 100000.
  */
 class AmountInCents implements StagingHelper, UnstagingHelper {
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if (
 			empty( $normalized['amount'] ) ||
@@ -26,6 +27,7 @@ class AmountInCents implements StagingHelper, UnstagingHelper {
 		$stagedData['amount'] = round( $amount * 100 );
 	}
 
+	/** @inheritDoc */
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		$unstagedData['amount'] = $stagedData['amount'] / 100;
 	}

@@ -10,6 +10,7 @@ class TestingGatewayPage extends GatewayPage {
 		// nothing!
 	}
 
+	/** @inheritDoc */
 	public function getPageTitle( $subpage = false ) {
 		return RequestContext::getMain()->getTitle();
 	}

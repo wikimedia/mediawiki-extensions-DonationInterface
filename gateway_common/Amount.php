@@ -5,6 +5,7 @@ use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 
 class Amount implements ValidationHelper {
 
+	/** @inheritDoc */
 	public function validate( GatewayType $adapter, $normalized, &$errors ) {
 		if (
 			!isset( $normalized['amount'] ) ||

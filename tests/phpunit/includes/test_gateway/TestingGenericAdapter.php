@@ -28,10 +28,12 @@ class TestingGenericAdapter extends GatewayAdapter {
 	/** @var array */
 	public static $donationRules;
 
+	/** @inheritDoc */
 	public function normalizeOrderID( $override = null, $dataObj = null ) {
 		return '12345';
 	}
 
+	/** @inheritDoc */
 	public function loadConfig( $variant = null ) {
 	}
 
@@ -68,9 +70,11 @@ class TestingGenericAdapter extends GatewayAdapter {
 	protected function defineVarMap() {
 	}
 
+	/** @inheritDoc */
 	protected function setGatewayDefaults( $options = [] ) {
 	}
 
+	/** @inheritDoc */
 	public function getCurrencies( $options = [] ) {
 		return self::$acceptedCurrencies;
 	}

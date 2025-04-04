@@ -152,6 +152,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentProviderFactory::getProviderForMethod( $method );
 	}
 
+	/** @inheritDoc */
 	public function processDonorReturn( $requestValues ) {
 		// FIXME: make sure we're processing the order ID we expect!
 		/** @var HostedCheckoutProvider $provider */
@@ -303,6 +304,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		return $this->getData_Unstaged_Escaped( 'cvv_result' );
 	}
 
+	/** @inheritDoc */
 	public function getRequestProcessId( $requestValues ) {
 		return $requestValues['hostedCheckoutId'];
 	}

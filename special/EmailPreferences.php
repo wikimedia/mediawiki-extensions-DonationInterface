@@ -21,6 +21,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		parent::__construct( 'EmailPreferences' );
 	}
 
+	/** @inheritDoc */
 	public function execute( $subpage ): void {
 		$this->setHeaders();
 		$this->outputHeader();

@@ -16,6 +16,7 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 		'postal_code',
 	];
 
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		// If any address field is not blank, fill in blanks with 'NA'
 		// if all fields are blank, leave it alone
@@ -31,6 +32,7 @@ class BlankAddressFields implements StagingHelper, UnstagingHelper {
 		}
 	}
 
+	/** @inheritDoc */
 	public function unstage( GatewayType $adapter, $stagedData, &$unstagedData ) {
 		foreach ( self::$addressFields as $field ) {
 			if ( isset( $stagedData[ $field ] ) && $stagedData[ $field ] == 'NA' ) {

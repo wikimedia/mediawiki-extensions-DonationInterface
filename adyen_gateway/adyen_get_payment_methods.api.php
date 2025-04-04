@@ -28,6 +28,7 @@ class AdyenGetPaymentMethodsApi extends ApiBase {
 		$this->getResult()->addValue( null, 'response', $rawResponse );
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'country' => [ ParamValidator::PARAM_TYPE => 'string' ]

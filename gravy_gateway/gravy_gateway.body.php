@@ -55,6 +55,7 @@ class GravyGateway extends GatewayPage {
 		}
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ): void {
 		parent::setClientVariables( $vars );
 		// @phan-suppress-next-line PhanUndeclaredMethod get getCheckoutConfiguration is only declared in the Gravy and Adyen adapter

@@ -121,6 +121,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $general;
 	}
 
+	/** @inheritDoc */
 	public function processDonorReturn( $requestValues ): PaymentResult {
 		$this->logger->info( "Handling redirectResult " . json_encode( $requestValues ) );
 		$provider = PaymentProviderFactory::getProviderForMethod(

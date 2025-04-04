@@ -1,6 +1,7 @@
 <?php
 
 class IngenicoReturnUrlHelper implements StagingHelper {
+	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$stagedData ) {
 		if ( !empty( $normalized['return_url'] ) ) {
 			$returnto = $normalized['return_url'];

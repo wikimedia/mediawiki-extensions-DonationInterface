@@ -5,6 +5,7 @@ use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class AdyenAppleApi extends DonationApiBase {
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
 			'validation_url' => [ ParamValidator::PARAM_TYPE => 'string' ],
