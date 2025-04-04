@@ -22,7 +22,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 		$this->cfo = $custom_filter_object;
 	}
 
-	protected function filter() {
+	protected function filter(): bool {
 		// pull out the source from the filter object
 		$source = $this->gateway_adapter->getData_Unstaged_Escaped( 'utm_source' );
 
@@ -52,7 +52,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
-	) {
+	): bool {
 		if ( !$gateway_adapter->getGlobal( 'EnableSourceFilter' ) ||
 			!count( $gateway_adapter->getGlobal( 'CustomFiltersSrcRules' ) ) ) {
 			return true;
@@ -64,7 +64,7 @@ class Gateway_Extras_CustomFilters_Source extends Gateway_Extras {
 	protected static function singleton(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
-	) {
+	): self {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

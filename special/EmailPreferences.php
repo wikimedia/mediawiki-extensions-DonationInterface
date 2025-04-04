@@ -93,7 +93,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function errorHandling( $errorMessage, $requestParameters ): string {
+	protected function errorHandling( string $errorMessage, array $requestParameters ): string {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'EmailPreferences', true, false, '', null
 		);
@@ -118,7 +118,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return 'emailPreferences';
 	}
 
-	protected function validateHash( $params ): bool {
+	protected function validateHash( array $params ): bool {
 		if ( !isset( $params[ 'email' ] ) || !isset( $params[ 'contact_id' ] ) || !isset( $params[ 'hash' ] ) ) {
 			return false;
 		}
@@ -143,7 +143,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function paramsForPreferencesForm( $preferences ): array {
+	protected function paramsForPreferencesForm( array $preferences ): array {
 		$addedParams = [];
 		// find the uselang for targeted prefer language
 		$context = RequestContext::getMain();
@@ -223,7 +223,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return $addedParams;
 	}
 
-	public function setupQueueParams( $params, $queueName ): array {
+	public function setupQueueParams( array $params, string $queueName ): array {
 		switch ( $queueName ) {
 			case 'email-preferences':
 				$message = [
@@ -265,7 +265,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return $message;
 	}
 
-	protected function executeOptIn( $params ): void {
+	protected function executeOptIn( array $params ): void {
 		$message = $this->setupQueueParams( $params, 'opt-in' );
 
 		try {
@@ -276,7 +276,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function executeUnsubscribe( $params ): void {
+	protected function executeUnsubscribe( array $params ): void {
 		$message = $this->setupQueueParams( $params, 'unsubscribe' );
 		try {
 			// treat unsubscribe as email-pref to double check checksum over there
@@ -287,7 +287,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function executeEmailPreferences( $params ): void {
+	protected function executeEmailPreferences( array $params ): void {
 		// FIXME Also detect when the user made no changes, and send that info back
 		// to the queue consumer?
 
@@ -305,22 +305,22 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function renderError( $subpage = 'general' ): void {
+	protected function renderError( string $subpage = 'general' ): void {
 		$subpage .= 'Error';
 		$this->renderQuery( $subpage, [] );
 	}
 
-	protected function renderSuccess( $subpage = 'general', $params = [] ): void {
+	protected function renderSuccess( string $subpage = 'general', array $params = [] ): void {
 		$subpage .= 'Success';
 		$this->renderQuery( $subpage, $params );
 	}
 
-	protected function renderQuery( $subpage, array $params ): void {
+	protected function renderQuery( string $subpage, array $params ): void {
 		$formObj = new EmailForm( $subpage, $params );
 		$this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
-	protected function validate( array $params, $posted ): bool {
+	protected function validate( array $params, bool $posted ): bool {
 		if ( !$this->validateEmail( $params, $posted ) ) {
 			return false;
 		}
@@ -339,7 +339,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function validateEmail( array $params, $posted ): bool {
+	protected function validateEmail( array $params, bool $posted ): bool {
 		if ( empty( $params['email'] ) ) {
 			// When we post back, we need an email
 			if ( $posted ) {
@@ -353,7 +353,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function validateToken( array $params, $posted ): bool {
+	protected function validateToken( array $params, bool $posted ): bool {
 		if ( empty( $params['token'] ) ) {
 			if ( $posted ) {
 				return false;
@@ -368,7 +368,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return true;
 	}
 
-	protected function setPageTitle( $subpage ): void {
+	protected function setPageTitle( string $subpage ): void {
 		switch ( $subpage ) {
 			# FIXME The messages for optin and unsubscribe only exist in the
 			# FundraisingEmailUnsubscribe extension.
@@ -387,7 +387,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->getOutput()->setPageTitle( $title );
 	}
 
-	protected function wasCanceled( $params ): bool {
+	protected function wasCanceled( array $params ): bool {
 		return isset( $params['submit'] ) && ( $params['submit'] === 'cancel' );
 	}
 

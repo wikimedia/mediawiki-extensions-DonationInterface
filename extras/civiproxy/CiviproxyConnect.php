@@ -8,7 +8,7 @@ class CiviproxyConnect {
 	const SITE_KEY_KEY = 'SITE_KEY';
 	const API_KEY_KEY = 'API_KEY';
 
-	public static function getEmailPreferences( $checksum, $contact_id ) {
+	public static function getEmailPreferences( string $checksum, string $contact_id ): array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
 		$client = new GuzzleHttp\Client();
@@ -66,7 +66,7 @@ class CiviproxyConnect {
 		}
 	}
 
-	public static function getRecurDetails( $checksum, $contact_id ) {
+	public static function getRecurDetails( string $checksum, string $contact_id ): array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
 		$client = new GuzzleHttp\Client();

@@ -70,7 +70,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	public static function onFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
-	) {
+	): bool {
 		$gateway_adapter->debugarray[] = 'functions onFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
 			'CustomFiltersFunctions'
@@ -80,7 +80,7 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 	public static function onInitialFilter(
 		GatewayType $gateway_adapter,
 		Gateway_Extras_CustomFilters $custom_filter_object
-	) {
+	): bool {
 		$gateway_adapter->debugarray[] = 'functions onInitialFilter!';
 		return self::singleton( $gateway_adapter, $custom_filter_object )->filter(
 			'CustomFiltersInitialFunctions'
@@ -89,8 +89,8 @@ class Gateway_Extras_CustomFilters_Functions extends Gateway_Extras {
 
 	protected static function singleton(
 		GatewayType $gateway_adapter,
-		$custom_filter_object
-	) {
+		Gateway_Extras_CustomFilters $custom_filter_object
+	): self {
 		if ( !self::$instance ) {
 			self::$instance = new self( $gateway_adapter, $custom_filter_object );
 		}

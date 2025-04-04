@@ -212,7 +212,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		];
 	}
 
-	protected function generateErrorMessage() {
+	protected function generateErrorMessage(): string {
 		$text = $this->msg( 'donate_interface-error-msg-general' )->inLanguage( $this->donationData['language'] )->text();
 		$reference = $this->msg( 'donate_interface-error-reference', $this->orderId )->inLanguage( $this->donationData['language'] )->text();
 		// There was an error processing your request. Error reference: 1234.5
@@ -341,7 +341,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		QueueWrapper::push( 'donations', $message );
 	}
 
-	protected function sendToPaymentsInit( $status ) {
+	protected function sendToPaymentsInit( string $status ) {
 		$message = [
 			'amount' => $this->donationData['amount'],
 			'contribution_tracking_id' => $this->contributionTrackingId,
@@ -362,7 +362,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		QueueWrapper::push( 'payments-init', $message );
 	}
 
-	protected function returnError( $error ) {
+	protected function returnError( mixed $error ) {
 		$this->logger->error( (string)$error );
 		$response = [];
 		$response['status'] = self::STATUS_ERROR;

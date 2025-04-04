@@ -49,7 +49,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		}
 	}
 
-	protected function getDescriptionMessage() {
+	protected function getDescriptionMessage(): string {
 		if ( $this->getData_Unstaged_Escaped( 'recurring' ) == null ||
 			$this->getData_Unstaged_Escaped( 'recurring' ) == 0 ||
 			$this->getData_Unstaged_Escaped( 'recurring' ) == '' ) {
@@ -115,7 +115,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		];
 	}
 
-	public function doPayment() {
+	public function doPayment(): PaymentResult {
 		$this->setValidationAction( ValidationAction::PROCESS, true );
 		$this->logger->debug( 'Running onGatewayReady filters' );
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );

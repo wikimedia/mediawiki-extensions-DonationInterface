@@ -7,6 +7,7 @@ use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
+use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
@@ -96,7 +97,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		];
 	}
 
-	public function doPayment() {
+	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->incrementSequenceNumber();
 		$this->session_addDonorData();
@@ -147,7 +148,7 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		return $provider->createPaymentSession( $data );
 	}
 
-	protected function getPaymentProvider() {
+	protected function getPaymentProvider(): IPaymentProvider {
 		$method = $this->getData_Unstaged_Escaped( 'payment_method' );
 		return PaymentProviderFactory::getProviderForMethod( $method );
 	}

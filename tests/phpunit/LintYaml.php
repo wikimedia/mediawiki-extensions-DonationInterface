@@ -4,7 +4,7 @@
 
 use Symfony\Component\Yaml\Parser;
 
-function runForYamlFiles( $callback ) {
+function runForYamlFiles( callable $callback ) {
 	$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/../' );
 	$filter = new RecursiveCallbackFilterIterator( $directoryIterator, static function ( $current, $key, $iterator ) {
 		// Skip tests and vendor directories.
@@ -32,7 +32,7 @@ function runForYamlFiles( $callback ) {
 	}
 }
 
-function lintYamlFile( $path ) {
+function lintYamlFile( string $path ) {
 	$yamlParser = new Parser();
 	try {
 		$data = $yamlParser->parse( file_get_contents( $path ) );
