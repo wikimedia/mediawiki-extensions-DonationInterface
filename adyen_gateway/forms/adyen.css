@@ -56,8 +56,8 @@ span.adyen-checkout__label__text {
 
 /* By default Adyen changes the color of field labels when focused or invalid.
    Since we don't, harmonize by removing that behaviour from Adyen fields. */
-label.adyen-checkout__label--focused span.adyen-checkout__label__text,
-label.adyen-checkout__label span.adyen-checkout__label__text--error {
+.adyen-checkout__label--focused span.adyen-checkout__label__text,
+.adyen-checkout__label span.adyen-checkout__label__text--error {
 	color: inherit;
 }
 
@@ -69,8 +69,6 @@ label.adyen-checkout__label span.adyen-checkout__label__text--error {
    outside iframes.*/
 form#payment-form input[type='email'],
 form#payment-form input[type='text'],
-form#payment-form input[type='text'],
-
 /* Also apply to these explicitly to some Adyen elements. (Adyen's own
    styles aren't consistent.) */
 div.adyen-checkout__dropdown__button,
@@ -86,6 +84,12 @@ div.adyen-checkout__dropdown__button,
 	font-weight: 400;
 	line-height: normal;
 	padding: 5px 8px 5px 8px;
+	height: 40px;
+}
+
+form#payment-form input[role='combobox'] {
+	height: 37px !important;
+	margin: 0 0 1px -8px;
 }
 
 /* These styles copy the styles Adyen applies to Adyen-provided containers around
@@ -112,10 +116,6 @@ form#payment-form input.inputDefault[type='text']{
 	height: 40px;
 }
 
-/* Error/invalid styling */
-.adyen-checkout__label__text--error,  .adyen-checkout__label--focused .adyen-checkout__label__text {
-	color: #00112c;
-}
 /* Override default style set by Firefox */
 form#payment-form input[type='email']:required:invalid,
 form#payment-form input[type='text']:required:invalid {
