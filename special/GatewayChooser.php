@@ -29,6 +29,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 		parent::__construct( 'GatewayChooser' );
 	}
 
+	/** @inheritDoc */
 	public function execute( $par ) {
 		// Bow out if gateway chooser is not enabled
 		if ( !$this->getConfig()->get( 'DonationInterfaceEnableGatewayChooser' ) ) {

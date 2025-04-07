@@ -31,7 +31,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		return MustacheHelper::render( $this->getTopLevelTemplate(), $data, $options );
 	}
 
-	protected function addRetryLink( &$data ) {
+	protected function addRetryLink( array &$data ) {
 		$params = [];
 		if ( !$this->gateway->session_hasDonorData() ) {
 			foreach ( DonationData::getRetryFields() as $field ) {
@@ -43,7 +43,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		$data['retry_link'] = GatewayChooser::buildGatewayPageUrl( $this->gateway->getIdentifier(), $params, MediaWikiServices::getInstance()->getMainConfig() );
 	}
 
-	protected function addMessageParameters( &$data ) {
+	protected function addMessageParameters( array &$data ) {
 		// Add otherways_url
 		$data += $this->getUrlsAndEmails();
 		global $wgDonationInterfaceFundraiserMaintenance;
@@ -63,6 +63,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		}
 	}
 
+	/** @inheritDoc */
 	protected function getTopLevelTemplate() {
 		return $this->gateway->getGlobal( 'ErrorTemplate' );
 	}

@@ -26,7 +26,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	protected const PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT = 'sepadirectdebit';
 	protected const PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ = 'onlineBanking_CZ';
 
-	public function doPayment() {
+	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		// createPayment = Authorize, in the credit card world.
@@ -295,11 +295,13 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		];
 	}
 
+	/** @inheritDoc */
 	public function getRequiredFields( $knownData = null ) {
 		$fields = parent::getRequiredFields( $knownData );
 		return array_diff( $fields, $this->getFieldsToRemove( $knownData ) );
 	}
 
+	/** @inheritDoc */
 	public function getFormFields( ?array $knownData = null ): array {
 		$fields = parent::getFormFields( $knownData );
 		return array_diff_key(
@@ -308,7 +310,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		);
 	}
 
-	public function getGoogleAllowedNetworks() {
+	public function getGoogleAllowedNetworks(): array {
 		$general = [ 'AMEX', 'DISCOVER', 'JCB', 'MASTERCARD', 'VISA' ];
 		if ( isset( $this->config[ 'payment_submethods' ] ) ) {
 			if ( isset( $this->config[ 'payment_submethods' ][ 'mir' ] ) ) {
@@ -321,7 +323,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return $general;
 	}
 
-	protected function getFieldsToRemove( ?array $knownData = null ) {
+	protected function getFieldsToRemove( ?array $knownData = null ): array {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
 		$submethod = $knownData['payment_submethod'] ?? $this->getData_Unstaged_Escaped( 'payment_submethod' );
 		if ( $method === self::PAYMENT_METHOD_APPLEPAY ) {
@@ -355,7 +357,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return [];
 	}
 
-	public function getCheckoutConfiguration() {
+	public function getCheckoutConfiguration(): array {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
@@ -411,6 +413,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return $this->getData_Unstaged_Escaped( 'cvv_result' );
 	}
 
+	/** @inheritDoc */
 	public function processDonorReturn( $requestValues ) {
 		if (
 			isset( $requestValues['redirectResult'] )

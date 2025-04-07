@@ -592,7 +592,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 	}
 
-	protected function getVariant() {
+	protected function getVariant(): ?string {
 		// FIXME: This is the sort of thing DonationData is supposed to do,
 		// but we construct it too late to use variant in the configuration
 		// reader. We should be pulling all the get / post / session variables

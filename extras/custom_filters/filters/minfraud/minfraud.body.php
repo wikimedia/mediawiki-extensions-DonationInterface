@@ -185,7 +185,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		return $query;
 	}
 
-	protected function getDeviceParams( $data ) {
+	protected function getDeviceParams( array $data ): array {
 		$deviceParams = [
 			'ip_address' => $data['user_ip']
 		];
@@ -207,7 +207,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		];
 	}
 
-	protected function getBillingParams( $data ) {
+	protected function getBillingParams( array $data ): array {
 		$map = [
 			'city' => 'city',
 			'postal_code' => 'postal',
@@ -229,13 +229,13 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 		return $billingParams;
 	}
 
-	protected function getEventParams( $data ) {
+	protected function getEventParams( array $data ): array {
 		return [
 			'transaction_id' => $data['contribution_tracking_id'],
 		];
 	}
 
-	protected function withExtraFields( $data, $query ) {
+	protected function withExtraFields( array $data, array $query ): array {
 		foreach ( self::$extraFieldsMap as $section => $fields ) {
 			foreach ( $fields as $ourName => $theirName ) {
 				if ( in_array( $ourName, $this->enabledExtraFields ) ) {

@@ -99,7 +99,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return MustacheHelper::render( $this->getTopLevelTemplate(), $data, $options );
 	}
 
-	protected function getData() {
+	protected function getData(): array {
 		$data = $this->gateway->getData_Unstaged_Escaped();
 		$output = $this->gatewayPage->getContext()->getOutput();
 
@@ -145,7 +145,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $data;
 	}
 
-	protected function handleOptIn( &$data ) {
+	protected function handleOptIn( array &$data ) {
 		// Since this value can be 1, 0, or unset, we need to make
 		// special conditionals for the mustache logic
 		if ( !isset( $data['opt_in'] ) || $data['opt_in'] === '' ) {
@@ -183,7 +183,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
-	protected function addSubmethods( &$data ) {
+	protected function addSubmethods( array &$data ) {
 		if ( !$this->gatewayPage->showSubmethodButtons() ) {
 			$data['show_submethods'] = false;
 			return;
@@ -248,7 +248,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
-	protected function getSrcSet( $submethod ) {
+	protected function getSrcSet( array $submethod ): string {
 		if ( empty( $submethod['logo_hd'] ) ) {
 			return '';
 		}
@@ -260,7 +260,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return 'srcset="' . implode( ',', $srcSet ) . '" ';
 	}
 
-	protected function addFormFields( &$data ) {
+	protected function addFormFields( array &$data ) {
 		// If any of these are required, show the address block
 		$address_fields = [
 			'city',
@@ -332,7 +332,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
-	protected function setStateOptions( &$data ) {
+	protected function setStateOptions( array &$data ) {
 		$state_list = Subdivisions::getByCountry( $data['country'] );
 		$data['state_province_options'] = [];
 
@@ -348,7 +348,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
-	protected function addCurrencyData( &$data ) {
+	protected function addCurrencyData( array &$data ) {
 		$supportedCurrencies = $this->gateway->getCurrencies();
 		if ( count( $supportedCurrencies ) === 1 ) {
 			$data['show_currency_selector'] = false;
@@ -380,7 +380,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		}
 	}
 
-	protected function setAmountLabelKey( &$data ): void {
+	protected function setAmountLabelKey( array &$data ): void {
 		if ( $data['recurring'] ) {
 			$isAnnual = ( isset( $data['frequency_unit'] ) && $data['frequency_unit'] == 'year' );
 			if ( $isAnnual ) {
@@ -447,7 +447,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $return;
 	}
 
-	protected function getUrlsAndEmails() {
+	protected function getUrlsAndEmails(): array {
 		$map = [
 			'problems' => 'Problems',
 			'otherways' => 'OtherWays',
@@ -516,6 +516,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	// phpcs:enable
 
+	/** @inheritDoc */
 	public function getResources() {
 		$resources = parent::getResources();
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
@@ -539,6 +540,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return $resources;
 	}
 
+	/** @inheritDoc */
 	public function getStyleModules() {
 		$modules = [ 'ext.donationInterface.mustache.styles' ];
 		$gatewayModules = $this->gateway->getConfig( 'ui_modules' );
@@ -563,7 +565,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		return "{$this->scriptPath}/extensions/DonationInterface/gateway_forms/includes/{$name}";
 	}
 
-	protected function getPartials( array $data ) {
+	protected function getPartials( array $data ): array {
 		$partials = [];
 		if ( empty( $data['variant'] ) ) {
 			$variantDir = false;

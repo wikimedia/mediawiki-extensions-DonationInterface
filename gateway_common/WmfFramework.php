@@ -5,12 +5,12 @@ use Wikimedia\IPUtils;
 
 class WmfFramework {
 
-	public static function getIP() {
+	public static function getIP(): string {
 		$request = RequestContext::getMain()->getRequest();
 		return $request->getIP();
 	}
 
-	public static function getRequestValue( $key, $default ) {
+	public static function getRequestValue( string $key, ?string $default ): ?string {
 		$request = RequestContext::getMain()->getRequest();
 		// all strings is just fine.
 		$ret = $request->getText( $key, $default ?? '' );
@@ -22,52 +22,52 @@ class WmfFramework {
 		return $ret;
 	}
 
-	public static function getQueryValues() {
+	public static function getQueryValues(): array {
 		return RequestContext::getMain()->getRequest()->getQueryValues();
 	}
 
-	public static function getRequestHeader( $key ) {
+	public static function getRequestHeader( string $key ): string {
 		return RequestContext::getMain()->getRequest()->getHeader( $key );
 	}
 
-	public static function formatMessage( $key, ...$params ) {
+	public static function formatMessage( $key, ...$params ): string {
 		return wfMessage( $key, ...$params )->text();
 	}
 
-	public static function getLanguageCode() {
+	public static function getLanguageCode(): string {
 		$lang = RequestContext::getMain()->getLanguage();
 		return $lang->getCode();
 	}
 
-	public static function getLanguageFallbacks( $language ) {
+	public static function getLanguageFallbacks( string $language ): array {
 		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageFallback()->getAll( $language );
 	}
 
-	public static function setupSession( $sessionId = false ) {
+	public static function setupSession( bool $sessionId = false ) {
 		SessionManager::getGlobalSession()->persist();
 	}
 
-	public static function getSessionValue( $key ) {
+	public static function getSessionValue( string $key ): mixed {
 		return RequestContext::getMain()->getRequest()->getSessionData( $key );
 	}
 
-	public static function setSessionValue( $key, $value ) {
+	public static function setSessionValue( string $key, mixed $value ) {
 		RequestContext::getMain()->getRequest()->setSessionData( $key, $value );
 	}
 
-	public static function getSessionId() {
+	public static function getSessionId(): string {
 		return SessionManager::getGlobalSession()->getId();
 	}
 
-	public static function validateIP( $ip ) {
+	public static function validateIP( string $ip ): bool {
 		return IPUtils::isValid( $ip );
 	}
 
-	public static function isValidBuiltInLanguageCode( $code ) {
+	public static function isValidBuiltInLanguageCode( string $code ): bool {
 		return \MediaWiki\MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $code );
 	}
 
-	public static function validateEmail( $email ) {
+	public static function validateEmail( string $email ): bool {
 		return Sanitizer::validateEmail( $email );
 	}
 
@@ -86,20 +86,20 @@ class WmfFramework {
 		return wfMessage( $msg_key )->inLanguage( $language )->exists();
 	}
 
-	public static function getUserAgent() {
+	public static function getUserAgent(): string {
 		return \MediaWiki\MediaWikiServices::getInstance()->getHttpRequestFactory()->getUserAgent();
 	}
 
-	public static function isPosted() {
+	public static function isPosted(): bool {
 		$request = RequestContext::getMain()->getRequest();
 		return $request->wasPosted();
 	}
 
-	public static function sanitize( $text ) {
+	public static function sanitize( string $text ): string {
 		return wfEscapeWikiText( $text );
 	}
 
-	public static function getConfig() {
+	public static function getConfig(): Config {
 		return \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
 	}
 }

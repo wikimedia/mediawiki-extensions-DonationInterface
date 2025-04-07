@@ -15,7 +15,7 @@ dd:
     country: true
     name: true
     email: true
-    trustly_explination: true
+    trustly_explanation: true
 
 rtbt:
   recurring: false

@@ -201,7 +201,7 @@ class DonationData implements LogPrefixProvider {
 		}
 	}
 
-	public static function getFieldNames() {
+	public static function getFieldNames(): array {
 		return self::$fieldNames;
 	}
 
@@ -941,7 +941,7 @@ class DonationData implements LogPrefixProvider {
 		return $tracking_data;
 	}
 
-	public function getIdFromSequenceGenerator( $generatorName = 'contribution-tracking' ) {
+	public function getIdFromSequenceGenerator( string $generatorName = 'contribution-tracking' ): string {
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( $generatorName );
 
 		$id = (string)$generator->getNext();
@@ -949,7 +949,7 @@ class DonationData implements LogPrefixProvider {
 		return $id;
 	}
 
-	public function sendToContributionTrackingQueue( $tracking_data, $ctid = null, $queueName = 'contribution-tracking' ) {
+	public function sendToContributionTrackingQueue( array $tracking_data, ?string $ctid = null, string $queueName = 'contribution-tracking' ): string {
 		if ( !$ctid ) {
 			$ctid = $this->getIdFromSequenceGenerator();
 		}

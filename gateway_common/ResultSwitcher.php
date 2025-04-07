@@ -113,7 +113,7 @@ abstract class ResultSwitcher extends GatewayPage {
 		$this->displayFailPage();
 	}
 
-	protected function isRepeatReturnProcess() {
+	protected function isRepeatReturnProcess(): bool {
 		$request = $this->getRequest();
 		$requestProcessId = $this->adapter->getRequestProcessId(
 			$request->getValues()
@@ -148,6 +148,7 @@ abstract class ResultSwitcher extends GatewayPage {
 		$this->getOutput()->redirect( $thankYouPage );
 	}
 
+	/** @inheritDoc */
 	public function setClientVariables( &$vars ) {
 		parent::setClientVariables( $vars );
 		if ( $this->adapter->showMonthlyConvert() ) {

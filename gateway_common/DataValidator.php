@@ -278,7 +278,7 @@ class DataValidator {
 			&& !self::special_characters_in_wrong_locations( $value );
 	}
 
-	protected static function validate_currency_code( $value, $acceptedCurrencies ) {
+	protected static function validate_currency_code( ?string $value, array $acceptedCurrencies ): bool {
 		if ( !$value ) {
 			return false;
 		}
@@ -411,7 +411,7 @@ class DataValidator {
 			!self::obviousXssInString( $value );
 	}
 
-	public static function obviousXssInString( $value ) {
+	public static function obviousXssInString( string $value ): bool {
 		return ( strpos( $value, '>' ) !== false ) ||
 			( strpos( $value, '<' ) !== false );
 	}

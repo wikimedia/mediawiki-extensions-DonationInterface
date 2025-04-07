@@ -310,13 +310,14 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	abstract protected function defineOrderIDMeta();
 
-	public function loadConfig( $variant = null ) {
+	public function loadConfig( ?string $variant = null ) {
 		$configurationReader = ConfigurationReader::createForGateway(
 			static::getIdentifier(), $variant, WmfFramework::getConfig()
 		);
 		$this->config = $configurationReader->readConfiguration();
 	}
 
+	/** @inheritDoc */
 	public function getConfig( $key = null ) {
 		if ( $key === null ) {
 			return $this->config;
@@ -575,6 +576,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $staged_data;
 	}
 
+	/** @inheritDoc */
 	public function getData_Unstaged_Escaped( $val = '' ) {
 		if ( $val === '' ) {
 			return $this->unstaged_data;
@@ -587,10 +589,11 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getDataSources() {
+	public function getDataSources(): array {
 		return $this->dataObj->getDataSources();
 	}
 
+	/** @inheritDoc */
 	public static function getGlobal( $varname ) {
 		// adding another layer of depth here, in case you're working with two gateways in the same request.
 		// That does, in fact, ruin everything. :/
@@ -771,7 +774,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $this->transactions[$transaction]['request'];
 	}
 
-	protected function buildRequestArray() {
+	protected function buildRequestArray(): array {
 		// Look up the request structure for our current transaction type in the transactions array
 		$structure = $this->getTransactionRequestStructure();
 		if ( !is_array( $structure ) ) {
@@ -781,7 +784,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return ArrayHelper::buildRequestArray( $callback, $structure );
 	}
 
-	protected function setFailedValidationTransactionResponse( string $transaction, $phase = 'pre-process' ) {
+	protected function setFailedValidationTransactionResponse( string $transaction, string $phase = 'pre-process' ): PaymentTransactionResponse {
 		$this->logger->info( "Failed $phase checks for transaction type $transaction." );
 		if ( !$this->transaction_response ) {
 			$this->transaction_response = new PaymentTransactionResponse();
@@ -863,11 +866,11 @@ abstract class GatewayAdapter implements GatewayType {
 		return '';
 	}
 
-	public function getPaymentSubmethod() {
+	public function getPaymentSubmethod(): string {
 		return $this->getData_Unstaged_Escaped( 'payment_submethod' );
 	}
 
-	public function getPaymentSubmethods() {
+	public function getPaymentSubmethods(): array {
 		return $this->payment_submethods;
 	}
 
@@ -921,6 +924,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return [];
 	}
 
+	/** @inheritDoc */
 	public function getCurrencies( $options = [] ) {
 		return $this->config['currencies'];
 	}
@@ -1011,7 +1015,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $c::GATEWAY_NAME;
 	}
 
-	public static function getGlobalPrefix() {
+	public static function getGlobalPrefix(): string {
 		$c = get_called_class();
 		return $c::GLOBAL_PREFIX;
 	}
@@ -1083,7 +1087,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	protected function getQueueContactMessage() {
+	protected function getQueueContactMessage(): array {
 		$queueMessage = [];
 		foreach ( DonationData::getContactFields() as $field ) {
 			$queueMessage[$field] = $this->getData_Unstaged_Escaped( $field );
@@ -1191,6 +1195,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $message;
 	}
 
+	/** @inheritDoc */
 	public function addStandardMessageFields( $transaction ) {
 		// basically, add all the stuff we have come to take for granted, because syslog.
 		$transaction['date'] = UtcDate::getUtcTimestamp();
@@ -1282,6 +1287,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $value;
 	}
 
+	/** @inheritDoc */
 	public function getTransactionResponse() {
 		return $this->transaction_response;
 	}
@@ -1462,7 +1468,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return false;
 	}
 
-	public function getGatewayAdapterClass() {
+	public function getGatewayAdapterClass(): string {
 		return get_called_class();
 	}
 
@@ -1513,6 +1519,7 @@ abstract class GatewayAdapter implements GatewayType {
 		WmfFramework::setSessionValue( 'sequence', $sequence );
 	}
 
+	/** @inheritDoc */
 	public function setHash( $hashval ) {
 		$this->dataObj->setVal( 'data_hash', $hashval );
 	}
@@ -1626,10 +1633,12 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
+	/** @inheritDoc */
 	public function setRiskScore( $score ) {
 		$this->risk_score = $score;
 	}
 
+	/** @inheritDoc */
 	public function setValidationAction( $action, $reset = false ) {
 		// our choices are:
 		$actions = [
@@ -1652,7 +1661,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	public function getValidationAction() {
+	public function getValidationAction(): string {
 		if ( !isset( $this->action ) ) {
 			$this->action = ValidationAction::PROCESS;
 		}
@@ -2131,6 +2140,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $score;
 	}
 
+	/** @inheritDoc */
 	public function getAccountConfig( $key ) {
 		return $this->account_config[$key];
 	}
@@ -2396,7 +2406,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return md5( $token . $padding );
 	}
 
-	public function token_getSaltedSessionToken() {
+	public function token_getSaltedSessionToken(): string {
 		// make sure we have a session open for tracking a CSRF-prevention token
 		$this->session_ensure();
 
@@ -2573,6 +2583,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$built = true;
 	}
 
+	/** @inheritDoc */
 	public function getDataConstraints( $field ) {
 		if ( array_key_exists( $field, $this->dataConstraints ) ) {
 			return $this->dataConstraints[$field];
@@ -2722,7 +2733,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $order_id;
 	}
 
-	public function regenerateOrderID() {
+	public function regenerateOrderID(): ?string {
 		$id = null;
 		if ( $this->getOrderIDMeta( 'generate' ) ) {
 			$id = $this->generateOrderID(); // should we pass $this->dataObj?
@@ -2787,6 +2798,7 @@ abstract class GatewayAdapter implements GatewayType {
 		$this->order_id_meta[$key] = $value;
 	}
 
+	/** @inheritDoc */
 	public function getPaymentMethodMeta( $payment_method = null ) {
 		if ( $payment_method === null ) {
 			$payment_method = $this->getPaymentMethod();
@@ -2809,6 +2821,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return in_array( $payment_method, [ 'google', 'apple', 'venmo', 'paypal', 'amazon' ] );
 	}
 
+	/** @inheritDoc */
 	public function getPaymentSubmethodMeta( $payment_submethod = null, $payment_method = null ) {
 		if ( $payment_submethod === null ) {
 			$payment_submethod = $this->getPaymentSubmethod();
@@ -2881,7 +2894,7 @@ abstract class GatewayAdapter implements GatewayType {
 		return $submethods;
 	}
 
-	protected function logPaymentDetails( $preface = self::REDIRECT_PREFACE ) {
+	protected function logPaymentDetails( string $preface = self::REDIRECT_PREFACE ) {
 		$details = $this->getQueueDonationMessage();
 		$json = json_encode( $details );
 		$this->logger->info( $preface . $json );
@@ -2893,7 +2906,7 @@ abstract class GatewayAdapter implements GatewayType {
 		}
 	}
 
-	protected function runSessionVelocityFilter() {
+	protected function runSessionVelocityFilter(): bool {
 		$result = Gateway_Extras_SessionVelocityFilter::onProcessorApiCall( $this );
 
 		if ( $result == false ) {

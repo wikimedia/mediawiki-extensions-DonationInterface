@@ -83,6 +83,7 @@ class AmazonBillingApi extends DonationApiBase {
 		}
 	}
 
+	/** @inheritDoc */
 	public function getAllowedParams() {
 		$params = [];
 		foreach ( $this->allowedParams as $param ) {

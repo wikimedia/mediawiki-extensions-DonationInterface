@@ -9,12 +9,16 @@ trait RecurringConversionTrait {
 	/** @var \Psr\Log\LoggerInterface */
 	protected $logger;
 
+	/** @inheritDoc */
 	abstract public function session_getData( $key, $subkey = null );
 
+	/** @inheritDoc */
 	abstract protected function getQueueDonationMessage(): array;
 
+	/** @inheritDoc */
 	abstract public function session_resetForNewAttempt( $force = false );
 
+	/** @inheritDoc */
 	abstract public function session_setDonorBackupData( array $donorData );
 
 	/**

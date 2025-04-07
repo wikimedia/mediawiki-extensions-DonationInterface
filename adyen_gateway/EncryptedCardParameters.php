@@ -19,6 +19,7 @@ class EncryptedCardParameters implements ValidationHelper {
 		// Adyen docs say some cards don't have a security code
 	];
 
+	/** @inheritDoc */
 	public function validate( GatewayType $adapter, $normalized, &$errors ) {
 		// validate() is called at various points in the process. We only want to require these
 		// parameters for card payments, and only during the 'donate' action (not during initial

@@ -47,7 +47,7 @@ class Validator {
 		return true;
 	}
 
-	protected function validateToken( array $params, $posted ) {
+	protected function validateToken( array $params, bool $posted ): bool {
 		if ( empty( $params['token'] ) ) {
 			if ( $posted ) {
 				return false;

@@ -21,7 +21,7 @@ abstract class DonationApiBase extends ApiBase {
 	 */
 	protected $adapter;
 
-	protected function serializeErrors( $errors ) {
+	protected function serializeErrors( array $errors ): array {
 		$serializedErrors = [];
 		foreach ( $errors as $error ) {
 			if ( $error instanceof ValidationError ) {
@@ -52,7 +52,7 @@ abstract class DonationApiBase extends ApiBase {
 		return $serializedErrors;
 	}
 
-	protected function setAdapterAndValidate() {
+	protected function setAdapterAndValidate(): bool {
 		$this->ensureState();
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
@@ -93,10 +93,12 @@ abstract class DonationApiBase extends ApiBase {
 		return true;
 	}
 
+	/** @inheritDoc */
 	public function isReadMode() {
 		return false;
 	}
 
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

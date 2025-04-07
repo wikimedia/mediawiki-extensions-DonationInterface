@@ -167,7 +167,7 @@ argen:
     AR: true
 
 bancomer:
-  lable: Bancomer
+  label: Bancomer
   group: bt
   countries:
     MX: true
@@ -218,7 +218,7 @@ cabal-debit:
   recurring: true
 
 #bancolombia:
-#  lable: Bancolombia
+#  label: Bancolombia
 #  group: cash
 #  countries:
 #  CO: true
@@ -487,7 +487,7 @@ pse:
   logo: bank-pse.png
 
 #puntored:
-#  lable: Puntored
+#  label: Puntored
 #  group: cash
 #  countries:
 #  CO: true
@@ -538,12 +538,12 @@ shopping:
 #  MX: true
 #  logo: bank-spei.png
 
-#stitch:
-#  lable: Stitch
-#  group: bt
-#  countries:
-#  ZA: true
-#  logo: bank-ach.png
+stitch:
+  label: Stitch
+  group: bt
+  countries:
+    ZA: true
+  logo: bank-ach.png
 
 upi:
   label: UPI

@@ -70,6 +70,7 @@ class AmazonAdapter extends GatewayAdapter {
 		'TransactionTimedOut',
 	];
 
+	/** @inheritDoc */
 	public function __construct( $options = [] ) {
 		parent::__construct( $options );
 
@@ -192,7 +193,7 @@ class AmazonAdapter extends GatewayAdapter {
 		return $result;
 	}
 
-	protected function addDonorDetails( $donorDetails ) {
+	protected function addDonorDetails( array $donorDetails ) {
 		$this->addRequestData( [
 			'email' => $donorDetails['Email'],
 			'full_name' => $donorDetails['Name'],
@@ -300,7 +301,7 @@ class AmazonAdapter extends GatewayAdapter {
 		WmfFramework::setSessionValue( 'order_refs', $orderRefs );
 	}
 
-	protected function authorizeOnOrderReference() {
+	protected function authorizeOnOrderReference(): array {
 		$orderReferenceId = $this->getData_Staged( 'order_reference_id' );
 
 		$this->logger->info( "Authorizing and capturing payment on order $orderReferenceId" );
@@ -339,7 +340,7 @@ class AmazonAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function setBillingAgreementDetailsIfUnset( $billingAgreementId ) {
+	protected function setBillingAgreementDetailsIfUnset( string $billingAgreementId ) {
 		if ( $this->session_getData( 'billing_agreements', $billingAgreementId ) ) {
 			return;
 		}
@@ -354,7 +355,7 @@ class AmazonAdapter extends GatewayAdapter {
 		WmfFramework::setSessionValue( 'billing_agreements', $billingAgreements );
 	}
 
-	protected function authorizeOnBillingAgreement() {
+	protected function authorizeOnBillingAgreement(): array {
 		$billingAgreementId = $this->getData_Staged( 'subscr_id' );
 
 		$this->logger->info( "Authorizing and capturing payment on billing agreement $billingAgreementId" );
