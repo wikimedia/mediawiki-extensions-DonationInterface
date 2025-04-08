@@ -229,6 +229,16 @@ class GatewayChooser extends UnlistedSpecialPage {
 					// is present with a value of false.
 					continue;
 				}
+
+				// Recurring availability for the payment submethod is indicated by a key
+				// on the associative array that is the value for the payment submethod
+				if (
+					$recurring &&
+					empty( $supportedSubmethods[ $paymentSubmethod ][ 'recurring' ] )
+				) {
+					// Specified payment method does not support recurring for this gateway
+					continue;
+				}
 			}
 
 			$possibleGateways[] = $enabledGateway;
