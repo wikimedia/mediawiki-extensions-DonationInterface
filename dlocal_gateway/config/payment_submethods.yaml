@@ -68,6 +68,7 @@ boleto_hibrido:
   countries:
     BR: true
   logo: cash-boleto_hibrido.png
+  recurring: false
 cabal:
   group: cc
   countries:
@@ -115,18 +116,21 @@ cash_efecty:
   countries:
     CO: true
   logo: cash-efecty.png
+  recurring: false
 cash_oxxo:
   label: OXXO
   group: cash
   countries:
     MX: true
   logo: cash-oxxo.png
+  recurring: false
 cash_pago_efectivo:
   label: Pago Efectivo
   group: cash
   countries:
     PE: true
   logo: cash-pago-efectivo.png
+  recurring: false
 #cash_pago_facil:
 #  label: Pago Facil
 #  group: cash
@@ -139,18 +143,21 @@ cash_rapipago:
   countries:
     AR: true
   logo: cash-rapipago.png
+  recurring: false
 cash_red_pagos:
   label: Red Pagos
   group: cash
   countries:
     UY: true
   logo: cash-red-pagos.png
+  recurring: false
 cash_santander:
   label: Santander
   group: bt
   countries:
     MX: true
   logo: bank-santander.png
+  recurring: false
 cencosud:
   group: cc
   countries:
@@ -335,17 +342,14 @@ pix:
   countries:
     BR: true
   logo: bank-pix.png
-presto:
-  group: cc
-  countries:
-    CL: true
-  recurring: true
+  recurring: false
 pse:
   label: PSE
   group: bt
   countries:
     CO: true
   logo: bank-pse.png
+  recurring: false
 #puntored:
 #  label: Puntored
 #  group: cash
@@ -362,28 +366,27 @@ santander:
   countries:
     BR: true
   logo: bank-santander.png
+  recurring: false
 santander_rio:
   label: Santander
   group: bt
   countries:
     AR: true
   logo: bank-santander.png
+  recurring: false
 servipag:
   label: Servipag
   group: cash
   countries:
     CL: true
   logo: cash-servipag.png
+  recurring: false
 #sencillito:
 #  label: Sencillito
 #  group: cash
 #  countries:
 #    CL: true
 #  logo: cash-sencillito.png
-shopping:
-  group: cc
-  countries:
-    AR: true
 #spei:
 #  label: SPEI
 #  group: bt
@@ -437,3 +440,4 @@ webpay:
   countries:
     CL: true
   logo: bank-webpay.png
+  recurring: false
