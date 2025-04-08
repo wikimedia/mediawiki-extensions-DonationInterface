@@ -2889,7 +2889,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 			$submethodHasCountryFilter = isset( $available_submethod['countries'] );
 			$removeForUnsupportedCountry =
-				$submethodHasCountryFilter && empty( $available_submethod['countries'][$country] );
+				$submethodHasCountryFilter && !in_array( $country, $available_submethod['countries'] );
 
 			// If the submethod does not specify whether it supports recurring, fall back to
 			// the setting for its parent method.

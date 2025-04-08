@@ -39,82 +39,82 @@ amex:
   group: cc
   keys: {  }
   countries:
-    AD: true
-    AE: true
-    AL: true
-    AR: true
-    AT: true
-    AU: true
-    BA: true
-    BE: true
-    BG: true
-    BH: true
-    CA: true
-    CH: true
-    CN: true
-    CR: true
-    CW: true
-    CY: true
-    CZ: true
-    DE: true
-    DK: true
-    DZ: true
-    EC: true
-    EE: true
-    EG: true
-    ES: true
-    FI: true
-    GB: true
-    GR: true
-    HK: true
-    HR: true
-    HU: true
-    IE: true
-    IL: true
+    - AD
+    - AE
+    - AL
+    - AR
+    - AT
+    - AU
+    - BA
+    - BE
+    - BG
+    - BH
+    - CA
+    - CH
+    - CN
+    - CR
+    - CW
+    - CY
+    - CZ
+    - DE
+    - DK
+    - DZ
+    - EC
+    - EE
+    - EG
+    - ES
+    - FI
+    - GB
+    - GR
+    - HK
+    - HR
+    - HU
+    - IE
+    - IL
 # Temporarily disabled 10/7/2016, see T147673
-#    IN: true
-    IT: true
-    JO: true
+#    - IN
+    - IT
+    - JO
 # Disabled on 2021-07-14 per https://phabricator.wikimedia.org/T286657
-#    JP: true
-    KE: true
-    KR: true
-    KW: true
-    KZ: true
-    LI: true
-    LK: true
-    LT: true
-    LU: true
-    LV: true
-    MA: true
-    ME: true
-    MG: true
-    MT: true
-    MY: true
-    NL: true
-    'NO': true
-    NP: true
-    NZ: true
-    OM: true
-    PK: true
-    PL: true
-    PR: true
-    PT: true
-    QA: true
-    RO: true
-    RU: true
-    SA: true
-    SE: true
-    SG: true
-    SI: true
-    SK: true
-    SM: true
-    SX: true
-    TH: true
-    TR: true
-    TW: true
-    UA: true
-    US: true
+#    - JP
+    - KE
+    - KR
+    - KW
+    - KZ
+    - LI
+    - LK
+    - LT
+    - LU
+    - LV
+    - MA
+    - ME
+    - MG
+    - MT
+    - MY
+    - NL
+    - 'NO'
+    - NP
+    - NZ
+    - OM
+    - PK
+    - PL
+    - PR
+    - PT
+    - QA
+    - RO
+    - RU
+    - SA
+    - SE
+    - SG
+    - SI
+    - SK
+    - SM
+    - SX
+    - TH
+    - TR
+    - TW
+    - UA
+    - US
 
   logo: card-amex-lg.png
 jcb:
@@ -123,36 +123,36 @@ jcb:
   group: cc
   keys: {  }
   countries:
-    AD: true
-    AT: true
-    AU: true
-    BE: true
-    BH: true
-    BR: true
-    DE: true
-    EC: true
-    ES: true
-    FI: true
-    GB: true
-    GF: true
-    GR: true
-    HK: true
-    ID: true
-    IE: true
-    IT: true
-    JP: true
-    KR: true
-    LU: true
-    MY: true
-    NL: true
-    PH: true
-    PR: true
-    PT: true
-    SG: true
-    SI: true
-    SK: true
-    TH: true
-    TW: true
+    - AD
+    - AT
+    - AU
+    - BE
+    - BH
+    - BR
+    - DE
+    - EC
+    - ES
+    - FI
+    - GB
+    - GF
+    - GR
+    - HK
+    - ID
+    - IE
+    - IT
+    - JP
+    - KR
+    - LU
+    - MY
+    - NL
+    - PH
+    - PR
+    - PT
+    - SG
+    - SI
+    - SK
+    - TH
+    - TW
   logo: card-jcb-lg.png
 discover:
   paymentproductid: 128
@@ -160,14 +160,14 @@ discover:
   group: cc
   keys: {  }
   countries:
-    US: true
+    - US
   logo: card-discover-lg.png
 rtbt_ideal:
   paymentproductid: 809
   label: iDEAL
   group: rtbt
   countries:
-    NL: true
+    - NL
   validation:
     issuer_id: true
   keys:

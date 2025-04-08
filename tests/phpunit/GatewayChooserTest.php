@@ -430,8 +430,8 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 					}
 				}
 
-				foreach ( $configCountries as $key => $value ) {
-					$this->assertContains( $key, $extensionConfig, "$key in $gateway config" );
+				foreach ( $configCountries as $country ) {
+					$this->assertContains( $country, $extensionConfig, "$country in $gateway config" );
 				}
 			}
 		}
