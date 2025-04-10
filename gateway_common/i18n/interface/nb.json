@@ -16,7 +16,8 @@
 			"Sjurhamre",
 			"Telaneo",
 			"Zilvador",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"Pcoombe"
 		]
 	},
 	"donate_interface": "Støtt Wikimedia",
@@ -425,7 +426,7 @@
 	"donate_interface-email-optin-fail": "En feil oppsto under behandlingen av forespørselen din. Vennligst kontakt <a href=\"mailto:$1\">$1</a>, eller <a href=\"$2\">trykk her for å prøve igjen</a>.",
 	"donate_interface-faqs": "Ofte stilte spørsmål",
 	"donate_interface-tax-info": "Informasjon om skattefradrag",
-	"donate_interface-informationsharing": "Vi selger ikke din informasjon til noen. Ved å donere, godtar du å dele personopplysningene dine med Wikimedia Foundation, den ideelle organisasjonen som står bak Wikipedia og andre Wikimedia-prosjekter, og med organisasjonens tjenesteleverandører i henhold til vår <a href=\"$1\">donorpolicy</a>. Wikimedia Foundation og organisasjonens tjenesteleverandører holder til i De forente stater og i andre land hvor personvernlovene kan være ulike de norske. Vi hverken selger eller tilbyr personopplysningene dine til andre. Nærmere informasjon finner du i vår <a href=\"$1\">donorpolicy</a>.",
+	"donate_interface-informationsharing": "Vi selger ikke din informasjon til noen. Ved å donere, godtar du å dele personopplysningene dine med Wikimedia Foundation, den ideelle organisasjonen som står bak Wikipedia og andre Wikimedia-prosjekter, og med organisasjonens tjenesteleverandører i henhold til vår <a href=\"$1\">donorpolicy</a>. Wikimedia Foundation og organisasjonens tjenesteleverandører holder til i USA og i andre land hvor personvernlovene kan være ulike de norske. Vi hverken selger eller tilbyr personopplysningene dine til andre. Nærmere informasjon finner du i vår <a href=\"$1\">donorpolicy</a>.",
 	"donate_interface-currency-change": "Endre?",
 	"donate_interface-taxded-link-int": "Skatteinformasjon og annen juridisk informasjon",
 	"donate_interface-taxded-link-us": "Skattefradragsinformasjon",
@@ -439,7 +440,7 @@
 	"donate_interface-monthlybox-yes": "Ja, gjør det til en månedlig gave",
 	"donate_interface-monthlybox-no": "NEI, gjør det til en engangsgave",
 	"donate_interface-monthlybox-bottom": "Gaven din vil bli behandlet sikkert.",
-	"donate_interface-monthly-cancel": "For gjentakende givere debiterer Wikimedia Foundation faste månedlige innbetalinger på den samme datoen den første donasjonen fant sted, noe som vil fortsette til vi mottar en oppsigelse fra deg. Donasjoner gitt den 29., 30. eller 31. i måneden belastes på den siste dagen i måneden når en måned har færre dager, slik at du betaler så nært opprinnelig bestillingsdato som mulig. Vennligst kontakt $1 hvis du har spørsmål.",
+	"donate_interface-monthly-cancel": "For gjentakende givere debiterer Wikimedia Foundation faste månedlige innbetalinger på den samme datoen som den første donasjonen fant sted, noe som vil fortsette til vi mottar en oppsigelse fra deg. Donasjoner gitt den 29., 30. eller 31. i måneden belastes på den siste dagen i måneden når en måned har færre dager, slik at du betaler så nært opprinnelig bestillingsdato som mulig. Ta kontakt med $1 hvis du har spørsmål.",
 	"donate_interface-onetime": "Gi en engangsgave",
 	"donate_interface-monthly-short": "Månedlig",
 	"donate_interface-onetime-short": "Én gang",
