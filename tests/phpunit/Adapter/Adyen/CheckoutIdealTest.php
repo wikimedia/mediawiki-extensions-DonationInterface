@@ -3,7 +3,7 @@
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Adyen\BankTransferPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * @group Fundraising
@@ -174,7 +174,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				->method( 'getHostedPaymentDetails' )
 				->with( $this->redirectResult )
 				->willReturn(
-						( new PaymentDetailResponse() )
+						( new PaymentProviderExtendedResponse() )
 								->setRawStatus( 'Authorized' )
 								->setStatus( FinalStatus::COMPLETE )
 								->setSuccessful( true )
@@ -328,7 +328,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			->method( 'getHostedPaymentDetails' )
 			->with( $this->redirectResult )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawStatus( 'Authorized' )
 					->setStatus( FinalStatus::COMPLETE )
 					->setSuccessful( true )
@@ -414,7 +414,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			->method( 'getHostedPaymentDetails' )
 			->with( $this->redirectResult )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawStatus( 'Refused' )
 					->setStatus( FinalStatus::FAILED )
 					->setSuccessful( false )

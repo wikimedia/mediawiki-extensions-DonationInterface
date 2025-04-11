@@ -10,7 +10,7 @@ use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use SmashPig\PaymentProviders\Responses\PaymentProviderResponse;
 
 class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
@@ -247,14 +247,14 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 		return json_encode( $rawResponse );
 	}
 
-	protected function logFailedStatusResponse( PaymentDetailResponse $statusResponse ) {
+	protected function logFailedStatusResponse( PaymentProviderExtendedResponse $statusResponse ) {
 		$errorLogMessage = 'Unsuccessful hosted checkout status response from gateway: ';
 		$errorLogMessage .= $statusResponse->getStatus() . " : ";
 		$errorLogMessage .= $this->getSanitizedResponse( $statusResponse );
 		$this->logger->info( $errorLogMessage );
 	}
 
-	protected function addLatestPaymentStatusResponseData( PaymentDetailResponse $statusResult ): void {
+	protected function addLatestPaymentStatusResponseData( PaymentProviderExtendedResponse $statusResult ): void {
 		$responseData = [
 			'amount' => $statusResult->getAmount(),
 			'currency' => $statusResult->getCurrency(),
@@ -276,9 +276,9 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * Adds fraud scores to unstaged data and runs filters
 	 *
-	 * @param PaymentDetailResponse $statusResponse
+	 * @param PaymentProviderExtendedResponse $statusResponse
 	 */
-	protected function addFraudDataAndRunFilters( PaymentDetailResponse $statusResponse ): void {
+	protected function addFraudDataAndRunFilters( PaymentProviderExtendedResponse $statusResponse ): void {
 		$riskScores = $statusResponse->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,

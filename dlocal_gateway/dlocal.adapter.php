@@ -12,7 +12,7 @@ use SmashPig\PaymentProviders\dlocal\HostedPaymentProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
@@ -195,12 +195,12 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 
 	/**
 	 *
-	 * @param PaymentDetailResponse $paymentDetailResponse
+	 * @param PaymentProviderExtendedResponse $paymentDetailResponse
 	 * @param IPaymentProvider $paymentProvider
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		PaymentDetailResponse $paymentDetailResponse,
+		PaymentProviderExtendedResponse $paymentDetailResponse,
 		IPaymentProvider $paymentProvider
 	): PaymentResult {
 		// Log details of the payment in case we need to reconstruct it for
@@ -377,10 +377,10 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/**
-	 * @param PaymentDetailResponse $paymentDetailResponse
+	 * @param PaymentProviderExtendedResponse $paymentDetailResponse
 	 * @return void
 	 */
-	protected function logPaymentDetailFailure( PaymentDetailResponse $paymentDetailResponse ): void {
+	protected function logPaymentDetailFailure( PaymentProviderExtendedResponse $paymentDetailResponse ): void {
 		$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';
 		$errorLogMessage .= $paymentDetailResponse->getStatus() . " : ";
 		$rawResponse = $paymentDetailResponse->getRawResponse();
@@ -402,7 +402,7 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->getData_Unstaged_Escaped( 'recurring' );
 	}
 
-	protected function addCreatePaymentResponseData( PaymentDetailResponse $paymentDetailResponse ): void {
+	protected function addCreatePaymentResponseData( PaymentProviderExtendedResponse $paymentDetailResponse ): void {
 		$data = [
 			'gateway_txn_id' => $paymentDetailResponse->getGatewayTxnId()
 		];

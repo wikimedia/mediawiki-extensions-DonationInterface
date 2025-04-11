@@ -7,7 +7,7 @@ use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\IRecurringPaymentProfileProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\PayPal\PaymentProvider;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * PayPal Express Checkout name value pair integration
@@ -233,7 +233,7 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		);
 	}
 
-	protected function addDonorDetailsToSession( PaymentDetailResponse $detailResponse ): void {
+	protected function addDonorDetailsToSession( PaymentProviderExtendedResponse $detailResponse ): void {
 		$donorDetails = $detailResponse->getDonorDetails();
 		if ( $donorDetails !== null ) {
 			$responseData = [

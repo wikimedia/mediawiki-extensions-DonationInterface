@@ -5,7 +5,7 @@ use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentProviders\Adyen\CardPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * @group Fundraising
@@ -827,7 +827,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			->method( 'getHostedPaymentDetails' )
 			->with( $this->redirectResult )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawStatus( 'Authorized' )
 					->setStatus( FinalStatus::PENDING_POKE )
 					->setSuccessful( true )
@@ -945,7 +945,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			->method( 'getHostedPaymentDetails' )
 			->with( $this->redirectResult )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawResponse( [
 						'additionalData' =>
 							[
