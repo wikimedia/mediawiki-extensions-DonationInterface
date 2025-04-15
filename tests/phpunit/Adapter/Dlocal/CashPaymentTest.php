@@ -3,7 +3,7 @@
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\dlocal\HostedPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * @group Fundraising
@@ -75,7 +75,7 @@ class CashPaymentTest extends BaseDlocalTestCase {
 		parse_str( $mockRedirectReturnValue, $mockRedirectReturnValueToArray );
 
 		// this is the smashpig getLatestPaymentStatus response set up to simulate a paid status result
-		$mockPaymentDetailResponse = new PaymentDetailResponse();
+		$mockPaymentDetailResponse = new PaymentProviderExtendedResponse();
 		$mockPaymentDetailResponse->setGatewayTxnId( $mockRedirectReturnValueToArray['payment_id'] );
 		$mockPaymentDetailResponse->setRawStatus( 'PAID' );
 		$mockPaymentDetailResponse->setStatus( FinalStatus::COMPLETE );
@@ -113,7 +113,7 @@ class CashPaymentTest extends BaseDlocalTestCase {
 		parse_str( $mockRedirectReturnValue, $mockRedirectReturnValueToArray );
 
 		// this is the smashpig getLatestPaymentStatus response set up to simulate a paid status result
-		$mockPaymentDetailResponse = new PaymentDetailResponse();
+		$mockPaymentDetailResponse = new PaymentProviderExtendedResponse();
 		$mockPaymentDetailResponse->setGatewayTxnId( $mockRedirectReturnValueToArray['payment_id'] );
 		$mockPaymentDetailResponse->setRawStatus( 'REJECTED' );
 		$mockPaymentDetailResponse->setStatus( FinalStatus::FAILED );
@@ -149,7 +149,7 @@ class CashPaymentTest extends BaseDlocalTestCase {
 		parse_str( $mockRedirectReturnValue, $mockRedirectReturnValueToArray );
 
 		// this is the smashpig getLatestPaymentStatus response set up to simulate a paid status result
-		$mockPaymentDetailResponse = new PaymentDetailResponse();
+		$mockPaymentDetailResponse = new PaymentProviderExtendedResponse();
 		$mockPaymentDetailResponse->setGatewayTxnId( $mockRedirectReturnValueToArray['payment_id'] );
 		$mockPaymentDetailResponse->setRawStatus( 'CANCELLED' );
 		$mockPaymentDetailResponse->setStatus( FinalStatus::FAILED );
@@ -185,7 +185,7 @@ class CashPaymentTest extends BaseDlocalTestCase {
 		parse_str( $mockRedirectReturnValue, $mockRedirectReturnValueToArray );
 
 		// this is the smashpig getLatestPaymentStatus response set up to simulate a paid status result
-		$mockPaymentDetailResponse = new PaymentDetailResponse();
+		$mockPaymentDetailResponse = new PaymentProviderExtendedResponse();
 		$mockPaymentDetailResponse->setGatewayTxnId( $mockRedirectReturnValueToArray['payment_id'] );
 		$mockPaymentDetailResponse->setRawStatus( 'PENDING' );
 		$mockPaymentDetailResponse->setStatus( FinalStatus::PENDING );

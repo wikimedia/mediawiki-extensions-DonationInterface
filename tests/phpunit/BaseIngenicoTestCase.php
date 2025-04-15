@@ -5,7 +5,7 @@ use SmashPig\Core\Http\CurlWrapper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use SmashPig\Tests\TestingContext;
 
 class BaseIngenicoTestCase extends DonationInterfaceTestCase {
@@ -65,12 +65,12 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 	];
 
 	/**
-	 * @var PaymentDetailResponse
+	 * @var PaymentProviderExtendedResponse
 	 */
 	protected $hostedPaymentStatusResponse;
 
 	/**
-	 * @var PaymentDetailResponse
+	 * @var PaymentProviderExtendedResponse
 	 */
 	protected $hostedPaymentStatusResponseBadCvv;
 
@@ -113,7 +113,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 			['paymentOutput']['cardPaymentMethodSpecificOutput']['fraudResults']
 			['cvvResult'] = 'N';
 
-		$this->hostedPaymentStatusResponseBadCvv = ( new PaymentDetailResponse() )
+		$this->hostedPaymentStatusResponseBadCvv = ( new PaymentProviderExtendedResponse() )
 			->setPaymentSubmethod( 'visa' )
 			->setRiskScores( [
 				'avs' => 0,
@@ -131,8 +131,8 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		$this->approvePaymentResponse = self::getApprovePaymentResponse();
 	}
 
-	public static function getHostedPaymentStatusResponse(): PaymentDetailResponse {
-		return ( new PaymentDetailResponse() )
+	public static function getHostedPaymentStatusResponse(): PaymentProviderExtendedResponse {
+		return ( new PaymentProviderExtendedResponse() )
 			->setPaymentSubmethod( 'visa' )
 			->setRiskScores( [
 				'avs' => 0,

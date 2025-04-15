@@ -27,7 +27,7 @@ use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\CreateRecurringPaymentsProfileResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
@@ -393,8 +393,8 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 		);
 	}
 
-	protected function getGoodPaymentDetailResponse(): PaymentDetailResponse {
-		return ( new PaymentDetailResponse() )
+	protected function getGoodPaymentDetailResponse(): PaymentProviderExtendedResponse {
+		return ( new PaymentProviderExtendedResponse() )
 			->setSuccessful( true )
 			->setRawResponse(
 				'TOKEN=EC%2d4V987654XA123456V&BILLINGAGREEMENTACCEPTEDSTATUS=0&CHECKOUTSTATUS=' .
@@ -534,7 +534,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 				'gateway_session_id' => 'EC-4V987654XA123456V'
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setSuccessful( true )
 					->setRawResponse(
 						'TOKEN=EC%2d4V987654XA123456V&BILLINGAGREEMENTACCEPTEDSTATUS=1&CHECKOUTSTATUS=' .
@@ -612,7 +612,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 				'gateway_session_id' => 'EC-2D123456D9876543U'
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawResponse(
 						'TOKEN=EC%2d2D123456D9876543U&SUCCESSPAGEREDIRECTREQUESTED=false&' .
 						'TIMESTAMP=2017%2d04%2d20T16%3a59%3a06Z&CORRELATIONID=537ffff0fefa&ACK=Failure&VERSION=204&' .
@@ -759,7 +759,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 				'gateway_session_id' => 'EC-2D123456D9876543U'
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 				->setRawResponse(
 					'TOKEN=EC%2d2D123456D9876543U&BILLINGAGREEMENTACCEPTEDSTATUS=0&CHECKOUTSTATUS=' .
 					'PaymentActionNotInitiated&TIMESTAMP=2017%2d02%2d01T20%3a07%3a14Z&CORRELATIONID=d70c9a334455e&' .
@@ -853,7 +853,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 				'gateway_session_id' => 'EC-4V987654XA123456V'
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 				->setRawResponse(
 					'TOKEN=EC%2d4V987654XA123456V&BILLINGAGREEMENTACCEPTEDSTATUS=0&CHECKOUTSTATUS=' .
 					'PaymentActionCompleted&TIMESTAMP=2017%2d02%2d01T20%3a07%3a14Z&CORRELATIONID=d70c9a334455e&ACK=' .
@@ -908,7 +908,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 				'gateway_session_id' => 'EC-4V987654XA123456V'
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 				->setRawResponse(
 					'TOKEN=EC%2d50M26113274765456&BILLINGAGREEMENTACCEPTEDSTATUS=0&CHECKOUTSTATUS=' .
 					'PaymentActionNotInitiated&TIMESTAMP=2018%2d01%2d12T21%3a22%3a19Z&CORRELATIONID=' .
@@ -1070,7 +1070,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 			->method( 'getLatestPaymentStatus' )
 			->with()
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 				->setRawResponse(
 					'TOKEN=EC%2d4V987654XA123456V&BILLINGAGREEMENTACCEPTEDSTATUS=0&CHECKOUTSTATUS=' .
 					'PaymentActionNotInitiated&TIMESTAMP=2017%2d02%2d01T20%3a07%3a14Z&CORRELATIONID=' .

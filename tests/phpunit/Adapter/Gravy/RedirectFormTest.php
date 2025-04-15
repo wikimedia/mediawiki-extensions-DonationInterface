@@ -7,7 +7,7 @@ use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Gravy\RedirectPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * @group Fundraising
@@ -278,7 +278,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 				'gateway_txn_id' => $gravyTransactionId
 			] )
 			->willReturn(
-				( new PaymentDetailResponse() )
+				( new PaymentProviderExtendedResponse() )
 					->setRawStatus( 'authorization_succeeded' )
 					->setStatus( FinalStatus::PENDING_POKE )
 					->setSuccessful( true )

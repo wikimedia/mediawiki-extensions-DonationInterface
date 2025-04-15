@@ -23,7 +23,7 @@ use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\PaymentStatus;
 use SmashPig\PaymentProviders\Responses\CancelPaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -153,7 +153,7 @@ class IngenicoTest extends BaseIngenicoTestCase {
 		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$hostedPaymentStatusResponse = new PaymentProviderExtendedResponse();
 		$hostedPaymentStatusResponse->setRawResponse( [
 				"status" => "IN_PROGRESS",
 			] )
@@ -185,7 +185,7 @@ class IngenicoTest extends BaseIngenicoTestCase {
 		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$hostedPaymentStatusResponse = new PaymentProviderExtendedResponse();
 		$hostedPaymentStatusResponse->setRawResponse( [
 				"status" => "CANCELLED_BY_CONSUMER",
 			] )
@@ -229,7 +229,7 @@ class IngenicoTest extends BaseIngenicoTestCase {
 		] );
 		$gateway = $this->getFreshGatewayObject( $init );
 
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$hostedPaymentStatusResponse = new PaymentProviderExtendedResponse();
 		$hostedPaymentStatusResponse->setRawResponse(
 			[
 				"createdPaymentOutput" => [

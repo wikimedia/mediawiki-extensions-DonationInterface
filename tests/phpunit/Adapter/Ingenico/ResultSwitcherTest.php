@@ -3,7 +3,7 @@
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\FinalStatus;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 /**
  * @group Fundraising
@@ -34,7 +34,7 @@ class ResultSwitcherTest extends BaseIngenicoTestCase {
 				'currencyCode' => $donorTestData['currency']
 			];
 
-		$hostedPaymentStatusResponse = new PaymentDetailResponse();
+		$hostedPaymentStatusResponse = new PaymentProviderExtendedResponse();
 		$hostedPaymentStatusResponse->setRawResponse( $rawResponse )
 			->setPaymentSubmethod( 'visa' )
 			->setSuccessful( true )

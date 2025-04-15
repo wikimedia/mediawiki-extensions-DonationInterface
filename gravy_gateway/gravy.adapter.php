@@ -12,7 +12,7 @@ use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
@@ -151,12 +151,12 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
 	 *
 	 * @param IPaymentProvider $provider
-	 * @param PaymentDetailResponse $createPaymentResponse
+	 * @param PaymentProviderExtendedResponse $createPaymentResponse
 	 *
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		IPaymentProvider $provider, PaymentDetailResponse $createPaymentResponse
+		IPaymentProvider $provider, PaymentProviderExtendedResponse $createPaymentResponse
 	): PaymentResult {
 		$transactionStatus = $createPaymentResponse->getStatus();
 
@@ -245,9 +245,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
-	 * @param PaymentDetailResponse $createPaymentResponse
+	 * @param PaymentProviderExtendedResponse $createPaymentResponse
 	 */
-	protected function runFraudFilters( PaymentDetailResponse $createPaymentResponse ): void {
+	protected function runFraudFilters( PaymentProviderExtendedResponse $createPaymentResponse ): void {
 		$riskScores = $createPaymentResponse->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
@@ -466,7 +466,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
-	protected function updateResponseData( PaymentDetailResponse $paymentResult ): void {
+	protected function updateResponseData( PaymentProviderExtendedResponse $paymentResult ): void {
 		$responseData = [];
 
 		// Add the gravy-generated transaction ID to the DonationData object

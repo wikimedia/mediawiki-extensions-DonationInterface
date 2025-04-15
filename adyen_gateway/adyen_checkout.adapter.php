@@ -8,7 +8,7 @@ use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Adyen\PaymentProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
-use SmashPig\PaymentProviders\Responses\PaymentDetailResponse;
+use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 
 class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion {
 	use RecurringConversionTrait;
@@ -94,12 +94,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * (AVS & CVV checks), run our fraud filters and capture the payment if needed.
 	 *
 	 * @param IPaymentProvider $provider
-	 * @param PaymentDetailResponse $createPaymentResponse
+	 * @param PaymentProviderExtendedResponse $createPaymentResponse
 	 *
 	 * @return PaymentResult
 	 */
 	protected function handleCreatedPayment(
-		IPaymentProvider $provider, PaymentDetailResponse $createPaymentResponse
+		IPaymentProvider $provider, PaymentProviderExtendedResponse $createPaymentResponse
 	): PaymentResult {
 		$transactionStatus = $createPaymentResponse->getStatus();
 		$responseData = [
@@ -479,9 +479,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * Runs antifraud filters if the appropriate for the current payment method.
 	 * Sets $this->action to one of the ValidationAction constants.
 	 *
-	 * @param PaymentDetailResponse $createPaymentResponse
+	 * @param PaymentProviderExtendedResponse $createPaymentResponse
 	 */
-	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $createPaymentResponse ): void {
+	protected function runFraudFiltersIfNeeded( PaymentProviderExtendedResponse $createPaymentResponse ): void {
 		$riskScores = $createPaymentResponse->getRiskScores();
 		$this->addResponseData( [
 			'avs_result' => $riskScores['avs'] ?? 0,
