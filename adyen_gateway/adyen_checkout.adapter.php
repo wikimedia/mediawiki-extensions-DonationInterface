@@ -16,15 +16,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	public const GATEWAY_NAME = 'AdyenCheckout';
 	public const IDENTIFIER = 'adyen';
 	public const GLOBAL_PREFIX = 'wgAdyenCheckoutGateway';
-	protected const PAYMENT_METHOD_GOOGLEPAY = 'google';
-	protected const PAYMENT_METHOD_APPLEPAY = 'apple';
-	protected const PAYMENT_METHOD_CREDIT_CARD = 'cc';
-	protected const PAYMENT_METHOD_DIRECT_DEBIT = 'dd';
-	protected const PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER = 'rtbt';
-	protected const PAYMENT_METHOD_BANK_TRANSFER = 'bt';
-	protected const PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER = 'rtbt_ideal';
-	protected const PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT = 'sepadirectdebit';
-	protected const PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ = 'onlineBanking_CZ';
 
 	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
@@ -227,7 +218,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 */
 	protected function tuneForPaymentMethod() {
 		switch ( $this->getPaymentMethod() ) {
-			case self::PAYMENT_METHOD_DIRECT_DEBIT:
+			case PaymentMethod::PAYMENT_METHOD_DIRECT_DEBIT:
 				$this->transactions['authorize']['request'] =
 					array_merge( $this->transactions['authorize']['request'], [
 						'supplemental_address_1',
@@ -238,7 +229,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						'full_name'
 					] );
 				break;
-			case self::PAYMENT_METHOD_CREDIT_CARD:
+			case PaymentMethod::PAYMENT_METHOD_CREDIT_CARD:
 				$this->transactions['authorize']['request']['encrypted_payment_data'] = [
 					'encryptedCardNumber',
 					'encryptedExpiryMonth',
@@ -256,15 +247,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					'javaEnabled'
 				];
 				break;
-			case self::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER:
+			case PaymentMethod::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER:
 				switch ( $this->getPaymentSubmethod() ) {
-					case self::PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ:
+					case PaymentMethod::PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ:
 						$this->transactions['authorize']['request'][] = 'issuer_id';
 						break;
-					case self::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER:
+					case PaymentMethod::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER:
 						$this->transactions['authorize']['request'][] = 'payment_submethod';
 						break;
-					case self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT:
+					case PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT:
 						$this->transactions['authorize']['request'] =
 							array_merge( $this->transactions['authorize']['request'], [
 								'iban',
@@ -273,11 +264,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						break;
 				}
 				break;
-			case self::PAYMENT_METHOD_BANK_TRANSFER:
+			case PaymentMethod::PAYMENT_METHOD_BANK_TRANSFER:
 				$this->transactions['authorize']['request'][] = 'issuer_id';
 				break;
-			case self::PAYMENT_METHOD_GOOGLEPAY:
-			case self::PAYMENT_METHOD_APPLEPAY:
+			case PaymentMethod::PAYMENT_METHOD_GOOGLEPAY:
+			case PaymentMethod::PAYMENT_METHOD_APPLEPAY:
 				$this->transactions['authorize']['request'][] = 'payment_token';
 		}
 	}
@@ -326,7 +317,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	protected function getFieldsToRemove( ?array $knownData = null ): array {
 		$method = $knownData['payment_method'] ?? $this->getData_Unstaged_Escaped( 'payment_method' );
 		$submethod = $knownData['payment_submethod'] ?? $this->getData_Unstaged_Escaped( 'payment_submethod' );
-		if ( $method === self::PAYMENT_METHOD_APPLEPAY ) {
+		if ( $method === PaymentMethod::PAYMENT_METHOD_APPLEPAY ) {
 			// For Apple Pay, do not require any of the following fields in forms,
 			// regardless of what may be specified in config/country_fields.yaml
 			// We can gather them instead from the Apple Pay UI.
@@ -339,13 +330,16 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				'city',
 				'state_province'
 			];
-		} elseif ( $method === self::PAYMENT_METHOD_GOOGLEPAY ) {
+		} elseif ( $method === PaymentMethod::PAYMENT_METHOD_GOOGLEPAY ) {
 			return [
 				'street_address',
 				'postal_code',
 				'city'
 			];
-		} elseif ( $method === self::PAYMENT_METHOD_DIRECT_DEBIT || ( $method === self::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER && $submethod === self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ) ) {
+		} elseif (
+			$method === PaymentMethod::PAYMENT_METHOD_DIRECT_DEBIT ||
+			( $method === PaymentMethod::PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER
+				&& $submethod === PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ) ) {
 			return [
 				'first_name',
 				'last_name',
@@ -467,8 +461,8 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 * @return bool
 	 */
 	private function isRecurringBankPayment(): bool {
-		$bankPaymentSubMethods = [ self::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER,
-			self::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ];
+		$bankPaymentSubMethods = [ PaymentMethod::PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER,
+			PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT ];
 		$isBankPaymentSubMethods = in_array( $this->getPaymentSubmethod(), $bankPaymentSubMethods );
 		$isRecurring = $this->getData_Unstaged_Escaped( 'recurring' );
 
@@ -524,10 +518,10 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ self::PAYMENT_METHOD_CREDIT_CARD,
-			self::PAYMENT_METHOD_GOOGLEPAY,
-			self::PAYMENT_METHOD_APPLEPAY,
-			self::PAYMENT_METHOD_DIRECT_DEBIT ];
+		return [ PaymentMethod::PAYMENT_METHOD_CREDIT_CARD,
+			PaymentMethod::PAYMENT_METHOD_GOOGLEPAY,
+			PaymentMethod::PAYMENT_METHOD_APPLEPAY,
+			PaymentMethod::PAYMENT_METHOD_DIRECT_DEBIT ];
 	}
 
 	/**
