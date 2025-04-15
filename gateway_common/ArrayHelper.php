@@ -20,6 +20,13 @@ class ArrayHelper {
 		return $data;
 	}
 
+	/**
+	 * @param array &$targetElement
+	 * @param array $structureElement
+	 * @param int|string $key
+	 * @param mixed $value
+	 * @param callable $callback
+	 */
 	protected static function addArrayElement( &$targetElement, $structureElement, $key, $value, $callback ) {
 		if ( is_numeric( $key ) ) {
 			// it's just a value, not an associative array key
@@ -51,6 +58,9 @@ class ArrayHelper {
 		}
 	}
 
+	/**
+	 * @param string|false $value
+	 */
 	protected static function includeElement( $value ): bool {
 		// FIXME we should be able to pass 'false' as a parameter value
 		return ( $value !== '' && $value !== false );

@@ -523,6 +523,9 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		}
 	}
 
+	/**
+	 * @param array &$vars
+	 */
 	public function setClientVariablesWithErrorHandling( &$vars ) {
 		try {
 			$this->setClientVariables( $vars );

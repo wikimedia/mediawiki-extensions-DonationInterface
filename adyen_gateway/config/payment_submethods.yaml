@@ -1,116 +1,116 @@
 cb:
   countries:
-    FR: true
+    - FR
   group: cc
 visa:
   countries:
-    AU: true
-    CA: true
-    FR: true
-    GB: true
-    IE: true
-    IL: true
-    JP: true
-    NL: true
-    NZ: true
-    SE: true
-    UA: true
-    US: true
+    - AU
+    - CA
+    - FR
+    - GB
+    - IE
+    - IL
+    - JP
+    - NL
+    - NZ
+    - SE
+    - UA
+    - US
   group: cc
 visa-debit:
   group: cc
 maestro:
   countries:
-    BE: true
-    RO: true
+    - BE
+    - RO
   group: cc
 mc:
   countries:
-    AU: true
-    CA: true
-    FR: true
-    GB: true
-    IE: true
-    IL: true
-    JP: true
-    NL: true
-    NZ: true
-    SE: true
-    UA: true
-    US: true
+    - AU
+    - CA
+    - FR
+    - GB
+    - IE
+    - IL
+    - JP
+    - NL
+    - NZ
+    - SE
+    - UA
+    - US
   group: cc
 amex:
   countries:
-    AU: true
-    CA: true
-    FR: true
-    GB: true
-    IE: true
-    IL: true
-    JP: true
-    NL: true
-    NZ: true
-    SE: true
-    UA: true
-    US: true
+    - AU
+    - CA
+    - FR
+    - GB
+    - IE
+    - IL
+    - JP
+    - NL
+    - NZ
+    - SE
+    - UA
+    - US
   group: cc
 jcb:
   countries:
-    AU: true
-    IE: true
-    JP: true
-    NL: true
+    - AU
+    - IE
+    - JP
+    - NL
   group: cc
 discover:
   countries:
-    IL: true
-    US: true
+    - IL
+    - US
   group: cc
 rtbt_ideal:
   group: rtbt
   countries:
-    NL: true
+    - NL
 onlineBanking_CZ:
   group: bt
   countries:
-    CZ: true
+    - CZ
 sepadirectdebit:
   group: rtbt
   countries:
-    AT: true
-    BE: true
-    CY: true
-    DE: true
-    EE: true
-    ES: true
-    FR: true
-    GR: true
-    HR: true
-    IE: true
-    IT: true
-    LT: true
-    LU: true
-    LV: true
-    MT: true
-    NL: true
-    PT: true
-    SI: true
-    SK: true
+    - AT
+    - BE
+    - CY
+    - DE
+    - EE
+    - ES
+    - FR
+    - GR
+    - HR
+    - IE
+    - IT
+    - LT
+    - LU
+    - LV
+    - MT
+    - NL
+    - PT
+    - SI
+    - SK
 
 #     Countries Adyen says they don't support
 #     https://adyen.com/payment-methods/sepa-direct-debit
-#    BG: true
-#    CH: true
-#    CZ: true
-#    DK: true
-#    HU: true
-#    'NO': true
-#    PL: true
-#    RO: true
-#    SE: true
+#    - BG
+#    - CH
+#    - CZ
+#    - DK
+#    - HU
+#    - 'NO'
+#    - PL
+#    - RO
+#    - SE
 interac:
   group: cc
 ach:
   group: dd
   countries:
-    US: true
+    - US

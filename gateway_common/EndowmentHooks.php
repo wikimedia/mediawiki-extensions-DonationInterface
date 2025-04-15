@@ -6,6 +6,9 @@
 class EndowmentHooks {
 	const ENDOW_SESSION_KEY = 'isEndowmentDonation';
 
+	/**
+	 * @param array &$data
+	 */
 	public static function onAlterPaymentFormData( &$data ) {
 		if ( isset( $data['utm_medium'] ) && $data['utm_medium'] === 'endowment' ) {
 			$data['faq_url'] = 'https://donate.wikimedia.org/wiki/FAQ#What_is_the_Wikimedia_Endowment?';
@@ -14,6 +17,10 @@ class EndowmentHooks {
 		}
 	}
 
+	/**
+	 * @param OutputPage $outputPage
+	 * @param Skin $skin
+	 */
 	public static function onBeforePageDisplay( $outputPage, $skin ) {
 		if ( self::isEndowment() ) {
 			// FIXME: need to keep generated CSS in sync with

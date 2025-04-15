@@ -102,6 +102,9 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		$this->cfo->addRiskScore( 0, self::IP_ALLOW_LIST );
 	}
 
+	/**
+	 * @return array
+	 */
 	protected function getCachedValue() {
 		// return cache value for user ip
 		return $this->cache_obj->get( $this->user_ip );
@@ -136,6 +139,10 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 		}
 	}
 
+	/**
+	 * @param array|false $stored
+	 * @param int|false $timeout
+	 */
 	protected static function addHitToVelocityData( $stored = false, $timeout = false ): array {
 		$new_velocity_records = [];
 		$nowstamp = time();

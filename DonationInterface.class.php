@@ -40,6 +40,10 @@ class DonationInterface {
 		$context->setVersionFromFile( "$IP/.version-stamp" );
 	}
 
+	/**
+	 * @param array &$files
+	 * @return bool
+	 */
 	public static function onDonationInterfaceUnitTests( &$files ) {
 		global $wgAutoloadClasses;
 

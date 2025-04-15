@@ -26,10 +26,16 @@ class ResponseProcessingException extends Exception {
 		$this->retryVars = $retryVars;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getRetryVars() {
 		return $this->retryVars;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getErrorCode() {
 		return $this->errorCode;
 	}

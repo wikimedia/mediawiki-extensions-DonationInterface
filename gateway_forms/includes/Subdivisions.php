@@ -2,6 +2,9 @@
 
 class Subdivisions {
 
+	/**
+	 * @return string[]|false
+	 */
 	public static function getByCountry( string $country ) {
 		if ( isset( self::$list[$country] ) ) {
 			$divisions = self::$list[$country];

@@ -89,6 +89,9 @@ abstract class Gateway_Form {
 		return wfAppendQuery( $title->getLocalURL(), $query_array );
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getResources() {
 		return [];
 	}

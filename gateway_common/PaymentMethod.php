@@ -19,6 +19,15 @@
  * for most reporting.
  */
 class PaymentMethod {
+	public const PAYMENT_SUBMETHOD_IDEAL_BANK_TRANSFER = 'rtbt_ideal';
+	public const PAYMENT_METHOD_APPLEPAY = 'apple';
+	public const PAYMENT_METHOD_REAL_TIME_BANK_TRANSFER = 'rtbt';
+	public const PAYMENT_METHOD_CREDIT_CARD = 'cc';
+	public const PAYMENT_METHOD_DIRECT_DEBIT = 'dd';
+	public const PAYMENT_METHOD_BANK_TRANSFER = 'bt';
+	public const PAYMENT_SUBMETHOD_ONLINE_BANKING_CZ = 'onlineBanking_CZ';
+	public const PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT = 'sepadirectdebit';
+	public const PAYMENT_METHOD_GOOGLEPAY = 'google';
 	/**
 	 * @var GatewayType
 	 */

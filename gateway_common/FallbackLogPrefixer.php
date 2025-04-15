@@ -9,10 +9,16 @@ class FallbackLogPrefixer implements LogPrefixProvider {
 	/** @var string */
 	protected $prefix;
 
+	/**
+	 * @param string $prefix
+	 */
 	public function __construct( $prefix ) {
 		$this->prefix = $prefix;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getLogMessagePrefix() {
 		return $this->prefix;
 	}
