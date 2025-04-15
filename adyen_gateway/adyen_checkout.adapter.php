@@ -477,10 +477,17 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 */
 	protected function runFraudFiltersIfNeeded( PaymentDetailResponse $createPaymentResponse ): void {
 		$riskScores = $createPaymentResponse->getRiskScores();
-		$this->addResponseData( [
-			'avs_result' => $riskScores['avs'] ?? 0,
-			'cvv_result' => $riskScores['cvv'] ?? 0
-		] );
+		if ( $this->getPaymentMethod() === PaymentMethod::PAYMENT_METHOD_CREDIT_CARD ) {
+			$this->addResponseData( [
+				'cvv_result' => $riskScores['cvv'] ?? 0,
+				'avs_result' => $riskScores['avs'] ?? 0
+			] );
+		} else {
+			$this->logger->info(
+				'payment method is not credit card, set avs_result and cvv_result to 0 as cvv does not apply'
+			);
+			$this->addResponseData( [ 'avs_result' => 0, 'cvv_result' => 0 ] );
+		}
 		$this->runAntifraudFilters();
 	}
 
