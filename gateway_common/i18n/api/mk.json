@@ -40,7 +40,7 @@
 	"apihelp-donate-param-recurring": "Укажува на тоа дека уплатата е трајна (повторлива).",
 	"apihelp-donate-param-variant": "Укажува која варијанта на образецот ја пополнил дарителот.",
 	"apihelp-donate-param-opt_in": "Укажува дека дарителот избрал да биде известуван за прибирање средства по е-пошта.",
-	"apihelp-donate-param-employer": "Назив на работодавачот",
+	"apihelp-donate-param-employer": "Име на работодавачот",
 	"apihelp-donate-param-employer_id": "Назнака на работодавачот",
 	"apihelp-donate-example-1": "Дарувајте",
 	"apihelp-logPaymentsFormError-summary": "Овој извршник заведува грешки во обрасците за дарување од клиентска страна.",
