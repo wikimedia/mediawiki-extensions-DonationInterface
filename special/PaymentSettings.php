@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\CLDR\CountryNames;
+
 class PaymentSettings extends UnlistedSpecialPage {
 	public const PAYMENT_PROCESSORS = [
 		'adyen',
