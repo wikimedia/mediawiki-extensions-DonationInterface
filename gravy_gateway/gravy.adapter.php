@@ -340,7 +340,11 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	public function getCheckoutSession(): CreatePaymentSessionResponse {
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
 		// @phan-suppress-next-line PhanUndeclaredMethod the createPaymentSession variable is declared in Gravy Payment Provider class but not on the general interface
-		return $paymentProvider->createPaymentSession();
+		$response = $paymentProvider->createPaymentSession();
+		if ( !$response->isSuccessful() ) {
+			$this->logger->error( 'Create payment session call unsuccessful. Raw response: ' . $response->getRawResponse() );
+		}
+		return $response;
 	}
 
 	/**
