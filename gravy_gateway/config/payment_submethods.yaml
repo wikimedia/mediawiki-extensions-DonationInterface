@@ -94,6 +94,7 @@ mc:
 amex:
   group: cc
   countries:
+    - AR
     - AU
     - CA
     - FR
@@ -161,10 +162,10 @@ sepadirectdebit:
 interac:
   group: cc
 
-argen:
-  group: cc
-  countries:
-    - AR
+#argen:
+#  group: cc
+#  countries:
+#    - AR
 
 bancomer:
   label: Bancomer
@@ -309,11 +310,11 @@ cash_santander:
     - MX
   logo: bank-santander.png
 
-cencosud:
-  group: cc
-  countries:
-    - AR
-  recurring: true
+#cencosud:
+#  group: cc
+#  countries:
+#    - AR
+#  recurring: true
 
 cmr:
   group: cc
@@ -341,11 +342,11 @@ cmr:
 #  - MX
 #  logo: bank-codi.png
 
-cordobesa:
-  group: cc
-  countries:
-    - AR
-  recurring: true
+#cordobesa:
+#  group: cc
+#  countries:
+#    - AR
+#  recurring: true
 
 #debin:
 #  label: DEBIN
@@ -437,11 +438,11 @@ naranja:
     - AR
   recurring: true
 
-nativa:
-  group: cc
-  countries:
-    - AR
-  recurring: true
+#nativa:
+#  group: cc
+#  countries:
+#    - AR
+#  recurring: true
 
 netbanking:
   label_key: donate_interface-bank-name-netbanking
@@ -505,12 +506,12 @@ santander:
     - BR
   logo: bank-santander.png
 
-santander_rio:
-  label: Santander
-  group: bt
-  countries:
-    - AR
-  logo: bank-santander.png
+#santander_rio:
+#  label: Santander
+#  group: bt
+#  countries:
+#    - AR
+#  logo: bank-santander.png
 
 servipag:
   label: Servipag
@@ -526,10 +527,10 @@ servipag:
 #  - CL
 #  logo: cash-sencillito.png
 
-shopping:
-  group: cc
-  countries:
-    - AR
+#shopping:
+#  group: cc
+#  countries:
+#    - AR
 
 #spei:
 #  label: SPEI
