@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Output\OutputPage;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\DonationInterface\RecurUpgrade;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Session\Session;
 use RecurUpgrade;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;

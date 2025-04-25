@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Request\WebRequest;
 use SmashPig\PaymentProviders\Gravy\ApplePayPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use Wikimedia\ParamValidator\ParamValidator;

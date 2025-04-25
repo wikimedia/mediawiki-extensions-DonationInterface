@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\DonorDetails;

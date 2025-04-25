@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentProviders\Adyen\CardPaymentProvider;

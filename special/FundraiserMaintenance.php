@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
+
 /**
  *
  * -- License --

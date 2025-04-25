@@ -2,6 +2,7 @@
 
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\CLDR\LanguageNames;
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use SmashPig\Core\DataStores\QueueWrapper;
 
 class EmailPreferences extends UnlistedSpecialPage {

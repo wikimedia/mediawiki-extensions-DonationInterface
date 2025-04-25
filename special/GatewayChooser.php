@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Config\Config;
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MediaWiki\Title\Title;
 
 /**

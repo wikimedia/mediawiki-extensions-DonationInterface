@@ -1,4 +1,7 @@
 <?php
+
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
+
 /**
  * SystemStatus will eventually be a page that runs some internal tests and reports back
  * for Nagios/Icinga, etc.

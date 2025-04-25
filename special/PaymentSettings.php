@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 class PaymentSettings extends UnlistedSpecialPage {
 	public const PAYMENT_PROCESSORS = [

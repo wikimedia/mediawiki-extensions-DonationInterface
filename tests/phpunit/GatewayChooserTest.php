@@ -1,6 +1,8 @@
 <?php
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use Symfony\Component\Yaml\Parser;
 
 /**
