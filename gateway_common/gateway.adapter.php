@@ -18,6 +18,8 @@
  */
 
 use ForceUTF8\Encoding;
+use MediaWiki\Config\Config;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
 use Psr\Log\LogLevel;

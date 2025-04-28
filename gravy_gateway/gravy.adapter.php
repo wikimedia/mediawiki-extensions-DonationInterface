@@ -330,13 +330,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return $approvePaymentResponse;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
-	public function getCommunicationType(): void {
-		// TODO: Implement getCommunicationType() method.
-	}
-
 	public function getCheckoutSession(): CreatePaymentSessionResponse {
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
 		// @phan-suppress-next-line PhanUndeclaredMethod the createPaymentSession variable is declared in Gravy Payment Provider class but not on the general interface
@@ -402,13 +395,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	protected function defineAccountInfo() {
 		// TODO: Implement defineAccountInfo() method.
 		$this->accountInfo = $this->account_config;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	protected function defineReturnValueMap() {
-		// TODO: Implement defineReturnValueMap() method.
 	}
 
 	/**

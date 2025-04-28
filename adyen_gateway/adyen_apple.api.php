@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Request\WebRequest;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use Wikimedia\ParamValidator\ParamValidator;

@@ -2,6 +2,7 @@
 
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
 use MediaWiki\Html\Html;
+use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use SmashPig\Core\DataStores\QueueWrapper;
 
