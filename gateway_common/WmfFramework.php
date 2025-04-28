@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Config\Config;
+use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Session\SessionManager;
 use Wikimedia\IPUtils;
 use Wikimedia\Message\MessageParam;

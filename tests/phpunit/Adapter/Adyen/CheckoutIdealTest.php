@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Title\Title;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Adyen\BankTransferPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;

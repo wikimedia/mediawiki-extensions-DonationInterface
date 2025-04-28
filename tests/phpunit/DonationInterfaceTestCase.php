@@ -15,7 +15,9 @@
  * GNU General Public License for more details.
  *
  */
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;

@@ -16,6 +16,9 @@
  *
  */
 
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Title\Title;
+
 /**
  * @group Fundraising
  * @group DonationInterface

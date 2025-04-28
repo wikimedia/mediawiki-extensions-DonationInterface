@@ -5,6 +5,7 @@
  *
  * Special page that uses the Dlocal implementation to accept donations
  */
+use MediaWiki\Output\OutputPage;
 use SmashPig\PaymentProviders\dlocal\BankTransferPaymentProvider;
 use SmashPig\PaymentProviders\dlocal\ReferenceData;
 use SmashPig\PaymentProviders\PaymentProviderFactory;

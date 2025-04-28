@@ -16,6 +16,7 @@
  *
  */
 
+use MediaWiki\Title\Title;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
