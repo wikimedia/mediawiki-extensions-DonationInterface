@@ -178,6 +178,7 @@
 		"BlankAddressFields": "adyen_gateway/BlankAddressFields.php",
 		"EncryptedCardParameters": "adyen_gateway/EncryptedCardParameters.php",
 		"PlaceholderFiscalNumber": "gateway_common/PlaceholderFiscalNumber.php",
+		"PlaceholderPhoneNumber": "gravy_gateway/PlaceholderPhoneNumber.php",
 		"PayPalAmount": "gateway_common/PayPalAmount.php",
 		"PayPalCountry": "paypal_ec_gateway/PayPalCountry.php",
 		"PaypalExpressAdapter": "paypal_ec_gateway/paypal_express.adapter.php",
