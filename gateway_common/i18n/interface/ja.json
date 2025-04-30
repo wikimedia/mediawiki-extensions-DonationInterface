@@ -385,7 +385,7 @@
 	"donate_interface-translate-redlink1": "このページの翻訳を手伝ってください。",
 	"donate_interface-translate-redlink2": "またはあなたの翻訳を translations@wikimedia.org にメールで送信してください",
 	"donate_interface-email-unsub-title": "ウィキメディア財団メーリングリストの購読解除",
-	"donate_interface-email-unsub-button": "購読解除します。",
+	"donate_interface-email-unsub-button": "購読解除",
 	"donate_interface-email-unsub-success": "メーリングリストを購読解除しました",
 	"donate_interface-email-unsub-delay": "変更が反映されるまでには最大4日お待ちください。その間にメールをお届けしてしまったらお許しください。ご質問はなんでも<$1>にご連絡ください。",
 	"donate_interface-email-unsub-fail": "要求の処理エラーが発生しました、 <$1>にお問い合わせください。",
