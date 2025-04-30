@@ -385,7 +385,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			default:
 				$title = $this->msg( 'donate_interface-error-msg-general' );
 		}
-		$this->getOutput()->setPageTitle( $title );
+		$this->getOutput()->setPageTitleMsg( $title );
 	}
 
 	protected function wasCanceled( array $params ): bool {

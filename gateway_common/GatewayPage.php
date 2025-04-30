@@ -517,13 +517,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		// Maybe ask $form_obj for a title so different errors can show different titles
 		$output = $this->getOutput();
 		$titleMsg = $this->msg( 'donate_interface-make-your-donation' );
-		if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
-			// Backward compatibility with MW < 1.41
-			$output->setPageTitle( $titleMsg );
-		} else {
-			// MW >= 1.41
-			$output->setPageTitleMsg( $titleMsg );
-		}
+		$output->setPageTitleMsg( $titleMsg );
 	}
 
 	/**
