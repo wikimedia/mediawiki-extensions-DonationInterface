@@ -61,7 +61,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 		] );
 	}
 
-	public static function formCases() {
+	public static function provideFormCases() {
 		return [
 			[ 'empty', '/^$/' ],
 			[ 'foo', '/FOO/' ],
@@ -72,7 +72,7 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	/**
 	 * Render a few simple Mustache files and match the output
 	 *
-	 * @dataProvider formCases
+	 * @dataProvider provideFormCases
 	 */
 	public function testRendering( $name, $regexp ) {
 		$this->overrideConfigValues( [

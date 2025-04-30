@@ -24,7 +24,7 @@
 class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 
 	/**
-	 * @dataProvider getTestData
+	 * @dataProvider provideTestData
 	 */
 	public function testBuildRequestArray( $description, $input, $expected ) {
 		$actual = ArrayHelper::buildRequestArray( $this->getCallback(), $input );
@@ -32,7 +32,7 @@ class ArrayHelperTest extends PHPUnit\Framework\TestCase {
 		$this->assertEquals( $expected, $actual, $message );
 	}
 
-	public static function getTestData() {
+	public static function provideTestData() {
 		return [
 			// 1st test case
 			[

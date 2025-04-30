@@ -62,7 +62,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 
 	/**
 	 * Test that the required fields are read out of country_fields.yaml
-	 * @dataProvider getRequiredFields
+	 * @dataProvider provideRequiredFields
 	 * @param string $country test donor country
 	 * @param array $fields expected required fields
 	 */
@@ -76,7 +76,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 		$this->assertArrayEquals( $fields, $requiredFields );
 	}
 
-	public static function expectedPaymentMethodSubmethod() {
+	public static function providePaymentMethodSubmethod() {
 		return [
 			[ 'visa', 'cc' ],
 			[ 'unionpay', 'google' ],
@@ -88,7 +88,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * @dataProvider expectedPaymentMethodSubmethod
+	 * @dataProvider providePaymentMethodSubmethod
 	 * @return void
 	 */
 	public function testSubmethodVadliationPass( $submethod, $method ) {
@@ -100,7 +100,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 		$this->assertEquals( [], $response['validation'] );
 	}
 
-	public static function getRequiredFields() {
+	public static function provideRequiredFields() {
 		return [
 			[ 'AU', [
 				'country',
