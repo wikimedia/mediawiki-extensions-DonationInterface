@@ -1,6 +1,6 @@
 /*global amazon:true, OffAmazonPayments:true*/
 ( function ( $, mw ) {
-	var clientId = mw.config.get( 'wgAmazonGatewayClientID' ),
+	let clientId = mw.config.get( 'wgAmazonGatewayClientID' ),
 		sellerId = mw.config.get( 'wgAmazonGatewaySellerID' ),
 		sandbox = mw.config.get( 'wgAmazonGatewaySandbox' ),
 		returnUrl = mw.config.get( 'wgAmazonGatewayReturnURL' ),
@@ -21,7 +21,7 @@
 		// in case the donor has no cards registered with Amazon
 		CARD_SELECT_DELAY = 5000;
 
-	$( function () {
+	$( () => {
 		// Add a couple divs to hold the widgets
 		$( '.submethods' ).before(
 			'<div id="consentWidget" />' +
@@ -35,7 +35,7 @@
 	// Adapted from Amazon documentation, will get parameters from fragment as
 	// well as querystring and accepts Amazon's custom delimiters
 	function getURLParameter( name, source ) {
-		var pattern = '[?&#]' + name + '=([^&;#]*)',
+		const pattern = '[?&#]' + name + '=([^&;#]*)',
 			matches = new RegExp( pattern ).exec( source ) || [ '', '' ],
 			value = matches[ 1 ].replace( /\+/g, '%20' );
 
@@ -43,7 +43,7 @@
 	}
 
 	function loadScript( url ) {
-		var a = document.createElement( 'script' );
+		const a = document.createElement( 'script' );
 		a.type = 'text/javascript';
 		a.async = true;
 		a.src = url;
@@ -52,7 +52,7 @@
 
 	function redirectToLogin() {
 		$( '#overlay' ).show();
-		var loginOptions = {
+		const loginOptions = {
 			scope: 'payments:widget',
 			popup: false
 		};
@@ -69,7 +69,7 @@
 	}
 
 	function reloadPage() {
-		var qsParams = $( '#payment-form' ).serializeArray();
+		const qsParams = $( '#payment-form' ).serializeArray();
 		document.location.replace( mw.util.getUrl( 'Special:AmazonGateway', qsParams ) );
 	}
 
@@ -116,7 +116,7 @@
 	};
 
 	window.onAmazonPaymentsReady = function () {
-		var tokenLifetime;
+		let tokenLifetime;
 		if ( loggedIn ) {
 			tokenLifetime = parseInt( getURLParameter( 'expires_in', location.hash ), 10 );
 			createWalletWidget();
@@ -140,13 +140,13 @@
 	}
 
 	function showOtherWaysLink() {
-		var url = mw.config.get( 'wgAmazonGatewayOtherWaysURL' ),
+		const url = mw.config.get( 'wgAmazonGatewayOtherWaysURL' ),
 			text = mw.message( 'donate_interface-otherways-short' );
 		addErrorMessage( '<a href="' + url + '">' + text + '</a>' );
 	}
 
 	function setSubmitVisibility() {
-		var show = true;
+		let show = true;
 		if ( !cardSelected ) {
 			show = false;
 		}
@@ -161,7 +161,7 @@
 	}
 
 	function createWalletWidget() {
-		var params = {
+		const params = {
 			sellerId: sellerId,
 			onReady: function ( billingAgreement ) {
 				if ( !cardSelected ) {
@@ -219,7 +219,7 @@
 	}
 
 	function createConsentWidget() {
-		var params = {
+		const params = {
 			sellerId: sellerId,
 			amazonBillingAgreementId: billingAgreementId,
 			design: {
@@ -236,7 +236,7 @@
 	}
 
 	function handleErrors( errors ) {
-		var code,
+		let code,
 			refreshWallet = false;
 
 		for ( code in errors ) {
@@ -291,7 +291,7 @@
 			.addClass( 'errorMsgHide' );
 		$( '#overlay' ).show();
 		lockDonationAmount();
-		var postdata = {
+		const postdata = {
 			action: 'di_amazon_bill',
 			format: 'json',
 			recurring: isRecurring,

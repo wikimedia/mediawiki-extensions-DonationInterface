@@ -1,6 +1,6 @@
 ( function ( $ ) {
-    $( function () {
-        var autocompleteCache = {},
+    $( () => {
+        const autocompleteCache = {},
             // This triggers both on 'select' and 'focus' events to set the displayed
             // value to the employer/subsidiary name and the hidden field value to the
             // employer ID. The focus event is triggered on arrow key navigation.
@@ -16,7 +16,7 @@
                 //reset employer_id each time a new search starts
                 $( '#employer_id' ).val( '' );
 
-                var apiParameters = {
+                const apiParameters = {
                     action: 'employerSearch',
                     employer: request.term,
                     format: 'json'
@@ -25,18 +25,16 @@
                 if ( cached ) {
                     response( cached );
                 } else {
-                    $.post( mw.util.wikiScript( 'api' ), apiParameters ).done( function ( data ) {
+                    $.post( mw.util.wikiScript( 'api' ), apiParameters ).done( ( data ) => {
                         // check if the api sent back any errors and if so jump out here
                         if ( data.error ) {
                             response(); // this has to be called in all scenarios for preserve the widget state
                         } else {
                             // transform result to suit autocomplete format
-                            var result = data.result.map( function ( item ) {
-                                    return {
+                            const result = data.result.map( ( item ) => ( {
                                         label: item.name,
                                         value: item.id
-                                    };
-                                } ),
+                                    } ) ),
                             //trim results
                             output = result.slice( 0, 10 );
 

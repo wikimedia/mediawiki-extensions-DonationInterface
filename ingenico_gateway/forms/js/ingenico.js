@@ -1,5 +1,5 @@
 ( function ( $, mw ) {
-	var di = mw.donationInterface,
+	const di = mw.donationInterface,
 		oldSubmit = di.forms.submit;
 
 	function showIframe( result ) {
@@ -9,7 +9,7 @@
 		// Don't let people edit name, address, or email, since we won't
 		// see any changes they make while the iframe is open.
 		di.forms.disableInput();
-		var $div = $( '<div>' ).attr( { id: 'ingenico-div' } ),
+		const $div = $( '<div>' ).attr( { id: 'ingenico-div' } ),
 			$form = $( '<iframe>' )
 			.attr( {
 				src: result.iframe,
@@ -26,13 +26,13 @@
 	}
 
 	di.forms.submit = function () {
-		var paymentMethod = $( '#payment_method' ).val(),
+		const paymentMethod = $( '#payment_method' ).val(),
 			isIframe = di.forms.isIframe();
 		if ( !isIframe && paymentMethod !== 'cc' ) {
 			return oldSubmit();
 		}
-		di.forms.callDonateApi( function ( result ) {
-			var url = result.redirect || result.iframe;
+		di.forms.callDonateApi( ( result ) => {
+			const url = result.redirect || result.iframe;
 			if ( url.length < 100 ) {
 				$.ajax( {
 					url: mw.util.wikiScript( 'api' ),

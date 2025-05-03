@@ -1,6 +1,6 @@
 /*global dlocal:true*/
 ( function ( $, mw ) {
-	var country = $( '#country' ).val(),
+	const country = $( '#country' ).val(),
 		extraData = {},
 		isRecurring = !!$( '#recurring' ).val(),
 		isIndia = ( country === 'IN' );
@@ -24,7 +24,7 @@
 	}
 
 	function setupCardForm() {
-		var dlocalInstance = dlocal( mw.config.get( 'wgDlocalSmartFieldApiKey' ) ),
+		let dlocalInstance = dlocal( mw.config.get( 'wgDlocalSmartFieldApiKey' ) ),
 			fields = dlocalInstance.fields( {
 				locale: mapLang( $( '#language' ).val() ),
 				country: country
@@ -79,7 +79,7 @@
 		cvvField.mount( document.getElementById( 'cvv' ) );
 
 		function addCardFieldEvents() {
-			cardField.addEventListener( 'change', function ( event ) {
+			cardField.addEventListener( 'change', ( event ) => {
 				cardFieldError = !!event.error;
 				if ( event.error ) {
 					$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ) );
@@ -88,16 +88,16 @@
 				}
 			} );
 
-			cardField.on( 'blur', function ( event ) {
+			cardField.on( 'blur', ( event ) => {
 				cardFieldEmpty = event.empty;
 			} );
 
-			cardField.on( 'brand', function ( event ) {
+			cardField.on( 'brand', ( event ) => {
 				// after input 6 number, ready to check bin
 				if ( event.brand ) {
-					dlocalInstance.getBinInformation( cardField ).then( function ( res ) {
-						var binInfoCardBrand = res.brand;
-						var cardBrand = mw.config.get( 'codeMap' )[ binInfoCardBrand ];
+					dlocalInstance.getBinInformation( cardField ).then( ( res ) => {
+						const binInfoCardBrand = res.brand;
+						const cardBrand = mw.config.get( 'codeMap' )[ binInfoCardBrand ];
 						if ( cardBrand !== undefined ) {
 							cardFieldSupportError = false;
 							extraData.payment_submethod = cardBrand;
@@ -107,7 +107,7 @@
 							$( '#credit-card-wrapper' ).addClass( 'DlocalField--invalid' );
 							$( '#cardNumberErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ) );
 						}
-					} ).catch( function ( error ) {
+					} ).catch( ( error ) => {
 						// Suppress bin lookup error.
 					} );
 				}
@@ -115,7 +115,7 @@
 		}
 
 		function addExpirationFieldEvents() {
-			expirationField.addEventListener( 'change', function ( event ) {
+			expirationField.addEventListener( 'change', ( event ) => {
 				expirationFieldError = !!event.error;
 				if ( event.error ) {
 					$( '#expirationErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-card-too-old' ) );
@@ -124,13 +124,13 @@
 				}
 			} );
 
-			expirationField.on( 'blur', function ( event ) {
+			expirationField.on( 'blur', ( event ) => {
 				expirationFieldEmpty = event.empty;
 			} );
 		}
 
 		function addCvvFieldEvents() {
-			cvvField.addEventListener( 'change', function ( event ) {
+			cvvField.addEventListener( 'change', ( event ) => {
 				cvvFieldError = !!event.error;
 				if ( event.error ) {
 					$( '#cvvErrorMsg' ).text( mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ) );
@@ -139,13 +139,13 @@
 				}
 			} );
 
-			cvvField.on( 'blur', function ( event ) {
+			cvvField.on( 'blur', ( event ) => {
 				cvvFieldEmpty = event.empty;
 			} );
 		}
 
 		function validateInputs() {
-			var formValid = mw.donationInterface.validation.validate(),
+			const formValid = mw.donationInterface.validation.validate(),
 				cvvFieldHasErrors = cvvFieldError || cvvFieldEmpty,
 				cardFieldHasErrors = cardFieldError || cardFieldEmpty || cardFieldSupportError,
 				expFieldHasErrors = expirationFieldError || expirationFieldEmpty,
@@ -191,7 +191,7 @@
 			if ( validateInputs() ) {
 				dlocalInstance.createToken( cardField, {
 					name: $( '#first_name' ).val() + ' ' + $( '#last_name' ).val()
-				} ).then( function ( result ) {
+				} ).then( ( result ) => {
 					// Send the token to your server.
 					extraData.fiscal_number = $( '#fiscal_number' ).val();
 					extraData.payment_token = result.token;
@@ -200,7 +200,7 @@
 						extraData,
 						'di_donate_dlocal'
 					);
-				} ).catch( function ( result ) {
+				} ).catch( ( result ) => {
 					if ( result.error ) {
 						mw.donationInterface.validation.showErrors( {
 							general: mw.msg( 'donate_interface-error-msg-general' )
@@ -225,7 +225,7 @@
 	function mapLang( wikiLang ) {
 		if ( wikiLang === 'es-419' ) {
 			return 'es';
-		} else if ( [ 'es', 'en', 'pt', 'zh', 'cv', 'tr' ].indexOf( wikiLang ) !== -1 ) {
+		} else if ( [ 'es', 'en', 'pt', 'zh', 'cv', 'tr' ].includes( wikiLang ) ) {
 			return wikiLang;
 		} else {
 			// todo: maybe display an error, or just default en?
@@ -234,12 +234,12 @@
 	}
 
 	function addCardFieldsToErrorDisplay() {
-		var oldShowErrors = mw.donationInterface.validation.showErrors;
+		const oldShowErrors = mw.donationInterface.validation.showErrors;
 		mw.donationInterface.validation.showErrors = function ( errors ) {
 			mw.donationInterface.forms.enable();
-			var dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
-			$.each( errors, function ( field ) {
-				if ( dLocalFields.indexOf( field ) !== -1 ) {
+			const dLocalFields = [ 'cardNumber', 'expiration', 'cvv' ];
+			$.each( errors, ( field ) => {
+				if ( dLocalFields.includes( field ) ) {
 					$( '#' + field ).find( '.DlocalField' ).addClass( 'DlocalField--invalid' );
 					$( '#' + field + 'ErrorMsg' ).text( errors[ field ] );
 					delete errors[ field ];
@@ -300,7 +300,7 @@
 	}
 
 	function setupNonCardForm() {
-		var upiRecurringIsOnDemand = mw.config.get( 'isOnDemand' ),
+		const upiRecurringIsOnDemand = mw.config.get( 'isOnDemand' ),
 			isDirectPaymentFlow = mw.config.get( 'isDirectPaymentFlow' ),
 			// 'paytmwallet' submethod should be treated as the same for upi
 			isUpi = new RegExp( '\\b' + $( 'input[name=payment_submethod]:checked' ).val() + '\\b', 'i' ).test( 'upi paytmwallet' ); // i is case insensitive
@@ -362,7 +362,7 @@
 	 *  The script should already be mostly or completely preloaded at this point, thanks
 	 *  to a <link rel=preload> we add in DlocalGateway::execute
 	 */
-	$( function () {
+	$( () => {
 		if ( isIndia ) {
 			$( '#fiscal_number' ).after(
 				$( '<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-option-in' ) +
@@ -371,7 +371,7 @@
 		}
 		// only cc load smart field script and submit button, others show redirect with continue button
 		if ( $( '#payment_method' ).val() === 'cc' ) {
-			var scriptNode = document.createElement( 'script' );
+			const scriptNode = document.createElement( 'script' );
 			scriptNode.onload = setupCardForm;
 			scriptNode.onerror = function () {
 				mw.donationInterface.validation.showErrors(

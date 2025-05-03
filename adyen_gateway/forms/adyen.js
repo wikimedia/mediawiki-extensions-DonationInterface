@@ -1,7 +1,7 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
 	// promise objects are for Apple Pay - see comments below
-	var checkout, onSubmit, authPromise, submitPromise,
+	let checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
 		payment_method = $( '#payment_method' ).val(),
 		onBrandSubmethod = '',
@@ -25,14 +25,14 @@
 	 * @return Object
 	 */
 	function getComponentConfig( type, checkoutConfig ) {
-		var config = {};
+		const config = {};
 		switch ( type ) {
 			case 'card':
 				// Note: Debug messages are only sent and logged server-side if
 				// $wgDonationInterfaceLogDebug (or $wgAdyenCheckoutGatewayLogDebug) is true
 
 				config.onBrand = function ( brandInfo ) {
-					var message = brandInfo.brand ?
+					const message = brandInfo.brand ?
 						'onBrand returned brand: ' + brandInfo.brand :
 						'onBrand returned: ' + JSON.stringify( brandInfo );
 					if ( brandInfo.brand ) {
@@ -42,7 +42,7 @@
 				};
 
 				config.onBinLookup = function ( binLookupInfo ) {
-					var message = binLookupInfo.detectedBrands && binLookupInfo.detectedBrands.length > 0 ?
+					const message = binLookupInfo.detectedBrands && binLookupInfo.detectedBrands.length > 0 ?
 						'onBinLookup returned detected brands: ' + JSON.stringify( binLookupInfo.detectedBrands ) :
 						'onBinLookup returned: ' + JSON.stringify( binLookupInfo );
 					mw.donationInterface.forms.addDebugMessage( message );
@@ -78,9 +78,9 @@
 					'email'
 				];
 
-				authPromise = new Promise( function ( authResolve, authReject ) {
+				authPromise = new Promise( ( authResolve, authReject ) => {
 					config.onAuthorized = function ( resolve, reject, event ) {
-						var bContact = event.payment.billingContact,
+						let bContact = event.payment.billingContact,
 							sContact = event.payment.shippingContact,
 							extraData = {};
 						extraData = mw.donationInterface.forms.apple.getBestApplePayContactName( extraData, bContact, sContact );
@@ -110,12 +110,12 @@
 				// sends it back to the native widget via completeMerchantValidation.
 				// https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_js_api/providing_merchant_validation
 				config.onValidateMerchant = function ( resolve, reject, validationUrl ) {
-					var api = new mw.Api();
+					const api = new mw.Api();
 					api.post( {
 						action: 'di_applesession_adyen',
 						validation_url: validationUrl,
 						wmf_token: $( '#wmf_token' ).val()
-					} ).then( function ( data ) {
+					} ).then( ( data ) => {
 						if ( data.result && data.result.errors ) {
 							mw.donationInterface.validation.showErrors( data.result.errors );
 							reject();
@@ -145,7 +145,7 @@
 				// When we are showing the form in a language for which Google Pay has no
 				// translations of their button text, use the plain 'GPay' button rather
 				// than the 'Donate with GPay' button.
-				if ( languagesSupportedByGPayButton.indexOf( baseLanguageCode ) === -1 ) {
+				if ( !languagesSupportedByGPayButton.includes( baseLanguageCode ) ) {
 					config.buttonType = 'plain';
 				} else {
 					config.buttonType = 'donate';
@@ -160,9 +160,9 @@
 				config.gatewayMerchantId = configFromServer.merchantAccountName;
 				config.merchantId = configFromServer.googleMerchantId;
 
-				authPromise = new Promise( function ( authResolve ) {
+				authPromise = new Promise( ( authResolve ) => {
 					config.onAuthorized = function ( response ) {
-						var bContact = response.paymentMethodData.info.billingAddress,
+						const bContact = response.paymentMethodData.info.billingAddress,
 							extraData = {};
 						extraData.postal_code = bContact.postalCode;
 						extraData.state_province = bContact.administrativeArea;
@@ -195,13 +195,13 @@
 	 * @return {number} amount in minor units for specified currency
 	 */
 	function amountInMinorUnits( amount, currency ) {
-		var threeDecimals = mw.config.get( 'DonationInterfaceThreeDecimalCurrencies' ),
+		const threeDecimals = mw.config.get( 'DonationInterfaceThreeDecimalCurrencies' ),
 			noDecimals = mw.config.get( 'DonationInterfaceNoDecimalCurrencies' );
 
-		if ( noDecimals.indexOf( currency ) !== -1 ) {
+		if ( noDecimals.includes( currency ) ) {
 			return Math.round( amount );
 		}
-		if ( threeDecimals.indexOf( currency ) !== -1 ) {
+		if ( threeDecimals.includes( currency ) ) {
 			return Math.round( amount * 1000 );
 		}
 		return Math.round( amount * 100 );
@@ -219,12 +219,12 @@
 		config.onAdditionalDetails = onAdditionalDetails;
 		config.onError = onError;
 		config.showPayButton = false;
-		var checkoutObject = new AdyenCheckout( config );
+		const checkoutObject = new AdyenCheckout( config );
 		if ( checkoutObject instanceof Promise ) {
 			return checkoutObject;
 		}
 
-		return new Promise( function ( resolve, reject ) {
+		return new Promise( ( resolve, reject ) => {
 			resolve( checkoutObject );
 		} );
 	}
@@ -308,9 +308,9 @@
 		}
 	}
 
-	submitPromise = new Promise( function ( submitResolve, submitReject ) {
+	submitPromise = new Promise( ( submitResolve, submitReject ) => {
 		onSubmit = function ( state, component ) {
-			var extraData = {};
+			let extraData = {};
 			// Submit to our server, unless it's Apple Pay, which submits in
 			// the onAuthorized handler.
 			if ( mw.donationInterface.validation.validate() && state.isValid ) {
@@ -468,7 +468,7 @@
 	function setLocaleAndTranslations( config, localeFromServer ) {
 		// Adyen supports the locales listed below, according to
 		// https://docs.adyen.com/online-payments/classic-integrations/checkout-sdks/web-sdk/customization/localization/
-		var adyenSupportedLocale = [
+		const adyenSupportedLocale = [
 			'zh-CN', 'zh-TW', 'hr-HR', 'cs-CZ',
 			'da-DK', 'nl-NL', 'en-US', 'fi-FI',
 			'fr-FR', 'de-DE', 'el-GR', 'hu-HU',
@@ -487,7 +487,7 @@
 		config.translations = {};
 		// Check if donor's language is unsupported by Adyen and we need to provide our own customized translation
 		// Adyen supports ar as Arabic - International and doesn't check the country part
-		if ( baseLocaleFromServer !== 'ar' && adyenSupportedLocale.indexOf( config.locale ) === -1 ) {
+		if ( baseLocaleFromServer !== 'ar' && !adyenSupportedLocale.includes( config.locale ) ) {
 			config.translations[ config.locale ] = {
 				//title
 				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
@@ -542,7 +542,7 @@
 	 * Runs as soon as the external Adyen checkout script is loaded
 	 */
 	function setup() {
-		var component_type,
+		let component_type,
 			config,
 			containerName = 'component-container',
 			oldShowErrors,
@@ -569,8 +569,8 @@
 		// make this prettier. See https://phabricator.wikimedia.org/T293287
 		oldShowErrors = mw.donationInterface.validation.showErrors;
 		mw.donationInterface.validation.showErrors = function ( errors ) {
-			var adyenFieldName;
-			$.each( errors, function ( field ) {
+			let adyenFieldName;
+			$.each( errors, ( field ) => {
 				adyenFieldName = false;
 				if ( field === 'card_num' || field === 'encrypted_card_number' ) {
 					adyenFieldName = 'encryptedCardNumber';
@@ -598,20 +598,20 @@
 		setLocaleAndTranslations( config, configFromServer.locale );
 
 		checkoutPromise = getCheckout( config );
-		checkoutPromise.then( function ( checkoutObject ) {
+		checkoutPromise.then( ( checkoutObject ) => {
 			checkout = checkoutObject;
 			createAndMountComponent( config, component_type, containerName );
 		} );
 	}
 
 	function createAndMountComponent( config, component_type, containerName ) {
-		var component_config = getComponentConfig( component_type, config ),
+		const component_config = getComponentConfig( component_type, config ),
 			component = checkout.create( component_type, component_config );
 
 		if ( component_type === GOOGLEPAY_COMPONENT_TYPE ) {
-			component.isAvailable().then( function () {
+			component.isAvailable().then( () => {
 				component.mount( '#' + containerName );
-			} ).catch( function () {
+			} ).catch( () => {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.message(
 						'donate_interface-error-msg-google_pay_unsupported',
@@ -621,13 +621,13 @@
 			} );
 			// For Google Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.
-			Promise.all( [ submitPromise, authPromise ] ).then( function ( values ) {
-				var extraData = values[ 1 ];
+			Promise.all( [ submitPromise, authPromise ] ).then( ( values ) => {
+				const extraData = values[ 1 ];
 				extraData.payment_token = values[ 0 ];
 				mw.donationInterface.forms.callDonateApi(
 					handleApiResult, extraData, 'di_donate_adyen'
 				);
-			} ).catch( function ( err ) {
+			} ).catch( ( err ) => {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
 				} );
@@ -636,9 +636,9 @@
 				throw err;
 			} );
 		} else if ( component_type === 'applepay' ) {
-			component.isAvailable().then( function () {
+			component.isAvailable().then( () => {
 				component.mount( '#' + containerName );
-			} ).catch( function () {
+			} ).catch( () => {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.message(
 						'donate_interface-error-msg-apple_pay_unsupported',
@@ -648,13 +648,13 @@
 			} );
 			// For Apple Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.
-			Promise.all( [ submitPromise, authPromise ] ).then( function ( values ) {
-				var extraData = values[ 1 ];
+			Promise.all( [ submitPromise, authPromise ] ).then( ( values ) => {
+				const extraData = values[ 1 ];
 				extraData.payment_token = values[ 0 ];
 				mw.donationInterface.forms.callDonateApi(
 					handleApiResult, extraData, 'di_donate_adyen'
 				);
-			} ).catch( function ( err ) {
+			} ).catch( ( err ) => {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
 				} );
@@ -674,7 +674,7 @@
 			// For everything except Apple and google
 			// Pay, show our standard 'Donate' button
 			$( '#paymentSubmit' ).show();
-			$( '#paymentSubmitBtn' ).click( mw.util.debounce( function ( evt ) {
+			$( '#paymentSubmitBtn' ).click( mw.util.debounce( ( evt ) => {
 				component.submit( evt );
 			}, 100 ) );
 		}
@@ -688,7 +688,7 @@
 	 */
 
 	function loadScript( type ) {
-		var scriptNode = document.createElement( 'script' );
+		const scriptNode = document.createElement( 'script' );
 		scriptNode.onerror = function () {
 			mw.donationInterface.validation.showErrors(
 				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
@@ -706,7 +706,7 @@
 		document.body.append( scriptNode );
 	}
 
-	$( function () {
+	$( () => {
 		if ( !configFromServer ) {
 			// If the configuration has not been passed from the server, we are likely on the
 			// ResultSwitcher page and have just been loaded incidentally to make a form for

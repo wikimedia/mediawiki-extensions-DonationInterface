@@ -1,10 +1,10 @@
 ( function ( $, mw ) {
 
-	var $linkButton = $( 'button.send-new-link' ),
+	const $linkButton = $( 'button.send-new-link' ),
 		urlParams = new URLSearchParams( window.location.search );
 
 	function requestNewChecksumLink( contactID, page, subpage ) {
-		var api = new mw.Api(),
+		const api = new mw.Api(),
 			params = {
 				contactID: contactID,
 				action: 'requestNewChecksumLink',
@@ -19,7 +19,7 @@
 	mw.donationInterface.requestNewChecksumLink = requestNewChecksumLink;
 	if ( mw.config.get( 'showRequestNewChecksumModal' ) ) {
 		$( '.link-modal-screen' ).show();
-		$linkButton.click( function ( e ) {
+		$linkButton.click( ( e ) => {
 			mw.donationInterface.requestNewChecksumLink(
 				urlParams.get( 'contact_id' ),
 				mw.config.get( 'requestNewChecksumPage' ),

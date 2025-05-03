@@ -7,7 +7,7 @@
 	 */
 	$( '#employer' ).css( { position: 'relative', zIndex: 100 } );
 
-	var di = mw.donationInterface,
+	let di = mw.donationInterface,
 		myDeviceData,
 		payment_method = $( '#payment_method' ).val();
 
@@ -36,11 +36,11 @@
 	function getDeviceData( clientInstance ) {
 		braintree.dataCollector.create( {
 			client: clientInstance
-		} ).then( function  ( dataCollectorInstance ) {
+		} ).then( ( dataCollectorInstance ) => {
 			// At this point, you should access the dataCollectorInstance.deviceData value and provide it
 			// to your server, e.g. by injecting it into your form as a hidden input
 			myDeviceData = dataCollectorInstance.deviceData;
-		} ).catch( function ( err ) {
+		} ).catch( ( err ) => {
 			showClientSideErrorMessage( 'Device data error' + err );
 		} );
 	}
@@ -49,18 +49,15 @@
 	if ( payment_method === 'paypal' ) {
 		braintree.client.create( {
 			authorization: mw.config.get( 'clientToken' )
-		} ).then( function ( clientInstance ) {
+		} ).then( ( clientInstance ) => {
 			getDeviceData( clientInstance );
 			// Create a PayPal Checkout component.
 			return braintree.paypalCheckout.create( {
 				client: clientInstance
 			} );
-		} ).then( function ( paypalCheckoutInstance ) {
-			return paypalCheckoutInstance.loadPayPalSDK( {
+		} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
 				vault: true
-			} );
-		} ).then( function ( paypalCheckoutInstance ) {
-			return paypal.Buttons( {
+			} ) ).then( ( paypalCheckoutInstance ) => paypal.Buttons( {
 				fundingSource: paypal.FUNDING.PAYPAL,
 
 				createBillingAgreement: function () {
@@ -70,8 +67,8 @@
 				},
 
 				onApprove: function ( data, actions ) {
-					return paypalCheckoutInstance.tokenizePayment( data ).then( function ( payload ) {
-						var sendData = {
+					return paypalCheckoutInstance.tokenizePayment( data ).then( ( payload ) => {
+						const sendData = {
 							payment_token: payload.nonce,
 							device_data: myDeviceData,
 							first_name: payload.details.firstName,
@@ -93,20 +90,19 @@
 				onError: function ( err ) {
 					showClientSideErrorMessage( 'PayPal error' + err );
 				}
-			} ).render( '#paypal-button' );
-		} ).then( function () {
+			} ).render( '#paypal-button' ) ).then( () => {
 			// The PayPal button will be rendered in an html element with the ID
 			// `paypal-button`. This function will be called when the PayPal button
 			// is set up and ready to be used
-		} ).catch( function ( err ) {
+		} ).catch( ( err ) => {
 			// Handle component creation error
 			showClientSideErrorMessage( 'component creation error: ' + err );
 		} );
 	} else if ( payment_method === 'venmo' ) {
-		var venmoButton = document.getElementById( 'venmo-button' );
+		const venmoButton = document.getElementById( 'venmo-button' );
 		braintree.client.create( {
 			authorization: mw.config.get( 'clientToken' )
-		} ).then( function ( clientInstance ) {
+		} ).then( ( clientInstance ) => {
 			getDeviceData( clientInstance );
 			// Create a Venmo component.
 			return braintree.venmo.create( {
@@ -117,7 +113,7 @@
 				allowDesktopWebLogin: true, // force web login, QR code depreciate
 				paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
 			} );
-		} ).then( function ( venmoInstance ) {
+		} ).then( ( venmoInstance ) => {
 			// Verify browser support before proceeding.
 			if ( !venmoInstance.isBrowserSupported() ) {
 				showClientSideErrorMessage( 'Browser does not support Venmo' );
@@ -133,7 +129,7 @@
 				}
 			}
 			function handleVenmoSuccess( payload ) {
-				var sendData = {
+				const sendData = {
 					payment_token: payload.nonce,
 					device_data: myDeviceData,
 					user_name: payload.details.username,
@@ -156,15 +152,15 @@
 			}
 			function displayVenmoButton() {
 				venmoButton.style.display = 'block';
-				venmoButton.addEventListener( 'click', function () {
+				venmoButton.addEventListener( 'click', () => {
 					venmoButton.disabled = true;
-					venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( function () {
+					venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
 						venmoButton.removeAttribute( 'disabled' );
 					} );
 				} );
 			}
 			displayVenmoButton();
-		} ).catch( function ( err ) {
+		} ).catch( ( err ) => {
 			showClientSideErrorMessage( 'Error creating Venmo:' + err );
 		} );
 	}

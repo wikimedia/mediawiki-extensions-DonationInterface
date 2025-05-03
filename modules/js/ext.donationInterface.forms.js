@@ -5,7 +5,7 @@
  * @param mw
  */
 ( function ( $, mw ) {
-	var di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
+	const di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
 
 	// Common helper functions
 	function disablePaymentSubmitButton() {
@@ -71,7 +71,7 @@
 	}
 
 	function resetSubmethod() {
-		var $submethodInput = $( 'input:radio[name=payment_submethod]' );
+		const $submethodInput = $( 'input:radio[name=payment_submethod]' );
 		if ( $submethodInput.length > 1 ) {
 			$submethodInput.prop( 'checked', false );
 		}
@@ -87,7 +87,7 @@
 	 * @return {string}
 	 */
 	function getOptIn() {
-		var val, $element = $( 'input[name=opt_in]:checked' );
+		let val, $element = $( 'input[name=opt_in]:checked' );
 		if ( $element.length === 1 ) {
 			val = $element.val();
 		} else {
@@ -115,7 +115,7 @@
 			.addClass( 'errorMsgHide' );
 		$( '#paymentContinueBtn' ).removeClass( 'enabled' );
 
-		var sendData,
+		let sendData,
 			paymentSubmethod;
 
 		if ( typeof $( 'input[name="payment_submethod"]:checked' ).val() === 'undefined' ) {
@@ -201,7 +201,7 @@
 	}
 
 	function isIframe() {
-		var payment_method = $( '#payment_method' ).val();
+		const payment_method = $( '#payment_method' ).val();
 
 		switch ( payment_method ) {
 		case 'cc':
@@ -212,7 +212,7 @@
 	}
 
 	function loadScript( script_link, setup_callback ) {
-		var scriptNode = document.createElement( 'script' );
+		const scriptNode = document.createElement( 'script' );
 		scriptNode.src = script_link;
 		scriptNode.onload = setup_callback;
 		scriptNode.onerror = function () {
@@ -244,9 +244,9 @@
 		}
 	};
 
-	$( function () {
+	$( () => {
 
-		var $emailDiv = $( '#email' ).closest( 'div' ),
+		const $emailDiv = $( '#email' ).closest( 'div' ),
 			emailExplainMessage = mw.msg( 'donate_interface-email-explain' ),
 			optInValue = mw.donationInterface.forms.getOptIn(),
 			hasSetClientVariablesError = mw.config.get( 'DonationInterfaceSetClientVariablesError' );
@@ -265,7 +265,7 @@
 		}
 
 		// Submit on submethod click if valid, otherwise clear submethod selection.
-		$( 'input[name="payment_submethod"]' ).on( 'click', function () {
+		$( 'input[name="payment_submethod"]' ).on( 'click', () => {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
 			} else {
@@ -277,7 +277,7 @@
 		// Some forms show a 'continue' button when validation errors are found
 		// server-side on the initial submit. When shown, it should validate
 		// and submit the form.
-		$( '#paymentContinueBtn' ).on( 'click', function () {
+		$( '#paymentContinueBtn' ).on( 'click', () => {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
 			}
@@ -291,7 +291,7 @@
 		// Magic to hopefully disable the spinner in case we are returned to this
 		// page via the Back button.
 		$( window ).on(
-			'unload', function () {
+			'unload', () => {
 				// wrapped in case it is overwritten
 				di.forms.enable();
 				di.forms.enableInput();

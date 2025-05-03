@@ -1,9 +1,9 @@
 ( function ( $, mw ) {
-	var apiAction = mw.config.get( 'ClientErrorLogAction', 'logPaymentsFormError' ),
+	const apiAction = mw.config.get( 'ClientErrorLogAction', 'logPaymentsFormError' ),
 		ignorePatterns = mw.config.get( 'wgDonationInterfaceClientErrorLogIgnorePatterns' ),
 		ignoreRegexes = [];
 	window.onerror = function ( message, file, line, col, error ) {
-		var i, postdata;
+		let i, postdata;
 		for ( i = 0; i < ignorePatterns.length; i++ ) {
 			if ( ignoreRegexes.length <= i ) {
 				// turn patterns into regexes the first time through

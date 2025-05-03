@@ -1,6 +1,6 @@
 ( function ( $ ) {
-	$( function () {
-		var donatedAmount = +$( '#amount' ).val(),
+	$( () => {
+		const donatedAmount = +$( '#amount' ).val(),
 			donatedAmountFormatted = donatedAmount.toLocaleString(
 			$( '#language' ).val() + '-' + $( '#country' ).val(),
 			{

@@ -1,5 +1,5 @@
 ( function ( mw ) {
-	var di = mw.donationInterface;
+	const di = mw.donationInterface;
 
 	di.forms.isIframe = function () {
 		return false;

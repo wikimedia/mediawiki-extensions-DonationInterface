@@ -1,15 +1,15 @@
 ( function ( $ ) {
-	$( function () {
-		$( '.emailpreferences-form-col-content-salutation-email-edit-link' ).click( function ( e ) {
+	$( () => {
+		$( '.emailpreferences-form-col-content-salutation-email-edit-link' ).click( ( e ) => {
 				e.preventDefault();
 			$( '.emailpreferences-form-col-content-salutation-email-edit-input' ).show();
 			$( '.emailpreferences-form-col-content-salutation-email' ).hide();
 			$( '.emailpreferences-form-col-content-salutation-email-edit' ).hide();
 		} );
-		var $submitButton = $( '#save' ),
+		const $submitButton = $( '#save' ),
 			$emailField = $( '#email' ),
 			isEmailValid = function () {
-				var email = $emailField.val().trim(),
+				const email = $emailField.val().trim(),
 					dotPos = email.lastIndexOf( '.' ),
 					atPos = email.indexOf( '@' ),
 					lastAtPos = email.lastIndexOf( '@' );
@@ -29,7 +29,7 @@
 			};
 
 		if ( $emailField.length === 1 ) {
-			$submitButton.click( function () {
+			$submitButton.click( () => {
 				if ( !isEmailValid() ) {
 					$emailField.addClass( 'errorHighlight' );
 					return false;
@@ -37,7 +37,7 @@
 				return true;
 			} );
 
-			$emailField.change( function () {
+			$emailField.change( () => {
 				if ( isEmailValid() ) {
 					$emailField.removeClass( 'errorHighlight' );
 				}

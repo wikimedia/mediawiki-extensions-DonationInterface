@@ -8,7 +8,7 @@
  * @param mw
  */
 ( function ( $, mw ) {
-	var di = mw.donationInterface = mw.donationInterface || {},
+	let di = mw.donationInterface = mw.donationInterface || {},
 		checkMail = true,
 		mcDomains = Mailcheck.defaultDomains.concat( [
 			'aim.com', 'alice.it', 'aon.at', 'bellsouth.net', 'bigpond.com',
@@ -36,17 +36,17 @@
 			'com.au', 'com.br', 'com.mx', 'com.pe', 'com.sg', 'cz', 'de', 'es',
 			'fr', 'it', 'jp', 'kr', 'nl', 'pt', 'se'
 		];
-	$.each( multiCountrySubdomains, function ( i, subdomain ) {
-		$.each( countryTlds, function ( i, countryTld ) {
+	$.each( multiCountrySubdomains, ( i, subdomain ) => {
+		$.each( countryTlds, ( i, countryTld ) => {
 			mcDomains.push( subdomain + '.' + countryTld );
 		} );
 	} );
 
 	function showErrors( errors ) {
-		var generalErrors = [];
+		const generalErrors = [];
 
-		$.each( errors, function ( field, message ) {
-			var $messageField = $( '#' + field + 'Msg' );
+		$.each( errors, ( field, message ) => {
+			const $messageField = $( '#' + field + 'Msg' );
 
 			if ( $messageField.length > 0 ) {
 				$( '#' + field ).addClass( 'errorHighlight' );
@@ -83,12 +83,12 @@
 			// This funkiness is to make sure we run all the validations and
 			// highlight bad values, rather than short-circuiting the second
 			// group of tests if "&&" detects that the first tests failed.
-			var results = [
+			const results = [
 					this.validateAmount(),
 					this.validatePersonal()
 				],
 				// Fail if one or more tests failed.
-				success = ( results.indexOf( false ) === -1 );
+				success = ( !results.includes( false ) );
 
 			return success;
 		},
@@ -111,7 +111,7 @@
 			topLevelDomains: [],
 			domains: mcDomains,
 			suggested: function ( element, suggestion ) {
-				var message = mw.msg(
+				const message = mw.msg(
 					'donate_interface-did-you-mean',
 					suggestion.full
 				);
@@ -127,7 +127,7 @@
 		$( '#email' ).val( $( this ).text() );
 		$( '#emailSuggestion' ).hide();
 	} );
-	$( document ).on( 'click', '#emailSuggestion .close-button', function () {
+	$( document ).on( 'click', '#emailSuggestion .close-button', () => {
 		checkMail = false; // Don't bother them again
 		$( '#emailSuggestion' ).hide();
 	} );
