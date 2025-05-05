@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class CiviproxyConnect {
 
 	// These refer to the names (keys in an array) of available actual site and api keys
@@ -11,35 +13,36 @@ class CiviproxyConnect {
 	public static function getEmailPreferences( string $checksum, string $contact_id ): array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
-		$client = new GuzzleHttp\Client();
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'CiviproxyConnector', true, false, '', null );
 		try {
-			$clientResponse = $client->get(
-				"$wgDonationInterfaceCiviproxyURLBase/rest.php",
-				[ 'query' => [
-						'entity' => 'civiproxy',
-						'action' => 'getpreferences',
-						'key' => self::SITE_KEY_KEY,
-						'api_key' => self::API_KEY_KEY,
-						'version' => '3',
-						'json' => '1',
-						'checksum' => $checksum,
-						'contact_id' => $contact_id
-					],
-					'verify' => false
-				]
+			$req = MediaWikiServices::getInstance()->getHttpRequestFactory()->create(
+				"$wgDonationInterfaceCiviproxyURLBase/rest.php?" . http_build_query( [
+					'entity' => 'civiproxy',
+					'action' => 'getpreferences',
+					'key' => self::SITE_KEY_KEY,
+					'api_key' => self::API_KEY_KEY,
+					'version' => '3',
+					'json' => '1',
+					'checksum' => $checksum,
+					'contact_id' => $contact_id
+				] ), [
+					'sslVerifyCert' => false,
+					'sslVerifyHost' => false
+				],
+				__METHOD__
 			);
+			$status = $req->execute();
 
 			// check if proxy is down, then throw an exception
-			if ( $clientResponse->getStatusCode() !== 200 ) {
-				$logger->error( 'Status Code (' . $clientResponse->getStatusCode() . "): Unable to get the civi proxy connection" );
+			if ( !$status->isOK() ) {
+				$logger->error( 'Status Code (' . $status->getValue() . "): Unable to get the civi proxy connection" );
 				return [
 					'is_error' => true,
 					'error_message' => 'CiviProxy is down'
 				];
 			}
-			$rawResponse = $clientResponse->getBody()->getContents();
+			$rawResponse = $req->getContent();
 			$decodedResponse = json_decode( $rawResponse, true );
 
 			if ( !$decodedResponse ) {
@@ -69,15 +72,13 @@ class CiviproxyConnect {
 	protected static function makeApi4Request( string $checksum, string $contact_id, string $entity, string $action ): ?array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
-		$client = new GuzzleHttp\Client();
 		$params = [
 			'checksum' => $checksum,
 			'contact_id' => $contact_id
 		];
 		$serializedParams = json_encode( $params );
-		$resp = $client->get(
-			"$wgDonationInterfaceCiviproxyURLBase/rest4.php",
-			[ 'query' => [
+		$response = MediaWikiServices::getInstance()->getHttpRequestFactory()->get(
+			"$wgDonationInterfaceCiviproxyURLBase/rest4.php?" . http_build_query( [
 				'entity' => $entity,
 				'action' => $action,
 				'key' => self::SITE_KEY_KEY,
@@ -85,11 +86,12 @@ class CiviproxyConnect {
 				'version' => '4',
 				'json' => '1',
 				'params' => $serializedParams,
+			] ), [
+				'sslVerifyCert' => false,
+				'sslVerifyHost' => false
 			],
-				'verify' => false
-			]
+			__METHOD__
 		);
-		$response = $resp->getBody()->getContents();
 
 		return json_decode( $response, true );
 	}
