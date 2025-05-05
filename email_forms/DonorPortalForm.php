@@ -3,7 +3,16 @@
 class DonorPortalForm extends EmailForm {
 	protected function getValidParams(): array {
 		return [
-			'showLogin',
+			'address',
+			'annualFundContributions',
+			'endowmentContributions',
+			'name',
+			'donorID',
+			'email',
+			'hasActiveRecurring',
+			'hasInactiveRecurring',
+			'recurringContributions',
+			'showLogin'
 		];
 	}
 }

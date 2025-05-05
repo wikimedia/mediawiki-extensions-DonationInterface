@@ -41,14 +41,13 @@ class EmailForm {
 			'options' => LightnCandy::FLAG_RUNTIMEPARTIAL,
 		];
 
-		$options['partials'] = [
-			'emailPreferencesHeader' => rtrim( file_get_contents( $options['basedir'] . 'emailPreferencesHeader' .
-				$options['fileext'] ), "\r\n" ),
-			'emailPreferencesFooter' => rtrim( file_get_contents( $options['basedir'] . 'emailPreferencesFooter' .
-				$options['fileext'] ), "\r\n" ),
-			'requestNewChecksumLink' => rtrim( file_get_contents( $options['basedir'] . 'requestNewChecksumLink' .
-				$options['fileext'] ), "\r\n" ),
-		];
+		foreach ( [
+			'emailPreferencesHeader', 'emailPreferencesFooter', 'requestNewChecksumLink',
+			'donorPortalDonationTableHeader', 'donorPortalDonationTableRow'
+		] as $partial ) {
+			$options['partials'][$partial] = rtrim( file_get_contents( $options['basedir'] . $partial .
+				$options['fileext'] ), "\r\n" );
+		}
 
 		if ( empty( $this->params['variant'] ) ) {
 			$variant = '';

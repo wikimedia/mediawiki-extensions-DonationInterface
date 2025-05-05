@@ -10,4 +10,83 @@
 		<p class="link-sent" style="display: none;">{{ l10n "emailpreferences-new-link-sent" }}</p>
 	</div>
 {{/showLogin}}
+{{^showLogin}}
+	<div class="greeting">
+		<h2>{{ l10n "donorportal-greeting" name }}</h2>
+		<p><strong>{{ l10n "donorportal-boldtext" }}</strong></p>
+		<p>{{ l10n "donorportal-smalltext" }}</p>
+	</div>
+	<div class="contact-details">
+		<p>{{ l10n "donorportal-contact-details" }}</p>
+		<table>
+			<tr>
+				<td>{{ name }}</td><td>{{ l10n "donorportal-donorid" donorID }}</td>
+			</tr>
+			<tr>
+				<td>{{ address.street_address }}</td><td></td>
+			</tr>
+			<tr>
+				<td>{{ address.city }}</td><td></td>
+			</tr>
+			<tr>
+				<td>{{ address.state_province }}</td><td>{{ email }}</td>
+			<tr>
+				<td>{{ address.postal_code }}</td><td></td>
+			</tr>
+			<tr>
+				<td>{{ address.country }}</td><td><a href="#" class="donorportal-update-prefs">{{ l10n "donorportal-update-preferences" }}</a></td>
+			</tr>
+		</table>
+	</div>
+	{{#hasActiveRecurring}}
+	<div class="donorportal-recurring-list">
+		<p>{{ l10n "donorportal-active-recurring" }}</p>
+		{{#recurringContributions}}
+		<div class="donorportal-recurring-contribution" data-contribution-recur-id="{{ id }}" data-frequency-unit="{{ frequency_unit }}" data-amount="{{ amount }}" data-currency="{{ currency }}" >
+			<div>
+				<h2>{{ l10n amount_frequency_key amount_formatted currency }}</h2>
+				<p>{{ payment_method }}</p>
+				<p>{{ l10n "donorportal-recurring-next-amount-and-date" amount_formatted currency next_sched_contribution_date_formatted }}</p>
+			</div>
+			<div>
+				<button class="update-donation">{{ l10n "donorportal-update-donation-button" }}</button>
+				<p>{{{ l10n "donorportal-recurring-pause-or-cancel" pause_link cancel_link }}}</p>
+			</div>
+		</div>
+		{{/recurringContributions}}
+	</div>
+	{{/hasActiveRecurring}}
+	{{#hasInactiveRecurring}}
+		{{!TODO reactivate your donation link}}
+	{{/hasInactiveRecurring}}
+	{{^hasActiveRecurring}}{{^hasInactiveRecurring}}
+		{{!TODO one-time donor 'latest donation' info}}
+	{{/hasInactiveRecurring}}{{/hasActiveRecurring}}
+	<h2>{{ l10n "donorportal-your-donation-history"}}</h2>
+	<button class="print-donation-history">{{ l10n "donorportal-print-donations" }}</button>
+	<div class="tab tab-active" id="donorportal-tab-annual-fund">{{ l10n "donorportal-annual-fund" }}</div>
+	<div class="tab" id="donorportal-tab-endowment">{{ l10n "donorportal-endowment" }}</div>
+	<div class="tabcontent" id="donorportal-tabcontent-annual-fund">
+		<table class="donation-list">
+			{{> donorPortalDonationTableHeader }}
+			<tbody>
+			{{#annualFundContributions}}
+				{{> donorPortalDonationTableRow }}
+			{{/annualFundContributions}}
+			</tbody>
+		</table>
+	</div>
+	<div class="tabcontent" id="donorportal-tabcontent-endowment" style="display:none">
+		{{!TODO: explanatory text when no endowment donations}}
+		<table class="donation-list">
+			{{> donorPortalDonationTableHeader }}
+			<tbody>
+			{{#endowmentContributions}}
+				{{> donorPortalDonationTableRow }}
+			{{/endowmentContributions}}
+			</tbody>
+		</table>
+	</div>
+	{{!TODO: 'please note' explanatory footer text}}
+{{/showLogin}}
 {{> emailPreferencesFooter}}
