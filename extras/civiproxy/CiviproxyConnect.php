@@ -66,7 +66,7 @@ class CiviproxyConnect {
 		}
 	}
 
-	public static function getRecurDetails( string $checksum, string $contact_id ): array {
+	protected static function makeApi4Request( string $checksum, string $contact_id, string $entity, string $action ): ?array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
 		$client = new GuzzleHttp\Client();
@@ -75,26 +75,32 @@ class CiviproxyConnect {
 			'contact_id' => $contact_id
 		];
 		$serializedParams = json_encode( $params );
+		$resp = $client->get(
+			"$wgDonationInterfaceCiviproxyURLBase/rest4.php",
+			[ 'query' => [
+				'entity' => $entity,
+				'action' => $action,
+				'key' => self::SITE_KEY_KEY,
+				'api_key' => self::API_KEY_KEY,
+				'version' => '4',
+				'json' => '1',
+				'params' => $serializedParams,
+			],
+				'verify' => false
+			]
+		);
+		$response = $resp->getBody()->getContents();
+
+		return json_decode( $response, true );
+	}
+
+	public static function getRecurDetails( string $checksum, string $contact_id ): array {
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'CiviproxyConnector', true, false, '', null );
 		try {
-			$resp = $client->get(
-				"$wgDonationInterfaceCiviproxyURLBase/rest4.php",
-				[ 'query' => [
-						'entity' => 'ContributionRecur',
-						'action' => 'getUpgradableRecur',
-						'key' => self::SITE_KEY_KEY,
-						'api_key' => self::API_KEY_KEY,
-						'version' => '4',
-						'json' => '1',
-						'params' => $serializedParams,
-				],
-					'verify' => false
-				]
+			$decodedResponse = self::makeApi4Request(
+				$checksum, $contact_id, 'ContributionRecur', 'getUpgradableRecur'
 			);
-			$response = $resp->getBody()->getContents();
-
-			$decodedResponse = json_decode( $response, true );
 
 			if ( $decodedResponse === null ) {
 				return [
