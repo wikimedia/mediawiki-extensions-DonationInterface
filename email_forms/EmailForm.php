@@ -88,10 +88,8 @@ class EmailForm {
 		);
 	}
 
-	protected function getTemplateParams(): array {
-		global $wgDonationInterfaceEmailFormHelpEmail, $wgDonationInterfaceRecurringDonateURL;
-
-		$paramList = [
+	protected function getValidParams(): array {
+		return [
 			'campaign',
 			'checksum',
 			'contact_id',
@@ -119,9 +117,14 @@ class EmailForm {
 			'token',
 			'variant',
 		];
+	}
+
+	protected function getTemplateParams(): array {
+		global $wgDonationInterfaceEmailFormHelpEmail, $wgDonationInterfaceRecurringDonateURL;
+
 		$templateParams = [];
 
-		foreach ( $paramList as $paramName ) {
+		foreach ( $this->getValidParams() as $paramName ) {
 			if ( isset( $this->params[$paramName] ) ) {
 				$templateParams[$paramName] = $this->params[$paramName];
 			}

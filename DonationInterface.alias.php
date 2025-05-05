@@ -9,7 +9,8 @@ $specialPageAliases['en'] = [
 	'EmailPreferences' => [ 'EmailPreferences' ],
 	'RecurUpgrade' => [ 'RecurUpgrade' ],
 	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],
-	'PaymentSettings' => [ 'PaymentSettings' ]
+	'PaymentSettings' => [ 'PaymentSettings' ],
+	'DonorPortal' => [ 'DonorPortal' ]
 ];
 
 /** Arabic (العربية) */
