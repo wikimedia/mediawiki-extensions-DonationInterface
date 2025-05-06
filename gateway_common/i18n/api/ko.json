@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Revi",
-			"Ykhwong"
+			"Ykhwong",
+			"아라"
 		]
 	},
 	"apihelp-donate-param-amount": "기부한 금액입니다.",
@@ -10,7 +11,7 @@
 	"apihelp-donate-param-first_name": "이름입니다.",
 	"apihelp-donate-param-last_name": "성입니다.",
 	"apihelp-donate-param-city": "도시입니다.",
-	"apihelp-donate-param-postal_code": "우편 번호.",
+	"apihelp-donate-param-postal_code": "우편번호.",
 	"apihelp-donate-param-email": "이메일 주소입니다.",
 	"apihelp-donate-param-country": "국가 코드입니다.",
 	"apihelp-donate-param-card_num": "신용 카드 번호입니다.",
