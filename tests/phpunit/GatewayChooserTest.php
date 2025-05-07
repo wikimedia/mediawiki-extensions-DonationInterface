@@ -226,6 +226,9 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			// Test country restriction on submethod
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'FR', 'currency' => 'EUR' ], null ],
 			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'sepadirectdebit', 'country' => 'FR', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
+			// Test recurring specified only at the method level
+			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'rtbt_ideal', 'country' => 'NL', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'rtbt', 'payment_submethod' => 'sepadirectdebit', 'country' => 'DE', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ],
 
 			// Recurring: only paypal, ingenico and adyen got recurring
 			[ [ 'payment_method' => 'cc', 'country' => 'FR', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ], // adyen recurring
