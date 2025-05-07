@@ -219,19 +219,21 @@ class GatewayChooser extends UnlistedSpecialPage {
 					// Specified submethod not supported by gateway
 					continue;
 				}
+				$submethodConfig = $supportedSubmethods[ $paymentSubmethod ];
 				if (
-					isset( $supportedSubmethods[ $paymentSubmethod ][ 'countries' ] ) &&
-					!in_array( $country, $supportedSubmethods[ $paymentSubmethod ][ 'countries' ] )
+					isset( $submethodConfig[ 'countries' ] ) &&
+					!in_array( $country, $submethodConfig[ 'countries' ] )
 				) {
 					// Specified country not in submethod's country list for this gateway
 					continue;
 				}
 
-				// Recurring availability for the payment submethod is indicated by a key
-				// on the associative array that is the value for the payment submethod
+				// Recurring availability is set at the method level but can be overridden
+				// at the submethod level.
 				if (
 					$recurring &&
-					empty( $supportedSubmethods[ $paymentSubmethod ][ 'recurring' ] )
+					isset( $submethodConfig[ 'recurring' ] ) &&
+					!$submethodConfig[ 'recurring' ]
 				) {
 					// Specified payment method does not support recurring for this gateway
 					continue;

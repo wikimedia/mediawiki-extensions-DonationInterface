@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Revi",
-			"Ykhwong"
+			"Ykhwong",
+			"아라"
 		]
 	},
 	"apihelp-donate-param-amount": "기부한 금액입니다.",
@@ -10,7 +11,7 @@
 	"apihelp-donate-param-first_name": "이름입니다.",
 	"apihelp-donate-param-last_name": "성입니다.",
 	"apihelp-donate-param-city": "도시입니다.",
-	"apihelp-donate-param-postal_code": "우편 번호.",
+	"apihelp-donate-param-postal_code": "우편번호.",
 	"apihelp-donate-param-email": "이메일 주소입니다.",
 	"apihelp-donate-param-country": "국가 코드입니다.",
 	"apihelp-donate-param-card_num": "신용 카드 번호입니다.",
@@ -35,7 +36,12 @@
 	"apihelp-logRecurUpgradeFormError-param-col": "오류가 발생한 컬럼",
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "브라우저의 사용자 에이전트 문자열",
 	"apihelp-di_donate_adyen-summary": "이 API는 Adyen용입니다",
+	"apihelp-di_donate_adyen-param-postal_code": "우편번호.",
+	"apihelp-di_donate_dlocal-param-postal_code": "우편번호.",
+	"apihelp-di_donate_gravy-param-postal_code": "우편번호.",
+	"apihelp-di_donate_braintree-param-postal_code": "우편번호.",
 	"apihelp-employerSearch-example-1": "고용주 검색",
 	"apihelp-di_applesession_adyen-param-wmf_token": "CSRF 토큰",
-	"apihelp-submitPayment-param-email": "이메일 주소입니다."
+	"apihelp-submitPayment-param-email": "이메일 주소입니다.",
+	"apihelp-submitPayment-param-postal_code": "우편번호."
 }

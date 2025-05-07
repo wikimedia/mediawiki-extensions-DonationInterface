@@ -1,6 +1,6 @@
 ( function ( $, mw ) {
-	$( function () {
-		var mc = mw.monthlyConvert, originalAmount, currency, formattedAsk, presetAmount,
+	$( () => {
+		let mc = mw.monthlyConvert, originalAmount, currency, formattedAsk, presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();

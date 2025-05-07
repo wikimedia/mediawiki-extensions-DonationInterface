@@ -169,7 +169,7 @@
 	"donate_interface-donor-pobox": "Абонентська скринька",
 	"donate_interface-donor-card": "Кредитна картка",
 	"donate_interface-donor-card-num": "Номер картки",
-	"donate_interface-donor-expiration": "Дата закінчення строку дії",
+	"donate_interface-donor-expiration": "Термін придатності",
 	"donate_interface-donor-security": "Код безпеки",
 	"donate_interface-donor-submit": "Пожертвувати",
 	"donate_interface-donor-currency-msg": "Ця пожертва здійснюється в $1",

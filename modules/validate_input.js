@@ -3,7 +3,7 @@
  * TODO: also validate ceiling
  */
 window.validateAmount = function () {
-	var error = true,
+	let error = true,
 		amount = $( 'input[name="amount"]' ).val(), // get the amount
 		currency = '',
 		rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
@@ -28,7 +28,7 @@ window.validateAmount = function () {
 	/*jshint ignore:start*/
 	amount = amount.replace( /[,.](\d)$/, '\:$10' );
 	amount = amount.replace( /[,.](\d)(\d)$/, '\:$1$2' );
-	if ( threeDecimalCurrencies.indexOf( currency ) > -1 ) {
+	if ( threeDecimalCurrencies.includes( currency ) ) {
 		amount = amount.replace( /[,.](\d)(\d)(\d)$/, '\:$1$2$3' );
 	}
 	amount = amount.replace( /[,.]/g, '' );
@@ -80,7 +80,7 @@ window.validateAmount = function () {
  * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
 window.validate_personal = function () {
-	var value, countryField, emailAdd, invalid, apos, dotpos, domain,
+	let value, countryField, emailAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		$formField,
 		i,
@@ -109,10 +109,10 @@ window.validate_personal = function () {
 	}
 
 	// Generically defined rules set by GatewayAdapter->getClientSideValidationRules
-	$.each( rules, function ( fieldKey, ruleList ) {
+	$.each( rules, ( fieldKey, ruleList ) => {
 		clearError( fieldKey );
-		$.each( ruleList, function ( i, rule ) {
-			var failed = false;
+		$.each( ruleList, ( i, rule ) => {
+			let failed = false;
 			$formField = $( '#' + fieldKey );
 			if ( $formField.length === 0 ) {
 				// Radio button special case. First see if the group exists ...
@@ -174,7 +174,7 @@ window.validate_personal = function () {
 	) {
 		invalid = false;
 
-        var specialCharacterRegex = [ '(^[\\-])|',
+        const specialCharacterRegex = [ '(^[\\-])|',
         '([`!@#$%^&*()_+\\-=\\[\\]{};\':"\\\\|,.<>\\/?~]+$)' ];
 
         if ( new RegExp( specialCharacterRegex.join( '' ) ).test( emailAdd.value ) ) {
@@ -198,7 +198,7 @@ window.validate_personal = function () {
 		domain = emailAdd.value.slice( Math.max( 0, apos + 1 ) );
 
 		for ( i = 0; i < invalids.length && !invalid; i++ ) {
-			if ( domain.indexOf( invalids[ i ] ) !== -1 ) {
+			if ( domain.includes( invalids[ i ] ) ) {
 				setError(
 					'email',
 					mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
@@ -218,7 +218,7 @@ window.validate_personal = function () {
 
 	// Make sure cookies are enabled
 	document.cookie = 'wmf_test=1;';
-	if ( document.cookie.indexOf( 'wmf_test=1' ) !== -1 ) {
+	if ( document.cookie.includes( 'wmf_test=1' ) ) {
 		document.cookie = 'wmf_test=; expires=Thu, 01-Jan-70 00:00:01 GMT;'; // unset the cookie
 		clearError( 'cookie' );
 	} else {

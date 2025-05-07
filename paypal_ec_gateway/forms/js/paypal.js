@@ -1,5 +1,5 @@
 ( function ( $, mw ) {
-	var di = mw.donationInterface,
+	let di = mw.donationInterface,
 		rules = mediaWiki.config.get( 'wgDonationInterfaceValidationRules' ) || [],
 		rulesSatisfied = false;
 

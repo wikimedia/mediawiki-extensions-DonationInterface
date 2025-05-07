@@ -1,6 +1,6 @@
 /* global SecureFields google ApplePaySession */
 ( function ( $, mw ) {
-	var secureFieldValid = false,
+	let secureFieldValid = false,
 	cardNumberFieldValid = false,
 	securityCodeValid = false,
 	expiryDateValid = false,
@@ -50,30 +50,30 @@
 	}
 
 	function setupCardFields() {
-		var inputStyle = {
+		const inputStyle = {
 			fontSize: '16px',
 			padding: '5px 8px',
 			invalidColor: 'unset'
 		};
-		var cardNumberField = secureFields.addCardNumberField( '#cc-number', {
+		const cardNumberField = secureFields.addCardNumberField( '#cc-number', {
 				placeholder: '1234 5678 9012 3456',
 				styles: inputStyle
 			} );
 
-		var securityCodeField = secureFields.addSecurityCodeField( '#cc-security-code', {
+		const securityCodeField = secureFields.addSecurityCodeField( '#cc-security-code', {
 				placeholder: mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
 				styles: inputStyle
 			} );
 
-		var expiryDateField = secureFields.addExpiryDateField( '#cc-expiry-date', {
+		const expiryDateField = secureFields.addExpiryDateField( '#cc-expiry-date', {
 				placeholder: mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
 				styles: inputStyle
 			} );
 		// based on card type show logo and update cvv placeholder when amex
-		cardNumberField.addEventListener( 'input', function ( evt ) {
+		cardNumberField.addEventListener( 'input', ( evt ) => {
 			if ( evt.schema ) {
 				//change logo where appropriate
-				var iconUrl = 'https://api.' + gravyId + '.gr4vy.app/assets/icons/card-schemes/' + evt.schema + '.svg';
+				const iconUrl = 'https://api.' + gravyId + '.gr4vy.app/assets/icons/card-schemes/' + evt.schema + '.svg';
 				$( '#cc-number' ).css( 'background-image', 'url(' + iconUrl + ')' );
 				if ( evt.schema === 'amex' ) {
 					securityCodeField.setPlaceholder( mw.msg( 'donate_interface-cvv-placeholder-4-digits' ) );
@@ -83,12 +83,12 @@
 			}
 			ccInputEmptyStyle( '#cc-number', evt );
 		} );
-		expiryDateField.addEventListener( 'input', function ( evt ) {
+		expiryDateField.addEventListener( 'input', ( evt ) => {
 			// for error icon
 			$( '#cc-expiry-date' ).toggleClass( 'valid-input', !evt.empty && evt.valid );
 			ccInputEmptyStyle( '#cc-expiry-date', evt );
 		} );
-		securityCodeField.addEventListener( 'input', function ( evt ) {
+		securityCodeField.addEventListener( 'input', ( evt ) => {
 			// for error icon
 			$( '#cc-security-code' ).toggleClass( 'valid-input', !evt.empty && evt.valid );
 			ccInputEmptyStyle( '#cc-security-code', evt );
@@ -96,7 +96,7 @@
 	}
 
 	function setFieldError( fieldId, isValid, isEmpty ) {
-		var errorMsg = '', errorMsgId, errorMsgKey, emptyMsgKey;
+		let errorMsg = '', errorMsgId, errorMsgKey, emptyMsgKey;
 		switch ( fieldId ) {
 			case '#cc-number':
 				errorMsgId = '#cardNumberErrorMsg';
@@ -144,7 +144,7 @@
 			}
 		} );
 
-		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, function () {
+		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, () => {
 			extraData.fiscal_number = $( '#fiscal_number' ).val();
 			extraData.gateway_session_id = sessionId;
 			mw.donationInterface.forms.callDonateApi(
@@ -156,7 +156,7 @@
 
 		secureFields.addEventListener(
 			SecureFields.Events.CARD_VAULT_FAILURE,
-			function () {
+			() => {
 				mw.donationInterface.forms.addDebugMessage( 'Card vault failure on gravy checkout session id: ' + sessionId );
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
@@ -167,7 +167,7 @@
 
 		secureFields.addEventListener(
 			SecureFields.Events.FORM_CHANGE,
-			function ( data ) {
+			( data ) => {
 				if ( data ) {
 					secureFieldValid = data.complete;
 					if ( data.fields ) {
@@ -235,11 +235,11 @@
 	}
 
 	function handleGooglePayButtonClick() {
-		var paymentRequest = getGooglepayRequest();
-		var googlePayClient = getGooglePayClient();
-		googlePayClient.loadPaymentData( paymentRequest ).then( function ( paymentData ) {
-			var paymentToken = paymentData.paymentMethodData.tokenizationData.token;
-			var donorInfo = paymentData.paymentMethodData.info.billingAddress,
+		const paymentRequest = getGooglepayRequest();
+		const googlePayClient = getGooglePayClient();
+		googlePayClient.loadPaymentData( paymentRequest ).then( ( paymentData ) => {
+			const paymentToken = paymentData.paymentMethodData.tokenizationData.token;
+			const donorInfo = paymentData.paymentMethodData.info.billingAddress,
 							extraData = {};
 			extraData.postal_code = donorInfo.postalCode;
 			extraData.state_province = donorInfo.administrativeArea;
@@ -255,7 +255,7 @@
 				extraData,
 				'di_donate_gravy'
 			);
-		} ).catch( function ( err ) {
+		} ).catch( ( err ) => {
 			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
 			mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
@@ -271,9 +271,9 @@
 	}
 
 	function getGoogleBaseCardPaymentMethod() {
-		var allowedCardNetworks = configFromServer.googleAllowedNetworks;
-		var allowedCardAuthMethods = [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ];
-		var baseCardPaymentMethod = {
+		const allowedCardNetworks = configFromServer.googleAllowedNetworks;
+		const allowedCardAuthMethods = [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ];
+		const baseCardPaymentMethod = {
 			type: 'CARD',
 			parameters: {
 				allowedCardNetworks: allowedCardNetworks,
@@ -304,10 +304,10 @@
 	}
 
 	function getGooglepayRequest() {
-		var paymentRequest = getGoogleBaseRequest();
-		var cardPaymentMethod = getGoogleBaseCardPaymentMethod();
-		var gravyGooglePayMerchantId = configFromServer.gravyGooglePayMerchantId;
-		var tokenizationSpecification = {
+		const paymentRequest = getGoogleBaseRequest();
+		const cardPaymentMethod = getGoogleBaseCardPaymentMethod();
+		const gravyGooglePayMerchantId = configFromServer.gravyGooglePayMerchantId;
+		const tokenizationSpecification = {
 			type: 'PAYMENT_GATEWAY',
 			parameters: {
 				gateway: 'gr4vy',
@@ -325,8 +325,8 @@
 	}
 
 	function getGoogleIsReadyToPayRequest() {
-		var request = getGoogleBaseRequest();
-		var baseCardPaymentMethod = getGoogleBaseCardPaymentMethod();
+		const request = getGoogleBaseRequest();
+		const baseCardPaymentMethod = getGoogleBaseCardPaymentMethod();
 		request.allowedPaymentMethods = [ baseCardPaymentMethod ];
 		return request;
 	}
@@ -340,13 +340,13 @@
 
 	function setupGooglePayForm() {
 		insertGooglePayComponentContainer();
-		var googlePayClient = getGooglePayClient();
-		var isReadyToPayRequest = getGoogleIsReadyToPayRequest();
+		const googlePayClient = getGooglePayClient();
+		const isReadyToPayRequest = getGoogleIsReadyToPayRequest();
 		googlePayClient
 			.isReadyToPay( isReadyToPayRequest )
-			.then( function ( response ) {
+			.then( ( response ) => {
 				if ( response.result ) {
-					var button = googlePayClient.createButton( {
+					const button = googlePayClient.createButton( {
 						onClick: handleGooglePayButtonClick,
 						allowedPaymentMethods: [ 'CARD','TOKENIZED_CARD' ],
 						buttonType: 'donate'
@@ -354,7 +354,7 @@
 					document.getElementById( 'container' ).appendChild( button );
 				}
 			} )
-			.catch( function ( err ) {
+			.catch( ( err ) => {
 				mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
 			} );
 	}
@@ -363,7 +363,7 @@
 		// Check apple pay availability before showing button
 		if ( window.ApplePaySession ) {
 			insertApplePayComponentContainer();
-			var button = document.getElementById( 'applepay-btn' );
+			const button = document.getElementById( 'applepay-btn' );
 			button.addEventListener( 'click', handleApplePaySubmitClick );
 		} else {
 			mw.donationInterface.validation.showErrors( {
@@ -392,12 +392,12 @@
 
 	function validateApplePayPaymentSession( appleSession ) {
 		return function ( event ) {
-			var api = new mw.Api();
+			const api = new mw.Api();
 			api.post( {
 				action: 'di_applesession_gravy',
 				validation_url: event.validationURL,
 				wmf_token: $( '#wmf_token' ).val()
-			} ).then( function ( data ) {
+			} ).then( ( data ) => {
 				if ( data.result && data.result.errors ) {
 					mw.donationInterface.validation.showErrors( {
 						general: mw.msg( 'donate_interface-error-msg-general' )
@@ -406,7 +406,7 @@
 				} else {
 					appleSession.completeMerchantValidation( data.session );
 				}
-			} ).catch( function ( e ) {
+			} ).catch( ( e ) => {
 				mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: ' + e );
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
@@ -416,7 +416,7 @@
 	}
 
 	function setupApplePaySession() {
-		var paymentRequestObject = {
+		const paymentRequestObject = {
 			countryCode: $( '#country' ).val(),
 			currencyCode: $( '#currency' ).val(),
 			merchantCapabilities: [ 'supportsCredit', 'supportsDebit', 'supports3DS' ],
@@ -434,10 +434,10 @@
 		appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
 
 		appleSession.onpaymentauthorized = function ( event ) {
-			var bContact = event.payment.billingContact,
+			const bContact = event.payment.billingContact,
 				sContact = event.payment.shippingContact;
-			var extraData = {};
-			var paymentSubmethod = event.payment.token.paymentMethod.network;
+			let extraData = {};
+			let paymentSubmethod = event.payment.token.paymentMethod.network;
 			if ( !paymentSubmethod ) {
 				paymentSubmethod = '';
 			}
@@ -468,7 +468,7 @@
 	}
 
 	function submitPaypal() {
-		var di = mw.donationInterface;
+		const di = mw.donationInterface;
 
 		function redirect( result ) {
 			// We don't actually want to enable the form on redirect or in the
@@ -494,7 +494,7 @@
 	 *  Don't try to load the script if the configured src is empty (as happens on the
 	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
-	$( function () {
+	$( () => {
 		switch ( $( '#payment_method' ).val() ) {
 			case 'cc':
 				mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );

@@ -39,13 +39,7 @@ class FundraiserMaintenance extends UnlistedSpecialPage {
 		$this->outputHeader();
 
 		$titleMsg = $this->msg( 'donate_interface-fundraiser-maintenance-header' );
-		if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
-			// Backward compatibility with MW < 1.41
-			$output->setPageTitle( $titleMsg );
-		} else {
-			// MW >= 1.41
-			$output->setPageTitleMsg( $titleMsg );
-		}
+		$output->setPageTitleMsg( $titleMsg );
 
 		// Now do whatever we have to do to output the content in $outContent
 		// Hide unneeded interface elements

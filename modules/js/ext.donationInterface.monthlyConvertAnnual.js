@@ -1,13 +1,13 @@
 ( function ( $, mw ) {
-	$( function () {
-		var mc = mw.monthlyConvert, originalGetSendData = mc.getSendData, frequencyUnit = 'month',
+	$( () => {
+		let mc = mw.monthlyConvert, originalGetSendData = mc.getSendData, frequencyUnit = 'month',
 			originalAmount = Number( $( '#amount' ).val() ), originalAmountFormatted,
 			$otherAmountMonthlyInput = $( '#mc-other-amount-input' ), $otherAmountAnnualInput = $( '#mc-other-amount-input-annual' ),
 			$otherMonthlySubmit = $( '.mc-donate-monthly-button' ), $otherAnnualSubmit = $( '.mc-donate-annual-button' ),
 			$smallAmountMessage = $( '#mc-error-smallamount' );
 
 		mc.getSendData = function ( amount ) {
-			var data = originalGetSendData( amount );
+			const data = originalGetSendData( amount );
 			data.frequency_unit = frequencyUnit;
 			return data;
 		};
@@ -19,20 +19,20 @@
 		);
 
 		$( '.mc-convert-ask-annual' ).text( originalAmountFormatted );
-		$( '#mc-yes-button-monthly' ).on( 'click keypress', function ( e ) {
+		$( '#mc-yes-button-monthly' ).on( 'click keypress', ( e ) => {
 			if ( e.which === 13 || e.type === 'click' ) {
 				frequencyUnit = 'month';
 				mc.postMonthlyConvertDonate( mc.presetAmount );
 			}
 		} );
-		$( '#mc-yes-button-annual' ).on( 'click keypress', function ( e ) {
+		$( '#mc-yes-button-annual' ).on( 'click keypress', ( e ) => {
 			if ( e.which === 13 || e.type === 'click' ) {
 				frequencyUnit = 'year';
 				mc.postMonthlyConvertDonate( originalAmount );
 			}
 		} );
-		$otherAmountMonthlyInput.on( 'keyup', function () {
-			var otherAmount = Number( $otherAmountMonthlyInput.val() );
+		$otherAmountMonthlyInput.on( 'keyup', () => {
+			const otherAmount = Number( $otherAmountMonthlyInput.val() );
 			if ( otherAmount > 0 ) {
 				frequencyUnit = 'month';
 				$otherAmountAnnualInput.val( '' ).removeClass( 'errorHighlight' );
@@ -41,8 +41,8 @@
 				$smallAmountMessage.hide();
 			}
 		} );
-		$otherAmountAnnualInput.on( 'keyup', function () {
-			var otherAmount = Number( $otherAmountAnnualInput.val() );
+		$otherAmountAnnualInput.on( 'keyup', () => {
+			const otherAmount = Number( $otherAmountAnnualInput.val() );
 			if ( otherAmount > 0 ) {
 				frequencyUnit = 'year';
 				$otherAmountMonthlyInput.val( '' ).removeClass( 'errorHighlight' );
@@ -51,9 +51,9 @@
 				$smallAmountMessage.hide();
 			}
 		} );
-		$otherAnnualSubmit.on( 'click keypress', function ( e ) {
+		$otherAnnualSubmit.on( 'click keypress', ( e ) => {
 			if ( e.which === 13 || e.type === 'click' ) {
-				var otherAmount = Number( $otherAmountAnnualInput.val() );
+				const otherAmount = Number( $otherAmountAnnualInput.val() );
 
 				if ( otherAmount < mc.minLocal ) {
 					$otherAmountAnnualInput.addClass( 'errorHighlight' );

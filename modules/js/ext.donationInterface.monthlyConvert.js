@@ -1,5 +1,5 @@
 ( function ( $, mw ) {
-	var mc = {},
+	let mc = {},
 		currency,
 		originalAmount,
 		// These config vars are set in GatewayPage::setClientVariables
@@ -9,7 +9,7 @@
 		convertAmounts = mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' );
 
 	mc.getConvertAsk = function ( amount ) {
-		var i,
+		let i,
 			numAmounts;
 		if ( !convertAmounts ) {
 			return 0;
@@ -24,7 +24,7 @@
 	};
 
 	mc.setConvertAsk = function ( suggestedAmount, currency, locale ) {
-		var convertAmountFormatted = mc.formatAmount(
+		const convertAmountFormatted = mc.formatAmount(
 			suggestedAmount, currency, locale
 		);
 		$( '.mc-convert-ask' ).text( convertAmountFormatted );
@@ -32,7 +32,7 @@
 	};
 
 	mc.formatAmount = function ( amount, currency, locale ) {
-		var formattedAmount;
+		let formattedAmount;
 
 		try {
 			formattedAmount = amount.toLocaleString(
@@ -60,7 +60,7 @@
 	};
 
 	mc.postMonthlyConvertDonate = function ( amount, declineMonthlyConvert ) {
-		var sendData = mc.getSendData( amount );
+		const sendData = mc.getSendData( amount );
 		if ( declineMonthlyConvert ) {
 			sendData.declineMonthlyConvert = declineMonthlyConvert;
 		}
@@ -71,7 +71,7 @@
 			type: 'POST',
 			success: function ( data ) {
 				if ( data && !data.error && data.result && !data.result.errors ) {
-					var url = new URL( tyUrl, location.href );
+					const url = new URL( tyUrl, location.href );
 					if ( !declineMonthlyConvert ) {
 						url.searchParams.set( 'recurringConversion', 1 );
 					}
@@ -101,7 +101,7 @@
 	};
 
 	mc.setSmallAmountMessageAndMinLocal = function ( currency, locale ) {
-		var rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+		let rates = mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
 			amountRules = mw.config.get( 'wgDonationInterfaceAmountRules' ),
 			formattedMin,
 			$smallAmountMessage = $( '#mc-error-smallamount' );
@@ -129,7 +129,7 @@
 	};
 
 	mc.init = function () {
-		var presetAmount,
+		let presetAmount,
 			locale = $( '#language' ).val() + '-' + $( '#country' ).val();
 		originalAmount = +$( '#amount' ).val();
 		currency = $( '#currency' ).val();
@@ -147,19 +147,19 @@
 				locale
 			);
 			mc.setSmallAmountMessageAndMinLocal( currency, locale );
-			$( '.mc-no-button, .mc-close' ).on( 'click keypress', function ( e ) {
+			$( '.mc-no-button, .mc-close' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
 					mc.postMonthlyConvertDonate( presetAmount, true );
 				}
 			} );
-			$( '.mc-yes-button' ).on( 'click keypress', function ( e ) {
+			$( '.mc-yes-button' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
 					mc.postMonthlyConvertDonate( presetAmount );
 				}
 			} );
-			$( '.mc-donate-monthly-button' ).on( 'click keypress', function ( e ) {
+			$( '.mc-donate-monthly-button' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
-					var $otherAmountField = $( '#mc-other-amount-input' ),
+					const $otherAmountField = $( '#mc-other-amount-input' ),
 						otherAmount = +$otherAmountField.val(),
 						$smallAmountMessage = $( '#mc-error-smallamount' );
 
@@ -174,19 +174,19 @@
 				}
 			} );
 			/* eslint-disable no-jquery/no-fade */
-			$( '.mc-diff-amount-link' ).on( 'click keypress', function ( e ) {
+			$( '.mc-diff-amount-link' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
-					$( '.mc-choice' ).fadeOut( function () {
+					$( '.mc-choice' ).fadeOut( () => {
 						$( '.mc-edit-amount' ).fadeIn();
 						$( '.mc-back' ).fadeIn();
 						$( '.mc-other-amount-input' ).focus();
 					} );
 				}
 			} );
-			$( '.mc-back' ).on( 'click keypress', function ( e ) {
+			$( '.mc-back' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
 					$( '.mc-back' ).fadeOut();
-					$( '.mc-edit-amount' ).fadeOut( function () {
+					$( '.mc-edit-amount' ).fadeOut( () => {
 						$( '.mc-choice' ).fadeIn();
 					} );
 				}
@@ -195,7 +195,7 @@
 		}
 
 	};
-	$( function () {
+	$( () => {
 		if ( mw.config.get( 'showMConStartup' ) ) {
 			mc.init();
 		}

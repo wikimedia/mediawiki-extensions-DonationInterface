@@ -5,7 +5,7 @@
  * @param mw
  */
 ( function ( $, mw ) {
-	var di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
+	const di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
 
 	/**
 	 * Try to obtain the "best" name from the available contact info sent back by Apple pay
@@ -22,7 +22,7 @@
 		billingContact,
 		shippingContact
 	) {
-		var first_name, last_name;
+		let first_name, last_name;
 
 		if (
 		billingContact &&

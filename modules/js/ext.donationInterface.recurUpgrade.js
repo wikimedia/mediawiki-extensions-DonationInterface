@@ -1,6 +1,6 @@
 ( function ( $ ) {
-	$( function () {
-		var $submitButton = $( '#save' ),
+	$( () => {
+		let $submitButton = $( '#save' ),
 			$amountField = $( 'input[name=upgrade_amount]' ),
 			$otherAmountField = $( 'input[name=upgrade_amount_other]' ),
 			$totalMessage = $( '.recurUpgradeMessageToggle' ),
@@ -24,7 +24,7 @@
 		}
 
 		function setTotalAndSubmitState() {
-			var valueIsValid,
+			let valueIsValid,
 				value = $amountField.filter( ':checked' ).val(),
 				formattedValue;
 
@@ -58,25 +58,25 @@
 		}
 
 		$amountField.change( setTotalAndSubmitState );
-		$otherAmountField.on( 'change keypress', function ( e ) {
+		$otherAmountField.on( 'change keypress', ( e ) => {
 			// numbers only to get Firefox and Safari to behave
 			// this code is also used in donate wiki's other amount field
 			// T389066
-			var chr = String.fromCharCode( e.which );
-			if ( '0123456789., '.indexOf( chr ) === -1 ) {
+			const chr = String.fromCharCode( e.which );
+			if ( !'0123456789., '.includes( chr ) ) {
 				return false;
 			}
 		} );
 		// We need to use setInterval because the new value of the other amount
 		// field is not immediately available in the keyup handler
-		$otherAmountField.on( 'change keyup', function () {
+		$otherAmountField.on( 'change keyup', () => {
 			setInterval( setTotalAndSubmitState, 0 );
 		} );
 		if ( preSelectAmount ) {
 			$amountField.filter( '[value=' + preSelectAmount + ']' ).prop( 'checked', true );
 			$amountField.filter( '[value!=' + preSelectAmount + ']' ).prop( 'checked', false );
 		}
-		$otherAmountField.focus( function () {
+		$otherAmountField.focus( () => {
 			$amountField.filter( '[value=other]' ).prop( 'checked', true );
 			setTotalAndSubmitState();
 		} );
