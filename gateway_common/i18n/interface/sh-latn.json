@@ -153,7 +153,6 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
-	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "Došlo je do pogreške pri obradi vašeg zahtjeva.",
 	"donate_interface-error-msg-nopaypal": "Zbog tehničke pogreške ne možemo poslati vaš zahtjev prema PayPalu. Molimo pokušajte koristeći naš regularni obrazac za doniranje putem kreditne kartice.",
 	"donate_interface-error-msg-validation": "Molimo ispravite pogreške u obrascu.",

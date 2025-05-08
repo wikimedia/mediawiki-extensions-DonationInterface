@@ -180,7 +180,6 @@
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
-	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "İsteğiniz işlenirken bir hata oluştu.",
 	"donate_interface-error-msg-incomplete-field": "Tamamlanmamış alan",
 	"donate_interface-error-msg-field-not-valid": "Alan geçerli değil",
