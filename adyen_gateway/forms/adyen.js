@@ -376,7 +376,8 @@
 
 							// Ensure timeZoneOffset is always an integer, rounding down if it's a decimal or float.
 							// See T380741
-							if ( typeof state.data.browserInfo.timeZoneOffset !== 'undefined' ) {
+							if ( typeof state.data.browserInfo.timeZoneOffset !== 'undefined' &&
+								!isNaN( Math.floor( state.data.browserInfo.timeZoneOffset ) ) ) {
 								extraData.time_zone_offset = Math.floor( state.data.browserInfo.timeZoneOffset );
 							} else {
 								extraData.time_zone_offset = state.data.browserInfo.timeZoneOffset;
