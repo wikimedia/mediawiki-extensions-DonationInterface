@@ -166,7 +166,7 @@
 	"donate_interface-error-msg-nopaypal": "Wéinst engem technesche Feeler kënne mir Är Ufro net u PayPal schécken. Probéiert wgl. eise Formulaire fir en Don per Kreditkaart ze maachen",
 	"donate_interface-error-msg-validation": "Verbessert wgl. d'Feeler am Formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Gitt wgl. e valabele Betrag un",
-	"donate_interface-error-msg-invalid-email": "Gitt wgl. eng valabel E-Mailadress an z. B. numm@domain.com",
+	"donate_interface-error-msg-invalid-email": "Gitt wgl. eng gülteg E-Mail-Adress an, z.&nbsp;B. numm@domain.com",
 	"donate_interface-error-msg-card-num": "Gitt wgl. eng valabel Kreditkaartennummer fir e vun den akzeptéierten Type vu Kreditkaarten",
 	"donate_interface-error-msg-amex": "Gitt wgl. eng korrekt Kaartenummer fir American Express an",
 	"donate_interface-error-msg-mc": "Gitt wgl. eng korrekt Nummer fir Mastercard an",
