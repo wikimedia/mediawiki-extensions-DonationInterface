@@ -3,8 +3,11 @@
         <div class="link">
             <h1>{{ l10n "emailpreferences-expired-link-title" }}</h1>
             <p>{{ l10n "emailpreferences-expired-link-text" }}</p>
-			<button class="send-new-link">{{ l10n "emailpreferences-send-new-link" }}</button>
-			<p class="link-sent" style="display: none;">{{ l10n "emailpreferences-new-link-sent" }}</p>
+            <form class="send-new-link">
+                <input id="new-checksum-link-email" type="email" placeholder="{{ l10n "email" }}" required="required" /><br/>
+                <input type="submit" value="{{ l10n "emailpreferences-send-new-link" }}" />
+            </form>
+            <p class="link-sent" style="display: none;">{{ l10n "emailpreferences-new-link-sent" }}</p>
         </div>
     </div>
 </div>

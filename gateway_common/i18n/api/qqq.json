@@ -84,7 +84,7 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "{{doc-apihelp-param|logRecurUpgradeFormError|userAgent}}",
 	"apihelp-logRecurUpgradeFormError-param-stack": "{{doc-apihelp-param|logRecurUpgradeFormError|stack}}",
 	"apihelp-requestNewChecksumLink-summary": "{{doc-apihelp-summary|requestNewChecksumLink}}",
-	"apihelp-requestNewChecksumLink-param-contactID": "{{doc-apihelp-param|requestNewChecksumLink|contactID}}",
+	"apihelp-requestNewChecksumLink-param-email": "{{doc-apihelp-param|requestNewChecksumLink|email}}",
 	"apihelp-requestNewChecksumLink-param-page": "{{doc-apihelp-param|requestNewChecksumLink|page}}",
 	"apihelp-requestNewChecksumLink-param-subpage": "{{doc-apihelp-param|requestNewChecksumLink|subpage}}",
 	"apihelp-di_donate_adyen-summary": "{{doc-apihelp-summary|di_donate_adyen}}",

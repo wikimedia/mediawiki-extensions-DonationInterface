@@ -1,12 +1,11 @@
 ( function ( $, mw ) {
 
-	const $linkButton = $( 'button.send-new-link' ),
-		urlParams = new URLSearchParams( window.location.search );
+	const $linkForm = $( 'form.send-new-link' );
 
-	function requestNewChecksumLink( contactID, page, subpage ) {
+	function requestNewChecksumLink( email, page, subpage ) {
 		const api = new mw.Api(),
 			params = {
-				contactID: contactID,
+				email: email,
 				action: 'requestNewChecksumLink',
 				page: page
 			};
@@ -19,13 +18,14 @@
 	mw.donationInterface.requestNewChecksumLink = requestNewChecksumLink;
 	if ( mw.config.get( 'showRequestNewChecksumModal' ) ) {
 		$( '.link-modal-screen' ).show();
-		$linkButton.click( ( e ) => {
+		$linkForm.submit( ( e ) => {
+			e.preventDefault();
 			mw.donationInterface.requestNewChecksumLink(
-				urlParams.get( 'contact_id' ),
+				$( '#new-checksum-link-email' ).val(),
 				mw.config.get( 'requestNewChecksumPage' ),
 				mw.config.get( 'requestNewChecksumSubpage' )
 			);
-			$linkButton.attr( 'disabled', 'disabled' );
+			$( 'form.send-new-link input' ).attr( 'disabled', 'disabled' );
 			$( 'p.link-sent' ).show();
 		} );
 	}
