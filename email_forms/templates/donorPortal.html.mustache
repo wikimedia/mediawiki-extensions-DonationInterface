@@ -1,0 +1,13 @@
+{{> emailPreferencesHeader}}
+{{#showLogin}}
+	<div class="login">
+		<h1>{{ l10n "donorportal-title" }}</h1>
+		<p>{{ l10n "donorportal-login-text" }}</p>
+		<form class="send-new-link">
+			<input id="new-checksum-link-email" type="email" placeholder="{{ l10n "email" }}" required="required" /><br>
+			<input type="submit" value="{{ l10n "emailpreferences-send-new-link" }}" />
+		</form>
+		<p class="link-sent" style="display: none;">{{ l10n "emailpreferences-new-link-sent" }}</p>
+	</div>
+{{/showLogin}}
+{{> emailPreferencesFooter}}

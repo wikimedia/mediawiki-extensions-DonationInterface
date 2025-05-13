@@ -25,9 +25,8 @@ trait RequestNewChecksumLinkTrait {
 	}
 
 	protected function isChecksumExpired(): bool {
-		return Validator::isChecksumExpired(
-			// @phan-suppress-next-line PhanUndeclaredMethod
-			$this->getRequest()->getVal( 'checksum' )
-		);
+		// @phan-suppress-next-line PhanUndeclaredMethod
+		$checksum = $this->getRequest()->getVal( 'checksum' );
+		return !$checksum || Validator::isChecksumExpired( $checksum );
 	}
 }
