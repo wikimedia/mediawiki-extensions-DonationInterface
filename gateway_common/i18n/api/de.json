@@ -64,7 +64,7 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Zeichenfolge des Browser-User-Agenten",
 	"apihelp-logRecurUpgradeFormError-param-stack": "Stacktrace des Fehlers, falls vorhanden",
 	"apihelp-requestNewChecksumLink-summary": "Diese API fordert einen neuen Link für eine Spenderpräferenzseite an",
-	"apihelp-requestNewChecksumLink-param-contactID": "CiviCRM-Kontakt-ID, für die der Link angefordert werden soll",
+	"apihelp-requestNewChecksumLink-param-email": "E-Mail-Adresse des Spenders, der den Link anfordert",
 	"apihelp-requestNewChecksumLink-param-page": "Seite, zu der wir einen Link wünschen, z. B. RecurUpgrade oder EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Unterseite, auf die wir verlinken möchten. Optional.",
 	"apihelp-di_donate_adyen-summary": "Diese API ist für Adyen",
