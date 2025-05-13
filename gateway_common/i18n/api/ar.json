@@ -60,7 +60,6 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "سلسلة وكيل المستخدم للمتصفح",
 	"apihelp-logRecurUpgradeFormError-param-stack": "تتبع أخطاء المكدس، عندما يكون متاحا",
 	"apihelp-requestNewChecksumLink-summary": "تطلب واجهة برمجة التطبيقات هذه رابطًا جديدًا لصفحة تفضيلات المتبرع",
-	"apihelp-requestNewChecksumLink-param-contactID": "معرف جهة اتصال CiviCRM الذي يجب طلب الرابط الخاص به",
 	"apihelp-requestNewChecksumLink-param-page": "الصفحة التي نريد رابطًا لها، على سبيل المثال RecurUpgrade أو EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "الصفحة الفرعية التي نريد رابطًا لها. اختياري.",
 	"apihelp-di_donate_adyen-summary": "واجهة برمجة التطبيقات هذه مخصصة لـ Adyen",

@@ -60,7 +60,6 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Catena user-agent del navigator",
 	"apihelp-logRecurUpgradeFormError-param-stack": "Tracia de pila del error, si disponibile",
 	"apihelp-requestNewChecksumLink-summary": "Iste API requesta un nove ligamine pro un pagina de preferentias de donator",
-	"apihelp-requestNewChecksumLink-param-contactID": "ID del contacto ViviCRM pro le qual requestar le ligamine",
 	"apihelp-requestNewChecksumLink-param-page": "Le pagina al qual ligar, p.ex. RecurUpgrade o EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Le subpagina al qual ligar. Facultative.",
 	"apihelp-di_donate_adyen-summary": "Iste API es pro Adyen",
