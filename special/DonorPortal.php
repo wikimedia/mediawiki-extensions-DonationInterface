@@ -88,13 +88,26 @@ class DonorPortal extends UnlistedSpecialPage {
 	private function addContributionsToFormParams( array $contributions, string $locale ): void {
 		// sort donations into annual fund vs endowment
 		$this->formParams['annualFundContributions'] = $this->formParams['endowmentContributions'] = [];
+		$mostRecentDonationDate = '1970-01-01';
 		foreach ( $contributions as $contribution ) {
 			$contribution['amount_formatted'] = EmailForm::amountFormatter(
-				$contribution['amount'], $locale, $contribution['currency']
+				(float)$contribution['amount'], $locale, $contribution['currency']
 			);
 			$contribution['receive_date_formatted'] = EmailForm::dateFormatter(
 				$contribution['receive_date']
 			);
+			if ( $contribution['receive_date'] > $mostRecentDonationDate ) {
+				$mostRecentDonationDate = $contribution['receive_date'];
+				$this->formParams['last_amount'] = $contribution['amount'];
+				$this->formParams['last_currency'] = $contribution['currency'];
+				$this->formParams['last_payment_method'] = $contribution['payment_method'];
+				$this->formParams['last_amount_formatted'] = EmailForm::amountFormatter(
+					(float)$contribution['amount'], $locale, $contribution['currency']
+				);
+				$this->formParams['last_receive_date_formatted'] = EmailForm::dateFormatter(
+					$contribution['receive_date']
+				);
+			}
 
 			// @phan-suppress-next-line PhanCompatibleMatchExpression
 			$contribution['donation_type_key'] = match ( $contribution['frequency_unit'] ) {
@@ -140,16 +153,26 @@ class DonorPortal extends UnlistedSpecialPage {
 			}
 
 			$recurringContribution['amount_formatted'] = EmailForm::amountFormatter(
-				$recurringContribution['amount'], $locale, $recurringContribution['currency']
+				(float)$recurringContribution['amount'], $locale, $recurringContribution['currency']
 			);
 			$recurringContribution['next_sched_contribution_date_formatted'] = EmailForm::dateFormatter(
 				$recurringContribution['next_sched_contribution_date']
 			);
+			if ( isset( $recurringContribution['last_contribution_date'] ) ) {
+				$recurringContribution['last_contribution_date_formatted'] = EmailForm::dateFormatter(
+					$recurringContribution['last_contribution_date']
+				);
+				// Need this bool to skip showing last contribution line for recurrings that
+				// were cancelled without any successful donations (e.g. monthly convert)
+				$recurringContribution['hasLastContribution'] = true;
+			}
 
 			if ( $recurringContribution['frequency_unit'] === 'year' ) {
 				$recurringContribution['amount_frequency_key'] = 'donorportal-recurring-amount-annual';
+				$recurringContribution['restart_key'] = 'donorportal-restart-annual';
 			} else {
 				$recurringContribution['amount_frequency_key'] = 'donorportal-recurring-amount-monthly';
+				$recurringContribution['restart_key'] = 'donorportal-restart-monthly';
 			}
 
 			$this->formParams['recurringContributions'][] = $recurringContribution;

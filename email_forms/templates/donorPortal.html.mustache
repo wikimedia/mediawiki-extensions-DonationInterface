@@ -57,10 +57,34 @@
 	</div>
 	{{/hasActiveRecurring}}
 	{{#hasInactiveRecurring}}
-		{{!TODO reactivate your donation link}}
+		<p>{{ l10n "donorportal-inactive-recurring" }}</p>
+		{{#recurringContributions}}
+		<div class="donorportal-inactive-recurring" data-amount="{{ amount }}" data-currency="{{ currency }}" >
+			<div>
+				<h2>{{ l10n "donorportal-renew-support" }}</h2>
+				<p>{{ payment_method }}</p>
+				{{#hasLastContribution}}
+				<p>{{ l10n "donorportal-last-amount-and-date" amount_formatted currency last_contribution_date_formatted }}</p>
+				{{/hasLastContribution}}
+			</div>
+			<div>
+				<button class="renew-donation">{{ l10n restart_key }}</button>
+			</div>
+		</div>
+		{{/recurringContributions}}
 	{{/hasInactiveRecurring}}
 	{{^hasActiveRecurring}}{{^hasInactiveRecurring}}
-		{{!TODO one-time donor 'latest donation' info}}
+		<p>{{ l10n "donorportal-most-recent-donation" }}</p>
+		<div class="donorportal-recent-donation" data-amount="{{ last_amount }}" data-currency="{{ last_currency }}" >
+			<div>
+				<h2>{{ last_amount_formatted }} {{ last_currency }}</h2>
+				<p>{{ last_payment_method }}</p>
+				<p>{{ l10n "donorportal-last-amount-and-date" last_amount_formatted last_currency last_receive_date_formatted }}</p>
+			</div>
+			<div>
+				<button class="new-donation">{{ l10n "donorportal-new-donation" }}</button>
+			</div>
+		</div>
 	{{/hasInactiveRecurring}}{{/hasActiveRecurring}}
 	<h2>{{ l10n "donorportal-your-donation-history"}}</h2>
 	<button class="print-donation-history">{{ l10n "donorportal-print-donations" }}</button>

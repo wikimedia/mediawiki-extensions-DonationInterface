@@ -12,7 +12,12 @@ class DonorPortalForm extends EmailForm {
 			'hasActiveRecurring',
 			'hasInactiveRecurring',
 			'recurringContributions',
-			'showLogin'
+			'showLogin',
+			'last_amount',
+			'last_amount_formatted',
+			'last_currency',
+			'last_payment_method',
+			'last_receive_date_formatted',
 		];
 	}
 }
