@@ -4,8 +4,8 @@
 			"Amire80"
 		]
 	},
-	"donorportal-login-text": "Explanation of how to request a login link for the donor portal",
 	"donorportal-title": "Title for page allowing donors to see and manage donations",
+	"donorportal-login-text": "Explanation of how to request a login link for the donor portal",
 	"emailpreferences-change-email": "button text to change email",
 	"emailpreferences-country": "Label for country drop-down control.",
 	"emailpreferences-dont-send-email": "Label for e-mail opt-out radio button.",

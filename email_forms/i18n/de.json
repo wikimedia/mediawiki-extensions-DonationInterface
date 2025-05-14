@@ -6,11 +6,12 @@
 			"Metalhead64"
 		]
 	},
+	"donorportal-title": "Spenderportal der Wikimedia Foundation",
+	"donorportal-login-text": "Gib deine E-Mail-Adresse ein, um einen Anmeldelink zu erhalten",
 	"emailpreferences-change-email": "E-Mail-Adresse ändern",
 	"emailpreferences-country": "Land oder Region",
 	"emailpreferences-dont-send-email": "Alles abbestellen.",
 	"emailpreferences-expired-link-title": "Ihr Link ist abgelaufen",
-	"emailpreferences-expired-link-text": "Klicke bitte auf die Schaltfläche unten, um einen neuen Link per E-Mail anzufordern.",
 	"emailpreferences-send-new-link": "Anmelde-Link senden",
 	"emailpreferences-new-link-sent": "Wir senden dir in Kürze einen neuen Link. Bitte überprüfe deinen Posteingang.",
 	"emailpreferences-footer-learn_more": "Mehr über <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokale Chapter und ihre Projekte</a> erfahren",
