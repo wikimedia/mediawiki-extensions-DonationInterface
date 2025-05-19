@@ -4,12 +4,13 @@
 			"Toliño"
 		]
 	},
+	"donorportal-title": "Portal de doantes da Fundación Wikimedia",
+	"donorportal-login-text": "Introduce o teu correo electrónico para recibir unha ligazón de inicio de sesión",
 	"emailpreferences-change-email": "mudar o correo electrónico",
 	"emailpreferences-country": "País ou rexión",
 	"emailpreferences-dont-send-email": "Cancelar a miña subscrición a todo.",
 	"emailpreferences-expired-link-title": "A túa ligazón caducou",
-	"emailpreferences-expired-link-text": "Fai clic no botón de abaixo para solicitar unha nova ligazón por correo electrónico.",
-	"emailpreferences-send-new-link": "Enviádeme unha nova ligazón por correo electrónico",
+	"emailpreferences-send-new-link": "Enviar unha ligazón de inicio de sesión",
 	"emailpreferences-new-link-sent": "Axiña enviarémosche unha nova ligazón. Comproba a túa caixa de entrada.",
 	"emailpreferences-footer-learn_more": "Máis información sobre <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"Capítulos da Wikimedia\">os capítulos locais e os seus proxectos</a>.",
 	"emailpreferences-footer-questions_email": "Se tes algunha dúbida, envía un correo electrónico a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",

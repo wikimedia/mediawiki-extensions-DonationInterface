@@ -61,6 +61,7 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Cadea de axente de usuario do navegador",
 	"apihelp-logRecurUpgradeFormError-param-stack": "Seguimento de pila do erro, se está dispoñible",
 	"apihelp-requestNewChecksumLink-summary": "Esta API solicita unha nova ligazón para unha páxina de preferencias do doante",
+	"apihelp-requestNewChecksumLink-param-email": "Enderezo de correo electrónico do doante que solicita a ligazón",
 	"apihelp-requestNewChecksumLink-param-page": "Páxina cara a que queremos unha ligazón; por exemplo, RecurUpgrade ou EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Subpáxina cara a que queremos unha ligazón. Opcional.",
 	"apihelp-di_donate_adyen-summary": "Esta API é para Adyen",
