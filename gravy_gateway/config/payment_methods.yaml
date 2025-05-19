@@ -12,8 +12,11 @@ dd:
   recurring: true
   label: Direct debit
   validation:
-    country: true
-    name: true
+    country: false
+    address: false
+    street_address: false
+    postal_code: false
+    name: false
     email: true
     trustly_explanation: true
 
