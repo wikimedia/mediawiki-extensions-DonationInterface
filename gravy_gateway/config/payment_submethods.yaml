@@ -186,15 +186,15 @@ bradesco:
     - BR
   logo: bank-bradesco.png
 
-bbva:
-  label: BBVA
-  group: bt
-  countries:
-    - PE
-  logo: bank-bbva.png
-  logo_hd:
-    2x: bank-bbva_2x.png
-    3x: bank-bbva_3x.png
+#bbva:
+#  label: BBVA
+#  group: bt
+#  countries:
+#    - PE
+#  logo: bank-bbva.png
+#  logo_hd:
+#    2x: bank-bbva_2x.png
+#    3x: bank-bbva_3x.png
 
 bcp:
   label: BCP
@@ -383,15 +383,15 @@ hiper:
     - BR
   recurring: true
 
-interbank:
-  label: Interbank
-  group: bt
-  countries:
-    - PE
-  logo: bank-interbank.png
-  logo_hd:
-    2x: bank-interbank_2x.png
-    3x: bank-interbank_3x.png
+#interbank:
+#  label: Interbank
+#  group: bt
+#  countries:
+#    - PE
+#  logo: bank-interbank.png
+#  logo_hd:
+#    2x: bank-interbank_2x.png
+#    3x: bank-interbank_3x.png
 
 itau:
   label: Itau
