@@ -18,7 +18,8 @@ form#payment-form div.halfwidth input[type='text'] {
 form#payment-form select {
 	font-size: 16px;
 	font-weight: 400;
-	height: 48px;
+	height: 40px;
+	padding: 5px 8px 5px 8px;
 }
 
 .secure-fields__input {
