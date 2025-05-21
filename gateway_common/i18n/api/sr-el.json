@@ -14,5 +14,17 @@
 	"apihelp-donate-param-card_num": "Broj kreditne kartice.",
 	"apihelp-donate-param-card_type": "Vrsta kreditne kartice.",
 	"apihelp-donate-param-expiration": "Datum isteka.",
-	"apihelp-donate-param-cvv": "CVV sigurnosni kod."
+	"apihelp-donate-param-cvv": "CVV sigurnosni kod.",
+	"apihelp-di_donate_adyen-param-email": "Imejl adresa.",
+	"apihelp-di_donate_adyen-param-postal_code": "Poštanski broj.",
+	"apihelp-di_donate_dlocal-param-country": "Kod države.",
+	"apihelp-di_donate_gravy-param-currency": "Kod valute.",
+	"apihelp-di_donate_gravy-param-full_name": "Puno ime",
+	"apihelp-di_donate_gravy-param-language": "Kod jezika.",
+	"apihelp-di_donate_braintree-param-first_name": "Ime.",
+	"apihelp-di_donate_braintree-param-full_name": "Puno ime",
+	"apihelp-di_donate_braintree-param-last_name": "Prezime.",
+	"apihelp-submitPayment-param-email": "Imejl adresa.",
+	"apihelp-submitPayment-param-full_name": "Puno ime",
+	"apihelp-submitPayment-param-payment_method": "Način plaćanja."
 }
