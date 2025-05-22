@@ -507,11 +507,19 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
 				}
 			}
-
+			if ( $this->getPaymentSubmethod() === 'ach' ) {
+				// ACH does not always return email address, so we use the external identifier
+				$responseData['email'] = $paymentResult->getRawResponse()['buyer']['external_identifier'];
+				// if billing email is available, add to contact
+				$billingEmail = $paymentResult->getRawResponse()['buyer']['billing_details']['email_address'];
+				if ( !empty( $billingEmail ) &&
+					$paymentResult->getRawResponse()['buyer']['external_identifier'] !== $billingEmail ) {
+					$responseData['billing_email'] = $billingEmail;
+				}
+			}
 			if ( $paymentResult->getPaymentOrchestratorReconciliationId() ) {
 				$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
 			}
-
 			if ( $paymentResult->getRecurringPaymentToken() != null ) {
 				$responseData['recurring_payment_token'] = $paymentResult->getRecurringPaymentToken();
 			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $paymentResult->isSuccessful() ) {
