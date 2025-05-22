@@ -44,7 +44,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		'payment_method',
 		'personal_info',
 		'state_dropdown',
-		'trustly_note'
+		'trustly_note',
+		'sepa_mandate_note'
 	];
 
 	/**
@@ -117,6 +118,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
 		$data['appeal_text'] = $output->parseAsContent( '{{' . $appealWikiTemplate . '}}' );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
+		$data['is_sepa'] = ( $this->gateway->getPaymentSubmethod() === PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT );
+		$data['is_yearly'] = isset( $data['frequency_unit'] ) && $data['frequency_unit'] === 'year';
 
 		// 'is_tax_ded' is a boolean variable to check if a country falls under tax-exempt countries
 		$tax_ded_countries = $this->gateway->getGlobal( 'TaxDedCountries' );
