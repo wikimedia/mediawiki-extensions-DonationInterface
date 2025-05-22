@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-change-email": "promeni imejl",
+	"emailpreferences-country": "Zemlja ili region",
+	"emailpreferences-footer-learn_more": "Saznajte više o <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokalnim ograncima i njihovim projektima</a>.",
+	"emailpreferences-footer-text_license": "Tekst je dostupan pod licencom <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Autorstvo—Deliti pod istim uslovima</a>; mogući su i dodatni uslovi. Pogledajte <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">uslove korišćenja</a> ili <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">politiku privatnosti</a> za detalje.",
+	"emailpreferences-header-link-about": "O",
+	"emailpreferences-header-link-news": "Vesti",
+	"emailpreferences-header-link-support-wikipedia": "Podrži Vikipediju",
+	"emailpreferences-header-link-technology": "Tehnologija",
+	"emailpreferences-hi": "Zadravo",
+	"emailpreferences-language": "Jezik",
+	"recurupgrade-add": "Dodaj $1"
+}
