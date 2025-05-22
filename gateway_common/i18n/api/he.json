@@ -61,6 +61,7 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "מחרוזת של סוכן הלקוח בדפדפן",
 	"apihelp-logRecurUpgradeFormError-param-stack": "עקבת שגיאות, כאשר היא זמינה",
 	"apihelp-requestNewChecksumLink-summary": "ה־API הזה מבקש קישור חדש עבור דף העדפות תורם",
+	"apihelp-requestNewChecksumLink-param-email": "כתובת הדוא\"ל של התורם שמבקש את הקישור",
 	"apihelp-requestNewChecksumLink-param-page": "הדף שאנחנו רוצים קישור אליו, למשל RecurUpgrade או EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "דף־משנה שאנחנוו רוצים קישור אליו. לא חובה.",
 	"apihelp-di_donate_adyen-summary": "ה־API הזה מיועד ל־Adyen",
