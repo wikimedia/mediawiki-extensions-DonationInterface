@@ -1022,7 +1022,6 @@ class DonationData implements LogPrefixProvider {
 			'anonymous',
 			'backend_processor',
 			'backend_processor_txn_id',
-			'billing_email',
 			'city',
 			'contribution_tracking_id',
 			'country',
