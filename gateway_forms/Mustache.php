@@ -385,8 +385,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function setAmountLabelKey( array &$data ): void {
 		if ( $data['recurring'] ) {
-			$isAnnual = ( isset( $data['frequency_unit'] ) && $data['frequency_unit'] == 'year' );
-			if ( $isAnnual ) {
+			if ( $data['is_yearly'] ) {
 				$key = 'donate_interface-annual-amount';
 			} else {
 				$key = 'donate_interface-monthlybox-amount';
