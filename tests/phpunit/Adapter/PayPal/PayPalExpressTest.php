@@ -998,7 +998,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 
 		$this->verifyFormOutput( 'PaypalExpressGatewayResult', $request, $assertNodes, false, $session );
 		$key = 'processed_request-' . $request['token'];
-		$processed = ObjectCache::getLocalClusterInstance()->get( $key );
+		$processed = $this->getServiceContainer()->getObjectCacheFactory()->getLocalClusterInstance()->get( $key );
 		$this->assertTrue( $processed );
 	}
 
