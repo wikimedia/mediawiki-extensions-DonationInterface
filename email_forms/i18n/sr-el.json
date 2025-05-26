@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"emailpreferences-country": "Zemlja ili region",
+	"emailpreferences-language": "Jezik",
+	"emailpreferences-change-email": "promeni imejl",
+	"emailpreferences-footer-learn_more": "Saznajte više o <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokalnim ograncima i njihovim projektima</a>.",
+	"emailpreferences-hi": "Zadravo",
+	"emailpreferences-header-link-support-wikipedia": "Podrži Vikipediju",
+	"emailpreferences-header-link-technology": "Tehnologija",
+	"emailpreferences-header-link-news": "Vesti",
+	"emailpreferences-header-link-about": "O"
+}
