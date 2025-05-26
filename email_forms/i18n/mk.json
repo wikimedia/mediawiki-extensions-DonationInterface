@@ -4,11 +4,13 @@
 			"Bjankuloski06"
 		]
 	},
+	"donorportal-title": "Дарителски портал на Фондацијата Викимедија",
+	"donorportal-login-text": "Внесете ја вашата е-пошта за да ви биде испратена врска за најава",
 	"emailpreferences-change-email": "Смени е-пошта",
 	"emailpreferences-country": "Земја или регион",
 	"emailpreferences-dont-send-email": "Отпишете ме од сè.",
 	"emailpreferences-expired-link-title": "Извинете, вашиот линк е истечен",
-	"emailpreferences-send-new-link": "Испратете ми нов линк",
+	"emailpreferences-send-new-link": "Испрати врска за најава",
 	"emailpreferences-new-link-sent": "Наскоро ќе ви испратиме нов линк. Ве молиме проверете ја вашата влезна пошта.",
 	"emailpreferences-footer-learn_more": "Дознајте повеќе за <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">локалните ограноци и нивните проекти</a>.",
 	"emailpreferences-footer-questions_email": "Ако имате какви било прашања, пишете ни на <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",

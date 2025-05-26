@@ -5,11 +5,12 @@
 			"Volvox"
 		]
 	},
+	"donorportal-login-text": "Gitt Är E-Mail-Adress a fir e Login-Link geschéckt ze kréien",
 	"emailpreferences-change-email": "E-Mail-Adress änneren",
 	"emailpreferences-country": "Land oder Regioun",
 	"emailpreferences-dont-send-email": "Alles ofbestellen.",
 	"emailpreferences-expired-link-title": "Leider ass Äre Link ofgelaf",
-	"emailpreferences-send-new-link": "Schéckt mir eng E-Mail mat engem neie Link",
+	"emailpreferences-send-new-link": "Login-Link schécken",
 	"emailpreferences-header-link-about": "Iwwer",
 	"emailpreferences-header-link-news": "Noriichten",
 	"emailpreferences-header-link-our-work": "Eis Aarbecht",
