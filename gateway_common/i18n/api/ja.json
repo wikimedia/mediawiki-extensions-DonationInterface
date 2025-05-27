@@ -23,7 +23,7 @@
 	"apihelp-donate-param-payment_method": "使用する支払手段",
 	"apihelp-donate-param-payment_submethod": "「使用する支払手段」が使えない時の支払手段",
 	"apihelp-donate-param-language": "言語コード",
-	"apihelp-donate-param-order_id": "IDを申請してください。(すでに寄付を開始されている場合)",
+	"apihelp-donate-param-order_id": "IDを申請してください。(既に寄付を開始されている場合)",
 	"apihelp-donate-param-wmf_token": "トークンを編集。",
 	"apihelp-donate-example-1": "寄付をする",
 	"apihelp-logPaymentsFormError-param-message": "エラーメッセージ"
