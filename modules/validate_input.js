@@ -12,9 +12,8 @@ window.validateAmount = function () {
 		minDisplay,
 		message = mediaWiki.msg( 'donate_interface-smallamount-error' ),
 		$amountMsg = $( '#amountMsg' ),
-		threeDecimalCurrencies = [ 'BHD', 'CLF', 'IQD', 'KWD', 'LYD',
+		threeDecimalCurrencies = [ 'BHD', 'CLF', 'IQD', 'JOD', 'KWD', 'LYD',
 			'MGA', 'MRO', 'OMR', 'TND' ];
-
 	// Check amount is at least the minimum
 	if ( $( 'input[name="currency"]' ).length ) {
 		currency = $( 'input[name="currency"]' ).val();
