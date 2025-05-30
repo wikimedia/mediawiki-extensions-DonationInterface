@@ -16,6 +16,7 @@ dd:
     address: false
     street_address: false
     postal_code: false
+    email: true
     trustly_explanation: true
 
 rtbt:

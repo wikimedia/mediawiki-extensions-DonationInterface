@@ -60,6 +60,7 @@ class DonationData implements LogPrefixProvider {
 		'bank_code',
 		'bank_name',
 		'bannerhistlog',
+		'billing_email',
 		'branch_code',
 		'card_num',
 		'card_scheme', // Gr4vy google pay: example VISA
@@ -1022,6 +1023,7 @@ class DonationData implements LogPrefixProvider {
 			'anonymous',
 			'backend_processor',
 			'backend_processor_txn_id',
+			'billing_email',
 			'city',
 			'contribution_tracking_id',
 			'country',
