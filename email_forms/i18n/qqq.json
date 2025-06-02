@@ -5,8 +5,11 @@
 		]
 	},
 	"donorportal-title": "Title for page allowing donors to see and manage donations",
+	"donorportal-login-header": "Large text for donor portal login page",
 	"donorportal-login-text": "Explanation of how to request a login link for the donor portal",
-	"donorportal-greeting": "Text greeting a donor on the donor portal. $1 is the donor's name",
+	"donorportal-login-email-placeholder": "Placeholder prompt in email entry box on donor portal login page",
+	"donorportal-login-problems": "Text of link to request help at bottom of donor portal login page",
+	"donorportal-greeting": "Text greeting a donor on the donor portal. $1 is the donor's first name",
 	"donorportal-boldtext": "Text atop the donor portal thanking the donor for giving",
 	"donorportal-smalltext": "Explanation of how donations help",
 	"donorportal-contact-details": "Header text for box with donor's name and contact information",

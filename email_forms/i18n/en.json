@@ -3,7 +3,10 @@
 		"authors": []
 	},
 	"donorportal-title": "Wikimedia Foundation Donor Portal",
-	"donorportal-login-text": "Enter your email to be sent a login link",
+	"donorportal-login-header": "Access your donor account",
+	"donorportal-login-text": "Please enter your email to receive a link to access your account",
+	"donorportal-login-email-placeholder": "Enter your email address",
+	"donorportal-login-problems": "Problems logging in?",
 	"donorportal-greeting": "Hi, $1!",
 	"donorportal-boldtext": "Thank you for playing a vital role in keeping Wikipedia free, neutral and accessible for everyone in the world.",
 	"donorportal-smalltext": "Your support helps ensure that Wikipedia remains reliable, ad-free, and available for all.",
