@@ -30,7 +30,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		] );
 
 		$out->addModules( [
-			'ext.donationInterface.emailPreferences'
+			'ext.donationInterface.emailPreferences',
+			'ext.donationInterface.donorPortal',
 		] );
 		$this->getOutput()->setPageTitle( $this->msg( 'donorportal-title' ) );
 
@@ -61,6 +62,9 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->addRecurringContributionsToFormParams( $donorSummary['recurringContributions'], $locale );
 
 		$this->formParams['donorID'] = 'CNTCT-' . $donorSummary['id'];
+		$config = $this->getConfig();
+		$this->formParams['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
+		$this->formParams['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
 	}
 
 	/**

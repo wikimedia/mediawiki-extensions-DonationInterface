@@ -6,6 +6,8 @@ class DonorPortalForm extends EmailForm {
 			'address',
 			'annualFundContributions',
 			'endowmentContributions',
+			'endowmentLearnMoreUrl',
+			'endowmentDonationUrl',
 			'name',
 			'donorID',
 			'email',

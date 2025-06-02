@@ -102,12 +102,20 @@
 		</table>
 	</div>
 	<div class="tabcontent" id="donorportal-tabcontent-endowment" style="display:none">
-		{{!TODO: explanatory text when no endowment donations}}
 		<table class="donation-list">
 			{{> donorPortalDonationTableHeader }}
 			<tbody>
 			{{#endowmentContributions}}
 				{{> donorPortalDonationTableRow }}
+			{{/endowmentContributions}}
+			{{^endowmentContributions}}
+				<tr><td colspan="4">
+					<p>{{ l10n "donorportal-endowment-short" }}</p>
+					<h2>{{ l10n "donorportal-endowment-what-is" }}</h2>
+					<p>{{ l10n "donorportal-endowment-explanation" }}</p>
+					<a href="{{ endowmentLearnMoreUrl }}">{{ l10n "donorportal-endowment-learn-more"}}</a> |
+					<a href="{{ endowmentDonationUrl }}">{{ l10n "donorportal-endowment-donate-now"}}</a>
+				</td></tr>
 			{{/endowmentContributions}}
 			</tbody>
 		</table>
