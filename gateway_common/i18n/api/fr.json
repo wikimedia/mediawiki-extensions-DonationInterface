@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Derugon",
 			"DreZhsh",
 			"Gomoko",
 			"JLTRY",
@@ -69,6 +70,7 @@
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Chaîne « User-Agent » du navigateur",
 	"apihelp-logRecurUpgradeFormError-param-stack": "Trace de la pile d’erreurs, quand elle est disponible",
 	"apihelp-requestNewChecksumLink-summary": "Cette API demande un nouveau lien pour une page des préférences du donateur",
+	"apihelp-requestNewChecksumLink-param-email": "Adresse courriel du donateur demandant le lien",
 	"apihelp-requestNewChecksumLink-param-page": "Page vers laquelle nous voulons un lien, par exemple RecurUpgrade ou EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Sous-page vers laquelle nous souhaitons un lien. Facultatif.",
 	"apihelp-di_donate_adyen-summary": "Cette API est pour Adyen",
