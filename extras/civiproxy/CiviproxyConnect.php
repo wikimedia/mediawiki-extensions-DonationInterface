@@ -137,4 +137,39 @@ class CiviproxyConnect {
 			];
 		}
 	}
+
+	public static function getDonorSummary( string $checksum, string $contact_id ): array {
+		try {
+			$decodedResponse = self::makeApi4Request(
+				$checksum, $contact_id, 'WMFContact', 'getDonorSummary'
+			);
+
+			if ( $decodedResponse === null ) {
+				return [
+					'is_error' => true,
+					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+				];
+			}
+
+			$donorSummary = $decodedResponse['values'][0];
+
+			if ( count( $donorSummary ) === 0 ) {
+				return [
+					'is_error' => true,
+					'error_message' => 'No result found'
+				];
+			}
+
+			return $donorSummary;
+
+		} catch ( Exception $e ) {
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+				'CiviproxyConnector', true, false, '', null );
+			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
+			return [
+				'is_error' => true,
+				'error_message' => $e->getMessage()
+			];
+		}
+	}
 }
