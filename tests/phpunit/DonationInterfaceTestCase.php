@@ -15,6 +15,7 @@
  * GNU General Public License for more details.
  *
  */
+
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -473,8 +474,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		// Reset SmashPig context
 		Context::set();
 		self::setUpSmashPigContext();
-		// Clear out our HashBagOStuff, used for testing
-		ObjectCache::getLocalClusterInstance()->clear();
 		DonationLoggerFactory::$overrideLogger = null;
 	}
 

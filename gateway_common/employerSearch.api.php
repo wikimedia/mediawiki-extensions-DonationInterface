@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -47,7 +48,7 @@ class EmployerSearchAPI extends ApiBase {
 	public function execute() {
 		$this->initLogger();
 		$query = $this->getParameter( 'employer' );
-		$cache = ObjectCache::getLocalClusterInstance();
+		$cache = MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance();
 
 		// Get the employers list from the cache, or, if it's not there, read it from disk
 		// and set the value in the cache. If the callback returns false, it indicates an

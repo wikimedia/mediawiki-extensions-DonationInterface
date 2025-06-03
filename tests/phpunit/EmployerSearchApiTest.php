@@ -22,7 +22,8 @@ class EmployerSearchApiTest extends ApiTestCase {
 			'DonationInterfaceEmployersListDataFileLocation',
 			stream_get_meta_data( $this->csvDataSource )['uri']
 		);
-		ObjectCache::getLocalClusterInstance()->delete( EmployerSearchAPI::CACHE_KEY );
+		$this->getServiceContainer()->getObjectCacheFactory()->getLocalClusterInstance()
+			->delete( EmployerSearchAPI::CACHE_KEY );
 	}
 
 	public function testSingleResultFromExactSearchLookup() {

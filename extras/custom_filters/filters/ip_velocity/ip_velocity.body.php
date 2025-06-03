@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
 	public const RAN_INITIAL = 'initial_ip_velocity_has_run';
@@ -36,7 +38,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	) {
 		parent::__construct( $gateway_adapter );
 		$this->cfo = $custom_filter_object;
-		$this->cache_obj = ObjectCache::getLocalClusterInstance();
+		$this->cache_obj = MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance();
 		$this->user_ip = $gateway_adapter->getData_Unstaged_Escaped( 'user_ip' );
 	}
 

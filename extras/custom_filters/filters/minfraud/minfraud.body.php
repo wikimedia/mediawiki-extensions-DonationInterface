@@ -17,6 +17,7 @@
  */
 use MaxMind\MinFraud;
 use MaxMind\MinFraud\Model\Score;
+use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\PaymentData\ValidationAction;
 
@@ -473,7 +474,7 @@ class Gateway_Extras_CustomFilters_MinFraud extends Gateway_Extras {
 			if ( $queries < $this->gateway_adapter->getGlobal( 'MinFraudAlarmLimit' ) ) {
 				$this->gateway_logger->warning( "minFraud alarm limit reached! Queries remaining: $queries" );
 
-				$cache = ObjectCache::getLocalClusterInstance();
+				$cache = MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance();
 				$key = $cache->makeKey( 'DonationInterface', 'MinFraud', 'QueryAlarmLast' );
 				$lastAlarmAt = $cache->get( $key ) | 0;
 				if ( $lastAlarmAt < time() - ( 60 * 60 * 24 ) ) {
