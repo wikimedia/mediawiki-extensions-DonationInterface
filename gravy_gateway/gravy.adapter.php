@@ -483,6 +483,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getLastName() ) ) {
 					$responseData['last_name'] = $paymentResult->getDonorDetails()->getLastName();
 				}
+				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getBillingEmail() ) ) {
+					$responseData['billing_email'] = $paymentResult->getDonorDetails()->getBillingEmail();
+				}
 				// Add in billing details, if Paypal shipping details are needed there is a toggle in the gravy console
 				$billingAddress = $paymentResult->getDonorDetails()->getBillingAddress();
 				if ( $billingAddress instanceof Address ) {
@@ -507,7 +510,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
 				}
 			}
-
 			if ( $paymentResult->getPaymentOrchestratorReconciliationId() ) {
 				$responseData['payment_orchestrator_reconciliation_id'] = $paymentResult->getPaymentOrchestratorReconciliationId();
 			}

@@ -30,6 +30,7 @@
 	"apihelp-logRecurUpgradeFormError-param-file": "Fichier, an deem de Feeler opgetrueden ass",
 	"apihelp-logRecurUpgradeFormError-param-line": "Zeil, an där de Feeler opgetrueden ass",
 	"apihelp-logRecurUpgradeFormError-param-col": "Kolonn, an där de Feeler opgetrueden ass",
+	"apihelp-requestNewChecksumLink-param-email": "E-Mail-Adress vum Spender, deen de Link ufreet",
 	"apihelp-di_donate_adyen-param-amount": "De Betrag vum Don.",
 	"apihelp-di_donate_adyen-param-card_num": "Nummer vun der Kreditkaart.",
 	"apihelp-di_donate_adyen-param-card_type": "Kreditkaartentyp.",

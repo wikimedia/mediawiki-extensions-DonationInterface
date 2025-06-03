@@ -33,7 +33,6 @@ IN:
   state_province: true
   postal_code: true
   city: true
-  phone: true
   fiscal_number: optional
 
 US:

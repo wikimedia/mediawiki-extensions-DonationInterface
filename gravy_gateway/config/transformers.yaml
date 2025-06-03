@@ -3,6 +3,7 @@
 - CountryValidation
 - FiscalNumber
 - PlaceholderFiscalNumber
+- PlaceholderPhoneNumber
 - PostalCodeValidation
 - ReturnUrl
 - Simple3DSecure

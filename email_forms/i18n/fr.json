@@ -1,17 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
+			"Derugon",
 			"JLTRY",
 			"Mahabarata",
 			"Terio legale",
 			"Verdy p"
 		]
 	},
+	"donorportal-title": "Portail des donateurs de la Fondation Wikimédia",
+	"donorportal-login-text": "Saisissez votre adresse de courriel pour recevoir un lien de connexion",
 	"emailpreferences-change-email": "Modifier le courriel",
 	"emailpreferences-country": "Pays ou région",
 	"emailpreferences-dont-send-email": "Me désinscrire de tout",
 	"emailpreferences-expired-link-title": "Votre lien a expiré",
-	"emailpreferences-send-new-link": "Envoyez-moi un nouveau lien",
+	"emailpreferences-send-new-link": "M’envoyer un lien de connexion",
 	"emailpreferences-new-link-sent": "Nous vous enverrons un nouveau lien sous peu. Veuillez vérifier votre boîte de réception.",
 	"emailpreferences-footer-learn_more": "En savoir plus sur <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">les sections locales et leurs projets</a>.",
 	"emailpreferences-footer-questions_email": "Pour toute question, veuillez contacter <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> par courriel.",

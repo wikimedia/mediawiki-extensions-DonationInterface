@@ -1,0 +1,13 @@
+{{#is_sepa}}
+    {{#recurring}}
+        {{#is_yearly}}
+            <p>{{ l10n "donate_interface-sepa-mandate-yearly" }}</p>
+        {{/is_yearly}}
+        {{^is_yearly}}
+            <p>{{ l10n "donate_interface-sepa-mandate-monthly" }}</p>
+        {{/is_yearly}}
+    {{/recurring}}
+    {{^recurring}}
+        <p>{{ l10n "donate_interface-sepa-mandate" }}</p>
+    {{/recurring}}
+{{/is_sepa}}

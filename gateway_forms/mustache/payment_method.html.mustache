@@ -25,6 +25,7 @@
 								</dl>
 {{> account_routing_hint }}
 {{> trustly_note }}
+{{> sepa_mandate_note }}
 {{> issuers }}
 {{# show_continue }}
 								<div id="paymentContinue" {{^ show_submethods }}class="force"{{/ show_submethods }}> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{# trustly_explanation_visible }}{{ l10n "donate_interface-sign-in-to-my-bank" }}{{/ trustly_explanation_visible }}{{^ trustly_explanation_visible }}{{ l10n "donate_interface-continue" }}{{/ trustly_explanation_visible }}" /></div>
