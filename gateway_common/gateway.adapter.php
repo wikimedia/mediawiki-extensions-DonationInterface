@@ -1871,7 +1871,11 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( $oldCurrency === 'USD' ) {
 			$usdAmount = $oldAmount;
 		} elseif ( array_key_exists( $oldCurrency, $conversionRates ) ) {
-			$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
+			if ( is_numeric( $oldAmount ) && $oldAmount > 0 ) {
+				$usdAmount = $oldAmount / $conversionRates[$oldCurrency];
+			} else {
+				$this->handleInvalidAmount( $oldAmount );
+			}
 		} else {
 			// We can't convert from this unknown currency.
 			$this->logger->warning( "Currency conversion not available for {$oldCurrency}" );
@@ -3084,6 +3088,43 @@ abstract class GatewayAdapter implements GatewayType {
 			$this->logger->debug( "Donor Referrer: {$referrer}" );
 			$this->logger->debug( "Donor Request URL: {$requestURL}" );
 		}
+	}
+
+	/**
+	 * Handles cases where an invalid amount value is found
+	 * during currency conversion. Logs the invalid amount and performs further
+	 * action based on the received request data.
+	 *
+	 * @param mixed $oldAmount The invalid amount value detected during the
+	 * currency conversion process.
+	 *
+	 * @return void
+	 */
+	private function handleInvalidAmount( $oldAmount ): void {
+		$this->logger->warning( "Invalid amount value for currency conversion: " . print_r( $oldAmount, true ) );
+
+		$urlAmountParam = WmfFramework::getRequestValue( 'amount', null );
+		if ( $urlAmountParam === 'null' ) {
+			$this->redirectWithValidAmount();
+		}
+	}
+
+	/**
+	 * Checks for a 'null' or invalid amount parameter
+	 * in the incoming request. If found, assigns a default numeric value
+	 * of '1' to the amount parameter and redirects the user back to the same page
+	 * with the updated parameter in the URL.
+	 *
+	 * @return void
+	 */
+	private function redirectWithValidAmount(): void {
+		$this->logger->warning( "'null' amount value passed in URL. Adding in numeric value and redirecting back to same page" );
+		$request = RequestContext::getMain()->getRequest();
+		$params = $request->getValues();
+		$params['amount'] = '1';
+		$title = RequestContext::getMain()->getTitle();
+		$newUrl = $title->getFullURL( $params );
+		RequestContext::getMain()->getOutput()->redirect( $newUrl );
 	}
 
 }
