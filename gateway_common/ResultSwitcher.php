@@ -136,7 +136,8 @@ abstract class ResultSwitcher extends GatewayPage {
 
 		// TODO: we could store the results of the last process here, but for now
 		// we just indicate we did SOMETHING with it
-		ObjectCache::getLocalClusterInstance()->add( $key, true, 7200 );
+		MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance()
+			->add( $key, true, 7200 );
 	}
 
 	/**

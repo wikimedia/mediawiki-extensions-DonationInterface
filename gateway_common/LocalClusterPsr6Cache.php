@@ -1,6 +1,7 @@
 <?php
 
 use Addshore\Psr\Cache\MWBagOStuffAdapter\BagOStuffPsrCache;
+use MediaWiki\MediaWikiServices;
 
 /**
  * A PSR-6 compatible wrapper to let SmashPig objects use Mediawiki's
@@ -19,11 +20,11 @@ class LocalClusterPsr6Cache extends BagOStuffPsrCache {
 
 	public function __construct() {
 		if ( self::$mainCache === null ) {
-			self::$mainCache = ObjectCache::getLocalClusterInstance();
+			self::$mainCache = MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance();
 			if ( self::$mainCache instanceof EmptyBagOStuff ) {
 				// FIXME: where does this go?
 				wfLogWarning(
-					'ObjectCache::getLocalClusterInstance() returned EmptyBagOStuff, using HashBagOStuff'
+					'ObjectCacheFactory::getLocalClusterInstance() returned EmptyBagOStuff, using HashBagOStuff'
 				);
 				self::$mainCache = new HashBagOStuff();
 			}
