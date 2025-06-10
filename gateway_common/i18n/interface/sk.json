@@ -27,6 +27,9 @@
 	"donate_interface-comment-label": "Komentár:",
 	"donate_interface-email-agreement": "Súhlasím, aby mi Wikimedia Foundation občas posielala novinky e-mailom.",
 	"donate_interface-comment-title": "Verejný komentár",
+	"donate_interface-sepa-mandate": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby strhla prostriedky z vášho účtu cez SEPA. Môžete to zrušiť do 8 týždňov.",
+	"donate_interface-sepa-mandate-monthly": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby každý mesiac strhla prostriedky z vášho účtu cez SEPA Direct Debit. Môžete to zrušiť do 8 týždňov.",
+	"donate_interface-sepa-mandate-yearly": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby každý rok strhla prostriedky z vášho účtu cez SEPA Direct Debit. Môžete to zrušiť do 8 týždňov.",
 	"donate_interface-amount-error": "Prosím, zadajte platnú čiastku",
 	"donate_interface-processing-error": "Došlo k chybe pri spracovaní vašej požiadavky. \nProsím, kontaktujte darcovskú službu na <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-ARS": "Argentínske peso",
@@ -232,8 +235,5 @@
 	"donate_interface-monthly-convert-enter-amount": "Zadajte sumu svojho mesačného príspevku, ktorým začnete prispievať od budúceho mesiaca.",
 	"donate_interface-monthly-convert-action-button": "Prispievať mesačne",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Áno, zadám mesačný príspevok <span class=\"mc-convert-ask\"></span>",
-	"donate_interface-monthly-convert-no-button-variant-011": "Nie, ďakujem.",
-	"donate_interface-sepa-mandate": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby strhla prostriedky z vášho účtu cez SEPA. Môžete to zrušiť do 8 týždňov.",
-	"donate_interface-sepa-mandate-monthly": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby každý mesiac strhla prostriedky z vášho účtu cez SEPA Direct Debit. Môžete to zrušiť do 8 týždňov.",
-	"donate_interface-sepa-mandate-yearly": "Kliknutím na tlačidlo „Darovať“ dávate súhlas Wikimedia Foundation a jej spracovateľovi platieb, spoločnosti Adyen, na to, aby každý rok strhla prostriedky z vášho účtu cez SEPA Direct Debit. Môžete to zrušiť do 8 týždňov."
+	"donate_interface-monthly-convert-no-button-variant-011": "Nie, ďakujem."
 }
