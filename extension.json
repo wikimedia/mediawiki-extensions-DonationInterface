@@ -264,7 +264,8 @@
 		"ext.donationInterface.donorPortal": {
 			"scripts": "modules/js/ext.donationInterface.donorPortal.js",
 			"dependencies": [
-				"donationInterface.skinOverride"
+				"donationInterface.skinOverride",
+				"@wikimedia/codex"
 			]
 		},
 		"ext.donationInterface.emailPreferencesStyles": {
