@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"McDutchie"
 		]
 	},
 	"donorportal-title": "Title for page allowing donors to see and manage donations",
@@ -27,9 +28,9 @@
 	"donorportal-last-amount-and-date": "Amount and date of last donation. $1 is the formatted amount, $2 is the three letter currency code for extra clarification, and $3 is the formatted date.",
 	"donorportal-update-donation-button": "Text for a button to change the amount of the donation",
 	"donorportal-new-donation": "Text for a button leading a donation to a form to make a new donation",
-	"donorportal-recurring-pause": "Action word for temporarily stopping a recurring donation. Will be linked and interpolated into donorportal-recurring-pause-or-cancel",
-	"donorportal-recurring-cancel": "Action word for permanently stopping a recurring donation. Will be linked and interpolated into donorportal-recurring-pause-or-cancel",
-	"donorportal-recurring-pause-or-cancel": "Text for a phrase with links to temporarily or permanently stop a recurring donation. $1 is a link with the text of donorportal-recurring-pause and $2 is a link with the text of donorportal-recurring-cancel",
+	"donorportal-recurring-pause": "Action word for temporarily stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",
+	"donorportal-recurring-cancel": "Action word for permanently stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",
+	"donorportal-recurring-pause-or-cancel": "Text for a phrase with links to temporarily or permanently stop a recurring donation. $1 is a link with the text of {{msg-mw|donorportal-recurring-pause}} and $2 is a link with the text of {{msg-mw|donorportal-recurring-cancel}}",
 	"donorportal-your-donation-history": "Header for a list of completed donations",
 	"donorportal-print-donations": "Text for a button to present a printer-formatted list of donations",
 	"donorportal-annual-fund": "Text for a tab header to show donations made to the foundation's annual fund",

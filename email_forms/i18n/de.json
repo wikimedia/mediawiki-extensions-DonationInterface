@@ -3,6 +3,7 @@
 		"authors": [
 			"Brettchenweber",
 			"Justman10000",
+			"McDutchie",
 			"Metalhead64"
 		]
 	},
@@ -28,9 +29,9 @@
 	"donorportal-last-amount-and-date": "Deine letzte Spende betrug $1 $2 am $3 .",
 	"donorportal-update-donation-button": "Meine Spende aktualisieren oder ändern",
 	"donorportal-new-donation": "Eine neue Spende tätigen",
-	"donorportal-recurring-pause": "Pausieren",
-	"donorportal-recurring-cancel": "Abbrechen",
-	"donorportal-recurring-pause-or-cancel": "$1 oder $2 meine Spende",
+	"donorportal-recurring-pause": "unterbrechen",
+	"donorportal-recurring-cancel": "stornieren",
+	"donorportal-recurring-pause-or-cancel": "Meine Spende $1 oder $2",
 	"donorportal-your-donation-history": "Ihre Spendenhistorie",
 	"donorportal-print-donations": "Spendenhistorie drucken",
 	"donorportal-annual-fund": "Jahresfonds",
