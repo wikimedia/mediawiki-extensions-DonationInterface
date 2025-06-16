@@ -5,6 +5,12 @@
 			"আফতাবুজ্জামান"
 		]
 	},
+	"donorportal-greeting": "শুভেচ্ছা নিন, $1",
+	"donorportal-recurring-pause": "স্থগিত করুন",
+	"donorportal-recurring-cancel": "বাতিল করুন",
+	"donorportal-recurring-pause-or-cancel": "আমার অনুদান $1 অথবা $2",
+	"donorportal-annual-fund": "বার্ষিক তহবিল",
+	"donorportal-donation-amount": "পরিমাণ",
 	"emailpreferences-change-email": "ইমেইল পরিবর্তন করুন",
 	"emailpreferences-country": "দেশ বা অঞ্চল",
 	"emailpreferences-header-link-about": "সম্পর্কে",
