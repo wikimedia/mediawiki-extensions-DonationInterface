@@ -196,6 +196,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					}
 					break;
 				case ValidationAction::REJECT:
+					$this->logger->info( "Logging rejected payment response for audit.",
+						$createPaymentResponse->getRawResponse()
+					);
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					break;
