@@ -11,53 +11,30 @@ class CiviproxyConnect {
 	const API_KEY_KEY = 'API_KEY';
 
 	public static function getEmailPreferences( string $checksum, string $contact_id ): array {
-		global $wgDonationInterfaceCiviproxyURLBase;
-
 		$logger = DonationLoggerFactory::getLoggerFromParams(
 			'CiviproxyConnector', true, false, '', null );
 		try {
-			$req = MediaWikiServices::getInstance()->getHttpRequestFactory()->create(
-				"$wgDonationInterfaceCiviproxyURLBase/rest.php?" . http_build_query( [
-					'entity' => 'civiproxy',
-					'action' => 'getpreferences',
-					'key' => self::SITE_KEY_KEY,
-					'api_key' => self::API_KEY_KEY,
-					'version' => '3',
-					'json' => '1',
-					'checksum' => $checksum,
-					'contact_id' => $contact_id
-				] ), [
-					'sslVerifyCert' => false,
-					'sslVerifyHost' => false
-				],
-				__METHOD__
+			$decodedResponse = self::makeApi4Request(
+				$checksum, $contact_id, 'WMFContact', 'getCommunicationsPreferences',
 			);
-			$status = $req->execute();
 
-			// check if proxy is down, then throw an exception
-			if ( !$status->isOK() ) {
-				$logger->error( 'Status Code (' . $status->getValue() . "): Unable to get the civi proxy connection" );
+			if ( $decodedResponse === null ) {
 				return [
 					'is_error' => true,
-					'error_message' => 'CiviProxy is down'
+					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
 				];
 			}
-			$rawResponse = $req->getContent();
-			$decodedResponse = json_decode( $rawResponse, true );
-
-			if ( !$decodedResponse ) {
-				throw new RuntimeException( "Invalid JSON from CiviProxy for id $contact_id" );
-			}
+			$preferences = $decodedResponse['values'][0];
 
 			return [
-				'country' => $decodedResponse[ 'country' ] ?? null,
-				'sendEmail' => $decodedResponse[ 'is_opt_in' ] ?? null,
-				'email' => $decodedResponse[ 'email' ] ?? null,
-				'first_name' => $decodedResponse[ 'first_name' ] ?? null,
-				'preferred_language' => $decodedResponse[ 'preferred_language' ] ?? null,
-				'is_error' => ( $decodedResponse[ 'is_error' ] === 1 ),
-				'error_message' => $decodedResponse[ 'error_message' ] ?? null,
-				'snooze_date' => $decodedResponse['snooze_date'] ?? null
+				'country' => $preferences['country'] ?? null,
+				'sendEmail' => $preferences['is_opt_in'] ?? null,
+				'email' => $preferences['email'] ?? null,
+				'first_name' => $preferences['first_name'] ?? null,
+				'preferred_language' => $preferences['preferred_language'] ?? null,
+				'is_error' => ( $preferences['is_error'] === 1 ),
+				'error_message' => $preferences['error_message'] ?? null,
+				'snooze_date' => $preferences['snooze_date']
 			];
 
 		} catch ( Exception $e ) {
