@@ -244,6 +244,12 @@
 			"dependencies": "ext.donationInterface.monthlyConvert",
 			"styles": "modules/css/monthlyConvert_annual.css"
 		},
+		"ext.donationInterface.donorPortal": {
+			"scripts": "modules/js/ext.donationInterface.donorPortal.js",
+			"dependencies": [
+				"donationInterface.skinOverride"
+			]
+		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
 		},
@@ -1559,6 +1565,12 @@
 		},
 		"DonationInterfaceEmailFormHelpEmail": {
 			"value": "donate@wikimedia.org"
+		},
+		"DonationInterfaceEndowmentLearnMoreURL": {
+			"value": "https://wikimediaendowment.org/"
+		},
+		"DonationInterfaceEndowmentDonationURL": {
+			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&wmf_medium=endowment&wmf_source=donorPortal&wmf_campaign=donorPortal"
 		}
 	},
 	"AutoloadNamespaces": {

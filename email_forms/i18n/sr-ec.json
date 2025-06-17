@@ -4,6 +4,16 @@
 			"Milicevic01"
 		]
 	},
+	"donorportal-login-email-placeholder": "Унесите имејл-адресу",
+	"donorportal-greeting": "Здраво, $1!",
+	"donorportal-most-recent-donation": "Ваша најскорија донација",
+	"donorportal-new-donation": "Нова донација",
+	"donorportal-recurring-pause": "Паузирај",
+	"donorportal-recurring-cancel": "Откажи",
+	"donorportal-recurring-pause-or-cancel": "$1 од $2 мојих донација",
+	"donorportal-endowment-donate-now": "Донирајте",
+	"donorportal-donation-date": "Датум",
+	"donorportal-donation-amount": "Износ",
 	"emailpreferences-change-email": "промени имејл",
 	"emailpreferences-country": "Земља или регион",
 	"emailpreferences-footer-learn_more": "Сазнајте више о <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">локалним огранцима и њиховим пројектима</a>.",
