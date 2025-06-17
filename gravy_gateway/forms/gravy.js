@@ -14,6 +14,7 @@
 	environment = mw.config.get( 'wgGravyEnvironment' ),
 	gravyId = mw.config.get( 'wgGravyId' ),
 	redirectPaypal = mw.config.get( 'wgGravyRedirectPaypal' ),
+	showRedirectText = mw.config.get( 'showRedirectText' ),
 	googlePaymentClient = null,
 	appleSession = null,
 	language = $( '#language' ).val(),
@@ -509,6 +510,12 @@
 				if ( redirectPaypal ) {
 					submitPaypal();
 				}
+		}
+		if ( showRedirectText ) {
+			// Redirect flow
+			$( '.submethods' ).after(
+				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
+			);
 		}
 	} );
 } )( jQuery, mediaWiki );
