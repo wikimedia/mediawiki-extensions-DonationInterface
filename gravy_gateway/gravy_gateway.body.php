@@ -55,6 +55,10 @@ class GravyGateway extends GatewayPage {
 				]
 			);
 		}
+		if ( $this->isRedirectPaymentFlow() ) {
+			// If the payment flow is a redirect, we need to show the redirect text for donor
+			$out->addJsConfigVars( 'showRedirectText', true );
+		}
 	}
 
 	/** @inheritDoc */
@@ -77,6 +81,17 @@ class GravyGateway extends GatewayPage {
 		);
 		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isRedirectPaymentFlow(): bool {
+		return in_array(
+			$this->adapter->getData_Unstaged_Escaped( 'payment_method' ),
+			[ 'bt', 'cash' ],
+			true
+		);
 	}
 
 	public function showSubmethodButtons(): bool {
