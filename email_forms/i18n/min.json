@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Adhmi"
+			"Adhmi",
+			"Rang Djambak"
 		]
 	},
 	"donorportal-login-text": "Masuakan email Sanak untuak manarimo tautan guno maakses akun Sanak .",
-	"donorportal-login-problems": "Masalah masuak log?",
+	"donorportal-login-problems": "Bamasalah masuak log?",
 	"donorportal-greeting": "Halo, $1!",
 	"donorportal-contact-details": "Rincian kontak Sanak",
 	"donorportal-recurring-pause": "Baranti sabanta",
 	"donorportal-recurring-pause-or-cancel": "$1 atau $2 sumbangan ambo",
-	"donorportal-endowment-short": "Sumbangan Sanak ka Wakaf Wikimedia akan ditunjukkan di siko.",
+	"donorportal-endowment-short": "Sumbangan Sanak ka Wakaf Wikimedia akan dicaliakan di siko.",
 	"donorportal-donation-type": "Ketik"
 }

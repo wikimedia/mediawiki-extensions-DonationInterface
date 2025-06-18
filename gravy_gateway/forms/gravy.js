@@ -14,9 +14,12 @@
 	environment = mw.config.get( 'wgGravyEnvironment' ),
 	gravyId = mw.config.get( 'wgGravyId' ),
 	redirectPaypal = mw.config.get( 'wgGravyRedirectPaypal' ),
+	showRedirectText = mw.config.get( 'showRedirectText' ),
 	googlePaymentClient = null,
 	appleSession = null,
 	language = $( '#language' ).val(),
+	country = $( '#country' ).val(),
+	isIndia = ( country === 'IN' ),
 	applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
 
 	function insertCardComponentContainers() {
@@ -292,7 +295,7 @@
 			totalPriceStatus: 'FINAL',
 			totalPrice: $( '#amount' ).val(),
 			currencyCode: $( '#currency' ).val(),
-			countryCode: $( '#country' ).val()
+			countryCode: country
 		};
 	}
 
@@ -417,7 +420,7 @@
 
 	function setupApplePaySession() {
 		const paymentRequestObject = {
-			countryCode: $( '#country' ).val(),
+			countryCode: country,
 			currencyCode: $( '#currency' ).val(),
 			merchantCapabilities: [ 'supportsCredit', 'supportsDebit', 'supports3DS' ],
 			supportedNetworks: [ 'visa', 'masterCard', 'amex', 'discover' ],
@@ -495,6 +498,12 @@
 	 *  resultSwitcher where we may show the monthly convert modal).
 	 */
 	$( () => {
+		if ( isIndia ) {
+			$( '#fiscal_number' ).after(
+				$( '<p style="font-size: 10px">' + mw.msg( 'donate_interface-donor-fiscal_number-explain-option-in' ) +
+					'</p>' )
+			);
+		}
 		switch ( $( '#payment_method' ).val() ) {
 			case 'cc':
 				mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );
@@ -509,6 +518,12 @@
 				if ( redirectPaypal ) {
 					submitPaypal();
 				}
+		}
+		if ( showRedirectText ) {
+			// Redirect flow
+			$( '.submethods' ).after(
+				$( '<p id="redirect-explanation">' + mw.message( 'donate_interface-redirect-explanation' ) + '</p>' )
+			);
 		}
 	} );
 } )( jQuery, mediaWiki );
