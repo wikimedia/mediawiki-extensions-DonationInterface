@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Abijeet Patro"
+		]
+	},
+	"donorportal-greeting": "नमस्ते, $1!",
+	"donorportal-recurring-cancel": "रद्द करें",
+	"donorportal-donation-amount": "राशि"
+}
