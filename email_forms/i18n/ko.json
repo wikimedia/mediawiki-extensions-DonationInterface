@@ -4,6 +4,12 @@
 			"Ykhwong"
 		]
 	},
+	"donorportal-login-problems": "로그인에 문제가 있습니까?",
+	"donorportal-most-recent-donation": "내 최근 기부",
+	"donorportal-recurring-cancel": "취소",
+	"donorportal-donation-date": "날짜",
+	"donorportal-donation-type": "유형",
+	"donorportal-donation-amount": "금액",
 	"emailpreferences-change-email": "이메일 주소 바꾸기",
 	"emailpreferences-country": "국가 또는 지역",
 	"emailpreferences-dont-send-email": "모든 구독을 취소합니다.",
