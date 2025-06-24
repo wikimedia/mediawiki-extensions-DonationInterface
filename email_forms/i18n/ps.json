@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"donorportal-title": "ويکي‌مېډيا بنسټ مرستندويه تانبه",
+	"donorportal-login-header": "خپل مرستندويه گڼون ته لاسرسی",
+	"donorportal-login-text": "مهرباني وکړئ خپل برېښليک دننه کړئ؛ ترڅو خپل گڼون ته د لاسرسي لپاره وېبتړ ترلاسه کړئ",
+	"donorportal-login-email-placeholder": "برېښليک‌پته مو ورکړئ",
+	"donorportal-login-problems": "ننوتلو کې ستونزې لرې؟",
+	"donorportal-greeting": "سلام، $1 !",
+	"donorportal-boldtext": "د ويکيپېډيا د خپلواکه، ناپېيلې او په ټوله نړۍ کې د هرچا لپاره د لاسرسي وړ ساتلو کې د ارزښتمن رول لوبولو لپاره مننه.",
+	"donorportal-smalltext": "ستاسو ملاتړ مرسته کوي چې ويکيپېډيا د باور وړ، له اعلاناتو پاکه او د ټولو لپاره شتون ولري.",
+	"donorportal-contact-details": "ستاسو د اړيکې سپيناوي",
+	"donorportal-donorid": "د مرستندوی پېژند: $1",
+	"donorportal-update-preferences": "زما د اړیکو غوره‌توبونه هم‌مهاله ګړئ",
+	"donorportal-active-recurring": "ستاسې کارنده تکراري بسپنې",
+	"donorportal-inactive-recurring": "ستاسو تکراري بسپنه",
+	"donorportal-most-recent-donation": "ستاسو وروستۍ بسپن",
+	"donorportal-renew-support": "خپل ملاتړ راتازه کړئ"
+}
