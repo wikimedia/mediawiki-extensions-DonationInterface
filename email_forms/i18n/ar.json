@@ -3,7 +3,8 @@
 		"authors": [
 			"Cigaryno",
 			"Meno25",
-			"ديفيد"
+			"ديفيد",
+			"Pcoombe"
 		]
 	},
 	"emailpreferences-change-email": "تغيير البريد الإلكتروني",
@@ -54,7 +55,7 @@
 	"recurupgrade-upgrade": "تحديث هديتي",
 	"recurupgrade-upgrading-new-amount": "أنت تزيد من مبلغ التبرع الشهري الخاص بك إلى<strong></strong>",
 	"recurupgrade-upgrading-new-amount-and-date": "سيتم تطبيق مبلغ التبرع الشهري الجديد الخاص بك وهو $1 في تاريخ التبرع التالي بقيمة $2",
-	"fundraiserunsubscribe": "إرفع الاشتراك في رسالة إلكترونية جمع التبرعات لمؤسسة ويكيميديا",
+	"fundraiserunsubscribe": "إلغاء الاشتراك في رسائل جمع التبرعات من مؤسسة ويكيميديا",
 	"fundraiserunsubscribe-confirm": "هل أنت متأكد أنك تريد إلغاء الاشتراك؟",
 	"fundraisersubscribe": "اشتراك",
 	"fundraisersubscribe-appeal-headline-001": "مثل ماذا ترى؟",
