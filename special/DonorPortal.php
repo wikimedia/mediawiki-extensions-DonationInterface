@@ -33,6 +33,15 @@ class DonorPortal extends UnlistedSpecialPage {
 			'ext.donationInterface.emailPreferences',
 			'ext.donationInterface.donorPortal',
 		] );
+
+		$context = RequestContext::getMain();
+		$templatePath = $context->getConfig()->get( 'ScriptPath' ) .
+			'/extensions/DonationInterface/email_forms/templates';
+
+		$out->addJsConfigVars( [
+			'template_path' => $templatePath,
+		] );
+
 		$this->getOutput()->setPageTitle( $this->msg( 'donorportal-title' ) );
 
 		if ( $this->isChecksumExpired() ) {
@@ -40,8 +49,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		} else {
 			$this->assignFormParameters();
 		}
-		$formObj = new DonorPortalForm( 'donorPortal', $this->formParams );
-		$this->getOutput()->addHTML( $formObj->getForm() );
+		// $formObj = new DonorPortalForm( 'donorPortal', $this->formParams );
+		// $this->getOutput()->addHTML( $formObj->getForm() );
 	}
 
 	/**
@@ -156,10 +165,10 @@ class DonorPortal extends UnlistedSpecialPage {
 			}
 
 			$recurringContribution['amount_formatted'] = EmailForm::amountFormatter(
-				(float)$recurringContribution['amount'], $locale, $recurringContribution['currency']
+				(float)$recurringContribution['amount'], $locale, $recurringContribution['currency'] ?? ''
 			);
 			$recurringContribution['next_sched_contribution_date_formatted'] = EmailForm::dateFormatter(
-				$recurringContribution['next_sched_contribution_date']
+				$recurringContribution['next_sched_contribution_date'] ?? ''
 			);
 			if ( isset( $recurringContribution['last_contribution_date'] ) ) {
 				$recurringContribution['last_contribution_date_formatted'] = EmailForm::dateFormatter(
