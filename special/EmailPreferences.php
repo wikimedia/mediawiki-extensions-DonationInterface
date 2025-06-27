@@ -111,8 +111,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$logger->error( 'Error from civiproxy: ' . $errorMessage );
 			// validate the hash then
 			$isHashValid = $this->validateHash( $requestParameters );
-			if ( $isHashValid ) {
-				// render unsubscribe page instead
+			if ( $isHashValid && !$this->isChecksumExpired() ) {
+				// render unsubscribe page instead if checksum is not expired
 				return 'unsubscribe';
 			}
 		}
