@@ -193,7 +193,7 @@
 	"donate_interface-error-msg-card-too-old": "Kaart ze al",
 	"donate_interface-error-msg-date-too-far-in-the-future": "Datum ze wäit an der Zukunft",
 	"donate_interface-error-msg-cvv": "Gitt wgl. den CVV-Code an, gewéinlech steet deen hannen op Ärer Kaart",
-	"donate_interface-error-msg-invalid-cvv-format": "CVC/CVV Format net valabel",
+	"donate_interface-error-msg-invalid-cvv-format": "Ongültegt CVC/CVV-Format",
 	"donate_interface-error-msg-account_name": "Numm vum Kont",
 	"donate_interface-error-msg-account_number": "Kontonummer",
 	"donate_interface-error-msg-authorization_id": "Autorisatiounsnummer",
