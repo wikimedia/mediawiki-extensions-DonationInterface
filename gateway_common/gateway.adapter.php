@@ -3085,8 +3085,8 @@ abstract class GatewayAdapter implements GatewayType {
 			$referrer = $request->getHeader( 'referer' );
 			$requestURL = $request->getFullRequestURL();
 
-			$this->logger->debug( "Donor Referrer: {$referrer}" );
-			$this->logger->debug( "Donor Request URL: {$requestURL}" );
+			$this->logger->info( "Donor Referrer: {$referrer}" );
+			$this->logger->info( "Donor Request URL: {$requestURL}" );
 		}
 	}
 
