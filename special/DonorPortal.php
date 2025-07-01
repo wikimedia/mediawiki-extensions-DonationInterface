@@ -58,8 +58,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		);
 		$locale = $this->getLocale( $donorSummary );
 		$this->formParams = $donorSummary;
-		$this->addContributionsToFormParams( $donorSummary['contributions'], $locale );
-		$this->addRecurringContributionsToFormParams( $donorSummary['recurringContributions'], $locale );
+		$this->addContributionsToFormParams( $donorSummary['contributions'] ?? [], $locale );
+		$this->addRecurringContributionsToFormParams( $donorSummary['recurringContributions'] ?? [], $locale );
 
 		$this->formParams['donorID'] = 'CNTCT-' . $donorSummary['id'];
 		$config = $this->getConfig();
