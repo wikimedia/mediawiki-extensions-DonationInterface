@@ -255,6 +255,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 			if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
 				// Backward compatibility with MW < 1.41
+				// @phan-suppress-next-line PhanParamTooMany
 				$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
 			} else {
 				// MW >= 1.41
