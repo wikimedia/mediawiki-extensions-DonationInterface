@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
@@ -49,7 +51,14 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 	public function testDoPaymentCard() {
 		$init = $this->getTestDonorCardData();
 		$init['amount'] = '1.55';
+		$request = new FauxRequest();
+		$request->setRequestURL( '/w/Special:GravyGateway?' . http_build_query( $init ) );
+		RequestContext::getMain()->setRequest( $request );
 		$init['gateway_session_id'] = 'random-id';
+		$init['color_depth'] = 24;
+		$init['screen_height'] = 768;
+		$init['screen_width'] = 1024;
+		$init['time_zone_offset'] = '1';
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
 		$gravyReconciliationId = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz0123456789' ), 0, 22 );
@@ -92,7 +101,18 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'street_address' => '123 Fake Street',
 				'return_url' => $expectedReturnUrl,
 				'payment_method' => $init['payment_method'],
-				'gateway_session_id' => 'random-id'
+				'gateway_session_id' => 'random-id',
+				'browser_info' => [
+					'language' => 'en-US',
+					'javascript_enabled' => true,
+					'user_device' => 'mobile',
+					'java_enabled' => false,
+					'color_depth' => 24,
+					'screen_height' => 768,
+					'screen_width' => 1024,
+					'time_zone_offset' => '1',
+				],
+				'window_origin' => parse_url( MediaWikiServices::getInstance()->getUrlUtils()->getServer( PROTO_HTTPS ), PHP_URL_HOST ),
 			] )
 			->willReturn( $stubCreatePaymentResponse );
 

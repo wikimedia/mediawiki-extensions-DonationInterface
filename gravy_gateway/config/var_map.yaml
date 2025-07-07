@@ -26,3 +26,12 @@ card_suffix: card_suffix
 card_scheme: card_scheme
 payment_token: payment_token
 full_name: full_name
+user_agent: user_agent
+accept_header: accept_header
+language: locale
+color_depth: color_depth
+screen_height: screen_height
+screen_width: screen_width
+time_zone_offset: time_zone_offset
+user_device: user_device
+window_origin: window_origin

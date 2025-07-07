@@ -192,6 +192,7 @@
 		"GravyGateway": "gravy_gateway/gravy_gateway.body.php",
 		"GravyGatewayResult": "gravy_gateway/gravy_resultswitcher.body.php",
 		"GravyAppleApi": "gravy_gateway/gravy_apple.api.php",
+		"Gravy3DSecure": "gravy_gateway/Gravy3DSecure.php",
 		"Gateway_Extras": "extras/extras.body.php",
 		"FraudFilter": "extras/FraudFilter.php",
 		"Gateway_Extras_CustomFilters": "extras/custom_filters/custom_filters.body.php",

@@ -148,6 +148,7 @@
 		} );
 
 		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, () => {
+			set3DSecureBrowserInfo();
 			extraData.fiscal_number = $( '#fiscal_number' ).val();
 			extraData.gateway_session_id = sessionId;
 			mw.donationInterface.forms.callDonateApi(
@@ -227,6 +228,19 @@
 			mw.monthlyConvert.init();
 		} else {
 			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+		}
+	}
+
+	function set3DSecureBrowserInfo() {
+		const browserInfo = {
+			color_depth: screen.colorDepth || 24,
+			screen_height: screen.height || 0,
+			screen_width: screen.width || 0,
+			time_zone_offset: Math.floor( new Date().getTimezoneOffset() ) || 0
+		};
+
+		for ( const key in browserInfo ) {
+			extraData[ key ] = browserInfo[ key ];
 		}
 	}
 

@@ -6,6 +6,7 @@
 - PlaceholderPhoneNumber
 - PostalCodeValidation
 - ReturnUrl
-- Simple3DSecure
+- Simple3DSecure  # sets use_3d_secure
+- Gravy3DSecure  # sets browser info parameters
 - StreetAddressValidation
 - StreetNumberValidation

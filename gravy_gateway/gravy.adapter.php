@@ -35,6 +35,55 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/**
 	 * @inheritDoc
 	 */
+	protected function defineTransactions() {
+		$this->transactions = [
+			'authorize' => [
+				'request' => [
+					'city',
+					'country',
+					'currency',
+					'email',
+					'first_name',
+					'last_name',
+					'postal_code',
+					'phone',
+					'state_province',
+					'street_address',
+					'street_number',
+					'fiscal_number',
+					'amount',
+					'order_id',
+					'user_ip',
+					'recurring',
+					'payment_method',
+					'payment_submethod',
+					'user_name',
+					'description',
+					'return_url',
+					'use_3d_secure',
+					'gateway_session_id',
+					'card_suffix',
+					'card_scheme',
+					'payment_token',
+					'full_name'
+				],
+				'values' => [
+					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
+				]
+			],
+			'capture' => [
+				'request' => [
+					'amount',
+					'currency',
+					'gateway_txn_id'
+				]
+			]
+		];
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
@@ -302,7 +351,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * @return CreatePaymentResponse
 	 */
 	protected function callCreatePayment( IPaymentProvider $paymentProvider ): CreatePaymentResponse {
+		$this->tuneForPaymentMethod();
 		$createPaymentParams = $this->buildRequestArray();
+		$this->fixBrowserInfoIfPresent( $createPaymentParams );
 		if ( $this->showMonthlyConvert() ) {
 			$createPaymentParams['recurring'] = 1;
 			$createPaymentParams['recurring_model'] = RecurringModel::CARD_ON_FILE;
@@ -341,55 +392,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->logger->error( 'Create payment session call unsuccessful. Raw response: ' . $response->getRawResponse() );
 		}
 		return $response;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	protected function defineTransactions() {
-		$this->transactions = [
-			'authorize' => [
-				'request' => [
-					'city',
-					'country',
-					'currency',
-					'email',
-					'first_name',
-					'last_name',
-					'postal_code',
-					'phone',
-					'state_province',
-					'street_address',
-					'street_number',
-					'fiscal_number',
-					'amount',
-					'order_id',
-					'user_ip',
-					'recurring',
-					'payment_method',
-					'payment_submethod',
-					'user_name',
-					'description',
-					'return_url',
-					'use_3d_secure',
-					'gateway_session_id',
-					'card_suffix',
-					'card_scheme',
-					'payment_token',
-					'full_name'
-				],
-				'values' => [
-					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
-				]
-			],
-			'capture' => [
-				'request' => [
-					'amount',
-					'currency',
-					'gateway_txn_id'
-				]
-			]
-		];
 	}
 
 	/**
@@ -565,6 +567,42 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Add 3dSecure keys to the authorize array when paying with credit card
+	 * @return void
+	 */
+	protected function tuneForPaymentMethod(): void {
+		if ( $this->getPaymentMethod() === PaymentMethod::PAYMENT_METHOD_CREDIT_CARD ) {
+			$this->transactions['authorize']['request']['browser_info'] = [
+				'user_agent',
+				'accept_header',
+				'language',
+				'color_depth',
+				'screen_height',
+				'screen_width',
+				'time_zone_offset',
+				'javascript_enabled',
+				'user_device',
+			];
+			$this->transactions['authorize']['request'][] = 'window_origin';
+			// Always true, as we don't accept donations w/o javascript
+			$this->transactions['authorize']['values']['javascript_enabled'] = true;
+		}
+	}
+
+	/**
+	 * Called after building the transaction array, to add a hard-coded 'false' value
+	 * @param array &$requestParams
+	 * @return void
+	 */
+	protected function fixBrowserInfoIfPresent( array &$requestParams ): void {
+		if ( isset( $requestParams['browser_info'] ) ) {
+			// We are unable to set a hard-coded 'false' value in the transaction 'values' array as we would prefer,
+			// due to a quirk of the buildRequestArray logic.
+			$requestParams['browser_info']['java_enabled'] = false;
 		}
 	}
 
