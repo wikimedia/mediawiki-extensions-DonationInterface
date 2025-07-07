@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 class DonorPortal extends UnlistedSpecialPage {
@@ -24,27 +25,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->setUpClientSideChecksumRequest( $subPage );
-		$out = $this->getOutput();
-
-		// Adding styles-only modules this way causes them to arrive ahead of page rendering
-		$out->addModuleStyles( [
-			'donationInterface.skinOverrideStyles',
-			'ext.donationInterface.emailPreferencesStyles'
-		] );
-
-		$out->addModules( [
-			'ext.donationInterface.emailPreferences',
-			'ext.donationInterface.donorPortal',
-		] );
-
-		$context = RequestContext::getMain();
-		$templatePath = $context->getConfig()->get( 'ScriptPath' ) .
-			'/extensions/DonationInterface/email_forms/templates';
-
-		$out->addJsConfigVars( [
-			'template_path' => $templatePath,
-		] );
-
+		$this->addStylesScriptsAndViewport();
 		$this->getOutput()->setPageTitle( $this->msg( 'donorportal-title' ) );
 
 		if ( $this->isChecksumExpired() ) {
@@ -86,6 +67,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$config = $this->getConfig();
 		$this->formParams['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
 		$this->formParams['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
+		$this->formParams = array_merge( $this->formParams, $requestParameters );
 	}
 
 	/**
@@ -211,4 +193,40 @@ class DonorPortal extends UnlistedSpecialPage {
 		}
 	}
 
+	/**
+	 * @return void
+	 */
+	public function addStylesScriptsAndViewport(): void {
+		$out = $this->getOutput();
+
+		$context = RequestContext::getMain();
+		$templatePath = $context->getConfig()->get( 'ScriptPath' ) .
+			'/extensions/DonationInterface/email_forms/templates';
+
+		// Adding styles-only modules this way causes them to arrive ahead of page rendering
+		$out->addModuleStyles( [
+			'donationInterface.skinOverrideStyles',
+			'ext.donationInterface.donorPortalStyles'
+		] );
+
+		$out->addModules( [
+			'ext.donationInterface.donorPortal'
+		] );
+		// Tell the errorLog module which action to call
+		$out->addJsConfigVars( [
+			// TODO: rename this action for reuse
+			'ClientErrorLogAction' => 'logRecurUpgradeFormError',
+			'template_path' => $templatePath,
+		] );
+
+		$out->addHeadItem(
+			'viewport',
+			Html::element(
+				'meta', [
+					'name' => 'viewport',
+					'content' => 'width=device-width, initial-scale=1',
+				]
+			)
+		);
+	}
 }

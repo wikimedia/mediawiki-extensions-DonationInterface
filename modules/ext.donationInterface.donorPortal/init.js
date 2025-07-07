@@ -6,7 +6,7 @@ const Vue = require( 'vue' ),
 	routes = require( './routes.js' );
 
 // eslint-disable-next-line no-jquery/no-global-selector
-$( '#bodyContent' ).append( $container );
+$( '#mw-content-text' ).append( $container );
 
 const vueApp = Vue.createMwApp( App );
 const router = createRouter( {

@@ -1,50 +1,50 @@
 <template>
-	<header class="header-default minimal--short featured-photo--photo-centered">
-		<div class="site-header">
-			<div class="site-header__inner">
-				<a href="https://wikimediafoundation.org" class="nav-logo">
-					<img class="nav-logo__image" :src="`${template_path}/logo-horizontal.svg`" >
-				</a>
-			</div>
-		</div>
-		<div class="primary-nav__drawer">
-			<ul id="menu-header-menu" class="primary-nav__items">
-				<li id="menu-item-123" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-123"><a
-						href="https://wikimediafoundation.org/our-work/"><span>{{ $i18n( "emailpreferences-header-link-our-work" ).text() }}</span></a></li>
-				<li id="menu-item-115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-115"><a
-						href="https://wikimediafoundation.org/support/"><span>{{ $i18n( "emailpreferences-header-link-support-wikipedia" ).text() }}</span></a></li>
-				<li id="menu-item-119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-119"><a
-						href="https://wikimediafoundation.org/research/"><span>{{ $i18n( "emailpreferences-header-link-research" ).text() }}</span></a></li>
-				<li id="menu-item-118" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-118"><a
-						href="https://wikimediafoundation.org/advocacy/"><span>{{ $i18n( "emailpreferences-header-link-advocacy" ).text() }}</span></a></li>
-				<li id="menu-item-117" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-117"><a
-						href="https://wikimediafoundation.org/technology/"><span>{{ $i18n( "emailpreferences-header-link-technology" ).text() }}</span></a></li>
-				<li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28"><a
-						href="https://wikimediafoundation.org/news/"><span>{{ $i18n( "emailpreferences-header-link-news" ).text()
-							}}</span></a>
-				</li>
-				<li id="menu-item-116" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-116"><a
-						href="https://wikimediafoundation.org/participate/"><span>{{ $i18n( "emailpreferences-header-link-participate" ).text() }}</span></a></li>
-				<li id="menu-item-120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-103"><a
-						href="https://wikimediafoundation.org/about/"><span>{{ $i18n( "emailpreferences-header-link-about" ).text() }}</span></a></li>
-			</ul>
-		</div>
-	</header>
+<header class="header">
+    <div class="header__inner">
+      <nav class="nav">
+        <button @click="handleNavToggleClick" id="nav__toggle" ref="nav__toggle" class="nav__toggle">
+          <svg class="cdx-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><g><path d="M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z"/></g></svg>
+        </button>
+        <a href="https://wikimediafoundation.org/" target="_blank">
+          <img src="https://upload.wikimedia.org/wikipedia/donate/e/e2/Logo-foundation-landscape-wkfrds.png" alt="Wikimedia Foundation" class="nav__logo">
+        </a>
+        <ul class="nav__links" ref="nav__links">
+          <li>
+            <a href="https://wikimediafoundation.org/about/" target="_blank">{{ $i18n( "donorportal-header-about" ).text() }}</a>
+          </li>
+          <li>
+            <a href="https://wikimediafoundation.org/our-work/" target="_blank">{{ $i18n( "donorportal-header-our-work" ).text() }}</a>
+          </li>
+          <li>
+            <a href="https://wikimediafoundation.org/participate/" target="_blank">{{ $i18n( "donorportal-header-participate" ).text() }}</a>
+          </li>
+          <li>
+            <a href="https://wikimediafoundation.org/news/" target="_blank">{{ $i18n( "donorportal-header-news" ).text() }}</a>
+          </li>
+        </ul>
+      </nav>
+      <section class="nav-global__aside">
+        <a href="https://www.wikipedia.org/" target="_blank" class="mw-logo">
+          <img class="mw-logo-icon" src="https://www.wikipedia.org/static/images/icons/wikipedia.png" alt="Wikimedia Globe">
+          <span class="mw-logo-container skin-invert">
+            <img class="mw-logo-wordmark" alt="Wikipedia" src="https://www.wikipedia.org/static/images/mobile/copyright/wikipedia-wordmark-en.svg">
+            <img class="mw-logo-tagline" alt="The Free Encyclopedia" src="https://www.wikipedia.org/static/images/mobile/copyright/wikipedia-tagline-en.svg">
+          </span>
+        </a>
+      </section>
+    </div>
+  </header>
 </template>
 
 <script>
 module.exports = exports = {
 	name: 'HeaderComponent',
 
-	data() {
-		return {
-			template_path: mw.config.get('template_path')
+	methods: {
+		handleNavToggleClick () {
+			this.$refs['nav__links'].classList.toggle( 'active' );
+			this.$refs['nav__toggle'].classList.toggle( 'active' );
 		}
-	},
-	components: {
-	},
-
-	computed: {
 	}
 };
 </script>

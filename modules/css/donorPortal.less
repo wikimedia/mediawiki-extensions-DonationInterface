@@ -1,0 +1,523 @@
+@import 'mediawiki.skin.defaults.less';
+/*
+ * Project is based on Codex 1.14.0
+ * https://doc.wikimedia.org/codex/v1.14.0/
+ *
+ */
+
+header {
+	margin-bottom: 0;
+}
+
+footer {
+	max-width: 100%;
+}
+
+@size-container: 99.75rem;
+@size-icon-x-large: 2.75rem;
+@size-icon-large: 2.25rem;
+@padding-base: @spacing-150;
+@padding-small: @spacing-100;
+@padding-x-small: @spacing-50;
+@gap-base: @spacing-150;
+@gap-small: @spacing-100;
+@gap-x-small: @spacing-50;
+
+/* CSS Reset */
+* {
+	margin: 0;
+	font-family: @font-family-base;
+	box-sizing: @box-sizing-base;
+}
+
+img {
+	display: block;
+}
+
+figcaption {
+	background-color: @background-color-inverted;
+	color: @color-inverted;
+	padding: @padding-x-small @padding-small;
+	font-size: @font-size-x-small;
+	border-radius: @border-radius-base;
+}
+
+figcaption a {
+	color: @color-inverted;
+}
+
+.heading {
+	font-family: @font-family-serif;
+	font-weight: @font-weight-normal;
+}
+
+.heading--h1 {
+	font-size: @font-size-xxx-large;
+}
+
+.heading--h2 {
+	font-size: @font-size-xx-large;
+}
+
+.heading--h3 {
+	font-size: @font-size-x-large;
+}
+
+.heading--h4 {
+	font-size: @font-size-large;
+}
+
+.text--body {
+	font-size: @font-size-medium;
+}
+
+.text--body-small {
+	font-size: @font-size-small;
+}
+
+.link {
+	-webkit-text-decoration: underline;
+	text-decoration: underline;
+	color: @accent-color-base;
+}
+
+.header {
+	position: relative;
+	z-index: @z-index-toolbar;
+	display: flex;
+	justify-content: center;
+	background-color: @background-color-base;
+	border-bottom: 1px solid @border-color-subtle;
+}
+
+.header__inner {
+	position: relative;
+	display: flex;
+	width: 100%;
+	max-width: 99.75rem;
+	max-width: @size-container;
+	padding: @padding-x-small @padding-base;
+}
+
+.mw-logo {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.mw-logo-icon {
+	float: left;
+	display: block;
+	width: 2.25em;
+	height: 2.25rem;
+}
+
+.mw-logo-container {
+	display: none;
+}
+
+.mw-logo-container img {
+	width: 100%;
+}
+
+.nav {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	gap: @gap-x-small;
+	min-height: 2.75rem;
+}
+
+.nav__logo {
+	height: 2.25rem;
+	height: @size-icon-large;
+}
+
+.nav__links {
+	list-style: none;
+	display: none;
+	flex-direction: column;
+	position: absolute;
+	top: 100%;
+	margin-left: -0.625rem;
+	z-index: @z-index-dropdown;
+	background-color: @background-color-base;
+	padding: @padding-small;
+	font-size: 0.875rem;
+	font-size: @font-size-small, 0.875rem;
+	box-shadow: 0 2px 6px -1px rgba( 0, 0, 0, 0.2 );
+	transition-property: opacity;
+	transition-duration: 100ms;
+	width: -moz-max-content;
+	width: max-content;
+	max-width: 200px;
+	max-height: 75vh;
+}
+
+.nav__links.active {
+	display: flex;
+}
+
+.nav__links a {
+	display: block;
+	padding: 6px 0;
+	-webkit-text-decoration: none;
+	text-decoration: none;
+	color: @color-base;
+}
+
+.nav__links a:hover {
+	-webkit-text-decoration: underline;
+	text-decoration: underline;
+}
+
+.nav__toggle {
+	width: 2.75rem;
+	width: @size-icon-x-large;
+	height: 2.75rem;
+	height: @size-icon-x-large;
+	cursor: pointer;
+	background: none;
+	border: 0;
+	padding: 0;
+	margin-left: -0.625rem;
+}
+
+.nav__toggle.active {
+	background: @background-color-interactive;
+}
+
+.body {
+	display: flex;
+	flex-direction: column;
+	height: @size-viewport-height-full;
+	background-color: @background-color-neutral-subtle;
+}
+
+.auth {
+	flex-grow: 1;
+	position: relative;
+}
+
+.auth__infobox,
+.auth__display {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+.auth__display {
+	display: flex;
+	z-index: @z-index-base;
+}
+
+.auth__infobox {
+	z-index: @z-index-above-content;
+	display: grid;
+	padding: 0 @padding-base;
+}
+
+.auth__infobox-inner {
+	margin-top: -120px;
+	place-self: center center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: @gap-base;
+	max-width: @max-width-button;
+	padding: @padding-base;
+	border-radius: @border-radius-base;
+	border: @border-width-base @border-style-base @border-color-base;
+	background-color: @background-color-base;
+}
+
+.auth__intro,
+.auth__form {
+	display: flex;
+	flex-direction: column;
+	gap: @padding-x-small;
+}
+
+.auth__display figure {
+	position: relative;
+	overflow: hidden;
+}
+
+.auth__display img {
+	-o-object-fit: cover;
+	object-fit: cover;
+	-o-object-position: center;
+	object-position: center;
+	height: 100%;
+	width: 100%;
+}
+
+.auth__display figcaption {
+	position: absolute;
+	right: @padding-x-small;
+	bottom: @padding-x-small;
+	z-index: 2;
+}
+
+@media screen and ( min-width: 640px ) {
+	.mw-logo-container {
+		display: block;
+		float: left;
+		margin-left: 7px;
+		max-width: 120px;
+	}
+
+	.mw-logo-container img {
+		width: 100%;
+	}
+
+	.mw-logo-wordmark {
+		display: block;
+		margin: 0 auto;
+		height: 0.8125em;
+	}
+
+	.mw-logo-tagline {
+		display: block;
+		margin: 5px auto 0;
+		height: 0.585em;
+	}
+
+	.auth__infobox-inner {
+		padding: @size-150;
+	}
+}
+
+@media screen and ( min-width: 1120px ) {
+	.nav {
+		gap: @gap-base;
+	}
+
+	.nav__toggle {
+		display: none;
+	}
+
+	.nav__links {
+		position: static;
+		position: initial;
+		top: auto;
+		top: initial;
+		margin: 0;
+		margin: initial;
+		padding: 0;
+		padding: initial;
+		box-shadow: none;
+		max-width: none;
+		max-width: initial;
+		display: flex;
+		flex-direction: row;
+		flex-grow: 1;
+	}
+
+	.nav__links a {
+		padding: 6px 16px;
+	}
+
+	.auth {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		width: @size-viewport-width-full;
+		height: @size-viewport-height-full;
+		background-color: @background-color-base;
+	}
+
+	.auth__infobox,
+	.auth__display {
+		position: relative;
+	}
+
+	.auth__infobox {
+		margin-top: -100px;
+	}
+
+	.auth__infobox-inner {
+		border: 0;
+	}
+}
+
+/* Completely emove most MediaWiki stuff */
+
+#mw-head-base {
+	display: none;
+}
+
+#mw-page-base {
+	display: none;
+}
+
+#mw-panel {
+	display: none;
+}
+
+#firstHeading {
+	display: none;
+}
+
+.mw-body {
+	border: 0 !important;
+}
+
+#footer-icons {
+	display: none;
+}
+
+body {
+	background-color: #fff !important;
+}
+
+@media ( min-width: 768px ) {
+	footer {
+		padding: 3em 0 4em;
+	}
+}
+
+footer {
+	padding: 3em 1.5em;
+	background: #54595d;
+	color: #fff !important;
+	max-width: 66.25em;
+	margin: 0 auto;
+}
+
+footer .footer-legal {
+	text-align: center;
+}
+
+footer a,
+footer a:visited {
+	color: inherit !important;
+	text-decoration: underline;
+	transition: 0.3s all;
+}
+
+@media ( min-width: 768px ) {
+	.mw-620 {
+		max-width: 38.75em;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+
+@media ( min-width: 768px ) and ( max-width: 1280px ) {
+	footer .footer-legal p,
+	footer .footer-legal .p {
+		font-size: 0.85em;
+	}
+}
+
+footer .footer-legal p,
+footer .footer-legal .p {
+	padding-bottom: 0.75em;
+	line-height: 1.3;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	margin: 0;
+}
+
+.mw-footer {
+	display: none;
+}
+
+.mw-body {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* extra parent ID in selector to increase specificity and override button-specific colors */
+#content .btn.disabled {
+	background-color: #c8ccd1;
+}
+
+/* Independent Recurring Upgrade styles */
+body.mw-special-DonorPortal header {
+	margin-bottom: 0;
+}
+
+body.mw-special-DonorPortal .primary-nav__drawer {
+	display: none;
+}
+
+body.mw-special-DonorPortal #contentSub,
+body.mw-special-DonorPortal #contentSub2 {
+	margin: 0;
+}
+
+body.mw-special-DonorPortal footer {
+	max-width: 100%;
+}
+
+.mw-body,
+.vector-body,
+.mw-body-content {
+	height: @size-viewport-height-full;
+}
+
+#contentSub,
+#contentSub2 {
+	display: none;
+}
+
+.vector-body {
+	font-size: inherit !important;
+	line-height: initial !important;
+}
+
+.vector-body p {
+	margin: 0 !important;
+}
+
+.mw-body h1,
+.mw-body .mw-heading1,
+.mw-body-content h1,
+.mw-body-content .mw-heading1 {
+	font-size: var( @font-size-xxx-large ) !important;
+}
+
+.vector-body .mw-heading1,
+.vector-body h1 {
+	margin-top: inherit !important;
+}
+
+.mw-body h1,
+.mw-body .mw-heading1,
+.mw-body-content h1,
+.mw-body-content .mw-heading1,
+.mw-body-content h2,
+.mw-body-content .mw-heading2 {
+	margin-top: inherit !important;
+	padding: inherit !important;
+	line-height: initial !important;
+}
+
+.mw-heading,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	padding: 0;
+	color: inherit;
+}
+
+.mw-heading1,
+h1,
+.mw-heading2,
+h2 {
+	border-bottom: 0 !important;
+}
+
+.mw-body h1,
+.mw-body .mw-heading1,
+.mw-body-content h1,
+.mw-body-content .mw-heading1,
+.mw-body-content h2,
+.mw-body-content .mw-heading2 {
+	margin-bottom: 0 !important;
+}

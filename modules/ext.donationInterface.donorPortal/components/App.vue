@@ -1,7 +1,8 @@
 <template>
-	<header-component></header-component>
-	<router-view></router-view>
-	<footer-component></footer-component>
+	<div class="body is-splashscreen">
+		<header-component></header-component>
+		<router-view></router-view>
+	</div>
 </template>
 
 <script>

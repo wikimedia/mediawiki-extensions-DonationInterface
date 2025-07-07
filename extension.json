@@ -264,8 +264,9 @@
 		},
 		"ext.donationInterface.donorPortal": {
 			"dependencies": [
-				"vue",
 				"donationInterface.skinOverride",
+				"ext.donationInterface.errorLog",
+				"vue",
 				"@wikimedia/codex",
 				"vue-router"
 			],
@@ -300,6 +301,8 @@
 				"emailpreferences-footer-learn_more",
 				"emailpreferences-footer-questions_email",
 				"emailpreferences-footer-text_license",
+				"emailpreferences-send-new-link",
+				"emailpreferences-new-link-sent",
 				"donorportal-greeting",
 				"donorportal-boldtext",
 				"donorportal-smalltext",
@@ -337,8 +340,23 @@
 				"donorportal-payment-method",
 				"donorportal-donation-type-monthly",
 				"donorportal-donation-type-annual",
-				"donorportal-donation-type-one-time"
+				"donorportal-donation-type-one-time",
+				"donorportal-header-about",
+				"donorportal-header-our-work",
+				"donorportal-header-participate",
+				"donorportal-header-news",
+				"donorportal-login-header",
+				"donorportal-login-text",
+				"donorportal-login-email-placeholder",
+				"donorportal-login-email-placeholder",
+				"donorportal-login-problems",
+				"donorportal-loginpage-figure-caption",
+				"donorportal-email-required",
+				"donorportal-something-wrong"
 			]
+		},
+		"ext.donationInterface.donorPortalStyles": {
+			"styles": "modules/css/donorPortal.less"
 		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
