@@ -45,8 +45,6 @@ class DonationInterface {
 	 * @return bool
 	 */
 	public static function onDonationInterfaceUnitTests( &$files ) {
-		global $wgAutoloadClasses;
-
 		$testDir = __DIR__ . '/tests/phpunit/';
 
 		// Set up globaltown
@@ -55,21 +53,6 @@ class DonationInterface {
 		} else {
 			return true;
 		}
-
-		$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
-		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
-		$wgAutoloadClasses['BaseAdyenCheckoutTestCase'] = $testDir . 'BaseAdyenCheckoutTestCase.php';
-		$wgAutoloadClasses['BaseGravyTestCase'] = $testDir . 'BaseGravyTestCase.php';
-		$wgAutoloadClasses['BaseIngenicoTestCase'] = $testDir . 'BaseIngenicoTestCase.php';
-		$wgAutoloadClasses['BaseBraintreeTestCase'] = $testDir . 'BaseBraintreeTestCase.php';
-		$wgAutoloadClasses['TestingDlocalAdapter'] = $testDir . 'includes/test_gateway/TestingDlocalAdapter.php';
-		$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
-		$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
-		$wgAutoloadClasses['BaseDlocalTestCase'] = $testDir . 'BaseDlocalTestCase.php';
-		$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
-		$wgAutoloadClasses['TestingPaypalExpressAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalExpressAdapter.php';
-		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
-		$wgAutoloadClasses['TTestingAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
 
 		return true;
 	}
