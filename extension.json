@@ -590,8 +590,7 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
+		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName"
 	},
 	"config": {
 		"DonationInterfaceTest": {

@@ -21,6 +21,10 @@ class DonationInterface {
 			$wgDonationInterfaceTest = false;
 		}
 
+		if ( defined( 'MW_PHPUNIT_TEST' ) ) {
+			require_once __DIR__ . '/tests/phpunit/TestConfiguration.php';
+		}
+
 		/**
 		 * Default top-level template file.
 		 */
@@ -38,23 +42,6 @@ class DonationInterface {
 		$context->setSourceName( 'DonationInterface' );
 		$context->setSourceType( $wgDonationInterfaceMessageSourceType );
 		$context->setVersionFromFile( "$IP/.version-stamp" );
-	}
-
-	/**
-	 * @param array &$files
-	 * @return bool
-	 */
-	public static function onDonationInterfaceUnitTests( &$files ) {
-		$testDir = __DIR__ . '/tests/phpunit/';
-
-		// Set up globaltown
-		if ( file_exists( $testDir . 'TestConfiguration.php' ) ) {
-			require_once $testDir . 'TestConfiguration.php';
-		} else {
-			return true;
-		}
-
-		return true;
 	}
 
 	public static function getAdapterClassForGateway( string $gateway ): string {
