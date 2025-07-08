@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EHughes",
 			"McDutchie",
 			"Pcoombe",
 			"Romaine"
@@ -53,7 +54,7 @@
 	"recurupgrade-upgrade": "Mijn donatie bijwerken",
 	"recurupgrade-upgrading-new-amount": "U verhoogt uw maandelijkse donatiebedrag tot <strong></strong>.",
 	"recurupgrade-upgrading-new-amount-and-date": "Uw nieuwe maandelijkse donatiebedrag, $1, wordt toegepast op uw volgende donatiedatum, $2",
-	"fundraiserunsubscribe": "Afmelden voor e-mails van Wikimedia Foundation over fondsenwerving",
+	"fundraiserunsubscribe": "Afmelden voor e-mails van de Wikimedia Foundation over fondsenwerving",
 	"fundraiserunsubscribe-confirm": "Weet u zeker dat u zich wilt afmelden?",
 	"fundraisersubscribe": "Opt-in",
 	"fundraisersubscribe-appeal-headline-001": "Bevalt het wat u ziet?",
