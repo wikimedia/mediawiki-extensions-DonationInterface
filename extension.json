@@ -283,7 +283,7 @@
 				"modules/ext.donationInterface.donorPortal/components/InactiveRecurringContribution.vue",
 				"modules/ext.donationInterface.donorPortal/components/OnetimeContribution.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonationsHistory.vue",
-				"modules/ext.donationInterface.donorPortal/routes.js",
+				"modules/ext.donationInterface.donorPortal/router.js",
 				"modules/ext.donationInterface.donorPortal/views/CancelDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
 				"modules/ext.donationInterface.donorPortal/views/Login.vue",
