@@ -1,24 +1,24 @@
 <template>
 	<div class="donorportal-home">
-		<greeting :name="name"></greeting>
-		<donor-contact-details :name="name" :id="donorID" :address="address" :email="email"></donor-contact-details>
+		<greeting :name="donorSummary.name ?? ''"></greeting>
+		<donor-contact-details :name="donorSummary.name ?? ''" :id="donorSummary.donorID ?? ''" :address="donorSummary.address ?? {}" :email="donorSummary.email ?? ''"></donor-contact-details>
 
-		<div class="donorportal-recurring-list" v-if="recurringContributions.length > 0">
+		<div class="donorportal-recurring-list" v-if="donorSummary.recurringContributions && donorSummary.recurringContributions?.length > 0">
 			<p>{{ $i18n("donorportal-active-recurring").text() }}</p>
 			<active-recurring-contribution :contribution="contribution"
-				v-for="contribution in recurringContributions" :key="contribution.id"></active-recurring-contribution>
+				v-for="contribution in donorSummary.recurringContributions || []" :key="contribution.id"></active-recurring-contribution>
 		</div>
-		<div v-if="inactiveRecurringContributions.length > 0">
+		<div v-if="donorSummary?.inactiveRecurringContributions && donorSummary?.inactiveRecurringContributions?.length > 0">
 			<p>{{ $i18n("donorportal-inactive-recurring").text() }}</p>
 			<inactive-recurring-contribution :contribution="contribution"
-				v-for="contribution in inactiveRecurringContributions" :key="contribution.id"></inactive-recurring-contribution>
+				v-for="contribution in donorSummary.inactiveRecurringContributions || []" :key="contribution.id"></inactive-recurring-contribution>
 		</div>
-		<div v-if="recurringContributions.length == 0 && inactiveRecurringContributions.length == 0">
+		<div v-if="!(donorSummary.recurringContributions || donorSummary.inactiveRecurringContributions) || (donorSummary.recurringContributions?.length == 0 && donorSummary.inactiveRecurringContributions?.length == 0)">
 			<p>{{ $i18n("donorportal-most-recent-donation").text() }}</p>
-			<onetime-contribution :contribution="onetimeContribution"></onetime-contribution>
+			<onetime-contribution :contribution="donorSummary.onetimeContribution ?? {}"></onetime-contribution>
 		</div>
-		<donations-history :annual_fund_donations="annualFundContributions"
-			:endowment_donations="endowmentContributions"></donations-history>
+		<donations-history :annual_fund_donations="donorSummary.annualFundContributions ?? []"
+			:endowment_donations="donorSummary.endowmentContributions ?? []"></donations-history>
 	</div>
 </template>
 
@@ -42,8 +42,9 @@ module.exports = exports = {
 	},
 	computed: {},
 	data() {
-		return mw.config.get('donorData');
-	}
-
+		return {
+			donorSummary: mw.config.get('donorData')
+		}
+	},
 };
 </script>

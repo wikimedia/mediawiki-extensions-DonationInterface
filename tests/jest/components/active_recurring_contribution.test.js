@@ -24,8 +24,8 @@ describe('Donor contact details component', () => {
         expect(element.html()).toContain(contribution_mock.currency);
         expect(element.html()).toContain(contribution_mock.payment_method);
         expect(element.html()).toContain(contribution_mock.next_sched_contribution_date_formatted);
-        expect(element.html()).toContain(`<a href="/cancel/${contribution_mock.id}"> donorportal-recurring-cancel </a>`);
-        expect(element.html()).toContain(`<a href="/pause/${contribution_mock.id}"> donorportal-recurring-pause </a>`);
+        expect(element.html()).toContain(`<a href="#/cancel/${contribution_mock.id}"> donorportal-recurring-cancel </a>`);
+        expect(element.html()).toContain(`<a href="#/pause/${contribution_mock.id}"> donorportal-recurring-pause </a>`);
     });
 
 });

@@ -10,9 +10,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="donorportal-donations-table-row" v-for="donation in donations_list" :key="donation.id">
+                <tr v-if="donations_list.length > 0" class="donorportal-donations-table-row" v-for="donation in donations_list" :key="donation.id">
                     <td>{{ donation.receive_date_formatted }}</td>
-                    <td>{{ $i18n( donation.donation_type_key).text() }}</td>
+                    <td>{{ this.translateApiStrings( donation.donation_type_key ) }}</td>
                     <td>{{ donation.amount_formatted }} {{ donation.currency }}</td>
                     <td>{{ donation.payment_method }}</td>
                 </tr>
@@ -28,6 +28,12 @@ module.exports = exports = {
             required: true
         }
     },
+    methods: {
+        translateApiStrings: function(string){
+            if(!string) return 'N/A'
+            return this.$i18n(string).text();
+        }
+    }
 
 }
 </script>

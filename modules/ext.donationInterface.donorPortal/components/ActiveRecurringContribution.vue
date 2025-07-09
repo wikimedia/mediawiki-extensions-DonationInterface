@@ -23,8 +23,8 @@ module.exports = exports = {
     },
     computed: {
         recurringLink: function () {
-            const pause_link = `<a href="/pause/${this.contribution.id}"> ${this.$i18n("donorportal-recurring-pause").text()} </a>`;
-            const cancel_link = `<a href="/cancel/${this.contribution.id}"> ${this.$i18n("donorportal-recurring-cancel").text()} </a>`;
+            const pause_link = `<a href="#/pause/${this.contribution.id}"> ${this.$i18n("donorportal-recurring-pause").text()} </a>`;
+            const cancel_link = `<a href="#/cancel/${this.contribution.id}"> ${this.$i18n("donorportal-recurring-cancel").text()} </a>`;
             return this.$i18n('donorportal-recurring-pause-or-cancel', pause_link, cancel_link).text()
         }
     },

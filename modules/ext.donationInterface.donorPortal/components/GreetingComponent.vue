@@ -10,7 +10,7 @@ module.exports = exports = {
     props: {
         name: {
             type: String,
-            required: true
+            required: false
         }
     }
 }
