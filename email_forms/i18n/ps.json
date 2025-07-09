@@ -18,5 +18,16 @@
 	"donorportal-active-recurring": "ستاسې کارنده تکراري بسپنې",
 	"donorportal-inactive-recurring": "ستاسو تکراري بسپنه",
 	"donorportal-most-recent-donation": "ستاسو وروستۍ بسپن",
-	"donorportal-renew-support": "خپل ملاتړ راتازه کړئ"
+	"donorportal-renew-support": "خپل ملاتړ راتازه کړئ",
+	"donorportal-restart-monthly": "خپله میاشتنۍ بسپنه بياپيلول",
+	"donorportal-restart-annual": "خپله کلنۍ بسپنه بیا پيلول",
+	"donorportal-recurring-amount-monthly": "$1 $2 میاشتنی",
+	"donorportal-recurring-amount-annual": "$1 $2 کلنی",
+	"donorportal-new-donation": "نوې بسپنه ورکول",
+	"donorportal-recurring-pause": "درول‌شوی",
+	"donorportal-recurring-cancel": "ناگارل",
+	"donorportal-your-donation-history": "ستاسو د بسپنې پېښليک",
+	"donorportal-print-donations": "د بسپنې پېښليک چاپول",
+	"donorportal-annual-fund": "کلنۍ پانگه",
+	"emailpreferences-header-link-advocacy": "استازولي"
 }

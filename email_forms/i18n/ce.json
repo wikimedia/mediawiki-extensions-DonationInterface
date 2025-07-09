@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"emailpreferences-header-link-about": "Тхоьх лаьцна",
+	"emailpreferences-header-link-advocacy": "Адвокаци",
+	"emailpreferences-header-link-news": "Керланаш",
+	"emailpreferences-header-link-our-work": "Тхан болх",
+	"emailpreferences-header-link-participate": "Дакъалаца",
+	"emailpreferences-header-link-research": "Таллар",
+	"emailpreferences-header-link-support-wikipedia": "Википедин гӀо дар",
+	"emailpreferences-header-link-technology": "Технологи",
+	"emailpreferences-hi": "Маршалла",
+	"emailpreferences-language": "Мотт",
+	"emailpreferences-save": "ГӀирс нисбар Ӏалашде",
+	"recurupgrade-add": "ТӀетоха $1",
+	"recurupgrade-salutation": "Маршалла, $1!"
+}
