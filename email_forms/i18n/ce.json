@@ -4,6 +4,20 @@
 			"Умар"
 		]
 	},
+	"donorportal-login-email-placeholder": "ДӀайазде хьайн электронан поштан адрес",
+	"donorportal-greeting": "Маршалла, $1!",
+	"donorportal-recurring-amount-monthly": "$1 $2 баттахь",
+	"donorportal-recurring-amount-annual": "$1 $2 шарахь",
+	"donorportal-recurring-pause": "Пауза",
+	"donorportal-recurring-cancel": "Йухайаккхар",
+	"donorportal-your-donation-history": "Ахь гӀодаран истори",
+	"donorportal-donation-date": "Терахь",
+	"donorportal-donation-type": "Тайпа",
+	"donorportal-donation-amount": "Мах",
+	"emailpreferences-change-email": "Хийца email",
+	"emailpreferences-dont-send-email": "Сан йерриге а тӀейаздарш дӀадаха.",
+	"emailpreferences-expired-link-title": "Бехк ма билла, хьан хьажорган хан чекхйаьлла.",
+	"emailpreferences-send-new-link": "Авторизацин хьажорг дӀайахьийта",
 	"emailpreferences-header-link-about": "Тхоьх лаьцна",
 	"emailpreferences-header-link-advocacy": "Адвокаци",
 	"emailpreferences-header-link-news": "Керланаш",
@@ -15,6 +29,9 @@
 	"emailpreferences-hi": "Маршалла",
 	"emailpreferences-language": "Мотт",
 	"emailpreferences-save": "ГӀирс нисбар Ӏалашде",
+	"emailpreferences-title": "Электронан поштан нисдарш",
 	"recurupgrade-add": "ТӀетоха $1",
+	"recurupgrade-amount": "Йухадерзоран карара сумма",
+	"recurupgrade-next-scheduled-date": "РогӀера донатан де",
 	"recurupgrade-salutation": "Маршалла, $1!"
 }
