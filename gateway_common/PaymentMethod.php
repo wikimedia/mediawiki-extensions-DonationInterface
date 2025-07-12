@@ -82,7 +82,7 @@ class PaymentMethod {
 				);
 			}
 			$method->spec = $spec;
-		} catch ( Exception $ex ) {
+		} catch ( Exception ) {
 			// Return empty method.
 			$method->name = "none";
 			$method->spec = [];

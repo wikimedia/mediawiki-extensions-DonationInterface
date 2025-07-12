@@ -48,7 +48,7 @@ abstract class FraudFilter extends Gateway_Extras {
 		try {
 			$this->fraud_logger->info( 'Pushing transaction to payments-antifraud queue.' );
 			QueueWrapper::push( 'payments-antifraud', $transaction );
-		} catch ( Exception $e ) {
+		} catch ( Exception ) {
 			$this->fraud_logger->error( 'Unable to send payments-antifraud message' );
 		}
 	}
