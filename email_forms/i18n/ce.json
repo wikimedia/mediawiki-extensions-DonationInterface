@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"emailpreferences-title": "Электронан поштан нисдарш",
+	"emailpreferences-language": "Мотт",
+	"emailpreferences-dont-send-email": "Сан йерриге а тӀейаздарш дӀадаха.",
+	"emailpreferences-change-email": "Хийца email",
+	"emailpreferences-save": "ГӀирс нисбар Ӏалашде",
+	"emailpreferences-hi": "Маршалла",
+	"emailpreferences-header-link-our-work": "Тхан болх",
+	"emailpreferences-header-link-support-wikipedia": "Википедин гӀо дар",
+	"emailpreferences-header-link-research": "Таллар",
+	"emailpreferences-header-link-advocacy": "Адвокаци",
+	"emailpreferences-header-link-technology": "Технологи",
+	"emailpreferences-header-link-news": "Керланаш",
+	"emailpreferences-header-link-participate": "Дакъалаца",
+	"emailpreferences-header-link-about": "Тхоьх лаьцна"
+}
