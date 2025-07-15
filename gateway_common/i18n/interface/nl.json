@@ -26,7 +26,8 @@
 			"Sjoerddebruin",
 			"Tjcool007",
 			"User555",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"EHughes"
 		]
 	},
 	"donate_interface": "Steun Wikimedia",
@@ -424,7 +425,7 @@
 	"donate_interface-email-unsub-delay": "Het duurt ongeveer vier (4) dagen voordat de wijziging is verwerkt. Tot die tijd kun je nog e-mails van ons ontvangen. Onze excuses daarvoor. Mocht je nog vragen hebben, neem dan contact op met $1",
 	"donate_interface-email-unsub-fail": "Er is een fout opgetreden bij het verwerken van uw verzoek. Gelieve contact op te nemen met <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Weet je zeker dat je <b>$1</b> wilt afmelden?",
-	"donate_interface-email-explain": "We mailen je een ontvangstbewijs ter bevestiging van je donatie.",
+	"donate_interface-email-explain": "We sturen je via e-mail een ontvangstbewijs ter bevestiging van je donatie.",
 	"donate_interface-email-optin-fail": "Er trad een fout op bij het verwerken van uw aanvraag. Neem contact op met <a href=\"mailto:$1\">$1</a> of  <a href=\"$2\">klik hier om het opnieuw te proberen</a>.",
 	"donate_interface-faqs": "Veelgestelde vragen",
 	"donate_interface-tax-info": "Fiscale aftrekbaarheid",
