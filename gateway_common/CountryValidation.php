@@ -98,7 +98,7 @@ class CountryValidation implements ValidationHelper {
 				$dbPath = GatewayAdapter::getGlobal( 'GeoIpDbPath' );
 				$reader = new Reader( $dbPath );
 				return $reader->country( $ip )->country->isoCode;
-			} catch ( Exception $e ) {
+			} catch ( Exception ) {
 				// Suppressing missing database exception thrown in CI
 			}
 		}

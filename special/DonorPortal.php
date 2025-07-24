@@ -113,7 +113,6 @@ class DonorPortal extends UnlistedSpecialPage {
 				);
 			}
 
-			// @phan-suppress-next-line PhanCompatibleMatchExpression
 			$contribution['donation_type_key'] = match ( $contribution['frequency_unit'] ) {
 				'year' => 'donorportal-donation-type-annual',
 				'month' => 'donorportal-donation-type-monthly',

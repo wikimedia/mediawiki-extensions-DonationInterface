@@ -1449,7 +1449,7 @@ abstract class GatewayAdapter implements GatewayType {
 			// TODO: write test
 			$this->logger->info( 'Pushing transaction to payments-init queue.' );
 			QueueWrapper::push( 'payments-init', $transaction );
-		} catch ( Exception $e ) {
+		} catch ( Exception ) {
 			$this->logger->error( 'Unable to send payments-init message' );
 		}
 	}

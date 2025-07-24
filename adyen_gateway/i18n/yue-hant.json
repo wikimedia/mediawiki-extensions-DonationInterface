@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"JeffreyKim"
+		]
+	},
+	"adyen_gateway-desc": "Adyen 付款處理",
+	"adyen_gateway-response-default": "處理緊你嘅交易嗰陣出現錯誤。\n請遲啲再試一次。"
+}

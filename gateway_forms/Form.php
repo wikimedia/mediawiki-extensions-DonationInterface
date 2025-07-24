@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 abstract class Gateway_Form {
 
 	/**
@@ -55,7 +57,7 @@ abstract class Gateway_Form {
 	 */
 	protected function getNoCacheAction() {
 		$url = $this->gatewayPage->getRequest()->getFullRequestURL();
-		$url_parts = wfParseUrl( $url );
+		$url_parts = MediaWikiServices::getInstance()->getUrlUtils()->parse( $url );
 		if ( isset( $url_parts['query'] ) ) {
 			$query_array = wfCgiToArray( $url_parts['query'] );
 		} else {

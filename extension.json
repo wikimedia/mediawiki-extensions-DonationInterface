@@ -214,6 +214,22 @@
 		"FundraiserMaintenance": "special/FundraiserMaintenance.php",
 		"RecurringConversionTrait": "gateway_common/RecurringConversionTrait.php"
 	},
+	"TestAutoloadClasses": {
+		"DonationInterfaceTestCase": "tests/phpunit/DonationInterfaceTestCase.php",
+		"DonationInterfaceApiTestCase": "tests/phpunit/DonationInterfaceApiTestCase.php",
+		"BaseAdyenCheckoutTestCase": "tests/phpunit/BaseAdyenCheckoutTestCase.php",
+		"BaseGravyTestCase": "tests/phpunit/BaseGravyTestCase.php",
+		"BaseIngenicoTestCase": "tests/phpunit/BaseIngenicoTestCase.php",
+		"BaseBraintreeTestCase": "tests/phpunit/BaseBraintreeTestCase.php",
+		"TestingDlocalAdapter": "tests/phpunit/includes/test_gateway/TestingDlocalAdapter.php",
+		"TestingDonationLogger": "tests/phpunit/includes/TestingDonationLogger.php",
+		"TestingGatewayPage": "tests/phpunit/includes/TestingGatewayPage.php",
+		"BaseDlocalTestCase": "tests/phpunit/BaseDlocalTestCase.php",
+		"TestingGenericAdapter": "tests/phpunit/includes/test_gateway/TestingGenericAdapter.php",
+		"TestingPaypalExpressAdapter": "tests/phpunit/includes/test_gateway/TestingPaypalExpressAdapter.php",
+		"TestingRequest": "tests/phpunit/includes/test_request/test.request.php",
+		"TTestingAdapter": "tests/phpunit/includes/test_gateway/test.adapter.php"
+	},
 	"ResourceModules": {
 		"iframe.liberator": {
 			"scripts": "modules/iframe.liberator.js"
@@ -574,8 +590,7 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
-		"UnitTestsList": "DonationInterface::onDonationInterfaceUnitTests"
+		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName"
 	},
 	"config": {
 		"DonationInterfaceTest": {

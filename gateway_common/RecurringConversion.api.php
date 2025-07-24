@@ -15,7 +15,7 @@ class RecurringConversionApi extends DonationApiBase {
 			if ( $donor !== null && $donor['gateway'] == $donationData['gateway'] ) {
 				WmfFramework::setSessionValue( GatewayAdapter::DONOR, $donor );
 			}
-		} catch ( Exception $ex ) {
+		} catch ( Exception ) {
 			WmfFramework::setSessionValue( GatewayAdapter::DONOR_BKUP, null );
 			return;
 		}

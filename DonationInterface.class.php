@@ -21,6 +21,10 @@ class DonationInterface {
 			$wgDonationInterfaceTest = false;
 		}
 
+		if ( defined( 'MW_PHPUNIT_TEST' ) ) {
+			require_once __DIR__ . '/tests/phpunit/TestConfiguration.php';
+		}
+
 		/**
 		 * Default top-level template file.
 		 */
@@ -38,40 +42,6 @@ class DonationInterface {
 		$context->setSourceName( 'DonationInterface' );
 		$context->setSourceType( $wgDonationInterfaceMessageSourceType );
 		$context->setVersionFromFile( "$IP/.version-stamp" );
-	}
-
-	/**
-	 * @param array &$files
-	 * @return bool
-	 */
-	public static function onDonationInterfaceUnitTests( &$files ) {
-		global $wgAutoloadClasses;
-
-		$testDir = __DIR__ . '/tests/phpunit/';
-
-		// Set up globaltown
-		if ( file_exists( $testDir . 'TestConfiguration.php' ) ) {
-			require_once $testDir . 'TestConfiguration.php';
-		} else {
-			return true;
-		}
-
-		$wgAutoloadClasses['DonationInterfaceTestCase'] = $testDir . 'DonationInterfaceTestCase.php';
-		$wgAutoloadClasses['DonationInterfaceApiTestCase'] = $testDir . 'DonationInterfaceApiTestCase.php';
-		$wgAutoloadClasses['BaseAdyenCheckoutTestCase'] = $testDir . 'BaseAdyenCheckoutTestCase.php';
-		$wgAutoloadClasses['BaseGravyTestCase'] = $testDir . 'BaseGravyTestCase.php';
-		$wgAutoloadClasses['BaseIngenicoTestCase'] = $testDir . 'BaseIngenicoTestCase.php';
-		$wgAutoloadClasses['BaseBraintreeTestCase'] = $testDir . 'BaseBraintreeTestCase.php';
-		$wgAutoloadClasses['TestingDlocalAdapter'] = $testDir . 'includes/test_gateway/TestingDlocalAdapter.php';
-		$wgAutoloadClasses['TestingDonationLogger'] = $testDir . 'includes/TestingDonationLogger.php';
-		$wgAutoloadClasses['TestingGatewayPage'] = $testDir . 'includes/TestingGatewayPage.php';
-		$wgAutoloadClasses['BaseDlocalTestCase'] = $testDir . 'BaseDlocalTestCase.php';
-		$wgAutoloadClasses['TestingGenericAdapter'] = $testDir . 'includes/test_gateway/TestingGenericAdapter.php';
-		$wgAutoloadClasses['TestingPaypalExpressAdapter'] = $testDir . 'includes/test_gateway/TestingPaypalExpressAdapter.php';
-		$wgAutoloadClasses['TestingRequest'] = $testDir . 'includes/test_request/test.request.php';
-		$wgAutoloadClasses['TTestingAdapter'] = $testDir . 'includes/test_gateway/test.adapter.php';
-
-		return true;
 	}
 
 	public static function getAdapterClassForGateway( string $gateway ): string {

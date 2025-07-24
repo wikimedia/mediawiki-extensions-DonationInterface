@@ -272,7 +272,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'optin', $params );
-		} catch ( Exception $e ) {
+		} catch ( Exception ) {
 			$this->renderError( 'optin' );
 		}
 	}
@@ -283,7 +283,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			// treat unsubscribe as email-pref to double check checksum over there
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'unsubscribe', $params );
-		} catch ( Exception $e ) {
+		} catch ( Exception ) {
 			$this->renderError( 'unsubscribe' );
 		}
 	}
@@ -301,7 +301,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'emailPreferences', $params );
-		} catch ( Exception $e ) {
+		} catch ( Exception ) {
 			$this->renderError( 'emailPreferences' );
 		}
 	}
