@@ -5,7 +5,7 @@
 - StreetAddress
 - ReturnUrl
 # Adyen-specific
-- Adyen3DSecure
+- Frictionless3DSecure
 - DonorLocale
 - BlankAddressFields
 - EmployerFieldValidation

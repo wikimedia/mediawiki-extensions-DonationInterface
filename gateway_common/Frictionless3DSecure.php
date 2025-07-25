@@ -1,6 +1,6 @@
 <?php
 
-class Adyen3DSecure extends Abstract3DSecure {
+class Frictionless3DSecure extends Abstract3DSecure {
 
 	/**
 	 * The Checkout API will apply 3DSecure rules when browser_info and
