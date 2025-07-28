@@ -5,7 +5,11 @@ class GravyDonationApi extends DonationApi {
 		return parent::getAllowedParams() + [
 			'payment_token' => $this->defineParam(),
 			'card_suffix' => $this->defineParam(),
-			'card_scheme' => $this->defineParam()
+			'card_scheme' => $this->defineParam(),
+			'color_depth' => $this->defineParam(),
+			'screen_height' => $this->defineParam(),
+			'screen_width' => $this->defineParam(),
+			'time_zone_offset' => $this->defineParam(),
 		];
 	}
 }
