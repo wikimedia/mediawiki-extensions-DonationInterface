@@ -225,6 +225,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$errorLogMessage .= json_encode( $createPaymentResponse->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
+			$this->logPending();
 			$this->runFraudFilters( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
@@ -245,9 +246,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					}
 					break;
 				case ValidationAction::REJECT:
-					$this->logger->info( "Logging rejected payment response for audit.",
-						$createPaymentResponse->getRawResponse()
-					);
 					// If the payment was rejected still throw a regular thank-you page to avoid confuse donor
 					// since we might still capture the payment later by pending transaction resolver. T394098
 					$paymentResult = PaymentResult::newSuccess();
