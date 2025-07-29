@@ -112,7 +112,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 					'screen_width' => 1024,
 					'time_zone_offset' => '1',
 				],
-				'window_origin' => parse_url( MediaWikiServices::getInstance()->getUrlUtils()->getServer( PROTO_HTTPS ), PHP_URL_HOST ),
+				'window_origin' => MediaWikiServices::getInstance()->getUrlUtils()->getServer( PROTO_HTTPS ),
 			] )
 			->willReturn( $stubCreatePaymentResponse );
 
