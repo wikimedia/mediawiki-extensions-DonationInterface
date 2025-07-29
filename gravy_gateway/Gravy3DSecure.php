@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\MediaWikiServices;
 
 class Gravy3DSecure extends Frictionless3DSecure {
 
@@ -18,11 +19,10 @@ class Gravy3DSecure extends Frictionless3DSecure {
 		}
 		parent::stage( $adapter, $normalized, $stagedData );
 		// Add user device
-		$request = RequestContext::getMain()->getRequest();
-		$headers = $request->getAllHeaders();
+		$headers = RequestContext::getMain()->getRequest()->getAllHeaders();
 		$parser = new WhichBrowser\Parser( $headers );
 		$normalizedType = $parser->getType() === 'desktop' ? 'desktop' : 'mobile';
 		$stagedData['user_device'] = $normalizedType;
-		$stagedData['window_origin'] = parse_url( $request->getFullRequestURL(), PHP_URL_HOST );
+		$stagedData['window_origin'] = MediaWikiServices::getInstance()->getUrlUtils()->getServer( PROTO_HTTPS );
 	}
 }
