@@ -114,11 +114,11 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			return $this->getLocalizedValidationErrorResult( $createPaymentResponse->getValidationErrors() );
 		}
 
-		// Add the gravy-generated transaction ID to the DonationData object
-		// to be sent to the queues
-		$this->updateResponseData( $createPaymentResponse );
-
 		if ( $createPaymentResponse->requiresRedirect() ) {
+			// Add the gravy-generated transaction ID to the DonationData object
+			// to be sent to the queues
+			$this->updateResponseData( $createPaymentResponse );
+
 			// ... and ensure it is persisted in the php session
 			$this->session_addDonorData();
 
