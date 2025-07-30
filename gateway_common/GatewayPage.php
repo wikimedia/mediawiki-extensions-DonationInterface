@@ -252,16 +252,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 			$this->displayForm();
 		} else {
 			$output = $this->getOutput();
-
-			if ( !is_callable( [ $output, 'setPageTitleMsg' ] ) ) {
-				// Backward compatibility with MW < 1.41
-				// @phan-suppress-next-line PhanParamTooMany
-				$output->prepareErrorPage( $this->msg( 'donate_interface-error-msg-general' ) );
-			} else {
-				// MW >= 1.41
-				$output->prepareErrorPage();
-				$output->setPageTitleMsg( $this->msg( 'donate_interface-error-msg-general' ) );
-			}
+			$output->prepareErrorPage();
+			$output->setPageTitleMsg( $this->msg( 'donate_interface-error-msg-general' ) );
 
 			// @phan-suppress-next-line SecurityCheck-XSS Message is in RawHtmlMessages config
 			$output->addHTML( $this->msg(
