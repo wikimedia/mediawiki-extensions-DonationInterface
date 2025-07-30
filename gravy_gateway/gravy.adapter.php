@@ -248,9 +248,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					}
 					break;
 				case ValidationAction::REJECT:
-					// If the payment was rejected still throw a regular thank-you page to avoid confuse donor
-					// since we might still capture the payment later by pending transaction resolver. T394098
-					$paymentResult = PaymentResult::newSuccess();
+					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					break;
 				default:

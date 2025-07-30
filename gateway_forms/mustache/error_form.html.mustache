@@ -1,7 +1,12 @@
+{{# error-pending }}
 <div class="error-box">
-		<h2>
-            {{{ l10n header_key }}}
-		</h2>
+   <p>{{ l10n "donate_interface-pending-success-msg" }}</p>
+   <p>{{ l10n "donate_interface-pending-failure-msg" problems_email reference_id }}</p>
+</div>
+{{/error-pending}}
+{{^ error-pending }}
+<div class="error-box">
+    <h2>{{{ l10n header_key }}}</h2>
         <p>
             {{# error-cc }}
                 {{{ l10n "donate_interface-donate-error-try-again-html" retry_link otherways_url problems_email }}}
@@ -26,3 +31,4 @@
         {{/order_id}}
         </p>
 </div>
+{{/error-pending}}
