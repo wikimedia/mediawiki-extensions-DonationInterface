@@ -7,6 +7,7 @@ use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\Address;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
+use SmashPig\PaymentProviders\Gravy\IGetPaymentServicePaymentMethodDefinition;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
@@ -390,6 +391,18 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->logger->error( 'Create payment session call unsuccessful. Raw response: ' . $response->getRawResponse() );
 		}
 		return $response;
+	}
+
+	/** @inheritDoc */
+	public function getCurrencies( $options = [] ) {
+		$currencies = parent::getCurrencies( $options );
+		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
+
+		if ( $paymentProvider instanceof IGetPaymentServicePaymentMethodDefinition ) {
+			$paymentServiceDefinition = $paymentProvider->getPaymentServiceDefinition();
+			return $paymentServiceDefinition->getSupportedCurrencies();
+		}
+		return $currencies;
 	}
 
 	/**
