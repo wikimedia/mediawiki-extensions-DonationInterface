@@ -4,7 +4,10 @@ use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 class DonorPortal extends UnlistedSpecialPage {
 
-	use RequestNewChecksumLinkTrait;
+	// We have to override setClientVariables in the current class, so alias it.
+	use RequestNewChecksumLinkTrait {
+		RequestNewChecksumLinkTrait::setClientVariables as setChecksumClientVariables;
+	}
 
 	protected array $formParams = [];
 
@@ -49,8 +52,17 @@ class DonorPortal extends UnlistedSpecialPage {
 		} else {
 			$this->assignFormParameters();
 		}
-		// $formObj = new DonorPortalForm( 'donorPortal', $this->formParams );
-		// $this->getOutput()->addHTML( $formObj->getForm() );
+	}
+
+	/**
+	 * Set variables to be read in client-side JS code
+	 * @param array &$vars
+	 * @return void
+	 */
+	public function setClientVariables( array &$vars ) {
+		// Call the (renamed) function from RequestNewChecksumLinkTrait
+		$this->setChecksumClientVariables( $vars );
+		$vars['donorData'] = $this->formParams;
 	}
 
 	/**
@@ -111,15 +123,18 @@ class DonorPortal extends UnlistedSpecialPage {
 			);
 			if ( $contribution['receive_date'] > $mostRecentDonationDate ) {
 				$mostRecentDonationDate = $contribution['receive_date'];
-				$this->formParams['last_amount'] = $contribution['amount'];
-				$this->formParams['last_currency'] = $contribution['currency'];
-				$this->formParams['last_payment_method'] = $contribution['payment_method'];
-				$this->formParams['last_amount_formatted'] = EmailForm::amountFormatter(
-					(float)$contribution['amount'], $locale, $contribution['currency']
-				);
-				$this->formParams['last_receive_date_formatted'] = EmailForm::dateFormatter(
-					$contribution['receive_date']
-				);
+				$this->formParams['onetimeContribution'] = [
+					'last_amount' => $contribution['amount'],
+					'last_currency' => $contribution['currency'],
+					'last_payment_method' => $contribution['payment_method'],
+					'last_amount_formatted' => EmailForm::amountFormatter(
+						(float)$contribution['amount'], $locale, $contribution['currency']
+					),
+					'last_receive_date_formatted' => EmailForm::dateFormatter(
+						$contribution['receive_date']
+					),
+					'id' => $contribution['id'],
+				];
 			}
 
 			$contribution['donation_type_key'] = match ( $contribution['frequency_unit'] ) {
@@ -146,7 +161,7 @@ class DonorPortal extends UnlistedSpecialPage {
 	 */
 	private function addRecurringContributionsToFormParams( array $recurringContributions, string $locale ) {
 		$this->formParams['hasActiveRecurring'] = $this->formParams['hasInactiveRecurring'] = false;
-		$this->formParams['recurringContributions'] = [];
+		$this->formParams['recurringContributions'] = $this->formParams['inactiveRecurringContributions'] = [];
 		$pauseLink = '<a href="#" class="pause-donation">' . $this->msg( 'donorportal-recurring-pause' )->text() . '</a>';
 		$cancelLink = '<a href="#" class="cancel-donation">' . $this->msg( 'donorportal-recurring-cancel' )->text() . '</a>';
 
@@ -155,13 +170,17 @@ class DonorPortal extends UnlistedSpecialPage {
 				$recurringContribution['status'], [ 'In Progress', 'Pending', 'Failing', 'Processing', 'Overdue' ]
 			) ) {
 				$this->formParams['hasActiveRecurring'] = true;
+				$key = 'recurringContributions';
 				$recurringContribution['pause_link'] = $pauseLink;
 				$recurringContribution['cancel_link'] = $cancelLink;
-			}
-			if ( in_array(
+			} elseif ( in_array(
 				$recurringContribution['status'], [ 'Completed', 'Failed', 'Cancelled' ]
 			) ) {
 				$this->formParams['hasInactiveRecurring'] = true;
+				$key = 'inactiveRecurringContributions';
+			} else {
+				// unrecognized status, skip this one!
+				continue;
 			}
 
 			$recurringContribution['amount_formatted'] = EmailForm::amountFormatter(
@@ -187,7 +206,7 @@ class DonorPortal extends UnlistedSpecialPage {
 				$recurringContribution['restart_key'] = 'donorportal-restart-monthly';
 			}
 
-			$this->formParams['recurringContributions'][] = $recurringContribution;
+			$this->formParams[$key][] = $recurringContribution;
 			// TODO: localize payment methods
 		}
 	}
