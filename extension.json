@@ -336,7 +336,8 @@
 				"donorportal-donation-amount",
 				"donorportal-payment-method",
 				"donorportal-donation-type-monthly",
-				"donorportal-donation-type-annual"
+				"donorportal-donation-type-annual",
+				"donorportal-donation-type-one-time"
 			]
 		},
 		"ext.donationInterface.emailPreferencesStyles": {
