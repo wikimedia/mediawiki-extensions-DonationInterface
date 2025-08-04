@@ -264,6 +264,7 @@
 		},
 		"ext.donationInterface.donorPortal": {
 			"dependencies": [
+				"vue",
 				"donationInterface.skinOverride",
 				"@wikimedia/codex",
 				"vue-router"
@@ -662,7 +663,15 @@
 		"remoteExtPath": "DonationInterface"
 	},
 	"Hooks": {
-		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName"
+		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
+		"ResourceLoaderRegisterModules": [
+			"DonorPortalHooks"
+		]
+	},
+	"HookHandlers": {
+		"DonorPortalHooks": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\DonorPortal\\Hooks"
+		}
 	},
 	"config": {
 		"DonationInterfaceTest": {

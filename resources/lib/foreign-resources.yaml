@@ -1,0 +1,127 @@
+# ## Format of this file
+#
+# The top-level keys in this file correspond with directories under resources/lib/.
+# These in turn are registered as module bundles in Resources.php.
+#
+# ## How to install a foreign resource
+#
+# 1. Add or update the url(s) for the upstream module to this YAML file.
+#
+#    Look at other modules for examples. To install a module from npm,
+#    we use the tarball distribution from npmjs.org. This is the same as what
+#    the npm CLI uses. For example, to install jquery-client@9.2.0, use:
+#    <https://registry.npmjs.org/jquery-client/-/jquery-client-9.2.0.tgz>.
+#
+# 2. If the upstream maintainers publish an integrity hash, set that as well.
+#    Otherwise, use manageForeignResources.php to compute the integrity hash.
+#
+#    Run `php manageForeignResources.php make-sri "my module name"`
+#
+#    This will download the specified file(s) and print their integrity hashes,
+#    already formatted in YAML, ready for copying to this file.
+#
+# 3. Last but not least, decide where files go.
+#
+#    If you specified a direct url to JavaScript or CSS file, this step is
+#    optional. See the corresponding documentation section below for more
+#    information and examples for "dest" keys. Once you've set any "dest" keys,
+#    run `php manageForeignResources.php update "my module name"`.
+#
+# ## Package formats
+#
+# Each top-level key must use one of these types:
+#
+# - `file`: For a plain file.
+# - `multi-file`: For multiple plain files.
+# - `tar`: For a tarball archive (file may be compressed).
+# - `zip`: For a zipped archive (file may be compressed).
+# - `doc-only`: For documenting that a package is used, without managing it
+#
+# ### Shared fields
+#
+# The following fields are shared by all package types:
+# * `license` : SPDX license identifier
+# * `purl` : [optional] package-url specifier ( https://github.com/package-url/purl-spec )
+# * `homepage` : [optional] Homepage URL of library, to be shown on Special:Version
+# * `authors` : [optional] Authors string of library, to be shown on Special:Version
+# * `version` : [optional] Version string of library, to be shown on Special:Version
+#
+# ### The "file" type
+#
+# Besides the shared ones, the following fields are used:
+# * `src`: Full URL to the remote resource.
+# * `integrity`: Cryptographic hash (integrity metadata format per <https://www.w3.org/TR/SRI/>).
+# * `dest`: [optional] The file name to use in the module directory. Default: Basename of URL.
+#
+# For example, the following would produce resources/lib/mymodule/x.js:
+#
+#     mymodule:
+#       type: file
+#       src: https://mymodule.example/1.2.3/x.js
+#       integrity: sha384-Je+NE+saisQuoi
+#
+# ### The "multi-file" type
+#
+# Besides the shared ones, the following fields are used:
+# * `files`: An object mapping destination paths to `src` and `integrity` keys.
+#
+# For example:
+#
+#     mymodule:
+#       type: multi-file
+#       files:
+#         x.js:
+#           src: https://mymodule.example/1.2.3/x.js
+#           integrity: sha384-Je+NE+saisQuoi
+#         x.css:
+#           src: https://mymodule.example/1.2.3/x.css
+#           integrity: sha384-Je+NE+saisQuoi
+#
+# ### The "tar" type
+#
+# Besides the shared ones, the following fields are used:
+# * `src`: Full URL to the remote resource.
+# * `integrity`: Cryptographic hash (integrity metadata format per <https://www.w3.org/TR/SRI/>).
+# * `dest`: [optional] The default is to extract all files from the package.
+#    To only extract some of the files or directories, use "dest" to specify
+#    files, directories, and/or glob patterns. You can use a site like https://unpkg.com/
+#    to easily inspect an npm package, like <https://unpkg.com/jquery-client@2.0.2/>.
+#    This field can also be used to extract files to a subdirectory (by default the files and
+#    directories listed in "dest" are extracted to the module directory root).
+#
+# For example:
+#
+#     mymodule:
+#       type: tar
+#       src: https://registry.npmjs.org/jquery-client/-/jquery-client-9.2.0.tgz
+#       integrity: sha384-Je+NE+saisQuoi
+#       dest:
+#         package/dist/x.js:
+#         package/dist/i18n:
+#         package/dist/style/*.css: themes
+#
+# This would extract the "x.js" file, the "i18n" directory (recursive),
+# and any "*.css" files from the "style" directory. They will end up in mymodule/x.js,
+# mymodule/i18n and mymodule/themes, respectively.
+#
+# ### The "doc-only" type
+#
+# This type can be used for packages which are managed in some custom way (e.g. they require a
+# manual build step). manageForeignResources.php will ignore these records, but they will still
+# be shown on Special:Version. Only the shared fields are used.
+#
+
+vue-router:
+  license: MIT
+  homepage: https://router.vuejs.org/
+  authors: Yuxi (Evan) You
+  version: 4.5.1
+  purl: pkg:npm/vue-router@4.5.1
+  type: tar
+  src: https://registry.npmjs.org/vue-router/-/vue-router-4.5.1.tgz
+  integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==
+
+  dest:
+    package/LICENSE:
+    package/dist/vue-router.global.js:
+    package/dist/vue-router.global.prod.js:
