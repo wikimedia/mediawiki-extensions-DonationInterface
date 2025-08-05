@@ -26,7 +26,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->outputHeader();
 		$this->setUpClientSideChecksumRequest( $subPage );
 		$this->addStylesScriptsAndViewport();
-		$this->getOutput()->setPageTitle( $this->msg( 'donorportal-title' ) );
+		$this->getOutput()->setPageTitleMsg( $this->msg( 'donorportal-title' ) );
 
 		if ( $this->isChecksumExpired() ) {
 			$this->formParams = [ 'showLogin' => true ];
