@@ -303,12 +303,12 @@ cash_red_pagos:
     - UY
   logo: cash-red-pagos.png
 
-cash_santander:
-  label: Santander
-  group: bt
-  countries:
-    - MX
-  logo: bank-santander.png
+# cash_santander:
+#  label: Santander
+#  group: bt
+#  countries:
+#    - MX
+#  logo: bank-santander.png
 
 #cencosud:
 #  group: cc
