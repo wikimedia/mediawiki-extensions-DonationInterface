@@ -6,21 +6,20 @@
 </template>
 
 <script>
-const HeaderComponent = require('./Header.vue')
-const Footer = require('./Footer.vue')
-const { RouterView } = require('vue-router')
+const { defineComponent } = require( 'vue' );
+const HeaderComponent = require( './Header.vue' );
+const { RouterView } = require( 'vue-router' );
 
-module.exports = exports = {
+module.exports = exports = defineComponent( {
 	name: 'DonorPortal',
 
 	components: {
 		'header-component': HeaderComponent,
-		'footer-component': Footer,
 		'router-view': RouterView
 	},
 
 	computed: {
 	}
-};
+} );
 
 </script>

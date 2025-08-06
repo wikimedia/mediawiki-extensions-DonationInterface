@@ -5,7 +5,8 @@
 </template>
 
 <script>
-module.exports = exports = {
-	name: 'PauseDonationsView',
-};
+const { defineComponent } = require( 'vue' );
+module.exports = exports = defineComponent( {
+	name: 'PauseDonationsView'
+} );
 </script>

@@ -1,6 +1,6 @@
 const { createWebHashHistory, createRouter } = require( 'vue-router' ),
 	Home = require( './views/Home.vue' ),
-	Login = require( './views/Login.vue' ),
+	Login = require( './views/LoginView.vue' ),
 	PauseDonations = require( './views/PauseDonations.vue' ),
 	CancelDonations = require( './views/CancelDonations.vue' );
 

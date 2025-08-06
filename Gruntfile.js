@@ -20,7 +20,9 @@ module.exports = function ( grunt ) {
 			all: [
 				'{.,modules/**}/*.js{,on}',
 				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
-				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/**/*.js'
+				'modules/ext.donationInterface.donorPortal/**/*.{vue,js}',
+				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/**/*.js',
+				'tests/**/*.js'
 			]
 		},
 		stylelint: {

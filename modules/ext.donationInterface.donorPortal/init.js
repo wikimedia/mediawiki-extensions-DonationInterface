@@ -4,7 +4,6 @@ const Vue = require( 'vue' ),
 	$vue = $( '<div>' ).appendTo( $container ),
 	router = require( './router.js' );
 
-// eslint-disable-next-line no-jquery/no-global-selector
 $( '#mw-content-text' ).append( $container );
 
 const vueApp = Vue.createMwApp( App );

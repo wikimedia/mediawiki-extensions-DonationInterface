@@ -275,7 +275,7 @@
 				"modules/js/ext.donationInterface.donorPortal.js",
 				"modules/ext.donationInterface.donorPortal/components/App.vue",
 				"modules/ext.donationInterface.donorPortal/components/Header.vue",
-				"modules/ext.donationInterface.donorPortal/components/Footer.vue",
+				"modules/ext.donationInterface.donorPortal/components/FooterComponent.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonationsListTable.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonorContactDetails.vue",
 				"modules/ext.donationInterface.donorPortal/components/GreetingComponent.vue",
@@ -286,7 +286,7 @@
 				"modules/ext.donationInterface.donorPortal/router.js",
 				"modules/ext.donationInterface.donorPortal/views/CancelDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
-				"modules/ext.donationInterface.donorPortal/views/Login.vue",
+				"modules/ext.donationInterface.donorPortal/views/LoginView.vue",
 				"modules/ext.donationInterface.donorPortal/views/PauseDonations.vue"
 			],
 			"messages": [
