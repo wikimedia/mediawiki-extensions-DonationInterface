@@ -10,7 +10,8 @@
 			"बडा काजी",
 			"राम प्रसाद जोशी",
 			"सरोज कुमार ढकाल",
-			"हिमाल सुबेदी"
+			"हिमाल सुबेदी",
+			"Nirajan pant"
 		]
 	},
 	"donate_interface": "विकिमिडियालाई सहयोग गर्नुहोस्",
@@ -106,7 +107,7 @@
 	"donate_interface-donor-address": "ठेगाना",
 	"donate_interface-donor-card": "क्रेडिट कार्ड",
 	"donate_interface-donor-card-num": "कार्डको नम्बर(संख्या)",
-	"donate_interface-donor-expiration": "एक्सपायरी तारिक",
+	"donate_interface-donor-expiration": "म्याद सकिने मिति",
 	"donate_interface-donor-security": "सुरक्षा (Security) कोड",
 	"donate_interface-donor-submit": "दान गर्ने",
 	"donate_interface-donor-currency-msg": "यो दान $1 मा गरिंदैछ",

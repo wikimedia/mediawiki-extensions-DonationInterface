@@ -3,7 +3,8 @@
 		"authors": [
 			"H78c67c",
 			"Winston Sung",
-			"JeffreyKim"
+			"JeffreyKim",
+			"Ktchankt"
 		]
 	},
 	"donate_interface": "支持Wikimedia",
@@ -15,8 +16,8 @@
 	"donate_interface-currency": "貨幣：",
 	"donate_interface-gateway": "俾錢方法：",
 	"donate_interface-submit-button": "捐錢",
-	"donate_interface-sign-in-to-my-bank": "登入我嘅銀行",
-	"donate_interface-sign-in-online-banking": "用網上銀行登入",
+	"donate_interface-sign-in-to-my-bank": "簽到我嘅銀行",
+	"donate_interface-sign-in-online-banking": "用網上銀行簽到",
 	"donate_interface-comment-message": "同個世界有個諗法？響呢度放唔多過200個字元嘅評論：",
 	"donate_interface-comment-label": "註解：",
 	"donate_interface-email-agreement": "我同意偶爾收到維基媒體基金會嘅電郵更新。",
