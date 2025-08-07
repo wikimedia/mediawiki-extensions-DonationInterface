@@ -44,6 +44,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		// Call the (renamed) function from RequestNewChecksumLinkTrait
 		$this->setChecksumClientVariables( $vars );
 		$vars['donorData'] = $this->formParams;
+		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
+		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 
 	/**
@@ -97,6 +99,9 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->formParams['annualFundContributions'] = $this->formParams['endowmentContributions'] = [];
 		$mostRecentDonationDate = '1970-01-01';
 		foreach ( $contributions as $contribution ) {
+			if ( empty( $contribution['amount'] ) || empty( $contribution['currency'] ) ) {
+				continue;
+			}
 			$contribution['amount_formatted'] = EmailForm::amountFormatter(
 				(float)$contribution['amount'], $locale, $contribution['currency']
 			);
@@ -144,8 +149,6 @@ class DonorPortal extends UnlistedSpecialPage {
 	private function addRecurringContributionsToFormParams( array $recurringContributions, string $locale ) {
 		$this->formParams['hasActiveRecurring'] = $this->formParams['hasInactiveRecurring'] = false;
 		$this->formParams['recurringContributions'] = $this->formParams['inactiveRecurringContributions'] = [];
-		$pauseLink = '<a href="#" class="pause-donation">' . $this->msg( 'donorportal-recurring-pause' )->text() . '</a>';
-		$cancelLink = '<a href="#" class="cancel-donation">' . $this->msg( 'donorportal-recurring-cancel' )->text() . '</a>';
 
 		foreach ( $recurringContributions as $recurringContribution ) {
 			if ( in_array(
@@ -153,8 +156,6 @@ class DonorPortal extends UnlistedSpecialPage {
 			) ) {
 				$this->formParams['hasActiveRecurring'] = true;
 				$key = 'recurringContributions';
-				$recurringContribution['pause_link'] = $pauseLink;
-				$recurringContribution['cancel_link'] = $cancelLink;
 			} elseif ( in_array(
 				$recurringContribution['status'], [ 'Completed', 'Failed', 'Cancelled' ]
 			) ) {

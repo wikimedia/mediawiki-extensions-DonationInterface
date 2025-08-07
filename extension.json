@@ -61,6 +61,7 @@
 		"logPaymentsFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiDonationClientError",
 		"logRecurUpgradeFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRecurUpgradeClientError",
 		"requestNewChecksumLink": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestNewChecksumLink",
+		"requestPauseRecurring": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestPauseRecurring",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
@@ -283,6 +284,11 @@
 				"modules/ext.donationInterface.donorPortal/components/InactiveRecurringContribution.vue",
 				"modules/ext.donationInterface.donorPortal/components/OnetimeContribution.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonationsHistory.vue",
+				"modules/ext.donationInterface.donorPortal/components/RecurringContributionPauseForm.vue",
+				"modules/ext.donationInterface.donorPortal/components/RecurringContributionPauseSuccess.vue",
+				"modules/ext.donationInterface.donorPortal/components/ErrorComponent.vue",
+				"modules/ext.donationInterface.donorPortal/components/RadioButtonInput.vue",
+				"modules/ext.donationInterface.donorPortal/components/RecurringContributionSummary.vue",
 				"modules/ext.donationInterface.donorPortal/router.js",
 				"modules/ext.donationInterface.donorPortal/views/CancelDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
@@ -352,7 +358,21 @@
 				"donorportal-login-problems",
 				"donorportal-loginpage-figure-caption",
 				"donorportal-email-required",
-				"donorportal-something-wrong"
+				"donorportal-something-wrong",
+				"donorportal-pause-recurring-heading",
+				"donorportal-pause-recurring-subheading",
+				"donorportal-pause-recurring-subtext",
+				"donorportal-pause-recurring-last-donation-date",
+				"donorportal-pause-recurring-no-recurring-donation",
+				"donorportal-pause-recurring-specify-duration",
+				"donorportal-pause-recurring-pause-button",
+				"donorportal-pause-recurring-changed-my-mind-button",
+				"donorportal-pause-recurring-days",
+				"donorportal-pause-recurring-confirmation-header",
+				"donorportal-pause-recurring-confirmation-subheader",
+				"donorportal-pause-recurring-button",
+				"donorportal-pause-failure",
+				"donorportal-undefined-route"
 			]
 		},
 		"ext.donationInterface.donorPortalStyles": {

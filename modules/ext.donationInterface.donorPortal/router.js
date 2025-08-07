@@ -7,7 +7,7 @@ const { createWebHashHistory, createRouter } = require( 'vue-router' ),
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/login', component: Login, name: 'Login' },
-  { path: '/pause-donations', component: PauseDonations, name: 'PauseDonations' },
+  { path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations' },
   { path: '/cancel-donations', component: CancelDonations, name: 'CancelDonations' }
 ];
 

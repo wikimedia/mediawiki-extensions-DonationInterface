@@ -39,8 +39,8 @@ module.exports = exports = defineComponent( {
 				this.contribution.currency, this.contribution.next_sched_contribution_date_formatted ).text();
 		},
 		recurringLink: function () {
-			const pause_link = `<a href="#/pause/${ this.contribution.id }"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
-			const cancel_link = `<a href="#/cancel/${ this.contribution.id }"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
+			const pause_link = `<a href="#/pause-donations/${ this.contribution.id }"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
+			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
 			return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
 		}
 	}
