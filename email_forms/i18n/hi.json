@@ -6,5 +6,8 @@
 	},
 	"donorportal-greeting": "नमस्ते, $1!",
 	"donorportal-recurring-cancel": "रद्द करें",
-	"donorportal-donation-amount": "राशि"
+	"donorportal-donation-amount": "राशि",
+	"donorportal-header-about": "हम कौन हैं",
+	"donorportal-header-news": "समाचार",
+	"donorportal-email-required": "ईमेल की जरूरत है"
 }
