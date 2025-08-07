@@ -14,6 +14,12 @@ BR:
 CA:
   address: true
 
+CL:
+  fiscal_number: true
+
+CO:
+  fiscal_number: true
+
 GB:
   address: true
   opt_in: true
@@ -33,6 +39,9 @@ US:
   street_address: true
   postal_code: true
   employer: optional
+
+UY:
+  fiscal_number: true
 
 ZA:
   address: true
