@@ -8,3 +8,4 @@ composer.lock
 node_modules
 .eslintcache
 /.stylelintcache
+/coverage/

@@ -167,13 +167,6 @@ interac:
 #  countries:
 #    - AR
 
-bancomer:
-  label: Bancomer
-  group: bt
-  countries:
-    - MX
-  logo: bancomer.png
-
 banco_do_brasil:
   group: bt
   countries:
@@ -302,13 +295,6 @@ cash_red_pagos:
   countries:
     - UY
   logo: cash-red-pagos.png
-
-cash_santander:
-  label: Santander
-  group: bt
-  countries:
-    - MX
-  logo: bank-santander.png
 
 #cencosud:
 #  group: cc
