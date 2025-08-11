@@ -5,7 +5,8 @@
 			"Kosovastar",
 			"Liridon",
 			"MuratTheTurkish",
-			"Stryn"
+			"Stryn",
+			"Xhulianoo"
 		]
 	},
 	"donate_interface": "Mbështesni Wikipedia-n",
@@ -107,7 +108,7 @@
 	"donate_interface-XOF": "West African CFA franc",
 	"donate_interface-ZAR": "South African rand",
 	"donate_interface-paypal-button": "Kontribuoni nëpërmjet PayPal",
-	"donate_interface-paypal-redirect": "Po ju përcjellim drejt faqes së PayPal...",
+	"donate_interface-paypal-redirect": "Duke ridrejtuar te PayPal...",
 	"donate_interface-cc-button": "Kontribuoni me kartë krediti",
 	"donate_interface-ccdc-button": "Kontribuoni me kartë krediti/debiti",
 	"donate_interface-dd-button": "Kontribuoni me debi direkte",
@@ -143,7 +144,7 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-general": "Gjatë përpunimit të kërkesës suaj ndodhi një gabim.",
-	"donate_interface-error-msg-nopaypal": "Për shkak të një defekti teknik ne nuk mund t’ia përcjellim kërkesën tuaj PayPal-it. Ju lutemi, përdorni formularin tonë të kontributeve me kartë krediti.",
+	"donate_interface-error-msg-nopaypal": "Për shkak të një gabimi teknik, nuk mund ta dërgojmë kërkesën tënde te PayPal. Të lutem provo të përdorësh formularin tonë të rregullt të donacionit me kartë krediti.",
 	"donate_interface-error-msg-validation": "Ju lutemi, korrigjoni gabimet në formular.",
 	"donate_interface-error-msg-invalid-amount": "Ju lutemi,shënoni një shumë të vlefshme",
 	"donate_interface-error-msg-invalid-email": "Ju lutemi, shënoni një adresë postare elektronike (e-mail) të vlefshme",
@@ -218,7 +219,7 @@
 	"donate_interface-billing-code": "Zip i faturimit",
 	"donate_interface-country": "Vendi",
 	"donate_interface-select-country": "Zgjidhni vendin",
-	"donate_interface-confirm-email": "Vërteto adresën e-mail",
+	"donate_interface-confirm-email": "Konfirmo email-in",
 	"donate_interface-donation-information": "Informacioni i kontributit",
 	"donate_interface-cc-billing-information": "Informacioni i faturimit të kartës së kreditit",
 	"donate_interface-pay-by-credit-card": "Paguani nëpërmjet kartës së kreditit",
