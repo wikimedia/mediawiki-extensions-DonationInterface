@@ -402,18 +402,14 @@
 		"ext.donationInterface.currencyRates": {
 			"class": "CurrencyRatesModule"
 		},
-		"mailcheck": {
-			"scripts": [
-				"resources/lib/mailcheck/mailcheck.js"
-			]
-		},
 		"ext.donationInterface.validation": {
-			"scripts": [
+			"scripts":
+			[
+				"resources/lib/mailcheck/mailcheck.js",
 				"modules/js/ext.donationInterface.validation.js"
 			],
 			"dependencies": [
-				"di.form.core.validate",
-				"mailcheck"
+				"di.form.core.validate"
 			],
 			"messages": [
 				"donate_interface-did-you-mean"
