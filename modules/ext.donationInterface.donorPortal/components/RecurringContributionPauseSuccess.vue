@@ -3,7 +3,7 @@
 		<h2>{{ $i18n( "donorportal-pause-recurring-confirmation-header" ).text() }}</h2>
 		<h4>{{ nextContributionDate }}</h4>
 		<router-link id="buttonBackToAccount" to="/">
-			{{ $i18n( "donorportal-pause-recurring-button" ).text() }}
+			{{ $i18n( "donorportal-return-to-account-button" ).text() }}
 		</router-link>
 	</div>
 </template>

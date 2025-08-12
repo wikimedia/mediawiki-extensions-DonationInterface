@@ -22,6 +22,6 @@ describe( 'Recurring pause success component', () => {
         expect( element.html() ).toContain( `donorportal-pause-recurring-confirmation-subheader:[${ nextSchedContributionDate }]` );
 
         const button = wrapper.findComponent( '#buttonBackToAccount' );
-        expect( button.html() ).toContain( 'donorportal-pause-recurring-button' );
+        expect( button.html() ).toContain( 'donorportal-return-to-account-button' );
     } );
 } );

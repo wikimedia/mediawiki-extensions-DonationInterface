@@ -2,13 +2,17 @@ const { createWebHashHistory, createRouter } = require( 'vue-router' ),
 	Home = require( './views/Home.vue' ),
 	Login = require( './views/LoginView.vue' ),
 	PauseDonations = require( './views/PauseDonations.vue' ),
-	CancelDonations = require( './views/CancelDonations.vue' );
+	CancelDonations = require( './views/CancelDonations.vue' ),
+	AnnualConversion = require( './views/AnnualConversion.vue' ),
+	AmountDowngrade = require( './views/AmountDowngrade.vue' );
 
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/login', component: Login, name: 'Login' },
   { path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations' },
-  { path: '/cancel-donations', component: CancelDonations, name: 'CancelDonations' }
+  { path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations' },
+  { path: '/annual-conversion/:id', component: AnnualConversion, name: 'AnnualConversion' },
+  { path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade' }
 ];
 
 const router = createRouter( {
