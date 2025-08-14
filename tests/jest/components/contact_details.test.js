@@ -2,20 +2,10 @@
 
 const VueTestUtils = require( '@vue/test-utils' );
 const DonorContactDetails = require( '../../../modules/ext.donationInterface.donorPortal/components/DonorContactDetails.vue' );
+const contact_details_mock = require( '../mocks/contact_details.mock.js' );
 
 describe( 'Donor contact details component', () => {
-    const contact_details_mock = {
-            name: 'Jimmy Wales',
-            id: '1',
-            email: 'jwales@examples.org',
-            address: {
-                street_address: '1 Montgomery Street',
-				city: 'San Francisco',
-				state_province: 'California',
-				postal_code: '90001',
-				country: 'US'
-            }
-    };
+
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.shallowMount( DonorContactDetails, {
             props: contact_details_mock

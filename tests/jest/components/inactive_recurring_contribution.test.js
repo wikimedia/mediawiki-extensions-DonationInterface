@@ -2,18 +2,9 @@
 
 const VueTestUtils = require( '@vue/test-utils' );
 const InactiveRecurringContribution = require( '../../../modules/ext.donationInterface.donorPortal/components/InactiveRecurringContribution.vue' );
+const { inactive_recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Donor contact details component', () => {
-    const contribution_mock = {
-        amount_frequency_key: 'donorportal-recurring-amount-monthly',
-        amount_formatted: '$100',
-        currency: 'USD',
-        payment_method: 'Credit Card: Visa',
-        last_contribution_date_formatted: 'September 2, 2025',
-        restart_key: 'donorportal-restart-monthly',
-        hasLastContribution: true,
-        id: '125'
-    };
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.shallowMount( InactiveRecurringContribution, {
             props: {

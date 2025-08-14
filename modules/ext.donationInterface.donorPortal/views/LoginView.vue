@@ -65,15 +65,21 @@ const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	data() {
 		return {
-			newLinkRequest: this.$i18n( 'emailpreferences-send-new-link' ).text(),
-			emailPlaceholder: this.$i18n( 'donorportal-login-email-placeholder' ).text(),
-			figureCaption: this.$i18n( 'donorportal-loginpage-figure-caption' ).text(),
 			donorEmail: '',
 			api_error: '',
 			checksum_link_sent: false
 		};
 	},
 	computed: {
+		newLinkRequest() {
+			return this.$i18n( 'emailpreferences-send-new-link' ).text();
+		},
+		emailPlaceholder() {
+			return this.$i18n( 'donorportal-login-email-placeholder' ).text();
+		},
+		figureCaption() {
+			return this.$i18n( 'donorportal-loginpage-figure-caption' ).text();
+		},
 		error_message: function () {
 			if ( this.api_error ) {
 				switch ( this.api_error ) {
