@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"JeffreyKim",
+			"Yueman"
+		]
+	},
+	"donorportal-undefined-route": "要求嘅版唔存在，唔該聯絡<a href=\"mailto:$1\">$1</a>。",
+	"donorportal-loginpage-figure-caption": "相嘅來源<a href=\"https://commons.wikimedia.org/wiki/File:Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg\" target=\"_blank\">土耳其嘅布爾杜爾湖</a>由羅塔德夫特里姆影嘅",
+	"donorportal-header-about": "我哋係邊個",
+	"donorportal-header-our-work": "我哋做嘅嘢",
+	"donorportal-header-participate": "你可以做啲咩",
+	"donorportal-header-news": "新聞",
+	"donorportal-email-required": "需要返個電郵",
+	"donorportal-something-wrong": "有啲嘢唔啱，唔該檢查你嘅意見",
+	"recurupgrade-upgrade-decline": "唔使，由得佢"
+}
