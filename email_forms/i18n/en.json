@@ -141,6 +141,7 @@
 	"emailpreferences-snooze-email": "Pause emails for {{PLURAL:$1|one day|$1 days}}.",
 	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted.",
 	"emailpreferences-title": "Email preferences",
+	"emailpreferences-confirmemail-title": "Confirm email",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "Your recurring donation",
 	"recurupgrade-add": "Add $1",

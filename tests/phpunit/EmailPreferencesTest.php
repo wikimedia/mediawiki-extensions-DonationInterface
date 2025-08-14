@@ -74,6 +74,7 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 				'country' => 'US',
 				'language' => 'en',
 				'send_email' => 'true',
+				'email_checksum' => '7ad64ecbaa4eeb4343c90bfe208688c409964314b485c1ffc3085d5fa45d8ae6',
 			] ],
 			[ 'opt-in', 'optin', [
 				'email' => 'test@test.com',
@@ -86,6 +87,11 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 				'contact_id' => '1',
 				'checksum' => 'df3rf',
 				'send_email' => 'false',
+			] ],
+			[ 'set-primary-email', 'set-primary-email', [
+				'email' => 'test@test.com',
+				'contact_id' => '1',
+				'checksum' => 'df3rf',
 			] ]
 		];
 	}
