@@ -30,6 +30,7 @@ class CiviproxyConnect {
 				'country' => $preferences['country'] ?? null,
 				'sendEmail' => $preferences['is_opt_in'] ?? null,
 				'email' => $preferences['email'] ?? null,
+				'has_paypal' => $preferences['has_paypal'] ?? null,
 				'first_name' => $preferences['first_name'] ?? null,
 				'preferred_language' => $preferences['preferred_language'] ?? null,
 				'is_error' => ( $preferences['is_error'] === 1 ),
