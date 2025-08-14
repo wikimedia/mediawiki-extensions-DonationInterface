@@ -39,9 +39,11 @@ bt:
 venmo:
   recurring: false
   validation:
-    country: true
-    name: true
-    email: true
+    country: false
+    address: false
+    street_address: false
+    postal_code: false
+    fiscal_number: false
   countries:
     - US
 
