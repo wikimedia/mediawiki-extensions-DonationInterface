@@ -32,7 +32,7 @@
 		] ),
 		multiCountrySubdomains = [ 'yahoo', 'hotmail', 'outlook', 'live' ],
 		countryTlds = [
-			'ca', 'cl', 'co.id', 'co.il', 'co.in', 'co.jp', 'co.uk', 'com.ar',
+			'ca', 'cl', 'co.id', 'co.il', 'co.in', 'co.jp', 'co.uk', 'com', 'com.ar',
 			'com.au', 'com.br', 'com.mx', 'com.pe', 'com.sg', 'cz', 'de', 'es',
 			'fr', 'it', 'jp', 'kr', 'nl', 'pt', 'se'
 		];
