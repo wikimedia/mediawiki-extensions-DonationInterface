@@ -148,16 +148,24 @@ sepadirectdebit:
   group: rtbt
   countries:
     - AT
-    - CH
+    - BE
     - DE
-    - DK
+    - EE
     - ES
     - FR
+    - GR
+    - HR
+    - IE
     - IT
+    - LT
+    - LU
+    - LV
+    - MT
     - NL
-    - 'NO'
-    - PL
-    - SE
+    - PT
+    - SI
+    - SK
+  recurring: true
 
 interac:
   group: cc
