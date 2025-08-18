@@ -28,6 +28,9 @@ module.exports = exports = defineComponent( {
 	},
 	computed: {
 		renewButtonText: function () {
+			// Amount frequency keys that can be used here
+			// * donorportal-restart-annual
+			// * donorportal-restartc-monthly
 			return this.$i18n( this.contribution.restart_key ).text();
 		}
 	}
