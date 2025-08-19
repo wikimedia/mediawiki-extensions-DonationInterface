@@ -438,7 +438,7 @@
 	"donate_interface-error-http-403": "אין לך הרשאה לגשת לדף הזה.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "כל התמונות מתפרסמות ברישיון <a href=\"$1\">קריאייטיב קומונז ייחוס–שיתוף זהה 4.0 בין־לאומי</a>.",
-	"donate_interface-emailpreferences-thank-you-title": "תודה לך!",
+	"donate_interface-emailpreferences-thank-you-title": "תודה",
 	"donate_interface-emailpreferences-thank-you-text": "אנחנו מצפים ליחסים משותפים ארוכים.",
 	"donate_interface-monthly-convert-title": "להוסיף תרומה חודשית של <span class=\"mc-convert-ask\"></span> החל מהחודש הבא?",
 	"donate_interface-monthly-convert-title-annual": "להוסיף תרומה חוזרת שתתחיל בעתיד?",

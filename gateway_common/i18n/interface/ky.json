@@ -12,6 +12,7 @@
 	"donate_interface-USD": "АКШ доллары",
 	"donate_interface-donor-amount": "Сумма",
 	"donate_interface-donor-currency-label": "Валюта",
+	"donate_interface-donor-email": "Электрондук почта",
 	"donate_interface-donor-city": "Шаар",
 	"donate_interface-donor-island": "Арал",
 	"donate_interface-donor-address": "Дарек",
