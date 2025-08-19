@@ -52,8 +52,8 @@
 		<section class="auth__display">
 			<figure>
 				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg/2560px-Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg"
-					alt="Wiki Loves Folklore">
+					:src="`${ assets_path }/images/login-page-bg.jpg`"
+					alt="Wiki Loves Folklore (https://commons.wikimedia.org/wiki/File:Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg)">
 				<figcaption v-html="figureCaption"></figcaption>
 			</figure>
 		</section>
@@ -63,6 +63,13 @@
 <script>
 const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
+	setup() {
+		const assets_path = mw.config.get( 'assets_path' );
+
+		return {
+			assets_path
+		};
+	},
 	data() {
 		return {
 			donorEmail: '',
