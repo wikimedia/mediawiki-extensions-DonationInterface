@@ -143,7 +143,8 @@ class RedirectFormTest extends BaseGravyTestCase {
 			'currency' => $init['currency'],
 			'payment_method' => $init['payment_method'],
 			'payment_submethod' => $init['payment_submethod'],
-			'wmf_source' => '..rvenmo'
+			'wmf_source' => '..rvenmo',
+			'recurring' => 1
 		] );
 		$approval_url = 'https://test-approval-url.com';
 		$this->redirectPaymentProvider->expects( $this->once() )
@@ -162,6 +163,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 				'street_address' => '123 Fake Street',
 				'return_url' => $expectedReturnUrl,
 				'payment_method' => 'venmo',
+				'recurring' => '1'
 			] )
 			->willReturn(
 				( new CreatePaymentResponse() )
@@ -198,7 +200,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			"postal_code" => $init['postal_code'],
 			"gateway" => "gravy",
 			"order_id" => $expectedMerchantRef,
-			"recurring" => '',
+			"recurring" => '1',
 			"payment_method" => "venmo",
 			"payment_submethod" => "",
 			"currency" => "USD",
