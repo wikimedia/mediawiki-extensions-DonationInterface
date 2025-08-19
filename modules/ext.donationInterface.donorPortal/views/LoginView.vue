@@ -52,8 +52,8 @@
 		<section class="auth__display">
 			<figure>
 				<img
-					src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg/2560px-Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg"
-					alt="Wiki Loves Folklore">
+					:src="`${ assets_path }/images/login-page-bg.jpg`"
+					alt="Wiki Loves Folklore (https://commons.wikimedia.org/wiki/File:Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg)">
 				<figcaption v-html="figureCaption"></figcaption>
 			</figure>
 		</section>
@@ -63,17 +63,30 @@
 <script>
 const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
+	setup() {
+		const assets_path = mw.config.get( 'assets_path' );
+
+		return {
+			assets_path
+		};
+	},
 	data() {
 		return {
-			newLinkRequest: this.$i18n( 'emailpreferences-send-new-link' ).text(),
-			emailPlaceholder: this.$i18n( 'donorportal-login-email-placeholder' ).text(),
-			figureCaption: this.$i18n( 'donorportal-loginpage-figure-caption' ).text(),
 			donorEmail: '',
 			api_error: '',
 			checksum_link_sent: false
 		};
 	},
 	computed: {
+		newLinkRequest() {
+			return this.$i18n( 'emailpreferences-send-new-link' ).text();
+		},
+		emailPlaceholder() {
+			return this.$i18n( 'donorportal-login-email-placeholder' ).text();
+		},
+		figureCaption() {
+			return this.$i18n( 'donorportal-loginpage-figure-caption' ).text();
+		},
 		error_message: function () {
 			if ( this.api_error ) {
 				switch ( this.api_error ) {

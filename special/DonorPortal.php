@@ -203,6 +203,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		$context = RequestContext::getMain();
 		$templatePath = $context->getConfig()->get( 'ScriptPath' ) .
 			'/extensions/DonationInterface/email_forms/templates';
+		$assetsPath = $context->getConfig()->get( 'ScriptPath' ) .
+			'extensions/DonationInterface/modules/ext.donationInterface.donorPortal/assets';
 
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering
 		$out->addModuleStyles( [
@@ -218,6 +220,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			// TODO: rename this action for reuse
 			'ClientErrorLogAction' => 'logRecurUpgradeFormError',
 			'template_path' => $templatePath,
+			'assets_path' => $assetsPath
 		] );
 
 		$out->addHeadItem(

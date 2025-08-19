@@ -9,9 +9,9 @@
 					<td>{{ $i18n( "donorportal-payment-method" ).text() }}</td>
 				</tr>
 			</thead>
-			<tbody v-if="donations_list.length > 0">
+			<tbody v-if="donationsList.length > 0">
 				<tr
-					v-for="donation in donations_list"
+					v-for="donation in donationsList"
 					:key="donation.id"
 					class="donorportal-donations-table-row">
 					<td>{{ donation.receive_date_formatted }}</td>
@@ -28,7 +28,7 @@
 const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	props: {
-		donations_list: {
+		donationsList: {
 			type: Array,
 			required: true
 		}
@@ -36,8 +36,12 @@ module.exports = exports = defineComponent( {
 	methods: {
 		translateApiStrings: function ( string ) {
 			if ( !string ) {
- return 'N/A';
-}
+				return 'N/A';
+			}
+			// Frequency keys that can be used here
+			// * donorportal-donation-type-monthly
+			// * donorportal-donation-type-annual
+			// * donorportal-donation-type-one-time
 			return this.$i18n( string ).text();
 		}
 	}

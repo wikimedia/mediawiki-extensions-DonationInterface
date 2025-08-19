@@ -1,16 +1,10 @@
 /* global global describe it expect beforeEach afterEach*/
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionSummary = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionSummary.vue' );
+const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring contribution summary component', () => {
-    const contribution_mock = {
-        amount_frequency_key: 'donorportal-recurring-amount-monthly',
-        amount_formatted: '$100',
-        currency: 'USD',
-        payment_method: 'Credit Card: Visa',
-        last_contribution_date_formatted: '02 September, 2025',
-        id: 123
-    };
+
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
             props: {

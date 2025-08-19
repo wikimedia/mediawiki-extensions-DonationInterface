@@ -30,6 +30,9 @@ module.exports = exports = defineComponent( {
 			if ( !this.recurringContribution ) {
 				return '';
 			}
+			// Frequency keys that can be used here
+			// * donorportal-recurring-amount-annual
+			// * donorportal-recurring-amount-monthly
 			return this.$i18n( this.recurringContribution.amount_frequency_key, this.recurringContribution.amount_formatted, this.recurringContribution.currency ).text();
 		},
 		helpEmail() {

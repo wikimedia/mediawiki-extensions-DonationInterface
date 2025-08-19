@@ -18,7 +18,7 @@
 				</button>
 				<a href="https://wikimediafoundation.org/" target="_blank">
 					<img
-						src="https://upload.wikimedia.org/wikipedia/donate/e/e2/Logo-foundation-landscape-wkfrds.png"
+						:src="`${ assets_path }/logos/wikimedia-foundation-logo-landscape.png`"
 						alt="Wikimedia Foundation"
 						class="nav__logo">
 				</a>
@@ -44,17 +44,17 @@
 					class="mw-logo">
 					<img
 						class="mw-logo-icon"
-						src="https://www.wikipedia.org/static/images/icons/wikipedia.png"
+						:src="`${ assets_path }/logos/wikipedia-logo.png`"
 						alt="Wikimedia Globe">
 					<span class="mw-logo-container skin-invert">
 						<img
 							class="mw-logo-wordmark"
 							alt="Wikipedia"
-							src="https://www.wikipedia.org/static/images/mobile/copyright/wikipedia-wordmark-en.svg">
+							:src="`${ assets_path }/logos/wikipedia-wordmark-en.svg`">
 						<img
 							class="mw-logo-tagline"
 							alt="The Free Encyclopedia"
-							src="https://www.wikipedia.org/static/images/mobile/copyright/wikipedia-tagline-en.svg">
+							:src="`${ assets_path }/logos/wikipedia-tagline-en.svg`">
 					</span>
 				</a>
 			</section>
@@ -63,10 +63,16 @@
 </template>
 
 <script>
-const { defineComponent } = require( 'vue' );
+const { defineComponent, ref } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	name: 'HeaderComponent',
+	setup() {
+		const assets_path = mw.config.get( 'assets_path' );
 
+		return {
+			assets_path
+		};
+	},
 	methods: {
 		handleNavToggleClick() {
 			this.$refs.nav__links.classList.toggle( 'active' );

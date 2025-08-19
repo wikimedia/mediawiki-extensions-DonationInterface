@@ -2,11 +2,9 @@
 
 const VueTestUtils = require( '@vue/test-utils' );
 const GreetingComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/GreetingComponent.vue' );
+const contact_details_mock = require( '../mocks/contact_details.mock.js' );
 
 describe( 'Donor contact details component', () => {
-    const contact_details_mock = {
-            name: 'Jimmy Wales'
-    };
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.shallowMount( GreetingComponent, {
             props: contact_details_mock

@@ -3,18 +3,9 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionPauseForm = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionPauseForm.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
+const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring pause form component', () => {
-    const recurringContribution = {
-        amount_frequency_key: 'donorportal-recurring-amount-monthly',
-        amount_formatted: '$100',
-        currency: 'USD',
-        payment_method: 'Credit Card: Visa',
-        next_sched_contribution_date_formatted: 'September 2, 2025',
-        id: 123,
-        next_sched_contribution_date: '2025-08-02 00:00:02',
-        amount: 10
-    };
     const durationOptions = [
         {
 			id: '30days',
@@ -33,7 +24,7 @@ describe( 'Recurring pause form component', () => {
     it( 'Pause Donations form renders successfully', () => {
         const wrapper = VueTestUtils.mount( RecurringContributionPauseForm, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 durationOptions,
                 defaultDuration,
                 submitForm: submitFormMock
@@ -61,7 +52,7 @@ describe( 'Recurring pause form component', () => {
     it( 'Pause Donations submits the duration successfully', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionPauseForm, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 durationOptions,
                 defaultDuration,
                 submitForm: submitFormMock

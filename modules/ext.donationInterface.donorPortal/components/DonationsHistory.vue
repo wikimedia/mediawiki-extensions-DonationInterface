@@ -23,15 +23,15 @@
 			id="donorportal-tabcontent-annual-fund"
 			ref="annual-funds-tab-content"
 			class="tabcontent">
-			<donations-table :donations_list="annual_fund_donations"></donations-table>
+			<donations-table :donations-list="annualFundDonations"></donations-table>
 		</div>
 		<div
 			id="donorportal-tabcontent-endowment"
 			ref="endowment-tab-content"
 			class="tabcontent">
 			<donations-table
-				v-if="endowment_donations.length !== 0"
-				:donations_list="endowment_donations"></donations-table>
+				v-if="endowmentDonations.length !== 0"
+				:donations-list="endowmentDonations"></donations-table>
 			<table v-else class="donation-list">
 				<tbody>
 					<tr>
@@ -61,14 +61,14 @@ module.exports = exports = defineComponent( {
 		'donations-table': DonationsTable
 	},
 	props: {
-		annual_fund_donations: {
+		annualFundDonations: {
 			type: Array,
 			required: true,
 			default() {
 				return [];
 			}
 		},
-		endowment_donations: {
+		endowmentDonations: {
 			type: Array,
 			required: true,
 			default() {

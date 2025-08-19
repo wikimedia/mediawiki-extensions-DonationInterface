@@ -3,18 +3,9 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionCancelForm = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelForm.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
+const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring cancel form component', () => {
-    const recurringContribution = {
-        amount_frequency_key: 'donorportal-recurring-amount-monthly',
-        amount_formatted: '$100',
-        currency: 'USD',
-        payment_method: 'Credit Card: Visa',
-        next_sched_contribution_date_formatted: 'September 2, 2025',
-        id: 123,
-        next_sched_contribution_date: '2025-08-02 00:00:02',
-        amount: 10
-    };
     const durationOptions = [
         {
 			id: '30days',
@@ -34,7 +25,7 @@ describe( 'Recurring cancel form component', () => {
     it( 'Pause Donations form renders successfully', () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelForm, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 durationOptions,
                 defaultDuration,
                 submitPauseRecurringForm: submitPauseFormMock,
@@ -69,7 +60,7 @@ describe( 'Recurring cancel form component', () => {
     it( 'Pause Donations option submits the duration successfully', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelForm, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 durationOptions,
                 defaultDuration,
                 submitPauseRecurringForm: submitPauseFormMock,
@@ -95,7 +86,7 @@ describe( 'Recurring cancel form component', () => {
     it( 'Cancel Donation confirmation click proceeds with cancel successfully', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelForm, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 durationOptions,
                 defaultDuration,
                 submitPauseRecurringForm: submitPauseFormMock,

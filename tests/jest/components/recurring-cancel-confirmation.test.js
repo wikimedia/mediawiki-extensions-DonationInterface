@@ -2,25 +2,15 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionCancelConfirmation = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelConfirmation.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
+const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring cancel confirmation component', () => {
-    const recurringContribution = {
-        amount_frequency_key: 'donorportal-recurring-amount-monthly',
-        amount_formatted: '$100',
-        currency: 'USD',
-        payment_method: 'Credit Card: Visa',
-        next_sched_contribution_date_formatted: 'September 2, 2025',
-        last_contribution_date_formatted: 'August 2, 2025',
-        id: 123,
-        next_sched_contribution_date: '2025-08-02 00:00:02',
-        amount: 10
-    };
     const submitCancelRecurringFormMock = jest.fn();
 
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 submitCancelRecurringForm: submitCancelRecurringFormMock
             },
             global: {
@@ -33,9 +23,9 @@ describe( 'Recurring cancel confirmation component', () => {
 
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-header' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-text' );
-        expect( element.html() ).toContain( recurringContribution.amount_frequency_key );
-        expect( element.html() ).toContain( recurringContribution.payment_method );
-        expect( element.html() ).toContain( recurringContribution.last_contribution_date_formatted );
+        expect( element.html() ).toContain( contribution_mock.amount_frequency_key );
+        expect( element.html() ).toContain( contribution_mock.payment_method );
+        expect( element.html() ).toContain( contribution_mock.last_contribution_date_formatted );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-request-for-reason' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-cancel-button' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-changed-my-mind' );
@@ -55,7 +45,7 @@ describe( 'Recurring cancel confirmation component', () => {
     it( 'Submits the selected recurring reason on button click', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 submitCancelRecurringForm: submitCancelRecurringFormMock
             },
             global: {
@@ -76,7 +66,7 @@ describe( 'Recurring cancel confirmation component', () => {
     it( 'Disables the recurring input when an option other than "Other" is selected', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 submitCancelRecurringForm: submitCancelRecurringFormMock
             },
             global: {
@@ -116,7 +106,7 @@ describe( 'Recurring cancel confirmation component', () => {
 
         const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
             props: {
-                recurringContribution,
+                recurringContribution: contribution_mock,
                 submitCancelRecurringForm: submitCancelRecurringFormMock
             },
             global: {

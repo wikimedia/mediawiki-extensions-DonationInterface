@@ -26,8 +26,8 @@
 			<onetime-contribution :contribution="donorSummary.onetimeContribution"></onetime-contribution>
 		</div>
 		<donations-history
-			:annual_fund_donations="annualFundContributions"
-			:endowment_donations="endowmentContributions"></donations-history>
+			:annual-fund-donations="annualFundContributions"
+			:endowment-donations="endowmentContributions"></donations-history>
 	</div>
 </template>
 
