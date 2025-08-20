@@ -53,9 +53,11 @@ abstract class DonationApiBase extends ApiBase {
 	}
 
 	protected function setAdapterAndValidate(): bool {
-		$this->ensureState();
+		$this->ensureDataAndGatewayNameSet();
 
 		DonationInterface::setSmashPigProvider( $this->gateway );
+
+		$this->ensureAdapterSet();
 
 		if ( isset( $this->donationData['language'] ) ) {
 			// setLanguage will sanitize the code, replacing it with the base wiki
@@ -110,14 +112,21 @@ abstract class DonationApiBase extends ApiBase {
 	 *  - $this->adapter
 	 */
 	protected function ensureState() {
+		$this->ensureDataAndGatewayNameSet();
+		$this->ensureAdapterSet();
+	}
+
+	protected function ensureDataAndGatewayNameSet() {
 		if ( !$this->donationData ) {
 			$this->donationData = $this->extractRequestParams();
 		}
 
 		if ( !$this->gateway && $this->donationData ) {
-			$this->gateway = $this->donationData[ 'gateway' ];
+			$this->gateway = $this->donationData['gateway'];
 		}
+	}
 
+	protected function ensureAdapterSet() {
 		if ( !$this->adapter && $this->gateway ) {
 			$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 

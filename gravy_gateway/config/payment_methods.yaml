@@ -37,7 +37,7 @@ bt:
     payment_submethod: true  # Added from dlocal
 
 venmo:
-  recurring: false
+  recurring: true
   validation:
     country: false
     address: false
