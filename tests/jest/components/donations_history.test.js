@@ -12,7 +12,7 @@ describe( 'Donor contact details component', () => {
                 return {};
             },
             props: {
-                annualFundDonations: AnnualFundDonationsList,
+                annualFundDonations: AnnualFundDonationsList.slice( 0, 2 ),
                 endowmentDonations: EndowmentDonationsList
             }
         } );
