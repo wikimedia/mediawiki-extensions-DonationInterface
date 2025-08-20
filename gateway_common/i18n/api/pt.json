@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Hamilton Abreu",
-			"Vitorvicentevalente"
+			"Vitorvicentevalente",
+			"Mansil alfalb"
 		]
 	},
 	"apihelp-donate-summary": "Esta API permite o envio de um donativo para a Wikimedia Foundation usando vários processadores de pagamentos.",
