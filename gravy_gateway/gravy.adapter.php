@@ -396,13 +396,23 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/** @inheritDoc */
 	public function getCurrencies( $options = [] ) {
 		$currencies = parent::getCurrencies( $options );
-		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
-
-		if ( $paymentProvider instanceof IGetPaymentServicePaymentMethodDefinition ) {
+		$paymentProvider = $this->getPaymentProviderSafe();
+		if ( $paymentProvider != null && $paymentProvider instanceof IGetPaymentServicePaymentMethodDefinition ) {
 			$paymentServiceDefinition = $paymentProvider->getPaymentServiceDefinition();
 			return $paymentServiceDefinition->getSupportedCurrencies();
 		}
+
 		return $currencies;
+	}
+
+	protected function getPaymentProviderSafe(): ?IPaymentProvider {
+		$paymentMethod = null;
+		try {
+			$paymentMethod = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
+		} catch ( \Exception $exception ) {
+			$this->logger->warning( "Failed to fetch Smashpig Provider:" . $exception->getMessage() );
+		}
+		return $paymentMethod;
 	}
 
 	/**
