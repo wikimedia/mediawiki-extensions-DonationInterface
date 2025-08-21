@@ -1,5 +1,11 @@
 <?php
 class BraintreeDonationApi extends DonationApi {
+
+	/**
+	 * @var string
+	 */
+	public $gateway = BraintreeAdapter::IDENTIFIER;
+
 	/** @inheritDoc */
 	public function getAllowedParams() {
 		return parent::getAllowedParams() + [

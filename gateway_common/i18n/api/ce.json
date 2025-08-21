@@ -4,6 +4,7 @@
 			"Умар"
 		]
 	},
+	"apihelp-donate-summary": "ХӀокху API-но таро ло Викимедиан Фондан гӀодан тайп-тайпанчу мах баларан системаш а лелош.",
 	"apihelp-donate-param-amount": "ГӀоьнан сумма",
 	"apihelp-donate-param-currency": "Валютан код.",
 	"apihelp-donate-param-first_name": "ЦӀе.",

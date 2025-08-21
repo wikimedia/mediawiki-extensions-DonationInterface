@@ -52,6 +52,7 @@
 	"apihelp-logPaymentsFormError-param-userAgent": "Texto user-agent do browser",
 	"apihelp-logPaymentsFormError-param-stack": "Rastreio da pilha de processos (stack trace) para o erro, quando disponível",
 	"apihelp-requestPauseRecurring-param-duration": "Duração em dias do período de pausa",
+	"apihelp-requestPauseRecurring-param-next_sched_contribution_date": "Data prevista para a próxima contribuição",
 	"apihelp-requestCancelRecurring-param-reason": "motivo do cancelamento",
 	"apihelp-requestCancelRecurring-param-contribution_recur_id": "Id. da contribuição recorrente que o doador está a cancelar",
 	"apihelp-di_donate_adyen-summary": "Esta API é para Adyen",

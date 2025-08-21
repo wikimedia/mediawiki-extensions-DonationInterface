@@ -1,5 +1,11 @@
 <?php
 class AdyenDonationApi extends DonationApi {
+
+	/**
+	 * @var string
+	 */
+	public $gateway = AdyenCheckoutAdapter::IDENTIFIER;
+
 	/** @inheritDoc */
 	public function getAllowedParams() {
 		return parent::getAllowedParams() + [
