@@ -159,10 +159,7 @@ class EmployerSearchAPI extends ApiBase {
 	}
 
 	/**
-	 * Set up the Logger instance
-	 *
-	 * Note: It looks like we currently need a gateway to be set to use
-	 * DonationInterface Logger.
+	 * Set up the Logger instance without instantiating an adapter
 	 */
 	private function initLogger() {
 		$sessionData = WmfFramework::getSessionValue( 'Donor' );
@@ -170,10 +167,12 @@ class EmployerSearchAPI extends ApiBase {
 			// Only log errors from ppl with a legitimate donation attempt
 			return;
 		}
+		// Copied from DonationData::getLogMessagePrefix
+		$logPrefix = ( $sessionData['contribution_tracking_id'] ?? '' ) . ':' .
+			( $sessionData['order_id'] ?? '' ) . ' ';
 		$gatewayName = $sessionData['gateway'];
 		$gatewayClass = DonationInterface::getAdapterClassForGateway( $gatewayName );
-		$gateway = new $gatewayClass();
-		$this->logger = DonationLoggerFactory::getLogger( $gateway );
+		$this->logger = DonationLoggerFactory::getLoggerForType( $gatewayClass, $logPrefix );
 	}
 
 	/** @inheritDoc */
