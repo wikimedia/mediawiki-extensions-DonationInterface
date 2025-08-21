@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
@@ -410,7 +411,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		try {
 			$paymentMethod = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
 		} catch ( \Exception $exception ) {
-			$this->logger->warning( "Failed to fetch Smashpig Provider:" . $exception->getMessage() );
+			$this->logger->warning(
+				'Failed to fetch Smashpig Provider: ' . $exception->getMessage() .
+				'; Request: ' . json_encode( RequestContext::getMain()->getRequest()->getValues() )
+			);
 		}
 		return $paymentMethod;
 	}
