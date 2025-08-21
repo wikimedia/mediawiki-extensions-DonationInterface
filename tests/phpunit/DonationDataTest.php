@@ -525,6 +525,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 			'backend_processor',
 			'backend_processor_txn_id',
 			'billing_email',
+			'checksum',
 			'city',
 			'contact_hash',
 			'contact_id',

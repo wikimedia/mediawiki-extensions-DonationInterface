@@ -52,6 +52,7 @@ class DonationApi extends DonationApiBase {
 		return [
 			'gateway' => $this->defineParam( true ),
 			'bin_hash' => $this->defineParam( false ),
+			'checksum' => $this->defineParam( false ),
 			'contact_id' => $this->defineParam( false ),
 			'contact_hash' => $this->defineParam( false ),
 			'amount' => $this->defineParam( false ),

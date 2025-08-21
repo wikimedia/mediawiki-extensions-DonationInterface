@@ -607,19 +607,19 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Add contact_id and contact_hash to the message when both exist
+	 * Add contact_id and checksum to the message when both exist
 	 */
 	public function testGetDonationQueueMessageContactId() {
 		$data = $this->getDonorTestData( 'FR' );
 		$data['contact_id'] = mt_rand();
-		$data['contact_hash'] = 'asdasd' . $data['contact_id']; // super secure
+		$data['checksum'] = 'asdasd' . $data['contact_id']; // super secure
 		$gateway = $this->getFreshGatewayObject( $data );
 		$exposed = TestingAccessWrapper::newFromObject( $gateway );
 		$message = $exposed->getQueueDonationMessage();
 		$expected = array_intersect_key( $data, array_flip( DonationData::getMessageFields() ) );
 		$expected += [
 			'contact_id' => $data['contact_id'],
-			'contact_hash' => $data['contact_hash'],
+			'checksum' => $data['checksum'],
 			'gateway_txn_id' => false,
 			'response' => false,
 			'gateway_account' => null,
@@ -641,7 +641,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Don't add contact_id without contact_hash
+	 * Don't add contact_id without contact_hash or checksum
 	 */
 	public function testGetDonationQueueMessageContactIdNoHash() {
 		$data = $this->getDonorTestData( 'FR' );
