@@ -1,5 +1,11 @@
 <?php
 class GravyDonationApi extends DonationApi {
+
+	/**
+	 * @var string
+	 */
+	public $gateway = GravyAdapter::IDENTIFIER;
+
 	/** @inheritDoc */
 	public function getAllowedParams() {
 		return parent::getAllowedParams() + [
