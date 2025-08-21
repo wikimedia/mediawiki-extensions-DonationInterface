@@ -407,6 +407,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	protected function getPaymentProviderSafe(): ?IPaymentProvider {
+		if ( !$this->getPaymentMethod() ) {
+			// Can happen when we are called e.g. in the context of the recurring conversion API
+			return null;
+		}
 		$paymentMethod = null;
 		try {
 			$paymentMethod = PaymentProviderFactory::getProviderForMethod( $this->getPaymentMethod() );
