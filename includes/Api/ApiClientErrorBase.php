@@ -27,7 +27,7 @@ abstract class ApiClientErrorBase extends ApiBase {
 		$errorData = $this->extractRequestParams();
 		$this->addExtraData( $sessionData, $errorData );
 		$logger = $this->getLogger( $sessionData );
-		$logger->error( 'Client side error: ' . print_r( $errorData, true ) );
+		$logger->error( 'Client side error: ' . json_encode( $errorData ) );
 	}
 
 	protected function validateSessionData( ?array $sessionData ): bool {
