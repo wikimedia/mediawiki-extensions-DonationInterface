@@ -4,5 +4,6 @@
 			"Bosogo"
 		]
 	},
-	"apihelp-donate-param-city": "Шаар."
+	"apihelp-donate-param-city": "Шаар.",
+	"apihelp-donate-param-email": "Электрондук почта."
 }
