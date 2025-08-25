@@ -363,7 +363,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	}
 
 	protected function returnError( mixed $error ) {
-		$this->logger->error( (string)$error );
+		$this->logger->error( json_encode( $error ) );
 		$response = [];
 		$response['status'] = self::STATUS_ERROR;
 		$response['error_message'] = $this->generateErrorMessage();
