@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"बडा काजी"
+		]
+	},
+	"donorportal-pause-recurring-heading": "विश्राम लिनु पर्छ?",
+	"donorportal-pause-recurring-subheading": "हामी बुझ्छौं कि चीजहरू परिवर्तन हुन्छन्, र हामी तपाईंको लागि काम गर्ने समाधान खोज्न मद्दत गर्न चाहन्छौँ। कृपया तलको एउटा विकल्प चयन गर्नुहोस्।",
+	"donorportal-pause-recurring-no-recurring-donation": "उपलब्ध छैन",
+	"donorportal-pause-recurring-changed-my-mind-button": "मैले मेरो मन परिवर्तन गरेको छु।",
+	"donorportal-pause-recurring-days": "दिनहरू",
+	"donorportal-return-to-account-button": "आफ्नो खातामा फर्कनुहोस्",
+	"donorportal-cancel-recurring-other-ways-text": "हामी बुझ्छौँ कि कुराहरू परिवर्तन हुन्छन्, तर यदि तपाईँ हाम्रो कामलाई समर्थन गर्न जारी राख्न सक्षम हुनुहुन्छ भने तपाईँले आफ्नो दानलाई रोक्ने वा परिवर्तन गर्ने विचार गर्न हामी चाहन्छौँ। मासिक उपहार विकिपीडियालाई लामो समयसम्म कायम राख्न र भविष्यका लागि योजना बनाउन हामीलाई मद्दत गर्ने सबैभन्दा प्रभावकारी तरिका हो। कुनै पनि उपहार प्रभाव पार्न धेरै सानो हुँदैन।",
+	"donorportal-cancel-recurring-pause-alternative-button": "आफ्नो पुनरावर्ती उपहार पज रोक्नुहोस्",
+	"donorportal-cancel-recurring-frequency-annual-switch-alternative-header": "वर्षमा एक पटक दिनुहोस्।",
+	"donorportal-cancel-recurring-amount-change-alternative-header": "आफ्नो वर्तमानको रकम परिवर्तन गर्नुहोस्",
+	"donorportal-cancel-recurring-quit-header": "आफ्नो मन परिवर्तन गर्नुभयो?",
+	"donorportal-cancel-recurring-reason-cancel-support": "म अब विकिमिडिया फाउन्डेसनलाई समर्थन गर्न चाहन्न।",
+	"donorportal-cancel-recurring-cancel-button": "मेरो दान रद्द गर्नुहोस्",
+	"donorportal-cancel-monthly-recurring-confirmation-text": "तपाईंको $1 दान रद्द गरिएको छ। कृपया ध्यान दिनुहोस् कि रद्द तपाईंको दाताको खातामा देखा पर्न ३० मिनेटसम्म लाग्न सक्छ।",
+	"donorportal-feedback-button": "थप प्रतिक्रिया साझा गर्नुहोस्",
+	"recurupgrade-ask-heading": "विकिपिडिया भनेको हामीलाई वाचा गरिएको इन्टरनेट हो, र तपाईंको समर्थनले यसलाई बलियो बनाउँछ!"
+}

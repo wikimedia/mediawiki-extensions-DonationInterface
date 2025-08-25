@@ -6,9 +6,11 @@
 			"Eulalio",
 			"Fitoschido",
 			"JDíaz32",
+			"Karine Teh",
 			"Macofe",
 			"Minh Nguyen",
 			"No se",
+			"Rousmery96",
 			"Ryo567",
 			"Whytheonlyone"
 		]
@@ -57,6 +59,13 @@
 	"apihelp-logRecurUpgradeFormError-param-col": "Columna en la que ocurrió el error",
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Cadena de agente de usuario del navegador",
 	"apihelp-logRecurUpgradeFormError-param-stack": "Traza de la pila de errores, cuando esté disponible",
+	"apihelp-requestPauseRecurring-param-contact_id": "ID ti' contacto ti' donación ku beetik solicitud cancelación.",
+	"apihelp-requestPauseRecurring-param-checksum": "Suma de comprobación del donante que realiza la solicitud de pausa",
+	"apihelp-requestPauseRecurring-param-contribution_recur_id": "ID de la contribución recurrente que el donante busca pausar",
+	"apihelp-requestCancelRecurring-summary": "Tela' API ku k'áatik u luk'ul ti' contribución ti' ju'unil ti' preferencia ti' máax ku ts'aik.",
+	"apihelp-requestCancelRecurring-param-reason": "motivo de la cancelación",
+	"apihelp-requestCancelRecurring-param-contact_id": "ID de contacto del donante que realiza la solicitud de cancelación",
+	"apihelp-requestCancelRecurring-param-contribution_recur_id": "ID de la contribución recurrente que el donante busca cancelar",
 	"apihelp-di_donate_dlocal-summary": "Esta API es para Dlocal",
 	"apihelp-di_applesession_adyen-summary": "Permite solicitar una sesión de Apple Pay directamente desde Apple",
 	"apihelp-submitPayment-summary": "Envía un pago basado en los parámetros enviados"
