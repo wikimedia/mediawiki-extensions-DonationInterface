@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Albertoleoncio",
 			"Hamilton Abreu",
 			"Mansil alfalb",
 			"Pcoombe"
@@ -20,7 +21,7 @@
 	"donorportal-cancel-recurring-amount-change-alternative-button": "Alterar o seu valor atual",
 	"donorportal-cancel-recurring-confirm-cancellation": "Prosseguir para cancelar",
 	"donorportal-cancel-recurring-confirmation-request-text": "Você está a cancelar:",
-	"donorportal-cancel-recurring-reason-cancel-support": "Eu já não pretendo apoiar a Fundação Wikimédia.",
+	"donorportal-cancel-recurring-reason-cancel-support": "Eu já não pretendo apoiar a Fundação Wikimedia.",
 	"donorportal-cancel-recurring-reason-supporting-others": "Agora, eu apoio outras organizações.",
 	"donorportal-cancel-recurring-reason-other": "Outro (Por favor, especifique)",
 	"donorportal-cancel-recurring-cancel-button": "Cancelar a minha doação",
