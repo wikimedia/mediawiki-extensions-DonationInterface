@@ -1,7 +1,34 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abijeet Patro"
+			"Abijeet Patro",
+			"Saurmandal"
 		]
-	}
+	},
+	"emailpreferences-header-link-about": "बारे में",
+	"emailpreferences-header-link-advocacy": "हिमायत",
+	"emailpreferences-header-link-news": "समाचार",
+	"emailpreferences-header-link-our-work": "हमारा काम",
+	"emailpreferences-header-link-participate": "भाग लें",
+	"emailpreferences-header-link-research": "शोध",
+	"emailpreferences-header-link-support-wikipedia": "विकिपीडिया को समर्थन दें",
+	"emailpreferences-header-link-technology": "प्रौद्योगिकी",
+	"emailpreferences-hi": "हाइ",
+	"emailpreferences-language": "भाषा",
+	"emailpreferences-save": "वरीयताएँ सहेजें",
+	"emailpreferences-send-email": "मुझे विकिमीडिया संस्थान से सुनना पसंद है, मुझे सब कुछ भेजें!",
+	"emailpreferences-success": "आपकी ईमेल की वरीयताएँ सहेजने का आपका अनुरोध प्रस्तुत कर दिया गया है।",
+	"emailpreferences-title": "ईमेल की वरीयताएँ",
+	"emailpreferences-wikimedia-image-alt": "विकिमीडिया संस्थान",
+	"recurupgrade": "आपका आवर्ती दान",
+	"recurupgrade-add": "$1 जोड़ें",
+	"recurupgrade-amount": "वर्तमान आवर्ती राशि",
+	"recurupgrade-next-scheduled-date": "अगले दान की तिथि",
+	"recurupgrade-salutation-no-recur-records": "हाइ! विकिपीडिया को समर्थित करने के लिए धन्यवाद।",
+	"recurupgrade-upgrade-decline": "नहीं, जैसा है वैसा ही ठीक है",
+	"recurupgrade-upgrade-now": "मेरा मासिक उपहार अभी अपग्रेड करें",
+	"recurupgrade-upgrading-new-amount": "आप अपने मासिक दान की राशि को बढ़ाकर <strong></strong> कर रहे हैं।",
+	"fundraiserunsubscribe-confirm": "क्या आप वाकई में सदस्यता छोड़ना चाहते हैं?",
+	"fundraisersubscribe": "ऑप्ट-इन करें",
+	"fundraisersubscribe-appeal-headline-001": "जो दिख रहा है वह पसंद आया?"
 }
