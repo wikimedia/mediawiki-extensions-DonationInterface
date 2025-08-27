@@ -19,42 +19,82 @@ class GravyGateway extends GatewayPage {
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
-		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyGooglePayMerchantID, $wgGravyRedirectPaypal;
+		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyRedirectPaypal;
 		$out->addJsConfigVars( 'wgGravyEnvironment', $wgGravyGatewayEnvironment );
 		$out->addJsConfigVars( 'wgGravyId', $wgGravyGatewayID );
 		$out->addJsConfigVars( 'wgGravyRedirectPaypal', $wgGravyRedirectPaypal );
-		// Ensure script is only loaded for cc payments
+		$this->setupPaymentMethodResources( $out );
+		$this->setupRedirectFlowResources( $out );
+	}
+
+	private function setupPaymentMethodResources( OutputPage $out ): void {
 		if ( $this->isCreditCard() ) {
-			$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );
-			$secureFieldsCSS = $this->adapter->getAccountConfig( 'secureFieldsCSS' );
-			$out->addStyle( $secureFieldsCSS );
-			$out->addLink(
-				[
-					'href' => $secureFieldsJS,
-					'rel' => 'preload',
-					'as' => 'script',
-				]
-			);
+			$this->setupCreditCardResources( $out );
 		} elseif ( $this->isGooglePay() ) {
-			$googlePayJS = $this->adapter->getAccountConfig( 'GoogleScript' );
-			$out->addJsConfigVars( 'wgGravyGooglePayMerchantID', $wgGravyGooglePayMerchantID );
-			$out->addLink(
-				[
-					'href' => $googlePayJS,
-					'rel' => 'preload',
-					'as' => 'script',
-				]
-			);
+			$this->setupGooglePayResources( $out );
 		} elseif ( $this->isApplePay() ) {
-			$applePayJS = $this->adapter->getAccountConfig( 'AppleScript' );
-			$out->addLink(
-				[
-					'href' => $applePayJS,
-					'rel' => 'preload',
-					'as' => 'script',
-				]
-			);
+			$this->setupApplePayResources( $out );
 		}
+	}
+
+	/**
+	 * Setup resources for credit card payments
+	 *
+	 * @param OutputPage $out
+	 */
+	private function setupCreditCardResources( OutputPage $out ): void {
+		$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );
+		$secureFieldsCSS = $this->adapter->getAccountConfig( 'secureFieldsCSS' );
+		$out->addStyle( $secureFieldsCSS );
+		$this->preloadScript( $out, $secureFieldsJS );
+	}
+
+	/**
+	 * Setup resources for Google Pay payments
+	 *
+	 * @param OutputPage $out
+	 */
+	private function setupGooglePayResources( OutputPage $out ): void {
+		global $wgGravyGooglePayMerchantID;
+		$googlePayJS = $this->adapter->getAccountConfig( 'GoogleScript' );
+		if ( $wgGravyGooglePayMerchantID ) {
+			$out->addJsConfigVars( 'wgGravyGooglePayMerchantID', $wgGravyGooglePayMerchantID );
+		}
+		$this->preloadScript( $out, $googlePayJS );
+	}
+
+	/**
+	 * Setup resources for Apple Pay payments
+	 *
+	 * @param OutputPage $out
+	 */
+	private function setupApplePayResources( OutputPage $out ): void {
+		$applePayJS = $this->adapter->getAccountConfig( 'AppleScript' );
+		$this->preloadScript( $out, $applePayJS );
+	}
+
+	/**
+	 * Add script preload link to output page
+	 *
+	 * @param OutputPage $out
+	 * @param string $scriptUrl
+	 */
+	private function preloadScript( OutputPage $out, string $scriptUrl ): void {
+		$out->addLink(
+			[
+				'href' => $scriptUrl,
+				'rel' => 'preload',
+				'as' => 'script',
+			]
+		);
+	}
+
+	/**
+	 * Setup resources for redirect payment flows
+	 *
+	 * @param OutputPage $out
+	 */
+	private function setupRedirectFlowResources( OutputPage $out ): void {
 		if ( $this->isRedirectPaymentFlow() ) {
 			// If the payment flow is a redirect, we need to show the redirect text for donor
 			$out->addJsConfigVars( 'showRedirectText', true );
