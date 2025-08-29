@@ -53,7 +53,7 @@
 	"apihelp-logPaymentsFormError-param-line": "השורה שהשגיאה אירעה בה",
 	"apihelp-logPaymentsFormError-param-col": "העמודה שהשגיאה אירעה בה",
 	"apihelp-logPaymentsFormError-param-userAgent": "מחרוזת של סוכן הלקוח בדפדפן",
-	"apihelp-logPaymentsFormError-param-stack": "עקבת שגיאות, כאשר היא זמינה",
+	"apihelp-logPaymentsFormError-param-stack": "עקבת מחסנית (stack trace), כאשר היא זמינה",
 	"apihelp-logRecurUpgradeFormError-summary": "ה־API הזה רושם ביומן שגיאות חוזרות של טופס שדרוג בצד הלקוח.",
 	"apihelp-logRecurUpgradeFormError-param-message": "הודעת השגיאה",
 	"apihelp-logRecurUpgradeFormError-param-file": "הקובץ שהשגיאה אירעה בו",
