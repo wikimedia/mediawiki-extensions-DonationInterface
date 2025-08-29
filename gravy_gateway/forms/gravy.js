@@ -21,6 +21,7 @@
 	country = $( '#country' ).val(),
 	isIndia = ( country === 'IN' ),
 	applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
+	const di = mw.donationInterface;
 
 	function insertCardComponentContainers() {
 		$( '.submethods' ).before(
@@ -485,7 +486,6 @@
 	}
 
 	function submitPaypal() {
-		const di = mw.donationInterface;
 
 		function redirect( result ) {
 			// We don't actually want to enable the form on redirect or in the
@@ -529,7 +529,7 @@
 				mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
 				break;
 			case 'paypal':
-				if ( redirectPaypal ) {
+				if ( redirectPaypal && !di.validation.hasErrors() ) {
 					submitPaypal();
 				}
 		}
