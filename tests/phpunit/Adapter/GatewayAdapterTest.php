@@ -19,6 +19,7 @@
 use MediaWiki\Title\Title;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use Wikimedia\TestingAccessWrapper;
 
@@ -262,6 +263,40 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 		$expected_order_id = "$ctId.{$session['sequence']}";
 		$this->assertEquals( $expected_order_id, $adyen_gateway->getData_Unstaged_Escaped( 'order_id' ),
 			'Order ID was not regenerated on gateway switch!' );
+	}
+
+	/**
+	 * Make sure data is cleared out when changing country.
+	 * since we might have old unused data carry over from the old one
+	 * (e.g. old fiscal numbers).
+	 */
+	public function testResetOnCountryChange() {
+		// Fill the session with some gravy stuff
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'cc';
+		$firstRequest = $this->setUpRequest( $init );
+		$gravyGateway = new GravyAdapter();
+		$this->mockGravyHostedSetup();
+		$gravyGateway->doPayment();
+
+		$session = $firstRequest->getSessionArray();
+		$this->assertEquals( 'gravy', $session['Donor']['gateway'], 'Test setup failed.' );
+
+		// Then simulate switching to CO
+		$session['sequence'] = 2;
+		unset( $init['order_id'] );
+		$init = $this->getDonorTestData( 'CO' );
+		$secondRequest = $this->setUpRequest( $init, $session );
+
+		// Re-instantiate GravyAdapter to reflect new country data
+		$gravyGateway = new GravyAdapter();
+
+		$session = $secondRequest->getSessionArray();
+		$ctId = $gravyGateway->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$expected_order_id = "$ctId.{$session['sequence']}";
+
+		$this->assertEquals( $expected_order_id, $gravyGateway->getData_Unstaged_Escaped( 'order_id' ),
+			'Order ID was not regenerated on country switch!' );
 	}
 
 	public function testResetOnOneTimeToRecurringSwitch() {
@@ -669,5 +704,22 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 			->willReturn(
 				$hostedPaymentCreateResponse
 			);
+	}
+
+	protected function mockGravyHostedSetup() {
+		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$gravyProvider = $this->createMock(
+			\SmashPig\PaymentProviders\Gravy\PaymentProvider::class
+		);
+		$providerConfig->overrideObjectInstance(
+			'payment-provider/cc',
+			$gravyProvider,
+		);
+		$gravyResponse = ( new CreatePaymentResponse() );
+		$gravyResponse->setSuccessful( true )
+			->setRedirectUrl( 'https://example.com/redirect' )
+			->setRawResponse( [ 'session' => 'example-session-id' ] );
+		$gravyProvider->method( 'createPayment' )
+			->willReturn( $gravyResponse );
 	}
 }
