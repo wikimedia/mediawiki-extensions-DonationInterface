@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Guycn2"
+			"Guycn2",
+			"Neriah"
 		]
 	},
 	"apihelp-donate-description": "ה־API הזה מאפשר לך לשלוח תרומה לקרן ויקימדיה באמצעות מגוון מעבדי תשלומים.",
@@ -49,7 +50,7 @@
 	"apihelp-logPaymentsFormError-param-line": "השורה שהשגיאה אירעה בה",
 	"apihelp-logPaymentsFormError-param-col": "העמודה שהשגיאה אירעה בה",
 	"apihelp-logPaymentsFormError-param-userAgent": "מחרוזת של סוכן הלקוח בדפדפן",
-	"apihelp-logPaymentsFormError-param-stack": "עקבת שגיאות, כאשר היא זמינה",
+	"apihelp-logPaymentsFormError-param-stack": "עקבת מחסנית (stack trace), כאשר היא זמינה",
 	"apihelp-di_donate_adyen-summary": "ה־API הזה מיועד ל־Adyen",
 	"apihelp-di_donate_braintree-summary": "ה־API הזה הוא עבור Braintree",
 	"apihelp-di_recurring_convert-summary": "ה־API משמש כשתורם מסכים להוסיף תרומה חודשית אחרי השלמת תרומה חד־פעמית.",

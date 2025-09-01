@@ -1,7 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abijeet Patro"
+			"Abijeet Patro",
+			"Saurmandal"
 		]
-	}
+	},
+	"emailpreferences-title": "ईमेल की वरीयताएँ",
+	"emailpreferences-language": "भाषा",
+	"emailpreferences-send-email": "मुझे विकिमीडिया संस्थान से सुनना पसंद है, मुझे सब कुछ भेजें!",
+	"emailpreferences-save": "वरीयताएँ सहेजें",
+	"emailpreferences-success": "आपकी ईमेल की वरीयताएँ सहेजने का आपका अनुरोध प्रस्तुत कर दिया गया है।",
+	"emailpreferences-hi": "हाइ",
+	"emailpreferences-wikimedia-image-alt": "विकिमीडिया संस्थान",
+	"emailpreferences-header-link-our-work": "हमारा काम",
+	"emailpreferences-header-link-support-wikipedia": "विकिपीडिया को समर्थन दें",
+	"emailpreferences-header-link-research": "शोध",
+	"emailpreferences-header-link-advocacy": "हिमायत",
+	"emailpreferences-header-link-technology": "प्रौद्योगिकी",
+	"emailpreferences-header-link-news": "समाचार",
+	"emailpreferences-header-link-participate": "भाग लें",
+	"emailpreferences-header-link-about": "बारे में"
 }

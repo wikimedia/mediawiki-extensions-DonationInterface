@@ -46,6 +46,12 @@
 	"apihelp-logPaymentsFormError-param-col": "ГӀалат даьлла бӀогӀам",
 	"apihelp-logPaymentsFormError-param-userAgent": "Браузеран лелоран агентан могӀа",
 	"apihelp-logPaymentsFormError-param-stack": "ГӀалатан стекан лар, нагахь санна иза хилча",
+	"apihelp-di_donate_adyen-summary": "ХӀара API леррина йу Adyen-на",
 	"apihelp-di_donate_braintree-summary": "ХӀара API леррина йу Braintree-на",
-	"apihelp-employerSearch-example-1": "Болх луш меттиг лаха"
+	"apihelp-di_recurring_convert-summary": "ХӀара API лелайо, донор реза хилча, цхьана ханна гӀодар кхиамца чекхдаьккхинчул тӀаьхьа, хӀора баттахь гӀодар тӀетоха.",
+	"apihelp-di_recurring_convert-param-amount": "ХӀора баттахь луш долчу гӀоьнан барам.",
+	"apihelp-employerSearch-summary": "ХӀокху API-но аьтто бо WMF нийсачу гӀоьнийн программехь дакъалоцуш болу белхан меттигаш лаха.",
+	"apihelp-employerSearch-param-employer": "Муьлхачу белхан меттигехь леха деза мас. ЦӀен ЖӀар, WWF, КӀелхьардаккхаран эскар, и.дӀ.кх.а.",
+	"apihelp-employerSearch-example-1": "Болх луш меттиг лаха",
+	"apihelp-di_applesession_adyen-summary": "Apple Pay сеанс ма-дарра Apple тӀера йеха бакъо ло"
 }
