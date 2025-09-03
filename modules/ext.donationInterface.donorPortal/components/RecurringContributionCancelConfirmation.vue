@@ -20,18 +20,13 @@
 				:value="option.value"
 				name="reason"
 			></radio-button-input>
-			<input
-				id="other-reason"
-				v-model="otherReason"
-				type="text"
-				:disabled="disableInput"
-			>
 			<div>
 				<button
 					id="continue"
 					type="submit"
 					name="submit"
 					value="continue"
+					:disabled="reason === ''"
 					@click="handleCancelRecurringSubmitButtonClick">
 					{{ $i18n( "donorportal-cancel-recurring-cancel-button" ).text() }}
 				</button>
@@ -78,20 +73,13 @@ module.exports = exports = defineComponent( {
 	},
 	setup( props ) {
 		const reason = ref( '' );
-		const otherReason = ref( '' );
 		const handleCancelRecurringSubmitButtonClick = ( $event ) => {
 			$event.preventDefault();
-			let cancelReason = reason.value;
-			if ( reason.value === 'Other' ) {
-				cancelReason = otherReason.value;
-			}
-
-			props.submitCancelRecurringForm( cancelReason );
+			props.submitCancelRecurringForm( reason.value );
 		};
 
 		return {
 			reason,
-			otherReason,
 			handleCancelRecurringSubmitButtonClick
 		};
 	},
@@ -129,10 +117,6 @@ module.exports = exports = defineComponent( {
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-other' ).text() }`
 				}
 			];
-		},
-		disableInput() {
-			// if reason is not "Other" disable input
-			return this.reason !== 'Other';
 		}
 	}
 } );

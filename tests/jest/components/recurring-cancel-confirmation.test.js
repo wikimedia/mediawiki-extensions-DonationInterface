@@ -63,7 +63,7 @@ describe( 'Recurring cancel confirmation component', () => {
         expect( submitCancelRecurringFormMock ).toBeCalledWith( 'Giving method' );
     } );
 
-    it( 'Disables the recurring input when an option other than "Other" is selected', async () => {
+    it( 'Disables the confirmation submit when no option is selected', async () => {
         const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
             props: {
                 recurringContribution: contribution_mock,
@@ -76,61 +76,15 @@ describe( 'Recurring cancel confirmation component', () => {
 
         const cancelConfirmation = wrapper.find( '#recurring-cancellation-confirmation' );
 
-        // Select an option that is not other
+		// Check the confirmation submit to confirm its disabled
+		const confirmSubmit = cancelConfirmation.find( '#continue' );
+		expect( confirmSubmit.element.disabled ).toBe( true );
+
+        // Select an option
         const givingMethodReason = cancelConfirmation.find( '#option-giving-method' );
         await givingMethodReason.trigger( 'input' );
 
-        // Check the other reason input field to confirm its disabled
-        let otherOptionCustomInput = cancelConfirmation.find( '#other-reason' );
-        expect( otherOptionCustomInput.element.disabled ).toBe( true );
-
-        // Select the "other" option
-        const otherReason = cancelConfirmation.find( '#option-other' );
-        await otherReason.trigger( 'input' );
-
-        // Check the other input field to confirm its enabled
-        otherOptionCustomInput = cancelConfirmation.find( '#other-reason' );
-        expect( otherOptionCustomInput.element.disabled ).toBe( false );
-
-        // Select the any other option that is not the "other" option
-        const cancelSupportReason = cancelConfirmation.find( '#option-cancel-support' );
-        await cancelSupportReason.trigger( 'input' );
-
-        // Expect custom input to be back to disabled
-        otherOptionCustomInput = cancelConfirmation.find( '#other-reason' );
-        expect( otherOptionCustomInput.element.disabled ).toBe( true );
-    } );
-
-    it( 'Attempts to submit the value entered into the custom input when other option is selected', async () => {
-        const customReason = 'Custom reason';
-
-        const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
-            props: {
-                recurringContribution: contribution_mock,
-                submitCancelRecurringForm: submitCancelRecurringFormMock
-            },
-            global: {
-                plugins: [ router ]
-            }
-        } );
-
-        const cancelConfirmation = wrapper.find( '#recurring-cancellation-confirmation' );
-
-        // Select the "other" option
-        const otherReason = cancelConfirmation.find( '#option-other' );
-        await otherReason.trigger( 'input' );
-
-        // Check the other input field to confirm its enabled
-        const otherOptionCustomInput = cancelConfirmation.find( '#other-reason' );
-        expect( otherOptionCustomInput.element.disabled ).toBe( false );
-        otherOptionCustomInput.element.value = customReason;
-        await otherOptionCustomInput.trigger( 'input' );
-        await VueTestUtils.flushPromises();
-
-        const submitButton = cancelConfirmation.find( '#continue' );
-        await submitButton.trigger( 'click' );
-        await VueTestUtils.flushPromises();
-
-        expect( submitCancelRecurringFormMock ).toBeCalledWith( customReason );
+        // Check the confirmation submit button to confirm its enabled
+		expect( confirmSubmit.element.disabled ).toBe( false );
     } );
 } );
