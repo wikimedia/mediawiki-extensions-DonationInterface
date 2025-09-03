@@ -80,7 +80,7 @@
 	"donorportal-cancel-recurring-amount-change-alternative-button": "Change your current amount",
 	"donorportal-cancel-recurring-confirm-cancellation": "Proceed to cancel",
 	"donorportal-cancel-recurring-quit-header": "Changed your mind?",
-	"donorportal-cancel-recurring-confirmation-request-header": "Please confirm you wish to cancel the monthly donation below.",
+	"donorportal-cancel-recurring-confirmation-request-header": "Please confirm you wish to cancel the recurring donation below.",
 	"donorportal-cancel-recurring-confirmation-request-text": "You are cancelling:",
 	"donorportal-cancel-recurring-request-for-reason": "Can you please tell us why you wish to cancel today?",
 	"donorportal-cancel-recurring-reason-financial": "I am cancelling for financial reasons.",

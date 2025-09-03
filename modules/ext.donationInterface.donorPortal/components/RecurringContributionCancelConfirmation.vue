@@ -38,7 +38,10 @@
 				<router-link to="/">
 					{{ $i18n( "donorportal-cancel-recurring-changed-my-mind" ).text() }}
 				</router-link>
-				<router-link :to="`/annual-conversion/${recurringContribution.id}`">
+				<router-link
+					v-if="recurringContribution.frequency_unit === 'month'"
+					:to="`/annual-conversion/${recurringContribution.id}`"
+				>
 					{{ $i18n( "donorportal-cancel-recurring-switch-to-annual" ).text() }}
 				</router-link>
 			</div>
