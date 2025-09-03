@@ -88,32 +88,32 @@ module.exports = exports = defineComponent( {
 			return [
 				{
 					id: 'financial-reason',
-					value: 'Financial reason',
+					value: 'Financial Reasons',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-financial' ).text() }`
 				},
 				{
 					id: 'donation-frequency',
-					value: 'Donation frequency',
+					value: 'Frequency',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-donation-frequency' ).text() }`
 				},
 				{
 					id: 'giving-method',
-					value: 'Giving method',
+					value: 'Giving Method',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-prefer-other-methods' ).text() }`
 				},
 				{
 					id: 'cancel-support',
-					value: 'Cancel support',
+					value: 'Cancel Support',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-cancel-support' ).text() }`
 				},
 				{
 					id: 'supporting-other-organizations',
-					value: 'Other organizations',
+					value: 'Other Organizations',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-supporting-others' ).text() }`
 				},
 				{
 					id: 'other',
-					value: 'Other',
+					value: 'Other and Unspecified',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-other' ).text() }`
 				}
 			];

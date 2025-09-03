@@ -60,7 +60,7 @@ describe( 'Recurring cancel confirmation component', () => {
         const submitButton = element.find( '#continue' );
         await submitButton.trigger( 'click' );
 
-        expect( submitCancelRecurringFormMock ).toBeCalledWith( 'Giving method' );
+        expect( submitCancelRecurringFormMock ).toBeCalledWith( 'Giving Method' );
     } );
 
     it( 'Disables the confirmation submit when no option is selected', async () => {
