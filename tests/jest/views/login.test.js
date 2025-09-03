@@ -23,6 +23,7 @@ describe( 'Login view', () => {
         expect( loginBody.html() ).toContain( 'emailpreferences-send-new-link' );
         expect( loginBody.html() ).toContain( 'donorportal-login-email-placeholder' );
         expect( loginBody.html() ).toContain( 'donorportal-loginpage-figure-caption' );
+        expect( loginBody.html() ).toContain( 'donorportal-loginpage-figure-alt' );
 
         const linkSentText = wrapper.find( '#link-sent-text' );
         expect( linkSentText.isVisible() ).toBe( false );

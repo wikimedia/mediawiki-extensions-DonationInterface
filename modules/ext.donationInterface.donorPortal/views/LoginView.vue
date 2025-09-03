@@ -53,7 +53,7 @@
 			<figure>
 				<img
 					:src="`${ assets_path }/images/login-page-bg.jpg`"
-					alt="Wiki Loves Folklore (https://commons.wikimedia.org/wiki/File:Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg)">
+					:alt="figureAltText">
 				<figcaption v-html="figureCaption"></figcaption>
 			</figure>
 		</section>
@@ -78,6 +78,9 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		figureTitle() {
+			return this.$i18n( 'donorportal-loginpage-figure-title' ).text();
+		},
 		newLinkRequest() {
 			return this.$i18n( 'emailpreferences-send-new-link' ).text();
 		},
@@ -85,7 +88,11 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( 'donorportal-login-email-placeholder' ).text();
 		},
 		figureCaption() {
-			return this.$i18n( 'donorportal-loginpage-figure-caption' ).text();
+			return this.$i18n( 'donorportal-loginpage-figure-caption', `<a href=\"https://commons.wikimedia.org/wiki/File:Sunrise_View_of_Inle_Lake.jpg\"
+			 target=\"_blank\">${ this.figureTitle }</a>` ).text();
+		},
+		figureAltText() {
+			return this.$i18n( 'donorportal-loginpage-figure-alt', this.figureTitle ).text();
 		},
 		error_message: function () {
 			if ( this.api_error ) {
