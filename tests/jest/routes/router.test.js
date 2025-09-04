@@ -14,6 +14,7 @@ describe( 'Navigation logic', () => {
 			} )
 		);
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
+        when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
 	} );
 
 	it( 'Login screen renders successfully when required during navigation', async () => {
@@ -30,7 +31,7 @@ describe( 'Navigation logic', () => {
 			}
 		} );
 
-		expect( wrapper.html() ).toContain( 'donorportal-login-header' );
+		expect( wrapper.html() ).toContain( 'auth' );
 	} );
 
 	it( 'Home screen renders successfully when checksum is valid', async () => {
@@ -47,7 +48,7 @@ describe( 'Navigation logic', () => {
 			}
 		} );
 
-		expect( wrapper.html() ).toContain( 'donorportal-home' );
+		expect( wrapper.html() ).toContain( 'container dp-dashboard' );
 	} );
 
 } );

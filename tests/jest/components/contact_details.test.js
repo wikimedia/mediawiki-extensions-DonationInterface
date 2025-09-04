@@ -11,7 +11,7 @@ describe( 'Donor contact details component', () => {
             props: contact_details_mock
         } );
 
-        const element = wrapper.find( '.contact-details' );
+        const element = wrapper.find( '.dp-card' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).toContain( contact_details_mock.name );
         expect( element.html() ).toContain( contact_details_mock.id );

@@ -1,5 +1,5 @@
 <template>
-	<div class="body is-splashscreen">
+	<div class="body">
 		<header-component></header-component>
 		<router-view></router-view>
 	</div>

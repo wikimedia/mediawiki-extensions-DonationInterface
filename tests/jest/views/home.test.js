@@ -13,6 +13,7 @@ describe( 'Home view', () => {
 
     beforeEach( () => {
         when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+        when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
     } );
 
     it( 'Home view renders the donor data from config', async () => {
@@ -21,14 +22,14 @@ describe( 'Home view', () => {
                 mocks: {
                     $route: {
                         query: {
-                            checksum: 1,
-                            contact_id: 203
+                            checksum: DonorDataMock.checksum,
+                            contact_id: DonorDataMock.contact_id
                         }
                     }
                 }
             }
         } );
-        const element = wrapper.find( '.donorportal-home' );
+        const element = wrapper.find( '.dp-dashboard' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).toContain( HomeDataMock.result.address.street_address );
         expect( element.html() ).toContain( HomeDataMock.result.address.city );
@@ -36,8 +37,8 @@ describe( 'Home view', () => {
         expect( element.html() ).toContain( HomeDataMock.result.name );
         expect( element.html() ).toContain( HomeDataMock.result.email );
         expect( element.html() ).toContain( HomeDataMock.result.donorID );
-        expect( element.findAll( '.donorportal-recurring-contribution' ).length ).toBe( HomeDataMock.result.recurringContributions.length );
-        expect( element.findAll( '.donorportal-inactive-recurring' ).length ).toBe( HomeDataMock.result.inactiveRecurringContributions.length );
+        expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( HomeDataMock.result.recurringContributions.length );
+        expect( element.findAll( '.dp-card__appeal.is-lapsed' ).length ).toBe( HomeDataMock.result.inactiveRecurringContributions.length );
         expect( element.find( '.donorportal-recent-donation' ).exists ).not.toBe( true );
         expect( element.findAll( '.donorportal-donations-table-row' ).length ).toBe( HomeDataMock.result.annualFundContributions.length + HomeDataMock.result.endowmentContributions.length );
     } );
@@ -53,8 +54,8 @@ describe( 'Home view', () => {
                 mocks: {
                     $route: {
                         query: {
-                            checksum: 1,
-                            contact_id: 203
+                            checksum: DonorDataMock.checksum,
+                            contact_id: DonorDataMock.contact_id
                         }
                     }
                 }
@@ -63,7 +64,7 @@ describe( 'Home view', () => {
 
         await VueTestUtils.flushPromises();
 
-        const element = wrapper.find( '.donorportal-home' );
+        const element = wrapper.find( '.dp-dashboard' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).toContain( HomeDataMock.result.address.street_address );
         expect( element.html() ).toContain( HomeDataMock.result.address.city );
@@ -72,7 +73,7 @@ describe( 'Home view', () => {
         expect( element.html() ).toContain( HomeDataMock.result.email );
         expect( element.html() ).toContain( HomeDataMock.result.donorID );
         expect( element.findAll( '.donorportal-recurring-contribution' ).length ).toBe( 0 );
-        expect( element.findAll( '.donorportal-inactive-recurring' ).length ).toBe( 0 );
+        expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( 0 );
         expect( element.find( '.donorportal-recent-donation' ).exists() ).toBe( true );
     } );
 } );
