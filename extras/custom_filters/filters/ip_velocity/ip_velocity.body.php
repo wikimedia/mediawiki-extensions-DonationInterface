@@ -11,6 +11,7 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 	public const IP_ALLOW_LIST = 'IPAllowList';
 
 	public const IP_DENY_LIST = 'IPDenyList';
+	public const IP_RELAY_LIST = 'IPRelayList';
 	/**
 	 * Container for an instance of self
 	 * @var Gateway_Extras_CustomFilters_IP_Velocity
@@ -68,7 +69,21 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			$count = count( $stored );
 			$this->gateway_adapter->debugarray[] = "Found IPVelocityFilter data for $this->user_ip: " . print_r( $stored, true );
 			$this->gateway_logger->info( "IPVelocityFilter: $this->user_ip has $count hits" );
-			if ( $count >= $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' ) ) {
+
+			$threshold = $this->gateway_adapter->getGlobal( 'IPVelocityThreshhold' );
+
+			// If in relay list, use a higher threshold (if configured)
+			if ( $this->isIPInRelayList() ) {
+				$relayThreshold = $this->gateway_adapter->getGlobal( 'IPVelocityRelayThreshold' );
+				if ( $relayThreshold ) {
+					$threshold = $relayThreshold;
+					$this->gateway_logger->info(
+						"IPVelocityFilter: Using relay threshold $threshold for $this->user_ip"
+					);
+				}
+			}
+
+			if ( $count >= $threshold ) {
 				return true;
 			}
 		} else {
@@ -256,6 +271,76 @@ class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 			Gateway_Extras_CustomFilters::singleton( $gateway )
 		);
 		$velocity->addIPToCache( false, true );
+	}
+
+	protected function isIPInRelayList(): bool {
+		$relay_list = $this->gateway_adapter->getGlobal( self::IP_RELAY_LIST );
+		if ( !$relay_list ) {
+			return false;
+		}
+
+		foreach ( $relay_list as $address ) {
+			// Skip IPv6 addresses. Not supported
+			if ( str_contains( $address, ':' ) ) {
+				continue;
+			}
+
+			// Check for CIDR range
+			if ( str_contains( $address, '/' ) ) {
+				if ( $this->cidrMatch( $this->user_ip, $address ) ) {
+					return true;
+				}
+			} elseif ( $this->user_ip === $address ) {
+				// Exact IP match
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check if an IP address falls within a CIDR range
+	 *
+	 * @see https://stackoverflow.com/questions/594112/check-whether-or-not-a-cidr-subnet-contains-an-ip-address
+	 *
+	 * @param string $ip IP address to check
+	 * @param string $range CIDR range (e.g., '172.224.226.0/27')
+	 *
+	 * @return bool True if IP is within the range
+	 */
+	protected function cidrMatch( string $ip, string $range ): bool {
+		$parts = explode( '/', $range );
+		$subnet = $parts[0];
+		$bits = isset( $parts[1] ) ? (int)$parts[1] : 32;
+
+		$ipLong = ip2long( $ip );
+		$subnetLong = ip2long( $subnet );
+
+		if ( $ipLong === false || $subnetLong === false ) {
+			return false;
+		}
+
+		// Create a network mask by bit-shifting. Starting with -1 (all bits set to 1),
+		// we shift left by (32 - $bits) positions to create a mask with $bits number of 1s
+		// followed by (32 - $bits) number of 0s.
+		// Example: For a /24 network (24 bits), this creates a mask equivalent to 255.255.255.0
+		$mask = -1 << ( 32 - $bits );
+
+		// Apply the mask to the subnet address using bitwise AND to normalize it.
+		// This zeros out the host portion of the subnet address, ensuring we're working
+		// with the actual network address (not a host address within that network).
+		// Example: If subnet is "192.168.1.50/24", this converts it to "192.168.1.0"
+		// so we can properly compare network addresses.
+		$subnetLong &= $mask;
+
+		// Check if the IP address belongs to the subnet by:
+		// 1. Applying the same mask to the IP address being tested (extracting its network portion)
+		// 2. Comparing the masked IP with the normalized subnet address
+		// 3. If they match exactly, the IP is within the subnet range
+		// Example: Testing if 192.168.1.100 is in 192.168.1.0/24 would mask both to
+		// 192.168.1.0 and return true since they match.
+		return ( $ipLong & $mask ) === $subnetLong;
 	}
 
 }
