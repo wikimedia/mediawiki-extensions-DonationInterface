@@ -38,7 +38,7 @@ describe( 'Recurring cancel confirmation component', () => {
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-donation-frequency' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-prefer-other-methods' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-cancel-support' );
-        expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-supporting-others' );
+        expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-unintended' );
         expect( element.html() ).toContain( 'donorportal-cancel-recurring-reason-other' );
     } );
 
@@ -60,7 +60,7 @@ describe( 'Recurring cancel confirmation component', () => {
         const submitButton = element.find( '#continue' );
         await submitButton.trigger( 'click' );
 
-        expect( submitCancelRecurringFormMock ).toBeCalledWith( 'Giving Method' );
+        expect( submitCancelRecurringFormMock ).toBeCalledWith( 'Update' );
     } );
 
     it( 'Disables the confirmation submit when no option is selected', async () => {

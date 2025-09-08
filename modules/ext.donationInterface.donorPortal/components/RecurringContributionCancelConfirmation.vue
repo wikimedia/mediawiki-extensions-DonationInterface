@@ -98,7 +98,7 @@ module.exports = exports = defineComponent( {
 				},
 				{
 					id: 'giving-method',
-					value: 'Giving Method',
+					value: 'Update',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-prefer-other-methods' ).text() }`
 				},
 				{
@@ -107,9 +107,9 @@ module.exports = exports = defineComponent( {
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-cancel-support' ).text() }`
 				},
 				{
-					id: 'supporting-other-organizations',
-					value: 'Other Organizations',
-					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-supporting-others' ).text() }`
+					id: 'unintended',
+					value: 'Unintended Recurring Donation',
+					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-unintended' ).text() }`
 				},
 				{
 					id: 'other',

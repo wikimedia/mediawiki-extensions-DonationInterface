@@ -182,7 +182,7 @@ describe( 'Cancel donations view', () => {
         const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
 
         when( global.mw.Api.prototype.post ).calledWith( {
-            reason: 'Giving method',
+            reason: 'Update',
             contact_id: Number( HomeDataMock.result.contact_id ),
             checksum: HomeDataMock.result.checksum,
             contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
@@ -240,7 +240,7 @@ describe( 'Cancel donations view', () => {
         const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
 
         when( global.mw.Api.prototype.post ).calledWith( {
-            reason: 'Giving Method',
+            reason: 'Update',
             contact_id: Number( HomeDataMock.result.contact_id ),
             checksum: HomeDataMock.result.checksum,
             contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
