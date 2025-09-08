@@ -231,8 +231,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 					'checksum' => $params['checksum'],
 					'contact_id' => $params['contact_id'],
 					'email' => $params['email'],
-					'country' => $params['country'],
-					'language' => $params['language'],
+					'country' => $params['country'] ?? null,
+					'language' => $params['language'] ?? null,
 				];
 				if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
 					$message['send_email'] = $params['send_email'];

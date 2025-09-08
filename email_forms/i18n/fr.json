@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Derugon",
+			"Escargot bleu",
 			"JLTRY",
 			"Mahabarata",
 			"McDutchie",
@@ -63,7 +64,9 @@
 	"donorportal-pause-recurring-confirmation-header": "Merci, à bientôt !",
 	"donorportal-pause-recurring-confirmation-subheader": "Votre don récurrent a été suspendu et reprendra le $1",
 	"donorportal-pause-failure": "Une erreur s’est produite, veuillez contacter $1",
-	"donorportal-loginpage-figure-caption": "Image du <a href=\"https://commons.wikimedia.org/wiki/File:Son_kanat_%C3%A7%C4%B1rp%C4%B1%C5%9F.jpg\" target=\"_blank\">lac de Burdur en Turquie</a> par Rotadefterim",
+	"donorportal-loginpage-figure-title": "Lever de soleil sur le lac Inle",
+	"donorportal-loginpage-figure-alt": "Wiki Loves Folklore : $1",
+	"donorportal-loginpage-figure-caption": "$1 par Sopyaylynn",
 	"donorportal-header-about": "Qui nous sommes",
 	"donorportal-header-our-work": "Ce que nous faisons",
 	"donorportal-header-participate": "Ce que vous pouvez faire",

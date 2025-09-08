@@ -20,25 +20,23 @@
 				:value="option.value"
 				name="reason"
 			></radio-button-input>
-			<input
-				id="other-reason"
-				v-model="otherReason"
-				type="text"
-				:disabled="disableInput"
-			>
 			<div>
 				<button
 					id="continue"
 					type="submit"
 					name="submit"
 					value="continue"
+					:disabled="reason === ''"
 					@click="handleCancelRecurringSubmitButtonClick">
 					{{ $i18n( "donorportal-cancel-recurring-cancel-button" ).text() }}
 				</button>
 				<router-link to="/">
 					{{ $i18n( "donorportal-cancel-recurring-changed-my-mind" ).text() }}
 				</router-link>
-				<router-link :to="`/annual-conversion/${recurringContribution.id}`">
+				<router-link
+					v-if="recurringContribution.frequency_unit === 'month'"
+					:to="`/annual-conversion/${recurringContribution.id}`"
+				>
 					{{ $i18n( "donorportal-cancel-recurring-switch-to-annual" ).text() }}
 				</router-link>
 			</div>
@@ -75,20 +73,13 @@ module.exports = exports = defineComponent( {
 	},
 	setup( props ) {
 		const reason = ref( '' );
-		const otherReason = ref( '' );
 		const handleCancelRecurringSubmitButtonClick = ( $event ) => {
 			$event.preventDefault();
-			let cancelReason = reason.value;
-			if ( reason.value === 'Other' ) {
-				cancelReason = otherReason.value;
-			}
-
-			props.submitCancelRecurringForm( cancelReason );
+			props.submitCancelRecurringForm( reason.value );
 		};
 
 		return {
 			reason,
-			otherReason,
 			handleCancelRecurringSubmitButtonClick
 		};
 	},
@@ -97,39 +88,35 @@ module.exports = exports = defineComponent( {
 			return [
 				{
 					id: 'financial-reason',
-					value: 'Financial reason',
+					value: 'Financial Reasons',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-financial' ).text() }`
 				},
 				{
 					id: 'donation-frequency',
-					value: 'Donation frequency',
+					value: 'Frequency',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-donation-frequency' ).text() }`
 				},
 				{
 					id: 'giving-method',
-					value: 'Giving method',
+					value: 'Giving Method',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-prefer-other-methods' ).text() }`
 				},
 				{
 					id: 'cancel-support',
-					value: 'Cancel support',
+					value: 'Cancel Support',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-cancel-support' ).text() }`
 				},
 				{
 					id: 'supporting-other-organizations',
-					value: 'Other organizations',
+					value: 'Other Organizations',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-supporting-others' ).text() }`
 				},
 				{
 					id: 'other',
-					value: 'Other',
+					value: 'Other and Unspecified',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-other' ).text() }`
 				}
 			];
-		},
-		disableInput() {
-			// if reason is not "Other" disable input
-			return this.reason !== 'Other';
 		}
 	}
 } );

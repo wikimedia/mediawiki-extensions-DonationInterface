@@ -152,7 +152,7 @@
 	"donate_interface-donor-pobox": "Пощенска кутия",
 	"donate_interface-donor-card": "Кредитна карта",
 	"donate_interface-donor-card-num": "Номер на картата:",
-	"donate_interface-donor-expiration": "Дата на изтичане:",
+	"donate_interface-donor-expiration": "Дата на изтичане",
 	"donate_interface-donor-security": "Код за сигурност:",
 	"donate_interface-donor-submit": "Даряване",
 	"donate_interface-donor-currency-msg": "Това дарение е в $1",

@@ -6,7 +6,8 @@
 			"Cûndûllah el-Kurdî",
 			"George Animal",
 			"Ghybu",
-			"Gomada"
+			"Gomada",
+			"Guherto"
 		]
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
@@ -25,7 +26,7 @@
 	"donate_interface-donor-mname": "Navê navîn",
 	"donate_interface-donor-last_name": "Paşnav",
 	"donate_interface-donor-street_address": "Kûçe",
-	"donate_interface-donor-street-number": "Hejmar",
+	"donate_interface-donor-street-number": "Reqema xênî",
 	"donate_interface-donor-city": "Bajar",
 	"donate_interface-donor-county": "Welat",
 	"donate_interface-donor-island": "Girav",

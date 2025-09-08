@@ -27,6 +27,7 @@
 				</template>
 			</alternative-option-container>
 			<alternative-option-container
+				v-if="recurringContribution.frequency_unit === 'month'"
 				:header="annualConversionHeading"
 				:text="annualConversionText"
 				:button-text="annualConversionButtonText"

@@ -24,13 +24,13 @@ class ApiRequestCancelRecurring extends ApiBase {
 			return;
 		}
 		$request = $this->getRequest();
-		$reason = $request->getVal( 'reason' );
+		$reason = $this->mapReason( $request->getVal( 'reason' ) );
 		$contact_id = $request->getVal( 'contact_id' );
 		$checksum = $request->getVal( 'checksum' );
 		$contribution_recur_id = $request->getVal( 'contribution_recur_id' );
 
 		$queueMessage = [
-			'reason' => $reason,
+			'cancel_reason' => $reason,
 			'contact_id' => $contact_id,
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
@@ -51,5 +51,25 @@ class ApiRequestCancelRecurring extends ApiBase {
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
 		];
+	}
+
+	/**
+	 * Ensure we only send one of the reasons from the drop-down list defined in Civi at
+	 * ext/wmf-civicrm/Civi/WMFHook/QuickForm.php
+	 * @param string|null $getVal
+	 * @return string
+	 */
+	protected function mapReason( ?string $getVal ): string {
+		switch ( $getVal ) {
+			case 'Financial Reasons':
+			case 'Frequency':
+			case 'Giving Method':
+			case 'Other Organizations':
+				return $getVal;
+			case 'Cancel Support':
+				return 'Wikimedia Foundation related complaint';
+			default:
+				return 'Other and Unspecified';
+		}
 	}
 }
