@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"Aca"
 		]
 	},
 	"donate_interface": "Podržite Wikimediju",
@@ -164,7 +165,7 @@
 	"donate_interface-error-msg-visa": "Molimo unesite ispravan broj Visa kartice.",
 	"donate_interface-error-msg-discover": "Molimo unesite ispravan broj Discover kartice.",
 	"donate_interface-error-msg-amount": "iznos donacije",
-	"donate_interface-error-msg-email": "Upišite adresu e-pošte",
+	"donate_interface-error-msg-email": "Unesite e-adresu",
 	"donate_interface-error-msg-first_name": "Molimo unesite Vaše ime",
 	"donate_interface-error-msg-last_name": "Molimo unesite Vaše prezime",
 	"donate_interface-error-msg-street_address": "Molimo unesite Vaše kućna adresa",
@@ -189,7 +190,7 @@
 	"donate_interface-error-msg-bank_code": "Sort. kôd",
 	"donate_interface-error-msg-branch_code": "Kod filijale",
 	"donate_interface-error-msg-captcha": "Vrijednost Captcha koju ste unijeli nije tačna. Molimo pokušajte ponovo.",
-	"donate_interface-error-msg-captcha-please": "Zbog sigurnosti vaše kreditne kartice, molimo upišite znakove koje vidite iznad.",
+	"donate_interface-error-msg-captcha-please": "Radi sigurnosti vaše kreditne kartice, upišite znakove koje vidite iznad.",
 	"donate_interface-error-msg-cookies": "Molimo omogućite kolačiće (cookies) u vašem pregledniku.",
 	"donate_interface-error-msg-country-calc": "Pogrješka - Trenutačno ne možemo prihvatiti uplatu.",
 	"donate_interface-error-msg-fiscal_number": "Unesite porezni broj",
