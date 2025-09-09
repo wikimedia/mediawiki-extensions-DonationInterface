@@ -2320,7 +2320,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * Check to see if donor is making a repeated attempt that is incompatible
-	 * with the previous attempt, such as a gateway changes.  Reset certain
+	 * with the previous attempt, such as a gateway/country changes.  Reset certain
 	 * things if so.  Prevents order_id leakage, log spam, and recur problems.
 	 * FIXME: this all has to be special cases because we need to compare
 	 * session values with request values that are normalized by DonationData,
@@ -2333,11 +2333,18 @@ abstract class GatewayAdapter implements GatewayType {
 			return;
 		}
 
-		// If the gateway has changed, reset everything
+		// If the gateway has changed or country changed, reset everything
 		$newGateway = $this->getIdentifier();
+		$newCountry = WmfFramework::getRequestValue( 'country', null );
 		if ( !empty( $oldData['gateway'] ) && $oldData['gateway'] !== $newGateway ) {
 			$this->logger->info(
 				"Gateway changed from {$oldData['gateway']} to $newGateway.  Resetting session."
+			);
+			$this->session_resetForNewAttempt( true );
+			return;
+		} elseif ( $newCountry && !empty( $oldData['country'] ) && $oldData['country'] !== $newCountry ) {
+			$this->logger->info(
+				"Country changed from {$oldData['country']} to $newCountry.  Resetting session."
 			);
 			$this->session_resetForNewAttempt( true );
 			return;
