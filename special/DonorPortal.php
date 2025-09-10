@@ -42,7 +42,9 @@ class DonorPortal extends UnlistedSpecialPage {
 	 */
 	public function setClientVariables( array &$vars ) {
 		// Call the (renamed) function from RequestNewChecksumLinkTrait
-		$this->setChecksumClientVariables( $vars );
+		if ( !$this->getConfig()->get( 'DonorPortalMockData' ) ) {
+			$this->setChecksumClientVariables( $vars );
+		}
 		$vars['donorData'] = $this->formParams;
 		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
@@ -55,6 +57,10 @@ class DonorPortal extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	private function assignFormParameters(): void {
+		if ( $this->getConfig()->get( 'DonorPortalMockData' ) ) {
+			$this->formParams = $this->getConfig()->get( 'DonorPortalMockData' );
+			return;
+		}
 		$requestParameters = $this->getRequest()->getValues();
 		$donorSummary = CiviproxyConnect::getDonorSummary(
 			$requestParameters['checksum'],
