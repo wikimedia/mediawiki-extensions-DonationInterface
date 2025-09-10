@@ -194,7 +194,6 @@ class DlocalAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/**
-	 *
 	 * @param PaymentProviderExtendedResponse $paymentDetailResponse
 	 * @param IPaymentProvider $paymentProvider
 	 * @return PaymentResult

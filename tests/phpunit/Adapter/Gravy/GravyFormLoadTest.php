@@ -20,7 +20,6 @@ use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Gravy

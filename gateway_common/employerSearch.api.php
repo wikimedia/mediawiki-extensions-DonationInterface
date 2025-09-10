@@ -12,7 +12,6 @@ use Wikimedia\ParamValidator\ParamValidator;
  * The datasource for this API is currently a CSV which contains the full
  * list of matchin gift employers available and is provided to us via a
  * third party. A separate process manages updating that datasource.
- *
  */
 class EmployerSearchAPI extends ApiBase {
 

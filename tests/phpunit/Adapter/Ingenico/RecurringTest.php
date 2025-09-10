@@ -19,7 +19,6 @@
 use SmashPig\Core\DataStores\QueueWrapper;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Ingenico

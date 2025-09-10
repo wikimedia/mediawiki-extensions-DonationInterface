@@ -23,7 +23,6 @@ use SmashPig\PaymentProviders\Amazon\Tests\AmazonTestConfiguration;
 use SmashPig\Tests\TestingContext;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Amazon

@@ -143,7 +143,6 @@ class GravyGateway extends GatewayPage {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	private function isCreditCard(): bool {
@@ -151,7 +150,6 @@ class GravyGateway extends GatewayPage {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	private function isACH(): bool {
@@ -160,7 +158,6 @@ class GravyGateway extends GatewayPage {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	private function isGooglePay(): bool {
@@ -168,7 +165,6 @@ class GravyGateway extends GatewayPage {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	private function isApplePay(): bool {

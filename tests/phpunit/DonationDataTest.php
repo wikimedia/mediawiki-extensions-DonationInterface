@@ -224,9 +224,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertNotEmpty( $matches );
 	}
 
-	/**
-	 *
-	 */
 	public function testRepopulate() {
 		$expected = $this->testData;
 
@@ -256,9 +253,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertEquals( $expected, $returned, "The forced test data did not populate as expected." );
 	}
 
-	/**
-	 *
-	 */
 	public function testIsSomething() {
 		$data = $this->testData;
 		unset( $data['postal_code'] );
@@ -268,9 +262,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertTrue( $ddObj->isSomething( 'last_name' ), "last_name should currently be something." );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedAmount_amtGiven() {
 		$data = $this->testData;
 		$data['amount'] = 'this is not a number';
@@ -281,9 +272,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedAmount_amount() {
 		$data = $this->testData;
 		$data['amount'] = 88.15;
@@ -294,9 +282,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'amountGiven', $returned, "amountGiven should have been removed from the data" );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedAmount_negativeAmount() {
 		$data = $this->testData;
 		$data['amount'] = -1;
@@ -307,9 +292,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'amountOther', $returned, "amountOther should have been removed from the data" );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedAmount_noGoodAmount() {
 		$data = $this->testData;
 		$data['amount'] = 'splunge';
@@ -336,9 +318,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'USD', $returned['currency'], 'Currency code was not properly reset' );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedLanguage_uselang() {
 		$data = $this->testData;
 		unset( $data['uselang'] );
@@ -352,9 +331,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'uselang', $returned, "'uselang' should have been removed from the data" );
 	}
 
-	/**
-	 *
-	 */
 	public function testSetNormalizedLanguage_language() {
 		$data = $this->testData;
 		unset( $data['uselang'] );

@@ -20,7 +20,6 @@ use SmashPig\PaymentProviders\Adyen\CardPaymentProvider;
 use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Adyen

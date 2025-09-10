@@ -44,7 +44,6 @@ use Wikimedia\TestingAccessWrapper;
 class GatewayAdapterTest extends DonationInterfaceTestCase {
 
 	/**
-	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers GatewayAdapter::defineVarMap
 	 * @covers GatewayAdapter::defineTransactions
@@ -198,7 +197,6 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 *
 	 * @covers GatewayAdapter::__construct
 	 * @covers DonationData::__construct
 	 */

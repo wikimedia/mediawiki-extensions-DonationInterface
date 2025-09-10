@@ -34,7 +34,6 @@ use SmashPig\PaymentData\ValidationAction;
 
 /**
  * GatewayAdapter
- *
  */
 abstract class GatewayAdapter implements GatewayType {
 	/**
@@ -1576,7 +1575,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 *
 	 * @param string $queue What queue to send the message to
 	 * @param bool $contactOnly If we only have the donor's contact information
-	 *
 	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
 		$this->logger->info( "Pushing transaction to queue [$queue]" );

@@ -252,7 +252,6 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 	/**
 	 * Integration test to verify that the createPayment method isn't called
 	 * when user_ip is added to the deny list
-	 *
 	 */
 	public function testDoPaymentAttemptBlockedDueToIPInDenyList() {
 		$threshold = 2;

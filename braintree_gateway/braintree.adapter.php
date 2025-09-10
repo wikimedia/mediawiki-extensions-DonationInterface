@@ -28,7 +28,6 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	/**
-	 *
 	 * @param CreatePaymentResponse $createPaymentResult
 	 * @param PaymentProvider $provider
 	 * @return PaymentResult

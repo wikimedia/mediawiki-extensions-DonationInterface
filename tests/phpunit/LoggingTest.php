@@ -18,7 +18,6 @@
 use Psr\Log\LogLevel;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @coversNothing

@@ -22,7 +22,6 @@ use SmashPig\Tests\TestingContext;
 use SmashPig\Tests\TestingProviderConfiguration;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Ingenico

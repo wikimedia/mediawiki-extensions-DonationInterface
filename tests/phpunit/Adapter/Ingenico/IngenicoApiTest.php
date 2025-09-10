@@ -318,7 +318,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 	 * GatewatAdapterApiTest suite once we get that up and running.
 	 *
 	 * @group DonationInterfaceOptionalFields
-	 *
 	 */
 	public function testOptionalFieldBehaviour(): void {
 		$this->overrideConfigValues( [

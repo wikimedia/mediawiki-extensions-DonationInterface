@@ -27,7 +27,6 @@ use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use Wikimedia\TestingAccessWrapper;
 
 /**
- *
  * @group Fundraising
  * @group DonationInterface
  * @group Ingenico
