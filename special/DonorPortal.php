@@ -28,7 +28,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->addStylesScriptsAndViewport();
 		$this->getOutput()->setPageTitleMsg( $this->msg( 'donorportal-title' ) );
 
-		if ( $this->isChecksumExpired() ) {
+		if ( !$this->getConfig()->has( 'DonorPortalMockData' ) && $this->isChecksumExpired() ) {
 			$this->formParams = [ 'showLogin' => true ];
 		} else {
 			$this->assignFormParameters();
@@ -42,7 +42,7 @@ class DonorPortal extends UnlistedSpecialPage {
 	 */
 	public function setClientVariables( array &$vars ) {
 		// Call the (renamed) function from RequestNewChecksumLinkTrait
-		if ( !$this->getConfig()->get( 'DonorPortalMockData' ) ) {
+		if ( !$this->getConfig()->has( 'DonorPortalMockData' ) ) {
 			$this->setChecksumClientVariables( $vars );
 		}
 		$vars['donorData'] = $this->formParams;
@@ -57,7 +57,7 @@ class DonorPortal extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	private function assignFormParameters(): void {
-		if ( $this->getConfig()->get( 'DonorPortalMockData' ) ) {
+		if ( $this->getConfig()->has( 'DonorPortalMockData' ) ) {
 			$this->formParams = $this->getConfig()->get( 'DonorPortalMockData' );
 			return;
 		}
