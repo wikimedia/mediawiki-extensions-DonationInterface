@@ -19,6 +19,7 @@
 	"donorportal-donation-amount": "Importo",
 	"donorportal-payment-method": "Metodo di pagamento",
 	"donorportal-cancel-recurring-reason-other": "Altro",
+	"donorportal-cancel-recurring-reason-unintended": "Ho creato questa donazione per errore.",
 	"emailpreferences-change-email": "cambia e-mail",
 	"emailpreferences-country": "Paese o regione",
 	"emailpreferences-dont-send-email": "Annullate l’iscrizione per tutto.",
