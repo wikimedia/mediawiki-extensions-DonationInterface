@@ -6,6 +6,7 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\Address;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Gravy\IGetPaymentServicePaymentMethodDefinition;
@@ -226,6 +227,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$errorLogMessage .= $createPaymentResponse->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $createPaymentResponse->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
+			if ( $createPaymentResponse->getStatus() === FinalStatus::CANCELLED ) {
+				$paymentResult = PaymentResult::newFailureAndRedirect( ResultPages::getCancelPage( $this ) );
+			}
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
 			$this->logPending();
 			$this->runFraudFilters( $createPaymentResponse );

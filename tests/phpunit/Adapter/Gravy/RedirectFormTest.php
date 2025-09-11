@@ -35,6 +35,64 @@ class RedirectFormTest extends BaseGravyTestCase {
 	}
 
 	/**
+	 * Integration test to verify that the donor is redirected to the WTG page on cancel
+	 */
+	public function testDonorCancelPayment() {
+		$init = $this->getTestDonorData();
+		$init['amount'] = '1.55';
+		$init['payment_method'] = 'venmo';
+		$init['payment_submethod'] = '';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:GravyGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'wmf_source' => '..venmo'
+		] );
+		$approval_url = 'https://test-approval-url.com';
+		$this->redirectPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->with( [
+				'country' => 'US',
+				'currency' => 'USD',
+				'user_ip' => '127.0.0.1',
+				'description' => 'Wikimedia Foundation',
+				'order_id' => $expectedMerchantRef,
+				'amount' => '1.55',
+				'email' => 'nobody@wikimedia.org',
+				'first_name' => 'Firstname',
+				'last_name' => 'Surname',
+				'postal_code' => '94105',
+				'street_address' => '123 Fake Street',
+				'return_url' => $expectedReturnUrl,
+				'payment_method' => 'venmo',
+			] )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'authorization_failed' )
+					->setStatus( FinalStatus::CANCELLED )
+					->setSuccessful( false )
+					->setGatewayTxnId( $gravyTransactionId )
+			);
+
+		$result = $gateway->doPayment();
+		$gateway->logPending();
+		$this->assertTrue( $result->isFailed() );
+		$this->assertSame( ResultPages::getCancelPage( $gateway ), $result->getRedirect() );
+
+		$queueMessage = QueueWrapper::getQueue( 'pending' )->pop();
+
+		$this->assertNotNull( $queueMessage );
+	}
+
+	/**
 	 * Integration test to verify that the authorize transactions
 	 * send the expected parameters to the SmashPig library objects and that
 	 * they return the expected result when the API calls are successful.
