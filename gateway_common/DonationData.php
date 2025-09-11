@@ -37,11 +37,11 @@ class DonationData implements LogPrefixProvider {
 	 * get poked through to gateways in some form or other,
 	 * from a get or post. We handle the actual
 	 * normalization in normalize() helpers, below.
-	 * @TODO: It would be really neat if the gateways kept
+	 * @todo It would be really neat if the gateways kept
 	 * track of all the things that ***only they will ever
 	 * need***, and could interject those needs here...
 	 * Then we could really clean up.
-	 * @TODO also: Think about putting log alarms on the
+	 * @todo also: Think about putting log alarms on the
 	 * keys we want to see disappear forever, complete with
 	 * referrer for easy total destruction.
 	 * @var string[]

@@ -440,7 +440,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	 *
 	 * @param string $queue What queue to send the message to
 	 * @param bool $contactOnly If we only have the donor's contact information
-	 *
 	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
 		// Don't send recurring bank payments to the donations queue.

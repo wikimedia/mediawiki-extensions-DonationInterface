@@ -301,7 +301,7 @@
 	"donate_interface-middle": "Mittlere",
 	"donate_interface-last": "Letzte",
 	"donate_interface-other": "Anderer Betrag",
-	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, benötigt unser Spendenformular JavaScript.",
+	"donate_interface-noscript-msg": "Es scheint, dass Sie JavaScript nicht aktiviert haben, oder es wird nicht von Ihrem Browser unterstützt.\nUm eine sichere und störungsfreie Abwicklung gewährleisten zu können, {{#FORMAL:benötigt|bedarf}} unser Spendenformular JavaScript.",
 	"donate_interface-noscript-redirect-msg": "Sofern Sie JavaScript nicht aktivieren können oder möchten, können Sie dennoch spenden, indem Sie die folgende Webseite aufrufen:",
 	"donate_interface-anon-message": "Bitte meinen Namen in der öffentlichen Spenderliste erwähnen.",
 	"donate_interface-donate-wikipedia": "Spenden auf Wikipedia",
@@ -483,7 +483,7 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Nein, danke!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nein, im Moment nicht.",
 	"donate_interface-fundraiser-maintenance-header": "Derzeit wegen Wartung nicht erreichbar",
-	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte versuche es später erneut. Falls du irgendwelche Fragen hast, sende bitte eine E-Mail an $1.",
+	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte {{#FORMAL:versuche|versuchen Sie}} es später erneut. Falls {{#FORMAL:du|Sie}} irgendwelche Fragen {{#FORMAL:hast|haben}}, {{#FORMAL:sende|senden Sie}} bitte eine E-Mail an $1.",
 	"donate_interface-redirect-explanation": "Sie werden zu Wikimedias Partner für die Zahlungsabwicklung weitergeleitet.",
 	"donate_interface-amount-legend-variant-01A": "Zu spendender Betrag",
 	"donate_interface-cc-form-header-personal-variant-01A": "Zahlungsinformationen"
