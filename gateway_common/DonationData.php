@@ -61,6 +61,7 @@ class DonationData implements LogPrefixProvider {
 		'bank_name',
 		'bannerhistlog',
 		'billing_email',
+		'bin_hash',
 		'branch_code',
 		'card_num',
 		'card_scheme', // Gr4vy google pay: example VISA

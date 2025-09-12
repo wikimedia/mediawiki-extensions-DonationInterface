@@ -85,6 +85,9 @@
 					securityCodeField.setPlaceholder( mw.msg( 'donate_interface-cvv-placeholder-3-digits' ) );
 				}
 			}
+			if ( evt.bin ) {
+				di.forms.setBinHash( evt.bin );
+			}
 			ccInputEmptyStyle( '#cc-number', evt );
 		} );
 		expiryDateField.addEventListener( 'input', ( evt ) => {
