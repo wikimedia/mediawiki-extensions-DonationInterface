@@ -433,6 +433,24 @@ $wgDonationInterfaceSessionVelocity_Multiplier = 1 // Hit score increases by thi
 $wgDonationInterfaceSessionVelocity_DecayRate = 1  // Linear decay rate pts / sec
 $wgDonationInterfaceSessionVelocity_Threshold = 50 // Above this score, we deny users the page
 
+// Generic velocity filter global (Note these are not currently possible to override on a per-gateway basis)
+$wgDonationInterfaceVelocityFilters = [
+	'PreAuthorize' => [
+		'utm_key' => [ // Which property to check
+			'threshold' => 10, // Number of repeats that trigger failure
+			'timeout' => 600, // Time window to count repeats in
+			'failScore' => 50, // Score to assign when number of repeats exceeds threshold
+		]
+	],
+	'PostAuthorize' => [
+		'email' => [
+			'threshold' => 5,
+			'timeout' => 300,
+			'failScore' => 50,
+		]
+	]
+];
+
 /**
  * $wgDonationInterfaceCountryMap
  *
