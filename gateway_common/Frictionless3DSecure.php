@@ -20,7 +20,10 @@ class Frictionless3DSecure extends Abstract3DSecure {
 		$request = RequestContext::getMain()->getRequest();
 		$stagedData['user_agent'] = $request->getHeader( 'User-Agent' );
 		$stagedData['accept_header'] = $request->getHeader( 'Accept' );
-		// TODO: check what Adyen does when locale is a combination they don't have
-		$stagedData['locale'] = $normalized['language'] . '-' . $normalized['country'];
+		if ( str_contains( $normalized['language'], '-' ) ) {
+			$stagedData['locale'] = $normalized['language'];
+		} else {
+			$stagedData['locale'] = $normalized['language'] . '-' . $normalized['country'];
+		}
 	}
 }
