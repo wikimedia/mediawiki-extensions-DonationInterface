@@ -2,6 +2,7 @@
 
 use MediaWiki\MediaWikiServices;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\ValidationAction;
 
 /**
  * Renders error forms from Mustache templates
@@ -47,6 +48,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		// Add otherways_url
 		$data += $this->getUrlsAndEmails();
 		global $wgDonationInterfaceFundraiserMaintenance;
+
 		// set the appropriate header
 		if ( $this->gateway->getFinalStatus() === FinalStatus::CANCELLED ) {
 			$data['header_key'] = 'donate_interface-donation-cancelled-header';
@@ -60,6 +62,10 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		} else {
 			$data['header_key'] = 'donate_interface-error-msg-general';
 			$data['error-default'] = true;
+		}
+		if ( Gateway_Extras_CustomFilters::determineStoredAction( $this->gateway ) !== ValidationAction::PROCESS ) {
+			$data['reference_id'] = $data['order_id'] ?? $data['contribution_tracking_id'];
+			$data['error-pending'] = true;
 		}
 	}
 

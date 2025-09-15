@@ -213,6 +213,8 @@
 	"donate_interface-card-name-discover": "ديسكفر",
 	"donate_interface-bank-name-netbanking": "الصيرفة الإلكترونية",
 	"donate_interface-error-msg-general": "حدث خطأ أثناء معالجة طلبك.",
+	"donate_interface-pending-success-msg": "شكرًا لدعمكم! نقوم حاليًا بمعالجة تبرعكم. في حال نجاح المعالجة، ستتلقى عادةً إيصال تبرع خلال 30 دقيقة.",
+	"donate_interface-pending-failure-msg": "إذا لم تتلق إيصال التبرع، فاتصل بفريقنا على $1 ورقم المعاملة $2 وسنكون سعداء بمساعدتك.",
 	"donate_interface-error-msg-incomplete-field": "مجال غير مكتمل",
 	"donate_interface-error-msg-field-not-valid": "الحقل غير صحيح",
 	"donate_interface-error-msg-nopaypal": "تعذّر علينا إرسال طلبك إلى باي بال نظرًا لوقوع خطأ فني. حاول رجاءً باستخدام نموذج التبرع ببطاقة الائتمان أدناه.",

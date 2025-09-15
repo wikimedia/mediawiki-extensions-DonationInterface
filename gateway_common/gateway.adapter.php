@@ -2280,6 +2280,7 @@ abstract class GatewayAdapter implements GatewayType {
 				'numAttempt',
 				'order_status', // for post-payment activities
 				'sequence',
+				'risk_scores',
 				self::DONOR_BKUP,
 				self::getIdentifier() . 'EditToken',
 				'variant', // FIXME: this is actually a sub-key of Donor :(

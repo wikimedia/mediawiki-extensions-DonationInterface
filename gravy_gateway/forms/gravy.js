@@ -220,9 +220,7 @@
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
-			mw.donationInterface.validation.showErrors( {
-				general: mw.msg( 'donate_interface-error-msg-general' )
-			} );
+			document.location.replace( mw.config.get( 'DonationInterfaceFailUrl' ) );
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {

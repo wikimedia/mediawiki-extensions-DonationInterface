@@ -196,6 +196,8 @@
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-bank-name-netbanking": "Netbanking",
 	"donate_interface-error-msg-general": "There was an error processing your request.",
+	"donate_interface-pending-success-msg": "Thank you for your support! We are currently processing your donation. If the donation is processed successfully you will typically receive a donation receipt within 30 minutes.",
+	"donate_interface-pending-failure-msg": "If you do not receive a donation receipt, contact our team at $1 and reference transaction number $2 and we will be happy to assist.",
 	"donate_interface-error-msg-incomplete-field": "Incomplete field",
 	"donate_interface-error-msg-field-not-valid": "Field not valid",
 	"donate_interface-error-msg-nopaypal": "Due to a technical error, we cannot send your request to PayPal. Please try using our regular credit card donation form.",

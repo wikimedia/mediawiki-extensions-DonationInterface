@@ -182,6 +182,8 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-general": "Un error occurreva durante le processamento de tu requesta.",
+	"donate_interface-pending-success-msg": "Gratias pro tu appoio! Nos va ora processar tu donation. Si le donation es processate correctemente, tu recipera normalmente un recepta de donation in minus de 30 minutas.",
+	"donate_interface-pending-failure-msg": "Si tu non recipe un recepta de donation, contacta nostre equipa a $1 mentionante le numero de transaction $2, e nos essera felice de assister te.",
 	"donate_interface-error-msg-incomplete-field": "Campo incomplete",
 	"donate_interface-error-msg-field-not-valid": "Campo non valide",
 	"donate_interface-error-msg-nopaypal": "A causa de un error technic, nos non pote inviar tu requesta a PayPal. Per favor tenta usar nostre formulario de donation con carta de credito normal.",

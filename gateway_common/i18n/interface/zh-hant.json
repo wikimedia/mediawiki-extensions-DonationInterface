@@ -36,6 +36,8 @@
 	"donate_interface-currency": "貨幣：",
 	"donate_interface-gateway": "付款方式：",
 	"donate_interface-submit-button": "捐款",
+	"donate_interface-sign-in-to-my-bank": "登入我的銀行",
+	"donate_interface-sign-in-online-banking": "使用網路銀行登入",
 	"donate_interface-comment-message": "有想法希望與世界分享？請在此填寫不超過 200 字的評論：",
 	"donate_interface-comment-label": "評論：",
 	"donate_interface-email-agreement": "我同意接收來自維基媒體基金會偶爾的更新訊息電子郵件。",
