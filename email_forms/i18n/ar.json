@@ -3,6 +3,7 @@
 		"authors": [
 			"Cigaryno",
 			"Meno25",
+			"Mohammed Qays",
 			"Pcoombe",
 			"ديفيد"
 		]
@@ -56,6 +57,7 @@
 	"donorportal-header-news": "أخبار",
 	"donorportal-email-required": "البريد الإلكتروني مطلوب",
 	"donorportal-something-wrong": "هناك خطأ ما، يرجى التحقق من إدخالك",
+	"donorportal-cancel-recurring-reason-other": "أخرى",
 	"emailpreferences-change-email": "تغيير البريد الإلكتروني",
 	"emailpreferences-country": "البلد أو المنطقة",
 	"emailpreferences-dont-send-email": "إلغاء اشتراكي في كل شيء.",
