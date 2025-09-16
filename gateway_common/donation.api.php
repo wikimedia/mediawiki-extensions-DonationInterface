@@ -51,6 +51,7 @@ class DonationApi extends DonationApiBase {
 	public function getAllowedParams() {
 		return [
 			'gateway' => $this->defineParam( true ),
+			'bin_hash' => $this->defineParam( false ),
 			'contact_id' => $this->defineParam( false ),
 			'contact_hash' => $this->defineParam( false ),
 			'amount' => $this->defineParam( false ),

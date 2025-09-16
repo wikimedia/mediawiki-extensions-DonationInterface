@@ -126,6 +126,7 @@
 
 		sendData = {
 			action: action || 'donate',
+			bin_hash: $( '#bin_hash' ).val(),
 			gateway: $( '#gateway' ).val(),
 			contact_id: $( '#contact_id' ).val(),
 			contact_hash: $( '#contact_hash' ).val(),
@@ -223,6 +224,22 @@
 		document.body.append( scriptNode );
 	}
 
+	function simpleHash( str ) {
+		let hash = 0;
+		for ( let i = 0; i < str.length; i++ ) {
+			const char = str.charCodeAt( i );
+			// eslint-disable-next-line
+			hash = ( hash << 5 ) - hash + char;
+		}
+		// Convert to 32bit unsigned integer in base 36 and pad with "0" to ensure length is 7.
+		// eslint-disable-next-line
+		return ( hash >>> 0 ).toString( 36 ).padStart( 7, '0' );
+	}
+
+	function setBinHash( clearBin ) {
+		$( '#bin_hash' ).val( simpleHash( clearBin ) );
+	}
+
 	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
@@ -238,6 +255,7 @@
 		resetSubmethod: resetSubmethod,
 		getOptIn: getOptIn,
 		loadScript: loadScript,
+		setBinHash: setBinHash,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {
 			di.forms.debugMessages.push( message );
