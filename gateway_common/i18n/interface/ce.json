@@ -10,7 +10,7 @@
 	"donate_interface-langonly-desc": "Гойту беккъа цхьана DonationInterface системин хаамаш",
 	"donate_interface-intro": "Дехар до, мах дӀабаларан кеп а, барам а, валюта а харжа.",
 	"donate_interface-amount": "Мах",
-	"donate_interface-other-amount": "Кхин ахчан дукхалла",
+	"donate_interface-other-amount": "Кхин сумма",
 	"donate_interface-currency": "Валюта:",
 	"donate_interface-gateway": "Даларан кеп:",
 	"donate_interface-submit-button": "ГӀо дар",
