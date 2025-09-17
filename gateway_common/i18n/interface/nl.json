@@ -205,6 +205,8 @@
 	"donate_interface-card-name-mc": "Mastercard",
 	"donate_interface-card-name-discover": "Discover",
 	"donate_interface-error-msg-general": "Er is een fout opgetreden tijdens de verwerking van uw verzoek.",
+	"donate_interface-pending-success-msg": "Bedankt voor uw steun! We verwerken nu uw donatie. Als alles goed gaat ontvangt u doorgaans binnen 30 minuten een donatiebewijs.",
+	"donate_interface-pending-failure-msg": "Ontvangt u geen donatiebewijs? Neem dan via $1 contact op met ons team en vermeld transactienummer $2. Wij helpen u graag verder.",
 	"donate_interface-error-msg-incomplete-field": "Incompleet veld",
 	"donate_interface-error-msg-field-not-valid": "Veld niet geldig",
 	"donate_interface-error-msg-nopaypal": "Wegens een technisch probleem is het niet mogelijk uw verzoek naar PayPal te sturen. U kunt ook direct met uw creditcard doneren.",
