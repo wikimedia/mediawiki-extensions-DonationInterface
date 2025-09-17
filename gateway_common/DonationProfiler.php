@@ -5,7 +5,6 @@ use Psr\Log\LoggerInterface;
 /**
  * Records duration of various operations.
  */
-
 class DonationProfiler {
 	protected LoggerInterface $logger;
 	/** @var LoggerInterface|null */
