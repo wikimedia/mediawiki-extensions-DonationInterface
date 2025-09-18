@@ -307,7 +307,7 @@
 	"donate_interface-email-receipt": "E-mailes visszaigazolás",
 	"donate_interface-monthly-donation": "Havi adományozás",
 	"donate_interface-via-paypal": "(PayPalon keresztül)",
-	"donate_interface-select": "Méret:",
+	"donate_interface-select": "Kiválaszt",
 	"donate_interface-donation-must-equal": "Az adomány $1 vagy több kell legyen",
 	"donate_interface-thank-you": "Köszönjük! Az adományod megérkezett.",
 	"donate_interface-change": "Változtatás",
