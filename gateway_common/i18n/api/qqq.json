@@ -298,6 +298,7 @@
 	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "“Set” is a past participle, as in “This is set to true when the donor declines” etc.\n\n{{doc-apihelp-param|di_recurring_convert|declineMonthlyConvert}}",
 	"apihelp-di_recurring_convert-param-frequency_unit": "{{doc-apihelp-param|di_recurring_convert|frequency_unit}}",
 	"apihelp-di_recurring_convert-param-gateway": "{{doc-apihelp-param|di_recurring_convert|gateway}}",
+	"apihelp-di_recurring_convert-param-wmf_token": "{{doc-apihelp-param|di_recurring_convert|wmf_token}}",
 	"apihelp-employerSearch-summary": "{{doc-apihelp-summary|employerSearch}}",
 	"apihelp-employerSearch-param-employer": "{{doc-apihelp-param|employerSearch|employer}}",
 	"apihelp-employerSearch-example-1": "{{doc-apihelp-example|employerSearch}}",

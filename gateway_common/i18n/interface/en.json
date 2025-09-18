@@ -495,6 +495,7 @@
 	"donate_interface-monthly-convert-enter-amount": "Enter your monthly donation amount to begin next month.",
 	"donate_interface-monthly-convert-set-up-monthly": "Set up a monthly donation of",
 	"donate_interface-monthly-convert-set-up-annual": "Set up an annual donation of",
+	"donate_interface-monthly-convert-set-up-now": "Set up now",
 	"donate_interface-monthly-convert-action-button": "Donate Monthly",
 	"donate_interface-monthly-convert-action-button-annual": "Donate Annually",
 	"donate_interface-monthly-convert-error": "Your one-time donation was successful, but we were unable to start a recurring donation.",

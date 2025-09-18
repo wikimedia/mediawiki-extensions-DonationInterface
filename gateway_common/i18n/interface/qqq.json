@@ -526,6 +526,7 @@
 	"donate_interface-monthly-convert-enter-amount": "Instructions for changing the suggested monthly donation amount.",
 	"donate_interface-monthly-convert-set-up-monthly": "Text of a prompt to enter a monthly donation amount. Will be followed by an input box for writing the amount.",
 	"donate_interface-monthly-convert-set-up-annual": "Text of a prompt to enter an annual donation amount. Will be followed by an input box for writing the amount.",
+	"donate_interface-monthly-convert-set-up-now": "Text of a prompt to confirm the enter an either annual or monthly donation amount.",
 	"donate_interface-monthly-convert-action-button": "Button text a donor can press to confirm their monthly donation. Should be short.",
 	"donate_interface-monthly-convert-action-button-annual": "Button text a donor can press to confirm their annual donation. Should be short.",
 	"donate_interface-monthly-convert-error": "Error message",
