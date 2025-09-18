@@ -1,11 +1,17 @@
 <template>
-	<div v-if="recurringContributionValuesSet" class="contribution-details">
-		<div>
-			<p>{{ recurringContributionAmount }}</p>
-			<p>{{ recurringContribution.payment_method }}</p>
-			<p>{{ lastContributionDate }}</p>
-		</div>
-	</div>
+	<section v-if="recurringContributionValuesSet" class="column--base contribution-details">
+		<section class="box is-lapsed">
+			<div class="box__inner">
+				<h2 class="heading heading--h1">
+					{{ recurringContributionAmount }}
+				</h2>
+				<p class="text text--body">
+					{{ recurringContribution.payment_method }}<br>
+					{{ lastContributionDate }}
+				</p>
+			</div>
+		</section>
+	</section>
 </template>
 
 <script>

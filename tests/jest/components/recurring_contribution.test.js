@@ -20,8 +20,8 @@ describe( 'Active recurring contribution test', () => {
         expect( element.html() ).toContain( recurring_mock.currency );
         expect( element.html() ).toContain( recurring_mock.payment_method );
         expect( element.html() ).toContain( recurring_mock.next_sched_contribution_date_formatted );
-        expect( element.html() ).toContain( `<a href="#/cancel-donations/${   recurring_mock.id   }" target="_blank" class="link"> donorportal-recurring-cancel </a>` );
-        expect( element.html() ).toContain( `<a href="#/pause-donations/${  recurring_mock.id  }" target="_blank" class="link"> donorportal-recurring-pause </a>` );
+        expect( element.html() ).toContain( `<a href="cancel-donations/${   recurring_mock.id   }" target="_blank" class="link"> donorportal-recurring-cancel </a>` );
+        expect( element.html() ).toContain( `<a href="pause-donations/${  recurring_mock.id  }" target="_blank" class="link"> donorportal-recurring-pause </a>` );
     } );
 
 } );

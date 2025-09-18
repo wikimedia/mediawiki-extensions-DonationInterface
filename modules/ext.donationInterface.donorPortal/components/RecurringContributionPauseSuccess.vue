@@ -1,11 +1,18 @@
 <template>
-	<div id="recurring-contribution-pause-success" class="greeting">
-		<h2>{{ $i18n( "donorportal-pause-recurring-confirmation-header" ).text() }}</h2>
-		<h4>{{ nextContributionDate }}</h4>
-		<router-link id="buttonBackToAccount" to="/">
-			{{ $i18n( "donorportal-return-to-account-button" ).text() }}
-		</router-link>
-	</div>
+	<main id="recurring-contribution-pause-success" class="greeting container column--items-center">
+		<section class="container__inner dp-dashboard__intro">
+			<router-link
+				id="buttonBackToAccount"
+				to="/"
+				class="text text--body link link--muted link--no-underline">
+				← <span class="link--underline">{{ $i18n( "donorportal-return-to-account-button" ).text() }}</span>
+			</router-link>
+			<h1 class="heading heading--subtle heading--h2">
+				{{ $i18n( "donorportal-pause-recurring-confirmation-header" ).text() }}
+			</h1>
+			<p class="text text--body" v-html="nextContributionDate"></p>
+		</section>
+	</main>
 </template>
 
 <script>
@@ -27,7 +34,7 @@ module.exports = exports = defineComponent( {
 	},
 	computed: {
 		nextContributionDate() {
-			return this.$i18n( 'donorportal-pause-recurring-confirmation-subheader', this.nextSchedContributionDate ).text();
+			return this.$i18n( 'donorportal-pause-recurring-confirmation-subheader', `<strong>${ this.nextSchedContributionDate }</strong>` ).text();
 		}
 	}
 } );
