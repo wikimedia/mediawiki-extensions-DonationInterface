@@ -280,6 +280,7 @@
 	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "Set to true when donor declines to add a monthly donation",
 	"apihelp-di_recurring_convert-param-frequency_unit": "Year or month",
 	"apihelp-di_recurring_convert-param-gateway": "Which payment gateway to use - adyen, ingenico, etc.",
+	"apihelp-di_recurring_convert-param-wmf_token": "Edit token.",
 	"apihelp-employerSearch-summary": "This API allow you to search for employers participating in the WMF matching gifts program.",
 	"apihelp-employerSearch-param-employer": "Which employer to search for e.g. Red Cross, WWF, Salvation Army, etc.",
 	"apihelp-employerSearch-example-1": "Search an employer",
