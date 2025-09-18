@@ -1,9 +1,12 @@
 <template>
-	<div class="greeting">
-		<h2>{{ $i18n( "donorportal-greeting", name ).text() }}</h2>
-		<p><strong>{{ $i18n( "donorportal-boldtext" ).text() }}</strong></p>
-		<p>{{ $i18n( "donorportal-smalltext" ).text() }}</p>
-	</div>
+	<section class="container__inner dp-dashboard__intro">
+		<h1 class="heading heading--subtle heading--h2">
+			{{ $i18n( "donorportal-greeting", name ).text() }}
+		</h1>
+		<p class="text text--body">
+			{{ $i18n( "donorportal-greetingtext" ).text() }}
+		</p>
+	</section>
 </template>
 
 <script>

@@ -7,14 +7,15 @@ const contact_details_mock = require( '../mocks/contact_details.mock.js' );
 describe( 'Donor contact details component', () => {
     it( 'Renders successfully', () => {
         const wrapper = VueTestUtils.shallowMount( GreetingComponent, {
-            props: contact_details_mock
+            props: {
+                name: contact_details_mock.name
+            }
         } );
 
-        const element = wrapper.find( '.greeting' );
+        const element = wrapper.find( '.dp-dashboard__intro' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).toContain( `donorportal-greeting:[${  contact_details_mock.name  }]` );
-        expect( element.html() ).toContain( 'donorportal-boldtext' );
-        expect( element.html() ).toContain( 'donorportal-smalltext' );
+        expect( element.html() ).toContain( 'donorportal-greetingtext' );
 
     } );
 

@@ -15,7 +15,6 @@ use SmashPig\PaymentData\ValidationAction;
  * There is also a *HitScore variable which controls how many points get added to the filter for
  * each new request.
  */
-
 class Gateway_Extras_SessionVelocityFilter extends FraudFilter {
 
 	/**

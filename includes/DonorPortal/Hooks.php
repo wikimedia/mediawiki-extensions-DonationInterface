@@ -9,9 +9,6 @@ use MediaWiki\ResourceLoader\FilePath;
 use MediaWiki\ResourceLoader\Hook\ResourceLoaderRegisterModulesHook;
 use MediaWiki\ResourceLoader\ResourceLoader;
 
-/**
- * @phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
- */
 class Hooks implements
 	ResourceLoaderRegisterModulesHook
 {

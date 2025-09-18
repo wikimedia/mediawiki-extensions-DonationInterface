@@ -1,35 +1,35 @@
 <template>
-	<div class="contact-details">
-		<p>{{ $i18n( "donorportal-contact-details" ).text() }}</p>
-		<table>
-			<tr>
-				<td>{{ name }}</td>
-				<td>{{ $i18n( "donorportal-donorid", id ).text() }}</td>
-			</tr>
-			<tr>
-				<td>{{ address.street_address }}</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>{{ address.city }}</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>{{ address.state_province }}</td>
-				<td>{{ email }}</td>
-			</tr>
-			<tr>
-				<td>{{ address.postal_code }}</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>{{ address.country }}</td>
-				<td>
-					<a href="#" class="donorportal-update-prefs">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
-				</td>
-			</tr>
-		</table>
-	</div>
+	<section class="dp-card">
+		<div class="dp-card__head">
+			{{ $i18n( "donorportal-contact-details" ).text() }}
+		</div>
+		<div class="dp-card__body">
+			<div class="dp-card__section">
+				<p class="text text--body">
+					{{ name }}
+				</p>
+				<p v-if="address.street_address" class="text text--body">
+					{{ address.street_address }}
+				</p>
+				<p v-if="address.city" class="text text--body">
+					{{ address.city }}
+				</p>
+				<p v-if="addressLine3" class="text text--body">
+					{{ addressLine3 }}
+				</p>
+				<p v-if="address.postal_code" class="text text--body">
+					{{ address.postal_code }}
+				</p>
+			</div>
+			<div class="dp-card__section">
+				<p class="text text--body">
+					{{ $i18n( "donorportal-donorid", id ).text() }}<br>
+					{{ email }}<br>
+					<a href="#" class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
+				</p>
+			</div>
+		</div>
+	</section>
 </template>
 
 <script>
@@ -63,6 +63,19 @@ module.exports = exports = defineComponent( {
 			default() {
 				return {};
 			}
+		}
+	},
+	computed: {
+		addressLine3: function () {
+			const state_province = this.address.state_province, country = this.address.country;
+			if ( state_province && country ) {
+				return `${ state_province }, ${ country }`;
+			} else if ( state_province ) {
+				return state_province;
+			} else if ( country ) {
+				return country;
+			}
+			return '';
 		}
 	}
 } );

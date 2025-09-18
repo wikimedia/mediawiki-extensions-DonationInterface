@@ -12,11 +12,10 @@ describe( 'Donor contact details component', () => {
             }
         } );
 
-        const element = wrapper.find( '.donorportal-recent-donation' );
+        const element = wrapper.find( '.dp-card__appeal' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).toContain( contribution_mock.last_amount_formatted );
         expect( element.html() ).toContain( contribution_mock.last_currency );
-        expect( element.html() ).toContain( contribution_mock.last_payment_method );
         expect( element.html() ).toContain( contribution_mock.last_receive_date_formatted );
     } );
 

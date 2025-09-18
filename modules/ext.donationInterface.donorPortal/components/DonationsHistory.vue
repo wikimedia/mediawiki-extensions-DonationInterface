@@ -1,64 +1,101 @@
 <template>
-	<div id="donorportal-donation-history">
-		<h2>{{ $i18n( "donorportal-your-donation-history" ).text() }}</h2>
-		<button class="print-donation-history">
-			{{ $i18n( "donorportal-print-donations" ).text() }}
-		</button>
-		<div
-			id="donorportal-tab-annual-fund"
-			ref="annual-funds-tab-header"
-			class="tab tab-active"
-			@click="handleAnnualFundTabClick">
-			{{ $i18n( "donorportal-annual-fund" ).text() }}
+	<!-- Donation History -->
+	<section id="donorportal-donation-history" class="dp-card">
+		<div class="dp-card__head">
+			{{ $i18n( "donorportal-your-donation-history" ).text() }}
 		</div>
-		<div
-			id="donorportal-tab-endowment"
-			ref="endowment-tab-header"
-			class="tab"
-			@click="handleEndowmentTabClick">
-			{{
-				$i18n( "donorportal-endowment" ).text() }}
+		<!-- Codex Component: Tabs -->
+		<div class="cdx-tabs">
+			<!-- Header with tab buttons -->
+			<form class="cdx-tabs__header">
+				<!-- List of tabs. -->
+				<div
+					class="cdx-tabs__list"
+					tabindex="-1"
+					role="tablist">
+					<!-- Tab list item. -->
+					<button
+						id="form-tabs-1-label"
+						class="cdx-tabs__list__item"
+						role="tab"
+						aria-selected="true"
+						aria-controls="form-tabs-1"
+						value="form-tabs-1"
+						name="tab"
+						@click="handleTabButtonClick">
+						Foundation
+					</button>
+					<button
+						id="form-tabs-2-label"
+						class="cdx-tabs__list__item"
+						role="tab"
+						aria-selected="false"
+						aria-controls="form-tabs-2"
+						value="form-tabs-2"
+						name="tab"
+						@click="handleTabButtonClick">
+						Endowment
+					</button>
+				</div>
+				<div class="dp-table__actions">
+					<button class="cdx-button cdx-button--weight-quiet cdx-button--size-medium">
+						<svg
+							class="cdx-icon"
+							xmlns="http://www.w3.org/2000/svg"
+							xmlns:xlink="http://www.w3.org/1999/xlink"
+							width="20"
+							height="20"
+							viewBox="0 0 20 20"
+							aria-hidden="true">
+							<g>
+								<path
+									d="M5 1h10v4H5zM3 6a2 2 0 00-2 2v7h4v4h10v-4h4V8a2 2 0 00-2-2zm11 12H6v-6h8zm2-8a1 1 0 111-1 1 1 0 01-1 1" />
+							</g>
+						</svg>
+						Print donation history
+					</button>
+				</div>
+			</form>
+			<!-- Tabs -->
+			<div class="cdx-tabs__content">
+				<!-- <section> element for each tab, with any content inside. -->
+				<section
+					id="form-tabs-1"
+					aria-hidden="false"
+					aria-labelledby="form-tabs-1-label"
+					class="cdx-tab"
+					role="tabpanel"
+					tabindex="-1">
+					<donations-table :donations-list="annualFundDonations"></donations-table>
+				</section>
+				<section
+					id="form-tabs-2"
+					aria-hidden="true"
+					aria-labelledby="form-tabs-2-label"
+					class="cdx-tab"
+					role="tabpanel"
+					tabindex="-1">
+					<donations-table
+						v-if="endowmentDonations.length !== 0"
+						:donations-list="endowmentDonations"></donations-table>
+					<endowment-information v-else></endowment-information>
+				</section>
+			</div>
+			<!-- End of Tabs -->
 		</div>
-		<div
-			id="donorportal-tabcontent-annual-fund"
-			ref="annual-funds-tab-content"
-			class="tabcontent">
-			<donations-table :donations-list="annualFundDonations"></donations-table>
-		</div>
-		<div
-			id="donorportal-tabcontent-endowment"
-			ref="endowment-tab-content"
-			class="tabcontent">
-			<donations-table
-				v-if="endowmentDonations.length !== 0"
-				:donations-list="endowmentDonations"></donations-table>
-			<table v-else class="donation-list">
-				<tbody>
-					<tr>
-						<td colspan="4">
-							<p>{{ $i18n( "donorportal-endowment-short" ).text() }}</p>
-							<h2>{{ $i18n( "donorportal-endowment-what-is" ).text() }}</h2>
-							<p>{{ $i18n( "donorportal-endowment-explanation" ).text() }}</p>
-							<a href="#/">{{ $i18n( "donorportal-endowment-learn-more" ).text()
-							}}</a>
-							|
-							<a href="#/">{{ $i18n( "donorportal-endowment-donate-now" ).text()
-							}}</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+	</section>
+	<!-- End of Donation History -->
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const DonationsTable = require( './DonationsListTable.vue' );
+const EndowmentInformationComponent = require( './EndowmentInformationComponent.vue' );
 
 module.exports = exports = defineComponent( {
 	components: {
-		'donations-table': DonationsTable
+		'donations-table': DonationsTable,
+		'endowment-information': EndowmentInformationComponent
 	},
 	props: {
 		annualFundDonations: {
@@ -77,21 +114,30 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	methods: {
-		handleAnnualFundTabClick: function ( event ) {
-			this.$refs[ 'annual-funds-tab-header' ].classList.add( 'tab-active' );
-			this.$refs[ 'annual-funds-tab-content' ].style.display = 'block';
-			this.$refs[ 'endowment-tab-header' ].classList.remove( 'tab-active' );
-			this.$refs[ 'endowment-tab-content' ].style.display = 'none';
-		},
-		handleEndowmentTabClick: function ( event ) {
-			this.$refs[ 'annual-funds-tab-header' ].classList.remove( 'tab-active' );
-			this.$refs[ 'annual-funds-tab-content' ].style.display = 'none';
-			this.$refs[ 'endowment-tab-header' ].classList.add( 'tab-active' );
-			this.$refs[ 'endowment-tab-content' ].style.display = 'block';
+		handleTabButtonClick: function ( event ) {
+			const tabButtons = document.querySelectorAll( '.cdx-tabs__list__item' );
+			const tabPanels = document.querySelectorAll( '.cdx-tab' );
+			event.preventDefault();
+
+			// Deselect all tabs
+			tabButtons.forEach( ( btn ) => {
+				btn.setAttribute( 'aria-selected', 'false' );
+			} );
+
+			// Hide all panels
+			tabPanels.forEach( ( panel ) => {
+				panel.setAttribute( 'aria-hidden', 'true' );
+			} );
+
+			// Select the clicked tab
+			const selectedTab = event.currentTarget;
+			selectedTab.setAttribute( 'aria-selected', 'true' );
+
+			// Show the corresponding panel
+			const panelId = selectedTab.getAttribute( 'aria-controls' );
+			const panel = document.getElementById( panelId );
+			panel.setAttribute( 'aria-hidden', 'false' );
 		}
-	},
-	mounted() {
-			this.$refs[ 'endowment-tab-content' ].style.display = 'none';
 	}
 } );
 </script>

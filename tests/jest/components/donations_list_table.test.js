@@ -7,7 +7,7 @@ const AnnualFundDonationsList = require( '../mocks/annual_donations_list.mock.js
 function assertTextCorrect( row, donation ) {
     const cells = row.findAll( 'td' );
     expect( cells[ 0 ].text() ).toBe( donation.receive_date_formatted );
-    expect( cells[ 1 ].text() ).toBe( donation.donation_type_key );
+    expect( cells[ 1 ].text() ).toBe( `donorportal-donation-type-recurring-template:[${ donation.donation_type_key }]` );
     expect( cells[ 2 ].text() ).toBe( `${  donation.amount_formatted  } ${  donation.currency  }` );
     expect( cells[ 3 ].text() ).toBe( donation.payment_method );
 }
@@ -29,6 +29,8 @@ describe( 'Donations List Table Component', () => {
         assertTextCorrect( tableRows[ 0 ], AnnualFundDonationsList[ 0 ] );
         assertTextCorrect( tableRows[ 1 ], AnnualFundDonationsList[ 1 ] );
 
+        const table_pagination = wrapper.find( '.table-pagination' );
+        expect( table_pagination.html() ).toContain( 'donorportal-donationtable-pagination-text:[<strong>1</strong>,<strong>2</strong>,<strong>2</strong>]' );
     } );
 
     it( 'Paginates correctly', async () => {
@@ -43,26 +45,48 @@ describe( 'Donations List Table Component', () => {
 
         let tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
         expect( tableRows.length ).toBe( 10 );
+
+        // Pagination buttons are disabled on first page
+        let firstButton = wrapper.find( '.pagination-button-first' );
+        let prevButton = wrapper.find( '.pagination-button-prev' );
+        let nextButton = wrapper.find( '.pagination-button-next' );
+        let lastButton = wrapper.find( '.pagination-button-last' );
+        expect( firstButton.element.disabled ).toBe( true );
+        expect( prevButton.element.disabled ).toBe( true );
+        expect( nextButton.element.disabled ).toBe( false );
+        expect( lastButton.element.disabled ).toBe( false );
+        // Pagination row count is accurate
+        let table_pagination = wrapper.find( '.table-pagination' );
+        expect( table_pagination.html() ).toContain( 'donorportal-donationtable-pagination-text:[<strong>1</strong>,<strong>10</strong>,<strong>15</strong>]' );
+
+        // Relevant rows are displayed on the table with pagination
         for ( let i = 0; i < 10; i++ ) {
             assertTextCorrect( tableRows[ i ], AnnualFundDonationsList[ i ] );
         }
-        let paginationLinks = wrapper.findAll( '.donorportal-donations-table-pagination a' );
-        expect( paginationLinks.length ).toBe( 3 );
-        expect( paginationLinks[ 0 ].text() ).toBe( '1' );
-        expect( paginationLinks[ 1 ].text() ).toBe( '2' );
-        expect( paginationLinks[ 2 ].text() ).toBe( '>>' );
-
-        await paginationLinks[ 1 ].trigger( 'click' );
+        const paginationListOptions = wrapper.findAll( '.page-select-option' );
+        expect( paginationListOptions.length ).toBe( 2 );
+        const paginationListSelect = wrapper.find( '.page-select' );
+        await paginationListSelect.setValue( 2 );
 
         tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
         expect( tableRows.length ).toBe( 5 );
         for ( let i = 0; i < 5; i++ ) {
             assertTextCorrect( tableRows[ i ], AnnualFundDonationsList[ i + 10 ] );
         }
-        paginationLinks = wrapper.findAll( '.donorportal-donations-table-pagination a' );
-        expect( paginationLinks.length ).toBe( 3 );
-        expect( paginationLinks[ 0 ].text() ).toBe( '<<' );
-        expect( paginationLinks[ 1 ].text() ).toBe( '1' );
-        expect( paginationLinks[ 2 ].text() ).toBe( '2' );
+
+        // Pagination buttons are disabled on last page
+        firstButton = wrapper.find( '.pagination-button-first' );
+        prevButton = wrapper.find( '.pagination-button-prev' );
+        nextButton = wrapper.find( '.pagination-button-next' );
+        lastButton = wrapper.find( '.pagination-button-last' );
+        expect( firstButton.element.disabled ).toBe( false );
+        expect( prevButton.element.disabled ).toBe( false );
+        expect( nextButton.element.disabled ).toBe( true );
+        expect( lastButton.element.disabled ).toBe( true );
+
+        // Pagination row count is accurate
+        table_pagination = wrapper.find( '.table-pagination' );
+        expect( table_pagination.html() ).toContain( 'donorportal-donationtable-pagination-text:[<strong>11</strong>,<strong>15</strong>,<strong>15</strong>]' );
+
     } );
 } );
