@@ -7,6 +7,7 @@ use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\Address;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentData\PaymentMethod;
 use SmashPig\PaymentData\RecurringModel;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Gravy\IGetPaymentServicePaymentMethodDefinition;
@@ -134,7 +135,12 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	public function getPaymentMethodsSupportingRecurringConversion(): array {
-		return [ 'cc' ];
+		return [
+			PaymentMethod::APPLE,
+			PaymentMethod::CC,
+			PaymentMethod::DD,
+			PaymentMethod::GOOGLE
+		];
 	}
 
 	public function paymentMethodSupportsRecurring(): bool {
@@ -303,7 +309,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 */
 	protected function runFraudFilters( PaymentProviderExtendedResponse $createPaymentResponse ): void {
 		$riskScores = $createPaymentResponse->getRiskScores();
-		if ( $this->getPaymentMethod() === PaymentMethod::PAYMENT_METHOD_CREDIT_CARD ) {
+		if ( $this->getPaymentMethod() === PaymentMethod::CC ) {
 			$this->addResponseData( [
 				'cvv_result' => $riskScores['cvv'] ?? 0,
 				'avs_result' => $riskScores['avs'] ?? 0
@@ -606,7 +612,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * @return void
 	 */
 	protected function tuneForPaymentMethod(): void {
-		if ( $this->getPaymentMethod() === PaymentMethod::PAYMENT_METHOD_CREDIT_CARD ) {
+		if ( $this->getPaymentMethod() === PaymentMethod::CC ) {
 			$this->transactions['authorize']['request']['browser_info'] = [
 				'user_agent',
 				'accept_header',
