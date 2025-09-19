@@ -77,7 +77,7 @@ describe( 'Recurring cancel form component', () => {
 
         await secondDurationOption.trigger( 'input' );
 
-        const submitButton = cancelDonationFormBody.find( '#option-action' );
+        const submitButton = cancelDonationFormBody.find( '#submit-pause-action' );
         await submitButton.trigger( 'click' );
 
         expect( submitPauseFormMock ).toBeCalledWith( `${ durationOptions[ 1 ].value }` );

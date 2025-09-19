@@ -12,7 +12,9 @@
 			</p>
 		</section>
 		<recurring-contribution-summary
-			:recurring-contribution="recurringContribution"></recurring-contribution-summary>
+			:recurring-contribution="recurringContribution"
+			extra-classes="is-lapsed"
+		></recurring-contribution-summary>
 
 		<section class="column--base">
 			<p class="text text--body">

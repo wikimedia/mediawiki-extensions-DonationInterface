@@ -1,47 +1,61 @@
 <template>
-	<div id="recurring-cancellation-confirmation">
-		<div>
-			<h2>{{ $i18n( "donorportal-cancel-recurring-confirmation-request-header" ).text() }}</h2>
-		</div>
-		<div>
-			<p>{{ $i18n( "donorportal-cancel-recurring-confirmation-request-text" ).text() }}</p>
-			<recurring-contribution-summary
-				:recurring-contribution="recurringContribution"
-			></recurring-contribution-summary>
-		</div>
-		<div class="donorportal-recurring-list">
-			<p>{{ $i18n( "donorportal-cancel-recurring-request-for-reason" ).text() }}</p>
-			<radio-button-input
-				v-for="option in reasons"
-				:id="option.id"
-				:key="option.id"
-				v-model="reason"
-				:label="option.locale"
-				:value="option.value"
-				name="reason"
-			></radio-button-input>
-			<div>
+	<main id="recurring-cancellation-confirmation" class="container">
+		<section class="column--base">
+			<h1 class="heading heading--h1">
+				{{ $i18n( "donorportal-cancel-recurring-confirmation-request-header" ).text() }}
+			</h1>
+			<p class="text text--body">
+				{{ $i18n( "donorportal-cancel-recurring-confirmation-request-text" ).text() }}
+			</p>
+		</section>
+		<recurring-contribution-summary
+			:recurring-contribution="recurringContribution"
+			extra-classes="is-cancel"
+		></recurring-contribution-summary>
+		<section class="column--base">
+			<p class="text text--body">
+				{{ $i18n( "donorportal-cancel-recurring-request-for-reason" ).text() }}
+			</p>
+		</section>
+		<section class="column--base">
+			<form
+				class="form"
+			>
+				<fieldset class="cdx-field">
+					<radio-button-input
+						v-for="option in reasons"
+						:id="option.id"
+						:key="option.id"
+						v-model="reason"
+						:label="option.locale"
+						:value="option.value"
+						name="reason"
+					></radio-button-input>
+				</fieldset>
 				<button
 					id="continue"
 					type="submit"
 					name="submit"
 					value="continue"
 					:disabled="reason === ''"
-					@click="handleCancelRecurringSubmitButtonClick">
+					class="cdx-button cdx-button--weight-primary cdx-button--action-progressive cdx-button--size-large is-cancel"
+					@click="handleCancelRecurringSubmitButtonClick"
+				>
 					{{ $i18n( "donorportal-cancel-recurring-cancel-button" ).text() }}
 				</button>
-				<router-link to="/">
+				<router-link to="/" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-normal cdx-button--size-large">
 					{{ $i18n( "donorportal-cancel-recurring-changed-my-mind" ).text() }}
 				</router-link>
 				<router-link
 					v-if="recurringContribution.frequency_unit === 'month'"
+					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-primary cdx-button--size-large"
 					:to="`/annual-conversion/${recurringContribution.id}`"
 				>
 					{{ $i18n( "donorportal-cancel-recurring-switch-to-annual" ).text() }}
 				</router-link>
-			</div>
-		</div>
-	</div>
+			</form>
+		</section>
+	</main>
 </template>
 
 <script>

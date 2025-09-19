@@ -1,6 +1,6 @@
 <template>
 	<section v-if="recurringContributionValuesSet" class="column--base contribution-details">
-		<section class="box is-lapsed">
+		<section :class="boxClass">
 			<div class="box__inner">
 				<h2 class="heading heading--h1">
 					{{ recurringContributionAmount }}
@@ -22,6 +22,9 @@ module.exports = exports = defineComponent( {
 		recurringContribution: {
 			type: Object,
 			required: true
+		},
+		extraClasses: {
+			type: String
 		}
 	},
 	computed: {
@@ -40,6 +43,13 @@ module.exports = exports = defineComponent( {
 				lastDate = this.recurringContribution.last_contribution_date_formatted;
 			}
 			return this.$i18n( 'donorportal-pause-recurring-last-donation-date', lastDate ).text();
+		},
+		boxClass: function () {
+			let boxClass = 'box';
+			if ( this.extraClasses ) {
+				boxClass = `${ boxClass } ${ this.extraClasses }`;
+			}
+			return boxClass;
 		}
 	}
 } );

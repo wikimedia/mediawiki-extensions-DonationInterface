@@ -1,14 +1,41 @@
 <template>
-	<div id="recurring-contribution-cancel-success" class="greeting">
-		<h2>{{ $i18n( "donorportal-cancel-recurring-confirmation-header" ).text() }}</h2>
-		<h4>{{ $i18n( "donorportal-cancel-monthly-recurring-confirmation-text", amountFormated ).text() }}</h4>
-		<a id="shareFeedback" :href="`mailto:${helpEmail}`">
-			{{ $i18n( "donorportal-feedback-button" ).text() }}
-		</a>
-		<router-link id="buttonBackToAccount" to="/">
-			{{ $i18n( "donorportal-return-to-account-button" ).text() }}
-		</router-link>
-	</div>
+	<main id="recurring-contribution-cancel-success" class="container column--items-center">
+		<section class="column--callout">
+			<h1 class="heading heading--h1">
+				{{ $i18n( "donorportal-cancel-recurring-confirmation-header" ).text() }}
+			</h1>
+			<img
+				:src="`${ assets_path }/images/wp_symbols_community.svg`"
+				alt="Community Icon">
+		</section>
+		<section class="column--base">
+			<ul class="checklist">
+				<li class="text text--body" v-html="confirmationText">
+				</li>
+			</ul>
+		</section>
+
+		<section class="column--base">
+			<a
+				id="shareFeedback"
+				:href="`mailto:${helpEmail}`"
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large">
+				{{ $i18n( "donorportal-feedback-button" ).text() }}
+			</a>
+		</section>
+
+		<section class="column--base">
+			<p class="text text--body text--align-center">
+				<router-link
+					id="buttonBackToAccount"
+					to="/"
+					class="link"
+				>
+					{{ $i18n( "donorportal-return-to-account-button" ).text() }}
+				</router-link>
+			</p>
+		</section>
+	</main>
 </template>
 
 <script>
@@ -25,6 +52,13 @@ module.exports = exports = defineComponent( {
 			required: true
 		}
 	},
+	setup() {
+		const assets_path = mw.config.get( 'assets_path' );
+
+		return {
+			assets_path
+		};
+	},
 	computed: {
 		amountFormated() {
 			if ( !this.recurringContribution ) {
@@ -37,6 +71,9 @@ module.exports = exports = defineComponent( {
 		},
 		helpEmail() {
 			return mw.config.get( 'help_email' );
+		},
+		confirmationText() {
+			return this.$i18n( 'donorportal-cancel-monthly-recurring-confirmation-text', `<strong>${ this.amountFormated }</strong>` ).text();
 		}
 	}
 } );

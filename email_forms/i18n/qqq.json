@@ -75,6 +75,8 @@
 	"donorportal-return-to-account-button": "Label for button that navigates users to the home page",
 	"donorportal-cancel-recurring-other-ways-heading": "Heading shown when donor attempts to cancel a recurring donation",
 	"donorportal-cancel-recurring-other-ways-text": "Text shown when donor attempts to cancel a recurring donation in order to convince them to consider alternative approaches that would maintain their recurring donation.",
+	"donorportal-cancel-recurring-other-ways-text-line2": "Second paragraph of the text shown when a donor attempts to cancel a recurring donation explaining how a monthly donation helps the foundation goals.",
+	"donorportal-cancel-recurring-other-ways-text-line2-emphasis": "Continuation of donorportal-cancel-recurring-other-ways-text-line2 but surrounded by html strong element for emphasis.",
 	"donorportal-cancel-recurring-pause-alternative-header": "This is the header for the pause a donation alternative option instead of cancelling the donation.",
 	"donorportal-cancel-recurring-pause-alternative-text": "This is the text for the pause a donation alternative option instead of cancelling the donation.",
 	"donorportal-cancel-recurring-pause-alternative-button": "This is the text on the button for the pause a donation alternative option instead of cancelling the donation.",

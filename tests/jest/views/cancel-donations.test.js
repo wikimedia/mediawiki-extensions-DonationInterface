@@ -108,7 +108,7 @@ describe( 'Cancel donations view', () => {
         await VueTestUtils.flushPromises();
 
         const pauseRecurringOption = cancelDonationsViewBody.find( '#pause-recurring-alt' );
-        const pauseRecurringOptionButton = pauseRecurringOption.find( '#option-action' );
+        const pauseRecurringOptionButton = pauseRecurringOption.find( '#submit-pause-action' );
         await pauseRecurringOptionButton.trigger( 'click' );
         await VueTestUtils.flushPromises();
 
@@ -154,7 +154,7 @@ describe( 'Cancel donations view', () => {
         await VueTestUtils.flushPromises();
 
         const pauseRecurringOption = cancelDonationsViewBody.find( '#pause-recurring-alt' );
-        const pauseRecurringOptionButton = pauseRecurringOption.find( '#option-action' );
+        const pauseRecurringOptionButton = pauseRecurringOption.find( '#submit-pause-action' );
         await pauseRecurringOptionButton.trigger( 'click' );
         await VueTestUtils.flushPromises();
 
@@ -227,7 +227,7 @@ describe( 'Cancel donations view', () => {
         // Ensure cancel recurring success text is not visible on first load
         const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
         expect( cancelSuccessText.exists() ).toBe( true );
-        expect( cancelSuccessText.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[${ HomeDataMock.result.recurringContributions[ 0 ].amount_frequency_key }:[${ HomeDataMock.result.recurringContributions[ 0 ].amount_formatted },${ HomeDataMock.result.recurringContributions[ 0 ].currency }]]` );
+        expect( cancelSuccessText.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[<strong>${ HomeDataMock.result.recurringContributions[ 0 ].amount_frequency_key }:[${ HomeDataMock.result.recurringContributions[ 0 ].amount_formatted },${ HomeDataMock.result.recurringContributions[ 0 ].currency }]</strong>]` );
     } );
 
    it( 'Renders the cancel confirmation page and the recurring error view on failed cancel', async () => {
