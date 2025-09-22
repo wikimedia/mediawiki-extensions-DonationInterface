@@ -356,7 +356,7 @@
 	"donate_interface-email-receipt": "שליחת הקבלה בדוא״ל אל",
 	"donate_interface-monthly-donation": "תרומה חודשית",
 	"donate_interface-via-paypal": "(דרך פייפאל)",
-	"donate_interface-select": "בחירה",
+	"donate_interface-select": "נא לבחור",
 	"donate_interface-donation-must-equal": "התרומה צריכה להיות $1 או יותר.",
 	"donate_interface-thank-you": "תודה! תרומתך התקבלה.",
 	"donate_interface-change": "שינוי",

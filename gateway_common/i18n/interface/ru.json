@@ -36,7 +36,8 @@
 			"Александр Сигачёв",
 			"Марио",
 			"Хомелка",
-			"Kareyac"
+			"Kareyac",
+			"Amire80"
 		]
 	},
 	"donate_interface": "Поддержим Фонд Викимедиа!",
@@ -349,7 +350,7 @@
 	"donate_interface-email-receipt": "Отправить квитанцию на эл. почту",
 	"donate_interface-monthly-donation": "Ежемесячное пожертвование",
 	"donate_interface-via-paypal": "(через PayPal)",
-	"donate_interface-select": "Размер:",
+	"donate_interface-select": "Выбрать",
 	"donate_interface-donation-must-equal": "Пожертвование должно быть не менее $1.",
 	"donate_interface-thank-you": "Спасибо! Ваше пожертвование получено.",
 	"donate_interface-change": "Изменить",

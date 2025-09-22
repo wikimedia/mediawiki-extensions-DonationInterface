@@ -367,7 +367,7 @@
 	"donate_interface-email-receipt": "E-postkvittering til",
 	"donate_interface-monthly-donation": "Gi en månedlig gave",
 	"donate_interface-via-paypal": "(via PayPal)",
-	"donate_interface-select": "Størrelse:",
+	"donate_interface-select": "Velg",
 	"donate_interface-donation-must-equal": "Donasjonen må være på minst $1.",
 	"donate_interface-thank-you": "Takk skal du ha! Donasjonen din er mottatt.",
 	"donate_interface-change": "Endre",
