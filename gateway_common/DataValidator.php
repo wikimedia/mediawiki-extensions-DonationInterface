@@ -231,30 +231,6 @@ class DataValidator {
 	}
 
 	/**
-	 * checkValidationPassed is a validate helper function.
-	 * In order to determine that we are ready to do the third stage of data
-	 * validation (calculated) for any given field, we need to determine that
-	 * all fields required to validate the original have, themselves, passed
-	 * validation.
-	 * @param array $fields An array of field names to check.
-	 * @param array $results Intermediate result of validation.
-	 * @return bool true if all fields specified in $fields passed their
-	 * not_empty and valid_type validation. Otherwise, false.
-	 */
-	protected static function checkValidationPassed( $fields, $results ) {
-		foreach ( $fields as $field ) {
-			foreach ( $results as $phase => $results_fields ) {
-				if ( array_key_exists( $field, $results_fields )
-					&& $results_fields[$field] !== true
-				) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	/**
 	 * validate_email
 	 * Determines if the $value passed in is a valid email address.
 	 * @param string $value The piece of data that is supposed to be an email
@@ -273,20 +249,6 @@ class DataValidator {
 		}
 
 		return in_array( $value, $acceptedCurrencies );
-	}
-
-	/**
-	 * validate_credit_card
-	 * Determines if the $value passed in is (possibly) a valid credit card number.
-	 * @param string $value The piece of data that is supposed to be a credit card number.
-	 * @return bool True if $value is a reasonable credit card number, otherwise false.
-	 */
-	protected static function validate_credit_card( $value ) {
-		$calculated_card_type = self::getCardType( $value );
-		if ( !$calculated_card_type ) {
-			return false;
-		}
-		return true;
 	}
 
 	/**
@@ -521,44 +483,6 @@ EOT;
 	}
 
 	/**
-	 * Calculates and returns the card type for a given credit card number.
-	 * @param string $card_num A credit card number.
-	 * @return string|false 'amex', 'mc', 'visa', 'discover', or false.
-	 */
-	public static function getCardType( $card_num ) {
-		// validate that credit card number entered is correct and set the card type
-		if ( preg_match( '/^3[47][0-9]{13}$/', $card_num ) ) { // american express
-			return 'amex';
-		} elseif ( preg_match( '/^5[1-5][0-9]{14}$/', $card_num ) ) { // mastercard
-			return 'mc';
-		} elseif ( preg_match( '/^4[0-9]{12}(?:[0-9]{3})?$/', $card_num ) ) {// visa
-			return 'visa';
-		} elseif ( preg_match( '/^6(?:011|5[0-9]{2})[0-9]{12}$/', $card_num ) ) { // discover
-			return 'discover';
-		} else { // an unrecognized card type was entered
-			return false;
-		}
-	}
-
-	/**
-	 * Returns a valid mediawiki language code to use for all the DonationInterface translations.
-	 *
-	 * Will only look at the currently configured language if the 'language' key
-	 * doesn't exist in the data set: Users may not have a language preference
-	 * set if we're bouncing between mediawiki instances for payments.
-	 * @param array $data A normalized DonationInterface data set.
-	 * @return string A valid mediawiki language code.
-	 */
-	public static function guessLanguage( $data ) {
-		if ( array_key_exists( 'language', $data )
-			&& WmfFramework::isValidBuiltInLanguageCode( $data['language'] ) ) {
-			return $data['language'];
-		} else {
-			return WmfFramework::getLanguageCode();
-		}
-	}
-
-	/**
 	 * Takes either an IP address, or an IP address with a CIDR block, and
 	 * expands it to an array containing all the relevant addresses so we can do
 	 * things like save the expanded list to memcache, and use in_array().
@@ -602,55 +526,6 @@ EOT;
 		}
 
 		return in_array( $ip, $expanded, true );
-	}
-
-	/**
-	 * Test to determine if a value appears in a haystack. The haystack may have
-	 * explicit +/- rules (a - will take precedence over a +; if there is no
-	 * + rule, but there is a - rule everything is implicitly accepted); and may
-	 * also have an 'ALL' condition.
-	 *
-	 * @param mixed $needle Value, or array of values, to match
-	 * @param mixed $haystack Value, or array of values, that are acceptable
-	 * @return bool
-	 */
-	public static function value_appears_in( $needle, $haystack ) {
-		$needle = ( is_array( $needle ) ) ? $needle : [ $needle ];
-		$haystack = ( is_array( $haystack ) ) ? $haystack : [ $haystack ];
-
-		$plusCheck = array_key_exists( '+', $haystack );
-		$minusCheck = array_key_exists( '-', $haystack );
-
-		if ( $plusCheck || $minusCheck ) {
-			// With +/- checks we will first explicitly deny anything in '-'
-			// Then if '+' is defined accept anything there
-			// but if '+' is not defined we just let everything that wasn't denied by '-' through
-			// Otherwise we assume both were defined and deny everything :)
-
-			// @phan-suppress-next-line PhanTypeMismatchDimFetch
-			if ( $minusCheck && self::value_appears_in( $needle, $haystack['-'] ) ) {
-				return false;
-			}
-			// @phan-suppress-next-line PhanTypeMismatchDimFetch
-			if ( $plusCheck && self::value_appears_in( $needle, $haystack['+'] ) ) {
-				return true;
-			} elseif ( !$plusCheck ) {
-				// Implicit acceptance
-				return true;
-			}
-			return false;
-		}
-
-		if ( ( count( $haystack ) === 1 ) && ( in_array( 'ALL', $haystack ) ) ) {
-			// If the haystack can accept anything, then whoo!
-			return true;
-		}
-
-		$haystack = array_filter( $haystack, static function ( $value ) {
-			return !is_array( $value );
-		} );
-		$result = array_intersect( $haystack, $needle );
-		return (bool)$result;
 	}
 
 	/**
