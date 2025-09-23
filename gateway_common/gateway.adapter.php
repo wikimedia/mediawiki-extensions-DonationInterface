@@ -259,8 +259,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours,
 	 * 		according to the precedence established in the getTransactionSpecificValue function.
 	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here.
-	 * 		'check_required' should be set to true for transactions that require donor information,
-	 * 		  like initial payment setup. TODO: different required fields per transaction
 	 */
 	abstract protected function defineTransactions();
 
@@ -1639,29 +1637,6 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * If there are things about a transaction that we need to stash in the
-	 * transaction's definition (defined in a local defineTransactions() ), we
-	 * can recall them here. Currently, this is only being used to determine if
-	 * we have a transaction whose transmission would require multiple attempts
-	 * to wait for a certain status (or set of statuses), but we could do more
-	 * with this mechanism if we need to.
-	 * @param string $option_value the name of the key we're looking for in the
-	 * transaction definition.
-	 * @return mixed the transaction's value for that key if it exists, or NULL.
-	 */
-	protected function transaction_option( $option_value ) {
-		// ooo, ugly.
-		$transaction = $this->getCurrentTransaction();
-		if ( !$transaction ) {
-			return null;
-		}
-		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
-			return $this->transactions[$transaction][$option_value];
-		}
-		return null;
-	}
-
-	/**
 	 * Instead of pulling all the DonationData back through to update one local
 	 * value, use this. It updates both staged_data (which is intended to be
 	 * staged and used _just_ by the gateway) and unstaged_data, which is actually
@@ -1830,16 +1805,8 @@ abstract class GatewayAdapter implements GatewayType {
 	public function validate() {
 		$normalized = $this->dataObj->getData();
 
-		if ( $this->transaction_option( 'check_required' ) ) {
-			// The fields returned by getRequiredFields only make sense
-			// for certain transactions. TODO: getRequiredFields should
-			// actually return different things for different transactions
-			$check_not_empty = $this->getRequiredFields();
-		} else {
-			$check_not_empty = [];
-		}
 		$this->errorState->addErrors(
-			DataValidator::validate( $this, $normalized, $check_not_empty )
+			DataValidator::validate( $this, $normalized )
 		);
 
 		// Run modular validations.

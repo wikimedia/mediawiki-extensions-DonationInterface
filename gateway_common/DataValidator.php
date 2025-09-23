@@ -119,14 +119,10 @@ class DataValidator {
 	 * normalized) DonationInterface data set.
 	 * @param GatewayType $gateway
 	 * @param array $data Normalized donation data.
-	 * @param array $check_not_empty An array of fields to do empty validation
-	 * on. If this is not populated, no fields will throw errors for being empty,
-	 * UNLESS they are required for a field that uses them for more complex
-	 * validation (the 'calculated' phase).
 	 * @throws BadMethodCallException
 	 * @return array A list of ValidationError objects, or empty on successful validation.
 	 */
-	public static function validate( GatewayType $gateway, $data, $check_not_empty = [] ) {
+	public static function validate( GatewayType $gateway, $data ) {
 		// return the array of errors that should be generated on validate.
 		// just the same way you'd do it if you were a form passing the error array around.
 
@@ -177,13 +173,6 @@ class DataValidator {
 				'employer_id' => 'validate_numeric',
 			],
 		];
-
-		// Additional fields we should check for emptiness.
-		if ( $check_not_empty ) {
-			$validations['not_empty'] = array_unique( array_merge(
-				$check_not_empty, $validations['not_empty']
-			) );
-		}
 
 		$errors = [];
 		$errored_fields = [];
