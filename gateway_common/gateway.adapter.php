@@ -19,6 +19,7 @@
 
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
+use Mediawiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
@@ -1577,6 +1578,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param bool $contactOnly If we only have the donor's contact information
 	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
+		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
+		if ( $this->isMessageSent( $queue, $order_id ) ) {
+			$this->logger->info( "Not pushing transaction to queue [$queue] as we have already sent one" );
+			return;
+		}
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
 		if ( $contactOnly ) {
 			$message = $this->getQueueContactMessage();
@@ -1590,6 +1596,46 @@ abstract class GatewayAdapter implements GatewayType {
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->logger->info( "Sending donor details for $order_id to pending queue" );
 		QueueWrapper::push( 'pending', $this->getQueueDonationMessage() );
+		$this->markMessageSent( 'pending', $order_id );
+	}
+
+	/**
+	 * Check whether message for $order_id has already been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 * @return bool
+	 */
+	protected function isMessageSent( string $queue, string $order_id ): bool {
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		return $session->get(
+			$this->makeQueueMessageKey( $queue, $order_id ), false
+		);
+	}
+
+	/**
+	 * Mark that a message for $order_id has already been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 */
+	protected function markMessageSent( string $queue, string $order_id ): void {
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		$session->set(
+			$this->makeQueueMessageKey( $queue, $order_id ), true
+		);
+	}
+
+	/**
+	 * Creates a session key to record whether a message for $order_id has already
+	 * been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 * @return string
+	 */
+	protected function makeQueueMessageKey( string $queue, string $order_id ): string {
+		return 'MessagesSent-' . $queue . '-' . $order_id;
 	}
 
 	/**
