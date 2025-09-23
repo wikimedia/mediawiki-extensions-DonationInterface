@@ -276,6 +276,7 @@
 	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "יש להגדיר ערך true כאשר התורם מסרב להוסיף תרומה חודשית",
 	"apihelp-di_recurring_convert-param-frequency_unit": "שנה או חודש",
 	"apihelp-di_recurring_convert-param-gateway": "באיזה שער תשלום להשתמש – ב־adyen, ב־ingenico וכו'.",
+	"apihelp-di_recurring_convert-param-wmf_token": "אסימון עריכה.",
 	"apihelp-employerSearch-summary": "ה־API הזה מאפשר לך לחפש מעסיקים שמשתתפים בתוכנית התאמת בתרומות של קרן ויקימדיה.",
 	"apihelp-employerSearch-param-employer": "איזה מעסיק לחפש, למשל הצלב האדום (Red Cross), הקרן העולמית לשימור חיות הבר (WWF), צבא הישע (Salvation Army), וכו'.",
 	"apihelp-employerSearch-example-1": "חיפוש מעסיק",

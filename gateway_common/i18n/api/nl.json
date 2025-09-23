@@ -277,6 +277,7 @@
 	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "Op ‘true’ gezet wanneer de donateur geen maandelijkse donatie wil toevoegen",
 	"apihelp-di_recurring_convert-param-frequency_unit": "Jaar of maand",
 	"apihelp-di_recurring_convert-param-gateway": "Welke betalingsgateway moet worden gebruikt: adyen, ingenico, etc.",
+	"apihelp-di_recurring_convert-param-wmf_token": "Bewerkingstoken.",
 	"apihelp-employerSearch-summary": "Met deze API kunt u zoeken naar werkgevers die deelnemen aan het WMF Matching Gifts-programma.",
 	"apihelp-employerSearch-param-employer": "Naar welke werkgever moet worden gezocht, bijvoorbeeld Rode Kruis, WNF, Leger des Heils, enz.",
 	"apihelp-employerSearch-example-1": "Een werkgever zoeken",
