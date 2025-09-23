@@ -398,7 +398,7 @@
 	"donate_interface-monthly-donation": "تبرع شهريا",
 	"donate_interface-monthly-only-credit": "نقبل فقط بطاقات الائتمان (وليس بطاقات الخصم) للتبرعات الشهرية.",
 	"donate_interface-via-paypal": "(باستعمال باي بال - PayPal)",
-	"donate_interface-select": "الحجم:",
+	"donate_interface-select": "اختر",
 	"donate_interface-donation-must-equal": "لا يقل التبرع عن $1.",
 	"donate_interface-thank-you": "تبرعك وصل فشكرا",
 	"donate_interface-change": "تغيير",
