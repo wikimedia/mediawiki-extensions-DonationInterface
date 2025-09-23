@@ -279,7 +279,6 @@
 			],
 			"packageFiles": [
 				"modules/ext.donationInterface.donorPortal/init.js",
-				"modules/js/ext.donationInterface.donorPortal.js",
 				"modules/ext.donationInterface.donorPortal/components/App.vue",
 				"modules/ext.donationInterface.donorPortal/components/Header.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonationsListTable.vue",

@@ -27,7 +27,6 @@
 			<p
 				v-if="isActive"
 				class="text text--body"
-				@click.prevent="pauseAndCancelOptions"
 				v-html="recurringAdditionalActionsLink">
 			</p>
 		</div>
@@ -36,7 +35,6 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { useRouter } = require( 'vue-router' );
 module.exports = exports = defineComponent( {
 	props: {
 		contribution: {
@@ -47,17 +45,6 @@ module.exports = exports = defineComponent( {
 			type: Boolean,
 			default: false
 		}
-	},
-	setup() {
-		const router = useRouter();
-		return {
-			pauseAndCancelOptions( e ) {
-				// Convert anchor tags to vue router to improve load time
-				if ( e.target.tagName === 'A' ) {
-					router.push( { path: e.target.pathname } );
-				}
-			}
-		};
 	},
 	computed: {
 		cardClass: function () {
@@ -91,8 +78,8 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( this.contribution.restart_key ).text();
 		},
 		recurringAdditionalActionsLink: function () {
-			const pause_link = `<a href="pause-donations/${ this.contribution.id }" target="_blank"  class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
-			const cancel_link = `<a href="cancel-donations/${ this.contribution.id }" target="_blank"  class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
+			const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
+			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
 			return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
 		}
 	}
