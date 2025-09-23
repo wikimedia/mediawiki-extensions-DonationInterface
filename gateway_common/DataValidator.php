@@ -528,27 +528,4 @@ EOT;
 		return in_array( $ip, $expanded, true );
 	}
 
-	/**
-	 * Okay, so this isn't all validation, but there's a validation
-	 * component in there so I'm calling it close enough.
-	 * @param string $value the value that should be zero-padded out to $total_length
-	 * @param int $total_length The fixed number of characters that $value should be padded out to
-	 * @return string|false The zero-padded value, or false if it was too long to work with.
-	 */
-	public static function getZeroPaddedValue( $value, $total_length ) {
-		// first, trim all leading zeroes off the value.
-		$ret = ltrim( $value, '0' );
-
-		// now, check to see if it's going to be a valid value at all,
-		// and give up if it's hopeless.
-		if ( strlen( $ret ) > $total_length ) {
-			return false;
-		}
-
-		// ...and if we're still here, left pad with zeroes to required length
-		$ret = str_pad( $ret, $total_length, '0', STR_PAD_LEFT );
-
-		return $ret;
-	}
-
 }
