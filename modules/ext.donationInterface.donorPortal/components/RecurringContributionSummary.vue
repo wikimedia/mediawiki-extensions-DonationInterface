@@ -1,11 +1,17 @@
 <template>
-	<div v-if="recurringContributionValuesSet" class="contribution-details">
-		<div>
-			<p>{{ recurringContributionAmount }}</p>
-			<p>{{ recurringContribution.payment_method }}</p>
-			<p>{{ lastContributionDate }}</p>
-		</div>
-	</div>
+	<section v-if="recurringContributionValuesSet" class="column--base contribution-details">
+		<section :class="boxClass">
+			<div class="box__inner">
+				<h2 class="heading heading--h1">
+					{{ recurringContributionAmount }}
+				</h2>
+				<p class="text text--body">
+					{{ recurringContribution.payment_method }}<br>
+					{{ lastContributionDate }}
+				</p>
+			</div>
+		</section>
+	</section>
 </template>
 
 <script>
@@ -16,6 +22,9 @@ module.exports = exports = defineComponent( {
 		recurringContribution: {
 			type: Object,
 			required: true
+		},
+		extraClasses: {
+			type: String
 		}
 	},
 	computed: {
@@ -34,6 +43,13 @@ module.exports = exports = defineComponent( {
 				lastDate = this.recurringContribution.last_contribution_date_formatted;
 			}
 			return this.$i18n( 'donorportal-pause-recurring-last-donation-date', lastDate ).text();
+		},
+		boxClass: function () {
+			let boxClass = 'box';
+			if ( this.extraClasses ) {
+				boxClass = `${ boxClass } ${ this.extraClasses }`;
+			}
+			return boxClass;
 		}
 	}
 } );

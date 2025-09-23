@@ -1,29 +1,50 @@
 <template>
-	<div id="recurring-cancellation-form">
-		<div>
-			<h2>{{ $i18n( "donorportal-cancel-recurring-other-ways-heading" ).text() }}</h2>
-			<p>{{ $i18n( "donorportal-cancel-recurring-other-ways-text" ).text() }}</p>
-		</div>
-		<div>
+	<main id="recurring-cancellation-form" class="container">
+		<section class="column--base">
+			<h1 class="heading heading--h1">
+				{{ $i18n( "donorportal-cancel-recurring-other-ways-heading" ).text() }}
+			</h1>
+			<p class="text text--body">
+				{{ $i18n( "donorportal-cancel-recurring-other-ways-text" ).text() }}
+			</p>
+			<p class="text text--body">
+				{{ $i18n( "donorportal-cancel-recurring-other-ways-text-line2" ).text() }} <strong>{{ $i18n(
+					"donorportal-cancel-recurring-other-ways-text-line2-emphasis" ).text() }}</strong>
+			</p>
+		</section>
+		<section class="column--full speedbump">
 			<alternative-option-container
 				id="pause-recurring-alt"
 				:header="pauseRecurringHeading"
 				:text="pauseRecurringText"
 				:button-text="pauseRecurringButtonText"
-				:action="handlePauseRecurringSubmitButtonClick"
+				extra-classes="is-lapsed"
 			>
 				<template #content>
-					<div class="option-list">
-						<radio-button-input
-							v-for="option in durationOptions"
-							:id="option.id"
-							:key="option.id"
-							v-model="pauseDuration"
-							:label="option.locale"
-							:value="option.value"
-							name="pauseDuration"
-						></radio-button-input>
-					</div>
+					<form class="form">
+						<fieldset class="cdx-field">
+							<div class="cdx-field__control">
+								<radio-button-input
+									v-for="option in durationOptions"
+									:id="option.id"
+									:key="option.id"
+									v-model="pauseDuration"
+									:label="option.locale"
+									:value="option.value"
+									name="pauseDuration"
+								></radio-button-input>
+							</div>
+						</fieldset>
+						<button
+							id="submit-pause-action"
+							type="submit"
+							name="submit"
+							class="cdx-button cdx-button--weight-quiet cdx-button--size-large"
+							@click="handlePauseRecurringSubmitButtonClick"
+						>
+							{{ $i18n( "donorportal-pause-recurring-pause-button" ).text() }}
+						</button>
+					</form>
 				</template>
 			</alternative-option-container>
 			<alternative-option-container
@@ -32,35 +53,44 @@
 				:text="annualConversionText"
 				:button-text="annualConversionButtonText"
 				:action="annualConversionAction"
+				:is-clickable="true"
+				extra-classes="is-recurring"
 			></alternative-option-container>
 			<alternative-option-container
 				:header="amountChangeHeading"
 				:text="amountChangeText"
 				:button-text="amountChangeButtonText"
 				:action="amountChangeAction"
+				:is-clickable="true"
 			></alternative-option-container>
-		</div>
-		<div>
+		</section>
+		<section class="column--full column--items-center">
 			<button
 				id="continue"
 				type="button"
 				name="submit"
-				class="confirm-cancel"
+				class="confirm-cancel cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large"
 				@click="proceedCancelAction">
 				{{ $i18n( "donorportal-cancel-recurring-confirm-cancellation" ).text() }}
 			</button>
-		</div>
-		<div>
-			<h4>{{ $i18n( "donorportal-cancel-recurring-quit-header" ).text() }}</h4>
-			<router-link id="buttonBackToAccount" to="/">
-				{{ $i18n( "donorportal-return-to-account-button" ).text() }}
-			</router-link>
-		</div>
-	</div>
+		</section>
+
+		<section class="column--full">
+			<p class="text text--body text--align-center">
+				{{ $i18n( "donorportal-cancel-recurring-quit-header" ).text() }}
+				<router-link
+					id="buttonBackToAccount"
+					to="/"
+					class="link">
+					{{ $i18n( "donorportal-return-to-account-button" ).text() }}
+				</router-link>
+			</p>
+		</section>
+	</main>
 </template>
 
 <script>
-const { defineComponent, ref } = require( 'vue' );
+const { defineComponent, ref, computed } = require( 'vue' );
 const { useRouter, RouterLink } = require( 'vue-router' );
 
 const RecurringContributionCancelOtherOptions = require( './RecurringContributionCancelAltOptionContainer.vue' );

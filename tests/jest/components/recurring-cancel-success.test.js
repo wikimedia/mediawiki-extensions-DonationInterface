@@ -18,7 +18,7 @@ describe( 'Recurring cancel success component', () => {
         const element = wrapper.find( '#recurring-contribution-cancel-success' );
         expect( element.exists() ).toBe( true );
 
-        expect( element.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[${ contribution_mock.amount_frequency_key }:[${ contribution_mock.amount_formatted },${ contribution_mock.currency }]]` );
+        expect( element.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[<strong>${ contribution_mock.amount_frequency_key }:[${ contribution_mock.amount_formatted },${ contribution_mock.currency }]</strong>]` );
 
         const returnToAccountButton = wrapper.findComponent( '#buttonBackToAccount' );
         expect( returnToAccountButton.html() ).toContain( 'donorportal-return-to-account-button' );

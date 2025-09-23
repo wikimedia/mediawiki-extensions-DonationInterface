@@ -80,6 +80,7 @@
 @color-text: @color-black;
 
 /* Hide MediaWiki UI */
+#mw-head,
 #mw-head-base,
 #mw-page-base,
 #mw-panel,
@@ -88,7 +89,7 @@
 #contentSub,
 #contentSub2,
 .mw-footer {
-	display: none;
+	display: none !important;
 }
 
 .mw-body {
@@ -188,7 +189,7 @@ body.mw-special-DonorPortal footer {
 .mw-body-content h2,
 .mw-body-content .mw-heading2 {
 	margin-top: inherit !important;
-	padding: inherit !important;
+	// padding: inherit !important;
 	line-height: initial !important;
 }
 
@@ -234,7 +235,7 @@ h2 {
 }
 
 .cdx-button--size-large {
-	max-width: 44rem;
+	max-width: 44rem !important;
 }
 
 .is-recurring .cdx-button--action-progressive,

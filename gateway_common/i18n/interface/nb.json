@@ -477,6 +477,7 @@
 	"donate_interface-monthly-convert-enter-amount": "Skriv inn beløpet du ønsker å gi månedlig fra og med neste måned.",
 	"donate_interface-monthly-convert-set-up-monthly": "Sett opp en månedlig donasjon på",
 	"donate_interface-monthly-convert-set-up-annual": "Sett opp en årlig donasjon på",
+	"donate_interface-monthly-convert-set-up-now": "Sett opp nå",
 	"donate_interface-monthly-convert-action-button": "Gi månedlig",
 	"donate_interface-monthly-convert-action-button-annual": "Doner årlig",
 	"donate_interface-monthly-convert-error": "Engangsdonasjonen din var vellykket, men vi kunne ikke starte en gjentagende donasjon.",

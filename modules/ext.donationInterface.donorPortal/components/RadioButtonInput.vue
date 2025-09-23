@@ -1,11 +1,6 @@
 <template>
-	<div
-		id="radio-button-options-list"
-		class="oo-ui-fieldLayout"
-	>
-		<span
-			class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget"
-		>
+	<div id="radio-button-options-list" class="cdx-radio">
+		<div class="cdx-radio__wrapper">
 			<input
 				:id="`option-${id}`"
 				v-model="selectedValue"
@@ -13,11 +8,16 @@
 				:name="name"
 				:value="value"
 				autocomplete="off"
-				class="oo-ui-inputWidget-input"
+				class="cdx-radio__input"
 				@input="$emit( 'update:modelValue', $event.target.value )"
 			>
-		</span>
-		<label :for="`option-${id}`">{{ label }}</label>
+			<span class="cdx-radio__icon"></span>
+			<div class="cdx-radio__label cdx-label">
+				<label :for="`option-${id}`" class="cdx-label__label">
+					<span class="cdx-label__label__text">{{ label }}</span>
+				</label>
+			</div>
+		</div>
 	</div>
 </template>
 

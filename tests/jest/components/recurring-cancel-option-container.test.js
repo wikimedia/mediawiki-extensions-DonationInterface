@@ -14,7 +14,8 @@ describe( 'Recurring cancel option component', () => {
                 header,
                 text,
                 buttonText,
-                action: actionMock
+                action: actionMock,
+                isClickable: true
             }
         } );
 
@@ -25,8 +26,7 @@ describe( 'Recurring cancel option component', () => {
         expect( element.html() ).toContain( text );
         expect( element.html() ).toContain( buttonText );
 
-        const actionButton = wrapper.find( '#option-action' );
-        await actionButton.trigger( 'click' );
+        await element.trigger( 'click' );
         expect( actionMock ).toBeCalled();
     } );
 } );
