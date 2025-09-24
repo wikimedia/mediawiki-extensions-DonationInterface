@@ -383,7 +383,7 @@
 	"donate_interface-monthly-donation": "Fai unha doazón mensual",
 	"donate_interface-monthly-only-credit": "Só aceptamos tarxetas de crédito (non tarxetas de débito) para as doazóns mensuais.",
 	"donate_interface-via-paypal": "(mediante o PayPal)",
-	"donate_interface-select": "Talla:",
+	"donate_interface-select": "Seleccionar",
 	"donate_interface-donation-must-equal": "A doazón debe ser igual ao superior a $1.",
 	"donate_interface-thank-you": "Grazas! Xa recibimos a túa doazón.",
 	"donate_interface-change": "Cambiar",
