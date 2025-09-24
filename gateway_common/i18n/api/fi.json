@@ -3,7 +3,8 @@
 		"authors": [
 			"Nike",
 			"Pyscowicz",
-			"Silvonen"
+			"Silvonen",
+			"Yupik"
 		]
 	},
 	"apihelp-donate-param-first_name": "Etunimi.",
@@ -18,5 +19,10 @@
 	"apihelp-donate-param-cvv": "CVV-turvakoodi.",
 	"apihelp-donate-param-language": "Kielikoodi.",
 	"apihelp-donate-param-wmf_token": "Muokkauspoletti.",
-	"apihelp-donate-param-employer": "Työnantajan nimi"
+	"apihelp-donate-param-employer": "Työnantajan nimi",
+	"apihelp-donate-param-phone": "Puhelinnumero",
+	"apihelp-di_donate_adyen-param-phone": "Puhelinnumero",
+	"apihelp-di_donate_dlocal-param-phone": "Puhelinnumero",
+	"apihelp-di_donate_gravy-param-phone": "Puhelinnumero",
+	"apihelp-di_donate_braintree-param-phone": "Puhelinnumero"
 }

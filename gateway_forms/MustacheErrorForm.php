@@ -63,7 +63,8 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 			$data['header_key'] = 'donate_interface-error-msg-general';
 			$data['error-default'] = true;
 		}
-		if ( Gateway_Extras_CustomFilters::determineStoredAction( $this->gateway ) !== ValidationAction::PROCESS ) {
+		if ( WmfFramework::getSessionValue( 'risk_scores' ) &&
+			Gateway_Extras_CustomFilters::determineStoredAction( $this->gateway ) !== ValidationAction::PROCESS ) {
 			$data['reference_id'] = $data['order_id'] ?? $data['contribution_tracking_id'];
 			$data['error-pending'] = true;
 		}

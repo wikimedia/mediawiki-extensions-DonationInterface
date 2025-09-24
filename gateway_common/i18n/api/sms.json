@@ -10,5 +10,10 @@
 	"apihelp-donate-param-state_province": "Vueʹssvaldia vuännõs.",
 	"apihelp-donate-param-postal_code": "Pååʹštnââmar.",
 	"apihelp-donate-param-email": "E-pååʹštaddrõs.",
-	"apihelp-donate-param-language": "Ǩiõllkoodd."
+	"apihelp-donate-param-language": "Ǩiõllkoodd.",
+	"apihelp-donate-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_adyen-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_dlocal-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_gravy-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_braintree-param-phone": "Teʹlfon-nââmar"
 }

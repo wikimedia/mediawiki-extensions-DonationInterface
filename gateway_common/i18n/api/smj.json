@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yupik"
+		]
+	},
+	"apihelp-donate-param-phone": "Telefåvnnånummar",
+	"apihelp-di_donate_adyen-param-phone": "Telefåvnnånummar",
+	"apihelp-di_donate_dlocal-param-phone": "Telefåvnnånummar",
+	"apihelp-di_donate_gravy-param-phone": "Telefåvnnånummar",
+	"apihelp-di_donate_braintree-param-phone": "Telefåvnnånummar"
+}
