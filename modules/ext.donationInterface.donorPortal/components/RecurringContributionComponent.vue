@@ -1,8 +1,8 @@
 <template>
 	<div :class="cardClass">
 		<div class="dp-card__section dp-card__summary">
-			<span v-if="isActive" class="tag is-recurring">Active</span>
-			<span v-else class="tag">Paused</span>
+			<span v-if="isActive && !isPaused" class="tag is-recurring">{{ statusWord }}</span>
+			<span v-else class="tag">{{ statusWord }}</span>
 			<p class="text heading--h2">
 				<strong v-if="isActive">{{ contributionAmount }}</strong>
 				<strong v-else>{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
@@ -47,9 +47,25 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	computed: {
+		isPaused: function () {
+			return this.isActive && this.contribution.is_paused;
+		},
+		statusWord: function () {
+			let keySuffix = 'active';
+			if ( !this.isActive ) {
+				keySuffix = 'lapsed';
+			} else if ( this.isPaused ) {
+				keySuffix = 'paused';
+			}
+			// Messages that can be used here:
+			// * donorportal-recurring-status-active
+			// * donorportal-recurring-status-lapsed
+			// * donorportal-recurring-status-paused
+			return mw.msg( 'donorportal-recurring-status-' + keySuffix );
+		},
 		cardClass: function () {
 			const base = 'dp-card__appeal';
-			if ( this.isActive ) {
+			if ( this.isActive && !this.isPaused ) {
 				return `${ base } is-recurring`;
 			}
 			return  `${ base } is-lapsed`;
