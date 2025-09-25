@@ -33,7 +33,7 @@ class CiviproxyConnect {
 				'has_paypal' => $preferences['has_paypal'] ?? null,
 				'first_name' => $preferences['first_name'] ?? null,
 				'preferred_language' => $preferences['preferred_language'] ?? null,
-				'is_error' => ( $preferences['is_error'] === 1 ),
+				'is_error' => ( ( $preferences['is_error'] ?? 0 ) === 1 ),
 				'error_message' => $preferences['error_message'] ?? null,
 				'snooze_date' => $preferences['snooze_date']
 			];
@@ -70,7 +70,6 @@ class CiviproxyConnect {
 			],
 			__METHOD__
 		);
-
 		return json_decode( $response, true );
 	}
 
