@@ -8,10 +8,10 @@
 				<strong v-else>{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
 			</p>
 			<p v-if="isActive" class="text text--body">
-				{{ contribution.payment_method }} <a
+				{{ contribution.payment_method }} <!--a
 					href="#"
 					target="_blank"
-					class="link">[ Edit ]</a>
+					class="link">[ Edit ]</a-->
 			</p>
 			<p v-if="isActive" class="text text--body">
 				{{ recurringNextContributionAmountWithDate }}
