@@ -35,6 +35,7 @@
 			"Rubin16",
 			"Stjn",
 			"Tanzun",
+			"Vonavy",
 			"Александр Сигачёв",
 			"Марио",
 			"Хомелка"
@@ -360,7 +361,7 @@
 	"donate_interface-state_province-dropdown-YY": "Выберите штат",
 	"donate_interface-state_province-dropdown-XX": "За пределами США",
 	"donate_interface-cc-MX-instructions": "Для обеспечения безопасности некоторые мексиканские банки блокируют онлайн-транзакции. Если вам не удалось сделать пожертвование, мы предлагаем вам связаться со своим банком для одобрения этого перевода, и затем повторить попытку.",
-	"donate_interface-bt-account_holder": "Владелец счёта (Account holder)",
+	"donate_interface-bt-account_holder": "Имя владельца счёта (Account holder)",
 	"donate_interface-bt-bank_account_number": "Номер счёта",
 	"donate_interface-bt-country_description": "Описание страны (Country description)",
 	"donate_interface-bt-payment_reference": "Номер платёжного поручения (Payment reference)",

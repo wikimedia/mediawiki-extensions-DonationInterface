@@ -221,6 +221,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'email' ] = $preferences[ 'email' ];
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
 		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $preferences[ 'snooze_date' ] );
+		$addedParams[ 'hasPaypal' ] = $preferences[ 'has_paypal' ];
 		return $addedParams;
 	}
 

@@ -19,6 +19,7 @@
 
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
+use Mediawiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
@@ -258,8 +259,6 @@ abstract class GatewayAdapter implements GatewayType {
 	 * 		'request' contains the structure of that request. Leaves in the array tree will eventually be mapped to actual values of ours,
 	 * 		according to the precedence established in the getTransactionSpecificValue function.
 	 * 		'values' contains default values for the transaction. Things that are typically not overridden should go here.
-	 * 		'check_required' should be set to true for transactions that require donor information,
-	 * 		  like initial payment setup. TODO: different required fields per transaction
 	 */
 	abstract protected function defineTransactions();
 
@@ -1577,6 +1576,11 @@ abstract class GatewayAdapter implements GatewayType {
 	 * @param bool $contactOnly If we only have the donor's contact information
 	 */
 	protected function pushMessage( $queue, $contactOnly = false ) {
+		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
+		if ( $this->isMessageSent( $queue, $order_id ) ) {
+			$this->logger->info( "Not pushing transaction to queue [$queue] as we have already sent one" );
+			return;
+		}
 		$this->logger->info( "Pushing transaction to queue [$queue]" );
 		if ( $contactOnly ) {
 			$message = $this->getQueueContactMessage();
@@ -1590,29 +1594,46 @@ abstract class GatewayAdapter implements GatewayType {
 		$order_id = $this->getData_Unstaged_Escaped( 'order_id' );
 		$this->logger->info( "Sending donor details for $order_id to pending queue" );
 		QueueWrapper::push( 'pending', $this->getQueueDonationMessage() );
+		$this->markMessageSent( 'pending', $order_id );
 	}
 
 	/**
-	 * If there are things about a transaction that we need to stash in the
-	 * transaction's definition (defined in a local defineTransactions() ), we
-	 * can recall them here. Currently, this is only being used to determine if
-	 * we have a transaction whose transmission would require multiple attempts
-	 * to wait for a certain status (or set of statuses), but we could do more
-	 * with this mechanism if we need to.
-	 * @param string $option_value the name of the key we're looking for in the
-	 * transaction definition.
-	 * @return mixed the transaction's value for that key if it exists, or NULL.
+	 * Check whether message for $order_id has already been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 * @return bool
 	 */
-	protected function transaction_option( $option_value ) {
-		// ooo, ugly.
-		$transaction = $this->getCurrentTransaction();
-		if ( !$transaction ) {
-			return null;
-		}
-		if ( array_key_exists( $option_value, $this->transactions[$transaction] ) ) {
-			return $this->transactions[$transaction][$option_value];
-		}
-		return null;
+	protected function isMessageSent( string $queue, string $order_id ): bool {
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		return $session->get(
+			$this->makeQueueMessageKey( $queue, $order_id ), false
+		);
+	}
+
+	/**
+	 * Mark that a message for $order_id has already been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 */
+	protected function markMessageSent( string $queue, string $order_id ): void {
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		$session->set(
+			$this->makeQueueMessageKey( $queue, $order_id ), true
+		);
+	}
+
+	/**
+	 * Creates a session key to record whether a message for $order_id has already
+	 * been sent to queue $queue
+	 *
+	 * @param string $queue
+	 * @param string $order_id
+	 * @return string
+	 */
+	protected function makeQueueMessageKey( string $queue, string $order_id ): string {
+		return 'MessagesSent-' . $queue . '-' . $order_id;
 	}
 
 	/**
@@ -1784,16 +1805,8 @@ abstract class GatewayAdapter implements GatewayType {
 	public function validate() {
 		$normalized = $this->dataObj->getData();
 
-		if ( $this->transaction_option( 'check_required' ) ) {
-			// The fields returned by getRequiredFields only make sense
-			// for certain transactions. TODO: getRequiredFields should
-			// actually return different things for different transactions
-			$check_not_empty = $this->getRequiredFields();
-		} else {
-			$check_not_empty = [];
-		}
 		$this->errorState->addErrors(
-			DataValidator::validate( $this, $normalized, $check_not_empty )
+			DataValidator::validate( $this, $normalized )
 		);
 
 		// Run modular validations.

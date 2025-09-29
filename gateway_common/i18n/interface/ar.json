@@ -463,7 +463,7 @@
 	"donate_interface-translate-redlink2": "أو أرسل ترجمتك إلى translations@wikimedia.org",
 	"donate_interface-email-unsub-title": "مؤسسة ويكيميديا -إلغاء الإشتراك",
 	"donate_interface-email-unsub-button": "ألغِ الاشتراك",
-	"donate_interface-email-unsub-success": "تم إزالتك من قائمة بريدنا بنجاح",
+	"donate_interface-email-unsub-success": "أُزيل اسمك بنجاح من قائمة البريد لدينا",
 	"donate_interface-email-unsub-delay": "يرجى الانتظار حتى أربعة (4) أيام لتُطبق التغييرات. نعتذر عن أي رسائل بريد إلكتروني تصلك خلال هذه الفترة. لأي استفساراتٍ، يُرجى التواصل عبر البريد الإلكتروني $1",
 	"donate_interface-email-unsub-fail": "حدث خطأ ما خلال تنفيذ طلبك. الرجاء الاتصال بـ <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "هل أنت متأكد من رغبتك في إلغاء اشتراك $1؟",
