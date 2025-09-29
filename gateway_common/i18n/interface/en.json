@@ -451,6 +451,7 @@
 	"donate_interface-email-unsub-delay": "Please allow up to four (4) days for the changes to take effect. We apologize for any emails you receive during this time. If you have any questions, please contact $1",
 	"donate_interface-email-unsub-fail": "There was an error processing your request, please contact <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Are you sure you want to unsubscribe <b>$1</b>?",
+	"donate_interface-email-paypal-donor-no-edit-email-hint": "Your recurring donation is processed via PayPal, so if you wish to change your email address, you will need to update your email address directly through your PayPal account. Please contact our donor relations team at <a href=\"mailto:$1\">$1</a> if you have any questions regarding updating your contact information.",
 	"donate_interface-email-explain": "We will email you a receipt to confirm your donation.",
 	"donate_interface-email-optin-fail": "There was an error processing your request. Please contact <a href=\"mailto:$1\">$1</a> or <a href=\"$2\">click here to try again</a>.",
 	"donate_interface-faqs": "Frequently asked questions",

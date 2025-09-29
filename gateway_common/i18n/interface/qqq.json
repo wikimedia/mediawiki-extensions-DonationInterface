@@ -482,6 +482,7 @@
 	"donate_interface-email-unsub-delay": "The message that is shown when there is a delay in the unsubscription of a donor from the mailing list. Parameters:\n* $1 - the email address for donor services.",
 	"donate_interface-email-unsub-fail": "The message that is shown when there has been an error in the unsubscription of a donor from the mailing list. Parameters:\n* $1 - the email address for donor services.",
 	"donate_interface-email-unsub-confirm": "To confirm that the user wants to unsubscribe from getting e-mail notifications. '''$1''' is the user's e-mail address.",
+	"donate_interface-email-paypal-donor-no-edit-email-hint": "let donor know as paypal donor not able to edit primary email but from paypal account, any concern can email donor relation.  Parameters:\n* $1 - the email address for donor services.",
 	"donate_interface-email-explain": "A message explaining why we need an email address, even when the donor does not want to be on our mailing list",
 	"donate_interface-email-optin-fail": "Text to display if the opt-in failed. Link to email address:$1 for more support.\n\nParameters:\n* $1 - email address of donor services, $2 - link to retry",
 	"donate_interface-faqs": "Link text to the frequently asked questions page.\n{{Identical|Frequently asked questions}}",
