@@ -54,7 +54,7 @@
 	"donorportal-pause-recurring-heading": "Need to take a break?",
 	"donorportal-pause-recurring-subheading": "We understand that things change, and we'd love to help find a solution that works for you. Please select an option below.",
 	"donorportal-pause-recurring-subtext": "You are pausing:",
-	"donorportal-pause-recurring-last-donation-date": "Last donation date: $1",
+	"donorportal-pause-recurring-next-donation-date": "Next donation date: $1",
 	"donorportal-pause-recurring-no-recurring-donation": "N/A",
 	"donorportal-pause-recurring-specify-duration": "Choose how long you'd like to pause your donation for:",
 	"donorportal-pause-recurring-pause-button": "Pause your recurring gift",

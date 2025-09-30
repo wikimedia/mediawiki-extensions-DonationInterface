@@ -57,7 +57,7 @@
 	"donorportal-pause-recurring-heading": "Heading text displayed on the pause recurring screen",
 	"donorportal-pause-recurring-subheading": "Subheading text displayed on the pause recurring screen",
 	"donorportal-pause-recurring-subtext": "Introductory text for the subscription details. Shown about information such as the sum, the frequency, the credit card, and last donation date.\n[[File:Donor Portal Recurring Pause page.png|thumb|300px|Screenshot]]",
-	"donorportal-pause-recurring-last-donation-date": "Introductory text for the last donation date, $1 - date of last donation",
+	"donorportal-pause-recurring-next-donation-date": "Introductory text for the next donation date, $1 - date of next donation",
 	"donorportal-pause-recurring-no-recurring-donation": "Text shown when no donation has been given on an existing subscription till date",
 	"donorportal-pause-recurring-specify-duration": "Explanatory text for selecting how long the donor would like to pause the subscription",
 	"donorportal-pause-recurring-pause-button": "Pause subscription action button label",
