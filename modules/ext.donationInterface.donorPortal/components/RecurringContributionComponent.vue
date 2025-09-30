@@ -4,8 +4,8 @@
 			<span v-if="isActive && !isPaused" class="tag is-recurring">{{ statusWord }}</span>
 			<span v-else class="tag">{{ statusWord }}</span>
 			<p class="text heading--h2">
-				<strong v-if="isActive">{{ contributionAmount }}</strong>
-				<strong v-else>{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
+				<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
+				<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
 			</p>
 			<p v-if="isActive" class="text text--body">
 				{{ contribution.payment_method }} <!--a
