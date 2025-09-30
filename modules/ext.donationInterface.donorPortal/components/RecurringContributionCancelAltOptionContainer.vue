@@ -35,14 +35,16 @@ module.exports = exports = defineComponent( {
 			type: Boolean
 		},
 		buttonText: {
-			type: String
+			type: String,
+			required: true
 		},
 		extraClasses: {
-			type: String
+			type: String,
+			default: ''
 		},
 		action: {
 			type: Function,
-			required: true
+			default: () => {}
 		}
 	},
 	setup( props ) {
@@ -52,13 +54,13 @@ module.exports = exports = defineComponent( {
 				if ( props.isClickable ) {
 					boxClass = `${ boxClass } box--clickable`;
 				}
-				if ( props.extraClasses ) {
+				if ( props.extraClasses !== '' ) {
 					boxClass = `${ boxClass } ${ props.extraClasses }`;
 				}
 				return boxClass;
 			} ),
 			handleClick: () => {
-				if ( props.action && props.isClickable ) {
+				if ( props.isClickable ) {
 					props.action();
 				}
 			}

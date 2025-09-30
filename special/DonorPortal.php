@@ -162,6 +162,20 @@ class DonorPortal extends UnlistedSpecialPage {
 			) ) {
 				$this->formParams['hasActiveRecurring'] = true;
 				$key = 'recurringContributions';
+
+				if ( $recurringContribution['frequency_unit'] === 'month' ) {
+					// Consider it paused if the next charge date is more than 31 days in the future
+					$recurringContribution['is_paused'] = (
+						new \DateTime( $recurringContribution['next_sched_contribution_date'] ) >
+						new \DateTime( '+31 days' )
+					);
+				} elseif ( $recurringContribution['frequency_unit'] === 'year' ) {
+					// Consider it paused if the next charge date is more than 31 days in the future
+					$recurringContribution['is_paused'] = (
+						new \DateTime( $recurringContribution['next_sched_contribution_date'] ) >
+						new \DateTime( '+366 days' )
+					);
+				}
 			} elseif ( in_array(
 				$recurringContribution['status'], [ 'Completed', 'Failed', 'Cancelled' ]
 			) ) {

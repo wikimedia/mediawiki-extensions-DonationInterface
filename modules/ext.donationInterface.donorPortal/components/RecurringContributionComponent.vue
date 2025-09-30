@@ -1,17 +1,17 @@
 <template>
 	<div :class="cardClass">
 		<div class="dp-card__section dp-card__summary">
-			<span v-if="isActive" class="tag is-recurring">Active</span>
-			<span v-else class="tag">Paused</span>
+			<span v-if="isActive && !isPaused" class="tag is-recurring">{{ statusWord }}</span>
+			<span v-else class="tag">{{ statusWord }}</span>
 			<p class="text heading--h2">
 				<strong v-if="isActive">{{ contributionAmount }}</strong>
 				<strong v-else>{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
 			</p>
 			<p v-if="isActive" class="text text--body">
-				{{ contribution.payment_method }} <a
+				{{ contribution.payment_method }} <!--a
 					href="#"
 					target="_blank"
-					class="link">[ Edit ]</a>
+					class="link">[ Edit ]</a-->
 			</p>
 			<p v-if="isActive" class="text text--body">
 				{{ recurringNextContributionAmountWithDate }}
@@ -27,7 +27,6 @@
 			<p
 				v-if="isActive"
 				class="text text--body"
-				@click.prevent="pauseAndCancelOptions"
 				v-html="recurringAdditionalActionsLink">
 			</p>
 		</div>
@@ -36,7 +35,6 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { useRouter } = require( 'vue-router' );
 module.exports = exports = defineComponent( {
 	props: {
 		contribution: {
@@ -48,21 +46,26 @@ module.exports = exports = defineComponent( {
 			default: false
 		}
 	},
-	setup() {
-		const router = useRouter();
-		return {
-			pauseAndCancelOptions( e ) {
-				// Convert anchor tags to vue router to improve load time
-				if ( e.target.tagName === 'A' ) {
-					router.push( { path: e.target.pathname } );
-				}
-			}
-		};
-	},
 	computed: {
+		isPaused: function () {
+			return this.isActive && this.contribution.is_paused;
+		},
+		statusWord: function () {
+			let keySuffix = 'active';
+			if ( !this.isActive ) {
+				keySuffix = 'lapsed';
+			} else if ( this.isPaused ) {
+				keySuffix = 'paused';
+			}
+			// Messages that can be used here:
+			// * donorportal-recurring-status-active
+			// * donorportal-recurring-status-lapsed
+			// * donorportal-recurring-status-paused
+			return mw.msg( 'donorportal-recurring-status-' + keySuffix );
+		},
 		cardClass: function () {
 			const base = 'dp-card__appeal';
-			if ( this.isActive ) {
+			if ( this.isActive && !this.isPaused ) {
 				return `${ base } is-recurring`;
 			}
 			return  `${ base } is-lapsed`;
@@ -91,8 +94,8 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( this.contribution.restart_key ).text();
 		},
 		recurringAdditionalActionsLink: function () {
-			const pause_link = `<a href="pause-donations/${ this.contribution.id }" target="_blank"  class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
-			const cancel_link = `<a href="cancel-donations/${ this.contribution.id }" target="_blank"  class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
+			const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
+			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
 			return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
 		}
 	}
