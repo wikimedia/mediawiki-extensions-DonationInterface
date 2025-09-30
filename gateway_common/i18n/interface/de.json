@@ -429,6 +429,7 @@
 	"donate_interface-email-unsub-delay": "Bitte lassen Sie uns für die Änderungen vier (4) Tage Zeit. Wir bitten um Verständnis für die E-Mails, die Sie während dieser Zeit erhalten. Wenn Sie irgendwelche Fragen haben, kontaktieren Sie bitte $1",
 	"donate_interface-email-unsub-fail": "Es gab einen Fehler bei der Verarbeitung Ihrer Anfrage, bitte <a href=\"mailto:$1\">$1</a> kontaktieren.",
 	"donate_interface-email-unsub-confirm": "Sind Sie sicher, dass Sie keine E-Mail-Benachrichtigungen mehr an <b>$1</b> erhalten möchten?",
+	"donate_interface-email-paypal-donor-no-edit-email-hint": "Ihre regelmäßige Spende wird über PayPal abgewickelt. Wenn Sie Ihre E-Mail-Adresse ändern möchten, müssen Sie diese direkt über Ihr PayPal-Konto aktualisieren. Bei Fragen zur Aktualisierung Ihrer Kontaktdaten wenden Sie sich bitte an unser Spenderbetreuungsteam unter <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-explain": "Wir werden Ihnen eine Bestätigung Ihrer Spende schicken",
 	"donate_interface-email-optin-fail": "Bei der Verarbeitung Ihrer Anfrage gab es einen Fehler. Kontaktieren Sie bitte <a href=\"mailto:$1\">$1</a> oder klicken Sie <a href=\"$2\">hier</a>, um es erneut zu versuchen.",
 	"donate_interface-faqs": "Häufig gestellte Fragen",
