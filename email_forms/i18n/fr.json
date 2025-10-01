@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bananax47",
 			"Derugon",
 			"Escargot bleu",
 			"JLTRY",
@@ -37,6 +38,9 @@
 	"donorportal-recurring-pause": "Suspendre",
 	"donorportal-recurring-cancel": "Annuler",
 	"donorportal-recurring-pause-or-cancel": "$1 ou $2 mon don",
+	"donorportal-recurring-status-active": "Active",
+	"donorportal-recurring-status-lapsed": "Expiré",
+	"donorportal-recurring-status-paused": "En pause",
 	"donorportal-your-donation-history": "Votre historique de dons",
 	"donorportal-print-donations": "Imprimer l'historique des dons",
 	"donorportal-annual-fund": "Fonds annuel",

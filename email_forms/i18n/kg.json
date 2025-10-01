@@ -1,9 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"BOKOBA VEROLY"
+			"BOKOBA VEROLY",
+			"Marphy 123"
 		]
 	},
+	"donorportal-recurring-status-lapsed": "Kukonda kuwakana",
+	"donorportal-recurring-status-paused": "Kukonda kupema",
+	"donorportal-cancel-recurring-other-ways-text": "Beto ke bakisa nde mambu ke soba, kansi beto ta zola nde nge tadila kuyambula to kusoba makabu na nge kana nge lenda landa kupesa maboko na kisalu na beto.",
+	"donorportal-cancel-recurring-other-ways-text-line2": "Dikabu ya ngonda kele mutindu ya kuluta mbote ya kutanina Wikipedia na nsungi ya nda mpi kusadisa beto na kuyidika mambu na bilumbu ke kwisa.",
+	"donorportal-cancel-recurring-other-ways-text-line2-emphasis": "Ata dikabu mosi ve kele ya fioti kibeni sambu na kusala bupusi.",
 	"recurupgrade-amount-ask": "Beto ke lomba nge na kupona ntalu yina nge ke zola kutomisa dikabu na nge:",
 	"recurupgrade-ask-bigger": "Bika beto sala bupusi ya nene - kumosi.",
 	"recurupgrade-ask-heading": "Wikipedia kele internet yina bo silaka beto, mpi lusadisu na nge ke taninaka yo ngolo!",
