@@ -4,5 +4,10 @@
 			"Yupik"
 		]
 	},
-	"apihelp-donate-param-language": "Gïelekoode."
+	"apihelp-donate-param-language": "Gïelekoode.",
+	"apihelp-donate-param-phone": "Telefovnenummere",
+	"apihelp-di_donate_adyen-param-phone": "Telefovnenummere",
+	"apihelp-di_donate_dlocal-param-phone": "Telefovnenummere",
+	"apihelp-di_donate_gravy-param-phone": "Telefovnenummere",
+	"apihelp-di_donate_braintree-param-phone": "Telefovnenummere"
 }

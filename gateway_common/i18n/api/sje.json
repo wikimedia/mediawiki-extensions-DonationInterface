@@ -1,8 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Olve Utne"
+			"Olve Utne",
+			"Yupik"
 		]
 	},
-	"apihelp-donate-param-cvv": "CVV-dårrvokuvvda."
+	"apihelp-donate-param-cvv": "CVV-dårrvokuvvda.",
+	"apihelp-donate-param-phone": "Telefuvdnanummir",
+	"apihelp-di_donate_adyen-param-phone": "Telefuvdnanummir",
+	"apihelp-di_donate_dlocal-param-phone": "Telefuvdnanummir",
+	"apihelp-di_donate_gravy-param-phone": "Telefuvdnanummir",
+	"apihelp-di_donate_braintree-param-phone": "Telefuvdnanummir"
 }
