@@ -166,6 +166,7 @@
 		"AmazonAdapter": "amazon_gateway/amazon.adapter.php",
 		"AmazonBillingApi": "amazon_gateway/amazon.api.php",
 		"Frictionless3DSecure": "gateway_common/Frictionless3DSecure.php",
+		"SmsOptin": "gateway_common/SmsOptin.php",
 		"AdyenDonationApi": "adyen_gateway/adyen.api.php",
 		"DlocalDonationApi": "dlocal_gateway/dlocal.api.php",
 		"BraintreeDonationApi": "braintree_gateway/braintree.api.php",

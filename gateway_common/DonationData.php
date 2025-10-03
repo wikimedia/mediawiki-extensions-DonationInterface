@@ -126,6 +126,7 @@ class DonationData implements LogPrefixProvider {
 		'screen_height', // device fingerprinting
 		'screen_width', // device fingerprinting
 		'server_ip',
+		'sms_opt_in',
 		'state_province',
 		'street_address',
 		'street_number', // for addresses in India
@@ -1048,12 +1049,14 @@ class DonationData implements LogPrefixProvider {
 			'payment_method',
 			'payment_orchestrator_reconciliation_id',
 			'payment_submethod',
+			'phone',
 			'postal_code',
 			'processor_contact_id',
 			'recipient_id',
 			'recurring',
 			'recurring_payment_token',
 			'response',
+			'sms_opt_in',
 			'state_province',
 			'street_address',
 			'subscr_id',

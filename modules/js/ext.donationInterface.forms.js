@@ -100,6 +100,26 @@
 	}
 
 	/**
+	 * Get a binary value from a checkbox that may exist
+	 *  '0' = checkbox shown and not checked, checkbox not shown
+	 *  '1' = checkbox shown and checked
+	 *
+	 * @return {string}
+	 */
+	function handleCheckbox( checkboxName ) {
+		let val, $element = $( 'input[name=' + checkboxName + ']:checked' );
+		if ( $element.length === 1 ) {
+			val = $element.val();
+		} else {
+			val = mw.util.getParamValue( checkboxName );
+			if ( val === null ) {
+				val = 0;
+			}
+		}
+		return val;
+	}
+
+	/**
 	 * Call the generic donation API and handle errors or execute a callback
 	 *
 	 * @param {function(result)} successCallback will be called with response's 'result' property
@@ -140,6 +160,7 @@
 			state_province: $( '#state_province' ).val(),
 			postal_code: $( '#postal_code' ).val(),
 			phone: $( '#phone' ).val(),
+			sms_opt_in: handleCheckbox( 'sms_opt_in' ),
 			email: $( '#email' ).val(),
 			country: $( '#country' ).val(),
 			payment_method: $( '#payment_method' ).val(),

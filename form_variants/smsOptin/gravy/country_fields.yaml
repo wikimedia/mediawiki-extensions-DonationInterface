@@ -1,0 +1,40 @@
+# Note: For some dLocal countries, while we don't show a fiscal number on the form, we generate
+# a fake "placeholder" number and send that, instead. See the PlaceholderFiscalNumber
+# staging helper.
+
+AR:
+  fiscal_number: true
+
+AU:
+  state_province: true
+
+BR:
+  fiscal_number: true
+
+CA:
+  address: true
+
+GB:
+  address: true
+  opt_in: true
+
+IE:
+  opt_in: true
+
+IN:
+  street_address: true
+  street_number: true
+  state_province: true
+  postal_code: true
+  city: true
+  fiscal_number: optional
+
+US:
+  street_address: true
+  phone: optional
+  postal_code: true
+  employer: optional
+  sms_opt_in: optional
+
+ZA:
+  address: true
