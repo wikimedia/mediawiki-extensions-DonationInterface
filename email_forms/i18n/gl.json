@@ -55,7 +55,7 @@
 	"donorportal-pause-recurring-heading": "Queres facer unha pausa?",
 	"donorportal-pause-recurring-subheading": "Entendemos que as cousas cambian e encantaríanos axudarche a atopar unha solución que se adapte a ti. Selecciona unha das seguintes opcións.",
 	"donorportal-pause-recurring-subtext": "Estás facendo unha pausa:",
-	"donorportal-pause-recurring-last-donation-date": "Data da última doazón: $1",
+	"donorportal-pause-recurring-next-donation-date": "Data da vindeira doazón: $1",
 	"donorportal-pause-recurring-no-recurring-donation": "ningunha",
 	"donorportal-pause-recurring-specify-duration": "Escolle canto tempo queres pausar a túa doazón:",
 	"donorportal-pause-recurring-pause-button": "Pausar a túa doazón recorrente",

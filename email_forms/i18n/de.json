@@ -59,7 +59,7 @@
 	"donorportal-pause-recurring-heading": "Brauchen Sie eine Pause?",
 	"donorportal-pause-recurring-subheading": "Wir verstehen, dass sich Dinge ändern, und helfen Ihnen gerne, eine passende Lösung für Sie zu finden. Bitte wählen Sie unten eine Option aus.",
 	"donorportal-pause-recurring-subtext": "Sie pausieren:",
-	"donorportal-pause-recurring-last-donation-date": "Letztes Spendendatum: $1",
+	"donorportal-pause-recurring-next-donation-date": "Nächster Spendentermin: $1",
 	"donorportal-pause-recurring-no-recurring-donation": "unbekannt",
 	"donorportal-pause-recurring-specify-duration": "Wählen Sie aus, wie lange Sie Ihre Spende pausieren möchten:",
 	"donorportal-pause-recurring-pause-button": "Pausieren Sie Ihre wiederkehrende Spende",

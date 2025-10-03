@@ -9,7 +9,8 @@
 			"Marphy 123",
 			"McDutchie",
 			"Terio legale",
-			"Verdy p"
+			"Verdy p",
+			"WillyM"
 		]
 	},
 	"donorportal-title": "Portail des donateurs de la Fondation Wikimédia",
@@ -60,7 +61,7 @@
 	"donorportal-pause-recurring-heading": "Besoin de faire une pause ?",
 	"donorportal-pause-recurring-subheading": "Nous comprenons que les choses évoluent et nous aimerions vous aider à trouver une solution adaptée à vos besoins. Veuillez sélectionner une option ci-dessous.",
 	"donorportal-pause-recurring-subtext": "Vous suspendez :",
-	"donorportal-pause-recurring-last-donation-date": "Date du dernier don : $1",
+	"donorportal-pause-recurring-next-donation-date": "Prochaine date de don : $1",
 	"donorportal-pause-recurring-no-recurring-donation": "s.o.",
 	"donorportal-pause-recurring-specify-duration": "Choisissez la durée de suspension de vos dons :",
 	"donorportal-pause-recurring-pause-button": "Suspendre votre don récurrent",

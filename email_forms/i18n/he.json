@@ -57,7 +57,7 @@
 	"donorportal-pause-recurring-heading": "נחוצה לך הפסקה?",
 	"donorportal-pause-recurring-subheading": "אנו מבינים שדברים משתנים, ונשמח לעזור למצוא פתרון שמתאים לך. נא לבחור אפשרות למטה.",
 	"donorportal-pause-recurring-subtext": "מתבצעת השהיה של:",
-	"donorportal-pause-recurring-last-donation-date": "תאריך תרומה אחרונה: $1",
+	"donorportal-pause-recurring-next-donation-date": "תאריך התרומה הבאה: $1",
 	"donorportal-pause-recurring-no-recurring-donation": "לא זמין",
 	"donorportal-pause-recurring-specify-duration": "נא לבחור למשך כמה זמן ברצונך להשהות את התרומה שלך:",
 	"donorportal-pause-recurring-pause-button": "להשהות את התרומה החוזרת שלך",
