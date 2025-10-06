@@ -433,6 +433,7 @@
 	"donate_interface-email-unsub-delay": "Det kan ta inntil fire (4) dager før endringene trer i kraft. Vi beklager om du får e-poster i løpet av denne tidsperioden. Kontakt $1 hvis du har noen spørsmål.",
 	"donate_interface-email-unsub-fail": "Det oppsto en feil under behandling av forespørselen, vennligst kontakt <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Er du sikker på at du ønsker å melde av <b>$1</b>?",
+	"donate_interface-email-paypal-donor-no-edit-email-hint": "Den gjentakende gaven behandles via PayPal, så for å endre e-postadressen din må du gjøre det via PayPal-kontoen. Kontakt giverrelasjonsteamet vårt på <a href=\"mailto:$1\"$1</a> hvis du har spørsmål om oppdatering av kontaktinformasjonen din.",
 	"donate_interface-email-explain": "Vi sender deg en kvittering på e-post for å bekrefte gaven din.",
 	"donate_interface-email-optin-fail": "En feil oppsto under behandlingen av forespørselen din. Vennligst kontakt <a href=\"mailto:$1\">$1</a>, eller <a href=\"$2\">trykk her for å prøve igjen</a>.",
 	"donate_interface-faqs": "Ofte stilte spørsmål",
