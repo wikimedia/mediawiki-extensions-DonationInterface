@@ -451,6 +451,10 @@ button#cancel {
 	display: none;
 }
 
+nav#p-personal {
+	display: none;
+}
+
 body {
 	background-color: #fff !important;
 }
