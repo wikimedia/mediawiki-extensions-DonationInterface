@@ -1089,10 +1089,10 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "adyen", "ingenico", "gravy" ]
+					"gateways": [ "dlocal", "adyen", "gravy" ]
 				},
 				{
-					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
+					"gateways": [ "adyen", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
 				}
 			]
 		},
