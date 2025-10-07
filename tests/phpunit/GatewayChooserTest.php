@@ -62,6 +62,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'PaypalExpressGatewayEnabled' => true,
 			'AdyenCheckoutGatewayEnabled' => true,
 			'AmazonGatewayEnabled' => true,
+			'GravyGatewayEnabled' => true,
 			'DonationInterfaceGatewayAdapters' => [
 				'ingenico' => 'IngenicoAdapter',
 				'amazon' => 'AmazonAdapter',
@@ -183,19 +184,18 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		// TODO Add test cases for Google Pay
 
 		return [
-			// paypal payment method should be routed to PaypalExpressGateway
-			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD' ], 'PaypalExpressGateway' ],
-			[ [ 'payment_method' => 'paypal', 'country' => 'CN', 'currency' => 'USD' ], 'PaypalExpressGateway' ],
-			// When country is supported at the gateway level but not at the method level, don't redirect
-			[ [ 'payment_method' => 'paypal', 'country' => 'GH', 'currency' => 'GHS' ], null ],
+			// paypal payment method should be routed to GravyGateway
+			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD' ], 'GravyGateway' ],
+			[ [ 'payment_method' => 'paypal', 'country' => 'CN', 'currency' => 'USD' ], 'GravyGateway' ],
+			[ [ 'payment_method' => 'paypal', 'country' => 'GH', 'currency' => 'GHS' ], 'GravyGateway' ],
 			// amazon payment method is only provided by AmazonGateway
 			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'USD' ], 'AmazonGateway' ],
 
-			// Ensure paypal and amazon gateways are selected even if the currency is unsupported.
+			// Ensure Gravy and amazon gateways are selected even if the currency is unsupported.
 			// For both, for these test cases to work, CLP currency must not be included in
 			// currencies.yaml, and in general.yaml, gateway_chooser/still_include_if_currency_is_not_supported
 			// must be true.
-			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'CLP' ], 'PaypalExpressGateway' ],
+			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'CLP' ], 'GravyGateway' ],
 			[ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'CLP' ], 'AmazonGateway' ],
 
 			// bank transfer methods, all currently processed via DLocal
@@ -233,7 +233,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			// Recurring: only paypal, ingenico and adyen got recurring
 			[ [ 'payment_method' => 'cc', 'country' => 'FR', 'currency' => 'EUR', 'recurring' => '1' ], 'AdyenCheckoutGateway' ], // adyen recurring
 			[ [ 'payment_method' => 'cc', 'country' => 'JP', 'currency' => 'JPY', 'recurring' => '1' ], 'AdyenCheckoutGateway' ], // ingenico recurring
-			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD', 'recurring' => '1' ], 'PaypalExpressGateway' ], // paypal recurring
+			[ [ 'payment_method' => 'paypal', 'country' => 'US', 'currency' => 'USD', 'recurring' => '1' ], 'GravyGateway' ], // paypal recurring
 			// Amazon recurring is not finished; see T107391
 			// [ [ 'payment_method' => 'amazon', 'country' => 'US', 'currency' => 'USD', 'recurring' => '1' ], 'AmazonGateway' ],
 
@@ -362,7 +362,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'VE', 'currency' => 'VEF' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'VI', 'currency' => 'USD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'VN', 'currency' => 'VND' ], 'AdyenCheckoutGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'VU', 'currency' => 'VUV' ], 'IngenicoGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'VU', 'currency' => 'VUV' ], 'GravyGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'ZA', 'currency' => 'ZAR' ], 'DlocalGateway' ],
 
 			// apple pay

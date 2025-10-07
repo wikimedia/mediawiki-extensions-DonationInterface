@@ -1092,6 +1092,12 @@
 					"gateways": [ "dlocal", "adyen", "gravy" ]
 				},
 				{
+					"conditions": {
+						"payment_method": "paypal"
+					},
+					"gateways": [ "gravy", "paypal_ec" ]
+				},
+				{
 					"gateways": [ "adyen", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
 				}
 			]
