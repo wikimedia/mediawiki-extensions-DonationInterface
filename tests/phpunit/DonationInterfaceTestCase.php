@@ -443,7 +443,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		foreach ( $setup_hacks as $field => $value ) {
 			if ( property_exists( $class, $field ) ) {
 				$propertyReflection = $classReflection->getProperty( $field );
-				$propertyReflection->setAccessible( true );
 				$propertyReflection->setValue( $gateway, $value );
 			}
 		}
