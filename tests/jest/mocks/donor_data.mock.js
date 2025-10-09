@@ -27,7 +27,20 @@ module.exports = exports = {
             next_sched_contribution_date_formatted: 'September 2, 2025',
             id: '123',
             next_sched_contribution_date: '2025-08-02 00:00:02',
-            amount: 10
+            amount: 10,
+            can_modify: true
+        },
+        {
+            amount_frequency_key: 'donorportal-recurring-amount-monthly',
+            amount_formatted: '$10',
+            currency: 'USD',
+            frequency_unit: 'month',
+            payment_method: 'PayPal',
+            next_sched_contribution_date_formatted: 'December 10, 2025',
+            id: '456',
+            next_sched_contribution_date: '2025-12-10 00:00:02',
+            amount: 10,
+            can_modify: false
         }
     ],
     inactiveRecurringContributions: [

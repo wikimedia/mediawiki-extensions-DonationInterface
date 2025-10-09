@@ -21,7 +21,7 @@
 			</p>
 		</div>
 		<div class="dp-card__section dp-card__cta">
-			<a href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+			<a v-if="actionButtonText" href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
 			<p
@@ -86,6 +86,9 @@ module.exports = exports = defineComponent( {
 		},
 		actionButtonText: function () {
 			if ( this.isActive ) {
+				if ( !this.contribution.can_modify ) {
+					return false;
+				}
 				return this.$i18n( 'donorportal-update-donation-button' ).text();
 			}
 			// Amount frequency keys that can be used here
@@ -94,9 +97,12 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( this.contribution.restart_key ).text();
 		},
 		recurringAdditionalActionsLink: function () {
-			const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
 			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
-			return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
+			if ( this.contribution.can_modify ) {
+				const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
+				return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
+			}
+			return this.$i18n( 'donorportal-recurring-cancel-text', cancel_link ).text();
 		}
 	}
 } );

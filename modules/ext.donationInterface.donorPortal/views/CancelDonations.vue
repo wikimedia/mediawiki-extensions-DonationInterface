@@ -54,10 +54,10 @@ module.exports = exports = defineComponent( {
 		const recurringContribution = ref( recurringContributionRecord );
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
 		const flags = reactive( {
-			showForm: true,
+			showForm: recurringContributionRecord.can_modify,
 			donationCancelSuccessful: false,
 			donationCancelError: false,
-			showConfirmation: false,
+			showConfirmation: !recurringContributionRecord.can_modify,
 			donationPauseSuccessful: false,
 			donationPauseError: false
 		} );
