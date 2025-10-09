@@ -1,10 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
+			"Minilammas",
 			"Samoasambia"
 		]
 	},
 	"donorportal-title": "Wikimedia-säätiön lahjoittajaportaali",
+	"donorportal-donation-type-annual": "Vuosittainen",
+	"donorportal-donation-type-monthly": "Kuukausittainen",
+	"donorportal-aside-faq": "Usein kysytyt kysymykset",
+	"donorportal-aside-faq-giving-new-donation": "Tee uusi lahjoitus",
+	"donorportal-aside-faq-how-wikipedia-works": "Miten Wikipedia toimii",
+	"donorportal-aside-article-of-the-day-heading": "Päivän artikkeli",
 	"emailpreferences-change-email": "muuta sähköpostiosoite",
 	"emailpreferences-country": "Maa tai alue"
 }

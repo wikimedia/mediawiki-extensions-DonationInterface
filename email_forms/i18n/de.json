@@ -146,6 +146,7 @@
 	"emailpreferences-snooze-email": "E-Mails für {{PLURAL:$1|einen Tag|$1 Tage}} pausieren.",
 	"emailpreferences-success": "Deine Anfrage zum Speichern deiner E-Mail-Einstellungen wurde übermittelt.",
 	"emailpreferences-title": "E-Mail-Einstellungen",
+	"emailpreferences-confirmemail-title": "E-Mail-Adresse bestätigen",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "Deine regelmäßige Spende",
 	"recurupgrade-add": "Hinzufügen von $1",
