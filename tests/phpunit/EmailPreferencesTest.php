@@ -88,7 +88,7 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 				'checksum' => 'df3rf',
 				'send_email' => 'false',
 			] ],
-			[ 'set-primary-email', 'set-primary-email', [
+			[ 'verify-email', 'verify-email', [
 				'email' => 'test@test.com',
 				'contact_id' => '1',
 				'checksum' => 'df3rf',

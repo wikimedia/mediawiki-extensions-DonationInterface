@@ -275,7 +275,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	public function setupQueueParams( array $params, string $queueName ): array {
 		switch ( $queueName ) {
-			case 'set-primary-email':
+			case 'verify-email':
 				$message = [
 					'checksum' => $params['checksum'],
 					'contact_id' => $params['contact_id'],
@@ -324,10 +324,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function executeSetPrimaryEmail( array $params ): void {
-		$message = $this->setupQueueParams( $params, 'set-primary-email' );
+		$message = $this->setupQueueParams( $params, 'verify-email' );
 
 		try {
-			QueueWrapper::push( 'set-primary-email', $message );
+			QueueWrapper::push( 'verify-email', $message );
 			$this->renderSuccess( 'confirmEmail', $params );
 		} catch ( Exception ) {
 			$this->renderError( 'confirmEmail' );
