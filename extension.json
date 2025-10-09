@@ -383,7 +383,7 @@
 				"donorportal-pause-recurring-heading",
 				"donorportal-pause-recurring-subheading",
 				"donorportal-pause-recurring-subtext",
-				"donorportal-pause-recurring-last-donation-date",
+				"donorportal-pause-recurring-next-donation-date",
 				"donorportal-pause-recurring-no-recurring-donation",
 				"donorportal-pause-recurring-specify-duration",
 				"donorportal-pause-recurring-pause-button",
@@ -1089,10 +1089,16 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "adyen", "ingenico", "gravy" ]
+					"gateways": [ "dlocal", "adyen", "gravy" ]
 				},
 				{
-					"gateways": [ "adyen", "ingenico", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
+					"conditions": {
+						"payment_method": "paypal"
+					},
+					"gateways": [ "gravy", "paypal_ec" ]
+				},
+				{
+					"gateways": [ "adyen", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
 				}
 			]
 		},

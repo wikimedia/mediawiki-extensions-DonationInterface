@@ -18,11 +18,11 @@ describe( 'Recurring contribution summary component', () => {
         expect( element.html() ).toContain( contribution_mock.amount_formatted );
         expect( element.html() ).toContain( contribution_mock.currency );
         expect( element.html() ).toContain( contribution_mock.payment_method );
-        expect( element.html() ).toContain( contribution_mock.last_contribution_date_formatted );
+        expect( element.html() ).toContain( contribution_mock.next_sched_contribution_date_formatted );
     } );
 
-    it( 'Last contribution date renders N/A when no date is set', () => {
-        contribution_mock.last_contribution_date_formatted = null;
+    it( 'Next contribution date renders N/A when no date is set', () => {
+        contribution_mock.next_sched_contribution_date_formatted = null;
         const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
             props: {
                 recurringContribution: contribution_mock
@@ -39,7 +39,6 @@ describe( 'Recurring contribution summary component', () => {
     } );
 
     it( 'Does not render when prop is not set', () => {
-        contribution_mock.last_contribution_date_formatted = null;
         const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
             props: {
                 recurringContribution: {}

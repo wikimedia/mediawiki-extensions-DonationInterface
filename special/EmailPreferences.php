@@ -73,15 +73,46 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$this->renderError();
 			}
 		} else {
+			if ( $subpage === 'confirmEmail' ) {
+				// for verification, we need to check if checksum is valid, then proceed
+				// validate if checksum is valid with epc
+				// two part checksum, first part is for civiproxy, second part is for email
+				$preferences = CiviproxyConnect::getEmailPreferences(
+					$requestParameters[ 'checksum' ],
+					$requestParameters[ 'contact_id' ]
+				);
+				if ( $preferences[ 'is_error' ] ) {
+					$this->renderError( $subpage );
+					return;
+				}
+				if ( $preferences['email'] === $requestParameters['email'] ) {
+					// if email matches, seems like we had this setup already
+					$this->renderSuccess( $subpage, $requestParameters );
+					return;
+				}
+				// validate if email checksum valid
+				if ( !$this->isEmailChecksumValid(
+					$requestParameters['email'],
+					$requestParameters['email_checksum'],
+					$requestParameters['contact_id']
+				) ) {
+					$this->renderError( $subpage );
+					return;
+				}
+				// if checksum is valid, proceed to set primary email
+				$this->executeSetPrimaryEmail( $requestParameters );
+				return;
+			}
 			if ( $subpage === 'emailPreferences' && !$this->isChecksumExpired() ) {
 				$preferences = CiviproxyConnect::getEmailPreferences(
 					$requestParameters[ 'checksum' ],
 					$requestParameters[ 'contact_id' ]
 				);
-				if ( $preferences['is_error'] ) {
+				if ( $preferences[ 'is_error' ] ) {
 					$subpage = $this->errorHandling( $preferences['error_message'], $requestParameters );
 					if ( $subpage === 'emailPreferences' ) {
 						$this->renderError( $subpage );
+						return;
 					}
 				} else {
 					WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
@@ -92,6 +123,20 @@ class EmailPreferences extends UnlistedSpecialPage {
 			// if subpage null, we must have no checksum and contact id, so just render a default page
 			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $requestParameters );
 		}
+	}
+
+	protected function getSecretHashChecksum( string $email, string $contact_id ): string {
+		$secretHashKey =
+			$this->getConfig()->get( 'DonationInterfaceEmailUnsubscribeHashSecretKey' );
+		return hash( 'sha256', $email . '_' . $contact_id . '_' . $secretHashKey );
+	}
+
+	protected function isEmailChecksumValid( string $email, string $email_checksum, string $contact_id ): bool {
+		$computedHash = $this->getSecretHashChecksum( $email, $contact_id );
+		if ( $email_checksum !== $computedHash ) {
+			return false;
+		}
+		return true;
 	}
 
 	protected function errorHandling( string $errorMessage, array $requestParameters ): string {
@@ -119,6 +164,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		return 'emailPreferences';
 	}
 
+	/**
+	 * will depreciate this part if civi-proxy down, auto render unsubscribe link no need to validate it
+	 */
 	protected function validateHash( array $params ): bool {
 		if ( !isset( $params[ 'email' ] ) || !isset( $params[ 'contact_id' ] ) || !isset( $params[ 'hash' ] ) ) {
 			return false;
@@ -227,6 +275,13 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	public function setupQueueParams( array $params, string $queueName ): array {
 		switch ( $queueName ) {
+			case 'set-primary-email':
+				$message = [
+					'checksum' => $params['checksum'],
+					'contact_id' => $params['contact_id'],
+					'email' => $params['email']
+				];
+				break;
 			case 'email-preferences':
 				$message = [
 					'checksum' => $params['checksum'],
@@ -234,6 +289,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					'email' => $params['email'],
 					'country' => $params['country'] ?? null,
 					'language' => $params['language'] ?? null,
+					'email_checksum' => $this->getSecretHashChecksum( $params['email'], $params['contact_id'] )
 				];
 				if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
 					$message['send_email'] = $params['send_email'];
@@ -265,6 +321,17 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 
 		return $message;
+	}
+
+	protected function executeSetPrimaryEmail( array $params ): void {
+		$message = $this->setupQueueParams( $params, 'set-primary-email' );
+
+		try {
+			QueueWrapper::push( 'set-primary-email', $message );
+			$this->renderSuccess( 'confirmEmail', $params );
+		} catch ( Exception ) {
+			$this->renderError( 'confirmEmail' );
+		}
 	}
 
 	protected function executeOptIn( array $params ): void {
@@ -382,6 +449,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 				break;
 			case 'emailPreferences':
 				$title = $this->msg( 'emailpreferences-title' );
+				break;
+			case 'confirmEmail':
+				$title = $this->msg( 'emailpreferences-confirmemail-title' );
 				break;
 			default:
 				$title = $this->msg( 'donate_interface-error-msg-general' );
