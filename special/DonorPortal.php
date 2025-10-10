@@ -47,6 +47,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		}
 		$vars['donorData'] = $this->formParams;
 		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
+		$vars['emailPreferencesUrl'] = $this->getPreferencesUrl( $this->formParams );
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 
@@ -252,5 +253,18 @@ class DonorPortal extends UnlistedSpecialPage {
 				]
 			)
 		);
+	}
+
+	/**
+	 * Get a link to the Email Preferences special page
+	 * @param array $formParameters
+	 * @return string
+	 */
+	protected function getPreferencesUrl( array $formParameters ): string {
+		$title = self::getTitleFor( 'EmailPreferences', 'emailPreferences' );
+		return $title->getLocalUrl( [
+			'contact_id' => $formParameters['contact_id'],
+			'checksum' => $formParameters['checksum'],
+		] );
 	}
 }
