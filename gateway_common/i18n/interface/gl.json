@@ -432,6 +432,8 @@
 	"donate_interface-email-unsub-fail": "Houbo un erro ao procesar a túa solicitude; ponte en contacto con nós no enderezo <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Queres cancelar a subscrición a <b>$1</b>?",
 	"donate_interface-email-paypal-donor-no-edit-email-hint": "A túa doazón recorrente procésase a través de PayPal, polo que se desexas cambiar o teu enderezo de correo electrónico, terás que actualizalo directamente a través da túa conta de PayPal. Ponte en contacto co noso equipo de relacións cos doantes no enderezo <a href=\"mailto:$1\">$1</a> se tes algunha dúbida sobre a actualización da túa información de contacto.",
+	"donate_interface-email-primary-confirm": "Confirmaches que o teu enderezo de correo electrónico é $1.",
+	"donate_interface-email-primary-confirm-error": "Produciuse un erro ao confirmar o teu enderezo de correo electrónico. Inténtao de novo.",
 	"donate_interface-email-explain": "Enviarémosche un recibo por correo electrónico para confirmar a túa doazón.",
 	"donate_interface-email-optin-fail": "Produciuse un erro ao procesar a túa solicitude. Ponte en contacto con <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">preme aquí para intentalo de novo</a>.",
 	"donate_interface-faqs": "Preguntas máis frecuentes",

@@ -142,6 +142,7 @@
 	"emailpreferences-snooze-email": "Pausar os correos electrónicos durante {{PLURAL:$1|un día|$1 días}}.",
 	"emailpreferences-success": "Enviouse a túa solicitude para gardar as túas preferencias de correo electrónico.",
 	"emailpreferences-title": "Preferencias de correo electrónico",
+	"emailpreferences-confirmemail-title": "Confirma o correo electrónico",
 	"emailpreferences-wikimedia-image-alt": "Fundación Wikimedia",
 	"recurupgrade": "A túa doazón recorrente",
 	"recurupgrade-add": "Engadir $1",

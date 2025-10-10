@@ -423,6 +423,8 @@
 	"donate_interface-email-unsub-fail": "אירעה שגיאה בעיבוד הבקשה שלך, נא ליצור קשר עם <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "האם ברצונך לבטל את המינוי של כתובת <b>$1</b>?",
 	"donate_interface-email-paypal-donor-no-edit-email-hint": "התרומה החוזרת שלך מעובדת דרך פייפאל, כך שאם ברצונך לשנות את כתובת הדוא\"ל שלך, יש לעדכן אותה ישירות דרך חשבון הפייפאל שלך. נא ליצור קשר עם צוות יחסי התורמים שלנו בכתובת <a href=\"mailto:$1\">$1</a> אם יש לך שאלות בנוגע לעדכון פרטי הקשר שלך.",
+	"donate_interface-email-primary-confirm": "אישרת בהצלחה את כתובת הדוא\"ל שלך בתור $1.",
+	"donate_interface-email-primary-confirm-error": "משהו השתבש בעת אישור כתובת הדוא\"ל שלך. נא לנסות שוב מאוחר יותר.",
 	"donate_interface-email-explain": "אנחנו נשלח לך קבלה בדוא\"ל כדי לאשר את התרומה שלך.",
 	"donate_interface-email-optin-fail": "אירעה שגיאה בעיבוד הבקשה שלך. נא ליצור קשר דרך <a href=\"mailto:$1\">$1</a> או <a href=\"$2\">ללחוץ כאן כדי לנסות שוב</a>.",
 	"donate_interface-faqs": "שאלות ותשובות",
