@@ -55,9 +55,6 @@ class EmailPreferences extends UnlistedSpecialPage {
 		}
 		if ( $posted ) {
 			switch ( $subpage ) {
-				case 'optin':
-					$this->executeOptIn( $requestParameters );
-					break;
 				case 'unsubscribe':
 					$this->executeUnsubscribe( $requestParameters );
 					break;
@@ -119,6 +116,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$emailPreferenceParameters = $this->paramsForPreferencesForm( $preferences );
 					$requestParameters = array_merge( $requestParameters, $emailPreferenceParameters );
 				}
+			}
+			if ( $subpage === 'optIn' && !$this->isChecksumExpired() ) {
+				$this->executeOptIn( $requestParameters );
+				return;
 			}
 			// if subpage null, we must have no checksum and contact id, so just render a default page
 			$this->renderQuery( $subpage ?? self::FALLBACK_SUBPAGE, $requestParameters );
@@ -335,13 +336,24 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function executeOptIn( array $params ): void {
-		$message = $this->setupQueueParams( $params, 'opt-in' );
-
+		$trackingFields = [ 'campaign', 'medium', 'source' ];
+		$trackingParams = [];
+		foreach ( $trackingFields as $field ) {
+			if ( isset( $params[ 'utm_' . $field ] ) ) {
+				$trackingParams[ $field ] = $params[ 'utm_' . $field ];
+			}
+		}
 		try {
-			QueueWrapper::push( 'email-preferences', $message );
-			$this->renderSuccess( 'optin', $params );
+			$result = CiviproxyConnect::sendDoubleOptIn(
+				$params['checksum'], $params['contact_id'], $params['email'], $trackingParams
+			);
+			if ( $result && empty( $result['is_error'] ) ) {
+				$this->renderSuccess( 'optIn', $params );
+			} else {
+				$this->renderError( 'optIn' );
+			}
 		} catch ( Exception ) {
-			$this->renderError( 'optin' );
+			$this->renderError( 'optIn' );
 		}
 	}
 
@@ -439,9 +451,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 
 	protected function setPageTitle( string $subpage ): void {
 		switch ( $subpage ) {
-			# FIXME The messages for optin and unsubscribe only exist in the
+			# FIXME The messages for unsubscribe only exist in the
 			# FundraisingEmailUnsubscribe extension.
-			case 'optin':
+			case 'optIn':
 				$title = $this->msg( 'fundraisersubscribe' );
 				break;
 			case 'unsubscribe':

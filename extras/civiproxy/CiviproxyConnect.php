@@ -149,4 +149,33 @@ class CiviproxyConnect {
 			];
 		}
 	}
+
+	public static function sendDoubleOptIn(
+		string $checksum, string $contact_id, string $email, array $tracking = []
+	): ?array {
+		global $wgDonationInterfaceCiviproxyURLBase;
+
+		$params = array_merge( $tracking, [
+			'checksum' => $checksum,
+			'contact_id' => $contact_id,
+			'email' => $email,
+		] );
+		$serializedParams = json_encode( $params );
+		$response = MediaWikiServices::getInstance()->getHttpRequestFactory()->post(
+			"$wgDonationInterfaceCiviproxyURLBase/rest4.php?" . http_build_query( [
+				'entity' => 'WMFContact',
+				'action' => 'doubleOptIn',
+				'key' => self::SITE_KEY_KEY,
+				'api_key' => self::API_KEY_KEY,
+				'version' => '4',
+				'json' => '1',
+				'params' => $serializedParams,
+			] ), [
+				'sslVerifyCert' => false,
+				'sslVerifyHost' => false
+			],
+			__METHOD__
+		);
+		return $response ? json_decode( $response, true ) : [ 'is_error' => true ];
+	}
 }
