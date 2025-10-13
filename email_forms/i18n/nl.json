@@ -146,6 +146,7 @@
 	"emailpreferences-snooze-email": "E-mails voor {{PLURAL:$1|één dag|$1 dagen}} pauzeren.",
 	"emailpreferences-success": "Je verzoek om je e-mailvoorkeuren op te slaan, is verstuurd.",
 	"emailpreferences-title": "E-mailvoorkeuren",
+	"emailpreferences-confirmemail-title": "E-mailadres bevestigen",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "Uw terugkerende donatie",
 	"recurupgrade-add": "$1 toevoegen",

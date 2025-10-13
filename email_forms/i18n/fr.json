@@ -8,6 +8,7 @@
 			"Mahabarata",
 			"Marphy 123",
 			"McDutchie",
+			"SleaY",
 			"Terio legale",
 			"Verdy p",
 			"WillyM"
@@ -109,6 +110,8 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Votre don de $1 a été annulé. Veuillez noter que l’annulation peut prendre jusqu’à 30 minutes pour apparaître sur votre compte donateur.",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Votre don annuel de $1 a été annulé. Veuillez noter que l’annulation peut prendre jusqu’à 30 minutes pour apparaître sur votre compte donateur.",
 	"donorportal-cancel-failure": "Une erreur s’est produite, veuillez contacter $1",
+	"donorportal-aside-faq": "Foire aux questions",
+	"donorportal-aside-article-of-the-day-heading": "Article du jour",
 	"donorportal-feedback-button": "Partager plus de commentaires",
 	"emailpreferences-change-email": "Modifier le courriel",
 	"emailpreferences-country": "Pays ou région",
