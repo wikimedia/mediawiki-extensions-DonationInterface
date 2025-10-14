@@ -98,7 +98,7 @@ module.exports = exports = defineComponent( {
 		},
 		recurringAdditionalActionsLink: function () {
 			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
-			if ( this.contribution.can_modify ) {
+			if ( this.contribution.can_modify && !this.isPaused ) {
 				const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
 				return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
 			}
