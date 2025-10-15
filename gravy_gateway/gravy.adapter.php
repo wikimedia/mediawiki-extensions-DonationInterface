@@ -627,6 +627,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->transactions['authorize']['request'][] = 'window_origin';
 			// Always true, as we don't accept donations w/o javascript
 			$this->transactions['authorize']['values']['javascript_enabled'] = true;
+		} else {
+			// Disable MinFraud for non-card payments
+			global $wgGravyGatewayEnableMinFraud;
+			$wgGravyGatewayEnableMinFraud = false;
 		}
 	}
 
