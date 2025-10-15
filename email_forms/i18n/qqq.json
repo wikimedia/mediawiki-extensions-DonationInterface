@@ -146,6 +146,7 @@
 	"emailpreferences-send-email": "Label for e-mail opt-in radio button.",
 	"emailpreferences-snooze-email": "Label for e-mail radio button to pause emails for a number of days. $1 is the number of days, set in config.",
 	"emailpreferences-success": "Message following successful submission of preferences update.",
+	"emailpreferences-verify-email-sent": "Message to inform donor a confirmation link has been sent to their new email address.",
 	"emailpreferences-title": "Title for page where the user an set preferences for WMF fundraising e-mails.",
 	"emailpreferences-confirmemail-title": "Title for page where the user confirm that they want to set their primary email to the e-mail they pass.",
 	"emailpreferences-wikimedia-image-alt": "{{optional}}\nImage alt for wikimedia logo",

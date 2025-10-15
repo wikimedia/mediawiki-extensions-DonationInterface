@@ -116,6 +116,7 @@ class EmailForm {
 			'source',
 			'token',
 			'variant',
+			'verifyEmailSent'
 		];
 	}
 

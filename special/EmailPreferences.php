@@ -117,6 +117,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					}
 				} else {
 					WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, false );
+					WmfFramework::setSessionValue( 'email', $preferences[ 'email' ] );
 					$emailPreferenceParameters = $this->paramsForPreferencesForm( $preferences );
 					$requestParameters = array_merge( $requestParameters, $emailPreferenceParameters );
 				}
@@ -269,6 +270,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
 		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $preferences[ 'snooze_date' ] );
 		$addedParams[ 'hasPaypal' ] = $preferences[ 'has_paypal' ];
+
 		return $addedParams;
 	}
 
@@ -390,6 +392,9 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$message = $this->setupQueueParams( $params, 'email-preferences' );
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
+			$params[ 'verifyEmailSent' ] = (
+				$params[ 'email' ] !== $this->getRequest()->getSession()->get( 'email' )
+			);
 			$this->renderSuccess( 'emailPreferences', $params );
 		} catch ( Exception $e ) {
 			$this->logger( 'Push queue failed: ' . $e->getMessage(), 'error' );
