@@ -1,12 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
+			"YeBoy371",
 			"Ykhwong"
 		]
 	},
+	"donorportal-title": "위키미디어 재단 기부자 포털",
+	"donorportal-login-email-placeholder": "이메일 주소를 입력하세요",
 	"donorportal-login-problems": "로그인에 문제가 있습니까?",
+	"donorportal-greeting": "안녕하세요, $1님!",
+	"donorportal-donorid": "기부자 ID: $1",
 	"donorportal-most-recent-donation": "내 최근 기부",
 	"donorportal-recurring-cancel": "취소",
+	"donorportal-your-donation-history": "기부 역사",
+	"donorportal-print-donations": "기부 역사 인쇄",
+	"donorportal-endowment": "위키미디어 기부금",
 	"donorportal-donation-date": "날짜",
 	"donorportal-donation-type": "유형",
 	"donorportal-donation-amount": "금액",
@@ -25,6 +33,7 @@
 	"emailpreferences-language": "언어",
 	"emailpreferences-save": "환경 설정 저장",
 	"emailpreferences-title": "이메일 환경 설정",
+	"emailpreferences-wikimedia-image-alt": "위키미디어 재단",
 	"recurupgrade-add": "$1 추가",
 	"recurupgrade-next-scheduled-date": "다음 기부일",
 	"recurupgrade-salutation": "안녕하세요, $1님!",

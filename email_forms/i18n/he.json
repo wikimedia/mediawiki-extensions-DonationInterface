@@ -144,6 +144,7 @@
 	"emailpreferences-snooze-email": "הפסיקו לשלוח דוא״ל {{PLURAL:$1|ליום אחד|ליומיים|ל־$1 ימים}}.",
 	"emailpreferences-success": "בקשתך לשמור את העדפות הדוא״ל שלך נשלחה.",
 	"emailpreferences-title": "העדפות דוא״ל",
+	"emailpreferences-confirmemail-title": "אישור כתובת דוא\"ל",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"recurupgrade": "התרומה החוזרת שלך",
 	"recurupgrade-add": "להוסיף $1",

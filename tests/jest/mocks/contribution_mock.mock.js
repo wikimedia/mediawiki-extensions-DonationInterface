@@ -10,7 +10,8 @@ module.exports = exports = {
         last_contribution_date_formatted: 'September 2, 2025',
         hasLastContribution: true,
         amount: 10,
-        id: '125'
+        id: '125',
+        can_modify: true
     },
     inactive_recurring: {
         amount_frequency_key: 'donorportal-recurring-amount-monthly',

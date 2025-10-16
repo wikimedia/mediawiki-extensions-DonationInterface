@@ -146,6 +146,7 @@
 	"emailpreferences-snooze-email": "إيقاف رسائل البريد الإلكتروني مؤقتا لمدة {{PLURAL:$1|يوم واحد|$1 يوم}}.",
 	"emailpreferences-success": "لقد تم تقديم طلبك لحفظ تفضيلات البريد الإلكتروني الخاص بك.",
 	"emailpreferences-title": "تفضيلات البريد الإلكتروني",
+	"emailpreferences-confirmemail-title": "تأكيد عنوان البريد الإلكتروني",
 	"emailpreferences-wikimedia-image-alt": "مؤسسة ويكيميديا",
 	"recurupgrade": "تبرعك المتكرر",
 	"recurupgrade-add": "أضف $1",

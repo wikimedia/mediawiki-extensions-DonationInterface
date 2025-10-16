@@ -47,7 +47,7 @@
 					{{ $i18n( "donorportal-cancel-recurring-changed-my-mind" ).text() }}
 				</router-link>
 				<router-link
-					v-if="recurringContribution.frequency_unit === 'month'"
+					v-if="recurringContribution.frequency_unit === 'month' && recurringContribution.can_modify"
 					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-primary cdx-button--size-large"
 					:to="`/annual-conversion/${recurringContribution.id}`"
 				>
