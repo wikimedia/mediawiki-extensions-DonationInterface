@@ -33,6 +33,7 @@
 	"donorportal-recurring-pause": "השהיה",
 	"donorportal-recurring-cancel": "ביטול",
 	"donorportal-recurring-pause-or-cancel": "$1 או $2 של התרומה שלי",
+	"donorportal-recurring-cancel-text": "$1 התרומה שלי",
 	"donorportal-recurring-status-active": "פעילה",
 	"donorportal-recurring-status-lapsed": "פקעה",
 	"donorportal-recurring-status-paused": "מושהית",

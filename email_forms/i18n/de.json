@@ -35,7 +35,7 @@
 	"donorportal-recurring-pause": "unterbrechen",
 	"donorportal-recurring-cancel": "stornieren",
 	"donorportal-recurring-pause-or-cancel": "Meine Spende $1 oder $2",
-	"donorportal-recurring-cancel-text": "$1 meine Spende",
+	"donorportal-recurring-cancel-text": "Meine Spende $1",
 	"donorportal-recurring-status-active": "Aktiv",
 	"donorportal-recurring-status-lapsed": "Erloschen",
 	"donorportal-recurring-status-paused": "Angehalten",
