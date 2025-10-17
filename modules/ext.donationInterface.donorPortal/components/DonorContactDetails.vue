@@ -25,7 +25,7 @@
 				<p class="text text--body">
 					{{ $i18n( "donorportal-donorid", id ).text() }}<br>
 					{{ email }}<br>
-					<a href="#" class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
+					<a :href="emailPreferencesUrl" class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
 				</p>
 			</div>
 		</div>
@@ -63,6 +63,10 @@ module.exports = exports = defineComponent( {
 			default() {
 				return {};
 			}
+		},
+		emailPreferencesUrl: {
+			type: String,
+			required: true
 		}
 	},
 	computed: {

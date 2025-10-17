@@ -150,8 +150,6 @@ class DataValidator {
 				'account_number' => 'validate_numeric',
 				'anonymous' => 'validate_boolean',
 				'contribution_tracking_id' => 'validate_numeric',
-				'currency' => 'validate_alphanumeric',
-				'gateway' => 'validate_alphanumeric',
 				'numAttempt' => 'validate_numeric',
 				'opt-in' => 'validate_boolean',
 				'posted' => 'validate_boolean',
@@ -308,19 +306,6 @@ class DataValidator {
 	 */
 	protected static function validate_not_empty( $value ) {
 		return ( $value !== null && $value !== '' );
-	}
-
-	/**
-	 * validate_alphanumeric
-	 * Checks to make sure the value is populated with an alphanumeric value...
-	 * ...which would be great, if it made sense at all.
-	 * TODO: This is duuuuumb. Make it do something good, or get rid of it.
-	 * If we can think of a way to make this useful, we should do something here.
-	 * @param string $value The value that is meant to be alphanumeric
-	 * @return bool True if $value is ANYTHING. Or not. :[
-	 */
-	protected static function validate_alphanumeric( $value ) {
-		return true;
 	}
 
 	/**

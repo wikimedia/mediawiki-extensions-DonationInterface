@@ -6,7 +6,8 @@
 				:id="donorSummary.donorID"
 				:name="donorSummary.name"
 				:address="donorSummary.address"
-				:email="donorSummary.email"></donor-contact-details>
+				:email="donorSummary.email"
+				:email-preferences-url="emailPreferencesUrl"></donor-contact-details>
 			<donor-card
 				:active-recurring-contributions="donorSummary.recurringContributions"
 				:inactive-recurring-contributions="donorSummary.inactiveRecurringContributions"
@@ -45,7 +46,8 @@ module.exports = exports = defineComponent( {
 	data() {
 		return {
 			donorSummary: mw.config.get( 'donorData' ),
-			helpEmail: mw.config.get( 'help_email' )
+			helpEmail: mw.config.get( 'help_email' ),
+			emailPreferencesUrl: mw.config.get( 'emailPreferencesUrl' )
 		};
 	},
 	computed: {

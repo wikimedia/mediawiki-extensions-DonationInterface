@@ -284,6 +284,7 @@
 	"apihelp-di_recurring_convert-param-declineMonthlyConvert": "Définir sur vrai lorsque le donateur refuse d'ajouter un don mensuel",
 	"apihelp-di_recurring_convert-param-frequency_unit": "Année ou mois",
 	"apihelp-di_recurring_convert-param-gateway": "Quelle passerelle de paiement utiliser — Adyen, Ingenico, etc.",
+	"apihelp-di_recurring_convert-param-wmf_token": "Modifier le jeton.",
 	"apihelp-employerSearch-summary": "Cette API vous permet de rechercher des employeurs participant au programme pour la correspondance des dons à la WMF.",
 	"apihelp-employerSearch-param-employer": "Quel employeur rechercher, par ex. Croix-Rouge, WWF, Armée du salut, etc.",
 	"apihelp-employerSearch-example-1": "Rechercher un employeur",
