@@ -50,28 +50,56 @@
 				<div class="dp-card__player">
 					<img
 						:src="`${ assets_path }/images/how-wikipedia-works.jpg`"
-						:alt="howWikipediaWorksAltText">
+						:alt="howWikipediaWorksAltText"
+						@click="launchWikipediaVideo">
 				</div>
 			</div>
 		</section>
 		<!-- End of Widget -->
 	</aside>
 	<!-- End of Related Content -->
+	<div
+		v-if="showWikipediaVideo"
+		class="modal-overlay"
+		@click="dismissModal">
+		<video
+			id="wikipediaVideo"
+			:poster="`${ assets_path }/images/wikipedia-video-poster.jpg`">
+			<source
+				v-for="source in wikipediaVideoSources"
+				:key="source.url"
+				:src="source.url"
+				:type="source.type">
+		</video>
+	</div>
 </template>
 
 <script>
-const { defineComponent } = require( 'vue' );
+const { defineComponent, ref, nextTick } = require( 'vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'RelatedContentComponent',
 
 	setup() {
+		const wikipediaVideoSources = mw.config.get( 'wikipediaVideoSources' ),
+			showWikipediaVideo = ref( false );
+
 		return {
 			assets_path: mw.config.get( 'assets_path' ),
 			donorFaqUrl: mw.config.get( 'donorFaqUrl' ),
 			otherWaysUrl: mw.config.get( 'otherWaysUrl' ),
 			legacyUrl: mw.config.get( 'legacyUrl' ),
-			newDonationUrl: mw.config.get( 'newDonationUrl' )
+			newDonationUrl: mw.config.get( 'newDonationUrl' ),
+			showWikipediaVideo,
+			wikipediaVideoSources,
+			launchWikipediaVideo: async () => {
+				showWikipediaVideo.value = true;
+				await nextTick();
+				document.getElementById( 'wikipediaVideo' ).play();
+			},
+			dismissModal: () => {
+				showWikipediaVideo.value = false;
+			}
 		};
 	},
 	computed: {

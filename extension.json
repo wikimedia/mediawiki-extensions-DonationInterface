@@ -1831,6 +1831,22 @@
 		},
 		"DonationInterfaceLegacyURL": {
 			"value": "https://donate.wikimedia.org/wiki/Legacy"
+		},
+		"DonationInterfaceWikipediaVideoSources": {
+			"value": [
+				{
+					"url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/74/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm.1080p.vp9.webm",
+					"type": "video/webm; codecs=\"vp9, opus\""
+				},
+				{
+					"url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/74/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm.360p.webm",
+					"type": "video/webm; codecs=\"vp8, vorbis\""
+				},
+				{
+					"url": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/74/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm/How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm.144p.mjpeg.mov",
+					"type": "video/quicktime"
+				}
+			]
 		}
 	},
 	"AutoloadNamespaces": {
