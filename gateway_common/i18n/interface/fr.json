@@ -490,6 +490,7 @@
 	"donate_interface-email-unsub-delay": "Veuillez compter jusqu’à quatre (4) jours pour que les changements prennent effet. Nous vous prions de bien vouloir nous excuser pour les courriels que vous recevez pendant cette période. Si vous avez des questions, veuillez nous contacter en envoyant un courriel à $1.",
 	"donate_interface-email-unsub-fail": "Une erreur est survenue lors du traitement de votre demande, merci de contacter <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Êtes-vous sûr de vouloir vous désabonner <b>$1</b> ?",
+	"donate_interface-email-paypal-donor-no-edit-email-hint": "Votre don récurrent est traité via PayPal. Si vous souhaitez modifier votre adresse e-mail, vous devrez la mettre à jour directement via votre compte PayPal. Pour toute question concernant la mise à jour de vos coordonnées, veuillez contacter notre équipe des relations avec les donateurs au <a href=\"mailto:$1\"> $1</a>",
 	"donate_interface-email-primary-confirm": "Vous avez confirmé avec succès votre adresse e-mail comme étant $1 .",
 	"donate_interface-email-primary-confirm-error": "Une erreur s'est produite lors de la confirmation de votre adresse e-mail. Veuillez réessayer ultérieurement.",
 	"donate_interface-email-explain": "Nous vous enverrons un reçu par courriel pour confirmer votre don.",
