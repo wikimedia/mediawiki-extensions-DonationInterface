@@ -349,7 +349,6 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 		$processorContactId = "RANDOM_CONTACT_ID";
 		$expectedParams = $this->getExpectedCreatePaymentParams( 'google', 'Android' );
 		$expectedParams['recurring'] = 1;
-
 		$this->googlepayPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( $this->callback( function ( $params ) use ( $expectedParams ) {
@@ -379,7 +378,6 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 					->setSuccessful( true )
 					->setStatus( FinalStatus::COMPLETE )
 			);
-
 		$apiResult = $this->doApiRequest( $init );
 		$result = $apiResult[0]['response'];
 		$this->assertSame( 'success', $result['status'] );
@@ -485,29 +483,20 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 	protected function getExpectedCreatePaymentParams( $method = 'apple', $campaign = "iOS" ): array {
 		return [
 			"amount" => "1.55",
-			"app_version" => "1.0.0",
-			"banner" => "appmenu",
 			"city" => "Sample City",
 			"country" => "US",
 			"currency" => "USD",
-			"donor_country" => "US",
 			"email" => "testymctester@example.org",
 			"first_name" => "Testy",
 			"full_name" => "Testy McTester",
-			"language" => "en",
 			"last_name" => "McTester",
 			"recurring" => false,
 			"payment_token" => "RANDOM_TOKEN",
-			"opt_in" => true,
-			"pay_the_fee" => true,
-			"payment_method" => $method,
-			"payment_network" => "visa",
 			"postal_code" => "12345",
 			"state_province" => "Sample State",
 			"street_address" => "123 Mock St",
 			"order_id" => "1.1",
-			"utm_campaign" => $campaign,
-			"payment_submethod" => "visa"
+			"user_ip" => "127.0.0.1"
 		];
 	}
 
@@ -536,6 +525,13 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 	}
 
 	protected function getExpectedDonationMessage( $trxnId, $method = 'apple' ) {
+		// set up utm_campaign
+		if ( $method == 'apple' ) {
+			$utm_campaign = 'iOS';
+		} elseif ( $method == 'google' ) {
+			$utm_campaign = 'Android';
+		}
+
 		return [
 			'country' => 'US',
 			'gateway' => 'adyen',
@@ -558,7 +554,10 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 			'street_address' => '123 Mock St',
 			'state_province' => 'Sample State',
 			'source_name' => 'DonationInterface',
-			'source_type' => 'payments'
+			'source_type' => 'payments',
+			'utm_campaign' => $utm_campaign,
+			'utm_medium' => 'WikipediaApp',
+			"utm_source" => 'appmenu.inapp.' . $method,
 		];
 	}
 

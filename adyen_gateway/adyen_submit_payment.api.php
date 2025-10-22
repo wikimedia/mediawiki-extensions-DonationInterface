@@ -115,7 +115,10 @@ class AdyenSubmitPaymentApi extends ApiBase {
 
 		// App is sending payment_network which is our payment_submethod, match what we do in the adyen form
 		$this->donationData['payment_submethod'] = $this->mapNetworktoSubmethod( $this->donationData['payment_network'] );
-
+		// Set up the source and medium
+		// The utm_source from the form has banner.landingpage.payment_method
+		$this->donationData['utm_source'] = $this->donationData['banner'] . '.' . 'inapp' . '.' . $this->donationData['payment_method'];
+		$this->donationData['utm_medium'] = 'WikipediaApp';
 		$debugparams = $this->donationData;
 		unset( $debugparams['payment_token'] );
 		$this->logger->info( ' Starting submitPayment request with: ' . json_encode( $debugparams ) );
@@ -132,7 +135,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->donationData['payment_method'] );
 
 		try {
-			$createPaymentResponse = $paymentProvider->createPayment( $this->donationData );
+			$createPaymentResponse = $paymentProvider->createPayment( $this->getCreatePaymentParams() );
 
 			if ( !$createPaymentResponse->isSuccessful() ) {
 				$this->returnError( $createPaymentResponse->getRawResponse() );
@@ -284,9 +287,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'payment_submethod' => $this->donationData['payment_submethod'],
 			'ts' => wfTimestamp( TS_MW ),
 			'utm_key' => $this->donationData['utm_key'] ?? '',
-			// the utm_source from the form has banner.landingpage.payment_method
-			'utm_source' => $this->donationData['banner'] . '.' . 'inapp' . '.' . $this->donationData['payment_method'],
-			'utm_medium' => 'WikipediaApp',
+			'utm_source' => $this->donationData['utm_source'],
+			'utm_medium' => $this->donationData['utm_medium'],
 			'utm_campaign' => $this->donationData['utm_campaign']
 		];
 
@@ -326,6 +328,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'recurring_payment_token',
 			'street_address',
 			'state_province',
+			'utm_campaign',
 			'utm_key',
 			'utm_medium',
 			'utm_source'
@@ -369,5 +372,30 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$response['order_id'] = $this->orderId;
 		$this->sendToPaymentsInit( 'failed' );
 		$this->getResult()->addValue( null, 'response', $response );
+	}
+
+	protected function getCreatePaymentParams(): array {
+		$keysToCopy = [
+			'amount',
+			'city',
+			'country',
+			'currency',
+			'email',
+			'first_name',
+			'full_name',
+			'last_name',
+			'order_id',
+			'payment_token',
+			'postal_code',
+			'recurring',
+			'state_province',
+			'street_address',
+		];
+		$params = [];
+		foreach ( $keysToCopy as $key ) {
+			$params[$key] = $this->donationData[$key] ?? null;
+		}
+		$params['user_ip'] = WmfFramework::getIP();
+		return $params;
 	}
 }
