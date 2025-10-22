@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"YeBoy371"
 		]
 	},
 	"emailpreferences-change-email": "이메일 주소 바꾸기",
@@ -18,6 +19,7 @@
 	"emailpreferences-language": "언어",
 	"emailpreferences-save": "환경 설정 저장",
 	"emailpreferences-title": "이메일 환경 설정",
+	"emailpreferences-wikimedia-image-alt": "위키미디어 재단",
 	"recurupgrade-add": "$1 추가",
 	"recurupgrade-next-scheduled-date": "다음 기부일",
 	"recurupgrade-salutation": "안녕하세요, $1님!",

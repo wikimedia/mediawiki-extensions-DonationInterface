@@ -20,7 +20,8 @@
 			"Ykhwong",
 			"관인생략",
 			"아라",
-			"코코아"
+			"코코아",
+			"YeBoy371"
 		]
 	},
 	"donate_interface": "위키미디어를 지원해주세요",
@@ -36,8 +37,9 @@
 	"donate_interface-comment-label": "의견:",
 	"donate_interface-email-agreement": "위키미디어 재단의 새로운 소식을 가끔 이메일로 받는 데 동의합니다.",
 	"donate_interface-comment-title": "공개 메시지",
+	"donate_interface-donation-description": "위키미디어 재단",
 	"donate_interface-annual-donation-description": "위키미디어 재단 - 매년 기증",
-	"donate_interface-monthly-donation-description": "위키미디어 877 600 9454 - 매달 기부",
+	"donate_interface-monthly-donation-description": "위키미디어 재단 - 매달 기부",
 	"donate_interface-amount-error": "기부하실 금액을 선택해주세요",
 	"donate_interface-smallamount-error": "양을 선택하세요 (최소 $1).",
 	"donate_interface-bigamount-error": "웹사이트를 통해서는 미화 $4 달러($1 $2) 이상의 금액을 받을 수 없습니다. $3을 통해 고액 기부 담당 직원에게 문의하세요.",
