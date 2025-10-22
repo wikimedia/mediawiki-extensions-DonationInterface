@@ -16,7 +16,12 @@
  *
  */
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Output\OutputPage;
+use MediaWiki\OutputTransform\OutputTransformPipeline;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOptions;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 
 /**
@@ -30,20 +35,49 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 	protected $form;
 	/** @var TestingGenericAdapter */
 	protected $adapter;
-	/** @var OutputPage */
-	protected $outputPage;
+	/** @var Parser */
+	protected $parser;
 	/** @var TestingGatewayPage */
 	protected $gatewayPage;
 
 	protected function setUp(): void {
-		$this->outputPage = $this->getMockBuilder( OutputPage::class )
+		$outputPage = $this->getMockBuilder( OutputPage::class )
 			->disableOriginalConstructor()
-			->onlyMethods( [ 'parseAsContent' ] )
 			->getMock();
+
+		$outputPage->method( 'parserOptions' )
+			->willReturn( ParserOptions::newFromAnon() );
+
+		$outputPage->method( 'getTitle' )
+			->willReturn( Title::newFromText( 'test' ) );
+
+		$this->parser = $this->getMockBuilder( Parser::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$this->parser->method( 'parse' )
+			->willReturn( new ParserOutput( '<p>This is the template text</p>' ) );
+
+		$parserFactoryMock = $this->getMockBuilder( ParserFactory::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parserFactoryMock->method( 'getInstance' )
+			->willReturn( $this->parser );
+
+		$this->setService( 'ParserFactory', $parserFactoryMock );
+
+		$outputPipeline = $this->getMockBuilder( OutputTransformPipeline::class )
+			->getMock();
+
+		$outputPipeline->method( 'run' )
+			->willReturnArgument( 0 );
+
+		$this->setService( 'DefaultOutputPipeline', $outputPipeline );
 
 		$this->gatewayPage = new TestingGatewayPage();
 
-		RequestContext::getMain()->setOutput( $this->outputPage );
+		RequestContext::getMain()->setOutput( $outputPage );
 
 		$req = new TestingRequest();
 		RequestContext::getMain()->setRequest( $req );
@@ -109,10 +143,10 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			'DonationInterfaceAppealWikiTemplate' => 'JimmySezPleeeeeze/$appeal/$language',
 		] );
 
-		$this->outputPage->expects( $this->once() )
-			->method( 'parseAsContent' )
-			->with( '{{JimmySezPleeeeeze/JimmyQuote/en}}' )
-			->willReturn( '<p>This is the template text</p>' );
+		$this->parser->expects( $this->once() )
+			->method( 'parse' )
+			->with( '{{JimmySezPleeeeeze/JimmyQuote/en}}', $this->anything(), $this->anything() )
+			->willReturn( new ParserOutput( '<p>This is the template text</p>' ) );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
@@ -134,9 +168,10 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 
 		$this->adapter->addRequestData( [ 'appeal' => 'differentAppeal' ] );
 
-		$this->outputPage->expects( $this->once() )
-			->method( 'parseAsContent' )
-			->with( '{{JimmySezPleeeeeze/differentAppeal/en}}' );
+		$this->parser->expects( $this->once() )
+			->method( 'parse' )
+			->with( '{{JimmySezPleeeeeze/differentAppeal/en}}', $this->anything(), $this->anything() )
+			->willReturn( new ParserOutput( '<p>This is the template text</p>' ) );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
@@ -158,9 +193,10 @@ class MustacheFormTest extends DonationInterfaceTestCase {
 			'appeal' => '}}<script>alert("all your base are belong to us");</script>{{',
 		] );
 
-		$this->outputPage->expects( $this->once() )
-			->method( 'parseAsContent' )
-			->with( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}' );
+		$this->parser->expects( $this->once() )
+			->method( 'parse' )
+			->with( '{{JimmySezPleeeeeze/scriptalertallyourbasearebelongtousscript/en}}', $this->anything(), $this->anything() )
+			->willReturn( new ParserOutput( '<p>This is the template text</p>' ) );
 
 		$this->form = new Gateway_Form_Mustache();
 		$this->form->setGateway( $this->adapter );
