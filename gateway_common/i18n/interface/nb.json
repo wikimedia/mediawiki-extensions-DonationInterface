@@ -434,6 +434,8 @@
 	"donate_interface-email-unsub-fail": "Det oppsto en feil under behandling av forespørselen, vennligst kontakt <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Er du sikker på at du ønsker å melde av <b>$1</b>?",
 	"donate_interface-email-paypal-donor-no-edit-email-hint": "Den gjentakende gaven behandles via PayPal, så for å endre e-postadressen din må du gjøre det via PayPal-kontoen. Kontakt giverrelasjonsteamet vårt på <a href=\"mailto:$1\"$1</a> hvis du har spørsmål om oppdatering av kontaktinformasjonen din.",
+	"donate_interface-email-primary-confirm": "Du har bekreftet e-postadressen din som $1.",
+	"donate_interface-email-primary-confirm-error": "Noe gikk galt under bekreftelsen av e-postadressen din. Prøv igjen senere.",
 	"donate_interface-email-explain": "Vi sender deg en kvittering på e-post for å bekrefte gaven din.",
 	"donate_interface-email-optin-fail": "En feil oppsto under behandlingen av forespørselen din. Vennligst kontakt <a href=\"mailto:$1\">$1</a>, eller <a href=\"$2\">trykk her for å prøve igjen</a>.",
 	"donate_interface-faqs": "Ofte stilte spørsmål",
