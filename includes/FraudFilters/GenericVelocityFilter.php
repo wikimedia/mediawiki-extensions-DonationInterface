@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\DonationInterface\FraudFilters;
 
 use MediaWiki\Session\Session;
+use Psr\Log\LoggerInterface;
 use Wikimedia\ObjectCache\BagOStuff;
 
 class GenericVelocityFilter {
@@ -39,18 +40,22 @@ class GenericVelocityFilter {
 	 * @param Session $session
 	 * @return void
 	 */
-	public function run( array &$riskScores, array $transactionValues, BagOStuff $cache, Session $session ) {
+	public function run(
+		array &$riskScores, array $transactionValues, BagOStuff $cache, Session $session, LoggerInterface $logger
+	) {
 		$this->cache = $cache;
 		$this->session = $session;
 		// Only run once per session
 		if ( $this->session->get( $this->makeSessionKey() ) ) {
+			$logger->debug( "Already ran velocity filter for $this->property in this session, skipping" );
 			return;
 		}
 		$propertyValue = $transactionValues[$this->property] ?? null;
 		if ( !$propertyValue ) {
+			$logger->debug( "$this->property is false-y, skipping velocity filter" );
 			return;
 		}
-		if ( $this->isHitCountGreaterThanThreshold( $propertyValue ) ) {
+		if ( $this->isHitCountGreaterThanThreshold( $propertyValue, $logger ) ) {
 			$score = $this->failScore;
 		} else {
 			$score = 0;
@@ -91,11 +96,12 @@ class GenericVelocityFilter {
 	 * @param string $propertyValue
 	 * @return bool
 	 */
-	protected function isHitCountGreaterThanThreshold( string $propertyValue ): bool {
+	protected function isHitCountGreaterThanThreshold( string $propertyValue, LoggerInterface $logger ): bool {
 		$stored = $this->getCachedValue( $propertyValue );
 
 		if ( $stored ) {
 			$count = count( $stored );
+			$logger->debug( "Found $count hits for $propertyValue in cache" );
 			if ( $count >= $this->threshold ) {
 				return true;
 			}
