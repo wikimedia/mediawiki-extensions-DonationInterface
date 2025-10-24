@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\FraudFilters\PatternFilterRunner;
+use MediaWiki\Extension\DonationInterface\FraudFilters\VelocityFilterRunner;
+use MediaWiki\MediaWikiServices;
 use SmashPig\PaymentData\ValidationAction;
 
 class Gateway_Extras_CustomFilters extends FraudFilter {
@@ -36,6 +40,10 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 	 */
 	protected static $instance;
 
+	protected PatternFilterRunner $patternFilterRunner;
+
+	protected VelocityFilterRunner $velocityFilterRunner;
+
 	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); // gateway_adapter is set in there.
 
@@ -49,6 +57,13 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 			$this->fraud_logger->info( '"Loaded from session" ' . $unnecessarily_escaped_session_contents );
 		}
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
+		$config = RequestContext::getMain()->getConfig();
+		$this->patternFilterRunner = new PatternFilterRunner( $config );
+		$this->velocityFilterRunner = new VelocityFilterRunner(
+			MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance(),
+			RequestContext::getMain()->getRequest()->getSession(),
+			$config
+		);
 	}
 
 	/**
@@ -216,6 +231,19 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 				Gateway_Extras_CustomFilters_MinFraud::onFilter( $this->gateway_adapter, $this );
 				Gateway_Extras_CustomFilters_IP_Velocity::onFilter( $this->gateway_adapter, $this );
 				break;
+		}
+		$this->runGenericFilters( $phase );
+	}
+
+	protected function runGenericFilters( string $phase ) {
+		$scores = [];
+		if ( $phase === self::PHASE_INITIAL ) {
+			$this->velocityFilterRunner->onPreAuthorize( $scores, $this->gateway_adapter->getData_Unstaged_Escaped() );
+			$this->patternFilterRunner->onPreAuthorize( $scores, $this->gateway_adapter->getData_Unstaged_Escaped() );
+		}
+
+		foreach ( $scores as $filterName => $score ) {
+			$this->addRiskScore( $score, $filterName );
 		}
 	}
 }

@@ -1026,6 +1026,12 @@
 		"DonationInterfaceSessionVelocity_Multiplier": {
 			"value": 1
 		},
+		"DonationInterfacePatternFilters": {
+			"value": []
+		},
+		"DonationInterfaceVelocityFilters": {
+			"value": []
+		},
 		"DonationInterfaceCountryMap": {
 			"value": []
 		},
