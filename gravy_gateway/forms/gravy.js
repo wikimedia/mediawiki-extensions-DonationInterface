@@ -17,6 +17,7 @@
 	showRedirectText = mw.config.get( 'showRedirectText' ),
 	googlePaymentClient = null,
 	appleSession = null,
+	lastClickTime = 0,
 	language = $( '#language' ).val(),
 	country = $( '#country' ).val(),
 	isIndia = ( country === 'IN' ),
@@ -406,6 +407,12 @@
 	function handleApplePaySubmitClick( e ) {
 		e.preventDefault();
 		setupApplePaySession();
+		const now = Date.now();
+		if ( now - lastClickTime < 1000 ) {
+			return;
+		}
+		// ignore rapid re-clicks within 1 s
+		lastClickTime = now;
 		appleSession.begin();
 	}
 
@@ -448,9 +455,17 @@
 				amount: $( '#amount' ).val()
 			}
 		};
+
+		// Prevent starting another session if one is active
+		if ( appleSession ) {
+			return;
+		}
+
 		appleSession = new ApplePaySession( applePayPaySessionVersionNumber, paymentRequestObject );
 
-		appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
+		appleSession.onvalidatemerchant = ( event ) => {
+			validateApplePayPaymentSession( appleSession, event );
+		};
 
 		appleSession.onpaymentauthorized = function ( event ) {
 			const bContact = event.payment.billingContact,
@@ -475,6 +490,11 @@
 				extraData,
 				'di_donate_gravy'
 			);
+		};
+
+		// Safari handles session end internally
+		appleSession.oncancel = appleSession.oncomplete = () => {
+			appleSession = null;
 		};
 	}
 
