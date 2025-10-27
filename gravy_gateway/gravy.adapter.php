@@ -144,6 +144,13 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	public function paymentMethodSupportsRecurring(): bool {
+		// If recurring is defined at the submethod level, use that
+		if (
+			isset( $this->payment_submethods[$this->getPaymentSubmethod()] ) &&
+			isset( $this->payment_submethods[$this->getPaymentSubmethod()]['recurring'] )
+		) {
+			return $this->payment_submethods[$this->getPaymentSubmethod()]['recurring'];
+		}
 		return $this->payment_methods[$this->getPaymentMethod()]['recurring'];
 	}
 
