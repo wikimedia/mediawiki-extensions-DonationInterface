@@ -16,7 +16,7 @@
 		<!-- Button Stack -->
 		<section class="dp-button-stack">
 			<a
-				href="https://donate.wikimedia.org/wiki/FAQ"
+				:href="donorFaqUrl"
 				target="_blank"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
 				{{ $i18n( "donorportal-aside-faq" ).text() }}
@@ -66,10 +66,9 @@ module.exports = exports = defineComponent( {
 	name: 'RelatedContentComponent',
 
 	setup() {
-		const assets_path = mw.config.get( 'assets_path' );
-
 		return {
-			assets_path
+			assets_path: mw.config.get( 'assets_path' ),
+			donorFaqUrl: mw.config.get( 'donorFaqUrl' )
 		};
 	},
 	computed: {

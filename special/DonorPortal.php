@@ -51,6 +51,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$vars['emailPreferencesUrl'] = $this->getPreferencesUrl( $this->formParams );
 		$vars['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
 		$vars['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
+		$vars['donorFaqUrl'] = $config->get( 'DonationInterfaceFaqURL' );
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 
