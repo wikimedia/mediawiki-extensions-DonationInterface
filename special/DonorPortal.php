@@ -273,8 +273,8 @@ class DonorPortal extends UnlistedSpecialPage {
 	protected function getPreferencesUrl( array $formParameters ): string {
 		$title = self::getTitleFor( 'EmailPreferences', 'emailPreferences' );
 		return $title->getLocalUrl( [
-			'contact_id' => $formParameters['contact_id'],
-			'checksum' => $formParameters['checksum'],
+			'contact_id' => $formParameters['contact_id'] ?? null,
+			'checksum' => $formParameters['checksum'] ?? null,
 		] );
 	}
 }
