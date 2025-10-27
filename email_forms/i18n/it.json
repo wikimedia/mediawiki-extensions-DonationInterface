@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Laos è una regione"
 		]
 	},
 	"emailpreferences-title": "Preferenze email",
@@ -10,7 +11,7 @@
 	"emailpreferences-send-email": "Mi fa piacere ricevere notizie da Wikimedia Foundation, mandatemi tutto!",
 	"emailpreferences-dont-send-email": "Annullate l’iscrizione per tutto.",
 	"emailpreferences-change-email": "cambia e-mail",
-	"emailpreferences-save": "Salva le preferenze",
+	"emailpreferences-save": "Salva preferenze",
 	"emailpreferences-success": "La tua richiesta di salvataggio delle preferenze di posta elettronica è stata inoltrata.",
 	"emailpreferences-footer-learn_more": "Scopri i <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capitoli locali e i loro progetti</a>.",
 	"emailpreferences-footer-questions_email": "Per qualsiasi domanda, invia un'e-mail a <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",

@@ -433,7 +433,7 @@
 	"donate_interface-onetime": "Facer unha doazón única",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Única",
-	"donate_interface-error-http-403": "Non ten permiso para acceder a esta páxina.",
+	"donate_interface-error-http-403": "Non tes permiso para acceder a esta páxina.",
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "Todas as imaxes atópanse baixo a licenza <a href=\"$1\">Creative Commons recoñecemento compartir igual 4.0 internacional</a>.",
 	"donate_interface-emailprefs-thank-you-title": "Grazas",
