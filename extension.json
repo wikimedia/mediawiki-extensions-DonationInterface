@@ -810,7 +810,7 @@
 		"DonationInterfaceRecurringDonateURL": {
 			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&monthly=true"
 		},
-		"DonationInterfaceChooserProblemURL": {
+		"DonationInterfaceNewDonationURL": {
 			"value": "https://donate.wikimedia.org"
 		},
 		"DonationInterfaceProblemsEmail": {

@@ -9,7 +9,9 @@
 			</p>
 		</div>
 		<div class="dp-card__section dp-card__cta">
-			<a href="https://donate.wikimedia.org/?wmf_medium=DonorPortal&wmf_source=DonorPortal&wmf_campaign=DonorPortal" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+			<a
+				:href="newDonationUrl"
+				target="_blank">
 				{{ $i18n( "donorportal-new-donation" ).text() }}
 			</a>
 		</div>
@@ -24,6 +26,11 @@ module.exports = exports = defineComponent( {
 			type: Object,
 			required: true
 		}
+	},
+	setup() {
+		return {
+			newDonationUrl: mw.config.get( 'newDonationUrl' )
+		};
 	},
 	computed: {
 		lastAmountAndDate: function () {

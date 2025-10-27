@@ -103,7 +103,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 	 * @return void
 	 */
 	public function testNoNeedParamGateWayChooser( array $params, bool $redirectToDonateWiki ) {
-		$this->overrideConfigValue( 'DonationInterfaceChooserProblemURL', 'https://test.example' );
+		$this->overrideConfigValue( 'DonationInterfaceNewDonationURL', 'https://test.example' );
 		$context = RequestContext::getMain();
 		$newOutput = new OutputPage( $context );
 		$newTitle = Title::newFromText( 'nonsense is apparently fine' );
