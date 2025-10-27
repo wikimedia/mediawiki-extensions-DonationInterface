@@ -1787,7 +1787,7 @@
 			"value": "https://wikimediaendowment.org/"
 		},
 		"DonationInterfaceEndowmentDonationURL": {
-			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&wmf_medium=endowment&wmf_source=donorPortal&wmf_campaign=donorPortal"
+			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&wmf_medium=endowment&wmf_source=donorportal&wmf_campaign=donorportal"
 		}
 	},
 	"AutoloadNamespaces": {

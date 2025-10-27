@@ -41,13 +41,16 @@ class DonorPortal extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function setClientVariables( array &$vars ) {
+		$config = $this->getConfig();
 		// Call the (renamed) function from RequestNewChecksumLinkTrait
-		if ( !$this->getConfig()->has( 'DonorPortalMockData' ) ) {
+		if ( !$config->has( 'DonorPortalMockData' ) ) {
 			$this->setChecksumClientVariables( $vars );
 		}
 		$vars['donorData'] = $this->formParams;
 		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
 		$vars['emailPreferencesUrl'] = $this->getPreferencesUrl( $this->formParams );
+		$vars['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
+		$vars['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 
@@ -73,9 +76,6 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->addRecurringContributionsToFormParams( $donorSummary['recurringContributions'] ?? [], $locale );
 
 		$this->formParams['donorID'] = 'CNTCT-' . $donorSummary['id'];
-		$config = $this->getConfig();
-		$this->formParams['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
-		$this->formParams['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
 		$this->formParams = array_merge( $this->formParams, $requestParameters );
 	}
 
