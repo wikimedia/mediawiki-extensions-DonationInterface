@@ -22,13 +22,13 @@
 				{{ $i18n( "donorportal-aside-faq" ).text() }}
 			</a>
 			<a
-				href="https://donate.wikimedia.org/wiki/Ways_to_Give"
+				:href="otherWaysUrl"
 				target="_blank"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
 				{{ $i18n( "donorportal-aside-faq-giving-other-ways" ).text() }}
 			</a>
 			<a
-				href="https://donate.wikimedia.org/wiki/Legacy"
+				:href="legacyUrl"
 				target="_blank"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
 				{{ $i18n( "donorportal-aside-faq-giving-legacy" ).text() }}
@@ -68,7 +68,9 @@ module.exports = exports = defineComponent( {
 	setup() {
 		return {
 			assets_path: mw.config.get( 'assets_path' ),
-			donorFaqUrl: mw.config.get( 'donorFaqUrl' )
+			donorFaqUrl: mw.config.get( 'donorFaqUrl' ),
+			otherWaysUrl: mw.config.get( 'otherWaysUrl' ),
+			legacyUrl: mw.config.get( 'legacyUrl' )
 		};
 	},
 	computed: {

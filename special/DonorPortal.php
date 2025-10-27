@@ -52,6 +52,12 @@ class DonorPortal extends UnlistedSpecialPage {
 		$vars['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
 		$vars['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
 		$vars['donorFaqUrl'] = $config->get( 'DonationInterfaceFaqURL' );
+		$vars['otherWaysUrl'] = str_replace(
+			'$language',
+			$this->getLanguage()->getCode(),
+			$config->get( 'DonationInterfaceOtherWaysURL' )
+		);
+		$vars['legacyUrl'] = $config->get( 'DonationInterfaceLegacyURL' );
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 
