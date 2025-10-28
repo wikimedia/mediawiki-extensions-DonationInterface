@@ -52,6 +52,14 @@ class DonorPortal extends UnlistedSpecialPage {
 		$vars['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
 		$vars['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
 		$vars['donorFaqUrl'] = $config->get( 'DonationInterfaceFaqURL' );
+		$vars['otherWaysUrl'] = str_replace(
+			'$language',
+			$this->getLanguage()->getCode(),
+			$config->get( 'DonationInterfaceOtherWaysURL' )
+		);
+		$vars['legacyUrl'] = $config->get( 'DonationInterfaceLegacyURL' );
+		$vars['newDonationUrl'] = $config->get( 'DonationInterfaceNewDonationURL' ) .
+			'?wmf_medium=donorportal&wmf_campaign=donorportal&wmf_source=donorportal';
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 	}
 

@@ -1394,13 +1394,14 @@ abstract class GatewayAdapter implements GatewayType {
 		$msg = " FINAL STATUS: '$status:$action' - ";
 
 		// what do we want in here?
-		// Attempted payment type, country of origin, $status, amount... campaign?
+		// Attempted payment type, country of origin, $status, amount... campaign, key?
 		// error message if one exists.
 		$keys = [
 			'payment_submethod',
 			'payment_method',
 			'country',
 			'utm_campaign',
+			'utm_key',
 			'amount',
 			'currency',
 		];

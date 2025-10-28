@@ -463,7 +463,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	}
 
 	protected function getProblemRedirectUrl(): string {
-		$problemsUrl = $this->getConfig()->get( 'DonationInterfaceChooserProblemURL' );
+		$problemsUrl = $this->getConfig()->get( 'DonationInterfaceNewDonationURL' );
 		$queryValues = $this->getRequest()->getQueryValues() ?? [];
 		unset( $queryValues['title'] );
 		if ( count( $queryValues ) > 0 ) {

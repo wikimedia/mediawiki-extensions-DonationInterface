@@ -25,10 +25,10 @@ module.exports = exports = defineComponent( {
     },
     computed: {
         donationsDisclaimer: function () {
-            return this.$i18n( 'donorportal-donations-disclaimer', this.email, `<a href="${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
+            return this.$i18n( 'donorportal-donations-disclaimer', this.email, `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
         },
         taxDisclaimer: function () {
-            return this.$i18n( 'donorportal-tax-disclaimer', `<a href="${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
+            return this.$i18n( 'donorportal-tax-disclaimer', `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
         }
     }
 } );
