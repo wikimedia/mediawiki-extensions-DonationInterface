@@ -50,6 +50,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 			return;
 		}
 		if ( !$this->validate( $requestParameters, $posted ) ) {
+			$this->logger( 'Validation failed for ' . $subpage, 'error' );
 			$this->renderError( $subpage );
 			return;
 		}
@@ -67,6 +68,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					}
 					break;
 				default:
+					$this->logger( 'Unknown subpage for post: ' . $subpage, 'error' );
 					$this->renderError();
 			}
 		} else {
@@ -79,6 +81,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$requestParameters[ 'contact_id' ]
 				);
 				if ( $preferences[ 'is_error' ] ) {
+					$this->logger( 'Error from civiproxy: ' . $preferences['error_message'], 'error', 'VerifyEmail' );
 					$this->renderError( $subpage );
 					return;
 				}
@@ -93,6 +96,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$requestParameters['email_checksum'],
 					$requestParameters['contact_id']
 				) ) {
+					$this->logger( 'Invalid email_checksum', 'error', 'VerifyEmail' );
 					$this->renderError( $subpage );
 					return;
 				}
@@ -141,20 +145,17 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	protected function errorHandling( string $errorMessage, array $requestParameters ): string {
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'EmailPreferences', true, false, '', null
-		);
 		// if Civi proxy not live, use hash to validate url
 		if ( $errorMessage === self::CIVI_NO_RESULTS_ERROR ) {
 			// If Civi returned no match for hash and contact_id, we still show the form,
 			// but log a message and set a session flag to prevent a message being
 			// placed on the queue.
-			$logger->warning(
+			$this->logger(
 				"No results for contact_id" . $requestParameters[ 'contact_id' ]
-				. " with checksum " . $requestParameters[ 'checksum' ] );
+				. " with checksum " . $requestParameters[ 'checksum' ], 'warning' );
 			WmfFramework::setSessionValue( self::BAD_DATA_SESSION_KEY, true );
 		} else {
-			$logger->error( 'Error from civiproxy: ' . $errorMessage );
+			$this->logger( 'Error from civiproxy: ' . $errorMessage, 'error' );
 			// validate the hash then
 			$isHashValid = $this->validateHash( $requestParameters );
 			if ( $isHashValid && !$this->isChecksumExpired() ) {
@@ -175,19 +176,16 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$hashSecretKey =
 			$this->getConfig()->get( 'DonationInterfaceEmailUnsubscribeHashSecretKey' );
 
-		$logger = DonationLoggerFactory::getLoggerFromParams(
-			'EmailPreferences', true, false, '', null );
-
 		$email = $params['email'];
 		$contact_id = $params['contact_id'];
 		$hash = strtolower( $params['hash'] );
 
 		$computedHash = hash( 'sha1', $contact_id . $email . $hashSecretKey );
 		if ( $computedHash != $hash ) {
-			$logger->info( "Hash verification failed! Expected '$computedHash' got '$hash'." );
+			$this->logger( "Hash verification failed! Expected '$computedHash' got '$hash'." );
 			return false;
 		} else {
-			$logger->info( "Hash verification success!" );
+			$this->logger( "Hash verification success!" );
 		}
 
 		return true;
@@ -330,8 +328,17 @@ class EmailPreferences extends UnlistedSpecialPage {
 		try {
 			QueueWrapper::push( 'verify-email', $message );
 			$this->renderSuccess( 'confirmEmail', $params );
-		} catch ( Exception ) {
+		} catch ( Exception $e ) {
+			$this->logger( 'Push queue failed: ' . $e->getMessage(), 'error', 'VerifyEmail' );
 			$this->renderError( 'confirmEmail' );
+		}
+	}
+
+	protected function logger( string $message = '', string $type = 'info', string $identifier = 'EmailPreferences' ): void {
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			$identifier, true, false, '', null );
+		if ( $message ) {
+			$logger->$type( $message );
 		}
 	}
 
@@ -350,9 +357,11 @@ class EmailPreferences extends UnlistedSpecialPage {
 			if ( $result && empty( $result['is_error'] ) ) {
 				$this->renderSuccess( 'optIn', $params );
 			} else {
+				$this->logger( 'Send double opt-in have error', 'error', 'Unsubscribe' );
 				$this->renderError( 'optIn' );
 			}
-		} catch ( Exception ) {
+		} catch ( Exception $e ) {
+			$this->logger( 'Send double opt-in failed: ' . $e->getMessage(), 'error', 'Unsubscribe' );
 			$this->renderError( 'optIn' );
 		}
 	}
@@ -363,7 +372,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 			// treat unsubscribe as email-pref to double check checksum over there
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'unsubscribe', $params );
-		} catch ( Exception ) {
+		} catch ( Exception $e ) {
+			$this->logger( 'Push queue failed: ' . $e->getMessage(), 'error', 'Unsubscribe' );
 			$this->renderError( 'unsubscribe' );
 		}
 	}
@@ -381,7 +391,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
 			$this->renderSuccess( 'emailPreferences', $params );
-		} catch ( Exception ) {
+		} catch ( Exception $e ) {
+			$this->logger( 'Push queue failed: ' . $e->getMessage(), 'error' );
 			$this->renderError( 'emailPreferences' );
 		}
 	}

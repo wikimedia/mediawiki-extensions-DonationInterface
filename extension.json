@@ -799,7 +799,7 @@
 			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give&language=$language&country=$country"
 		},
 		"DonationInterfaceFaqURL": {
-			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country"
+			"value": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/"
 		},
 		"DonationInterfaceTaxURL": {
 			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_deductibility&language=$language&country=$country"
@@ -1787,7 +1787,7 @@
 			"value": "https://wikimediaendowment.org/"
 		},
 		"DonationInterfaceEndowmentDonationURL": {
-			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&wmf_medium=endowment&wmf_source=donorPortal&wmf_campaign=donorPortal"
+			"value": "https://donate.wikimedia.org/w/index.php?title=Special:LandingPage&wmf_medium=endowment&wmf_source=donorportal&wmf_campaign=donorportal"
 		}
 	},
 	"AutoloadNamespaces": {

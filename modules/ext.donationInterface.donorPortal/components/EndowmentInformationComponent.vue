@@ -18,13 +18,13 @@
 			</p>
 			<p class="text text--body">
 				<a
-					href="https://wikimediaendowment.org/"
+					:href="endowmentLearnMoreUrl"
 					target="_blank"
 					class="link"
 				>
 					{{ $i18n( "donorportal-endowment-learn-more" ).text() }}
 				</a>  |  <a
-					href="https://wikimediaendowment.org/"
+					:href="endowmentDonationUrl"
 					target="_blank"
 					class="link">{{ $i18n( "donorportal-endowment-donate-now" ).text() }}</a>
 			</p>
@@ -37,10 +37,10 @@ const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	name: 'EndowmentInformationComponent',
 	setup() {
-		const assets_path = mw.config.get( 'assets_path' );
-
 		return {
-			assets_path
+			assets_path: mw.config.get( 'assets_path' ),
+			endowmentLearnMoreUrl: mw.config.get( 'endowmentLearnMoreUrl' ),
+			endowmentDonationUrl: mw.config.get( 'endowmentDonationUrl' )
 		};
 	}
 } );

@@ -58,11 +58,12 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		}
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
 		$config = RequestContext::getMain()->getConfig();
-		$this->patternFilterRunner = new PatternFilterRunner( $config );
+		$this->patternFilterRunner = new PatternFilterRunner( $config, $this->fraud_logger );
 		$this->velocityFilterRunner = new VelocityFilterRunner(
 			MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance(),
 			RequestContext::getMain()->getRequest()->getSession(),
-			$config
+			$config,
+			$this->fraud_logger
 		);
 	}
 

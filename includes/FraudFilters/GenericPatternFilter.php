@@ -2,6 +2,8 @@
 
 namespace MediaWiki\Extension\DonationInterface\FraudFilters;
 
+use Psr\Log\LoggerInterface;
+
 class GenericPatternFilter {
 
 	protected string $patternName;
@@ -23,9 +25,10 @@ class GenericPatternFilter {
 	 * Run the filter and if everything matches, set the failure score
 	 * @param array &$riskScores
 	 * @param array $transactionValues
+	 * @param LoggerInterface $logger
 	 * @return void
 	 */
-	public function run( array &$riskScores, array $transactionValues ) {
+	public function run( array &$riskScores, array $transactionValues, LoggerInterface $logger ) {
 		foreach ( $this->values as $propertyName => $value ) {
 			// Type coercion is OK here so we just use !=. This lets us write
 			// 2.75 in the filter to match the string "2.75" from $transactionValues
@@ -33,7 +36,9 @@ class GenericPatternFilter {
 				return;
 			}
 		}
-
+		$logger->debug(
+			"Matched transaction values for pattern $this->patternName: " . json_encode( $this->values )
+		);
 		$riskScores[$this->makeFilterName()] = $this->failScore;
 	}
 
