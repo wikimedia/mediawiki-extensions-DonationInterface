@@ -275,23 +275,20 @@ class EmailPreferences extends UnlistedSpecialPage {
 	}
 
 	public function setupQueueParams( array $params, string $queueName ): array {
+		$defaultParams = [
+			'checksum' => $params['checksum'],
+			'contact_id' => $params['contact_id'],
+			'email' => $params['email'],
+		];
 		switch ( $queueName ) {
 			case 'verify-email':
-				$message = [
-					'checksum' => $params['checksum'],
-					'contact_id' => $params['contact_id'],
-					'email' => $params['email']
-				];
+				$message = $defaultParams;
 				break;
 			case 'email-preferences':
-				$message = [
-					'checksum' => $params['checksum'],
-					'contact_id' => $params['contact_id'],
-					'email' => $params['email'],
-					'country' => $params['country'] ?? null,
-					'language' => $params['language'] ?? null,
-					'email_checksum' => $this->getSecretHashChecksum( $params['email'], $params['contact_id'] )
-				];
+				$message = array_merge(
+					$defaultParams,
+					[ 'country' => $params['country'] ?? null, 'language' => $params['language'] ?? null ]
+				);
 				if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
 					$message['send_email'] = $params['send_email'];
 				} else {
@@ -300,22 +297,19 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$snoozeDate = new DateTime( "+$snoozeDays days" );
 					$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
 				}
+				if ( isset( $params[ 'verifyEmailSent' ] ) && $params[ 'verifyEmailSent' ] ) {
+					// only set email_checksum when email is changed
+					$message['email_checksum'] = $this->getSecretHashChecksum(
+						$params['email'],
+						$params['contact_id']
+					);
+				}
 				break;
 			case 'opt-in':
-				$message = [
-					'checksum' => $params['checksum'],
-					'contact_id' => $params['contact_id'],
-					'email' => $params['email'],
-					'send_email' => 'true',
-				];
+				$message = array_merge( $defaultParams, [ 'send_email' => 'true' ] );
 				break;
 			case 'unsubscribe':
-				$message = [
-					'checksum' => $params['checksum'],
-					'contact_id' => $params['contact_id'],
-					'email' => $params['email'],
-					'send_email' => 'false',
-				];
+				$message = array_merge( $defaultParams, [ 'send_email' => 'false' ] );
 				break;
 			default:
 				$message = [];
@@ -389,12 +383,12 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$this->renderSuccess( 'emailPreferences', $params );
 			return;
 		}
+		$params[ 'verifyEmailSent' ] = (
+			$params[ 'email' ] !== $this->getRequest()->getSession()->get( 'email' )
+		);
 		$message = $this->setupQueueParams( $params, 'email-preferences' );
 		try {
 			QueueWrapper::push( 'email-preferences', $message );
-			$params[ 'verifyEmailSent' ] = (
-				$params[ 'email' ] !== $this->getRequest()->getSession()->get( 'email' )
-			);
 			$this->renderSuccess( 'emailPreferences', $params );
 		} catch ( Exception $e ) {
 			$this->logger( 'Push queue failed: ' . $e->getMessage(), 'error' );

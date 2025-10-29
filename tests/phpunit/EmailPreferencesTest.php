@@ -52,6 +52,9 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 		];
 
 		$test = new EmailPreferences;
+		if ( isset( $expected['email_checksum'] ) ) {
+			$params['verifyEmailSent'] = true;
+		}
 		$message = $test->setupQueueParams( $params, $queueName );
 
 		QueueWrapper::push( $queueName, $message );
@@ -67,6 +70,14 @@ class EmailPreferencesTest extends DonationInterfaceTestCase {
 
 	public static function expectedQueueNameDataProvider() {
 		return [
+			[ 'email-preferences', 'emailPreferences', [
+				'email' => 'test@test.com',
+				'contact_id' => '1',
+				'checksum' => 'df3rf',
+				'country' => 'US',
+				'language' => 'en',
+				'send_email' => 'true'
+			] ],
 			[ 'email-preferences', 'emailPreferences', [
 				'email' => 'test@test.com',
 				'contact_id' => '1',
