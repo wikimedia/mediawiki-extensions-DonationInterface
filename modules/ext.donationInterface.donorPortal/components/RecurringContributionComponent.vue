@@ -24,8 +24,11 @@
 			<a v-if="actionButtonText" href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
+			<p class="text text--body text--align-left" v-if="!isRecurringModifiable">
+				{{ $i18n( "donorportal-update-donation-paypal-disable-text" ).text() }}
+			</p>
 			<p
-				v-if="isActive"
+				v-if="isActive && isRecurringModifiable"
 				class="text text--body"
 				v-html="recurringAdditionalActionsLink">
 			</p>
@@ -84,9 +87,12 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( 'donorportal-last-amount-and-date',
 				this.contribution.amount_formatted, this.contribution.currency, this.contribution.last_contribution_date_formatted ).text();
 		},
+		isRecurringModifiable: function () {
+			return this.contribution.can_modify;
+		},
 		actionButtonText: function () {
 			if ( this.isActive ) {
-				if ( !this.contribution.can_modify ) {
+				if ( !this.isRecurringModifiable ) {
 					return false;
 				}
 				return this.$i18n( 'donorportal-update-donation-button' ).text();
@@ -98,7 +104,7 @@ module.exports = exports = defineComponent( {
 		},
 		recurringAdditionalActionsLink: function () {
 			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
-			if ( this.contribution.can_modify && !this.isPaused ) {
+			if ( !this.isPaused ) {
 				const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
 				return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
 			}
