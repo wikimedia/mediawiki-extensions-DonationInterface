@@ -505,14 +505,17 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				}
 				$messageParams = [];
 			}
-			$localizedErrors[] = new ValidationError(
+			$localizedError = new ValidationError(
 				$field, $messageKey, $messageParams
 			);
+			$localizedErrors[] = $localizedError;
+			$this->getErrorState()->addError( $localizedError );
 			$this->logger->info(
 				'createPayment call came back with validation error in ' . $field . ( $debugMessage
 					? ' with message: ' . $debugMessage : '' )
 			);
 		}
+
 		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
