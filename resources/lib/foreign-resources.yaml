@@ -121,9 +121,9 @@ vue-router:
   src: https://registry.npmjs.org/vue-router/-/vue-router-4.5.1.tgz
   integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==
   dest:
-    package/LICENSE:
-    package/dist/vue-router.global.js:
-    package/dist/vue-router.global.prod.js:
+    package/LICENSE: .
+    package/dist/vue-router.global.js: .
+    package/dist/vue-router.global.prod.js: .
 
 mailcheck:
   type: zip
@@ -134,4 +134,4 @@ mailcheck:
   src: https://codeload.github.com/mailcheck/mailcheck/zip/refs/tags/v1.1.1
   integrity: sha384-JiyDys6X36g1epXBXDfvsPrBqbebr39HRHvah5ZADdOAJ37Ip1ELD4RyZ/P+J7jE
   dest:
-    mailcheck-*/src/mailcheck*.js:
+    mailcheck-*/src/mailcheck*.js: .

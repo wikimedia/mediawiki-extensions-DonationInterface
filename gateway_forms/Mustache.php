@@ -102,7 +102,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 	protected function getData(): array {
 		$data = $this->gateway->getData_Unstaged_Escaped();
-		$output = $this->gatewayPage->getContext()->getOutput();
 
 		$data['script_path'] = $this->scriptPath;
 		$relativePath = $this->sanitizePath( $this->getTopLevelTemplate() );
@@ -116,7 +115,8 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		$appealWikiTemplate = $this->gateway->getGlobal( 'AppealWikiTemplate' );
 		$appealWikiTemplate = str_replace( '$appeal', $data['appeal'], $appealWikiTemplate );
 		$appealWikiTemplate = str_replace( '$language', $data['language'], $appealWikiTemplate );
-		$data['appeal_text'] = $output->parseAsContent( '{{' . $appealWikiTemplate . '}}' );
+
+		$data['appeal_text'] = $this->parseAppeal( $appealWikiTemplate );
 		$data['is_cc'] = ( $this->gateway->getPaymentMethod() === 'cc' );
 		$data['is_sepa'] = ( $this->gateway->getPaymentSubmethod() === PaymentMethod::PAYMENT_SUBMETHOD_SEPA_DIRECT_DEBIT );
 		$data['is_yearly'] = isset( $data['frequency_unit'] ) && $data['frequency_unit'] === 'year';
@@ -603,5 +603,29 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			}
 		}
 		return $partials;
+	}
+
+	/**
+	 * Cribbed from OutputPage::parseAsContent
+	 * @param string $templateTitle
+	 * @return string
+	 */
+	protected function parseAppeal( string $templateTitle ): string {
+		$context = $this->gatewayPage->getContext();
+		$outputPage = $context->getOutput();
+		$options = $outputPage->parserOptions();
+		$options->setAllowUnsafeRawHtml( true );
+		$parserOutput = MediaWikiServices::getInstance()->getParserFactory()->getInstance()
+			->parse(
+				'{{' . $templateTitle . '}}', $outputPage->getTitle(), $options
+			);
+		$pipeline = MediaWikiServices::getInstance()->getDefaultOutputPipeline();
+
+		return $pipeline->run( $parserOutput, $options, [
+			'allowTOC' => false,
+			'enableSectionEditLinks' => false,
+			'wrapperDivClass' => '',
+			'userLang' => $context->getLanguage(),
+		] )->getContentHolderText();
 	}
 }
