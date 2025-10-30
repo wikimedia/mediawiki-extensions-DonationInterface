@@ -22,6 +22,7 @@
 <script>
 const { defineComponent, ref, reactive } = require( 'vue' );
 const { useRoute } = require( 'vue-router' );
+const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionCancelForm = require( '../components/RecurringContributionCancelForm.vue' );
 const RecurringContributionCancelSuccessful = require( '../components/RecurringContributionCancelSuccess.vue' );
 const RecurringContributionCancelConfirmation = require( '../components/RecurringContributionCancelConfirmation.vue' );
@@ -61,6 +62,7 @@ module.exports = exports = defineComponent( {
 			donationPauseSuccessful: false,
 			donationPauseError: false
 		} );
+
 		function requestRecurringPause( params ) {
 			const api = new mw.Api();
 			params.action = 'requestPauseRecurring';
@@ -83,6 +85,7 @@ module.exports = exports = defineComponent( {
 				contribution_recur_id: Number( contributionRecurId ),
 				next_sched_contribution_date: nextSchedContributionDate.value
 			};
+			trackingParams.addTo( params );
 			requestRecurringPause( params ).then( ( data ) => {
 				// TODO: Set next scheduled date in global store
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
@@ -102,6 +105,7 @@ module.exports = exports = defineComponent( {
 				checksum: donorData.checksum,
 				contribution_recur_id: Number( contributionRecurId )
 			};
+			trackingParams.addTo( params );
 			requestRecurringCancel( params ).then( () => {
 				// TODO: Set cancel state in global store
 
