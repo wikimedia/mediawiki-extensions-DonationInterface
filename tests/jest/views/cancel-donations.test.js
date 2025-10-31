@@ -23,6 +23,7 @@ describe( 'Cancel donations view', () => {
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
+		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
 		useRoute.mockImplementationOnce( () => ( {
 			params: {
 				id: '123'

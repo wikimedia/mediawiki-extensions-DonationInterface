@@ -15,6 +15,7 @@ describe( 'Navigation logic', () => {
 		);
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
+		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
 	} );
 
 	it( 'Login screen renders successfully when required during navigation', async () => {

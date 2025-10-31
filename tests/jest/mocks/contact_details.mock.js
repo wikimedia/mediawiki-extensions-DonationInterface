@@ -8,5 +8,6 @@ module.exports = exports = {
 		state_province: 'California',
 		postal_code: '90001',
 		country: 'US'
-	}
+	},
+	emailPreferencesUrl: 'https://emailprefs.wiki'
 };

@@ -14,6 +14,7 @@ describe( 'Home view', () => {
 	beforeEach( () => {
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
+		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
 	} );
 
 	it( 'Home view renders the donor data from config', async () => {
