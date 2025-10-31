@@ -186,7 +186,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	private function addThankYouPrefetch( OutputPage $out ): void {
-		$thankYouPage = $this->adapter::getGlobal( 'ThankYouPage' );
+		$thankYouPage = ResultPages::getBaseThankYouPage( $this->adapter );
 		$urlParts = parse_url( $thankYouPage );
 
 		if ( $urlParts ) {

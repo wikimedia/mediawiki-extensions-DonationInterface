@@ -194,6 +194,13 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	protected function redirectToThankYouPage( array $params ): void {
 		$page = $this->getConfig()->get( 'DonationInterfaceThankYouPage' );
+		if ( is_array( $page ) ) {
+			if ( array_key_exists( 'default', $page ) ) {
+				$page = $page['default'];
+			} else {
+				$page = array_values( $page )[0];
+			}
+		}
 		$page = ResultPages::appendLanguageAndMakeURL(
 			$page,
 			$this->getLanguage()->getCode()
