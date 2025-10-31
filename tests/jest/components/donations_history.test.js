@@ -1,4 +1,4 @@
-/* global global describe it expect beforeEach afterEach*/
+/* global describe it expect beforeEach afterEach*/
 
 const VueTestUtils = require( '@vue/test-utils' );
 const DonationsHistory = require( '../../../modules/ext.donationInterface.donorPortal/components/DonationsHistory.vue' );
