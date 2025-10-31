@@ -299,4 +299,46 @@ describe( 'Cancel donations view', () => {
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
 
 	} );
+
+	it( 'Submits a tracking value from the URL', async () => {
+		window.history.pushState( {}, '', '/donorPortal?wmf_campaign=testCampaign' );
+		const wrapper = VueTestUtils.mount( CancelDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
+
+		when( global.mw.Api.prototype.post ).calledWith( {
+			duration: '60 Days',
+			contact_id: Number( HomeDataMock.result.contact_id ),
+			checksum: HomeDataMock.result.checksum,
+			contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
+			next_sched_contribution_date: HomeDataMock.result.recurringContributions[ 0 ].next_sched_contribution_date,
+			action: RECURRING_PAUSE_API_ACTION,
+			wmf_campaign: 'testCampaign'
+		} ).mockResolvedValueOnce( {
+				result: {
+					message: 'Success',
+					next_sched_contribution_date: '2025-10-02 00:00:02'
+				}
+			}
+		);
+
+		const selectedPeriod = cancelDonationsViewBody.find( '#option-60days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+
+		const pauseRecurringOption = cancelDonationsViewBody.find( '#pause-recurring-alt' );
+		const pauseRecurringOptionButton = pauseRecurringOption.find( '#submit-pause-action' );
+		await pauseRecurringOptionButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// Ensure pause success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-pause-success' );
+		expect( successText.exists() ).toBe( true );
+		window.history.back();
+	} );
 } );
