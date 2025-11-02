@@ -10,6 +10,8 @@
 	"donorportal-greeting": "Hi, $1!",
 	"donorportal-boldtext": "Thank you for playing a vital role in keeping Wikipedia free, neutral and accessible for everyone in the world.",
 	"donorportal-greetingtext": "Thank you for playing a vital role in keeping Wikipedia independent, ad-free, and available for all.",
+	"donorportal-feedbackrequest": "We’re currently testing this feature and would love to hear what you think.",
+	"donorportal-feedbacklink": "Provide feedback",
 	"donorportal-smalltext": "Your support helps ensure that Wikipedia remains reliable, ad-free, and available for all.",
 	"donorportal-contact-details": "Your contact details",
 	"donorportal-donorid": "Donor ID: $1",

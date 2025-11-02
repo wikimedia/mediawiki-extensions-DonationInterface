@@ -284,6 +284,7 @@
 				"modules/ext.donationInterface.donorPortal/components/DonationsListTable.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonorContactDetails.vue",
 				"modules/ext.donationInterface.donorPortal/components/GreetingComponent.vue",
+				"modules/ext.donationInterface.donorPortal/components/FeedbackSurveyComponent.vue",
 				"modules/ext.donationInterface.donorPortal/components/OnetimeContribution.vue",
 				"modules/ext.donationInterface.donorPortal/components/DonationsHistory.vue",
 				"modules/ext.donationInterface.donorPortal/components/RecurringContributionPauseForm.vue",
@@ -325,6 +326,8 @@
 				"donorportal-greeting",
 				"donorportal-boldtext",
 				"donorportal-greetingtext",
+				"donorportal-feedbackrequest",
+				"donorportal-feedbacklink",
 				"donorportal-smalltext",
 				"donorportal-contact-details",
 				"donorportal-donorid",
@@ -812,6 +815,9 @@
 		},
 		"DonationInterfaceNewDonationURL": {
 			"value": "https://donate.wikimedia.org"
+		},
+		"DonationInterfaceSurveyURL": {
+			"value": "https://www.surveymonkey.com/r/3NGY8NN"
 		},
 		"DonationInterfaceProblemsEmail": {
 			"value": "donate@wikimedia.org"

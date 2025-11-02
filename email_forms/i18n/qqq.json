@@ -13,6 +13,8 @@
 	"donorportal-greeting": "Text greeting a donor on the donor portal. $1 is the donor's first name",
 	"donorportal-boldtext": "Text atop the donor portal thanking the donor for giving",
 	"donorportal-greetingtext": "Text atop the donor portal thanking the donor for giving",
+	"donorportal-feedbackrequest": "Text to request feedback for donor portal.",
+	"donorportal-feedbacklink": "Text for link of feedback",
 	"donorportal-smalltext": "Explanation of how donations help",
 	"donorportal-contact-details": "Header text for box with donor's name and contact information",
 	"donorportal-donorid": "Text to show donor the id of their record in our CRM. $1 is an alphanumeric identifier",
