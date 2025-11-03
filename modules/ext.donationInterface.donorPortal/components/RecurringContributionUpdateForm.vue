@@ -89,6 +89,7 @@
 <script>
 const { defineComponent, ref } = require( 'vue' );
 const { RouterLink } = require( 'vue-router' );
+const normalizeInput = require( '../normalizeInput.js' );
 
 const RecurringContributionSummary = require( './RecurringContributionSummary.vue' );
 
@@ -119,64 +120,19 @@ module.exports = exports = defineComponent( {
 	emits: [ 'update:modelValue' ],
 	setup( props, { emit } ) {
 		const updateAmount = ref( '' );
-		const getCurrencyRate = () => {
-			const currency = props.recurringContribution.currency;
-			if ( currency && props.currencyRateArray && typeof props.currencyRateArray === 'object' ) {
-				return props.currencyRateArray[ currency ] || 1;
-			}
-		};
-		let minAmount = Number( ( 1 * getCurrencyRate() ).toFixed( 2 ) );
-		let maxAmount = Number( ( props.max * getCurrencyRate() ).toFixed( 2 ) );
-		if ( typeof props.recurringContribution.donation_rules !== 'undefined' &&
-		props.recurringContribution.donation_rules !== null ) {
-			const amountRule = props.recurringContribution.donation_rules;
-			// override min/max if specified in donation_rules for this currency
-			if ( amountRule.currency === props.recurringContribution.currency ) {
-				if ( amountRule.min ) {
-					minAmount = amountRule.min;
-				}
-				if ( amountRule.max ) {
-					maxAmount = amountRule.max;
-				}
-			}
-		}
-		const sanitize = ( raw ) => {
-			if ( raw === '' || raw === null ) {
-				return '';
-			}
-			// remove non-digits except dot
-			let v = String( raw ).replace( /[^\d.]/g, '' );
-			// keep only first dot
-			const firstDot = v.indexOf( '.' );
-			if ( firstDot !== -1 ) {
-				v = v.slice( 0, firstDot + 1 ) + v.slice( firstDot + 1 ).replace( /\./g, '' );
-			}
-			// limit to 2 decimals but allow a trailing dot while typing (e.g. "1." or ".")
-			if ( v.includes( '.' ) ) {
-				const [ intPart, decPart ] = v.split( '.' );
-				v = intPart + '.' + ( decPart ? decPart.slice( 0, 2 ) : '' );
-			}
-			// keep a leading dot (".5") and preserve single zero before dot ("0.5")
-			// remove leading zeros only when followed by another digit (e.g. "00012" -> "12")
-			if ( /^0+\d/.test( v ) ) {
-				v = v.replace( /^0+/, '' );
-			}
-			// clamp to min/max only for a complete numeric value (not "." or trailing dot)
-			const n = parseFloat( v );
-			if ( !Number.isNaN( n ) && v !== '.' && !v.endsWith( '.' ) ) {
-				// keep at most 2 decimals without forcing trailing zeros
-				return String( Math.round( n * 100 ) / 100 );
-			}
-			return v;
-		};
+		const priceRange = normalizeInput.getRecurringPriceRange(
+			props.recurringContribution, props.currencyRateArray, props.max
+		);
+		const minAmount = priceRange[ 0 ];
+		const maxAmount = priceRange[ 1 ];
 		const onInput = ( e ) => {
-			const cleaned = sanitize( e.target.value );
+			const cleaned = normalizeInput.sanitize( e.target.value );
 			updateAmount.value = cleaned;
 			emit( 'update:modelValue', cleaned );
 		};
 		const amountChangeAction = ( $event ) => {
 			const n = parseFloat( updateAmount.value );
-			if ( n === '' || n < minAmount || n > maxAmount ) {
+			if ( !n || n < minAmount || n > maxAmount ) {
 				alert( 'Please enter a valid amount between ' + minAmount + ' and ' + maxAmount + '.' );
 			} else if ( n === props.recurringContribution.amount ) {
 				alert( 'Please enter an amount different from your current donation.' );

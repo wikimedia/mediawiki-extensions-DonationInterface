@@ -214,6 +214,12 @@ class DonorPortal extends UnlistedSpecialPage {
 			$recurringContribution['next_sched_contribution_date_formatted'] = EmailForm::dateFormatter(
 				$recurringContribution['next_sched_contribution_date'] ?? ''
 			);
+			$recurringContribution['next_contribution_date_yearly'] = date( 'Y-m-d h:m:s', strtotime( '+11 months',
+					strtotime( $recurringContribution['next_sched_contribution_date'] ) ) );
+
+			$recurringContribution['next_contribution_date_yearly_formatted'] = EmailForm::dateFormatter(
+				$recurringContribution['next_contribution_date_yearly']
+			);
 			if ( isset( $recurringContribution['last_contribution_date'] ) ) {
 				$recurringContribution['last_contribution_date_formatted'] = EmailForm::dateFormatter(
 					$recurringContribution['last_contribution_date']

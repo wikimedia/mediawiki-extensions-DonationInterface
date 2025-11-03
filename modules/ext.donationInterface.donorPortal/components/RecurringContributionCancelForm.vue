@@ -137,7 +137,7 @@ module.exports = exports = defineComponent( {
 			props.submitPauseRecurringForm( pauseDuration.value );
 		};
 		const amountChangeAction = () => {
-			router.push( `/amount-downgrade/${ props.recurringContribution.id }` );
+			router.push( `/update-donations/${ props.recurringContribution.id }` );
 		};
 
 		const annualConversionAction = () => {

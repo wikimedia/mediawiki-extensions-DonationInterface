@@ -28,6 +28,8 @@ module.exports = exports = {
 			next_sched_contribution_date_formatted: 'September 2, 2025',
 			id: '123',
 			next_sched_contribution_date: '2025-08-02 00:00:02',
+			next_contribution_date_yearly: '2026-08-02 00:00:02',
+			next_contribution_date_yearly_formatted: 'August 2, 2026',
 			amount: 10,
 			hasLastContribution: true,
 			can_modify: true
@@ -43,6 +45,8 @@ module.exports = exports = {
 			id: '456',
 			hasLastContribution: true,
 			next_sched_contribution_date: '2025-12-10 00:00:02',
+			next_contribution_date_yearly: '2026-08-02 00:00:02',
+			next_contribution_date_yearly_formatted: 'August 2, 2026',
 			amount: 10,
 			can_modify: false
 		}
