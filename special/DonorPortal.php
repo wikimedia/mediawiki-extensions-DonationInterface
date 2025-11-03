@@ -49,6 +49,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		}
 		$vars['donorData'] = $this->formParams;
 		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
+		$vars['recurringUpgradeMaxUSD'] = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 		$vars['emailPreferencesUrl'] = $this->getPreferencesUrl( $this->formParams );
 		$vars['endowmentLearnMoreUrl'] = $config->get( 'DonationInterfaceEndowmentLearnMoreURL' );
 		$vars['endowmentDonationUrl'] = $config->get( 'DonationInterfaceEndowmentDonationURL' );
@@ -206,6 +207,9 @@ class DonorPortal extends UnlistedSpecialPage {
 
 			$recurringContribution['amount_formatted'] = EmailForm::amountFormatter(
 				(float)$recurringContribution['amount'], $locale, $recurringContribution['currency'] ?? ''
+			);
+			$recurringContribution['currency_symbol'] = trim(
+				preg_replace( '/[0-9.,\s]/', '', $recurringContribution['amount_formatted'] )
 			);
 			$recurringContribution['next_sched_contribution_date_formatted'] = EmailForm::dateFormatter(
 				$recurringContribution['next_sched_contribution_date'] ?? ''

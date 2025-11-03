@@ -21,6 +21,7 @@ module.exports = exports = {
 		{
 			amount_frequency_key: 'donorportal-recurring-amount-monthly',
 			amount_formatted: '$100',
+			currency_symbol: '$',
 			currency: 'USD',
 			frequency_unit: 'month',
 			payment_method: 'Credit Card: Visa',
@@ -28,16 +29,19 @@ module.exports = exports = {
 			id: '123',
 			next_sched_contribution_date: '2025-08-02 00:00:02',
 			amount: 10,
+			hasLastContribution: true,
 			can_modify: true
 		},
 		{
 			amount_frequency_key: 'donorportal-recurring-amount-monthly',
 			amount_formatted: '$10',
 			currency: 'USD',
+			currency_symbol: '$',
 			frequency_unit: 'month',
 			payment_method: 'PayPal',
 			next_sched_contribution_date_formatted: 'December 10, 2025',
 			id: '456',
+			hasLastContribution: true,
 			next_sched_contribution_date: '2025-12-10 00:00:02',
 			amount: 10,
 			can_modify: false
@@ -48,11 +52,12 @@ module.exports = exports = {
 			amount_frequency_key: 'donorportal-recurring-amount-monthly',
 			amount_formatted: '$100',
 			currency: 'USD',
+			currency_symbol: '$',
 			frequency_unit: 'month',
 			payment_method: 'Credit Card: Visa',
 			last_contribution_date_formatted: 'September 2, 2025',
 			restart_key: 'donorportal-restart-monthly',
-			hasLastContribution: true,
+			lastDonationDate: true,
 			id: '125'
 		}
 	],
@@ -68,6 +73,7 @@ module.exports = exports = {
 			receive_date_formatted: '02 March, 2025',
 			donation_type_key: 'donorportal-donation-type-monthly',
 			amount_formatted: '$5.78',
+			currency_symbol: '$',
 			currency: 'USD',
 			payment_method: 'Credit Card: Visa',
 			id: '123'
@@ -76,6 +82,7 @@ module.exports = exports = {
 			receive_date_formatted: '03 March, 2025',
 			donation_type_key: 'donorportal-donation-type-annual',
 			amount_formatted: '$6.78',
+			currency_symbol: '$',
 			currency: 'USD',
 			payment_method: 'Credit Card: MasterCard',
 			id: '124'

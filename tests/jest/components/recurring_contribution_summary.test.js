@@ -48,4 +48,40 @@ describe( 'Recurring contribution summary component', () => {
 		const element = wrapper.find( '.contribution-details' );
 		expect( element.exists() ).toBe( false );
 	} );
+
+	it( 'Extra title render when extraTitle is not empty', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
+			props: {
+				recurringContribution: contribution_mock,
+				extraTitle: 'donorportal-update-recurring-current-donation'
+			}
+		} );
+		const element = wrapper.find( '.contribution-details' );
+		expect( element.exists() ).toBe( true );
+		expect( element.html() ).toContain( 'donorportal-update-recurring-current-donation' );
+	} );
+
+	it( 'Render when using lastDonationDate', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
+			props: {
+				recurringContribution: contribution_mock,
+				lastDonationDate: true
+			}
+		} );
+		const element = wrapper.find( '.contribution-details' );
+		expect( element.exists() ).toBe( true );
+		expect( element.html() ).toContain( contribution_mock.last_contribution_date_formatted );
+	} );
+
+	it( 'Adding extra Class', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionSummary, {
+			props: {
+				recurringContribution: contribution_mock,
+				extraClasses: 'test-class'
+			}
+		} );
+		const element = wrapper.find( '.contribution-details' );
+		expect( element.exists() ).toBe( true );
+		expect( element.html() ).toContain( 'box test-class' );
+	} );
 } );

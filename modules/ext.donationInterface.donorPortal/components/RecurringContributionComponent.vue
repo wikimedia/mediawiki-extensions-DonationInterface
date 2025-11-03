@@ -23,7 +23,7 @@
 		<div class="dp-card__section dp-card__cta">
 			<a
 				v-if="actionButtonText"
-				href="#"
+				:href="isActive && contribution.can_modify ? ( '#/update-donations/' + contribution.id ) : '#'"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>

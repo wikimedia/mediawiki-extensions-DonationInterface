@@ -3,6 +3,7 @@ const { createWebHashHistory, createRouter } = require( 'vue-router' ),
 	Login = require( './views/LoginView.vue' ),
 	PauseDonations = require( './views/PauseDonations.vue' ),
 	CancelDonations = require( './views/CancelDonations.vue' ),
+	UpdateDonations = require( './views/UpdateDonations.vue' ),
 	AnnualConversion = require( './views/AnnualConversion.vue' ),
 	AmountDowngrade = require( './views/AmountDowngrade.vue' );
 
@@ -11,6 +12,7 @@ const routes = [
   { path: '/login', component: Login, name: 'Login' },
   { path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations' },
   { path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations' },
+  { path: '/update-donations/:id', component: UpdateDonations, name: 'UpdateDonations' },
   { path: '/annual-conversion/:id', component: AnnualConversion, name: 'AnnualConversion' },
   { path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade' }
 ];
