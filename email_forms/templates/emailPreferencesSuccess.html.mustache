@@ -1,3 +1,10 @@
-{{> emailPreferencesHeader}}
-<main class="site-content"><p><strong>{{ l10n "emailpreferences-success" }}</strong></p></main>
-{{> emailPreferencesFooter}}
+{{> emailPreferencesHeader }}
+<main class="site-content">
+	<div style="text-align:center">
+		<p><strong>{{ l10n "emailpreferences-success" }}</strong></p>
+		{{# verifyEmailSent }}
+		<p>{{ l10n "emailpreferences-verify-email-sent" }}</p>
+		{{/ verifyEmailSent }}
+	</div>
+</main>
+{{> emailPreferencesFooter }}

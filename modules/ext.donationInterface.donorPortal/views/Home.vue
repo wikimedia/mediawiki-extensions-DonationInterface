@@ -1,4 +1,5 @@
 <template>
+	<feedback-survey></feedback-survey>
 	<main class="container dp-dashboard">
 		<greeting :name="donorSummary.name"></greeting>
 		<section class="container__inner dp-dashboard__main">
@@ -27,6 +28,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const GreetingComponent = require( '../components/GreetingComponent.vue' );
+const FeedbackSurveyComponent = require( '../components/FeedbackSurveyComponent.vue' );
 const DonorContactDetails = require( '../components/DonorContactDetails.vue' );
 const DonationsHistory = require( '../components/DonationsHistory.vue' );
 const DonorCardComponent = require( '../components/DonorCardComponent.vue' );
@@ -38,6 +40,7 @@ module.exports = exports = defineComponent( {
 	components: {
 		'donor-contact-details': DonorContactDetails,
 		greeting: GreetingComponent,
+		'feedback-survey': FeedbackSurveyComponent,
 		'donations-history': DonationsHistory,
 		'donor-card': DonorCardComponent,
 		'donations-disclaimer': DonationsDisclaimerComponent,

@@ -58,6 +58,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			$config->get( 'DonationInterfaceOtherWaysURL' )
 		);
 		$vars['legacyUrl'] = $config->get( 'DonationInterfaceLegacyURL' );
+		$vars['surveyUrl'] = $config->get( 'DonationInterfaceSurveyURL' );
 		$vars['newDonationUrl'] = $config->get( 'DonationInterfaceNewDonationURL' ) .
 			'?wmf_medium=donorportal&wmf_campaign=donorportal&wmf_source=donorportal';
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();

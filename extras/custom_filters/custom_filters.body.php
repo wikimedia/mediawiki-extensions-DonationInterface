@@ -168,6 +168,15 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$log_message = '"' . addslashes( json_encode( $utm ) ) . '"';
 		$this->fraud_logger->info( '"utm" ' . $log_message );
 
+		if ( $localAction == 'reject' ) {
+			$rejectLog = $this->gateway_adapter->getData_Unstaged_Escaped();
+			unset( $rejectLog['encrypted_card_number'] );
+			unset( $rejectLog['encrypted_expiry_month'] );
+			unset( $rejectLog['encrypted_expiry_year'] );
+			unset( $rejectLog['encrypted_security_code'] );
+			$this->fraud_logger->info( '"unstaged data" ' . addslashes( json_encode( $rejectLog ) ) );
+		}
+
 		$this->sendAntifraudMessage( $localAction, $score, $this->risk_score );
 		if ( $localAction !== ValidationAction::PROCESS ) {
 			// Resets the ip velocity filter to ensure multiple suspicious attempts don't get a free pass.
