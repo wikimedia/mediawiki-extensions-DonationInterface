@@ -527,7 +527,6 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 			'banner' => 'appmenu',
 			'browser' => 'app',
 			'browser_version' => '1.0.0',
-			'form_amount' => 'USD 1.55',
 			'id' => '1',
 			'is_recurring' => null,
 			'os' => $campaign,

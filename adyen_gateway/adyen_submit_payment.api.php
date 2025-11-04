@@ -275,7 +275,6 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'browser_version' => $this->donationData['app_version'],
 			'country' => $this->donationData['country'],
 			'currency' => $this->donationData['currency'],
-			'form_amount' => $this->donationData['currency'] . ' ' . $this->donationData['amount'],
 			'gateway' => $this->gateway,
 			'id' => $this->contributionTrackingId,
 			'is_recurring' => $this->donationData['recurring'],
