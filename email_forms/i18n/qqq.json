@@ -31,6 +31,7 @@
 	"donorportal-recurring-next-amount-and-date": "Amount and date of next upcoming charge. $1 is the formatted amount, $2 is the three letter currency code for extra clarification, and $3 is the formatted date.",
 	"donorportal-last-amount-and-date": "Amount and date of last donation. $1 is the formatted amount, $2 is the three letter currency code for extra clarification, and $3 is the formatted date.",
 	"donorportal-update-donation-button": "Text for a button to change the amount of the donation",
+	"donorportal-update-donation-paypal-disable-text": "Text for explanation that PayPal donations cannot be changed online",
 	"donorportal-new-donation": "Text for a button leading a donation to a form to make a new donation",
 	"donorportal-recurring-pause": "Action word for temporarily stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",
 	"donorportal-recurring-cancel": "Action word for permanently stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",

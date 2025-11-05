@@ -11,7 +11,7 @@ class ResultPages {
 	 * @return string full URL of the thank you page
 	 */
 	public static function getThankYouPage( GatewayType $adapter, $extraParams = [] ) {
-		$page = $adapter::getGlobal( "ThankYouPage" );
+		$page = self::getBaseThankYouPage( $adapter );
 		if ( $page ) {
 			$page = self::appendLanguageAndMakeURL(
 				$page,
@@ -45,6 +45,26 @@ class ResultPages {
 		}
 
 		return wfAppendQuery( $page ?? '', $extraParams );
+	}
+
+	/**
+	 * Get the base thank-you page, potentially indexed by the current 'appeal' value
+	 * @param GatewayType $adapter
+	 * @return string
+	 */
+	public static function getBaseThankYouPage( GatewayType $adapter ): string {
+		$page = $adapter::getGlobal( 'ThankYouPage' );
+		$appeal = $adapter->getData_Unstaged_Escaped( 'appeal' );
+		if ( is_array( $page ) ) {
+			if ( array_key_exists( $appeal, $page ) ) {
+				$page = $page[$appeal];
+			} elseif ( array_key_exists( 'default', $page ) ) {
+				$page = $page['default'];
+			} else {
+				$page = array_values( $page )[0];
+			}
+		}
+		return $page;
 	}
 
 	/**

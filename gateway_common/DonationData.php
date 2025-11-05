@@ -925,18 +925,6 @@ class DonationData implements LogPrefixProvider {
 			$tracking_data['is_recurring'] = 1;
 		}
 
-		// TODO: remove form_amount and payments_form once we are sure we can stop
-		// populating the legacy drupal.contribution_tracking table
-		if ( $this->isSomething( 'currency' ) && $this->isSomething( 'amount' ) ) {
-			$tracking_data['form_amount'] = $this->getVal( 'currency' ) . ' ' . $this->getVal( 'amount' );
-		}
-		$tracking_data['payments_form'] = $this->getVal( 'gateway' );
-		if ( $this->isSomething( 'variant' ) ) {
-			$tracking_data['payments_form'] .= '.v=' . $this->getVal( 'variant' );
-		} elseif ( $this->isSomething( 'appeal' ) ) {
-			$tracking_data['payments_form'] .= '.' . $this->getVal( 'appeal' );
-		}
-
 		// Add banner history log id if sent and enabled
 		if ( $this->getVal( 'bannerhistlog' ) && $this->gateway->getGlobal( 'EnableBannerHistoryLog' ) ) {
 			$tracking_data['banner_history_log_id'] = $this->getVal( 'bannerhistlog' );

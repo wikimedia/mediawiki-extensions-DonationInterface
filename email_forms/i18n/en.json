@@ -28,6 +28,7 @@
 	"donorportal-recurring-next-amount-and-date": "Your next donation is for $1 $2 on $3.",
 	"donorportal-last-amount-and-date": "Your last donation was for $1 $2 on $3.",
 	"donorportal-update-donation-button": "Update or change my donation",
+	"donorportal-update-donation-paypal-disable-text": "Your recurring donation is processed via PayPal. Changes to your gift must be made directly through your PayPal account.",
 	"donorportal-new-donation": "Make a new donation",
 	"donorportal-recurring-pause": "Pause",
 	"donorportal-recurring-cancel": "Cancel",
