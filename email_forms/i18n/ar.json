@@ -36,6 +36,7 @@
 	"donorportal-recurring-pause": "يوقف",
 	"donorportal-recurring-cancel": "إلغاء",
 	"donorportal-recurring-pause-or-cancel": "تبرعي هو $1 أو $2",
+	"donorportal-recurring-cancel-text": "$1 من تبرعى",
 	"donorportal-recurring-status-active": "نشيط",
 	"donorportal-recurring-status-lapsed": "منتهية الصلاحية",
 	"donorportal-recurring-status-paused": "متوقف مؤقتًا",
