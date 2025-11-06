@@ -31,6 +31,7 @@
 	"donorportal-recurring-next-amount-and-date": "התרומה הבאה שלך היא על סך $1 $2 בתאריך $3.",
 	"donorportal-last-amount-and-date": "התרומה האחרונה שלך הייתה על סך $1 $2 בתאריך $3.",
 	"donorportal-update-donation-button": "עדכון או שינוי התרומה שלי",
+	"donorportal-update-donation-paypal-disable-text": "התרומה הקבועה שלך מעובדת דרך פייפאל, שינויים בתרומה שלך חייבים להתבצע ישירות דרך חשבון הפייפאל שלך.",
 	"donorportal-new-donation": "תרומה חדשה",
 	"donorportal-recurring-pause": "השהיה",
 	"donorportal-recurring-cancel": "ביטול",

@@ -2,10 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"EneshTranslates",
 			"Kareyac",
 			"Okras"
 		]
 	},
+	"donorportal-feedbackrequest": "В настоящее время мы тестируем эту функцию и будем рады узнать ваше мнение.",
+	"donorportal-feedbacklink": "Оставить отзыв",
+	"donorportal-update-donation-paypal-disable-text": "Ваше регулярное пожертвование обрабатывается через PayPal, изменения в вашей пожертвовании нужно вносить напрямую в вашем аккаунте PayPal.",
 	"emailpreferences-change-email": "Изменить адрес электронной почты",
 	"emailpreferences-country": "Страна или регион",
 	"emailpreferences-dont-send-email": "Отменить все мои подписки.",
@@ -27,6 +31,7 @@
 	"emailpreferences-send-email": "Мне нравится получать новости от фонда Wikimedia Foundation, присылайте мне всё!",
 	"emailpreferences-snooze-email": "Поставить электронные письма на паузу на {{PLURAL:$1|один день|$1 дней}}.",
 	"emailpreferences-success": "Ваша заявка на сохранение настроек электронной почты зарегистрирована.",
+	"emailpreferences-verify-email-sent": "Самые читаемые статьи на английской Википедии",
 	"emailpreferences-title": "Настройки электронной почты",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"fundraiserunsubscribe": "Отписаться от писем Фонда Викимедиа, связанных со сбором средств"

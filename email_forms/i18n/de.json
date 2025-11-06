@@ -33,6 +33,7 @@
 	"donorportal-recurring-next-amount-and-date": "Deine nächste Spende beträgt $1 $2 am $3 .",
 	"donorportal-last-amount-and-date": "Deine letzte Spende betrug $1 $2 am $3 .",
 	"donorportal-update-donation-button": "Meine Spende aktualisieren oder ändern",
+	"donorportal-update-donation-paypal-disable-text": "Ihre regelmäßige Spende wird über PayPal abgewickelt. Änderungen an Ihrer Spende müssen direkt über Ihr PayPal-Konto vorgenommen werden.",
 	"donorportal-new-donation": "Eine neue Spende tätigen",
 	"donorportal-recurring-pause": "unterbrechen",
 	"donorportal-recurring-cancel": "stornieren",

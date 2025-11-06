@@ -38,6 +38,7 @@
 	"donorportal-recurring-next-amount-and-date": "Votre prochain don est de $1 $2 le $3 .",
 	"donorportal-last-amount-and-date": "Votre dernier don était de $1 $2 le $3 .",
 	"donorportal-update-donation-button": "Mettre à jour ou modifier mon don",
+	"donorportal-update-donation-paypal-disable-text": "Votre don récurrent est traité via PayPal ; toute modification de votre don doit être effectuée directement via votre compte PayPal.",
 	"donorportal-new-donation": "Faire un nouveau don",
 	"donorportal-recurring-pause": "Suspendre",
 	"donorportal-recurring-cancel": "Annuler",
