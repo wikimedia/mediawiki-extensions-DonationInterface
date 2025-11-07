@@ -3,9 +3,14 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Dual",
-			"Joseph"
+			"Joseph",
+			"Sakblue"
 		]
 	},
+	"donorportal-feedbackrequest": "Şu anda bu özelliği test ediyoruz ve sizin ne düşündüğünüzü duymak isteriz.",
+	"donorportal-feedbacklink": "Geri bildirimde bulunun",
+	"donorportal-update-donation-paypal-disable-text": "Düzenli bağışınız PayPal üzerinden işlenir. Hediye bağışınızdaki değişiklikler doğrudan PayPal hesabınız üzerinden yapılmalıdır.",
+	"emailpreferences-verify-email-sent": "Yeni e-posta adresinize bir onay bağlantısı gönderdik.",
 	"fundraiserunsubscribe": "Wikimedia Vakfı Bağış Toplama E-posta aboneliğinden ayrıl",
 	"fundraisersubscribe": "Katılan",
 	"fundraisersubscribe-appeal-headline-001": "Gördüklerini beğendiniz mi?",
