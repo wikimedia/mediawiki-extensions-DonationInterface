@@ -1,8 +1,9 @@
-/* global describe it expect beforeEach afterEach*/
+/* global global describe it expect beforeEach afterEach*/
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionComponent.vue' );
 const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { when } = require( 'jest-when' );
 
 describe( 'Active recurring contribution test', () => {
 	it( 'Renders successfully', () => {
@@ -21,12 +22,21 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.html() ).toContain( recurring_mock.payment_method );
 		expect( element.html() ).toContain( recurring_mock.next_sched_contribution_date_formatted );
 		expect( element.html() ).toContain( `<a href="#/cancel-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-cancel </a>` );
+		expect( element.html() ).toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
 		expect( element.html() ).toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
 	} );
 
 } );
 
 describe( 'Donor contact details component', () => {
+	beforeEach( () => {
+		global.mw.Api.prototype.get.mockReturnValue(
+			new Promise( ( resolve, _ ) => {
+				resolve( null );
+			} )
+		);
+		when( global.mw.config.get ).calledWith( 'newDonationUrl' ).mockReturnValue( 'http://donate.test' );
+	} );
 	it( 'Renders successfully', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
 			props: {
@@ -43,7 +53,7 @@ describe( 'Donor contact details component', () => {
 		expect( element.html() ).not.toContain( inactive_recurring_mock.payment_method );
 		expect( element.html() ).toContain( inactive_recurring_mock.last_contribution_date_formatted );
 		expect( element.html() ).toContain( inactive_recurring_mock.restart_key );
-
+		expect( element.html() ).toContain( '<a target="_blank" href="http://donate.test' );
 	} );
 	it( 'Only adds last contribution if there if there is any on record', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
@@ -54,10 +64,9 @@ describe( 'Donor contact details component', () => {
 				isActive: false
 			}
 		} );
-
-		const element = wrapper.find( '.is-lapsed' );
-		expect( element.exists() ).toBe( true );
-		expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
-
-	} );
+        const element = wrapper.find( '.is-lapsed' );
+        expect( element.exists() ).toBe( true );
+        expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
+        expect( element.html() ).toContain( '<a target="_blank" href="http://donate.test' );
+    } );
 } );
