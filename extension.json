@@ -272,6 +272,7 @@
 		"ext.donationInterface.donorPortal": {
 			"dependencies": [
 				"donationInterface.skinOverride",
+				"ext.donationInterface.currencyRates",
 				"ext.donationInterface.errorLog",
 				"vue",
 				"@wikimedia/codex",
