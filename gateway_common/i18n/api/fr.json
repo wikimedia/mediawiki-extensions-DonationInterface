@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Bananax47",
 			"Derugon",
 			"DreZhsh",
 			"Gomoko",
@@ -80,11 +81,14 @@
 	"apihelp-requestPauseRecurring-param-checksum": "Somme de contrôle du donateur réalisant la demande de suspension",
 	"apihelp-requestPauseRecurring-param-contribution_recur_id": "Identifiant du don récurrent que le donateur souhaite suspendre",
 	"apihelp-requestPauseRecurring-param-next_sched_contribution_date": "Date prévue actuelle du prochain don",
+	"apihelp-requestPauseRecurring-param-wmf_campaign": "Variable de suivi.",
+	"apihelp-requestPauseRecurring-param-wmf_medium": "Variable de suivi",
 	"apihelp-requestCancelRecurring-summary": "Cette API demande l’annulation d’un don récurrent à partir de la page de préférence du donateur",
 	"apihelp-requestCancelRecurring-param-reason": "Motif de l’annulation",
 	"apihelp-requestCancelRecurring-param-contact_id": "Identifiant de contact du donateur réalisant la demande d’annulation",
 	"apihelp-requestCancelRecurring-param-checksum": "Somme de contrôle du donateur réalisant la demande d’annulation",
 	"apihelp-requestCancelRecurring-param-contribution_recur_id": "Identifiant du don récurrent que le donateur souhaite annuler",
+	"apihelp-requestCancelRecurring-param-wmf_campaign": "Variable de suivi.",
 	"apihelp-di_donate_adyen-summary": "Cette API est pour Adyen",
 	"apihelp-di_donate_adyen-param-amount": "Le montant du don.",
 	"apihelp-di_donate_adyen-param-bank_account_type": "Type de compte bancaire",
