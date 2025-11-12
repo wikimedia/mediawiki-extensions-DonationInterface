@@ -5,6 +5,23 @@
 			"Minilammas"
 		]
 	},
+	"emailpreferences-title": "Sähköpostiasetukset",
 	"emailpreferences-country": "Maa tai alue",
-	"emailpreferences-change-email": "muuta sähköpostiosoite"
+	"emailpreferences-language": "Kieli",
+	"emailpreferences-send-email": "Haluan kuulla kuulla Wikimedia Foundationilta, lähetä minulle kaikki!",
+	"emailpreferences-dont-send-email": "Peruuta kaikki tilaukseni.",
+	"emailpreferences-change-email": "muuta sähköpostiosoite",
+	"emailpreferences-save": "Tallenna asetukset",
+	"emailpreferences-success": "Pyyntösi sähköpostiasetuksiesi tallentamiseksi on lähetetty.",
+	"emailpreferences-footer-learn_more": "Lue lisää <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">paikallisosastoista ja niiden projekteista</a>.",
+	"emailpreferences-footer-questions_email": "Jos sinulla on kysymyksiä, voit lähettää sähköpostia osoitteeseen <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
+	"emailpreferences-hi": "Hei",
+	"emailpreferences-header-link-our-work": "Työmme",
+	"emailpreferences-header-link-support-wikipedia": "Tue Wikipediaa",
+	"emailpreferences-header-link-research": "Tutkimus",
+	"emailpreferences-header-link-advocacy": "Edunvalvonta",
+	"emailpreferences-header-link-technology": "Teknologia",
+	"emailpreferences-header-link-news": "Uutiset",
+	"emailpreferences-header-link-participate": "Osallistu",
+	"emailpreferences-header-link-about": "Tietoja"
 }
