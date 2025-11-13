@@ -224,7 +224,7 @@ class DonorPortal extends UnlistedSpecialPage {
 
 			if ( $recurringContribution['can_modify'] && $key == 'recurringContributions' ) {
 				$recurringContribution['donation_rules'] = $amountHelper->getDonationRules(
-					$recurringContribution['payment_processor_name'],
+					$recurringContribution['payment_processor'],
 					[
 						'country' => $recurringContribution['country'],
 						'currency' => $recurringContribution['currency'],
