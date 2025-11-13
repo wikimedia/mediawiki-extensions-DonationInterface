@@ -47,7 +47,7 @@ trait RecurringConversionTrait {
 			$message = array_merge(
 				[
 					'recurring' => 0,
-					'monthly_convert_decline' => true,
+					'txn_type' => 'monthly_convert_decline',
 					'order_id' => $sessionData['order_id'],
 					'recurring_payment_token' => $sessionData['recurring_payment_token'],
 					'processor_contact_id' => $sessionData['processor_contact_id'],
@@ -55,8 +55,10 @@ trait RecurringConversionTrait {
 					'payment_method' => $sessionData['payment_method'],
 				]
 			);
-			QueueWrapper::push( 'donations', $message );
-			$this->logger->info( "decline recurring from post monthly convert" );
+			QueueWrapper::push( 'recurring', $message );
+			$this->logger->info(
+				'Pushing decline to queue [recurring] from post-donation monthly convert'
+			);
 		} else {
 			$message = array_merge(
 				$this->getQueueDonationMessage(),
