@@ -11,6 +11,7 @@
 	"donorportal-contact-details": "I tuoi dati di contatto",
 	"donorportal-active-recurring": "Le tue donazioni ricorrenti attive",
 	"donorportal-most-recent-donation": "La tua donazione più recente",
+	"donorportal-update-donation-paypal-disable-text": "La tua donazione ricorrente viene elaborata tramite PayPal. Eventuali modifiche alla tua donazione devono essere effettuate direttamente tramite il tuo account PayPal.",
 	"donorportal-new-donation": "Fai una nuova donazione",
 	"donorportal-recurring-pause": "Pausa",
 	"donorportal-recurring-cancel": "Annulla",

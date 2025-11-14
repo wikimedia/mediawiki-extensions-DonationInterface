@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ameisenigel",
 			"Brettchenweber",
 			"Justman10000",
 			"McDutchie",
@@ -113,7 +114,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Ihre Spende über $1 wurde storniert. Bitte beachten Sie, dass es bis zu 30 Minuten dauern kann, bis die Stornierung auf Ihrem Spenderkonto angezeigt wird.",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Ihre jährliche Spende über $1 wurde storniert. Bitte beachten Sie, dass es bis zu 30 Minuten dauern kann, bis die Stornierung auf Ihrem Spenderkonto angezeigt wird.",
 	"donorportal-cancel-failure": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an $1",
-	"donorportal-aside-did-you-know": "Wussten Sie...?",
+	"donorportal-aside-did-you-know": "Wusstest du...?",
 	"donorportal-aside-fun-fact": "Wikipedia verzeichnet jeden Monat fast 16 Milliarden Aufrufe und ist in über 300 Sprachen verfügbar – Tendenz steigend!",
 	"donorportal-aside-faq": "Häufig gestellte Fragen",
 	"donorportal-aside-faq-giving-other-ways": "Andere Möglichkeiten zu spenden",

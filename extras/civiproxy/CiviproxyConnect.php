@@ -70,7 +70,7 @@ class CiviproxyConnect {
 			],
 			__METHOD__
 		);
-		return json_decode( $response, true );
+		return json_decode( $response ?? '', true );
 	}
 
 	public static function getRecurDetails( string $checksum, string $contact_id ): array {

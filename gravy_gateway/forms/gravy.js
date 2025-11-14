@@ -8,6 +8,7 @@
 	securityCodeFieldEmpty = true,
 	expiryDateFieldEmpty = true,
 	secureFields = null,
+	cardScheme = null,
 	extraData = {},
 	configFromServer = mw.config.get( 'gravyConfiguration' ),
 	sessionId = mw.config.get( 'gravy_session_id' ),
@@ -17,6 +18,7 @@
 	showRedirectText = mw.config.get( 'showRedirectText' ),
 	googlePaymentClient = null,
 	appleSession = null,
+	lastClickTime = 0,
 	language = $( '#language' ).val(),
 	country = $( '#country' ).val(),
 	isIndia = ( country === 'IN' ),
@@ -76,6 +78,7 @@
 		// based on card type show logo and update cvv placeholder when amex
 		cardNumberField.addEventListener( 'input', ( evt ) => {
 			if ( evt.schema ) {
+				cardScheme = evt.schema;
 				//change logo where appropriate
 				const iconUrl = 'https://api.' + gravyId + '.gr4vy.app/assets/icons/card-schemes/' + evt.schema + '.svg';
 				$( '#cc-number' ).css( 'background-image', 'url(' + iconUrl + ')' );
@@ -102,7 +105,7 @@
 		} );
 	}
 
-	function setFieldError( fieldId, isValid, isEmpty ) {
+	function setFieldError( fieldId, isValid, isEmpty, altMsgKey ) {
 		let errorMsg = '', errorMsgId, errorMsgKey, emptyMsgKey;
 		switch ( fieldId ) {
 			case '#cc-number':
@@ -122,7 +125,9 @@
 				break;
 		}
 		$( fieldId ).toggleClass( 'GravyField--invalid invalid-input', !isValid || isEmpty );
-		if ( !isValid || isEmpty ) {
+		if ( altMsgKey ) {
+			errorMsg = mw.msg( altMsgKey );
+		} else if ( !isValid || isEmpty ) {
 			errorMsg = isEmpty ? mw.msg( emptyMsgKey ) : mw.msg( errorMsgKey );
 		}
 		$( errorMsgId ).text( errorMsg );
@@ -199,9 +204,14 @@
 
 	function validateInputs() {
 		if ( !mw.donationInterface.validation.validate() || !secureFieldValid ) {
-			setFieldError( '#cc-number',  cardNumberFieldValid, cardNumberFieldEmpty );
-			setFieldError( '#cc-security-code',  securityCodeValid, securityCodeFieldEmpty );
-			setFieldError( '#cc-expiry-date',  expiryDateValid, expiryDateFieldEmpty );
+			setFieldError( '#cc-number', cardNumberFieldValid, cardNumberFieldEmpty );
+			setFieldError( '#cc-security-code', securityCodeValid, securityCodeFieldEmpty );
+			setFieldError( '#cc-expiry-date', expiryDateValid, expiryDateFieldEmpty );
+			return false;
+		}
+		// AmEx is not supported in India
+		if ( cardScheme === 'amex' && isIndia ) {
+			setFieldError( '#cc-number', true, false, 'donate_interface-error-msg-unsupported-card-entered' );
 			return false;
 		}
 		return true;
@@ -406,6 +416,12 @@
 	function handleApplePaySubmitClick( e ) {
 		e.preventDefault();
 		setupApplePaySession();
+		const now = Date.now();
+		if ( now - lastClickTime < 1000 ) {
+			return;
+		}
+		// ignore rapid re-clicks within 1 s
+		lastClickTime = now;
 		appleSession.begin();
 	}
 
@@ -448,9 +464,17 @@
 				amount: $( '#amount' ).val()
 			}
 		};
+
+		// Prevent starting another session if one is active
+		if ( appleSession ) {
+			return;
+		}
+
 		appleSession = new ApplePaySession( applePayPaySessionVersionNumber, paymentRequestObject );
 
-		appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
+		appleSession.onvalidatemerchant = ( event ) => {
+			validateApplePayPaymentSession( appleSession, event );
+		};
 
 		appleSession.onpaymentauthorized = function ( event ) {
 			const bContact = event.payment.billingContact,
@@ -475,6 +499,11 @@
 				extraData,
 				'di_donate_gravy'
 			);
+		};
+
+		// Safari handles session end internally
+		appleSession.oncancel = appleSession.oncomplete = () => {
+			appleSession = null;
 		};
 	}
 

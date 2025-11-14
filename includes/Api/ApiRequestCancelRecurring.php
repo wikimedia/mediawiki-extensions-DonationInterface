@@ -4,10 +4,14 @@ namespace MediaWiki\Extension\DonationInterface\Api;
 
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\DonorPortal\ActivityTrackingTrait;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestCancelRecurring extends ApiBase {
+
+	use ActivityTrackingTrait;
+
 	/** @inheritDoc */
 	public function isReadMode() {
 		return false;
@@ -35,7 +39,7 @@ class ApiRequestCancelRecurring extends ApiBase {
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
 			'txn_type' => 'recurring_cancel'
-		];
+		] + $this->getTrackingParametersWithoutPrefix();
 
 		QueueWrapper::push( 'recurring-modify', $queueMessage );
 		$this->getResult()->addValue( null, 'result', [
@@ -50,6 +54,9 @@ class ApiRequestCancelRecurring extends ApiBase {
 			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 		];
 	}
 

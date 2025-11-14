@@ -55,6 +55,7 @@
 	"apihelp-logRecurUpgradeFormError-param-line": "Linja feilen oppsto i",
 	"apihelp-logRecurUpgradeFormError-param-col": "Kolonnen feilen oppsto i",
 	"apihelp-logRecurUpgradeFormError-param-userAgent": "Nettleserens brukeragentstreng",
+	"apihelp-requestCancelRecurring-param-wmf_medium": "Sporingsvariabel",
 	"apihelp-di_donate_adyen-summary": "Dette API-et er for Adyen",
 	"apihelp-di_donate_dlocal-summary": "Dette API-et er for Dlocal",
 	"apihelp-di_donate_gravy-param-full_name": "Fullt navn",

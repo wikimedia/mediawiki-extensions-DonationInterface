@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
@@ -80,6 +81,11 @@ class DonorPortal extends UnlistedSpecialPage {
 			$requestParameters['checksum'],
 			$requestParameters['contact_id']
 		);
+		// if civiproxy returned an error, show the login form instead
+		if ( !isset( $donorSummary['id'] ) ) {
+			$this->formParams = [ 'showLogin' => true ];
+			return;
+		}
 		$locale = $this->getLocale( $donorSummary );
 		$this->formParams = $donorSummary;
 		$this->addContributionsToFormParams( $donorSummary['contributions'] ?? [], $locale );
@@ -166,6 +172,7 @@ class DonorPortal extends UnlistedSpecialPage {
 	private function addRecurringContributionsToFormParams( array $recurringContributions, string $locale ) {
 		$this->formParams['hasActiveRecurring'] = $this->formParams['hasInactiveRecurring'] = false;
 		$this->formParams['recurringContributions'] = $this->formParams['inactiveRecurringContributions'] = [];
+		$amountHelper = new AmountHelper( $this->getConfig() );
 
 		foreach ( $recurringContributions as $recurringContribution ) {
 			if ( in_array(
@@ -218,6 +225,17 @@ class DonorPortal extends UnlistedSpecialPage {
 			} else {
 				$recurringContribution['amount_frequency_key'] = 'donorportal-recurring-amount-monthly';
 				$recurringContribution['restart_key'] = 'donorportal-restart-monthly';
+			}
+
+			if ( $recurringContribution['can_modify'] && $key == 'recurringContributions' ) {
+				$recurringContribution['donation_rules'] = $amountHelper->getDonationRules(
+					$recurringContribution['payment_processor'],
+					[
+						'country' => $recurringContribution['country'],
+						'currency' => $recurringContribution['currency'],
+						'recurring' => true,
+					]
+				);
 			}
 
 			$this->formParams[$key][] = $recurringContribution;
@@ -273,8 +291,8 @@ class DonorPortal extends UnlistedSpecialPage {
 	protected function getPreferencesUrl( array $formParameters ): string {
 		$title = self::getTitleFor( 'EmailPreferences', 'emailPreferences' );
 		return $title->getLocalUrl( [
-			'contact_id' => $formParameters['contact_id'],
-			'checksum' => $formParameters['checksum'],
+			'contact_id' => $formParameters['contact_id'] ?? null,
+			'checksum' => $formParameters['checksum'] ?? null,
 		] );
 	}
 }

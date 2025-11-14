@@ -33,6 +33,7 @@
 	"donorportal-recurring-next-amount-and-date": "Uw volgende donatie is $1 $2 op $3.",
 	"donorportal-last-amount-and-date": "Uw laatste donatie was $1 $2 op $3.",
 	"donorportal-update-donation-button": "Mijn donatie bijwerken of wijzigen",
+	"donorportal-update-donation-paypal-disable-text": "Uw terugkerende donatie wordt via PayPal verwerkt. Wijzigingen aan uw donatie moeten rechtstreeks via uw PayPal-account worden aangebracht.",
 	"donorportal-new-donation": "Een nieuwe donatie doen",
 	"donorportal-recurring-pause": "pauzeren",
 	"donorportal-recurring-cancel": "annuleren",

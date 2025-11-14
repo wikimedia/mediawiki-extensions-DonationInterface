@@ -272,6 +272,7 @@
 		"ext.donationInterface.donorPortal": {
 			"dependencies": [
 				"donationInterface.skinOverride",
+				"ext.donationInterface.currencyRates",
 				"ext.donationInterface.errorLog",
 				"vue",
 				"@wikimedia/codex",
@@ -302,6 +303,7 @@
 				"modules/ext.donationInterface.donorPortal/components/RecurringContributionComponent.vue",
 				"modules/ext.donationInterface.donorPortal/components/RelatedContentComponent.vue",
 				"modules/ext.donationInterface.donorPortal/router.js",
+				"modules/ext.donationInterface.donorPortal/trackingParams.js",
 				"modules/ext.donationInterface.donorPortal/views/CancelDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
 				"modules/ext.donationInterface.donorPortal/views/LoginView.vue",

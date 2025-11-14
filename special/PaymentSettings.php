@@ -164,7 +164,17 @@ class PaymentSettings extends UnlistedSpecialPage {
             ' );
 
 			if ( isset( $submethod['countries'] ) ) {
-				foreach ( $submethod['countries'] as $countryCode => $enabled ) {
+				foreach ( $submethod['countries'] as $key => $value ) {
+					if ( is_numeric( $key ) ) {
+						// Just a flat list, indicating all listed countries are enabled
+						$countryCode = $value;
+					} else {
+						$countryCode = $key;
+						// list is an indexed array of countryCode => enabled. Skip disabled ones.
+						if ( !$value ) {
+							continue;
+						}
+					}
 					$countryName = Locale::getDisplayRegion( '-' . $countryCode,
 						'en' );
 					$this->getOutput()->addHTML( "

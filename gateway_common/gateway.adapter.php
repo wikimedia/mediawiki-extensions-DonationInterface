@@ -20,6 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
 use Mediawiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
@@ -892,39 +893,17 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	/**
-	 * Add donation rules for the users country & currency combo.
+	 * Get donation rules for the users country & currency combo.
 	 *
 	 * @return array
 	 */
 	public function getDonationRules(): array {
 		$rules = $this->config['donation_rules'];
-		foreach ( $rules as $rule ) {
-			// Do our $params match all the conditions for this rule?
-			$ruleMatches = true;
-			if ( isset( $rule['conditions'] ) ) {
-				// Loop over all the conditions looking for any that don't match
-				foreach ( $rule['conditions'] as $conditionName => $conditionValue ) {
-					$realValue = $this->getData_Unstaged_Escaped( $conditionName );
-					// If the key of a condition is not in the params, the rule does not match like recurring
-					if ( $realValue === null ) {
-						$ruleMatches = false;
-						break;
-					}
-					// Condition value is a scalar, just check it against the param value like country or payment_method
-					if ( $realValue == $conditionValue ) {
-						continue;
-					} else {
-						$ruleMatches = false;
-						break;
-					}
-				}
-			}
-			if ( $ruleMatches ) {
-				return $rule;
-			}
+		$rule = AmountHelper::lookupMatchingDonationRules( $rules, $this->getData_Unstaged_Escaped() );
+		if ( $rule === [] ) {
+			$this->logger->warning( "Please set a default rule in donation_rules.yaml" );
 		}
-		$this->logger->warning( "Please set a default rule in donation_rules.yaml" );
-		return [];
+		return $rule;
 	}
 
 	/** @inheritDoc */

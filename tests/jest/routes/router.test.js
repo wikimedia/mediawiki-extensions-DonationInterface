@@ -4,7 +4,7 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
 const AppComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/App.vue' );
-const {  when  } = require( 'jest-when' );
+const { when } = require( 'jest-when' );
 
 describe( 'Navigation logic', () => {
 	beforeEach( () => {
@@ -14,7 +14,8 @@ describe( 'Navigation logic', () => {
 			} )
 		);
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
-        when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
+		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
+		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
 	} );
 
 	it( 'Login screen renders successfully when required during navigation', async () => {
@@ -23,9 +24,9 @@ describe( 'Navigation logic', () => {
 
 		await router.isReady();
 		const wrapper = VueTestUtils.mount( AppComponent, {
-            data() {
-                return {};
-            },
+			data() {
+				return {};
+			},
 			global: {
 				plugins: [ router ]
 			}
@@ -41,8 +42,8 @@ describe( 'Navigation logic', () => {
 		await router.isReady();
 		const wrapper = VueTestUtils.mount( AppComponent, {
 			data() {
-                return {};
-            },
+				return {};
+			},
 			global: {
 				plugins: [ router ]
 			}

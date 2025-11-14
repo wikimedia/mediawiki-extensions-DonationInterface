@@ -4,10 +4,14 @@ namespace MediaWiki\Extension\DonationInterface\Api;
 
 use MediaWiki\Api\ApiBase;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\DonorPortal\ActivityTrackingTrait;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestPauseRecurring extends ApiBase {
+
+	use ActivityTrackingTrait;
+
 	/** @inheritDoc */
 	public function isReadMode() {
 		return false;
@@ -38,7 +42,7 @@ class ApiRequestPauseRecurring extends ApiBase {
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
 			'txn_type' => 'recurring_paused'
-		];
+		] + $this->getTrackingParametersWithoutPrefix();
 
 		QueueWrapper::push( 'recurring-modify', $queueMessage );
 		$this->getResult()->addValue( null, 'result', [
@@ -54,7 +58,10 @@ class ApiRequestPauseRecurring extends ApiBase {
 			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
-			'next_sched_contribution_date' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ]
+			'next_sched_contribution_date' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 		];
 	}
 }

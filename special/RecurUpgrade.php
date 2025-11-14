@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\DonorPortal\ActivityTrackingTrait;
 use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
@@ -9,6 +10,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
 class RecurUpgrade extends UnlistedSpecialPage {
 
 	use RequestNewChecksumLinkTrait;
+	use ActivityTrackingTrait;
 
 	const FALLBACK_COUNTRY = 'US';
 	const FALLBACK_LANGUAGE = 'en_US';
@@ -229,19 +231,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			'country' => $formParams['country'],
 			'next_sched_contribution_date' => $formParams['next_sched_contribution_date'],
 		] );
-	}
-
-	protected function getTrackingParametersWithPrefix(): array {
-		return $this->getRequest()->getValues( 'wmf_campaign', 'wmf_medium', 'wmf_source' );
-	}
-
-	protected function getTrackingParametersWithoutPrefix(): array {
-		$paramsWithPrefix = $this->getTrackingParametersWithPrefix();
-		$paramsWithoutPrefix = [];
-		foreach ( $paramsWithPrefix as $name => $value ) {
-			$paramsWithoutPrefix[ substr( $name, 4 ) ] = $value;
-		}
-		return $paramsWithoutPrefix;
 	}
 
 	protected function getTrackingParametersForForm(): array {
