@@ -21,10 +21,13 @@
 			</p>
 		</div>
 		<div class="dp-card__section dp-card__cta">
-			<a v-if="actionButtonText" href="#" class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+			<a
+				v-if="actionButtonText"
+				href="#"
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
-			<p class="text text--body text--align-left" v-if="!isRecurringModifiable">
+			<p v-if="!isRecurringModifiable" class="text text--body text--align-left">
 				{{ $i18n( "donorportal-update-donation-paypal-disable-text" ).text() }}
 			</p>
 			<p
