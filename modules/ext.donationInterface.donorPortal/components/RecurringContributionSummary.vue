@@ -27,13 +27,16 @@ module.exports = exports = defineComponent( {
 			required: true
 		},
 		extraClasses: {
-			type: String
+			type: String,
+			default: ''
 		},
 		extraTitle: {
-			type: String
+			type: String,
+			default: ''
 		},
 		lastDonationDate: {
-			type: Boolean
+			type: Boolean,
+			default: false
 		}
 	},
 	computed: {

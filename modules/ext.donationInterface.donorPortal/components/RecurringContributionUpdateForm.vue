@@ -2,7 +2,8 @@
 	<main id="recurring-update-form" class="container">
 		<section class="column--base">
 			<h1 class="heading heading--h1">
-				{{ $i18n( "donorportal-update-recurring-heading" ).text() }}
+				{{ forDowngradeForm ? $i18n( 'donorportal-downgrade-recurring-heading' ).text() :
+					$i18n( 'donorportal-update-recurring-heading' ).text() }}
 			</h1>
 			<p class="text text--body">
 				{{ $i18n( "donorportal-update-recurring-text" ).text() }}
@@ -15,7 +16,7 @@
 				:extra-title="$i18n( 'donorportal-update-recurring-current-donation' ).text()"
 				last-donation-date
 			></recurring-contribution-summary>
-			<section class="column--gap">
+			<section v-show="!forDowngradeForm" class="column--gap">
 				<svg
 					class="cdx-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -115,6 +116,10 @@ module.exports = exports = defineComponent( {
 		currencyRateArray: {
 			type: Array,
 			required: true
+		},
+		forDowngradeForm: {
+			type: Boolean,
+			default: false
 		}
 	},
 	emits: [ 'update:modelValue' ],
@@ -124,7 +129,10 @@ module.exports = exports = defineComponent( {
 			props.recurringContribution, props.currencyRateArray, props.max
 		);
 		const minAmount = priceRange[ 0 ];
-		const maxAmount = priceRange[ 1 ];
+		let maxAmount = priceRange[ 1 ];
+		if ( props.forDowngradeForm ) {
+			maxAmount = props.recurringContribution.amount;
+		}
 		const onInput = ( e ) => {
 			const cleaned = normalizeInput.sanitize( e.target.value );
 			updateAmount.value = cleaned;
