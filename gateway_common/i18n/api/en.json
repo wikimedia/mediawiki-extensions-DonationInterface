@@ -316,6 +316,7 @@
 	"apihelp-getPaymentMethods-param-country": "Country to get payment methods for",
 	"apihelp-submitPayment-summary": "Submits a payment based on parameters sent",
 	"apihelp-submitPayment-param-amount": "Amount of payment submitted",
+	"apihelp-submitPayment-param-app_install_id": "Install id of the application used to submit the payment",
 	"apihelp-submitPayment-param-app_version": "Version of the application used to submit the payment",
 	"apihelp-submitPayment-param-banner": "Banner clicked to donate",
 	"apihelp-submitPayment-param-city": "City.",

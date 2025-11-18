@@ -334,6 +334,7 @@
 	"apihelp-getPaymentMethods-param-country": "{{doc-apihelp-param|getPaymentMethods|country}}",
 	"apihelp-submitPayment-summary": "{{doc-apihelp-summary|submitPayment}}",
 	"apihelp-submitPayment-param-amount": "{{doc-apihelp-param|submitPayment|amount}}",
+	"apihelp-submitPayment-param-app_install_id": "{{doc-apihelp-param|submitPayment|app_install_id}}",
 	"apihelp-submitPayment-param-app_version": "{{doc-apihelp-param|submitPayment|app_version}}",
 	"apihelp-submitPayment-param-banner": "{{doc-apihelp-param|submitPayment|banner}}",
 	"apihelp-submitPayment-param-city": "{{doc-apihelp-param|submitPayment|city}}\n{{Identical|City}}",
