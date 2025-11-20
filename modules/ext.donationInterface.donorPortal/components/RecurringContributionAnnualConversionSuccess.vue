@@ -1,17 +1,20 @@
 <template>
-	<main class="container column--items-center" id="error-component">
+	<main id="recurring-contribution-annual-conversion-success" class="container column--items-center">
 		<section class="column--callout">
-			<h2 class="heading heading--h1">
+			<h1 class="heading heading--h1">
 				{{ $i18n( "donorportal-thank-you" ).text() }}
-			</h2>
+			</h1>
 			<img
 				:src="`${ assets_path }/images/wp_symbols_community.svg`"
 				alt="Community Icon">
 		</section>
-		<section class="column--callout">
-			<div class="site-content">
-				<h2>{{ failureMessage }}</h2>
-			</div>
+		<section class="column--base">
+			<ul class="checklist">
+				<li class="text text--body" v-html="conversionSuccessToYearly">
+				</li>
+				<li class="text text--body" v-html="conversionSuccessOnSchedule">
+				</li>
+			</ul>
 		</section>
 		<section class="column--base">
 			<router-link
@@ -30,14 +33,17 @@ const { defineComponent } = require( 'vue' );
 const { RouterLink } = require( 'vue-router' );
 
 module.exports = exports = defineComponent( {
-	name: 'ErrorComponent',
+	name: 'RecurringContributionAnnualConversionSuccess',
 	components: {
 		'router-link': RouterLink
 	},
 	props: {
-		failureMessage: {
+		nextYearlySchedContributionDateFormatted: {
 			type: String,
-			required: true
+			required: true,
+			defaultValue() {
+				return '';
+			}
 		}
 	},
 	setup() {
@@ -46,6 +52,14 @@ module.exports = exports = defineComponent( {
 		return {
 			assets_path
 		};
+	},
+	computed: {
+		conversionSuccessToYearly() {
+			return this.$i18n( 'donorportal-update-recurring-yearly-conversion-success' ).text();
+		},
+		conversionSuccessOnSchedule() {
+			return this.$i18n( 'donorportal-update-recurring-yearly-conversion-on-schedule', `<strong>${ this.nextYearlySchedContributionDateFormatted }</strong>` ).text();
+		}
 	}
 } );
 </script>
