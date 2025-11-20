@@ -62,10 +62,24 @@ class DonorPortal extends UnlistedSpecialPage {
 		$vars['legacyUrl'] = $config->get( 'DonationInterfaceLegacyURL' );
 		$vars['surveyUrl'] = $config->get( 'DonationInterfaceSurveyURL' );
 		$vars['newDonationUrl'] = $config->get( 'DonationInterfaceNewDonationURL' ) .
-			'?wmf_medium=donorportal&wmf_campaign=donorportal&wmf_source=donorportal';
+			'?wmf_medium=donorportal&wmf_campaign=donorportal&wmf_source=donorportal' .
+			'&contact_id=' . $this->getContactId() .
+			'&checksum=' . $this->getChecksum();
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
 		$vars['wikipediaVideoSources'] = $config->get( 'DonationInterfaceWikipediaVideoSources' );
 		$vars['wikipediaVideoCommonsUrl'] = $config->get( 'DonationInterfaceWikipediaVideoCommonsUrl' );
+	}
+
+	protected function getContactID(): int {
+		return $this->getRequest()->getInt( 'contact_id' );
+	}
+
+	protected function getChecksum(): string {
+		$checksum = $this->getRequest()->getVal( 'checksum' );
+		if ( !preg_match( '/^[0-9a-f]{32}_[0-9]{10}_[0-9a-z]\+$/', $checksum ) ) {
+			return '';
+		}
+		return $checksum;
 	}
 
 	/**
@@ -79,7 +93,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			$this->formParams = $this->getConfig()->get( 'DonorPortalMockData' );
 			return;
 		}
-		$requestParameters = $this->getRequest()->getValues();
+		$requestParameters = $this->getSanitizedRequestParameters();
 		$donorSummary = CiviproxyConnect::getDonorSummary(
 			$requestParameters['checksum'],
 			$requestParameters['contact_id']
@@ -96,6 +110,13 @@ class DonorPortal extends UnlistedSpecialPage {
 
 		$this->formParams['donorID'] = 'CNTCT-' . $donorSummary['id'];
 		$this->formParams = array_merge( $this->formParams, $requestParameters );
+	}
+
+	private function getSanitizedRequestParameters(): array {
+		return [
+			'checksum' => $this->getChecksum(),
+			'contact_id' => $this->getContactID()
+		];
 	}
 
 	/**
