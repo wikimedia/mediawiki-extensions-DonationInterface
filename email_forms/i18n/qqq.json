@@ -35,6 +35,7 @@
 	"donorportal-last-donation-date": "Date of last donation $1.",
 	"donorportal-update-donation-button": "Text for a button to change the amount of the donation",
 	"donorportal-update-donation-paypal-disable-text": "Text for explanation that PayPal donations cannot be changed online",
+	"donorportal-close": "Text for a link to close a modal popup window",
 	"donorportal-new-donation": "Text for a button leading a donation to a form to make a new donation",
 	"donorportal-recurring-pause": "Action word for temporarily stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",
 	"donorportal-recurring-cancel": "Action word for permanently stopping a recurring donation. Will be linked and interpolated into {{msg-mw|donorportal-recurring-pause-or-cancel}}",
