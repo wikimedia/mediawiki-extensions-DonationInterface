@@ -23,7 +23,8 @@
 		<div class="dp-card__section dp-card__cta">
 			<a
 				v-if="actionButtonText"
-				href="#"
+				:target="isActive && contribution.can_modify ? '_self' : '_blank'"
+				:href="isActive && contribution.can_modify ? ( '#/update-donations/' + contribution.id ) : newDonationUrl"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
@@ -51,6 +52,11 @@ module.exports = exports = defineComponent( {
 			type: Boolean,
 			default: false
 		}
+	},
+	setup() {
+		return {
+			newDonationUrl: mw.config.get( 'newDonationUrl' )
+		};
 	},
 	computed: {
 		isPaused: function () {

@@ -423,7 +423,7 @@ figcaption a {
 	align-items: flex-start;
 	gap: 16px;
 	list-style: none;
-	padding-left: 42px !important;
+	padding-left: 14px !important;
 }
 
 .checklist li {
@@ -597,6 +597,16 @@ body,
 	display: flex;
 	flex-direction: column;
 	gap: @padding-x-small;
+}
+
+.column--gap {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.speedbump > .column--gap {
+	flex: 0;
 }
 
 .auth__display figure {
@@ -1001,7 +1011,18 @@ body,
 	border: 1px solid @color-green-bright;
 }
 
-.box--clickable.is-recurring:hover {
+.height-206 {
+	height: 206px;
+}
+
+.dp-input-group {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+.box--clickable.is-recurring:hover,
+.box.is-recurring.is-active {
 	background-color: @color-green-pale;
 }
 
@@ -1079,6 +1100,7 @@ body,
 
 	.container {
 		padding: 40px @padding-base;
+		width: 72rem;
 	}
 
 	.column--base {

@@ -4,6 +4,8 @@
 			"Saraiki"
 		]
 	},
+	"donorportal-recurring-currency-monthly": "$1 ماہانہ",
+	"donorportal-recurring-currency-annual": "$1 سالانہ",
 	"donorportal-recurring-cancel": "منسوخ",
 	"donorportal-donation-type": "قسم",
 	"donorportal-donation-amount": "رقم",

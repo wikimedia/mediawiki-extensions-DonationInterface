@@ -1,0 +1,63 @@
+<?php
+
+namespace MediaWiki\Extension\DonationInterface\Api;
+
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\DonorPortal\ActivityTrackingTrait;
+use SmashPig\Core\DataStores\QueueWrapper;
+use Wikimedia\ParamValidator\ParamValidator;
+
+class ApiRequestUpdateRecurring extends ApiBase {
+
+	use ActivityTrackingTrait;
+
+	/** @inheritDoc */
+	public function isReadMode() {
+		return false;
+	}
+
+	/** @inheritDoc */
+	public function mustBePosted() {
+		return true;
+	}
+
+	public function execute() {
+		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestUpdateRecurring' ) ) {
+			return;
+		}
+		$request = $this->getRequest();
+		$amount = $request->getVal( 'amount' );
+		$txn_type = $request->getVal( 'txn_type' );
+		$contact_id = $request->getVal( 'contact_id' );
+		$checksum = $request->getVal( 'checksum' );
+		$contribution_recur_id = $request->getVal( 'contribution_recur_id' );
+
+		$queueMessage = [
+			'amount' => $amount,
+			'contact_id' => $contact_id,
+			'checksum' => $checksum,
+			'contribution_recur_id' => $contribution_recur_id,
+			'txn_type' => $txn_type
+		] + $this->getTrackingParametersWithoutPrefix();
+
+		QueueWrapper::push( 'recurring-modify', $queueMessage );
+		$this->getResult()->addValue( null, 'result', [
+			'message' => 'Success',
+		] );
+	}
+
+	/** @inheritDoc */
+	public function getAllowedParams() {
+		return [
+			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'txn_type' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
+			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
+		];
+	}
+}
