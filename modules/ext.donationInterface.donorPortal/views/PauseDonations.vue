@@ -2,7 +2,7 @@
 	<div id="pause-donations">
 		<recurring-pause-form
 			v-if="flags.showDonationPauseForm"
-			:recurring-contribution="recurringContribution"
+			:recurring-contribution="recurringContributionRecord"
 			:submit-form="submitPauseRecurringDuration"
 			:duration-options="durationOptions"
 			:default-duration="durationOptions[0]"></recurring-pause-form>
@@ -42,7 +42,6 @@ module.exports = exports = defineComponent( {
 
 		const contact_id = donorData.contact_id;
 		const checksum = donorData.checksum;
-		const recurringContribution = ref( recurringContributionRecord );
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
 		const flags = reactive( {
 			donationPauseSuccessful: false,
@@ -81,7 +80,7 @@ module.exports = exports = defineComponent( {
 
 		return {
 			helpEmail,
-			recurringContribution,
+			recurringContributionRecord,
 			nextSchedContributionDate,
 			flags,
 			submitPauseRecurringDuration
