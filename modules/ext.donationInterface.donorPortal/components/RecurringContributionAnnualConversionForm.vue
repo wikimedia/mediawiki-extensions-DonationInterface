@@ -9,8 +9,8 @@
 			</p>
 		</section>
 		<form
-			method="get"
-			class="form">
+			class="form"
+			@submit.prevent>
 			<section class="column--base">
 				<p class="text text--body">
 					{{ $i18n( "donorportal-update-recurring-annual-convert-select-below" ).text() }}
@@ -84,6 +84,7 @@
 									:min="minAmount"
 									:max="maxAmount"
 									@input="onInput"
+									@keyup.enter="annualConversionAction"
 								>
 							</div>
 						</div>

@@ -45,9 +45,6 @@ module.exports = exports = defineComponent( {
 			recurringContributionRecord = {};
 		}
 
-		const recurringContribution = ref( recurringContributionRecord );
-		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date_formatted );
-
 		const newAmount = ref( recurringContributionRecord.currency + ' ' + recurringContributionRecord.amount );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const flags = reactive( {
@@ -83,11 +80,11 @@ module.exports = exports = defineComponent( {
 		};
 
 		return {
-			recurringContribution,
+			recurringContribution: recurringContributionRecord,
 			flags,
 			helpEmail,
 			newAmount,
-			nextSchedContributionDate,
+			nextSchedContributionDate: recurringContributionRecord.next_sched_contribution_date_formatted,
 			submitUpdateRecurring,
 			currencyRateArray,
 			recurringUpgradeMaxUSD

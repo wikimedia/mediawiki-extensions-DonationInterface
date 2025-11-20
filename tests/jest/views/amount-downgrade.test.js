@@ -14,7 +14,7 @@ const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 const RECURRING_UPDATE_API_ACTION = 'requestUpdateRecurring';
-describe( 'Update donations view', () => {
+describe( 'Downgrade donations view', () => {
 	const HomeDataMock = {
 		result: DonorDataMock
 	};
@@ -46,9 +46,6 @@ describe( 'Update donations view', () => {
 
 	it( 'Downgrade Donations view renders successfully', () => {
 		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
-			props: {
-				forDowngradeForm: true
-			},
 			global: {
 				plugins: [ router ]
 			}
@@ -74,8 +71,7 @@ describe( 'Update donations view', () => {
 	it( 'Renders the success view on success downgrade', async () => {
 		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
 			props: {
-				recurringContribution: contribution_mock,
-				forDowngradeForm: 'true'
+				recurringContribution: contribution_mock
 			},
 			global: {
 				plugins: [ router ]
@@ -125,17 +121,14 @@ describe( 'Update donations view', () => {
 		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
 			global: {
 				plugins: [ router ]
-			},
-			props: {
-				forDowngradeForm: 'true'
 			}
 		} );
-		const DonwngraAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngraAmountViewBody.find( '#new-recurring-amount' );
+		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 10;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngraAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 		expect( window.alert ).toHaveBeenCalledWith( 'Please enter an amount different from your current donation.' );
@@ -145,19 +138,18 @@ describe( 'Update donations view', () => {
 	it( 'Renders the no submit if amount outside of price range', async () => {
 		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
 			props: {
-				recurringContribution: contribution_mock,
-				forDowngradeForm: 'true'
+				recurringContribution: contribution_mock
 			},
 			global: {
 				plugins: [ router ]
 			}
 		} );
-		const DonwngraAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngraAmountViewBody.find( '#new-recurring-amount' );
+		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 0.1;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngraAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 		expect( window.alert ).toHaveBeenCalledWith( `Please enter a valid amount between 1 and ${ contribution_mock.amount }.` );
@@ -176,12 +168,12 @@ describe( 'Update donations view', () => {
 			} )
 		);
 
-		const DonwngraAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngraAmountViewBody.find( '#new-recurring-amount' );
+		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 3;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngraAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 
@@ -202,6 +194,5 @@ describe( 'Update donations view', () => {
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
-
 	} );
 } );

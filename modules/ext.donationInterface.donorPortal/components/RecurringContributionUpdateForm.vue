@@ -30,7 +30,7 @@
 			</section>
 			<form
 				id="form-upgrade"
-				method="get"
+				@submit.prevent
 				class="box is-recurring is-active height-206">
 				<div class="box__inner">
 					<strong class="text text--body">
@@ -50,6 +50,7 @@
 								:min="minAmount"
 								:max="maxAmount"
 								@input="onInput"
+								@keyup.enter="amountChangeAction"
 							>
 						</div>
 						<h2 class="heading heading--h1">
@@ -138,14 +139,14 @@ module.exports = exports = defineComponent( {
 			updateAmount.value = cleaned;
 			emit( 'update:modelValue', cleaned );
 		};
-		const amountChangeAction = ( $event ) => {
+		const amountChangeAction = ( e ) => {
 			const n = parseFloat( updateAmount.value );
 			if ( !n || n < minAmount || n > maxAmount ) {
 				alert( 'Please enter a valid amount between ' + minAmount + ' and ' + maxAmount + '.' );
 			} else if ( n === props.recurringContribution.amount ) {
 				alert( 'Please enter an amount different from your current donation.' );
 			} else {
-				$event.preventDefault();
+				e.preventDefault();
 				props.submitUpdateRecurring( updateAmount.value );
 			}
 		};

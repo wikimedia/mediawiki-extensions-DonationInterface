@@ -4,9 +4,17 @@ const RecurringContributionComponent = require( '../../../modules/ext.donationIn
 const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { when } = require( 'jest-when' );
+const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 
 describe( 'Active recurring contribution test', () => {
-	it( 'Renders successfully', () => {
+	const HomeDataMock = {
+		result: DonorDataMock
+	};
+	beforeEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'newDonationUrl' ).mockReturnValue( 'http://donate.test' );
+	} );
+	it( 'Active recurring contribution renders successfully', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
 			props: {
 				contribution: recurring_mock,
@@ -26,18 +34,7 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.html() ).toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
 	} );
 
-} );
-
-describe( 'Donor contact details component', () => {
-	beforeEach( () => {
-		global.mw.Api.prototype.get.mockReturnValue(
-			new Promise( ( resolve, _ ) => {
-				resolve( null );
-			} )
-		);
-		when( global.mw.config.get ).calledWith( 'newDonationUrl' ).mockReturnValue( 'http://donate.test' );
-	} );
-	it( 'Renders successfully', () => {
+	it( 'Donor contact details component renders successfully', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
 			props: {
 				contribution: inactive_recurring_mock,
