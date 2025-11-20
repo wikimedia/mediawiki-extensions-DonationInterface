@@ -17,16 +17,27 @@ const normalizeInput = {
 		}
 		// keep a leading dot (".5") and preserve single zero before dot ("0.5")
 		// remove leading zeros only when followed by another digit (e.g. "00012" -> "12")
-		if ( /^0+\d/.test( v ) ) {
+		if ( /^0+\d/.test( v ) && !v.includes( '.' ) ) {
 			v = v.replace( /^0+/, '' );
 		}
 		// clamp to min/max only for a complete numeric value (not "." or trailing dot)
 		const n = parseFloat( v );
-		if ( !Number.isNaN( n ) && v !== '.' && !v.endsWith( '.' ) ) {
+		if ( !Number.isNaN( n ) && !v.includes( '.' ) ) {
 			// keep at most 2 decimals without forcing trailing zeros
 			return String( Math.round( n * 100 ) / 100 );
 		}
 		return v;
+	},
+	escapeHtml: ( str ) => {
+		if ( !str ) {
+			return '';
+		}
+		return str
+			.replace( /&/g, '&amp;' )
+			.replace( /</g, '&lt;' )
+			.replace( />/g, '&gt;' )
+			.replace( /"/g, '&quot;' )
+			.replace( /'/g, '&#39;' );
 	},
 	getRecurringPriceRange: ( recurringContribution, currencyRateArray, max ) => {
 		const getCurrencyRate = () => {

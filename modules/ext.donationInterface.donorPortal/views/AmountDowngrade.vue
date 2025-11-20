@@ -4,7 +4,7 @@
 			v-if="flags.showForm"
 			:recurring-contribution="recurringContribution"
 			:max="recurringUpgradeMaxUSD"
-			:for-downgrade-form="forDowngradeForm"
+			for-downgrade-form
 			:currency-rate-array="currencyRateArray"
 			:submit-update-recurring="submitUpdateRecurring"></recurring-update-form>
 		<recurring-update-success
@@ -37,16 +37,12 @@ module.exports = exports = defineComponent( {
 		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 		const contributionRecurId = route.params.id;
-		const forDowngradeForm = 'true';
 		let recurringContributionRecord = donorData
 			.recurringContributions
 			.filter( ( contribution ) => Number( contribution.id ) === Number( contributionRecurId ) )[ 0 ];
 		if ( !recurringContributionRecord ) {
 			recurringContributionRecord = {};
 		}
-
-		const recurringContribution = ref( recurringContributionRecord );
-		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date_formatted );
 
 		const newAmount = ref( recurringContributionRecord.currency + ' ' + recurringContributionRecord.amount );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
@@ -83,15 +79,14 @@ module.exports = exports = defineComponent( {
 		};
 
 		return {
-			recurringContribution,
+			recurringContribution: recurringContributionRecord,
 			flags,
 			helpEmail,
 			newAmount,
-			nextSchedContributionDate,
+			nextSchedContributionDate: recurringContributionRecord.next_sched_contribution_date_formatted,
 			submitUpdateRecurring,
 			currencyRateArray,
-			recurringUpgradeMaxUSD,
-			forDowngradeForm
+			recurringUpgradeMaxUSD
 		};
 	}
 } );
