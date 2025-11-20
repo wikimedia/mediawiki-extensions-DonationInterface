@@ -43,10 +43,19 @@
 					:style="`display: ${error_message ? 'block' : 'none'};`">
 					{{ error_message }}
 				</p>
-				<a
-					href="https://donate.wikimedia.org/"
-					target="_blank"
-					class="link text--body-small">{{ $i18n( "donorportal-login-problems" ).text() }}</a>
+				<popup-link>
+					<template #link-text>
+						{{ $i18n( 'donorportal-login-problems' ).text() }}
+					</template>
+					<template #popup-body>
+						<h2 id="popup-title">{{ $i18n( 'donorportal-login-problems' ).text() }}</h2>
+						<p class="popup-body">
+							{{ $i18n( 'donorportal-update-donation-problem-log-in' ).text() }}
+						</p>
+						<p class="popup-body"
+							v-html="problemLoginLink"></p>
+					</template>
+				</popup-link>
 			</div>
 		</section>
 		<section class="auth__display">
@@ -62,12 +71,16 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-module.exports = exports = defineComponent( {
-	setup() {
-		const assets_path = mw.config.get( 'assets_path' );
+const PopupLink = require( '../components/PopupLink.vue' );
 
+module.exports = exports = defineComponent( {
+	components: {
+		'popup-link': PopupLink
+	},
+	setup() {
 		return {
-			assets_path
+			assets_path: mw.config.get( 'assets_path' ),
+			helpEmail: mw.config.get( 'help_email' )
 		};
 	},
 	data() {
@@ -86,6 +99,11 @@ module.exports = exports = defineComponent( {
 		},
 		emailPlaceholder() {
 			return this.$i18n( 'donorportal-login-email-placeholder' ).text();
+		},
+		problemLoginLink() {
+			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
+			const problemLogin = this.$i18n( 'donorportal-login-problems' ).text();
+			return this.$i18n( 'donorportal-update-donation-problem-log-in-contact-us', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
 		},
 		figureCaption() {
 			return this.$i18n( 'donorportal-loginpage-figure-caption', `<a href=\"https://commons.wikimedia.org/wiki/File:Sunrise_View_of_Inle_Lake.jpg\"
