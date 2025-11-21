@@ -97,8 +97,9 @@ module.exports = exports = defineComponent( {
 				await nextTick();
 				document.getElementById( 'wikipediaVideo' ).play();
 			},
-			dismissModal: () => {
+			dismissModal: ( e ) => {
 				showWikipediaVideo.value = false;
+				e.preventDefault();
 			}
 		};
 	},
