@@ -64,6 +64,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		$vars['newDonationUrl'] = $config->get( 'DonationInterfaceNewDonationURL' ) .
 			'?wmf_medium=donorportal&wmf_campaign=donorportal&wmf_source=donorportal';
 		$vars['requestDonorPortalPage'] = $this->getPageTitle()->getBaseText();
+		$vars['wikipediaVideoSources'] = $config->get( 'DonationInterfaceWikipediaVideoSources' );
 	}
 
 	/**
