@@ -53,6 +53,11 @@
 						:alt="howWikipediaWorksAltText"
 						@click="launchWikipediaVideo">
 				</div>
+				<div class="video-attribution">
+					<a
+						:href="wikipediaVideoCommonsUrl"
+						target="_blank">[&nbsp;{{ $i18n( "upload-source" ).text() }}&nbsp;]</a>
+				</div>
 			</div>
 		</section>
 		<!-- End of Widget -->
@@ -81,8 +86,7 @@ module.exports = exports = defineComponent( {
 	name: 'RelatedContentComponent',
 
 	setup() {
-		const wikipediaVideoSources = mw.config.get( 'wikipediaVideoSources' ),
-			showWikipediaVideo = ref( false );
+		const showWikipediaVideo = ref( false );
 
 		return {
 			assets_path: mw.config.get( 'assets_path' ),
@@ -91,7 +95,8 @@ module.exports = exports = defineComponent( {
 			legacyUrl: mw.config.get( 'legacyUrl' ),
 			newDonationUrl: mw.config.get( 'newDonationUrl' ),
 			showWikipediaVideo,
-			wikipediaVideoSources,
+			wikipediaVideoSources: mw.config.get( 'wikipediaVideoSources' ),
+			wikipediaVideoCommonsUrl: mw.config.get( 'wikipediaVideoCommonsUrl' ),
 			launchWikipediaVideo: async () => {
 				showWikipediaVideo.value = true;
 				await nextTick();

@@ -476,7 +476,8 @@
 				"donorportal-aside-faq-giving-become-editor",
 				"donorportal-aside-faq-how-wikipedia-works",
 				"donorportal-aside-article-of-the-day-heading",
-				"donorportal-donationtable-pagination-text"
+				"donorportal-donationtable-pagination-text",
+				"upload-source"
 			]
 		},
 		"ext.donationInterface.donorPortalStyles": {
@@ -1847,6 +1848,9 @@
 					"type": "video/quicktime"
 				}
 			]
+		},
+		"DonationInterfaceWikipediaVideoCommonsUrl": {
+			"value": "https://commons.wikimedia.org/wiki/File:How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm"
 		}
 	},
 	"AutoloadNamespaces": {
