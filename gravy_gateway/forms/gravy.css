@@ -39,21 +39,21 @@ form#payment-form select {
 }
 
 .secure-fields__input--number {
-	background: url(../../gateway_forms/includes/credit-card.svg) no-repeat 97% center;
+	background: #fff url(../../gateway_forms/includes/credit-card.svg) no-repeat 97% center;
 }
 
 .secure-fields__input--expiry-date {
-	background: url(../../gateway_forms/includes/expiry_date_hint.svg) no-repeat 94% center;
+	background: #fff url(../../gateway_forms/includes/expiry_date_hint.svg) no-repeat 94% center;
 }
 
 .secure-fields__input--security-code {
-	background: url(../../gateway_forms/includes/security-code.svg) no-repeat 94% center;
+	background: #fff url(../../gateway_forms/includes/security-code.svg) no-repeat 94% center;
 }
 .valid-input {
-	background: url(../../gateway_forms/includes/checkmark.svg) no-repeat 94% center;
+	background: #fff url(../../gateway_forms/includes/checkmark.svg) no-repeat 94% center;
 }
 .invalid-input {
-	background: url(../../gateway_forms/includes/field_error.svg) no-repeat 94% center;
+	background: #fff url(../../gateway_forms/includes/field_error.svg) no-repeat 94% center;
 }
 .GravyField--invalid, .GravyField--focus.GravyField--invalid, .secure-fields__input[data-secure-fields-invalid] {
 	/* Note: coordinate with errorHighlight in skinOverride.css */
