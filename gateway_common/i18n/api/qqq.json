@@ -90,7 +90,7 @@
 	"apihelp-requestNewChecksumLink-param-subpage": "{{doc-apihelp-param|requestNewChecksumLink|subpage}}",
 	"apihelp-requestUpdateRecurring-summary": "{{doc-apihelp-summary|requestUpdateRecurring}}",
 	"apihelp-requestUpdateRecurring-param-amount": "{{doc-apihelp-summary|requestUpdateRecurring|amount}}",
-	"apihelp-requestUpdateRecurring-param-txn_type": "\"txn\" is short for \"transaction\".\n\n{{doc-apihelp-summary|requestUpdateRecurring|txn_type}}",
+	"apihelp-requestUpdateRecurring-param-txn_type": "{{doc-apihelp-summary|requestUpdateRecurring|txn_type}}",
 	"apihelp-requestUpdateRecurring-param-contact_id": "{{doc-apihelp-summary|requestUpdateRecurring|contact_id}}",
 	"apihelp-requestUpdateRecurring-param-checksum": "{{doc-apihelp-summary|requestUpdateRecurring|checksum}}",
 	"apihelp-requestUpdateRecurring-param-contribution_recur_id": "{{doc-apihelp-summary|requestUpdateRecurring|contribution_recur_id}}",
