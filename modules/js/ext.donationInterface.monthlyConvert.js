@@ -23,6 +23,17 @@
 		return 0;
 	};
 
+	mc.focusModel = function () {
+		$( '#mcModalTitle' ).attr( 'tabindex', '-1' );
+		setTimeout( () => {
+			$( '.mc-modal' ).focus();
+		}, 50 );
+	};
+
+	mc.focusEditModel = function () {
+		$( '#mcEditTitle' ).attr( 'tabindex', '-1' ).focus();
+	};
+
 	mc.setConvertAsk = function ( suggestedAmount, currency, locale ) {
 		const convertAmountFormatted = mc.formatAmount(
 			suggestedAmount, currency, locale
@@ -146,6 +157,7 @@
 				currency,
 				locale
 			);
+			mc.focusModel();
 			mc.setSmallAmountMessageAndMinLocal( currency, locale );
 			$( '.mc-no-button, .mc-close' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
@@ -177,7 +189,9 @@
 			$( '.mc-diff-amount-link' ).on( 'click keypress', ( e ) => {
 				if ( e.which === 13 || e.type === 'click' ) {
 					$( '.mc-choice' ).fadeOut( () => {
-						$( '.mc-edit-amount' ).fadeIn();
+						$( '.mc-edit-amount' ).fadeIn( () => {
+							mc.focusEditModel();
+						} );
 						$( '.mc-back' ).fadeIn();
 						$( '.mc-other-amount-input' ).focus();
 					} );
