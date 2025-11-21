@@ -15,12 +15,8 @@ const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 const RECURRING_PAUSE_API_ACTION = 'requestPauseRecurring';
 const RECURRING_CANCEL_API_ACTION = 'requestCancelRecurring';
 describe( 'Cancel donations view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
-
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
 		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
@@ -97,10 +93,10 @@ describe( 'Cancel donations view', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith( {
 			duration: '60 Days',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
-			contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
-			next_sched_contribution_date: HomeDataMock.result.recurringContributions[ 0 ].next_sched_contribution_date,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
+			next_sched_contribution_date: DonorDataMock.recurringContributions[ 0 ].next_sched_contribution_date,
 			action: RECURRING_PAUSE_API_ACTION
 		} ).mockResolvedValueOnce( {
 				result: {
@@ -144,8 +140,8 @@ describe( 'Cancel donations view', () => {
 		when( global.mw.Api.prototype.post ).calledWith( {
 			action: RECURRING_PAUSE_API_ACTION,
 			duration: '90 Days',
-			contact_id: HomeDataMock.result.contact_id,
-			checksum: HomeDataMock.result.checksum,
+			contact_id: DonorDataMock.contact_id,
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: '123',
 			next_sched_contribution_date: '2025-08-02 00:00:02'
 		} ).mockRejectedValueOnce( {
@@ -192,9 +188,9 @@ describe( 'Cancel donations view', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith( {
 			reason: 'Update',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
-			contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
 			action: RECURRING_CANCEL_API_ACTION
 		} ).mockResolvedValueOnce( {
 				result: {
@@ -212,8 +208,8 @@ describe( 'Cancel donations view', () => {
 		expect( cancelConfirmationScreen.exists() ).toBe( true );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-header' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-text' );
-		expect( cancelConfirmationScreen.html() ).toContain( HomeDataMock.result.recurringContributions[ 0 ].amount_frequency_key );
-		expect( cancelConfirmationScreen.html() ).toContain( HomeDataMock.result.recurringContributions[ 0 ].payment_method );
+		expect( cancelConfirmationScreen.html() ).toContain( DonorDataMock.recurringContributions[ 0 ].amount_frequency_key );
+		expect( cancelConfirmationScreen.html() ).toContain( DonorDataMock.recurringContributions[ 0 ].payment_method );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-request-for-reason' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-cancel-button' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-changed-my-mind' );
@@ -237,7 +233,7 @@ describe( 'Cancel donations view', () => {
 		// Ensure cancel recurring success text is not visible on first load
 		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
 		expect( cancelSuccessText.exists() ).toBe( true );
-		expect( cancelSuccessText.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[<strong>${ HomeDataMock.result.recurringContributions[ 0 ].amount_frequency_key }:[${ HomeDataMock.result.recurringContributions[ 0 ].amount_formatted },${ HomeDataMock.result.recurringContributions[ 0 ].currency }]</strong>]` );
+		expect( cancelSuccessText.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[<strong>${ DonorDataMock.recurringContributions[ 0 ].amount_frequency_key }:[${ DonorDataMock.recurringContributions[ 0 ].amount_formatted },${ DonorDataMock.recurringContributions[ 0 ].currency }]</strong>]` );
 	} );
 
 	it( 'Renders the cancel confirmation page and the recurring error view on failed cancel', async () => {
@@ -251,9 +247,9 @@ describe( 'Cancel donations view', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith( {
 			reason: 'Update',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
-			contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
 			action: RECURRING_CANCEL_API_ACTION
 		} ).mockRejectedValueOnce( {
 				result: {
@@ -271,8 +267,8 @@ describe( 'Cancel donations view', () => {
 		expect( cancelConfirmationScreen.exists() ).toBe( true );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-header' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-confirmation-request-text' );
-		expect( cancelConfirmationScreen.html() ).toContain( HomeDataMock.result.recurringContributions[ 0 ].amount_frequency_key );
-		expect( cancelConfirmationScreen.html() ).toContain( HomeDataMock.result.recurringContributions[ 0 ].payment_method );
+		expect( cancelConfirmationScreen.html() ).toContain( DonorDataMock.recurringContributions[ 0 ].amount_frequency_key );
+		expect( cancelConfirmationScreen.html() ).toContain( DonorDataMock.recurringContributions[ 0 ].payment_method );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-request-for-reason' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-cancel-button' );
 		expect( cancelConfirmationScreen.html() ).toContain( 'donorportal-cancel-recurring-changed-my-mind' );
@@ -312,10 +308,10 @@ describe( 'Cancel donations view', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith( {
 			duration: '60 Days',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
-			contribution_recur_id: Number( HomeDataMock.result.recurringContributions[ 0 ].id ),
-			next_sched_contribution_date: HomeDataMock.result.recurringContributions[ 0 ].next_sched_contribution_date,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
+			next_sched_contribution_date: DonorDataMock.recurringContributions[ 0 ].next_sched_contribution_date,
 			action: RECURRING_PAUSE_API_ACTION,
 			wmf_campaign: 'testCampaign'
 		} ).mockResolvedValueOnce( {

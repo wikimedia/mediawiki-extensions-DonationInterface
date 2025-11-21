@@ -7,11 +7,8 @@ const { when } = require( 'jest-when' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 
 describe( 'Active recurring contribution test', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'newDonationUrl' ).mockReturnValue( 'http://donate.test' );
 	} );
 	it( 'Active recurring contribution renders successfully', () => {

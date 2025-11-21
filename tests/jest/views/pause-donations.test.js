@@ -14,12 +14,8 @@ const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 
 const RECURRING_PAUSE_API_ACTION = 'requestPauseRecurring';
 describe( 'Pause donations view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
-
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
 		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
@@ -92,8 +88,8 @@ describe( 'Pause donations view', () => {
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
 			action: RECURRING_PAUSE_API_ACTION,
 			duration: '60 Days',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123,
 			next_sched_contribution_date: '2025-08-02 00:00:02'
 		} );
@@ -132,8 +128,8 @@ describe( 'Pause donations view', () => {
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
 			action: RECURRING_PAUSE_API_ACTION,
 			duration: '90 Days',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123,
 			next_sched_contribution_date: '2025-08-02 00:00:02'
 		} );

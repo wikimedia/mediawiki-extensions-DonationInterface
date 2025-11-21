@@ -7,12 +7,8 @@ const HomeView = require( '../../../modules/ext.donationInterface.donorPortal/vi
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 
 describe( 'Home view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
-
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
 		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
 	} );
@@ -32,20 +28,20 @@ describe( 'Home view', () => {
 		} );
 		const element = wrapper.find( '.dp-dashboard' );
 		expect( element.exists() ).toBe( true );
-		expect( element.html() ).toContain( HomeDataMock.result.address.street_address );
-		expect( element.html() ).toContain( HomeDataMock.result.address.city );
-		expect( element.html() ).toContain( HomeDataMock.result.address.country );
-		expect( element.html() ).toContain( HomeDataMock.result.name );
-		expect( element.html() ).toContain( HomeDataMock.result.email );
-		expect( element.html() ).toContain( HomeDataMock.result.donorID );
-		expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( HomeDataMock.result.recurringContributions.length );
-		expect( element.findAll( '.dp-card__appeal.is-lapsed' ).length ).toBe( HomeDataMock.result.inactiveRecurringContributions.length );
+		expect( element.html() ).toContain( DonorDataMock.address.street_address );
+		expect( element.html() ).toContain( DonorDataMock.address.city );
+		expect( element.html() ).toContain( DonorDataMock.address.country );
+		expect( element.html() ).toContain( DonorDataMock.name );
+		expect( element.html() ).toContain( DonorDataMock.email );
+		expect( element.html() ).toContain( DonorDataMock.donorID );
+		expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( DonorDataMock.recurringContributions.length );
+		expect( element.findAll( '.dp-card__appeal.is-lapsed' ).length ).toBe( DonorDataMock.inactiveRecurringContributions.length );
 		expect( element.find( '.donorportal-recent-donation' ).exists ).not.toBe( true );
-		expect( element.findAll( '.donorportal-donations-table-row' ).length ).toBe( HomeDataMock.result.annualFundContributions.length + HomeDataMock.result.endowmentContributions.length );
+		expect( element.findAll( '.donorportal-donations-table-row' ).length ).toBe( DonorDataMock.annualFundContributions.length + DonorDataMock.endowmentContributions.length );
 	} );
 
 	it( 'Renders the most recent one time payment when no active or cancelled recurring is on record', async () => {
-		const summary = HomeDataMock.result;
+		const summary = DonorDataMock;
 		summary.recurringContributions = [];
 		summary.inactiveRecurringContributions = [];
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( summary );
@@ -67,12 +63,12 @@ describe( 'Home view', () => {
 
 		const element = wrapper.find( '.dp-dashboard' );
 		expect( element.exists() ).toBe( true );
-		expect( element.html() ).toContain( HomeDataMock.result.address.street_address );
-		expect( element.html() ).toContain( HomeDataMock.result.address.city );
-		expect( element.html() ).toContain( HomeDataMock.result.address.country );
-		expect( element.html() ).toContain( HomeDataMock.result.name );
-		expect( element.html() ).toContain( HomeDataMock.result.email );
-		expect( element.html() ).toContain( HomeDataMock.result.donorID );
+		expect( element.html() ).toContain( DonorDataMock.address.street_address );
+		expect( element.html() ).toContain( DonorDataMock.address.city );
+		expect( element.html() ).toContain( DonorDataMock.address.country );
+		expect( element.html() ).toContain( DonorDataMock.name );
+		expect( element.html() ).toContain( DonorDataMock.email );
+		expect( element.html() ).toContain( DonorDataMock.donorID );
 		expect( element.findAll( '.donorportal-recurring-contribution' ).length ).toBe( 0 );
 		expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( 0 );
 		expect( element.find( '.donorportal-recent-donation' ).exists() ).toBe( true );

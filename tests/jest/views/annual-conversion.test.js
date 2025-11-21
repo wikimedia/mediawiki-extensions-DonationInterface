@@ -15,12 +15,9 @@ const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mo
 
 const ANNUAL_CONVERSION_API_ACTION = 'requestAnnualConversion';
 describe( 'Annual conversion view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
 	window.alert = jest.fn();
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
 		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
@@ -98,8 +95,8 @@ describe( 'Annual conversion view', () => {
 			action: ANNUAL_CONVERSION_API_ACTION,
 			amount: '100',
 			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
@@ -159,8 +156,8 @@ describe( 'Annual conversion view', () => {
 			action: ANNUAL_CONVERSION_API_ACTION,
 			amount: '30',
 			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
