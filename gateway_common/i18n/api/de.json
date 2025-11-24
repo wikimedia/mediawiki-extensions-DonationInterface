@@ -69,7 +69,7 @@
 	"apihelp-requestNewChecksumLink-param-subpage": "Unterseite, auf die wir verlinken möchten. Optional.",
 	"apihelp-requestUpdateRecurring-summary": "Diese API verlangt die Aktualisierung des Betrags eines Beitrags, der sich auf die Seite der Spenderpräferenzen erstreckt",
 	"apihelp-requestUpdateRecurring-param-amount": "Neuer Spenderbetrag für zukünftige Spenden",
-	"apihelp-requestUpdateRecurring-param-txn_type": "Typ Txn wie Abwertung oder Upgrade bei Aktualisierung wiederkehrender Betrag",
+	"apihelp-requestUpdateRecurring-param-txn_type": "Transaktionsart, wie Downgrade oder Upgrade, bei der Aktualisierung wiederkehrender Beträge",
 	"apihelp-requestUpdateRecurring-param-contact_id": "Kontakt-ID des Spenders, der die Aktualisierungsanfrage stellt",
 	"apihelp-requestUpdateRecurring-param-checksum": "Prüfsumme des Spenders, der die Aktualisierungsanfrage stellt",
 	"apihelp-requestUpdateRecurring-param-contribution_recur_id": "ID des wiederkehrenden Beitrags, den der Spender aktualisieren möchte",

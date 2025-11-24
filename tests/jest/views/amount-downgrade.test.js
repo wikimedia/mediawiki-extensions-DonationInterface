@@ -9,18 +9,15 @@ const { when } = require( 'jest-when' );
 const { useRoute } = require( 'vue-router' );
 
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const DonwngraAmountView = require( '../../../modules/ext.donationInterface.donorPortal/views/AmountDowngrade.vue' );
+const DowngradeAmountView = require( '../../../modules/ext.donationInterface.donorPortal/views/AmountDowngrade.vue' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 const RECURRING_UPDATE_API_ACTION = 'requestUpdateRecurring';
 describe( 'Downgrade donations view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
 	window.alert = jest.fn();
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
 		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
@@ -45,7 +42,7 @@ describe( 'Downgrade donations view', () => {
 	} );
 
 	it( 'Downgrade Donations view renders successfully', () => {
-		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
 			global: {
 				plugins: [ router ]
 			}
@@ -69,10 +66,7 @@ describe( 'Downgrade donations view', () => {
 	} );
 
 	it( 'Renders the success view on success downgrade', async () => {
-		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
-			props: {
-				recurringContribution: contribution_mock
-			},
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
 			global: {
 				plugins: [ router ]
 			}
@@ -99,8 +93,8 @@ describe( 'Downgrade donations view', () => {
 			action: RECURRING_UPDATE_API_ACTION,
 			amount: '1',
 			txn_type: 'recurring_downgrade',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
@@ -118,17 +112,17 @@ describe( 'Downgrade donations view', () => {
 	} );
 
 	it( 'Renders the no submit if amount the same', async () => {
-		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
 			global: {
 				plugins: [ router ]
 			}
 		} );
-		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 10;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 		expect( window.alert ).toHaveBeenCalledWith( 'Please enter an amount different from your current donation.' );
@@ -136,7 +130,7 @@ describe( 'Downgrade donations view', () => {
 	} );
 
 	it( 'Renders the no submit if amount outside of price range', async () => {
-		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
 			props: {
 				recurringContribution: contribution_mock
 			},
@@ -144,12 +138,12 @@ describe( 'Downgrade donations view', () => {
 				plugins: [ router ]
 			}
 		} );
-		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 0.1;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 		expect( window.alert ).toHaveBeenCalledWith( `Please enter a valid amount between 1 and ${ contribution_mock.amount }.` );
@@ -157,7 +151,7 @@ describe( 'Downgrade donations view', () => {
 	} );
 
 	it( 'Renders the error view on failure', async () => {
-		const wrapper = VueTestUtils.mount( DonwngraAmountView, {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
 			global: {
 				plugins: [ router ]
 			}
@@ -168,12 +162,12 @@ describe( 'Downgrade donations view', () => {
 			} )
 		);
 
-		const DonwngradeAmountViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = DonwngradeAmountViewBody.find( '#new-recurring-amount' );
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
 		amountInput.element.value = 3;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = DonwngradeAmountViewBody.find( '#submit-update-action' );
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 
@@ -181,8 +175,8 @@ describe( 'Downgrade donations view', () => {
 			action: RECURRING_UPDATE_API_ACTION,
 			amount: '3',
 			txn_type: 'recurring_downgrade',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 

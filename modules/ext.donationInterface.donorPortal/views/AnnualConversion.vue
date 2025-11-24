@@ -19,7 +19,7 @@
 </template>
 
 <script>
-const { defineComponent, ref, reactive } = require( 'vue' );
+const { defineComponent, reactive } = require( 'vue' );
 const { useRoute } = require( 'vue-router' );
 const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionAnnualConversionSuccessful = require( '../components/RecurringContributionAnnualConversionSuccess.vue' );

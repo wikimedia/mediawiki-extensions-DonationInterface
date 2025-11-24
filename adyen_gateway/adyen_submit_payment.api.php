@@ -119,6 +119,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		// The utm_source from the form has banner.landingpage.payment_method
 		$this->donationData['utm_source'] = $this->donationData['banner'] . '.' . 'inapp' . '.' . $this->donationData['payment_method'];
 		$this->donationData['utm_medium'] = 'WikipediaApp';
+		$this->donationData['utm_key'] = $this->donationData['app_install_id'];
 		$debugparams = $this->donationData;
 		unset( $debugparams['payment_token'] );
 		$this->logger->info( ' Starting submitPayment request with: ' . json_encode( $debugparams ) );
@@ -192,6 +193,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	public function getAllowedParams() {
 		return [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string' ],
+			'app_install_id' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'app_version' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'banner' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'city' => [ ParamValidator::PARAM_TYPE => 'string' ],

@@ -819,6 +819,11 @@ body,
 
 .dp-card__player > * {
 	max-width: 100%;
+	cursor: pointer;
+}
+
+.dp-card__body div.video-attribution {
+	text-align: right;
 }
 
 .dp-card__excerpt img {
@@ -1045,12 +1050,14 @@ body,
 	justify-items: center;
 	background: rgba( 0, 0, 0, 0.3 );
 	z-index: 3;
+	cursor: pointer;
 }
 
 .modal-overlay video {
 	display: block;
 	margin: auto;
 	height: 95%;
+	cursor: default;
 }
 /* --- Combined Media Queries (mobile-first) --- */
 

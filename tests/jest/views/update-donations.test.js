@@ -15,12 +15,9 @@ const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mo
 
 const RECURRING_UPDATE_API_ACTION = 'requestUpdateRecurring';
 describe( 'Update donations view', () => {
-	const HomeDataMock = {
-		result: DonorDataMock
-	};
 	window.alert = jest.fn();
 	beforeEach( () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( HomeDataMock.result );
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
 		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
@@ -99,8 +96,8 @@ describe( 'Update donations view', () => {
 			action: RECURRING_UPDATE_API_ACTION,
 			amount: '1',
 			txn_type: 'recurring_downgrade',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
@@ -136,8 +133,8 @@ describe( 'Update donations view', () => {
 			action: RECURRING_UPDATE_API_ACTION,
 			amount: '90',
 			txn_type: 'recurring_upgrade',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
@@ -211,8 +208,8 @@ describe( 'Update donations view', () => {
 			action: RECURRING_UPDATE_API_ACTION,
 			amount: '30',
 			txn_type: 'recurring_upgrade',
-			contact_id: Number( HomeDataMock.result.contact_id ),
-			checksum: HomeDataMock.result.checksum,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123
 		} );
 
