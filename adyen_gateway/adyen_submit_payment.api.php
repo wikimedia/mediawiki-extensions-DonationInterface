@@ -308,7 +308,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'order_id' => $this->orderId,
 			'user_ip' => WmfFramework::getIP(),
 			// donationData that needs to be renamed
-			'country' => $this->donationData['donor_country'],
+			'country' => strtoupper( $this->donationData['donor_country'] ),
 			'gross' => $this->donationData['amount']
 		];
 
