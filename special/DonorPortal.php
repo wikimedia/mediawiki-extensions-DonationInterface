@@ -76,7 +76,7 @@ class DonorPortal extends UnlistedSpecialPage {
 
 	protected function getChecksum(): string {
 		$checksum = $this->getRequest()->getVal( 'checksum' );
-		if ( !preg_match( '/^[0-9a-f]{32}_[0-9]{10}_[0-9a-z]+$/', $checksum ) ) {
+		if ( !$checksum || !preg_match( '/^[0-9a-f]{32}_[0-9]{10}_[0-9a-z]+$/', $checksum ) ) {
 			return '';
 		}
 		return $checksum;
