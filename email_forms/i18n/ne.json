@@ -4,6 +4,8 @@
 			"बडा काजी"
 		]
 	},
+	"donorportal-recurring-currency-monthly": "$1 मासिक",
+	"donorportal-recurring-currency-annual": "$1 वार्षिक",
 	"donorportal-pause-recurring-heading": "विश्राम लिनु पर्छ?",
 	"donorportal-pause-recurring-subheading": "हामी बुझ्छौं कि चीजहरू परिवर्तन हुन्छन्, र हामी तपाईंको लागि काम गर्ने समाधान खोज्न मद्दत गर्न चाहन्छौँ। कृपया तलको एउटा विकल्प चयन गर्नुहोस्।",
 	"donorportal-pause-recurring-no-recurring-donation": "उपलब्ध छैन",
@@ -18,6 +20,16 @@
 	"donorportal-cancel-recurring-reason-cancel-support": "म अब विकिमिडिया फाउन्डेसनलाई समर्थन गर्न चाहन्न।",
 	"donorportal-cancel-recurring-cancel-button": "मेरो दान रद्द गर्नुहोस्",
 	"donorportal-cancel-monthly-recurring-confirmation-text": "तपाईंको $1 दान रद्द गरिएको छ। कृपया ध्यान दिनुहोस् कि रद्द तपाईंको दाताको खातामा देखा पर्न ३० मिनेटसम्म लाग्न सक्छ।",
+	"donorportal-update-recurring-current-donation": "तपाईंको हालको दान रकम:",
+	"donorportal-update-recurring-new-donation": "तल नयाँ दान प्रविष्ट गर्नुहोस्:",
+	"donorportal-update-recurring-confirm": "$1$2 $3 दान पुष्टि गर्नुहोस्",
+	"donorportal-update-recurring-annual-convert-select-below": "कृपया तलको एउटा विकल्प छनौट गर्नुहोस्:",
+	"donorportal-update-recurring-monthly-to-annual-amount": "मेरो दानलाई वार्षिक $1 मा स्तरोन्नति गर्नुहोस्",
+	"donorportal-update-recurring-annual-convert-yearly-other-amount": "म वार्षिक रूपमा दिनेछु, तर फरक रकममा:",
+	"donorportal-update-recurring-annual-convert-yearly-confirm-next-schedule": "तपाईंको नयाँ वार्षिक दान रकम तपाईंको अर्को दान मिति $1 बाट लागू हुनेछ।",
+	"donorportal-thank-you": "धन्यवाद!",
+	"donorportal-update-recurring-change-mind": "मैले मेरो मन परिवर्तन गरेको छु।",
+	"donorportal-update-recurring-confirmation-header-subtitle": "- यसले साँच्चै फरक पार्छ",
 	"donorportal-feedback-button": "थप प्रतिक्रिया साझा गर्नुहोस्",
 	"recurupgrade-ask-heading": "विकिपिडिया भनेको हामीलाई वाचा गरिएको इन्टरनेट हो, र तपाईंको समर्थनले यसलाई बलियो बनाउँछ!"
 }

@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"NehalDaveND"
+			"NehalDaveND",
+			"बडा काजी"
 		]
 	},
 	"apihelp-donate-param-currency": "मुद्रा कोड",
 	"apihelp-donate-param-city": "शहर",
-	"apihelp-donate-param-language": "भाषा कोड"
+	"apihelp-donate-param-language": "भाषा कोड",
+	"apihelp-requestUpdateRecurring-param-checksum": "अद्यावधिक अनुरोध गर्ने दाताको चेकसम"
 }
