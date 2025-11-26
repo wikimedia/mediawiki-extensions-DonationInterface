@@ -42,8 +42,7 @@ class EmailForm {
 		];
 
 		foreach ( [
-			'emailPreferencesHeader', 'emailPreferencesFooter', 'requestNewChecksumLink',
-			'donorPortalDonationTableHeader', 'donorPortalDonationTableRow'
+			'emailPreferencesHeader', 'emailPreferencesFooter', 'requestNewChecksumLink'
 		] as $partial ) {
 			$options['partials'][$partial] = rtrim( file_get_contents( $options['basedir'] . $partial .
 				$options['fileext'] ), "\r\n" );
