@@ -311,6 +311,7 @@
 	"apihelp-getPaymentMethods-param-country": "País para o que obter os métodos de pagamento",
 	"apihelp-submitPayment-summary": "Envía un pagamento en función dos parámetros enviados",
 	"apihelp-submitPayment-param-amount": "Importe entregado do pagamento",
+	"apihelp-submitPayment-param-app_install_id": "Identificador de instalación da aplicación utilizada para entregar o pagamento",
 	"apihelp-submitPayment-param-app_version": "Versión da aplicación utilizada para entregar o pagamento",
 	"apihelp-submitPayment-param-banner": "O cartel que se premeu para doar",
 	"apihelp-submitPayment-param-city": "Cidade.",
