@@ -619,7 +619,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * @return void
 	 */
 	protected function tuneForPaymentMethod(): void {
-		if ( $this->getPaymentMethod() === PaymentMethod::CC ) {
+		$method = $this->getPaymentMethod();
+		if ( $method === PaymentMethod::CC ) {
 			$this->transactions['authorize']['request']['browser_info'] = [
 				'user_agent',
 				'accept_header',
@@ -634,8 +635,14 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$this->transactions['authorize']['request'][] = 'window_origin';
 			// Always true, as we don't accept donations w/o javascript
 			$this->transactions['authorize']['values']['javascript_enabled'] = true;
-		} else {
-			// Disable MinFraud for non-card payments
+		}
+		$minFraudMethods = [
+			PaymentMethod::CC,
+			PaymentMethod::APPLE,
+			PaymentMethod::GOOGLE,
+		];
+		if ( !in_array( $method, $minFraudMethods, true ) ) {
+			// Disable MinFraud for methods not listed above
 			global $wgGravyGatewayEnableMinFraud;
 			$wgGravyGatewayEnableMinFraud = false;
 		}
