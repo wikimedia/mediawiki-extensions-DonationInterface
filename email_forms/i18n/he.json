@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"Guycn2"
 		]
 	},
 	"emailpreferences-change-email": "שינוי כתובת דוא״ל",
@@ -26,11 +27,11 @@
 	"emailpreferences-language": "שפה",
 	"emailpreferences-save": "שמירת ההעדפות",
 	"emailpreferences-send-email": "אשמח לשמוע מקרן ויקימדיה, שלחו אליי הכול!",
-	"emailpreferences-snooze-email": "הפסיקו לשלוח דוא״ל {{PLURAL:$1|ליום אחד|ליומיים|ל־$1 ימים}}.",
+	"emailpreferences-snooze-email": "להשהות שליחת דוא״ל {{PLURAL:$1|ליום אחד|ליומיים|ל־$1 ימים}}.",
 	"emailpreferences-success": "בקשתך לשמור את העדפות הדוא״ל שלך נשלחה.",
 	"emailpreferences-title": "העדפות דוא״ל",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"recurupgrade": "התרומה החוזרת שלך",
+	"recurupgrade": "התרומה הקבועה שלך",
 	"recurupgrade-add": "להוסיף $1",
 	"recurupgrade-amount-ask": "נא לבחור את הסכום שבו ברצונך להגדיל את התרומה שלך:",
 	"recurupgrade-amount": "הסכום החוזר הנוכחי",
@@ -42,7 +43,7 @@
 	"recurupgrade-next-scheduled-date": "תאריך התרומה הבא",
 	"recurupgrade-salutation": "שלום, $1!",
 	"recurupgrade-salutation-no-recur-records": "שלום! תודה על תמיכתך בוויקיפדיה.",
-	"recurupgrade-no-recur-records": "למרבה הצער, לא הצלחנו למצוא תרומה חוזרת לשדרוג. באפשרותך <a href=\"$1 \">להתחיל תרומה חודשית חדשה</a> או ליצור איתנו קשר לקבלת תמיכה בכתובת <a href=\"mailto:$2\">$2</a>.",
+	"recurupgrade-no-recur-records": "למרבה הצער, לא הצלחנו למצוא תרומה קבועה לשדרוג. באפשרותך <a href=\"$1 \">להתחיל תרומה חודשית חדשה</a> או ליצור איתנו קשר לקבלת תמיכה בכתובת <a href=\"mailto:$2\">$2</a>.",
 	"recurupgrade-select-option": "כדי לשדרג את התרומה החודשית שלך, יש לבחור באחת מהאפשרויות שלמעלה.",
 	"recurupgrade-thanks-increasing": "תודה שהגדלת את תרומתך ועזרת לבנות עתיד חזק ויציב לוויקיפדיה ולכל מיזמי הידע של ויקימדיה. בואו נפיץ ביחד את הידע עוד יותר.",
 	"recurupgrade-thanks-monthly": "תודה רבה על כך שבחרת להיות בקבוצה של התורמים החודשיים שלנו.",
