@@ -48,11 +48,14 @@
 						{{ $i18n( 'donorportal-login-problems' ).text() }}
 					</template>
 					<template #popup-body>
-						<h2 id="popup-title">{{ $i18n( 'donorportal-login-problems' ).text() }}</h2>
+						<h2 id="popup-title">
+							{{ $i18n( 'donorportal-login-problems' ).text() }}
+						</h2>
 						<p class="popup-body">
 							{{ $i18n( 'donorportal-update-donation-problem-log-in' ).text() }}
 						</p>
-						<p class="popup-body"
+						<p
+							class="popup-body"
 							v-html="problemLoginLink"></p>
 					</template>
 				</popup-link>

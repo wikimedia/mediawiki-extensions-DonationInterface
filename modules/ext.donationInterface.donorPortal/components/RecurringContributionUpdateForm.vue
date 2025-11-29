@@ -30,8 +30,8 @@
 			</section>
 			<form
 				id="form-upgrade"
-				@submit.prevent
-				class="box is-recurring is-active height-206">
+				class="box is-recurring is-active height-206"
+				@submit.prevent>
 				<div class="box__inner">
 					<strong class="text text--body">
 						{{ $i18n( "donorportal-update-recurring-new-donation" ).text() }}

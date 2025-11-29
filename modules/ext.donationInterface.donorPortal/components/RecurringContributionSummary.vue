@@ -2,7 +2,7 @@
 	<section v-if="recurringContributionValuesSet" class="column--base contribution-details">
 		<section :class="boxClass">
 			<div class="box__inner">
-				<p class="text text--body" v-show="extraTitle">
+				<p v-show="extraTitle" class="text text--body">
 					{{ extraTitle }}
 				</p>
 				<h2 class="heading heading--h1">
