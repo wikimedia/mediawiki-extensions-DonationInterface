@@ -97,7 +97,7 @@
 	"apihelp-requestCancelRecurring-param-wmf_campaign": "Tracking variable",
 	"apihelp-requestCancelRecurring-param-wmf_medium": "Tracking variable",
 	"apihelp-requestCancelRecurring-param-wmf_source": "Tracking variable",
-	"apihelp-requestAnnualConversion-summary": "This API requests the convert monthly recurring contribution to annually from the donor preference page",
+	"apihelp-requestAnnualConversion-summary": "This API requests the conversion of a monthly recurring contribution to an annual one from the donor preference page",
 	"apihelp-requestAnnualConversion-param-amount": "Amount of how much donate annually",
 	"apihelp-requestAnnualConversion-param-contact_id": "Contact ID of donor making the request to convert the donation to annual",
 	"apihelp-requestAnnualConversion-param-checksum": "Checksum of donor making the request to convert the donation to annual",
