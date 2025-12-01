@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Penyuwangi",
 			"William Surya Permana"
 		]
 	},
+	"donorportal-close": "Tutup",
 	"fundraiserunsubscribe": "Berhenti berlangganan Surel Penggalangan Dana Wikimedia",
 	"fundraisersubscribe": "Berlangganan"
 }
