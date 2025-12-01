@@ -1,5 +1,5 @@
 <template>
-	<main class="container column--items-center" id="error-component">
+	<main id="error-component" class="container column--items-center">
 		<section class="column--callout">
 			<h2 class="heading heading--h1">
 				{{ $i18n( "donorportal-thank-you" ).text() }}

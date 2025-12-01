@@ -1,7 +1,10 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"SZ475"
+		]
 	},
+	"donorportal-close": "Închide",
 	"emailpreferences-change-email": "Schimbă adresa de e-mail",
 	"emailpreferences-country": "Țară sau regiune",
 	"emailpreferences-dont-send-email": "Dezabonați-mă de la toate.",

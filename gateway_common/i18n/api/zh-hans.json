@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"ExoHyper2026",
 			"Linforest",
 			"Liuxinyu970226"
 		]
@@ -44,5 +45,6 @@
 	"apihelp-logPaymentsFormError-param-line": "错误发生的行",
 	"apihelp-logPaymentsFormError-param-col": "错误发生的列",
 	"apihelp-logPaymentsFormError-param-userAgent": "浏览器的用户代理字符串",
-	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有"
+	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有",
+	"apihelp-submitPayment-param-app_install_id": "用于提交付款的应用程序的安装 ID"
 }
