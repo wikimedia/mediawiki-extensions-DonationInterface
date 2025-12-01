@@ -20,7 +20,8 @@
 			"MnLsVt",
 			"Norhorn",
 			"P20kios",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"Jimkats"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -307,7 +308,7 @@
 	"donate_interface-email-receipt": "Παραλαβή απόδειξης με e-mail σε",
 	"donate_interface-monthly-donation": "Κάνετε μια μηνιαία δωρεά",
 	"donate_interface-via-paypal": "(μέσω PayPal)",
-	"donate_interface-select": "Μέγεθος:",
+	"donate_interface-select": "Επιλέξτε",
 	"donate_interface-donation-must-equal": "Η δωρεά πρέπει να ισούται $1 ή και περισσότερο.",
 	"donate_interface-thank-you": "Σας ευχαριστούμε! Η δωρεά σας έχει παραληφθεί.",
 	"donate_interface-change": "Αλλαγή",
