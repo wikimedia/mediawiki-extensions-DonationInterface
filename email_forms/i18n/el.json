@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"EHughes"
+			"EHughes",
+			"Jimkats"
 		]
 	},
 	"emailpreferences-change-email": "Αλλαγή email",
@@ -25,5 +26,5 @@
 	"emailpreferences-success": "Το αίτημά σας για αποθήκευση των προτιμήσεων email σας έχει υποβληθεί.",
 	"emailpreferences-title": "Προτιμήσεις email",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"fundraiserunsubscribe": "Κατάργηση της εγγραφή σας από το Email Συγκέντρωσης Χρημάτων του Wikimedia"
+	"fundraiserunsubscribe": "Κατάργηση της εγγραφή σας από το email συγκέντρωσης χρημάτων του Ιδρύματος Wikimedia"
 }

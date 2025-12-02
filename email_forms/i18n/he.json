@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"Guycn2"
 		]
 	},
 	"emailpreferences-change-email": "שינוי כתובת דוא״ל",
@@ -25,7 +26,7 @@
 	"emailpreferences-success": "בקשתך לשמור את העדפות הדוא״ל שלך נשלחה.",
 	"emailpreferences-title": "העדפות דוא״ל",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"recurupgrade": "התרומה החוזרת שלך",
+	"recurupgrade": "התרומה הקבועה שלך",
 	"recurupgrade-add": "להוסיף $1",
 	"recurupgrade-amount-ask": "כמה ברצונך להוסיף לתרומה החודשית שלך?",
 	"recurupgrade-amount": "הסכום החוזר הנוכחי",

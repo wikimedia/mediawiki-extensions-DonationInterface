@@ -20,7 +20,8 @@
 			"Protnet",
 			"Shirayuki",
 			"ZaDiak",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"Jimkats"
 		]
 	},
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
@@ -149,7 +150,7 @@
 	"donate_interface-donor-last_name": "Επίθετο:",
 	"donate_interface-donor-last_name-alt": "Επίθετο",
 	"donate_interface-donor-street_address": "Οδός & αριθμός",
-	"donate_interface-donor-street-number": "Αριθμός",
+	"donate_interface-donor-street-number": "Αριθμός οικίας",
 	"donate_interface-donor-city": "Πόλη:",
 	"donate_interface-donor-county": "County",
 	"donate_interface-donor-island": "Νησί",
@@ -305,7 +306,7 @@
 	"donate_interface-email-receipt": "Παραλαβή απόδειξης με e-mail σε",
 	"donate_interface-monthly-donation": "Κάνετε μια μηνιαία δωρεά",
 	"donate_interface-via-paypal": "(μέσω PayPal)",
-	"donate_interface-select": "Μέγεθος:",
+	"donate_interface-select": "Επιλέξτε",
 	"donate_interface-donation-must-equal": "Η δωρεά πρέπει να ισούται $1 ή και περισσότερο.",
 	"donate_interface-thank-you": "Σας ευχαριστούμε! Η δωρεά σας έχει παραληφθεί.",
 	"donate_interface-change": "Αλλαγή",
@@ -313,7 +314,7 @@
 	"donate_interface-optional": "προαιρετικό",
 	"donate_interface-state_province-dropdown-YY": "Επιλέξτε μια πολιτεία",
 	"donate_interface-state_province-dropdown-XX": "Εκτός ΗΠΑ",
-	"donate_interface-bt-account_holder": "Κάτοχος λογαριασμού",
+	"donate_interface-bt-account_holder": "Όνομα κατόχου λογαριασμού",
 	"donate_interface-bt-bank_account_number": "Αριθμός τραπεζικού λογαριασμού",
 	"donate_interface-bt-country_description": "Περιγραφή χώρας",
 	"donate_interface-bt-payment_reference": "Αναφορά πληρωμής",

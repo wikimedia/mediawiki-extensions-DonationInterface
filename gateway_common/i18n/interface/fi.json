@@ -242,7 +242,7 @@
 	"donate_interface-error-msg-bank_check_digit": "Pankin tarkistusmerkki",
 	"donate_interface-error-msg-bank_code": "Pankkitunnus",
 	"donate_interface-error-msg-branch_code": "Konttoritunnus",
-	"donate_interface-error-msg-captcha": "Syöttämäsi tarkistuskoodin arvo oli väärin. Yritä uudestaan.",
+	"donate_interface-error-msg-captcha": "Syöttämäsi tarkistuskoodin arvo oli väärin. Yritä uudelleen.",
 	"donate_interface-error-msg-captcha-please": "Luottokorttisi turvallisuuden vuoksi, syötä yllä näkemäsi merkit.",
 	"donate_interface-error-msg-cookies": "Ota selaimesi evästeet käyttöön.",
 	"donate_interface-error-msg-country-calc": "Emme voi ottaa vastaan lahjoituksia tällä hetkellä.",

@@ -8,7 +8,8 @@
 		]
 	},
 	"donate_interface-monthly-donation-description": "Wikimedia 877 600 9454",
-	"donate_interface-amount-legend": "Monto da le donación",
+	"donate_interface-amount-legend": "Monto de la donación",
+	"donate_interface-donor-employer-explain": "Te notificaremos si tu empleador igualará tu donación.",
 	"donate_interface-donate-error-thank-you-for-your-support": "¡Gracias por tu apoyo!",
 	"donate_interface-problemsdonating": "¿Tienes problemas para donar?",
 	"donate_interface-donate-click": "Tu tarjeta de crédito/débito se procesará de forma segura.",
