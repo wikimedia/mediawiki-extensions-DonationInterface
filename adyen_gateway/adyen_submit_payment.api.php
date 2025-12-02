@@ -137,6 +137,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 
 		try {
 			$createPaymentResponse = $paymentProvider->createPayment( $this->getCreatePaymentParams() );
+			$this->logger->info( ' Create payment response with: ' . json_encode( $createPaymentResponse->getRawResponse() ) );
 
 			if ( !$createPaymentResponse->isSuccessful() ) {
 				$this->returnError( $createPaymentResponse->getRawResponse() );
@@ -166,6 +167,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 					'currency' => $this->donationData['currency'],
 					'gateway_txn_id' => $this->gatewayTransactionId,
 				] );
+				$this->logger->info( ' Approve payment response with: ' . json_encode( $approvePaymentResponse->getRawResponse() ) );
 
 				if ( !$approvePaymentResponse->isSuccessful() ) {
 					$this->returnError( $approvePaymentResponse->getRawResponse() );
