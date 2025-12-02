@@ -1855,6 +1855,9 @@
 		},
 		"DonationInterfaceWikipediaVideoCommonsUrl": {
 			"value": "https://commons.wikimedia.org/wiki/File:How_does_Wikipedia_work_%E2%80%93_A_WIKI_MINUTE_4-5.webm"
+		},
+		"DonationInterfaceShowEmailPreferencesLink": {
+			"value": false
 		}
 	},
 	"AutoloadNamespaces": {
