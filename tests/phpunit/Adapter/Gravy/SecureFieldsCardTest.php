@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\Tests\MinFraudTestTrait;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -20,6 +21,8 @@ use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
  */
 class SecureFieldsCardTest extends BaseGravyTestCase {
 
+	use MinFraudTestTrait;
+
 	/**
 	 * @var \PHPUnit\Framework\MockObject\MockObject|CardPaymentProvider
 	 */
@@ -27,6 +30,8 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
+		$this->setUpMinFraudMocks();
+		$this->setMwGlobals( $this->getAllGlobalVariants( $this->getMinFraudGlobalsWithoutPrefix() ) );
 
 		$this->cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 
@@ -134,6 +139,11 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 				'gateway_txn_id' => $gravyTransactionId
 			] )
 			->willReturn( $stubApprovePaymentResponse );
+
+		// Just care that it runs once, not testing what parameters are sent here
+		$this->minFraudRequest->expects( $this->once() )
+			->method( 'post' )
+			->willReturn( $this->getMinFraudMockResponse() );
 
 		$result = $gateway->doPayment();
 

@@ -16,9 +16,7 @@
  *
  */
 
-use MaxMind\WebService\Http\CurlRequest;
-use MaxMind\WebService\Http\RequestFactory;
-use PHPUnit\Framework\MockObject\MockObject;
+use MediaWiki\Extension\DonationInterface\Tests\MinFraudTestTrait;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;
 use SmashPig\PaymentData\ValidationAction;
@@ -31,35 +29,13 @@ use Wikimedia\TestingAccessWrapper;
  * @covers \FraudFilter
  */
 class FraudFiltersTest extends DonationInterfaceTestCase {
-
-	/**
-	 * @var MockObject
-	 */
-	protected $requestFactory;
-
-	/**
-	 * @var MockObject
-	 */
-	protected $request;
+	use MinFraudTestTrait;
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->requestFactory = $this->createMock( RequestFactory::class );
-
-		$this->request = $this->createMock( CurlRequest::class );
-
-		$this->requestFactory->method( 'request' )->willReturn(
-			$this->request
-		);
+		$this->setUpMinFraudMocks();
 
 		$this->setMwGlobals( $this->getAllGlobalVariants( [
-			'EnableMinFraud' => true,
-			'MinFraudErrorScore' => 50,
-			'MinFraudWeight' => 100,
-			'MinFraudClientOptions' => [
-				'host' => '0.0.0.0',
-				'httpRequestFactory' => $this->requestFactory
-			],
 			'CustomFiltersActionRanges' => [
 				ValidationAction::PROCESS => [ 0, 25 ],
 				ValidationAction::REVIEW => [ 25, 50 ],
@@ -84,7 +60,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				'/^(C14_)/' => 14,
 				'/^(spontaneous)/' => 5
 			]
-		] ) );
+		] + $this->getMinFraudGlobalsWithoutPrefix() ) );
 	}
 
 	/**
@@ -92,7 +68,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 	 * $wgDonationInterfaceMinFraudErrorScore.
 	 */
 	public function testMinFraudErrorScore() {
-		$this->request->method( 'post' )->willReturn( [] );
+		$this->minFraudRequest->method( 'post' )->willReturn( [] );
 		$options = $this->getDonorTestData();
 		$options['email'] = 'somebody@wikipedia.org';
 		$options['payment_method'] = 'cc';
@@ -155,7 +131,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->request->expects( $this->once() )
+		$this->minFraudRequest->expects( $this->once() )
 			->method( 'post' )
 			->with( $this->callback( function ( $postData ) use ( $gateway ) {
 				$decoded = json_decode( $postData, true );
@@ -246,7 +222,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway = $this->getFreshGatewayObject( $options );
 
-		$this->request->expects( $this->once() )
+		$this->minFraudRequest->expects( $this->once() )
 			->method( 'post' )
 			->with( $this->callback( function ( $postData ) use ( $gateway ) {
 				$decoded = json_decode( $postData, true );
@@ -282,11 +258,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				$this->assertArraySubmapSame( $expected, $decoded );
 				return true;
 			} )
-			)->willReturn( [
-				200, 'application/json', file_get_contents(
-					__DIR__ . '/includes/Responses/minFraud/15points.json'
-				)
-			] );
+			)->willReturn( $this->getMinFraudMockResponse() );
 
 		$gateway->runAntifraudFilters();
 
@@ -347,7 +319,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				'currency',
 			],
 		] );
-		$this->request->expects( $this->once() )
+		$this->minFraudRequest->expects( $this->once() )
 			->method( 'post' )
 			->with(
 				'{"billing":{"country":"BR","first_name":"Nome","last_name":"Apelido"},' .
@@ -357,11 +329,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				'"wikipedia.org"},"event":{"transaction_id":"' .
 				$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ) .
 				'"},"order":{"amount":"100.00","currency":"BRL"}}'
-			)->willReturn( [
-				200, 'application/json', file_get_contents(
-					__DIR__ . '/includes/Responses/minFraud/15points.json'
-				)
-			] );
+			)->willReturn( $this->getMinFraudMockResponse() );
 
 		$gateway->runAntifraudFilters();
 	}
@@ -393,7 +361,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				'currency',
 			],
 		] );
-		$this->request->expects( $this->once() )
+		$this->minFraudRequest->expects( $this->once() )
 			->method( 'post' )
 			->with( $this->callback( function ( $postData ) use ( $gateway ) {
 				$decoded = json_decode( $postData, true );
@@ -429,11 +397,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				$this->assertArrayNotHasKey( 'region', $expected['billing'] );
 				return true;
 			} )
-			)->willReturn( [
-				200, 'application/json', file_get_contents(
-					__DIR__ . '/includes/Responses/minFraud/15points.json'
-				)
-			] );
+			)->willReturn( $this->getMinFraudMockResponse() );
 
 		$gateway->runAntifraudFilters();
 	}

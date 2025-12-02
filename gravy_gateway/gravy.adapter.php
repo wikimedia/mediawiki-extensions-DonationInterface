@@ -91,6 +91,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	public function doPayment(): PaymentResult {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
+		$this->tuneForPaymentMethod();
 		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
@@ -187,6 +188,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	/** @inheritDoc */
 	public function processDonorReturn( $requestValues ): PaymentResult {
 		$this->logger->info( "Handling redirectResult " . json_encode( $requestValues ) );
+		$this->tuneForPaymentMethod();
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
@@ -366,7 +368,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 * @return CreatePaymentResponse
 	 */
 	protected function callCreatePayment( IPaymentProvider $paymentProvider ): CreatePaymentResponse {
-		$this->tuneForPaymentMethod();
 		$createPaymentParams = $this->buildRequestArray();
 		$this->fixBrowserInfoIfPresent( $createPaymentParams );
 		if ( $this->showMonthlyConvert() ) {

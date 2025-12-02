@@ -1858,7 +1858,8 @@
 		}
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\DonationInterface\\": "includes/"
+		"MediaWiki\\Extension\\DonationInterface\\": "includes/",
+		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes"
 	},
 	"manifest_version": 2
 }
