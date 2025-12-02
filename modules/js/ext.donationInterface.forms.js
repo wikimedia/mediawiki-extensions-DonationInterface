@@ -240,6 +240,23 @@
 		$( '#bin_hash' ).val( simpleHash( clearBin ) );
 	}
 
+	function elementIsVisible( inputElement ) {
+		const style = window.getComputedStyle( inputElement );
+		return style.display !== 'none' &&
+		style.visibility !== 'hidden' &&
+		style.opacity !== 0 &&
+		inputElement.type !== 'hidden' &&
+		inputElement.offsetParent !== null;
+	}
+
+	function focusOnFirstInput() {
+		const inputFields = Array.from( document.querySelector( '#payment-form' ).querySelectorAll( 'input, select' ) );
+		const visibleInputs = inputFields.filter( ( el ) => elementIsVisible( el ) );
+		if ( visibleInputs.length > 0 ) {
+			visibleInputs[ 0 ].focus();
+		}
+	}
+
 	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
@@ -274,7 +291,7 @@
 			return;
 		}
 
-		$( '#first_name' ).focus();
+		focusOnFirstInput(); //T410787 T149803
 
 		// If submethods are visible, and a submethod is already selected on
 		// page load, clear it.
