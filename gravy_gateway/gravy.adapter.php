@@ -6,6 +6,7 @@ use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\Address;
+use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\PaymentMethod;
 use SmashPig\PaymentData\RecurringModel;
@@ -525,21 +526,18 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
 			$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
 			// Add in donor details
-			if ( $paymentResult->getDonorDetails() !== null ) {
-				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getEmail() ) ) {
-					$responseData['email'] = $paymentResult->getDonorDetails()->getEmail();
+			$donorDetails = $paymentResult->getDonorDetails();
+			if ( $donorDetails !== null ) {
+				if ( $this->isNotEmptyOrNull( $donorDetails->getEmail() ) ) {
+					$responseData['email'] = $donorDetails->getEmail();
 				}
-				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getFirstName() ) ) {
-					$responseData['first_name'] = $paymentResult->getDonorDetails()->getFirstName();
-				}
-				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getLastName() ) ) {
-					$responseData['last_name'] = $paymentResult->getDonorDetails()->getLastName();
-				}
-				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getBillingEmail() ) ) {
-					$responseData['billing_email'] = $paymentResult->getDonorDetails()->getBillingEmail();
+				$this->addNameResponseData( $responseData, $donorDetails );
+
+				if ( $this->isNotEmptyOrNull( $donorDetails->getBillingEmail() ) ) {
+					$responseData['billing_email'] = $donorDetails->getBillingEmail();
 				}
 				// Add in billing details, if Paypal shipping details are needed there is a toggle in the gravy console
-				$billingAddress = $paymentResult->getDonorDetails()->getBillingAddress();
+				$billingAddress = $donorDetails->getBillingAddress();
 				if ( $billingAddress instanceof Address ) {
 					if ( $this->isNotEmptyOrNull( $billingAddress->getStreetAddress() ) ) {
 						$responseData['street_address'] = $billingAddress->getStreetAddress();
@@ -558,8 +556,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					}
 				}
 				// Add in username if it's there
-				if ( $this->isNotEmptyOrNull( $paymentResult->getDonorDetails()->getUserName() ) ) {
-					$responseData['user_name'] = $paymentResult->getDonorDetails()->getUserName();
+				if ( $this->isNotEmptyOrNull( $donorDetails->getUserName() ) ) {
+					$responseData['user_name'] = $donorDetails->getUserName();
 				}
 			}
 			if ( $paymentResult->getPaymentOrchestratorReconciliationId() ) {
@@ -584,6 +582,24 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		$this->addResponseData( $responseData );
+	}
+
+	protected function addNameResponseData( array &$responseData, DonorDetails $donorDetails ): void {
+		$parts = [];
+		if ( $this->isNotEmptyOrNull( $donorDetails->getFirstName() ) ) {
+			$responseData['first_name'] = $parts[] = $donorDetails->getFirstName();
+		}
+		if ( $this->isNotEmptyOrNull( $donorDetails->getLastName() ) ) {
+			$responseData['last_name'] = $parts[] = $donorDetails->getLastName();
+		}
+		if ( $this->getData_Unstaged_Escaped( 'full_name' ) === implode( ' ', $parts ) ) {
+			// If we already have the full name field populated, it's likely we've just split it on spaces
+			// to get the first_name and last_name fields. We don't actually want to send the first_name
+			// and last_name to the queue in that case - better to let the more sophisticated name parsing
+			// at the Civi side get all the information out the full_name field.
+			unset( $responseData['first_name'] );
+			unset( $responseData['last_name'] );
+		}
 	}
 
 	protected function getQueueDonationMessage(): array {
