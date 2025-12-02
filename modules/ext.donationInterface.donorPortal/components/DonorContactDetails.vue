@@ -25,7 +25,10 @@
 				<p class="text text--body">
 					{{ $i18n( "donorportal-donorid", id ).text() }}<br>
 					{{ email }}<br>
-					<a :href="emailPreferencesUrl" class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
+					<a
+						v-if="emailPreferencesUrl"
+						:href="emailPreferencesUrl"
+						class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
 				</p>
 			</div>
 		</div>

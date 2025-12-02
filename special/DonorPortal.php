@@ -317,11 +317,15 @@ class DonorPortal extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Get a link to the Email Preferences special page
+	 * Get a link to the Email Preferences special page, or null if configured
+	 * not to display
 	 * @param array $formParameters
-	 * @return string
+	 * @return string|null
 	 */
-	protected function getPreferencesUrl( array $formParameters ): string {
+	protected function getPreferencesUrl( array $formParameters ): ?string {
+		if ( !$this->getConfig()->get( 'DonationInterfaceShowEmailPreferencesLink' ) ) {
+			return null;
+		}
 		$title = self::getTitleFor( 'EmailPreferences', 'emailPreferences' );
 		return $title->getLocalUrl( [
 			'contact_id' => $formParameters['contact_id'] ?? null,
