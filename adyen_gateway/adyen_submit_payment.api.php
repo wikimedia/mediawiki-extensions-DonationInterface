@@ -71,7 +71,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$className,
 			$this->orderId . ':' . $this->orderId
 		);
-
+		$this->logger->info( 'Starting payment request for: ' . $this->donationData['email'] );
 		if ( $this->donationData['payment_method'] == 'applepay' ) {
 			$this->donationData['payment_method'] = 'apple';
 			$this->donationData['utm_campaign'] = 'iOS';
@@ -136,6 +136,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$paymentProvider = PaymentProviderFactory::getProviderForMethod( $this->donationData['payment_method'] );
 
 		try {
+			$this->logger->info( 'Calling create payment' );
+
 			$createPaymentResponse = $paymentProvider->createPayment( $this->getCreatePaymentParams() );
 			$this->logger->info( ' Create payment response with: ' . json_encode( $createPaymentResponse->getRawResponse() ) );
 
@@ -162,6 +164,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		// Approve (capture) if needed
 		if ( $createPaymentResponse->getStatus() === FinalStatus::PENDING_POKE ) {
 			try {
+				$this->logger->info( 'Calling approve payment' );
+
 				$approvePaymentResponse = $paymentProvider->approvePayment( [
 					'amount' => $this->donationData['amount'],
 					'currency' => $this->donationData['currency'],
@@ -375,6 +379,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$response['error_message'] = $this->generateErrorMessage();
 		$response['order_id'] = $this->orderId;
 		$this->sendToPaymentsInit( 'failed' );
+		$this->logger->info( 'Payment failed with error: ' . json_encode( $response ) );
 		$this->getResult()->addValue( null, 'response', $response );
 	}
 
