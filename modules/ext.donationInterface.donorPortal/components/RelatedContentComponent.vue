@@ -48,10 +48,29 @@
 			</div>
 			<div class="dp-card__body dp-card__body--compact">
 				<div class="dp-card__player">
-					<img
-						:src="`${ assets_path }/images/how-wikipedia-works.jpg`"
-						:alt="howWikipediaWorksAltText"
-						@click="launchWikipediaVideo">
+					<popup-link>
+						<template #link-text>
+							<img
+								:src="`${ assets_path }/images/how-wikipedia-works.jpg`"
+								:alt="$i18n( 'donorportal-aside-faq-how-wikipedia-works' ).text()"
+							>
+						</template>
+						<template #popup-body>
+							<div class="modal-overlay">
+								<video
+									id="wikipediaVideo"
+									autoplay
+									controls
+									:poster="`${ assets_path }/images/wikipedia-video-poster.jpg`">
+									<source
+										v-for="source in wikipediaVideoSources"
+										:key="source.url"
+										:src="source.url"
+										:type="source.type">
+								</video>
+							</div>
+						</template>
+					</popup-link>
 				</div>
 				<div class="video-attribution">
 					<a
@@ -63,30 +82,18 @@
 		<!-- End of Widget -->
 	</aside>
 	<!-- End of Related Content -->
-	<div
-		v-if="showWikipediaVideo"
-		class="modal-overlay"
-		@click="dismissModal">
-		<video
-			id="wikipediaVideo"
-			:poster="`${ assets_path }/images/wikipedia-video-poster.jpg`">
-			<source
-				v-for="source in wikipediaVideoSources"
-				:key="source.url"
-				:src="source.url"
-				:type="source.type">
-		</video>
-	</div>
 </template>
 
 <script>
-const { defineComponent, ref, nextTick } = require( 'vue' );
+const { defineComponent } = require( 'vue' );
+const PopupLink = require( './PopupLink.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'RelatedContentComponent',
-
+	components: {
+		'popup-link': PopupLink
+	},
 	setup() {
-		const showWikipediaVideo = ref( false );
 
 		return {
 			assets_path: mw.config.get( 'assets_path' ),
@@ -94,24 +101,9 @@ module.exports = exports = defineComponent( {
 			otherWaysUrl: mw.config.get( 'otherWaysUrl' ),
 			legacyUrl: mw.config.get( 'legacyUrl' ),
 			newDonationUrl: mw.config.get( 'newDonationUrl' ),
-			showWikipediaVideo,
 			wikipediaVideoSources: mw.config.get( 'wikipediaVideoSources' ),
-			wikipediaVideoCommonsUrl: mw.config.get( 'wikipediaVideoCommonsUrl' ),
-			launchWikipediaVideo: async () => {
-				showWikipediaVideo.value = true;
-				await nextTick();
-				document.getElementById( 'wikipediaVideo' ).play();
-			},
-			dismissModal: ( e ) => {
-				showWikipediaVideo.value = false;
-				e.preventDefault();
-			}
+			wikipediaVideoCommonsUrl: mw.config.get( 'wikipediaVideoCommonsUrl' )
 		};
-	},
-	computed: {
-		howWikipediaWorksAltText() {
-			return this.$i18n( 'donorportal-aside-faq-how-wikipedia-works' ).text();
-		}
 	}
 } );
 </script>
