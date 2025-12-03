@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"SZ475"
+		]
 	},
 	"emailpreferences-change-email": "Schimbă adresa de e-mail",
 	"emailpreferences-country": "Țară sau regiune",
