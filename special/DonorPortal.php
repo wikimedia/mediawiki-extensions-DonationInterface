@@ -314,6 +314,11 @@ class DonorPortal extends UnlistedSpecialPage {
 				]
 			)
 		);
+
+		$out->addLink( [
+			'rel' => 'dns-prefetch',
+			'href' => 'https://upload.wikimedia.org'
+		] );
 	}
 
 	/**
