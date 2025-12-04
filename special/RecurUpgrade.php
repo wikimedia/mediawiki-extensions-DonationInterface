@@ -55,7 +55,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			if ( $formParams === null ) {
 				$this->renderError( $params );
 				return;
-			} elseif ( $formParams['is_error'] && $formParams[ 'error_message' ] === self::CIVI_NO_RESULTS_ERROR ) {
+			} elseif ( !empty( $formParams['is_error'] ) && $formParams[ 'error_message' ] === self::CIVI_NO_RESULTS_ERROR ) {
 				$this->renderEmpty( $params );
 				return;
 			}
@@ -86,7 +86,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	protected function paramsForRecurUpgradeForm( string $checksum, string $contactID, ?string $country ): ?array {
 		$recurData = CiviproxyConnect::getRecurDetails( $checksum, $contactID );
-		if ( $recurData[ 'is_error' ] ) {
+		if ( !empty( $recurData['is_error'] ) ) {
 			$logger = self::getLogger();
 
 			if ( $recurData[ 'error_message' ] == self::CIVI_NO_RESULTS_ERROR ) {
