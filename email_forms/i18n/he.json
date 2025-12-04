@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Guycn2"
+			"Guycn2",
+			"YaronSh"
 		]
 	},
 	"donorportal-title": "פורטל התורמים של קרן ויקימדיה",
@@ -37,7 +38,7 @@
 	"donorportal-update-donation-paypal-disable-text": "התרומה הקבועה שלך מעובדת דרך פייפאל. שינויים בתרומה שלך חייבים להתבצע ישירות דרך חשבון הפייפאל שלך.",
 	"donorportal-update-donation-problem-log-in": "אם לא קיבלת דוא\"ל עם קישור ההתחברות שלך, נא לוודא שכתובת הדוא\"ל ש בההשתמשת היא אותה הכתובת ששימשה לתרומות שלך לקרן ויקימדיה.",
 	"donorportal-update-donation-problem-log-in-contact-us": "אם עדיין לא הצלחת להתחבר לחשבון התורם שלך, $1, שישמח לעזור לך.",
-	"donorportal-update-donation-donor-relations-team": "נא ליצור קשר עם צוות יחסי התורמים שלנו",
+	"donorportal-update-donation-donor-relations-team": "נא ליצור קשר עם צוות קשרי התורמים שלנו",
 	"donorportal-close": "סגירה",
 	"donorportal-new-donation": "תרומה חדשה",
 	"donorportal-recurring-pause": "השהיה",
