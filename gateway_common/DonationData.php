@@ -54,6 +54,7 @@ class DonationData implements LogPrefixProvider {
 		'amountGiven',
 		'amountOther',
 		'appeal',
+		'app_install_id',
 		'authorization_id',
 		'bank_account_type', // adyen ach bank account type: saving or checking
 		'bank_check_digit',
@@ -825,6 +826,11 @@ class DonationData implements LogPrefixProvider {
 		$utm_medium = strtolower( $this->getVal( 'utm_medium' ) ?? $this->getVal( 'wmf_medium' ) ?? '' );
 		if ( $utm_medium == 'wikipediaapp' ) {
 			$source_parts[1] = 'app';
+			// The web (app) donations are passing through an app_install_id
+			$app_install_id = $this->getVal( 'app_install_id' );
+			if ( $app_install_id !== null ) {
+				$this->setVal( 'utm_key', $app_install_id );
+			}
 		}
 
 		// If we don't have the banner or any utm_source, set it to the empty string.
@@ -879,6 +885,7 @@ class DonationData implements LogPrefixProvider {
 		$tracking_fields = [
 			'amount',
 			'appeal',
+			'app_install_id',
 			'country',
 			'currency',
 			'gateway',
