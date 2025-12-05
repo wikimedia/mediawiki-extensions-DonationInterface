@@ -8,10 +8,21 @@
 				<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
 			</p>
 			<p v-if="isActive" class="text text--body">
-				{{ contribution.payment_method }} <!--a
-					href="#"
-					target="_blank"
-					class="link">[ Edit ]</a-->
+				{{ contribution.payment_method }}
+				[&nbsp;
+				<popup-link>
+					<template #link-text>
+						{{ $i18n( 'donorportal-edit-text' ).text() }}
+					</template>
+					<template #popup-body>
+						<h2 id="popup-title">{{ $i18n( 'donorportal-coming-soon' ).text() }}</h2>
+						<p class="popup-body">
+							{{ $i18n( 'donorportal-update-payment-method-explanation' ).text() }}
+						</p>
+						<p class="popup-body" v-html="emailTemplate"></p>
+					</template>
+				</popup-link>
+				&nbsp;]
 			</p>
 			<p v-if="isActive" class="text text--body">
 				{{ recurringNextContributionAmountWithDate }}
@@ -42,7 +53,13 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
+const PopupLink = require( './PopupLink.vue' );
+const normalizeInput = require( '../normalizeInput.js' );
+
 module.exports = exports = defineComponent( {
+	components: {
+		'popup-link': PopupLink
+	},
 	props: {
 		contribution: {
 			type: Object,
@@ -55,12 +72,20 @@ module.exports = exports = defineComponent( {
 	},
 	setup() {
 		return {
-			newDonationUrl: mw.config.get( 'newDonationUrl' )
+			newDonationUrl: mw.config.get( 'newDonationUrl' ),
+			helpEmail: mw.config.get( 'help_email' ),
+			donorSummary: mw.config.get( 'donorData' )
 		};
 	},
 	computed: {
 		isPaused: function () {
 			return this.isActive && this.contribution.is_paused;
+		},
+		emailTemplate: function () {
+			const here = this.$i18n( 'donorportal-here' );
+			const emailSubject = this.$i18n( 'donorportal-update-payment-method-explanation-template-subject' ).text();
+			const emailBody = this.$i18n( 'donorportal-update-payment-method-explanation-template-body', normalizeInput.escapeHtml( this.donorSummary.name ), this.donorSummary.email, this.contribution.amount_formatted + ' ' + this.contribution.currency ).text();
+			return this.$i18n( 'donorportal-update-payment-method-explanation-template-to', `<a href="mailto:${ this.helpEmail }?subject=${ emailSubject }&body=${ emailBody }">${ here }</a>` ).text();
 		},
 		statusWord: function () {
 			let keySuffix = 'active';

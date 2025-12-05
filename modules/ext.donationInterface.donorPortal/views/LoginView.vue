@@ -64,7 +64,7 @@
 		<section class="auth__display">
 			<figure>
 				<img
-					:src="`${ assets_path }/images/login-page-bg.jpg`"
+					src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Sunrise_View_of_Inle_Lake.jpg/1280px-Sunrise_View_of_Inle_Lake.jpg"
 					:alt="figureAltText">
 				<figcaption v-html="figureCaption"></figcaption>
 			</figure>
@@ -82,7 +82,6 @@ module.exports = exports = defineComponent( {
 	},
 	setup() {
 		return {
-			assets_path: mw.config.get( 'assets_path' ),
 			helpEmail: mw.config.get( 'help_email' )
 		};
 	},

@@ -191,7 +191,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 
 		if ( $urlParts ) {
 			$out->addLink( [
-				'rel' => 'prefetch',
+				'rel' => 'dns-prefetch',
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				'href' => $urlParts['scheme'] . '://' . $urlParts['host']
 			] );
