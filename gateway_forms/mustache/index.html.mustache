@@ -23,7 +23,7 @@
 									{{> payment_amount }}
 								</div>
 {{# show_personal_fields }}
-								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" /></h3>
+								<h3 class="cc_header">{{ l10n "donate_interface-cc-form-header-personal" }}<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" alt="" role="presentation" /></h3>
 	{{> personal_info }}
 {{/ show_personal_fields }}
 {{> opt_in }}
@@ -33,6 +33,7 @@
 				<input type="hidden" value="{{ country }}" name="country" id="country" />
 				<input type="hidden" value="{{ bin_hash }}" name="bin_hash" id="bin_hash"/>
 				<input type="hidden" value="{{ expiration }}" name="expiration" id="expiration"/>
+				<input type="hidden" value="{{ checksum }}" name="checksum" id="checksum"/>
 				<input type="hidden" value="{{ contact_id }}" name="contact_id" id="contact_id"/>
 				<input type="hidden" value="{{ contact_hash }}" name="contact_hash" id="contact_hash"/>
 				<input type="hidden" value="{{ utm_source }}" name="utm_source" id="utm_source"/>

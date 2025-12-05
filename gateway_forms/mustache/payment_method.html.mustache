@@ -1,11 +1,11 @@
-								<dl class="submethods">
-									<dd class="field">
+								<div class="submethods">
+									<div class="field">
 {{# show_submethods }}
 										<ul class="options-h enabled {{ button_class }}" id="cards">
 {{# submethods }} {{! TODO: give every submethod a label_key, remove conditionals }}
                                                 <li title="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" {{# sub_text_key }}class="has_sub_text" {{/ sub_text_key }}>
                                                 <label for="submethod-{{ key }}">
-                                                    <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
+                                                    <input id="submethod-{{ key }}" name="payment_submethod-{{ key }}" type="radio" value="{{ key }}" class="cardradio" />
                                                     <img class="submethod-logo" alt="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" src="{{ logo }}" {{{ srcset }}}/>
 {{# sub_text_key }}
                                                     <p class="card_sub_text">{{ l10n . }}</p>
@@ -21,8 +21,8 @@
 {{# show_single_submethod }}
 										<img class="submethod-logo" alt="{{# submethod_label_key }}{{ l10n . }}{{/ submethod_label_key }}{{^ submethod_label_key }}{{ submethod_label }}{{/ submethod_label_key }}" src="{{ submethod_logo }}" {{{ submethod_srcset }}}/>
 {{/ show_single_submethod }}
-									</dd>
-								</dl>
+									</div>
+								</div>
 {{> account_routing_hint }}
 {{> trustly_note }}
 {{> sepa_mandate_note }}
@@ -47,7 +47,7 @@
 								<div id="paymentSubmit" > <input class="btn enabled" id="paymentSubmitBtn" type="button" value="{{ l10n "donate_interface-submit-button" }}" /></div>
 {{# is_cc }}
 								<div class="mw-donate-submessage" id="payment_gateway-donate-submessage">
-									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif"> {{ l10n "donate_interface-donate-click" }}
+									<img src="{{ script_path }}/extensions/DonationInterface/gateway_forms/includes/padlock.gif" alt="" role="presentation"> {{ l10n "donate_interface-donate-click" }}
 								</div>
 {{/ is_cc }}
 {{> auth_ach }}

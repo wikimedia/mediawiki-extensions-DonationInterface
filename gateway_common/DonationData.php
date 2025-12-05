@@ -67,9 +67,10 @@ class DonationData implements LogPrefixProvider {
 		'card_num',
 		'card_scheme', // Gr4vy google pay: example VISA
 		'card_suffix', // first 4 digits in card number
+		'checksum',
 		'city',
 		'color_depth', // device fingerprinting
-		'contact_hash',
+		'contact_hash', // deprecated in favor of 'checksum'
 		'contact_id',
 		'country',
 		'country_code_bank',
@@ -1092,6 +1093,7 @@ class DonationData implements LogPrefixProvider {
 	public static function getRetryFields() {
 		$fields = [
 			'amount',
+			'checksum',
 			'contact_hash',
 			'contact_id',
 			'country',
@@ -1114,6 +1116,7 @@ class DonationData implements LogPrefixProvider {
 	public static function getSessionFields() {
 		$fields = array_merge( self::getMessageFields(), [
 			'appeal',
+			'checksum',
 			'contact_hash',
 			'contact_id',
 			'iban',

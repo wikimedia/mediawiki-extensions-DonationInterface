@@ -1164,8 +1164,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 	/**
 	 * IMPORTANT: only add the contact_id to a message if the contact_hash
-	 * is preset. We don't want to allow overwriting arbitrary CiviCRM
-	 * contacts.
+	 * or checksum is preset. We don't want to allow overwriting arbitrary
+	 * CiviCRM contacts.
 	 *
 	 * @param array $message
 	 * @return array
@@ -1173,9 +1173,14 @@ abstract class GatewayAdapter implements GatewayType {
 	protected function addContactMessageFields( $message ) {
 		$contactId = $this->getData_Unstaged_Escaped( 'contact_id' );
 		$contactHash = $this->getData_Unstaged_Escaped( 'contact_hash' );
-		if ( $contactId && $contactHash ) {
+		$checksum = $this->getData_Unstaged_Escaped( 'checksum' );
+		if ( $contactId && ( $contactHash || $checksum ) ) {
 			$message['contact_id'] = $contactId;
-			$message['contact_hash'] = $contactHash;
+			if ( $checksum ) {
+				$message['checksum'] = $checksum;
+			} elseif ( $contactHash ) {
+				$message['contact_hash'] = $contactHash;
+			}
 		}
 		return $message;
 	}

@@ -128,6 +128,7 @@
 			action: action || 'donate',
 			bin_hash: $( '#bin_hash' ).val(),
 			gateway: $( '#gateway' ).val(),
+			checksum: $( '#checksum' ).val(),
 			contact_id: $( '#contact_id' ).val(),
 			contact_hash: $( '#contact_hash' ).val(),
 			currency: $( '#currency' ).val(),
