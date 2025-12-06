@@ -15,7 +15,9 @@
 						{{ $i18n( 'donorportal-edit-text' ).text() }}
 					</template>
 					<template #popup-body>
-						<h2 id="popup-title">{{ $i18n( 'donorportal-coming-soon' ).text() }}</h2>
+						<h2 id="popup-title">
+							{{ $i18n( 'donorportal-coming-soon' ).text() }}
+						</h2>
 						<p class="popup-body">
 							{{ $i18n( 'donorportal-update-payment-method-explanation' ).text() }}
 						</p>
