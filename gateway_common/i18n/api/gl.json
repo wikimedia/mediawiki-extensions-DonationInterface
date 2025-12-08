@@ -10,7 +10,7 @@
 	"apihelp-donate-param-gateway": "A pasarela de pagamento a usar: adyen, globalcollect etc.",
 	"apihelp-donate-param-amount": "A cantidade doada.",
 	"apihelp-donate-param-contact_id": "Identificador do doante en CiviCRM.",
-	"apihelp-donate-param-contact_hash": "Resumo criptográfico do doante en CiviCRM, usado para verificación. Obrigatorio cando se indica o contact_id.",
+	"apihelp-donate-param-contact_hash": "Resumo criptográfico do doante en CiviCRM, usado para verificación. Obrigatorio cando se indica «contact_id».",
 	"apihelp-donate-param-currency": "Código da moeda.",
 	"apihelp-donate-param-first_name": "Nome.",
 	"apihelp-donate-param-last_name": "Apelidos.",
