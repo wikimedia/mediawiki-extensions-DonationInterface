@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Bananax47",
+			"Cquoi",
 			"Derugon",
 			"DreZhsh",
 			"Gomoko",
@@ -89,6 +90,7 @@
 	"apihelp-requestCancelRecurring-param-checksum": "Somme de contrôle du donateur réalisant la demande d’annulation",
 	"apihelp-requestCancelRecurring-param-contribution_recur_id": "Identifiant du don récurrent que le donateur souhaite annuler",
 	"apihelp-requestCancelRecurring-param-wmf_campaign": "Variable de suivi.",
+	"apihelp-requestAnnualConversion-summary": "Cette API demande la conversion d'une contribution mensuelle récurrente en une contribution annuelle à partir de la page de préférences du donateur.",
 	"apihelp-di_donate_adyen-summary": "Cette API est pour Adyen",
 	"apihelp-di_donate_adyen-param-amount": "Le montant du don.",
 	"apihelp-di_donate_adyen-param-bank_account_type": "Type de compte bancaire",
