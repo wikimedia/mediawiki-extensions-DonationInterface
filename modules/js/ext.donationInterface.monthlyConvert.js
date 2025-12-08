@@ -39,7 +39,40 @@
 			suggestedAmount, currency, locale
 		);
 		$( '.mc-convert-ask' ).text( convertAmountFormatted );
+	};
+
+	mc.showModal = function () {
+		const cookieDomains = [
+			'en.wikipedia.org',
+			'en.wiktionary.org',
+			'en.wikisource.org',
+			'en.wikibooks.org',
+			'en.wikiversity.org',
+			'en.wikiquote.org',
+			'en.wikinews.org',
+			'meta.wikimedia.org',
+			'commons.wikimedia.org',
+			'species.wikimedia.org',
+			'www.mediawiki.org',
+			'www.wikidata.org',
+			'en.wikivoyage.org'
+		];
+		const cookieImgDiv = document.querySelector( 'div#hide-cookies' );
+		let img;
 		$( '.mc-modal-screen' ).show();
+		for ( let i = 0; i < cookieDomains.length; i++ ) {
+			img = document.createElement( 'img' );
+			img.setAttribute( 'height', '1' );
+			img.setAttribute( 'width', '1' );
+			img.setAttribute( 'tabindex', '-1' );
+			img.setAttribute( 'aria-hidden', 'true' );
+			img.setAttribute( 'alt', '' );
+			img.setAttribute(
+				'src',
+				'//' + cookieDomains[ i ] + '/w/index.php?title=Special:HideBanners&category=fundraising&reason=donate'
+			);
+			cookieImgDiv.append( img );
+		}
 	};
 
 	mc.formatAmount = function ( amount, currency, locale ) {
@@ -157,6 +190,7 @@
 				currency,
 				locale
 			);
+			mc.showModal();
 			mc.focusModel();
 			mc.setSmallAmountMessageAndMinLocal( currency, locale );
 			$( '.mc-no-button, .mc-close' ).on( 'click keypress', ( e ) => {
