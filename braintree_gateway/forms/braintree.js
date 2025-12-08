@@ -109,7 +109,7 @@
 				client: clientInstance,
 				allowDesktop: true,
 				mobileWebFallBack: true,
-				allowNewBrowserTab: false,
+				allowNewBrowserTab: true,
 				allowDesktopWebLogin: true, // force web login, QR code depreciate
 				paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
 			} );
