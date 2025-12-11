@@ -655,4 +655,19 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	 */
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 	}
+
+	protected function preloadScript( string $url, bool $anonymous = false, ?string $integrity = null ): void {
+		$linkParams = [
+			'href' => $url,
+			'rel' => 'preload',
+			'as' => 'script',
+		];
+		if ( $integrity ) {
+			$linkParams['integrity'] = $integrity;
+		}
+		if ( $anonymous ) {
+			$linkParams['crossorigin'] = 'anonymous';
+		}
+		$this->getOutput()->addLink( $linkParams );
+	}
 }

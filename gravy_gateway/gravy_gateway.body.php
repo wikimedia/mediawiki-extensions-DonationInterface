@@ -33,7 +33,7 @@ class GravyGateway extends GatewayPage {
 		} elseif ( $this->isGooglePay() ) {
 			$this->setupGooglePayResources( $out );
 		} elseif ( $this->isApplePay() ) {
-			$this->setupApplePayResources( $out );
+			$this->setupApplePayResources();
 		}
 	}
 
@@ -46,7 +46,7 @@ class GravyGateway extends GatewayPage {
 		$secureFieldsJS = $this->adapter->getAccountConfig( 'secureFieldsJS' );
 		$secureFieldsCSS = $this->adapter->getAccountConfig( 'secureFieldsCSS' );
 		$out->addStyle( $secureFieldsCSS );
-		$this->preloadScript( $out, $secureFieldsJS );
+		$this->preloadScript( $secureFieldsJS );
 	}
 
 	/**
@@ -60,33 +60,15 @@ class GravyGateway extends GatewayPage {
 		if ( $wgGravyGooglePayMerchantID ) {
 			$out->addJsConfigVars( 'wgGravyGooglePayMerchantID', $wgGravyGooglePayMerchantID );
 		}
-		$this->preloadScript( $out, $googlePayJS );
+		$this->preloadScript( $googlePayJS );
 	}
 
 	/**
 	 * Setup resources for Apple Pay payments
-	 *
-	 * @param OutputPage $out
 	 */
-	private function setupApplePayResources( OutputPage $out ): void {
+	private function setupApplePayResources(): void {
 		$applePayJS = $this->adapter->getAccountConfig( 'AppleScript' );
-		$this->preloadScript( $out, $applePayJS );
-	}
-
-	/**
-	 * Add script preload link to output page
-	 *
-	 * @param OutputPage $out
-	 * @param string $scriptUrl
-	 */
-	private function preloadScript( OutputPage $out, string $scriptUrl ): void {
-		$out->addLink(
-			[
-				'href' => $scriptUrl,
-				'rel' => 'preload',
-				'as' => 'script',
-			]
-		);
+		$this->preloadScript( $applePayJS );
 	}
 
 	/**
