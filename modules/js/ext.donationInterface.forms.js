@@ -234,16 +234,22 @@
 		}
 	}
 
-	function loadScript( script_link, setup_callback ) {
-		const scriptNode = document.createElement( 'script' );
-		scriptNode.src = script_link;
-		scriptNode.onload = setup_callback;
-		scriptNode.onerror = function () {
-			mw.donationInterface.validation.showErrors(
-				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
-			);
-		};
-		document.body.append( scriptNode );
+	function loadScript( script_link, integrity ) {
+		return new Promise( ( resolve, reject ) => {
+			const scriptNode = document.createElement( 'script' );
+			scriptNode.src = script_link;
+			if ( integrity ) {
+				scriptNode.integrity = integrity;
+			}
+			scriptNode.onload = resolve;
+			scriptNode.onerror = ( error ) => {
+				mw.donationInterface.validation.showErrors(
+					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
+				);
+				reject( error );
+			};
+			document.body.append( scriptNode );
+		} );
 	}
 
 	function simpleHash( str ) {
