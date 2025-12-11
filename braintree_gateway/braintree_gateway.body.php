@@ -20,14 +20,18 @@ class BraintreeGateway extends GatewayPage {
 	protected $gatewayIdentifier = BraintreeAdapter::IDENTIFIER;
 
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
-		$clientScript = $this->adapter->getAccountConfig( 'clientScript' );
-		$paypalScript = $this->adapter->getAccountConfig( 'paypalScript' );
-		$venmoScript = $this->adapter->getAccountConfig( 'venmoScript' );
-		$deviceScript = $this->adapter->getAccountConfig( 'deviceScript' );
-		$out->addScript( "<script src=\"{$clientScript}\"></script>" );
-		$out->addScript( "<script src=\"{$paypalScript}\"></script>" );
-		$out->addScript( "<script src=\"{$venmoScript}\"></script>" );
-		$out->addScript( "<script src=\"{$deviceScript}\"></script>" );
+		foreach ( $this->getScriptsToLoad() as $script ) {
+			$this->preloadScript( $script );
+		}
+	}
+
+	protected function getScriptsToLoad(): array {
+		return [
+			$this->adapter->getAccountConfig( 'clientScript' ),
+			$this->adapter->getAccountConfig( 'paypalScript' ),
+			$this->adapter->getAccountConfig( 'venmoScript' ),
+			$this->adapter->getAccountConfig( 'deviceScript' ),
+		];
 	}
 
 	/** @inheritDoc */
@@ -42,6 +46,7 @@ class BraintreeGateway extends GatewayPage {
 		$vars['DonationInterfaceFailUrl'] = $failPage;
 		$vars['clientToken'] = $this->adapter->getClientToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+		$vars['scriptsToLoad'] = $this->getScriptsToLoad();
 	}
 
 	/**

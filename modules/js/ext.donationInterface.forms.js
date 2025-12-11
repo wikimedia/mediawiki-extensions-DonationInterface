@@ -255,6 +255,19 @@
 		} );
 	}
 
+	/**
+	 * Load an array of script sources (without integrity hashes or crossorigin attributes)
+	 *
+	 * @param {string[]} srcArray
+	 * @return {Promise|*}
+	 */
+	function loadScripts( srcArray ) {
+		// Array.map by default sends three arguments to the callback function - the
+		// actual array element, the index, and then the whole array. We wrap loadScript
+		// in another function here so loadScript only receives the first of those.
+		return Promise.all( srcArray.map( ( script ) => loadScript( script ) ) );
+	}
+
 	function simpleHash( str ) {
 		let hash = 0;
 		for ( let i = 0; i < str.length; i++ ) {
@@ -303,6 +316,7 @@
 		resetSubmethod: resetSubmethod,
 		getOptIn: getOptIn,
 		loadScript: loadScript,
+		loadScripts: loadScripts,
 		setBinHash: setBinHash,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {
