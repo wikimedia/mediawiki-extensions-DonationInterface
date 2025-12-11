@@ -53,21 +53,32 @@ class GenericPatternFilter {
 	}
 
 	/**
-	 * Check if a value matches a wildcard pattern
+	 * Checks if the given value matches the pattern with wildcards.
+	 * Wildcards in the pattern are denoted by asterisks (`*`) and can match any sequence of characters.
 	 *
-	 * @param mixed $value The actual value to check
-	 * @param string $pattern The pattern with wildcards (e.g., '*@aol.com')
-	 * @return bool
+	 * @param mixed $value The value to check against the pattern. If null, the match will automatically return false.
+	 * @param string $pattern The wildcard pattern to match the value against. Asterisks (`*`) can be used as wildcards.
+	 *
+	 * @return bool Returns true if the value matches the pattern, otherwise false.
 	 */
 	protected function matchesWildcard( mixed $value, string $pattern ): bool {
 		if ( $value === null ) {
 			return false;
 		}
 
-		// Strip the wildcard and check if the value contains the remaining part
-		$substring = str_replace( '*', '', $pattern );
+		// split the pattern by asterisks to get literal parts
+		$patternParts = explode( '*', $pattern );
 
-		return str_contains( (string)$value, $substring );
+		// escape each literal part for safe use in regex
+		$escapedParts = array_map( static function ( $part ) {
+			return preg_quote( $part, '/' );
+		}, $patternParts );
+
+		// join escaped parts with '.*' (match any characters) to create the regex pattern
+		$regexPattern = '/^' . implode( '.*', $escapedParts ) . '$/';
+
+		// match against the string value
+		return (bool)preg_match( $regexPattern, (string)$value );
 	}
 
 	/**
