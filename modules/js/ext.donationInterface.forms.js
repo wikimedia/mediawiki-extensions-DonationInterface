@@ -234,12 +234,15 @@
 		}
 	}
 
-	function loadScript( script_link, integrity ) {
+	function loadScript( script_link, anonymous, integrity ) {
 		return new Promise( ( resolve, reject ) => {
 			const scriptNode = document.createElement( 'script' );
 			scriptNode.src = script_link;
 			if ( integrity ) {
 				scriptNode.integrity = integrity;
+			}
+			if ( anonymous ) {
+				scriptNode.crossOrigin = 'anonymous';
 			}
 			scriptNode.onload = resolve;
 			scriptNode.onerror = ( error ) => {
