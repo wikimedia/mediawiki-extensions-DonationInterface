@@ -401,4 +401,67 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$gateway->runAntifraudFilters();
 	}
+
+	/**
+	 * Tests whether a transaction that exactly matches a predefined pattern filter is
+	 * rejected with the expected risk score and validation action.
+	 *
+	 * The method sets up a pattern filter configuration, creates a test transaction
+	 * with matching data, and validates the filter behavior through assertions on
+	 * the validation action, risk score, and antifraud queue message.
+	 *
+	 * @return void
+	 */
+	public function testPatternFilterExactMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			// Add a test pattern to match against
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_ruleset_bad_actor' => [
+						'utm_key' => 'bad_utm_key',
+						'utm_medium' => 'bad_utm_medium',
+						'utm_campaign' => 'bad_utm_campaign',
+						'amount' => '25.00',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['utm_key'] = 'bad_utm_key';
+		$testGatewayData['utm_medium'] = 'bad_utm_medium';
+		$testGatewayData['utm_campaign'] = 'bad_utm_campaign';
+		$testGatewayData['amount'] = '25.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		// trigger the filters against the test gateway data
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// confirm we reject the transaction and assign the expected risk score
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction matching pattern filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals(
+			100,
+			$exposed->risk_score,
+			'Risk Score should be 100 from the pattern filter match'
+		);
+
+		// check the antifraud queue message to make sure that matches
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_ruleset_bad_actor', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_ruleset_bad_actor'] );
+	}
 }
