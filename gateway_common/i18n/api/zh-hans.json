@@ -3,7 +3,8 @@
 		"authors": [
 			"ExoHyper2026",
 			"Linforest",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Plana"
 		]
 	},
 	"apihelp-donate-summary": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
@@ -38,6 +39,7 @@
 	"apihelp-donate-param-recurring": "表明交易是循环的。",
 	"apihelp-donate-param-variant": "表明捐款人填写的表单变体。",
 	"apihelp-donate-param-opt_in": "表明捐款人已启用筹款电子邮件。",
+	"apihelp-donate-param-sms_opt_in": "如果捐赠者选择接收短信",
 	"apihelp-donate-example-1": "捐款",
 	"apihelp-logPaymentsFormError-summary": "此API记录客户端捐款表单错误。",
 	"apihelp-logPaymentsFormError-param-message": "错误消息",
@@ -46,5 +48,9 @@
 	"apihelp-logPaymentsFormError-param-col": "错误发生的列",
 	"apihelp-logPaymentsFormError-param-userAgent": "浏览器的用户代理字符串",
 	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有",
+	"apihelp-di_donate_adyen-param-sms_opt_in": "如果捐赠者选择接收短信",
+	"apihelp-di_donate_dlocal-param-sms_opt_in": "如果捐赠者选择接收短信",
+	"apihelp-di_donate_gravy-param-sms_opt_in": "如果捐赠者选择接收短信",
+	"apihelp-di_donate_braintree-param-sms_opt_in": "如果捐赠者选择接收短信",
 	"apihelp-submitPayment-param-app_install_id": "用于提交付款的应用程序的安装 ID"
 }

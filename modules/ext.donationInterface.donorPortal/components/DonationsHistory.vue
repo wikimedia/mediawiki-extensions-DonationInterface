@@ -38,7 +38,7 @@
 					</button>
 				</div>
 				<div class="dp-table__actions">
-					<button class="cdx-button cdx-button--weight-quiet cdx-button--size-medium">
+					<!--button class="cdx-button cdx-button--weight-quiet cdx-button--size-medium">
 						<svg
 							class="cdx-icon"
 							xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +53,7 @@
 							</g>
 						</svg>
 						Print donation history
-					</button>
+					</button-->
 				</div>
 			</form>
 			<!-- Tabs -->
