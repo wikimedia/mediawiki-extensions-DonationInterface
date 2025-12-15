@@ -530,13 +530,21 @@
 		}
 		switch ( $( '#payment_method' ).val() ) {
 			case 'cc':
-				mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript, setupCardForm );
+				// loadScript will display an error message when the script fails to load
+				// so we just suppress the rejection with an empty catch block here.
+				mw.donationInterface.forms.loadScript( configFromServer.secureFieldsJsScript )
+					.then( setupCardForm )
+					.catch( () => {} );
 				break;
 			case 'google':
-				mw.donationInterface.forms.loadScript( configFromServer.googleScript, setupGooglePayForm );
+				mw.donationInterface.forms.loadScript( configFromServer.googleScript )
+					.then( setupGooglePayForm )
+					.catch( () => {} );
 				break;
 			case 'apple':
-				mw.donationInterface.forms.loadScript( configFromServer.appleScript, setupApplePayForm );
+				mw.donationInterface.forms.loadScript( configFromServer.appleScript )
+					.then( setupApplePayForm )
+					.catch( () => {} );
 				break;
 			case 'paypal':
 				if ( redirectPaypal && !di.validation.hasErrors() ) {

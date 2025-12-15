@@ -9,7 +9,8 @@
 
 	let di = mw.donationInterface,
 		myDeviceData,
-		payment_method = $( '#payment_method' ).val();
+		payment_method = $( '#payment_method' ).val(),
+		scripts = mw.config.get( 'scriptsToLoad' );
 
 	$( '.submethods' ).before( '<div id="' + payment_method + '-button"></div>' );
 
@@ -45,17 +46,18 @@
 		} );
 	}
 
-	// Create a client.
-	if ( payment_method === 'paypal' ) {
-		braintree.client.create( {
-			authorization: mw.config.get( 'clientToken' )
-		} ).then( ( clientInstance ) => {
-			getDeviceData( clientInstance );
-			// Create a PayPal Checkout component.
-			return braintree.paypalCheckout.create( {
-				client: clientInstance
-			} );
-		} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
+	function setup() {
+		// Create a client.
+		if ( payment_method === 'paypal' ) {
+			braintree.client.create( {
+				authorization: mw.config.get( 'clientToken' )
+			} ).then( ( clientInstance ) => {
+				getDeviceData( clientInstance );
+				// Create a PayPal Checkout component.
+				return braintree.paypalCheckout.create( {
+					client: clientInstance
+				} );
+			} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
 				vault: true
 			} ) ).then( ( paypalCheckoutInstance ) => paypal.Buttons( {
 				fundingSource: paypal.FUNDING.PAYPAL,
@@ -91,78 +93,89 @@
 					showClientSideErrorMessage( 'PayPal error' + err );
 				}
 			} ).render( '#paypal-button' ) ).then( () => {
-			// The PayPal button will be rendered in an html element with the ID
-			// `paypal-button`. This function will be called when the PayPal button
-			// is set up and ready to be used
-		} ).catch( ( err ) => {
-			// Handle component creation error
-			showClientSideErrorMessage( 'component creation error: ' + err );
-		} );
-	} else if ( payment_method === 'venmo' ) {
-		const venmoButton = document.getElementById( 'venmo-button' );
-		braintree.client.create( {
-			authorization: mw.config.get( 'clientToken' )
-		} ).then( ( clientInstance ) => {
-			getDeviceData( clientInstance );
-			// Create a Venmo component.
-			return braintree.venmo.create( {
-				client: clientInstance,
-				allowDesktop: true,
-				mobileWebFallBack: true,
-				allowNewBrowserTab: true,
-				allowDesktopWebLogin: true, // force web login, QR code depreciate
-				paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
+				// The PayPal button will be rendered in an html element with the ID
+				// `paypal-button`. This function will be called when the PayPal button
+				// is set up and ready to be used
+			} ).catch( ( err ) => {
+				// Handle component creation error
+				showClientSideErrorMessage( 'component creation error: ' + err );
 			} );
-		} ).then( ( venmoInstance ) => {
-			// Verify browser support before proceeding.
-			if ( !venmoInstance.isBrowserSupported() ) {
-				showClientSideErrorMessage( 'Browser does not support Venmo' );
-				return;
-			}
-			function handleVenmoError( err ) {
-				if ( err.code === 'VENMO_CANCELED' ) {
-					showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
-				} else if ( err.code === 'VENMO_APP_CANCELED' ) {
-					showClientSideErrorMessage( 'User canceled payment flow' );
-				} else {
-					showClientSideErrorMessage( err.message );
-				}
-			}
-			function handleVenmoSuccess( payload ) {
-				const sendData = {
-					payment_token: payload.nonce,
-					device_data: myDeviceData,
-					user_name: payload.details.username,
-					gateway_session_id: payload.details.paymentContextId
-				};
-				// payload.details.payerInfo is undefined for non-us sandbox account
-				if ( payload.details.payerInfo ) {
-					sendData.first_name = payload.details.payerInfo.firstName;
-					sendData.last_name = payload.details.payerInfo.lastName;
-					sendData.phone = payload.details.payerInfo.phoneNumber;
-					sendData.email = payload.details.payerInfo.email;
-					sendData.street_address = payload.details.payerInfo.shippingAddress;
-					sendData.customer_id = payload.details.payerInfo.externalId;
-				} else {
-					// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
-				}
-				di.forms.callDonateApi(
-					handleApiResult, sendData, 'di_donate_braintree'
-				);
-			}
-			function displayVenmoButton() {
-				venmoButton.style.display = 'block';
-				venmoButton.addEventListener( 'click', () => {
-					venmoButton.disabled = true;
-					venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
-						venmoButton.removeAttribute( 'disabled' );
-					} );
+		} else if ( payment_method === 'venmo' ) {
+			const venmoButton = document.getElementById( 'venmo-button' );
+			braintree.client.create( {
+				authorization: mw.config.get( 'clientToken' )
+			} ).then( ( clientInstance ) => {
+				getDeviceData( clientInstance );
+				// Create a Venmo component.
+				return braintree.venmo.create( {
+					client: clientInstance,
+					allowDesktop: true,
+					mobileWebFallBack: true,
+					allowNewBrowserTab: true,
+					allowDesktopWebLogin: true, // force web login, QR code depreciate
+					paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
 				} );
-			}
-			displayVenmoButton();
-		} ).catch( ( err ) => {
-			showClientSideErrorMessage( 'Error creating Venmo:' + err );
-		} );
+			} ).then( ( venmoInstance ) => {
+				// Verify browser support before proceeding.
+				if ( !venmoInstance.isBrowserSupported() ) {
+					showClientSideErrorMessage( 'Browser does not support Venmo' );
+					return;
+				}
+
+				function handleVenmoError( err ) {
+					if ( err.code === 'VENMO_CANCELED' ) {
+						showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
+					} else if ( err.code === 'VENMO_APP_CANCELED' ) {
+						showClientSideErrorMessage( 'User canceled payment flow' );
+					} else {
+						showClientSideErrorMessage( err.message );
+					}
+				}
+
+				function handleVenmoSuccess( payload ) {
+					const sendData = {
+						payment_token: payload.nonce,
+						device_data: myDeviceData,
+						user_name: payload.details.username,
+						gateway_session_id: payload.details.paymentContextId
+					};
+					// payload.details.payerInfo is undefined for non-us sandbox account
+					if ( payload.details.payerInfo ) {
+						sendData.first_name = payload.details.payerInfo.firstName;
+						sendData.last_name = payload.details.payerInfo.lastName;
+						sendData.phone = payload.details.payerInfo.phoneNumber;
+						sendData.email = payload.details.payerInfo.email;
+						sendData.street_address = payload.details.payerInfo.shippingAddress;
+						sendData.customer_id = payload.details.payerInfo.externalId;
+					} else {
+						// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
+					}
+					di.forms.callDonateApi(
+						handleApiResult, sendData, 'di_donate_braintree'
+					);
+				}
+
+				function displayVenmoButton() {
+					venmoButton.style.display = 'block';
+					venmoButton.addEventListener( 'click', () => {
+						venmoButton.disabled = true;
+						venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
+							venmoButton.removeAttribute( 'disabled' );
+						} );
+					} );
+				}
+
+				displayVenmoButton();
+			} ).catch( ( err ) => {
+				showClientSideErrorMessage( 'Error creating Venmo:' + err );
+			} );
+		}
 	}
+
+	// loadScript will display an error message when the script fails to load
+	// so we just suppress the rejection with an empty catch block here.
+	mw.donationInterface.forms.loadScripts( scripts )
+		.then( setup )
+		.catch( () => {} );
 
 } )( jQuery, mediaWiki );

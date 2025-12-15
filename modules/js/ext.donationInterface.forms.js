@@ -234,16 +234,38 @@
 		}
 	}
 
-	function loadScript( script_link, setup_callback ) {
-		const scriptNode = document.createElement( 'script' );
-		scriptNode.src = script_link;
-		scriptNode.onload = setup_callback;
-		scriptNode.onerror = function () {
-			mw.donationInterface.validation.showErrors(
-				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
-			);
-		};
-		document.body.append( scriptNode );
+	function loadScript( script_link, anonymous, integrity ) {
+		return new Promise( ( resolve, reject ) => {
+			const scriptNode = document.createElement( 'script' );
+			scriptNode.src = script_link;
+			if ( integrity ) {
+				scriptNode.integrity = integrity;
+			}
+			if ( anonymous ) {
+				scriptNode.crossOrigin = 'anonymous';
+			}
+			scriptNode.onload = resolve;
+			scriptNode.onerror = ( error ) => {
+				mw.donationInterface.validation.showErrors(
+					{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
+				);
+				reject( error );
+			};
+			document.body.append( scriptNode );
+		} );
+	}
+
+	/**
+	 * Load an array of script sources (without integrity hashes or crossorigin attributes)
+	 *
+	 * @param {string[]} srcArray
+	 * @return {Promise|*}
+	 */
+	function loadScripts( srcArray ) {
+		// Array.map by default sends three arguments to the callback function - the
+		// actual array element, the index, and then the whole array. We wrap loadScript
+		// in another function here so loadScript only receives the first of those.
+		return Promise.all( srcArray.map( ( script ) => loadScript( script ) ) );
 	}
 
 	function simpleHash( str ) {
@@ -294,6 +316,7 @@
 		resetSubmethod: resetSubmethod,
 		getOptIn: getOptIn,
 		loadScript: loadScript,
+		loadScripts: loadScripts,
 		setBinHash: setBinHash,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {

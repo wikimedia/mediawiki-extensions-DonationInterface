@@ -681,32 +681,6 @@
 		}
 	}
 
-	/**
-	 * On documentready we create a script tag and wire it up to run setup as soon as it
-	 * is loaded, or to show an error message if the external script can't be loaded.
-	 * The script should already be mostly or completely preloaded at this point, thanks
-	 * to a <link rel=preload> we add in AdyenCheckoutGateway::addGatewaySpecificResources
-	 */
-
-	function loadScript( type ) {
-		const scriptNode = document.createElement( 'script' );
-		scriptNode.onerror = function () {
-			mw.donationInterface.validation.showErrors(
-				{ general: 'Could not load payment provider Javascript. Please reload or try again later.' }
-			);
-		};
-		if ( type === 'adyen' ) {
-			scriptNode.onload = setup;
-			scriptNode.crossOrigin = 'anonymous';
-			scriptNode.integrity = configFromServer.script.integrity;
-			scriptNode.src = configFromServer.script.src;
-		} else {
-			scriptNode.src = configFromServer.googleScript;
-		}
-
-		document.body.append( scriptNode );
-	}
-
 	$( () => {
 		if ( !configFromServer ) {
 			// If the configuration has not been passed from the server, we are likely on the
@@ -718,8 +692,13 @@
 			return;
 		}
 		if ( payment_method === 'google' ) {
-			loadScript( 'google' );
+			// loadScript will display an error message when the script fails to load
+			// so we just suppress the rejection with an empty catch block here.
+			mw.donationInterface.forms.loadScript( configFromServer.googleScript )
+				.catch( () => {} );
 		}
-		loadScript( 'adyen' );
+		mw.donationInterface.forms.loadScript( configFromServer.script.src, true, configFromServer.script.integrity )
+			.then( setup )
+			.catch( () => {} );
 	} );
 } )( jQuery, mediaWiki );
