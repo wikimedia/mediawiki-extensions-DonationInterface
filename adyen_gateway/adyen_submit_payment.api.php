@@ -58,6 +58,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 
 		// Get the data
 		$this->donationData = $this->extractRequestParams();
+		$this->fixInvalidCountryData();
 
 		// Create a contribution tracking id
 		$generator = SequenceGenerators\Factory::getSequenceGenerator( 'contribution-tracking' );
@@ -71,7 +72,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		$className = DonationInterface::getAdapterClassForGateway( $this->gateway );
 		$this->logger = DonationLoggerFactory::getLoggerForType(
 			$className,
-			$this->orderId . ':' . $this->orderId
+			$this->contributionTrackingId . ':' . $this->orderId
 		);
 		$this->logger->info( ' Calling submitPayment ' . WmfFramework::getIP() );
 		$this->logger->info( ' Starting payment request for: ' . $this->donationData['email'] );
@@ -206,6 +207,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'app_version' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'banner' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'city' => [ ParamValidator::PARAM_TYPE => 'string' ],
+			// TODO: document why we need both country parameters
 			'country' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'currency' => [ ParamValidator::PARAM_TYPE => 'string' ],
 			'donor_country' => [ ParamValidator::PARAM_TYPE => 'string' ],
@@ -317,7 +319,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'order_id' => $this->orderId,
 			'user_ip' => WmfFramework::getIP(),
 			// donationData that needs to be renamed
-			'country' => strtoupper( $this->donationData['donor_country'] ),
+			'country' => $this->donationData['donor_country'],
 			'gross' => $this->donationData['amount'],
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $this->gatewayTransactionId
@@ -411,5 +413,26 @@ class AdyenSubmitPaymentApi extends ApiBase {
 		}
 		$params['user_ip'] = WmfFramework::getIP();
 		return $params;
+	}
+
+	/**
+	 * Ensures country fields are uppercase, and when not set fills them with something
+	 * looked up from the IP address.
+	 */
+	protected function fixInvalidCountryData(): void {
+		$ipCountry = false;
+		foreach ( [ 'country', 'donor_country' ] as $field ) {
+			if ( is_string( $this->donationData[$field] ) ) {
+				$this->donationData[$field] = strtoupper( $this->donationData[$field] );
+			}
+			if ( !CountryValidation::isValidIsoCode( $this->donationData[$field] ?? '' ) ) {
+				if ( $ipCountry === false ) {
+					$ipCountry = CountryValidation::lookUpCountry(
+						$this->getRequest()->getIP()
+					);
+				}
+				$this->donationData[$field] = $ipCountry;
+			}
+		}
 	}
 }
