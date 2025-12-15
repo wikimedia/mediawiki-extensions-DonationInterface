@@ -157,6 +157,7 @@
 	"donate_interface-donor-fiscal_number": "Steiernummer",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Dëst ass fakultativ.",
 	"donate_interface-donor-phone": "Telefonsnummer",
+	"donate_interface-donor-phone-optional": "Telefonsnummer (fakultativ)",
 	"donate_interface-card-name-amex": "American Express",
 	"donate_interface-card-name-visa": "Visa",
 	"donate_interface-card-name-mc": "Mastercard",

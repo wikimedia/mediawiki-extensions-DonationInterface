@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Asteralee",
 			"Ayub Abdulla",
 			"Beta16",
 			"Laos è una regione"
@@ -16,6 +17,9 @@
 	"donorportal-recurring-currency-annual": "$1 all'anno",
 	"donorportal-last-donation-date": "Ultima data di donazione: $1.",
 	"donorportal-update-donation-paypal-disable-text": "La tua donazione ricorrente viene elaborata tramite PayPal. Eventuali modifiche alla tua donazione devono essere effettuate direttamente tramite il tuo account PayPal.",
+	"donorportal-edit-text": "Modifica",
+	"donorportal-coming-soon": "Prossimamente",
+	"donorportal-here": "qui",
 	"donorportal-close": "Chiudi",
 	"donorportal-new-donation": "Fai una nuova donazione",
 	"donorportal-recurring-pause": "Pausa",
