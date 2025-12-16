@@ -172,9 +172,10 @@
 		}
 	}
 
-	// loadScript will display an error message when the script fails to load
-	// so we just suppress the rejection with an empty catch block here.
-	mw.donationInterface.forms.loadScripts( scripts )
+	// loadScript (called internally) will display an error message when a
+	// script fails to load, so we just suppress any rejections with an
+	// empty catch block here.
+	mw.donationInterface.forms.loadScriptsInOrder( scripts )
 		.then( setup )
 		.catch( () => {} );
 
