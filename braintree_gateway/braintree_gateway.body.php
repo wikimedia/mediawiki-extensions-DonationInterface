@@ -26,12 +26,27 @@ class BraintreeGateway extends GatewayPage {
 	}
 
 	protected function getScriptsToLoad(): array {
-		return [
-			$this->adapter->getAccountConfig( 'clientScript' ),
-			$this->adapter->getAccountConfig( 'paypalScript' ),
-			$this->adapter->getAccountConfig( 'venmoScript' ),
-			$this->adapter->getAccountConfig( 'deviceScript' ),
-		];
+		$clientScript = $this->adapter->getAccountConfig( 'clientScript' );
+		$paypalScript = $this->adapter->getAccountConfig( 'paypalScript' );
+		$venmoScript = $this->adapter->getAccountConfig( 'venmoScript' );
+		$deviceScript = $this->adapter->getAccountConfig( 'deviceScript' );
+
+		$paymentMethod = $this->adapter->getData_Unstaged_Escaped( 'payment_method' );
+
+		// Always load the core client script first
+		$scripts = [ $clientScript ];
+
+		// Only load the component script needed for this payment method
+		if ( $paymentMethod === 'paypal' ) {
+			$scripts[] = $paypalScript;
+		} elseif ( $paymentMethod === 'venmo' ) {
+			$scripts[] = $venmoScript;
+		}
+
+		// Device data collection is used across both payment methods
+		$scripts[] = $deviceScript;
+
+		return $scripts;
 	}
 
 	/** @inheritDoc */

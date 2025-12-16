@@ -268,6 +268,21 @@
 		return Promise.all( srcArray.map( ( script ) => loadScript( script ) ) );
 	}
 
+	/**
+	 * Loads a series of script files in the order specified by the provided array of source URLs.
+	 * Ensures that each script is fully loaded and executed before the next one begins loading.
+	 *
+	 * @param {string[]} srcArray
+	 * @return {Promise}
+	 */
+	function loadScriptsInOrder( srcArray ) {
+		const scripts = Array.isArray( srcArray ) ? srcArray : [];
+		return scripts.reduce(
+			( chain, src ) => chain.then( () => loadScript( src ) ),
+			Promise.resolve()
+		);
+	}
+
 	function simpleHash( str ) {
 		let hash = 0;
 		for ( let i = 0; i < str.length; i++ ) {
@@ -317,6 +332,7 @@
 		getOptIn: getOptIn,
 		loadScript: loadScript,
 		loadScripts: loadScripts,
+		loadScriptsInOrder: loadScriptsInOrder,
 		setBinHash: setBinHash,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {
