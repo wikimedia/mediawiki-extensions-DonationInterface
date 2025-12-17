@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Jsoby",
+			"MeahNunh",
 			"Sovichet",
 			"គីមស៊្រុន"
 		]
@@ -246,7 +247,7 @@
 	"donate_interface-payment": "ការបង់ប្រាក់",
 	"donate_interface-payment-type": "របៀបបង់ប្រាក់",
 	"donate_interface-please-complete": "សូមបំពេញការបរិច្ចាគរបស់អ្នកខាងក្រោម...",
-	"donate_interface-description": "ការពិពណ៌នា",
+	"donate_interface-description": "ពិពណ៌នា",
 	"donate_interface-donation": "ការបរិច្ចាគ",
 	"donate_interface-email-receipt": "ផ្ញើវិក័យប័ត្រទៅកាន់អ៊ីមែល",
 	"donate_interface-monthly-donation": "ធ្វើការបរិច្ចាគប្រចាំខែ",
