@@ -6,6 +6,7 @@
 		]
 	},
 	"donorportal-title": "維基媒體基金會捐贈者入口",
+	"donorportal-login-header": "存取您的捐款帳戶",
 	"donorportal-login-email-placeholder": "輸入您的電子郵件地址",
 	"donorportal-login-problems": "登入時遇到問題？",
 	"donorportal-greeting": "您好，$1！",
@@ -62,6 +63,9 @@
 	"donorportal-cancel-recurring-changed-my-mind": "我改變主意了",
 	"donorportal-cancel-recurring-switch-to-annual": "改為年度捐款",
 	"donorportal-cancel-recurring-confirmation-header": "感謝您一直以來的支持！很遺憾看到您離開。",
+	"donorportal-aside-did-you-know": "您可知道…？",
+	"donorportal-aside-fun-fact": "維基百科每月瀏覽量近 160 億次，有 300 多種語言版本可用，並且還在增加中！",
+	"donorportal-aside-faq": "常見問題",
 	"donorportal-aside-faq-how-wikipedia-works": "維基百科如何運作",
 	"donorportal-aside-article-of-the-day-heading": "每日條目",
 	"donorportal-feedback-button": "分享更多意見回饋",
