@@ -18,7 +18,8 @@
 		<section class="column--base">
 			<a
 				id="shareFeedback"
-				:href="`mailto:${helpEmail}`"
+				target="_blank"
+				:href="surveyUrl"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large">
 				{{ $i18n( "donorportal-feedback-button" ).text() }}
 			</a>
@@ -56,7 +57,8 @@ module.exports = exports = defineComponent( {
 		const assets_path = mw.config.get( 'assets_path' );
 
 		return {
-			assets_path
+			assets_path,
+			surveyUrl: mw.config.get( 'surveyUrl' )
 		};
 	},
 	computed: {
@@ -68,9 +70,6 @@ module.exports = exports = defineComponent( {
 			// * donorportal-recurring-amount-annual
 			// * donorportal-recurring-amount-monthly
 			return this.$i18n( this.recurringContribution.amount_frequency_key, this.recurringContribution.amount_formatted, this.recurringContribution.currency ).text();
-		},
-		helpEmail() {
-			return mw.config.get( 'help_email' );
 		},
 		confirmationText() {
 			return this.$i18n( 'donorportal-cancel-monthly-recurring-confirmation-text', `<strong>${ this.amountFormated }</strong>` ).text();
