@@ -66,7 +66,8 @@
 									class="cdx-radio__input"
 									type="radio"
 									name="conversion-yearly"
-									:value="updateAmount"
+									:value="otherAmount"
+									@click="selectYearlyAmountOption"
 								>
 								<span class="cdx-radio__icon"></span>
 							</div>
@@ -78,7 +79,7 @@
 							<div class="cdx-text-input">
 								<input
 									id="new-annual-recurring-amount"
-									v-model="updateAmount"
+									v-model="otherAmount"
 									class="cdx-text-input__input"
 									type="text"
 									:min="minAmount"
@@ -160,6 +161,7 @@ module.exports = exports = defineComponent( {
 	},
 	emits: [ 'update:modelValue' ],
 	setup( props, { emit } ) {
+		const otherAmount = ref( '' );
 		const updateAmount = ref( '' );
 		const priceRange = normalizeInput.getRecurringPriceRange(
 			props.recurringContribution, props.currencyRateArray, props.max
@@ -168,12 +170,13 @@ module.exports = exports = defineComponent( {
 		const maxAmount = priceRange[ 1 ];
 		const onInput = ( e ) => {
 			const cleaned = normalizeInput.sanitize( e.target.value );
-			updateAmount.value = cleaned;
+			otherAmount.value = cleaned;
 			// Auto-select the "other amount" radio button
 			const otherRadio = document.getElementById( 'conversion-yearly-other' );
 			if ( otherRadio ) {
 				otherRadio.checked = true;
 			}
+			selectYearlyAmountOption( { target: { value: cleaned } } );
 			emit( 'update:modelValue', cleaned );
 		};
 		const selectYearlyAmountOption = ( e ) => {
@@ -190,6 +193,7 @@ module.exports = exports = defineComponent( {
 		};
 		return {
 			updateAmount,
+			otherAmount,
 			onInput,
 			annualConversionAction,
 			selectYearlyAmountOption,
