@@ -92,13 +92,18 @@ module.exports = exports = defineComponent( {
 		statusWord: function () {
 			let keySuffix = 'active';
 			if ( !this.isActive ) {
-				keySuffix = 'lapsed';
+				if ( this.contribution.donor_cancelled ) {
+					keySuffix = 'cancelled';
+				} else {
+					keySuffix = 'lapsed';
+				}
 			} else if ( this.isPaused ) {
 				keySuffix = 'paused';
 			}
 			// Messages that can be used here:
 			// * donorportal-recurring-status-active
 			// * donorportal-recurring-status-lapsed
+			// * donorportal-recurring-status-cancelled
 			// * donorportal-recurring-status-paused
 			return mw.msg( 'donorportal-recurring-status-' + keySuffix );
 		},
