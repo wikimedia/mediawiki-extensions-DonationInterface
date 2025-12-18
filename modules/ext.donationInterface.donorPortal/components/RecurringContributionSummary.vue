@@ -51,11 +51,13 @@ module.exports = exports = defineComponent( {
 		},
 		contributionDate() {
 			if ( this.lastDonationDate ) {
-				let lastDate = 'N/A';
 				if ( this.recurringContribution.last_contribution_date_formatted ) {
-					lastDate = this.recurringContribution.last_contribution_date_formatted;
+					return this.$i18n(
+						'donorportal-last-donation-date',
+						this.recurringContribution.last_contribution_date_formatted
+					).text();
 				}
-				return this.$i18n( 'donorportal-last-donation-date', lastDate ).text();
+				return '';
 			} else {
 				let nextDate = 'N/A';
 				if ( this.recurringContribution.next_sched_contribution_date_formatted ) {
