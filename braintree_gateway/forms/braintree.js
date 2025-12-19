@@ -78,7 +78,7 @@
 		);
 	}
 
-	function displayVenmoButton( venmoInstance ) {
+	function displayVenmoButton( braintreeClientInstance ) {
 		const venmoButton = document.getElementById( 'venmo-button' );
 		if ( !venmoButton ) {
 			showClientSideErrorMessage( 'Venmo button element not found' );
@@ -88,7 +88,26 @@
 		venmoButton.style.display = 'block';
 		venmoButton.addEventListener( 'click', () => {
 			venmoButton.disabled = true;
-			venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
+
+			braintree.venmo.create( {
+				client: braintreeClientInstance,
+				allowDesktop: true,
+				mobileWebFallBack: true,
+				allowNewBrowserTab: true,
+				allowDesktopWebLogin: true, // force web login, QR code depreciate
+				paymentMethodUsage: getPaymentMethodUsage()
+			} ).then( ( venmoInstance ) => {
+				if ( !venmoInstance.isBrowserSupported() ) {
+					showClientSideErrorMessage( 'Browser does not support Venmo' );
+					return null;
+				}
+
+				return venmoInstance.tokenize();
+			} ).then( ( payload ) => {
+				if ( payload ) {
+					handleVenmoSuccess( payload );
+				}
+			} ).catch( handleVenmoError ).then( () => {
 				venmoButton.removeAttribute( 'disabled' );
 			} );
 		} );
@@ -97,9 +116,9 @@
 	// myDeviceData will supply device data for non-recurring vault trxns
 	// see https://developer.paypal.com/braintree/docs/guides/paypal/vault#collecting-device-data
 	// https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3/#collecting-device-data
-	function getDeviceData( clientInstance ) {
+	function getDeviceData( braintreeClientInstance ) {
 		braintree.dataCollector.create( {
-			client: clientInstance
+			client: braintreeClientInstance
 		} ).then( ( dataCollectorInstance ) => {
 			// At this point, you should access the dataCollectorInstance.deviceData value and provide it
 			// to your server, e.g. by injecting it into your form as a hidden input
@@ -161,25 +180,9 @@
 				showClientSideErrorMessage( 'component creation error: ' + err );
 			} );
 		} else if ( payment_method === 'venmo' ) {
-			createBraintreeClient().then( ( clientInstance ) => {
-				getDeviceData( clientInstance );
-				// Create a Venmo component.
-				return braintree.venmo.create( {
-					client: clientInstance,
-					allowDesktop: true,
-					mobileWebFallBack: true,
-					allowNewBrowserTab: true,
-					allowDesktopWebLogin: true, // force web login, QR code depreciate
-					paymentMethodUsage: getPaymentMethodUsage()
-				} );
-			} ).then( ( venmoInstance ) => {
-				// Verify browser support before proceeding.
-				if ( !venmoInstance.isBrowserSupported() ) {
-					showClientSideErrorMessage( 'Browser does not support Venmo' );
-					return;
-				}
-
-				displayVenmoButton( venmoInstance );
+			createBraintreeClient().then( ( braintreeClientInstance ) => {
+				getDeviceData( braintreeClientInstance );
+				displayVenmoButton( braintreeClientInstance );
 			} ).catch( ( err ) => {
 				showClientSideErrorMessage( 'Error creating Venmo:' + err );
 			} );
