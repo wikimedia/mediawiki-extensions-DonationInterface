@@ -62,6 +62,21 @@
 		} );
 	}
 
+	function getVenmoCreateOptions( braintreeClientInstance ) {
+		return {
+			client: braintreeClientInstance,
+			allowDesktop: true,
+			mobileWebFallBack: true,
+			allowNewBrowserTab: true,
+			allowDesktopWebLogin: true, // force web login, QR code depreciate
+			paymentMethodUsage: getPaymentMethodUsage()
+		};
+	}
+
+	function createVenmoInstance( braintreeClientInstance ) {
+		return braintree.venmo.create( getVenmoCreateOptions( braintreeClientInstance ) );
+	}
+
 	function handleVenmoError( err ) {
 		if ( err && err.code === 'VENMO_CANCELED' ) {
 			showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
@@ -89,14 +104,7 @@
 		venmoButton.addEventListener( 'click', () => {
 			venmoButton.disabled = true;
 
-			braintree.venmo.create( {
-				client: braintreeClientInstance,
-				allowDesktop: true,
-				mobileWebFallBack: true,
-				allowNewBrowserTab: true,
-				allowDesktopWebLogin: true, // force web login, QR code depreciate
-				paymentMethodUsage: getPaymentMethodUsage()
-			} ).then( ( venmoInstance ) => {
+			createVenmoInstance( braintreeClientInstance ).then( ( venmoInstance ) => {
 				if ( !venmoInstance.isBrowserSupported() ) {
 					showClientSideErrorMessage( 'Browser does not support Venmo' );
 					return null;
