@@ -24,7 +24,6 @@
 		}
 	}
 
-	// render error Message to client
 	function showClientSideErrorMessage( msg ) {
 		$( '.errorMsg' ).remove();
 		$( '#errorReference' ).html( '' );
@@ -37,6 +36,28 @@
 
 	function getAmountValue() {
 		return $.trim( $( '#amount' ).val() );
+	}
+
+	function createBraintreeClient() {
+		return braintree.client.create( {
+			authorization: mw.config.get( 'clientToken' )
+		} );
+	}
+
+	function createVenmoInstance( braintreeClientInstance ) {
+		return braintree.venmo.create( getVenmoCreateOptions( braintreeClientInstance ) );
+	}
+
+	function getVenmoCreateOptions( braintreeClientInstance ) {
+		return {
+			client: braintreeClientInstance,
+			allowDesktop: true,
+			mobileWebFallBack: true,
+			allowNewBrowserTab: true,
+			allowDesktopWebLogin: true, // force web login, QR code depreciate
+			paymentMethodUsage: getPaymentMethodUsage(),
+			totalAmount: getAmountValue()
+		};
 	}
 
 	function buildVenmoSendData( payload ) {
@@ -58,28 +79,6 @@
 		}
 
 		return sendData;
-	}
-
-	function createBraintreeClient() {
-		return braintree.client.create( {
-			authorization: mw.config.get( 'clientToken' )
-		} );
-	}
-
-	function getVenmoCreateOptions( braintreeClientInstance ) {
-		return {
-			client: braintreeClientInstance,
-			allowDesktop: true,
-			mobileWebFallBack: true,
-			allowNewBrowserTab: true,
-			allowDesktopWebLogin: true, // force web login, QR code depreciate
-			paymentMethodUsage: getPaymentMethodUsage(),
-			totalAmount: getAmountValue()
-		};
-	}
-
-	function createVenmoInstance( braintreeClientInstance ) {
-		return braintree.venmo.create( getVenmoCreateOptions( braintreeClientInstance ) );
 	}
 
 	function handleVenmoError( err ) {
