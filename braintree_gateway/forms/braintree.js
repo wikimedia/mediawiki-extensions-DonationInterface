@@ -35,6 +35,10 @@
 		return $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use';
 	}
 
+	function getAmountValue() {
+		return $.trim( $( '#amount' ).val() );
+	}
+
 	function buildVenmoSendData( payload ) {
 		const sendData = {
 			payment_token: payload.nonce,
@@ -69,7 +73,8 @@
 			mobileWebFallBack: true,
 			allowNewBrowserTab: true,
 			allowDesktopWebLogin: true, // force web login, QR code depreciate
-			paymentMethodUsage: getPaymentMethodUsage()
+			paymentMethodUsage: getPaymentMethodUsage(),
+			totalAmount: getAmountValue()
 		};
 	}
 
