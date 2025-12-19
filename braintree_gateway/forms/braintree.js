@@ -142,11 +142,11 @@
 
 	function setup() {
 		if ( payment_method === 'paypal' ) {
-			createBraintreeClient().then( ( clientInstance ) => {
-				getDeviceData( clientInstance );
+			createBraintreeClient().then( ( braintreeClientInstance ) => {
+				getDeviceData( braintreeClientInstance );
 				// Create a PayPal Checkout component.
 				return braintree.paypalCheckout.create( {
-					client: clientInstance
+					client: braintreeClientInstance
 				} );
 			} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
 				vault: true
