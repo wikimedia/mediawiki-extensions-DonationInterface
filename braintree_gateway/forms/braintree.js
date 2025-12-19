@@ -31,6 +31,63 @@
 		$( '#topError' ).html( msg );
 	}
 
+	function getPaymentMethodUsage() {
+		return $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use';
+	}
+
+	function buildVenmoSendData( payload ) {
+		const sendData = {
+			payment_token: payload.nonce,
+			device_data: myDeviceData,
+			user_name: payload.details.username,
+			gateway_session_id: payload.details.paymentContextId
+		};
+
+		// payload.details.payerInfo is undefined for non-us sandbox account
+		if ( payload.details.payerInfo ) {
+			sendData.first_name = payload.details.payerInfo.firstName;
+			sendData.last_name = payload.details.payerInfo.lastName;
+			sendData.phone = payload.details.payerInfo.phoneNumber;
+			sendData.email = payload.details.payerInfo.email;
+			sendData.street_address = payload.details.payerInfo.shippingAddress;
+			sendData.customer_id = payload.details.payerInfo.externalId;
+		}
+
+		return sendData;
+	}
+
+	function handleVenmoError( err ) {
+		if ( err && err.code === 'VENMO_CANCELED' ) {
+			showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
+		} else if ( err && err.code === 'VENMO_APP_CANCELED' ) {
+			showClientSideErrorMessage( 'User canceled payment flow' );
+		} else {
+			showClientSideErrorMessage( err && err.message ? err.message : String( err ) );
+		}
+	}
+
+	function handleVenmoSuccess( payload ) {
+		di.forms.callDonateApi(
+			handleApiResult, buildVenmoSendData( payload ), 'di_donate_braintree'
+		);
+	}
+
+	function displayVenmoButton( venmoInstance ) {
+		const venmoButton = document.getElementById( 'venmo-button' );
+		if ( !venmoButton ) {
+			showClientSideErrorMessage( 'Venmo button element not found' );
+			return;
+		}
+
+		venmoButton.style.display = 'block';
+		venmoButton.addEventListener( 'click', () => {
+			venmoButton.disabled = true;
+			venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
+				venmoButton.removeAttribute( 'disabled' );
+			} );
+		} );
+	}
+
 	// myDeviceData will supply device data for non-recurring vault trxns
 	// see https://developer.paypal.com/braintree/docs/guides/paypal/vault#collecting-device-data
 	// https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3/#collecting-device-data
@@ -47,7 +104,6 @@
 	}
 
 	function setup() {
-		// Create a client.
 		if ( payment_method === 'paypal' ) {
 			braintree.client.create( {
 				authorization: mw.config.get( 'clientToken' )
@@ -101,7 +157,6 @@
 				showClientSideErrorMessage( 'component creation error: ' + err );
 			} );
 		} else if ( payment_method === 'venmo' ) {
-			const venmoButton = document.getElementById( 'venmo-button' );
 			braintree.client.create( {
 				authorization: mw.config.get( 'clientToken' )
 			} ).then( ( clientInstance ) => {
@@ -113,7 +168,7 @@
 					mobileWebFallBack: true,
 					allowNewBrowserTab: true,
 					allowDesktopWebLogin: true, // force web login, QR code depreciate
-					paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
+					paymentMethodUsage: getPaymentMethodUsage()
 				} );
 			} ).then( ( venmoInstance ) => {
 				// Verify browser support before proceeding.
@@ -122,50 +177,7 @@
 					return;
 				}
 
-				function handleVenmoError( err ) {
-					if ( err.code === 'VENMO_CANCELED' ) {
-						showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
-					} else if ( err.code === 'VENMO_APP_CANCELED' ) {
-						showClientSideErrorMessage( 'User canceled payment flow' );
-					} else {
-						showClientSideErrorMessage( err.message );
-					}
-				}
-
-				function handleVenmoSuccess( payload ) {
-					const sendData = {
-						payment_token: payload.nonce,
-						device_data: myDeviceData,
-						user_name: payload.details.username,
-						gateway_session_id: payload.details.paymentContextId
-					};
-					// payload.details.payerInfo is undefined for non-us sandbox account
-					if ( payload.details.payerInfo ) {
-						sendData.first_name = payload.details.payerInfo.firstName;
-						sendData.last_name = payload.details.payerInfo.lastName;
-						sendData.phone = payload.details.payerInfo.phoneNumber;
-						sendData.email = payload.details.payerInfo.email;
-						sendData.street_address = payload.details.payerInfo.shippingAddress;
-						sendData.customer_id = payload.details.payerInfo.externalId;
-					} else {
-						// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
-					}
-					di.forms.callDonateApi(
-						handleApiResult, sendData, 'di_donate_braintree'
-					);
-				}
-
-				function displayVenmoButton() {
-					venmoButton.style.display = 'block';
-					venmoButton.addEventListener( 'click', () => {
-						venmoButton.disabled = true;
-						venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
-							venmoButton.removeAttribute( 'disabled' );
-						} );
-					} );
-				}
-
-				displayVenmoButton();
+				displayVenmoButton( venmoInstance );
 			} ).catch( ( err ) => {
 				showClientSideErrorMessage( 'Error creating Venmo:' + err );
 			} );
