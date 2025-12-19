@@ -56,6 +56,12 @@
 		return sendData;
 	}
 
+	function createBraintreeClient() {
+		return braintree.client.create( {
+			authorization: mw.config.get( 'clientToken' )
+		} );
+	}
+
 	function handleVenmoError( err ) {
 		if ( err && err.code === 'VENMO_CANCELED' ) {
 			showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
@@ -105,9 +111,7 @@
 
 	function setup() {
 		if ( payment_method === 'paypal' ) {
-			braintree.client.create( {
-				authorization: mw.config.get( 'clientToken' )
-			} ).then( ( clientInstance ) => {
+			createBraintreeClient().then( ( clientInstance ) => {
 				getDeviceData( clientInstance );
 				// Create a PayPal Checkout component.
 				return braintree.paypalCheckout.create( {
@@ -157,9 +161,7 @@
 				showClientSideErrorMessage( 'component creation error: ' + err );
 			} );
 		} else if ( payment_method === 'venmo' ) {
-			braintree.client.create( {
-				authorization: mw.config.get( 'clientToken' )
-			} ).then( ( clientInstance ) => {
+			createBraintreeClient().then( ( clientInstance ) => {
 				getDeviceData( clientInstance );
 				// Create a Venmo component.
 				return braintree.venmo.create( {
