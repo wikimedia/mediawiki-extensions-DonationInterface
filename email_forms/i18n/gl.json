@@ -51,6 +51,7 @@
 	"donorportal-recurring-pause-or-cancel": "$1 ou $2 a miña doazón",
 	"donorportal-recurring-cancel-text": "$1 a miña doazón",
 	"donorportal-recurring-status-active": "Activa",
+	"donorportal-recurring-status-cancelled": "Cancelada",
 	"donorportal-recurring-status-lapsed": "Caducada",
 	"donorportal-recurring-status-paused": "En pausa",
 	"donorportal-your-donation-history": "O teu historial de doazóns",

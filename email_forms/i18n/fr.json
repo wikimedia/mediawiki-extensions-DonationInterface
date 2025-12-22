@@ -49,6 +49,7 @@
 	"donorportal-recurring-pause-or-cancel": "$1 ou $2 mon don",
 	"donorportal-recurring-cancel-text": "$1 mon don",
 	"donorportal-recurring-status-active": "Active",
+	"donorportal-recurring-status-cancelled": "Annulée",
 	"donorportal-recurring-status-lapsed": "Expiré",
 	"donorportal-recurring-status-paused": "En pause",
 	"donorportal-your-donation-history": "Votre historique de dons",
