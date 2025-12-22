@@ -32,8 +32,12 @@ class GenericPatternFilter {
 		foreach ( $this->values as $rulePropertyName => $rulePropertyValue ) {
 			$actualValue = $transactionValues[$rulePropertyName] ?? null;
 
-			// Check if the pattern contains a wildcard
-			if ( is_string( $rulePropertyValue ) && str_contains( $rulePropertyValue, '*' ) ) {
+			// Check if the pattern contains a regex value or wildcard
+			if ( is_string( $rulePropertyValue ) && $this->isRegex( $rulePropertyValue ) ) {
+				if ( !preg_match( $rulePropertyValue, $actualValue ) ) {
+					return;
+				}
+			} elseif ( is_string( $rulePropertyValue ) && str_contains( $rulePropertyValue, '*' ) ) {
 				if ( !$this->matchesWildcard( $actualValue, $rulePropertyValue ) ) {
 					return;
 				}
@@ -50,6 +54,21 @@ class GenericPatternFilter {
 			"Matched transaction values for pattern $this->patternName: " . json_encode( $this->values )
 		);
 		$riskScores[$this->makeFilterName()] = $this->failScore;
+	}
+
+	/**
+	 * Checks if the value is a regex or a string. It returns false for any string that is not in regex form.
+	 *
+	 * @param string $value
+	 * @return bool
+	 */
+	public function isRegex( string $value ) {
+		$firstMatch = strpos( $value, '/' );
+		$lastMatch = strrpos( $value, '/' );
+		$stringLength = strlen( $value );
+		// Check for presence of regex delimeters '/' in the string
+		// For example /[A-Z]/, /[A-Z]/i, /[A-Z]/gi
+		return $firstMatch === 0 && $lastMatch !== $firstMatch && in_array( $lastMatch, [ $stringLength - 1, $stringLength - 2, $stringLength - 3 ] );
 	}
 
 	/**

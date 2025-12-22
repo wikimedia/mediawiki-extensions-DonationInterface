@@ -614,4 +614,102 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertArrayHasKey( 'PatternFilter_test_ruleset_bad_wildcard_actor', $message['score_breakdown'] );
 		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_ruleset_bad_wildcard_actor'] );
 	}
+
+	public function testPatternFilterRegexMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			// Add a test pattern to match against
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_ruleset_bad_wildcard_actor' => [
+						// here we use a regex to check for a 3 numeric character username in the email
+						'email' => '/[1-9]{3}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/i',
+						'amount' => '25.00',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['email'] = '123@bad-domain.co.jp';
+		$testGatewayData['amount'] = '25.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		// trigger the filters against the test gateway data
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// confirm we reject the transaction and assign the expected risk score
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction matching pattern filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals(
+			100,
+			$exposed->risk_score,
+			'Risk Score should be 100 from the pattern wildcard match'
+		);
+
+		// check the antifraud queue message to make sure that matches
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_ruleset_bad_wildcard_actor', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_ruleset_bad_wildcard_actor'] );
+	}
+
+	public function testPatternFilterRegexNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			// Add a test pattern to match against
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_ruleset_bad_wildcard_actor' => [
+						// here we use a regex to match 3 digit usernames with numeric values
+						'email' => '/[1-9]{3}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/i',
+						'amount' => '25.00',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['email'] = 'abc@bad-domain.co.jp';
+		$testGatewayData['amount'] = '25.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		// trigger the filters against the test gateway data
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// confirm we process the transaction and assign the expected risk score
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process transaction that does not match pattern filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame(
+			0,
+			$exposed->risk_score,
+			'Risk Score should be 0 from no match'
+		);
+
+		// check the antifraud queue message to make sure that matches
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::PROCESS, $message['validation_action'] );
+		$this->assertSame( 0, $message['risk_score'] );
+	}
 }
