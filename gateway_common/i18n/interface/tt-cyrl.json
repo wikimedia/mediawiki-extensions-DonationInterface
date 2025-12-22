@@ -85,7 +85,7 @@
 	"donate_interface-error-msg-expiration": "Картаның бетү вакытын күрсәтегез",
 	"donate_interface-error-msg-cvv": "CVV кодын күрсәтегез,күбесе очракта картаның кире ягында",
 	"donate_interface-error-msg-captcha": "Кертелгән Captcha мәгънәсе дөрес түгел. Кабат кертегез әле.",
-	"donate_interface-error-msg-captcha-please": "Зинһар, бирелгән Captcha формасын турыгыз. бу сезнең бот түгел икәнлегегезне дәлилләү өчен кирәк.",
+	"donate_interface-error-msg-captcha-please": "Зинһар, бирелгән Captcha формасын тутырыгыз. Бу кредит картагызның иминлеген саклау өчен кирәк.",
 	"donate_interface-first": "Исем",
 	"donate_interface-middle": "Әтиегезнең исеме",
 	"donate_interface-last": "Фамилия",
