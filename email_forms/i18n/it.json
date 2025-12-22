@@ -4,6 +4,7 @@
 			"Asteralee",
 			"Ayub Abdulla",
 			"Beta16",
+			"GseSro",
 			"Laos è una regione"
 		]
 	},
@@ -25,6 +26,7 @@
 	"donorportal-recurring-pause": "Pausa",
 	"donorportal-recurring-cancel": "Annulla",
 	"donorportal-recurring-cancel-text": "$1 la mia donazione",
+	"donorportal-recurring-status-cancelled": "Annullato",
 	"donorportal-endowment-donate-now": "Fai una donazione adesso",
 	"donorportal-donation-type": "Tipo",
 	"donorportal-donation-amount": "Importo",

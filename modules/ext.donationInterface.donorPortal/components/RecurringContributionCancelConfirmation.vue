@@ -122,7 +122,7 @@ module.exports = exports = defineComponent( {
 				},
 				{
 					id: 'unintended',
-					value: 'Unintended Recurring Donation',
+					value: 'Unintended recurring donation',
 					locale: `${ this.$i18n( 'donorportal-cancel-recurring-reason-unintended' ).text() }`
 				},
 				{

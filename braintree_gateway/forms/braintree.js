@@ -24,19 +24,113 @@
 		}
 	}
 
-	// render error Message to client
 	function showClientSideErrorMessage( msg ) {
 		$( '.errorMsg' ).remove();
 		$( '#errorReference' ).html( '' );
 		$( '#topError' ).html( msg );
 	}
 
+	function getPaymentMethodUsage() {
+		return $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use';
+	}
+
+	function getAmountValue() {
+		return $.trim( $( '#amount' ).val() );
+	}
+
+	function createBraintreeClient() {
+		return braintree.client.create( {
+			authorization: mw.config.get( 'clientToken' )
+		} );
+	}
+
+	function createVenmoInstance( braintreeClientInstance ) {
+		return braintree.venmo.create( getVenmoCreateOptions( braintreeClientInstance ) );
+	}
+
+	function getVenmoCreateOptions( braintreeClientInstance ) {
+		return {
+			client: braintreeClientInstance,
+			allowDesktop: true,
+			mobileWebFallBack: true,
+			allowNewBrowserTab: true,
+			allowDesktopWebLogin: true, // force web login, QR code depreciate
+			paymentMethodUsage: getPaymentMethodUsage(),
+			totalAmount: getAmountValue()
+		};
+	}
+
+	function buildVenmoSendData( payload ) {
+		const sendData = {
+			payment_token: payload.nonce,
+			device_data: myDeviceData,
+			user_name: payload.details.username,
+			gateway_session_id: payload.details.paymentContextId
+		};
+
+		// payload.details.payerInfo is undefined for non-us sandbox account
+		if ( payload.details.payerInfo ) {
+			sendData.first_name = payload.details.payerInfo.firstName;
+			sendData.last_name = payload.details.payerInfo.lastName;
+			sendData.phone = payload.details.payerInfo.phoneNumber;
+			sendData.email = payload.details.payerInfo.email;
+			sendData.street_address = payload.details.payerInfo.shippingAddress;
+			sendData.customer_id = payload.details.payerInfo.externalId;
+		}
+
+		return sendData;
+	}
+
+	function handleVenmoError( err ) {
+		if ( err && err.code === 'VENMO_CANCELED' ) {
+			showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
+		} else if ( err && err.code === 'VENMO_APP_CANCELED' ) {
+			showClientSideErrorMessage( 'User canceled payment flow' );
+		} else {
+			showClientSideErrorMessage( err && err.message ? err.message : String( err ) );
+		}
+	}
+
+	function handleVenmoSuccess( payload ) {
+		di.forms.callDonateApi(
+			handleApiResult, buildVenmoSendData( payload ), 'di_donate_braintree'
+		);
+	}
+
+	function displayVenmoButton( braintreeClientInstance ) {
+		const venmoButton = document.getElementById( 'venmo-button' );
+		if ( !venmoButton ) {
+			showClientSideErrorMessage( 'Venmo button element not found' );
+			return;
+		}
+
+		venmoButton.style.display = 'block';
+		venmoButton.addEventListener( 'click', () => {
+			venmoButton.disabled = true;
+
+			createVenmoInstance( braintreeClientInstance ).then( ( venmoInstance ) => {
+				if ( !venmoInstance.isBrowserSupported() ) {
+					showClientSideErrorMessage( 'Browser does not support Venmo' );
+					return null;
+				}
+
+				return venmoInstance.tokenize();
+			} ).then( ( payload ) => {
+				if ( payload ) {
+					handleVenmoSuccess( payload );
+				}
+			} ).catch( handleVenmoError ).then( () => {
+				venmoButton.removeAttribute( 'disabled' );
+			} );
+		} );
+	}
+
 	// myDeviceData will supply device data for non-recurring vault trxns
 	// see https://developer.paypal.com/braintree/docs/guides/paypal/vault#collecting-device-data
 	// https://developer.paypal.com/braintree/docs/guides/premium-fraud-management-tools/device-data-collection/javascript/v3/#collecting-device-data
-	function getDeviceData( clientInstance ) {
+	function getDeviceData( braintreeClientInstance ) {
 		braintree.dataCollector.create( {
-			client: clientInstance
+			client: braintreeClientInstance
 		} ).then( ( dataCollectorInstance ) => {
 			// At this point, you should access the dataCollectorInstance.deviceData value and provide it
 			// to your server, e.g. by injecting it into your form as a hidden input
@@ -47,15 +141,12 @@
 	}
 
 	function setup() {
-		// Create a client.
 		if ( payment_method === 'paypal' ) {
-			braintree.client.create( {
-				authorization: mw.config.get( 'clientToken' )
-			} ).then( ( clientInstance ) => {
-				getDeviceData( clientInstance );
+			createBraintreeClient().then( ( braintreeClientInstance ) => {
+				getDeviceData( braintreeClientInstance );
 				// Create a PayPal Checkout component.
 				return braintree.paypalCheckout.create( {
-					client: clientInstance
+					client: braintreeClientInstance
 				} );
 			} ).then( ( paypalCheckoutInstance ) => paypalCheckoutInstance.loadPayPalSDK( {
 				vault: true
@@ -101,71 +192,9 @@
 				showClientSideErrorMessage( 'component creation error: ' + err );
 			} );
 		} else if ( payment_method === 'venmo' ) {
-			const venmoButton = document.getElementById( 'venmo-button' );
-			braintree.client.create( {
-				authorization: mw.config.get( 'clientToken' )
-			} ).then( ( clientInstance ) => {
-				getDeviceData( clientInstance );
-				// Create a Venmo component.
-				return braintree.venmo.create( {
-					client: clientInstance,
-					allowDesktop: true,
-					mobileWebFallBack: true,
-					allowNewBrowserTab: true,
-					allowDesktopWebLogin: true, // force web login, QR code depreciate
-					paymentMethodUsage: $( '#recurring' ).val() === '1' ? 'multi_use' : 'single_use'
-				} );
-			} ).then( ( venmoInstance ) => {
-				// Verify browser support before proceeding.
-				if ( !venmoInstance.isBrowserSupported() ) {
-					showClientSideErrorMessage( 'Browser does not support Venmo' );
-					return;
-				}
-
-				function handleVenmoError( err ) {
-					if ( err.code === 'VENMO_CANCELED' ) {
-						showClientSideErrorMessage( 'App is not available or user aborted payment flow' );
-					} else if ( err.code === 'VENMO_APP_CANCELED' ) {
-						showClientSideErrorMessage( 'User canceled payment flow' );
-					} else {
-						showClientSideErrorMessage( err.message );
-					}
-				}
-
-				function handleVenmoSuccess( payload ) {
-					const sendData = {
-						payment_token: payload.nonce,
-						device_data: myDeviceData,
-						user_name: payload.details.username,
-						gateway_session_id: payload.details.paymentContextId
-					};
-					// payload.details.payerInfo is undefined for non-us sandbox account
-					if ( payload.details.payerInfo ) {
-						sendData.first_name = payload.details.payerInfo.firstName;
-						sendData.last_name = payload.details.payerInfo.lastName;
-						sendData.phone = payload.details.payerInfo.phoneNumber;
-						sendData.email = payload.details.payerInfo.email;
-						sendData.street_address = payload.details.payerInfo.shippingAddress;
-						sendData.customer_id = payload.details.payerInfo.externalId;
-					} else {
-						// todo:: either retokenize it or insert a email field for user to fill in, but let's wait for venmo's response
-					}
-					di.forms.callDonateApi(
-						handleApiResult, sendData, 'di_donate_braintree'
-					);
-				}
-
-				function displayVenmoButton() {
-					venmoButton.style.display = 'block';
-					venmoButton.addEventListener( 'click', () => {
-						venmoButton.disabled = true;
-						venmoInstance.tokenize().then( handleVenmoSuccess ).catch( handleVenmoError ).then( () => {
-							venmoButton.removeAttribute( 'disabled' );
-						} );
-					} );
-				}
-
-				displayVenmoButton();
+			createBraintreeClient().then( ( braintreeClientInstance ) => {
+				getDeviceData( braintreeClientInstance );
+				displayVenmoButton( braintreeClientInstance );
 			} ).catch( ( err ) => {
 				showClientSideErrorMessage( 'Error creating Venmo:' + err );
 			} );

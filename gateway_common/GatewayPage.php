@@ -656,7 +656,21 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 	}
 
-	protected function preloadScript( string $url, bool $anonymous = false, ?string $integrity = null ): void {
+	/**
+	 * Tell the browser to fetch a script early by emitting a <link rel="preload" as="script"> tag.
+	 *
+	 * Note: This does not execute the script; it only preloads the resource so a later <script src="...">
+	 * (or dynamic load) can reuse it.
+	 *
+	 * @param string $url Script URL to preload.
+	 * @param bool $crossOriginAnonymous If true, sets crossorigin="anonymous" (must match the later script fetch mode).
+	 * @param string|null $integrity Optional Subresource Integrity hash for the script.
+	 */
+	protected function preloadScript(
+		string $url,
+		bool $crossOriginAnonymous = false,
+		?string $integrity = null
+	): void {
 		$linkParams = [
 			'href' => $url,
 			'rel' => 'preload',
@@ -665,7 +679,7 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		if ( $integrity ) {
 			$linkParams['integrity'] = $integrity;
 		}
-		if ( $anonymous ) {
+		if ( $crossOriginAnonymous ) {
 			$linkParams['crossorigin'] = 'anonymous';
 		}
 		$this->getOutput()->addLink( $linkParams );
