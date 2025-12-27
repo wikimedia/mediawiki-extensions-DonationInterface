@@ -478,10 +478,8 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		$attrs['frameborder'] = '0';
 		$attrs['style'] = 'display:block;';
 		$attrs['src'] = $url;
-		$paymentFrame = Xml::openElement( 'iframe', $attrs );
-		$paymentFrame .= Xml::closeElement( 'iframe' );
 
-		$this->getOutput()->addHTML( $paymentFrame );
+		$this->getOutput()->addHTML( Html::element( 'iframe', $attrs ) );
 	}
 
 	/**
