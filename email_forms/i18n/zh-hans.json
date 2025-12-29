@@ -4,9 +4,12 @@
 			"ExoHyper2026",
 			"GuoPC",
 			"Liuxinyu970226",
-			"Pawsdt"
+			"Pawsdt",
+			"Peterxy12"
 		]
 	},
+	"donorportal-title": "维基媒体基金会捐赠者门户",
+	"donorportal-login-header": "访问您的捐款账号",
 	"donorportal-update-donation-problem-log-in": "如果您没有收到包含登录链接的电子邮件，请确保您使用的电子邮件地址与您向 Wikimedia Foundation 捐款时使用的电子邮件地址相同。",
 	"donorportal-update-donation-problem-log-in-contact-us": "如果您仍然无法登录您的捐赠者帐户，$1，我们将很乐意为您提供帮助。",
 	"donorportal-update-donation-donor-relations-team": "请联系我们的捐赠者关系团队",

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Avengium",
 			"DiegoAmbrocio",
 			"Fitoschido",
 			"Karine Teh",
@@ -10,6 +11,7 @@
 			"Virum Mundi"
 		]
 	},
+	"donorportal-recurring-status-cancelled": "Cancelado",
 	"donorportal-pause-recurring-heading": "¿Necesitas tomar un descanso?",
 	"donorportal-pause-recurring-subheading": "Entendemos que las cosas cambian y nos encantaría ayudarle a encontrar una solución que se adapte a sus necesidades. Seleccione una opción a continuación.",
 	"donorportal-pause-recurring-subtext": "Estas haciendo una pausa:",

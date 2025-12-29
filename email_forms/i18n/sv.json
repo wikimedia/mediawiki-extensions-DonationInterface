@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Jopparn",
+			"Stefan2255",
 			"WikiPhoenix"
 		]
 	},
+	"donorportal-recurring-status-cancelled": "Avbröts",
 	"emailpreferences-change-email": "Ändra e-postadress",
 	"emailpreferences-country": "Land eller region",
 	"emailpreferences-dont-send-email": "Avregistrera mig från allt.",
