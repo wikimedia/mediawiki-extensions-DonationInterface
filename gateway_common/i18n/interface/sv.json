@@ -25,7 +25,8 @@
 			"Technic2",
 			"Tobulos1",
 			"Warrakkk",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Stefan2255"
 		]
 	},
 	"donate_interface": "Stöd Wikimedia",
@@ -416,6 +417,7 @@
 	"donate_interface-onetime-short": "Engångs",
 	"donate_interface-error-http-403": "Du har inte behörighet att komma åt denna sida.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-photo-license": "Alla bilder är licensierade under <a href=\"$1\">Creative Commons Attribution-Share Alike 4.0 International</a> licensen.",
 	"donate_interface-emailpreferences-thank-you-title": "Tack",
 	"donate_interface-monthly-convert-title": "Vill du stödja oss med <span class=\"mc-convert-ask\"></span> varje månad, med början nästa månad?",
 	"donate_interface-monthly-convert-text": "Månadsgåvor är det bästa sättet att se till att Wikipedia fortsätter utvecklas.",
