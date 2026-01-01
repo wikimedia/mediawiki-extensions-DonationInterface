@@ -28,6 +28,7 @@ const RecurringContributionCancelSuccessful = require( '../components/RecurringC
 const RecurringContributionCancelConfirmation = require( '../components/RecurringContributionCancelConfirmation.vue' );
 const RecurringContributionPauseSuccess = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
+const { apiPostAction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -64,16 +65,10 @@ module.exports = exports = defineComponent( {
 		} );
 
 		function requestRecurringPause( params ) {
-			const api = new mw.Api();
-			params.action = 'requestPauseRecurring';
-
-			return api.post( params );
+			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
 		}
 		function requestRecurringCancel( params ) {
-			const api = new mw.Api();
-			params.action = 'requestCancelRecurring';
-
-			return api.post( params );
+			return apiPostAction( recurringContributionRecord, params, 'requestCancelRecurring' );
 		}
 
 		const submitPauseRecurringDuration = ( duration ) => {

@@ -22,6 +22,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionUpdateForm = require( '../components/RecurringContributionUpdateForm.vue' );
 const RecurringContributionUpdateSuccessful = require( '../components/RecurringContributionUpdateSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
+const { apiPostAction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -54,10 +55,7 @@ module.exports = exports = defineComponent( {
 		} );
 
 		function requestRecurringUpdate( params ) {
-			const api = new mw.Api();
-			params.action = 'requestUpdateRecurring';
-
-			return api.post( params );
+			return apiPostAction( recurringContributionRecord, params, 'requestUpdateRecurring' );
 		}
 
 		const submitUpdateRecurring = ( amount ) => {

@@ -204,7 +204,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			) ) {
 				$this->formParams['hasActiveRecurring'] = true;
 				$key = 'recurringContributions';
-
+				$recurringContribution['is_processing'] ??= false;
 				if ( $recurringContribution['frequency_unit'] === 'month' ) {
 					// Consider it paused if the next charge date is more than 31 days in the future
 					$recurringContribution['is_paused'] = (

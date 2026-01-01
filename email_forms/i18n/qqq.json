@@ -24,6 +24,8 @@
 	"donorportal-inactive-recurring": "Header for details of a cancelled donation",
 	"donorportal-most-recent-donation": "Header for details of donor's most recent donation",
 	"donorportal-renew-support": "Large text inviting donor to restart a cancelled donation",
+	"donorportal-processing": "Single word status label to indicate that a change to a recurring donation is in process",
+	"donorportal-processing-text": "Text explaining that a recurring donation has a change in process",
 	"donorportal-restart-monthly": "Text of button leading to a monthly donation renewal form",
 	"donorportal-restart-annual": "Text of button leading to an annual donation renewal form",
 	"donorportal-recurring-amount-monthly": "Amount and frequency of a donation charged every month. $1 is the formatted amount, $2 is the three letter currency code for extra clarification.",
