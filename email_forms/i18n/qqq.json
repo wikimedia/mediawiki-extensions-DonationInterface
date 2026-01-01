@@ -35,7 +35,7 @@
 	"donorportal-recurring-pause-or-cancel": "Text for a phrase with links to temporarily or permanently stop a recurring donation. $1 is a link with the text of {{msg-mw|donorportal-recurring-pause}} and $2 is a link with the text of {{msg-mw|donorportal-recurring-cancel}}",
 	"donorportal-recurring-cancel-text": "Text for a phrase with a single link to permanently stop a recurring donation. $1 is a link with the text of {{msg-mw|donorportal-recurring-cancel}}",
 	"donorportal-recurring-status-active": "Adjective to describe a recurring donation that is actively being charged",
-	"donorportal-recurring-status-lapsed": "Adjective to describe a recurring donation that has expired or been cancelled",
+	"donorportal-recurring-status-lapsed": "Adjective to describe a recurring donation that has been cancelled due to failed payments",
 	"donorportal-recurring-status-paused": "Adjective to describe a recurring donation that has been temporarily put on hold but will resume in the future",
 	"donorportal-your-donation-history": "Header for a list of completed donations",
 	"donorportal-print-donations": "Text for a button to present a printer-formatted list of donations",
