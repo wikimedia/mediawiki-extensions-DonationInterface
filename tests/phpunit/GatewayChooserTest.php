@@ -259,7 +259,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			[ [ 'payment_method' => 'cc', 'country' => 'BB', 'currency' => 'BBD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'BD', 'currency' => 'BDT' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'BE', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
-			[ [ 'payment_method' => 'cc', 'country' => 'BG', 'currency' => 'BGN' ], 'AdyenCheckoutGateway' ],
+			[ [ 'payment_method' => 'cc', 'country' => 'BG', 'currency' => 'EUR' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'BH', 'currency' => 'BHD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'BM', 'currency' => 'BMD' ], 'AdyenCheckoutGateway' ],
 			[ [ 'payment_method' => 'cc', 'country' => 'BO', 'currency' => 'BOB' ], 'AdyenCheckoutGateway' ],
