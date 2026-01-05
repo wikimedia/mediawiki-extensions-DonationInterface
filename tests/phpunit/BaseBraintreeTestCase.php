@@ -18,6 +18,7 @@ class BaseBraintreeTestCase extends DonationInterfaceTestCase {
 			'DonationInterfaceGatewayAdapters' => [
 				'braintree' => BraintreeAdapter::class
 			],
+			'DonationInterfaceMonthlyConvertCountries' => [],
 		] );
 	}
 
