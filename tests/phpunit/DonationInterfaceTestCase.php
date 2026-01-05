@@ -169,7 +169,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * @return array Donor data to use
 	 * @throws OutOfBoundsException when there is no data available for the requested country
 	 */
-	public static function getDonorTestData( $country = '' ) {
+	public static function getDonorTestData( $country = 'US' ) {
 		$donortestdata = [
 			'US' => [ // default
 				'city' => 'San Francisco',
@@ -348,10 +348,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 				'language' => 'en',
 			],
 		];
-		// default to US
-		if ( $country === '' ) {
-			$country = 'US';
-		}
 
 		if ( array_key_exists( $country, $donortestdata ) ) {
 			$donortestdata = array_merge( self::$initial_vars, $donortestdata[$country] );
