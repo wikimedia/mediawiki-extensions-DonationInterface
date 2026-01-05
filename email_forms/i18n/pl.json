@@ -1,12 +1,14 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Woytecr"
+		]
 	},
 	"emailpreferences-change-email": "Zmień adres e-mail",
 	"emailpreferences-country": "Kraj lub region",
 	"emailpreferences-dont-send-email": "Wypiszcie mnie z subskrypcji e-mail.",
 	"emailpreferences-expired-link-title": "Przepraszamy, Twój link wygasł",
-	"emailpreferences-send-new-link": "Wyślij mi nowy link",
+	"emailpreferences-send-new-link": "Wyślij link do logowania",
 	"emailpreferences-new-link-sent": "Wkrótce wyślemy Ci nowy link. Sprawdź swoją skrzynkę odbiorczą.",
 	"emailpreferences-footer-learn_more": "Saiba mais sobre os <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">capítulos locais e seus projetos</a>.",
 	"emailpreferences-footer-questions_email": "Se tiver alguma dúvida, entre em contato com <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
