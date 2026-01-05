@@ -31,6 +31,9 @@ class BaseAdyenCheckoutTestCase extends DonationInterfaceTestCase {
 				'getCVVResult' => 10,
 				'getAVSResult' => 50,
 			],
+			'AdyenCheckoutGatewayCustomFiltersInitialFunctions' => [
+				'getScoreEmailDomainMap' => 0,
+			],
 			'DonationInterfaceGatewayAdapters' => [
 				'adyen' => AdyenCheckoutAdapter::class
 			],
