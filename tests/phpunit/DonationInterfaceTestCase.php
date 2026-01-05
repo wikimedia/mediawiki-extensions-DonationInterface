@@ -166,10 +166,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @param string $country The country we want the test user to be from.
+	 *
 	 * @return array Donor data to use
 	 * @throws OutOfBoundsException when there is no data available for the requested country
 	 */
-	public static function getDonorTestData( $country = 'US' ) {
+	public static function getDonorTestData( string $country = 'US' ): array {
 		$donortestdata = [
 			'US' => [ // default
 				'city' => 'San Francisco',

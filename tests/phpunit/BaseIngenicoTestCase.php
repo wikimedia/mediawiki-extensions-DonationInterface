@@ -212,7 +212,7 @@ class BaseIngenicoTestCase extends DonationInterfaceTestCase {
 		$providerConfig->overrideObjectInstance( 'curl/wrapper', $this->curlWrapper );
 	}
 
-	public static function getDonorTestData( $country = 'US' ) {
+	public static function getDonorTestData( string $country = 'US' ): array {
 		$data = parent::getDonorTestData( $country );
 		$data['gateway_session_id'] = (string)mt_rand();
 		return $data;
