@@ -3,7 +3,8 @@
 		"authors": [
 			"Diki Ananta",
 			"NoiX180",
-			"Sumbukompor"
+			"Sumbukompor",
+			"Bennylin"
 		]
 	},
 	"donate_interface": "Sengkuyung Wikimédia",
@@ -224,7 +225,7 @@
 	"donate_interface-billing-code": "Zip panagihan",
 	"donate_interface-country": "Nagara",
 	"donate_interface-select-country": "Pilih nagara",
-	"donate_interface-confirm-email": "Pesthèkaké layang èlèktronik",
+	"donate_interface-confirm-email": "Konfirmasi layang èlèktronik",
 	"donate_interface-donation-information": "Informasi sumbangan",
 	"donate_interface-cc-billing-information": "Informasi panagihan kertu krèdit",
 	"donate_interface-pay-by-credit-card": "Bayar mawa kertu krèdit",

@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"William Surya Permana"
+			"William Surya Permana",
+			"Penyuwangi"
 		]
 	},
 	"apihelp-donate-description": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
-	"apihelp-donate-summary": "API ini memungkinkan Anda untuk mengirimkan donasi ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
+	"apihelp-donate-summary": "API ini memungkinkan Anda untuk mengirimkan sumbangan ke Wikimedia Foundation menggunakan berbagai prosesor pembayaran.",
 	"apihelp-donate-param-gateway": "Gerbang pembayaran mana yang ingin dipakai - adyen, globalcollect, dsb.",
-	"apihelp-donate-param-amount": "Nilai yang akan didonasikan.",
+	"apihelp-donate-param-amount": "Jumlah yang disumbangkan.",
 	"apihelp-donate-param-contact_id": "ID donatur di CiviCRM.",
 	"apihelp-donate-param-contact_hash": "Hash donatur di CiviCRM, digunakan untuk verifikasi. Wajib diisi jika contact_id diberikan.",
 	"apihelp-donate-param-currency": "Kode mata uang.",
@@ -28,7 +29,7 @@
 	"apihelp-donate-param-payment_submethod": "Submetode pembayaran yang ingin dipakai.",
 	"apihelp-donate-param-processor_form": "Opsi formulir prosesor mana yang ingin dipakai.",
 	"apihelp-donate-param-language": "Kode bahasa.",
-	"apihelp-donate-param-order_id": "ID Pesanan (jika sebuah donasi telah dimulai).",
+	"apihelp-donate-param-order_id": "ID Pesanan (jika sebuah sumbangan telah dimulai).",
 	"apihelp-donate-param-wmf_token": "Token pengubahan.",
 	"apihelp-donate-param-utm_source": "Variabel pelacakan.",
 	"apihelp-donate-param-utm_campaign": "Variabel pelacakan.",
@@ -37,9 +38,9 @@
 	"apihelp-donate-param-recurring": "Menandakan suatu transaksi dimaksudkan untuk berulang.",
 	"apihelp-donate-param-variant": "Menandakan variasi formulir mana yang telah diisi oleh donatur.",
 	"apihelp-donate-param-opt_in": "Menandakan donatur telah diikutsertakan dalam milis penggalangan dana.",
-	"apihelp-donate-example-1": "Buat donasi",
+	"apihelp-donate-example-1": "Buat sumbangan",
 	"apihelp-logPaymentsFormError-description": "API ini mencatat galat formulir donasi di sisi klien.",
-	"apihelp-logPaymentsFormError-summary": "API ini mencatat galat formulir donasi di sisi klien.",
+	"apihelp-logPaymentsFormError-summary": "API ini mencatat galat formulir sumbangan di sisi kelayan.",
 	"apihelp-logPaymentsFormError-param-message": "Pesan galat",
 	"apihelp-logPaymentsFormError-param-file": "Berkas tempat terjadi galat",
 	"apihelp-logPaymentsFormError-param-line": "Baris tempat terjadi galat",
