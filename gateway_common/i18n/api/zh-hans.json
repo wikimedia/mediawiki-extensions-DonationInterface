@@ -4,7 +4,8 @@
 			"Linforest",
 			"Liuxinyu970226",
 			"ExoHyper2026",
-			"Plana"
+			"Plana",
+			"Peterxy12"
 		]
 	},
 	"apihelp-donate-summary": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
@@ -15,6 +16,8 @@
 	"apihelp-donate-param-currency": "货币代码。",
 	"apihelp-donate-param-first_name": "名。",
 	"apihelp-donate-param-last_name": "姓。",
+	"apihelp-donate-param-first_name_phonetic": "名字的拼音版本。",
+	"apihelp-donate-param-last_name_phonetic": "姓氏的拼音版本。",
 	"apihelp-donate-param-street_address": "街道地址的第一行。",
 	"apihelp-donate-param-supplemental_address_1": "街道地址的第二行。",
 	"apihelp-donate-param-city": "城市。",
@@ -24,6 +27,7 @@
 	"apihelp-donate-param-country": "国家代码。",
 	"apihelp-donate-param-card_num": "信用卡号码。",
 	"apihelp-donate-param-card_type": "信用卡类型。",
+	"apihelp-donate-param-debug_messages": "任何添加到日志的调试消息。",
 	"apihelp-donate-param-expiration": "有效期限。",
 	"apihelp-donate-param-cvv": "CVV安全码。",
 	"apihelp-donate-param-payment_method": "所要使用的付款方法。",
@@ -39,6 +43,8 @@
 	"apihelp-donate-param-recurring": "表明交易是循环的。",
 	"apihelp-donate-param-variant": "表明捐款人填写的表单变体。",
 	"apihelp-donate-param-opt_in": "表明捐款人已启用筹款电子邮件。",
+	"apihelp-donate-param-employer": "雇主名称",
+	"apihelp-donate-param-employer_id": "雇主ID",
 	"apihelp-donate-example-1": "捐款",
 	"apihelp-logPaymentsFormError-summary": "此API记录客户端捐款表单错误。",
 	"apihelp-logPaymentsFormError-param-message": "错误消息",
@@ -46,5 +52,19 @@
 	"apihelp-logPaymentsFormError-param-line": "错误发生的行",
 	"apihelp-logPaymentsFormError-param-col": "错误发生的列",
 	"apihelp-logPaymentsFormError-param-userAgent": "浏览器的用户代理字符串",
-	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有"
+	"apihelp-logPaymentsFormError-param-stack": "错误的堆栈跟踪，如有",
+	"apihelp-logRecurUpgradeFormError-summary": "此API记录客户端定期更新表单的错误。",
+	"apihelp-logRecurUpgradeFormError-param-message": "错误消息",
+	"apihelp-logRecurUpgradeFormError-param-file": "发生错误的文件",
+	"apihelp-logRecurUpgradeFormError-param-line": "发生错误的行",
+	"apihelp-logRecurUpgradeFormError-param-col": "发生错误的列",
+	"apihelp-logRecurUpgradeFormError-param-userAgent": "浏览器的用户代理字符串",
+	"apihelp-logRecurUpgradeFormError-param-stack": "错误的堆栈跟踪（在可用的时候）",
+	"apihelp-di_donate_adyen-summary": "此API用于Adyen",
+	"apihelp-di_donate_dlocal-summary": "此API适用于Dlocal。",
+	"apihelp-di_donate_gravy-summary": "此API用于Gravy。",
+	"apihelp-di_donate_braintree-summary": "此API适用于Braintree。",
+	"apihelp-di_recurring_convert-param-amount": "每月捐款的金额。",
+	"apihelp-di_recurring_convert-param-gateway": "要使用的支付网关——adyen、ingenico等。",
+	"apihelp-employerSearch-example-1": "选择雇主"
 }

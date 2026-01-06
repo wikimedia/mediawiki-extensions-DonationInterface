@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jopparn",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Stefan2255"
 		]
 	},
 	"emailpreferences-change-email": "Ändra e-postadress",
@@ -26,6 +27,19 @@
 	"emailpreferences-success": "Din begäran om att spara inställningarna har skickats.",
 	"emailpreferences-title": "E-post inställningar",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"fundraiserunsubscribe": "Avsluta prenumeration av Wikimedia Fundraising Email",
-	"fundraisersubscribe-appeal-headline-001": "Gillar du vad du ser?"
+	"recurupgrade": "Din återkommande donation",
+	"recurupgrade-add": "Lägg till $1",
+	"recurupgrade-amount": "Nuvarande återkommande belopp",
+	"recurupgrade-next-scheduled-date": "Nästa donationsdatum",
+	"recurupgrade-salutation-no-recur-records": "Hej! Tack för ditt stöd till Wikipedia.",
+	"recurupgrade-select-option": "För att uppgradera din månadsgåva, välj ett av alternativen ovan.",
+	"recurupgrade-thanks-increasing": "Tack för att du ökar ditt bidrag och hjälper till att bygga en stark och stabil framtid för Wikipedia och alla Wikimedias kunskapsprojekt. Låt oss tillsammans sprida kunskap ännu mer.",
+	"recurupgrade-upgrade-decline": "Nej, jag lämnar det som det är",
+	"recurupgrade-upgrade-now": "Uppgradera min månadsgåva nu",
+	"recurupgrade-upgrading-new-amount": "Du ökar ditt månatliga donationsbelopp till<strong></strong>.",
+	"fundraiserunsubscribe": "Avsluta prenumeration på Wikimedia Foundations insamlings mejl",
+	"fundraiserunsubscribe-confirm": "Är du säker på att du vill avsluta prenumerationen",
+	"fundraisersubscribe": "Anmäl dig",
+	"fundraisersubscribe-appeal-headline-001": "Gillar du vad du ser?",
+	"fundraisersubscribe-appeal-text-001": "Vi vill skicka dig då och då uppdateringar med foton som dessa, sätt att ge stöd eller råd i framtiden, och mer av det du älskar från Wikipedia."
 }

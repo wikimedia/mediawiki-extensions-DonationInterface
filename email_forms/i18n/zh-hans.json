@@ -4,7 +4,8 @@
 			"GuoPC",
 			"Liuxinyu970226",
 			"ExoHyper2026",
-			"Pawsdt"
+			"Pawsdt",
+			"Peterxy12"
 		]
 	},
 	"emailpreferences-change-email": "更改电邮",
@@ -28,6 +29,11 @@
 	"emailpreferences-success": "您保存电子邮件偏好设置的请求已提交。",
 	"emailpreferences-title": "电子邮件偏好设置",
 	"emailpreferences-wikimedia-image-alt": "维基媒体基金会",
+	"recurupgrade": "您的定期捐款",
+	"recurupgrade-add": "添加$1",
+	"recurupgrade-amount": "目前定期金额",
+	"recurupgrade-next-scheduled-date": "下次捐款日期",
+	"recurupgrade-salutation-no-recur-records": "您好！感谢您对维基百科的支持。",
 	"fundraiserunsubscribe": "从维基媒体基金会筹款电子邮件中退订",
 	"fundraisersubscribe": "启用"
 }
