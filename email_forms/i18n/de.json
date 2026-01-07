@@ -27,6 +27,8 @@
 	"donorportal-inactive-recurring": "Deine regelmäßige Spende",
 	"donorportal-most-recent-donation": "Deine letzte Spende",
 	"donorportal-renew-support": "Deine Unterstützung erneuern",
+	"donorportal-processing": "Verarbeite …",
+	"donorportal-processing-text": "Für diese Spende wurde eine Änderung beantragt.",
 	"donorportal-restart-monthly": "Starte deine monatliche Spende neu",
 	"donorportal-restart-annual": "Starte deine jährliche Spende neu",
 	"donorportal-recurring-amount-monthly": "$1 $2 monatlich",
