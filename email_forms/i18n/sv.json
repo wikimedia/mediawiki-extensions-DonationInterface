@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Jopparn",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Stefan2255"
 		]
 	},
 	"emailpreferences-change-email": "Ändra e-postadress",
@@ -31,6 +32,31 @@
 	"emailpreferences-success": "Din begäran om att spara inställningarna har skickats.",
 	"emailpreferences-title": "E-post inställningar",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"fundraiserunsubscribe": "Avsluta prenumeration av Wikimedia Fundraising Email",
-	"fundraisersubscribe-appeal-headline-001": "Gillar du vad du ser?"
+	"recurupgrade": "Din återkommande donation",
+	"recurupgrade-add": "Lägg till $1",
+	"recurupgrade-amount-ask": "Vänligen, välj det belopp du vill öka din gåva med:",
+	"recurupgrade-amount": "Nuvarande återkommande belopp",
+	"recurupgrade-ask-bigger": "Låt oss göra en ännu större skillnad – tillsammans.",
+	"recurupgrade-ask-heading": "Wikipedia är det internet vi blev lovade, och ert stöd håller det starkt!",
+	"recurupgrade-ask-thankyou": "Tack för att du är en viktig del av Wikipedia och Wikimedia-projekten. Din månatliga gåva hjälper till att säkerställa att Wikipedia förblir pålitlig, reklamfri och tillgänglig när du behöver den.",
+	"recurupgrade-current-amount-and-date": "Just nu är din månatliga donation <strong>$1</strong> och ditt nästa bidrag är planerat till <strong>$2</strong>.",
+	"recurupgrade-small-increase": "En liten ökning idag hjälper till att hålla Wikipedia stark för dig och miljontals andra.",
+	"recurupgrade-next-scheduled-date": "Nästa donationsdatum",
+	"recurupgrade-salutation": "Hej, $1 !",
+	"recurupgrade-salutation-no-recur-records": "Hej! Tack för ditt stöd till Wikipedia.",
+	"recurupgrade-no-recur-records": "Tyvärr, kunde vi inte hitta en återkommande donation för att uppgradera. Du kan <a href=\"$1 \">start a new monthly donation</a> eller kontakta oss för support på <a href=\"mailto:$2\">$2</a>.",
+	"recurupgrade-select-option": "För att uppgradera din månadsgåva, välj ett av alternativen ovan.",
+	"recurupgrade-thanks-increasing": "Tack för att du ökar ditt bidrag och hjälper till att bygga en stark och stabil framtid för Wikipedia och alla Wikimedias kunskapsprojekt. Låt oss tillsammans sprida kunskap ännu mer.",
+	"recurupgrade-thanks-monthly": "Tack så mycket för att du är en av våra få månatliga givare.",
+	"recurupgrade-upgrade-decline": "Nej, jag lämnar det som det är",
+	"recurupgrade-upgrade-decline-long": "Om du har ändrat dig, är du välkommen att stänga den här sidan. Tack igen för ditt stöd!",
+	"recurupgrade-upgrade-now": "Uppgradera min månadsgåva nu",
+	"recurupgrade-upgrade": "Uppdatera min gåva",
+	"recurupgrade-upgrading-new-amount": "Du ökar ditt månatliga donationsbelopp till<strong></strong>.",
+	"recurupgrade-upgrading-new-amount-and-date": "Ditt nya månatliga donationsbelopp på $1 gäller från ditt nästa donationsdatum på $2",
+	"fundraiserunsubscribe": "Avsluta prenumeration på Wikimedia Foundations insamlings mejl",
+	"fundraiserunsubscribe-confirm": "Är du säker på att du vill avsluta prenumerationen",
+	"fundraisersubscribe": "Anmäl dig",
+	"fundraisersubscribe-appeal-headline-001": "Gillar du vad du ser?",
+	"fundraisersubscribe-appeal-text-001": "Vi vill skicka dig då och då uppdateringar med foton som dessa, sätt att ge stöd eller råd i framtiden, och mer av det du älskar från Wikipedia."
 }

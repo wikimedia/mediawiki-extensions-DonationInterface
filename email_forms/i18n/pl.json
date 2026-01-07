@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Woytecr"
+		]
 	},
 	"emailpreferences-change-email": "Zmień adres e-mail",
 	"emailpreferences-country": "Kraj lub region",
