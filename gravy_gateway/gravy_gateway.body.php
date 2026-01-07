@@ -18,6 +18,12 @@ class GravyGateway extends GatewayPage {
 	/** @inheritDoc */
 	protected $gatewayIdentifier = GravyAdapter::IDENTIFIER;
 
+	/**
+	 * Cached checkout session ID to prevent duplicate API calls
+	 * @var string|null
+	 */
+	private ?string $checkoutSessionId = null;
+
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		global $wgGravyGatewayID, $wgGravyGatewayEnvironment, $wgGravyRedirectPaypal;
 		$out->addJsConfigVars( 'wgGravyEnvironment', $wgGravyGatewayEnvironment );
@@ -159,10 +165,18 @@ class GravyGateway extends GatewayPage {
 	 * @return string | null
 	 */
 	private function getCheckoutSessionId(): ?string {
+		// Return a cached value if we've already created a session
+		// See https://phabricator.wikimedia.org/T413982 to understand
+		// how that can happen.
+		if ( $this->checkoutSessionId !== null ) {
+			return $this->checkoutSessionId;
+		}
+
 		// @phan-suppress-next-line PhanUndeclaredMethod the getCheckoutSession method is defined in the gravy adapter class
 		$session = $this->adapter->getCheckoutSession();
 		if ( $session->isSuccessful() ) {
-			return $session->getPaymentSession();
+			$this->checkoutSessionId = $session->getPaymentSession();
+			return $this->checkoutSessionId;
 		}
 		return null;
 	}
