@@ -323,6 +323,15 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return [ 'token' => $this->getData_Staged( 'gateway_session_id' ) ];
 	}
 
+	protected function getQueueDonationMessage(): array {
+		$message = parent::getQueueDonationMessage();
+		if ( isset( $this->unstaged_data['processor_contact_id'] ) ) {
+			$message['external_identifier'] = $this->unstaged_data['payer_id'];
+		}
+
+		return $message;
+	}
+
 	/**
 	 * @return string
 	 */

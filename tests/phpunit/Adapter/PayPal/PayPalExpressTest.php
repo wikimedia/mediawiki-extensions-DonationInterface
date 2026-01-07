@@ -512,6 +512,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 			'postal_code' => '94105',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
+			'external_identifier' => 'ASDASD'
 		];
 		$this->assertEquals( $expected, $message );
 
@@ -733,6 +734,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 			'postal_code' => '94105',
 			'source_name' => 'DonationInterface',
 			'source_type' => 'payments',
+			'external_identifier' => 'ASDASD'
 		];
 		$this->assertEquals( $expected, $message );
 
