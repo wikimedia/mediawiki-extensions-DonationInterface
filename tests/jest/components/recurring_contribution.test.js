@@ -63,4 +63,21 @@ describe( 'Active recurring contribution test', () => {
         expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
         expect( element.html() ).toContain( '<a target="_blank" href="http://donate.test' );
     } );
+	it( 'Render is processing status correctly', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
+			props: {
+				contribution: Object.assign( recurring_mock, {
+					is_processing: true
+				} ),
+				isActive: true
+			}
+		} );
+
+		const element = wrapper.find( '.is-processing' );
+		expect( element.exists() ).toBe( true );
+		expect( element.html() ).toContain( 'donorportal-processing' );
+		expect( element.html() ).not.toContain( `<a href="#/cancel-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-cancel </a>` );
+		expect( element.html() ).not.toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
+		expect( element.html() ).not.toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
+	} );
 } );

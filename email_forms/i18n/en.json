@@ -21,6 +21,8 @@
 	"donorportal-inactive-recurring": "Your recurring donation",
 	"donorportal-most-recent-donation": "Your most recent donation",
 	"donorportal-renew-support": "Renew your support",
+	"donorportal-processing": "Processing...",
+	"donorportal-processing-text": "A change has been requested for this donation.",
 	"donorportal-restart-monthly": "Restart your monthly donation",
 	"donorportal-restart-annual": "Restart your annual donation",
 	"donorportal-recurring-amount-monthly": "$1 $2 monthly",

@@ -25,6 +25,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionAnnualConversionSuccessful = require( '../components/RecurringContributionAnnualConversionSuccess.vue' );
 const RecurringAnnualConversionForm = require( '../components/RecurringContributionAnnualConversionForm.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
+const { apiPostAction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AnnualConversionView',
@@ -54,10 +55,7 @@ module.exports = exports = defineComponent( {
 		} );
 
 		function requestAnnualConversion( params ) {
-			const api = new mw.Api();
-			params.action = 'requestAnnualConversion';
-
-			return api.post( params );
+			return apiPostAction( recurringContributionRecord, params, 'requestAnnualConversion' );
 		}
 
 		const submitAnnualConversion = ( amount ) => {

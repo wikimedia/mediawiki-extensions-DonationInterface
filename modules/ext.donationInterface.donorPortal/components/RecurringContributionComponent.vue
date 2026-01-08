@@ -1,7 +1,8 @@
 <template>
 	<div :class="cardClass">
 		<div class="dp-card__section dp-card__summary">
-			<span v-if="isActive && !isPaused" class="tag is-recurring">{{ statusWord }}</span>
+			<span v-if="isActive && !isPaused && !isProcessing" class="tag is-recurring">{{ statusWord }}</span>
+			<span v-else-if="isProcessing" class="tag is-processing">{{ $i18n( "donorportal-processing" ).text() }}</span>
 			<span v-else class="tag">{{ statusWord }}</span>
 			<p class="text heading--h2">
 				<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
@@ -44,8 +45,11 @@
 			<p v-if="!isRecurringModifiable" class="text text--body text--align-left">
 				{{ $i18n( "donorportal-update-donation-paypal-disable-text" ).text() }}
 			</p>
+			<p v-if="isProcessing" class="text text--body text--align-left">
+				{{ $i18n( "donorportal-processing-text" ).text() }}
+			</p>
 			<p
-				v-if="isActive && isRecurringModifiable"
+				v-if="isActive && isRecurringModifiable && !isProcessing"
 				class="text text--body"
 				v-html="recurringAdditionalActionsLink">
 			</p>
@@ -82,6 +86,9 @@ module.exports = exports = defineComponent( {
 	computed: {
 		isPaused: function () {
 			return this.isActive && this.contribution.is_paused;
+		},
+		isProcessing: function () {
+			return this.isActive && this.contribution.is_processing;
 		},
 		emailTemplate: function () {
 			const here = this.$i18n( 'donorportal-here' );
@@ -133,7 +140,7 @@ module.exports = exports = defineComponent( {
 		},
 		actionButtonText: function () {
 			if ( this.isActive ) {
-				if ( !this.isRecurringModifiable ) {
+				if ( !this.isRecurringModifiable || this.isProcessing ) {
 					return false;
 				}
 				return this.$i18n( 'donorportal-update-donation-button' ).text();

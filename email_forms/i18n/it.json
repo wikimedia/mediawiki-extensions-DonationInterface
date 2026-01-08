@@ -14,6 +14,8 @@
 	"donorportal-contact-details": "I tuoi dati di contatto",
 	"donorportal-active-recurring": "Le tue donazioni ricorrenti attive",
 	"donorportal-most-recent-donation": "La tua donazione più recente",
+	"donorportal-processing": "Elaborazione...",
+	"donorportal-processing-text": "È stata richiesta una modifica per questa donazione.",
 	"donorportal-recurring-currency-monthly": "$1 al mese",
 	"donorportal-recurring-currency-annual": "$1 all'anno",
 	"donorportal-last-donation-date": "Ultima data di donazione: $1.",

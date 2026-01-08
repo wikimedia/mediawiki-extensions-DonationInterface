@@ -18,6 +18,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionPauseForm = require( '../components/RecurringContributionPauseForm.vue' );
 const RecurringContributionPauseSuccessful = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
+const { apiPostAction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PauseDonationsView',
@@ -50,10 +51,7 @@ module.exports = exports = defineComponent( {
 		} );
 
 		function requestRecurringPause( params ) {
-			const api = new mw.Api();
-			params.action = 'requestPauseRecurring';
-
-			return api.post( params );
+			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
 		}
 
 		function submitPauseRecurringDuration( duration ) {
