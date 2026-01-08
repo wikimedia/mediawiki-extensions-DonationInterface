@@ -23,6 +23,8 @@
 	"donorportal-inactive-recurring": "A túa doazón recorrente",
 	"donorportal-most-recent-donation": "A túa doazón máis recente",
 	"donorportal-renew-support": "Renova o teu apoio",
+	"donorportal-processing": "Procesando...",
+	"donorportal-processing-text": "Solicitouse un cambio para esta doazón.",
 	"donorportal-restart-monthly": "Reinicia a túa doazón mensual",
 	"donorportal-restart-annual": "Reinicia a túa doazón anual",
 	"donorportal-recurring-amount-monthly": "$1 $2 ao mes",
