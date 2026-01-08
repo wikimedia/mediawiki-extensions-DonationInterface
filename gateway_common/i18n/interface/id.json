@@ -371,7 +371,7 @@
 	"donate_interface-online_bank_transfer_message": "Perbankan Seluler & Internet - BPAY®",
 	"donate_interface-rtbt-issuer_id": "Pilih bank Anda",
 	"donate_interface-rtbt-issuer_id-longlist": "Bank lain",
-	"donate_interface-sofortbanking": "Sofortbanking adalah Transfer Bank secara langsung dan waktu-nyata melalui DIRECTebanking.com yang memungkinkan Anda untuk secara langsung memicu sebuah transfer bank saat donasi daring Anda menggunakan informasi perbankan daring Anda. Jika kemampuan daring tidak dinyalakan pada rekening bank Anda, Anda mungkin ingin menggunakan opsi \"Sumbangkan melalui transfer bank manual\" pada halaman utama sumbangan.",
+	"donate_interface-sofortbanking": "Sofortbanking adalah Transfer Bank secara langsung dan waktu-nyata melalui DIRECTebanking.com yang memungkinkan Anda untuk secara langsung memicu sebuah transfer bank saat sumbangan daring Anda menggunakan informasi perbankan daring Anda. Jika kemampuan daring tidak dinyalakan pada rekening bank Anda, Anda mungkin ingin menggunakan pilihan \"Sumbangkan melalui transfer bank manual\" pada halaman utama sumbangan.",
 	"donate_interface-dd-account_name": "Nama rekening",
 	"donate_interface-dd-account_number": "Nomor rekening",
 	"donate_interface-dd-authorization_id": "ID otorisasi",

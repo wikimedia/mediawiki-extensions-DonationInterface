@@ -22,7 +22,8 @@
 			"Valtlait",
 			"Veikk0.ma",
 			"VezonThunder",
-			"ZeiP"
+			"ZeiP",
+			"Kyykaarme"
 		]
 	},
 	"donate_interface": "Tue Wikimediaa",
@@ -422,7 +423,7 @@
 	"donate_interface-email-optin-fail": "Pyyntösi käsittelyssä tapahtui virhe. Ota yhteyttä osoitteeseen <a href=\"mailto:$1\">$1</a> tai <a href=\"$2\">klikkaa tästä yrittääksesi uudelleen</a>.",
 	"donate_interface-faqs": "Usein kysytyt kysymykset",
 	"donate_interface-tax-info": "Verovähennystiedot",
-	"donate_interface-informationsharing": "Emme myy tietojasi tai tee sillä vaihtokauppaa kenenkään kanssa. Lahjoittaessasi hyväksyt henkilötietojesi jakamisen Wikipediaa ja muita Wikimedia-projekteja ylläpitävän voittoa tavoittelematoman järjestön Wikimedia Foundationin kanssa, sekä Wikimedia Foundationin palveluntarjoajien kanssa <a href=\"$1\">lahjoittajakäytäntömme mukaisesti</a>. Wikimedia Foundation ja sen palveluntarjoajat sijaitsevat Yhdysvalloissa ja muissa maissa, joiden yksityisyyttä koskevat lait eivät välttämättä vastaa kotimaasi lainsäädäntöä. Lisätietoja löydät <a href=\"$1\">lahjoittajakäytännöistämme</a>.",
+	"donate_interface-informationsharing": "Emme myy tietojasi tai tee niillä vaihtokauppaa kenenkään kanssa. Lahjoittaessasi hyväksyt henkilötietojesi jakamisen Wikipediaa ja muita Wikimedia-projekteja ylläpitävän voittoa tavoittelematoman järjestön Wikimedia Foundationin kanssa, sekä Wikimedia Foundationin palveluntarjoajien kanssa <a href=\"$1\">lahjoittajakäytäntömme mukaisesti</a>. Wikimedia Foundation ja sen palveluntarjoajat sijaitsevat Yhdysvalloissa ja muissa maissa, joiden yksityisyyttä koskevat lait eivät välttämättä vastaa kotimaasi lainsäädäntöä. Lisätietoja löydät <a href=\"$1\">lahjoittajakäytännöistämme</a>.",
 	"donate_interface-currency-change": "Muutetaanko?",
 	"donate_interface-taxded-link-int": "Verotus- ja muut oikeudelliset tiedot",
 	"donate_interface-taxded-link-us": "Verovähennystietoja",
