@@ -620,7 +620,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 			// Add a test pattern to match against
 			'PatternFilters' => [
 				'PreAuthorize' => [
-					'test_ruleset_bad_wildcard_actor' => [
+					'test_ruleset_bad_regex_actor' => [
 						// here we use a regex to check for a 3 numeric character username in the email
 						'email' => '/[1-9]{3}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/i',
 						'amount' => '25.00',
@@ -661,8 +661,8 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
 		$this->assertEquals( 100, $message['risk_score'] );
-		$this->assertArrayHasKey( 'PatternFilter_test_ruleset_bad_wildcard_actor', $message['score_breakdown'] );
-		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_ruleset_bad_wildcard_actor'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_ruleset_bad_regex_actor', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_ruleset_bad_regex_actor'] );
 	}
 
 	public function testPatternFilterRegexNoMatch(): void {
@@ -670,7 +670,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 			// Add a test pattern to match against
 			'PatternFilters' => [
 				'PreAuthorize' => [
-					'test_ruleset_bad_wildcard_actor' => [
+					'test_ruleset_bad_regex_actor' => [
 						// here we use a regex to match 3 digit usernames with numeric values
 						'email' => '/[1-9]{3}@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/i',
 						'amount' => '25.00',
