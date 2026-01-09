@@ -28,9 +28,8 @@ class GenericPatternFilter {
 	 * @param array &$riskScores
 	 * @param array $transactionValues
 	 * @param LoggerInterface $logger
-	 * @return void
 	 */
-	public function run( array &$riskScores, array $transactionValues, LoggerInterface $logger ) {
+	public function run( array &$riskScores, array $transactionValues, LoggerInterface $logger ): void {
 		foreach ( $this->values as $rulePropertyName => $rulePropertyValue ) {
 			$actualValue = $transactionValues[$rulePropertyName] ?? null;
 
@@ -66,9 +65,8 @@ class GenericPatternFilter {
 	 * Checks if the value is a regex or a string. It returns false for any string that is not in regex form.
 	 *
 	 * @param string $value
-	 * @return bool
 	 */
-	public function isRegex( string $value ) {
+	public function isRegex( string $value ): bool {
 		$firstMatch = strpos( $value, '/' );
 		$lastMatch = strrpos( $value, '/' );
 		$stringLength = strlen( $value );
@@ -152,9 +150,8 @@ class GenericPatternFilter {
 
 	/**
 	 * Filter name to store in fraud db
-	 * @return string
 	 */
-	protected function makeFilterName() {
+	protected function makeFilterName(): string {
 		return 'PatternFilter_' . $this->patternName;
 	}
 
