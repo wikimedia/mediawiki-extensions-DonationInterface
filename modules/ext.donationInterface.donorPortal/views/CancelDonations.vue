@@ -78,7 +78,8 @@ module.exports = exports = defineComponent( {
 				contact_id: Number( donorData.contact_id ),
 				checksum: donorData.checksum,
 				contribution_recur_id: Number( contributionRecurId ),
-				next_sched_contribution_date: nextSchedContributionDate.value
+				next_sched_contribution_date: nextSchedContributionDate.value,
+				is_from_save_flow: true
 			};
 			trackingParams.addTo( params );
 			requestRecurringPause( params ).then( ( data ) => {

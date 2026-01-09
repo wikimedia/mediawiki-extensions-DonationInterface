@@ -40,6 +40,7 @@ class ApiRequestAnnualConversion extends ApiBase {
 			'contact_id' => $contact_id,
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
+			'is_from_save_flow' => $this->getParameter( 'is_from_save_flow' ),
 			'txn_type' => 'recurring_annual_conversion'
 		] + $this->getTrackingParametersWithoutPrefix();
 
@@ -57,6 +58,11 @@ class ApiRequestAnnualConversion extends ApiBase {
 			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
+			'is_from_save_flow' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => false,
+			],
 			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],

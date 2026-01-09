@@ -14,7 +14,9 @@ const routes = [
   { path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations' },
   { path: '/update-donations/:id', component: UpdateDonations, name: 'UpdateDonations' },
   { path: '/annual-conversion/:id', component: AnnualConversion, name: 'AnnualConversion' },
-  { path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade' }
+  { path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade' },
+  { path: '/annual-conversion/:id/save', component: AnnualConversion, name: 'AnnualConversionSave' },
+  { path: '/amount-downgrade/:id/save', component: AmountDowngrade, name: 'AmountDowngradeSave' }
 ];
 
 const router = createRouter( {

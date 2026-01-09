@@ -41,6 +41,7 @@ module.exports = exports = defineComponent( {
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const contributionRecurId = route.params.id;
+		const isSave = ( route.name === 'AnnualConversionSave' );
 		let recurringContributionRecord = donorData
 			.recurringContributions
 			.filter( ( contribution ) => Number( contribution.id ) === Number( contributionRecurId ) )[ 0 ];
@@ -64,7 +65,8 @@ module.exports = exports = defineComponent( {
 				contact_id: Number( donorData.contact_id ),
 				checksum: donorData.checksum,
 				contribution_recur_id: Number( contributionRecurId ),
-				next_sched_contribution_date: recurringContributionRecord.next_contribution_date_yearly
+				next_sched_contribution_date: recurringContributionRecord.next_contribution_date_yearly,
+				is_from_save_flow: isSave
 			};
 			trackingParams.addTo( params );
 			requestAnnualConversion( params ).then( () => {

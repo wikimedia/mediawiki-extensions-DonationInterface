@@ -41,6 +41,7 @@ class ApiRequestPauseRecurring extends ApiBase {
 			'contact_id' => $contact_id,
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
+			'is_from_save_flow' => $this->getParameter( 'is_from_save_flow' ),
 			'txn_type' => 'recurring_paused'
 		] + $this->getTrackingParametersWithoutPrefix();
 
@@ -59,6 +60,11 @@ class ApiRequestPauseRecurring extends ApiBase {
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
 			'next_sched_contribution_date' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'is_from_save_flow' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => false,
+			],
 			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],

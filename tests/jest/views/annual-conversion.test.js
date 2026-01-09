@@ -97,7 +97,8 @@ describe( 'Annual conversion view', () => {
 			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123
+			contribution_recur_id: 123,
+			is_from_save_flow: false
 		} );
 
 		// Ensure success text is visible after successful API request
@@ -158,7 +159,8 @@ describe( 'Annual conversion view', () => {
 			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123
+			contribution_recur_id: 123,
+			is_from_save_flow: false
 		} );
 
 		// Ensure success text is visible after successful API request
