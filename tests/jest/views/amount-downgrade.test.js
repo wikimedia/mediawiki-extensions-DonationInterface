@@ -95,7 +95,8 @@ describe( 'Downgrade donations view', () => {
 			txn_type: 'recurring_downgrade',
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123
+			contribution_recur_id: 123,
+			is_from_save_flow: false
 		} );
 
 		// Ensure success text is visible after successful API request
@@ -177,7 +178,8 @@ describe( 'Downgrade donations view', () => {
 			txn_type: 'recurring_downgrade',
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123
+			contribution_recur_id: 123,
+			is_from_save_flow: false
 		} );
 
 		// Ensure success text is visible after successful API request

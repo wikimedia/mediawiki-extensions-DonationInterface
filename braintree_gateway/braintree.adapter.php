@@ -72,6 +72,7 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 		switch ( $transactionStatus ) {
 			case FinalStatus::PENDING:
 			case FinalStatus::PENDING_POKE:
+				$this->logPending();
 				$this->runAntifraudFilters();
 				if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
 					$this->finalizeInternalStatus( FinalStatus::FAILED );

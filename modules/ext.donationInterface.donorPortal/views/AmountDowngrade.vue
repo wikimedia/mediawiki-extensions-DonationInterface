@@ -38,6 +38,7 @@ module.exports = exports = defineComponent( {
 		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 		const contributionRecurId = route.params.id;
+		const isSave = ( route.name === 'AmountDowngradeSave' );
 		let recurringContributionRecord = donorData
 			.recurringContributions
 			.filter( ( contribution ) => Number( contribution.id ) === Number( contributionRecurId ) )[ 0 ];
@@ -63,7 +64,8 @@ module.exports = exports = defineComponent( {
 				contact_id: Number( donorData.contact_id ),
 				checksum: donorData.checksum,
 				contribution_recur_id: Number( contributionRecurId ),
-				txn_type: 'recurring_downgrade'
+				txn_type: 'recurring_downgrade',
+				is_from_save_flow: isSave
 			};
 			trackingParams.addTo( params );
 			newAmount.value = recurringContributionRecord.currency_symbol + amount + ' ' +  recurringContributionRecord.currency;

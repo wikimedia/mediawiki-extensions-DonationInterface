@@ -97,7 +97,8 @@ describe( 'Cancel donations view', () => {
 			checksum: DonorDataMock.checksum,
 			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
 			next_sched_contribution_date: DonorDataMock.recurringContributions[ 0 ].next_sched_contribution_date,
-			action: RECURRING_PAUSE_API_ACTION
+			action: RECURRING_PAUSE_API_ACTION,
+			is_from_save_flow: true
 		} ).mockResolvedValueOnce( {
 				result: {
 					message: 'Success',
@@ -143,7 +144,8 @@ describe( 'Cancel donations view', () => {
 			contact_id: DonorDataMock.contact_id,
 			checksum: DonorDataMock.checksum,
 			contribution_recur_id: '123',
-			next_sched_contribution_date: '2025-08-02 00:00:02'
+			next_sched_contribution_date: '2025-08-02 00:00:02',
+			is_from_save_flow: true
 		} ).mockRejectedValueOnce( {
 				result: {
 					message: 'API error'
@@ -313,7 +315,8 @@ describe( 'Cancel donations view', () => {
 			contribution_recur_id: Number( DonorDataMock.recurringContributions[ 0 ].id ),
 			next_sched_contribution_date: DonorDataMock.recurringContributions[ 0 ].next_sched_contribution_date,
 			action: RECURRING_PAUSE_API_ACTION,
-			wmf_campaign: 'testCampaign'
+			wmf_campaign: 'testCampaign',
+			is_from_save_flow: true
 		} ).mockResolvedValueOnce( {
 				result: {
 					message: 'Success',

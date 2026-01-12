@@ -88,6 +88,7 @@ describe( 'Pause donations view', () => {
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
 			action: RECURRING_PAUSE_API_ACTION,
 			duration: '60 Days',
+			is_from_save_flow: false,
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123,
@@ -128,6 +129,7 @@ describe( 'Pause donations view', () => {
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
 			action: RECURRING_PAUSE_API_ACTION,
 			duration: '90 Days',
+			is_from_save_flow: false,
 			contact_id: Number( DonorDataMock.contact_id ),
 			checksum: DonorDataMock.checksum,
 			contribution_recur_id: 123,

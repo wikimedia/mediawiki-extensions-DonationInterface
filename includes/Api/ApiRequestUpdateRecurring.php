@@ -38,7 +38,8 @@ class ApiRequestUpdateRecurring extends ApiBase {
 			'contact_id' => $contact_id,
 			'checksum' => $checksum,
 			'contribution_recur_id' => $contribution_recur_id,
-			'txn_type' => $txn_type
+			'is_from_save_flow' => $this->getParameter( 'is_from_save_flow' ),
+			'txn_type' => $txn_type,
 		] + $this->getTrackingParametersWithoutPrefix();
 
 		QueueWrapper::push( 'recurring-modify', $queueMessage );
@@ -55,6 +56,11 @@ class ApiRequestUpdateRecurring extends ApiBase {
 			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
 			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
+			'is_from_save_flow' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => false,
+			],
 			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],

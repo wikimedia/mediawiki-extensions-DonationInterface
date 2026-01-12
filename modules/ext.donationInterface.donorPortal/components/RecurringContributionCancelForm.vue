@@ -137,11 +137,11 @@ module.exports = exports = defineComponent( {
 			props.submitPauseRecurringForm( pauseDuration.value );
 		};
 		const amountChangeAction = () => {
-			router.push( `/amount-downgrade/${ props.recurringContribution.id }` );
+			router.push( `/amount-downgrade/${ props.recurringContribution.id }/save` );
 		};
 
 		const annualConversionAction = () => {
-			router.push( `/annual-conversion/${ props.recurringContribution.id }` );
+			router.push( `/annual-conversion/${ props.recurringContribution.id }/save` );
 		};
 		return {
 			pauseDuration,
