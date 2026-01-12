@@ -186,6 +186,7 @@
 	"donate_interface-donor-fiscal_number-explain-option-in": "Dette er valgfritt.",
 	"donate_interface-donor-phone": "Telefonnummer",
 	"donate_interface-donor-phone-explain-in": "Dette er valgfritt, og vi lagrer det ikke. Hvis feltet er tomt kan betalingsleverandøren vår generere et midlertidig, tilfeldig generert tall i neste skjermbilde.",
+	"donate_interface-donor-sms_opt_in": "Jeg ønsker å motta tekstmeldinger om f.eks. donasjonsoppfordringer fra Wikimedia på nummeret jeg har angitt.",
 	"donate_interface-donor-opt_in_yes": "Ja! Send meg epostoppdateringer og informasjon av og til om hvordan jeg kan støtte Wikipedia i fremtiden.*",
 	"donate_interface-donor-opt_in_no": "Nei takk, jeg ønsker ikke å motta epostoppdateringer selv om det bare er snakk om noen få eposter årlig.",
 	"donate_interface-donor-opt_in_explain": "*Informasjonen din behandles i samsvar med <a href=\"$1\">personvernspolitikken vår for donorer</a>. Hver e-post du mottar vil inkludere avmeldingslenker.",
