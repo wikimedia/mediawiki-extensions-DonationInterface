@@ -34,6 +34,14 @@
 	"recurupgrade-amount": "目前定期金额",
 	"recurupgrade-next-scheduled-date": "下次捐款日期",
 	"recurupgrade-salutation-no-recur-records": "您好！感谢您对维基百科的支持。",
+	"recurupgrade-select-option": "要升级您的月捐金额，请选择上述选项之一。",
+	"recurupgrade-thanks-increasing": "感谢您增加捐款，助力维基百科及所有维基媒体知识项目构建强大而稳定的未来。让我们携手将知识传播得更远。",
+	"recurupgrade-upgrade-decline": "不，我要保持现况",
+	"recurupgrade-upgrade-now": "立即升级我的每月捐款",
+	"recurupgrade-upgrading-new-amount": "您正在将每月捐赠金额增加至<strong></strong>。",
 	"fundraiserunsubscribe": "从维基媒体基金会筹款电子邮件中退订",
-	"fundraisersubscribe": "启用"
+	"fundraiserunsubscribe-confirm": "您确定要取消订阅吗？",
+	"fundraisersubscribe": "启用",
+	"fundraisersubscribe-appeal-headline-001": "喜欢您看到的内容吗？",
+	"fundraisersubscribe-appeal-text-001": "我们想要临时可发送给您这些照片的更新、往后提供支持或建议的方式、以及更多您在维基百科上喜爱的内容。"
 }

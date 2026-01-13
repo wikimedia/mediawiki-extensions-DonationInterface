@@ -64,7 +64,13 @@
 	"apihelp-di_donate_dlocal-summary": "此API适用于Dlocal。",
 	"apihelp-di_donate_gravy-summary": "此API用于Gravy。",
 	"apihelp-di_donate_braintree-summary": "此API适用于Braintree。",
+	"apihelp-di_recurring_convert-summary": "此API使用来当捐款者完成一笔单笔捐款后，同意增加每月定期捐款。",
 	"apihelp-di_recurring_convert-param-amount": "每月捐款的金额。",
 	"apihelp-di_recurring_convert-param-gateway": "要使用的支付网关——adyen、ingenico等。",
-	"apihelp-employerSearch-example-1": "选择雇主"
+	"apihelp-employerSearch-summary": "此API能让您搜索参与维基媒体基金会增倍捐款方案的雇主。",
+	"apihelp-employerSearch-param-employer": "要搜索哪个雇主，例如：红十字会、世界自然基金会、救世军等等。",
+	"apihelp-employerSearch-example-1": "选择雇主",
+	"apihelp-di_applesession_adyen-summary": "允许直接从Apple请求Apple Pay会话",
+	"apihelp-getPaymentMethods-summary": "回传依据国家可用的付款方式",
+	"apihelp-submitPayment-summary": "基于要发送的参数提交付款"
 }
