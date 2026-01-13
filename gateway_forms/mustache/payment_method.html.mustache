@@ -5,7 +5,7 @@
 {{# submethods }} {{! TODO: give every submethod a label_key, remove conditionals }}
                                                 <li title="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" {{# sub_text_key }}class="has_sub_text" {{/ sub_text_key }}>
                                                 <label for="submethod-{{ key }}">
-                                                    <input id="submethod-{{ key }}" name="payment_submethod-{{ key }}" type="radio" value="{{ key }}" class="cardradio" />
+                                                    <input id="submethod-{{ key }}" name="payment_submethod" type="radio" value="{{ key }}" class="cardradio" />
                                                     <img class="submethod-logo" alt="{{# label_key }}{{ l10n . }}{{/ label_key }}{{^ label_key }}{{ label }}{{/ label_key }}" src="{{ logo }}" {{{ srcset }}}/>
 {{# sub_text_key }}
                                                     <p class="card_sub_text">{{ l10n . }}</p>
@@ -28,7 +28,7 @@
 {{> sepa_mandate_note }}
 {{> issuers }}
 {{# show_continue }}
-								<div id="paymentContinue" {{^ show_submethods }}class="force"{{/ show_submethods }}> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{# trustly_explanation_visible }}{{ l10n "donate_interface-sign-in-to-my-bank" }}{{/ trustly_explanation_visible }}{{^ trustly_explanation_visible }}{{ l10n "donate_interface-continue" }}{{/ trustly_explanation_visible }}" /></div>
+								<div id="paymentContinue" class="force"> <input class="btn enabled" id="paymentContinueBtn" type="button" value="{{# trustly_explanation_visible }}{{ l10n "donate_interface-sign-in-to-my-bank" }}{{/ trustly_explanation_visible }}{{^ trustly_explanation_visible }}{{ l10n "donate_interface-continue" }}{{/ trustly_explanation_visible }}" /></div>
 {{/ show_continue }}
 								{{# is_cc }}
 									{{# employer_visible }}

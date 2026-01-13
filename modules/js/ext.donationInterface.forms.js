@@ -104,6 +104,7 @@
 	 *  '0' = checkbox shown and not checked, checkbox not shown
 	 *  '1' = checkbox shown and checked
 	 *
+	 * @param checkboxName
 	 * @return {string}
 	 */
 	function handleCheckbox( checkboxName ) {
@@ -356,19 +357,9 @@
 
 		// If submethods are visible, and a submethod is already selected on
 		// page load, clear it.
-		if ( $( 'input[name="payment_submethod"]:checked:visible' ).length > 0 ) {
+		if ( hasCheckedSubmethodOption() ) {
 			di.forms.resetSubmethod();
 		}
-
-		// Submit on submethod click if valid, otherwise clear submethod selection.
-		$( 'input[name="payment_submethod"]' ).on( 'click', () => {
-			if ( di.validation.validate() ) {
-				di.forms.submit();
-			} else {
-				di.forms.resetSubmethod();
-				return false;
-			}
-		} );
 
 		// Some forms show a 'continue' button when validation errors are found
 		// server-side on the initial submit. When shown, it should validate
@@ -376,6 +367,9 @@
 		$( '#paymentContinueBtn' ).on( 'click', () => {
 			if ( di.validation.validate() ) {
 				di.forms.submit();
+			} else if ( hasCheckedSubmethodOption ) {
+				di.forms.resetSubmethod();
+				return false;
 			}
 		} );
 
@@ -393,6 +387,10 @@
 				di.forms.enableInput();
 			}
 		);
+
+		function hasCheckedSubmethodOption() {
+			return $( 'input[name="payment_submethod"]:visible:checked' ).length > 0;
+		}
 
 		function showEmailExplain() {
 			$emailDiv.after( '<div id="email_explain">' + emailExplainMessage + '</div>' );
