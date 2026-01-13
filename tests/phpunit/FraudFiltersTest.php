@@ -712,4 +712,342 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( ValidationAction::PROCESS, $message['validation_action'] );
 		$this->assertSame( 0, $message['risk_score'] );
 	}
+
+	public function testPatternFilterNumericComparisonLessThanMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_small_donation_spammer' => [
+						'amount' => [ '<', 3 ],
+						'currency' => 'USD',
+						'country' => 'US',
+						'payment_method' => 'cc',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '2.50';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['country'] = 'US';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		// trigger the filters against the test gateway data
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// confirm we reject the transaction and assign the expected risk score
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction matching numeric comparison filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals(
+			100,
+			$exposed->risk_score,
+			'Risk Score should be 100 from the pattern filter match'
+		);
+
+		// check the antifraud queue message
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_small_donation_spammer', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_small_donation_spammer'] );
+	}
+
+	public function testPatternFilterNumericComparisonNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_small_donation_spammer' => [
+						'amount' => [ '<', 3 ],
+						'currency' => 'USD',
+						'country' => 'US',
+						'payment_method' => 'cc',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '25.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['country'] = 'US';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		// trigger the filters against the test gateway data
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// confirm we process the transaction since amount >= 3
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process transaction that does not match numeric comparison filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame(
+			0,
+			$exposed->risk_score,
+			'Risk Score should be 0 from no match'
+		);
+
+		// check the antifraud queue message
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::PROCESS, $message['validation_action'] );
+		$this->assertSame( 0, $message['risk_score'] );
+	}
+
+	public function testPatternFilterNumericComparisonGreaterThanMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_large_donation_suspicious' => [
+						'amount' => [ '>', 1000 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '5000.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction matching numeric comparison filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals(
+			100,
+			$exposed->risk_score,
+			'Risk Score should be 100 from the pattern filter match'
+		);
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_large_donation_suspicious', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_large_donation_suspicious'] );
+	}
+
+	public function testPatternFilterNumericComparisonLessThanOrEqualMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_lte_filter' => [
+						'amount' => [ '<=', 5 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '5.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction where amount equals threshold with <= operator'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_lte_filter', $message['score_breakdown'] );
+	}
+
+	public function testPatternFilterNumericComparisonLessThanOrEqualNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_lte_filter' => [
+						'amount' => [ '<=', 5 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '5.01';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process transaction where amount is just above threshold with <= operator'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterNumericComparisonGreaterThanOrEqualMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_gte_filter' => [
+						'amount' => [ '>=', 100 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '100.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction where amount equals threshold with >= operator'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_gte_filter', $message['score_breakdown'] );
+	}
+
+	public function testPatternFilterNumericComparisonGreaterThanOrEqualNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_gte_filter' => [
+						'amount' => [ '>=', 100 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '99.99';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process transaction where amount is just below threshold with >= operator'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterNumericComparisonNonNumericValueNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_small_amount_filter' => [
+						'amount' => [ '<', 3 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = 'abc';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		// Non-numeric values should not match numeric comparisons
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Non-numeric value should not match numeric comparison'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterNumericComparisonDecimalThreshold(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_decimal_filter' => [
+						'amount' => [ '>=', 99.99 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '99.99';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should match filter with decimal threshold'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+	}
 }
