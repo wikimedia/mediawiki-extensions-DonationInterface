@@ -361,10 +361,13 @@
 			di.forms.resetSubmethod();
 		}
 
-		// Some forms show a 'continue' button when validation errors are found
-		// server-side on the initial submit. When shown, it should validate
-		// and submit the form.
-		$( '#paymentContinueBtn' ).on( 'click', () => {
+		// Continue button behaviour: require at least one submethod selected when none
+		$( '#paymentContinueBtn' ).on( 'click', ( e ) => {
+			let $visibleSubmethods = $( 'input[name="payment_submethod"]:visible' );
+			if ( $visibleSubmethods.length > 1 && $visibleSubmethods.filter( ':checked' ).length === 0 ) {
+				e.preventDefault();
+				$visibleSubmethods.first().focus().prop( 'checked', true );
+			}
 			if ( di.validation.validate() ) {
 				di.forms.submit();
 			} else if ( hasCheckedSubmethodOption ) {
