@@ -185,6 +185,7 @@
 	"donate_interface-donor-fiscal_number-explain-in": "Reserve Bank of India <b>ber om</b> at vi samler inn din PAN, men vi lagrer ikke denne informasjonen. <b>Angi ditt PAN her (valgfritt).</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Dette er valgfritt.",
 	"donate_interface-donor-phone": "Telefonnummer",
+	"donate_interface-donor-phone-optional": "Telefonnummer (valgfritt)",
 	"donate_interface-donor-phone-explain-in": "Dette er valgfritt, og vi lagrer det ikke. Hvis feltet er tomt kan betalingsleverandøren vår generere et midlertidig, tilfeldig generert tall i neste skjermbilde.",
 	"donate_interface-donor-sms_opt_in": "Jeg ønsker å motta tekstmeldinger om f.eks. donasjonsoppfordringer fra Wikimedia på nummeret jeg har angitt.",
 	"donate_interface-donor-opt_in_yes": "Ja! Send meg epostoppdateringer og informasjon av og til om hvordan jeg kan støtte Wikipedia i fremtiden.*",
