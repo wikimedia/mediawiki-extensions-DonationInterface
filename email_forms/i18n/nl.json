@@ -47,7 +47,7 @@
 	"donorportal-coming-soon": "Binnenkort",
 	"donorportal-here": "hier",
 	"donorportal-update-payment-method-explanation": "Wij werken aan een functie waarmee u uw betaalmethode rechtstreeks vanuit uw donateursaccount zult kunnen wijzigen of bijwerken.",
-	"donorportal-update-payment-method-explanation-template-to": "Mocht u in de tussentijd uw betaalmethode willen wijzigen (of uw creditcardgegevens willen bijwerken), dan helpt ons team Donateursrelaties u graag verder. Klik op $1 om een e-mailsjabloon ‘Verzoek tot wijziging van betaalmethode’ in te vullen. Wij reageren zo spoedig mogelijk.",
+	"donorportal-update-payment-method-explanation-template-to": "Mocht u in de tussentijd uw betaalmethode willen wijzigen (of uw creditcardgegevens willen bijwerken), dan helpt ons team Donateursrelaties u graag verder. Klik $1 om een e-mailsjabloon ‘Verzoek tot wijziging van betaalmethode’ in te vullen. Wij reageren zo spoedig mogelijk.",
 	"donorportal-update-payment-method-explanation-template-subject": "Verzoek tot wijziging van betaalmethode",
 	"donorportal-update-payment-method-explanation-template-body": "Gelieve onderstaande informatie te controleren voordat u deze email verstuurt. Zo helpt u ons bij het verwerken van uw aanvraag.%0D%0A%0D%0AVoeg nooit uw creditcardnummer of andere financiële gegevens bij wanneer u contact met ons opneemt.%0D%0A%0D%0AVerzoek tot wijziging van betaalmethode%0D%0A%0D%0AIk wil graag mijn betaalmethode wijzigen. Hieronder staan mijn gegevens:%0D%0ANaam: $1%0D%0AE-mailadres: $2%0D%0ABedrag en valuta van de donatie: $3",
 	"donorportal-close": "Sluiten",

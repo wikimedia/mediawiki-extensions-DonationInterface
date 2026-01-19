@@ -7,7 +7,7 @@
 	},
 	"donate_interface": "Podržite Wikimediju",
 	"donate_interface-desc": "Stranica za doniranje koja se integrira u proširenja gatewaya",
-	"donate_interface-langonly-desc": "Otkriva samo sistemske poruke sučelja za novčane priloge",
+	"donate_interface-langonly-desc": "Otkriva samo sistemske poruke interfejsa za novčane priloge",
 	"donate_interface-intro": "Molimo vas odaberite način plaćanja, iznos i valutu.",
 	"donate_interface-amount": "Iznos",
 	"donate_interface-other-amount": "Drugi iznos",
