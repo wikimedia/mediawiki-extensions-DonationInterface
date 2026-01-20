@@ -10,6 +10,8 @@ class GenericPatternFilter {
 	protected int $failScore;
 	protected array $values;
 
+	private const NUMERIC_COMPARISON_OPERATORS = [ '<', '>', '<=', '>=' ];
+
 	/**
 	 * @param string $patternName
 	 * @param int $failScore
@@ -39,6 +41,10 @@ class GenericPatternFilter {
 				}
 			} elseif ( is_string( $rulePropertyValue ) && str_contains( $rulePropertyValue, '*' ) ) {
 				if ( !$this->matchesWildcard( $actualValue, $rulePropertyValue ) ) {
+					return;
+				}
+			} elseif ( is_array( $rulePropertyValue ) && $this->isNumericComparison( $rulePropertyValue ) ) {
+				if ( !$this->matchesNumericComparison( $actualValue, $rulePropertyValue ) ) {
 					return;
 				}
 			} else {
@@ -98,6 +104,50 @@ class GenericPatternFilter {
 
 		// match against the string value
 		return (bool)preg_match( $regexPattern, (string)$value );
+	}
+
+	/**
+	 * Checks if the value is a numeric comparison array.
+	 *
+	 * Expected format: ['<', 3] or ['>=', 10.5]
+	 *   - First element: comparison operator (<, >, <=, >=)
+	 *   - Second element: numeric threshold
+	 *
+	 * @param array $value
+	 * @return bool
+	 */
+	protected function isNumericComparison( array $value ): bool {
+		// Ensure it's a list with exactly 2 elements at indexes 0 and 1
+		// (not an associative array)
+		return array_is_list( $value )
+			&& count( $value ) === 2
+			&& in_array( $value[0], self::NUMERIC_COMPARISON_OPERATORS, true )
+			&& is_numeric( $value[1] );
+	}
+
+	/**
+	 * Checks if the given value satisfies the numeric comparison.
+	 *
+	 * @param mixed $value The actual value to compare
+	 * @param array $comparison The comparison array (e.g., ['<', 3], ['>=', 10])
+	 * @return bool
+	 */
+	protected function matchesNumericComparison( mixed $value, array $comparison ): bool {
+		if ( !is_numeric( $value ) ) {
+			return false;
+		}
+
+		$operator = $comparison[0];
+		$threshold = (float)$comparison[1];
+		$actualNumeric = (float)$value;
+
+		return match ( $operator ) {
+			'<' => $actualNumeric < $threshold,
+			'>' => $actualNumeric > $threshold,
+			'<=' => $actualNumeric <= $threshold,
+			'>=' => $actualNumeric >= $threshold,
+			default => false
+		};
 	}
 
 	/**
