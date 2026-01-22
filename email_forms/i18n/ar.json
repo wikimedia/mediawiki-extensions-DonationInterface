@@ -27,6 +27,8 @@
 	"donorportal-inactive-recurring": "تبرعك المتكرر",
 	"donorportal-most-recent-donation": "تبرعك الأخير",
 	"donorportal-renew-support": "جدد دعمك",
+	"donorportal-processing": "يعالج...",
+	"donorportal-processing-text": "تم طلب تغيير قيمة هذه التبرعات.",
 	"donorportal-restart-monthly": "أعد تشغيل التبرع الشهري الخاص بك",
 	"donorportal-restart-annual": "أعد تشغيل التبرع السنوي الخاص بك",
 	"donorportal-recurring-amount-monthly": "$1 $2 شهريًا",
