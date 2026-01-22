@@ -1,7 +1,7 @@
 <template>
 	<div :class="cardClass">
 		<div class="dp-card__section dp-card__summary">
-			<span v-if="isActive && !isPaused && !isProcessing" class="tag is-recurring">{{ statusWord }}</span>
+			<span v-if="isCurrentlyActive" class="tag is-recurring">{{ statusWord }}</span>
 			<span v-else-if="isProcessing" class="tag is-processing">{{ $i18n( "donorportal-processing" ).text() }}</span>
 			<span v-else class="tag">{{ statusWord }}</span>
 			<p class="text heading--h2">
@@ -42,15 +42,9 @@
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
-			<p v-if="!isRecurringModifiable" class="text text--body text--align-left">
-				{{ $i18n( "donorportal-update-donation-paypal-disable-text" ).text() }}
-			</p>
-			<p v-if="isProcessing" class="text text--body text--align-left">
-				{{ $i18n( "donorportal-processing-text" ).text() }}
-			</p>
 			<p
-				v-if="isActive && isRecurringModifiable && !isProcessing"
-				class="text text--body"
+				v-if="isActive"
+				:class="textClasses"
 				v-html="recurringAdditionalActionsLink">
 			</p>
 		</div>
@@ -89,6 +83,16 @@ module.exports = exports = defineComponent( {
 		},
 		isProcessing: function () {
 			return this.isActive && this.contribution.is_processing;
+		},
+		isCurrentlyActive: function () {
+			return this.isActive && !this.isPaused && !this.isProcessing;
+		},
+		textClasses: function () {
+			return [
+				'text',
+				'text--body',
+				{ 'text--align-left': this.isProcessing || !this.isRecurringModifiable }
+			];
 		},
 		emailTemplate: function () {
 			const here = this.$i18n( 'donorportal-here' );
@@ -151,6 +155,12 @@ module.exports = exports = defineComponent( {
 			return this.$i18n( this.contribution.restart_key ).text();
 		},
 		recurringAdditionalActionsLink: function () {
+			if ( this.isProcessing ) {
+				return this.$i18n( 'donorportal-processing-text' ).text();
+			}
+			if ( !this.isRecurringModifiable ) {
+				return this.$i18n( 'donorportal-update-donation-paypal-disable-text' ).text();
+			}
 			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
 			if ( !this.isPaused ) {
 				const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
