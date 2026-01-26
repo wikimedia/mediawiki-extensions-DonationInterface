@@ -257,7 +257,7 @@
 
 	function insertGooglePayComponentContainer() {
 		$( '.submethods' ).before(
-			'<div id="container">' +
+			'<div id="googlepay-container">' +
 			'</div>'
 		);
 	}
@@ -489,7 +489,7 @@
 
 	function insertApplePayComponentContainer() {
 		$( '.submethods' ).before(
-			'<div id="container">' +
+			'<div id="applepay-container">' +
 			'<apple-pay-button class="button" id="applepay-btn" buttonstyle="black" type="donate" locale="' + language + '"></apple-pay-button>' +
 			'</div>'
 		);
