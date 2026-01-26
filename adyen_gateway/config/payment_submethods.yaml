@@ -79,6 +79,7 @@ sepadirectdebit:
   countries:
     - AT
     - BE
+    - BG
     - CY
     - DE
     - EE
@@ -99,7 +100,6 @@ sepadirectdebit:
 
 #     Countries Adyen says they don't support
 #     https://adyen.com/payment-methods/sepa-direct-debit
-#    - BG
 #    - CH
 #    - CZ
 #    - DK
