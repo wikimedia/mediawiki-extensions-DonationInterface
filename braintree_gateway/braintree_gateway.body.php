@@ -19,6 +19,12 @@ class BraintreeGateway extends GatewayPage {
 	/** @inheritDoc */
 	protected $gatewayIdentifier = BraintreeAdapter::IDENTIFIER;
 
+	/**
+	 * Cached client token to prevent duplicate API calls
+	 * @var string|null
+	 */
+	private ?string $clientToken = null;
+
 	protected function addGatewaySpecificResources( OutputPage $out ): void {
 		foreach ( $this->getScriptsToLoad() as $script ) {
 			$this->preloadScript( $script );
@@ -59,9 +65,26 @@ class BraintreeGateway extends GatewayPage {
 		);
 
 		$vars['DonationInterfaceFailUrl'] = $failPage;
-		$vars['clientToken'] = $this->adapter->getClientToken();
+		$vars['clientToken'] = $this->getClientToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 		$vars['scriptsToLoad'] = $this->getScriptsToLoad();
+	}
+
+	/**
+	 * Get the Braintree client token, caching the result to prevent duplicate API calls.
+	 *
+	 * @return string|null
+	 */
+	private function getClientToken(): ?string {
+		// Return cached value if we've already fetched a token.
+		// See https://phabricator.wikimedia.org/T415720 to understand
+		// how that can happen.
+		if ( $this->clientToken !== null ) {
+			return $this->clientToken;
+		}
+
+		$this->clientToken = $this->adapter->getClientToken();
+		return $this->clientToken;
 	}
 
 	/**
