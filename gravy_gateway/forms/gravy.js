@@ -326,6 +326,14 @@
 		};
 	}
 
+	function clearApplePaySessionAndEnableButton() {
+		appleSession = null;
+		const btn = document.getElementById( 'applepay-btn' );
+		if ( btn ) {
+			btn.disabled = false;
+		}
+	}
+
 	function getGoogleMerchantInfo() {
 		return {
 			merchantName: 'WikimediaFoundation',
@@ -407,15 +415,26 @@
 	}
 
 	function handleApplePayApiResult( result ) {
-		appleSession.completePayment( {
-			status: ApplePaySession.STATUS_SUCCESS
-		} );
+		if ( appleSession ) {
+			appleSession.completePayment( {
+				status: ApplePaySession.STATUS_SUCCESS
+			} );
+			appleSession = null;
+		}
 
 		handleApiResult( result );
 	}
 
 	function handleApplePaySubmitClick( e ) {
 		e.preventDefault();
+		const button = e.currentTarget;
+
+		// Prevent double-tap / double session
+		if ( appleSession || button.disabled ) {
+			return;
+		}
+
+		button.disabled = true;
 		setupApplePaySession();
 		appleSession.begin();
 	}
@@ -432,11 +451,14 @@
 					mw.donationInterface.validation.showErrors( {
 						general: mw.msg( 'donate_interface-error-msg-general' )
 					} );
+					clearApplePaySessionAndEnableButton();
 					mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: ' + data.result.errors );
 				} else {
 					appleSession.completeMerchantValidation( data.session );
 				}
 			} ).catch( ( e ) => {
+				appleSession.abort();
+				clearApplePaySessionAndEnableButton();
 				mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: ' + e );
 				mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
@@ -460,7 +482,9 @@
 			}
 		};
 		appleSession = new ApplePaySession( applePayPaySessionVersionNumber, paymentRequestObject );
-
+		appleSession.oncancel = function () {
+			clearApplePaySessionAndEnableButton();
+		};
 		appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
 
 		appleSession.onpaymentauthorized = function ( event ) {
