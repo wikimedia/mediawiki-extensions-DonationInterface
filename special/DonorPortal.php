@@ -99,8 +99,11 @@ class DonorPortal extends UnlistedSpecialPage {
 			$requestParameters['contact_id']
 		);
 		// if civiproxy returned an error, show the login form instead
-		if ( !isset( $donorSummary['id'] ) ) {
-			$this->formParams = [ 'showLogin' => true ];
+		if ( isset( $donorSummary['is_error'] ) ) {
+			$this->formParams = [
+				'showLogin' => true,
+				'hasError' => true
+			];
 			return;
 		}
 		$locale = $this->getLocale( $donorSummary );

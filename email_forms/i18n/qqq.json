@@ -128,6 +128,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Text shown when a monthly recurring donation has been successfully cancelled: $1 - full amount string, ex. '$10.00 USD monthly'",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Text shown when an annual recurring donation has been successfully cancelled: $1 - full amount string, ex. '$10.00 USD yearly'",
 	"donorportal-cancel-failure": "Error message shown when attempt to cancel recurring fails, $1 - Donor relations email",
+	"donorportal-authentication-failure": "Error message shown when attempt to authenticate a donor credentials fails, $1 - Donor relations email",
 	"donorportal-update-recurring-heading": "Header text that change your recurring donation amount",
 	"donorportal-downgrade-recurring-heading": "Header text show reduce recurring donation amount",
 	"donorportal-update-recurring-text": "Text to indicate donation is valuable to make sure we maintain our ad-free knowledge platform",

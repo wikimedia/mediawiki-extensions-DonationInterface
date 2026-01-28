@@ -15,8 +15,8 @@ describe( 'Donor contact details component', () => {
     } );
     afterEach( () => {
         if ( wrapper ) {
- wrapper.unmount();
-}
+            wrapper.unmount();
+        }
     } );
     it( 'Renders successfully', async () => {
         wrapper = VueTestUtils.mount( DonationsHistory, {

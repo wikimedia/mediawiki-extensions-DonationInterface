@@ -125,6 +125,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Your $1 donation has been cancelled. Please note that it may take up to 30 minutes for the cancellation to appear on your donor account.",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Your $1 annual donation has been cancelled. Please note that it may take up to 30 minutes for the cancellation to appear on your donor account.",
 	"donorportal-cancel-failure": "Something went wrong, please contact $1",
+	"donorportal-authentication-failure": "Something went wrong, please try again later or $1",
 	"donorportal-update-recurring-heading": "Upgrade or change your recurring donation amount",
 	"donorportal-downgrade-recurring-heading": "Reduce your recurring donation amount",
 	"donorportal-update-recurring-text": "Your support helps ensure that Wikipedia remains reliable, ad-free, and available whenever you need it.",

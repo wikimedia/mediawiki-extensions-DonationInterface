@@ -493,7 +493,8 @@
 				"donorportal-aside-faq-how-wikipedia-works",
 				"donorportal-aside-article-of-the-day-heading",
 				"donorportal-donationtable-pagination-text",
-				"upload-source"
+				"upload-source",
+				"donorportal-authentication-failure"
 			]
 		},
 		"ext.donationInterface.donorPortalStyles": {
