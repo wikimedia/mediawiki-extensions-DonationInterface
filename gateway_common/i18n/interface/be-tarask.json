@@ -8,7 +8,8 @@
 			"Red Winged Duck",
 			"Renessaince",
 			"Wizardist",
-			"Zedlik"
+			"Zedlik",
+			"Ucukor"
 		]
 	},
 	"donate_interface": "Падтрымайце фундацыю «Вікімэдыя»",
@@ -316,6 +317,8 @@
 	"donate_interface-obt-information": "Інфармацыя пра онлайнавыя банкаўскія пералікі",
 	"donate_interface-rtbt-issuer_id": "Выберыце свой банк",
 	"donate_interface-rtbt-issuer_id-longlist": "Іншыя банкі",
+	"donate_interface-dd-account_name": "Імя гаспадара рахунку",
+	"donate_interface-dd-account_number": "Нумар рахунку",
 	"donate_interface-translate-bluelink": "Палепшыце гэты пераклад",
 	"donate_interface-translate-redlink1": "Дапамажыце перакласьці гэтую старонку.",
 	"donate_interface-translate-redlink2": "Ці дашліце Ваш пераклад па адрасе translations@wikimedia.org",
