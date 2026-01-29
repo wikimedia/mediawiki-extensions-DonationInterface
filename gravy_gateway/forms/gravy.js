@@ -256,9 +256,11 @@
 	}
 
 	function insertGooglePayComponentContainer() {
+		if ( document.getElementById( 'googlepay-container' ) ) {
+			return;
+		}
 		$( '.submethods' ).before(
-			'<div id="googlepay-container">' +
-			'</div>'
+			'<div id="googlepay-container"></div>'
 		);
 	}
 
@@ -361,7 +363,7 @@
 
 	function getGooglePayClient() {
 		if ( googlePaymentClient === null ) {
-			return new google.payments.api.PaymentsClient( { environment: configFromServer.googleEnvironment } );
+			googlePaymentClient = new google.payments.api.PaymentsClient( { environment: configFromServer.googleEnvironment } );
 		}
 		return googlePaymentClient;
 	}
@@ -373,13 +375,13 @@
 		googlePayClient
 			.isReadyToPay( isReadyToPayRequest )
 			.then( ( response ) => {
-				if ( response.result ) {
+				if ( response && response.result ) {
 					const button = googlePayClient.createButton( {
 						onClick: handleGooglePayButtonClick,
-						allowedPaymentMethods: [ 'CARD','TOKENIZED_CARD' ],
+						allowedPaymentMethods: [ 'CARD', 'TOKENIZED_CARD' ],
 						buttonType: 'donate'
 					} );
-					document.getElementById( 'container' ).appendChild( button );
+					document.getElementById( 'googlepay-container' ).appendChild( button );
 				}
 			} )
 			.catch( ( err ) => {
