@@ -1,4 +1,4 @@
-/* global SecureFields google ApplePaySession */
+/* global SecureFields google ApplePaySession ApplePayError */
 ( function ( $, mw ) {
 	let secureFieldValid = false,
 	cardNumberFieldValid = false,
@@ -490,7 +490,6 @@
 		appleSession.onpaymentauthorized = function ( event ) {
 			const bContact = event.payment.billingContact,
 				sContact = event.payment.shippingContact;
-			let extraData = {};
 			let paymentSubmethod = event.payment.token.paymentMethod.network;
 			if ( !paymentSubmethod ) {
 				paymentSubmethod = '';
@@ -505,11 +504,23 @@
 			extraData.email = sContact.emailAddress;
 			extraData.payment_submethod = paymentSubmethod.toLowerCase();
 			extraData.payment_token = JSON.stringify( event.payment.token );
-			mw.donationInterface.forms.callDonateApi(
-				handleApplePayApiResult,
-				extraData,
-				'di_donate_gravy'
-			);
+
+			const applePayErrors = getApplePayErrors();
+			if ( applePayErrors.length === 0 ) {
+				mw.donationInterface.forms.callDonateApi(
+					handleApplePayApiResult,
+					extraData,
+					'di_donate_gravy'
+				);
+			} else {
+				// First and last name not configured in ApplePay sheet.
+				// Show errors in payment sheet
+				const response = {
+					status: ApplePaySession.STATUS_FAILURE,
+					errors: applePayErrors
+				};
+				appleSession.completePayment( response );
+			}
 		};
 	}
 
@@ -519,6 +530,32 @@
 			'<apple-pay-button class="button" id="applepay-btn" buttonstyle="black" type="donate" locale="' + language + '"></apple-pay-button>' +
 			'</div>'
 		);
+	}
+
+	function getApplePayErrors() {
+		const applePayErrors = [];
+		if ( !extraData.first_name.trim() ) {
+			applePayErrors.push( new ApplePayError(
+				'billingContactInvalid',
+				'name',
+				mw.msg( 'donate_interface-error-msg-first_name' )
+			) );
+		}
+		if ( !extraData.first_name.trim() ) {
+			applePayErrors.push( new ApplePayError(
+				'billingContactInvalid',
+				'name',
+				mw.msg( 'donate_interface-error-msg-last_name' )
+			) );
+		}
+		if ( !extraData.email.trim() ) {
+			applePayErrors.push( new ApplePayError(
+				'shippingContactInvalid',
+				'email',
+				mw.msg( 'donate_interface-error-msg-email' )
+			) );
+		}
+		return applePayErrors;
 	}
 
 	function submitPaypal() {
