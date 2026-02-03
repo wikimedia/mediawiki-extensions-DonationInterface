@@ -461,7 +461,7 @@
 	"donate_interface-statement": "Wikimedia $1",
 	"donate_interface-photo-license": "Alle Bilder sind unter der Creative-Commons-Lizenz <a href=\"$1\">„Namensnennung – Weitergabe unter gleichen Bedingungen 4.0 international“</a> lizenziert.",
 	"donate_interface-emailpreferences-thank-you-title": "Vielen Dank für die Bestätigung Ihrer E-Mail-Adresse.",
-	"donate_interface-emailpreferences-thank-you-text": "Wir freuen uns, mit Ihnen in Kontakt zu bleiben!",
+	"donate_interface-emailpreferences-thank-you-text": "Wir freuen uns darauf, mit Ihnen in Kontakt zu bleiben!",
 	"donate_interface-monthly-convert-title": "Möchten Sie ab nächstem Monat <span class=\"mc-convert-ask\"></span> monatlich spenden?",
 	"donate_interface-monthly-convert-title-annual": "Eine in der Zukunft beginnende wiederkehrende Spende hinzufügen?",
 	"donate_interface-monthly-convert-title-variant-003": "Danke für deine Spende in Höhe von <span class=\"mc-convert-donated-amount\"></span>. Möchtest du deine Unterstützung durch eine monatliche Spende in Höhe von <span class=\"mc-convert-ask\"></span> ab nächstem Monat ausbauen?",
