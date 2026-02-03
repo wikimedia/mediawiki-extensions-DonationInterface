@@ -25,37 +25,38 @@
 		let first_name, last_name;
 
 		if (
-		billingContact &&
-		billingContact.givenName &&
-		billingContact.givenName.length > 1
+			billingContact &&
+			billingContact.givenName &&
+			billingContact.givenName.length > 1
 		) {
-		first_name = billingContact.givenName;
-		if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
-			last_name = billingContact.familyName;
-		}
+			first_name = billingContact.givenName;
+			if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
+				last_name = billingContact.familyName;
+			}
 		}
 
 		if ( first_name && !last_name ) {
-		// suspected 'dad' scenario so use shipping contact
-		if (
-			shippingContact &&
-			shippingContact.givenName &&
-			shippingContact.givenName.length > 1
-		) {
-			first_name = shippingContact.givenName;
+			// suspected 'dad' scenario so use shipping contact
 			if (
-			shippingContact.familyName &&
-			shippingContact.familyName.length > 1
+				shippingContact &&
+				shippingContact.givenName &&
+				shippingContact.givenName.length > 1
 			) {
-			last_name = shippingContact.familyName;
+				first_name = shippingContact.givenName;
+				if (
+					shippingContact.familyName &&
+					shippingContact.familyName.length > 1
+				) {
+					last_name = shippingContact.familyName;
+				}
 			}
-		}
 		}
 
 		extraData.first_name = first_name;
 		extraData.last_name = last_name;
 		return extraData;
 	}
+
 	// FIXME: move function declarations into object
 	di.forms.apple = {
 		getBestApplePayContactName: getBestApplePayContactName
