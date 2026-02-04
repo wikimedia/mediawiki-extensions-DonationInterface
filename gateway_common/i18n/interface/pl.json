@@ -403,6 +403,7 @@
 	"donate_interface-onetime-short": "Jeden raz",
 	"donate_interface-error-http-403": "Nie masz uprawnień do dostępu do tej strony.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-emailpreferences-thank-you-title": "Dziękujemy za potwierdzenie swojego adresu e-mail.",
 	"donate_interface-monthly-convert-title": "Czy chcesz dodać comiesięczną darowiznę w kwocie <span class=\"mc-convert-ask\"></span>  począwszy od przyszłego miesiąca?",
 	"donate_interface-monthly-convert-text": "Comiesięczne wsparcie to najlepszy sposób zapewnienia ciągłego rozwoju Wikipedii",
 	"donate_interface-monthly-convert-change-amount": "Tak, chcę przekazywać comiesięczną darowiznę, ale w innej kwocie",
