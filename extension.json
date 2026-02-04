@@ -730,6 +730,8 @@
 				"donate_interface-error-msg-discover",
 				"donate_interface-error-msg-amount",
 				"donate_interface-error-msg-email",
+				"donate_interface-error-msg-first_name",
+				"donate_interface-error-msg-last_name",
 				"donate_interface-error-msg-postal_code",
 				"donate_interface-error-msg-street_address",
 				"donate_interface-error-msg-country",

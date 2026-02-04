@@ -417,6 +417,8 @@
 	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-error-http-403": "Non si dispone dei permessi necessari per accedere a questa pagina.",
 	"donate_interface-statement": "Wikimedia $1",
+	"donate_interface-emailpreferences-thank-you-title": "Grazie per aver confermato il tuo indirizzo e-mail.",
+	"donate_interface-emailpreferences-thank-you-text": "Non vediamo l'ora di rimanere in contatto con te!",
 	"donate_interface-monthly-convert-title": "Vuoi aggiungere una donazione mensile di <span class=\"mc-convert-ask\"></span> a partire dal prossimo mese?",
 	"donate_interface-monthly-convert-title-annual": "Vuoi aggiungere una donazione ricorrente da far partire in futuro?",
 	"donate_interface-monthly-convert-title-variant-015": "Se possibile, aggiungi una donazione mensile di <span class=\"mc-convert-ask\"></span> a partire dal mese prossimo.",
@@ -437,7 +439,5 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
 	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1.",
-	"donate_interface-redirect-explanation": "Sarai reindirizzato a un partner di Wikimedia che elabora i pagamenti.",
-	"donate_interface-emailpreferences-thank-you-title": "Grazie per aver confermato il tuo indirizzo e-mail.",
-	"donate_interface-emailpreferences-thank-you-text": "Continuiamo a rimanere in contatto!"
+	"donate_interface-redirect-explanation": "Sarai reindirizzato a un partner di Wikimedia che elabora i pagamenti."
 }

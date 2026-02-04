@@ -1,63 +1,62 @@
 /**
- * Core functionality for DonationInterface forms
- *
- * @param $
- * @param mw
+ * Apple Pay helper functions for DonationInterface forms
+ * @param $ jQuery
+ * @param mw mediaWiki
  */
 ( function ( $, mw ) {
 	const di = mw.donationInterface; // Defined in ext.donationInterface.validation.js
+	di.forms = di.forms || {};
 
-	/**
-	 * Try to obtain the "best" name from the available contact info sent back by Apple pay
-	 *
-	 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/2216120-requiredbillingcontactfields
-	 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentcontact
-	 * @param extraData
-	 * @param billingContact
-	 * @param shippingContact
-	 * @return {*}
-	 */
-	function getBestApplePayContactName(
-		extraData,
-		billingContact,
-		shippingContact
-	) {
-		let first_name, last_name;
-
-		if (
-		billingContact &&
-		billingContact.givenName &&
-		billingContact.givenName.length > 1
-		) {
-		first_name = billingContact.givenName;
-		if ( billingContact.familyName && billingContact.familyName.length > 1 ) {
-			last_name = billingContact.familyName;
-		}
-		}
-
-		if ( first_name && !last_name ) {
-		// suspected 'dad' scenario so use shipping contact
-		if (
-			shippingContact &&
-			shippingContact.givenName &&
-			shippingContact.givenName.length > 1
-		) {
-			first_name = shippingContact.givenName;
-			if (
-			shippingContact.familyName &&
-			shippingContact.familyName.length > 1
-			) {
-			last_name = shippingContact.familyName;
-			}
-		}
-		}
-
-		extraData.first_name = first_name;
-		extraData.last_name = last_name;
-		return extraData;
+	function isNotEmpty( string ) {
+		return string && string.trim().length > 0;
 	}
-	// FIXME: move function declarations into object
+
+	function isLongerThan1Char( string ) {
+		return string && string.trim().length > 1;
+	}
+
+	function hasBothNamesLongerThan1Char( contact ) {
+		return contact && isLongerThan1Char( contact.givenName ) && isLongerThan1Char( contact.familyName );
+	}
+
+	function hasBothNames( contact ) {
+		return contact && isNotEmpty( contact.givenName ) && isNotEmpty( contact.familyName );
+	}
+
 	di.forms.apple = {
-		getBestApplePayContactName: getBestApplePayContactName
+		/*
+		 * Try to obtain the "best" name from the available contact info sent back by Apple Pay
+		 *
+		 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/2216120-requiredbillingcontactfields
+		 * @see https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentcontact
+		 */
+		getBestApplePayContactName: function (
+			extraData,
+			billingContact,
+			shippingContact
+		) {
+			let preferredContact;
+
+			// Since the Apple Pay sheet shows the name by the shipping contact selector,
+			// we might want to check the shipping contact first, but in practice we were
+			// getting a lot of low-quality names (e.g. 'Dad') from the shipping contact.
+			// The billing contact seems to more consistently have real names so start there.
+			if ( hasBothNamesLongerThan1Char( billingContact ) ) {
+				preferredContact = billingContact;
+			} else if ( hasBothNamesLongerThan1Char( shippingContact ) ) {
+				preferredContact = shippingContact;
+			} else if ( hasBothNames( billingContact ) ) {
+				preferredContact = billingContact;
+			} else if ( hasBothNames( shippingContact ) ) {
+				preferredContact = shippingContact;
+			}
+
+			if ( preferredContact ) {
+				extraData.first_name = preferredContact.givenName.trim();
+				extraData.last_name = preferredContact.familyName.trim();
+			}
+
+			return extraData;
+		}
 	};
 } )( jQuery, mediaWiki );
