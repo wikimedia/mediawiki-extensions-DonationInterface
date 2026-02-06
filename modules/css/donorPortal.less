@@ -983,6 +983,23 @@ p.popup-body {
 	grid-area: amount;
 	text-align: right;
 	font-weight: bold;
+	display: grid;
+	grid-template-columns: 1fr;
+	justify-items: end;
+}
+
+.dp-table td.amount .status {
+	font-weight: normal;
+	font-size: 0.7rem;
+	background-color: @color-red-light;
+	width: fit-content;
+	order: 1;
+	padding: 0.2rem;
+	border-radius: 2px;
+}
+
+.dp-table td.amount .amount-currency {
+	order: 2;
 }
 
 .dp-table td.method {
@@ -1179,6 +1196,14 @@ p.popup-body {
 }
 
 @media screen and ( min-width: 1120px ) {
+	.dp-table td.amount .status {
+		order: 2;
+	}
+
+	.dp-table td.amount .amount-currency {
+		order: 1;
+	}
+
 	.cdx-tabs__header {
 		flex-direction: row;
 	}

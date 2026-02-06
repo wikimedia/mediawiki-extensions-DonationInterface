@@ -7,9 +7,17 @@ const AnnualFundDonationsList = require( '../mocks/annual_donations_list.mock.js
 
 function assertTextCorrect( row, donation ) {
 	const cells = row.findAll( 'td' );
+	let type_key = 'donorportal-donation-type-one-time';
+	if ( donation.donation_type_key !== 'donorportal-donation-type-one-time' ) {
+		type_key = `${ donation.recurring_status_key }:[${ donation.donation_type_key }]`;
+	}
 	expect( cells[ 0 ].text() ).toBe( donation.receive_date_formatted );
-	expect( cells[ 1 ].text() ).toBe( `donorportal-donation-type-recurring-template:[${ donation.donation_type_key }]` );
-	expect( cells[ 2 ].text() ).toBe( `${ donation.amount_formatted } ${ donation.currency }` );
+	expect( cells[ 1 ].text() ).toBe( type_key );
+	if ( donation.refunded_status_key ) {
+		expect( cells[ 2 ].text() ).toContain( `${ donation.refunded_status_key }${ donation.amount_formatted } ${ donation.currency }` );
+	} else {
+		expect( cells[ 2 ].text() ).toBe( `${ donation.amount_formatted } ${ donation.currency }` );
+	}
 	expect( cells[ 3 ].text() ).toBe( donation.payment_method );
 }
 
@@ -91,5 +99,53 @@ describe( 'Donations List Table Component', () => {
 		table_pagination = wrapper.find( '.table-pagination' );
 		expect( table_pagination.html() ).toContain(
 			'donorportal-donationtable-pagination-text:[<strong>11</strong>,<strong>15</strong>,<strong>15</strong>]' );
+	} );
+
+	it( 'Displays the right recurring status for inactive recurrings correctly', async () => {
+		const inactiveRecurring = [ {
+			receive_date_formatted: '02 March, 2025',
+			donation_type_key: 'donorportal-donation-type-annual',
+			recurring_status_key: 'donorportal-donation-type-inactive-recurring-template',
+			amount_formatted: '$6.78',
+			currency: 'USD',
+			payment_method: 'Credit Card: MasterCard'
+		} ];
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: inactiveRecurring
+			}
+		} );
+
+		const element = wrapper.find( '#donorportal-donations-table' );
+		expect( element.exists() ).toBe( true );
+
+		const tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
+		expect( tableRows.length ).toBe( 1 );
+
+		assertTextCorrect( tableRows[ 0 ], inactiveRecurring[ 0 ] );
+	} );
+
+	it( 'Displays the right refund status for refunded contributions correctly', async () => {
+		const refundedContribution = [ {
+			receive_date_formatted: '02 March, 2025',
+			donation_type_key: 'donorportal-donation-type-one-time',
+			refunded_status_key: 'donorportal-donation-status-refunded',
+			amount_formatted: '$6.78',
+			currency: 'USD',
+			payment_method: 'Credit Card: MasterCard'
+		} ];
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: refundedContribution
+			}
+		} );
+
+		const element = wrapper.find( '#donorportal-donations-table' );
+		expect( element.exists() ).toBe( true );
+
+		const tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
+		expect( tableRows.length ).toBe( 1 );
+
+		assertTextCorrect( tableRows[ 0 ], refundedContribution[ 0 ] );
 	} );
 } );
