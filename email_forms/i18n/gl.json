@@ -126,6 +126,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Cancelouse a túa doazón de $1. Ten en conta que a cancelación pode tardar ata 30 minutos en aparecer na túa conta de doante.",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Cancelouse a túa doazón anual de $1. Ten en conta que a cancelación pode tardar ata 30 minutos en aparecer na túa conta de doante.",
 	"donorportal-cancel-failure": "Algo fallou. Ponte en contacto con $1",
+	"donorportal-authentication-failure": "Algo fallou. Inténtao de novo máis tarde ou $1",
 	"donorportal-update-recurring-heading": "Actualiza ou modifica o importe da túa doazón recorrente",
 	"donorportal-downgrade-recurring-heading": "Reduce o importe da túa doazón recorrente",
 	"donorportal-update-recurring-text": "O teu apoio axuda a garantir que a Wikipedia siga sendo fiable, libre de publicidade e dispoñible cando a necesites.",

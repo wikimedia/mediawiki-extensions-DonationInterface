@@ -131,6 +131,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "Ihre Spende über $1 wurde storniert. Bitte beachten Sie, dass es bis zu 30 Minuten dauern kann, bis die Stornierung auf Ihrem Spenderkonto angezeigt wird.",
 	"donorportal-cancel-annual-recurring-confirmation-text": "Ihre jährliche Spende über $1 wurde storniert. Bitte beachten Sie, dass es bis zu 30 Minuten dauern kann, bis die Stornierung auf Ihrem Spenderkonto angezeigt wird.",
 	"donorportal-cancel-failure": "Etwas ist schiefgelaufen. Bitte wenden Sie sich an $1",
+	"donorportal-authentication-failure": "Etwas ist schief gelaufen. Bitte später erneut versuchen oder $1",
 	"donorportal-update-recurring-heading": "Erhöhen oder ändern Sie den Betrag Ihrer wiederkehrenden Spende.",
 	"donorportal-downgrade-recurring-heading": "Reduzieren Sie Ihren regelmäßigen Spendenbetrag",
 	"donorportal-update-recurring-text": "Ihre Unterstützung hilft sicherzustellen, dass Wikipedia zuverlässig, werbefrei und verfügbar bleibt, wann immer Sie sie brauchen.",
