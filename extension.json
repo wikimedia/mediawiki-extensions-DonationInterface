@@ -65,6 +65,7 @@
 		"requestCancelRecurring": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestCancelRecurring",
 		"requestUpdateRecurring": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestUpdateRecurring",
 		"requestAnnualConversion": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestAnnualConversion",
+		"requestLogout": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestLogout",
 		"employerSearch": "EmployerSearchAPI",
 		"submitPayment": "AdyenSubmitPaymentApi"
 	},
@@ -403,6 +404,7 @@
 				"donorportal-header-our-work",
 				"donorportal-header-participate",
 				"donorportal-header-news",
+				"donorportal-header-logout",
 				"donorportal-login-header",
 				"donorportal-login-text",
 				"donorportal-login-email-placeholder",

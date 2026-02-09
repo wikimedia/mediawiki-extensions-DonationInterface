@@ -1,5 +1,6 @@
-/* global describe it expect beforeEach afterEach*/
+/* global global describe it expect beforeEach afterEach*/
 
+const { when } = require( 'jest-when' );
 const VueTestUtils = require( '@vue/test-utils' );
 const HeaderComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/Header.vue' );
 
@@ -11,13 +12,22 @@ describe( 'Header Component', () => {
 		expect( element.exists() ).toBe( true );
 	} );
 
-	it( 'Menu container and items renders successfully', () => {
+	it( 'Menu container and items renders successfully when logged out', () => {
 		const wrapper = VueTestUtils.shallowMount( HeaderComponent );
 
 		const listElement = wrapper.find( { ref: 'nav__links' } );
 		expect( listElement.exists() ).toBe( true );
 		const listItemElements = listElement.findAll( 'li' );
 		expect( listItemElements.length ).toBe( 4 );
+	} );
+
+	it( 'Shows logout link when logged in', () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
+		const wrapper = VueTestUtils.shallowMount( HeaderComponent );
+
+		const listElement = wrapper.find( { ref: 'nav__links' } );
+		const listItemElements = listElement.findAll( 'li' );
+		expect( listItemElements.length ).toBe( 6 );
 	} );
 
 	it( 'Menu button toggles class on button and list', () => {
