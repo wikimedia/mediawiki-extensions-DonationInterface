@@ -4,16 +4,17 @@
 			"McDutchie",
 			"Pcoombe",
 			"Romaine",
-			"EHughes"
+			"EHughes",
+			"Siebrand"
 		]
 	},
 	"emailpreferences-change-email": "E-mailadres wijzigen",
 	"emailpreferences-country": "Land of regio",
 	"emailpreferences-dont-send-email": "Meld mij voor alles af.",
-	"emailpreferences-expired-link-title": "Sorry, uw link is verlopen",
+	"emailpreferences-expired-link-title": "Uw koppeling is helaas verlopen",
 	"emailpreferences-expired-link-text": "Klik alstublieft op de knop hieronder om via e-mail een nieuwe link aan te vragen.",
 	"emailpreferences-send-new-link": "Stuur mij een nieuwe link",
-	"emailpreferences-new-link-sent": "We zullen u binnenkort een nieuwe link sturen. Controleer alstublieft uw inbox.",
+	"emailpreferences-new-link-sent": "We sturen u binnenkort een nieuwef koppeling. Controleer alstublieft uw inbox.",
 	"emailpreferences-footer-learn_more": "Lees meer over <a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">lokale afdelingen en hun projecten</a>.",
 	"emailpreferences-footer-questions_email": "Heb je vragen? Stuur dan een e-mail naar <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a>.",
 	"emailpreferences-footer-text_license": "Tekst is beschikbaar onder de <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">Creative Commons Naamsvermelding-GelijkDelen-licentie</a>；aanvullende voorwaarden kunnen van toepassing zijn. Zie de <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">gebruiksvoorwaarden</a> of het <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">privacybeleid</a> voor meer informatie.",
