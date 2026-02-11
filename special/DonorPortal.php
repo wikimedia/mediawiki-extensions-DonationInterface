@@ -305,7 +305,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			// TODO: rename this action for reuse
 			'ClientErrorLogAction' => 'logRecurUpgradeFormError',
 			'template_path' => $templatePath,
-			'assets_path' => $assetsPath
+			'assets_path' => '/' . $assetsPath
 		] );
 
 		$out->addHeadItem(
