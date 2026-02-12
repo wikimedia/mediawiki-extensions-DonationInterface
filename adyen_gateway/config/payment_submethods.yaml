@@ -114,3 +114,7 @@ ach:
   group: dd
   countries:
     - US
+vipps:
+  group: ew
+  countries:
+    - 'NO'

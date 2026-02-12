@@ -272,6 +272,11 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			case PaymentMethod::PAYMENT_METHOD_GOOGLEPAY:
 			case PaymentMethod::PAYMENT_METHOD_APPLEPAY:
 				$this->transactions['authorize']['request'][] = 'payment_token';
+				break;
+			case 'ew':  // Just Vipps (Norway) for now
+				$this->transactions['authorize']['request'][] = 'payment_submethod';
+				$this->transactions['authorize']['request'][] = 'phone';
+				break;
 		}
 	}
 

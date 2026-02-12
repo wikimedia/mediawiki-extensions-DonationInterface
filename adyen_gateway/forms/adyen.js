@@ -57,7 +57,8 @@
 			case 'ideal':
 			case 'onlineBanking_CZ':
 			case 'sepadirectdebit':
-				// for ach, ideal, CZ bank transfers, and sepa additional config is optional
+			case 'vipps':
+				// for ach, ideal, CZ bank transfers, vipps, and sepa additional config is optional
 				return config;
 
 			case 'applepay':
@@ -179,7 +180,6 @@
 					};
 				} );
 				return config;
-
 			default:
 				throw new Error( 'Component type not found' );
 		}
@@ -272,6 +272,8 @@
 				return 'applepay';
 			case 'google':
 				return GOOGLEPAY_COMPONENT_TYPE;
+			case 'ew':
+				return 'vipps';
 			default:
 				throw new Error( 'paymentMethod not found' );
 		}
