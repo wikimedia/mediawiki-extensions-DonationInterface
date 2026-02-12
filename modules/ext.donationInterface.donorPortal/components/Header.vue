@@ -35,6 +35,12 @@
 					<li>
 						<a href="https://wikimediafoundation.org/news/" target="_blank">{{ $i18n( "donorportal-header-news" ).text() }}</a>
 					</li>
+					<template v-if="isLoggedIn">
+						<li class="nav__links-divider"></li>
+						<li>
+							<a href="#" @click.prevent="handleLogout">{{ $i18n( "donorportal-header-logout" ).text() }}</a>
+						</li>
+					</template>
 				</ul>
 			</nav>
 			<section class="nav-global__aside">
@@ -63,7 +69,7 @@
 </template>
 
 <script>
-const { defineComponent, ref } = require( 'vue' );
+const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	name: 'HeaderComponent',
 	setup() {
@@ -73,10 +79,27 @@ module.exports = exports = defineComponent( {
 			assets_path
 		};
 	},
+	computed: {
+		isLoggedIn() {
+			const donorData = mw.config.get( 'donorData' );
+			return donorData && !donorData.showLogin;
+		}
+	},
 	methods: {
 		handleNavToggleClick() {
 			this.$refs.nav__links.classList.toggle( 'active' );
 			this.$refs.nav__toggle.classList.toggle( 'active' );
+		},
+		handleLogout() {
+			const donorData = mw.config.get( 'donorData' );
+			const api = new mw.Api();
+			api.post( {
+				action: 'requestLogout',
+				contact_id: Number( donorData.contact_id ),
+				checksum: donorData.checksum
+			} ).always( () => {
+				window.location.href = mw.util.getUrl( 'Special:DonorPortal' ) + '#/login';
+			} );
 		}
 	}
 } );

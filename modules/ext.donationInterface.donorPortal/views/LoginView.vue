@@ -20,15 +20,23 @@
 							:value="donorEmail"
 							:placeholder="emailPlaceholder"
 							required
-							@input="handleInputChange">
+							:disabled="serverError"
+							@input="handleInputChange"
+						>
 					</div>
 					<button
 						id="request-link-button"
+						:disabled="serverError"
 						type="submit"
 						class="cdx-button cdx-button--action-progressive cdx-button--weight-primary"
 						@click="handleSubmitButtonClick"
 						v-html="newLinkRequest">
 					</button>
+					<p
+						v-if="serverError"
+						id="server-error-message-text"
+						class="text text--body-small"
+						v-html="serverErrorText"></p>
 				</form>
 				<p
 					id="link-sent-text"
@@ -43,7 +51,7 @@
 					:style="`display: ${error_message ? 'block' : 'none'};`">
 					{{ error_message }}
 				</p>
-				<popup-link>
+				<popup-link v-if="!serverError">
 					<template #link-text>
 						{{ $i18n( 'donorportal-login-problems' ).text() }}
 					</template>
@@ -93,6 +101,14 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		serverError() {
+			const donorData = mw.config.get( 'donorData' );
+			let serverError = !donorData;
+			if ( donorData && donorData.hasError ) {
+				serverError = donorData.hasError;
+			}
+			return serverError;
+		},
 		figureTitle() {
 			return this.$i18n( 'donorportal-loginpage-figure-title' ).text();
 		},
@@ -106,6 +122,11 @@ module.exports = exports = defineComponent( {
 			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
 			const problemLogin = this.$i18n( 'donorportal-login-problems' ).text();
 			return this.$i18n( 'donorportal-update-donation-problem-log-in-contact-us', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
+		},
+		serverErrorText() {
+			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
+			const problemLogin = this.$i18n( 'donorportal-login-problems' ).text();
+			return this.$i18n( 'donorportal-authentication-failure', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
 		},
 		figureCaption() {
 			return this.$i18n( 'donorportal-loginpage-figure-caption', `<a href=\"https://commons.wikimedia.org/wiki/File:Sunrise_View_of_Inle_Lake.jpg\"

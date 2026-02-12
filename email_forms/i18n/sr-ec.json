@@ -25,6 +25,7 @@
 	"donorportal-email-required": "Имејл је обавезан",
 	"donorportal-cancel-recurring-reason-other": "Друго",
 	"donorportal-cancel-recurring-changed-my-mind": "Предомислио сам се",
+	"donorportal-authentication-failure": "Нешто је пошло по злу, молимо покушајте поново касније или $1",
 	"donorportal-update-recurring-annual-convert-select-below": "Изаберите опцију испод:",
 	"donorportal-thank-you": "Хвала вам!",
 	"donorportal-aside-did-you-know": "Да ли сте знали...?",

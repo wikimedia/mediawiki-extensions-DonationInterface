@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"ExoHyper2026",
+			"Gsdn",
 			"GuoPC",
 			"Liuxinyu970226",
 			"Pawsdt",
@@ -130,6 +131,7 @@
 	"donorportal-cancel-monthly-recurring-confirmation-text": "您的$1捐款已被取消。请注意，取消操作可能需要最多30分钟才能显示在您的捐赠者账号中。",
 	"donorportal-cancel-annual-recurring-confirmation-text": "您每年$1的捐款已被取消。请注意，取消操作可能需要最多30分钟才能显示在您的捐赠者账号中。",
 	"donorportal-cancel-failure": "出现错误，请联系$1。",
+	"donorportal-authentication-failure": "出错了！请稍后重试或$1",
 	"donorportal-update-recurring-heading": "升级或更改您的定期捐款金额",
 	"donorportal-downgrade-recurring-heading": "减少您的定期捐款金额",
 	"donorportal-update-recurring-text": "您的支持有助于确保维基百科保持可靠、无广告，并随时为您提供服务。",

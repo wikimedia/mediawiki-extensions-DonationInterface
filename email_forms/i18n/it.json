@@ -35,6 +35,7 @@
 	"donorportal-payment-method": "Metodo di pagamento",
 	"donorportal-cancel-recurring-reason-other": "Altro",
 	"donorportal-cancel-recurring-reason-unintended": "Ho creato questa donazione per errore.",
+	"donorportal-authentication-failure": "Qualcosa è andato storto, riprova più tardi o $1",
 	"donorportal-downgrade-recurring-heading": "Riduci l'importo della tua donazione ricorrente",
 	"donorportal-update-recurring-current-donation": "Importo attuale della tua donazione:",
 	"donorportal-update-recurring-new-donation": "Inserisci una nuova donazione qui sotto:",

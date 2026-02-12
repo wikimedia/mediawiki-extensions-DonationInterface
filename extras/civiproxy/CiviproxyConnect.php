@@ -178,4 +178,49 @@ class CiviproxyConnect {
 		);
 		return $response ? json_decode( $response, true ) : [ 'is_error' => true ];
 	}
+
+	public static function invalidateChecksum( string $checksum, string $contact_id ): array {
+		global $wgDonationInterfaceCiviproxyURLBase;
+
+		try {
+			$params = [
+				'checksum' => $checksum,
+				'contactId' => $contact_id,
+			];
+			$serializedParams = json_encode( $params );
+			$response = MediaWikiServices::getInstance()->getHttpRequestFactory()->post(
+				"$wgDonationInterfaceCiviproxyURLBase/rest4.php?" . http_build_query( [
+					'entity' => 'Contact',
+					'action' => 'InvalidateChecksum',
+					'key' => self::SITE_KEY_KEY,
+					'api_key' => self::API_KEY_KEY,
+					'version' => '4',
+					'json' => '1',
+					'params' => $serializedParams,
+				] ), [
+					'sslVerifyCert' => false,
+					'sslVerifyHost' => false
+				],
+				__METHOD__
+			);
+			$decodedResponse = $response ? json_decode( $response, true ) : null;
+
+			if ( $decodedResponse === null ) {
+				return [
+					'is_error' => true,
+					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+				];
+			}
+
+			return $decodedResponse;
+		} catch ( Exception $e ) {
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+				'CiviproxyConnector', true, false, '', null );
+			$logger->error( "contact id: $contact_id, " . $e->getMessage() );
+			return [
+				'is_error' => true,
+				'error_message' => $e->getMessage()
+			];
+		}
+	}
 }
