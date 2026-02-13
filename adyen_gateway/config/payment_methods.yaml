@@ -40,3 +40,13 @@ bt:
     email: true
   countries:
     - CZ
+ew:
+  recurring: false
+  label: EWallet
+  validation:
+    country: true
+    name: true
+    email: true
+    phone: true  # required for Vipps, currently the only supported ew submethod
+  countries:
+    - 'NO'
