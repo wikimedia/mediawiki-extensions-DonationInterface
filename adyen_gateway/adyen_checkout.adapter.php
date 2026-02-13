@@ -275,7 +275,6 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 				break;
 			case 'ew':  // Just Vipps (Norway) for now
 				$this->transactions['authorize']['request'][] = 'payment_submethod';
-				$this->transactions['authorize']['request'][] = 'phone';
 				break;
 		}
 	}
