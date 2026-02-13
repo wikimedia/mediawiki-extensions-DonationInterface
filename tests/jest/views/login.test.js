@@ -1,4 +1,4 @@
-/* global global describe it expect beforeEach afterEach*/
+/* global jest global describe it expect beforeEach afterEach*/
 /* eslint-disable es-x/no-promise */
 
 const VueTestUtils = require( '@vue/test-utils' );
@@ -7,22 +7,13 @@ const { when } = require( 'jest-when' );
 const helpEmail = 'lorem@ipsum.co';
 
 describe( 'Login view', () => {
+	// Mock api async methods as jQuery promises so jQuery promise chain methods like ("always") are executed in tests.
+	const jQuery = jest.requireActual( '../../../resources/lib/jquery/jquery.js' );
 	beforeEach( () => {
-		global.mw.Api.prototype.get.mockReturnValue(
-			new Promise( ( resolve, _ ) => {
-				resolve( null );
-			} )
-		);
+		global.mw.Api.prototype.get = jest.fn( () => jQuery.Deferred().promise() );
+		global.mw.Api.prototype.post = jest.fn( () => jQuery.Deferred().resolve( {} ).promise() );
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( helpEmail );
-	} );
-
-	afterEach( () => {
-		global.mw.Api.prototype.post.mockReturnValue(
-			new Promise( ( resolve, _ ) => {
-				resolve( {} );
-			} )
-		);
 	} );
 
 	it( 'Login view renders successfully', () => {
@@ -189,8 +180,8 @@ describe( 'Login view', () => {
 
 		// Mock server error values
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {
-			showLogin: true,
-			hasError: true
+			showLogin: false,
+			error: true
 		} );
 
 		const wrapper = VueTestUtils.mount( LoginView );
@@ -198,36 +189,16 @@ describe( 'Login view', () => {
 		expect( loginBody.exists() ).toBe( true );
 
 		const donorEmailInput = wrapper.find( '#new-checksum-link-email' );
-		expect( donorEmailInput.exists() ).toBe( true );
+		expect( donorEmailInput.exists() ).toBe( false );
 
 		const successMessageText = wrapper.find( '#link-sent-text' );
-		expect( successMessageText.isVisible() ).toBe( false );
+		expect( successMessageText.exists() ).toBe( false );
 
 		const errorMessageText = wrapper.find( '#error-message-text' );
-		expect( errorMessageText.isVisible() ).not.toBe( true );
+		expect( errorMessageText.exists() ).not.toBe( true );
 
 		const serverErrorMessageText = wrapper.find( '#server-error-message-text' );
 		expect( serverErrorMessageText.isVisible() ).toBe( true );
 		expect( serverErrorMessageText.html() ).toContain( `donorportal-authentication-failure:[<a href="mailto:${ helpEmail }?subject=donorportal-login-problems">donorportal-update-donation-donor-relations-team</a>]` );
-
-		// Disabled input because of the server error
-		expect( donorEmailInput.attributes() ).toHaveProperty( 'disabled' );
-
-		// Disabled button because of the server error
-		const requestLinkButton = wrapper.find( '#request-link-button' );
-		expect( requestLinkButton.exists() ).toBe( true );
-		expect( requestLinkButton.attributes() ).toHaveProperty( 'disabled' );
-
-		await requestLinkButton.trigger( 'click' );
-
-		// assert no api call on button click
-		expect( global.mw.Api.prototype.post ).not.toHaveBeenCalledWith( {
-			email: '',
-			action: 'requestNewChecksumLink',
-			page: mw.config.get( 'requestNewChecksumPage' )
-		} );
-
-		expect( errorMessageText.isVisible() ).not.toBe( true );
-		expect( successMessageText.isVisible() ).not.toBe( true );
 	} );
 } );

@@ -89,7 +89,7 @@ module.exports = exports = defineComponent( {
 	computed: {
 		isLoggedIn() {
 			const donorData = mw.config.get( 'donorData' );
-			return donorData && !donorData.showLogin;
+			return donorData && !donorData.showLogin && !donorData.error;
 		}
 	},
 	methods: {

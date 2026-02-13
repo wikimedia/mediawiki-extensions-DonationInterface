@@ -120,15 +120,25 @@ class CiviproxyConnect {
 			$decodedResponse = self::makeApi4Request(
 				$checksum, $contact_id, 'WMFContact', 'getDonorSummary'
 			);
-
 			if ( $decodedResponse === null ) {
 				return [
 					'is_error' => true,
+					'error_code' => '',
 					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
 				];
 			}
 
-			$donorSummary = $decodedResponse['values'][0];
+			$donorResult = $decodedResponse['values'][0];
+
+			if ( isset( $donorResult['error'] ) ) {
+				return [
+					'is_error' => true,
+					'error_code' => $donorResult['error_code'] ?? null,
+					'error_message' => $donorResult['message'] ?? ""
+				];
+			}
+
+			$donorSummary = $donorResult;
 
 			if ( count( $donorSummary ) === 0 ) {
 				return [

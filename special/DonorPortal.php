@@ -103,8 +103,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		// if civiproxy returned an error, show the login form instead
 		if ( isset( $donorSummary['is_error'] ) ) {
 			$this->formParams = [
-				'showLogin' => true,
-				'hasError' => true
+				'error' => true,
+				'showLogin' => $donorSummary['error_code'] === 'InvalidCredentials'
 			];
 			return;
 		}
