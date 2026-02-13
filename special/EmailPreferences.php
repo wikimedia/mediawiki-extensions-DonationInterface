@@ -41,6 +41,10 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->setPageTitle( $subpage );
 		$requestParameters = $this->getRequest()->getValues();
 		$requestParameters = $this->mapWmfToUtm( $requestParameters );
+		if ( isset( $requestParameters['email'] ) ) {
+			// un-URL-encoded emails coming from Acoustic will have their + converted to a space.
+			$requestParameters['email'] = str_replace( ' ', '+', $requestParameters['email'] );
+		}
 		$posted = $this->getRequest()->wasPosted();
 		if ( $posted && $this->wasCanceled( $requestParameters ) ) {
 			$out->redirect(
