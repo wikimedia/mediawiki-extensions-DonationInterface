@@ -91,6 +91,8 @@
 	"donorportal-header-logout": "Log out",
 	"donorportal-email-required": "Email is required",
 	"donorportal-something-wrong": "Something is wrong, please check your input",
+	"donorportal-civi-unavailable-error-message": "We are currently performing maintenance on our donor database. You may still request a login link, and we will send it as soon as the maintenance is complete.",
+	"donorportal-invalid-credentials-error-message": "Your session has expired. Please login again to access your account.",
 	"donorportal-return-to-account-button": "Back to your account",
 	"donorportal-cancel-recurring-other-ways-heading": "Before you confirm, here are some ways to make your donation more manageable.",
 	"donorportal-cancel-recurring-other-ways-text": "We understand that things change, but we'd love you to consider pausing or changing your donation if you're able to continue supporting our work.",

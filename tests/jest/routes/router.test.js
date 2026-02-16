@@ -1,5 +1,4 @@
-/* global global describe it expect beforeEach afterEach*/
-/* eslint-disable es-x/no-promise */
+/* global jest global describe it expect beforeEach afterEach*/
 
 const VueTestUtils = require( '@vue/test-utils' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
@@ -7,12 +6,11 @@ const AppComponent = require( '../../../modules/ext.donationInterface.donorPorta
 const { when } = require( 'jest-when' );
 
 describe( 'Navigation logic', () => {
+	// Mock api async methods as jQuery promises so jQuery promise chain methods like ("always") are executed in tests.
+	const jQuery = jest.requireActual( '../../../resources/lib/jquery/jquery.js' );
 	beforeEach( () => {
-		global.mw.Api.prototype.get.mockReturnValue(
-			new Promise( ( resolve, _ ) => {
-				resolve( null );
-			} )
-		);
+		global.mw.Api.prototype.get = jest.fn( () => jQuery.Deferred().resolve().promise() );
+		global.mw.Api.prototype.post = jest.fn( () => jQuery.Deferred().resolve( { result: { } } ).promise() );
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
 		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );

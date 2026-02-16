@@ -1,7 +1,7 @@
 <template>
 	<main class="auth">
 		<section class="auth__infobox">
-			<div v-if="serverError" class="auth__infobox-inner">
+			<div v-if="server_error" class="auth__infobox-inner">
 				<p
 					id="server-error-message-text"
 					class="text text--body-small"
@@ -41,16 +41,15 @@
 					id="link-sent-text"
 					class="link-sent"
 					:style="`display: ${checksum_link_sent ? 'block' : 'none'};`">
-					{{ $i18n(
-						"emailpreferences-new-link-sent" ).text() }}
+					{{ $i18n( "emailpreferences-new-link-sent" ).text() }}
 				</p>
 				<p
 					id="error-message-text"
-					class="error-message-text"
+					class="error-message-text text--body-small"
 					:style="`display: ${error_message ? 'block' : 'none'};`">
 					{{ error_message }}
 				</p>
-				<popup-link v-if="!serverError">
+				<popup-link v-if="!server_error">
 					<template #link-text>
 						{{ $i18n( 'donorportal-login-problems' ).text() }}
 					</template>
@@ -96,18 +95,11 @@ module.exports = exports = defineComponent( {
 		return {
 			donorEmail: '',
 			api_error: '',
-			checksum_link_sent: false
+			checksum_link_sent: false,
+			server_error: ''
 		};
 	},
 	computed: {
-		serverError() {
-			const donorData = mw.config.get( 'donorData' );
-			let serverError = !donorData;
-			if ( donorData && donorData.error && !donorData.showLogin ) {
-				serverError = donorData.error;
-			}
-			return serverError;
-		},
 		figureTitle() {
 			return this.$i18n( 'donorportal-loginpage-figure-title' ).text();
 		},
@@ -139,6 +131,10 @@ module.exports = exports = defineComponent( {
 				switch ( this.api_error ) {
 					case 'missingparam':
 						return this.$i18n( 'donorportal-email-required' ).text();
+					case 'Unreachable':
+						return this.$i18n( 'donorportal-civi-unavailable-error-message' ).text();
+					case 'InvalidCredentials':
+						return this.$i18n( 'donorportal-invalid-credentials-error-message' ).text();
 					default:
 						return this.$i18n( 'donorportal-something-wrong' ).text();
 				}
@@ -147,6 +143,26 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	methods: {
+		setServerErrorFromDonorData() {
+			/*
+			 * We should always have a value for donorData
+			 * If "null" is set, something must be wrong.
+			 */
+			const donorData = mw.config.get( 'donorData' );
+
+			// Set server error to true when null data is set in user session
+			this.server_error = !donorData;
+
+			if ( donorData && donorData.error ) {
+				// Set server error for errors that do not include Unreachable civi or invalid checksum
+				this.server_error = donorData.error && !donorData.showLogin;
+
+				// There's an error but user is able to request a login checksum (maybe CiviCRM is down)
+				if ( donorData.showLogin ) {
+					this.api_error = donorData.error_code;
+				}
+			}
+		},
 		requestNewChecksumLink( email, page, subpage ) {
 			const api = new mw.Api(),
 				params = {
@@ -182,6 +198,9 @@ module.exports = exports = defineComponent( {
 			this.donorEmail = e.target.value;
 			this.api_error = '';
 		}
+	},
+	mounted() {
+		this.setServerErrorFromDonorData();
 	}
 } );
 </script>

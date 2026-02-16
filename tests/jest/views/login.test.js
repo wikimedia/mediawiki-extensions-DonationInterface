@@ -15,7 +15,9 @@ describe( 'Login view', () => {
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {} );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( helpEmail );
 	} );
-
+	afterEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReset();
+	} );
 	it( 'Login view renders successfully', () => {
 		const wrapper = VueTestUtils.mount( LoginView );
 
@@ -175,16 +177,17 @@ describe( 'Login view', () => {
 		expect( successMessageText.html() ).toContain( 'emailpreferences-new-link-sent' );
 	} );
 
-	it( 'Page shows error text and disable input on CiviProxy error', async () => {
-		when( global.mw.config.get ).calledWith( 'donorData' ).mockReset();
-
+	it( 'Page shows error text on CiviProxy error', async () => {
 		// Mock server error values
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {
 			showLogin: false,
+			error_code: null,
 			error: true
 		} );
 
 		const wrapper = VueTestUtils.mount( LoginView );
+		await VueTestUtils.flushPromises();
+
 		const loginBody = wrapper.find( '.auth' );
 		expect( loginBody.exists() ).toBe( true );
 
@@ -200,5 +203,33 @@ describe( 'Login view', () => {
 		const serverErrorMessageText = wrapper.find( '#server-error-message-text' );
 		expect( serverErrorMessageText.isVisible() ).toBe( true );
 		expect( serverErrorMessageText.html() ).toContain( `donorportal-authentication-failure:[<a href="mailto:${ helpEmail }?subject=donorportal-login-problems-email-subject">donorportal-update-donation-donor-relations-team</a>]` );
+	} );
+
+	it( 'Page shows error text on CiviCRM error', async () => {
+		// Mock server error values
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( {
+			showLogin: true,
+			error_code: 'Unreachable',
+			error: true
+		} );
+
+		const wrapper = VueTestUtils.mount( LoginView );
+		await VueTestUtils.flushPromises();
+
+		const loginBody = wrapper.find( '.auth' );
+		expect( loginBody.exists() ).toBe( true );
+
+		const donorEmailInput = wrapper.find( '#new-checksum-link-email' );
+		expect( donorEmailInput.exists() ).toBe( true );
+
+		const successMessageText = wrapper.find( '#link-sent-text' );
+		expect( successMessageText.isVisible() ).toBe( false );
+
+		const errorMessageText = wrapper.find( '#error-message-text' );
+		expect( errorMessageText.exists() ).toBe( true );
+		expect( errorMessageText.html() ).toContain( 'donorportal-civi-unavailable-error-message' );
+
+		const serverErrorMessageText = wrapper.find( '#server-error-message-text' );
+		expect( serverErrorMessageText.exists() ).toBe( false );
 	} );
 } );

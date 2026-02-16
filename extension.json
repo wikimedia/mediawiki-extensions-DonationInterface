@@ -414,6 +414,8 @@
 				"donorportal-loginpage-figure-title",
 				"donorportal-email-required",
 				"donorportal-something-wrong",
+				"donorportal-civi-unavailable-error-message",
+				"donorportal-invalid-credentials-error-message",
 				"donorportal-pause-recurring-heading",
 				"donorportal-pause-recurring-subheading",
 				"donorportal-pause-recurring-subtext",

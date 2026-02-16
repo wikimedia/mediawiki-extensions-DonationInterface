@@ -94,6 +94,8 @@
 	"donorportal-header-logout": "Link text for logging out of the donor portal",
 	"donorportal-email-required": "Error response when donor email is missing",
 	"donorportal-something-wrong": "Error response for any other error class",
+	"donorportal-civi-unavailable-error-message": "Error message shown when database server is down.",
+	"donorportal-invalid-credentials-error-message": "Error message shown donor attempts to use invalid credentials to access the donor portal.",
 	"donorportal-return-to-account-button": "Label for button that navigates users to the home page",
 	"donorportal-cancel-recurring-other-ways-heading": "Heading shown when donor attempts to cancel a recurring donation",
 	"donorportal-cancel-recurring-other-ways-text": "Text shown when donor attempts to cancel a recurring donation in order to convince them to consider alternative approaches that would maintain their recurring donation.",

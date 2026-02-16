@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
 
 class CiviproxyConnect {
@@ -18,12 +19,15 @@ class CiviproxyConnect {
 				$checksum, $contact_id, 'WMFContact', 'getCommunicationsPreferences',
 			);
 
-			if ( $decodedResponse === null ) {
+			if ( isset( $decodedResponse['error_code'] ) ) {
+				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
-					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+					'error_code' => $decodedResponse['error_code'],
+					'error_message' => $decodedResponse['error_message'],
 				];
 			}
+
 			$preferences = $decodedResponse['values'][0];
 
 			return [
@@ -47,15 +51,75 @@ class CiviproxyConnect {
 		}
 	}
 
-	protected static function makeApi4Request( string $checksum, string $contact_id, string $entity, string $action ): ?array {
+	/**
+	 * Perform an HTTP request
+	 * Rework of includes/http/HttpRequestFactory.php::request to ensure string response is returned even in error
+	 *
+	 * @param mixed $method
+	 * @param mixed $url
+	 * @param array $options
+	 * @param mixed $caller
+	 * @return string
+	 */
+	protected static function mwGetRequest( $method, $url, array $options = [], $caller = __METHOD__ ): string {
+		$requestFactory = MediaWikiServices::getInstance()->getHttpRequestFactory();
+		$logger = LoggerFactory::getInstance( 'http' );
+		$logger->debug( "$method: $url" );
+
+		$options['method'] = strtoupper( $method );
+
+		$req = $requestFactory->create( $url, $options, $caller );
+		$status = $req->execute();
+
+		if ( $status->isOK() ) {
+			return $req->getContent();
+		} else {
+			$errors = array_map( static fn ( $msg ) => $msg->getKey(), $status->getMessages( 'error' ) );
+			$logger->warning( Status::wrap( $status )->getWikiText( false, false, 'en' ),
+				[ 'error' => $errors, 'caller' => $caller, 'content' => $req->getContent() ] );
+			$errorCode = "Failed";
+			$errorMessage = "Failed to fetch";
+			switch ( $status->getStatusValue()->getValue() ) {
+				case 500:
+					$errorCode = "Unreachable";
+					$errorMessage = "CiviCRM is currently unreachable";
+					break;
+				case 0:
+					$errorCode = "ServerError";
+					$errorMessage = "CiviProxy is currently unreachable";
+					break;
+				default:
+					// Default code and message already set
+					break;
+			}
+			return json_encode( [
+				'error' => true,
+				'error_code' => $errorCode,
+				'error_message' => $errorMessage
+			] );
+		}
+	}
+
+	/**
+	 * Helper function to prepare the data for a CiviProxy API4 request
+	 * @param string $checksum
+	 * @param string $contact_id
+	 * @param string $entity
+	 * @param string $action
+	 * @param array $additional_parameters
+	 * @return array
+	 */
+	protected static function makeApi4Request( string $checksum, string $contact_id, string $entity, string $action, array $additional_parameters = [] ): array {
 		global $wgDonationInterfaceCiviproxyURLBase;
 
-		$params = [
+		$params = array_merge( [
 			'checksum' => $checksum,
 			'contact_id' => $contact_id
-		];
+		], $additional_parameters );
+
 		$serializedParams = json_encode( $params );
-		$response = MediaWikiServices::getInstance()->getHttpRequestFactory()->get(
+		$response = self::mwGetRequest(
+			'GET',
 			"$wgDonationInterfaceCiviproxyURLBase/rest4.php?" . http_build_query( [
 				'entity' => $entity,
 				'action' => $action,
@@ -70,7 +134,18 @@ class CiviproxyConnect {
 			],
 			__METHOD__
 		);
-		return json_decode( $response ?? '', true );
+		$decodedResponse = $response ? json_decode( $response, true ) : null;
+		if ( $decodedResponse === null ) {
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+			'CiviproxyConnector', true, false, '', null );
+			$logger->error( "CiviProxy request returned an invalid response for contact id: $contact_id, response:" . $response );
+			return [
+				'is_error' => true,
+				'error_code' => 'InvalidResponse',
+				'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+			];
+		}
+		return $decodedResponse;
 	}
 
 	public static function getRecurDetails( string $checksum, string $contact_id ): array {
@@ -81,10 +156,12 @@ class CiviproxyConnect {
 				$checksum, $contact_id, 'ContributionRecur', 'getUpgradableRecur'
 			);
 
-			if ( $decodedResponse === null ) {
+			if ( isset( $decodedResponse['error_code'] ) ) {
+				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
-					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+					'error_code' => $decodedResponse['error_code'],
+					'error_message' => $decodedResponse['error_message']
 				];
 			}
 
@@ -108,16 +185,54 @@ class CiviproxyConnect {
 		}
 	}
 
+	public static function pingCivi(): array {
+		try {
+			$decodedResponse = self::makeApi4Request( '', '', 'System', 'getCiviCRMStatus' );
+
+			if ( isset( $decodedResponse['error_code'] ) ) {
+				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				return [
+					'is_error' => true,
+					'error_code' => $decodedResponse['error_code'],
+					'error_message' => $decodedResponse['error_message'],
+				];
+			}
+
+			$result = $decodedResponse['values'][0] ?? null;
+
+			if ( $result === null || isset( $result['error'] ) ) {
+				return [
+					'is_error' => true,
+					'error_code' => $result['error_code'] ?? "Unreachable",
+					'error_message' => $result['message'] ?? "CiviCRM is currently unreachable"
+				];
+			}
+
+			return $result;
+
+		} catch ( Exception $e ) {
+			$logger = DonationLoggerFactory::getLoggerFromParams(
+				'CiviproxyConnector', true, false, '', null );
+			$logger->error( "Unable to reach Civi at this time" );
+			return [
+				'is_error' => true,
+				'error_message' => $e->getMessage()
+			];
+		}
+	}
+
 	public static function getDonorSummary( string $checksum, string $contact_id ): array {
 		try {
 			$decodedResponse = self::makeApi4Request(
 				$checksum, $contact_id, 'WMFContact', 'getDonorSummary'
 			);
-			if ( $decodedResponse === null ) {
+
+			if ( isset( $decodedResponse['error_code'] ) ) {
+				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
-					'error_code' => '',
-					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+					'error_code' => $decodedResponse['error_code'],
+					'error_message' => $decodedResponse['error_message'],
 				];
 			}
 
@@ -207,11 +322,20 @@ class CiviproxyConnect {
 				__METHOD__
 			);
 			$decodedResponse = $response ? json_decode( $response, true ) : null;
-
 			if ( $decodedResponse === null ) {
 				return [
 					'is_error' => true,
+					'error_code' => null,
 					'error_message' => "Invalid JSON from CiviProxy for id $contact_id"
+				];
+			}
+
+			if ( isset( $decodedResponse['error_code'] ) ) {
+				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				return [
+					'is_error' => true,
+					'error_code' => $decodedResponse['error_code'],
+					'error_message' => $decodedResponse['error_message'],
 				];
 			}
 
