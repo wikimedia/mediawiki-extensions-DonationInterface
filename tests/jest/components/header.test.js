@@ -27,7 +27,7 @@ describe( 'Header Component', () => {
 
 		const listElement = wrapper.find( { ref: 'nav__links' } );
 		const listItemElements = listElement.findAll( 'li' );
-		expect( listItemElements.length ).toBe( 6 );
+		expect( listItemElements.length ).toBe( 7 );
 	} );
 
 	it( 'Menu button toggles class on button and list', () => {

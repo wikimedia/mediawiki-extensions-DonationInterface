@@ -1,0 +1,19 @@
+Used on donatewiki:
+
+donate_interface-onetime-short
+donate_interface-monthly-short
+donate_interface-amount-legend
+donate_interface-other
+donate_interface-smallamount-error
+donate_interface-bigamount-error
+
+donate_interface-bt-button
+donate_interface-cc-button
+donate_interface-ccdc-button
+
+donate_interface-tax-info
+donate_interface-problemsdonating
+donate_interface-otherways-short
+donate_interface-faqs
+donate_interface-informationsharing
+donate_interface-monthly-cancel

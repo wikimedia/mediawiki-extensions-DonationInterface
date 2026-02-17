@@ -94,6 +94,7 @@
 	"donorportal-header-our-work": "Link title to our work page",
 	"donorportal-header-participate": "Link title to participate page",
 	"donorportal-header-news": "Link title to news page",
+	"donorportal-header-my-portal": "Link text for navigating to the donor portal home page",
 	"donorportal-header-logout": "Link text for logging out of the donor portal",
 	"donorportal-email-required": "Error response when donor email is missing",
 	"donorportal-something-wrong": "Error response for any other error class",

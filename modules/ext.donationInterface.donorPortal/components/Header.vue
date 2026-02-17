@@ -38,6 +38,9 @@
 					<template v-if="isLoggedIn">
 						<li class="nav__links-divider"></li>
 						<li>
+							<routerlink to="/">{{ $i18n( "donorportal-header-my-portal" ).text() }}</routerlink>
+						</li>
+						<li>
 							<a href="#" @click.prevent="handleLogout">{{ $i18n( "donorportal-header-logout" ).text() }}</a>
 						</li>
 					</template>
@@ -70,8 +73,12 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
+const { RouterLink } = require( 'vue-router' );
 module.exports = exports = defineComponent( {
 	name: 'HeaderComponent',
+	components: {
+		routerlink: RouterLink
+	},
 	setup() {
 		const assets_path = mw.config.get( 'assets_path' );
 
