@@ -23,7 +23,7 @@ describe( 'Recurring cancel form component', () => {
 	const submitPauseFormMock = jest.fn();
 	const proceedCancelActionMock = jest.fn();
 
-	it( 'Pause Donations form renders successfully', () => {
+	it( 'Pause Donations form renders successfully', async () => {
 		const wrapper = VueTestUtils.mount( RecurringContributionCancelForm, {
 			props: {
 				recurringContribution: contribution_mock,
@@ -36,6 +36,7 @@ describe( 'Recurring cancel form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const cancelDonationFormBody = wrapper.find( '#recurring-cancellation-form' );
 		expect( cancelDonationFormBody.exists() ).toBe( true );
@@ -77,6 +78,7 @@ describe( 'Recurring cancel form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const cancelDonationFormBody = wrapper.find( '#recurring-cancellation-form' );
 		const secondDurationOption = cancelDonationFormBody.find( `#option-${ durationOptions[ 1 ].id }` );
@@ -103,6 +105,7 @@ describe( 'Recurring cancel form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const cancelDonationFormBody = wrapper.find( '#recurring-cancellation-form' );
 

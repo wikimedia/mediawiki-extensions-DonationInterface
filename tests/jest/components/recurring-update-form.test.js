@@ -9,7 +9,7 @@ describe( 'Recurring update amount form component', () => {
 	const submitUpdateFormMock = jest.fn();
 	window.alert = jest.fn();
 
-	it( 'Update Donations form renders successfully', () => {
+	it( 'Update Donations form renders successfully', async () => {
 		const wrapper = VueTestUtils.mount( RecurringContributionUpdateForm, {
 			props: {
 				recurringContribution: contribution_mock,
@@ -21,6 +21,8 @@ describe( 'Recurring update amount form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
+
 		const updateDonationFormBody = wrapper.find( '#recurring-update-form' );
 		expect( updateDonationFormBody.exists() ).toBe( true );
 		expect( updateDonationFormBody.html() ).toContain( 'donorportal-update-recurring-heading' );
@@ -46,6 +48,8 @@ describe( 'Recurring update amount form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
+
 		const updatedAmount = 100;
 
 		const UpdateDonationsViewBody = wrapper.find( '#recurring-update-form' );
@@ -71,6 +75,8 @@ describe( 'Recurring update amount form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
+
 		const updatedAmount = 0;
 		const UpdateDonationsViewBody = wrapper.find( '#recurring-update-form' );
 		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );

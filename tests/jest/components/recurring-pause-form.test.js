@@ -21,7 +21,7 @@ describe( 'Recurring pause form component', () => {
 	const defaultDuration = durationOptions[ 0 ];
 	const submitFormMock = jest.fn();
 
-	it( 'Pause Donations form renders successfully', () => {
+	it( 'Pause Donations form renders successfully', async () => {
 		const wrapper = VueTestUtils.mount( RecurringContributionPauseForm, {
 			props: {
 				recurringContribution: contribution_mock,
@@ -33,6 +33,7 @@ describe( 'Recurring pause form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const pauseDonationViewBody = wrapper.find( '#pause-donations-form' );
 		expect( pauseDonationViewBody.exists() ).toBe( true );
@@ -61,6 +62,7 @@ describe( 'Recurring pause form component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const pauseDonationViewBody = wrapper.find( '#pause-donations-form' );
 		const secondDurationOption = pauseDonationViewBody.find( `#option-${ durationOptions[ 1 ].id }` );

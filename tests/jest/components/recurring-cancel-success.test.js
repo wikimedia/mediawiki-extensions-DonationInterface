@@ -15,6 +15,7 @@ describe( 'Recurring cancel success component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#recurring-contribution-cancel-success' );
 		expect( element.exists() ).toBe( true );

@@ -17,6 +17,7 @@ describe( 'Recurring update success component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#recurring-contribution-update-success' );
 		expect( element.exists() ).toBe( true );
