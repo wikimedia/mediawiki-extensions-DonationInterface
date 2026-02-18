@@ -8,7 +8,7 @@ const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mo
 describe( 'Recurring cancel confirmation component', () => {
 	const submitCancelRecurringFormMock = jest.fn();
 
-	it( 'Renders successfully', () => {
+	it( 'Renders successfully', async () => {
 		const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
 			props: {
 				recurringContribution: contribution_mock,
@@ -18,6 +18,7 @@ describe( 'Recurring cancel confirmation component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#recurring-cancellation-confirmation' );
 		expect( element.exists() ).toBe( true );
@@ -53,6 +54,7 @@ describe( 'Recurring cancel confirmation component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#recurring-cancellation-confirmation' );
 		const givingMethodReason = element.find( '#option-giving-method' );
@@ -74,6 +76,7 @@ describe( 'Recurring cancel confirmation component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const cancelConfirmation = wrapper.find( '#recurring-cancellation-confirmation' );
 

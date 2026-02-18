@@ -15,6 +15,7 @@ describe( 'Error component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#error-component' );
 		expect( element.exists() ).toBe( true );

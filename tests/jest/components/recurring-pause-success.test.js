@@ -15,6 +15,7 @@ describe( 'Recurring pause success component', () => {
 				plugins: [ router ]
 			}
 		} );
+		await router.isReady();
 
 		const element = wrapper.find( '#recurring-contribution-pause-success' );
 		expect( element.exists() ).toBe( true );
