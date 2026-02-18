@@ -1591,9 +1591,8 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected function isMessageSent( string $queue, string $order_id ): bool {
 		$session = RequestContext::getMain()->getRequest()->getSession();
-		return $session->get(
-			$this->makeQueueMessageKey( $queue, $order_id ), false
-		);
+		$sent = $session->get( 'MessagesSent' ) ?? [];
+		return isset( $sent[$queue] ) && ( in_array( $order_id, $sent[$queue], true ) );
 	}
 
 	/**
@@ -1604,21 +1603,9 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	protected function markMessageSent( string $queue, string $order_id ): void {
 		$session = RequestContext::getMain()->getRequest()->getSession();
-		$session->set(
-			$this->makeQueueMessageKey( $queue, $order_id ), true
-		);
-	}
-
-	/**
-	 * Creates a session key to record whether a message for $order_id has already
-	 * been sent to queue $queue
-	 *
-	 * @param string $queue
-	 * @param string $order_id
-	 * @return string
-	 */
-	protected function makeQueueMessageKey( string $queue, string $order_id ): string {
-		return 'MessagesSent-' . $queue . '-' . $order_id;
+		$sent = $session->get( 'MessagesSent' ) ?? [];
+		$sent[$queue][]	= $order_id;
+		$session->set( 'MessagesSent', $sent );
 	}
 
 	/**
@@ -2274,6 +2261,7 @@ abstract class GatewayAdapter implements GatewayType {
 			// token appear in the preserve array...
 			$preserveKeys = [
 				'DonationInterface_SessVelocity',
+				'MessagesSent',
 				'PaymentForms',
 				'numAttempt',
 				'order_status', // for post-payment activities
