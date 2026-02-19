@@ -209,6 +209,7 @@
 	"donate_interface-error-msg-invalid-currency": "Please select a valid currency",
 	"donate_interface-error-msg-invalid-device-data": "Something wrong with the device data.",
 	"donate_interface-error-msg-invalid-email": "Please enter a valid email address i.e. name@domain.com",
+	"donate_interface-error-msg-invalid-phone": "Please enter a valid phone number",
 	"donate_interface-error-msg-card-num": "Please enter a valid credit card number for one of the accepted credit card types",
 	"donate_interface-error-msg-amex": "Please enter a correct card number for American Express.",
 	"donate_interface-error-msg-mc": "Please enter a correct card number for Mastercard.",
