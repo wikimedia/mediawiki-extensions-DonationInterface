@@ -156,7 +156,7 @@ class DonorPortal extends UnlistedSpecialPage {
 				(float)$contribution['amount'], $locale, $contribution['currency']
 			);
 			$contribution['receive_date_formatted'] = EmailForm::dateFormatter(
-				$contribution['receive_date']
+				$contribution['receive_date'], $locale
 			);
 			if ( $contribution['receive_date'] > $mostRecentDonationDate ) {
 				$mostRecentDonationDate = $contribution['receive_date'];
@@ -168,7 +168,7 @@ class DonorPortal extends UnlistedSpecialPage {
 						(float)$contribution['amount'], $locale, $contribution['currency']
 					),
 					'last_receive_date_formatted' => EmailForm::dateFormatter(
-						$contribution['receive_date']
+						$contribution['receive_date'], $locale
 					),
 					'id' => $contribution['id'],
 				];
@@ -238,17 +238,17 @@ class DonorPortal extends UnlistedSpecialPage {
 				preg_replace( '/[0-9.,\s]/', '', $recurringContribution['amount_formatted'] )
 			);
 			$recurringContribution['next_sched_contribution_date_formatted'] = EmailForm::dateFormatter(
-				$recurringContribution['next_sched_contribution_date'] ?? ''
+				$recurringContribution['next_sched_contribution_date'] ?? '', $locale
 			);
 			$recurringContribution['next_contribution_date_yearly'] = date( 'Y-m-d h:m:s', strtotime( '+11 months',
 					strtotime( $recurringContribution['next_sched_contribution_date'] ) ) );
 
 			$recurringContribution['next_contribution_date_yearly_formatted'] = EmailForm::dateFormatter(
-				$recurringContribution['next_contribution_date_yearly']
+				$recurringContribution['next_contribution_date_yearly'], $locale
 			);
 			if ( isset( $recurringContribution['last_contribution_date'] ) ) {
 				$recurringContribution['last_contribution_date_formatted'] = EmailForm::dateFormatter(
-					$recurringContribution['last_contribution_date']
+					$recurringContribution['last_contribution_date'], $locale
 				);
 				// Need this bool to skip showing last contribution line for recurrings that
 				// were cancelled without any successful donations (e.g. monthly convert)
