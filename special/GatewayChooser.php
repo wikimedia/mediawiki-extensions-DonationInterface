@@ -377,15 +377,6 @@ class GatewayChooser extends UnlistedSpecialPage {
 		// param, and if there is one, warn so we can track and remove these
 		$currency = $this->sanitizedValOrNull( 'currency' );
 
-		if ( !$currency ) {
-			$currency = $this->sanitizedValOrNull( 'currency_code' );
-			if ( $currency ) {
-				$this->logger->warning(
-					'Deprecated currency_code param from referrer ' .
-					$this->getRequest()->getHeader( 'referer' ) );
-			}
-		}
-
 		$paymentMethod = $this->sanitizedValOrNull( 'payment_method' );
 		// No payment method will cause an error a little further down
 		if ( !$paymentMethod ) {
@@ -424,11 +415,11 @@ class GatewayChooser extends UnlistedSpecialPage {
 			'variant' => $this->sanitizedValOrNull( 'variant' )
 		];
 
-		// All other URL parameters (except title and deprecated currency_code) will be
-		// passed through on the redirect URL without sanitization or validation
+		// All other URL parameters (except title) will be passed through on
+		// the redirect URL without sanitization or validation
 		$passThruParams = [];
 		foreach ( $this->getRequest()->getValues() as $key => $value ) {
-			if ( !array_key_exists( $key, $params ) && $key !== 'title' && $key !== 'currency_code' ) {
+			if ( !array_key_exists( $key, $params ) && $key !== 'title' ) {
 				$passThruParams[ $key ] = $value;
 			}
 		}
