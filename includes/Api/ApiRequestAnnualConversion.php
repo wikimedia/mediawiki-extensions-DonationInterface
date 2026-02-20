@@ -7,7 +7,9 @@ use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestAnnualConversion extends ApiRecurringModifyBase {
-	public function execute() {
+
+	/** @inheritDoc */
+	protected function performRecurringModification(): void {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestAnnualConversion' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestAnnualConversion']['ip']
 			return;

@@ -8,7 +8,8 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 
-	public function execute() {
+	/** @inheritDoc */
+	protected function performRecurringModification(): void {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestUpdateRecurring' ) ) {
 			return;
 		}

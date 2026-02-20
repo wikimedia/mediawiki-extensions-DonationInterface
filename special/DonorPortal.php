@@ -6,6 +6,8 @@ use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 class DonorPortal extends UnlistedSpecialPage {
 
+	public const SESSION_KEY = 'donorPortalSummary';
+
 	// We have to override setClientVariables in the current class, so alias it.
 	use RequestNewChecksumLinkTrait {
 		RequestNewChecksumLinkTrait::setClientVariables as setChecksumClientVariables;
@@ -106,6 +108,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			];
 			return;
 		}
+		$this->getRequest()->setSessionData( self::SESSION_KEY, $donorSummary );
 		$locale = $this->getLocale( $donorSummary );
 		$this->formParams = $donorSummary;
 		$this->addContributionsToFormParams( $donorSummary['contributions'] ?? [], $locale );

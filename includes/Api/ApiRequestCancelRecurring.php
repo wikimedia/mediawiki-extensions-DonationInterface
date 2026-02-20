@@ -7,17 +7,9 @@ use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestCancelRecurring extends ApiRecurringModifyBase {
-	/** @inheritDoc */
-	public function isReadMode() {
-		return false;
-	}
 
 	/** @inheritDoc */
-	public function mustBePosted() {
-		return true;
-	}
-
-	public function execute() {
+	protected function performRecurringModification(): void {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestCancelRecurring' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestCancelRecurring']['ip']
 			return;

@@ -8,7 +8,8 @@ use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestPauseRecurring extends ApiRecurringModifyBase {
 
-	public function execute() {
+	/** @inheritDoc */
+	protected function performRecurringModification(): void {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestPauseRecurring' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestPauseRecurring']['ip']
 			return;
