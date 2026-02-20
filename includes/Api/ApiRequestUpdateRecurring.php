@@ -2,25 +2,11 @@
 
 namespace MediaWiki\Extension\DonationInterface\Api;
 
-use MediaWiki\Api\ApiBase;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\DonorPortal\ActivityTrackingTrait;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
-class ApiRequestUpdateRecurring extends ApiBase {
-
-	use ActivityTrackingTrait;
-
-	/** @inheritDoc */
-	public function isReadMode() {
-		return false;
-	}
-
-	/** @inheritDoc */
-	public function mustBePosted() {
-		return true;
-	}
+class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 
 	public function execute() {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestUpdateRecurring' ) ) {
@@ -50,20 +36,14 @@ class ApiRequestUpdateRecurring extends ApiBase {
 
 	/** @inheritDoc */
 	public function getAllowedParams() {
-		return [
+		return $this->getBaseParameters() + [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
 			'txn_type' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
-			'contact_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => true ],
-			'checksum' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
-			'contribution_recur_id' => [ ParamValidator::PARAM_TYPE => 'integer', ParamValidator::PARAM_REQUIRED => false ],
 			'is_from_save_flow' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_REQUIRED => false,
 				ParamValidator::PARAM_DEFAULT => false,
 			],
-			'wmf_campaign' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
-			'wmf_medium' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
-			'wmf_source' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => false ],
 		];
 	}
 }
