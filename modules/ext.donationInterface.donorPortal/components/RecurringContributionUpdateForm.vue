@@ -30,7 +30,7 @@
 			</section>
 			<form
 				id="form-upgrade"
-				class="box is-recurring is-active height-206"
+				class="box is-recurring is-active"
 				@submit.prevent>
 				<div class="box__inner">
 					<strong class="text text--body">
