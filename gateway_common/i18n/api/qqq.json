@@ -28,6 +28,9 @@
 			"Тест"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "Error message returned when a contact ID not found in session is submitted to the donor portal API endpoints",
+	"apierror-donorportal-bad-contribution-recur-id": "Error message returned when a contribution recur ID not found in session is submitted to the donor portal API endpoints",
+	"apierror-donorportal-no-session": "Error message returned when submitting to the donor portal APIs with no session active",
 	"apihelp-donate-summary": "{{doc-apihelp-summary|donate}}",
 	"apihelp-donate-param-gateway": "{{doc-apihelp-param|donate|gateway}}",
 	"apihelp-donate-param-amount": "{{doc-apihelp-param|donate|amount}}",

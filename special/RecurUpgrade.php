@@ -98,8 +98,6 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			}
 			return null;
 		}
-		$nextDateFormatted = EmailForm::dateFormatter( $recurData['next_sched_contribution_date'] );
-
 		$uiLang = $this->getLanguage()->getCode();
 		$locale = self::FALLBACK_LANGUAGE;
 		// If no country param on query string, use the country from the donor address.
@@ -107,6 +105,10 @@ class RecurUpgrade extends UnlistedSpecialPage {
 		if ( $country && $uiLang ) {
 			$locale = $uiLang . '_' . $country;
 		}
+
+		$nextDateFormatted = EmailForm::dateFormatter(
+			$recurData['next_sched_contribution_date'], $locale
+		);
 
 		$allRecurringOptions = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeOptions' );
 		$currency = $recurData['currency'];

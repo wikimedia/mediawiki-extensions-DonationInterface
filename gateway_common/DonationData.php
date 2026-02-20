@@ -75,7 +75,6 @@ class DonationData implements LogPrefixProvider {
 		'country',
 		'country_code_bank',
 		'currency',
-		'currency_code',
 		'customer_id', // venmo customer_id if post MC declined then remove from vault
 		'cvv',
 		'data_hash',
@@ -84,7 +83,6 @@ class DonationData implements LogPrefixProvider {
 		'device_data', // needed for braintree venmo
 		'direct_debit_text',
 		'email',
-		'emailAdd', // @deprecated
 		'employer',
 		'employer_id',
 		'encrypted_bank_account_number',
@@ -506,9 +504,6 @@ class DonationData implements LogPrefixProvider {
 			$currency = $this->getVal( 'currency' );
 			$this->expunge( 'currency' );
 			$this->logger->debug( "Got currency from 'currency', now: $currency" );
-		} elseif ( $this->isSomething( 'currency_code' ) ) {
-			$currency = $this->getVal( 'currency_code' );
-			$this->logger->debug( "Got currency from 'currency_code', now: $currency" );
 		}
 
 		if ( $currency ) {
@@ -522,7 +517,6 @@ class DonationData implements LogPrefixProvider {
 		}
 
 		$this->setVal( 'currency', $currency );
-		$this->expunge( 'currency_code' );  // honestly, we don't want this.
 	}
 
 	/**
@@ -713,11 +707,7 @@ class DonationData implements LogPrefixProvider {
 	 * reasonable name over the legacy version)
 	 */
 	protected function setEmail() {
-		// Look at the old style value (because that's canonical if populated first)
-		$email = $this->getVal( 'emailAdd' );
-		if ( $email === null ) {
-			$email = $this->getVal( 'email' );
-		}
+		$email = $this->getVal( 'email' );
 
 		// Also trim whitespace
 		if ( $email ) {
@@ -725,7 +715,6 @@ class DonationData implements LogPrefixProvider {
 		}
 
 		$this->setVal( 'email', $email );
-		$this->expunge( 'emailAdd' );
 	}
 
 	/**

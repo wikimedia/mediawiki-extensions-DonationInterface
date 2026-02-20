@@ -73,7 +73,12 @@ class EmailForm {
 		return wfMessage( $key, ...MustacheHelper::filterMessageParams( $params ) )->text();
 	}
 
-	public static function dateFormatter( string $dateString ): string {
+	public static function dateFormatter( string $dateString, string $locale = 'en_US' ): string {
+		if ( class_exists( IntlDateFormatter::class ) ) {
+			$timestamp = strtotime( $dateString );
+			$formatter = new IntlDateFormatter( $locale, IntlDateFormatter::LONG, IntlDateFormatter::NONE );
+			return $formatter->format( $timestamp );
+		}
 		$date = ( new DateTime( $dateString ) )->format( 'F jS, Y' );
 		return $date;
 	}
