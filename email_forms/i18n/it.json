@@ -29,5 +29,13 @@
 	"emailpreferences-success": "La tua richiesta di salvataggio delle preferenze di posta elettronica è stata inoltrata.",
 	"emailpreferences-title": "Preferenze email",
 	"emailpreferences-wikimedia-image-alt": "Fondazione Wikimedia",
+	"recurupgrade": "Il tuo contributo mensile",
+	"recurupgrade-add": "Aggiungi $1",
+	"recurupgrade-salutation-no-recur-records": "Ciao! Grazie per il tuo sostegno a Wikipedia.",
+	"recurupgrade-select-option": "Per aumentare il tuo contributo mensile, seleziona una delle opzioni sopra.",
+	"recurupgrade-thanks-increasing": "Grazie per aver aumentato il tuo contributo e per aiutarci a costruire un futuro solido e stabile per Wikipedia e per tutti i progetti Wikimedia. Insieme diffondiamo ancora di più la conoscenza.",
+	"recurupgrade-upgrade-decline": "No, preferisco lasciarla così",
+	"recurupgrade-upgrade-now": "Aggiorna ora la mia donazione mensile",
+	"recurupgrade-upgrading-new-amount": "Stai aumentando l'importo della tua donazione mensile a <strong></strong>.",
 	"fundraiserunsubscribe": "Annulla l'iscrizione all'e-mail di raccolta fondi della Wikimedia Foundation"
 }
