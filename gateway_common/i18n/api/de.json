@@ -8,6 +8,9 @@
 			"ToBeFree"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "Ungültige contact_id – bitte lade das Spenderportal neu.",
+	"apierror-donorportal-bad-contribution-recur-id": "Ungültige contribution_recur_id – bitte lade das Spenderportal neu.",
+	"apierror-donorportal-no-session": "Keine Sitzung im Spenderportal – bitte lade das Spenderportal neu.",
 	"apihelp-donate-summary": "Diese API ermöglicht es, eine Spende an die Wikimedia Foundation über verschiedene Zahlungsdienstleister einzureichen.",
 	"apihelp-donate-param-gateway": "Welches Zahlungsgateway soll ich verwenden - adyen, ingenico, etc..",
 	"apihelp-donate-param-amount": "Der gespendete Betrag.",
@@ -69,6 +72,9 @@
 	"apihelp-requestNewChecksumLink-param-email": "E-Mail-Adresse des Spenders, der den Link anfordert",
 	"apihelp-requestNewChecksumLink-param-page": "Seite, zu der wir einen Link wünschen, z. B. RecurUpgrade oder EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Unterseite, auf die wir verlinken möchten. Optional.",
+	"apihelp-requestLogout-summary": "Diese API macht die Prüfsumme eines Spenders ungültig, um ihn abzumelden.",
+	"apihelp-requestLogout-param-contact_id": "Kontakt-ID des Spenders beim Abmelden",
+	"apihelp-requestLogout-param-checksum": "Prüfsumme ungültig machen",
 	"apihelp-requestUpdateRecurring-summary": "Diese API verlangt die Aktualisierung des Betrags eines Beitrags, der sich auf die Seite der Spenderpräferenzen erstreckt",
 	"apihelp-requestUpdateRecurring-param-amount": "Neuer Betrag, den der Spender in Zukunft spenden möchte",
 	"apihelp-requestUpdateRecurring-param-txn_type": "Transaktionsart, wie Downgrade oder Upgrade, bei der Aktualisierung wiederkehrender Beträge",
