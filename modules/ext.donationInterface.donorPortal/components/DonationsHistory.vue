@@ -23,7 +23,7 @@
 						value="form-tabs-1"
 						name="tab"
 						@click="handleTabButtonClick">
-						Foundation
+						{{ $i18n( "donorportal-annual-fund" ).text() }}
 					</button>
 					<button
 						id="form-tabs-2-label"
@@ -34,7 +34,7 @@
 						value="form-tabs-2"
 						name="tab"
 						@click="handleTabButtonClick">
-						Endowment
+						{{ $i18n( "donorportal-endowment" ).text() }}
 					</button>
 				</div>
 				<div class="dp-table__actions">
@@ -52,7 +52,7 @@
 									d="M5 1h10v4H5zM3 6a2 2 0 00-2 2v7h4v4h10v-4h4V8a2 2 0 00-2-2zm11 12H6v-6h8zm2-8a1 1 0 111-1 1 1 0 01-1 1" />
 							</g>
 						</svg>
-						Print donation history
+						{{ $i18n( "donorportal-print-donations" ).text() }}
 					</button-->
 				</div>
 			</form>
