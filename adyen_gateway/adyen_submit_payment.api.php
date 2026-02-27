@@ -71,7 +71,8 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			$className,
 			$this->orderId . ':' . $this->orderId
 		);
-		$this->logger->info( 'Starting payment request for: ' . $this->donationData['email'] );
+		$this->logger->info( ' Calling submitPayment ' . WmfFramework::getIP() );
+		$this->logger->info( ' Starting payment request for: ' . $this->donationData['email'] );
 		if ( $this->donationData['payment_method'] == 'applepay' ) {
 			$this->donationData['payment_method'] = 'apple';
 			$this->donationData['utm_campaign'] = 'iOS';

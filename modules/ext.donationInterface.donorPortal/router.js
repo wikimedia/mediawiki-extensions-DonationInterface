@@ -40,7 +40,7 @@ const router = createRouter( {
 router.beforeEach( async ( to, from ) => {
 	const donorData = mw.config.get( 'donorData' );
 	// check if donor has valid checksum and avoid infinite redirect
-	if ( mw.config.get( 'showRequestNewChecksumModal' ) || !donorData || donorData.showLogin ) {
+	if ( mw.config.get( 'showRequestNewChecksumModal' ) || !donorData || donorData.showLogin || donorData.error ) {
 		if ( to.name !== 'Login' ) {
 			return {
 				name: 'Login'

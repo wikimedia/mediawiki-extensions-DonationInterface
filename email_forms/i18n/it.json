@@ -33,6 +33,7 @@
 	"donorportal-donation-type": "Tipo",
 	"donorportal-donation-amount": "Importo",
 	"donorportal-payment-method": "Metodo di pagamento",
+	"donorportal-header-logout": "Esci",
 	"donorportal-cancel-recurring-reason-other": "Altro",
 	"donorportal-cancel-recurring-reason-unintended": "Ho creato questa donazione per errore.",
 	"donorportal-authentication-failure": "Qualcosa è andato storto, riprova più tardi o $1",

@@ -38,7 +38,9 @@
 					<template v-if="isLoggedIn">
 						<li class="nav__links-divider"></li>
 						<li>
-							<routerlink to="/">{{ $i18n( "donorportal-header-my-portal" ).text() }}</routerlink>
+							<routerlink to="/">
+								{{ $i18n( "donorportal-header-my-portal" ).text() }}
+							</routerlink>
 						</li>
 						<li>
 							<a href="#" @click.prevent="handleLogout">{{ $i18n( "donorportal-header-logout" ).text() }}</a>
@@ -89,7 +91,7 @@ module.exports = exports = defineComponent( {
 	computed: {
 		isLoggedIn() {
 			const donorData = mw.config.get( 'donorData' );
-			return donorData && !donorData.showLogin;
+			return donorData && !donorData.showLogin && !donorData.error;
 		}
 	},
 	methods: {

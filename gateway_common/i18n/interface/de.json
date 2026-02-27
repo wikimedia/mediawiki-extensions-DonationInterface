@@ -212,6 +212,7 @@
 	"donate_interface-error-msg-invalid-currency": "Bitte wählen Sie eine gültige Währung",
 	"donate_interface-error-msg-invalid-device-data": "Etwas stimmt nicht mit den Gerätedaten.",
 	"donate_interface-error-msg-invalid-email": "Bitte eine gültige E-Mail-Adresse (z.&nbsp;B. name@domain.com) angeben",
+	"donate_interface-error-msg-invalid-phone": "Bitte geben Sie eine gültige Telefonnummer ein",
 	"donate_interface-error-msg-card-num": "Bitte eine gültige Kreditkartennummer für einen der akzeptierten Kreditkartentypen angeben",
 	"donate_interface-error-msg-amex": "Bitte eine korrekte American-Express-Kartennummer eingeben",
 	"donate_interface-error-msg-mc": "Bitte eine korrekte Mastercard-Kartennummer eingeben.",

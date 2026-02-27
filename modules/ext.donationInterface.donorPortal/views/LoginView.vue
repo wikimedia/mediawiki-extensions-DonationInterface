@@ -1,7 +1,13 @@
 <template>
 	<main class="auth">
 		<section class="auth__infobox">
-			<div class="auth__infobox-inner">
+			<div v-if="serverError" class="auth__infobox-inner">
+				<p
+					id="server-error-message-text"
+					class="text text--body-small"
+					v-html="serverErrorText"></p>
+			</div>
+			<div v-else class="auth__infobox-inner">
 				<div class="auth__intro">
 					<h1 class="heading heading--h1">
 						{{ $i18n( "donorportal-login-header" ).text() }}
@@ -20,23 +26,16 @@
 							:value="donorEmail"
 							:placeholder="emailPlaceholder"
 							required
-							:disabled="serverError"
 							@input="handleInputChange"
 						>
 					</div>
 					<button
 						id="request-link-button"
-						:disabled="serverError"
 						type="submit"
 						class="cdx-button cdx-button--action-progressive cdx-button--weight-primary"
 						@click="handleSubmitButtonClick"
 						v-html="newLinkRequest">
 					</button>
-					<p
-						v-if="serverError"
-						id="server-error-message-text"
-						class="text text--body-small"
-						v-html="serverErrorText"></p>
 				</form>
 				<p
 					id="link-sent-text"
@@ -104,8 +103,8 @@ module.exports = exports = defineComponent( {
 		serverError() {
 			const donorData = mw.config.get( 'donorData' );
 			let serverError = !donorData;
-			if ( donorData && donorData.hasError ) {
-				serverError = donorData.hasError;
+			if ( donorData && donorData.error && !donorData.showLogin ) {
+				serverError = donorData.error;
 			}
 			return serverError;
 		},

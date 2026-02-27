@@ -18,10 +18,17 @@
 				<td class="date">
 					{{ donation.receive_date_formatted }}
 				</td>
-				<td class="type" v-html="translateApiStrings( donation.donation_type_key )">
+				<td class="type" v-html="translateDonationTypeStrings( donation.donation_type_key, donation.recurring_status_key )">
 				</td>
 				<td class="amount">
-					{{ donation.amount_formatted }} {{ donation.currency }}
+					<div v-if="donation && donation.refunded_status_key" class="status">
+						<p>
+							{{ refundedStatusLocale( donation.refunded_status_key ) }}
+						</p>
+					</div>
+					<p class="amount-currency">
+						{{ donation.amount_formatted }} {{ donation.currency }}
+					</p>
 				</td>
 				<td class="method">
 					{{ donation.payment_method }}
@@ -129,20 +136,33 @@ module.exports = exports = defineComponent( {
 			setPage: function ( num ) {
 				this.currentPage = num;
 			},
-			translateApiStrings: function ( string ) {
-				if ( !string ) {
+			translateDonationTypeStrings: function ( frequency_key, recurring_status_key ) {
+				if ( !frequency_key ) {
 					return 'N/A';
 				}
 				// Frequency keys that can be used here
 				// * donorportal-donation-type-monthly
 				// * donorportal-donation-type-annual
 				// * donorportal-donation-type-one-time
-				let localeString = this.$i18n( string ).text();
-				if ( string !== 'donorportal-donation-type-one-time' ) {
-					localeString = this.$i18n( 'donorportal-donation-type-recurring-template', `<span class=\"tag is-recurring\">${ localeString }</span>` ).text();
+				let localeString = this.$i18n( frequency_key ).text();
+				if ( recurring_status_key ) {
+					// Status keys that can be used here
+					// * donorportal-donation-type-recurring-template
+					// * donorportal-donation-type-inactive-recurring-template
+					localeString = this.$i18n(
+						recurring_status_key, `<span class=\"tag is-recurring\">${ localeString }</span>`
+					).text();
 				}
 				return localeString;
-			}
+			},
+			refundedStatusLocale: function ( refunded_status_key ) {
+				if ( !refunded_status_key ) {
+					return '';
+				}
+				// Refunded status keys that can be used here
+				// * donorportal-donation-status-refunded
+				return this.$i18n( refunded_status_key ).text();
+		}
 		};
 	},
 	computed: {

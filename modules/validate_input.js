@@ -79,7 +79,7 @@ window.validateAmount = function () {
  * @return {boolean} true if no errors, false otherwise (also uses in-page error messages to notify the user)
  */
 window.validate_personal = function () {
-	let value, countryField, emailAdd, invalid, apos, dotpos, domain,
+	let value, countryField, emailAdd, phoneAdd, invalid, apos, dotpos, domain,
 		errorsPresent = false,
 		$formField,
 		i,
@@ -212,6 +212,28 @@ window.validate_personal = function () {
 				'email',
 				mediaWiki.msg( 'donate_interface-error-msg-invalid-email' )
 			);
+		}
+	}
+
+	// Validate phone
+	// US only to start T380106
+	phoneAdd = document.getElementById( 'phone' );
+	if (
+		countryField.value === 'US' &&
+		phoneAdd &&
+		$.trim( phoneAdd.value ) &&
+		phoneAdd.value !== mediaWiki.msg( 'donate_interface-donor-phone' )
+	) {
+		// Phone a friend
+		const phoneRegexUS = /^(1[ \-.]?)?(\(?\d{3}\)?[ \-.]?)(\d{3})[ \-.]?(\d{4})$/;
+
+		if ( !new RegExp( phoneRegexUS ).test( phoneAdd.value.trim() ) ) {
+			setError(
+				'phone',
+				mediaWiki.msg( 'donate_interface-error-msg-invalid-phone' )
+			);
+		} else {
+			clearError( 'phone' );
 		}
 	}
 

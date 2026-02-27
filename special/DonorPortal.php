@@ -103,8 +103,8 @@ class DonorPortal extends UnlistedSpecialPage {
 		// if civiproxy returned an error, show the login form instead
 		if ( isset( $donorSummary['is_error'] ) ) {
 			$this->formParams = [
-				'showLogin' => true,
-				'hasError' => true
+				'error' => true,
+				'showLogin' => $donorSummary['error_code'] === 'InvalidCredentials'
 			];
 			return;
 		}
@@ -182,6 +182,13 @@ class DonorPortal extends UnlistedSpecialPage {
 				'month' => 'donorportal-donation-type-monthly',
 				default => 'donorportal-donation-type-one-time',
 			};
+			$refunded_status = in_array( $contribution['status'], [ 'Refunded' ] );
+			$contribution['refunded_status_key'] = $refunded_status ? 'donorportal-donation-status-refunded' : '';
+			$inactive_recurring_contribution = in_array( $contribution['recurring_status'], [ 'Completed', 'Failed', 'Cancelled' ] );
+
+			if ( $contribution['donation_type_key'] != 'donorportal-donation-type-one-time' ) {
+				$contribution['recurring_status_key'] = $inactive_recurring_contribution ? 'donorportal-donation-type-inactive-recurring-template' : 'donorportal-donation-type-recurring-template';
+			}
 
 			if ( $contribution['financial_type'] === 'Endowment Gift' ) {
 				$this->formParams['endowmentContributions'][] = $contribution;
