@@ -363,7 +363,7 @@
 
 		// Continue button behaviour: require at least one submethod selected when none
 		$( '#paymentContinueBtn' ).on( 'click', ( e ) => {
-			let $visibleSubmethods = $( 'input[name="payment_submethod"]:visible' );
+			const $visibleSubmethods = $( 'input[name="payment_submethod"]:visible' );
 			if ( $visibleSubmethods.length > 1 && $visibleSubmethods.filter( ':checked' ).length === 0 ) {
 				e.preventDefault();
 				$visibleSubmethods.first().focus().prop( 'checked', true );
