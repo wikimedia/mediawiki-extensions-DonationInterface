@@ -121,8 +121,9 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			];
 		}
 
+		$useLastName = ( $uiLang === 'ja' );
 		return [
-				'full_name' => $recurData['donor_name'],
+				'salutation_name' => $useLastName ? $recurData['last_name'] : $recurData['first_name'],
 				'recur_amount' => $recurData['amount'],
 				'recur_amount_formatted' => EmailForm::amountFormatter( $recurData['amount'], $locale, $currency ),
 				'contribution_recur_id' => $recurData['id'],
