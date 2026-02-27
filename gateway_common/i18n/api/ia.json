@@ -4,6 +4,9 @@
 			"McDutchie"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "Mal contact_id - per favor recarga le Portal del donator",
+	"apierror-donorportal-bad-contribution-recur-id": "Mal contribution_recur_id - per favor recarga le Portal del donator",
+	"apierror-donorportal-no-session": "Necun session del portal del donator - per favor recarga le Portal del donator",
 	"apihelp-donate-summary": "Iste API permitte submitter un donation al Fundation Wikimedia per varie methodos de pagamento.",
 	"apihelp-donate-param-gateway": "Le passarella de pagamento a usar: adyen, ingenico, etc.",
 	"apihelp-donate-param-amount": "Le amonta donate.",
