@@ -5,6 +5,9 @@
 			"Toliño"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "«contact_id» incorrecto; recarga o portal de doantes",
+	"apierror-donorportal-bad-contribution-recur-id": "«contribution_recur_id» incorrecto; recarga o portal de doantes",
+	"apierror-donorportal-no-session": "Non hai ningunha sesión no portal de doantes; recarga o portal de doantes",
 	"apihelp-donate-summary": "Esta API permíteche enviar unha doazón á Fundación Wikimedia usando diferentes modos de pagamento.",
 	"apihelp-donate-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc.",
 	"apihelp-donate-param-amount": "A cantidade doada.",

@@ -147,13 +147,11 @@
 	"recurupgrade": "Toistuva lahjoituksesi",
 	"recurupgrade-add": "Lisää $1",
 	"recurupgrade-amount-ask": "Valitse summa, jolla haluat korottaa lahjoitustasi:",
-	"recurupgrade-amount": "Nykyinen toistuva summa",
 	"recurupgrade-ask-bigger": "Tehdään yhdessä entistä suurempi vaikutus.",
 	"recurupgrade-ask-heading": "Wikipedia on se internet, joka meille luvattiin, ja tukesi pitää sen vahvana!",
 	"recurupgrade-ask-thankyou": "Kiitos, että olet tärkeä osa Wikipediaa ja Wikimedia-hankkeita. Kuukausittainen lahjoituksesi auttaa varmistamaan, että Wikipedia pysyy luotettavana, mainoksettomana ja käytettävissä aina, kun tarvitset sitä.",
 	"recurupgrade-current-amount-and-date": "Tällä hetkellä kuukausittainen lahjoituksesi on <strong>$1</strong>, ja seuraava lahjoituksesi on kalenterin mukaan <strong>$2</strong>.",
 	"recurupgrade-small-increase": "Pieni korotus tänään auttaa pitämään Wikipedian vahvana sinulle ja miljoonille muille.",
-	"recurupgrade-next-scheduled-date": "Seuraava lahjoituspäivä",
 	"recurupgrade-salutation": "Hei, $1!",
 	"recurupgrade-salutation-no-recur-records": "Hei! Kiitos tuestasi Wikipedialle."
 }

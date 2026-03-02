@@ -97,14 +97,7 @@ class CiviproxyConnect {
 				];
 			}
 
-			return [
-				'id' => $contributionRecurDetails['id'] ?? null,
-				'country' => $contributionRecurDetails[ 'country' ] ?? null,
-				'donor_name' => $contributionRecurDetails[ 'donor_name' ],
-				'currency' => $contributionRecurDetails[ 'currency' ],
-				'next_sched_contribution_date' => $contributionRecurDetails[ 'next_sched_contribution_date' ],
-				'amount' => $contributionRecurDetails[ 'amount' ] ?? null
-			];
+			return $contributionRecurDetails;
 
 		} catch ( Exception $e ) {
 			$logger->error( "contact id: $contact_id, " . $e->getMessage() );

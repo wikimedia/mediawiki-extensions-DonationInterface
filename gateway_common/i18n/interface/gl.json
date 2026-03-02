@@ -206,6 +206,7 @@
 	"donate_interface-error-msg-invalid-currency": "Selecciona unha moeda válida",
 	"donate_interface-error-msg-invalid-device-data": "Algo foi mal cos datos do dispositivo.",
 	"donate_interface-error-msg-invalid-email": "Por favor, escribe un enderezo de correo electrónico válido; por exemplo, nome@dominio.com",
+	"donate_interface-error-msg-invalid-phone": "Por favor, escribe un número de teléfono válido",
 	"donate_interface-error-msg-card-num": "Por favor, escribe un número de tarxeta de crédito válido para un dos tipos de tarxeta de crédito aceptados",
 	"donate_interface-error-msg-amex": "Por favor, escribe un número de tarxeta American Express correcto.",
 	"donate_interface-error-msg-mc": "Por favor, escribe un número de tarxeta Mastercard correcto.",

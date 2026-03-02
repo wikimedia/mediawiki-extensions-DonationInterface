@@ -5,7 +5,8 @@
 			"Ayub Abdulla",
 			"Beta16",
 			"GseSro",
-			"Laos è una regione"
+			"Laos è una regione",
+			"Neonsn0w"
 		]
 	},
 	"donorportal-login-email-placeholder": "Inserisci il tuo indirizzo email",
@@ -33,6 +34,7 @@
 	"donorportal-donation-type": "Tipo",
 	"donorportal-donation-amount": "Importo",
 	"donorportal-payment-method": "Metodo di pagamento",
+	"donorportal-donation-status-refunded": "Rimborsata",
 	"donorportal-header-logout": "Esci",
 	"donorportal-cancel-recurring-reason-other": "Altro",
 	"donorportal-cancel-recurring-reason-unintended": "Ho creato questa donazione per errore.",
