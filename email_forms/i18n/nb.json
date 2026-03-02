@@ -30,10 +30,6 @@
 	"emailpreferences-success": "Forespørselen din om å endre e-postinnstillinger har blitt sendt inn.",
 	"emailpreferences-title": "E-postinnstillinger",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
-	"fundraiserunsubscribe": "Avslutt abonnementet på e-poster fra Wikimedia Foundation",
-	"fundraisersubscribe": "Godta",
-	"fundraisersubscribe-appeal-headline-001": "Liker du det du ser?",
-	"fundraisersubscribe-appeal-text-001": "Vi sender deg gjerne periodiske oppdateringer med slike bilder, måter du kan støtte eller rådgi oss i framtida, og mer av det du elsker fra Wikipedia.",
 	"recurupgrade": "Din månedlige gave",
 	"recurupgrade-add": "Legg til $1",
 	"recurupgrade-amount-ask": "Velg hvilket beløp du ønsker å øke gaven med:",
@@ -53,5 +49,9 @@
 	"recurupgrade-upgrade-now": "Oppdater min månedlige gave nå",
 	"recurupgrade-upgrade": "Oppdater gaven min",
 	"recurupgrade-upgrading-new-amount": "Du øker ditt månedlige gavebeløp til <strong></strong>.",
-	"recurupgrade-upgrading-new-amount-and-date": "Ditt nye månedlige gavebeløp på $1 vil gjelde fra din neste gaveoverføring den $2"
+	"recurupgrade-upgrading-new-amount-and-date": "Ditt nye månedlige gavebeløp på $1 vil gjelde fra din neste gaveoverføring den $2",
+	"fundraiserunsubscribe": "Avslutt abonnementet på e-poster fra Wikimedia Foundation",
+	"fundraisersubscribe": "Godta",
+	"fundraisersubscribe-appeal-headline-001": "Liker du det du ser?",
+	"fundraisersubscribe-appeal-text-001": "Vi sender deg gjerne periodiske oppdateringer med slike bilder, måter du kan støtte eller rådgi oss i framtida, og mer av det du elsker fra Wikipedia."
 }

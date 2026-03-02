@@ -168,6 +168,7 @@
 	"donate_interface-error-msg-validation": "Verbessert wgl. d'Feeler am Formulaire.",
 	"donate_interface-error-msg-invalid-amount": "Gitt wgl. e valabele Betrag un",
 	"donate_interface-error-msg-invalid-email": "Gitt wgl. eng gülteg E-Mail-Adress an, z.&nbsp;B. numm@domain.com",
+	"donate_interface-error-msg-invalid-phone": "Gitt wgl. eng gülteg Telefonsnummer an",
 	"donate_interface-error-msg-card-num": "Gitt wgl. eng valabel Kreditkaartennummer fir e vun den akzeptéierten Type vu Kreditkaarten",
 	"donate_interface-error-msg-amex": "Gitt wgl. eng korrekt Kaartenummer fir American Express an",
 	"donate_interface-error-msg-mc": "Gitt wgl. eng korrekt Nummer fir Mastercard an",
