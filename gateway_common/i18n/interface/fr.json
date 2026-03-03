@@ -48,7 +48,8 @@
 			"KMorrow-WMF",
 			"JLTRY",
 			"Escargot bleu",
-			"Asteralee"
+			"Asteralee",
+			"Muisha wiki hke"
 		]
 	},
 	"donate_interface": "Soutenir Wikimédia",
@@ -485,7 +486,7 @@
 	"donate_interface-email-optin-fail": "Une erreur s’est produite lors du traitement de votre requête. Veuillez contacter <a href=\"mailto:$1\">$1</a> ou <a href=\"$2\">cliquez ici pour réessayer</a>.",
 	"donate_interface-faqs": "Foire aux questions",
 	"donate_interface-tax-info": "Informations sur les conditions de déductibilité fiscale",
-	"donate_interface-informationsharing": "Nous ne commercialisons pas vos données et ne les vendons à personne. En faisant ce don, vous acceptez de partager vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui gère Wikipédia, les autres projets Wikimedia, ainsi que les prestataires de services conformément à notre <a href=\"$1\">politique de confidentialité en matière de donation</a>. La Wikimedia Foundation et ses prestataires sont situés aux États-Unis et dans d’autres pays dont les lois sur la confidentialité des données peuvent différer des vôtres. Pour plus d’informations, nous vous demandons de bien vouloir lire notre <a href=\"$1\">politique de confidentialité en matière de donation</a>.",
+	"donate_interface-informationsharing": "Nous ne commercialisons pas vos données et ne les vendons à personne. En faisant ce don, vous acceptez de partager vos données personnelles avec la Wikimedia Foundation, l’organisation à but non lucratif qui gère Wikipédia et les autres projets Wikimedia, ainsi qu'avec les prestataires de services conformément à notre <a href=\"$1\">politique de confidentialité en matière de don</a>. La Wikimedia Foundation et ses prestataires sont situés aux États-Unis et dans d’autres pays dont les lois sur la confidentialité des données peuvent différer des vôtres. Pour plus d’informations, nous vous demandons de bien vouloir lire notre <a href=\"$1\">politique de confidentialité en matière de donation</a>.",
 	"donate_interface-currency-change": "Changer ?",
 	"donate_interface-taxded-link-int": "Informations fiscales et juridiques",
 	"donate_interface-taxded-link-us": "Informations sur les conditions de déductibilité fiscale",

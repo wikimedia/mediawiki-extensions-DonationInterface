@@ -279,7 +279,7 @@
 	"donate_interface-cvv-explain": "<h4>Was bedeutet CVV?</h4>\n<p>Cardholder Verification Value (CVV): Diese drei- oder vierstelligen Nummern helfen festzustellen, ob sich die tatsächliche Karte im Besitz des Kartenhalters befindet. Dies hilft bei der Verhinderung unautorisierter oder betrügerischer Verwendung.</p>\n<h4>Visa, Mastercard</h4>\n<p>Der dreistellige Code befindet sich auf der Kartenrückseite im Bereich der Unterschrift. Typischerweise befinden sich dort mehrere Nummern, aber der CVV-Code besteht nur aus den letzten drei Ziffern.</p>\n<h4>American Express</h4>\n<p>Der Code befindet sich <i>immer über</i> der geprägten (erhabenen) Kontonummer auf der Vorderseite der Karte.\nIn manchen Fällen befindet sich der Code auf der linken Seite der Karte, jedoch immer über der Kontonummer.\n</p><br />",
 	"donate_interface-easydonate": "Wir arbeiten daran, Spenden in jedem Land zu ermöglichen. Lassen Sie uns bitte wissen, wie wir es einfacher machen können. Senden Sie Ihre Vorschläge an $1.",
 	"donate_interface-problemsdonating": "Haben Sie Probleme beim Spenden?",
-	"donate_interface-donate-click": "Ihre Kredit- bzw. Debitkarteninformationen werden gesichert verarbeitet.",
+	"donate_interface-donate-click": "Ihre Kredit- bzw. Debitkarteninformationen werden sicher verarbeitet.",
 	"donate_interface-otherways": "Es gibt auch <a href=\"$1\">andere Möglichkeiten zu spenden, einschließlich PayPal oder Scheck</a>.",
 	"donate_interface-otherways-short": "Andere Möglichkeiten zu spenden",
 	"donate_interface-token-mismatch": "Deine Sitzung ist abgelaufen. Bitte lade die Seite erneut und sende sie nochmals ab.",

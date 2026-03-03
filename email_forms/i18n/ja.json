@@ -26,6 +26,14 @@
 	"emailpreferences-success": "メール受信の設定が更新されました。",
 	"emailpreferences-title": "メール設定",
 	"emailpreferences-wikimedia-image-alt": "ウィキメディア財団",
-	"fundraiserunsubscribe": "ウィキメディア財団の募金活動のメール配信を停止する",
+	"recurupgrade": "毎月の寄付",
+	"recurupgrade-add": "$1を追加",
+	"recurupgrade-salutation-no-recur-records": "こんにちは。ウィキペディアへのご支援に感謝いたします。",
+	"recurupgrade-select-option": "月々の寄付の金額を増額するには、上記の選択肢からお選びください。",
+	"recurupgrade-thanks-increasing": "寄付を増額し、ウィキペディアおよびすべてのウィキメディア知識プロジェクトの強固で安定した未来を築くためにご協力いただき、ありがとうございます。共に、知識をさらに広めていきましょう。",
+	"recurupgrade-upgrade-decline": "いいえ、現在の金額のままにします。",
+	"recurupgrade-upgrade-now": "今すぐ月々の寄付を増額する",
+	"recurupgrade-upgrading-new-amount": "月々の寄付額を<strong></strong>に増額します。",
+	"fundraiserunsubscribe": "ウィキメディア財団からの寄付に関するメール配信を停止する",
 	"fundraisersubscribe": "購読する"
 }

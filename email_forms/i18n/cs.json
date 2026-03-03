@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Matěj Suchánek",
-			"Pcoombe"
+			"Pcoombe",
+			"SKivlehan-WMF"
 		]
 	},
 	"emailpreferences-change-email": "Změnit e-mail",
@@ -26,5 +27,6 @@
 	"emailpreferences-success": "Váš požadavek na uložení e-mailových předvoleb byl odeslán.",
 	"emailpreferences-title": "Předvolby e-mailu",
 	"emailpreferences-wikimedia-image-alt": "Nadace Wikimedia",
-	"fundraiserunsubscribe": "Odhlásit odběr sbírkových e-mailů  Wikimedia Foundation"
+	"fundraiserunsubscribe": "Odhlášení z odběru fundraisingových e-mailů nadace Wikimedia Foundation",
+	"fundraiserunsubscribe-confirm": "Opravdu chcete odhlásit odběr pro e-mailovou adresu %email%?"
 }

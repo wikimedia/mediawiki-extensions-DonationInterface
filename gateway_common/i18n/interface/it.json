@@ -28,7 +28,8 @@
 			"TheRukk",
 			"Toadino2",
 			"Ximo17",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"Neonsn0w"
 		]
 	},
 	"donate_interface": "Sostieni Wikimedia",
@@ -321,7 +322,7 @@
 	"donate_interface-cvv-placeholder-4-digits": "4 cifre",
 	"donate_interface-cvv-placeholder-3-digits": "3 cifre",
 	"donate_interface-verification-number": "Numero di verifica",
-	"donate_interface-what-is-this": "Che cos'è questo?",
+	"donate_interface-what-is-this": "Cos'è questo?",
 	"donate_interface-did-you-mean": "Forse cercavi <a href=\"#\" class=\"correction\">$1</a>?",
 	"donate_interface-debit": "debito",
 	"donate_interface-do-not-include-dashes": "Si prega di non includere trattini",
