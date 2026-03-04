@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Omotecho",
-			"Pcoombe"
+			"Pcoombe",
+			"RhAnish"
 		]
 	},
 	"emailpreferences-change-email": "メールアドレスの変更",
@@ -31,6 +32,26 @@
 	"emailpreferences-success": "メール受信の設定が更新されました。",
 	"emailpreferences-title": "メール設定",
 	"emailpreferences-wikimedia-image-alt": "ウィキメディア財団",
-	"fundraiserunsubscribe": "ウィキメディア財団の募金活動のメール配信を停止する",
+	"recurupgrade": "毎月の寄付",
+	"recurupgrade-add": "$1を追加",
+	"recurupgrade-amount-ask": "月々の寄付の増額金額をお選びください：",
+	"recurupgrade-ask-bigger": "共に、さらに大きなインパクトを生み出しましょう。",
+	"recurupgrade-ask-heading": "ウィキペディアは私たちが思い描いていたインターネットの姿です。あなたのご支援がそれを支えています。",
+	"recurupgrade-ask-thankyou": "知識の未来を守るためにご支援いただきありがとうございます。あなたの毎月のご寄付のおかげで、ウィキペディアは広告に頼ることなく信頼性を保ち、必要な時にいつでも利用できる場であり続けています。",
+	"recurupgrade-current-amount-and-date": "現在、あなたの月々の寄付は<strong>$1</strong>で、次回のお手続きは<strong>$2</strong>の予定です。",
+	"recurupgrade-small-increase": "寄付額をわずかに増やすことで、ウィキペディアをあなたのため、次の読者のため、そして次世代のために強化していくことができます。",
+	"recurupgrade-salutation": "$1さん、こんにちは！",
+	"recurupgrade-salutation-no-recur-records": "こんにちは。ウィキペディアへのご支援に感謝いたします。",
+	"recurupgrade-no-recur-records": "残念ながら、更新対象となる継続寄付を見つけることができませんでした。<a href=\"$1\">新しく月々の寄付を開始</a>いただくか、ご不明な点がある場合は <a href=\"mailto:$2\">$2</a> までお問い合わせください。",
+	"recurupgrade-select-option": "月々の寄付の金額を増額するには、上記の選択肢からお選びください。",
+	"recurupgrade-thanks-increasing": "寄付を増額し、ウィキペディアおよびすべてのウィキメディア知識プロジェクトの強固で安定した未来を築くためにご協力いただき、ありがとうございます。共に、知識をさらに広めていきましょう。",
+	"recurupgrade-thanks-monthly": "数少ない月次寄付者でいてくださるあなたに、心から感謝いたします。",
+	"recurupgrade-upgrade-decline": "いいえ、現在の金額のままにします。",
+	"recurupgrade-upgrade-decline-long": "気が変わった場合は、遠慮なくこのページを閉じてください。ご支援いただき、誠にありがとうございます！",
+	"recurupgrade-upgrade-now": "今すぐ月々の寄付を増額する",
+	"recurupgrade-upgrade": "寄付を更新する",
+	"recurupgrade-upgrading-new-amount": "月々の寄付額を<strong></strong>に増額します。",
+	"recurupgrade-upgrading-new-amount-and-date": "更新後の月々の寄付額$1は、次回の寄付日である$2より適用されます。",
+	"fundraiserunsubscribe": "ウィキメディア財団からの寄付に関するメール配信を停止する",
 	"fundraisersubscribe": "購読する"
 }

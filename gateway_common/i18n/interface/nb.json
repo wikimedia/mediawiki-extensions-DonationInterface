@@ -432,7 +432,7 @@
 	"donate_interface-email-optin-fail": "En feil oppsto under behandlingen av forespørselen din. Vennligst kontakt <a href=\"mailto:$1\">$1</a>, eller <a href=\"$2\">trykk her for å prøve igjen</a>.",
 	"donate_interface-faqs": "Ofte stilte spørsmål",
 	"donate_interface-tax-info": "Informasjon om skattefradrag",
-	"donate_interface-informationsharing": "Vi selger ikke din informasjon til noen. Ved å donere, godtar du å dele personopplysningene dine med Wikimedia Foundation, den ideelle organisasjonen som står bak Wikipedia og andre Wikimedia-prosjekter, og med organisasjonens tjenesteleverandører i henhold til vår <a href=\"$1\">donorpolicy</a>. Wikimedia Foundation og organisasjonens tjenesteleverandører holder til i USA og i andre land hvor personvernlovene kan være ulike de norske. Vi hverken selger eller tilbyr personopplysningene dine til andre. Nærmere informasjon finner du i vår <a href=\"$1\">donorpolicy</a>.",
+	"donate_interface-informationsharing": "Vi selger ikke din informasjon til noen. Ved å donere, godtar du å dele personopplysningene dine med Wikimedia Foundation, den ideelle organisasjonen som står bak Wikipedia og andre Wikimedia-prosjekter, og med organisasjonens tjenesteleverandører i henhold til vår <a href=\"$1\">donorpolicy</a>. Wikimedia Foundation og organisasjonens tjenesteleverandører holder til i USA og i andre land hvor personvernlovene kan være ulike de norske. Vi verken selger eller tilbyr personopplysningene dine til andre. Nærmere informasjon finner du i vår <a href=\"$1\">donorpolicy</a>.",
 	"donate_interface-currency-change": "Endre?",
 	"donate_interface-taxded-link-int": "Skatteinformasjon og annen juridisk informasjon",
 	"donate_interface-taxded-link-us": "Skattefradragsinformasjon",
