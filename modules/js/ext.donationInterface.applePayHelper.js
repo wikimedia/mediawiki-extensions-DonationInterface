@@ -1,5 +1,6 @@
 /**
  * Apple Pay helper functions for DonationInterface forms
+ *
  * @param $ jQuery
  * @param mw mediaWiki
  */
