@@ -468,6 +468,7 @@ pix:
   countries:
     - BR
   logo: bank-pix.png
+  recurring: true
 
 presto:
   group: cc
