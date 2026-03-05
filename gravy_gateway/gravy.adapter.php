@@ -256,7 +256,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
 					$approvePaymentResponse = $this->callApprovePayment( $provider );
 					$transactionStatus = $approvePaymentResponse->getStatus();
-					$this->updateResponseData( $approvePaymentResponse );
+					$updateTxnId = ( $approvePaymentResponse->getBackendProcessor() !== 'adyen' );
+					$this->updateResponseData( $approvePaymentResponse, $updateTxnId );
 					if ( $approvePaymentResponse->isSuccessful() ) {
 						$this->logger->info( "Returned PSP Reference {$approvePaymentResponse->getGatewayTxnId()}" );
 						if ( $this->showMonthlyConvert() ) {
@@ -519,13 +520,18 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		return PaymentResult::newRefresh( $localizedErrors );
 	}
 
-	protected function updateResponseData( PaymentProviderExtendedResponse $paymentResult ): void {
+	protected function updateResponseData(
+		PaymentProviderExtendedResponse $paymentResult,
+		bool $includeGatewayTxnId = true
+	): void {
 		$responseData = [];
 
 		// Add the gravy-generated transaction ID to the DonationData object
 		// to be sent to the queues
 		if ( $paymentResult->isSuccessful() ) {
-			$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
+			if ( $includeGatewayTxnId ) {
+				$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
+			}
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
 			$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
 			// Add in donor details
