@@ -4,6 +4,7 @@
 			"Amire80",
 			"EneshTranslates",
 			"Kareyac",
+			"Lvova",
 			"Okras",
 			"Vonavy"
 		]
@@ -32,7 +33,7 @@
 	"emailpreferences-send-email": "Мне нравится получать новости от фонда Wikimedia Foundation, присылайте мне всё!",
 	"emailpreferences-snooze-email": "Поставить электронные письма на паузу на {{PLURAL:$1|один день|$1 дней}}.",
 	"emailpreferences-success": "Ваша заявка на сохранение настроек электронной почты зарегистрирована.",
-	"emailpreferences-verify-email-sent": "Самые читаемые статьи на английской Википедии",
+	"emailpreferences-verify-email-sent": "Самые читаемые статьи Википедии на английском языке",
 	"emailpreferences-title": "Настройки электронной почты",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
 	"fundraiserunsubscribe": "Отписаться от писем Фонда Викимедиа, связанных со сбором средств"

@@ -206,6 +206,7 @@
 	"donate_interface-error-msg-invalid-currency": "נא לבחור מטבע תקין",
 	"donate_interface-error-msg-invalid-device-data": "משהו לא בסדר בנתוני המכשיר.",
 	"donate_interface-error-msg-invalid-email": "יש להזין כתובת דוא״ל תקינה, למשל name@domain.com",
+	"donate_interface-error-msg-invalid-phone": "נא להזין מספר הטלפון תקין",
 	"donate_interface-error-msg-card-num": "נא להזין מספר כרטיס אשראי תקף עבור אחד מסוגי כרטיסי האשראי הקבילים",
 	"donate_interface-error-msg-amex": "נא להזין מספר כרטיס נכון עבור אמריקן אקספרס.",
 	"donate_interface-error-msg-mc": "נא להזין מספר כרטיס נכון עבור מאסטרקארד.",
