@@ -108,7 +108,10 @@ class DonorPortal extends UnlistedSpecialPage {
 			];
 			return;
 		}
-		$this->getRequest()->setSessionData( self::SESSION_KEY, $donorSummary );
+		$session = $this->getRequest()->getSession();
+		$session->set( self::SESSION_KEY, $donorSummary );
+		$session->persist();
+
 		$locale = $this->getLocale( $donorSummary );
 		$this->formParams = $donorSummary;
 		$this->addContributionsToFormParams( $donorSummary['contributions'] ?? [], $locale );
