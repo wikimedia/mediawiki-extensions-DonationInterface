@@ -1,10 +1,12 @@
-/* global global describe it expect beforeEach afterEach*/
+/* global global jest describe it expect beforeEach afterEach*/
+jest.mock( 'vue-router', () => ( Object.assign( jest.requireActual( 'vue-router' ), { useRoute: jest.fn() } ) ) );
 
 const VueTestUtils = require( '@vue/test-utils' );
 const { when } = require( 'jest-when' );
 
 const HomeView = require( '../../../modules/ext.donationInterface.donorPortal/views/Home.vue' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
+const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
 
 describe( 'Home view', () => {
 	beforeEach( () => {
@@ -16,6 +18,7 @@ describe( 'Home view', () => {
 	it( 'Home view renders the donor data from config', async () => {
 		const wrapper = VueTestUtils.mount( HomeView, {
 			global: {
+				plugins: [ router ],
 				mocks: {
 					$route: {
 						query: {
