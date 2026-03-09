@@ -127,7 +127,14 @@ class GravyGateway extends GatewayPage {
 	}
 
 	public function showContinueButton(): bool {
-		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() );
+		return !( $this->isCreditCard() || $this->isGooglePay() || $this->isApplePay() || $this->isSepa() );
+	}
+
+	/**
+	 * @return bool
+	 */
+	private function isSepa(): bool {
+		return $this->adapter->getData_Unstaged_Escaped( 'payment_method' ) === 'rtbt';
 	}
 
 	/**

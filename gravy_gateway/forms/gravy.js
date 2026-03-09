@@ -576,6 +576,13 @@
 		di.forms.submit();
 	}
 
+	function setUpSepa() {
+		$( '#paymentSubmit' ).show();
+		$( '#paymentSubmitBtn' ).click( mw.util.debounce( ( evt ) => {
+			mw.donationInterface.forms.validateAndSubmit( evt );
+		}, 100 ) );
+	}
+
 	/**
 	 *  On document ready we create a script tag and wire it up to run setup as soon as it
 	 *  is loaded, or to show an error message if the external script can't be loaded.
@@ -613,6 +620,9 @@
 				if ( redirectPaypal && !di.validation.hasErrors() ) {
 					submitPaypal();
 				}
+				break;
+			case 'rtbt':
+				setUpSepa();
 		}
 		if ( showRedirectText ) {
 			// Redirect flow

@@ -317,6 +317,24 @@
 		}
 	}
 
+	function hasCheckedSubmethodOption() {
+		return $( 'input[name="payment_submethod"]:visible:checked' ).length > 0;
+	}
+
+	function validateAndSubmit( e ) {
+		const $visibleSubmethods = $( 'input[name="payment_submethod"]:visible' );
+		if ( $visibleSubmethods.length > 1 && $visibleSubmethods.filter( ':checked' ).length === 0 ) {
+			e.preventDefault();
+			$visibleSubmethods.first().focus().prop( 'checked', true );
+		}
+		if ( di.validation.validate() ) {
+			di.forms.submit();
+		} else if ( hasCheckedSubmethodOption() ) {
+			di.forms.resetSubmethod();
+			return false;
+		}
+	}
+
 	// FIXME: move function declarations into object
 	di.forms = {
 		disable: disableForm,
@@ -335,6 +353,7 @@
 		loadScripts: loadScripts,
 		loadScriptsInOrder: loadScriptsInOrder,
 		setBinHash: setBinHash,
+		validateAndSubmit: validateAndSubmit,
 		debugMessages: [],
 		addDebugMessage: function ( message ) {
 			di.forms.debugMessages.push( message );
@@ -362,19 +381,7 @@
 		}
 
 		// Continue button behaviour: require at least one submethod selected when none
-		$( '#paymentContinueBtn' ).on( 'click', ( e ) => {
-			const $visibleSubmethods = $( 'input[name="payment_submethod"]:visible' );
-			if ( $visibleSubmethods.length > 1 && $visibleSubmethods.filter( ':checked' ).length === 0 ) {
-				e.preventDefault();
-				$visibleSubmethods.first().focus().prop( 'checked', true );
-			}
-			if ( di.validation.validate() ) {
-				di.forms.submit();
-			} else if ( hasCheckedSubmethodOption ) {
-				di.forms.resetSubmethod();
-				return false;
-			}
-		} );
+		$( '#paymentContinueBtn' ).on( 'click', validateAndSubmit );
 
 		// Only load employer autocomplete js when the employer field is visible
 		if ( $( '#employer' ).length ) {
@@ -390,10 +397,6 @@
 				di.forms.enableInput();
 			}
 		);
-
-		function hasCheckedSubmethodOption() {
-			return $( 'input[name="payment_submethod"]:visible:checked' ).length > 0;
-		}
 
 		function showEmailExplain() {
 			$emailDiv.after( '<div id="email_explain">' + emailExplainMessage + '</div>' );
