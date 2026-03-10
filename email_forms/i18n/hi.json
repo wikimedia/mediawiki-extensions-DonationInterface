@@ -5,6 +5,11 @@
 			"Saurmandal"
 		]
 	},
+	"emailpreferences-country": "देश या क्षेत्र",
+	"emailpreferences-dont-send-email": "सभी चीज़ों से मेरी सदस्यता छुड़ाएँ।",
+	"emailpreferences-footer-learn_more": "<a href=\"https://meta.wikimedia.org/wiki/Wikimedia_chapters\" class=\"extiw\" title=\"m:Wikimedia chapters\">स्थानीय अध्यायों और उनकी परियोजनाओं</a> के बारे में अधिक जानें।",
+	"emailpreferences-footer-questions_email": "अगर आपको कोई प्रश्न है तो कृपया <a rel=\"nofollow\" class=\"external text\" href=\"mailto:donate@wikimedia.org\">donate@wikimedia.org</a> को ईमेल करें।",
+	"emailpreferences-footer-text_license": "टेक्स्ट <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by-sa/4.0/\">क्रिएटिव कॉमन्स श्रेय-समानसांझा लाइसेंस</a> के अंतर्गत उपलब्ध है; अतिरिक्त शर्तें लागू हो सकती हैं। विस्तार के लिए <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use\">उपयोग की शर्तें</a> या <a class=\"external text\" href=\"https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy\">गोपनीयता नीति</a> देखें।",
 	"emailpreferences-header-link-about": "बारे में",
 	"emailpreferences-header-link-advocacy": "हिमायत",
 	"emailpreferences-header-link-news": "समाचार",
