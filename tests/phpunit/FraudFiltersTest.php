@@ -1050,4 +1050,177 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
 		$this->assertEquals( 100, $exposed->risk_score );
 	}
+
+	public function testPatternFilterFieldReferenceMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_same_name_fraud' => [
+						'first_name' => '%last_name%',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'Smith';
+		$testGatewayData['last_name'] = 'Smith';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject when first_name matches last_name via field reference'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_same_name_fraud', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_same_name_fraud'] );
+	}
+
+	public function testPatternFilterFieldReferenceNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_same_name_fraud' => [
+						'first_name' => '%last_name%',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'John';
+		$testGatewayData['last_name'] = 'Smith';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process when first_name differs from last_name'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterFieldReferenceMissingField(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_missing_ref' => [
+						'first_name' => '%nonexistent_field%',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'John';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process when referenced field does not exist'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterFieldReferenceCombinedWithExactMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_combined_field_ref' => [
+						'first_name' => '%last_name%',
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'Smith';
+		$testGatewayData['last_name'] = 'Smith';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject when both field reference and exact match conditions pass'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_combined_field_ref', $message['score_breakdown'] );
+	}
+
+	public function testPatternFilterFieldReferencePartialMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_partial_field_ref' => [
+						'first_name' => '%last_name%',
+						'currency' => 'EUR',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'Smith';
+		$testGatewayData['last_name'] = 'Smith';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process when field reference matches but other condition fails'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
 }

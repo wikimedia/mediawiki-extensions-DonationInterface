@@ -42,6 +42,10 @@ class GenericPatternFilter {
 				if ( !$this->matchesWildcard( $actualValue, $rulePropertyValue ) ) {
 					return;
 				}
+			} elseif ( is_string( $rulePropertyValue ) && $this->isFieldReference( $rulePropertyValue ) ) {
+				if ( !$this->matchesFieldReference( $actualValue, $rulePropertyValue, $transactionValues ) ) {
+					return;
+				}
 			} elseif ( is_array( $rulePropertyValue ) && $this->isNumericComparison( $rulePropertyValue ) ) {
 				if ( !$this->matchesNumericComparison( $actualValue, $rulePropertyValue ) ) {
 					return;
@@ -146,6 +150,44 @@ class GenericPatternFilter {
 			'>=' => $actualNumeric >= $threshold,
 			default => false
 		};
+	}
+
+	/**
+	 * Checks if the value is a field reference (e.g. %last_name%).
+	 * A field reference compares a source field against a target field.
+	 * The source field is the array key, the target field is wrapped in %:
+	 *
+	 *   'sameNameFraud' => [
+	 *       // source field: first_name, target field: last_name
+	 *       'first_name' => '%last_name%',
+	 *       'currency' => 'USD',
+	 *       'failScore' => 100,
+	 *   ]
+	 *
+	 * @param string $value
+	 * @return bool
+	 */
+	protected function isFieldReference( string $value ): bool {
+		return strlen( $value ) > 2 && $value[0] === '%' && $value[-1] === '%';
+	}
+
+	/**
+	 * Checks if the source field value matches the target field value.
+	 *
+	 * @param mixed $actualValue The value of the source field
+	 * @param string $reference The target field reference (e.g. %last_name%)
+	 * @param array $transactionValues All transaction values
+	 * @return bool
+	 */
+	protected function matchesFieldReference( mixed $actualValue, string $reference, array $transactionValues ): bool {
+		if ( $actualValue === null ) {
+			return false;
+		}
+		$referencedField = substr( $reference, 1, -1 );
+		if ( !array_key_exists( $referencedField, $transactionValues ) ) {
+			return false;
+		}
+		return $actualValue == $transactionValues[$referencedField];
 	}
 
 	/**
