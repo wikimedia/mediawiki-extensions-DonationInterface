@@ -236,7 +236,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
 		if ( !$createPaymentResponse->isSuccessful() ) {
-			$paymentResult = PaymentResult::newFailure();
+			$paymentResult = PaymentResult::newFailure( $createPaymentResponse->getErrors() );
 			// TODO: map any errors from $createPaymentResponse
 			// log the error details on failure
 			$errorLogMessage = 'Unsuccessful createPayment response from gateway: ';

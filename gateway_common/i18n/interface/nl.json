@@ -218,6 +218,7 @@
 	"donate_interface-error-msg-invalid-currency": "Kies een geldige valuta",
 	"donate_interface-error-msg-invalid-device-data": "Er is iets mis met de apparaatgegevens.",
 	"donate_interface-error-msg-invalid-email": "Geef een geldig e-mailadres op, bijvoorbeeld name@domain.com",
+	"donate_interface-error-msg-invalid-phone": "Geef een geldig telefoonnummer op",
 	"donate_interface-error-msg-card-num": "Voer een geldig creditcardnummer in van één van de geaccepteerde creditcardsoorten",
 	"donate_interface-error-msg-amex": "Geef een geldig kaartnummer op voor American Express.",
 	"donate_interface-error-msg-mc": "Geef een geldig kaartnummer op voor Mastercard.",

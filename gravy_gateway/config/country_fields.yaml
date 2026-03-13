@@ -21,6 +21,9 @@ GB:
 IE:
   opt_in: true
 
+IT:
+  postal_code: optional
+
 IN:
   street_address: true
   street_number: true
