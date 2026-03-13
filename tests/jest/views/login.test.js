@@ -199,6 +199,6 @@ describe( 'Login view', () => {
 
 		const serverErrorMessageText = wrapper.find( '#server-error-message-text' );
 		expect( serverErrorMessageText.isVisible() ).toBe( true );
-		expect( serverErrorMessageText.html() ).toContain( `donorportal-authentication-failure:[<a href="mailto:${ helpEmail }?subject=donorportal-login-problems">donorportal-update-donation-donor-relations-team</a>]` );
+		expect( serverErrorMessageText.html() ).toContain( `donorportal-authentication-failure:[<a href="mailto:${ helpEmail }?subject=donorportal-login-problems-email-subject">donorportal-update-donation-donor-relations-team</a>]` );
 	} );
 } );

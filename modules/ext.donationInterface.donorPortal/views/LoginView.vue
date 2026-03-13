@@ -124,7 +124,7 @@ module.exports = exports = defineComponent( {
 		},
 		serverErrorText() {
 			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
-			const problemLogin = this.$i18n( 'donorportal-login-problems' ).text();
+			const problemLogin = this.$i18n( 'donorportal-login-problems-email-subject' ).text();
 			return this.$i18n( 'donorportal-authentication-failure', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
 		},
 		figureCaption() {
