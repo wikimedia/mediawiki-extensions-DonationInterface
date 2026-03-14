@@ -364,7 +364,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 		foreach ( $supportedCurrencies as $currency ) {
 			$data['currencies'][] = [
 				'code' => $currency,
-				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 				'selected' => ( $currency === $data['currency'] ),
 			];
 		}
@@ -374,7 +373,6 @@ class Gateway_Form_Mustache extends Gateway_Form {
 
 		$data['display_amount'] = Amount::format(
 			$data['amount'],
-			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$data['currency'],
 			$locale
 		);
