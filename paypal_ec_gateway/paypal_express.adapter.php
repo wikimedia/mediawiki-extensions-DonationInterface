@@ -164,7 +164,10 @@ class PaypalExpressAdapter extends GatewayAdapter {
 		return $requestValues['token'];
 	}
 
-	/** @inheritDoc */
+	/**
+	 * @inheritDoc
+	 * @throws ResponseProcessingException
+	 */
 	public function processDonorReturn( $requestValues ) {
 		if (
 			empty( $requestValues['token'] )
