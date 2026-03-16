@@ -192,7 +192,7 @@
 	"donate_interface-error-msg-captcha": "Vrijednost Captcha koju ste unijeli nije tačna. Molimo pokušajte ponovo.",
 	"donate_interface-error-msg-captcha-please": "Radi sigurnosti vaše kreditne kartice, upišite znakove koje vidite iznad.",
 	"donate_interface-error-msg-cookies": "Molimo omogućite kolačiće (cookies) u vašem pregledniku.",
-	"donate_interface-error-msg-country-calc": "Pogrješka - Trenutačno ne možemo prihvatiti uplatu.",
+	"donate_interface-error-msg-country-calc": "Greška: Trenutno ne možemo prihvatiti vašu donaciju.",
 	"donate_interface-error-msg-fiscal_number": "Unesite porezni broj",
 	"donate_interface-error-msg-fiscal_number-in": "Unesite Vaš PAN",
 	"donate_interface-error-msg-invalid-fiscal_number": "Molimo ispravite pogrješke u: porezni broj",
@@ -376,6 +376,6 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "Ne, hvala",
 	"donate_interface-monthly-convert-no-button-variant-011": "Ne, hvala!",
 	"donate_interface-fundraiser-maintenance-header": "Privremeno nedostupno zbog održavanja",
-	"donate_interface-fundraiser-maintenance-notice": "Trenutno obavljamo redovno održavanje i nismo u mogućnosti da prihvatimo donacije. Pokušajte ponovo uskoro. Ako imate bilo kakvih pitanja, pošaljite imejl na $1.",
+	"donate_interface-fundraiser-maintenance-notice": "Trenutno obavljamo redovno održavanje i nismo u mogućnosti da prihvatimo donacije. Pokušajte ponovo uskoro. Ako imate bilo kakvih pitanja, pošaljite e-poruku na $1.",
 	"donate_interface-redirect-explanation": "Bit ćete preusmjereni na Wikimedijinog partnera za obradu plaćanja."
 }

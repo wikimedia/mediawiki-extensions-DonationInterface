@@ -10,6 +10,7 @@
 	"donorportal-login-text": "Anna sähköpostiosoitteesi saadaksesi linkin tilillesi kirjautumiseen",
 	"donorportal-login-email-placeholder": "Kirjoita sähköpostiosoitteesi",
 	"donorportal-login-problems": "Ongelmia kirjautumisessa?",
+	"donorportal-login-problems-email-subject": "Ongelmia kirjautumisessa",
 	"donorportal-greeting": "Hei, $1!",
 	"donorportal-greetingtext": "Kiitos, kun autat pitämään Wikipedian itsenäisenä, mainoksettomana ja kaikkien saatavilla.",
 	"donorportal-feedbackrequest": "Testaamme parhaillaan tätä ominaisuutta ja haluaisimme kuulla, mitä mieltä olet.",
