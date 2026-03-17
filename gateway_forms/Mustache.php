@@ -54,7 +54,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	 */
 	public static $messageReplacements = [];
 
-	public function setGateway( GatewayType $gateway ) {
+	public function setGateway( GatewayAdapter $gateway ) {
 		parent::setGateway( $gateway );
 
 		// FIXME: late binding fail?
