@@ -13,6 +13,7 @@
 	"donorportal-login-text": "Bitte gib deine E-Mail-Adresse ein, um einen Link für den Zugriff auf dein Konto zu erhalten",
 	"donorportal-login-email-placeholder": "Gib deine E-Mail-Adresse ein",
 	"donorportal-login-problems": "Probleme beim Anmelden?",
+	"donorportal-login-problems-email-subject": "Probleme beim Anmelden",
 	"donorportal-greeting": "Hallo, $1!",
 	"donorportal-greetingtext": "Vielen Dank, dass Sie eine wichtige Rolle dabei spielen, Wikipedia unabhängig, werbefrei und für alle verfügbar zu halten.",
 	"donorportal-feedbackrequest": "Wir testen dieses Feature und würden gerne deine Meinung hören.",

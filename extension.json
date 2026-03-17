@@ -319,6 +319,7 @@
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
 				"modules/ext.donationInterface.donorPortal/views/LoginView.vue",
 				"modules/ext.donationInterface.donorPortal/views/PauseDonations.vue",
+				"modules/ext.donationInterface.donorPortal/views/ManageDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/AmountDowngrade.vue",
 				"modules/ext.donationInterface.donorPortal/views/AnnualConversion.vue"
 			],
@@ -487,6 +488,15 @@
 				"donorportal-aside-faq-giving-new-donation",
 				"donorportal-aside-faq-how-wikipedia-works",
 				"donorportal-donationtable-pagination-text",
+				"donorportal-manage-donation",
+				"donorportal-manage-donation-heading",
+				"donorportal-manage-donation-text",
+				"donorportal-manage-donation-donor-card-heading",
+				"donorportal-manage-donation-donor-card-text",
+				"donorportal-manage-donation-management-heading",
+				"donorportal-manage-donation-management-pause-gift",
+				"donorportal-manage-donation-management-change-amount",
+				"donorportal-manage-donation-management-cancel-gift",
 				"upload-source",
 				"donorportal-authentication-failure"
 			]

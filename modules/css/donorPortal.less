@@ -551,6 +551,11 @@ body,
 	padding: @padding-base @padding-x-small;
 }
 
+.image--callout {
+	max-width: 100px;
+	width: 100%;
+}
+
 /* Auth Template */
 .auth {
 	flex-grow: 1;
@@ -876,6 +881,12 @@ p.popup-body {
 	background-color: #f1f4fd;
 }
 
+.dp-card__summary {
+	display: flex;
+	flex-direction: column;
+	gap: @gap-x-small;
+}
+
 .dp-card__appeal.is-recurring {
 	border: 1px solid #196551;
 	background-color: #dff2eb;
@@ -1099,6 +1110,10 @@ p.popup-body {
 	flex: 1;
 }
 
+.box__inner.gap--base {
+	gap: @gap-base;
+}
+
 .box--clickable {
 	text-decoration: none;
 }
@@ -1135,6 +1150,22 @@ p.popup-body {
 .box--clickable.is-recurring:hover,
 .box.is-recurring.is-active {
 	background-color: @color-green-pale;
+}
+
+.box__columns {
+	display: flex;
+	flex-direction: row;
+	gap: @gap-small;
+}
+
+.box__column {
+	display: flex;
+	flex-direction: column;
+	gap: @gap-small;
+}
+
+.box__columns .box__column:first-child {
+	flex: 1;
 }
 
 .box.is-cancel {
@@ -1368,13 +1399,20 @@ p.popup-body {
 	}
 
 	.dp-card__appeal {
-		flex-direction: row;
-		align-items: center;
 		padding: @padding-small @padding-base;
 	}
 
 	.dp-card__summary {
-		flex: 2;
+		flex-direction: row;
+		align-items: center;
+
+		& > :first-child {
+			flex: 1;
+		}
+
+		& .cdx-button {
+			width: auto !important;
+		}
 	}
 
 	.dp-card__cta {

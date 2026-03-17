@@ -1,13 +1,24 @@
 <template>
 	<div :class="cardClass">
-		<div class="dp-card__section dp-card__summary">
-			<span v-if="isCurrentlyActive" class="tag is-recurring">{{ statusWord }}</span>
-			<span v-else-if="isProcessing" class="tag is-processing">{{ $i18n( "donorportal-processing" ).text() }}</span>
-			<span v-else class="tag">{{ statusWord }}</span>
-			<p class="text heading--h2">
-				<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
-				<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
-			</p>
+		<div class="dp-card__section dp-card__status">
+			<div class="dp-card__section dp-card__status">
+				<span v-if="isCurrentlyActive" class="tag is-recurring">{{ statusWord }}</span>
+				<span v-else-if="isProcessing" class="tag is-processing">{{ $i18n( "donorportal-processing" ).text() }}</span>
+				<span v-else class="tag">{{ statusWord }}</span>
+			</div>
+			<div class="dp-card__section dp-card__summary">
+				<p class="text heading--h2">
+					<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
+					<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
+				</p>
+				<router-link
+					v-if="isManageableRecurring"
+					:to="`/manage-donations/${contribution.id}`"
+					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+					{{ $i18n( "donorportal-manage-donation" ).text() }}
+				</router-link>
+			</div>
+
 			<p v-if="isActive" class="text text--body">
 				{{ contribution.payment_method }}
 				[&nbsp;
@@ -19,9 +30,6 @@
 						<h2 id="popup-title">
 							{{ $i18n( 'donorportal-coming-soon' ).text() }}
 						</h2>
-						<p class="popup-body">
-							{{ $i18n( 'donorportal-update-payment-method-explanation' ).text() }}
-						</p>
 						<p class="popup-body" v-html="emailTemplate"></p>
 					</template>
 				</popup-link>
@@ -42,11 +50,6 @@
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
-			<p
-				v-if="isActive"
-				:class="textClasses"
-				v-html="recurringAdditionalActionsLink">
-			</p>
 		</div>
 	</div>
 </template>
@@ -55,10 +58,12 @@
 const { defineComponent } = require( 'vue' );
 const PopupLink = require( './PopupLink.vue' );
 const normalizeInput = require( '../normalizeInput.js' );
+const { RouterLink } = require( 'vue-router' );
 
 module.exports = exports = defineComponent( {
 	components: {
-		'popup-link': PopupLink
+		'popup-link': PopupLink,
+		'router-link': RouterLink
 	},
 	props: {
 		contribution: {
@@ -86,13 +91,6 @@ module.exports = exports = defineComponent( {
 		},
 		isCurrentlyActive: function () {
 			return this.isActive && !this.isPaused && !this.isProcessing;
-		},
-		textClasses: function () {
-			return [
-				'text',
-				'text--body',
-				{ 'text--align-left': this.isProcessing || !this.isRecurringModifiable }
-			];
 		},
 		emailTemplate: function () {
 			const here = this.$i18n( 'donorportal-here' );
@@ -142,31 +140,17 @@ module.exports = exports = defineComponent( {
 		isRecurringModifiable: function () {
 			return this.contribution.can_modify;
 		},
+		isManageableRecurring: function () {
+			return this.isActive && this.isRecurringModifiable && !this.isProcessing;
+		},
 		actionButtonText: function () {
 			if ( this.isActive ) {
-				if ( !this.isRecurringModifiable || this.isProcessing ) {
-					return false;
-				}
-				return this.$i18n( 'donorportal-update-donation-button' ).text();
+				return false;
 			}
 			// Amount frequency keys that can be used here
 			// * donorportal-restart-annual
 			// * donorportal-restart-monthly
 			return this.$i18n( this.contribution.restart_key ).text();
-		},
-		recurringAdditionalActionsLink: function () {
-			if ( this.isProcessing ) {
-				return this.$i18n( 'donorportal-processing-text' ).text();
-			}
-			if ( !this.isRecurringModifiable ) {
-				return this.$i18n( 'donorportal-update-donation-paypal-disable-text' ).text();
-			}
-			const cancel_link = `<a href="#/cancel-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-cancel' ).text() } </a>`;
-			if ( !this.isPaused ) {
-				const pause_link = `<a href="#/pause-donations/${ this.contribution.id }" class="link"> ${ this.$i18n( 'donorportal-recurring-pause' ).text() } </a>`;
-				return this.$i18n( 'donorportal-recurring-pause-or-cancel', pause_link, cancel_link ).text();
-			}
-			return this.$i18n( 'donorportal-recurring-cancel-text', cancel_link ).text();
 		}
 	}
 } );

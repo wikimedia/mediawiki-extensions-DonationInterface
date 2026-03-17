@@ -1,6 +1,7 @@
 const { createWebHashHistory, createRouter } = require( 'vue-router' ),
 	Home = require( './views/Home.vue' ),
 	Login = require( './views/LoginView.vue' ),
+	ManageDonations = require( './views/ManageDonations.vue' ),
 	PauseDonations = require( './views/PauseDonations.vue' ),
 	CancelDonations = require( './views/CancelDonations.vue' ),
 	UpdateDonations = require( './views/UpdateDonations.vue' ),
@@ -23,6 +24,7 @@ function logNavigation( to ) {
 const routes = [
   { path: '/', component: Home, name: 'Home' },
   { path: '/login', component: Login, name: 'Login' },
+  { path: '/manage-donations/:id', component: ManageDonations, name: 'ManageDonations', beforeEnter: logNavigation },
   { path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations', beforeEnter: logNavigation },
   { path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations', beforeEnter: logNavigation },
   { path: '/update-donations/:id', component: UpdateDonations, name: 'UpdateDonations', beforeEnter: logNavigation },

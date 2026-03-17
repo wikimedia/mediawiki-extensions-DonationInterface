@@ -26,9 +26,9 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.html() ).toContain( recurring_mock.currency );
 		expect( element.html() ).toContain( recurring_mock.payment_method );
 		expect( element.html() ).toContain( recurring_mock.next_sched_contribution_date_formatted );
-		expect( element.html() ).toContain( `<a href="#/cancel-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-cancel </a>` );
-		expect( element.html() ).toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
-		expect( element.html() ).toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
+		expect( element.html() ).not.toContain( `<a href="#/cancel-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-cancel </a>` );
+		expect( element.html() ).not.toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
+		expect( element.html() ).not.toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
 	} );
 
 	it( 'Donor contact details component renders successfully', () => {
