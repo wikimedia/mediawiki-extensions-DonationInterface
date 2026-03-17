@@ -138,6 +138,7 @@ rtbt_ideal:
   group: rtbt
   countries:
     - NL
+  recurring: true
 
 onlineBanking_CZ:
   group: bt
