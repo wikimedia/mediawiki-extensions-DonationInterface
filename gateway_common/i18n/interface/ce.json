@@ -396,7 +396,7 @@
 	"donate_interface-translate-redlink1": "ХӀара агӀо гочйан гӀо де.",
 	"donate_interface-translate-redlink2": "Йа хьайн гочдар электронан поштехула дӀакхачаде translations@wikimedia.org",
 	"donate_interface-email-unsub-title": "Викимедиа Фондан хаамашна тӀейаздалар дӀадаккхар",
-	"donate_interface-email-unsub-button": "Йаздалар дӀадаккха",
+	"donate_interface-email-unsub-button": "ТӀейаздалар дӀадаккха",
 	"donate_interface-email-unsub-success": "Хьо кхиамца дӀаваь(йаь)ккхина тхан дIасатасаран могӀаман тӀера.",
 	"donate_interface-email-unsub-delay": "Дехар до, тидам бе, хийцамаш диъ (4) дийнахь тӀеоьцур бу. Оцу хенахь шуьга кхаьчначу е-мейлашна къинтӀера довлар доьху оха. Хаттарш делахь, тхоьга йазде $1 адресе",
 	"donate_interface-email-unsub-fail": "Хьан дехар кхочушдан аьтто ца баьлла, дехар до, тхоьга йазде <a href=\"mailto:$1\">$1</a> адресе.",

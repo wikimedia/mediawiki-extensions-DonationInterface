@@ -12,8 +12,13 @@
 	"apihelp-donate-param-email": "E-pååʹštaddrõs.",
 	"apihelp-donate-param-language": "Ǩiõllkoodd.",
 	"apihelp-donate-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_adyen-param-email": "E-pååʹštaddrõs.",
 	"apihelp-di_donate_adyen-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_dlocal-param-email": "E-pååʹštaddrõs.",
 	"apihelp-di_donate_dlocal-param-phone": "Teʹlfon-nââmar",
+	"apihelp-di_donate_gravy-param-email": "E-pååʹštaddrõs.",
 	"apihelp-di_donate_gravy-param-phone": "Teʹlfon-nââmar",
-	"apihelp-di_donate_braintree-param-phone": "Teʹlfon-nââmar"
+	"apihelp-di_donate_braintree-param-email": "E-pååʹštaddrõs.",
+	"apihelp-di_donate_braintree-param-phone": "Teʹlfon-nââmar",
+	"apihelp-submitPayment-param-email": "E-pååʹštaddrõs."
 }
