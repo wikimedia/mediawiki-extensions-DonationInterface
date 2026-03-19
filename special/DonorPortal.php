@@ -32,7 +32,13 @@ class DonorPortal extends UnlistedSpecialPage {
 		$this->getOutput()->setPageTitleMsg( $this->msg( 'donorportal-title' ) );
 
 		if ( !$this->getConfig()->has( 'DonorPortalMockData' ) && $this->isChecksumExpired() ) {
-			$this->formParams = [ 'showLogin' => true ];
+			// check CiviCRM and CiviProxy service status
+			$status = CiviproxyConnect::pingCivi();
+			$params = [ 'showLogin' => true ];
+			if ( isset( $status['is_error'] ) ) {
+				$params = $this->getFormParamsError( $status );
+			}
+			$this->formParams = $params;
 		} else {
 			$this->assignFormParameters();
 		}
@@ -85,6 +91,24 @@ class DonorPortal extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * Returns a consistent error array from the error response
+	 * @param mixed $error
+	 * @return array{error: bool, error_code: mixed, showLogin: bool}
+	 */
+	private function getFormParamsError( $error ) {
+		$params = [
+			'error' => true,
+			'error_code' => $error['error_code'] ?? null,
+		];
+
+		// Determine if login fields are shown for certain errors
+		if ( isset( $error['error_code'] ) ) {
+			$params['showLogin'] = $error['error_code'] === 'InvalidCredentials' || $error['error_code'] === 'Unreachable';
+		}
+		return $params;
+	}
+
+	/**
 	 * Fetches donor data from Civiproxy and assigns template paramates to
 	 * $this->formParams
 	 *
@@ -102,10 +126,7 @@ class DonorPortal extends UnlistedSpecialPage {
 		);
 		// if civiproxy returned an error, show the login form instead
 		if ( isset( $donorSummary['is_error'] ) ) {
-			$this->formParams = [
-				'error' => true,
-				'showLogin' => $donorSummary['error_code'] === 'InvalidCredentials'
-			];
+			$this->formParams = $this->getFormParamsError( $donorSummary );
 			return;
 		}
 		$session = $this->getRequest()->getSession();
