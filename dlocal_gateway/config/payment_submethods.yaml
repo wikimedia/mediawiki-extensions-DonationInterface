@@ -342,7 +342,7 @@ pix:
   countries:
     - BR
   logo: bank-pix.png
-  recurring: false
+  recurring: true
 pse:
   label: PSE
   group: bt
