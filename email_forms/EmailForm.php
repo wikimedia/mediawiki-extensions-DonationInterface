@@ -101,7 +101,6 @@ class EmailForm {
 			'dontSendEmail',
 			'email',
 			'first_name',
-			'hasPaypal',
 			'isSnoozed',
 			'language',
 			'languages',
