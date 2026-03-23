@@ -1894,5 +1894,6 @@
 		"MediaWiki\\Extension\\DonationInterface\\": "includes/",
 		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes"
 	},
+	"load_composer_autoloader": true,
 	"manifest_version": 2
 }

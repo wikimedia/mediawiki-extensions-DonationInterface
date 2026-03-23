@@ -265,12 +265,13 @@
 	}
 
 	function handleGooglePayButtonClick() {
-		const paymentRequest = getGooglepayRequest();
-		const googlePayClient = getGooglePayClient();
+		const paymentRequest = getGooglepayRequest(),
+			googlePayClient = getGooglePayClient();
+
 		googlePayClient.loadPaymentData( paymentRequest ).then( ( paymentData ) => {
-			const paymentToken = paymentData.paymentMethodData.tokenizationData.token;
-			const donorInfo = paymentData.paymentMethodData.info.billingAddress,
-							extraData = {};
+			const paymentToken = paymentData.paymentMethodData.tokenizationData.token,
+				donorInfo = paymentData.paymentMethodData.info.billingAddress;
+
 			extraData.postal_code = donorInfo.postalCode;
 			extraData.state_province = donorInfo.administrativeArea;
 			extraData.city = donorInfo.locality;
@@ -280,6 +281,7 @@
 			extraData.payment_token = paymentToken;
 			extraData.card_suffix = paymentData.paymentMethodData.info.cardDetails;
 			extraData.card_scheme = paymentData.paymentMethodData.info.cardNetwork;
+			mw.donationInterface.forms.disable();
 			mw.donationInterface.forms.callDonateApi(
 				handleApiResult,
 				extraData,
@@ -290,6 +292,7 @@
 			mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
 			} );
+			mw.donationInterface.forms.enable();
 		} );
 	}
 
@@ -385,7 +388,9 @@
 			.then( ( response ) => {
 				if ( response && response.result ) {
 					const button = googlePayClient.createButton( {
-						onClick: handleGooglePayButtonClick,
+						onClick: mw.util.debounce( () => {
+							handleGooglePayButtonClick();
+						}, 100 ),
 						allowedPaymentMethods: [ 'CARD', 'TOKENIZED_CARD' ],
 						buttonType: 'donate'
 					} );

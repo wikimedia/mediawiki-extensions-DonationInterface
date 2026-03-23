@@ -38,7 +38,7 @@ abstract class Gateway_Form {
 	public function __construct() {
 	}
 
-	public function setGateway( GatewayType $gateway ) {
+	public function setGateway( GatewayAdapter $gateway ) {
 		$this->gateway = $gateway;
 	}
 

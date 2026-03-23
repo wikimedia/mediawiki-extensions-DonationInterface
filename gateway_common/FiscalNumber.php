@@ -103,7 +103,6 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 				}
 			}
 
-			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			if ( $length < $rules['min'] || $length > $rules['max'] ) {
 				$hasError = true;
 			}
@@ -145,7 +144,6 @@ class FiscalNumber implements StagingHelper, ValidationHelper, ClientSideValidat
 			} else {
 				$pattern = '^[^0-9]*([0-9][^0-9]*)';
 			}
-			// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
 			$pattern .= '{' . $rule['min'] . ',' . $rule['max'] . '}$';
 		}
 

@@ -464,6 +464,7 @@ EOT;
 
 			$odd = !$odd;
 		}
+		// @phan-suppress-next-line PhanTypeInvalidModuloOperand
 		return( ( $sum % 10 ) == 0 );
 	}
 

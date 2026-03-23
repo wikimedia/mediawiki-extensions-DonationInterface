@@ -138,6 +138,7 @@ rtbt_ideal:
   group: rtbt
   countries:
     - NL
+  recurring: true
 
 onlineBanking_CZ:
   group: bt
@@ -468,6 +469,7 @@ pix:
   countries:
     - BR
   logo: bank-pix.png
+  recurring: true
 
 presto:
   group: cc
