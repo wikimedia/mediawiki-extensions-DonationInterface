@@ -37,6 +37,8 @@
 	"donorportal-donation-amount": "Importo",
 	"donorportal-donation-status-refunded": "Rimborsata",
 	"donorportal-header-logout": "Esci",
+	"donorportal-civi-unavailable-error-message": "Stiamo effettuando interventi di manutenzione sul nostro database dei donatori. Puoi comunque richiedere un link di accesso, che ti invieremo non appena la manutenzione sarà completata.",
+	"donorportal-invalid-credentials-error-message": "La tua sessione è scaduta. Effettua nuovamente l'accesso per accedere al tuo account.",
 	"donorportal-cancel-recurring-reason-other": "Altro",
 	"donorportal-cancel-recurring-reason-unintended": "Ho creato questa donazione per errore.",
 	"donorportal-authentication-failure": "Qualcosa è andato storto, riprova più tardi o $1",
