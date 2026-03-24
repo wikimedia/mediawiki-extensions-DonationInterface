@@ -17,7 +17,7 @@ describe( 'Manage donations view', () => {
         when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
         when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
         when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
-        useRoute.mockImplementationOnce( () => ( {
+        useRoute.mockImplementation( () => ( {
             params: {
                 id: '123'
             }
@@ -48,5 +48,36 @@ describe( 'Manage donations view', () => {
         expect( manageDonationViewBody.html() ).toContain( DonorDataMock.recurringContributions[ 0 ].payment_method );
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-amount-monthly:[${ DonorDataMock.recurringContributions[ 0 ].amount_formatted },${ DonorDataMock.recurringContributions[ 0 ].currency }]` );
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-next-amount-and-date:[${ DonorDataMock.recurringContributions[ 0 ].amount_formatted },${ DonorDataMock.recurringContributions[ 0 ].currency },${ DonorDataMock.recurringContributions[ 0 ].next_sched_contribution_date_formatted }]` );
+    } );
+
+    it( 'Manage Donations view renders successfully without conversion suggestion for yearly recurring', () => {
+        useRoute.mockImplementationOnce( () => ( {
+            params: {
+                id: '456'
+            }
+        } ) );
+        const wrapper = VueTestUtils.mount( ManageDonationsView, {
+            global: {
+                plugins: [ router ]
+            }
+        } );
+        const manageDonationViewBody = wrapper.find( '#manage-donations' );
+
+        expect( manageDonationViewBody.exists() ).toBe( true );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-heading' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-text' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-recurring-status-active' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-donor-card-heading' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-donor-card-text' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-management-heading' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-management-pause-gift' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-management-change-amount' );
+        expect( manageDonationViewBody.html() ).not.toContain( 'donorportal-cancel-recurring-frequency-annual-switch-alternative-button' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-management-cancel-gift' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-cancel-recurring-quit-header' );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-return-to-account-button' );
+        expect( manageDonationViewBody.html() ).toContain( DonorDataMock.recurringContributions[ 1 ].payment_method );
+        expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-amount-annual:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency }]` );
+        expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-next-amount-and-date:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency },${ DonorDataMock.recurringContributions[ 1 ].next_sched_contribution_date_formatted }]` );
     } );
 } );
