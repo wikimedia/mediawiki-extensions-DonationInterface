@@ -12,7 +12,7 @@ class TestingDonationLogger extends AbstractLogger {
 	public $messages = [];
 
 	/** @inheritDoc */
-	public function log( $level, $message, array $context = [] ) {
+	public function log( $level, $message, array $context = [] ): void {
 		$this->messages[$level][] = $message;
 	}
 }
