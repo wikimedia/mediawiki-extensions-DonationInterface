@@ -33,6 +33,14 @@ class GenericPatternFilter {
 		foreach ( $this->values as $rulePropertyName => $rulePropertyValue ) {
 			$actualValue = $transactionValues[$rulePropertyName] ?? null;
 
+			// Resolve any %field_name% placeholders before comparison checks
+			if ( is_string( $rulePropertyValue ) && !$this->isRegex( $rulePropertyValue ) && $this->containsFieldReferences( $rulePropertyValue ) ) {
+				$rulePropertyValue = $this->resolveFieldReferences( $rulePropertyValue, $transactionValues, $logger );
+				if ( $rulePropertyValue === null ) {
+					return;
+				}
+			}
+
 			// Check if the pattern contains a regex value or wildcard
 			if ( is_string( $rulePropertyValue ) && $this->isRegex( $rulePropertyValue ) ) {
 				if ( !preg_match( $rulePropertyValue, $actualValue ) ) {
@@ -40,10 +48,6 @@ class GenericPatternFilter {
 				}
 			} elseif ( is_string( $rulePropertyValue ) && str_contains( $rulePropertyValue, '*' ) ) {
 				if ( !$this->matchesWildcard( $actualValue, $rulePropertyValue ) ) {
-					return;
-				}
-			} elseif ( is_string( $rulePropertyValue ) && $this->isFieldReference( $rulePropertyValue ) ) {
-				if ( !$this->matchesFieldReference( $actualValue, $rulePropertyValue, $transactionValues ) ) {
 					return;
 				}
 			} elseif ( is_array( $rulePropertyValue ) && $this->isNumericComparison( $rulePropertyValue ) ) {
@@ -153,41 +157,50 @@ class GenericPatternFilter {
 	}
 
 	/**
-	 * Checks if the value is a field reference (e.g. %last_name%).
-	 * A field reference compares a source field against a target field.
-	 * The source field is the array key, the target field is wrapped in %:
+	 * Checks if the value contains field reference placeholders (e.g. %last_name%).
 	 *
-	 *   'sameNameFraud' => [
-	 *       // source field: first_name, target field: last_name
-	 *       'first_name' => '%last_name%',
-	 *       'currency' => 'USD',
-	 *       'failScore' => 100,
-	 *   ]
+	 * Field references can be used standalone for exact comparison:
+	 *   'first_name' => '%last_name%'
+	 *
+	 * Or combined with wildcards to match patterns:
+	 *   'email' => '%first_name%.%last_name%*@gmail.com'
 	 *
 	 * @param string $value
 	 * @return bool
 	 */
-	protected function isFieldReference( string $value ): bool {
-		return strlen( $value ) > 2 && $value[0] === '%' && $value[-1] === '%';
+	protected function containsFieldReferences( string $value ): bool {
+		return (bool)preg_match( '/%[a-zA-Z0-9_]+%/', $value );
 	}
 
 	/**
-	 * Checks if the source field value matches the target field value.
+	 * Resolves %field_name% placeholders in a rule value to their transaction values.
+	 * Returns null if any referenced field is missing from the transaction.
 	 *
-	 * @param mixed $actualValue The value of the source field
-	 * @param string $reference The target field reference (e.g. %last_name%)
+	 * Wildcard characters in field values are neutralized during substitution
+	 * so they are not interpreted as wildcards in subsequent matching. Only
+	 * '*' needs handling here as preg_quote in matchesWildcard covers the rest.
+	 *
+	 * @param string $value The rule value containing field references
 	 * @param array $transactionValues All transaction values
-	 * @return bool
+	 * @param LoggerInterface $logger
+	 * @return ?string The resolved string, or null if a referenced field is missing
 	 */
-	protected function matchesFieldReference( mixed $actualValue, string $reference, array $transactionValues ): bool {
-		if ( $actualValue === null ) {
-			return false;
-		}
-		$referencedField = substr( $reference, 1, -1 );
-		if ( !array_key_exists( $referencedField, $transactionValues ) ) {
-			return false;
-		}
-		return $actualValue == $transactionValues[$referencedField];
+	protected function resolveFieldReferences( string $value, array $transactionValues, LoggerInterface $logger ): ?string {
+		$missing = false;
+		$resolved = preg_replace_callback( '/%([a-zA-Z0-9_]+)%/', function ( $matches ) use ( $transactionValues, &$missing, $logger ) {
+			$fieldName = $matches[1];
+			if ( !array_key_exists( $fieldName, $transactionValues ) ) {
+				$logger->warning(
+					"Fraud filter pattern '{$this->patternName}' references unknown " .
+					"field '%{$fieldName}%' in rule: " . json_encode( $this->values )
+				);
+				$missing = true;
+				return '';
+			}
+			$fieldValue = (string)$transactionValues[$fieldName];
+			return str_replace( '*', '', $fieldValue );
+		}, $value );
+		return $missing ? null : $resolved;
 	}
 
 	/**

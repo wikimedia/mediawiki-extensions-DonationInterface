@@ -7,6 +7,9 @@
 			"Siebrand"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "Ongeldig contact_id - laad het Donateursportaal opnieuw",
+	"apierror-donorportal-bad-contribution-recur-id": "Ongeldige contribution_recur_id - laad het Donateursportaal opnieuw",
+	"apierror-donorportal-no-session": "Geen sessie in het donateursportaal - laad het Donateursportaal opnieuw",
 	"apihelp-donate-summary": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van verscheidene betalingsverwerkers.",
 	"apihelp-donate-param-gateway": "Welke payment gateway te gebruiken - adyen, ingenico, enz.",
 	"apihelp-donate-param-amount": "Het gedoneerde bedrag.",
@@ -69,6 +72,9 @@
 	"apihelp-requestNewChecksumLink-param-email": "E-mailadres van de donateur die de koppeling aanvraagt",
 	"apihelp-requestNewChecksumLink-param-page": "Pagina waarnaar we een koppeling willen, bijvoorbeeld RecurUpgrade of EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "Subpagina waarnaar we een koppeling willen. Optioneel.",
+	"apihelp-requestLogout-summary": "Deze API maakt de checksum van een donateur ongeldig om hem of haar af te melden",
+	"apihelp-requestLogout-param-contact_id": "Contact-ID van de donateur die zich afmeldt",
+	"apihelp-requestLogout-param-checksum": "Controlesom om ongeldig te maken",
 	"apihelp-requestUpdateRecurring-summary": "Deze API vraagt het bijwerken aan van een terugkerende donatie vanaf de pagina met donateursvoorkeuren.",
 	"apihelp-requestUpdateRecurring-param-amount": "Nieuw bedrag dat de donateur in de toekomst wil doneren",
 	"apihelp-requestUpdateRecurring-param-txn_type": "Transactietype zoals omhoog of omlaag bewerken van het terugkerende bedrag",

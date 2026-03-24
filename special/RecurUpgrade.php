@@ -153,7 +153,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 			? $params['upgrade_amount_other']
 			: $params['upgrade_amount'];
 
-		$amount = $donorData['amount'] + round( (double)$upgradeAmount, 2 );
+		$amount = $donorData['amount'] + round( (float)$upgradeAmount, 2 );
 		$message = [
 				'txn_type' => 'recurring_upgrade',
 				'contribution_recur_id' => $donorData['contribution_recur_id'],
