@@ -1223,4 +1223,128 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
 		$this->assertSame( 0, $exposed->risk_score );
 	}
+
+	public function testPatternFilterFieldReferenceWithWildcardMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_email_name_pattern' => [
+						'email' => '%first_name%.%last_name%*@gmail.com',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'john';
+		$testGatewayData['last_name'] = 'smith';
+		$testGatewayData['email'] = 'john.smith123@gmail.com';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject when email matches field reference + wildcard pattern'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+	}
+
+	public function testPatternFilterFieldReferenceWithWildcardNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_email_name_pattern' => [
+						'email' => '%first_name%.%last_name%*@gmail.com',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['first_name'] = 'john';
+		$testGatewayData['last_name'] = 'smith';
+		$testGatewayData['email'] = 'totallyunrelated@yahoo.com';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process when email does not match field reference + wildcard pattern'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterFieldReferenceSanitizesWildcardChars(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_sanitize_wildcard' => [
+						'email' => '%first_name%@gmail.com',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		// Asterisk in name should be stripped, not treated as wildcard
+		$testGatewayData['first_name'] = 'j*hn';
+		$testGatewayData['email'] = 'jhn@gmail.com';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should match with asterisk stripped from field value'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+	}
+
+	public function testPatternFilterFieldReferenceSanitizedWildcardDoesNotMatchBroadly(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_sanitize_no_broad_match' => [
+						'email' => '%first_name%@gmail.com',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		// Asterisk in name should NOT act as wildcard matching arbitrary text
+		$testGatewayData['first_name'] = 'j*hn';
+		$testGatewayData['email'] = 'jANYTHINGhn@gmail.com';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Asterisk in field value should not act as wildcard'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
 }
