@@ -616,6 +616,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// save external_identifier for Gravy processor_contact_id or user_name from paypal or venmo
 		if ( isset( $this->unstaged_data['processor_contact_id'] ) ) {
 			$message['external_identifier'] = $this->unstaged_data['processor_contact_id'];
+			unset( $message['processor_contact_id'] );
 		}
 		if ( isset( $this->unstaged_data['user_name'] ) ) {
 			$message['external_identifier'] = $this->unstaged_data['user_name'];
