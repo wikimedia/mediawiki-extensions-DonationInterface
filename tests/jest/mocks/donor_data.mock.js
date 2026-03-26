@@ -35,11 +35,11 @@ module.exports = exports = {
 			can_modify: true
 		},
 		{
-			amount_frequency_key: 'donorportal-recurring-amount-monthly',
+			amount_frequency_key: 'donorportal-recurring-amount-annual',
 			amount_formatted: '$10',
 			currency: 'USD',
 			currency_symbol: '$',
-			frequency_unit: 'month',
+			frequency_unit: 'year',
 			payment_method: 'PayPal',
 			next_sched_contribution_date_formatted: 'December 10, 2025',
 			id: '456',

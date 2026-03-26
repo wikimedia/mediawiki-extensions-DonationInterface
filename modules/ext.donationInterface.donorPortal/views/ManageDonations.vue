@@ -67,7 +67,7 @@
 			</section>
 
 			<section class="column--base">
-				<p class="text text--body">
+				<p v-if="isMonthlyGift" class="text text--body">
 					<router-link
 						id="buttonSwitchAnnualGift"
 						:to="`/annual-conversion/${contribution_recur_id}`"
@@ -128,6 +128,9 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		isMonthlyGift: function () {
+			return this.recurringContributionRecord && this.recurringContributionRecord.frequency_unit === 'month';
+		},
 		contributionAmount: function () {
 			// Frequency keys that can be used here
 			// * donorportal-recurring-amount-annual
