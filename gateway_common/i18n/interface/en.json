@@ -476,7 +476,7 @@
 	"donate_interface-monthlybox-yes": "Sure, make it monthly",
 	"donate_interface-monthlybox-no": "NO, make a one-time donation",
 	"donate_interface-monthlybox-bottom": "Your donation will be securely processed.",
-	"donate_interface-monthly-cancel": "For recurring donors, fixed monthly payments will be debited by the Wikimedia Foundation on the monthly anniversary of the first donation, until such time as you notify us to discontinue them. Donations initiated on the 29, 30, or 31 of the month will recur on the last day of the month for shorter months, as close to the original date as possible. For questions, please contact $1.",
+	"donate_interface-monthly-cancel": "Monthly donations will be debited on the same date each month as your first gift, until canceled. Donations made on the 29th, 30th, or 31st will be charged on the last day of shorter months. Yearly recurring donations will be debited on the anniversary of the first gift. For questions, please contact $1.",
 	"donate_interface-onetime": "Make a one-time donation",
 	"donate_interface-monthly-short": "Monthly",
 	"donate_interface-onetime-short": "One-time",
