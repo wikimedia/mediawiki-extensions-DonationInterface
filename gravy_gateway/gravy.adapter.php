@@ -531,7 +531,9 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		if ( $paymentResult->isSuccessful() ) {
 			if ( $includeGatewayTxnId ) {
 				$responseData['gateway_txn_id'] = $paymentResult->getGatewayTxnId();
-				$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
+				if ( !$this->isBackendProcessorIDTransient( $paymentResult ) ) {
+					$responseData['backend_processor_txn_id'] = $paymentResult->getBackendProcessorTransactionId();
+				}
 			}
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
 			// Add in donor details
@@ -591,6 +593,25 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		$this->addResponseData( $responseData );
+	}
+
+	/**
+	 * Determine whether the backend processor ID that Gravy has provided in
+	 * payment_service_transaction_id is a session ID (used to query the status
+	 * of redirect payments) rather than a 'real' durable transaction ID that
+	 * we can use for settlement reconciliation.
+	 *
+	 * @param PaymentProviderExtendedResponse $response
+	 * @return bool
+	 */
+	protected function isBackendProcessorIDTransient( PaymentProviderExtendedResponse $response ): bool {
+		switch ( $response->getBackendProcessor() ) {
+			case 'adyen':
+				// Adyen's longer-lived PSP IDs are 16 chars and their session IDs are 25 chars
+				return strlen( $response->getBackendProcessorTransactionId() ?? '' ) > 20;
+			default:
+				return false;
+		}
 	}
 
 	protected function addNameResponseData( array &$responseData, DonorDetails $donorDetails ): void {
