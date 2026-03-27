@@ -559,3 +559,8 @@ webpay:
   countries:
     - CL
   logo: bank-webpay.png
+
+vipps:
+  group: ew
+  countries:
+    - 'NO'

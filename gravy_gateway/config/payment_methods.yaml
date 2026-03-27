@@ -19,6 +19,16 @@ dd:
     email: true
     trustly_explanation: true
 
+ew:
+  recurring: false
+  label: EWallet
+  validation:
+    country: true
+    name: true
+    email: true
+  countries:
+    - 'NO'
+
 rtbt:
   recurring: false
   label: Real time bank transfer
