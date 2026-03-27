@@ -557,7 +557,9 @@ class AdyenSubmitApiTest extends DonationInterfaceApiTestCase {
 			'source_type' => 'payments',
 			'utm_campaign' => $utm_campaign,
 			'utm_medium' => 'WikipediaApp',
-			"utm_source" => 'appmenu.inapp.' . $method,
+			'utm_source' => 'appmenu.inapp.' . $method,
+			'backend_processor' => 'adyen',
+			'backend_processor_txn_id' => $trxnId
 		];
 	}
 
