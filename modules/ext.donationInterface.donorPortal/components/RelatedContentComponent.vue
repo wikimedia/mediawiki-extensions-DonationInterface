@@ -54,6 +54,7 @@
 								:src="`${ assets_path }/images/how-wikipedia-works.jpg`"
 								:alt="$i18n( 'donorportal-aside-faq-how-wikipedia-works' ).text()"
 							>
+							<span class="play-icon" aria-hidden="true"></span>
 						</template>
 						<template #popup-body>
 							<div class="modal-overlay">

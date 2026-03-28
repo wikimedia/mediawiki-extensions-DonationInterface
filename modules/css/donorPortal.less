@@ -904,15 +904,55 @@ p.popup-body {
 	text-align: center;
 }
 
-.dp-card__player > * {
-	max-width: 100%;
-	cursor: pointer;
+.dp-card__player {
+	max-width: 254px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.dp-card__player a.link {
+	display: block;
+	position: relative;
 }
 
 .dp-card__player img {
-	max-width: 254px; /* safe fallback */
-	max-width: -webkit-fill-available; /* Chrome/Safari */
-	max-width: -moz-available; /* Firefox */
+	width: 100%;
+	height: auto;
+	display: block;
+	object-fit: contain;
+}
+
+// Play‑button overlay
+.dp-card__player .play-icon {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: 64px;
+	height: 64px;
+	background: rgba( 0, 0, 0, 0.5 );
+	border-radius: 50%;
+	color: #fff;
+	font-size: 28px;
+	line-height: 1;
+	text-align: center;
+	pointer-events: none;
+	align-items: center;
+	justify-content: center;
+}
+
+.dp-card__player .play-icon::before {
+	content: '▶';
+	font-size: inherit;
+	color: inherit;
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+// hover effect on desktop users
+.dp-card__player .link:hover .play-icon,
+.dp-card__player .link:focus .play-icon {
+	background: rgba( 0, 0, 0, 0.7 );
 }
 
 .dp-card__body div.video-attribution {
