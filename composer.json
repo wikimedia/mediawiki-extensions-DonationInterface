@@ -31,7 +31,6 @@
 		"symfony/yaml": "^4|^5|^6|^7",
 		"wikimedia/smash-pig": "1.2.3.11",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.1",
-		"ext-json": "*",
 		"whichbrowser/parser": "^2.1"
 	},
 	"require-dev": {
