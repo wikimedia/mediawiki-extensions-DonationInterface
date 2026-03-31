@@ -6,5 +6,5 @@
 		]
 	},
 	"adyen_gateway-desc": "Procesiranje plaćanja s Adyenom",
-	"adyen_gateway-response-default": "Došlo je do greške pri obradi plaćanja.\nPokušajte ponovno kasnije."
+	"adyen_gateway-response-default": "Došlo je do greške pri obradi plaćanja.\nPokušajte ponovo kasnije."
 }
