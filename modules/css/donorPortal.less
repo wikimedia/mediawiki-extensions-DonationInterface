@@ -1178,6 +1178,23 @@ p.popup-body {
 }
 /* --- Combined Media Queries (mobile-first) --- */
 
+/* Mobile phone portrait - fix Vector skin container causing horizontal
+   overflow and left-side content clipping on narrow viewports */
+@media screen and ( max-width: 767px ) {
+	body.mw-special-DonorPortal {
+		align-items: stretch;
+	}
+
+	body.mw-special-DonorPortal .mw-page-container {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	.dp-table__disclaimer {
+		padding: @padding-base @padding-small;
+	}
+}
+
 @media screen and ( min-width: 640px ) {
 	.auth__infobox-inner {
 		padding: @size-150;

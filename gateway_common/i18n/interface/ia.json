@@ -437,7 +437,7 @@
 	"donate_interface-monthlybox-yes": "Si, face lo cata mense",
 	"donate_interface-monthlybox-no": "NO, face un donation unic",
 	"donate_interface-monthlybox-bottom": "Tu donation essera processate de forma secur.",
-	"donate_interface-monthly-cancel": "Pro donationes recurrente, le pagamentos mensual fixe essera debitate per le Fundation Wikimedia al mesme die de cata mense que illo del prime donation, usque tu nos notifica pro discontinuar los. Le donationes initiate le 29, 30 o 31 del mense recurrera le ultime die del mense pro menses plus curte, tanto proxime al die original como possibile. Pro questiones, per favor contacta $1.",
+	"donate_interface-monthly-cancel": "Donationes mensual essera debitate al mesme die de cata mense que illo del prime donation, usque cancellation. Donationes facite le 29, 30, o 31 essera facturate le ultime die de menses plus curte. Donationes recurrente annual essera debitate al anniversario del prime donation. Pro questiones, per favor contacta $1.",
 	"donate_interface-onetime": "Facer un donation unic",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Unic",

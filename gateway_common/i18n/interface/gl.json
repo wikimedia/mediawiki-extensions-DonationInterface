@@ -456,7 +456,7 @@
 	"donate_interface-monthlybox-yes": "Abofé, facela mensualmente",
 	"donate_interface-monthlybox-no": "NON, facer unha doazón única",
 	"donate_interface-monthlybox-bottom": "A túa doazón procesarase de xeito seguro.",
-	"donate_interface-monthly-cancel": "Para os doantes recorrentes, a Fundación Wikimedia cargará mensualmente os pagos fixos en cada aniversario mensual da primeira doazón, ata que decidas notificarnos para suspenderes as doazóns. As doazóns iniciadas nos días 29, 30 ou 31 efectuaranse no último día do mes para os meses máis curtos, aproximándose todo o posible á data orixinal. Para resolver calquera dúbida, envía unha mensaxe ao enderezo $1.",
+	"donate_interface-monthly-cancel": "As doazóns mensuais cargaranse na mesma data de cada mes que a túa primeira doazón, ata que as canceles. As doazóns realizadas os días 29, 30 ou 31 cargaranse o último día dos meses máis curtos. As doazóns recorrentes anuais faranse efectivas no aniversario da primeira doazón. Para resolver calquera dúbida, envía unha mensaxe ao enderezo $1.",
 	"donate_interface-onetime": "Facer unha doazón única",
 	"donate_interface-monthly-short": "Mensual",
 	"donate_interface-onetime-short": "Única",

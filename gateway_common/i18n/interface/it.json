@@ -413,7 +413,7 @@
 	"donate_interface-monthlybox-yes": "Certo, la voglio fare ogni mese",
 	"donate_interface-monthlybox-no": "NO, faccio una donazione una volta all'anno",
 	"donate_interface-monthlybox-bottom": "La tua donazione verrà elaborata in modo sicuro.",
-	"donate_interface-monthly-cancel": "Per donatori ricorrenti, i pagamenti fissi mensili verranno addebitati dalla Wikimedia Foundation ogni mese nel giorno della prima donazione, fino ad eventuale vostra comunicazione di sospensione delle donazioni. Le donazioni effettuate per la prima volta il 29, 30 o 31 del mese verranno anticipate all'ultimo giorno del mese nei mesi più brevi, il più vicino possibile alla data originale. Per maggiori informazioni, ci potete scrivere a $1.",
+	"donate_interface-monthly-cancel": "Le donazioni mensili verranno addebitate lo stesso giorno di ogni mese della prima donazione, fino alla cancellazione. Le donazioni effettuate il 29, il 30 o il 31 del mese verranno addebitate l'ultimo giorno dei mesi più corti. Le donazioni annuali ricorrenti verranno addebitate nell'anniversario della prima donazione. Per domande, contatta $1.",
 	"donate_interface-onetime": "Fai una donazione singola",
 	"donate_interface-monthly-short": "Mensile",
 	"donate_interface-onetime-short": "Una volta",
