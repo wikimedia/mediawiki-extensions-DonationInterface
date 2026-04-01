@@ -340,7 +340,7 @@
 	"donate_interface-monthlybox-yes": "Las olla pealegi kord kuus",
 	"donate_interface-monthlybox-no": "EI! Ainult üks kord!",
 	"donate_interface-monthlybox-bottom": "Sinu annetust menetletakse turvaliselt.",
-	"donate_interface-monthly-cancel": "Korduvannetuse püsimakseid tehakse Wikimedia Foundationile igal kuul esimese annetuse tegemisega samal kuupäeval seni, kuni teatad, et ei soovi maksetega jätkata. Annetused, millega alustatakse 29., 30. või 31. kuupäeval, korduvad lühematel kuudel kuu viimasel päeval ehk esialgsele kuupäevale võimalikult ligidal. Küsimuste korral kirjuta palun aadressil $1.",
+	"donate_interface-monthly-cancel": "Igakuised annetused tehakse igal kuul esimese annetuse tegemisega samal kuupäeval seni, kuni annetustest loobutakse. 29., 30. või 31. kuupäeval tehtud annetused täidetakse lühematel kuudel kuu viimasel päeval. Iga-aastased annetused korduvad esimese annetuse aastapäeval. Küsimuste korral kirjuta palun aadressil $1.",
 	"donate_interface-onetime": "Tee ühekordne annetus",
 	"donate_interface-monthly-short": "Igakuiselt",
 	"donate_interface-onetime-short": "Ühekordselt",
