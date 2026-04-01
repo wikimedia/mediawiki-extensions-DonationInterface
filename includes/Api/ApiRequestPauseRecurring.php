@@ -2,11 +2,18 @@
 
 namespace MediaWiki\Extension\DonationInterface\Api;
 
+use DonationLoggerFactory;
 use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestPauseRecurring extends ApiRecurringModifyBase {
+
+	private const LOGGER_IDENTIFIER = 'ApiRequestPauseRecurring';
+	private const LOGGER_USE_SYSLOG = true;
+	private const LOGGER_DEBUG_VERBOSE_LEVEL = true;
+	private const LOGGER_PREFIX = null;
+	private const LOGGER_SUFFIX = '';
 
 	/** @inheritDoc */
 	protected function performRecurringModification(): void {
@@ -14,7 +21,16 @@ class ApiRequestPauseRecurring extends ApiRecurringModifyBase {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestPauseRecurring']['ip']
 			return;
 		}
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			self::LOGGER_IDENTIFIER,
+			self::LOGGER_USE_SYSLOG,
+			self::LOGGER_DEBUG_VERBOSE_LEVEL,
+			self::LOGGER_SUFFIX,
+			self::LOGGER_PREFIX );
+
 		$request = $this->getRequest();
+		$logger->info( "Received recurring pause message for contact with id: " . $request->getVal( 'contact_id' ) );
+
 		$duration = $request->getVal( 'duration' );
 		$contact_id = $request->getVal( 'contact_id' );
 		$checksum = $request->getVal( 'checksum' );
@@ -32,11 +48,13 @@ class ApiRequestPauseRecurring extends ApiRecurringModifyBase {
 			'txn_type' => 'recurring_paused'
 		] + $this->getTrackingParametersWithoutPrefix();
 
+		$logger->info( "Pushing recurring pause message to queue:" . json_encode( $queueMessage ) );
 		QueueWrapper::push( 'recurring-modify', $queueMessage );
 		$this->getResult()->addValue( null, 'result', [
 			'message' => 'Success',
 			'next_sched_contribution_date' => $formatDate
 		] );
+		$logger->info( "Recurring pause message queued for contact with id: " . $request->getVal( 'contact_id' ) );
 	}
 
 	/** @inheritDoc */
