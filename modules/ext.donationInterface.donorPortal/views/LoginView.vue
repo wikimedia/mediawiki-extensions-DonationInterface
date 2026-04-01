@@ -81,6 +81,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const PopupLink = require( '../components/PopupLink.vue' );
+const { requestNewChecksumLink } = require( '../ApiUtils.js' );
 
 module.exports = exports = defineComponent( {
 	components: {
@@ -163,18 +164,6 @@ module.exports = exports = defineComponent( {
 				}
 			}
 		},
-		requestNewChecksumLink( email, page, subpage ) {
-			const api = new mw.Api(),
-				params = {
-					email: email,
-					action: 'requestNewChecksumLink',
-					page: page
-				};
-			if ( subpage ) {
-				params.subpage = subpage;
-			}
-			return api.post( params );
-		},
 		handleSubmitButtonClick( e ) {
 			e.preventDefault();
 			// Ensure no request is made after first successful request
@@ -183,7 +172,7 @@ module.exports = exports = defineComponent( {
 			}
 
 			this.$refs[ 'new-checksum-link-email' ].disabled = true;
-			this.requestNewChecksumLink(
+			requestNewChecksumLink(
 				this.donorEmail,
 				mw.config.get( 'requestNewChecksumPage' ),
 				mw.config.get( 'requestNewChecksumSubpage' )

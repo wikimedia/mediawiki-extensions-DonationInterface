@@ -28,7 +28,8 @@ const RecurringContributionCancelSuccessful = require( '../components/RecurringC
 const RecurringContributionCancelConfirmation = require( '../components/RecurringContributionCancelConfirmation.vue' );
 const RecurringContributionPauseSuccess = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
+const { requestRecurringPause, requestRecurringCancel } = require( '../ApiUtils.js' );
+const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -65,25 +66,15 @@ module.exports = exports = defineComponent( {
 			donationPauseError: false
 		} );
 
-		function requestRecurringPause( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
-		}
-		function requestRecurringCancel( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestCancelRecurring' );
-		}
-
 		const submitPauseRecurringDuration = ( duration ) => {
 			const durationInDays = `${ duration } Days`;
 			const params = {
 				duration: durationInDays,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				next_sched_contribution_date: nextSchedContributionDate.value,
 				is_from_save_flow: true
 			};
 			trackingParams.addTo( params );
-			requestRecurringPause( params ).then( ( data ) => {
+			requestRecurringPause( recurringContributionRecord, params ).then( ( data ) => {
 				// TODO: Set next scheduled date in global store
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.showForm = false;
@@ -97,15 +88,11 @@ module.exports = exports = defineComponent( {
 
 		const submitCancelRecurring = ( reason ) => {
 			const params = {
-				reason,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId )
+				reason
 			};
 			trackingParams.addTo( params );
-			requestRecurringCancel( params ).then( () => {
+			requestRecurringCancel( recurringContributionRecord, params ).then( () => {
 				// TODO: Set cancel state in global store
-
 				flags.showForm = false;
 				flags.showConfirmation = false;
 				flags.donationCancelSuccessful = true;

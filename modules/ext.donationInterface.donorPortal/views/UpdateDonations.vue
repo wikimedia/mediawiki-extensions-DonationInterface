@@ -22,7 +22,8 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionUpdateForm = require( '../components/RecurringContributionUpdateForm.vue' );
 const RecurringContributionUpdateSuccessful = require( '../components/RecurringContributionUpdateSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
+const { requestRecurringUpdate } = require( '../ApiUtils.js' );
+const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -54,21 +55,14 @@ module.exports = exports = defineComponent( {
 			donationUpdateError: false
 		} );
 
-		function requestRecurringUpdate( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestUpdateRecurring' );
-		}
-
 		const submitUpdateRecurring = ( amount ) => {
 			const params = {
 				amount: amount,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				txn_type: amount > recurringContributionRecord.amount ? 'recurring_upgrade' : 'recurring_downgrade'
 			};
 			trackingParams.addTo( params );
 			newAmount.value = recurringContributionRecord.currency_symbol + amount + ' ' +  recurringContributionRecord.currency;
-			requestRecurringUpdate( params ).then( () => {
+			requestRecurringUpdate( recurringContributionRecord, params ).then( () => {
 				flags.showForm = false;
 				flags.donationUpdateSuccessful = true;
 			} ).catch( ( code ) => {

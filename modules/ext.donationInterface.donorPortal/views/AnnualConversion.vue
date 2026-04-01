@@ -25,7 +25,8 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionAnnualConversionSuccessful = require( '../components/RecurringContributionAnnualConversionSuccess.vue' );
 const RecurringAnnualConversionForm = require( '../components/RecurringContributionAnnualConversionForm.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
+const { requestAnnualConversion } = require( '../ApiUtils.js' );
+const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AnnualConversionView',
@@ -55,21 +56,14 @@ module.exports = exports = defineComponent( {
 			donationAnnualConversionError: false
 		} );
 
-		function requestAnnualConversion( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestAnnualConversion' );
-		}
-
 		const submitAnnualConversion = ( amount ) => {
 			const params = {
 				amount,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				next_sched_contribution_date: recurringContributionRecord.next_contribution_date_yearly,
 				is_from_save_flow: isSave
 			};
 			trackingParams.addTo( params );
-			requestAnnualConversion( params ).then( () => {
+			requestAnnualConversion( recurringContributionRecord, params ).then( () => {
 				flags.showForm = false;
 				flags.donationAnnualConversionSuccessful = true;
 			} ).catch( ( code ) => {

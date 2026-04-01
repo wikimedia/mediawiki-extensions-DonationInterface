@@ -18,7 +18,8 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionPauseForm = require( '../components/RecurringContributionPauseForm.vue' );
 const RecurringContributionPauseSuccessful = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
+const { requestRecurringPause } = require( '../ApiUtils.js' );
+const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PauseDonationsView',
@@ -50,22 +51,15 @@ module.exports = exports = defineComponent( {
 			showDonationPauseForm: true
 		} );
 
-		function requestRecurringPause( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
-		}
-
 		function submitPauseRecurringDuration( duration ) {
 			const durationInDays = `${ duration } Days`;
 			const params = {
 				duration: durationInDays,
-				contact_id: Number( contact_id ),
-				checksum: checksum,
-				contribution_recur_id: Number( contribution_recur_id ),
 				next_sched_contribution_date: nextSchedContributionDate.value,
 				is_from_save_flow: false
 			};
 			trackingParams.addTo( params );
-			requestRecurringPause( params ).then( ( data ) => {
+			requestRecurringPause( recurringContributionRecord, params ).then( ( data ) => {
 				// TODO: Set next scheduled date in global store
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.donationPauseSuccessful = true;
