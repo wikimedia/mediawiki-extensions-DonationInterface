@@ -1,9 +1,6 @@
 <template>
 	<main id="error-component" class="container column--items-center">
 		<section class="column--callout">
-			<h2 class="heading heading--h1">
-				{{ $i18n( "donorportal-thank-you" ).text() }}
-			</h2>
 			<img
 				:src="`${ assets_path }/images/wp_symbols_community.svg`"
 				alt="Community Icon">

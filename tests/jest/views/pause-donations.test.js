@@ -147,3 +147,187 @@ describe( 'Pause donations view', () => {
 
 	} );
 } );
+
+describe( 'Pause donations view renders appropiate errors', () => {
+	beforeEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
+		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
+		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
+		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '123'
+			}
+		} ) );
+	} );
+
+	afterEach( () => {
+		global.mw.Api.prototype.post.mockReturnValue(
+			new Promise( ( resolve, _ ) => {
+				resolve( {} );
+			} )
+		);
+	} );
+
+	it( 'Renders the error view on failure', async () => {
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( {
+				message: 'API error'
+			} )
+		);
+
+		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
+		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = pauseDonationViewBody.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_PAUSE_API_ACTION,
+			duration: '90 Days',
+			is_from_save_flow: false,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			next_sched_contribution_date: '2025-08-02 00:00:02'
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-pause-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
+
+	} );
+
+	it( 'Renders the error view on session failure', async () => {
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'no-session' )
+		);
+
+		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
+		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = pauseDonationViewBody.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_PAUSE_API_ACTION,
+			duration: '90 Days',
+			is_from_save_flow: false,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			next_sched_contribution_date: '2025-08-02 00:00:02'
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-pause-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
+
+	} );
+
+	it( 'Renders the error view on contact failure', async () => {
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contact-id' )
+		);
+
+		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
+		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = pauseDonationViewBody.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_PAUSE_API_ACTION,
+			duration: '90 Days',
+			is_from_save_flow: false,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			next_sched_contribution_date: '2025-08-02 00:00:02'
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-pause-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-bad-contact-id:[help@example.com]' );
+
+	} );
+
+	it( 'Renders the error view on contribution recur failure', async () => {
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contribution-recur-id' )
+		);
+
+		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
+		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = pauseDonationViewBody.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_PAUSE_API_ACTION,
+			duration: '90 Days',
+			is_from_save_flow: false,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			next_sched_contribution_date: '2025-08-02 00:00:02'
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-pause-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-bad-contribution-recur-id:[help@example.com]' );
+
+	} );
+} );

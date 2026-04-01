@@ -13,19 +13,19 @@
 		></recurring-annual-conversion-success>
 		<recurring-annual-conversion-error
 			v-else-if="flags.donationAnnualConversionError"
-			:failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"
+			:failure-message="annualConversionErrorMessage"
 		></recurring-annual-conversion-error>
 	</div>
 </template>
 
 <script>
-const { defineComponent, reactive } = require( 'vue' );
+const { defineComponent, reactive, ref } = require( 'vue' );
 const { useRoute } = require( 'vue-router' );
 const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionAnnualConversionSuccessful = require( '../components/RecurringContributionAnnualConversionSuccess.vue' );
 const RecurringAnnualConversionForm = require( '../components/RecurringContributionAnnualConversionForm.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AnnualConversionView',
@@ -37,7 +37,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const contributionRecurId = route.params.id;
@@ -49,6 +48,7 @@ module.exports = exports = defineComponent( {
 			recurringContributionRecord = {};
 		}
 
+		const errorCode = ref( '' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
 			donationAnnualConversionSuccessful: false,
@@ -72,21 +72,34 @@ module.exports = exports = defineComponent( {
 			requestAnnualConversion( params ).then( () => {
 				flags.showForm = false;
 				flags.donationAnnualConversionSuccessful = true;
-			} ).catch( () => {
+			} ).catch( ( code ) => {
+				errorCode.value = code || 'unknown';
 				flags.donationAnnualConversionError = true;
 				flags.showForm = false;
 			} );
 		};
 
 		return {
-			helpEmail,
 			recurringContribution: recurringContributionRecord,
 			nextYearlySchedContributionDateFormatted: recurringContributionRecord.next_contribution_date_yearly_formatted,
+			errorCode,
 			flags,
 			currencyRateArray,
 			submitAnnualConversion,
 			recurringUpgradeMaxUSD
 		};
+	},
+	computed: {
+		annualConversionErrorMessage() {
+			const errorMessageMap = errorMessageMapFunction( this.$i18n );
+			if ( this.errorCode ) {
+				if ( errorMessageMap[ this.errorCode ] ) {
+					return errorMessageMap[ this.errorCode ];
+				}
+				return this.$i18n( 'donorportal-cancel-failure', mw.config.get( 'help_email' ) ).text();
+			}
+			return '';
+		}
 	}
 } );
 </script>

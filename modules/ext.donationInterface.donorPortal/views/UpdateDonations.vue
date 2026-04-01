@@ -11,7 +11,7 @@
 			:next-sched-contribution-date="nextSchedContributionDate"
 			:new-amount="newAmount"
 		></recurring-update-success>
-		<recurring-update-error v-else-if="flags.donationUpdateError" :failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"></recurring-update-error>
+		<recurring-update-error v-else-if="flags.donationUpdateError" :failure-message="updateErrorMessage"></recurring-update-error>
 	</div>
 </template>
 
@@ -22,7 +22,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionUpdateForm = require( '../components/RecurringContributionUpdateForm.vue' );
 const RecurringContributionUpdateSuccessful = require( '../components/RecurringContributionUpdateSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -34,7 +34,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 
 		const contributionRecurId = route.params.id;
@@ -47,6 +46,7 @@ module.exports = exports = defineComponent( {
 		}
 
 		const newAmount = ref( recurringContributionRecord.currency + ' ' + recurringContributionRecord.amount );
+		const errorCode = ref( '' );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
@@ -71,7 +71,8 @@ module.exports = exports = defineComponent( {
 			requestRecurringUpdate( params ).then( () => {
 				flags.showForm = false;
 				flags.donationUpdateSuccessful = true;
-			} ).catch( () => {
+			} ).catch( ( code ) => {
+				errorCode.value = code || 'unknown';
 				flags.donationUpdateError = true;
 				flags.showForm = false;
 			} );
@@ -79,14 +80,26 @@ module.exports = exports = defineComponent( {
 
 		return {
 			recurringContribution: recurringContributionRecord,
+			errorCode,
 			flags,
-			helpEmail,
 			newAmount,
 			nextSchedContributionDate: recurringContributionRecord.next_sched_contribution_date_formatted,
 			submitUpdateRecurring,
 			currencyRateArray,
 			recurringUpgradeMaxUSD
 		};
+	},
+	computed: {
+		updateErrorMessage() {
+			const errorMessageMap = errorMessageMapFunction( this.$i18n );
+			if ( this.errorCode ) {
+				if ( errorMessageMap[ this.errorCode ] ) {
+					return errorMessageMap[ this.errorCode ];
+				}
+				return this.$i18n( 'donorportal-cancel-failure', mw.config.get( 'help_email' ) ).text();
+			}
+			return '';
+		}
 	}
 } );
 </script>

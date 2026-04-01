@@ -224,3 +224,183 @@ describe( 'Update donations view', () => {
 
 	} );
 } );
+
+describe( 'Update donations view failure', () => {
+	window.alert = jest.fn();
+	beforeEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
+		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
+		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'help@example.com' );
+		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
+		when( global.mw.config.get ).calledWith( 'wgDonationInterfaceCurrencyRates' ).mockReturnValue( [
+			[ 'USD', 1 ],
+			[ 'EUR', 0.9 ],
+			[ 'GBP', 0.8 ]
+		] );
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '123'
+			}
+		} ) );
+	} );
+
+	afterEach( () => {
+		global.mw.Api.prototype.post.mockReturnValue(
+			new Promise( ( resolve, _ ) => {
+				resolve( {} );
+			} )
+		);
+	} );
+
+	it( 'Renders the error view on failure', async () => {
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( {
+				message: 'API error'
+			} )
+		);
+
+		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 30;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '30',
+			txn_type: 'recurring_upgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
+
+	} );
+
+	it( 'Renders the error view on session failure', async () => {
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject( 'no-session' ) );
+
+		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 30;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '30',
+			txn_type: 'recurring_upgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
+
+	} );
+
+	it( 'Renders the error view on bad contact failure', async () => {
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject( 'bad-contact-id' ) );
+
+		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 30;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '30',
+			txn_type: 'recurring_upgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-bad-contact-id:[help@example.com]' );
+
+	} );
+
+	it( 'Renders the error view on bad contact failure', async () => {
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject( 'bad-contribution-recur-id' ) );
+
+		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 30;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '30',
+			txn_type: 'recurring_upgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-bad-contribution-recur-id:[help@example.com]' );
+
+	} );
+} );

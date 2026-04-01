@@ -13,9 +13,9 @@
 			:submit-cancel-recurring-form="submitCancelRecurring"
 		></recurring-cancel-confirmation>
 		<recurring-cancel-success v-else-if="flags.donationCancelSuccessful" :recurring-contribution="recurringContribution"></recurring-cancel-success>
-		<recurring-cancel-error v-else-if="flags.donationCancelError" :failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"></recurring-cancel-error>
+		<recurring-cancel-error v-else-if="flags.donationCancelError" :failure-message="cancelErrorMessage"></recurring-cancel-error>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
-		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="$i18n( 'donorportal-pause-failure', helpEmail ).text()"></recurring-pause-error>
+		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="pauseErrorMessage"></recurring-pause-error>
 	</div>
 </template>
 
@@ -28,7 +28,7 @@ const RecurringContributionCancelSuccessful = require( '../components/RecurringC
 const RecurringContributionCancelConfirmation = require( '../components/RecurringContributionCancelConfirmation.vue' );
 const RecurringContributionPauseSuccess = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -43,7 +43,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const contributionRecurId = route.params.id;
 
 		let recurringContributionRecord = donorData
@@ -55,6 +54,8 @@ module.exports = exports = defineComponent( {
 
 		const recurringContribution = ref( recurringContributionRecord );
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
+		const pauseErrorCode = ref( '' );
+		const cancelErrorCode = ref( '' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
 			donationCancelSuccessful: false,
@@ -87,8 +88,8 @@ module.exports = exports = defineComponent( {
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.showForm = false;
 				flags.donationPauseSuccessful = true;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				pauseErrorCode.value = code || 'unknown';
 				flags.donationPauseError = true;
 				flags.showForm = false;
 			} );
@@ -108,8 +109,8 @@ module.exports = exports = defineComponent( {
 				flags.showForm = false;
 				flags.showConfirmation = false;
 				flags.donationCancelSuccessful = true;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				cancelErrorCode.value = code || 'unknown';
 				flags.donationCancelError = true;
 				flags.showConfirmation = false;
 				flags.showForm = false;
@@ -122,9 +123,10 @@ module.exports = exports = defineComponent( {
 		};
 
 		return {
-			helpEmail,
 			recurringContribution,
 			nextSchedContributionDate,
+			pauseErrorCode,
+			cancelErrorCode,
 			flags,
 			submitPauseRecurringDuration,
 			submitCancelRecurring,
@@ -132,6 +134,26 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		pauseErrorMessage() {
+			const errorMessageMap = errorMessageMapFunction( this.$i18n );
+			if ( this.pauseErrorCode ) {
+				if ( errorMessageMap[ this.pauseErrorCode ] ) {
+					return errorMessageMap[ this.pauseErrorCode ];
+				}
+				return this.$i18n( 'donorportal-pause-failure', mw.config.get( 'help_email' ) ).text();
+			}
+			return '';
+		},
+		cancelErrorMessage() {
+			const errorMessageMap = errorMessageMapFunction( this.$i18n );
+			if ( this.cancelErrorCode ) {
+				if ( errorMessageMap[ this.cancelErrorCode ] ) {
+					return errorMessageMap[ this.cancelErrorCode ];
+				}
+				return this.$i18n( 'donorportal-cancel-failure', mw.config.get( 'help_email' ) ).text();
+			}
+			return '';
+		},
 		durationOptions() {
 			return [
 				{

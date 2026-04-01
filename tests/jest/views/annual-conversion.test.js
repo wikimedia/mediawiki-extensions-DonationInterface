@@ -48,14 +48,14 @@ describe( 'Annual conversion view', () => {
 			}
 		} );
 
-		const annualConversionViewBody = wrapper.find( '#form-convert-yearly' );
-		expect( annualConversionViewBody.exists() ).toBe( true );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-head' );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-description' );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-select-below' );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-yearly-other-amount' );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-cancel-recurring-quit-header' );
-		expect( annualConversionViewBody.html() ).toContain( 'donorportal-return-to-account-button' );
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		expect( AnnualConversionViewBody.exists() ).toBe( true );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-head' );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-description' );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-select-below' );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-update-recurring-annual-convert-yearly-other-amount' );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-cancel-recurring-quit-header' );
+		expect( AnnualConversionViewBody.html() ).toContain( 'donorportal-return-to-account-button' );
 
 		// Ensure success text is not visible on first load
 		const successText = wrapper.find( '#recurring-contribution-annual-conversion-success' );
@@ -76,8 +76,8 @@ describe( 'Annual conversion view', () => {
 			}
 		} );
 
-		const annualConversionViewBody = wrapper.find( '#form-convert-yearly' );
-		const amountInput = annualConversionViewBody.find( '#new-annual-recurring-amount' );
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
 
 		global.mw.Api.prototype.post.mockImplementation( () => Promise.resolve( {
 			result: {
@@ -87,7 +87,7 @@ describe( 'Annual conversion view', () => {
 		amountInput.element.value = 100;
 		await amountInput.trigger( 'input' );
 		await VueTestUtils.flushPromises();
-		const submitButton = annualConversionViewBody.find( '#submit-annual-conversion' );
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
 		await submitButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 
@@ -172,5 +172,184 @@ describe( 'Annual conversion view', () => {
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
 
+	} );
+} );
+
+describe( 'Annual conversion view errors', () => {
+	window.alert = jest.fn();
+	const email = 'help@example.com';
+	beforeEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
+		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
+		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( email );
+		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
+		when( global.mw.config.get ).calledWith( 'wgDonationInterfaceCurrencyRates' ).mockReturnValue( [
+			[ 'USD', 1 ],
+			[ 'EUR', 0.9 ],
+			[ 'GBP', 0.8 ]
+		] );
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '123'
+			}
+		} ) );
+	} );
+
+	it( 'Renders the error view on failure', async () => {
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( {
+				message: 'API error'
+			} )
+		);
+
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: ANNUAL_CONVERSION_API_ACTION,
+			amount: '3',
+			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
+	} );
+
+	it( 'Renders the error view on session failure', async () => {
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'no-session' )
+		);
+
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: ANNUAL_CONVERSION_API_ACTION,
+			amount: '3',
+			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
+	} );
+
+	it( 'Renders the error view on bad contact id failure', async () => {
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contact-id' )
+		);
+
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: ANNUAL_CONVERSION_API_ACTION,
+			amount: '3',
+			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( `donorportal-error-bad-contact-id:[${ email }]` );
+	} );
+
+	it( 'Renders the error view on bad contribution recur id failure', async () => {
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contribution-recur-id' )
+		);
+
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: ANNUAL_CONVERSION_API_ACTION,
+			amount: '3',
+			next_sched_contribution_date: contribution_mock.next_contribution_date_yearly,
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( `donorportal-error-bad-contribution-recur-id:[${ email }]` );
 	} );
 } );

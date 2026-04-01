@@ -7,7 +7,7 @@
 			:duration-options="durationOptions"
 			:default-duration="durationOptions[0]"></recurring-pause-form>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
-		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="$i18n( 'donorportal-pause-failure', helpEmail ).text()"></recurring-pause-error>
+		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="pauseErrorMessage"></recurring-pause-error>
 	</div>
 </template>
 
@@ -18,7 +18,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionPauseForm = require( '../components/RecurringContributionPauseForm.vue' );
 const RecurringContributionPauseSuccessful = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { apiPostAction, errorMessageMapFunction } = require( '../apiPostAction.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PauseDonationsView',
@@ -31,7 +31,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const contribution_recur_id = route.params.id;
 
 		let recurringContributionRecord = donorData
@@ -44,6 +43,7 @@ module.exports = exports = defineComponent( {
 		const contact_id = donorData.contact_id;
 		const checksum = donorData.checksum;
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
+		const pauseErrorCode = ref( '' );
 		const flags = reactive( {
 			donationPauseSuccessful: false,
 			donationPauseError: false,
@@ -70,22 +70,32 @@ module.exports = exports = defineComponent( {
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.donationPauseSuccessful = true;
 				flags.showDonationPauseForm = false;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				pauseErrorCode.value = code || 'unknown';
 				flags.donationPauseError = true;
 				flags.showDonationPauseForm = false;
 			} );
 		}
 
 		return {
-			helpEmail,
 			recurringContributionRecord,
 			nextSchedContributionDate,
+			pauseErrorCode,
 			flags,
 			submitPauseRecurringDuration
 		};
 	},
 	computed: {
+		pauseErrorMessage() {
+			const errorMessageMap = errorMessageMapFunction( this.$i18n );
+			if ( this.pauseErrorCode ) {
+				if ( errorMessageMap[ this.pauseErrorCode ] ) {
+					return errorMessageMap[ this.pauseErrorCode ];
+				}
+				return this.$i18n( 'donorportal-pause-failure', mw.config.get( 'help_email' ) ).text();
+			}
+			return '';
+		},
 		durationOptions() {
 			return [
 				{

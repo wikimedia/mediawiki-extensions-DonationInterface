@@ -150,6 +150,27 @@ describe( 'Downgrade donations view', () => {
 		expect( window.alert ).toHaveBeenCalledWith( `Please enter a valid amount between 1 and ${ contribution_mock.amount }.` );
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledTimes( 0 );
 	} );
+} );
+
+describe( 'Downgrade donations view errors', () => {
+	window.alert = jest.fn();
+	const email = 'help@example.com';
+	beforeEach( () => {
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
+		when( global.mw.config.get ).calledWith( 'requestDonorPortalPage' ).mockReturnValue( 'DonorPortal' );
+		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( email );
+		when( global.mw.config.get ).calledWith( 'recurringUpgradeMaxUSD' ).mockReturnValue( 1000000 );
+		when( global.mw.config.get ).calledWith( 'wgDonationInterfaceCurrencyRates' ).mockReturnValue( [
+			[ 'USD', 1 ],
+			[ 'EUR', 0.9 ],
+			[ 'GBP', 0.8 ]
+		] );
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '123'
+			}
+		} ) );
+	} );
 
 	it( 'Renders the error view on failure', async () => {
 		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
@@ -190,5 +211,122 @@ describe( 'Downgrade donations view', () => {
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
+	} );
+
+	it( 'Renders the error view on session failure', async () => {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'no-session' )
+		);
+
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '3',
+			txn_type: 'recurring_downgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
+	} );
+
+	it( 'Renders the error view on bad contact id failure', async () => {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contact-id' )
+		);
+
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '3',
+			txn_type: 'recurring_downgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( `donorportal-error-bad-contact-id:[${ email }]` );
+	} );
+
+	it( 'Renders the error view on bad contribution recur id failure', async () => {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		global.mw.Api.prototype.post.mockImplementation(
+			() => Promise.reject( 'bad-contribution-recur-id' )
+		);
+
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
+			action: RECURRING_UPDATE_API_ACTION,
+			amount: '3',
+			txn_type: 'recurring_downgrade',
+			contact_id: Number( DonorDataMock.contact_id ),
+			checksum: DonorDataMock.checksum,
+			contribution_recur_id: 123,
+			is_from_save_flow: false
+		} );
+
+		// Ensure success text is visible after successful API request
+		const successText = wrapper.find( '#recurring-contribution-update-success' );
+		expect( successText.exists() ).toBe( false );
+
+		// Ensure failure text is not visible after successful API request
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( `donorportal-error-bad-contribution-recur-id:[${ email }]` );
 	} );
 } );
