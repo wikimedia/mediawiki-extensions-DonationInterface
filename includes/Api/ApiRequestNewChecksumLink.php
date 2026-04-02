@@ -2,17 +2,30 @@
 
 namespace MediaWiki\Extension\DonationInterface\Api;
 
+use DonationLoggerFactory;
 use RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestNewChecksumLink extends \ApiBase {
+	private const LOGGER_IDENTIFIER = 'ApiRequestNewChecksumLink';
+	private const LOGGER_USE_SYSLOG = true;
+	private const LOGGER_DEBUG_VERBOSE_LEVEL = true;
+	private const LOGGER_PREFIX = null;
+	private const LOGGER_SUFFIX = '';
 
 	public function execute() {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestNewChecksumLink' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestNewChecksumLink']['ip']
 			return;
 		}
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			self::LOGGER_IDENTIFIER,
+			self::LOGGER_USE_SYSLOG,
+			self::LOGGER_DEBUG_VERBOSE_LEVEL,
+			self::LOGGER_SUFFIX,
+			self::LOGGER_PREFIX );
+
 		$email = $this->getRequest()->getVal( 'email' );
 		$page = $this->getRequest()->getVal( 'page' );
 		$subpage = $this->getRequest()->getVal( 'subpage' );
@@ -20,6 +33,9 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 		$this->validateEmail( $email );
 		$this->validateAlphanumeric( $page );
 		$this->validateAlphanumeric( $subpage );
+
+		$maskedEmail = $this->maskEmail( $email );
+		$logger->info( "Received new checksum link request for contact with email: " . $maskedEmail );
 
 		$queueMessage = [
 			'email' => $email,
@@ -29,7 +45,9 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 		if ( $subpage ) {
 			$queueMessage['subpage'] = $subpage;
 		}
+		$logger->info( "Pushing new checksum link message to queue for: " . $maskedEmail );
 		QueueWrapper::push( 'new-checksum-link', $queueMessage );
+		$logger->info( "New checksum link message queued for contact with email: " . $maskedEmail );
 	}
 
 	/** @inheritDoc */
@@ -45,6 +63,21 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 		if ( $input && !preg_match( '/^[a-zA-Z0-9_-]*$/', $input ) ) {
 			throw new \InvalidArgumentException( "Bad parameter '$input' - should be alphanumeric." );
 		}
+	}
+
+	/**
+	 * Masks an email address for safe logging by showing only the first two characters
+	 * of the local part and the TLD, e.g. "jo***@***.com".
+	 * This helps in limiting the exposure of donor PII in the logs.
+	 * @param string $email
+	 * @return string
+	 */
+	protected function maskEmail( string $email ): string {
+		[ $local, $domain ] = explode( '@', $email, 2 );
+		$maskedLocal = substr( $local, 0, 2 ) . str_repeat( '*', max( 0, \strlen( $local ) - 2 ) );
+		$dotPos = strrpos( $domain, '.' );
+		$maskedDomain = str_repeat( '*', $dotPos ) . substr( $domain, $dotPos );
+		return "{$maskedLocal}@{$maskedDomain}";
 	}
 
 	protected function validateEmail( string $email ): void {

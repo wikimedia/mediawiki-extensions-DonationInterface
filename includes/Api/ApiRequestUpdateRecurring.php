@@ -2,18 +2,34 @@
 
 namespace MediaWiki\Extension\DonationInterface\Api;
 
+use DonationLoggerFactory;
 use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 
+	private const LOGGER_IDENTIFIER = 'ApiRequestUpdateRecurring';
+	private const LOGGER_USE_SYSLOG = true;
+	private const LOGGER_DEBUG_VERBOSE_LEVEL = true;
+	private const LOGGER_PREFIX = null;
+	private const LOGGER_SUFFIX = '';
+
 	/** @inheritDoc */
 	protected function performRecurringModification(): void {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestUpdateRecurring' ) ) {
 			return;
 		}
+		$logger = DonationLoggerFactory::getLoggerFromParams(
+			self::LOGGER_IDENTIFIER,
+			self::LOGGER_USE_SYSLOG,
+			self::LOGGER_DEBUG_VERBOSE_LEVEL,
+			self::LOGGER_SUFFIX,
+			self::LOGGER_PREFIX );
+
 		$request = $this->getRequest();
+		$logger->info( "Received recurring modification message for contact with id: " . $request->getVal( 'contact_id' ) );
+
 		$amount = $request->getVal( 'amount' );
 		$txn_type = $request->getVal( 'txn_type' );
 		$contact_id = $request->getVal( 'contact_id' );
@@ -29,10 +45,12 @@ class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 			'txn_type' => $txn_type,
 		] + $this->getTrackingParametersWithoutPrefix();
 
+		$logger->info( "Pushing recurring modification message to queue:" . json_encode( $queueMessage ) );
 		QueueWrapper::push( 'recurring-modify', $queueMessage );
 		$this->getResult()->addValue( null, 'result', [
 			'message' => 'Success',
 		] );
+		$logger->info( "Recurring modification message queued for contact with id: " . $request->getVal( 'contact_id' ) );
 	}
 
 	/** @inheritDoc */

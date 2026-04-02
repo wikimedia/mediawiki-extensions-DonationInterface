@@ -316,7 +316,9 @@ class AdyenSubmitPaymentApi extends ApiBase {
 			'user_ip' => WmfFramework::getIP(),
 			// donationData that needs to be renamed
 			'country' => strtoupper( $this->donationData['donor_country'] ),
-			'gross' => $this->donationData['amount']
+			'gross' => $this->donationData['amount'],
+			'backend_processor' => 'adyen',
+			'backend_processor_txn_id' => $this->gatewayTransactionId
 		];
 
 		// Add in donationData
