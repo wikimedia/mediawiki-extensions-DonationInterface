@@ -237,6 +237,13 @@
 		} else if ( result.redirect ) {
 			document.location.replace( result.redirect );
 		} else if ( mw.monthlyConvert && mw.monthlyConvert.canShowModal() ) {
+			// Extra guard against unintended duplicate donations: before showing the monthly convert
+			// modal, neuter di.forms.submit() so it just sends donors to the TY page. We have seen
+			// some donors dismiss the monthly convert modal and somehow remain on the page to click
+			// submit again, even multiple times.
+			di.forms.submit = function () {
+				document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+			};
 			mw.monthlyConvert.init();
 		} else {
 			document.location.replace( mw.config.get( 'DonationInterfaceThankYouPage' ) );
