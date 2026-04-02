@@ -1,28 +1,29 @@
 /* global SecureFields google ApplePaySession ApplePayError */
 ( function ( $, mw ) {
 	let secureFieldValid = false,
-	cardNumberFieldValid = false,
-	securityCodeValid = false,
-	expiryDateValid = false,
-	cardNumberFieldEmpty = true,
-	securityCodeFieldEmpty = true,
-	expiryDateFieldEmpty = true,
-	secureFields = null,
-	cardScheme = null,
-	extraData = {},
-	configFromServer = mw.config.get( 'gravyConfiguration' ),
-	sessionId = mw.config.get( 'gravy_session_id' ),
-	environment = mw.config.get( 'wgGravyEnvironment' ),
-	gravyId = mw.config.get( 'wgGravyId' ),
-	redirectPaypal = mw.config.get( 'wgGravyRedirectPaypal' ),
-	showRedirectText = mw.config.get( 'showRedirectText' ),
-	googlePaymentClient = null,
-	appleSession = null,
-	language = $( '#language' ).val(),
-	country = $( '#country' ).val(),
-	isIndia = ( country === 'IN' ),
-	applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
-	const di = mw.donationInterface;
+		cardNumberFieldValid = false,
+		securityCodeValid = false,
+		expiryDateValid = false,
+		cardNumberFieldEmpty = true,
+		securityCodeFieldEmpty = true,
+		expiryDateFieldEmpty = true,
+		secureFields = null,
+		cardScheme = null,
+		extraData = {},
+		googlePaymentClient = null,
+		appleSession = null;
+
+	const configFromServer = mw.config.get( 'gravyConfiguration' ),
+		sessionId = mw.config.get( 'gravy_session_id' ),
+		environment = mw.config.get( 'wgGravyEnvironment' ),
+		gravyId = mw.config.get( 'wgGravyId' ),
+		redirectPaypal = mw.config.get( 'wgGravyRedirectPaypal' ),
+		showRedirectText = mw.config.get( 'showRedirectText' ),
+		language = $( '#language' ).val(),
+		country = $( '#country' ).val(),
+		isIndia = ( country === 'IN' ),
+		applePayPaySessionVersionNumber = 3, // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
+		di = mw.donationInterface;
 
 	function insertCardComponentContainers() {
 		$( '.submethods' ).before(
@@ -306,7 +307,7 @@
 	function getGoogleBaseCardPaymentMethod() {
 		const allowedCardNetworks = configFromServer.googleAllowedNetworks;
 		const allowedCardAuthMethods = [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ];
-		const baseCardPaymentMethod = {
+		return {
 			type: 'CARD',
 			parameters: {
 				allowedCardNetworks: allowedCardNetworks,
@@ -317,7 +318,6 @@
 				}
 			}
 		};
-		return baseCardPaymentMethod;
 	}
 
 	function getGoogleTransactionInfo() {
