@@ -13,6 +13,7 @@ describe( 'Home view', () => {
 		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( DonorDataMock );
 		when( global.mw.config.get ).calledWith( 'help_email' ).mockReturnValue( 'lorem@ipsum.co' );
 		when( global.mw.config.get ).calledWith( 'emailPreferencesUrl' ).mockReturnValue( 'https://emailprefs.wiki' );
+		when( global.mw.config.get ).calledWith( 'newDonationUrl' ).mockReturnValue( 'http://donate.test' );
 	} );
 
 	it( 'Home view renders the donor data from config', async () => {

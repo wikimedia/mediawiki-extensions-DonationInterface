@@ -47,6 +47,8 @@ module.exports = exports = {
 		amount_frequency_key: 'donorportal-recurring-amount-monthly',
 		amount_formatted: '$100',
 		currency: 'USD',
+		country: 'US',
+		amount: 100,
 		frequency_unit: 'month',
 		payment_method: 'Credit Card: Visa',
 		last_contribution_date_formatted: 'September 2, 2025',
@@ -62,5 +64,19 @@ module.exports = exports = {
 		last_currency: 'USD',
 		last_payment_method: 'Credit Card: Visa',
 		last_receive_date_formatted: 'September 2, 2025'
+	},
+	inactive_yearly_recurring: {
+		amount_frequency_key: 'donorportal-recurring-amount-annual',
+		amount_formatted: 'R$150',
+		currency: 'BRL',
+		country: 'BR',
+		amount: 150,
+		frequency_unit: 'year',
+		payment_method: 'Credit Card: Visa',
+		last_contribution_date_formatted: 'September 2, 2025',
+		restart_key: 'donorportal-restart-annual',
+		hasLastContribution: true,
+		lastContributionDate: true,
+		id: '125'
 	}
 };
