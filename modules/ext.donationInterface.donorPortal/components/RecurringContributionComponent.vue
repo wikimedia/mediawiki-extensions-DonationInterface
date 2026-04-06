@@ -46,7 +46,7 @@
 			<a
 				v-if="actionButtonText"
 				:target="isActive && contribution.can_modify ? '_self' : '_blank'"
-				:href="isActive && contribution.can_modify ? ( '#/update-donations/' + contribution.id ) : newDonationUrl"
+				:href="isActive && contribution.can_modify ? ( '#/update-donations/' + contribution.id ) : newDonationUrlWithParams"
 				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 				{{ actionButtonText }}
 			</a>
@@ -151,6 +151,13 @@ module.exports = exports = defineComponent( {
 			// * donorportal-restart-annual
 			// * donorportal-restart-monthly
 			return this.$i18n( this.contribution.restart_key ).text();
+		},
+		newDonationUrlWithParams: function () {
+			const url = new URL( this.newDonationUrl );
+			url.searchParams.set( 'preSelect', this.contribution.amount );
+			url.searchParams.set( 'country', this.contribution.country  );
+			url.searchParams.set( 'frequency', this.contribution.frequency_unit === 'year' ?  'annual' : 'monthly' );
+			return url.toString();
 		}
 	}
 } );

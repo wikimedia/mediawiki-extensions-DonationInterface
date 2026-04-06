@@ -3,8 +3,10 @@ const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionComponent.vue' );
 const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { inactive_yearly_recurring: inactive_yearly_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { when } = require( 'jest-when' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
+const entities = require( 'entities' );
 
 describe( 'Active recurring contribution test', () => {
 	beforeEach( () => {
@@ -61,7 +63,7 @@ describe( 'Active recurring contribution test', () => {
         const element = wrapper.find( '.is-lapsed' );
         expect( element.exists() ).toBe( true );
         expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
-        expect( element.html() ).toContain( '<a target="_blank" href="http://donate.test' );
+        expect( entities.decodeHTML( element.html() ) ).toContain( '<a target="_blank" href="http://donate.test/?preSelect=100&country=US&frequency=monthly' );
     } );
 	it( 'Render is processing status correctly', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
@@ -79,5 +81,19 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.html() ).not.toContain( `<a href="#/cancel-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-cancel </a>` );
 		expect( element.html() ).not.toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
 		expect( element.html() ).not.toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
+	} );
+	it( 'Render correct new donation link', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
+			props: {
+				contribution: Object.assign( inactive_yearly_recurring_mock, {
+					hasLastContribution: false
+				} ),
+				isActive: false
+			}
+		} );
+		const element = wrapper.find( '.is-lapsed' );
+		expect( element.exists() ).toBe( true );
+		expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
+		expect( entities.decodeHTML( element.html() ) ).toContain( '<a target="_blank" href="http://donate.test/?preSelect=150&country=BR&frequency=annual' );
 	} );
 } );
