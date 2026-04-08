@@ -5,6 +5,7 @@ use MediaWiki\Extension\DonationInterface\RecurUpgrade\Validator;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
+use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 
 class RecurUpgrade extends UnlistedSpecialPage {
@@ -30,6 +31,7 @@ class RecurUpgrade extends UnlistedSpecialPage {
 
 	/** @inheritDoc */
 	public function execute( $subpage ) {
+		Context::get()->setSourceType( 'recurringupgrade' );
 		$this->setHeaders();
 		$this->setUpClientSideChecksumRequest( $subpage );
 		$this->addStylesScriptsAndViewport();
