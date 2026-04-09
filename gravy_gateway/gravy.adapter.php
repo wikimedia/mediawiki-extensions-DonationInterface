@@ -417,7 +417,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$currencies = parent::getCurrencies( $options );
 		$paymentProvider = $this->getPaymentProviderSafe();
 		if ( $paymentProvider != null && $paymentProvider instanceof IGetPaymentServicePaymentMethodDefinition ) {
-			$paymentServiceDefinition = $paymentProvider->getPaymentServiceDefinition();
+			$paymentServiceDefinition = $paymentProvider->getPaymentServicesForMethod();
 			return $paymentServiceDefinition->getSupportedCurrencies();
 		}
 

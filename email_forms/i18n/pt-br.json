@@ -5,6 +5,12 @@
 			"Pcoombe"
 		]
 	},
+	"donorportal-title": "Portal de Doadores da Fundação Wikimedia",
+	"donorportal-login-header": "Acesse sua conta de doador",
+	"donorportal-donation-date": "Data",
+	"donorportal-donation-type": "Tipo",
+	"donorportal-donation-type-annual": "Anual",
+	"donorportal-donation-type-monthly": "Mensalmente",
 	"emailpreferences-change-email": "Mudar e-mail",
 	"emailpreferences-country": "País ou Região",
 	"emailpreferences-dont-send-email": "Cancele minha inscrição de todos os e-mails.",

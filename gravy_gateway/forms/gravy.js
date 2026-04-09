@@ -546,21 +546,21 @@
 
 	function getApplePayErrors() {
 		const applePayErrors = [];
-		if ( !extraData.first_name.trim() ) {
+		if ( !extraData.first_name || !extraData.first_name.trim() ) {
 			applePayErrors.push( new ApplePayError(
 				'billingContactInvalid',
 				'name',
 				mw.msg( 'donate_interface-error-msg-first_name' )
 			) );
 		}
-		if ( !extraData.first_name.trim() ) {
+		if ( !extraData.last_name || !extraData.last_name.trim() ) {
 			applePayErrors.push( new ApplePayError(
 				'billingContactInvalid',
 				'name',
 				mw.msg( 'donate_interface-error-msg-last_name' )
 			) );
 		}
-		if ( !extraData.email.trim() ) {
+		if ( !extraData.email || !extraData.email.trim() ) {
 			applePayErrors.push( new ApplePayError(
 				'shippingContactInvalid',
 				'email',
