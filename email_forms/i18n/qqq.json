@@ -96,6 +96,7 @@
 	"donorportal-header-my-portal": "Link text for navigating to my donor account home page",
 	"donorportal-header-logout": "Link text for logging out of the donor portal",
 	"donorportal-email-required": "Error response when donor email is missing",
+	"donorportal-invalid-email-error-message": "Error message shown when the donor enters an invalid email address on the login page",
 	"donorportal-something-wrong": "Error response for any other error class",
 	"donorportal-civi-unavailable-error-message": "Error message shown when database server is down.",
 	"donorportal-invalid-credentials-error-message": "Error message shown donor attempts to use invalid credentials to access the donor portal.",

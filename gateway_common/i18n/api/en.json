@@ -10,6 +10,7 @@
 			"XenoRyet"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Invalid email address",
 	"apierror-donorportal-bad-contact-id": "Bad contact_id - please reload the Donor Portal",
 	"apierror-donorportal-bad-contribution-recur-id": "Bad contribution_recur_id - please reload the Donor Portal",
 	"apierror-donorportal-no-session": "No donor portal session - please reload the Donor Portal",
