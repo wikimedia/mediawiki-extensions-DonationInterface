@@ -146,12 +146,7 @@ describe( 'Cancel donations view', () => {
 			contribution_recur_id: '123',
 			next_sched_contribution_date: '2025-08-02 00:00:02',
 			is_from_save_flow: true
-		} ).mockRejectedValueOnce( {
-				result: {
-					message: 'API error'
-				}
-			}
-		);
+		} ).mockRejectedValueOnce( 'API_error' );
 
 		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
 
@@ -249,18 +244,14 @@ describe( 'Cancel donations view', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( {
-				result: {
-					message: 'API error'
-				}
-			}
-		);
+		).mockRejectedValueOnce( 'API_error' );
 
 		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
 		await proceedCancelButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 
 		const cancelConfirmationScreen = wrapper.find( '#recurring-cancellation-confirmation' );
+
 		const givingMethodReason = cancelConfirmationScreen.find( '#option-giving-method' );
 		await givingMethodReason.trigger( 'input' );
 
@@ -353,13 +344,7 @@ describe( 'Cancel donations view errors', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( {
-				result: {
-					message: 'API error'
-				}
-			}
-		);
-
+		).mockRejectedValueOnce( 'API_error' );
 		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
 
 		const selectedPeriod = cancelDonationsViewBody.find( '#option-90days' );
@@ -434,12 +419,7 @@ describe( 'Cancel donations view errors', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( {
-				result: {
-					message: 'API error'
-				}
-			}
-		);
+		).mockRejectedValueOnce( 'API_error' );
 
 		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
 		await proceedCancelButton.trigger( 'click' );
@@ -506,7 +486,7 @@ describe( 'Cancel donations view errors', () => {
 
 	} );
 
-	it( 'Renders the cancel confirmation page and the recurring error view on failed cancel', async () => {
+	it( 'Renders the cancel confirmation page and the recurring error view on failed cancel due to loss of session', async () => {
 		const wrapper = VueTestUtils.mount( CancelDonationsView, {
 			global: {
 				plugins: [ router ]
@@ -517,12 +497,7 @@ describe( 'Cancel donations view errors', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( {
-				result: {
-					message: 'API error'
-				}
-			}
-		);
+		).mockRejectedValueOnce( 'no-session' );
 
 		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
 		await proceedCancelButton.trigger( 'click' );
@@ -549,7 +524,7 @@ describe( 'Cancel donations view errors', () => {
 		// Ensure recurring failure text is visible on first load
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
+		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
 
 	} );
 } );

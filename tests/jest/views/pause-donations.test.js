@@ -112,9 +112,7 @@ describe( 'Pause donations view', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( {
-				message: 'API error'
-			} )
+			() => Promise.reject( 'API_error'  )
 		);
 
 		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
@@ -176,9 +174,7 @@ describe( 'Pause donations view renders appropiate errors', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( {
-				message: 'API error'
-			} )
+			() => Promise.reject( 'API_error'  )
 		);
 
 		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
