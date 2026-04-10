@@ -26,7 +26,7 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 			self::LOGGER_SUFFIX,
 			self::LOGGER_PREFIX );
 
-		$email = $this->getRequest()->getVal( 'email' );
+		$email = trim( $this->getRequest()->getVal( 'email' ) );
 		$page = $this->getRequest()->getVal( 'page' );
 		$subpage = $this->getRequest()->getVal( 'subpage' );
 

@@ -195,7 +195,7 @@ module.exports = exports = defineComponent( {
 			} );
 		},
 		handleInputChange( e ) {
-			this.donorEmail = e.target.value;
+			this.donorEmail = e.target.value.trim();
 			this.api_error = '';
 		}
 	},
