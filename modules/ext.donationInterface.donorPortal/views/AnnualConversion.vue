@@ -13,7 +13,7 @@
 		></recurring-annual-conversion-success>
 		<recurring-annual-conversion-error
 			v-else-if="flags.donationAnnualConversionError"
-			:failure-message="annualConversionErrorMessage"
+			:error-code="errorCode"
 		></recurring-annual-conversion-error>
 	</div>
 </template>
@@ -26,7 +26,6 @@ const RecurringContributionAnnualConversionSuccessful = require( '../components/
 const RecurringAnnualConversionForm = require( '../components/RecurringContributionAnnualConversionForm.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
 const { requestAnnualConversion } = require( '../ApiUtils.js' );
-const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AnnualConversionView',
@@ -82,18 +81,6 @@ module.exports = exports = defineComponent( {
 			submitAnnualConversion,
 			recurringUpgradeMaxUSD
 		};
-	},
-	computed: {
-		annualConversionErrorMessage() {
-			const errorMessageMap = errorMessageMapFunction( this.$i18n );
-			if ( this.errorCode ) {
-				if ( errorMessageMap[ this.errorCode ] ) {
-					return errorMessageMap[ this.errorCode ];
-				}
-				return this.$i18n( 'donorportal-cancel-failure', mw.config.get( 'help_email' ) ).text();
-			}
-			return '';
-		}
 	}
 } );
 </script>

@@ -7,7 +7,10 @@
 			:duration-options="durationOptions"
 			:default-duration="durationOptions[0]"></recurring-pause-form>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
-		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="pauseErrorMessage"></recurring-pause-error>
+		<recurring-pause-error
+			v-else-if="flags.donationPauseError"
+			:error-code="pauseErrorCode"
+			fallback-message-key="donorportal-pause-failure"></recurring-pause-error>
 	</div>
 </template>
 
@@ -19,7 +22,6 @@ const RecurringContributionPauseForm = require( '../components/RecurringContribu
 const RecurringContributionPauseSuccessful = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
 const { requestRecurringPause } = require( '../ApiUtils.js' );
-const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PauseDonationsView',
@@ -80,16 +82,6 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
-		pauseErrorMessage() {
-			const errorMessageMap = errorMessageMapFunction( this.$i18n );
-			if ( this.pauseErrorCode ) {
-				if ( errorMessageMap[ this.pauseErrorCode ] ) {
-					return errorMessageMap[ this.pauseErrorCode ];
-				}
-				return this.$i18n( 'donorportal-pause-failure', mw.config.get( 'help_email' ) ).text();
-			}
-			return '';
-		},
 		durationOptions() {
 			return [
 				{

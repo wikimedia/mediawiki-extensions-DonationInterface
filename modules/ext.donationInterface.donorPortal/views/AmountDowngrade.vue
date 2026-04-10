@@ -12,7 +12,7 @@
 			:next-sched-contribution-date="nextSchedContributionDate"
 			:new-amount="newAmount"
 		></recurring-update-success>
-		<recurring-update-error v-else-if="flags.donationUpdateError" :failure-message="updateErrorMessage"></recurring-update-error>
+		<recurring-update-error v-else-if="flags.donationUpdateError" :error-code="errorCode"></recurring-update-error>
 	</div>
 </template>
 
@@ -24,7 +24,6 @@ const RecurringContributionUpdateForm = require( '../components/RecurringContrib
 const RecurringContributionUpdateSuccessful = require( '../components/RecurringContributionUpdateSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
 const { requestRecurringUpdate } = require( '../ApiUtils.js' );
-const { errorMessageMapFunction } = require( '../ErrorUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AmountDowngradeView',
@@ -84,18 +83,6 @@ module.exports = exports = defineComponent( {
 			currencyRateArray,
 			recurringUpgradeMaxUSD
 		};
-	},
-	computed: {
-		updateErrorMessage: function () {
-			const errorMessageMap = errorMessageMapFunction( this.$i18n );
-			if ( this.errorCode ) {
-				if ( errorMessageMap[ this.errorCode ] ) {
-					return errorMessageMap[ this.errorCode ];
-				}
-				return this.$i18n( 'donorportal-cancel-failure', mw.config.get( 'help_email' ) ).text();
-			}
-			return '';
-		}
 	}
 } );
 </script>

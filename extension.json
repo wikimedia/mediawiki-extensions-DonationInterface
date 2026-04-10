@@ -314,7 +314,6 @@
 				"modules/ext.donationInterface.donorPortal/trackingParams.js",
 				"modules/ext.donationInterface.donorPortal/normalizeInput.js",
 				"modules/ext.donationInterface.donorPortal/ApiUtils.js",
-				"modules/ext.donationInterface.donorPortal/ErrorUtils.js",
 				"modules/ext.donationInterface.donorPortal/views/CancelDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/UpdateDonations.vue",
 				"modules/ext.donationInterface.donorPortal/views/Home.vue",
