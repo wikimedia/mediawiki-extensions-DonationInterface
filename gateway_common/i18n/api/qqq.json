@@ -28,6 +28,7 @@
 			"Тест"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Error message returned when an invalid email address is submitted to the donor portal login API",
 	"apierror-donorportal-bad-contact-id": "Error message returned when a contact ID not found in session is submitted to the donor portal API endpoints",
 	"apierror-donorportal-bad-contribution-recur-id": "Error message returned when a contribution recur ID not found in session is submitted to the donor portal API endpoints",
 	"apierror-donorportal-no-session": "Error message returned when submitting to the donor portal APIs with no session active",

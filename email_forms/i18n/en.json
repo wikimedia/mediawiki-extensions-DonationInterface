@@ -93,6 +93,7 @@
 	"donorportal-header-my-portal": "My Donor Account",
 	"donorportal-header-logout": "Log out",
 	"donorportal-email-required": "Email is required",
+	"donorportal-invalid-email-error-message": "Please enter a valid email address.",
 	"donorportal-something-wrong": "Something is wrong, please check your input",
 	"donorportal-civi-unavailable-error-message": "We are currently performing maintenance on our donor database. You may still request a login link, and we will send it as soon as the maintenance is complete.",
 	"donorportal-invalid-credentials-error-message": "Your session has expired. Please login again to access your account.",

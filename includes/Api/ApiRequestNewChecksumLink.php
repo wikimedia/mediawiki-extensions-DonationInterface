@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\DonationInterface\Api;
 
 use DonationLoggerFactory;
+use MediaWiki\Api\ApiUsageException;
 use RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -13,6 +14,7 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 	private const LOGGER_DEBUG_VERBOSE_LEVEL = true;
 	private const LOGGER_PREFIX = null;
 	private const LOGGER_SUFFIX = '';
+	private const ERROR_INVALID_EMAIL = 'invalid_email';
 
 	public function execute() {
 		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestNewChecksumLink' ) ) {
@@ -82,7 +84,7 @@ class ApiRequestNewChecksumLink extends \ApiBase {
 
 	protected function validateEmail( string $email ): void {
 		if ( !filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-			throw new \InvalidArgumentException( "Bad parameter '$email' - should be an email address." );
+			throw ApiUsageException::newWithMessage( $this, 'apierror-donorportal-invalid-email', self::ERROR_INVALID_EMAIL );
 		}
 	}
 

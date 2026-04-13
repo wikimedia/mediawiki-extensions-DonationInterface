@@ -17,7 +17,7 @@
 					</p>
 				</div>
 				<form class="auth__form send-new-link">
-					<div class="cdx-text-input">
+					<div class="cdx-text-input" :class="[ { 'cdx-text-input--status-error': api_error === 'invalid_email' || api_error === 'missingparam' } ]">
 						<input
 							id="new-checksum-link-email"
 							ref="new-checksum-link-email"
@@ -45,7 +45,8 @@
 				</p>
 				<p
 					id="error-message-text"
-					class="error-message-text text--body-small"
+					class="text--body-small"
+					:class="[ { 'invalid-error-message-text': api_error === 'invalid_email' || api_error === 'InvalidCredentials' || api_error === 'missingparam' } ]"
 					:style="`display: ${error_message ? 'block' : 'none'};`">
 					{{ error_message }}
 				</p>
@@ -134,6 +135,8 @@ module.exports = exports = defineComponent( {
 						return this.$i18n( 'donorportal-email-required' ).text();
 					case 'Unreachable':
 						return this.$i18n( 'donorportal-civi-unavailable-error-message' ).text();
+					case 'invalid_email':
+						return this.$i18n( 'donorportal-invalid-email-error-message' ).text();
 					case 'InvalidCredentials':
 						return this.$i18n( 'donorportal-invalid-credentials-error-message' ).text();
 					default:
