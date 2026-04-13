@@ -13,9 +13,12 @@
 			:submit-cancel-recurring-form="submitCancelRecurring"
 		></recurring-cancel-confirmation>
 		<recurring-cancel-success v-else-if="flags.donationCancelSuccessful" :recurring-contribution="recurringContribution"></recurring-cancel-success>
-		<recurring-cancel-error v-else-if="flags.donationCancelError" :failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"></recurring-cancel-error>
+		<recurring-cancel-error v-else-if="flags.donationCancelError" :error-code="cancelErrorCode"></recurring-cancel-error>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
-		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="$i18n( 'donorportal-pause-failure', helpEmail ).text()"></recurring-pause-error>
+		<recurring-pause-error
+			v-else-if="flags.donationPauseError"
+			:error-code="pauseErrorCode"
+			fallback-message-key="donorportal-pause-failure"></recurring-pause-error>
 	</div>
 </template>
 
@@ -28,7 +31,7 @@ const RecurringContributionCancelSuccessful = require( '../components/RecurringC
 const RecurringContributionCancelConfirmation = require( '../components/RecurringContributionCancelConfirmation.vue' );
 const RecurringContributionPauseSuccess = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { requestRecurringPause, requestRecurringCancel } = require( '../ApiUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -43,7 +46,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const contributionRecurId = route.params.id;
 
 		let recurringContributionRecord = donorData
@@ -55,6 +57,8 @@ module.exports = exports = defineComponent( {
 
 		const recurringContribution = ref( recurringContributionRecord );
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
+		const pauseErrorCode = ref( '' );
+		const cancelErrorCode = ref( '' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
 			donationCancelSuccessful: false,
@@ -64,31 +68,21 @@ module.exports = exports = defineComponent( {
 			donationPauseError: false
 		} );
 
-		function requestRecurringPause( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
-		}
-		function requestRecurringCancel( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestCancelRecurring' );
-		}
-
 		const submitPauseRecurringDuration = ( duration ) => {
 			const durationInDays = `${ duration } Days`;
 			const params = {
 				duration: durationInDays,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				next_sched_contribution_date: nextSchedContributionDate.value,
 				is_from_save_flow: true
 			};
 			trackingParams.addTo( params );
-			requestRecurringPause( params ).then( ( data ) => {
+			requestRecurringPause( recurringContributionRecord, params ).then( ( data ) => {
 				// TODO: Set next scheduled date in global store
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.showForm = false;
 				flags.donationPauseSuccessful = true;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				pauseErrorCode.value = code || 'unknown';
 				flags.donationPauseError = true;
 				flags.showForm = false;
 			} );
@@ -96,20 +90,16 @@ module.exports = exports = defineComponent( {
 
 		const submitCancelRecurring = ( reason ) => {
 			const params = {
-				reason,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId )
+				reason
 			};
 			trackingParams.addTo( params );
-			requestRecurringCancel( params ).then( () => {
+			requestRecurringCancel( recurringContributionRecord, params ).then( () => {
 				// TODO: Set cancel state in global store
-
 				flags.showForm = false;
 				flags.showConfirmation = false;
 				flags.donationCancelSuccessful = true;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				cancelErrorCode.value = code || 'unknown';
 				flags.donationCancelError = true;
 				flags.showConfirmation = false;
 				flags.showForm = false;
@@ -122,9 +112,10 @@ module.exports = exports = defineComponent( {
 		};
 
 		return {
-			helpEmail,
 			recurringContribution,
 			nextSchedContributionDate,
+			pauseErrorCode,
+			cancelErrorCode,
 			flags,
 			submitPauseRecurringDuration,
 			submitCancelRecurring,

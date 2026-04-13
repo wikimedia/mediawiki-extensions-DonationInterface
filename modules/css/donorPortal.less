@@ -1233,6 +1233,25 @@ p.popup-body {
 	.dp-table__disclaimer {
 		padding: @padding-base @padding-small;
 	}
+
+	#form-convert-yearly label > .box__inner {
+		flex-flow: row wrap;
+		align-items: center;
+	}
+
+	#form-convert-yearly label > .box__inner > .cdx-radio {
+		display: inline-flex;
+		flex-shrink: 0;
+	}
+
+	#form-convert-yearly label > .box__inner > .text {
+		flex: 1;
+		min-width: 0;
+	}
+
+	#form-convert-yearly label > .box__inner > .dp-input-group {
+		flex-basis: 100%;
+	}
 }
 
 @media screen and ( min-width: 640px ) {

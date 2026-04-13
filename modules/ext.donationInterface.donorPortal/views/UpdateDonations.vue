@@ -11,7 +11,7 @@
 			:next-sched-contribution-date="nextSchedContributionDate"
 			:new-amount="newAmount"
 		></recurring-update-success>
-		<recurring-update-error v-else-if="flags.donationUpdateError" :failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"></recurring-update-error>
+		<recurring-update-error v-else-if="flags.donationUpdateError" :error-code="errorCode"></recurring-update-error>
 	</div>
 </template>
 
@@ -22,7 +22,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionUpdateForm = require( '../components/RecurringContributionUpdateForm.vue' );
 const RecurringContributionUpdateSuccessful = require( '../components/RecurringContributionUpdateSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { requestRecurringUpdate } = require( '../ApiUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'CancelDonationsView',
@@ -34,7 +34,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 
 		const contributionRecurId = route.params.id;
@@ -47,6 +46,7 @@ module.exports = exports = defineComponent( {
 		}
 
 		const newAmount = ref( recurringContributionRecord.currency + ' ' + recurringContributionRecord.amount );
+		const errorCode = ref( '' );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
@@ -54,24 +54,18 @@ module.exports = exports = defineComponent( {
 			donationUpdateError: false
 		} );
 
-		function requestRecurringUpdate( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestUpdateRecurring' );
-		}
-
 		const submitUpdateRecurring = ( amount ) => {
 			const params = {
 				amount: amount,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				txn_type: amount > recurringContributionRecord.amount ? 'recurring_upgrade' : 'recurring_downgrade'
 			};
 			trackingParams.addTo( params );
 			newAmount.value = recurringContributionRecord.currency_symbol + amount + ' ' +  recurringContributionRecord.currency;
-			requestRecurringUpdate( params ).then( () => {
+			requestRecurringUpdate( recurringContributionRecord, params ).then( () => {
 				flags.showForm = false;
 				flags.donationUpdateSuccessful = true;
-			} ).catch( () => {
+			} ).catch( ( code ) => {
+				errorCode.value = code || 'unknown';
 				flags.donationUpdateError = true;
 				flags.showForm = false;
 			} );
@@ -79,8 +73,8 @@ module.exports = exports = defineComponent( {
 
 		return {
 			recurringContribution: recurringContributionRecord,
+			errorCode,
 			flags,
-			helpEmail,
 			newAmount,
 			nextSchedContributionDate: recurringContributionRecord.next_sched_contribution_date_formatted,
 			submitUpdateRecurring,

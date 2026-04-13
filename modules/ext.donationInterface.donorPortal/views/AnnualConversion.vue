@@ -13,19 +13,19 @@
 		></recurring-annual-conversion-success>
 		<recurring-annual-conversion-error
 			v-else-if="flags.donationAnnualConversionError"
-			:failure-message="$i18n( 'donorportal-cancel-failure', helpEmail ).text()"
+			:error-code="errorCode"
 		></recurring-annual-conversion-error>
 	</div>
 </template>
 
 <script>
-const { defineComponent, reactive } = require( 'vue' );
+const { defineComponent, reactive, ref } = require( 'vue' );
 const { useRoute } = require( 'vue-router' );
 const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionAnnualConversionSuccessful = require( '../components/RecurringContributionAnnualConversionSuccess.vue' );
 const RecurringAnnualConversionForm = require( '../components/RecurringContributionAnnualConversionForm.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { requestAnnualConversion } = require( '../ApiUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'AnnualConversionView',
@@ -37,7 +37,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const recurringUpgradeMaxUSD = mw.config.get( 'recurringUpgradeMaxUSD' );
 		const currencyRateArray = mw.config.get( 'wgDonationInterfaceCurrencyRates' );
 		const contributionRecurId = route.params.id;
@@ -49,39 +48,34 @@ module.exports = exports = defineComponent( {
 			recurringContributionRecord = {};
 		}
 
+		const errorCode = ref( '' );
 		const flags = reactive( {
 			showForm: recurringContributionRecord.can_modify,
 			donationAnnualConversionSuccessful: false,
 			donationAnnualConversionError: false
 		} );
 
-		function requestAnnualConversion( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestAnnualConversion' );
-		}
-
 		const submitAnnualConversion = ( amount ) => {
 			const params = {
 				amount,
-				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum,
-				contribution_recur_id: Number( contributionRecurId ),
 				next_sched_contribution_date: recurringContributionRecord.next_contribution_date_yearly,
 				is_from_save_flow: isSave
 			};
 			trackingParams.addTo( params );
-			requestAnnualConversion( params ).then( () => {
+			requestAnnualConversion( recurringContributionRecord, params ).then( () => {
 				flags.showForm = false;
 				flags.donationAnnualConversionSuccessful = true;
-			} ).catch( () => {
+			} ).catch( ( code ) => {
+				errorCode.value = code || 'unknown';
 				flags.donationAnnualConversionError = true;
 				flags.showForm = false;
 			} );
 		};
 
 		return {
-			helpEmail,
 			recurringContribution: recurringContributionRecord,
 			nextYearlySchedContributionDateFormatted: recurringContributionRecord.next_contribution_date_yearly_formatted,
+			errorCode,
 			flags,
 			currencyRateArray,
 			submitAnnualConversion,

@@ -460,7 +460,7 @@
 	"donate_interface-monthlybox-yes": "Ja, ik wil deze overschrijving maandelijks uitvoeren.",
 	"donate_interface-monthlybox-no": "Nee, ik wil een eenmalige donatie maken",
 	"donate_interface-monthlybox-bottom": "Uw donatie wordt veilig verwerkt.",
-	"donate_interface-monthly-cancel": "Als je een periodieke donateur bent, schrijft de Wikimedia Foundation elke maand een bedrag af op dezelfde dag waarop de eerste donatie werd verricht, totdat je aangeeft dat je de donatie wilt stopzetten. Donaties die voor het eerst zijn verricht op de 29e, 30e of 31e van de maand worden in de korte maanden op de laatste dag van de maand afgeschreven, zo dicht mogelijk bij de oorspronkelijke datum. Voor vragen kun je terecht bij $1.",
+	"donate_interface-monthly-cancel": "Maandelijkse donaties worden elke maand op dezelfde datum als uw eerste gift afgeschreven, totdat u ze annuleert. Donaties die op de 29e, 30e of 31e van de maand worden gedaan, worden op de laatste dag van de kortere maand afgeschreven. Jaarlijks terugkerende donaties worden afgeschreven op de dag van de eerste gift. Neem voor vragen alstublieft contact op met $1.",
 	"donate_interface-onetime": "Maak een eenmalige donatie",
 	"donate_interface-monthly-short": "Maandelijks",
 	"donate_interface-onetime-short": "Eenmalig",

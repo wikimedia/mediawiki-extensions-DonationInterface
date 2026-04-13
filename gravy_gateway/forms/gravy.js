@@ -510,7 +510,7 @@
 			extraData.postal_code = bContact.postalCode;
 			extraData.state_province = bContact.administrativeArea;
 			extraData.city = bContact.locality;
-			if ( bContact.addressLines.length > 0 ) {
+			if ( Array.isArray( bContact.addressLines ) && bContact.addressLines.length > 0 ) {
 				extraData.street_address = bContact.addressLines[ 0 ];
 			}
 			extraData.email = sContact.emailAddress;

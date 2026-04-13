@@ -7,7 +7,10 @@
 			:duration-options="durationOptions"
 			:default-duration="durationOptions[0]"></recurring-pause-form>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
-		<recurring-pause-error v-else-if="flags.donationPauseError" :failure-message="$i18n( 'donorportal-pause-failure', helpEmail ).text()"></recurring-pause-error>
+		<recurring-pause-error
+			v-else-if="flags.donationPauseError"
+			:error-code="pauseErrorCode"
+			fallback-message-key="donorportal-pause-failure"></recurring-pause-error>
 	</div>
 </template>
 
@@ -18,7 +21,7 @@ const trackingParams = require( '../trackingParams.js' );
 const RecurringContributionPauseForm = require( '../components/RecurringContributionPauseForm.vue' );
 const RecurringContributionPauseSuccessful = require( '../components/RecurringContributionPauseSuccess.vue' );
 const ErrorComponent = require( '../components/ErrorComponent.vue' );
-const { apiPostAction } = require( '../apiPostAction.js' );
+const { requestRecurringPause } = require( '../ApiUtils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PauseDonationsView',
@@ -31,7 +34,6 @@ module.exports = exports = defineComponent( {
 	setup() {
 		const route = useRoute();
 		const donorData = mw.config.get( 'donorData' );
-		const helpEmail = mw.config.get( 'help_email' );
 		const contribution_recur_id = route.params.id;
 
 		let recurringContributionRecord = donorData
@@ -44,43 +46,37 @@ module.exports = exports = defineComponent( {
 		const contact_id = donorData.contact_id;
 		const checksum = donorData.checksum;
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
+		const pauseErrorCode = ref( '' );
 		const flags = reactive( {
 			donationPauseSuccessful: false,
 			donationPauseError: false,
 			showDonationPauseForm: true
 		} );
 
-		function requestRecurringPause( params ) {
-			return apiPostAction( recurringContributionRecord, params, 'requestPauseRecurring' );
-		}
-
 		function submitPauseRecurringDuration( duration ) {
 			const durationInDays = `${ duration } Days`;
 			const params = {
 				duration: durationInDays,
-				contact_id: Number( contact_id ),
-				checksum: checksum,
-				contribution_recur_id: Number( contribution_recur_id ),
 				next_sched_contribution_date: nextSchedContributionDate.value,
 				is_from_save_flow: false
 			};
 			trackingParams.addTo( params );
-			requestRecurringPause( params ).then( ( data ) => {
+			requestRecurringPause( recurringContributionRecord, params ).then( ( data ) => {
 				// TODO: Set next scheduled date in global store
 				nextSchedContributionDate.value = data.result.next_sched_contribution_date;
 				flags.donationPauseSuccessful = true;
 				flags.showDonationPauseForm = false;
-			} ).catch( () => {
-				// TODO: Add the error to logger
+			} ).catch( ( code ) => {
+				pauseErrorCode.value = code || 'unknown';
 				flags.donationPauseError = true;
 				flags.showDonationPauseForm = false;
 			} );
 		}
 
 		return {
-			helpEmail,
 			recurringContributionRecord,
 			nextSchedContributionDate,
+			pauseErrorCode,
 			flags,
 			submitPauseRecurringDuration
 		};

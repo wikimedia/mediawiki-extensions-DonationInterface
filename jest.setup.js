@@ -56,10 +56,7 @@ const mw = {
 	config: {
 		get: jest.fn()
 	},
-	message: jest.fn( ( key ) => ( {
-		text: jest.fn( () => key ),
-		parse: jest.fn()
-	} ) ),
+	message: $i18nMock,
 	msg: jest.fn( ( key ) => key ),
 	user: {
 		getId: jest.fn(),
