@@ -8,6 +8,7 @@
 			"ToBeFree"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Ungültige E-Mail-Adresse",
 	"apierror-donorportal-bad-contact-id": "Ungültige contact_id – bitte lade das Spenderportal neu.",
 	"apierror-donorportal-bad-contribution-recur-id": "Ungültige contribution_recur_id – bitte lade das Spenderportal neu.",
 	"apierror-donorportal-no-session": "Keine Sitzung im Spenderportal – bitte lade das Spenderportal neu.",

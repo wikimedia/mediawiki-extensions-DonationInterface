@@ -8,6 +8,9 @@
 			"ديفيد"
 		]
 	},
+	"apierror-donorportal-bad-contact-id": "معرف جهة الاتصال غير صحيح - يرجى إعادة تحميل بوابة المتبرعين",
+	"apierror-donorportal-bad-contribution-recur-id": "معرف المساهمة المتكرر غير صالح - يرجى إعادة تحميل بوابة المتبرعين",
+	"apierror-donorportal-no-session": "لا توجد جلسة في بوابة المتبرعين - يرجى إعادة تحميل بوابة المتبرعين",
 	"apihelp-donate-summary": "تسمح لك API هذه بتقديم تبرع لمؤسسة ويكيميديا ​​باستخدام مجموعة متنوعة من معالجات الدفع.",
 	"apihelp-donate-param-gateway": "أي بوابة دفع لاستخدامها، adyen، ingenico، إلخ.",
 	"apihelp-donate-param-amount": "المبلغ الممنوح.",
@@ -70,6 +73,9 @@
 	"apihelp-requestNewChecksumLink-param-email": "عنوان البريد الإلكتروني للمتبرع الذي يطلب الرابط",
 	"apihelp-requestNewChecksumLink-param-page": "الصفحة التي نريد رابطًا لها، على سبيل المثال RecurUpgrade أو EmailPreferences",
 	"apihelp-requestNewChecksumLink-param-subpage": "الصفحة الفرعية التي نريد رابطًا لها. اختياري.",
+	"apihelp-requestLogout-summary": "تقوم واجهة برمجة التطبيقات هذه بإبطال مجموع التحقق الخاص بالمتبرع لتسجيل خروجه",
+	"apihelp-requestLogout-param-contact_id": "معرّف جهة الاتصال الخاصة بالمتبرع الذي يقوم بتسجيل الخروج",
+	"apihelp-requestLogout-param-checksum": "مجموع التحقق لإبطال",
 	"apihelp-requestUpdateRecurring-summary": "تطلب واجهة برمجة التطبيقات هذه تحديث مبلغ المساهمة المتكررة من صفحة تفضيلات المتبرع",
 	"apihelp-requestUpdateRecurring-param-amount": "المبلغ الجديد الذي يطلب المتبرع التبرع به في المستقبل",
 	"apihelp-requestUpdateRecurring-param-txn_type": "نوع المعاملة، مثل تخفيض الإصدار أو الترقية، عند تحديث المبلغ المتكرر",
