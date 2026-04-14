@@ -52,7 +52,7 @@
 		return {
 			client: braintreeClientInstance,
 			allowDesktop: true,
-			mobileWebFallBack: false, // if mobile do not install venmo app, do not allow login, works bad
+			mobileWebFallBack: true,
 			allowNewBrowserTab: true,
 			allowDesktopWebLogin: true, // force web login, QR code depreciate
 			paymentMethodUsage: getPaymentMethodUsage(),
