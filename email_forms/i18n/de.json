@@ -99,6 +99,7 @@
 	"donorportal-header-my-portal": "Mein Spenderkonto",
 	"donorportal-header-logout": "Abmelden",
 	"donorportal-email-required": "E-Mail ist erforderlich",
+	"donorportal-invalid-email-error-message": "Bitte gib eine gültige E-Mail-Adresse ein",
 	"donorportal-something-wrong": "Irgendwas stimmt nicht, bitte überprüfen Sie Ihre Eingabe.",
 	"donorportal-civi-unavailable-error-message": "Wir führen derzeit Wartungsarbeiten an unserer Spenderdatenbank durch. Sie können weiterhin einen Anmeldelink anfordern; wir senden ihn Ihnen zu, sobald die Wartungsarbeiten abgeschlossen sind.",
 	"donorportal-invalid-credentials-error-message": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an, um auf Ihr Konto zuzugreifen.",
