@@ -99,6 +99,7 @@
 	"donorportal-header-my-portal": "Mijn donateursaccount",
 	"donorportal-header-logout": "Afmelden",
 	"donorportal-email-required": "E-mailadres is vereist",
+	"donorportal-invalid-email-error-message": "Voer een geldig e-mailadres in.",
 	"donorportal-something-wrong": "Er is iets mis, controleer uw invoer",
 	"donorportal-civi-unavailable-error-message": "Momenteel voeren we onderhoud uit aan onze donateursdatabase. U kunt nog steeds een aanmeldkoppeling aanvragen; we sturen deze toe zodra het onderhoud is voltooid.",
 	"donorportal-invalid-credentials-error-message": "Uw sessie is verlopen. Meld opnieuw aan om toegang te krijgen tot uw account.",

@@ -5,6 +5,7 @@
 			"Toliño"
 		]
 	},
+	"apierror-donorportal-invalid-email": "O enderezo de correo electrónico non é válido",
 	"apierror-donorportal-bad-contact-id": "«contact_id» incorrecto; recarga o portal de doantes",
 	"apierror-donorportal-bad-contribution-recur-id": "«contribution_recur_id» incorrecto; recarga o portal de doantes",
 	"apierror-donorportal-no-session": "Non hai ningunha sesión no portal de doantes; recarga o portal de doantes",

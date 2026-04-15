@@ -6,6 +6,7 @@
 			"Volvox"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Ongülteg E-Mail-Adress",
 	"apihelp-donate-param-amount": "De Betrag vum Don",
 	"apihelp-donate-param-currency": "Code vun der Wärung.",
 	"apihelp-donate-param-first_name": "Virnumm.",

@@ -6,6 +6,7 @@
 			"Milicevic01"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Неисправна имејл адреса",
 	"apihelp-donate-param-first_name": "Име.",
 	"apihelp-donate-param-last_name": "Презиме.",
 	"apihelp-donate-param-city": "Град.",
