@@ -21,7 +21,7 @@
 		"babel-core": "^6.26.3",
 		"eslint-config-wikimedia": "0.32.3",
 		"eslint-plugin-jest": "27.2.1",
-		"grunt": "1.6.1",
+		"grunt": "1.6.2",
 		"grunt-banana-checker": "0.13.0",
 		"grunt-eslint": "24.3.0",
 		"grunt-stylelint": "0.20.1",
