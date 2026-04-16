@@ -30,7 +30,7 @@ ew:
     - 'NO'
 
 rtbt:
-  recurring: false
+  recurring: true
   label: Real time bank transfer
   validation:
     country: true
