@@ -4,9 +4,11 @@
 			"Nike",
 			"Pyscowicz",
 			"Silvonen",
+			"Wikipeedikko",
 			"Yupik"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Virheellinen sähköpostiosoite",
 	"apihelp-donate-param-first_name": "Etunimi.",
 	"apihelp-donate-param-last_name": "Sukunimi.",
 	"apihelp-donate-param-street_address": "Katuosoitteen ensimmäinen rivi",

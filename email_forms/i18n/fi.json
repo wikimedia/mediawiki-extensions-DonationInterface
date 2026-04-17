@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Minilammas",
-			"Samoasambia"
+			"Samoasambia",
+			"Wikipeedikko"
 		]
 	},
 	"donorportal-title": "Wikimedia-säätiön lahjoittajaportaali",
@@ -69,6 +70,7 @@
 	"donorportal-header-participate": "Mitä voit tehdä",
 	"donorportal-header-news": "Uutiset",
 	"donorportal-email-required": "Sähköpostiosoite vaaditaan",
+	"donorportal-invalid-email-error-message": "Anna kelvollinen sähköpostiosoite.",
 	"donorportal-something-wrong": "Jokin on vialla, tarkista syötteesi",
 	"donorportal-return-to-account-button": "Takaisin tunnuksellesi",
 	"donorportal-cancel-recurring-other-ways-text-line2-emphasis": "Mikään lahjoitus ei ole liian pieni tehdäkseen vaikutusta.",
