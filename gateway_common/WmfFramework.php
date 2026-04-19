@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Config\Config;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Session\SessionManager;
 use Wikimedia\IPUtils;

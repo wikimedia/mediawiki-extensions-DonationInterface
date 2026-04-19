@@ -1,6 +1,7 @@
 <?php
 
 use LightnCandy\LightnCandy;
+use MediaWiki\Context\RequestContext;
 use Wikimedia\Message\MessageParam;
 use Wikimedia\Message\MessageSpecifier;
 

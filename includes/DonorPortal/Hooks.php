@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\DonationInterface\DonorPortal;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\MainConfigNames;
 use MediaWiki\ResourceLoader\Context;
 use MediaWiki\ResourceLoader\FilePath;

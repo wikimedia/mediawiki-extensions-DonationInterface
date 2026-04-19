@@ -1,4 +1,8 @@
 <?php
+
+use MediaWiki\Context\RequestContext;
+use MediaWiki\Output\OutputPage;
+
 /**
  * In this class we implement all the logic we need to make customizations
  * to the forms based on whether a donation is bound for the endowment.

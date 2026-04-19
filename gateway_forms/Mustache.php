@@ -1,6 +1,7 @@
 <?php
 
 use LightnCandy\LightnCandy;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\MediaWikiServices;
 use SmashPig\Core\PaymentError;

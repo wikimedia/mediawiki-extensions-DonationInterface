@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
+
 class TestingGatewayPage extends GatewayPage {
 
 	/** @inheritDoc */

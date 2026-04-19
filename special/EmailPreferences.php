@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\CLDR\LanguageNames;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;

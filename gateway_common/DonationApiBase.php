@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
 use SmashPig\Core\Logging\Logger;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;

@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Tests\Api\ApiTestCase;
 use Wikimedia\TestingAccessWrapper;
 
 /**

@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Api\ApiBase;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\ParamValidator\ParamValidator;
 

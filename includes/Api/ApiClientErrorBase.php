@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\DonationInterface\Api;
 
-use ApiBase;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
 use Psr\Log\LoggerInterface;
-use RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
 use WmfFramework;
 

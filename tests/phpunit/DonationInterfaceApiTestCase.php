@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Session\Token;
+use MediaWiki\Tests\Api\ApiTestCase;
 
 class DonationInterfaceApiTestCase extends ApiTestCase {
 	/** @var string */

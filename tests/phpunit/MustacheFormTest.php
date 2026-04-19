@@ -20,6 +20,7 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\OutputTransform\OutputTransformPipeline;
 use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserFactory;
 use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;

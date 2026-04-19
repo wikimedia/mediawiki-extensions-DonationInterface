@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Context\RequestContext;
+
 class Frictionless3DSecure extends Abstract3DSecure {
 
 	/**

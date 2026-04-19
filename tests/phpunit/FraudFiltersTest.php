@@ -16,6 +16,7 @@
  *
  */
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Tests\MinFraudTestTrait;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\CrmLink\Messages\SourceFields;

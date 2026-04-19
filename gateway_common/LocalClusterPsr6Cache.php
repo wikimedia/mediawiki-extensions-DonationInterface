@@ -2,6 +2,9 @@
 
 use Addshore\Psr\Cache\MWBagOStuffAdapter\BagOStuffPsrCache;
 use MediaWiki\MediaWikiServices;
+use Wikimedia\ObjectCache\BagOStuff;
+use Wikimedia\ObjectCache\EmptyBagOStuff;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * A PSR-6 compatible wrapper to let SmashPig objects use Mediawiki's
