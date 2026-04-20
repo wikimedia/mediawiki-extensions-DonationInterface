@@ -69,6 +69,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
 		$gravyReconciliationId = substr( str_shuffle( 'abcdefghijklmnopqrstuvwxyz0123456789' ), 0, 22 );
 		$adyenTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
+		$paymentServiceId = '3c90c3cc-0d44-4b50-8888-8dd25736052a';
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedReturnUrl = Title::newFromText(
 			'Special:GravyGatewayResult'
@@ -129,7 +130,8 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			->setGatewayTxnId( $gravyTransactionId )
 			->setBackendProcessor( 'adyen' )
 			->setBackendProcessorTransactionId( $adyenTransactionId )
-			->setPaymentOrchestratorReconciliationId( $gravyReconciliationId );
+			->setPaymentOrchestratorReconciliationId( $gravyReconciliationId )
+			->setPaymentServiceId( $paymentServiceId );
 
 		$this->cardPaymentProvider->expects( $this->once() )
 			->method( 'approvePayment' )
@@ -156,6 +158,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 			'gross' => '1.55',
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $adyenTransactionId,
+			'payment_service_id' => $paymentServiceId,
 			'payment_orchestrator_reconciliation_id' => $gravyReconciliationId,
 			'currency' => 'USD',
 			'gateway' => 'gravy',

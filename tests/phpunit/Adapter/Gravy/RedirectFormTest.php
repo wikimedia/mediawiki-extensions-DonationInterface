@@ -281,6 +281,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 		$gateway = $this->getFreshGatewayObject( $init );
 		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
 		$braintreeTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
+		$paymentServiceId = '3c90c3cc-0d44-4b50-8888-8dd25736052a';
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedReturnUrl = Title::newFromText(
 			'Special:GravyGatewayResult'
@@ -367,6 +368,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 					->setGatewayTxnId( $gravyTransactionId )
 					->setBackendProcessor( 'braintree' )
 					->setBackendProcessorTransactionId( $braintreeTransactionId )
+					->setPaymentServiceId( $paymentServiceId )
 			);
 
 		$result = $gateway->processDonorReturn( $queryString );
@@ -380,6 +382,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 			'gross' => '1.55',
 			'backend_processor' => 'braintree',
 			'backend_processor_txn_id' => $braintreeTransactionId,
+			'payment_service_id' => $paymentServiceId,
 			'currency' => 'USD',
 			'gateway' => 'gravy',
 			'gateway_txn_id' => $gravyTransactionId,

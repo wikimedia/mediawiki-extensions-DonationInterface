@@ -1033,6 +1033,7 @@ class DonationData implements LogPrefixProvider {
 			'order_id',
 			'payment_method',
 			'payment_orchestrator_reconciliation_id',
+			'payment_service_id',
 			'payment_submethod',
 			'phone',
 			'postal_code',

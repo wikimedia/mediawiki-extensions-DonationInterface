@@ -575,6 +575,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				}
 			}
 			$responseData['backend_processor'] = $paymentResult->getBackendProcessor();
+			$responseData['payment_service_id'] = $paymentResult->getPaymentServiceId();
 			// Add in donor details
 			$donorDetails = $paymentResult->getDonorDetails();
 			if ( $donorDetails !== null ) {
