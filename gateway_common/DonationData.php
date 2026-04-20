@@ -1,4 +1,5 @@
 <?php
+use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\SequenceGenerators;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;

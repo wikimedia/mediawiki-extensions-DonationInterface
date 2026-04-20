@@ -3,12 +3,13 @@
 namespace MediaWiki\Extension\DonationInterface\Api;
 
 use DonationLoggerFactory;
+use MediaWiki\Api\ApiBase;
 use MediaWiki\Api\ApiUsageException;
-use RequestContext;
+use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
-class ApiRequestNewChecksumLink extends \ApiBase {
+class ApiRequestNewChecksumLink extends ApiBase {
 	private const LOGGER_IDENTIFIER = 'ApiRequestNewChecksumLink';
 	private const LOGGER_USE_SYSLOG = true;
 	private const LOGGER_DEBUG_VERBOSE_LEVEL = true;

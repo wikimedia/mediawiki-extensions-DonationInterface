@@ -27,6 +27,7 @@
 	"donorportal-header-news": "Вести",
 	"donorportal-header-logout": "Одјава",
 	"donorportal-email-required": "Имејл је обавезан",
+	"donorportal-invalid-email-error-message": "Молимо унесите ваљану имејл адресу.",
 	"donorportal-cancel-recurring-reason-other": "Друго",
 	"donorportal-cancel-recurring-changed-my-mind": "Предомислио сам се",
 	"donorportal-authentication-failure": "Нешто је пошло по злу, молимо покушајте поново касније или $1",

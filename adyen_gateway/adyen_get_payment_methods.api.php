@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Context\RequestContext;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 

@@ -94,6 +94,7 @@
 	"donorportal-header-my-portal": "A miña conta de doante",
 	"donorportal-header-logout": "Saír",
 	"donorportal-email-required": "O correo electrónico é obrigatorio",
+	"donorportal-invalid-email-error-message": "Escribe un enderezo de correo electrónico válido.",
 	"donorportal-something-wrong": "Algo está mal, revisa os datos introducidos",
 	"donorportal-civi-unavailable-error-message": "Nestes intres estamos a realizar mantemento na nosa base de datos de doantes. Podes solicitar unha ligazón de inicio de sesión e enviarémoscha en canto remate o mantemento.",
 	"donorportal-invalid-credentials-error-message": "A túa sesión caducou. Inicia sesión de novo para acceder á túa conta.",

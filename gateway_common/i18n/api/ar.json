@@ -8,6 +8,7 @@
 			"ديفيد"
 		]
 	},
+	"apierror-donorportal-invalid-email": "عنوان بريد إلكتروني غير صالح",
 	"apierror-donorportal-bad-contact-id": "معرف جهة الاتصال غير صحيح - يرجى إعادة تحميل بوابة المتبرعين",
 	"apierror-donorportal-bad-contribution-recur-id": "معرف المساهمة المتكرر غير صالح - يرجى إعادة تحميل بوابة المتبرعين",
 	"apierror-donorportal-no-session": "لا توجد جلسة في بوابة المتبرعين - يرجى إعادة تحميل بوابة المتبرعين",

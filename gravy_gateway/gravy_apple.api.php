@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
 use SmashPig\PaymentProviders\Gravy\ApplePayPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;

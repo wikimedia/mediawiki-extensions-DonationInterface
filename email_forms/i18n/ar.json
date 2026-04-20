@@ -98,6 +98,7 @@
 	"donorportal-header-my-portal": "حسابي للتبرع",
 	"donorportal-header-logout": "تسجيل الخروج",
 	"donorportal-email-required": "البريد الإلكتروني مطلوب",
+	"donorportal-invalid-email-error-message": "يرجى إدخال عنوان بريد إلكتروني صالح.",
 	"donorportal-something-wrong": "هناك خطأ ما، يرجى التحقق من إدخالك",
 	"donorportal-civi-unavailable-error-message": "نجري حاليًا صيانة لقاعدة بيانات المتبرعين. لا يزال بإمكانكم طلب رابط تسجيل الدخول، وسنرسله إليكم فور انتهاء الصيانة.",
 	"donorportal-invalid-credentials-error-message": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",

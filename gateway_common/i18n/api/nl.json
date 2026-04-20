@@ -7,6 +7,7 @@
 			"Siebrand"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Ongeldig e-mailadres",
 	"apierror-donorportal-bad-contact-id": "Ongeldig contact_id - laad het Donateursportaal opnieuw",
 	"apierror-donorportal-bad-contribution-recur-id": "Ongeldige contribution_recur_id - laad het Donateursportaal opnieuw",
 	"apierror-donorportal-no-session": "Geen sessie in het donateursportaal - laad het Donateursportaal opnieuw",

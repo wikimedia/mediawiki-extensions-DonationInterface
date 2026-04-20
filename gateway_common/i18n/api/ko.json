@@ -6,6 +6,7 @@
 			"아라"
 		]
 	},
+	"apierror-donorportal-invalid-email": "유효하지 않은 이메일 주소",
 	"apihelp-donate-param-amount": "기부한 금액입니다.",
 	"apihelp-donate-param-currency": "통화 코드.",
 	"apihelp-donate-param-first_name": "이름입니다.",

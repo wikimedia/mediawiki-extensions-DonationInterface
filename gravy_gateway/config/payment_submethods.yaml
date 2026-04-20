@@ -145,6 +145,12 @@ onlineBanking_CZ:
   countries:
     - CZ
 
+blik:
+  group: bt
+  countries:
+    - PL
+  recurring: false
+
 sepadirectdebit:
   group: rtbt
   countries:

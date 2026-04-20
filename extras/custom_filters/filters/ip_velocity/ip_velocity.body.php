@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Wikimedia\ObjectCache\BagOStuff;
 
 class Gateway_Extras_CustomFilters_IP_Velocity extends Gateway_Extras {
 
