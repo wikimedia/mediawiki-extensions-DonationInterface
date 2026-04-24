@@ -42,6 +42,16 @@ trait RecurringConversionTrait {
 				)
 			] );
 		}
+
+		// avoid processor_contact_id if not uuid
+		if ( !empty( $sessionData[ 'processor_contact_id' ] ) &&
+			!preg_match(
+				'/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i',
+				$sessionData[ 'processor_contact_id' ]
+			)
+		) {
+			unset( $sessionData[ 'processor_contact_id' ] );
+		}
 		// decline post Monthly convert recurring, should start remove recurring token from gateway
 		if ( isset( $_REQUEST['declineMonthlyConvert'] ) && $_REQUEST['declineMonthlyConvert'] ) {
 			$message = array_merge(
