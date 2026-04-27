@@ -580,8 +580,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			} elseif ( $this->getData_Unstaged_Escaped( 'recurring' ) && $paymentResult->isSuccessful() ) {
 				$this->logger->warning( 'No token found on successful recurring payment authorization response.' );
 			}
-
-			if ( $paymentResult->getProcessorContactID() != null ) {
+			if ( $this->isUUID( $paymentResult->getProcessorContactID() ) ) {
 				$responseData['processor_contact_id'] = $paymentResult->getProcessorContactID();
 			}
 			if ( !$this->getPaymentSubmethod() ) {
@@ -593,6 +592,16 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 
 		$this->addResponseData( $responseData );
+	}
+
+	/**
+	 * Test whether a (potentially null) string is a UUID
+	 * @param string|null $input
+	 * @return bool
+	 */
+	protected function isUUID( ?string $input ): bool {
+		return $input !== null &&
+			preg_match( '/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i', $input );
 	}
 
 	/**
