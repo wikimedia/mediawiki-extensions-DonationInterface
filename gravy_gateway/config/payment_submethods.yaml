@@ -490,6 +490,16 @@ pse:
     - CO
   logo: bank-pse.png
 
+breb:
+  label: Bre-B
+  group: bt
+  countries:
+    - CO
+  logo: bre-b.png
+  logo_hd:
+    2x: bre-b_2x.png
+    3x: bre-b_3x.png
+
 #puntored:
 #  label: Puntored
 #  group: cash
@@ -570,3 +580,8 @@ vipps:
   group: ew
   countries:
     - 'NO'
+
+yape:
+  group: ew
+  countries:
+    - PE

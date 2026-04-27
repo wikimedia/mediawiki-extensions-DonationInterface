@@ -23,6 +23,7 @@ class PaymentSettings extends UnlistedSpecialPage {
 		$this->getOutput()->setPageTitle( 'Payment Processor Settings' );
 		$this->displayTableOfContents();
 		$this->displayMonthlyConvertCountries();
+		$this->displayMonthlyConvertAmounts();
 		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
 			$this->displayPaymentProcessorSection( $processor );
 		}
@@ -75,6 +76,48 @@ class PaymentSettings extends UnlistedSpecialPage {
                 <tr>
                     <td>{$countryCode}</td>
                     <td>{$countryName}</td>
+                </tr>
+            " );
+		}
+
+		$this->getOutput()->addHTML( '</tbody></table>' );
+	}
+
+	/**
+	 * Display Monthly Convert Amounts
+	 * These are by currency not country so made a separate table
+	 *
+	 * @return void
+	 */
+	private function displayMonthlyConvertAmounts(): void {
+		$this->getOutput()->addHTML( '<h2 id="monthly-convert-countries">Monthly Convert Amounts</h2>' );
+		$this->getOutput()->addHTML( '<table class="wikitable">' );
+		$this->getOutput()->addHTML( '
+            <thead>
+                <tr>
+                    <th style="text-align: left;padding-right: 50px;">Currency</th>
+                    <th style="text-align: left;padding-right: 50px;">Amounts</th>
+                </tr>
+            </thead>
+            <tbody>
+        ' );
+
+		$monthlyConvert = $this->getConfig()->get( 'DonationInterfaceMonthlyConvertAmounts' );
+		foreach ( $monthlyConvert as $currency => $values ) {
+
+			$this->getOutput()->addHTML( "
+                <tr>
+                    <td>{$currency}</td>
+                    <td colspan='4'>minimum<br>convert</td>
+            " );
+
+			foreach ( $values as $amount => $convertAmount ) {
+				$this->getOutput()->addHTML( "
+					<td>{$convertAmount[0]} <br> {$convertAmount[1]}</td>
+            		" );
+			}
+
+			$this->getOutput()->addHTML( "
                 </tr>
             " );
 		}
