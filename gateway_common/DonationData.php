@@ -779,7 +779,8 @@ class DonationData implements LogPrefixProvider {
 		foreach ( [ 'source', 'medium', 'campaign', 'key' ] as $suffix ) {
 			$wmfFieldName = "wmf_$suffix";
 			$utmFieldName = "utm_$suffix";
-			if ( $this->isSomething( $wmfFieldName ) && !$this->isSomething( $utmFieldName ) ) {
+			// fresh wmf_* always wins when present to override any utm_* left over from a prior session.
+			if ( $this->isSomething( $wmfFieldName ) ) {
 				$this->setVal( $utmFieldName, $this->getVal( $wmfFieldName ) );
 				$this->expunge( $wmfFieldName );
 			}
