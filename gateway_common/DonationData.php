@@ -614,6 +614,18 @@ class DonationData implements LogPrefixProvider {
 		} else {
 			$this->setVal( 'recurring', false );
 		}
+		// Endowment donations must be one-time only, regardless of any
+		// recurring flags arriving via URL params, form post, or session.
+		// Check both utm_medium and wmf_medium since this runs before
+		// moveWmfFieldsToUtmFields().
+		if (
+			$this->getVal( 'utm_medium' ) === 'endowment' ||
+			$this->getVal( 'wmf_medium' ) === 'endowment'
+		) {
+			$this->setVal( 'recurring', false );
+			$this->expunge( 'frequency_unit' );
+			$this->expunge( 'frequency_interval' );
+		}
 	}
 
 	/**
