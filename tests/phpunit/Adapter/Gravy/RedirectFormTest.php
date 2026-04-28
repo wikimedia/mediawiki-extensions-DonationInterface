@@ -211,7 +211,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 				'country' => 'US',
 				'currency' => 'USD',
 				'user_ip' => '127.0.0.1',
-				'description' => 'Wikimedia Foundation',
+				'description' => 'Wikimedia Foundation - monthly gift',
 				'order_id' => $expectedMerchantRef,
 				'amount' => '1.55',
 				'email' => 'nobody@wikimedia.org',
