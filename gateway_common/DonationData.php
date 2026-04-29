@@ -104,6 +104,7 @@ class DonationData implements LogPrefixProvider {
 		'initial_scheme_transaction_id',
 		'issuer_id',
 		'java_enabled', // device fingerprinting
+		'landing_page', // previously concatenated into utm_source
 		'language',
 		'last_name',
 		'last_name_phonetic',
@@ -840,6 +841,7 @@ class DonationData implements LogPrefixProvider {
 			$source_parts[2] = '';
 		}
 
+		$this->setVal( 'landing_page', $source_parts[1] );
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );
 		$this->setVal( 'utm_source', $utm_source );
@@ -876,6 +878,7 @@ class DonationData implements LogPrefixProvider {
 			'country',
 			'currency',
 			'gateway',
+			'landing_page',
 			'language',
 			'payment_method',
 			'payment_submethod',
