@@ -2330,14 +2330,12 @@ abstract class GatewayAdapter implements GatewayType {
 		if ( isset( $oldData['recurring'] ) && !empty( $oldData['order_id'] ) ) {
 			$newRecurring = '';
 			$hasRecurParam = false;
-			foreach ( [ 'recurring_paypal', 'recurring' ] as $key ) {
-				$newVal = WmfFramework::getRequestValue( $key, null );
-				if ( $newVal !== null ) {
-					$hasRecurParam = true;
-				}
-				if ( $newVal === '1' || $newVal === 'true' ) {
-					$newRecurring = '1';
-				}
+			$newVal = WmfFramework::getRequestValue( 'recurring', null );
+			if ( $newVal !== null ) {
+				$hasRecurParam = true;
+			}
+			if ( $newVal === '1' || $newVal === 'true' ) {
+				$newRecurring = '1';
 			}
 			if ( $hasRecurParam && ( $newRecurring !== $oldData['recurring'] ) ) {
 				$this->logger->info(

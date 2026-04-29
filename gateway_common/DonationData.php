@@ -118,7 +118,6 @@ class DonationData implements LogPrefixProvider {
 		'recipient_id',
 		'recurring',
 		'recurring_payment_token',
-		'recurring_paypal', // deprecated
 		'redirect',
 		'referrer',
 		'screen_height', // device fingerprinting
@@ -603,10 +602,6 @@ class DonationData implements LogPrefixProvider {
 	 * Takes all possible names for recurring and normalizes them into the 'recurring' field.
 	 */
 	protected function setNormalizedRecurring() {
-		if ( $this->isSomething( 'recurring_paypal' ) && ( $this->getVal( 'recurring_paypal' ) === '1' || $this->getVal( 'recurring_paypal' ) === 'true' ) ) {
-			$this->setVal( 'recurring', true );
-			$this->expunge( 'recurring_paypal' );
-		}
 		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' || $this->getVal( 'recurring' ) === true )
 		) {
 			$this->setVal( 'recurring', true );
