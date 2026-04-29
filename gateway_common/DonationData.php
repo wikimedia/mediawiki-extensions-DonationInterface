@@ -79,7 +79,6 @@ class DonationData implements LogPrefixProvider {
 		'customer_id', // venmo customer_id if post MC declined then remove from vault
 		'cvv',
 		'data_hash',
-		'date_collect',
 		'descriptor',
 		'device_data', // needed for braintree venmo
 		'direct_debit_text',
