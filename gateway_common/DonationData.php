@@ -140,7 +140,6 @@ class DonationData implements LogPrefixProvider {
 		'utm_key',
 		'utm_medium',
 		'utm_source',
-		'utm_source_id',
 		'variant',
 		'wmf_campaign',
 		'wmf_key',
@@ -789,7 +788,6 @@ class DonationData implements LogPrefixProvider {
 	 */
 	protected function setUtmSource() {
 		$utm_source = $this->getVal( 'utm_source' );
-		$utm_source_id = $this->getVal( 'utm_source_id' );
 
 		if ( $this->getVal( 'payment_method' ) ) {
 			$method_object = PaymentMethod::newFromCompoundName(
@@ -826,14 +824,8 @@ class DonationData implements LogPrefixProvider {
 			$source_parts[0] = '';
 		}
 
-		// If the utm_source_id is set, include that in the landing page
-		// portion of the string.
-		if ( $utm_source_id ) {
-			$source_parts[1] = $utm_payment_method_family . $utm_source_id;
-		} else {
-			if ( empty( $source_parts[1] ) ) {
-				$source_parts[1] = '';
-			}
+		if ( empty( $source_parts[1] ) ) {
+			$source_parts[1] = '';
 		}
 
 		$source_parts[2] = $utm_payment_method_family;
