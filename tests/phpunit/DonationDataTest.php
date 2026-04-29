@@ -408,23 +408,6 @@ class DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Check that utm_source from app donations with no banner is what we are expecting
-	 * TODO: This will be changed by the apps teams so we can eventually remove it T350919
-	 */
-	public function testSetUtmSourceFromAppWithNoBanner() {
-		$data = $this->testData;
-		unset( $data['utm_campaign'] );
-		unset( $data['utm_source'] );
-
-		$data['utm_campaign'] = 'iOS';
-		$data['utm_source'] = '7.4.2343';
-
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
-		$returned = $ddObj->getData();
-		$this->assertEquals( 'appmenu.app.cc', $returned['utm_source'] );
-	}
-
-	/**
 	 * Check that we build good values for the contribution_tracking queue
 	 */
 	public function testSendToContributionTrackingQueue() {
