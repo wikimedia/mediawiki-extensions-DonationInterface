@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Ykhwong",
-			"YeBoy371"
+			"YeBoy371",
+			"Tensama0415"
 		]
 	},
 	"emailpreferences-change-email": "이메일 주소 바꾸기",
@@ -11,6 +12,8 @@
 	"emailpreferences-send-new-link": "새로운 링크를 내 이메일로 보내기",
 	"emailpreferences-header-link-about": "정보",
 	"emailpreferences-header-link-advocacy": "홍보",
+	"emailpreferences-header-link-news": "뉴스",
+	"emailpreferences-header-link-our-work": "저희의 활동",
 	"emailpreferences-header-link-participate": "참여",
 	"emailpreferences-header-link-research": "연구",
 	"emailpreferences-header-link-support-wikipedia": "위키백과 지원",
@@ -20,6 +23,7 @@
 	"emailpreferences-save": "환경 설정 저장",
 	"emailpreferences-title": "이메일 환경 설정",
 	"emailpreferences-wikimedia-image-alt": "위키미디어 재단",
+	"recurupgrade": "정기 기부",
 	"recurupgrade-add": "$1 추가",
 	"recurupgrade-next-scheduled-date": "다음 기부일",
 	"recurupgrade-salutation": "안녕하세요, $1님!",
