@@ -4,6 +4,7 @@
 			"McDutchie"
 		]
 	},
+	"apierror-donorportal-invalid-email": "Adresse de e-mail invalide",
 	"apierror-donorportal-bad-contact-id": "Mal contact_id - per favor recarga le Portal del donator",
 	"apierror-donorportal-bad-contribution-recur-id": "Mal contribution_recur_id - per favor recarga le Portal del donator",
 	"apierror-donorportal-no-session": "Necun session del portal del donator - per favor recarga le Portal del donator",
