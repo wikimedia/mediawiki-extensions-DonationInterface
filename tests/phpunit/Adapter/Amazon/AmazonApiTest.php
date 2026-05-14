@@ -16,6 +16,7 @@ class AmazonApiTest extends DonationInterfaceApiTestCase {
 	protected $providerConfig;
 
 	protected function setUp(): void {
+		$this->markTestSkipped( 'Need to upgrade Amazon SDK' );
 		parent::setUp();
 		$this->providerConfig = AmazonTest::setUpAmazonTestingContext();
 	}

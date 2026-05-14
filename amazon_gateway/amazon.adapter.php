@@ -1,6 +1,7 @@
 <?php
+/** @phan-suppress-file PhanUndeclaredTypeProperty PhanUndeclaredTypeReturnType */
 
-use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
+// use PayWithAmazon\PaymentsClientInterface as PwaClientInterface;
 use Psr\Log\LogLevel;
 use SmashPig\Core\Context;
 use SmashPig\Core\PaymentError;

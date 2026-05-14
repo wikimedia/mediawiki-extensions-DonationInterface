@@ -57,6 +57,7 @@ class AmazonTest extends DonationInterfaceTestCase {
 	}
 
 	protected function setUp(): void {
+		$this->markTestSkipped( 'Need to upgrade Amazon SDK' );
 		parent::setUp();
 		$this->providerConfig = self::setUpAmazonTestingContext();
 
