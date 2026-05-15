@@ -7,8 +7,8 @@
 			"Siebrand"
 		]
 	},
-	"apierror-donorportal-invalid-email": "Ongeldig e-mailadres",
-	"apierror-donorportal-bad-contact-id": "Ongeldig contact_id - laad het Donateursportaal opnieuw",
+	"apierror-donorportal-invalid-email": "Onjuist e-mailadres",
+	"apierror-donorportal-bad-contact-id": "Onjuist contact_id - laad het Donateursportaal opnieuw",
 	"apierror-donorportal-bad-contribution-recur-id": "Ongeldige contribution_recur_id - laad het Donateursportaal opnieuw",
 	"apierror-donorportal-no-session": "Geen sessie in het donateursportaal - laad het Donateursportaal opnieuw",
 	"apihelp-donate-summary": "Met deze API kunt u een donatie aan de Wikimedia Foundation doen met behulp van verscheidene betalingsverwerkers.",
