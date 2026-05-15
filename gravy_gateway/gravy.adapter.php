@@ -72,9 +72,6 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					'payment_token',
 					'full_name'
 				],
-				'values' => [
-					'description' => WmfFramework::formatMessage( 'donate_interface-donation-description' )
-				]
 			],
 			'capture' => [
 				'request' => [
@@ -143,6 +140,19 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			PaymentMethod::DD,
 			PaymentMethod::GOOGLE
 		];
+	}
+
+	protected function getDescriptionMessage(): string {
+		if ( $this->getData_Unstaged_Escaped( 'recurring' ) == null ||
+			$this->getData_Unstaged_Escaped( 'recurring' ) == 0 ||
+			$this->getData_Unstaged_Escaped( 'recurring' ) == '' ) {
+			return 'donate_interface-donation-description';
+		}
+		$recurring_message = 'donate_interface-monthly-donation-description';
+		if ( $this->getData_Staged( 'frequency_unit' ) == 'year' ) {
+			$recurring_message = 'donate_interface-annual-donation-description';
+		}
+		return $recurring_message;
 	}
 
 	public function paymentMethodSupportsRecurring(): bool {
@@ -676,6 +686,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	 */
 	protected function tuneForPaymentMethod(): void {
 		$method = $this->getPaymentMethod();
+		$descriptionKey = $this->getDescriptionMessage();
+		$this->transactions['authorize']['values']['description'] = WmfFramework::formatMessage( $descriptionKey );
 		if ( $method === PaymentMethod::CC ) {
 			$this->transactions['authorize']['request']['browser_info'] = [
 				'user_agent',

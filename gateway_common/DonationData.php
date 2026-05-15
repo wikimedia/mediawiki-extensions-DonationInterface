@@ -79,7 +79,6 @@ class DonationData implements LogPrefixProvider {
 		'customer_id', // venmo customer_id if post MC declined then remove from vault
 		'cvv',
 		'data_hash',
-		'date_collect',
 		'descriptor',
 		'device_data', // needed for braintree venmo
 		'direct_debit_text',
@@ -105,6 +104,7 @@ class DonationData implements LogPrefixProvider {
 		'initial_scheme_transaction_id',
 		'issuer_id',
 		'java_enabled', // device fingerprinting
+		'landing_page', // previously concatenated into utm_source
 		'language',
 		'last_name',
 		'last_name_phonetic',
@@ -119,7 +119,6 @@ class DonationData implements LogPrefixProvider {
 		'recipient_id',
 		'recurring',
 		'recurring_payment_token',
-		'recurring_paypal', // deprecated
 		'redirect',
 		'referrer',
 		'screen_height', // device fingerprinting
@@ -141,7 +140,6 @@ class DonationData implements LogPrefixProvider {
 		'utm_key',
 		'utm_medium',
 		'utm_source',
-		'utm_source_id',
 		'variant',
 		'wmf_campaign',
 		'wmf_key',
@@ -604,10 +602,6 @@ class DonationData implements LogPrefixProvider {
 	 * Takes all possible names for recurring and normalizes them into the 'recurring' field.
 	 */
 	protected function setNormalizedRecurring() {
-		if ( $this->isSomething( 'recurring_paypal' ) && ( $this->getVal( 'recurring_paypal' ) === '1' || $this->getVal( 'recurring_paypal' ) === 'true' ) ) {
-			$this->setVal( 'recurring', true );
-			$this->expunge( 'recurring_paypal' );
-		}
 		if ( $this->isSomething( 'recurring' ) && ( $this->getVal( 'recurring' ) === '1' || $this->getVal( 'recurring' ) === 'true' || $this->getVal( 'recurring' ) === true )
 		) {
 			$this->setVal( 'recurring', true );
@@ -794,7 +788,6 @@ class DonationData implements LogPrefixProvider {
 	 */
 	protected function setUtmSource() {
 		$utm_source = $this->getVal( 'utm_source' );
-		$utm_source_id = $this->getVal( 'utm_source_id' );
 
 		if ( $this->getVal( 'payment_method' ) ) {
 			$method_object = PaymentMethod::newFromCompoundName(
@@ -810,18 +803,6 @@ class DonationData implements LogPrefixProvider {
 
 		$recurring_str = var_export( $this->getVal( 'recurring' ), true );
 		$this->logger->debug( __FUNCTION__ . ": Payment method is {$this->getVal( 'payment_method' )}, recurring = {$recurring_str}, utm_source = {$utm_payment_method_family}" );
-
-		// App donations have the version coming on the utm_source eg 7.4.3.2822 and utm_campaign=iOS or Android
-		// when there is no banner
-		// TODO: Remove this once the apps teams have fixed it on their end T350919
-		$utm_campaign = strtolower( $this->getVal( 'utm_campaign' ) ?? '' );
-		if ( $utm_campaign == 'ios' || $utm_campaign == 'android' ) {
-			// set utm_source to appmenu if it starts with a number
-			if ( $utm_source !== null && preg_match( '/^\d/', $utm_source ) === 1 ) {
-				$this->setVal( 'utm_source', 'appmenu.app.' . $utm_payment_method_family );
-				return;
-			}
-		}
 
 		// split the utm_source into its parts for easier manipulation
 		$source_parts = explode( ".", $utm_source ?? '' );
@@ -843,14 +824,8 @@ class DonationData implements LogPrefixProvider {
 			$source_parts[0] = '';
 		}
 
-		// If the utm_source_id is set, include that in the landing page
-		// portion of the string.
-		if ( $utm_source_id ) {
-			$source_parts[1] = $utm_payment_method_family . $utm_source_id;
-		} else {
-			if ( empty( $source_parts[1] ) ) {
-				$source_parts[1] = '';
-			}
+		if ( empty( $source_parts[1] ) ) {
+			$source_parts[1] = '';
 		}
 
 		$source_parts[2] = $utm_payment_method_family;
@@ -858,6 +833,7 @@ class DonationData implements LogPrefixProvider {
 			$source_parts[2] = '';
 		}
 
+		$this->setVal( 'landing_page', $source_parts[1] );
 		// reconstruct, and set the value.
 		$utm_source = implode( ".", $source_parts );
 		$this->setVal( 'utm_source', $utm_source );
@@ -894,6 +870,7 @@ class DonationData implements LogPrefixProvider {
 			'country',
 			'currency',
 			'gateway',
+			'landing_page',
 			'language',
 			'payment_method',
 			'payment_submethod',

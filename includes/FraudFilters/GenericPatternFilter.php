@@ -43,7 +43,7 @@ class GenericPatternFilter {
 
 			// Check if the pattern contains a regex value or wildcard
 			if ( is_string( $rulePropertyValue ) && $this->isRegex( $rulePropertyValue ) ) {
-				if ( !preg_match( $rulePropertyValue, $actualValue ) ) {
+				if ( !preg_match( $rulePropertyValue, (string)$actualValue ) ) {
 					return;
 				}
 			} elseif ( is_string( $rulePropertyValue ) && str_contains( $rulePropertyValue, '*' ) ) {
