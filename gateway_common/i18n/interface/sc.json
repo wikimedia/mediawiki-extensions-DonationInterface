@@ -9,8 +9,6 @@
 	"donate_interface-error-msg-city": "tzitade",
 	"donate_interface-error-msg-state_province": "istadu",
 	"donate_interface-other": "Àteru",
-	"donate_interface-town-city": "Bidda/Tzitade",
 	"donate_interface-continue": "Sìghire",
-	"donate_interface-cancel": "Cantzellare",
-	"donate_interface-description": "Descritzione"
+	"donate_interface-cancel": "Cantzellare"
 }

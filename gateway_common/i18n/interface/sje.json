@@ -5,11 +5,6 @@
 			"Yupik"
 		]
 	},
-	"donate_interface-comment-label": "Målgedibme:",
 	"donate_interface-donor-security": "Dårrvokuvvda",
-	"donate_interface-donor-phone": "Telefuvdnanummir",
-	"donate_interface-comment": "Målgedibme",
-	"donate_interface-card-security-code": "Dårrvokuvvda",
-	"donate_interface-description": "Gåvådibme",
-	"donate_interface-bt-country_description": "Lánndagåvådibme"
+	"donate_interface-donor-phone": "Telefuvdnanummir"
 }

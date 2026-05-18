@@ -5,15 +5,9 @@
 			"පසිඳු කාවින්ද"
 		]
 	},
-	"donate_interface-comment-label": "آچیخلا:",
 	"donate_interface-donor-name": "آد",
 	"donate_interface-donor-city": "شهر",
 	"donate_interface-other": "آیری",
-	"donate_interface-title": "باشلیق",
-	"donate_interface-country": "اؤلکه",
-	"donate_interface-next": "سونراکی",
 	"donate_interface-continue": "داوام ائت",
-	"donate_interface-cancel": "وازگئچ",
-	"donate_interface-description": "شرح",
-	"donate_interface-change": "دَییشدیر"
+	"donate_interface-cancel": "وازگئچ"
 }
