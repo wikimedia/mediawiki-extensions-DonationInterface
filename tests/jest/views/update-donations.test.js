@@ -190,9 +190,7 @@ describe( 'Update donations view', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( {
-				message: 'API error'
-			} )
+			() => Promise.reject( 'API_error'  )
 		);
 
 		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
@@ -259,9 +257,7 @@ describe( 'Update donations view failure', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( {
-				message: 'API error'
-			} )
+			() => Promise.reject( 'API_error'  )
 		);
 
 		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );

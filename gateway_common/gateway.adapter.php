@@ -2971,7 +2971,9 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getMonthlyConvertAmounts(): ?array {
 		$convertAmounts = $this->getGlobal( 'MonthlyConvertAmounts' );
 		$currency = $this->getData_Unstaged_Escaped( 'currency' );
-		if ( isset( $convertAmounts[$currency] ) ) {
+		if ( $currency === null ) {
+			return null;
+		} elseif ( isset( $convertAmounts[$currency] ) ) {
 			return $convertAmounts[$currency];
 		} elseif ( $currency === 'EUR' ) {
 			// If EUR not specifically configured, fall back to GBP rules

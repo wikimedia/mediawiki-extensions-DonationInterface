@@ -718,8 +718,6 @@
 				"donate_interface-error-msg-invalid-card-number",
 				"donate_interface-error-msg-invalid-cvv-format",
 				"donate_interface-error-msg-expiry-date-field-invalid",
-				"donate_interface-name-on-card",
-				"donate_interface-cardholders-name",
 				"donate_interface-donor-security",
 				"donate_interface-expiry-date-field-placeholder",
 				"donate_interface-cvv-placeholder-3-digits",
