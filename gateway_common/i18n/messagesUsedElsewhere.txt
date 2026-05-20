@@ -17,3 +17,4 @@ donate_interface-otherways-short
 donate_interface-faqs
 donate_interface-informationsharing
 donate_interface-monthly-cancel
+donate_interface-select-country
