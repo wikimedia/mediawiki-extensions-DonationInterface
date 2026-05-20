@@ -275,5 +275,8 @@
 	"donate_interface-monthly-convert-yes-button-variant-011": "Да, я добавлю ежемесячное пожертвование в размере <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Нет, спасибо.",
 	"donate_interface-fundraiser-maintenance-header": "Временно отключён для технического обслуживания",
+	"donate_interface-select-country": "Выбор страны",
+	"donate_interface-monthly-short": "Ежемесячно",
+	"donate_interface-onetime-short": "Один раз",
 	"donate_interface-fundraiser-maintenance-notice": "В настоящее время происходит техническое обслуживание и мы не способны принимать пожертвования. Пожалуйста, попробуйте позже. Если у вас есть какие-либо вопросы, напишите по адресу $1."
 }

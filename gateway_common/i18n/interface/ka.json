@@ -193,5 +193,8 @@
 	"donate_interface-currency-change": "შევცვალო?",
 	"donate_interface-monthlybox-amount": "ყოველთვიური შემოწირვის თანხა",
 	"donate_interface-error-http-403": "თქვენ არ გაქვთ ამ გვერდთან წვდომის უფლება.",
+	"donate_interface-select-country": "ქვეყნის არჩევა",
+	"donate_interface-monthly-short": "ყოველთვიურად",
+	"donate_interface-onetime-short": "ერთხელ",
 	"donate_interface-fundraiser-maintenance-header": "დროებით ქვემოთ დახმარებისთვის"
 }

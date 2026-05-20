@@ -175,5 +175,8 @@
 	"donate_interface-faqs": "அடிக்கடி கேட்கப்படும் கேள்விகள்",
 	"donate_interface-currency-change": "மாற்றவா?",
 	"donate_interface-monthlybox-amount": "மாதாந்திர நன்கொடை மதிப்பு",
+	"donate_interface-select-country": "ஒரு நாட்டைத் தெரிவு செய்",
+	"donate_interface-monthly-short": "மாதாந்திரம்",
+	"donate_interface-onetime-short": "ஒரு முறை",
 	"donate_interface-error-http-403": "இப்பக்கத்தை அணுக உங்களுக்கு  அனுமதி இல்லை."
 }

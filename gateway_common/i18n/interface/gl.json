@@ -346,5 +346,8 @@
 	"donate_interface-redirect-explanation": "Deseguido irás á páxina do socio da Wikimedia que se encarga de procesar o pagamento.",
 	"donate_interface-amount-legend-variant-01A": "Cantidade a doar",
 	"donate_interface-cc-form-header-personal-variant-01A": "Información do pagamento",
+	"donate_interface-select-country": "Escolle o país",
+	"donate_interface-monthly-short": "Mensual",
+	"donate_interface-onetime-short": "Única",
 	"donate_interface-submit-button-variant-01A": "Doar esta cantidade"
 }

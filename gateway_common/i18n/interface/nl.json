@@ -350,5 +350,8 @@
 	"donate_interface-redirect-explanation": "Je wordt doorgestuurd naar de betalingsverwerker van Wikimedia",
 	"donate_interface-amount-legend-variant-01A": "Bedrag om te doneren",
 	"donate_interface-cc-form-header-personal-variant-01A": "Betalingsinformatie",
+	"donate_interface-select-country": "Selecteer land",
+	"donate_interface-monthly-short": "Maandelijks",
+	"donate_interface-onetime-short": "Eenmalig",
 	"donate_interface-submit-button-variant-01A": "Dit bedrag doneren"
 }

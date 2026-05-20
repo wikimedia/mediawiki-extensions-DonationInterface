@@ -368,5 +368,8 @@
 	"donate_interface-redirect-explanation": "سيُعاد توجيهك إلى شريك معالجة الدفع لدى ويكيميديا.",
 	"donate_interface-amount-legend-variant-01A": "قيمة التبرع",
 	"donate_interface-cc-form-header-personal-variant-01A": "معلومات الدفع",
+	"donate_interface-select-country": "اختر الدولة",
+	"donate_interface-monthly-short": "شهريا",
+	"donate_interface-onetime-short": "مرة واحدة",
 	"donate_interface-submit-button-variant-01A": "تبرع بهذا المبلغ"
 }

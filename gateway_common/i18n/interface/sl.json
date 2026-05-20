@@ -315,5 +315,8 @@
 	"donate_interface-redirect-explanation": "Preusmerjeni boste na partnerja Wikimedie za obdelavo plačil.",
 	"donate_interface-amount-legend-variant-01A": "Znesek za donacijo",
 	"donate_interface-cc-form-header-personal-variant-01A": "Podatki za plačilo",
+	"donate_interface-select-country": "Izberite državo",
+	"donate_interface-monthly-short": "Mesečno",
+	"donate_interface-onetime-short": "Enkratno",
 	"donate_interface-submit-button-variant-01A": "Donirajte ta znesek"
 }

@@ -198,5 +198,8 @@
 	"donate_interface-currency-change": "Hukchasqa kachunchu?",
 	"donate_interface-monthlybox-amount": "Sapa killa hayk'a qarana",
 	"donate_interface-monthly-cancel": "Sapa killa qaranakunataqa Wikimedia Foundation nisqa manuchinmi qampa niwanayki puchukana pachakamam.",
+	"donate_interface-select-country": "mama llaqtata akllay",
+	"donate_interface-monthly-short": "Sapa killa",
+	"donate_interface-onetime-short": "Sapalla kuti",
 	"donate_interface-error-http-403": "Manam saqillasunkichu kay p'anqaman riyta."
 }

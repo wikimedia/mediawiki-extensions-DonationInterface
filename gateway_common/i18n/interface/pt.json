@@ -328,5 +328,8 @@
 	"donate_interface-redirect-explanation": "Será redirecionado para o parceiro de processamento de pagamentos da Wikimedia.",
 	"donate_interface-amount-legend-variant-01A": "Montante do donativo",
 	"donate_interface-cc-form-header-personal-variant-01A": "Informações do pagamento",
+	"donate_interface-select-country": "Escolha o país",
+	"donate_interface-monthly-short": "Mensal",
+	"donate_interface-onetime-short": "Único",
 	"donate_interface-submit-button-variant-01A": "Fazer donativo deste valor"
 }

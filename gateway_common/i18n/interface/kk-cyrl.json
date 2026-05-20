@@ -156,5 +156,8 @@
 	"donate_interface-rtbt-issuer_id": "Банкіні таңдаңыз",
 	"donate_interface-email-unsub-button": "Жазылуды болдырмау",
 	"donate_interface-faqs": "Жиі сұралған сұрақтар",
+	"donate_interface-select-country": "Мемлекет таңдаңыз",
+	"donate_interface-monthly-short": "Ай сайын",
+	"donate_interface-onetime-short": "Бір уақытта",
 	"donate_interface-currency-change": "Өзгеріс?"
 }

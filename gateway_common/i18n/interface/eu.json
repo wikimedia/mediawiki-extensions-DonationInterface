@@ -107,5 +107,7 @@
 	"donate_interface-state_province-dropdown-YY": "Hautatu estatua",
 	"donate_interface-state_province-dropdown-XX": "AEBetatik kanpo",
 	"donate_interface-email-unsub-button": "Harpidetza kendu",
+	"donate_interface-select-country": "Herrialdea aukeratu",
+	"donate_interface-monthly-short": "Hilero",
 	"donate_interface-currency-change": "Aldatu?"
 }

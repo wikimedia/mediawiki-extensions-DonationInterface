@@ -234,5 +234,8 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Ne, děkuji!",
 	"donate_interface-fundraiser-maintenance-header": "Kvůli údržbě dočasně mimo provoz",
 	"donate_interface-fundraiser-maintenance-notice": "V současné chvíli provádíme plánovanou údržbu a nejsme schopni přijímat dary. Zkuste to prosím znovu později. Pokud máte jakékoli dotazy, napište na $1.",
+	"donate_interface-select-country": "Vyberte zemi",
+	"donate_interface-monthly-short": "Měsíčně",
+	"donate_interface-onetime-short": "Jednorázově",
 	"donate_interface-redirect-explanation": "Pro zpracování plateb budete přesměrováni na partnera Wikimedia."
 }

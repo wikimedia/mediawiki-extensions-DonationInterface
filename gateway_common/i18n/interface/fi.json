@@ -307,5 +307,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Suoritamme parhaillaan aikataulun mukaisia huoltotöitä emmekä voi ottaa lahjoituksia vastaan. Yritä pian uudelleen. Jos sinulla on kysyttävää, lähetä sähköpostia osoitteeseen $1.",
 	"donate_interface-amount-legend-variant-01A": "Lahjoitettava summa",
 	"donate_interface-cc-form-header-personal-variant-01A": "Maksutiedot",
+	"donate_interface-select-country": "Valitse maa",
+	"donate_interface-monthly-short": "Kuukausittain",
+	"donate_interface-onetime-short": "Vain kerran",
 	"donate_interface-submit-button-variant-01A": "Lahjoita tämä summa"
 }

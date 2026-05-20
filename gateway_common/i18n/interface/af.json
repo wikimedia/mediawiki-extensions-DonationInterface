@@ -133,5 +133,8 @@
 	"donate_interface-monthly-convert-enter-amount": "Voer jou maandelikse skenkingsbedrag in wat volgende maand in werking sal tree.",
 	"donate_interface-monthly-convert-action-button": "Skenk maandeliks",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ja, ek sal ’n maandelikse skenking van <span class=\"mc-convert-ask\"></span> maak",
+	"donate_interface-select-country": "Kies land",
+	"donate_interface-monthly-short": "Maandeliks",
+	"donate_interface-onetime-short": "Eenmalig",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nee dankie!"
 }

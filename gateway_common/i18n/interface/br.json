@@ -207,5 +207,8 @@
 	"donate_interface-currency-change": "Kemmañ ?",
 	"donate_interface-monthlybox-amount": "Sammad miziek an donezon",
 	"donate_interface-monthly-cancel": "Dleekaet e vo ar paeamantoù miziek gant Diazezadur Wikimedia betek ma vo goulennet ganeoc'h chom a-sav ganto.",
+	"donate_interface-select-country": "Diuzañ ur bro",
+	"donate_interface-monthly-short": "Bep miz",
+	"donate_interface-onetime-short": "Ur wezh",
 	"donate_interface-error-http-403": "N'oc'h ket aotreet da vont d'ar bajenn-mañ."
 }

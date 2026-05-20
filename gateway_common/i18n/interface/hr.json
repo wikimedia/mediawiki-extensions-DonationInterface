@@ -232,5 +232,8 @@
 	"donate_interface-monthly-cancel": "Ako se odlučite za mjesečno doniranje, Zaklada Wikimedija naplaćivat će isti iznos svaki mjesec, na dan prve uplate, sve dok nas ne obavijestite da donacije želite zaustaviti. Ako donirate 29, 30. ili 31. u mjesecu, iznos će se naplaćivati posljednjeg dana u mjesecu kod mjeseci koji kraće traju, što bliže datumu prve uplate. Ako imate pitanja, Molimo Vas, obratite nam se na $1.",
 	"donate_interface-error-http-403": "Nemate ovlasti za pristup ovoj stranici.",
 	"donate_interface-emailpreferences-thank-you-title": "Hvala Vam lijepa!",
+	"donate_interface-select-country": "Odaberite državu",
+	"donate_interface-monthly-short": "Mjesečno",
+	"donate_interface-onetime-short": "Jednokratno",
 	"donate_interface-emailpreferences-thank-you-text": "Nadamo se međusobnoj dugotrajnoj suradnji."
 }

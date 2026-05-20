@@ -301,5 +301,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Şu anda zamanlanmış bakım yapıyoruz ve bağış kabul edemiyoruz. Lütfen kısa süre sonra tekrar deneyin. Herhangi bir sorunuz varsa, lütfen $1 adresine bir eposta gönderin.",
 	"donate_interface-redirect-explanation": "Wikimedia'nın ödeme işlemcisi ortağına yönlendirileceksiniz.",
 	"donate_interface-amount-legend-variant-01A": "Bağışlanacak miktar",
+	"donate_interface-select-country": "Bir ülke seçin",
+	"donate_interface-monthly-short": "Aylık",
+	"donate_interface-onetime-short": "Tek seferlik",
 	"donate_interface-cc-form-header-personal-variant-01A": "Ödeme bilgileri"
 }

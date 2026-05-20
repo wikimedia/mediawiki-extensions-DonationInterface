@@ -232,5 +232,8 @@
 	"donate_interface-monthly-convert-yes-button-variant-011": "Ναι, θα προσθέσω μια μηνιαία δωρεά <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Όχι, ευχαριστώ!",
 	"donate_interface-fundraiser-maintenance-header": "Προσωρινά εκτός λειτουργίας για συντήρηση",
+	"donate_interface-select-country": "Επιλέξτε μια χώρα",
+	"donate_interface-monthly-short": "Μηνιαία",
+	"donate_interface-onetime-short": "Εφάπαξ",
 	"donate_interface-redirect-explanation": "Θα μεταφερθείτε στο συνεργάτη επεξεργασίας πληρωμών του Wikimedia."
 }

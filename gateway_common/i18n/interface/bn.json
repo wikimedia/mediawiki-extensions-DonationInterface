@@ -225,5 +225,8 @@
 	"donate_interface-monthly-convert-no-button-variant-006": "না, ধন্যবাদ",
 	"donate_interface-monthly-convert-no-button-variant-011": "না, ধন্যবাদ!",
 	"donate_interface-monthly-convert-no-button-variant-014": "না, এখন নয়",
+	"donate_interface-select-country": "দেশ নির্বাচন করুন",
+	"donate_interface-monthly-short": "মাসিক",
+	"donate_interface-onetime-short": "এক-কালীন",
 	"donate_interface-amount-legend-variant-01A": "দান করার পরিমাণ"
 }

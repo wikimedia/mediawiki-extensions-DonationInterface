@@ -233,5 +233,8 @@
 	"donate_interface-monthly-convert-action-button": "Havonta adományozok",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Igen, küldök havi <span class=\"mc-convert-ask\"></span> összegű adományt",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nem, köszönöm!",
+	"donate_interface-select-country": "Válassz egy országot",
+	"donate_interface-monthly-short": "Havi",
+	"donate_interface-onetime-short": "Egyszeri",
 	"donate_interface-fundraiser-maintenance-header": "Karbantartás miatt időlegesen leállítva"
 }

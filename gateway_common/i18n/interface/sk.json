@@ -133,5 +133,8 @@
 	"donate_interface-monthly-convert-enter-amount": "Zadajte sumu svojho mesačného príspevku, ktorým začnete prispievať od budúceho mesiaca.",
 	"donate_interface-monthly-convert-action-button": "Prispievať mesačne",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Áno, zadám mesačný príspevok <span class=\"mc-convert-ask\"></span>",
+	"donate_interface-select-country": "Vyberte krajinu",
+	"donate_interface-monthly-short": "Mesačne",
+	"donate_interface-onetime-short": "Jednorazovo",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nie, ďakujem."
 }

@@ -271,5 +271,8 @@
 	"donate_interface-redirect-explanation": "Zostaniesz przekierowany do partnera przetwarzającego płatności Wikimedii.",
 	"donate_interface-amount-legend-variant-01A": "Kwota do wpłaty",
 	"donate_interface-cc-form-header-personal-variant-01A": "Informacja o wpłacie",
+	"donate_interface-select-country": "Wybierz kraj",
+	"donate_interface-monthly-short": "Co miesiąc",
+	"donate_interface-onetime-short": "Jeden raz",
 	"donate_interface-submit-button-variant-01A": "Przekaż tę kwotę"
 }

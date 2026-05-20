@@ -146,5 +146,7 @@
 	"donate_interface-donation": "بسپنې",
 	"donate_interface-state_province-dropdown-YY": "يو ايالت ټاکل",
 	"donate_interface-state_province-dropdown-XX": "د متحده ايالاتو نه دباندې",
+	"donate_interface-select-country": "يو هېواد وټاکۍ",
+	"donate_interface-monthly-short": "مياشتينی",
 	"donate_interface-currency-change": "بدلول؟"
 }

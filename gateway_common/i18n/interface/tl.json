@@ -211,5 +211,8 @@
 	"donate_interface-currency-change": "Palitan?",
 	"donate_interface-monthlybox-amount": "Buwanang halaga ng kaloob",
 	"donate_interface-monthly-cancel": "Ang buwanang mga pagbabayad ay ibabawas ng Pundasyon ng Wikimedia magmula sa iyong pera hanggang sa panahon na pabatiran mo kami na huwag na ipagpatuloy ang mga ito.",
+	"donate_interface-select-country": "Piliin ang bansa",
+	"donate_interface-monthly-short": "Buwanan",
+	"donate_interface-onetime-short": "Isang ulit",
 	"donate_interface-error-http-403": "Wala kang pahintulot na puntahan ang pahinang ito."
 }

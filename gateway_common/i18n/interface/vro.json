@@ -177,5 +177,6 @@
 	"donate_interface-tax-info": "Massusoodustuisi teedüs",
 	"donate_interface-informationsharing": "Tugõmisõga jaat umma teedüst mittekassusaamisasotusõga Vikimeediä Tsihtasotus (Wikimedia Foundation), miä pidä ülevän Vikipeediät ja tõisi Vikimeediä tegemiisi, ni taa asotusõ USAn ja muial olõvidõ tüüpakjidõga miiq tugõmisõ privaatsuspõhimõttidõ perrä. Mi müü-üi ei vaihta-ai su teedüst. Lisas saat lukõq <a href=\"$1\">miiq tugõmispõhimõttit</a>.",
 	"donate_interface-currency-change": "Kas muutaq?",
+	"donate_interface-select-country": "Valiq maa",
 	"donate_interface-monthlybox-amount": "Mastav summa"
 }

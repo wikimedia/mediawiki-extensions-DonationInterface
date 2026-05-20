@@ -343,5 +343,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Wir führen derzeit geplante Wartungsarbeiten durch und können keine Spenden entgegennehmen. Bitte {{#FORMAL:versuche|versuchen Sie}} es später erneut. Falls {{#FORMAL:du|Sie}} irgendwelche Fragen {{#FORMAL:hast|haben}}, {{#FORMAL:sende|senden Sie}} bitte eine E-Mail an $1.",
 	"donate_interface-redirect-explanation": "Sie werden zu Wikimedias Partner für die Zahlungsabwicklung weitergeleitet.",
 	"donate_interface-amount-legend-variant-01A": "Zu spendender Betrag",
+	"donate_interface-select-country": "Staat auswählen",
+	"donate_interface-monthly-short": "Monatlich",
+	"donate_interface-onetime-short": "Einmalig",
 	"donate_interface-cc-form-header-personal-variant-01A": "Zahlungsinformationen"
 }

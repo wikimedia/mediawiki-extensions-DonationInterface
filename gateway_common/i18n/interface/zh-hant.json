@@ -347,5 +347,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "我們目前有例行保養，無法接受捐贈，請稍後再試。如有任何疑問，請以電郵聯絡$1。",
 	"donate_interface-redirect-explanation": "您將會被重新導向到維基媒體的付款處理合作夥伴。",
 	"donate_interface-amount-legend-variant-01A": "捐款金額",
+	"donate_interface-select-country": "選擇國家/地區",
+	"donate_interface-monthly-short": "每月",
+	"donate_interface-onetime-short": "單筆",
 	"donate_interface-cc-form-header-personal-variant-01A": "付款資訊"
 }

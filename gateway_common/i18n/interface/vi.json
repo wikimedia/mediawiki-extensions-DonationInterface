@@ -236,5 +236,8 @@
 	"donate_interface-monthly-cancel": "Các khoản thanh toán hàng tháng của người đóng góp định kỳ sẽ được Wikimedia Foundation ghi nợ mỗi tháng vào ngày ứng với lần đóng góp đầu tiên, cho đến lúc bạn thông báo cho chúng tôi rằng bạn muốn chấm dứt tiến trình này. Các khoản thanh toán được thực hiện vào ngày 29, 30, hoặc 31 trong tháng sẽ lặp lại vào ngày cuối cùng của những tháng ngắn hơn, chúng tôi sẽ cố gắng ghi nợ gần ngày đầu tiên. Nếu bạn có thắc mắc, xin vui lòng liên lạc với $1.",
 	"donate_interface-error-http-403": "Bạn không có quyền truy cập trang này.",
 	"donate_interface-fundraiser-maintenance-header": "Tạm ngừng hoạt động để bảo trì",
+	"donate_interface-select-country": "Chọn quốc gia",
+	"donate_interface-monthly-short": "Hàng tháng",
+	"donate_interface-onetime-short": "Một lần",
 	"donate_interface-fundraiser-maintenance-notice": "Chúng tôi hiện đang thực hiện những công việc bảo trì định kỳ nên không nhận được tiền đóng góp. Xin vui lòng thử lại sau. Nếu bạn có thắc mắc, xin gửi thư điện tử cho $1."
 }
