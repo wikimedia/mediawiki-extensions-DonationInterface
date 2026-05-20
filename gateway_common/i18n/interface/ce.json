@@ -315,5 +315,8 @@
 	"donate_interface-redirect-explanation": "Хьо дӀахьажор ву(йу) Wikimedia гӀоьнан тӀехь болх бечу партнеран сайтан тӀе.",
 	"donate_interface-amount-legend-variant-01A": "ГӀоьнан барам",
 	"donate_interface-cc-form-header-personal-variant-01A": "Мах баларан информаци",
+	"donate_interface-select-country": "Пачхьалкх харжар",
+	"donate_interface-monthly-short": "ХӀора баттахь",
+	"donate_interface-onetime-short": "Цхьаъ бен",
 	"donate_interface-submit-button-variant-01A": "ХӀара гӀо дӀало"
 }

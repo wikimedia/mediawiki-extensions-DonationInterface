@@ -249,5 +249,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Mir maachen elo eng geplangte Maintenance a kënne keng Donen unhuelen. Probéiert wgl. geschwënn nach eng Kéier. Wann Dir Froen hutt da schéckt eis e n E-Mail op $1.",
 	"donate_interface-amount-legend-variant-01A": "Betrag fir den Don",
 	"donate_interface-cc-form-header-personal-variant-01A": "Bezuelinformatiounen",
+	"donate_interface-select-country": "Sicht d'Land eraus",
+	"donate_interface-monthly-short": "All Mount",
+	"donate_interface-onetime-short": "Eemol",
 	"donate_interface-submit-button-variant-01A": "En Don iwwer dëse Betrag maachen"
 }

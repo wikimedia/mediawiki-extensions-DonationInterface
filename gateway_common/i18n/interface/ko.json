@@ -353,5 +353,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "현재 예정된 유지 보수를 수행하고 있어 기부를 받을 수 없습니다. 잠시 후에 다시 시도하세요. 질문이 있다면 $1(으)로 이메일을 보내세요.",
 	"donate_interface-redirect-explanation": "위키미디어의 결제 처리 파트너 페이지로 넘겨집니다.",
 	"donate_interface-amount-legend-variant-01A": "기부 금액",
+	"donate_interface-select-country": "국가 선택",
+	"donate_interface-monthly-short": "매월",
+	"donate_interface-onetime-short": "한 번만",
 	"donate_interface-cc-form-header-personal-variant-01A": "결제 정보"
 }

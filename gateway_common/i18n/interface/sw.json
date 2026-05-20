@@ -120,5 +120,8 @@
 	"donate_interface-informationsharing": "Unapochangia, unatoa taarifa zako kwa Wikimedia Foundation, ambaye ni shirika linalohusika na Wikipedia na miradi mingine ya Wikimedia, pamoja na watoaji huduma kwa Wikimedia Foundation katika Amerika pamoja na pengine, kufuatana na sera yetu ya faragha ya wachangiaji. Hatuuzi wala hatufanyi biashara na taarifa zako, kwa mtu wowote. Kwa maelezo mengine tafadhali soma <a href=\"$1\">sera yetu ya wachangiaji</a>.",
 	"donate_interface-currency-change": "Badilisha?",
 	"donate_interface-monthlybox-amount": "Kiasi cha mchango",
+	"donate_interface-select-country": "Chagua nchi",
+	"donate_interface-monthly-short": "Kila mwezi",
+	"donate_interface-onetime-short": "Mara moja tu",
 	"donate_interface-error-http-403": "Huruhusiwi kuona ukurasa huu."
 }

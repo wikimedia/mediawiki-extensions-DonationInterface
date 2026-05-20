@@ -227,5 +227,8 @@
 	"donate_interface-fundraiser-maintenance-header": "ระงับการให้บริการชั่วคราวเนื่องจากอยู่ในระหว่างการบำรุงรักษา",
 	"donate_interface-amount-legend-variant-01A": "จำนวนเงินที่จะบริจาค",
 	"donate_interface-cc-form-header-personal-variant-01A": "ข้อมูลการชำระเงิน",
+	"donate_interface-select-country": "เลือกประเทศ",
+	"donate_interface-monthly-short": "รายเดือน",
+	"donate_interface-onetime-short": "ครั้งเดียว",
 	"donate_interface-submit-button-variant-01A": "บริจาคเงินจำนวนนี้"
 }

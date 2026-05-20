@@ -185,5 +185,8 @@
 	"donate_interface-currency-change": "Ändere?",
 	"donate_interface-monthlybox-amount": "Monetligi Spändesumme",
 	"donate_interface-monthly-cancel": "Monetligi Zahlige wäre so lang vu dr Wikimedia Foundation abbuecht, bis Si uns bitte, d Abbuechige yyzstelle.",
+	"donate_interface-select-country": "Staat uuswehle",
+	"donate_interface-monthly-short": "Monetli",
+	"donate_interface-onetime-short": "Eimolig",
 	"donate_interface-error-http-403": "Du derfsch uf die Syte nit zuegryfe"
 }

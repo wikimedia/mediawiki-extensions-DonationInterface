@@ -99,5 +99,8 @@
 	"donate_interface-monthly-donation": "Pošalji mjesečnu donaciju",
 	"donate_interface-state_province-dropdown-XX": "Izvan SAD",
 	"donate_interface-faqs": "Često postavljana pitanja",
+	"donate_interface-select-country": "Odaberite zemlju",
+	"donate_interface-monthly-short": "Mjesečno",
+	"donate_interface-onetime-short": "Jednokratno",
 	"donate_interface-monthly-cancel": "Ako se odlučite za mjesečno doniranje, Fondacija Wikimedia naplaćivat će isti iznos svaki mjesec, na dan prve uplate, sve dok nas ne obavijestite da donacije želite zaustaviti. Ako donirate 29, 30. ili 31. u mjesecu, iznos će se naplaćivati posljednjeg dana kod kraćih mjeseci, što bliže datumu prve uplate. Ako imate pitanja, obratite nam se na $1."
 }

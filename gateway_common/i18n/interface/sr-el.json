@@ -260,5 +260,8 @@
 	"donate_interface-redirect-explanation": "Bićete preusmereni na Vikimedijinog platnog procesora.",
 	"donate_interface-amount-legend-variant-01A": "Iznos donacije",
 	"donate_interface-cc-form-header-personal-variant-01A": "Podaci o plaćanju",
+	"donate_interface-select-country": "Izaberite zemlju",
+	"donate_interface-monthly-short": "Mesečno",
+	"donate_interface-onetime-short": "Jednokratno",
 	"donate_interface-submit-button-variant-01A": "Doniraj ovaj iznos"
 }

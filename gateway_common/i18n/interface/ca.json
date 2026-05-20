@@ -202,5 +202,8 @@
 	"donate_interface-monthly-convert-error": "La teva donació per a l’any actual ha tingut èxit, però no hem pogut iniciar una donació recurrent.",
 	"donate_interface-monthly-convert-yes-button-variant-011": ".Sí, afegiré una donació mensual de <span class=\"mc-convert-ask\"></span>.",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, gràcies!",
+	"donate_interface-select-country": "Seleccioneu el país",
+	"donate_interface-monthly-short": "Mensual",
+	"donate_interface-onetime-short": "Un sol cop",
 	"donate_interface-redirect-explanation": ".Se us redirigirà al soci processador de pagaments de Wikimedia."
 }

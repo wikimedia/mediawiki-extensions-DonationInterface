@@ -137,5 +137,8 @@
 	"donate_interface-email-unsub-confirm": "צי ווילט איר טאקע אומאבאנירן <b>$1</b>?",
 	"donate_interface-faqs": "מערסטע געפֿרעגטע פֿראַגעס",
 	"donate_interface-currency-change": "טוישן?",
+	"donate_interface-select-country": "קלויבט אויס א לאַנד",
+	"donate_interface-monthly-short": "מאנאטלעך",
+	"donate_interface-onetime-short": "איינמאליק",
 	"donate_interface-emailpreferences-thank-you-title": "אַ דאַנק"
 }

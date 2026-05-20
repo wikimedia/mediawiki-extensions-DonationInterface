@@ -283,5 +283,8 @@
 	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのページへ移動します",
 	"donate_interface-amount-legend-variant-01A": "寄付する金額",
 	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報",
+	"donate_interface-select-country": "国の選択",
+	"donate_interface-monthly-short": "毎月の定額寄付",
+	"donate_interface-onetime-short": "今回のみ",
 	"donate_interface-submit-button-variant-01A": "この内容で寄付する"
 }

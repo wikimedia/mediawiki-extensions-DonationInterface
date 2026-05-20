@@ -24,5 +24,6 @@
 	"donate_interface-error-msg-country": "çĕршыв",
 	"donate_interface-error-msg-card_num": "кредитный картăн номерĕ",
 	"donate_interface-error-msg-account_name": "Аккаунт ячĕ",
-	"donate_interface-error-msg-account_number": "Аккаунт номерĕ"
+	"donate_interface-error-msg-account_number": "Аккаунт номерĕ",
+	"donate_interface-select-country": "Суйлăр çĕршыв"
 }

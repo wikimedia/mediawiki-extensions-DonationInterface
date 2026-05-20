@@ -239,5 +239,8 @@
 	"donate_interface-monthly-convert-action-button": "Donează lunar",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Da, voi face o donație lunară de <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nu, mulțumesc.",
+	"donate_interface-select-country": "Selectați țara",
+	"donate_interface-monthly-short": "Lunar",
+	"donate_interface-onetime-short": "O dată",
 	"donate_interface-fundraiser-maintenance-header": "Nefuncțional temporar pentru mentenanță"
 }

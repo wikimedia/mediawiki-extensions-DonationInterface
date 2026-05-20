@@ -209,5 +209,8 @@
 	"donate_interface-currency-change": "Newid?",
 	"donate_interface-monthlybox-amount": "Swm y rhodd misol",
 	"donate_interface-monthly-cancel": "Bydd taliadau misol yn cael eu codi gan Sefydliad Wikimedia hyd nes y byddwch yn ein hysbysu i roi terfyn arnynt.",
+	"donate_interface-select-country": "Dewiswch wlad",
+	"donate_interface-monthly-short": "Misol",
+	"donate_interface-onetime-short": "Unwaith",
 	"donate_interface-error-http-403": "Nid yw'r gallu gennych i weld y dudalen hon."
 }

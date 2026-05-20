@@ -327,5 +327,8 @@
 	"donate_interface-redirect-explanation": "Tu essera redirigite verso le partner de Wikimedia pro le tractamento del pagamento.",
 	"donate_interface-amount-legend-variant-01A": "Amonta a donar",
 	"donate_interface-cc-form-header-personal-variant-01A": "Informationes de pagamento",
+	"donate_interface-select-country": "Selige pais",
+	"donate_interface-monthly-short": "Mensual",
+	"donate_interface-onetime-short": "Unic",
 	"donate_interface-submit-button-variant-01A": "Donar iste amonta"
 }

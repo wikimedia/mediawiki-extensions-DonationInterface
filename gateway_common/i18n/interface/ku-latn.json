@@ -35,5 +35,8 @@
 	"donate_interface-error-msg-state_province": "dewlet",
 	"donate_interface-error-msg-country": "Xêra xwe welatê xwe têkeve",
 	"donate_interface-other": "Yê din",
+	"donate_interface-select-country": "Welatekî hilbijêre",
+	"donate_interface-monthly-short": "Mehane",
+	"donate_interface-onetime-short": "Yek carî",
 	"donate_interface-cancel": "Betal bike"
 }

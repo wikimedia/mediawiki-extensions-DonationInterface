@@ -203,5 +203,8 @@
 	"donate_interface-currency-change": "മാറ്റം വരുത്തണോ?",
 	"donate_interface-monthlybox-amount": "മാസംതോറും നൽകാനുദ്ദേശിക്കുന്ന സംഭാവന തുക",
 	"donate_interface-error-http-403": "ഈ താളിൽ പ്രവേശിക്കുവാൻ താങ്കൾക്ക് അനുമതിയില്ല",
+	"donate_interface-select-country": "രാജ്യം തിരഞ്ഞെടുക്കുക",
+	"donate_interface-monthly-short": "മാസംതോറും",
+	"donate_interface-onetime-short": "ഒറ്റത്തവണ",
 	"donate_interface-fundraiser-maintenance-header": "പരിപാലനത്തിനായി താത്കാലികമായി പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു"
 }

@@ -381,5 +381,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "我们目前正在进行计划性的维护，因此目前不能接受捐赠。请稍后再试。如果您有任何疑问，请发邮件到$1。",
 	"donate_interface-redirect-explanation": "您将会被重定向到维基媒体的付款处理合作伙伴。",
 	"donate_interface-amount-legend-variant-01A": "捐款金额",
+	"donate_interface-select-country": "选择国家/地区",
+	"donate_interface-monthly-short": "每月",
+	"donate_interface-onetime-short": "单次",
 	"donate_interface-cc-form-header-personal-variant-01A": "付款信息"
 }

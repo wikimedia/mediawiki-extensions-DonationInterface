@@ -150,5 +150,8 @@
 	"donate_interface-donation": "Styrkja verkefnið",
 	"donate_interface-email-unsub-button": "Segja upp áskrift",
 	"donate_interface-faqs": "Algengar spurningar",
+	"donate_interface-select-country": "Veldu land",
+	"donate_interface-monthly-short": "Mánaðarlega",
+	"donate_interface-onetime-short": "Einu sinni",
 	"donate_interface-currency-change": "Breyta?"
 }

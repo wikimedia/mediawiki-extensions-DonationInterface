@@ -155,5 +155,7 @@
 	"donate_interface-cancel": "Bıtexelne",
 	"donate_interface-donation": "Yarmetiya perey",
 	"donate_interface-rtbt-issuer_id": "Yew banka weçine",
+	"donate_interface-select-country": "Dewlet weçinê",
+	"donate_interface-monthly-short": "Aşmane",
 	"donate_interface-currency-change": "Wa Bıvuryo?"
 }

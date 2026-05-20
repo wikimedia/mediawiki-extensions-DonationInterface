@@ -185,5 +185,7 @@
 	"donate_interface-currency-change": "ବଦଳାଇବେ?",
 	"donate_interface-monthlybox-amount": "ମାସିକ ଅନୁଦାନ ପରିମାଣ",
 	"donate_interface-monthly-cancel": "ଯେତେ ଯାଏଁ ଆପଣ ଆମକୁ ବନ୍ଦ କରିବା ପାଇଁ ଅନୁରୋଧ କରିନଥିବେ ସେତେଯାଏଁ ମାସିକ ଅନୁଦାନ ସବୁ ଉଇକିମିଡ଼ିଆ ଫାଉଣ୍ଡେସନକୁ ଯାଉଯିବ ।",
+	"donate_interface-select-country": "ଦେଶଟିଏ ବାଛନ୍ତୁ",
+	"donate_interface-monthly-short": "ମାସିକ",
 	"donate_interface-error-http-403": "ଆପଣଙ୍କୁ ଏହି ପୃଷ୍ଠାଟି ଭିତରକୁ ଯିବାକୁ ଅନୁମତି ନାହିଁ ।"
 }

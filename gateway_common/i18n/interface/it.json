@@ -291,5 +291,8 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazie!",
 	"donate_interface-fundraiser-maintenance-header": "Temporaneamente fuori servizio per manutenzione",
 	"donate_interface-fundraiser-maintenance-notice": "Stiamo al momento effettuando la manutenzione programmata e non siamo in grado di accettare donazioni. Si prega di riprovare fra poco. Per qualsiasi domanda potete scriverci a $1.",
+	"donate_interface-select-country": "Seleziona la nazione",
+	"donate_interface-monthly-short": "Mensile",
+	"donate_interface-onetime-short": "Una volta",
 	"donate_interface-redirect-explanation": "Sarai reindirizzato a un partner di Wikimedia che elabora i pagamenti."
 }

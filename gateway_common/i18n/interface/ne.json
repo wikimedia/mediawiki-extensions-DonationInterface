@@ -156,5 +156,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "हामी वर्तमान निर्धारित मर्मतसम्भार गरिरहेका छौँ र दान स्वीकार गर्न असमर्थ छौं। कृपया चाँडै फेरि प्रयास गर्नुहोस्। यदि तपाईंसँग कुनै प्रश्नहरू छन् भने, कृपया $1 मा इमेल गर्नुहोस्।",
 	"donate_interface-redirect-explanation": "तपाईँलाई विकिमीडियाको भुक्तानी प्रोसेसर साझेदारमा पुनःनिर्देशित गरिनेछ।",
 	"donate_interface-amount-legend-variant-01A": "दान गर्ने रकम",
+	"donate_interface-select-country": "यौटा देश छान्नुहोस",
+	"donate_interface-monthly-short": "मासिक",
+	"donate_interface-onetime-short": "एक-समय",
 	"donate_interface-cc-form-header-personal-variant-01A": "भुक्तानी जानकारी"
 }

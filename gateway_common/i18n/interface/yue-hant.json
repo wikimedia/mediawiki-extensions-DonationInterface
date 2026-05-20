@@ -136,5 +136,8 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "係，我想幫手",
 	"donate_interface-monthly-convert-no-button-variant-006": "唔使，多謝",
 	"donate_interface-monthly-convert-no-button-variant-011": "唔使，多謝！",
+	"donate_interface-select-country": "揀一個國家",
+	"donate_interface-monthly-short": "每月",
+	"donate_interface-onetime-short": "一次",
 	"donate_interface-monthly-convert-no-button-variant-014": "唔使住"
 }

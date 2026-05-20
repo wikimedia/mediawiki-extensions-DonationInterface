@@ -319,5 +319,8 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "Ні, не зараз",
 	"donate_interface-fundraiser-maintenance-header": "Тимчасово відключений для технічного обслуговування",
 	"donate_interface-fundraiser-maintenance-notice": "Ми зараз виконуємо заплановане обслуговування і не в змозі прийняти пожертвувань. Будь ласка, спробуйте ще раз трохи згодом. Якщо у Вас є якісь запитання, будь ласка, напишіть на $1 .",
+	"donate_interface-select-country": "Виберіть країну",
+	"donate_interface-monthly-short": "Щомісячно",
+	"donate_interface-onetime-short": "Одноразово",
 	"donate_interface-redirect-explanation": "Ви будете перенаправлені до партнера Вікімедіа з обробки платежів."
 }

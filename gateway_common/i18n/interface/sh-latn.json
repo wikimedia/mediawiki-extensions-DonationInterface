@@ -231,5 +231,8 @@
 	"donate_interface-monthly-convert-no-button-variant-011": "Ne, hvala!",
 	"donate_interface-fundraiser-maintenance-header": "Privremeno nedostupno zbog održavanja",
 	"donate_interface-fundraiser-maintenance-notice": "Trenutno obavljamo redovno održavanje i nismo u mogućnosti da prihvatimo donacije. Pokušajte ponovo uskoro. Ako imate bilo kakvih pitanja, pošaljite e-poruku na $1.",
+	"donate_interface-select-country": "Izaberite državu",
+	"donate_interface-monthly-short": "Mjesečno",
+	"donate_interface-onetime-short": "Jednokratno",
 	"donate_interface-redirect-explanation": "Bit ćete preusmjereni na Wikimedijinog partnera za obradu plaćanja."
 }

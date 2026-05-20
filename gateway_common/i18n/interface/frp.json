@@ -181,5 +181,8 @@
 	"donate_interface-tax-info": "Enformacions sur les condicions de dèductibilitât fiscâla",
 	"donate_interface-currency-change": "Changiér ?",
 	"donate_interface-monthlybox-amount": "Montent du don per mês",
+	"donate_interface-select-country": "Chouèsir un payis",
+	"donate_interface-monthly-short": "Per mês",
+	"donate_interface-onetime-short": "Yon côp",
 	"donate_interface-error-http-403": "Vos avéd pas los drêts d’accès a ceta pâge."
 }

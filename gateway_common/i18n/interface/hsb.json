@@ -200,5 +200,8 @@
 	"donate_interface-monthly-cancel": "Měsačne płaćenja wotknihuja so wot załožby Wikimedia Foundation, doniž nas njeprosyće, zo bychmy wotknihowanja zastajili",
 	"donate_interface-error-http-403": "Nimaće prawo za přistup na tutu stronu.",
 	"donate_interface-fundraiser-maintenance-header": "Nachwilu wothladowanja dla njedocpějomny",
+	"donate_interface-select-country": "Kraj wubrać",
+	"donate_interface-monthly-short": "Kóždy měsac",
+	"donate_interface-onetime-short": "Jónkróćny",
 	"donate_interface-fundraiser-maintenance-notice": "Přewjedźemy tuchwilu planowane wothladowanje a njemóžemy dary akceptować. prošu spytaj hišće raz. Jeli maš prašenja, pósćel prošu e-mejlku na $1."
 }

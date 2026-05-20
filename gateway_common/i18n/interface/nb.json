@@ -347,5 +347,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Vi utfører for øyeblikket planlagt vedlikehold, og kan ikke ta imot donasjoner nå. Prøv igjen snart. Om du har noen spørsmål, send oss gjerne en e-post på $1.",
 	"donate_interface-redirect-explanation": "Du blir sendt videre til Wikimedias betalingsbehandler.",
 	"donate_interface-amount-legend-variant-01A": "Beløpet som skal doneres",
+	"donate_interface-select-country": "Velg land",
+	"donate_interface-monthly-short": "Månedlig",
+	"donate_interface-onetime-short": "Én gang",
 	"donate_interface-cc-form-header-personal-variant-01A": "Betalingsinformasjon"
 }

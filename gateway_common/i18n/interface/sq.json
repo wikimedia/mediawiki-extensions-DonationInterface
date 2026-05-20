@@ -181,5 +181,6 @@
 	"donate_interface-tax-info": "Të dhënat mbi zbritjen nga tatimi mbi fitimin.",
 	"donate_interface-informationsharing": "Gjatë dhënies së kontributit ju shkëmbeni informacion me Fondacionin Wikimedia, organizatën jo fitimprurëse që drejton Wikipedia-n dhe projekte të tjera të Wikimedia-s, dhe ofruesin e saj të shërbimeve në SHBA dhe vende të tjera, sipas politikës tonë të anonimitetit të kontribuuesit. Ne nuk i shesim dhe as nuk i shkëmbejmë të dhënat tuaja me askënd. Për më shumë informacion, ju lutemi lexoni <ahref=\"$1\">politikën tonë për kontribuuesit</a>.",
 	"donate_interface-currency-change": "Ndryshime?",
+	"donate_interface-select-country": "Zgjidhni vendin",
 	"donate_interface-monthlybox-amount": "Sasia mujore e donacioneve"
 }

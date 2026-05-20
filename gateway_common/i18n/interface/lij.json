@@ -210,5 +210,8 @@
 	"donate_interface-currency-change": "Valuta?",
 	"donate_interface-monthlybox-amount": "Importo da donaçion menscî",
 	"donate_interface-monthly-cancel": "Pe-i donatoî ricorrenti, i pagamenti fissi menscî saian addebitæ da-a Wikimedia Foundation ogni meise into giorno da primma donaçion, pe scin che no ti ne scrivi de sospendili. E donaçioin fæte pe-a primma votta o 29, 30 o 31 do meise vsaian antiçipæ a l’urtimo giorno do meise inti meixi ciù curti, o ciù vexin poscibbile a-a dæta originâ. Pe ciu informaçioin, ne poei scrive a $1.",
+	"donate_interface-select-country": "Seleçion-a a naçion",
+	"donate_interface-monthly-short": "Menscî",
+	"donate_interface-onetime-short": "Una votta",
 	"donate_interface-error-http-403": "No ti g'hæ o permisso pe accede a sta paggina."
 }

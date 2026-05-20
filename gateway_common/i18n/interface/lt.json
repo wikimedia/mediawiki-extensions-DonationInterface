@@ -287,5 +287,8 @@
 	"donate_interface-fundraiser-maintenance-notice": "Šiuo metu atliekame planinę priežiūrą ir negalime priimti aukų. Netrukus bandykite dar kartą. Jei turite klausimų, atsiųskite el. laišką $1.",
 	"donate_interface-redirect-explanation": "Būsite nukreipti į Vikimedijos mokėjimų apdorojimo partnerį.",
 	"donate_interface-amount-legend-variant-01A": "Aukojama suma",
+	"donate_interface-select-country": "Pasirinkite valstybę",
+	"donate_interface-monthly-short": "Kas mėnesį",
+	"donate_interface-onetime-short": "Vienkartinė auka",
 	"donate_interface-cc-form-header-personal-variant-01A": "Mokėjimo informacija"
 }

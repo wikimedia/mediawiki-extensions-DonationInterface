@@ -229,5 +229,8 @@
 	"donate_interface-monthly-cancel": "Nel casu de los donantes periódicos, la Fundación Wikimedia va realizar tolos meses el cargu correspondiente'l mesmu día del mes de la primer donación, hasta'l momentu en que nos avises de que quies atayar el pagu. Les donaciones empecipiaes nos díes 29, 30 o 31 van cargase l'últimu día del mes nos meses que sían más curtios, lo más cerca posible de la fecha orixinal. Pa cualquier entruga, comunícate con $1.",
 	"donate_interface-error-http-403": "Nun tienes permisu d'accesu pa esta páxina.",
 	"donate_interface-fundraiser-maintenance-header": "Zarráu temporalmente por mantenimientu",
+	"donate_interface-select-country": "Seleicione un país",
+	"donate_interface-monthly-short": "Mensual",
+	"donate_interface-onetime-short": "Una sola vegada",
 	"donate_interface-fundraiser-maintenance-notice": "Nesti momentu tamos faciendo un mantenimientu programáu y nun somos a aceutar donativos. Por favor, vuelvi a intentalo ceo. Si tienes dalguna entruga, manda un corréu a $1."
 }

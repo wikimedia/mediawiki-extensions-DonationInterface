@@ -204,5 +204,8 @@
 	"donate_interface-monthly-convert-yes-button-variant-011": "Jā, es pievienošu ikmēneša ziedojumu <span class=\"mc-convert-ask\"></span> apmērā",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nē, paldies!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Nē, ne tagad",
+	"donate_interface-select-country": "Izvēlieties valsti",
+	"donate_interface-monthly-short": "Ikmēneša",
+	"donate_interface-onetime-short": "Vienu reizi",
 	"donate_interface-fundraiser-maintenance-header": "Īslaicīgi nepieejams uzturēšanas darbu dēļ"
 }

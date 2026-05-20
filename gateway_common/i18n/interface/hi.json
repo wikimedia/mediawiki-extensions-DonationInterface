@@ -296,5 +296,8 @@
 	"donate_interface-monthly-convert-no-button-variant-014": "नहीं, अभी नहीं",
 	"donate_interface-fundraiser-maintenance-header": "अनुरक्षण के लिए अस्थायी रूप से बंद है",
 	"donate_interface-fundraiser-maintenance-notice": "हम इस समय नियमित अनुरक्षण का काम कर रहे हैं, और दान स्वीकार नहीं सकते। कृपया जल्द पुनः प्रयास करें। अगर आपके पास कोई सवाल है, कृपया $1 पर ईमेल भेजें।",
+	"donate_interface-select-country": "एक राष्ट्र चुनें",
+	"donate_interface-monthly-short": "मासिक",
+	"donate_interface-onetime-short": "एक बार",
 	"donate_interface-redirect-explanation": "आपको विकिमीडिया के भुगतान प्रोसेसर पार्टनर पर अनुप्रेषित कर दिया जाएगा।"
 }
