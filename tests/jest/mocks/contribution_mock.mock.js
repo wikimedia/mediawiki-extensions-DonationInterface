@@ -65,6 +65,24 @@ module.exports = exports = {
 		last_payment_method: 'Credit Card: Visa',
 		last_receive_date_formatted: 'September 2, 2025'
 	},
+	legacy_paypal_recurring: {
+		amount_frequency_key: 'donorportal-recurring-amount-monthly',
+		amount_formatted: '$7.17',
+		currency_symbol: '$',
+		currency: 'USD',
+		frequency_unit: 'month',
+		payment_method: 'Paypal',
+		next_sched_contribution_date_formatted: 'May 28, 2026',
+		next_sched_contribution_date: '2026-05-28 00:00:00',
+		last_contribution_date_formatted: 'April 28, 2026',
+		hasLastContribution: true,
+		amount: 7.17,
+		id: '200',
+		can_modify: false,
+		is_legacy_paypal: true,
+		is_paused: false,
+		is_processing: false
+	},
 	inactive_yearly_recurring: {
 		amount_frequency_key: 'donorportal-recurring-amount-annual',
 		amount_formatted: 'R$150',

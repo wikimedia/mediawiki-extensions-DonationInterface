@@ -309,6 +309,8 @@ class DonorPortal extends UnlistedSpecialPage {
 				);
 			}
 
+			$recurringContribution['is_legacy_paypal'] = $recurringContribution['payment_processor'] == 'paypal_ec';
+
 			$this->formParams[$key][] = $recurringContribution;
 			// TODO: localize payment methods
 		}

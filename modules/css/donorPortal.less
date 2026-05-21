@@ -908,6 +908,10 @@ p.popup-body {
 	text-align: center;
 }
 
+.dp-paypal-notice {
+	font-size: @font-size-small;
+}
+
 .dp-card__player {
 	max-width: 254px;
 	width: 100%;
@@ -1483,15 +1487,19 @@ p.popup-body {
 	}
 
 	.dp-card__summary {
-		flex-direction: row;
+		display: grid;
+		grid-template-columns: 3fr 2fr;
+		column-gap: @gap-base;
 		align-items: center;
-
-		& > :first-child {
-			flex: 1;
-		}
 
 		& .cdx-button {
 			width: auto !important;
+		}
+
+		.dp-card__summary-action {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 		}
 	}
 

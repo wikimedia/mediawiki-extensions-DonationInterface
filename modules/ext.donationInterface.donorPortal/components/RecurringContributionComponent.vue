@@ -7,40 +7,47 @@
 				<span v-else class="tag">{{ statusWord }}</span>
 			</div>
 			<div class="dp-card__section dp-card__summary">
-				<p class="text heading--h2">
-					<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
-					<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
-				</p>
-				<router-link
-					v-if="isManageableRecurring"
-					:to="`/manage-donations/${contribution.id}`"
-					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
-					{{ $i18n( "donorportal-manage-donation" ).text() }}
-				</router-link>
-			</div>
+				<div>
+					<p class="text heading--h2">
+						<strong v-if="isActive || !contribution.hasLastContribution">{{ contributionAmount }}</strong>
+						<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
+					</p>
 
-			<p v-if="isActive" class="text text--body">
-				{{ contribution.payment_method }}
-				[&nbsp;
-				<popup-link>
-					<template #link-text>
-						{{ $i18n( 'donorportal-edit-text' ).text() }}
-					</template>
-					<template #popup-body>
-						<h2 id="popup-title">
-							{{ $i18n( 'donorportal-coming-soon' ).text() }}
-						</h2>
-						<p class="popup-body" v-html="emailTemplate"></p>
-					</template>
-				</popup-link>
-				&nbsp;]
-			</p>
-			<p v-if="isActive" class="text text--body">
-				{{ recurringNextContributionAmountWithDate }}
-			</p>
-			<p v-else-if="contribution.hasLastContribution" class="text text--body">
-				{{ recurringLastContributionAmountWithDate }}
-			</p>
+					<p v-if="isActive && !this.contribution.is_legacy_paypal" class="text text--body">
+						{{ contribution.payment_method }}
+						[&nbsp;
+						<popup-link>
+							<template #link-text>
+								{{ $i18n( 'donorportal-edit-text' ).text() }}
+							</template>
+							<template #popup-body>
+								<h2 id="popup-title">
+									{{ $i18n( 'donorportal-coming-soon' ).text() }}
+								</h2>
+								<p class="popup-body" v-html="emailTemplate"></p>
+							</template>
+						</popup-link>
+						&nbsp;]
+					</p>
+					<p v-if="isActive" class="text text--body">
+						{{ recurringNextContributionAmountWithDate }}
+					</p>
+					<p v-else-if="contribution.hasLastContribution" class="text text--body">
+						{{ recurringLastContributionAmountWithDate }}
+					</p>
+				</div>
+				<div class="dp-card__summary-action">
+					<router-link
+						v-if="isManageableRecurring"
+						:to="`/manage-donations/${contribution.id}`"
+						class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+						{{ $i18n( "donorportal-manage-donation" ).text() }}
+					</router-link>
+					<p v-else-if="this.contribution.is_legacy_paypal" class="text text--body dp-paypal-notice">
+						{{ $i18n( 'donorportal-update-donation-legacy-paypal-disable-text' ).text() }}
+					</p>
+				</div>
+			</div>
 		</div>
 		<div class="dp-card__section dp-card__cta">
 			<a

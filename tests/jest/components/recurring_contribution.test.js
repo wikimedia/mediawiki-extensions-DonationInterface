@@ -4,6 +4,7 @@ const RecurringContributionComponent = require( '../../../modules/ext.donationIn
 const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_yearly_recurring: inactive_yearly_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { legacy_paypal_recurring: legacy_paypal_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { when } = require( 'jest-when' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 const entities = require( 'entities' );
@@ -82,6 +83,25 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.html() ).not.toContain( `<a target="_self" href="#/update-donations/${ recurring_mock.id }"` );
 		expect( element.html() ).not.toContain( `<a href="#/pause-donations/${ recurring_mock.id }" class="link"> donorportal-recurring-pause </a>` );
 	} );
+	it( 'Shows PayPal notice and hides manage button for unmanageable legacy PayPal donations', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
+			props: {
+				contribution: legacy_paypal_recurring_mock,
+				isActive: true
+			}
+		} );
+
+		const card = wrapper.find( '.is-recurring' );
+		expect( card.exists() ).toBe( true );
+
+		const notice = wrapper.find( '.dp-paypal-notice' );
+		expect( notice.exists() ).toBe( true );
+		expect( notice.html() ).toContain( 'donorportal-update-donation-legacy-paypal-disable-text' );
+
+		expect( card.html() ).not.toContain( 'donorportal-manage-donation' );
+		expect( card.html() ).not.toContain( 'donorportal-edit-text' );
+	} );
+
 	it( 'Render correct new donation link', () => {
 		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
 			props: {
