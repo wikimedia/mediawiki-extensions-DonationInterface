@@ -377,10 +377,9 @@ class IngenicoTest extends BaseIngenicoTestCase {
 			} ) )
 			->willReturnOnConsecutiveCalls(
 				$this->throwException( new Exception( 'test' ) ),
-				$this->returnValue( ( new CreatePaymentSessionResponse() )
+				( new CreatePaymentSessionResponse() )
 					->setSuccessful( true )
 					->setPaymentSession( 'asdasda' )
-				)
 			);
 		try {
 			$gateway->doPayment();
