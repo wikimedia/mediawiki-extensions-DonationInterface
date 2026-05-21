@@ -131,49 +131,6 @@ describe( 'Cancel donations view', () => {
 		expect( cancelSuccessText.exists() ).toBe( false );
 	} );
 
-	it( 'Renders the pause error view on failure', async () => {
-		const wrapper = VueTestUtils.mount( CancelDonationsView, {
-			global: {
-				plugins: [ router ]
-			}
-		} );
-
-		when( global.mw.Api.prototype.post ).calledWith( {
-			action: RECURRING_PAUSE_API_ACTION,
-			duration: '90 Days',
-			contact_id: DonorDataMock.contact_id,
-			checksum: DonorDataMock.checksum,
-			contribution_recur_id: '123',
-			next_sched_contribution_date: '2025-08-02 00:00:02',
-			is_from_save_flow: true
-		} ).mockRejectedValueOnce( 'API_error' );
-
-		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
-
-		const selectedPeriod = cancelDonationsViewBody.find( '#option-90days' );
-		selectedPeriod.element.selected = true;
-		await selectedPeriod.trigger( 'input' );
-		await VueTestUtils.flushPromises();
-
-		const pauseRecurringOption = cancelDonationsViewBody.find( '#pause-recurring-alt' );
-		const pauseRecurringOptionButton = pauseRecurringOption.find( '#submit-pause-action' );
-		await pauseRecurringOptionButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		// Ensure success text is visible after successful API request
-		const successText = wrapper.find( '#recurring-contribution-pause-success' );
-		expect( successText.exists() ).toBe( false );
-
-		// Ensure failure text is not visible after successful API request
-		const failureText = wrapper.find( '#error-component' );
-		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
-
-		// Ensure cancel recurring success text is not visible on first load
-		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
-		expect( cancelSuccessText.exists() ).toBe( false );
-	} );
-
 	it( 'Renders the cancel confirmation page and the recurring success view on successful cancel', async () => {
 		const wrapper = VueTestUtils.mount( CancelDonationsView, {
 			global: {
@@ -231,43 +188,6 @@ describe( 'Cancel donations view', () => {
 		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
 		expect( cancelSuccessText.exists() ).toBe( true );
 		expect( cancelSuccessText.html() ).toContain( `donorportal-cancel-monthly-recurring-confirmation-text:[<strong>${ DonorDataMock.recurringContributions[ 0 ].amount_frequency_key }:[${ DonorDataMock.recurringContributions[ 0 ].amount_formatted },${ DonorDataMock.recurringContributions[ 0 ].currency }]</strong>]` );
-	} );
-
-	it( 'Renders the cancel confirmation page and the recurring error view on failed cancel', async () => {
-		const wrapper = VueTestUtils.mount( CancelDonationsView, {
-			global: {
-				plugins: [ router ]
-			}
-		} );
-
-		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
-
-		when( global.mw.Api.prototype.post ).calledWith(
-			expect.anything()
-		).mockRejectedValueOnce( 'API_error' );
-
-		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
-		await proceedCancelButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		const cancelConfirmationScreen = wrapper.find( '#recurring-cancellation-confirmation' );
-
-		const givingMethodReason = cancelConfirmationScreen.find( '#option-giving-method' );
-		await givingMethodReason.trigger( 'input' );
-
-		const submitButton = cancelConfirmationScreen.find( '#continue' );
-		await submitButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		// Ensure cancel recurring success text is not visible on failure
-		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
-		expect( cancelSuccessText.exists() ).toBe( false );
-
-		// Ensure recurring failure text is visible on first load
-		const failureText = wrapper.find( '#error-component' );
-		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
-
 	} );
 
 	it( 'Submits a tracking value from the URL', async () => {
@@ -344,7 +264,8 @@ describe( 'Cancel donations view errors', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( 'API_error' );
+		).mockRejectedValueOnce( 'API Error' );
+
 		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
 
 		const selectedPeriod = cancelDonationsViewBody.find( '#option-90days' );
@@ -357,16 +278,16 @@ describe( 'Cancel donations view errors', () => {
 		await pauseRecurringOptionButton.trigger( 'click' );
 		await VueTestUtils.flushPromises();
 
-		// Ensure success text is visible after successful API request
+		// Ensure success text is not visible after failed API request
 		const successText = wrapper.find( '#recurring-contribution-pause-success' );
 		expect( successText.exists() ).toBe( false );
 
-		// Ensure failure text is not visible after successful API request
+		// Ensure failure text is visible after failed API request
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
 
-		// Ensure cancel recurring success text is not visible on first load
+		// Ensure cancel recurring success text is not visible after failed API request
 		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
 		expect( cancelSuccessText.exists() ).toBe( false );
 	} );
@@ -419,7 +340,7 @@ describe( 'Cancel donations view errors', () => {
 
 		when( global.mw.Api.prototype.post ).calledWith(
 			expect.anything()
-		).mockRejectedValueOnce( 'API_error' );
+		).mockRejectedValueOnce( 'API error' );
 
 		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
 		await proceedCancelButton.trigger( 'click' );
@@ -486,45 +407,4 @@ describe( 'Cancel donations view errors', () => {
 
 	} );
 
-	it( 'Renders the cancel confirmation page and the recurring error view on failed cancel due to loss of session', async () => {
-		const wrapper = VueTestUtils.mount( CancelDonationsView, {
-			global: {
-				plugins: [ router ]
-			}
-		} );
-
-		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
-
-		when( global.mw.Api.prototype.post ).calledWith(
-			expect.anything()
-		).mockRejectedValueOnce( 'no-session' );
-
-		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
-		await proceedCancelButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		// Ensure pause success text is visible after successful API request
-		const cancelConfirmationScreen = wrapper.find( '#recurring-cancellation-confirmation' );
-
-		const givingMethodReason = cancelConfirmationScreen.find( '#option-giving-method' );
-		await givingMethodReason.trigger( 'input' );
-
-		const submitButton = cancelConfirmationScreen.find( '#continue' );
-		await submitButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		// Ensure pause success text is visible after successful API request
-		const successText = wrapper.find( '#recurring-contribution-pause-success' );
-		expect( successText.exists() ).toBe( false );
-
-		// Ensure cancel recurring success text is not visible on first load
-		const cancelSuccessText = wrapper.find( '#recurring-contribution-cancel-success' );
-		expect( cancelSuccessText.exists() ).toBe( false );
-
-		// Ensure recurring failure text is visible on first load
-		const failureText = wrapper.find( '#error-component' );
-		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-error-no-session' );
-
-	} );
 } );

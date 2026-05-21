@@ -190,7 +190,7 @@ describe( 'Update donations view', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( 'API_error'  )
+			() => Promise.reject( 'API error' )
 		);
 
 		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
@@ -248,45 +248,6 @@ describe( 'Update donations view failure', () => {
 				resolve( {} );
 			} )
 		);
-	} );
-
-	it( 'Renders the error view on failure', async () => {
-		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
-			global: {
-				plugins: [ router ]
-			}
-		} );
-		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( 'API_error'  )
-		);
-
-		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
-		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
-		amountInput.element.value = 30;
-		await amountInput.trigger( 'input' );
-		await VueTestUtils.flushPromises();
-		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
-		await submitButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
-			action: RECURRING_UPDATE_API_ACTION,
-			amount: '30',
-			txn_type: 'recurring_upgrade',
-			contact_id: Number( DonorDataMock.contact_id ),
-			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123
-		} );
-
-		// Ensure success text is visible after successful API request
-		const successText = wrapper.find( '#recurring-contribution-update-success' );
-		expect( successText.exists() ).toBe( false );
-
-		// Ensure failure text is not visible after successful API request
-		const failureText = wrapper.find( '#error-component' );
-		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
-
 	} );
 
 	it( 'Renders the error view on session failure', async () => {
@@ -363,7 +324,7 @@ describe( 'Update donations view failure', () => {
 
 	} );
 
-	it( 'Renders the error view on bad contact failure', async () => {
+	it( 'Renders the error view on bad contribution recur id failure', async () => {
 		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
 			global: {
 				plugins: [ router ]
