@@ -5,12 +5,6 @@
 			"Meno25"
 		]
 	},
-	"donate_interface-AUD": "الدولار الأسترالي",
-	"donate_interface-CAD": "الدولار الكندي",
-	"donate_interface-EUR": "اليورو",
-	"donate_interface-GBP": "الجنيه الإسترليني",
-	"donate_interface-JPY": "الين الياباني",
-	"donate_interface-USD": "الدولار الأمريكي",
 	"donate_interface-amount-legend": "مقدار التبرع",
 	"donate_interface-donor-email": "عنوان البريد الإلكتروني:",
 	"donate_interface-donor-name": "الاسم:",

@@ -39,12 +39,12 @@
 	"donate_interface-donate-error-thank-you-for-your-support": "آپ کے تعاون کے لئے آپ کا شکریہ!",
 	"php-response-declined": "اپنے لین دین قبول نہيں ہو کر سکتے ہیں.",
 	"donate_interface-other": "دیگر",
+	"donate_interface-select-country": "ایک ملک کا انتخاب کریں",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-continue": "جاری رکھیں",
 	"donate_interface-cancel": "منسوخ",
 	"donate_interface-donation": "عطیہ",
 	"donate_interface-bt-account_holder": "اکاؤنٹ ہولڈر",
 	"donate_interface-email-unsub-button": "رکنیت ختم",
-	"donate_interface-select-country": "ایک ملک کا انتخاب کریں",
 	"donate_interface-currency-change": "تبدیلی؟"
 }

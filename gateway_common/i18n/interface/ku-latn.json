@@ -12,12 +12,6 @@
 	},
 	"donate_interface": "Piştgiriyê bide Wîkîmedyayê",
 	"donate_interface-currency": "Dirav:",
-	"donate_interface-CAD": "Dolarên Kanadayê",
-	"donate_interface-CZK": "Korunayên Çekî",
-	"donate_interface-EUR": "Ewro",
-	"donate_interface-JPY": "Yenê Japon",
-	"donate_interface-SEK": "Kronên Swêdî",
-	"donate_interface-USD": "Dolarên DYA'yê",
 	"donate_interface-donor-email": "Navnîşana e-nameyê",
 	"donate_interface-donor-name": "Nav",
 	"donate_interface-donor-first_name": "Pêşnav",
@@ -36,7 +30,7 @@
 	"donate_interface-error-msg-country": "Xêra xwe welatê xwe têkeve",
 	"donate_interface-other": "Yê din",
 	"donate_interface-select-country": "Welatekî hilbijêre",
+	"donate_interface-cancel": "Betal bike",
 	"donate_interface-monthly-short": "Mehane",
-	"donate_interface-onetime-short": "Yek carî",
-	"donate_interface-cancel": "Betal bike"
+	"donate_interface-onetime-short": "Yek carî"
 }

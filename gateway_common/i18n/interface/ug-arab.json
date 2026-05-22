@@ -8,17 +8,6 @@
 	"donate_interface-amount": "مىقدارى",
 	"donate_interface-currency": "پۇل",
 	"donate_interface-submit-button": "ئىئانە",
-	"donate_interface-ARS": "ئارگېنتىنا پېسوسى",
-	"donate_interface-AUD": "ئاۋسترالىيە دوللىرى",
-	"donate_interface-BDT": "باڭلادىش تاكاسى",
-	"donate_interface-BGN": "بۇلغارىيە لېۋاسى",
-	"donate_interface-BHD": "بەھرەين دىنارى",
-	"donate_interface-CHF": "شىۋېتسىيە فرانكى",
-	"donate_interface-EUR": "ياۋرو",
-	"donate_interface-HRK": "كىرودىيە كۇناسى",
-	"donate_interface-JPY": "ياپونىيە يېنى",
-	"donate_interface-SGD": "سىنگاپور دوللىرى",
-	"donate_interface-TJS": "تاجىكىستان سومونى",
 	"donate_interface-donor-email": "ئېلخەت ئادرېسى",
 	"donate_interface-donor-name": "ئاتى",
 	"donate_interface-donor-first_name": "ئاتى",
@@ -36,6 +25,6 @@
 	"donate_interface-credit-card-number": "ئىناۋەتلىك كارتا نومۇرى",
 	"donate_interface-continue": "داۋامى",
 	"donate_interface-cancel": "ۋاز كەچ",
-	"donate_interface-monthly-short": "ھەر ئايدا",
-	"donate_interface-email-unsub-button": "مۇشتەرى بولما"
+	"donate_interface-email-unsub-button": "مۇشتەرى بولما",
+	"donate_interface-monthly-short": "ھەر ئايدا"
 }

@@ -7,8 +7,6 @@
 	"donate_interface-amount": "Bedrag",
 	"donate_interface-other-amount": "Anner Bedrag",
 	"donate_interface-currency": "Geldsoort:",
-	"donate_interface-EUR": "Euro",
-	"donate_interface-USD": "US-Dollar",
 	"donate_interface-donor-email": "E-Mail-Adress",
 	"donate_interface-donor-name": "Naam",
 	"donate_interface-donor-first_name": "Vörnaam",

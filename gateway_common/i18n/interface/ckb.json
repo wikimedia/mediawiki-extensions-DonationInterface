@@ -8,15 +8,12 @@
 		]
 	},
 	"donate_interface": "پشتگیریی ویکیمیدیا بکە",
-	"donate_interface-EUR": "یورۆ",
-	"donate_interface-RUB": "ڕوبلی ڕووسی",
-	"donate_interface-USD": "دۆلاری ئەمریکی",
 	"donate_interface-donor-last_name": "دواناو:",
 	"donate_interface-donor-street-number": "ژمارە",
 	"donate_interface-donor-city": "شار:",
 	"donate_interface-error-msg-email": "تکایە ناونیشانی ئیمەیڵەکەت داخل بکە",
 	"donate_interface-error-msg-last_name": "دواناو:",
 	"donate_interface-error-msg-city": "تکایە شارەکەت بنووسە",
-	"donate_interface-monthly-short": "مانگانە",
-	"donate_interface-other": "دیکە"
+	"donate_interface-other": "دیکە",
+	"donate_interface-monthly-short": "مانگانە"
 }

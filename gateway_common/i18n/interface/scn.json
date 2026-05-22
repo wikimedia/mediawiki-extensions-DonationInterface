@@ -9,11 +9,6 @@
 	},
 	"donate_interface-amount": "Mportu",
 	"donate_interface-currency": "Munita",
-	"donate_interface-AED": "Dirham dî Emirati Àrabbi Uniti",
-	"donate_interface-ARS": "Pesu argintinu",
-	"donate_interface-AUD": "Dòllaru australianu",
-	"donate_interface-BBD": "Dòllaru dî Barbados",
-	"donate_interface-BDT": "Taka bingalisi",
 	"donate_interface-donor-email": "Nnirizzu e-mail",
 	"donate_interface-donor-name": "Nomu",
 	"donate_interface-donor-last_name": "Cognomu",
@@ -35,8 +30,8 @@
 	"donate_interface-other": "Àutru",
 	"donate_interface-cvv": "CVV",
 	"donate_interface-cancel": "Annulla",
+	"donate_interface-monthly-short": "Minsili",
 	"donate_interface-emailpreferences-thank-you-title": "Grazzi",
 	"donate_interface-monthly-convert-no-button-variant-006": "No, grazzi",
-	"donate_interface-monthly-short": "Minsili",
 	"donate_interface-monthly-convert-no-button-variant-011": "No, grazzi!"
 }

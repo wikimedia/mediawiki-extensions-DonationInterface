@@ -97,7 +97,7 @@
 	"apihelp-requestPauseRecurring-param-wmf_medium": "추적 변수",
 	"apihelp-requestPauseRecurring-param-wmf_source": "추적 변수",
 	"apihelp-requestCancelRecurring-summary": "이 API는 기부자 환경 설정 페이지에서 정기 기부 취소를 요청합니다",
-	"apihelp-requestCancelRecurring-param-reason": "취소 사유",
+	"apihelp-requestCancelRecurring-param-reason": "취소 이유",
 	"apihelp-requestCancelRecurring-param-contact_id": "취소 요청을 하는 기부자의 연락처 ID",
 	"apihelp-requestCancelRecurring-param-checksum": "업데이트 요청을 하는 기부자의 체크섬",
 	"apihelp-requestCancelRecurring-param-contribution_recur_id": "기부자가 취소하려는 정기 기부 ID",

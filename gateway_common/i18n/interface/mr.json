@@ -11,8 +11,6 @@
 	"donate_interface-submit-button": "दान",
 	"donate_interface-amount-error": "कृपया योग्य रक्कम टाका.",
 	"donate_interface-smallamount-error": "आपण कमीत कमी $1 देऊ शकता.",
-	"donate_interface-GBP": "ब्रिटीश पौंड",
-	"donate_interface-INR": "भारतीय रूपया",
 	"donate_interface-cc-button": "क्रेडिट कार्ड द्वारे भरणा करा.",
 	"donate_interface-dd-button": "डेबीट कार्ड द्वारे भरणा करा.",
 	"donate_interface-donor-name": "नाव",
