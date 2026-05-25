@@ -561,7 +561,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 			] );
 			$dom_thingy = $domBuilder->getFragment();
 			// p.s. i'm SERIOUS about the character encoding.
-			$dom_thingy->encoding = 'UTF-8';
+			if ( $dom_thingy instanceof \DOMDocument ) {
+				$dom_thingy->encoding = 'UTF-8';
+			} else {
+				$dom_thingy->characterSet = 'UTF-8';
+			}
 		}
 
 		foreach ( $perform_these_checks as $id => $checks ) {
