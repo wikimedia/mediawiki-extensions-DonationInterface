@@ -26,7 +26,7 @@
 		]
 	},
 	"donate_interface": "위키미디어를 지원해주세요",
-	"donate_interface-desc": "게이트웨이 확장 기능을 통합하고 있는 기부 방문 문서",
+	"donate_interface-desc": "게이트웨이 확장 기능을 통합하고 있는 기부 랜딩 페이지",
 	"donate_interface-langonly-desc": "DonationInterface의 시스템 메시지만 노출합니다",
 	"donate_interface-amount": "금액",
 	"donate_interface-other-amount": "기타 금액",
