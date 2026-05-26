@@ -20,7 +20,7 @@
 	"apihelp-donate-param-supplemental_address_1": "Seconda riga dell'indirizzo stradale.",
 	"apihelp-donate-param-city": "Città.",
 	"apihelp-donate-param-state_province": "Abbreviazione stato.",
-	"apihelp-donate-param-postal_code": "CAP.",
+	"apihelp-donate-param-postal_code": "Codice postale.",
 	"apihelp-donate-param-email": "Indirizzo email.",
 	"apihelp-donate-param-country": "Codice del Paese.",
 	"apihelp-donate-param-card_num": "Numero della carta di credito.",
