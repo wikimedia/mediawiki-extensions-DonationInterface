@@ -268,7 +268,7 @@
 	"apihelp-getPaymentMethods-param-country": "Land om betaalmethoden voor op te vragen",
 	"apihelp-submitPayment-summary": "Voert een betaling uit op basis van de verzonden parameters",
 	"apihelp-submitPayment-param-amount": "Bedrag van de ingediende betaling",
-	"apihelp-submitPayment-param-app_version": "Versie van de applicatie die gebruikt is om de betaling in te dienen",
+	"apihelp-submitPayment-param-app_version": "Versie van de toepassing die gebruikt is om de betaling in te dienen",
 	"apihelp-submitPayment-param-banner": "Banner die is aangeklikt om te doneren",
 	"apihelp-submitPayment-param-city": "Plaats.",
 	"apihelp-submitPayment-param-country": "Landcode.",
