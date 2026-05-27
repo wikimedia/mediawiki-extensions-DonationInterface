@@ -86,7 +86,7 @@
 	"donate_interface-donor-phone-optional": "전화번호 (선택 사항)",
 	"donate_interface-donor-phone-explain-in": "이 항목은 선택 사항이며 저희는 이를 저장하지 않습니다. 비워두시면 결제 처리 업체에서 다음 화면에 임의의 자리 표시자를 생성할 수 있습니다.",
 	"donate_interface-donor-sms_opt_in": "제가 제공한 전화번호로 위키미디어에서 보내는 기부 요청 등의 문자 메시지를 받고 싶습니다.",
-	"donate_interface-donor-opt_in_yes": "네! 부정기적인 이메일 업데이트와 앞으로 제가 위키피디아를 어떻게 지원할 수 있는지에 대한 정보를 보내주세요.*",
+	"donate_interface-donor-opt_in_yes": "네! 부정기적인 이메일 업데이트와 앞으로 제가 위키백과를 어떻게 지원할 수 있는지에 대한 정보를 보내주세요.*",
 	"donate_interface-donor-opt_in_no": "아니요, 업데이트를 원하지 않습니다. 이메일이 1년에 몇 통일지라도 괜찮습니다.",
 	"donate_interface-donor-opt_in_explain": "*당신의 정보는 저희의 <a href=\"$1\">기부자 개인정보 보호정책</a>에 따라 처리됩니다. 수신하시는 모든 이메일에는 간편한 수신 거부 옵션이 포함되어 있습니다.",
 	"donate_interface-donor-opt_in_explain_001": "수신하시는 모든 이메일에는 간편한 수신 거부 옵션이 포함되어 있습니다. 당신의 정보는 저희의 <a href=\"$1\">기부자 개인정보 보호정책</a>에 따라 처리됩니다.",

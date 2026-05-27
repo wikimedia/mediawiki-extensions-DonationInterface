@@ -41,7 +41,7 @@
 	"donate_interface-other-amount": "これ以外の額",
 	"donate_interface-currency": "通貨:",
 	"donate_interface-submit-button": "寄付",
-	"donate_interface-charge-monthly-only": "毎月の定期的な請求<b>のみ</b>を行います",
+	"donate_interface-charge-monthly-only": "毎月の定期的な請求のみを行います",
 	"donate_interface-monthly-donation-description": "ウィキメディア財団",
 	"donate_interface-amount-error": "寄付する金額を選択してください",
 	"donate_interface-smallamount-error": "金額を選択してください (少なくとも$1のご寄付が必要です)",
