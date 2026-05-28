@@ -441,6 +441,18 @@ class DonationData implements LogPrefixProvider {
 	protected function setCountry() {
 		$regen = true;
 		$country = '';
+		$ipCountry = $this->getVal( 'ip_country' );
+		if ( !$ipCountry ) {
+			// Try to do GeoIP lookup using Maxmind's SDK
+			$ip = $this->getVal( 'user_ip' );
+			$ipCountry = CountryValidation::lookUpCountry( $ip );
+			if ( $ipCountry && !CountryValidation::isValidIsoCode( $ipCountry ) ) {
+				$this->logger->warning(
+					"GeoIP lookup returned bogus code '$country'! No country available."
+				);
+			}
+			$this->setVal( 'ip_country', $ipCountry );
+		}
 
 		if ( $this->isSomething( 'country' ) ) {
 			$country = strtoupper( $this->getVal( 'country' ) );
@@ -466,15 +478,8 @@ class DonationData implements LogPrefixProvider {
 			if ( CountryValidation::isValidIsoCode( $sessionCountry ) ) {
 				$this->logger->info( "Using country code $sessionCountry from session" );
 				$country = $sessionCountry;
-			} else {
-				// Then try to do GeoIP lookup using Maxmind's SDK
-				$ip = $this->getVal( 'user_ip' );
-				$country = CountryValidation::lookUpCountry( $ip );
-				if ( $country && !CountryValidation::isValidIsoCode( $country ) ) {
-					$this->logger->warning(
-						"GeoIP lookup returned bogus code '$country'! No country available."
-					);
-				}
+			} elseif ( $ipCountry ) {
+				$country = $ipCountry;
 			}
 
 			// still nothing good? Give up.

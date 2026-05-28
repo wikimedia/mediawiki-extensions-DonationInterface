@@ -101,6 +101,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 			'user_ip' => $request->getIP(),
 			'server_ip' => $request->getIP(),
 			'landing_page' => '',
+			'ip_country' => '',
 		];
 		unset( $returned['contribution_tracking_id'] );
 		unset( $returned['order_id'] );
@@ -142,6 +143,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 			'server_ip' => $request->getIP(),
 			'recurring' => '',
 			'landing_page' => '',
+			'ip_country' => '',
 		];
 
 		$adapter = $this->getFreshGatewayObject( self::$initial_vars );
@@ -190,6 +192,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 			'server_ip' => $request->getIP(),
 			'recurring' => '',
 			'landing_page' => '',
+			'ip_country' => '',
 		];
 
 		RequestContext::getMain()->setRequest( new FauxRequest( $expected, false ) );
@@ -236,6 +239,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$expected['language'] = RequestContext::getMain()->getLanguage()->getCode();
 		$expected['gateway'] = 'ingenico';
 		$expected['landing_page'] = '';
+		$expected['ip_country'] = '';
 
 		// Just unset a handful... doesn't matter what, really.
 		unset( $expected['comment-option'] );
