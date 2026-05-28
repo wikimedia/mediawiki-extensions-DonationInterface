@@ -37,6 +37,7 @@
 	"donorportal-last-donation-date": "Laatste donatiedatum: $1.",
 	"donorportal-update-donation-button": "Mijn donatie bijwerken of wijzigen",
 	"donorportal-update-donation-paypal-disable-text": "Uw terugkerende donatie wordt via PayPal verwerkt. Wijzigingen aan uw donatie moeten rechtstreeks via uw PayPal-account worden aangebracht.",
+	"donorportal-update-donation-legacy-paypal-disable-text": "Verwerkt via PayPal. Wijzigingen moeten rechtstreeks via uw PayPal-account worden doorgevoerd.",
 	"donorportal-update-donation-problem-log-in": "Als u geen e-mail met uw aanmeldkoppeling hebt ontvangen, controleer dan of het opgegeven e-mailadres hetzelfde is als het adres dat u hebt gebruikt voor uw donatie(s) aan de Wikimedia Foundation.",
 	"donorportal-update-donation-problem-log-in-contact-us": "Als u zich nog steeds niet kunt aanmelden bij uw donateursaccount, $1. Zij helpen u graag verder.",
 	"donorportal-update-donation-donor-relations-team": "neem dan contact op met ons team Donateursrelaties",
