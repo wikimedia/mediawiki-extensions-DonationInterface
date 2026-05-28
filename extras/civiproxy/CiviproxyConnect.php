@@ -21,7 +21,7 @@ class CiviproxyConnect {
 			);
 
 			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
 					'error_code' => $decodedResponse['error_code'],
@@ -61,7 +61,7 @@ class CiviproxyConnect {
 	 * @param mixed $caller
 	 * @return string
 	 */
-	protected static function mwGetRequest( $method, $url, array $options = [], $caller = __METHOD__ ): string {
+	protected static function mwRequest( $method, $url, array $options = [], $caller = __METHOD__ ): string {
 		$requestFactory = MediaWikiServices::getInstance()->getHttpRequestFactory();
 		$logger = LoggerFactory::getInstance( 'http' );
 		$logger->debug( "$method: $url" );
@@ -118,7 +118,7 @@ class CiviproxyConnect {
 		], $additional_parameters );
 
 		$serializedParams = json_encode( $params );
-		$response = self::mwGetRequest(
+		$response = self::mwRequest(
 			'GET',
 			"$wgDonationInterfaceCiviproxyURLBase/rest4.php?" . http_build_query( [
 				'entity' => $entity,
@@ -157,7 +157,7 @@ class CiviproxyConnect {
 			);
 
 			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
 					'error_code' => $decodedResponse['error_code'],
@@ -190,7 +190,7 @@ class CiviproxyConnect {
 			$decodedResponse = self::makeApi4Request( '', '', 'System', 'getCiviCRMStatus' );
 
 			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
 					'error_code' => $decodedResponse['error_code'],
@@ -228,7 +228,7 @@ class CiviproxyConnect {
 			);
 
 			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
 					'error_code' => $decodedResponse['error_code'],
@@ -331,7 +331,7 @@ class CiviproxyConnect {
 			}
 
 			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwGetRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
 				return [
 					'is_error' => true,
 					'error_code' => $decodedResponse['error_code'],

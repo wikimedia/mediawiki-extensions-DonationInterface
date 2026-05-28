@@ -34,6 +34,7 @@
 	"donorportal-last-donation-date": "Date of last donation $1.",
 	"donorportal-update-donation-button": "Text for a button to change the amount of the donation",
 	"donorportal-update-donation-paypal-disable-text": "Text for explanation that PayPal donations cannot be changed online",
+	"donorportal-update-donation-legacy-paypal-disable-text": "Short text explanation that PayPal donations cannot be changed online",
 	"donorportal-update-donation-problem-log-in": "Text explaining what to do if a donor does not receive a login link",
 	"donorportal-update-donation-problem-log-in-contact-us": "Suggestion that donor contact our donor relations team for help logging in. $1 is a mailto link with the text of {{msg-mw|donorportal-update-donation-donor-relations-team}}",
 	"donorportal-update-donation-donor-relations-team": "Action phrase for a link that launches an email to our donor relations team. Will be interpolated in place of <code><nowiki>$1</nowiki></code> into {{msg-mw|donorportal-update-donation-problem-log-in-contact-us}}",

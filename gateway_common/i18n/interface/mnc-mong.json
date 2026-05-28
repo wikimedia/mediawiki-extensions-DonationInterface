@@ -7,8 +7,5 @@
 	"donate_interface-amount": "ᡤᡳᠶᠠᠯᠠᠮᠠᡥᠠ",
 	"donate_interface-other-amount": "ᡤᡡᠸᠠ ᡤᡳᠶᠠᠯᠠᠮᠠᡥᠠ",
 	"donate_interface-currency": "ᠵᡳᡥᠠ᠄",
-	"donate_interface-gateway": "ᠪᡝᡨᠠᠯᡳᠩ ᠪᠣᡝᡴ ᠮᠣᡩᡝ ᠨᡳ",
-	"donate_interface-submit-button": "ᠮᡝᠨᡩᡝ ᡨᡠᠰᠠ ᠠᡵᠠᠮᠪᡳ",
-	"donate_interface-comment-label": "ᠯᡝᠣᠯᡝᠨ᠄",
-	"donate_interface-donation-information": "ᠰᡮᡥᡝᠨᡴᡝᠨ ᡳᠨᡶᠣᡵᠮᠠᡨᡳᡝ:"
+	"donate_interface-submit-button": "ᠮᡝᠨᡩᡝ ᡨᡠᠰᠠ ᠠᡵᠠᠮᠪᡳ"
 }

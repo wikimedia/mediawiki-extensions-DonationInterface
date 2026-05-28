@@ -90,6 +90,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->tuneForPaymentMethod();
+		$this->logPaymentAttempt();
 		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
@@ -510,8 +511,36 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				];
 			} else {
 				if ( in_array( $field, [ 'currency', 'fiscal_number' ] ) ) {
+					// Messages that can be used here:
+					// * donate_interface-error-msg-invalid-currency
+					// * donate_interface-error-msg-invalid-fiscal_number
+					// * donate_interface-error-msg-invalid-fiscal_number-ar
+					// * donate_interface-error-msg-invalid-fiscal_number-bo
+					// * donate_interface-error-msg-invalid-fiscal_number-br
+					// * donate_interface-error-msg-invalid-fiscal_number-cl
+					// * donate_interface-error-msg-invalid-fiscal_number-co
+					// * donate_interface-error-msg-invalid-fiscal_number-in
+					// * donate_interface-error-msg-invalid-fiscal_number-mx
+					// * donate_interface-error-msg-invalid-fiscal_number-pe
+					// * donate_interface-error-msg-invalid-fiscal_number-uy
+					// * donate_interface-error-msg-invalid-fiscal_number-za
 					$messageKey = "donate_interface-error-msg-invalid-$field";
 				} else {
+					// Messages that can be used here:
+					// * donate_interface-error-msg-amount
+					// * donate_interface-error-msg-city
+					// * donate_interface-error-msg-country
+					// * donate_interface-error-msg-cvv
+					// * donate_interface-error-msg-email
+					// * donate_interface-error-msg-first_name
+					// * donate_interface-error-msg-general
+					// * donate_interface-error-msg-last_name
+					// * donate_interface-error-msg-opt_in
+					// * donate_interface-error-msg-phone
+					// * donate_interface-error-msg-postal_code
+					// * donate_interface-error-msg-postal_code-us
+					// * donate_interface-error-msg-state_province
+					// * donate_interface-error-msg-street_address
 					$messageKey = 'donate_interface-error-msg-' . $field;
 				}
 				$messageParams = [];
@@ -729,4 +758,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 	}
 
+	protected function logPaymentAttempt(): void {
+		$this->logger->info( 'Payment attempt: ' . json_encode( $this->getData_Unstaged_Escaped() ) );
+	}
 }

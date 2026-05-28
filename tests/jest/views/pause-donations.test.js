@@ -105,45 +105,6 @@ describe( 'Pause donations view', () => {
 		expect( failureText.exists() ).toBe( false );
 	} );
 
-	it( 'Renders the error view on failure', async () => {
-		const wrapper = VueTestUtils.mount( PauseDonationsView, {
-			global: {
-				plugins: [ router ]
-			}
-		} );
-		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( 'API_error'  )
-		);
-
-		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
-		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
-		selectedPeriod.element.selected = true;
-		await selectedPeriod.trigger( 'input' );
-		await VueTestUtils.flushPromises();
-		const submitButton = pauseDonationViewBody.find( '#continue' );
-		await submitButton.trigger( 'click' );
-		await VueTestUtils.flushPromises();
-
-		expect( global.mw.Api.prototype.post ).toHaveBeenCalledWith( {
-			action: RECURRING_PAUSE_API_ACTION,
-			duration: '90 Days',
-			is_from_save_flow: false,
-			contact_id: Number( DonorDataMock.contact_id ),
-			checksum: DonorDataMock.checksum,
-			contribution_recur_id: 123,
-			next_sched_contribution_date: '2025-08-02 00:00:02'
-		} );
-
-		// Ensure success text is visible after successful API request
-		const successText = wrapper.find( '#recurring-contribution-pause-success' );
-		expect( successText.exists() ).toBe( false );
-
-		// Ensure failure text is not visible after successful API request
-		const failureText = wrapper.find( '#error-component' );
-		expect( failureText.exists() ).toBe( true );
-		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
-
-	} );
 } );
 
 describe( 'Pause donations view renders appropiate errors', () => {
@@ -174,7 +135,7 @@ describe( 'Pause donations view renders appropiate errors', () => {
 			}
 		} );
 		global.mw.Api.prototype.post.mockImplementation(
-			() => Promise.reject( 'API_error'  )
+			() => Promise.reject( 'API error' )
 		);
 
 		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
@@ -196,11 +157,11 @@ describe( 'Pause donations view renders appropiate errors', () => {
 			next_sched_contribution_date: '2025-08-02 00:00:02'
 		} );
 
-		// Ensure success text is visible after successful API request
+		// Ensure success text is not visible after failed API request
 		const successText = wrapper.find( '#recurring-contribution-pause-success' );
 		expect( successText.exists() ).toBe( false );
 
-		// Ensure failure text is not visible after successful API request
+		// Ensure failure text is visible after failed API request
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
