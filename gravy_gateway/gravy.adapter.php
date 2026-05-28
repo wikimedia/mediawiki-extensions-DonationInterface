@@ -90,6 +90,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		$this->ensureUniqueOrderID();
 		$this->session_addDonorData();
 		$this->tuneForPaymentMethod();
+		$this->logPaymentAttempt();
 		$this->runPaymentFilters();
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
@@ -757,4 +758,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		}
 	}
 
+	protected function logPaymentAttempt(): void {
+		$this->logger->info( 'Payment attempt: ' . json_encode( $this->getData_Unstaged_Escaped() ) );
+	}
 }
