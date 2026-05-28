@@ -30,7 +30,8 @@
 			"もなー(偽物)",
 			"藤田健士朗",
 			"青子守歌",
-			"아라"
+			"아라",
+			"Tensama0415"
 		]
 	},
 	"donate_interface": "ウィキメディアを支援する",
@@ -46,7 +47,7 @@
 	"donate_interface-comment-label": "コメント:",
 	"donate_interface-email-agreement": "ウィキメディア財団が今後不定期に送信するメールを受け取ることに同意します。",
 	"donate_interface-comment-title": "公開コメント",
-	"donate_interface-charge-monthly-only": "毎月の定期的な請求<b>のみ</b>を行います",
+	"donate_interface-charge-monthly-only": "毎月の定期的な請求のみを行います",
 	"donate_interface-monthly-donation-description": "ウィキメディア財団",
 	"donate_interface-amount-error": "寄付する金額を選択してください",
 	"donate_interface-smallamount-error": "金額を選択してください (少なくとも$1のご寄付が必要です)",
@@ -384,7 +385,7 @@
 	"donate_interface-email-unsub-button": "購読解除",
 	"donate_interface-email-unsub-success": "メーリングリストを購読解除しました",
 	"donate_interface-email-unsub-delay": "変更が反映されるまでに最大4日かかる場合があります。その間にメールが届くことがございますが、あらかじめご了承ください。ご不明な点がございましたら、$1までお問い合わせください。",
-	"donate_interface-email-unsub-fail": "要求の処理エラーが発生しました、 <$1>にお問い合わせください。",
+	"donate_interface-email-unsub-fail": "要求の処理エラーが発生しました、 <a href=\"mailto:$1\">$1</a>にお問い合わせください。",
 	"donate_interface-email-unsub-confirm": "<b>$1</b> へのメール配信を停止してもよろしいですか？",
 	"donate_interface-email-explain": "ご寄付の確認として領収書をメールにてお送りいたします。",
 	"donate_interface-faqs": "よくあるご質問",
