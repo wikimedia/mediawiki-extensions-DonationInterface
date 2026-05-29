@@ -7,5 +7,7 @@
 	},
 	"donate_interface-donate-wikipedia": "Ku tabaruc Wikipedia",
 	"donate_interface-informationsharing": "Ma iibineeno mana ka ganacsaneeno macluumaadkaaga qof kale.  Tabaruc ahaan, waxaa ogolaatay in macluumaadkaaga la wadaagto Wikimedia Foundation, oo ah hey'ad samafal oo marti galisa Wikipedia iyo mashruucyada kale ee Wikimedia, iyo adeega ee bixiso iyada oo la raacaayo  <a href=\"$1\">siyaasada deeq bixiyaheena</a>. Wikimedia Foundation iyo  adeeg bixiyayaasheeda oo degan Maraykanka iyo dalal kale oo sharciyadooda asturnaanta laga yaabo inaysan u dhigmin mid kaaga oo kale. Macluumaad dheeri ah fadlan ka akhri  <a href=\"$1\">siyaasada deeq bixiyaheena</a>.",
+	"donate_interface-monthly-cancel": "Deeqaha billaha ah waxaa laga jari doonaa isla taariikhda bil kasta ee deeqdaadii ugu horreysay, ilaa laga joojiyo. Deeqaha la bixiyo 29-ka, 30-ka, ama 31-ka waxaa laga jari doonaa maalinta ugu dambeysa ee bilaha gaaban. Deeqaha sannadlaha ah ee soo noqnoqda waxaa laga jari doonaa sannad-guurada deeqdii ugu horreysay. Wixii su’aalo ah, fadlan la xiriir $1.",
+	"donate_interface-onetime-short": "Hal mar",
 	"donate_interface-emailpreferences-thank-you-title": "Waad ku mahadsan tahay xaqiijinta cinwaankaaga iimaylka."
 }
