@@ -27,7 +27,7 @@
 		"php": ">=8.0",
 		"psr/log": "^1|^2|^3",
 		"symfony/yaml": "^4|^5|^6|^7",
-		"wikimedia/smash-pig": "1.2.4.10",
+		"wikimedia/smash-pig": "1.2.4.11",
 		"addshore/psr-6-mediawiki-bagostuff-adapter": "0.2",
 		"whichbrowser/parser": "^2.1"
 	},
