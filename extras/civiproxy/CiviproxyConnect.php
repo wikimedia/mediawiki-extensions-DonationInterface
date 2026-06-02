@@ -20,13 +20,9 @@ class CiviproxyConnect {
 				$checksum, $contact_id, 'WMFContact', 'getCommunicationsPreferences',
 			);
 
-			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
-				return [
-					'is_error' => true,
-					'error_code' => $decodedResponse['error_code'],
-					'error_message' => $decodedResponse['error_message'],
-				];
+			$error = self::checkForErrorInResponse( $decodedResponse );
+			if ( $error !== null ) {
+				return $error;
 			}
 
 			$preferences = $decodedResponse['values'][0];
@@ -156,13 +152,9 @@ class CiviproxyConnect {
 				$checksum, $contact_id, 'ContributionRecur', 'getUpgradableRecur'
 			);
 
-			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
-				return [
-					'is_error' => true,
-					'error_code' => $decodedResponse['error_code'],
-					'error_message' => $decodedResponse['error_message']
-				];
+			$error = self::checkForErrorInResponse( $decodedResponse );
+			if ( $error !== null ) {
+				return $error;
 			}
 
 			$contributionRecurDetails = $decodedResponse['values'][0];
@@ -189,13 +181,9 @@ class CiviproxyConnect {
 		try {
 			$decodedResponse = self::makeApi4Request( '', '', 'System', 'getCiviCRMStatus' );
 
-			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
-				return [
-					'is_error' => true,
-					'error_code' => $decodedResponse['error_code'],
-					'error_message' => $decodedResponse['error_message'],
-				];
+			$error = self::checkForErrorInResponse( $decodedResponse );
+			if ( $error !== null ) {
+				return $error;
 			}
 
 			$result = $decodedResponse['values'][0] ?? null;
@@ -227,13 +215,9 @@ class CiviproxyConnect {
 				$checksum, $contact_id, 'WMFContact', 'getDonorSummary'
 			);
 
-			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
-				return [
-					'is_error' => true,
-					'error_code' => $decodedResponse['error_code'],
-					'error_message' => $decodedResponse['error_message'],
-				];
+			$error = self::checkForErrorInResponse( $decodedResponse );
+			if ( $error !== null ) {
+				return $error;
 			}
 
 			$donorResult = $decodedResponse['values'][0];
@@ -330,13 +314,9 @@ class CiviproxyConnect {
 				];
 			}
 
-			if ( isset( $decodedResponse['error_code'] ) ) {
-				// mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
-				return [
-					'is_error' => true,
-					'error_code' => $decodedResponse['error_code'],
-					'error_message' => $decodedResponse['error_message'],
-				];
+			$error = self::checkForErrorInResponse( $decodedResponse );
+			if ( $error !== null ) {
+				return $error;
 			}
 
 			return $decodedResponse;
@@ -349,5 +329,24 @@ class CiviproxyConnect {
 				'error_message' => $e->getMessage()
 			];
 		}
+	}
+
+	/**
+	 * Extract a standard error payload from a decoded CiviProxy response, or null if no error.
+	 *
+	 * mwRequest sends a 500 error code when CiviCRM is unreachable and 0 error code when Civi Proxy is.
+	 *
+	 * @param array $response
+	 * @return array|null
+	 */
+	private static function checkForErrorInResponse( array $response ): ?array {
+		if ( isset( $response['error_code'] ) ) {
+			return [
+				'is_error' => true,
+				'error_code' => $response['error_code'],
+				'error_message' => $response['error_message'],
+			];
+		}
+		return null;
 	}
 }
