@@ -765,6 +765,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 	}
 
 	protected function logPaymentAttempt(): void {
-		$this->logger->info( 'Payment attempt: ' . json_encode( $this->getData_Unstaged_Escaped() ) );
+		$data = $this->getData_Unstaged_Escaped();
+		$data['http_accept_language'] = RequestContext::getMain()->getRequest()->getHeader( 'Accept-Language' ) ?? '';
+		// Add in any contribution tracking data that's not in session, such as OS + browser
+		$data = array_merge( $data, $this->dataObj->getCleanTrackingData( true ) );
+		$this->logger->info( 'Payment attempt: ' . json_encode( $data ) );
 	}
 }
