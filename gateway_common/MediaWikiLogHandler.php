@@ -3,6 +3,7 @@
 use MediaWiki\Logger\LoggerFactory;
 use Monolog\Handler\AbstractProcessingHandler;
 use Monolog\Logger;
+use Monolog\LogRecord;
 
 /**
  * Fallback log handler that dumps messages to MediaWiki's log backend when
@@ -27,7 +28,7 @@ class MediaWikiLogHandler extends AbstractProcessingHandler {
 		parent::__construct( $level, $bubble );
 	}
 
-	protected function write( array $record ): void {
+	protected function write( array|LogRecord $record ): void {
 		$logger = LoggerFactory::getInstance( $this->identifier );
 		// Contains chars of all log levels and avoids using strtolower() which may have
 		// strange results depending on locale (for example, "I" will become "ı" in Turkish locale)

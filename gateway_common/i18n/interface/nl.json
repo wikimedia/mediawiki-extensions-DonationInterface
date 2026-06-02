@@ -182,7 +182,7 @@
 	"donate_interface-donation-cancelled-header": "Uw transactie is geannuleerd",
 	"donate_interface-donation-cancelled": "Was het niet de bedoeling om te annuleren? U kunt <a href=\"$1\">teruggaan</a>, een van onze <a href=\"$2\">andere manieren om te doneren</a> proberen, of contact met ons opnemen via <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Bedankt voor uw steun!",
-	"donate_interface-error-no-form": "Wij konden geen donatieformulier terugvinden overeenkomend met uw parameters. Gelieve contact op te nemen met [to:$1 ons hulpteam] voor meer informatie.",
+	"donate_interface-error-no-form": "Wij konden geen donatieformulier terugvinden overeenkomend met uw parameters. Neem contact op met [mailto:$1 ons hulpteam] voor meer informatie.",
 	"donate_interface-error-reference": "Foutreferentie: $1",
 	"php-response-declined": "Uw transactie kon niet geaccepteerd worden.",
 	"donate_interface-cvv-explain": "<h4>Wat is CVV?</h4>\n<p>Cardholder Verification Value (Controlewaarde kaarthouder, CVV): dit getal van drie of vier cijfers zorgt ervoor dat te controleren is of de kaart echt in handen is van de kaarthouder. Dit helpt ongeoorloofd of frauduleus gebruik te voorkomen.</p>\n<h4>Visa, Mastercard</h4>\n<p>De driecijferige code staat op de achterkant van uw kaart, in hetzelfde gebied als uw handtekening.\nMeestal staan er meer cijfers in dat gebied, maar alleen de drie laatste cijfers zijn de CVV-code.</p>\n<h4>American Express</h4>\n<p>De code staat <i>altijd</i> direct <i>boven</i> het gepreegde (voelbare) kaartnummer aan de voorkant van de kaart.\nIn sommige gevallen staat de code aan de linkerkant van de kaart, maar deze staat altijd boven het kaartnummer.</p><br />",
