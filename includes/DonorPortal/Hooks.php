@@ -23,19 +23,22 @@ class Hooks implements
 						$file = $config->get( MainConfigNames::VueDevelopmentMode ) || $context->getDebug() ?
 							'resources/lib/vue-router/vue-router.global.js' :
 							'resources/lib/vue-router/vue-router.global.prod.js';
+						$extensionDirectory = $config->get( MainConfigNames::ExtensionDirectory );
 						// The file shipped by Vuex does var Vuex = ...;, but doesn't export it
 						// Add module.exports = Vuex; programmatically, and import Vue
 						return "var Vue=require('vue');" .
-							file_get_contents( MW_INSTALL_PATH . '/extensions/DonationInterface' . "/$file" ) .
+							file_get_contents( $extensionDirectory . '/DonationInterface' . "/$file" ) .
 							';module.exports=VueRouter;';
 					},
 					'versionCallback' => static function ( Context $context, Config $config ) {
 						$file = $config->get( MainConfigNames::VueDevelopmentMode ) || $context->getDebug() ?
 							'resources/lib/vue-router/vue-router.global.js' :
 							'resources/lib/vue-router/vue-router.global.prod.js';
+						$extensionDirectory = $config->get( MainConfigNames::ExtensionDirectory );
 						return new FilePath( $file,
-						MW_INSTALL_PATH . '/extensions/DonationInterface',
-						MW_INSTALL_PATH . '/extensions/DonationInterface' );
+							$extensionDirectory . '/DonationInterface',
+							$extensionDirectory . '/DonationInterface'
+						);
 					}
 				],
 			],
