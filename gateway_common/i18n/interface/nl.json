@@ -288,7 +288,7 @@
 	"donate_interface-donation-cancelled-header": "Uw transactie is geannuleerd",
 	"donate_interface-donation-cancelled": "Was het niet de bedoeling om te annuleren? U kunt <a href=\"$1\">teruggaan</a>, een van onze <a href=\"$2\">andere manieren om te doneren</a> proberen, of contact met ons opnemen via <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Bedankt voor uw steun!",
-	"donate_interface-error-no-form": "Wij konden geen donatieformulier terugvinden overeenkomend met uw parameters. Gelieve contact op te nemen met [to:$1 ons hulpteam] voor meer informatie.",
+	"donate_interface-error-no-form": "Wij konden geen donatieformulier terugvinden overeenkomend met uw parameters. Neem contact op met [mailto:$1 ons hulpteam] voor meer informatie.",
 	"donate_interface-error-reference": "Foutreferentie: $1",
 	"php-response-declined": "Uw transactie kon niet geaccepteerd worden.",
 	"donate_interface-thankyou": "Dank u wel voor uw donatie!",
