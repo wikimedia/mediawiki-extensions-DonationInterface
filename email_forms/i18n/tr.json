@@ -3,6 +3,7 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Dual",
+			"HakanIST",
 			"Joseph",
 			"Sakblue"
 		]
@@ -10,6 +11,15 @@
 	"donorportal-feedbackrequest": "Şu anda bu özelliği test ediyoruz ve sizin ne düşündüğünüzü duymak isteriz.",
 	"donorportal-feedbacklink": "Geri bildirimde bulunun",
 	"donorportal-update-donation-paypal-disable-text": "Düzenli bağışınız PayPal üzerinden işlenir. Hediye bağışınızdaki değişiklikler doğrudan PayPal hesabınız üzerinden yapılmalıdır.",
+	"donorportal-edit-text": "Düzenle",
+	"donorportal-close": "Kapat",
+	"donorportal-recurring-pause": "Duraklat",
+	"donorportal-recurring-cancel": "İptal",
+	"donorportal-recurring-status-active": "Etkin",
+	"donorportal-donation-date": "Tarih",
+	"donorportal-donation-type": "Tür",
+	"donorportal-cancel-recurring-reason-other": "Diğer",
+	"emailpreferences-header-link-about": "Hakkında",
 	"emailpreferences-verify-email-sent": "Yeni e-posta adresinize bir onay bağlantısı gönderdik.",
 	"fundraiserunsubscribe": "Wikimedia Vakfı Bağış Toplama E-posta aboneliğinden ayrıl",
 	"fundraisersubscribe": "Katılan",
