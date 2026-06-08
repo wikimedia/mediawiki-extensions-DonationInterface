@@ -603,7 +603,12 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 						$responseData['postal_code'] = $billingAddress->getPostalCode();
 					}
 					if ( $this->isNotEmptyOrNull( $billingAddress->getCountryCode() ) ) {
-						$responseData['country'] = $billingAddress->getCountryCode();
+						$responseCountry = $billingAddress->getCountryCode();
+						$responseData['country'] = $responseCountry;
+						$sessionCountry = $this->getData_Unstaged_Escaped( 'country' );
+						if ( $this->isNotEmptyOrNull( $sessionCountry ) && $sessionCountry !== $responseCountry ) {
+							$responseData['url_country'] = $sessionCountry;
+						}
 					}
 				}
 				// Add in username if it's there

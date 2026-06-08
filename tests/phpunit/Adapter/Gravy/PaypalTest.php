@@ -170,6 +170,92 @@ class PaypalTest extends BaseGravyTestCase {
 		], $queueMessage );
 	}
 
+	public function testCountryMismatchPreservesSessionCountry() {
+		$init = $this->getTestDonorData();
+		$init['amount'] = '1.55';
+		$init['payment_method'] = 'paypal';
+		$init['payment_submethod'] = '';
+		// session country is US
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$paypalTransactionId = 'ZXC' . mt_rand( 100000, 1000000 );
+		$paymentServiceId = '3c90c3cc-0d44-4b50-8888-8dd25736052a';
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$responseData = $this->getDonorTestData();
+
+		$this->redirectPaymentProvider->method( 'createPayment' )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'authorization_succeeded' )
+					->setStatus( FinalStatus::PENDING )
+					->setSuccessful( true )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setRedirectUrl( 'https://test-approval-url.com' )
+			);
+
+		$gateway->doPayment();
+
+		$queryString = [
+			"title" => "Special:GravyGatewayResult",
+			"order_id" => $expectedMerchantRef,
+			"wmf_token" => "random-token",
+			"amount" => '1.55',
+			"currency" => "USD",
+			"payment_method" => "paypal",
+			"wmf_source" => "..paypal",
+			"transaction_id" => $gravyTransactionId,
+			"transaction_status" => "authorization_succeeded"
+		];
+
+		$this->redirectPaymentProvider->method( 'getLatestPaymentStatus' )
+			->willReturn(
+				( new PaymentProviderExtendedResponse() )
+					->setRawStatus( 'authorization_succeeded' )
+					->setStatus( FinalStatus::PENDING_POKE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setBackendProcessor( 'paypal' )
+					->setBackendProcessorTransactionId( $paypalTransactionId )
+					->setDonorDetails(
+						( new DonorDetails() )
+							->setEmail( $responseData['email'] )
+							->setFirstName( $responseData['first_name'] )
+							->setLastName( $responseData['last_name'] )
+							->setBillingAddress(
+								( new \SmashPig\PaymentData\Address() )
+									->setStreetAddress( $responseData['street_address'] )
+									->setCity( $responseData['city'] )
+									->setPostalCode( $responseData['postal_code'] )
+									->setStateOrProvinceCode( $responseData['state_province'] )
+									// Response returns CA, but session has US
+									->setCountryCode( 'CA' )
+							)
+					)
+			);
+
+		$this->redirectPaymentProvider->method( 'approvePayment' )
+			->willReturn(
+				( new ApprovePaymentResponse() )
+					->setRawStatus( 'capture_succeeded' )
+					->setStatus( FinalStatus::COMPLETE )
+					->setSuccessful( true )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setBackendProcessor( 'paypal' )
+					->setBackendProcessorTransactionId( $paypalTransactionId )
+					->setPaymentServiceId( $paymentServiceId )
+			);
+
+		$result = $gateway->processDonorReturn( $queryString );
+
+		$this->assertFalse( $result->isFailed() );
+		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
+		$this->assertNotNull( $queueMessage );
+		SourceFields::removeFromMessage( $queueMessage );
+		// Response country 'CA' is set as country; session country 'US' is preserved as url_country
+		$this->assertSame( 'CA', $queueMessage['country'] );
+		$this->assertSame( 'US', $queueMessage['url_country'] );
+	}
+
 	/**
 	 * @return array
 	 */

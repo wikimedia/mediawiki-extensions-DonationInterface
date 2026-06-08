@@ -569,6 +569,7 @@ class DonationDataTest extends DonationInterfaceTestCase {
 			'utm_medium',
 			'utm_source',
 			'variant',
+			'url_country'
 		];
 		$this->assertArrayEquals( $expected, $actual, false );
 	}
