@@ -83,7 +83,7 @@ class ResultSwitcherTest extends BaseIngenicoTestCase {
 		unset( $expected['amount'] );
 		unset( $expected['processor_form'] );
 		unset( $expected['postal_code'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expected,
 			$queueMessage
 		);

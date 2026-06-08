@@ -101,7 +101,7 @@ class VenmoPaymentTest extends BaseBraintreeTestCase {
 			'contribution_tracking_id' => $expectedContributionTrackingId,
 		];
 
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedPaymentsInitQueueMessage,
 			$messages['payments-init'][0]
 		);
@@ -122,7 +122,7 @@ class VenmoPaymentTest extends BaseBraintreeTestCase {
 			'user_ip' => '127.0.0.1',
 		];
 
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedDonationsQueueMessage,
 			$messages['donations'][0]
 		);

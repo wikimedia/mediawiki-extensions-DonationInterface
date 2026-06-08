@@ -138,7 +138,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 			'contribution_tracking_id' => $expectedContributionTrackingId,
 		];
 
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedPaymentsInitQueueMessage,
 			$messages['payments-init'][0]
 		);
@@ -159,7 +159,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 			'user_ip' => '127.0.0.1',
 		];
 
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedDonationsQueueMessage,
 			$messages['donations'][0]
 		);
@@ -222,7 +222,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 				'order_id' => $expectedMerchantRef,
 				'payment_method' => 'paypal',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
@@ -233,7 +233,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 								'initial' => 0
 						]
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][1]
 		);
@@ -242,7 +242,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 						'gateway_txn_id' => $expectedGatewayId,
 						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][2]
 		);
@@ -309,7 +309,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 				'gateway' => 'braintree',
 				'order_id' => $expectedMerchantRef
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
@@ -317,7 +317,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 				'score_breakdown' => [ 'IPDenyList' => 100 ],
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][2]
 		);

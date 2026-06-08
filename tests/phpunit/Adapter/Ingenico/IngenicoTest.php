@@ -607,11 +607,11 @@ class IngenicoTest extends BaseIngenicoTestCase {
 				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 				'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
 			] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntiFraudProcess,
 			$messages['payments-antifraud'][$antifraudArraySize - 1]
 		);
@@ -649,7 +649,7 @@ class IngenicoTest extends BaseIngenicoTestCase {
 				'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 				'score_breakdown' => [ 'IPDenyList' => 100 ],
 			] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntiFraudProcess,
 			$messages['payments-antifraud'][0]
 		);
@@ -767,7 +767,7 @@ class IngenicoTest extends BaseIngenicoTestCase {
 							'locale' => 'en_US',
 						]
 					];
-					$this->assertArraySubmapSame( $order, $actual['order'] );
+					$this->assertArrayContains( $order, $actual['order'] );
 					return true;
 				} )
 			)

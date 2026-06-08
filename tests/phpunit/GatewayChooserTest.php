@@ -160,7 +160,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$gateway = str_replace( 'Special:', '', $query['title'] );
 
 		$this->assertEquals( $expectedSpecialGateway, $gateway, 'Gateway not match' );
-		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
+		$this->assertArrayContains( $params, $query, 'Should pass through params to querystring' );
 	}
 
 	public static function expectedInvalidGatewayDataProvider() {
@@ -600,7 +600,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 
 		$parts = parse_url( $url );
 		parse_str( $parts['query'], $query );
-		$this->assertArraySubmapSame( $params, $query, 'Should pass through params to querystring' );
+		$this->assertArrayContains( $params, $query, 'Should pass through params to querystring' );
 	}
 
 	/**

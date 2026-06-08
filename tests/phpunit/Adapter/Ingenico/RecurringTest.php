@@ -51,7 +51,7 @@ class RecurringTest extends BaseIngenicoTestCase {
 				$this->anything(),
 				$this->callback( function ( $encoded ) {
 					$arg = json_decode( $encoded, true );
-					$this->assertArraySubmapSame( [
+					$this->assertArrayContains( [
 						'cardPaymentMethodSpecificInput' => [
 							'tokenize' => 'true',
 							'recurring' => [

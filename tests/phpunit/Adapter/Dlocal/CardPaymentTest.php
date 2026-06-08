@@ -290,7 +290,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 			'order_id' => $testDonorData['order_id'],
 			'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
@@ -338,7 +338,7 @@ class CardPaymentTest extends BaseDlocalTestCase {
 			'order_id' => $testDonorData['order_id'],
 			'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);

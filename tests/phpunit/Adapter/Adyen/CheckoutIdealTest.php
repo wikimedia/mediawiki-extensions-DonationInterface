@@ -101,7 +101,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			'order_id' => $expectedMerchantRef,
 			'payment_method' => 'rtbt',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
@@ -205,7 +205,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				'order_id' => $expectedMerchantRef,
 				'payment_method' => 'rtbt',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
@@ -213,7 +213,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][3]
 		);
@@ -290,7 +290,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 				'order_id' => $expectedMerchantRef,
 				'payment_method' => 'rtbt',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
@@ -300,7 +300,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 								'IPDenyList' => 100
 						]
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][2]
 		);
@@ -362,7 +362,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 			'payment_submethod' => 'rtbt_ideal',
 			'user_ip' => '127.0.0.1'
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedQueueMessage,
 			$messages['donations'][0]
 		);
@@ -372,7 +372,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		// from redirect we have no chance to veto the payment.
 		$this->assertCount( 0, $messages['payments-antifraud'] );
 		$this->assertCount( 1, $messages['payments-init'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'complete',
@@ -436,7 +436,7 @@ class CheckoutIdealTest extends BaseAdyenCheckoutTestCase {
 		// No antifraud message for iDEAL - after they come back
 		// from redirect we have no chance to veto the payment.
 		$this->assertCount( 0, $messages['payments-antifraud'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'failed',

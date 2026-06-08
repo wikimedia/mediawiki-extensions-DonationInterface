@@ -148,7 +148,7 @@ class PaypalTest extends BaseGravyTestCase {
 		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $queueMessage );
 		SourceFields::removeFromMessage( $queueMessage );
-		$this->assertArraySubmapSame( [
+		$this->assertArrayContains( [
 			'gross' => '1.55',
 			'backend_processor' => 'paypal',
 			'backend_processor_txn_id' => $paypalTransactionId,

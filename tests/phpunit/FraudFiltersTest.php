@@ -156,7 +156,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 						'transaction_id' => (string)$gateway->getData_Unstaged_Escaped( 'contribution_tracking_id' ),
 					],
 				];
-				$this->assertArraySubmapSame( $expected, $decoded );
+				$this->assertArrayContains( $expected, $decoded );
 				return true;
 			} )
 			)->willReturn( [
@@ -256,7 +256,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 						'currency' => 'USD',
 					],
 				];
-				$this->assertArraySubmapSame( $expected, $decoded );
+				$this->assertArrayContains( $expected, $decoded );
 				return true;
 			} )
 			)->willReturn( $this->getMinFraudMockResponse() );
@@ -394,7 +394,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 						'currency' => 'USD',
 					],
 				];
-				$this->assertArraySubmapSame( $expected, $decoded );
+				$this->assertArrayContains( $expected, $decoded );
 				$this->assertArrayNotHasKey( 'region', $expected['billing'] );
 				return true;
 			} )

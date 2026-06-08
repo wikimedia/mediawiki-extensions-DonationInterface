@@ -98,7 +98,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'showResultPage' => false,
 						'variant' => '105'
 					];
-					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertArrayContains( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExpTemp(
 						'/Special:IngenicoGatewayResult/',
 						$actual['hostedCheckoutSpecificInput']['returnUrl']
@@ -122,7 +122,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							'locale' => 'en_US',
 						]
 					];
-					$this->assertArraySubmapSame( $order, $actual['order'] );
+					$this->assertArrayContains( $order, $actual['order'] );
 					$this->assertTrue( is_numeric( $actual['order']['references']['merchantReference'] ) );
 					return true;
 				} )
@@ -163,7 +163,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 			'gateway_session_id' => '8915-28e5b79c889641c8ba770f1ba576c1fe',
 			'gateway_txn_id' => false,
 		];
-		$this->assertArraySubmapSame( $expected, $message );
+		$this->assertArrayContains( $expected, $message );
 	}
 
 	public function testStageLocale(): void {
@@ -195,7 +195,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 						'showResultPage' => false,
 						'variant' => '105'
 					];
-					$this->assertArraySubmapSame( $hcsi, $actual['hostedCheckoutSpecificInput'] );
+					$this->assertArrayContains( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
 				} )
 			)
@@ -244,7 +244,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							'locale' => 'en_US',
 						]
 					];
-					$this->assertArraySubmapSame( $order, $actual['order'] );
+					$this->assertArrayContains( $order, $actual['order'] );
 					return true;
 				} )
 			)
@@ -281,7 +281,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 					$cpmsi = [
 						'tokenize' => 'true',
 					];
-					$this->assertArraySubmapSame( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
+					$this->assertArrayContains( $cpmsi, $actual['cardPaymentMethodSpecificInput'] );
 					return true;
 				} )
 			)
@@ -430,7 +430,7 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		unset( $expected['processor_form'] );
 		unset( $expected['variant'] );
 		$expected['gross'] = '1.22';
-		$this->assertArraySubmapSame( $expected, $message );
+		$this->assertArrayContains( $expected, $message );
 	}
 
 	/**

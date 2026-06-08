@@ -143,7 +143,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'postal_code' => '94105',
 			'user_ip' => '127.0.0.1'
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedQueueMessage,
 			$messages['donations'][0]
 		);
@@ -160,7 +160,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'order_id' => $expectedMerchantRef,
 			'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
@@ -173,12 +173,12 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 					'initial' => 0
 				]
 			] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntiFraudProcess,
 			$messages['payments-antifraud'][1]
 		);
 		$this->assertCount( 1, $messages['payments-init'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'complete',
@@ -298,7 +298,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'postal_code' => '94105',
 			'user_ip' => '127.0.0.1'
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedQueueMessage,
 			$messages['donations'][0]
 		);
@@ -315,7 +315,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'order_id' => $expectedMerchantRef,
 			'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
@@ -328,12 +328,12 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 					'initial' => 0
 				]
 			] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntiFraudProcess,
 			$messages['payments-antifraud'][1]
 		);
 		$this->assertCount( 1, $messages['payments-init'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'complete',
@@ -447,7 +447,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 				'order_id' => $expectedMerchantRef,
 				'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntifraudInitial,
 				$messages['payments-antifraud'][0]
 		);
@@ -459,7 +459,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 								'initial' => 0
 						]
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][1]
 		);
@@ -468,7 +468,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 						'gateway_txn_id' => $pspReferenceAuth,
 						'score_breakdown' => [ 'IPVelocityFilter' => 80 ],
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][4]
 		);
@@ -515,7 +515,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 						'validation_action' => \SmashPig\PaymentData\ValidationAction::REJECT,
 						'score_breakdown' => [ 'IPDenyList' => 100 ],
 				] + $expectedAntifraudInitial;
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 				$expectedAntiFraudProcess,
 				$messages['payments-antifraud'][0]
 		);
@@ -778,11 +778,11 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'order_id' => $expectedMerchantRef,
 			'payment_method' => 'cc',
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntifraudInitial,
 			$messages['payments-antifraud'][0]
 		);
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'failed',
@@ -874,7 +874,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 			'postal_code' => '94105',
 			'user_ip' => '127.0.0.1'
 		];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedQueueMessage,
 			$messages['donations'][0]
 		);
@@ -896,12 +896,12 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 					'getScoreUtmMedium' => 10
 				]
 			];
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			$expectedAntiFraudProcess,
 			$messages['payments-antifraud'][0]
 		);
 		$this->assertCount( 1, $messages['payments-init'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'complete',
@@ -981,7 +981,7 @@ class CheckoutCardTest extends BaseAdyenCheckoutTestCase {
 		$this->assertCount( 0, $messages['pending'] );
 		// We should not run extra antifraud checks when 3DSecure fails
 		$this->assertCount( 0, $messages['payments-antifraud'] );
-		$this->assertArraySubmapSame(
+		$this->assertArrayContains(
 			[
 				'validation_action' => 'process',
 				'payments_final_status' => 'failed',

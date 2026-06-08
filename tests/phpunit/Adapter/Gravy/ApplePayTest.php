@@ -117,7 +117,7 @@ class ApplePayTest extends BaseGravyTestCase {
 		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $queueMessage );
 		SourceFields::removeFromMessage( $queueMessage );
-		$this->assertArraySubmapSame( [
+		$this->assertArrayContains( [
 			'gross' => '1.55',
 			'backend_processor' => 'adyen',
 			'backend_processor_txn_id' => $adyenTransactionId,

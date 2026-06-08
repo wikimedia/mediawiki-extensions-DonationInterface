@@ -153,7 +153,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 
 		$this->assertNotNull( $queueMessage );
 		SourceFields::removeFromMessage( $queueMessage );
-		$this->assertArraySubmapSame( [
+		$this->assertArrayContains( [
 			"gateway_txn_id" => $gravyTransactionId,
 			"response" => false,
 			"gateway_account" => "WikimediaDonations",
@@ -242,7 +242,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 
 		$this->assertNotNull( $queueMessage );
 		SourceFields::removeFromMessage( $queueMessage );
-		$this->assertArraySubmapSame( [
+		$this->assertArrayContains( [
 			"gateway_txn_id" => $gravyTransactionId,
 			"response" => false,
 			"gateway_account" => "WikimediaDonations",
@@ -378,7 +378,7 @@ class RedirectFormTest extends BaseGravyTestCase {
 		$queueMessage = QueueWrapper::getQueue( 'donations' )->pop();
 		$this->assertNotNull( $queueMessage );
 		SourceFields::removeFromMessage( $queueMessage );
-		$this->assertArraySubmapSame( [
+		$this->assertArrayContains( [
 			'gross' => '1.55',
 			'backend_processor' => 'braintree',
 			'backend_processor_txn_id' => $braintreeTransactionId,
