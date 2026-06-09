@@ -12,7 +12,8 @@
 			"Pcoombe",
 			"Sudo77(new)",
 			"Teslaton",
-			"TomášPolonec"
+			"TomášPolonec",
+			"Wizzard"
 		]
 	},
 	"donate_interface": "Podporte nadáciu Wikimedia",
@@ -67,7 +68,7 @@
 	"donate_interface-donor-mname": "Stredné meno:",
 	"donate_interface-donor-last_name": "Priezvisko:",
 	"donate_interface-donor-street_address": "Ulica:",
-	"donate_interface-donor-street-number": "Číslo",
+	"donate_interface-donor-street-number": "Číslo domu",
 	"donate_interface-donor-city": "Mesto:",
 	"donate_interface-donor-county": "Okres",
 	"donate_interface-donor-island": "Ostrov",
@@ -125,7 +126,7 @@
 	"donate_interface-donate-click": "Vaša kreditná/debetná karta bude bezpečne spracovaná.",
 	"donate_interface-otherways": "Existujú aj <a href=\"$1\">ďalšie spôsoby ako darovať, vrátane PayPal, šeku alebo pošty</a>.",
 	"donate_interface-otherways-short": "Iné spôsoby ako darovať",
-	"donate_interface-token-mismatch": "Vaša relácia vypršala. Prosím, skúste vyplniť a odoslať formulár znova.",
+	"donate_interface-token-mismatch": "Vaša relácia vypršala. Skúste prosím znova načítať stránku a odoslať formulár ešte raz.",
 	"donate_interface-cc-form-header-personal": "Fakturačné údaje",
 	"donate_interface-cc-form-header-payment": "Platobné údaje",
 	"donate_interface-make-your-donation": "Darujte teraz",
@@ -215,7 +216,7 @@
 	"donate_interface-donation-must-equal": "Dar sa musí byť $1 alebo viac.",
 	"donate_interface-thank-you": "Ďakujeme! Váš dar bol prijatý.",
 	"donate_interface-state_province-dropdown-XX": "Mimo USA",
-	"donate_interface-rtbt-issuer_id": "Vybrať banku",
+	"donate_interface-rtbt-issuer_id": "Vyberte svoju banku",
 	"donate_interface-translate-redlink2": "Alebo pošlite váš preklad na translations@wikimedia.org",
 	"donate_interface-email-explain": "Potvrdenie o poskytnutí daru vám pošleme e-mailom.",
 	"donate_interface-faqs": "Často kladené otázky",
