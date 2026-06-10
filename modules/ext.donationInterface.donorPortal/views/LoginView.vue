@@ -113,7 +113,7 @@ module.exports = exports = defineComponent( {
 		},
 		problemLoginLink() {
 			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
-			const problemLogin = this.$i18n( 'donorportal-login-problems' ).text();
+			const problemLogin = this.$i18n( 'donorportal-login-problems-email-subject' ).text();
 			return this.$i18n( 'donorportal-update-donation-problem-log-in-contact-us', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
 		},
 		serverErrorText() {
