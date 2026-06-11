@@ -4,9 +4,17 @@
 			"BaRaN6161 TURK",
 			"Dual",
 			"Joseph",
-			"Sakblue"
+			"Sakblue",
+			"HakanIST"
 		]
 	},
+	"donorportal-recurring-pause": "Duraklat",
+	"donorportal-recurring-cancel": "İptal",
+	"donorportal-recurring-status-active": "Etkin",
+	"donorportal-donation-date": "Tarih",
+	"donorportal-donation-type": "Tür",
+	"donorportal-cancel-recurring-reason-other": "Diğer",
+	"emailpreferences-header-link-about": "Hakkında",
 	"fundraiserunsubscribe": "Wikimedia Vakfı Bağış Toplama E-posta aboneliğinden ayrıl",
 	"fundraisersubscribe": "Katılan",
 	"fundraisersubscribe-appeal-headline-001": "Gördüklerini beğendiniz mi?",
