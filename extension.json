@@ -505,7 +505,8 @@
 				"donorportal-manage-donation-management-change-amount",
 				"donorportal-manage-donation-management-cancel-gift",
 				"upload-source",
-				"donorportal-authentication-failure"
+				"donorportal-authentication-failure",
+				"donorportal-login-problems-email-subject"
 			]
 		},
 		"ext.donationInterface.donorPortalStyles": {
