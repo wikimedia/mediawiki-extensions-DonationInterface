@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": []
 	},
+	"combowiki-title": "Support Wikimedia",
 	"donate_interface": "Support Wikimedia",
 	"donate_interface-desc": "Donation landing page that integrates gateway extensions",
 	"donate_interface-langonly-desc": "Exposes only DonationInterface system messages",

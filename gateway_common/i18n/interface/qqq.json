@@ -33,6 +33,7 @@
 			"Тест"
 		]
 	},
+	"combowiki-title": "Page title for the ComboWiki single-page donation flow.\n{{Identical|Support Wikimedia}}",
 	"donate_interface": "{{Identical|Support Wikimedia}}",
 	"donate_interface-desc": "{{desc|name=Donation Interface|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
 	"donate_interface-langonly-desc": "{{desc|name=Donation Interface - Language Only|url=https://www.mediawiki.org/wiki/Extension:DonationInterface}}",
