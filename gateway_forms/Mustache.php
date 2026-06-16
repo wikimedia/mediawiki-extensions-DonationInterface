@@ -4,6 +4,7 @@ use LightnCandy\LightnCandy;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOptions;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
 
@@ -612,7 +613,7 @@ class Gateway_Form_Mustache extends Gateway_Form {
 	protected function parseAppeal( string $templateTitle ): string {
 		$context = $this->gatewayPage->getContext();
 		$outputPage = $context->getOutput();
-		$options = $outputPage->parserOptions();
+		$options = ParserOptions::newFromContext( $context );
 		$options->setAllowUnsafeRawHtml( true );
 		$parserOutput = MediaWikiServices::getInstance()->getParserFactory()->getInstance()
 			->parse(

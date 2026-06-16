@@ -1051,6 +1051,7 @@ class DonationData implements LogPrefixProvider {
 			'utm_campaign',
 			'utm_medium',
 			'utm_source',
+			'url_country'
 		];
 	}
 

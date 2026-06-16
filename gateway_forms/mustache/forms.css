@@ -83,7 +83,6 @@ select#bank_account_type {
 /* NEW STUFF */
 ul#moreinfolinks li {
 	list-style: none;
-	list-style-image: none;
 }
 
 .form .options-h {
