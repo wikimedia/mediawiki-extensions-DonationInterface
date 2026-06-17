@@ -1,18 +1,18 @@
 <template>
 	<div class="combo-wiki">
-		<router-view></router-view>
+		<home></home>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { RouterView } = require( 'vue-router' );
+const Home = require( '../views/Home.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'ComboWiki',
 
 	components: {
-		'router-view': RouterView
+		'home': Home
 	}
 } );
 </script>
