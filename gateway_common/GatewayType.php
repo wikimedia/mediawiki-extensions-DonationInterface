@@ -274,4 +274,6 @@ interface GatewayType extends LogPrefixProvider {
 	 * @return bool
 	 */
 	public function showMonthlyConvert();
+
+	public function getFraudFilterData(): array;
 }

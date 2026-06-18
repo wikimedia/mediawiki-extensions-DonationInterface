@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\FraudFilters\FraudService;
 use MediaWiki\Extension\DonationInterface\FraudFilters\PatternFilterRunner;
 use MediaWiki\Extension\DonationInterface\FraudFilters\VelocityFilterRunner;
 use MediaWiki\MediaWikiServices;
@@ -44,6 +45,8 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	protected VelocityFilterRunner $velocityFilterRunner;
 
+	protected FraudService $fraudService;
+
 	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); // gateway_adapter is set in there.
 
@@ -59,12 +62,14 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		$this->risk_score['initial'] = $this->gateway_adapter->getGlobal( 'CustomFiltersRiskScore' );
 		$config = RequestContext::getMain()->getConfig();
 		$this->patternFilterRunner = new PatternFilterRunner( $config, $this->fraud_logger );
+		$services = MediaWikiServices::getInstance();
 		$this->velocityFilterRunner = new VelocityFilterRunner(
-			MediaWikiServices::getInstance()->getObjectCacheFactory()->getLocalClusterInstance(),
+			$services->getObjectCacheFactory()->getLocalClusterInstance(),
 			RequestContext::getMain()->getRequest()->getSession(),
 			$config,
 			$this->fraud_logger
 		);
+		$this->fraudService = new FraudService( $config, $services->getHttpRequestFactory() );
 	}
 
 	/**
@@ -235,6 +240,8 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 				Gateway_Extras_CustomFilters_Source::onInitialFilter( $this->gateway_adapter, $this );
 				Gateway_Extras_CustomFilters_Functions::onInitialFilter( $this->gateway_adapter, $this );
 				Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter( $this->gateway_adapter, $this );
+				$scores = $this->fraudService->getScores( $this->gateway_adapter->getFraudFilterData() );
+				$this->fraud_logger->info( "Scores from fraud service: " . json_encode( $scores ) );
 				break;
 			case self::PHASE_VALIDATE:
 				Gateway_Extras_CustomFilters_Functions::onFilter( $this->gateway_adapter, $this );

@@ -1915,6 +1915,9 @@
 		},
 		"DonationInterfaceShowEmailPreferencesLink": {
 			"value": false
+		},
+		"DonationInterfaceFraudServiceURL": {
+			"value": false
 		}
 	},
 	"AutoloadNamespaces": {
