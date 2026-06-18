@@ -177,6 +177,44 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 	}
 
 	/**
+	 * Integration test to verify that createPayment is never called when the
+	 * donor's IP is on the deny list, and that we add an artificial delay
+	 * before returning the failure so a rejection by our own filters takes a
+	 * similar amount of time as a real createPayment call to the processor
+	 */
+	public function testDelayWhenPaymentAttemptBlocked() {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_sanitize_no_broad_match' => [
+						'email' => '%first_name%@gmail.com',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+		$testGatewayData = $this->getTestDonorCardData();
+
+		// Asterisk in name should NOT act as wildcard matching arbitrary text
+		$testGatewayData['first_name'] = 'jmpe';
+		$testGatewayData['email'] = 'jmpe@gmail.com';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		$this->cardPaymentProvider->expects( $this->never() )
+			->method( 'createPayment' );
+		$this->cardPaymentProvider->expects( $this->never() )
+			->method( 'approvePayment' );
+
+		$startTime = microtime( true );
+		$result = $testGatewayInstance->doPayment();
+		$elapsedSeconds = microtime( true ) - $startTime;
+
+		$this->assertTrue( $result->isFailed() );
+		$this->assertGreaterThanOrEqual( 1, $elapsedSeconds );
+	}
+
+	/**
 	 * @return array
 	 */
 	protected function getTestDonorCardData(): array {
