@@ -50,7 +50,7 @@ class MustacheErrorForm extends Gateway_Form_Mustache {
 		global $wgDonationInterfaceFundraiserMaintenance;
 
 		// set the appropriate header
-		if ( $this->gateway->getFinalStatus() === FinalStatus::CANCELLED ) {
+		if ( $this->gateway->getFinalStatus() === FinalStatus::CANCELLED || ( $data['transaction_status'] ?? '' ) === 'cancelled' ) {
 			$data['header_key'] = 'donate_interface-donation-cancelled-header';
 			$data['error-cancel'] = true;
 		} elseif ( $data['payment_method'] === 'cc' ) {

@@ -49,10 +49,16 @@ class AdyenCheckoutGateway extends GatewayPage {
 			[ 'showError' => true ],
 			$this->getConfig()
 		);
+		$cancelledPage = GatewayChooser::buildGatewayPageUrl(
+			'adyen',
+			[ 'showError' => true, 'transaction_status' => 'cancelled' ],
+			$this->getConfig()
+		);
 		if ( $this->adapter->getPaymentSubmethod() ) {
 			$vars['payment_submethod'] = $this->adapter->getPaymentSubmethod();
 		}
 		$vars['DonationInterfaceFailUrl'] = $failPage;
+		$vars['DonationInterfaceCancelUrl'] = $cancelledPage;
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 		$vars['DonationInterfaceThreeDecimalCurrencies'] = CurrencyRoundingHelper::$threeDecimalCurrencies;
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;

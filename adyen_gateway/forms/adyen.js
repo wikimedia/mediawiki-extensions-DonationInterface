@@ -450,7 +450,11 @@
 		if ( typeof error.error === 'string' && error.error === '' ) {
 			return;
 		}
-
+		// Send error on donor-initiated cancellations
+		if ( error && error.cause && error.cause.statusCode === 'CANCELED' ) {
+			location.assign( mw.config.get( 'DonationInterfaceCancelUrl' ) );
+			return;
+		}
 		if ( typeof error.error === 'string' && error.error.slice( 0, 8 ) === 'error.va' ) {
 			// T349600 Log validation error codes only if sf-cc-num.02 donate_interface-error-msg-card-number-do-not-match-card-brand)
 			// with date time and time zone for adyen to investigate their card validation js issue

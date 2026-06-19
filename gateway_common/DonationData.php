@@ -131,6 +131,7 @@ class DonationData implements LogPrefixProvider {
 		'subscr_id',
 		'supplemental_address_1',
 		'time_zone_offset', // device fingerprinting
+		'transaction_status',
 		'transaction_type',
 		'upi_id',
 		'uselang',
