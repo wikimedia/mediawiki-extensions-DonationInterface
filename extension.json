@@ -487,6 +487,7 @@
 				"donorportal-feedback-button",
 				"donorportal-donations-disclaimer",
 				"donorportal-tax-disclaimer",
+				"donorportal-tax-section",
 				"donorportal-aside-did-you-know",
 				"donorportal-aside-fun-fact",
 				"donorportal-aside-faq",
@@ -870,7 +871,7 @@
 			"value": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/"
 		},
 		"DonationInterfaceTaxURL": {
-			"value": "https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_deductibility&language=$language&country=$country"
+			"value": "https://wikimediafoundation.org/give/donor-frequently-asked-questions/#tax-deductibility"
 		},
 		"DonationInterfacePolicyURL": {
 			"value": "https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country"

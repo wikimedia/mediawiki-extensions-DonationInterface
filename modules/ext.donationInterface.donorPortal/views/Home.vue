@@ -19,7 +19,8 @@
 				:endowment-donations="endowmentContributions"></donations-history>
 			<donations-disclaimer
 				:email="donorSummary.email"
-				:help-email="helpEmail"></donations-disclaimer>
+				:help-email="helpEmail"
+				:tax-url="taxUrl"></donations-disclaimer>
 		</section>
 		<related-content></related-content>
 	</main>
@@ -50,7 +51,8 @@ module.exports = exports = defineComponent( {
 		return {
 			donorSummary: mw.config.get( 'donorData' ),
 			helpEmail: mw.config.get( 'help_email' ),
-			emailPreferencesUrl: mw.config.get( 'emailPreferencesUrl' )
+			emailPreferencesUrl: mw.config.get( 'emailPreferencesUrl' ),
+			taxUrl: mw.config.get( 'donorTaxUrl' )
 		};
 	},
 	computed: {

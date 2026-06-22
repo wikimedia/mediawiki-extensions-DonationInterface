@@ -21,6 +21,10 @@ module.exports = exports = defineComponent( {
         helpEmail: {
             type: String,
             required: true
+        },
+        taxUrl: {
+            type: String,
+            required: true
         }
     },
     computed: {
@@ -28,7 +32,7 @@ module.exports = exports = defineComponent( {
             return this.$i18n( 'donorportal-donations-disclaimer', this.email, `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
         },
         taxDisclaimer: function () {
-            return this.$i18n( 'donorportal-tax-disclaimer', `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
+            return this.$i18n( 'donorportal-tax-disclaimer', `<a href="${ this.taxUrl }" target="_blank" class="link">${ this.$i18n( 'donorportal-tax-section' ) }</a>` ).text();
         }
     }
 } );

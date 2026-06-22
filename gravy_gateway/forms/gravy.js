@@ -157,7 +157,6 @@
 		} );
 
 		secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, () => {
-			set3DSecureBrowserInfo();
 			extraData.fiscal_number = $( '#fiscal_number' ).val();
 			extraData.gateway_session_id = sessionId;
 			mw.donationInterface.forms.callDonateApi(
@@ -250,7 +249,7 @@
 		}
 	}
 
-	function set3DSecureBrowserInfo() {
+	function setBrowserInfo() {
 		const browserInfo = {
 			color_depth: screen.colorDepth || 24,
 			screen_height: screen.height || 0,
@@ -582,7 +581,8 @@
 		di.forms.submit = function () {
 			// MediaWiki uses the "uselang" parameter to set the language for localization
 			// Checkout /payments/includes/api/ApiMain.php
-			di.forms.callDonateApi( redirect, { uselang: $( '#language' ).val() } );
+			extraData.uselang = $( '#language' ).val();
+			di.forms.callDonateApi( redirect, extraData );
 		};
 
 		di.forms.submit();
@@ -610,6 +610,7 @@
 					'</p>' )
 			);
 		}
+		setBrowserInfo();
 		switch ( $( '#payment_method' ).val() ) {
 			case 'cc':
 				// loadScript will display an error message when the script fails to load

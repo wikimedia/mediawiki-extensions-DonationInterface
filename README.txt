@@ -90,8 +90,8 @@ $wgDonationInterfaceOtherWaysURL = 'https://donate.wikimedia.org/wiki/Special:La
 URL of your organizations FAQ page for donors, FIXME: this will change
 $wgDonationInterfaceFaqURL = 'https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=FAQ&language=$language&country=$country'
 
-URL of a page detailing tax detectability of donations to your organization, FIXME: this will change
-$wgDonationInterfaceTaxURL = 'https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Tax_deductibility&language=$language&country=$country'
+URL of a page detailing tax detectability of donations to your organization
+$wgDonationInterfaceTaxURL = 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/#tax-deductibility'
 
 URL of a page detailing donor privacy policy
 $wgDonationInterfacePolicyURL = 'https://foundation.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Donor_privacy_policy&language=$language&country=$country'
