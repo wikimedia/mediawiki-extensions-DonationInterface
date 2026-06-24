@@ -8,6 +8,7 @@
 	"donorportal-login-email-placeholder": "Enter your email address",
 	"donorportal-login-problems": "Problems logging in?",
 	"donorportal-login-problems-email-subject": "Problems logging in to donor account",
+	"donorportal-login-problems-email-body": "I am unable to log into my donor account.%0D%0A%0D%0AMy full name:%0D%0AThe email address associated with my recurring donation:%0D%0AThe amount and currency of my donation:%0D%0A",
 	"donorportal-greeting": "Hi, $1!",
 	"donorportal-greetingtext": "Thank you for playing a vital role in keeping Wikipedia independent, ad-free, and available for all.",
 	"donorportal-feedbackrequest": "We’re currently testing this feature and would love to hear what you think.",
