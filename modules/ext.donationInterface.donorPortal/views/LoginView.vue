@@ -114,12 +114,14 @@ module.exports = exports = defineComponent( {
 		problemLoginLink() {
 			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
 			const problemLogin = this.$i18n( 'donorportal-login-problems-email-subject' ).text();
-			return this.$i18n( 'donorportal-update-donation-problem-log-in-contact-us', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
+			const problemLoginBody = this.$i18n( 'donorportal-login-problems-email-body' ).text();
+			return this.$i18n( 'donorportal-update-donation-problem-log-in-contact-us', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }&body=${ problemLoginBody }">${ donorRelationTeam }</a>` ).text();
 		},
 		serverErrorText() {
 			const donorRelationTeam = this.$i18n( 'donorportal-update-donation-donor-relations-team' ).text();
 			const problemLogin = this.$i18n( 'donorportal-login-problems-email-subject' ).text();
-			return this.$i18n( 'donorportal-authentication-failure', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }">${ donorRelationTeam }</a>` ).text();
+			const problemLoginBody = this.$i18n( 'donorportal-login-problems-email-body' ).text();
+			return this.$i18n( 'donorportal-authentication-failure', `<a href="mailto:${ this.helpEmail }?subject=${ problemLogin }&body=${ problemLoginBody }">${ donorRelationTeam }</a>` ).text();
 		},
 		figureCaption() {
 			return this.$i18n( 'donorportal-loginpage-figure-caption', `<a href=\"https://commons.wikimedia.org/wiki/File:Sunrise_View_of_Inle_Lake.jpg\"
