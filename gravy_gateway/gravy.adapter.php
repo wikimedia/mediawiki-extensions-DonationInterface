@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\FraudFilters\FraudService;
 use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
@@ -97,6 +98,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, FraudService::OUTCOME_BLOCKED_BY_FILTER );
 
 			// Random delay so a rejection by our own filters takes a similar
 			// amount of time as a real createPayment call to gravy.
@@ -264,6 +266,11 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			if ( $createPaymentResponse->getStatus() === FinalStatus::CANCELLED ) {
 				$paymentResult = PaymentResult::newFailureAndRedirect( ResultPages::getCancelPage( $this ) );
 			}
+			$outcome = FraudService::OUTCOME_AUTH_DECLINE;
+			if ( $createPaymentResponse->isSuspectedFraud() ) {
+				$outcome |= FraudService::OUTCOME_PROCESSOR_FLAGGED_FRAUD;
+			}
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, $outcome );
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
 			$this->logPending();
 			$this->runFraudFilters( $createPaymentResponse );
@@ -289,8 +296,14 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				case ValidationAction::REJECT:
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, FraudService::OUTCOME_BLOCKED_BY_FILTER
+					);
 					break;
 				default:
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, FraudService::OUTCOME_BLOCKED_BY_FILTER
+					);
 					$this->logger->info(
 						'Not capturing authorized payment - validation action is ' .
 						$this->getValidationAction()
