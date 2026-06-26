@@ -15,6 +15,8 @@
  * GNU General Public License for more details.
  */
 
+use MediaWiki\Extension\DonationInterface\Tests\SmashPigEnvironmentTrait;
+
 /**
  * @group	Fundraising
  * @group	DonationInterface
@@ -22,9 +24,12 @@
  * @category	UnitTesting
  * @covers \DataValidator
  */
-class DataValidatorTest extends PHPUnit\Framework\TestCase {
+class DataValidatorTest extends MediaWikiIntegrationTestCase {
+
+	use SmashPigEnvironmentTrait;
+
 	protected function setUp(): void {
-		DonationInterfaceTestCase::setUpSmashPigContext();
+		$this->setUpSmashPigContext();
 	}
 
 	/**

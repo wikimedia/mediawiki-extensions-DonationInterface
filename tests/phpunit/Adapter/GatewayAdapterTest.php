@@ -56,7 +56,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway );
 
-		self::resetAllEnv();
+		$this->resetEnvironment();
 		$gateway = $this->getFreshGatewayObject( $options = [] );
 		$this->assertInstanceOf( TESTS_ADAPTER_DEFAULT, $gateway, "Having trouble constructing a blank adapter." );
 	}

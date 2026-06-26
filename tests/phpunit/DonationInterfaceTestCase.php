@@ -17,20 +17,15 @@
  */
 
 use MediaWiki\Context\RequestContext;
-use MediaWiki\MediaWikiServices;
+use MediaWiki\Extension\DonationInterface\Tests\SmashPigEnvironmentTrait;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use Psr\Log\LogLevel;
-use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
-use SmashPig\Tests\TestingContext;
-use SmashPig\Tests\TestingDatabase;
-use SmashPig\Tests\TestingGlobalConfiguration;
-use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\RemexHtml\DOM;
 use Wikimedia\RemexHtml\Tokenizer;
 use Wikimedia\RemexHtml\TreeBuilder;
@@ -46,6 +41,8 @@ use Wikimedia\TestingAccessWrapper;
  * @package		Fundraising_QueueHandling
  */
 abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
+
+	use SmashPigEnvironmentTrait;
 
 	/**
 	 * An array of the vars we expect to be set before people hit payments.
@@ -66,9 +63,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	/** @var string */
 	protected $testAdapterClass = TESTS_ADAPTER_DEFAULT;
 
-	/** @var SmashPig\Core\GlobalConfiguration */
-	public static $smashPigGlobalConfig;
-
 	/**
 	 * @param string|null $name The name of the test case
 	 * @param array $data Any parameters read from a dataProvider
@@ -86,7 +80,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		// TODO: Use SmashPig dependency injection instead.  Also override
 		// SmashPig core logger.
 		DonationLoggerFactory::$overrideLogger = new TestingDonationLogger();
-		self::setUpSmashPigContext();
+		$this->setUpSmashPigContext();
 
 		// TODO use TestConfiguration.php instead?
 		$this->overrideConfigValues( [
@@ -104,18 +98,8 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		parent::setUp();
 	}
 
-	public static function setUpSmashPigContext() {
-		TestingDatabase::clearStatics();
-		// Replace real SmashPig context with test version that lets us
-		// override provider configurations that may be set in code
-		self::$smashPigGlobalConfig = TestingGlobalConfiguration::create();
-		TestingContext::init( self::$smashPigGlobalConfig );
-		Context::get()->setSourceType( 'payments' );
-		Context::get()->setSourceName( 'DonationInterface' );
-	}
-
 	protected function tearDown(): void {
-		self::resetAllEnv();
+		$this->resetEnvironment();
 		parent::tearDown();
 	}
 
@@ -141,18 +125,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		RequestContext::getMain()->setLanguage( $language );
 		// BackCompat
 		$this->setMwGlobals( 'wgLang', RequestContext::getMain()->getLanguage() );
-	}
-
-	/**
-	 * @param string $provider
-	 * @return TestingProviderConfiguration
-	 */
-	protected function setSmashPigProvider( $provider ) {
-		$providerConfig = TestingProviderConfiguration::createForProvider(
-			$provider, self::$smashPigGlobalConfig
-		);
-		TestingContext::get()->providerConfigurationOverride = $providerConfig;
-		return $providerConfig;
 	}
 
 	protected function setInitialFiltersToFail() {
@@ -447,34 +419,6 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		}
 
 		return $gateway;
-	}
-
-	public static function resetAllEnv() {
-		RequestContext::resetMain();
-
-		// Wipe out the $instance of these classes to make sure they're
-		// re-created with fresh gateway instances for the next test
-		$singleton_classes = [
-			'Gateway_Extras_ConversionLog',
-			'Gateway_Extras_CustomFilters',
-			'Gateway_Extras_CustomFilters_Functions',
-			'Gateway_Extras_CustomFilters_IP_Velocity',
-			'Gateway_Extras_CustomFilters_MinFraud',
-			'Gateway_Extras_CustomFilters_Referrer',
-			'Gateway_Extras_CustomFilters_Source',
-			'Gateway_Extras_SessionVelocityFilter',
-		];
-		foreach ( $singleton_classes as $singleton_class ) {
-			$unwrapped = TestingAccessWrapper::newFromClass( $singleton_class );
-			$unwrapped->instance = null;
-		}
-		// Reset SmashPig context
-		Context::set();
-		self::setUpSmashPigContext();
-		// Clear out our HashBagOStuff, used for testing
-		MediaWikiServices::getInstance()->getObjectCacheFactory()
-			->getLocalClusterInstance()->clear();
-		DonationLoggerFactory::$overrideLogger = null;
 	}
 
 	/**

@@ -54,7 +54,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		$providerConfig = TestingProviderConfiguration::createForProvider(
-			'paypal', self::$smashPigGlobalConfig
+			'paypal', $this->smashPigGlobalConfig
 		);
 		$this->provider = $this->createMock( PaymentProvider::class );
 		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $this->provider );

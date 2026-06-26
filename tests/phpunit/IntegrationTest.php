@@ -59,7 +59,7 @@ class IntegrationTest extends DonationInterfaceTestCase {
 		$paypalRequest = $this->setUpRequest( $options );
 
 		$providerConfig = TestingProviderConfiguration::createForProvider(
-			'paypal', self::$smashPigGlobalConfig
+			'paypal', $this->smashPigGlobalConfig
 		);
 		$provider = $this->createMock( PaymentProvider::class );
 		$providerConfig->overrideObjectInstance( 'payment-provider/paypal', $provider );

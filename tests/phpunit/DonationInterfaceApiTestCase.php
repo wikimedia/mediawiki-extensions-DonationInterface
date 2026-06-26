@@ -1,16 +1,20 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\Tests\SmashPigEnvironmentTrait;
 use MediaWiki\Session\Token;
 use MediaWiki\Tests\Api\ApiTestCase;
 
 class DonationInterfaceApiTestCase extends ApiTestCase {
+
+	use SmashPigEnvironmentTrait;
+
 	/** @var string */
 	protected $clearToken = 'blahblah';
 	/** @var string */
 	protected $saltedToken;
 
 	protected function setUp(): void {
-		DonationInterfaceTestCase::setUpSmashPigContext();
+		$this->setUpSmashPigContext();
 		parent::setUp();
 
 		// TODO Use TestConfiguration.php instead?
@@ -25,7 +29,7 @@ class DonationInterfaceApiTestCase extends ApiTestCase {
 	}
 
 	protected function tearDown(): void {
-		DonationInterfaceTestCase::resetAllEnv();
+		$this->resetEnvironment();
 		parent::tearDown();
 	}
 
