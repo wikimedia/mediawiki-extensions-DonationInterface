@@ -12,6 +12,8 @@ postal_code: postal_code
 state_province: state_province
 user_ip: user_ip
 recurring: recurring
+frequency_interval: frequency_interval
+frequency_unit: frequency_unit
 street_address: street_address
 street_number: street_number
 fiscal_number: fiscal_number

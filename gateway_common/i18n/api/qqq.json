@@ -240,6 +240,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "{{doc-apihelp-param|di_donate_dlocal|wmf_token}}",
 	"apihelp-di_donate_gravy-summary": "{{doc-apihelp-summary|di_donate_gravy}}\n\n\"Gravy\" is a name of a payment processing service, and probably doesn't need translation.",
 	"apihelp-di_donate_gravy-param-amount": "{{doc-apihelp-param|di_donate_gravy|amount}}",
+	"apihelp-di_donate_gravy-param-frequency_unit": "{{doc-apihelp-param|di_donate_gravy|frequency_unit}}",
+	"apihelp-di_donate_gravy-param-frequency_interval": "{{doc-apihelp-param|di_donate_gravy|frequency_interval}}",
 	"apihelp-di_donate_gravy-param-bin_hash": "\"BIN\" means \"Bank Identification Number\". See the English Wikipedia article [[:w:en:Payment card number|Payment card number]].\n\n{{doc-apihelp-param|di_donate_gravy|bin_hash}}",
 	"apihelp-di_donate_gravy-param-card_num": "{{doc-apihelp-param|di_donate_gravy|card_num}}",
 	"apihelp-di_donate_gravy-param-card_scheme": "See [[:w:en:Card scheme|Card scheme]] in the English Wikipedia. If there's no established terms for \"credit card scheme\" in your language, you can translate \"scheme\" as if it was \"system\", \"network\", or \"plan\".\n\n{{doc-apihelp-param|di_donate_gravy|card_scheme}}",

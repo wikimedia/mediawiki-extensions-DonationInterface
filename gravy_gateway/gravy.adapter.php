@@ -60,6 +60,8 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					'order_id',
 					'user_ip',
 					'recurring',
+					'frequency_unit',
+					'frequency_interval',
 					'payment_method',
 					'payment_submethod',
 					'user_name',
