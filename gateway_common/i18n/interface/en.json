@@ -189,7 +189,7 @@
 	"donate_interface-make-your-donation": "Make your donation now",
 	"donate_interface-other": "Other",
 	"donate_interface-noscript-msg": "It appears that you do not have JavaScript enabled, or your browser does not support it.\nIn order to provide a safe, secure and pleasant experience, our donation form requires JavaScript.",
-	"donate_interface-noscript-redirect-msg": "If you cannot or do not wish to enable JavaScript, you may still contribute by visiting:",
+	"donate_interface-noscript-redirect-msg": "If you cannot or do not wish to enable JavaScript, you can find other ways to contribute by visiting:",
 	"donate_interface-select-country": "Select a country",
 	"donate_interface-credit-card-number": "Credit card number",
 	"donate_interface-credit-card-expiration": "Credit card expiration",
