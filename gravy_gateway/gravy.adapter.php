@@ -95,6 +95,11 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		if ( !$this->filterActionIsProcess() ) {
 			// Ensure IPVelocity filter session value is reset on error
 			WmfFramework::setSessionValue( Gateway_Extras_CustomFilters_IP_Velocity::RAN_INITIAL, false );
+
+			// Random delay so a rejection by our own filters takes a similar
+			// amount of time as a real createPayment call to gravy.
+			usleep( random_int( 1_000_000, 3_000_000 ) );
+
 			return $this->newFailureWithError( 'internal-0000', 'Failed pre-process checks for payment.' );
 		}
 

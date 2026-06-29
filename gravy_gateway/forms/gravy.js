@@ -296,6 +296,10 @@
 			);
 		} ).catch( ( err ) => {
 			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+			if ( err && err.statusCode === 'CANCELED' ) {
+				document.location.replace( mw.config.get( 'DonationInterfaceCancelUrl' ) );
+				return;
+			}
 			mw.donationInterface.validation.showErrors( {
 					general: mw.msg( 'donate_interface-error-msg-general' )
 			} );

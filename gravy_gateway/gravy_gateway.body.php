@@ -107,7 +107,13 @@ class GravyGateway extends GatewayPage {
 			[ 'showError' => true ],
 			$this->getConfig()
 		);
+		$cancelledPage = GatewayChooser::buildGatewayPageUrl(
+			'gravy',
+			[ 'showError' => true, 'transaction_status' => 'cancelled' ],
+			$this->getConfig()
+		);
 		$vars['DonationInterfaceFailUrl'] = $failPage;
+		$vars['DonationInterfaceCancelUrl'] = $cancelledPage;
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 

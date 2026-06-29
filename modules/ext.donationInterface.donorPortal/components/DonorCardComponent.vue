@@ -5,6 +5,12 @@
 				{{ $i18n( "donorportal-recurring-heading" ).text() }}
 			</div>
 			<div class="dp-donor-card dp-card__body dp-card__body--compact">
+				<!-- Active contributions -->
+				<recurring-contribution
+					v-for="contribution in activeRecurringContributions"
+					:key="contribution.id"
+					:contribution="contribution"
+					:is-active="true"></recurring-contribution>
 				<!-- Inactive contributions -->
 				<recurring-contribution
 					v-for="contribution in inactiveRecurringContributions"
@@ -12,12 +18,6 @@
 					:contribution="contribution"
 					:is-active="false"
 				></recurring-contribution>
-				<!-- Active contributions -->
-				<recurring-contribution
-					v-for="contribution in activeRecurringContributions"
-					:key="contribution.id"
-					:contribution="contribution"
-					:is-active="true"></recurring-contribution>
 			</div>
 		</template>
 		<template v-else-if="onetimeContribution">

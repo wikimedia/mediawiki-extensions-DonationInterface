@@ -45,7 +45,8 @@
 		"GravyGateway": "GravyGateway",
 		"GravyGatewayResult": "GravyGatewayResult",
 		"PaymentSettings": "PaymentSettings",
-		"DonorPortal": "DonorPortal"
+		"DonorPortal": "DonorPortal",
+		"ComboWiki": "ComboWiki"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
@@ -215,6 +216,7 @@
 		"EmailPreferences": "special/EmailPreferences.php",
 		"RecurUpgrade": "special/RecurUpgrade.php",
 		"DonorPortal": "special/DonorPortal.php",
+		"ComboWiki": "special/ComboWiki.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
 		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",
@@ -513,6 +515,25 @@
 		},
 		"ext.donationInterface.donorPortalStyles": {
 			"styles": "modules/css/donorPortal.less"
+		},
+		"ext.donationInterface.comboWiki": {
+			"dependencies": [
+				"donationInterface.skinOverride",
+				"vue",
+				"@wikimedia/codex"
+			],
+			"packageFiles": [
+				"modules/ext.donationInterface.comboWiki/init.js",
+				"modules/ext.donationInterface.comboWiki/components/App.vue",
+				"modules/ext.donationInterface.comboWiki/views/Home.vue",
+				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue"
+			],
+			"messages": [
+				"combowiki-title"
+			]
+		},
+		"ext.donationInterface.comboWikiStyles": {
+			"styles": "modules/css/comboWiki.less"
 		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
@@ -1897,8 +1918,10 @@
 		}
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\DonationInterface\\": "includes/",
-		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes"
+		"MediaWiki\\Extension\\DonationInterface\\": "includes/"
+	},
+	"TestAutoloadNamespaces": {
+		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes/"
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2

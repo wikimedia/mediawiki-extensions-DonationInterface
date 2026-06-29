@@ -10,7 +10,8 @@ $specialPageAliases['en'] = [
 	'RecurUpgrade' => [ 'RecurUpgrade' ],
 	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],
 	'PaymentSettings' => [ 'PaymentSettings' ],
-	'DonorPortal' => [ 'DonorPortal' ]
+	'DonorPortal' => [ 'DonorPortal' ],
+	'ComboWiki' => [ 'ComboWiki' ]
 ];
 
 /** Arabic (العربية) */
