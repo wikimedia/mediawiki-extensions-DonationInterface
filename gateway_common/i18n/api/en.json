@@ -222,6 +222,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "Edit token.",
 	"apihelp-di_donate_gravy-summary": "This API is for Gravy",
 	"apihelp-di_donate_gravy-param-amount": "The amount donated.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "Recurring donation's frequency unit like month/year",
+	"apihelp-di_donate_gravy-param-frequency_interval": "Recurring donation's frequency interval",
 	"apihelp-di_donate_gravy-param-bin_hash": "Simple hash of the card BIN.",
 	"apihelp-di_donate_gravy-param-card_num": "Credit card number.",
 	"apihelp-di_donate_gravy-param-card_scheme": "Credit card scheme.",
