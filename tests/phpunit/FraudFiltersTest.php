@@ -57,10 +57,20 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 				'CA' => 15,
 				'RU' => -4,
 			],
+			'EmailDomainMap' => [
+				'wikimedia.org' => 42,
+				'wikipedia.org' => 50,
+			],
 			'UtmCampaignMap' => [
 				'/^(C14_)/' => 14,
 				'/^(spontaneous)/' => 5
-			]
+			],
+			// Neutralise any generic pattern/velocity filters set by local dev
+			// config overrides so they don't add unexpected entries to the
+			// score breakdown. Individual tests that exercise pattern filters
+			// set their own values after setUp().
+			'PatternFilters' => [],
+			'VelocityFilters' => [],
 		] + $this->getMinFraudGlobalsWithoutPrefix() ) );
 	}
 

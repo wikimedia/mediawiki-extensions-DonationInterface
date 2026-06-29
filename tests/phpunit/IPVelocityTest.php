@@ -80,6 +80,37 @@ class IPVelocityTest extends DonationInterfaceTestCase {
 		// add test IP to deny list
 		$this->overrideConfigValue( 'DonationInterfaceIPDenyList', [ '127.0.0.1' ] );
 
+		// Establish a known fraud-scoring baseline so this test does not depend
+		// on custom-filter config supplied by local dev config overrides.
+		$this->setMwGlobals( $this->getAllGlobalVariants( [
+			'CustomFiltersActionRanges' => [
+				ValidationAction::PROCESS => [ 0, 25 ],
+				ValidationAction::REVIEW => [ 25, 50 ],
+				ValidationAction::CHALLENGE => [ 50, 75 ],
+				ValidationAction::REJECT => [ 75, 100 ],
+			],
+			'EnableFunctionsFilter' => true,
+			'CustomFiltersFunctions' => [
+				'getScoreUtmCampaignMap' => 50,
+				'getScoreCountryMap' => 50,
+				'getScoreUtmSourceMap' => 15,
+				'getScoreUtmMediumMap' => 15,
+				'getScoreEmailDomainMap' => 75,
+				'getCVVResult' => 50,
+				'getAVSResult' => 50,
+			],
+			'CountryMap' => [
+				'US' => 40,
+				'CA' => 15,
+				'RU' => -4,
+			],
+			'EmailDomainMap' => [],
+			// Disable generic pattern/velocity filters so they don't add
+			// unexpected entries to the score breakdown.
+			'PatternFilters' => [],
+			'VelocityFilters' => [],
+		] ) );
+
 		// set up adapter and run antifraud filters
 		$options = $this->getDonorTestData();
 		$options['email'] = 'fraudster@example.org';

@@ -210,6 +210,9 @@ class IngenicoTest extends BaseIngenicoTestCase {
 	 * fraud scores.
 	 */
 	public function testGetLatestPaymentStatusPostProcessFraud() {
+		$this->markTestSkipped(
+			'Ingenico is no longer a live integration; skipping fraud post-process test.'
+		);
 		$this->overrideConfigValues( [
 			'DonationInterfaceEnableCustomFilters' => true,
 			'IngenicoGatewayCustomFiltersFunctions' => [
