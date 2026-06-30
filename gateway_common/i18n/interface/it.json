@@ -155,7 +155,7 @@
 	"donate_interface-make-your-donation": "Fai ora la tua donazione",
 	"donate_interface-other": "Altro",
 	"donate_interface-noscript-msg": "Sembra che JavaScript sia disabilitato o che il tuo browser non lo supporti.\nPer fornire un servizio sicuro e semplice, il nostro modulo di donazione richiede JavaScript abilitato.",
-	"donate_interface-noscript-redirect-msg": "Se non si può o non si vuole abilitare JavaScript, è ancora possibile contribuire visitando:",
+	"donate_interface-noscript-redirect-msg": "Se non si può o non si vuole abilitare JavaScript, puoi trovare altri modi per contribuire visitando:",
 	"donate_interface-select-country": "Seleziona la nazione",
 	"donate_interface-credit-card-number": "Numero della carta di credito",
 	"donate_interface-credit-card-expiration": "Scadenza della carta di credito",
