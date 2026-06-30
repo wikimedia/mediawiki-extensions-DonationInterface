@@ -161,7 +161,6 @@
 		"MustacheErrorForm": "gateway_forms/MustacheErrorForm.php",
 		"Subdivisions": "gateway_forms/includes/Subdivisions.php",
 		"Ingenico3DSecure": "ingenico_gateway/Ingenico3DSecure.php",
-		"IngenicoFormVariant": "ingenico_gateway/IngenicoFormVariant.php",
 		"IngenicoGateway": "ingenico_gateway/ingenico_gateway.body.php",
 		"IngenicoGatewayResult": "ingenico_gateway/ingenico_resultswitcher.body.php",
 		"IngenicoAdapter": "ingenico_gateway/ingenico.adapter.php",

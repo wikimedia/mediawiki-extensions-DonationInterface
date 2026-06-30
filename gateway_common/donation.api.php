@@ -75,7 +75,6 @@ class DonationApi extends DonationApiBase {
 			'cvv' => $this->defineParam( false ),
 			'payment_method' => $this->defineParam( false ),
 			'payment_submethod' => $this->defineParam( false ),
-			'processor_form' => $this->defineParam( false ),
 			'language' => $this->defineParam( false ),
 			'order_id' => $this->defineParam( false ),
 			'wmf_token' => $this->defineParam( true ),

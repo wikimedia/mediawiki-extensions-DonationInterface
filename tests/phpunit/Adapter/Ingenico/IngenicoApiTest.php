@@ -96,7 +96,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							]
 						],
 						'showResultPage' => false,
-						'variant' => '105'
 					];
 					$this->assertArrayContains( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					$this->assertRegExpTemp(
@@ -193,7 +192,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 							]
 						],
 						'showResultPage' => false,
-						'variant' => '105'
 					];
 					$this->assertArrayContains( $hcsi, $actual['hostedCheckoutSpecificInput'] );
 					return true;
@@ -427,7 +425,6 @@ class IngenicoApiTest extends DonationInterfaceApiTestCase {
 		] );
 		unset( $expected['amount'] );
 		unset( $expected['referrer'] );
-		unset( $expected['processor_form'] );
 		unset( $expected['variant'] );
 		$expected['gross'] = '1.22';
 		$this->assertArrayContains( $expected, $message );

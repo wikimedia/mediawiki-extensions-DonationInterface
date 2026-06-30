@@ -81,7 +81,6 @@ class ResultSwitcherTest extends BaseIngenicoTestCase {
 		$expected['gross'] = $donorTestData['amount'];
 		unset( $expected['referrer'] );
 		unset( $expected['amount'] );
-		unset( $expected['processor_form'] );
 		unset( $expected['postal_code'] );
 		$this->assertArrayContains(
 			$expected,

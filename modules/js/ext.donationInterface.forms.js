@@ -167,7 +167,6 @@
 			payment_method: $( '#payment_method' ).val(),
 			language: $( '#language' ).val(),
 			payment_submethod: paymentSubmethod,
-			processor_form: $( '#processor_form' ).val(),
 			issuer_id: $( '#issuer_id' ).val(),
 			utm_source: $( '#utm_source' ).val(),
 			utm_campaign: $( '#utm_campaign' ).val(),
