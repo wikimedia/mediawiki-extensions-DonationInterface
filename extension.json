@@ -1921,7 +1921,8 @@
 		}
 	},
 	"AutoloadNamespaces": {
-		"MediaWiki\\Extension\\DonationInterface\\": "includes/"
+		"MediaWiki\\Extension\\DonationInterface\\": "includes/",
+		"MediaWiki\\Extension\\DonationInterface\\Special\\": "special/"
 	},
 	"TestAutoloadNamespaces": {
 		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes/"

@@ -1,9 +1,11 @@
 <?php
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\Special\GatewayRouter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
+use Psr\Log\NullLogger;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -448,10 +450,10 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'payment_method' => 'cc' ],
-					'gateways' => [ 'ingenico' ],
+					'gateways' => [ 'gravy' ],
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ],
+					'gateways' => [ 'adyen', 'gravy', 'paypal_ec', 'dlocal', 'braintree' ],
 				],
 			],
 		] );
@@ -465,11 +467,15 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'payment_method' => "cc",
 		];
 
-		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
-		$expectedGateway = 'ingenico';
+		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
+		$expectedGateway = 'gravy';
 
-		$GatewayChooser = new GatewayChooser();
-		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$processor = GatewayRouter::chooseGatewayByPriority(
+			$shortListedGateways,
+			$testQueryParams,
+			MediaWikiServices::getInstance()->getMainConfig(),
+			new NullLogger()
+		);
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -482,7 +488,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 						'gateways' => [ 'adyen' ],
 					],
 					[
-						'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ],
+						'gateways' => [ 'gravy', 'adyen', 'paypal_ec', 'dlocal', 'braintree' ],
 					],
 				],
 			] );
@@ -497,11 +503,15 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 				'utm_medium' => "endowment",
 			];
 
-			$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+			$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 			$expectedGateway = 'adyen';
 
-			$GatewayChooser = new GatewayChooser();
-			$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+			$processor = GatewayRouter::chooseGatewayByPriority(
+				$shortListedGateways,
+				$testQueryParams,
+				MediaWikiServices::getInstance()->getMainConfig(),
+				new NullLogger()
+			);
 
 			$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -511,10 +521,10 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'country' => [ 'US', 'GB', 'FR' ] ], // array as value
-					'gateways' => [ 'ingenico' ],
+					'gateways' => [ 'gravy' ],
 				],
 				[
-					'gateways' => [ 'adyen', 'ingenico', 'paypal_ec', 'amazon', 'dlocal' ],
+					'gateways' => [ 'adyen', 'gravy', 'paypal_ec', 'dlocal', 'braintree' ],
 				],
 			],
 		] );
@@ -526,11 +536,15 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'payment_method' => "cc",
 		];
 
-		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
-		$expectedGateway = 'ingenico';
+		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
+		$expectedGateway = 'gravy';
 
-		$GatewayChooser = new GatewayChooser();
-		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$processor = GatewayRouter::chooseGatewayByPriority(
+			$shortListedGateways,
+			$testQueryParams,
+			MediaWikiServices::getInstance()->getMainConfig(),
+			new NullLogger()
+		);
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
@@ -544,10 +558,10 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 				],
 				[
 					'conditions' => [ 'payment_method' => 'cc' ], // we shouldn't get to this one
-					'gateways' => [ 'ingenico' ],
+					'gateways' => [ 'gravy' ],
 				],
 				[
-					'gateways' => [ 'ingenico', 'adyen', 'paypal_ec', 'amazon', 'dlocal' ],
+					'gateways' => [ 'gravy', 'adyen', 'paypal_ec', 'dlocal', 'braintree' ],
 				],
 			],
 		] );
@@ -562,11 +576,15 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			'utm_medium' => "endowment",
 		];
 
-		$shortListedGateways = [ 'ingenico', 'adyen', 'paypal' ];
+		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 		$expectedGateway = 'adyen';
 
-		$GatewayChooser = new GatewayChooser();
-		$processor = $GatewayChooser->chooseGatewayByPriority( $shortListedGateways, $testQueryParams );
+		$processor = GatewayRouter::chooseGatewayByPriority(
+			$shortListedGateways,
+			$testQueryParams,
+			MediaWikiServices::getInstance()->getMainConfig(),
+			new NullLogger()
+		);
 
 		$this->assertEquals( $expectedGateway, $processor );
 	}
