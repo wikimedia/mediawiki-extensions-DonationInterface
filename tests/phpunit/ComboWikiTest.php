@@ -1,5 +1,6 @@
 <?php
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 
@@ -8,7 +9,7 @@ use MediaWiki\Title\Title;
  * @group DonationInterface
  * @group ComboWiki
  * @group Database
- * @covers \ComboWiki
+ * @covers \MediaWiki\Extension\DonationInterface\Special\ComboWiki
  */
 class ComboWikiTest extends DonationInterfaceTestCase {
 

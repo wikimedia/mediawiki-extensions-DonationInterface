@@ -46,7 +46,7 @@
 		"GravyGatewayResult": "GravyGatewayResult",
 		"PaymentSettings": "PaymentSettings",
 		"DonorPortal": "DonorPortal",
-		"ComboWiki": "ComboWiki"
+		"ComboWiki": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
@@ -216,7 +216,6 @@
 		"EmailPreferences": "special/EmailPreferences.php",
 		"RecurUpgrade": "special/RecurUpgrade.php",
 		"DonorPortal": "special/DonorPortal.php",
-		"ComboWiki": "special/ComboWiki.php",
 		"DonationApi": "gateway_common/donation.api.php",
 		"DonationApiBase": "gateway_common/DonationApiBase.php",
 		"RecurringConversionApi": "gateway_common/RecurringConversion.api.php",

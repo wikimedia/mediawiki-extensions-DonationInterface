@@ -1,7 +1,10 @@
 <?php
 
+namespace MediaWiki\Extension\DonationInterface\Special;
+
+use CountryValidation;
+use DonationLoggerFactory;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\Special\GatewayRouter;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
