@@ -1062,6 +1062,169 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 100, $exposed->risk_score );
 	}
 
+	public function testPatternFilterBetweenRangeMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_micro_donation' => [
+						'amount' => [ 'between', 1, 2 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '1.50';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction with amount inside between range'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey( 'PatternFilter_test_micro_donation', $message['score_breakdown'] );
+		$this->assertEquals( 100, $message['score_breakdown']['PatternFilter_test_micro_donation'] );
+	}
+
+	public function testPatternFilterBetweenRangeMatchAtLowerBound(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_micro_donation' => [
+						'amount' => [ 'between', 1, 2 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '1.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction with amount equal to the lower bound of between range'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+	}
+
+	public function testPatternFilterBetweenRangeMatchAtUpperBound(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_micro_donation' => [
+						'amount' => [ 'between', 1, 2 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '2.00';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction with amount equal to the upper bound of between range'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals( 100, $exposed->risk_score );
+	}
+
+	public function testPatternFilterBetweenRangeNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_micro_donation' => [
+						'amount' => [ 'between', 1, 2 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = '2.50';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Should process transaction with amount outside between range'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
+	public function testPatternFilterBetweenRangeNonNumericNoMatch(): void {
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_micro_donation' => [
+						'amount' => [ 'between', 1, 2 ],
+						'currency' => 'USD',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		$testGatewayData = static::getDonorTestData();
+		$testGatewayData['amount'] = 'abc';
+		$testGatewayData['currency'] = 'USD';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testGatewayInstance->getValidationAction(),
+			'Non-numeric value should not match between range filter'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertSame( 0, $exposed->risk_score );
+	}
+
 	public function testPatternFilterFieldReferenceMatch(): void {
 		$this->setMwGlobals( static::getAllGlobalVariants( [
 			'PatternFilters' => [
