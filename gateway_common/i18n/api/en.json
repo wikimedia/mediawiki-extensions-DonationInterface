@@ -246,6 +246,7 @@
 	"apihelp-di_donate_gravy-param-first_name_phonetic": "Phonetic version of first name.",
 	"apihelp-di_donate_gravy-param-full_name": "Full name",
 	"apihelp-di_donate_gravy-param-gateway": "Which payment gateway to use - adyen, ingenico, etc.",
+	"apihelp-di_donate_gravy-param-gateway_session_id": "The Gravy SecureFields checkout session ID.",
 	"apihelp-di_donate_gravy-param-language": "Language code.",
 	"apihelp-di_donate_gravy-param-last_name": "Last name.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "Phonetic version of last name.",

@@ -3,6 +3,8 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
+use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
+use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 
 /**
  * @group Fundraising
@@ -47,6 +49,14 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 				],
 			],
 		] );
+
+		// Mock GravyAdapter::getCheckoutSession(), matching the pattern used in SecureFieldsCardTest.
+		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
+		$cardPaymentProvider->method( 'createPaymentSession' )->willReturn(
+			( new CreatePaymentSessionResponse() )->setSuccessful( true )->setPaymentSession( 'lorem-ipsum' )
+		);
 	}
 
 	public function testChoosesGravyForCreditCard(): void {

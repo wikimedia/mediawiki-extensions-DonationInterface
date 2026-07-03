@@ -3,11 +3,14 @@
 namespace MediaWiki\Extension\DonationInterface\Special;
 
 use CountryValidation;
+use DonationInterface;
 use DonationLoggerFactory;
+use GravyAdapter;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
+use ResultPages;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -28,6 +31,7 @@ class ComboWiki extends UnlistedSpecialPage {
 
 	/**
 	 * @param string|null $subPage
+	 *
 	 * @return void
 	 */
 	public function execute( $subPage ): void {
@@ -37,26 +41,14 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		// Expose server-side config to the Vue app.
 		$this->getHookContainer()->register(
-			'MakeGlobalVariablesScript', [ $this, 'setClientVariables' ]
+			'MakeGlobalVariablesScript',
+			[
+				$this,
+				'setClientVariables'
+			]
 		);
 
 		$this->addStylesScriptsAndViewport();
-	}
-
-	/**
-	 * Set variables to be read in client-side JS code.
-	 * @param array &$vars
-	 * @return void
-	 */
-	public function setClientVariables( array &$vars ): void {
-		$params = $this->getRoutingParams();
-		$selectedGateway = $this->chooseGateway( $params );
-
-		$vars['comboWiki'] = [
-			'language' => $this->getLanguage()->getCode(),
-			'params' => $params,
-			'gateway' => $selectedGateway
-		];
 	}
 
 	/**
@@ -86,7 +78,8 @@ class ComboWiki extends UnlistedSpecialPage {
 		$out->addHeadItem(
 			'viewport',
 			Html::element(
-				'meta', [
+				'meta',
+				[
 					'name' => 'viewport',
 					'content' => 'width=device-width, initial-scale=1',
 				]
@@ -97,6 +90,29 @@ class ComboWiki extends UnlistedSpecialPage {
 			'rel' => 'dns-prefetch',
 			'href' => 'https://upload.wikimedia.org'
 		] );
+	}
+
+	/**
+	 * Set variables to be read in client-side JS code.
+	 *
+	 * @param array &$vars
+	 *
+	 * @return void
+	 */
+	public function setClientVariables( array &$vars ): void {
+		$params = $this->getRoutingParams();
+		$selectedGateway = $this->chooseGateway( $params );
+
+		$vars['comboWiki'] = [
+			'language' => $this->getLanguage()->getCode(),
+			'params' => $params,
+			'gateway' => $selectedGateway
+		];
+
+		// TODO: move this to a central decision point
+		if ( $selectedGateway === 'gravy' ) {
+			$this->addGravyClientConfig( $vars, $params );
+		}
 	}
 
 	private function getRoutingParams(): array {
@@ -138,6 +154,7 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		if ( count( $supportedGateways ) === 0 ) {
 			$this->logger->error( 'No supported gateway for parameters: ' . print_r( $params, true ) );
+
 			return null;
 		}
 
@@ -150,7 +167,42 @@ class ComboWiki extends UnlistedSpecialPage {
 		}
 
 		return GatewayRouter::chooseGatewayByPriority(
-			$supportedGateways, $params, $this->getConfig(), $this->logger
+			$supportedGateways,
+			$params,
+			$this->getConfig(),
+			$this->logger
 		);
+	}
+
+	/**
+	 * Start up a new Gravy Payments session and share the ID, along with the gravy
+	 * config, with the frontend.
+	 *
+	 * @param array &$vars
+	 * @param array $params
+	 *
+	 * @return void
+	 */
+	protected function addGravyClientConfig( array &$vars, array $params ): void {
+		DonationInterface::setSmashPigProvider( 'gravy' );
+
+		$adapter = new GravyAdapter( [
+			'external_data' => [
+				'payment_method' => $params['payment_method'],
+				'currency' => $params['currency'],
+				'country' => $params['country'],
+				'recurring' => $params['recurring'],
+				'language' => $this->getLanguage()->getCode()
+			]
+		] );
+
+		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
+		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
+
+		$session = $adapter->getCheckoutSession();
+		if ( $session->isSuccessful() ) {
+			$vars['gravy_session_id'] = $session->getPaymentSession();
+		}
 	}
 }
