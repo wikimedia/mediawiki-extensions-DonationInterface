@@ -523,9 +523,11 @@
 			],
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
+				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
 				"modules/ext.donationInterface.comboWiki/views/Home.vue",
-				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue"
+				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
+				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue"
 			],
 			"messages": [
 				"combowiki-title"

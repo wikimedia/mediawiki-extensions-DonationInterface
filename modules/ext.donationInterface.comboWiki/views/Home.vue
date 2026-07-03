@@ -53,6 +53,25 @@
       </cdx-radio>
     </div>
 
+    <div>
+      <h2>Your details</h2>
+
+      <cdx-text-input
+          v-model="donation.firstName"
+          placeholder="First name">
+      </cdx-text-input>
+
+      <cdx-text-input
+          v-model="donation.lastName"
+          placeholder="Last name">
+      </cdx-text-input>
+
+      <cdx-text-input
+          v-model="donation.email"
+          placeholder="Email address">
+      </cdx-text-input>
+    </div>
+
     <!--    Payment methods-->
     <div>
       <h2>Donate with your preferred payment method</h2>
@@ -64,13 +83,20 @@
           @click="donation.paymentMethod = method.value">
         {{ method.label }}
       </cdx-button>
+      <gravy-card-form
+          v-if="donation.paymentMethod === 'card'"
+          @card-vaulted="onCardVaulted"
+          @error="onCardError"
+      >
+      </gravy-card-form>
     </div>
 
 
     <br/>
     <p> Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.amount || "no amount" }} / Fee:
       {{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-      {{ donation.paymentMethod }}</p>
+      {{ donation.paymentMethod }} / Gateway: {{ selectedGateway }}</p>
+    <p v-if="donateError" class="combo-wiki__error">{{ donateError }}</p>
   </main>
 </template>
 
@@ -84,6 +110,8 @@ const {
   CdxRadio
 } = require( "@wikimedia/codex" );
 const FrequencySelector = require( "../components/FrequencySelector.vue" );
+const GravyCardForm = require( "../components/GravyCardForm.vue" );
+const api = require( "../api.js" );
 
 module.exports = exports = defineComponent( {
   name: "Home",
@@ -94,7 +122,8 @@ module.exports = exports = defineComponent( {
     "cdx-select": CdxSelect,
     "cdx-checkbox": CdxCheckbox,
     "cdx-radio": CdxRadio,
-    "frequency-selector": FrequencySelector
+    "frequency-selector": FrequencySelector,
+    "gravy-card-form": GravyCardForm
   },
 
   data() {
@@ -106,6 +135,9 @@ module.exports = exports = defineComponent( {
         { label: "GBP (United Kingdom)", value: "GBP" }
       ],
       donation: {
+        firstName: null,
+        lastName: null,
+        email: null,
         frequency: "once",
         amount: null,
         currency: "USD",
@@ -121,19 +153,41 @@ module.exports = exports = defineComponent( {
         { value: "applepay", label: "Apple Pay", countries: [ "US", "GB" ] },
         { value: "gpay", label: "Google Pay", countries: [ "US", "GB" ] },
         { value: "trustly", label: "Trustly", countries: [ "US" ] }
-      ]
+      ],
+      selectedGateway: ( mw.config.get( "comboWiki" ) ).gateway || null,
+      donateError: null
     };
   },
 
   methods: {
     selectAmount( value ) {
       this.donation.amount = value;
+    },
+    onCardVaulted( payload ) {
+      api.submitDonation( this.donation, payload ).then( ( result ) => {
+        const response = result.result;
+        if ( response.isFailed ) {
+          this.donateError = "Payment failed. Please try again";
+          return;
+        }
+        if ( response.redirect ) {
+          window.location.assign( response.redirect );
+        } else {
+          window.location.assign( mw.config.get( "DonationInterfaceThankYouPage" ) );
+        }
+      } ).catch( ( code, failure ) => {
+        this.donateError = "Payment failed, Please try again.";
+        mw.log.error( "di_donate_gravy failed", code, failure );
+      } );
+    },
+    onCardError( reason ) {
+      this.donateError = "Card error:" + reason;
     }
   },
 
   computed: {
     feeAmount() {
-      if (!this.donation.payFee || !this.donation.amount) {
+      if ( !this.donation.payFee || !this.donation.amount ) {
         return 0;
       }
 
