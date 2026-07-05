@@ -13,7 +13,7 @@
 						<strong v-if="!isActive">{{ $i18n( "donorportal-renew-support" ).text() }}</strong>
 					</p>
 
-					<p v-if="isActive && !this.contribution.is_legacy_paypal" class="text text--body">
+					<p v-if="isActive && !contribution.is_legacy_paypal" class="text text--body">
 						{{ contribution.payment_method }}
 						[&nbsp;
 						<popup-link>
@@ -43,7 +43,7 @@
 						class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
 						{{ $i18n( "donorportal-manage-donation" ).text() }}
 					</router-link>
-					<p v-else-if="this.contribution.is_legacy_paypal" class="text text--body dp-paypal-notice">
+					<p v-else-if="isActive && contribution.is_legacy_paypal" class="text text--body dp-paypal-notice">
 						{{ $i18n( 'donorportal-update-donation-legacy-paypal-disable-text' ).text() }}
 					</p>
 				</div>
