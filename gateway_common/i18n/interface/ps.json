@@ -221,5 +221,13 @@
 	"donate_interface-dd-bank_name": "بانک نوم",
 	"donate_interface-currency-change": "بدلول؟",
 	"donate_interface-monthly-short": "مياشتينی",
-	"donate_interface-statement": "ويکيمېډيا $1"
+	"donate_interface-statement": "ويکيمېډيا $1",
+	"donate_interface-monthly-convert-yes-button-variant-006": "هو، زه غواړم مرسته وکړم",
+	"donate_interface-monthly-convert-no-button-variant-006": "نه، مننه",
+	"donate_interface-monthly-convert-no-button-variant-011": "نه، مننه!",
+	"donate_interface-monthly-convert-no-button-variant-014": "نه، اوس نه",
+	"donate_interface-fundraiser-maintenance-header": "د ساتنې په موخه لنډمهاله ډول بند دی",
+	"donate_interface-amount-legend-variant-01A": "د بسپنې ورکولو اندازه",
+	"donate_interface-cc-form-header-personal-variant-01A": "د بړياينې مالومات",
+	"donate_interface-submit-button-variant-01A": "په دې اندازه بسپنه ورکړئ"
 }
