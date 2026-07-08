@@ -219,6 +219,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "Bewerkingstoken.",
 	"apihelp-di_donate_gravy-summary": "Deze API is voor Gravy",
 	"apihelp-di_donate_gravy-param-amount": "Het gedoneerde bedrag.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "Periodiciteitseenheid voor terugkerende donaties, zoals maand of jaar",
+	"apihelp-di_donate_gravy-param-frequency_interval": "Periodiciteitsinterval voor terugkerende donaties",
 	"apihelp-di_donate_gravy-param-bin_hash": "Eenvoudige hash van het bankidentificatienummer van de kaart.",
 	"apihelp-di_donate_gravy-param-card_num": "Creditcardnummer.",
 	"apihelp-di_donate_gravy-param-card_scheme": "Creditcardsysteem.",

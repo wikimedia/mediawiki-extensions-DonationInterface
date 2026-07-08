@@ -93,7 +93,7 @@
 	"donate_interface-make-your-donation": "Anneta kohe",
 	"donate_interface-other": "Muu",
 	"donate_interface-noscript-msg": "Nähtavasti pole sul JavaScript lubatud või su brauseris puudub selle tugi.\nTurvaliseks ja meeldivaks kasutamiseks on meie annetamisvormi jaoks vaja JavaScripti.",
-	"donate_interface-noscript-redirect-msg": "Kui sa ei saa või ei soovi JavaScripti lubada, saad ikkagi annetada sellel võrgulehel:",
+	"donate_interface-noscript-redirect-msg": "Kui sa ei saa või ei soovi JavaScripti lubada, leiad teavet teiste annetamisviiside kohta siit:",
 	"donate_interface-select-country": "Vali maa",
 	"donate_interface-credit-card-number": "Krediitkaardinumber",
 	"donate_interface-credit-card-expiration": "Krediitkaardi kehtivusaeg",

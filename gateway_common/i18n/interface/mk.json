@@ -8,6 +8,7 @@
 			"Vlad5250"
 		]
 	},
+	"combowiki-title": "Поддржете ја Викимедија",
 	"donate_interface": "Поддржете ја Викимедија",
 	"donate_interface-desc": "Страница за доброволни прилози која вклучува додатоци за порта",
 	"donate_interface-langonly-desc": "Ги изложува САМО преведените (i18n) пораки на посредникот за доброволни прилози.",
@@ -184,7 +185,7 @@
 	"donate_interface-make-your-donation": "Дарувајте со доброволен прилог сега",
 	"donate_interface-other": "друг",
 	"donate_interface-noscript-msg": "Изгледа дека немате овозможено JavaScript, или дека прелистувачот не го поддржува.\nНашиот образец за дарување бара JavaScript со цел да Ви обезбедиме сигурно, безбедно и пријатно искуство.",
-	"donate_interface-noscript-redirect-msg": "Ако не можете или не сакате да овозможите JavaScript, можете сепак да придонесете посетувајќи ја страницата:",
+	"donate_interface-noscript-redirect-msg": "Ако не можете или не сакате да овозможите JavaScript, можете да најдете други начини да придонесете посетувајќи ја страницата:",
 	"donate_interface-select-country": "Одберете земја",
 	"donate_interface-credit-card-number": "Број на картичката",
 	"donate_interface-credit-card-expiration": "Рок на важење",

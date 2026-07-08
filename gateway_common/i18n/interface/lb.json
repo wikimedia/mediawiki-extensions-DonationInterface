@@ -10,6 +10,7 @@
 			"Zinneke"
 		]
 	},
+	"combowiki-title": "Wikimedia ënnerstëtzen",
 	"donate_interface": "Ënnerstëtzt Wikimedia",
 	"donate_interface-desc": "Säit op där Done landen déi vun de verschiddene Methode fir ze bezuelen hierkommen",
 	"donate_interface-langonly-desc": "Weist just Systemmessagë vun der Spendesäit",
@@ -130,7 +131,7 @@
 	"donate_interface-make-your-donation": "Maacht Ären Don elo",
 	"donate_interface-other": "Anerer",
 	"donate_interface-noscript-msg": "Et gesäit sou aus wéi wann Dir JavaScript net ageschalt hätt, oder Äre Browser ënnerstëtzt en net.\nFir eng sécher Ofwécklung vun Ärem Don ze garantéiere brauch eise Formulaire vun den Donen JavaSCript.",
-	"donate_interface-noscript-redirect-msg": "Wann Dir JavaSript net aschalte kënnt oder wëllt, kënnt Dir trotzdeem en Don maachen wann Dir op dës Websäit gitt:",
+	"donate_interface-noscript-redirect-msg": "Wann Dir JavaSript net aschalte kënnt oder wëllt, kënnt Dir aner Weeër fanne fir eppes bäizedroen, andeems Dir op dës Websäit gitt:",
 	"donate_interface-select-country": "Sicht d'Land eraus",
 	"donate_interface-credit-card-number": "Kreditkaartennummer",
 	"donate_interface-credit-card-expiration": "Gültegkeet vun der Kreditkaart",

@@ -25,6 +25,7 @@
 	"apihelp-donate-param-phone": "Puhelinnumero",
 	"apihelp-di_donate_adyen-param-phone": "Puhelinnumero",
 	"apihelp-di_donate_dlocal-param-phone": "Puhelinnumero",
+	"apihelp-di_donate_gravy-param-frequency_interval": "Toistuvan lahjoituksen tiheys",
 	"apihelp-di_donate_gravy-param-phone": "Puhelinnumero",
 	"apihelp-di_donate_braintree-param-phone": "Puhelinnumero"
 }

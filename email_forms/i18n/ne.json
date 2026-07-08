@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Pratik11",
 			"बडा काजी"
 		]
 	},
+	"donorportal-login-problems-email-body": "म मेरो दाता खातामा लग इन गर्न असमर्थ छु। %0D% 0A %0D% 0AMy पूरा नाम: %0D% 0Aमेरो पुनरावर्ती दातासँग सम्बन्धित इमेल ठेगाना: %0D% 0Aमेरो दानको रकम र मुद्रा: %0D% 0A",
 	"donorportal-recurring-currency-monthly": "$1 मासिक",
 	"donorportal-recurring-currency-annual": "$1 वार्षिक",
 	"donorportal-recurring-status-cancelled": "रद्द गरियो",

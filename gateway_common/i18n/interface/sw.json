@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Fredrick Kafuka",
 			"Jsoby",
 			"Lloffiwr",
 			"Muddyb",
@@ -83,7 +84,7 @@
 	"donate_interface-make-your-donation": "Changia sasa",
 	"donate_interface-other": "Nyingine",
 	"donate_interface-noscript-msg": "Inaonekana kwamba hujawezesha JavaScript, au kivinjari chako hakiungwi mkono. \nIli kutoa malipo kwa jinsi salama, isiyoingiliwa na ya kupendeza, fomu wetu wa kuchangia inahitaji JavaScript.",
-	"donate_interface-noscript-redirect-msg": "Kama hutaki au huwezi kuwezesha JavaScript, bado unaweza kuchangia kwa kupitia:",
+	"donate_interface-noscript-redirect-msg": "Kama hutaki au huwezi kuwezesha JavaScript, bado unaweza kuchangia kwa kufika:",
 	"donate_interface-select-country": "Chagua nchi",
 	"donate_interface-credit-card-number": "Namba ya kadi ya mkopo",
 	"donate_interface-credit-card-expiration": "Tarehe itakayokwisha kadi ya mkopo",
