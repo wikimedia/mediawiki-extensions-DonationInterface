@@ -388,7 +388,11 @@ class Gateway_Form_Mustache extends Gateway_Form {
 			if ( $data['is_yearly'] ) {
 				$key = 'donate_interface-annual-amount';
 			} else {
-				$key = 'donate_interface-monthlybox-amount';
+				if ( ( $data['frequency_interval'] ?? 1 ) == 3 ) {
+					$key = 'donate_interface-quarterly-amount';
+				} else {
+					$key = 'donate_interface-monthlybox-amount';
+				}
 			}
 		} else {
 			$key = 'donate_interface-amount-legend';

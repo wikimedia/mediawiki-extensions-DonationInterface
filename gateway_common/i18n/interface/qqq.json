@@ -255,6 +255,7 @@
 	"donate_interface-currency-change": "Link shown next to the radio buttons to choose amount. Users click this to change the currency of their donation.\n{{Identical|Change}}",
 	"donate_interface-taxded-msg-x": "Tax deductibility message shown to donors in Tax exempt countries.\n\nPlease leave \"Wikimedia Foundation\" in English unless this really would not be appropriate in your language e.g. it uses a different script.\n\nParameters:\n* $1 - Tax exempt country\n* $2 - Tax deductibility information URL\n* $3 - Donation problem email",
 	"donate_interface-annual-amount": "Label for the amount field when an annual recurring frequency is selected.",
+	"donate_interface-quarterly-amount": "Label for the amount field when an quarterly recurring frequency is selected.",
 	"donate_interface-monthlybox-amount": "Label for the field for the donation amount.",
 	"donate_interface-monthly-cancel": "Text shown to users for recurring donation options, so that they know when they will be charged, and that they can stop the recurring donation when they wish.\n\nParameters:\n* $1 - the email address for the donor relations team.",
 	"donate_interface-monthly-short": "Radio button to select monthly or one-time donation. This and the one-time message will be on the same line, so keep it as short as you can.\n{{Identical|Monthly}}",

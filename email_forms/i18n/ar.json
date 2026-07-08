@@ -37,6 +37,7 @@
 	"donorportal-last-donation-date": "آخر موعد للتبرع: $1 .",
 	"donorportal-update-donation-button": "تحديث أو تغيير تبرعي",
 	"donorportal-update-donation-paypal-disable-text": "تتم معالجة تبرعك الدوري عبر باي بال. يجب إجراء أي تعديلات على تبرعك مباشرةً عبر حسابك على باي بال.",
+	"donorportal-update-donation-legacy-paypal-disable-text": "تتم المعالجة عبر باي بال. يجب إجراء التغييرات مباشرةً من خلال حسابك على باي بال.",
 	"donorportal-update-donation-problem-log-in": "إذا لم تتلق بريدًا إلكترونيًا يحتوي على رابط تسجيل الدخول الخاص بك، فيرجى التأكد من أن عنوان البريد الإلكتروني الذي استخدمته هو نفس العنوان المستخدم لتبرعاتك لمؤسسة ويكيميديا.",
 	"donorportal-update-donation-problem-log-in-contact-us": "إذا كنت لا تزال غير قادر على تسجيل الدخول إلى حساب المتبرع الخاص بك، فسيسعد المتبرع الذي $1 بمساعدتك.",
 	"donorportal-update-donation-donor-relations-team": "تواصل مع فريق علاقات المانحين لدينا",

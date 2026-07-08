@@ -24,6 +24,7 @@
 			"Umherirrender"
 		]
 	},
+	"combowiki-title": "Wikimedia unterstützen",
 	"donate_interface": "Wikimedia unterstützen",
 	"donate_interface-desc": "Ermöglicht eine Spendenseite, die Gateway-Erweiterungen einbezieht",
 	"donate_interface-langonly-desc": "Ermöglicht lediglich die Anzeige der Systemnachrichten für die Spendenseite",

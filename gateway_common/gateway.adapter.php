@@ -26,6 +26,7 @@ use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\UtcDate;
 use SmashPig\Core\ValidationError;
@@ -3091,4 +3092,22 @@ abstract class GatewayAdapter implements GatewayType {
 		RequestContext::getMain()->getOutput()->redirect( $newUrl );
 	}
 
+	public function getFraudFilterData(): array {
+		$data = $this->getData_Unstaged_Escaped();
+		$data['http_accept_language'] = RequestContext::getMain()->getRequest()->getHeader( 'Accept-Language' ) ?? '';
+		if ( $data['currency'] && is_numeric( $data['amount'] ) ) {
+			$data['amount_in_minor_units'] = CurrencyRoundingHelper::getAmountInMinorUnits(
+				(float)$data['amount'], $data['currency']
+			);
+			$data['amount_in_usd_cents'] = floor( 100 * Amount::convert(
+				(float)$data['amount'], 'USD', $data['currency']
+			) );
+		} else {
+			$data['amount_in_minor_units'] = 0;
+			$data['amount_in_usd_cents'] = 0;
+		}
+		unset( $data['amount'] );
+		// Add in any contribution tracking data that's not in session, such as OS + browser
+		return array_merge( $data, $this->dataObj->getCleanTrackingData( true ) );
+	}
 }

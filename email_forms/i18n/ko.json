@@ -164,7 +164,7 @@
 	"donorportal-aside-faq-how-wikipedia-works": "위키백과가 어떻게 운영되는지",
 	"donorportal-feedback-button": "피드백을 공유",
 	"donorportal-donations-disclaimer": "이 기부는 당신의 이메일 주소 $1에 연결된 기부라는 것을 유념하세요. 다른 방법이나 다른 이메일과 관련된 이전 기부는 표시되지 않을 수 있습니다. 기부금에 관한 질문이 있으면 $2을 통해 저희 팀에 문의해 주세요",
-	"donorportal-tax-disclaimer": "위키미디어 재단은 전세계의 지역 및 독립적인 협회를 지원하는 국제 비영리 단체입니다. 세금 면제 조건은 각 나라의 법률에 따라 달라집니다. 위키미디어 재단으로의 기부금은 미국 이외의 지역에서 세금 면제되지 않을 가능성이 높습니다. 세금 면제나 감세 등에 관한 질문이 있다면, $1으로 문의주세요",
+	"donorportal-tax-disclaimer": "위키미디어 재단은 전세계의 지역 및 독립적인 협회를 지원하는 국제 비영리 단체입니다. 세금 면제 조건은 각 나라의 법률에 따라 달라집니다. 위키미디어 재단으로의 기부금은 미국 이외의 지역에서 세금 면제되지 않을 가능성이 높습니다. 세금 면제나 공제 등에 관한 질문이 있다면, FAQ의 $1을 참조해 주세요.",
 	"donorportal-donationtable-pagination-text": "$3 중 $1에서 $2까지의 기부 기록을 표시 중",
 	"donorportal-manage-donation": "기부 관리",
 	"donorportal-manage-donation-heading": "정기 기부 관리",

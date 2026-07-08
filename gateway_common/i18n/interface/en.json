@@ -224,6 +224,7 @@
 	"donate_interface-currency-change": "Change?",
 	"donate_interface-taxded-msg-x": "The Wikimedia Foundation is an international non-profit organization that supports local and independent associations around the world. Our <a href=\"$2\">tax-exempt status</a> varies according to the laws of each country. Donations to the Wikimedia Foundation are not tax-deductible in $1. If you have any questions about tax exemptions or deductions, we invite you to contact <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-annual-amount": "Yearly donation amount",
+	"donate_interface-quarterly-amount": "Quarterly donation amount",
 	"donate_interface-monthlybox-amount": "Monthly donation amount",
 	"donate_interface-monthly-cancel": "Monthly donations will be debited on the same date each month as your first gift, until canceled. Donations made on the 29th, 30th, or 31st will be charged on the last day of shorter months. Yearly recurring donations will be debited on the anniversary of the first gift. For questions, please contact $1.",
 	"donate_interface-monthly-short": "Monthly",
