@@ -3,6 +3,9 @@
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
+/**
+ * Displays public configuration in an easily reable way
+ */
 class PaymentSettings extends UnlistedSpecialPage {
 	public const PAYMENT_PROCESSORS = [
 		'adyen',
