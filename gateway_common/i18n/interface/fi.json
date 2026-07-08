@@ -27,6 +27,7 @@
 			"ZeiP"
 		]
 	},
+	"combowiki-title": "Tue Wikimediaa",
 	"donate_interface": "Tue Wikimediaa",
 	"donate_interface-desc": "Lahjoitussivu, joka yhdistää yhdyskäytävälaajennukset.",
 	"donate_interface-langonly-desc": "Paljastaa vain DonationInterfacen järjestelmäviestit",
@@ -177,7 +178,7 @@
 	"donate_interface-make-your-donation": "Tee lahjoituksesi nyt",
 	"donate_interface-other": "Muu",
 	"donate_interface-noscript-msg": "Näyttää siltä, että et ole ottanut JavaScriptiä käyttöön, tai selaimesi ei tue sitä.\nLahjoituslomakkeemme sujuva ja turvallinen toiminta vaatii JavaScriptin.",
-	"donate_interface-noscript-redirect-msg": "Jos et voi tai et halua ottaa JavaScriptiä käyttöön, voit siltikin osallistua vierailemalla osoitteessa:",
+	"donate_interface-noscript-redirect-msg": "Jos et voi tai halua ottaa JavaScriptiä käyttöön, voit silti osallistua vierailemalla osoitteessa:",
 	"donate_interface-select-country": "Valitse maa",
 	"donate_interface-credit-card-number": "Luottokortin numero",
 	"donate_interface-credit-card-expiration": "Luottokortti vanhentuu",

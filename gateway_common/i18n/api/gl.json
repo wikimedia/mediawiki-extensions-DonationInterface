@@ -217,6 +217,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "Token de modificación.",
 	"apihelp-di_donate_gravy-summary": "Esta API é para Gravy",
 	"apihelp-di_donate_gravy-param-amount": "A cantidade doada.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "Unidade de frecuencia da doazón recorrente, como mes/ano",
+	"apihelp-di_donate_gravy-param-frequency_interval": "Intervalo de frecuencia da doazón recorrente",
 	"apihelp-di_donate_gravy-param-bin_hash": "Hash simple do número de identificación bancaria da tarxeta.",
 	"apihelp-di_donate_gravy-param-card_num": "Número da tarxeta de crédito.",
 	"apihelp-di_donate_gravy-param-card_scheme": "Esquema da tarxeta de crédito.",

@@ -220,6 +220,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "تعديل الرمز.",
 	"apihelp-di_donate_gravy-summary": "هذه الواجهة البرمجية مخصصة لـ Gravy",
 	"apihelp-di_donate_gravy-param-amount": "المبلغ المتبرع به.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "وحدة تكرار التبرعات الدورية مثل الشهر/السنة",
+	"apihelp-di_donate_gravy-param-frequency_interval": "فترة تكرار التبرعات المتكررة",
 	"apihelp-di_donate_gravy-param-bin_hash": "تجزئة بسيطة لبطاقة BIN.",
 	"apihelp-di_donate_gravy-param-card_num": "رقم البطاقة الائتمانية.",
 	"apihelp-di_donate_gravy-param-card_scheme": "مخطط بطاقة الائتمان.",

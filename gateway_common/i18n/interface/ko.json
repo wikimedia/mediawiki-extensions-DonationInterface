@@ -25,6 +25,7 @@
 			"코코아"
 		]
 	},
+	"combowiki-title": "위키미디어를 지원해주세요",
 	"donate_interface": "위키미디어를 지원해주세요",
 	"donate_interface-desc": "게이트웨이 확장 기능을 통합하고 있는 기부 랜딩 페이지",
 	"donate_interface-langonly-desc": "DonationInterface의 시스템 메시지만 노출합니다",
@@ -235,6 +236,7 @@
 	"donate_interface-currency-change": "바꿀까요?",
 	"donate_interface-taxded-msg-x": "위키미디어 재단은 전세계의 지역 및 독립적인 협회를 지원하는 국제 비영리 단체입니다. <a href=\"$2\">세금 면제 조건</a>은 각 나라의 법률에 따라 달라집니다. 위키미디어 재단으로의 기부금은 $1에서는 세금 면제되지 않습니다. 세금 면제나 공제 등에 관한 질문이 있다면, <a href=\"mailto:$3\">$3</a>으로 문의주세요",
 	"donate_interface-annual-amount": "매년 기부 금액",
+	"donate_interface-quarterly-amount": "매분기 기부 금액",
 	"donate_interface-monthlybox-amount": "월간 기부 금액",
 	"donate_interface-monthly-cancel": "월간 기부는 중단을 알릴 때까지 위키미디어 재단에 의해 청구됩니다. 29일, 30일 또는 31일에 기부하시는 경우, 해당 월의 마지막 날에 출금됩니다. 연간 정기 기부는 첫 기부일과 같은 날에 출금됩니다. 문의 사항은 $1으로 연락해 주세요.",
 	"donate_interface-monthly-short": "매월",

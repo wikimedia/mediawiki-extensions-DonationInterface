@@ -217,6 +217,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "Bearbeitungstoken.",
 	"apihelp-di_donate_gravy-summary": "Diese API ist für Gravy",
 	"apihelp-di_donate_gravy-param-amount": "Der gespendete Betrag.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "Anzahl der wiederkehrenden Spenden pro Monat/Jahr",
+	"apihelp-di_donate_gravy-param-frequency_interval": "Häufigkeit des regelmäßigen Spendeintervalls",
 	"apihelp-di_donate_gravy-param-card_num": "Kreditkartennummer.",
 	"apihelp-di_donate_gravy-param-card_scheme": "Kreditkarten-System.",
 	"apihelp-di_donate_gravy-param-card_suffix": "Kreditkartensuffix.",

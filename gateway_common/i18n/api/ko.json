@@ -219,6 +219,8 @@
 	"apihelp-di_donate_dlocal-param-wmf_token": "편집 토큰입니다.",
 	"apihelp-di_donate_gravy-summary": "이 API는 Gravy용입니다",
 	"apihelp-di_donate_gravy-param-amount": "기부한 금액입니다.",
+	"apihelp-di_donate_gravy-param-frequency_unit": "월/년 등의 주기적인 기부의 빈도 단위",
+	"apihelp-di_donate_gravy-param-frequency_interval": "주기적인 기부의 빈도 간격",
 	"apihelp-di_donate_gravy-param-bin_hash": "카드 BIN의 간단한 해시값입니다.",
 	"apihelp-di_donate_gravy-param-card_num": "신용 카드 번호입니다.",
 	"apihelp-di_donate_gravy-param-card_scheme": "신용카드 스킴입니다.",
