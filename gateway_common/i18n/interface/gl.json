@@ -336,7 +336,7 @@
 	"donate_interface-zip-postal-code": "Código postal",
 	"donate_interface-billing-code": "Código postal do enderezo de facturación",
 	"donate_interface-country": "País",
-	"donate_interface-select-country": "Escolle o país",
+	"donate_interface-select-country": "Selecciona un país",
 	"donate_interface-confirm-email": "Confirma o correo electrónico",
 	"donate_interface-donation-information": "Información sobre a doazón",
 	"donate_interface-cc-billing-information": "Información da tarxeta de crédito de facturación",
