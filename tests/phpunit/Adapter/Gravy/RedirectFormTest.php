@@ -179,6 +179,70 @@ class RedirectFormTest extends BaseGravyTestCase {
 	}
 
 	/**
+	 * Make sure we don't set backend processor transaction id from the redirect step
+	 */
+	public function testDontUseVenmoPendingTransactionId() {
+		$init = $this->getTestDonorData();
+		$init['amount'] = '1.55';
+		$init['payment_method'] = 'venmo';
+		$init['payment_submethod'] = '';
+		$gateway = $this->getFreshGatewayObject( $init );
+		$gravyTransactionId = 'ASD' . mt_rand( 100000, 1000000 );
+		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
+		$expectedReturnUrl = Title::newFromText(
+			'Special:GravyGatewayResult'
+		)->getFullURL( [
+			'order_id' => $expectedMerchantRef,
+			'wmf_token' => $gateway->token_getSaltedSessionToken(),
+			'amount' => $init['amount'],
+			'currency' => $init['currency'],
+			'payment_method' => $init['payment_method'],
+			'payment_submethod' => $init['payment_submethod'],
+			'wmf_source' => '..venmo'
+		] );
+		$approval_url = 'https://test-approval-url.com';
+		$this->redirectPaymentProvider->expects( $this->once() )
+			->method( 'createPayment' )
+			->with( [
+				'country' => 'US',
+				'currency' => 'USD',
+				'user_ip' => '127.0.0.1',
+				'description' => 'Wikimedia Foundation',
+				'order_id' => $expectedMerchantRef,
+				'amount' => '1.55',
+				'email' => 'nobody@wikimedia.org',
+				'first_name' => 'Firstname',
+				'last_name' => 'Surname',
+				'postal_code' => '94105',
+				'street_address' => '123 Fake Street',
+				'return_url' => $expectedReturnUrl,
+				'payment_method' => 'venmo',
+			] )
+			->willReturn(
+				( new CreatePaymentResponse() )
+					->setRawStatus( 'authorization_succeeded' )
+					->setStatus( FinalStatus::PENDING )
+					->setSuccessful( true )
+					->setGatewayTxnId( $gravyTransactionId )
+					->setRedirectUrl( $approval_url )
+			);
+
+		$result = $gateway->doPayment();
+		$gateway->logPending();
+		$this->assertFalse( $result->isFailed() );
+		$this->assertSame( [], $result->getErrors() );
+		$this->assertSame( $approval_url, $result->getRedirect() );
+
+		$queueMessage = QueueWrapper::getQueue( 'pending' )->pop();
+
+		$this->assertNotNull( $queueMessage );
+		$this->assertArrayNotHasKey(
+			'backend_processor_txn_id',
+			$queueMessage
+		);
+	}
+
+	/**
 	 * Integration test to verify that the venmo recurring url does not save the payment method
 	 * on Gravy as we don't currently support recurring on venmo through Gravy. Test can be removed/updated when
 	 * we do support recurring on venmo through Gravy.
