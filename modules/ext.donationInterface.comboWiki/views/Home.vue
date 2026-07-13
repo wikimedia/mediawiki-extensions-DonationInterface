@@ -89,6 +89,15 @@
           @error="onCardError"
       >
       </gravy-card-form>
+      <cdx-button
+        v-if="donation.paymentMethod === 'paypal'"
+        action="progressive"
+        weight="primary"
+        :disabled="!giftComplete"
+        @click="submitPaypal">
+        Donate with PayPal
+      </cdx-button>
+
     </div>
 
 
@@ -182,6 +191,27 @@ module.exports = exports = defineComponent( {
     },
     onCardError( reason ) {
       this.donateError = "Card error:" + reason;
+    },
+    handleDonateResult( result ) {
+      const response = result.result;
+      if ( response.isFailed ) {
+        this.donateError = "Payment failed. Please try again";
+        return;
+      }
+      if ( response.errors ) {
+        this.donateError = "Payment could not be completed.";
+        return;
+      }
+      console.log( "Donation submitted successfully:", response );
+      if ( response.redirect ) {
+        window.location.assign( response.redirect );
+      } else {
+        window.location.assign( mw.config.get( "DonationInterfaceThankYouPage" ) );
+      }
+    },
+    handleDonateError( code, failure ) {
+      this.donateError = "Payment failed, Please try again.";
+      mw.log.error( "di_donate_gravy failed", code, failure );
     }
   },
 

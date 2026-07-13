@@ -46,7 +46,8 @@
 		"GravyGatewayResult": "GravyGatewayResult",
 		"PaymentSettings": "PaymentSettings",
 		"DonorPortal": "DonorPortal",
-		"ComboWiki": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki"
+		"ComboWiki": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+		"ComboWikiGatewayResult": "ComboWikiGatewayResult"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
@@ -106,6 +107,7 @@
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
+		"ComboWikiGatewayResult": "special/ComboWikiGatewayResult.php",
 		"ConfigurationReader": "gateway_common/ConfigurationReader.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CountryValidation": "gateway_common/CountryValidation.php",

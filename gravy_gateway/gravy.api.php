@@ -13,6 +13,7 @@ class GravyDonationApi extends DonationApi {
 			'card_suffix' => $this->defineParam(),
 			'card_scheme' => $this->defineParam(),
 			'gateway_session_id' => $this->defineParam(),
+			'result_page' => $this->defineParam(),
 			'color_depth' => $this->defineParam(),
 			'screen_height' => $this->defineParam(),
 			'screen_width' => $this->defineParam(),

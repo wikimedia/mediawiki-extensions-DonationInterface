@@ -6,9 +6,6 @@ class ReturnUrl implements StagingHelper {
 
 	/** @inheritDoc */
 	public function stage( GatewayType $adapter, $normalized, &$staged ) {
-		$specialName = str_replace( 'Adapter', 'GatewayResult', get_class( $adapter ) );
-		$returnTitle = Title::newFromText( "Special:$specialName" );
-
 		$queryStringParams = [
 			'order_id' => $normalized['order_id'],
 			'wmf_token' => $adapter->token_getSaltedSessionToken(),
@@ -17,6 +14,15 @@ class ReturnUrl implements StagingHelper {
 			'payment_method' => $normalized['payment_method'] ?? '',
 			'payment_submethod' => $normalized['payment_submethod'] ?? '',
 		];
+
+		if ( ( $normalized['result_page'] ?? '' ) === 'combowiki' ) {
+			$specialName = 'ComboWikiGatewayResult';
+			$queryStringParams['gateway'] = $normalized['gateway'] ?? '';
+		} else {
+			$specialName = str_replace( 'Adapter', 'GatewayResult', get_class( $adapter ) );
+		}
+		$returnTitle = Title::newFromText( "Special:$specialName" );
+
 		if ( !empty( $normalized['utm_source'] ) ) {
 			$queryStringParams['wmf_source'] = $normalized['utm_source'];
 		}
