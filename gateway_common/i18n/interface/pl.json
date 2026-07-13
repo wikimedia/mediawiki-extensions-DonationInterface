@@ -145,7 +145,7 @@
 	"donate_interface-make-your-donation": "Przekaż darowiznę",
 	"donate_interface-other": "Inne",
 	"donate_interface-noscript-msg": "Wygląda na to, że masz wyłączoną obsługę JavaScript lub Twoja przeglądarka go nie obsługuje.\nZ uwagi na konieczność zapewnienia bezpieczeństwa oraz wygody formularz darowizn wymaga JavaScript.",
-	"donate_interface-noscript-redirect-msg": "Jeśli nie możesz lub nie chcesz włączyć obsługi JavaScript możesz pomóc odwiedzając stronę",
+	"donate_interface-noscript-redirect-msg": "Jeśli nie możesz lub nie chcesz włączyć obsługi JavaScript, możesz znaleźć inne sposoby na udzielenie wsparcia odwiedzając stronę:",
 	"donate_interface-select-country": "Wybierz kraj",
 	"donate_interface-credit-card-number": "Numer karty kredytowej",
 	"donate_interface-credit-card-expiration": "Ważności kart kredytowych",
