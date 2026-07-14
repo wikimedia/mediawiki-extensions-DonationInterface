@@ -50,4 +50,25 @@ describe( 'Navigation logic', () => {
 		expect( wrapper.html() ).toContain( 'container dp-dashboard' );
 	} );
 
+	it( 'Redirects an authenticated donor away from Login to Home', async () => {
+		when( global.mw.config.get ).calledWith( 'showRequestNewChecksumModal' ).mockReturnValue( false );
+		await router.push( '/login' );
+		await router.isReady();
+
+		expect( router.currentRoute.value.name ).toBe( 'Home' );
+	} );
+
+	it( 'Sends a navigation beacon when entering a donation management route', () => {
+		global.navigator.sendBeacon = jest.fn();
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( { contact_id: 42 } );
+
+		const record = router.getRoutes().find( ( r ) => r.name === 'ManageDonations' );
+		const logNavigation = Array.isArray( record.beforeEnter ) ? record.beforeEnter[ 0 ] : record.beforeEnter;
+		logNavigation( { fullPath: '/manage-donations/42' } );
+
+		expect( global.navigator.sendBeacon ).toHaveBeenCalledWith(
+			expect.stringContaining( '/beacon/donor_portal/42/manage-donations/42' )
+		);
+	} );
+
 } );
