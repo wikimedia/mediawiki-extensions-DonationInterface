@@ -80,12 +80,16 @@
           v-for="method in availableMethods"
           :key="method.value"
           :class="{ 'combo-wiki__option--selected': donation.paymentMethod === method.value }"
+          :disabled="!giftComplete"
           @click="donation.paymentMethod = method.value">
         {{ method.label }}
       </cdx-button>
+
+      <!-- Gravy Card Form -->
       <gravy-card-form
           v-if="donation.paymentMethod === 'card'"
-          @card-vaulted="onCardVaulted"
+          :donation="donation"
+          @tokenized="onCardTokenized"
           @error="onCardError"
       >
       </gravy-card-form>
@@ -172,24 +176,19 @@ module.exports = exports = defineComponent( {
     selectAmount( value ) {
       this.donation.amount = value;
     },
-    onCardVaulted( payload ) {
-      api.submitDonation( this.donation, payload ).then( ( result ) => {
-        const response = result.result;
-        if ( response.isFailed ) {
-          this.donateError = "Payment failed. Please try again";
-          return;
-        }
-        if ( response.redirect ) {
-          window.location.assign( response.redirect );
-        } else {
-          window.location.assign( mw.config.get( "DonationInterfaceThankYouPage" ) );
-        }
-      } ).catch( ( code, failure ) => {
-        this.donateError = "Payment failed, Please try again.";
-        mw.log.error( "di_donate_gravy failed", code, failure );
-      } );
+    onCardTokenized( payload ) {
+      console.log( "Card Tokenized:", payload );
+      api.submitDonation( this.donation, payload )
+        .then( ( result ) => this.handleDonateResult( result ) )
+        .catch( ( code, failure ) =>  this.handleDonateError( code, failure ) );
+    },
+    submitPaypal() {
+      api.submitDonation( this.donation )
+        .then( ( result ) => this.handleDonateResult( result ) )
+        .catch( ( code, failure ) =>  this.handleDonateError( code, failure ) );
     },
     onCardError( reason ) {
+      console.log( "Card error:", reason );
       this.donateError = "Card error:" + reason;
     },
     handleDonateResult( result ) {

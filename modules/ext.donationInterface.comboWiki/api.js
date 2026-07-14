@@ -59,6 +59,28 @@ function submitDonation( donation, cardPayload ) {
 	return apiPost( params );
 }
 
+function createCheckoutSession( donation ) {
+	const recurring = [ 'monthly', 'annual' ].includes( donation.frequency ) ? 1 : 0;
+	return apiPost( {
+		action: 'di_checkoutsession_gravy',
+		gateway: 'gravy',
+		amount: donation.amount,
+		payment_method: paymentMethodMap[ donation.paymentMethod ],
+		wmf_token: mw.config.get( 'wmf_token' ),
+		country: donation.country,
+		currency: donation.currency,
+		recurring: recurring,
+		uselang: mw.config.get( 'wgUserLanguage' )
+	} ).then( ( data ) => {
+		const sessionId = data.checkout_session && data.checkout_session.session_id;
+		if ( !sessionId ) {
+			throw new Error( 'no-session' );
+		}
+		return sessionId;
+	} );
+}
+
 module.exports = {
-	submitDonation
+	submitDonation,
+	createCheckoutSession
 };

@@ -199,12 +199,5 @@ class ComboWiki extends UnlistedSpecialPage {
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
-
-		if ( $params['payment_method'] === 'cc' ) {
-			$session = $adapter->getCheckoutSession();
-			if ( $session->isSuccessful() ) {
-				$vars['gravy_session_id'] = $session->getPaymentSession();
-			}
-		}
 	}
 }

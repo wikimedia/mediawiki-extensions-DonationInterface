@@ -6,7 +6,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const Home = require( '../views/Home.vue' );
+const Home = require( '../views/Form.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'ComboWiki',

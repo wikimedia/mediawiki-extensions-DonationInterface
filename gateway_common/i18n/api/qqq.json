@@ -382,5 +382,13 @@
 	"apihelp-di_applesession_gravy-summary": "{{doc-apihelp-summary|di_applesession_gravy}}",
 	"apihelp-di_applesession_gravy-param-gateway": "{{doc-apihelp-param|di_applesession_gravy|gateway}}",
 	"apihelp-di_applesession_gravy-param-validation_url": "{{doc-apihelp-param|di_applesession_gravy|validation_url}}",
-	"apihelp-di_applesession_gravy-param-wmf_token": "{{doc-apihelp-param|di_applesession_gravy|wmf_token}}"
+	"apihelp-di_applesession_gravy-param-wmf_token": "{{doc-apihelp-param|di_applesession_gravy|wmf_token}}",
+	"apihelp-di_checkoutsession_gravy-summary": "{{doc-apihelp-summary|di_checkoutsession_gravy}}",
+	"apihelp-di_checkoutsession_gravy-param-amount": "{{doc-apihelp-param|di_checkoutsession_gravy|amount}}",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "{{doc-apihelp-param|di_checkoutsession_gravy|payment_method}}",
+	"apihelp-di_checkoutsession_gravy-param-currency": "{{doc-apihelp-param|di_checkoutsession_gravy|currency}}",
+	"apihelp-di_checkoutsession_gravy-param-country": "{{doc-apihelp-param|di_checkoutsession_gravy|country}}",
+	"apihelp-di_checkoutsession_gravy-param-recurring": "{{doc-apihelp-param|di_checkoutsession_gravy|recurring}}",
+	"apihelp-di_checkoutsession_gravy-param-wmf_token": "{{doc-apihelp-param|di_checkoutsession_gravy|wmf_token}}",
+	"apihelp-di_checkoutsession_gravy-param-gateway": "{{doc-apihelp-param|di_checkoutsession_gravy|gateway}}"
 }

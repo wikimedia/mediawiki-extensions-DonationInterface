@@ -30,6 +30,7 @@
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const api = require( '../api.js' );
 
 module.exports = exports = defineComponent({
   name: 'GravyCardForm',
@@ -38,7 +39,14 @@ module.exports = exports = defineComponent({
     'cdx-button': CdxButton
   },
 
-  emits: [ 'card-vaulted', 'error' ],
+  props: {
+    donation: {
+      type: Object,
+      require: true
+    }
+  },
+
+  emits: [ 'tokenized', 'error' ],
 
   data() {
     return {
@@ -50,12 +58,14 @@ module.exports = exports = defineComponent({
 
   mounted() {
     const config = mw.config.get( 'gravyConfiguration' );
-    const sessionId = mw.config.get( 'gravy_session_id' );
-
-    this.loadScript( config.secureFieldsJsScript )
-        .then( ()=> {
-          this.setupSecureFields( config, sessionId );
-        })
+    Promise.all( [
+      this.loadScript( config.secureFieldsJsScript ),
+      api.createCheckoutSession( this.donation )
+    ] ).then( ( [ , sessionId ] ) => {
+      this.setupSecureFields( config, sessionId );
+    } ).catch( () => {
+      this.$emit( 'error', 'card-session-setup-failed' );
+    } );
   },
 
   beforeUnmount() {
@@ -99,7 +109,7 @@ module.exports = exports = defineComponent({
       } );
 
       this.secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, ( data ) => {
-        this.$emit( 'card-vaulted', {
+        this.$emit( 'tokenized', {
           gateway_session_id: sessionId
         } );
       } );

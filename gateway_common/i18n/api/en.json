@@ -364,5 +364,13 @@
 	"apihelp-di_applesession_gravy-summary": "Allows requesting an Apple Pay session directly from Apple on behalf of the Gravy transaction",
 	"apihelp-di_applesession_gravy-param-gateway": "Gateway to use to process the payment",
 	"apihelp-di_applesession_gravy-param-validation_url": "Apple URL we need to hit to validate the session",
-	"apihelp-di_applesession_gravy-param-wmf_token": "CSRF token"
+	"apihelp-di_applesession_gravy-param-wmf_token": "CSRF token",
+	"apihelp-di_checkoutsession_gravy-summary": "Creates a Gravy checkout session for the given donation details",
+	"apihelp-di_checkoutsession_gravy-param-amount": "The amount donated.",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "Payment method to use.",
+	"apihelp-di_checkoutsession_gravy-param-currency": "Currency code.",
+	"apihelp-di_checkoutsession_gravy-param-country": "Country code.",
+	"apihelp-di_checkoutsession_gravy-param-recurring": "Indicates that the transaction is meant to be recurring.",
+	"apihelp-di_checkoutsession_gravy-param-wmf_token": "Edit token.",
+	"apihelp-di_checkoutsession_gravy-param-gateway": "Which payment gateway to use - adyen, ingenico, etc."
 }
