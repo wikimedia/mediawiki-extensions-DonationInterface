@@ -1,5 +1,24 @@
 <template>
   <div class="combo-wiki__card" :class="{ 'combo-wiki__card--loading': !fieldsReady}">
+    <div>
+      <h2>Your details</h2>
+
+      <cdx-text-input
+          v-model="donation.firstName"
+          placeholder="First name">
+      </cdx-text-input>
+
+      <cdx-text-input
+          v-model="donation.lastName"
+          placeholder="Last name">
+      </cdx-text-input>
+
+      <cdx-text-input
+          v-model="donation.email"
+          placeholder="Email address">
+      </cdx-text-input>
+    </div>
+
     <label for="combo-cc-number">Card number</label>
     <input id="combo-cc-number" />
 
@@ -29,20 +48,21 @@
 <script>
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
-const { CdxButton } = require( '@wikimedia/codex' );
+const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 
 module.exports = exports = defineComponent({
   name: 'GravyCardForm',
 
   components: {
-    'cdx-button': CdxButton
+    'cdx-button': CdxButton,
+    'cdx-text-input': CdxTextInput
   },
 
   props: {
     donation: {
       type: Object,
-      require: true
+      required: true
     }
   },
 
@@ -75,7 +95,14 @@ module.exports = exports = defineComponent({
 
   computed: {
     canSubmit() {
-      return this.formValid;
+      return this.formValid && this.detailsComplete;
+    },
+    detailsComplete() {
+      const hasFirstName = Boolean( this.donation.firstName?.trim() );
+      const hasLastName = Boolean( this.donation.lastName?.trim() );
+      const hasEmail = this.isValidEmail( this.donation.email );
+
+      return hasFirstName && hasLastName && hasEmail;
     }
   },
 
@@ -89,7 +116,9 @@ module.exports = exports = defineComponent({
         document.body.append( node );
       });
     },
-
+    isValidEmail( email ) {
+      return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email.trim() );
+    },
     setupSecureFields( config, sessionId ) {
       this.secureFields = new SecureFields( {
         gr4vyId: config.gravyID,
@@ -118,10 +147,9 @@ module.exports = exports = defineComponent({
         this.$emit( 'error', 'card-vault-failure');
       } );
     },
-
-     submit() {
+    submit() {
       this.secureFields.submit();
-     }
+    }
 
   }
 

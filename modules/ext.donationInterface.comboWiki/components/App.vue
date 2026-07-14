@@ -1,18 +1,18 @@
 <template>
 	<div class="combo-wiki">
-		<home></home>
+		<payment-form></payment-form>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
-const Home = require( '../views/Form.vue' );
+const PaymentForm = require( '../views/PaymentForm.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'ComboWiki',
 
 	components: {
-		'home': Home
+		'payment-form': PaymentForm
 	}
 } );
 </script>

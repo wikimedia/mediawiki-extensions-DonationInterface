@@ -53,25 +53,6 @@
       </cdx-radio>
     </div>
 
-    <div>
-      <h2>Your details</h2>
-
-      <cdx-text-input
-          v-model="donation.firstName"
-          placeholder="First name">
-      </cdx-text-input>
-
-      <cdx-text-input
-          v-model="donation.lastName"
-          placeholder="Last name">
-      </cdx-text-input>
-
-      <cdx-text-input
-          v-model="donation.email"
-          placeholder="Email address">
-      </cdx-text-input>
-    </div>
-
     <!--    Payment methods-->
     <div>
       <h2>Donate with your preferred payment method</h2>

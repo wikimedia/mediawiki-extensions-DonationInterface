@@ -529,7 +529,7 @@
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
-				"modules/ext.donationInterface.comboWiki/views/Form.vue",
+				"modules/ext.donationInterface.comboWiki/views/PaymentForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue"
 			],
