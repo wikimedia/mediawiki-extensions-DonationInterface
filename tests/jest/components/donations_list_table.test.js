@@ -148,4 +148,80 @@ describe( 'Donations List Table Component', () => {
 
 		assertTextCorrect( tableRows[ 0 ], refundedContribution[ 0 ] );
 	} );
+
+	it( 'Paginates via the navigation buttons', async () => {
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: AnnualFundDonationsList
+			}
+		} );
+
+		const firstButton = wrapper.find( '.pagination-button-first' );
+		const prevButton = wrapper.find( '.pagination-button-prev' );
+		const nextButton = wrapper.find( '.pagination-button-next' );
+		const lastButton = wrapper.find( '.pagination-button-last' );
+
+		// Start on page 1: first page shows 10 rows.
+		expect( wrapper.findAll( '.donorportal-donations-table-row' ).length ).toBe( 10 );
+
+		// Next button advances to page 2 (the last page, 5 rows).
+		await nextButton.trigger( 'click' );
+		expect( wrapper.findAll( '.donorportal-donations-table-row' ).length ).toBe( 5 );
+
+		// Prev button goes back to page 1.
+		await prevButton.trigger( 'click' );
+		expect( wrapper.findAll( '.donorportal-donations-table-row' ).length ).toBe( 10 );
+
+		// Last button jumps to page 2.
+		await lastButton.trigger( 'click' );
+		expect( wrapper.findAll( '.donorportal-donations-table-row' ).length ).toBe( 5 );
+
+		// First button jumps back to page 1.
+		await firstButton.trigger( 'click' );
+		expect( wrapper.findAll( '.donorportal-donations-table-row' ).length ).toBe( 10 );
+	} );
+
+	it( 'Displays N/A when the donation type key is missing', () => {
+		const noTypeKey = [ {
+			receive_date_formatted: '02 March, 2025',
+			amount_formatted: '$6.78',
+			currency: 'USD',
+			payment_method: 'Credit Card: MasterCard'
+		} ];
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: noTypeKey
+			}
+		} );
+
+		const tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
+		expect( tableRows.length ).toBe( 1 );
+
+		const cells = tableRows[ 0 ].findAll( 'td' );
+		expect( cells[ 1 ].text() ).toBe( 'N/A' );
+	} );
+
+	it( 'refundedStatusLocale returns an empty string without a status key', () => {
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: AnnualFundDonationsList.slice( 0, 1 )
+			}
+		} );
+		// Empty-key branch is unreachable via template; call directly.
+		expect( wrapper.vm.refundedStatusLocale() ).toBe( '' );
+	} );
+
+	it( 'Renders no table rows when the donations list is empty', () => {
+		const wrapper = VueTestUtils.shallowMount( DonationsListComponent, {
+			props: {
+				donationsList: []
+			}
+		} );
+
+		const element = wrapper.find( '#donorportal-donations-table' );
+		expect( element.exists() ).toBe( true );
+
+		const tableRows = wrapper.findAll( '.donorportal-donations-table-row' );
+		expect( tableRows.length ).toBe( 0 );
+	} );
 } );
