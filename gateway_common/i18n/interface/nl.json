@@ -232,6 +232,7 @@
 	"donate_interface-currency-change": "Wijzigen?",
 	"donate_interface-taxded-msg-x": "De Wikimedia Foundation is een internationale non-profitorganisatie die lokale en onafhankelijke verenigingen over de hele wereld ondersteunt. Onze <a href=\"$2\">belastingvrijstelling</a> hangt af van de wetten van elk land. Donaties aan de Wikimedia Foundation zijn in $1 helaas niet fiscaal aftrekbaar. Als u vragen hebt over belastingvrijstellingen of -aftrekposten, neem dan gerust contact op met <a href=\"mailto:$3\">$3</a>.",
 	"donate_interface-annual-amount": "Jaarlijks te doneren bedrag",
+	"donate_interface-quarterly-amount": "Driemaandelijks te doneren bedrag",
 	"donate_interface-monthlybox-amount": "Maandelijks te doneren bedrag",
 	"donate_interface-monthly-cancel": "Maandelijkse donaties worden elke maand op dezelfde datum als je eerste gift afgeschreven, totdat je deze annuleert. Donaties die op de 29e, 30e of 31e van de maand worden gedaan, worden op de laatste dag van de kortere maand afgeschreven. Jaarlijks terugkerende donaties worden afgeschreven op de dag van de eerste gift. Neem voor vragen contact op met $1.",
 	"donate_interface-monthly-short": "Maandelijks",

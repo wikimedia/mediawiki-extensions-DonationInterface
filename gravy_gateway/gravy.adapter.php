@@ -670,6 +670,15 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			case 'adyen':
 				// Adyen's longer-lived PSP IDs are 16 chars and their session IDs are 25 chars
 				return strlen( $response->getBackendProcessorTransactionId() ?? '' ) > 20;
+			case 'braintree':
+				// On the call to get the venmo redirect url, gravy is putting their reconciliation_id
+				// into the payment_service_transaction_id which otherwise has had a payment processor id in it
+				// We don't want that set as the backend_processor_id so skip
+				if ( $response->getStatus() == 'pending' ) {
+					return true;
+				} else {
+					return false;
+				}
 			default:
 				return false;
 		}
