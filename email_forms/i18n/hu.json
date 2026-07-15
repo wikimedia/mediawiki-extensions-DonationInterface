@@ -1,6 +1,8 @@
 {
 	"@metadata": {
-		"authors": []
+		"authors": [
+			"Pcoombe"
+		]
 	},
 	"emailpreferences-change-email": "E-mail cím módosítása",
 	"emailpreferences-country": "Ország vagy régió",
@@ -27,5 +29,6 @@
 	"emailpreferences-snooze-email": "Szüneteltetem az e-maileket {{PLURAL:$1|egy nap|$1 napra}}.",
 	"emailpreferences-success": "Kérelmedet az e-mail preferenciák mentésére benyújtották.",
 	"emailpreferences-title": "E-mail preferenciák",
-	"emailpreferences-wikimedia-image-alt": "Wikimedia Alapítványtól"
+	"emailpreferences-wikimedia-image-alt": "Wikimedia Alapítványtól",
+	"fundraiserunsubscribe": "Leiratkozás a Wikimedia Foundation adománygyűjtő e-mailjeiről"
 }
