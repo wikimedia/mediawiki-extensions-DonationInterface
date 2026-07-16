@@ -16,7 +16,8 @@
 			"Samat",
 			"Tacsipacsi",
 			"Tgr",
-			"Urbalazs"
+			"Urbalazs",
+			"SKivlehan-WMF"
 		]
 	},
 	"donate_interface": "Támogasd a Wikimédiát!",
@@ -352,7 +353,7 @@
 	"donate_interface-email-unsub-delay": "Kérjük, számolj azzal, hogy a módosítások hatályba lépéséhez legfeljebb négy (4) napra lehet szükség. Elnézést kérünk az ebben az időszakban kapott e-mailekért. Ha bármilyen kérdésed van, kérjük, írj a $1 címre.",
 	"donate_interface-email-unsub-fail": "Hiba történt a kérés feldolgozása közben, kérlek, írj a <$1> címre.",
 	"donate_interface-email-unsub-confirm": "Biztosan le szeretnél iratkozni a(z) $1 hírlevélről?",
-	"donate_interface-email-explain": "Egy nyugtát küldünk majd neked e-mailben az adományozás megerősítéséről.",
+	"donate_interface-email-explain": "E-mailben elküldjük neked az adományról szóló nyugtát.",
 	"donate_interface-faqs": "Gyakran ismételt kérdések",
 	"donate_interface-tax-info": "Adózással kapcsolatos információk",
 	"donate_interface-informationsharing": "Adataidat senki számára nem értékesítjük, és nem is kereskedünk azokkal. Adományozásoddal beleegyezel abba, hogy személyes adataidat megosszuk a Wikimedia Foundation alapítvánnyal, a Wikipédiát és más Wikimédia-projekteket kezelő nonprofit szervezettel, illetve az <a href=\"$1\">adományozásra vonatkozó irányelveinkkel</a> összhangban annak szolgáltatóival is. A Wikimedia Foundation és annak szolgáltatói az Amerikai Egyesült Államokban, illetve más olyan országokban működnek, amelyek adatvédelmi rendelkezései eltérhetnek a tartózkodási országodnak érvényben lévő adatvédelmi jogszabályaitól. Kérjük, további információért olvasd el az <a href=\"$1\">adományozásra vonatkozó irányelveinket</a>.",
@@ -382,5 +383,6 @@
 	"donate_interface-monthly-convert-error": "Egyszeri adományozásod sikeresen megtörtént, de nem sikerült beállítanunk az ismétlődő adományozást.",
 	"donate_interface-monthly-convert-yes-button-variant-011": "Igen, havi <span class=\"mc-convert-ask\"></span> összegű adományt biztosítok",
 	"donate_interface-monthly-convert-no-button-variant-011": "Nem, köszönöm.",
-	"donate_interface-fundraiser-maintenance-header": "Karbantartás miatt időlegesen leállítva"
+	"donate_interface-fundraiser-maintenance-header": "Karbantartás miatt időlegesen leállítva",
+	"donate_interface-redirect-explanation": "A rendszer átirányít a Wikimedia fizetési szolgáltató partneréhez"
 }
