@@ -20,7 +20,7 @@
 				></recurring-contribution>
 			</div>
 		</template>
-		<template v-else-if="onetimeContribution">
+		<template v-else>
 			<div class="dp-card__head">
 				{{ $i18n( "donorportal-most-recent-donation" ).text() }}
 			</div>
