@@ -137,10 +137,13 @@ class ComboWiki extends UnlistedSpecialPage {
 			$recurring = (int)$recurringRawValue;
 		}
 
+		// ComboWiki lets the donor pick a method in the page, so payment_method
+		// may be absent on initial load. Default to the card method ('cc'), the
+		// config default, so gateway selection always receives a string.
 		return [
 			'country' => $country,
 			'currency' => $this->getRequest()->getVal( 'currency' ),
-			'payment_method' => $this->getRequest()->getVal( 'payment_method' ),
+			'payment_method' => $this->getRequest()->getVal( 'payment_method', 'cc' ),
 			'payment_submethod' => $this->getRequest()->getVal( 'payment_submethod' ),
 			'recurring' => $recurring,
 			'gateway' => $this->getRequest()->getVal( 'gateway' ),
