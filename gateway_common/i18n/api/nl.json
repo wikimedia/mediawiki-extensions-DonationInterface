@@ -243,6 +243,7 @@
 	"apihelp-di_donate_gravy-param-first_name_phonetic": "Fonetische versie van voornaam.",
 	"apihelp-di_donate_gravy-param-full_name": "Volledige naam",
 	"apihelp-di_donate_gravy-param-gateway": "Welke betalingsgateway gebruikt moet worden: Adyen, Ingenico, etc.",
+	"apihelp-di_donate_gravy-param-gateway_session_id": "De Gravy SecureFields checkout sessie-ID.",
 	"apihelp-di_donate_gravy-param-language": "Taalcode.",
 	"apihelp-di_donate_gravy-param-last_name": "Achternaam.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "Fonetische versie van achternaam.",
