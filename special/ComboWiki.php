@@ -121,6 +121,13 @@ class ComboWiki extends UnlistedSpecialPage {
 			$country = CountryValidation::lookUpCountry( $this->getRequest()->getIP() );
 		}
 
+		// GeoIP can't resolve some IPs (e.g. localhost), leaving us with no
+		// country. DonationData falls back to 'XX' here but let's use 'US' instead
+		// so we have a real country as the fallback which can be passed to gateway chooser.
+		if ( !CountryValidation::isValidIsoCode( $country ) ) {
+			$country = 'US';
+		}
+
 		$recurringRawValue = $this->getRequest()->getVal( 'recurring' );
 		if ( $recurringRawValue === 'false' ) {
 			$recurring = 0;
