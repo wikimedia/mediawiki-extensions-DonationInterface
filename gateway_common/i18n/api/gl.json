@@ -241,6 +241,7 @@
 	"apihelp-di_donate_gravy-param-first_name_phonetic": "Versión fonética do nome.",
 	"apihelp-di_donate_gravy-param-full_name": "Nome completo",
 	"apihelp-di_donate_gravy-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc.",
+	"apihelp-di_donate_gravy-param-gateway_session_id": "O identificador da sesión de finalización da compra de Gravy SecureFields.",
 	"apihelp-di_donate_gravy-param-language": "Código de lingua.",
 	"apihelp-di_donate_gravy-param-last_name": "Apelidos.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "Versión fonética dos apelidos.",
