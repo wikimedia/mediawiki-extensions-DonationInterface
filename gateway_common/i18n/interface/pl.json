@@ -20,7 +20,8 @@
 			"WTM",
 			"WaldiSt",
 			"Woytecr",
-			"KMorrow-WMF"
+			"KMorrow-WMF",
+			"PanWor"
 		]
 	},
 	"donate_interface": "Wspomóż Wikimedia",
@@ -171,7 +172,7 @@
 	"donate_interface-donor-submit": "Wpłacam",
 	"donate_interface-donor-currency-msg": "Darowizna składana jest w $1",
 	"donate_interface-donor-fiscal_number": "Numer CPF/CPNJ",
-	"donate_interface-donor-fiscal_number-explain-in": "Nasz partner przetwarzający płatności został <b>poproszony</b> przez Rezerwę Narodową Indii, aby przechować twój PAN, ale my nie zapisujemy tej informacji. <b>Jeśli chcesz, podaj tutaj swój PAN.</b>",
+	"donate_interface-donor-fiscal_number-explain-in": "Nasz partner przetwarzający płatności został <b>poproszony</b> przez Rezerwę Narodową Indii, aby przechować Twój PAN, ale my nie zapisujemy tej informacji. <b>Jeśli chcesz, podaj tutaj swój PAN.</b>",
 	"donate_interface-donor-fiscal_number-explain-option-in": "Jest to opcjonalne.",
 	"donate_interface-donor-phone": "Numer telefonu",
 	"donate_interface-donor-phone-explain-in": "Jest to opcjonalne i nie przechowujemy go. Jeśli pole pozostanie puste, nasz partner przetwarzający płatności może wygenerować losowy symbol zastępczy na następnym ekranie.",
