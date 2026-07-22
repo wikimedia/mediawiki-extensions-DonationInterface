@@ -66,7 +66,7 @@ module.exports = exports = defineComponent({
     }
   },
 
-  emits: [ 'tokenized', 'error' ],
+  emits: [ 'submit', 'error' ],
 
   data() {
     return {
@@ -138,7 +138,7 @@ module.exports = exports = defineComponent({
       } );
 
       this.secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, ( data ) => {
-        this.$emit( 'tokenized', {
+        this.$emit( 'submit', {
           gateway_session_id: sessionId
         } );
       } );
@@ -152,11 +152,6 @@ module.exports = exports = defineComponent({
     }
 
   }
-
-
-
-
-
 });
 
 </script>

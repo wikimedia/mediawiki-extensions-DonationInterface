@@ -52,41 +52,17 @@
         No. Don't send me an occasional email with opportunities to support Wikipedia.
       </cdx-radio>
     </div>
-
-    <!--    Payment methods-->
-    <div>
-      <h2>Donate with your preferred payment method</h2>
-
-      <cdx-button
-          v-for="method in availableMethods"
-          :key="method.value"
-          :class="{ 'combo-wiki__option--selected': donation.paymentMethod === method.value }"
-          :disabled="!giftComplete"
-          @click="donation.paymentMethod = method.value">
-        {{ method.label }}
-      </cdx-button>
-
-      <!-- Gravy Card Form -->
-      <gravy-card-form
-          v-if="donation.paymentMethod === 'card'"
-          :donation="donation"
-          @tokenized="onCardTokenized"
-          @error="onCardError"
-      >
-      </gravy-card-form>
-      <cdx-button
-        v-if="donation.paymentMethod === 'paypal'"
-        action="progressive"
-        weight="primary"
-        :disabled="!giftComplete"
-        @click="submitPaypal">
-        Donate with PayPal
-      </cdx-button>
-
-    </div>
-
-
+    <payment-method-form
+      @donation-success="handleDonateResult"
+      @donation-error="handleDonateError"
+      @on-payment-method-change="( method ) => {
+        this.donation.paymentMethod = method
+      }"
+      :donation="this.donation"
+      :disabled="!giftComplete"
+    ></payment-method-form>
     <br/>
+
     <p> Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.amount || "no amount" }} / Fee:
       {{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
       {{ donation.paymentMethod }} / Gateway: {{ selectedGateway }}</p>
@@ -104,7 +80,8 @@ const {
   CdxRadio
 } = require( "@wikimedia/codex" );
 const FrequencySelector = require( "../components/FrequencySelector.vue" );
-const GravyCardForm = require( "../components/GravyCardForm.vue" );
+const PaymentMethodForm = require( "../components/PaymentMethodForm.vue" );
+
 const api = require( "../api.js" );
 
 module.exports = exports = defineComponent( {
@@ -117,7 +94,7 @@ module.exports = exports = defineComponent( {
     "cdx-checkbox": CdxCheckbox,
     "cdx-radio": CdxRadio,
     "frequency-selector": FrequencySelector,
-    "gravy-card-form": GravyCardForm
+    "payment-method-form": PaymentMethodForm
   },
 
   data() {
@@ -140,16 +117,9 @@ module.exports = exports = defineComponent( {
         paymentMethod: null,
         optIn: null
       },
-      paymentMethods: [
-        { value: "card", label: "Card", countries: [ "US", "GB" ] },
-        { value: "paypal", label: "PayPal", countries: [ "US", "GB" ] },
-        { value: "venmo", label: "Venmo", countries: [ "US", "GB" ] },
-        { value: "applepay", label: "Apple Pay", countries: [ "US", "GB" ] },
-        { value: "gpay", label: "Google Pay", countries: [ "US", "GB" ] },
-        { value: "trustly", label: "Trustly", countries: [ "US" ] }
-      ],
       selectedGateway: ( mw.config.get( "comboWiki" ) ).gateway || null,
-      donateError: null
+      donateError: null,
+      paymentMethodForm: {}
     };
   },
 
@@ -157,21 +127,7 @@ module.exports = exports = defineComponent( {
     selectAmount( value ) {
       this.donation.amount = value;
     },
-    onCardTokenized( payload ) {
-      console.log( "Card Tokenized:", payload );
-      api.submitDonation( this.donation, payload )
-        .then( ( result ) => this.handleDonateResult( result ) )
-        .catch( ( code, failure ) =>  this.handleDonateError( code, failure ) );
-    },
-    submitPaypal() {
-      api.submitDonation( this.donation )
-        .then( ( result ) => this.handleDonateResult( result ) )
-        .catch( ( code, failure ) =>  this.handleDonateError( code, failure ) );
-    },
-    onCardError( reason ) {
-      console.log( "Card error:", reason );
-      this.donateError = "Card error:" + reason;
-    },
+
     handleDonateResult( result ) {
       const response = result.result;
       if ( response.isFailed ) {
@@ -211,9 +167,8 @@ module.exports = exports = defineComponent( {
       return this.paymentMethods.filter(
           ( method ) => method.countries.includes( this.donation.country )
       );
-    }
+    },
   }
-
 } );
 
 </script>
