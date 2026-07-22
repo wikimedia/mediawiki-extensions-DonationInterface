@@ -137,5 +137,7 @@
 	"apihelp-submitPayment-param-last_name": "Familljennumm.",
 	"apihelp-submitPayment-param-payment_method": "Bezuelmethod fir ze benotzen.",
 	"apihelp-submitPayment-param-postal_code": "Postleitzuel.",
-	"apihelp-di_applesession_gravy-param-wmf_token": "CSRF-Token"
+	"apihelp-di_applesession_gravy-param-wmf_token": "CSRF-Token",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "Bezuelmethod fir ze benotzen.",
+	"apihelp-di_checkoutsession_gravy-param-country": "Lännercode."
 }

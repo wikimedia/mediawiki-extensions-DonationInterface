@@ -242,6 +242,7 @@
 	"apihelp-di_donate_gravy-param-full_name": "Nome completo",
 	"apihelp-di_donate_gravy-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc.",
 	"apihelp-di_donate_gravy-param-gateway_session_id": "O identificador da sesión de finalización da compra de Gravy SecureFields.",
+	"apihelp-di_donate_gravy-param-result_page": "A que páxina de resultados enviar a persoa doante despois da redirección ao pagamento.",
 	"apihelp-di_donate_gravy-param-language": "Código de lingua.",
 	"apihelp-di_donate_gravy-param-last_name": "Apelidos.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "Versión fonética dos apelidos.",
@@ -358,5 +359,13 @@
 	"apihelp-di_applesession_gravy-summary": "Permite solicitar unha sesión de Apple Pay directamente desde Apple en nome da transacción de Gravy",
 	"apihelp-di_applesession_gravy-param-gateway": "Pasarela a utilizar para procesar o pagamento",
 	"apihelp-di_applesession_gravy-param-validation_url": "URL de Apple á que necesitamos acceder para validar a sesión",
-	"apihelp-di_applesession_gravy-param-wmf_token": "Token CSRF"
+	"apihelp-di_applesession_gravy-param-wmf_token": "Token CSRF",
+	"apihelp-di_checkoutsession_gravy-summary": "Crea unha sesión de pagamento de Gravy para os detalles da doazón indicados",
+	"apihelp-di_checkoutsession_gravy-param-amount": "A cantidade doada.",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "Método de pagamento a utilizar.",
+	"apihelp-di_checkoutsession_gravy-param-currency": "Código da moeda.",
+	"apihelp-di_checkoutsession_gravy-param-country": "Código do país.",
+	"apihelp-di_checkoutsession_gravy-param-recurring": "Indica que a transacción vai ser recorrente.",
+	"apihelp-di_checkoutsession_gravy-param-wmf_token": "Token de modificación.",
+	"apihelp-di_checkoutsession_gravy-param-gateway": "A pasarela de pagamento a usar: adyen, ingenico etc."
 }
