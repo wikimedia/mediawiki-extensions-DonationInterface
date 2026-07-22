@@ -5,6 +5,8 @@ const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_yearly_recurring: inactive_yearly_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { legacy_paypal_recurring: legacy_paypal_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { paused_recurring: paused_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { cancelled_recurring: cancelled_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { when } = require( 'jest-when' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
 const entities = require( 'entities' );
@@ -115,5 +117,50 @@ describe( 'Active recurring contribution test', () => {
 		expect( element.exists() ).toBe( true );
 		expect( element.html() ).not.toContain( 'donorportal-last-amount-and-date' );
 		expect( entities.decodeHTML( element.html() ) ).toContain( '<a target="_blank" href="http://donate.test/?preSelect=150&country=BR&frequency=annual' );
+	} );
+
+	it( 'Renders the paused status for a paused recurring contribution', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
+			props: {
+				contribution: paused_recurring_mock,
+				isActive: true
+			}
+		} );
+
+		const statusTag = wrapper.find( '.tag' );
+		expect( statusTag.exists() ).toBe( true );
+		expect( statusTag.text() ).toContain( 'donorportal-recurring-status-paused' );
+	} );
+
+	it( 'Renders the cancelled status for a donor-cancelled recurring contribution', () => {
+		const wrapper = VueTestUtils.shallowMount( RecurringContributionComponent, {
+			props: {
+				contribution: cancelled_recurring_mock,
+				isActive: false
+			}
+		} );
+
+		const statusTag = wrapper.find( '.tag' );
+		expect( statusTag.exists() ).toBe( true );
+		expect( statusTag.text() ).toContain( 'donorportal-recurring-status-cancelled' );
+	} );
+
+	it( 'Evaluates the payment-method email template when the edit popup is opened', async () => {
+		const wrapper = VueTestUtils.mount( RecurringContributionComponent, {
+			props: {
+				contribution: recurring_mock,
+				isActive: true
+			}
+		} );
+
+		const editLink = wrapper.find( '.link' );
+		expect( editLink.html() ).toContain( 'donorportal-edit-text' );
+		await editLink.trigger( 'click' );
+
+		const popupBody = wrapper.find( '.popup-body' );
+		expect( popupBody.exists() ).toBe( true );
+		expect( popupBody.html() ).toContain( 'donorportal-update-payment-method-explanation-template-to' );
+		expect( popupBody.html() ).toContain( DonorDataMock.name );
+		expect( popupBody.html() ).toContain( DonorDataMock.email );
 	} );
 } );
