@@ -7,7 +7,7 @@ const paymentMethodMap = {
 	paypal: 'paypal'
 };
 
-function buildDonateParams( donation ) {
+function buildDonateParams( donation, paymentMethodData ) {
 	const frequencyUnit = {
 		monthly: 'month',
 		annual: 'year'
@@ -15,7 +15,7 @@ function buildDonateParams( donation ) {
 
 	const unit = frequencyUnit[ donation.frequency ];
 
-	const params = {
+	let params = {
 		action: 'di_donate_gravy',
 		gateway: 'gravy',
 		result_page: 'combowiki',
@@ -35,28 +35,15 @@ function buildDonateParams( donation ) {
 		params.recurring = 1;
 		params.frequency_unit = unit;
 	}
-
+	if ( paymentMethodData ) {
+		params = Object.assign( {}, params, paymentMethodData );
+	}
 	return params;
 
 }
 
-function addCardParams( params, cardPayload ) {
-	params.gateway_session_id = cardPayload.gateway_session_id;
-	params.payment_token = cardPayload.payment_token;
-	params.card_scheme = cardPayload.card_scheme;
-	params.card_suffix = cardPayload.card_suffix;
-	params.color_depth = screen.colorDepth || 24;
-	params.screen_height = screen.height || 0;
-	params.screen_width = screen.width || 0;
-	params.time_zone_offset = Math.floor( new Date().getTimezoneOffset() ) || 0;
-}
-
-function submitDonation( donation, cardPayload ) {
-	const params = buildDonateParams( donation );
-	if ( cardPayload ) {
-		addCardParams( params, cardPayload );
-	}
-	return apiPost( params );
+function submitDonation( donation, paymentMethodData ) {
+	return apiPost( buildDonateParams( donation, paymentMethodData ) );
 }
 
 function createCheckoutSession( donation ) {

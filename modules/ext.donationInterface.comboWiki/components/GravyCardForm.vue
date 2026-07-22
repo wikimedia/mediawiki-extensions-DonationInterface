@@ -139,7 +139,12 @@ module.exports = exports = defineComponent({
 
       this.secureFields.addEventListener( SecureFields.Events.CARD_VAULT_SUCCESS, ( data ) => {
         this.$emit( 'submit', {
-          gateway_session_id: sessionId
+          gateway_session_id: sessionId,
+          card_scheme: data.scheme,
+          color_depth: screen.colorDepth || 24,
+          screen_height: screen.height || 0,
+          screen_width: screen.width || 0,
+          time_zone_offset: Math.floor( new Date().getTimezoneOffset() ) || 0,
         } );
       } );
 
