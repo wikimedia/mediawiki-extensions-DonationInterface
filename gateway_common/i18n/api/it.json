@@ -22,7 +22,7 @@
 	"apihelp-donate-param-state_province": "Abbreviazione stato.",
 	"apihelp-donate-param-postal_code": "Codice postale.",
 	"apihelp-donate-param-email": "Indirizzo email.",
-	"apihelp-donate-param-country": "Codice del Paese.",
+	"apihelp-donate-param-country": "Codice del paese.",
 	"apihelp-donate-param-card_num": "Numero della carta di credito.",
 	"apihelp-donate-param-card_type": "Tipo di carta di credito.",
 	"apihelp-donate-param-expiration": "Data di scadenza.",
