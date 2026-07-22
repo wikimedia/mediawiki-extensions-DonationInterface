@@ -18,6 +18,7 @@
           :donation="donation"
           @submit="paymentMethodConfig[paymentMethod].submit"
           @error="paymentMethodConfig[paymentMethod].error"
+          @validate="paymentMethodConfig[paymentMethod].validate"
       ></component>
     </div>
 </template>
@@ -29,7 +30,8 @@ const {
 } = require( "@wikimedia/codex" );
 const api = require( "../api.js" );
 const GravyCardForm = require( "./GravyCardForm.vue" );
-const PayPalComponent = require( "./PayPalComponent.vue" )
+const PayPalComponent = require( "./PayPalComponent.vue" );
+const ApplePayComponent = require( "./ApplePayComponent.vue" );
 
 module.exports = exports = defineComponent( {
   name: 'PaymentMethodSelector',
@@ -46,18 +48,48 @@ module.exports = exports = defineComponent( {
   components: {
     "cdx-button": CdxButton,
     "card-form": GravyCardForm,
-    "paypal-form": PayPalComponent
+    "paypal-form": PayPalComponent,
+    "applepay-form": ApplePayComponent
   },
   emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
 
   setup ( props, ctx ) {
-    const submitDonation = ( payload = {} ) => {
+    const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
       api.submitDonation( props.donation, payload )
-          .then( ( result ) => ctx.emit( 'donationSuccess', result ) )
-          .catch( ( code, failure ) =>  ctx.emit( 'donationError', code, failure ) );
+          .then( ( result ) => {
+            if ( successCallback ) {
+              successCallback( result )
+            }
+            ctx.emit( 'donationSuccess', result )
+          } )
+          .catch( ( code, failure ) =>  {
+            ctx.emit( 'donationError', code, failure )
+            if ( errorCallback ) {
+              errorCallback( failure )
+              this.handleDonateError( code, failure )
+            }
+          } );
     }
 
-    const onCardError = ( reason ) => {
+    const validateApplePay = ( event, successCallback, failureCallback ) => {
+      const payload = Object.assign( {}, props.donation );
+      payload.validationURL = event.validationURL;
+      api.validateApplePayPaymentSession( payload )
+        .then( ( data ) => {
+          if ( data.result && data.result.errors ) {
+            failureCallback( data.result.errors );
+            mw.log( 'Apple Pay validation failure: ' + JSON.stringify(data.result.errors) );
+          } else {
+            successCallback( data );
+          }
+        } ).catch( ( e ) => {
+          failureCallback( e )
+          console.log("Error", e)
+          mw.log( 'Apple Pay validation failure: ' + e );
+        } )
+    }
+
+    const onError = ( reason ) => {
       ctx.emit( 'donationError', reason );
     }
     return {
@@ -65,7 +97,7 @@ module.exports = exports = defineComponent( {
             this.paymentMethod = method;
             ctx.emit( 'onPaymentMethodChange', method );
         },
-        availablePaymentMethods: ['card', 'paypal'],
+        availablePaymentMethods: ['card', 'paypal', 'applepay'],
         paymentMethod: props.donation.paymentMethod || '',
         paymentMethodForm: {},
         paymentMethodConfig: {
@@ -73,12 +105,18 @@ module.exports = exports = defineComponent( {
                 label: "Card",
                 component: 'card-form',
                 submit: submitDonation,
-                error: onCardError
+                error: onError
             },
             paypal: {
                 label: "PayPal",
                 component: 'paypal-form',
                 submit: submitDonation
+            },
+            applepay: {
+                label: "Apple Pay",
+                component: 'applepay-form',
+                submit: submitDonation,
+                validate: validateApplePay
             },
       }
     }

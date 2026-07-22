@@ -4,7 +4,8 @@ function apiPost( params ) {
 
 const paymentMethodMap = {
 	card: 'cc',
-	paypal: 'paypal'
+	paypal: 'paypal',
+	applepay: 'apple'
 };
 
 function buildDonateParams( donation, paymentMethodData ) {
@@ -67,7 +68,21 @@ function createCheckoutSession( donation ) {
 	} );
 }
 
+function validateApplePayPaymentSession( payload ) {
+	const params = {
+		action: 'di_applesession_gravy',
+		validation_url: payload.validationURL,
+		wmf_token: mw.config.get( 'wmf_token' ),
+		payment_method: paymentMethodMap[ payload.paymentMethod ],
+		country: payload.country,
+		currency: payload.currency,
+		amount: payload.amount
+	};
+	return apiPost( params );
+}
+
 module.exports = {
+	validateApplePayPaymentSession,
 	submitDonation,
 	createCheckoutSession
 };

@@ -521,6 +521,7 @@
 		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
+				"ext.donationInterface.applePayHelper",
 				"donationInterface.skinOverride",
 				"vue",
 				"@wikimedia/codex"
@@ -533,10 +534,16 @@
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
-				"modules/ext.donationInterface.comboWiki/components/PayPalComponent.vue"
+				"modules/ext.donationInterface.comboWiki/components/PayPalComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue"
 			],
 			"messages": [
-				"combowiki-title"
+				"combowiki-title",
+				"donate_interface-error-msg-apple_pay_unsupported",
+				"donate_interface-error-msg-first_name",
+				"donate_interface-error-msg-last_name",
+				"donate_interface-error-msg-email",
+				"donate_interface"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {
