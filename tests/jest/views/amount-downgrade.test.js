@@ -150,6 +150,28 @@ describe( 'Downgrade donations view', () => {
 		expect( window.alert ).toHaveBeenCalledWith( `Please enter a valid amount between 1 and ${ contribution_mock.amount }.` );
 		expect( global.mw.Api.prototype.post ).toHaveBeenCalledTimes( 0 );
 	} );
+
+	it( 'Renders nothing when the contribution id is not found', () => {
+		// Override the route id queued in beforeEach with one that matches no record,
+		// so the "record not found" fallback ( {} ) runs and no sub-view is shown.
+		useRoute.mockReset();
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '999999'
+			}
+		} ) );
+
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		expect( wrapper.find( '#update-donations-form' ).exists() ).toBe( true );
+		expect( wrapper.find( '#recurring-update-form' ).exists() ).toBe( false );
+		expect( wrapper.find( '#recurring-contribution-update-success' ).exists() ).toBe( false );
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( false );
+	} );
 } );
 
 describe( 'Downgrade donations view errors', () => {
@@ -328,5 +350,29 @@ describe( 'Downgrade donations view errors', () => {
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( `donorportal-error-bad-contribution-recur-id:[${ email }]` );
+	} );
+
+	it( 'Defaults the error code to unknown when the API rejects without a code', async () => {
+		const wrapper = VueTestUtils.mount( DowngradeAmountView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		// Reject with no value so the view's `code || 'unknown'` fallback is exercised.
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject() );
+
+		const DowngradeAmountViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = DowngradeAmountViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = DowngradeAmountViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// The error view shows, and the code defaulted to 'unknown' ( not observable in the
+		// rendered fallback message, so asserted on the view state directly ).
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( true );
+		expect( wrapper.vm.errorCode ).toBe( 'unknown' );
 	} );
 } );
