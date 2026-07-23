@@ -173,6 +173,28 @@ describe( 'Annual conversion view', () => {
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
 
 	} );
+
+	it( 'Renders nothing when the contribution id is not found', () => {
+		// Override the route id queued in beforeEach with one that matches no record,
+		// so the "record not found" fallback ( {} ) runs and no sub-view is shown.
+		useRoute.mockReset();
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '999999'
+			}
+		} ) );
+
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		expect( wrapper.find( '#donations-annual-conversion-form' ).exists() ).toBe( true );
+		expect( wrapper.find( '#form-convert-yearly' ).exists() ).toBe( false );
+		expect( wrapper.find( '#recurring-contribution-annual-conversion-success' ).exists() ).toBe( false );
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( false );
+	} );
 } );
 
 describe( 'Annual conversion view errors', () => {
@@ -351,5 +373,29 @@ describe( 'Annual conversion view errors', () => {
 		const failureText = wrapper.find( '#error-component' );
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( `donorportal-error-bad-contribution-recur-id:[${ email }]` );
+	} );
+
+	it( 'Defaults the error code to unknown when the API rejects without a code', async () => {
+		const wrapper = VueTestUtils.mount( AnnualConversionView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		// Reject with no value so the view's `code || 'unknown'` fallback is exercised.
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject() );
+
+		const AnnualConversionViewBody = wrapper.find( '#form-convert-yearly' );
+		const amountInput = AnnualConversionViewBody.find( '#new-annual-recurring-amount' );
+		amountInput.element.value = 3;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = AnnualConversionViewBody.find( '#submit-annual-conversion' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// The error view shows, and the code defaulted to 'unknown' ( not observable in the
+		// rendered fallback message, so asserted on the view state directly ).
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( true );
+		expect( wrapper.vm.errorCode ).toBe( 'unknown' );
 	} );
 } );
