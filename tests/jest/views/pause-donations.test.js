@@ -105,6 +105,27 @@ describe( 'Pause donations view', () => {
 		expect( failureText.exists() ).toBe( false );
 	} );
 
+	it( 'Renders without crashing when the contribution id is not found', () => {
+		// Override the route id queued in beforeEach with one that matches no record,
+		// so the "record not found" fallback ( {} ) runs. showDonationPauseForm is
+		// hardcoded true, so the form still renders ( rather than dereferencing undefined ).
+		useRoute.mockReset();
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '999999'
+			}
+		} ) );
+
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		expect( wrapper.find( '#pause-donations' ).exists() ).toBe( true );
+		expect( wrapper.find( '#pause-donations-form' ).exists() ).toBe( true );
+	} );
+
 } );
 
 describe( 'Pause donations view renders appropiate errors', () => {
@@ -286,5 +307,29 @@ describe( 'Pause donations view renders appropiate errors', () => {
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-error-bad-contribution-recur-id:[help@example.com]' );
 
+	} );
+
+	it( 'Defaults the error code to unknown when the API rejects without a code', async () => {
+		const wrapper = VueTestUtils.mount( PauseDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		// Reject with no value so the view's `code || 'unknown'` fallback is exercised.
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject() );
+
+		const pauseDonationViewBody = wrapper.find( '#pause-donations' );
+		const selectedPeriod = pauseDonationViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = pauseDonationViewBody.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// The error view shows, and the code defaulted to 'unknown' ( not observable in the
+		// rendered fallback message, so asserted on the view state directly ).
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( true );
+		expect( wrapper.vm.pauseErrorCode ).toBe( 'unknown' );
 	} );
 } );
