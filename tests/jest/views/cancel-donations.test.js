@@ -232,6 +232,27 @@ describe( 'Cancel donations view', () => {
 		expect( successText.exists() ).toBe( true );
 		window.history.back();
 	} );
+
+	it( 'Renders without crashing when the URL id matches no recurring contribution', () => {
+		// Route id 999 is not in the mock's recurringContributions, so the
+		// `if ( !recurringContributionRecord )` guard defaults the record to {}.
+		// Without that guard, reading can_modify off undefined would throw an error.
+		useRoute.mockReset();
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '999'
+			}
+		} ) );
+
+		const wrapper = VueTestUtils.mount( CancelDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
+		expect( cancelDonationsViewBody.exists() ).toBe( true );
+	} );
 } );
 
 describe( 'Cancel donations view errors', () => {
@@ -405,6 +426,68 @@ describe( 'Cancel donations view errors', () => {
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-error-bad-contribution-recur-id:[help@example.com]' );
 
+	} );
+
+	it( 'Falls back to an unknown pause error code when the API rejects without one', async () => {
+		const wrapper = VueTestUtils.mount( CancelDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		// Reject with a falsy code so `code || 'unknown'` takes the fallback arm.
+		when( global.mw.Api.prototype.post ).calledWith(
+			expect.anything()
+		).mockRejectedValueOnce( '' );
+
+		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
+
+		const selectedPeriod = cancelDonationsViewBody.find( '#option-90days' );
+		selectedPeriod.element.selected = true;
+		await selectedPeriod.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+
+		const pauseRecurringOption = cancelDonationsViewBody.find( '#pause-recurring-alt' );
+		const pauseRecurringOptionButton = pauseRecurringOption.find( '#submit-pause-action' );
+		await pauseRecurringOptionButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// 'unknown' is not in the error map, so the fallback pause message renders.
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-pause-failure' );
+	} );
+
+	it( 'Falls back to an unknown cancel error code when the API rejects without one', async () => {
+		const wrapper = VueTestUtils.mount( CancelDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		// Reject with a falsy code so `code || 'unknown'` takes the fallback arm.
+		when( global.mw.Api.prototype.post ).calledWith(
+			expect.anything()
+		).mockRejectedValueOnce( '' );
+
+		const cancelDonationsViewBody = wrapper.find( '#cancel-donations-form' );
+
+		const proceedCancelButton = cancelDonationsViewBody.find( '#continue' );
+		await proceedCancelButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		const cancelConfirmationScreen = wrapper.find( '#recurring-cancellation-confirmation' );
+		const givingMethodReason = cancelConfirmationScreen.find( '#option-giving-method' );
+		await givingMethodReason.trigger( 'input' );
+
+		const submitButton = cancelConfirmationScreen.find( '#continue' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// 'unknown' is not in the error map, so the fallback cancel message renders.
+		const failureText = wrapper.find( '#error-component' );
+		expect( failureText.exists() ).toBe( true );
+		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
 	} );
 
 } );
