@@ -80,4 +80,25 @@ describe( 'Manage donations view', () => {
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-amount-annual:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency }]` );
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-next-amount-and-date:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency },${ DonorDataMock.recurringContributions[ 1 ].next_sched_contribution_date_formatted }]` );
     } );
+
+    it( 'Renders without crashing when the contribution id is not found', () => {
+        useRoute.mockImplementationOnce( () => ( {
+            params: {
+                id: '999999'
+            }
+        } ) );
+        const wrapper = VueTestUtils.mount( ManageDonationsView, {
+            global: {
+                plugins: [ router ]
+            }
+        } );
+        const manageDonationViewBody = wrapper.find( '#manage-donations' );
+
+        // With no matching recurring contribution the record falls back to {},
+        // so the view still renders its shell rather than returning undefined.
+        expect( manageDonationViewBody.exists() ).toBe( true );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-heading' );
+        // Assert that no other contribution details render.
+        expect( manageDonationViewBody.html() ).not.toContain( DonorDataMock.recurringContributions[ 0 ].payment_method );
+    } );
 } );
