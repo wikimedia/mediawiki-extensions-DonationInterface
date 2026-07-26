@@ -26,10 +26,7 @@ module.exports = exports = defineComponent( {
 	props: {
 		nextSchedContributionDate: {
 			type: String,
-			required: true,
-			defaultValue() {
-				return '';
-			}
+			required: true
 		}
 	},
 	computed: {
