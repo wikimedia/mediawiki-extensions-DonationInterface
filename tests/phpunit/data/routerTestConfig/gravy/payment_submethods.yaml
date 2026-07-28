@@ -1,0 +1,3 @@
+fake_cash_submethod:
+  group: cash
+  recurring: true
