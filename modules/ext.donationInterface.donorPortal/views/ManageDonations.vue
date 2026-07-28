@@ -11,7 +11,7 @@
 			</section>
 
 			<section class="column--base">
-				<section class="box is-recurring">
+				<section class="box" :class="{ 'is-recurring': !isPaused, 'is-lapsed': isPaused }">
 					<div class="box__inner gap--base">
 						<div class="box__columns">
 							<div class="box__column">
@@ -55,6 +55,7 @@
 
 			<section class="column--base">
 				<router-link
+					v-if="!isPaused"
 					id="buttonPauseGift"
 					:to="`/pause-donations/${contribution_recur_id}`"
 					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-normal cdx-button--size-large">
