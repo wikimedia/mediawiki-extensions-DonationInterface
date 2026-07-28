@@ -3,7 +3,7 @@ const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionCancelSuccess = require(
 	'../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelSuccess.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring cancel success component', () => {
 	it( 'Renders successfully', async () => {

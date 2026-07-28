@@ -4,7 +4,7 @@ const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionCancelForm = require(
 	'../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelForm.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring cancel form component', () => {
 	const durationOptions = [

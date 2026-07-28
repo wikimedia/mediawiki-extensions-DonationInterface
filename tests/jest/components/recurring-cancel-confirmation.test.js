@@ -3,7 +3,10 @@ const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionCancelConfirmation = require(
 	'../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionCancelConfirmation.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const {
+	recurring_monthly: contribution_mock,
+	recurring_yearly: yearly_contribution_mock
+} = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring cancel confirmation component', () => {
 	const submitCancelRecurringFormMock = jest.fn();
@@ -90,5 +93,27 @@ describe( 'Recurring cancel confirmation component', () => {
 
 		// Check the confirmation submit button to confirm its enabled
 		expect( confirmSubmit.element.disabled ).toBe( false );
+	} );
+
+	it( 'Hides the switch to annual link for a non monthly contribution', async () => {
+		const wrapper = VueTestUtils.mount( RecurringContributionCancelConfirmation, {
+			props: {
+				recurringContribution: yearly_contribution_mock,
+				submitCancelRecurringForm: submitCancelRecurringFormMock
+			},
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		await router.isReady();
+
+		const element = wrapper.find( '#recurring-cancellation-confirmation' );
+		expect( element.exists() ).toBe( true );
+
+		// Switching to annual is only offered on modifiable monthly contributions.
+		expect( element.html() ).not.toContain( 'donorportal-cancel-recurring-switch-to-annual' );
+		// The remaining actions are still offered.
+		expect( element.html() ).toContain( 'donorportal-cancel-recurring-changed-my-mind' );
+		expect( element.html() ).toContain( 'donorportal-cancel-recurring-cancel-button' );
 	} );
 } );

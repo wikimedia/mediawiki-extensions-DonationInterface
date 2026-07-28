@@ -11,7 +11,7 @@ const { useRoute } = require( 'vue-router' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
 const AnnualConversionView = require( '../../../modules/ext.donationInterface.donorPortal/views/AnnualConversion.vue' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 const ANNUAL_CONVERSION_API_ACTION = 'requestAnnualConversion';
 describe( 'Annual conversion view', () => {

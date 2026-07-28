@@ -3,7 +3,7 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionPauseForm = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionPauseForm.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring pause form component', () => {
 	const durationOptions = [

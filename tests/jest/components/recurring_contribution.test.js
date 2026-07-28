@@ -1,7 +1,7 @@
 /* global global describe it expect beforeEach afterEach*/
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionComponent = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionComponent.vue' );
-const { recurring: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_yearly_recurring: inactive_yearly_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { legacy_paypal_recurring: legacy_paypal_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );

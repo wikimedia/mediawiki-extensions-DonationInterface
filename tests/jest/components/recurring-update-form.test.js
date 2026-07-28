@@ -3,7 +3,7 @@
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionUpdateForm = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionUpdateForm.vue' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 const { inactive_recurring: inactive_recurring_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring update amount form component', () => {

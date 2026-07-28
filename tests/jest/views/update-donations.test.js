@@ -11,7 +11,7 @@ const { useRoute } = require( 'vue-router' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
 const UpdateDonationsView = require( '../../../modules/ext.donationInterface.donorPortal/views/UpdateDonations.vue' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 const RECURRING_UPDATE_API_ACTION = 'requestUpdateRecurring';
 describe( 'Update donations view', () => {
