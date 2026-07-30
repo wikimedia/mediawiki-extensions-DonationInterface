@@ -2,6 +2,44 @@
 // TODO: build out as the form grows.
 @import 'mediawiki.skin.variables.less';
 
+.combo-wiki__home {
+	max-width: 40em;
+
+	.cdx-button {
+		margin-right: 0.5em;
+		margin-bottom: 0.5em;
+	}
+}
+
 .combo-wiki__option--selected.cdx-button {
 	box-shadow: inset 0 0 0 2px @border-color-progressive;
+}
+
+.combo-wiki__card {
+	.secure-fields__input {
+		width: 100%;
+		height: 40px;
+		border: 1px solid #a2a9b1;
+		border-radius: 2px;
+	}
+
+	label {
+		display: block;
+		margin: 0.75em 0 0.25em;
+	}
+
+	.cdx-button {
+		margin-top: 1em;
+	}
+}
+
+.combo-wiki__card--loading {
+	visibility: hidden;
+}
+
+.combo-wiki__button-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5em;
+	margin-bottom: 1.5em;
 }

@@ -11,7 +11,7 @@ const { useRoute } = require( 'vue-router' );
 const router = require( '../../../modules/ext.donationInterface.donorPortal/router.js' );
 const UpdateDonationsView = require( '../../../modules/ext.donationInterface.donorPortal/views/UpdateDonations.vue' );
 const DonorDataMock = require( '../mocks/donor_data.mock.js' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 const RECURRING_UPDATE_API_ACTION = 'requestUpdateRecurring';
 describe( 'Update donations view', () => {
@@ -221,6 +221,28 @@ describe( 'Update donations view', () => {
 		expect( failureText.html() ).toContain( 'donorportal-cancel-failure' );
 
 	} );
+
+	it( 'Renders nothing when the contribution id is not found', () => {
+		// Override the route id queued in beforeEach with one that matches no record,
+		// so the "record not found" fallback ( {} ) runs.
+		useRoute.mockReset();
+		useRoute.mockImplementationOnce( () => ( {
+			params: {
+				id: '999999'
+			}
+		} ) );
+
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+
+		expect( wrapper.find( '#update-donations-form' ).exists() ).toBe( true );
+		expect( wrapper.find( '#recurring-update-form' ).exists() ).toBe( false );
+		expect( wrapper.find( '#recurring-contribution-update-success' ).exists() ).toBe( false );
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( false );
+	} );
 } );
 
 describe( 'Update donations view failure', () => {
@@ -359,5 +381,28 @@ describe( 'Update donations view failure', () => {
 		expect( failureText.exists() ).toBe( true );
 		expect( failureText.html() ).toContain( 'donorportal-error-bad-contribution-recur-id:[help@example.com]' );
 
+	} );
+
+	it( 'Defaults the error code to unknown when the API rejects without a code', async () => {
+		const wrapper = VueTestUtils.mount( UpdateDonationsView, {
+			global: {
+				plugins: [ router ]
+			}
+		} );
+		// Reject with no value so the view's `code || 'unknown'` fallback is exercised.
+		global.mw.Api.prototype.post.mockImplementation( () => Promise.reject() );
+
+		const UpdateDonationsViewBody = wrapper.find( '#update-donations-form' );
+		const amountInput = UpdateDonationsViewBody.find( '#new-recurring-amount' );
+		amountInput.element.value = 30;
+		await amountInput.trigger( 'input' );
+		await VueTestUtils.flushPromises();
+		const submitButton = UpdateDonationsViewBody.find( '#submit-update-action' );
+		await submitButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		// The error view shows, and the code defaulted to 'unknown'.
+		expect( wrapper.find( '#error-component' ).exists() ).toBe( true );
+		expect( wrapper.vm.errorCode ).toBe( 'unknown' );
 	} );
 } );

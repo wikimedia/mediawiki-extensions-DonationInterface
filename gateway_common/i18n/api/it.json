@@ -22,7 +22,7 @@
 	"apihelp-donate-param-state_province": "Abbreviazione stato.",
 	"apihelp-donate-param-postal_code": "Codice postale.",
 	"apihelp-donate-param-email": "Indirizzo email.",
-	"apihelp-donate-param-country": "Codice del Paese.",
+	"apihelp-donate-param-country": "Codice del paese.",
 	"apihelp-donate-param-card_num": "Numero della carta di credito.",
 	"apihelp-donate-param-card_type": "Tipo di carta di credito.",
 	"apihelp-donate-param-expiration": "Data di scadenza.",
@@ -93,5 +93,10 @@
 	"apihelp-submitPayment-param-full_name": "Nome completo",
 	"apihelp-submitPayment-param-pay_the_fee": "Indica che il donatore ha pagato una piccola percentuale in più per coprire le spese di elaborazione.",
 	"apihelp-submitPayment-param-payment_method": "Metodo di pagamento da usare.",
-	"apihelp-submitPayment-param-payment_network": "Rete di pagamento da usare."
+	"apihelp-submitPayment-param-payment_network": "Rete di pagamento da usare.",
+	"apihelp-di_checkoutsession_gravy-param-amount": "L'importo donato.",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "Metodo di pagamento da usare.",
+	"apihelp-di_checkoutsession_gravy-param-currency": "Codice valuta.",
+	"apihelp-di_checkoutsession_gravy-param-country": "Codice del paese.",
+	"apihelp-di_checkoutsession_gravy-param-wmf_token": "Token di modifica."
 }

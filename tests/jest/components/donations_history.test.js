@@ -76,4 +76,14 @@ describe( 'Donor contact details component', () => {
         expect( element.html() ).toContain( 'donorportal-endowment-learn-more' );
         expect( element.html() ).toContain( 'donorportal-endowment-donate-now' );
     } );
+
+    it( 'Defaults both donation lists to empty when props are omitted', () => {
+        wrapper = VueTestUtils.mount( DonationsHistory, {
+            attachTo: elem
+        } );
+
+        const element = wrapper.find( '#donorportal-donation-history' );
+        expect( element.exists() ).toBe( true );
+        expect( element.findAll( '.donorportal-donations-table-row' ).length ).toBe( 0 );
+    } );
 } );

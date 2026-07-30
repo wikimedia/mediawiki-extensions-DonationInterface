@@ -244,6 +244,8 @@
 	"apihelp-di_donate_gravy-param-first_name_phonetic": "النسخة الصوتية من الاسم الأول.",
 	"apihelp-di_donate_gravy-param-full_name": "الاسم الكامل",
 	"apihelp-di_donate_gravy-param-gateway": "ما هي بوابة الدفع التي يجب استخدامها - adyen، ingenico، وما إلى ذلك.",
+	"apihelp-di_donate_gravy-param-gateway_session_id": "معرّف جلسة الدفع في Gravy SecureFields.",
+	"apihelp-di_donate_gravy-param-result_page": "أي صفحة نتائج يجب إعادة توجيه المتبرع إليها بعد عملية الدفع؟",
 	"apihelp-di_donate_gravy-param-language": "رمز اللغة.",
 	"apihelp-di_donate_gravy-param-last_name": "اسم العائلة.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "النسخة الصوتية من الاسم الأخير.",
@@ -360,5 +362,13 @@
 	"apihelp-di_applesession_gravy-summary": "يسمح بطلب جلسة Apple Pay مباشرة من Apple نيابة عن معاملة Gravy",
 	"apihelp-di_applesession_gravy-param-gateway": "بوابة لاستخدامها لمعالجة الدفع",
 	"apihelp-di_applesession_gravy-param-validation_url": "عنوان URL الخاص بـ Apple الذي نحتاج إلى الوصول إليه للتحقق من صحة الجلسة",
-	"apihelp-di_applesession_gravy-param-wmf_token": "رمز CSRF"
+	"apihelp-di_applesession_gravy-param-wmf_token": "رمز CSRF",
+	"apihelp-di_checkoutsession_gravy-summary": "ينشئ جلسة دفع Gravy لتفاصيل التبرع المحددة",
+	"apihelp-di_checkoutsession_gravy-param-amount": "المبلغ المتبرع به.",
+	"apihelp-di_checkoutsession_gravy-param-payment_method": "طريقة الدفع المستخدمة.",
+	"apihelp-di_checkoutsession_gravy-param-currency": "رمز العملة.",
+	"apihelp-di_checkoutsession_gravy-param-country": "رمز الدولة.",
+	"apihelp-di_checkoutsession_gravy-param-recurring": "يشير ذلك إلى أن المعاملة تهدف إلى أن تكون متكررة.",
+	"apihelp-di_checkoutsession_gravy-param-wmf_token": "تعديل الرمز المميز.",
+	"apihelp-di_checkoutsession_gravy-param-gateway": "أي بوابة دفع يجب استخدامها - أديين، إنجينيكو، إلخ."
 }

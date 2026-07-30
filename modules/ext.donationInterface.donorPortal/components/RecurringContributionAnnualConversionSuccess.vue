@@ -40,10 +40,7 @@ module.exports = exports = defineComponent( {
 	props: {
 		nextYearlySchedContributionDateFormatted: {
 			type: String,
-			required: true,
-			defaultValue() {
-				return '';
-			}
+			required: true
 		}
 	},
 	setup() {

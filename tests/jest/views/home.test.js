@@ -77,4 +77,32 @@ describe( 'Home view', () => {
 		expect( element.findAll( '.dp-card__appeal.is-recurring' ).length ).toBe( 0 );
 		expect( element.find( '.donorportal-recent-donation' ).exists() ).toBe( true );
 	} );
+
+	it( 'Renders endowment contributions when the donor has them', async () => {
+		// The base mock has no endowment contributions. Clone it ( so the shared mock
+		// is not mutated ), then reuse the annual-fund entries as endowment gifts so the
+		// endowmentContributions computed returns a non-empty list instead of [].
+		const summary = JSON.parse( JSON.stringify( DonorDataMock ) );
+		summary.endowmentContributions = summary.annualFundContributions;
+		when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValue( summary );
+
+		const wrapper = VueTestUtils.mount( HomeView, {
+			global: {
+				plugins: [ router ],
+				mocks: {
+					$route: {
+						query: {
+							checksum: DonorDataMock.checksum,
+							contact_id: DonorDataMock.contact_id
+						}
+					}
+				}
+			}
+		} );
+		await VueTestUtils.flushPromises();
+
+		const element = wrapper.find( '.dp-dashboard' );
+		expect( element.findAll( '.donorportal-donations-table-row' ).length ).toBe(
+			summary.annualFundContributions.length + summary.endowmentContributions.length );
+	} );
 } );

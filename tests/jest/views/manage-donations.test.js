@@ -80,4 +80,53 @@ describe( 'Manage donations view', () => {
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-amount-annual:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency }]` );
         expect( manageDonationViewBody.html() ).toContain( `donorportal-recurring-next-amount-and-date:[${ DonorDataMock.recurringContributions[ 1 ].amount_formatted },${ DonorDataMock.recurringContributions[ 1 ].currency },${ DonorDataMock.recurringContributions[ 1 ].next_sched_contribution_date_formatted }]` );
     } );
+
+    it( 'Renders without crashing when the contribution id is not found', () => {
+        useRoute.mockImplementationOnce( () => ( {
+            params: {
+                id: '999999'
+            }
+        } ) );
+        const wrapper = VueTestUtils.mount( ManageDonationsView, {
+            global: {
+                plugins: [ router ]
+            }
+        } );
+        const manageDonationViewBody = wrapper.find( '#manage-donations' );
+
+        // With no matching recurring contribution the record falls back to {},
+        // so the view still renders its shell rather than returning undefined.
+        expect( manageDonationViewBody.exists() ).toBe( true );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-manage-donation-heading' );
+        // Assert that no other contribution details render.
+        expect( manageDonationViewBody.html() ).not.toContain( DonorDataMock.recurringContributions[ 0 ].payment_method );
+    } );
+
+    it( 'Manage Donations view hides the pause button and shows the lapsed class when the contribution is paused', () => {
+        const pausedDonorDataMock = Object.assign( {}, DonorDataMock, {
+            recurringContributions: [
+                Object.assign( {}, DonorDataMock.recurringContributions[ 0 ], { is_paused: true } )
+            ]
+        } );
+        when( global.mw.config.get ).calledWith( 'donorData' ).mockReturnValueOnce( pausedDonorDataMock );
+        useRoute.mockImplementationOnce( () => ( {
+            params: {
+                id: '123'
+            }
+        } ) );
+        const wrapper = VueTestUtils.mount( ManageDonationsView, {
+            global: {
+                plugins: [ router ]
+            }
+        } );
+        const manageDonationViewBody = wrapper.find( '#manage-donations' );
+
+        expect( manageDonationViewBody.exists() ).toBe( true );
+        expect( manageDonationViewBody.html() ).toContain( 'donorportal-recurring-status-paused' );
+        expect( wrapper.find( '.box.is-lapsed' ).exists() ).toBe( true );
+        expect( wrapper.find( '.box.is-recurring' ).exists() ).toBe( false );
+        expect( wrapper.find( '#buttonPauseGift' ).exists() ).toBe( false );
+        expect( manageDonationViewBody.html() ).not.toContain( 'donorportal-manage-donation-management-pause-gift' );
+        expect( wrapper.find( '#buttonChangeDonationAmount' ).exists() ).toBe( true );
+    } );
 } );

@@ -1,7 +1,7 @@
 /* global describe it expect beforeEach afterEach*/
 const VueTestUtils = require( '@vue/test-utils' );
 const RecurringContributionSummary = require( '../../../modules/ext.donationInterface.donorPortal/components/RecurringContributionSummary.vue' );
-const { recurring: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
+const { recurring_monthly: contribution_mock } = require( '../mocks/contribution_mock.mock.js' );
 
 describe( 'Recurring contribution summary component', () => {
 

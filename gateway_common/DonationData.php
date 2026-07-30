@@ -121,6 +121,7 @@ class DonationData implements LogPrefixProvider {
 		'recurring_payment_token',
 		'redirect',
 		'referrer',
+		'result_page',
 		'screen_height', // device fingerprinting
 		'screen_width', // device fingerprinting
 		'server_ip',

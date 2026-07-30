@@ -11,12 +11,14 @@
 			</section>
 
 			<section class="column--base">
-				<section class="box is-recurring">
+				<section class="box" :class="{ 'is-recurring': !isPaused, 'is-lapsed': isPaused }">
 					<div class="box__inner gap--base">
 						<div class="box__columns">
 							<div class="box__column">
 								<div class="box__section">
-									<span class="tag is-recurring">{{ $i18n( "donorportal-recurring-status-active" ).text() }}</span>
+									<span v-if="!isPaused && !isProcessing" class="tag is-recurring">{{ statusWord }}</span>
+									<span v-else-if="isProcessing" class="tag is-processing">{{ $i18n( "donorportal-processing" ).text() }}</span>
+									<span v-else class="tag">{{ statusWord }}</span>
 								</div>
 								<div class="box__section">
 									<h2 class="heading heading--h2">
@@ -53,6 +55,7 @@
 
 			<section class="column--base">
 				<router-link
+					v-if="!isPaused"
 					id="buttonPauseGift"
 					:to="`/pause-donations/${contribution_recur_id}`"
 					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-normal cdx-button--size-large">
@@ -128,19 +131,35 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
-		isMonthlyGift: function () {
-			return this.recurringContributionRecord && this.recurringContributionRecord.frequency_unit === 'month';
-		},
-		contributionAmount: function () {
-			// Frequency keys that can be used here
-			// * donorportal-recurring-amount-annual
-			// * donorportal-recurring-amount-monthly
-			return this.$i18n( this.recurringContributionRecord.amount_frequency_key, this.recurringContributionRecord.amount_formatted, this.recurringContributionRecord.currency ).text();
-		},
-		recurringNextContributionAmountWithDate: function () {
-			return this.$i18n( 'donorportal-recurring-next-amount-and-date', this.recurringContributionRecord.amount_formatted,
-				this.recurringContributionRecord.currency, this.recurringContributionRecord.next_sched_contribution_date_formatted ).text();
+	isPaused: function () {
+		return this.recurringContributionRecord && this.recurringContributionRecord.is_paused;
+	},
+	isProcessing: function () {
+                return this.recurringContributionRecord && this.recurringContributionRecord.is_processing;
+        },
+	statusWord: function () {
+		let keySuffix = 'active';
+		if ( this.isPaused ) {
+			keySuffix = 'paused';
 		}
+		// Messages that can be used here:
+		// * donorportal-recurring-status-active
+		// * donorportal-recurring-status-paused
+		return mw.msg( 'donorportal-recurring-status-' + keySuffix );
+	},
+	isMonthlyGift: function () {
+		return this.recurringContributionRecord && this.recurringContributionRecord.frequency_unit === 'month';
+	},
+	contributionAmount: function () {
+		// Frequency keys that can be used here
+		// * donorportal-recurring-amount-annual
+		// * donorportal-recurring-amount-monthly
+		return this.$i18n( this.recurringContributionRecord.amount_frequency_key, this.recurringContributionRecord.amount_formatted, this.recurringContributionRecord.currency ).text();
+	},
+	recurringNextContributionAmountWithDate: function () {
+		return this.$i18n( 'donorportal-recurring-next-amount-and-date', this.recurringContributionRecord.amount_formatted,
+			this.recurringContributionRecord.currency, this.recurringContributionRecord.next_sched_contribution_date_formatted ).text();
 	}
+}
 } );
 </script>

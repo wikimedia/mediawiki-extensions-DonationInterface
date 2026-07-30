@@ -310,10 +310,12 @@
 	}
 
 	function focusOnFirstInput() {
-		const inputFields = Array.from( document.querySelector( '#payment-form' ).querySelectorAll( 'input, select' ) );
-		const visibleInputs = inputFields.filter( ( el ) => elementIsVisible( el ) );
-		if ( visibleInputs.length > 0 ) {
-			visibleInputs[ 0 ].focus();
+		if ( document.querySelector( '#payment-form' ) ) {
+			const inputFields = Array.from( document.querySelector( '#payment-form' ).querySelectorAll( 'input, select' ) );
+			const visibleInputs = inputFields.filter( ( el ) => elementIsVisible( el ) );
+			if ( visibleInputs.length > 0 ) {
+				visibleInputs[ 0 ].focus();
+			}
 		}
 	}
 

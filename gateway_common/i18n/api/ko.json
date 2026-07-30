@@ -243,6 +243,7 @@
 	"apihelp-di_donate_gravy-param-first_name_phonetic": "이름의 발음 표기입니다.",
 	"apihelp-di_donate_gravy-param-full_name": "전체 이름",
 	"apihelp-di_donate_gravy-param-gateway": "사용할 결제 게이트웨이입니다 (예: adyen, ingenico, 등).",
+	"apihelp-di_donate_gravy-param-gateway_session_id": "Gravy SecureFields 체크아웃 세션 ID입니다.",
 	"apihelp-di_donate_gravy-param-language": "언어 코드입니다.",
 	"apihelp-di_donate_gravy-param-last_name": "성입니다.",
 	"apihelp-di_donate_gravy-param-last_name_phonetic": "성씨의 발음 표기입니다.",

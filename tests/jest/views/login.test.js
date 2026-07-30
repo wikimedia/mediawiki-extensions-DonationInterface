@@ -232,4 +232,72 @@ describe( 'Login view', () => {
 		const serverErrorMessageText = wrapper.find( '#server-error-message-text' );
 		expect( serverErrorMessageText.exists() ).toBe( false );
 	} );
+
+	it( 'Shows the invalid-email message when the API rejects with invalid_email', async () => {
+		const wrapper = VueTestUtils.mount( LoginView );
+		global.mw.Api.prototype.post.mockReturnValue(
+			new Promise( ( _, reject ) => {
+				reject( 'invalid_email' );
+			} )
+		);
+
+		const requestLinkButton = wrapper.find( '#request-link-button' );
+		await requestLinkButton.trigger( 'click' );
+
+		const errorMessageText = wrapper.find( '#error-message-text' );
+		expect( errorMessageText.isVisible() ).toBe( true );
+		expect( errorMessageText.html() ).toContain( 'donorportal-invalid-email-error-message' );
+	} );
+
+	it( 'Shows the invalid-credentials message when the API rejects with InvalidCredentials', async () => {
+		const wrapper = VueTestUtils.mount( LoginView );
+		global.mw.Api.prototype.post.mockReturnValue(
+			new Promise( ( _, reject ) => {
+				reject( 'InvalidCredentials' );
+			} )
+		);
+
+		const requestLinkButton = wrapper.find( '#request-link-button' );
+		await requestLinkButton.trigger( 'click' );
+
+		const errorMessageText = wrapper.find( '#error-message-text' );
+		expect( errorMessageText.isVisible() ).toBe( true );
+		expect( errorMessageText.html() ).toContain( 'donorportal-invalid-credentials-error-message' );
+	} );
+
+	it( 'Ignores a second submit while the first request is still in flight', async () => {
+		const wrapper = VueTestUtils.mount( LoginView );
+		global.mw.Api.prototype.post.mockReturnValue(
+			new Promise( ( resolve ) => {
+				resolve( {} );
+			} )
+		);
+
+		const donorEmailInput = wrapper.find( '#new-checksum-link-email' );
+		await donorEmailInput.setValue( 'jwales@example.com' );
+
+		const requestLinkButton = wrapper.find( '#request-link-button' );
+		// First click succeeds and leaves the input disabled.
+		await requestLinkButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+		expect( donorEmailInput.attributes() ).toHaveProperty( 'disabled' );
+
+		// Second click hits the `if ( disabled ) return;` guard and makes no new request.
+		await requestLinkButton.trigger( 'click' );
+		await VueTestUtils.flushPromises();
+		expect( global.mw.Api.prototype.post ).toHaveBeenCalledTimes( 1 );
+	} );
+
+	it( 'Opens the login-problems popup and renders its contact link', async () => {
+		const wrapper = VueTestUtils.mount( LoginView );
+
+		// The popup body (and its problemLoginLink) only renders once opened.
+		const popupTrigger = wrapper.find( 'a.link' );
+		await popupTrigger.trigger( 'click' );
+
+		const popupTitle = wrapper.find( '#popup-title' );
+		expect( popupTitle.exists() ).toBe( true );
+		expect( wrapper.html() ).toContain( 'donorportal-update-donation-problem-log-in-contact-us' );
+		expect( wrapper.html() ).toContain( `mailto:${ helpEmail }` );
+	} );
 } );

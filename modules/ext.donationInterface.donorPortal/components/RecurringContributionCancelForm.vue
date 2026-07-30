@@ -106,10 +106,7 @@ module.exports = exports = defineComponent( {
 	props: {
 		recurringContribution: {
 			type: Object,
-			required: true,
-			defaultValue() {
-				return {};
-			}
+			required: true
 		},
 		submitPauseRecurringForm: {
 			type: Function,

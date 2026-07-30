@@ -50,6 +50,10 @@ class GenericPatternFilter {
 				if ( !$this->matchesWildcard( $actualValue, $rulePropertyValue ) ) {
 					return;
 				}
+			} elseif ( is_array( $rulePropertyValue ) && $this->isBetweenComparison( $rulePropertyValue ) ) {
+				if ( !$this->matchesBetweenComparison( $actualValue, $rulePropertyValue ) ) {
+					return;
+				}
 			} elseif ( is_array( $rulePropertyValue ) && $this->isNumericComparison( $rulePropertyValue ) ) {
 				if ( !$this->matchesNumericComparison( $actualValue, $rulePropertyValue ) ) {
 					return;
@@ -154,6 +158,40 @@ class GenericPatternFilter {
 			'>=' => $actualNumeric >= $threshold,
 			default => false
 		};
+	}
+
+	/**
+	 * Checks if the value is a between-range comparison array.
+	 *
+	 * Expected format: ['between', 1, 2] — matches x where 1 <= x <= 2
+	 *
+	 * @param array $value
+	 * @return bool
+	 */
+	protected function isBetweenComparison( array $value ): bool {
+		return array_is_list( $value )
+			&& \count( $value ) === 3
+			&& $value[0] === 'between'
+			&& is_numeric( $value[1] )
+			&& is_numeric( $value[2] )
+			&& (float)$value[1] <= (float)$value[2];
+	}
+
+	/**
+	 * Checks if the given value falls within the inclusive range [min, max].
+	 *
+	 * @param mixed $value The actual value to compare
+	 * @param array $comparison The range array (e.g., ['between', 1, 2])
+	 * @return bool
+	 */
+	protected function matchesBetweenComparison( mixed $value, array $comparison ): bool {
+		if ( !is_numeric( $value ) ) {
+			return false;
+		}
+		$actual = (float)$value;
+		$min = (float)$comparison[1];
+		$max = (float)$comparison[2];
+		return $actual >= $min && $actual <= $max;
 	}
 
 	/**
