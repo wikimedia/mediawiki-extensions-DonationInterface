@@ -72,6 +72,7 @@
 			{{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
 			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ selectedGateway }}
 		</p>
+		<p> Debug Request Params - {{ params }}</p>
 		<p v-if="donateError" class="combo-wiki__error">
 			{{ donateError }}
 		</p>
@@ -110,7 +111,7 @@ module.exports = exports = defineComponent( {
     'more-info-links': MoreInfoLinks,
     'employer-field': EmployerField
   },
-
+  inject: [ 'params' ],
   data() {
     return {
       presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],

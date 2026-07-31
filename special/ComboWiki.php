@@ -1,13 +1,18 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace MediaWiki\Extension\DonationInterface\Special;
 
-use CountryValidation;
 use DonationInterface;
 use DonationLoggerFactory;
 use GravyAdapter;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
+use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
+use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
+use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
+use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
 use MediaWiki\Html\Html;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
@@ -24,6 +29,18 @@ class ComboWiki extends UnlistedSpecialPage {
 
 	private LoggerInterface $logger;
 
+	/** @var GravyAdapter|null The gateway adapter, if a supported gateway was selected. */
+	private ?GravyAdapter $adapter = null;
+
+	/** @var array Routing params derived from the request, computed once in execute(). */
+	private array $routingParams = [];
+
+	/** @var string|null The gateway chosen for this request, if any. */
+	private ?string $selectedGateway = null;
+	private DonationDetails $dataObject;
+
+	private static string $donationDetailsSessionKey = 'DonationDetails';
+
 	public function __construct() {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
 		parent::__construct( 'ComboWiki' );
@@ -35,6 +52,49 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function execute( $subPage ): void {
+		$wmfConfig = MediaWikiServices::getInstance()->getMainConfig();
+		$dataIntegrator = new DataIntegrator( $this->getRequest(), new DonationDetails() );
+		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
+		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
+		( new ContributionTrackingHelper( $this->getRequest(), $wmfConfig ) )->handleTrackingData( $this->dataObject );
+		( new OrderIdHandler( $this->getRequest() ) )->handleOrderId( $this->dataObject );
+
+		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
+		$this->routingParams = [
+			'country' => $this->dataObject->getValue( 'country', 'US' ),
+			'currency' => $this->dataObject->getValue( 'currency', 'USD' ),
+			'payment_method' => $this->dataObject->getValue( 'payment_method', 'cc' ),
+			'payment_submethod' => $this->dataObject->getValue( 'payment_submethod' ),
+			'recurring' => $this->dataObject->getValue( 'recurring' ),
+			'variant' => $this->dataObject->getValue( 'variant' ),
+			'language' => $this->dataObject->getValue( 'language', $this->getLanguage()->getCode() ),
+			'gateway' => $this->dataObject->getValue( 'gateway' ),
+		];
+
+		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
+
+		// If we got gateway from the request/session, here we override with the
+		// one found with chooseGateway(). Are we ok with that?
+		$this->dataObject->setValue( 'gateway', $this->selectedGateway );
+		$this->routingParams['gateway'] = $this->selectedGateway;
+
+		// Store copy of the donation details in the session for later access
+		$this->storeDonationDetailsInSession();
+
+		// TODO: move this to a central decision point once other gateways are supported here.
+		if ( $this->selectedGateway === 'gravy' ) {
+			DonationInterface::setSmashPigProvider( 'gravy' );
+			$this->adapter = new GravyAdapter( [
+				'external_data' => [
+					'payment_method' => $this->routingParams['payment_method'],
+					'currency' => $this->routingParams['currency'],
+					'country' => $this->routingParams['country'],
+					'recurring' => $this->routingParams['recurring'],
+					'language' => $this->routingParams['language'],
+				]
+			] );
+		}
+
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->getOutput()->setPageTitleMsg( $this->msg( 'combowiki-title' ) );
@@ -100,55 +160,16 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function setClientVariables( array &$vars ): void {
-		$params = $this->getRoutingParams();
-		$selectedGateway = $this->chooseGateway( $params );
-
+		// TODO: update since 'language' and 'gateway' are exposed in $this->routingParams now
 		$vars['comboWiki'] = [
-			'language' => $this->getLanguage()->getCode(),
-			'params' => $params,
-			'gateway' => $selectedGateway
+			'language' => $this->routingParams['language'],
+			'params' => $this->routingParams,
+			'gateway' => $this->selectedGateway,
 		];
 
-		// TODO: move this to a central decision point
-		if ( $selectedGateway === 'gravy' ) {
-			$this->addGravyClientConfig( $vars, $params );
+		if ( $this->selectedGateway === 'gravy' ) {
+			$this->addGravyClientConfig( $vars );
 		}
-	}
-
-	private function getRoutingParams(): array {
-		$country = $this->getRequest()->getVal( 'country' );
-		if ( !CountryValidation::isValidIsoCode( $country ) ) {
-			$country = CountryValidation::lookUpCountry( $this->getRequest()->getIP() );
-		}
-
-		// GeoIP can't resolve some IPs (e.g. localhost), leaving us with no
-		// country. DonationData falls back to 'XX' here but let's use 'US' instead
-		// so we have a real country as the fallback which can be passed to gateway chooser.
-		if ( !CountryValidation::isValidIsoCode( $country ) ) {
-			$country = 'US';
-		}
-
-		$recurringRawValue = $this->getRequest()->getVal( 'recurring' );
-		if ( $recurringRawValue === 'false' ) {
-			$recurring = 0;
-		} elseif ( $recurringRawValue === 'true' ) {
-			$recurring = 1;
-		} else {
-			$recurring = (int)$recurringRawValue;
-		}
-
-		// ComboWiki lets the donor pick a method in the page, so payment_method
-		// may be absent on initial load. Default to the card method ('cc'), the
-		// config default, so gateway selection always receives a string.
-		return [
-			'country' => $country,
-			'currency' => $this->getRequest()->getVal( 'currency' ),
-			'payment_method' => $this->getRequest()->getVal( 'payment_method', 'cc' ),
-			'payment_submethod' => $this->getRequest()->getVal( 'payment_submethod' ),
-			'recurring' => $recurring,
-			'gateway' => $this->getRequest()->getVal( 'gateway' ),
-			'variant' => $this->getRequest()->getVal( 'variant' ),
-		];
 	}
 
 	private function chooseGateway( array $params ): ?string {
@@ -185,29 +206,30 @@ class ComboWiki extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Start up a new Gravy Payments session and share the ID, along with the gravy
-	 * config, with the frontend.
+	 * Share the Gravy Payments session ID, along with the gravy config, with the frontend.
+	 * Uses the adapter constructed in execute().
 	 *
 	 * @param array &$vars
-	 * @param array $params
 	 *
 	 * @return void
 	 */
-	protected function addGravyClientConfig( array &$vars, array $params ): void {
-		DonationInterface::setSmashPigProvider( 'gravy' );
+	protected function addGravyClientConfig( array &$vars ): void {
+		$vars['gravyConfiguration'] = $this->adapter->getGravyConfiguration();
+		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
 
-		$adapter = new GravyAdapter( [
-			'external_data' => [
-				'payment_method' => $params['payment_method'],
-				'currency' => $params['currency'],
-				'country' => $params['country'],
-				'recurring' => $params['recurring'],
-				'language' => $this->getLanguage()->getCode()
-			]
-		] );
-
-		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
-		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
+	/**
+	 * TODO: once we polish fieldNames in dataObject, we should re-evaluate if we should still
+	 *   store all the fields or if we should store in session only a subset of them.
+	 *
+	 * Store a snapshot of the donation details in the session for later access.
+	 *
+	 * @return void
+	 */
+	protected function storeDonationDetailsInSession(): void {
+		$session = $this->getRequest()->getSession();
+		$session->persist();
+		$session->set( self::$donationDetailsSessionKey, $this->dataObject->getData() );
 	}
 }

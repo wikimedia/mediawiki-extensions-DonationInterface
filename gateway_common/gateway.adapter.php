@@ -228,6 +228,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// FIXME: this should not have side effects like setting order_id_meta['final']
 		// TODO: On second thought, neither set data nor validate in this constructor.
+		// TODO: in ComboWiki this should not run since it leads to 2 contribution tracking msg and parallel logic
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
 
 		$this->unstaged_data = $this->dataObj->getData();
