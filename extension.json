@@ -535,7 +535,8 @@
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/PayPalComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
-				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue"
+				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue"
 			],
 			"messages": [
 				"combowiki-title",

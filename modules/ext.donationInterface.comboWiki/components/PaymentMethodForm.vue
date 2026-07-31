@@ -33,7 +33,7 @@ const GravyCardForm = require( "./GravyCardForm.vue" );
 const PayPalComponent = require( "./PayPalComponent.vue" );
 const ApplePayComponent = require( "./ApplePayComponent.vue" );
 const ACHComponent = require( "./ACHComponent.vue" );
-
+const GooglePayComponent = require( "./GooglePayComponent.vue" );
 module.exports = exports = defineComponent( {
   name: 'PaymentMethodSelector',
   props: {
@@ -51,6 +51,7 @@ module.exports = exports = defineComponent( {
     "card-form": GravyCardForm,
     "paypal-form": PayPalComponent,
     "applepay-form": ApplePayComponent,
+    "googlepay-form": GooglePayComponent,
     "ach-form": ACHComponent
   },
   emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
@@ -59,6 +60,10 @@ module.exports = exports = defineComponent( {
     const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
       api.submitDonation( props.donation, payload )
           .then( ( result ) => {
+			  // how do we want to display validation errors
+			  if ( result.result.isFailed || result.result.errors ) {
+				  ctx.emit( 'donationError', result.result.errors )
+			  }
             if ( successCallback ) {
               successCallback( result )
             }
@@ -68,7 +73,8 @@ module.exports = exports = defineComponent( {
             ctx.emit( 'donationError', code, failure )
             if ( errorCallback ) {
               errorCallback( failure )
-              this.handleDonateError( code, failure )
+			  console.log(' in the callback failure');
+              // what should happen here, need to handle it properly
             }
           } );
     }
@@ -100,7 +106,7 @@ module.exports = exports = defineComponent( {
             ctx.emit( 'onPaymentMethodChange', method );
         },
         availablePaymentMethods() {
-            let $paymentMethods = ['card', 'paypal', 'applepay'];
+            let $paymentMethods = ['card', 'paypal', 'applepay', 'googlepay'];
             if ( props.donation.frequency !== 'once' ) {
                 $paymentMethods.push('ach');
             }
@@ -131,7 +137,13 @@ module.exports = exports = defineComponent( {
                 component: 'ach-form',
                 submit: submitDonation,
                 error: onError
-            }
+            },
+			googlepay: {
+				label: "Google Pay",
+				component: 'googlepay-form',
+				submit: submitDonation,
+				error: onError
+			},
       }
     }
   }
