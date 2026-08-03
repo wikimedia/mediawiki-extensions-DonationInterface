@@ -1,6 +1,6 @@
 <template>
   <main class="combo-wiki__home">
-    <h2>{{ $i18n( 'combowiki-frequency-heading' ).text() }}</h2>
+    <h2>{{ frequencyHeaderText }}</h2>
 
     <frequency-selector v-model="donation.frequency"></frequency-selector>
 
@@ -9,7 +9,7 @@
       <cdx-select
           v-model:selected="donation.currency"
           :menu-items="currencyOptions"
-          :default-label="$i18n( 'combowiki-currency-placeholder' ).text()">
+          :default-label="currencyPlaceholder">
       </cdx-select>
 
       <!--      Amount-->
@@ -25,31 +25,31 @@
       <cdx-text-input
           v-model="donation.amount"
           input-type="number"
-          :placeholder="$i18n( 'donate_interface-other-amount' ).text()">
+          :placeholder="otherAmountPlaceholder">
       </cdx-text-input>
 
       <!--      Pay the fee-->
       <cdx-checkbox v-model="donation.payFee">
-        {{ $i18n( 'combowiki-cover-fees' ).text() }}
+        {{ coverFee }}
       </cdx-checkbox>
     </div>
 
     <!--    Email opt-in-->
     <div>
-      <h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
+      <h2>{{ stayInTouch }}</h2>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="yes"
           name="email-optin">
-        {{ $i18n( 'combowiki-optin-yes' ).text() }}
+        {{ optInYes }}
       </cdx-radio>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="no"
           name="email-optin">
-        {{ $i18n( 'combowiki-optin-no' ).text() }}
+        {{ optInNo }}
       </cdx-radio>
     </div>
     <payment-method-form
@@ -67,6 +67,8 @@
       {{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
       {{ donation.paymentMethod }} / Gateway: {{ selectedGateway }}</p>
     <p v-if="donateError" class="combo-wiki__error">{{ donateError }}</p>
+    <we-do-not-sell-text></we-do-not-sell-text>
+    <more-info-links text-class="combo-wiki__link-container"></more-info-links>
   </main>
 </template>
 
@@ -81,8 +83,8 @@ const {
 } = require( "@wikimedia/codex" );
 const FrequencySelector = require( "../components/FrequencySelector.vue" );
 const PaymentMethodForm = require( "../components/PaymentMethodForm.vue" );
-
-const api = require( "../api.js" );
+const WeDoNotSellText = require( "../components/WeDoNotSellText.vue" );
+const MoreInfoLinks = require( "../components/MoreInfoLinks.vue" );
 
 module.exports = exports = defineComponent( {
   name: "Home",
@@ -94,7 +96,9 @@ module.exports = exports = defineComponent( {
     "cdx-checkbox": CdxCheckbox,
     "cdx-radio": CdxRadio,
     "frequency-selector": FrequencySelector,
-    "payment-method-form": PaymentMethodForm
+    "payment-method-form": PaymentMethodForm,
+    "we-do-not-sell-text": WeDoNotSellText,
+    "more-info-links": MoreInfoLinks,
   },
 
   data() {
@@ -114,7 +118,7 @@ module.exports = exports = defineComponent( {
       },
       selectedGateway: ( mw.config.get( "comboWiki" ) ).gateway || null,
       donateError: null,
-      paymentMethodForm: {}
+      paymentMethodForm: {},
     };
   },
 
@@ -170,7 +174,28 @@ module.exports = exports = defineComponent( {
           ( method ) => method.countries.includes( this.donation.country )
       );
     },
-  }
+    frequencyHeaderText() {
+      return this.$i18n( 'combowiki-frequency-heading' ).text();
+    },
+    currencyPlaceholder() {
+      return this.$i18n( 'combowiki-currency-placeholder' ).text();
+    },
+    otherAmountPlaceholder() {
+      return this.$i18n( 'donate_interface-other-amount' ).text();
+    },
+    coverFee() {
+      return this.$i18n( 'combowiki-cover-fees' ).text();
+    },
+    stayInTouch() {
+      return this.$i18n( 'combowiki-stay-in-touch-heading' ).text();
+    },
+    optInYes() {
+      return this.$i18n( 'combowiki-optin-yes' ).text();
+    },
+    optInNo() {
+      return this.$i18n( 'combowiki-optin-no' ).text();
+    }
+  },
 } );
 
 </script>

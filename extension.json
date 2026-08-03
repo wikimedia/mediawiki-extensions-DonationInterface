@@ -536,7 +536,9 @@
 				"modules/ext.donationInterface.comboWiki/components/PayPalComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
-				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue"
+				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
+				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -579,7 +581,12 @@
 				"donate_interface-sign-in-to-my-bank",
 				"donate_interface-pay-with-trustly",
 				"donate_interface-donor-email",
-				"donate_interface-donor-employer"
+				"donate_interface-donor-employer",
+				"donate_interface-informationsharing",
+				"donate_interface-problemsdonating",
+				"donate_interface-otherways-short",
+				"donate_interface-faqs",
+				"donate_interface-tax-info"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {
