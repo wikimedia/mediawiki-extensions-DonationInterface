@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeeputer"
+			"Jeeputer",
+			"Mohammad ebz"
 		]
 	},
+	"donorportal-login-email-placeholder": "نشانی ایمیل‌تان را وارد کنید",
 	"donorportal-feedbackrequest": "ما هم‌اکنون در حال آزمایش این ویژگی هستیم و از شنیدن نظر شما خوشحال خواهیم شد.",
 	"donorportal-feedbacklink": "ارائهٔ بازخورد",
 	"emailpreferences-verify-email-sent": "یک پیوند تأییدیه به نشانی ایمیل جدید شما ارسال کردیم.",
