@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-const { defineComponent, ref } = require( 'vue' );
+const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 
 module.exports = exports = defineComponent({
@@ -43,20 +43,48 @@ module.exports = exports = defineComponent({
             return this.donation.frequency !== null && this.donation.amount !== null;
         },
     },
-    mounted() {
-        const config = mw.config.get( 'gravyConfiguration' );
-        mw.donationInterface.forms.loadScript( config.appleScript )
-            .then( this.setupApplePayForm )
-            .catch()
-    },
-
     setup( props, ctx ) {
         let appleSession = null;
         let extraData = {};
+        let appleScriptSrc = null;
 
         const applePayButtonElementRef = ref();
         const showApplePayButtonFlag = ref(false)
         const applePayPaySessionVersionNumber = 3 // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
+
+        onMounted( () => {
+            const config = mw.config.get( 'gravyConfiguration' );
+            appleScriptSrc = config.appleScript;
+            mw.donationInterface.forms.loadScript( appleScriptSrc )
+                .then( setupApplePayForm )
+                .catch( e => {
+                    mw.log.error( "combowiki applepay load failed", e );
+                } )
+        } );
+
+        onBeforeUnmount( () => {
+            // Abort any in-flight Apple Pay session and detach its handlers
+            if ( appleSession ) {
+                appleSession.oncancel = null;
+                appleSession.onvalidatemerchant = null;
+                appleSession.onpaymentauthorized = null;
+                try {
+                    appleSession.abort();
+                } catch ( e ) {
+                    mw.log.error( "combowiki applepay unload failed", e );
+                }
+                appleSession = null;
+            }
+            extraData = {};
+            showApplePayButtonFlag.value = false;
+
+            // Remove the Apple Pay script this component injected into the page
+            if ( appleScriptSrc ) {
+                document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' )
+                    .forEach( ( node ) => node.remove() );
+                appleScriptSrc = null;
+            }
+        } );
 
         function clearApplePaySessionAndEnableButton() {
             appleSession = null;
