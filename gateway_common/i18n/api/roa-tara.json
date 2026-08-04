@@ -28,7 +28,6 @@
 	"apihelp-donate-param-cvv": "Codece de securezze CVV.",
 	"apihelp-donate-param-payment_method": "Metode de pajamende da ausà.",
 	"apihelp-donate-param-payment_submethod": "Sottometode de pajamende da ausà.",
-	"apihelp-donate-param-processor_form": "Ce opziune d'u module de processe è ausate.",
 	"apihelp-donate-param-language": "Codece d'a Lènghe.",
 	"apihelp-donate-param-order_id": "ID de l'ordine (ce 'na donazzione ha state ggià accumenzate).",
 	"apihelp-donate-param-wmf_token": "Cnage 'u gettone.",

@@ -25,7 +25,6 @@
 	"apihelp-donate-param-cvv": "CVV-säkerhetskod.",
 	"apihelp-donate-param-payment_method": "Betalningssätt att använda.",
 	"apihelp-donate-param-payment_submethod": "Underbetalningssätt att använda.",
-	"apihelp-donate-param-processor_form": "Vilken av processorns formuläralternativ som ska användas.",
 	"apihelp-donate-param-language": "Språkkod.",
 	"apihelp-donate-param-order_id": "Order-ID (om en donation redan har påbörjats).",
 	"apihelp-donate-param-wmf_token": "Redigeringsnyckel.",

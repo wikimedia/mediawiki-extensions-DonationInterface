@@ -25,7 +25,6 @@
 	"apihelp-donate-param-cvv": "CVV-sekurkodo.",
 	"apihelp-donate-param-payment_method": "Uzota pagmetodo.",
 	"apihelp-donate-param-payment_submethod": "Uzota pagsubmetodo.",
-	"apihelp-donate-param-processor_form": "Uzota formulara opcio de la pagotraktanto.",
 	"apihelp-donate-param-language": "Lingvokodo.",
 	"apihelp-donate-param-order_id": "Identigilo de mendo (se donacado jam komencis)",
 	"apihelp-donate-param-wmf_token": "Redakta ĵetono.",

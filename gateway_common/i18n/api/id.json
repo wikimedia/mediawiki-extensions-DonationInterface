@@ -26,7 +26,6 @@
 	"apihelp-donate-param-cvv": "Kode keamanan CVV.",
 	"apihelp-donate-param-payment_method": "Metode pembayaran yang ingin dipakai.",
 	"apihelp-donate-param-payment_submethod": "Submetode pembayaran yang ingin dipakai.",
-	"apihelp-donate-param-processor_form": "Opsi formulir prosesor mana yang ingin dipakai.",
 	"apihelp-donate-param-language": "Kode bahasa.",
 	"apihelp-donate-param-order_id": "ID Pesanan (jika sebuah sumbangan telah dimulai).",
 	"apihelp-donate-param-wmf_token": "Token pengubahan.",
