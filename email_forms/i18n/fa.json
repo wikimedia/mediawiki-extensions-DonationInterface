@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jeeputer"
+			"Jeeputer",
+			"Mohammad ebz"
 		]
 	},
 	"recurupgrade-salutation": "سلام، $1!",
