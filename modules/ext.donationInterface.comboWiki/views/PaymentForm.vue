@@ -1,6 +1,6 @@
 <template>
   <main class="combo-wiki__home">
-    <h2>How often would you like to give</h2>
+    <h2>{{ $i18n( 'combowiki-frequency-heading' ).text() }}</h2>
 
     <frequency-selector v-model="donation.frequency"></frequency-selector>
 
@@ -9,7 +9,7 @@
       <cdx-select
           v-model:selected="donation.currency"
           :menu-items="currencyOptions"
-          default-label="Choose a currency">
+          :default-label="$i18n( 'combowiki-currency-placeholder' ).text()">
       </cdx-select>
 
       <!--      Amount-->
@@ -25,31 +25,31 @@
       <cdx-text-input
           v-model="donation.amount"
           input-type="number"
-          placeholder="Other amount">
+          :placeholder="$i18n( 'donate_interface-other-amount' ).text()">
       </cdx-text-input>
 
       <!--      Pay the fee-->
       <cdx-checkbox v-model="donation.payFee">
-        I'll generously cover the transaction fees
+        {{ $i18n( 'combowiki-cover-fees' ).text() }}
       </cdx-checkbox>
     </div>
 
     <!--    Email opt-in-->
     <div>
-      <h2> Can we stay in touch</h2>
+      <h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="yes"
           name="email-optin">
-        Yes. Send me emails with the ways I can support Wikipedia.
+        {{ $i18n( 'combowiki-optin-yes' ).text() }}
       </cdx-radio>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="no"
           name="email-optin">
-        No. Don't send me an occasional email with opportunities to support Wikipedia.
+        {{ $i18n( 'combowiki-optin-no' ).text() }}
       </cdx-radio>
     </div>
     <payment-method-form
@@ -100,11 +100,6 @@ module.exports = exports = defineComponent( {
   data() {
     return {
       presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],
-      currencyOptions: [
-        { label: "USD (United States)", value: "USD" },
-        { label: "EUR (Euro)", value: "EUR" },
-        { label: "GBP (United Kingdom)", value: "GBP" }
-      ],
       donation: {
         firstName: null,
         lastName: null,
@@ -131,11 +126,11 @@ module.exports = exports = defineComponent( {
     handleDonateResult( result ) {
       const response = result.result;
       if ( response.isFailed ) {
-        this.donateError = "Payment failed. Please try again";
+        this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
         return;
       }
       if ( response.errors ) {
-        this.donateError = "Payment could not be completed.";
+        this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
         return;
       }
       console.log( "Donation submitted successfully:", response );
@@ -146,12 +141,19 @@ module.exports = exports = defineComponent( {
       }
     },
     handleDonateError( code, failure ) {
-      this.donateError = "Payment failed, Please try again.";
+      this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
       mw.log.error( "di_donate_gravy failed", code, failure );
     }
   },
 
   computed: {
+    currencyOptions() {
+      return [
+        { label: this.$i18n( 'combowiki-currency-usd' ).text(), value: "USD" },
+        { label: this.$i18n( 'combowiki-currency-eur' ).text(), value: "EUR" },
+        { label: this.$i18n( 'combowiki-currency-gbp' ).text(), value: "GBP" }
+      ];
+    },
     feeAmount() {
       if ( !this.donation.payFee || !this.donation.amount ) {
         return 0;

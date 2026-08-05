@@ -1,7 +1,7 @@
 <template>
     <!--    Payment method form component-->
     <div>
-      <h2>Donate with your preferred payment method</h2>
+      <h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
 
       <cdx-button
           v-for="method in availablePaymentMethods"
@@ -102,18 +102,18 @@ module.exports = exports = defineComponent( {
         paymentMethodForm: {},
         paymentMethodConfig: {
             card: {
-                label: "Card",
+                label: mw.message( 'combowiki-method-card' ).text(),
                 component: 'card-form',
                 submit: submitDonation,
                 error: onError
             },
             paypal: {
-                label: "PayPal",
+                label: mw.message( 'combowiki-method-paypal' ).text(),
                 component: 'paypal-form',
                 submit: submitDonation
             },
             applepay: {
-                label: "Apple Pay",
+                label: mw.message( 'combowiki-method-applepay' ).text(),
                 component: 'applepay-form',
                 submit: submitDonation,
                 validate: validateApplePay

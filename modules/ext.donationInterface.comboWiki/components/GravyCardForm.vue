@@ -1,34 +1,34 @@
 <template>
   <div class="combo-wiki__card" :class="{ 'combo-wiki__card--loading': !fieldsReady}">
     <div>
-      <h2>Your details</h2>
+      <h2>{{ $i18n( 'combowiki-your-details-heading' ).text() }}</h2>
 
       <cdx-text-input
           v-model="donation.firstName"
-          placeholder="First name">
+          :placeholder="$i18n( 'donate_interface-donor-first_name' ).text()">
       </cdx-text-input>
 
       <cdx-text-input
           v-model="donation.lastName"
-          placeholder="Last name">
+          :placeholder="$i18n( 'donate_interface-donor-last_name' ).text()">
       </cdx-text-input>
 
       <cdx-text-input
           v-model="donation.email"
-          placeholder="Email address">
+          :placeholder="$i18n( 'donate_interface-donor-email' ).text()">
       </cdx-text-input>
     </div>
 
-    <label for="combo-cc-number">Card number</label>
+    <label for="combo-cc-number">{{ $i18n( 'donate_interface-donor-card-num' ).text() }}</label>
     <input id="combo-cc-number" />
 
     <div class="combo-wiki__card-row">
       <div>
-        <label for="combo-cc-expiry">Expiry</label>
+        <label for="combo-cc-expiry">{{ $i18n( 'donate_interface-donor-expiration' ).text() }}</label>
         <input id="combo-cc-expiry" />
       </div>
       <div>
-        <label for="combo-cc-cvv">Security code</label>
+        <label for="combo-cc-cvv">{{ $i18n( 'donate_interface-donor-security' ).text() }}</label>
         <input id="combo-cc-cvv" />
       </div>
     </div>
@@ -38,7 +38,7 @@
       weight="primary"
       :disabled="!canSubmit"
       @click="submit">
-      Donate
+      {{ $i18n( 'donate_interface-submit-button' ).text() }}
     </cdx-button>
 
 
