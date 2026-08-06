@@ -338,6 +338,10 @@ main {
 	height: auto;
 }
 
+.emailPreferencesRightColumn .emailPreferencesNote {
+	margin-top: 3em;
+}
+
 .emailpreferences-form-col-content-salutation-email-edit {
 	font-size: 1.125em;
 }
