@@ -5,7 +5,8 @@ function apiPost( params ) {
 const paymentMethodMap = {
 	card: 'cc',
 	paypal: 'paypal',
-	applepay: 'apple'
+	applepay: 'apple',
+	ach: 'dd'
 };
 
 function buildDonateParams( donation, paymentMethodData ) {

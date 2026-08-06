@@ -4,7 +4,7 @@
       <h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
 
       <cdx-button
-          v-for="method in availablePaymentMethods"
+          v-for="method in availablePaymentMethods()"
           :key="method"
           :class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
           :disabled="disabled"
@@ -32,6 +32,7 @@ const api = require( "../api.js" );
 const GravyCardForm = require( "./GravyCardForm.vue" );
 const PayPalComponent = require( "./PayPalComponent.vue" );
 const ApplePayComponent = require( "./ApplePayComponent.vue" );
+const ACHComponent = require( "./ACHComponent.vue" );
 
 module.exports = exports = defineComponent( {
   name: 'PaymentMethodSelector',
@@ -49,7 +50,8 @@ module.exports = exports = defineComponent( {
     "cdx-button": CdxButton,
     "card-form": GravyCardForm,
     "paypal-form": PayPalComponent,
-    "applepay-form": ApplePayComponent
+    "applepay-form": ApplePayComponent,
+    "ach-form": ACHComponent
   },
   emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
 
@@ -97,7 +99,13 @@ module.exports = exports = defineComponent( {
             this.paymentMethod = method;
             ctx.emit( 'onPaymentMethodChange', method );
         },
-        availablePaymentMethods: ['card', 'paypal', 'applepay'],
+        availablePaymentMethods() {
+            let $paymentMethods = ['card', 'paypal', 'applepay'];
+            if ( props.donation.frequency !== 'once' ) {
+                $paymentMethods.push('ach');
+            }
+            return $paymentMethods;
+        },
         paymentMethod: props.donation.paymentMethod || '',
         paymentMethodForm: {},
         paymentMethodConfig: {
@@ -118,6 +126,12 @@ module.exports = exports = defineComponent( {
                 submit: submitDonation,
                 validate: validateApplePay
             },
+            ach: {
+                label: mw.message( 'combowiki-method-ach' ).text(),
+                component: 'ach-form',
+                submit: submitDonation,
+                error: onError
+            }
       }
     }
   }
