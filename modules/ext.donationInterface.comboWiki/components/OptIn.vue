@@ -1,33 +1,40 @@
 <template>
-	<h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
+	<div class="fieldset gap--3">
+		<div class="fieldset__label">
+			<p class="text text--base">
+				<strong>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</strong>
+			</p>
+		</div>
+		<div>
+			<cdx-radio
+				:model-value="modelValue"
+				input-value="yes"
+				name="email-optin"
+				@update:model-value="handleSelection"
+			>
+				{{ $i18n( 'combowiki-optin-yes' ).text() }}
+			</cdx-radio>
 
-	<cdx-radio
-		:model-value="modelValue"
-		input-value="yes"
-		name="email-optin"
-		@update:model-value="handleSelection"
-	>
-		{{ $i18n( 'combowiki-optin-yes' ).text() }}
-	</cdx-radio>
+			<cdx-radio
+				:model-value="modelValue"
+				input-value="no"
+				name="email-optin"
+				@update:model-value="handleSelection"
+			>
+				{{ $i18n( 'combowiki-optin-no' ).text() }}
+			</cdx-radio>
 
-	<cdx-radio
-		:model-value="modelValue"
-		input-value="no"
-		name="email-optin"
-		@update:model-value="handleSelection"
-	>
-		{{ $i18n( 'combowiki-optin-no' ).text() }}
-	</cdx-radio>
-
-	<!-- Dynamic Feedback Box -->
-	<div
-		v-if="feedbackText"
-		class="optin-feedback-box"
-		:class="feedbackType"
-	>
-		{{ feedbackText }}
-	</div>
-	<div v-html="optInDescription">
+			<!-- Dynamic Feedback Box -->
+			<div
+				v-if="feedbackText"
+				class="optin-feedback-box"
+				:class="feedbackType"
+			>
+				{{ feedbackText }}
+			</div>
+			<div v-html="optInDescription">
+			</div>
+		</div>
 	</div>
 </template>
 

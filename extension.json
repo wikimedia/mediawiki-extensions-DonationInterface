@@ -542,6 +542,7 @@
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/DefaultForbiddenNotice.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/RussiaNotice.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/FinlandNotice.vue",
+				"modules/ext.donationInterface.comboWiki/views/Header.vue",
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/ErrorDisplay.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
