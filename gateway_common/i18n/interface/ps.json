@@ -6,6 +6,10 @@
 		]
 	},
 	"combowiki-title": "د ويکي‌رسنۍ ملاتړ وکړئ",
+	"combowiki-frequency-annual": "کلنی",
+	"combowiki-currency-usd": "USD (متحده ايالتونه)",
+	"combowiki-currency-eur": "EUR (اېرو)",
+	"combowiki-currency-gbp": "GBP (برېتانيا)",
 	"donate_interface": "د ويکي‌رسنۍ ملاتړ وکړئ",
 	"donate_interface-langonly-desc": "يوازې د بسپنې د مخبڼې غونډال پيغامونه رابرسېره کوي",
 	"donate_interface-amount": "د پيسو کچه",

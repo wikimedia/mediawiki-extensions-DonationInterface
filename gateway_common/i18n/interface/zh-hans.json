@@ -36,6 +36,7 @@
 			"Peterxy",
 			"Peterxy12",
 			"Qiyue2001",
+			"Quaff5353",
 			"Shirayuki",
 			"Shizhao",
 			"StephDC",
@@ -55,6 +56,9 @@
 			"阿pp"
 		]
 	},
+	"combowiki-currency-eur": "欧元",
+	"combowiki-optin-yes": "请给我发邮件，告诉我我可以如何支持维基百科。",
+	"combowiki-payment-method-heading": "使用您偏好的付款方式捐赠",
 	"donate_interface": "支持维基媒体",
 	"donate_interface-desc": "捐款页面用于整合其他接口插件",
 	"donate_interface-langonly-desc": "只显示捐款界面系统信息",
@@ -74,6 +78,7 @@
 	"donate_interface-smallamount-error": "请选择一个金额（最少$1）",
 	"donate_interface-bigamount-error": "我们不能通过网站接受大于$4美元（$1 $2）的捐款。请联系我们的在$3的礼物职员。",
 	"donate_interface-partner-with-trustly": "维基媒体与Trustly合作，为您提供安全可靠的银行登录体验。无需输入银行卡或路由号码/账户，只需使用您的银行凭证即可登录。",
+	"donate_interface-pay-with-trustly": "使用 Trustly 付款",
 	"donate_interface-processing-error": "处理您的请求时发生错误。\n请在<a href=\"mailto:$1\">$1</a>联络捐赠者服务。",
 	"donate_interface-ach-invalid-account-number-count": "必须是4到17位数字且不带空格",
 	"donate_interface-ach-invalid-routing-number-count": "必须是9位数字且不带空格",

@@ -196,6 +196,7 @@
 	"emailpreferences-save": "Gardar as preferencias",
 	"emailpreferences-send-email": "Gustaríame recibir novas sobre a Fundación Wikimedia, enviádeme todo!",
 	"emailpreferences-snooze-email": "Pausar os correos electrónicos durante {{PLURAL:$1|un día|$1 días}}.",
+	"emailpreferences-transactional-note": "<strong>Nota:</strong> Despois de pausares ou cancelares a subscrición, seguirás recibindo correos electrónicos transaccionais, como recibos de doazóns.",
 	"emailpreferences-success": "Enviouse a túa solicitude para gardar as túas preferencias de correo electrónico.",
 	"emailpreferences-verify-email-sent": "Enviámosche unha ligazón de confirmación ao teu novo enderezo de correo electrónico.",
 	"emailpreferences-title": "Preferencias de correo electrónico",

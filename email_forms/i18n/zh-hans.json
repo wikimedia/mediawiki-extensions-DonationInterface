@@ -8,7 +8,8 @@
 			"Ouclie",
 			"Pawsdt",
 			"Peterxy",
-			"Peterxy12"
+			"Peterxy12",
+			"Quaff5353"
 		]
 	},
 	"donorportal-title": "维基媒体基金会捐赠者门户",
@@ -181,6 +182,7 @@
 	"emailpreferences-save": "保存偏好设置",
 	"emailpreferences-send-email": "我希望收到 Wikimedia Foundation（维基媒体基金会）的消息，欢迎向我发送所有信息！",
 	"emailpreferences-snooze-email": "停发电子邮件{{PLURAL:$1|一天|$1天}}。",
+	"emailpreferences-transactional-note": "<strong>注意：</strong>暂停或取消订阅后，您仍将收到交易电子邮件，例如捐款收据。",
 	"emailpreferences-success": "您保存电子邮件偏好设置的请求已提交。",
 	"emailpreferences-verify-email-sent": "我们已向您的新邮箱地址发送了确认链接。",
 	"emailpreferences-title": "电子邮件偏好设置",

@@ -201,6 +201,7 @@
 	"emailpreferences-save": "Voorkeuren opslaan",
 	"emailpreferences-send-email": "Ik wil op de hoogte worden gehouden door de Wikimedia Foundation en ontvang graag alle informatie!",
 	"emailpreferences-snooze-email": "E-mails voor {{PLURAL:$1|één dag|$1 dagen}} pauzeren.",
+	"emailpreferences-transactional-note": "<strong>Let op:</strong> ook na het pauzeren of uitschrijven ontvangt u nog steeds transactionele e-mails, zoals donatiekwitanties.",
 	"emailpreferences-success": "Uw verzoek om uw e-mailvoorkeuren op te slaan, is verstuurd.",
 	"emailpreferences-verify-email-sent": "We hebben een bevestigingskoppeling naar uw nieuwe e-mailadres gestuurd.",
 	"emailpreferences-title": "E-mailvoorkeuren",
