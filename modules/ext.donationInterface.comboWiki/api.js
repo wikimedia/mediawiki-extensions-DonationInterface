@@ -10,21 +10,17 @@ const paymentMethodMap = {
 	ach: 'dd'
 };
 
-function buildDonateParams( donation, paymentMethodData ) {
-	const frequencyUnit = {
-		monthly: 'month',
-		annual: 'year'
-	};
+const frequencyUnitMap = {
+	monthly: 'month',
+	annual: 'year'
+};
 
-	const unit = frequencyUnit[ donation.frequency ];
-
-	let params = {
+function getBaseDonateParams( donation ) {
+	const params = {
 		action: 'di_donate_gravy',
 		gateway: 'gravy',
 		result_page: 'combowiki',
 		wmf_token: mw.config.get( 'wmf_token' ),
-		first_name: donation.firstName,
-		last_name: donation.lastName,
 		email: donation.email,
 		amount: donation.amount,
 		currency: donation.currency,
@@ -34,73 +30,61 @@ function buildDonateParams( donation, paymentMethodData ) {
 		uselang: mw.config.get( 'wgUserLanguage' )
 	};
 
-	if ( unit ) {
-		params.recurring = 1;
-		params.frequency_unit = unit;
+	if ( donation.employer ) {
+		params.employer = donation.employer.trim();
 	}
-	if ( paymentMethodData ) {
-		params = Object.assign( {}, params, paymentMethodData );
-	}
-	return params;
 
+	const frequencyUnit = frequencyUnitMap[ donation.frequency ];
+	if ( frequencyUnit ) {
+		params.recurring = 1;
+		params.frequency_unit = frequencyUnit;
+	}
+
+	return params;
+}
+
+function buildDonateParams( donation, paymentMethodData ) {
+	return Object.assign(
+		{},
+		getBaseDonateParams( donation ),
+		{
+			first_name: donation.firstName,
+			last_name: donation.lastName
+		},
+		paymentMethodData || {}
+	);
 }
 
 function addGooglePayParams( donation, paymentData ) {
-	// copied from buildDonateParams for now
-	const frequencyUnit = {
-		monthly: 'month',
-		annual: 'year'
-	};
+	const paymentMethodData = paymentData.paymentMethodData;
+	const paymentMethodInfo = paymentMethodData.info;
+	const paymentToken = paymentMethodData.tokenizationData.token;
+	const donorInfo = paymentMethodInfo.billingAddress;
 
-	const unit = frequencyUnit[ donation.frequency ];
-
-	// google specific
-	const paymentToken = paymentData.paymentMethodData.tokenizationData.token,
-		donorInfo = paymentData.paymentMethodData.info.billingAddress;
-
-	let params = {
-		action: 'di_donate_gravy',
-		gateway: 'gravy',
-		result_page: 'combowiki',
-		wmf_token: mw.config.get( 'wmf_token' ),
-		full_name: donorInfo.name,
-		email: donation.email,
-		amount: donation.amount,
-		currency: donation.currency,
-		country: donation.country,
-		payment_method: paymentMethodMap[ donation.paymentMethod ],
-		opt_in: donation.optIn === 'yes' ? 1 : 0,
-		uselang: mw.config.get( 'wgUserLanguage' )
-	};
-
-	// combine with above params, pasted to get it to work
-	params.postal_code = donorInfo.postalCode;
-	params.state_province = donorInfo.administrativeArea;
-	params.city = donorInfo.locality;
-	params.street_address = donorInfo.address1;
-	params.email = paymentData.email;
-	params.payment_token = paymentToken;
-	params.card_suffix = paymentData.paymentMethodData.info.cardDetails;
-	params.card_scheme = paymentData.paymentMethodData.info.cardNetwork;
-
-	if ( unit ) {
-		params.recurring = 1;
-		params.frequency_unit = unit;
-	}
-
-	if ( paymentData ) {
-		params = Object.assign( {}, params, paymentData );
-	}
-	return params;
+	return Object.assign(
+		{},
+		getBaseDonateParams( donation ),
+		{
+			full_name: donorInfo.name,
+			email: paymentData.email,
+			postal_code: donorInfo.postalCode,
+			state_province: donorInfo.administrativeArea,
+			city: donorInfo.locality,
+			street_address: donorInfo.address1,
+			payment_token: paymentToken,
+			card_suffix: paymentMethodInfo.cardDetails,
+			card_scheme: paymentMethodInfo.cardNetwork
+		},
+		paymentData || {}
+	);
 }
 
 function submitDonation( donation, paymentMethodData ) {
 	if ( donation.paymentMethod === 'googlepay' ) {
-		// how do we want to handle payment method specific things
 		return apiPost( addGooglePayParams( donation, paymentMethodData ) );
-	} else {
-		return apiPost( buildDonateParams( donation, paymentMethodData ) );
 	}
+
+	return apiPost( buildDonateParams( donation, paymentMethodData ) );
 }
 
 function createCheckoutSession( donation ) {
@@ -136,6 +120,7 @@ function validateApplePayPaymentSession( payload ) {
 	};
 	return apiPost( params );
 }
+
 module.exports = {
 	validateApplePayPaymentSession,
 	submitDonation,
