@@ -30,7 +30,6 @@
 	"apihelp-donate-param-cvv": "Código de segurança CVV.",
 	"apihelp-donate-param-payment_method": "Método de pagamento a utilizar.",
 	"apihelp-donate-param-payment_submethod": "Sub-método de pagamento a utilizar.",
-	"apihelp-donate-param-processor_form": "Que opções do formulário do processador utilizar.",
 	"apihelp-donate-param-language": "Código de língua.",
 	"apihelp-donate-param-order_id": "Identificador da ordem (se já iniciou um donativo).",
 	"apihelp-donate-param-wmf_token": "Chave de edição.",

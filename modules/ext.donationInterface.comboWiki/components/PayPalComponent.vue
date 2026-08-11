@@ -5,7 +5,7 @@
         weight="primary"
         :disabled="!giftComplete"
         @click="$emit('submit')">
-        Donate with PayPal
+        {{ $i18n( 'combowiki-donate-with-paypal' ).text() }}
     </cdx-button>
 </template>
 <script>

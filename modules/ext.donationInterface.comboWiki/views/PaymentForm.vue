@@ -1,6 +1,6 @@
 <template>
   <main class="combo-wiki__home">
-    <h2>How often would you like to give</h2>
+    <h2>{{ frequencyHeaderText }}</h2>
 
     <frequency-selector v-model="donation.frequency"></frequency-selector>
 
@@ -9,7 +9,7 @@
       <cdx-select
           v-model:selected="donation.currency"
           :menu-items="currencyOptions"
-          default-label="Choose a currency">
+          :default-label="currencyPlaceholder">
       </cdx-select>
 
       <!--      Amount-->
@@ -25,31 +25,31 @@
       <cdx-text-input
           v-model="donation.amount"
           input-type="number"
-          placeholder="Other amount">
+          :placeholder="otherAmountPlaceholder">
       </cdx-text-input>
 
       <!--      Pay the fee-->
       <cdx-checkbox v-model="donation.payFee">
-        I'll generously cover the transaction fees
+        {{ coverFee }}
       </cdx-checkbox>
     </div>
 
     <!--    Email opt-in-->
     <div>
-      <h2> Can we stay in touch</h2>
+      <h2>{{ stayInTouch }}</h2>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="yes"
           name="email-optin">
-        Yes. Send me emails with the ways I can support Wikipedia.
+        {{ optInYes }}
       </cdx-radio>
 
       <cdx-radio
           v-model="donation.optIn"
           input-value="no"
           name="email-optin">
-        No. Don't send me an occasional email with opportunities to support Wikipedia.
+        {{ optInNo }}
       </cdx-radio>
     </div>
     <payment-method-form
@@ -67,6 +67,8 @@
       {{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
       {{ donation.paymentMethod }} / Gateway: {{ selectedGateway }}</p>
     <p v-if="donateError" class="combo-wiki__error">{{ donateError }}</p>
+    <we-do-not-sell-text></we-do-not-sell-text>
+    <more-info-links text-class="combo-wiki__link-container"></more-info-links>
   </main>
 </template>
 
@@ -81,8 +83,8 @@ const {
 } = require( "@wikimedia/codex" );
 const FrequencySelector = require( "../components/FrequencySelector.vue" );
 const PaymentMethodForm = require( "../components/PaymentMethodForm.vue" );
-
-const api = require( "../api.js" );
+const WeDoNotSellText = require( "../components/WeDoNotSellText.vue" );
+const MoreInfoLinks = require( "../components/MoreInfoLinks.vue" );
 
 module.exports = exports = defineComponent( {
   name: "Home",
@@ -94,17 +96,14 @@ module.exports = exports = defineComponent( {
     "cdx-checkbox": CdxCheckbox,
     "cdx-radio": CdxRadio,
     "frequency-selector": FrequencySelector,
-    "payment-method-form": PaymentMethodForm
+    "payment-method-form": PaymentMethodForm,
+    "we-do-not-sell-text": WeDoNotSellText,
+    "more-info-links": MoreInfoLinks,
   },
 
   data() {
     return {
       presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],
-      currencyOptions: [
-        { label: "USD (United States)", value: "USD" },
-        { label: "EUR (Euro)", value: "EUR" },
-        { label: "GBP (United Kingdom)", value: "GBP" }
-      ],
       donation: {
         firstName: null,
         lastName: null,
@@ -119,7 +118,7 @@ module.exports = exports = defineComponent( {
       },
       selectedGateway: ( mw.config.get( "comboWiki" ) ).gateway || null,
       donateError: null,
-      paymentMethodForm: {}
+      paymentMethodForm: {},
     };
   },
 
@@ -131,11 +130,11 @@ module.exports = exports = defineComponent( {
     handleDonateResult( result ) {
       const response = result.result;
       if ( response.isFailed ) {
-        this.donateError = "Payment failed. Please try again";
+        this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
         return;
       }
       if ( response.errors ) {
-        this.donateError = "Payment could not be completed.";
+        this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
         return;
       }
       console.log( "Donation submitted successfully:", response );
@@ -146,12 +145,19 @@ module.exports = exports = defineComponent( {
       }
     },
     handleDonateError( code, failure ) {
-      this.donateError = "Payment failed, Please try again.";
+      this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
       mw.log.error( "di_donate_gravy failed", code, failure );
     }
   },
 
   computed: {
+    currencyOptions() {
+      return [
+        { label: this.$i18n( 'combowiki-currency-usd' ).text(), value: "USD" },
+        { label: this.$i18n( 'combowiki-currency-eur' ).text(), value: "EUR" },
+        { label: this.$i18n( 'combowiki-currency-gbp' ).text(), value: "GBP" }
+      ];
+    },
     feeAmount() {
       if ( !this.donation.payFee || !this.donation.amount ) {
         return 0;
@@ -168,7 +174,28 @@ module.exports = exports = defineComponent( {
           ( method ) => method.countries.includes( this.donation.country )
       );
     },
-  }
+    frequencyHeaderText() {
+      return this.$i18n( 'combowiki-frequency-heading' ).text();
+    },
+    currencyPlaceholder() {
+      return this.$i18n( 'combowiki-currency-placeholder' ).text();
+    },
+    otherAmountPlaceholder() {
+      return this.$i18n( 'donate_interface-other-amount' ).text();
+    },
+    coverFee() {
+      return this.$i18n( 'combowiki-cover-fees' ).text();
+    },
+    stayInTouch() {
+      return this.$i18n( 'combowiki-stay-in-touch-heading' ).text();
+    },
+    optInYes() {
+      return this.$i18n( 'combowiki-optin-yes' ).text();
+    },
+    optInNo() {
+      return this.$i18n( 'combowiki-optin-no' ).text();
+    }
+  },
 } );
 
 </script>

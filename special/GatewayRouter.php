@@ -76,49 +76,40 @@ class GatewayRouter {
 					continue;
 				}
 
-				// Check whether the payment method is restricted by country, and if so
+				// If submethod is also specified on the query string, merge that
+				// submethod's country / recurring configuration in to the selected
+				// method's configuration, with submethod taking precedence
+				$fullMethodSpecification = self::getFullMethodSpecification(
+					$supportedPaymentMethods[$paymentMethod],
+					$gatewayConfig['payment_submethods'] ?? [],
+					$paymentSubmethod
+				);
+
+				// Check whether the payment (sub)method is restricted by country, and if so
 				// skip when the donor's country is not on the list
 				if (
-					isset( $supportedPaymentMethods[$paymentMethod]['countries'] ) &&
-					!in_array( $country, $supportedPaymentMethods[$paymentMethod]['countries'] )
+					isset( $fullMethodSpecification['countries'] ) &&
+					!in_array( $country, $fullMethodSpecification['countries'] )
 				) {
 					// Specified country not supported by payment method for this gateway
 					continue;
 				}
 
-				// Recurring availability for the payment method is indicated by a key
+				// Recurring availability for the payment (sub)method is indicated by a key
 				// on the associative array that is the value for the payment method
 				if (
-					$recurring && empty( $supportedPaymentMethods[$paymentMethod]['recurring'] )
+					$recurring && empty( $fullMethodSpecification['recurring'] )
 				) {
-					// Specified payment method does not support recurring for this gateway
+					// Specified payment (sub)method does not support recurring for this gateway
 					continue;
 				}
 			}
 
-			// When a submethod is specified, check to see whether it is supported, then
-			// whether it is restricted by country. If there are country restrictions, skip
-			// the gateway when the donor's country is not on the list.
+			// When a submethod is specified, check to see whether it is supported.
 			if ( $paymentSubmethod && !empty( $gatewayConfig['payment_submethods'] ) ) {
 				$supportedSubmethods = $gatewayConfig['payment_submethods'];
 				if ( !isset( $supportedSubmethods[$paymentSubmethod] ) ) {
 					// Specified submethod not supported by gateway
-					continue;
-				}
-				$submethodConfig = $supportedSubmethods[$paymentSubmethod];
-				if (
-					isset( $submethodConfig['countries'] ) && !in_array( $country, $submethodConfig['countries'] )
-				) {
-					// Specified country not in submethod's country list for this gateway
-					continue;
-				}
-
-				// Recurring availability is set at the method level but can be overridden
-				// at the submethod level.
-				if (
-					$recurring && isset( $submethodConfig['recurring'] ) && !$submethodConfig['recurring']
-				) {
-					// Specified payment method does not support recurring for this gateway
 					continue;
 				}
 			}
@@ -250,5 +241,26 @@ class GatewayRouter {
 
 		// No gateways were supported in the first place - return null and trigger an error page
 		return null;
+	}
+
+	/**
+	 * Get the merged method / submethod configuration if submethod is specified,
+	 * or just the method configuration otherwise.
+	 *
+	 * @param array $paymentMethodSpecification
+	 * @param array $submethodConfig
+	 * @param string|null $paymentSubmethod
+	 * @return array
+	 */
+	protected static function getFullMethodSpecification(
+		array $paymentMethodSpecification, array $submethodConfig, ?string $paymentSubmethod
+	) {
+		if ( !$submethodConfig || !$paymentSubmethod ) {
+			return $paymentMethodSpecification;
+		}
+		if ( !array_key_exists( $paymentSubmethod, $submethodConfig ) ) {
+			return $paymentMethodSpecification;
+		}
+		return array_merge( $paymentMethodSpecification, $submethodConfig[$paymentSubmethod] );
 	}
 }

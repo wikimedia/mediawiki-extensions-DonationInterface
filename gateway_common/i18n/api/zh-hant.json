@@ -32,7 +32,6 @@
 	"apihelp-donate-param-cvv": "CVV 安全碼。",
 	"apihelp-donate-param-payment_method": "使用的付款方式。",
 	"apihelp-donate-param-payment_submethod": "使用的付款替代方式。",
-	"apihelp-donate-param-processor_form": "要使用的處理程序表單選項。",
 	"apihelp-donate-param-language": "語言代碼。",
 	"apihelp-donate-param-order_id": "訂單編號（若捐款已開始）。",
 	"apihelp-donate-param-wmf_token": "編輯令牌。",

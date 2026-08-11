@@ -28,7 +28,6 @@
 	"apihelp-donate-param-cvv": "Varnostna koda CVV.",
 	"apihelp-donate-param-payment_method": "Način plačila za uporabo.",
 	"apihelp-donate-param-payment_submethod": "Podnačin plačila za uporabo.",
-	"apihelp-donate-param-processor_form": "Katere od možnosti obdelovalnika obrazca želite uporabiti.",
 	"apihelp-donate-param-language": "Oznaka jezika.",
 	"apihelp-donate-param-order_id": "ID naročila (če se je donacija že začela).",
 	"apihelp-donate-param-wmf_token": "Žeton urejanja.",

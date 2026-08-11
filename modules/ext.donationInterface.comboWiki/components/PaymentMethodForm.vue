@@ -1,10 +1,10 @@
 <template>
     <!--    Payment method form component-->
     <div>
-      <h2>Donate with your preferred payment method</h2>
+      <h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
 
       <cdx-button
-          v-for="method in availablePaymentMethods"
+          v-for="method in availablePaymentMethods()"
           :key="method"
           :class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
           :disabled="disabled"
@@ -18,6 +18,7 @@
           :donation="donation"
           @submit="paymentMethodConfig[paymentMethod].submit"
           @error="paymentMethodConfig[paymentMethod].error"
+          @validate="paymentMethodConfig[paymentMethod].validate"
       ></component>
     </div>
 </template>
@@ -29,8 +30,10 @@ const {
 } = require( "@wikimedia/codex" );
 const api = require( "../api.js" );
 const GravyCardForm = require( "./GravyCardForm.vue" );
-const PayPalComponent = require( "./PayPalComponent.vue" )
-
+const PayPalComponent = require( "./PayPalComponent.vue" );
+const ApplePayComponent = require( "./ApplePayComponent.vue" );
+const ACHComponent = require( "./ACHComponent.vue" );
+const GooglePayComponent = require( "./GooglePayComponent.vue" );
 module.exports = exports = defineComponent( {
   name: 'PaymentMethodSelector',
   props: {
@@ -46,18 +49,55 @@ module.exports = exports = defineComponent( {
   components: {
     "cdx-button": CdxButton,
     "card-form": GravyCardForm,
-    "paypal-form": PayPalComponent
+    "paypal-form": PayPalComponent,
+    "applepay-form": ApplePayComponent,
+    "googlepay-form": GooglePayComponent,
+    "ach-form": ACHComponent
   },
   emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
 
   setup ( props, ctx ) {
-    const submitDonation = ( payload = {} ) => {
+    const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
       api.submitDonation( props.donation, payload )
-          .then( ( result ) => ctx.emit( 'donationSuccess', result ) )
-          .catch( ( code, failure ) =>  ctx.emit( 'donationError', code, failure ) );
+          .then( ( result ) => {
+			  // how do we want to display validation errors
+			  if ( result.result.isFailed || result.result.errors ) {
+				  ctx.emit( 'donationError', result.result.errors )
+			  }
+            if ( successCallback ) {
+              successCallback( result )
+            }
+            ctx.emit( 'donationSuccess', result )
+          } )
+          .catch( ( code, failure ) =>  {
+            ctx.emit( 'donationError', code, failure )
+            if ( errorCallback ) {
+              errorCallback( failure )
+			  console.log(' in the callback failure');
+              // what should happen here, need to handle it properly
+            }
+          } );
     }
 
-    const onCardError = ( reason ) => {
+    const validateApplePay = ( event, successCallback, failureCallback ) => {
+      const payload = Object.assign( {}, props.donation );
+      payload.validationURL = event.validationURL;
+      api.validateApplePayPaymentSession( payload )
+        .then( ( data ) => {
+          if ( data.result && data.result.errors ) {
+            failureCallback( data.result.errors );
+            mw.log( 'Apple Pay validation failure: ' + JSON.stringify(data.result.errors) );
+          } else {
+            successCallback( data );
+          }
+        } ).catch( ( e ) => {
+          failureCallback( e )
+          console.log("Error", e)
+          mw.log( 'Apple Pay validation failure: ' + e );
+        } )
+    }
+
+    const onError = ( reason ) => {
       ctx.emit( 'donationError', reason );
     }
     return {
@@ -65,21 +105,45 @@ module.exports = exports = defineComponent( {
             this.paymentMethod = method;
             ctx.emit( 'onPaymentMethodChange', method );
         },
-        availablePaymentMethods: ['card', 'paypal'],
+        availablePaymentMethods() {
+            let $paymentMethods = ['card', 'paypal', 'applepay', 'googlepay'];
+            if ( props.donation.frequency !== 'once' ) {
+                $paymentMethods.push('ach');
+            }
+            return $paymentMethods;
+        },
         paymentMethod: props.donation.paymentMethod || '',
         paymentMethodForm: {},
         paymentMethodConfig: {
             card: {
-                label: "Card",
+                label: mw.message( 'combowiki-method-card' ).text(),
                 component: 'card-form',
                 submit: submitDonation,
-                error: onCardError
+                error: onError
             },
             paypal: {
-                label: "PayPal",
+                label: mw.message( 'combowiki-method-paypal' ).text(),
                 component: 'paypal-form',
                 submit: submitDonation
             },
+            applepay: {
+                label: mw.message( 'combowiki-method-applepay' ).text(),
+                component: 'applepay-form',
+                submit: submitDonation,
+                validate: validateApplePay
+            },
+            ach: {
+                label: mw.message( 'combowiki-method-ach' ).text(),
+                component: 'ach-form',
+                submit: submitDonation,
+                error: onError
+            },
+			googlepay: {
+				label: "Google Pay",
+				component: 'googlepay-form',
+				submit: submitDonation,
+				error: onError
+			},
       }
     }
   }

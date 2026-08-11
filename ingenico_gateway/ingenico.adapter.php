@@ -32,7 +32,6 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 			'return_url' => $returnTo,
 			'attempt_id' => '1',
 			'effort_id' => '1',
-			'processor_form' => 'default',
 		];
 
 		$this->addRequestData( $defaults );
@@ -46,7 +45,6 @@ class IngenicoAdapter extends GatewayAdapter implements RecurringConversion {
 				'currency',
 				'recurring',
 				'return_url',
-				'processor_form',
 				'city',
 				'street_address',
 				'state_province',

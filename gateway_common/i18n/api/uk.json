@@ -31,7 +31,6 @@
 	"apihelp-donate-param-cvv": "Код безпеки CVV.",
 	"apihelp-donate-param-payment_method": "Тип оплати, що використовується.",
 	"apihelp-donate-param-payment_submethod": "Підтип оплати, що використовується.",
-	"apihelp-donate-param-processor_form": "Які опції форми процесора слід використовувати.",
 	"apihelp-donate-param-language": "Код мови.",
 	"apihelp-donate-param-order_id": "ID замовлення (якщо пожертву вже почато).",
 	"apihelp-donate-param-wmf_token": "Редагувати токен.",

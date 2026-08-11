@@ -26,13 +26,13 @@ module.exports = exports = defineComponent( {
     }
   },
   emits: [ 'update:modelValue' ],
-  data() {
-    return {
-      options: [
-        { value: 'once', label: 'One time' },
-        { value: 'monthly', label: 'Monthly' },
-        { value: 'annual', label: 'Annual' },
-      ]
+  computed: {
+    options() {
+      return [
+        { value: 'once', label: this.$i18n( 'donate_interface-onetime-short' ).text() },
+        { value: 'monthly', label: this.$i18n( 'donate_interface-monthly-short' ).text() },
+        { value: 'annual', label: this.$i18n( 'combowiki-frequency-annual' ).text() },
+      ];
     }
   }
 } );

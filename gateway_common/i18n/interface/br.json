@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Adriendelucca",
+			"Ar choler",
 			"Fohanno",
 			"Fulup",
 			"Gwendal",
@@ -103,7 +104,7 @@
 	"donate_interface-make-your-donation": "Grit ur roadenn bremañ",
 	"donate_interface-other": "All",
 	"donate_interface-noscript-msg": "War a seblant, n'eo ket gweredekaet ar JavaScript gant ho merdeer, pe ne c'hell ket ober gantañ.\nA-benn kaout un arnod asur, suraet ha plijus, hor furmskrid a rank ober gant JavaScript.",
-	"donate_interface-noscript-redirect-msg": "Ma n'hallit ket gweredekaat JavaScript pe mar ne fell ket deoc'h en ober, e c'hallit kemer perzh en ur weladenniñ :",
+	"donate_interface-noscript-redirect-msg": "Mar n'hallit ket gweredekaat JavaScript, pe mar ne fell ket deoc'h ober, e c'hallit kavout doareoù all da gemer perzh dre weladenniñ :",
 	"donate_interface-select-country": "Diuzañ ur bro",
 	"donate_interface-credit-card-number": "Niverenn kartenn-gred",
 	"donate_interface-credit-card-expiration": "Termen kartenn-gred",
@@ -125,7 +126,7 @@
 	"donate_interface-tax-info": "Titouroù a-zivout an distaol tailhoù",
 	"donate_interface-currency-change": "Kemmañ ?",
 	"donate_interface-monthlybox-amount": "Sammad miziek an donezon",
-	"donate_interface-monthly-cancel": "Dleekaet e vo ar paeamantoù miziek gant Diazezadur Wikimedia betek ma vo goulennet ganeoc'h chom a-sav ganto.",
+	"donate_interface-monthly-cancel": "Bep miz da zeiziad ho road kentañ e vo lamet ar roadoù miziek, betek ma vint nullet. Da zeiz diwezhañ ar mizioù berrañ e vo lamet ar roadoù bet graet d'an 29, 30 pe 31. Da zeiziad deiz-ha-bloaz ar road kentañ e vo lamet ar roadoù bloaziek a vloaz da vloaz. Evit goulennoù, kit e darempred gant $1.",
 	"donate_interface-monthly-short": "Bep miz",
 	"donate_interface-onetime-short": "Ur wezh",
 	"donate_interface-error-http-403": "N'oc'h ket aotreet da vont d'ar bajenn-mañ."

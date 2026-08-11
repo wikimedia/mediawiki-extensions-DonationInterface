@@ -45,7 +45,7 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 
 	protected VelocityFilterRunner $velocityFilterRunner;
 
-	protected FraudService $fraudService;
+	public FraudService $fraudService;
 
 	protected function __construct( GatewayType $gateway_adapter ) {
 		parent::__construct( $gateway_adapter ); // gateway_adapter is set in there.
@@ -262,5 +262,11 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		foreach ( $scores as $filterName => $score ) {
 			$this->addRiskScore( $score, $filterName );
 		}
+	}
+
+	public static function markPaymentAttemptOutcome( GatewayType $gateway_adapter, int $flags ): void {
+		self::singleton( $gateway_adapter )->fraudService->markOutcome(
+			$gateway_adapter->getData_Unstaged_Escaped( 'order_id' ), $flags
+		);
 	}
 }

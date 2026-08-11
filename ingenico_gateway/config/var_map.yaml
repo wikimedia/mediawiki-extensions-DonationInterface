@@ -20,7 +20,6 @@ return_url: return_url
 tokens: recurring_payment_token
 use_3d_secure: use_3d_secure
 user_ip: user_ip
-processor_form: processor_form
 payment_submethod: payment_submethod
 paymentProductId: payment_submethod
 cardholderName: full_name
