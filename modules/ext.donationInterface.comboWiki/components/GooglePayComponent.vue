@@ -1,13 +1,14 @@
 <template>
 	<div id="googlepay-container"></div>
 </template>
+
 <script>
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 let googlePaymentClient = null;
-module.exports = exports = defineComponent({
+module.exports = exports = defineComponent( {
 	name: 'GravyGoogleForm',
 	components: {
 		'cdx-button': CdxButton,
@@ -20,12 +21,6 @@ module.exports = exports = defineComponent({
 		}
 	},
 	emits: [ 'submit', 'error' ],
-	created() {
-		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
-	},
-	mounted() {
-		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
-	},
 	computed: {
 	},
 	methods: {
@@ -36,7 +31,7 @@ module.exports = exports = defineComponent({
 				node.onload = resolve;
 				node.onerror = reject;
 				document.body.append( node );
-			});
+			} );
 		},
 		getClient() {
 			if ( !googlePaymentClient ) {
@@ -136,9 +131,15 @@ module.exports = exports = defineComponent({
 				} )
 				.catch( ( error )  => {
 					// would be google errors here
-					console.log(error);
+					console.log( error );
 				} );
 		}
+	},
+	created() {
+		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
+	},
+	mounted() {
+		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
 	}
-});
+} );
 </script>

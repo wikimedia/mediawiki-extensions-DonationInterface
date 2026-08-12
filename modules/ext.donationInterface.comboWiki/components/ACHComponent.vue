@@ -2,13 +2,15 @@
 	<div class="combo-wiki__ach">
 		<div class="combo-wiki__ach-fields">
 			<cdx-field :is-required="true">
-				<cdx-label input-id="combo-employer-name">{{ emailLabel }}</cdx-label>
+				<cdx-label input-id="combo-employer-name">
+					{{ emailLabel }}
+				</cdx-label>
 				<cdx-text-input
 					id="combo-ach-email"
 					v-model="donation.email"
 					type="email"
 					autocomplete="email"
-				/>
+				></cdx-text-input>
 			</cdx-field>
 		</div>
 
@@ -102,7 +104,7 @@ module.exports = exports = defineComponent( {
 				'submit',
 				{
 					payment_submethod: 'ach',
-					email: this.donation.email,
+					email: this.donation.email
 				},
 				null,
 				this.handleSubmitFailure

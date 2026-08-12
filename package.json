@@ -4,7 +4,8 @@
 	"scripts": {
 		"doc": "jsduck",
 		"test": "grunt test && npm run test:unit",
-		"test:unit": "jest"
+		"test:unit": "jest",
+		"eslint:combo-wiki": "eslint --fix \"modules/ext.donationInterface.comboWiki/**/*.{js,vue}\" "
 	},
 	"repository": {
 		"type": "git",

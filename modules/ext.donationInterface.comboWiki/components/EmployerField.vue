@@ -1,16 +1,16 @@
 <template>
-  <div class="combo-wiki__employer">
-	<cdx-field :is-required="false">
-	  <cdx-label input-id="combo-employer-name">
-		{{ employerLabel }}
-	  </cdx-label>
-	  <cdx-text-input
-		id="combo-employer-name"
-		:model-value="modelValue"
-		@update:model-value="updateEmployer">
-	  </cdx-text-input>
-	</cdx-field>
-  </div>
+	<div class="combo-wiki__employer">
+		<cdx-field :is-required="false">
+			<cdx-label input-id="combo-employer-name">
+				{{ employerLabel }}
+			</cdx-label>
+			<cdx-text-input
+				id="combo-employer-name"
+				:model-value="modelValue"
+				@update:model-value="updateEmployer">
+			</cdx-text-input>
+		</cdx-field>
+	</div>
 </template>
 
 <script>
