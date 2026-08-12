@@ -49,6 +49,20 @@
 				</div>
 
 				<div class="emailPreferencesRightColumn">
+					<p class="emailPreferencesStatus">
+						{{# dontSendEmail }}
+							{{ l10n "emailpreferences-status-unsubscribed" }}
+						{{/ dontSendEmail }}
+						{{# sendEmail }}
+							{{# isSnoozed }}
+								{{ l10n "emailpreferences-status-paused" snoozeDateFormatted }}
+							{{/ isSnoozed }}
+							{{^ isSnoozed }}
+								{{ l10n "emailpreferences-status-subscribed" }}
+							{{/ isSnoozed }}
+						{{/ sendEmail }}
+					</p>
+
 					<div class="oo-ui-fieldLayout">
 						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 							<input type="radio" id="sendEmail" name="send_email" value="true" autocomplete="off" class="oo-ui-inputWidget-input"
@@ -72,7 +86,7 @@
 					<div class="oo-ui-fieldLayout">
 							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
 						<input type="radio" id="dontSendEmail" name="send_email" value="false" autocomplete="off" class="oo-ui-inputWidget-input"
-							{{^ isSnoozed }}{{# dontSendEmail }}checked {{/ dontSendEmail }}{{/ isSnoozed }}>
+							{{# dontSendEmail }}checked {{/ dontSendEmail }}>
 								<span></span>
 						</span>
 						<label for="dontSendEmail">{{ l10n "emailpreferences-dont-send-email" }}</label>
