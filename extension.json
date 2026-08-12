@@ -1979,6 +1979,9 @@
 		},
 		"DonationInterfaceFraudServiceURL": {
 			"value": false
+		},
+		"DonationInterfaceFraudServiceWeight": {
+			"value": 0
 		}
 	},
 	"AutoloadNamespaces": {

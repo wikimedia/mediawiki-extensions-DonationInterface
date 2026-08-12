@@ -242,6 +242,11 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 				Gateway_Extras_CustomFilters_IP_Velocity::onInitialFilter( $this->gateway_adapter, $this );
 				$scores = $this->fraudService->getScores( $this->gateway_adapter->getFraudFilterData() );
 				$this->fraud_logger->info( "Scores from fraud service: " . json_encode( $scores ) );
+				$scaledRiskScore = $scores['scaled_risk_score'] ?? 0;
+				if ( $scaledRiskScore > 0 ) {
+					// TODO: add model version to filter name
+					$this->addRiskScore( $scaledRiskScore, 'ml_service' );
+				}
 				break;
 			case self::PHASE_VALIDATE:
 				Gateway_Extras_CustomFilters_Functions::onFilter( $this->gateway_adapter, $this );
