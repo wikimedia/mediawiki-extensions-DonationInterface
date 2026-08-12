@@ -1,6 +1,6 @@
 <template>
 	<main class="combo-wiki__home">
-		<h2>{{ frequencyHeaderText }}</h2>
+		<h2>{{ $i18n( 'combowiki-frequency-heading' ).text() }}</h2>
 
 		<frequency-selector v-model="donation.frequency"></frequency-selector>
 
@@ -9,7 +9,7 @@
 			<cdx-select
 				v-model:selected="donation.currency"
 				:menu-items="currencyOptions"
-				:default-label="currencyPlaceholder">
+				:default-label="$i18n( 'combowiki-currency-placeholder' ).text()">
 			</cdx-select>
 
 			<!--      Amount-->
@@ -25,31 +25,31 @@
 			<cdx-text-input
 				v-model="donation.amount"
 				input-type="number"
-				:placeholder="otherAmountPlaceholder">
+				:placeholder="$i18n( 'donate_interface-other-amount' ).text()">
 			</cdx-text-input>
 
 			<!--      Pay the fee-->
 			<cdx-checkbox v-model="donation.payFee">
-				{{ coverFee }}
+				{{ $i18n( 'combowiki-cover-fees' ).text() }}
 			</cdx-checkbox>
 		</div>
 
 		<!--    Email opt-in-->
 		<div>
-			<h2>{{ stayInTouch }}</h2>
+			<h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
 
 			<cdx-radio
 				v-model="donation.optIn"
 				input-value="yes"
 				name="email-optin">
-				{{ optInYes }}
+				{{ $i18n( 'combowiki-optin-yes' ).text() }}
 			</cdx-radio>
 
 			<cdx-radio
 				v-model="donation.optIn"
 				input-value="no"
 				name="email-optin">
-				{{ optInNo }}
+				{{ $i18n( 'combowiki-optin-no' ).text() }}
 			</cdx-radio>
 		</div>
 
@@ -150,27 +150,6 @@ module.exports = exports = defineComponent( {
     },
     giftComplete() {
       return this.donation.frequency !== null && this.donation.amount !== null;
-    },
-    frequencyHeaderText() {
-      return this.$i18n( 'combowiki-frequency-heading' ).text();
-    },
-    currencyPlaceholder() {
-      return this.$i18n( 'combowiki-currency-placeholder' ).text();
-    },
-    otherAmountPlaceholder() {
-      return this.$i18n( 'donate_interface-other-amount' ).text();
-    },
-    coverFee() {
-      return this.$i18n( 'combowiki-cover-fees' ).text();
-    },
-    stayInTouch() {
-      return this.$i18n( 'combowiki-stay-in-touch-heading' ).text();
-    },
-    optInYes() {
-      return this.$i18n( 'combowiki-optin-yes' ).text();
-    },
-    optInNo() {
-      return this.$i18n( 'combowiki-optin-no' ).text();
     }
   },
 

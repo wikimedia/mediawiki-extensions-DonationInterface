@@ -3,7 +3,7 @@
 		<div class="combo-wiki__ach-fields">
 			<cdx-field :is-required="true">
 				<cdx-label input-id="combo-employer-name">
-					{{ emailLabel }}
+					{{ $i18n( 'donate_interface-donor-email' ).text() }}
 				</cdx-label>
 				<cdx-text-input
 					id="combo-ach-email"
@@ -14,14 +14,14 @@
 			</cdx-field>
 		</div>
 
-		<h4>{{ signInBankLabel }}</h4>
+		<h4>{{ $i18n( 'donate_interface-sign-in-online-banking' ).text() }}</h4>
 
-		<p>{{ trustlyInfo }}</p>
+		<p>{{ $i18n( 'donate_interface-partner-with-trustly' ).text() }}</p>
 
 		<p>
 			<img
 				class="combo-wiki__trustly-img"
-				:alt="trustlyAlt"
+				:alt="$i18n( 'donate_interface-pay-with-trustly-alt' ).text()"
 				src="/extensions/DonationInterface/gateway_forms/includes/trustly.png"
 			>
 		</p>
@@ -32,7 +32,7 @@
 			:disabled="isSubmitting || !canSubmit"
 			@click="submit"
 		>
-			{{ isSubmitting ? '...' : signInBank }}
+			{{ signInBank }}
 		</cdx-button>
 	</div>
 </template>
@@ -71,20 +71,11 @@ module.exports = exports = defineComponent( {
 		canSubmit() {
 			return this.isValidEmail( this.donation.email );
 		},
-		emailLabel() {
-			return this.$i18n( 'donate_interface-donor-email' ).text();
-		},
-		signInBankLabel() {
-			return this.$i18n( 'donate_interface-sign-in-online-banking' ).text();
-		},
 		signInBank() {
+			if ( this.isSubmitting ) {
+				return '...';
+			}
 			return this.$i18n( 'donate_interface-sign-in-to-my-bank' ).text();
-		},
-		trustlyInfo() {
-			return this.$i18n( 'donate_interface-partner-with-trustly' ).text();
-		},
-		trustlyAlt() {
-			return this.$i18n( 'donate_interface-pay-with-trustly-alt' ).text();
 		}
 	},
 
