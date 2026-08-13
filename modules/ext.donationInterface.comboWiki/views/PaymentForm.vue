@@ -83,6 +83,7 @@
 		</p>
 		<we-do-not-sell-text></we-do-not-sell-text>
 		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
+		<loading-spinner></loading-spinner>
 	</main>
 </template>
 
@@ -100,6 +101,7 @@ const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
+const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
@@ -114,7 +116,8 @@ module.exports = exports = defineComponent( {
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
 		'more-info-links': MoreInfoLinks,
-		'employer-field': EmployerField
+		'employer-field': EmployerField,
+		'loading-spinner': LoadingSpinner
 	},
 	inject: [ 'params' ],
 	data() {
@@ -137,7 +140,6 @@ module.exports = exports = defineComponent( {
 			donateError: null
 		};
 	},
-
 	computed: {
 		currencyOptions() {
 			return [

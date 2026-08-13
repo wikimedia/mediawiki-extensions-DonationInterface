@@ -33,6 +33,7 @@ const PayPalComponent = require( './PayPalComponent.vue' );
 const ApplePayComponent = require( './ApplePayComponent.vue' );
 const ACHComponent = require( './ACHComponent.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
+const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentMethodSelector',
@@ -57,6 +58,8 @@ module.exports = exports = defineComponent( {
 	emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
 
 	setup( props, ctx ) {
+		const appState = useAppState();
+
 		/**
 		 * Submits the donation via the API and emits donationSuccess/donationError with the result.
 		 *
@@ -65,6 +68,7 @@ module.exports = exports = defineComponent( {
 		 * @param {Function} [errorCallback] Called with the failure details on error.
 		 */
 		const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
+			appState.setLoading( true );
 			api.submitDonation( toRaw( props.donation ), payload )
 				.then( ( result ) => {
 					// how do we want to display validation errors
@@ -75,6 +79,7 @@ module.exports = exports = defineComponent( {
 						successCallback( result );
 					}
 					ctx.emit( 'donationSuccess', result );
+					appState.setLoading( false );
 				} )
 				.catch( ( code, failure ) =>  {
 					ctx.emit( 'donationError', code, failure );
@@ -82,6 +87,7 @@ module.exports = exports = defineComponent( {
 						errorCallback( failure );
 						// what should happen here, need to handle it properly
 					}
+					appState.setLoading( false );
 				} );
 		};
 
@@ -93,6 +99,7 @@ module.exports = exports = defineComponent( {
 		 * @param {Function} failureCallback Called with the error when validation fails.
 		 */
 		const validateApplePay = ( event, successCallback, failureCallback ) => {
+			appState.setLoading( true );
 			const payload = Object.assign( {}, props.donation );
 			payload.validationURL = event.validationURL;
 			api.validateApplePayPaymentSession( payload )
@@ -103,10 +110,12 @@ module.exports = exports = defineComponent( {
 					} else {
 						successCallback( data );
 					}
+					appState.setLoading( false );
 				} ).catch( ( e ) => {
 					failureCallback( e );
 					console.log( 'Error', e );
 					mw.log( 'Apple Pay validation failure: ' + e );
+					appState.setLoading( false );
 				} );
 		};
 
@@ -118,12 +127,15 @@ module.exports = exports = defineComponent( {
 		 * @param {Function} failureCallback Called when session creation fails.
 		 */
 		const getGravyCheckoutSession = ( parameters, successCallback, failureCallback ) => {
+			appState.setLoading( true );
 			api.createCheckoutSession( parameters )
 				.then( ( sessionId ) => {
 					successCallback( sessionId );
+					appState.setLoading( false );
 				} )
 				.catch( () => {
 					failureCallback();
+					appState.setLoading( false );
 				} );
 		};
 

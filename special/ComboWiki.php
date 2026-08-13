@@ -118,7 +118,8 @@ class ComboWiki extends UnlistedSpecialPage {
 		$out = $this->getOutput();
 
 		$context = RequestContext::getMain();
-		$assetsPath = $context->getConfig()->get( 'ScriptPath' ) .
+		$scriptPath = $context->getConfig()->get( 'ScriptPath' );
+		$assetsPath = $scriptPath .
 			'/extensions/DonationInterface/modules/ext.donationInterface.comboWiki/assets';
 
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering.
@@ -132,6 +133,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		] );
 
 		$out->addJsConfigVars( [
+			'script_path' => $scriptPath,
 			'assets_path' => $assetsPath
 		] );
 
