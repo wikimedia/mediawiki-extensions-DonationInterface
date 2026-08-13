@@ -538,7 +538,8 @@
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
-				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue"
+				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
+				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue"
 			],
 			"messages": [
 				"combowiki-title",

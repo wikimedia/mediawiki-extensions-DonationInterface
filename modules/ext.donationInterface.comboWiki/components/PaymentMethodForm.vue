@@ -1,6 +1,8 @@
 <template>
     <!--    Payment method form component-->
     <div>
+      <employer-field v-model="donation.employer">
+      </employer-field>
       <h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
 
       <cdx-button
@@ -34,6 +36,7 @@ const PayPalComponent = require( "./PayPalComponent.vue" );
 const ApplePayComponent = require( "./ApplePayComponent.vue" );
 const ACHComponent = require( "./ACHComponent.vue" );
 const GooglePayComponent = require( "./GooglePayComponent.vue" );
+const EmployerField = require( "./EmployerField.vue" );
 module.exports = exports = defineComponent( {
   name: 'PaymentMethodSelector',
   props: {
@@ -52,7 +55,8 @@ module.exports = exports = defineComponent( {
     "paypal-form": PayPalComponent,
     "applepay-form": ApplePayComponent,
     "googlepay-form": GooglePayComponent,
-    "ach-form": ACHComponent
+    "ach-form": ACHComponent,
+    "employer-field": EmployerField
   },
   emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
 

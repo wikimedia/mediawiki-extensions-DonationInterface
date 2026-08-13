@@ -89,7 +89,12 @@ class FraudService {
 	protected function createRequest( string $url, array $data ): MWHttpRequest {
 		$payload = json_encode( $data );
 		$request = $this->requestFactory->create(
-			$url, [ 'method' => 'POST', 'postData' => $payload ], __METHOD__
+			$url, [
+				'method' => 'POST',
+				'postData' => $payload,
+				'sslVerifyCert' => false,
+				'sslVerifyHost' => false
+			], __METHOD__
 		);
 		$request->setHeader( 'Content-Type', 'application/json' );
 		return $request;

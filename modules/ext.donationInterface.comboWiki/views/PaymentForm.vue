@@ -62,10 +62,9 @@
       :disabled="!giftComplete"
     ></payment-method-form>
     <br/>
-
     <p> Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.amount || "no amount" }} / Fee:
       {{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-      {{ donation.paymentMethod }} / Gateway: {{ selectedGateway }}</p>
+      {{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ selectedGateway }}</p>
     <p v-if="donateError" class="combo-wiki__error">{{ donateError }}</p>
     <we-do-not-sell-text></we-do-not-sell-text>
     <more-info-links text-class="combo-wiki__link-container"></more-info-links>
@@ -98,7 +97,7 @@ module.exports = exports = defineComponent( {
     "frequency-selector": FrequencySelector,
     "payment-method-form": PaymentMethodForm,
     "we-do-not-sell-text": WeDoNotSellText,
-    "more-info-links": MoreInfoLinks,
+    "more-info-links": MoreInfoLinks
   },
 
   data() {
@@ -114,7 +113,8 @@ module.exports = exports = defineComponent( {
         payFee: false,
         country: "US",
         paymentMethod: null,
-        optIn: null
+        optIn: null,
+        employer: null
       },
       selectedGateway: ( mw.config.get( "comboWiki" ) ).gateway || null,
       donateError: null,
