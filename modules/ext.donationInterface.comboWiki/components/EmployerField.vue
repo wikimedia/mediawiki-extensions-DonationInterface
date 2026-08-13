@@ -16,6 +16,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxField, CdxLabel, CdxTextInput } = require( '@wikimedia/codex' );
+const { stripLeadingWhitespace } = require( '../normalizeInput.js' );
 
 module.exports = defineComponent( {
 	name: 'EmployerField',
@@ -38,8 +39,7 @@ module.exports = defineComponent( {
 	},
 	methods: {
 		updateEmployer( value ) {
-			const sanitized = ( value || '' ).trimStart();
-			this.$emit( 'update:modelValue', sanitized );
+			this.$emit( 'update:modelValue', stripLeadingWhitespace( value ) );
 		}
 	}
 } );

@@ -7,7 +7,7 @@
 				</cdx-label>
 				<cdx-text-input
 					id="combo-ach-email"
-					v-model="donation.email"
+					v-model="email"
 					type="email"
 					autocomplete="email"
 				></cdx-text-input>
@@ -62,6 +62,7 @@ module.exports = exports = defineComponent( {
 
 	data() {
 		return {
+			email: this.donation.email,
 			isSubmitting: false
 		};
 	},
@@ -104,7 +105,7 @@ module.exports = exports = defineComponent( {
 				'submit',
 				{
 					payment_submethod: 'ach',
-					email: this.donation.email
+					email: this.email
 				},
 				null,
 				this.handleSubmitFailure

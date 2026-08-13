@@ -52,6 +52,11 @@
 				{{ optInNo }}
 			</cdx-radio>
 		</div>
+
+		<!-- Employer-->
+		<employer-field v-model="donation.employer"></employer-field>
+
+		<!-- Payment methods-->
 		<payment-method-form
 			:donation="donation"
 			:disabled="!giftComplete"
@@ -88,9 +93,10 @@ const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
+const EmployerField = require( '../components/EmployerField.vue' );
 
 module.exports = exports = defineComponent( {
-  name: 'Home',
+  name: 'PaymentForm',
 
   components: {
     'cdx-button': CdxButton,
@@ -101,7 +107,8 @@ module.exports = exports = defineComponent( {
     'frequency-selector': FrequencySelector,
     'payment-method-form': PaymentMethodForm,
     'we-do-not-sell-text': WeDoNotSellText,
-    'more-info-links': MoreInfoLinks
+    'more-info-links': MoreInfoLinks,
+    'employer-field': EmployerField
   },
 
   data() {
@@ -121,8 +128,7 @@ module.exports = exports = defineComponent( {
         employer: null
       },
       selectedGateway: ( mw.config.get( 'comboWiki' ) ).gateway || null,
-      donateError: null,
-      paymentMethodForm: {}
+      donateError: null
     };
   },
 
@@ -144,11 +150,6 @@ module.exports = exports = defineComponent( {
     },
     giftComplete() {
       return this.donation.frequency !== null && this.donation.amount !== null;
-    },
-    availableMethods() {
-      return this.paymentMethods.filter(
-          ( method ) => method.countries.includes( this.donation.country )
-      );
     },
     frequencyHeaderText() {
       return this.$i18n( 'combowiki-frequency-heading' ).text();
@@ -188,7 +189,6 @@ module.exports = exports = defineComponent( {
         this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
         return;
       }
-      console.log( 'Donation submitted successfully:', response );
       if ( response.redirect ) {
         window.location.assign( response.redirect );
       } else {

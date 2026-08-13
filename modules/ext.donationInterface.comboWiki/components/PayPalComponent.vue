@@ -17,8 +17,7 @@ module.exports = exports = defineComponent( {
     name: 'GravyPayPal',
 
     components: {
-    'cdx-button': CdxButton,
-    'cdx-text-input': CdxTextInput
+        'cdx-button': CdxButton
     },
 
     props: {
@@ -31,7 +30,7 @@ module.exports = exports = defineComponent( {
 
     computed: {
         giftComplete() {
-        return this.donation.frequency !== null && this.donation.amount !== null;
+            return this.donation.frequency !== null && this.donation.amount !== null;
         }
     }
 } );

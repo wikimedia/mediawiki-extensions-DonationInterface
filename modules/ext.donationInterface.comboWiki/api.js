@@ -27,7 +27,9 @@ function getBaseDonateParams( donation ) {
 		country: donation.country,
 		payment_method: paymentMethodMap[ donation.paymentMethod ],
 		opt_in: donation.optIn === 'yes' ? 1 : 0,
-		uselang: mw.config.get( 'wgUserLanguage' )
+		uselang: mw.config.get( 'wgUserLanguage' ),
+		first_name: donation.firstName,
+		last_name: donation.lastName
 	};
 
 	if ( donation.employer ) {
@@ -47,43 +49,11 @@ function buildDonateParams( donation, paymentMethodData ) {
 	return Object.assign(
 		{},
 		getBaseDonateParams( donation ),
-		{
-			first_name: donation.firstName,
-			last_name: donation.lastName
-		},
 		paymentMethodData || {}
 	);
 }
 
-function addGooglePayParams( donation, paymentData ) {
-	const paymentMethodData = paymentData.paymentMethodData;
-	const paymentMethodInfo = paymentMethodData.info;
-	const paymentToken = paymentMethodData.tokenizationData.token;
-	const donorInfo = paymentMethodInfo.billingAddress;
-
-	return Object.assign(
-		{},
-		getBaseDonateParams( donation ),
-		{
-			full_name: donorInfo.name,
-			email: paymentData.email,
-			postal_code: donorInfo.postalCode,
-			state_province: donorInfo.administrativeArea,
-			city: donorInfo.locality,
-			street_address: donorInfo.address1,
-			payment_token: paymentToken,
-			card_suffix: paymentMethodInfo.cardDetails,
-			card_scheme: paymentMethodInfo.cardNetwork
-		},
-		paymentData || {}
-	);
-}
-
 function submitDonation( donation, paymentMethodData ) {
-	if ( donation.paymentMethod === 'googlepay' ) {
-		return apiPost( addGooglePayParams( donation, paymentMethodData ) );
-	}
-
 	return apiPost( buildDonateParams( donation, paymentMethodData ) );
 }
 

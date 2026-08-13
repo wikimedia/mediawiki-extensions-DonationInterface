@@ -14,19 +14,15 @@
 </template>
 
 <script>
-const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
-const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
+/* global ApplePaySession ApplePayError apple-pay-button */
 
+const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
 module.exports = exports = defineComponent( {
     name: 'GravyApplePay',
     compilerOptions: {
         // remove warning from the console due to non-vue apply pay button element
         // https://vuejs.org/api/application.html#app-config-compileroptions
         isCustomElement: ( tag ) => tag === 'apple-pay-button'
-    },
-    components: {
-    'cdx-button': CdxButton,
-    'cdx-text-input': CdxTextInput
     },
 
     props: {
@@ -35,7 +31,7 @@ module.exports = exports = defineComponent( {
             required: true
         }
     },
-    emits: [ 'validate', 'submit', 'error' ],
+    emits: [ 'presubmit', 'submit', 'error' ],
     setup( props, ctx ) {
         let appleSession = null;
         let extraData = {};
@@ -73,8 +69,10 @@ module.exports = exports = defineComponent( {
 
             // Remove the Apple Pay script this component injected into the page
             if ( appleScriptSrc ) {
-                document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' )
-                    .forEach( ( node ) => node.remove() );
+                const applePayElements = document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' );
+                for ( const node of applePayElements ) {
+                    node.remove();
+                }
                 appleScriptSrc = null;
             }
         } );
@@ -138,7 +136,7 @@ module.exports = exports = defineComponent( {
 
         function validateApplePayPaymentSession() {
             return function ( event ) {
-                ctx.emit( 'validate', event, onValidationSuccess, onValidationFailure );
+                ctx.emit( 'presubmit', event, onValidationSuccess, onValidationFailure );
             };
         }
 
@@ -222,15 +220,10 @@ module.exports = exports = defineComponent( {
             locale: 'en',
             applePayButtonElementRef,
             showApplePayButtonFlag,
-            setupApplePayForm,
             handleApplePaySubmitClick
         };
     },
 
-    computed: {
-        giftComplete() {
-            return this.donation.frequency !== null && this.donation.amount !== null;
-        }
-    }
+    computed: {}
 } );
 </script>
