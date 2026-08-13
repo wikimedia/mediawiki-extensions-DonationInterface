@@ -15,7 +15,8 @@
 			"Paloi Sciurala",
 			"Pcoombe",
 			"Stelistcristi",
-			"Strainu"
+			"Strainu",
+			"Vellion Eagle"
 		]
 	},
 	"donate_interface": "Sprijiniți Wikimedia",
@@ -223,7 +224,7 @@
 	"donate_interface-donate-error-try-a-different-card": "Încercați [$1 alt card] sau o [$2 altă modalitate de a dona], ori contactați-ne la $3",
 	"donate_interface-donate-error-try-again-html": "Vă rugăm să <a href=\"$1\">reîncercați</a>, să utilizați o altă <a href=\"$2\">modalitate de a dona</a> sau să ne contactați la <a href=\"mailto:$3\">$3</a>",
 	"donate_interface-donate-error-thank-you-for-your-support": "Îți mulțumim pentru sprijinul acordat!",
-	"donate_interface-error-no-form": "Nu am putut găsi un formular de donație care să corespundă parametrilor dumnevoastră. Contactați [mailto:$1 echipa noastră de ajutor] pentru informații suplimentare.",
+	"donate_interface-error-no-form": "Nu am putut găsi un formular de donație care să corespundă parametrilor dumneavoastră. Contactați [mailto:$1 echipa noastră de ajutor] pentru informații suplimentare.",
 	"php-response-declined": "Tranzacția dumneavoastră nu a putut fi acceptată.",
 	"donate_interface-thankyou": "Vă mulțumim pentru donație!",
 	"donate_interface-post-transaction": "Detaliile tranzacției",
