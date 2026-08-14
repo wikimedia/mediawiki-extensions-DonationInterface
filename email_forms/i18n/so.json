@@ -8,5 +8,8 @@
 	"donorportal-login-problems-email-subject": "Dhibaatooyin gelitaanka akoonka deeq bixiyaha",
 	"donorportal-update-donation-legacy-paypal-disable-text": "Waxaa lagu farsameeyay PayPal. Isbeddellada waa in si toos ah looga sameeyaa koontadaada PayPal.",
 	"donorportal-header-about": "Waa ayo kuwayagu",
-	"donorportal-header-logout": "Ka bax"
+	"donorportal-header-logout": "Ka bax",
+	"emailpreferences-status-subscribed": "Hadda waxaad ku biirsan tahay iimayllada Wikimedia.",
+	"emailpreferences-status-paused": "Iimayllada Wikimedia-gaaga waa la hakiyay ilaa $1.",
+	"emailpreferences-status-unsubscribed": "Hadda kuma biirsan iimayllada Wikimedia."
 }
