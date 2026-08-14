@@ -24,14 +24,16 @@
 					width="20"
 					height="20"
 					viewBox="0 0 20 20"
-					aria-hidden="true"><g>
-						<path d="M8.59 3.42 14.17 9H2v2h12.17l-5.58 5.59L10 18l8-8-8-8z" /></g>
+					aria-hidden="true"
+				><g>
+					<path d="M8.59 3.42 14.17 9H2v2h12.17l-5.58 5.59L10 18l8-8-8-8z" /></g>
 				</svg>
 			</section>
 			<form
 				id="form-upgrade"
 				class="box is-recurring is-active"
-				@submit.prevent>
+				@submit.prevent
+			>
 				<div class="box__inner">
 					<strong class="text text--body">
 						{{ $i18n( "donorportal-update-recurring-new-donation" ).text() }}
@@ -80,7 +82,8 @@
 				<router-link
 					id="buttonBackToAccount"
 					to="/"
-					class="link">
+					class="link"
+				>
 					{{ $i18n( "donorportal-update-recurring-change-mind" ).text() }}
 				</router-link>
 			</p>

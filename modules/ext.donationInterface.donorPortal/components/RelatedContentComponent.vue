@@ -18,25 +18,29 @@
 			<a
 				:href="donorFaqUrl"
 				target="_blank"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large"
+			>
 				{{ $i18n( "donorportal-aside-faq" ).text() }}
 			</a>
 			<a
 				:href="otherWaysUrl"
 				target="_blank"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large"
+			>
 				{{ $i18n( "donorportal-aside-faq-giving-other-ways" ).text() }}
 			</a>
 			<a
 				:href="legacyUrl"
 				target="_blank"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large"
+			>
 				{{ $i18n( "donorportal-aside-faq-giving-legacy" ).text() }}
 			</a>
 			<a
 				:href="newDonationUrl"
 				target="_blank"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--size-large"
+			>
 				{{ $i18n( "donorportal-aside-faq-giving-new-donation" ).text() }}
 			</a>
 		</section>
@@ -62,12 +66,14 @@
 									id="wikipediaVideo"
 									autoplay
 									controls
-									:poster="`${ assets_path }/images/wikipedia-video-poster.jpg`">
+									:poster="`${ assets_path }/images/wikipedia-video-poster.jpg`"
+								>
 									<source
 										v-for="source in wikipediaVideoSources"
 										:key="source.url"
 										:src="source.url"
-										:type="source.type">
+										:type="source.type"
+									>
 								</video>
 							</div>
 						</template>
@@ -76,7 +82,8 @@
 				<div class="video-attribution">
 					<a
 						:href="wikipediaVideoCommonsUrl"
-						target="_blank">[&nbsp;{{ $i18n( "upload-source" ).text() }}&nbsp;]</a>
+						target="_blank"
+					>[&nbsp;{{ $i18n( "upload-source" ).text() }}&nbsp;]</a>
 				</div>
 			</div>
 		</section>

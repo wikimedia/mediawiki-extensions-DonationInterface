@@ -6,7 +6,8 @@
 			:submit-pause-recurring-form="submitPauseRecurringDuration"
 			:duration-options="durationOptions"
 			:default-duration="durationOptions[0]"
-			:proceed-cancel-action="proceedCancelAction"></recurring-cancel-form>
+			:proceed-cancel-action="proceedCancelAction"
+		></recurring-cancel-form>
 		<recurring-cancel-confirmation
 			v-else-if="flags.showConfirmation"
 			:recurring-contribution="recurringContribution"
@@ -18,7 +19,8 @@
 		<recurring-pause-error
 			v-else-if="flags.donationPauseError"
 			:error-code="pauseErrorCode"
-			fallback-message-key="donorportal-pause-failure"></recurring-pause-error>
+			fallback-message-key="donorportal-pause-failure"
+		></recurring-pause-error>
 	</div>
 </template>
 

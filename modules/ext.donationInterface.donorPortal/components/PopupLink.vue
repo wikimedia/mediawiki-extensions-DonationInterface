@@ -3,7 +3,8 @@
 	<a
 		href="#"
 		class="link"
-		@click.prevent="openModal">
+		@click.prevent="openModal"
+	>
 		<slot name="link-text"></slot>
 	</a>
 
@@ -11,7 +12,8 @@
 	<div
 		v-if="isModalOpen"
 		class="popup-overlay"
-		@click="closeModal">
+		@click="closeModal"
+	>
 		<div class="popup-modal">
 			<!-- Render HTML content -->
 			<slot name="popup-body"></slot>

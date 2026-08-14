@@ -7,7 +7,8 @@
 			<cdx-text-input
 				id="combo-employer-name"
 				:model-value="modelValue"
-				@update:model-value="updateEmployer">
+				@update:model-value="updateEmployer"
+			>
 			</cdx-text-input>
 		</cdx-field>
 	</div>

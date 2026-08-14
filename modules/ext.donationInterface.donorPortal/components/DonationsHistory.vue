@@ -12,7 +12,8 @@
 				<div
 					class="cdx-tabs__list"
 					tabindex="-1"
-					role="tablist">
+					role="tablist"
+				>
 					<!-- Tab list item. -->
 					<button
 						id="form-tabs-1-label"
@@ -22,7 +23,8 @@
 						aria-controls="form-tabs-1"
 						value="form-tabs-1"
 						name="tab"
-						@click="handleTabButtonClick">
+						@click="handleTabButtonClick"
+					>
 						{{ $i18n( "donorportal-annual-fund" ).text() }}
 					</button>
 					<button
@@ -33,7 +35,8 @@
 						aria-controls="form-tabs-2"
 						value="form-tabs-2"
 						name="tab"
-						@click="handleTabButtonClick">
+						@click="handleTabButtonClick"
+					>
 						{{ $i18n( "donorportal-endowment" ).text() }}
 					</button>
 				</div>
@@ -65,7 +68,8 @@
 					aria-labelledby="form-tabs-1-label"
 					class="cdx-tab"
 					role="tabpanel"
-					tabindex="-1">
+					tabindex="-1"
+				>
 					<donations-table :donations-list="annualFundDonations"></donations-table>
 				</section>
 				<section
@@ -74,10 +78,12 @@
 					aria-labelledby="form-tabs-2-label"
 					class="cdx-tab"
 					role="tabpanel"
-					tabindex="-1">
+					tabindex="-1"
+				>
 					<donations-table
 						v-if="endowmentDonations.length !== 0"
-						:donations-list="endowmentDonations"></donations-table>
+						:donations-list="endowmentDonations"
+					></donations-table>
 					<endowment-information v-else></endowment-information>
 				</section>
 			</div>
@@ -125,8 +131,8 @@ module.exports = exports = defineComponent( {
 			} );
 
 			// Hide all panels
-			tabPanels.forEach( ( panel ) => {
-				panel.setAttribute( 'aria-hidden', 'true' );
+			tabPanels.forEach( ( tp ) => {
+				tp.setAttribute( 'aria-hidden', 'true' );
 			} );
 
 			// Select the clicked tab

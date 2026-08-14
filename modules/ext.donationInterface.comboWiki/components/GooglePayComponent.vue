@@ -5,7 +5,6 @@
 <script>
 /* global google */
 const { defineComponent, toRaw } = require( 'vue' );
-const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 
 let googlePaymentClient = null;
 module.exports = exports = defineComponent( {

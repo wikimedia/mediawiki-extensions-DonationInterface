@@ -40,7 +40,8 @@
 					<router-link
 						v-if="isManageableRecurring"
 						:to="`/manage-donations/${contribution.id}`"
-						class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+						class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large"
+					>
 						{{ $i18n( "donorportal-manage-donation" ).text() }}
 					</router-link>
 					<p v-else-if="isActive && contribution.is_legacy_paypal" class="text text--body dp-paypal-notice">
@@ -54,7 +55,8 @@
 				v-if="actionButtonText"
 				:target="isActive && contribution.can_modify ? '_self' : '_blank'"
 				:href="isActive && contribution.can_modify ? ( '#/update-donations/' + contribution.id ) : newDonationUrlWithParams"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-large"
+			>
 				{{ actionButtonText }}
 			</a>
 		</div>

@@ -14,7 +14,8 @@
 			<tr
 				v-for="donation in currentItems"
 				:key="donation.id"
-				class="donorportal-donations-table-row">
+				class="donorportal-donations-table-row"
+			>
 				<td class="date">
 					{{ donation.receive_date_formatted }}
 				</td>
@@ -45,7 +46,8 @@
 			<button
 				:disabled="currentPage === 1"
 				class="cdx-button cdx-button--weight-quiet cdx-button--size-medium pagination-button-first"
-				@click="setPage( 1 )">
+				@click="setPage( 1 )"
+			>
 				<svg
 					class="cdx-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -53,12 +55,14 @@
 					width="20"
 					height="20"
 					viewBox="0 0 20 20"
-					aria-hidden="true"><g><path d="M3 1h2v18H3zm13.5 1.5L15 1l-9 9 9 9 1.5-1.5L9 10z" /></g></svg>
+					aria-hidden="true"
+				><g><path d="M3 1h2v18H3zm13.5 1.5L15 1l-9 9 9 9 1.5-1.5L9 10z" /></g></svg>
 			</button>
 			<button
 				:disabled="currentPage === 1"
 				class="cdx-button cdx-button--weight-quiet cdx-button--size-medium pagination-button-prev"
-				@click="setPage( currentPage - 1 )">
+				@click="setPage( currentPage - 1 )"
+			>
 				<svg
 					class="cdx-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +70,8 @@
 					width="20"
 					height="20"
 					viewBox="0 0 20 20"
-					aria-hidden="true"><g><path d="m4 10 9 9 1.4-1.5L7 10l7.4-7.5L13 1z" /></g></svg>
+					aria-hidden="true"
+				><g><path d="m4 10 9 9 1.4-1.5L7 10l7.4-7.5L13 1z" /></g></svg>
 			</button>
 			<div class="pagination__nav-pages">
 				<div class="text text--body-small">
@@ -75,12 +80,14 @@
 				<select
 					class="cdx-select page-select"
 					:value="currentPage"
-					@change="$e => setPage( $e.target.value )">
+					@change="$e => setPage( $e.target.value )"
+				>
 					<option
 						v-for="num in numPages"
 						:key="`paginationID-${num}`"
 						class="page-select-option"
-						:value="num">
+						:value="num"
+					>
 						{{ num }}
 					</option>
 				</select>
@@ -91,7 +98,8 @@
 			<button
 				:disabled="isLastPage"
 				class="cdx-button cdx-button--weight-quiet cdx-button--size-medium pagination-button-next"
-				@click="setPage( currentPage + 1 )">
+				@click="setPage( currentPage + 1 )"
+			>
 				<svg
 					class="cdx-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -99,12 +107,14 @@
 					width="20"
 					height="20"
 					viewBox="0 0 20 20"
-					aria-hidden="true"><g><path d="M7 1 5.6 2.5 13 10l-7.4 7.5L7 19l9-9z" /></g></svg>
+					aria-hidden="true"
+				><g><path d="M7 1 5.6 2.5 13 10l-7.4 7.5L7 19l9-9z" /></g></svg>
 			</button>
 			<button
 				:disabled="isLastPage"
 				class="cdx-button cdx-button--weight-quiet cdx-button--size-medium pagination-button-last"
-				@click="setPage( numPages )">
+				@click="setPage( numPages )"
+			>
 				<svg
 					class="cdx-icon"
 					xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +122,8 @@
 					width="20"
 					height="20"
 					viewBox="0 0 20 20"
-					aria-hidden="true"><g><path d="M15 1h2v18h-2zM3.5 2.5 11 10l-7.5 7.5L5 19l9-9-9-9z" /></g></svg>
+					aria-hidden="true"
+				><g><path d="M15 1h2v18h-2zM3.5 2.5 11 10l-7.5 7.5L5 19l9-9-9-9z" /></g></svg>
 			</button>
 		</div>
 	</div>
@@ -162,7 +173,7 @@ module.exports = exports = defineComponent( {
 				// Refunded status keys that can be used here
 				// * donorportal-donation-status-refunded
 				return this.$i18n( refunded_status_key ).text();
-		}
+			}
 		};
 	},
 	computed: {

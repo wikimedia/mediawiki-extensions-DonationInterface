@@ -4,7 +4,8 @@
 			<router-link
 				id="buttonBackToAccount"
 				to="/"
-				class="text text--body link link--muted link--no-underline">
+				class="text text--body link link--muted link--no-underline"
+			>
 				← <span class="link--underline">{{ $i18n( "donorportal-return-to-account-button" ).text() }}</span>
 			</router-link>
 			<h1 class="heading heading--subtle heading--h2">

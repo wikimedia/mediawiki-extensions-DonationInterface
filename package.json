@@ -5,7 +5,9 @@
 		"doc": "jsduck",
 		"test": "grunt test && npm run test:unit",
 		"test:unit": "jest",
-		"grunt:fix": "grunt --fix"
+		"grunt:fix": "grunt --fix",
+		"eslint:combo-wiki": "eslint --fix \"modules/ext.donationInterface.comboWiki/**/*.{js,vue}\"",
+		"eslint:donor-portal": "eslint --fix \"modules/ext.donationInterface.donorPortal/**/*.{js,vue}\""
 	},
 	"repository": {
 		"type": "git",

@@ -8,7 +8,8 @@
 					<a
 						:href="surveyUrl"
 						target="_blank"
-						class="link">
+						class="link"
+					>
 						{{ $i18n( "donorportal-feedbacklink" ).text() }}
 					</a>
 				</div>

@@ -11,7 +11,8 @@
 		<div class="dp-card__section dp-card__cta">
 			<a
 				:href="newDonationUrl"
-				target="_blank">
+				target="_blank"
+			>
 				{{ $i18n( "donorportal-new-donation" ).text() }}
 			</a>
 		</div>

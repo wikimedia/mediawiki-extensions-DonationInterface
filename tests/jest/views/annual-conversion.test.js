@@ -1,5 +1,4 @@
 /* global global describe it expect beforeEach afterEach jest */
-/* eslint-disable es-x/no-promise */
 
 // Mock vue router composables
 jest.mock( 'vue-router', () => ( Object.assign( jest.requireActual( 'vue-router' ), { useRoute: jest.fn() } ) ) );

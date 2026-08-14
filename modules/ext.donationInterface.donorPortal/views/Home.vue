@@ -8,7 +8,8 @@
 				:name="donorSummary.name"
 				:address="donorSummary.address"
 				:email="donorSummary.email"
-				:email-preferences-url="emailPreferencesUrl"></donor-contact-details>
+				:email-preferences-url="emailPreferencesUrl"
+			></donor-contact-details>
 			<donor-card
 				:active-recurring-contributions="donorSummary.recurringContributions"
 				:inactive-recurring-contributions="donorSummary.inactiveRecurringContributions"
@@ -16,11 +17,13 @@
 			></donor-card>
 			<donations-history
 				:annual-fund-donations="annualFundContributions"
-				:endowment-donations="endowmentContributions"></donations-history>
+				:endowment-donations="endowmentContributions"
+			></donations-history>
 			<donations-disclaimer
 				:email="donorSummary.email"
 				:help-email="helpEmail"
-				:tax-url="taxUrl"></donations-disclaimer>
+				:tax-url="taxUrl"
+			></donations-disclaimer>
 		</section>
 		<related-content></related-content>
 	</main>

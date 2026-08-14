@@ -10,7 +10,8 @@
 					v-for="contribution in activeRecurringContributions"
 					:key="contribution.id"
 					:contribution="contribution"
-					:is-active="true"></recurring-contribution>
+					:is-active="true"
+				></recurring-contribution>
 				<!-- Inactive contributions -->
 				<recurring-contribution
 					v-for="contribution in inactiveRecurringContributions"
@@ -45,19 +46,19 @@ module.exports = exports = defineComponent( {
 	props: {
 		activeRecurringContributions: {
 			type: Array,
-            default() {
+			default() {
 				return [];
 			}
 		},
 		inactiveRecurringContributions: {
 			type: Array,
-            default() {
+			default() {
 				return [];
 			}
 		},
 		onetimeContribution: {
 			type: Object,
-            default() {
+			default() {
 				return null;
 			}
 		}

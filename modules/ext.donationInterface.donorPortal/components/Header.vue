@@ -6,7 +6,8 @@
 					id="nav__toggle"
 					ref="nav__toggle"
 					class="nav__toggle"
-					@click="handleNavToggleClick">
+					@click="handleNavToggleClick"
+				>
 					<svg
 						class="cdx-icon"
 						xmlns="http://www.w3.org/2000/svg"
@@ -14,13 +15,15 @@
 						width="20"
 						height="20"
 						viewBox="0 0 20 20"
-						aria-hidden="true"><g><path d="M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z" /></g></svg>
+						aria-hidden="true"
+					><g><path d="M1 3v2h18V3zm0 8h18V9H1zm0 6h18v-2H1z" /></g></svg>
 				</button>
 				<a href="https://wikimediafoundation.org/" target="_blank">
 					<img
 						:src="`${ assets_path }/logos/wikimedia-foundation-logo-landscape.png`"
 						alt="Wikimedia Foundation"
-						class="nav__logo">
+						class="nav__logo"
+					>
 				</a>
 				<ul ref="nav__links" class="nav__links">
 					<li>
@@ -52,20 +55,24 @@
 				<a
 					href="https://www.wikipedia.org/"
 					target="_blank"
-					class="mw-logo">
+					class="mw-logo"
+				>
 					<img
 						class="mw-logo-icon"
 						:src="`${ assets_path }/logos/wikipedia-logo.png`"
-						alt="Wikimedia Globe">
+						alt="Wikimedia Globe"
+					>
 					<span class="mw-logo-container skin-invert">
 						<img
 							class="mw-logo-wordmark"
 							alt="Wikipedia"
-							:src="`${ assets_path }/logos/wikipedia-wordmark-en.svg`">
+							:src="`${ assets_path }/logos/wikipedia-wordmark-en.svg`"
+						>
 						<img
 							class="mw-logo-tagline"
 							alt="The Free Encyclopedia"
-							:src="`${ assets_path }/logos/wikipedia-tagline-en.svg`">
+							:src="`${ assets_path }/logos/wikipedia-tagline-en.svg`"
+						>
 					</span>
 				</a>
 			</section>
