@@ -4,7 +4,8 @@
 	"scripts": {
 		"doc": "jsduck",
 		"test": "grunt test && npm run test:unit",
-		"test:unit": "jest"
+		"test:unit": "jest",
+		"grunt:fix": "grunt --fix"
 	},
 	"repository": {
 		"type": "git",

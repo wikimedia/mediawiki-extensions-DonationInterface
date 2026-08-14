@@ -101,6 +101,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
 		$comboWiki = new ComboWiki();
+		$comboWiki->execute( null );
 		$vars = [];
 		$comboWiki->setClientVariables( $vars );
 

@@ -342,6 +342,12 @@ main {
 	margin-top: 3em;
 }
 
+.emailPreferencesRightColumn .emailPreferencesStatus {
+	margin: 0 0 1.5em;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #eaecf0;
+}
+
 .emailpreferences-form-col-content-salutation-email-edit {
 	font-size: 1.125em;
 }

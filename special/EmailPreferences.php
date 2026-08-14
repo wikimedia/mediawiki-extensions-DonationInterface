@@ -274,6 +274,15 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$addedParams[ 'email' ] = $preferences[ 'email' ];
 		$addedParams[ 'snoozeDays' ] = $mwConfig->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
 		$addedParams[ 'isSnoozed' ] = $this->isSnoozed( $preferences[ 'snooze_date' ] );
+		if ( $addedParams[ 'isSnoozed' ] ) {
+			$locale = self::FALLBACK_LANGUAGE;
+			if ( !empty( $preferences[ 'country' ] ) && $uiLang ) {
+				$locale = $uiLang . '_' . $preferences[ 'country' ];
+			}
+			$addedParams[ 'snoozeDateFormatted' ] = EmailForm::dateFormatter(
+				$preferences[ 'snooze_date' ], $locale
+			);
+		}
 
 		return $addedParams;
 	}

@@ -1,21 +1,22 @@
 <template>
-  <div class="combo-wiki__employer">
-	<cdx-field :is-required="false">
-	  <cdx-label input-id="combo-employer-name">
-		{{ employerLabel }}
-	  </cdx-label>
-	  <cdx-text-input
-		id="combo-employer-name"
-		:model-value="modelValue"
-		@update:model-value="updateEmployer">
-	  </cdx-text-input>
-	</cdx-field>
-  </div>
+	<div class="combo-wiki__employer">
+		<cdx-field :is-required="false">
+			<cdx-label input-id="combo-employer-name">
+				{{ employerLabel }}
+			</cdx-label>
+			<cdx-text-input
+				id="combo-employer-name"
+				:model-value="modelValue"
+				@update:model-value="updateEmployer">
+			</cdx-text-input>
+		</cdx-field>
+	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxField, CdxLabel, CdxTextInput } = require( '@wikimedia/codex' );
+const { stripLeadingWhitespace } = require( '../normalizeInput.js' );
 
 module.exports = defineComponent( {
 	name: 'EmployerField',
@@ -38,8 +39,7 @@ module.exports = defineComponent( {
 	},
 	methods: {
 		updateEmployer( value ) {
-			const sanitized = ( value || '' ).trimStart();
-			this.$emit( 'update:modelValue', sanitized );
+			this.$emit( 'update:modelValue', stripLeadingWhitespace( value ) );
 		}
 	}
 } );

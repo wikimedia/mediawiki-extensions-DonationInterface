@@ -21,6 +21,7 @@ module.exports = function ( grunt ) {
 				'{.,modules/**}/*.js{,on}',
 				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
 				'modules/ext.donationInterface.donorPortal/**/*.{vue,js}',
+				'modules/ext.donationInterface.comboWiki/**/*.{vue,js}',
 				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/**/*.js',
 				'tests/**/*.js'
 			]

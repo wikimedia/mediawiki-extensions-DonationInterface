@@ -41,6 +41,20 @@
 		"no-var": "warn",
 		"prefer-const": "warn",
 		"no-jquery/no-done-fail": "warn",
-		"mediawiki/no-cookie": "warn"
-	}
+		"mediawiki/no-cookie": "warn",
+		"no-console": "warn"
+	},
+	"settings": {
+		"es-x": { "allowTestedProperty": true }
+	},
+	"overrides": [
+		{
+			"files": [ "**/*.vue" ],
+			"rules": {
+				"vue/no-undef-components": [ "error", {
+					"ignorePatterns": [ "apple-pay-button" ]
+				} ]
+			}
+		}
+	]
 }

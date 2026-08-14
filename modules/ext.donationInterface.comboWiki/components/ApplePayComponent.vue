@@ -1,33 +1,28 @@
 <template>
-    <div id="applepay-container">
-        <apple-pay-button
-            v-if="showApplePayButtonFlag"
-            class="button"
-            id="applepay-btn"
-            buttonstyle="black"
-            type="donate"
-            ref="applePayButtonElementRef"
-            :locale="locale"
-            @click="handleApplePaySubmitClick"
-        ></apple-pay-button>
-    </div>
+	<div id="applepay-container">
+		<apple-pay-button
+			v-if="showApplePayButtonFlag"
+			id="applepay-btn"
+			ref="applePayButtonElementRef"
+			class="button"
+			buttonstyle="black"
+			type="donate"
+			:locale="locale"
+			@click="handleApplePaySubmitClick"
+		></apple-pay-button>
+	</div>
 </template>
-<script>
-const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
-const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
 
-module.exports = exports = defineComponent({
+<script>
+/* global ApplePaySession ApplePayError apple-pay-button */
+
+const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
+module.exports = exports = defineComponent( {
     name: 'GravyApplePay',
     compilerOptions: {
         // remove warning from the console due to non-vue apply pay button element
         // https://vuejs.org/api/application.html#app-config-compileroptions
-        isCustomElement: (tag) => {
-            return tag === "apple-pay-button";
-        }
-    },
-    components: {
-    'cdx-button': CdxButton,
-    'cdx-text-input': CdxTextInput
+        isCustomElement: ( tag ) => tag === 'apple-pay-button'
     },
 
     props: {
@@ -36,30 +31,24 @@ module.exports = exports = defineComponent({
             required: true
         }
     },
-    emits: [ 'validate', 'submit', 'error' ],
-
-    computed: {
-        giftComplete() {
-            return this.donation.frequency !== null && this.donation.amount !== null;
-        },
-    },
+    emits: [ 'presubmit', 'submit', 'error' ],
     setup( props, ctx ) {
         let appleSession = null;
         let extraData = {};
         let appleScriptSrc = null;
 
         const applePayButtonElementRef = ref();
-        const showApplePayButtonFlag = ref(false)
-        const applePayPaySessionVersionNumber = 3 // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
+        const showApplePayButtonFlag = ref( false );
+        const applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
 
         onMounted( () => {
             const config = mw.config.get( 'gravyConfiguration' );
             appleScriptSrc = config.appleScript;
             mw.donationInterface.forms.loadScript( appleScriptSrc )
                 .then( setupApplePayForm )
-                .catch( e => {
-                    mw.log.error( "combowiki applepay load failed", e );
-                } )
+                .catch( ( e ) => {
+                    mw.log.error( 'combowiki applepay load failed', e );
+                } );
         } );
 
         onBeforeUnmount( () => {
@@ -71,7 +60,7 @@ module.exports = exports = defineComponent({
                 try {
                     appleSession.abort();
                 } catch ( e ) {
-                    mw.log.error( "combowiki applepay unload failed", e );
+                    mw.log.error( 'combowiki applepay unload failed', e );
                 }
                 appleSession = null;
             }
@@ -80,8 +69,10 @@ module.exports = exports = defineComponent({
 
             // Remove the Apple Pay script this component injected into the page
             if ( appleScriptSrc ) {
-                document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' )
-                    .forEach( ( node ) => node.remove() );
+                const applePayElements = document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' );
+                for ( const node of applePayElements ) {
+                    node.remove();
+                }
                 appleScriptSrc = null;
             }
         } );
@@ -144,9 +135,9 @@ module.exports = exports = defineComponent({
         }
 
         function validateApplePayPaymentSession() {
-            return function (event) {
-                ctx.emit( 'validate', event, onValidationSuccess, onValidationFailure)
-            }
+            return function ( event ) {
+                ctx.emit( 'presubmit', event, onValidationSuccess, onValidationFailure );
+            };
         }
 
         function setupApplePaySession() {
@@ -189,12 +180,12 @@ module.exports = exports = defineComponent({
 
                 const applePayErrors = getApplePayErrors();
                 if ( applePayErrors.length === 0 ) {
-                    ctx.emit("submit", extraData, handleSuccessfulSubmitPaymentResult, handleFailedPaymentResult)
+                    ctx.emit( 'submit', extraData, handleSuccessfulSubmitPaymentResult, handleFailedPaymentResult );
                 } else {
                     // First and last name not configured in ApplePay sheet.
                     // Show errors in payment sheet
-                    handleFailedPaymentResult( applePayErrors )
-                    ctx.emit("error", applePayErrors)
+                    handleFailedPaymentResult( applePayErrors );
+                    ctx.emit( 'error', applePayErrors );
                 }
             };
         }
@@ -229,9 +220,10 @@ module.exports = exports = defineComponent({
             locale: 'en',
             applePayButtonElementRef,
             showApplePayButtonFlag,
-            setupApplePayForm,
-            handleApplePaySubmitClick,
-        }
-    }
-})
+            handleApplePaySubmitClick
+        };
+    },
+
+    computed: {}
+} );
 </script>

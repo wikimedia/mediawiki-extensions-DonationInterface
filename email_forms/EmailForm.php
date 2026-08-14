@@ -116,6 +116,7 @@ class EmailForm {
 			'recurringOptions',
 			'salutation_name',
 			'sendEmail',
+			'snoozeDateFormatted',
 			'snoozeDays',
 			'source',
 			'token',

@@ -7,6 +7,10 @@ $( '#mw-content-text' ).append( $container );
 
 const vueApp = Vue.createMwApp( App );
 
+// Cross the mw.config boundary once, here — components below never touch mw.config directly.
+const comboWikiConfig = mw.config.get( 'comboWiki' );
+vueApp.provide( 'params', comboWikiConfig.params );
+
 // Use this to prevent vue 3 default space trim.
 vueApp.config.compilerOptions.whitespace = 'preserve';
 

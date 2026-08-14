@@ -1,18 +1,16 @@
 <template>
 	<div id="googlepay-container"></div>
 </template>
+
 <script>
-/* global SecureFields */
-const { defineComponent } = require( 'vue' );
+/* global google */
+const { defineComponent, toRaw } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
-const api = require( '../api.js' );
+
 let googlePaymentClient = null;
-module.exports = exports = defineComponent({
+module.exports = exports = defineComponent( {
 	name: 'GravyGoogleForm',
-	components: {
-		'cdx-button': CdxButton,
-		'cdx-text-input': CdxTextInput
-	},
+	components: {},
 	props: {
 		donation: {
 			type: Object,
@@ -20,13 +18,10 @@ module.exports = exports = defineComponent({
 		}
 	},
 	emits: [ 'submit', 'error' ],
-	created() {
-		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
-	},
-	mounted() {
-		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
-	},
-	computed: {
+	data() {
+		return {
+			gravyConfig: ''
+		};
 	},
 	methods: {
 		loadScript( src ) {
@@ -36,7 +31,7 @@ module.exports = exports = defineComponent({
 				node.onload = resolve;
 				node.onerror = reject;
 				document.body.append( node );
-			});
+			} );
 		},
 		getClient() {
 			if ( !googlePaymentClient ) {
@@ -88,7 +83,11 @@ module.exports = exports = defineComponent({
 					mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
 				} );
 		},
+		handleFailedPaymentResult( err ) {
+			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+		},
 		getPaymentRequest() {
+			const config = toRaw( this.gravyConfig );
 			const paymentRequest = {
 				apiVersion: 2,
 				apiVersionMinor: 0
@@ -96,7 +95,7 @@ module.exports = exports = defineComponent({
 			const cardPaymentMethod = {
 				type: 'CARD',
 				parameters: {
-					allowedCardNetworks: this.gravyConfig.googleAllowedNetworks,
+					allowedCardNetworks: config.googleAllowedNetworks,
 					allowedAuthMethods: [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ],
 					billingAddressRequired: true,
 					billingAddressParameters: {
@@ -104,7 +103,7 @@ module.exports = exports = defineComponent({
 					}
 				}
 			};
-			const gravyGooglePayMerchantId = this.gravyConfig.gravyGooglePayMerchantId;
+			const gravyGooglePayMerchantId = config.gravyGooglePayMerchantId;
 			const tokenizationSpecification = {
 				type: 'PAYMENT_GATEWAY',
 				parameters: {
@@ -122,7 +121,7 @@ module.exports = exports = defineComponent({
 			};
 			paymentRequest.merchantInfo = {
 				merchantName: 'WikimediaFoundation',
-				merchantId: this.gravyConfig.googleMerchantId
+				merchantId: config.googleMerchantId
 			};
 			paymentRequest.emailRequired = true;
 			return paymentRequest;
@@ -131,14 +130,36 @@ module.exports = exports = defineComponent({
 			this.getClient()
 				.loadPaymentData( this.getPaymentRequest() )
 				.then( ( paymentData ) => {
-					this.$emit( 'submit', paymentData, null, this.handleFailedPaymentResult
-					);
+					const paymentMethodData = paymentData.paymentMethodData;
+					const paymentMethodInfo = paymentMethodData.info;
+					const paymentToken = paymentMethodData.tokenizationData.token;
+					const donorInfo = paymentMethodInfo.billingAddress;
+
+					const donationParameters = Object.assign( {}, {
+						full_name: donorInfo.name,
+						email: paymentData.email,
+						postal_code: donorInfo.postalCode,
+						state_province: donorInfo.administrativeArea,
+						city: donorInfo.locality,
+						street_address: donorInfo.address1,
+						payment_token: paymentToken,
+						card_suffix: paymentMethodInfo.cardDetails,
+						card_scheme: paymentMethodInfo.cardNetwork
+					}, paymentData );
+
+					this.$emit( 'submit', donationParameters, null, this.handleFailedPaymentResult );
 				} )
 				.catch( ( error )  => {
 					// would be google errors here
-					console.log(error);
+					console.log( error );
 				} );
 		}
+	},
+	created() {
+		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
+	},
+	mounted() {
+		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
 	}
-});
+} );
 </script>
