@@ -95,5 +95,6 @@ function validateApplePayPaymentSession( payload ) {
 module.exports = {
 	validateApplePayPaymentSession,
 	submitDonation,
+	paymentMethodMap,
 	createCheckoutSession
 };

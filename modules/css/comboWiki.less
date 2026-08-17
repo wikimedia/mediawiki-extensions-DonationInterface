@@ -86,3 +86,132 @@
 .hidden {
 	display: none;
 }
+
+/* Fullscreen dark overlay */
+.mc-modal-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba( 0, 0, 0, 0.6 );
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 998;
+}
+
+/* Modal dialog container */
+.mc-modal {
+	position: relative;
+	background-color: #fff;
+	padding: 40px 32px 32px;
+	border-radius: 4px;
+	box-shadow: 0 4px 16px rgba( 0, 0, 0, 0.25 );
+	width: 90%;
+	max-width: 520px;
+	box-sizing: border-box;
+	text-align: center;
+	font-family: sans-serif;
+}
+
+/* Close icon button */
+.mc-close {
+	position: absolute;
+	top: 12px;
+	right: 16px;
+	border: 0;
+	background: transparent;
+	font-size: 28px;
+	line-height: 1;
+	cursor: pointer;
+	color: #54595d;
+}
+
+.mc-close:hover {
+	color: #000;
+}
+
+/* Title text styling */
+.mc-title {
+	font-family: serif;
+	font-size: 26px;
+	font-weight: normal;
+	line-height: 1.3;
+	margin: 0 0 16px;
+	color: #202122;
+	outline: 0;
+}
+
+/* Subtitle paragraph */
+.mc-subtitle {
+	font-size: 15px;
+	line-height: 1.4;
+	color: #202122;
+	margin: 0 0 28px;
+}
+
+/* Side-by-side buttons layout */
+.mc-actions {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+/* Large action buttons */
+.mc-btn {
+	min-width: 120px;
+	height: 44px;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 4px;
+}
+
+.mc-yes-btn,
+.mc-no-btn {
+	background-color: #36c;
+	border-color: #36c;
+	color: #fff;
+}
+
+.mc-yes-btn:hover,
+.mc-no-btn:hover {
+	background-color: #447ff5;
+	border-color: #447ff5;
+}
+
+/* Text link button below */
+.mc-diff-link-wrapper {
+	margin-top: 8px;
+}
+
+.mc-diff-amount-link {
+	background: none;
+	border: 0;
+	color: #36c;
+	font-size: 13px;
+	font-weight: bold;
+	text-decoration: underline;
+	cursor: pointer;
+	padding: 0;
+}
+
+.mc-diff-amount-link:hover {
+	color: #447ff5;
+}
+
+/* Edit amount input and error styling */
+.mc-other-amount-input {
+	margin-bottom: 12px;
+}
+
+.combo-wiki__errorHighlight {
+	border: 1px solid #d33;
+}
+
+.combo-wiki__error {
+	color: #d33;
+	font-size: 13px;
+	margin-top: 4px;
+}

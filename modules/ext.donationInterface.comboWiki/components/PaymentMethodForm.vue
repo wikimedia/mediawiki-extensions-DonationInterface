@@ -72,6 +72,7 @@ module.exports = exports = defineComponent( {
 			appState.setLoading( true );
 			api.submitDonation( toRaw( props.donation ), payload )
 				.then( ( result ) => {
+					console.log( 'submitDonation', result );
 					// how do we want to display validation errors
 					if ( result.result.isFailed || result.result.errors ) {
 						ctx.emit( 'donationError', result.result.errors );
@@ -172,6 +173,7 @@ module.exports = exports = defineComponent( {
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'paypal-form',
+				error: onError,
 				submit: submitDonation
 			},
 			venmo: {
@@ -184,6 +186,7 @@ module.exports = exports = defineComponent( {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
 				component: 'applepay-form',
 				submit: submitDonation,
+				error: onError,
 				presubmit: validateApplePay
 			},
 			ach: {
