@@ -29,6 +29,8 @@
 		"spaced-comment": 0,
 		"valid-jsdoc": 0,
 		"wrap-iife": 0,
+		"vue/no-v-html": 0,
+		"no-console": "warn",
 		"no-jquery/no-constructor-attributes": "warn",
 		"no-jquery/no-parse-html-literal": "warn",
 		"no-jquery/no-sizzle": "warn",
@@ -36,20 +38,37 @@
 		"no-shadow": "warn",
 		"prefer-regex-literals": "warn",
 		"mediawiki/msg-doc": "warn",
-		"es-x/no-promise": "warn",
-		"es-x/no-object-assign": "warn",
 		"no-var": "warn",
 		"prefer-const": "warn",
 		"no-jquery/no-done-fail": "warn",
-		"mediawiki/no-cookie": "warn",
-		"no-console": "warn"
+		"mediawiki/no-cookie": "warn"
 	},
 	"settings": {
 		"es-x": { "allowTestedProperty": true }
 	},
 	"overrides": [
 		{
+			"files": [
+				"modules/ext.donationInterface.comboWiki/**/*.{js,vue}",
+				"modules/ext.donationInterface.donorPortal/**/*.{js,vue}"
+			],
+			"rules": {
+				"no-unused-vars": "warn",
+				"no-console": 0,
+				"indent": [ "error", "tab" ],
+				"vue/script-indent": [ "error", "tab" ],
+				"vue/html-indent": [ "error", "tab" ]
+			}
+		},
+		{
 			"files": [ "**/*.vue" ],
+			"parser": "vue-eslint-parser",
+			"parserOptions": {
+				"ecmaVersion": 2021
+			},
+			"extends": [
+				"plugin:vue/vue3-strongly-recommended"
+			],
 			"rules": {
 				"vue/no-undef-components": [ "error", {
 					"ignorePatterns": [ "apple-pay-button" ]

@@ -12,28 +12,28 @@
 const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	name: 'DonationsDisclaimerComponent',
-    props: {
-        email: {
-            type: String,
-            required: true,
-            default: 'N/A'
-        },
-        helpEmail: {
-            type: String,
-            required: true
-        },
-        taxUrl: {
-            type: String,
-            required: true
-        }
-    },
-    computed: {
-        donationsDisclaimer: function () {
-            return this.$i18n( 'donorportal-donations-disclaimer', this.email, `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
-        },
-        taxDisclaimer: function () {
-            return this.$i18n( 'donorportal-tax-disclaimer', `<a href="${ this.taxUrl }" target="_blank" class="link">${ this.$i18n( 'donorportal-tax-section' ) }</a>` ).text();
-        }
-    }
+	props: {
+		email: {
+			type: String,
+			required: true,
+			default: 'N/A'
+		},
+		helpEmail: {
+			type: String,
+			required: true
+		},
+		taxUrl: {
+			type: String,
+			required: true
+		}
+	},
+	computed: {
+		donationsDisclaimer: function () {
+			return this.$i18n( 'donorportal-donations-disclaimer', this.email, `<a href="mailto:${ this.helpEmail }" class="link">${ this.helpEmail }</a>` ).text();
+		},
+		taxDisclaimer: function () {
+			return this.$i18n( 'donorportal-tax-disclaimer', `<a href="${ this.taxUrl }" target="_blank" class="link">${ this.$i18n( 'donorportal-tax-section' ) }</a>` ).text();
+		}
+	}
 } );
 </script>

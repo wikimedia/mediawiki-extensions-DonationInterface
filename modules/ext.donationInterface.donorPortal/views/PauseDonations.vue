@@ -5,12 +5,14 @@
 			:recurring-contribution="recurringContributionRecord"
 			:submit-form="submitPauseRecurringDuration"
 			:duration-options="durationOptions"
-			:default-duration="durationOptions[0]"></recurring-pause-form>
+			:default-duration="durationOptions[0]"
+		></recurring-pause-form>
 		<recurring-pause-success v-else-if="flags.donationPauseSuccessful" :next-sched-contribution-date="nextSchedContributionDate"></recurring-pause-success>
 		<recurring-pause-error
 			v-else-if="flags.donationPauseError"
 			:error-code="pauseErrorCode"
-			fallback-message-key="donorportal-pause-failure"></recurring-pause-error>
+			fallback-message-key="donorportal-pause-failure"
+		></recurring-pause-error>
 	</div>
 </template>
 
@@ -43,8 +45,6 @@ module.exports = exports = defineComponent( {
 			recurringContributionRecord = {};
 		}
 
-		const contact_id = donorData.contact_id;
-		const checksum = donorData.checksum;
 		const nextSchedContributionDate = ref( recurringContributionRecord.next_sched_contribution_date );
 		const pauseErrorCode = ref( '' );
 		const flags = reactive( {

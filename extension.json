@@ -529,6 +529,7 @@
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
+				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
 				"modules/ext.donationInterface.comboWiki/views/PaymentForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
@@ -540,7 +541,8 @@
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
-				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue"
+				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue",
+				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue"
 			],
 			"messages": [
 				"combowiki-title",

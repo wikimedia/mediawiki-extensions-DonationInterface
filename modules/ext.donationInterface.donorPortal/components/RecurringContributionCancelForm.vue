@@ -70,7 +70,8 @@
 				type="button"
 				name="submit"
 				class="confirm-cancel cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large"
-				@click="proceedCancelAction">
+				@click="proceedCancelAction"
+			>
 				{{ $i18n( "donorportal-cancel-recurring-confirm-cancellation" ).text() }}
 			</button>
 		</section>
@@ -81,7 +82,8 @@
 				<router-link
 					id="buttonBackToAccount"
 					to="/"
-					class="link">
+					class="link"
+				>
 					{{ $i18n( "donorportal-return-to-account-button" ).text() }}
 				</router-link>
 			</p>
@@ -90,7 +92,7 @@
 </template>
 
 <script>
-const { defineComponent, ref, computed } = require( 'vue' );
+const { defineComponent, ref } = require( 'vue' );
 const { useRouter, RouterLink } = require( 'vue-router' );
 
 const RecurringContributionCancelOtherOptions = require( './RecurringContributionCancelAltOptionContainer.vue' );

@@ -3,7 +3,8 @@
 		<section class="column--callout">
 			<img
 				:src="`${ assets_path }/images/wp_symbols_community.svg`"
-				alt="Community Icon">
+				alt="Community Icon"
+			>
 		</section>
 		<section class="column--callout">
 			<div class="site-content">

@@ -5,7 +5,8 @@
 				v-if="part.type === 'link'"
 				:href="part.href"
 				:target="part.external ? '_blank' : null"
-				:rel="part.external ? 'noopener noreferrer' : null">
+				:rel="part.external ? 'noopener noreferrer' : null"
+			>
 				{{ part.text }}
 			</a>
 			<template v-else>

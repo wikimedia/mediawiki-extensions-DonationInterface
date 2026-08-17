@@ -6,7 +6,8 @@
 			</h1>
 			<img
 				:src="`${ assets_path }/images/wp_symbols_community.svg`"
-				alt="Community Icon">
+				alt="Community Icon"
+			>
 		</section>
 		<section class="column--base">
 			<ul class="checklist">
@@ -20,7 +21,8 @@
 				id="shareFeedback"
 				target="_blank"
 				:href="surveyUrl"
-				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large">
+				class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled  cdx-button--weight-primary cdx-button--size-large"
+			>
 				{{ $i18n( "donorportal-feedback-button" ).text() }}
 			</a>
 		</section>

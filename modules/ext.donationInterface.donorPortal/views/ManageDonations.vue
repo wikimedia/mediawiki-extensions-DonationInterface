@@ -33,7 +33,8 @@
 								<img
 									src="https://upload.wikimedia.org/wikipedia/donate/6/6e/Wikipedia-globe-90x80.png"
 									alt="Image of Wikipedia Globe"
-									class="image--callout">
+									class="image--callout"
+								>
 							</div>
 						</div>
 						<div class="box__section">
@@ -58,13 +59,15 @@
 					v-if="!isPaused"
 					id="buttonPauseGift"
 					:to="`/pause-donations/${contribution_recur_id}`"
-					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-normal cdx-button--size-large">
+					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-normal cdx-button--size-large"
+				>
 					{{ $i18n( "donorportal-manage-donation-management-pause-gift" ).text() }}
 				</router-link>
 				<router-link
 					id="buttonChangeDonationAmount"
 					:to="`/update-donations/${contribution_recur_id}`"
-					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-primary cdx-button--size-large">
+					class="cdx-button cdx-button--fake-button cdx-button--fake-button--enabled cdx-button--weight-primary cdx-button--size-large"
+				>
 					{{ $i18n( "donorportal-manage-donation-management-change-amount" ).text() }}
 				</router-link>
 			</section>
@@ -74,7 +77,8 @@
 					<router-link
 						id="buttonSwitchAnnualGift"
 						:to="`/annual-conversion/${contribution_recur_id}`"
-						class="link">
+						class="link"
+					>
 						{{ $i18n( "donorportal-cancel-recurring-frequency-annual-switch-alternative-button" ).text() }}
 					</router-link>
 				</p>
@@ -82,7 +86,8 @@
 					<router-link
 						id="buttonCancelRecurringGift"
 						:to="`/cancel-donations/${contribution_recur_id}`"
-						class="link">
+						class="link"
+					>
 						{{ $i18n( "donorportal-manage-donation-management-cancel-gift" ).text() }}
 					</router-link>
 				</p>
@@ -94,7 +99,8 @@
 					<router-link
 						id="buttonBack"
 						to="/"
-						class="link">
+						class="link"
+					>
 						{{ $i18n( "donorportal-return-to-account-button" ).text() }}
 					</router-link>
 				</p>
@@ -131,35 +137,35 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
-	isPaused: function () {
-		return this.recurringContributionRecord && this.recurringContributionRecord.is_paused;
-	},
-	isProcessing: function () {
-                return this.recurringContributionRecord && this.recurringContributionRecord.is_processing;
-        },
-	statusWord: function () {
-		let keySuffix = 'active';
-		if ( this.isPaused ) {
-			keySuffix = 'paused';
+		isPaused: function () {
+			return this.recurringContributionRecord && this.recurringContributionRecord.is_paused;
+		},
+		isProcessing: function () {
+			return this.recurringContributionRecord && this.recurringContributionRecord.is_processing;
+		},
+		statusWord: function () {
+			let keySuffix = 'active';
+			if ( this.isPaused ) {
+				keySuffix = 'paused';
+			}
+			// Messages that can be used here:
+			// * donorportal-recurring-status-active
+			// * donorportal-recurring-status-paused
+			return mw.msg( 'donorportal-recurring-status-' + keySuffix );
+		},
+		isMonthlyGift: function () {
+			return this.recurringContributionRecord && this.recurringContributionRecord.frequency_unit === 'month';
+		},
+		contributionAmount: function () {
+			// Frequency keys that can be used here
+			// * donorportal-recurring-amount-annual
+			// * donorportal-recurring-amount-monthly
+			return this.$i18n( this.recurringContributionRecord.amount_frequency_key, this.recurringContributionRecord.amount_formatted, this.recurringContributionRecord.currency ).text();
+		},
+		recurringNextContributionAmountWithDate: function () {
+			return this.$i18n( 'donorportal-recurring-next-amount-and-date', this.recurringContributionRecord.amount_formatted,
+				this.recurringContributionRecord.currency, this.recurringContributionRecord.next_sched_contribution_date_formatted ).text();
 		}
-		// Messages that can be used here:
-		// * donorportal-recurring-status-active
-		// * donorportal-recurring-status-paused
-		return mw.msg( 'donorportal-recurring-status-' + keySuffix );
-	},
-	isMonthlyGift: function () {
-		return this.recurringContributionRecord && this.recurringContributionRecord.frequency_unit === 'month';
-	},
-	contributionAmount: function () {
-		// Frequency keys that can be used here
-		// * donorportal-recurring-amount-annual
-		// * donorportal-recurring-amount-monthly
-		return this.$i18n( this.recurringContributionRecord.amount_frequency_key, this.recurringContributionRecord.amount_formatted, this.recurringContributionRecord.currency ).text();
-	},
-	recurringNextContributionAmountWithDate: function () {
-		return this.$i18n( 'donorportal-recurring-next-amount-and-date', this.recurringContributionRecord.amount_formatted,
-			this.recurringContributionRecord.currency, this.recurringContributionRecord.next_sched_contribution_date_formatted ).text();
 	}
-}
 } );
 </script>

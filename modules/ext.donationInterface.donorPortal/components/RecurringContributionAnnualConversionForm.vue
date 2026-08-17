@@ -10,7 +10,8 @@
 		</section>
 		<form
 			class="form"
-			@submit.prevent>
+			@submit.prevent
+		>
 			<section class="column--base">
 				<p class="text text--body">
 					{{ $i18n( "donorportal-update-recurring-annual-convert-select-below" ).text() }}
@@ -120,7 +121,8 @@
 				{{ $i18n( "donorportal-cancel-recurring-quit-header" ).text() }} <router-link
 					id="buttonBackToAccount"
 					to="/"
-					class="link">
+					class="link"
+				>
 					{{ $i18n( "donorportal-return-to-account-button" ).text() }}
 				</router-link>
 			</p>

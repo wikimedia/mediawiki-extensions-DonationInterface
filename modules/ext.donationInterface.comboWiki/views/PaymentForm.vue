@@ -9,7 +9,8 @@
 			<cdx-select
 				v-model:selected="donation.currency"
 				:menu-items="currencyOptions"
-				:default-label="$i18n( 'combowiki-currency-placeholder' ).text()">
+				:default-label="$i18n( 'combowiki-currency-placeholder' ).text()"
+			>
 			</cdx-select>
 
 			<!--      Amount-->
@@ -18,14 +19,16 @@
 				:key="amount"
 				:weight="donation.amount === amount ? 'primary' : 'normal'"
 				:class="{ 'combo-wiki__option--selected': Number( donation.amount ) === amount }"
-				@click="selectAmount( amount )">
+				@click="selectAmount( amount )"
+			>
 				${{ amount }}
 			</cdx-button>
 			<!--      Custom Amount -->
 			<cdx-text-input
 				v-model="donation.amount"
 				input-type="number"
-				:placeholder="$i18n( 'donate_interface-other-amount' ).text()">
+				:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
+			>
 			</cdx-text-input>
 
 			<!--      Pay the fee-->
@@ -41,14 +44,16 @@
 			<cdx-radio
 				v-model="donation.optIn"
 				input-value="yes"
-				name="email-optin">
+				name="email-optin"
+			>
 				{{ $i18n( 'combowiki-optin-yes' ).text() }}
 			</cdx-radio>
 
 			<cdx-radio
 				v-model="donation.optIn"
 				input-value="no"
-				name="email-optin">
+				name="email-optin"
+			>
 				{{ $i18n( 'combowiki-optin-no' ).text() }}
 			</cdx-radio>
 		</div>
@@ -78,108 +83,110 @@
 		</p>
 		<we-do-not-sell-text></we-do-not-sell-text>
 		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
+		<loading-spinner></loading-spinner>
 	</main>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
 const {
-  CdxButton,
-  CdxTextInput,
-  CdxSelect,
-  CdxCheckbox,
-  CdxRadio
+	CdxButton,
+	CdxTextInput,
+	CdxSelect,
+	CdxCheckbox,
+	CdxRadio
 } = require( '@wikimedia/codex' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
+const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 
 module.exports = exports = defineComponent( {
-  name: 'PaymentForm',
+	name: 'PaymentForm',
 
-  components: {
-    'cdx-button': CdxButton,
-    'cdx-text-input': CdxTextInput,
-    'cdx-select': CdxSelect,
-    'cdx-checkbox': CdxCheckbox,
-    'cdx-radio': CdxRadio,
-    'frequency-selector': FrequencySelector,
-    'payment-method-form': PaymentMethodForm,
-    'we-do-not-sell-text': WeDoNotSellText,
-    'more-info-links': MoreInfoLinks,
-    'employer-field': EmployerField
-  },
-  inject: [ 'params' ],
-  data() {
-    return {
-      presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],
-      donation: {
-        firstName: null,
-        lastName: null,
-        email: null,
-        frequency: 'once',
-        amount: null,
-        currency: 'USD',
-        payFee: false,
-        country: 'US',
-        paymentMethod: null,
-        optIn: null,
-        employer: null
-      },
-      selectedGateway: ( mw.config.get( 'comboWiki' ) ).gateway || null,
-      donateError: null
-    };
-  },
+	components: {
+		'cdx-button': CdxButton,
+		'cdx-text-input': CdxTextInput,
+		'cdx-select': CdxSelect,
+		'cdx-checkbox': CdxCheckbox,
+		'cdx-radio': CdxRadio,
+		'frequency-selector': FrequencySelector,
+		'payment-method-form': PaymentMethodForm,
+		'we-do-not-sell-text': WeDoNotSellText,
+		'more-info-links': MoreInfoLinks,
+		'employer-field': EmployerField,
+		'loading-spinner': LoadingSpinner
+	},
+	inject: [ 'params' ],
+	data() {
+		return {
+			presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],
+			donation: {
+				firstName: null,
+				lastName: null,
+				email: null,
+				frequency: 'once',
+				amount: null,
+				currency: 'USD',
+				payFee: false,
+				country: 'US',
+				paymentMethod: null,
+				optIn: null,
+				employer: null
+			},
+			selectedGateway: ( mw.config.get( 'comboWiki' ) ).gateway || null,
+			donateError: null
+		};
+	},
+	computed: {
+		currencyOptions() {
+			return [
+				{ label: this.$i18n( 'combowiki-currency-usd' ).text(), value: 'USD' },
+				{ label: this.$i18n( 'combowiki-currency-eur' ).text(), value: 'EUR' },
+				{ label: this.$i18n( 'combowiki-currency-gbp' ).text(), value: 'GBP' }
+			];
+		},
+		feeAmount() {
+			if ( !this.donation.payFee || !this.donation.amount ) {
+				return 0;
+			}
 
-  computed: {
-    currencyOptions() {
-      return [
-        { label: this.$i18n( 'combowiki-currency-usd' ).text(), value: 'USD' },
-        { label: this.$i18n( 'combowiki-currency-eur' ).text(), value: 'EUR' },
-        { label: this.$i18n( 'combowiki-currency-gbp' ).text(), value: 'GBP' }
-      ];
-    },
-    feeAmount() {
-      if ( !this.donation.payFee || !this.donation.amount ) {
-        return 0;
-      }
+			// dummy data for PTF now
+			return Math.round( this.donation.amount * 0.035 * 100 ) / 100;
+		},
+		giftComplete() {
+			return this.donation.frequency !== null && this.donation.amount !== null;
+		}
+	},
 
-      // dummy data for PTF now
-      return Math.round( this.donation.amount * 0.035 * 100 ) / 100;
-    },
-    giftComplete() {
-      return this.donation.frequency !== null && this.donation.amount !== null;
-    }
-  },
+	methods: {
+		selectAmount( value ) {
+			this.donation.amount = value;
+		},
 
-  methods: {
-    selectAmount( value ) {
-      this.donation.amount = value;
-    },
-
-    handleDonateResult( result ) {
-      const response = result.result;
-      if ( response.isFailed ) {
-        this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
-        return;
-      }
-      if ( response.errors ) {
-        this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
-        return;
-      }
-      if ( response.redirect ) {
-        window.location.assign( response.redirect );
-      } else {
-        window.location.assign( mw.config.get( 'DonationInterfaceThankYouPage' ) );
-      }
-    },
-    handleDonateError( code, failure ) {
-      this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
-      mw.log.error( 'di_donate_gravy failed', code, failure );
-    }
-  }
+		handleDonateResult( result ) {
+			const response = result.result;
+			if ( response.isFailed ) {
+				this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+				return;
+			}
+			if ( response.errors ) {
+				this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
+				return;
+			}
+			if ( response.redirect ) {
+				window.location.assign( response.redirect );
+			} else {
+				window.location.assign( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+			}
+		},
+		handleDonateError( code, failure ) {
+			this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+			mw.log.error( 'di_donate_gravy failed', code, failure );
+		}
+	}
 } );
 
 </script>

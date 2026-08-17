@@ -69,7 +69,7 @@ module.exports = exports = defineComponent( {
 
 	computed: {
 		canSubmit() {
-			return this.isValidEmail( this.donation.email );
+			return this.isValidEmail( this.email );
 		},
 		signInBank() {
 			if ( this.isSubmitting ) {

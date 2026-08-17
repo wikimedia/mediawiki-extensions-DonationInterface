@@ -1,5 +1,4 @@
 /* global jest global describe it expect beforeEach afterEach*/
-/* eslint-disable es-x/no-promise */
 
 const VueTestUtils = require( '@vue/test-utils' );
 const LoginView = require( '../../../modules/ext.donationInterface.donorPortal/views/LoginView.vue' );

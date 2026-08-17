@@ -8,7 +8,8 @@
 			</h1>
 			<img
 				:src="`${ assets_path }/images/wp_symbols_community.svg`"
-				alt="Community Icon">
+				alt="Community Icon"
+			>
 		</section>
 		<section class="column--base">
 			<ul class="checklist">
@@ -37,11 +38,11 @@ module.exports = exports = defineComponent( {
 		'router-link': RouterLink
 	},
 	props: {
-    nextSchedContributionDate: {
+		nextSchedContributionDate: {
 			type: String,
 			required: true
 		},
-    newAmount: {
+		newAmount: {
 			type: String,
 			required: true
 		}

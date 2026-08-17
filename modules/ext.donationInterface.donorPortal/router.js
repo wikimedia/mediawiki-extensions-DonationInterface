@@ -22,16 +22,16 @@ function logNavigation( to ) {
 }
 
 const routes = [
-  { path: '/', component: Home, name: 'Home' },
-  { path: '/login', component: Login, name: 'Login' },
-  { path: '/manage-donations/:id', component: ManageDonations, name: 'ManageDonations', beforeEnter: logNavigation },
-  { path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations', beforeEnter: logNavigation },
-  { path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations', beforeEnter: logNavigation },
-  { path: '/update-donations/:id', component: UpdateDonations, name: 'UpdateDonations', beforeEnter: logNavigation },
-  { path: '/annual-conversion/:id', component: AnnualConversion, name: 'AnnualConversion', beforeEnter: logNavigation },
-  { path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade', beforeEnter: logNavigation },
-  { path: '/annual-conversion/:id/save', component: AnnualConversion, name: 'AnnualConversionSave' },
-  { path: '/amount-downgrade/:id/save', component: AmountDowngrade, name: 'AmountDowngradeSave' }
+	{ path: '/', component: Home, name: 'Home' },
+	{ path: '/login', component: Login, name: 'Login' },
+	{ path: '/manage-donations/:id', component: ManageDonations, name: 'ManageDonations', beforeEnter: logNavigation },
+	{ path: '/pause-donations/:id', component: PauseDonations, name: 'PauseDonations', beforeEnter: logNavigation },
+	{ path: '/cancel-donations/:id', component: CancelDonations, name: 'CancelDonations', beforeEnter: logNavigation },
+	{ path: '/update-donations/:id', component: UpdateDonations, name: 'UpdateDonations', beforeEnter: logNavigation },
+	{ path: '/annual-conversion/:id', component: AnnualConversion, name: 'AnnualConversion', beforeEnter: logNavigation },
+	{ path: '/amount-downgrade/:id', component: AmountDowngrade, name: 'AmountDowngrade', beforeEnter: logNavigation },
+	{ path: '/annual-conversion/:id/save', component: AnnualConversion, name: 'AnnualConversionSave' },
+	{ path: '/amount-downgrade/:id/save', component: AmountDowngrade, name: 'AmountDowngradeSave' }
 ];
 
 const router = createRouter( {
@@ -41,6 +41,7 @@ const router = createRouter( {
 
 router.beforeEach( async ( to, from ) => {
 	const donorData = mw.config.get( 'donorData' );
+	console.log( 'router.beforeEach', to, from );
 	// check if donor has valid checksum and avoid infinite redirect
 	if ( mw.config.get( 'showRequestNewChecksumModal' ) || !donorData || donorData.showLogin || donorData.error ) {
 		if ( to.name !== 'Login' ) {

@@ -26,7 +26,8 @@
 				</a>  |  <a
 					:href="endowmentDonationUrl"
 					target="_blank"
-					class="link">{{ $i18n( "donorportal-endowment-donate-now" ).text() }}</a>
+					class="link"
+				>{{ $i18n( "donorportal-endowment-donate-now" ).text() }}</a>
 			</p>
 		</div>
 	</div>

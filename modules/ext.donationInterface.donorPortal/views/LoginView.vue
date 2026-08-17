@@ -5,7 +5,8 @@
 				<p
 					id="server-error-message-text"
 					class="text text--body-small"
-					v-html="serverErrorText"></p>
+					v-html="serverErrorText"
+				></p>
 			</div>
 			<div v-else class="auth__infobox-inner">
 				<div class="auth__intro">
@@ -34,20 +35,23 @@
 						type="submit"
 						class="cdx-button cdx-button--action-progressive cdx-button--weight-primary"
 						@click="handleSubmitButtonClick"
-						v-html="newLinkRequest">
+						v-html="newLinkRequest"
+					>
 					</button>
 				</form>
 				<p
 					id="link-sent-text"
 					class="link-sent"
-					:style="`display: ${checksum_link_sent ? 'block' : 'none'};`">
+					:style="`display: ${checksum_link_sent ? 'block' : 'none'};`"
+				>
 					{{ $i18n( "emailpreferences-new-link-sent" ).text() }}
 				</p>
 				<p
 					id="error-message-text"
 					class="text--body-small"
 					:class="[ { 'invalid-error-message-text': api_error === 'invalid_email' || api_error === 'InvalidCredentials' || api_error === 'missingparam' } ]"
-					:style="`display: ${error_message ? 'block' : 'none'};`">
+					:style="`display: ${error_message ? 'block' : 'none'};`"
+				>
 					{{ error_message }}
 				</p>
 				<popup-link v-if="!server_error">
@@ -63,7 +67,8 @@
 						</p>
 						<p
 							class="popup-body"
-							v-html="problemLoginLink"></p>
+							v-html="problemLoginLink"
+						></p>
 					</template>
 				</popup-link>
 			</div>
@@ -72,7 +77,8 @@
 			<figure>
 				<img
 					src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Sunrise_View_of_Inle_Lake.jpg/1280px-Sunrise_View_of_Inle_Lake.jpg"
-					:alt="figureAltText">
+					:alt="figureAltText"
+				>
 				<figcaption v-html="figureCaption"></figcaption>
 			</figure>
 		</section>
@@ -133,16 +139,16 @@ module.exports = exports = defineComponent( {
 		error_message: function () {
 			if ( this.api_error ) {
 				switch ( this.api_error ) {
-					case 'missingparam':
-						return this.$i18n( 'donorportal-email-required' ).text();
-					case 'Unreachable':
-						return this.$i18n( 'donorportal-civi-unavailable-error-message' ).text();
-					case 'invalid_email':
-						return this.$i18n( 'donorportal-invalid-email-error-message' ).text();
-					case 'InvalidCredentials':
-						return this.$i18n( 'donorportal-invalid-credentials-error-message' ).text();
-					default:
-						return this.$i18n( 'donorportal-something-wrong' ).text();
+				case 'missingparam':
+					return this.$i18n( 'donorportal-email-required' ).text();
+				case 'Unreachable':
+					return this.$i18n( 'donorportal-civi-unavailable-error-message' ).text();
+				case 'invalid_email':
+					return this.$i18n( 'donorportal-invalid-email-error-message' ).text();
+				case 'InvalidCredentials':
+					return this.$i18n( 'donorportal-invalid-credentials-error-message' ).text();
+				default:
+					return this.$i18n( 'donorportal-something-wrong' ).text();
 				}
 			}
 			return '';

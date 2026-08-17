@@ -5,7 +5,8 @@
 			:recurring-contribution="recurringContribution"
 			:max="recurringUpgradeMaxUSD"
 			:currency-rate-array="currencyRateArray"
-			:submit-update-recurring="submitUpdateRecurring"></recurring-update-form>
+			:submit-update-recurring="submitUpdateRecurring"
+		></recurring-update-form>
 		<recurring-update-success
 			v-else-if="flags.donationUpdateSuccessful"
 			:next-sched-contribution-date="nextSchedContributionDate"

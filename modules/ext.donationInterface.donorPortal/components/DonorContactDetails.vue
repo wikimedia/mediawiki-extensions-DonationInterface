@@ -28,7 +28,8 @@
 					<a
 						v-if="emailPreferencesUrl"
 						:href="emailPreferencesUrl"
-						class="link">{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
+						class="link"
+					>{{ $i18n( "donorportal-update-preferences" ).text() }}</a>
 				</p>
 			</div>
 		</div>
