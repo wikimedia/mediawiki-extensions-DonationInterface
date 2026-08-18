@@ -17,12 +17,20 @@ module.exports = function ( grunt ) {
 				cache: true,
 				fix: grunt.option( 'fix' )
 			},
-			all: [
+			main: [
 				'{.,modules/**}/*.js{,on}',
-				'!modules/js/{mailcheck,lg-hash,lightgallery}.js',
-				'modules/ext.donationInterface.donorPortal/**/*.{vue,js}',
-				'modules/ext.donationInterface.comboWiki/**/*.{vue,js}',
-				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/**/*.js',
+				'!modules/js/{mailcheck,lg-hash,lightgallery}.js'
+			],
+			donorPortal: [
+				'modules/ext.donationInterface.donorPortal/**/*.{vue,js}'
+			],
+			comboWiki: [
+				'modules/ext.donationInterface.comboWiki/**/*.{vue,js}'
+			],
+			gateways: [
+				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/**/*.js'
+			],
+			tests: [
 				'tests/**/*.js'
 			]
 		},
@@ -30,9 +38,11 @@ module.exports = function ( grunt ) {
 			options: {
 				cache: true
 			},
-			all: [
-				'{modules,gateway_forms}/{**/,}*.{css,less}',
-				'{amazon,ingenico}_gateway/{**/,}*.{css,less}'
+			main: [
+				'{modules,gateway_forms}/{**/,}*.{css,less}'
+			],
+			gateways: [
+				'{adyen,amazon,braintree,dlocal,ingenico,paypal_ec,gravy}_gateway/{**/,}*.{css,less}'
 			]
 		},
 		banana: Object.assign(

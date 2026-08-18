@@ -2,14 +2,15 @@
 .DlocalField {
 	padding: 0 0.8em;
 	border: 1px solid #a2a9b1;
-	border-radius: 2px
+	border-radius: 2px;
 }
 
-.DlocalField--invalid, .DlocalField--focus.DlocalField--invalid {
-    /* Note: coordinate with errorHighlight in skinOverride.css */
-    border: 2px solid #f00;
+.DlocalField--invalid,
+.DlocalField--focus.DlocalField--invalid {
+	/* Note: coordinate with errorHighlight in skinOverride.css */
+	border: 2px solid #f00;
 }
 
 .DlocalField--invalid-text {
-    color: #f00;
+	color: #f00;
 }

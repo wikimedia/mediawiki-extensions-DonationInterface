@@ -39,14 +39,15 @@ div.adyen-checkout__dropdown__button:focus:hover {
 	border-color: #36c;
 	box-shadow: inset 0 0 0 1px #36c;
 }
+
 #donate div.adyen-checkout__dropdown input.adyen-checkout__filter-input {
-	margin-bottom:0.1em;
+	margin-bottom: 0.1em;
 }
-/* Field labels*/
+/* Field labels */
 
 /* Harmonize label text size and spacing */
 span.adyen-checkout__label__text {
-	padding-bottom: 0px;
+	padding-bottom: 0;
 
 	/* inherit cancels the rules set by Adyen; these text properties are
 	   then inherited from the enclosing element, set in the vector skin. */
@@ -66,28 +67,25 @@ span.adyen-checkout__label__text {
 /* Here we set styles on our own input elements to adapt them to styles of elements
    Adyen shows inside iframes, since we can't change the inline CSS inside the iframes.
    This also overrides styles set from vector that impact Adyen-provided elements
-   outside iframes.*/
-form#payment-form input[type='email'],
-form#payment-form input[type='text'],
+   outside iframes. */
+form#payment-form input[ type='email' ],
+form#payment-form input[ type='text' ],
 /* Also apply to these explicitly to some Adyen elements. (Adyen's own
    styles aren't consistent.) */
 div.adyen-checkout__dropdown__button,
 .adyen-checkout__dropdown__element {
-	/* These text styles are set for Adyen-provided inputs in an inline <style>
+	/* These text styles are set for Adyen-provided inputs in an inline \3c style>
 	   element inside the iframe. Since I don't see any way to change those,
 	   styling our inputs to match seems to be the way to go. */
-	font-family: -apple-system, BlinkMacSystemFont,
-		"Segoe UI", "Roboto", "Oxygen",
-		"Ubuntu", "Cantarell", "Fira Sans",
-		"Droid Sans", "Helvetica Neue", sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	font-size: 16px;
-	font-weight: 400;
+	font-weight: normal;
 	line-height: normal;
 	padding: 5px 8px 5px 8px;
 	height: 40px;
 }
 
-form#payment-form input[role='combobox'] {
+form#payment-form input[ role='combobox' ] {
 	height: 37px !important;
 	margin: 0 0 1px -8px;
 }
@@ -98,40 +96,41 @@ form#payment-form input[role='combobox'] {
    fields, so it seems better to adapt our own, instead of fiddling with that.
    Note: fullwidth and halfwidth classes prevent selection of Adyen-provided input
    elements outside iframes (such as inner rtbt bank selector input). */
-form#payment-form input.fullwidth[type='email'],
-form#payment-form input.fullwidth[type='text'],
-form#payment-form div.halfwidth input[type='text'],
-
+form#payment-form input.fullwidth[ type='email' ],
+form#payment-form input.fullwidth[ type='text' ],
+form#payment-form div.halfwidth input[ type='text' ],
 /* Do apply explicitly to Adyen's dropdown wrapper, though. */
 div.adyen-checkout__dropdown__button {
 	padding: 5px 8px 5px 8px;
 	margin-bottom: 0.2em;
 	height: 40px;
 }
-.adyen-checkout__field-wrapper>.adyen-checkout__field:first-child {
-	margin-right: 0
+
+.adyen-checkout__field-wrapper > .adyen-checkout__field:first-child {
+	margin-right: 0;
 }
-form#payment-form input.inputDefault[type='text']{
+
+form#payment-form input.inputDefault[ type='text' ] {
 	padding: 5px 8px 5px 8px;
 	height: 40px;
 }
 
 /* Override default style set by Firefox */
-form#payment-form input[type='email']:required:invalid,
-form#payment-form input[type='text']:required:invalid {
+form#payment-form input[ type='email' ]:required:invalid,
+form#payment-form input[ type='text' ]:required:invalid {
 	box-shadow: inherit;
 }
 
 /* The above also overrides the focus styling (from forms.css) so restore it */
-form#payment-form input[type='email']:required:invalid:focus,
-form#payment-form input[type='text']:required:invalid:focus {
+form#payment-form input[ type='email' ]:required:invalid:focus,
+form#payment-form input[ type='text' ]:required:invalid:focus {
 	box-shadow: inset 0 0 0 1px #36c;
 }
 
 /* However, we don't want the focus styling when we've specifically set
    errorHighlight */
-form#payment-form input.errorHighlight[type='email']:required:invalid:focus,
-form#payment-form input.errorHighlight[type='text']:required:invalid:focus {
+form#payment-form input.errorHighlight[ type='email' ]:required:invalid:focus,
+form#payment-form input.errorHighlight[ type='text' ]:required:invalid:focus {
 	box-shadow: none;
 }
 
@@ -164,7 +163,7 @@ span.adyen-checkout__error-text {
 /* Remove border for inner input field inside drop-down */
 div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input,
 div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
-	border: none !important;
+	border: 0 !important;
 	box-shadow: none !important;
 	height: 36px;
 	margin: 2px;
@@ -173,11 +172,12 @@ div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
 
 /* Tweak the border radius for dropdown options list */
 .adyen-checkout__dropdown__list {
-	border-radius: 0px 0px 2px 2px;
+	border-radius: 0 0 2px 2px;
 }
 
 /* Center the Apple/google Pay button */
-div#applepay-container, div#googlepay-container {
+div#applepay-container,
+div#googlepay-container {
 	text-align: center;
 }
 
@@ -188,5 +188,5 @@ input[ type='text' ]::placeholder {
 
 /* Hide the 'all fields are required' text in the new Checkout form */
 div.adyen-checkout__card-input p.adyen-checkout-form-instruction {
-	display:none;
+	display: none;
 }
