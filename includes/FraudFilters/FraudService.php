@@ -33,12 +33,12 @@ class FraudService {
 			$rawResponse = $request->getContent();
 			if ( $status->isOK() && $rawResponse ) {
 				$decoded = json_decode( $rawResponse, true );
-				if ( isset( $decoded['predictions'] ) ) {
+				if ( !empty( $decoded['predictions'] ) ) {
 					$response = [
 						'success' => true,
-						'scores' => $decoded['predictions'],
+						'scores' => $decoded['predictions'][0],
 					];
-					$probability = $decoded['predictions']['fraud_probability'] ?? 0;
+					$probability = $response['scores']['fraud_probability'] ?? 0;
 					$response['scaled_risk_score'] = $probability * $this->scoreWeight;
 				} else {
 					$response = [
