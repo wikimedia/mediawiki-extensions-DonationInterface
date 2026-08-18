@@ -63,10 +63,11 @@
 						{{/ sendEmail }}
 					</p>
 
+					<p class="emailPreferencesSelectPreferenceMessage">{{ l10n "emailpreferences-select-preference-message" }}</p>
+
 					<div class="oo-ui-fieldLayout">
 						<span class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
-							<input type="radio" id="sendEmail" name="send_email" value="true" autocomplete="off" class="oo-ui-inputWidget-input"
-								{{^ isSnoozed }}{{# sendEmail }}checked {{/ sendEmail }}{{/ isSnoozed }}>
+							<input type="radio" id="sendEmail" name="send_email" value="true" autocomplete="off" class="oo-ui-inputWidget-input">
 							 <span></span>
 						</span>
 
@@ -75,8 +76,7 @@
 
 					<div class="oo-ui-fieldLayout">
 							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
-						<input type="radio" id="snoozeEmail" name="send_email" value="snooze" autocomplete="off" class="oo-ui-inputWidget-input"
-							{{# isSnoozed }}checked {{/ isSnoozed }}>
+						<input type="radio" id="snoozeEmail" name="send_email" value="snooze" autocomplete="off" class="oo-ui-inputWidget-input">
 								<span></span>
 						</span>
 
@@ -85,8 +85,7 @@
 
 					<div class="oo-ui-fieldLayout">
 							<span  class="oo-ui-widget oo-ui-widget-enabled oo-ui-inputWidget oo-ui-radioInputWidget">
-						<input type="radio" id="dontSendEmail" name="send_email" value="false" autocomplete="off" class="oo-ui-inputWidget-input"
-							{{# dontSendEmail }}checked {{/ dontSendEmail }}>
+						<input type="radio" id="dontSendEmail" name="send_email" value="false" autocomplete="off" class="oo-ui-inputWidget-input">
 								<span></span>
 						</span>
 						<label for="dontSendEmail">{{ l10n "emailpreferences-dont-send-email" }}</label>

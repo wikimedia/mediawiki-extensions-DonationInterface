@@ -28,6 +28,20 @@
 					dotPos < email.length - 1;
 			};
 
+		const preferenceRadios = document.querySelectorAll( 'input[name="send_email"]' );
+		let selectedPreference = document.querySelector( 'input[name="send_email"]:checked' );
+
+		preferenceRadios.forEach( ( radio ) => {
+			radio.addEventListener( 'click', () => {
+				if ( selectedPreference === radio ) {
+					radio.checked = false;
+					selectedPreference = null;
+				} else {
+					selectedPreference = radio;
+				}
+			} );
+		} );
+
 		if ( $emailField.length === 1 ) {
 			$submitButton.click( () => {
 				if ( !isEmailValid() ) {

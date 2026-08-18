@@ -302,13 +302,14 @@ class EmailPreferences extends UnlistedSpecialPage {
 					$defaultParams,
 					[ 'country' => $params['country'] ?? null, 'language' => $params['language'] ?? null ]
 				);
-				if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
-					$message['send_email'] = $params['send_email'];
-				} else {
-					// selected snooze
-					$snoozeDays = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
-					$snoozeDate = new DateTime( "+$snoozeDays days" );
-					$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
+				if ( isset( $params['send_email'] ) ) {
+					if ( in_array( $params['send_email'], [ 'true', 'false' ] ) ) {
+						$message['send_email'] = $params['send_email'];
+					} elseif ( $params['send_email'] === 'snooze' ) {
+						$snoozeDays = $this->getConfig()->get( 'DonationInterfaceEmailPreferencesSnoozeDays' );
+						$snoozeDate = new DateTime( "+$snoozeDays days" );
+						$message['snooze_date'] = $snoozeDate->format( 'Y-m-d' );
+					}
 				}
 				if ( isset( $params[ 'verifyEmailSent' ] ) && $params[ 'verifyEmailSent' ] ) {
 					// only set email_checksum when email is changed
