@@ -14,8 +14,11 @@ class FraudService {
 
 	protected string $serviceBaseURL;
 
+	protected int $scoreWeight;
+
 	public function __construct( Config $config, protected HttpRequestFactory $requestFactory ) {
 		$this->serviceBaseURL = $config->get( 'DonationInterfaceFraudServiceURL' );
+		$this->scoreWeight = $config->get( 'DonationInterfaceFraudServiceWeight' ) ?? 0;
 	}
 
 	public function getScores( array $data ): array {
@@ -35,6 +38,8 @@ class FraudService {
 						'success' => true,
 						'scores' => $decoded['predictions'],
 					];
+					$probability = $decoded['predictions']['fraud_probability'] ?? 0;
+					$response['scaled_risk_score'] = $probability * $this->scoreWeight;
 				} else {
 					$response = [
 						'success' => false,
