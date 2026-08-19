@@ -7,6 +7,7 @@ const paymentMethodMap = {
 	paypal: 'paypal',
 	applepay: 'apple',
 	googlepay: 'google',
+	venmo: 'venmo',
 	ach: 'dd'
 };
 

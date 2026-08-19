@@ -1,12 +1,10 @@
 <template>
 	<cdx-button
-		v-if="donation.paymentMethod === 'paypal'"
 		action="progressive"
 		weight="primary"
-		:disabled="!giftComplete"
 		@click="$emit( 'submit' )"
 	>
-		{{ $i18n( 'combowiki-donate-with-paypal' ).text() }}
+		{{ donateText }}
 	</cdx-button>
 </template>
 
@@ -15,7 +13,7 @@ const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 
 module.exports = exports = defineComponent( {
-	name: 'GravyPayPal',
+	name: 'GravyBraintreeComponent',
 
 	components: {
 		'cdx-button': CdxButton
@@ -30,8 +28,15 @@ module.exports = exports = defineComponent( {
 	emits: [ 'submit' ],
 
 	computed: {
-		giftComplete() {
-			return this.donation.frequency !== null && this.donation.amount !== null;
+		donateText() {
+			if ( this.donation.paymentMethod === 'paypal' ) {
+				return this.$i18n( 'combowiki-donate-with-paypal' ).text();
+			}
+			if ( this.donation.paymentMethod === 'venmo' ) {
+				return this.$i18n( 'combowiki-donate-with-venmo' ).text();
+			}
+			// should only have paypal or venmo for braintree
+			return '';
 		}
 	}
 } );

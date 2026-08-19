@@ -29,7 +29,7 @@ const { defineComponent, toRaw, computed } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const GravyCardForm = require( './GravyCardForm.vue' );
-const PayPalComponent = require( './PayPalComponent.vue' );
+const GravyBraintreeComponent = require( './GravyBraintreeComponent.vue' );
 const ApplePayComponent = require( './ApplePayComponent.vue' );
 const ACHComponent = require( './ACHComponent.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
@@ -40,7 +40,8 @@ module.exports = exports = defineComponent( {
 	components: {
 		'cdx-button': CdxButton,
 		'card-form': GravyCardForm,
-		'paypal-form': PayPalComponent,
+		'paypal-form': GravyBraintreeComponent,
+		'venmo-form': GravyBraintreeComponent,
 		'applepay-form': ApplePayComponent,
 		'googlepay-form': GooglePayComponent,
 		'ach-form': ACHComponent
@@ -171,6 +172,12 @@ module.exports = exports = defineComponent( {
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'paypal-form',
+				submit: submitDonation
+			},
+			venmo: {
+				label: mw.message( 'combowiki-method-venmo' ).text(),
+				component: 'venmo-form',
+				error: onError,
 				submit: submitDonation
 			},
 			applepay: {
