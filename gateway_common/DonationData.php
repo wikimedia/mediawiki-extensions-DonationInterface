@@ -250,7 +250,14 @@ class DonationData implements LogPrefixProvider {
 			return;
 		}
 		// fields that should always overwrite with their original values
-		$overwrite = [ 'referrer', 'contribution_tracking_id' ];
+		$overwrite = [
+			'contribution_tracking_id',
+			'referrer',
+			'utm_campaign',
+			'utm_key',
+			'utm_medium',
+			'utm_source',
+		];
 		foreach ( $donorData as $key => $val ) {
 			if ( !$this->isSomething( $key ) ) {
 				$this->setVal( $key, $val );
