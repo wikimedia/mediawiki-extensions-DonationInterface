@@ -391,8 +391,9 @@ class DonationDataTest extends DonationInterfaceTestCase {
 		$data['wmf_source'] = 'maine';
 		$data['wmf_medium'] = 'houdini';
 		$data['wmf_campaign'] = 'ilikeike';
+		$this->setUpRequest( $data );
 
-		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ), $data );
+		$ddObj = new DonationData( $this->getFreshGatewayObject( self::$initial_vars ) );
 		$returned = $ddObj->getData();
 		$this->assertEquals( 'maine..cc', $returned['utm_source'] );
 		$this->assertEquals( 'houdini', $returned['utm_medium'] );
