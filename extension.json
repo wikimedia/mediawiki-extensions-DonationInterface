@@ -587,6 +587,7 @@
 				"donate_interface-pay-with-trustly",
 				"donate_interface-donor-email",
 				"donate_interface-donor-employer",
+				"donate_interface-donor-employer-explain",
 				"donate_interface-informationsharing",
 				"donate_interface-problemsdonating",
 				"donate_interface-otherways-short",

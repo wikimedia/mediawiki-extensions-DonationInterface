@@ -10,6 +10,9 @@
 				@update:model-value="updateEmployer"
 			>
 			</cdx-text-input>
+			<template #help-text>
+				{{ employerExplain }}
+			</template>
 		</cdx-field>
 	</div>
 </template>
@@ -36,6 +39,9 @@ module.exports = defineComponent( {
 	computed: {
 		employerLabel() {
 			return this.$i18n( 'donate_interface-donor-employer' ).text();
+		},
+		employerExplain() {
+			return this.$i18n( 'donate_interface-donor-employer-explain' ).text();
 		}
 	},
 	methods: {
