@@ -348,6 +348,11 @@ main {
 	border-bottom: 1px solid #eaecf0;
 }
 
+.emailPreferencesRightColumn .emailPreferencesSelectPreferenceMessage {
+	margin: 0 0 1em;
+	font-weight: bold;
+}
+
 .emailpreferences-form-col-content-salutation-email-edit {
 	font-size: 1.125em;
 }

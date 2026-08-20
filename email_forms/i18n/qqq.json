@@ -201,6 +201,7 @@
 	"emailpreferences-status-subscribed": "Sentence shown above the preference radio buttons when the donor is currently opted in to fundraising e-mails.",
 	"emailpreferences-status-paused": "Sentence shown above the preference radio buttons when the donor has paused fundraising e-mails. $1 is the formatted date on which e-mails resume.",
 	"emailpreferences-status-unsubscribed": "Sentence shown above the preference radio buttons when the donor is currently opted out of fundraising e-mails.",
+	"emailpreferences-select-preference-message": "Heading directly above the preference radio buttons. None of them are selected by default, so this invites the donor to pick one only if they want to change their current preference.",
 	"emailpreferences-transactional-note": "Footnote about continuing to receive transactional emails below the e-mail preference radio buttons.",
 	"emailpreferences-success": "Message following successful submission of preferences update.",
 	"emailpreferences-verify-email-sent": "Message to inform donor a confirmation link has been sent to their new email address.",

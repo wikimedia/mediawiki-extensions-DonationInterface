@@ -61,6 +61,7 @@
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
 		"getPaymentMethods": "AdyenGetPaymentMethodsApi",
+		"leadgen": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiLeadGeneration",
 		"logPaymentsFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiDonationClientError",
 		"logRecurUpgradeFormError": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRecurUpgradeClientError",
 		"requestNewChecksumLink": "MediaWiki\\Extension\\DonationInterface\\Api\\ApiRequestNewChecksumLink",

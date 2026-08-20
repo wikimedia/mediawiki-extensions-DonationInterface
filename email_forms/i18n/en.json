@@ -198,6 +198,7 @@
 	"emailpreferences-status-subscribed": "You’re currently subscribed to Wikimedia emails.",
 	"emailpreferences-status-paused": "Your Wikimedia emails are paused until $1.",
 	"emailpreferences-status-unsubscribed": "You’re not currently subscribed to Wikimedia emails.",
+	"emailpreferences-select-preference-message": "Change your status below:",
 	"emailpreferences-transactional-note": "<strong>Note:</strong> After pausing or unsubscribing, you will still receive transactional emails, such as donation receipts.",
 	"emailpreferences-success": "Your request to save your e-mail preferences has been submitted.",
 	"emailpreferences-verify-email-sent": "We’ve sent a confirmation link to your new email address.",
