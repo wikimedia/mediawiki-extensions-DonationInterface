@@ -204,6 +204,7 @@
 	"emailpreferences-status-subscribed": "Sie haben derzeit Wikimedia-E-Mails abonniert.",
 	"emailpreferences-status-paused": "Ihre Wikimedia-E-Mails werden bis zu $1 ausgesetzt.",
 	"emailpreferences-status-unsubscribed": "Sie haben derzeit keine Wikimedia-E-Mails abonniert.",
+	"emailpreferences-select-preference-message": "Ändern Sie Ihren Status unten:",
 	"emailpreferences-transactional-note": "<strong>Hinweis:</strong> Auch nach dem Pausieren oder Abmelden erhalten Sie weiterhin Transaktions-E-Mails, wie z. B. Spendenquittungen.",
 	"emailpreferences-success": "Deine Anfrage zum Speichern deiner E-Mail-Einstellungen wurde übermittelt.",
 	"emailpreferences-verify-email-sent": "Wir haben einen Bestätigungslink an deine neue E-Mail-Adresse gesendet.",

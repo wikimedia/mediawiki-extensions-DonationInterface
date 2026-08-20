@@ -199,6 +199,7 @@
 	"emailpreferences-status-subscribed": "Tes unha subscrición aos correos electrónicos da Wikimedia.",
 	"emailpreferences-status-paused": "Os teus correos electrónicos da Wikimedia están en pausa ata o $1.",
 	"emailpreferences-status-unsubscribed": "Non tes unha subscrición aos correos electrónicos da Wikimedia.",
+	"emailpreferences-select-preference-message": "Cambia o teu estado a continuación:",
 	"emailpreferences-transactional-note": "<strong>Nota:</strong> Despois de pausares ou cancelares a subscrición, seguirás recibindo correos electrónicos transaccionais, como recibos de doazóns.",
 	"emailpreferences-success": "Enviouse a túa solicitude para gardar as túas preferencias de correo electrónico.",
 	"emailpreferences-verify-email-sent": "Enviámosche unha ligazón de confirmación ao teu novo enderezo de correo electrónico.",

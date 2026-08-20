@@ -11,5 +11,6 @@
 	"donorportal-header-logout": "Ka bax",
 	"emailpreferences-status-subscribed": "Hadda waxaad ku biirsan tahay iimayllada Wikimedia.",
 	"emailpreferences-status-paused": "Iimayllada Wikimedia-gaaga waa la hakiyay ilaa $1.",
-	"emailpreferences-status-unsubscribed": "Hadda kuma biirsan iimayllada Wikimedia."
+	"emailpreferences-status-unsubscribed": "Hadda kuma biirsan iimayllada Wikimedia.",
+	"emailpreferences-select-preference-message": "Hoos ka beddel xaaladdaada:"
 }
