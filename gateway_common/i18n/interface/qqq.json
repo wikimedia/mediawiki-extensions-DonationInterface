@@ -52,6 +52,7 @@
 	"combowiki-method-venmo": "Label for the Venmo payment method option on the ComboWiki donation form.\n{{Identical|Venmo}}",
 	"combowiki-method-applepay": "Label for the Apple Pay payment method option on the ComboWiki donation form.\n{{Identical|Apple Pay}}",
 	"combowiki-method-ach": "Label for the ACH payment method option on the ComboWiki donation form.\n{{Identical|ACH}}",
+	"combowiki-method-googlepay": "Label for the Google Pay payment method option on the ComboWiki donation form.\n{{Identical|Google Pay}}",
 	"combowiki-your-details-heading": "Heading above the donor's name and email fields on the ComboWiki card payment form.",
 	"combowiki-donate-with-paypal": "Button text to submit the donation via PayPal on the ComboWiki donation form.",
 	"combowiki-donate-with-venmo": "Button text to submit the donation via Venmo on the ComboWiki donation form.",

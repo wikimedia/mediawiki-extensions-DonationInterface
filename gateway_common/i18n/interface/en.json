@@ -21,6 +21,7 @@
 	"combowiki-method-venmo": "Venmo",
 	"combowiki-method-applepay": "Apple Pay",
 	"combowiki-method-ach": "ACH",
+	"combowiki-method-googlepay": "Google Pay",
 	"combowiki-your-details-heading": "Your details",
 	"combowiki-donate-with-paypal": "Donate with PayPal",
 	"combowiki-donate-with-venmo": "Donate with Venmo",

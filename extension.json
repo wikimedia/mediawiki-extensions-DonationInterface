@@ -566,6 +566,7 @@
 				"combowiki-method-venmo",
 				"combowiki-method-applepay",
 				"combowiki-method-ach",
+				"combowiki-method-googlepay",
 				"combowiki-your-details-heading",
 				"combowiki-donate-with-paypal",
 				"combowiki-donate-with-venmo",

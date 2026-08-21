@@ -197,7 +197,7 @@ module.exports = exports = defineComponent( {
 				supportsOneTime: false
 			},
 			googlepay: {
-				label: 'Google Pay',
+				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
 				submit: submitDonation,
 				error: onError
