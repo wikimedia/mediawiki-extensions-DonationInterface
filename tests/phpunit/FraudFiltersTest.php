@@ -1521,4 +1521,85 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
 		$this->assertSame( 0, $exposed->risk_score );
 	}
+
+	/**
+	 * 'ip_country' is set during normalization rather than declared in
+	 * DonationData::$fieldNames, so this test helps us confirm it is usable as
+	 * a fraud pattern filter key along with 'country'
+	 */
+	public function testPatternFilterIpCountryMatch(): void {
+		// With this filter we aim at blocking all credit card
+		// payment attempts with country US and ip_country IT
+		$this->setMwGlobals( static::getAllGlobalVariants( [
+			'PatternFilters' => [
+				'PreAuthorize' => [
+					'test_ruleset_blocked_ip_country' => [
+						'country' => 'US',
+						'ip_country' => 'IT',
+						'failScore' => 100,
+					]
+				]
+			]
+		] ) );
+
+		// Here we test that if we get country US and ip_country IT
+		// we do block the payment attempt
+		$testGatewayData = static::getDonorTestData();
+		// Setting ip_country here short-circuits the GeoIP lookup in
+		// DonationData::setCountry, so no geolocation mocking is needed.
+		$testGatewayData['ip_country'] = 'IT';
+		$testGatewayData['country'] = 'US';
+		$testGatewayData['payment_method'] = 'cc';
+		$testGatewayInstance = $this->getFreshGatewayObject( $testGatewayData );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testGatewayInstance );
+
+		$this->assertEquals(
+			ValidationAction::REJECT,
+			$testGatewayInstance->getValidationAction(),
+			'Should reject transaction with a blocked ip_country and country combination'
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testGatewayInstance );
+		$this->assertEquals(
+			100,
+			$exposed->risk_score,
+			'Risk Score should be 100 from the ip_country pattern match'
+		);
+
+		$message = QueueWrapper::getQueue( 'payments-antifraud' )->pop();
+		SourceFields::removeFromMessage( $message );
+
+		$this->assertEquals( ValidationAction::REJECT, $message['validation_action'] );
+		$this->assertEquals( 100, $message['risk_score'] );
+		$this->assertArrayHasKey(
+			'PatternFilter_test_ruleset_blocked_ip_country', $message['score_breakdown']
+		);
+		$this->assertEquals(
+			100, $message['score_breakdown']['PatternFilter_test_ruleset_blocked_ip_country']
+		);
+
+		// Here we test that if the request arrives with country US but ip_country US
+		// we don't block the payment attempt
+		$testDataToNotBlock = static::getDonorTestData();
+		$testDataToNotBlock['ip_country'] = 'IT';
+		$testDataToNotBlock['country'] = 'FR';
+		$testDataToNotBlock['payment_method'] = 'cc';
+		$testDataToNotBlockInstance = $this->getFreshGatewayObject( $testDataToNotBlock );
+
+		Gateway_Extras_CustomFilters::onGatewayReady( $testDataToNotBlockInstance );
+
+		$this->assertEquals(
+			ValidationAction::PROCESS,
+			$testDataToNotBlockInstance->getValidationAction(),
+			"Should processed with teh transaction if country and ip_country don't both match the filter"
+		);
+
+		$exposed = TestingAccessWrapper::newFromObject( $testDataToNotBlockInstance );
+		$this->assertSame(
+			0,
+			$exposed->risk_score,
+			'Risk Score should be 0 from no match'
+		);
+	}
 }
