@@ -600,11 +600,16 @@
 				"donate_interface-monthly-convert-text",
 				"donate_interface-monthly-convert-change-amount",
 				"donate_interface-monthly-convert-enter-amount",
+				"donate_interface-monthly-convert-enter-amount-short",
 				"donate_interface-monthly-convert-action-button",
 				"donate_interface-back-button",
 				"donate_interface-confirmation-yes",
 				"donate_interface-confirmation-no",
 				"donate_interface-monthly-convert-title",
+				"donate_interface-monthly-convert-title-premodal",
+				"donate_interface-monthly-convert-accept",
+				"donate_interface-monthly-convert-decline",
+				"donate_interface-donate-error-thank-you-for-your-support",
 				"donate_interface-monthly-convert-minimun-hint"
 			]
 		},

@@ -72,7 +72,6 @@ module.exports = exports = defineComponent( {
 			appState.setLoading( true );
 			api.submitDonation( toRaw( props.donation ), payload )
 				.then( ( result ) => {
-					console.log( 'submitDonation', result );
 					// how do we want to display validation errors
 					if ( result.result.isFailed || result.result.errors ) {
 						ctx.emit( 'donationError', result.result.errors );

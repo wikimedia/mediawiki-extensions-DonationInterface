@@ -2,7 +2,7 @@
 	<cdx-button
 		action="progressive"
 		weight="primary"
-		@click="$emit( 'submit' )"
+		@click="submitDonation"
 	>
 		{{ donateText }}
 	</cdx-button>
@@ -11,6 +11,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
+const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyBraintreeComponent',
@@ -37,6 +38,18 @@ module.exports = exports = defineComponent( {
 			}
 			// should only have paypal or venmo for braintree
 			return '';
+		}
+	},
+
+	methods: {
+		submitDonation() {
+			if ( this.donation.frequency === 'once' ) {
+				const appState = useAppState();
+				// todo: Should add config to see if recurring convert config enabled after
+				appState.setShowRecurringConvert( true );
+			} else {
+				this.$emit( 'submit' );
+			}
 		}
 	}
 } );

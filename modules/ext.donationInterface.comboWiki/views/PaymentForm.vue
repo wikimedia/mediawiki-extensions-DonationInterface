@@ -89,9 +89,7 @@
 		<!-- Recurring Convert Modal -->
 		<recurring-convert
 			v-if="appState.showRecurringConvert.value"
-			:original-amount="Number( donation.amount )"
-			:currency="donation.currency"
-			:country="donation.country"
+			:donation="donation"
 			:language="params.language || 'en'"
 			:gateway="selectedGateway"
 			:utm-token="params.utm_token || ''"
@@ -100,6 +98,7 @@
 			:convert-amounts="convertAmounts"
 			:amount-rules="amountRules"
 			@close="redirectTargetUrl"
+			@recurring-convert-submit="submitPreModalDonation"
 		></recurring-convert>
 	</main>
 </template>
@@ -222,6 +221,24 @@ module.exports = exports = defineComponent( {
 			this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
 			this.appState.setLoading( false );
 			mw.log.error( 'di_donate_gravy failed', code, failure );
+		},
+		submitPreModalDonation( updatedDonation ) {
+			const api = require( '../api.js' );
+			const { toRaw } = require( 'vue' );
+
+			// Apply updates to parent donation state if payload is provided
+			if ( updatedDonation ) {
+				Object.assign( this.donation, updatedDonation );
+			}
+
+			this.appState.setLoading( true );
+			api.submitDonation( toRaw( this.donation ) )
+				.then( ( result ) => {
+					this.handleDonateResult( result );
+				} )
+				.catch( ( code, failure ) => {
+					this.handleDonateError( code, failure );
+				} );
 		}
 	},
 	mounted() {

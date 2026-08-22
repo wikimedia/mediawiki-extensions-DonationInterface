@@ -35,21 +35,21 @@
 					{{ $i18n( 'donate_interface-monthly-convert-text' ).text() }}
 				</p>
 
-				<div class="mc-actions">
+				<div :class="isPreModal ? 'mc-actions-vertical' : 'mc-actions'">
 					<cdx-button
 						weight="primary"
 						action="progressive"
 						class="mc-yes-btn"
 						@click="handleDonate( presetAmount )"
 					>
-						{{ $i18n( 'donate_interface-confirmation-yes' ).text() }}
+						{{ acceptRecurringDonation }}
 					</cdx-button>
 					<cdx-button
 						action="progressive"
 						class="mc-no-btn"
 						@click="handleDonate( presetAmount, true )"
 					>
-						{{ $i18n( 'donate_interface-confirmation-no' ).text() }}
+						{{ declineRecurringDonation }}
 					</cdx-button>
 				</div>
 
@@ -70,16 +70,21 @@
 					class="mc-title"
 					tabindex="-1"
 				>
-					{{ $i18n( 'donate_interface-monthly-convert-enter-amount' ).text() }}
+					{{ newAmountTitle }}
 				</h2>
-
-				<cdx-text-input
-					v-model="otherAmount"
-					input-type="number"
-					class="mc-other-amount-input"
-					:class="{ 'combo-wiki__errorHighlight': isSmallAmountError }"
-				>
-				</cdx-text-input>
+				<p v-if="isPreModal">
+					{{ $i18n( 'donate_interface-monthly-convert-enter-amount-short' ).text() }}
+				</p>
+				<div class="mc-actions-horizontal">
+					<cdx-text-input
+						v-model="otherAmount"
+						input-type="number"
+						class="mc-other-amount-input"
+						:class="{ 'combo-wiki__errorHighlight': isSmallAmountError }"
+					>
+					</cdx-text-input>
+					<span> {{ donation.currency }}</span>
+				</div>
 
 				<p
 					v-if="isSmallAmountError"
@@ -126,10 +131,8 @@ module.exports = exports = defineComponent( {
 	},
 
 	props: {
-		originalAmount: { type: Number, required: true },
-		currency: { type: String, required: true },
+		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
-		country: { type: String, default: 'US' },
 		gateway: { type: String, required: true },
 		utmToken: { type: String, default: '' },
 		thankYouUrl: { type: String, required: true },
@@ -147,20 +150,26 @@ module.exports = exports = defineComponent( {
 		}
 	},
 
-	emits: [ 'close' ],
+	emits: [ 'close', 'update:modelValue', 'recurring-convert-submit' ],
 
 	data() {
 		return {
 			isVisible: false,
 			isEditing: false,
 			otherAmount: null,
-			isSmallAmountError: false
+			isSmallAmountError: false,
+			originalAmount: Number( this.donation.amount ) || 0,
+			currency: this.donation.currency || 'USD',
+			country: this.donation.country || 'US'
 		};
 	},
 
 	computed: {
 		locale() {
 			return `${ this.language }-${ this.country }`;
+		},
+		isPreModal() {
+			return [ 'paypal', 'venmo' ].includes( this.donation.paymentMethod );
 		},
 		presetAmount() {
 			const numericAmount = Number( this.originalAmount ) || 1;
@@ -173,18 +182,54 @@ module.exports = exports = defineComponent( {
 			}
 			return ( min / this.currencyRates[ baseCurrency ] ) * this.currencyRates[ this.currency ];
 		},
+		acceptRecurringDonation() {
+			if ( this.isPreModal ) {
+				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-accept' ).text();
+				return rawTitle.replace(
+					'<span class="mc-convert-ask"></span>',
+					`${ this.formattedPresetAmount }`
+				);
+			} else {
+				return this.$i18n( 'donate_interface-confirmation-yes' ).text();
+			}
+		},
+		newAmountTitle() {
+			if ( this.isPreModal ) {
+				return this.$i18n( 'donate_interface-donate-error-thank-you-for-your-support' ).text();
+			} else {
+				return this.$i18n( 'donate_interface-monthly-convert-enter-amount' ).text();
+			}
+		},
+		declineRecurringDonation() {
+			if ( this.isPreModal ) {
+				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-decline' ).text();
+				return rawTitle.replace(
+					'$1',
+					`${ this.formattedOriginalOneTimeAmount }`
+				);
+			} else {
+				return this.$i18n( 'donate_interface-confirmation-no' ).text();
+			}
+		},
 		formattedPresetAmount() {
 			return this.formatAmount( this.presetAmount, this.currency, this.locale );
+		},
+		formattedOriginalOneTimeAmount() {
+			return this.formatAmount( Number( this.originalAmount ), this.currency, this.locale );
 		},
 		formattedMinLocal() {
 			return this.formatAmount( this.minLocal, this.currency, this.locale );
 		},
 		formattedConvertTitle() {
-			const rawTitle = this.$i18n( 'donate_interface-monthly-convert-title' ).text();
-			return rawTitle.replace(
-				'<span class="mc-convert-ask"></span>',
-				`<span class="mc-convert-ask">${ this.formattedPresetAmount }</span>`
-			);
+			if ( this.isPreModal ) {
+				return this.$i18n( 'donate_interface-monthly-convert-title-premodal' ).text();
+			} else {
+				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-title' ).text();
+				return rawTitle.replace(
+					'$1',
+					`<span class="mc-convert-ask">${ this.formattedPresetAmount }</span>`
+				);
+			}
 		}
 	},
 
@@ -196,7 +241,6 @@ module.exports = exports = defineComponent( {
 				return `${ curr } ${ amount.toFixed( 2 ) }`;
 			}
 		},
-
 		getConvertAsk( amount ) {
 			if ( !this.convertAmounts || this.convertAmounts.length === 0 ) {
 				return Math.round( amount * 0.3 ); // Fallback calculation
@@ -220,40 +264,50 @@ module.exports = exports = defineComponent( {
 				this.handleDonate( val );
 			}
 		},
-
 		async handleDonate( amount, declineMonthlyConvert = false ) {
 			const appState = useAppState();
-			const api = new mw.Api();
-			const payload = {
-				action: 'di_recurring_convert',
-				gateway: this.gateway,
-				utm_token: this.utmToken,
-				amount: amount
-			};
-
-			if ( declineMonthlyConvert ) {
-				payload.declineMonthlyConvert = true;
-			}
-			appState.setLoading( true );
-			try {
-				const response = await api.post( payload );
-				const url = new URL( this.thankYouUrl, window.location.href );
-
-				if ( response && !response.error && response.result && !response.result.errors ) {
-					if ( !declineMonthlyConvert ) {
-						url.searchParams.set( 'recurringConversion', '1' );
-					}
-				} else if ( !declineMonthlyConvert ) {
-					alert( 'An error occurred during monthly conversion.' );
-				}
-				appState.setLoading( false );
-				this.$emit( 'close', url.toString() );
-			} catch ( err ) {
+			if ( this.isPreModal ) {
+				const updatedDonation = Object.assign( {}, this.donation );
 				if ( !declineMonthlyConvert ) {
-					alert( 'An error occurred during monthly conversion.' );
+					updatedDonation.frequency = 'monthly';
+					updatedDonation.amount = amount;
 				}
-				appState.setLoading( false );
-				this.$emit( 'close', this.thankYouUrl );
+
+				appState.setShowRecurringConvert( false );
+				this.$emit( 'recurring-convert-submit', updatedDonation );
+			} else {
+				const api = new mw.Api();
+				const payload = {
+					action: 'di_recurring_convert',
+					gateway: this.gateway,
+					utm_token: this.utmToken,
+					amount: amount
+				};
+
+				if ( declineMonthlyConvert ) {
+					payload.declineMonthlyConvert = true;
+				}
+				appState.setLoading( true );
+				try {
+					const response = await api.post( payload );
+					const url = new URL( this.thankYouUrl, window.location.href );
+
+					if ( response && !response.error && response.result && !response.result.errors ) {
+						if ( !declineMonthlyConvert ) {
+							url.searchParams.set( 'recurringConversion', '1' );
+						}
+					} else if ( !declineMonthlyConvert ) {
+						alert( 'An error occurred during monthly conversion.' );
+					}
+					appState.setLoading( false );
+					this.$emit( 'close', url.toString() );
+				} catch ( err ) {
+					if ( !declineMonthlyConvert ) {
+						alert( 'An error occurred during monthly conversion.' );
+					}
+					appState.setLoading( false );
+					this.$emit( 'close', this.thankYouUrl );
+				}
 			}
 		}
 	},
