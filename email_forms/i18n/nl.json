@@ -205,6 +205,7 @@
 	"emailpreferences-status-subscribed": "U bent momenteel geabonneerd op e-mails van Wikimedia.",
 	"emailpreferences-status-paused": "Uw Wikimedia-emails zijn gepauseerd tot $1.",
 	"emailpreferences-status-unsubscribed": "U bent momenteel niet geabonneerd op e-mails van Wikimedia.",
+	"emailpreferences-select-preference-message": "Wijzig hieronder uw status:",
 	"emailpreferences-transactional-note": "<strong>Let op:</strong> ook na het pauzeren of uitschrijven ontvangt u nog steeds transactionele e-mails, zoals donatiekwitanties.",
 	"emailpreferences-success": "Uw verzoek om uw e-mailvoorkeuren op te slaan, is verstuurd.",
 	"emailpreferences-verify-email-sent": "We hebben een bevestigingskoppeling naar uw nieuwe e-mailadres gestuurd.",

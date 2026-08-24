@@ -5,8 +5,19 @@
 			"AhmedG612"
 		]
 	},
+	"combowiki-method-venmo": "Venmo",
+	"combowiki-method-googlepay": "Google Pay",
+	"combowiki-donate-with-venmo": "Ku deeq adigoo adeegsanaya Venmo",
+	"donate_interface-confirmation-yes": "haa",
+	"donate_interface-confirmation-no": "maya",
 	"donate_interface-informationsharing": "Ma iibineeno mana ka ganacsaneeno macluumaadkaaga qof kale.  Tabaruc ahaan, waxaa ogolaatay in macluumaadkaaga la wadaagto Wikimedia Foundation, oo ah hey'ad samafal oo marti galisa Wikipedia iyo mashruucyada kale ee Wikimedia, iyo adeega ee bixiso iyada oo la raacaayo  <a href=\"$1\">siyaasada deeq bixiyaheena</a>. Wikimedia Foundation iyo  adeeg bixiyayaasheeda oo degan Maraykanka iyo dalal kale oo sharciyadooda asturnaanta laga yaabo inaysan u dhigmin mid kaaga oo kale. Macluumaad dheeri ah fadlan ka akhri  <a href=\"$1\">siyaasada deeq bixiyaheena</a>.",
 	"donate_interface-monthly-cancel": "Deeqaha billaha ah waxaa laga jari doonaa isla taariikhda bil kasta ee deeqdaadii ugu horreysay, ilaa laga joojiyo. Deeqaha la bixiyo 29-ka, 30-ka, ama 31-ka waxaa laga jari doonaa maalinta ugu dambeysa ee bilaha gaaban. Deeqaha sannadlaha ah ee soo noqnoqda waxaa laga jari doonaa sannad-guurada deeqdii ugu horreysay. Wixii su’aalo ah, fadlan la xiriir $1.",
 	"donate_interface-onetime-short": "Hal mar",
-	"donate_interface-emailpreferences-thank-you-title": "Waad ku mahadsan tahay xaqiijinta cinwaankaaga iimaylka."
+	"donate_interface-back-button": "Dib u noqo",
+	"donate_interface-emailpreferences-thank-you-title": "Waad ku mahadsan tahay xaqiijinta cinwaankaaga iimaylka.",
+	"donate_interface-monthly-convert-title-premodal": "Ku dhowaad waa la dhammeeyey: Fadlan ka dhig <span class=\"mc-convert-ask\"></span> bil kasta.",
+	"donate_interface-monthly-convert-accept": "Haa, waxaan bixin doonaa $1 bil kasta.",
+	"donate_interface-monthly-convert-decline": "Maya, mahadsanid! Waxaan samayn doonaa deeq hal mar ah oo dhan $1.",
+	"donate_interface-monthly-convert-minimun-hint": "Deeqda ugu yar ee bil kasta waa",
+	"donate_interface-monthly-convert-enter-amount-short": "Geli qadarka deeqdaada bil kasta"
 }
