@@ -226,7 +226,7 @@ module.exports = exports = defineComponent( {
 			} else {
 				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-title' ).text();
 				return rawTitle.replace(
-					'$1',
+					'<span class="mc-convert-ask"></span>',
 					`<span class="mc-convert-ask">${ this.formattedPresetAmount }</span>`
 				);
 			}
