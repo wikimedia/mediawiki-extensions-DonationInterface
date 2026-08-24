@@ -4,6 +4,9 @@
 			"AhmedG612"
 		]
 	},
+	"apihelp-leadgen-summary": "API-gani wuxuu kuu oggolaanayaa inaad gudbiso iimayl iyo il si aad ugu darto diiwaanka deeq bixiye suurtagal ah.",
+	"apihelp-leadgen-param-email": "Ciwaanka iimaylka loo adeegsanayo diiwaanka deeq bixiyaha suurtagalka ah",
+	"apihelp-leadgen-param-leadgen_source": "Aqoonsiga boorka uu deeq bixiyaha suurtagalka ahi ku geliyey ciwaankiisa.",
 	"apihelp-submitPayment-param-app_install_id": "Aqoonsiga rakibidda ee barnaamijka loo isticmaalay in lagu gudbiyo lacag-bixinta",
 	"apihelp-submitPayment-param-app_version": "Nooca barnaamijka loo isticmaalay in lagu gudbiyo lacag-bixinta"
 }

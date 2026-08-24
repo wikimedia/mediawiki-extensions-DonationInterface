@@ -39,8 +39,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	private ?string $selectedGateway = null;
 	private DonationDetails $dataObject;
 
-	private static string $donationDetailsSessionKey = 'DonationDetails';
-
 	public function __construct() {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
 		parent::__construct( 'ComboWiki' );
@@ -52,12 +50,13 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function execute( $subPage ): void {
+		$request = $this->getRequest();
 		$wmfConfig = MediaWikiServices::getInstance()->getMainConfig();
-		$dataIntegrator = new DataIntegrator( $this->getRequest(), new DonationDetails() );
+		$dataIntegrator = new DataIntegrator( $request, new DonationDetails() );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
-		( new ContributionTrackingHelper( $this->getRequest(), $wmfConfig ) )->handleTrackingData( $this->dataObject );
-		( new OrderIdHandler( $this->getRequest() ) )->handleOrderId( $this->dataObject );
+		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
+		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
 
 		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
@@ -232,6 +231,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	protected function storeDonationDetailsInSession(): void {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
-		$session->set( self::$donationDetailsSessionKey, $this->dataObject->getData() );
+		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
 	}
 }

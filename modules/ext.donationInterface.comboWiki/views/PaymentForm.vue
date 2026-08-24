@@ -5,7 +5,7 @@
 		<frequency-selector v-model="donation.frequency"></frequency-selector>
 
 		<div>
-			<!--      Currency selection-->
+			<!-- Currency selection -->
 			<cdx-select
 				v-model:selected="donation.currency"
 				:menu-items="currencyOptions"
@@ -13,7 +13,7 @@
 			>
 			</cdx-select>
 
-			<!--      Amount-->
+			<!-- Amount -->
 			<cdx-button
 				v-for="amount in presetAmounts"
 				:key="amount"
@@ -23,7 +23,8 @@
 			>
 				${{ amount }}
 			</cdx-button>
-			<!--      Custom Amount -->
+
+			<!-- Custom Amount -->
 			<cdx-text-input
 				v-model="donation.amount"
 				input-type="number"
@@ -31,13 +32,13 @@
 			>
 			</cdx-text-input>
 
-			<!--      Pay the fee-->
+			<!-- Pay the fee -->
 			<cdx-checkbox v-model="donation.payFee">
 				{{ $i18n( 'combowiki-cover-fees' ).text() }}
 			</cdx-checkbox>
 		</div>
 
-		<!--    Email opt-in-->
+		<!-- Email opt-in -->
 		<div>
 			<h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
 
@@ -58,10 +59,10 @@
 			</cdx-radio>
 		</div>
 
-		<!-- Employer-->
+		<!-- Employer -->
 		<employer-field v-model="donation.employer"></employer-field>
 
-		<!-- Payment methods-->
+		<!-- Payment methods -->
 		<payment-method-form
 			:donation="donation"
 			:disabled="!giftComplete"
@@ -77,13 +78,28 @@
 			{{ donation.currency }} {{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
 			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ selectedGateway }}
 		</p>
-		<p> Debug Request Params - {{ params }}</p>
+		<p> Debug Request Params - {{ params }} </p>
 		<p v-if="donateError" class="combo-wiki__error">
 			{{ donateError }}
 		</p>
 		<we-do-not-sell-text></we-do-not-sell-text>
 		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
 		<loading-spinner></loading-spinner>
+
+		<!-- Recurring Convert Modal -->
+		<recurring-convert
+			v-if="appState.showRecurringConvert.value"
+			:donation="donation"
+			:language="params.language || 'en'"
+			:gateway="selectedGateway"
+			:utm-token="params.utm_token || ''"
+			:thank-you-url="thankYouUrl"
+			:currency-rates="currencyRates"
+			:convert-amounts="convertAmounts"
+			:amount-rules="amountRules"
+			@close="redirectTargetUrl"
+			@recurring-convert-submit="submitPreModalDonation"
+		></recurring-convert>
 	</main>
 </template>
 
@@ -102,6 +118,8 @@ const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
+const RecurringConvert = require( '../components/RecurringConvert.vue' );
+const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
@@ -117,9 +135,14 @@ module.exports = exports = defineComponent( {
 		'we-do-not-sell-text': WeDoNotSellText,
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
-		'loading-spinner': LoadingSpinner
+		'loading-spinner': LoadingSpinner,
+		'recurring-convert': RecurringConvert
 	},
 	inject: [ 'params' ],
+	setup() {
+		const appState = useAppState();
+		return { appState };
+	},
 	data() {
 		return {
 			presetAmounts: [ 2.75, 5, 10, 20, 30, 50, 100 ],
@@ -137,7 +160,11 @@ module.exports = exports = defineComponent( {
 				employer: null
 			},
 			selectedGateway: ( mw.config.get( 'comboWiki' ) ).gateway || null,
-			donateError: null
+			donateError: null,
+			thankYouUrl: null,
+			currencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+			convertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
+			amountRules: mw.config.get( 'wgDonationInterfaceAmountRules' )
 		};
 	},
 	computed: {
@@ -153,7 +180,6 @@ module.exports = exports = defineComponent( {
 				return 0;
 			}
 
-			// dummy data for PTF now
 			return Math.round( this.donation.amount * 0.035 * 100 ) / 100;
 		},
 		giftComplete() {
@@ -165,28 +191,61 @@ module.exports = exports = defineComponent( {
 		selectAmount( value ) {
 			this.donation.amount = value;
 		},
-
+		redirectTargetUrl( targetUrl ) {
+			window.location.assign(
+				targetUrl ||
+					this.thankYouUrl ||
+					mw.config.get( 'DonationInterfaceThankYouPage' )
+			);
+		},
 		handleDonateResult( result ) {
 			const response = result.result;
 			if ( response.isFailed ) {
 				this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+				this.appState.setLoading( false );
 				return;
 			}
 			if ( response.errors ) {
 				this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
+				this.appState.setLoading( false );
 				return;
 			}
-			if ( response.redirect ) {
-				window.location.assign( response.redirect );
+			if ( this.donation.frequency === 'once' && !response.redirect ) {
+				this.thankYouUrl = mw.config.get( 'DonationInterfaceThankYouPage' );
+				this.appState.setShowRecurringConvert( true );
 			} else {
-				window.location.assign( mw.config.get( 'DonationInterfaceThankYouPage' ) );
+				this.redirectTargetUrl( response.redirect );
 			}
 		},
 		handleDonateError( code, failure ) {
 			this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+			this.appState.setLoading( false );
 			mw.log.error( 'di_donate_gravy failed', code, failure );
+		},
+		submitPreModalDonation( updatedDonation ) {
+			const api = require( '../api.js' );
+			const { toRaw } = require( 'vue' );
+
+			// Apply updates to parent donation state if payload is provided
+			if ( updatedDonation ) {
+				Object.assign( this.donation, updatedDonation );
+			}
+
+			this.appState.setLoading( true );
+			api.submitDonation( toRaw( this.donation ) )
+				.then( ( result ) => {
+					this.handleDonateResult( result );
+				} )
+				.catch( ( code, failure ) => {
+					this.handleDonateError( code, failure );
+				} );
+		}
+	},
+	mounted() {
+		const urlParams = new URLSearchParams( window.location.search );
+		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
+			this.appState.setShowRecurringConvert( true );
 		}
 	}
 } );
-
 </script>

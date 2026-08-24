@@ -17,7 +17,9 @@ use ReflectionClass;
  * @author lbarluzzi
  */
 class DataIntegrator implements LogPrefixProvider {
-	private static string $donationDetailsSessionKey = 'DonationDetails';
+	// Using the same session key as the adapter to ensure values like the order_id
+	// and contribution tracking are accessible in the adapter class
+	public static string $DONATION_DETAILS_SESSION_KEY = 'Donor';
 
 	public WebRequest $request;
 
@@ -248,7 +250,7 @@ class DataIntegrator implements LogPrefixProvider {
 	 * by session data (see $overwrite array below).
 	 */
 	protected function integrateDataFromSession(): void {
-		$donorData = $this->request->getSessionData( self::$donationDetailsSessionKey );
+		$donorData = $this->request->getSessionData( self::$DONATION_DETAILS_SESSION_KEY );
 		if ( $donorData === null ) {
 			return;
 		}

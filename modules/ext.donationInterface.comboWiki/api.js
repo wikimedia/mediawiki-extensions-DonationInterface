@@ -7,6 +7,7 @@ const paymentMethodMap = {
 	paypal: 'paypal',
 	applepay: 'apple',
 	googlepay: 'google',
+	venmo: 'venmo',
 	ach: 'dd'
 };
 
@@ -94,5 +95,6 @@ function validateApplePayPaymentSession( payload ) {
 module.exports = {
 	validateApplePayPaymentSession,
 	submitDonation,
+	paymentMethodMap,
 	createCheckoutSession
 };

@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"adyen_gateway-desc": "Spracovanie platieb cez Adyen",
+	"adyen_gateway-response-default": "Pri spracovaní vašej transakcie nastala chyba.\nSkúste to, prosím, neskôr."
+}
