@@ -60,8 +60,10 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
+			'amount' => $this->dataObject->getValue( 'amount', '0' ),
 			'country' => $this->dataObject->getValue( 'country', 'US' ),
 			'currency' => $this->dataObject->getValue( 'currency', 'USD' ),
+			'frequency_unit' => $this->dataObject->getValue( 'frequency_unit', '' ),
 			'payment_method' => $this->dataObject->getValue( 'payment_method', 'cc' ),
 			'payment_submethod' => $this->dataObject->getValue( 'payment_submethod' ),
 			'recurring' => $this->dataObject->getValue( 'recurring' ),

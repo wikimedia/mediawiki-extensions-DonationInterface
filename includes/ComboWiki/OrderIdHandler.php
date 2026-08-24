@@ -42,8 +42,6 @@ class OrderIdHandler implements LogPrefixProvider {
 	 */
 	public function handleOrderId( DonationDetails $dataObject ): void {
 		$this->dataObject = $dataObject;
-		// TODO: confirm assumption the 'sequence' session is set in the gravy adapter that still processes the actual payments
-		// @see gateway_common/gateway.adapter.php:1475 function called incrementSequenceNumber()
 		$sequence = $this->request->getSessionData( self::$SessionSequenceKey );
 		if ( !$sequence ) {
 			$sequence = 1;
@@ -58,9 +56,15 @@ class OrderIdHandler implements LogPrefixProvider {
 			throw new UnexpectedValueException( __FUNCTION__ . ": Contribution tracking ID is required to set order id but non is set" );
 		}
 
-		$orderId = $contributionTrackingId . '.' . $sequence;
+		if ( $orderId && !str_starts_with( $orderId, $contributionTrackingId ) ) {
+			$this->logger->warning( __FUNCTION__ . ": order_id '{$orderId}' and contribution_tracking_id '{$contributionTrackingId}' mismatch." );
+		}
 
-		$this->dataObject->setValue( self::$orderIdKey, $orderId );
+		if ( !$orderId ) {
+			$orderId = $contributionTrackingId . '.' . $sequence;
+
+			$this->dataObject->setValue( self::$orderIdKey, $orderId );
+		}
 	}
 
 	public function getLogMessagePrefix(): string {
