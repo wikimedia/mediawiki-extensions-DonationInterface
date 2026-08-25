@@ -2267,13 +2267,17 @@ abstract class GatewayAdapter implements GatewayType {
 			// I'm sure we could put more here...
 			$soft_reset = [
 				'order_id',
+				// we don't want to force a one time to a recurring based on session values
+				'recurring',
+				'recurring_payment_token',
+				'frequency_unit'
 			];
 			$donorData = $this->session_getData( 'Donor' );
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $donorData[$reset_me] );
 			}
 			WmfFramework::setSessionValue( 'Donor', $donorData );
-			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id only' );
+			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id and recurring parameters only.' );
 		}
 	}
 

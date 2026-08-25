@@ -18,6 +18,7 @@
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Title\Title;
+use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentData\ValidationAction;
 use SmashPig\PaymentProviders\Ingenico\HostedCheckoutProvider;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
@@ -363,6 +364,54 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 
 		$this->assertNotEquals( $recurringCtId, $oneTimeCtId,
 			'Contribution Tracking ID was not regenerated on recurring switch!' );
+	}
+
+	/**
+	 * Confirms that 'recurring', 'recurring_payment_token', and 'frequency_unit'
+	 * are cleared from session on a failed payment attempt, same as 'order_id'
+	 * already was. Without this, a failed recurring attempt would leave stale
+	 * recurring params sitting in session, and a subsequent one-time retry in
+	 * the same session could silently be staged as recurring.
+	 * @see GatewayAdapter::session_resetForNewAttempt() $soft_reset
+	 */
+	public function testRecurringParamsClearedOnFailedPaymentAttempt() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['recurring'] = '1';
+		$init['recurring_payment_token'] = 'some-recurring-token';
+		$init['frequency_unit'] = 'month';
+
+		$request = $this->setUpRequest( $init );
+		$gateway = new GravyAdapter();
+		$gateway->session_addDonorData();
+
+		$donorData = $request->getSessionData( 'Donor' );
+		$this->assertSame( '1', $donorData['recurring'], 'Test setup failed.' );
+		$this->assertSame( 'some-recurring-token', $donorData['recurring_payment_token'], 'Test setup failed.' );
+		$this->assertSame( 'month', $donorData['frequency_unit'], 'Test setup failed.' );
+
+		$gateway->finalizeInternalStatus( FinalStatus::FAILED );
+
+		$donorData = $request->getSessionData( 'Donor' );
+		$this->assertArrayNotHasKey(
+			'recurring',
+			$donorData,
+			'recurring should be cleared from session after a failed payment attempt'
+		);
+		$this->assertArrayNotHasKey(
+			'recurring_payment_token',
+			$donorData,
+			'recurring_payment_token should be cleared from session after a failed payment attempt'
+		);
+		$this->assertArrayNotHasKey(
+			'frequency_unit',
+			$donorData,
+			'frequency_unit should be cleared from session after a failed payment attempt'
+		);
+
+		// The pre-existing soft reset, and unrelated donor data, should be unaffected.
+		$this->assertArrayNotHasKey( 'order_id', $donorData );
+		$this->assertSame( $init['email'], $donorData['email'] );
 	}
 
 	public function testResetSubmethodOnMethodSwitch() {
