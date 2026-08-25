@@ -473,7 +473,7 @@
 	"donate_interface-monthly-convert-yes-button-variant-006": "Si, quero axudar",
 	"donate_interface-monthly-convert-no-let-me-choose": "Non, pero déixame elixir como renovar",
 	"donate_interface-monthly-convert-no-button-variant-006": "Non, grazas",
-	"donate_interface-monthly-convert-yes-button-variant-011": "Si, e iniciarei unha <span class=\"mc-convert-ask\"></span> doazón mensual",
+	"donate_interface-monthly-convert-yes-button-variant-011": "Si, e iniciarei unha doazón mensual de <span class=\"mc-convert-ask\"></span>",
 	"donate_interface-monthly-convert-no-button-variant-011": "Non, grazas!",
 	"donate_interface-monthly-convert-no-button-variant-014": "Non, agora non",
 	"donate_interface-fundraiser-maintenance-header": "Fóra de servizo temporalmente por mantemento",
