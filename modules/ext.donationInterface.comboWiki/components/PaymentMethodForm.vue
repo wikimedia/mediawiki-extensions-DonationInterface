@@ -29,7 +29,7 @@ const { defineComponent, toRaw, computed } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const GravyCardForm = require( './GravyCardForm.vue' );
-const GravyBraintreeComponent = require( './GravyBraintreeComponent.vue' );
+const GravyRedirectComponent = require( './GravyRedirectComponent.vue' );
 const ApplePayComponent = require( './ApplePayComponent.vue' );
 const ACHComponent = require( './ACHComponent.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
@@ -40,8 +40,8 @@ module.exports = exports = defineComponent( {
 	components: {
 		'cdx-button': CdxButton,
 		'card-form': GravyCardForm,
-		'paypal-form': GravyBraintreeComponent,
-		'venmo-form': GravyBraintreeComponent,
+		'paypal-form': GravyRedirectComponent,
+		'venmo-form': GravyRedirectComponent,
 		'applepay-form': ApplePayComponent,
 		'googlepay-form': GooglePayComponent,
 		'ach-form': ACHComponent

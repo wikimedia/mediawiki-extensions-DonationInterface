@@ -536,7 +536,7 @@
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
-				"modules/ext.donationInterface.comboWiki/components/GravyBraintreeComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/GravyRedirectComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
