@@ -85,15 +85,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		// TODO: move this to a central decision point once other gateways are supported here.
 		if ( $this->selectedGateway === 'gravy' ) {
 			DonationInterface::setSmashPigProvider( 'gravy' );
-			$this->adapter = new GravyAdapter( [
-				'external_data' => [
-					'payment_method' => $this->routingParams['payment_method'],
-					'currency' => $this->routingParams['currency'],
-					'country' => $this->routingParams['country'],
-					'recurring' => $this->routingParams['recurring'],
-					'language' => $this->routingParams['language'],
-				]
-			] );
+			$this->adapter = new GravyAdapter( [ 'variant' => $this->dataObject->getValue( 'variant', '' ) ] );
 		}
 
 		$this->setHeaders();

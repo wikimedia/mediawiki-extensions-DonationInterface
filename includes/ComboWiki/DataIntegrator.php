@@ -145,6 +145,123 @@ class DataIntegrator implements LogPrefixProvider {
 		'wmf_token',
 	];
 
+	protected static array $requestQueryFieldNames = [
+		'amount',
+		'appeal',
+		'bannerhistlog',
+		'checksum',
+		'city',
+		'contact_id',
+		'country',
+		'currency',
+		'email',
+		'employer',
+		'employer_id',
+		'first_name',
+		'first_name_phonetic',
+		'fiscal_number',
+		'frequency_interval',
+		'frequency_unit',
+		'full_name',
+		'gateway',
+		'landing_page', // previously concatenated into utm_source
+		'language',
+		'last_name',
+		'last_name_phonetic',
+		'opt_in',
+		'payment_method',
+		'payment_submethod',
+		'phone',
+		'recurring',
+		'state_province',
+		'street_address',
+		'street_number', // for addresses in India
+		'transaction_status',
+		'utm_campaign',
+		'utm_medium',
+		'utm_source',
+		'variant',
+		'wmf_campaign',
+		'wmf_key',
+		'wmf_medium',
+		'wmf_source',
+		'wmf_token',
+	];
+
+	protected static array $requestPostFieldNames = [
+		'amount',
+		'authorization_id',
+		'bank_account_type', // adyen ach bank account type: saving or checking
+		'bank_check_digit',
+		'bank_code',
+		'bank_name',
+		'branch_code',
+		'card_scheme', // Gr4vy google pay: example VISA
+		'card_suffix', // first 4 digits in card number
+		'city',
+		'color_depth', // device fingerprinting
+		'contact_hash', // deprecated in favor of 'checksum'
+		'country',
+		'currency',
+		'cvv',
+		'data_hash',
+		'descriptor',
+		'device_data', // needed for braintree venmo
+		'direct_debit_text',
+		'email',
+		'employer',
+		'employer_id',
+		'encrypted_bank_account_number',
+		'encrypted_bank_location_id',
+		'encrypted_card_number',
+		'encrypted_expiry_month',
+		'encrypted_expiry_year',
+		'encrypted_security_code',
+		'expiration',
+		'first_name',
+		'first_name_phonetic',
+		'fiscal_number',
+		'frequency_interval',
+		'frequency_unit',
+		'full_name',
+		'gateway',
+		'iban',
+		'initial_scheme_transaction_id',
+		'issuer_id',
+		'java_enabled', // device fingerprinting
+		'landing_page', // previously concatenated into utm_source
+		'language',
+		'last_name',
+		'last_name_phonetic',
+		'opt_in',
+		'order_id',
+		'payment_method',
+		'payment_submethod',
+		'payment_token',
+		'phone',
+		'postal_code',
+		'processor_form',
+		'recipient_id',
+		'recurring',
+		'recurring_payment_token',
+		'redirect',
+		'referrer',
+		'result_page',
+		'screen_height', // device fingerprinting
+		'screen_width', // device fingerprinting
+		'server_ip',
+		'sms_opt_in',
+		'state_province',
+		'street_address',
+		'street_number', // for addresses in India
+		'subscr_id',
+		'supplemental_address_1',
+		'time_zone_offset', // device fingerprinting
+		'transaction_status',
+		'transaction_type',
+		'upi_id',
+	];
+
 	/**
 	 * @param WebRequest $request
 	 * @param DonationDetails $dataObject instance for storing donation data details
@@ -179,11 +296,11 @@ class DataIntegrator implements LogPrefixProvider {
 			}
 		} else {
 			try {
-				foreach ( self::$fieldNames as $var ) {
-					[ $val, $source ] = $this->integratedDataFromRequest( $var );
-					$this->dataObject->setValue( $var, $val );
-					$this->dataObject->setSource( $var, $source );
-				}
+				$this->setDataFromQueryParameters();
+				$this->setDataFromPostParameters();
+				$this->setUserIp();
+				$this->setServerIp();
+				$this->setReferrer();
 			} catch ( \Exception $e ) {
 				$this->logger->error( __FUNCTION__ . ": Error harvesting values from request get/post/header: " . $e->getMessage() );
 			}
@@ -196,51 +313,57 @@ class DataIntegrator implements LogPrefixProvider {
 		$this->logger->info( __FUNCTION__ . ": Data harvested from request and session" );
 	}
 
-	/**
-	 * Harvest a $var from the Request's GET, POST, Headers, or Search Query params.
-	 * @param string $var The incoming var name we need to get a value for
-	 * @return array $example ['appeal', 'get'] First element is the final value of the var, or null if we don't actually have it.
-	 *  Second element is the source of the value, null if nonexistent, get, or post
-	 */
-	protected function integratedDataFromRequest( string $var ): array {
-		// First, harvest value from the Request (both POST and GET)
-		$requestValue = $this->request->getText( $var );
-		$sourceValue = isset( $requestValue ) && $requestValue !== '' ? 'post' : null;
+	protected function setDataFromQueryParameters(): void {
+		$query_values = $this->request->getQueryValues();
 
-		// Second, harvest value from request->getHeader()
-		// Note: these values keep source 'post', should we change it to 'header'?
-		if ( !$requestValue && $var === 'referrer' ) {
-			$parts = parse_url( $this->request->getHeader( 'referer' ) );
-			$host = $parts['host'] ?? '';
-			$path = $parts['path'] ?? '';
-			$requestValue = $host . $path;
-		}
-		// Third, harvest from request->getIP()
-		// Note: should these values keep source 'post'?
-		if ( !$requestValue && $var === 'user_ip' ) {
-			try {
-				$userIp = $this->request->getIP();
-				if ( $userIp ) {
-					$requestValue = $userIp;
-				}
-			} catch ( \Exception $e ) {
-				$this->logger->error( __FUNCTION__ . ": Error handling IP address: " . $e->getMessage() );
+		foreach ( self::$requestQueryFieldNames as $var ) {
+			if ( isset( $query_values[ $var ] ) ) {
+				$this->dataObject->setValue( $var, $query_values[ $var ] );
+				$this->dataObject->setSource( $var, 'get' );
 			}
 		}
+	}
 
-		// Fourth, harvest from the web server global variable $_SERVER
-		if ( !$requestValue && $var === 'server_ip' ) {
-			$serverIp = $_SERVER['SERVER_ADDR'] ?? '127.0.0.1';
-			$requestValue = $serverIp;
+	protected function setDataFromPostParameters(): void {
+		$posted_values = json_decode( $this->request->getRawInput(), true );
+
+		if ( !$posted_values ) {
+			return;
 		}
 
-		// Fifth, override the source from 'post' to 'get' if the value
-		// is not NULL, but it is present in the query string
-		$queryValues = $this->request->getQueryValues();
-		if ( isset( $queryValues[$var] ) && $requestValue == $queryValues[$var] ) {
-			$sourceValue = 'get';
+		foreach ( self::$requestPostFieldNames as $var ) {
+			if ( isset( $posted_values[ $var ] ) ) {
+				$this->dataObject->setValue( $var, $posted_values[ $var ] );
+				$this->dataObject->setSource( $var, 'post' );
+			}
 		}
-		return [ $requestValue, $sourceValue ];
+	}
+
+	protected function setUserIp(): void {
+		try {
+			$userIp = $this->request->getIP();
+			if ( $userIp ) {
+				$this->dataObject->setValue( 'user_ip', $userIp );
+				$this->dataObject->setSource( 'user_ip', 'header' );
+			}
+		} catch ( \Exception $e ) {
+			$this->logger->error( __FUNCTION__ . ": Error handling IP address: " . $e->getMessage() );
+		}
+	}
+
+	protected function setServerIp(): void {
+		$serverIp = $_SERVER['SERVER_ADDR'] ?? '127.0.0.1';
+		$this->dataObject->setValue( 'server_ip', $serverIp );
+		$this->dataObject->setSource( 'server_ip', 'header' );
+	}
+
+	protected function setReferrer(): void {
+		$parts = parse_url( $this->request->getHeader( 'referer' ) );
+		$host = $parts['host'] ?? '';
+		$path = $parts['path'] ?? '';
+		$referer = $host . $path;
+		$this->dataObject->setValue( 'referrer', $referer );
+		$this->dataObject->setSource( 'referrer', 'header' );
 	}
 
 	/**
