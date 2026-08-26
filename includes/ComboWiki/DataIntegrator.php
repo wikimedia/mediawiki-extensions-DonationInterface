@@ -181,10 +181,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'utm_medium',
 		'utm_source',
 		'variant',
-		'wmf_campaign',
-		'wmf_key',
-		'wmf_medium',
-		'wmf_source',
 		'wmf_token',
 	];
 
@@ -317,8 +313,18 @@ class DataIntegrator implements LogPrefixProvider {
 		$query_values = $this->request->getQueryValues();
 
 		foreach ( self::$requestQueryFieldNames as $var ) {
-			if ( isset( $query_values[ $var ] ) ) {
-				$this->dataObject->setValue( $var, $query_values[ $var ] );
+			$value_name = $var;
+			/**
+			 * Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
+			 * one that we care about. Internally we still refer to them all with the utm_ prefix.
+			 * Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
+			 */
+			if ( str_starts_with( $var, 'utm_' ) ) {
+				$value_name = 'wmf_' . substr( $var, 4 );
+			}
+
+			if ( isset( $query_values[ $value_name ] ) ) {
+				$this->dataObject->setValue( $var, $query_values[ $value_name ] );
 				$this->dataObject->setSource( $var, 'get' );
 			}
 		}

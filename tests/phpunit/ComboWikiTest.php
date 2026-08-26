@@ -575,6 +575,47 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		);
 	}
 
+	public function testWmfParametersMapToUtmParameters(): void {
+		// Browsers strip utm_* query params, so campaigns send the wmf_* versions
+		// instead. DataIntegrator::setDataFromQueryParameters() is meant to map
+		// wmf_campaign/wmf_medium/wmf_source in the URL onto the utm_campaign/
+		// utm_medium/utm_source fields the rest of the codebase reads internally.
+		// @see includes/ComboWiki/DataIntegrator.php setDataFromQueryParameters()
+		$context = RequestContext::getMain();
+		$request = new FauxRequest( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+			'wmf_campaign' => 'wmf_test_campaign',
+			'wmf_medium' => 'wmf_test_medium',
+			'wmf_source' => 'wmf_test_source',
+		], false );
+		$context->setRequest( $request );
+		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
+
+		$comboWiki = new ComboWiki();
+		$comboWiki->execute( null );
+
+		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+
+		$this->assertSame(
+			'wmf_test_campaign',
+			$dataObject->getValue( 'utm_campaign' ),
+			'wmf_campaign in the URL should be mapped onto utm_campaign'
+		);
+		$this->assertSame(
+			'wmf_test_medium',
+			$dataObject->getValue( 'utm_medium' ),
+			'wmf_medium in the URL should be mapped onto utm_medium'
+		);
+		$this->assertSame(
+			'wmf_test_source..cc',
+			$dataObject->getValue( 'utm_source' ),
+			'wmf_source in the URL should be mapped onto utm_source'
+		);
+	}
+
 	public function testPostDataOverwritesOverlappingQueryParameters(): void {
 		// DataIntegrator::populateData() calls setDataFromQueryParameters() before
 		// setDataFromPostParameters(), and both unconditionally call setValue(), so
