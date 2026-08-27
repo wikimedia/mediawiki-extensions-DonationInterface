@@ -33,7 +33,8 @@
 			"Smmvinicius",
 			"Stephanyb76",
 			"Walesson",
-			"YuriNikolai"
+			"YuriNikolai",
+			"User3412"
 		]
 	},
 	"donate_interface": "Ajude a Wikimedia",
@@ -399,7 +400,7 @@
 	"donate_interface-state_province-dropdown-YY": "Selecione um estado",
 	"donate_interface-state_province-dropdown-XX": "Fora dos EUA.",
 	"donate_interface-cc-MX-instructions": "Por motivos de segurança, alguns bancos do México bloqueiam transações pela Internet. Se sua doação foi rejeitada, sugerimos que contate seu banco para que autorize a doação pela Internet e tente novamente.",
-	"donate_interface-bt-account_holder": "Titular da conta",
+	"donate_interface-bt-account_holder": "Nome do titular da conta",
 	"donate_interface-bt-bank_account_number": "Número de conta bancária",
 	"donate_interface-bt-country_description": "Descrição do país",
 	"donate_interface-bt-payment_reference": "Referência de pagamento",
