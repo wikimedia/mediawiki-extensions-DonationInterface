@@ -62,6 +62,9 @@
 		<!-- Employer -->
 		<employer-field v-model="donation.employer"></employer-field>
 
+		<!-- Sms Optin -->
+		<sms-optin v-if="showSmsOptin" v-model="donation.smsOptin"></sms-optin>
+
 		<!-- Payment methods -->
 		<payment-method-form
 			:donation="donation"
@@ -119,6 +122,8 @@ const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
+// if these are only sometimes loaded, is there a better way to if include them
+const SmsOptin = require( '../components/SmsOptin.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
@@ -136,7 +141,8 @@ module.exports = exports = defineComponent( {
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
-		'recurring-convert': RecurringConvert
+		'recurring-convert': RecurringConvert,
+		'sms-optin': SmsOptin
 	},
 	inject: [ 'params' ],
 	setup() {
@@ -157,7 +163,8 @@ module.exports = exports = defineComponent( {
 				country: 'US',
 				paymentMethod: null,
 				optIn: null,
-				employer: null
+				employer: null,
+				smsOptin: null
 			},
 			selectedGateway: ( mw.config.get( 'comboWiki' ) ).gateway || null,
 			donateError: null,
@@ -184,6 +191,9 @@ module.exports = exports = defineComponent( {
 		},
 		giftComplete() {
 			return this.donation.frequency !== null && this.donation.amount !== null;
+		},
+		showSmsOptin() {
+			return this.params.variant === 'smsOptin';
 		}
 	},
 

@@ -544,7 +544,8 @@
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
 				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue",
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
-				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue"
+				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
+				"modules/ext.donationInterface.comboWiki/components/SmsOptin.vue"
 			],
 			"messages": [
 				"combowiki-title",
