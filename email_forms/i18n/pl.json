@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"PanWor",
 			"Woytecr"
 		]
 	},
@@ -92,6 +93,7 @@
 	"emailpreferences-save": "Salvar preferências",
 	"emailpreferences-send-email": "Chętnie czytam wieści z Wikimedia Foundation, wysyłajcie wszystko!",
 	"emailpreferences-snooze-email": "Wstrzymajcie wysyłkę wiadomości e-mail na {{PLURAL:$1|pewnego dnia|$1 dni}}.",
+	"emailpreferences-select-preference-message": "Zmień swój status poniżej:",
 	"emailpreferences-success": "Sua solicitação para salvar suas preferências de e-mail foi enviada.",
 	"emailpreferences-title": "Preferencje dotyczące wiadomości e-mail",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation"
