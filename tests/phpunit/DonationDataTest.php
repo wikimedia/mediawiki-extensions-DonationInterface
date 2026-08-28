@@ -75,9 +75,9 @@ class DonationDataTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * @covers DonationData::__construct
-	 * @covers DonationData::getData
-	 * @covers DonationData::populateData
+	 * @covers \DonationData::__construct
+	 * @covers \DonationData::getData
+	 * @covers \DonationData::populateData
 	 */
 	public function testConstruct() {
 		$context = RequestContext::getMain();

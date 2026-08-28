@@ -11,7 +11,7 @@ class GatewayRouterTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * Can we specify that a submethod supports recurring even if
 	 * the method does not?
-	 * @covers MediaWiki\Extension\DonationInterface\Special\GatewayRouter::getSupportedGateways
+	 * @covers \MediaWiki\Extension\DonationInterface\Special\GatewayRouter::getSupportedGateways
 	 */
 	public function testSubmethodOverridesMethod(): void {
 		$this->overrideConfigValues( [

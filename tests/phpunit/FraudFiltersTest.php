@@ -347,7 +347,7 @@ class FraudFiltersTest extends DonationInterfaceTestCase {
 
 	/**
 	 * Don't send 'region' parameter when it's not an ISO code
-	 * @covers Gateway_Extras_CustomFilters_MinFraud::getBillingParams
+	 * @covers \Gateway_Extras_CustomFilters_MinFraud::getBillingParams
 	 */
 	public function testMinFraudExtrasNonIsoRegion() {
 		$options = $this->getDonorTestData();

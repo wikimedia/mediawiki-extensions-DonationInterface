@@ -46,9 +46,9 @@ use Wikimedia\TestingAccessWrapper;
 class GatewayAdapterTest extends DonationInterfaceTestCase {
 
 	/**
-	 * @covers GatewayAdapter::__construct
-	 * @covers GatewayAdapter::defineVarMap
-	 * @covers GatewayAdapter::defineTransactions
+	 * @covers \GatewayAdapter::__construct
+	 * @covers \GatewayAdapter::defineVarMap
+	 * @covers \GatewayAdapter::defineTransactions
 	 */
 	public function testConstructor() {
 		$options = $this->getDonorTestData();
@@ -199,8 +199,8 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * @covers GatewayAdapter::__construct
-	 * @covers DonationData::__construct
+	 * @covers \GatewayAdapter::__construct
+	 * @covers \DonationData::__construct
 	 */
 	public function testConstructorHasDonationData() {
 		$_SERVER['REQUEST_URI'] = '/index.php/Special:IngenicoGateway';
@@ -625,7 +625,7 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 	/**
 	 * @return void
 	 * @throws MWException
-	 * @covers GatewayAdapter::getQueueDonationMessage
+	 * @covers \GatewayAdapter::getQueueDonationMessage
 	 */
 	public function testGetDonationQueueMessageWithBadUnicode() {
 		$data = $this->getDonorTestData( 'FR' );

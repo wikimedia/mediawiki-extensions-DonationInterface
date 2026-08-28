@@ -37,8 +37,8 @@ class IngenicoTest extends BaseIngenicoTestCase {
 	/**
 	 * Non-exhaustive integration tests to verify that order_id, when in
 	 * self-generation mode, won't regenerate until it is told to.
-	 * @covers GatewayAdapter::normalizeOrderID
-	 * @covers GatewayAdapter::regenerateOrderID
+	 * @covers \GatewayAdapter::normalizeOrderID
+	 * @covers \GatewayAdapter::regenerateOrderID
 	 */
 	public function testStickyGeneratedOrderID() {
 		$init = self::$initial_vars;

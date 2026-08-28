@@ -6,7 +6,7 @@ class AdyenRecurringTest extends BaseAdyenCheckoutTestCase {
 	/**
 	 * Can send a recurring donation message to the queue
 	 *
-	 * @covers AdyenCheckoutAdapter::doRecurringConversion
+	 * @covers \AdyenCheckoutAdapter::doRecurringConversion
 	 */
 	public function testRecurringCharge() {
 		$init = $this->getDonorTestData();
