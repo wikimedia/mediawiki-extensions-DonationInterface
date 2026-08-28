@@ -60,10 +60,10 @@ class DataNormalizer implements LogPrefixProvider {
 		$this->normalizeLanguage();
 		$this->normalizeRecurring();
 		$this->normalizeUtmSource();
-		$this->normalizeCurrency();
 		$this->normalizeAmount();
 		$this->normalizeIpCountry();
 		$this->normalizeCountry();
+		$this->normalizeCurrency();
 		$this->normalizeAppeal();
 
 		// TODO: Reconfirm we need to cast to string all values as done in DonationData
@@ -137,30 +137,19 @@ class DataNormalizer implements LogPrefixProvider {
 	 * Sets the currency code correctly by validating the matching country.
 	 */
 	protected function normalizeCurrency(): void {
-		if ( $this->skipNormalization( 'currency' ) ) {
-			return;
-		}
-
+		// always normalize currency based on country
 		$currency = false;
-
-		if ( $this->dataObject->isValueSet( 'currency' ) ) {
-			$currency = $this->dataObject->getValue( 'currency' );
-			$this->dataObject->remove( 'currency' );
-			$this->logger->debug( "Got currency from 'currency', now: $currency" );
+		$country = $this->dataObject->getValue( 'country' );
+		if ( CountryValidation::isValidIsoCode( $country ) ) {
+			$currency = NationalCurrencies::getNationalCurrency( $country );
+			$this->logger->debug( "Got currency from 'country', now: $currency" );
 		}
 
-		if ( $currency ) {
-			$currency = strtoupper( $currency );
-		}
-		// If it's blank or not a currency code, guess it from the country.
 		if ( !$currency || !array_key_exists( $currency, CurrencyRates::getCurrencyRates() ) ) {
-			// If we have a valid country code, we use it as last resort to set a missing 'currency' value
-			$country = $this->dataObject->getValue( 'country' );
-			if ( CountryValidation::isValidIsoCode( $country ) ) {
-				$currency = NationalCurrencies::getNationalCurrency( $country );
-				$this->logger->debug( "Got currency from 'country', now: $currency" );
-			}
+			$this->logger->warning( "Currency '$currency' not in CurrencyRates list. Falling back to USD." );
+			$currency = 'USD';
 		}
+
 		$this->dataObject->setValue( 'currency', $currency );
 	}
 
