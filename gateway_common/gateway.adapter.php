@@ -3098,13 +3098,20 @@ abstract class GatewayAdapter implements GatewayType {
 	public function getFraudFilterData(): array {
 		/** @var array{amount: float, currency: string} $data */
 		$data = $this->getData_Unstaged_Escaped();
-		$data['http_accept_language'] = RequestContext::getMain()->getRequest()->getHeader( 'Accept-Language' ) ?? '';
-		if ( $data['currency'] && is_numeric( $data['amount'] ) ) {
+		$request = RequestContext::getMain()->getRequest();
+		$data['http_accept_language'] = $request->getHeader( 'Accept-Language' ) || '';
+		$data['ja4'] = $request->getHeader( 'X-JA4' ) || '';
+		$data['ja4h'] = $request->getHeader( 'X-JA4H' ) || '';
+		/** @var string $currency */
+		$currency = (string)( $data['currency'] ?? '' );
+
+		if ( is_numeric( $data['amount'] ) && $currency ) {
 			$data['amount_in_minor_units'] = CurrencyRoundingHelper::getAmountInMinorUnits(
-				(float)$data['amount'], $data['currency']
+				(float)$data['amount'], $currency
 			);
+
 			$data['amount_in_usd_cents'] = floor( 100 * Amount::convert(
-				(float)$data['amount'], 'USD', $data['currency']
+				(float)$data['amount'], 'USD', $currency
 			) );
 		} else {
 			$data['amount_in_minor_units'] = 0;
