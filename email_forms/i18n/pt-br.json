@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eduardoaddad",
-			"Pcoombe"
+			"Pcoombe",
+			"User3412"
 		]
 	},
 	"emailpreferences-change-email": "Mudar e-mail",
@@ -26,6 +27,7 @@
 	"emailpreferences-success": "Sua solicitação para salvar suas preferências de e-mail foi enviada.",
 	"emailpreferences-title": "Preferências de e-mail",
 	"emailpreferences-wikimedia-image-alt": "Wikimedia Foundation",
+	"recurupgrade-add": "Adicionar $1",
 	"fundraiserunsubscribe": "Descadastrar-se do e-mail de arrecadação de fundos da Wikimedia Foundation",
 	"fundraisersubscribe": "Optar",
 	"fundraisersubscribe-appeal-headline-001": "Gostou do que está vendo?",
