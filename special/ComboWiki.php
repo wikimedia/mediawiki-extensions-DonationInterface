@@ -75,6 +75,7 @@ class ComboWiki extends UnlistedSpecialPage {
 			'country' => $this->dataObject->getValue( 'country', 'US' ),
 			'currency' => $this->dataObject->getValue( 'currency', 'USD' ),
 			'frequency_unit' => $this->dataObject->getValue( 'frequency_unit', '' ),
+			'order_id' => $this->dataObject->getValue( 'order_id' ),
 			'payment_method' => $this->dataObject->getValue( 'payment_method', 'cc' ),
 			'payment_submethod' => $this->dataObject->getValue( 'payment_submethod' ),
 			'recurring' => $this->dataObject->getValue( 'recurring' ),

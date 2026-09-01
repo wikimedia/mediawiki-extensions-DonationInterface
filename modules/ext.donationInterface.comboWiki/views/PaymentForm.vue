@@ -88,12 +88,10 @@
 		</p>
 		<p> Debug - Donation: {{ donation }}</p>
 		<p> Debug Request Params - {{ params }} </p>
-		<p v-if="donateError" class="combo-wiki__error">
-			{{ donateError }}
-		</p>
 		<we-do-not-sell-text></we-do-not-sell-text>
 		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
 		<loading-spinner></loading-spinner>
+		<error-display></error-display>
 
 		<!-- Recurring Convert Modal -->
 		<recurring-convert
@@ -119,6 +117,7 @@ const {
 	CdxCheckbox,
 	CdxRadio
 } = require( '@wikimedia/codex' );
+const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
@@ -139,6 +138,7 @@ module.exports = exports = defineComponent( {
 		'cdx-select': CdxSelect,
 		'cdx-checkbox': CdxCheckbox,
 		'cdx-radio': CdxRadio,
+		'error-display': ErrorDisplay,
 		'frequency-selector': FrequencySelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
@@ -177,7 +177,6 @@ module.exports = exports = defineComponent( {
 				gateway: comboWikiConfig.gateway || null,
 				variant: this.params.variant || null
 			},
-			donateError: null,
 			thankYouUrl: null
 		};
 	},
@@ -275,12 +274,14 @@ module.exports = exports = defineComponent( {
 		handleDonateResult( result ) {
 			const response = result.result;
 			if ( response.isFailed ) {
-				this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+				// do we want this to appear here or to pass it through
+				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
 			if ( response.errors ) {
-				this.donateError = this.$i18n( 'combowiki-payment-incomplete' ).text();
+				// do we want this to appear here or is this mid flow
+				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-incomplete' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
@@ -292,7 +293,7 @@ module.exports = exports = defineComponent( {
 			}
 		},
 		handleDonateError( code, failure ) {
-			this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
+			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			this.appState.setLoading( false );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
@@ -318,6 +319,10 @@ module.exports = exports = defineComponent( {
 		const urlParams = new URLSearchParams( window.location.search );
 		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
 			this.appState.setShowRecurringConvert( true );
+		}
+		// for debugging errors
+		if ( urlParams.get( 'debugError' ) ) {
+			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 		}
 	}
 } );
