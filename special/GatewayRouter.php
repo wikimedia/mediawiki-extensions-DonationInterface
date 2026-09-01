@@ -121,6 +121,66 @@ class GatewayRouter {
 	}
 
 	/**
+	 * Create an adapter instance for the given gateway name.
+	 * Handles dynamic instantiation of any supported gateway adapter.
+	 *
+	 * @param string $gatewayName Gateway identifier (e.g., 'gravy', 'dlocal', 'adyen')
+	 * @param array $options Configuration options for the adapter (e.g., variant)
+	 * @return GatewayAdapter|null The instantiated adapter, or null if gateway is not supported
+	 */
+	public static function createAdapterForGateway(
+		string $gatewayName,
+		array $options = []
+	): ?GatewayAdapter {
+		$enabledGateways = GatewayAdapter::getEnabledGateways(
+			\MediaWiki\MediaWikiServices::getInstance()->getMainConfig()
+		);
+
+		// Check if gateway is enabled
+		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
+			return null;
+		}
+
+		// Map gateway names to adapter class names
+		$adapterClassMap = [
+			'adyen' => 'AdyenCheckoutAdapter',
+			'paypal_ec' => 'PaypalExpressAdapter',
+			'braintree' => 'BraintreeAdapter',
+			'dlocal' => 'DlocalAdapter',
+			'gravy' => 'GravyAdapter',
+		];
+
+		if ( !isset( $adapterClassMap[$gatewayName] ) ) {
+			return null;
+		}
+
+		$adapterClass = $adapterClassMap[$gatewayName];
+
+		return new $adapterClass( $options );
+	}
+
+	/**
+	 * Set up the SmashPig provider for the given gateway.
+	 * This ensures the correct payment provider backend is used.
+	 *
+	 * @param string $gatewayName Gateway identifier
+	 */
+	public static function setSmashPigProviderForGateway( string $gatewayName ): void {
+		// Map gateway names to SmashPig provider names
+		$providerMap = [
+			'gravy' => 'gravy',
+			'dlocal' => 'dlocal',
+			'adyen' => 'adyen',
+			'paypal_ec' => 'paypal',
+			'braintree' => 'braintree'
+		];
+
+		if ( isset( $providerMap[$gatewayName] ) ) {
+			\DonationInterface::setSmashPigProvider( $providerMap[$gatewayName] );
+		}
+	}
+
+	/**
 	 * In here we're gonna check a predefined list of
 	 * priority rules to see which of the supported gateways
 	 * best fits the user parameters.

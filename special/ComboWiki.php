@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\DonationInterface\Special;
 
-use DonationInterface;
 use DonationLoggerFactory;
+use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
@@ -29,8 +29,8 @@ class ComboWiki extends UnlistedSpecialPage {
 
 	private LoggerInterface $logger;
 
-	/** @var GravyAdapter|null The gateway adapter, if a supported gateway was selected. */
-	private ?GravyAdapter $adapter = null;
+	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
+	private ?GatewayAdapter $adapter = null;
 
 	/** @var array Routing params derived from the request, computed once in execute(). */
 	private array $routingParams = [];
@@ -82,10 +82,17 @@ class ComboWiki extends UnlistedSpecialPage {
 		// Store copy of the donation details in the session for later access
 		$this->storeDonationDetailsInSession();
 
-		// TODO: move this to a central decision point once other gateways are supported here.
-		if ( $this->selectedGateway === 'gravy' ) {
-			DonationInterface::setSmashPigProvider( 'gravy' );
-			$this->adapter = new GravyAdapter( [ 'variant' => $this->dataObject->getValue( 'variant', '' ) ] );
+		if ( $this->selectedGateway ) {
+			GatewayRouter::setSmashPigProviderForGateway( $this->selectedGateway );
+			$this->adapter = GatewayRouter::createAdapterForGateway(
+				$this->selectedGateway,
+				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
+			);
+			if ( !$this->adapter ) {
+				$this->logger->error(
+					"Failed to create adapter for gateway: {$this->selectedGateway}"
+				);
+			}
 		}
 
 		$this->setHeaders();
@@ -170,8 +177,21 @@ class ComboWiki extends UnlistedSpecialPage {
 			'gateway' => $this->selectedGateway,
 		];
 
-		if ( $this->selectedGateway === 'gravy' ) {
-			$this->addGravyClientConfig( $vars );
+		// No gateway was selected, or its adapter could not be built. The Vue app
+		// still gets the params above so it can show an error, but everything below
+		// needs a live adapter. TODO: maybe set a fallback as gravy?
+		if ( !$this->adapter ) {
+			return;
+		}
+
+		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
+		if ( $this->adapter->showMonthlyConvert() ) {
+			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
+		}
+
+		$configMethod = 'add' . ucfirst( $this->selectedGateway ) . 'ClientConfig';
+		if ( method_exists( $this, $configMethod ) ) {
+			$this->$configMethod( $vars );
 		}
 	}
 
@@ -217,7 +237,42 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	protected function addGravyClientConfig( array &$vars ): void {
-		$vars['gravyConfiguration'] = $this->adapter->getGravyConfiguration();
+		// getGravyConfiguration() is specific to GravyAdapter, not GatewayAdapter,
+		// so narrow the type before reaching for it.
+		$adapter = $this->adapter;
+		if ( !$adapter instanceof GravyAdapter ) {
+			$this->logger->error(
+				'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
+			);
+
+			return;
+		}
+
+		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
+		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
+	}
+
+	/**
+	 * Add Dlocal-specific client configuration.
+	 * Called when the selected gateway is 'dlocal'.
+	 *
+	 * @param array &$vars Client variables to expose
+	 * @return void
+	 */
+	protected function addDlocalClientConfig( array &$vars ): void {
+		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
+
+	/**
+	 * Add Adyen-specific client configuration.
+	 * Called when the selected gateway is 'adyen'.
+	 *
+	 * @param array &$vars Client variables to expose
+	 * @return void
+	 */
+	protected function addAdyenClientConfig( array &$vars ): void {
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
