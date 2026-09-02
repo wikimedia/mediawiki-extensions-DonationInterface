@@ -7,10 +7,12 @@ use MediaWiki\Title\Title;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentData\FinalStatus;
+use SmashPig\PaymentProviders\Adyen\PaymentProvider as AdyenPaymentProvider;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
+use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
 use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
 use Wikimedia\TestingAccessWrapper;
 
@@ -111,6 +113,11 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 	public function testExplicitlyRequestedSupportedGatewayOverridesPriorityRules(): void {
 		// The 'cc' priority rule would normally route to gravy, but adyen also
 		// supports cc/US/USD, so an explicit gateway request should win.
+		$adyenProviderConfig = $this->setSmashPigProvider( 'adyen' );
+		$mockAdyenProvider = $this->createMock( AdyenPaymentProvider::class );
+		$mockAdyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
+		$adyenProviderConfig->overrideObjectInstance( 'payment-provider/cc', $mockAdyenProvider );
+
 		$this->assertChosenGateway(
 			[
 				'payment_method' => 'cc',

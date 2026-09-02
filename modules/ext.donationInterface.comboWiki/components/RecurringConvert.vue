@@ -133,7 +133,6 @@ module.exports = exports = defineComponent( {
 	props: {
 		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
-		gateway: { type: String, required: true },
 		utmToken: { type: String, default: '' },
 		thankYouUrl: { type: String, required: true }
 	},
@@ -270,7 +269,7 @@ module.exports = exports = defineComponent( {
 				const api = new mw.Api();
 				const payload = {
 					action: 'di_recurring_convert',
-					gateway: this.gateway,
+					gateway: this.donation.gateway || 'gravy',
 					utm_token: this.utmToken,
 					amount: amount
 				};

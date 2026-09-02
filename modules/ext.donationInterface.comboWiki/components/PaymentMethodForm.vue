@@ -32,6 +32,7 @@ const GravyCardForm = require( './GravyCardForm.vue' );
 const GravyRedirectComponent = require( './GravyRedirectComponent.vue' );
 const ApplePayComponent = require( './ApplePayComponent.vue' );
 const ACHComponent = require( './ACHComponent.vue' );
+const AdyenCardForm = require( './AdyenCardForm.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
@@ -44,7 +45,8 @@ module.exports = exports = defineComponent( {
 		'venmo-form': GravyRedirectComponent,
 		'applepay-form': ApplePayComponent,
 		'googlepay-form': GooglePayComponent,
-		'ach-form': ACHComponent
+		'ach-form': ACHComponent,
+		'adyen-card-form': AdyenCardForm
 	},
 	props: {
 		donation: {
@@ -140,6 +142,19 @@ module.exports = exports = defineComponent( {
 				} );
 		};
 
+		const getAdyenCheckoutSession = ( parameters, successCallback, failureCallback ) => {
+			appState.setLoading( true );
+			api.createCheckoutSession( parameters )
+				.then( ( sessionId ) => {
+					successCallback( sessionId );
+					appState.setLoading( false );
+				} )
+				.catch( () => {
+					failureCallback();
+					appState.setLoading( false );
+				} );
+		};
+
 		/**
 		 * Forwards a payment-method error up to the parent as a donationError event.
 		 *
@@ -168,6 +183,14 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: getGravyCheckoutSession
+			},
+			adyen_card: {
+				label: mw.message( 'combowiki-method-adyen-card' ).text(),
+				component: 'adyen-card-form',
+				gateway: 'adyen',
+				submit: submitDonation,
+				error: onError,
+				presubmit: getAdyenCheckoutSession
 			},
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
@@ -212,11 +235,17 @@ module.exports = exports = defineComponent( {
 		 */
 		const availablePaymentMethods = computed( () => {
 			const isOneTime = props.donation.frequency === 'once';
+			const activeGateway = props.donation.gateway || 'gravy';
 			const methods = [];
 			for ( const [ method, config ] of Object.entries( paymentMethodConfig ) ) {
 				if ( isOneTime && config.supportsOneTime === false ) {
 					continue;
 				}
+				const methodGateway = config.gateway || 'gravy';
+				if ( activeGateway !== methodGateway ) {
+					continue;
+				}
+
 				methods.push( method );
 			}
 			return methods;

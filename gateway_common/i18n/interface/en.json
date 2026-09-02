@@ -15,6 +15,7 @@
 	"combowiki-payment-incomplete": "Payment could not be completed.",
 	"combowiki-payment-method-heading": "Donate with your preferred payment method",
 	"combowiki-method-card": "Card",
+	"combowiki-method-adyen-card": "Adyen Card",
 	"combowiki-method-paypal": "PayPal",
 	"combowiki-method-venmo": "Venmo",
 	"combowiki-method-applepay": "Apple Pay",

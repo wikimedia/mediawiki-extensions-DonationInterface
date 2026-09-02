@@ -130,7 +130,7 @@ class DataNormalizer implements LogPrefixProvider {
 		}
 		$this->logger->warning( __FUNCTION__ . ': Country not set in DonationDetails data object.' );
 		// TODO: we used to set 'XX' as default country code if none found, should we restore that?
-		$this->dataObject->setValue( 'country', '' );
+		$this->dataObject->setValue( 'country', $this->dataObject->getValue( 'ip_country' ) );
 	}
 
 	/**

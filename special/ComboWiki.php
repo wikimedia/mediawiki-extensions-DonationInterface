@@ -2,6 +2,7 @@
 
 namespace MediaWiki\Extension\DonationInterface\Special;
 
+use AdyenCheckoutAdapter;
 use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
@@ -65,7 +66,9 @@ class ComboWiki extends UnlistedSpecialPage {
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
 		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
-
+		if ( !$request->getVal( 'gateway' ) ) {
+			$this->dataObject->setValue( 'gateway', null );
+		}
 		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
 			'amount' => $this->dataObject->getValue( 'amount', '0' ),
@@ -282,6 +285,22 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	protected function addAdyenClientConfig( array &$vars ): void {
+		$adapter = $this->adapter;
+		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
+			$this->logger->error(
+				'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
+			);
+
+			return;
+		}
+		$vars['adyenConfiguration'] = $adapter->getCheckoutConfiguration(
+			[
+				'country' => $this->routingParams['country'],
+				'currency' => $this->routingParams['currency'],
+				'amount' => $this->routingParams['amount'],
+				'language' => $this->routingParams['language'],
+			]
+		);
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
@@ -300,7 +319,7 @@ class ComboWiki extends UnlistedSpecialPage {
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
 			$countries[ $countryCode ] = [
 				'currency' => $currency,
-				'label' => CountryNames::getNames( $this->dataObject->getValue( 'language', 'en' ) )[$countryCode] ?? $countryCode,
+				'label' => CountryNames::getNames( $this->routingParams['language'] )[$countryCode] ?? $countryCode,
 				'value' => $countryCode
 			];
 		}

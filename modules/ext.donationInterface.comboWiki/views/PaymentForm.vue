@@ -80,7 +80,7 @@
 		<p>
 			Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
 			{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ selectedGateway }}
+			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
 		</p>
 		<p> Debug Request Params - {{ params }} </p>
 		<p v-if="donateError" class="combo-wiki__error">
@@ -95,7 +95,6 @@
 			v-if="appState.showRecurringConvert.value"
 			:donation="donation"
 			:language="params.language || 'en'"
-			:gateway="selectedGateway"
 			:utm-token="params.utm_token || ''"
 			:thank-you-url="thankYouUrl"
 			@close="redirectTargetUrl"
@@ -169,9 +168,9 @@ module.exports = exports = defineComponent( {
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
-				smsOptin: null
+				smsOptin: null,
+				gateway: comboWikiConfig.gateway || null
 			},
-			selectedGateway: comboWikiConfig.gateway || null,
 			donateError: null,
 			thankYouUrl: null
 		};
@@ -286,7 +285,7 @@ module.exports = exports = defineComponent( {
 		handleDonateError( code, failure ) {
 			this.donateError = this.$i18n( 'combowiki-payment-failed' ).text();
 			this.appState.setLoading( false );
-			mw.log.error( 'di_donate_gravy failed', code, failure );
+			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
