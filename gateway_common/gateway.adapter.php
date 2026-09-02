@@ -3096,6 +3096,7 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getFraudFilterData(): array {
+		/** @var array{amount: float, currency: string} $data */
 		$data = $this->getData_Unstaged_Escaped();
 		$data['http_accept_language'] = RequestContext::getMain()->getRequest()->getHeader( 'Accept-Language' ) ?? '';
 		if ( $data['currency'] && is_numeric( $data['amount'] ) ) {
