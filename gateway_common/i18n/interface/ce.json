@@ -122,7 +122,7 @@
 	"donate_interface-error-msg-bank_code": "Банкан код (Sort Code)",
 	"donate_interface-error-msg-branch_code": "Банкан декъан код",
 	"donate_interface-error-msg-captcha": "ДӀайазйина Captcha маьӀна нийса дац. Дехар до, йуха а хьажа.",
-	"donate_interface-error-msg-captcha-please": "Хьайн кредитан картин кхерамзаллина, дехар до, лакхахь хьайна гуш долу хьаьркаш йазде.",
+	"donate_interface-error-msg-captcha-please": "Хьайн кредитан картин кхерамзаллина, дехар до, лакхахь хьайна гуш йолу символаш йазйе.",
 	"donate_interface-error-msg-cookies": "Дехар до, хьайн браузерехь cookies дӀахӀиттайе.",
 	"donate_interface-error-msg-country-calc": "ГӀалат - тха хӀинца а йиш йац хьан гӀо тӀелаца.",
 	"donate_interface-error-msg-fiscal_number": "Дехар до, налоган лоьмар йазйе",

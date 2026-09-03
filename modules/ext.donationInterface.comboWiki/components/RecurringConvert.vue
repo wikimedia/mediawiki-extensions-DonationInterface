@@ -186,7 +186,7 @@ module.exports = exports = defineComponent( {
 			if ( this.isPreModal ) {
 				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-accept' ).text();
 				return rawTitle.replace(
-					'<span class="mc-convert-ask"></span>',
+					'$1',
 					`${ this.formattedPresetAmount }`
 				);
 			} else {
@@ -226,7 +226,7 @@ module.exports = exports = defineComponent( {
 			} else {
 				const rawTitle = this.$i18n( 'donate_interface-monthly-convert-title' ).text();
 				return rawTitle.replace(
-					'$1',
+					'<span class="mc-convert-ask"></span>',
 					`<span class="mc-convert-ask">${ this.formattedPresetAmount }</span>`
 				);
 			}

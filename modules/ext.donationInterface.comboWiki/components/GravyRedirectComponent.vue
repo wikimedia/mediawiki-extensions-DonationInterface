@@ -14,7 +14,7 @@ const { CdxButton } = require( '@wikimedia/codex' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
-	name: 'GravyBraintreeComponent',
+	name: 'GravyRefirectComponent',
 
 	components: {
 		'cdx-button': CdxButton
@@ -36,7 +36,7 @@ module.exports = exports = defineComponent( {
 			if ( this.donation.paymentMethod === 'venmo' ) {
 				return this.$i18n( 'combowiki-donate-with-venmo' ).text();
 			}
-			// should only have paypal or venmo for braintree
+			// should only have paypal or venmo for redirect
 			return '';
 		}
 	},

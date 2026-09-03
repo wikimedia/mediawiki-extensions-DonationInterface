@@ -228,7 +228,6 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// FIXME: this should not have side effects like setting order_id_meta['final']
 		// TODO: On second thought, neither set data nor validate in this constructor.
-		// TODO: in ComboWiki this should not run since it leads to 2 contribution tracking msg and parallel logic
 		$this->dataObj = new DonationData( $this, $options['external_data'] );
 
 		$this->unstaged_data = $this->dataObj->getData();
@@ -2267,13 +2266,17 @@ abstract class GatewayAdapter implements GatewayType {
 			// I'm sure we could put more here...
 			$soft_reset = [
 				'order_id',
+				// we don't want to force a one time to a recurring based on session values
+				'recurring',
+				'recurring_payment_token',
+				'frequency_unit'
 			];
 			$donorData = $this->session_getData( 'Donor' );
 			foreach ( $soft_reset as $reset_me ) {
 				unset( $donorData[$reset_me] );
 			}
 			WmfFramework::setSessionValue( 'Donor', $donorData );
-			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id only' );
+			$this->logger->info( __FUNCTION__ . ': Soft reset, order_id and recurring parameters only.' );
 		}
 	}
 
@@ -2495,6 +2498,7 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// pull all order ids and variants from all their usual locations
 		$locations = [
+			// We need to read order_id from the request when we're processing the ResultSwitcher
 			'request' => 'order_id',
 			'session' => [ 'Donor' => 'order_id' ],
 		];
@@ -3094,14 +3098,22 @@ abstract class GatewayAdapter implements GatewayType {
 	}
 
 	public function getFraudFilterData(): array {
+		/** @var array{amount: float, currency: string} $data */
 		$data = $this->getData_Unstaged_Escaped();
-		$data['http_accept_language'] = RequestContext::getMain()->getRequest()->getHeader( 'Accept-Language' ) ?? '';
-		if ( $data['currency'] && is_numeric( $data['amount'] ) ) {
+		$request = RequestContext::getMain()->getRequest();
+		$data['http_accept_language'] = $request->getHeader( 'Accept-Language' ) || '';
+		$data['ja4'] = $request->getHeader( 'X-JA4' ) || '';
+		$data['ja4h'] = $request->getHeader( 'X-JA4H' ) || '';
+		/** @var string $currency */
+		$currency = (string)( $data['currency'] ?? '' );
+
+		if ( is_numeric( $data['amount'] ) && $currency ) {
 			$data['amount_in_minor_units'] = CurrencyRoundingHelper::getAmountInMinorUnits(
-				(float)$data['amount'], $data['currency']
+				(float)$data['amount'], $currency
 			);
+
 			$data['amount_in_usd_cents'] = floor( 100 * Amount::convert(
-				(float)$data['amount'], 'USD', $data['currency']
+				(float)$data['amount'], 'USD', $currency
 			) );
 		} else {
 			$data['amount_in_minor_units'] = 0;

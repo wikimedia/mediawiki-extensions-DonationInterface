@@ -59,7 +59,6 @@ class DataNormalizer implements LogPrefixProvider {
 		// TODO: go through these and delete / update any legacy reference
 		$this->normalizeLanguage();
 		$this->normalizeRecurring();
-		$this->normalizeUtmFieldsfromWmfFields();
 		$this->normalizeUtmSource();
 		$this->normalizeCurrency();
 		$this->normalizeAmount();
@@ -240,11 +239,8 @@ class DataNormalizer implements LogPrefixProvider {
 		}
 		// Endowment donations must be one-time only, regardless of any
 		// recurring flags arriving via URL params, form post, or session.
-		// Check both utm_medium and wmf_medium since this runs before
-		// normalizeUtmFieldsfromWmfFields().
 		if (
-			$this->dataObject->getValue( 'utm_medium' ) === 'endowment' ||
-			$this->dataObject->getValue( 'wmf_medium' ) === 'endowment'
+			$this->dataObject->getValue( 'utm_medium' ) === 'endowment'
 		) {
 			$this->dataObject->setValue( 'recurring', false );
 			$this->dataObject->remove( 'frequency_unit' );
@@ -279,28 +275,6 @@ class DataNormalizer implements LogPrefixProvider {
 
 		$this->dataObject->setValue( 'language', $language );
 		$this->dataObject->remove( 'uselang' );
-	}
-
-	/**
-	 * Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
-	 * one that we care about. Internally, we still refer to them all with the utm_ prefix.
-	 * Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
-	 * @return void
-	 */
-	protected function normalizeUtmFieldsfromWmfFields(): void {
-		foreach ( [ 'source', 'medium', 'campaign', 'key' ] as $suffix ) {
-			$wmfFieldName = "wmf_$suffix";
-			$utmFieldName = "utm_$suffix";
-			// We skip if source is not 'get' or 'post' and wmf_* aren't fresh but picked from prior sessions
-			if ( $this->skipNormalization( $wmfFieldName ) ) {
-				continue;
-			}
-			// if fresh wmf_* from post/get override the respective utm_* values with it
-			if ( $this->dataObject->isValueSet( $wmfFieldName ) ) {
-				$this->dataObject->setValue( $utmFieldName, $this->dataObject->getValue( $wmfFieldName ) );
-				$this->dataObject->remove( $wmfFieldName );
-			}
-		}
 	}
 
 	/**
