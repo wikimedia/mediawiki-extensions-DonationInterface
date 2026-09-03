@@ -102,6 +102,14 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 
 		$this->addStylesScriptsAndViewport();
+		$this->addVueComponentModulesForVarients();
+	}
+
+	private function addVueComponentModulesForVarients(): void {
+		$out = $this->getOutput();
+		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
+			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
+		}
 	}
 
 	/**

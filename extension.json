@@ -519,6 +519,13 @@
 		"ext.donationInterface.donorPortalStyles": {
 			"styles": "modules/css/donorPortal.less"
 		},
+		"ext.donationInterface.combowiki.smsoptin": {
+			"dependencies": [ "vue" ],
+			"packageFiles": [
+				"modules/ext.donationInterface.comboWiki/components/SmsOptin.vue",
+				"modules/ext.donationInterface.comboWiki/normalizeInput.js"
+			]
+		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
 				"ext.donationInterface.applePayHelper",
@@ -529,6 +536,7 @@
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
+				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
@@ -545,7 +553,7 @@
 				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue",
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
 				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
-				"modules/ext.donationInterface.comboWiki/components/SmsOptin.vue"
+				"modules/ext.donationInterface.comboWiki/components/VariantFieldsComponent.vue"
 			],
 			"messages": [
 				"combowiki-title",
