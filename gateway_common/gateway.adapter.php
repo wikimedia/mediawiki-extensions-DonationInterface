@@ -2498,6 +2498,8 @@ abstract class GatewayAdapter implements GatewayType {
 
 		// pull all order ids and variants from all their usual locations
 		$locations = [
+			// We need to read order_id from the request when we're processing the ResultSwitcher
+			'request' => 'order_id',
 			'session' => [ 'Donor' => 'order_id' ],
 		];
 
