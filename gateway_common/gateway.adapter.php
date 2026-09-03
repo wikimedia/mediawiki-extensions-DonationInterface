@@ -3101,9 +3101,9 @@ abstract class GatewayAdapter implements GatewayType {
 		/** @var array{amount: float, currency: string} $data */
 		$data = $this->getData_Unstaged_Escaped();
 		$request = RequestContext::getMain()->getRequest();
-		$data['http_accept_language'] = $request->getHeader( 'Accept-Language' ) || '';
-		$data['ja4'] = $request->getHeader( 'X-JA4' ) || '';
-		$data['ja4h'] = $request->getHeader( 'X-JA4H' ) || '';
+		$data['http_accept_language'] = $request->getHeader( 'Accept-Language' ) ?: '';
+		$data['ja4'] = $request->getHeader( 'X-JA4' ) ?: '';
+		$data['ja4h'] = $request->getHeader( 'X-JA4H' ) ?: '';
 		/** @var string $currency */
 		$currency = (string)( $data['currency'] ?? '' );
 
