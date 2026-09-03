@@ -111,7 +111,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'payment_token',
 		'phone',
 		'postal_code',
-		'processor_form',
 		'recipient_id',
 		'recurring',
 		'recurring_payment_token',
@@ -169,6 +168,7 @@ class DataIntegrator implements LogPrefixProvider {
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
+		'order_id',
 		'payment_method',
 		'payment_submethod',
 		'phone',
@@ -241,11 +241,9 @@ class DataIntegrator implements LogPrefixProvider {
 		'recurring',
 		'recurring_payment_token',
 		'redirect',
-		'referrer',
 		'result_page',
 		'screen_height', // device fingerprinting
 		'screen_width', // device fingerprinting
-		'server_ip',
 		'sms_opt_in',
 		'state_province',
 		'street_address',

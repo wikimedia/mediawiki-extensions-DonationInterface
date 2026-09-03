@@ -414,6 +414,58 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 		$this->assertSame( $init['email'], $donorData['email'] );
 	}
 
+	/**
+	 * Confirms that when a donor retries a failed recurring payment attempt on
+	 * the same page (e.g. switching to a different card), the recurring params
+	 * are still read from the posted form fields, even though they were cleared
+	 * from session by the failed attempt.
+	 * @see GatewayAdapterTest::testRecurringParamsClearedOnFailedPaymentAttempt
+	 */
+	public function testRecurringParamsReadFromPostedFieldsOnSamePageRetry() {
+		$init = $this->getDonorTestData();
+		$init['payment_method'] = 'cc';
+		$init['recurring'] = '1';
+		$init['frequency_unit'] = 'month';
+
+		// Donor attempts a recurring donation, but it fails.
+		$firstRequest = $this->setUpRequest( $init );
+		$gateway = new GravyAdapter();
+		$gateway->session_addDonorData();
+		$gateway->finalizeInternalStatus( FinalStatus::FAILED );
+
+		$donorData = $firstRequest->getSessionData( 'Donor' );
+		$this->assertArrayNotHasKey(
+			'recurring',
+			$donorData,
+			'Test setup failed: recurring should be cleared from session after a failed payment attempt'
+		);
+
+		// Donor retries with a different card on the same page. The form still
+		// posts the original recurring fields, even though session no longer has
+		// them (they were wiped out by the failed attempt above).
+		$secondRequest = $this->setUpRequest( $init, $firstRequest->getSessionArray() );
+		$retryGateway = new GravyAdapter();
+
+		$this->assertSame(
+			'1',
+			$retryGateway->getData_Unstaged_Escaped( 'recurring' ),
+			'recurring should be read from posted fields on a same-page retry'
+		);
+		$this->assertSame(
+			'month',
+			$retryGateway->getData_Unstaged_Escaped( 'frequency_unit' ),
+			'frequency_unit should be read from posted fields on a same-page retry'
+		);
+
+		// And the recurring params should make it back into session for the retry.
+		$retryGateway->session_addDonorData();
+		$donorData = $secondRequest->getSessionData( 'Donor' );
+		$this->assertSame( '1', $donorData['recurring'],
+			'recurring should be restored to session on the retry' );
+		$this->assertSame( 'month', $donorData['frequency_unit'],
+			'frequency_unit should be restored to session on the retry' );
+	}
+
 	public function testResetSubmethodOnMethodSwitch() {
 		// Donor thinks they want to make a bank transfer, submits form
 		$init = $this->getDonorTestData( 'BR' );
