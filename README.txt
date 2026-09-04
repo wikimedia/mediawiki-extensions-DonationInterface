@@ -3,7 +3,7 @@ Donation Interface
 To install the DonationInterface extension, put the following line in LocalSettings.php:
   wfLoadExtension( 'DonationInterface' );
 
-All of this extension's globals can be overridden on a per-gateway basis by
+Most of this extension's globals can be overridden on a per-gateway basis by
 adding a setting with the same name, but with 'DonationInterface' replaced
 with the gateway's name. To override $wgDonationInterfaceUseSyslog just for
 Ingenico, add
@@ -17,7 +17,7 @@ add a line to LocalSettings.php with the new value.
 Set these to true to enable each payment processor integration:
 
 $wgIngenicoGatewayEnabled = false
-$wgAmazonGatewayEnabled = false
+$wgGravyGatewayEnabled = false
 $wgAdyenCheckoutGatewayEnabled = false
 $wgDlocalGatewayEnabled = false
 $wgPaypalExpressGatewayEnabled = false
@@ -302,6 +302,34 @@ log entries about a donation attempt.
 $wgDonationInterfaceMessageSourceType = 'payments';
 
 ==== Fraud filters and blocking ====
+DonationInterface can integrate with an ML service to score payment attempts
+ before sending them to the processor. To enable this, set
+$wgDonationInterfaceFraudServiceURL = <url to fraud service>
+ and also set some score thresholds, e.g.
+$wgDonationInterfaceFraudServiceScoreRules = [
+	[
+		'greaterThan' => 0.8,
+		'failScore' => 100,
+	],
+	[
+		'greaterThan' => 0.5,
+		'failScore' => 50,
+	],
+	[
+		'lessThan' => 0.1,
+		'failScore' => -10,
+	],
+];
+Score rules are evaluated from top to bottom and the failScore from the
+ first matching rule is added to the risk scores calculated by other
+ filters. In the example given above, an ML score of 0.9 would result in an
+ ml_service risk_score of 100, an ML score of 0.7 would result in an
+ ml_service risk_score of 50, and an ML score of 0.49 would result in 0
+ ml_service risk_score. The final rule shows how you can use the ML filter
+ to counteract a potentially overzealous local filter, e.g. the AVS score.
+ An ML score of 0.05 would result in a -10 ml_service risk_score. The combined
+ risk scores are used with $wgDonationInterfaceCustomFiltersActionRanges as
+ described below to determine how to proceed with a payment attempt.
 
 /**
  * Forbidden countries. No donations will be allowed to come in from countries
