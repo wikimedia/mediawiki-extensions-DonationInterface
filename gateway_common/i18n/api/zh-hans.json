@@ -6,9 +6,14 @@
 			"Liuxinyu970226",
 			"Peterxy12",
 			"Plana",
-			"Peterxy"
+			"Peterxy",
+			"Shizhao"
 		]
 	},
+	"apierror-donorportal-invalid-email": "无效的电子邮件地址",
+	"apierror-donorportal-bad-contact-id": "联系人ID错误 - 请重新加载捐赠者门户网站",
+	"apierror-donorportal-bad-contribution-recur-id": "contribution_recur_id错误 - 请重新加载捐赠者门户网站",
+	"apierror-donorportal-no-session": "没有捐赠者门户会话 - 请重新加载捐赠者门户",
 	"apihelp-donate-summary": "此API允许您向维基媒体基金会递交一次捐款，使用多种付款处理器。",
 	"apihelp-donate-param-gateway": "要使用的支付网关——adyen、ingenico等。",
 	"apihelp-donate-param-amount": "所捐赠的金额。",

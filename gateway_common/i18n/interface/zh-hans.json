@@ -247,6 +247,7 @@
 	"donate_interface-error-msg-invalid-currency": "请选择有效的币种",
 	"donate_interface-error-msg-invalid-device-data": "设备数据发生错误。",
 	"donate_interface-error-msg-invalid-email": "请输入有效的电子邮件地址，也就是name@domain.com",
+	"donate_interface-error-msg-invalid-phone": "请输入有效的电话号码",
 	"donate_interface-error-msg-card-num": "请输入一个被接受的有效信用卡号码",
 	"donate_interface-error-msg-amex": "请输入正确的美国运通卡号码。",
 	"donate_interface-error-msg-mc": "请输入正确的万事达卡号码。",
