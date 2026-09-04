@@ -1287,7 +1287,7 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "adyen", "gravy" ]
+					"gateways": [ "gravy", "dlocal", "adyen" ]
 				},
 				{
 					"conditions": {
@@ -1296,7 +1296,7 @@
 					"gateways": [ "gravy", "paypal_ec" ]
 				},
 				{
-					"gateways": [ "adyen", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
+					"gateways": [ "gravy", "adyen", "paypal_ec", "amazon", "dlocal", "braintree" ]
 				}
 			]
 		},
