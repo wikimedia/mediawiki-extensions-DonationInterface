@@ -956,11 +956,20 @@
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
 		"ResourceLoaderRegisterModules": [
 			"DonorPortalHooks"
+		],
+		"SpecialPageBeforeExecute": [
+			"ComboWikiHooks"
+		],
+		"ApiBeforeMain": [
+			"ComboWikiHooks"
 		]
 	},
 	"HookHandlers": {
 		"DonorPortalHooks": {
 			"class": "MediaWiki\\Extension\\DonationInterface\\DonorPortal\\Hooks"
+		},
+		"ComboWikiHooks": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks"
 		}
 	},
 	"config": {

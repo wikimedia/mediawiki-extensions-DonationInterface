@@ -4,6 +4,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
+use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
@@ -762,6 +763,46 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 				"$requiredKey must be passed down to the Vue frontend for the gravy gateway"
 			);
 		}
+	}
+
+	/**
+	 * ComboWiki donations get their own source_type so fundraising staff can
+	 * tell them apart from payments-wiki form donations.
+	 */
+	public function testTagsQueueMessagesAsComboWiki(): void {
+		$context = RequestContext::getMain();
+		$context->setRequest( new FauxRequest( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		], false ) );
+		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
+
+		// run(), not execute() — the source type is set by a hook that
+		// SpecialPage::run() fires, which is how production reaches the page.
+		( new ComboWiki() )->run( null );
+
+		$this->assertSame( ComboWiki::IDENTIFIER, Context::get()->getSourceType() );
+
+		$queueMessage = QueueWrapper::getQueue( 'contribution-tracking' )->pop();
+		$this->assertNotNull( $queueMessage );
+		$this->assertSame( ComboWiki::IDENTIFIER, $queueMessage['source_type'] );
+		$this->assertSame( 'DonationInterface', $queueMessage['source_name'] );
+	}
+
+	/**
+	 * Donations that send the donor off to the processor are only finalised
+	 * when they come back to the result page, so that leg needs the tag too.
+	 */
+	public function testResultPageTagsQueueMessagesAsComboWiki(): void {
+		$context = RequestContext::getMain();
+		$context->setRequest( new FauxRequest( [ 'gateway' => 'gravy' ], false ) );
+		$context->setTitle( Title::newFromText( 'Special:ComboWikiGatewayResult' ) );
+
+		( new ComboWikiGatewayResult() )->run( null );
+
+		$this->assertSame( ComboWiki::IDENTIFIER, Context::get()->getSourceType() );
 	}
 
 	private function assertChosenGateway( array $params, ?string $expectedGateway ): void {

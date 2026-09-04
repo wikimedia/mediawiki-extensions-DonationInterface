@@ -27,6 +27,11 @@ use ResultPages;
  */
 class ComboWiki extends UnlistedSpecialPage {
 
+	/**
+	 * Identifies the ComboWiki donation flow.
+	 */
+	public const IDENTIFIER = 'combowiki';
+
 	private LoggerInterface $logger;
 
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
