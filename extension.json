@@ -599,6 +599,8 @@
 				"donate_interface-donor-email",
 				"donate_interface-donor-employer",
 				"donate_interface-donor-employer-explain",
+				"donate_interface-donor-phone",
+				"donate_interface-donor-sms_opt_in",
 				"donate_interface-informationsharing",
 				"donate_interface-problemsdonating",
 				"donate_interface-otherways-short",

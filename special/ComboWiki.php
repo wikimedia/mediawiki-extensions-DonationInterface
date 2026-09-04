@@ -120,10 +120,10 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 
 		$this->addStylesScriptsAndViewport();
-		$this->addVueComponentModulesForVarients();
+		$this->addVueComponentModulesForVariants();
 	}
 
-	private function addVueComponentModulesForVarients(): void {
+	private function addVueComponentModulesForVariants(): void {
 		$out = $this->getOutput();
 		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
 			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );

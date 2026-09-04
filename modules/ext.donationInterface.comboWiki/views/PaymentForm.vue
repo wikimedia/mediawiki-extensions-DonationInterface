@@ -64,7 +64,11 @@
 		<employer-field v-model="donation.employer"></employer-field>
 
 		<!-- Sms Optin -->
-		<sms-optin v-if="showSmsOptin" v-model="donation.smsOptin"></sms-optin>
+		<sms-optin
+			v-if="showSmsOptin"
+			v-model:phone="donation.phone"
+			v-model:sms-optin="donation.smsOptin"
+		></sms-optin>
 
 		<!-- Payment methods -->
 		<payment-method-form
@@ -82,6 +86,7 @@
 			{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
 			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
 		</p>
+		<p> Debug - Donation: {{ donation }}</p>
 		<p> Debug Request Params - {{ params }} </p>
 		<p v-if="donateError" class="combo-wiki__error">
 			{{ donateError }}
@@ -163,12 +168,14 @@ module.exports = exports = defineComponent( {
 				amount: null,
 				currency: initialCurrency,
 				payFee: false,
+				phone: null,
 				country: country,
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
 				smsOptin: null,
-				gateway: comboWikiConfig.gateway || null
+				gateway: comboWikiConfig.gateway || null,
+				variant: this.params.variant || null
 			},
 			donateError: null,
 			thankYouUrl: null
