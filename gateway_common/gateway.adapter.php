@@ -3120,6 +3120,7 @@ abstract class GatewayAdapter implements GatewayType {
 			$data['amount_in_usd_cents'] = 0;
 		}
 		unset( $data['amount'] );
+		unset( $data['payment_token'] );
 		// Add in any contribution tracking data that's not in session, such as OS + browser
 		return array_merge( $data, $this->dataObj->getCleanTrackingData( true ) );
 	}
