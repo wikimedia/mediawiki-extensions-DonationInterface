@@ -63,8 +63,8 @@
 		<!-- Employer -->
 		<employer-field v-model="donation.employer"></employer-field>
 
-		<!-- Variants -->
-		<variant-fields v-model="donation.smsOptin"></variant-fields>
+		<!-- Sms Optin -->
+		<sms-optin v-if="showSmsOptin" v-model="donation.smsOptin"></sms-optin>
 
 		<!-- Payment methods -->
 		<payment-method-form
@@ -104,6 +104,8 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+/* global sms-optin */
 const { defineComponent } = require( 'vue' );
 const {
 	CdxButton,
@@ -119,8 +121,6 @@ const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
-const VariantFieldsComponent = require( '../components/VariantFieldsComponent.vue' );
-// if these are only sometimes loaded, is there a better way to if include them
 const { useAppState } = require( '../composables/useAppState.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
@@ -140,8 +140,7 @@ module.exports = exports = defineComponent( {
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
-		'recurring-convert': RecurringConvert,
-		'variant-fields': VariantFieldsComponent
+		'recurring-convert': RecurringConvert
 	},
 	inject: [ 'params' ],
 	setup() {
@@ -238,6 +237,9 @@ module.exports = exports = defineComponent( {
 					return `${ this.donation.currency }${ amount }`;
 				}
 			};
+		},
+		showSmsOptin() {
+			return this.params.variant === 'smsOptin';
 		}
 	},
 
