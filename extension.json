@@ -519,6 +519,13 @@
 		"ext.donationInterface.donorPortalStyles": {
 			"styles": "modules/css/donorPortal.less"
 		},
+		"ext.donationInterface.combowiki.smsoptin": {
+			"dependencies": [ "vue" ],
+			"packageFiles": [
+				"modules/ext.donationInterface.comboWiki/components/SmsOptin.vue",
+				"modules/ext.donationInterface.comboWiki/normalizeInput.js"
+			]
+		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
 				"ext.donationInterface.applePayHelper",
@@ -529,6 +536,7 @@
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
+				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
@@ -536,6 +544,7 @@
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
+				"modules/ext.donationInterface.comboWiki/components/AdyenCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyRedirectComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ApplePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
@@ -550,10 +559,7 @@
 				"combowiki-title",
 				"combowiki-frequency-heading",
 				"combowiki-frequency-annual",
-				"combowiki-currency-placeholder",
-				"combowiki-currency-usd",
-				"combowiki-currency-eur",
-				"combowiki-currency-gbp",
+				"combowiki-country-placeholder",
 				"combowiki-cover-fees",
 				"combowiki-stay-in-touch-heading",
 				"combowiki-optin-yes",
@@ -562,6 +568,7 @@
 				"combowiki-payment-incomplete",
 				"combowiki-payment-method-heading",
 				"combowiki-method-card",
+				"combowiki-method-adyen-card",
 				"combowiki-method-paypal",
 				"combowiki-method-venmo",
 				"combowiki-method-applepay",
@@ -947,11 +954,20 @@
 		"Language::getMessagesFileName": "DonationInterface::onGetMessagesFileName",
 		"ResourceLoaderRegisterModules": [
 			"DonorPortalHooks"
+		],
+		"SpecialPageBeforeExecute": [
+			"ComboWikiHooks"
+		],
+		"ApiBeforeMain": [
+			"ComboWikiHooks"
 		]
 	},
 	"HookHandlers": {
 		"DonorPortalHooks": {
 			"class": "MediaWiki\\Extension\\DonationInterface\\DonorPortal\\Hooks"
+		},
+		"ComboWikiHooks": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\ComboWiki\\Hooks"
 		}
 	},
 	"config": {
@@ -1271,7 +1287,7 @@
 						"country": [ "AR", "BR", "CL", "CO", "IN", "MX", "PE", "UY", "ZA" ],
 						"payment_method": "cc"
 					},
-					"gateways": [ "dlocal", "adyen", "gravy" ]
+					"gateways": [ "gravy", "dlocal", "adyen" ]
 				},
 				{
 					"conditions": {
@@ -1280,7 +1296,7 @@
 					"gateways": [ "gravy", "paypal_ec" ]
 				},
 				{
-					"gateways": [ "adyen", "paypal_ec", "amazon", "dlocal", "braintree", "gravy" ]
+					"gateways": [ "gravy", "adyen", "paypal_ec", "amazon", "dlocal", "braintree" ]
 				}
 			]
 		},
@@ -2000,8 +2016,8 @@
 		"DonationInterfaceFraudServiceURL": {
 			"value": false
 		},
-		"DonationInterfaceFraudServiceWeight": {
-			"value": 0
+		"DonationInterfaceFraudServiceScoreRules": {
+			"value": []
 		}
 	},
 	"AutoloadNamespaces": {

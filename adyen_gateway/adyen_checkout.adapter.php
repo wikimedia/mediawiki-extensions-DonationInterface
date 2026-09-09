@@ -357,17 +357,19 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return [];
 	}
 
-	public function getCheckoutConfiguration(): array {
+	public function getCheckoutConfiguration( ?array $methodParams = null ): array {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
 		);
 		'@phan-var PaymentProvider $provider';
-		$methodParams = [
-			'country' => $this->staged_data['country'],
-			'currency' => $this->staged_data['currency'],
-			'amount' => $this->staged_data['amount'],
-			'language' => $this->staged_data['language']
-		];
+		if ( $methodParams === null ) {
+			$methodParams = [
+				'country' => $this->staged_data['country'],
+				'currency' => $this->staged_data['currency'],
+				'amount' => $this->staged_data['amount'],
+				'language' => $this->staged_data['language']
+			];
+		}
 		// This should have all the payment methods available
 		$paymentMethodResult = $provider->getPaymentMethods( $methodParams );
 		if ( $paymentMethodResult->hasErrors() ) {

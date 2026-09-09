@@ -6,10 +6,14 @@ const Vue = require( 'vue' ),
 $( '#mw-content-text' ).append( $container );
 
 const vueApp = Vue.createMwApp( App );
+const { loadVariantModuleComponents } = require( './variantHelper.js' );
 
 // Cross the mw.config boundary once, here — components below never touch mw.config directly.
 const comboWikiConfig = mw.config.get( 'comboWiki' );
 vueApp.provide( 'params', comboWikiConfig.params );
+
+// load variant component
+loadVariantModuleComponents( vueApp, comboWikiConfig.params.variant );
 
 // Use this to prevent vue 3 default space trim.
 vueApp.config.compilerOptions.whitespace = 'preserve';

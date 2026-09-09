@@ -133,21 +133,8 @@ module.exports = exports = defineComponent( {
 	props: {
 		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
-		gateway: { type: String, required: true },
 		utmToken: { type: String, default: '' },
-		thankYouUrl: { type: String, required: true },
-		convertAmounts: {
-			type: Array,
-			default: () => [
-				[ 2.75, 1 ],
-				[ 5, 2 ]
-			]
-		},
-		currencyRates: { type: Object, default: () => ( {} ) },
-		amountRules: {
-			type: Object,
-			default: () => ( { currency: 'USD', min: 1 } )
-		}
+		thankYouUrl: { type: String, required: true }
 	},
 
 	emits: [ 'close', 'update:modelValue', 'recurring-convert-submit' ],
@@ -160,7 +147,10 @@ module.exports = exports = defineComponent( {
 			isSmallAmountError: false,
 			originalAmount: Number( this.donation.amount ) || 0,
 			currency: this.donation.currency || 'USD',
-			country: this.donation.country || 'US'
+			country: this.donation.country || 'US',
+			currencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+			convertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
+			amountRules: mw.config.get( 'wgDonationInterfaceAmountRules' )
 		};
 	},
 
@@ -279,7 +269,7 @@ module.exports = exports = defineComponent( {
 				const api = new mw.Api();
 				const payload = {
 					action: 'di_recurring_convert',
-					gateway: this.gateway,
+					gateway: this.donation.gateway || 'gravy',
 					utm_token: this.utmToken,
 					amount: amount
 				};

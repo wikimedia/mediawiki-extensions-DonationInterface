@@ -14,11 +14,14 @@ class FraudService {
 
 	protected string $serviceBaseURL;
 
-	protected int $scoreWeight;
+	/**
+	 * @var array{array{greaterThan?: float, lessThan?: float, failScore: float}}
+	 */
+	protected array $scoreRules;
 
 	public function __construct( Config $config, protected HttpRequestFactory $requestFactory ) {
 		$this->serviceBaseURL = $config->get( 'DonationInterfaceFraudServiceURL' );
-		$this->scoreWeight = $config->get( 'DonationInterfaceFraudServiceWeight' ) ?? 0;
+		$this->scoreRules = $config->get( 'DonationInterfaceFraudServiceScoreRules' ) ?? [];
 	}
 
 	public function getScores( array $data ): array {
@@ -39,7 +42,7 @@ class FraudService {
 						'scores' => $decoded['predictions'][0],
 					];
 					$probability = $response['scores']['fraud_probability'] ?? 0;
-					$response['scaled_risk_score'] = $probability * $this->scoreWeight;
+					$response['scaled_risk_score'] = $this->getRiskScore( $probability );
 				} else {
 					$response = [
 						'success' => false,
@@ -48,10 +51,23 @@ class FraudService {
 				}
 				return $response;
 			}
-			return [ 'success' => true, 'error' => $rawResponse ];
+			return [ 'success' => false, 'error' => $rawResponse ?: 'Blank response', 'status' => $status->getValue() ];
 		} catch ( \Throwable $e ) {
-			return [ 'success' => true, 'error' => $e->getMessage() ];
+			return [ 'success' => false, 'error' => $e->getMessage() ];
 		}
+	}
+
+	public function getRiskScore( float $probability ): float {
+		foreach ( $this->scoreRules as $rule ) {
+			if ( isset( $rule['greaterThan'] ) && $rule['greaterThan'] >= $probability ) {
+				continue;
+			}
+			if ( isset( $rule['lessThan'] ) && $rule['lessThan'] <= $probability ) {
+				continue;
+			}
+			return $rule['failScore'];
+		}
+		return 0;
 	}
 
 	public function markOutcome( string $orderID, int $flags = 0 ): array {

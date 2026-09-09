@@ -18,8 +18,8 @@ const frequencyUnitMap = {
 
 function getBaseDonateParams( donation ) {
 	const params = {
-		action: 'di_donate_gravy',
-		gateway: 'gravy',
+		action: 'di_donate_' + ( donation.gateway || 'gravy' ),
+		gateway: donation.gateway || 'gravy',
 		result_page: 'combowiki',
 		wmf_token: mw.config.get( 'wmf_token' ),
 		email: donation.email,
@@ -61,8 +61,8 @@ function submitDonation( donation, paymentMethodData ) {
 function createCheckoutSession( donation ) {
 	const recurring = [ 'monthly', 'annual' ].includes( donation.frequency ) ? 1 : 0;
 	return apiPost( {
-		action: 'di_checkoutsession_gravy',
-		gateway: 'gravy',
+		action: 'di_checkoutsession_' + ( donation.gateway || 'gravy' ),
+		gateway: donation.gateway || 'gravy',
 		amount: donation.amount,
 		payment_method: paymentMethodMap[ donation.paymentMethod ],
 		wmf_token: mw.config.get( 'wmf_token' ),

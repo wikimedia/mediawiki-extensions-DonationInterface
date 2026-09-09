@@ -71,7 +71,7 @@
 			],
 			"rules": {
 				"vue/no-undef-components": [ "error", {
-					"ignorePatterns": [ "apple-pay-button" ]
+					"ignorePatterns": [ "apple-pay-button", "sms-optin" ]
 				} ]
 			}
 		}

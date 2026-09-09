@@ -2,10 +2,12 @@
 
 namespace MediaWiki\Extension\DonationInterface\Special;
 
-use DonationInterface;
+use AdyenCheckoutAdapter;
 use DonationLoggerFactory;
+use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
@@ -16,6 +18,8 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
+use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -27,10 +31,15 @@ use ResultPages;
  */
 class ComboWiki extends UnlistedSpecialPage {
 
+	/**
+	 * Identifies the ComboWiki donation flow.
+	 */
+	public const IDENTIFIER = 'combowiki';
+
 	private LoggerInterface $logger;
 
-	/** @var GravyAdapter|null The gateway adapter, if a supported gateway was selected. */
-	private ?GravyAdapter $adapter = null;
+	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
+	private ?GatewayAdapter $adapter = null;
 
 	/** @var array Routing params derived from the request, computed once in execute(). */
 	private array $routingParams = [];
@@ -57,7 +66,9 @@ class ComboWiki extends UnlistedSpecialPage {
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
 		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
-
+		if ( !$request->getVal( 'gateway' ) ) {
+			$this->dataObject->setValue( 'gateway', null );
+		}
 		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
 			'amount' => $this->dataObject->getValue( 'amount', '0' ),
@@ -82,10 +93,17 @@ class ComboWiki extends UnlistedSpecialPage {
 		// Store copy of the donation details in the session for later access
 		$this->storeDonationDetailsInSession();
 
-		// TODO: move this to a central decision point once other gateways are supported here.
-		if ( $this->selectedGateway === 'gravy' ) {
-			DonationInterface::setSmashPigProvider( 'gravy' );
-			$this->adapter = new GravyAdapter( [ 'variant' => $this->dataObject->getValue( 'variant', '' ) ] );
+		if ( $this->selectedGateway ) {
+			GatewayRouter::setSmashPigProviderForGateway( $this->selectedGateway );
+			$this->adapter = GatewayRouter::createAdapterForGateway(
+				$this->selectedGateway,
+				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
+			);
+			if ( !$this->adapter ) {
+				$this->logger->error(
+					"Failed to create adapter for gateway: {$this->selectedGateway}"
+				);
+			}
 		}
 
 		$this->setHeaders();
@@ -102,6 +120,14 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 
 		$this->addStylesScriptsAndViewport();
+		$this->addVueComponentModulesForVarients();
+	}
+
+	private function addVueComponentModulesForVarients(): void {
+		$out = $this->getOutput();
+		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
+			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
+		}
 	}
 
 	/**
@@ -161,9 +187,23 @@ class ComboWiki extends UnlistedSpecialPage {
 			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
 		];
+		$this->addCountriesConfig( $vars );
 
-		if ( $this->selectedGateway === 'gravy' ) {
-			$this->addGravyClientConfig( $vars );
+		// No gateway was selected, or its adapter could not be built. The Vue app
+		// still gets the params above so it can show an error, but everything below
+		// needs a live adapter. TODO: maybe set a fallback as gravy?
+		if ( !$this->adapter ) {
+			return;
+		}
+
+		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
+		if ( $this->adapter->showMonthlyConvert() ) {
+			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
+		}
+
+		$configMethod = 'add' . ucfirst( $this->selectedGateway ) . 'ClientConfig';
+		if ( method_exists( $this, $configMethod ) ) {
+			$this->$configMethod( $vars );
 		}
 	}
 
@@ -209,9 +249,82 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	protected function addGravyClientConfig( array &$vars ): void {
-		$vars['gravyConfiguration'] = $this->adapter->getGravyConfiguration();
+		// getGravyConfiguration() is specific to GravyAdapter, not GatewayAdapter,
+		// so narrow the type before reaching for it.
+		$adapter = $this->adapter;
+		if ( !$adapter instanceof GravyAdapter ) {
+			$this->logger->error(
+				'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
+			);
+
+			return;
+		}
+
+		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
+		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
+	}
+
+	/**
+	 * Add Dlocal-specific client configuration.
+	 * Called when the selected gateway is 'dlocal'.
+	 *
+	 * @param array &$vars Client variables to expose
+	 * @return void
+	 */
+	protected function addDlocalClientConfig( array &$vars ): void {
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
+
+	/**
+	 * Add Adyen-specific client configuration.
+	 * Called when the selected gateway is 'adyen'.
+	 *
+	 * @param array &$vars Client variables to expose
+	 * @return void
+	 */
+	protected function addAdyenClientConfig( array &$vars ): void {
+		$adapter = $this->adapter;
+		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
+			$this->logger->error(
+				'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
+			);
+
+			return;
+		}
+		$vars['adyenConfiguration'] = $adapter->getCheckoutConfiguration(
+			[
+				'country' => $this->routingParams['country'],
+				'currency' => $this->routingParams['currency'],
+				'amount' => $this->routingParams['amount'],
+				'language' => $this->routingParams['language'],
+			]
+		);
+		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+	}
+
+	/**
+	 * @param array &$vars
+	 * @return void
+	 */
+	private function addCountriesConfig( array &$vars ): void {
+		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
+		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
+
+		$countries = [];
+		foreach ( $rawCountries as $key => $countryCode ) {
+			// Look up the official national currency code using SmashPig
+			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
+			$countries[ $countryCode ] = [
+				'currency' => $currency,
+				'label' => CountryNames::getNames( $this->routingParams['language'] )[$countryCode] ?? $countryCode,
+				'value' => $countryCode
+			];
+		}
+
+		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 
 	/**
