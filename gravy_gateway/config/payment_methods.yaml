@@ -65,6 +65,8 @@ paypal:
     street_address: false
     postal_code: false
     fiscal_number: false
+    employer: false
+    phone: false
 
 google:
   recurring: true
