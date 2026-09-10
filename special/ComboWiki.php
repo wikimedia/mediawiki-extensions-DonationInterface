@@ -313,13 +313,16 @@ class ComboWiki extends UnlistedSpecialPage {
 		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
 		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
 
+		// Fetch the localised country-name map once, rather than per iteration.
+		$countryNames = CountryNames::getNames( $this->routingParams['language'] );
+
 		$countries = [];
 		foreach ( $rawCountries as $key => $countryCode ) {
 			// Look up the official national currency code using SmashPig
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
 			$countries[ $countryCode ] = [
 				'currency' => $currency,
-				'label' => CountryNames::getNames( $this->routingParams['language'] )[$countryCode] ?? $countryCode,
+				'label' => $countryNames[$countryCode] ?? $countryCode,
 				'value' => $countryCode
 			];
 		}
