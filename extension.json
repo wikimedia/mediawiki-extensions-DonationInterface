@@ -538,6 +538,7 @@
 				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
+				"modules/ext.donationInterface.comboWiki/countrySelector.json",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
 				"modules/ext.donationInterface.comboWiki/views/PaymentForm.vue",

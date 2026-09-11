@@ -122,6 +122,9 @@ const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
+// Static country => default-currency map, cached by ResourceLoader and only
+// re-fetched by clients when this file's content changes.
+const countryCurrencies = require( '../countrySelector.json' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -152,9 +155,7 @@ module.exports = exports = defineComponent( {
 		const country = urlParams.get( 'country' ) || 'US';
 		const comboWikiConfig = mw.config.get( 'comboWiki', {} );
 		const initialCurrency = comboWikiConfig.params.currency || 'USD';
-		const countries = mw.config.get( 'wgDonationInterfaceCountries', {} );
 		return {
-			countries,
 			donation: {
 				firstName: null,
 				lastName: null,
@@ -209,10 +210,26 @@ module.exports = exports = defineComponent( {
 			return Math.round( this.donation.amount * 0.035 * 100 ) / 100;
 		},
 		countryOptions() {
-			return Object.entries( this.countries ).map( ( [ country, config ] ) => ( {
-				label: config.label + ' (' + config.currency + ')',
-				value: country
-			} ) );
+			const lang = ( this.params.language || 'en' ).split( '-' )[ 0 ];
+			// Intl.DisplayNames isn't available in older browsers (e.g. Safari < 14.1) and
+			// eslint-plugin-compat can't see through the runtime feature-detection below;
+			// fall back to the raw country code rather than breaking the donation form.
+			const supportsDisplayNames = typeof Intl !== 'undefined' &&
+				// eslint-disable-next-line compat/compat
+				typeof Intl.DisplayNames === 'function';
+			const regionNames = supportsDisplayNames ?
+				// eslint-disable-next-line compat/compat
+				new Intl.DisplayNames( [ lang ], { type: 'region', fallback: 'code' } ) :
+				null;
+			const collator = new Intl.Collator( lang );
+
+			return Object.keys( countryCurrencies )
+				.map( ( country ) => ( {
+					label: ( regionNames ? regionNames.of( country ) : country ) +
+						' (' + countryCurrencies[ country ] + ')',
+					value: country
+				} ) )
+				.sort( ( a, b ) => collator.compare( a.label, b.label ) );
 		},
 		giftComplete() {
 			return this.donation.frequency !== null && this.donation.amount !== null;
@@ -255,11 +272,11 @@ module.exports = exports = defineComponent( {
 			);
 		},
 		onCountryChange( country ) {
-			const countryConfig = this.countries[ country ];
-			if ( !countryConfig ) {
+			const currency = countryCurrencies[ country ];
+			if ( !currency ) {
 				return;
 			}
-			this.donation.currency = countryConfig.currency || 'USD';
+			this.donation.currency = currency;
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', country );

@@ -7,7 +7,6 @@ use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
@@ -18,8 +17,6 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
-use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -187,7 +184,6 @@ class ComboWiki extends UnlistedSpecialPage {
 			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
 		];
-		$this->addCountriesConfig( $vars );
 
 		// No gateway was selected, or its adapter could not be built. The Vue app
 		// still gets the params above so it can show an error, but everything below
@@ -303,31 +299,6 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
-	}
-
-	/**
-	 * @param array &$vars
-	 * @return void
-	 */
-	private function addCountriesConfig( array &$vars ): void {
-		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
-		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
-
-		// Fetch the localised country-name map once, rather than per iteration.
-		$countryNames = CountryNames::getNames( $this->routingParams['language'] );
-
-		$countries = [];
-		foreach ( $rawCountries as $key => $countryCode ) {
-			// Look up the official national currency code using SmashPig
-			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
-			$countries[ $countryCode ] = [
-				'currency' => $currency,
-				'label' => $countryNames[$countryCode] ?? $countryCode,
-				'value' => $countryCode
-			];
-		}
-
-		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 
 	/**
