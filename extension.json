@@ -569,6 +569,7 @@
 				"combowiki-optin-no",
 				"combowiki-payment-failed",
 				"combowiki-payment-incomplete",
+				"combowiki-monthly-convert-failed",
 				"combowiki-payment-method-heading",
 				"combowiki-method-card",
 				"combowiki-method-adyen-card",

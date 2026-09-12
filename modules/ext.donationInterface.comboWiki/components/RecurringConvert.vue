@@ -133,6 +133,7 @@ module.exports = exports = defineComponent( {
 	props: {
 		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
+		orderId: { type: String, default: '' },
 		utmToken: { type: String, default: '' },
 		thankYouUrl: { type: String, required: true }
 	},
@@ -278,6 +279,7 @@ module.exports = exports = defineComponent( {
 					payload.declineMonthlyConvert = true;
 				}
 				appState.setLoading( true );
+				appState.clearError();
 				try {
 					const response = await api.post( payload );
 					const url = new URL( this.thankYouUrl, window.location.href );
@@ -287,17 +289,43 @@ module.exports = exports = defineComponent( {
 							url.searchParams.set( 'recurringConversion', '1' );
 						}
 					} else if ( !declineMonthlyConvert ) {
-						alert( 'An error occurred during monthly conversion.' );
+						await this.logConversionFailure( response );
+						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', this.orderId ).text() );
 					}
 					appState.setLoading( false );
 					this.$emit( 'close', url.toString() );
 				} catch ( err ) {
 					if ( !declineMonthlyConvert ) {
-						alert( 'An error occurred during monthly conversion.' );
+						await this.logConversionFailure( err );
+						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', this.orderId ).text() );
 					}
 					appState.setLoading( false );
 					this.$emit( 'close', this.thankYouUrl );
 				}
+			}
+		},
+
+		/**
+		 * Records a failed monthly convert in the payments log. The one-time
+		 * donation has already gone through, so there is nothing for the donor
+		 * to act on and we send them to the thank you page either way. The
+		 * order_id comes from the page rather than the session, which the
+		 * completed donation has already cleared.
+		 *
+		 * @param {Object|string} failure API response, or the error code if the request failed
+		 * @return {Promise}
+		 */
+		async logConversionFailure( failure ) {
+			try {
+				await new mw.Api().post( {
+					action: 'logPaymentsFormError',
+					message: 'Monthly convert failed for order_id ' + this.orderId +
+						': ' + JSON.stringify( failure ),
+					file: 'RecurringConvert.vue',
+					userAgent: navigator.userAgent
+				} );
+			} catch ( code ) {
+				mw.log.error( 'logPaymentsFormError failed', code );
 			}
 		}
 	},

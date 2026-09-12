@@ -98,6 +98,7 @@
 			v-if="appState.showRecurringConvert.value"
 			:donation="donation"
 			:language="params.language || 'en'"
+			:order-id="params.order_id || ''"
 			:utm-token="params.utm_token || ''"
 			:thank-you-url="thankYouUrl"
 			@close="redirectTargetUrl"

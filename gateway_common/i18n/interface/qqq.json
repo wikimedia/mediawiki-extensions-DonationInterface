@@ -44,6 +44,7 @@
 	"combowiki-optin-no": "Label for the radio option declining to receive emails on the ComboWiki donation form.",
 	"combowiki-payment-failed": "Error message shown when the donation submission fails on the ComboWiki donation form.",
 	"combowiki-payment-incomplete": "Error message shown when the donation submission returns errors on the ComboWiki donation form.",
+	"combowiki-monthly-convert-failed": "Error message shown on the ComboWiki donation form when the donor's one-time donation succeeded but converting it to a monthly donation failed. Parameters:\n* $1 - the order ID of the completed one-time donation, for the donor to quote to donor services",
 	"combowiki-payment-method-heading": "Heading above the payment method selector on the ComboWiki donation form.",
 	"combowiki-method-card": "Label for the credit/debit card payment method option on the ComboWiki donation form.\n{{Identical|Card}}",
 	"combowiki-method-adyen-card": "Label for the Adyen credit/debit card payment method option on the ComboWiki donation form.\n{{Identical|Card}}",

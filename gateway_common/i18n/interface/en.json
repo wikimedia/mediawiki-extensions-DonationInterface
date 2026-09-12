@@ -13,6 +13,7 @@
 	"combowiki-optin-no": "No. Don't send me an occasional email with opportunities to support Wikipedia.",
 	"combowiki-payment-failed": "Payment failed. Please try again",
 	"combowiki-payment-incomplete": "Payment could not be completed.",
+	"combowiki-monthly-convert-failed": "Your one-time donation was successful, but we could not set up your monthly donation. Reference: $1",
 	"combowiki-payment-method-heading": "Donate with your preferred payment method",
 	"combowiki-method-card": "Card",
 	"combowiki-method-adyen-card": "Adyen Card",
