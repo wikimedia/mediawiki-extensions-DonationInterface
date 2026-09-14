@@ -11,7 +11,6 @@ use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\SequenceGenerators;
-use WhichBrowser\Parser;
 
 class ContributionTrackingHelper implements LogPrefixProvider {
 	private string $generatorName = 'contribution-tracking';
@@ -37,6 +36,29 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 	 * @var string Once defined, store value here for easy access
 	 */
 	protected string $contributionTrackingId = "";
+
+	protected static array $contributionTrackingFieldNames = [
+		'amount',
+		'appeal',
+		'app_install_id',
+		'browser',
+		'browser_version',
+		'country',
+		'currency',
+		'gateway',
+		'landing_page',
+		'language',
+		'os',
+		'os_version',
+		'payment_method',
+		'payment_submethod',
+		'referrer',
+		'ts',
+		'utm_campaign',
+		'utm_key',
+		'utm_medium',
+		'utm_source',
+	];
 
 	public function __construct( WebRequest $request, Config $wmfConfig ) {
 		$this->request = $request;
@@ -117,19 +139,19 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 		return (string)$generator->getNext();
 	}
 
-	private function sendToContributionTrackingQueue( array $tracking_data, ?string $id = null ): string {
+	private function sendToContributionTrackingQueue( array $trackingData, ?string $id = null ): string {
 		$id = !$id ? $this->generateId() : $id;
 
-		if ( !isset( $tracking_data['ts'] ) || !strlen( $tracking_data['ts'] ) ) {
-			$tracking_data['ts'] = wfTimestamp( TS_MW );
+		if ( !isset( $trackingData['ts'] ) || !strlen( $trackingData['ts'] ) ) {
+			$trackingData['ts'] = wfTimestamp( TS_MW );
 		}
 
 		$queueMessage = [
 			'id' => $id,
-			'ts' => $tracking_data['ts'],
+			'ts' => $trackingData['ts'],
 		];
 
-		$queueMessage += $tracking_data;
+		$queueMessage += $trackingData;
 
 		QueueWrapper::push( $this->queueName, $queueMessage );
 
@@ -156,66 +178,34 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 	 * @return array Clean tracking data
 	 */
 	private function getCleanTrackingData( bool $unset = false ): array {
-		// define valid tracking fields
-		$trackingFields = [
-			'amount',
-			'appeal',
-			'app_install_id',
-			'country',
-			'currency',
-			'gateway',
-			'landing_page',
-			'language',
-			'payment_method',
-			'payment_submethod',
-			'referrer',
-			'ts',
-			'utm_campaign',
-			'utm_key',
-			'utm_medium',
-			'utm_source',
-		];
+		$trackingData = [];
 
-		$tracking_data = [];
-
-		foreach ( $trackingFields as $value ) {
-			if ( $this->dataObject->isValueSet( $value ) ) {
-				$tracking_data[$value] = $this->dataObject->getValue( $value );
+		foreach ( self::$contributionTrackingFieldNames as $fieldName ) {
+			if ( $this->dataObject->isValueSet( $fieldName ) ) {
+				$trackingData[$fieldName] = $this->dataObject->getValue( $fieldName );
 			} else {
 				if ( !$unset ) {
-					$tracking_data[$value] = null;
+					$trackingData[$fieldName] = null;
 				}
 			}
 		}
 
-		// TODO: check if this should move to DataIntegrator since it fetches values from the request
-		// Add OS and browser, plus major version numbers of each if available
-		$headers = $this->request->getAllHeaders();
-		$parser = new Parser( $headers );
-		$tracking_data = array_merge( $tracking_data, [
-			'browser' => $parser->browser->getName(),
-			'browser_version' => preg_replace( '/[^0-9].*/', '', $parser->browser->getVersion() ),
-			'os' => $parser->os->getName(),
-			// For versions, discard everything after the first non-digit
-			'os_version' => preg_replace( '/[^0-9].*/', '', $parser->os->getVersion() ),
-		] );
-
 		// Variant is the new way to a/b test forms. Appeal is still used to
 		// render wikitext at the side, but it's almost always JimmyQuote
 		if ( $this->dataObject->isValueSet( 'variant' ) ) {
-			$tracking_data['payments_form_variant'] = $this->dataObject->getValue( 'variant' );
+			$trackingData['payments_form_variant'] = $this->dataObject->getValue( 'variant' );
 		}
 		if ( $this->dataObject->getValue( 'recurring' ) === '1' ) {
-			$tracking_data['is_recurring'] = 1;
+			$trackingData['is_recurring'] = 1;
 		}
 
 		// Add banner history log id if sent and enabled
 		if ( $this->dataObject->isValueSet( 'bannerhistlog' ) ) {
 			if ( $this->wmfConfig->has( 'EnableBannerHistoryLog' ) && $this->wmfConfig->get( 'EnableBannerHistoryLog' ) ) {
-				$tracking_data['banner_history_log_id'] = $this->dataObject->getValue( 'bannerhistlog' );
+				$trackingData['banner_history_log_id'] = $this->dataObject->getValue( 'bannerhistlog' );
 			}
 		}
-		return $tracking_data;
+		return $trackingData;
 	}
 
 	public function getLogMessagePrefix(): string {

@@ -523,14 +523,15 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		);
 	}
 
-	public function testUserIpAndReferrerCannotBeSetViaQueryParameters(): void {
-		// order_id, user_ip, and referrer must never be settable by the donor via
-		// the request: order_id is always server-computed by OrderIdHandler,
-		// user_ip must reflect the real connection IP (fraud/geolocation signal),
-		// and referrer should reflect where the donor actually came from, not an
-		// arbitrary value spoofed in the URL.
-		// @see includes/ComboWiki/DataIntegrator.php setUserIp() (real IP via
-		// WebRequest::getIP()) and setReferrer() (real value via the Referer header).
+	/*
+	 * Test that any fieldName that isn't listed in DataIntegrator::$requestQueryFieldNames
+	 * cannot be set via the query string. Some fields like order_id, user_ip, and referrer
+	 * must never be set by the donor via the request: order_id is always server-computed
+	 * by OrderIdHandler, user_ip must reflect the real connection IP (fraud/geolocation signal),
+	 * and referrer should reflect where the donor actually came from, not an arbitrary value
+	 * spoofed in the URL.
+	 */
+	public function testFieldsThatShouldNotBeSetViaQueryParameters(): void {
 		$context = RequestContext::getMain();
 		$request = new FauxRequest(
 			[
@@ -542,10 +543,15 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 				'order_id' => 'request-supplied-order-id',
 				'user_ip' => '6.6.6.6',
 				'referer' => 'https://example.com',
+				'os' => 'windows',
+				'os_version' => '11',
+				'browser' => 'firefox',
+				'browser_version' => '111',
 			],
 			false
 		);
 		$request->setHeader( 'REFERER', 'https://en.wikipedia.org/wiki/Real_Referring_Page' );
+		$request->setHeader( 'USER-AGENT', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36' );
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
@@ -574,6 +580,26 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 			'en.wikipedia.org/wiki/Real_Referring_Page',
 			$dataObject->getValue( 'referrer' ),
 			'referrer should be derived from the real Referer header, not the query string'
+		);
+		$this->assertSame(
+			'macOS',
+			$dataObject->getValue( 'os' ),
+			'os should be derived from the real User-Agent header, not the query string'
+		);
+		$this->assertSame(
+			'Chrome',
+			$dataObject->getValue( 'browser' ),
+			'browser should be derived from the real User-Agent header, not the query string'
+		);
+		$this->assertSame(
+			'',
+			$dataObject->getValue( 'os_version' ),
+			'os_version should be derived from the real User-Agent header, not the query string'
+		);
+		$this->assertSame(
+			'152',
+			$dataObject->getValue( 'browser_version' ),
+			'browser_version should be derived from the real User-Agent header, not the query string'
 		);
 	}
 
