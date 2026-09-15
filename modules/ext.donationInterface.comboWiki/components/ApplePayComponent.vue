@@ -17,6 +17,21 @@
 /* global ApplePaySession ApplePayError */
 
 const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
+
+let appleScriptPromise = null;
+
+/**
+ * Loads the applePayHelper module, caching the resulting promise.
+ *
+ * @return {Promise}
+ */
+function loadApplePayHelperScript() {
+	if ( !appleScriptPromise ) {
+		appleScriptPromise = mw.loader.using( 'ext.donationInterface.applePayHelper' );
+	}
+	return appleScriptPromise;
+}
+
 module.exports = exports = defineComponent( {
 	name: 'GravyApplePay',
 	compilerOptions: {
@@ -42,13 +57,14 @@ module.exports = exports = defineComponent( {
 		const applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
 
 		onMounted( () => {
+			// Real eligibility can only be known once Apple's SDK has run - Gravy
+			// supports Apple Pay beyond native Safari, so window.ApplePaySession
+			// isn't trustworthy until after this resolves.
 			const config = mw.config.get( 'gravyConfiguration' );
-			appleScriptSrc = config.appleScript;
-			mw.donationInterface.forms.loadScript( appleScriptSrc )
-				.then( setupApplePayForm )
-				.catch( ( e ) => {
-					mw.log.error( 'combowiki applepay load failed', e );
-				} );
+			loadApplePayHelperScript()
+				.then( () => mw.donationInterface.forms.loadScript( config.appleScript ) )
+				.then( () => setupApplePayForm() )
+				.catch( ( e ) => mw.log.error( 'combowiki applepay load failed', e ) );
 		} );
 
 		onBeforeUnmount( () => {
@@ -94,10 +110,9 @@ module.exports = exports = defineComponent( {
 						mw.config.get( 'DonationInterfaceOtherWaysURL' )
 					).plain()
 				} );
-				mw.donationInterface.forms.addDebugMessage( 'Apple Pay failure: Unable to find ApplePaySession in browser' );
+				mw.donationInterface.forms.addDebugMessage( 'Apple Pay unsupported: Unable to find ApplePaySession in browser' );
 			}
 		}
-
 		function handleApplePaySubmitClick( e ) {
 			e.preventDefault();
 			const button = e.currentTarget;
@@ -226,4 +241,6 @@ module.exports = exports = defineComponent( {
 
 	computed: {}
 } );
+
+module.exports.preloadApplePayHelperScript = loadApplePayHelperScript;
 </script>

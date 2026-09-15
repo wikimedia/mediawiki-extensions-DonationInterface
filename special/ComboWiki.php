@@ -306,6 +306,12 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
+
+		$applePayHref = $this->adapter->getAccountConfig( 'AppleScript' );
+		$this->getOutput()->addLink( [
+			'rel' => 'dns-prefetch',
+			'href' => 'https://' . parse_url( $applePayHref, PHP_URL_HOST )
+		] );
 	}
 
 	/**
