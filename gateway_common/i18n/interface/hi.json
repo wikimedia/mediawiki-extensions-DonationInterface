@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Abijeet Patro",
 			"Anoop rao",
 			"Ansumang",
 			"AnupamM",
@@ -13,6 +14,7 @@
 			"Ziyaurr"
 		]
 	},
+	"combowiki-country-placeholder": "अपना देश चुनें",
 	"donate_interface": "विकिमीडिया का समर्थन करें",
 	"donate_interface-desc": "दान का लैंडिंग पृष्ठ जो गेटवे एक्सटेंशन एकीकृत करता है",
 	"donate_interface-langonly-desc": "सिर्फ DonateInterface सिस्टम संदेश दिखाता है",
