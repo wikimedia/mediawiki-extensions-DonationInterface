@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\Configuration\CurrencyCountryRule;
+
 abstract class Abstract3DSecure implements StagingHelper {
 
 	/**

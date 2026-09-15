@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 /**

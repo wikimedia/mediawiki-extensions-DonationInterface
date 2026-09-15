@@ -1,7 +1,10 @@
 <?php
 
+namespace MediaWiki\Extension\DonationInterface\Configuration;
+
 use MediaWiki\Config\Config;
 use Symfony\Component\Yaml\Parser;
+use UnexpectedValueException;
 
 /**
  * Read in yaml-based config files.

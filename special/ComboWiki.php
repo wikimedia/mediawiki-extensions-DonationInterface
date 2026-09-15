@@ -14,6 +14,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;

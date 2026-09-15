@@ -1,6 +1,6 @@
 <?php
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\Special\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
@@ -668,8 +668,8 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 	 * donations with this combination to PayPal Express gateway up to August 2026.
 	 * So it was the combination picked to validate for the fix.
 	 *
-	 * @covers \MediaWiki\Extension\DonationInterface\Special\GatewayRouter::getSupportedGateways
-	 * @covers \MediaWiki\Extension\DonationInterface\Special\GatewayRouter::chooseGatewayByPriority
+	 * @covers \MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter::getSupportedGateways
+	 * @covers \MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter::chooseGatewayByPriority
 	 */
 	public function testChooseGravyPayPalInsteadOfPaypalEc() {
 		$country = 'MD';
