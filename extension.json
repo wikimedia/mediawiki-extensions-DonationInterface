@@ -1196,9 +1196,6 @@
 		"DonationInterfaceCustomFiltersInitialFunctions": {
 			"value": []
 		},
-		"DonationInterfaceNameFilterRules": {
-			"value": []
-		},
 		"DonationInterfaceIPDenyFailScore": {
 			"value": 100
 		},

@@ -600,42 +600,6 @@ class GatewayAdapterTest extends DonationInterfaceTestCase {
 		$this->assertEquals( '127.0.0.1', $gateway->getData_Unstaged_Escaped( 'user_ip' ) );
 	}
 
-	public function testGetScoreName() {
-		$rule = [
-			'KeyMapA' => [ 'a', 's', 'd', 'f', 'q', 'w', 'e', 'r', 't' ],
-			'KeyMapB' => [],
-			'GibberishWeight' => 0.9,
-			'Score' => 10,
-			'MinimumLength' => 2,
-		];
-		$this->overrideConfigValue( 'DonationInterfaceNameFilterRules', [ $rule ] );
-		$init = $this->getDonorTestData();
-		$init['first_name'] = 'asdf';
-		$init['last_name'] = 'qwert';
-
-		$gateway = $this->getFreshGatewayObject( $init );
-		$result = $gateway->getScoreName();
-		$this->assertNotEquals( 0, $result, 'Bad name not detected' );
-	}
-
-	public function testGetScoreNameMinimumLength() {
-		$rule = [
-			'KeyMapA' => [ 'a', 's', 'd', 'f', 'q', 'w', 'e', 'r', 't' ],
-			'KeyMapB' => [],
-			'GibberishWeight' => 0.9,
-			'Score' => 10,
-			'MinimumLength' => 2,
-		];
-		$this->overrideConfigValue( 'DonationInterfaceNameFilterRules', [ $rule ] );
-		$init = $this->getDonorTestData();
-		$init['first_name'] = 'a';
-		$init['last_name'] = 'q';
-
-		$gateway = $this->getFreshGatewayObject( $init );
-		$result = $gateway->getScoreName();
-		$this->assertSame( 0, $result, 'Short name not skipped' );
-	}
-
 	public function TestSetValidationAction() {
 		$data = $this->getDonorTestData( 'FR' );
 		$gateway = $this->getFreshGatewayObject( $data );
