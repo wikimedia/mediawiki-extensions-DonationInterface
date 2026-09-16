@@ -1,5 +1,7 @@
 <?php
 
+namespace MediaWiki\Extension\DonationInterface\Configuration;
+
 class CurrencyCountryRule {
 	/**
 	 * Looks up whether a rule is enabled for a particular currency and country

@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\DonationInterface\Validation;
 
-use ConfigurationReader;
 use MediaWiki\Config\Config;
+use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
 
 class AmountHelper {
 

@@ -20,6 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
 use Mediawiki\Context\RequestContext;
+use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
 use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;

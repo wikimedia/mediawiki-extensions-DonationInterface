@@ -7,6 +7,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
+use WhichBrowser\Parser;
 
 /**
  * DataIntegrator
@@ -60,6 +61,8 @@ class DataIntegrator implements LogPrefixProvider {
 		'billing_email',
 		'bin_hash',
 		'branch_code',
+		'browser',
+		'browser_version',
 		'card_scheme', // Gr4vy google pay: example VISA
 		'card_suffix', // first 4 digits in card number
 		'checksum',
@@ -106,6 +109,8 @@ class DataIntegrator implements LogPrefixProvider {
 		'last_name_phonetic',
 		'opt_in',
 		'order_id',
+		'os',
+		'os_version',
 		'payment_method',
 		'payment_submethod',
 		'payment_token',
@@ -295,6 +300,7 @@ class DataIntegrator implements LogPrefixProvider {
 				$this->setUserIp();
 				$this->setServerIp();
 				$this->setReferrer();
+				$this->setDataFromUserAgentHeader();
 			} catch ( \Exception $e ) {
 				$this->logger->error( __FUNCTION__ . ": Error harvesting values from request get/post/header: " . $e->getMessage() );
 			}
@@ -368,6 +374,29 @@ class DataIntegrator implements LogPrefixProvider {
 		$referer = $host . $path;
 		$this->dataObject->setValue( 'referrer', $referer );
 		$this->dataObject->setSource( 'referrer', 'header' );
+	}
+
+	/**
+	 * Set browser and OS data from the user agent header.
+	 * Note: this parser returns info about the browser, os, engine, and device.
+	 */
+	protected function setDataFromUserAgentHeader(): void {
+		$headers = $this->request->getAllHeaders();
+		$parser = new Parser( $headers );
+
+		$browser = $parser->browser->getName();
+		$browserVersion = preg_replace( '/[^0-9].*/', '', $parser->browser->getVersion() );
+		$os = $parser->os->getName();
+		$osVersion = preg_replace( '/[^0-9].*/', '', $parser->os->getVersion() );
+
+		$this->dataObject->setValue( 'browser', $browser );
+		$this->dataObject->setSource( 'browser', 'header' );
+		$this->dataObject->setValue( 'browser_version', $browserVersion );
+		$this->dataObject->setSource( 'browser_version', 'header' );
+		$this->dataObject->setValue( 'os', $os );
+		$this->dataObject->setSource( 'os', 'header' );
+		$this->dataObject->setValue( 'os_version', $osVersion );
+		$this->dataObject->setSource( 'os_version', 'header' );
 	}
 
 	/**

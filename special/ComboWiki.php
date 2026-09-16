@@ -12,7 +12,9 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
@@ -66,15 +68,25 @@ class ComboWiki extends UnlistedSpecialPage {
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
 		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
+
+		$country = $this->dataObject->getValue( 'country', 'US' );
+
+		// Early guard: Check if the request originates from a forbidden or restricted country
+		if ( ForbiddenCountryRegistry::isForbidden( $country ) ) {
+			$this->renderForbiddenPage( $country );
+			return;
+		}
+
 		if ( !$request->getVal( 'gateway' ) ) {
 			$this->dataObject->setValue( 'gateway', null );
 		}
 		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
 			'amount' => $this->dataObject->getValue( 'amount', '0' ),
-			'country' => $this->dataObject->getValue( 'country', 'US' ),
+			'country' => $country,
 			'currency' => $this->dataObject->getValue( 'currency', 'USD' ),
 			'frequency_unit' => $this->dataObject->getValue( 'frequency_unit', '' ),
+			'order_id' => $this->dataObject->getValue( 'order_id' ),
 			'payment_method' => $this->dataObject->getValue( 'payment_method', 'cc' ),
 			'payment_submethod' => $this->dataObject->getValue( 'payment_submethod' ),
 			'recurring' => $this->dataObject->getValue( 'recurring' ),
@@ -120,10 +132,43 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 
 		$this->addStylesScriptsAndViewport();
-		$this->addVueComponentModulesForVarients();
+		$this->addVueComponentModulesForVariants();
 	}
 
-	private function addVueComponentModulesForVarients(): void {
+	/**
+	 * Renders the restricted page view and halts standard payment initialization.
+	 *
+	 * @param string $countryCode
+	 * @return void
+	 */
+	private function renderForbiddenPage( string $countryCode ): void {
+		$viewType = ForbiddenCountryRegistry::getViewType( $countryCode );
+		$out = $this->getOutput();
+
+		$this->setHeaders();
+		$this->outputHeader();
+		$out->setPageTitleMsg( $this->msg( 'combowiki-title' ) );
+
+		// Populate basic routing parameters needed by JS environment
+		$this->routingParams = [
+			'country' => $countryCode,
+			'language' => $this->dataObject->getValue( 'language', 'en' ),
+		];
+
+		$out->addJsConfigVars( [
+			'wgForbiddenCountry' => $countryCode,
+			'wgForbiddenViewType' => $viewType,
+		] );
+
+		$this->getHookContainer()->register(
+			'MakeGlobalVariablesScript',
+			[ $this, 'setClientVariables' ]
+		);
+
+		$this->addStylesScriptsAndViewport();
+	}
+
+	private function addVueComponentModulesForVariants(): void {
 		$out = $this->getOutput();
 		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
 			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
@@ -312,9 +357,15 @@ class ComboWiki extends UnlistedSpecialPage {
 	private function addCountriesConfig( array &$vars ): void {
 		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
 		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
-
+		$forbiddenCountries = $this->getConfig()->has( 'wgDonationInterfaceForbiddenCountries' )
+			? $this->getConfig()->get( 'wgDonationInterfaceForbiddenCountries' )
+			: [];
 		$countries = [];
 		foreach ( $rawCountries as $key => $countryCode ) {
+			$countryCode = strtoupper( trim( $countryCode ) );
+			if ( in_array( $countryCode, $forbiddenCountries ) ) {
+				continue;
+			}
 			// Look up the official national currency code using SmashPig
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
 			$countries[ $countryCode ] = [

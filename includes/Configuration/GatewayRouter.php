@@ -1,8 +1,7 @@
 <?php
 
-namespace MediaWiki\Extension\DonationInterface\Special;
+namespace MediaWiki\Extension\DonationInterface\Configuration;
 
-use ConfigurationReader;
 use GatewayAdapter;
 use MediaWiki\Config\Config;
 use Psr\Log\LoggerInterface;

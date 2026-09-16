@@ -1,7 +1,7 @@
 <?php
 
 use MediaWiki\Config\Config;
-use MediaWiki\Extension\DonationInterface\Special\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MediaWiki\Title\Title;
 

@@ -27,10 +27,13 @@ function getBaseDonateParams( donation ) {
 		currency: donation.currency,
 		country: donation.country,
 		payment_method: paymentMethodMap[ donation.paymentMethod ],
+		phone: donation.phone,
 		opt_in: donation.optIn === 'yes' ? 1 : 0,
+		sms_opt_in: donation.smsOptin ? 1 : 0,
 		uselang: mw.config.get( 'wgUserLanguage' ),
 		first_name: donation.firstName,
-		last_name: donation.lastName
+		last_name: donation.lastName,
+		variant: donation.variant
 	};
 
 	if ( donation.employer ) {
