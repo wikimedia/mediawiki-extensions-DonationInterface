@@ -286,8 +286,11 @@ module.exports = exports = defineComponent( {
 				this.appState.setLoading( false );
 				return;
 			}
-			if ( this.donation.frequency === 'once' && !response.redirect ) {
-				this.thankYouUrl = mw.config.get( 'DonationInterfaceThankYouPage' );
+
+			// Store backend-generated Thank-You page URL for modal usage
+			this.thankYouUrl = response.thankYouPage || response.redirect;
+
+			if ( this.donation.frequency === 'once' && !response.iframe ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
 				this.redirectTargetUrl( response.redirect );

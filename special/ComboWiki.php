@@ -226,7 +226,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function setClientVariables( array &$vars ): void {
-		// TODO: update since 'language' and 'gateway' are exposed in $this->routingParams now
 		$vars['comboWiki'] = [
 			'language' => $this->routingParams['language'],
 			'params' => $this->routingParams,
@@ -234,12 +233,12 @@ class ComboWiki extends UnlistedSpecialPage {
 		];
 		$this->addCountriesConfig( $vars );
 
-		// No gateway was selected, or its adapter could not be built. The Vue app
-		// still gets the params above so it can show an error, but everything below
-		// needs a live adapter. TODO: maybe set a fallback as gravy?
 		if ( !$this->adapter ) {
 			return;
 		}
+
+		// Generate the complete thank-you page URL using adapter state and request data
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
 		if ( $this->adapter->showMonthlyConvert() ) {
@@ -307,7 +306,6 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
 	}
 
 	/**
@@ -319,7 +317,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	 */
 	protected function addDlocalClientConfig( array &$vars ): void {
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
 	/**
@@ -347,7 +344,6 @@ class ComboWiki extends UnlistedSpecialPage {
 			]
 		);
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
 	/**

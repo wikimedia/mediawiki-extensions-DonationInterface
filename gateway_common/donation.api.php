@@ -18,9 +18,13 @@ class DonationApi extends DonationApiBase {
 
 		$paymentResult = $this->adapter->doPayment();
 
+		// Generate the dynamic Thank You page URL using current adapter state
+		$thankYouPageUrl = ResultPages::getThankYouPage( $this->adapter );
+
 		$outputResult = [
 			'iframe' => $paymentResult->getIframe(),
 			'redirect' => $paymentResult->getRedirect(),
+			'thankYouPage' => $thankYouPageUrl,
 			'formData' => $paymentResult->getFormData(),
 			'isFailed' => $paymentResult->isFailed(),
 			// META_BC_BOOLS is a metadata key to tell ApiResult which keys

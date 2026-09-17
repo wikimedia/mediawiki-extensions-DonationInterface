@@ -14,7 +14,7 @@ const { CdxButton } = require( '@wikimedia/codex' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
-	name: 'GravyRefirectComponent',
+	name: 'GravyRedirectComponent',
 
 	components: {
 		'cdx-button': CdxButton
