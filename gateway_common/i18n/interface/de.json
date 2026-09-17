@@ -35,6 +35,7 @@
 	"combowiki-optin-no": "Nein. Schicken Sie mir bitte nicht gelegentlich E-Mails mit Angeboten zur Unterstützung von Wikipedia.",
 	"combowiki-payment-failed": "Zahlung fehlgeschlagen. Bitte erneut versuchen.",
 	"combowiki-payment-incomplete": "Die Zahlung konnte nicht abgeschlossen werden.",
+	"combowiki-monthly-convert-failed": "Ihre einmalige Spende war erfolgreich, aber wir konnten Ihre monatliche Spende nicht einrichten. Referenz: $1",
 	"combowiki-payment-method-heading": "Spenden Sie mit Ihrer bevorzugten Zahlungsmethode",
 	"combowiki-method-card": "Karte",
 	"combowiki-method-adyen-card": "Adyen Card",
