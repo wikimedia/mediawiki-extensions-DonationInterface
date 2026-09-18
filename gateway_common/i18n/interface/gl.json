@@ -24,6 +24,7 @@
 	"combowiki-optin-no": "Non. Non me enviedes correos electrónicos ocasionais con oportunidades para apoiar a Wikipedia.",
 	"combowiki-payment-failed": "Fallou o pagamento. Inténtao de novo.",
 	"combowiki-payment-incomplete": "Non se puido completar o pagamento.",
+	"combowiki-monthly-convert-failed": "A túa doazón única realizouse correctamente, pero non puidemos configurar a túa doazón mensual. Referencia: $1",
 	"combowiki-payment-method-heading": "Doa co teu método de pago preferido",
 	"combowiki-method-card": "Tarxeta",
 	"combowiki-method-adyen-card": "Tarxeta Adyen",
