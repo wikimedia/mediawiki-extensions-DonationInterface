@@ -347,31 +347,64 @@ class ComboWiki extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * Cache country list from all supported gateways and add to client config
 	 * @param array &$vars
 	 * @return void
 	 */
 	private function addCountriesConfig( array &$vars ): void {
-		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
-		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
-		$forbiddenCountries = $this->getConfig()->has( 'wgDonationInterfaceForbiddenCountries' )
-			? $this->getConfig()->get( 'wgDonationInterfaceForbiddenCountries' )
-			: [];
-		$countries = [];
-		foreach ( $rawCountries as $key => $countryCode ) {
-			$countryCode = strtoupper( trim( $countryCode ) );
-			if ( in_array( $countryCode, $forbiddenCountries ) ) {
-				continue;
+		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+
+		$cacheKey = $cache->makeKey(
+			'combowiki', 'countriesenabledlist'
+		);
+
+		$countries = $cache->getWithSetCallback(
+			$cacheKey,
+			$cache::TTL_DAY,
+			function () {
+				return $this->buildCountriesConfig();
 			}
-			// Look up the official national currency code using SmashPig
+		);
+
+		$vars['wgDonationInterfaceCountries'] = $countries;
+	}
+
+	private function buildCountriesConfig(): array {
+		$countries = [];
+		$rawCountries = [];
+
+		$supportedGateways = GatewayRouter::getEnabledGateways();
+
+		foreach ( $supportedGateways as $gateway ) {
+			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";
+
+			if ( file_exists( $filePath ) ) {
+				$rawCountries[] = Yaml::parseFile( $filePath );
+			}
+		}
+
+		$rawCountries = array_map(
+			static fn ( $countryCode ) => strtoupper( trim( $countryCode ) ),
+			array_merge( ...$rawCountries )
+		);
+
+		$rawCountries = array_values( array_unique( $rawCountries ) );
+
+		$countryNames = CountryNames::getNames(
+			$this->routingParams['language']
+		);
+
+		foreach ( $rawCountries as $countryCode ) {
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
-			$countries[ $countryCode ] = [
+
+			$countries[$countryCode] = [
 				'currency' => $currency,
-				'label' => CountryNames::getNames( $this->routingParams['language'] )[$countryCode] ?? $countryCode,
-				'value' => $countryCode
+				'label' => $countryNames[$countryCode] ?? $countryCode,
+				'value' => $countryCode,
 			];
 		}
 
-		$vars['wgDonationInterfaceCountries'] = $countries;
+		return $countries;
 	}
 
 	/**

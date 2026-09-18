@@ -205,5 +205,6 @@
 	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのページへ移動します",
 	"donate_interface-amount-legend-variant-01A": "寄付する金額",
 	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報",
-	"donate_interface-submit-button-variant-01A": "この内容で寄付する"
+	"donate_interface-submit-button-variant-01A": "この内容で寄付する",
+	"donate_interface-taxded-msg-z": "ウィキメディア財団は、世界中の地域・独立団体を支援する国際非営利組織です<b><a href=\"$1\">税控除の適用は各国の法律により異なります</a>。米国外からのウィキメディア財団への寄付は、通常、税控除の対象とはなりません。</b>税控除や減税についてご不明な点がございましたら、donate@wikimedia.orgまでお問い合わせください。"
 }

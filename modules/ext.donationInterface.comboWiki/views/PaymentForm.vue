@@ -88,6 +88,7 @@
 		</p>
 		<p> Debug - Donation: {{ donation }}</p>
 		<p> Debug Request Params - {{ params }} </p>
+		<tax-message :country-code="donation.country"></tax-message>
 		<we-do-not-sell-text></we-do-not-sell-text>
 		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
 		<loading-spinner></loading-spinner>
@@ -122,6 +123,7 @@ const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
+const TaxMessage = require( '../components/TaxMessage.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
 const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
@@ -143,6 +145,7 @@ module.exports = exports = defineComponent( {
 		'frequency-selector': FrequencySelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
+		'tax-message': TaxMessage,
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
@@ -155,7 +158,7 @@ module.exports = exports = defineComponent( {
 	},
 	data() {
 		const urlParams = new URLSearchParams( window.location.search );
-		const country = urlParams.get( 'country' ) || 'US';
+		const countryCode = urlParams.get( 'country' ) || 'US';
 		const comboWikiConfig = mw.config.get( 'comboWiki', {} );
 		const initialCurrency = comboWikiConfig.params.currency || 'USD';
 		const countries = mw.config.get( 'wgDonationInterfaceCountries', {} );
@@ -170,7 +173,7 @@ module.exports = exports = defineComponent( {
 				currency: initialCurrency,
 				payFee: false,
 				phone: null,
-				country: country,
+				country: countryCode.toUpperCase(),
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
