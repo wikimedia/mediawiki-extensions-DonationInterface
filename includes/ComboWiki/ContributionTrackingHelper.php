@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 use DonationLoggerFactory;
 use LogPrefixProvider;
 use MediaWiki\Config\Config;
+use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
@@ -114,15 +115,24 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 		$trackingData = $this->getCleanTrackingData();
 		$currentHash = sha1( serialize( $trackingData ) );
 
-		if ( $this->trackingDataUpdated( $currentHash ) ) {
+		$contributionTrackingDataUpdated = $this->trackingDataUpdated( $currentHash );
+
+		if ( $contributionTrackingDataUpdated ) {
+			$logger = $this->logger;
+			DeferredUpdates::addCallableUpdate( function () use ( $trackingData, $id, $logger ) {
+				try {
+					$sentId = $this->sendToContributionTrackingQueue( $trackingData, $id );
+					$logger->info( "Contribution tracking data sent to queue with contribution_tracking_id: $sentId" );
+				} catch ( \Exception $e ) {
+					$logger->error( 'Failed to push contribution tracking data to queue: ' . $e->getMessage() );
+				}
+			} );
+
 			try {
-				$id = $this->sendToContributionTrackingQueue( $trackingData, $id );
-				$this->logger->info( "Contribution tracking data sent to queue with contribution_tracking_id: $id" );
 				$this->request->setSessionData( $this->hashKey, $currentHash );
 			} catch ( \Exception $e ) {
-				$this->logger->error( 'Failed to push contribution tracking data to queue: ' . $e->getMessage() );
+				$this->logger->error( "Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
 			}
-
 		}
 	}
 
