@@ -40,25 +40,7 @@
 		</div>
 
 		<!-- Email opt-in -->
-		<div>
-			<h2>{{ $i18n( 'combowiki-stay-in-touch-heading' ).text() }}</h2>
-
-			<cdx-radio
-				v-model="donation.optIn"
-				input-value="yes"
-				name="email-optin"
-			>
-				{{ $i18n( 'combowiki-optin-yes' ).text() }}
-			</cdx-radio>
-
-			<cdx-radio
-				v-model="donation.optIn"
-				input-value="no"
-				name="email-optin"
-			>
-				{{ $i18n( 'combowiki-optin-no' ).text() }}
-			</cdx-radio>
-		</div>
+		<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
 
 		<!-- Employer -->
 		<employer-field v-model="donation.employer"></employer-field>
@@ -116,12 +98,12 @@ const {
 	CdxButton,
 	CdxTextInput,
 	CdxSelect,
-	CdxCheckbox,
-	CdxRadio
+	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
+const OptInFieldset = require( '../components/OptIn.vue' );
 const WeDoNotSellText = require( '../components/WeDoNotSellText.vue' );
 const TaxMessage = require( '../components/TaxMessage.vue' );
 const MoreInfoLinks = require( '../components/MoreInfoLinks.vue' );
@@ -140,12 +122,12 @@ module.exports = exports = defineComponent( {
 		'cdx-text-input': CdxTextInput,
 		'cdx-select': CdxSelect,
 		'cdx-checkbox': CdxCheckbox,
-		'cdx-radio': CdxRadio,
 		'error-display': ErrorDisplay,
 		'frequency-selector': FrequencySelector,
 		'payment-method-form': PaymentMethodForm,
 		'we-do-not-sell-text': WeDoNotSellText,
 		'tax-message': TaxMessage,
+		'optin-fieldset': OptInFieldset,
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
@@ -181,7 +163,18 @@ module.exports = exports = defineComponent( {
 				gateway: comboWikiConfig.gateway || null,
 				variant: this.params.variant || null
 			},
-			thankYouUrl: null
+			thankYouUrl: null,
+			supportedCountries: [
+				'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
+				'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
+				'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'NO', 'IS', 'CH',
+				'LI', 'AD', 'SM', 'MC', 'AR', 'BR', 'CL', 'CO', 'MX', 'PE',
+				'UY', 'GB', 'IL', 'UA', 'GG', 'IM', 'JE', 'FO', 'GL', 'AX',
+				'GF', 'PF', 'TF', 'GP', 'MQ', 'YT', 'NC', 'RE', 'BL', 'MF',
+				'PM', 'WF', 'AW', 'BQ', 'CW', 'SX', 'BV', 'SJ', 'AI', 'BM',
+				'IO', 'KY', 'FK', 'GI', 'MS', 'PN', 'SH', 'GS', 'TC', 'VG',
+				'ZZ'
+			]
 		};
 	},
 	computed: {
@@ -250,6 +243,9 @@ module.exports = exports = defineComponent( {
 		},
 		showSmsOptin() {
 			return this.params.variant === 'smsOptin';
+		},
+		optInRequired() {
+			return this.supportedCountries.includes( this.donation.country );
 		}
 	},
 

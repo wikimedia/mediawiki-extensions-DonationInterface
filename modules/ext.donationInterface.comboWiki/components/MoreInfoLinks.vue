@@ -30,9 +30,9 @@ module.exports = exports = defineComponent( {
 	},
 	data() {
 		return {
-			ProblemsUrl: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?landing_page=Problems_donating&amp;basic=true&amp;language=en&amp;country=NO',
-			WayToGive: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give&amp;language=en',
-			FrequentlyAskedQuestions: 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/'
+			ProblemsUrl: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?landing_page=Problems_donating',
+			WayToGive: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&landing_page=Ways_to_Give',
+			FrequentlyAskedQuestions: 'https://wikimediafoundation.org/give/donor-frequently-asked-questions'
 		};
 	},
 	computed: {
