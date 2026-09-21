@@ -553,6 +553,7 @@
 				"modules/ext.donationInterface.comboWiki/components/ACHComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/GooglePayComponent.vue",
 				"modules/ext.donationInterface.comboWiki/components/WeDoNotSellText.vue",
+				"modules/ext.donationInterface.comboWiki/components/TaxMessage.vue",
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
 				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue",
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
@@ -569,6 +570,7 @@
 				"combowiki-optin-no",
 				"combowiki-payment-failed",
 				"combowiki-payment-incomplete",
+				"combowiki-monthly-convert-failed",
 				"combowiki-payment-method-heading",
 				"combowiki-method-card",
 				"combowiki-method-adyen-card",
@@ -622,7 +624,11 @@
 				"donate_interface-monthly-convert-accept",
 				"donate_interface-monthly-convert-decline",
 				"donate_interface-donate-error-thank-you-for-your-support",
-				"donate_interface-monthly-convert-minimun-hint"
+				"donate_interface-monthly-convert-minimun-hint",
+				"donate_interface-taxded-msg-x",
+				"donate_interface-taxded-msg-y",
+				"donate_interface-taxded-msg-z",
+				"donate_interface-tax-info"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {
@@ -1193,9 +1199,6 @@
 			"value": []
 		},
 		"DonationInterfaceCustomFiltersInitialFunctions": {
-			"value": []
-		},
-		"DonationInterfaceNameFilterRules": {
 			"value": []
 		},
 		"DonationInterfaceIPDenyFailScore": {

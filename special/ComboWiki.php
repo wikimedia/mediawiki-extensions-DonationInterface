@@ -226,7 +226,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function setClientVariables( array &$vars ): void {
-		// TODO: update since 'language' and 'gateway' are exposed in $this->routingParams now
 		$vars['comboWiki'] = [
 			'language' => $this->routingParams['language'],
 			'params' => $this->routingParams,
@@ -234,12 +233,12 @@ class ComboWiki extends UnlistedSpecialPage {
 		];
 		$this->addCountriesConfig( $vars );
 
-		// No gateway was selected, or its adapter could not be built. The Vue app
-		// still gets the params above so it can show an error, but everything below
-		// needs a live adapter. TODO: maybe set a fallback as gravy?
 		if ( !$this->adapter ) {
 			return;
 		}
+
+		// Generate the complete thank-you page URL using adapter state and request data
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
 		if ( $this->adapter->showMonthlyConvert() ) {
@@ -307,7 +306,6 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $adapter );
 	}
 
 	/**
@@ -319,7 +317,6 @@ class ComboWiki extends UnlistedSpecialPage {
 	 */
 	protected function addDlocalClientConfig( array &$vars ): void {
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
 	/**
@@ -347,35 +344,67 @@ class ComboWiki extends UnlistedSpecialPage {
 			]
 		);
 		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 	}
 
 	/**
+	 * Cache country list from all supported gateways and add to client config
 	 * @param array &$vars
 	 * @return void
 	 */
 	private function addCountriesConfig( array &$vars ): void {
-		$filePath = __DIR__ . "/../" . $this->selectedGateway . "_gateway/config/countries.yaml";
-		$rawCountries = file_exists( $filePath ) ? Yaml::parseFile( $filePath ) : [];
-		$forbiddenCountries = $this->getConfig()->has( 'wgDonationInterfaceForbiddenCountries' )
-			? $this->getConfig()->get( 'wgDonationInterfaceForbiddenCountries' )
-			: [];
-		$countries = [];
-		foreach ( $rawCountries as $key => $countryCode ) {
-			$countryCode = strtoupper( trim( $countryCode ) );
-			if ( in_array( $countryCode, $forbiddenCountries ) ) {
-				continue;
+		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
+
+		$cacheKey = $cache->makeKey(
+			'combowiki', 'countriesenabledlist'
+		);
+
+		$countries = $cache->getWithSetCallback(
+			$cacheKey,
+			$cache::TTL_DAY,
+			function () {
+				return $this->buildCountriesConfig();
 			}
-			// Look up the official national currency code using SmashPig
+		);
+
+		$vars['wgDonationInterfaceCountries'] = $countries;
+	}
+
+	private function buildCountriesConfig(): array {
+		$countries = [];
+		$rawCountries = [];
+
+		$supportedGateways = GatewayRouter::getEnabledGateways();
+
+		foreach ( $supportedGateways as $gateway ) {
+			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";
+
+			if ( file_exists( $filePath ) ) {
+				$rawCountries[] = Yaml::parseFile( $filePath );
+			}
+		}
+
+		$rawCountries = array_map(
+			static fn ( $countryCode ) => strtoupper( trim( $countryCode ) ),
+			array_merge( ...$rawCountries )
+		);
+
+		$rawCountries = array_values( array_unique( $rawCountries ) );
+
+		$countryNames = CountryNames::getNames(
+			$this->routingParams['language']
+		);
+
+		foreach ( $rawCountries as $countryCode ) {
 			$currency = NationalCurrencies::getNationalCurrency( $countryCode ) ?: 'USD';
-			$countries[ $countryCode ] = [
+
+			$countries[$countryCode] = [
 				'currency' => $currency,
-				'label' => CountryNames::getNames( $this->routingParams['language'] )[$countryCode] ?? $countryCode,
-				'value' => $countryCode
+				'label' => $countryNames[$countryCode] ?? $countryCode,
+				'value' => $countryCode,
 			];
 		}
 
-		$vars['wgDonationInterfaceCountries'] = $countries;
+		return $countries;
 	}
 
 	/**

@@ -158,6 +158,20 @@ class GatewayRouter {
 		return new $adapterClass( $options );
 	}
 
+	private static function getProviderMap(): array {
+		return [
+			'gravy' => 'gravy',
+			'dlocal' => 'dlocal',
+			'adyen' => 'adyen',
+			'paypal_ec' => 'paypal',
+			'braintree' => 'braintree',
+		];
+	}
+
+	public static function getEnabledGateways(): array {
+		return array_keys( self::getProviderMap() );
+	}
+
 	/**
 	 * Set up the SmashPig provider for the given gateway.
 	 * This ensures the correct payment provider backend is used.
@@ -166,13 +180,7 @@ class GatewayRouter {
 	 */
 	public static function setSmashPigProviderForGateway( string $gatewayName ): void {
 		// Map gateway names to SmashPig provider names
-		$providerMap = [
-			'gravy' => 'gravy',
-			'dlocal' => 'dlocal',
-			'adyen' => 'adyen',
-			'paypal_ec' => 'paypal',
-			'braintree' => 'braintree'
-		];
+		$providerMap = self::getProviderMap();
 
 		if ( isset( $providerMap[$gatewayName] ) ) {
 			\DonationInterface::setSmashPigProvider( $providerMap[$gatewayName] );

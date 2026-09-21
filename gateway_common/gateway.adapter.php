@@ -926,46 +926,6 @@ abstract class GatewayAdapter implements GatewayType {
 		return PaymentResult::newSuccess();
 	}
 
-	/**
-	 * @param string $stringToCheck
-	 * @return int|mixed
-	 */
-	public function calculateKeyMashScore( $stringToCheck ) {
-		$letters = str_split( strtolower( $stringToCheck ) );
-		$rules = $this->getGlobal( 'NameFilterRules' );
-		$score = 0;
-
-		foreach ( $rules as $rule ) {
-			$keyMapA = $rule['KeyMapA'];
-			$keyMapB = $rule['KeyMapB'];
-
-			$gibberishWeight = $rule['GibberishWeight'];
-
-			$minimumLength = $rule['MinimumLength'];
-
-			$failScore = $rule['Score'];
-
-			$points = 0;
-
-			if ( is_array( $letters ) && count( $letters ) > $minimumLength ) {
-				foreach ( $letters as $letter ) {
-					// For each char in zone A add a point, zone B subtract.
-					if ( in_array( $letter, $keyMapA ) ) {
-						$points++;
-					}
-					if ( in_array( $letter, $keyMapB ) ) {
-						$points--;
-					}
-				}
-
-				if ( abs( $points ) / count( $letters ) >= $gibberishWeight ) {
-					$score += $failScore;
-				}
-			}
-		}
-		return $score;
-	}
-
 	/** @inheritDoc */
 	public static function getGatewayName() {
 		$c = get_called_class();
@@ -1873,31 +1833,6 @@ abstract class GatewayAdapter implements GatewayType {
 				)
 			);
 		}
-	}
-
-	/**
-	 * This custom filter function checks the global variable:
-	 * wgDonationInterfaceNameFilterRules
-	 * Each entry in that array has keys
-	 *   KeyMapA, KeyMapB: define keyboard zones
-	 *   GibberishWeight: threshold fraction of name letters in a single zone
-	 *   Score: added to the total fraud score when this threshold is exceeded
-	 *
-	 * How the score is tabulated:
-	 *  - If the configurable portion letters in a name come from the same zone points are added.
-	 *  - Returns an integer: 0 <= $score <= 100
-	 *
-	 * @see $wgDonationInterfaceCustomFiltersFunctions
-	 * @see $wgDonationInterfaceNameFilterRules
-	 *
-	 * @return int
-	 */
-	public function getScoreName() {
-		$fName = $this->getData_Unstaged_Escaped( 'first_name' );
-		$lName = $this->getData_Unstaged_Escaped( 'last_name' );
-
-		$fullName = $fName . $lName;
-		return $this->calculateKeyMashScore( $fullName );
 	}
 
 	/**

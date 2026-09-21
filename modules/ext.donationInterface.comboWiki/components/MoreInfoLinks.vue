@@ -32,8 +32,7 @@ module.exports = exports = defineComponent( {
 		return {
 			ProblemsUrl: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?landing_page=Problems_donating&amp;basic=true&amp;language=en&amp;country=NO',
 			WayToGive: 'https://donate.wikimedia.org/wiki/Special:LandingCheck?basic=true&amp;landing_page=Ways_to_Give&amp;language=en',
-			FrequentlyAskedQuestions: 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/',
-			TaxDeductibilityInfo: 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/#tax-deductibility'
+			FrequentlyAskedQuestions: 'https://wikimediafoundation.org/give/donor-frequently-asked-questions/'
 		};
 	},
 	computed: {
@@ -41,8 +40,7 @@ module.exports = exports = defineComponent( {
 			return [
 				{ type: 'link', text: this.$i18n( 'donate_interface-problemsdonating' ).text(), href: this.ProblemsUrl, external: true },
 				{ type: 'link', text: this.$i18n( 'donate_interface-otherways-short' ).text(), href: this.WayToGive, external: true },
-				{ type: 'link', text: this.$i18n( 'donate_interface-faqs' ).text(), href: this.FrequentlyAskedQuestions, external: true },
-				{ type: 'link', text: this.$i18n( 'donate_interface-tax-info' ).text(), href: this.TaxDeductibilityInfo, external: true }
+				{ type: 'link', text: this.$i18n( 'donate_interface-faqs' ).text(), href: this.FrequentlyAskedQuestions, external: true }
 			];
 		}
 	}

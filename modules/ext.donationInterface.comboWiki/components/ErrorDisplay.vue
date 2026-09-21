@@ -1,10 +1,12 @@
 <template>
 	<div v-if="error" class="combo-wiki__error-display">
 		<div class="combo-wiki__error-display-box">
-			<p class="combo-wiki__error-display-message">{{ error }}</p>
-				<cdx-button weight="primary" @click="reloadPage">
-					Try Again
-				</cdx-button>
+			<p class="combo-wiki__error-display-message">
+				{{ error }}
+			</p>
+			<cdx-button weight="primary" @click="reloadPage">
+				Try Again
+			</cdx-button>
 		</div>
 	</div>
 </template>
