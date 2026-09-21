@@ -557,7 +557,8 @@
 				"modules/ext.donationInterface.comboWiki/components/MoreInfoLinks.vue",
 				"modules/ext.donationInterface.comboWiki/components/EmployerField.vue",
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
-				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue"
+				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
+				"modules/ext.donationInterface.comboWiki/components/OptIn.vue"
 			],
 			"messages": [
 				"combowiki-title",
@@ -628,7 +629,11 @@
 				"donate_interface-taxded-msg-x",
 				"donate_interface-taxded-msg-y",
 				"donate_interface-taxded-msg-z",
-				"donate_interface-tax-info"
+				"donate_interface-tax-info",
+				"combowiki-optin-no-text",
+				"combowiki-optin-no-to-yes-text",
+				"combowiki-optin-description",
+				"combowiki-donor-privacy-policy"
 			]
 		},
 		"ext.donationInterface.comboWikiStyles": {
