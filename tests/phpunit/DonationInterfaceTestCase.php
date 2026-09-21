@@ -127,15 +127,20 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$this->setMwGlobals( 'wgLang', RequestContext::getMain()->getLanguage() );
 	}
 
+	/**
+	 * Set a pattern filter with no conditions to fail all transactions
+	 * @return void
+	 */
 	protected function setInitialFiltersToFail() {
-		$this->setMwGlobals( self::getAllGlobalVariants( [
-			'CustomFiltersInitialFunctions' => [
-				'getScoreUtmSourceMap' => 100
+		$this->setMwGlobals( [
+			'wgDonationInterfacePatternFilters' => [
+				'PreAuthorize' => [
+					'failme' => [
+						'failScore' => 100,
+					],
+				],
 			],
-			'UtmSourceMap' => [
-				'/.*/' => 100,
-			],
-		] ) );
+		] );
 	}
 
 	/**

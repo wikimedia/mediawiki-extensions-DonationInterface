@@ -1242,15 +1242,6 @@
 		"DonationInterfaceEmailDomainMap": {
 			"value": []
 		},
-		"DonationInterfaceUtmCampaignMap": {
-			"value": []
-		},
-		"DonationInterfaceUtmMediumMap": {
-			"value": []
-		},
-		"DonationInterfaceUtmSourceMap": {
-			"value": []
-		},
 		"DonationInterfaceEnableConversionLog": {
 			"value": false
 		},
