@@ -174,6 +174,7 @@
 	"donate_interface-tax-info": "税金の控除について",
 	"donate_interface-informationsharing": "私たちは、あなたの個人情報を販売、譲渡することはありません。この度、ご寄付してくださることで、あなたはウィキペディアを含む各プロジェクトを運営する非営利団体のウィキメディア財団、また当財団の<a href=\"$1\">寄付者の方針</a>に準ずるサービス・プロバイダーへの個人情報の共有に、同意して下さったとみなされます。 ウィキメディア財団とそのサービス・プロバイダーは、米国を含む海外に所在し、プライバシーに関する法律はあなたの国と異なる可能性があります。詳細については、当財団の<a href=\"$1\">寄付者の方針</a>をご一読ください。",
 	"donate_interface-currency-change": "変更しますか?",
+	"donate_interface-taxded-msg-z": "ウィキメディア財団は、世界中の地域・独立団体を支援する国際非営利組織です<b><a href=\"$1\">税控除の適用は各国の法律により異なります</a>。米国外からのウィキメディア財団への寄付は、通常、税控除の対象とはなりません。</b>税控除や減税についてご不明な点がございましたら、donate@wikimedia.orgまでお問い合わせください。",
 	"donate_interface-monthlybox-amount": "毎月の寄付額",
 	"donate_interface-monthly-cancel": "毎月寄付は、あなたが寄付の中止を希望されるまで、最初の寄付と同じ日に毎月引き落とされます。29日、30日、または31日に寄付された場合は、月の短い月の最終日に引き落とされます。毎年寄付は、最初の寄付と同じ日にに引き落とされます。ご質問がある場合は、$1 までご連絡ください。",
 	"donate_interface-monthly-short": "毎月の定額寄付",
@@ -205,6 +206,5 @@
 	"donate_interface-redirect-explanation": "ウィキメディアの決済処理パートナーのページへ移動します",
 	"donate_interface-amount-legend-variant-01A": "寄付する金額",
 	"donate_interface-cc-form-header-personal-variant-01A": "お支払情報",
-	"donate_interface-submit-button-variant-01A": "この内容で寄付する",
-	"donate_interface-taxded-msg-z": "ウィキメディア財団は、世界中の地域・独立団体を支援する国際非営利組織です<b><a href=\"$1\">税控除の適用は各国の法律により異なります</a>。米国外からのウィキメディア財団への寄付は、通常、税控除の対象とはなりません。</b>税控除や減税についてご不明な点がございましたら、donate@wikimedia.orgまでお問い合わせください。"
+	"donate_interface-submit-button-variant-01A": "この内容で寄付する"
 }
