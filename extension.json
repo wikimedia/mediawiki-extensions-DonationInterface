@@ -551,6 +551,7 @@
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
 				"modules/ext.donationInterface.comboWiki/frequencyOptions.js",
+				"modules/ext.donationInterface.comboWiki/utils.js",
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
@@ -731,11 +732,7 @@
 			]
 		},
 		"ext.donationInterface.applePayHelper": {
-			"scripts": "modules/js/ext.donationInterface.applePayHelper.js",
-			"dependencies": [
-				"ext.donationInterface.forms",
-				"mediawiki.util"
-			]
+			"packageFiles": [ "modules/js/ext.donationInterface.applePayHelper.js" ]
 		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"

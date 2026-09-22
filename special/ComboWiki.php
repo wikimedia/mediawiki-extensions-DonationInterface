@@ -252,6 +252,13 @@ class ComboWiki extends UnlistedSpecialPage {
 		if ( method_exists( $this, $configMethod ) ) {
 			$this->$configMethod( $vars );
 		}
+
+		$otherWaysURL = $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ?? '';
+		$language = $this->routingParams['language'];
+		$country = $this->routingParams['country'];
+		$otherWaysURL = str_replace( '$language', $language, $otherWaysURL );
+		$otherWaysURL = str_replace( '$country', $country, $otherWaysURL );
+		$vars['DonationInterfaceOtherWaysURL'] = $otherWaysURL;
 	}
 
 	private function chooseGateway( array $params ): ?string {

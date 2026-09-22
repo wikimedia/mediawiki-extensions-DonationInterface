@@ -1,5 +1,6 @@
 /* global SecureFields google ApplePaySession ApplePayError */
 ( function ( $, mw ) {
+	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
 	let secureFieldValid = false,
 		cardNumberFieldValid = false,
 		securityCodeValid = false,
@@ -509,7 +510,7 @@
 			if ( !paymentSubmethod ) {
 				paymentSubmethod = '';
 			}
-			extraData = mw.donationInterface.forms.apple.getBestApplePayContactName( extraData, bContact, sContact );
+			extraData = getBestApplePayContactName( extraData, bContact, sContact );
 			extraData.postal_code = bContact.postalCode;
 			extraData.state_province = bContact.administrativeArea;
 			extraData.city = bContact.locality;

@@ -304,13 +304,13 @@ module.exports = exports = defineComponent( {
 			const response = result.result;
 			if ( response.isFailed ) {
 				// do we want this to appear here or to pass it through
-				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+				this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
 			if ( response.errors ) {
 				// do we want this to appear here or is this mid flow
-				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-incomplete' ).text() );
+				this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-incomplete' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
@@ -325,8 +325,14 @@ module.exports = exports = defineComponent( {
 			}
 		},
 		handleDonateError( code, failure ) {
-			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			this.appState.setLoading( false );
+			// Override the default error message if the type of error is fixable by donors taking
+			// a specific action. These errors should be specific and leave zero ambiguity.
+			if ( code && code.type === 'validation' ) {
+				this.appState.setError( code.messages.join( ' ' ) );
+				return;
+			}
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
@@ -356,7 +362,7 @@ module.exports = exports = defineComponent( {
 		}
 		// for debugging errors
 		if ( urlParams.get( 'debugError' ) ) {
-			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 		}
 	}
 } );

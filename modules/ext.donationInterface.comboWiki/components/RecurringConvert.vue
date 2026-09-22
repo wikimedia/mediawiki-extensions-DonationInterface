@@ -292,14 +292,14 @@ module.exports = exports = defineComponent( {
 						}
 					} else if ( !declineMonthlyConvert ) {
 						await this.logConversionFailure( response );
-						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', this.orderId ).text() );
+						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', mw.html.escape( this.orderId ) ).text() );
 					}
 					appState.setLoading( false );
 					this.$emit( 'close', url.toString() );
 				} catch ( err ) {
 					if ( !declineMonthlyConvert ) {
 						await this.logConversionFailure( err );
-						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', this.orderId ).text() );
+						appState.setError( this.$i18n( 'combowiki-monthly-convert-failed', mw.html.escape( this.orderId ) ).text() );
 					}
 					appState.setLoading( false );
 					this.$emit( 'close', this.thankYouUrl );
