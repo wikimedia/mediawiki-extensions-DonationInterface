@@ -255,6 +255,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
+		$backendProcessor = $createPaymentResponse->getBackendProcessor();
 		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure( $createPaymentResponse->getErrors() );
 			// TODO: map any errors from $createPaymentResponse
@@ -270,8 +271,14 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			if ( $createPaymentResponse->isSuspectedFraud() ) {
 				$outcome |= FraudService::OUTCOME_PROCESSOR_FLAGGED_FRAUD;
 			}
-			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, $outcome );
+			$rawResponse = $createPaymentResponse->getRawResponse();
+			$errorCategory = $rawResponse['error_code'] ?? null;
+			$rawErrorMessage = $rawResponse['raw_response_description'] ?? null;
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome, $backendProcessor, $errorCategory, $rawErrorMessage
+			);
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
+			$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
 			$this->logPending();
 			$this->runFraudFilters( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
@@ -297,12 +304,12 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
 					);
 					break;
 				default:
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
 					);
 					$this->logger->info(
 						'Not capturing authorized payment - validation action is ' .

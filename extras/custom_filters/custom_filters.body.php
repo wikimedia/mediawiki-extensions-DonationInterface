@@ -269,9 +269,19 @@ class Gateway_Extras_CustomFilters extends FraudFilter {
 		}
 	}
 
-	public static function markPaymentAttemptOutcome( GatewayType $gateway_adapter, int $flags ): void {
+	public static function markPaymentAttemptOutcome(
+		GatewayType $gateway_adapter,
+		int $flags,
+		?string $backendProcessor = null,
+		?string $errorCategory = null,
+		?string $rawErrorMessage = null
+	): void {
 		self::singleton( $gateway_adapter )->fraudService->markOutcome(
-			$gateway_adapter->getData_Unstaged_Escaped( 'order_id' ), $flags
+			$gateway_adapter->getData_Unstaged_Escaped( 'order_id' ),
+			$flags,
+			$backendProcessor,
+			$errorCategory,
+			$rawErrorMessage
 		);
 	}
 }
