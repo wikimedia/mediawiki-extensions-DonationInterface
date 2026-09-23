@@ -26,12 +26,32 @@ class ConfigurationReader {
 	 * @return static
 	 */
 	public static function createForGateway( $gateway, $variant, Config $mwConfig ) {
-		$extensionBaseDir = $mwConfig->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR
-			. 'DonationInterface';
-		/** The following conditional can be deleted when we get rid of WmfFramework */
-		if ( !is_dir( $extensionBaseDir ) ) {
-			$extensionBaseDir = __DIR__ . DIRECTORY_SEPARATOR . '..';
-		}
+		return self::createForGatewayAndVariant(
+			$mwConfig->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface',
+			$mwConfig->get( 'DonationInterfaceLocalConfigurationDirectory' ),
+			$mwConfig->get( 'DonationInterfaceVariantConfigurationDirectory' ),
+			$gateway,
+			$variant
+		);
+	}
+
+	/**
+	 * Creates a reader for a specific gateway and variant
+	 *
+	 * @param string $extensionBaseDir
+	 * @param string|null $localConfigDir
+	 * @param string|null $variantConfigDir
+	 * @param string $gateway
+	 * @param string|null $variant
+	 * @return ConfigurationReader
+	 */
+	public static function createForGatewayAndVariant(
+		string $extensionBaseDir,
+		?string $localConfigDir,
+		?string $variantConfigDir,
+		string $gateway,
+		?string $variant = null
+	) {
 		$configurationReader = new ConfigurationReader();
 
 		// Register general config dir (shipped defaults)
@@ -44,7 +64,6 @@ class ConfigurationReader {
 		$configurationReader->registerConfigDirectory( $gatewayBaseConfigDir );
 
 		// Register local config dir if set as well as gateway-specific subdirectory
-		$localConfigDir = $mwConfig->get( 'DonationInterfaceLocalConfigurationDirectory' );
 		if ( $localConfigDir ) {
 			$configurationReader->registerConfigDirectory( $localConfigDir );
 			$gatewaySpecificSuffix = DIRECTORY_SEPARATOR . $gateway;
@@ -54,7 +73,6 @@ class ConfigurationReader {
 		// Register variant config dir if set (to vary behavior by a querystring param)
 		// Note that we are currently only setting a gateway-specific dir here, but could
 		// easily support gateway-agnostic variant overrides by adding another.
-		$variantConfigDir = $mwConfig->get( 'DonationInterfaceVariantConfigurationDirectory' );
 		if ( $variant !== null
 			&& $variantConfigDir
 			&& preg_match( '/^[a-zA-Z0-9_]+$/', $variant )
