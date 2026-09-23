@@ -5,6 +5,11 @@
 			"AhmedG612"
 		]
 	},
+	"combowiki-stay-in-touch-heading": "Ma sii wada xiriiri karnaa?",
+	"combowiki-donor-privacy-policy": "Siyaasadda asturnaanta deeq bixiyayaasha",
+	"combowiki-optin-description": "Wikimedia Foundation waxay kuu soo diri doontaa iimayllo cusboonaysiin ah waxayna kuu sheegi doontaa haddii Wikipedia mustaqbalka u baahan tahay taageeradaada ama taladaada. Macluumaadkaaga waxaa loo maamulaa si waafaqsan [$1 $2]. Iimayl kasta oo aad hesho wuxuu ka koobnaan doonaa ikhtiyaarro fudud oo aad uga bixi karto.",
+	"combowiki-optin-no-text": "Waan ka xunnahay inaan taas maqalno. Si joogto ah iimayllo uma dirno; ma ka fiirsan lahayd inaad go'aankaaga beddesho?",
+	"combowiki-optin-no-to-yes-text": "Waad ku mahadsan tahay inaad go'aankaaga beddeshay! Waxaan ixtiraami doonaa sanduuqaaga farriimaha.",
 	"combowiki-monthly-convert-failed": "Deeqdaada hal mar ah way guulaysatay, laakiin ma aanan dejin karin deeqdaada billaha ah. Tixraac: $1",
 	"combowiki-method-adyen-card": "Kaarka Adyen",
 	"combowiki-method-venmo": "Venmo",

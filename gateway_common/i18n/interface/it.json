@@ -16,6 +16,7 @@
 			"Karika",
 			"Lucas2",
 			"Marty5550",
+			"Matroz",
 			"Matteocng",
 			"Nemo bis",
 			"Neonsn0w",
@@ -32,6 +33,7 @@
 			"Ximo17"
 		]
 	},
+	"combowiki-optin-no-to-yes-text": "Grazie per aver cambiato idea! Rispetteremo la tua casella di posta.",
 	"donate_interface": "Sostieni Wikimedia",
 	"donate_interface-desc": "Pagina di destinazione della donazione che integra le estensioni gateway",
 	"donate_interface-langonly-desc": "Espone solo i messaggi di sistema DonationInterface",
@@ -186,6 +188,8 @@
 	"donate_interface-tax-info": "Informazioni di deducibilità fiscale",
 	"donate_interface-informationsharing": "Non vendiamo o commercializziamo le tue informazioni con nessuno. Tramite le donazioni, accetti di condividere le tue informazioni personali con Wikimedia Foundation, l'organizzazione non-profit che gestisce Wikipedia e altri progetti Wikimedia, e i suoi fornitori di servizi ai sensi della nostra <a href=\"$1\">politica sulle donazioni</a>. Wikimedia Foundation e i suoi fornitori di servizi sono ubicati negli Stati Uniti e in altri Paesi in cui le leggi sulla privacy potrebbero non essere equivalenti a quelle del tuo Paese. Per ulteriori informazioni, consulta la nostra <a href=\"$1\">politica sulle donazioni</a>.",
 	"donate_interface-currency-change": "Valuta?",
+	"donate_interface-taxded-msg-y": "La Wikimedia Foundation è un'<a href=\"$1\">istituzione di pubblica utilità (ANBI)</a> riconosciuta.",
+	"donate_interface-taxded-msg-z": "La Wikimedia Foundation è un'organizzazione internazionale senza scopo di lucro che sostiene le associazioni locali e indipendenti in tutto il mondo. <b>Il nostro <a href=\"$1\">status di esenzione fiscale</a> varia in base alle leggi di ciascun paese. Le donazioni alla Wikimedia Foundation probabilmente non sono deducibili fiscalmente al di fuori degli USA.</b> Se hai domande riguardo alle esenzioni fiscali o alle riduzioni, ti invitiamo a contattare donate@wikimedia.org.",
 	"donate_interface-annual-amount": "Importo della donazione annuale",
 	"donate_interface-monthlybox-amount": "Importo della donazione mensile",
 	"donate_interface-monthly-cancel": "Le donazioni mensili verranno addebitate lo stesso giorno di ogni mese della prima donazione, fino alla cancellazione. Le donazioni effettuate il 29, il 30 o il 31 del mese verranno addebitate l'ultimo giorno dei mesi più corti. Le donazioni annuali ricorrenti verranno addebitate nell'anniversario della prima donazione. Per domande, contatta $1.",
