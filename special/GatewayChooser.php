@@ -27,7 +27,7 @@ class GatewayChooser extends UnlistedSpecialPage {
 	 */
 	protected $logger;
 
-	public function __construct() {
+	public function __construct( protected readonly GatewayRouter $gatewayRouter ) {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'GatewayChooser' );
 		parent::__construct( 'GatewayChooser' );
 	}
@@ -51,14 +51,13 @@ class GatewayChooser extends UnlistedSpecialPage {
 
 		if ( $params[ 'country' ] && $params[ 'payment_method' ] ) {
 			// Find possible gateways
-			$supportedGateways = GatewayRouter::getSupportedGateways(
+			$supportedGateways = $this->gatewayRouter->getSupportedGateways(
 				$params['country'],
 				$params['currency'],
 				$params['payment_method'],
 				$params['payment_submethod'],
 				$params['recurring'],
-				$params['variant'],
-				$this->getConfig()
+				$params['variant']
 			);
 		} else {
 			// redirect to ways to give
@@ -98,10 +97,9 @@ class GatewayChooser extends UnlistedSpecialPage {
 
 		} else {
 			// We need to choose from among two or more supported gateways
-			$selectedGateway = GatewayRouter::chooseGatewayByPriority(
+			$selectedGateway = $this->gatewayRouter->chooseGatewayByPriority(
 				$supportedGateways,
 				$params,
-				$this->getConfig(),
 				$this->logger
 			);
 		}

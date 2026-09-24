@@ -445,10 +445,11 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 	 * @param array|null $session pre-existing session data.
 	 * @param bool $posted true to simulate a form post, false to simulate
 	 *  loading values from the querystring.
+	 * @param array $constructorArgs arguments to create $special_page_class
 	 */
 	public function verifyFormOutput(
 		$special_page_class, $initial_vars, $perform_these_checks,
-		$fail_on_log_errors = false, $session = null, $posted = false
+		$fail_on_log_errors = false, $session = null, $posted = false, $constructorArgs = []
 	) {
 		$mainContext = RequestContext::getMain();
 		$newOutput = new OutputPage( $mainContext );
@@ -470,7 +471,7 @@ abstract class DonationInterfaceTestCase extends MediaWikiIntegrationTestCase {
 		$this->setLanguage( $initial_vars['language'] );
 
 		ob_start();
-		$formpage = new $special_page_class();
+		$formpage = new $special_page_class( ...$constructorArgs );
 		$formpage->execute( null );
 		$formpage->getOutput()->output();
 		$form_html = ob_get_contents();

@@ -26,7 +26,12 @@
 	"callback": "DonationInterface::registerExtension",
 	"ForeignResourcesDir": "resources/lib",
 	"SpecialPages": {
-		"GatewayChooser": "GatewayChooser",
+		"GatewayChooser": {
+			"class": "GatewayChooser",
+			"services": [
+				"DonationInterface.GatewayRouter"
+			]
+		},
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
 		"RecurUpgrade": "RecurUpgrade",
@@ -46,7 +51,12 @@
 		"GravyGatewayResult": "GravyGatewayResult",
 		"PaymentSettings": "PaymentSettings",
 		"DonorPortal": "DonorPortal",
-		"ComboWiki": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+		"ComboWiki": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+			"services": [
+				"DonationInterface.GatewayRouter"
+			]
+		},
 		"ComboWikiGatewayResult": "ComboWikiGatewayResult"
 	},
 	"APIModules": {

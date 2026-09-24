@@ -95,7 +95,10 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$initial = [
 			'language' => 'en'
 		];
-		$this->verifyFormOutput( 'GatewayChooser', $initial, $assertNodes, false );
+		$this->verifyFormOutput(
+			'GatewayChooser', $initial, $assertNodes, false, null, false,
+			[ $this->getGatewayRouter() ]
+		);
 	}
 
 	/**
@@ -114,7 +117,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
 
-		$fc = new GatewayChooser();
+		$fc = new GatewayChooser( $this->getGatewayRouter() );
 		$fc->execute( null );
 		$fc->getOutput()->output( true );
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
@@ -143,7 +146,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
 
-		$fc = new GatewayChooser();
+		$fc = new GatewayChooser( $this->getGatewayRouter() );
 		$fc->execute( null );
 		$fc->getOutput()->output( true );
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
@@ -470,10 +473,11 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 		$expectedGateway = 'gravy';
 
-		$processor = GatewayRouter::chooseGatewayByPriority(
+		$router = $this->getGatewayRouter();
+
+		$processor = $router->chooseGatewayByPriority(
 			$shortListedGateways,
 			$testQueryParams,
-			MediaWikiServices::getInstance()->getMainConfig(),
 			new NullLogger()
 		);
 
@@ -506,10 +510,11 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 			$expectedGateway = 'adyen';
 
-			$processor = GatewayRouter::chooseGatewayByPriority(
+			$router = $this->getGatewayRouter();
+
+			$processor = $router->chooseGatewayByPriority(
 				$shortListedGateways,
 				$testQueryParams,
-				MediaWikiServices::getInstance()->getMainConfig(),
 				new NullLogger()
 			);
 
@@ -539,10 +544,11 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 		$expectedGateway = 'gravy';
 
-		$processor = GatewayRouter::chooseGatewayByPriority(
+		$router = $this->getGatewayRouter();
+
+		$processor = $router->chooseGatewayByPriority(
 			$shortListedGateways,
 			$testQueryParams,
-			MediaWikiServices::getInstance()->getMainConfig(),
 			new NullLogger()
 		);
 
@@ -579,10 +585,11 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$shortListedGateways = [ 'gravy', 'adyen', 'paypal' ];
 		$expectedGateway = 'adyen';
 
-		$processor = GatewayRouter::chooseGatewayByPriority(
+		$router = $this->getGatewayRouter();
+
+		$processor = $router->chooseGatewayByPriority(
 			$shortListedGateways,
 			$testQueryParams,
-			MediaWikiServices::getInstance()->getMainConfig(),
 			new NullLogger()
 		);
 
@@ -607,7 +614,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
 
-		$fc = new GatewayChooser();
+		$fc = new GatewayChooser( $this->getGatewayRouter() );
 		$fc->execute( null );
 		$fc->getOutput()->output();
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
@@ -645,7 +652,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$context->setOutput( $newOutput );
 		$context->setTitle( $newTitle );
 
-		$fc = new GatewayChooser();
+		$fc = new GatewayChooser( $this->getGatewayRouter() );
 		$fc->execute( null );
 		$fc->getOutput()->output();
 		$url = $fc->getRequest()->response()->getheader( 'Location' );
@@ -675,16 +682,15 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 		$country = 'MD';
 		$currency = 'USD';
 
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$router = $this->getGatewayRouter();
 
-		$supportedGateways = GatewayRouter::getSupportedGateways(
+		$supportedGateways = $router->getSupportedGateways(
 			$country,
 			$currency,
 			'paypal',
 			null, // payment_submethod
 			false, // recurring
 			null, // variant
-			$config
 		);
 		$this->assertContains(
 			'gravy',
@@ -692,14 +698,13 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			"gravy should support paypal in $country / $currency"
 		);
 
-		$selectedGateway = GatewayRouter::chooseGatewayByPriority(
+		$selectedGateway = $router->chooseGatewayByPriority(
 			$supportedGateways,
 			[
 				'country' => $country,
 				'currency' => $currency,
 				'payment_method' => 'paypal',
 			],
-			$config,
 			new NullLogger()
 		);
 
@@ -715,5 +720,9 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			[ 'true', 1 ],
 			[ '1', 1 ]
 		];
+	}
+
+	protected function getGatewayRouter(): GatewayRouter {
+		return MediaWikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' );
 	}
 }

@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -21,14 +20,16 @@ class GatewayRouterTest extends MediaWikiIntegrationTestCase {
 				'gravy' => 'GravyAdapter',
 			],
 		] );
-		$supportedGateways = GatewayRouter::getSupportedGateways(
+
+		/** @var \MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter $router */
+		$router = MediaWikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' );
+		$supportedGateways = $router->getSupportedGateways(
 			'BR',
 			'BRL',
 			'cash',
 			'fake_cash_submethod',
 			true, // recurring
-			null,
-			MediaWikiServices::getInstance()->getMainConfig()
+			null
 		);
 		$this->assertArrayEquals( [ 'gravy' ], $supportedGateways );
 	}

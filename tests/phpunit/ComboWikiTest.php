@@ -2,6 +2,7 @@
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use SmashPig\Core\Context;
@@ -225,7 +226,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$storedDetails = $request->getSession()->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
@@ -280,7 +281,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$firstComboWiki = new ComboWiki();
+		$firstComboWiki = $this->getComboWikiInstance();
 		$firstComboWiki->execute( null );
 		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -290,7 +291,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 
 		// Simulate the donor starting a new transaction in the same session
 		// after the previous one completed (e.g. ComboWiki is loaded again).
-		$secondComboWiki = new ComboWiki();
+		$secondComboWiki = $this->getComboWikiInstance();
 		$secondComboWiki->execute( null );
 		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -350,7 +351,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$firstComboWiki = new ComboWiki();
+		$firstComboWiki = $this->getComboWikiInstance();
 		$firstComboWiki->execute( null );
 		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -363,7 +364,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 
 		// Simulate the donor starting a new transaction in the same session
 		// after the previous one completed (e.g. ComboWiki is loaded again).
-		$secondComboWiki = new ComboWiki();
+		$secondComboWiki = $this->getComboWikiInstance();
 		$secondComboWiki->execute( null );
 		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -417,7 +418,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$firstComboWiki = new ComboWiki();
+		$firstComboWiki = $this->getComboWikiInstance();
 		$firstComboWiki->execute( null );
 		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -426,7 +427,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$this->assertTrue( $result->isFailed(), 'Expected the simulated transaction to fail' );
 
 		// Simulate the donor retrying in the same session after the decline.
-		$secondComboWiki = new ComboWiki();
+		$secondComboWiki = $this->getComboWikiInstance();
 		$secondComboWiki->execute( null );
 		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
@@ -463,7 +464,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$storedDetails = $request->getSession()->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
@@ -506,7 +507,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
@@ -555,7 +556,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
@@ -622,7 +623,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
@@ -679,7 +680,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( $request );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
@@ -706,7 +707,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		], false ) );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 		$out = $comboWiki->getOutput();
 
@@ -734,7 +735,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		], false ) );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 
 		$this->assertContains(
@@ -814,7 +815,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 
 		// run(), not execute() — the source type is set by a hook that
 		// SpecialPage::run() fires, which is how production reaches the page.
-		( new ComboWiki() )->run( null );
+		( $this->getComboWikiInstance() )->run( null );
 
 		$this->assertSame( ComboWiki::IDENTIFIER, Context::get()->getSourceType() );
 
@@ -849,11 +850,17 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		$context->setRequest( new FauxRequest( $params, false ) );
 		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
 
-		$comboWiki = new ComboWiki();
+		$comboWiki = $this->getComboWikiInstance();
 		$comboWiki->execute( null );
 		$vars = [];
 		$comboWiki->setClientVariables( $vars );
 
 		return $vars;
+	}
+
+	private function getComboWikiInstance(): ComboWiki {
+		return new ComboWiki(
+			MediawikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' )
+		);
 	}
 }

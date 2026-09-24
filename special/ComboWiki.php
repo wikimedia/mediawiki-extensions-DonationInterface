@@ -51,7 +51,9 @@ class ComboWiki extends UnlistedSpecialPage {
 	private ?string $selectedGateway = null;
 	private DonationDetails $dataObject;
 
-	public function __construct() {
+	public function __construct(
+		protected readonly GatewayRouter $gatewayRouter
+	) {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
 		parent::__construct( 'ComboWiki' );
 	}
@@ -253,14 +255,13 @@ class ComboWiki extends UnlistedSpecialPage {
 	}
 
 	private function chooseGateway( array $params ): ?string {
-		$supportedGateways = GatewayRouter::getSupportedGateways(
+		$supportedGateways = $this->gatewayRouter->getSupportedGateways(
 			$params['country'],
 			$params['currency'],
 			$params['payment_method'],
 			$params['payment_submethod'],
 			(bool)$params['recurring'],
-			$params['variant'],
-			$this->getConfig()
+			$params['variant']
 		);
 
 		if ( count( $supportedGateways ) === 0 ) {
@@ -277,10 +278,9 @@ class ComboWiki extends UnlistedSpecialPage {
 			return $supportedGateways[0];
 		}
 
-		return GatewayRouter::chooseGatewayByPriority(
+		return $this->gatewayRouter->chooseGatewayByPriority(
 			$supportedGateways,
 			$params,
-			$this->getConfig(),
 			$this->logger
 		);
 	}
