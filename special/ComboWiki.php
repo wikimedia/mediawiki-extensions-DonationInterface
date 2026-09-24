@@ -108,7 +108,7 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		if ( $this->selectedGateway ) {
 			DonationInterface::setSmashPigProvider( $this->selectedGateway );
-			$this->adapter = GatewayRouter::createAdapterForGateway(
+			$this->adapter = $this->createAdapterForGateway(
 				$this->selectedGateway,
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
 			);
@@ -426,5 +426,29 @@ class ComboWiki extends UnlistedSpecialPage {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
 		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
+	}
+
+	/**
+	 * Create an adapter instance for the given gateway name.
+	 * Handles dynamic instantiation of any supported gateway adapter.
+	 * TODO: factory class
+	 *
+	 * @param string $gatewayName Gateway identifier (e.g., 'gravy', 'dlocal', 'adyen')
+	 * @param array $options Configuration options for the adapter (e.g., variant)
+	 * @return GatewayAdapter|null The instantiated adapter, or null if gateway is not supported
+	 */
+	protected function createAdapterForGateway(
+		string $gatewayName,
+		array $options = []
+	): ?GatewayAdapter {
+		$enabledGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		// Check if gateway is enabled
+		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
+			return null;
+		}
+
+		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
+
+		return new $className( $options );
 	}
 }

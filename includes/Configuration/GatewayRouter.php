@@ -119,45 +119,6 @@ class GatewayRouter {
 		return $possibleGateways;
 	}
 
-	/**
-	 * Create an adapter instance for the given gateway name.
-	 * Handles dynamic instantiation of any supported gateway adapter.
-	 *
-	 * @param string $gatewayName Gateway identifier (e.g., 'gravy', 'dlocal', 'adyen')
-	 * @param array $options Configuration options for the adapter (e.g., variant)
-	 * @return GatewayAdapter|null The instantiated adapter, or null if gateway is not supported
-	 */
-	public static function createAdapterForGateway(
-		string $gatewayName,
-		array $options = []
-	): ?GatewayAdapter {
-		$enabledGateways = GatewayAdapter::getEnabledGateways(
-			\MediaWiki\MediaWikiServices::getInstance()->getMainConfig()
-		);
-
-		// Check if gateway is enabled
-		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
-			return null;
-		}
-
-		// Map gateway names to adapter class names
-		$adapterClassMap = [
-			'adyen' => 'AdyenCheckoutAdapter',
-			'paypal_ec' => 'PaypalExpressAdapter',
-			'braintree' => 'BraintreeAdapter',
-			'dlocal' => 'DlocalAdapter',
-			'gravy' => 'GravyAdapter',
-		];
-
-		if ( !isset( $adapterClassMap[$gatewayName] ) ) {
-			return null;
-		}
-
-		$adapterClass = $adapterClassMap[$gatewayName];
-
-		return new $adapterClass( $options );
-	}
-
 	private static function getProviderMap(): array {
 		return [
 			'gravy' => 'gravy',
