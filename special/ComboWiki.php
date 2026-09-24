@@ -380,7 +380,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$countries = [];
 		$rawCountries = [];
 
-		$supportedGateways = GatewayRouter::getEnabledGateways();
+		$supportedGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
 
 		foreach ( $supportedGateways as $gateway ) {
 			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";

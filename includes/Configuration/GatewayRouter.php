@@ -119,20 +119,6 @@ class GatewayRouter {
 		return $possibleGateways;
 	}
 
-	private static function getProviderMap(): array {
-		return [
-			'gravy' => 'gravy',
-			'dlocal' => 'dlocal',
-			'adyen' => 'adyen',
-			'paypal_ec' => 'paypal',
-			'braintree' => 'braintree',
-		];
-	}
-
-	public static function getEnabledGateways(): array {
-		return array_keys( self::getProviderMap() );
-	}
-
 	/**
 	 * In here we're gonna check a predefined list of
 	 * priority rules to see which of the supported gateways
