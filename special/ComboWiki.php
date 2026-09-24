@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\DonationInterface\Special;
 
 use AdyenCheckoutAdapter;
+use DonationInterface;
 use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
@@ -106,7 +107,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$this->storeDonationDetailsInSession();
 
 		if ( $this->selectedGateway ) {
-			GatewayRouter::setSmashPigProviderForGateway( $this->selectedGateway );
+			DonationInterface::setSmashPigProvider( $this->selectedGateway );
 			$this->adapter = GatewayRouter::createAdapterForGateway(
 				$this->selectedGateway,
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]

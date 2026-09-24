@@ -173,21 +173,6 @@ class GatewayRouter {
 	}
 
 	/**
-	 * Set up the SmashPig provider for the given gateway.
-	 * This ensures the correct payment provider backend is used.
-	 *
-	 * @param string $gatewayName Gateway identifier
-	 */
-	public static function setSmashPigProviderForGateway( string $gatewayName ): void {
-		// Map gateway names to SmashPig provider names
-		$providerMap = self::getProviderMap();
-
-		if ( isset( $providerMap[$gatewayName] ) ) {
-			\DonationInterface::setSmashPigProvider( $providerMap[$gatewayName] );
-		}
-	}
-
-	/**
 	 * In here we're gonna check a predefined list of
 	 * priority rules to see which of the supported gateways
 	 * best fits the user parameters.
