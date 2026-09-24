@@ -55,7 +55,12 @@
 				"DonationInterface.GatewayConfigurationFactory"
 			]
 		},
-		"DonorPortal": "DonorPortal",
+		"DonorPortal": {
+			"class": "DonorPortal",
+			"services": [
+				"DonationInterface.DonationAmountRules"
+			]
+		},
 		"ComboWiki": {
 			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
 			"services": [

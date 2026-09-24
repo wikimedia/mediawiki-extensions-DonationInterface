@@ -20,7 +20,7 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
 use Mediawiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
+use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
@@ -877,7 +877,7 @@ abstract class GatewayAdapter implements GatewayType {
 	 */
 	public function getDonationRules(): array {
 		$rules = $this->config['donation_rules'];
-		$rule = AmountHelper::lookupMatchingDonationRules( $rules, $this->getData_Unstaged_Escaped() );
+		$rule = DonationAmountRules::lookupMatchingDonationRules( $rules, $this->getData_Unstaged_Escaped() );
 		if ( $rule === [] ) {
 			$this->logger->warning( "Please set a default rule in donation_rules.yaml" );
 		}
