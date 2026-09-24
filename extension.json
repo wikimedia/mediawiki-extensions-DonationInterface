@@ -54,6 +54,7 @@
 		"ComboWiki": {
 			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
 			"services": [
+				"DonationInterface.GatewayConfigurationFactory",
 				"DonationInterface.GatewayRouter"
 			]
 		},

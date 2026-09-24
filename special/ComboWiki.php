@@ -15,14 +15,13 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -52,6 +51,7 @@ class ComboWiki extends UnlistedSpecialPage {
 	private DonationDetails $dataObject;
 
 	public function __construct(
+		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
 		protected readonly GatewayRouter $gatewayRouter
 	) {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
@@ -65,7 +65,7 @@ class ComboWiki extends UnlistedSpecialPage {
 	 */
 	public function execute( $subPage ): void {
 		$request = $this->getRequest();
-		$wmfConfig = MediaWikiServices::getInstance()->getMainConfig();
+		$wmfConfig = $this->getConfig();
 		$dataIntegrator = new DataIntegrator( $request, new DonationDetails() );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
@@ -354,40 +354,20 @@ class ComboWiki extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Cache country list from all supported gateways and add to client config
+	 * Build country list from all supported gateways and add to client config
 	 * @param array &$vars
 	 * @return void
 	 */
 	private function addCountriesConfig( array &$vars ): void {
-		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
-
-		$cacheKey = $cache->makeKey(
-			'combowiki', 'countriesenabledlist'
-		);
-
-		$countries = $cache->getWithSetCallback(
-			$cacheKey,
-			$cache::TTL_DAY,
-			function () {
-				return $this->buildCountriesConfig();
-			}
-		);
-
-		$vars['wgDonationInterfaceCountries'] = $countries;
-	}
-
-	private function buildCountriesConfig(): array {
 		$countries = [];
 		$rawCountries = [];
 
-		$supportedGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		$enabledConfigurations = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
+			$this->routingParams['variant']
+		);
 
-		foreach ( $supportedGateways as $gateway ) {
-			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";
-
-			if ( file_exists( $filePath ) ) {
-				$rawCountries[] = Yaml::parseFile( $filePath );
-			}
+		foreach ( $enabledConfigurations  as $gateway => $config ) {
+			$rawCountries[] = $config['countries'];
 		}
 
 		$rawCountries = array_map(
@@ -411,7 +391,7 @@ class ComboWiki extends UnlistedSpecialPage {
 			];
 		}
 
-		return $countries;
+		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 
 	/**

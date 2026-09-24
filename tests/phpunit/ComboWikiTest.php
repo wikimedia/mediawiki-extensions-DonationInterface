@@ -860,6 +860,7 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 
 	private function getComboWikiInstance(): ComboWiki {
 		return new ComboWiki(
+			MediawikiServices::getInstance()->getService( 'DonationInterface.GatewayConfigurationFactory' ),
 			MediawikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' )
 		);
 	}
