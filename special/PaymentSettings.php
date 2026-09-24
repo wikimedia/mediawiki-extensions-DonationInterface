@@ -1,7 +1,7 @@
 <?php
 
 use MediaWiki\Extension\CLDR\CountryNames;
-use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 /**
@@ -14,7 +14,7 @@ class PaymentSettings extends UnlistedSpecialPage {
 		'dlocal',
 	];
 
-	public function __construct() {
+	public function __construct( protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory ) {
 		parent::__construct( 'PaymentSettings' );
 	}
 
@@ -139,12 +139,8 @@ class PaymentSettings extends UnlistedSpecialPage {
 	private function displayPaymentProcessorSection( string $paymentProcessor ): void {
 		$this->getOutput()->addHTML( '<h1 id="' . $paymentProcessor . '">' . ucfirst( $paymentProcessor ) . '</h1>' );
 
-		$configurationReader = ConfigurationReader::createForGateway(
-			$paymentProcessor,
-			null,
-			WmfFramework::getConfig()
-		);
-		$paymentProcessorConfig = $configurationReader->readConfiguration();
+		$paymentProcessorConfig = $this->gatewayConfigurationFactory->getConfigurationForGatewayAndVariant( $paymentProcessor );
+
 		$this->displayPaymentMethods( $paymentProcessorConfig['payment_methods'] );
 		$this->displayPaymentSubmethods( $paymentProcessorConfig['payment_submethods'] );
 	}
@@ -264,12 +260,8 @@ class PaymentSettings extends UnlistedSpecialPage {
 		// Setup config
 		$paymentProcessorConfig = [];
 		foreach ( self::PAYMENT_PROCESSORS as $processor ) {
-			$configurationReader = ConfigurationReader::createForGateway(
-				$processor,
-				null,
-				WmfFramework::getConfig()
-			);
-			$paymentProcessorConfig[$processor] = $configurationReader->readConfiguration();
+			$paymentProcessorConfig[$processor] = $this->gatewayConfigurationFactory
+				->getConfigurationForGatewayAndVariant( $processor );
 		}
 
 		$mediaWikCountries = CountryNames::getNames( 'en' );

@@ -49,7 +49,12 @@
 		"DlocalGatewayResult": "DlocalGatewayResult",
 		"GravyGateway": "GravyGateway",
 		"GravyGatewayResult": "GravyGatewayResult",
-		"PaymentSettings": "PaymentSettings",
+		"PaymentSettings": {
+			"class": "PaymentSettings",
+			"services": [
+				"DonationInterface.GatewayConfigurationFactory"
+			]
+		},
 		"DonorPortal": "DonorPortal",
 		"ComboWiki": {
 			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
