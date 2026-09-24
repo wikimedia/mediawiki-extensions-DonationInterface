@@ -25,7 +25,7 @@
 </template>
 
 <script>
-const { defineComponent, toRaw, computed } = require( 'vue' );
+const { defineComponent, toRaw, computed, onMounted } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const GravyCardForm = require( './GravyCardForm.vue' );
@@ -249,6 +249,15 @@ module.exports = exports = defineComponent( {
 				methods.push( method );
 			}
 			return methods;
+		} );
+
+		// Warm applePayHelper during idle time before the donor may click Apple Pay.
+		onMounted( () => {
+			if ( availablePaymentMethods.value.includes( 'applepay' ) ) {
+				mw.requestIdleCallback( () => {
+					ApplePayComponent.preloadApplePayHelperScript();
+				}, { timeout: 2000 } );
+			}
 		} );
 
 		return {

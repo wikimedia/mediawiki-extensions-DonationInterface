@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\DonationInterface\Special;
 
 use AdyenCheckoutAdapter;
+use DonationInterface;
 use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
@@ -106,8 +107,8 @@ class ComboWiki extends UnlistedSpecialPage {
 		$this->storeDonationDetailsInSession();
 
 		if ( $this->selectedGateway ) {
-			GatewayRouter::setSmashPigProviderForGateway( $this->selectedGateway );
-			$this->adapter = GatewayRouter::createAdapterForGateway(
+			DonationInterface::setSmashPigProvider( $this->selectedGateway );
+			$this->adapter = $this->createAdapterForGateway(
 				$this->selectedGateway,
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
 			);
@@ -306,6 +307,12 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
+
+		$applePayHref = $this->adapter->getAccountConfig( 'AppleScript' );
+		$this->getOutput()->addLink( [
+			'rel' => 'dns-prefetch',
+			'href' => 'https://' . parse_url( $applePayHref, PHP_URL_HOST )
+		] );
 	}
 
 	/**
@@ -373,7 +380,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$countries = [];
 		$rawCountries = [];
 
-		$supportedGateways = GatewayRouter::getEnabledGateways();
+		$supportedGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
 
 		foreach ( $supportedGateways as $gateway ) {
 			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";
@@ -419,5 +426,29 @@ class ComboWiki extends UnlistedSpecialPage {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
 		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
+	}
+
+	/**
+	 * Create an adapter instance for the given gateway name.
+	 * Handles dynamic instantiation of any supported gateway adapter.
+	 * TODO: factory class
+	 *
+	 * @param string $gatewayName Gateway identifier (e.g., 'gravy', 'dlocal', 'adyen')
+	 * @param array $options Configuration options for the adapter (e.g., variant)
+	 * @return GatewayAdapter|null The instantiated adapter, or null if gateway is not supported
+	 */
+	protected function createAdapterForGateway(
+		string $gatewayName,
+		array $options = []
+	): ?GatewayAdapter {
+		$enabledGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		// Check if gateway is enabled
+		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
+			return null;
+		}
+
+		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
+
+		return new $className( $options );
 	}
 }

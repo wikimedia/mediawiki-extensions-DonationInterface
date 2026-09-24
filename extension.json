@@ -526,7 +526,6 @@
 		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
-				"ext.donationInterface.applePayHelper",
 				"donationInterface.skinOverride",
 				"vue",
 				"@wikimedia/codex"
