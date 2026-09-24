@@ -104,7 +104,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'issuer_id',
 		'java_enabled', // device fingerprinting
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -169,7 +168,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'full_name',
 		'gateway',
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -182,6 +180,7 @@ class DataIntegrator implements LogPrefixProvider {
 		'street_address',
 		'street_number', // for addresses in India
 		'transaction_status',
+		'uselang',
 		'utm_campaign',
 		'utm_medium',
 		'utm_source',
@@ -231,7 +230,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'issuer_id',
 		'java_enabled', // device fingerprinting
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -259,7 +257,27 @@ class DataIntegrator implements LogPrefixProvider {
 		'transaction_status',
 		'transaction_type',
 		'upi_id',
+		'uselang',
 	];
+
+	/**
+	 * Maps raw field names to internal field names we want to use
+	 * in the DonationDetails object.
+	 */
+	private static array $internalNames = [
+		'uselang' => 'language',
+	];
+
+	/**
+	 * Wrapper for overriding the default key name value got from the request
+	 * to the key name we want to use in the DonationDetails object.
+	 *
+	 * @param string $currentName
+	 * @return string
+	 */
+	private function getName( string $currentName ): string {
+		return self::$internalNames[ $currentName ] ?? $currentName;
+	}
 
 	/**
 	 * @param WebRequest $request
@@ -328,7 +346,7 @@ class DataIntegrator implements LogPrefixProvider {
 			}
 
 			if ( isset( $query_values[ $value_name ] ) ) {
-				$this->dataObject->setValue( $var, $query_values[ $value_name ] );
+				$this->dataObject->setValue( $this->getName( $var ), $query_values[ $value_name ] );
 				$this->dataObject->setSource( $var, 'get' );
 			}
 		}
@@ -343,7 +361,7 @@ class DataIntegrator implements LogPrefixProvider {
 
 		foreach ( self::$requestPostFieldNames as $var ) {
 			if ( isset( $posted_values[ $var ] ) ) {
-				$this->dataObject->setValue( $var, $posted_values[ $var ] );
+				$this->dataObject->setValue( $this->getName( $var ), $posted_values[ $var ] );
 				$this->dataObject->setSource( $var, 'post' );
 			}
 		}

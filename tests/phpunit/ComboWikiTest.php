@@ -646,6 +646,38 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 		);
 	}
 
+	/**
+	 * DataIntegrator reads 'uselang' from the request and stores it as 'language'
+	 * in DonationDetails. 'language' itself is not read from the request, so
+	 * uselang should win even when both are supplied.
+	 *
+	 * @see includes/ComboWiki/DataIntegrator.php $internalNames
+	 */
+	public function testUseLangMapsToLanguage(): void {
+		$context = RequestContext::getMain();
+		$request = new FauxRequest( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+			'uselang' => 'it',
+			'language' => 'en',
+		], false );
+		$context->setRequest( $request );
+		$context->setTitle( Title::newFromText( 'Special:ComboWiki' ) );
+
+		$comboWiki = $this->getComboWikiInstance();
+		$comboWiki->execute( null );
+
+		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+
+		$this->assertSame(
+			'it',
+			$dataObject->getValue( 'language' ),
+			"We should read always the 'uselang' param from the request and set it as 'language' in our DonationDetails object."
+		);
+	}
+
 	public function testPostDataOverwritesOverlappingQueryParameters(): void {
 		// DataIntegrator::populateData() calls setDataFromQueryParameters() before
 		// setDataFromPostParameters(), and both unconditionally call setValue(), so

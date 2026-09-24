@@ -249,32 +249,21 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * If the language has not yet been set or is not valid, pulls the language code
-	 * from the current global language object.
+	 * In DataIntegrator() we store the value directly in DonationDetails() 'language' but
+	 * the value is read from the request 'uselang' field.
 	 */
 	protected function normalizeLanguage(): void {
 		if ( $this->skipNormalization( 'language' ) ) {
 			return;
 		}
 
-		$language = false;
-
-		if ( $this->dataObject->isValueSet( 'uselang' ) ) {
-			$language = $this->dataObject->getValue( 'uselang' );
-		} elseif ( $this->dataObject->isValueSet( 'language' ) ) {
-			$language = $this->dataObject->getValue( 'language' );
-		}
-
-		if ( $language ) {
-			$language = strtolower( $language );
-		}
+		$language = strtolower( $this->dataObject->getValue( 'language' ) );
 
 		if ( !$language || !MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $language ) ) {
 			$language = RequestContext::getMain()->getLanguage()->getCode();
 		}
 
 		$this->dataObject->setValue( 'language', $language );
-		$this->dataObject->remove( 'uselang' );
 	}
 
 	/**
