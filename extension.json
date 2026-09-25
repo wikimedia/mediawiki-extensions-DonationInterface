@@ -534,6 +534,7 @@
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
+				"modules/ext.donationInterface.comboWiki/frequencyOptions.js",
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
@@ -563,8 +564,13 @@
 			],
 			"messages": [
 				"combowiki-title",
+				"combowiki-amount-heading-once",
+				"combowiki-amount-heading-monthly",
+				"combowiki-amount-heading-annual",
 				"combowiki-frequency-heading",
 				"combowiki-frequency-annual",
+				"combowiki-frequency-monthly",
+				"combowiki-frequency-once",
 				"combowiki-intro-heading",
 				"combowiki-intro-text",
 				"combowiki-country-placeholder",

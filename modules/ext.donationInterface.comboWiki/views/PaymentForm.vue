@@ -14,9 +14,6 @@
 
 				<!-- Frequency Selector -->
 				<div class="fieldset gap--3">
-					<p class="text text--base">
-						<strong>{{ $i18n( 'combowiki-frequency-heading' ).text() }}</strong>
-					</p>
 					<frequency-selector v-model="donation.frequency"></frequency-selector>
 				</div>
 
@@ -25,7 +22,7 @@
 					<!-- Label -->
 					<div class="fieldset__label">
 						<p class="text text--base">
-							<strong>Choose a {{ donation.frequency }} amount</strong>
+							<strong>{{ amountHeading }}</strong>
 						</p>
 						<!-- Country>Currency selection -->
 						<cdx-select
@@ -139,6 +136,7 @@ const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
+const { getAmountHeading } = require( '../frequencyOptions.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -206,6 +204,9 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		amountHeading() {
+			return getAmountHeading( this.donation.frequency );
+		},
 		presetAmounts() {
 			const rates = mw.config.get( 'wgDonationInterfaceCurrencyRates', {} );
 			const currency = this.donation.currency;

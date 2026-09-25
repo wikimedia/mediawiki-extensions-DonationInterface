@@ -11,6 +11,7 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const { CdxToggleButtonGroup } = require( '@wikimedia/codex' );
+const { getFrequencyOptions } = require( '../frequencyOptions.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'FrequencySelector',
@@ -26,11 +27,7 @@ module.exports = exports = defineComponent( {
 	emits: [ 'update:modelValue' ],
 	computed: {
 		options() {
-			return [
-				{ value: 'once', label: this.$i18n( 'donate_interface-onetime-short' ).text() },
-				{ value: 'monthly', label: this.$i18n( 'donate_interface-monthly-short' ).text() },
-				{ value: 'annual', label: this.$i18n( 'combowiki-frequency-annual' ).text() }
-			];
+			return getFrequencyOptions();
 		}
 	}
 } );
