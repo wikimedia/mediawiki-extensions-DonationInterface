@@ -526,6 +526,7 @@
 		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
+				"ext.donationInterface.currencyRates",
 				"donationInterface.skinOverride",
 				"vue",
 				"@wikimedia/codex"
