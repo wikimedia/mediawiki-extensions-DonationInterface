@@ -72,7 +72,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
 
-		$country = $this->dataObject->getValue( 'country', 'US' );
+		$country = $this->dataObject->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
 		if ( ForbiddenCountryRegistry::isForbidden( $country ) ) {

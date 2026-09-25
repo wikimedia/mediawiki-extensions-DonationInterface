@@ -167,8 +167,6 @@ module.exports = exports = defineComponent( {
 		return { appState };
 	},
 	data() {
-		const urlParams = new URLSearchParams( window.location.search );
-		const countryCode = urlParams.get( 'country' ) || 'US';
 		const initialCurrency = this.params.currency || 'USD';
 		const countries = this.params.wgDonationInterfaceCountries || {};
 		return {
@@ -182,7 +180,7 @@ module.exports = exports = defineComponent( {
 				currency: initialCurrency,
 				payFee: false,
 				phone: null,
-				country: countryCode.toUpperCase(),
+				country: this.params.country,
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
