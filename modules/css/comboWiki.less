@@ -355,3 +355,66 @@
 		padding: @size-4;
 	}
 }
+
+// forbidden countries
+.wikimedia-landing-container {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+	color: #202122;
+	background-color: #fff;
+	padding: 24px;
+	max-width: 1200px;
+	margin: 0 auto;
+	box-sizing: border-box;
+}
+
+/* Two-column layout grid */
+.content-grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax( 320px, 1fr ) );
+	gap: 40px;
+	align-items: start;
+}
+
+/* Language sections styling */
+.lang-section {
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.lang-section p {
+	margin: 0 0 16px 0;
+}
+
+/* Bullet list formatting */
+.lang-section ul {
+	margin: 0 0 16px 0;
+	padding-left: 24px;
+}
+
+.lang-section li {
+	margin-bottom: 12px;
+}
+
+.lang-section li:last-child {
+	margin-bottom: 0;
+}
+
+/* Link styles matching Wikimedia standards */
+.lang-section a {
+	color: #36c;
+	text-decoration: none;
+}
+
+.lang-section a:hover {
+	text-decoration: underline;
+}
+
+.lang-section a:visited {
+	color: #2a4b8d;
+}
+
+/* Sign-off text */
+.sign-off {
+	font-weight: 500;
+	margin-top: 8px;
+}
