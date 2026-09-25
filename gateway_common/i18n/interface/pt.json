@@ -32,6 +32,7 @@
 			"Vitorvicentevalente"
 		]
 	},
+	"combowiki-cover-fees": "Gostaria de acrescentar $1 para cobrir as taxas operacionais para que vocês possam receber 100% do meu donativo.",
 	"donate_interface": "Apoie a Wikimedia",
 	"donate_interface-desc": "Página inicial para donativos, que integra outras extensões de várias plataformas de pagamento ''(payment gateways)''",
 	"donate_interface-langonly-desc": "Mostra somente mensagens do sistema DonationInterface",

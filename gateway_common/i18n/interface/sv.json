@@ -29,6 +29,7 @@
 			"WikiPhoenix"
 		]
 	},
+	"combowiki-cover-fees": "Jag lägger till $1 för att täcka överföringsavgifterna så att ni kan behålla 100 % av min gåva.",
 	"donate_interface": "Stöd Wikimedia",
 	"donate_interface-desc": "Donationsmålsida som integrerar gateway-tillägg",
 	"donate_interface-langonly-desc": "Exponerar bara systemmeddelanden från DonationInterface",

@@ -24,6 +24,7 @@
 			"ZaDiak"
 		]
 	},
+	"combowiki-cover-fees": "Θα προσθέσω γενναιόδωρα $1 για να καλύψω τις χρεώσεις της συναλλαγής, ώστε να μπορείτε να διατηρήσετε το 100% της δωρεάς μου.",
 	"donate_interface": "Υποστηρίξτε το Wikimedia",
 	"donate_interface-desc": "Κύρια σελίδα δωρεών που ενσωματώνει προεκτάσεις πύλης",
 	"donate_interface-langonly-desc": "Εκθέτει μόνο μηνύματα του  συστήματος DonationInterface",

@@ -27,6 +27,7 @@
 			"Тест"
 		]
 	},
+	"combowiki-cover-fees": "Додати плату за переказ у розмірі $1 щоб ви отримали всю суму пожертви.",
 	"donate_interface": "Підтримайте Вікімедіа",
 	"donate_interface-desc": "Сторінка збору пожертв, яка інтегрує розширення-шлюзи",
 	"donate_interface-langonly-desc": "Видає лише повідомленні системи DonationInterface",

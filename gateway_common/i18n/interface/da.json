@@ -22,6 +22,7 @@
 			"Zilvador"
 		]
 	},
+	"combowiki-cover-fees": "Jeg ønsker at tilføje $1 til min donation for at dække transaktionsomkostninger, så det fulde beløb går til Wikimedia Foundation.",
 	"donate_interface": "Støt Wikimedia",
 	"donate_interface-desc": "Destinationsside for donationer, som integrerer gatewayudvidelser",
 	"donate_interface-langonly-desc": "Viser kun systembeskeder fra DonationInterface",

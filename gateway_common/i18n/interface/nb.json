@@ -20,6 +20,7 @@
 			"Zilvador"
 		]
 	},
+	"combowiki-cover-fees": "Jeg vil gi $1 ekstra for å dekke transaksjonsgebyrene, slik at dere kan beholde 100 % av gaven.",
 	"donate_interface": "Støtt Wikimedia",
 	"donate_interface-desc": "Donasjonsdestinasjonsside som integrerer gateway-utvidelser",
 	"donate_interface-langonly-desc": "Viser kun systemmeldinger for DonationInterface",

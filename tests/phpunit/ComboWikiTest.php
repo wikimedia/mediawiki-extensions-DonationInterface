@@ -7,6 +7,7 @@ use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use SmashPig\Core\Context;
 use SmashPig\Core\DataStores\QueueWrapper;
+use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Adyen\PaymentProvider as AdyenPaymentProvider;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
@@ -756,6 +757,11 @@ class ComboWikiTest extends DonationInterfaceTestCase {
 			'params',
 			$vars['comboWiki'],
 			'The App component is provided "params" from vars.comboWiki.params'
+		);
+		$this->assertSame(
+			CurrencyRoundingHelper::$noDecimalCurrencies,
+			$vars['DonationInterfaceNoDecimalCurrencies'],
+			'PaymentForm.vue rounds the suggested fee to whole units for currencies in this list'
 		);
 
 		// init.js does `vueApp.provide( 'params', comboWikiConfig.params )`, so every

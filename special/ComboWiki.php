@@ -21,6 +21,7 @@ use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
+use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
 /**
@@ -235,6 +236,7 @@ class ComboWiki extends UnlistedSpecialPage {
 			'gateway' => $this->selectedGateway,
 		];
 		$this->addCountriesConfig( $vars );
+		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
 		if ( !$this->adapter ) {
 			return;
