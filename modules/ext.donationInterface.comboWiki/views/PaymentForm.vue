@@ -5,10 +5,10 @@
 				<!-- Intro -->
 				<div class="gap--2">
 					<h1 class="heading heading--2">
-						Support Wikipedia, <em>your</em> daily source of trusted knowledge.
+						{{ $i18n( 'combowiki-intro-heading' ).text() }}
 					</h1>
 					<p class="text text--base">
-						Thanks for taking this step, your support matters! Sustain this great fountain of knowledge built by people, for people. Keep Wikipedia thriving.
+						{{ $i18n( 'combowiki-intro-text' ).text() }}
 					</p>
 				</div>
 

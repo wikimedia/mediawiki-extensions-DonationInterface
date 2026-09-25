@@ -36,6 +36,8 @@
 	"combowiki-title": "Page title for the ComboWiki single-page donation flow.\n{{Identical|Support Wikimedia}}",
 	"combowiki-frequency-heading": "Heading above the frequency selector (one-time/monthly/annual) on the ComboWiki donation form.",
 	"combowiki-frequency-annual": "Label for the annual/yearly recurring donation frequency option on the ComboWiki donation form.",
+	"combowiki-intro-heading": "Heading at the top of the donation form",
+	"combowiki-intro-text": "Text under the intro heading",
 	"combowiki-country-placeholder": "Placeholder text shown in the country dropdown before a country is selected on the ComboWiki donation form.",
 	"combowiki-currency-placeholder": "Placeholder text shown in the currency dropdown before a currency is selected on the ComboWiki donation form.",
 	"combowiki-cover-fees": "Label for the checkbox that lets the donor opt to also cover the transaction fees on the ComboWiki donation form.",
