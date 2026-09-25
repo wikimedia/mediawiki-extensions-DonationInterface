@@ -411,7 +411,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 
 		$createPaymentResponse = $paymentProvider->createPayment( $createPaymentParams );
 		if ( $createPaymentResponse->getGatewayTxnId() !== null ) {
-			$this->logger->info( "Returned Authorization ID {$createPaymentResponse->getGatewayTxnId()}" );
+			$this->logger->info( "Returned Gravy transaction ID {$createPaymentResponse->getGatewayTxnId()}" );
 		}
 
 		return $createPaymentResponse;
