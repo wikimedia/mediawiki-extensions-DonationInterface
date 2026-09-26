@@ -167,9 +167,8 @@ module.exports = exports = defineComponent( {
 	data() {
 		const urlParams = new URLSearchParams( window.location.search );
 		const countryCode = urlParams.get( 'country' ) || 'US';
-		const comboWikiConfig = mw.config.get( 'comboWiki', {} );
-		const initialCurrency = comboWikiConfig.params.currency || 'USD';
-		const countries = mw.config.get( 'wgDonationInterfaceCountries', {} );
+		const initialCurrency = this.params.currency || 'USD';
+		const countries = this.params.wgDonationInterfaceCountries || {};
 		return {
 			countries,
 			donation: {
@@ -186,7 +185,7 @@ module.exports = exports = defineComponent( {
 				optIn: null,
 				employer: null,
 				smsOptin: null,
-				gateway: comboWikiConfig.gateway || null,
+				gateway: this.params.gateway || null,
 				variant: this.params.variant || null
 			},
 			thankYouUrl: null,
@@ -208,7 +207,7 @@ module.exports = exports = defineComponent( {
 			return getAmountHeading( this.donation.frequency );
 		},
 		presetAmounts() {
-			const rates = mw.config.get( 'wgDonationInterfaceCurrencyRates', {} );
+			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
 			const currency = this.donation.currency;
 
 			if ( !currency || currency === 'USD' || !rates[ currency ] ) {
@@ -286,7 +285,7 @@ module.exports = exports = defineComponent( {
 			window.location.assign(
 				targetUrl ||
 					this.thankYouUrl ||
-					mw.config.get( 'DonationInterfaceThankYouPage' )
+					this.params.DonationInterfaceThankYouPage
 			);
 		},
 		onCountryChange( country ) {

@@ -46,6 +46,15 @@ const CONVERT_REFUSED = {
 
 async function mountModal() {
 	const wrapper = VueTestUtils.mount( RecurringConvert, {
+		global: {
+			provide: {
+				params: {
+					wgDonationInterfaceCurrencyRates: CURRENCY_RATES,
+					wgDonationInterfaceMonthlyConvertAmounts: CONVERT_AMOUNTS,
+					wgDonationInterfaceAmountRules: AMOUNT_RULES
+				}
+			}
+		},
 		props: {
 			donation: DONATION,
 			orderId: ORDER_ID,

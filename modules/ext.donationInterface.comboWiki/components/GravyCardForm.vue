@@ -60,6 +60,8 @@ module.exports = exports = defineComponent( {
 		'cdx-text-input': CdxTextInput
 	},
 
+	inject: [ 'params' ],
+
 	props: {
 		donation: {
 			type: Object,
@@ -150,7 +152,7 @@ module.exports = exports = defineComponent( {
 	},
 
 	mounted() {
-		const config = mw.config.get( 'gravyConfiguration' );
+		const config = this.params.gravyConfiguration;
 		const onSuccessfulSessionCreated = ( sessionId ) => {
 			this.setupSecureFields( config, sessionId );
 		};

@@ -44,7 +44,9 @@ const { defineComponent } = require( 'vue' );
 module.exports = exports = defineComponent( {
 	name: 'HeaderComponent',
 	setup() {
-		const assets_path = mw.config.get( 'assets_path' );
+		const { inject } = require( 'vue' );
+		const params = inject( 'params' );
+		const assets_path = params.assets_path;
 
 		return {
 			assets_path

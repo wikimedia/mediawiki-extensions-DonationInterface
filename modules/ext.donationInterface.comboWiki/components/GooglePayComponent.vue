@@ -10,6 +10,7 @@ let googlePaymentClient = null;
 module.exports = exports = defineComponent( {
 	name: 'GravyGoogleForm',
 	components: {},
+	inject: [ 'params' ],
 	props: {
 		donation: {
 			type: Object,
@@ -155,7 +156,7 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	created() {
-		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
+		this.gravyConfig = this.params.gravyConfiguration;
 	},
 	mounted() {
 		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );

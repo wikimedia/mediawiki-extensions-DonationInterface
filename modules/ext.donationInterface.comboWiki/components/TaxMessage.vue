@@ -7,6 +7,7 @@ const { defineComponent } = require( 'vue' );
 
 module.exports = exports = defineComponent( {
 	name: 'TaxMessage',
+	inject: [ 'params' ],
 
 	props: {
 		countryCode: {
@@ -26,7 +27,8 @@ module.exports = exports = defineComponent( {
 			if ( countryCode === 'US' ) {
 				return `<a href="${ this.tax_url }" target="_blank" class="link">${ this.$i18n( 'donate_interface-tax-info' ) }</a>`;
 			} else if ( countryCode === 'FR' ) {
-				const countryName = mw.config.get( 'wgDonationInterfaceCountries', {} )[ this.countryCode ].label || 'France';
+				const countryConfig = this.params.wgDonationInterfaceCountries[ this.countryCode ] || {};
+				const countryName = countryConfig.label || 'France';
 				return this.$i18n( 'donate_interface-taxded-msg-x', countryName, this.tax_url, this.problems_email ).text();
 			} else if ( countryCode === 'NL' ) {
 				return this.$i18n( 'donate_interface-taxded-msg-y', this.tax_url ).text();

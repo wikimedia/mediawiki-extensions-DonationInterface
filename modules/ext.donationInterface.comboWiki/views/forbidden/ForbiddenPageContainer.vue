@@ -26,12 +26,13 @@ module.exports = exports = defineComponent( {
 		DefaultForbiddenNotice
 	},
 
+	inject: [ 'params' ],
 	setup() {
 
 	},
 	computed: {
 		resolvedComponent() {
-			const viewType = mw.config.get( 'wgForbiddenViewType' );
+			const viewType = this.params.wgForbiddenViewType;
 			return componentMap[ viewType ] || DefaultForbiddenNotice;
 		}
 	}

@@ -130,6 +130,8 @@ module.exports = exports = defineComponent( {
 		'cdx-text-input': CdxTextInput
 	},
 
+	inject: [ 'params' ],
+
 	props: {
 		donation: { type: Object, required: true },
 		language: { type: String, default: 'en' },
@@ -149,9 +151,9 @@ module.exports = exports = defineComponent( {
 			originalAmount: Number( this.donation.amount ) || 0,
 			currency: this.donation.currency || 'USD',
 			country: this.donation.country || 'US',
-			currencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
-			convertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
-			amountRules: mw.config.get( 'wgDonationInterfaceAmountRules' )
+			currencyRates: this.params.wgDonationInterfaceCurrencyRates,
+			convertAmounts: this.params.wgDonationInterfaceMonthlyConvertAmounts,
+			amountRules: this.params.wgDonationInterfaceAmountRules
 		};
 	},
 

@@ -16,7 +16,7 @@
 <script>
 /* global ApplePaySession ApplePayError */
 
-const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
+const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
 
 let appleScriptPromise = null;
 
@@ -48,6 +48,7 @@ module.exports = exports = defineComponent( {
 	},
 	emits: [ 'presubmit', 'submit', 'error' ],
 	setup( props, ctx ) {
+		const params = inject( 'params' );
 		let appleSession = null;
 		let extraData = {};
 		let appleScriptSrc = null;
@@ -60,7 +61,7 @@ module.exports = exports = defineComponent( {
 			// Real eligibility can only be known once Apple's SDK has run - Gravy
 			// supports Apple Pay beyond native Safari, so window.ApplePaySession
 			// isn't trustworthy until after this resolves.
-			const config = mw.config.get( 'gravyConfiguration' );
+			const config = params.gravyConfiguration;
 			loadApplePayHelperScript()
 				.then( () => mw.donationInterface.forms.loadScript( config.appleScript ) )
 				.then( () => setupApplePayForm() )
@@ -107,7 +108,7 @@ module.exports = exports = defineComponent( {
 				mw.donationInterface.validation.showErrors( {
 					general: mw.message(
 						'donate_interface-error-msg-apple_pay_unsupported',
-						mw.config.get( 'DonationInterfaceOtherWaysURL' )
+						params.DonationInterfaceOtherWaysURL
 					).plain()
 				} );
 				mw.donationInterface.forms.addDebugMessage( 'Apple Pay unsupported: Unable to find ApplePaySession in browser' );

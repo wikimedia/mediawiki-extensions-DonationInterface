@@ -24,7 +24,9 @@ module.exports = exports = defineComponent( {
 	},
 
 	setup() {
-		const isForbidden = computed( () => !!( typeof mw !== 'undefined' && mw.config && mw.config.get( 'wgForbiddenViewType' ) ) );
+		const { inject } = require( 'vue' );
+		const params = inject( 'params' );
+		const isForbidden = computed( () => !!params.wgForbiddenViewType );
 
 		return {
 			isForbidden
