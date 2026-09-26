@@ -82,8 +82,6 @@
 					}"
 				></payment-method-form>
 
-				<br>
-
 				<tax-message :country-code="donation.country"></tax-message>
 				<we-do-not-sell-text></we-do-not-sell-text>
 				<more-info-links text-class="combo-wiki__link-container"></more-info-links>

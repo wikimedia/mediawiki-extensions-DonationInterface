@@ -1,26 +1,30 @@
 <template>
-	<!--    Payment method form component-->
-	<div>
-		<h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
-
-		<cdx-button
-			v-for="method in availablePaymentMethods"
-			:key="method"
-			:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
-			:disabled="disabled"
-			@click="selectPaymentMethod( method )"
-		>
-			{{ paymentMethodConfig[method].label }}
-		</cdx-button>
-		<br>
-		<component
-			:is="paymentMethodConfig[paymentMethod].component"
-			v-if="paymentMethodConfig[paymentMethod]"
-			:donation="donation"
-			@submit="paymentMethodConfig[paymentMethod].submit"
-			@error="paymentMethodConfig[paymentMethod].error"
-			@presubmit="paymentMethodConfig[paymentMethod].presubmit"
-		></component>
+	<!-- Payment method form component -->
+	<div class="fieldset gap--3">
+		<div class="fieldset__label">
+			<p class="text text--base">
+				<strong>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</strong>
+			</p>
+		</div>
+		<div>
+			<cdx-button
+				v-for="method in availablePaymentMethods"
+				:key="method"
+				:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
+				:disabled="disabled"
+				@click="selectPaymentMethod( method )"
+			>
+				{{ paymentMethodConfig[method].label }}
+			</cdx-button>
+			<component
+				:is="paymentMethodConfig[paymentMethod].component"
+				v-if="paymentMethodConfig[paymentMethod]"
+				:donation="donation"
+				@submit="paymentMethodConfig[paymentMethod].submit"
+				@error="paymentMethodConfig[paymentMethod].error"
+				@presubmit="paymentMethodConfig[paymentMethod].presubmit"
+			></component>
+		</div>
 	</div>
 </template>
 
