@@ -1,10 +1,8 @@
 <template>
 	<div class="combo-wiki">
+		<header-component></header-component>
 		<forbidden-container v-if="isForbidden"></forbidden-container>
-		<div v-else>
-			<header-component></header-component>
-			<payment-form></payment-form>
-		</div>
+		<payment-form v-else></payment-form>
 	</div>
 </template>
 
