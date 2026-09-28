@@ -37,7 +37,6 @@
 	"combowiki-amount-heading-once": "Heading above the amount selector for a one-time donation",
 	"combowiki-amount-heading-monthly": "Heading above the amount selector for a monthly donation",
 	"combowiki-amount-heading-annual": "Heading above the amount selector for an annual/yearly donation",
-	"combowiki-frequency-heading": "Heading above the frequency selector (one-time/monthly/annual) on the ComboWiki donation form.",
 	"combowiki-frequency-annual": "Label for an annual/yearly recurring donation option on the frequency selector.",
 	"combowiki-frequency-monthly": "Label for a monthly recurring donation option on the frequency selector",
 	"combowiki-frequency-once": "Label for a one-time donation on the frequency selector",
