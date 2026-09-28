@@ -105,13 +105,13 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * Validate the requested country code, falling back to the GeoIP country,
-	 * then to US, so later steps always have a valid uppercase ISO code.
+	 * Validate the requested or session country code, falling back to the GeoIP
+	 * country, then to US, so later steps always have a valid uppercase ISO code.
 	 */
 	protected function normalizeCountry(): void {
-		if ( $this->skipNormalization( 'country' ) ) {
-			return;
-		}
+		// Country is validated whatever its source, so skipNormalization() is not
+		// used here: it would trust any session value, and the legacy forms share
+		// the Donor session and store 'XX' when they cannot find a country.
 		if ( $this->dataObject->isValueSet( 'country' ) ) {
 			$country = $this->dataObject->getValue( 'country' );
 			$countryUppercase = strtoupper( $country );

@@ -40,9 +40,8 @@ class ComboWikiDataNormalizerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * The source matters: skipNormalization() only normalizes values that came
-	 * from the request ('get' or 'post'). Anything else, such as 'session', is
-	 * trusted as already normalized and left alone.
+	 * The source is set so cases can model a country from the URL ('get') or
+	 * from an earlier page load ('session'). normalizeCountry() validates both.
 	 *
 	 * user_ip is set so normalizeIpCountry() reaches the GeoIP lookup.
 	 */
@@ -92,9 +91,16 @@ class ComboWikiDataNormalizerTest extends MediaWikiIntegrationTestCase {
 			// What happens on localhost, where GeoIP always fails.
 			'no country and no GeoIP defaults to US' => [ null, 'get', null, 'US', 'USD' ],
 
-			// A session country was normalized on an earlier page load, so GeoIP
-			// is not consulted even though it gives a different answer.
+			// A valid session country wins, so GeoIP is not consulted even though
+			// it gives a different answer.
 			'session country is kept' => [ 'DE', 'session', 'GB', 'DE', 'EUR' ],
+
+			// Session values are validated too: sessions saved before countries were
+			// uppercased can hold lowercase codes, and the legacy forms share the
+			// Donor session and store XX when they cannot find a country.
+			'lowercase session country is uppercased' => [ 'fr', 'session', null, 'FR', 'EUR' ],
+			'placeholder XX in session falls back to GeoIP' => [ 'XX', 'session', 'GB', 'GB', 'GBP' ],
+			'placeholder XX in session and no GeoIP defaults to US' => [ 'XX', 'session', null, 'US', 'USD' ],
 		];
 	}
 }
