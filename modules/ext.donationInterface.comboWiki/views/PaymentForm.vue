@@ -103,13 +103,15 @@
 				></recurring-convert>
 			</section>
 			<aside class="combo-wiki__appeal">
-				<p>
-					Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
-					{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-					{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
-				</p>
-				<p> Debug - Donation: {{ donation }}</p>
-				<p> Debug Request Params - {{ params }} </p>
+				<template v-if="showDebug">
+					<p>
+						Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
+						{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
+						{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
+					</p>
+					<p> Debug - Donation: {{ donation }}</p>
+					<p> Debug Request Params - {{ params }} </p>
+				</template>
 			</aside>
 		</div>
 	</main>
@@ -189,6 +191,7 @@ module.exports = exports = defineComponent( {
 				variant: this.params.variant || null
 			},
 			thankYouUrl: null,
+			showDebug: false,
 			supportedCountries: [
 				'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
 				'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
@@ -348,6 +351,8 @@ module.exports = exports = defineComponent( {
 	},
 	mounted() {
 		const urlParams = new URLSearchParams( window.location.search );
+		// ?debug=1 shows the donation and params dump below the form, for local testing
+		this.showDebug = urlParams.get( 'debug' ) === '1';
 		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
 			this.appState.setShowRecurringConvert( true );
 		}
