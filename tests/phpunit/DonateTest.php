@@ -51,6 +51,11 @@ class DonateTest extends DonationInterfaceTestCase {
 				'dlocal' => 'DlocalAdapter',
 				'gravy' => 'GravyAdapter',
 			],
+			// Let ComboWiki use every gateway above, so these tests cover gateway choice
+			// rather than the Gravy-only default.
+			'DonationInterfaceComboWikiGateways' => [
+				'ingenico', 'amazon', 'adyen', 'paypal_ec', 'braintree', 'dlocal', 'gravy',
+			],
 			'DonationInterfaceGatewayPriorityRules' => [
 				[
 					'conditions' => [ 'payment_method' => 'cc' ],
@@ -227,6 +232,26 @@ class DonateTest extends DonationInterfaceTestCase {
 		] );
 
 		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields'] );
+	}
+
+	/**
+	 * The page gets the payment methods available in the donor's country.
+	 * With ComboWiki using Gravy only, card and PayPal are offered in the US and GB,
+	 * and Venmo only in the US, as Gravy's country rules for Venmo allow only the US.
+	 */
+	public function testClientVariablesListPaymentMethodsForCountry(): void {
+		$this->overrideConfigValues( [ 'DonationInterfaceComboWikiGateways' => [ 'gravy' ] ] );
+
+		$gatewayByMethodInUs = $this->getPaymentMethodsSentToPage( 'US', 'USD' );
+		$gatewayByMethodInGb = $this->getPaymentMethodsSentToPage( 'GB', 'GBP' );
+
+		$this->assertSame( 'gravy', $gatewayByMethodInUs['cc'], 'US donors can pay by card via Gravy' );
+		$this->assertSame( 'gravy', $gatewayByMethodInUs['paypal'], 'US donors can pay by PayPal via Gravy' );
+		$this->assertSame( 'gravy', $gatewayByMethodInUs['venmo'], 'US donors can pay by Venmo via Gravy' );
+
+		$this->assertSame( 'gravy', $gatewayByMethodInGb['cc'], 'GB donors can pay by card via Gravy' );
+		$this->assertSame( 'gravy', $gatewayByMethodInGb['paypal'], 'GB donors can pay by PayPal via Gravy' );
+		$this->assertArrayNotHasKey( 'venmo', $gatewayByMethodInGb, 'GB donors are not offered Venmo' );
 	}
 
 	public function testAdapterInitializationDoesNotDuplicateContributionTrackingRecord(): void {
@@ -926,6 +951,21 @@ class DonateTest extends DonationInterfaceTestCase {
 		$vars = $this->executeAndGetClientVariables( $params );
 
 		$this->assertEquals( $expectedGateway, $vars['comboWiki']['gateway'] );
+	}
+
+	/**
+	 * Load the page for a one-time card donor in the given country, and return the
+	 * payment methods sent to the page as [ payment method => gateway ].
+	 */
+	private function getPaymentMethodsSentToPage( string $country, string $currency ): array {
+		$clientVariables = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => $country,
+			'currency' => $currency,
+			'recurring' => '0',
+		] );
+
+		return array_column( $clientVariables['comboWiki']['paymentMethods'], 'gateway', 'method' );
 	}
 
 	private function executeAndGetClientVariables( array $params ): array {

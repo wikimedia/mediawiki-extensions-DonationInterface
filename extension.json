@@ -1335,6 +1335,9 @@
 				}
 			]
 		},
+		"DonationInterfaceComboWikiGateways": {
+			"value": [ "gravy" ]
+		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false
 		},

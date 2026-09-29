@@ -54,6 +54,9 @@ class Donate extends UnlistedSpecialPage {
 	/** @var string|null The gateway chosen for this request, if any. */
 	private ?string $selectedGateway = null;
 
+	/** @var array[] Payment methods offered on this page, as [ 'method' => string, 'gateway' => string ] */
+	private array $supportedPaymentMethods = [];
+
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
 		protected readonly GatewayRouter $gatewayRouter,
@@ -107,6 +110,12 @@ class Donate extends UnlistedSpecialPage {
 			'language' => $this->dataObject->getValue( 'language', $this->getLanguage()->getCode() ),
 			'gateway' => $this->dataObject->getValue( 'gateway' ),
 		];
+
+		$this->supportedPaymentMethods = $this->gatewayRouter->getSupportedPaymentMethods(
+			$wmfConfig->get( 'DonationInterfaceComboWikiGateways' ),
+			$this->routingParams,
+			$this->logger
+		);
 
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
 
@@ -249,6 +258,7 @@ class Donate extends UnlistedSpecialPage {
 			'language' => $this->routingParams['language'],
 			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
+			'paymentMethods' => $this->supportedPaymentMethods,
 		];
 		$this->addCountriesConfig( $vars );
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
@@ -286,34 +296,32 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceOtherWaysURL'] = $otherWaysURL;
 	}
 
+	/**
+	 * Choose the gateway whose client config this page loads.
+	 *
+	 * The page loads one gateway, so pick it from the payment methods on offer:
+	 * the requested gateway if it handles any of them, otherwise the gateway of
+	 * the requested payment method, otherwise the gateway for card.
+	 *
+	 * @param array $params
+	 * @return string|null
+	 */
 	private function chooseGateway( array $params ): ?string {
-		$supportedGateways = $this->gatewayRouter->getSupportedGateways(
-			$params['country'],
-			$params['currency'],
-			$params['payment_method'],
-			$params['payment_submethod'],
-			(bool)$params['recurring'],
-			$params['variant']
-		);
+		$gatewayByMethod = array_column( $this->supportedPaymentMethods, 'gateway', 'method' );
 
-		if ( count( $supportedGateways ) === 0 ) {
-			$this->logger->error( __FUNCTION__ . ': No supported gateway for parameters: ' . print_r( $params, true ) );
+		if ( !$gatewayByMethod ) {
+			$this->logger->error( 'No supported payment methods for parameters: ' . print_r( $params, true ) );
+
 			return null;
 		}
 
-		if ( $params['gateway'] && in_array( $params['gateway'], $supportedGateways, true ) ) {
+		if ( $params['gateway'] && in_array( $params['gateway'], $gatewayByMethod, true ) ) {
 			return $params['gateway'];
 		}
 
-		if ( count( $supportedGateways ) === 1 ) {
-			return $supportedGateways[0];
-		}
-
-		return $this->gatewayRouter->chooseGatewayByPriority(
-			$supportedGateways,
-			$params,
-			$this->logger
-		);
+		return $gatewayByMethod[$params['payment_method']]
+			?? $gatewayByMethod['cc']
+			?? $this->supportedPaymentMethods[0]['gateway'];
 	}
 
 	/**
