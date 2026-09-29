@@ -384,7 +384,7 @@ module.exports = exports = defineComponent( {
 			// Store backend-generated Thank-You page URL for modal usage
 			this.thankYouUrl = response.thankYouPage || response.redirect;
 
-			if ( this.donation.frequency === 'once' && !response.iframe ) {
+			if ( this.donation.frequency === 'once' && !response.redirect ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
 				this.redirectTargetUrl( response.redirect );
