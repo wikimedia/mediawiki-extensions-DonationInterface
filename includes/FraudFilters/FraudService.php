@@ -11,6 +11,7 @@ class FraudService {
 	public const OUTCOME_AUTH_DECLINE = 1;
 	public const OUTCOME_PROCESSOR_FLAGGED_FRAUD = 2;
 	public const OUTCOME_BLOCKED_BY_FILTER = 4;
+	public const OUTCOME_AUTH_SUCCESS = 8;
 
 	protected string $serviceBaseURL;
 
@@ -70,7 +71,7 @@ class FraudService {
 		return 0;
 	}
 
-	public function markOutcome( string $orderID, int $flags = 0 ): array {
+	public function markOutcome( string $orderID, int $flags, ?string $backendProcessor, ?string $errorCategory, ?string $rawErrorMessage ): array {
 		if ( !$this->serviceBaseURL ) {
 			return [ 'success' => true ];
 		}
@@ -85,6 +86,18 @@ class FraudService {
 		}
 		if ( $flags & self::OUTCOME_BLOCKED_BY_FILTER ) {
 			$payload['blocked_by_filter'] = 1;
+		}
+		if ( $flags & self::OUTCOME_AUTH_SUCCESS ) {
+			$payload['auth_success'] = 1;
+		}
+		if ( $backendProcessor ) {
+			$payload['backend_processor'] = $backendProcessor;
+		}
+		if ( $errorCategory ) {
+			$payload['error_category'] = $errorCategory;
+		}
+		if ( $rawErrorMessage ) {
+			$payload['raw_error_message'] = $rawErrorMessage;
 		}
 		$url = $this->serviceBaseURL . '/v1/outcome';
 		try {

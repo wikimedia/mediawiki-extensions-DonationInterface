@@ -15,14 +15,13 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -51,7 +50,10 @@ class ComboWiki extends UnlistedSpecialPage {
 	private ?string $selectedGateway = null;
 	private DonationDetails $dataObject;
 
-	public function __construct() {
+	public function __construct(
+		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
+		protected readonly GatewayRouter $gatewayRouter
+	) {
 		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
 		parent::__construct( 'ComboWiki' );
 	}
@@ -63,14 +65,14 @@ class ComboWiki extends UnlistedSpecialPage {
 	 */
 	public function execute( $subPage ): void {
 		$request = $this->getRequest();
-		$wmfConfig = MediaWikiServices::getInstance()->getMainConfig();
+		$wmfConfig = $this->getConfig();
 		$dataIntegrator = new DataIntegrator( $request, new DonationDetails() );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
 		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
 		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
 
-		$country = $this->dataObject->getValue( 'country', 'US' );
+		$country = $this->dataObject->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
 		if ( ForbiddenCountryRegistry::isForbidden( $country ) ) {
@@ -250,17 +252,23 @@ class ComboWiki extends UnlistedSpecialPage {
 		if ( method_exists( $this, $configMethod ) ) {
 			$this->$configMethod( $vars );
 		}
+
+		$otherWaysURL = $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ?? '';
+		$language = $this->routingParams['language'];
+		$country = $this->routingParams['country'];
+		$otherWaysURL = str_replace( '$language', $language, $otherWaysURL );
+		$otherWaysURL = str_replace( '$country', $country, $otherWaysURL );
+		$vars['DonationInterfaceOtherWaysURL'] = $otherWaysURL;
 	}
 
 	private function chooseGateway( array $params ): ?string {
-		$supportedGateways = GatewayRouter::getSupportedGateways(
+		$supportedGateways = $this->gatewayRouter->getSupportedGateways(
 			$params['country'],
 			$params['currency'],
 			$params['payment_method'],
 			$params['payment_submethod'],
 			(bool)$params['recurring'],
-			$params['variant'],
-			$this->getConfig()
+			$params['variant']
 		);
 
 		if ( count( $supportedGateways ) === 0 ) {
@@ -277,10 +285,9 @@ class ComboWiki extends UnlistedSpecialPage {
 			return $supportedGateways[0];
 		}
 
-		return GatewayRouter::chooseGatewayByPriority(
+		return $this->gatewayRouter->chooseGatewayByPriority(
 			$supportedGateways,
 			$params,
-			$this->getConfig(),
 			$this->logger
 		);
 	}
@@ -354,40 +361,20 @@ class ComboWiki extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Cache country list from all supported gateways and add to client config
+	 * Build country list from all supported gateways and add to client config
 	 * @param array &$vars
 	 * @return void
 	 */
 	private function addCountriesConfig( array &$vars ): void {
-		$cache = MediaWikiServices::getInstance()->getMainWANObjectCache();
-
-		$cacheKey = $cache->makeKey(
-			'combowiki', 'countriesenabledlist'
-		);
-
-		$countries = $cache->getWithSetCallback(
-			$cacheKey,
-			$cache::TTL_DAY,
-			function () {
-				return $this->buildCountriesConfig();
-			}
-		);
-
-		$vars['wgDonationInterfaceCountries'] = $countries;
-	}
-
-	private function buildCountriesConfig(): array {
 		$countries = [];
 		$rawCountries = [];
 
-		$supportedGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		$enabledConfigurations = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
+			$this->routingParams['variant']
+		);
 
-		foreach ( $supportedGateways as $gateway ) {
-			$filePath = __DIR__ . "/../" . $gateway . "_gateway/config/countries.yaml";
-
-			if ( file_exists( $filePath ) ) {
-				$rawCountries[] = Yaml::parseFile( $filePath );
-			}
+		foreach ( $enabledConfigurations  as $gateway => $config ) {
+			$rawCountries[] = $config['countries'];
 		}
 
 		$rawCountries = array_map(
@@ -411,7 +398,7 @@ class ComboWiki extends UnlistedSpecialPage {
 			];
 		}
 
-		return $countries;
+		$vars['wgDonationInterfaceCountries'] = $countries;
 	}
 
 	/**

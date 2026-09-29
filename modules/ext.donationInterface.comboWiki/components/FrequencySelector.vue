@@ -1,24 +1,22 @@
 <template>
 	<div class="combo-wiki__frequency">
-		<cdx-button
-			v-for="option in options"
-			:key="option.value"
-			:class="{ 'combo-wiki__option--selected': modelValue === option.value }"
-			@click="$emit( 'update:modelValue', option.value )"
-		>
-			{{ option.label }}
-		</cdx-button>
+		<cdx-toggle-button-group
+			:model-value="modelValue"
+			:buttons="options"
+			@update:model-value="$emit( 'update:modelValue', $event )"
+		></cdx-toggle-button-group>
 	</div>
 </template>
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxButton } = require( '@wikimedia/codex' );
+const { CdxToggleButtonGroup } = require( '@wikimedia/codex' );
+const { getFrequencyOptions } = require( '../frequencyOptions.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'FrequencySelector',
 	components: {
-		'cdx-button': CdxButton
+		'cdx-toggle-button-group': CdxToggleButtonGroup
 	},
 	props: {
 		modelValue: {
@@ -29,11 +27,7 @@ module.exports = exports = defineComponent( {
 	emits: [ 'update:modelValue' ],
 	computed: {
 		options() {
-			return [
-				{ value: 'once', label: this.$i18n( 'donate_interface-onetime-short' ).text() },
-				{ value: 'monthly', label: this.$i18n( 'donate_interface-monthly-short' ).text() },
-				{ value: 'annual', label: this.$i18n( 'combowiki-frequency-annual' ).text() }
-			];
+			return getFrequencyOptions();
 		}
 	}
 } );

@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Parser\Sanitizer;
 use MediaWiki\Session\SessionManager;
@@ -106,9 +105,5 @@ class WmfFramework {
 
 	public static function sanitize( string $text ): string {
 		return wfEscapeWikiText( $text );
-	}
-
-	public static function getConfig(): Config {
-		return \MediaWiki\MediaWikiServices::getInstance()->getMainConfig();
 	}
 }

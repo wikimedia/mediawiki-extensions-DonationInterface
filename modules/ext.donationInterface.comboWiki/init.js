@@ -9,8 +9,27 @@ const vueApp = Vue.createMwApp( App );
 const { loadVariantModuleComponents } = require( './variantHelper.js' );
 
 // Cross the mw.config boundary once, here — components below never touch mw.config directly.
-const comboWikiConfig = mw.config.get( 'comboWiki' );
-vueApp.provide( 'params', comboWikiConfig.params );
+const comboWikiConfig = mw.config.get( 'comboWiki' ) || { params: {} };
+const params = Object.assign( {}, comboWikiConfig.params, {
+	gateway: comboWikiConfig.gateway,
+	language: comboWikiConfig.language,
+	assets_path: mw.config.get( 'assets_path' ),
+	wgDonationInterfaceCountries: mw.config.get( 'wgDonationInterfaceCountries' ),
+	wgDonationInterfaceCurrencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
+	DonationInterfaceThankYouPage: mw.config.get( 'DonationInterfaceThankYouPage' ),
+	wgForbiddenViewType: mw.config.get( 'wgForbiddenViewType' ),
+	wmf_token: mw.config.get( 'wmf_token' ),
+	wgUserLanguage: mw.config.get( 'wgUserLanguage' ),
+	adyenConfiguration: mw.config.get( 'adyenConfiguration' ),
+	gravyConfiguration: mw.config.get( 'gravyConfiguration' ),
+	script_path: mw.config.get( 'script_path' ),
+	DonationInterfaceOtherWaysURL: mw.config.get( 'DonationInterfaceOtherWaysURL' ),
+	wgDonationInterfaceMonthlyConvertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
+	wgDonationInterfaceAmountRules: mw.config.get( 'wgDonationInterfaceAmountRules' )
+} );
+vueApp.provide( 'params', params );
+
+require( './api.js' ).init( params );
 
 // load variant component
 loadVariantModuleComponents( vueApp, comboWikiConfig.params.variant );

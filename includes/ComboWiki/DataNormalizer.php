@@ -94,7 +94,7 @@ class DataNormalizer implements LogPrefixProvider {
 		if ( !$ipCountry ) {
 			// Try to do GeoIP lookup using Maxmind's SDK
 			$ip = $this->dataObject->getValue( 'user_ip' );
-			$ipCountry = CountryValidation::lookUpCountry( $ip );
+			$ipCountry = $this->lookUpIpCountry( $ip );
 			if ( $ipCountry && !CountryValidation::isValidIsoCode( $ipCountry ) ) {
 				$this->logger->warning(
 					"GeoIP lookup returned bogus code '$ipCountry'! No country available."
@@ -105,7 +105,8 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * Validate country code valueset and set to a 'default' value if not valid.
+	 * Validate the requested country code, falling back to the GeoIP country,
+	 * then to US, so later steps always have a valid uppercase ISO code.
 	 */
 	protected function normalizeCountry(): void {
 		if ( $this->skipNormalization( 'country' ) ) {
@@ -115,7 +116,9 @@ class DataNormalizer implements LogPrefixProvider {
 			$country = $this->dataObject->getValue( 'country' );
 			$countryUppercase = strtoupper( $country );
 			if ( CountryValidation::isValidIsoCode( $countryUppercase ) ) {
-				// If we have a valid country code, we're done with validation.
+				// Store the uppercase form: gateway selection, currency lookup and the
+				// Vue form all compare against uppercase ISO codes.
+				$this->dataObject->setValue( 'country', $countryUppercase );
 				return;
 			} else {
 				// TODO: Is this logic still needed for logging only?
@@ -128,9 +131,17 @@ class DataNormalizer implements LogPrefixProvider {
 				}
 			}
 		}
-		$this->logger->warning( __FUNCTION__ . ': Country not set in DonationDetails data object.' );
-		// TODO: we used to set 'XX' as default country code if none found, should we restore that?
-		$this->dataObject->setValue( 'country', $this->dataObject->getValue( 'ip_country' ) );
+
+		$ipCountry = $this->dataObject->getValue( 'ip_country' );
+		if ( CountryValidation::isValidIsoCode( $ipCountry ) ) {
+			$this->dataObject->setValue( 'country', $ipCountry );
+			return;
+		}
+
+		// Default to US rather than the old 'XX' placeholder, so GatewayRouter and the donation form
+		// always have a real country to work with
+		$this->logger->warning( __FUNCTION__ . ': No valid country from request, session or GeoIP, defaulting to US.' );
+		$this->dataObject->setValue( 'country', 'US' );
 	}
 
 	/**
@@ -336,5 +347,17 @@ class DataNormalizer implements LogPrefixProvider {
 		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
 		$contributionTrackingId = $this->contributionTrackingId;
 		return "$thisClassName:$contributionTrackingId ";
+	}
+
+	/**
+	 * Extracted out so it can be used as a seam for testing
+	 * https://martinfowler.com/bliki/LegacySeam.html
+	 *
+	 * @param string $ip
+	 *
+	 * @return string|null
+	 */
+	protected function lookUpIpCountry( string $ip ): ?string {
+		return CountryValidation::lookUpCountry( $ip );
 	}
 }

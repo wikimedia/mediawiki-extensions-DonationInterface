@@ -75,6 +75,11 @@ const mw = {
 		getUrl: jest.fn(),
 		isInfinity: jest.fn()
 	},
+	html: {
+		escape: jest.fn( ( s ) => String( s ).replace( /['"<>&]/g, ( c ) => ( {
+			'\'': '&#039;', '"': '&quot;', '<': '&lt;', '>': '&gt;', '&': '&amp;'
+		} )[ c ] ) )
+	},
 	Rest: RestMock
 	// Add more mw properties as needed…
 };

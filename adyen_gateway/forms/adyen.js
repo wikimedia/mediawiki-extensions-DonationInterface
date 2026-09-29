@@ -1,5 +1,6 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
+	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
 	// promise objects are for Apple Pay - see comments below
 	let checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
@@ -84,7 +85,7 @@
 						let bContact = event.payment.billingContact,
 							sContact = event.payment.shippingContact,
 							extraData = {};
-						extraData = mw.donationInterface.forms.apple.getBestApplePayContactName( extraData, bContact, sContact );
+						extraData = getBestApplePayContactName( extraData, bContact, sContact );
 						extraData.postal_code = bContact.postalCode;
 						extraData.state_province = bContact.administrativeArea;
 						extraData.city = bContact.locality;

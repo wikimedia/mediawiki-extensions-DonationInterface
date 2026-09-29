@@ -1,92 +1,119 @@
 <template>
-	<main class="combo-wiki__home">
-		<h2>{{ $i18n( 'combowiki-frequency-heading' ).text() }}</h2>
+	<main class="combo-wiki__wrapper">
+		<div class="combo-wiki__container">
+			<section class="combo-wiki__form">
+				<!-- Intro -->
+				<div class="gap--2">
+					<h1 class="heading heading--2">
+						{{ $i18n( 'combowiki-intro-heading' ).text() }}
+					</h1>
+					<p class="text text--base">
+						{{ $i18n( 'combowiki-intro-text' ).text() }}
+					</p>
+				</div>
 
-		<frequency-selector v-model="donation.frequency"></frequency-selector>
+				<!-- Frequency Selector -->
+				<div class="fieldset gap--3">
+					<frequency-selector v-model="donation.frequency"></frequency-selector>
+				</div>
 
-		<div>
-			<!-- Country selection -->
-			<cdx-select
-				v-model:selected="donation.country"
-				:menu-items="countryOptions"
-				:default-label="$i18n( 'combowiki-country-placeholder' ).text()"
-				@update:selected="onCountryChange"
-			>
-			</cdx-select>
+				<!-- Amount Selector -->
+				<div class="fieldset gap--3">
+					<!-- Label -->
+					<div class="fieldset__label">
+						<p class="text text--base">
+							<strong>{{ amountHeading }}</strong>
+						</p>
+						<!-- Country>Currency selection -->
+						<cdx-select
+							v-model:selected="donation.country"
+							:menu-items="countryOptions"
+							:default-label="$i18n( 'combowiki-country-placeholder' ).text()"
+							@update:selected="onCountryChange"
+						>
+						</cdx-select>
+					</div>
+					<!-- Button Stack -->
+					<div class="fiedlset__button-grid">
+						<!-- Fixed Amounts -->
+						<cdx-button
+							v-for="amount in presetAmounts"
+							:key="amount"
+							:weight="donation.amount === amount ? 'primary' : 'normal'"
+							:class="{ 'combo-wiki__option--selected': Number( donation.amount ) === amount }"
+							@click="selectAmount( amount )"
+						>
+							{{ formattedAmount( amount ) }}
+						</cdx-button>
+						<!-- Custom Amount -->
+						<cdx-text-input
+							v-model="donation.amount"
+							input-type="number"
+							:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
+						>
+						</cdx-text-input>
+					</div>
+					<!-- Pay the fee -->
+					<cdx-checkbox v-model="donation.payFee">
+						{{ $i18n( 'combowiki-cover-fees' ).text() }}
+					</cdx-checkbox>
+				</div>
 
-			<!-- Amount -->
-			<cdx-button
-				v-for="amount in presetAmounts"
-				:key="amount"
-				:weight="donation.amount === amount ? 'primary' : 'normal'"
-				:class="{ 'combo-wiki__option--selected': Number( donation.amount ) === amount }"
-				@click="selectAmount( amount )"
-			>
-				{{ formattedAmount( amount ) }}
-			</cdx-button>
+				<!-- Email opt-in -->
+				<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
 
-			<!-- Custom Amount -->
-			<cdx-text-input
-				v-model="donation.amount"
-				input-type="number"
-				:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
-			>
-			</cdx-text-input>
+				<!-- Employer -->
+				<employer-field v-model="donation.employer"></employer-field>
 
-			<!-- Pay the fee -->
-			<cdx-checkbox v-model="donation.payFee">
-				{{ $i18n( 'combowiki-cover-fees' ).text() }}
-			</cdx-checkbox>
+				<!-- Sms Optin -->
+				<sms-optin
+					v-if="showSmsOptin"
+					v-model:phone="donation.phone"
+					v-model:sms-optin="donation.smsOptin"
+				></sms-optin>
+
+				<payment-method-form
+					:donation="donation"
+					:disabled="!giftComplete"
+					@donation-success="handleDonateResult"
+					@donation-error="handleDonateError"
+					@on-payment-method-change="( method ) => {
+						donation.paymentMethod = method
+					}"
+				></payment-method-form>
+
+				<br>
+
+				<tax-message :country-code="donation.country"></tax-message>
+				<we-do-not-sell-text></we-do-not-sell-text>
+				<more-info-links text-class="combo-wiki__link-container"></more-info-links>
+				<loading-spinner></loading-spinner>
+				<error-display></error-display>
+
+				<!-- Recurring Convert Modal -->
+				<recurring-convert
+					v-if="appState.showRecurringConvert.value"
+					:donation="donation"
+					:language="params.language || 'en'"
+					:order-id="params.order_id || ''"
+					:utm-token="params.utm_token || ''"
+					:thank-you-url="thankYouUrl"
+					@close="redirectTargetUrl"
+					@recurring-convert-submit="submitPreModalDonation"
+				></recurring-convert>
+			</section>
+			<aside class="combo-wiki__appeal">
+				<template v-if="showDebug">
+					<p>
+						Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
+						{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
+						{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
+					</p>
+					<p> Debug - Donation: {{ donation }}</p>
+					<p> Debug Request Params - {{ params }} </p>
+				</template>
+			</aside>
 		</div>
-
-		<!-- Email opt-in -->
-		<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
-
-		<!-- Employer -->
-		<employer-field v-model="donation.employer"></employer-field>
-
-		<!-- Sms Optin -->
-		<sms-optin
-			v-if="showSmsOptin"
-			v-model:phone="donation.phone"
-			v-model:sms-optin="donation.smsOptin"
-		></sms-optin>
-
-		<!-- Payment methods -->
-		<payment-method-form
-			:donation="donation"
-			:disabled="!giftComplete"
-			@donation-success="handleDonateResult"
-			@donation-error="handleDonateError"
-			@on-payment-method-change="( method ) => {
-				donation.paymentMethod = method
-			}"
-		></payment-method-form>
-		<br>
-		<p>
-			Debug - Frequency: {{ donation.frequency || "nothing yet" }} / {{ donation.currency }} {{ donation.amount || "no amount" }} / Fee:
-			{{ feeAmount }} / Email Opt-in:{{ donation.optIn }} / Payment Method:
-			{{ donation.paymentMethod }} / Employer: {{ donation.employer }} / Gateway: {{ donation.gateway }}
-		</p>
-		<p> Debug - Donation: {{ donation }}</p>
-		<p> Debug Request Params - {{ params }} </p>
-		<tax-message :country-code="donation.country"></tax-message>
-		<we-do-not-sell-text></we-do-not-sell-text>
-		<more-info-links text-class="combo-wiki__link-container"></more-info-links>
-		<loading-spinner></loading-spinner>
-		<error-display></error-display>
-
-		<!-- Recurring Convert Modal -->
-		<recurring-convert
-			v-if="appState.showRecurringConvert.value"
-			:donation="donation"
-			:language="params.language || 'en'"
-			:order-id="params.order_id || ''"
-			:utm-token="params.utm_token || ''"
-			:thank-you-url="thankYouUrl"
-			@close="redirectTargetUrl"
-			@recurring-convert-submit="submitPreModalDonation"
-		></recurring-convert>
 	</main>
 </template>
 
@@ -111,6 +138,7 @@ const EmployerField = require( '../components/EmployerField.vue' );
 const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
+const { getAmountHeading } = require( '../frequencyOptions.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -139,11 +167,8 @@ module.exports = exports = defineComponent( {
 		return { appState };
 	},
 	data() {
-		const urlParams = new URLSearchParams( window.location.search );
-		const countryCode = urlParams.get( 'country' ) || 'US';
-		const comboWikiConfig = mw.config.get( 'comboWiki', {} );
-		const initialCurrency = comboWikiConfig.params.currency || 'USD';
-		const countries = mw.config.get( 'wgDonationInterfaceCountries', {} );
+		const initialCurrency = this.params.currency || 'USD';
+		const countries = this.params.wgDonationInterfaceCountries || {};
 		return {
 			countries,
 			donation: {
@@ -155,15 +180,16 @@ module.exports = exports = defineComponent( {
 				currency: initialCurrency,
 				payFee: false,
 				phone: null,
-				country: countryCode.toUpperCase(),
+				country: this.params.country,
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
 				smsOptin: null,
-				gateway: comboWikiConfig.gateway || null,
+				gateway: this.params.gateway || null,
 				variant: this.params.variant || null
 			},
 			thankYouUrl: null,
+			showDebug: false,
 			supportedCountries: [
 				'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
 				'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
@@ -178,8 +204,11 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	computed: {
+		amountHeading() {
+			return getAmountHeading( this.donation.frequency );
+		},
 		presetAmounts() {
-			const rates = mw.config.get( 'wgDonationInterfaceCurrencyRates', {} );
+			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
 			const currency = this.donation.currency;
 
 			if ( !currency || currency === 'USD' || !rates[ currency ] ) {
@@ -257,7 +286,7 @@ module.exports = exports = defineComponent( {
 			window.location.assign(
 				targetUrl ||
 					this.thankYouUrl ||
-					mw.config.get( 'DonationInterfaceThankYouPage' )
+					this.params.DonationInterfaceThankYouPage
 			);
 		},
 		onCountryChange( country ) {
@@ -275,13 +304,13 @@ module.exports = exports = defineComponent( {
 			const response = result.result;
 			if ( response.isFailed ) {
 				// do we want this to appear here or to pass it through
-				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+				this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
 			if ( response.errors ) {
 				// do we want this to appear here or is this mid flow
-				this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-incomplete' ).text() );
+				this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-incomplete' ).text() );
 				this.appState.setLoading( false );
 				return;
 			}
@@ -296,8 +325,14 @@ module.exports = exports = defineComponent( {
 			}
 		},
 		handleDonateError( code, failure ) {
-			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			this.appState.setLoading( false );
+			// Override the default error message if the type of error is fixable by donors taking
+			// a specific action. These errors should be specific and leave zero ambiguity.
+			if ( code && code.type === 'validation' ) {
+				this.appState.setError( code.messages.join( ' ' ) );
+				return;
+			}
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
 		submitPreModalDonation( updatedDonation ) {
@@ -320,12 +355,14 @@ module.exports = exports = defineComponent( {
 	},
 	mounted() {
 		const urlParams = new URLSearchParams( window.location.search );
+		// ?debug=1 shows the donation and params dump below the form, for local testing
+		this.showDebug = urlParams.get( 'debug' ) === '1';
 		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
 			this.appState.setShowRecurringConvert( true );
 		}
 		// for debugging errors
 		if ( urlParams.get( 'debugError' ) ) {
-			this.appState.setError( this.params.order_id + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 		}
 	}
 } );

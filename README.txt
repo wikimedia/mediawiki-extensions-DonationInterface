@@ -133,7 +133,7 @@ $wgDonationInterfaceCancelPage = 'Donate-error'
  * the built-in ingenico_gateway/config/country_fields.yaml.
  * Superseded files will be completely ignored, so copy and modify originals.
  */
-$wgDonationInterfaceLocalConfigurationDirectory = false
+$wgDonationInterfaceLocalConfigurationDirectory = null
 
 /**
  * If this is set to a valid directory path, yaml files under this path can

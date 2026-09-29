@@ -5,11 +5,13 @@
 <script>
 /* global google */
 const { defineComponent, toRaw } = require( 'vue' );
+const { loadScript } = require( '../utils.js' );
 
 let googlePaymentClient = null;
 module.exports = exports = defineComponent( {
 	name: 'GravyGoogleForm',
 	components: {},
+	inject: [ 'params' ],
 	props: {
 		donation: {
 			type: Object,
@@ -23,15 +25,6 @@ module.exports = exports = defineComponent( {
 		};
 	},
 	methods: {
-		loadScript( src ) {
-			return new Promise( ( resolve , reject )  => {
-				const node = document.createElement( 'script' );
-				node.src = src;
-				node.onload = resolve;
-				node.onerror = reject;
-				document.body.append( node );
-			} );
-		},
 		getClient() {
 			if ( !googlePaymentClient ) {
 				googlePaymentClient = new google.payments.api.PaymentsClient( { environment: this.gravyConfig.googleEnvironment } );
@@ -79,11 +72,21 @@ module.exports = exports = defineComponent( {
 					}
 				} )
 				.catch( ( err ) => {
-					mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+					this.$emit( 'error', [
+						mw.message(
+							`Google Pay failure: ${ err }`,
+							mw.config.get( 'DonationInterfaceOtherWaysURL' )
+						).plain()
+					] );
 				} );
 		},
 		handleFailedPaymentResult( err ) {
-			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
+			this.$emit( 'error', [
+				mw.message(
+					`Google Pay failure: ${ err }`,
+					mw.config.get( 'DonationInterfaceOtherWaysURL' )
+				).plain()
+			] );
 		},
 		getPaymentRequest() {
 			const config = toRaw( this.gravyConfig );
@@ -155,10 +158,10 @@ module.exports = exports = defineComponent( {
 		}
 	},
 	created() {
-		this.gravyConfig = mw.config.get( 'gravyConfiguration' );
+		this.gravyConfig = this.params.gravyConfiguration;
 	},
 	mounted() {
-		this.loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
+		loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
 	}
 } );
 </script>

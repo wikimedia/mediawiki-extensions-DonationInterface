@@ -16,9 +16,11 @@
 <script>
 /* global ApplePaySession ApplePayError */
 
-const { defineComponent, onBeforeUnmount, onMounted, ref } = require( 'vue' );
+const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
+const { loadScript, unloadScript } = require( '../utils.js' );
 
 let appleScriptPromise = null;
+let getBestApplePayContactName = null;
 
 /**
  * Loads the applePayHelper module, caching the resulting promise.
@@ -27,7 +29,11 @@ let appleScriptPromise = null;
  */
 function loadApplePayHelperScript() {
 	if ( !appleScriptPromise ) {
-		appleScriptPromise = mw.loader.using( 'ext.donationInterface.applePayHelper' );
+		appleScriptPromise = mw.loader.using( 'ext.donationInterface.applePayHelper' )
+			.then( ( require ) => {
+				const applePayHelper = require( 'ext.donationInterface.applePayHelper' );
+				getBestApplePayContactName = applePayHelper.getBestApplePayContactName;
+			} );
 	}
 	return appleScriptPromise;
 }
@@ -48,6 +54,7 @@ module.exports = exports = defineComponent( {
 	},
 	emits: [ 'presubmit', 'submit', 'error' ],
 	setup( props, ctx ) {
+		const params = inject( 'params' );
 		let appleSession = null;
 		let extraData = {};
 		let appleScriptSrc = null;
@@ -60,9 +67,9 @@ module.exports = exports = defineComponent( {
 			// Real eligibility can only be known once Apple's SDK has run - Gravy
 			// supports Apple Pay beyond native Safari, so window.ApplePaySession
 			// isn't trustworthy until after this resolves.
-			const config = mw.config.get( 'gravyConfiguration' );
+			const config = params.gravyConfiguration;
 			loadApplePayHelperScript()
-				.then( () => mw.donationInterface.forms.loadScript( config.appleScript ) )
+				.then( () => loadScript( config.appleScript ) )
 				.then( () => setupApplePayForm() )
 				.catch( ( e ) => mw.log.error( 'combowiki applepay load failed', e ) );
 		} );
@@ -85,10 +92,7 @@ module.exports = exports = defineComponent( {
 
 			// Remove the Apple Pay script this component injected into the page
 			if ( appleScriptSrc ) {
-				const applePayElements = document.body.querySelectorAll( 'script[src="' + appleScriptSrc + '"]' );
-				for ( const node of applePayElements ) {
-					node.remove();
-				}
+				unloadScript( appleScriptSrc );
 				appleScriptSrc = null;
 			}
 		} );
@@ -104,13 +108,14 @@ module.exports = exports = defineComponent( {
 			if ( window.ApplePaySession ) {
 				showApplePayButtonFlag.value = true;
 			} else {
-				mw.donationInterface.validation.showErrors( {
-					general: mw.message(
+				// TODO: consider sending this log to the server?
+				ctx.emit( 'error', {
+					type: 'validation',
+					messages: [ mw.message(
 						'donate_interface-error-msg-apple_pay_unsupported',
-						mw.config.get( 'DonationInterfaceOtherWaysURL' )
-					).plain()
+						params.DonationInterfaceOtherWaysURL
+					) ]
 				} );
-				mw.donationInterface.forms.addDebugMessage( 'Apple Pay unsupported: Unable to find ApplePaySession in browser' );
 			}
 		}
 		function handleApplePaySubmitClick( e ) {
@@ -182,7 +187,7 @@ module.exports = exports = defineComponent( {
 				if ( !paymentSubmethod ) {
 					paymentSubmethod = '';
 				}
-				extraData = mw.donationInterface.forms.apple.getBestApplePayContactName( extraData, bContact, sContact );
+				extraData = getBestApplePayContactName( extraData, bContact, sContact );
 				extraData.postal_code = bContact.postalCode;
 				extraData.state_province = bContact.administrativeArea;
 				extraData.city = bContact.locality;

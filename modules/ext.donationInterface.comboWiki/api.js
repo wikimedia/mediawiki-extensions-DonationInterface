@@ -2,6 +2,11 @@ function apiPost( params ) {
 	return ( new mw.Api() ).post( params );
 }
 
+let apiConfig = {};
+function init( config ) {
+	apiConfig = config;
+}
+
 const paymentMethodMap = {
 	card: 'cc',
 	paypal: 'paypal',
@@ -21,7 +26,7 @@ function getBaseDonateParams( donation ) {
 		action: 'di_donate_' + ( donation.gateway || 'gravy' ),
 		gateway: donation.gateway || 'gravy',
 		result_page: 'combowiki',
-		wmf_token: mw.config.get( 'wmf_token' ),
+		wmf_token: apiConfig.wmf_token,
 		email: donation.email,
 		amount: donation.amount,
 		currency: donation.currency,
@@ -30,7 +35,7 @@ function getBaseDonateParams( donation ) {
 		phone: donation.phone,
 		opt_in: donation.optIn === 'yes' ? 1 : 0,
 		sms_opt_in: donation.smsOptin ? 1 : 0,
-		uselang: mw.config.get( 'wgUserLanguage' ),
+		uselang: apiConfig.wgUserLanguage,
 		first_name: donation.firstName,
 		last_name: donation.lastName,
 		variant: donation.variant
@@ -68,11 +73,11 @@ function createCheckoutSession( donation ) {
 		gateway: donation.gateway || 'gravy',
 		amount: donation.amount,
 		payment_method: paymentMethodMap[ donation.paymentMethod ],
-		wmf_token: mw.config.get( 'wmf_token' ),
+		wmf_token: apiConfig.wmf_token,
 		country: donation.country,
 		currency: donation.currency,
 		recurring: recurring,
-		uselang: mw.config.get( 'wgUserLanguage' )
+		uselang: apiConfig.wgUserLanguage
 	} ).then( ( data ) => {
 		const sessionId = data.checkout_session && data.checkout_session.session_id;
 		if ( !sessionId ) {
@@ -86,7 +91,7 @@ function validateApplePayPaymentSession( payload ) {
 	const params = {
 		action: 'di_applesession_gravy',
 		validation_url: payload.validationURL,
-		wmf_token: mw.config.get( 'wmf_token' ),
+		wmf_token: apiConfig.wmf_token,
 		payment_method: paymentMethodMap[ payload.paymentMethod ],
 		country: payload.country,
 		currency: payload.currency,
@@ -96,6 +101,7 @@ function validateApplePayPaymentSession( payload ) {
 }
 
 module.exports = {
+	init,
 	validateApplePayPaymentSession,
 	submitDonation,
 	paymentMethodMap,

@@ -26,7 +26,12 @@
 	"callback": "DonationInterface::registerExtension",
 	"ForeignResourcesDir": "resources/lib",
 	"SpecialPages": {
-		"GatewayChooser": "GatewayChooser",
+		"GatewayChooser": {
+			"class": "GatewayChooser",
+			"services": [
+				"DonationInterface.GatewayRouter"
+			]
+		},
 		"SystemStatus": "SystemStatus",
 		"EmailPreferences": "EmailPreferences",
 		"RecurUpgrade": "RecurUpgrade",
@@ -44,9 +49,20 @@
 		"DlocalGatewayResult": "DlocalGatewayResult",
 		"GravyGateway": "GravyGateway",
 		"GravyGatewayResult": "GravyGatewayResult",
-		"PaymentSettings": "PaymentSettings",
+		"PaymentSettings": {
+			"class": "PaymentSettings",
+			"services": [
+				"DonationInterface.GatewayConfigurationFactory"
+			]
+		},
 		"DonorPortal": "DonorPortal",
-		"ComboWiki": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+		"ComboWiki": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+			"services": [
+				"DonationInterface.GatewayConfigurationFactory",
+				"DonationInterface.GatewayRouter"
+			]
+		},
 		"ComboWikiGatewayResult": "ComboWikiGatewayResult"
 	},
 	"APIModules": {
@@ -526,6 +542,7 @@
 		},
 		"ext.donationInterface.comboWiki": {
 			"dependencies": [
+				"ext.donationInterface.currencyRates",
 				"donationInterface.skinOverride",
 				"vue",
 				"@wikimedia/codex"
@@ -533,6 +550,8 @@
 			"packageFiles": [
 				"modules/ext.donationInterface.comboWiki/init.js",
 				"modules/ext.donationInterface.comboWiki/api.js",
+				"modules/ext.donationInterface.comboWiki/frequencyOptions.js",
+				"modules/ext.donationInterface.comboWiki/utils.js",
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
@@ -542,6 +561,7 @@
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/DefaultForbiddenNotice.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/RussiaNotice.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/views/FinlandNotice.vue",
+				"modules/ext.donationInterface.comboWiki/views/Header.vue",
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/ErrorDisplay.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
@@ -561,8 +581,14 @@
 			],
 			"messages": [
 				"combowiki-title",
-				"combowiki-frequency-heading",
+				"combowiki-amount-heading-once",
+				"combowiki-amount-heading-monthly",
+				"combowiki-amount-heading-annual",
 				"combowiki-frequency-annual",
+				"combowiki-frequency-monthly",
+				"combowiki-frequency-once",
+				"combowiki-intro-heading",
+				"combowiki-intro-text",
 				"combowiki-country-placeholder",
 				"combowiki-cover-fees",
 				"combowiki-stay-in-touch-heading",
@@ -706,11 +732,7 @@
 			]
 		},
 		"ext.donationInterface.applePayHelper": {
-			"scripts": "modules/js/ext.donationInterface.applePayHelper.js",
-			"dependencies": [
-				"ext.donationInterface.forms",
-				"mediawiki.util"
-			]
+			"packageFiles": [ "modules/js/ext.donationInterface.applePayHelper.js" ]
 		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
@@ -1086,10 +1108,10 @@
 			"value": "Donate-cancel"
 		},
 		"DonationInterfaceLocalConfigurationDirectory": {
-			"value": false
+			"value": null
 		},
 		"DonationInterfaceVariantConfigurationDirectory": {
-			"value": false
+			"value": null
 		},
 		"DonationInterfaceRetryLoopCount": {
 			"value": 3
@@ -2031,5 +2053,8 @@
 		"MediaWiki\\Extension\\DonationInterface\\Tests\\": "tests/phpunit/includes/"
 	},
 	"load_composer_autoloader": true,
+	"ServiceWiringFiles": [
+		"ServiceWiring.php"
+	],
 	"manifest_version": 2
 }

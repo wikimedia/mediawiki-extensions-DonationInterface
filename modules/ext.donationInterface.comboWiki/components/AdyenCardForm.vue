@@ -46,6 +46,8 @@ module.exports = exports = defineComponent( {
 		'cdx-text-input': CdxTextInput
 	},
 
+	inject: [ 'params' ],
+
 	props: {
 		donation: {
 			type: Object,
@@ -64,7 +66,7 @@ module.exports = exports = defineComponent( {
 			card: null,
 			fieldsReady: false,
 			formValid: false,
-			wmfToken: mw.config.get( 'wmf_token' )
+			wmfToken: this.params.wmf_token
 		};
 	},
 
@@ -249,7 +251,7 @@ module.exports = exports = defineComponent( {
 	},
 
 	async mounted() {
-		const config = mw.config.get( 'adyenConfiguration' );
+		const config = this.params.adyenConfiguration;
 
 		if ( !config ) {
 			this.$emit( 'error', 'adyen-configuration-missing' );

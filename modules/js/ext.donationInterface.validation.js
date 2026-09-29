@@ -21,7 +21,7 @@
 			'mindspring.com', 'netscape.net', 'neuf.fr', 'nifty.com',
 			'ntlworld.com', 'o2.pl', 'online.no', 'optonline.net',
 			'optusnet.com.au', 'orange.fr', 'pacbell.net', 'planet.nl',
-			'q.com', 'qq.com','roadrunner.com', 'rocketmail.com',
+			'pm.me', 'q.com', 'qq.com','roadrunner.com', 'rocketmail.com',
 			'rogers.com', 'seznam.cz', 'sfr.fr', 'shaw.ca', 'sky.com',
 			'skynet.be', 'sympatico.ca', 'talktalk.net', 'telefonica.net',
 			'telenet.be', 'telia.com', 'telus.net', 'tin.it',

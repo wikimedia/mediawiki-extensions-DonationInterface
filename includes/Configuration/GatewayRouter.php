@@ -2,8 +2,7 @@
 
 namespace MediaWiki\Extension\DonationInterface\Configuration;
 
-use GatewayAdapter;
-use MediaWiki\Config\Config;
+use MediaWiki\Config\ServiceOptions;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -14,6 +13,20 @@ use Psr\Log\LoggerInterface;
 class GatewayRouter {
 
 	/**
+	 * @var array
+	 */
+	public const CONSTRUCTOR_OPTIONS = [
+		'DonationInterfaceGatewayPriorityRules'
+	];
+
+	public function __construct(
+		protected readonly ServiceOptions $options,
+		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory
+	) {
+		$options->assertRequiredOptions( self::CONSTRUCTOR_OPTIONS );
+	}
+
+	/**
 	 * Get all the gateways supported for the provided inputs.
 	 *
 	 * @param string $country
@@ -22,26 +35,22 @@ class GatewayRouter {
 	 * @param string|null $paymentSubmethod
 	 * @param bool $recurring
 	 * @param string|null $variant
-	 * @param Config $mwConfig
 	 *
 	 * @return array
 	 */
-	public static function getSupportedGateways(
+	public function getSupportedGateways(
 		string $country,
 		?string $currency,
 		string $paymentMethod,
 		?string $paymentSubmethod,
 		bool $recurring,
-		?string $variant,
-		Config $mwConfig
+		?string $variant
 	): array {
 		$possibleGateways = [];
-		$enabledGateways = GatewayAdapter::getEnabledGateways( $mwConfig );
+		$enabledGatewayConfigs = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant( $variant );
 
 		// Loop over enabled gateways to find ones supported for these inputs
-		foreach ( $enabledGateways as $enabledGateway ) {
-			$gatewayConfig = ConfigurationReader::createForGateway( $enabledGateway, $variant, $mwConfig )
-				->readConfiguration();
+		foreach ( $enabledGatewayConfigs as $enabledGateway => $gatewayConfig ) {
 
 			// TODO Knowledge about configuration layout should be encapsulated somewhere
 			// See https://phabricator.wikimedia.org/T291699
@@ -147,18 +156,16 @@ class GatewayRouter {
 	 * @param array $supportedGateways List of gateway codes assumed to
 	 *  support the requested country / currency / payment_method
 	 * @param array $params Query-string parameters
-	 * @param Config $mwConfig
 	 * @param LoggerInterface $logger
 	 *
 	 * @return string|null Selected gateway code
 	 */
-	public static function chooseGatewayByPriority(
+	public function chooseGatewayByPriority(
 		$supportedGateways,
 		$params,
-		Config $mwConfig,
 		LoggerInterface $logger
 	): ?string {
-		$rules = $mwConfig->get( 'DonationInterfaceGatewayPriorityRules' );
+		$rules = $this->options->get( 'DonationInterfaceGatewayPriorityRules' );
 
 		foreach ( $rules as $rule ) {
 			// Do our $params match all the conditions for this rule?

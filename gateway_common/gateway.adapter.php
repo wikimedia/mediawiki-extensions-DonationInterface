@@ -20,8 +20,8 @@
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
 use Mediawiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
 use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
 use MediaWiki\Session\SessionManager;
 use MediaWiki\Session\Token;
@@ -314,10 +314,14 @@ abstract class GatewayAdapter implements GatewayType {
 	abstract protected function defineOrderIDMeta();
 
 	public function loadConfig( ?string $variant = null ) {
-		$configurationReader = ConfigurationReader::createForGateway(
-			static::getIdentifier(), $variant, WmfFramework::getConfig()
+		// TODO: this should be a constructor dependency, but there are a lot
+		// of places that construct this. Let's make a factory to instantiate adaptors
+		$configurationFactory = MediaWikiServices::getInstance()->getService(
+			'DonationInterface.GatewayConfigurationFactory'
 		);
-		$this->config = $configurationReader->readConfiguration();
+		$this->config = $configurationFactory->getConfigurationForGatewayAndVariant(
+			static::getIdentifier(), $variant
+		);
 	}
 
 	/** @inheritDoc */

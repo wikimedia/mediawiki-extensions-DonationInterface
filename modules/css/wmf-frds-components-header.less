@@ -1,0 +1,84 @@
+/* Header Component */
+.header {
+	position: relative;
+	z-index: @z-index-toolbar;
+	display: flex;
+	justify-content: center;
+	background-color: @background-color-base;
+	border-bottom: 1px solid @border-color-subtle;
+	width: 100vw;
+}
+
+.header__inner {
+	position: relative;
+	display: flex;
+	width: 100%;
+	max-width: @size-container;
+	padding: @size-2 @size-4;
+}
+
+/* Nav Component */
+/* Wikipedia Responsive Logo */
+.mw-logo {
+	display: flex;
+	height: 100%;
+	align-items: center;
+}
+
+.mw-logo-icon {
+	float: left;
+	display: block;
+	width: 2.25em;
+	height: 2.25em;
+}
+
+.mw-logo-container {
+	display: none;
+}
+
+.mw-logo-container img {
+	width: 100%;
+}
+
+.nav {
+	flex-grow: 1;
+	display: flex;
+	align-items: center;
+	gap: @size-2;
+	min-height: 2.75rem;
+}
+
+.nav__logo {
+	height: @size-icon-large;
+}
+
+@media screen and ( min-width: 640px ) {
+	.mw-logo-container {
+		display: block;
+		float: left;
+		margin-left: 7px;
+		max-width: 120px;
+	}
+
+	.mw-logo-container img {
+		width: 100%;
+	}
+
+	.mw-logo-wordmark {
+		display: block;
+		margin: 0 auto;
+		height: 0.8125em;
+	}
+
+	.mw-logo-tagline {
+		display: block;
+		margin: 5px auto 0;
+		height: 0.585em;
+	}
+}
+
+@media screen and ( min-width: 1120px ) {
+	.header__inner {
+		padding: @size-2 @size-6;
+	}
+}
