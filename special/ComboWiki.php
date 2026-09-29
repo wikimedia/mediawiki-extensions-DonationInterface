@@ -370,7 +370,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$rawCountries = [];
 
 		$enabledConfigurations = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
-			$this->routingParams['variant']
+			$this->routingParams['variant'] ?? null
 		);
 
 		foreach ( $enabledConfigurations  as $gateway => $config ) {
