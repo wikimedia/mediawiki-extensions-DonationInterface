@@ -63,7 +63,10 @@
 				<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
 
 				<!-- Employer -->
-				<employer-field v-model="donation.employer"></employer-field>
+				<employer-field
+					v-model:employer="donation.employer"
+					v-model:employer-id="donation.employerId"
+				></employer-field>
 
 				<!-- Sms Optin -->
 				<sms-optin
@@ -211,6 +214,7 @@ module.exports = exports = defineComponent( {
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
+				employerId: 0,
 				smsOptin: null,
 				gateway: this.params.gateway || null,
 				variant: this.params.variant || null

@@ -45,6 +45,9 @@ function getBaseDonateParams( donation ) {
 	if ( donation.employer ) {
 		params.employer = donation.employer.trim();
 	}
+	if ( donation.employerId ) {
+		params.employer_id = donation.employerId;
+	}
 
 	const frequencyUnit = frequencyUnitMap[ donation.frequency ];
 	if ( frequencyUnit ) {
@@ -106,5 +109,6 @@ module.exports = {
 	validateApplePayPaymentSession,
 	submitDonation,
 	paymentMethodMap,
-	createCheckoutSession
+	createCheckoutSession,
+	apiPost
 };
