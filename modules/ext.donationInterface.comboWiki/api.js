@@ -9,6 +9,7 @@ function init( config ) {
 
 const paymentMethodMap = {
 	card: 'cc',
+	adyen_card: 'cc',
 	paypal: 'paypal',
 	applepay: 'apple',
 	googlepay: 'google',
