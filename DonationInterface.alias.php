@@ -11,7 +11,7 @@ $specialPageAliases['en'] = [
 	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],
 	'PaymentSettings' => [ 'PaymentSettings' ],
 	'DonorPortal' => [ 'DonorPortal' ],
-	'ComboWiki' => [ 'ComboWiki' ],
+	'ComboWiki' => [ 'Donate', 'ComboWiki' ],
 	'ComboWikiGatewayResult' => [ 'ComboWikiGatewayResult' ]
 ];
 
