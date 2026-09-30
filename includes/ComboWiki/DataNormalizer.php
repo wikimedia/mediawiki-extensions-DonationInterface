@@ -267,12 +267,6 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * From Code Review: this function is confusing. And I think mostly obsolete.
-	 * We can send the banner, landing page, and payment method to contribution_tracking in separate fields now.
-	 * I think we just need to check if we're getting banner and landing page concatenated on the querystring
-	 * and split them out.
-	 * ---
-	 *
 	 * The utm_source is structured as: banner.landing_page.payment_method_family
 	 */
 	protected function normalizeUtmSource(): void {

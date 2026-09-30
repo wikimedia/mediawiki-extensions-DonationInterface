@@ -181,11 +181,12 @@ class DataIntegrator implements LogPrefixProvider {
 		'street_number', // for addresses in India
 		'transaction_status',
 		'uselang',
-		'utm_campaign',
-		'utm_medium',
-		'utm_source',
+		'wmf_campaign',
+		'wmf_medium',
+		'wmf_source',
 		'variant',
 		'wmf_token',
+		'wmf_key'
 	];
 
 	protected static array $requestPostFieldNames = [
@@ -263,9 +264,17 @@ class DataIntegrator implements LogPrefixProvider {
 	/**
 	 * Maps raw field names to internal field names we want to use
 	 * in the DonationDetails object.
+	 *
+	 *  Note: Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
+	 *  one that we care about. Internally, we still refer to them all with the utm_ prefix.
+	 *  Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
 	 */
 	private static array $internalNames = [
 		'uselang' => 'language',
+		'wmf_campaign' => 'utm_campaign',
+		'wmf_medium' => 'utm_medium',
+		'wmf_source' => 'utm_source',
+		'wmf_key' => 'utm_key',
 	];
 
 	/**
@@ -333,21 +342,11 @@ class DataIntegrator implements LogPrefixProvider {
 
 	protected function setDataFromQueryParameters(): void {
 		$query_values = $this->request->getQueryValues();
-
 		foreach ( self::$requestQueryFieldNames as $var ) {
-			$value_name = $var;
-			/**
-			 * Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
-			 * one that we care about. Internally we still refer to them all with the utm_ prefix.
-			 * Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
-			 */
-			if ( str_starts_with( $var, 'utm_' ) ) {
-				$value_name = 'wmf_' . substr( $var, 4 );
-			}
-
-			if ( isset( $query_values[ $value_name ] ) ) {
-				$this->dataObject->setValue( $this->getName( $var ), $query_values[ $value_name ] );
-				$this->dataObject->setSource( $var, 'get' );
+			if ( isset( $query_values[ $var ] ) ) {
+				$value_name = $this->getName( $var );
+				$this->dataObject->setValue( $value_name, $query_values[ $var ] );
+				$this->dataObject->setSource( $value_name, 'get' );
 			}
 		}
 	}
