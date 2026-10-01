@@ -17,7 +17,7 @@ class DonationAmountRules {
 	 * @param array $donationData
 	 * @return array
 	 */
-	public function getDonationRules( string $gateway, array $donationData ) {
+	public function getDonationRules( string $gateway, array $donationData ): array {
 		$fullConfiguration = $this->gatewayConfigurationFactory->getConfigurationForGatewayAndVariant( $gateway );
 		return self::lookupMatchingDonationRules( $fullConfiguration['donation_rules'], $donationData );
 	}
