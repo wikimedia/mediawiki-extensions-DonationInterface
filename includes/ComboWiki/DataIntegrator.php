@@ -1,12 +1,9 @@
 <?php
 namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use WhichBrowser\Parser;
 
 /**
@@ -17,14 +14,13 @@ use WhichBrowser\Parser;
  *
  * @author lbarluzzi
  */
-class DataIntegrator implements LogPrefixProvider {
+class DataIntegrator {
+
 	// Using the same session key as the adapter to ensure values like the order_id
 	// and contribution tracking are accessible in the adapter class
 	public static string $DONATION_DETAILS_SESSION_KEY = 'Donor';
 
 	public WebRequest $request;
-
-	protected LoggerInterface $logger;
 
 	/**
 	 * This is our data object with getters and setters for all the data we need.
@@ -33,7 +29,7 @@ class DataIntegrator implements LogPrefixProvider {
 	 *
 	 * @var DonationDetails
 	 */
-	protected DonationDetails $dataObject;
+	protected ?DonationDetails $dataObject = null;
 
 	/**
 	 * TODO: Remove all the fieldNames we know we won't need for ComboWiki and add potential new ones
@@ -291,14 +287,19 @@ class DataIntegrator implements LogPrefixProvider {
 	/**
 	 * @param WebRequest $request
 	 * @param DonationDetails $dataObject instance for storing donation data details
+	 * @param LoggerInterface $logger
 	 * @param ?array $externalData An optional array of donation data that will, if
 	 * present, circumvent the usual process of gathering the data from various
 	 * places in the request. Defaults to null.
 	 */
-	public function __construct( WebRequest $request, DonationDetails $dataObject, ?array $externalData = null ) {
+	public function __construct(
+		WebRequest $request,
+		DonationDetails $dataObject,
+		protected readonly LoggerInterface $logger,
+		?array $externalData = null
+	) {
 		$this->dataObject = $dataObject;
 		$this->request = $request;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
 		$this->populateData( $externalData );
 	}
 
@@ -453,17 +454,5 @@ class DataIntegrator implements LogPrefixProvider {
 	 */
 	public function getDataFromRequestAndSession(): DonationDetails {
 		return $this->dataObject;
-	}
-
-	/**
-	 * Automatically prefix a log message with the class name.
-	 * Docs: https://www.php.net/manual/en/function.get-class.php
-	 *
-	 * @return string
-	 */
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->dataObject->getValue( 'contribution_tracking_id' );
-		return "$thisClassName:$contributionTrackingId ";
 	}
 }

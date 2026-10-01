@@ -2,6 +2,7 @@
 
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataNormalizer;
+use Psr\Log\NullLogger;
 
 /**
  * Tests how DataNormalizer decides the donor's country. In order, it uses:
@@ -63,7 +64,7 @@ class ComboWikiDataNormalizerTest extends MediaWikiIntegrationTestCase {
 	private function newNormalizer( ?string $geoIpCountry ): DataNormalizer {
 		return new class( $this->getServiceContainer()->getMainConfig(), $geoIpCountry ) extends DataNormalizer {
 			public function __construct( $config, private ?string $geoIpCountry ) {
-				parent::__construct( $config );
+				parent::__construct( $config, new NullLogger() );
 			}
 
 			protected function lookUpIpCountry( string $ip ): ?string {

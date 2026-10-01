@@ -4,11 +4,12 @@ namespace MediaWiki\Extension\DonationInterface\Special;
 
 use AdyenCheckoutAdapter;
 use DonationInterface;
-use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ComboWikiLogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
@@ -17,6 +18,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\Configuration\LoggerFactory;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
@@ -39,7 +41,9 @@ class ComboWiki extends UnlistedSpecialPage {
 	 */
 	public const IDENTIFIER = 'combowiki';
 
-	private LoggerInterface $logger;
+	protected ?Config $config = null;
+	protected ?DonationDetails $dataObject = null;
+	protected LoggerInterface $logger;
 
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
@@ -49,14 +53,18 @@ class ComboWiki extends UnlistedSpecialPage {
 
 	/** @var string|null The gateway chosen for this request, if any. */
 	private ?string $selectedGateway = null;
-	private DonationDetails $dataObject;
 
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
-		protected readonly GatewayRouter $gatewayRouter
+		protected readonly GatewayRouter $gatewayRouter,
+		protected readonly LoggerFactory $loggerFactory
 	) {
-		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
 		parent::__construct( 'ComboWiki' );
+		$this->dataObject = new DonationDetails();
+		$this->logger = $this->loggerFactory->getLogger(
+			self::IDENTIFIER,
+			new ComboWikiLogPrefixProvider( $this->dataObject )
+		);
 	}
 
 	/**
@@ -67,12 +75,13 @@ class ComboWiki extends UnlistedSpecialPage {
 	public function execute( $subPage ): void {
 		$request = $this->getRequest();
 		$wmfConfig = $this->getConfig();
-		$dataIntegrator = new DataIntegrator( $request, new DonationDetails() );
+		$dataIntegrator = new DataIntegrator( $request, $this->dataObject, $this->logger );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
-		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
-		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
-		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
+		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->dataObject );
+		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
+		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
 
+		$this->logger->info( __FUNCTION__ . ': Data has been processed from request' );
 		$country = $this->dataObject->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
@@ -101,6 +110,12 @@ class ComboWiki extends UnlistedSpecialPage {
 
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
 
+		if ( $this->selectedGateway !== $this->routingParams['gateway'] ) {
+			$this->logger->info( __FUNCTION__ .
+				': Selected gateway is ' . $this->selectedGateway . ' but requested ' . $this->routingParams['gateway']
+			);
+		}
+
 		// If we got gateway from the request/session, here we override with the
 		// one found with chooseGateway(). Are we ok with that?
 		$this->dataObject->setValue( 'gateway', $this->selectedGateway );
@@ -116,8 +131,8 @@ class ComboWiki extends UnlistedSpecialPage {
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
 			);
 			if ( !$this->adapter ) {
-				$this->logger->error(
-					"Failed to create adapter for gateway: {$this->selectedGateway}"
+				$this->logger->error( __FUNCTION__ .
+					": Failed to create adapter for gateway: {$this->selectedGateway}"
 				);
 			}
 		}
@@ -274,8 +289,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		);
 
 		if ( count( $supportedGateways ) === 0 ) {
-			$this->logger->error( 'No supported gateway for parameters: ' . print_r( $params, true ) );
-
+			$this->logger->error( __FUNCTION__ . ': No supported gateway for parameters: ' . print_r( $params, true ) );
 			return null;
 		}
 
@@ -307,8 +321,8 @@ class ComboWiki extends UnlistedSpecialPage {
 		// so narrow the type before reaching for it.
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof GravyAdapter ) {
-			$this->logger->error(
-				'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
+			$this->logger->error( __FUNCTION__ .
+				': Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
 			);
 
 			return;
@@ -345,8 +359,8 @@ class ComboWiki extends UnlistedSpecialPage {
 	protected function addAdyenClientConfig( array &$vars ): void {
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
-			$this->logger->error(
-				'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
+			$this->logger->error( __FUNCTION__ .
+				': Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
 			);
 
 			return;
@@ -415,6 +429,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
 		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
+		$this->logger->info( __FUNCTION__ . ': Data has been stored in session.' );
 	}
 
 	/**

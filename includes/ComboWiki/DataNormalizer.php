@@ -4,21 +4,19 @@ namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
 use Amount;
 use CountryValidation;
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\MediaWikiServices;
 use MessageUtils;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
-class DataNormalizer implements LogPrefixProvider {
+class DataNormalizer {
+	protected ?Config $config = null;
+	protected ?DonationDetails $dataObject = null;
 
-	protected ?DonationDetails $dataObject;
 	/**
 	 * @var string Once defined, store value here for easy access in logger
 	 */
@@ -29,18 +27,14 @@ class DataNormalizer implements LogPrefixProvider {
 	 */
 	public array $normalized = [];
 
-	protected Config $mwConfig;
-
-	protected LoggerInterface $logger;
-
 	protected array $sourcesToNormalize = [ 'get', 'post' ];
 
 	/**
-	 * @param Config $mwConfig WMF Default Donation Interface Config.
+	 * @param Config $config WMF Default Donation Interface Config.
+	 * @param LoggerInterface $logger
 	 */
-	public function __construct( Config $mwConfig ) {
-		$this->mwConfig = $mwConfig;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
+	public function __construct( Config $config, protected readonly LoggerInterface $logger ) {
+		$this->config = $config;
 	}
 
 	/**
@@ -96,7 +90,7 @@ class DataNormalizer implements LogPrefixProvider {
 			$ip = $this->dataObject->getValue( 'user_ip' );
 			$ipCountry = $this->lookUpIpCountry( $ip );
 			if ( $ipCountry && !CountryValidation::isValidIsoCode( $ipCountry ) ) {
-				$this->logger->warning(
+				$this->logger->warning( __FUNCTION__ .
 					"GeoIP lookup returned bogus code '$ipCountry'! No country available."
 				);
 			}
@@ -153,11 +147,11 @@ class DataNormalizer implements LogPrefixProvider {
 		$country = $this->dataObject->getValue( 'country' );
 		if ( CountryValidation::isValidIsoCode( $country ) ) {
 			$currency = NationalCurrencies::getNationalCurrency( $country );
-			$this->logger->debug( "Got currency from 'country', now: $currency" );
+			$this->logger->debug( __FUNCTION__ . ": Got currency from 'country', now: $currency" );
 		}
 
 		if ( !$currency || !array_key_exists( $currency, CurrencyRates::getCurrencyRates() ) ) {
-			$this->logger->warning( "Currency '$currency' not in CurrencyRates list. Falling back to USD." );
+			$this->logger->warning( __FUNCTION__ . ": Currency '$currency' not in CurrencyRates list. Falling back to USD." );
 			$currency = 'USD';
 		}
 
@@ -213,7 +207,7 @@ class DataNormalizer implements LogPrefixProvider {
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->dataObject->getValue( $key );
 			}
-			$this->logger->debug( $mess );
+			$this->logger->debug( __FUNCTION__ . $mess );
 			$this->dataObject->setValue( 'amount', 'invalid' );
 			return;
 		}
@@ -319,17 +313,11 @@ class DataNormalizer implements LogPrefixProvider {
 		}
 		$appeal = $this->dataObject->getValue( 'appeal' );
 		if ( !$this->dataObject->isValueSet( 'appeal' ) ) {
-			if ( $this->mwConfig->has( 'DonationInterfaceDefaultAppeal' ) ) {
-				$appeal = $this->mwConfig->get( 'DonationInterfaceDefaultAppeal' );
+			if ( $this->config->has( 'DonationInterfaceDefaultAppeal' ) ) {
+				$appeal = $this->config->get( 'DonationInterfaceDefaultAppeal' );
 			}
 		}
 		$this->dataObject->setValue( 'appeal', MessageUtils::makeSafe( $appeal ) );
-	}
-
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->contributionTrackingId;
-		return "$thisClassName:$contributionTrackingId ";
 	}
 
 	/**

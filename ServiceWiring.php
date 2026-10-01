@@ -3,6 +3,7 @@
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\Configuration\LoggerFactory;
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\MediaWikiServices;
 
@@ -32,6 +33,11 @@ return [
 	'DonationInterface.DonationAmountRules' => static function ( MediaWikiServices $services ): DonationAmountRules {
 		return new DonationAmountRules(
 			$services->getService( 'DonationInterface.GatewayConfigurationFactory' )
+		);
+	},
+	'DonationInterface.LoggerFactory' => static function ( MediaWikiServices $services ): LoggerFactory {
+		return new LoggerFactory(
+			new ServiceOptions( LoggerFactory::CONSTRUCTOR_OPTIONS, $services->getMainConfig() )
 		);
 	},
 ];
