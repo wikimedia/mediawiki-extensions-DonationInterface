@@ -11,7 +11,7 @@ const api = require( '../../../modules/ext.donationInterface.comboWiki/api.js' )
 const PaymentForm = require( '../../../modules/ext.donationInterface.comboWiki/views/PaymentForm.vue' );
 const PaymentMethodForm = require( '../../../modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue' );
 
-// The page gets SmashPig's full list from Special:ComboWiki, which ComboWikiTest.php checks.
+// The page gets SmashPig's full list from Special:Donate, which ComboWikiTest.php checks.
 // These tests only need one currency without cents.
 const EXAMPLE_NO_DECIMAL_CURRENCIES = [ 'JPY' ];
 

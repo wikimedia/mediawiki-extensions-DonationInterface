@@ -1,6 +1,6 @@
 <?php
 
-use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
+use MediaWiki\Extension\DonationInterface\Special\Donate;
 use MediaWiki\Title\Title;
 
 class ReturnUrl implements StagingHelper {
@@ -16,8 +16,8 @@ class ReturnUrl implements StagingHelper {
 			'payment_submethod' => $normalized['payment_submethod'] ?? '',
 		];
 
-		if ( ( $normalized['result_page'] ?? '' ) === ComboWiki::IDENTIFIER ) {
-			$specialName = 'ComboWikiGatewayResult';
+		if ( ( $normalized['result_page'] ?? '' ) === Donate::IDENTIFIER ) {
+			$specialName = 'DonateGatewayResult';
 			$queryStringParams['gateway'] = $normalized['gateway'] ?? '';
 		} else {
 			$specialName = str_replace( 'Adapter', 'GatewayResult', get_class( $adapter ) );

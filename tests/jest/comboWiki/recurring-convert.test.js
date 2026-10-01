@@ -14,7 +14,7 @@ const FAILURE_MESSAGE_KEY = 'combowiki-monthly-convert-failed';
 // useAppState() hands back the same refs the component writes to.
 const appState = useAppState();
 
-// Config as Special:ComboWiki puts it on the page: the amount rules are what the
+// Config as Special:Donate puts it on the page: the amount rules are what the
 // live page returns for USD, the tiers come from $wgDonationInterfaceMonthlyConvertAmounts
 // and the rates from SmashPig's CurrencyRates table.
 const AMOUNT_RULES = { currency: 'USD', min: 1, max: 12000 };

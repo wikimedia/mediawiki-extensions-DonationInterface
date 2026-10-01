@@ -3,7 +3,7 @@
 use MediaWiki\Api\ApiMain;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Hooks as ComboWikiHooks;
-use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
+use MediaWiki\Extension\DonationInterface\Special\Donate;
 use MediaWiki\Request\FauxRequest;
 use SmashPig\Core\Context;
 
@@ -16,7 +16,7 @@ use SmashPig\Core\Context;
 class ComboWikiApiTest extends DonationInterfaceApiTestCase {
 
 	/**
-	 * Donors submit from the Vue app rather than from Special:ComboWiki, so
+	 * Donors submit from the Vue app rather than from Special:Donate, so
 	 * the donate request identifies itself with the 'result_page' param.
 	 *
 	 * NOTE: this drives the hook directly. ApiTestCase builds ApiMain itself
@@ -24,10 +24,10 @@ class ComboWikiApiTest extends DonationInterfaceApiTestCase {
 	 * ApiBeforeMain fires, so a doApiRequest() here would never reach it.
 	 */
 	public function testDonateApiTagsComboWikiDonations(): void {
-		$main = $this->apiMainForParams( [ 'result_page' => ComboWiki::IDENTIFIER ] );
+		$main = $this->apiMainForParams( [ 'result_page' => Donate::IDENTIFIER ] );
 		( new ComboWikiHooks() )->onApiBeforeMain( $main );
 
-		$this->assertSame( ComboWiki::IDENTIFIER, Context::get()->getSourceType() );
+		$this->assertSame( Donate::IDENTIFIER, Context::get()->getSourceType() );
 	}
 
 	/**

@@ -34,7 +34,7 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * viewport, and exposes server-side configuration to the client through the
  * MakeGlobalVariablesScript hook using setClientVariables().
  */
-class ComboWiki extends UnlistedSpecialPage {
+class Donate extends UnlistedSpecialPage {
 
 	/**
 	 * Identifies the ComboWiki donation flow.
@@ -59,7 +59,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		protected readonly GatewayRouter $gatewayRouter,
 		protected readonly LoggerFactory $loggerFactory
 	) {
-		parent::__construct( 'ComboWiki' );
+		parent::__construct( 'Donate' );
 		$this->dataObject = new DonationDetails();
 		$this->logger = $this->loggerFactory->getLogger(
 			self::IDENTIFIER,
