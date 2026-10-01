@@ -430,7 +430,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		string $gatewayName,
 		array $options = []
 	): ?GatewayAdapter {
-		$enabledGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		$enabledGateways = $this->gatewayConfigurationFactory->getAllEnabledGateways();
 		// Check if gateway is enabled
 		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
 			return null;
