@@ -374,7 +374,7 @@ module.exports = exports = defineComponent( {
 			this.donation.currency = countryConfig.currency || 'USD';
 
 			const url = new URL( window.location.href );
-			url.searchParams.set( 'country', country );
+			url.searchParams.set( 'country', this.countries[ country ].value );
 			window.location.assign( url.toString() );
 		},
 		handleDonateResult( result ) {
