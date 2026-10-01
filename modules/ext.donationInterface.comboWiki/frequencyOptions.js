@@ -19,6 +19,13 @@ const FREQUENCIES = {
 	}
 };
 
+/**
+ * Returns message for frequency
+ *
+ * @param {string} frequency
+ * @param {string} type
+ * @return {string}
+ */
 function getFrequencyMessage( frequency, type ) {
 	const messages = FREQUENCIES[ frequency ];
 	return messages ? mw.msg( messages[ type ] ) : '';
@@ -27,6 +34,8 @@ function getFrequencyMessage( frequency, type ) {
 module.exports = {
 	/**
 	 * Returns the full set of frequency options
+	 *
+	 * @return {Array<{value: string, label: string}>}
 	 */
 	getFrequencyOptions() {
 		return Object.keys( FREQUENCIES ).map( ( value ) => ( {
@@ -34,10 +43,23 @@ module.exports = {
 			label: getFrequencyMessage( value, 'label' )
 		} ) );
 	},
+
+	/**
+	 * Returns the localized label for a frequency
+	 *
+	 * @param {string} frequency One of 'once', 'monthly' or 'annual'
+	 * @return {string} Empty string if the frequency is unknown
+	 */
 	getFrequencyLabel( frequency ) {
 		return getFrequencyMessage( frequency, 'label' );
 	},
 
+	/**
+	 * Returns the localized amount heading for a frequency
+	 *
+	 * @param {string} frequency One of 'once', 'monthly' or 'annual'
+	 * @return {string} Empty string if the frequency is unknown
+	 */
 	getAmountHeading( frequency ) {
 		return getFrequencyMessage( frequency, 'amountHeading' );
 	}
