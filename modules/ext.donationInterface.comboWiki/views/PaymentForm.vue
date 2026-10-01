@@ -73,6 +73,7 @@
 					v-if="showSmsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
+					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
 				></sms-optin>
 
 				<payment-method-form
@@ -340,8 +341,14 @@ module.exports = exports = defineComponent( {
 				}
 			};
 		},
+		showPhoneField() {
+			// The country_fields config marks a shown field as true (required) or 'optional'
+			return [ true, 'optional' ].includes(
+				( this.params.DonationInterfaceFormFields || {} ).phone
+			);
+		},
 		showSmsOptin() {
-			return this.params.variant === 'smsOptin';
+			return this.params.variant === 'smsOptin' && this.showPhoneField;
 		},
 		optInRequired() {
 			return this.supportedCountries.includes( this.donation.country );

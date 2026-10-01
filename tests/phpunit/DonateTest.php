@@ -184,6 +184,51 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'wmf_token', $vars );
 	}
 
+	public function testSmsOptinVariantSendsPhoneAsOptionalInUS(): void {
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' => __DIR__ . '/../../form_variants'
+		] );
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+			'variant' => 'smsOptin',
+		] );
+
+		// Set in form_variants/smsOptin/gravy/country_fields.yaml
+		$this->assertSame( 'optional', $vars['DonationInterfaceFormFields']['phone'] );
+	}
+
+	public function testSmsOptinVariantSendsNoPhoneFieldOutsideUS(): void {
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' => __DIR__ . '/../../form_variants'
+		] );
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'GB',
+			'currency' => 'GBP',
+			'recurring' => '0',
+			'variant' => 'smsOptin',
+		] );
+
+		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields'] );
+	}
+
+	public function testFormFieldsHaveNoPhoneWithoutSmsOptinVariant(): void {
+		$this->overrideConfigValues( [
+			'DonationInterfaceVariantConfigurationDirectory' => __DIR__ . '/../../form_variants'
+		] );
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		] );
+
+		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields'] );
+	}
+
 	public function testAdapterInitializationDoesNotDuplicateContributionTrackingRecord(): void {
 		// Donate::execute() calls ContributionTrackingHelper::handleTrackingData(),
 		// which pushes exactly one contribution-tracking record, then constructs a

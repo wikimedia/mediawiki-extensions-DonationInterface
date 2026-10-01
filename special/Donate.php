@@ -261,6 +261,14 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
+
+		// Donor fields from the country_fields config, each true (required) or 'optional'.
+		// Fields left out are not shown. Only the country is passed, since the donor
+		// picks the payment method on the page.
+		$vars['DonationInterfaceFormFields'] = $this->adapter->getFormFields(
+			[ 'country' => $this->routingParams['country'] ]
+		);
+
 		if ( $this->adapter->showMonthlyConvert() ) {
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
 		}
