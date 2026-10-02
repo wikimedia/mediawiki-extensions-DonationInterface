@@ -680,6 +680,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 	public function testChooseGravyPayPalInsteadOfPaypalEc() {
 		$country = 'MD';
 		$currency = 'USD';
+		$onlyIncludeRecurring = false;
 
 		$router = $this->getGatewayRouter();
 
@@ -688,7 +689,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 			$currency,
 			'paypal',
 			null, // payment_submethod
-			false, // recurring
+			$onlyIncludeRecurring,
 			null, // variant
 		);
 		$this->assertContains(

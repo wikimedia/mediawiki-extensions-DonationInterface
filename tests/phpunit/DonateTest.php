@@ -253,6 +253,24 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertArrayNotHasKey( 'venmo', $gatewayByMethodInGb, 'GB donors are not offered Venmo' );
 	}
 
+	/**
+	 * Submethods offered as their own option follow their own country rules:
+	 * Gravy's rules allow ACH in the US and SEPA in eurozone countries such as DE,
+	 * though their methods (dd, rtbt) have no country rules.
+	 */
+	public function testClientVariablesListSubmethodsForCountry(): void {
+		$this->overrideConfigValues( [ 'DonationInterfaceComboWikiGateways' => [ 'gravy' ] ] );
+
+		$submethodsInUs = $this->getSubmethodsSentToPage( 'US', 'USD' );
+		$submethodsInDe = $this->getSubmethodsSentToPage( 'DE', 'EUR' );
+
+		$this->assertSame( 'gravy', $submethodsInUs['ach'] ?? null, 'US donors can pay by ACH via Gravy' );
+		$this->assertArrayNotHasKey( 'sepadirectdebit', $submethodsInUs, 'US donors are not offered SEPA' );
+
+		$this->assertSame( 'gravy', $submethodsInDe['sepadirectdebit'] ?? null, 'DE donors can pay by SEPA via Gravy' );
+		$this->assertArrayNotHasKey( 'ach', $submethodsInDe, 'DE donors are not offered ACH' );
+	}
+
 	public function testAdapterInitializationDoesNotDuplicateContributionTrackingRecord(): void {
 		// Donate::execute() calls ContributionTrackingHelper::handleTrackingData(),
 		// which pushes exactly one contribution-tracking record, then constructs a
@@ -1012,6 +1030,21 @@ class DonateTest extends DonationInterfaceTestCase {
 		] );
 
 		return array_column( $clientVariables['comboWiki']['paymentMethods'], 'gateway', 'method' );
+	}
+
+	private function getSubmethodsSentToPage( string $country, string $currency ): array {
+		$clientVariables = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => $country,
+			'currency' => $currency,
+			'recurring' => '0',
+		] );
+
+		$submethodEntries = array_filter(
+			$clientVariables['comboWiki']['paymentMethods'],
+			static fn ( $entry ) => isset( $entry['submethod'] )
+		);
+		return array_column( $submethodEntries, 'gateway', 'submethod' );
 	}
 
 	private function executeAndGetClientVariables( array $params ): array {

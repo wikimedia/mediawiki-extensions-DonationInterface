@@ -45,6 +45,19 @@ class Donate extends UnlistedSpecialPage {
 	protected ?DonationDetails $dataObject = null;
 	protected LoggerInterface $logger;
 
+	/**
+	 * Submethods the Vue form offers as their own payment option, so their
+	 * country rules are checked on top of their method's.
+	 */
+	private const OFFERED_SUBMETHODS = [ 'ach', 'sepadirectdebit' ];
+
+	/**
+	 * Include all methods regardless of frequency restrictions. Because the frontend
+	 * dynamically changes the frequency in the form, any filtering of payment methods
+	 * (one-time, monthly, annual) should be done on the frontend.
+	 */
+	private const ONLY_INCLUDE_RECURRING = false;
+
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
 
@@ -54,7 +67,10 @@ class Donate extends UnlistedSpecialPage {
 	/** @var string|null The gateway chosen for this request, if any. */
 	private ?string $selectedGateway = null;
 
-	/** @var array[] Payment methods offered on this page, as [ 'method' => string, 'gateway' => string ] */
+	/**
+	 * @var array[] Payment methods offered on this page, as [ 'method' => string, 'gateway' => string ],
+	 *  plus a 'submethod' key for entries of OFFERED_SUBMETHODS
+	 */
 	private array $supportedPaymentMethods = [];
 
 	public function __construct(
@@ -114,6 +130,8 @@ class Donate extends UnlistedSpecialPage {
 		$this->supportedPaymentMethods = $this->gatewayRouter->getSupportedPaymentMethods(
 			$wmfConfig->get( 'DonationInterfaceComboWikiGateways' ),
 			$this->routingParams,
+			self::OFFERED_SUBMETHODS,
+			self::ONLY_INCLUDE_RECURRING,
 			$this->logger
 		);
 

@@ -1,0 +1,10 @@
+visa:
+  group: cc
+  countries:
+    - US
+    - DE
+sepadirectdebit:
+  group: rtbt
+  countries:
+    - DE
+  recurring: true

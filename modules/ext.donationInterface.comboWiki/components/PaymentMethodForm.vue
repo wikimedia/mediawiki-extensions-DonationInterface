@@ -38,6 +38,7 @@ const ApplePayComponent = require( './ApplePayComponent.vue' );
 const ACHComponent = require( './ACHComponent.vue' );
 const AdyenCardForm = require( './AdyenCardForm.vue' );
 const GooglePayComponent = require( './GooglePayComponent.vue' );
+const SEPAComponent = require( './SEPAComponent.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 
 module.exports = exports = defineComponent( {
@@ -50,7 +51,8 @@ module.exports = exports = defineComponent( {
 		'applepay-form': ApplePayComponent,
 		'googlepay-form': GooglePayComponent,
 		'ach-form': ACHComponent,
-		'adyen-card-form': AdyenCardForm
+		'adyen-card-form': AdyenCardForm,
+		'sepa-form': SEPAComponent
 	},
 	props: {
 		donation: {
@@ -228,13 +230,27 @@ module.exports = exports = defineComponent( {
 				component: 'googlepay-form',
 				submit: submitDonation,
 				error: onError
+			},
+			sepadirectdebit: {
+				label: mw.message( 'combowiki-method-sepa' ).text(),
+				component: 'sepa-form',
+				submit: submitDonation,
+				error: onError
 			}
 		};
 
-		// Server payment method code => the gateway that handles it, e.g. { cc: 'gravy', paypal: 'gravy' }
+		/**
+		 * @param {string} method Server payment method code
+		 * @param {string} [submethod] Server payment submethod code
+		 * @return {string} Lookup key for gatewayByMethod
+		 */
+		const methodKey = ( method, submethod ) => submethod ? method + '/' + submethod : method;
+
+		// Server payment (sub)method => the gateway that handles it,
+		// e.g. { cc: 'gravy', rtbt: 'gravy', 'rtbt/sepadirectdebit': 'gravy' }
 		const gatewayByMethod = {};
 		for ( const entry of params.paymentMethods ) {
-			gatewayByMethod[ entry.method ] = entry.gateway;
+			gatewayByMethod[ methodKey( entry.method, entry.submethod ) ] = entry.gateway;
 		}
 
 		/**
@@ -255,8 +271,10 @@ module.exports = exports = defineComponent( {
 				if ( ( config.gateway || 'gravy' ) !== params.gateway ) {
 					continue;
 				}
-				// The server must offer this method on the selected gateway for this country.
-				if ( gatewayByMethod[ api.paymentMethodMap[ method ] ] !== params.gateway ) {
+				// The server must offer this method (and submethod, if the option is one)
+				// on the selected gateway for this country.
+				const mapping = api.paymentMethodMap[ method ];
+				if ( !mapping || gatewayByMethod[ methodKey( mapping.method, mapping.submethod ) ] !== params.gateway ) {
 					continue;
 				}
 				methods.push( method );

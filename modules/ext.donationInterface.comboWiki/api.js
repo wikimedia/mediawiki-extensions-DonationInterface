@@ -7,15 +7,29 @@ function init( config ) {
 	apiConfig = config;
 }
 
+/**
+ * ComboWiki payment option => server payment method, plus submethod when the
+ * option is a single submethod with its own country rules (e.g. SEPA under rtbt).
+ */
 const paymentMethodMap = {
-	card: 'cc',
-	adyen_card: 'cc',
-	paypal: 'paypal',
-	applepay: 'apple',
-	googlepay: 'google',
-	venmo: 'venmo',
-	ach: 'dd'
+	card: { method: 'cc' },
+	adyen_card: { method: 'cc' },
+	paypal: { method: 'paypal' },
+	applepay: { method: 'apple' },
+	googlepay: { method: 'google' },
+	venmo: { method: 'venmo' },
+	ach: { method: 'dd', submethod: 'ach' },
+	sepadirectdebit: { method: 'rtbt', submethod: 'sepadirectdebit' }
 };
+
+/**
+ * @param {string} paymentMethod ComboWiki payment option
+ * @return {string|undefined} The server payment method code
+ */
+function getServerPaymentMethod( paymentMethod ) {
+	const mapping = paymentMethodMap[ paymentMethod ];
+	return mapping && mapping.method;
+}
 
 const frequencyUnitMap = {
 	monthly: 'month',
@@ -32,7 +46,7 @@ function getBaseDonateParams( donation ) {
 		amount: donation.amount,
 		currency: donation.currency,
 		country: donation.country,
-		payment_method: paymentMethodMap[ donation.paymentMethod ],
+		payment_method: getServerPaymentMethod( donation.paymentMethod ),
 		phone: donation.phone,
 		opt_in: donation.optIn === 'yes' ? 1 : 0,
 		sms_opt_in: donation.smsOptin ? 1 : 0,
@@ -41,6 +55,11 @@ function getBaseDonateParams( donation ) {
 		last_name: donation.lastName,
 		variant: donation.variant
 	};
+
+	const mapping = paymentMethodMap[ donation.paymentMethod ];
+	if ( mapping && mapping.submethod ) {
+		params.payment_submethod = mapping.submethod;
+	}
 
 	if ( donation.employer ) {
 		params.employer = donation.employer.trim();
@@ -76,7 +95,7 @@ function createCheckoutSession( donation ) {
 		action: 'di_checkoutsession_' + ( donation.gateway || 'gravy' ),
 		gateway: donation.gateway || 'gravy',
 		amount: donation.amount,
-		payment_method: paymentMethodMap[ donation.paymentMethod ],
+		payment_method: getServerPaymentMethod( donation.paymentMethod ),
 		wmf_token: apiConfig.wmf_token,
 		country: donation.country,
 		currency: donation.currency,
@@ -96,7 +115,7 @@ function validateApplePayPaymentSession( payload ) {
 		action: 'di_applesession_gravy',
 		validation_url: payload.validationURL,
 		wmf_token: apiConfig.wmf_token,
-		payment_method: paymentMethodMap[ payload.paymentMethod ],
+		payment_method: getServerPaymentMethod( payload.paymentMethod ),
 		country: payload.country,
 		currency: payload.currency,
 		amount: payload.amount

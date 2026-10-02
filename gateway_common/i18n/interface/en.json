@@ -32,6 +32,7 @@
 	"combowiki-method-applepay": "Apple Pay",
 	"combowiki-method-ach": "ACH",
 	"combowiki-method-googlepay": "Google Pay",
+	"combowiki-method-sepa": "SEPA Direct Debit",
 	"combowiki-your-details-heading": "Your details",
 	"combowiki-donate-with-paypal": "Donate with PayPal",
 	"combowiki-donate-with-venmo": "Donate with Venmo",
