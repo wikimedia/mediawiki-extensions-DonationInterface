@@ -1,6 +1,6 @@
 <?php
 
-namespace MediaWiki\Extension\DonationInterface\Configuration;
+namespace MediaWiki\Extension\DonationInterface\Logging;
 
 use DonationLoggerFactory;
 use LogPrefixProvider;

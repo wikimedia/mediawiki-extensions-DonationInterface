@@ -18,7 +18,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
-use MediaWiki\Extension\DonationInterface\Configuration\LoggerFactory;
+use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
@@ -84,7 +84,7 @@ class Donate extends UnlistedSpecialPage {
 		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
 		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
 
-		$this->logger->info( __FUNCTION__ . ': Data has been processed from request' );
+		$this->logger->debug( 'Data has been processed from request' );
 		$country = $this->dataObject->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
@@ -119,10 +119,8 @@ class Donate extends UnlistedSpecialPage {
 
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
 
-		if ( $this->selectedGateway !== $this->routingParams['gateway'] ) {
-			$this->logger->info( __FUNCTION__ .
-				': Selected gateway is ' . $this->selectedGateway . ' but requested ' . $this->routingParams['gateway']
-			);
+		if ( $this->routingParams['gateway'] && $this->selectedGateway !== $this->routingParams['gateway'] ) {
+			$this->logger->info( 'Selected gateway is ' . $this->selectedGateway . ' but requested ' . $this->routingParams['gateway'] );
 		}
 
 		// If we got gateway from the request/session, here we override with the
@@ -140,9 +138,7 @@ class Donate extends UnlistedSpecialPage {
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
 			);
 			if ( !$this->adapter ) {
-				$this->logger->error( __FUNCTION__ .
-					": Failed to create adapter for gateway: {$this->selectedGateway}"
-				);
+				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
 			}
 		}
 
@@ -311,7 +307,6 @@ class Donate extends UnlistedSpecialPage {
 
 		if ( !$gatewayByMethod ) {
 			$this->logger->error( 'No supported payment methods for parameters: ' . print_r( $params, true ) );
-
 			return null;
 		}
 
@@ -337,10 +332,7 @@ class Donate extends UnlistedSpecialPage {
 		// so narrow the type before reaching for it.
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof GravyAdapter ) {
-			$this->logger->error( __FUNCTION__ .
-				': Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
-			);
-
+			$this->logger->error( 'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter ) );
 			return;
 		}
 
@@ -375,9 +367,7 @@ class Donate extends UnlistedSpecialPage {
 	protected function addAdyenClientConfig( array &$vars ): void {
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
-			$this->logger->error( __FUNCTION__ .
-				': Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
-			);
+			$this->logger->error( 'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter ) );
 
 			return;
 		}
@@ -445,7 +435,7 @@ class Donate extends UnlistedSpecialPage {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
 		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
-		$this->logger->info( __FUNCTION__ . ': Data has been stored in session.' );
+		$this->logger->info( 'Data has been stored in session with session ID ' . $session->getId() );
 	}
 
 	/**

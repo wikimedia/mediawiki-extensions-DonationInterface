@@ -3,7 +3,7 @@
 use MediaWiki\Config\ServiceOptions;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
-use MediaWiki\Extension\DonationInterface\Configuration\LoggerFactory;
+use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\MediaWikiServices;
 
