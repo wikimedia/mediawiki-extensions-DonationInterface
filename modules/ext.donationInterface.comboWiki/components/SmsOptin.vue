@@ -1,6 +1,6 @@
 <template>
 	<div class="combo-wiki__sms_opt_in">
-		<cdx-field :is-required="false">
+		<cdx-field :is-required="false" data-autoscroll>
 			<cdx-label input-id="phone">
 				{{ phoneLabel }}
 			</cdx-label>
@@ -54,7 +54,7 @@ module.exports = exports = defineComponent( {
 			default: false
 		}
 	},
-	emits: [ 'update:phone','update:smsOptin' ],
+	emits: [ 'update:phone', 'update:smsOptin', 'ready' ],
 	computed: {
 		phoneLabel() {
 			return this.$i18n(
@@ -72,6 +72,11 @@ module.exports = exports = defineComponent( {
 		updateSmsOptin( value ) {
 			this.$emit( 'update:smsOptin', value );
 		}
+	},
+	mounted() {
+		// This loads as an async component, after the parent form has mounted,
+		// so tell the form when its fields are in the page
+		this.$emit( 'ready' );
 	}
 } );
 </script>

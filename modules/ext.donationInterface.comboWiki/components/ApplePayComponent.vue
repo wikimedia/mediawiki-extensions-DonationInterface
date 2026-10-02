@@ -1,5 +1,5 @@
 <template>
-	<div id="applepay-container">
+	<div id="applepay-container" data-autoscroll>
 		<apple-pay-button
 			v-if="showApplePayButtonFlag"
 			id="applepay-btn"
@@ -178,7 +178,7 @@ module.exports = exports = defineComponent( {
 			appleSession.oncancel = function () {
 				clearApplePaySessionAndEnableButton();
 			};
-			appleSession.onvalidatemerchant = validateApplePayPaymentSession( appleSession );
+			appleSession.onvalidatemerchant = validateApplePayPaymentSession();
 
 			appleSession.onpaymentauthorized = function ( event ) {
 				const bContact = event.payment.billingContact,

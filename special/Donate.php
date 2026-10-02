@@ -57,6 +57,14 @@ class Donate extends UnlistedSpecialPage {
 	 */
 	private const ONLY_INCLUDE_RECURRING = false;
 
+	/**
+	 * Payment methods, keyed by gateway, whose frontend form needs a checkout
+	 * session before it can be set up (e.g. Gravy Secure Fields for card).
+	 */
+	private const CHECKOUT_SESSION_METHODS = [
+		'gravy' => [ 'cc' ],
+	];
+
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
 
@@ -132,6 +140,8 @@ class Donate extends UnlistedSpecialPage {
 			'variant' => $this->dataObject->getValue( 'variant' ),
 			'language' => $this->dataObject->getValue( 'language', $this->getLanguage()->getCode() ),
 			'gateway' => $this->dataObject->getValue( 'gateway' ),
+			'opt_in' => $this->dataObject->getValue( 'opt_in' ),
+			'pay_the_fee' => $this->dataObject->getValue( 'pay_the_fee' ),
 		];
 
 		$this->supportedPaymentMethods = $this->gatewayRouter->getSupportedPaymentMethods(
@@ -165,10 +175,11 @@ class Donate extends UnlistedSpecialPage {
 			if ( !$this->adapter ) {
 				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
 			}
+			$this->addGatewaySessionId();
 		}
 
 		$this->renderPage();
-		$this->addVueComponentModulesForVariants();
+		$this->addVueComponentModulesForVariantsAndPaymentMethods();
 	}
 
 	/**
@@ -204,10 +215,13 @@ class Donate extends UnlistedSpecialPage {
 		$this->addStylesScriptsAndViewport();
 	}
 
-	private function addVueComponentModulesForVariants(): void {
+	private function addVueComponentModulesForVariantsAndPaymentMethods(): void {
 		$out = $this->getOutput();
 		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
 			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
+		}
+		if ( $this->dataObject->getValue( 'payment_method' ) == 'apple' ) {
+			$out->addModules( "ext.donationInterface.applePayHelper" );
 		}
 	}
 
@@ -273,16 +287,17 @@ class Donate extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	public function setClientVariables( array &$vars ): void {
-		$vars['comboWiki'] = [
+		$vars['comboWiki'] = array_merge(
+		$this->routingParams,
+		[
 			'language' => $this->routingParams['language'],
-			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
 			'paymentMethods' => $this->supportedPaymentMethods,
 			'wmfParams' => [
 				'utm_medium' => $this->dataObject->getValue( 'utm_medium' ),
 			],
 			'monthlyConvertReturn' => $this->isMonthlyConvertReturn,
-		];
+		] );
 		$this->addCountriesConfig( $vars );
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
@@ -344,6 +359,47 @@ class Donate extends UnlistedSpecialPage {
 		return $gatewayByMethod[$params['payment_method']]
 			?? $gatewayByMethod['cc']
 			?? $this->supportedPaymentMethods[0]['gateway'];
+	}
+
+	/**
+	 * For gateways and payment methods that need one, creates a checkout session and
+	 * shares its ID with the frontend as routingParams['gateway_session_id'].
+	 * Does the same as the di_checkoutsession_<gateway> API, using the page's adapter
+	 * in place of one built from the request params the form would send.
+	 *
+	 * @return void
+	 */
+	private function addGatewaySessionId(): void {
+		$gateway = $this->selectedGateway;
+		$paymentMethod = $this->routingParams['payment_method'];
+		if ( !in_array( $paymentMethod, self::CHECKOUT_SESSION_METHODS[$gateway] ?? [], true ) ) {
+			return;
+		}
+
+		// getCheckoutSession() is specific to GravyAdapter, not GatewayAdapter
+		$adapter = $this->adapter;
+		if ( !$adapter instanceof GravyAdapter ) {
+			$this->logger->error( 'Expected a GravyAdapter to create a checkout session, got ' . get_debug_type( $adapter ) );
+			return;
+		}
+
+		// The session itself takes no donation details, the adapter only needs the
+		// payment method to pick the provider.
+		$adapter->addRequestData( [ 'payment_method' => $paymentMethod ] );
+
+		try {
+			$session = $adapter->getCheckoutSession();
+		} catch ( \Exception $e ) {
+			// Leave it to the form to create a session, rather than fail the page
+			$this->logger->error( 'Creating checkout session failed: ' . $e->getMessage() );
+			return;
+		}
+		if ( !$session->isSuccessful() ) {
+			// The adapter has already logged the raw response
+			return;
+		}
+
+		$this->routingParams['gateway_session_id'] = $session->getPaymentSession();
 	}
 
 	/**

@@ -158,7 +158,7 @@ class DonateTest extends DonationInterfaceTestCase {
 	public function testRoutingParamsFallBackToDefaults(): void {
 		$vars = $this->executeAndGetClientVariables( [] );
 
-		$params = $vars['comboWiki']['params'];
+		$params = $vars['comboWiki'];
 		$this->assertEquals( 'US', $params['country'] );
 		$this->assertEquals( 'USD', $params['currency'] );
 		$this->assertEquals( 'cc', $params['payment_method'] );
@@ -189,6 +189,93 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertEquals( 'paypal_ec', $vars['comboWiki']['gateway'] );
 		$this->assertArrayNotHasKey( 'gravyConfiguration', $vars );
 		$this->assertArrayNotHasKey( 'wmf_token', $vars );
+	}
+
+	public function testGravyCardSendsCheckoutSessionIdToPage(): void {
+		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+		$cardPaymentProvider->expects( $this->once() )
+			->method( 'createPaymentSession' )
+			->willReturn(
+				( new CreatePaymentSessionResponse() )->setSuccessful( true )->setPaymentSession( 'session-for-page' )
+			);
+		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
+
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'amount' => '10',
+			'recurring' => '0',
+		] );
+
+		$this->assertEquals( 'gravy', $vars['comboWiki']['gateway'] );
+		$this->assertSame( 'session-for-page', $vars['comboWiki']['gateway_session_id'] );
+	}
+
+	public function testNoCheckoutSessionForMethodsThatDoNotNeedOne(): void {
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'paypal',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		] );
+
+		$this->assertEquals( 'paypal_ec', $vars['comboWiki']['gateway'] );
+		$this->assertArrayNotHasKey( 'gateway_session_id', $vars['comboWiki'] );
+	}
+
+	public function testNoCheckoutSessionForGravyApplePay(): void {
+		// Apple Pay's merchant session needs a validation URL only the browser has,
+		// so the page must not try to create one
+		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+		$cardPaymentProvider->expects( $this->never() )->method( 'createPaymentSession' );
+		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
+
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'apple',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+			'gateway' => 'gravy',
+		] );
+
+		$this->assertArrayNotHasKey( 'gateway_session_id', $vars['comboWiki'] );
+	}
+
+	public static function provideCheckoutSessionFailures(): array {
+		return [
+			'unsuccessful response' => [ false ],
+			'provider throws' => [ true ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideCheckoutSessionFailures
+	 */
+	public function testPageStillRendersWithoutSessionIdWhenCheckoutSessionFails( bool $throws ): void {
+		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
+		$method = $cardPaymentProvider->method( 'createPaymentSession' );
+		if ( $throws ) {
+			$method->willThrowException( new RuntimeException( 'Gravy is down' ) );
+		} else {
+			$method->willReturn( ( new CreatePaymentSessionResponse() )->setSuccessful( false ) );
+		}
+		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
+
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		] );
+
+		// The form falls back to creating its own session
+		$this->assertEquals( 'gravy', $vars['comboWiki']['gateway'] );
+		$this->assertArrayHasKey( 'gravyConfiguration', $vars );
+		$this->assertArrayNotHasKey( 'gateway_session_id', $vars['comboWiki'] );
 	}
 
 	public function testSmsOptinVariantSendsPhoneAsOptionalInUS(): void {
@@ -922,20 +1009,15 @@ class DonateTest extends DonationInterfaceTestCase {
 			$vars,
 			'init.js reads mw.config.get( "comboWiki" ) to get the params it mounts the Vue app with'
 		);
-		$this->assertArrayHasKey(
-			'params',
-			$vars['comboWiki'],
-			'The App component is provided "params" from vars.comboWiki.params'
-		);
 		$this->assertSame(
 			CurrencyRoundingHelper::$noDecimalCurrencies,
 			$vars['DonationInterfaceNoDecimalCurrencies'],
 			'PaymentForm.vue rounds the suggested fee to whole units for currencies in this list'
 		);
 
-		// init.js does `vueApp.provide( 'params', comboWikiConfig.params )`, so every
+		// init.js merges comboWikiConfig into the 'params' it provides to the app, so every
 		// field App.vue and its children read off the injected 'params' must be present.
-		$params = $vars['comboWiki']['params'];
+		$params = $vars['comboWiki'];
 		foreach ( [
 			'amount',
 			'country',
@@ -951,7 +1033,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			$this->assertArrayHasKey(
 				$requiredParam,
 				$params,
-				"comboWiki.params.$requiredParam must be passed down to the Vue frontend"
+				"comboWiki.$requiredParam must be passed down to the Vue frontend"
 			);
 		}
 		$this->assertSame( 'US', $params['country'] );
@@ -1015,9 +1097,9 @@ class DonateTest extends DonationInterfaceTestCase {
 
 		$this->assertSame( '', $donate->getOutput()->getRedirect() );
 		$this->assertTrue( $vars['comboWiki']['monthlyConvertReturn'] );
-		$this->assertSame( '10.00', $vars['comboWiki']['params']['amount'] );
-		$this->assertSame( '123.1', $vars['comboWiki']['params']['order_id'] );
-		$this->assertSame( 'gravy', $vars['comboWiki']['params']['gateway'] );
+		$this->assertSame( '10.00', $vars['comboWiki']['amount'] );
+		$this->assertSame( '123.1', $vars['comboWiki']['order_id'] );
+		$this->assertSame( 'gravy', $vars['comboWiki']['gateway'] );
 		$this->assertArrayHasKey( 'wgDonationInterfaceMonthlyConvertAmounts', $vars );
 		$this->assertStringContainsString( 'order_id=123.1', $vars['DonationInterfaceThankYouPage'] );
 		$this->assertNull(

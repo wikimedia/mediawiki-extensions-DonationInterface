@@ -9,6 +9,7 @@
 					<cdx-text-input
 						id="sepa-first-name-field"
 						v-model="firstName"
+						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
 					>
 					</cdx-text-input>
@@ -20,6 +21,7 @@
 					<cdx-text-input
 						id="sepa-last-name-field"
 						v-model="lastName"
+						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
 					>
 					</cdx-text-input>
@@ -32,6 +34,7 @@
 				<cdx-text-input
 					id="sepa-email-field"
 					v-model="email"
+					data-autoscroll
 					type="email"
 					autocomplete="email"
 				></cdx-text-input>

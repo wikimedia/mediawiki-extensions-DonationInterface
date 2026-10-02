@@ -4,23 +4,26 @@
 			<h2>{{ $i18n( 'combowiki-your-details-heading' ).text() }}</h2>
 			<cdx-text-input
 				v-model="firstName"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
 			>
 			</cdx-text-input>
 
 			<cdx-text-input
 				v-model="lastName"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
 			>
 			</cdx-text-input>
 
 			<cdx-text-input
 				v-model="email"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
 			>
 			</cdx-text-input>
 		</div>
-		<div id="combo-adyen-card"></div>
+		<div id="combo-adyen-card" data-autoscroll></div>
 		<cdx-button
 			action="progressive"
 			weight="primary"

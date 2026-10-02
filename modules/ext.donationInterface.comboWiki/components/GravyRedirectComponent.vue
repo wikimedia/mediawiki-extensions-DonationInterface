@@ -2,6 +2,7 @@
 	<cdx-button
 		action="progressive"
 		weight="primary"
+		data-autoscroll
 		@click="submitDonation"
 	>
 		{{ donateText }}

@@ -8,7 +8,7 @@
 		<div>
 			<cdx-radio
 				:model-value="modelValue"
-				input-value="yes"
+				input-value="1"
 				name="email-optin"
 				@update:model-value="handleSelection"
 			>
@@ -17,7 +17,7 @@
 
 			<cdx-radio
 				:model-value="modelValue"
-				input-value="no"
+				input-value="0"
 				name="email-optin"
 				@update:model-value="handleSelection"
 			>
@@ -86,11 +86,11 @@ module.exports = exports = defineComponent( {
 			this.$emit( 'update:modelValue', newValue );
 
 			// Dynamic border state management
-			if ( newValue === 'no' ) {
+			if ( newValue === '0' ) {
 				this.hasSelectedNo = true;
 				this.feedbackText = this.sorryToHearMsg;
 				this.feedbackType = 'red-border';
-			} else if ( newValue === 'yes' ) {
+			} else if ( newValue === '1' ) {
 				if ( this.hasSelectedNo ) {
 					this.feedbackText = this.thanksForChangingMsg;
 					this.feedbackType = 'green-border';

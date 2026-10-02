@@ -107,8 +107,8 @@ class ComboWikiThreeDSecureTest extends BaseGravyTestCase {
 		// Following the redirect, Special:Donate offers monthly convert for this donation
 		$vars = $this->loadDonatePage( $redirect );
 		$this->assertTrue( $vars['comboWiki']['monthlyConvertReturn'] );
-		$this->assertSame( $orderId, $vars['comboWiki']['params']['order_id'] );
-		$this->assertSame( '10.00', $vars['comboWiki']['params']['amount'] );
+		$this->assertSame( $orderId, $vars['comboWiki']['order_id'] );
+		$this->assertSame( '10.00', $vars['comboWiki']['amount'] );
 	}
 
 	public function testDonorWhoPassesChallengeWithoutMonthlyConvertGoesToThankYouPage(): void {

@@ -8,6 +8,7 @@
 				id="combo-employer-name"
 				v-model:selected="selectedEmployerId"
 				:menu-items="employers"
+				data-autoscroll
 				@input="onInput"
 				@update:selected="onSelect"
 			>

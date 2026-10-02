@@ -1,5 +1,5 @@
 <template>
-	<div id="googlepay-container"></div>
+	<div id="googlepay-container" data-autoscroll></div>
 </template>
 
 <script>

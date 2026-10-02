@@ -5,34 +5,37 @@
 
 			<cdx-text-input
 				v-model="firstName"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
 			>
 			</cdx-text-input>
 
 			<cdx-text-input
 				v-model="lastName"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
 			>
 			</cdx-text-input>
 
 			<cdx-text-input
 				v-model="email"
+				data-autoscroll
 				:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
 			>
 			</cdx-text-input>
 		</div>
 
 		<label for="combo-cc-number">{{ $i18n( 'donate_interface-donor-card-num' ).text() }}</label>
-		<input id="combo-cc-number">
+		<input id="combo-cc-number" data-autoscroll>
 
 		<div class="combo-wiki__card-row">
 			<div>
 				<label for="combo-cc-expiry">{{ $i18n( 'donate_interface-donor-expiration' ).text() }}</label>
-				<input id="combo-cc-expiry">
+				<input id="combo-cc-expiry" data-autoscroll>
 			</div>
 			<div>
 				<label for="combo-cc-cvv">{{ $i18n( 'donate_interface-donor-security' ).text() }}</label>
-				<input id="combo-cc-cvv">
+				<input id="combo-cc-cvv" data-autoscroll>
 			</div>
 		</div>
 
@@ -51,6 +54,7 @@
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
 const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
+const { loadScript } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyCardForm',
@@ -96,15 +100,6 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
-		loadScript( src ) {
-			return new Promise( ( resolve , reject )  => {
-				const node = document.createElement( 'script' );
-				node.src = src;
-				node.onload = resolve;
-				node.onerror = reject;
-				document.body.append( node );
-			} );
-		},
 		isValidEmail( email ) {
 			return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email.trim() );
 		},
@@ -159,8 +154,12 @@ module.exports = exports = defineComponent( {
 		const onError = () => {
 			this.$emit( 'error', 'card-session-setup-failed' );
 		};
-		this.loadScript( config.secureFieldsJsScript )
+		loadScript( config.secureFieldsJsScript )
 			.then( () => {
+				if ( this.donation.gateway_session_id ) {
+					onSuccessfulSessionCreated( this.donation.gateway_session_id );
+					return;
+				}
 				this.$emit( 'presubmit', this.donation, onSuccessfulSessionCreated, onError );
 			} )
 			.catch( () => {

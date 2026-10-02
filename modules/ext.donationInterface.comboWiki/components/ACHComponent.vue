@@ -8,6 +8,7 @@
 				<cdx-text-input
 					id="combo-ach-email"
 					v-model="email"
+					data-autoscroll
 					type="email"
 					autocomplete="email"
 				></cdx-text-input>

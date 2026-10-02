@@ -74,6 +74,7 @@
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
 					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
+					@ready="scrollToFirstEmptyField"
 				></sms-optin>
 
 				<!-- Hidden when returning to offer monthly convert: mounting the card form
@@ -145,6 +146,7 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
+const { paymentMethodMap } = require( '../api.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -209,19 +211,20 @@ module.exports = exports = defineComponent( {
 				firstName: null,
 				lastName: null,
 				email: null,
-				frequency: 'once',
-				amount: null,
+				frequency: this.getFrequencyUnit(),
+				amount: this.params.amount || null,
 				currency: initialCurrency,
-				payFee: false,
+				payFee: this.params.pay_the_fee === '1' || false,
 				phone: null,
 				country: this.params.country,
-				paymentMethod: null,
-				optIn: null,
+				paymentMethod: this.toFormPaymentMethod( this.params.payment_method ),
+				optIn: this.params.opt_in,
 				employer: null,
 				employerId: 0,
 				smsOptin: null,
 				gateway: this.params.gateway || null,
-				variant: this.params.variant || null
+				variant: this.params.variant || null,
+				gateway_session_id: this.params.gateway_session_id || null
 			},
 			thankYouUrl: null,
 			showDebug: false,
@@ -308,7 +311,8 @@ module.exports = exports = defineComponent( {
 		},
 		chargedDonation() {
 			// What the payment methods charge, which includes the fee when the donor opts in
-			if ( !this.feeAmount ) {
+			// Don't recompute if fee already computed from source (e.g banner)
+			if ( !this.feeAmount || this.params.pay_the_fee ) {
 				return this.donation;
 			}
 			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
@@ -359,6 +363,36 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
+		/**
+		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
+		 * (card, ach, applepay, ...), but only when the server offers it on the selected gateway.
+		 *
+		 * @param {string|null} wmfMethod WMF payment method code, e.g. from the payment_method param.
+		 * @return {string|null} The PaymentMethodForm key, or null if the method isn't active.
+		 */
+		toFormPaymentMethod( wmfMethod ) {
+			const gateway = this.params.gateway;
+			const isActive = ( this.params.paymentMethods || [] ).some(
+				( entry ) => entry.method === wmfMethod && entry.gateway === gateway
+			);
+			if ( !wmfMethod || !isActive ) {
+				return null;
+			}
+
+			const candidates = Object.keys( paymentMethodMap )
+				.filter( ( key ) => paymentMethodMap[ key ].method === wmfMethod );
+			// Gateway-specific keys are prefixed (adyen_card), the gravy ones are not (card)
+			return candidates.find( ( key ) => key.startsWith( gateway + '_' ) ) ||
+				candidates.find( ( key ) => !key.includes( '_' ) ) ||
+				null;
+		},
+
+		getFrequencyUnit() {
+			if ( !this.params.recurring ) {
+				return 'once';
+			}
+			return this.params.frequency_unit;
+		},
 		selectAmount( value ) {
 			this.donation.amount = value;
 		},
@@ -415,6 +449,35 @@ module.exports = exports = defineComponent( {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
+		/**
+		 * When the amount, frequency and payment method all came prefilled (e.g. from the banner),
+		 * scroll to and focus the first element marked data-autoscroll that still needs the donor.
+		 * A marked input, select or textarea counts while it is empty. Any other marked element,
+		 * e.g. a wallet button or a container holding iframe card fields, always counts.
+		 */
+		scrollToFirstEmptyField() {
+			const { amount, frequency, paymentMethod } = this.donation;
+			if ( !amount || !frequency || !paymentMethod ) {
+				return;
+			}
+
+			const isFormField = ( el ) => [ 'INPUT', 'SELECT', 'TEXTAREA' ].includes( el.tagName );
+			// Elements come back in page order, so the first match is the highest one on the page
+			const target = Array.from( this.$el.querySelectorAll( '[data-autoscroll]' ) )
+				.find( ( el ) => ( !isFormField( el ) || el.value === '' ) &&
+					!el.disabled &&
+					// Ignore elements that are not rendered (display: none or inside a hidden parent)
+					el.getClientRects().length > 0
+				);
+			console.log( target );
+			if ( !target ) {
+				return;
+			}
+			target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+			// The scroll above already brings it into view, don't let focus jump the page.
+			// Containers can't take focus, so this only does something for inputs and buttons.
+			target.focus( { preventScroll: true } );
+		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
 			const { toRaw } = require( 'vue' );
@@ -469,6 +532,13 @@ module.exports = exports = defineComponent( {
 			const url = new URL( window.location.href );
 			url.searchParams.delete( 'paymentFailed' );
 			window.history.replaceState( {}, '', url );
+		}
+
+		// Wait for the prefilled payment method's form to render before looking for empty fields
+		// The SMS opt-in fields load as an async component and call this once they're in
+		// the page, so the scroll can't land on a field below them before they appear
+		if ( !this.showSmsOptin ) {
+			this.$nextTick( () => this.scrollToFirstEmptyField() );
 		}
 	}
 } );
