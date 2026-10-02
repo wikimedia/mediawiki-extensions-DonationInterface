@@ -200,6 +200,15 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * Endowment links send wmf_medium=endowment, which DataIntegrator stores as utm_medium.
+	 *
+	 * @return bool
+	 */
+	private function isEndowment(): bool {
+		return $this->dataObject->getValue( 'utm_medium' ) === 'endowment';
+	}
+
+	/**
 	 * @return void
 	 */
 	public function addStylesScriptsAndViewport(): void {
@@ -215,6 +224,9 @@ class Donate extends UnlistedSpecialPage {
 			'donationInterface.skinOverrideStyles',
 			'ext.donationInterface.comboWikiStyles'
 		] );
+		if ( $this->isEndowment() ) {
+			$out->addModuleStyles( 'ext.donationInterface.comboWikiEndowmentStyles' );
+		}
 
 		$out->addModules( [
 			'ext.donationInterface.comboWiki'
@@ -255,6 +267,9 @@ class Donate extends UnlistedSpecialPage {
 			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
 			'paymentMethods' => $this->supportedPaymentMethods,
+			'wmfParams' => [
+				'utm_medium' => $this->dataObject->getValue( 'utm_medium' ),
+			],
 		];
 		$this->addCountriesConfig( $vars );
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;

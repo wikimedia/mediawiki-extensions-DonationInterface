@@ -14,6 +14,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	gateway: comboWikiConfig.gateway,
 	language: comboWikiConfig.language,
 	paymentMethods: comboWikiConfig.paymentMethods || [],
+	wmfParams: comboWikiConfig.wmfParams || {},
 	assets_path: mw.config.get( 'assets_path' ),
 	wgDonationInterfaceCountries: mw.config.get( 'wgDonationInterfaceCountries' ),
 	wgDonationInterfaceCurrencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),

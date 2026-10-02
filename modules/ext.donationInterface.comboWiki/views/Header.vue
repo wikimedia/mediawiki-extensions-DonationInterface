@@ -2,7 +2,22 @@
 	<header class="header">
 		<div class="header__inner">
 			<nav class="nav">
-				<a href="https://wikimediafoundation.org/" target="_blank">
+				<a
+					v-if="isEndowment"
+					href="https://wikimediaendowment.org/"
+					target="_blank"
+				>
+					<img
+						:src="`${ assets_path }/logos/wikimedia-endowment-logo.png`"
+						alt="Wikimedia Endowment"
+						class="nav__logo"
+					>
+				</a>
+				<a
+					v-else
+					href="https://wikimediafoundation.org/"
+					target="_blank"
+				>
 					<img
 						:src="`${ assets_path }/logos/wikimedia-foundation-logo-landscape.png`"
 						alt="Wikimedia Foundation"
@@ -10,7 +25,7 @@
 					>
 				</a>
 			</nav>
-			<section class="nav-global__aside">
+			<section v-if="!isEndowment" class="nav-global__aside">
 				<a
 					href="https://www.wikipedia.org/"
 					target="_blank"
@@ -47,9 +62,11 @@ module.exports = exports = defineComponent( {
 		const { inject } = require( 'vue' );
 		const params = inject( 'params' );
 		const assets_path = params.assets_path;
+		const isEndowment = params.wmfParams.utm_medium === 'endowment';
 
 		return {
-			assets_path
+			assets_path,
+			isEndowment
 		};
 	}
 } );

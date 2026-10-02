@@ -673,6 +673,9 @@
 		"ext.donationInterface.comboWikiStyles": {
 			"styles": "modules/css/comboWiki.less"
 		},
+		"ext.donationInterface.comboWikiEndowmentStyles": {
+			"styles": "modules/css/comboWikiEndowment.less"
+		},
 		"ext.donationInterface.emailPreferencesStyles": {
 			"styles": "modules/css/emailPreferences.css"
 		},

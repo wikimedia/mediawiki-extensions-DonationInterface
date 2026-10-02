@@ -822,6 +822,53 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertArrayHasKey( 'assets_path', $jsConfigVars );
 	}
 
+	/**
+	 * Endowment links send wmf_medium=endowment. That loads the endowment styles,
+	 * and Header.vue shows the endowment logo when it sees utm_medium=endowment.
+	 *
+	 * @dataProvider provideEndowmentCases
+	 */
+	public function testEndowmentStylesAndClientMedium(
+		array $mediumParams,
+		string $expectedMedium,
+		bool $expectedEndowmentStyles
+	): void {
+		$context = RequestContext::getMain();
+		$context->setRequest( new FauxRequest( array_merge( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		], $mediumParams ), false ) );
+		$context->setTitle( Title::newFromText( 'Special:Donate' ) );
+
+		$donate = $this->getDonateInstance();
+		$donate->execute( null );
+		$vars = [];
+		$donate->setClientVariables( $vars );
+
+		$this->assertSame(
+			$expectedMedium,
+			$vars['comboWiki']['wmfParams']['utm_medium'],
+			'Header.vue reads comboWiki.wmfParams.utm_medium to pick the logo'
+		);
+		$this->assertSame(
+			$expectedEndowmentStyles,
+			in_array( 'ext.donationInterface.comboWikiEndowmentStyles', $donate->getOutput()->getModuleStyles(), true ),
+			'The endowment styles should load only for endowment donations'
+		);
+	}
+
+	public static function provideEndowmentCases(): array {
+		return [
+			// DonationDetails::getValue() returns '' for a missing value, never null.
+			'no medium' => [ [], '', false ],
+			'endowment link' => [ [ 'wmf_medium' => 'endowment' ], 'endowment', true ],
+			'other medium' => [ [ 'wmf_medium' => 'email' ], 'email', false ],
+			'utm_medium in the URL is ignored' => [ [ 'utm_medium' => 'endowment' ], '', false ],
+		];
+	}
+
 	public function testVueFrontendModuleAndConfigAreLoaded(): void {
 		// Assert that the required fields are passed down to the VueApp frontend
 		// after contribution tracking fields are generated, normalization and
