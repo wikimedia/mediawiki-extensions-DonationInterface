@@ -1063,6 +1063,9 @@
 		"DonationInterfaceDebugLog": {
 			"value": false
 		},
+		"DonationInterfaceLogDebug": {
+			"value": false
+		},
 		"DonationInterfaceDisplayDebug": {
 			"value": false
 		},
