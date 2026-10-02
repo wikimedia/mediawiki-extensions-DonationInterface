@@ -7,7 +7,6 @@ use DonationInterface;
 use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Config\Config;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ComboWikiLogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
@@ -232,8 +231,7 @@ class Donate extends UnlistedSpecialPage {
 	public function addStylesScriptsAndViewport(): void {
 		$out = $this->getOutput();
 
-		$context = RequestContext::getMain();
-		$scriptPath = $context->getConfig()->get( 'ScriptPath' );
+		$scriptPath = $this->getConfig()->get( 'ScriptPath' );
 		$assetsPath = $scriptPath .
 			'/extensions/DonationInterface/modules/ext.donationInterface.comboWiki/assets';
 

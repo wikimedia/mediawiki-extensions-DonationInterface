@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\DonationInterface\Api;
 use CiviproxyConnect;
 use DonationLoggerFactory;
 use MediaWiki\Api\ApiBase;
-use MediaWiki\Context\RequestContext;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestLogout extends ApiBase {
@@ -27,7 +26,7 @@ class ApiRequestLogout extends ApiBase {
 	}
 
 	public function execute() {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestLogout' ) ) {
+		if ( $this->getUser()->pingLimiter( 'requestLogout' ) ) {
 			return;
 		}
 		$logger = DonationLoggerFactory::getLoggerFromParams(

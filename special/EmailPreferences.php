@@ -464,7 +464,7 @@ class EmailPreferences extends UnlistedSpecialPage {
 				return false;
 			}
 		} else {
-			$session = RequestContext::getMain()->getRequest()->getSession();
+			$session = $this->getRequest()->getSession();
 			$token = $session->getToken();
 			if ( !$token->match( $params['token'] ) ) {
 				return false;

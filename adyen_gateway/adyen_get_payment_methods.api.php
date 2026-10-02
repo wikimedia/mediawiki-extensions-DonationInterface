@@ -1,14 +1,13 @@
 <?php
 
 use MediaWiki\Api\ApiBase;
-use MediaWiki\Context\RequestContext;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class AdyenGetPaymentMethodsApi extends ApiBase {
 
 	public function execute() {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'getpaymentmethods' ) ) {
+		if ( $this->getUser()->pingLimiter( 'getpaymentmethods' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['applesession']['ip']
 			return;
 		}
