@@ -1,7 +1,6 @@
 <?php
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
@@ -76,7 +75,7 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 				'gravy' => 'GravyAdapter',
 			],
 		] );
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$config = $this->getServiceContainer()->getMainConfig();
 		$this->dir = $config->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface' . DIRECTORY_SEPARATOR;
 		$this->gatewayConfigGlobPattern = $this->dir . '*' . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR;
 	}
@@ -723,6 +722,6 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 	}
 
 	protected function getGatewayRouter(): GatewayRouter {
-		return MediaWikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' );
+		return $this->getServiceContainer()->getService( 'DonationInterface.GatewayRouter' );
 	}
 }

@@ -15,7 +15,6 @@
  * GNU General Public License for more details.
  */
 
-use MediaWiki\MediaWikiServices;
 use Psr\Log\LogLevel;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\PaymentError;
@@ -1021,7 +1020,7 @@ class PayPalExpressTest extends DonationInterfaceTestCase {
 		];
 
 		$key = 'processed_request-' . $init['gateway_session_id'];
-		MediaWikiServices::getInstance()->getObjectCacheFactory()
+		$this->getServiceContainer()->getObjectCacheFactory()
 			->getLocalClusterInstance()->add( $key, true, 100 );
 
 		$request = [

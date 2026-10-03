@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
 use Psr\Log\NullLogger;
 
 /**
@@ -23,7 +22,7 @@ class GatewayRouterTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		/** @var \MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter $router */
-		$router = MediaWikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' );
+		$router = $this->getServiceContainer()->getService( 'DonationInterface.GatewayRouter' );
 		$supportedGateways = $router->getSupportedGateways(
 			'BR',
 			'BRL',
@@ -51,7 +50,7 @@ class GatewayRouterTest extends MediaWikiIntegrationTestCase {
 		] );
 
 		/** @var \MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter $router */
-		$router = MediaWikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' );
+		$router = $this->getServiceContainer()->getService( 'DonationInterface.GatewayRouter' );
 
 		$allowedGateways = [ 'gravy' ];
 		$donorInUS = [ 'country' => 'US', 'currency' => 'USD', 'variant' => null ];

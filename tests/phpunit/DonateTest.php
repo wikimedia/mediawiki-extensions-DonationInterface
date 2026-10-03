@@ -2,7 +2,6 @@
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
 use MediaWiki\Extension\DonationInterface\Special\Donate;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use SmashPig\Core\Context;
@@ -982,10 +981,11 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	private function getDonateInstance(): Donate {
+		$services = $this->getServiceContainer();
 		return new Donate(
-			MediawikiServices::getInstance()->getService( 'DonationInterface.GatewayConfigurationFactory' ),
-			MediawikiServices::getInstance()->getService( 'DonationInterface.GatewayRouter' ),
-			MediawikiServices::getInstance()->getService( 'DonationInterface.LoggerFactory' ),
+			$services->getService( 'DonationInterface.GatewayConfigurationFactory' ),
+			$services->getService( 'DonationInterface.GatewayRouter' ),
+			$services->getService( 'DonationInterface.LoggerFactory' ),
 		);
 	}
 }

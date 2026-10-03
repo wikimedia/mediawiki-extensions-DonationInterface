@@ -2,7 +2,6 @@
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Tests\MinFraudTestTrait;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use SmashPig\Core\DataStores\QueueWrapper;
@@ -119,7 +118,7 @@ class SecureFieldsCardTest extends BaseGravyTestCase {
 					'screen_width' => 1024,
 					'time_zone_offset' => '1',
 				],
-				'window_origin' => MediaWikiServices::getInstance()->getUrlUtils()->getServer( PROTO_HTTPS ),
+				'window_origin' => $this->getServiceContainer()->getUrlUtils()->getServer( PROTO_HTTPS ),
 			] )
 			->willReturn( $stubCreatePaymentResponse );
 
