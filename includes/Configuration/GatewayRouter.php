@@ -250,6 +250,85 @@ class GatewayRouter {
 	}
 
 	/**
+	 * Get the payment methods available for these routing params, and the
+	 * gateway that would process each one.
+	 *
+	 * Methods are collected from every allowed gateway before any gateway is
+	 * chosen, so the list does not depend on a payment method picked in advance.
+	 * When more than one allowed gateway supports a method, the priority rules
+	 * pick one.
+	 *
+	 * @param string[] $allowedGateways Gateways the caller may use
+	 * @param array $params Routing params. Must include country, currency and variant.
+	 * @param LoggerInterface $logger
+	 *
+	 * @return array[] List of [ 'method' => string, 'gateway' => string ]
+	 */
+	public function getSupportedPaymentMethods(
+		array $allowedGateways,
+		array $params,
+		LoggerInterface $logger
+	): array {
+		// Collect each method once, across all allowed gateways
+		$paymentMethods = [];
+		$enabledGatewayConfigs = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
+			$params['variant']
+		);
+		foreach ( $enabledGatewayConfigs as $gateway => $gatewayConfig ) {
+			if ( !in_array( $gateway, $allowedGateways, true ) ) {
+				continue;
+			}
+			foreach ( array_keys( $gatewayConfig['payment_methods'] ?? [] ) as $paymentMethod ) {
+				$paymentMethods[$paymentMethod] = true;
+			}
+		}
+
+		$supportedPaymentMethods = [];
+		foreach ( array_keys( $paymentMethods ) as $paymentMethod ) {
+			$supportedGateways = array_values(
+				array_intersect(
+					$this->getSupportedGateways(
+						$params['country'],
+						$params['currency'],
+						$paymentMethod,
+						null,
+						false,
+						$params['variant']
+					),
+					$allowedGateways
+				)
+			);
+
+			if ( count( $supportedGateways ) === 0 ) {
+				continue;
+			}
+
+			if ( !empty( $params['gateway'] ) && in_array( $params['gateway'], $supportedGateways, true ) ) {
+				// An explicitly requested gateway wins over the priority rules
+				$chosenGateway = $params['gateway'];
+			} elseif ( count( $supportedGateways ) === 1 ) {
+				$chosenGateway = $supportedGateways[0];
+			} else {
+				$chosenGateway = $this->chooseGatewayByPriority(
+					$supportedGateways,
+					array_merge( $params, [
+						'payment_method' => $paymentMethod,
+						'payment_submethod' => null,
+					] ),
+					$logger
+				);
+			}
+
+			$supportedPaymentMethods[] = [
+				'method' => $paymentMethod,
+				'gateway' => $chosenGateway,
+			];
+		}
+
+		return $supportedPaymentMethods;
+	}
+
+	/**
 	 * Get the merged method / submethod configuration if submethod is specified,
 	 * or just the method configuration otherwise.
 	 *

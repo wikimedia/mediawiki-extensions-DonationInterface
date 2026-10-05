@@ -34,6 +34,7 @@
 			"아라"
 		]
 	},
+	"combowiki-cover-fees": "金額を100%寄付するために、手数料分として$1 を追加します。",
 	"donate_interface": "ウィキメディアを支援する",
 	"donate_interface-desc": "ゲートウェイ拡張機能を取り込んだ、寄付ランディングページ",
 	"donate_interface-langonly-desc": "DonationInterface システム メッセージのみを公開する",

@@ -52,6 +52,7 @@
 			"Y-M D"
 		]
 	},
+	"combowiki-cover-fees": "J’ajoute $1 pour généreusement prendre en charge les frais de transaction afin que vous puissiez conserver 100 % de mon don.",
 	"donate_interface": "Soutenir Wikimédia",
 	"donate_interface-desc": "Page de destination de don qui intègre des extensions de la passerelle",
 	"donate_interface-langonly-desc": "Exposer seulement les messages système de DonationInterface.",

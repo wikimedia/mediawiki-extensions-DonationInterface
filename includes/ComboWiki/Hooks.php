@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
-use ComboWikiGatewayResult;
-use MediaWiki\Extension\DonationInterface\Special\ComboWiki;
+use DonateGatewayResult;
+use MediaWiki\Extension\DonationInterface\Special\Donate;
 use MediaWiki\Hook\ApiBeforeMainHook;
 use MediaWiki\SpecialPage\Hook\SpecialPageBeforeExecuteHook;
 use SmashPig\Core\Context;
@@ -26,8 +26,8 @@ class Hooks implements SpecialPageBeforeExecuteHook, ApiBeforeMainHook {
 	 * @inheritDoc
 	 */
 	public function onSpecialPageBeforeExecute( $special, $subPage ) {
-		if ( $special instanceof ComboWiki || $special instanceof ComboWikiGatewayResult ) {
-			Context::get()->setSourceType( ComboWiki::IDENTIFIER );
+		if ( $special instanceof Donate || $special instanceof DonateGatewayResult ) {
+			Context::get()->setSourceType( Donate::IDENTIFIER );
 		}
 	}
 
@@ -39,8 +39,8 @@ class Hooks implements SpecialPageBeforeExecuteHook, ApiBeforeMainHook {
 	 * @inheritDoc
 	 */
 	public function onApiBeforeMain( &$main ) {
-		if ( $main->getRequest()->getVal( 'result_page' ) === ComboWiki::IDENTIFIER ) {
-			Context::get()->setSourceType( ComboWiki::IDENTIFIER );
+		if ( $main->getRequest()->getVal( 'result_page' ) === Donate::IDENTIFIER ) {
+			Context::get()->setSourceType( Donate::IDENTIFIER );
 		}
 	}
 }

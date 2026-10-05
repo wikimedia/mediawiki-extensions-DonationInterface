@@ -2,15 +2,11 @@
 
 namespace MediaWiki\Extension\DonationInterface\Validation;
 
-use MediaWiki\Config\Config;
-use MediaWiki\Extension\DonationInterface\Configuration\ConfigurationReader;
+use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 
-class AmountHelper {
+class DonationAmountRules {
 
-	protected Config $config;
-
-	public function __construct( Config $config ) {
-		$this->config = $config;
+	public function __construct( protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory ) {
 	}
 
 	/**
@@ -21,9 +17,8 @@ class AmountHelper {
 	 * @param array $donationData
 	 * @return array
 	 */
-	public function getDonationRules( string $gateway, array $donationData ) {
-		$configurationReader = ConfigurationReader::createForGateway( $gateway, null, $this->config );
-		$fullConfiguration = $configurationReader->readConfiguration();
+	public function getDonationRules( string $gateway, array $donationData ): array {
+		$fullConfiguration = $this->gatewayConfigurationFactory->getConfigurationForGatewayAndVariant( $gateway );
 		return self::lookupMatchingDonationRules( $fullConfiguration['donation_rules'], $donationData );
 	}
 

@@ -1,7 +1,7 @@
 <?php
 
 use MediaWiki\Context\RequestContext;
-use MediaWiki\Extension\DonationInterface\Validation\AmountHelper;
+use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
@@ -16,7 +16,7 @@ class DonorPortal extends UnlistedSpecialPage {
 
 	protected array $formParams = [];
 
-	public function __construct() {
+	public function __construct( protected DonationAmountRules $donationAmountRules ) {
 		parent::__construct( 'DonorPortal' );
 	}
 
@@ -235,7 +235,6 @@ class DonorPortal extends UnlistedSpecialPage {
 	private function addRecurringContributionsToFormParams( array $recurringContributions, string $locale ) {
 		$this->formParams['hasActiveRecurring'] = $this->formParams['hasInactiveRecurring'] = false;
 		$this->formParams['recurringContributions'] = $this->formParams['inactiveRecurringContributions'] = [];
-		$amountHelper = new AmountHelper( $this->getConfig() );
 
 		foreach ( $recurringContributions as $recurringContribution ) {
 			if ( in_array(
@@ -300,7 +299,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			}
 
 			if ( $recurringContribution['can_modify'] && $key == 'recurringContributions' ) {
-				$recurringContribution['donation_rules'] = $amountHelper->getDonationRules(
+				$recurringContribution['donation_rules'] = $this->donationAmountRules->getDonationRules(
 					$recurringContribution['payment_processor'],
 					[
 						'country' => $recurringContribution['country'],

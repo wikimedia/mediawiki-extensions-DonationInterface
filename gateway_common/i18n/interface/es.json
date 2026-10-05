@@ -48,6 +48,7 @@
 			"Vivaelcelta"
 		]
 	},
+	"combowiki-cover-fees": "Generosamente, acepto añadir $1 a la donación para cubrir los gastos bancarios y que Wikimedia reciba el 100 % de mi donación.",
 	"donate_interface": "Apoya a Wikimedia",
 	"donate_interface-desc": "Página inicial de donativos que integra extensiones de puertas de enlace",
 	"donate_interface-langonly-desc": "Expone sólo los mensajes del sistema DonationInterface",

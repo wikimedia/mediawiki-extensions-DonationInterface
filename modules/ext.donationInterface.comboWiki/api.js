@@ -9,6 +9,7 @@ function init( config ) {
 
 const paymentMethodMap = {
 	card: 'cc',
+	adyen_card: 'cc',
 	paypal: 'paypal',
 	applepay: 'apple',
 	googlepay: 'google',
@@ -43,6 +44,9 @@ function getBaseDonateParams( donation ) {
 
 	if ( donation.employer ) {
 		params.employer = donation.employer.trim();
+	}
+	if ( donation.employerId ) {
+		params.employer_id = donation.employerId;
 	}
 
 	const frequencyUnit = frequencyUnitMap[ donation.frequency ];
@@ -105,5 +109,6 @@ module.exports = {
 	validateApplePayPaymentSession,
 	submitDonation,
 	paymentMethodMap,
-	createCheckoutSession
+	createCheckoutSession,
+	apiPost
 };

@@ -1,6 +1,6 @@
 /*
  * Wikimedia - Fundraising Products Design System
- * Last updated on: 2026-08-05T19:45:07.617Z
+ * Last updated on: 2026-09-25T22:14:32.698Z
  */
 
 // Generated from :root custom properties
@@ -92,6 +92,7 @@
 @color-endowment-text: @color-endowment-black;
 @font-family-serif: 'Linux Libertine','Source Serif 4',Georgia,Times,serif;
 @font-family-base: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Lato,Helvetica,Arial,sans-serif;
+@font-family-cursive: 'Marker Felt','Segoe Script',casual,cursive;
 @font-size-5xl: 40px;
 @font-size-4xl: 32px;
 @font-size-3xl: 28px;
@@ -122,6 +123,18 @@
 @font-line-height-h4: @font-line-height-2xl;
 @font-line-height-h5: @font-line-height-xl;
 @font-line-height-h6: @font-line-height-l;
+@mobile-font-size-h1: @font-size-4xl;
+@mobile-font-size-h2: @font-size-3xl;
+@mobile-font-size-h3: @font-size-2xl;
+@mobile-font-size-h4: @font-size-xl;
+@mobile-font-size-h5: @font-size-l;
+@mobile-font-size-h6: @font-size-base;
+@mobile-font-line-height-h1: @font-line-height-4xl;
+@mobile-font-line-height-h2: @font-line-height-3xl;
+@mobile-font-line-height-h3: @font-line-height-2xl;
+@mobile-font-line-height-h4: @font-line-height-xl;
+@mobile-font-line-height-h5: @font-line-height-l;
+@mobile-font-line-height-h6: @font-line-height-base;
 @size-half: 2px;
 @size-1: 4px;
 @size-2: 8px;
@@ -141,11 +154,6 @@
 @gap-m: @size-3;
 @gap-base: @size-2;
 @gap-s: @size-1;
-@padding-xl: @size-6;
-@padding-l: @size-4;
-@padding-m: @size-3;
-@padding-base: @size-2;
-@padding-s: @size-1;
 @spacing-base: 24px;
 @spacing-s: 16px;
 @spacing-xs: 12px;
@@ -165,7 +173,6 @@
 		color: @color-text;
 		font-family: @font-family-serif;
 		font-weight: 600;
-		text-wrap: pretty;
 	}
 
 	.heading--subtle {
@@ -173,33 +180,33 @@
 	}
 
 	.heading--1 {
-		font-size: @font-size-h1;
-		line-height: @font-line-height-h1;
+		font-size: @mobile-font-size-h1;
+		line-height: @mobile-font-line-height-h1;
 	}
 
 	.heading--2 {
-		font-size: @font-size-h2;
-		line-height: @font-line-height-h2;
+		font-size: @mobile-font-size-h2;
+		line-height: @mobile-font-line-height-h2;
 	}
 
 	.heading--3 {
-		font-size: @font-size-h3;
-		line-height: @font-line-height-h3;
+		font-size: @mobile-font-size-h3;
+		line-height: @mobile-font-line-height-h3;
 	}
 
 	.heading--4 {
-		font-size: @font-size-h4;
-		line-height: @font-line-height-h4;
+		font-size: @mobile-font-size-h4;
+		line-height: @mobile-font-line-height-h4;
 	}
 
 	.heading--5 {
-		font-size: @font-size-h5;
-		line-height: @font-line-height-h5;
+		font-size: @mobile-font-size-h5;
+		line-height: @mobile-font-line-height-h5;
 	}
 
 	.heading--6 {
-		font-size: @font-size-h6;
-		line-height: @font-line-height-h6;
+		font-size: @mobile-font-size-h6;
+		line-height: @mobile-font-line-height-h6;
 	}
 
 	/* . . . . . . . . . . . . . . . . . .
@@ -213,7 +220,6 @@
 		color: @color-text;
 		font-family: @font-family-base;
 		font-weight: normal;
-		text-wrap: pretty;
 	}
 
 	.text--large {
@@ -439,18 +445,6 @@
 	.is-endowment .box {
 		background-color: @color-endowment-linen-pale;
 		border: 1px solid @color-linen;
-	}
-
-	/* . . . . . . . . . . . . . . . . . .
-	*
-	*   Box on Mobile
-	*
-	* . . . . . . . . . . . . . . . . . */
-
-	@media only screen and ( max-width: 480px ) {
-		.box {
-			padding: 16px !important;
-		}
 	}
 
 	/* . . . . . . . . . . . . . . . . . .
@@ -1159,5 +1153,95 @@
 
 	.list li:not( :last-child ) {
 		padding-bottom: 4px;
+	}
+
+	.nudge--top-left {
+		text-align: right;
+	}
+
+	.nudge--top-right {
+		text-align: left;
+	}
+
+	.nudge--bottom-left {
+		text-align: right;
+	}
+
+	.nudge--bottom-right {
+		text-align: left;
+	}
+
+	.nudge--top-center,
+	.nudge--bottom-center {
+		text-align: center;
+	}
+
+	.nudge img {
+		width: 24px;
+		vertical-align: middle;
+		display: inline-block;
+	}
+
+	.nudge .text {
+		font-family: @font-family-cursive;
+		font-size: @font-size-base;
+		line-height: @font-line-height-base;
+		color: @color-orange-bright;
+		vertical-align: middle;
+	}
+
+	@media only screen and ( min-width: 481px ) {
+		.heading--1 {
+			font-size: @font-size-h1;
+			line-height: @font-line-height-h1;
+		}
+
+		.heading--2 {
+			font-size: @font-size-h2;
+			line-height: @font-line-height-h2;
+		}
+
+		.heading--3 {
+			font-size: @font-size-h3;
+			line-height: @font-line-height-h3;
+		}
+
+		.heading--4 {
+			font-size: @font-size-h4;
+			line-height: @font-line-height-h4;
+		}
+
+		.heading--5 {
+			font-size: @font-size-h5;
+			line-height: @font-line-height-h5;
+		}
+
+		.heading--6 {
+			font-size: @font-size-h6;
+			line-height: @font-line-height-h6;
+		}
+	}
+
+	@media only screen and ( max-width: 480px ) {
+		/* . . . . . . . . . . . . . . . . . .
+		*
+		*   Box on Mobile
+		*
+		* . . . . . . . . . . . . . . . . . */
+
+		.box {
+			padding: 16px !important;
+		}
+
+		/* . . . . . . . . . . . . . . . . . .
+		*
+		*   Nudge on Mobile
+		*
+		* . . . . . . . . . . . . . . . . . */
+
+		.nudge .text {
+			font-size: @font-size-s !important;
+			line-height: @font-line-height-s !important;
+		}
 	}
 }

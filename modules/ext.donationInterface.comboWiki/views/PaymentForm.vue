@@ -53,9 +53,9 @@
 						>
 						</cdx-text-input>
 					</div>
-					<!-- Pay the fee -->
-					<cdx-checkbox v-model="donation.payFee">
-						{{ $i18n( 'combowiki-cover-fees' ).text() }}
+					<!-- Pay the fee, shown once there is an amount to base the fee on -->
+					<cdx-checkbox v-if="canCoverFee" v-model="donation.payFee">
+						{{ $i18n( 'combowiki-cover-fees', formattedAmount( suggestedFee ) ).text() }}
 					</cdx-checkbox>
 				</div>
 
@@ -63,17 +63,21 @@
 				<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
 
 				<!-- Employer -->
-				<employer-field v-model="donation.employer"></employer-field>
+				<employer-field
+					v-model:employer="donation.employer"
+					v-model:employer-id="donation.employerId"
+				></employer-field>
 
 				<!-- Sms Optin -->
 				<sms-optin
 					v-if="showSmsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
+					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
 				></sms-optin>
 
 				<payment-method-form
-					:donation="donation"
+					:donation="chargedDonation"
 					:disabled="!giftComplete"
 					@donation-success="handleDonateResult"
 					@donation-error="handleDonateError"
@@ -81,8 +85,6 @@
 						donation.paymentMethod = method
 					}"
 				></payment-method-form>
-
-				<br>
 
 				<tax-message :country-code="donation.country"></tax-message>
 				<we-do-not-sell-text></we-do-not-sell-text>
@@ -97,6 +99,7 @@
 					:language="params.language || 'en'"
 					:order-id="params.order_id || ''"
 					:utm-token="params.utm_token || ''"
+					:charged-amount="Number( chargedDonation.amount ) || null"
 					:thank-you-url="thankYouUrl"
 					@close="redirectTargetUrl"
 					@recurring-convert-submit="submitPreModalDonation"
@@ -142,6 +145,34 @@ const { getAmountHeading } = require( '../frequencyOptions.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
+// Fee calculation ported from calculateFee() in the donate wiki's MediaWiki:DonationForm.js,
+// so both forms suggest the same amount. Minimums are about 0.35 USD in each currency.
+const FEE_MULTIPLIER = 0.04;
+const DEFAULT_FEE_MINIMUM = 0.35;
+const FEE_MINIMUMS = {
+	DKK: 2,
+	HUF: 100,
+	ILS: 1.2,
+	INR: 4,
+	JPY: 35,
+	KHR: 1000,
+	MYR: 1,
+	NOK: 3,
+	PLN: 1.35,
+	CZK: 7.5,
+	RON: 1.5,
+	SEK: 3,
+	UAH: 10,
+	ZAR: 5,
+	BRL: 2,
+	ARS: 415,
+	CLP: 325,
+	COP: 1450,
+	MXN: 6.75,
+	PEN: 1.28,
+	UYU: 14.5
+};
+
 module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
 
@@ -184,6 +215,7 @@ module.exports = exports = defineComponent( {
 				paymentMethod: null,
 				optIn: null,
 				employer: null,
+				employerId: 0,
 				smsOptin: null,
 				gateway: this.params.gateway || null,
 				variant: this.params.variant || null
@@ -233,12 +265,51 @@ module.exports = exports = defineComponent( {
 				return Math.ceil( converted );
 			} );
 		},
+		suggestedFee() {
+			const amount = Number( this.donation.amount );
+			if ( !( amount > 0 ) ) {
+				return null;
+			}
+
+			const minimum = FEE_MINIMUMS[ this.donation.currency ] || DEFAULT_FEE_MINIMUM;
+			const fee = Math.max( amount * FEE_MULTIPLIER, minimum );
+			// Currencies with no minor unit, from SmashPig's CurrencyRoundingHelper.
+			const noDecimalCurrencies = this.params.DonationInterfaceNoDecimalCurrencies || [];
+			if ( noDecimalCurrencies.includes( this.donation.currency ) ) {
+				return Math.round( fee );
+			}
+			return Math.round( fee * 100 ) / 100;
+		},
+		maxLocal() {
+			const rules = this.params.wgDonationInterfaceAmountRules;
+			if ( !rules || !rules.max ) {
+				return Infinity;
+			}
+			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
+			if ( this.donation.currency === rules.currency || !rates[ this.donation.currency ] ) {
+				return rules.max;
+			}
+			return ( rules.max / rates[ rules.currency ] ) * rates[ this.donation.currency ];
+		},
+		canCoverFee() {
+			// Like the donate wiki, don't offer the fee when it would push the donation over the maximum
+			return !!this.suggestedFee &&
+				Number( this.donation.amount ) + this.suggestedFee <= this.maxLocal;
+		},
 		feeAmount() {
-			if ( !this.donation.payFee || !this.donation.amount ) {
+			if ( !this.donation.payFee || !this.canCoverFee ) {
 				return 0;
 			}
 
-			return Math.round( this.donation.amount * 0.035 * 100 ) / 100;
+			return this.suggestedFee;
+		},
+		chargedDonation() {
+			// What the payment methods charge, which includes the fee when the donor opts in
+			if ( !this.feeAmount ) {
+				return this.donation;
+			}
+			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
+			return Object.assign( {}, this.donation, { amount: total } );
 		},
 		countryOptions() {
 			return Object.entries( this.countries ).map( ( [ country, config ] ) => ( {
@@ -270,8 +341,14 @@ module.exports = exports = defineComponent( {
 				}
 			};
 		},
+		showPhoneField() {
+			// The country_fields config marks a shown field as true (required) or 'optional'
+			return [ true, 'optional' ].includes(
+				( this.params.DonationInterfaceFormFields || {} ).phone
+			);
+		},
 		showSmsOptin() {
-			return this.params.variant === 'smsOptin';
+			return this.params.variant === 'smsOptin' && this.showPhoneField;
 		},
 		optInRequired() {
 			return this.supportedCountries.includes( this.donation.country );
@@ -297,7 +374,7 @@ module.exports = exports = defineComponent( {
 			this.donation.currency = countryConfig.currency || 'USD';
 
 			const url = new URL( window.location.href );
-			url.searchParams.set( 'country', country );
+			url.searchParams.set( 'country', this.countries[ country ].value );
 			window.location.assign( url.toString() );
 		},
 		handleDonateResult( result ) {
@@ -318,7 +395,7 @@ module.exports = exports = defineComponent( {
 			// Store backend-generated Thank-You page URL for modal usage
 			this.thankYouUrl = response.thankYouPage || response.redirect;
 
-			if ( this.donation.frequency === 'once' && !response.iframe ) {
+			if ( this.donation.frequency === 'once' && !response.redirect ) {
 				this.appState.setShowRecurringConvert( true );
 			} else {
 				this.redirectTargetUrl( response.redirect );
@@ -340,11 +417,15 @@ module.exports = exports = defineComponent( {
 			const { toRaw } = require( 'vue' );
 
 			if ( updatedDonation ) {
+				if ( updatedDonation.frequency !== this.donation.frequency ) {
+					// A monthly ask is charged exactly as shown in the modal, like the post donation convert
+					updatedDonation.payFee = false;
+				}
 				Object.assign( this.donation, updatedDonation );
 			}
 
 			this.appState.setLoading( true );
-			api.submitDonation( toRaw( this.donation ) )
+			api.submitDonation( toRaw( this.chargedDonation ) )
 				.then( ( result ) => {
 					this.handleDonateResult( result );
 				} )

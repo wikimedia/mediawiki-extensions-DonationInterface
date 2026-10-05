@@ -15,7 +15,11 @@
 		"Casey Dentinger",
 		"Maggie Epps",
 		"Jack Gleeson",
-		"Christine Stone"
+		"Christine Stone",
+		"Damilare Adedoyin",
+		"Wenjun Fan",
+		"Laura Barluzzi",
+		"Daniel Miranda"
 	],
 	"license-name": "GPL-2.0-or-later",
 	"url": "https://www.mediawiki.org/wiki/Extension:DonationInterface",
@@ -55,24 +59,30 @@
 				"DonationInterface.GatewayConfigurationFactory"
 			]
 		},
-		"DonorPortal": "DonorPortal",
-		"ComboWiki": {
-			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\ComboWiki",
+		"DonorPortal": {
+			"class": "DonorPortal",
 			"services": [
-				"DonationInterface.GatewayConfigurationFactory",
-				"DonationInterface.GatewayRouter"
+				"DonationInterface.DonationAmountRules"
 			]
 		},
-		"ComboWikiGatewayResult": "ComboWikiGatewayResult"
+		"Donate": {
+			"class": "MediaWiki\\Extension\\DonationInterface\\Special\\Donate",
+			"services": [
+				"DonationInterface.GatewayConfigurationFactory",
+				"DonationInterface.GatewayRouter",
+				"DonationInterface.LoggerFactory"
+			]
+		},
+		"DonateGatewayResult": "DonateGatewayResult"
 	},
 	"APIModules": {
 		"di_amazon_bill": "AmazonBillingApi",
 		"di_donate_adyen": "AdyenDonationApi",
 		"di_donate_dlocal": "DlocalDonationApi",
-		"di_applesession_adyen": "AdyenAppleApi",
+		"di_applesession_adyen": "MediaWiki\\Extension\\DonationInterface\\Api\\AdyenAppleSessionApi",
 		"di_donate_braintree": "BraintreeDonationApi",
 		"di_donate_gravy": "GravyDonationApi",
-		"di_applesession_gravy": "GravyAppleApi",
+		"di_applesession_gravy": "MediaWiki\\Extension\\DonationInterface\\Api\\GravyAppleSessionApi",
 		"di_checkoutsession_gravy": "GravyCheckoutSessionApi",
 		"donate": "DonationApi",
 		"di_recurring_convert": "RecurringConversionApi",
@@ -125,13 +135,13 @@
 		"EmployerSearchAPI": "gateway_common/employerSearch.api.php",
 		"CiviproxyConnect": "extras/civiproxy/CiviproxyConnect.php",
 		"ClientSideValidationHelper": "gateway_common/ClientSideValidationHelper.php",
-		"ComboWikiGatewayResult": "special/ComboWikiGatewayResult.php",
 		"ContributionTrackingPlusUnique": "gateway_common/ContributionTrackingPlusUnique.php",
 		"CountryValidation": "gateway_common/CountryValidation.php",
 		"PostalCodeValidation": "gateway_common/PostalCodeValidation.php",
 		"StreetAddressValidation": "gateway_common/StreetAddressValidation.php",
 		"StreetNumberValidation": "gateway_common/StreetNumberValidation.php",
 		"CurrencyRatesModule": "modules/CurrencyRatesModule.php",
+		"DonateGatewayResult": "special/DonateGatewayResult.php",
 		"DonationData": "gateway_common/DonationData.php",
 		"DonationInterface": "DonationInterface.class.php",
 		"DonationLoggerFactory": "gateway_common/DonationLoggerFactory.php",
@@ -189,7 +199,6 @@
 		"AdyenDonationApi": "adyen_gateway/adyen.api.php",
 		"DlocalDonationApi": "dlocal_gateway/dlocal.api.php",
 		"BraintreeDonationApi": "braintree_gateway/braintree.api.php",
-		"AdyenAppleApi": "adyen_gateway/adyen_apple.api.php",
 		"AdyenCheckoutAdapter": "adyen_gateway/adyen_checkout.adapter.php",
 		"AdyenCheckoutGateway": "adyen_gateway/adyen_checkout_gateway.body.php",
 		"AdyenCheckoutGatewayResult": "adyen_gateway/adyen_checkout_resultswitcher.body.php",
@@ -215,7 +224,6 @@
 		"GravyAdapter": "gravy_gateway/gravy.adapter.php",
 		"GravyGateway": "gravy_gateway/gravy_gateway.body.php",
 		"GravyGatewayResult": "gravy_gateway/gravy_resultswitcher.body.php",
-		"GravyAppleApi": "gravy_gateway/gravy_apple.api.php",
 		"GravyCheckoutSessionApi": "gravy_gateway/gravy_checkout_session.api.php",
 		"Gravy3DSecure": "gravy_gateway/Gravy3DSecure.php",
 		"Gateway_Extras": "extras/extras.body.php",
@@ -631,6 +639,7 @@
 				"donate_interface-donor-employer",
 				"donate_interface-donor-employer-explain",
 				"donate_interface-donor-phone",
+				"donate_interface-donor-phone-optional",
 				"donate_interface-donor-sms_opt_in",
 				"donate_interface-informationsharing",
 				"donate_interface-problemsdonating",
@@ -1056,6 +1065,9 @@
 		"DonationInterfaceDebugLog": {
 			"value": false
 		},
+		"DonationInterfaceLogDebug": {
+			"value": false
+		},
 		"DonationInterfaceDisplayDebug": {
 			"value": false
 		},
@@ -1324,6 +1336,9 @@
 					"gateways": [ "gravy", "adyen", "paypal_ec", "amazon", "dlocal", "braintree" ]
 				}
 			]
+		},
+		"DonationInterfaceComboWikiGateways": {
+			"value": [ "gravy" ]
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false

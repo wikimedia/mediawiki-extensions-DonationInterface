@@ -4,21 +4,19 @@ namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
 use Amount;
 use CountryValidation;
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\MediaWikiServices;
 use MessageUtils;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use SmashPig\PaymentData\ReferenceData\CurrencyRates;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
-class DataNormalizer implements LogPrefixProvider {
+class DataNormalizer {
+	protected ?Config $config = null;
+	protected ?DonationDetails $dataObject = null;
 
-	protected ?DonationDetails $dataObject;
 	/**
 	 * @var string Once defined, store value here for easy access in logger
 	 */
@@ -29,18 +27,14 @@ class DataNormalizer implements LogPrefixProvider {
 	 */
 	public array $normalized = [];
 
-	protected Config $mwConfig;
-
-	protected LoggerInterface $logger;
-
 	protected array $sourcesToNormalize = [ 'get', 'post' ];
 
 	/**
-	 * @param Config $mwConfig WMF Default Donation Interface Config.
+	 * @param Config $config WMF Default Donation Interface Config.
+	 * @param LoggerInterface $logger
 	 */
-	public function __construct( Config $mwConfig ) {
-		$this->mwConfig = $mwConfig;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
+	public function __construct( Config $config, protected readonly LoggerInterface $logger ) {
+		$this->config = $config;
 	}
 
 	/**
@@ -96,7 +90,7 @@ class DataNormalizer implements LogPrefixProvider {
 			$ip = $this->dataObject->getValue( 'user_ip' );
 			$ipCountry = $this->lookUpIpCountry( $ip );
 			if ( $ipCountry && !CountryValidation::isValidIsoCode( $ipCountry ) ) {
-				$this->logger->warning(
+				$this->logger->warning( __FUNCTION__ .
 					"GeoIP lookup returned bogus code '$ipCountry'! No country available."
 				);
 			}
@@ -105,13 +99,13 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * Validate the requested country code, falling back to the GeoIP country,
-	 * then to US, so later steps always have a valid uppercase ISO code.
+	 * Validate the requested or session country code, falling back to the GeoIP
+	 * country, then to US, so later steps always have a valid uppercase ISO code.
 	 */
 	protected function normalizeCountry(): void {
-		if ( $this->skipNormalization( 'country' ) ) {
-			return;
-		}
+		// Country is validated whatever its source, so skipNormalization() is not
+		// used here: it would trust any session value, and the legacy forms share
+		// the Donor session and store 'XX' when they cannot find a country.
 		if ( $this->dataObject->isValueSet( 'country' ) ) {
 			$country = $this->dataObject->getValue( 'country' );
 			$countryUppercase = strtoupper( $country );
@@ -153,11 +147,11 @@ class DataNormalizer implements LogPrefixProvider {
 		$country = $this->dataObject->getValue( 'country' );
 		if ( CountryValidation::isValidIsoCode( $country ) ) {
 			$currency = NationalCurrencies::getNationalCurrency( $country );
-			$this->logger->debug( "Got currency from 'country', now: $currency" );
+			$this->logger->debug( __FUNCTION__ . ": Got currency from 'country', now: $currency" );
 		}
 
 		if ( !$currency || !array_key_exists( $currency, CurrencyRates::getCurrencyRates() ) ) {
-			$this->logger->warning( "Currency '$currency' not in CurrencyRates list. Falling back to USD." );
+			$this->logger->warning( __FUNCTION__ . ": Currency '$currency' not in CurrencyRates list. Falling back to USD." );
 			$currency = 'USD';
 		}
 
@@ -213,7 +207,7 @@ class DataNormalizer implements LogPrefixProvider {
 			foreach ( $keys as $key ) {
 				$mess .= ' ' . $key . '=' . $this->dataObject->getValue( $key );
 			}
-			$this->logger->debug( $mess );
+			$this->logger->debug( __FUNCTION__ . $mess );
 			$this->dataObject->setValue( 'amount', 'invalid' );
 			return;
 		}
@@ -249,41 +243,24 @@ class DataNormalizer implements LogPrefixProvider {
 	}
 
 	/**
-	 * If the language has not yet been set or is not valid, pulls the language code
-	 * from the current global language object.
+	 * In DataIntegrator() we store the value directly in DonationDetails() 'language' but
+	 * the value is read from the request 'uselang' field.
 	 */
 	protected function normalizeLanguage(): void {
 		if ( $this->skipNormalization( 'language' ) ) {
 			return;
 		}
 
-		$language = false;
-
-		if ( $this->dataObject->isValueSet( 'uselang' ) ) {
-			$language = $this->dataObject->getValue( 'uselang' );
-		} elseif ( $this->dataObject->isValueSet( 'language' ) ) {
-			$language = $this->dataObject->getValue( 'language' );
-		}
-
-		if ( $language ) {
-			$language = strtolower( $language );
-		}
+		$language = strtolower( $this->dataObject->getValue( 'language' ) );
 
 		if ( !$language || !MediaWikiServices::getInstance()->getLanguageNameUtils()->isValidBuiltInCode( $language ) ) {
 			$language = RequestContext::getMain()->getLanguage()->getCode();
 		}
 
 		$this->dataObject->setValue( 'language', $language );
-		$this->dataObject->remove( 'uselang' );
 	}
 
 	/**
-	 * From Code Review: this function is confusing. And I think mostly obsolete.
-	 * We can send the banner, landing page, and payment method to contribution_tracking in separate fields now.
-	 * I think we just need to check if we're getting banner and landing page concatenated on the querystring
-	 * and split them out.
-	 * ---
-	 *
 	 * The utm_source is structured as: banner.landing_page.payment_method_family
 	 */
 	protected function normalizeUtmSource(): void {
@@ -336,17 +313,11 @@ class DataNormalizer implements LogPrefixProvider {
 		}
 		$appeal = $this->dataObject->getValue( 'appeal' );
 		if ( !$this->dataObject->isValueSet( 'appeal' ) ) {
-			if ( $this->mwConfig->has( 'DonationInterfaceDefaultAppeal' ) ) {
-				$appeal = $this->mwConfig->get( 'DonationInterfaceDefaultAppeal' );
+			if ( $this->config->has( 'DonationInterfaceDefaultAppeal' ) ) {
+				$appeal = $this->config->get( 'DonationInterfaceDefaultAppeal' );
 			}
 		}
 		$this->dataObject->setValue( 'appeal', MessageUtils::makeSafe( $appeal ) );
-	}
-
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->contributionTrackingId;
-		return "$thisClassName:$contributionTrackingId ";
 	}
 
 	/**

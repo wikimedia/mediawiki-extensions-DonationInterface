@@ -2,16 +2,12 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use UnexpectedValueException;
 
-class OrderIdHandler implements LogPrefixProvider {
-
+class OrderIdHandler {
 	private static string $contributionTrackingIdKey = 'contribution_tracking_id';
 	private static string $SessionSequenceKey = 'sequence';
 
@@ -19,17 +15,15 @@ class OrderIdHandler implements LogPrefixProvider {
 
 	protected WebRequest $request;
 
-	protected DonationDetails $dataObject;
+	protected ?DonationDetails $dataObject = null;
 
-	protected LoggerInterface $logger;
 	/**
 	 * @var string Once defined, store value here for easy access in logger
 	 */
 	protected string $contributionTrackingId = "";
 
-	public function __construct( WebRequest $request ) {
+	public function __construct( WebRequest $request, protected readonly LoggerInterface $logger ) {
 		$this->request = $request;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
 	}
 
 	/**
@@ -46,6 +40,7 @@ class OrderIdHandler implements LogPrefixProvider {
 		if ( !$sequence ) {
 			$sequence = 1;
 			$this->request->setSessionData( self::$SessionSequenceKey, $sequence );
+			$this->logger->info( __FUNCTION__ . ": No sequence found in session, starting at 1." );
 		}
 
 		$orderId = $this->dataObject->getValue( self::$orderIdKey );
@@ -53,6 +48,7 @@ class OrderIdHandler implements LogPrefixProvider {
 		$this->contributionTrackingId = $contributionTrackingId;
 
 		if ( !$contributionTrackingId ) {
+			$this->logger->error( __FUNCTION__ . ": Missing required contribution tracking ID." );
 			throw new UnexpectedValueException( __FUNCTION__ . ": Contribution tracking ID is required to set order id but non is set" );
 		}
 
@@ -61,15 +57,9 @@ class OrderIdHandler implements LogPrefixProvider {
 		}
 
 		if ( !$orderId ) {
+			$this->logger->info( __FUNCTION__ . ": order_id not set, generating new one with ct '{$contributionTrackingId}'." );
 			$orderId = $contributionTrackingId . '.' . $sequence;
-
 			$this->dataObject->setValue( self::$orderIdKey, $orderId );
 		}
-	}
-
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->contributionTrackingId;
-		return "$thisClassName:$contributionTrackingId ";
 	}
 }

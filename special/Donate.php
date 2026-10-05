@@ -4,11 +4,12 @@ namespace MediaWiki\Extension\DonationInterface\Special;
 
 use AdyenCheckoutAdapter;
 use DonationInterface;
-use DonationLoggerFactory;
 use GatewayAdapter;
 use GravyAdapter;
+use MediaWiki\Config\Config;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ComboWikiLogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Extension\DonationInterface\ComboWiki\DataIntegrator;
@@ -17,10 +18,12 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\ForbiddenCountryRegistry;
 use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use Psr\Log\LoggerInterface;
 use ResultPages;
+use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 
 /**
@@ -31,14 +34,16 @@ use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
  * viewport, and exposes server-side configuration to the client through the
  * MakeGlobalVariablesScript hook using setClientVariables().
  */
-class ComboWiki extends UnlistedSpecialPage {
+class Donate extends UnlistedSpecialPage {
 
 	/**
 	 * Identifies the ComboWiki donation flow.
 	 */
 	public const IDENTIFIER = 'combowiki';
 
-	private LoggerInterface $logger;
+	protected ?Config $config = null;
+	protected ?DonationDetails $dataObject = null;
+	protected LoggerInterface $logger;
 
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
@@ -48,14 +53,21 @@ class ComboWiki extends UnlistedSpecialPage {
 
 	/** @var string|null The gateway chosen for this request, if any. */
 	private ?string $selectedGateway = null;
-	private DonationDetails $dataObject;
+
+	/** @var array[] Payment methods offered on this page, as [ 'method' => string, 'gateway' => string ] */
+	private array $supportedPaymentMethods = [];
 
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
-		protected readonly GatewayRouter $gatewayRouter
+		protected readonly GatewayRouter $gatewayRouter,
+		protected readonly LoggerFactory $loggerFactory
 	) {
-		$this->logger = DonationLoggerFactory::getLoggerForType( 'GatewayAdapter', 'ComboWiki' );
-		parent::__construct( 'ComboWiki' );
+		parent::__construct( 'Donate' );
+		$this->dataObject = new DonationDetails();
+		$this->logger = $this->loggerFactory->getLogger(
+			self::IDENTIFIER,
+			new ComboWikiLogPrefixProvider( $this->dataObject )
+		);
 	}
 
 	/**
@@ -66,12 +78,13 @@ class ComboWiki extends UnlistedSpecialPage {
 	public function execute( $subPage ): void {
 		$request = $this->getRequest();
 		$wmfConfig = $this->getConfig();
-		$dataIntegrator = new DataIntegrator( $request, new DonationDetails() );
+		$dataIntegrator = new DataIntegrator( $request, $this->dataObject, $this->logger );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
-		( new DataNormalizer( $wmfConfig ) )->normalize( $this->dataObject );
-		( new ContributionTrackingHelper( $request, $wmfConfig ) )->handleTrackingData( $this->dataObject );
-		( new OrderIdHandler( $request ) )->handleOrderId( $this->dataObject );
+		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->dataObject );
+		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
+		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
 
+		$this->logger->debug( 'Data has been processed from request' );
 		$country = $this->dataObject->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
@@ -98,7 +111,17 @@ class ComboWiki extends UnlistedSpecialPage {
 			'gateway' => $this->dataObject->getValue( 'gateway' ),
 		];
 
+		$this->supportedPaymentMethods = $this->gatewayRouter->getSupportedPaymentMethods(
+			$wmfConfig->get( 'DonationInterfaceComboWikiGateways' ),
+			$this->routingParams,
+			$this->logger
+		);
+
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
+
+		if ( $this->routingParams['gateway'] && $this->selectedGateway !== $this->routingParams['gateway'] ) {
+			$this->logger->info( 'Selected gateway is ' . $this->selectedGateway . ' but requested ' . $this->routingParams['gateway'] );
+		}
 
 		// If we got gateway from the request/session, here we override with the
 		// one found with chooseGateway(). Are we ok with that?
@@ -115,9 +138,7 @@ class ComboWiki extends UnlistedSpecialPage {
 				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
 			);
 			if ( !$this->adapter ) {
-				$this->logger->error(
-					"Failed to create adapter for gateway: {$this->selectedGateway}"
-				);
+				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
 			}
 		}
 
@@ -233,8 +254,10 @@ class ComboWiki extends UnlistedSpecialPage {
 			'language' => $this->routingParams['language'],
 			'params' => $this->routingParams,
 			'gateway' => $this->selectedGateway,
+			'paymentMethods' => $this->supportedPaymentMethods,
 		];
 		$this->addCountriesConfig( $vars );
+		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
 		if ( !$this->adapter ) {
 			return;
@@ -244,6 +267,14 @@ class ComboWiki extends UnlistedSpecialPage {
 		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
+
+		// Donor fields from the country_fields config, each true (required) or 'optional'.
+		// Fields left out are not shown. Only the country is passed, since the donor
+		// picks the payment method on the page.
+		$vars['DonationInterfaceFormFields'] = $this->adapter->getFormFields(
+			[ 'country' => $this->routingParams['country'] ]
+		);
+
 		if ( $this->adapter->showMonthlyConvert() ) {
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
 		}
@@ -261,35 +292,31 @@ class ComboWiki extends UnlistedSpecialPage {
 		$vars['DonationInterfaceOtherWaysURL'] = $otherWaysURL;
 	}
 
+	/**
+	 * Choose the gateway whose client config this page loads.
+	 *
+	 * The page loads one gateway, so pick it from the payment methods on offer:
+	 * the requested gateway if it handles any of them, otherwise the gateway of
+	 * the requested payment method, otherwise the gateway for card.
+	 *
+	 * @param array $params
+	 * @return string|null
+	 */
 	private function chooseGateway( array $params ): ?string {
-		$supportedGateways = $this->gatewayRouter->getSupportedGateways(
-			$params['country'],
-			$params['currency'],
-			$params['payment_method'],
-			$params['payment_submethod'],
-			(bool)$params['recurring'],
-			$params['variant']
-		);
+		$gatewayByMethod = array_column( $this->supportedPaymentMethods, 'gateway', 'method' );
 
-		if ( count( $supportedGateways ) === 0 ) {
-			$this->logger->error( 'No supported gateway for parameters: ' . print_r( $params, true ) );
-
+		if ( !$gatewayByMethod ) {
+			$this->logger->error( 'No supported payment methods for parameters: ' . print_r( $params, true ) );
 			return null;
 		}
 
-		if ( $params['gateway'] && in_array( $params['gateway'], $supportedGateways, true ) ) {
+		if ( $params['gateway'] && in_array( $params['gateway'], $gatewayByMethod, true ) ) {
 			return $params['gateway'];
 		}
 
-		if ( count( $supportedGateways ) === 1 ) {
-			return $supportedGateways[0];
-		}
-
-		return $this->gatewayRouter->chooseGatewayByPriority(
-			$supportedGateways,
-			$params,
-			$this->logger
-		);
+		return $gatewayByMethod[$params['payment_method']]
+			?? $gatewayByMethod['cc']
+			?? $this->supportedPaymentMethods[0]['gateway'];
 	}
 
 	/**
@@ -305,10 +332,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		// so narrow the type before reaching for it.
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof GravyAdapter ) {
-			$this->logger->error(
-				'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter )
-			);
-
+			$this->logger->error( 'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter ) );
 			return;
 		}
 
@@ -343,9 +367,7 @@ class ComboWiki extends UnlistedSpecialPage {
 	protected function addAdyenClientConfig( array &$vars ): void {
 		$adapter = $this->adapter;
 		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
-			$this->logger->error(
-				'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter )
-			);
+			$this->logger->error( 'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter ) );
 
 			return;
 		}
@@ -370,7 +392,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$rawCountries = [];
 
 		$enabledConfigurations = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
-			$this->routingParams['variant']
+			$this->routingParams['variant'] ?? null
 		);
 
 		foreach ( $enabledConfigurations  as $gateway => $config ) {
@@ -413,6 +435,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
 		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
+		$this->logger->info( 'Data has been stored in session with session ID ' . $session->getId() );
 	}
 
 	/**
@@ -428,7 +451,7 @@ class ComboWiki extends UnlistedSpecialPage {
 		string $gatewayName,
 		array $options = []
 	): ?GatewayAdapter {
-		$enabledGateways = GatewayAdapter::getEnabledGateways( $this->getConfig() );
+		$enabledGateways = $this->gatewayConfigurationFactory->getAllEnabledGateways();
 		// Check if gateway is enabled
 		if ( !in_array( $gatewayName, $enabledGateways, true ) ) {
 			return null;

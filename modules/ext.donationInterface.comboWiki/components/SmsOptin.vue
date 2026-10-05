@@ -32,7 +32,7 @@ const { defineComponent } = require( 'vue' );
 const { CdxField, CdxLabel, CdxTextInput, CdxCheckbox } = require( '@wikimedia/codex' );
 const { stripLeadingWhitespace } = require( '../normalizeInput.js' );
 
-module.exports = defineComponent( {
+module.exports = exports = defineComponent( {
 	name: 'SmsOptin',
 	components: {
 		'cdx-field': CdxField,
@@ -48,12 +48,18 @@ module.exports = defineComponent( {
 		smsOptin: {
 			type: Boolean,
 			default: false
+		},
+		phoneOptional: {
+			type: Boolean,
+			default: false
 		}
 	},
 	emits: [ 'update:phone','update:smsOptin' ],
 	computed: {
 		phoneLabel() {
-			return this.$i18n( 'donate_interface-donor-phone' ).text();
+			return this.$i18n(
+				this.phoneOptional ? 'donate_interface-donor-phone-optional' : 'donate_interface-donor-phone'
+			).text();
 		},
 		smsOptinLabel() {
 			return this.$i18n( 'donate_interface-donor-sms_opt_in' ).text();

@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\DonationInterface\Configuration;
 
-use MediaWiki\Config\Config;
 use Symfony\Component\Yaml\Parser;
 use UnexpectedValueException;
 
@@ -17,23 +16,6 @@ class ConfigurationReader {
 	 * @var array
 	 */
 	protected $configDirectories = [];
-
-	/**
-	 * @param string $gateway short name, e.g. 'adyen' or 'ingenico'
-	 * @param string|null $variant querystring parameter used to change form appearance
-	 * @param Config $mwConfig object to access MediaWiki core configuration
-	 *
-	 * @return static
-	 */
-	public static function createForGateway( $gateway, $variant, Config $mwConfig ) {
-		return self::createForGatewayAndVariant(
-			$mwConfig->get( 'ExtensionDirectory' ) . DIRECTORY_SEPARATOR . 'DonationInterface',
-			$mwConfig->get( 'DonationInterfaceLocalConfigurationDirectory' ),
-			$mwConfig->get( 'DonationInterfaceVariantConfigurationDirectory' ),
-			$gateway,
-			$variant
-		);
-	}
 
 	/**
 	 * Creates a reader for a specific gateway and variant

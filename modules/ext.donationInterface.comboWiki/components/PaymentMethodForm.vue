@@ -1,31 +1,35 @@
 <template>
-	<!--    Payment method form component-->
-	<div>
-		<h2>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</h2>
-
-		<cdx-button
-			v-for="method in availablePaymentMethods"
-			:key="method"
-			:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
-			:disabled="disabled"
-			@click="selectPaymentMethod( method )"
-		>
-			{{ paymentMethodConfig[method].label }}
-		</cdx-button>
-		<br>
-		<component
-			:is="paymentMethodConfig[paymentMethod].component"
-			v-if="paymentMethodConfig[paymentMethod]"
-			:donation="donation"
-			@submit="paymentMethodConfig[paymentMethod].submit"
-			@error="paymentMethodConfig[paymentMethod].error"
-			@presubmit="paymentMethodConfig[paymentMethod].presubmit"
-		></component>
+	<!-- Payment method form component -->
+	<div class="fieldset gap--3">
+		<div class="fieldset__label">
+			<p class="text text--base">
+				<strong>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</strong>
+			</p>
+		</div>
+		<div>
+			<cdx-button
+				v-for="method in availablePaymentMethods"
+				:key="method"
+				:class="{ 'combo-wiki__option--selected': donation.paymentMethod === method }"
+				:disabled="disabled"
+				@click="selectPaymentMethod( method )"
+			>
+				{{ paymentMethodConfig[method].label }}
+			</cdx-button>
+			<component
+				:is="paymentMethodConfig[paymentMethod].component"
+				v-if="paymentMethodConfig[paymentMethod]"
+				:donation="donation"
+				@submit="paymentMethodConfig[paymentMethod].submit"
+				@error="paymentMethodConfig[paymentMethod].error"
+				@presubmit="paymentMethodConfig[paymentMethod].presubmit"
+			></component>
+		</div>
 	</div>
 </template>
 
 <script>
-const { defineComponent, toRaw, computed, onMounted } = require( 'vue' );
+const { defineComponent, toRaw, computed, onMounted, inject } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const GravyCardForm = require( './GravyCardForm.vue' );
@@ -62,6 +66,7 @@ module.exports = exports = defineComponent( {
 
 	setup( props, ctx ) {
 		const appState = useAppState();
+		const params = inject( 'params' );
 
 		/**
 		 * Submits the donation via the API and emits donationSuccess/donationError with the result.
@@ -226,6 +231,12 @@ module.exports = exports = defineComponent( {
 			}
 		};
 
+		// Server payment method code => the gateway that handles it, e.g. { cc: 'gravy', paypal: 'gravy' }
+		const gatewayByMethod = {};
+		for ( const entry of params.paymentMethods ) {
+			gatewayByMethod[ entry.method ] = entry.gateway;
+		}
+
 		/**
 		 * Returns the payment methods offered for the current donation.
 		 * Using computed for the caching property to ensure the list is only regenerated when
@@ -235,17 +246,19 @@ module.exports = exports = defineComponent( {
 		 */
 		const availablePaymentMethods = computed( () => {
 			const isOneTime = props.donation.frequency === 'once';
-			const activeGateway = props.donation.gateway || 'gravy';
 			const methods = [];
 			for ( const [ method, config ] of Object.entries( paymentMethodConfig ) ) {
 				if ( isOneTime && config.supportsOneTime === false ) {
 					continue;
 				}
-				const methodGateway = config.gateway || 'gravy';
-				if ( activeGateway !== methodGateway ) {
+				// Only the selected gateway's client config is loaded (one adapter per request).
+				if ( ( config.gateway || 'gravy' ) !== params.gateway ) {
 					continue;
 				}
-
+				// The server must offer this method on the selected gateway for this country.
+				if ( gatewayByMethod[ api.paymentMethodMap[ method ] ] !== params.gateway ) {
+					continue;
+				}
 				methods.push( method );
 			}
 			return methods;

@@ -2,18 +2,15 @@
 
 namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Config\Config;
 use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\SequenceGenerators;
 
-class ContributionTrackingHelper implements LogPrefixProvider {
+class ContributionTrackingHelper {
 	private string $generatorName = 'contribution-tracking';
 	private string $queueName = 'contribution-tracking';
 
@@ -27,11 +24,9 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 	public string $hashKey = 'ct_hash';
 
 	private WebRequest $request;
-	private ?DonationDetails $dataObject;
 
-	private Config $wmfConfig;
-
-	protected LoggerInterface $logger;
+	protected ?Config $config = null;
+	protected ?DonationDetails $dataObject = null;
 
 	/**
 	 * @var string Once defined, store value here for easy access
@@ -61,10 +56,9 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 		'utm_source',
 	];
 
-	public function __construct( WebRequest $request, Config $wmfConfig ) {
+	public function __construct( WebRequest $request, Config $config, protected readonly LoggerInterface $logger ) {
 		$this->request = $request;
-		$this->wmfConfig = $wmfConfig;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
+		$this->config = $config;
 	}
 
 	/**
@@ -118,22 +112,26 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 		$contributionTrackingDataUpdated = $this->trackingDataUpdated( $currentHash );
 
 		if ( $contributionTrackingDataUpdated ) {
+			$fn = __FUNCTION__;
 			$logger = $this->logger;
-			DeferredUpdates::addCallableUpdate( function () use ( $trackingData, $id, $logger ) {
+			$this->logger->info( __FUNCTION__ . ": Contribution tracking data has changed, sending to queue with DeferredUpdates" );
+			DeferredUpdates::addCallableUpdate( function () use ( $trackingData, $id, $logger, $fn ) {
 				try {
 					$sentId = $this->sendToContributionTrackingQueue( $trackingData, $id );
-					$logger->info( "Contribution tracking data sent to queue with contribution_tracking_id: $sentId" );
+					$logger->info( "$fn: Contribution tracking data sent to queue with contribution_tracking_id: $sentId" );
 				} catch ( \Exception $e ) {
-					$logger->error( 'Failed to push contribution tracking data to queue: ' . $e->getMessage() );
+					$logger->error( "$fn: Failed to push contribution tracking data to queue: " . $e->getMessage() );
 				}
 			} );
 
 			try {
 				$this->request->setSessionData( $this->hashKey, $currentHash );
+				$this->logger->info( __FUNCTION__ . ": Tracking data hash updated in session with value '$currentHash'" );
 			} catch ( \Exception $e ) {
-				$this->logger->error( "Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
+				$this->logger->error( __FUNCTION__ . ": Failed to set new hash key '$currentHash' in session with error = " . $e->getMessage() );
 			}
 		}
+		$this->logger->debug( __FUNCTION__ . ": Contribution tracking data has not changed" );
 	}
 
 	/**
@@ -211,16 +209,10 @@ class ContributionTrackingHelper implements LogPrefixProvider {
 
 		// Add banner history log id if sent and enabled
 		if ( $this->dataObject->isValueSet( 'bannerhistlog' ) ) {
-			if ( $this->wmfConfig->has( 'EnableBannerHistoryLog' ) && $this->wmfConfig->get( 'EnableBannerHistoryLog' ) ) {
+			if ( $this->config->has( 'EnableBannerHistoryLog' ) && $this->config->get( 'EnableBannerHistoryLog' ) ) {
 				$trackingData['banner_history_log_id'] = $this->dataObject->getValue( 'bannerhistlog' );
 			}
 		}
 		return $trackingData;
-	}
-
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->contributionTrackingId;
-		return "$thisClassName:$contributionTrackingId ";
 	}
 }

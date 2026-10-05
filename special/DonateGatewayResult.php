@@ -14,13 +14,13 @@
  *
  * The parent class works out this page's name automatically from the class
  * name. If we namespaced it, the page name would come out as the long
- * "MediaWiki\Extension\DonationInterface\Special\ComboWikiGatewayResult"
- * instead of just "ComboWikiGatewayResult", which breaks the URL the donor
+ * "MediaWiki\Extension\DonationInterface\Special\DonateGatewayResult"
+ * instead of just "DonateGatewayResult", which breaks the URL the donor
  * returns to after paying. Keeping the class un-namespaced keeps the page name
  * short and correct. Every other gateway result page is un-namespaced too, for
  * the same reason.
  */
-class ComboWikiGatewayResult extends ResultSwitcher {
+class DonateGatewayResult extends ResultSwitcher {
 
 	/**
 	 * @return string

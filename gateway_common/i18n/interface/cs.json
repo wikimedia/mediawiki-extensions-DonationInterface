@@ -18,6 +18,7 @@
 			"Vks"
 		]
 	},
+	"combowiki-cover-fees": "Velkoryse přidám $1 na pokrytí transakčních poplatků, abyste si mohli ponechat plnou výši mého finančního příspěvku.",
 	"donate_interface": "Podpora nadace Wikimedia",
 	"donate_interface-desc": "Cílová stránka pro přispěvatele, sjednocující rozhraní k platebním branám",
 	"donate_interface-langonly-desc": "Poskytuje jen systémová hlášení pro DonationInterface",

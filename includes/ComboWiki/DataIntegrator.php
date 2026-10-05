@@ -1,12 +1,9 @@
 <?php
 namespace MediaWiki\Extension\DonationInterface\ComboWiki;
 
-use DonationLoggerFactory;
-use LogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
 use MediaWiki\Request\WebRequest;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
 use WhichBrowser\Parser;
 
 /**
@@ -17,14 +14,13 @@ use WhichBrowser\Parser;
  *
  * @author lbarluzzi
  */
-class DataIntegrator implements LogPrefixProvider {
+class DataIntegrator {
+
 	// Using the same session key as the adapter to ensure values like the order_id
 	// and contribution tracking are accessible in the adapter class
 	public static string $DONATION_DETAILS_SESSION_KEY = 'Donor';
 
 	public WebRequest $request;
-
-	protected LoggerInterface $logger;
 
 	/**
 	 * This is our data object with getters and setters for all the data we need.
@@ -33,7 +29,7 @@ class DataIntegrator implements LogPrefixProvider {
 	 *
 	 * @var DonationDetails
 	 */
-	protected DonationDetails $dataObject;
+	protected ?DonationDetails $dataObject = null;
 
 	/**
 	 * TODO: Remove all the fieldNames we know we won't need for ComboWiki and add potential new ones
@@ -104,7 +100,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'issuer_id',
 		'java_enabled', // device fingerprinting
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -169,7 +164,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'full_name',
 		'gateway',
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -182,11 +176,13 @@ class DataIntegrator implements LogPrefixProvider {
 		'street_address',
 		'street_number', // for addresses in India
 		'transaction_status',
-		'utm_campaign',
-		'utm_medium',
-		'utm_source',
+		'uselang',
+		'wmf_campaign',
+		'wmf_medium',
+		'wmf_source',
 		'variant',
 		'wmf_token',
+		'wmf_key'
 	];
 
 	protected static array $requestPostFieldNames = [
@@ -231,7 +227,6 @@ class DataIntegrator implements LogPrefixProvider {
 		'issuer_id',
 		'java_enabled', // device fingerprinting
 		'landing_page', // previously concatenated into utm_source
-		'language',
 		'last_name',
 		'last_name_phonetic',
 		'opt_in',
@@ -259,19 +254,52 @@ class DataIntegrator implements LogPrefixProvider {
 		'transaction_status',
 		'transaction_type',
 		'upi_id',
+		'uselang',
 	];
+
+	/**
+	 * Maps raw field names to internal field names we want to use
+	 * in the DonationDetails object.
+	 *
+	 *  Note: Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
+	 *  one that we care about. Internally, we still refer to them all with the utm_ prefix.
+	 *  Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
+	 */
+	private static array $internalNames = [
+		'uselang' => 'language',
+		'wmf_campaign' => 'utm_campaign',
+		'wmf_medium' => 'utm_medium',
+		'wmf_source' => 'utm_source',
+		'wmf_key' => 'utm_key',
+	];
+
+	/**
+	 * Wrapper for overriding the default key name value got from the request
+	 * to the key name we want to use in the DonationDetails object.
+	 *
+	 * @param string $currentName
+	 * @return string
+	 */
+	private function getName( string $currentName ): string {
+		return self::$internalNames[ $currentName ] ?? $currentName;
+	}
 
 	/**
 	 * @param WebRequest $request
 	 * @param DonationDetails $dataObject instance for storing donation data details
+	 * @param LoggerInterface $logger
 	 * @param ?array $externalData An optional array of donation data that will, if
 	 * present, circumvent the usual process of gathering the data from various
 	 * places in the request. Defaults to null.
 	 */
-	public function __construct( WebRequest $request, DonationDetails $dataObject, ?array $externalData = null ) {
+	public function __construct(
+		WebRequest $request,
+		DonationDetails $dataObject,
+		protected readonly LoggerInterface $logger,
+		?array $externalData = null
+	) {
 		$this->dataObject = $dataObject;
 		$this->request = $request;
-		$this->logger = DonationLoggerFactory::getLoggerFromParams( 'ComboWiki', true, false, '', $this );
 		$this->populateData( $externalData );
 	}
 
@@ -315,21 +343,11 @@ class DataIntegrator implements LogPrefixProvider {
 
 	protected function setDataFromQueryParameters(): void {
 		$query_values = $this->request->getQueryValues();
-
 		foreach ( self::$requestQueryFieldNames as $var ) {
-			$value_name = $var;
-			/**
-			 * Browsers are stripping utm_* parameters, so we allow for a wmf_ version of each
-			 * one that we care about. Internally we still refer to them all with the utm_ prefix.
-			 * Here we map the wmf_ versions to utm_ versions and drop the wmf_ values.
-			 */
-			if ( str_starts_with( $var, 'utm_' ) ) {
-				$value_name = 'wmf_' . substr( $var, 4 );
-			}
-
-			if ( isset( $query_values[ $value_name ] ) ) {
-				$this->dataObject->setValue( $var, $query_values[ $value_name ] );
-				$this->dataObject->setSource( $var, 'get' );
+			if ( isset( $query_values[ $var ] ) ) {
+				$value_name = $this->getName( $var );
+				$this->dataObject->setValue( $value_name, $query_values[ $var ] );
+				$this->dataObject->setSource( $value_name, 'get' );
 			}
 		}
 	}
@@ -343,7 +361,7 @@ class DataIntegrator implements LogPrefixProvider {
 
 		foreach ( self::$requestPostFieldNames as $var ) {
 			if ( isset( $posted_values[ $var ] ) ) {
-				$this->dataObject->setValue( $var, $posted_values[ $var ] );
+				$this->dataObject->setValue( $this->getName( $var ), $posted_values[ $var ] );
 				$this->dataObject->setSource( $var, 'post' );
 			}
 		}
@@ -436,17 +454,5 @@ class DataIntegrator implements LogPrefixProvider {
 	 */
 	public function getDataFromRequestAndSession(): DonationDetails {
 		return $this->dataObject;
-	}
-
-	/**
-	 * Automatically prefix a log message with the class name.
-	 * Docs: https://www.php.net/manual/en/function.get-class.php
-	 *
-	 * @return string
-	 */
-	public function getLogMessagePrefix(): string {
-		$thisClassName = ( new ReflectionClass( $this ) )->getShortName();
-		$contributionTrackingId = $this->dataObject->getValue( 'contribution_tracking_id' );
-		return "$thisClassName:$contributionTrackingId ";
 	}
 }

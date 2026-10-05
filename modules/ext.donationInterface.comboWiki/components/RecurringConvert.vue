@@ -137,6 +137,8 @@ module.exports = exports = defineComponent( {
 		language: { type: String, default: 'en' },
 		orderId: { type: String, default: '' },
 		utmToken: { type: String, default: '' },
+		// The one-time amount actually charged, which includes the fee when the donor covers it
+		chargedAmount: { type: Number, default: null },
 		thankYouUrl: { type: String, required: true }
 	},
 
@@ -165,7 +167,7 @@ module.exports = exports = defineComponent( {
 			return [ 'paypal', 'venmo' ].includes( this.donation.paymentMethod );
 		},
 		presetAmount() {
-			const numericAmount = Number( this.originalAmount ) || 1;
+			const numericAmount = this.chargedAmount || Number( this.originalAmount ) || 1;
 			return this.getConvertAsk( numericAmount );
 		},
 		minLocal() {
@@ -208,7 +210,8 @@ module.exports = exports = defineComponent( {
 			return this.formatAmount( this.presetAmount, this.currency, this.locale );
 		},
 		formattedOriginalOneTimeAmount() {
-			return this.formatAmount( Number( this.originalAmount ), this.currency, this.locale );
+			const amount = this.chargedAmount || Number( this.originalAmount );
+			return this.formatAmount( amount, this.currency, this.locale );
 		},
 		formattedMinLocal() {
 			return this.formatAmount( this.minLocal, this.currency, this.locale );

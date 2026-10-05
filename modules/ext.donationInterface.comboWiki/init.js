@@ -13,6 +13,7 @@ const comboWikiConfig = mw.config.get( 'comboWiki' ) || { params: {} };
 const params = Object.assign( {}, comboWikiConfig.params, {
 	gateway: comboWikiConfig.gateway,
 	language: comboWikiConfig.language,
+	paymentMethods: comboWikiConfig.paymentMethods || [],
 	assets_path: mw.config.get( 'assets_path' ),
 	wgDonationInterfaceCountries: mw.config.get( 'wgDonationInterfaceCountries' ),
 	wgDonationInterfaceCurrencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
@@ -25,7 +26,9 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	script_path: mw.config.get( 'script_path' ),
 	DonationInterfaceOtherWaysURL: mw.config.get( 'DonationInterfaceOtherWaysURL' ),
 	wgDonationInterfaceMonthlyConvertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
-	wgDonationInterfaceAmountRules: mw.config.get( 'wgDonationInterfaceAmountRules' )
+	wgDonationInterfaceAmountRules: mw.config.get( 'wgDonationInterfaceAmountRules' ),
+	DonationInterfaceNoDecimalCurrencies: mw.config.get( 'DonationInterfaceNoDecimalCurrencies' ),
+	DonationInterfaceFormFields: mw.config.get( 'DonationInterfaceFormFields' )
 } );
 vueApp.provide( 'params', params );
 

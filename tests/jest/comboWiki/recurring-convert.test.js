@@ -14,7 +14,7 @@ const FAILURE_MESSAGE_KEY = 'combowiki-monthly-convert-failed';
 // useAppState() hands back the same refs the component writes to.
 const appState = useAppState();
 
-// Config as Special:ComboWiki puts it on the page: the amount rules are what the
+// Config as Special:Donate puts it on the page: the amount rules are what the
 // live page returns for USD, the tiers come from $wgDonationInterfaceMonthlyConvertAmounts
 // and the rates from SmashPig's CurrencyRates table.
 const AMOUNT_RULES = { currency: 'USD', min: 1, max: 12000 };
@@ -44,7 +44,7 @@ const CONVERT_REFUSED = {
 	}
 };
 
-async function mountModal() {
+async function mountModal( extraProps = {} ) {
 	const wrapper = VueTestUtils.mount( RecurringConvert, {
 		global: {
 			provide: {
@@ -55,11 +55,11 @@ async function mountModal() {
 				}
 			}
 		},
-		props: {
+		props: Object.assign( {
 			donation: DONATION,
 			orderId: ORDER_ID,
 			thankYouUrl: '/thank-you'
-		}
+		}, extraProps )
 	} );
 	// mounted() flips isVisible, which renders the modal on the next tick.
 	await VueTestUtils.flushPromises();
@@ -155,6 +155,19 @@ describe( 'ComboWiki recurring convert', () => {
 		expect( wrapper.emitted( 'close' ) ).toHaveLength( 1 );
 	} );
 
+	it( 'asks for a monthly amount based on the total when the donor covered the fee', async () => {
+		global.mw.Api.prototype.post.mockResolvedValueOnce( CONVERT_OK );
+		const wrapper = await mountModal( {
+			donation: Object.assign( {}, DONATION, { amount: 12, payFee: true } ),
+			chargedAmount: 12.48
+		} );
+
+		await wrapper.find( '.mc-yes-btn' ).trigger( 'click' );
+		await VueTestUtils.flushPromises();
+
+		expect( postParams( 0 ).amount ).toBe( 2.5 );
+	} );
+
 	it( 'clears a message left over from an earlier failure', async () => {
 		appState.setError( 'an error from earlier in the donation' );
 		global.mw.Api.prototype.post.mockResolvedValueOnce( CONVERT_OK );
@@ -164,5 +177,40 @@ describe( 'ComboWiki recurring convert', () => {
 		await VueTestUtils.flushPromises();
 
 		expect( appState.error.value ).toBeNull();
+	} );
+} );
+
+describe( 'ComboWiki recurring convert before a PayPal or Venmo redirect', () => {
+	// A one-time PayPal donation of 12 USD whose donor chose to cover the 0.48 fee
+	const PAYPAL_DONATION = Object.assign( {}, DONATION, { amount: 12, paymentMethod: 'paypal', payFee: true } );
+
+	const mountPreModal = ( chargedAmount ) => mountModal( { donation: PAYPAL_DONATION, chargedAmount } );
+
+	it( 'offers the one-time amount including the fee the donor will be charged', async () => {
+		const wrapper = await mountPreModal( 12.48 );
+		expect( wrapper.vm.formattedOriginalOneTimeAmount ).toBe( '$12.48' );
+	} );
+
+	it( 'offers the donation amount when there is no fee', async () => {
+		const wrapper = await mountPreModal( null );
+		expect( wrapper.vm.formattedOriginalOneTimeAmount ).toBe( '$12.00' );
+	} );
+
+	it( 'bases the monthly ask on the total including the fee, like the donate wiki', async () => {
+		const wrapper = await mountPreModal( 12.48 );
+		// 12.48 falls in the [ 15, 2.5 ] tier, where 12 alone would have asked for 2
+		expect( wrapper.vm.presetAmount ).toBe( 2.5 );
+	} );
+
+	it( 'bases the monthly ask on the donation amount when there is no fee', async () => {
+		const wrapper = await mountPreModal( null );
+		expect( wrapper.vm.presetAmount ).toBe( 2 );
+	} );
+
+	it( 'declines with the donation amount, so the fee is not added twice', async () => {
+		const wrapper = await mountPreModal( 12.48 );
+		await wrapper.find( '.mc-no-btn' ).trigger( 'click' );
+		const [ declined ] = wrapper.emitted( 'recurring-convert-submit' )[ 0 ];
+		expect( declined.amount ).toBe( 12 );
 	} );
 } );

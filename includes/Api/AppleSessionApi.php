@@ -1,13 +1,30 @@
 <?php
+namespace MediaWiki\Extension\DonationInterface\Api;
 
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
+use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
-use SmashPig\PaymentProviders\PayPal\PaymentProvider;
 use Wikimedia\ParamValidator\ParamValidator;
 
-class AdyenAppleApi extends DonationApiBase {
+abstract class AppleSessionApi extends \DonationApiBase {
+	/**
+	 * Makes API call to fetch the Apple Pay session
+	 *
+	 * @param IPaymentProvider $provider
+	 * @param string $domainName
+	 *
+	 * @return array
+	 */
+	abstract public function createPaymentSession( $provider, $domainName ): array;
+
+	/**
+	 * Sets the gateway property
+	 * @return void
+	 */
+	abstract protected function setGateway(): void;
+
 	/** @inheritDoc */
 	public function getAllowedParams() {
 		return [
@@ -27,21 +44,19 @@ class AdyenAppleApi extends DonationApiBase {
 			// Allow rate limiting by setting e.g. $wgRateLimits['applesession']['ip']
 			return;
 		}
-		$this->gateway = 'adyen';
+		$this->setGateway();
 		if ( !$this->setAdapterAndValidate() ) {
 			return;
 		}
 		$provider = PaymentProviderFactory::getProviderForMethod( 'apple' );
-		'@phan-var PaymentProvider $provider';
+		'@phan-var IPaymentProvider $provider';
 		// Apple wants a bare domain name in their session start request, so
 		// we strip off the detected protocol and slashes from the server.
 		$domainName = str_replace(
 			WebRequest::detectProtocol() . '://', '', WebRequest::detectServer()
 		);
-		$session = $provider->createPaymentSession( [
-			'validation_url' => $this->getParameter( 'validation_url' ),
-			'domain_name' => $domainName
-		] );
+
+		$session = $this->createPaymentSession( $provider, $domainName );
 		$this->getResult()->addValue( null, 'session', $session );
 	}
 }
