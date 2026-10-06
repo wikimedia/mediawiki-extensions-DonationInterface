@@ -26,6 +26,9 @@ use Wikimedia\TestingAccessWrapper;
  */
 class DonateTest extends DonationInterfaceTestCase {
 
+	/** Set by the monthly convert tests, so they don't depend on the local thank you page config */
+	private const THANK_YOU_PAGE = 'https://thankyou.example.org/wiki/Thank_You';
+
 	/**
 	 * @var \PHPUnit\Framework\MockObject\MockObject|CardPaymentProvider
 	 */
@@ -998,17 +1001,128 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Donations that send the donor off to the processor are only finalised
-	 * when they come back to the result page, so that leg needs the tag too.
+	 * DonateGatewayResult sends a completed donation that qualifies for monthly
+	 * convert back here. The donation is read from the Donor_BKUP backup, and the
+	 * page sets up no new donation.
 	 */
-	public function testResultPageTagsQueueMessagesAsComboWiki(): void {
+	public function testMonthlyConvertReturnOffersConvertForCompletedDonation(): void {
+		$donate = $this->executeMonthlyConvertReturn(
+			[ 'order_id' => '123.1', 'gateway' => 'gravy' ],
+			$this->getDonorBackup()
+		);
+		$vars = [];
+		$donate->setClientVariables( $vars );
+
+		$this->assertSame( '', $donate->getOutput()->getRedirect() );
+		$this->assertTrue( $vars['comboWiki']['monthlyConvertReturn'] );
+		$this->assertSame( '10.00', $vars['comboWiki']['params']['amount'] );
+		$this->assertSame( '123.1', $vars['comboWiki']['params']['order_id'] );
+		$this->assertSame( 'gravy', $vars['comboWiki']['params']['gateway'] );
+		$this->assertArrayHasKey( 'wgDonationInterfaceMonthlyConvertAmounts', $vars );
+		$this->assertStringContainsString( 'order_id=123.1', $vars['DonationInterfaceThankYouPage'] );
+		$this->assertNull(
+			QueueWrapper::getQueue( 'contribution-tracking' )->pop(),
+			'The donation is already complete, so no new contribution tracking record should be made'
+		);
+		$this->assertNull(
+			RequestContext::getMain()->getRequest()->getSessionData( DataIntegrator::$DONATION_DETAILS_SESSION_KEY ),
+			'The backup should not be written back as a new donation in progress'
+		);
+	}
+
+	/**
+	 * A reload after the donor has answered the offer, the back button, or a stale
+	 * link all arrive without a matching backup. The donation went through, so
+	 * thank the donor rather than show an empty form.
+	 *
+	 * @dataProvider provideMonthlyConvertReturnsWithoutMatchingBackup
+	 */
+	public function testMonthlyConvertReturnGoesToThankYouPageWhenNothingIsLeftToConvert(
+		?array $backupOverrides
+	): void {
+		$donate = $this->executeMonthlyConvertReturn(
+			[ 'order_id' => '123.1', 'gateway' => 'gravy' ],
+			$backupOverrides === null ? null : $this->getDonorBackup( $backupOverrides )
+		);
+		$redirect = $donate->getOutput()->getRedirect();
+
+		$this->assertStringStartsWith( self::THANK_YOU_PAGE . '/en', $redirect );
+		$this->assertStringContainsString( 'order_id=123.1', $redirect );
+		$this->assertNull(
+			QueueWrapper::getQueue( 'contribution-tracking' )->pop(),
+			'The contribution tracking ID comes from the order ID, so no new one should be made'
+		);
+	}
+
+	public static function provideMonthlyConvertReturnsWithoutMatchingBackup(): array {
+		return [
+			'backup already used' => [ null ],
+			'backup for another order' => [ [ 'order_id' => '456.1', 'contribution_tracking_id' => '456' ] ],
+		];
+	}
+
+	public function testMonthlyConvertReturnShowsDonationFormForUnknownGateway(): void {
+		$donate = $this->executeMonthlyConvertReturn( [ 'gateway' => 'nonsense' ], null );
+		$redirect = $donate->getOutput()->getRedirect();
+
+		$this->assertStringContainsString( 'Special:Donate', $redirect );
+		$this->assertStringContainsString( 'country=US', $redirect );
+		$this->assertStringNotContainsString( 'monthlyConvert', $redirect );
+	}
+
+	public function testMonthlyConvertReturnGoesToThankYouPageWhenDonationDoesNotQualify(): void {
+		// $2 is below the $2.74 USD minimum for monthly convert
+		$donate = $this->executeMonthlyConvertReturn(
+			[ 'order_id' => '123.1', 'gateway' => 'gravy' ],
+			$this->getDonorBackup( [ 'amount' => '2.00' ] )
+		);
+
+		$this->assertStringStartsWith(
+			self::THANK_YOU_PAGE . '/en',
+			$donate->getOutput()->getRedirect()
+		);
+	}
+
+	/**
+	 * The donor details the adapter backs up to Donor_BKUP after a one-time card donation
+	 */
+	private function getDonorBackup( array $overrides = [] ): array {
+		return $overrides + [
+			'amount' => '10.00',
+			'contribution_tracking_id' => '123',
+			'country' => 'US',
+			'currency' => 'USD',
+			'gateway' => 'gravy',
+			'language' => 'en',
+			'order_id' => '123.1',
+			'payment_method' => 'cc',
+			'recurring' => '',
+		];
+	}
+
+	/**
+	 * Load Special:Donate the way DonateGatewayResult redirects to it for monthly convert
+	 */
+	private function executeMonthlyConvertReturn( array $params, ?array $donorBackup ): Donate {
+		$this->overrideConfigValues( [
+			'DonationInterfaceMonthlyConvertCountries' => [ 'US' ],
+			'DonationInterfaceThankYouPage' => self::THANK_YOU_PAGE,
+		] );
+		$request = new FauxRequest( $params + [
+			'monthlyConvert' => '1',
+			'uselang' => 'en',
+			'country' => 'US',
+		], false );
+		if ( $donorBackup !== null ) {
+			$request->setSessionData( GatewayAdapter::DONOR_BKUP, $donorBackup );
+		}
 		$context = RequestContext::getMain();
-		$context->setRequest( new FauxRequest( [ 'gateway' => 'gravy' ], false ) );
-		$context->setTitle( Title::newFromText( 'Special:DonateGatewayResult' ) );
+		$context->setRequest( $request );
+		$context->setTitle( Title::newFromText( 'Special:Donate' ) );
 
-		( new DonateGatewayResult() )->run( null );
-
-		$this->assertSame( Donate::IDENTIFIER, Context::get()->getSourceType() );
+		$donate = $this->getDonateInstance();
+		$donate->execute( null );
+		return $donate;
 	}
 
 	private function assertChosenGateway( array $params, ?string $expectedGateway ): void {

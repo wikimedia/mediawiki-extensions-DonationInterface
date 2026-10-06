@@ -72,6 +72,9 @@ class Donate extends UnlistedSpecialPage {
 	 */
 	private array $supportedPaymentMethods = [];
 
+	/** @var bool True when showing monthly convert for a donation that has already been made */
+	private bool $isMonthlyConvertReturn = false;
+
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
 		protected readonly GatewayRouter $gatewayRouter,
@@ -92,6 +95,11 @@ class Donate extends UnlistedSpecialPage {
 	 */
 	public function execute( $subPage ): void {
 		$request = $this->getRequest();
+		if ( $request->getBool( 'monthlyConvert' ) ) {
+			$this->executeMonthlyConvert();
+			return;
+		}
+
 		$wmfConfig = $this->getConfig();
 		$dataIntegrator = new DataIntegrator( $request, $this->dataObject, $this->logger );
 		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
@@ -159,20 +167,7 @@ class Donate extends UnlistedSpecialPage {
 			}
 		}
 
-		$this->setHeaders();
-		$this->outputHeader();
-		$this->getOutput()->setPageTitleMsg( $this->msg( 'combowiki-title' ) );
-
-		// Expose server-side config to the Vue app.
-		$this->getHookContainer()->register(
-			'MakeGlobalVariablesScript',
-			[
-				$this,
-				'setClientVariables'
-			]
-		);
-
-		$this->addStylesScriptsAndViewport();
+		$this->renderPage();
 		$this->addVueComponentModulesForVariants();
 	}
 
@@ -286,6 +281,7 @@ class Donate extends UnlistedSpecialPage {
 			'wmfParams' => [
 				'utm_medium' => $this->dataObject->getValue( 'utm_medium' ),
 			],
+			'monthlyConvertReturn' => $this->isMonthlyConvertReturn,
 		];
 		$this->addCountriesConfig( $vars );
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
@@ -491,5 +487,98 @@ class Donate extends UnlistedSpecialPage {
 		$className = DonationInterface::getAdapterClassForGateway( $gatewayName );
 
 		return new $className( $options );
+	}
+
+	/**
+	 * Sets up the page and the Vue app.
+	 */
+	private function renderPage(): void {
+		$this->setHeaders();
+		$this->outputHeader();
+		$this->getOutput()->setPageTitleMsg( $this->msg( 'combowiki-title' ) );
+
+		// Expose server-side config to the Vue app.
+		$this->getHookContainer()->register(
+			'MakeGlobalVariablesScript',
+			[
+				$this,
+				'setClientVariables'
+			]
+		);
+
+		$this->addStylesScriptsAndViewport();
+	}
+
+	/**
+	 * Shows the monthly convert modal for a one-time donation that came back
+	 * through DonateGatewayResult, e.g. after a 3DS challenge.
+	 *
+	 * The donation is already complete, so contribution tracking and order ID
+	 * setup are skipped. The donation details come from the Donor_BKUP session
+	 * backup, which is the same data di_recurring_convert uses.
+	 */
+	private function executeMonthlyConvert(): void {
+		$request = $this->getRequest();
+		$orderId = $request->getVal( 'order_id' );
+		$backup = $request->getSessionData( GatewayAdapter::DONOR_BKUP );
+
+		if ( !is_array( $backup ) || !$orderId || ( $backup['order_id'] ?? null ) !== $orderId ) {
+			// Possibly a page reload, or a stale link. The donation
+			// has already gone through, so thank the donor rather than show an empty form.
+			$this->logger->info( "No donor backup for order $orderId, redirecting to the thank you page" );
+			$this->redirectToThankYouPage( $this->createAdapterForGateway(
+				$request->getVal( 'gateway', '' ),
+				[ 'external_data' => [
+					// Without a contribution_tracking_id, building the adapter takes a new ID
+					// and pushes a tracking message. The order ID starts with it.
+					'contribution_tracking_id' => strstr( $orderId ?? '', '.', true ) ?: null,
+					'order_id' => $orderId,
+					'language' => $this->getLanguage()->getCode(),
+					'country' => $request->getVal( 'country', '' ),
+				] ]
+			) );
+			return;
+		}
+
+		$this->dataObject->setData( $backup );
+		$this->selectedGateway = $backup['gateway'] ?? '';
+		DonationInterface::setSmashPigProvider( $this->selectedGateway );
+		$this->adapter = $this->createAdapterForGateway(
+			$this->selectedGateway,
+			[ 'external_data' => $backup, 'variant' => $backup['variant'] ?? '' ]
+		);
+		if ( !$this->adapter || !$this->adapter->showMonthlyConvert() ) {
+			$this->redirectToThankYouPage( $this->adapter );
+			return;
+		}
+
+		$this->isMonthlyConvertReturn = true;
+		$this->routingParams = [
+			'amount' => $backup['amount'] ?? '0',
+			'country' => $backup['country'] ?? '',
+			'currency' => $backup['currency'] ?? 'USD',
+			'frequency_unit' => $backup['frequency_unit'] ?? '',
+			'order_id' => $orderId,
+			'payment_method' => $backup['payment_method'] ?? 'cc',
+			'payment_submethod' => $backup['payment_submethod'] ?? '',
+			'recurring' => $backup['recurring'] ?? '',
+			'variant' => $backup['variant'] ?? '',
+			'language' => $backup['language'] ?? $this->getLanguage()->getCode(),
+			'gateway' => $this->selectedGateway,
+		];
+		$this->logger->info( 'Showing monthly convert for a completed donation' );
+		$this->renderPage();
+	}
+
+	private function redirectToThankYouPage( ?GatewayAdapter $adapter ): void {
+		if ( $adapter ) {
+			$url = ResultPages::getThankYouPage( $adapter );
+		} else {
+			$url = $this->getPageTitle()->getFullURL( [
+				'uselang' => $this->getLanguage()->getCode(),
+				'country' => $this->getRequest()->getVal( 'country', '' ),
+			] );
+		}
+		$this->getOutput()->redirect( $url );
 	}
 }

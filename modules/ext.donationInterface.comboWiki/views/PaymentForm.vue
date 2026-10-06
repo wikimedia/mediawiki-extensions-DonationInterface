@@ -76,7 +76,10 @@
 					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
 				></sms-optin>
 
+				<!-- Hidden when returning to offer monthly convert: mounting the card form
+					would create a new checkout session for a donation that is already made -->
 				<payment-method-form
+					v-if="!params.monthlyConvertReturn"
 					:donation="chargedDonation"
 					:disabled="!giftComplete"
 					@donation-success="handleDonateResult"
@@ -441,9 +444,31 @@ module.exports = exports = defineComponent( {
 		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
 			this.appState.setShowRecurringConvert( true );
 		}
+		if ( this.params.monthlyConvertReturn ) {
+			// Back on Special:Donate after a one-time donation that went through a
+			// redirect such as 3DS. The donation is complete, so offer monthly convert.
+			Object.assign( this.donation, {
+				amount: this.params.amount,
+				currency: this.params.currency,
+				country: this.params.country,
+				paymentMethod: this.params.payment_method,
+				gateway: this.params.gateway
+			} );
+			this.thankYouUrl = this.params.DonationInterfaceThankYouPage;
+			this.appState.setShowRecurringConvert( true );
+		}
 		// for debugging errors
 		if ( urlParams.get( 'debugError' ) ) {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+		}
+		// DonateGatewayResult sends the donor back here with paymentFailed=1 when a
+		// payment that went through a redirect (such as 3DS) fails. Show the error
+		// once and remove the flag, so a reload or Try Again gives a clean form.
+		if ( urlParams.get( 'paymentFailed' ) === '1' ) {
+			this.appState.setError( this.$i18n( 'combowiki-payment-failed' ).text() );
+			const url = new URL( window.location.href );
+			url.searchParams.delete( 'paymentFailed' );
+			window.history.replaceState( {}, '', url );
 		}
 	}
 } );
