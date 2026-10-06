@@ -68,6 +68,11 @@
 	box-shadow: inset 0 0 0 2px @border-color-progressive;
 }
 
+.cdx-button.combo-wiki__button-submit,
+.cdx-button:disabled.combo-wiki__button-submit {
+	margin-top: 2em;
+}
+
 .combo-wiki__wrapper {
 	display: flex;
 	justify-content: center;
@@ -149,10 +154,41 @@
 		display: block;
 		margin: 0.75em 0 0.25em;
 	}
+
+	.cdx-field {
+		margin: 0;
+	}
 }
 
 .combo-wiki__card--loading {
 	visibility: hidden;
+}
+
+.payment-method-form {
+	margin-top: 2em;
+}
+
+.combo-wiki__card-fields-row {
+	display: flex;
+	gap: 1em;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: end;
+
+	// Codex gives text inputs a 256px min-width, which overflows three to a row,
+	// so let the fields share the row and shrink to fit
+	.cdx-field {
+		flex: 1;
+	}
+
+	.cdx-text-input,
+	.cdx-select-vue__handle {
+		min-width: 50px;
+	}
+
+	.cdx-select-vue {
+		display: block;
+	}
 }
 
 .combo-wiki__button-group {

@@ -24,6 +24,7 @@ use Psr\Log\LoggerInterface;
 use ResultPages;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
+use Subdivisions;
 
 /**
  * ComboWiki: the single-page VueJS donation flow.
@@ -64,6 +65,14 @@ class Donate extends UnlistedSpecialPage {
 	private const CHECKOUT_SESSION_METHODS = [
 		'gravy' => [ 'cc' ],
 	];
+
+	/**
+	 * Fields that we don't want to be displayed in the payment method form (e.g. Card form fields).
+	 * This list allows us to send a set a fields we care to filter only by country via country_fields.yaml
+	 * While allowing for all the other fields to be filtered by payment_methods.yaml overrides as by design
+	 * (e.g. showing postal code for US only in the Credit Card form and not in Venmo which doesn't need it)
+	 */
+	private const FIELDS_OUTSIDE_PAYMENT_METHOD_FORMS = [ 'sms_opt_in', 'phone', 'opt_in', 'employer' ];
 
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
@@ -310,13 +319,13 @@ class Donate extends UnlistedSpecialPage {
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
 
-		// Donor fields from the country_fields config, each true (required) or 'optional'.
-		// Fields left out are not shown. Only the country is passed, since the donor
-		// picks the payment method on the page.
-		$vars['DonationInterfaceFormFields'] = $this->adapter->getFormFields(
-			[ 'country' => $this->routingParams['country'] ]
+		$vars['DonationInterfaceFormFields'] = $this->getFormFieldsWithOverrides(
+			$this->routingParams['country'],
+			$this->supportedPaymentMethods
 		);
-
+		$vars['DonationInterfaceStateProvinceOptions'] = $this->getStateProvinceOptions(
+			$this->routingParams['country']
+		);
 		if ( $this->adapter->showMonthlyConvert() ) {
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
 		}
@@ -636,5 +645,82 @@ class Donate extends UnlistedSpecialPage {
 			] );
 		}
 		$this->getOutput()->redirect( $url );
+	}
+
+	/*
+	 * The subdivisions (states, provinces, territories) of the given country, for the state_province
+	 * dropdown, the same list the Mustache forms use (see Mustache::setStateOptions).
+	 *
+	 * @param string $country The country code
+	 *
+	 * @return array<int, array{value: string, label: string}> The options, localized where possible,
+	 *  or an empty list if the country has no subdivision list (state_province is then free text)
+	 */
+	protected function getStateProvinceOptions( string $country ): array {
+		$options = [];
+		foreach ( Subdivisions::getByCountry( $country ) ?: [] as $abbr => $name ) {
+			$options[] = [ 'value' => (string)$abbr, 'label' => $name ];
+		}
+		return $options;
+	}
+
+	/**
+	 * This function gets the form fields for the given country taking into consideration overrides from each
+	 * payment method in payment_methods.yaml. The frontend will use this data to populate the form fields in the main
+	 * form and for each payment method form as per the given $country rules.
+	 *
+	 * @param string $country The country code to get the specific form fields for
+	 * @param array $paymentMethods The payment methods eligible for this country that might have specific field rules
+	 *
+	 * @return array{shared: array<string,bool|string>, method: array<string,array<string,bool|string>>} The form fields
+	 * for the given country split by 'shared' and 'method' keys, with the 'shared' fields being the same for all
+	 * payment methods and the 'method' fields being specific to each payment method.
+	 *
+	 * Reducted sample output for $country = 'US' and showign only 'cc' as supported payment_method:
+	 * [
+	 * 		'shared' => [
+	 * 			'employer' => 'optional',
+	 * ],
+	 * 		'method' => [
+	 * 			'cc' => [
+	 * 				'country' => true,
+	 * 				'first_name' => true,
+	 * 				'last_name' => true,
+	 * 				'email' => true,
+	 * 				'street_address' => true,
+	 * 				'postal_code' => true,
+	 * 			],
+	 * 		],
+	 * ]
+	 */
+	protected function getFormFieldsWithOverrides( string $country, array $paymentMethods ): array {
+		$fieldsOutsideMethodForms = array_flip( self::FIELDS_OUTSIDE_PAYMENT_METHOD_FORMS );
+
+		// Get all the special fields for the given country and its supported payment methods
+		$fieldsForMethods = [];
+		foreach ( $paymentMethods as $paymentMethod ) {
+			// Only the selected gateway's adapter is loaded, and it throws for methods it does not handle
+			if ( $paymentMethod['gateway'] !== $this->selectedGateway ) {
+				continue;
+			}
+			// Note: currently we do not set any field rule in payment_submethod.yaml so it can technically be ignored
+			$fieldsForThisMethod = $this->adapter->getFormFields(
+				[ 'country' => $country, 'payment_method' => $paymentMethod['method'] ]
+			);
+			$fieldsForThisMethod = array_diff_key( $fieldsForThisMethod, $fieldsOutsideMethodForms );
+			// The frontend needs this information, so we should expose the submethod if it exists
+			// since it is added only if in self::OFFERED_SUBMETHODS
+			$paymentMethodKey = $paymentMethod['submethod'] ?? $paymentMethod['method'];
+			$fieldsForMethods[ $paymentMethodKey ] = $fieldsForThisMethod;
+		}
+
+		// Get the fields ComboWiki treats as country specific and does not include in a payment method specific form
+		$sharedFieldsFull = $this->adapter->getFormFields( [ 'country' => $country ] );
+		$sharedFields = array_intersect_key( $sharedFieldsFull, $fieldsOutsideMethodForms );
+
+		return [
+			'shared' => $sharedFields,
+			'method' => $fieldsForMethods,
+		];
 	}
 }

@@ -156,7 +156,7 @@ describe( 'ComboWiki autoscroll timing', () => {
 	it( 'waits for the async SMS opt in fields before scrolling', async () => {
 		const { wrapper, scroll } = await mountForm( {
 			variant: 'smsOptin',
-			DonationInterfaceFormFields: { phone: 'optional' }
+			DonationInterfaceFormFields: { shared: { sms_opt_in: 'optional', phone: 'optional' } }
 		} );
 		expect( scroll ).not.toHaveBeenCalled();
 

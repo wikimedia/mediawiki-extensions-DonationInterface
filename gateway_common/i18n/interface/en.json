@@ -72,6 +72,7 @@
 	"donate_interface-donor-first_name": "First name",
 	"donate_interface-donor-last_name": "Last name",
 	"donate_interface-donor-employer": "Employer (Optional)",
+	"donate_interface-donor-employer-plain": "Employer",
 	"donate_interface-donor-employer-explain": "We'll let you know if your employer will match your gift",
 	"donate_interface-donor-street_address": "Street",
 	"donate_interface-donor-street-number": "House Number",

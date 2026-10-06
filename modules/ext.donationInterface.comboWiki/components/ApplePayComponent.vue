@@ -1,10 +1,14 @@
 <template>
-	<div id="applepay-container" data-autoscroll>
+	<div
+		id="applepay-container"
+		class="payment-method-form"
+		data-autoscroll
+	>
 		<apple-pay-button
 			v-if="showApplePayButtonFlag"
 			id="applepay-btn"
 			ref="applePayButtonElementRef"
-			class="button"
+			class="button combo-wiki__button-submit"
 			buttonstyle="black"
 			type="donate"
 			:locale="locale"

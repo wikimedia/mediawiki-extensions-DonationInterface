@@ -60,12 +60,17 @@
 				</div>
 
 				<!-- Email opt-in -->
-				<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
+				<optin-fieldset
+					v-if="showField( 'opt_in' )"
+					v-model="donation.optIn"
+				></optin-fieldset>
 
 				<!-- Employer -->
 				<employer-field
+					v-if="showField( 'employer' )"
 					v-model:employer="donation.employer"
 					v-model:employer-id="donation.employerId"
+					:is-required="isFieldRequired( 'employer' )"
 				></employer-field>
 
 				<!-- Sms Optin -->
@@ -73,7 +78,7 @@
 					v-if="showSmsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
-					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
+					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
 					@ready="scrollToFirstEmptyField"
 				></sms-optin>
 
@@ -220,6 +225,12 @@ module.exports = exports = defineComponent( {
 				paymentMethod: this.toFormPaymentMethod( this.params.payment_method ),
 				optIn: this.params.opt_in,
 				employer: null,
+				streetAddress: null,
+				streetNumber: null,
+				stateProvince: null,
+				city: null,
+				postalCode: null,
+				fiscalNumber: null,
 				employerId: 0,
 				smsOptin: null,
 				gateway: this.params.gateway || null,
@@ -227,23 +238,15 @@ module.exports = exports = defineComponent( {
 				gateway_session_id: this.params.gateway_session_id || null
 			},
 			thankYouUrl: null,
-			showDebug: false,
-			supportedCountries: [
-				'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
-				'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
-				'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'NO', 'IS', 'CH',
-				'LI', 'AD', 'SM', 'MC', 'AR', 'BR', 'CL', 'CO', 'MX', 'PE',
-				'UY', 'GB', 'IL', 'UA', 'GG', 'IM', 'JE', 'FO', 'GL', 'AX',
-				'GF', 'PF', 'TF', 'GP', 'MQ', 'YT', 'NC', 'RE', 'BL', 'MF',
-				'PM', 'WF', 'AW', 'BQ', 'CW', 'SX', 'BV', 'SJ', 'AI', 'BM',
-				'IO', 'KY', 'FK', 'GI', 'MS', 'PN', 'SH', 'GS', 'TC', 'VG',
-				'ZZ'
-			]
+			showDebug: false
 		};
 	},
 	computed: {
 		amountHeading() {
 			return getAmountHeading( this.donation.frequency );
+		},
+		showSmsOptin() {
+			return this.showField( 'sms_opt_in' ) && this.showField( 'phone' );
 		},
 		presetAmounts() {
 			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
@@ -347,18 +350,6 @@ module.exports = exports = defineComponent( {
 					return `${ this.donation.currency }${ amount }`;
 				}
 			};
-		},
-		showPhoneField() {
-			// The country_fields config marks a shown field as true (required) or 'optional'
-			return [ true, 'optional' ].includes(
-				( this.params.DonationInterfaceFormFields || {} ).phone
-			);
-		},
-		showSmsOptin() {
-			return this.params.variant === 'smsOptin' && this.showPhoneField;
-		},
-		optInRequired() {
-			return this.supportedCountries.includes( this.donation.country );
 		}
 	},
 
@@ -386,12 +377,17 @@ module.exports = exports = defineComponent( {
 				candidates.find( ( key ) => !key.includes( '_' ) ) ||
 				null;
 		},
-
 		getFrequencyUnit() {
 			if ( !this.params.recurring ) {
 				return 'once';
 			}
 			return this.params.frequency_unit;
+		},
+		showField( name ) {
+			return [ true, 'optional' ].includes( ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] );
+		},
+		isFieldRequired( name ) {
+			return ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] === true;
 		},
 		selectAmount( value ) {
 			this.donation.amount = value;

@@ -1,32 +1,47 @@
 <template>
-	<div class="combo-wiki__card" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
+	<div class="combo-wiki__card payment-method-form" :class="{ 'combo-wiki__card--loading': !fieldsReady }">
 		<div>
 			<h2>{{ $i18n( 'combowiki-your-details-heading' ).text() }}</h2>
-			<cdx-text-input
-				v-model="firstName"
-				data-autoscroll
-				:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
-			>
-			</cdx-text-input>
 
-			<cdx-text-input
-				v-model="lastName"
-				data-autoscroll
-				:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
-			>
-			</cdx-text-input>
+			<cdx-field v-if="showField( 'first_name' )" :optional="!isFieldRequired( 'first_name' )">
+				<cdx-text-input
+					v-model="fields.first_name"
+					data-autoscroll
+					:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
+				></cdx-text-input>
+				<template #label>
+					{{ $i18n( 'donate_interface-donor-first_name' ).text() }}
+				</template>
+			</cdx-field>
 
-			<cdx-text-input
-				v-model="email"
-				data-autoscroll
-				:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
-			>
-			</cdx-text-input>
+			<cdx-field v-if="showField( 'last_name' )" :optional="!isFieldRequired( 'last_name' )">
+				<cdx-text-input
+					v-model="fields.last_name"
+					data-autoscroll
+					:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
+				></cdx-text-input>
+				<template #label>
+					{{ $i18n( 'donate_interface-donor-last_name' ).text() }}
+				</template>
+			</cdx-field>
+
+			<cdx-field v-if="showField( 'email' )" :optional="!isFieldRequired( 'email' )">
+				<cdx-text-input
+					v-model="fields.email"
+					data-autoscroll
+					:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
+				></cdx-text-input>
+				<template #label>
+					{{ $i18n( 'donate_interface-donor-email' ).text() }}
+				</template>
+			</cdx-field>
 		</div>
+
 		<div id="combo-adyen-card" data-autoscroll></div>
 		<cdx-button
 			action="progressive"
 			weight="primary"
+			class="combo-wiki__button-submit"
 			:disabled="!canSubmit"
 			@click="submit"
 		>
@@ -39,13 +54,14 @@
 /* global AdyenCheckout */
 
 const { defineComponent } = require( 'vue' );
-const { CdxButton, CdxTextInput } = require( '@wikimedia/codex' );
+const { CdxButton, CdxField, CdxTextInput } = require( '@wikimedia/codex' );
 
 module.exports = exports = defineComponent( {
 	name: 'AdyenCardForm',
 
 	components: {
 		'cdx-button': CdxButton,
+		'cdx-field': CdxField,
 		'cdx-text-input': CdxTextInput
 	},
 
@@ -55,6 +71,10 @@ module.exports = exports = defineComponent( {
 		donation: {
 			type: Object,
 			required: true
+		},
+		formFields: {
+			type: Object,
+			default: () => ( {} )
 		}
 	},
 
@@ -62,9 +82,12 @@ module.exports = exports = defineComponent( {
 
 	data() {
 		return {
-			email: this.donation.email,
-			firstName: this.donation.firstName,
-			lastName: this.donation.lastName,
+			// Donor details keyed by the server field names used in formFields and the donate API
+			fields: {
+				first_name: this.donation.firstName,
+				last_name: this.donation.lastName,
+				email: this.donation.email
+			},
 			checkout: null,
 			card: null,
 			fieldsReady: false,
@@ -79,11 +102,10 @@ module.exports = exports = defineComponent( {
 		},
 
 		detailsComplete() {
-			const hasFirstName = Boolean( this.firstName && this.firstName.trim() );
-			const hasLastName = Boolean( this.lastName && this.lastName.trim() );
-			const hasEmail = this.isValidEmail( this.email );
-
-			return hasFirstName && hasLastName && hasEmail;
+			// Only fields this form renders, so e.g. a required country chosen elsewhere doesn't block it
+			return Object.keys( this.fields )
+				.filter( ( name ) => this.isFieldRequired( name ) )
+				.every( ( name ) => this.isFieldComplete( name ) );
 		}
 	},
 
@@ -98,6 +120,22 @@ module.exports = exports = defineComponent( {
 
 				document.body.append( node );
 			} );
+		},
+
+		showField( name ) {
+			return [ true, 'optional' ].includes( this.formFields[ name ] );
+		},
+
+		isFieldRequired( name ) {
+			return this.formFields[ name ] === true;
+		},
+
+		isFieldComplete( name ) {
+			const value = this.fields[ name ];
+			if ( name === 'email' ) {
+				return this.isValidEmail( value );
+			}
+			return Boolean( value && value.trim() );
 		},
 
 		isValidEmail( email ) {
@@ -170,9 +208,9 @@ module.exports = exports = defineComponent( {
 
 			const extraData = {
 				wmf_token: this.wmfToken,
-				email: this.email,
-				first_name: this.firstName,
-				last_name: this.lastName,
+				email: this.fields.email,
+				first_name: this.fields.first_name,
+				last_name: this.fields.last_name,
 				encrypted_card_number: paymentMethod.encryptedCardNumber,
 				encrypted_expiry_month: paymentMethod.encryptedExpiryMonth,
 				encrypted_expiry_year: paymentMethod.encryptedExpiryYear,

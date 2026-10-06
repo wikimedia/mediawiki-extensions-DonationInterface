@@ -20,6 +20,7 @@
 				:is="paymentMethodConfig[paymentMethod].component"
 				v-if="paymentMethodConfig[paymentMethod]"
 				:donation="donation"
+				:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
 				@submit="paymentMethodConfig[paymentMethod].submit"
 				@error="paymentMethodConfig[paymentMethod].error"
 				@presubmit="paymentMethodConfig[paymentMethod].presubmit"
@@ -69,6 +70,16 @@ module.exports = exports = defineComponent( {
 	setup( props, ctx ) {
 		const appState = useAppState();
 		const params = inject( 'params' );
+		const formFieldsForMethod = ( params.DonationInterfaceFormFields || {} ).method || {};
+
+		/**
+		 * @param {string} paymentMethod ComboWiki payment option as defined in paymentMethodConfig
+		 * @return {Object} The form fields for that payment method, filtered by country
+		 */
+		const getFormFieldsFor = ( paymentMethod ) => {
+			const mapping = api.paymentMethodMap[ paymentMethod ];
+			return ( mapping && formFieldsForMethod[ mapping.submethod || mapping.method ] ) || {};
+		};
 
 		/**
 		 * Submits the donation via the API and emits donationSuccess/donationError with the result.
@@ -182,6 +193,7 @@ module.exports = exports = defineComponent( {
 		 * @property {Function} submit Called to submit the donation once the payment method's form is complete.
 		 * @property {Function} [error] Called when the payment method reports an error.
 		 * @property {Function} [presubmit] Called before submit to prepare the payment method (e.g. create a session or validate).
+		 * @property {Object} [extraFormFields] Extra form fields to include in the payment method form, already filtered by country.
 		 */
 		const paymentMethodConfig = {
 			card: {
@@ -189,7 +201,8 @@ module.exports = exports = defineComponent( {
 				component: 'card-form',
 				submit: submitDonation,
 				error: onError,
-				presubmit: getGravyCheckoutSession
+				presubmit: getGravyCheckoutSession,
+				extraFormFields: getFormFieldsFor( 'card' )
 			},
 			adyen_card: {
 				label: mw.message( 'combowiki-method-adyen-card' ).text(),
@@ -197,45 +210,52 @@ module.exports = exports = defineComponent( {
 				gateway: 'adyen',
 				submit: submitDonation,
 				error: onError,
-				presubmit: getAdyenCheckoutSession
+				presubmit: getAdyenCheckoutSession,
+				extraFormFields: getFormFieldsFor( 'adyen_card' )
 			},
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'paypal-form',
 				error: onError,
-				submit: submitDonation
+				submit: submitDonation,
+				extraFormFields: getFormFieldsFor( 'paypal' )
 			},
 			venmo: {
 				label: mw.message( 'combowiki-method-venmo' ).text(),
 				component: 'venmo-form',
 				error: onError,
-				submit: submitDonation
+				submit: submitDonation,
+				extraFormFields: getFormFieldsFor( 'venmo' )
 			},
 			applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
 				component: 'applepay-form',
 				submit: submitDonation,
 				error: onError,
-				presubmit: validateApplePay
+				presubmit: validateApplePay,
+				extraFormFields: getFormFieldsFor( 'applepay' )
 			},
 			ach: {
 				label: mw.message( 'combowiki-method-ach' ).text(),
 				component: 'ach-form',
 				submit: submitDonation,
 				error: onError,
-				supportsOneTime: false
+				supportsOneTime: false,
+				extraFormFields: getFormFieldsFor( 'ach' )
 			},
 			googlepay: {
 				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
 				submit: submitDonation,
-				error: onError
+				error: onError,
+				extraFormFields: getFormFieldsFor( 'googlepay' )
 			},
 			sepadirectdebit: {
 				label: mw.message( 'combowiki-method-sepa' ).text(),
 				component: 'sepa-form',
 				submit: submitDonation,
-				error: onError
+				error: onError,
+				extraFormFields: getFormFieldsFor( 'sepadirectdebit' )
 			}
 		};
 

@@ -1,15 +1,19 @@
 <template>
 	<div class="combo-wiki__sms_opt_in">
-		<cdx-field :is-required="false" data-autoscroll>
-			<cdx-label input-id="phone">
-				{{ phoneLabel }}
-			</cdx-label>
+		<cdx-field
+			id="phone-field"
+			:optional="!isRequired"
+			data-autoscroll
+		>
 			<cdx-text-input
 				id="phone"
 				:model-value="phone"
 				@update:model-value="updatePhone"
 			>
 			</cdx-text-input>
+			<template #label>
+				{{ phoneLabel }}
+			</template>
 		</cdx-field>
 		<div>
 			<cdx-checkbox
@@ -29,14 +33,13 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxField, CdxLabel, CdxTextInput, CdxCheckbox } = require( '@wikimedia/codex' );
+const { CdxField, CdxTextInput, CdxCheckbox } = require( '@wikimedia/codex' );
 const { stripLeadingWhitespace } = require( '../normalizeInput.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'SmsOptin',
 	components: {
 		'cdx-field': CdxField,
-		'cdx-label': CdxLabel,
 		'cdx-text-input': CdxTextInput,
 		'cdx-checkbox': CdxCheckbox
 	},
@@ -50,6 +53,10 @@ module.exports = exports = defineComponent( {
 			default: false
 		},
 		phoneOptional: {
+			type: Boolean,
+			default: false
+		},
+		isRequired: {
 			type: Boolean,
 			default: false
 		}

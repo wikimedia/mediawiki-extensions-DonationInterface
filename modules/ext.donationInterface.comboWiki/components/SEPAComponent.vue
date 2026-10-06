@@ -1,43 +1,38 @@
 <template>
-	<div class="combo-wiki__sepa">
+	<div class="combo-wiki__sepa payment-method-form">
 		<div class="combo-wiki__sepa-fields">
 			<div class="combo-wiki__sepa-fields-full-name">
-				<cdx-field :is-required="true">
-					<cdx-label input-id="sepa-first-name-field">
-						{{ $i18n( 'donate_interface-donor-first_name' ).text() }}
-					</cdx-label>
+				<cdx-field v-if="showField( 'first_name' )" :optional="!isFieldRequired( 'first_name' )">
 					<cdx-text-input
-						id="sepa-first-name-field"
-						v-model="firstName"
+						v-model="fields.first_name"
 						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
-					>
-					</cdx-text-input>
+					></cdx-text-input>
+					<template #label>
+						{{ $i18n( 'donate_interface-donor-first_name' ).text() }}
+					</template>
 				</cdx-field>
-				<cdx-field :is-required="true">
-					<cdx-label input-id="sepa-last-name-field">
-						{{ $i18n( 'donate_interface-donor-last_name' ).text() }}
-					</cdx-label>
+				<cdx-field v-if="showField( 'last_name' )" :optional="!isFieldRequired( 'last_name' )">
 					<cdx-text-input
-						id="sepa-last-name-field"
-						v-model="lastName"
+						v-model="fields.last_name"
 						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
-					>
-					</cdx-text-input>
+					></cdx-text-input>
+					<template #label>
+						{{ $i18n( 'donate_interface-donor-last_name' ).text() }}
+					</template>
 				</cdx-field>
 			</div>
-			<cdx-field :is-required="true">
-				<cdx-label input-id="sepa-email-field">
-					{{ $i18n( 'donate_interface-donor-email' ).text() }}
-				</cdx-label>
+			<cdx-field v-if="showField( 'email' )" :optional="!isFieldRequired( 'email' )">
 				<cdx-text-input
-					id="sepa-email-field"
-					v-model="email"
-					data-autoscroll
+					v-model="fields.email"
 					type="email"
+					data-autoscroll
 					autocomplete="email"
 				></cdx-text-input>
+				<template #label>
+					{{ $i18n( 'donate_interface-donor-email' ).text() }}
+				</template>
 			</cdx-field>
 		</div>
 
@@ -54,6 +49,7 @@
 		<cdx-button
 			action="progressive"
 			weight="primary"
+			class="combo-wiki__button-submit"
 			:disabled="isSubmitting || !canSubmit"
 			@click="submit"
 		>
@@ -64,7 +60,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxButton, CdxField, CdxLabel, CdxTextInput } = require( '@wikimedia/codex' );
+const { CdxButton, CdxField, CdxTextInput } = require( '@wikimedia/codex' );
 
 module.exports = exports = defineComponent( {
 	name: 'SEPAComponent',
@@ -72,7 +68,6 @@ module.exports = exports = defineComponent( {
 	components: {
 		CdxButton,
 		CdxField,
-		CdxLabel,
 		CdxTextInput
 	},
 
@@ -80,6 +75,10 @@ module.exports = exports = defineComponent( {
 		donation: {
 			type: Object,
 			required: true
+		},
+		formFields: {
+			type: Object,
+			default: () => ( {} )
 		}
 	},
 
@@ -87,9 +86,12 @@ module.exports = exports = defineComponent( {
 
 	data() {
 		return {
-			email: this.donation.email,
-			lastName: this.donation.lastName,
-			firstName: this.donation.firstName,
+			// Donor details keyed by the server field names used in formFields and the donate API
+			fields: {
+				first_name: this.donation.firstName,
+				last_name: this.donation.lastName,
+				email: this.donation.email
+			},
 			isSubmitting: false
 		};
 	},
@@ -99,11 +101,10 @@ module.exports = exports = defineComponent( {
 			return this.detailsComplete;
 		},
 		detailsComplete() {
-			const hasFirstName = Boolean( this.firstName && this.firstName.trim() );
-			const hasLastName = Boolean( this.lastName && this.lastName.trim() );
-			const hasEmail = this.isValidEmail( this.email );
-
-			return hasFirstName && hasLastName && hasEmail;
+			// Only fields this form renders, so e.g. a required country chosen elsewhere doesn't block it
+			return Object.keys( this.fields )
+				.filter( ( name ) => this.isFieldRequired( name ) )
+				.every( ( name ) => this.isFieldComplete( name ) );
 		},
 		donateBtn() {
 			if ( this.isSubmitting ) {
@@ -114,6 +115,19 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
+		showField( name ) {
+			return [ true, 'optional' ].includes( this.formFields[ name ] );
+		},
+		isFieldRequired( name ) {
+			return this.formFields[ name ] === true;
+		},
+		isFieldComplete( name ) {
+			const value = this.fields[ name ];
+			if ( name === 'email' ) {
+				return this.isValidEmail( value );
+			}
+			return Boolean( value && value.trim() );
+		},
 		isValidEmail( email ) {
 			return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email.trim() );
 		},
@@ -128,11 +142,7 @@ module.exports = exports = defineComponent( {
 			this.isSubmitting = true;
 			this.$emit(
 				'submit',
-				{
-					email: this.email,
-					first_name: this.firstName,
-					last_name: this.lastName
-				},
+				Object.assign( {}, this.fields ),
 				null,
 				this.handleSubmitFailure
 			);

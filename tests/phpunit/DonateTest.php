@@ -291,7 +291,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		] );
 
 		// Set in form_variants/smsOptin/gravy/country_fields.yaml
-		$this->assertSame( 'optional', $vars['DonationInterfaceFormFields']['phone'] );
+		$this->assertSame( 'optional', $vars['DonationInterfaceFormFields']['shared']['phone'] );
 	}
 
 	public function testSmsOptinVariantSendsNoPhoneFieldOutsideUS(): void {
@@ -306,7 +306,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			'variant' => 'smsOptin',
 		] );
 
-		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields'] );
+		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields']['shared'] );
 	}
 
 	public function testFormFieldsHaveNoPhoneWithoutSmsOptinVariant(): void {
@@ -320,7 +320,32 @@ class DonateTest extends DonationInterfaceTestCase {
 			'recurring' => '0',
 		] );
 
-		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields'] );
+		$this->assertArrayNotHasKey( 'phone', $vars['DonationInterfaceFormFields']['shared'] );
+	}
+
+	public function testStateProvinceOptionsListSubdivisionCodesForCountry(): void {
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'CA',
+			'currency' => 'CAD',
+			'recurring' => '0',
+		] );
+
+		// Same list as the Mustache state dropdown, from Subdivisions
+		$options = $vars['DonationInterfaceStateProvinceOptions'];
+		$this->assertCount( 13, $options );
+		$this->assertContains( [ 'value' => 'ON', 'label' => 'Ontario' ], $options );
+	}
+
+	public function testStateProvinceOptionsEmptyForCountryWithoutSubdivisions(): void {
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'GB',
+			'currency' => 'GBP',
+			'recurring' => '0',
+		] );
+
+		$this->assertSame( [], $vars['DonationInterfaceStateProvinceOptions'] );
 	}
 
 	/**

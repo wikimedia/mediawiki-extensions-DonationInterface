@@ -1,9 +1,6 @@
 <template>
 	<div class="combo-wiki__employer">
-		<cdx-field :is-required="false">
-			<cdx-label input-id="combo-employer-name">
-				{{ employerLabel }}
-			</cdx-label>
+		<cdx-field :optional="!isRequired">
 			<cdx-lookup
 				id="combo-employer-name"
 				v-model:selected="selectedEmployerId"
@@ -16,20 +13,22 @@
 			<template #help-text>
 				{{ employerExplain }}
 			</template>
+			<template #label>
+				{{ employerLabel }}
+			</template>
 		</cdx-field>
 	</div>
 </template>
 
 <script>
 const { defineComponent, ref } = require( 'vue' );
-const { CdxLookup, CdxField, CdxLabel } = require( '@wikimedia/codex' );
+const { CdxLookup, CdxField } = require( '@wikimedia/codex' );
 const { apiPost } = require( '../api.js' );
 
 module.exports = defineComponent( {
 	name: 'EmployerField',
 	components: {
 		'cdx-field': CdxField,
-		'cdx-label': CdxLabel,
 		'cdx-lookup': CdxLookup
 	},
 	props: {
@@ -40,6 +39,10 @@ module.exports = defineComponent( {
 		employerId: {
 			type: Number,
 			default: 0
+		},
+		isRequired: {
+			type: Boolean,
+			default: false
 		}
 	},
 	emits: [ 'update:employer', 'update:employer-id' ],
@@ -68,7 +71,8 @@ module.exports = defineComponent( {
 	},
 	computed: {
 		employerLabel() {
-			return this.$i18n( 'donate_interface-donor-employer' ).text();
+			// Update to remove (optional) since it is provided by the codex framework
+			return this.$i18n( 'donate_interface-donor-employer-plain' ).text();
 		},
 		employerExplain() {
 			return this.$i18n( 'donate_interface-donor-employer-explain' ).text();

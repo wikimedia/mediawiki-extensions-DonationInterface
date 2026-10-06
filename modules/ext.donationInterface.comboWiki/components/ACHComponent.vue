@@ -1,17 +1,17 @@
 <template>
-	<div class="combo-wiki__ach">
+	<div class="combo-wiki__ach payment-method-form">
 		<div class="combo-wiki__ach-fields">
-			<cdx-field :is-required="true">
-				<cdx-label input-id="combo-employer-name">
-					{{ $i18n( 'donate_interface-donor-email' ).text() }}
-				</cdx-label>
+			<cdx-field v-if="showField( 'email' )" :optional="!isFieldRequired( 'email' )">
 				<cdx-text-input
 					id="combo-ach-email"
-					v-model="email"
+					v-model="fields.email"
 					data-autoscroll
 					type="email"
 					autocomplete="email"
 				></cdx-text-input>
+				<template #label>
+					{{ $i18n( 'donate_interface-donor-email' ).text() }}
+				</template>
 			</cdx-field>
 		</div>
 
@@ -30,6 +30,7 @@
 		<cdx-button
 			action="progressive"
 			weight="primary"
+			class="combo-wiki__button-submit"
 			:disabled="isSubmitting || !canSubmit"
 			@click="submit"
 		>
@@ -40,7 +41,7 @@
 
 <script>
 const { defineComponent } = require( 'vue' );
-const { CdxButton, CdxField, CdxLabel, CdxTextInput } = require( '@wikimedia/codex' );
+const { CdxButton, CdxField, CdxTextInput } = require( '@wikimedia/codex' );
 
 module.exports = exports = defineComponent( {
 	name: 'ACHComponent',
@@ -48,7 +49,6 @@ module.exports = exports = defineComponent( {
 	components: {
 		CdxButton,
 		CdxField,
-		CdxLabel,
 		CdxTextInput
 	},
 
@@ -56,6 +56,10 @@ module.exports = exports = defineComponent( {
 		donation: {
 			type: Object,
 			required: true
+		},
+		formFields: {
+			type: Object,
+			default: () => ( {} )
 		}
 	},
 
@@ -63,14 +67,23 @@ module.exports = exports = defineComponent( {
 
 	data() {
 		return {
-			email: this.donation.email,
+			// Donor details keyed by the server field names used in formFields and the donate API
+			fields: {
+				email: this.donation.email
+			},
 			isSubmitting: false
 		};
 	},
 
 	computed: {
 		canSubmit() {
-			return this.isValidEmail( this.email );
+			return this.detailsComplete;
+		},
+		detailsComplete() {
+			// Only fields this form renders, so e.g. a required country chosen elsewhere doesn't block it
+			return Object.keys( this.fields )
+				.filter( ( name ) => this.isFieldRequired( name ) )
+				.every( ( name ) => this.isFieldComplete( name ) );
 		},
 		signInBank() {
 			if ( this.isSubmitting ) {
@@ -81,6 +94,19 @@ module.exports = exports = defineComponent( {
 	},
 
 	methods: {
+		showField( name ) {
+			return [ true, 'optional' ].includes( this.formFields[ name ] );
+		},
+		isFieldRequired( name ) {
+			return this.formFields[ name ] === true;
+		},
+		isFieldComplete( name ) {
+			const value = this.fields[ name ];
+			if ( name === 'email' ) {
+				return this.isValidEmail( value );
+			}
+			return Boolean( value && value.trim() );
+		},
 		isValidEmail( email ) {
 			return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test( email.trim() );
 		},
@@ -95,10 +121,7 @@ module.exports = exports = defineComponent( {
 			this.isSubmitting = true;
 			this.$emit(
 				'submit',
-				{
-					payment_submethod: 'ach',
-					email: this.email
-				},
+				Object.assign( { payment_submethod: 'ach' }, this.fields ),
 				null,
 				this.handleSubmitFailure
 			);

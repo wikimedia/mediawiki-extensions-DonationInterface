@@ -53,7 +53,13 @@ function getBaseDonateParams( donation ) {
 		uselang: apiConfig.wgUserLanguage,
 		first_name: donation.firstName,
 		last_name: donation.lastName,
-		variant: donation.variant
+		variant: donation.variant,
+		street_address: donation.streetAddress,
+		city: donation.city,
+		postal_code: donation.postalCode,
+		state_province: donation.stateProvince,
+		street_number: donation.streetNumber,
+		fiscal_number: donation.fiscalNumber
 	};
 
 	const mapping = paymentMethodMap[ donation.paymentMethod ];
