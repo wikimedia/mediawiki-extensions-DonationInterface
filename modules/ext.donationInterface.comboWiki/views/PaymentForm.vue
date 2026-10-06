@@ -34,20 +34,20 @@
 					<!-- Button Stack -->
 					<div class="fiedlset__button-grid">
 						<!-- Fixed Amounts -->
-						<cdx-button
+						<cdx-toggle-button
 							v-for="amount in presetAmounts"
 							:key="amount"
-							:weight="donation.amount === amount ? 'primary' : 'normal'"
-							:class="{ 'combo-wiki__option--selected': Number( donation.amount ) === amount }"
-							@click="selectAmount( amount )"
+							:model-value="!otherAmount && Number( donation.amount ) === amount"
+							@update:model-value="selectAmount( amount )"
 						>
 							{{ formattedAmount( amount ) }}
-						</cdx-button>
+						</cdx-toggle-button>
 						<!-- Custom Amount -->
 						<cdx-text-input
-							v-model="donation.amount"
+							:model-value="otherAmount"
 							input-type="number"
 							:placeholder="$i18n( 'donate_interface-other-amount' ).text()"
+							@update:model-value="setOtherAmount"
 						>
 						</cdx-text-input>
 					</div>
@@ -131,8 +131,8 @@
 <script>
 const { defineComponent } = require( 'vue' );
 const {
-	CdxButton,
 	CdxTextInput,
+	CdxToggleButton,
 	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
@@ -184,7 +184,7 @@ module.exports = exports = defineComponent( {
 	name: 'PaymentForm',
 
 	components: {
-		'cdx-button': CdxButton,
+		'cdx-toggle-button': CdxToggleButton,
 		'cdx-text-input': CdxTextInput,
 		'cdx-checkbox': CdxCheckbox,
 		'error-display': ErrorDisplay,
@@ -239,6 +239,7 @@ module.exports = exports = defineComponent( {
 				variant: this.params.variant || null,
 				gateway_session_id: this.params.gateway_session_id || null
 			},
+			otherAmount: '',
 			thankYouUrl: null,
 			showDebug: false
 		};
@@ -386,6 +387,24 @@ module.exports = exports = defineComponent( {
 			return ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] === true;
 		},
 		selectAmount( value ) {
+			this.otherAmount = '';
+			this.donation.amount = value;
+		},
+		setAmount() {
+			const amount = Number( this.params.amount );
+			// Make sure it's actually a number
+			if ( !isFinite( amount ) || amount <= 0 ) {
+				return;
+			}
+			// Set the amounts
+			if ( this.presetAmounts.includes( amount ) ) {
+				this.selectAmount( amount );
+			} else {
+				this.setOtherAmount( String( amount ).trim() );
+			}
+		},
+		setOtherAmount( value ) {
+			this.otherAmount = value;
 			this.donation.amount = value;
 		},
 		redirectTargetUrl( targetUrl ) {
@@ -463,6 +482,9 @@ module.exports = exports = defineComponent( {
 					this.handleDonateError( code, failure );
 				} );
 		}
+	},
+	created() {
+		this.setAmount();
 	},
 	mounted() {
 		const urlParams = new URLSearchParams( window.location.search );
