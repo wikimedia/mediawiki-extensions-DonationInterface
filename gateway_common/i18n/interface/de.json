@@ -49,6 +49,7 @@
 	"combowiki-payment-method-heading": "Spenden Sie mit Ihrer bevorzugten Zahlungsmethode",
 	"combowiki-method-card": "Karte",
 	"combowiki-method-adyen-card": "Adyen Card",
+	"combowiki-method-sepa": "SEPA-Lastschrift",
 	"combowiki-your-details-heading": "Ihre Details",
 	"combowiki-donate-with-paypal": "Per PayPal spenden",
 	"combowiki-donate-with-venmo": "Mit Venmo spenden",
