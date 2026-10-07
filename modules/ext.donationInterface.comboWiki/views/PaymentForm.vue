@@ -24,14 +24,12 @@
 						<p class="text text--base">
 							<strong>{{ amountHeading }}</strong>
 						</p>
-						<!-- Country>Currency selection -->
-						<cdx-select
-							v-model:selected="donation.country"
-							:menu-items="countryOptions"
-							:default-label="$i18n( 'combowiki-country-placeholder' ).text()"
-							@update:selected="onCountryChange"
-						>
-						</cdx-select>
+						<!-- Country Component -->
+						<country-selector
+							v-model="donation.country"
+							:countries="countries"
+							@country-change="onCountryChange"
+						></country-selector>
 					</div>
 					<!-- Button Stack -->
 					<div class="fiedlset__button-grid">
@@ -136,10 +134,10 @@ const { defineComponent } = require( 'vue' );
 const {
 	CdxButton,
 	CdxTextInput,
-	CdxSelect,
 	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
+const CountrySelector = require( '../components/CountrySelector.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
@@ -189,7 +187,6 @@ module.exports = exports = defineComponent( {
 	components: {
 		'cdx-button': CdxButton,
 		'cdx-text-input': CdxTextInput,
-		'cdx-select': CdxSelect,
 		'cdx-checkbox': CdxCheckbox,
 		'error-display': ErrorDisplay,
 		'frequency-selector': FrequencySelector,
@@ -200,7 +197,8 @@ module.exports = exports = defineComponent( {
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
-		'recurring-convert': RecurringConvert
+		'recurring-convert': RecurringConvert,
+		'country-selector': CountrySelector
 	},
 	inject: [ 'params' ],
 	setup() {
@@ -210,6 +208,8 @@ module.exports = exports = defineComponent( {
 	data() {
 		const initialCurrency = this.params.currency || 'USD';
 		const countries = this.params.wgDonationInterfaceCountries || {};
+		const defaultCountry = this.params.country || 'US';
+
 		return {
 			countries,
 			donation: {
@@ -221,7 +221,7 @@ module.exports = exports = defineComponent( {
 				currency: initialCurrency,
 				payFee: this.params.pay_the_fee === '1' || false,
 				phone: null,
-				country: this.params.country,
+				country: defaultCountry,
 				paymentMethod: this.toFormPaymentMethod( this.params.payment_method ),
 				optIn: this.params.opt_in,
 				employer: null,
@@ -321,12 +321,6 @@ module.exports = exports = defineComponent( {
 			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
 			return Object.assign( {}, this.donation, { amount: total } );
 		},
-		countryOptions() {
-			return Object.entries( this.countries ).map( ( [ country, config ] ) => ( {
-				label: config.label + ' (' + config.currency + ')',
-				value: country
-			} ) );
-		},
 		giftComplete() {
 			return this.donation.frequency !== null && this.donation.amount !== null;
 		},
@@ -408,6 +402,7 @@ module.exports = exports = defineComponent( {
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', this.countries[ country ].value );
+			url.searchParams.set( 'currency', this.donation.currency );
 			window.location.assign( url.toString() );
 		},
 		handleDonateResult( result ) {

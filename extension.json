@@ -572,6 +572,7 @@
 				"modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/ErrorDisplay.vue",
 				"modules/ext.donationInterface.comboWiki/components/FrequencySelector.vue",
+				"modules/ext.donationInterface.comboWiki/components/CountrySelector.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/AdyenCardForm.vue",
 				"modules/ext.donationInterface.comboWiki/components/GravyRedirectComponent.vue",
