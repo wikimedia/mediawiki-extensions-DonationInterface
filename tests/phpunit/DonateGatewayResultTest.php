@@ -2,6 +2,7 @@
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Special\Donate;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 use Psr\Log\NullLogger;
@@ -37,7 +38,7 @@ class DonateGatewayResultTest extends BaseGravyTestCase {
 		$context->setRequest( new FauxRequest( [ 'gateway' => 'gravy' ], false ) );
 		$context->setTitle( Title::newFromText( 'Special:DonateGatewayResult' ) );
 
-		( new DonateGatewayResult() )->run( null );
+		( $this->getPageInstance() )->run( null );
 
 		$this->assertSame( Donate::IDENTIFIER, Context::get()->getSourceType() );
 	}
@@ -67,7 +68,7 @@ class DonateGatewayResultTest extends BaseGravyTestCase {
 	 */
 	public function testSendsDonorBackToDonateInsteadOfShowingLegacyErrorForm(): void {
 		RequestContext::getMain()->setTitle( Title::newFromText( 'Special:DonateGatewayResult' ) );
-		$resultPage = TestingAccessWrapper::newFromObject( new DonateGatewayResult() );
+		$resultPage = TestingAccessWrapper::newFromObject( $this->getPageInstance() );
 		$resultPage->adapter = new GravyAdapter( [ 'external_data' => $this->getDonorBackup() ] );
 		$resultPage->logger = new NullLogger();
 
@@ -123,11 +124,17 @@ class DonateGatewayResultTest extends BaseGravyTestCase {
 		] );
 		RequestContext::getMain()->setTitle( Title::newFromText( 'Special:DonateGatewayResult' ) );
 
-		$resultPage = TestingAccessWrapper::newFromObject( new DonateGatewayResult() );
+		$resultPage = TestingAccessWrapper::newFromObject( $this->getPageInstance() );
 		$resultPage->adapter = new GravyAdapter( [ 'external_data' => $donorData ] );
 		$resultPage->logger = new NullLogger();
 		$resultPage->renderResponse( $result );
 
 		return $resultPage->getOutput()->getRedirect();
+	}
+
+	private function getPageInstance(): DonateGatewayResult {
+		return new DonateGatewayResult(
+			MediaWikiServices::getInstance()->getService( 'DonationInterface.ResultPages' ),
+		);
 	}
 }

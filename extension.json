@@ -70,7 +70,8 @@
 			"services": [
 				"DonationInterface.GatewayConfigurationFactory",
 				"DonationInterface.GatewayRouter",
-				"DonationInterface.LoggerFactory"
+				"DonationInterface.LoggerFactory",
+				"DonationInterface.ResultPages"
 			]
 		},
 		"DonateGatewayResult": "DonateGatewayResult"

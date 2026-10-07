@@ -24,12 +24,12 @@ use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFact
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Extension\DonationInterface\PageTraits\SeedFromSessionTrait;
+use MediaWiki\Extension\DonationInterface\ReturnProcessing\ResultPages;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MessageUtils;
 use Psr\Log\LoggerInterface;
 use RecurringConversion;
-use ResultPages;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\ReferenceData\NationalCurrencies;
 use Subdivisions;
@@ -119,7 +119,8 @@ class Donate extends UnlistedSpecialPage {
 	public function __construct(
 		protected readonly GatewayConfigurationFactory $gatewayConfigurationFactory,
 		protected readonly GatewayRouter $gatewayRouter,
-		protected readonly LoggerFactory $loggerFactory
+		protected readonly LoggerFactory $loggerFactory,
+		protected readonly ResultPages $resultPages
 	) {
 		parent::__construct( 'Donate' );
 		$this->donationDetails = new DonationDetails();
@@ -497,8 +498,10 @@ class Donate extends UnlistedSpecialPage {
 			return;
 		}
 
-		// Generate the complete thank-you page URL using adapter state and request data
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $selectedAdapter );
+		// Generate the complete thank-you page URL using donation details
+		$vars['DonationInterfaceThankYouPage'] = $this->resultPages->getThankYouPageForParams(
+			$this->donationDetails->getData(),
+		);
 
 		$this->addAmountRules( $vars, $selectedAdapter );
 
@@ -828,17 +831,11 @@ class Donate extends UnlistedSpecialPage {
 			// Possibly a page reload, or a stale link. The donation
 			// has already gone through, so thank the donor rather than show an empty form.
 			$this->logger->info( "No donor backup for order $orderId, redirecting to the thank you page" );
-			$this->redirectToThankYouPage( $this->createAdapterForGateway(
-				$request->getVal( 'gateway', '' ),
-				[ 'external_data' => [
-					// Without a contribution_tracking_id, building the adapter takes a new ID
-					// and pushes a tracking message. The order ID starts with it.
-					'contribution_tracking_id' => strstr( $orderId ?? '', '.', true ) ?: null,
-					'order_id' => $orderId,
-					'language' => $this->getLanguage()->getCode(),
-					'country' => $request->getVal( 'country', '' ),
-				] ]
-			) );
+			$this->redirectToThankYouPage( [
+				'order_id' => $orderId,
+				'language' => $this->getLanguage()->getCode(),
+				'country' => $request->getVal( 'country', '' ),
+			] );
 			return;
 		}
 
@@ -849,8 +846,12 @@ class Donate extends UnlistedSpecialPage {
 			$this->selectedGateway,
 			[ 'external_data' => $backup, 'variant' => $backup['variant'] ?? '' ]
 		);
-		if ( !$adapter || !$adapter->showMonthlyConvert() ) {
-			$this->redirectToThankYouPage( $adapter );
+		if ( !$adapter ) {
+			$this->reloadPageWithMinimalParams();
+			return;
+		}
+		if ( !$adapter->showMonthlyConvert() ) {
+			$this->redirectToThankYouPage( $backup );
 			return;
 		}
 		$this->adapters[$this->selectedGateway] = $adapter;
@@ -873,16 +874,17 @@ class Donate extends UnlistedSpecialPage {
 		$this->renderPage();
 	}
 
-	private function redirectToThankYouPage( ?GatewayAdapter $adapter ): void {
-		if ( $adapter ) {
-			$url = ResultPages::getThankYouPage( $adapter );
-		} else {
-			$url = $this->getPageTitle()->getFullURL( [
-				'uselang' => $this->getLanguage()->getCode(),
-				'country' => $this->getRequest()->getVal( 'country', '' ),
-			] );
-		}
-		$this->getOutput()->redirect( $url );
+	private function redirectToThankYouPage( array $params ): void {
+		$this->getOutput()->redirect(
+			$this->resultPages->getThankYouPageForParams( $params )
+		);
+	}
+
+	private function reloadPageWithMinimalParams(): void {
+		$this->getOutput()->redirect( $this->getPageTitle()->getFullURL( [
+			'uselang' => $this->getLanguage()->getCode(),
+			'country' => $this->getRequest()->getVal( 'country', '' ),
+		] ) );
 	}
 
 	/*

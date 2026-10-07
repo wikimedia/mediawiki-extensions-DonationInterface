@@ -1457,15 +1457,6 @@ class DonateTest extends DonationInterfaceTestCase {
 		];
 	}
 
-	public function testMonthlyConvertReturnShowsDonationFormForUnknownGateway(): void {
-		$donate = $this->executeMonthlyConvertReturn( [ 'gateway' => 'nonsense' ], null );
-		$redirect = $donate->getOutput()->getRedirect();
-
-		$this->assertStringContainsString( 'Special:Donate', $redirect );
-		$this->assertStringContainsString( 'country=US', $redirect );
-		$this->assertStringNotContainsString( 'monthlyConvert', $redirect );
-	}
-
 	public function testMonthlyConvertReturnGoesToThankYouPageWhenDonationDoesNotQualify(): void {
 		// $2 is below the $2.74 USD minimum for monthly convert
 		$donate = $this->executeMonthlyConvertReturn(
@@ -1688,6 +1679,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			$services->getService( 'DonationInterface.GatewayConfigurationFactory' ),
 			$services->getService( 'DonationInterface.GatewayRouter' ),
 			$services->getService( 'DonationInterface.LoggerFactory' ),
+			$services->getService( 'DonationInterface.ResultPages' ),
 		);
 	}
 
