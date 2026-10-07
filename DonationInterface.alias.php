@@ -84,12 +84,42 @@ $specialPageAliases['nl'] = [
 $specialPageAliases['sv'] = [
 	'FundraiserMaintenance' => [ 'Insamlingshantering' ],
 ];
+
+/** Chinese (中文) */
+$specialPageAliases['zh'] = [
+	'GatewayChooser' => [ 'GatewayChooser', 'GatewayFormChooser' ],
+	'SystemStatus' => [ 'SystemStatus' ],
+	'EmailPreferences' => [ 'EmailPreferences' ],
+	'RecurUpgrade' => [ 'RecurUpgrade' ],
+	'FundraiserMaintenance' => [ 'FundraiserMaintenance' ],
+	'PaymentSettings' => [ 'PaymentSettings' ],
+	'DonorPortal' => [ 'DonorPortal' ],
+	'Donate' => [ 'Donate' ],
+	'DonateGatewayResult' => [ 'DonateGatewayResult' ]
+];
+
 /** Simplified Chinese (中文（简体）‎) */
 $specialPageAliases['zh-hans'] = [
+	'GatewayChooser' => [ '网关选择器', '网关表单选择器' ],
+	'SystemStatus' => [ '系统状态' ],
+	'EmailPreferences' => [ '电子邮件偏好设置' ],
+	'RecurUpgrade' => [ '循环升级' ],
 	'FundraiserMaintenance' => [ '募捐工具维护' ],
+	'PaymentSettings' => [ '支付设置' ],
+	'DonorPortal' => [ '捐赠者门户' ],
+	'Donate' => [ '捐赠' ],
+	'DonateGatewayResult' => [ '捐赠网关结果' ]
 ];
 
 /** Traditional Chinese (中文（繁體）‎) */
 $specialPageAliases['zh-hant'] = [
-	'FundraiserMaintenance' => [ '募捐維護' ],
+	'GatewayChooser' => [ '閘道器選擇器', '閘道器表單選擇器' ],
+	'SystemStatus' => [ '系統狀態' ],
+	'EmailPreferences' => [ '電子郵件偏好設定' ],
+	'RecurUpgrade' => [ '循環升級' ],
+	'FundraiserMaintenance' => [ '募捐工具維護' ],
+	'PaymentSettings' => [ '支付設定' ],
+	'DonorPortal' => [ '捐贈者入口' ],
+	'Donate' => [ '捐贈' ],
+	'DonateGatewayResult' => [ '捐贈閘道器結果' ]
 ];
