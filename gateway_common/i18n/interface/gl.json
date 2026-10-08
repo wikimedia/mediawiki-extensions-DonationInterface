@@ -41,6 +41,7 @@
 	"combowiki-method-paypal": "PayPal",
 	"combowiki-method-applepay": "Apple Pay",
 	"combowiki-method-ach": "ACH",
+	"combowiki-method-sepa": "Débito directo SEPA",
 	"combowiki-your-details-heading": "Os teus detalles",
 	"combowiki-donate-with-paypal": "Doar con PayPal",
 	"combowiki-donate-with-venmo": "Doar con Venmo",

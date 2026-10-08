@@ -23,6 +23,7 @@
 	"combowiki-method-adyen-card": "Kaarka Adyen",
 	"combowiki-method-venmo": "Venmo",
 	"combowiki-method-googlepay": "Google Pay",
+	"combowiki-method-sepa": "Kaarka deynta tooska ah ee SEPA",
 	"combowiki-donate-with-venmo": "Ku deeq adigoo adeegsanaya Venmo",
 	"donate_interface-confirmation-yes": "haa",
 	"donate_interface-confirmation-no": "maya",
