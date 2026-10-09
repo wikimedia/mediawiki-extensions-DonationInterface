@@ -5,6 +5,7 @@
 		:menu-items="menuItems"
 		clearable="true"
 		:placeholder="$i18n( 'combowiki-country-placeholder' ).text()"
+		@blur="onBlur"
 	>
 	</cdx-lookup>
 </template>
@@ -60,14 +61,12 @@ module.exports = exports = defineComponent( {
 			);
 		} );
 
-		// Emit selection changes up to parent
+		// Emit selection changes up to parent when not null
 		watch( selection, ( newCountry ) => {
-			if ( !newCountry ) {
-				emit( 'update:modelValue', null );
-				return;
+			if ( newCountry ) {
+				emit( 'update:modelValue', newCountry );
+				emit( 'country-change', newCountry );
 			}
-			emit( 'update:modelValue', newCountry );
-			emit( 'country-change', newCountry );
 		} );
 
 		return {
