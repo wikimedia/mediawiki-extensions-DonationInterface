@@ -87,7 +87,7 @@ $specialPageAliases['sv'] = [
 
 /** Chinese (中文) */
 $specialPageAliases['zh'] = [
-	'GatewayChooser' => [ 'GatewayChooser', 'GatewayFormChooser' ],
+	'GatewayChooser' => [ 'GatewayChooser' ],
 	'SystemStatus' => [ 'SystemStatus' ],
 	'EmailPreferences' => [ 'EmailPreferences' ],
 	'RecurUpgrade' => [ 'RecurUpgrade' ],
@@ -103,7 +103,7 @@ $specialPageAliases['zh-hans'] = [
 	'GatewayChooser' => [ '网关选择器', '网关表单选择器' ],
 	'SystemStatus' => [ '系统状态' ],
 	'EmailPreferences' => [ '电子邮件偏好设置' ],
-	'RecurUpgrade' => [ '循环升级' ],
+	'RecurUpgrade' => [ '定期捐赠升级' ],
 	'FundraiserMaintenance' => [ '募捐工具维护' ],
 	'PaymentSettings' => [ '支付设置' ],
 	'DonorPortal' => [ '捐赠者门户' ],
@@ -116,7 +116,7 @@ $specialPageAliases['zh-hant'] = [
 	'GatewayChooser' => [ '閘道器選擇器', '閘道器表單選擇器' ],
 	'SystemStatus' => [ '系統狀態' ],
 	'EmailPreferences' => [ '電子郵件偏好設定' ],
-	'RecurUpgrade' => [ '循環升級' ],
+	'RecurUpgrade' => [ '定期捐贈升級' ],
 	'FundraiserMaintenance' => [ '募捐工具維護' ],
 	'PaymentSettings' => [ '支付設定' ],
 	'DonorPortal' => [ '捐贈者入口' ],
