@@ -353,6 +353,26 @@ main {
 	font-weight: bold;
 }
 
+/* Stack the two columns on narrow screens */
+@media ( max-width: 599px ) {
+	main {
+		padding: 0 1.5em;
+	}
+
+	.emailPreferencesColumns {
+		flex-direction: column;
+	}
+
+	.emailPreferencesLeftColumn,
+	.emailPreferencesRightColumn {
+		width: auto;
+	}
+
+	.emailPreferencesLeftColumn {
+		padding: 0 0 1em;
+	}
+}
+
 .emailpreferences-form-col-content-salutation-email-edit {
 	font-size: 1.125em;
 }
