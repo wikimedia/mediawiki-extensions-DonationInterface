@@ -433,7 +433,22 @@ class DataIntegrator {
 		// fields that overwrite values pulled from other sources
 		// if the session has these values, we set them
 		$overwrite = [ 'referrer', 'contribution_tracking_id' ];
+		// fields that should NOT be restored from session unless explicitly provided in current request
+		// 'country' should use geolocation (ip_country) as fallback when not explicitly provided
+		$doNotRestoreFromSession = [ 'country' ];
+
+		$query_values = $this->request->getQueryValues();
+		$post_values = json_decode( $this->request->getRawInput(), true ) ?: [];
+
 		foreach ( $donorData as $key => $val ) {
+			// Skip restoring fields that should fall back to geolocation when not explicitly provided
+			if ( in_array( $key, $doNotRestoreFromSession ) ) {
+				// Only use session value if it was explicitly provided in current request
+				if ( !isset( $query_values[ $key ] ) && !isset( $post_values[ $key ] ) ) {
+					continue;
+				}
+			}
+
 			if ( in_array( $key, $overwrite ) ) {
 				$this->dataObject->setValue( $key, trim( (string)$val ) );
 				$this->dataObject->setSource( $key, 'session' );
