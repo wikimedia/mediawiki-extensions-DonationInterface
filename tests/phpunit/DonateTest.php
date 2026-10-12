@@ -713,16 +713,16 @@ class DonateTest extends DonationInterfaceTestCase {
 		$comboWiki = $this->getDonateInstance();
 		$comboWiki->execute( null );
 
-		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
 
 		$this->assertSame(
 			$sessionContributionTrackingId,
-			$dataObject->getValue( 'contribution_tracking_id' ),
+			$donationDetails->getValue( 'contribution_tracking_id' ),
 			'contribution_tracking_id already in session should win over the value on the incoming request'
 		);
 		$this->assertSame(
 			$sessionReferrer,
-			$dataObject->getValue( 'referrer' ),
+			$donationDetails->getValue( 'referrer' ),
 			'referrer already in session should win over the value on the incoming request'
 		);
 	}
@@ -762,47 +762,47 @@ class DonateTest extends DonationInterfaceTestCase {
 		$comboWiki = $this->getDonateInstance();
 		$comboWiki->execute( null );
 
-		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
 
 		$this->assertNotSame(
 			'6.6.6.6',
-			$dataObject->getValue( 'user_ip' ),
+			$donationDetails->getValue( 'user_ip' ),
 			'user_ip must not be settable via the query string -- it must reflect the real connection IP'
 		);
 		$this->assertSame(
 			'127.0.0.1',
-			$dataObject->getValue( 'user_ip' ),
+			$donationDetails->getValue( 'user_ip' ),
 			'user_ip should be the real request IP, not a spoofed one'
 		);
 
 		$this->assertNotSame(
 			'https://evil.example.com/spoofed',
-			$dataObject->getValue( 'referrer' ),
+			$donationDetails->getValue( 'referrer' ),
 			'referrer must not be settable via the query string -- it must reflect the real Referer header'
 		);
 		$this->assertSame(
 			'en.wikipedia.org/wiki/Real_Referring_Page',
-			$dataObject->getValue( 'referrer' ),
+			$donationDetails->getValue( 'referrer' ),
 			'referrer should be derived from the real Referer header, not the query string'
 		);
 		$this->assertSame(
 			'macOS',
-			$dataObject->getValue( 'os' ),
+			$donationDetails->getValue( 'os' ),
 			'os should be derived from the real User-Agent header, not the query string'
 		);
 		$this->assertSame(
 			'Chrome',
-			$dataObject->getValue( 'browser' ),
+			$donationDetails->getValue( 'browser' ),
 			'browser should be derived from the real User-Agent header, not the query string'
 		);
 		$this->assertSame(
 			'',
-			$dataObject->getValue( 'os_version' ),
+			$donationDetails->getValue( 'os_version' ),
 			'os_version should be derived from the real User-Agent header, not the query string'
 		);
 		$this->assertSame(
 			'152',
-			$dataObject->getValue( 'browser_version' ),
+			$donationDetails->getValue( 'browser_version' ),
 			'browser_version should be derived from the real User-Agent header, not the query string'
 		);
 	}
@@ -829,21 +829,21 @@ class DonateTest extends DonationInterfaceTestCase {
 		$comboWiki = $this->getDonateInstance();
 		$comboWiki->execute( null );
 
-		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
 
 		$this->assertSame(
 			'wmf_test_campaign',
-			$dataObject->getValue( 'utm_campaign' ),
+			$donationDetails->getValue( 'utm_campaign' ),
 			'wmf_campaign in the URL should be mapped onto utm_campaign'
 		);
 		$this->assertSame(
 			'wmf_test_medium',
-			$dataObject->getValue( 'utm_medium' ),
+			$donationDetails->getValue( 'utm_medium' ),
 			'wmf_medium in the URL should be mapped onto utm_medium'
 		);
 		$this->assertSame(
 			'wmf_test_source..cc',
-			$dataObject->getValue( 'utm_source' ),
+			$donationDetails->getValue( 'utm_source' ),
 			'wmf_source in the URL should be mapped onto utm_source'
 		);
 	}
@@ -871,11 +871,11 @@ class DonateTest extends DonationInterfaceTestCase {
 		$comboWiki = $this->getDonateInstance();
 		$comboWiki->execute( null );
 
-		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
 
 		$this->assertSame(
 			'it',
-			$dataObject->getValue( 'language' ),
+			$donationDetails->getValue( 'language' ),
 			"We should read always the 'uselang' param from the request and set it as 'language' in our DonationDetails object."
 		);
 	}
@@ -918,16 +918,16 @@ class DonateTest extends DonationInterfaceTestCase {
 		$comboWiki = $this->getDonateInstance();
 		$comboWiki->execute( null );
 
-		$dataObject = TestingAccessWrapper::newFromObject( $comboWiki )->dataObject;
+		$donationDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
 
 		$this->assertSame(
 			'post@example.com',
-			$dataObject->getValue( 'email' ),
+			$donationDetails->getValue( 'email' ),
 			'POST data should overwrite the overlapping query parameter for email'
 		);
 		$this->assertSame(
 			'99.00',
-			$dataObject->getValue( 'amount' ),
+			$donationDetails->getValue( 'amount' ),
 			'POST data should overwrite the overlapping query parameter for amount'
 		);
 	}
