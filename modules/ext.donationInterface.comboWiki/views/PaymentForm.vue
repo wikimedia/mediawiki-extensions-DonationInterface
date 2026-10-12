@@ -460,7 +460,6 @@ module.exports = exports = defineComponent( {
 					// Ignore elements that are not rendered (display: none or inside a hidden parent)
 					el.getClientRects().length > 0
 				);
-			console.log( target );
 			if ( !target ) {
 				return;
 			}
