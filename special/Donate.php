@@ -202,12 +202,10 @@ class Donate extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	private function prepareDonationDetails(): void {
-		$request = $this->getRequest();
-		$wmfConfig = $this->getConfig();
-		( new DataIntegrator( $request, $this->donationDetails, $this->logger ) )->getDataFromRequestAndSession();
-		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->donationDetails );
-		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->donationDetails );
-		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->donationDetails );
+		( new DataIntegrator( $this->getRequest(), $this->donationDetails, $this->logger ) )->getDataFromRequestAndSession();
+		( new DataNormalizer( $this->getConfig(), $this->logger ) )->normalize( $this->donationDetails );
+		( new ContributionTrackingHelper( $this->getRequest(), $this->getConfig(), $this->logger ) )->handleTrackingData( $this->donationDetails );
+		( new OrderIdHandler( $this->getRequest(), $this->logger ) )->handleOrderId( $this->donationDetails );
 	}
 
 	/**
