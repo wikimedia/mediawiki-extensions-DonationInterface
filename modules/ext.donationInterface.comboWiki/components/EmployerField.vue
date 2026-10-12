@@ -52,7 +52,9 @@ module.exports = defineComponent( {
 			employersById = {},
 			autocompleteCache = {},
 			previouslySelectedEmployersByName = {},
-			selectedEmployerName = '';
+			selectedEmployerName = '',
+			// assigned per instance in created(), where this.searchEmployers exists
+			debouncedSearch = null;
 
 		if ( props.employer && props.employerId ) {
 			employers.value.push( {
@@ -62,6 +64,7 @@ module.exports = defineComponent( {
 		}
 		return {
 			autocompleteCache,
+			debouncedSearch,
 			employers,
 			employersById,
 			previouslySelectedEmployersByName,
@@ -79,21 +82,21 @@ module.exports = defineComponent( {
 		}
 	},
 	methods: {
-		onInput( value ) {
+		resetEmployerFieldValues() {
+			this.employers = [];
+			this.updateEmployerIdAndName( 0, '' );
+		},
+		searchEmployers( value ) {
 			const apiParameters = {
-					action: 'employerSearch',
-					employer: value,
-					format: 'json'
-				},
-				cached = this.autocompleteCache[ value ];
-
-			if ( cached ) {
-				this.employers = cached;
-			} else {
-				apiPost( apiParameters ).then( ( data ) => {
+				action: 'employerSearch',
+				employer: value,
+				format: 'json'
+			};
+			apiPost( apiParameters )
+				.then( ( data ) => {
 					// check if the api sent back any errors and if so jump out here
 					if ( data.error ) {
-						this.employers = [];
+						this.resetEmployerFieldValues();
 					} else {
 						// transform result to suit autocomplete format; ids come back as
 						// strings from the CSV but the employerId prop is a Number
@@ -107,12 +110,29 @@ module.exports = defineComponent( {
 						data.result.forEach( ( item ) => {
 							this.employersById[ item.id ] = item.name;
 						} );
-
 						// cache result
 						this.autocompleteCache[ value ] = output;
 						this.employers = output;
 					}
+				} )
+				// mw.Api rejects on API errors, so the error should be caught here
+				.catch( () => {
+					this.resetEmployerFieldValues();
 				} );
+		},
+		onInput( value ) {
+			// if null or empty string, reset the employer and field skip the
+			// API call that throws a mw.Api error: missingparam
+			if ( !value || !value.trim() ) {
+				this.resetEmployerFieldValues();
+				return;
+			}
+			const cached = this.autocompleteCache[ value ];
+
+			if ( cached ) {
+				this.employers = cached;
+			} else {
+				this.debouncedSearch( value );
 			}
 			if ( this.previouslySelectedEmployersByName[ value ] ) {
 				// Donor has restored the input box to match a previously selected value
@@ -132,9 +152,13 @@ module.exports = defineComponent( {
 		},
 		updateEmployerIdAndName( employerId, employerName ) {
 			this.selectedEmployerName = employerName;
+			this.selectedEmployerId = employerId;
 			this.$emit( 'update:employer', employerName );
 			this.$emit( 'update:employer-id', employerId );
 		}
+	},
+	created() {
+		this.debouncedSearch = mw.util.debounce( this.searchEmployers, 300 );
 	}
 } );
 
