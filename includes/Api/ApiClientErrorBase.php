@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\DonationInterface\Api;
 
 use MediaWiki\Api\ApiBase;
-use MediaWiki\Context\RequestContext;
 use Psr\Log\LoggerInterface;
 use Wikimedia\ParamValidator\ParamValidator;
 use WmfFramework;
@@ -20,7 +19,7 @@ abstract class ApiClientErrorBase extends ApiBase {
 			// Only log errors from ppl with a legitimate donation attempt
 			return;
 		}
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'clienterror' ) ) {
+		if ( $this->getUser()->pingLimiter( 'clienterror' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['clienterror']['ip']
 			return;
 		}

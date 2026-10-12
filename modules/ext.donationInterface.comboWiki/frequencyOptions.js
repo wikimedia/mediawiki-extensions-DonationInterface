@@ -9,11 +9,11 @@ const FREQUENCIES = {
 		label: 'combowiki-frequency-once',
 		amountHeading: 'combowiki-amount-heading-once'
 	},
-	monthly: {
+	month: {
 		label: 'combowiki-frequency-monthly',
 		amountHeading: 'combowiki-amount-heading-monthly'
 	},
-	annual: {
+	year: {
 		label: 'combowiki-frequency-annual',
 		amountHeading: 'combowiki-amount-heading-annual'
 	}

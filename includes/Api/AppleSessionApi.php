@@ -2,7 +2,6 @@
 namespace MediaWiki\Extension\DonationInterface\Api;
 
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Request\WebRequest;
 use SmashPig\PaymentProviders\IPaymentProvider;
 use SmashPig\PaymentProviders\PaymentProviderFactory;
@@ -40,7 +39,7 @@ abstract class AppleSessionApi extends \DonationApiBase {
 	 * @throws ApiUsageException
 	 */
 	public function execute() {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'applesession' ) ) {
+		if ( $this->getUser()->pingLimiter( 'applesession' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['applesession']['ip']
 			return;
 		}

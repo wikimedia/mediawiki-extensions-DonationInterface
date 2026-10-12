@@ -1,6 +1,5 @@
 <?php
 
-use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
@@ -322,10 +321,10 @@ class DonorPortal extends UnlistedSpecialPage {
 	public function addStylesScriptsAndViewport(): void {
 		$out = $this->getOutput();
 
-		$context = RequestContext::getMain();
-		$templatePath = $context->getConfig()->get( 'ScriptPath' ) .
+		$config = $this->getConfig();
+		$templatePath = $config->get( 'ScriptPath' ) .
 			'/extensions/DonationInterface/email_forms/templates';
-		$assetsPath = $context->getConfig()->get( 'ScriptPath' ) .
+		$assetsPath = $config->get( 'ScriptPath' ) .
 			'extensions/DonationInterface/modules/ext.donationInterface.donorPortal/assets';
 
 		// Adding styles-only modules this way causes them to arrive ahead of page rendering

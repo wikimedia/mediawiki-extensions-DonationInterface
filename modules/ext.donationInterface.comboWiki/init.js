@@ -11,9 +11,9 @@ const { loadVariantModuleComponents } = require( './variantHelper.js' );
 // Cross the mw.config boundary once, here — components below never touch mw.config directly.
 const comboWikiConfig = mw.config.get( 'comboWiki' ) || { params: {} };
 const params = Object.assign( {}, comboWikiConfig.params, {
-	gateway: comboWikiConfig.gateway,
-	language: comboWikiConfig.language,
 	paymentMethods: comboWikiConfig.paymentMethods || [],
+	wmfParams: comboWikiConfig.wmfParams || {},
+	monthlyConvertReturn: comboWikiConfig.monthlyConvertReturn || false,
 	assets_path: mw.config.get( 'assets_path' ),
 	wgDonationInterfaceCountries: mw.config.get( 'wgDonationInterfaceCountries' ),
 	wgDonationInterfaceCurrencyRates: mw.config.get( 'wgDonationInterfaceCurrencyRates' ),
@@ -28,14 +28,15 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	wgDonationInterfaceMonthlyConvertAmounts: mw.config.get( 'wgDonationInterfaceMonthlyConvertAmounts' ),
 	wgDonationInterfaceAmountRules: mw.config.get( 'wgDonationInterfaceAmountRules' ),
 	DonationInterfaceNoDecimalCurrencies: mw.config.get( 'DonationInterfaceNoDecimalCurrencies' ),
-	DonationInterfaceFormFields: mw.config.get( 'DonationInterfaceFormFields' )
-} );
+	DonationInterfaceFormFields: mw.config.get( 'DonationInterfaceFormFields' ),
+	DonationInterfaceStateProvinceOptions: mw.config.get( 'DonationInterfaceStateProvinceOptions' ) || []
+}, comboWikiConfig );
 vueApp.provide( 'params', params );
 
 require( './api.js' ).init( params );
 
 // load variant component
-loadVariantModuleComponents( vueApp, comboWikiConfig.params.variant );
+loadVariantModuleComponents( vueApp, comboWikiConfig.variant );
 
 // Use this to prevent vue 3 default space trim.
 vueApp.config.compilerOptions.whitespace = 'preserve';

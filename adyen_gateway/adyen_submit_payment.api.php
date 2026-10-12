@@ -1,6 +1,5 @@
 <?php
 use MediaWiki\Api\ApiBase;
-use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\SequenceGenerators;
 use SmashPig\Core\UtcDate;
@@ -51,7 +50,7 @@ class AdyenSubmitPaymentApi extends ApiBase {
 	public $logger;
 
 	public function execute() {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'submitpayment' ) ) {
+		if ( $this->getUser()->pingLimiter( 'submitpayment' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['submitpayment']['ip']
 			return;
 		}

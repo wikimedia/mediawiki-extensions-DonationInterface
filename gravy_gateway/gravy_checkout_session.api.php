@@ -20,7 +20,7 @@ class GravyCheckoutSessionApi extends DonationApiBase {
 	 * @inheritDoc
 	 */
 	public function execute() {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'gravycheckoutsession' ) ) {
+		if ( $this->getUser()->pingLimiter( 'gravycheckoutsession' ) ) {
 			return;
 		}
 		$this->gateway = 'gravy';

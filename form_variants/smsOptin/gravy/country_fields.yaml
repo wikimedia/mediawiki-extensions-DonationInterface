@@ -2,23 +2,133 @@
 # a fake "placeholder" number and send that, instead. See the PlaceholderFiscalNumber
 # staging helper.
 
+AD:
+  opt_in: true
+
+AI:
+  opt_in: true
+
 AR:
   fiscal_number: true
+  opt_in: true
+
+AT:
+  opt_in: true
 
 AU:
   state_province: true
 
+AW:
+  opt_in: true
+
+AX:
+  opt_in: true
+
+BE:
+  opt_in: true
+
+BG:
+  opt_in: true
+
+BL:
+  opt_in: true
+
+BM:
+  opt_in: true
+
+BQ:
+  opt_in: true
+
 BR:
   fiscal_number: true
+  opt_in: true
+
+BV:
+  opt_in: true
 
 CA:
   address: true
+
+CH:
+  opt_in: true
+
+CL:
+  opt_in: true
+
+CO:
+  opt_in: true
+
+CW:
+  opt_in: true
+
+CY:
+  opt_in: true
+
+CZ:
+  opt_in: true
+
+DE:
+  opt_in: true
+
+DK:
+  opt_in: true
+
+EE:
+  opt_in: true
+
+ES:
+  opt_in: true
+
+FI:
+  opt_in: true
+
+FK:
+  opt_in: true
+
+FO:
+  opt_in: true
+
+FR:
+  opt_in: true
 
 GB:
   address: true
   opt_in: true
 
+GF:
+  opt_in: true
+
+GG:
+  opt_in: true
+
+GI:
+  opt_in: true
+
+GL:
+  opt_in: true
+
+GP:
+  opt_in: true
+
+GR:
+  opt_in: true
+
+GS:
+  opt_in: true
+
+HR:
+  opt_in: true
+
+HU:
+  opt_in: true
+
 IE:
+  opt_in: true
+
+IL:
+  opt_in: true
+
+IM:
   opt_in: true
 
 IN:
@@ -29,12 +139,132 @@ IN:
   city: true
   fiscal_number: optional
 
+IO:
+  opt_in: true
+
+IS:
+  opt_in: true
+
+IT:
+  opt_in: true
+
+JE:
+  opt_in: true
+
+KY:
+  opt_in: true
+
+LI:
+  opt_in: true
+
+LT:
+  opt_in: true
+
+LU:
+  opt_in: true
+
+LV:
+  opt_in: true
+
+MC:
+  opt_in: true
+
+MF:
+  opt_in: true
+
+MQ:
+  opt_in: true
+
+MS:
+  opt_in: true
+
+MT:
+  opt_in: true
+
+MX:
+  opt_in: true
+
+NC:
+  opt_in: true
+
+NL:
+  opt_in: true
+
+NO:
+  opt_in: true
+
+PE:
+  opt_in: true
+
+PF:
+  opt_in: true
+
+PL:
+  opt_in: true
+
+PM:
+  opt_in: true
+
+PN:
+  opt_in: true
+
+PT:
+  opt_in: true
+
+RE:
+  opt_in: true
+
+RO:
+  opt_in: true
+
+SE:
+  opt_in: true
+
+SH:
+  opt_in: true
+
+SI:
+  opt_in: true
+
+SJ:
+  opt_in: true
+
+SK:
+  opt_in: true
+
+SM:
+  opt_in: true
+
+SX:
+  opt_in: true
+
+TC:
+  opt_in: true
+
+TF:
+  opt_in: true
+
+UA:
+  opt_in: true
+
 US:
   street_address: true
   phone: optional
   postal_code: true
   employer: optional
   sms_opt_in: optional
+
+UY:
+  opt_in: true
+
+VG:
+  opt_in: true
+
+WF:
+  opt_in: true
+
+YT:
+  opt_in: true
 
 ZA:
   address: true

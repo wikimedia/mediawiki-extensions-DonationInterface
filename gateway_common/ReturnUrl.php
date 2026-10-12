@@ -33,7 +33,7 @@ class ReturnUrl implements StagingHelper {
 		if ( !empty( $normalized['utm_medium'] ) ) {
 			$queryStringParams['wmf_medium'] = $normalized['utm_medium'];
 		}
-		if ( $normalized['recurring'] ) {
+		if ( $normalized['recurring'] ?? 0 ) {
 			$queryStringParams['recurring'] = 1;
 		}
 

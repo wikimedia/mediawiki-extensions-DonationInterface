@@ -24,14 +24,12 @@
 						<p class="text text--base">
 							<strong>{{ amountHeading }}</strong>
 						</p>
-						<!-- Country>Currency selection -->
-						<cdx-select
-							v-model:selected="donation.country"
-							:menu-items="countryOptions"
-							:default-label="$i18n( 'combowiki-country-placeholder' ).text()"
-							@update:selected="onCountryChange"
-						>
-						</cdx-select>
+						<!-- Country Component -->
+						<country-selector
+							v-model="donation.country"
+							:countries="countries"
+							@country-change="onCountryChange"
+						></country-selector>
 					</div>
 					<!-- Button Stack -->
 					<div class="fiedlset__button-grid">
@@ -60,12 +58,17 @@
 				</div>
 
 				<!-- Email opt-in -->
-				<optin-fieldset v-if="optInRequired" v-model="donation.optIn"></optin-fieldset>
+				<optin-fieldset
+					v-if="showField( 'opt_in' )"
+					v-model="donation.optIn"
+				></optin-fieldset>
 
 				<!-- Employer -->
 				<employer-field
+					v-if="showField( 'employer' )"
 					v-model:employer="donation.employer"
 					v-model:employer-id="donation.employerId"
+					:is-required="isFieldRequired( 'employer' )"
 				></employer-field>
 
 				<!-- Sms Optin -->
@@ -73,10 +76,14 @@
 					v-if="showSmsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
-					:phone-optional="params.DonationInterfaceFormFields.phone === 'optional'"
+					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
+					@ready="scrollToFirstEmptyField"
 				></sms-optin>
 
+				<!-- Hidden when returning to offer monthly convert: mounting the card form
+					would create a new checkout session for a donation that is already made -->
 				<payment-method-form
+					v-if="!params.monthlyConvertReturn"
 					:donation="chargedDonation"
 					:disabled="!giftComplete"
 					@donation-success="handleDonateResult"
@@ -127,10 +134,10 @@ const { defineComponent } = require( 'vue' );
 const {
 	CdxButton,
 	CdxTextInput,
-	CdxSelect,
 	CdxCheckbox
 } = require( '@wikimedia/codex' );
 const ErrorDisplay = require( '../components/ErrorDisplay.vue' );
+const CountrySelector = require( '../components/CountrySelector.vue' );
 const FrequencySelector = require( '../components/FrequencySelector.vue' );
 const PaymentMethodForm = require( '../components/PaymentMethodForm.vue' );
 const OptInFieldset = require( '../components/OptIn.vue' );
@@ -142,6 +149,7 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
+const { paymentMethodMap } = require( '../api.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -179,7 +187,6 @@ module.exports = exports = defineComponent( {
 	components: {
 		'cdx-button': CdxButton,
 		'cdx-text-input': CdxTextInput,
-		'cdx-select': CdxSelect,
 		'cdx-checkbox': CdxCheckbox,
 		'error-display': ErrorDisplay,
 		'frequency-selector': FrequencySelector,
@@ -190,7 +197,8 @@ module.exports = exports = defineComponent( {
 		'more-info-links': MoreInfoLinks,
 		'employer-field': EmployerField,
 		'loading-spinner': LoadingSpinner,
-		'recurring-convert': RecurringConvert
+		'recurring-convert': RecurringConvert,
+		'country-selector': CountrySelector
 	},
 	inject: [ 'params' ],
 	setup() {
@@ -200,44 +208,45 @@ module.exports = exports = defineComponent( {
 	data() {
 		const initialCurrency = this.params.currency || 'USD';
 		const countries = this.params.wgDonationInterfaceCountries || {};
+		const defaultCountry = this.params.country || 'US';
+
 		return {
 			countries,
 			donation: {
 				firstName: null,
 				lastName: null,
 				email: null,
-				frequency: 'once',
-				amount: null,
+				frequency: this.getFrequencyUnit(),
+				amount: this.params.amount || null,
 				currency: initialCurrency,
-				payFee: false,
+				payFee: this.params.pay_the_fee === '1' || false,
 				phone: null,
-				country: this.params.country,
-				paymentMethod: null,
-				optIn: null,
+				country: defaultCountry,
+				paymentMethod: this.toFormPaymentMethod( this.params.payment_method ),
+				optIn: this.params.opt_in,
 				employer: null,
+				streetAddress: null,
+				streetNumber: null,
+				stateProvince: null,
+				city: null,
+				postalCode: null,
+				fiscalNumber: null,
 				employerId: 0,
 				smsOptin: null,
 				gateway: this.params.gateway || null,
-				variant: this.params.variant || null
+				variant: this.params.variant || null,
+				gateway_session_id: this.params.gateway_session_id || null
 			},
 			thankYouUrl: null,
-			showDebug: false,
-			supportedCountries: [
-				'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
-				'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
-				'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'NO', 'IS', 'CH',
-				'LI', 'AD', 'SM', 'MC', 'AR', 'BR', 'CL', 'CO', 'MX', 'PE',
-				'UY', 'GB', 'IL', 'UA', 'GG', 'IM', 'JE', 'FO', 'GL', 'AX',
-				'GF', 'PF', 'TF', 'GP', 'MQ', 'YT', 'NC', 'RE', 'BL', 'MF',
-				'PM', 'WF', 'AW', 'BQ', 'CW', 'SX', 'BV', 'SJ', 'AI', 'BM',
-				'IO', 'KY', 'FK', 'GI', 'MS', 'PN', 'SH', 'GS', 'TC', 'VG',
-				'ZZ'
-			]
+			showDebug: false
 		};
 	},
 	computed: {
 		amountHeading() {
 			return getAmountHeading( this.donation.frequency );
+		},
+		showSmsOptin() {
+			return this.showField( 'sms_opt_in' ) && this.showField( 'phone' );
 		},
 		presetAmounts() {
 			const rates = this.params.wgDonationInterfaceCurrencyRates || {};
@@ -305,17 +314,12 @@ module.exports = exports = defineComponent( {
 		},
 		chargedDonation() {
 			// What the payment methods charge, which includes the fee when the donor opts in
-			if ( !this.feeAmount ) {
+			// Don't recompute if fee already computed from source (e.g banner)
+			if ( !this.feeAmount || this.params.pay_the_fee ) {
 				return this.donation;
 			}
 			const total = Math.round( ( Number( this.donation.amount ) + this.feeAmount ) * 100 ) / 100;
 			return Object.assign( {}, this.donation, { amount: total } );
-		},
-		countryOptions() {
-			return Object.entries( this.countries ).map( ( [ country, config ] ) => ( {
-				label: config.label + ' (' + config.currency + ')',
-				value: country
-			} ) );
 		},
 		giftComplete() {
 			return this.donation.frequency !== null && this.donation.amount !== null;
@@ -340,22 +344,45 @@ module.exports = exports = defineComponent( {
 					return `${ this.donation.currency }${ amount }`;
 				}
 			};
-		},
-		showPhoneField() {
-			// The country_fields config marks a shown field as true (required) or 'optional'
-			return [ true, 'optional' ].includes(
-				( this.params.DonationInterfaceFormFields || {} ).phone
-			);
-		},
-		showSmsOptin() {
-			return this.params.variant === 'smsOptin' && this.showPhoneField;
-		},
-		optInRequired() {
-			return this.supportedCountries.includes( this.donation.country );
 		}
 	},
 
 	methods: {
+		/**
+		 * Maps a WMF payment method code (cc, dd, apple, ...) to the PaymentMethodForm config key
+		 * (card, ach, applepay, ...), but only when the server offers it on the selected gateway.
+		 *
+		 * @param {string|null} wmfMethod WMF payment method code, e.g. from the payment_method param.
+		 * @return {string|null} The PaymentMethodForm key, or null if the method isn't active.
+		 */
+		toFormPaymentMethod( wmfMethod ) {
+			const gateway = this.params.gateway;
+			const isActive = ( this.params.paymentMethods || [] ).some(
+				( entry ) => entry.method === wmfMethod && entry.gateway === gateway
+			);
+			if ( !wmfMethod || !isActive ) {
+				return null;
+			}
+
+			const candidates = Object.keys( paymentMethodMap )
+				.filter( ( key ) => paymentMethodMap[ key ].method === wmfMethod );
+			// Gateway-specific keys are prefixed (adyen_card), the gravy ones are not (card)
+			return candidates.find( ( key ) => key.startsWith( gateway + '_' ) ) ||
+				candidates.find( ( key ) => !key.includes( '_' ) ) ||
+				null;
+		},
+		getFrequencyUnit() {
+			if ( !this.params.recurring ) {
+				return 'once';
+			}
+			return this.params.frequency_unit;
+		},
+		showField( name ) {
+			return [ true, 'optional' ].includes( ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] );
+		},
+		isFieldRequired( name ) {
+			return ( ( this.params.DonationInterfaceFormFields || {} ).shared || {} )[ name ] === true;
+		},
 		selectAmount( value ) {
 			this.donation.amount = value;
 		},
@@ -375,6 +402,7 @@ module.exports = exports = defineComponent( {
 
 			const url = new URL( window.location.href );
 			url.searchParams.set( 'country', this.countries[ country ].value );
+			url.searchParams.set( 'currency', this.donation.currency );
 			window.location.assign( url.toString() );
 		},
 		handleDonateResult( result ) {
@@ -412,6 +440,35 @@ module.exports = exports = defineComponent( {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
+		/**
+		 * When the amount, frequency and payment method all came prefilled (e.g. from the banner),
+		 * scroll to and focus the first element marked data-autoscroll that still needs the donor.
+		 * A marked input, select or textarea counts while it is empty. Any other marked element,
+		 * e.g. a wallet button or a container holding iframe card fields, always counts.
+		 */
+		scrollToFirstEmptyField() {
+			const { amount, frequency, paymentMethod } = this.donation;
+			if ( !amount || !frequency || !paymentMethod ) {
+				return;
+			}
+
+			const isFormField = ( el ) => [ 'INPUT', 'SELECT', 'TEXTAREA' ].includes( el.tagName );
+			// Elements come back in page order, so the first match is the highest one on the page
+			const target = Array.from( this.$el.querySelectorAll( '[data-autoscroll]' ) )
+				.find( ( el ) => ( !isFormField( el ) || el.value === '' ) &&
+					!el.disabled &&
+					// Ignore elements that are not rendered (display: none or inside a hidden parent)
+					el.getClientRects().length > 0
+				);
+			console.log( target );
+			if ( !target ) {
+				return;
+			}
+			target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+			// The scroll above already brings it into view, don't let focus jump the page.
+			// Containers can't take focus, so this only does something for inputs and buttons.
+			target.focus( { preventScroll: true } );
+		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
 			const { toRaw } = require( 'vue' );
@@ -441,9 +498,38 @@ module.exports = exports = defineComponent( {
 		if ( urlParams.get( 'debugMonthlyConvert' ) === '1' ) {
 			this.appState.setShowRecurringConvert( true );
 		}
+		if ( this.params.monthlyConvertReturn ) {
+			// Back on Special:Donate after a one-time donation that went through a
+			// redirect such as 3DS. The donation is complete, so offer monthly convert.
+			Object.assign( this.donation, {
+				amount: this.params.amount,
+				currency: this.params.currency,
+				country: this.params.country,
+				paymentMethod: this.params.payment_method,
+				gateway: this.params.gateway
+			} );
+			this.thankYouUrl = this.params.DonationInterfaceThankYouPage;
+			this.appState.setShowRecurringConvert( true );
+		}
 		// for debugging errors
 		if ( urlParams.get( 'debugError' ) ) {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
+		}
+		// DonateGatewayResult sends the donor back here with paymentFailed=1 when a
+		// payment that went through a redirect (such as 3DS) fails. Show the error
+		// once and remove the flag, so a reload or Try Again gives a clean form.
+		if ( urlParams.get( 'paymentFailed' ) === '1' ) {
+			this.appState.setError( this.$i18n( 'combowiki-payment-failed' ).text() );
+			const url = new URL( window.location.href );
+			url.searchParams.delete( 'paymentFailed' );
+			window.history.replaceState( {}, '', url );
+		}
+
+		// Wait for the prefilled payment method's form to render before looking for empty fields
+		// The SMS opt-in fields load as an async component and call this once they're in
+		// the page, so the scroll can't land on a field below them before they appear
+		if ( !this.showSmsOptin ) {
+			this.$nextTick( () => this.scrollToFirstEmptyField() );
 		}
 	}
 } );

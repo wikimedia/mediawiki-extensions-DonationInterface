@@ -33,7 +33,7 @@ class GatewayRouter {
 	 * @param string|null $currency
 	 * @param string $paymentMethod
 	 * @param string|null $paymentSubmethod
-	 * @param bool $recurring
+	 * @param bool $onlyIncludeRecurring
 	 * @param string|null $variant
 	 *
 	 * @return array
@@ -43,7 +43,7 @@ class GatewayRouter {
 		?string $currency,
 		string $paymentMethod,
 		?string $paymentSubmethod,
-		bool $recurring,
+		bool $onlyIncludeRecurring,
 		?string $variant
 	): array {
 		$possibleGateways = [];
@@ -106,7 +106,7 @@ class GatewayRouter {
 				// Recurring availability for the payment (sub)method is indicated by a key
 				// on the associative array that is the value for the payment method
 				if (
-					$recurring && empty( $fullMethodSpecification['recurring'] )
+					$onlyIncludeRecurring && empty( $fullMethodSpecification['recurring'] )
 				) {
 					// Specified payment (sub)method does not support recurring for this gateway
 					continue;
@@ -258,19 +258,30 @@ class GatewayRouter {
 	 * When more than one allowed gateway supports a method, the priority rules
 	 * pick one.
 	 *
+	 * Submethods are only checked when listed in $submethods. Each one available
+	 * gets its own entry, so its country rules in payment_submethods.yaml apply
+	 * (e.g. sepadirectdebit under rtbt, which has no country rules of its own).
+	 *
 	 * @param string[] $allowedGateways Gateways the caller may use
 	 * @param array $params Routing params. Must include country, currency and variant.
+	 * @param string[] $submethods Submethods to check, in addition to the methods
+	 * @param bool $onlyIncludeRecurring Whether to only include methods supporting recurring
 	 * @param LoggerInterface $logger
 	 *
-	 * @return array[] List of [ 'method' => string, 'gateway' => string ]
+	 * @return array[] List of [ 'method' => string, 'gateway' => string ], plus
+	 *  [ 'method' => string, 'submethod' => string, 'gateway' => string ] for submethods
 	 */
 	public function getSupportedPaymentMethods(
 		array $allowedGateways,
 		array $params,
+		array $submethods,
+		bool $onlyIncludeRecurring,
 		LoggerInterface $logger
 	): array {
-		// Collect each method once, across all allowed gateways
+		// Collect each method once, and the methods each requested submethod belongs to,
+		// across all allowed gateways
 		$paymentMethods = [];
+		$submethodsByMethod = [];
 		$enabledGatewayConfigs = $this->gatewayConfigurationFactory->getAllEnabledConfigurationsForVariant(
 			$params['variant']
 		);
@@ -281,51 +292,110 @@ class GatewayRouter {
 			foreach ( array_keys( $gatewayConfig['payment_methods'] ?? [] ) as $paymentMethod ) {
 				$paymentMethods[$paymentMethod] = true;
 			}
+			foreach ( $gatewayConfig['payment_submethods'] ?? [] as $submethod => $submethodConfig ) {
+				if ( in_array( $submethod, $submethods, true ) && isset( $submethodConfig['group'] ) ) {
+					$submethodsByMethod[$submethodConfig['group']][$submethod] = true;
+				}
+			}
 		}
 
 		$supportedPaymentMethods = [];
 		foreach ( array_keys( $paymentMethods ) as $paymentMethod ) {
-			$supportedGateways = array_values(
-				array_intersect(
-					$this->getSupportedGateways(
-						$params['country'],
-						$params['currency'],
-						$paymentMethod,
-						null,
-						false,
-						$params['variant']
-					),
-					$allowedGateways
-				)
+			$chosenGateway = $this->chooseAllowedGateway(
+				$allowedGateways,
+				$params,
+				$paymentMethod,
+				null,
+				$onlyIncludeRecurring,
+				$logger
 			);
-
-			if ( count( $supportedGateways ) === 0 ) {
+			if ( $chosenGateway === null ) {
 				continue;
-			}
-
-			if ( !empty( $params['gateway'] ) && in_array( $params['gateway'], $supportedGateways, true ) ) {
-				// An explicitly requested gateway wins over the priority rules
-				$chosenGateway = $params['gateway'];
-			} elseif ( count( $supportedGateways ) === 1 ) {
-				$chosenGateway = $supportedGateways[0];
-			} else {
-				$chosenGateway = $this->chooseGatewayByPriority(
-					$supportedGateways,
-					array_merge( $params, [
-						'payment_method' => $paymentMethod,
-						'payment_submethod' => null,
-					] ),
-					$logger
-				);
 			}
 
 			$supportedPaymentMethods[] = [
 				'method' => $paymentMethod,
 				'gateway' => $chosenGateway,
 			];
+
+			foreach ( array_keys( $submethodsByMethod[$paymentMethod] ?? [] ) as $submethod ) {
+				$chosenSubmethodGateway = $this->chooseAllowedGateway(
+					$allowedGateways,
+					$params,
+					$paymentMethod,
+					$submethod,
+					$onlyIncludeRecurring,
+					$logger
+				);
+				if ( $chosenSubmethodGateway === null ) {
+					continue;
+				}
+
+				$supportedPaymentMethods[] = [
+					'method' => $paymentMethod,
+					'submethod' => $submethod,
+					'gateway' => $chosenSubmethodGateway,
+				];
+			}
 		}
 
 		return $supportedPaymentMethods;
+	}
+
+	/**
+	 * Pick the gateway for a payment (sub)method among the allowed gateways
+	 * that support it for these routing params.
+	 *
+	 * @param string[] $allowedGateways
+	 * @param array $params Routing params. Must include country, currency and variant.
+	 * @param string $paymentMethod
+	 * @param string|null $paymentSubmethod
+	 * @param bool $onlyIncludeRecurring
+	 * @param LoggerInterface $logger
+	 *
+	 * @return string|null The gateway, or null when no allowed gateway supports it
+	 */
+	private function chooseAllowedGateway(
+		array $allowedGateways,
+		array $params,
+		string $paymentMethod,
+		?string $paymentSubmethod,
+		bool $onlyIncludeRecurring,
+		LoggerInterface $logger
+	): ?string {
+		$supportedGateways = array_values(
+			array_intersect(
+				$this->getSupportedGateways(
+					$params['country'],
+					$params['currency'],
+					$paymentMethod,
+					$paymentSubmethod,
+					$onlyIncludeRecurring,
+					$params['variant']
+				),
+				$allowedGateways
+			)
+		);
+
+		if ( count( $supportedGateways ) === 0 ) {
+			return null;
+		}
+
+		if ( !empty( $params['gateway'] ) && in_array( $params['gateway'], $supportedGateways, true ) ) {
+			// An explicitly requested gateway wins over the priority rules
+			return $params['gateway'];
+		}
+		if ( count( $supportedGateways ) === 1 ) {
+			return $supportedGateways[0];
+		}
+		return $this->chooseGatewayByPriority(
+			$supportedGateways,
+			array_merge( $params, [
+				'payment_method' => $paymentMethod,
+				'payment_submethod' => $paymentSubmethod,
+			] ),
+			$logger
+		);
 	}
 
 	/**

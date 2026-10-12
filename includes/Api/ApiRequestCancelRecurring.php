@@ -3,7 +3,6 @@
 namespace MediaWiki\Extension\DonationInterface\Api;
 
 use DonationLoggerFactory;
-use MediaWiki\Context\RequestContext;
 use SmashPig\Core\DataStores\QueueWrapper;
 use Wikimedia\ParamValidator\ParamValidator;
 
@@ -17,7 +16,7 @@ class ApiRequestCancelRecurring extends ApiRecurringModifyBase {
 
 	/** @inheritDoc */
 	protected function performRecurringModification(): void {
-		if ( RequestContext::getMain()->getUser()->pingLimiter( 'requestCancelRecurring' ) ) {
+		if ( $this->getUser()->pingLimiter( 'requestCancelRecurring' ) ) {
 			// Allow rate limiting by setting e.g. $wgRateLimits['requestCancelRecurring']['ip']
 			return;
 		}
