@@ -29,7 +29,7 @@ class DataIntegrator {
 	 *
 	 * @var DonationDetails
 	 */
-	protected ?DonationDetails $dataObject = null;
+	protected ?DonationDetails $donationDetails = null;
 
 	/**
 	 * TODO: Remove all the fieldNames we know we won't need for ComboWiki and add potential new ones
@@ -298,20 +298,20 @@ class DataIntegrator {
 	}
 
 	/**
-	 * Fills $dataObject in place with donation data pulled from the request,
+	 * Fills $donationDetails in place with donation data pulled from the request,
 	 * then merges in any donation details stored in the session.
-	 * @param DonationDetails $dataObject instance for storing donation data details
+	 * @param DonationDetails $donationDetails instance for storing donation data details
 	 * @param ?array $externalData An optional array of donation data that will,
 	 * if present, circumvent the usual process of gathering the data from
 	 * various places in the request. Defaults to null.
 	 */
-	public function populate( DonationDetails $dataObject, ?array $externalData = null ): void {
-		$this->dataObject = $dataObject;
+	public function populate( DonationDetails $donationDetails, ?array $externalData = null ): void {
+		$this->donationDetails = $donationDetails;
 		if ( is_array( $externalData ) ) {
 			try {
-				$this->dataObject->setData( $externalData );
+				$this->donationDetails->setData( $externalData );
 				// TODO: improve nested function call if possible with php 8.2 version support
-				$this->dataObject->setDataSources( array_fill_keys( array_keys( $externalData ), 'external' ) );
+				$this->donationDetails->setDataSources( array_fill_keys( array_keys( $externalData ), 'external' ) );
 			} catch ( \Exception $e ) {
 				$this->logger->error( __FUNCTION__ . ": Error setting 'external_data': " . $e->getMessage() );
 			}
@@ -340,8 +340,8 @@ class DataIntegrator {
 		foreach ( self::$requestQueryFieldNames as $var ) {
 			if ( isset( $query_values[ $var ] ) ) {
 				$value_name = $this->getName( $var );
-				$this->dataObject->setValue( $value_name, $query_values[ $var ] );
-				$this->dataObject->setSource( $value_name, 'get' );
+				$this->donationDetails->setValue( $value_name, $query_values[ $var ] );
+				$this->donationDetails->setSource( $value_name, 'get' );
 			}
 		}
 	}
@@ -355,8 +355,8 @@ class DataIntegrator {
 
 		foreach ( self::$requestPostFieldNames as $var ) {
 			if ( isset( $posted_values[ $var ] ) ) {
-				$this->dataObject->setValue( $this->getName( $var ), $posted_values[ $var ] );
-				$this->dataObject->setSource( $var, 'post' );
+				$this->donationDetails->setValue( $this->getName( $var ), $posted_values[ $var ] );
+				$this->donationDetails->setSource( $var, 'post' );
 			}
 		}
 	}
@@ -365,8 +365,8 @@ class DataIntegrator {
 		try {
 			$userIp = $this->request->getIP();
 			if ( $userIp ) {
-				$this->dataObject->setValue( 'user_ip', $userIp );
-				$this->dataObject->setSource( 'user_ip', 'header' );
+				$this->donationDetails->setValue( 'user_ip', $userIp );
+				$this->donationDetails->setSource( 'user_ip', 'header' );
 			}
 		} catch ( \Exception $e ) {
 			$this->logger->error( __FUNCTION__ . ": Error handling IP address: " . $e->getMessage() );
@@ -375,8 +375,8 @@ class DataIntegrator {
 
 	protected function setServerIp(): void {
 		$serverIp = $_SERVER['SERVER_ADDR'] ?? '127.0.0.1';
-		$this->dataObject->setValue( 'server_ip', $serverIp );
-		$this->dataObject->setSource( 'server_ip', 'header' );
+		$this->donationDetails->setValue( 'server_ip', $serverIp );
+		$this->donationDetails->setSource( 'server_ip', 'header' );
 	}
 
 	protected function setReferrer(): void {
@@ -384,8 +384,8 @@ class DataIntegrator {
 		$host = $parts['host'] ?? '';
 		$path = $parts['path'] ?? '';
 		$referer = $host . $path;
-		$this->dataObject->setValue( 'referrer', $referer );
-		$this->dataObject->setSource( 'referrer', 'header' );
+		$this->donationDetails->setValue( 'referrer', $referer );
+		$this->donationDetails->setSource( 'referrer', 'header' );
 	}
 
 	/**
@@ -401,19 +401,19 @@ class DataIntegrator {
 		$os = $parser->os->getName();
 		$osVersion = preg_replace( '/[^0-9].*/', '', $parser->os->getVersion() );
 
-		$this->dataObject->setValue( 'browser', $browser );
-		$this->dataObject->setSource( 'browser', 'header' );
-		$this->dataObject->setValue( 'browser_version', $browserVersion );
-		$this->dataObject->setSource( 'browser_version', 'header' );
-		$this->dataObject->setValue( 'os', $os );
-		$this->dataObject->setSource( 'os', 'header' );
-		$this->dataObject->setValue( 'os_version', $osVersion );
-		$this->dataObject->setSource( 'os_version', 'header' );
+		$this->donationDetails->setValue( 'browser', $browser );
+		$this->donationDetails->setSource( 'browser', 'header' );
+		$this->donationDetails->setValue( 'browser_version', $browserVersion );
+		$this->donationDetails->setSource( 'browser_version', 'header' );
+		$this->donationDetails->setValue( 'os', $os );
+		$this->donationDetails->setSource( 'os', 'header' );
+		$this->donationDetails->setValue( 'os_version', $osVersion );
+		$this->donationDetails->setSource( 'os_version', 'header' );
 	}
 
 	/**
 	 * Check for session data to integrate the donation data in $this->data.
-	 * We do write values from the session to $this->dataObject->data only in two conditions;
+	 * We do write values from the session to $this->donationDetails->data only in two conditions;
 	 * if the value is not already set or if the value is explicitly meant to be overwritten
 	 * by session data (see $overwrite array below).
 	 */
@@ -442,13 +442,13 @@ class DataIntegrator {
 			}
 
 			if ( in_array( $key, $overwrite ) ) {
-				$this->dataObject->setValue( $key, trim( (string)$val ) );
-				$this->dataObject->setSource( $key, 'session' );
+				$this->donationDetails->setValue( $key, trim( (string)$val ) );
+				$this->donationDetails->setSource( $key, 'session' );
 			} else {
-				if ( !$this->dataObject->isValueSet( $key ) ) {
+				if ( !$this->donationDetails->isValueSet( $key ) ) {
 					// TODO: casting to str is copied from DonationData; should we do it in DataNormalizer?
-					$this->dataObject->setValue( $key, trim( (string)$val ) );
-					$this->dataObject->setSource( $key, 'session' );
+					$this->donationDetails->setValue( $key, trim( (string)$val ) );
+					$this->donationDetails->setSource( $key, 'session' );
 				}
 			}
 		}
