@@ -80,6 +80,7 @@
 	"donate_interface-donor-first_name": "Nome",
 	"donate_interface-donor-last_name": "Apelidos",
 	"donate_interface-donor-employer": "Empregador (opcional)",
+	"donate_interface-donor-employer-plain": "Empregador",
 	"donate_interface-donor-employer-explain": "Informarémosche se o teu empregador iguala a túa doazón",
 	"donate_interface-donor-street_address": "Rúa",
 	"donate_interface-donor-street-number": "Número da casa",

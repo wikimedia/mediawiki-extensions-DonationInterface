@@ -88,6 +88,7 @@
 	"donate_interface-donor-first_name": "Vorname:",
 	"donate_interface-donor-last_name": "Nachname:",
 	"donate_interface-donor-employer": "Arbeitgeber (optional)",
+	"donate_interface-donor-employer-plain": "Arbeitgeber",
 	"donate_interface-donor-employer-explain": "Wir teilen Ihnen mit, ob Ihr Arbeitgeber Ihre Spende verdoppelt.",
 	"donate_interface-donor-street_address": "Straße:",
 	"donate_interface-donor-street-number": "Hausnummer",
