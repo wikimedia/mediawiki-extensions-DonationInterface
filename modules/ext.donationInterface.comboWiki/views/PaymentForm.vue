@@ -71,14 +71,16 @@
 					:is-required="isFieldRequired( 'employer' )"
 				></employer-field>
 
-				<!-- Sms Optin -->
-				<sms-optin
-					v-if="showSmsOptin"
+				<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
+					sms-optin tag on forms without the smsOptin variant -->
+				<component
+					:is="variantComponents.smsOptin"
+					v-if="showSmsOptin && variantComponents.smsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
 					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
 					@ready="scrollToFirstEmptyField"
-				></sms-optin>
+				></component>
 
 				<!-- Hidden when returning to offer monthly convert: mounting the card form
 					would create a new checkout session for a donation that is already made -->
@@ -128,8 +130,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-/* global sms-optin */
 const { defineComponent } = require( 'vue' );
 const {
 	CdxButton,
@@ -200,7 +200,10 @@ module.exports = exports = defineComponent( {
 		'recurring-convert': RecurringConvert,
 		'country-selector': CountrySelector
 	},
-	inject: [ 'params' ],
+	inject: {
+		params: { from: 'params' },
+		variantComponents: { from: 'variantComponents', default: () => ( {} ) }
+	},
 	setup() {
 		const appState = useAppState();
 		return { appState };

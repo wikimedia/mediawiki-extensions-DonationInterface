@@ -139,9 +139,11 @@ describe( 'ComboWiki autoscroll timing', () => {
 		const scroll = jest.spyOn( PaymentForm.methods, 'scrollToFirstEmptyField' ).mockImplementation( () => {} );
 		const wrapper = VueTestUtils.shallowMount( PaymentForm, {
 			global: {
-				provide: { params: Object.assign( {}, PREFILLED_PARAMS, params ) },
-				// variantHelper.js registers SmsOptin under this name for the smsOptin variant
-				components: { 'sms-optin': SmsOptin }
+				provide: {
+					params: Object.assign( {}, PREFILLED_PARAMS, params ),
+					// init.js provides SmsOptin under this key for the smsOptin variant
+					variantComponents: { smsOptin: SmsOptin }
+				}
 			}
 		} );
 		await VueTestUtils.flushPromises();

@@ -1,59 +1,47 @@
 const Vue = require( 'vue' );
 
 /**
- * Maps a variant value to the ResourceLoader module that provides its
- * fields component and the tag name that component should be globally registered under.
+ * Maps a variant value to the ResourceLoader module that provides its fields component.
  *
- * @type {Object.<string, {module: string, component_name: string}>}
+ * @type {Object.<string, {module: string}>}
  */
 const VARIANT_MODULE_MAPPER = {
 	smsOptin: {
-		module: 'ext.donationInterface.combowiki.smsoptin',
-		component_name: 'sms-optin'
+		module: 'ext.donationInterface.combowiki.smsoptin'
 	}
 };
 
 /**
- * Registers the Vue component for the given variant as a global component on the app,
- * loading its ResourceLoader module lazily on first render. Does nothing if the variant
- * is falsy or not present in VARIANT_MODULE_MAPPER.
+ * Returns the Vue components for the given variant, keyed by variant name, each one
+ * loading its ResourceLoader module lazily on first render. Returns an empty object if
+ * the variant is falsy or not present in VARIANT_MODULE_MAPPER.
  *
- * @param {Object} app Vue application instance, as returned by Vue.createMwApp().
+ * The components are provided to the app rather than registered by tag name, so
+ * templates render them with <component :is> and Vue never tries to resolve a tag
+ * that isn't registered on forms without the variant.
+ *
  * @param {string} variant Variant key to look up in VARIANT_MODULE_MAPPER, e.g. 'smsOptin'.
+ * @return {Object.<string, Object>}
  */
-function loadVariantModuleComponents( app, variant ) {
+function getVariantComponents( variant ) {
 	if ( !variant || !VARIANT_MODULE_MAPPER[ variant ] ) {
-		return;
+		return {};
 	}
 
 	const variant_module = VARIANT_MODULE_MAPPER[ variant ].module;
 
-	app.component(
-		getVariantComponentName( variant ),
-		Vue.defineAsyncComponent(
+	return {
+		[ variant ]: Vue.defineAsyncComponent(
 			() => mw.loader
 				.using( variant_module )
 				.then(
 					( moduleRequire ) => moduleRequire( variant_module )
 				)
-		) );
+		)
+	};
 }
 
-/**
- * Returns the variant component_name value if present
- *
- * @param {string} variant
- * @return
- */
-
-function getVariantComponentName( variant ) {
-	if ( !VARIANT_MODULE_MAPPER[ variant ] ) {
-		return '';
-	}
-	return VARIANT_MODULE_MAPPER[ variant ].component_name;
-}
 module.exports = {
 	VARIANT_MODULE_MAPPER,
-	getVariantComponentName,
-	loadVariantModuleComponents
+	getVariantComponents
 };
