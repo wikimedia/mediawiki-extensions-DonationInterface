@@ -118,11 +118,7 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		$wmfConfig = $this->getConfig();
-		$dataIntegrator = new DataIntegrator( $request, $this->dataObject, $this->logger );
-		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
-		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->dataObject );
-		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
-		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
+		$this->prepareDonationDetails();
 
 		$this->logger->debug( 'Data has been processed from request' );
 		$country = $this->dataObject->getValue( 'country' );
@@ -189,6 +185,29 @@ class Donate extends UnlistedSpecialPage {
 
 		$this->renderPage();
 		$this->addVueComponentModulesForVariantsAndPaymentMethods();
+	}
+
+	/**
+	 * Prepares $this->dataObject for the page, updating it in place:
+	 * 1. Populates the donation details from the request and session
+	 * 2. Normalizes the donation details
+	 * 3. Sets the contribution_tracking_id, and sends tracking data to the queue if it changed
+	 * 4. Sets the order_id
+	 *
+	 * Order matters: the order ID is built from the contribution tracking ID.
+	 *
+	 * $this->dataObject must stay the same instance, as the logger's
+	 * ComboWikiLogPrefixProvider holds a reference to it.
+	 *
+	 * @return void
+	 */
+	private function prepareDonationDetails(): void {
+		$request = $this->getRequest();
+		$wmfConfig = $this->getConfig();
+		( new DataIntegrator( $request, $this->dataObject, $this->logger ) )->getDataFromRequestAndSession();
+		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->dataObject );
+		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
+		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
 	}
 
 	/**
