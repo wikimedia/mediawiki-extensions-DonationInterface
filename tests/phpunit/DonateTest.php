@@ -881,7 +881,7 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	public function testPostDataOverwritesOverlappingQueryParameters(): void {
-		// DataIntegrator::populateData() calls setDataFromQueryParameters() before
+		// DataIntegrator::populate() calls setDataFromQueryParameters() before
 		// setDataFromPostParameters(), and both unconditionally call setValue(), so
 		// whichever runs last wins for any field present in both -- POST should win,
 		// as the more specific/current submission.
@@ -889,7 +889,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// hard-coded to return '', so a plain FauxRequest can never exercise
 		// setDataFromPostParameters(); we override it here to supply a real JSON
 		// POST body, matching what DataIntegrator actually reads.
-		// @see includes/ComboWiki/DataIntegrator.php populateData(),
+		// @see includes/ComboWiki/DataIntegrator.php populate(),
 		// setDataFromQueryParameters(), setDataFromPostParameters()
 		$request = new class(
 			[

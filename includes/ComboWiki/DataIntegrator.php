@@ -288,33 +288,25 @@ class DataIntegrator {
 
 	/**
 	 * @param WebRequest $request
-	 * @param DonationDetails $dataObject instance for storing donation data details
 	 * @param LoggerInterface $logger
-	 * @param ?array $externalData An optional array of donation data that will, if
-	 * present, circumvent the usual process of gathering the data from various
-	 * places in the request. Defaults to null.
 	 */
 	public function __construct(
 		WebRequest $request,
-		DonationDetails $dataObject,
-		protected readonly LoggerInterface $logger,
-		?array $externalData = null
+		protected readonly LoggerInterface $logger
 	) {
-		$this->dataObject = $dataObject;
 		$this->request = $request;
-		$this->populateData( $externalData );
 	}
 
 	/**
-	 * populateData, called on construct, pulls donation data from various
-	 * sources. Once the data has been pulled, it will handle any session data
-	 * if present, normalize the data regardless of the source, and handle the
-	 * caching variables.
+	 * Fills $dataObject in place with donation data pulled from the request,
+	 * then merges in any donation details stored in the session.
+	 * @param DonationDetails $dataObject instance for storing donation data details
 	 * @param ?array $externalData An optional array of donation data that will,
 	 * if present, circumvent the usual process of gathering the data from
 	 * various places in the request. Defaults to null.
 	 */
-	protected function populateData( ?array $externalData ): void {
+	public function populate( DonationDetails $dataObject, ?array $externalData = null ): void {
+		$this->dataObject = $dataObject;
 		if ( is_array( $externalData ) ) {
 			try {
 				$this->dataObject->setData( $externalData );
@@ -460,16 +452,5 @@ class DataIntegrator {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Returns a DonationDetails object containing the data from the request
-	 * and session, and the sources of the data (post, get, session, or null)
-	 * in the $dataSources array.
-	 *
-	 * @return DonationDetails
-	 */
-	public function getDataFromRequestAndSession(): DonationDetails {
-		return $this->dataObject;
 	}
 }
