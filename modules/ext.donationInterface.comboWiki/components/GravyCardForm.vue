@@ -35,6 +35,7 @@
 				<cdx-text-input
 					id="email"
 					v-model="fields.email"
+					input-type="email"
 					data-autoscroll
 					:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
 				>
