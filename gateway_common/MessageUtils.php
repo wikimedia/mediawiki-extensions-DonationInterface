@@ -58,6 +58,31 @@ class MessageUtils {
 	}
 
 	/**
+	 * Adds the translated text of each rule's messageKey as its 'message', for client-side
+	 * validation. Uses the country-specific message (e.g. ...-br) where one exists.
+	 *
+	 * @param array $rules Rules keyed by field, as returned by
+	 *  GatewayAdapter::getClientSideValidationRules()
+	 * @param string|null $country
+	 * @param string|null $language
+	 * @return array The same rules, each with its 'message' added
+	 */
+	public static function translateValidationRules( array $rules, ?string $country, ?string $language ): array {
+		foreach ( $rules as $field => $fieldRules ) {
+			foreach ( $fieldRules as $i => $rule ) {
+				if ( !empty( $rule['messageKey'] ) ) {
+					$rules[$field][$i]['message'] = self::getCountrySpecificMessage(
+						$rule['messageKey'],
+						$country,
+						$language
+					);
+				}
+			}
+		}
+		return $rules;
+	}
+
+	/**
 	 * This function limits the possible characters passed as template keys and
 	 * values to letters, numbers, hyphens and underscores. The function also
 	 * performs standard escaping of the passed values.

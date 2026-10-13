@@ -349,6 +349,73 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * ComboWiki gets the client-side validation rules per payment method, with the
+	 * messages already translated. Brazilian card donors must give a CPF/CNPJ, and
+	 * FiscalNumber checks its length.
+	 */
+	public function testValidationRulesIncludeFiscalNumberForBrazilCard(): void {
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'BR',
+			'currency' => 'BRL',
+			'recurring' => '0',
+			'uselang' => 'en',
+		] );
+
+		$rules = $vars['DonateValidationRules']['method']['cc']['fiscal_number'];
+		$requiredRules = array_values( array_filter( $rules, static fn ( $rule ) => !empty( $rule['required'] ) ) );
+		$patternRules = array_values( array_filter( $rules, static fn ( $rule ) => isset( $rule['pattern'] ) ) );
+
+		// The BR variants of donate_interface-error-msg-fiscal_number and invalid-fiscal_number
+		$this->assertSame( 'Please enter your CPF/CNPJ', $requiredRules[0]['message'] );
+		$this->assertSame( 'Please correct the errors in your CPF/CNPJ', $patternRules[0]['message'] );
+
+		// A CPF has 11 digits, and punctuation is allowed
+		$pattern = '/' . $patternRules[0]['pattern'] . '/';
+		$this->assertMatchesRegularExpression( $pattern, '123.456.789-09' );
+		$this->assertDoesNotMatchRegularExpression( $pattern, '12345' );
+	}
+
+	/**
+	 * Rules only cover the fields each payment method's form shows. FiscalNumber adds its
+	 * pattern rule for every method, but PayPal doesn't ask for a fiscal number.
+	 */
+	public function testValidationRulesLeaveOutFieldsAMethodDoesNotShow(): void {
+		$this->overrideConfigValues( [ 'DonationInterfaceComboWikiGateways' => [ 'gravy' ] ] );
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'BR',
+			'currency' => 'BRL',
+			'recurring' => '0',
+		] );
+
+		$rulesForMethods = $vars['DonateValidationRules']['method'];
+		$this->assertArrayHasKey( 'fiscal_number', $rulesForMethods['cc'] );
+		$this->assertArrayHasKey( 'paypal', $rulesForMethods, 'BR donors can pay by PayPal via Gravy' );
+		// No rules at all, sent as an empty object so it reaches JS as {} rather than []
+		$this->assertEquals( (object)[], $rulesForMethods['paypal'] );
+	}
+
+	/**
+	 * Some payment_methods.yaml validation keys are display flags for the legacy forms rather
+	 * than donor input, e.g. dd's trustly_explanation. They get no rule, as there is no field
+	 * to validate and no error message for them.
+	 */
+	public function testValidationRulesSkipKeysThatAreNotDonorFields(): void {
+		$this->overrideConfigValues( [ 'DonationInterfaceComboWikiGateways' => [ 'gravy' ] ] );
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		] );
+
+		$achRules = $vars['DonateValidationRules']['method']['ach'];
+		$this->assertArrayHasKey( 'email', $achRules );
+		$this->assertArrayNotHasKey( 'trustly_explanation', $achRules );
+	}
+
+	/**
 	 * The page gets the payment methods available in the donor's country.
 	 * With ComboWiki using Gravy only, card and PayPal are offered in the US and GB,
 	 * and Venmo only in the US, as Gravy's country rules for Venmo allow only the US.

@@ -29,6 +29,7 @@ const params = Object.assign( {}, comboWikiConfig.params, {
 	wgDonationInterfaceAmountRules: mw.config.get( 'wgDonationInterfaceAmountRules' ),
 	DonationInterfaceNoDecimalCurrencies: mw.config.get( 'DonationInterfaceNoDecimalCurrencies' ),
 	DonationInterfaceFormFields: mw.config.get( 'DonationInterfaceFormFields' ),
+	DonateValidationRules: mw.config.get( 'DonateValidationRules' ) || { shared: {}, method: {} },
 	DonationInterfaceStateProvinceOptions: mw.config.get( 'DonationInterfaceStateProvinceOptions' ) || []
 }, comboWikiConfig );
 vueApp.provide( 'params', params );

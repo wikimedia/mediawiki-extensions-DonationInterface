@@ -20,6 +20,7 @@ use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
+use MessageUtils;
 use Psr\Log\LoggerInterface;
 use ResultPages;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
@@ -73,6 +74,18 @@ class Donate extends UnlistedSpecialPage {
 	 * (e.g. showing postal code for US only in the Credit Card form and not in Venmo which doesn't need it)
 	 */
 	private const FIELDS_OUTSIDE_PAYMENT_METHOD_FORMS = [ 'sms_opt_in', 'phone', 'opt_in', 'employer' ];
+
+	/**
+	 * Keys in payment_methods.yaml validation blocks that have no input on the form. They are
+	 * display flags for the Mustache forms, e.g. dd's trustly_explanation: true makes the template
+	 * show the Trustly note. Being true, they also count as required fields, so they are skipped
+	 * when building client-side rules: there is no field to validate and no error message.
+	 * trustly_explanation is the only one in any gateway's config today.
+	 *
+	 * TODO: Move display flags like this out of the validation blocks, as they aren't fields,
+	 * then remove this list.
+	 */
+	private const NON_INPUT_FIELD_KEYS = [ 'trustly_explanation' ];
 
 	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
 	private ?GatewayAdapter $adapter = null;
@@ -336,10 +349,17 @@ class Donate extends UnlistedSpecialPage {
 
 		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
 
-		$vars['DonationInterfaceFormFields'] = $this->getFormFieldsWithOverrides(
+		$formFields = $this->getFormFieldsWithOverrides(
 			$this->routingParams['country'],
 			$this->supportedPaymentMethods
 		);
+		$vars['DonationInterfaceFormFields'] = $formFields;
+		$vars['DonateValidationRules'] = $this->getValidationRules(
+			$this->routingParams['country'],
+			$this->supportedPaymentMethods,
+			$formFields
+		);
+
 		$vars['DonationInterfaceStateProvinceOptions'] = $this->getStateProvinceOptions(
 			$this->routingParams['country']
 		);
@@ -738,6 +758,47 @@ class Donate extends UnlistedSpecialPage {
 		return [
 			'shared' => $sharedFields,
 			'method' => $fieldsForMethods,
+		];
+	}
+
+	/**
+	 * The client-side validation rules for the fields from getFormFieldsWithOverrides(), with
+	 * their messages translated, in the same 'shared' / 'method' layout.
+	 *
+	 * @param string $country
+	 * @param array $paymentMethods The payment methods offered for this country
+	 * @param array $formFields The result of getFormFieldsWithOverrides()
+	 * @return array{shared: array|\stdClass, method: array<string, array|\stdClass>}
+	 */
+	protected function getValidationRules( string $country, array $paymentMethods, array $formFields ): array {
+		$language = $this->routingParams['language'];
+
+		$rulesForMethods = [];
+		foreach ( $paymentMethods as $paymentMethod ) {
+			if ( $paymentMethod['gateway'] !== $this->selectedGateway ) {
+				continue;
+			}
+			$paymentMethodKey = $paymentMethod['submethod'] ?? $paymentMethod['method'];
+			$rules = $this->adapter->getClientSideValidationRules(
+				[ 'country' => $country, 'payment_method' => $paymentMethod['method'] ]
+			);
+			// Transformer rules come back for every method, so keep only the fields this method shows
+			$rules = array_intersect_key( $rules, $formFields['method'][$paymentMethodKey] );
+			$rules = array_diff_key( $rules, array_fill_keys( self::NON_INPUT_FIELD_KEYS, true ) );
+			// An empty PHP array reaches JS as [] rather than {}, so send an empty object instead to
+			// keep every entry the same shape (e.g. PayPal, which has no fields with rules)
+			$rulesForMethods[$paymentMethodKey] =
+				MessageUtils::translateValidationRules( $rules, $country, $language ) ?: (object)[];
+		}
+
+		$sharedRules = array_intersect_key(
+			$this->adapter->getClientSideValidationRules( [ 'country' => $country ] ),
+			$formFields['shared']
+		);
+
+		return [
+			'shared' => MessageUtils::translateValidationRules( $sharedRules, $country, $language ) ?: (object)[],
+			'method' => $rulesForMethods,
 		];
 	}
 }

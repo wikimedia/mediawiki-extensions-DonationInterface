@@ -71,4 +71,29 @@ class GravyFormLoadTest extends BaseGravyTestCase {
 		$this->verifyFormOutput( 'GravyGateway', $init, $assertNodes, true );
 	}
 
+	/**
+	 * The legacy forms get the client-side validation rules with their messages translated,
+	 * using the country-specific message where one exists.
+	 *
+	 * Added for T439286, which moved the translation from GatewayPage into
+	 * MessageUtils::translateValidationRules() so ComboWiki can share it. This checks the
+	 * legacy forms still get the same messages.
+	 */
+	public function testLegacyFormValidationRulesHaveTranslatedMessages(): void {
+		$init = $this->getDonorTestData( 'BR' );
+		$init['payment_method'] = 'cc';
+		$init['language'] = 'en';
+		unset( $init['payment_submethod'] );
+
+		$page = new TestingGatewayPage();
+		$page->adapter = $this->getFreshGatewayObject( $init );
+		$vars = [];
+		$page->setClientVariables( $vars );
+
+		// Required rule first, then the FiscalNumber pattern rule, both with the -br messages
+		$rules = $vars['wgDonationInterfaceValidationRules']['fiscal_number'];
+		$this->assertSame( 'Please enter your CPF/CNPJ', $rules[0]['message'] );
+		$this->assertSame( 'Please correct the errors in your CPF/CNPJ', $rules[1]['message'] );
+	}
+
 }
