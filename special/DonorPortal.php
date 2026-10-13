@@ -2,11 +2,24 @@
 
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\Html\Html;
+use MediaWiki\Session\Session;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 
 class DonorPortal extends UnlistedSpecialPage {
 
 	public const SESSION_KEY = 'donorPortalSummary';
+
+	/**
+	 * Check a token that the donor portal page gave to its own client code.
+	 * Donors are logged out, so the core CSRF token is a constant and does not protect these APIs.
+	 *
+	 * @param Session $session
+	 * @param string $token
+	 * @return bool
+	 */
+	public static function matchToken( Session $session, string $token ): bool {
+		return $session->getToken( self::SESSION_KEY )->match( $token );
+	}
 
 	// We have to override setClientVariables in the current class, so alias it.
 	use RequestNewChecksumLinkTrait {
@@ -56,6 +69,7 @@ class DonorPortal extends UnlistedSpecialPage {
 			$this->setChecksumClientVariables( $vars );
 		}
 		$vars['donorData'] = $this->formParams;
+		$vars['donorPortalToken'] = $this->getRequest()->getSession()->getToken( self::SESSION_KEY )->toString();
 		$vars['help_email'] = $this->getConfig()->get( 'DonationInterfaceEmailFormHelpEmail' );
 		$vars['recurringUpgradeMaxUSD'] = $this->getConfig()->get( 'DonationInterfaceRecurringUpgradeMaxUSD' );
 		$vars['emailPreferencesUrl'] = $this->getPreferencesUrl( $this->formParams );

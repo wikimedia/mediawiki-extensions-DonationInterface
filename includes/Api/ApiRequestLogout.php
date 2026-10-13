@@ -4,7 +4,9 @@ namespace MediaWiki\Extension\DonationInterface\Api;
 
 use CiviproxyConnect;
 use DonationLoggerFactory;
+use DonorPortal;
 use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiUsageException;
 use Wikimedia\ParamValidator\ParamValidator;
 
 class ApiRequestLogout extends ApiBase {
@@ -36,6 +38,11 @@ class ApiRequestLogout extends ApiBase {
 			self::LOGGER_SUFFIX,
 			self::LOGGER_PREFIX );
 
+		$session = $this->getRequest()->getSession();
+		if ( !DonorPortal::matchToken( $session, $this->getParameter( 'donorportal_token' ) ) ) {
+			throw ApiUsageException::newWithMessage( $this, 'apierror-donorportal-bad-token', 'bad-token' );
+		}
+		$session->remove( DonorPortal::SESSION_KEY );
 		$contact_id = $this->getRequest()->getVal( 'contact_id' );
 		$checksum = $this->getRequest()->getVal( 'checksum' );
 		$logger->info( "Received logout request for contact with id: " . $contact_id );
@@ -52,6 +59,10 @@ class ApiRequestLogout extends ApiBase {
 				ParamValidator::PARAM_REQUIRED => true,
 			],
 			'checksum' => [
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			'donorportal_token' => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
 			],

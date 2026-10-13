@@ -7,6 +7,7 @@ const apiRecurringPostAction = function ( recurringContributionRecord, params, a
 	let requestBody = {
 		contact_id: Number( donorData.contact_id ),
 		checksum: donorData.checksum,
+		donorportal_token: mw.config.get( 'donorPortalToken' ),
 		contribution_recur_id: Number( recurringContributionRecord.id ),
 		action: actionName
 	};
