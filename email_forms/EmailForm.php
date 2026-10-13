@@ -2,6 +2,7 @@
 
 use LightnCandy\LightnCandy;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Message\Message;
 use Wikimedia\Message\MessageParam;
 use Wikimedia\Message\MessageSpecifier;
 
@@ -71,7 +72,15 @@ class EmailForm {
 	 * @param MessageParam|MessageSpecifier|string|int|float|list<MessageParam|MessageSpecifier|string|int|float> ...$params
 	 */
 	public static function l10n( $key, ...$params ): string {
-		return wfMessage( $key, ...MustacheHelper::filterMessageParams( $params ) )->text();
+		// Params can hold request data: HTML-escape them and do not expand them as wikitext.
+		// Keep numbers raw so that {{PLURAL}} works.
+		$params = array_map(
+			static fn ( $param ) => is_numeric( $param )
+				? $param
+				: Message::plaintextParam( htmlspecialchars( (string)$param, ENT_QUOTES ) ),
+			MustacheHelper::filterMessageParams( $params )
+		);
+		return wfMessage( $key, ...$params )->text();
 	}
 
 	public static function dateFormatter( string $dateString, string $locale = 'en_US' ): string {
