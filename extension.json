@@ -562,6 +562,7 @@
 				"modules/ext.donationInterface.comboWiki/variantHelper.js",
 				"modules/ext.donationInterface.comboWiki/normalizeInput.js",
 				"modules/ext.donationInterface.comboWiki/composables/useAppState.js",
+				"modules/ext.donationInterface.comboWiki/composables/useFieldValidation.js",
 				"modules/ext.donationInterface.comboWiki/components/App.vue",
 				"modules/ext.donationInterface.comboWiki/views/PaymentForm.vue",
 				"modules/ext.donationInterface.comboWiki/views/forbidden/ForbiddenPageContainer.vue",
