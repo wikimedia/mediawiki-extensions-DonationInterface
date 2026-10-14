@@ -42,7 +42,7 @@ class Donate extends UnlistedSpecialPage {
 	public const IDENTIFIER = 'combowiki';
 
 	protected ?Config $config = null;
-	protected ?DonationDetails $dataObject = null;
+	protected ?DonationDetails $donationDetails = null;
 	protected LoggerInterface $logger;
 
 	/**
@@ -98,10 +98,10 @@ class Donate extends UnlistedSpecialPage {
 		protected readonly LoggerFactory $loggerFactory
 	) {
 		parent::__construct( 'Donate' );
-		$this->dataObject = new DonationDetails();
+		$this->donationDetails = new DonationDetails();
 		$this->logger = $this->loggerFactory->getLogger(
 			self::IDENTIFIER,
-			new ComboWikiLogPrefixProvider( $this->dataObject )
+			new ComboWikiLogPrefixProvider( $this->donationDetails )
 		);
 	}
 
@@ -118,14 +118,10 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		$wmfConfig = $this->getConfig();
-		$dataIntegrator = new DataIntegrator( $request, $this->dataObject, $this->logger );
-		$this->dataObject = $dataIntegrator->getDataFromRequestAndSession();
-		( new DataNormalizer( $wmfConfig, $this->logger ) )->normalize( $this->dataObject );
-		( new ContributionTrackingHelper( $request, $wmfConfig, $this->logger ) )->handleTrackingData( $this->dataObject );
-		( new OrderIdHandler( $request, $this->logger ) )->handleOrderId( $this->dataObject );
+		$this->prepareDonationDetails();
 
 		$this->logger->debug( 'Data has been processed from request' );
-		$country = $this->dataObject->getValue( 'country' );
+		$country = $this->donationDetails->getValue( 'country' );
 
 		// Early guard: Check if the request originates from a forbidden or restricted country
 		if ( ForbiddenCountryRegistry::isForbidden( $country ) ) {
@@ -134,23 +130,23 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		if ( !$request->getVal( 'gateway' ) ) {
-			$this->dataObject->setValue( 'gateway', null );
+			$this->donationDetails->setValue( 'gateway', null );
 		}
-		// $this->dataObject store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
+		// $this->donationDetails store more value, here we assigned only the exisiting value in routingParams / config shared with the frontend
 		$this->routingParams = [
-			'amount' => $this->dataObject->getValue( 'amount', '0' ),
+			'amount' => $this->donationDetails->getValue( 'amount', '0' ),
 			'country' => $country,
-			'currency' => $this->dataObject->getValue( 'currency', 'USD' ),
-			'frequency_unit' => $this->dataObject->getValue( 'frequency_unit', '' ),
-			'order_id' => $this->dataObject->getValue( 'order_id' ),
-			'payment_method' => $this->dataObject->getValue( 'payment_method', 'cc' ),
-			'payment_submethod' => $this->dataObject->getValue( 'payment_submethod' ),
-			'recurring' => $this->dataObject->getValue( 'recurring' ),
-			'variant' => $this->dataObject->getValue( 'variant' ),
-			'language' => $this->dataObject->getValue( 'language', $this->getLanguage()->getCode() ),
-			'gateway' => $this->dataObject->getValue( 'gateway' ),
-			'opt_in' => $this->dataObject->getValue( 'opt_in' ),
-			'pay_the_fee' => $this->dataObject->getValue( 'pay_the_fee' ),
+			'currency' => $this->donationDetails->getValue( 'currency', 'USD' ),
+			'frequency_unit' => $this->donationDetails->getValue( 'frequency_unit', '' ),
+			'order_id' => $this->donationDetails->getValue( 'order_id' ),
+			'payment_method' => $this->donationDetails->getValue( 'payment_method', 'cc' ),
+			'payment_submethod' => $this->donationDetails->getValue( 'payment_submethod' ),
+			'recurring' => $this->donationDetails->getValue( 'recurring' ),
+			'variant' => $this->donationDetails->getValue( 'variant' ),
+			'language' => $this->donationDetails->getValue( 'language', $this->getLanguage()->getCode() ),
+			'gateway' => $this->donationDetails->getValue( 'gateway' ),
+			'opt_in' => $this->donationDetails->getValue( 'opt_in' ),
+			'pay_the_fee' => $this->donationDetails->getValue( 'pay_the_fee' ),
 		];
 
 		$this->supportedPaymentMethods = $this->gatewayRouter->getSupportedPaymentMethods(
@@ -169,7 +165,7 @@ class Donate extends UnlistedSpecialPage {
 
 		// If we got gateway from the request/session, here we override with the
 		// one found with chooseGateway(). Are we ok with that?
-		$this->dataObject->setValue( 'gateway', $this->selectedGateway );
+		$this->donationDetails->setValue( 'gateway', $this->selectedGateway );
 		$this->routingParams['gateway'] = $this->selectedGateway;
 
 		// Store copy of the donation details in the session for later access
@@ -179,7 +175,7 @@ class Donate extends UnlistedSpecialPage {
 			DonationInterface::setSmashPigProvider( $this->selectedGateway );
 			$this->adapter = $this->createAdapterForGateway(
 				$this->selectedGateway,
-				[ 'variant' => $this->dataObject->getValue( 'variant', '' ) ]
+				[ 'variant' => $this->donationDetails->getValue( 'variant', '' ) ]
 			);
 			if ( !$this->adapter ) {
 				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
@@ -189,6 +185,27 @@ class Donate extends UnlistedSpecialPage {
 
 		$this->renderPage();
 		$this->addVueComponentModulesForVariantsAndPaymentMethods();
+	}
+
+	/**
+	 * Prepares $this->donationDetails for the page, updating it in place:
+	 * 1. Populates the donation details from the request and session
+	 * 2. Normalizes the donation details
+	 * 3. Sets the contribution_tracking_id, and sends tracking data to the queue if it changed
+	 * 4. Sets the order_id
+	 *
+	 * Order matters: the order ID is built from the contribution tracking ID.
+	 *
+	 * $this->donationDetails must stay the same instance, as the logger's
+	 * ComboWikiLogPrefixProvider holds a reference to it.
+	 *
+	 * @return void
+	 */
+	private function prepareDonationDetails(): void {
+		( new DataIntegrator( $this->getRequest(), $this->logger ) )->populate( $this->donationDetails );
+		( new DataNormalizer( $this->getConfig(), $this->logger ) )->normalize( $this->donationDetails );
+		( new ContributionTrackingHelper( $this->getRequest(), $this->getConfig(), $this->logger ) )->handleTrackingData( $this->donationDetails );
+		( new OrderIdHandler( $this->getRequest(), $this->logger ) )->handleOrderId( $this->donationDetails );
 	}
 
 	/**
@@ -208,7 +225,7 @@ class Donate extends UnlistedSpecialPage {
 		// Populate basic routing parameters needed by JS environment
 		$this->routingParams = [
 			'country' => $countryCode,
-			'language' => $this->dataObject->getValue( 'language', 'en' ),
+			'language' => $this->donationDetails->getValue( 'language', 'en' ),
 		];
 
 		$out->addJsConfigVars( [
@@ -226,10 +243,10 @@ class Donate extends UnlistedSpecialPage {
 
 	private function addVueComponentModulesForVariantsAndPaymentMethods(): void {
 		$out = $this->getOutput();
-		if ( $this->dataObject->getValue( 'variant' ) == 'smsOptin' ) {
+		if ( $this->donationDetails->getValue( 'variant' ) == 'smsOptin' ) {
 			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
 		}
-		if ( $this->dataObject->getValue( 'payment_method' ) == 'apple' ) {
+		if ( $this->donationDetails->getValue( 'payment_method' ) == 'apple' ) {
 			$out->addModules( "ext.donationInterface.applePayHelper" );
 		}
 	}
@@ -240,7 +257,7 @@ class Donate extends UnlistedSpecialPage {
 	 * @return bool
 	 */
 	private function isEndowment(): bool {
-		return $this->dataObject->getValue( 'utm_medium' ) === 'endowment';
+		return $this->donationDetails->getValue( 'utm_medium' ) === 'endowment';
 	}
 
 	/**
@@ -303,7 +320,7 @@ class Donate extends UnlistedSpecialPage {
 			'gateway' => $this->selectedGateway,
 			'paymentMethods' => $this->supportedPaymentMethods,
 			'wmfParams' => [
-				'utm_medium' => $this->dataObject->getValue( 'utm_medium' ),
+				'utm_medium' => $this->donationDetails->getValue( 'utm_medium' ),
 			],
 			'monthlyConvertReturn' => $this->isMonthlyConvertReturn,
 		] );
@@ -516,7 +533,7 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * TODO: once we polish fieldNames in dataObject, we should re-evaluate if we should still
+	 * TODO: once we polish fieldNames in donationDetails, we should re-evaluate if we should still
 	 *   store all the fields or if we should store in session only a subset of them.
 	 *
 	 * Store a snapshot of the donation details in the session for later access.
@@ -526,7 +543,7 @@ class Donate extends UnlistedSpecialPage {
 	protected function storeDonationDetailsInSession(): void {
 		$session = $this->getRequest()->getSession();
 		$session->persist();
-		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->dataObject->getData() );
+		$session->set( DataIntegrator::$DONATION_DETAILS_SESSION_KEY, $this->donationDetails->getData() );
 		$this->logger->info( 'Data has been stored in session with session ID ' . $session->getId() );
 	}
 
@@ -605,7 +622,7 @@ class Donate extends UnlistedSpecialPage {
 			return;
 		}
 
-		$this->dataObject->setData( $backup );
+		$this->donationDetails->setData( $backup );
 		$this->selectedGateway = $backup['gateway'] ?? '';
 		DonationInterface::setSmashPigProvider( $this->selectedGateway );
 		$this->adapter = $this->createAdapterForGateway(

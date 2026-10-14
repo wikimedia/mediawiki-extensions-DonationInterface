@@ -1,6 +1,0 @@
-cc:
-  recurring: true
-venmo:
-  recurring: true
-  countries:
-    - US

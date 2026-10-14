@@ -35,6 +35,7 @@
 				<cdx-text-input
 					id="email"
 					v-model="fields.email"
+					input-type="email"
 					data-autoscroll
 					:placeholder="$i18n( 'donate_interface-donor-email' ).text()"
 				>
@@ -129,17 +130,28 @@
 				{{ fiscalNumberLabel }}
 			</template>
 		</cdx-field>
-		<label for="combo-cc-number">{{ $i18n( 'donate_interface-donor-card-num' ).text() }}</label>
-		<input id="combo-cc-number" data-autoscroll>
 
-		<div class="combo-wiki__card-row">
+		<div id="secure-fields-section">
 			<div>
-				<label for="combo-cc-expiry">{{ $i18n( 'donate_interface-donor-expiration' ).text() }}</label>
-				<input id="combo-cc-expiry" data-autoscroll>
+				<cdx-label class="secure-field-label">
+					{{ $i18n( 'donate_interface-donor-card-num' ).text() }}
+				</cdx-label>
+				<input id="combo-cc-number" data-autoscroll>
 			</div>
-			<div>
-				<label for="combo-cc-cvv">{{ $i18n( 'donate_interface-donor-security' ).text() }}</label>
-				<input id="combo-cc-cvv" data-autoscroll>
+
+			<div class="combo-wiki__card-fields-row">
+				<div>
+					<cdx-label class="secure-field-label">
+						{{ $i18n( 'donate_interface-donor-expiration' ).text() }}
+					</cdx-label>
+					<input id="combo-cc-expiry" data-autoscroll>
+				</div>
+				<div>
+					<cdx-label class="secure-field-label">
+						{{ $i18n( 'donate_interface-donor-security' ).text() }}
+					</cdx-label>
+					<input id="combo-cc-cvv" data-autoscroll>
+				</div>
 			</div>
 		</div>
 
@@ -158,7 +170,7 @@
 <script>
 /* global SecureFields */
 const { defineComponent } = require( 'vue' );
-const { CdxButton, CdxField, CdxTextInput, CdxSelect } = require( '@wikimedia/codex' );
+const { CdxButton, CdxField, CdxTextInput, CdxSelect, CdxLabel } = require( '@wikimedia/codex' );
 const { loadScript } = require( '../utils.js' );
 
 module.exports = exports = defineComponent( {
@@ -168,7 +180,8 @@ module.exports = exports = defineComponent( {
 		'cdx-button': CdxButton,
 		'cdx-text-input': CdxTextInput,
 		'cdx-field': CdxField,
-		'cdx-select': CdxSelect
+		'cdx-select': CdxSelect,
+		'cdx-label': CdxLabel
 	},
 
 	inject: [ 'params' ],

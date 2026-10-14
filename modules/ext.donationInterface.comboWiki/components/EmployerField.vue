@@ -95,10 +95,11 @@ module.exports = defineComponent( {
 					if ( data.error ) {
 						this.employers = [];
 					} else {
-						// transform result to suit autocomplete format
+						// transform result to suit autocomplete format; ids come back as
+						// strings from the CSV but the employerId prop is a Number
 						const result = data.result.map( ( item ) => ( {
 								label: item.name,
-								value: item.id
+								value: Number( item.id )
 							} ) ),
 							// trim results
 							output = result.slice( 0, 10 );

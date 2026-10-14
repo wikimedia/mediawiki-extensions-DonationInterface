@@ -26,7 +26,7 @@
 			<cdx-field v-if="showField( 'email' )" :optional="!isFieldRequired( 'email' )">
 				<cdx-text-input
 					v-model="fields.email"
-					type="email"
+					input-type="email"
 					data-autoscroll
 					autocomplete="email"
 				></cdx-text-input>

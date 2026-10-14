@@ -71,14 +71,15 @@
 					:is-required="isFieldRequired( 'employer' )"
 				></employer-field>
 
-				<!-- Sms Optin -->
-				<sms-optin
-					v-if="showSmsOptin"
+				<!-- Sms Optin: rendered with :is so Vue never looks up an unregistered
+					sms-optin tag on forms without the smsOptin variant -->
+				<component
+					:is="variantComponents.smsOptin"
+					v-if="showSmsOptin && variantComponents.smsOptin"
 					v-model:phone="donation.phone"
 					v-model:sms-optin="donation.smsOptin"
 					:is-required="isFieldRequired( 'sms_opt_in' ) && isFieldRequired( 'phone' )"
-					@ready="scrollToFirstEmptyField"
-				></sms-optin>
+				></component>
 
 				<!-- Hidden when returning to offer monthly convert: mounting the card form
 					would create a new checkout session for a donation that is already made -->
@@ -128,8 +129,6 @@
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
-/* global sms-optin */
 const { defineComponent } = require( 'vue' );
 const {
 	CdxButton,
@@ -200,7 +199,10 @@ module.exports = exports = defineComponent( {
 		'recurring-convert': RecurringConvert,
 		'country-selector': CountrySelector
 	},
-	inject: [ 'params' ],
+	inject: {
+		params: { from: 'params' },
+		variantComponents: { from: 'variantComponents', default: () => ( {} ) }
+	},
 	setup() {
 		const appState = useAppState();
 		return { appState };
@@ -440,35 +442,6 @@ module.exports = exports = defineComponent( {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 			mw.log.error( 'di_donate_' + this.donation.gateway + ' failed', code, failure );
 		},
-		/**
-		 * When the amount, frequency and payment method all came prefilled (e.g. from the banner),
-		 * scroll to and focus the first element marked data-autoscroll that still needs the donor.
-		 * A marked input, select or textarea counts while it is empty. Any other marked element,
-		 * e.g. a wallet button or a container holding iframe card fields, always counts.
-		 */
-		scrollToFirstEmptyField() {
-			const { amount, frequency, paymentMethod } = this.donation;
-			if ( !amount || !frequency || !paymentMethod ) {
-				return;
-			}
-
-			const isFormField = ( el ) => [ 'INPUT', 'SELECT', 'TEXTAREA' ].includes( el.tagName );
-			// Elements come back in page order, so the first match is the highest one on the page
-			const target = Array.from( this.$el.querySelectorAll( '[data-autoscroll]' ) )
-				.find( ( el ) => ( !isFormField( el ) || el.value === '' ) &&
-					!el.disabled &&
-					// Ignore elements that are not rendered (display: none or inside a hidden parent)
-					el.getClientRects().length > 0
-				);
-			console.log( target );
-			if ( !target ) {
-				return;
-			}
-			target.scrollIntoView( { behavior: 'smooth', block: 'start' } );
-			// The scroll above already brings it into view, don't let focus jump the page.
-			// Containers can't take focus, so this only does something for inputs and buttons.
-			target.focus( { preventScroll: true } );
-		},
 		submitPreModalDonation( updatedDonation ) {
 			const api = require( '../api.js' );
 			const { toRaw } = require( 'vue' );
@@ -523,13 +496,6 @@ module.exports = exports = defineComponent( {
 			const url = new URL( window.location.href );
 			url.searchParams.delete( 'paymentFailed' );
 			window.history.replaceState( {}, '', url );
-		}
-
-		// Wait for the prefilled payment method's form to render before looking for empty fields
-		// The SMS opt-in fields load as an async component and call this once they're in
-		// the page, so the scroll can't land on a field below them before they appear
-		if ( !this.showSmsOptin ) {
-			this.$nextTick( () => this.scrollToFirstEmptyField() );
 		}
 	}
 } );

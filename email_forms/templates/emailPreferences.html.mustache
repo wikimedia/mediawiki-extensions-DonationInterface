@@ -55,7 +55,7 @@
 						{{/ dontSendEmail }}
 						{{# sendEmail }}
 							{{# isSnoozed }}
-								{{ l10n "emailpreferences-status-paused" snoozeDateFormatted }}
+								{{{ l10n "emailpreferences-status-paused" snoozeDateFormatted }}}
 							{{/ isSnoozed }}
 							{{^ isSnoozed }}
 								{{ l10n "emailpreferences-status-subscribed" }}

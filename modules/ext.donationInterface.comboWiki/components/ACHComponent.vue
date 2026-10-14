@@ -6,7 +6,7 @@
 					id="combo-ach-email"
 					v-model="fields.email"
 					data-autoscroll
-					type="email"
+					input-type="email"
 					autocomplete="email"
 				></cdx-text-input>
 				<template #label>

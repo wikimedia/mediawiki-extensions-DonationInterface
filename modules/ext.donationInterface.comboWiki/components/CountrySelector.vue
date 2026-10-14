@@ -3,9 +3,8 @@
 		v-model:selected="selection"
 		v-model:input-value="inputValue"
 		:menu-items="menuItems"
-		clearable="true"
+		:clearable="true"
 		:placeholder="$i18n( 'combowiki-country-placeholder' ).text()"
-		@blur="onBlur"
 	>
 	</cdx-lookup>
 </template>

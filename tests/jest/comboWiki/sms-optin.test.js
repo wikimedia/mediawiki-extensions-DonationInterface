@@ -79,9 +79,11 @@ const PARAMS = {
  */
 const mountForm = ( params ) => VueTestUtils.shallowMount( PaymentForm, {
 	global: {
-		provide: { params: Object.assign( {}, PARAMS, params ) },
-		// variantHelper.js registers SmsOptin under this name for the smsOptin variant
-		components: { 'sms-optin': SmsOptin }
+		provide: {
+			params: Object.assign( {}, PARAMS, params ),
+			// init.js provides SmsOptin under this key for the smsOptin variant
+			variantComponents: { smsOptin: SmsOptin }
+		}
 	}
 } );
 
