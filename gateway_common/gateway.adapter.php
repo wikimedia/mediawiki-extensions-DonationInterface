@@ -19,7 +19,7 @@
 
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
-use Mediawiki\Context\RequestContext;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
