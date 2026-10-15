@@ -33,6 +33,8 @@
 	"donate_interface-donor-expiration": "Վավերական է մինչև",
 	"donate_interface-donor-security": "Անվտանգության կոդ",
 	"donate_interface-donor-phone": "Հեռախոսահամար",
+	"donate_interface-confirmation-yes": "Այո",
+	"donate_interface-confirmation-no": "Ոչ",
 	"donate_interface-error-msg-last_name": "Խնդրում ենք մուտքագրել Ձեր ազգանունը",
 	"donate_interface-token-mismatch": "Ձեր սեսիայի ժամկետն անցել է։ Խնդրում ենք, փորձեք նորից լրացնել և ուղարկել ֆորման։"
 }
