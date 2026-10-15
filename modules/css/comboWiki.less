@@ -73,6 +73,10 @@
 	margin-top: 2em;
 }
 
+.combo-wiki__error-summary {
+	margin-top: 2em;
+}
+
 .combo-wiki__wrapper {
 	display: flex;
 	justify-content: center;
@@ -181,7 +185,8 @@
 	gap: 1em;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	align-items: end;
+	// Line fields up at the top, so a field doesn't move down when the one next to it shows an error
+	align-items: flex-start;
 
 	// Codex gives text inputs a 256px min-width, which overflows three to a row,
 	// so let the fields share the row and shrink to fit

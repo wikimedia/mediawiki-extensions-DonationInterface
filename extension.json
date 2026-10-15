@@ -651,6 +651,8 @@
 				"donate_interface-error-msg-first_name",
 				"donate_interface-error-msg-last_name",
 				"donate_interface-error-msg-email",
+				"donate_interface-error-msg-invalid-email",
+				"donate_interface-error-msg-validation",
 				"donate_interface",
 				"donate_interface-sign-in-online-banking",
 				"donate_interface-partner-with-trustly",

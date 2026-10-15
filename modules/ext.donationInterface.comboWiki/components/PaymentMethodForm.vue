@@ -21,6 +21,7 @@
 				v-if="paymentMethodConfig[paymentMethod]"
 				:donation="donation"
 				:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
+				:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
 				@submit="paymentMethodConfig[paymentMethod].submit"
 				@error="paymentMethodConfig[paymentMethod].error"
 				@presubmit="paymentMethodConfig[paymentMethod].presubmit"
@@ -71,6 +72,7 @@ module.exports = exports = defineComponent( {
 		const appState = useAppState();
 		const params = inject( 'params' );
 		const formFieldsForMethod = ( params.DonationInterfaceFormFields || {} ).method || {};
+		const rulesForMethod = ( params.DonateValidationRules || {} ).method || {};
 
 		/**
 		 * @param {string} paymentMethod ComboWiki payment option as defined in paymentMethodConfig
@@ -79,6 +81,15 @@ module.exports = exports = defineComponent( {
 		const getFormFieldsFor = ( paymentMethod ) => {
 			const mapping = api.paymentMethodMap[ paymentMethod ];
 			return ( mapping && formFieldsForMethod[ mapping.submethod || mapping.method ] ) || {};
+		};
+
+		/**
+		 * @param {string} paymentMethod ComboWiki payment option as defined in paymentMethodConfig
+		 * @return {Object} The validation rules for that payment method's fields
+		 */
+		const getValidationRulesFor = ( paymentMethod ) => {
+			const mapping = api.paymentMethodMap[ paymentMethod ];
+			return ( mapping && rulesForMethod[ mapping.submethod || mapping.method ] ) || {};
 		};
 
 		/**
@@ -202,7 +213,8 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: getGravyCheckoutSession,
-				extraFormFields: getFormFieldsFor( 'card' )
+				extraFormFields: getFormFieldsFor( 'card' ),
+				validationRules: getValidationRulesFor( 'card' )
 			},
 			adyen_card: {
 				label: mw.message( 'combowiki-method-adyen-card' ).text(),
