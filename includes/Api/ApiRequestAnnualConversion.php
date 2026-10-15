@@ -30,6 +30,7 @@ class ApiRequestAnnualConversion extends ApiRecurringModifyBase {
 		$request = $this->getRequest();
 		$logger->info( "Received recurring annual conversion message for contact with id: " . $request->getVal( 'contact_id' ) );
 		$amount = $request->getVal( 'amount' );
+		$this->validateAmount( $amount );
 		$next_sched_contribution_date = $request->getVal( 'next_sched_contribution_date' );
 		$contact_id = $request->getVal( 'contact_id' );
 		$checksum = $request->getVal( 'checksum' );

@@ -4,5 +4,7 @@
 			"Kareyac"
 		]
 	},
+	"donate_interface-confirmation-yes": "Այո",
+	"donate_interface-confirmation-no": "Ոչ",
 	"donate_interface-cancel": "Չեղարկել"
 }

@@ -31,6 +31,7 @@ class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 
 		$amount = $request->getVal( 'amount' );
 		$txn_type = $request->getVal( 'txn_type' );
+		$this->validateAmount( $amount );
 		$contact_id = $request->getVal( 'contact_id' );
 		$checksum = $request->getVal( 'checksum' );
 		$contribution_recur_id = $request->getVal( 'contribution_recur_id' );
@@ -56,7 +57,10 @@ class ApiRequestUpdateRecurring extends ApiRecurringModifyBase {
 	public function getAllowedParams() {
 		return $this->getBaseParameters() + [
 			'amount' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
-			'txn_type' => [ ParamValidator::PARAM_TYPE => 'string', ParamValidator::PARAM_REQUIRED => true ],
+			'txn_type' => [
+				ParamValidator::PARAM_TYPE => [ 'recurring_upgrade', 'recurring_downgrade' ],
+				ParamValidator::PARAM_REQUIRED => true,
+			],
 			'is_from_save_flow' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_REQUIRED => false,

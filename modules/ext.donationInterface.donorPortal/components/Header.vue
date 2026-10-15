@@ -112,7 +112,8 @@ module.exports = exports = defineComponent( {
 			api.post( {
 				action: 'requestLogout',
 				contact_id: Number( donorData.contact_id ),
-				checksum: donorData.checksum
+				checksum: donorData.checksum,
+				donorportal_token: mw.config.get( 'donorPortalToken' )
 			} ).always( () => {
 				window.location.href = mw.util.getUrl( 'Special:DonorPortal' ) + '#/login';
 			} );
