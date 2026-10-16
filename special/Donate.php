@@ -18,6 +18,7 @@ use MediaWiki\Extension\DonationInterface\ComboWiki\OrderIdHandler;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayConfigurationFactory;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Extension\DonationInterface\Logging\LoggerFactory;
+use MediaWiki\Extension\DonationInterface\PageTraits\SeedFromSessionTrait;
 use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MessageUtils;
@@ -36,6 +37,7 @@ use Subdivisions;
  * MakeGlobalVariablesScript hook using setClientVariables().
  */
 class Donate extends UnlistedSpecialPage {
+	use SeedFromSessionTrait;
 
 	/**
 	 * Identifies the ComboWiki donation flow.
@@ -167,7 +169,8 @@ class Donate extends UnlistedSpecialPage {
 			$this->routingParams,
 			self::OFFERED_SUBMETHODS,
 			self::ONLY_INCLUDE_RECURRING,
-			$this->logger
+			$this->logger,
+			$this->getRandomSeed()
 		);
 
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );

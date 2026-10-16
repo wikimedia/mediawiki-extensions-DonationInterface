@@ -3,6 +3,7 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Session\SessionId;
 use MediaWiki\Title\Title;
 use Psr\Log\NullLogger;
 use Symfony\Component\Yaml\Parser;
@@ -55,6 +56,9 @@ class GatewayChooserTest extends DonationInterfaceTestCase {
 
 	public function setUp(): void {
 		parent::setUp();
+		RequestContext::getMain()->getRequest()->setSessionId( new SessionId(
+			'abcdefghijklmnopqrstuvwxyz123456'
+		) );
 
 		$this->overrideConfigValues( [
 			'DonationInterfaceEnableGatewayChooser' => true,

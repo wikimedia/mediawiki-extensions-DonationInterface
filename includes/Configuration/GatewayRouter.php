@@ -4,6 +4,8 @@ namespace MediaWiki\Extension\DonationInterface\Configuration;
 
 use MediaWiki\Config\ServiceOptions;
 use Psr\Log\LoggerInterface;
+use Random\Engine\Mt19937;
+use Random\Randomizer;
 
 /**
  * Gateway selection logic shared by GatewayChooser's redirect flow and
@@ -149,23 +151,40 @@ class GatewayRouter {
 	 *    [
 	 *        # No conditions, this is treated as default.
 	 *        # Should be last in the list as it will always match.
-	 *        'gateways' => [ 'gravy', 'adyen', 'paypal_ec', 'dlocal', 'braintree' ]
-	 *      ]
+	 *        'gateways' => [
+	 *            [
+	 *                'gateway' => 'adyen',
+	 *                'percentage' => 25      # 25% of the time this gateway is supported, use it, else fall through
+	 *            ],
+	 *            'gravy',
+	 *            'adyen',
+	 *            'paypal_ec',
+	 *            'dlocal',
+	 *            'braintree'
+	 *        ]
+	 *    ]
 	 * ];
 	 *
 	 * @param array $supportedGateways List of gateway codes assumed to
 	 *  support the requested country / currency / payment_method
 	 * @param array $params Query-string parameters
 	 * @param LoggerInterface $logger
+	 * @param int|null $randomSeed to generate probabilities for picking gateways when a percentage is given.
 	 *
 	 * @return string|null Selected gateway code
 	 */
 	public function chooseGatewayByPriority(
 		$supportedGateways,
 		$params,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		?int $randomSeed = null
 	): ?string {
 		$rules = $this->options->get( 'DonationInterfaceGatewayPriorityRules' );
+		if ( $randomSeed === null ) {
+			$randomSeed = mt_rand();
+		}
+		$engine = new Mt19937( $randomSeed );
+		$randomizer = new Randomizer( $engine );
 
 		foreach ( $rules as $rule ) {
 			// Do our $params match all the conditions for this rule?
@@ -199,7 +218,20 @@ class GatewayRouter {
 			}
 			if ( $ruleMatches ) {
 				// Find the first in the rule's gateways list which is in $supportedGateways
-				foreach ( $rule['gateways'] as $ruleGateway ) {
+				foreach ( $rule['gateways'] as $gatewayEntry ) {
+					if ( is_array( $gatewayEntry ) ) {
+						// If we've got a percentage configured for this entry, only continue for
+						// that percent of requests.
+						$ruleGateway = $gatewayEntry['gateway'];
+						$percentage = $gatewayEntry['percentage'];
+						/** @phan-suppress-next-line PhanParamTooManyInternal */
+						$randomNumber = $randomizer->getInt( 0, 100 );
+						if ( $randomNumber > $percentage ) {
+							continue;
+						}
+					} else {
+						$ruleGateway = $gatewayEntry;
+					}
 					if ( in_array( $ruleGateway, $supportedGateways ) ) {
 						return $ruleGateway;
 					}
@@ -267,6 +299,7 @@ class GatewayRouter {
 	 * @param string[] $submethods Submethods to check, in addition to the methods
 	 * @param bool $onlyIncludeRecurring Whether to only include methods supporting recurring
 	 * @param LoggerInterface $logger
+	 * @param int|null $randomSeed to generate probabilities for picking gateways when a percentage is given.
 	 *
 	 * @return array[] List of [ 'method' => string, 'gateway' => string ], plus
 	 *  [ 'method' => string, 'submethod' => string, 'gateway' => string ] for submethods
@@ -276,7 +309,8 @@ class GatewayRouter {
 		array $params,
 		array $submethods,
 		bool $onlyIncludeRecurring,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		?int $randomSeed = null
 	): array {
 		// Collect each method once, and the methods each requested submethod belongs to,
 		// across all allowed gateways
@@ -307,7 +341,8 @@ class GatewayRouter {
 				$paymentMethod,
 				null,
 				$onlyIncludeRecurring,
-				$logger
+				$logger,
+				$randomSeed
 			);
 			if ( $chosenGateway === null ) {
 				continue;
@@ -325,7 +360,8 @@ class GatewayRouter {
 					$paymentMethod,
 					$submethod,
 					$onlyIncludeRecurring,
-					$logger
+					$logger,
+					$randomSeed
 				);
 				if ( $chosenSubmethodGateway === null ) {
 					continue;
@@ -352,6 +388,7 @@ class GatewayRouter {
 	 * @param string|null $paymentSubmethod
 	 * @param bool $onlyIncludeRecurring
 	 * @param LoggerInterface $logger
+	 * @param int|null $randomSeed to generate probabilities for picking gateways when a percentage is given.
 	 *
 	 * @return string|null The gateway, or null when no allowed gateway supports it
 	 */
@@ -361,7 +398,8 @@ class GatewayRouter {
 		string $paymentMethod,
 		?string $paymentSubmethod,
 		bool $onlyIncludeRecurring,
-		LoggerInterface $logger
+		LoggerInterface $logger,
+		?int $randomSeed = null
 	): ?string {
 		$supportedGateways = array_values(
 			array_intersect(
@@ -394,7 +432,8 @@ class GatewayRouter {
 				'payment_method' => $paymentMethod,
 				'payment_submethod' => $paymentSubmethod,
 			] ),
-			$logger
+			$logger,
+			$randomSeed
 		);
 	}
 
