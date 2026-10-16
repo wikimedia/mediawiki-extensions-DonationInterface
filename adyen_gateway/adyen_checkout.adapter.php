@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Extension\DonationInterface\FraudFilters\FraudService;
 use Psr\Log\LogLevel;
 use SmashPig\Core\PaymentError;
 use SmashPig\Core\ValidationError;
@@ -25,6 +26,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		Gateway_Extras_CustomFilters::onGatewayReady( $this );
 		$this->runSessionVelocityFilter();
 		if ( $this->getValidationAction() !== ValidationAction::PROCESS ) {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome( $this, FraudService::OUTCOME_BLOCKED_BY_FILTER );
 			return PaymentResult::newFailure( [ new PaymentError(
 				'internal-0000',
 				"Failed pre-process checks for payment.",
@@ -110,6 +112,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		// donation can still be captured manually by Donor Relations and
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
+		$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
 		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure();
 			// TODO: map any errors from $approvePaymentResponse
@@ -118,10 +121,22 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			$errorLogMessage .= $createPaymentResponse->getStatus() . " : ";
 			$errorLogMessage .= json_encode( $createPaymentResponse->getRawResponse() );
 			$this->logger->info( $errorLogMessage );
+
+			$outcome = FraudService::OUTCOME_AUTH_DECLINE;
+			if ( $createPaymentResponse->isSuspectedFraud() ) {
+				$outcome |= FraudService::OUTCOME_PROCESSOR_FLAGGED_FRAUD;
+			}
+			// TODO: add error category and raw error text
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome, 'adyen'
+			);
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
 			$this->runFraudFiltersIfNeeded( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome
+					);
 					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
 					$approvePaymentResponse = $provider->approvePayment( [
 						// Note that approvePayment takes the unstaged amount
@@ -148,13 +163,23 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					// since we might still capture the payment later by pending transaction resolver. T394098
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+					);
 					break;
 				default:
 					$this->logger->info(
 						'Not capturing authorized payment - validation action is ' .
 						$this->getValidationAction()
 					);
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+					);
 			}
+		} else {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome
+			);
 		}
 		// recurring will return a token on the auth
 		$recurringToken = $createPaymentResponse->getRecurringPaymentToken();
