@@ -256,6 +256,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		// we don't want the donor to try again.
 		$paymentResult = PaymentResult::newSuccess();
 		$backendProcessor = $createPaymentResponse->getBackendProcessor();
+		$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
 		if ( !$createPaymentResponse->isSuccessful() ) {
 			$paymentResult = PaymentResult::newFailure( $createPaymentResponse->getErrors() );
 			// TODO: map any errors from $createPaymentResponse
@@ -278,11 +279,13 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 				$this, $outcome, $backendProcessor, $errorCategory, $rawErrorMessage
 			);
 		} elseif ( $createPaymentResponse->requiresApproval() ) {
-			$outcome = FraudService::OUTCOME_AUTH_SUCCESS;
 			$this->logPending();
 			$this->runFraudFilters( $createPaymentResponse );
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
+					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+						$this, $outcome
+					);
 					// do approve payment request here.
 					$this->setCurrentTransaction( 'capture' );
 					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
@@ -316,6 +319,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 						$this->getValidationAction()
 					);
 			}
+		} else {
+			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
+				$this, $outcome
+			);
 		}
 
 		if ( $createPaymentResponse->isSuccessful() ) {
@@ -497,10 +504,10 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 		];
 	}
 
-		/**
-		 * @param ValidationError[] $validationErrors
-		 * @return PaymentResult
-		 */
+	/**
+	 * @param ValidationError[] $validationErrors
+	 * @return PaymentResult
+	 */
 	protected function getLocalizedValidationErrorResult( array $validationErrors ): PaymentResult {
 		$localizedErrors = [];
 		foreach ( $validationErrors as $error ) {
