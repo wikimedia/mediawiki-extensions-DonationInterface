@@ -225,7 +225,7 @@ class GatewayRouter {
 						$ruleGateway = $gatewayEntry['gateway'];
 						$percentage = $gatewayEntry['percentage'];
 						/** @phan-suppress-next-line PhanParamTooManyInternal */
-						$randomNumber = $randomizer->getInt( 0, 100 );
+						$randomNumber = $randomizer->getInt( 1, 100 );
 						if ( $randomNumber > $percentage ) {
 							continue;
 						}
