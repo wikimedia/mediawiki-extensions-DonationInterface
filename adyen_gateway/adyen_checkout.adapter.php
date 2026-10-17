@@ -68,7 +68,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			// another site. Short-circuit the finalization, just stash
 			// the gateway txn id and redirect them.
 			$this->addResponseData( [
-				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId()
+				'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
+				'backend_processor' => 'adyen',
+				'backend_processor_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 			] );
 			$redirectUrl = $createPaymentResponse->getRedirectUrl();
 			$this->logger->info( "Redirecting to $redirectUrl" );
@@ -96,7 +98,9 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 	): PaymentResult {
 		$transactionStatus = $createPaymentResponse->getStatus();
 		$responseData = [
-			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId()
+			'gateway_txn_id' => $createPaymentResponse->getGatewayTxnId(),
+			'backend_processor' => 'adyen',
+			'backend_processor_txn_id' => $createPaymentResponse->getGatewayTxnId(),
 		];
 		if ( !$this->getPaymentSubmethod() ) {
 			$responseData['payment_submethod'] = $createPaymentResponse->getPaymentSubmethod() ?? '';
