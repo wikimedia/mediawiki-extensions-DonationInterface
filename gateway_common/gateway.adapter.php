@@ -19,7 +19,7 @@
 
 use ForceUTF8\Encoding;
 use MediaWiki\Config\Config;
-use Mediawiki\Context\RequestContext;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\DonationInterface\Validation\DonationAmountRules;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\WebRequest;
@@ -2717,12 +2717,15 @@ abstract class GatewayAdapter implements GatewayType {
 	 * Each entry's key should correspond to the id of the target field, and
 	 * the value should be a list of rules with keys as described in
 	 * @see ClientSideValidationHelper::getClientSideValidation
+	 * @param array|null $knownData Country and payment method to get the required field
+	 *  rules for. Defaults to the adapter's own data. Transformer rules always use the
+	 *  adapter's own data.
 	 * @return array
 	 */
-	public function getClientSideValidationRules() {
+	public function getClientSideValidationRules( ?array $knownData = null ): array {
 		// Start with the server required field validations.
 		$requiredRules = [];
-		foreach ( $this->getRequiredFields() as $field ) {
+		foreach ( $this->getRequiredFields( $knownData ) as $field ) {
 			$key = 'donate_interface-error-msg-' . $field;
 			$requiredRules[$field] = [
 				[

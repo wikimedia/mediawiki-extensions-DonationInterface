@@ -559,21 +559,11 @@ abstract class GatewayPage extends UnlistedSpecialPage {
 		try {
 			$clientRules = $this->adapter->getClientSideValidationRules();
 			if ( $clientRules ) {
-				// Translate all the messages
-				// FIXME: figure out country fallback add the i18n strings
-				// for use with client-side mw.msg()
-				foreach ( $clientRules as &$fieldRules ) {
-					foreach ( $fieldRules as &$rule ) {
-						if ( !empty( $rule['messageKey'] ) ) {
-							$rule['message'] = MessageUtils::getCountrySpecificMessage(
-								$rule['messageKey'],
-								$country,
-								$language
-							);
-						}
-					}
-				}
-				$vars['wgDonationInterfaceValidationRules'] = $clientRules;
+				$vars['wgDonationInterfaceValidationRules'] = MessageUtils::translateValidationRules(
+					$clientRules,
+					$country,
+					$language
+				);
 			}
 		} catch ( Exception $ex ) {
 			$this->logger->warning(

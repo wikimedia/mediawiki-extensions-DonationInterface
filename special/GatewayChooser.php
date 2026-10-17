@@ -2,6 +2,7 @@
 
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\DonationInterface\Configuration\GatewayRouter;
+use MediaWiki\Extension\DonationInterface\PageTraits\SeedFromSessionTrait;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use MediaWiki\Title\Title;
 
@@ -21,6 +22,8 @@ use MediaWiki\Title\Title;
  * @author Matt Walker <mwalker@wikimedia.org>
  */
 class GatewayChooser extends UnlistedSpecialPage {
+
+	use SeedFromSessionTrait;
 
 	/**
 	 * @var \Psr\Log\LoggerInterface
@@ -100,7 +103,8 @@ class GatewayChooser extends UnlistedSpecialPage {
 			$selectedGateway = $this->gatewayRouter->chooseGatewayByPriority(
 				$supportedGateways,
 				$params,
-				$this->logger
+				$this->logger,
+				$this->getRandomSeed()
 			);
 		}
 
