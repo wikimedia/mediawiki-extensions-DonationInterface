@@ -284,7 +284,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome
+						$this, $outcome, $backendProcessor
 					);
 					// do approve payment request here.
 					$this->setCurrentTransaction( 'capture' );
@@ -307,12 +307,12 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, $backendProcessor
 					);
 					break;
 				default:
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, $backendProcessor
 					);
 					$this->logger->info(
 						'Not capturing authorized payment - validation action is ' .
@@ -321,7 +321,7 @@ class GravyAdapter extends GatewayAdapter implements RecurringConversion {
 			}
 		} else {
 			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-				$this, $outcome
+				$this, $outcome, $backendProcessor
 			);
 		}
 

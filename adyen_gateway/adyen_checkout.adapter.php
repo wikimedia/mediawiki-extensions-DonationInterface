@@ -135,7 +135,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			switch ( $this->getValidationAction() ) {
 				case ValidationAction::PROCESS:
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome
+						$this, $outcome, 'adyen'
 					);
 					$this->logger->info( "Calling approvePayment on PSP reference {$createPaymentResponse->getGatewayTxnId()}" );
 					$approvePaymentResponse = $provider->approvePayment( [
@@ -164,7 +164,7 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 					$paymentResult = PaymentResult::newFailure();
 					$this->logger->info( 'Created payment rejected by our fraud filters' );
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, 'adyen'
 					);
 					break;
 				default:
@@ -173,12 +173,12 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 						$this->getValidationAction()
 					);
 					Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER
+						$this, $outcome | FraudService::OUTCOME_BLOCKED_BY_FILTER, 'adyen'
 					);
 			}
 		} else {
 			Gateway_Extras_CustomFilters::markPaymentAttemptOutcome(
-				$this, $outcome
+				$this, $outcome, 'adyen'
 			);
 		}
 		// recurring will return a token on the auth
