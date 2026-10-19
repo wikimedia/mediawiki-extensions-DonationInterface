@@ -386,6 +386,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return [];
 	}
 
+	/** @inheritDoc */
+	public function getCurrencies( $options = [] ) {
+		// https://docs.adyen.com/payment-methods/sepa-direct-debit only EUR for SEPA
+		if ( $this->dataObj->getVal( 'payment_method' ) === 'sepadirectdebit' ) {
+			return [ 'EUR' ];
+		}
+		return parent::getCurrencies( $options );
+	}
+
 	public function getCheckoutConfiguration( ?array $methodParams = null ): array {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
