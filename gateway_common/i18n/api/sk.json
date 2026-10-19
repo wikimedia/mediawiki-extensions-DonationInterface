@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"KormiSK"
+		]
+	},
+	"apierror-donorportal-bad-amount": "Neplatné množstvo",
+	"apihelp-requestLogout-param-donorportal_token": "CSRF token pre portál darcov",
+	"apihelp-requestUpdateRecurring-param-donorportal_token": "CSRF token pre portál darcov",
+	"apihelp-requestPauseRecurring-param-donorportal_token": "CSRF token pre portál darcov",
+	"apihelp-requestAnnualConversion-param-donorportal_token": "CSRF token pre portál darcov"
+}
