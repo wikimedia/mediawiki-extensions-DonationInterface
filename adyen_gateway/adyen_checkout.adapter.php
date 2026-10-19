@@ -588,4 +588,17 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		}
 		return parent::getConfig( $key );
 	}
+
+	public function getFraudFilterData(): array {
+		$data = parent::getFraudFilterData();
+
+		unset( $data['encrypted_bank_account_number'] );
+		unset( $data['encrypted_bank_location_id'] );
+		unset( $data['encrypted_card_number'] );
+		unset( $data['encrypted_expiry_month'] );
+		unset( $data['encrypted_expiry_year'] );
+		unset( $data['encrypted_security_code'] );
+
+		return $data;
+	}
 }
