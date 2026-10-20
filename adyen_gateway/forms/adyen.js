@@ -293,6 +293,8 @@
 				return 'bij';
 			case 'cartebancaire':
 				return 'cb';
+			case 'maestro_usa':
+				return 'maestro';
 			case 'mc-debit':
 				return 'mc';
 			case 'visadankort':
