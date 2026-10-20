@@ -66,6 +66,12 @@ discover:
     - IL
     - US
   group: cc
+nyce:
+  group: cc
+pulse:
+  group: cc
+star:
+  group: cc
 rtbt_ideal:
   group: rtbt
   countries:

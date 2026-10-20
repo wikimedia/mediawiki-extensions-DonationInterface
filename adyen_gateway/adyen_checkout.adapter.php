@@ -386,6 +386,15 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 		return [];
 	}
 
+	/** @inheritDoc */
+	public function getCurrencies( $options = [] ) {
+		// https://docs.adyen.com/payment-methods/sepa-direct-debit only EUR for SEPA
+		if ( $this->dataObj->getVal( 'payment_method' ) === 'sepadirectdebit' ) {
+			return [ 'EUR' ];
+		}
+		return parent::getCurrencies( $options );
+	}
+
 	public function getCheckoutConfiguration( ?array $methodParams = null ): array {
 		$provider = PaymentProviderFactory::getProviderForMethod(
 			$this->getPaymentMethod()
@@ -578,5 +587,18 @@ class AdyenCheckoutAdapter extends GatewayAdapter implements RecurringConversion
 			return $this->config['message_replacements_ja'];
 		}
 		return parent::getConfig( $key );
+	}
+
+	public function getFraudFilterData(): array {
+		$data = parent::getFraudFilterData();
+
+		unset( $data['encrypted_bank_account_number'] );
+		unset( $data['encrypted_bank_location_id'] );
+		unset( $data['encrypted_card_number'] );
+		unset( $data['encrypted_expiry_month'] );
+		unset( $data['encrypted_expiry_year'] );
+		unset( $data['encrypted_security_code'] );
+
+		return $data;
 	}
 }

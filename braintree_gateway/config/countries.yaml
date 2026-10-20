@@ -1,4 +1,7 @@
 # Taken from https://developer.paypal.com/braintree/docs/reference/general/countries
+# Countries this gateway's payment methods support. This list does not decide
+# whether we accept donations from a country: $wgDonationInterfaceForbiddenCountries
+# (see README.txt) overrides it.
 - AD
 - AE
 - AF

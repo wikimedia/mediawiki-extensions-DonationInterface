@@ -3,6 +3,7 @@
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\CLDR\LanguageNames;
+use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\UnlistedSpecialPage;
 use SmashPig\Core\DataStores\QueueWrapper;
 
@@ -28,17 +29,8 @@ class EmailPreferences extends UnlistedSpecialPage {
 		$this->setHeaders();
 		$this->outputHeader();
 		$this->setUpClientSideChecksumRequest( $subpage );
+		$this->addStylesScriptsAndViewport();
 		$out = $this->getOutput();
-
-		// Adding styles-only modules this way causes them to arrive ahead of page rendering
-		$out->addModuleStyles( [
-			'donationInterface.skinOverrideStyles',
-			'ext.donationInterface.emailPreferencesStyles'
-		] );
-
-		$out->addModules( [
-			'ext.donationInterface.emailPreferences'
-		] );
 		$this->setPageTitle( $subpage );
 		$requestParameters = $this->getRequest()->getValues();
 		$requestParameters = $this->mapWmfToUtm( $requestParameters );
@@ -515,5 +507,32 @@ class EmailPreferences extends UnlistedSpecialPage {
 			$mapped[ str_replace( 'wmf_', 'utm_', $key ) ] = $value;
 		}
 		return $mapped;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function addStylesScriptsAndViewport(): void {
+		$out = $this->getOutput();
+
+		// Adding styles-only modules this way causes them to arrive ahead of page rendering
+		$out->addModuleStyles( [
+			'donationInterface.skinOverrideStyles',
+			'ext.donationInterface.emailPreferencesStyles'
+		] );
+
+		$out->addModules( [
+			'ext.donationInterface.emailPreferences'
+		] );
+
+		$out->addHeadItem(
+			'viewport',
+			Html::element(
+				'meta', [
+					'name' => 'viewport',
+					'content' => 'width=device-width, initial-scale=1',
+				]
+			)
+		);
 	}
 }
