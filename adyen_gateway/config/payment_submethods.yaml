@@ -66,6 +66,8 @@ discover:
     - IL
     - US
   group: cc
+star:
+  group: cc
 rtbt_ideal:
   group: rtbt
   countries:
