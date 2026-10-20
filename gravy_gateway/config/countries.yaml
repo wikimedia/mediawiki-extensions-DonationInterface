@@ -1,4 +1,7 @@
 # This is a combination of all the countries that are supported by Adyen, dLocal and I think PayPal.
+# Countries this gateway's payment methods support. This list does not decide
+# whether we accept donations from a country: $wgDonationInterfaceForbiddenCountries
+# (see README.txt) overrides it.
 - AD  # Andorra
 - AE  # United Arab Emirates
 - AG  # Antigua and Barbuda
