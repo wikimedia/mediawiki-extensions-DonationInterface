@@ -164,6 +164,39 @@ class GatewayRoutingProbabilisticTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Over many sessions, close to half of card donors get a gateway at 50%, and the
+	 * other half get the next gateway in the list.
+	 * The seeds 1 to 1,000 give 518 donors to the 50% gateway, which is 51.8%.
+	 */
+	public function testAboutHalfOfCardDonorsGetFiftyPercentGateway(): void {
+		$router = $this->getRouterWithRules( [
+			[
+				'conditions' => [
+					'payment_method' => 'cc',
+				],
+				'gateways' => [
+					[ 'gateway' => 'percentage_gateway', 'percentage' => 50 ],
+					'fallback_gateway',
+				],
+			],
+		] );
+		$cardDonorInUS = [ 'country' => 'US', 'currency' => 'USD', 'payment_method' => 'cc' ];
+
+		// The donor pays by card, so the rule with the 50% entry is used. Each seed stands
+		// for a different session. Draws 1 to 50 choose percentage_gateway and draws 51 to
+		// 100 skip it, so fallback_gateway gets the other donors.
+		$donorCounts = [ 'percentage_gateway' => 0, 'fallback_gateway' => 0 ];
+		for ( $seed = 1; $seed <= 1000; $seed++ ) {
+			$chosenGateway = $router->chooseGatewayByPriority(
+				[ 'fallback_gateway', 'percentage_gateway' ], $cardDonorInUS, new NullLogger(), $seed
+			);
+			$donorCounts[$chosenGateway]++;
+		}
+
+		$this->assertSame( [ 'percentage_gateway' => 518, 'fallback_gateway' => 482 ], $donorCounts );
+	}
+
+	/**
 	 * A gateway at 0% is never chosen, even with the lowest possible draw.
 	 */
 	public function testZeroPercentNeverChoosesTheGateway(): void {
