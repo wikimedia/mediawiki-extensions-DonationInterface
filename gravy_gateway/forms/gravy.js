@@ -250,19 +250,6 @@
 		}
 	}
 
-	function setBrowserInfo() {
-		const browserInfo = {
-			color_depth: screen.colorDepth || 24,
-			screen_height: screen.height || 0,
-			screen_width: screen.width || 0,
-			time_zone_offset: Math.floor( new Date().getTimezoneOffset() ) || 0
-		};
-
-		for ( const key in browserInfo ) {
-			extraData[ key ] = browserInfo[ key ];
-		}
-	}
-
 	function insertGooglePayComponentContainer() {
 		if ( document.getElementById( 'googlepay-container' ) ) {
 			return;
@@ -615,7 +602,6 @@
 					'</p>' )
 			);
 		}
-		setBrowserInfo();
 		switch ( $( '#payment_method' ).val() ) {
 			case 'cc':
 				// loadScript will display an error message when the script fails to load

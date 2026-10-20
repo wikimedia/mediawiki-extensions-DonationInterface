@@ -181,6 +181,11 @@
 			employer: $( '#employer' ).val(),
 			employer_id: $( '#employer_id' ).val(),
 			street_number: $( '#street_number' ).val(),
+			// Browser info
+			color_depth: $( '#color_depth' ).val(),
+			screen_height: $( '#screen_height' ).val(),
+			screen_width: $( '#screen_width' ).val(),
+			time_zone_offset: $( '#time_zone_offset' ).val(),
 			format: 'json'
 		};
 
@@ -417,5 +422,9 @@
 		if ( optInValue === '0' ) {
 			showEmailExplain();
 		}
+		$( '#color_depth' ).val( screen.colorDepth || 24 );
+		$( '#screen_height' ).val( screen.height || 0 );
+		$( '#screen_width' ).val( screen.width || 0 );
+		$( '#time_zone_offset' ).val( Math.floor( new Date().getTimezoneOffset() ) || 0 );
 	} );
 } )( jQuery, mediaWiki );
