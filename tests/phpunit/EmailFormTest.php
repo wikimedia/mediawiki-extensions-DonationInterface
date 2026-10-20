@@ -41,4 +41,40 @@ class EmailFormTest extends MediaWikiIntegrationTestCase {
 			],
 		];
 	}
+
+	/**
+	 * Messages containing HTML must be rendered with {{{ l10n }}}, otherwise
+	 * Mustache escapes the markup and it shows up as literal text.
+	 */
+	public function testHtmlMessagesAreNotEscapedInTemplates(): void {
+		$baseDir = __DIR__ . '/../..';
+		$extension = json_decode( file_get_contents( "$baseDir/extension.json" ), true );
+		$htmlMessages = [];
+		foreach ( $extension['MessagesDirs']['DonationInterface'] as $dir ) {
+			foreach ( glob( "$baseDir/$dir/*.json" ) as $file ) {
+				if ( basename( $file ) === 'qqq.json' ) {
+					continue;
+				}
+				$messages = json_decode( file_get_contents( $file ), true );
+				foreach ( $messages as $key => $text ) {
+					if ( is_string( $text ) && preg_match( '/<[a-z\/][^>]*>/i', $text ) ) {
+						$htmlMessages[$key][] = basename( $file, '.json' );
+					}
+				}
+			}
+		}
+
+		$problems = [];
+		foreach ( glob( "$baseDir/email_forms/templates/*.mustache" ) as $template ) {
+			preg_match_all( '/(?<!\{)\{\{\s*l10n\s+"([^"]+)"/', file_get_contents( $template ), $matches );
+			foreach ( $matches[1] as $key ) {
+				if ( isset( $htmlMessages[$key] ) ) {
+					$problems[] = basename( $template ) . ": $key (" . implode( ', ', $htmlMessages[$key] ) . ')';
+				}
+			}
+		}
+		$this->assertSame( [], $problems,
+			'These messages or translations contain HTML, which {{ l10n }} escapes. ' .
+				'Remove the HTML or use {{{ l10n }}}.' );
+	}
 }
