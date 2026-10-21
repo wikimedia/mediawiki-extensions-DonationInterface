@@ -173,6 +173,8 @@ class Donate extends UnlistedSpecialPage {
 			$this->getRandomSeed()
 		);
 
+		$this->logGatewaysOnPage();
+
 		$this->selectedGateway = $this->chooseGateway( $this->routingParams );
 
 		if ( $this->routingParams['gateway'] && $this->selectedGateway !== $this->routingParams['gateway'] ) {
@@ -201,6 +203,25 @@ class Donate extends UnlistedSpecialPage {
 
 		$this->renderPage();
 		$this->addVueComponentModulesForVariantsAndPaymentMethods();
+	}
+
+	/**
+	 * Logs the gateways on this page, and the gateway for each payment method,
+	 * e.g. "adyen, braintree (cc: adyen, paypal: braintree, venmo: braintree)".
+	 *
+	 * @return void
+	 */
+	private function logGatewaysOnPage(): void {
+		$gatewaysOnPage = array_values( array_unique( array_column( $this->supportedPaymentMethods, 'gateway' ) ) );
+		$gatewayForEachMethod = [];
+		foreach ( $this->supportedPaymentMethods as $paymentMethod ) {
+			$paymentMethodKey = $paymentMethod['submethod'] ?? $paymentMethod['method'];
+			$gatewayForEachMethod[] = $paymentMethodKey . ': ' . $paymentMethod['gateway'];
+		}
+		$this->logger->info(
+			'Gateways for the payment methods on this page: ' . implode( ', ', $gatewaysOnPage ) .
+			' (' . implode( ', ', $gatewayForEachMethod ) . ')'
+		);
 	}
 
 	/**

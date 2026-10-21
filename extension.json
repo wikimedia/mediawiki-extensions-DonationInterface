@@ -1368,7 +1368,7 @@
 			"merge_strategy": "provide_default"
 		},
 		"DonationInterfaceComboWikiGateways": {
-			"value": [ "gravy" ]
+			"value": []
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false
