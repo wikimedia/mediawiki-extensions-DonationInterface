@@ -818,6 +818,55 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertNotNull( $session->get( 'braintreeEditToken' ), 'The braintree edit token is stored' );
 	}
 
+	/**
+	 * What it does: loads ComboWiki with card (Adyen) as the default method, then builds the
+	 * Braintree adapter the way di_donate_braintree does when the donor pays with PayPal,
+	 * then builds the Adyen adapter the way di_donate_adyen does when the donor goes back
+	 * to card.
+	 *
+	 * What it proves: the donate API for a gateway other than the default one does not reset
+	 * the session. The Braintree adapter gets the contribution tracking ID that ComboWiki
+	 * stored, and both edit tokens ComboWiki sent still match, so the donor can switch
+	 * between the two gateways.
+	 */
+	public function testDonateApiForTheOtherGatewayKeepsTheSessionAndBothTokens(): void {
+		$vars = $this->executeComboWikiForCardWithAdyenAndBraintree();
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		$storedDetails = $session->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
+
+		$braintreeAdapter = $this->buildAdapterLikeTheDonateApi( 'braintree', [
+			'payment_method' => 'paypal',
+			'country' => 'US',
+			'currency' => 'USD',
+			'amount' => '10.00',
+			'wmf_token' => $vars['wmf_tokens']['braintree'],
+		] );
+		$braintreeContributionTrackingId = $braintreeAdapter->getData_Unstaged_Escaped( 'contribution_tracking_id' );
+		$braintreeToken = $braintreeAdapter->token_getSaltedSessionToken();
+		$adyenAdapter = $this->buildAdapterLikeTheDonateApi( 'adyen', [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'amount' => '10.00',
+			'wmf_token' => $vars['wmf_tokens']['adyen'],
+		] );
+
+		// checkTokens() stores its result in a static variable shared by all adapters,
+		// so compare the session tokens directly
+		$this->assertSame(
+			[
+				'contribution_tracking_id' => $storedDetails['contribution_tracking_id'],
+				'braintree token' => $vars['wmf_tokens']['braintree'],
+				'adyen token' => $vars['wmf_tokens']['adyen'],
+			],
+			[
+				'contribution_tracking_id' => $braintreeContributionTrackingId,
+				'braintree token' => $braintreeToken,
+				'adyen token' => $adyenAdapter->token_getSaltedSessionToken(),
+			]
+		);
+	}
+
 	public function testSessionContributionTrackingIdAndReferrerAreNotOverwrittenByRequest(): void {
 		// DataIntegrator::integrateDataFromSession() treats 'referrer' and
 		// 'contribution_tracking_id' as fields the session should always win for,
@@ -1333,6 +1382,47 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * What it does: loads the monthly convert return with a Donor_BKUP backup of a one-time
+	 * PayPal donation on Braintree.
+	 *
+	 * What it proves: the monthly convert return works for a donation on Braintree. It builds
+	 * the Braintree adapter from the backup, sends gateway braintree, and offers monthly
+	 * convert with its amounts.
+	 */
+	public function testMonthlyConvertReturnUsesTheGatewayOfTheDonation(): void {
+		$donate = $this->executeMonthlyConvertReturn(
+			[ 'order_id' => '123.1', 'gateway' => 'braintree' ],
+			$this->getDonorBackup( [ 'gateway' => 'braintree', 'payment_method' => 'paypal' ] )
+		);
+		$vars = [];
+		$donate->setClientVariables( $vars );
+
+		$this->assertSame( '', $donate->getOutput()->getRedirect() );
+		$this->assertSame( 'braintree', $vars['comboWiki']['gateway'] );
+		$this->assertArrayHasKey( 'wgDonationInterfaceMonthlyConvertAmounts', $vars );
+	}
+
+	/**
+	 * What it does: loads the monthly convert return with a Donor_BKUP backup of a one-time
+	 * Venmo donation on Braintree.
+	 *
+	 * What it proves: the Braintree adapter decides monthly convert for the donation's own
+	 * method. Braintree only supports monthly convert for PayPal, so the donor goes straight
+	 * to the thank you page.
+	 */
+	public function testMonthlyConvertReturnGoesToThankYouPageForVenmo(): void {
+		$donate = $this->executeMonthlyConvertReturn(
+			[ 'order_id' => '123.1', 'gateway' => 'braintree' ],
+			$this->getDonorBackup( [ 'gateway' => 'braintree', 'payment_method' => 'venmo' ] )
+		);
+
+		$this->assertStringStartsWith(
+			self::THANK_YOU_PAGE . '/en',
+			$donate->getOutput()->getRedirect()
+		);
+	}
+
+	/**
 	 * The donor details the adapter backs up to Donor_BKUP after a one-time card donation
 	 */
 	private function getDonorBackup( array $overrides = [] ): array {
@@ -1452,6 +1542,32 @@ class DonateTest extends DonationInterfaceTestCase {
 			$adyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
 			$adyenProviderConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $adyenProvider );
 		}
+	}
+
+	/**
+	 * Load ComboWiki for a one-time card donor in the US, with card on Adyen and PayPal and
+	 * Venmo on Braintree, and return the client variables.
+	 */
+	private function executeComboWikiForCardWithAdyenAndBraintree(): array {
+		$this->useAdyenForCardAndBraintreeForPaypal();
+		return $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		] );
+	}
+
+	/**
+	 * Build a gateway's adapter the way its donate API does (DonationApiBase::ensureAdapterSet()),
+	 * from a request the frontend posts in the same session as the ComboWiki page load.
+	 */
+	private function buildAdapterLikeTheDonateApi( string $gateway, array $params ): GatewayAdapter {
+		$session = RequestContext::getMain()->getRequest()->getSession();
+		RequestContext::getMain()->setRequest( new FauxRequest( $params, true, $session ) );
+		DonationInterface::setSmashPigProvider( $gateway );
+		$className = DonationInterface::getAdapterClassForGateway( $gateway );
+		return new $className( [ 'variant' => null ] );
 	}
 
 	private function executeAndGetClientVariables( array $params ): array {
