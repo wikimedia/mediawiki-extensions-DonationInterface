@@ -507,7 +507,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		);
 
 		$unwrapped = TestingAccessWrapper::newFromObject( $comboWiki );
-		$adapter = $unwrapped->adapter;
+		$adapter = $unwrapped->adapters['gravy'] ?? null;
 		$this->assertNotNull( $adapter, 'Expected a GravyAdapter to have been constructed' );
 
 		$this->assertEquals(
@@ -553,7 +553,7 @@ class DonateTest extends DonationInterfaceTestCase {
 
 		$firstComboWiki = $this->getDonateInstance();
 		$firstComboWiki->execute( null );
-		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
+		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapters['gravy'];
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$result = $firstAdapter->doPayment();
@@ -563,7 +563,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// after the previous one completed (e.g. ComboWiki is loaded again).
 		$secondComboWiki = $this->getDonateInstance();
 		$secondComboWiki->execute( null );
-		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
+		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapters['gravy'];
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$this->assertNotEquals(
@@ -623,7 +623,7 @@ class DonateTest extends DonationInterfaceTestCase {
 
 		$firstComboWiki = $this->getDonateInstance();
 		$firstComboWiki->execute( null );
-		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
+		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapters['gravy'];
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$redirectResult = $firstAdapter->doPayment();
@@ -636,7 +636,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// after the previous one completed (e.g. ComboWiki is loaded again).
 		$secondComboWiki = $this->getDonateInstance();
 		$secondComboWiki->execute( null );
-		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
+		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapters['gravy'];
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$this->assertNotEquals(
@@ -690,7 +690,7 @@ class DonateTest extends DonationInterfaceTestCase {
 
 		$firstComboWiki = $this->getDonateInstance();
 		$firstComboWiki->execute( null );
-		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapter;
+		$firstAdapter = TestingAccessWrapper::newFromObject( $firstComboWiki )->adapters['gravy'];
 		$firstOrderId = $firstAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$result = $firstAdapter->doPayment();
@@ -699,7 +699,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// Simulate the donor retrying in the same session after the decline.
 		$secondComboWiki = $this->getDonateInstance();
 		$secondComboWiki->execute( null );
-		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapter;
+		$secondAdapter = TestingAccessWrapper::newFromObject( $secondComboWiki )->adapters['gravy'];
 		$secondOrderId = $secondAdapter->getData_Unstaged_Escaped( 'order_id' );
 
 		$this->assertNotEquals(

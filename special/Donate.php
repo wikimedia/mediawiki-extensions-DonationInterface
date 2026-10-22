@@ -89,8 +89,8 @@ class Donate extends UnlistedSpecialPage {
 	 */
 	private const NON_INPUT_FIELD_KEYS = [ 'trustly_explanation' ];
 
-	/** @var GatewayAdapter|null The gateway adapter, if a supported gateway was selected. */
-	private ?GatewayAdapter $adapter = null;
+	/** @var GatewayAdapter[] The gateway adapters, if a supported gateway was selected. */
+	private array $adapters = [];
 
 	/** @var array Routing params derived from the request, computed once in execute(). */
 	private array $routingParams = [];
@@ -191,14 +191,16 @@ class Donate extends UnlistedSpecialPage {
 
 		if ( $this->selectedGateway ) {
 			DonationInterface::setSmashPigProvider( $this->selectedGateway );
-			$this->adapter = $this->createAdapterForGateway(
+			$adapter = $this->createAdapterForGateway(
 				$this->selectedGateway,
 				[ 'variant' => $this->donationDetails->getValue( 'variant', '' ) ]
 			);
-			if ( !$this->adapter ) {
+			if ( $adapter ) {
+				$this->adapters[$this->selectedGateway] = $adapter;
+			} else {
 				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
 			}
-			$this->addGatewaySessionId();
+			$this->addGatewaySessionId( $this->selectedGateway, $adapter );
 		}
 
 		$this->renderPage();
@@ -364,14 +366,15 @@ class Donate extends UnlistedSpecialPage {
 		$this->addCountriesConfig( $vars );
 		$vars['DonationInterfaceNoDecimalCurrencies'] = CurrencyRoundingHelper::$noDecimalCurrencies;
 
-		if ( !$this->adapter ) {
+		$selectedAdapter = $this->getSelectedAdapter();
+		if ( !$selectedAdapter ) {
 			return;
 		}
 
 		// Generate the complete thank-you page URL using adapter state and request data
-		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $this->adapter );
+		$vars['DonationInterfaceThankYouPage'] = ResultPages::getThankYouPage( $selectedAdapter );
 
-		$vars['wgDonationInterfaceAmountRules'] = $this->adapter->getDonationRules();
+		$vars['wgDonationInterfaceAmountRules'] = $selectedAdapter->getDonationRules();
 
 		$formFields = $this->getFormFieldsWithOverrides(
 			$this->routingParams['country'],
@@ -387,13 +390,13 @@ class Donate extends UnlistedSpecialPage {
 		$vars['DonationInterfaceStateProvinceOptions'] = $this->getStateProvinceOptions(
 			$this->routingParams['country']
 		);
-		if ( $this->adapter->showMonthlyConvert() ) {
-			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $this->adapter->getMonthlyConvertAmounts();
+		if ( $selectedAdapter->showMonthlyConvert() ) {
+			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $selectedAdapter->getMonthlyConvertAmounts();
 		}
 
 		$configMethod = 'add' . ucfirst( $this->selectedGateway ) . 'ClientConfig';
 		if ( method_exists( $this, $configMethod ) ) {
-			$this->$configMethod( $vars );
+			$this->$configMethod( $vars, $selectedAdapter );
 		}
 
 		$otherWaysURL = $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ?? '';
@@ -437,17 +440,18 @@ class Donate extends UnlistedSpecialPage {
 	 * Does the same as the di_checkoutsession_<gateway> API, using the page's adapter
 	 * in place of one built from the request params the form would send.
 	 *
+	 * @param string $gateway
+	 * @param GatewayAdapter|null $adapter The adapter for $gateway, if it could be created
+	 *
 	 * @return void
 	 */
-	private function addGatewaySessionId(): void {
-		$gateway = $this->selectedGateway;
+	private function addGatewaySessionId( string $gateway, ?GatewayAdapter $adapter ): void {
 		$paymentMethod = $this->routingParams['payment_method'];
 		if ( !in_array( $paymentMethod, self::CHECKOUT_SESSION_METHODS[$gateway] ?? [], true ) ) {
 			return;
 		}
 
 		// getCheckoutSession() is specific to GravyAdapter, not GatewayAdapter
-		$adapter = $this->adapter;
 		if ( !$adapter instanceof GravyAdapter ) {
 			$this->logger->error( 'Expected a GravyAdapter to create a checkout session, got ' . get_debug_type( $adapter ) );
 			return;
@@ -474,16 +478,15 @@ class Donate extends UnlistedSpecialPage {
 
 	/**
 	 * Share the Gravy Payments session ID, along with the gravy config, with the frontend.
-	 * Uses the adapter constructed in execute().
 	 *
 	 * @param array &$vars
+	 * @param GatewayAdapter $adapter The adapter for the gravy gateway
 	 *
 	 * @return void
 	 */
-	protected function addGravyClientConfig( array &$vars ): void {
+	protected function addGravyClientConfig( array &$vars, GatewayAdapter $adapter ): void {
 		// getGravyConfiguration() is specific to GravyAdapter, not GatewayAdapter,
 		// so narrow the type before reaching for it.
-		$adapter = $this->adapter;
 		if ( !$adapter instanceof GravyAdapter ) {
 			$this->logger->error( 'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter ) );
 			return;
@@ -492,7 +495,7 @@ class Donate extends UnlistedSpecialPage {
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
 		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 
-		$applePayHref = $this->adapter->getAccountConfig( 'AppleScript' );
+		$applePayHref = $adapter->getAccountConfig( 'AppleScript' );
 		$this->getOutput()->addLink( [
 			'rel' => 'dns-prefetch',
 			'href' => 'https://' . parse_url( $applePayHref, PHP_URL_HOST )
@@ -504,10 +507,12 @@ class Donate extends UnlistedSpecialPage {
 	 * Called when the selected gateway is 'dlocal'.
 	 *
 	 * @param array &$vars Client variables to expose
+	 * @param GatewayAdapter $adapter The adapter for the dlocal gateway
+	 *
 	 * @return void
 	 */
-	protected function addDlocalClientConfig( array &$vars ): void {
-		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
+	protected function addDlocalClientConfig( array &$vars, GatewayAdapter $adapter ): void {
+		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 	}
 
 	/**
@@ -515,10 +520,11 @@ class Donate extends UnlistedSpecialPage {
 	 * Called when the selected gateway is 'adyen'.
 	 *
 	 * @param array &$vars Client variables to expose
+	 * @param GatewayAdapter $adapter The adapter for the adyen gateway
+	 *
 	 * @return void
 	 */
-	protected function addAdyenClientConfig( array &$vars ): void {
-		$adapter = $this->adapter;
+	protected function addAdyenClientConfig( array &$vars, GatewayAdapter $adapter ): void {
 		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
 			$this->logger->error( 'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter ) );
 
@@ -532,7 +538,7 @@ class Donate extends UnlistedSpecialPage {
 				'language' => $this->routingParams['language'],
 			]
 		);
-		$vars['wmf_token'] = $this->adapter->token_getSaltedSessionToken();
+		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 	}
 
 	/**
@@ -616,6 +622,15 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
+	 * The adapter for the selected gateway, or null if it could not be created.
+	 *
+	 * @return GatewayAdapter|null
+	 */
+	private function getSelectedAdapter(): ?GatewayAdapter {
+		return $this->adapters[$this->selectedGateway] ?? null;
+	}
+
+	/**
 	 * Sets up the page and the Vue app.
 	 */
 	private function renderPage(): void {
@@ -669,14 +684,15 @@ class Donate extends UnlistedSpecialPage {
 		$this->donationDetails->setData( $backup );
 		$this->selectedGateway = $backup['gateway'] ?? '';
 		DonationInterface::setSmashPigProvider( $this->selectedGateway );
-		$this->adapter = $this->createAdapterForGateway(
+		$adapter = $this->createAdapterForGateway(
 			$this->selectedGateway,
 			[ 'external_data' => $backup, 'variant' => $backup['variant'] ?? '' ]
 		);
-		if ( !$this->adapter || !$this->adapter->showMonthlyConvert() ) {
-			$this->redirectToThankYouPage( $this->adapter );
+		if ( !$adapter || !$adapter->showMonthlyConvert() ) {
+			$this->redirectToThankYouPage( $adapter );
 			return;
 		}
+		$this->adapters[$this->selectedGateway] = $adapter;
 
 		$this->isMonthlyConvertReturn = true;
 		$this->routingParams = [
@@ -760,12 +776,14 @@ class Donate extends UnlistedSpecialPage {
 		// Get all the special fields for the given country and its supported payment methods
 		$fieldsForMethods = [];
 		foreach ( $paymentMethods as $paymentMethod ) {
-			// Only the selected gateway's adapter is loaded, and it throws for methods it does not handle
-			if ( $paymentMethod['gateway'] !== $this->selectedGateway ) {
+			// An adapter throws for methods it does not handle, so use the adapter of the method's gateway.
+			// Only the selected gateway has an adapter for now, so methods of other gateways are skipped.
+			$adapter = $this->adapters[$paymentMethod['gateway']] ?? null;
+			if ( !$adapter ) {
 				continue;
 			}
 			// Note: currently we do not set any field rule in payment_submethod.yaml so it can technically be ignored
-			$fieldsForThisMethod = $this->adapter->getFormFields(
+			$fieldsForThisMethod = $adapter->getFormFields(
 				[ 'country' => $country, 'payment_method' => $paymentMethod['method'] ]
 			);
 			$fieldsForThisMethod = array_diff_key( $fieldsForThisMethod, $fieldsOutsideMethodForms );
@@ -776,7 +794,7 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		// Get the fields ComboWiki treats as country specific and does not include in a payment method specific form
-		$sharedFieldsFull = $this->adapter->getFormFields( [ 'country' => $country ] );
+		$sharedFieldsFull = $this->getSelectedAdapter()->getFormFields( [ 'country' => $country ] );
 		$sharedFields = array_intersect_key( $sharedFieldsFull, $fieldsOutsideMethodForms );
 
 		return [
@@ -799,11 +817,12 @@ class Donate extends UnlistedSpecialPage {
 
 		$rulesForMethods = [];
 		foreach ( $paymentMethods as $paymentMethod ) {
-			if ( $paymentMethod['gateway'] !== $this->selectedGateway ) {
+			$adapter = $this->adapters[$paymentMethod['gateway']] ?? null;
+			if ( !$adapter ) {
 				continue;
 			}
 			$paymentMethodKey = $paymentMethod['submethod'] ?? $paymentMethod['method'];
-			$rules = $this->adapter->getClientSideValidationRules(
+			$rules = $adapter->getClientSideValidationRules(
 				[ 'country' => $country, 'payment_method' => $paymentMethod['method'] ]
 			);
 			// Transformer rules come back for every method, so keep only the fields this method shows
@@ -816,7 +835,7 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		$sharedRules = array_intersect_key(
-			$this->adapter->getClientSideValidationRules( [ 'country' => $country ] ),
+			$this->getSelectedAdapter()->getClientSideValidationRules( [ 'country' => $country ] ),
 			$formFields['shared']
 		);
 
