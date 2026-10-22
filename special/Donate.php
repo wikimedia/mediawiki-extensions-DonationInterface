@@ -181,26 +181,46 @@ class Donate extends UnlistedSpecialPage {
 			$this->logger->info( 'Selected gateway is ' . $this->selectedGateway . ' but requested ' . $this->routingParams['gateway'] );
 		}
 
-		// If we got gateway from the request/session, here we override with the
-		// one found with chooseGateway(). Are we ok with that?
-		$this->donationDetails->setValue( 'gateway', $this->selectedGateway );
+		// Do not store a gateway in the session. Each adapter resets the session when the
+		// stored gateway is a different one, and this page builds one adapter for each gateway.
+		// The adapter that takes the payment stores its gateway in doPayment().
+		$this->donationDetails->setValue( 'gateway', null );
 		$this->routingParams['gateway'] = $this->selectedGateway;
 
 		// Store copy of the donation details in the session for later access
 		$this->storeDonationDetailsInSession();
 
-		if ( $this->selectedGateway ) {
-			DonationInterface::setSmashPigProvider( $this->selectedGateway );
+		// Every page load builds an adapter for each gateway on the page, so each adapter's
+		// constructor runs here even if the donor does not use that gateway.
+		// The donation details stored in the session above (the 'Donor' key) hold the
+		// contribution tracking ID, the order ID and the banner and campaign data, and the
+		// adapters read them from there. Each adapter constructor resets the session when
+		// 'Donor' names a different gateway, which removes those details. So an adapter that
+		// writes 'Donor' in its constructor (e.g. Amazon, which stores its own gateway name)
+		// resets the session for the adapters built after it, and must not be in
+		// $wgDonationInterfaceComboWikiGateways. To use Amazon on ComboWiki, AmazonAdapter would
+		// first need to stop writing 'Donor' in its constructor.
+		foreach ( $this->getGatewaysOnPage() as $gateway ) {
+			DonationInterface::setSmashPigProvider( $gateway );
+			// Every adapter on the page is built from the page's donation details, but the
+			// page's payment method can belong to another gateway (e.g. paypal, on Braintree,
+			// for the Adyen adapter). Give each adapter one of its own methods, so the
+			// constructor looks up SmashPig providers for a method the gateway has.
+			$adapterData = $this->donationDetails->getData();
+			$adapterData['payment_method'] = $this->getPaymentMethodForGateway( $gateway );
 			$adapter = $this->createAdapterForGateway(
-				$this->selectedGateway,
-				[ 'variant' => $this->donationDetails->getValue( 'variant', '' ) ]
+				$gateway,
+				[
+					'external_data' => $adapterData,
+					'variant' => $this->donationDetails->getValue( 'variant', '' ),
+				]
 			);
 			if ( $adapter ) {
-				$this->adapters[$this->selectedGateway] = $adapter;
+				$this->adapters[$gateway] = $adapter;
 			} else {
-				$this->logger->error( 'Failed to create adapter for gateway: ' . $this->selectedGateway );
+				$this->logger->error( 'Failed to create adapter for gateway: ' . $gateway );
 			}
-			$this->addGatewaySessionId( $this->selectedGateway, $adapter );
+			$this->addGatewaySessionId( $gateway, $adapter );
 		}
 
 		$this->renderPage();
@@ -214,7 +234,7 @@ class Donate extends UnlistedSpecialPage {
 	 * @return void
 	 */
 	private function logGatewaysOnPage(): void {
-		$gatewaysOnPage = array_values( array_unique( array_column( $this->supportedPaymentMethods, 'gateway' ) ) );
+		$gatewaysOnPage = $this->getGatewaysOnPage();
 		$gatewayForEachMethod = [];
 		foreach ( $this->supportedPaymentMethods as $paymentMethod ) {
 			$paymentMethodKey = $paymentMethod['submethod'] ?? $paymentMethod['method'];
@@ -224,6 +244,35 @@ class Donate extends UnlistedSpecialPage {
 			'Gateways for the payment methods on this page: ' . implode( ', ', $gatewaysOnPage ) .
 			' (' . implode( ', ', $gatewayForEachMethod ) . ')'
 		);
+	}
+
+	/**
+	 * The gateways of the payment methods on this page, each one once.
+	 *
+	 * @return string[]
+	 */
+	private function getGatewaysOnPage(): array {
+		return array_values( array_unique( array_column( $this->supportedPaymentMethods, 'gateway' ) ) );
+	}
+
+	/**
+	 * The page's payment method if the gateway has it, or else the gateway's first method on the page.
+	 *
+	 * @param string $gateway
+	 * @return string
+	 */
+	private function getPaymentMethodForGateway( string $gateway ): string {
+		$methodsOfGateway = [];
+		foreach ( $this->supportedPaymentMethods as $paymentMethod ) {
+			if ( $paymentMethod['gateway'] === $gateway ) {
+				$methodsOfGateway[] = $paymentMethod['method'];
+			}
+		}
+		$pageMethod = $this->donationDetails->getValue( 'payment_method', 'cc' );
+		if ( in_array( $pageMethod, $methodsOfGateway, true ) ) {
+			return $pageMethod;
+		}
+		return $methodsOfGateway[0];
 	}
 
 	/**
@@ -394,10 +443,18 @@ class Donate extends UnlistedSpecialPage {
 			$vars['wgDonationInterfaceMonthlyConvertAmounts'] = $selectedAdapter->getMonthlyConvertAmounts();
 		}
 
-		$configMethod = 'add' . ucfirst( $this->selectedGateway ) . 'ClientConfig';
-		if ( method_exists( $this, $configMethod ) ) {
-			$this->$configMethod( $vars, $selectedAdapter );
+		foreach ( $this->adapters as $gateway => $adapter ) {
+			// Each gateway checks its own edit token in its donate API
+			$vars['wmf_tokens'][$gateway] = $adapter->token_getSaltedSessionToken();
+			// Some client config calls the gateway through SmashPig, which has one provider per request
+			DonationInterface::setSmashPigProvider( $gateway );
+			$configMethod = 'add' . ucfirst( $gateway ) . 'ClientConfig';
+			if ( method_exists( $this, $configMethod ) ) {
+				$this->$configMethod( $vars, $adapter );
+			}
 		}
+		// The frontend sends one token for now, so send the token of the default method's gateway
+		$vars['wmf_token'] = $vars['wmf_tokens'][$this->selectedGateway];
 
 		$otherWaysURL = $this->getConfig()->get( 'DonationInterfaceOtherWaysURL' ) ?? '';
 		$language = $this->routingParams['language'];
@@ -493,7 +550,6 @@ class Donate extends UnlistedSpecialPage {
 		}
 
 		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
-		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 
 		$applePayHref = $adapter->getAccountConfig( 'AppleScript' );
 		$this->getOutput()->addLink( [
@@ -503,21 +559,8 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Add Dlocal-specific client configuration.
-	 * Called when the selected gateway is 'dlocal'.
-	 *
-	 * @param array &$vars Client variables to expose
-	 * @param GatewayAdapter $adapter The adapter for the dlocal gateway
-	 *
-	 * @return void
-	 */
-	protected function addDlocalClientConfig( array &$vars, GatewayAdapter $adapter ): void {
-		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
-	}
-
-	/**
 	 * Add Adyen-specific client configuration.
-	 * Called when the selected gateway is 'adyen'.
+	 * Called when adyen is one of the gateways on the page.
 	 *
 	 * @param array &$vars Client variables to expose
 	 * @param GatewayAdapter $adapter The adapter for the adyen gateway
@@ -538,7 +581,6 @@ class Donate extends UnlistedSpecialPage {
 				'language' => $this->routingParams['language'],
 			]
 		);
-		$vars['wmf_token'] = $adapter->token_getSaltedSessionToken();
 	}
 
 	/**

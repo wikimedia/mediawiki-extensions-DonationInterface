@@ -10,11 +10,13 @@ use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Adyen\PaymentProvider as AdyenPaymentProvider;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
+use SmashPig\PaymentProviders\Gravy\PaymentProvider as GravyPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentSessionResponse;
 use SmashPig\PaymentProviders\Responses\PaymentMethodResponse;
 use SmashPig\PaymentProviders\Responses\PaymentProviderExtendedResponse;
+use SmashPig\Tests\TestingProviderConfiguration;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -53,10 +55,11 @@ class DonateTest extends DonationInterfaceTestCase {
 				'dlocal' => 'DlocalAdapter',
 				'gravy' => 'GravyAdapter',
 			],
-			// Let ComboWiki use every gateway above, so these tests cover gateway choice
-			// rather than the Gravy-only default.
+			// Let ComboWiki use the gateways it supports, so these tests cover gateway choice.
+			// The page builds an adapter for each of them, and some other adapters (e.g. Amazon)
+			// write the session in their constructor, which would reset it for the others.
 			'DonationInterfaceComboWikiGateways' => [
-				'ingenico', 'amazon', 'adyen', 'paypal_ec', 'braintree', 'dlocal', 'gravy',
+				'adyen', 'braintree', 'dlocal', 'gravy',
 			],
 			'DonationInterfaceGatewayPriorityRules' => [
 				[
@@ -65,7 +68,7 @@ class DonateTest extends DonationInterfaceTestCase {
 				],
 				[
 					'conditions' => [ 'payment_method' => 'paypal' ],
-					'gateways' => [ 'paypal_ec' ],
+					'gateways' => [ 'braintree' ],
 				],
 				[
 					'conditions' => [ 'payment_method' => 'venmo' ],
@@ -81,6 +84,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->cardPaymentProvider->method( 'createPaymentSession' )->willReturn(
 			( new CreatePaymentSessionResponse() )->setSuccessful( true )->setPaymentSession( 'lorem-ipsum' )
 		);
+		$this->mockGravyProvidersOtherThanCard( $providerConfig );
 	}
 
 	public function testChoosesGravyForCreditCard(): void {
@@ -103,7 +107,7 @@ class DonateTest extends DonationInterfaceTestCase {
 				'currency' => 'USD',
 				'recurring' => '0',
 			],
-			'paypal_ec'
+			'braintree'
 		);
 	}
 
@@ -178,7 +182,12 @@ class DonateTest extends DonationInterfaceTestCase {
 		$this->assertArrayHasKey( 'DonationInterfaceThankYouPage', $vars );
 	}
 
-	public function testNonGravyClientVariablesExcludeGravyConfig(): void {
+	/**
+	 * Every gateway on the page gets its client config and edit token, not only the
+	 * gateway of the payment method the page loads with.
+	 */
+	public function testClientVariablesIncludeEveryGatewayOnThePage(): void {
+		$this->useAdyenForCardAndBraintreeForPaypal();
 		$vars = $this->executeAndGetClientVariables( [
 			'payment_method' => 'paypal',
 			'country' => 'US',
@@ -186,13 +195,19 @@ class DonateTest extends DonationInterfaceTestCase {
 			'recurring' => '0',
 		] );
 
-		$this->assertEquals( 'paypal_ec', $vars['comboWiki']['gateway'] );
-		$this->assertArrayNotHasKey( 'gravyConfiguration', $vars );
-		$this->assertArrayNotHasKey( 'wmf_token', $vars );
+		$this->assertEquals( 'braintree', $vars['comboWiki']['gateway'] );
+		// Card is on Adyen, so the page gets the Adyen config even though it loads with PayPal
+		$this->assertArrayHasKey( 'adyenConfiguration', $vars );
+		$gatewaysWithToken = array_keys( $vars['wmf_tokens'] );
+		sort( $gatewaysWithToken );
+		$this->assertSame( [ 'adyen', 'braintree' ], $gatewaysWithToken );
+		// The single token the frontend sends for now is the one for the page's gateway
+		$this->assertSame( $vars['wmf_tokens']['braintree'], $vars['wmf_token'] );
 	}
 
 	public function testGravyCardSendsCheckoutSessionIdToPage(): void {
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$this->mockGravyProvidersOtherThanCard( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$cardPaymentProvider->expects( $this->once() )
 			->method( 'createPaymentSession' )
@@ -221,7 +236,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			'recurring' => '0',
 		] );
 
-		$this->assertEquals( 'paypal_ec', $vars['comboWiki']['gateway'] );
+		$this->assertEquals( 'braintree', $vars['comboWiki']['gateway'] );
 		$this->assertArrayNotHasKey( 'gateway_session_id', $vars['comboWiki'] );
 	}
 
@@ -229,6 +244,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// Apple Pay's merchant session needs a validation URL only the browser has,
 		// so the page must not try to create one
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$this->mockGravyProvidersOtherThanCard( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$cardPaymentProvider->expects( $this->never() )->method( 'createPaymentSession' );
 		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
@@ -256,6 +272,7 @@ class DonateTest extends DonationInterfaceTestCase {
 	 */
 	public function testPageStillRendersWithoutSessionIdWhenCheckoutSessionFails( bool $throws ): void {
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
+		$this->mockGravyProvidersOtherThanCard( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$method = $cardPaymentProvider->method( 'createPaymentSession' );
 		if ( $throws ) {
@@ -740,7 +757,49 @@ class DonateTest extends DonationInterfaceTestCase {
 		$storedDetails = $request->getSession()->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
 		$this->assertIsArray( $storedDetails );
 		$this->assertEquals( 'US', $storedDetails['country'] );
-		$this->assertEquals( 'gravy', $storedDetails['gateway'] );
+		// No gateway is stored, so the adapters on the page do not reset the session
+		$this->assertNull( $storedDetails['gateway'] );
+	}
+
+	/**
+	 * ComboWiki can run two gateways on one page (T441890 Plan A). Here card is on Adyen and
+	 * PayPal and Venmo are on Braintree, so the page builds an adapter for each of them.
+	 * Building the second gateway's adapter must not reset the session, which would remove
+	 * the donation details stored by the page. Each gateway's edit token is stored too,
+	 * as its donate API checks it.
+	 */
+	public function testSessionKeepsDonationDetailsAndTokensWithTwoGatewaysOnThePage(): void {
+		$this->useAdyenForCardAndBraintreeForPaypal();
+		$request = new FauxRequest( [
+			'payment_method' => 'cc',
+			'country' => 'US',
+			'currency' => 'USD',
+			'recurring' => '0',
+		], false );
+		$context = RequestContext::getMain();
+		$context->setRequest( $request );
+		$context->setTitle( Title::newFromText( 'Special:Donate' ) );
+
+		$comboWiki = $this->getDonateInstance();
+		$comboWiki->execute( null );
+		$vars = [];
+		$comboWiki->setClientVariables( $vars );
+
+		$session = $request->getSession();
+		$storedDetails = $session->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
+		$pageDetails = TestingAccessWrapper::newFromObject( $comboWiki )->donationDetails;
+		$this->assertSame(
+			[
+				'contribution_tracking_id' => $pageDetails->getValue( 'contribution_tracking_id' ),
+				'order_id' => $pageDetails->getValue( 'order_id' ),
+			],
+			[
+				'contribution_tracking_id' => $storedDetails['contribution_tracking_id'] ?? null,
+				'order_id' => $storedDetails['order_id'] ?? null,
+			]
+		);
+		$this->assertNotNull( $session->get( 'adyenEditToken' ), 'The adyen edit token is stored' );
+		$this->assertNotNull( $session->get( 'braintreeEditToken' ), 'The braintree edit token is stored' );
 	}
 
 	public function testSessionContributionTrackingIdAndReferrerAreNotOverwrittenByRequest(): void {
@@ -1333,6 +1392,50 @@ class DonateTest extends DonationInterfaceTestCase {
 			static fn ( $entry ) => isset( $entry['submethod'] )
 		);
 		return array_column( $submethodEntries, 'gateway', 'submethod' );
+	}
+
+	/**
+	 * Mock the Gravy provider for every payment method other than card. The page builds an
+	 * adapter for each gateway on it, and in tests every SmashPig lookup uses this one provider
+	 * config, whichever gateway asks. Without these mocks the adapters for other methods call
+	 * the real Gravy API.
+	 *
+	 * @param TestingProviderConfiguration $providerConfig
+	 * @return void
+	 */
+	private function mockGravyProvidersOtherThanCard( TestingProviderConfiguration $providerConfig ): void {
+		foreach ( [ 'google', 'apple', 'dd', 'bt', 'venmo', 'paypal', 'cash', 'ew', 'rtbt' ] as $paymentMethod ) {
+			$gravyProvider = $this->createMock( GravyPaymentProvider::class );
+			$gravyProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
+			$providerConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $gravyProvider );
+		}
+	}
+
+	/**
+	 * Set up ComboWiki with the Phase 1.1 gateways: card on Adyen, PayPal and Venmo on Braintree.
+	 * Adyen's client config asks SmashPig for the payment methods, so that call is mocked.
+	 */
+	private function useAdyenForCardAndBraintreeForPaypal(): void {
+		$this->overrideConfigValues( [
+			'DonationInterfaceComboWikiGateways' => [ 'adyen', 'braintree' ],
+			'DonationInterfaceGatewayPriorityRules' => [
+				[
+					'conditions' => [ 'payment_method' => 'cc' ],
+					'gateways' => [ 'adyen' ],
+				],
+				[
+					'conditions' => [ 'payment_method' => 'paypal' ],
+					'gateways' => [ 'braintree' ],
+				],
+			],
+		] );
+		// The Adyen adapter can be given any of its methods on the page, so mock each one
+		$adyenProviderConfig = $this->setSmashPigProvider( 'adyen' );
+		foreach ( [ 'cc', 'google', 'apple', 'dd', 'ach', 'bt', 'ew', 'rtbt' ] as $paymentMethod ) {
+			$adyenProvider = $this->createMock( AdyenPaymentProvider::class );
+			$adyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
+			$adyenProviderConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $adyenProvider );
+		}
 	}
 
 	private function executeAndGetClientVariables( array $params ): array {
