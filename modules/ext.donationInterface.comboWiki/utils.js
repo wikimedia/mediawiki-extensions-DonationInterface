@@ -37,4 +37,26 @@ function loadScript( src ) {
 	return scriptPromises[ src ];
 }
 
-module.exports = { loadScript, unloadScript };
+/**
+ * Overrides what a payment method submits with what the donor entered in the details form.
+ *
+ * A wallet (Apple Pay, Google Pay) submits the donor's billing address too. Where the donor
+ * also entered a field, their entry wins: e.g. the state code picked from the list, where
+ * Apple Pay may send free text such as "New South Wales". A field the donor left empty keeps
+ * the payment method's value.
+ *
+ * @param {Object} paymentMethodData What the payment method submits, e.g. a wallet's token and address
+ * @param {Object} formEntries What the donor entered in the details form, keyed by server field name
+ * @return {Object} paymentMethodData, with each non-empty form entry in place of its value
+ */
+function overrideWithFormEntries( paymentMethodData, formEntries ) {
+	const result = Object.assign( {}, paymentMethodData );
+	for ( const [ fieldName, enteredValue ] of Object.entries( formEntries ) ) {
+		if ( enteredValue !== undefined && enteredValue !== null && enteredValue !== '' ) {
+			result[ fieldName ] = enteredValue;
+		}
+	}
+	return result;
+}
+
+module.exports = { loadScript, unloadScript, overrideWithFormEntries };

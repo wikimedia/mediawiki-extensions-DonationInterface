@@ -23,6 +23,11 @@ module.exports = exports = defineComponent( {
 		donation: {
 			type: Object,
 			required: true
+		},
+		// The details form above this one, see PaymentMethodForm
+		donorDetails: {
+			type: Object,
+			default: null
 		}
 	},
 	emits: [ 'submit', 'error' ],
@@ -138,6 +143,10 @@ module.exports = exports = defineComponent( {
 			return paymentRequest;
 		},
 		onButtonClicked() {
+			// Before the payment sheet opens, so the donor can fix the form first
+			if ( this.donorDetails && !this.donorDetails.validate() ) {
+				return;
+			}
 			this.getClient()
 				.loadPaymentData( this.getPaymentRequest() )
 				.then( ( paymentData ) => {

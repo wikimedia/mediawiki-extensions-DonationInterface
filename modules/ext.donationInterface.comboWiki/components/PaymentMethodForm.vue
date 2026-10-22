@@ -16,24 +16,38 @@
 			>
 				{{ paymentMethodConfig[method].label }}
 			</cdx-button>
-			<component
-				:is="paymentMethodConfig[paymentMethod].component"
-				v-if="paymentMethodConfig[paymentMethod]"
-				:donation="donation"
-				:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
-				:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
-				@submit="paymentMethodConfig[paymentMethod].submit"
-				@error="paymentMethodConfig[paymentMethod].error"
-				@presubmit="paymentMethodConfig[paymentMethod].presubmit"
-			></component>
+			<template v-if="paymentMethodConfig[paymentMethod]">
+				<!-- The details the selected method asks for, shared by all methods -->
+				<payment-method-form-fields
+					v-if="hasFormFields( paymentMethod )"
+					:key="paymentMethod"
+					ref="donorFields"
+					:donation="donation"
+					:form-fields="paymentMethodConfig[paymentMethod].extraFormFields"
+					:validation-rules="paymentMethodConfig[paymentMethod].validationRules"
+					@update:details="( details ) => $emit( 'onDonorDetailsChange', details )"
+					@update:valid="( valid ) => { donorDetails.valid = valid; }"
+				></payment-method-form-fields>
+				<component
+					:is="paymentMethodConfig[paymentMethod].component"
+					:donation="donation"
+					:payment-method="paymentMethod"
+					:donor-details="hasFormFields( paymentMethod ) ? donorDetails : null"
+					@submit="paymentMethodConfig[paymentMethod].submit"
+					@error="paymentMethodConfig[paymentMethod].error"
+					@presubmit="paymentMethodConfig[paymentMethod].presubmit"
+				></component>
+			</template>
 		</div>
 	</div>
 </template>
 
 <script>
-const { defineComponent, toRaw, computed, onMounted, inject } = require( 'vue' );
+const { defineComponent, toRaw, computed, onMounted, inject, reactive, ref } = require( 'vue' );
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
+const { overrideWithFormEntries } = require( '../utils.js' );
+const PaymentMethodFormFields = require( './PaymentMethodFormFields.vue' );
 const GravyCardForm = require( './GravyCardForm.vue' );
 const GravyRedirectComponent = require( './GravyRedirectComponent.vue' );
 const ApplePayComponent = require( './ApplePayComponent.vue' );
@@ -47,6 +61,7 @@ module.exports = exports = defineComponent( {
 	name: 'PaymentMethodSelector',
 	components: {
 		'cdx-button': CdxButton,
+		'payment-method-form-fields': PaymentMethodFormFields,
 		'card-form': GravyCardForm,
 		'paypal-form': GravyRedirectComponent,
 		'venmo-form': GravyRedirectComponent,
@@ -66,7 +81,7 @@ module.exports = exports = defineComponent( {
 			default: false
 		}
 	},
-	emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange' ],
+	emits: [ 'donationSuccess', 'donationError', 'onPaymentMethodChange', 'onDonorDetailsChange' ],
 
 	setup( props, ctx ) {
 		const appState = useAppState();
@@ -92,6 +107,23 @@ module.exports = exports = defineComponent( {
 			return ( mapping && rulesForMethod[ mapping.submethod || mapping.method ] ) || {};
 		};
 
+		// The selected method's details form, rendered once above the method's component
+		const donorFields = ref();
+		/**
+		 * What the selected method's component knows of the details form, passed as its
+		 * donorDetails prop. A method without form fields gets null instead.
+		 *
+		 * @property {boolean} valid Whether the details are valid, kept up to date by the form
+		 * @property {Function} validate Shows the errors and returns whether the details are valid;
+		 *  called by the component before it submits or opens a payment sheet
+		 * @property {Function} getValues The details keyed by server field name
+		 */
+		const donorDetails = reactive( {
+			valid: true,
+			validate: () => !donorFields.value || donorFields.value.validate(),
+			getValues: () => ( donorFields.value ? donorFields.value.getValues() : {} )
+		} );
+
 		/**
 		 * Submits the donation via the API and emits donationSuccess/donationError with the result.
 		 *
@@ -100,6 +132,8 @@ module.exports = exports = defineComponent( {
 		 * @param {Function} [errorCallback] Called with the failure details on error.
 		 */
 		const submitDonation = ( payload = {}, successCallback = null, errorCallback = null ) => {
+			// What the donor entered in the details form wins over e.g. a wallet's address
+			payload = overrideWithFormEntries( payload, donorDetails.getValues() );
 			appState.setLoading( true );
 			api.submitDonation( toRaw( props.donation ), payload )
 				.then( ( result ) => {
@@ -223,21 +257,24 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: getAdyenCheckoutSession,
-				extraFormFields: getFormFieldsFor( 'adyen_card' )
+				extraFormFields: getFormFieldsFor( 'adyen_card' ),
+				validationRules: getValidationRulesFor( 'adyen_card' )
 			},
 			paypal: {
 				label: mw.message( 'combowiki-method-paypal' ).text(),
 				component: 'paypal-form',
 				error: onError,
 				submit: submitDonation,
-				extraFormFields: getFormFieldsFor( 'paypal' )
+				extraFormFields: getFormFieldsFor( 'paypal' ),
+				validationRules: getValidationRulesFor( 'paypal' )
 			},
 			venmo: {
 				label: mw.message( 'combowiki-method-venmo' ).text(),
 				component: 'venmo-form',
 				error: onError,
 				submit: submitDonation,
-				extraFormFields: getFormFieldsFor( 'venmo' )
+				extraFormFields: getFormFieldsFor( 'venmo' ),
+				validationRules: getValidationRulesFor( 'venmo' )
 			},
 			applepay: {
 				label: mw.message( 'combowiki-method-applepay' ).text(),
@@ -245,7 +282,8 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: validateApplePay,
-				extraFormFields: getFormFieldsFor( 'applepay' )
+				extraFormFields: getFormFieldsFor( 'applepay' ),
+				validationRules: getValidationRulesFor( 'applepay' )
 			},
 			ach: {
 				label: mw.message( 'combowiki-method-ach' ).text(),
@@ -253,21 +291,24 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				supportsOneTime: false,
-				extraFormFields: getFormFieldsFor( 'ach' )
+				extraFormFields: getFormFieldsFor( 'ach' ),
+				validationRules: getValidationRulesFor( 'ach' )
 			},
 			googlepay: {
 				label: mw.message( 'combowiki-method-googlepay' ).text(),
 				component: 'googlepay-form',
 				submit: submitDonation,
 				error: onError,
-				extraFormFields: getFormFieldsFor( 'googlepay' )
+				extraFormFields: getFormFieldsFor( 'googlepay' ),
+				validationRules: getValidationRulesFor( 'googlepay' )
 			},
 			sepadirectdebit: {
 				label: mw.message( 'combowiki-method-sepa' ).text(),
 				component: 'sepa-form',
 				submit: submitDonation,
 				error: onError,
-				extraFormFields: getFormFieldsFor( 'sepadirectdebit' )
+				extraFormFields: getFormFieldsFor( 'sepadirectdebit' ),
+				validationRules: getValidationRulesFor( 'sepadirectdebit' )
 			}
 		};
 
@@ -314,6 +355,15 @@ module.exports = exports = defineComponent( {
 			return methods;
 		} );
 
+		/**
+		 * @param {string} method Payment method key
+		 * @return {boolean} Whether the method has form fields for the donor to fill in
+		 */
+		const hasFormFields = ( method ) => {
+			const config = paymentMethodConfig[ method ];
+			return !!config && Object.keys( config.extraFormFields ).length > 0;
+		};
+
 		// Warm applePayHelper during idle time before the donor may click Apple Pay.
 		onMounted( () => {
 			if ( availablePaymentMethods.value.includes( 'applepay' ) ) {
@@ -335,7 +385,10 @@ module.exports = exports = defineComponent( {
 			},
 			availablePaymentMethods,
 			paymentMethod: props.donation.paymentMethod || '',
-			paymentMethodConfig
+			paymentMethodConfig,
+			donorFields,
+			donorDetails,
+			hasFormFields
 		};
 	}
 } );

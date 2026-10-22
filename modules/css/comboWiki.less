@@ -42,18 +42,6 @@
 	height: 30px;
 }
 
-.combo-wiki__sepa-fields-full-name {
-	padding-top: 16px;
-	display: flex;
-	justify-content: space-evenly;
-	gap: @size-2;
-}
-
-.combo-wiki__sepa-fields-full-name .cdx-field {
-	margin-top: 0;
-	flex: 1;
-}
-
 .combo-wiki__link-container {
 	display: flex;
 	flex-direction: column;
@@ -161,7 +149,12 @@
 		font-size: inherit;
 		line-height: 1.375;
 	}
+}
 
+// The details form PaymentMethodForm shows above the selected method's own part,
+// laid out like the card fields that follow it
+.combo-wiki__card,
+.combo-wiki__donor-details {
 	label {
 		display: block;
 		margin: 0.75em 0 0.25em;
@@ -170,6 +163,10 @@
 	.cdx-field {
 		margin: 0;
 	}
+}
+
+.combo-wiki__donor-details + .payment-method-form {
+	margin-top: 0;
 }
 
 .combo-wiki__card--loading {

@@ -92,6 +92,7 @@
 					@on-payment-method-change="( method ) => {
 						donation.paymentMethod = method
 					}"
+					@on-donor-details-change="updateDonorDetails"
 				></payment-method-form>
 
 				<tax-message :country-code="donation.country"></tax-message>
@@ -148,7 +149,7 @@ const LoadingSpinner = require( '../components/LoadingSpinner.vue' );
 const RecurringConvert = require( '../components/RecurringConvert.vue' );
 const { useAppState } = require( '../composables/useAppState.js' );
 const { getAmountHeading } = require( '../frequencyOptions.js' );
-const { paymentMethodMap } = require( '../api.js' );
+const { paymentMethodMap, donateParamMap } = require( '../api.js' );
 
 const BASE_USD_PRESETS = [ 2.75, 5, 10, 20, 30, 50, 100 ];
 
@@ -406,6 +407,16 @@ module.exports = exports = defineComponent( {
 		setOtherAmount( value ) {
 			this.otherAmount = value;
 			this.donation.amount = value;
+		},
+		/**
+		 * Copies what the donor typed in the details form into the donation.
+		 *
+		 * @param {Object} details Keyed by server field name, e.g. state_province
+		 */
+		updateDonorDetails( details ) {
+			for ( const [ fieldName, value ] of Object.entries( details ) ) {
+				this.donation[ donateParamMap[ fieldName ] ] = value;
+			}
 		},
 		redirectTargetUrl( targetUrl ) {
 			window.location.assign(

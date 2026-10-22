@@ -54,6 +54,11 @@ module.exports = exports = defineComponent( {
 		donation: {
 			type: Object,
 			required: true
+		},
+		// The details form above this one, see PaymentMethodForm
+		donorDetails: {
+			type: Object,
+			default: null
 		}
 	},
 	emits: [ 'presubmit', 'submit', 'error' ],
@@ -128,6 +133,10 @@ module.exports = exports = defineComponent( {
 
 			// Prevent double-tap / double session
 			if ( appleSession || button.disabled ) {
+				return;
+			}
+			// Before the payment sheet opens, so the donor can fix the form first
+			if ( props.donorDetails && !props.donorDetails.validate() ) {
 				return;
 			}
 

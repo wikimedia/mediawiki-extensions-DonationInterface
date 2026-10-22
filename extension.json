@@ -587,7 +587,8 @@
 				"modules/ext.donationInterface.comboWiki/components/LoadingSpinner.vue",
 				"modules/ext.donationInterface.comboWiki/components/RecurringConvert.vue",
 				"modules/ext.donationInterface.comboWiki/components/OptIn.vue",
-				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue"
+				"modules/ext.donationInterface.comboWiki/components/SEPAComponent.vue",
+				"modules/ext.donationInterface.comboWiki/components/PaymentMethodFormFields.vue"
 			],
 			"messages": [
 				"combowiki-title",
