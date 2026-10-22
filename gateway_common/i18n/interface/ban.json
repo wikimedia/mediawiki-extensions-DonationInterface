@@ -204,7 +204,6 @@
 	"donate_interface-email-unsub-delay": "Ngiring icenin galah ngantos petang (4) rahina mangda pauwahan punika prasida mamargi. Titiang nunas sinampura yéning rerepél sané katampi salami puniki. Yening wénten pitaken, durusang hubungi $1",
 	"donate_interface-email-unsub-fail": "Wénten kaiwangan rikala mroses pinunas ragané, durus kontak <a href=\"mailto:$1\">$1</a>.",
 	"donate_interface-email-unsub-confirm": "Napiké ragané pastika jagi wusan malangganan <b>$1</b> ?",
-	"donate_interface-email-paypal-donor-no-edit-email-hint": "Punia sané mawali-wali ragané kaprosés ring PayPal, mawinan yéning ragané meled ngentosin alamat rerepél, ragane patut nganyarin alamat rerepél langsung saking akun PayPal. Mangda prasida ngubungin tim hubungan donor ring <a href=\"mailto:$1\">$1</a> yéning wénten pitakén indik nganyarin informasi kontak.",
 	"donate_interface-email-primary-confirm": "Ragané sampun prasida mastikayang alamat rerepél ragané dados $1 .",
 	"donate_interface-email-primary-confirm-error": "Wénten sané iwang ritatkala ngonfirmasi alamat rerepél ragané. Indayang malih salanturnyané.",
 	"donate_interface-email-explain": "Iraga jagi ngirim rerepél kwitansi anggén mastikayang punia ragané.",
