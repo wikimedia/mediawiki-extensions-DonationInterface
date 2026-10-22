@@ -56,7 +56,7 @@ class DonateTest extends DonationInterfaceTestCase {
 				'gravy' => 'GravyAdapter',
 			],
 			// Let ComboWiki use the gateways it supports, so these tests cover gateway choice.
-			// The page builds an adapter for each of them, and some other adapters (e.g. Amazon)
+			// ComboWiki builds an adapter for each of them, and some other adapters (e.g. Amazon)
 			// write the session in their constructor, which would reset it for the others.
 			'DonationInterfaceComboWikiGateways' => [
 				'adyen', 'braintree', 'dlocal', 'gravy',
@@ -183,8 +183,9 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Every gateway on the page gets its client config and edit token, not only the
-	 * gateway of the payment method the page loads with.
+	 * Every enabled gateway gets its client config, edit token and amount rules, not only
+	 * the gateway of the requested payment method. Each payment method says if its
+	 * own gateway supports monthly convert for it.
 	 */
 	public function testClientVariablesIncludeEveryGatewayOnThePage(): void {
 		$this->useAdyenForCardAndBraintreeForPaypal();
@@ -196,13 +197,28 @@ class DonateTest extends DonationInterfaceTestCase {
 		] );
 
 		$this->assertEquals( 'braintree', $vars['comboWiki']['gateway'] );
-		// Card is on Adyen, so the page gets the Adyen config even though it loads with PayPal
+		// Card is on Adyen, so ComboWiki sends the Adyen config even though PayPal is requested
 		$this->assertArrayHasKey( 'adyenConfiguration', $vars );
 		$gatewaysWithToken = array_keys( $vars['wmf_tokens'] );
 		sort( $gatewaysWithToken );
 		$this->assertSame( [ 'adyen', 'braintree' ], $gatewaysWithToken );
-		// The single token the frontend sends for now is the one for the page's gateway
+		// The single token the frontend sends for now is the one for the requested method's gateway
 		$this->assertSame( $vars['wmf_tokens']['braintree'], $vars['wmf_token'] );
+		$gatewaysWithAmountRules = array_keys( $vars['wgDonationInterfaceAmountRulesByGateway'] );
+		sort( $gatewaysWithAmountRules );
+		$this->assertSame( [ 'adyen', 'braintree' ], $gatewaysWithAmountRules );
+		// Adyen supports monthly convert for card, and Braintree only for PayPal, not Venmo
+		$monthlyConvertForEachMethod = array_column(
+			$vars['comboWiki']['paymentMethods'], 'monthlyConvert', 'method'
+		);
+		$this->assertSame(
+			[ 'cc' => true, 'paypal' => true, 'venmo' => false ],
+			[
+				'cc' => $monthlyConvertForEachMethod['cc'],
+				'paypal' => $monthlyConvertForEachMethod['paypal'],
+				'venmo' => $monthlyConvertForEachMethod['venmo'],
+			]
+		);
 	}
 
 	public function testGravyCardSendsCheckoutSessionIdToPage(): void {
@@ -757,15 +773,15 @@ class DonateTest extends DonationInterfaceTestCase {
 		$storedDetails = $request->getSession()->get( DataIntegrator::$DONATION_DETAILS_SESSION_KEY );
 		$this->assertIsArray( $storedDetails );
 		$this->assertEquals( 'US', $storedDetails['country'] );
-		// No gateway is stored, so the adapters on the page do not reset the session
+		// No gateway is stored, so the adapters for the enabled gateways do not reset the session
 		$this->assertNull( $storedDetails['gateway'] );
 	}
 
 	/**
-	 * ComboWiki can run two gateways on one page (T441890 Plan A). Here card is on Adyen and
-	 * PayPal and Venmo are on Braintree, so the page builds an adapter for each of them.
+	 * ComboWiki can use two gateways at once (T441890 Plan A). Here card is on Adyen and
+	 * PayPal and Venmo are on Braintree, so ComboWiki builds an adapter for each of them.
 	 * Building the second gateway's adapter must not reset the session, which would remove
-	 * the donation details stored by the page. Each gateway's edit token is stored too,
+	 * the donation details stored by ComboWiki. Each gateway's edit token is stored too,
 	 * as its donate API checks it.
 	 */
 	public function testSessionKeepsDonationDetailsAndTokensWithTwoGatewaysOnThePage(): void {
@@ -1395,8 +1411,8 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
-	 * Mock the Gravy provider for every payment method other than card. The page builds an
-	 * adapter for each gateway on it, and in tests every SmashPig lookup uses this one provider
+	 * Mock the Gravy provider for every payment method other than card. ComboWiki builds an
+	 * adapter for each enabled gateway, and in tests every SmashPig lookup uses this one provider
 	 * config, whichever gateway asks. Without these mocks the adapters for other methods call
 	 * the real Gravy API.
 	 *
@@ -1429,7 +1445,7 @@ class DonateTest extends DonationInterfaceTestCase {
 				],
 			],
 		] );
-		// The Adyen adapter can be given any of its methods on the page, so mock each one
+		// The Adyen adapter can be given any of its methods on ComboWiki, so mock each one
 		$adyenProviderConfig = $this->setSmashPigProvider( 'adyen' );
 		foreach ( [ 'cc', 'google', 'apple', 'dd', 'ach', 'bt', 'ew', 'rtbt' ] as $paymentMethod ) {
 			$adyenProvider = $this->createMock( AdyenPaymentProvider::class );
