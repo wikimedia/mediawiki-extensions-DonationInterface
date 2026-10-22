@@ -21,26 +21,7 @@
 /* global ApplePaySession ApplePayError */
 
 const { defineComponent, onBeforeUnmount, onMounted, ref, inject } = require( 'vue' );
-const { loadScript, unloadScript } = require( '../utils.js' );
-
-let appleScriptPromise = null;
-let getBestApplePayContactName = null;
-
-/**
- * Loads the applePayHelper module, caching the resulting promise.
- *
- * @return {Promise}
- */
-function loadApplePayHelperScript() {
-	if ( !appleScriptPromise ) {
-		appleScriptPromise = mw.loader.using( 'ext.donationInterface.applePayHelper' )
-			.then( ( require ) => {
-				const applePayHelper = require( 'ext.donationInterface.applePayHelper' );
-				getBestApplePayContactName = applePayHelper.getBestApplePayContactName;
-			} );
-	}
-	return appleScriptPromise;
-}
+const { isApplePayAvailable } = require( '../walletAvailability.js' );
 
 module.exports = exports = defineComponent( {
 	name: 'GravyApplePay',
@@ -66,21 +47,21 @@ module.exports = exports = defineComponent( {
 		const params = inject( 'params' );
 		let appleSession = null;
 		let extraData = {};
-		let appleScriptSrc = null;
 
 		const applePayButtonElementRef = ref();
 		const showApplePayButtonFlag = ref( false );
 		const applePayPaySessionVersionNumber = 3; // https://developer.apple.com/documentation/apple_pay_on_the_web/apple_pay_on_the_web_version_history
 
 		onMounted( () => {
-			// Real eligibility can only be known once Apple's SDK has run - Gravy
-			// supports Apple Pay beyond native Safari, so window.ApplePaySession
-			// isn't trustworthy until after this resolves.
-			const config = params.gravyConfiguration;
-			loadApplePayHelperScript()
-				.then( () => loadScript( config.appleScript ) )
-				.then( () => setupApplePayForm() )
-				.catch( ( e ) => mw.log.error( 'combowiki applepay load failed', e ) );
+			// PaymentMethodForm only shows Apple Pay once this check passed. If it fails
+			// now, tell the donor rather than leaving them with a selected method and no button.
+			isApplePayAvailable( params.gravyConfiguration ).then( ( available ) => {
+				if ( available ) {
+					showApplePayButtonFlag.value = true;
+				} else {
+					emitUnavailable();
+				}
+			} );
 		} );
 
 		onBeforeUnmount( () => {
@@ -98,12 +79,6 @@ module.exports = exports = defineComponent( {
 			}
 			extraData = {};
 			showApplePayButtonFlag.value = false;
-
-			// Remove the Apple Pay script this component injected into the page
-			if ( appleScriptSrc ) {
-				unloadScript( appleScriptSrc );
-				appleScriptSrc = null;
-			}
 		} );
 
 		function clearApplePaySessionAndEnableButton() {
@@ -112,20 +87,15 @@ module.exports = exports = defineComponent( {
 				applePayButtonElementRef.value.disabled = false;
 			}
 		}
-		function setupApplePayForm() {
-			// Check apple pay availability before showing button
-			if ( window.ApplePaySession ) {
-				showApplePayButtonFlag.value = true;
-			} else {
-				// TODO: consider sending this log to the server?
-				ctx.emit( 'error', {
-					type: 'validation',
-					messages: [ mw.message(
-						'donate_interface-error-msg-apple_pay_unsupported',
-						params.DonationInterfaceOtherWaysURL
-					) ]
-				} );
-			}
+		function emitUnavailable() {
+			// TODO: consider sending this log to the server?
+			ctx.emit( 'error', {
+				type: 'validation',
+				messages: [ mw.message(
+					'donate_interface-error-msg-apple_pay_unsupported',
+					params.DonationInterfaceOtherWaysURL
+				).plain() ]
+			} );
 		}
 		function handleApplePaySubmitClick( e ) {
 			e.preventDefault();
@@ -200,6 +170,9 @@ module.exports = exports = defineComponent( {
 				if ( !paymentSubmethod ) {
 					paymentSubmethod = '';
 				}
+				// Required here rather than at the top so the jest tests don't need to resolve
+				// the ResourceLoader module, which is a dependency of ext.donationInterface.comboWiki
+				const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
 				extraData = getBestApplePayContactName( extraData, bContact, sContact );
 				extraData.postal_code = bContact.postalCode;
 				extraData.state_province = bContact.administrativeArea;
@@ -255,10 +228,7 @@ module.exports = exports = defineComponent( {
 			showApplePayButtonFlag,
 			handleApplePaySubmitClick
 		};
-	},
-
-	computed: {}
+	}
 } );
 
-module.exports.preloadApplePayHelperScript = loadApplePayHelperScript;
 </script>

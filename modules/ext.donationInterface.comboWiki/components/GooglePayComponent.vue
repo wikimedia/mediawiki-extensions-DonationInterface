@@ -7,14 +7,9 @@
 </template>
 
 <script>
-/* global google */
 const { defineComponent, toRaw, ref } = require( 'vue' );
-const { loadScript } = require( '../utils.js' );
+const { getGooglePaymentsClient, isGooglePayAvailable } = require( '../walletAvailability.js' );
 
-// Kept at module level so the client and readiness check survive the
-// component being closed and reopened; only the button is redrawn.
-let googlePaymentClient = null;
-let googlePayReady = null;
 module.exports = exports = defineComponent( {
 	name: 'GravyGoogleForm',
 	components: {},
@@ -39,60 +34,48 @@ module.exports = exports = defineComponent( {
 	},
 	methods: {
 		getClient() {
-			if ( !googlePaymentClient ) {
-				googlePaymentClient = new google.payments.api.PaymentsClient( { environment: this.gravyConfig.googleEnvironment } );
-			}
-			return googlePaymentClient;
-		},
-		getGoogleBaseRequest() {
-			return {
-				apiVersion: 2,
-				apiVersionMinor: 0
-			};
-		},
-		getGoogleBaseCardPaymentMethod() {
-			// Google posts this to its iframe, so it must not contain Vue proxies
-			const allowedCardNetworks = toRaw( this.gravyConfig ).googleAllowedNetworks;
-			const allowedCardAuthMethods = [ 'PAN_ONLY', 'CRYPTOGRAM_3DS' ];
-			return {
-				type: 'CARD',
-				parameters: {
-					allowedCardNetworks: allowedCardNetworks,
-					allowedAuthMethods: allowedCardAuthMethods,
-					billingAddressRequired: true,
-					billingAddressParameters: {
-						format: 'FULL'
-					}
-				}
-			};
+			// Google posts the requests to its iframe, so they must not contain Vue proxies
+			return getGooglePaymentsClient( toRaw( this.gravyConfig ) );
 		},
 		async displayGooglePayButton() {
-			const googlePayClient = this.getClient();
-			try {
-				if ( googlePayReady === null ) {
-					const request = this.getGoogleBaseRequest();
-					request.allowedPaymentMethods = [ this.getGoogleBaseCardPaymentMethod() ];
-					const response = await googlePayClient.isReadyToPay( request );
-					googlePayReady = !!( response && response.result );
-				}
-				if ( googlePayReady ) {
-					const button = googlePayClient.createButton( {
-						onClick: mw.util.debounce( () => {
-							this.onButtonClicked();
-						}, 100 ),
-						allowedPaymentMethods: [ 'CARD', 'TOKENIZED_CARD' ],
-						buttonType: 'donate'
-					} );
-					document.getElementById( 'googlepay-container' ).appendChild( button );
-				}
-			} catch ( err ) {
-				this.$emit( 'error', [
-					mw.message(
-						`Google Pay failure: ${ err }`,
-						mw.config.get( 'DonationInterfaceOtherWaysURL' )
-					).plain()
-				] );
+			// PaymentMethodForm only shows Google Pay once this check passed, so this is
+			// normally answered from cache. If it fails now, tell the donor rather than
+			// leaving them with a selected method and no button.
+			if ( !await isGooglePayAvailable( toRaw( this.gravyConfig ) ) ) {
+				this.emitUnavailable();
+				return;
 			}
+			// The donor may have switched to another method while the check ran, so
+			// there is nowhere to draw the button. Not a reason to stop offering Google Pay.
+			const container = document.getElementById( 'googlepay-container' );
+			if ( !container ) {
+				return;
+			}
+			try {
+				const button = this.getClient().createButton( {
+					onClick: mw.util.debounce( () => {
+						this.onButtonClicked();
+					}, 100 ),
+					allowedPaymentMethods: [ 'CARD', 'TOKENIZED_CARD' ],
+					buttonType: 'donate'
+				} );
+				container.appendChild( button );
+			} catch ( err ) {
+				mw.log.error( 'combowiki googlepay button failed', err );
+				this.emitUnavailable();
+			}
+		},
+		/**
+		 * Tells the donor this browser can't pay with Google Pay.
+		 */
+		emitUnavailable() {
+			this.$emit( 'error', {
+				type: 'validation',
+				messages: [ mw.message(
+					'donate_interface-error-msg-google_pay_unsupported',
+					this.params.DonationInterfaceOtherWaysURL
+				).plain() ]
+			} );
 		},
 		handleFailedPaymentResult( err ) {
 			this.$emit( 'error', [
@@ -179,8 +162,7 @@ module.exports = exports = defineComponent( {
 		this.gravyConfig = this.params.gravyConfiguration;
 	},
 	mounted() {
-		// loadScript resolves immediately if pay.js is already on the page
-		loadScript( this.gravyConfig.googleScript ).then( () => this.displayGooglePayButton() );
+		this.displayGooglePayButton();
 	}
 } );
 </script>

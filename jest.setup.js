@@ -16,7 +16,8 @@ function $i18nMock( key, ...args ) {
 	}
 	return {
 		text: () => serializeArgs(),
-		parse: () => serializeArgs()
+		parse: () => serializeArgs(),
+		plain: () => serializeArgs()
 	};
 }
 // Mock Vue plugins in test suites.

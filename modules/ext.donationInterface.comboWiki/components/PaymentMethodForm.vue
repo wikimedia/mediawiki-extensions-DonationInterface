@@ -47,6 +47,7 @@ const { defineComponent, toRaw, computed, onMounted, inject, reactive, ref } = r
 const { CdxButton } = require( '@wikimedia/codex' );
 const api = require( '../api.js' );
 const { overrideWithFormEntries } = require( '../utils.js' );
+const { isApplePayAvailable, isGooglePayAvailable } = require( '../walletAvailability.js' );
 const PaymentMethodFormFields = require( './PaymentMethodFormFields.vue' );
 const GravyCardForm = require( './GravyCardForm.vue' );
 const GravyRedirectComponent = require( './GravyRedirectComponent.vue' );
@@ -238,6 +239,8 @@ module.exports = exports = defineComponent( {
 		 * @property {Function} submit Called to submit the donation once the payment method's form is complete.
 		 * @property {Function} [error] Called when the payment method reports an error.
 		 * @property {Function} [presubmit] Called before submit to prepare the payment method (e.g. create a session or validate).
+		 * @property {Function} [isAvailable] Resolves to whether the donor's browser can use the method
+		 *  (e.g. a wallet); the method is only shown once it resolves to true. Without it, always available.
 		 * @property {Object} [extraFormFields] Extra form fields to include in the payment method form, already filtered by country.
 		 */
 		const paymentMethodConfig = {
@@ -282,6 +285,7 @@ module.exports = exports = defineComponent( {
 				submit: submitDonation,
 				error: onError,
 				presubmit: validateApplePay,
+				isAvailable: () => isApplePayAvailable( params.gravyConfiguration ),
 				extraFormFields: getFormFieldsFor( 'applepay' ),
 				validationRules: getValidationRulesFor( 'applepay' )
 			},
@@ -299,6 +303,7 @@ module.exports = exports = defineComponent( {
 				component: 'googlepay-form',
 				submit: submitDonation,
 				error: onError,
+				isAvailable: () => isGooglePayAvailable( params.gravyConfiguration ),
 				extraFormFields: getFormFieldsFor( 'googlepay' ),
 				validationRules: getValidationRulesFor( 'googlepay' )
 			},
@@ -327,6 +332,25 @@ module.exports = exports = defineComponent( {
 		}
 
 		/**
+		 * @param {string} method Payment method key
+		 * @param {Object} config The method's paymentMethodConfig entry
+		 * @return {boolean} Whether the server offers the method on the selected gateway for this country
+		 */
+		const isOfferedByServer = ( method, config ) => {
+			// Only the selected gateway's client config is loaded (one adapter per request).
+			if ( ( config.gateway || 'gravy' ) !== params.gateway ) {
+				return false;
+			}
+			// The server must offer this method (and submethod, if the option is one).
+			const mapping = api.paymentMethodMap[ method ];
+			return !!mapping && gatewayByMethod[ methodKey( mapping.method, mapping.submethod ) ] === params.gateway;
+		};
+
+		// Answers from the isAvailable checks, keyed by payment method: true once the
+		// browser can use the method, false if it can't
+		const availability = reactive( {} );
+
+		/**
 		 * Returns the payment methods offered for the current donation.
 		 * Using computed for the caching property to ensure the list is only regenerated when
 		 * the donation frequency is changed.
@@ -340,14 +364,11 @@ module.exports = exports = defineComponent( {
 				if ( isOneTime && config.supportsOneTime === false ) {
 					continue;
 				}
-				// Only the selected gateway's client config is loaded (one adapter per request).
-				if ( ( config.gateway || 'gravy' ) !== params.gateway ) {
+				if ( !isOfferedByServer( method, config ) ) {
 					continue;
 				}
-				// The server must offer this method (and submethod, if the option is one)
-				// on the selected gateway for this country.
-				const mapping = api.paymentMethodMap[ method ];
-				if ( !mapping || gatewayByMethod[ methodKey( mapping.method, mapping.submethod ) ] !== params.gateway ) {
+				// Not shown until its check says the browser can use it, nor after it says it can't
+				if ( config.isAvailable && availability[ method ] !== true ) {
 					continue;
 				}
 				methods.push( method );
@@ -364,27 +385,54 @@ module.exports = exports = defineComponent( {
 			return !!config && Object.keys( config.extraFormFields ).length > 0;
 		};
 
-		// Warm applePayHelper during idle time before the donor may click Apple Pay.
+		// A ref, so the form updates when the selection changes here (e.g. in markUnavailable)
+		const selectedPaymentMethod = ref( props.donation.paymentMethod || '' );
+
+		/**
+		 * Sets the active payment method and notifies the parent via onPaymentMethodChange.
+		 *
+		 * @param {string} method The selected payment method key.
+		 */
+		const selectPaymentMethod = ( method ) => {
+			selectedPaymentMethod.value = method;
+			ctx.emit( 'onPaymentMethodChange', method );
+		};
+
+		/**
+		 * Never offers a method the donor's browser can't use: no button, no form and
+		 * no error. If the donor had selected it (e.g. from the URL), clears the selection
+		 * so they pick another method. Not card on their behalf: it may be before they
+		 * chose an amount, which the card form needs to create its checkout session.
+		 *
+		 * @param {string} method The payment method key.
+		 */
+		const markUnavailable = ( method ) => {
+			availability[ method ] = false;
+			if ( selectedPaymentMethod.value === method ) {
+				selectPaymentMethod( '' );
+			}
+		};
+
 		onMounted( () => {
-			if ( availablePaymentMethods.value.includes( 'applepay' ) ) {
-				mw.requestIdleCallback( () => {
-					ApplePayComponent.preloadApplePayHelperScript();
-				}, { timeout: 2000 } );
+			// Ask about every offered method with a check, whatever the frequency, so a
+			// wallet is ready to show (or stays hidden) when the donor changes it
+			for ( const [ method, config ] of Object.entries( paymentMethodConfig ) ) {
+				if ( config.isAvailable && isOfferedByServer( method, config ) ) {
+					config.isAvailable().then( ( available ) => {
+						if ( available ) {
+							availability[ method ] = true;
+						} else {
+							markUnavailable( method );
+						}
+					} );
+				}
 			}
 		} );
 
 		return {
-			/**
-			 * Sets the active payment method and notifies the parent via onPaymentMethodChange.
-			 *
-			 * @param {string} method The selected payment method key.
-			 */
-			selectPaymentMethod( method ) {
-				this.paymentMethod = method;
-				ctx.emit( 'onPaymentMethodChange', method );
-			},
+			selectPaymentMethod,
 			availablePaymentMethods,
-			paymentMethod: props.donation.paymentMethod || '',
+			paymentMethod: selectedPaymentMethod,
 			paymentMethodConfig,
 			donorFields,
 			donorDetails,

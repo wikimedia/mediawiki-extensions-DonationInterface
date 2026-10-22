@@ -15,8 +15,11 @@ interface GatewayClientConfig {
 	public function getVars(): array;
 
 	/**
-	 * Adds the links and preloads the gateway needs in the page head,
+	 * Adds the links and preloads the gateway needs in the page <head>,
 	 * e.g. a stylesheet or a dns-prefetch.
+	 *
+	 * Some resources are only needed for certain payment methods, so the
+	 * supportedPaymentMethods parameter is an optional argument.
 	 *
 	 * @param OutputPage $out
 	 * @return void

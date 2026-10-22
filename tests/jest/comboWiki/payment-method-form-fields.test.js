@@ -5,6 +5,11 @@ jest.mock( '../../../modules/ext.donationInterface.comboWiki/api.js', () => Obje
 	jest.requireActual( '../../../modules/ext.donationInterface.comboWiki/api.js' ),
 	{ submitDonation: jest.fn( () => new Promise( () => {} ) ) }
 ) );
+// The browser can use Google Pay, which PaymentMethodForm checks before showing it
+jest.mock( '../../../modules/ext.donationInterface.comboWiki/walletAvailability.js', () => ( {
+	isApplePayAvailable: jest.fn( () => Promise.resolve( true ) ),
+	isGooglePayAvailable: jest.fn( () => Promise.resolve( true ) )
+} ) );
 
 const VueTestUtils = require( '@vue/test-utils' );
 const api = require( '../../../modules/ext.donationInterface.comboWiki/api.js' );

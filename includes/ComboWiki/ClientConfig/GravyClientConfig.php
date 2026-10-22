@@ -10,7 +10,10 @@ use MediaWiki\Output\OutputPage;
  */
 class GravyClientConfig implements GatewayClientConfig {
 
-	public function __construct( private readonly GravyAdapter $adapter ) {
+	public function __construct(
+		private readonly GravyAdapter $adapter,
+		private readonly array $paymentMethods
+	) {
 	}
 
 	/** @inheritDoc */
@@ -22,10 +25,20 @@ class GravyClientConfig implements GatewayClientConfig {
 
 	/** @inheritDoc */
 	public function addResources( OutputPage $out ): void {
-		$applePayHref = $this->adapter->getAccountConfig( 'AppleScript' );
-		$out->addLink( [
-			'rel' => 'dns-prefetch',
-			'href' => 'https://' . parse_url( $applePayHref, PHP_URL_HOST )
-		] );
+		$walletScripts = [
+			'apple' => $this->adapter->getAccountConfig( 'AppleScript' ),
+			'google' => $this->adapter->getAccountConfig( 'GoogleScript' ),
+		];
+		foreach ( array_unique( $this->paymentMethods ) as $paymentMethod ) {
+			$href = $walletScripts[$paymentMethod] ?? null;
+			// Only this gateway's wallets use these scripts, whichever gateway the page defaults to
+			if ( $href ) {
+				$out->addLink( [
+					'rel' => 'preload',
+					'as' => 'script',
+					'href' => $href
+				] );
+			}
+		}
 	}
 }

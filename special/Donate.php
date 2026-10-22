@@ -408,9 +408,6 @@ class Donate extends UnlistedSpecialPage {
 		if ( $this->donationDetails->getValue( 'variant' ) == 'smsOptin' ) {
 			$out->addModules( "ext.donationInterface.combowiki.smsoptin" );
 		}
-		if ( $this->donationDetails->getValue( 'payment_method' ) == 'apple' ) {
-			$out->addModules( "ext.donationInterface.applePayHelper" );
-		}
 	}
 
 	/**
@@ -677,7 +674,9 @@ class Donate extends UnlistedSpecialPage {
 	 */
 	private function getClientConfig( GatewayAdapter $adapter ): ?GatewayClientConfig {
 		return match ( true ) {
-			$adapter instanceof GravyAdapter => new GravyClientConfig( $adapter ),
+			$adapter instanceof GravyAdapter => new GravyClientConfig(
+				$adapter,
+				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ) ),
 			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig( $adapter, $this->routingParams ),
 			default => null,
 		};
