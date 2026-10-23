@@ -481,6 +481,8 @@ class Donate extends UnlistedSpecialPage {
 			'gateway' => $this->selectedGateway,
 			'paymentMethods' => $this->getPaymentMethodsWithMonthlyConvert(),
 			'wmfParams' => [
+				'utm_campaign' => $this->donationDetails->getValue( 'utm_campaign' ),
+				'utm_key' => $this->donationDetails->getValue( 'utm_key' ),
 				'utm_medium' => $this->donationDetails->getValue( 'utm_medium' ),
 			],
 			'monthlyConvertReturn' => $this->isMonthlyConvertReturn,

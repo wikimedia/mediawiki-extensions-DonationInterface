@@ -5,10 +5,12 @@ const api = require( '../../../modules/ext.donationInterface.comboWiki/api.js' )
 describe( 'ComboWiki donate API params, from donateParamMap', () => {
 	const paramsFor = ( donation ) => {
 		const post = jest.spyOn( mw.Api.prototype, 'post' ).mockReturnValue( new Promise( () => {} ) );
-		api.init( { wmf_token: 'token', wgUserLanguage: 'de' } );
+		const now = jest.spyOn( Date, 'now' ).mockReturnValue( 61000 );
+		api.init( { wmf_token: 'token', wgUserLanguage: 'de', pageLoadedAt: 1000 } );
 		api.submitDonation( donation );
 		const params = post.mock.lastCall[ 0 ];
 		post.mockRestore();
+		now.mockRestore();
 		return params;
 	};
 
@@ -66,6 +68,7 @@ describe( 'ComboWiki donate API params, from donateParamMap', () => {
 			variant: null,
 			employer: 'Wikimedia',
 			employer_id: 42,
+			utm_key: 'vw_1024~vh_768~time_60',
 			recurring: 1,
 			frequency_unit: 'month'
 		} );

@@ -11,6 +11,7 @@ const { getVariantComponents } = require( './variantHelper.js' );
 // Cross the mw.config boundary once, here — components below never touch mw.config directly.
 const comboWikiConfig = mw.config.get( 'comboWiki' ) || { params: {} };
 const params = Object.assign( {}, comboWikiConfig.params, {
+	pageLoadedAt: Date.now(),
 	paymentMethods: comboWikiConfig.paymentMethods || [],
 	wmfParams: comboWikiConfig.wmfParams || {},
 	monthlyConvertReturn: comboWikiConfig.monthlyConvertReturn || false,

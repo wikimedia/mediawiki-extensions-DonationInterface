@@ -75,6 +75,18 @@ function getFrequencyUnit( frequency ) {
 }
 
 /**
+ * @return {string} The utm_key from the URL if it exists, otherwise calculate
+ */
+function getUtmKey() {
+	const urlUtmKey = ( apiConfig.wmfParams || {} ).utm_key;
+	if ( urlUtmKey ) {
+		return urlUtmKey;
+	}
+	const secondsOnPage = Math.round( ( Date.now() - apiConfig.pageLoadedAt ) / 1000 );
+	return 'vw_' + window.innerWidth + '~vh_' + window.innerHeight + '~time_' + secondsOnPage;
+}
+
+/**
  * @param {string} frequency ComboWiki frequency, e.g. monthly
  * @return {number|undefined} 1 for a recurring frequency
  */
@@ -149,6 +161,7 @@ function getBaseDonateParams( donation ) {
 		variant: donation.variant,
 		employer: getEmployer( donation.employer ),
 		employer_id: getEmployerId( donation.employerId ),
+		utm_key: getUtmKey(),
 		recurring: getRecurring( donation.frequency ),
 		frequency_unit: getFrequencyUnit( donation.frequency )
 	};

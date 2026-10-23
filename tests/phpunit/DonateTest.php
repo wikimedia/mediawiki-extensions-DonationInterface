@@ -1256,10 +1256,10 @@ class DonateTest extends DonationInterfaceTestCase {
 	public static function provideEndowmentCases(): array {
 		return [
 			// DonationDetails::getValue() returns '' for a missing value, never null.
-			'no medium' => [ [], '', false ],
+			'no medium' => [ [], 'spontaneous', false ],
 			'endowment link' => [ [ 'wmf_medium' => 'endowment' ], 'endowment', true ],
 			'other medium' => [ [ 'wmf_medium' => 'email' ], 'email', false ],
-			'utm_medium in the URL is ignored' => [ [ 'utm_medium' => 'endowment' ], '', false ],
+			'utm_medium in the URL is ignored' => [ [ 'utm_medium' => 'endowment' ], 'spontaneous', false ],
 		];
 	}
 
