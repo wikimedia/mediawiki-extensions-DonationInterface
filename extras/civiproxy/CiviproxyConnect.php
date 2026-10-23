@@ -340,11 +340,15 @@ class CiviproxyConnect {
 	 * @return array|null
 	 */
 	private static function checkForErrorInResponse( array $response ): ?array {
-		if ( isset( $response['error_code'] ) ) {
+		// mwRequest errors use 'error_code'; CiviCRM API errors use 'is_error'.
+		// A 500 from CiviProxy may return a valid JSON body in CiviCRM format
+		// (is_error: 1, no error_code), which was previously undetected, causing
+		// a fatal when callers tried to access $response['values'].
+		if ( isset( $response['error_code'] ) || !empty( $response['is_error'] ) ) {
 			return [
 				'is_error' => true,
-				'error_code' => $response['error_code'],
-				'error_message' => $response['error_message'],
+				'error_code' => $response['error_code'] ?? 'ServerError',
+				'error_message' => $response['error_message'] ?? '',
 			];
 		}
 		return null;
