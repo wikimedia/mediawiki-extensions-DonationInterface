@@ -111,12 +111,11 @@ const donateParamMap = {
  *  none was given) is undefined, and mw.Api drops undefined params, so the server never sees it.
  */
 function getBaseDonateParams( donation ) {
-	return {
+	const params = {
 		action: 'di_donate_' + ( donation.gateway || 'gravy' ),
 		gateway: donation.gateway || 'gravy',
 		result_page: 'combowiki',
 		wmf_token: apiConfig.wmf_token,
-		email: donation.email,
 		amount: donation.amount,
 		currency: donation.currency,
 		country: donation.country,
@@ -126,20 +125,18 @@ function getBaseDonateParams( donation ) {
 		opt_in: donation.optIn,
 		sms_opt_in: donation.smsOptin ? 1 : 0,
 		uselang: apiConfig.wgUserLanguage,
-		first_name: donation.firstName,
-		last_name: donation.lastName,
 		variant: donation.variant,
-		street_address: donation.streetAddress,
-		city: donation.city,
-		postal_code: donation.postalCode,
-		state_province: donation.stateProvince,
-		street_number: donation.streetNumber,
-		fiscal_number: donation.fiscalNumber,
 		employer: getEmployer( donation.employer ),
 		employer_id: getEmployerId( donation.employerId ),
 		recurring: getRecurring( donation.frequency ),
 		frequency_unit: getFrequencyUnit( donation.frequency )
 	};
+	for ( const [ apiName, propertyName ] of Object.entries( donateParamMap ) ) {
+		if ( donation[ propertyName ] ) {
+			params[ apiName ] = donation[ propertyName ];
+		}
+	}
+	return params;
 }
 
 function buildDonateParams( donation, paymentMethodData ) {
