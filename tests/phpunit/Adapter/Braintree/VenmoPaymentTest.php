@@ -50,10 +50,10 @@ class VenmoPaymentTest extends BaseBraintreeTestCase {
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
 
-		$donorDetailsResponse = new DonorDetails();
-		$donorDetailsResponse->setFirstName( "John" );
-		$donorDetailsResponse->setLastName( "Doe" );
-		$donorDetailsResponse->setEmail( "nobody@wikimedia.org" );
+		$donorDetailsResponse = ( new DonorDetails() )
+			->setFirstName( 'John' )
+			->setLastName( 'Doe' )
+			->setEmail( 'nobody@example.org' );
 
 		$createPaymentResponse = ( new CreatePaymentResponse() )
 			->setRawStatus( 'SETTLING' )
@@ -66,7 +66,6 @@ class VenmoPaymentTest extends BaseBraintreeTestCase {
 		$this->venmoPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( [
-				'email' => 'nobody@wikimedia.org',
 				'amount' => '1.00',
 				'country' => 'US',
 				'currency' => 'USD',
@@ -117,7 +116,7 @@ class VenmoPaymentTest extends BaseBraintreeTestCase {
 			'language' => 'en',
 			'country' => 'US',
 			'currency' => 'USD',
-			'email' => 'nobody@wikimedia.org',
+			'email' => 'nobody@example.org',
 			'gross' => '1.00',
 			'user_ip' => '127.0.0.1',
 		];

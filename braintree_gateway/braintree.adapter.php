@@ -54,7 +54,10 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 				'user_name' => $donorDetails->getUserName(),
 				'email' => $donorDetails->getEmail() ?? $this->dataObj->getVal( 'email' ),
 				'phone' => $donorDetails->getPhone(), // we don't usually collect this
-				'processor_contact_id' => $donorDetails->getCustomerId() // we need this for delete customer if one-time donor
+				'processor_contact_id' => $donorDetails->getCustomerId(), // we need this for delete customer if one-time donor
+				'backend_processor' => $createPaymentResult->getBackendProcessor(),
+				// The following will be unset for PayPal till capture but we might get it for Venmo at auth
+				'backend_processor_txn_id' => $createPaymentResult->getBackendProcessorTransactionId()
 			] );
 		}
 
@@ -81,6 +84,11 @@ class BraintreeAdapter extends GatewayAdapter implements RecurringConversion {
 					$this->setCurrentTransaction( TransactionType::CAPTURE );
 					$capturePaymentParams = $this->buildRequestArray();
 					$capturePaymentResponse = $provider->approvePayment( $capturePaymentParams );
+					if ( $capturePaymentResponse->getBackendProcessorTransactionId() ) {
+						$this->addResponseData( [
+							'backend_processor_txn_id' => $capturePaymentResponse->getBackendProcessorTransactionId()
+						] );
+					}
 					$this->finalizeInternalStatus( $capturePaymentResponse->getStatus() );
 				}
 

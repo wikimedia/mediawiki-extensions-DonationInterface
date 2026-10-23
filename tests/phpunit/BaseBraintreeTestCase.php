@@ -33,6 +33,7 @@ class BaseBraintreeTestCase extends DonationInterfaceTestCase {
 		unset( $init['postal_code'] );
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
+		unset( $init['email'] );
 		return $init;
 	}
 }

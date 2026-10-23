@@ -4,6 +4,7 @@ use SmashPig\Core\ValidationError;
 use SmashPig\PaymentData\DonorDetails;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Braintree\PaypalPaymentProvider;
+use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
 use SmashPig\PaymentProviders\Responses\CreatePaymentResponse;
 
 /**
@@ -49,22 +50,22 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
 
-		$donorDetailsResponse = new DonorDetails();
-		$donorDetailsResponse->setFirstName( "John" );
-		$donorDetailsResponse->setLastName( "Doe" );
+		$donorDetailsResponse = ( new DonorDetails() )
+			->setFirstName( 'John' )
+			->setLastName( 'Doe' )
+			->setEmail( 'nobody@example.org' );
 
 		$createPaymentResponse = ( new CreatePaymentResponse() )
 			->setRawStatus( 'SETTLING' )
 			->setStatus( FinalStatus::COMPLETE )
 			->setSuccessful( true )
-			->setGatewayTxnId( $expectedGatewayId );
-
-		$createPaymentResponse->setDonorDetails( $donorDetailsResponse );
+			->setGatewayTxnId( $expectedGatewayId )
+			->setDonorDetails( $donorDetailsResponse )
+			->setBackendProcessor( 'paypal' );
 
 		$this->paypalPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( [
-				'email' => 'nobody@wikimedia.org',
 				'amount' => '130',
 				'country' => 'US',
 				'currency' => 'TWD',
@@ -88,22 +89,21 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$expectedMerchantRef = $init['contribution_tracking_id'] . '.1';
 		$expectedGatewayId = (string)mt_rand( 1000000, 10000000 );
 
-		$donorDetailsResponse = new DonorDetails();
-		$donorDetailsResponse->setFirstName( "John" );
-		$donorDetailsResponse->setLastName( "Doe" );
+		$donorDetailsResponse = ( new DonorDetails() )
+			->setFirstName( 'John' )
+			->setLastName( 'Doe' )
+			->setEmail( 'nobody@example.org' );
 
 		$createPaymentResponse = ( new CreatePaymentResponse() )
-			->setRawStatus( 'SETTLING' )
-			->setStatus( FinalStatus::COMPLETE )
+			->setStatus( FinalStatus::PENDING_POKE )
 			->setSuccessful( true )
-			->setGatewayTxnId( $expectedGatewayId );
-
-		$createPaymentResponse->setDonorDetails( $donorDetailsResponse );
+			->setGatewayTxnId( $expectedGatewayId )
+			->setBackendProcessor( 'paypal' )
+			->setDonorDetails( $donorDetailsResponse );
 
 		$this->paypalPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( [
-				'email' => 'nobody@wikimedia.org',
 				'amount' => '1.55',
 				'country' => 'US',
 				'currency' => 'USD',
@@ -114,17 +114,31 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 			] )
 			->willReturn( $createPaymentResponse );
 
+		$approvePaymentResponse = ( new ApprovePaymentResponse() )
+			->setRawStatus( 'SETTLING' )
+			->setStatus( FinalStatus::COMPLETE )
+			->setSuccessful( true )
+			->setGatewayTxnId( $expectedGatewayId )
+			->setBackendProcessor( 'paypal' )
+			->setBackendProcessorTransactionId( 'ABC123' );
+
+		$this->paypalPaymentProvider->expects( $this->once() )
+			->method( 'approvePayment' )
+			->with( [
+				'gateway_txn_id' => $expectedGatewayId,
+			] )
+			->willReturn( $approvePaymentResponse );
+
 		$result = $gateway->doPayment();
 		$this->assertFalse( $result->isFailed() );
 		$this->assertSame( [], $result->getErrors() );
 
 		$messages = self::getAllQueueMessages();
 
-		$this->assertCount( 1, $messages['payments-antifraud'] );
+		$this->assertCount( 2, $messages['payments-antifraud'] );
 		$this->assertCount( 1, $messages['payments-init'] );
 		$this->assertCount( 1, $messages['donations'] );
-		// No pending message when we immediately capture the donation
-		$this->assertCount( 0, $messages['pending'] );
+		$this->assertCount( 1, $messages['pending'] );
 
 		$expectedPaymentsInitQueueMessage = [
 			'validation_action' => 'process',
@@ -144,6 +158,8 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		);
 
 		$expectedDonationsQueueMessage = [
+			'backend_processor' => 'paypal',
+			'backend_processor_txn_id' => 'ABC123',
 			'gateway_txn_id' => $expectedGatewayId,
 			'order_id' => $expectedMerchantRef,
 			'contribution_tracking_id' => $expectedContributionTrackingId,
@@ -154,7 +170,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 			'language' => 'en',
 			'country' => 'US',
 			'currency' => 'USD',
-			'email' => 'nobody@wikimedia.org',
+			'email' => 'nobody@example.org',
 			'gross' => '1.55',
 			'user_ip' => '127.0.0.1',
 		];
@@ -193,7 +209,6 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$this->paypalPaymentProvider->expects( $this->exactly( 2 ) )
 				->method( 'createPayment' )
 				->with( [
-						'email' => 'nobody@wikimedia.org',
 						'amount' => '1.55',
 						'country' => 'US',
 						'currency' => 'USD',
@@ -279,7 +294,6 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$this->paypalPaymentProvider->expects( $this->exactly( 2 ) )
 				->method( 'createPayment' )
 				->with( [
-						'email' => 'nobody@wikimedia.org',
 						'amount' => '1.55',
 						'country' => 'US',
 						'currency' => 'USD',
@@ -343,7 +357,6 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		$this->paypalPaymentProvider->expects( $this->once() )
 			->method( 'createPayment' )
 			->with( [
-				'email' => 'nobody@wikimedia.org',
 				'amount' => '1.55',
 				'country' => 'US',
 				'currency' => 'USD',
@@ -377,6 +390,7 @@ class PaypalPaymentTest extends BaseBraintreeTestCase {
 		unset( $init['postal_code'] );
 		unset( $init['first_name'] );
 		unset( $init['last_name'] );
+		unset( $init['email'] );
 		return $init;
 	}
 }
