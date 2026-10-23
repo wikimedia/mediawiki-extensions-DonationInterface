@@ -1369,7 +1369,8 @@
 			"merge_strategy": "provide_default"
 		},
 		"DonationInterfaceComboWikiGateways": {
-			"value": []
+			"value": [ "adyen", "braintree", "dlocal" ],
+			"merge_strategy": "provide_default"
 		},
 		"DonationInterfaceEnableReferrerFilter": {
 			"value": false
