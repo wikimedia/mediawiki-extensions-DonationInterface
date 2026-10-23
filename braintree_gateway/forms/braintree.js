@@ -97,10 +97,21 @@
 		);
 	}
 
-	function displayVenmoButton( braintreeClientInstance ) {
+	function displayVenmoButton( venmoInstance ) {
 		const venmoButton = document.getElementById( 'venmo-button' );
 		if ( !venmoButton ) {
 			showClientSideErrorMessage( 'Venmo button element not found' );
+			return;
+		}
+
+		// On iOS, after Venmo app approval the OS may redirect back to the default
+		// browser (e.g. Chrome) instead of the originating browser (e.g. Safari).
+		// The tokenization result is encoded in the URL, so whichever browser loads
+		// this page can detect and process it automatically — no user action needed.
+		if ( venmoInstance.hasTokenizationResult() ) {
+			venmoInstance.tokenize()
+				.then( handleVenmoSuccess )
+				.catch( handleVenmoError );
 			return;
 		}
 
@@ -108,20 +119,16 @@
 		venmoButton.addEventListener( 'click', () => {
 			venmoButton.disabled = true;
 
-			createVenmoInstance( braintreeClientInstance ).then( ( venmoInstance ) => {
-				if ( !venmoInstance.isBrowserSupported() ) {
-					showClientSideErrorMessage( 'Browser does not support Venmo' );
-					return null;
-				}
-
-				return venmoInstance.tokenize();
-			} ).then( ( payload ) => {
-				if ( payload ) {
-					handleVenmoSuccess( payload );
-				}
-			} ).catch( handleVenmoError ).then( () => {
-				venmoButton.removeAttribute( 'disabled' );
-			} );
+			venmoInstance.tokenize()
+				.then( ( payload ) => {
+					if ( payload ) {
+						handleVenmoSuccess( payload );
+					}
+				} )
+				.catch( handleVenmoError )
+				.then( () => {
+					venmoButton.removeAttribute( 'disabled' );
+				} );
 		} );
 	}
 
@@ -194,7 +201,13 @@
 		} else if ( payment_method === 'venmo' ) {
 			createBraintreeClient().then( ( braintreeClientInstance ) => {
 				getDeviceData( braintreeClientInstance );
-				displayVenmoButton( braintreeClientInstance );
+				return createVenmoInstance( braintreeClientInstance );
+			} ).then( ( venmoInstance ) => {
+				if ( !venmoInstance.isBrowserSupported() ) {
+					showClientSideErrorMessage( 'Browser does not support Venmo' );
+					return;
+				}
+				displayVenmoButton( venmoInstance );
 			} ).catch( ( err ) => {
 				showClientSideErrorMessage( 'Error creating Venmo:' + err );
 			} );
