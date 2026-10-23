@@ -1,6 +1,7 @@
-/* global SecureFields google ApplePaySession ApplePayError */
+/* global SecureFields google ApplePaySession */
 ( function ( $, mw ) {
 	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
+	const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 	let secureFieldValid = false,
 		cardNumberFieldValid = false,
 		securityCodeValid = false,
@@ -276,12 +277,30 @@
 			extraData.payment_token = paymentToken;
 			extraData.card_suffix = paymentData.paymentMethodData.info.cardDetails;
 			extraData.card_scheme = paymentData.paymentMethodData.info.cardNetwork;
-			mw.donationInterface.forms.disable();
-			mw.donationInterface.forms.callDonateApi(
-				handleApiResult,
-				extraData,
-				'di_donate_gravy'
-			);
+
+			if ( !hasValidWalletName( extraData.full_name ) || !hasValidWalletEmail( extraData.email ) ) {
+				showWalletFallbackFields(
+					$( '#googlepay-container' ),
+					extraData.email,
+					( firstName, lastName, email ) => {
+						extraData.full_name = firstName + ' ' + lastName;
+						extraData.email = email;
+						mw.donationInterface.forms.disable();
+						mw.donationInterface.forms.callDonateApi(
+							handleApiResult,
+							extraData,
+							'di_donate_gravy'
+						);
+					}
+				);
+			} else {
+				mw.donationInterface.forms.disable();
+				mw.donationInterface.forms.callDonateApi(
+					handleApiResult,
+					extraData,
+					'di_donate_gravy'
+				);
+			}
 		} ).catch( ( err ) => {
 			mw.donationInterface.forms.addDebugMessage( 'Google Pay failure: ' + err );
 			if ( err && err.statusCode === 'CANCELED' ) {
@@ -508,21 +527,33 @@
 			extraData.payment_submethod = paymentSubmethod.toLowerCase();
 			extraData.payment_token = JSON.stringify( event.payment.token );
 
-			const applePayErrors = getApplePayErrors();
-			if ( applePayErrors.length === 0 ) {
+			if ( !hasValidWalletName( extraData.first_name ) ||
+				!hasValidWalletName( extraData.last_name ) ||
+				!hasValidWalletEmail( extraData.email ) ) {
+				// Keep the Apple Pay session open (it shows a spinner) while
+				// the donor fills in the missing information on the page form.
+				// handleApplePayApiResult completes the session once the API call succeeds.
+				showWalletFallbackFields(
+					$( '#applepay-container' ),
+					extraData.email,
+					( firstName, lastName, email ) => {
+						extraData.first_name = firstName;
+						extraData.last_name = lastName;
+						extraData.email = email;
+						mw.donationInterface.forms.disable();
+						mw.donationInterface.forms.callDonateApi(
+							handleApplePayApiResult,
+							extraData,
+							'di_donate_gravy'
+						);
+					}
+				);
+			} else {
 				mw.donationInterface.forms.callDonateApi(
 					handleApplePayApiResult,
 					extraData,
 					'di_donate_gravy'
 				);
-			} else {
-				// First and last name not configured in ApplePay sheet.
-				// Show errors in payment sheet
-				const response = {
-					status: ApplePaySession.STATUS_FAILURE,
-					errors: applePayErrors
-				};
-				appleSession.completePayment( response );
 			}
 		};
 	}
@@ -533,32 +564,6 @@
 			'<apple-pay-button class="button" id="applepay-btn" buttonstyle="black" type="donate" locale="' + language + '"></apple-pay-button>' +
 			'</div>'
 		);
-	}
-
-	function getApplePayErrors() {
-		const applePayErrors = [];
-		if ( !extraData.first_name || !extraData.first_name.trim() ) {
-			applePayErrors.push( new ApplePayError(
-				'billingContactInvalid',
-				'name',
-				mw.msg( 'donate_interface-error-msg-first_name' )
-			) );
-		}
-		if ( !extraData.last_name || !extraData.last_name.trim() ) {
-			applePayErrors.push( new ApplePayError(
-				'billingContactInvalid',
-				'name',
-				mw.msg( 'donate_interface-error-msg-last_name' )
-			) );
-		}
-		if ( !extraData.email || !extraData.email.trim() ) {
-			applePayErrors.push( new ApplePayError(
-				'shippingContactInvalid',
-				'email',
-				mw.msg( 'donate_interface-error-msg-email' )
-			) );
-		}
-		return applePayErrors;
 	}
 
 	function submitPaypal() {

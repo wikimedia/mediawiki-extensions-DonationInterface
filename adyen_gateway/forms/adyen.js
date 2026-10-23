@@ -1,6 +1,7 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
 	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
+	const { hasValidWalletName, hasValidWalletEmail, showWalletFallbackFields } = require( 'ext.donationInterface.walletFallback' );
 	const redirectPaymentMethods = [ 'ideal' ];
 	// Adyen Web's component classes. window.AdyenWeb only exists once the Adyen
 	// script has loaded, so these are set in setAdyenComponents() from setup()
@@ -735,6 +736,20 @@
 				const extraData = authArgs,
 					googlePayResult = handleWalletApiResult( submitArgs.actions );
 				extraData.payment_token = submitArgs.payment_token;
+				if ( !hasValidWalletName( extraData.full_name ) || !hasValidWalletEmail( extraData.email ) ) {
+					showWalletFallbackFields(
+						$( '#component-container' ),
+						extraData.email,
+						( firstName, lastName, email ) => {
+							extraData.full_name = firstName + ' ' + lastName;
+							extraData.email = email;
+							mw.donationInterface.forms.callDonateApi(
+								googlePayResult.onSuccess, extraData, 'di_donate_adyen', googlePayResult.onFailure
+							);
+						}
+					);
+					return;
+				}
 				mw.donationInterface.forms.callDonateApi(
 					googlePayResult.onSuccess, extraData, 'di_donate_adyen', googlePayResult.onFailure
 				);
@@ -763,6 +778,23 @@
 				const extraData = authArgs,
 					applePayResult = handleWalletApiResult( submitArgs.actions );
 				extraData.payment_token = submitArgs.payment_token;
+				if ( !hasValidWalletName( extraData.first_name ) ||
+					!hasValidWalletName( extraData.last_name ) ||
+					!hasValidWalletEmail( extraData.email ) ) {
+					showWalletFallbackFields(
+						$( '#applepay-container' ),
+						extraData.email,
+						( firstName, lastName, email ) => {
+							extraData.first_name = firstName;
+							extraData.last_name = lastName;
+							extraData.email = email;
+							mw.donationInterface.forms.callDonateApi(
+								applePayResult.onSuccess, extraData, 'di_donate_adyen', applePayResult.onFailure
+							);
+						}
+					);
+					return;
+				}
 				mw.donationInterface.forms.callDonateApi(
 					applePayResult.onSuccess, extraData, 'di_donate_adyen', applePayResult.onFailure
 				);

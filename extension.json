@@ -803,6 +803,18 @@
 		"ext.donationInterface.applePayHelper": {
 			"packageFiles": [ "modules/js/ext.donationInterface.applePayHelper.js" ]
 		},
+		"ext.donationInterface.walletFallback": {
+			"packageFiles": [ "modules/js/ext.donationInterface.walletFallback.js" ],
+			"messages": [
+				"donate_interface-donor-first_name",
+				"donate_interface-donor-last_name",
+				"donate_interface-donor-email",
+				"donate_interface-submit-button",
+				"donate_interface-error-msg-first_name",
+				"donate_interface-error-msg-last_name",
+				"donate_interface-error-msg-email"
+			]
+		},
 		"ext.donationInterface.mustache.styles": {
 			"styles": "gateway_forms/mustache/forms.css"
 		},
@@ -811,7 +823,8 @@
 			"styles": "adyen_gateway/forms/adyen.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.applePayHelper"
+				"ext.donationInterface.applePayHelper",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
@@ -849,7 +862,8 @@
 			"styles": "adyen_gateway/forms/adyen.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.jaVariant02"
+				"ext.donationInterface.jaVariant02",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
@@ -894,7 +908,10 @@
 		"ext.donationInterface.braintree": {
 			"scripts": "braintree_gateway/forms/braintree.js",
 			"styles": "braintree_gateway/forms/braintree.css",
-			"dependencies": "ext.donationInterface.forms"
+			"dependencies": [
+				"ext.donationInterface.forms",
+				"ext.donationInterface.walletFallback"
+			]
 		},
 		"ext.donationInterface.dlocal.scripts": {
 			"scripts": "dlocal_gateway/forms/dlocal.js",
@@ -924,7 +941,8 @@
 			"styles": "gravy_gateway/forms/gravy.css",
 			"dependencies": [
 				"ext.donationInterface.forms",
-				"ext.donationInterface.applePayHelper"
+				"ext.donationInterface.applePayHelper",
+				"ext.donationInterface.walletFallback"
 			],
 			"messages": [
 				"donate_interface-error-msg-apple_pay_unsupported",
