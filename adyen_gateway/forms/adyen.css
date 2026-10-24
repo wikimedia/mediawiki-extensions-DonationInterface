@@ -10,7 +10,8 @@
 /* Base border shape and color */
 
 span.adyen-checkout__input,
-div.adyen-checkout__dropdown__button {
+input.adyen-checkout__input,
+button.adyen-checkout__dropdown__button {
 	border: 1px solid #a2a9b1;
 	border-radius: 2px;
 }
@@ -18,7 +19,8 @@ div.adyen-checkout__dropdown__button {
 /* Slight darkening of border (when not active/focused or on error) */
 
 span.adyen-checkout__input:hover,
-div.adyen-checkout__dropdown__button:hover {
+input.adyen-checkout__input:hover,
+button.adyen-checkout__dropdown__button:hover {
 	border-color: #72777d;
 }
 
@@ -28,19 +30,31 @@ div.adyen-checkout__dropdown__button:hover {
    wrapper outside the iframe can get an additional class added to it.
    Also, override the hover styles set above. */
 span.adyen-checkout__input--focus,
+input.adyen-checkout__input--focus,
 span.adyen-checkout__input--focus:hover,
-div.adyen-checkout__dropdown__button--active,
-div.adyen-checkout__dropdown__button--active:hover,
-div.adyen-checkout__dropdown__button:active,
-div.adyen-checkout__dropdown__button:active:hover,
-div.adyen-checkout__dropdown__button:focus,
-div.adyen-checkout__dropdown__button:focus:hover {
+button.adyen-checkout__dropdown__button--active,
+button.adyen-checkout__dropdown__button--active:hover,
+button.adyen-checkout__dropdown__button:active,
+button.adyen-checkout__dropdown__button:active:hover,
+button.adyen-checkout__dropdown__button:focus,
+button.adyen-checkout__dropdown__button:focus:hover {
 	outline: 0;
 	border-color: #36c;
 	box-shadow: inset 0 0 0 1px #36c;
+	margin-bottom: 0;
 }
 
-#donate div.adyen-checkout__dropdown input.adyen-checkout__filter-input {
+/* Adyen Web v6 also draws a border and a dark focus ring on the wrapper around
+   each input. We style the input itself (above), so remove the wrapper's in every
+   state (hover, focus, error...). The id outranks all of Adyen's wrapper selectors,
+   and the radius is inherited by the input inside. */
+#donate div.adyen-checkout__input-wrapper {
+	border: 0;
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+div.adyen-checkout__dropdown input.adyen-checkout__filter-input {
 	margin-bottom: 0.1em;
 }
 /* Field labels */
@@ -72,7 +86,7 @@ form#payment-form input[ type='email' ],
 form#payment-form input[ type='text' ],
 /* Also apply to these explicitly to some Adyen elements. (Adyen's own
    styles aren't consistent.) */
-div.adyen-checkout__dropdown__button,
+.adyen-checkout__dropdown__button,
 .adyen-checkout__dropdown__element {
 	/* These text styles are set for Adyen-provided inputs in an inline \3c style>
 	   element inside the iframe. Since I don't see any way to change those,
@@ -100,7 +114,7 @@ form#payment-form input.fullwidth[ type='email' ],
 form#payment-form input.fullwidth[ type='text' ],
 form#payment-form div.halfwidth input[ type='text' ],
 /* Do apply explicitly to Adyen's dropdown wrapper, though. */
-div.adyen-checkout__dropdown__button {
+.adyen-checkout__dropdown__button {
 	padding: 5px 8px 5px 8px;
 	margin-bottom: 0.2em;
 	height: 40px;
@@ -138,8 +152,10 @@ form#payment-form input.errorHighlight[ type='text' ]:required:invalid:focus {
    iframe-wrappers get classes added when the field has an error */
 span.adyen-checkout__input--error,
 span.adyen-checkout__input--error:hover,
-div.adyen-checkout__dropdown__button--invalid,
-div.adyen-checkout__dropdown__button--invalid:hover {
+input.adyen-checkout__input--error,
+input.adyen-checkout__input--error:hover,
+button.adyen-checkout__dropdown__button--invalid,
+button.adyen-checkout__dropdown__button--invalid:hover {
 	/* Override focus stylinging (above) */
 	box-shadow: inherit;
 
@@ -161,8 +177,8 @@ span.adyen-checkout__error-text {
 /* Dropdown-specific details (used for bank selection in rtbt/ideal */
 
 /* Remove border for inner input field inside drop-down */
-div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input,
-div.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
+.adyen-checkout__dropdown__button input.adyen-checkout__filter-input,
+.adyen-checkout__dropdown__button input.adyen-checkout__filter-input:focus {
 	border: 0 !important;
 	box-shadow: none !important;
 	height: 36px;
@@ -188,5 +204,13 @@ input[ type='text' ]::placeholder {
 
 /* Hide the 'all fields are required' text in the new Checkout form */
 div.adyen-checkout__card-input p.adyen-checkout-form-instruction {
+	display: none;
+}
+
+div.adyen-checkout__input-wrapper > input {
+	margin-bottom: 0 !important;
+}
+
+.adyen-checkout-contextual-text {
 	display: none;
 }

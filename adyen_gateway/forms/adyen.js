@@ -1,6 +1,18 @@
 /* global AdyenCheckout, Promise */
 ( function ( $, mw ) {
 	const { getBestApplePayContactName } = require( 'ext.donationInterface.applePayHelper' );
+	const redirectPaymentMethods = [ 'ideal' ];
+	// Adyen Web's component classes. window.AdyenWeb only exists once the Adyen
+	// script has loaded, so these are set in setAdyenComponents() from setup()
+	let CARD_COMPONENT,
+		ACH_COMPONENT,
+		SEPA_DIRECT_DEBIT_COMPONENT,
+		REDIRECT_COMPONENT,
+		ONLINE_BANKING_CZ_COMPONENT,
+		APPLEPAY_COMPONENT,
+		GOOGLEPAY_COMPONENT,
+		BLIK_COMPONENT,
+		VIPPS_COMPONENT;
 	// promise objects are for Apple Pay - see comments below
 	let checkout, onSubmit, authPromise, submitPromise,
 		configFromServer = mw.config.get( 'adyenConfiguration' ),
@@ -8,27 +20,20 @@
 		onBrandSubmethod = '',
 		country = $( '#country' ).val(),
 		language = $( '#language' ).val(),
-		// This is the old-style Google Pay integration type currently active on
-		// our account. Older versions of the Adyen JS SDK treated the 'googlepay'
-		// component type as the old GPay integration, but for newer versions of
-		// the GPay SDK we need to explicitly specify 'paywithgoogle' to get tokens
-		// that work with the old-style integration. At some point we should upgrade
-		// to the new interaction, but that will require coordinating an update to
-		// this constant with an update to our account.
-		GOOGLEPAY_COMPONENT_TYPE = 'paywithgoogle',
 		ACH_GET_DONOR_ADDRESS = true; // set false to remove address from form
 
 	/**
 	 * Get extra configuration values for specific payment types
 	 *
 	 * @param {string} type Adyen-side name of component type
+	 * @param component
 	 * @param {Object} checkoutConfig The config object used to instantiate the Adyen Checkout object
 	 * @return Object
 	 */
-	function getComponentConfig( type, checkoutConfig ) {
+	function getComponentConfig( component, checkoutConfig ) {
 		const config = {};
-		switch ( type ) {
-			case 'card':
+		switch ( component ) {
+			case CARD_COMPONENT:
 				// Note: Debug messages are only sent and logged server-side if
 				// $wgDonationInterfaceLogDebug (or $wgAdyenCheckoutGatewayLogDebug) is true
 
@@ -50,19 +55,24 @@
 				};
 
 				config.showBrandsUnderCardNumber = false;
+				config.locale = checkoutConfig.locale;
 				return config;
 
-			case 'ach':
+			case ACH_COMPONENT:
 				config.billingAddressRequired = ACH_GET_DONOR_ADDRESS;
 				return config;
-			case 'ideal':
-			case 'onlineBanking_CZ':
-			case 'sepadirectdebit':
-			case 'vipps':
+			case REDIRECT_COMPONENT:
+			case ONLINE_BANKING_CZ_COMPONENT:
+			case SEPA_DIRECT_DEBIT_COMPONENT:
+			case VIPPS_COMPONENT:
+			case BLIK_COMPONENT:
+				if ( redirectPaymentMethods.includes( payment_method ) ) {
+					config.type = payment_method;
+				}
 				// for ach, ideal, CZ bank transfers, vipps, and sepa additional config is optional
 				return config;
 
-			case 'applepay':
+			case APPLEPAY_COMPONENT:
 				// for applepay, additional config is required
 				var amount = {},
 					currency = $( '#currency' ).val(),
@@ -71,6 +81,7 @@
 				amount.value = amountInMinorUnits( amount_value, currency );
 				config.amount = amount;
 				config.countryCode = country;
+				config.buttonLocale = checkoutConfig.locale;
 				config.requiredBillingContactFields = [
 					'name',
 					'postalAddress'
@@ -81,7 +92,8 @@
 				];
 
 				authPromise = new Promise( ( authResolve, authReject ) => {
-					config.onAuthorized = function ( resolve, reject, event ) {
+					config.onAuthorized = function ( data, actions ) {
+						const event = data.authorizedEvent;
 						let bContact = event.payment.billingContact,
 							sContact = event.payment.shippingContact,
 							extraData = {};
@@ -94,11 +106,12 @@
 						}
 						extraData.email = sContact.emailAddress;
 						extraData.payment_submethod = mapAppleNetworkToSubmethod( event.payment.token.paymentMethod.network );
+						// Let Adyen go on to onSubmit. The payment sheet stays open until
+						// onSubmit's actions are settled, after our donate API call.
+						actions.resolve();
 						// We will combine this contact data with a token from the
 						// onSubmit event after both events have fired.
 						authResolve( extraData );
-
-						resolve();
 					};
 				} );
 				// For Apple Pay show the branded button with 'Donate with 🍎Pay'
@@ -126,10 +139,9 @@
 						}
 					} );
 				};
-
 				return config;
 
-			case GOOGLEPAY_COMPONENT_TYPE:
+			case GOOGLEPAY_COMPONENT:
 				// for googlepay, additional config is required
 				var g_amount = {},
 					g_currency = $( '#currency' ).val(),
@@ -142,7 +154,9 @@
 				g_amount.value = amountInMinorUnits( g_amount_value, g_currency );
 				config.amount = g_amount;
 				config.countryCode = country;
-				config.environment = configFromServer.environment.toUpperCase();
+				// Adyen maps only lowercase 'test' to Google's TEST environment; anything
+				// else, including 'TEST', becomes PRODUCTION
+				config.environment = configFromServer.environment;
 				config.showPayButton = true;
 				// When we are showing the form in a language for which Google Pay has no
 				// translations of their button text, use the plain 'GPay' button rather
@@ -158,13 +172,18 @@
 				config.billingAddressParameters = {
 					format: 'FULL'
 				};
-				// called gatewayMerchantId but actually our account name with Adyen
-				config.gatewayMerchantId = configFromServer.merchantAccountName;
-				config.merchantId = configFromServer.googleMerchantId;
+				// Adyen Web v6 reads these from configuration, and throws when merchantId is missing
+				config.configuration = {
+					// called gatewayMerchantId but actually our account name with Adyen
+					gatewayMerchantId: configFromServer.merchantAccountName,
+					merchantId: configFromServer.googleMerchantId
+				};
 
 				authPromise = new Promise( ( authResolve ) => {
-					config.onAuthorized = function ( response ) {
-						const bContact = response.paymentMethodData.info.billingAddress,
+					config.onAuthorized = function ( data, actions ) {
+						// Google Pay's PaymentData
+						const response = data.authorizedEvent,
+							bContact = response.paymentMethodData.info.billingAddress,
 							extraData = {};
 						extraData.postal_code = bContact.postalCode;
 						extraData.state_province = bContact.administrativeArea;
@@ -175,6 +194,9 @@
 						extraData.payment_submethod = mapAdyenSubmethod(
 							response.paymentMethodData.info.cardNetwork.toLowerCase()
 						);
+						// Let Adyen go on to onSubmit. The payment sheet stays open until
+						// onSubmit's actions are settled, after our donate API call.
+						actions.resolve();
 						// We will combine this contact data with a token from the
 						// onSubmit event after both events have fired.
 						authResolve( extraData );
@@ -220,13 +242,10 @@
 		config.onAdditionalDetails = onAdditionalDetails;
 		config.onError = onError;
 		config.showPayButton = false;
-		const checkoutObject = new AdyenCheckout( config );
-		if ( checkoutObject instanceof Promise ) {
-			return checkoutObject;
-		}
+		const { AdyenCheckout } = window.AdyenWeb;
 
 		return new Promise( ( resolve, reject ) => {
-			resolve( checkoutObject );
+			resolve( AdyenCheckout );
 		} );
 	}
 
@@ -249,32 +268,42 @@
 		}
 	}
 
+	function getEWalletComponents( submethod ) {
+		switch ( submethod ) {
+			case 'vipps':
+				return VIPPS_COMPONENT;
+			case 'blik':
+				return BLIK_COMPONENT;
+			default:
+				throw new Error( 'paymentSubMethod not found' );
+		}
+	}
 	/**
 	 * Get the name of the Adyen Checkout component to instantiate
 	 *
 	 * @param {string} paymentMethod our top-level payment method code
-	 * @return {string} name of Adyen Checkout component to instantiate
+	 * @return {function} Constructor of Adyen Checkout component to instantiate
 	 */
-	function mapPaymentMethodToComponentType( paymentMethod ) {
+	function mapPaymentMethodToComponent( paymentMethod ) {
 		switch ( paymentMethod ) {
 			case 'dd':
-				return 'ach';
+				return ACH_COMPONENT;
 			case 'cc':
-				return 'card';
+				return CARD_COMPONENT;
 			case 'rtbt':
 				if ( mw.config.get( 'payment_submethod' ) === 'sepadirectdebit' ) {
-					return 'sepadirectdebit';
+				return SEPA_DIRECT_DEBIT_COMPONENT;
 				} else {
-					return 'ideal';
+					return REDIRECT_COMPONENT;
 				}
 			case 'bt':
-				return 'onlineBanking_CZ';
+				return ONLINE_BANKING_CZ_COMPONENT;
 			case 'apple':
-				return 'applepay';
+				return APPLEPAY_COMPONENT;
 			case 'google':
-				return GOOGLEPAY_COMPONENT_TYPE;
+				return GOOGLEPAY_COMPONENT;
 			case 'ew':
-				return 'vipps';
+				return getEWalletComponents(  mw.config.get( 'payment_submethod' ) );
 			default:
 				throw new Error( 'paymentMethod not found' );
 		}
@@ -314,10 +343,10 @@
 	}
 
 	submitPromise = new Promise( ( submitResolve, submitReject ) => {
-		onSubmit = function ( state, component ) {
+		onSubmit = function ( state, component, actions ) {
 			let extraData = {};
-			// Submit to our server, unless it's Apple Pay, which submits in
-			// the onAuthorized handler.
+			// Submit to our server, unless it's Apple or Google Pay, which submit once
+			// both their onAuthorized and onSubmit events have fired.
 			if ( mw.donationInterface.validation.validate() && state.isValid ) {
 				switch ( payment_method ) {
 					case 'dd':
@@ -390,12 +419,16 @@
 						}
 						break;
 					case 'google':
-						submitResolve( state.data.paymentMethod.googlePayToken );
+						// Resolve the submit promise with the Google Pay token and bail out - we
+						// also need to wait for the onAuthorized event with contact data.
+						// Pass on the actions too: settling them closes the payment sheet.
+						submitResolve( { payment_token: state.data.paymentMethod.googlePayToken, actions } );
 						return;
 					case 'apple':
 						// Resolve the submit promise with the Apple Pay token and bail out - we
 						// also need to wait for the onAuthorized event with contact data.
-						submitResolve( state.data.paymentMethod.applePayToken );
+						// Pass on the actions too: settling them closes the payment sheet.
+						submitResolve( { payment_token: state.data.paymentMethod.applePayToken, actions } );
 						return;
 				}
 
@@ -410,6 +443,29 @@
 			}
 		};
 	} );
+	/**
+	 * Settles Adyen's onSubmit actions for Apple or Google Pay once our donate API has answered,
+	 * so the component closes the payment sheet with success or failure.
+	 *
+	 * Our API doesn't pass Adyen's own resultCode through, only whether the donation
+	 * failed, so map that to the resultCode the component checks. Adyen counts
+	 * Cancelled, Error and Refused as failed payments.
+	 *
+	 * @param {Object} actions onSubmit's actions, with resolve and reject
+	 * @return {Object} Success and failure callbacks for callDonateApi
+	 */
+	function handleWalletApiResult( actions ) {
+		return {
+			onSuccess: ( result ) => {
+				actions.resolve( { resultCode: result.isFailed ? 'Refused' : 'Authorised' } );
+				handleApiResult( result );
+			},
+			// The API reported errors or the request failed: callDonateApi has shown the error
+			onFailure: () => {
+				actions.reject();
+			}
+		};
+	}
 
 	function handleApiResult( result ) {
 		if ( result.isFailed ) {
@@ -456,6 +512,10 @@
 		// Send error on donor-initiated cancellations
 		if ( error && error.cause && error.cause.statusCode === 'CANCELED' ) {
 			location.assign( mw.config.get( 'DonationInterfaceCancelUrl' ) );
+			return;
+		}
+		// The donor closed the Apple Pay sheet. Adyen reports that as a CANCEL error
+		if ( error && error.name === 'CANCEL' ) {
 			return;
 		}
 		if ( typeof error.error === 'string' && error.error.slice( 0, 8 ) === 'error.va' ) {
@@ -549,16 +609,33 @@
 	}
 
 	/**
+	 * Picks out the Adyen Web component classes, once the Adyen script has loaded
+	 */
+	function setAdyenComponents() {
+		CARD_COMPONENT = window.AdyenWeb.Card;
+		ACH_COMPONENT = window.AdyenWeb.Ach;
+		SEPA_DIRECT_DEBIT_COMPONENT = window.AdyenWeb.SepaDirectDebit;
+		ONLINE_BANKING_CZ_COMPONENT = window.AdyenWeb.OnlineBankingCZ;
+		APPLEPAY_COMPONENT = window.AdyenWeb.ApplePay;
+		GOOGLEPAY_COMPONENT = window.AdyenWeb.GooglePay;
+		VIPPS_COMPONENT = window.AdyenWeb.Vipps;
+		BLIK_COMPONENT = window.AdyenWeb.Blik;
+		// iDEAL and other bank redirects
+		REDIRECT_COMPONENT = window.AdyenWeb.Redirect;
+	}
+
+	/**
 	 * Runs as soon as the external Adyen checkout script is loaded
 	 */
 	function setup() {
-		let component_type,
+		let component,
 			config,
 			containerName = 'component-container',
 			oldShowErrors,
 			checkoutPromise;
 
-		component_type = mapPaymentMethodToComponentType( payment_method );
+		setAdyenComponents();
+		component = mapPaymentMethodToComponent( payment_method );
 
 		// Drop in the adyen components placeholder container
 		$( '.submethods' ).before(
@@ -608,17 +685,23 @@
 		setLocaleAndTranslations( config, configFromServer.locale );
 
 		checkoutPromise = getCheckout( config );
-		checkoutPromise.then( ( checkoutObject ) => {
-			checkout = checkoutObject;
-			createAndMountComponent( config, component_type, containerName );
+		checkoutPromise.then( async ( checkoutObject ) => {
+			config.countryCode = country;
+			checkout = await checkoutObject( config );
+			createAndMountComponent( config, containerName );
 		} );
 	}
 
-	function createAndMountComponent( config, component_type, containerName ) {
-		const component_config = getComponentConfig( component_type, config ),
-			component = checkout.create( component_type, component_config );
+	const getComponentForPaymentMethod = ( config ) => {
+		const PaymentMethodComponent = mapPaymentMethodToComponent( payment_method );
+		const component_config = getComponentConfig( PaymentMethodComponent, config );
+		return new PaymentMethodComponent( checkout, component_config );
+	};
 
-		if ( component_type === GOOGLEPAY_COMPONENT_TYPE ) {
+	function createAndMountComponent( config, containerName ) {
+		const component = getComponentForPaymentMethod( config );
+
+		if ( component instanceof GOOGLEPAY_COMPONENT ) {
 			component.isAvailable().then( () => {
 				component.mount( '#' + containerName );
 			} ).catch( () => {
@@ -631,11 +714,12 @@
 			} );
 			// For Google Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.
-			Promise.all( [ submitPromise, authPromise ] ).then( ( values ) => {
-				const extraData = values[ 1 ];
-				extraData.payment_token = values[ 0 ];
+			Promise.all( [ submitPromise, authPromise ] ).then( ( [ submitArgs, authArgs ] ) => {
+				const extraData = authArgs,
+					googlePayResult = handleWalletApiResult( submitArgs.actions );
+				extraData.payment_token = submitArgs.payment_token;
 				mw.donationInterface.forms.callDonateApi(
-					handleApiResult, extraData, 'di_donate_adyen'
+					googlePayResult.onSuccess, extraData, 'di_donate_adyen', googlePayResult.onFailure
 				);
 			} ).catch( ( err ) => {
 				mw.donationInterface.validation.showErrors( {
@@ -645,7 +729,7 @@
 				// module sends it to our client-side logging endpoint.
 				throw err;
 			} );
-		} else if ( component_type === 'applepay' ) {
+		} else if ( component instanceof APPLEPAY_COMPONENT ) {
 			component.isAvailable().then( () => {
 				component.mount( '#' + containerName );
 			} ).catch( () => {
@@ -658,11 +742,12 @@
 			} );
 			// For Apple Pay, we need contact data from the onAuthorized event and token
 			// data from the onSubmit event before we can make our MediaWiki API call.
-			Promise.all( [ submitPromise, authPromise ] ).then( ( values ) => {
-				const extraData = values[ 1 ];
-				extraData.payment_token = values[ 0 ];
+			Promise.all( [ submitPromise, authPromise ] ).then( ( [ submitArgs, authArgs ] ) => {
+				const extraData = authArgs,
+					applePayResult = handleWalletApiResult( submitArgs.actions );
+				extraData.payment_token = submitArgs.payment_token;
 				mw.donationInterface.forms.callDonateApi(
-					handleApiResult, extraData, 'di_donate_adyen'
+					applePayResult.onSuccess, extraData, 'di_donate_adyen', applePayResult.onFailure
 				);
 			} ).catch( ( err ) => {
 				mw.donationInterface.validation.showErrors( {
