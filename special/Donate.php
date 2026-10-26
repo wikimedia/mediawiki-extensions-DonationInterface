@@ -8,6 +8,9 @@ use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\CLDR\CountryNames;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\AdyenClientConfig;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GatewayClientConfig;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GravyClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ComboWikiLogPrefixProvider;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ContributionTrackingHelper;
 use MediaWiki\Extension\DonationInterface\ComboWiki\Data\DonationDetails;
@@ -98,6 +101,9 @@ class Donate extends UnlistedSpecialPage {
 
 	/** @var string|null The gateway chosen for this request, if any. */
 	private ?string $selectedGateway = null;
+
+	/** @var GatewayClientConfig[] The client config of each enabled gateway that has one, by gateway */
+	private array $clientConfigs = [];
 
 	/**
 	 * @var array[] Payment methods offered on this page, as [ 'method' => string, 'gateway' => string ],
@@ -222,6 +228,11 @@ class Donate extends UnlistedSpecialPage {
 			);
 			if ( $adapter ) {
 				$this->adapters[$gateway] = $adapter;
+				$clientConfig = $this->getClientConfig( $adapter );
+				if ( $clientConfig ) {
+					$clientConfig->addResources( $this->getOutput() );
+					$this->clientConfigs[$gateway] = $clientConfig;
+				}
 			} else {
 				$this->logger->error( 'Failed to create adapter for gateway: ' . $gateway );
 			}
@@ -560,19 +571,16 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Calls add<Gateway>ClientConfig() for each enabled gateway that has one.
+	 * Adds the client config vars of each enabled gateway that has a client config.
 	 *
 	 * @param array &$vars Client variables to expose
 	 * @return void
 	 */
 	private function addClientConfigForEachEnabledGateway( array &$vars ): void {
-		foreach ( $this->adapters as $gateway => $adapter ) {
+		foreach ( $this->clientConfigs as $gateway => $clientConfig ) {
 			// Some client config calls the gateway through SmashPig, which has one provider per request
 			DonationInterface::setSmashPigProvider( $gateway );
-			$configMethod = 'add' . ucfirst( $gateway ) . 'ClientConfig';
-			if ( method_exists( $this, $configMethod ) ) {
-				$this->$configMethod( $vars, $adapter );
-			}
+			$vars = array_merge( $vars, $clientConfig->getVars() );
 		}
 	}
 
@@ -661,61 +669,18 @@ class Donate extends UnlistedSpecialPage {
 	}
 
 	/**
-	 * Share the Gravy Payments session ID, along with the gravy config, with the frontend.
+	 * The client config for an adapter, chosen by the adapter class so it always matches
+	 * the adapter.
 	 *
-	 * @param array &$vars
-	 * @param GatewayAdapter $adapter The adapter for the gravy gateway
-	 *
-	 * @return void
+	 * @param GatewayAdapter $adapter
+	 * @return GatewayClientConfig|null Null for a gateway that sends no client config
 	 */
-	protected function addGravyClientConfig( array &$vars, GatewayAdapter $adapter ): void {
-		// getGravyConfiguration() is specific to GravyAdapter, not GatewayAdapter,
-		// so narrow the type before reaching for it.
-		if ( !$adapter instanceof GravyAdapter ) {
-			$this->logger->error( 'Expected a GravyAdapter for the gravy gateway, got ' . get_debug_type( $adapter ) );
-			return;
-		}
-
-		$vars['gravyConfiguration'] = $adapter->getGravyConfiguration();
-
-		$applePayHref = $adapter->getAccountConfig( 'AppleScript' );
-		$this->getOutput()->addLink( [
-			'rel' => 'dns-prefetch',
-			'href' => 'https://' . parse_url( $applePayHref, PHP_URL_HOST )
-		] );
-	}
-
-	/**
-	 * Add Adyen-specific client configuration.
-	 * Called when adyen is one of the enabled gateways.
-	 *
-	 * @param array &$vars Client variables to expose
-	 * @param GatewayAdapter $adapter The adapter for the adyen gateway
-	 *
-	 * @return void
-	 */
-	protected function addAdyenClientConfig( array &$vars, GatewayAdapter $adapter ): void {
-		if ( !$adapter instanceof AdyenCheckoutAdapter ) {
-			$this->logger->error( 'Expected a AdyenCheckoutAdapter for the adyen gateway, got ' . get_debug_type( $adapter ) );
-
-			return;
-		}
-		$vars['adyenConfiguration'] = $adapter->getCheckoutConfiguration(
-			[
-				'country' => $this->routingParams['country'],
-				'currency' => $this->routingParams['currency'],
-				'amount' => $this->routingParams['amount'],
-				'language' => $this->routingParams['language'],
-			]
-		);
-
-		$adyenCss = $adapter->getAccountConfig( 'Css' );
-		$this->getOutput()->addLink( [
-			'rel' => 'stylesheet',
-			'href' => $adyenCss['src'],
-			'integrity' => $adyenCss['integrity'],
-			'crossorigin' => 'anonymous'
-		] );
+	private function getClientConfig( GatewayAdapter $adapter ): ?GatewayClientConfig {
+		return match ( true ) {
+			$adapter instanceof GravyAdapter => new GravyClientConfig( $adapter ),
+			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig( $adapter, $this->routingParams ),
+			default => null,
+		};
 	}
 
 	/**
