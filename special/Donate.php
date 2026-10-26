@@ -708,6 +708,14 @@ class Donate extends UnlistedSpecialPage {
 				'language' => $this->routingParams['language'],
 			]
 		);
+
+		$adyenCss = $adapter->getAccountConfig( 'Css' );
+		$this->getOutput()->addLink( [
+			'rel' => 'stylesheet',
+			'href' => $adyenCss['src'],
+			'integrity' => $adyenCss['integrity'],
+			'crossorigin' => 'anonymous'
+		] );
 	}
 
 	/**
