@@ -521,6 +521,10 @@ module.exports = exports = defineComponent( {
 		if ( urlParams.get( 'debugError' ) ) {
 			this.appState.setError( mw.html.escape( this.params.order_id ) + ' ' + this.$i18n( 'combowiki-payment-failed' ).text() );
 		}
+		// for debugging the loading spinner
+		if ( urlParams.get( 'debugLoading' ) ) {
+			this.appState.setLoading( true );
+		}
 		// DonateGatewayResult sends the donor back here with paymentFailed=1 when a
 		// payment that went through a redirect (such as 3DS) fails. Show the error
 		// once and remove the flag, so a reload or Try Again gives a clean form.
