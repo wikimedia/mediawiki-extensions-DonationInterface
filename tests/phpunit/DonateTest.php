@@ -9,6 +9,7 @@ use SmashPig\Core\DataStores\QueueWrapper;
 use SmashPig\Core\Helpers\CurrencyRoundingHelper;
 use SmashPig\PaymentData\FinalStatus;
 use SmashPig\PaymentProviders\Adyen\PaymentProvider as AdyenPaymentProvider;
+use SmashPig\PaymentProviders\Braintree\PaymentProvider as BraintreePaymentProvider;
 use SmashPig\PaymentProviders\Gravy\CardPaymentProvider;
 use SmashPig\PaymentProviders\Gravy\PaymentProvider as GravyPaymentProvider;
 use SmashPig\PaymentProviders\Responses\ApprovePaymentResponse;
@@ -85,6 +86,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			( new CreatePaymentSessionResponse() )->setSuccessful( true )->setPaymentSession( 'lorem-ipsum' )
 		);
 		$this->mockGravyProvidersOtherThanCard( $providerConfig );
+		$this->mockBraintreeClientToken( $providerConfig );
 	}
 
 	public function testChoosesGravyForCreditCard(): void {
@@ -130,6 +132,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		$mockAdyenProvider = $this->createMock( AdyenPaymentProvider::class );
 		$mockAdyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
 		$adyenProviderConfig->overrideObjectInstance( 'payment-provider/cc', $mockAdyenProvider );
+		$this->mockBraintreeClientToken( $adyenProviderConfig );
 
 		$this->assertChosenGateway(
 			[
@@ -221,9 +224,70 @@ class DonateTest extends DonationInterfaceTestCase {
 		);
 	}
 
+	public static function provideBraintreeScriptsForCountry(): array {
+		return [
+			'US has PayPal and Venmo' => [ 'US', 'USD', [
+				'test-braintree-client.js',
+				'test-braintree-paypal-checkout.js',
+				'test-braintree-venmo.js',
+				'test-braintree-data-collector.js',
+			] ],
+			'GB has only PayPal' => [ 'GB', 'GBP', [
+				'test-braintree-client.js',
+				'test-braintree-paypal-checkout.js',
+				'test-braintree-data-collector.js',
+			] ],
+		];
+	}
+
+	/**
+	 * Braintree gets a client token and the scripts for its payment methods on ComboWiki,
+	 * even when the donor asks for card, which is on Adyen. The scripts are preloaded.
+	 *
+	 * @dataProvider provideBraintreeScriptsForCountry
+	 */
+	public function testBraintreeClientConfigHasTokenAndScriptsForItsMethods(
+		string $country, string $currency, array $expectedScripts
+	): void {
+		// Set here, as the local settings can have the real Braintree account config
+		$this->overrideConfigValues( [
+			'BraintreeGatewayAccountInfo' => [
+				'test' => [
+					'clientScript' => 'test-braintree-client.js',
+					'paypalScript' => 'test-braintree-paypal-checkout.js',
+					'venmoScript' => 'test-braintree-venmo.js',
+					'deviceScript' => 'test-braintree-data-collector.js',
+				],
+			],
+		] );
+		$this->useAdyenForCardAndBraintreeForPaypal();
+		$vars = $this->executeAndGetClientVariables( [
+			'payment_method' => 'cc',
+			'country' => $country,
+			'currency' => $currency,
+			'recurring' => '0',
+		] );
+
+		$this->assertSame(
+			[
+				'clientToken' => 'braintree-client-token',
+				'scripts' => $expectedScripts,
+			],
+			$vars['braintreeConfiguration']
+		);
+		$preloadedScripts = [];
+		foreach ( RequestContext::getMain()->getOutput()->getLinkTags() as $link ) {
+			if ( ( $link['rel'] ?? null ) === 'preload' && ( $link['as'] ?? null ) === 'script' ) {
+				$preloadedScripts[] = $link['href'];
+			}
+		}
+		$this->assertSame( $expectedScripts, $preloadedScripts );
+	}
+
 	public function testGravyCardSendsCheckoutSessionIdToPage(): void {
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
 		$this->mockGravyProvidersOtherThanCard( $providerConfig );
+		$this->mockBraintreeClientToken( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$cardPaymentProvider->expects( $this->once() )
 			->method( 'createPaymentSession' )
@@ -261,6 +325,7 @@ class DonateTest extends DonationInterfaceTestCase {
 		// so the page must not try to create one
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
 		$this->mockGravyProvidersOtherThanCard( $providerConfig );
+		$this->mockBraintreeClientToken( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$cardPaymentProvider->expects( $this->never() )->method( 'createPaymentSession' );
 		$providerConfig->overrideObjectInstance( 'payment-provider/cc', $cardPaymentProvider );
@@ -289,6 +354,7 @@ class DonateTest extends DonationInterfaceTestCase {
 	public function testPageStillRendersWithoutSessionIdWhenCheckoutSessionFails( bool $throws ): void {
 		$providerConfig = $this->setSmashPigProvider( 'gravy' );
 		$this->mockGravyProvidersOtherThanCard( $providerConfig );
+		$this->mockBraintreeClientToken( $providerConfig );
 		$cardPaymentProvider = $this->createMock( CardPaymentProvider::class );
 		$method = $cardPaymentProvider->method( 'createPaymentSession' );
 		if ( $throws ) {
@@ -1518,8 +1584,26 @@ class DonateTest extends DonationInterfaceTestCase {
 	}
 
 	/**
+	 * Braintree's client config asks SmashPig for a client token, with the provider for PayPal
+	 * or Venmo, so mock that call. SmashPig has one test config for all lookups, so this
+	 * replaces the Gravy mocks for PayPal and Venmo.
+	 */
+	private function mockBraintreeClientToken( TestingProviderConfiguration $providerConfig ): void {
+		foreach ( [ 'paypal', 'venmo' ] as $paymentMethod ) {
+			$braintreeProvider = $this->createMock( BraintreePaymentProvider::class );
+			$braintreeProvider->method( 'createPaymentSession' )->willReturn(
+				( new CreatePaymentSessionResponse() )
+					->setSuccessful( true )
+					->setPaymentSession( 'braintree-client-token' )
+			);
+			$providerConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $braintreeProvider );
+		}
+	}
+
+	/**
 	 * Set up ComboWiki with the Phase 1.1 gateways: card on Adyen, PayPal and Venmo on Braintree.
-	 * Adyen's client config asks SmashPig for the payment methods, so that call is mocked.
+	 * Adyen's client config asks SmashPig for the payment methods, and Braintree's for a
+	 * client token, so those calls are mocked.
 	 */
 	private function useAdyenForCardAndBraintreeForPaypal(): void {
 		$this->overrideConfigValues( [
@@ -1542,6 +1626,7 @@ class DonateTest extends DonationInterfaceTestCase {
 			$adyenProvider->method( 'getPaymentMethods' )->willReturn( new PaymentMethodResponse() );
 			$adyenProviderConfig->overrideObjectInstance( "payment-provider/$paymentMethod", $adyenProvider );
 		}
+		$this->mockBraintreeClientToken( $adyenProviderConfig );
 	}
 
 	/**

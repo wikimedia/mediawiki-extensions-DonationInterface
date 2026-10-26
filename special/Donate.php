@@ -3,12 +3,14 @@
 namespace MediaWiki\Extension\DonationInterface\Special;
 
 use AdyenCheckoutAdapter;
+use BraintreeAdapter;
 use DonationInterface;
 use GatewayAdapter;
 use GravyAdapter;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\CLDR\CountryNames;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\AdyenClientConfig;
+use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\BraintreeClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GatewayClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ClientConfig\GravyClientConfig;
 use MediaWiki\Extension\DonationInterface\ComboWiki\ComboWikiLogPrefixProvider;
@@ -678,6 +680,10 @@ class Donate extends UnlistedSpecialPage {
 				$adapter,
 				$this->getPaymentMethodsOfGateway( GravyAdapter::IDENTIFIER ) ),
 			$adapter instanceof AdyenCheckoutAdapter => new AdyenClientConfig( $adapter, $this->routingParams ),
+			$adapter instanceof BraintreeAdapter => new BraintreeClientConfig(
+				$adapter,
+				$this->getPaymentMethodsOfGateway( BraintreeAdapter::IDENTIFIER )
+			),
 			default => null,
 		};
 	}

@@ -69,6 +69,7 @@ global $wgDonationInterfaceTest,
 	$wgAmazonGatewayNotifyOnConvert,
 	$wgAdyenCheckoutGatewayURL,
 	$wgAdyenCheckoutGatewayAccountInfo,
+	$wgBraintreeGatewayAccountInfo,
 	$wgGravyGatewayAccountInfo,
 	$wgDlocalGatewayAccountInfo,
 	$wgDlocalGatewayFallbackCurrency,
@@ -152,6 +153,15 @@ $wgAdyenCheckoutGatewayAccountInfo['testMerchantAccountName'] = [
 	'Environment' => 'test',
 	'GoogleMerchantId' => '1234',
 	'GoogleScript' => 'test-google.js',
+];
+
+/** Braintree */
+$wgBraintreeGatewayAccountInfo = [];
+$wgBraintreeGatewayAccountInfo['test'] = [
+	'clientScript' => 'test-braintree-client.js',
+	'paypalScript' => 'test-braintree-paypal-checkout.js',
+	'venmoScript' => 'test-braintree-venmo.js',
+	'deviceScript' => 'test-braintree-data-collector.js',
 ];
 
 /** Dlocal */
