@@ -54,7 +54,7 @@
 			allowDesktop: true,
 			mobileWebFallBack: true,
 			allowNewBrowserTab: true,
-			allowDesktopWebLogin: true, // force web login, QR code depreciate
+			allowDesktopWebLogin: false, // true to force web login, hide QR code
 			paymentMethodUsage: getPaymentMethodUsage(),
 			totalAmount: getAmountValue()
 		};
