@@ -114,6 +114,39 @@ describe( 'ComboWiki details form for the selected payment method', () => {
 		expect( api.submitDonation.mock.lastCall[ 1 ].state_province ).toBe( 'NSW' );
 	} );
 
+	describe( 'with a state list for the country', () => {
+		const LIST_PARAMS = Object.assign( {}, AU_PARAMS, {
+			DonationInterfaceStateProvinceOptions: [
+				{ value: 'NSW', label: 'New South Wales' },
+				{ value: 'VIC', label: 'Victoria' }
+			]
+		} );
+
+		it( 'offers the states in a native select the browser can autofill', async () => {
+			const wrapper = await mountForm( { params: LIST_PARAMS } );
+			const select = wrapper.find( 'select#state_province' );
+
+			expect( select.attributes( 'autocomplete' ) ).toBe( 'billing address-level1' );
+			expect( select.element.value ).toBe( '' );
+			expect( select.findAll( 'option' ).map( ( o ) => o.element.value ) ).toEqual( [ '', 'NSW', 'VIC' ] );
+		} );
+
+		it( 'marks the select as invalid while no state is picked', async () => {
+			const wrapper = await mountForm( { params: LIST_PARAMS } );
+			await button( wrapper, 'combowiki-donate-with-paypal' ).trigger( 'click' );
+
+			expect( wrapper.find( 'select#state_province' ).classes() ).toContain( 'combo-wiki__select--error' );
+		} );
+
+		it( 'submits the picked state', async () => {
+			const wrapper = await mountForm( { params: LIST_PARAMS } );
+			await wrapper.find( 'select#state_province' ).setValue( 'VIC' );
+			await button( wrapper, 'combowiki-donate-with-paypal' ).trigger( 'click' );
+
+			expect( api.submitDonation.mock.lastCall[ 1 ] ).toEqual( { state_province: 'VIC' } );
+		} );
+	} );
+
 	it( 'fills a field the donor left empty from the wallet', async () => {
 		const wrapper = await mountForm( { paymentMethod: 'googlepay', params: Object.assign( {}, AU_PARAMS, {
 			DonationInterfaceFormFields: { method: { google: { state_province: true, city: 'optional' } } }

@@ -192,12 +192,66 @@
 	}
 
 	.cdx-text-input,
+	.cdx-select,
 	.cdx-select-vue__handle {
 		min-width: 50px;
 	}
 
+	.cdx-select,
 	.cdx-select-vue {
 		display: block;
+	}
+
+	.cdx-select {
+		width: 100%;
+	}
+}
+
+// Codex's CSS-only select is coloured like a button and has no error state,
+// so give it the text inputs' colours in each state (disabled already matches).
+// These are the custom properties and fallbacks Codex's text input uses, rather than
+// the LESS tokens, which wmf-frds-tokens.less overrides with other colours.
+// The select type selector outranks Codex's own .cdx-select rules
+select.cdx-select.combo-wiki__select {
+	&:enabled {
+		background-color: var( --background-color-base, #fff );
+		color: var( --color-base, #202122 );
+		border-color: var( --border-color-base, #a2a9b1 );
+		box-shadow: inset 0 0 0 1px var( --box-shadow-color-transparent, transparent );
+		transition-duration: 0.25s;
+
+		&:hover {
+			background-color: var( --background-color-base, #fff );
+			color: var( --color-base, #202122 );
+			border-color: var( --border-color-interactive, #72777d );
+		}
+
+		// A text input has no pressed look, it shows its focus one
+		&:focus,
+		&:active {
+			background-color: var( --background-color-base, #fff );
+			color: var( --color-base, #202122 );
+			border-color: var( --border-color-progressive--focus, #36c );
+			box-shadow: inset 0 0 0 1px var( --box-shadow-color-progressive--focus, #36c );
+			outline: 1px solid transparent;
+		}
+	}
+
+	&.combo-wiki__select--error:enabled:not( :focus ):not( :active ) {
+		border-color: var( --border-color-error, #9f3526 );
+
+		&:hover {
+			border-color: var( --border-color-error--hover, #fc493b );
+		}
+	}
+
+	// Until a state is picked, show the label as the text inputs show their placeholders
+	&.combo-wiki__select--placeholder:enabled {
+		color: var( --color-placeholder, #72777d );
+	}
+
+	option {
+		color: var( --color-base, #202122 );
 	}
 }
 

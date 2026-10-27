@@ -13,6 +13,7 @@
 	<cdx-button
 		v-else
 		data-autoscroll
+		class="cdx-button cdx-button--action-progressive cdx-button--weight-primary cdx-button--size-medium cdx-button--framed combo-wiki__button-submit"
 		@click="submitDonation"
 	>
 		{{ label }}

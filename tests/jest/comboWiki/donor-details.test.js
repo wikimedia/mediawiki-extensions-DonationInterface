@@ -2,7 +2,6 @@
 
 const VueTestUtils = require( '@vue/test-utils' );
 const { reactive } = require( 'vue' );
-const { CdxSelect } = require( '@wikimedia/codex' );
 
 const PaymentForm = require( '../../../modules/ext.donationInterface.comboWiki/views/PaymentForm.vue' );
 const PaymentMethodForm = require( '../../../modules/ext.donationInterface.comboWiki/components/PaymentMethodForm.vue' );
@@ -97,7 +96,7 @@ describe( 'ComboWiki donor details in the donation', () => {
 			} }, stubs: { 'card-form': true } }
 		} );
 
-		wrapper.findComponent( CdxSelect ).vm.$emit( 'update:selected', 'NSW' );
+		await wrapper.find( 'select#state_province' ).setValue( 'NSW' );
 		expect( wrapper.emitted( 'onDonorDetailsChange' ) ).toEqual( [ [ { state_province: 'NSW' } ] ] );
 	} );
 

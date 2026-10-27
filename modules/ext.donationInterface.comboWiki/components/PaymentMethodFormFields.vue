@@ -15,6 +15,7 @@
 						id="first_name"
 						ref="first_name"
 						v-model="fields.first_name"
+						autocomplete="billing given-name"
 						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-first_name' ).text()"
 						@blur="onFieldBlur( 'first_name' )"
@@ -36,6 +37,7 @@
 						id="last_name"
 						ref="last_name"
 						v-model="fields.last_name"
+						autocomplete="billing family-name"
 						data-autoscroll
 						:placeholder="$i18n( 'donate_interface-donor-last_name' ).text()"
 						@blur="onFieldBlur( 'last_name' )"
@@ -82,6 +84,8 @@
 						id="street_address"
 						ref="street_address"
 						v-model="fields.street_address"
+						autocomplete="billing address-line1"
+						autocapitalize="words"
 						:placeholder="$i18n( 'donate_interface-donor-street_address' ).text()"
 						@blur="onFieldBlur( 'street_address' )"
 						@input="validation.onInput( 'street_address' )"
@@ -101,6 +105,7 @@
 						id="street_number"
 						ref="street_number"
 						v-model="fields.street_number"
+						autocomplete="billing address-line1"
 						:placeholder="$i18n( 'donate_interface-donor-street-number' ).text()"
 						@blur="onFieldBlur( 'street_number' )"
 						@input="validation.onInput( 'street_number' )"
@@ -124,6 +129,8 @@
 						id="city"
 						ref="city"
 						v-model="fields.city"
+						autocomplete="billing address-level2"
+						autocapitalize="words"
 						:placeholder="$i18n( 'donate_interface-donor-city' ).text()"
 						@blur="onFieldBlur( 'city' )"
 						@input="validation.onInput( 'city' )"
@@ -140,20 +147,41 @@
 					:status="validation.status.state_province"
 					:messages="validation.messages.state_province"
 				>
-					<!-- Countries with a subdivision list (e.g. AU, CA) pick a code, as on the Mustache forms -->
-					<cdx-select
+					<!-- Countries with a subdivision list (e.g. AU, CA) pick a code, as on the Mustache forms.
+						A native select styled by Codex, unlike cdx-select, so browsers can autofill it.
+						cdx-field only links its label to Codex inputs, so name it with aria-label -->
+					<select
 						v-if="stateProvinceOptions.length"
-						v-model:selected="fields.state_province"
-						:menu-items="stateProvinceOptions"
-						:default-label="stateProvinceLabel"
-						@update:selected="onFieldSelect( 'state_province' )"
-					></cdx-select>
+						id="state_province"
+						ref="state_province"
+						v-model="stateProvince"
+						class="cdx-select combo-wiki__select"
+						:class="{
+							'combo-wiki__select--error': validation.status.state_province === 'error',
+							'combo-wiki__select--placeholder': !stateProvince
+						}"
+						autocomplete="billing address-level1"
+						:aria-label="stateProvinceLabel"
+						@change="onFieldSelect( 'state_province' )"
+					>
+						<option value="" disabled>
+							{{ stateProvinceLabel }}
+						</option>
+						<option
+							v-for="option in stateProvinceOptions"
+							:key="option.value"
+							:value="option.value"
+						>
+							{{ option.label }}
+						</option>
+					</select>
 					<!-- Fallback option to let user insert manually their province abbreviation code -->
 					<cdx-text-input
 						v-else
 						id="state_province"
 						ref="state_province"
 						v-model="fields.state_province"
+						autocomplete="billing address-level1"
 						:placeholder="stateProvinceLabel"
 						@blur="onFieldBlur( 'state_province' )"
 						@input="validation.onInput( 'state_province' )"
@@ -174,6 +202,8 @@
 						id="postal_code"
 						ref="postal_code"
 						v-model="fields.postal_code"
+						autocomplete="billing postal-code"
+						autocapitalize="characters"
 						:placeholder="$i18n( 'donate_interface-donor-postal_code' ).text()"
 						@blur="onFieldBlur( 'postal_code' )"
 						@input="validation.onInput( 'postal_code' )"
@@ -195,6 +225,7 @@
 					id="fiscal_number"
 					ref="fiscal_number"
 					v-model="fields.fiscal_number"
+					autocomplete="on"
 					:placeholder="fiscalNumberLabel"
 					@blur="onFieldBlur( 'fiscal_number' )"
 					@input="validation.onInput( 'fiscal_number' )"
@@ -210,7 +241,7 @@
 
 <script>
 const { defineComponent, reactive, watch } = require( 'vue' );
-const { CdxField, CdxTextInput, CdxSelect } = require( '@wikimedia/codex' );
+const { CdxField, CdxTextInput } = require( '@wikimedia/codex' );
 const { useFieldValidation } = require( '../composables/useFieldValidation.js' );
 const { donateParamMap } = require( '../api.js' );
 
@@ -221,8 +252,7 @@ module.exports = exports = defineComponent( {
 
 	components: {
 		'cdx-text-input': CdxTextInput,
-		'cdx-field': CdxField,
-		'cdx-select': CdxSelect
+		'cdx-field': CdxField
 	},
 
 	inject: [ 'params' ],
@@ -276,6 +306,15 @@ module.exports = exports = defineComponent( {
 		stateProvinceOptions() {
 			// [ { value: 'ON', label: 'Ontario' }, ... ] from Special:Donate, empty if none for the country
 			return this.params.DonationInterfaceStateProvinceOptions || [];
+		},
+		stateProvince: {
+			// The placeholder option has the empty value, so it shows until a state is picked
+			get() {
+				return this.fields.state_province || '';
+			},
+			set( value ) {
+				this.fields.state_province = value;
+			}
 		},
 		stateProvinceLabel() {
 			// Canada and Australia name their subdivisions differently
@@ -341,7 +380,6 @@ module.exports = exports = defineComponent( {
 		 */
 		validate() {
 			const invalidFields = this.validation.validateAll();
-			// Only the text inputs have refs, so the state_province select isn't focused.
 			// Not stored in a variable: no-jquery/variable-pattern treats anything from $refs as jQuery
 			if ( invalidFields.length && this.$refs[ invalidFields[ 0 ] ] ) {
 				this.$refs[ invalidFields[ 0 ] ].focus();
