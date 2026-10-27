@@ -13,12 +13,12 @@
 				</div>
 
 				<!-- Frequency Selector -->
-				<div class="fieldset gap--3">
+				<div class="fieldset">
 					<frequency-selector v-model="donation.frequency"></frequency-selector>
 				</div>
 
 				<!-- Amount Selector -->
-				<div class="fieldset gap--3">
+				<div class="fieldset">
 					<!-- Label -->
 					<div class="fieldset__label">
 						<p class="text text--base">

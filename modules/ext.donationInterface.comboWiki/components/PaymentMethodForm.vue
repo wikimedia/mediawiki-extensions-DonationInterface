@@ -1,6 +1,6 @@
 <template>
 	<!-- Payment method form component -->
-	<div class="fieldset gap--3">
+	<div class="fieldset">
 		<div class="fieldset__label">
 			<p class="text text--base">
 				<strong>{{ $i18n( 'combowiki-payment-method-heading' ).text() }}</strong>
