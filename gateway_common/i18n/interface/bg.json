@@ -109,7 +109,7 @@
 	"donate_interface-make-your-donation": "Направете дарение сега",
 	"donate_interface-other": "Други",
 	"donate_interface-noscript-msg": "Изглежда, че не разполагате с включен JavaScript или браузър ви не го поддържа.\nС цел безопасно, сигурво и приятно преживяване, нашият формуляр за дарения изисква включен JavaScript.",
-	"donate_interface-noscript-redirect-msg": "Ако не можете или не желаете да активирате JavaScript, можете да направите дарението си, като посетите:",
+	"donate_interface-noscript-redirect-msg": "Ако не можете или не желаете да включите JavaScript, можете да намерите други начини да допринесете, като посетите:",
 	"donate_interface-select-country": "Изберете държава",
 	"donate_interface-credit-card-number": "Номер на кредитна карта",
 	"donate_interface-credit-card-expiration": "Срок на валидност на кредитната карта",

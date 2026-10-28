@@ -94,6 +94,7 @@
 	"donate_interface-donor-first_name": "الاسم الأول",
 	"donate_interface-donor-last_name": "اسم العائلة",
 	"donate_interface-donor-employer": "صاحب العمل (اختياري)",
+	"donate_interface-donor-employer-plain": "صاحب العمل",
 	"donate_interface-donor-employer-explain": "سنخبرك إذا كان صاحب العمل الخاص بك سوف يتناسب مع هديتك",
 	"donate_interface-donor-street_address": "الشارع:",
 	"donate_interface-donor-street-number": "رقم البيت",
