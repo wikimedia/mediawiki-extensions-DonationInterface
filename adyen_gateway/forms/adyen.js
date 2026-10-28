@@ -560,13 +560,13 @@
 		if ( baseLocaleFromServer !== 'ar' && !adyenSupportedLocale.includes( config.locale ) ) {
 			config.translations[ config.locale ] = {
 				//title
-				'creditCard.numberField.title': mw.msg( 'donate_interface-credit-card-number' ),
-				'creditCard.expiryDateField.title': mw.msg( 'donate_interface-credit-card-expiration' ),
-				'creditCard.cvcField.title': mw.msg( 'donate_interface-cvv' ),
-				//placeholder
-				'creditCard.expiryDateField.placeholder': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
-				'creditCard.cvcField.placeholder.3digits': mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
-				'creditCard.cvcField.placeholder.4digits': mw.msg( 'donate_interface-cvv-placeholder-4-digits' ),
+				'creditCard.cardNumber.label': mw.msg( 'donate_interface-credit-card-number' ),
+				'creditCard.expiryDate.label': mw.msg( 'donate_interface-credit-card-expiration' ),
+				'creditCard.securityCode.label': mw.msg( 'donate_interface-cvv' ),
+				//Adyen no longer uses placeholders in v6, they use contextualText instead
+				'creditCard.expiryDate.contextualText': mw.msg( 'donate_interface-expiry-date-field-placeholder' ),
+				'creditCard.securityCode.contextualText.3digits': mw.msg( 'donate_interface-cvv-placeholder-3-digits' ),
+				'creditCard.securityCode.contextualText.4digits': mw.msg( 'donate_interface-cvv-placeholder-4-digits' ),
 				//error
 				'creditCard.numberField.invalid': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
 				'creditCard.expiryDateField.invalid': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
@@ -576,7 +576,24 @@
 				'error.va.sf-cc-num.02': mw.msg( 'donate_interface-error-msg-card-number-do-not-match-card-brand' ),
 				'error.va.sf-cc-num.03': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
 				'error.va.sf-cc-dat.01': mw.msg( 'donate_interface-error-msg-card-too-old' ),
-				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' )
+				'error.va.sf-cc-dat.02': mw.msg( 'donate_interface-error-msg-date-too-far-in-the-future' ),
+				// Adyen v6 error codes
+				// https://github.com/Adyen/adyen-web/blob/a05c1184195fa73ce7dc9e956fa080cb40638209/packages/server/translations/en-US.json
+				'cc.num.900': mw.msg( 'donate_interface-error-msg-card-num' ),
+				'cc.num.901': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'cc.num.902': mw.msg( 'donate_interface-error-msg-invalid-card-number' ),
+				'cc.num.903': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
+				'cc.num.904': mw.msg( 'donate_interface-error-msg-unsupported-card-entered' ),
+				'cc.dat.910': mw.msg( 'donate_interface-error-msg-expiration' ),
+				'cc.dat.911': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
+				'cc.dat.912': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
+				'cc.dat.913': mw.msg( 'donate_interface-error-msg-expiry-date-field-invalid' ),
+				'cc.cvc.920': mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ),
+				'cc.cvc.921': mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ),
+				'cc.cvc.920.amex': mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ),
+				'cc.cvc.921.amex': mw.msg( 'donate_interface-error-msg-invalid-cvv-format' ),
+				'err.gen.9100': mw.msg( 'donate_interface-error-msg-incomplete-field' ),
+				'err.gen.9101': mw.msg( 'donate_interface-error-msg-field-not-valid' )
 			};
 		} else if ( config.locale === 'nl-NL' ) {
 			config.translations[ config.locale ] = {
